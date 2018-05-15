@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
-"Clase para exportar los hallazgos A PDF"
+"""Clase para exportar los hallazgos A PDF."""
 import jinja2
 import os
 import time
 import sys
-import matplotlib # pylint: disable=wrong-import-position
-matplotlib.use('Agg') # pylint: disable=wrong-import-position
-from pylab import figure, pie, axis, legend, savefig, cla, clf, close # pylint: disable=wrong-import-position
-from matplotlib.font_manager import FontProperties # pylint: disable=wrong-import-position
+import matplotlib  # pylint: disable=wrong-import-position
+matplotlib.use('Agg')  # pylint: disable=wrong-import-position
+# pylint: disable=wrong-import-position
+from pylab import figure, pie, axis, legend, savefig, cla, clf, close
+# pylint: disable=wrong-import-position
+from matplotlib.font_manager import FontProperties
 
 
 class CreatorPDF(object):
+    """Clase para generar informes en PDF."""
 
     STYLE_DIR = "/resources/themes"
     TPL_DIR = "/tpls/"
@@ -27,7 +30,7 @@ class CreatorPDF(object):
     context = {}
 
     def __init__(self, lang, doctype):
-        " Constructor de la clase "
+        """Constructor de la clase."""
         self.PATH = os.path.dirname(os.path.abspath(__file__))
         self.RESULT_DIR = self.PATH + self.RESULT_DIR
         self.FONT_DIR = self.PATH + self.FONT_DIR
@@ -46,7 +49,7 @@ class CreatorPDF(object):
         self.lang_support()
 
     def create_command(self, tpl_name):
-        "Crea el comando de SO para crear el PDF con asciidoctor"
+        """Crea el comando de SO para crear el PDF con asciidoctor."""
         self.command += "rm :template: &&"
         self.command = "asciidoctor-pdf "
         self.command += "-a pdf-stylesdir=:style_dir: "
@@ -63,12 +66,13 @@ class CreatorPDF(object):
         self.command = self.command.replace(":template:", tpl_name)
 
     def lang_support(self):
+        """Define los diccionarios de lenguajes aceptados."""
         self.wordlist = dict()
         self.lang_support_es()
         self.lang_support_en()
 
     def lang_support_es(self):
-        " Agrega el diccionario de lenguaje en espanol "
+        """Agrega el diccionario de lenguaje en espanol."""
         self.wordlist["es"] = {
             "finding_title": "Hallazgo",
             "finding_section_title": "Resumen de Hallazgos",
@@ -120,7 +124,7 @@ class CreatorPDF(object):
         }
 
     def lang_support_en(self):
-        " Agrega el diccionario de lenguaje en ingles "
+        """Agrega el diccionario de lenguaje en ingles."""
         self.wordlist["en"] = {
             "finding_title": "Finding",
             "finding_section_title": "Finding Resume",
@@ -172,7 +176,7 @@ class CreatorPDF(object):
         }
 
     def executive(self, data, project):
-        " Crea el template a renderizar y le aplica el contexto "
+        """Crea el template a renderizar y le aplica el contexto."""
         self.fill_project(data, project)
         self.out_name = project + "_IE.pdf"
         searchpath = self.PATH
@@ -188,7 +192,7 @@ class CreatorPDF(object):
         os.system(self.command)
 
     def tech(self, data, project, user):
-        " Crea el template a renderizar y le aplica el contexto "
+        """Crea el template a renderizar y le aplica el contexto."""
         self.fill_project(data, project)
         self.out_name = user + "_" + project + "_IT.pdf"
         searchpath = self.PATH
@@ -203,7 +207,7 @@ class CreatorPDF(object):
         os.system(self.command)
 
     def presentation(self, data, project, project_info, user):
-        " Crea el template a renderizar y le aplica el contexto "
+        """Crea el template a renderizar y le aplica el contexto."""
         self.fill_project(data, project)
         self.project_info_context(project_info)
         self.out_name = user + "_" + project + "_PR.pdf"
@@ -219,6 +223,7 @@ class CreatorPDF(object):
         os.system(self.command)
 
     def project_info_context(self, project_info):
+        """Crea un contexto con informacion del proyecto."""
         self.context["proyecto_fluid"] = project_info["proyecto_fluid"]
         self.context["proyecto_cliente"] = project_info["proyecto_cliente"]
         self.context["cliente"] = project_info["cliente"]
@@ -256,6 +261,7 @@ class CreatorPDF(object):
         self.context["tipo_aplicacion"] = project_info["tipo_aplicacion"]
 
     def make_content(self, words):
+        """Crea contexto con los titulos del documento."""
         base = "image::../templates/:name_" + self.lang + ".png[]"
         return {
             'content_title': words['content_title'],
@@ -268,7 +274,7 @@ class CreatorPDF(object):
         }
 
     def make_pie_finding(self, findings, project, words):
-        " Crea la grafica de hallazgos "
+        """Crea la grafica de hallazgos."""
         figure(1, figsize=(6, 6))
         finding_state_pie = [0, 0, 0]  # A, PC, C
         finding_state_pielabels = [
@@ -297,9 +303,9 @@ class CreatorPDF(object):
             colors=colors
         )
         axis('equal')
-        fontP = FontProperties()
-        fontP.set_size('small')
-        legend(prop=fontP, loc="best")
+        font_properties = FontProperties()
+        font_properties.set_size('small')
+        legend(prop=font_properties, loc="best")
         pie_filename = 'finding_graph_:prj.png'.replace(":prj", project)
         hard_path = self.TPL_IMG_PATH
         hard_path += pie_filename
@@ -310,6 +316,7 @@ class CreatorPDF(object):
         return pie_filename
 
     def make_pie_closing(self, findings, project):
+        """Crea la grafica de estado vulnerabilidades."""
         figure(1, figsize=(6, 6))
         finding_state_pie = [0, 0, 0]  # A, PC, C
         finding_state_pielabels = [
@@ -337,9 +344,9 @@ class CreatorPDF(object):
             colors=colors
         )
         axis('equal')
-        fontP = FontProperties()
-        fontP.set_size('small')
-        legend(prop=fontP, loc="best")
+        font_properties = FontProperties()
+        font_properties.set_size('small')
+        legend(prop=font_properties, loc="best")
         pie_filename = 'main_graph_:prj.png'.replace(":prj", project)
         hard_path = self.TPL_IMG_PATH
         hard_path += pie_filename
@@ -350,7 +357,7 @@ class CreatorPDF(object):
         return pie_filename
 
     def make_vuln_table(self, findings, words):
-        # Label findings percent quantity
+        """Label findings percent quantity."""
         vuln_table = [
             [words["vuln_h"], 0, 0, 0],
             [words["vuln_m"], 0, 0, 0],
@@ -388,9 +395,9 @@ class CreatorPDF(object):
                     finding["hallazgo"]
                 ])
                 top += 1
-        vuln_table[0][2] = vuln_table[0][1]*100/float(len(findings))
-        vuln_table[1][2] = vuln_table[1][1]*100/float(len(findings))
-        vuln_table[2][2] = vuln_table[2][1]*100/float(len(findings))
+        vuln_table[0][2] = vuln_table[0][1] * 100 / float(len(findings))
+        vuln_table[1][2] = vuln_table[1][1] * 100 / float(len(findings))
+        vuln_table[2][2] = vuln_table[2][1] * 100 / float(len(findings))
         vuln_table[0][2] = "{0:.2f}%".format(vuln_table[0][2])
         vuln_table[1][2] = "{0:.2f}%".format(vuln_table[1][2])
         vuln_table[2][2] = "{0:.2f}%".format(vuln_table[2][2])
@@ -402,6 +409,7 @@ class CreatorPDF(object):
         }
 
     def fill_project(self, findings, project):
+        """Agrega informacion del proyecto."""
         words = self.wordlist[self.lang]
         full_project = findings[0]['proyecto_cliente']
         doctype = words[self.doctype]
