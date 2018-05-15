@@ -39,6 +39,7 @@ y no solo en el nombre del archivo o su extensión.
 == Soluciones
 
 . +Java+ link:../../defends/java/validar-archivo-header/[Validar Tipo de Archivo Usando los Encabezados].
+. +Java+ link:../../defends/java/archivo-extension/[Determinar Tipo Archivo Usando Su Extensión].
 . +Scala+ link:../../defends/scala/validar-archivo-header/[Validar Tipo de Archivo Usando los Encabezados].
 
 == Ataques
