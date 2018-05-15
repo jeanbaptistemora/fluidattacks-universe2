@@ -90,7 +90,7 @@ angular.module("FluidIntegrates").config([
   "$translateProvider",
   function config ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy("sanitizeParameters");
-    if (typeof localStorage.lang === "undefined") {
+    if (angular.isUndefined(localStorage.lang)) {
       localStorage.lang = "en";
     }
     $translateProvider.

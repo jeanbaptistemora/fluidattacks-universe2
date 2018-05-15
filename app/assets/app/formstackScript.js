@@ -1,6 +1,6 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
-/* global document, $, alertify, timew, angular,
-Tabletop, v:true, obj:true, $msg, remember:true
+/* global document, $, alertify, timew, angular, $document,
+Tabletop, v:true, obj:true, $msg, remember:true. $interval
 */
 angular.element(document).ready(() => {
   const remember = function remember () {
@@ -18,12 +18,12 @@ angular.element(document).ready(() => {
   remember();
   const timew = 35000;
   const REPORT_CONTEXT = 5;
-  setInterval(() => {
+  $interval(() => {
     remember();
   }, timew);
-  document.getElementsByTagName("select")[REPORT_CONTEXT].onchange = function
+  $document.getElementsByTagName("select")[REPORT_CONTEXT].onchange = function
   onchange () {
-    const verf = document.getElementsByTagName("select")[REPORT_CONTEXT].value;
+    const verf = $document.getElementsByTagName("select")[REPORT_CONTEXT].value;
     if (verf === "Verificación") {
       alertify.success("<p class=\"text-center\"> " +
                                   "Información: </p> <p class=\"text-left\">" +
@@ -74,7 +74,7 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
  * @return {undefined} Info about findings
  */
 const showInfo = function showInfo (data) {
-  const obj = $.parseJSON(JSON.stringify(data));
+  const obj = $.parseJSON(angular.toJson(data));
   angular.element("#field32201810").change(() => {
     const title = angular.element("#field32201810").val();
     const REPORT_CONTEXT = 5;

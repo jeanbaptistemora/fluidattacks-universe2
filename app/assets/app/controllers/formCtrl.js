@@ -1,5 +1,5 @@
 /* global
-integrates, $, angular
+integrates, $, angular, $document
 */
 /**
  * Controlador de vista de formularios
@@ -13,7 +13,10 @@ integrates, $, angular
 /** @export */
 angular.module("FluidIntegrates").controller(
   "formCtrl",
-  function formCtrl ($location) {
+  function formCtrl (
+    $document,
+    $location
+  ) {
     // Autocompletar formularios de formstack
     const urlForm = $location.search();
     const urlLength = Object.keys(urlForm).length;
@@ -21,7 +24,7 @@ angular.module("FluidIntegrates").controller(
     if (urlLength > lengthUrl && urlForm.autocomplete === "true") {
       // Formulario de avance
       angular.element("#ifrmProgress").on("load", () => {
-        const iframe = document.getElementById("ifrmProgress");
+        const iframe = $document.getElementById("ifrmProgress");
         const innerDoc = iframe.contentDocument ||
                          iframe.contentWindow.document;
         if (urlForm["Tipo de Avance"] === "Proyecto") {

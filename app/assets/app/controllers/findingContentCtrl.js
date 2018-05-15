@@ -9,7 +9,7 @@ confidenciality, Organization, resolutionLevel, explotability, availability,
 tratamiento, updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
 accessComplexity, projectData:true, eventsData:true, fieldsToTranslate,
-keysToTranslate, desc:true, angular */
+keysToTranslate, desc:true, angular, $window */
 /**
  * @file findingContentCtrl.js
  * @author engineering@fluidattacks.com
@@ -33,6 +33,7 @@ findingContentCtrl (
   $timeout,
   $translate,
   $uibModal,
+  $window,
   functionsFtry1,
   functionsFtry2,
   functionsFtry3,
@@ -45,7 +46,7 @@ findingContentCtrl (
     replace
   ) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
     const vm = this;
-    if (typeof replace === "undefined") {
+    if (angular.isUndefined(replace)) {
       return vm.toString();
     }
     return vm.replace(new RegExp(`[${search}]`, "g"), replace);
@@ -108,7 +109,7 @@ findingContentCtrl (
     angular.element("html, body").animate({"scrollTop": 0}, "fast");
   };
   $scope.hasUrl = function hasUrl (element) {
-    if (typeof element !== "undefined") {
+    if (angular.isDefined(element)) {
       if (element.indexOf("https://") !== -1 ||
           element.indexOf("http://") !== -1) {
         return true;
@@ -134,7 +135,7 @@ findingContentCtrl (
       );
       reqEventualities.then((response) => {
         if (!response.error) {
-          if (typeof response.data === "undefined") {
+          if (angular.isUndefined(response.data)) {
             location.reload();
           }
           eventsData = response.data;
@@ -168,7 +169,7 @@ findingContentCtrl (
     else {
       const req = projectFtry.findingById(id);
       req.then((response) => {
-        if (typeof response.data === "undefined") {
+        if (angular.isUndefined(response.data)) {
           location.reload();
         }
         if (!response.error && $stateParams.project ===
@@ -217,7 +218,7 @@ findingContentCtrl (
   $scope.remediatedView = function remediatedView () {
     $scope.isManager = userRole !== "customer";
     $scope.isRemediated = true;
-    if (typeof $scope.finding.id !== "undefined") {
+    if (angular.isDefined($scope.finding.id)) {
       const req = projectFtry.remediatedView($scope.finding.id);
       req.then((response) => {
         if (!response.error) {
@@ -276,31 +277,31 @@ findingContentCtrl (
     );
   };
   $scope.urlDescription = function urlDescription () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] +
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/description`);
   };
   $scope.urlSeverity = function urlSeverity () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] +
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/severity`);
   };
   $scope.urlTracking = function urlTracking () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] +
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/tracking`);
   };
   $scope.urlEvidence = function urlEvidence () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] +
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/evidence`);
   };
   $scope.urlExploit = function urlExploit () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] +
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/exploit`);
   };
   $scope.urlRecords = function urlRecords () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] +
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/records`);
   };
   $scope.urlComments = function urlComments () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] +
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/comments`);
   };
   $scope.urlEvents = function urlEvents () {
@@ -327,10 +328,10 @@ findingContentCtrl (
     $scope.view.project = false;
     $scope.view.finding = false;
     // Parametros de ruta
-    if (typeof findingId !== "undefined") {
+    if (angular.isDefined(findingId)) {
       $scope.findingId = findingId;
     }
-    if (typeof projectName !== "undefined" &&
+    if (angular.isDefined(projectName) &&
             projectName !== "") {
       $scope.project = projectName;
     }
@@ -344,31 +345,31 @@ findingContentCtrl (
     const projt = projectName.toUpperCase();
     functionsFtry1.alertHeader(org, projt);
     const idF = $scope.finding.id;
-    if (window.location.hash.indexOf("description") !== -1) {
+    if ($window.location.hash.indexOf("description") !== -1) {
       functionsFtry2.activeTab("#info", "FindingDescription", org, projt, idF);
     }
-    if (window.location.hash.indexOf("severity") !== -1) {
+    if ($window.location.hash.indexOf("severity") !== -1) {
       functionsFtry2.activeTab("#cssv2", "FindingSeverity", org, projt, idF);
     }
-    if (window.location.hash.indexOf("tracking") !== -1) {
+    if ($window.location.hash.indexOf("tracking") !== -1) {
       functionsFtry2.activeTab("#tracking", "FindingTracking", org, projt, idF);
     }
-    if (window.location.hash.indexOf("evidence") !== -1) {
+    if ($window.location.hash.indexOf("evidence") !== -1) {
       functionsFtry2.activeTab("#evidence", "FindingEvidence", org, projt, idF);
     }
-    if (window.location.hash.indexOf("exploit") !== -1) {
+    if ($window.location.hash.indexOf("exploit") !== -1) {
       functionsFtry2.activeTab(
         "#exploit", "FindingExploit",
         org, projt, idF
       );
     }
-    if (window.location.hash.indexOf("records") !== -1) {
+    if ($window.location.hash.indexOf("records") !== -1) {
       functionsFtry2.activeTab("#records", "FindingRecords", org, projt, idF);
       const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
       $scope.hasRecords = recordinfo[0];
       findingData.hasRecords = recordinfo[1];
     }
-    if (window.location.hash.indexOf("comments") !== -1) {
+    if ($window.location.hash.indexOf("comments") !== -1) {
       functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);
       tabsFtry.findingCommentTab($scope, $stateParams);
     }

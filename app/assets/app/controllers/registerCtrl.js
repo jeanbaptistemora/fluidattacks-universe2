@@ -1,7 +1,6 @@
 /* global
 integrates, BASE, userEmail, mixpanel, projectData:true,
-eventsData:true, findingData:true, angular
-*/
+eventsData:true, findingData:true, angular, $window */
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /**
  * @file registerCtrl.js
@@ -24,7 +23,8 @@ angular.module("FluidIntegrates").controller(
     $stateParams,
     $timeout,
     $translate,
-    $uibModal
+    $uibModal,
+    $window
   ) {
     $scope.logout = function logout () {
       $uibModal.open({
@@ -37,7 +37,7 @@ angular.module("FluidIntegrates").controller(
             projectData = [];
             eventsData = [];
             findingData = {};
-            window.location = `${BASE.url}logout`;
+            $window.location = `${BASE.url}logout`;
           };
         },
         "resolve": {"done": true},

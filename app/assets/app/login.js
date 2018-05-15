@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
-/* global angular,$, setTimeout,redirector:true */
+/* global angular,$, $timeout,redirector:true, $window */
 /**
  * @file login.js
  */
@@ -12,6 +12,7 @@ const BASE = {
   "production": "/integrates/"
 };
 BASE.url = BASE.production;
+// eslint-disable-next-line angular/window-service
 if (window.location.pathname.indexOf("/integrates") === -1) {
   BASE.url = BASE.development;
 }
@@ -54,6 +55,7 @@ angular.module("FluidIntegrates").config([
  * MixPanel localhost Fixer
  */
 angular.module("FluidIntegrates").isProduction = function isProduction () {
+  // eslint-disable-next-line angular/window-service
   return window.location.toString().indexOf("localhost:8000") === -1;
 };
 
@@ -124,10 +126,10 @@ angular.module("FluidIntegrates").controller(
           });
           if (color === "success") {
             redirector = function redirector () {
-              window.location = `${BASE.url}dashboard`;
+              $window.location = `${BASE.url}dashboard`;
             };
             const TIMEOUT = 2000;
-            setTimeout(redirector, TIMEOUT);
+            $timeout(redirector, TIMEOUT);
           }
         });
       }

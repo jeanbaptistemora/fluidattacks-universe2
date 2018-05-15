@@ -75,10 +75,10 @@ angular.module("FluidIntegrates").controller(
       $scope.view.project = false;
       $scope.view.finding = false;
       // Parametros de ruta
-      if (typeof findingId !== "undefined") {
+      if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
-      if (typeof projectName !== "undefined" &&
+      if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
@@ -109,7 +109,7 @@ angular.module("FluidIntegrates").controller(
         vlang = "es-CO";
       }
       const projectName = $scope.project;
-      if (typeof projectName === "undefined" ||
+      if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
@@ -140,7 +140,7 @@ angular.module("FluidIntegrates").controller(
           );
           reqEventualities.then((response) => {
             if (!response.error) {
-              if (typeof response.data === "undefined") {
+              if (angular.isUndefined(response.data)) {
                 location.reload();
               }
               $scope.view.project = true;
@@ -200,7 +200,7 @@ angular.module("FluidIntegrates").controller(
                 evt.id
               );
               if ($scope.evt.afectacion === "" ||
-                  typeof $scope.evt.afectacion === "undefined") {
+                  angular.isUndefined($scope.evt.afectacion)) {
                 $scope.evt.afectacion = "0";
               }
               $scope.evt.afectacion = parseInt($scope.evt.afectacion, 10);
@@ -215,7 +215,7 @@ angular.module("FluidIntegrates").controller(
               $scope.okModalEditar = function okModalEditar () {
                 const neg = "negativo";
                 try {
-                  if (typeof $scope.evt.afectacion === "undefined") {
+                  if (angular.isUndefined($scope.evt.afectacion)) {
                     throw neg;
                   }
                 }

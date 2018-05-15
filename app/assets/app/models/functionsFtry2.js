@@ -1,10 +1,9 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
-/* global integrates, BASE, $xhr, window.location:true, response:true,
-Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
+/* global integrates, BASE, $xhr, response:true, Organization, $msg, $window,
 $, Rollbar, eventsData, userEmail, userName, findingType, categories,
 probabilities, actor, scenario, accessVector, accessComplexity, authentication,
 confidenciality, integrity, availability, explotability, resolutionLevel,
-realiabilityLevel, functionsFtry1, angular */
+realiabilityLevel, functionsFtry1, angular, mixPanelDashboard */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -22,7 +21,7 @@ realiabilityLevel, functionsFtry1, angular */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry2",
-  ($injector, $stateParams, $translate, projectFtry) => ({
+  ($injector, $stateParams, $translate, $window, projectFtry) => ({
 
     "activeTab" (tabName, errorName, org, projt, id) {
       const tabNames = {
@@ -63,8 +62,9 @@ angular.module("FluidIntegrates").factory(
       else {
         $scope.onlyReadableTab3 = false;
       }
+      // eslint-disable-next-line angular/document-service
       const inputs = document.querySelectorAll(".inputfile");
-      Array.prototype.forEach.call(inputs, (input) => {
+      angular.forEach.call(inputs, (input) => {
         const label = input.nextElementSibling;
         const labelVal = label.innerHTML;
 
@@ -178,8 +178,9 @@ angular.module("FluidIntegrates").factory(
       else {
         $scope.onlyReadableTab5 = false;
       }
+      // eslint-disable-next-line angular/document-service
       const inputs = document.querySelectorAll(".inputfile");
-      Array.prototype.forEach.call(inputs, (input) => {
+      angular.forEach.call(inputs, (input) => {
         const label = input.nextElementSibling;
         const labelVal = label.innerHTML;
 
@@ -258,7 +259,8 @@ angular.module("FluidIntegrates").factory(
     },
 
     "goDown" () {
-      window.scrollTo(0, document.body.scrollHeight);
+      // eslint-disable-next-line angular/document-service
+      $window.scrollTo(0, document.body.scrollHeight);
     },
 
     "recordsEditable" ($scope) {
@@ -268,8 +270,9 @@ angular.module("FluidIntegrates").factory(
       else {
         $scope.onlyReadableTab6 = false;
       }
+      // eslint-disable-next-line angular/document-service
       const inputs = document.querySelectorAll(".inputfile");
-      Array.prototype.forEach.call(inputs, (input) => {
+      angular.forEach.call(inputs, (input) => {
         const label = input.nextElementSibling;
         const labelVal = label.innerHTML;
 

@@ -48,10 +48,10 @@ angular.module("FluidIntegrates").controller(
       $scope.view.project = false;
       $scope.view.finding = false;
       // Parametros de ruta
-      if (typeof findingId !== "undefined") {
+      if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
-      if (typeof projectName !== "undefined" &&
+      if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
@@ -68,7 +68,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $scope.project;
       const filterAux = $scope.filter;
       const filter = filterAux;
-      if (typeof projectName === "undefined" ||
+      if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
@@ -94,7 +94,7 @@ angular.module("FluidIntegrates").controller(
         reqProject.then((response) => {
           $scope.view.project = true;
           if (!response.error) {
-            if (typeof response.data === "undefined") {
+            if (angular.isUndefined(response.data)) {
               location.reload();
             }
             // Tracking Mixpanel
@@ -135,7 +135,7 @@ angular.module("FluidIntegrates").controller(
         });
         reqEventualities.then((response) => {
           if (!response.error) {
-            if (typeof response.data === "undefined") {
+            if (angular.isUndefined(response.data)) {
               location.reload();
             }
             eventsData = response.data;

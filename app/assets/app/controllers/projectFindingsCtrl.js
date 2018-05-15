@@ -8,8 +8,8 @@ nonexploitLabel:true, totalHigLabel:true, $scope:true,explotable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
 closeLabel:true, mixPanelDashboard, win:true, window, Organization, userRole,
-fieldsToTranslate, keysToTranslate, removeHour:true, labelState:true, angular
- */
+fieldsToTranslate, keysToTranslate, removeHour:true, labelState:true, angular,
+$window */
 /**
  * @file projectFindingsCtrl.js
  * @author engineering@fluidattacks.com
@@ -79,6 +79,7 @@ angular.module("FluidIntegrates").controller(
     $timeout,
     $translate,
     $uibModal,
+    $window,
     functionsFtry1,
     functionsFtry3,
     projectFtry
@@ -94,10 +95,10 @@ angular.module("FluidIntegrates").controller(
       $scope.view.project = false;
       $scope.view.finding = false;
       // Parametros de ruta
-      if (typeof findingId !== "undefined") {
+      if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
-      if (typeof projectName !== "undefined" &&
+      if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
@@ -129,7 +130,7 @@ angular.module("FluidIntegrates").controller(
       }
       const projectName = $stateParams.project;
       const tableFilter = $scope.filter;
-      if (typeof projectName === "undefined" ||
+      if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
@@ -156,7 +157,7 @@ angular.module("FluidIntegrates").controller(
           );
           reqEventualities.then((response) => {
             if (!response.error) {
-              if (typeof response.data === "undefined") {
+              if (angular.isUndefined(response.data)) {
                 location.reload();
               }
               eventsData = response.data;
@@ -185,7 +186,7 @@ angular.module("FluidIntegrates").controller(
           reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
-              if (typeof response.data === "undefined") {
+              if (angular.isUndefined(response.data)) {
                 location.reload();
               }
               // Tracking Mixpanel
@@ -273,7 +274,7 @@ angular.module("FluidIntegrates").controller(
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 
-      if (typeof $stateParams.finding !== "undefined") {
+      if (angular.isDefined($stateParams.finding)) {
         $scope.finding.id = $stateParams.finding;
         $scope.view.project = false;
         $scope.view.finding = false;
@@ -308,10 +309,10 @@ angular.module("FluidIntegrates").controller(
           const data = auxiliar;
           for (let cont = 0; cont < data.length; cont++) {
             data[cont].atributos = 0;
-            data[cont].link = `${window.location.href.split("project/")[0]}` +
+            data[cont].link = `${$window.location.href.split("project/")[0]}` +
                           `project/${data[cont].proyecto_fluid.toLowerCase()}` +
                           `/${data[cont].id}/description`;
-            if (typeof data[cont].registros !== "undefined" &&
+            if (angular.isDefined(data[cont].registros) &&
                 data[cont].registros !== "") {
               data[cont].atributos = 1 + (data[cont].registros.match(/\n/g) ||
                                      []).length;
@@ -329,7 +330,7 @@ angular.module("FluidIntegrates").controller(
           }
           $scope.rows = data;
           let severity = 0;
-          data.forEach((cont) => {
+          angular.forEach(data, (cont) => {
             try {
               if (cont.tipo_hallazgo === "Seguridad") {
                 const BaseScore = projectFtry.calCCssv2(cont)[0];

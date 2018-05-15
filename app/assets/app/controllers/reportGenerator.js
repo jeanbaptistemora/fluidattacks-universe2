@@ -3,8 +3,7 @@
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
 BASE, integrates, Organization, mixPanelDashboard, userName, userEmail, $,
-Rollbar, angular
- */
+Rollbar, angular, $document, $window */
 /**
  * @file reportGenerator.js
  * @author engineering@fluidattacks.com
@@ -24,10 +23,12 @@ Rollbar, angular
 angular.module("FluidIntegrates").controller(
   "reportGenerator",
   function reportGenerator (
+    $document,
     $location,
     $scope,
     $timeout,
-    $uibModal
+    $uibModal,
+    $window
   ) {
     $scope.reportModal = function reportModal () {
       // Tracking mixpanel
@@ -61,13 +62,13 @@ angular.module("FluidIntegrates").controller(
               );
               const url = `${BASE.url}xls/${currentLang}/project/${projName}`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                const downLink = document.createElement("a");
+                const downLink = $document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                window.open(url, "__blank");
+                $window.open(url, "__blank");
               }
             }
           };
@@ -88,13 +89,13 @@ angular.module("FluidIntegrates").controller(
               const url = `${BASE.url}pdf/${currentLang}/` +
                           `project/${projName}/tech/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                const downLink = document.createElement("a");
+                const downLink = $document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                window.open(url, "__blank");
+                $window.open(url, "__blank");
               }
             }
           };
@@ -134,13 +135,13 @@ angular.module("FluidIntegrates").controller(
               const url = `${BASE.url}pdf/${currentLang}/project/` +
                           `${projName}/presentation/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                const downLink = document.createElement("a");
+                const downLink = $document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                window.open(url, "__blank");
+                $window.open(url, "__blank");
               }
             }
           };
@@ -161,13 +162,13 @@ angular.module("FluidIntegrates").controller(
               const url = `${BASE.url}pdf/${currentLang}` +
                           `/project/${projName}/executive/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                const downLink = document.createElement("a");
+                const downLink = $document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                window.open(url, "__blank");
+                $window.open(url, "__blank");
               }
             }
           };
@@ -188,11 +189,11 @@ angular.module("FluidIntegrates").controller(
 
     $scope.downloadDoc = function downloadDoc () {
       const TIMEOUT = 3000;
-      if (typeof $scope.downloadURL === "undefined") {
+      if (angular.isUndefined($scope.downloadURL)) {
         $timeout($scope.downloadDoc, TIMEOUT);
       }
       else {
-        const downLink = document.createElement("a");
+        const downLink = $document.createElement("a");
         downLink.target = "_blank";
         downLink.href = $scope.downloadURL;
         downLink.click();

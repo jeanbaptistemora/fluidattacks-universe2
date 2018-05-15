@@ -51,10 +51,10 @@ angular.module("FluidIntegrates").controller(
       $scope.view.project = false;
       $scope.view.finding = false;
       // Parametros de ruta
-      if (typeof findingId !== "undefined") {
+      if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
-      if (typeof projectName !== "undefined" &&
+      if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
@@ -97,7 +97,7 @@ angular.module("FluidIntegrates").controller(
         });
       }
       let severity = 0;
-      data.data.forEach((cont) => {
+      angular.forEach(data.data, (cont) => {
         try {
           if (cont.tipo_hallazgo === "Seguridad") {
             const BaseScore = projectFtry.calCCssv2(cont)[0];
@@ -111,7 +111,7 @@ angular.module("FluidIntegrates").controller(
       const req = projectFtry.totalSeverity($scope.project.toLowerCase());
       req.then((response) => {
         if (!response.error) {
-          if (typeof response.data === "undefined") {
+          if (angular.isUndefined(response.data)) {
             location.reload();
           }
           if (response.data.length > 0) {
@@ -180,7 +180,7 @@ angular.module("FluidIntegrates").controller(
       const currData = $scope.data;
       let totalSeg = 0;
       let totalHig = 0;
-      currData.forEach((val) => {
+      angular.forEach(currData, (val) => {
         const tipo = val.tipo_hallazgo;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (tipo === "Seguridad") {
@@ -221,7 +221,7 @@ angular.module("FluidIntegrates").controller(
       const currData = $scope.data;
       let exploit = 0;
       let nonexploit = 0;
-      currData.forEach((val) => {
+      angular.forEach(currData, (val) => {
         const explotable = val.explotabilidad;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (explotable === "1.000 | Alta: No se requiere exploit o se puede" +
@@ -274,7 +274,7 @@ angular.module("FluidIntegrates").controller(
       let open = 0;
       let partial = 0;
       let close = 0;
-      currData.forEach((val) => {
+      angular.forEach(currData, (val) => {
         const findingStatus = val.estado;
         total += 1;
         if (findingStatus === "Abierto" || findingStatus === "Open") {
@@ -323,7 +323,7 @@ angular.module("FluidIntegrates").controller(
     $scope.search = function search () {
       const projectName = $scope.project;
       const tableFilter = $scope.filter;
-      if (typeof projectName === "undefined" ||
+      if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
@@ -350,7 +350,7 @@ angular.module("FluidIntegrates").controller(
           );
           reqEventualities.then((response) => {
             if (!response.error) {
-              if (typeof response.data === "undefined") {
+              if (angular.isUndefined(response.data)) {
                 location.reload();
               }
               eventsData = response.data;
@@ -379,7 +379,7 @@ angular.module("FluidIntegrates").controller(
           reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
-              if (typeof response.data === "undefined") {
+              if (angular.isUndefined(response.data)) {
                 location.reload();
               }
               // Tracking Mixpanel
@@ -451,7 +451,7 @@ angular.module("FluidIntegrates").controller(
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 
-      if (typeof $stateParams.finding !== "undefined") {
+      if (angular.isDefined($stateParams.finding)) {
         $scope.finding.id = $stateParams.finding;
         $scope.view.project = false;
         $scope.view.finding = false;

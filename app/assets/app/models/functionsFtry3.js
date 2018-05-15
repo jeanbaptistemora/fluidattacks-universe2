@@ -1,8 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,3]}]*/
-/* global integrates, BASE, $xhr, window.location:true, response:true,
-Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
-$, Rollbar, eventsData, userEmail, userName, fieldsToTranslate, keysToTranslate,
-findingData, userRole, secureRandom, angular */
+/* global integrates, BASE, $xhr, $window, response:true, Organization, angular,
+mixPanelDashboard,$msg, $, Rollbar, eventsData, userEmail, userName, $document,
+fieldsToTranslate, keysToTranslate, findingData, userRole, secureRandom */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -21,13 +20,13 @@ findingData, userRole, secureRandom, angular */
 angular.module("FluidIntegrates").factory(
   "functionsFtry3",
   (
-    $timeout, $translate,
-    $uibModal, functionsFtry1,
+    $document, $timeout, $translate,
+    $uibModal, $window, functionsFtry1,
     functionsFtry2, projectFtry
   ) => ({
 
     "configKeyboardView" ($scope) {
-      document.onkeypress = function onkeypress (ev) {
+      $document.onkeypress = function onkeypress (ev) {
         const enterKey = 13;
         if (ev.keyCode === enterKey) {
           if (angular.element("#project").is(":focus")) {
@@ -42,7 +41,7 @@ angular.module("FluidIntegrates").factory(
       const descData = {
         "findingId": $scope.finding.id,
         "findingName": $scope.finding.hallazgo,
-        "findingUrl": window.location.href,
+        "findingUrl": $window.location.href,
         "findingVulns": $scope.finding.cardinalidad,
         "project": $scope.finding.proyecto_fluid,
         "userMail": userEmail
@@ -137,7 +136,7 @@ angular.module("FluidIntegrates").factory(
       $scope.aux.cardinalidad = $scope.finding.cardinalidad;
       $scope.hasCompromisedAttributes = true;
       const defineStates = function defineStates () {
-        if (typeof $scope.finding.registros === "undefined") {
+        if (angular.isUndefined($scope.finding.registros)) {
           $scope.hasCompromisedAttributes = false;
         }
         if ($scope.finding.tratamiento === "Asumido") {

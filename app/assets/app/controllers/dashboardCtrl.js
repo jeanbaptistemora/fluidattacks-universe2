@@ -3,8 +3,8 @@
 /* global
 integrates, $,   mixpanel, userMail, $xhr, Organization, userEmail, angular,
 mixPanelDashboard, userName, projectData:true, eventsData:true, Rollbar, BASE,
-findingData:true, fieldsToTranslate, keysToTranslate, modalInstance:true, $msg
-*/
+findingData:true, fieldsToTranslate, keysToTranslate, modalInstance:true, $msg,
+$window */
 /**
  * @file dashboardController.js
  * @author engineering@fluidattacks.com
@@ -26,7 +26,8 @@ angular.module("FluidIntegrates").controller(
     $stateParams,
     $timeout,
     $translate,
-    $uibModal
+    $uibModal,
+    $window
   ) {
     $scope.initMyProjects = function initMyProjects () {
       let vlang = "en-US";
@@ -65,7 +66,7 @@ angular.module("FluidIntegrates").controller(
             projectData = [];
             eventsData = [];
             findingData = {};
-            window.location = `${BASE.url}logout`;
+            $window.location = `${BASE.url}logout`;
           };
         },
         "resolve": {"done": true},
@@ -100,7 +101,7 @@ angular.module("FluidIntegrates").controller(
       }
       const aux = $xhr.get($q, `${BASE.url}get_myevents`, {});
       aux.then((response) => {
-        if (typeof response.data === "undefined") {
+        if (angular.isUndefined(response.data)) {
           location.reload();
         }
         for (let cont = 0; cont < response.data.length; cont++) {

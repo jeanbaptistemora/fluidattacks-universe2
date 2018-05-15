@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1, 3] }]*/
-/* global integrates, BASE, $xhr, window.location:true, response:true,
-Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
-$, Rollbar, eventsData, userEmail, userName, secureRandom, angular*/
+/* global integrates, BASE, $xhr, $window, response:true,
+Organization, $timeout, mixPanelDashboard, $msg, $, Rollbar, eventsData,
+userEmail, userName, secureRandom, angular*/
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -18,11 +18,13 @@ $, Rollbar, eventsData, userEmail, userName, secureRandom, angular*/
  */
 /** @export */
 angular.module("FluidIntegrates").factory("tabsFtry", (
+  $timeout,
   $translate,
+  $window,
   projectFtry
 ) => ({
   "findingCommentTab" (commentInfo, $stateParams) {
-    if (typeof commentInfo.finding.id !== "undefined") {
+    if (angular.isDefined(commentInfo.finding.id)) {
       const comments = projectFtry.getComments(commentInfo.finding.id);
       comments.then((response) => {
         if (!response.error) {
@@ -48,12 +50,12 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
             "enablePinging": false,
             "enableUpvoting": false,
             "getComments" (success) {
-              setTimeout(() => {
+              $timeout(() => {
                 success(response.data);
               }, TIMEOUT);
             },
             "getUsers" (success) {
-              setTimeout(() => {
+              $timeout(() => {
                 success(usersArray);
               }, TIMEOUT);
             },
@@ -63,7 +65,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
                           toString(radix), 10);
               data.findingName = commentInfo.finding.hallazgo;
               data.project = commentInfo.finding.proyecto_fluid;
-              data.findingUrl = window.location.href;
+              data.findingUrl = $window.location.href;
               data.remediated = false;
               const comment =
                          projectFtry.addComment(commentInfo.finding.id, data);
@@ -80,7 +82,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
                     projt,
                     commentInfo.finding.id
                   );
-                  setTimeout(() => {
+                  $timeout(() => {
                     success(data);
                   }, TIMEOUT);
                 }
@@ -100,8 +102,8 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
     const evidenceList = [];
     const updEvidenceList =
     function updEvidenceList (source, keyU, keyD, ref, type, array, scope) {
-      const urlPre = `${window.location.href.split("dashboard#!/")[0] +
-                      window.location.href.split("dashboard#!/")[1]}/`;
+      const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
+                      $window.location.href.split("dashboard#!/")[1]}/`;
       const url = urlPre + source;
       let descText = "";
       if (type === "basic") {
@@ -120,27 +122,27 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
     const setEvidenceList = function setEvidenceList (response, valFormstack) {
       for (let cont = 0; cont < response.data.length; cont++) {
         const valS3 = response.data[cont];
-        if (typeof valS3.animacion !== "undefined" &&
+        if (angular.isDefined(valS3.animacion) &&
                     valS3.es_animacion === true) {
           updEvidenceList(
             valS3.animacion, "animation_exploit",
             "animation_exploit", 0, "basic", evidenceList, data
           );
         }
-        else if (typeof valFormstack.animacion !== "undefined") {
+        else if (angular.isDefined(valFormstack.animacion)) {
           updEvidenceList(
             valFormstack.animacion, "animation_exploit",
             "animation_exploit", 0, "basic", evidenceList, data
           );
         }
-        if (typeof valS3.explotacion !== "undefined" &&
+        if (angular.isDefined(valS3.explotacion) &&
                    valS3.es_explotacion === true) {
           updEvidenceList(
             valS3.explotacion, "evidence_exploit",
             "evidence_exploit", 1, "basic", evidenceList, data
           );
         }
-        else if (typeof valFormstack.explotacion !== "undefined") {
+        else if (angular.isDefined(valFormstack.explotacion)) {
           updEvidenceList(
             valFormstack.explotacion, "evidence_exploit",
             "evidence_exploit", 1, "basic", evidenceList, data
@@ -148,17 +150,16 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
         }
         const evidenceAmong = 6;
         for (let inc = 1; inc < evidenceAmong; inc++) {
-          if (typeof valFormstack[`desc_evidencia_${inc}`] !==
-            "undefined" && typeof valS3[`ruta_evidencia_${inc}`] !==
-            "undefined" && valS3[`es_ruta_evidencia_${inc}`] === true) {
+          if (angular.isDefined(valFormstack[`desc_evidencia_${inc}`]) &&
+            angular.isDefined(valS3[`ruta_evidencia_${inc}`]) &&
+            valS3[`es_ruta_evidencia_${inc}`] === true) {
             updEvidenceList(
               valS3[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
               "evidence_name", inc + 1, "special", evidenceList, data
             );
           }
-          else if (typeof valFormstack[`desc_evidencia_${inc}`] !==
-            "undefined" && typeof valFormstack[`ruta_evidencia_${inc}`] !==
-            "undefined") {
+          else if (angular.isDefined(valFormstack[`desc_evidencia_${inc}`]) &&
+            angular.isDefined(valFormstack[`ruta_evidencia_${inc}`])) {
             updEvidenceList(
               valFormstack[`ruta_evidencia_${inc}`],
               `desc_evidencia_${inc}`,
@@ -176,13 +177,13 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
           setEvidenceList(response, valFormstack);
         }
         else {
-          if (typeof data.finding.animacion !== "undefined") {
+          if (angular.isDefined(data.finding.animacion)) {
             updEvidenceList(
               valFormstack.animacion, "animation_exploit",
               "animation_exploit", 0, "basic", evidenceList, data
             );
           }
-          if (typeof data.finding.explotacion !== "undefined") {
+          if (angular.isDefined(data.finding.explotacion)) {
             updEvidenceList(
               valFormstack.explotacion, "evidence_exploit",
               "evidence_exploit", 1, "basic", evidenceList, data
@@ -190,8 +191,8 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
           }
           const evidenceAmong = 6;
           for (let inc = 1; inc < evidenceAmong; inc++) {
-            if (typeof valFormstack[`desc_evidencia_${inc}`] !== "undefined" &&
-                typeof valFormstack[`ruta_evidencia_${inc}`] !== "undefined") {
+            if (angular.isDefined(valFormstack[`desc_evidencia_${inc}`]) &&
+                angular.isDefined(valFormstack[`ruta_evidencia_${inc}`])) {
               updEvidenceList(
                 valFormstack[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
                 "evidence_name", inc + 1, "special", evidenceList, data
@@ -227,7 +228,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
             }
           };
           for (let cont = 0; cont < response.data.length; cont++) {
-            if (typeof response.data[cont].exploit !== "undefined" &&
+            if (angular.isDefined(response.data[cont].exploit) &&
                             response.data[cont].es_exploit === true &&
                               data.finding.cierres.length === 0) {
               exploit = projectFtry.getExploit(
@@ -240,7 +241,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
                 respFunction(response);
               });
             }
-            else if (typeof data.finding.exploit !== "undefined" &&
+            else if (angular.isDefined(data.finding.exploit) &&
                      data.finding.cierres.length === 0) {
               exploit = projectFtry.getExploit(
                 data.finding.id,
@@ -258,7 +259,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
             }
           }
         }
-        else if (typeof data.finding.exploit !== "undefined" &&
+        else if (angular.isDefined(data.finding.exploit) &&
                  data.finding.cierres.length === 0) {
           exploit = projectFtry.getExploit(
             data.finding.id,
@@ -334,7 +335,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
             }
           };
           for (let cont = 0; cont < response.data.length; cont++) {
-            if (typeof response.data[cont].registros_archivo !== "undefined" &&
+            if (angular.isDefined(response.data[cont].registros_archivo) &&
                             response.data[cont].es_registros_archivo === true) {
               record = projectFtry.getRecords(
                 data.finding.id,
@@ -346,7 +347,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
                 respFunction(response);
               });
             }
-            else if (typeof data.finding.registros_archivo !== "undefined") {
+            else if (angular.isDefined(data.finding.registros_archivo)) {
               record = projectFtry.getRecords(
                 data.finding.id,
                 data.finding.registros_archivo
@@ -358,15 +359,15 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
               });
             }
             else if ((
-              typeof data.finding.registros_archivo === "undefined" ||
-              typeof response.data[cont].registros_archivo === "undefined") &&
+              angular.isUndefined(data.finding.registros_archivo) ||
+              angular.isUndefined(response.data[cont].registros_archivo)) &&
               response.data[cont].es_registros_archivo === false) {
               data.hasRecords = false;
               findingData.hasRecords = data.hasRecords;
             }
           }
         }
-        else if (typeof data.finding.registros_archivo !== "undefined") {
+        else if (angular.isDefined(data.finding.registros_archivo)) {
           record = projectFtry.getRecords(
             data.finding.id,
             data.finding.registros_archivo
@@ -401,7 +402,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
           });
         }
         else if (response.data.length <= 0 ||
-                 typeof data.finding.registros_archivo === "undefined") {
+                 angular.isUndefined(data.finding.registros_archivo)) {
           data.hasRecords = false;
           findingData.hasRecords = data.hasRecords;
         }

@@ -1,7 +1,6 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
-/* global integrates, BASE, $xhr, window.location:true, response:true,
-Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
-$, Rollbar, eventsData, userEmail, userName, angular */
+/* global integrates, BASE, $xhr, $window, response:true, Organization, angular,
+mixPanelDashboard,$msg, $, Rollbar, eventsData, userEmail, userName,$document */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -19,12 +18,15 @@ $, Rollbar, eventsData, userEmail, userName, angular */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry1",
-  ($stateParams, $translate, $uibModal, functionsFtry2, projectFtry) => ({
+  (
+    $document, $stateParams, $translate, $uibModal, $window,
+    functionsFtry2, projectFtry
+  ) => ({
 
     "alertHeader" (company, project) {
       const req = projectFtry.getAlerts(company, project);
       req.then((response) => {
-        if (typeof response.data === "undefined") {
+        if (angular.isUndefined(response.data)) {
           location.reload();
         }
         if (!response.error && response.data.length > 0) {
@@ -32,7 +34,7 @@ angular.module("FluidIntegrates").factory(
             let html = "<div class=\"alert alert-danger-2\">";
             html += "<strong>Atención! </strong>" +
                     `${response.data[0].message}</div>`;
-            document.getElementById("header_alert").innerHTML = html;
+            $document.getElementById("header_alert").innerHTML = html;
           }
         }
       });
@@ -214,7 +216,7 @@ angular.module("FluidIntegrates").factory(
 
     "findingVerified" ($scope) {
     // Obtener datos
-      const currUrl = window.location.href;
+      const currUrl = $window.location.href;
       const trackingUrl = currUrl.replace("/description", "/tracking");
       const descData = {
         "findingId": $scope.finding.id,

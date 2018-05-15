@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,5]}]*/
-/* global integrates, BASE, $xhr, window.location:true,
+/* global integrates, BASE, $xhr, $window,
 $, Rollbar, eventsData, secureRandom, angular */
 /**
  * @file projectFtry.js
@@ -12,7 +12,7 @@ $, Rollbar, eventsData, secureRandom, angular */
  * @return {undefined}
  */
 /** @export */
-angular.module("FluidIntegrates").factory("projectFtry", ($q) => ({
+angular.module("FluidIntegrates").factory("projectFtry", ($q, $window) => ({
 
   /**
    * Invoca el servicio para agregar nuevos comentarios en un hallazgo
@@ -82,7 +82,7 @@ angular.module("FluidIntegrates").factory("projectFtry", ($q) => ({
     let maximumSeverity = 0;
     let oldestFinding = 0;
     let openEvents = 0;
-    data.data.forEach((cont) => {
+    angular.forEach(data.data, (cont) => {
       cardinalidad += parseInt(cont.cardinalidad, 10);
       cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
       if (maximumSeverity < cont.criticidad) {
@@ -434,16 +434,16 @@ angular.module("FluidIntegrates").factory("projectFtry", ($q) => ({
           }
           else if (xhr.status === UNAUTHORIZED_ERROR) {
             Rollbar.error("Error: 401 Unauthorized");
-            window.location = "error401";
+            $window.location = "error401";
           }
-          errorFn(JSON.parse(response));
+          errorFn(angular.fromJson(response));
         },
         "method": "POST",
         "mimeType": "multipart/form-data",
         "processData": false,
         "success" (response) {
           angular.element(".loader").hide();
-          callbackFn(JSON.parse(response));
+          callbackFn(angular.fromJson(response));
         },
         "url": `${BASE.url}update_evidences_files?_` +
                 `${parseInt(secureRandom(5).join(""), 10)}`
@@ -452,7 +452,7 @@ angular.module("FluidIntegrates").factory("projectFtry", ($q) => ({
     catch (err) {
       if (err.status === UNAUTHORIZED_ERROR) {
         Rollbar.error("Error: 401 Unauthorized");
-        window.location = "error401";
+        $window.location = "error401";
       }
       Rollbar.error("Error: An error ocurred getting finding by ID", err);
     }

@@ -324,3 +324,20 @@ rules:
   angular/rest-service: error
   angular/watchers-execution: error
   angular/angularelement: error
+  angular/definedundefined: error
+  angular/document-service: error
+  angular/foreach: error
+  angular/interval-service: error
+  angular/json-functions: error
+  angular/log: error
+  angular/no-angular-mock: error
+  angular/no-jquery-angularelement: error
+  angular/timeout-service: error
+  angular/typecheck-array: error
+  angular/typecheck-date: error
+  angular/typecheck-function: error
+  angular/typecheck-number: error
+  angular/typecheck-object: error
+  angular/typecheck-string: error
+  angular/window-service: error
+  angular/on-destroy: error
