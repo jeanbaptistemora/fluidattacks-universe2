@@ -55,7 +55,7 @@ la función +getCanonicalPath()+ de la +clase java.io.File+
 la cual devuelve el nombre de la ruta absoluta canonizada.
 La siguiente porción de código muestra la utilización
 del procedimiento mencionado anteriormente:
-
++
 .Pathvalidation.scala
 [source, scala, linenums]
 ----
@@ -77,7 +77,7 @@ devolviendo la versión canónica de la ruta especificada <<r1, ^[1]^>>.
 
 . Para el siguiente ejemplo se crea un archivo llamado +/tmp/hola+
 y luego un enlace simbólico a este llamado +/tmp/prueba+:
-
++
 [source, bash, linenums]
 ----
 ryepes@const /tmp % echo hola > hola
@@ -89,7 +89,7 @@ lrwxrwxrwx  1 pablo pablo    4 Dic 11 16:18 prueba -> hola
 
 . Para determinar si la ruta ingresada
 es un enlace simbólico se realiza lo siguiente <<r2, ^[2]^>>:
-
++
 [source, scala, linenums]
 ----
   val file = new File("/tmp/prueba");
@@ -107,7 +107,7 @@ es un enlace simbólico se realiza lo siguiente <<r2, ^[2]^>>:
 ----
 
 . Se observa, luego de la ejecución, la siguiente salida:
-
++
 [source,scala,linenums]
 ----
 % java Main
