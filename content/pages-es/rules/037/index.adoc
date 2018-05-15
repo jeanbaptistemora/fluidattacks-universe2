@@ -32,6 +32,7 @@ o lo transforma en algo que cumpla con las especificaciones.
 
 == Soluciones
 
+. +Aix 6.1+ link:../../defends/aix/restringir-rootdir-proceso/[Restringir el Directorio Raíz de un Proceso].
 . +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
 . +ASPNET+ link:../../defends/aspnet/redireccion-paginas-web/[Validar redirecciones a páginas web].
 . +ASPNET+ link:../../defends/aspnet/usar-regex/[Usar Expresiones Regulares].
