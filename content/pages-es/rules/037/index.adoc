@@ -42,6 +42,7 @@ o lo transforma en algo que cumpla con las especificaciones.
 . +Java+ link:../../defends/java/validar-redirecciones/[Validar Redirecciones a Páginas Web].
 . +Java+ link:../../defends/java/rutas-absolutas-canon/[Obtener Rutas Absolutas Canónicas].
 . +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
+. +Scala+ link:../../defends/scala/obtener-rutas-canon/[Obtener Rutas Absolutas Canónicas].
 
 == Ataques
 
