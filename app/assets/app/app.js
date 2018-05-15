@@ -70,11 +70,16 @@ angular.module("FluidIntegrates").config([
   "RollbarProvider",
   function initRollbar (RollbarProvider) {
     const isProduction = location.toString().indexOf("localhost:8000") === -1;
+    let fiEnvironment = "production";
+    if (location.toString().
+      indexOf(".integrates.env.fluidattacks.com") !== -1) {
+      fiEnvironment = "review";
+    }
     RollbarProvider.init({
       "accessToken": "cad6d1f7ecda480ba003e29f0428d44e",
       "captureUncaught": true,
       "enabled": isProduction,
-      "payload": {"environment": "production"}
+      "payload": {"environment": fiEnvironment}
     });
   }
 ]);

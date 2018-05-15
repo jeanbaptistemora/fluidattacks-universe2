@@ -14,7 +14,8 @@ from __future__ import absolute_import
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST, \
          FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, FI_INTERCOM_APPID, \
          FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
-         FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, FI_ROLLBAR_ACCESS_TOKEN
+         FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
+         FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT
 from boto3.session import Session
 import os
 import rollbar
@@ -122,7 +123,7 @@ DATABASES = {
 # Rollbar configuration
 ROLLBAR = {
     'access_token': FI_ROLLBAR_ACCESS_TOKEN,
-    'environment': 'development' if DEBUG else 'production',
+    'environment': FI_ENVIRONMENT,
     'enabled': False if DEBUG else True,
     'root': BASE_DIR,
 }
