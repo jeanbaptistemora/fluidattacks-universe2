@@ -1,5 +1,9 @@
-// This file should not be renamed
+// This file should not be renamed.
 /* eslint-disable angular/file-name */
+// This file is an Angular configuration script for Integrates services
+/* eslint-disable angular/component-limit*/
+// Angular module configuration only can be made with parameter array injection.
+/* eslint angular/di: [2,"array"] */
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global
 document, jQuery, $, location, angular, isProduction:true,

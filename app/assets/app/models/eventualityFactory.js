@@ -30,7 +30,6 @@ angular.module("FluidIntegrates").factory(
       "getEvntByName" (project, category) {
         const INTERNAL_SERVER_ERROR = 500;
         const UNAUTHORIZED_ERROR = 401;
-        const deferred = $q.defer();
         try {
           $.ajax({
             "data": {
@@ -41,7 +40,7 @@ angular.module("FluidIntegrates").factory(
               angular.element(".loader").hide();
               if (xhr.status === INTERNAL_SERVER_ERROR) {
                 Rollbar.error("Error: An error ocurred loading data");
-                deferred.resolve({
+                return $q.when({
                   "error": null,
                   "message": "Error interno cargando datos"
                 });
@@ -49,11 +48,13 @@ angular.module("FluidIntegrates").factory(
               else if (xhr.status === UNAUTHORIZED_ERROR) {
                 Rollbar.error("Error: 401 Unauthorized");
                 $window.location = "error401";
+                return false;
               }
+              return true;
             },
             "success" (response) {
               angular.element(".loader").hide();
-              deferred.resolve(response);
+              return $q.when(response);
             },
             "url": `${BASE.url}get_eventualities`
           });
@@ -64,9 +65,9 @@ angular.module("FluidIntegrates").factory(
             $window.location = "error401";
           }
           Rollbar.error("Error: An error ocurred getting event by name", err);
-          deferred.resolve("exception");
+          return $q.when("exception");
         }
-        return deferred.promise;
+        return true;
       },
 
       /**
@@ -79,7 +80,6 @@ angular.module("FluidIntegrates").factory(
       "updateEvnt" (vuln) {
         const INTERNAL_SERVER_ERROR = 500;
         const UNAUTHORIZED_ERROR = 401;
-        const deferred = $q.defer();
         try {
           $.ajax({
             "data": {vuln},
@@ -87,7 +87,7 @@ angular.module("FluidIntegrates").factory(
               angular.element(".loader").hide();
               if (xhr.status === INTERNAL_SERVER_ERROR) {
                 Rollbar.error("Error: An error ocurred loading data");
-                deferred.resolve({
+                return $q.when({
                   "error": null,
                   "message": "Error interno cargando datos"
                 });
@@ -96,10 +96,11 @@ angular.module("FluidIntegrates").factory(
                 Rollbar.error("Error: 401 Unauthorized");
                 $window.location = "error401";
               }
+              return true;
             },
             "method": "POST",
             "success" (response) {
-              deferred.resolve(response);
+              return $q.when(response);
             },
             "url": `${BASE.url}update_eventuality`
           });
@@ -111,20 +112,20 @@ angular.module("FluidIntegrates").factory(
           }
           else if (err.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
-            deferred.resolve({
+            return $q.when({
               "error": "undefined",
               "message": "Error interno cargando datos"
             });
           }
           else {
             Rollbar.error("Error: An error ocurred updating event", err);
-            deferred.resolve({
+            return $q.when({
               "error": "undefined",
               "message": "Error desconocido"
             });
           }
         }
-        return deferred.promise;
+        return true;
       }
     };
   }

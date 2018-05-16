@@ -1,5 +1,7 @@
 // This file should not be renamed
 /* eslint-disable angular/file-name */
+// Login page is isolated from the rest of the application.
+/* eslint-disable angular/component-limit*/
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global angular,$, $timeout,redirector:true, $window */
 /**
@@ -26,6 +28,12 @@ angular.module("FluidIntegrates", [
 
 angular.module("FluidIntegrates").config([
   "$translateProvider",
+
+  /*
+   * Angular module configuration only can
+   *be made with parameter array injection
+   */
+  /* eslint-disable-next-line angular/di */
   function config ($translateProvider) {
     const translations = {
       "button": {

@@ -302,8 +302,10 @@ rules:
   angular/module-getter: error
   angular/module-setter: error
   angular/no-private-call: error
+  angular/component-limit : error
   angular/controller-as-route: error
   angular/controller-as-vm: error
+  angular/deferred: error
   angular/di-unused: error
   angular/directive-restrict: error
   angular/empty-controller: error
@@ -328,6 +330,7 @@ rules:
   angular/service-name: error
   angular/value-name: error
   angular/di-order: error
+  angular/di: error
   angular/dumb-inject: error
   angular/function-type:
     - error

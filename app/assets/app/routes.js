@@ -1,3 +1,5 @@
+// This file is an Angular configuration script for Integrates services
+/* eslint-disable angular/component-limit*/
 /* globals integrates, BASE, angular, $ */
 
 
