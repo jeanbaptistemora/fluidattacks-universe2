@@ -22,22 +22,11 @@ Read the [button]#link:https://fluidsignal.gitlab.io/asserts/[API documentation]
 
 ==== Linux
 
-Make sure the file +~/.pip/pip.conf+ exists and have the following content
-(The user and password will be provided by us!):
-
-----
-[global]
-index-url = https://pypi.python.org/simple/
-extra-index-url = https://<user>:<key>@fluid.jfrog.io/fluid/api/pypi/python/simple
-----
-
-Then, execute:
+To run an exploit, just execute:
 
 [source, bash]
 ----
 $ pip install -U fluidasserts
-$ export FA_LICENSE_KEY=<Licence ID>
-$ export FA_USER_EMAIL=<Your e-mail>
 $ export FA_STRICT="false"
 
 $ python exploit.py
@@ -45,20 +34,11 @@ $ python exploit.py
 
 ==== Windows
 
-Make sure the file +%APPDATA%\pip\pip.ini+ exists and have the
-following content (The user and password will be provided by us!):
-
-----
-[global]
-index-url = https://pypi.python.org/simple/
-extra-index-url = https://<user>:<key>@fluid.jfrog.io/fluid/api/pypi/python/simple
-----
+Just like in Linux, execute:
 
 [source, bash]
 ----
 > pip install -U fluidasserts
-> set FA_LICENSE_KEY=<Licence ID>
-> set FA_USER_EMAIL=<Your e-mail>
 > set FA_STRICT="false"
 
 > python exploit.py
@@ -118,7 +98,6 @@ the pipeline will break!
 ** Windows Server with +HyperV+ and +Docker+
 ** MacOS
 * *Network*:
-** Access to the Container Registry link:https://fluid-docker.jfrog.io[here].
 ** Access to the integration environment
 where your application or platform is running
 * *Software dependencies*:
@@ -137,7 +116,7 @@ where your application or platform is running
 .ex1_open.py: Verify if SQL injection is still present
 [source, python, linenum]
 ----
-from fluidasserts.service import http
+from fluidasserts.proto import http
 
 URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
 
@@ -145,17 +124,24 @@ http.has_sqli(URL)
 ----
 
 .Results from executing ex1_open.py
-[source, bash]
+[source, yaml]
 ----
-$ python ex1_open.py
-Loading modules...
-2018-02-09 11:15:22,273 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# All rights reserved.
+# Loading attack modules ...
+---
+check: fluidasserts.proto.http.has_multiple_text
+status: OPEN
+message: 'A bad text was present: "Warning.*mysql_.*"'
+details:
+  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27
+when: 2018-05-16 08:41:04.397649
 ----
 
 .ex1_close.py: Verify closed SQL injection
 [source, python, linenum]
 ----
-from fluidasserts.service import http
+from fluidasserts.proto import http
 
 URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3'
 
@@ -163,11 +149,18 @@ http.has_sqli(URL)
 ----
 
 .Results from executing ex1_close.py
-[source, bash]
+[source, yaml]
 ----
-$ python ex1_close.py
-Loading modules...
-2018-02-09 11:16:04,923 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3 Bad text not present
+# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# All rights reserved.
+# Loading attack modules ...
+---
+check: fluidasserts.proto.http.has_multiple_text
+status: CLOSE
+message: No bad text was present
+details:
+  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3
+when: 2018-05-16 08:42:02.448463
 ----
 
 === Cross-Site Scripting
@@ -175,7 +168,7 @@ Loading modules...
 .ex2_open.py: Verify if XSS is still present
 [source, python, linenum]
 ----
-from fluidasserts.service import http
+from fluidasserts.proto import http
 
 URL = 'http://testphp.vulnweb.com/guestbook.php'
 BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
@@ -185,17 +178,24 @@ http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
 .Results from executing ex2_open.py
-[source, bash]
+[source, yaml]
 ----
-$ python ex2_open.py
-Loading modules...
-2018-02-09 11:17:55,375 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/guestbook.php Bad text present, Details=<script>alert\('Hacked by FLUID'\)</script>
+# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# All rights reserved.
+# Loading attack modules ...
+---
+check: fluidasserts.proto.http.has_text
+status: OPEN
+message: 'Bad text present: "<script>alert\(''Hacked by FLUID''\)</script>"'
+details:
+  url: http://testphp.vulnweb.com/guestbook.php
+when: 2018-05-16 08:43:49.769936
 ----
 
 .ex2_close.py: Verify closed XSS
 [source, python, linenum]
 ----
-from fluidasserts.service import http
+from fluidasserts.proto import http
 
 URL = 'http://testphp.vulnweb.com/guestbook.php'
 BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
@@ -205,11 +205,17 @@ http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
 .Results from executing ex2_close.py
-[source, bash]
+[source, yaml]
 ----
-$ python ex2_close.py
-Loading modules...
-2018-02-09 11:19:28,075 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/guestbook.php Bad text not present, Details=<script>alert\('Hacked by FLUID'\)</script>
+# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# All rights reserved.
+# Loading attack modules ...
+---
+check: fluidasserts.proto.http.has_text
+status: CLOSE
+message: 'Bad text not present: "<script>alert\(''Hacked by FLUID''\)</script>"'
+details:
+  url: http://testphp.vulnweb.com/guestbook.php
 ----
 
 === Breaking the Continuous Integration pipeline
@@ -217,7 +223,7 @@ Loading modules...
 .ex1_open.py: Verify if SQL Injection is still present
 [source, python, linenum]
 ----
-from fluidasserts.service import http
+from fluidasserts.proto import http
 
 URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
 
@@ -229,20 +235,32 @@ http.has_sqli(URL)
 ----
 $ export FA_STRICT="false"
 $ python ex1_open.py
-Loading modules...
-2018-02-09 11:19:55,339 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+---
+# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# All rights reserved.
+# Loading attack modules ...
+---
+check: fluidasserts.proto.http.has_multiple_text
+status: OPEN
+message: 'A bad text was present: "Warning.*mysql_.*"'
+details:
+  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27
+when: 2018-05-16 08:46:28.312329
 $ echo $?
 0
 $ export FA_STRICT="true"
 $ python ex1_open.py
-Loading modules...
-2018-02-09 11:20:07,758 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+---
+# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# All rights reserved.
+# Loading attack modules ...
+---
+check: fluidasserts.proto.http.has_multiple_text
+status: OPEN
+message: 'A bad text was present: "Warning.*mysql_.*"'
+details:
+  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27
+when: 2018-05-16 08:46:45.719005
 $ echo $?
 1
-$
 ----
-
-== Licence
-
-Write us at relations@fluidattacks.com to obtain
-information about licenses.
