@@ -106,6 +106,10 @@
             window.close();
         }
       };
+      function mixPanelReport(value){
+        if (angular.module("FluidIntegrates").isProduction())
+          mixpanel.track(value);
+      };
       $(document).ready(function(){
         //initialize the javascript
         App.init();

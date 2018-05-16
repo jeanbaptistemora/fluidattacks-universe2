@@ -41,6 +41,8 @@ angular.module("FluidIntegrates").config([
         "google": "Log in with Google"
       },
       "login_message": "Please log in to proceed.",
+      "login_recommend": "We strongly recommend you to use 2-Step " +
+                          "verification. For more information please visit:",
       "login_welcome": "If you are a new user, you must call a " +
                        "FLUID representative to register."
     };
@@ -50,14 +52,20 @@ angular.module("FluidIntegrates").config([
         "google": "Ingresar con Google"
       },
       "login_message": "Porfavor ingrese.",
+      "login_recommend": "Te recomendamos encarecidamente el uso de un " +
+                          "segundo factor de autenticación, para más " +
+                          "información visita:",
       "login_welcome": "Si eres un usuario nuevo, debes llamar a tu " +
-                       "representante de FLUID para registrarte"
+                       "representante de FLUID para registrarte."
     };
     $translateProvider.useSanitizeValueStrategy("sanitize");
+    if (angular.isUndefined(localStorage.lang)) {
+      localStorage.lang = "en";
+    }
     $translateProvider.
       translations("en", translations).
       translations("es", traducciones).
-      preferredLanguage("en");
+      preferredLanguage(localStorage.lang);
   }
 ]);
 
@@ -85,9 +93,27 @@ angular.module("FluidIntegrates").controller(
     $scope.lang = function lang (langKey) {
       if (langKey === "es" || langKey === "en") {
         localStorage.lang = langKey;
+        location.reload();
       }
       $translate.use(localStorage.lang);
     };
+    $.gritter.add({
+      "class_name": "color info",
+      "sticky": true,
+      "text": `${$translate.instant("login_recommend")}<br><br> <div ` +
+                  "class=\"text-center\"><a class=\"btn btn-danger google " +
+                  "login-button\" href=\"http://bit.ly/2Gpjt6h\" " +
+                  "onclick=\"mixPanelReport('Click Google 2 factor');\" " +
+                  "target=\"_blank\"><i class=\"fa fa-google-plus fa-2x " +
+                  "pull-left\" aria-hidden=\"true\"></i></a>" +
+                  "<a class=\"btn btn-primary azure\" " +
+                  "onclick=\"mixPanelReport('Click Azure 2 factor');\" " +
+                  "href=\"http://bit.ly/2Gp1L2X\" target=\"_blank\"><img " +
+                  "src=\"assets/img/azure.png\" class=\"fa fa-azure " +
+                  "fa-2x pull-left\" aria-hidden=\"true\" height=\"25\">" +
+                  "</img></a></div>",
+      "title": ""
+    });
 
     /**
      * Autentica a un usuario

@@ -20271,3 +20271,6 @@ div.dataTables_wrapper div.dataTables_length label select {
 .less-padding {
   padding: 5px 15px;
 }
+.login-button {
+  margin-right: 10px;
+}
