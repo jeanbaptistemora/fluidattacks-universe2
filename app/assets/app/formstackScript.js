@@ -1,8 +1,12 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
-/* global document, $, alertify, timew, angular, $document,
-Tabletop, v:true, obj:true, $msg, remember:true. $interval
+// This file is not an Angular script
+/* eslint-disable  angular/angularelement, angular/document-service,
+   angular/interval-service, angular/json-functions
 */
-angular.element(document).ready(() => {
+/* global
+ document, $, alertify, timew, Tabletop, v:true, obj:true, $msg, remember:true
+*/
+$(document).ready(() => {
   const remember = function remember () {
     try {
       alertify.log("<div class=\"\" style=\"padding: 8px;\"> <p class=" +
@@ -18,12 +22,12 @@ angular.element(document).ready(() => {
   remember();
   const timew = 35000;
   const REPORT_CONTEXT = 5;
-  $interval(() => {
+  setInterval(() => {
     remember();
   }, timew);
-  $document.getElementsByTagName("select")[REPORT_CONTEXT].onchange = function
+  document.getElementsByTagName("select")[REPORT_CONTEXT].onchange = function
   onchange () {
-    const verf = $document.getElementsByTagName("select")[REPORT_CONTEXT].value;
+    const verf = document.getElementsByTagName("select")[REPORT_CONTEXT].value;
     if (verf === "Verificación") {
       alertify.success("<p class=\"text-center\"> " +
                                   "Información: </p> <p class=\"text-left\">" +
@@ -47,36 +51,37 @@ String.prototype.capitalizeFirstLetter = function capitalizeFirstLetter () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
-const description = angular.element("#field32202728");
-const requirement = angular.element("#field38254586");
-const solution = angular.element("#field38619077");
-const threat = angular.element("#field38193361");
-const risk = angular.element("#field38193362");
-const donde = angular.element("#field38193357");
-const hasSolution = angular.element("#field38861717_1");
-const hasNoSolution = angular.element("#field38861717_2");
-const solutionKb = angular.element("#field38861739");
-const tipo = angular.element("#field54319180");
-const debilidad = angular.element("#field38899046");
-const solutionPdf = angular.element("#field38307753");
-const evidenciaHallazgo = angular.element("#field32202896");
-const exploit = angular.element("#field38307199");
-const evidenciaExplotacion = angular.element("#field38307222");
-const animacion = angular.element("#field38307272");
-const siEvidente = angular.element("#field49132420_1");
-const noEvidente = angular.element("#field49132420_2");
+const description = $("#field32202728");
+const requirement = $("#field38254586");
+const solution = $("#field38619077");
+const threat = $("#field38193361");
+const risk = $("#field38193362");
+const donde = $("#field38193357");
+const hasSolution = $("#field38861717_1");
+const hasNoSolution = $("#field38861717_2");
+const solutionKb = $("#field38861739");
+const tipo = $("#field54319180");
+const debilidad = $("#field38899046");
+const solutionPdf = $("#field38307753");
+const evidenciaHallazgo = $("#field32202896");
+const exploit = $("#field38307199");
+const evidenciaExplotacion = $("#field38307222");
+const animacion = $("#field38307272");
+const siEvidente = $("#field49132420_1");
+const noEvidente = $("#field49132420_2");
 const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
                              "6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
 
 /**
  * @function showInfo
  * @param {Object} data Data entered by an analist
+ * @param {Object} tabletop Tabletop instance
  * @return {undefined} Info about findings
  */
 const showInfo = function showInfo (data) {
-  const obj = $.parseJSON(angular.toJson(data));
-  angular.element("#field32201810").change(() => {
-    const title = angular.element("#field32201810").val();
+  const obj = $.parseJSON(JSON.stringify(data));
+  $("#field32201810").change(() => {
+    const title = $("#field32201810").val();
     const REPORT_CONTEXT = 5;
     for (let cont = 0; cont < obj.length; cont++) {
       if (obj[cont].Titulo === title) {
@@ -94,26 +99,25 @@ const showInfo = function showInfo (data) {
         }
         if (obj[cont].Solucion_KB !== "-") {
           hasSolution.attr("checked", true);
-          angular.element("#fsCell38861739").removeClass("fsHidden");
-          angular.element("#fsCell38307753").removeClass("fsHidden");
+          $("#fsCell38861739").removeClass("fsHidden");
+          $("#fsCell38307753").removeClass("fsHidden");
           solutionPdf.removeAttr("disabled");
           solutionKb.val(obj[cont].Solucion_KB);
         }
         else if (obj[cont].Solucion_KB === "-") {
           hasNoSolution.attr("checked", true);
-          angular.element("#fsCell38861739").addClass("fsHidden");
-          angular.element("#fsCell38307753").addClass("fsHidden");
+          $("#fsCell38861739").addClass("fsHidden");
+          $("#fsCell38307753").addClass("fsHidden");
           solutionPdf.attr("disabled");
         }
 
-        if (angular.element("#field38392454").val() === "Detallado") {
+        if ($("#field38392454").val() === "Detallado") {
           threat.val(obj[cont].Amenaza);
           risk.val(obj[cont].Riesgo);
         }
         const HAS_FUNCTIONAL_EXPLOIT = 0.950;
         // If(obj[cont].Exploit === "Sí"){
-        if (angular.element("#field38529253").val() ===
-                                                      HAS_FUNCTIONAL_EXPLOIT) {
+        if ($("#field38529253").val() === HAS_FUNCTIONAL_EXPLOIT) {
           exploit.prop("required", true);
           exploit.addClass("fsRequired");
           exploit.attr("aria-required", true);
@@ -146,9 +150,9 @@ const showInfo = function showInfo (data) {
         debilidad.val(0);
         donde.attr("placeholder", "Formato DONDE dependiendo " +
                    "de la vulnerabilidad.");
-        angular.element("#fsCell38861739").addClass("fsHidden");
-        angular.element("#fsCell38307753").addClass("fsHidden");
-        angular.element("#field38307753").attr("disabled");
+        $("#fsCell38861739").addClass("fsHidden");
+        $("#fsCell38307753").addClass("fsHidden");
+        $("#field38307753").attr("disabled");
       }
     }
   });
@@ -161,11 +165,11 @@ Tabletop.init({
   "simpleSheet": true
 });
 const FILE_NAME_INDEX = 2;
-angular.element(donde).focusout(() => {
+$(donde).focusout(() => {
   donde.val($.trim(donde.val()));
 });
 
-angular.element(requirement).focusout(() => {
+$(requirement).focusout(() => {
   requirement.val($.trim(requirement.val()));
   if (requirement.val()[requirement.val().length - 1] !== ".") {
     requirement.val(`${requirement.val()}.`);
@@ -175,7 +179,7 @@ angular.element(requirement).focusout(() => {
   }
 });
 
-angular.element(description).focusout(() => {
+$(description).focusout(() => {
   description.val($.trim(description.val()));
   if (description.val()[description.val().length - 1] !== ".") {
     description.val(`${description.val()}.`);
@@ -186,7 +190,7 @@ angular.element(description).focusout(() => {
   description.val(description.val());
 });
 
-angular.element(solution).focusout(() => {
+$(solution).focusout(() => {
   solution.val($.trim(solution.val()));
   if (solution.val()[solution.val().length - 1] !== ".") {
     solution.val(`${solution.val()}.`);
@@ -196,7 +200,7 @@ angular.element(solution).focusout(() => {
   }
 });
 
-angular.element(risk).focusout(() => {
+$(risk).focusout(() => {
   risk.val($.trim(risk.val()));
   if (risk.val()[risk.val().length - 1] !== ".") {
     risk.val(`${risk.val()}.`);
@@ -206,7 +210,7 @@ angular.element(risk).focusout(() => {
   }
 });
 
-angular.element(threat).focusout(() => {
+$(threat).focusout(() => {
   threat.val($.trim(threat.val()));
   if (threat.val()[threat.val().length - 1] !== ".") {
     threat.val(`${threat.val()}.`);
@@ -216,8 +220,8 @@ angular.element(threat).focusout(() => {
   }
 });
 
-angular.element(evidenciaHallazgo).change(() => {
-  const hallazgoUpload = angular.element(evidenciaHallazgo).val().
+$(evidenciaHallazgo).change(() => {
+  const hallazgoUpload = $(evidenciaHallazgo).val().
     split("\\")[FILE_NAME_INDEX].split(".")[0];
   const substring = "evidencia";
   if (hallazgoUpload.indexOf(substring) === -1) {
@@ -226,8 +230,8 @@ angular.element(evidenciaHallazgo).change(() => {
   }
 });
 
-angular.element(exploit).change(() => {
-  const exploitUpload = angular.element(exploit).val().
+$(exploit).change(() => {
+  const exploitUpload = $(exploit).val().
     split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (exploitUpload !== "exploit") {
     $msg.error("El archivo se debe llamar: exploit");
@@ -238,8 +242,8 @@ angular.element(exploit).change(() => {
   }
 });
 
-angular.element(evidenciaExplotacion).change(() => {
-  const explotacionUpload = angular.element(evidenciaExplotacion).val().
+$(evidenciaExplotacion).change(() => {
+  const explotacionUpload = $(evidenciaExplotacion).val().
     split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (explotacionUpload !== "evidencia-de-explotacion") {
     $msg.error("El archivo se debe llamar: evidencia-de-explotacion");
@@ -250,8 +254,8 @@ angular.element(evidenciaExplotacion).change(() => {
   }
 });
 
-angular.element(animacion).change(() => {
-  const animacionUpload = angular.element(animacion).val().
+$(animacion).change(() => {
+  const animacionUpload = $(animacion).val().
     split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (animacionUpload !== "animacion-de-explotacion") {
     $msg.error("El archivo se debe llamar: animacion-de-explotacion");
@@ -262,8 +266,8 @@ angular.element(animacion).change(() => {
   }
 });
 
-angular.element(solutionPdf).change(() => {
-  const solUpload = angular.element(solutionPdf).val().
+$(solutionPdf).change(() => {
+  const solUpload = $(solutionPdf).val().
     split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (solUpload !== "solucion") {
     $msg.error("El archivo se debe llamar: solucion");
