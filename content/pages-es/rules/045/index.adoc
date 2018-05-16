@@ -47,6 +47,10 @@ Se pueden manejar la inclusión de imágenes en la aplicación
 eliminando previo publicación la +metadata+
 incluida en este tipo de archivos.
 
+== Soluciones
+
+. +ASP.NET+ link:../../defends/aspnet/remover-metadata-imgs/[Remover Metadatos de Imágenes].
+
 == Ataques
 
 . Usuarios con acceso a los archivos con +metadatos+ no controlados
