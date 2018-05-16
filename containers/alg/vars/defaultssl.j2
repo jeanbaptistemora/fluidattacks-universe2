@@ -42,7 +42,7 @@
 
         <Location "/integrates">
             Header always set WWW-Authenticate "OAuth realm=\"Access to FLUIDIntegrates\" charset=\"UTF-8\""
-            Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+            Header always set Strict-Transport-Security "max-age=31536000"
             Header always set X-XSS-Protection "1; mode=block"
             Header always set X-Permitted-Cross-Domain-Policies "master-only"
             Header always set X-Content-Type-Options "nosniff"
