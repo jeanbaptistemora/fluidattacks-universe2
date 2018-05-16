@@ -53,6 +53,7 @@ incluida en este tipo de archivos.
 . +C Sharp+ link:../../defends/csharp/quitar-metadatos-imgs/[Remover Metadatos de Imágenes].
 . +Java+ link:../../defends/java/remover-metadata-imgs/[Remover Metadatos de Imágenes].
 . +Suse 11.3+ link:../../defends/suse/eliminar-metadatos/[Eliminar Metadatos].
+. +Linux+ link:../../defends/linux/remover-metadatos/[Remover Metadatos].
 
 == Ataques
 
