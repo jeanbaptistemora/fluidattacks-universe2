@@ -52,6 +52,7 @@ incluida en este tipo de archivos.
 . +ASP.NET+ link:../../defends/aspnet/remover-metadata-imgs/[Remover Metadatos de Imágenes].
 . +C Sharp+ link:../../defends/csharp/quitar-metadatos-imgs/[Remover Metadatos de Imágenes].
 . +Java+ link:../../defends/java/remover-metadata-imgs/[Remover Metadatos de Imágenes].
+. +Suse 11.3+ link:../../defends/suse/eliminar-metadatos/[Eliminar Metadatos].
 
 == Ataques
 
