@@ -27,6 +27,7 @@ contengan el detalle de Fecha, hora, segundos, milisegundos y zona horaria.
 
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
 . +Exchange 2010+ link:../../defends/exchange/activar-bitacoras-smtp/[Activar Bitácoras de Conectores SMTP].
+. +SharePoint 2010+ link:../../defends/sharepoint/registro-bitacoras/[Configurar Registro en Bitácoras].
 
 == Ataques
 
