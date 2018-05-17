@@ -51,6 +51,7 @@ puede causar los mismos problemas (+CWE-779+).
 
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-opm/[Registrar Excepciones OPM].
+. +Exchange 2010+ link:../../defends/exchange/activar-bitacoras-smtp/[Activar Bitácoras de Conectores SMTP].
 
 == Ataques
 

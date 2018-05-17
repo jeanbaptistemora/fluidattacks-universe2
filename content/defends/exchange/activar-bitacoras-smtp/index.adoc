@@ -1,0 +1,78 @@
+:slug: defends/exchange/activar-bitacoras-smtp/
+:category: exchange
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Microsoft Exchange Server 2010 al activar el registro de bitácoras. Las bitácoras permiten el registro de eventos excepcionales y facilitan el seguimiento en caso de ataques o anomalías.
+:keywords: Exchange 2010, Bitácoras, Registros, Eventos, Conectores, SMTP
+:defends: yes
+
+= Activar Bitácoras de Conectores SMTP
+
+== Necesidad
+
+Activar detalles en el registro de bitácoras por parte del servicio +SMTP+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se cuenta con un sistema operativo +Microsoft Server 2008+.
+. Se utiliza la aplicación +Microsoft Exchange Server 2010+.
+
+== Solución
+
+Las bitácoras representan una medida de seguridad y seguimiento
+muy importante en cualquier organización
+a la hora de proteger un activo de información.
+Una bitácora se compone de una serie de registros
+de eventos excepcionales o relevantes ocurridos en un ambiente.
+Dichos eventos contienen propiedades como severidad (baja, media, alta),
+momento de ocurrencia
+(fecha, hora, minutos, segundos, milésimas, zona horaria),
+llamadas de personal de seguridad responsables de activos, entre muchas otras.
+La importancia de una bitácora reside en que
+ante una ataque o anormalidad en un activo de información,
+es posible realizar un seguimiento
+gracias a los eventos allí detallados.
+Esto permite rastrear la causa,
+el momento, la severidad y otra información necesaria
+para tomar medidas preventivas y/o correctivas ante tal situación.
+
+El Protocolo de Transferencia de Correo Simple (+SMTP+)
+se define como el procedimiento realizado para permitir el transporte
+de correos electrónicos a través de Internet.
+En él se detalla todo el proceso de transporte,
+entrega y verificación de un correo electrónico.
+En +Microsoft Exchange 2010+ el registro de conectores +SMTP+
+puede ser utilizado para complementar el registro de eventos en las bitácoras.
+En este artículo mostraremos cómo configurar adecuadamente
+las bitácoras en +Microsoft Server 2008+.
+Aquí utilizaremos el registro de conectores +SMTP+
+de +Microsoft Server Exchange 2010+.
+Para ello debemos seguir los siguientes pasos:
+
+. Por defecto el nivel de detalle en las bitácoras
+para el servicio +SMTP+ viene deshabilitado.
+Para activarlo ejecutemos el siguiente +cmdlet+
+en una sesión de +Exchange Management Shell+:
++
+.Configuración de conectores
+[source, shell, linenums]
+----
+Set-ReceiveConnector "NOMBRE CONECTOR" -ProtocolLoggingLevel verbose
+Set-SendConnector "NOMBRE CONECTOR" -ProtocolLoggingLevel verbose
+----
+
+. Los +cmdlet+ anteriores funcionan para los conectores de envío y recepción
+del servicio +SMTP+ respectivamente.
+Para su adecuado funcionamiento es necesario cambiar +NOMBRE CONECTOR+
+por el conector utilizado en su aplicación.
+
+== Referencias
+
+. [[r1]] link:https://technet.microsoft.com/en-us/library/bb124558(v=exchg.141).aspx[Microsoft Exchange]
+. [[r2]] link:https://technet.microsoft.com/es-es/library/aa996740(v=exchg.65).aspx[Cómo habilitar el registro SMTP].
+. [[r3]] link:https://support.microsoft.com/en-us/help/303734/how-to-configure-the-smtp-virtual-server-for-message-delivery[HOW TO: Configure the SMTP Virtual Server for Message Delivery].
+. [[r4]] link:http://www.serversmtp.com/es/que-es-servidor-smtp[Qué es un servidor SMTP].
+. [[r5]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras].
+. [[r6]] link:../../../rules/079/[REQ.079 Registrar momento de ocurrencia de eventos].
+. [[r7]] link:../../../rules/083/[REQ.083 No registrar datos sensibles en bitácoras].
