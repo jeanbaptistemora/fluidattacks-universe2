@@ -336,6 +336,9 @@ rules:
     - error
     - named
   angular/module-dependency-order: error
+  angular/controller-name:
+    - error
+    - "/[a-z].*Ctrl/"
   angular/no-service-method: error
   angular/one-dependency-per-line: error
   angular/rest-service: error

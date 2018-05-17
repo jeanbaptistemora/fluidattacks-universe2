@@ -79,14 +79,14 @@ angular.module("FluidIntegrates").isProduction = function isProduction () {
 
 /**
  * Crea el controlador de la funcionalidad de autenticacion
- * @name loginController
+ * @name loginCtrl
  * @param {Object} $scope
  * @param {integrates.loginFactory} loginFactory
  * @return {undefined}
  */
 angular.module("FluidIntegrates").controller(
-  "loginController",
-  function loginController (
+  "loginCtrl",
+  function loginCtrl (
     $scope,
     $translate
   ) {

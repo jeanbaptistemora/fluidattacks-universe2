@@ -6,13 +6,13 @@
 BASE, integrates, Organization, mixPanelDashboard, userName, userEmail, $,
 Rollbar, angular,$window */
 /**
- * @file reportGenerator.js
+ * @file reportGeneratorCtrl.js
  * @author engineering@fluidattacks.com
  */
 
 /**
  * Controlador de vista de proyectos
- * @name reportGenerator
+ * @name reportGeneratorCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -22,8 +22,8 @@ Rollbar, angular,$window */
  */
 /** @export */
 angular.module("FluidIntegrates").controller(
-  "reportGenerator",
-  function reportGenerator (
+  "reportGeneratorCtrl",
+  function reportGeneratorCtrl (
     $location,
     $scope,
     $timeout,
