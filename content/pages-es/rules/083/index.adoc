@@ -47,6 +47,7 @@ cuando se pase de un estado de de depuración a producción.
 . +COBOL+ link:../../defends/cobol/error-operacion-aritmetica/[Manejar Errores en Operaciones Aritméticas].
 . +COBOL+ link:../../defends/cobol/error-operacion-texto/[Manejar Errores en Operaciones de Texto].
 . +Exchange 2010+ link:../../defends/exchange/activar-bitacoras-smtp/[Activar Bitácoras de Conectores SMTP].
+. +Programación+ link:../../defends/programacion/bitacoras-cond/[Generar Bitácoras Condicionales].
 . +Scala+ link:../../defends/scala/registrar-eventos-bitacoras/[Registrar Eventos en Bitácoras].
 . +SharePoint 2010+ link:../../defends/sharepoint/registro-bitacoras/[Configurar Registro en Bitácoras].
 
