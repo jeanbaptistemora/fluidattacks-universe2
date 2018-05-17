@@ -106,7 +106,7 @@ angular.module("FluidIntegrates").controller(
                   "onclick=\"mixPanelReport('Click Google 2 factor');\" " +
                   "target=\"_blank\"><i class=\"fa fa-google-plus fa-2x " +
                   "pull-left\" aria-hidden=\"true\"></i></a>" +
-                  "<a class=\"btn btn-primary azure\" " +
+                  "<a class=\"btn btn-primary azure btn-azure\" " +
                   "onclick=\"mixPanelReport('Click Azure 2 factor');\" " +
                   "href=\"http://bit.ly/2Gp1L2X\" target=\"_blank\"><img " +
                   "src=\"assets/img/azure.png\" class=\"fa fa-azure " +
