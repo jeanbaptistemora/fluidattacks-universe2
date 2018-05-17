@@ -6,7 +6,8 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debi
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install -y docker-ce
 sudo pip install docker-compose
-sudo mv dockerimages.sh /usr/local/bin/dockerimages.sh
+sudo chmod 0755 /tmp/dockerimages.sh
+sudo mv /tmp/dockerimages.sh /usr/local/bin/dockerimages.sh
 sudo crontab -l > mycron
 sudo cat cronjob >> mycron
 sudo crontab mycron

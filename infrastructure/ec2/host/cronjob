@@ -1,1 +1,1 @@
-0 1 * * * /usr/local/bin/dockerimages.sh
+0 0,12 * * * /usr/local/bin/dockerimages.sh

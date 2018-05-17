@@ -22,24 +22,23 @@ resource "aws_eip_association" "eip_assoc" {
   }
 
   provisioner "file" {
-      source      = "ec2/host/script.sh"
-      destination = "/tmp/script.sh"
-    }
-    provisioner "file" {
-            source      = "ec2/host/dockerimages.sh"
-            destination = "/tmp/dockerimages.sh"
-          }
-          provisioner "file" {
-              source      = "ec2/host/cronjob"
-              destination = "/tmp/cronjob"
-            }
+    source      = "ec2/host/script.sh"
+    destination = "/tmp/script.sh"
+  }
+  
+  provisioner "file" {
+    source      = "ec2/host/dockerimages.sh"
+    destination = "/tmp/dockerimages.sh"
+  }
 
+  provisioner "file" {
+    source      = "ec2/host/cronjob"
+    destination = "/tmp/cronjob"
+  }
 
   provisioner "remote-exec" {
-       inline = [
-           "sh /tmp/script.sh"
-       ]
-   }
+    inline = ["sh /tmp/script.sh"]
+  }
 }
 
 resource "aws_security_group_rule" "ingress_http" {
