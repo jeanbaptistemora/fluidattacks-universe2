@@ -8,6 +8,6 @@ sudo apt-get install -y docker-ce
 sudo pip install docker-compose
 sudo chmod 0755 /tmp/dockerimages.sh
 sudo mv /tmp/dockerimages.sh /usr/local/bin/dockerimages.sh
-sudo crontab -l > mycron
-sudo cat cronjob >> mycron
-sudo crontab mycron
+sudo crontab -l > /tmp/mycron
+sudo cat /tmp/cronjob >> /tmp/mycron
+sudo crontab /tmp/mycron

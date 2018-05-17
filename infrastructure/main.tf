@@ -56,11 +56,20 @@ module "ec2-cron-docker" {
   snetId = "${var.snetId}"
   kName = "${var.kName}"
 }
+module "ec2-cron" {
+  source = "./ec2"
+  amiID = "${var.amiID}"
+  iType = "${var.iType}"
+  sreg = "${var.sreg}"
+  sgId = "${var.sgroupId}"
+  snetId = "${var.snetId}"
+  kName = "${var.kName}"
+}
 output "variable_ip" {
-  value = "server=\"${module.ec2-cron-docker.ip}\""
+  value = "server=\"${module.ec2-cron.ip}\""
 }
 output "instance_ip" {
-  value = "${module.ec2-cron-docker.ip}"
+  value = "${module.ec2-cron.ip}"
 }
 
 
