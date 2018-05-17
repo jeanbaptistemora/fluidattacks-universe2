@@ -47,15 +47,6 @@ module "iam" {
 
 
 # new with cron and peer
-module "ec2-cron" {
-  source = "./ec2"
-  amiID = "${var.amiID}"
-  iType = "${var.iType}"
-  sreg = "${var.sreg}"
-  sgId = "${var.sgroupId}"
-  snetId = "${var.snetId}"
-  kName = "${var.kName}"
-}
 module "ec2-cron-docker" {
   source = "./ec2"
   amiID = "${var.amiID}"
