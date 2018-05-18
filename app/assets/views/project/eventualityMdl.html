@@ -31,7 +31,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>{{'event_by_name.modal_ver.f_proj' | translate}}</label>
-                    <input type="text" class="form-control" ng-model="evt.proyecto_fluid" disabled>
+                    <input type="text" class="form-control" ng-model="evt.fluid_project" disabled>
                 </div>
             </div>
             <div class="col-md-4">
@@ -55,8 +55,8 @@
             <div class="col-md-6" ng-class="esDetallado">
                 <div class="form-group">
                     <label>{{'event_by_name.modal_ver.affec' | translate}}</label>
-                    <input ng-show="evt.onlyReadableEvt1" type="number" class="form-control" ng-model="evt.afectacion" disabled>
-                    <input ng-show="!evt.onlyReadableEvt1" type="number" class="form-control" ng-model="evt.afectacion" min="0">
+                    <input ng-show="evt.onlyReadableEvt1" type="number" class="form-control" ng-model="evt.affectation" disabled>
+                    <input ng-show="!evt.onlyReadableEvt1" type="number" class="form-control" ng-model="evt.affectation" min="0">
                 </div>
             </div>
         </div>

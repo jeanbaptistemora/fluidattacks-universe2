@@ -24,14 +24,14 @@ class EventualityDTO(object):
         if "vuln[id]" in parameter:
             self.request_id \
                 = parameter["vuln[id]"]
-        if "vuln[afectacion]" in parameter:
+        if "vuln[affectation]" in parameter:
             self.data[self.AFECTACION] \
-                = parameter["vuln[afectacion]"]
-        if "vuln[proyecto_fluid]" in parameter:
+                = parameter["vuln[affectation]"]
+        if "vuln[fluid_project]" in parameter:
             self.data[self.PROYECTO_FLUID] \
-                = parameter["vuln[proyecto_fluid]"]
-        if "vuln[afectacion]" in parameter:
-            if parameter["vuln[afectacion]"] != "":
+                = parameter["vuln[fluid_project]"]
+        if "vuln[affectation]" in parameter:
+            if parameter["vuln[affectation]"] != "":
                 self.data[self.ESTADO] \
                     = "Tratada"
         self.to_formstack()
@@ -45,7 +45,7 @@ class EventualityDTO(object):
             if row["field"] == self.CLIENTE:
                 self.data["cliente"] = row["value"]
             if row["field"] == self.PROYECTO_FLUID:
-                self.data["proyecto_fluid"] = row["value"]
+                self.data["fluid_project"] = row["value"]
             if row["field"] == self.PROYECTO_CLIENTE:
                 self.data["proyecto_cliente"] = row["value"]
             if row["field"] == self.TIPO:
@@ -57,7 +57,7 @@ class EventualityDTO(object):
             if row["field"] == self.ESTADO:
                 self.data["estado"] = row["value"]
             if row["field"] == self.AFECTACION:
-                self.data["afectacion"] = row["value"]
+                self.data["affectation"] = row["value"]
         return self.data
 
     def to_formstack(self):

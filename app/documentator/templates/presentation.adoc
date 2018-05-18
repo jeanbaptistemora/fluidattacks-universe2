@@ -115,10 +115,10 @@ image::../resources/presentation_theme/t_panorama_cierre_es.png[width=400]
 |*{{finding_title}}* |*{{criticity_title}}* |*{{cardinality_title}}* |*{{state_title}}* |*{{treatment_title}}*
 {% for fin in findings %}
     {{"| "+fin['hallazgo']}}
-    {{"| "+fin['criticidad']}}
-    {{"| "+fin['cardinalidad']}}
+    {{"| "+fin['criticity']}}
+    {{"| "+fin['openVulnerabilities']}}
     {{"| "+fin['estado']+"\n"}}
-    {{"| "+fin['tratamiento']+"\n"}}
+    {{"| "+fin['treatment']+"\n"}}
 {%- endfor %}
 |===
 
@@ -148,13 +148,13 @@ image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=
 	BEGIN: DOCUMENT BLOCK FOR EVIDENCE
 ////
 == {{findings[i]['hallazgo']}}
-=== *_(Criticidad Técnica: {{findings[i]['criticidad']}})_*
+=== *_(Criticidad Técnica: {{findings[i]['criticity']}})_*
 {nbsp} +
 
 [cols=4,.center]
 |===
 <.^|*Vulnerabilidades*
-^.^|{{findings[i]['cardinalidad']}}
+^.^|{{findings[i]['openVulnerabilities']}}
 <.^|*Estado*
 ^| {{findings[i]['estado']}}
 
@@ -166,7 +166,7 @@ image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=
 <.^|*Amenaza*
 3+.^|{{findings[i]['amenaza']}}
 <.^|*Sistema comprometido*
-3+.^|{{findings[i]['sistema_comprometido']}}
+3+.^|{{findings[i]['affectedSystems']}}
 <.^|*Recomendación*
 3+.^|{{findings[i]['solucion_efecto']}}
 <.^|*Requisitos*
@@ -215,7 +215,7 @@ Por lo tanto se puede concluir que *{{proyecto_cliente}}* presenta un nivel de s
 {{nivel_seguridad}}
 
 [.text-center]
-Criticidad más alta *{{findings[0]["impacto"]}}* y vector de acceso mas riesgoso *{{findings[0]["vectorAcceso"].split(" | ")[1].split(":")[0]}}*
+Criticidad más alta *{{findings[0]["impacto"]}}* y vector de acceso mas riesgoso *{{findings[0]["accessVector"].split(" | ")[1].split(":")[0]}}*
 
 <<<
 image::../resources/presentation_theme/t_contacto_es.png[width=400]

@@ -99,7 +99,7 @@ angular.module("FluidIntegrates").controller(
       let severity = 0;
       angular.forEach(data.data, (cont) => {
         try {
-          if (cont.tipo_hallazgo === "Seguridad") {
+          if (cont.finding_type === "Seguridad") {
             const BaseScore = projectFtry.calCCssv2(cont)[0];
             severity += BaseScore * parseFloat(cont.cardinalidad_total);
           }
@@ -181,7 +181,7 @@ angular.module("FluidIntegrates").controller(
       let totalSeg = 0;
       let totalHig = 0;
       angular.forEach(currData, (val) => {
-        const tipo = val.tipo_hallazgo;
+        const tipo = val.finding_type;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (tipo === "Seguridad") {
             totalSeg += 1;
@@ -222,7 +222,7 @@ angular.module("FluidIntegrates").controller(
       let exploit = 0;
       let nonexploit = 0;
       angular.forEach(currData, (val) => {
-        const explotable = val.explotabilidad;
+        const explotable = val.exploitability;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (explotable === "1.000 | Alta: No se requiere exploit o se puede" +
                              " automatizar" || explotable === "0.950 | " +
@@ -342,7 +342,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].proyecto_fluid.toLowerCase() !==
+                   eventsData[0].fluid_project.toLowerCase() !==
                    $scope.project.toLowerCase())) {
           const reqEventualities = projectFtry.eventualityByName(
             projectName,
@@ -366,7 +366,7 @@ angular.module("FluidIntegrates").controller(
           });
         }
         if (projectData.length > 0 &&
-            projectData[0].proyecto_fluid.toLowerCase() ===
+            projectData[0].fluid_project.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadIndicatorsContent(projectData);

@@ -6,7 +6,7 @@
 BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar,
 mixPanelDashboard, userRole, findingType, actor, scenario, authentication,
 confidenciality, Organization, resolutionLevel, explotability, availability,
-tratamiento, updateEvidencesFiles:true, findingData:true, realiabilityLevel,
+updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
 accessComplexity, projectData:true, eventsData:true, fieldsToTranslate,
 keysToTranslate, desc:true, angular, $window */
@@ -127,7 +127,7 @@ findingContentCtrl (
   };
   $scope.loadFindingByID = function loadFindingByID (id) {
     if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].proyecto_fluid.toLowerCase() !==
+                   eventsData[0].fluid_project.toLowerCase() !==
                    $stateParams.project.toLowerCase())) {
       const reqEventualities = projectFtry.eventualityByName(
         $stateParams.project,
@@ -151,7 +151,7 @@ findingContentCtrl (
       });
     }
     if (!$scope.isEmpty(findingData) &&
-        findingData.data.proyecto_fluid.toLowerCase() ===
+        findingData.data.fluid_project.toLowerCase() ===
         $stateParams.project.toLowerCase() &&
         findingData.data.id === $scope.finding.id) {
       $scope.view.project = false;
@@ -173,7 +173,7 @@ findingContentCtrl (
           location.reload();
         }
         if (!response.error && $stateParams.project ===
-            response.data.proyecto_fluid.toLowerCase()) {
+            response.data.fluid_project.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
           functionsFtry3.loadFindingContent($scope);
@@ -252,7 +252,7 @@ findingContentCtrl (
   $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
     const cssv2Info = functionsFtry2.findingCalculateCSSv2($scope);
     $scope.finding.cssv2base = cssv2Info[0];
-    $scope.finding.criticidad = cssv2Info[1];
+    $scope.finding.criticity = cssv2Info[1];
   };
   $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

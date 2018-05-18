@@ -42,7 +42,7 @@ class FindingDTO(object):
     VALOR_RIESGO = "38194645"
     CARDINALIDAD = "38255025"
     DONDE = "38193357"
-    CRITICIDAD = "38531129"
+    CRITICITY = "38531129"
     VULNERABILIDAD = "32202728"
     AMENAZA = "38193361"
     COMPONENTE_APLICATIVO = "38209122"
@@ -71,7 +71,7 @@ class FindingDTO(object):
     COMPLEJIDAD_ACCESO = "38529248"
     AUTENTICACION = "38529249"
     EXPLOTABILIDAD = "38529253"
-    CRITICIDAD = "38531129"
+    CRITICITY = "38531129"
     IMPACTO_CONFIDENCIALIDAD = "38529250"
     IMPACTO_INTEGRIDAD = "38529251"
     IMPACTO_DISPONIBILIDAD = "38529252"
@@ -129,9 +129,9 @@ class FindingDTO(object):
         if "data[escenario]" in parameter:
             self.data[self.ESCENARIO] \
                 = parameter["data[escenario]"]
-        if "data[cardinalidad]" in parameter:
+        if "data[openVulnerabilities]" in parameter:
             self.data[self.CARDINALIDAD] \
-                = parameter["data[cardinalidad]"]
+                = parameter["data[openVulnerabilities]"]
         if "data[actor]" in parameter:
             self.data[self.ACTOR] \
                 = parameter["data[actor]"]
@@ -153,9 +153,9 @@ class FindingDTO(object):
         if "data[vector_ataque]" in parameter:
             self.data[self.VECTOR_ATAQUE] \
                 = parameter["data[vector_ataque]"]
-        if "data[sistema_comprometido]" in parameter:
+        if "data[affectedSystems]" in parameter:
             self.data[self.SISTEMA_COMPROMETIDO] \
-                = parameter["data[sistema_comprometido]"]
+                = parameter["data[affectedSystems]"]
         if "data[cwe]" in parameter:
             self.data[self.CWE] \
                 = parameter["data[cwe]"]
@@ -181,9 +181,9 @@ class FindingDTO(object):
                 if "data[probabilidad]" in parameter:
                     self.data[self.PROBABILIDAD] \
                         = parameter["data[probabilidad]"]
-                if "data[severidad]" in parameter:
+                if "data[severity]" in parameter:
                     self.data[self.SEVERIDAD] \
-                        = parameter["data[severidad]"]
+                        = parameter["data[severity]"]
 
     def create_treatment(self, parameter):
         """ Convierte los indices de un JSON a indices
@@ -191,9 +191,9 @@ class FindingDTO(object):
         if "data[id]" in parameter:
             self.request_id \
                 = parameter["data[id]"]
-        if "data[tratamiento]" in parameter:
+        if "data[treatment]" in parameter:
             self.data[self.TRATAMIENTO] \
-                = parameter["data[tratamiento]"]
+                = parameter["data[treatment]"]
         if "data[razonTratamiento]" in parameter:
             self.data[self.RAZON_TRATAMIENTO] \
                 = parameter["data[razonTratamiento]"]
@@ -210,36 +210,36 @@ class FindingDTO(object):
         if "data[id]" in parameter:
             self.request_id \
                 = parameter["data[id]"]
-        if "data[vectorAcceso]" in parameter:
+        if "data[accessVector]" in parameter:
             self.data[self.VECTOR_ACCESO] \
-                = parameter["data[vectorAcceso]"]
-        if "data[complejidadAcceso]" in parameter:
+                = parameter["data[accessVector]"]
+        if "data[accessComplexity]" in parameter:
             self.data[self.COMPLEJIDAD_ACCESO] \
-                = parameter["data[complejidadAcceso]"]
-        if "data[autenticacion]" in parameter:
+                = parameter["data[accessComplexity]"]
+        if "data[authentication]" in parameter:
             self.data[self.AUTENTICACION] \
-                = parameter["data[autenticacion]"]
-        if "data[explotabilidad]" in parameter:
+                = parameter["data[authentication]"]
+        if "data[exploitability]" in parameter:
             self.data[self.EXPLOTABILIDAD] \
-                = parameter["data[explotabilidad]"]
-        if "data[criticidad]" in parameter:
-            self.data[self.CRITICIDAD] \
-                = parameter["data[criticidad]"]
-        if "data[impactoConfidencialidad]" in parameter:
+                = parameter["data[exploitability]"]
+        if "data[criticity]" in parameter:
+            self.data[self.CRITICITY] \
+                = parameter["data[criticity]"]
+        if "data[confidentialityImpact]" in parameter:
             self.data[self.IMPACTO_CONFIDENCIALIDAD] \
-                = parameter["data[impactoConfidencialidad]"]
-        if "data[impactoIntegridad]" in parameter:
+                = parameter["data[confidentialityImpact]"]
+        if "data[integrityImpact]" in parameter:
             self.data[self.IMPACTO_INTEGRIDAD] \
-                = parameter["data[impactoIntegridad]"]
-        if "data[impactoDisponibilidad]" in parameter:
+                = parameter["data[integrityImpact]"]
+        if "data[availabilityImpact]" in parameter:
             self.data[self.IMPACTO_DISPONIBILIDAD] \
-                = parameter["data[impactoDisponibilidad]"]
-        if "data[nivelResolucion]" in parameter:
+                = parameter["data[availabilityImpact]"]
+        if "data[resolutionLevel]" in parameter:
             self.data[self.NIVEL_RESOLUCION] \
-                = parameter["data[nivelResolucion]"]
-        if "data[nivelConfianza]" in parameter:
+                = parameter["data[resolutionLevel]"]
+        if "data[confidenceLevel]" in parameter:
             self.data[self.NIVEL_CONFIANZA] \
-                = parameter["data[nivelConfianza]"]
+                = parameter["data[confidenceLevel]"]
 
     def create_delete(self, parameter, analyst, project, finding):
         """ Crea un set de datos para enviar en el correo
@@ -284,15 +284,15 @@ class FindingDTO(object):
             if finding["field"] == self.PROBABILIDAD:
                 self.data["probabilidad"] = finding["value"]
             if finding["field"] == self.SEVERIDAD:
-                self.data["severidad"] = finding["value"]
+                self.data["severity"] = finding["value"]
             if finding["field"] == self.NIVEL_RIESGO:
                 self.data["nivel_riesgo"] = finding["value"]
             if finding["field"] == self.CARDINALIDAD:
-                self.data["cardinalidad"] = finding["value"]
+                self.data["openVulnerabilities"] = finding["value"]
             if finding["field"] == self.DONDE:
                 self.data["donde"] = finding["value"]
-            if finding["field"] == self.CRITICIDAD:
-                self.data["criticidad"] = finding["value"]
+            if finding["field"] == self.CRITICITY:
+                self.data["criticity"] = finding["value"]
                 criticity = float(finding["value"])
                 if(criticity <= 3.9):
                     self.data["impacto"] = "Bajo"
@@ -319,11 +319,11 @@ class FindingDTO(object):
             if finding["field"] == self.TIPO:
                 self.data["tipo"] = finding["value"]
             if finding["field"] == self.SISTEMA_COMPROMETIDO:
-                self.data["sistema_comprometido"] = finding["value"]
+                self.data["affectedSystems"] = finding["value"]
             if finding["field"] == self.VECTOR_ATAQUE:
                 self.data["vector_ataque"] = finding["value"]
             if finding["field"] == self.TIPO_HALLAZGO:
-                self.data["tipo_hallazgo"] = finding["value"]
+                self.data["finding_type"] = finding["value"]
             if finding["field"] == self.REVISION:
                 self.data["revision"] = finding["value"]
             if finding["field"] == self.ESCENARIO:
@@ -335,7 +335,7 @@ class FindingDTO(object):
             if finding["field"] == self.ACTOR:
                 self.data["actor"] = finding["value"]
             if finding["field"] == self.TRATAMIENTO:
-                self.data["tratamiento"] = finding["value"]
+                self.data["treatment"] = finding["value"]
             if finding["field"] == self.RAZON_TRATAMIENTO:
                 self.data["razonTratamiento"] = finding["value"]
             if finding["field"] == self.RESPONSABLE_TRATAMIENTO:
@@ -365,39 +365,39 @@ class FindingDTO(object):
         self.data["timestamp"] = request_arr["timestamp"]
         for finding in request_arr["data"]:
             if finding["field"] == self.CARDINALIDAD:
-                self.data["cardinalidad"] = finding["value"]
+                self.data["openVulnerabilities"] = finding["value"]
         return self.data
 
     def parse_cssv2(self, request_arr): # noqa: C901
         "Convierte la califiacion de un hallazgo en formstack"
         for finding in request_arr["data"]:
             if finding["field"] == self.VECTOR_ACCESO:
-                self.data["vectorAcceso"] = finding["value"]
+                self.data["accessVector"] = finding["value"]
             if finding["field"] == self.COMPLEJIDAD_ACCESO:
-                self.data["complejidadAcceso"] = finding["value"]
+                self.data["accessComplexity"] = finding["value"]
             if finding["field"] == self.AUTENTICACION:
-                self.data["autenticacion"] = finding["value"]
+                self.data["authentication"] = finding["value"]
             if finding["field"] == self.IMPACTO_CONFIDENCIALIDAD:
-                self.data["impactoConfidencialidad"] = finding["value"]
+                self.data["confidentialityImpact"] = finding["value"]
             if finding["field"] == self.IMPACTO_INTEGRIDAD:
-                self.data["impactoIntegridad"] = finding["value"]
+                self.data["integrityImpact"] = finding["value"]
             if finding["field"] == self.IMPACTO_DISPONIBILIDAD:
-                self.data["impactoDisponibilidad"] = finding["value"]
+                self.data["availabilityImpact"] = finding["value"]
             if finding["field"] == self.EXPLOTABILIDAD:
-                self.data["explotabilidad"] = finding["value"]
+                self.data["exploitability"] = finding["value"]
             if finding["field"] == self.NIVEL_RESOLUCION:
-                self.data["nivelResolucion"] = finding["value"]
+                self.data["resolutionLevel"] = finding["value"]
             if finding["field"] == self.NIVEL_CONFIANZA:
-                self.data["nivelConfianza"] = finding["value"]
-        if self.data['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
-            or self.data['explotabilidad'] == '0.950 | Funcional: Existe exploit':
+                self.data["confidenceLevel"] = finding["value"]
+        if self.data['exploitability'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
+            or self.data['exploitability'] == '0.950 | Funcional: Existe exploit':
             self.data['explotable'] = 'Si'
         else:
             self.data['explotable'] = 'No'
-        if 'tipo_hallazgo' not in self.data or self.data['tipo_hallazgo'] == 'Seguridad':
+        if 'finding_type' not in self.data or self.data['finding_type'] == 'Seguridad':
             self.data['tipoHallazgoCliente'] = 'Vulnerabilidad'
         else:
-            self.data['tipoHallazgoCliente'] = self.data['tipo_hallazgo']
+            self.data['tipoHallazgoCliente'] = self.data['finding_type']
 
     def parse_project(self, request_arr):
         "Convierte la info de proyecto de un hallazgo en formstack"
@@ -409,7 +409,7 @@ class FindingDTO(object):
             if finding["field"] == self.INTERESADO:
                 self.data["interesado"] = finding["value"]
             if finding["field"] == self.PROYECTO_FLUID:
-                self.data["proyecto_fluid"] = finding["value"]
+                self.data["fluid_project"] = finding["value"]
             if finding["field"] == self.PROYECTO_CLIENTE:
                 self.data["proyecto_cliente"] = finding["value"]
             if finding["field"] == self.CONTEXTO:

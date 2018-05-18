@@ -68,7 +68,7 @@ angular.module("FluidIntegrates").factory(
                            (parseInt(secureRandom(3).join(""), 10) *
                             multiConst).toString(radix), 10);
                   data.findingName = commentInfo.finding.hallazgo;
-                  data.project = commentInfo.finding.proyecto_fluid;
+                  data.project = commentInfo.finding.fluid_project;
                   data.findingUrl = $window.location.href;
                   data.remediated = false;
                   const comment =

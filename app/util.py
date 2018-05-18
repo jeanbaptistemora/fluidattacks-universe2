@@ -83,11 +83,11 @@ def is_json(data):
 
 
 def ord_asc_by_criticidad(data):
-    """ Ordena los hallazgos por criticidad """
+    """ Ordena los hallazgos por criticity """
     for i in range(0, len(data)-1):
         for j in range(i+1, len(data)):
-            firstc = float(data[i]["criticidad"])
-            seconc = float(data[j]["criticidad"])
+            firstc = float(data[i]["criticity"])
+            seconc = float(data[j]["criticity"])
             if firstc < seconc:
                 aux = data[i]
                 data[i] = data[j]
@@ -148,7 +148,7 @@ def get_evidence_set(finding):
 def get_evidence_set_s3(finding, key_list, field_list):
     evidence_set = []
     for k in key_list:
-        ruta_evidencia_1 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+        ruta_evidencia_1 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[0]
         if "desc_evidencia_1" in finding and \
             ruta_evidencia_1 in k:
@@ -156,7 +156,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id": k.split("/")[1],
                 "explicacion": finding["desc_evidencia_1"].capitalize()
             })
-        ruta_evidencia_2 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+        ruta_evidencia_2 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[1]
         if "desc_evidencia_2" in finding and \
             ruta_evidencia_2 in k:
@@ -164,7 +164,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id":  k.split("/")[1],
                 "explicacion": finding["desc_evidencia_2"].capitalize()
             })
-        ruta_evidencia_3 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+        ruta_evidencia_3 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[2]
         if "desc_evidencia_3" in finding and \
             ruta_evidencia_3 in finding:
@@ -172,7 +172,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id": k.split("/")[1],
                 "explicacion": finding["desc_evidencia_3"].capitalize()
             })
-        ruta_evidencia_4 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+        ruta_evidencia_4 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[3]
         if "desc_evidencia_4" in finding and \
             ruta_evidencia_4 in finding:
@@ -180,7 +180,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id":  k.split("/")[1],
                 "explicacion": finding["desc_evidencia_4"].capitalize()
             })
-        ruta_evidencia_5 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+        ruta_evidencia_5 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[4]
         if "desc_evidencia_5" in finding and \
             ruta_evidencia_5 in finding:

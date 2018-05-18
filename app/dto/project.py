@@ -52,7 +52,7 @@ class ProjectDTO(object):
         "Convierte la descripcion de un hallazgo en formstack"
         for finding in request_arr["data"]:
             if finding["field"] == self.PROYECTO_FLUID:
-                self.data["proyecto_fluid"] = finding["value"]
+                self.data["fluid_project"] = finding["value"]
             if finding["field"] == self.PROYECTO_CLIENTE:
                 self.data["proyecto_cliente"] = finding["value"]
             if finding["field"] == self.CLIENTE:

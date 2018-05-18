@@ -4,7 +4,7 @@
 
 
 class SecureAccessException(Exception):
-    """Excepcion que controla el acceso a recursos con autenticacion."""
+    """Excepcion que controla el acceso a recursos con authentication."""
     def __init__(self):
         """ Constructor """
         msg = "Excepcion - Acceso a recursos sin sesion activa"

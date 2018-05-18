@@ -5,23 +5,23 @@
 /* eslint-disable no-unused-vars */
 const fieldsToTranslate = [
   "actor",
-  "autenticacion",
+  "authentication",
   "categoria",
-  "complejidadAcceso",
+  "accessComplexity",
   "escenario",
   "estado",
-  "explotabilidad",
+  "exploitability",
   "explotable",
-  "impactoConfidencialidad",
-  "impactoDisponibilidad",
-  "impactoIntegridad",
-  "nivelConfianza",
-  "nivelResolucion",
+  "confidentialityImpact",
+  "availabilityImpact",
+  "integrityImpact",
+  "confidenceLevel",
+  "resolutionLevel",
   "probabilidad",
   "tipoHallazgoCliente",
   "tipoPrueba",
-  "vectorAcceso",
-  "tratamiento"
+  "accessVector",
+  "treatment"
 ];
 const eventsTranslations = [
   "tipo",

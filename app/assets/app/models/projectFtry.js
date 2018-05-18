@@ -54,17 +54,17 @@ angular.module("FluidIntegrates").factory(
         const EXPLOITABILITY_FACTOR = 20;
         const F_IMPACT_FACTOR = 1.176;
         const ImpCon =
-              parseFloat(data.impactoConfidencialidad.split(" | ")[0]);
+              parseFloat(data.confidentialityImpact.split(" | ")[0]);
         const ImpInt =
-              parseFloat(data.impactoIntegridad.split(" | ")[0]);
+              parseFloat(data.integrityImpact.split(" | ")[0]);
         const ImpDis =
-              parseFloat(data.impactoDisponibilidad.split(" | ")[0]);
-        const AccCom = parseFloat(data.complejidadAcceso.split(" | ")[0]);
-        const AccVec = parseFloat(data.vectorAcceso.split(" | ")[0]);
-        const Auth = parseFloat(data.autenticacion.split(" | ")[0]);
-        const Explo = parseFloat(data.explotabilidad.split(" | ")[0]);
-        const Resol = parseFloat(data.nivelResolucion.split(" | ")[0]);
-        const Confi = parseFloat(data.nivelConfianza.split(" | ")[0]);
+              parseFloat(data.availabilityImpact.split(" | ")[0]);
+        const AccCom = parseFloat(data.accessComplexity.split(" | ")[0]);
+        const AccVec = parseFloat(data.accessVector.split(" | ")[0]);
+        const Auth = parseFloat(data.authentication.split(" | ")[0]);
+        const Explo = parseFloat(data.exploitability.split(" | ")[0]);
+        const Resol = parseFloat(data.resolutionLevel.split(" | ")[0]);
+        const Confi = parseFloat(data.confidenceLevel.split(" | ")[0]);
 
         /*
          * The constants above are part of the BaseScore, Impact and
@@ -83,16 +83,16 @@ angular.module("FluidIntegrates").factory(
         ];
       },
       "calCardinality" (data) {
-        let cardinalidad = 0;
+        let openVulnerabilities = 0;
         let cardinalidadTotal = 0;
         let maximumSeverity = 0;
         let oldestFinding = 0;
         let openEvents = 0;
         angular.forEach(data.data, (cont) => {
-          cardinalidad += parseInt(cont.cardinalidad, 10);
+          openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
           cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
-          if (maximumSeverity < cont.criticidad) {
-            maximumSeverity = cont.criticidad;
+          if (maximumSeverity < cont.criticity) {
+            maximumSeverity = cont.criticity;
           }
           if (oldestFinding < cont.edad) {
             oldestFinding = cont.edad;
@@ -138,14 +138,14 @@ angular.module("FluidIntegrates").factory(
         ];
         const metricValue = [
           data.data.length,
-          cardinalidad,
+          openVulnerabilities,
           cardinalidadTotal,
           maximumSeverity,
           oldestFinding,
           openEvents
         ];
         return [
-          cardinalidad,
+          openVulnerabilities,
           cardinalidadTotal,
           metricColor,
           metricDes,

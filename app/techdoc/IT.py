@@ -164,39 +164,39 @@ class ITReport(object):
 			self.set_cell(self.finding['where_records'],
 				"Evidencias/" + row["hallazgo"] + "/registros.csv")
 		self.set_cell(self.finding['requirements'], row["requisitos"])
-		self.set_cell_number(self.finding['criticity'], row["criticidad"])
-		self.set_cell_number(self.finding['cardinality'], row["cardinalidad"])
+		self.set_cell_number(self.finding['criticity'], row["criticity"])
+		self.set_cell_number(self.finding['cardinality'], row["openVulnerabilities"])
 		self.set_cell_number(self.finding['affected_records'], row["registros_num"])
 		self.set_cell(self.finding['evidence'], "Evidencias/" + row["hallazgo"])
 		self.set_cell(self.finding['solution'], row["solucion_efecto"])
 		self.set_cell(self.finding['requirements_id'],
 			self.__get_req(row["requisitos"]))
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["vectorAcceso"]))
+			self.__get_measure(row["accessVector"]))
 		self.set_cell(self.finding['measurements'],
 			self.__get_complexity(self.__get_measure(
-				row["complejidadAcceso"])),
+				row["accessComplexity"])),
 			1)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["autenticacion"]),
+			self.__get_measure(row["authentication"]),
 			2)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["impactoConfidencialidad"]),
+			self.__get_measure(row["confidentialityImpact"]),
 			3)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["impactoIntegridad"]),
+			self.__get_measure(row["integrityImpact"]),
 			4)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["impactoDisponibilidad"]),
+			self.__get_measure(row["availabilityImpact"]),
 			5)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["explotabilidad"]),
+			self.__get_measure(row["exploitability"]),
 			6)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["nivelResolucion"]),
+			self.__get_measure(row["resolutionLevel"]),
 			7)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["nivelConfianza"]),
+			self.__get_measure(row["confidenceLevel"]),
 			8)
 
 	def __write_qc(self, row):
@@ -215,7 +215,7 @@ class ITReport(object):
 			self.set_cell_qc(self.matriz['category'], row["categoria"])
 		if "amenaza" in row:
 			self.set_cell_qc(self.matriz['threat'], row["amenaza"])
-		criticity = float(row['criticidad'])
+		criticity = float(row['criticity'])
 		if criticity > 6.9:
 			self.set_cell_qc(self.matriz['cssv2_value'], "Alta")
 		elif criticity >= 4.0:
@@ -224,8 +224,8 @@ class ITReport(object):
 			self.set_cell_qc(self.matriz['cssv2_value'], "Baja")
 		if "probabilidad" in row:
 			self.set_cell_qc(self.matriz['probability'], row["probabilidad"])
-		if "severidad" in row:
-			self.set_cell_number_qc(self.matriz['severity'], row["severidad"])
+		if "severity" in row:
+			self.set_cell_number_qc(self.matriz['severity'], row["severity"])
 		if "riesgo" in row:
 			self.set_cell_qc(self.matriz['risk'], row["riesgo"])
 

@@ -9,7 +9,7 @@
 :revmark:	Versión inicial
 
 //Primera pagina - Contenido
-<<< 
+<<<
 === {{fluid_tpl['content_title']}}
 {% for li in fluid_tpl['content_list'] %}
 {{"==== "+li+"\n"}}
@@ -20,7 +20,7 @@
 === {{fluid_tpl['goals_title']}}
 {{fluid_tpl['goals_img']}}
 
-//Tercera pagina - Explicacion criticidad
+//Tercera pagina - Explicacion criticity
 <<<
 === {{criticity_title}}
 {{fluid_tpl['criticity_img']}}
@@ -33,10 +33,10 @@
 |{{finding_title}} |{{criticity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
 {% for fin in findings %}
     {{"| "+fin['hallazgo']}}
-    {{"| "+fin['criticidad']}}
-    {{"| "+fin['cardinalidad']}}
+    {{"| "+fin['criticity']}}
+    {{"| "+fin['openVulnerabilities']}}
     {{"| "+fin['estado']+"\n"}}
-    {{"| "+fin['tratamiento']+"\n"}}
+    {{"| "+fin['treatment']+"\n"}}
 {%- endfor %}
 |===
 
@@ -78,7 +78,7 @@
 ==== {{fin['hallazgo'] + "\n"}}
 |===
 |{{criticity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
-{{"|"+fin['criticidad']+"|"+fin['cardinalidad']+"|"+fin['registros_num']+"|"+fin['estado']}}
+{{"|"+fin['criticity']+"|"+fin['openVulnerabilities']+"|"+fin['registros_num']+"|"+fin['estado']}}
 |===
 ===== {{description_title}}
 {{fin['vulnerabilidad'] + "\n"}}
@@ -95,9 +95,9 @@
 {{fin['vector_ataque'] + "\n"}}
 {% endif %}
 
-{% if "sistema_comprometido" in fin %}
+{% if "affectedSystems" in fin %}
 ===== {{compromised_system_title}}
-{{fin['sistema_comprometido'] + "\n"}}
+{{fin['affectedSystems'] + "\n"}}
 {% endif %}
 
 ===== {{solution_title}}

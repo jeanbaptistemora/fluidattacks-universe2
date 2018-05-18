@@ -11,7 +11,7 @@ from .dao import integrates_dao
 @csrf_exempt
 @require_http_methods(["POST"])
 def login(request):
-    """ Servicio definido para la autenticacion."""
+    """ Servicio definido para la authentication."""
     username = request.session['username']
     return util.response([], 'Bienvenido ' + username, False)
 

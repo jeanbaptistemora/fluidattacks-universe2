@@ -37,12 +37,12 @@ class FormstackAPITests(TestCase):
         self.assertIs("submissions" in request, True)
 
     def test_update_eventuality(self):
-        """Actualiza la afectacion de una eventualidad en Formstack."""
+        """Actualiza la affectation de una eventualidad en Formstack."""
         api_frms = FormstackAPI()
-        afectacion = "0"
+        affectation = "0"
         submission_id = "244210431"
         data = {
-            "29042542": afectacion
+            "29042542": affectation
         }
         request = api_frms.update(submission_id, data)
         self.assertIs("success" in request, True)

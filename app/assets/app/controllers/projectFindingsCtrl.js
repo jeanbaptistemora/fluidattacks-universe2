@@ -149,7 +149,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].proyecto_fluid.toLowerCase() !==
+                   eventsData[0].fluid_project.toLowerCase() !==
                    $scope.project.toLowerCase())) {
           const reqEventualities = projectFtry.eventualityByName(
             projectName,
@@ -173,7 +173,7 @@ angular.module("FluidIntegrates").controller(
           });
         }
         if (projectData.length > 0 &&
-            projectData[0].proyecto_fluid.toLowerCase() ===
+            projectData[0].fluid_project.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadFindingContent(projectData, vlang);
@@ -251,7 +251,7 @@ angular.module("FluidIntegrates").controller(
         "onClickRow" (row) {
           $state.go("FindingDescription", {
             "id": row.id,
-            "project": row.proyecto_fluid.toLowerCase()
+            "project": row.fluid_project.toLowerCase()
           });
           angular.element("#infoItem").addClass("active");
           angular.element("#info").addClass("active");
@@ -309,7 +309,7 @@ angular.module("FluidIntegrates").controller(
           for (let cont = 0; cont < data.length; cont++) {
             data[cont].atributos = 0;
             data[cont].link = `${$window.location.href.split("project/")[0]}` +
-                          `project/${data[cont].proyecto_fluid.toLowerCase()}` +
+                          `project/${data[cont].fluid_project.toLowerCase()}` +
                           `/${data[cont].id}/description`;
             if (angular.isDefined(data[cont].registros) &&
                 data[cont].registros !== "") {
@@ -319,8 +319,8 @@ angular.module("FluidIntegrates").controller(
           }
           for (let cont = 0; cont < data.length - 1; cont++) {
             for (let incj = cont + 1; incj < data.length; incj++) {
-              if (parseFloat(data[cont].criticidad) <
-                  parseFloat(data[incj].criticidad)) {
+              if (parseFloat(data[cont].criticity) <
+                  parseFloat(data[incj].criticity)) {
                 const aux = data[cont];
                 data[cont] = data[incj];
                 data[incj] = aux;
@@ -331,7 +331,7 @@ angular.module("FluidIntegrates").controller(
           let severity = 0;
           angular.forEach(data, (cont) => {
             try {
-              if (cont.tipo_hallazgo === "Seguridad") {
+              if (cont.finding_type === "Seguridad") {
                 const BaseScore = projectFtry.calCCssv2(cont)[0];
                 severity += BaseScore * parseFloat(cont.cardinalidad_total);
               }

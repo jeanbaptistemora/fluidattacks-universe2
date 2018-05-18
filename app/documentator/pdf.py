@@ -224,7 +224,7 @@ class CreatorPDF(object):
 
     def project_info_context(self, project_info):
         """Crea un contexto con informacion del proyecto."""
-        self.context["proyecto_fluid"] = project_info["proyecto_fluid"]
+        self.context["fluid_project"] = project_info["fluid_project"]
         self.context["proyecto_cliente"] = project_info["proyecto_cliente"]
         self.context["cliente"] = project_info["cliente"]
         self.context["lider"] = project_info["lider"]
@@ -285,7 +285,7 @@ class CreatorPDF(object):
         colors = ["red", "orange", "yellow"]
         explode = (0, 0.1, 0)
         for finding in findings:
-            criticity = float(finding["criticidad"])
+            criticity = float(finding["criticity"])
             if criticity >= 7.0 and criticity <= 10:
                 finding_state_pie[0] += 1
             elif criticity >= 4.0 and criticity <= 6.9:
@@ -367,11 +367,11 @@ class CreatorPDF(object):
         top_table = []
         ttl_vulns, ttl_num_reg, top = 0, 0, 1
         for finding in findings:
-            criticity = float(finding["criticidad"])
+            criticity = float(finding["criticity"])
             crit_as_text = words["crit_l"]
             vuln_amount = 0
-            if finding['cardinalidad'] != '-':
-                vuln_amount = int(finding['cardinalidad'])
+            if finding['openVulnerabilities'] != '-':
+                vuln_amount = int(finding['openVulnerabilities'])
             ttl_vulns += vuln_amount
             if criticity >= 7.0 and criticity <= 10:
                 vuln_table[0][1] += 1
@@ -391,7 +391,7 @@ class CreatorPDF(object):
             if top <= 5:
                 top_table.append([
                     top,
-                    finding["criticidad"] + " " + crit_as_text,
+                    finding["criticity"] + " " + crit_as_text,
                     finding["hallazgo"]
                 ])
                 top += 1
@@ -423,18 +423,18 @@ class CreatorPDF(object):
             words
         )
         for finding in findings:  # Fix para viejos hallazgos de formstack
-            if "tratamiento" not in finding:
-                finding["tratamiento"] = words["treat_status_wor"]
-            elif finding["tratamiento"] == "-":
-                finding["tratamiento"] = words["treat_status_wor"]
-            elif finding["tratamiento"] == "Nuevo":
-                finding["tratamiento"] = words["treat_status_wor"]
-            elif finding["tratamiento"] == "Asumido":
-                finding["tratamiento"] = words["treat_status_asu"]
-            elif finding["tratamiento"] == "Remediar":
-                finding["tratamiento"] = words["treat_status_rem"]
-            elif finding["tratamiento"] == "Resuelto":
-                finding["tratamiento"] = words["treat_status_res"]
+            if "treatment" not in finding:
+                finding["treatment"] = words["treat_status_wor"]
+            elif finding["treatment"] == "-":
+                finding["treatment"] = words["treat_status_wor"]
+            elif finding["treatment"] == "Nuevo":
+                finding["treatment"] = words["treat_status_wor"]
+            elif finding["treatment"] == "Asumido":
+                finding["treatment"] = words["treat_status_asu"]
+            elif finding["treatment"] == "Remediar":
+                finding["treatment"] = words["treat_status_rem"]
+            elif finding["treatment"] == "Resuelto":
+                finding["treatment"] = words["treat_status_res"]
         main_pie_filename = "image::../images/" \
             + main_pie_filename \
             + '[width=330, align="center"]'

@@ -128,7 +128,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (eventsData.length > 0 &&
-           eventsData[0].proyecto_fluid.toLowerCase() ===
+           eventsData[0].fluid_project.toLowerCase() ===
            $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadEventContent(eventsData, vlang, projectName);
@@ -199,11 +199,11 @@ angular.module("FluidIntegrates").controller(
                 nameProj,
                 evt.id
               );
-              if ($scope.evt.afectacion === "" ||
-                  angular.isUndefined($scope.evt.afectacion)) {
-                $scope.evt.afectacion = "0";
+              if ($scope.evt.affectation === "" ||
+                  angular.isUndefined($scope.evt.affectation)) {
+                $scope.evt.affectation = "0";
               }
-              $scope.evt.afectacion = parseInt($scope.evt.afectacion, 10);
+              $scope.evt.affectation = parseInt($scope.evt.affectation, 10);
               $scope.eventEdit = function eventEdit () {
                 if ($scope.evt.onlyReadableEvt1 === false) {
                   $scope.evt.onlyReadableEvt1 = true;
@@ -215,7 +215,7 @@ angular.module("FluidIntegrates").controller(
               $scope.okModalEditar = function okModalEditar () {
                 const neg = "negativo";
                 try {
-                  if (angular.isUndefined($scope.evt.afectacion)) {
+                  if (angular.isUndefined($scope.evt.affectation)) {
                     throw neg;
                   }
                 }

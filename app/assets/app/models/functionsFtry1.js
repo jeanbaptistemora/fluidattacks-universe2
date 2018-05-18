@@ -46,6 +46,77 @@ angular.module("FluidIntegrates").factory(
         });
       },
 
+      "calculateFindingSeverity" (data) {
+        let severity = 0;
+        const MAX_SEVERITY = 5;
+        const PERCENTAGE_FACTOR = 100.0;
+        if (!isNaN(data.finding.severity)) {
+          severity = parseFloat(data.finding.severity);
+          if (severity < 0 || severity > MAX_SEVERITY) {
+            Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
+            $msg.error(
+              $translate.instant("proj_alerts.error_severity"),
+              "error"
+            );
+            data.finding.riskValue = "";
+            return [
+              false,
+              data.finding.riskValue
+            ];
+          }
+          try {
+            let prob = data.finding.probabilidad;
+            severity = data.finding.severity;
+            prob = prob.split("%")[0];
+            prob = parseFloat(prob) / PERCENTAGE_FACTOR;
+            severity = parseFloat(severity);
+            const vRiesgo = prob * severity;
+            const CRITIC_RISK = 3;
+            const MODERATE_RISK = 2;
+            if (vRiesgo >= CRITIC_RISK) {
+              data.finding.riskValue = "(:r) Critico".replace(
+                ":r",
+                vRiesgo.toFixed(1)
+              );
+            }
+            else if (vRiesgo >= MODERATE_RISK &&
+                   vRiesgo < CRITIC_RISK) {
+              data.finding.riskValue = "(:r) Moderado".replace(
+                ":r",
+                vRiesgo.toFixed(1)
+              );
+            }
+            else {
+              data.finding.riskValue = "(:r) Tolerable".replace(
+                ":r",
+                vRiesgo.toFixed(1)
+              );
+            }
+            return [
+              true,
+              data.finding.riskValue
+            ];
+          }
+          catch (err) {
+            data.finding.riskValue = "";
+            return [
+              false,
+              data.finding.riskValue
+            ];
+          }
+        }
+        else if (isNaN(data.finding.severity)) {
+          Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
+          $msg.error($translate.instant("proj_alerts.error_severity"), "error");
+          data.finding.riskValue = "";
+          return [
+            false,
+            data.finding.riskValue
+          ];
+        }
+        return true;
+      },
+
       "deleteFinding" ($scope) {
       // Get data
         const descData = {"id": $scope.finding.id};
@@ -103,77 +174,6 @@ angular.module("FluidIntegrates").factory(
         });
       },
 
-      "findingCalculateSeveridad" (data) {
-        let severidad = 0;
-        const MAX_SEVERITY = 5;
-        const PERCENTAGE_FACTOR = 100.0;
-        if (!isNaN(data.finding.severidad)) {
-          severidad = parseFloat(data.finding.severidad);
-          if (severidad < 0 || severidad > MAX_SEVERITY) {
-            Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
-            $msg.error(
-              $translate.instant("proj_alerts.error_severity"),
-              "error"
-            );
-            data.finding.valorRiesgo = "";
-            return [
-              false,
-              data.finding.valorRiesgo
-            ];
-          }
-          try {
-            let prob = data.finding.probabilidad;
-            severidad = data.finding.severidad;
-            prob = prob.split("%")[0];
-            prob = parseFloat(prob) / PERCENTAGE_FACTOR;
-            severidad = parseFloat(severidad);
-            const vRiesgo = prob * severidad;
-            const CRITIC_RISK = 3;
-            const MODERATE_RISK = 2;
-            if (vRiesgo >= CRITIC_RISK) {
-              data.finding.valorRiesgo = "(:r) Critico".replace(
-                ":r",
-                vRiesgo.toFixed(1)
-              );
-            }
-            else if (vRiesgo >= MODERATE_RISK &&
-                   vRiesgo < CRITIC_RISK) {
-              data.finding.valorRiesgo = "(:r) Moderado".replace(
-                ":r",
-                vRiesgo.toFixed(1)
-              );
-            }
-            else {
-              data.finding.valorRiesgo = "(:r) Tolerable".replace(
-                ":r",
-                vRiesgo.toFixed(1)
-              );
-            }
-            return [
-              true,
-              data.finding.valorRiesgo
-            ];
-          }
-          catch (err) {
-            data.finding.valorRiesgo = "";
-            return [
-              false,
-              data.finding.valorRiesgo
-            ];
-          }
-        }
-        else if (isNaN(data.finding.severidad)) {
-          Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
-          $msg.error($translate.instant("proj_alerts.error_severity"), "error");
-          data.finding.valorRiesgo = "";
-          return [
-            false,
-            data.finding.valorRiesgo
-          ];
-        }
-        return true;
-      },
-
       "findingVerified" ($scope) {
         // Get data
         const currUrl = $window.location.href;
@@ -182,8 +182,8 @@ angular.module("FluidIntegrates").factory(
           "findingId": $scope.finding.id,
           "findingName": $scope.finding.hallazgo,
           "findingUrl": trackingUrl,
-          "findingVulns": $scope.finding.cardinalidad,
-          "project": $scope.finding.proyecto_fluid,
+          "findingVulns": $scope.finding.openVulnerabilities,
+          "project": $scope.finding.fluid_project,
           "userMail": userEmail
         };
         $uibModal.open({
@@ -238,12 +238,12 @@ angular.module("FluidIntegrates").factory(
         if ($scope.onlyReadableTab4 === false) {
           $scope.finding.responsableTratamiento = userEmail;
           $scope.onlyReadableTab4 = true;
-          $scope.finding.tratamiento = $scope.aux.tratamiento;
+          $scope.finding.treatment = $scope.aux.treatment;
           $scope.finding.razonTratamiento = $scope.aux.razon;
           $scope.finding.btsExterno = $scope.aux.bts;
         }
         else if ($scope.onlyReadableTab4 === true) {
-          $scope.finding.tratamiento = $scope.aux.tratamiento;
+          $scope.finding.treatment = $scope.aux.treatment;
           $scope.finding.razonTratamiento = $scope.aux.razon;
           $scope.finding.responsableTratamiento = $scope.aux.responsable;
           $scope.finding.btsExterno = $scope.aux.bts;
@@ -254,21 +254,21 @@ angular.module("FluidIntegrates").factory(
       "updateCSSv2" ($scope) {
       // Get the actual data in the severity fields
         const cssv2Data = {
-          "autenticacion": $scope.severityInfo.autenticacion,
-          "complejidadAcceso": $scope.severityInfo.complejidadAcceso,
-          "explotabilidad": $scope.severityInfo.explotabilidad,
+          "accessComplexity": $scope.severityInfo.accessComplexity,
+          "accessVector": $scope.severityInfo.accessVector,
+          "authentication": $scope.severityInfo.authentication,
+          "availabilityImpact": $scope.severityInfo.availabilityImpact,
+          "confidenceLevel": $scope.severityInfo.confidenceLevel,
+          "confidentialityImpact":
+                                    $scope.severityInfo.confidentialityImpact,
+          "exploitability": $scope.severityInfo.exploitability,
           "id": $scope.severityInfo.id,
-          "impactoConfidencialidad":
-                                    $scope.severityInfo.impactoConfidencialidad,
-          "impactoDisponibilidad": $scope.severityInfo.impactoDisponibilidad,
-          "impactoIntegridad": $scope.severityInfo.impactoIntegridad,
-          "nivelConfianza": $scope.severityInfo.nivelConfianza,
-          "nivelResolucion": $scope.severityInfo.nivelResolucion,
-          "vectorAcceso": $scope.severityInfo.vectorAcceso
+          "integrityImpact": $scope.severityInfo.integrityImpact,
+          "resolutionLevel": $scope.severityInfo.resolutionLevel
         };
         // Recalculate CSSV2
         functionsFtry2.findingCalculateCSSv2($scope);
-        cssv2Data.criticidad = $scope.finding.criticidad;
+        cssv2Data.criticity = $scope.finding.criticity;
         // Create an instance of the confirmation modal
         $uibModal.open({
           "animation": true,
@@ -387,7 +387,7 @@ angular.module("FluidIntegrates").factory(
           return true;
         };
         let flag = false;
-        if ($scope.aux.tratamiento === $scope.finding.tratamiento &&
+        if ($scope.aux.treatment === $scope.finding.treatment &&
         $scope.aux.razon === $scope.finding.razonTratamiento &&
         $scope.aux.bts !== $scope.finding.btsExterno) {
           flag = true;
@@ -402,7 +402,7 @@ angular.module("FluidIntegrates").factory(
             "id": $scope.finding.id,
             "razonTratamiento": $scope.finding.razonTratamiento,
             "responsableTratamiento": $scope.finding.responsableTratamiento,
-            "tratamiento": $scope.finding.tratamiento
+            "treatment": $scope.finding.treatment
           };
           $uibModal.open({
             "animation": true,

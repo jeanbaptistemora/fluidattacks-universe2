@@ -56,11 +56,11 @@ angular.module("FluidIntegrates").factory(
         $scope.header.findingRisk = "";
         $scope.header.findingState = $scope.finding.estado;
         $scope.header.findingID = $scope.finding.id;
-        $scope.header.findingValue = $scope.finding.criticidad;
-        $scope.header.findingTreatment = $scope.finding.tratamiento;
+        $scope.header.findingValue = $scope.finding.criticity;
+        $scope.header.findingTreatment = $scope.finding.treatment;
         const HIGH_CRITICITY = 7;
         const MODERATE_CRITICITY = 4;
-        const findingValue = parseFloat($scope.finding.criticidad);
+        const findingValue = parseFloat($scope.finding.criticity);
         if (findingValue >= HIGH_CRITICITY) {
           $scope.header.findingValueDescription =
                $translate.instant("finding_formstack.criticity_header.high");
@@ -90,7 +90,7 @@ angular.module("FluidIntegrates").factory(
           $scope.header.findingStateColor = $scope.colors.ok;
         }
 
-        $scope.header.findingCount = $scope.finding.cardinalidad;
+        $scope.header.findingCount = $scope.finding.openVulnerabilities;
         findingData.header = $scope.header;
       },
 
@@ -100,8 +100,8 @@ angular.module("FluidIntegrates").factory(
           "findingId": $scope.finding.id,
           "findingName": $scope.finding.hallazgo,
           "findingUrl": $window.location.href,
-          "findingVulns": $scope.finding.cardinalidad,
-          "project": $scope.finding.proyecto_fluid,
+          "findingVulns": $scope.finding.openVulnerabilities,
+          "project": $scope.finding.fluid_project,
           "userMail": userEmail
         };
         $uibModal.open({
@@ -192,15 +192,15 @@ angular.module("FluidIntegrates").factory(
 
       "loadFindingContent" ($scope) {
         $scope.aux = {};
-        $scope.aux.tratamiento = $scope.finding.tratamiento;
+        $scope.aux.treatment = $scope.finding.treatment;
         $scope.aux.razon = $scope.finding.razonTratamiento;
-        $scope.aux.cardinalidad = $scope.finding.cardinalidad;
+        $scope.aux.openVulnerabilities = $scope.finding.openVulnerabilities;
         $scope.hasCompromisedAttributes = true;
         const defineStates = function defineStates () {
           if (angular.isUndefined($scope.finding.registros)) {
             $scope.hasCompromisedAttributes = false;
           }
-          if ($scope.finding.tratamiento === "Asumido") {
+          if ($scope.finding.treatment === "Asumido") {
             $scope.isAssumed = true;
           }
           else {
@@ -231,16 +231,16 @@ angular.module("FluidIntegrates").factory(
         $scope.aux.responsable = $scope.finding.responsableTratamiento;
         $scope.aux.bts = $scope.finding.btsExterno;
         $scope.severityInfo = {
-          "autenticacion": $scope.finding.autenticacion,
-          "complejidadAcceso": $scope.finding.complejidadAcceso,
-          "explotabilidad": $scope.finding.explotabilidad,
+          "accessComplexity": $scope.finding.accessComplexity,
+          "accessVector": $scope.finding.accessVector,
+          "authentication": $scope.finding.authentication,
+          "availabilityImpact": $scope.finding.availabilityImpact,
+          "confidenceLevel": $scope.finding.confidenceLevel,
+          "confidentialityImpact": $scope.finding.confidentialityImpact,
+          "exploitability": $scope.finding.exploitability,
           "id": $scope.finding.id,
-          "impactoConfidencialidad": $scope.finding.impactoConfidencialidad,
-          "impactoDisponibilidad": $scope.finding.impactoDisponibilidad,
-          "impactoIntegridad": $scope.finding.impactoIntegridad,
-          "nivelConfianza": $scope.finding.nivelConfianza,
-          "nivelResolucion": $scope.finding.nivelResolucion,
-          "vectorAcceso": $scope.finding.vectorAcceso
+          "integrityImpact": $scope.finding.integrityImpact,
+          "resolutionLevel": $scope.finding.resolutionLevel
         };
         $scope.descripcionInfo = {
           "actor": $scope.finding.actor,
@@ -369,8 +369,8 @@ angular.module("FluidIntegrates").factory(
       // Get actual data
         const descData = {
           "actor": $scope.descripcionInfo.actor,
+          "affectedSystems": $scope.finding.affectedSystems,
           "amenaza": $scope.finding.amenaza,
-          "cardinalidad": $scope.finding.cardinalidad,
           "categoria": $scope.finding.categoria,
           "cwe": $scope.finding.cwe,
           "donde": $scope.finding.donde,
@@ -378,18 +378,19 @@ angular.module("FluidIntegrates").factory(
           "hallazgo": $scope.finding.hallazgo,
           "id": $scope.finding.id,
           "nivel": $scope.finding.nivel,
+          "openVulnerabilities": $scope.finding.openVulnerabilities,
           "probabilidad": $scope.finding.probabilidad,
           "registros": $scope.finding.registros,
           "registros_num": $scope.finding.registros_num,
           "requisitos": $scope.finding.requisitos,
-          "severidad": $scope.finding.severidad,
-          "sistema_comprometido": $scope.finding.sistema_comprometido,
+          "riskValue": $scope.finding.riskValue,
+          "severity": $scope.finding.severity,
           "solucion_efecto": $scope.finding.solucion_efecto,
-          "valorRiesgo": $scope.finding.valorRiesgo,
           "vector_ataque": $scope.finding.vector_ataque,
           "vulnerabilidad": $scope.finding.vulnerabilidad
         };
-        if ($scope.aux.cardinalidad !== $scope.finding.cardinalidad) {
+        if ($scope.aux.openVulnerabilities !==
+            $scope.finding.openVulnerabilities) {
           const todayDate = new Date();
           const NEW_LIST_LIMIT = 10;
           descData.ultimaVulnerabilidad =
@@ -397,7 +398,7 @@ angular.module("FluidIntegrates").factory(
         }
         if (descData.nivel === "Detallado") {
         // Recalculate severity
-          const severityInfo = functionsFtry1.findingCalculateSeveridad();
+          const severityInfo = functionsFtry1.calculateFindingSeverity();
           const choose = severityInfo[0];
           if (!choose) {
             Rollbar.error("Error: An error occurred calculating severity");

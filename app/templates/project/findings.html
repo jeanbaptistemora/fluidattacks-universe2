@@ -37,7 +37,7 @@
     </div>
     <div class="modal-body" id="modal-body">
         <ul style="list-style: none;">
-            <li ng-repeat="r in rows"> - {% templatetag openvariable %} 'progress_mod.finding' | translate {% templatetag closevariable %} #<a href="{% templatetag openvariable %} r.link {% templatetag closevariable %}">{% templatetag openvariable %} r.id {% templatetag closevariable %}</a>:&nbsp;[{% templatetag openvariable %} r.criticidad {% templatetag closevariable %}&nbsp;CVSS]&nbsp;{% templatetag openvariable %} r.hallazgo {% templatetag closevariable %}&nbsp;({% templatetag openvariable %} r.cardinalidad {% templatetag closevariable %})&nbsp;->&nbsp;[{% templatetag openvariable %} r.registros_num {% templatetag closevariable %},&nbsp;{% templatetag openvariable %} r.atributos {% templatetag closevariable %}]
+            <li ng-repeat="r in rows"> - {% templatetag openvariable %} 'progress_mod.finding' | translate {% templatetag closevariable %} #<a href="{% templatetag openvariable %} r.link {% templatetag closevariable %}">{% templatetag openvariable %} r.id {% templatetag closevariable %}</a>:&nbsp;[{% templatetag openvariable %} r.criticity {% templatetag closevariable %}&nbsp;CVSS]&nbsp;{% templatetag openvariable %} r.hallazgo {% templatetag closevariable %}&nbsp;({% templatetag openvariable %} r.openVulnerabilities {% templatetag closevariable %})&nbsp;->&nbsp;[{% templatetag openvariable %} r.registros_num {% templatetag closevariable %},&nbsp;{% templatetag openvariable %} r.atributos {% templatetag closevariable %}]
         </ul>
         <br>
         <ul style="list-style: none;">
@@ -180,16 +180,16 @@
                                         <th data-field="vulnerabilidad" data-width="40%" style="display:none;" class="result_table_col" data-halign="center" data-valign="middle">
                                             {{ search_findings.headings.vulnerability }}
                                         </th>
-                                        <th data-field="criticidad" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
+                                        <th data-field="criticity" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
                                             {{ search_findings.headings.criticity }}
                                         </th>
-                                        <th data-field="cardinalidad" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
+                                        <th data-field="openVulnerabilities" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
                                             {{ search_findings.headings.cardinality }}
                                         </th>
                                         <th data-field="estado" data-width="5%" data-sortable="true" data-formatter="labelState" class="result_table_col" data-halign="center" data-valign="middle">
                                             {{ search_findings.headings.state }}
                                         </th>
-                                        <th data-field="tratamiento" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
+                                        <th data-field="treatment" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
                                             {{ search_findings.headings.treatment }}
                                         </th>
                                         <th data-field="explotable" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">

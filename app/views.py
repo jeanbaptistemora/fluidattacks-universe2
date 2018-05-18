@@ -401,7 +401,7 @@ def get_eventualities(request):
         for row in frmset:
             submission = api.get_submission(row["id"])
             evtset = evt_dto.parse(row["id"], submission)
-            if evtset['proyecto_fluid'].lower() == project.lower():
+            if evtset['fluid_project'].lower() == project.lower():
                 dataset.append(evtset)
         return util.response(dataset, 'Success', False)
     elif category == "ID":
@@ -462,7 +462,7 @@ def get_findings(request):
         if finding['vulnerabilidad'].lower() == 'masked':
             rollbar.report_message('Warning: Project masked', 'warning', request)
             return util.response([], 'Project masked', True)
-        if finding['proyecto_fluid'].lower() == project.lower():
+        if finding['fluid_project'].lower() == project.lower():
             findings.append(finding)
     import json
     with open("/tmp/"+project+".txt", "w") as f:
@@ -482,7 +482,7 @@ def catch_finding(request, submission_id):
             api.get_submission(submission_id),
             request
         )
-        if not has_access_to_project(username, finding['proyecto_fluid']):
+        if not has_access_to_project(username, finding['fluid_project']):
             rollbar.report_message('Error: Access to project denied', 'error', request)
             return None
         else:
@@ -495,9 +495,9 @@ def catch_finding(request, submission_id):
                 state = closingset
             finding["estado"] = state["estado"]
             finding["cierres"] = findingcloseset
-            finding['cardinalidad_total'] = finding['cardinalidad']
+            finding['cardinalidad_total'] = finding['openVulnerabilities']
             if 'abiertas' in state:
-                finding['cardinalidad'] = state['abiertas']
+                finding['openVulnerabilities'] = state['abiertas']
             if 'abiertas_cuales' in state:
                 finding['donde'] = state['abiertas_cuales']
             else:
@@ -557,9 +557,9 @@ def finding_vulnerabilities(submission_id):
             state = closingset
         finding["estado"] = state["estado"]
         finding["cierres"] = findingcloseset
-        finding['cardinalidad_total'] = finding['cardinalidad']
+        finding['cardinalidad_total'] = finding['openVulnerabilities']
         if 'abiertas' in state:
-            finding['cardinalidad'] = state['abiertas']
+            finding['openVulnerabilities'] = state['abiertas']
         else:
             if state['estado'] == 'Cerrado':
                 finding['donde'] = '-'
@@ -948,7 +948,7 @@ def get_myevents(request):
         for evtsub in frmset:
             submission = api.get_submission(evtsub["id"])
             evtset = evt_dto.parse(evtsub["id"], submission)
-            if evtset['proyecto_fluid'].lower() == project.lower():
+            if evtset['fluid_project'].lower() == project.lower():
                 if evtset['estado'] == "Pendiente":
                     dataset.append(evtset)
     return util.response(dataset, 'Success', False)
@@ -1035,7 +1035,7 @@ def update_eventuality(request):
     try:
         generic_dto = EventualityDTO()
         generic_dto.create(parameters)
-        if not parameters["vuln[afectacion]"].isdigit():
+        if not parameters["vuln[affectation]"].isdigit():
             rollbar.report_message('Error: Affectation can not be a negative number', 'error', request)
             return util.response([], 'Afectacion negativa', True)
         api = FormstackAPI()
@@ -1062,7 +1062,7 @@ def delete_finding(request):
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq, request)
-        context["project"] = finding["proyecto_fluid"]
+        context["project"] = finding["fluid_project"]
         context["name_finding"] = finding["hallazgo"]
         result = api.delete_submission(submission_id)
         if result is None:
