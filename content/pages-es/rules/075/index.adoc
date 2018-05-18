@@ -52,6 +52,7 @@ puede causar los mismos problemas (+CWE-779+).
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-opm/[Registrar Excepciones OPM].
 . +Exchange 2010+ link:../../defends/exchange/activar-bitacoras-smtp/[Activar Bitácoras de Conectores SMTP].
+. +GlassFish+ link:../../defends/glassfish/configurar-bitacoras/[Configurar Bitácoras].
 . +Programación+ link:../../defends/programacion/bitacoras-cond/[Generar Bitácoras Condicionales].
 . +RPG+ link:../../defends/rpg/manejo-bitacoras/[Definir Manejo de Bitácoras].
 . +Scala+ link:../../defends/scala/registrar-eventos-bitacoras/[Registrar Eventos en Bitácoras].
