@@ -161,8 +161,8 @@ deploy_terraform:
             git clone https://github.com/checkr/s3-sync.git
             fi
     - if [ -n "${NEW_DEPLOY}" ]; then
-            sh create-config.sh && cd s3-sync && 
-            go run main.go sync --config ./config-prod.yaml
+            sh create-config.sh && cd s3-sync && \
+            go run main.go sync --config ./config-prod.yaml;
             fi
   after_script:
     - aws s3 cp
