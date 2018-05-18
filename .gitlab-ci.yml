@@ -31,6 +31,7 @@ codequality:
     paths: [codeclimate.json]
 
 stages:
+  - deps
   - build
   - test
   - deploy
@@ -38,11 +39,11 @@ stages:
   - dns
 
 build_base:
-  stage: build
+  stage: deps
   script:
     - sh containers/base/build.sh
     - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/base/dev:$CI_COMMIT_SHA"
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base"
   except:
     - master
 
@@ -94,16 +95,11 @@ test_terraform:
     - terraform init
     - tflint --var-file="vars/aws.tfvars"
     - terraform plan -var-file="vars/aws.tfvars"
-  environment:
-    name: "development/$CI_COMMIT_REF_SLUG"
-    on_stop: tag-production
   except:
     - master
 
 tag-production:
-  stage: test
-  variables:
-    GIT_STRATEGY: none
+  stage: deploy
   before_script:
     - echo "$DOCKER_PASS" |
         docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
@@ -113,27 +109,23 @@ tag-production:
     - docker tag
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg/dev:$CI_COMMIT_SHA"
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg:master"
-    - docker pull
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
-    - docker tag
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams:master"
-    - docker pull
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
-    - docker tag
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn:master"
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg:master"
-    - docker push
+    - docker pull
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
+    - docker tag
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams:master"
     - docker push
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams:master"
+    - docker pull
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
+    - docker tag
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn:master"
-  when: manual
-  environment:
-    name: "development/$CI_COMMIT_REF_SLUG"
-    action: stop
-  except:
+    - docker push
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn:master"
+  only:
     - master
 
 deploy_terraform:
@@ -174,7 +166,7 @@ deploy_terraform:
   artifacts:
     paths:
       - infrastructure/ip.txt
-    expire_in: 10 mins
+    expire_in: 12 hrs
     when: on_success
   only:
     - master

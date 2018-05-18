@@ -16,6 +16,6 @@ echo "---### [${SERVER}] Compilando contenedor."
 # construir la imagen
 cp /tmp/.vault.txt containers/${SERVER}/
 docker build --no-cache \
-	-t registry.gitlab.com/fluidsignal/serves/vpn/dev:${CI_COMMIT_SHA} \
+	-t "registry.gitlab.com/fluidsignal/serves/vpn/dev:$CI_COMMIT_SHA" \
 	containers/${SERVER}
 rm containers/${SERVER}/.vault.txt
