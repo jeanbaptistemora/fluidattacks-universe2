@@ -8,8 +8,7 @@
  * @file login.js
  */
 /*
- *  Seleccion de rutas absolutas para el direccionamiento
- *  de integrates
+ *  Set absolute route for Integrates.
  */
 const BASE = {
   "development": "/",
@@ -20,7 +19,7 @@ BASE.url = BASE.production;
 if (window.location.pathname.indexOf("/integrates") === -1) {
   BASE.url = BASE.development;
 }
-// Definicion de modulos
+// Module definition
 angular.module("FluidIntegrates", [
   "ngSanitize",
   "pascalprecht.translate"
@@ -70,7 +69,7 @@ angular.module("FluidIntegrates").config([
 ]);
 
 /*
- * MixPanel localhost Fixer
+ * MixPanel localhost fixer
  */
 angular.module("FluidIntegrates").isProduction = function isProduction () {
   // eslint-disable-next-line angular/window-service
@@ -78,7 +77,7 @@ angular.module("FluidIntegrates").isProduction = function isProduction () {
 };
 
 /**
- * Crea el controlador de la funcionalidad de autenticacion
+ * Controller definition for the login view.
  * @name loginCtrl
  * @param {Object} $scope
  * @param {integrates.loginFactory} loginFactory
@@ -116,7 +115,7 @@ angular.module("FluidIntegrates").controller(
     });
 
     /**
-     * Autentica a un usuario
+     * User authentication.
      * @function login
      * @return {undefined}
      */

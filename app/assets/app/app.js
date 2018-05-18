@@ -14,7 +14,7 @@ translations1, traducciones1, translations2, traducciones2
  * @author engineering@fluidattacks.com
  */
 /*
- * Establece la ruta principal para las peticiones ajax
+ * Set main route for ajax requests.
  */
 const BASE = {
   "development": "/",
@@ -59,7 +59,7 @@ $msg.warning = function warning (text, title) {
 };
 
 /**
- * Crea integrates como una aplicacion de angular
+ * Set Integrates as an Angular app.
  * @module {AngularJS} FluidIntegrates
  */
 angular.module("FluidIntegrates", [
@@ -91,7 +91,7 @@ angular.module("FluidIntegrates").config([
 ]);
 
 /**
- * Establece la configuracion de las traducciones de integrates
+ * Configuration for the translation function in Integrates.
  * @name config
  * @config {AngularJS}
  * @param {Object} $translateProvider Angular translator dependecy

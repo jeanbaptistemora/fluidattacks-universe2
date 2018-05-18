@@ -9,7 +9,7 @@
 const mixPanelDashboard = {};
 
 /*
- * MixPanel localhost Fixer
+ * MixPanel localhost fixer
  */
 let result = false;
 const noneInt = -1;

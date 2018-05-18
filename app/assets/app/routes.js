@@ -2,13 +2,12 @@
 /* eslint-disable angular/component-limit*/
 /* globals integrates, BASE, angular, $ */
 
-
 /**
  * @file routes.js
  * @author engineering@fluidattacks.com
  */
 /**
- * Establece la configuracion de las rutas para integrates
+ * Configuration for Integrates routes.
  * @config {AngularJS}
  * @param {Object} $stateProvider
  * @param {Object} $urlRouterProvider

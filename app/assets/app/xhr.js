@@ -2,7 +2,7 @@
 'use strict'
 /* Angular JQuery Sync */
 /**
- * Obtiene una cookie a traves de su nombre
+ * Get cookies by name.
  * @function getCookie
  * @param {string} name Cookie name
  * @return {null|string} Return the cookies of a previous session
@@ -23,7 +23,7 @@ const getCookie = function getCookie (name) {
 };
 
 /**
- * Verifica el metodo por el cual se va a enviar una peticion de cookie
+ * Verify the send method of cookie request.
  * @function csrfSafeMethod
  * @param {String} method Request method for get cookies
  * @return {boolean} Return boolean if request method is valid
@@ -33,7 +33,7 @@ const csrfSafeMethod = function csrfSafeMethod (method) {
 };
 
 /**
- * Verifica si la url dada esta dentro del mismo dominio
+ * Verify if the url is in Integrates domain.
  * @function sameOrigin
  * @param {string} url User actual url
  * @return {boolean} Boolean response if user actual url is valid
@@ -49,7 +49,7 @@ const sameOrigin = function sameOrigin (url) {
 };
 
 /**
- * Agrega la cookie de CSRF a todas las peticiones ajax de la aplicacion
+ * Add the CSRF cookie to all ajax requests.
  * @function ajaxConfig
  * @return {undefined}
  */
