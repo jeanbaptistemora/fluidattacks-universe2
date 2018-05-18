@@ -110,7 +110,7 @@
     {{fin['donde'].lstrip() + "\n"}}
 ==== {{evidence_title}}
 {% for evi in fin['evidence_set'] %}
-{{evi['explicacion'] + "\n"}}
+{{evi['explanation'] + "\n"}}
 {{evi['name']+"\n"}}
 <<<
 {% endfor %}

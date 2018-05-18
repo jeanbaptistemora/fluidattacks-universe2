@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-    Funciones de utilidad para FluidIntegrates
-"""
+""" FluidIntegrates auxiliar functions. """
 import re
 import os
 import datetime
@@ -14,7 +12,7 @@ from django.http import JsonResponse
 
 
 def response(data, message, error):
-    "Crea un objeto para enviar respuestas genericas"
+    """ Create an object to send generic answers """
     response_data = {}
     response_data['data'] = data
     response_data['message'] = message
@@ -23,8 +21,8 @@ def response(data, message, error):
 
 
 def traceability(msg, user):
-    """ Funcion para llevar un log de acciones personalizadas \
-        independientes de logging """
+    """ Function to create a customizable actions log
+        independent of the traditional log. """
     file_obj = None
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     try:
@@ -39,8 +37,7 @@ def traceability(msg, user):
 
 
 def is_name(name):
-    """ Verifica que un parametro tenga el formato
-        de nombre adecuado """
+    """ Verify that a parameter has the appropriate name format. """
     valid = True
     try:
         if not name:
@@ -55,8 +52,7 @@ def is_name(name):
 
 
 def is_numeric(name):
-    """ Verifica que un parametro tenga el formato
-        de numero adecuado """
+    """ Verify that a parameter has the appropriate number format. """
     valid = True
     try:
         if not name:
@@ -71,7 +67,7 @@ def is_numeric(name):
 
 
 def is_json(data):
-    """ Verifica si el parametro dado es un json """
+    """ Check if the given parameter is a json """
     valid = True
     try:
         json.loads(data)
@@ -83,7 +79,7 @@ def is_json(data):
 
 
 def ord_asc_by_criticidad(data):
-    """ Ordena los hallazgos por criticity """
+    """ Sort the findings by criticality """
     for i in range(0, len(data)-1):
         for j in range(i+1, len(data)):
             firstc = float(data[i]["criticity"])
@@ -96,7 +92,7 @@ def ord_asc_by_criticidad(data):
 
 
 def drive_url_filter(drive):
-    """ Obtiene el ID de la imagen de drive """
+    """ Gets the ID of an image stored on Google Drive """
     if(drive.find("id=") != -1):
         new_url = drive.split("id=")[1]
         if(new_url.find("&") != -1):
@@ -113,80 +109,80 @@ def get_hmac(request):
 
 def get_evidence_set(finding):
     evidence_set = []
-    if "ruta_evidencia_1" in finding and \
-        "desc_evidencia_1" in finding:
+    if "evidence_route_1" in finding and \
+        "evidence_description_1" in finding:
         evidence_set.append({
-            "id": finding["ruta_evidencia_1"],
-            "explicacion": finding["desc_evidencia_1"].capitalize()
+            "id": finding["evidence_route_1"],
+            "explanation": finding["evidence_description_1"].capitalize()
         })
-    if "ruta_evidencia_2" in finding and \
-        "desc_evidencia_2" in finding:
+    if "evidence_route_2" in finding and \
+        "evidence_description_2" in finding:
         evidence_set.append({
-            "id": finding["ruta_evidencia_2"],
-            "explicacion": finding["desc_evidencia_2"].capitalize()
+            "id": finding["evidence_route_2"],
+            "explanation": finding["evidence_description_2"].capitalize()
         })
-    if "ruta_evidencia_3" in finding and \
-        "desc_evidencia_3" in finding:
+    if "evidence_route_3" in finding and \
+        "evidence_description_3" in finding:
         evidence_set.append({
-            "id": finding["ruta_evidencia_3"],
-            "explicacion": finding["desc_evidencia_3"].capitalize()
+            "id": finding["evidence_route_3"],
+            "explanation": finding["evidence_description_3"].capitalize()
         })
-    if "ruta_evidencia_4" in finding and \
-        "desc_evidencia_4" in finding:
+    if "evidence_route_4" in finding and \
+        "evidence_description_4" in finding:
         evidence_set.append({
-            "id": finding["ruta_evidencia_4"],
-            "explicacion": finding["desc_evidencia_4"].capitalize()
+            "id": finding["evidence_route_4"],
+            "explanation": finding["evidence_description_4"].capitalize()
         })
-    if "ruta_evidencia_5" in finding and \
-        "desc_evidencia_5" in finding:
+    if "evidence_route_5" in finding and \
+        "evidence_description_5" in finding:
         evidence_set.append({
-            "id": finding["ruta_evidencia_5"],
-            "explicacion": finding["desc_evidencia_5"].capitalize()
+            "id": finding["evidence_route_5"],
+            "explanation": finding["evidence_description_5"].capitalize()
         })
     return evidence_set
 
 def get_evidence_set_s3(finding, key_list, field_list):
     evidence_set = []
     for k in key_list:
-        ruta_evidencia_1 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_1 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[0]
-        if "desc_evidencia_1" in finding and \
-            ruta_evidencia_1 in k:
+        if "evidence_description_1" in finding and \
+            evidence_route_1 in k:
             evidence_set.append({
                 "id": k.split("/")[1],
-                "explicacion": finding["desc_evidencia_1"].capitalize()
+                "explanation": finding["evidence_description_1"].capitalize()
             })
-        ruta_evidencia_2 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_2 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[1]
-        if "desc_evidencia_2" in finding and \
-            ruta_evidencia_2 in k:
+        if "evidence_description_2" in finding and \
+            evidence_route_2 in k:
             evidence_set.append({
                 "id":  k.split("/")[1],
-                "explicacion": finding["desc_evidencia_2"].capitalize()
+                "explanation": finding["evidence_description_2"].capitalize()
             })
-        ruta_evidencia_3 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_3 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[2]
-        if "desc_evidencia_3" in finding and \
-            ruta_evidencia_3 in finding:
+        if "evidence_description_3" in finding and \
+            evidence_route_3 in finding:
             evidence_set.append({
                 "id": k.split("/")[1],
-                "explicacion": finding["desc_evidencia_3"].capitalize()
+                "explanation": finding["evidence_description_3"].capitalize()
             })
-        ruta_evidencia_4 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_4 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[3]
-        if "desc_evidencia_4" in finding and \
-            ruta_evidencia_4 in finding:
+        if "evidence_description_4" in finding and \
+            evidence_route_4 in finding:
             evidence_set.append({
                 "id":  k.split("/")[1],
-                "explicacion": finding["desc_evidencia_4"].capitalize()
+                "explanation": finding["evidence_description_4"].capitalize()
             })
-        ruta_evidencia_5 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_5 = finding['id'] + "/" + finding['fluid_project'].lower() \
                             + "-" + finding['id'] + "-" + field_list[4]
-        if "desc_evidencia_5" in finding and \
-            ruta_evidencia_5 in finding:
+        if "evidence_description_5" in finding and \
+            evidence_route_5 in finding:
             evidence_set.append({
                 "id":  k.split("/")[1],
-                "explicacion": finding["desc_evidencia_5"].capitalize()
+                "explanation": finding["evidence_description_5"].capitalize()
             })
     return evidence_set
 

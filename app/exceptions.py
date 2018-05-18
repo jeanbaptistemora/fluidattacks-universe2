@@ -1,26 +1,26 @@
 """
-    Implementacion de excepciones personalizadas para FluidIntegrates
+    Implementation of custom exceptions for FluidIntegrates
 """
 
 
 class SecureAccessException(Exception):
-    """Excepcion que controla el acceso a recursos con authentication."""
+    """ Exception that controls access to resources with authentication. """
     def __init__(self):
         """ Constructor """
-        msg = "Excepcion - Acceso a recursos sin sesion activa"
+        msg = "Exception - Access to resources without active session"
         super(SecureAccessException, self).__init__(msg)
 
 
 class SecureParamsException(Exception):
-    """ Excepcion para controlar la validacion de parametros """
+    """ Exception to control parameter validation """
     def __init__(self):
         """ Constructor """
-        msg = "Excepcion - Parametros incorrectos o faltantes"
+        msg = "Exception - Incorrect or missing parameters"
         super(SecureParamsException, self).__init__(msg)
 
 
 class APIConnectionException(Exception):
-    """ Excepcion para controlar la comunicacion con el backend """
+    """ Exception to control communication with the backend. """
     def __init__(self):
         """ Constructor """
         msg = "Excepcion - Error de conexion con el servidor"
@@ -28,13 +28,13 @@ class APIConnectionException(Exception):
 
 
 class LogicException(Exception):
-    """ Excepcion para controlar errores logicos generales """
+    """ Exception to control general logical errors """
     def __init__(self, code=99):
         """ Constructor """
         if code == 100:
-            msg = "E100 - Usuario/incorrectos clave son obligatorios"
+            msg = "E100 - Username or Password is incorrect"
         elif code == 101:
-            msg = "E101 - Otro"
+            msg = "E101 - Other"
         else:
-            msg = "E102 - Error inesperado"
+            msg = "E102 - Unexpected error"
         super(LogicException, self).__init__(msg)

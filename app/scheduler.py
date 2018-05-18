@@ -1,4 +1,4 @@
-""" Scheduler de ejecucion de tareas asincronicas de FLUIDIntegrates """
+""" Asynchronous task execution scheduler for FLUIDIntegrates """
 
 # pylint: disable=E0402
 import rollbar
@@ -10,7 +10,7 @@ from . import views
 from datetime import datetime, timedelta
 
 def get_new_vulnerabilities():
-    """ Envio de correo resumen con los hallazgos de un proyecto """
+    """ Summary mail send with the findings of a project. """
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
@@ -60,7 +60,7 @@ def get_new_vulnerabilities():
             rollbar.report_message('Error: An error ocurred sending age notification email', 'error')
 
 def get_remediated_findings():
-    """ Envio de correo resumen con los hallazgos pendientes de verificar """
+    """ Summary mail send with findings that have not been verified yet. """
     findings = integrates_dao.get_remediated_allfindings_dynamo(True)
     if findings != []:
         to = ['continuous@fluidattacks.com']

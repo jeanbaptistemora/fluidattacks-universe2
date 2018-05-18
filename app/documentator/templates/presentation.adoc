@@ -177,7 +177,7 @@ image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=
 image::../resources/presentation_theme/t_evidencia_es.png[width=400]
 
 {% for evi in findings[i]['evidence_set'] %}
-{{evi['explicacion'] + "\n"}}
+{{evi['explanation'] + "\n"}}
 {{evi['name']+"\n"}}
 <<<
 {% endfor %}

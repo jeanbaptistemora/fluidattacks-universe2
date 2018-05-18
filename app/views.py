@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Vistas y servicios para FluidIntegrates """
+""" Views and services for FluidIntegrates """
 
 from __future__ import absolute_import
 import os
@@ -49,19 +49,19 @@ bucket_s3 = FI_AWS_S3_BUCKET
 
 @never_cache
 def index(request):
-    "Vista de login para usuarios no autenticados"
+    "Login view for unauthenticated users"
     parameters = {}
     return render(request, "index.html", parameters)
 
 
 def error500(request):
-    "Vista de error"
+    "Internal server error view"
     parameters = {}
     return render(request, "HTTP500.html", parameters)
 
 
 def error401(request):
-    "Vista de error"
+    "Unauthorized error view"
     parameters = {}
     return render(request, "HTTP401.html", parameters)
 
@@ -69,19 +69,19 @@ def error401(request):
 @authenticate
 @authorize(['analyst'])
 def forms(request):
-    "Vista de formularios para analistas"
+    "Forms view"
     return render(request, "forms.html")
 
 @never_cache
 @authenticate
 def project_indicators(request):
-    "Vista de indicadores"
+    "Indicators view"
     return render(request, "project/indicators.html")
 
 @never_cache
 @authenticate
 def project_findings(request):
-    "Vista de projectos"
+    "Project view"
     language = request.GET.get('l', 'en')
     dicLang = {
         "search_findings": {
@@ -143,7 +143,7 @@ def project_findings(request):
 @never_cache
 @authenticate
 def project_events(request):
-    "Vista de eventualidades"
+    "eventualities view"
     language = request.GET.get('l', 'en')
     dicLang = {
         "search_findings": {
@@ -190,7 +190,7 @@ def project_events(request):
 @never_cache
 @authenticate
 def registration(request):
-    "Vista de registro para usuarios autenticados"
+    "Registry view for authenticated users"
     try:
         parameters = {
             'username': request.session["username"],
@@ -205,7 +205,7 @@ def registration(request):
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def dashboard(request):
-    "Vista de panel de control para usuarios autenticados"
+    "View of control panel for authenticated users"
     try:
         parameters = {
             'username': request.session["username"],
@@ -222,7 +222,7 @@ def dashboard(request):
 @csrf_exempt
 @authenticate
 def logout(request):
-    "Cierra la sesion activa de un usuario"
+    "Close a user's active session"
 
     HttpResponse("<script>Intercom('shutdown');</script>")
     try:
@@ -237,7 +237,7 @@ def logout(request):
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def project_to_xls(request, lang, project):
-    "Crea el reporte tecnico"
+    "Create the technical report"
     findings = []
     detail = {
         "content_type": "application/vnd.openxmlformats\
@@ -287,7 +287,7 @@ def validation_project_to_pdf(request, lang, project, doctype):
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def project_to_pdf(request, lang, project, doctype):
-    "Exporta un hallazgo a PDF"
+    "Export a project to a PDF"
     findings = []
     user = request.session['username'].split("@")[0]
     validator = validation_project_to_pdf(request, lang, project, doctype)
@@ -382,7 +382,7 @@ def get_project_info(project):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer'])
 def get_eventualities(request):
-    "Obtiene las eventualidades con el nombre del proyecto."
+    "Get the eventualities of a project."
     project = request.GET.get('project', None)
     category = request.GET.get('category', None)
     username = request.session['username']
@@ -444,8 +444,7 @@ def get_finding(request):
 # pylint: disable=R0912
 # pylint: disable=R0914
 def get_findings(request):
-    """Captura y procesa el nombre de un proyecto para devolver
-    los hallazgos."""
+    """Capture and process the name of a project to return the findings."""
     project = request.GET.get('project', "")
     username = request.session['username']
     api = FormstackAPI()
@@ -657,9 +656,9 @@ def update_evidences_files(request):
         mime_type = mime.from_buffer(upload.file.getvalue())
     fieldNum = FindingDTO()
     fieldname = [['animacion', fieldNum.ANIMATION], ['explotacion', fieldNum.EXPLOTATION], \
-                ['ruta_evidencia_1', fieldNum.DOC_ACHV1], ['ruta_evidencia_2', fieldNum.DOC_ACHV2], \
-                ['ruta_evidencia_3', fieldNum.DOC_ACHV3], ['ruta_evidencia_4', fieldNum.DOC_ACHV4], \
-                ['ruta_evidencia_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT], \
+                ['evidence_route_1', fieldNum.DOC_ACHV1], ['evidence_route_2', fieldNum.DOC_ACHV2], \
+                ['evidence_route_3', fieldNum.DOC_ACHV3], ['evidence_route_4', fieldNum.DOC_ACHV4], \
+                ['evidence_route_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT], \
                 ['registros_archivo', fieldNum.REG_FILE]]
     if mime_type == "image/gif" and parameters["id"] == '0':
         if upload.size > 10485760:
@@ -761,24 +760,24 @@ def migrate_all_files(parameters, request):
             send_file_to_s3(finding["explotacion"], parameters, fin_dto.EXPLOTATION, "explotacion", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV1
         folder = key_existing_list(filename)
-        if "ruta_evidencia_1" in finding and parameters["id"] != '2' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_1"], parameters, fin_dto.DOC_ACHV1, "ruta_evidencia_1", ".png")
+        if "evidence_route_1" in finding and parameters["id"] != '2' and not folder:
+            send_file_to_s3(finding["evidence_route_1"], parameters, fin_dto.DOC_ACHV1, "evidence_route_1", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV2
         folder = key_existing_list(filename)
-        if "ruta_evidencia_2" in finding and parameters["id"] != '3' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_2"], parameters, fin_dto.DOC_ACHV2, "ruta_evidencia_2", ".png")
+        if "evidence_route_2" in finding and parameters["id"] != '3' and not folder:
+            send_file_to_s3(finding["evidence_route_2"], parameters, fin_dto.DOC_ACHV2, "evidence_route_2", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV3
         folder = key_existing_list(filename)
-        if "ruta_evidencia_3" in finding and parameters["id"] != '4' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_3"], parameters, fin_dto.DOC_ACHV3, "ruta_evidencia_3", ".png")
+        if "evidence_route_3" in finding and parameters["id"] != '4' and not folder:
+            send_file_to_s3(finding["evidence_route_3"], parameters, fin_dto.DOC_ACHV3, "evidence_route_3", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV4
         folder = key_existing_list(filename)
-        if "ruta_evidencia_4" in finding and parameters["id"] != '5' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_4"], parameters, fin_dto.DOC_ACHV4, "ruta_evidencia_4", ".png")
+        if "evidence_route_4" in finding and parameters["id"] != '5' and not folder:
+            send_file_to_s3(finding["evidence_route_4"], parameters, fin_dto.DOC_ACHV4, "evidence_route_4", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV5
         folder = key_existing_list(filename)
-        if "ruta_evidencia_5" in finding and parameters["id"] != '6' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_5"], parameters, fin_dto.DOC_ACHV5, "ruta_evidencia_5", ".png")
+        if "evidence_route_5" in finding and parameters["id"] != '6' and not folder:
+            send_file_to_s3(finding["evidence_route_5"], parameters, fin_dto.DOC_ACHV5, "evidence_route_5", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOIT
         folder = key_existing_list(filename)
         if "exploit" in finding and parameters["id"] != '7' and not folder:
@@ -1030,7 +1029,7 @@ def update_treatment(request):
 @require_http_methods(["POST"])
 @authorize(['analyst'])
 def update_eventuality(request):
-    "Actualiza una eventualidad asociada a un proyecto"
+    "Update an eventuality associated to a project"
     parameters = request.POST.dict()
     try:
         generic_dto = EventualityDTO()
@@ -1052,7 +1051,7 @@ def update_eventuality(request):
 @require_http_methods(["POST"])
 @authorize(['analyst'])
 def delete_finding(request):
-    """Captura y procesa el id de una eventualidad para eliminarla"""
+    """Capture and process the ID of an eventuality to eliminate it"""
     parameters = request.POST.dict()
     username = request.session['username']
     fin_dto = FindingDTO()
@@ -1079,7 +1078,7 @@ def delete_finding(request):
 @require_http_methods(["POST"])
 @authorize(['customer'])
 def finding_solved(request):
-    """ Envia un correo solicitando la revision de un hallazgo """
+    """ Send an email requesting the verification of a finding """
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
     remediated = integrates_dao.add_remediated_dynamo(int(parameters['data[findingId]']), True, parameters['data[project]'], parameters['data[findingName]'])
@@ -1112,7 +1111,7 @@ def finding_solved(request):
 @require_http_methods(["POST"])
 @authorize(['analyst'])
 def finding_verified(request):
-    """ Envia un correo informando que el hallazgo fue verificado """
+    """ Send an email notifying that the finding was verified """
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
     verified = integrates_dao.add_remediated_dynamo(int(parameters['data[findingId]']), False, parameters['data[project]'], parameters['data[findingName]'])

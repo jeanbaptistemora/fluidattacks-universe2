@@ -1,4 +1,4 @@
-"""Modulo de seguridad para FluidIntegrates."""
+"""Security module for FluidIntegrates."""
 
 # pylint: disable=E0402
 from .exceptions import SecureAccessException
@@ -8,17 +8,17 @@ import re
 
 
 class FilterManager(object):
-    """ Clase para administrar las entradas HTTP de Integrates."""
+    """ Class to manage the HTTP entries of Integrates. """
 
     def has_session(self, request):
-        """ Verifica si existe una sesion en el sistema"""
+        """ Check if there is an active session in the system. """
         if "username" not in request.session:
             raise SecureAccessException()
         if request.session["username"] is None:
             raise SecureAccessException()
 
     def post(self, request, key_name, required=True):
-        """Obtiene un parametro post validando si es obligatorio."""
+        """ Gets a POST parameter validating if it is required. """
         parameter = request.POST.get(key_name, "")
         if required:
             if parameter == "":
@@ -26,8 +26,7 @@ class FilterManager(object):
         return parameter
 
     def post_numeric(self, request, key_name, required=True):
-        """Verifica que un parametro tenga el formato de numero
-        adecuado."""
+        """ Verify the appropriate number format of a parameter. """
         value = self.post(request, key_name, required)
         if value.strip() == "":
             raise LogicException()
@@ -35,7 +34,7 @@ class FilterManager(object):
             raise LogicException("")
 
     def get(self, request, key_name, required=True):
-        """Obtiene un parametro post validando si es obligatorio."""
+        """ Gets a GET parameter validating if it is required. """
         parameter = request.GET.get(key_name, "")
         if required:
             if parameter == "":
@@ -43,5 +42,5 @@ class FilterManager(object):
         return parameter
 
     def error(self, code):
-        """Invoca la excepcion de errores generales."""
+        """ Invoke the exception of general errors. """
         raise LogicException(code)

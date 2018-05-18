@@ -5,39 +5,37 @@ from .api.formstack import FormstackAPI
 
 class FormstackAPITests(TestCase):
     def test_request(self):
-        """Realiza una peticion a formstack y verifica
-        que exista el key data en el json de respuesta."""
+        """ Make a request to formstack and verify that
+            the key data exists in the response json. """
         api_frms = FormstackAPI()
         url = "https://www.formstack.com/api/v2/submission/293276999.json"
         request = api_frms.request("GET", url)
         self.assertIs("data" in request, True)
 
     def test_get_submission(self):
-        """Prueba que se consulte correctamente una submission de
-        formstack."""
+        """ Check that Formstack correctly return a submission query. """
         api_frms = FormstackAPI()
         submission_id = "293276999"
         request = api_frms.get_submission(submission_id)
         self.assertEquals(request["id"], submission_id)
 
     def test_get_findings(self):
-        """Prueba que se consulte correctamente los hallazgos de un
-        proyecto."""
+        """ Check that Formstack correctly return the findings of a project. """
         api_frms = FormstackAPI()
         project = "basaiti"
         request = api_frms.get_findings(project)
         self.assertIs("submissions" in request, True)
 
     def test_get_eventualities(self):
-        """Prueba que se consulte correctamente las eventualidades de
-        un proyecto."""
+        """ Check that Formstack correctly return
+            the eventualities of a project. """
         api_frms = FormstackAPI()
         project = "basaiti"
         request = api_frms.get_eventualities(project)
         self.assertIs("submissions" in request, True)
 
     def test_update_eventuality(self):
-        """Actualiza la affectation de una eventualidad en Formstack."""
+        """Check that an eventuality update request works correctly."""
         api_frms = FormstackAPI()
         affectation = "0"
         submission_id = "244210431"

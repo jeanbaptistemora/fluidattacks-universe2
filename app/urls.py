@@ -1,6 +1,4 @@
-"""
-    Archivo para relacion de rutas entre consultas http y vistas de django
-"""
+""" File for linking routes between http queries and django views. """
 
 # pylint: disable=E0402
 from . import views

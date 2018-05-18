@@ -422,27 +422,27 @@ class FindingDTO(object):
                 self.data["total_evidencias"] = finding["value"]
             if finding["field"] == self.DOC_ACHV1:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["ruta_evidencia_1"] = filtered_url
+                self.data["evidence_route_1"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV2:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["ruta_evidencia_2"] = filtered_url
+                self.data["evidence_route_2"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV3:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["ruta_evidencia_3"] = filtered_url
+                self.data["evidence_route_3"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV4:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["ruta_evidencia_4"] = filtered_url
+                self.data["evidence_route_4"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV5:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["ruta_evidencia_5"] = filtered_url
+                self.data["evidence_route_5"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.ANIMATION:
@@ -466,15 +466,15 @@ class FindingDTO(object):
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_CMNT1:
-                self.data["desc_evidencia_1"] = finding["value"]
+                self.data["evidence_description_1"] = finding["value"]
             if finding["field"] == self.DOC_CMNT2:
-                self.data["desc_evidencia_2"] = finding["value"]
+                self.data["evidence_description_2"] = finding["value"]
             if finding["field"] == self.DOC_CMNT3:
-                self.data["desc_evidencia_3"] = finding["value"]
+                self.data["evidence_description_3"] = finding["value"]
             if finding["field"] == self.DOC_CMNT4:
-                self.data["desc_evidencia_4"] = finding["value"]
+                self.data["evidence_description_4"] = finding["value"]
             if finding["field"] == self.DOC_CMNT5:
-                self.data["desc_evidencia_5"] = finding["value"]
+                self.data["evidence_description_5"] = finding["value"]
             if finding["field"] == self.REG:
                 self.data["registros"] = finding["value"]
             if finding["field"] == self.REG_NUM:
