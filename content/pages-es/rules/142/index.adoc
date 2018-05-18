@@ -44,6 +44,11 @@ cada cierto tiempo para evitar el robo de estas.
 . Realizar auditorías periódicamente
 para detectar configuraciones incorrectas o parches faltantes.
 
+
+== Soluciones
+
+. +Windows Server 2012+ link:../../defends/windows-server/user-default/[Cambiar Usuarios Predeterminados].
+
 == Ataques
 
 . Ataques de fuerza bruta
