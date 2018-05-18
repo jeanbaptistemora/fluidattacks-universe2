@@ -2,7 +2,7 @@
 integrates, $, angular, $document
 */
 /**
- * Controlador de vista de formularios
+ * Controller definition for forms view.
  * @name formCtr
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -17,12 +17,12 @@ angular.module("FluidIntegrates").controller(
     $document,
     $location
   ) {
-    // Autocompletar formularios de formstack
+    // Autocomplete function for formstack forms
     const urlForm = $location.search();
     const urlLength = Object.keys(urlForm).length;
     const lengthUrl = 0;
     if (urlLength > lengthUrl && urlForm.autocomplete === "true") {
-      // Formulario de avance
+      // Progress Form
       angular.element("#ifrmProgress").on("load", () => {
         const iframe = $document.getElementById("ifrmProgress");
         const innerDoc = iframe.contentDocument ||

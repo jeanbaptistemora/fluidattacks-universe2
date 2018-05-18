@@ -15,7 +15,7 @@ keysToTranslate, desc:true, angular, $window */
  * @author engineering@fluidattacks.com
  */
 /**
- * Funciones para administrar el UI del resumen de un hallazgo
+ * Controller definition for finding tab content.
  * @name findingContentCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -315,7 +315,7 @@ findingContentCtrl (
     const projectName = $stateParams.project;
     const findingId = $stateParams.finding;
     $scope.userRole = userRole;
-    // Control para alternar los campos editables
+    // Flags for editable fields activation
     $scope.onlyReadableTab1 = true;
     $scope.onlyReadableTab2 = true;
     $scope.onlyReadableTab3 = true;
@@ -323,11 +323,11 @@ findingContentCtrl (
     $scope.onlyReadableTab5 = true;
     $scope.onlyReadableTab6 = true;
     $scope.isManager = userRole !== "customer";
-    // Defaults para cambiar vistas
+    // Default flags value for view visualization
     $scope.view = {};
     $scope.view.project = false;
     $scope.view.finding = false;
-    // Parametros de ruta
+    // Route parameters
     if (angular.isDefined(findingId)) {
       $scope.findingId = findingId;
     }
@@ -335,7 +335,7 @@ findingContentCtrl (
             projectName !== "") {
       $scope.project = projectName;
     }
-    // Inicializacion para consulta de hallazgos
+    // Initialization of search findings function
     $scope.configColorPalette();
     $scope.finding = {};
     $scope.finding.id = $stateParams.id;

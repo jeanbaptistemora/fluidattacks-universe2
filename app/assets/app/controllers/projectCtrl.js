@@ -1,5 +1,4 @@
-/* eslint no-magic-numbers:
-   ["error",{ "ignore": [-1,0,1] }]*/
+/* eslint no-magic-numbers: ["error",{ "ignore": [-1,0,1] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, win:true, window,
 nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
@@ -8,13 +7,12 @@ userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
 mixPanelDashboard, Organization, projectData:true, eventsData:true, i:true,
 angular
 */
-/* eslint-env node*/
 /**
  * @file ProjectCtrl.js
  * @author engineering@fluidattacks.com
  */
 /**
- * Controlador de vista de proyectos
+ * Controller definition for project search view.
  * @name ProjectCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -43,11 +41,11 @@ angular.module("FluidIntegrates").controller(
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
       $scope.isManager = userRole !== "customer";
-      // Defaults para cambiar vistas
+      // Default flags value for view visualization
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
-      // Parametros de ruta
+      // Route parameters
       if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
@@ -56,7 +54,7 @@ angular.module("FluidIntegrates").controller(
         $scope.project = projectName;
         $scope.search();
       }
-      // Asigna el evento buscar al textbox search y tecla enter
+      // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
@@ -82,7 +80,7 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
 
-        /* Handling presentation button */
+        // Handling presentation button
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);

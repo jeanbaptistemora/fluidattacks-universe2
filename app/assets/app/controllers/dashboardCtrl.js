@@ -10,7 +10,7 @@ $window */
  * @author engineering@fluidattacks.com
  */
 /**
- * Crea el controlador de las funciones del dashboard
+ * Controller definition for dashboard view.
  * @name dashboardController
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -50,7 +50,7 @@ angular.module("FluidIntegrates").controller(
     };
 
     /**
-     * Redirecciona a un usuario para cerrar la sesion
+     * Redirect an user to the logout view.
      * @function logout
      * @member integrates.dashboardCtrl
      * @return {undefined}
@@ -76,7 +76,7 @@ angular.module("FluidIntegrates").controller(
     };
 
     /**
-     * Cambia el lenguaje del dashboard
+     * Change the language of the Dashboard view
      * @function changeLang
      * @param {string} langKey Language key set by the user
      * @member integrates.dashboardCtrl

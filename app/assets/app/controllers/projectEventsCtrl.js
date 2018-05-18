@@ -39,7 +39,7 @@ labelEventState = function labelEventState (value) {
 };
 
 /**
- * Controlador de vista de proyectos
+ * Controller definition for eventuality view.
  * @name projectEventsCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -70,11 +70,11 @@ angular.module("FluidIntegrates").controller(
       $scope.userRole = userRole;
 
       $scope.isManager = userRole !== "customer";
-      // Defaults para cambiar vistas
+      // Default flags value for view visualization
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
-      // Parametros de ruta
+      // Route parameters
       if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
@@ -92,7 +92,7 @@ angular.module("FluidIntegrates").controller(
           projName
         );
       }
-      // Asigna el evento buscar al textbox search y tecla enter
+      // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
@@ -123,7 +123,7 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
 
-        /* Handling presentation button */
+        // Handling presentation button
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
@@ -176,7 +176,7 @@ angular.module("FluidIntegrates").controller(
       }
       $scope.isManager = userRole !== "customer";
       mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
-      // CONFIGURACION DE TABLA
+      // Eventuality table configuration
       angular.element("#tblEventualities").bootstrapTable("destroy");
       angular.element("#tblEventualities").bootstrapTable({
         data,
@@ -189,7 +189,7 @@ angular.module("FluidIntegrates").controller(
               $scope.evt = evt;
               $scope.evt.isManager = userRole !== "customer";
               $scope.evt.onlyReadableEvt1 = true;
-              // Tracking mixpanel
+              // Mixpanel tracking
               const nameOrg = Organization.toUpperCase();
               const nameProj = project.toUpperCase();
               mixPanelDashboard.trackReadEventuality(
@@ -260,7 +260,6 @@ angular.module("FluidIntegrates").controller(
         }
       });
       angular.element("#tblEventualities").bootstrapTable("refresh");
-      // MANEJO DEL UI
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
       if (!$scope.isManager) {
