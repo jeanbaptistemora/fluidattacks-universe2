@@ -146,7 +146,8 @@ deploy_terraform:
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/vars/FLUID_Serves.pem ||
-        (pip install boto && python infrastructure/create-key.py)
+        (pip install boto && python infrastructure/create-key.py && export
+        NEW_DEPLOY=true)
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/terraform.tfstate
         infrastructure/terraform.tfstate || echo ""
@@ -156,6 +157,13 @@ deploy_terraform:
     - terraform apply -auto-approve -var-file="vars/aws.tfvars"
     - terraform output instance_ip > ip.txt
     - sh set-keys.sh
+    - if [ -n "${NEW_DEPLOY}" ]; then
+            git clone https://github.com/checkr/s3-sync.git
+            fi
+    - if [ -n "${NEW_DEPLOY}" ]; then
+            sh create-config.sh && cd s3-sync && 
+            go run main.go sync --config ./config-prod.yaml
+            fi
   after_script:
     - aws s3 cp
         infrastructure/terraform.tfstate
