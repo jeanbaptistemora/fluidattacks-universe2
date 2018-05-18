@@ -7,7 +7,7 @@ eventsData:true, findingData:true, angular, $window */
  * @author engineering@fluidattacks.com
  */
 /**
- * Crea el controlador de las funciones del registro
+ * Controller definition for user registration view.
  * @name registerController
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -46,7 +46,7 @@ angular.module("FluidIntegrates").controller(
     };
 
     /**
-     * Cambia el lenguaje del dashboard
+     * Change the language of the user registration view.
      * @function changeLang
      * @param {string} langKey Language key set by the user
      * @member integrates.registerCtrl

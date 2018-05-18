@@ -14,7 +14,7 @@ mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
 /* Table Formatter */
 
 /**
- * Controlador de vista de proyectos
+ * Controller definition for indicators tab view.
  * @name ProjectCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -46,11 +46,11 @@ angular.module("FluidIntegrates").controller(
       $scope.userRole = userRole;
 
       $scope.isManager = userRole !== "customer";
-      // Defaults para cambiar vistas
+      // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
-      // Parametros de ruta
+      // Route parameters.
       if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
@@ -69,7 +69,7 @@ angular.module("FluidIntegrates").controller(
           projt
         );
       }
-      // Asigna el evento buscar al textbox search y tecla enter
+      // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
@@ -337,7 +337,7 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
 
-        /* Handling presentation button */
+        // Handling presentation button
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
@@ -382,7 +382,7 @@ angular.module("FluidIntegrates").controller(
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
-              // Tracking Mixpanel
+              // Mixpanel tracking
               mixPanelDashboard.trackSearch(
                 "SearchFinding",
                 userEmail,
@@ -447,7 +447,6 @@ angular.module("FluidIntegrates").controller(
       $timeout($scope.mainGraphexploitPieChart, TIMEOUT);
       $timeout($scope.mainGraphtypePieChart, TIMEOUT);
       $timeout($scope.mainGraphstatusPieChart, TIMEOUT);
-      // MANEJO DEL UI
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 

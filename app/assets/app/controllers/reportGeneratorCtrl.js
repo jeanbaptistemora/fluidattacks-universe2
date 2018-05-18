@@ -11,7 +11,7 @@ Rollbar, angular,$window */
  */
 
 /**
- * Controlador de vista de proyectos
+ * Controller definition for report generator modal.
  * @name reportGeneratorCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -31,7 +31,7 @@ angular.module("FluidIntegrates").controller(
     $window
   ) {
     $scope.reportModal = function reportModal () {
-      // Tracking mixpanel
+      // Mixpanel tracking
       const orgName = Organization.toUpperCase();
       const projectName = $scope.project.toUpperCase();
       mixPanelDashboard.trackReports(
@@ -52,7 +52,7 @@ angular.module("FluidIntegrates").controller(
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(projName) &&
                             langpatt.test(currentLang)) {
-              // Tracking mixpanel
+              // Mixpanel tracking
               mixPanelDashboard.trackReports(
                 "TechnicalReportXLS",
                 userName,
@@ -78,7 +78,7 @@ angular.module("FluidIntegrates").controller(
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(projName) &&
                             langpatt.test(currentLang)) {
-              // Tracking mixpanel
+              // Mixpanel tracking
               mixPanelDashboard.trackReports(
                 "TechnicalReportPDF",
                 userName,
@@ -124,7 +124,7 @@ angular.module("FluidIntegrates").controller(
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(projName) &&
                             langpatt.test(currentLang)) {
-              // Tracking mixpanel
+              // Mixpanel tracking
               mixPanelDashboard.trackReports(
                 "ExecutivePDFPresentation",
                 userName,
@@ -151,7 +151,7 @@ angular.module("FluidIntegrates").controller(
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(projName) &&
                             langpatt.test(currentLang)) {
-              // Tracking mixpanel
+              // Mixpanel tracking
               mixPanelDashboard.trackReports(
                 "ExecutivePDFReport",
                 userName,

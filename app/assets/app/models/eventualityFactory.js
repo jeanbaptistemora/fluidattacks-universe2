@@ -5,7 +5,7 @@
  * @author engineering@fluidattacks.com
  */
 /**
- * Crea el factory de la funcionalidad de eventualidades
+ * Factory definition for eventuality controler and functions.
  * @name
  * @param {Object} $q
  * @return {undefined}
@@ -20,7 +20,7 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
-       * Obtiene los submission de una eventualidad
+       * Return the eventualities of a project
        * @function getEvntByName
        * @param {String} project Project Name
        * @param {String} category Search filter: By Name or ID
@@ -71,7 +71,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Actualiza una eventualidad
+       * Update an eventuality
        * @function updateEvnt
        * @param {Object} vuln New data about an eventuality
        * @member integrates.eventualityFactory

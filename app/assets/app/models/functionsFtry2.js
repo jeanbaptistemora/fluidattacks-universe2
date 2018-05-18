@@ -11,7 +11,7 @@ realiabilityLevel, functionsFtry1, angular, mixPanelDashboard */
  * @author engineering@fluidattacks.com
  */
 /**
- * Crea el factory de la funcionalidad de hallazgos
+ * Factory definition for the 2nd set of auxiliar functions.
  * @name functionsFtry2
  * @param {Object} $q Angular constructor
  * @param {Object} $translate Angular translator
@@ -51,7 +51,7 @@ angular.module("FluidIntegrates").factory(
               Object.keys(tabNames)[inc]]).removeClass("active");
           }
         }
-        // Tracking mixpanel
+        // Mixpanel tracking
         mixPanelDashboard.trackFindingDetailed(
           errorName,
           userName,

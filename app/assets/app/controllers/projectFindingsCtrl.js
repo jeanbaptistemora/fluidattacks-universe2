@@ -59,7 +59,7 @@ labelState = function labelState (value) {
 };
 
 /**
- * Controlador de vista de proyectos
+ * Controller definition for finding tab view.
  * @name ProjectCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
@@ -90,11 +90,11 @@ angular.module("FluidIntegrates").controller(
       $scope.userRole = userRole;
 
       $scope.isManager = userRole !== "customer";
-      // Defaults para cambiar vistas
+      // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
-      // Parametros de ruta
+      // Route parameters.
       if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
@@ -112,7 +112,7 @@ angular.module("FluidIntegrates").controller(
           projt
         );
       }
-      // Asigna el evento buscar al textbox search y tecla enter
+      // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
@@ -144,7 +144,7 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
 
-        /* Handling presentation button */
+        // Handling presentation button
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
@@ -189,7 +189,7 @@ angular.module("FluidIntegrates").controller(
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
-              // Tracking Mixpanel
+              // Mixpanel tracking
               mixPanelDashboard.trackSearch(
                 "SearchFinding",
                 userEmail,
@@ -240,7 +240,7 @@ angular.module("FluidIntegrates").controller(
           }
         }
       }
-      // CONFIGURACION DE TABLA
+      // Findings table configuration
       angular.element("#vulnerabilities").bootstrapTable("destroy");
       angular.element("#vulnerabilities").bootstrapTable({
         "cookie": true,
@@ -263,14 +263,13 @@ angular.module("FluidIntegrates").controller(
           angular.element("#evidence").removeClass("active");
           angular.element("#exploitItem").removeClass("active");
           angular.element("#exploit").removeClass("active");
-          // Tracking mixpanel
+          // Mixpanel tracking
           mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
           $scope.currentScrollPosition = angular.element(document).scrollTop();
         },
         "pageSize": 50
       });
       angular.element("#vulnerabilities").bootstrapTable("refresh");
-      // MANEJO DEL UI
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 

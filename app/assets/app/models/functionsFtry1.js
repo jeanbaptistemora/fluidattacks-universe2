@@ -8,7 +8,7 @@ mixPanelDashboard,$msg, $, Rollbar, eventsData, userEmail, userName,$document */
  * @author engineering@fluidattacks.com
  */
 /**
- * Crea el factory de la funcionalidad de hallazgos
+ * Factory definition for the 1st set of auxiliar functions.
  * @name functionsFtry1
  * @param {Object} $q Angular constructor
  * @param {Object} $translate Angular translator
@@ -47,7 +47,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       "deleteFinding" ($scope) {
-      // Obtener datos
+      // Get data
         const descData = {"id": $scope.finding.id};
         $uibModal.open({
           "animation": true,
@@ -64,9 +64,9 @@ angular.module("FluidIntegrates").factory(
                                $translate.instant("confirmmodal.title_finding");
             $scope.ok = function ok () {
               $scope.vuln.id = updateData.id;
-              // Consumir el servicio
+              // Make the request
               const req = projectFtry.deleteFinding($scope.vuln);
-              // Capturar la Promisse
+              // Capture the promise
               req.then((response) => {
                 if (!response.error) {
                   const updatedAt =
@@ -79,7 +79,7 @@ angular.module("FluidIntegrates").factory(
                     "ProjectFindings",
                     {"project": $stateParams.project}
                   );
-                  // Tracking mixpanel
+                  // Mixpanel tracking
                   mixPanelDashboard.trackFinding(
                     "deleteFinding",
                     userEmail,
@@ -175,7 +175,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       "findingVerified" ($scope) {
-        // Obtener datos
+        // Get data
         const currUrl = $window.location.href;
         const trackingUrl = currUrl.replace("/description", "/tracking");
         const descData = {
@@ -193,12 +193,12 @@ angular.module("FluidIntegrates").factory(
             $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_description.verified_finding");
             $scope.ok = function ok () {
-              // Consumir el servicio
+              // Make the request
               const req = projectFtry.findingVerified(mailData);
-              // Capturar la Promisse
+              // Capture the promise
               req.then((response) => {
                 if (!response.error) {
-                  // Tracking mixpanel
+                  // Mixpanel tracking
                   const org = Organization.toUpperCase();
                   const projt = descData.project.toUpperCase();
                   mixPanelDashboard.trackFindingDetailed(
@@ -252,7 +252,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       "updateCSSv2" ($scope) {
-      // Obtener datos de las listas
+      // Get the actual data in the severity fields
         const cssv2Data = {
           "autenticacion": $scope.severityInfo.autenticacion,
           "complejidadAcceso": $scope.severityInfo.complejidadAcceso,
@@ -266,19 +266,19 @@ angular.module("FluidIntegrates").factory(
           "nivelResolucion": $scope.severityInfo.nivelResolucion,
           "vectorAcceso": $scope.severityInfo.vectorAcceso
         };
-        // Recalcular CSSV2
+        // Recalculate CSSV2
         functionsFtry2.findingCalculateCSSv2($scope);
         cssv2Data.criticidad = $scope.finding.criticidad;
-        // Instanciar modal de confirmacion
+        // Create an instance of the confirmation modal
         $uibModal.open({
           "animation": true,
           "backdrop": "static",
           "controller" ($scope, $uibModalInstance, updateData) {
             $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
             $scope.ok = function ok () {
-            // Consumir el servicio
+            // Make the request
               const req = projectFtry.updateCSSv2(updateData);
-              // Capturar la Promisse
+              // Capture the promise
               req.then((response) => {
                 if (!response.error) {
                   const updatedAt = $translate.instant("proj_alerts." +
@@ -343,7 +343,7 @@ angular.module("FluidIntegrates").factory(
             data.field = "descEvidencia5";
           }
           const req = projectFtry.updateEvidenceText(data);
-          // Capturar la Promisse
+          // Capture the promise
           req.then((response) => {
             if (!response.error) {
               const updatedAt = $translate.instant("proj_alerts.updatedTitle");
@@ -412,9 +412,9 @@ angular.module("FluidIntegrates").factory(
                                                  "tab_description." +
                                                  "update_treatmodal");
               $scope.ok = function ok () {
-                // Consumir el servicio
+                // Make the request
                 const req = projectFtry.updateTreatment(updateData);
-                // Capturar la Promisse
+                // Capture the promise
                 req.then((response) => {
                   if (!response.error) {
                     const org = Organization.toUpperCase();

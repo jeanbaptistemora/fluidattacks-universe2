@@ -6,7 +6,7 @@ $, Rollbar, eventsData, secureRandom, angular */
  * @author engineering@fluidattacks.com
  */
 /**
- * Crea el factory de la funcionalidad de hallazgos
+ * Factory definition for some main set of functions.
  * @name projectFtry
  * @param {Object} $q Angular constructor
  * @return {undefined}
@@ -21,7 +21,7 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
-       * Invoca el servicio para agregar nuevos comentarios en un hallazgo
+       * Make a request to add new comment in a finding
        * @function addComment
        * @param {String} id Numeric id of the finding
        * @param {Object} data Data of the finding, including id of the comment
@@ -156,7 +156,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para eliminar los comentarios en un hallazgo
+       * Make a request to delete a comment in a finding
        * @function deleteComment
        * @param {String} id Numeric id of the finding
        * @param {Object} data Data of the finding, including id of the comment
@@ -173,8 +173,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para actualizar la seccion
-       * descriptiva de un hallazgo
+       * Make a request to delete a finding
        * @function deleteFinding
        * @param {JSON} data Data about the finding, including id
        * @member integrates.projectFtry
@@ -189,7 +188,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener las eventualidades de un proyecto
+       * Return the eventualities of a project
        * @function eventualityByName
        * @param {String} project Project name
        * @param {String} category Search filter: By Name or ID
@@ -206,7 +205,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener el detalle de un hallazgo
+       * Return all the information for a specific findinf ID
        * @function findingById
        * @param {Integer} id Numeric ID of a finding
        * @member integrates.projectFtry
@@ -235,7 +234,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para mostrar si fue verificado un hallazgo
+       * Return a boolean saying whether the finding was verified or not.
        * @function findingVerified
        * @param {JSON} data Data about the finding, including id
        * @member integrates.projectFtry
@@ -250,7 +249,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener las alertas de una compañia
+       * Return the alerts of a company.
        * @function getAlerts
        * @param {String} company Company name
        * @param {String} project Project name
@@ -267,7 +266,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener los comentarios de un hallazgo
+       * Make a request to get the comments of a finding.
        * @function getComments
        * @param {String} id Numeric id of the finding
        * @member integrates.projectFtry
@@ -282,7 +281,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener las evidencias de un hallazgo
+       * Make a request to get the evidences of a finding.
        * @function getEvidences
        * @param {String} id Numeric id of finding
        * @member integrates.projectFtry
@@ -297,7 +296,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener el exploit de un hallazgo
+       * Make a request to get the exploit of a finding.
        * @function getExploit
        * @param {String} findingid Numeric id of finding
        * @param {String} id Unique id of the exploit
@@ -314,7 +313,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener los records de un hallazgo
+       * Make a request to get the records of a finding.
        * @function getRecords
        * @param {String} findingid Numeric id of finding
        * @param {String} id Unique id of the record
@@ -331,7 +330,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener los hallazgos de un proyecto
+       * Make a request to get the all the findings in a project.
        * @function projectByName
        * @param {String} project Project name
        * @member integrates.projectFtry
@@ -346,26 +345,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para tener el detalle de un hallazgo
-       * @function projectDoc
-       * @param {String} project Project name
-       * @param {JSON} json Data in project
-       * @param {String} format Report type: Technical or Executive
-       * @member integrates.projectFtry
-       * @return {Object} Response about the report generation
-       */
-      "projectDoc" (project, json, format) {
-        const oopsAc = "An error occurred generating documentation";
-        return $xhr.post($q, `${BASE.url}generate_autodoc`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          "data": json,
-          format,
-          project
-        }, oopsAc);
-      },
-
-      /**
-       * Invoca el servicio para mostrar si fue remediado un hallazgo
+       * Return a boolean saying whether the finding was remediated or not.
        * @function remediatedView
        * @param {String} id Numeric ID of a finding
        * @member integrates.projectFtry
@@ -380,7 +360,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para mostrar la severidad total del proyecto
+       * Make a request to get the total severity of a project.
        * @function totalSeverity
        * @param {String} project Project name
        * @member integrates.projectFtry
@@ -395,8 +375,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para actualizar la seccion
-       * cssv2 de un hallazgo
+       * Make a request to update the severity section of a finding.
        * @function updateCSSv2
        * @param {JSON} data New data in the severity tab
        * @member integrates.projectFtry
@@ -411,8 +390,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para actualizar la seccion
-       * descriptiva de un hallazgo
+       * Make a request to update the description section of a finding.
        * @function updateDescription
        * @param {JSON} data New data in the description tab
        * @member integrates.projectFtry
@@ -472,7 +450,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Invoca el servicio para actualizar el tratamiento de un hallazgo
+       * Make a request to update the treatment section of a finding.
        * @function updateTreatment
        * @param {JSON} data New data in the treatment section
        * @member integrates.projectFtry

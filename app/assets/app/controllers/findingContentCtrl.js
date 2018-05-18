@@ -15,7 +15,7 @@ keysToTranslate, desc:true, angular, $window */
  * @author engineering@fluidattacks.com
  */
 /**
- * Controller definition for finding tab content.
+ * Controller definition for finding content view.
  * @name findingContentCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal

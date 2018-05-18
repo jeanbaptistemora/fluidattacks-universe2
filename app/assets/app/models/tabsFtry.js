@@ -9,7 +9,7 @@ userEmail, userName, secureRandom, angular*/
  * @author engineering@fluidattacks.com
  */
 /**
- * Crea el factory de la funcionalidad de hallazgos
+ * Factory definition for the tab initialization in finding view.
  * @name tabsFtry
  * @param {Object} $q Angular constructor
  * @param {Object} $translate Angular translator
@@ -75,7 +75,7 @@ angular.module("FluidIntegrates").factory(
                          projectFtry.addComment(commentInfo.finding.id, data);
                   comment.then((response) => {
                     if (!response.error) {
-                      // Tracking mixpanel
+                      // Mixpanel tracking
                       const org = Organization.toUpperCase();
                       const projt = $stateParams.project.toUpperCase();
                       mixPanelDashboard.trackFindingDetailed(

@@ -41,11 +41,11 @@ angular.module("FluidIntegrates").controller(
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
       $scope.isManager = userRole !== "customer";
-      // Default flags value for view visualization
+      // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
-      // Route parameters
+      // Route parameters.
       if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
@@ -95,7 +95,7 @@ angular.module("FluidIntegrates").controller(
             if (angular.isUndefined(response.data)) {
               location.reload();
             }
-            // Tracking Mixpanel
+            // Mixpanel tracking
             mixPanelDashboard.trackSearch(
               "SearchFinding",
               userEmail,

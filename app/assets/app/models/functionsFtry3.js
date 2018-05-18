@@ -128,12 +128,12 @@ angular.module("FluidIntegrates").factory(
                                           "short_remediated_comment"));
               }
               else {
-              // Consumir el servicio
+                // Make the request
                 const req = projectFtry.findingSolved($scope.remediatedData);
-                // Capturar la Promisse
+                // Capture the promise
                 req.then((response) => {
                   if (!response.error) {
-                  // Tracking mixpanel
+                  // Mixpanel tracking
                     const org = Organization.toUpperCase();
                     const projt = descData.project.toUpperCase();
                     mixPanelDashboard.trackFindingDetailed(
@@ -270,14 +270,14 @@ angular.module("FluidIntegrates").factory(
                $scope.finding.cierres[close].timestamp.slice(0, NEW_LIST_LIMIT);
           $scope.finding.cierres[close].timestamp = timeFormat;
         }
-        // Control de campos para tipos de hallazgo
+        // Fields activation control by finding type (General/Detailed)
         $scope.esDetallado = false;
         findingData.esDetallado = $scope.esDetallado;
         if ($scope.finding.nivel === "Detallado") {
           $scope.esDetallado = true;
           findingData.esDetallado = $scope.esDetallado;
         }
-        // Control de campos editables
+        // Editable fields control
         $scope.onlyReadableTab1 = true;
         $scope.onlyReadableTab2 = true;
         $scope.isManager = userRole !== "customer";
@@ -294,7 +294,7 @@ angular.module("FluidIntegrates").factory(
         else {
           angular.element(".finding-verified").hide();
         }
-        // Inicializar galeria de evidencias
+        // Initialize evidence gallery
         angular.element(".popup-gallery").magnificPopup({
           "delegate": "a",
           "gallery": {
@@ -366,7 +366,7 @@ angular.module("FluidIntegrates").factory(
       },
 
       "updateDescription" ($scope) {
-      // Obtener datos
+      // Get actual data
         const descData = {
           "actor": $scope.descripcionInfo.actor,
           "amenaza": $scope.finding.amenaza,
@@ -396,7 +396,7 @@ angular.module("FluidIntegrates").factory(
                                todayDate.toISOString().slice(0, NEW_LIST_LIMIT);
         }
         if (descData.nivel === "Detallado") {
-        // Recalcular Severidad
+        // Recalculate severity
           const severityInfo = functionsFtry1.findingCalculateSeveridad();
           const choose = severityInfo[0];
           if (!choose) {
@@ -412,9 +412,9 @@ angular.module("FluidIntegrates").factory(
             $scope.modalTitle = $translate.instant("confirmmodal." +
                                                  "title_description");
             $scope.ok = function ok () {
-            // Consumir el servicio
+              // Make the request
               const req = projectFtry.updateDescription(updateData);
-              // Capturar la Promisse
+              // Capture the promise
               req.then((response) => {
                 if (!response.error) {
                   const updatedAt =
@@ -424,7 +424,7 @@ angular.module("FluidIntegrates").factory(
                   $msg.success(updatedAc, updatedAt);
                   $uibModalInstance.close();
                   location.reload();
-                  // Tracking mixpanel
+                  // Mixpanel tracking
                   mixPanelDashboard.trackFinding(
                     "UpdateFinding",
                     userEmail,
