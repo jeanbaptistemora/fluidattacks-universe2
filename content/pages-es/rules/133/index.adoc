@@ -10,7 +10,3 @@
 
 Las contraseñas de acceso de un sistema a otro
 deben tener una longitud superior a 20 caracteres.
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/fortaleza-contrasena-palabra/[Comprobar Fortaleza de Contraseñas Tipo Palabra].

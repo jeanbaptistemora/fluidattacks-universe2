@@ -36,7 +36,7 @@ y uniformados con identificación.^<<r1,[1]>>,<<r2,[2]>>^
 == Soluciones
 
 . +Forense+ link:../../defends/forense/recolectar-info-fisica/[Recolectar información física].
-. +Consultoría+ link:../../defends/consultoria/regulacion-sgsi/[Regulación SGSI].
+. +Consultoría+ link:../../defends/consultoria/conocer-reg-sgsi/[Conocer Regulación SGSI].
 
 == Ataques
 

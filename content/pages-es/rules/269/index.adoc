@@ -13,5 +13,5 @@ deben establecerse según el principio de mínimo privilegio (+umask+).
 
 == Soluciones
 
-. +COBOL+ link:../../defends/cobol/seg-sentencias-dinamicas/[Establecer Seguridad en Sentencias Dinámicas].
-. +ASPNET+ link:../../defends/aspnet/apps-minimo-privilegio/[Ejecutar aplicaciones con mínimo privilegio].
+. +COBOL+ link:../../defends/cobol/establecer-sent-seguras/[Establecer Seguridad en Sentencias Dinámicas].
+. +ASPNET+ link:../../defends/aspnet/ejecutar-min-privilegio/[Ejecutar aplicaciones con mínimo privilegio].

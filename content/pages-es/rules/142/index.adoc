@@ -47,7 +47,7 @@ para detectar configuraciones incorrectas o parches faltantes.
 
 == Soluciones
 
-. +Windows Server 2012+ link:../../defends/windows-server/user-default/[Cambiar Usuarios Predeterminados].
+. +Windows Server 2012+ link:../../defends/windows-server/cambiar-usuarios/[Cambiar Usuarios Predeterminados].
 
 == Ataques
 

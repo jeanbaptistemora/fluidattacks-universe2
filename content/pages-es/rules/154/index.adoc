@@ -14,5 +14,5 @@ en los requisitos funcionales (puertas traseras).
 
 == Soluciones
 
-. +COBOL+ link:../../defends/cobol/error-operacion-aritmetica/[Manejar Errores en Operaciones Aritméticas].
-. +COBOL+ link:../../defends/cobol/error-operacion-texto/[Manejar Errores en Operaciones de Texto].
+. +COBOL+ link:../../defends/cobol/manejar-errores-aritmeticos/[Manejar Errores en Operaciones Aritméticas].
+. +COBOL+ link:../../defends/cobol/manejar-error-texto/[Manejar Errores en Operaciones de Texto].

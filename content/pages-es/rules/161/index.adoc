@@ -53,10 +53,10 @@ puede entrar a verificar y descartar si es un falso positivo.
 
 == Soluciones
 
-. +ASPNET+ link:../../defends/aspnet/condicionales-seguros/[Establecer condicionales seguros].
-. +COBOL+ link:../../defends/cobol/estructuras-condicionales/[Usar Estructuras Condicionales].
-. +Java+ link:../../defends/java/opcion-segura-condicionales/[Establecer Opciones Seguras en Condicionales].
-. +JavaScript+ link:../../defends/javascript/estructura-condicional/[Implementar Estructura Condicional].
+. +ASPNET+ link:../../defends/aspnet/establecer-opciones-seguras/[Establecer condicionales seguros].
+. +COBOL+ link:../../defends/cobol/usar-condicionales/[Usar Estructuras Condicionales].
+. +Java+ link:../../defends/java/establecer-opciones-seguras/[Establecer Opciones Seguras en Condicionales].
+. +JavaScript+ link:../../defends/javascript/implementar-condicional/[Implementar Estructura Condicional].
 
 == Ataques
 

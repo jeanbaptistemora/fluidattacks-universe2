@@ -71,9 +71,9 @@ y protección de datos de usuario.
 
 == Soluciones
 
-. +ASPNET+ link:../../defends/aspnet/apps-minimo-privilegio/[Ejecutar aplicaciones con mínimo privilegio].
+. +ASPNET+ link:../../defends/aspnet/ejecutar-min-privilegio/[Ejecutar aplicaciones con mínimo privilegio].
 . +C Sharp+ link:../../defends/csharp/ejecutar-minimo-privilegio/[Ejecutar aplicaciones con el mínimo privilegio].
-. +COBOL+ link:../../defends/cobol/seg-sentencias-dinamicas/[Establecer Seguridad en Sentencias Dinámicas].
+. +COBOL+ link:../../defends/cobol/establecer-sent-seguras/[Establecer Seguridad en Sentencias Dinámicas].
 
 == Ataques
 

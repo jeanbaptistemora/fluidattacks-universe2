@@ -22,6 +22,6 @@ El objetivo es dar a conocer al público
 la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:
 
-. *+HACKING+* link:../../defends/hacking/evitar-ataque-dos/[Evitar Ataque de Denegación de Servicio].
-. *+CSHARP+* link:../../defends/csharp/ejecutar-minimo-privilegio/[Ejecutar aplicaciones con el mínimo privilegio].
-. *+ASPNET+* link:../../defends/aspnet/apps-minimo-privilegio/[Ejecutar aplicaciones con mínimo privilegio].
+. +Hacking+ link:../../defends/hacking/evitar-ataque-dos/[Evitar Ataque de Denegación de Servicio].
+. +C Sharp+ link:../../defends/csharp/ejecutar-minimo-privilegio/[Ejecutar aplicaciones con el mínimo privilegio].
+. +ASPNET+ link:../../defends/aspnet/ejecutar-min-privilegio/[Ejecutar aplicaciones con mínimo privilegio].

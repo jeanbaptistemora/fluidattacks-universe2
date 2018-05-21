@@ -28,10 +28,10 @@ contengan el detalle de Fecha, hora, segundos, milisegundos y zona horaria.
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
 . +Exchange 2010+ link:../../defends/exchange/activar-bitacoras-smtp/[Activar Bitácoras de Conectores SMTP].
 . +GlassFish+ link:../../defends/glassfish/configurar-bitacoras/[Configurar Bitácoras].
-. +Programación+ link:../../defends/programacion/bitacoras-cond/[Generar Bitácoras Condicionales].
-. +RPG+ link:../../defends/rpg/manejo-bitacoras/[Definir Manejo de Bitácoras].
+. +Programación+ link:../../defends/programacion/crear-bitacoras-cond/[Crear Bitácoras Condicionales].
+. +RPG+ link:../../defends/rpg/manejar-bitacoras/[Definir Manejo de Bitácoras].
 . +Scala+ link:../../defends/scala/registrar-eventos-bitacoras/[Registrar Eventos en Bitácoras].
-. +SharePoint 2010+ link:../../defends/sharepoint/registro-bitacoras/[Configurar Registro en Bitácoras].
+. +SharePoint 2010+ link:../../defends/sharepoint/configurar-bitacoras/[Configurar Registro en Bitácoras].
 
 == Ataques
 

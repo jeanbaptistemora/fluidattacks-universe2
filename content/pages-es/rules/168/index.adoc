@@ -13,4 +13,4 @@ deben estar inicializadas de forma explícita.
 
 == Soluciones
 
-. +COBOL+ link:../../defends/cobol/estructuras-condicionales/[Usar Estructuras Condicionales].
+. +COBOL+ link:../../defends/cobol/usar-condicionales/[Usar Estructuras Condicionales].

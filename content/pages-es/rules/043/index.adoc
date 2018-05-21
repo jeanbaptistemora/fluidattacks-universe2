@@ -13,5 +13,5 @@ deben tener definido un +Content-Type+ explícito.
 
 == Soluciones
 
-. +ASPNET+ link:../../defends/aspnet/content-type-charset/[Establecer content type y charset].
-. +C Sharp+ link:../../defends/csharp/content-type-charset/[Establecer Content-Type y Charset en C#].
+. +ASPNET+ link:../../defends/aspnet/establecer-content-type/[Establecer content type y charset].
+. +C Sharp+ link:../../defends/csharp/establecer-content-type/[Establecer Content-Type y Charset en C#].

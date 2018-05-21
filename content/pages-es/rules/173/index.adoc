@@ -60,12 +60,12 @@ y por ende esta información debe ser validada.
 
 == Soluciones
 
-. +ASPNET+ link:../../defends/aspnet/redireccion-paginas-web/[Validar redirecciones a páginas web].
+. +ASPNET+ link:../../defends/aspnet/validar-redirecciones/[Validar redirecciones a páginas web].
 . +ASPNET+ link:../../defends/aspnet/prevenir-sqli/[Prevenir inyección SQL].
 . +ASPNET+ link:../../defends/aspnet/evitar-sqli-parametrizacion/[Prevenir Inyección SQL Mediante Parametrización].
 . +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
 . +ASPNET+ link:../../defends/aspnet/usar-regex/[Usar Expresiones Regulares].
-. +COBOL+ link:../../defends/cobol/sqli-sentencia-parametrizada/[Prevenir SQLi Mediante Sentencias Parametrizadas].
+. +COBOL+ link:../../defends/cobol/prevenir-sqli-sentencias/[Prevenir SQLi Mediante Sentencias Parametrizadas].
 . +COBOL+ link:../../defends/cobol/validar-datos-variables/[Validar Datos en Variables].
 . +Java+ link:../../defends/java/prevenir-sqli/[Prevenir Inyección SQL].
 . +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].

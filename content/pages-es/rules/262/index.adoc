@@ -51,9 +51,9 @@ que puedan representar un riesgo para la organización.
 
 == Soluciones
 
-. +WINDOWS+ link:../../defends/windows/actualizacion-automatica/[Configurar Actualizaciones Automáticas].
-. +WINDOWS+ link:../../defends/windows/deshabilitar-serv-inseguro/[Deshabilitar Servicios Inseguros].
-. +WINDOWS+ link:../../defends/windows/puerto-innecesario/[Deshabilitar Puertos Innecesarios].
+. +Windows+ link:../../defends/windows/configurar-actualizaciones/[Configurar Actualizaciones Automáticas].
+. +Windows+ link:../../defends/windows/deshabilitar-serv-inseguro/[Deshabilitar Servicios Inseguros].
+. +Windows+ link:../../defends/windows/deshabilitar-puertos/[Deshabilitar Puertos Innecesarios].
 . +Red Hat+ link:../../defends/redhat/actualizar-software/[Actualizar Software en Red Hat].
 
 == Ataques
