@@ -1,0 +1,102 @@
+:slug: defends/aspnet/establecer-pagina-error/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al establecer una página de error personalizada. Las páginas de error por defecto pueden revelar información sensible como rutas y nombres de directorios.
+:keywords: ASPNET, Seguridad, Buenas Prácticas, Página, Error, Personalizado.
+:defends: yes
+
+= Establecer página de error personalizada
+
+== Necesidad
+
+Establecer página personalizada de error en +ASP.NET+
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+* Se tiene una aplicación
+cuyo código fuente es en +ASP .NET+
+
+* Se desea personalizar los errores
+que aparecen en la aplicación
+para asegurar
+que no haya fuga de información.
+
+== Solución
+
+Las páginas de error tienen como objetivo
+informarle a los visitantes de nuestra página web
+acerca de los problemas que se pueden llegar a presentar.
+Cada tipo de problema o anomalía tiene asignado
+su respectivo número o código de error <<r1, ^[1]^>>.
+Los códigos de error se dividen en dos tipos:
+
+. *Códigos de error del cliente:*
+Reportan una anomalía en la solicitud del cliente.
+Las razones de esto pueden ser que la solicitud no es válida,
+debido a que contiene una sintaxis incorrecta
+o no puede procesarse por la aplicación web.
+Estos tipos de error emiten códigos de respuesta
+de la forma +4XX+, como es el caso del famoso error 404,
+el cual es generado cuando la página a la que intentamos acceder no existe.
+Otros ejemplos de códigos de error del cliente son:
+
+* Error 400 +Bad Request+:
+La solicitud contiene un error de sintaxis.
+* Error 401 +Unauthorized+:
+El usuario no tiene acceso debido a que no está autenticado.
+* Error 403 +Forbidden+: El usuario no tiene los privilegios para acceder
+a la página solicitada.
+
+. *Códigos de error del servidor:*
+Estos códigos de error reportan una anomalía
+en la solicitud del lado del servidor.
+Los códigos de error del servidor emiten códigos de respuesta
+de la forma 5XX.
+Ejemplos de estos códigos de error son:
+
+* Error 502 +Bad Gateway+:
+El servidor está actuando de proxy o gateway
+ha recibido una respuesta inválida de otro servidor.
+* Error 503 +Service Unavailable+:
+El servidor está congestionado o en mantenimiento.
+* Error 504 +Gateway Timeout+:
+No se ha recibido una respuesta del otro servidor
+dentro del tiempo límite de la solicitud.
+
+A la hora de desarrollar aplicaciones web,
+los mensajes de error se establecen como mensajes por defecto.
+Los mensajes de error por defecto pueden revelar información
+que en manos de un atacante puede suponer una potencial amenaza.
+Los nombres de directorios, rutas y otra información confidencial
+puede ser filtrada a través de un mensaje de error,
+brindándole a un usuario malicioso
+una mejor comprensión de la infraestructura
+y el funcionamiento interno de la aplicación,
+así como otorgándole de forma indirecta,
+una herramienta poderosa para vulnerarla.
+
+Una forma de evitar el escenario anteriormente planteado
+es establecer una página de error personalizada.
+Para ello se debe seguir la siguiente configuración <<r2, ^[2]^>>:
+
+. En el archivo +Web.Config+
+en la sección +system.web+ verificar
+que la propiedad +customErrors+ sea de la siguiente forma:
+
+.Web.config
+[source,xml,linenums]
+----
+<configuration>
+  <system.web>
+    <customErrors mode="RemoteOnly" defaultRedirect="error_personalizado.html">
+  </system.web>
+</configuration>
+----
+
+== Referencias
+
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP[Códigos de estado HTTP].
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/h0hfz6fc(v=vs.85).aspx[customErrors Element].

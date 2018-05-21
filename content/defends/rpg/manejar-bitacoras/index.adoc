@@ -1,0 +1,130 @@
+:slug: defends/rpg/manejar-bitacoras/
+:category: rpg
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en RPG al definir un manejo de bitácoras. Al registrar los eventos excepcionales de las aplicaciones se facilita la labor de realizar seguimiento y detección de anomalías en un sistema.
+:keywords: RPG, Bitácoras, Logs, Registro, Eventos, Seguimiento.
+:defends: yes
+
+= Definir Manejo de Bitácoras
+
+== Necesidad
+
+Se requiere registrar en las bitácoras de la aplicación
+eventos excepcionales que no han sido previamente tratados.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de una aplicación desarrollada en +RPG+.
+. Existen eventos excepcionales a los que no se les hace ningún control.
+
+== Solución
+
+Las bitácoras o +logs+ permiten registrar eventos relevantes del sistema.
+Gracias a ellas, es posible realizar un análisis forense digital
+en caso de un posible ataque o anomalía en una aplicación,
+pues llevan un registro de cambios en variables relevantes <<r1 , ^[1]^>>.
+Las variables más comunes a la hora de registrar un evento son:
+momento de ocurrencia (fecha, hora, minuto, segundo, milésima, zona horaria),
+severidad del evento (baja, media, alta),
+responsable del activo, entre otras.
+Es necesario registrar todos los eventos excepcionales
+en los logs de la aplicación,
+para esto se requiere del archivo que contiene los parámetros
+que se van a registrar en el +log+
+y el llamado al programa que registrará el evento.
+En este artículo explicaremos cómo crear una bitácora (+log+) en +RPG+,
+realizando el seguimiento de variables de interés de la aplicación
+y creando los eventos excepcionales a registrar.
+Para ello debemos seguir los siguientes pasos:
+
+. Construcción del archivo +LOG.txt+: Es el archivo principal de la bitácora.
+Este archivo debe estar constituido
+por los parámetros más relevantes que queremos monitorear y registrar,
+a continuación un ejemplo de un archivo +LOG.txt+:
++
+.Creación de LOG.txt
+[source, shell, linenums]
+----
+              * Información del Evento                                              080917
+0088.00                                                                             080917
+0089.00      A            RLEVENTOUS    10A         COLHDG('USUARIO' 'EVENTO')      080826
+0090.00      A                                      TEXT('USUARIO EVENTO')          080826
+0091.00      A            RLEVENTOFE     8S         COLHDG('FECHA' 'EVENTO')        080826
+0092.00      A                                      TEXT('FECHA EVENTO')            080826
+0093.00      A            RLEVENTOHO     6S         COLHDG('HORA' 'EVENTO')         080826
+0094.00      A                                      TEXT('HORA EVENTO')             080826
+0095.00      A            RLDESEVENT    60A         COLHDG('DESCRIPCIÓN' 'EVENTO')  080917
+0096.00      A                                      TEXT('DESCRIPCIÓN EVENTO')      080917
+----
+
+. Posteriormente debemos definir el archivo +LOG.txt+
+dentro del programa.
+Para el caso de este artículo tendríamos:
++
+[source, shell, linenums]
+----
+0001.00  //--------------------------------------------------------------  080830
+0002.00  //-- Definición de Archivos                                       080830
+0003.00  //--------------------------------------------------------------  080830
+0004.00 FLOGUF        A E           K DISK                                 080922
+----
+
+. Definimos una variable tipo +LOG+.
+Esto nos indica que la variable será monitoreada dentro de la bitácora.
+Para ello realizamos lo siguiente:
++
+[source, shell, linenums]
+----
+0005.00  //- Estructuras para manipular Log de Auditoría     080826
+0006.00 DRegLog         E Ds                  ExtName(LOG)   080922
+----
+
+. Controlamos la excepción, en este ejemplo del llamado de un programa.
+Para ello utilizamos la sentencia +On Exception+,
+como se muestra a continuación:
++
+[source, shell, linenums]
+----
+0007.00          Call "Programa" Using vaiable1 variable2 valiableN                081028
+0008.00                                                                            081028
+0009.00           On Exception         //excepcion para llamado a un programa      081028
+0010.00                   //llamado a la funcion que registra en el log            081028
+0011.00                   Auditor();                                               081028
+0013.00           End-Call
+----
+
+. Creamos el evento asociado a la variable monitoreada.
+Para ello creamos y asignamos los valores del evento.
+A continuación presentamos un ejemplo de la creación de un evento:
++
+[source, shell, linenums]
+----
+0014.00   //--------------------------------------------------------------  080826
+0015.00   //-- Procedimiento: Crear nuevo evento en Log                     080826
+0016.00   //--------------------------------------------------------------  080826
+0017.00 P Auditor         B                                                 080826
+0018.00  /Free                                                              080826
+0019.00       Clear REGLOG                                                  080826
+0023.00       //Asignar a registro del Log. Valores del evento              080917
+0024.00       RLEVENTOUS = Usuario;                                         080917
+0025.00       RLEVENTOFE = %Int(wFecha);                                    090507
+0026.00       RLEVENTOHO = %Int(%Char(%Time():*Iso0));                      080917
+0029.00       RLDESEVENT = 'Evento a registrar en el log';                  080917
+0034.00       Write REGLOG;                                                 080826
+0035.00  /End-Free                                                          080826
+0036.00 P Auditor         E                                                 080826
+----
+
+. Finalmente repetimos el proceso para todos los eventos necesarios.
+Podemos configurar las variables a monitorear, la severidad del evento,
+las condiciones de registro entre otras opciones personalizadas.
+
+== Referencias
+
+. [[r1]] link:https://en.wikipedia.org/wiki/Security_log[Wikipedia - Security log].
+. [[r2]] link:https://www.mcpressonline.com/programming/rpg/job-logging-from-rpg-ivthe-easy-way[Job Logging from RPG IV--The Easy Way!].
+. [[r4]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras].
+. [[r5]] link:../../../rules/079/[REQ.079 Registrar momento de ocurrencia de eventos].
+. [[r6]] link:../../../rules/083/[REQ.083 No registrar datos sensibles en bitácoras].

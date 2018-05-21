@@ -1,0 +1,147 @@
+:slug: defends/php/comparar-strings/
+:category: php
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP al comparar cadenas de texto de manera segura. Es importante hacer uso del operador estricto para esta tarea con el fin de evitar brechas de seguridad.
+:keywords: PHP, Seguridad, Comparar, Cadena, Type Juggling, Weak typing.
+:defends: yes
+
+= Definir comparación segura de strings
+
+== Necesidad
+
+Comparación segura de +strings+ en el lenguaje +PHP+
+
+== Contexto
+
+A continuación se describe
+las circunstancias bajo las cuales la siguiente solución tiene sentido:
+
+. Se utiliza el lenguaje de programación +PHP+.
+. Se desean comparar cadenas de texto de manera segura.
+
+== Solución
+
+* Es importante tener en cuenta que +PHP+ es un lenguaje del tipo +weak typing+
+o de "tipado débil", es decir, que no impone exigencia alguna
+respecto a los tipos de variables al momento de declararlas.
+Esto, en algunos casos brinda múltiples facilidades al programador, sin embargo,
+también permite la existencia de cierto tipos de vulnerabilidades.
++
+A diferencia de otros lenguajes,
+ya que no se declaran las variables indicando su tipo de dato,
+se abre la posibilidad de que cuando se requiera comparar,
++PHP+ interprete erróneamente el tipo de dato,
+incurriendo así en un error de +type juggling+, de forma que
+no lo trate como +string+ sino que lo interprete como una
+notación cuyo resultado es de tipo numérico.
+
+* En el siguiente fragmento de código se demuestra este tipo de fallas:
++
+.incorrecto.php
+[source, php, linenums]
+----
+<?php
+
+$x = "0e123";
+$y = 0;
+
+if ($x == $y) {
+  echo "True".PHP_EOL;
+}
+else {
+  echo "False".PHP_EOL;
+}
+
+?>
+----
++
+Al ejecutar el código anterior obtenemos lo siguiente:
++
+.output
+[source, text, linenums]
+----
+True
+----
+
+* Se puede ver que el valor obtenido en
+la comparación fue verdadero,
+lo cual no debería ser correcto.
+Lo que está sucediendo es que
++PHP+ realiza una conversión de la cadena "0e123"
+(0 veces 10 elevado a la potencia de 123) al número 0, y
+al comparar este resultado con la segunda cadena,
+el resultado es verdadero.
+
+* Es importante mencionar que también se debe evitar
+el uso de la función +strcmp+ para comparar cadenas de texto,
+ya que si bien no presenta las fallas vistas anteriormente,
+es posible engañarla en caso de que uno de los valores a comparar
+sea un arreglo vacío.
++
+A continuación se encuentra una demostración de esta falla:
++
+.incorrecto.php
+[source, php, linenums]
+----
+<?php
+
+$x = [];
+$y = "foo";
+
+if (strcmp($x, $y) == 0) {
+  echo "True".PHP_EOL;
+}
+else {
+  echo "False".PHP_EOL;
+}
+
+?>
+----
++
+.output
+[source, text, linenums]
+----
+True
+----
+
+* En el anterior ejemplo se evidencia que la función +strcmp+
+falla al realizar la comparación, por lo tanto, retornará un valor +NULL+ y
+a causa de la comparación con el operador no estricto +==+,
++NULL+ es igual a 0.
+Por ende, determina que la respuesta es +True+.
+
+* La forma adecuada de comparar cadenas de texto
+evitando incurrir en estos errores que dan paso a potenciales vulnerabilidades,
+es realizar una comparación estricta
+usando el operador +===+,
+el cual verifica que las variables sean de igual tipo de dato y de igual valor,
+tal como se muestra a continuación:
++
+.correcto.php
+[source, php, linenums]
+----
+<?php
+
+$x = "0e123";
+$y = 0;
+
+if ($x === $y) {
+  echo "True".PHP_EOL;
+}
+else {
+  echo "False".PHP_EOL;
+}
+
+?>
+----
++
+.output
+[source, text, linenums]
+----
+False
+----
+
+== Referencias
+
+. link:https://en.wikipedia.org/wiki/Weak_typing[Weak typing]
+. link:https://secure.php.net/manual/en/types.comparisons.php[types comparison - PHP]
+. link:https://www.owasp.org/images/6/6b/PHPMagicTricks-TypeJuggling.pdf[PHP Type Juggling - OWASP]

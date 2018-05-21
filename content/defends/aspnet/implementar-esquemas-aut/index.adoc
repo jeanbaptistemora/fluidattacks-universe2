@@ -1,0 +1,173 @@
+:slug: defends/aspnet/implementar-esquemas-aut/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al implementar esquemas de autorización. De esta manera se puede especificar los permisos de los usuarios para evitar que usuarios no autorizados accedan a los recursos.
+:keywords: ASPNET, Seguridad, Esquemas, Autorización, Permisos, Acceso.
+:defends: yes
+
+= Implementar esquemas de autorización
+
+== Necesidad
+
+Implementar esquemas de autorización en ASP.Net
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en ASP.Net.
+
+== Solución
+
+. Cuando se ejecuta una aplicación Web,
+ésta solicita recursos del servidor Web
+y a menudo de otros procesos,
+así como una base de datos.
+El proceso de ASP.NET
+se ejecuta en un contexto de usuario
+que determina cómo la aplicación solicitará esos recursos.
+En su aplicación ASP.NET, puede especificar
+los diferentes usuarios que
+tienen acceso a los recursos.
+
+. Por ejemplo, puede especificar que todos los usuarios
+puedan obtener páginas de la aplicación,
+pero que sólo determinados usuarios
+puedan publicar páginas a la misma.
+Del mismo modo, es posible especificar
+que a todos los usuarios se les permita obtener páginas,
+pero sólo roles específicos tengan derecho a publicar.
+
+. Puede otorgar autorización de direcciones URL
+de la aplicación en su conjunto,
+o realizándolo directorio por directorio.
+Un uso típico es permitir que todos los usuarios
+puedan ver las páginas en un directorio público,
+manteniendo las páginas restringidas en un directorio diferente
+el cual está autorizado sólo para usuarios o roles específicos.
+
+. La autorización determina si a una identidad
+se le debe dar acceso a un recurso específico.
+En ASP.NET, existen dos maneras
+de autorizar el acceso a un recurso dado:
+
+* Autorización de archivos: La autorización de archivos
+se realiza con el _FileAuthorizationModule_.
+Este módulo verifica la lista de control de acceso (ACL)
+del archivo de control ._Aspx_ o ._Asmx_
+para determinar si un usuario
+debería tener acceso al archivo.
+Los permisos de ACL son verificados
+a través de la identidad del usuario de Windows
+o a través de la identidad del proceso de ASP.NET.
+
+* Autorización de direcciones URL:  La  autorización URL
+es realizada por el _UrlAuthorizationModule_.
+Este módulo se puede utilizar
+para permitir o denegar el acceso
+a partes arbitrarias de una aplicación,
+los cuales son normalmente directorios,
+o para usuarios y roles específicos de forma selectiva.
+
+. Utilizar la autorización de URL:
+Con autorización de direcciones URL,
+puede permitir o denegar el acceso
+a un directorio en particular
+por nombre de usuario o rol particular.
+Los permisos establecidos para un directorio
+también se aplican a los subdirectorios,
+a menos que los archivos de configuración
+en un subdirectorio modifiquen dichos permisos.
+A continuación se presenta autorización:
++
+.test.py
+[source, xml, linenums]
+----
+<authorization>
+  <[allow|deny] users roles verbs />
+</authorization>
+----
+
+. El elemento _allow_ o _deny_ es requerido.
+Para conceder permisos a un elemento
+puede especificar ya sea el atributo usuario o rol.
+El atributo _verbs_ es opcional.
+Los elementos _allow_ y _deny_
+conceden y niegan el acceso respectivamente.
+Cada elemento soporta los atributos mostrados en la siguiente tabla:
++
+|===
+|*Atributo* | *Descripción*
+
+|*users*
+|Identifica las identidades específicas
+(cuentas de usuario) para este elemento.
+Los usuarios anónimos se identifican
+con un signo de interrogación (?).
+Puede especificar todos los usuarios autenticados con un asterisco (*).
+
+|*roles*
+|Identifica un rol (un objeto _RolePrincipal_)
+para la solicitud actual para establecer
+si se permite o niega el acceso al recurso.
+
+|*verbs*
+|Define los verbos HTTP a los que se aplica la acción,
+como _GET_, _HEAD_ y _POST_.
+El valor predeterminado es "*",
+que especifica todos los verbos.
+
+|===
+
+. El siguiente ejemplo otorga acceso a la identidad Kim
+y miembros de la función Administradores,
+y niega el acceso a la identidad Jhon
+y a todos los usuarios anónimos:
++
+[source, xml, linenums]
+<authorization>
+  <allow users="Kim"/>
+  <allow roles="Admins"/>
+  <deny users="John"/>
+  <deny users="?"/>
+</authorization>
+
+. El ejemplo siguiente permite a todos los usuarios
+realizar un HTTP _GET_ para un recurso,
+pero sólo permite a la identidad Kim
+realizar una operación _POST_:
++
+[source, xml, linenums]
+----
+<authorization>
+  <allow verbs="GET" users="*"/>
+  <allow verbs="POST" users="Kim"/>
+  <deny verbs="POST" users="*"/>
+</authorization>
+----
++
+Las reglas se aplican de la siguiente manera:
+
+. Las reglas contenidas en los archivos de configuración
+a nivel de aplicación
+tienen prioridad sobre las reglas heredadas.
+El sistema determina qué norma prevalece
+construyendo una lista combinada
+de todas las reglas de una dirección URL,
+con las normas más recientes
+a la cabeza de la lista.
+
+. Dado un conjunto de reglas combinadas para una aplicación,
+ASP.NET se inicia en la cabeza de la lista
+y comprueba las reglas
+hasta que se encuentra la primera coincidencia.
+Si se encuentra una coincidencia,
+que corresponde a un elemento _deny_,
+la solicitud retorna con el código de estado HTTP 401.
+Si un elemento _allow_ coincide,
+el módulo permite que la petición sea procesada.
+
+== Referencias
+
+. link:https://msdn.microsoft.com/en-us/library/yfe5dwc2(v=vs.100).aspx[Seguridad en la autenticación ASP.NET]
+. link:https://msdn.microsoft.com/en-us/library/wce3kxhd(v=vs.100).aspx[Autorización ASP.NET]

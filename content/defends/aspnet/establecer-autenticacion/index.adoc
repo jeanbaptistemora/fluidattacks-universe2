@@ -1,0 +1,243 @@
+:slug: defends/aspnet/establecer-autenticacion/
+:category: aspnet
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de esquemas de autenticación y autorización en ASP.NET, permitiendo validar usuarios, establecer roles y otorgar permisos a determinadas partes de una aplicacion.
+:keywords: ASP.NET, Seguridad, Programación, Autenticación, Autorización, SQL Server.
+:defends: yes
+
+= Establecer autenticación y autorización
+
+== Necesidad
+
+Se requiere implementar en una aplicación web +ASP.NET+,
+un esquema de autenticación y autorización de usuarios.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación esta hecha en +ASP.NET+ versión +2.0+ o superior.
+. Se utiliza el sistema para la gestión
+de base de datos +Microsoft SQL Server 2000+ en adelante.
+
+== Solución
+
+Un servicio alternativo al +API Membership+ es el +API Role+.
+Éste permite agrupar los usuarios de una aplicación
+a través del establecimiento de roles.
+Estos componentes permiten implementar de manera flexible
+y sostenible las partes de autenticación
+y autorización de los usuarios.
+
++ASP.NET+ ofrece proveedores
+para motores de base de datos +Microsoft SQL Server+,
+directorios activos, bases de datos +XML+, entre otros.
+Para este caso, se utilizarán
+los proveedores +SqlMembershipProvider+ y +SqlRoleProvider+ <<r1, ^[1]^>>.
+Para garantizar el adecuado uso de estos dos proveedores,
+considerar los siguientes pasos:
+
+. Especifique una base de datos
+para almacenar la información de los usuarios
+y sus respectivos roles.
+En este punto, se recomienda que se utilice
+la base de datos definida para la aplicación,
+en la cual se guardarán las tablas, vistas
+y procedimientos almacenados necesarios para configurar
+el esquema de servicios del +ASP.NET+.
+Este repositorio de datos debió de ser creado
+mediante el motor de base de datos +Microsoft SQL Server 2000+, +2005+ o +2008+.
+
+. Ejecute la herramienta +aspnet_regsql.exe+
+presente en la ruta +C:\WINDOWS\Microsoft.NET\Framework\v2.0.xyz+ <<r2 , ^[2]^>>.
+y seleccione la opción Configuración del +SQL Server+
+para servicios de aplicación.
+
+. Ingrese la información de configuración de la conexión al servidor
+y seleccione la base de la aplicación.
+
+. Configure la cadena de conexión a la base de datos.
+En el archivo de configuración de la aplicación +web.config+
+defina la cadena para establecer comunicación
+con la base de datos de la aplicación,
+para lo cual se requiere utilizar el elemento +connectionStrings+ <<r3 ,^[3]^>>.
++
+.Web.config
+[source, xml, linenums]
+----
+<connectionStrings>
+   <add name="NombreConexion"
+        connectionString="Data Source=Servidor;Initial
+         Catalog=NombreBaseDatos;User Id=Usuario;
+         Password=Contraseña;"/>
+ </connectionStrings>
+----
++
+Una conexión puede ser:
++
+[source,xml, linenums]
+----
+ <connectionStrings>
+   <add name="cnsFLUIDIdentifies"
+        connectionString= "Data Source=FLUIDIdentifies;
+         InitialCatalog=dbFLUIDIdentifies;
+         User Id=FLUIDIdentifies;
+         Password=FLUID5Meters!;"/>
+ </connectionStrings>
+----
+
+. Configure el proveedor +SqlMembershipProvider+.
+Adicionar un registro en el archivo +web.config+
+de la aplicación para agregar el proveedor +SqlMembershipProvider+,
+especificando la base de datos que contiene
+el esquema de servicios de aplicaciones +ASP.NET+,
+donde está toda la información de los usuarios.
+
+. Utilizar el elemento +membership+,
+especificando el proveedor de suscripciones predeterminado
+que usará la aplicación para gestionar la autenticación de los usuarios.
++
+[source,xml,linenums]
+----
+<membership defaultProvider="AspNetSqlMembershipProvider">
+   <providers>
+        <clear/>
+         <add name="AspNetSqlMembershipProvider"
+           type="System.Web.Security.SqlMembershipProvider"
+           connectionStringName="cnsFLUIDIdentifies"
+           requiresQuestionAndAnswer="false"
+           requiresUniqueEmail="true"
+           passwordFormat="Hashed"
+           minRequiredNonalphanumericCharacters="2"
+           minRequiredPasswordLength="8"
+           maxInvalidPasswordAttempts="50"
+           passwordAttemptWindow="30"
+           applicationName="FLUIDIdentifies"/>
+    </providers>
+</membership>
+----
+
+. Configure el proveedor +SqlRoleProvider+.
+Adicione un registro en el archivo +web.config+
+de la aplicación para agregar el proveedor +SqlRoleProvider+,
+especificando la base de datos
+que contiene el esquema de servicios de aplicaciones +ASP.NET+,
+donde está toda la información de los usuarios.
+
+. Utilizar el elemento +roleManager+
+estableciendo el atributo +enabled+ al valor +true+.
+Adicionalmente, especifique el proveedor
+para la gestión de roles
+que se usará de manera predeterminada en la aplicación.
++
+[source, xml, linenums]
+----
+<roleManager enabled="true">
+      <providers>
+        <clear />
+        <add connectionStringName="cnsFLUIDIdentifies"
+             applicationName="FLUIDIdentifies"
+             name="AspNetSqlRoleProvider"
+             type="System.Web.Security.SqlRoleProvider" />
+      </providers>
+    </roleManager>
+----
+
+. Utilice las +API+ +Membership+
+y +Role+ para crear usuarios
+y roles respectivamente.
+Una vez configurado el proveedor de suscripciones
+es posible gestionar los usuarios
+mediante el +API+ +System.Web.Security.Membership+,
+permitiendo crear, modificar
+y eliminar los usuarios de la aplicación <<r4 , ^[4]^>>.
+
+. Establezca permisos de acceso
+a recursos basados en roles.
+Una vez creado los roles
+que asignarán a los usuarios,
+es posible configurar el acceso
+a los recursos que tiene publicado la aplicación,
+tanto a nivel de directorio como a nivel de pagina web.
+Utilizar el elemento +location+ <<r5 , ^[5]^>>.
+
+. Utilizar el elemento +authorization+ <<r6, ^[6]^>>,
+especificado dentro del archivo de configuración
+de la aplicación +web.config+.
++
+[source,xml,linenums]
+----
+<location path="Maestros">
+    <system.web>
+      <authorization>
+        <allow roles="SupervisorNacional"/>
+        <allow roles="SupervisorDespachoRegional"/>
+        <allow roles="AdministradorNacional"/>
+        <deny users="*"/>
+      </authorization>
+    </system.web>
+  </location>
+----
++
+En la configuración anterior se establece
+que los roles +SupervisorNacional+,
++SupervisorDespachoRegional+,
++AdministradorNacional+ pueden acceder
+al contenido del directorio +Maestros+.
+Cualquier otro rol diferente a los mencionados,
+no tienen permiso para acceder a ningún
+recurso ubicado en dicho directorio.
++
+La siguiente configuración,
+específica que los recursos ubicados en el subdirectorio +Admin+,
+el cual se encuentra ubicado en el directorio +Maestros+,
+solo puede acceder los usuario que tengan el rol +AdministradorNacional+.
++
+[source,xml,linenums]
+----
+  <location path="Maestros/Admin">
+    <system.web>
+      <authorization>
+        <allow roles="AdministradorNacional"/>
+        <deny users="*"/>
+      </authorization>
+    </system.web>
+  </location>
+----
++
+Para configurar el acceso mediante roles
+para las páginas web que expone la aplicación,
+se puede hacer de la misma forma:
++
+[source,xml,linenums]
+----
+<location path="indicaCondicionesGestoria.aspx">
+    <system.web>
+      <authorization>
+        <allow roles="SupervisorNacional"/>
+        <deny users="*"/>
+      </authorization>
+    </system.web>
+  </location>
+----
++
+En la configuración anterior se establece
+que los usuarios autorizados
+con acceso a la página +indicaCondicionesGestoria.aspx+,
+son aquellos que tengan el rol de +SupervisorNacional+.
+
+
+== Referencias
+
+. [[r1]] link:https://weblogs.asp.net/scottgu/423703[Configuring ASP.NET 2.0 Application Services
+to use SQL Server 2000 or SQL Server 2005].
+
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/ms229862.aspx[Herramienta Registro de SQL Server para ASP.NET (Aspnet_regsql.exe)].
+
+. [[r3]] link:https://msdn.microsoft.com/es-es/library/system.configuration.configuration.connectionstrings(v=vs.110).aspx[Elemento connectionStrings (Esquema de configuración de ASP.NET)].
+
+. [[r4]] link:https://msdn.microsoft.com/es-es/library/system.web.security.membership(v=vs.80).aspx[Membership (Clase)].
+
+. [[r5]] link:https://msdn.microsoft.com/en-us/library/b6x6shw7%28v=vs.85%29.aspx[location Element (ASP.NET Settings Schema)].
+
+. [[r6]] link:https://msdn.microsoft.com/es-es/library/8d82143t.aspx[Elemento authorization (Esquema de configuración de ASP.NET)].

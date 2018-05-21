@@ -1,0 +1,105 @@
+:slug: defends/java/definir-charset-jsp/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al definir los parámetros Charset y Content-Type en páginas JSP. Éstos parámetros permiten definir el conjunto de caracteres utilizados por el navegador y ayudan a prevenir el XSS.
+:keywords: Java, Seguridad, Charset, Content-Type, JSP, XSS.
+:defends: yes
+
+= Definir Character-Set y Content-Type en Páginas JSP
+
+== Necesidad
+
+Definir +Character-Set+ y +Content-Type+ explícito
+en páginas +JSP+ para +Java EE+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación web
+usando la tecnología de +JSP+ de +Java+.
+. Se dispone de un contenedor de +servlets+.
+. Se está utilizando una versión previa a +Java EE 6+.
+* Si se está utilizando +Java EE 6+ o superior,
+en vez de +JSP+ se recomienda utilizar
+link:https://docs.oracle.com/javaee/6/tutorial/doc/giepx.html[Facelets]
+
+== Solución
+
+La codificación de carácteres, +character encoding+, o +charset+
+es el método que permite convertir un carácter de una lengua natural
+(español, inglés, francés, italiano, entre otros),
+en un símbolo de otro sistema de representación
+(números, secuencia de comandos, lenguaje máquina).
+Básicamente, definen la forma en la que se codifica un carácter
+dado en un símbolo en otro sistema de representación ^<<r1,[1]>>^.
+
+Por su parte, el +Content-Type+ es un encabezado
+que especifica el tipo de contenido de una petición +HTTP+.
+Entonces, el +Content-Type+ sirve para decirle al servidor
+la manera en que determinada secuencia de carácteres
+se mostrará en el navegador del cliente.
+
+Aunque el +charset+ no es obligatorio,
+se debería incluir en cualquier página web
+para indicar de forma expresa
+la codificación de carácteres utilizada.
+
+También se recomienda su uso para mitigar
+ataques de intrucción que buscan aprovechar
+la carencia del +charset+ en algunas páginas web.
+
+En esta solución se abordará la manera de definir
+el +charset+ +content-type+
+en una página desplegada en +JSP+.
+
+. Para evitar que el navegador web
+tenga que adivinar el conjunto de caracteres usados,
+se recomienda especificarlo directamente,
+en especial para archivos generados dinámicamente.
+
+. Las consecuencias de no usar un +Char-Set+ específico
+pueden resultar en vulnerabilidades tipo +XSS+.
+
+. En +JSP+, el tag usado para especificar el +Char-Set+
+es +@page+ con el atributo +contentType+.
+Ejemplo:
++
+.jsp.html
+[source, html, linenums]
+----
+<%@ page contentType="text/html; charset=iso-8859-1"%>
+<%
+  String s = "Texto codificado";
+  out.println(s);
+%>
+<br />
+<%= s %>
+----
+
+. Algunos de los +Chartset+ definidos son los siguientes:
+
+* +ISO-8859-1+
+* +ISO-8859-15+
+* +windows-1252+
+* +US-ASCII+
+* +UTF-8+
+* +EUC-JP+
+* +Shift_JIS+
+* +EUC-KR+
+* +KOI8-R+
+* +TIS-620+
+* +Big5+
+* +Big5-HKSCS+
+
+. Por último, los +charset+ no son +case sensitive+,
+es decir, pueden ser definidos tanto en mayúscula
+como en letra minúscula.
+
+== Referencias
+
+. [[r1]] link:https://en.wikipedia.org/wiki/Character_encoding#Character_sets,_character_maps_and_code_pages[Character encoding]
+. [[r2]] link:https://docs.oracle.com/cd/E28280_01/bi.1111/b32121/pbr_nls003.htm#RSPUB23729[Specifying a Character Set in a JSP]
+. [[r3]] link:https://docs.oracle.com/cd/B10002_01/generic.903/a97681/jspprim.htm[JSP Primer]
+. [[r4]] link:../../../rules/043/[REQ.043 Definir content type explícito]
+. [[r5]] link:../../../rules/044/[REQ.044 Definir charset explícito]

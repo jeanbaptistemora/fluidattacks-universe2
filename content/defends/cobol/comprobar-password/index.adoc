@@ -1,0 +1,276 @@
+:slug: defends/cobol/comprobar-password/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al comprobar la fortaleza de las contraseñas con diccionario. Un atacante pueden obtener una contraseña por fuerza bruta por lo cual es importante contar con una contraseña segura.
+:keywords: Cobol, Seguridad, Fortaleza, Contraseña, Diccionario, Buenas prácticas.
+:defends: yes
+
+= Comprobar Fortaleza Diccionario
+
+== Necesidad
+
+Comprobar fortaleza de contraseñas tipo palabra
+usando diccionarios de contraseñas comunes en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. Las claves tipo palabra
+no deben contener palabras de diccionario<<r1,^[1]^>>.
+
+== Solución
+
+. Para la construcción de la solución se debe definir
+o buscar una lista con contraseñas comunes,
+las cuales serán usadas
+para comparar con la contraseña ingresada por el usuario.
+Existen listas de diccionarios
+que se recomiendan para realizar la búsqueda.^<<r2,[2]>>,<<r3,[3]>>,<<r4,[4]>>,<<r5,[5]>>,<<r6,[6]>>^
+
+. Por cuestiones de espacio
+se creó el archivo +COMMONPASS+ con el siguiente contenido:
++
+[source,bat,linenums]
+----
+123
+password
+hello
+admin
+busy
+12345
+dragon
+qwerty
+system
+mustang
+----
+
+. Se da inicio al programa definiendo la división +IDENTIFICATION DIVISION+:
++
+.cobolcpass.cbl
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLCPASS.
+----
+
+. En la división +ENVIRONMENT DIVISION+
+se asigna la variable +COMMON-PASS+ al archivo +COMMONPASS+,
+el cual contiene las contraseñas comunes:
++
+[source,cobol,linenums]
+----
+      ***************
+      * Environment *
+      ***************
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT COMMON-PASS ASSIGN TO "COMMONPASS"
+           ORGANIZATION IS SEQUENTIAL.
+----
+
+. En la división +DATA DIVISION+ se establece
+la estructura para el archivo con contraseñas comunes:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       FILE SECTION.
+       FD COMMON-PASS.
+       01 PASSWORD-RECORD.
+           88 WS-PASS-EOF VALUE HIGH-VALUES.
+           02 WS-PASSWORD PIC X(26).
+----
+
+. En la sección de almacenamiento declaramos cuatro variables:
+
+* +WS-USERPASS:+ Contraseña ingresada por el usuario.
+
+* +WS-COUNT:+ Contador que indica
+si la contraseña en el diccionario
+está contenida en la contraseña ingresada por el usuario.
+
+* +WS-LENGTH:+ Longitud real de la contraseña en el diccionario.
+
+* +WS-FLAG:+ Bandera que indica si el requisito es cumplido.
+
++
+[source,cobol,linenums]
+----
+       WORKING-STORAGE SECTION.
+       01 WS-USERPASS     PIC X(26).
+       01 WS-COUNT        PIC 9(02) VALUE 0.
+       01 WS-LENGTH       PIC 9(02).
+       01 WS-FLAG         PIC 9     VALUE 0.
+           88 WS-FLAG-FALSE VALUE 0.
+           88 WS-FLAG-TRUE  VALUE 1.
+----
+
+. En la división +PROCEDURE DIVISION+
+se encuentra la lógica del programa.
+Obtenemos la contraseña del usuario
+y la convertimos a mayúscula:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           DISPLAY "Ingrese clave a verificar: ".
+           ACCEPT WS-USERPASS.
+           MOVE FUNCTION UPPER-CASE(WS-USERPASS) TO WS-USERPASS.
+----
+
+. Abrimos el archivo con las contraseñas comunes:
++
+[source,cobol,linenums]
+----
+       OPEN INPUT COMMON-PASS.
+----
+
+. Leemos el primer registro del diccionario
+y a través del uso de la sentencia +AT END+
+podemos saber si alcanzó el final del archivo:
++
+[source,cobol,linenums]
+----
+       READ COMMON-PASS
+           AT END SET WS-PASS-EOF TO TRUE
+       END-READ.
+----
+
+. Convertimos la contraseña en el diccionario a mayúscula
+y se inicializan las variables +WS-COUNT+ y +WS-LENGTH+.
+Tanto la contraseña ingresada por el usuario
+como la contenida en el diccionario,
+son convertidas a mayúscula por facilidad de validación:
++
+[source,cobol,linenums]
+----
+       PERFORM UNTIL WS-PASS-EOF
+           MOVE FUNCTION UPPER-CASE(WS-PASSWORD) TO WS-PASSWORD
+           MOVE 0 TO WS-COUNT
+           MOVE 0 TO WS-LENGTH
+----
+
+. Obtenemos la longitud real de la contraseña en el diccionario
+para evitar problemas con los espacios al final de la misma:
++
+[source,cobol,linenums]
+----
+       INSPECT FUNCTION REVERSE(WS-PASSWORD)
+       TALLYING WS-LENGTH FOR LEADING SPACES
+
+       COMPUTE WS-LENGTH = FUNCTION LENGTH(WS-PASSWORD)
+                           - WS-LENGTH
+----
+
+. Se busca todas las coincidencias de la contraseña en el diccionario
+dentro de la contraseña ingresada por el usuario:
++
+[source,cobol,linenums]
+----
+       INSPECT WS-USERPASS
+       TALLYING WS-COUNT
+       FOR ALL WS-PASSWORD(1:WS-LENGTH)
+----
+
+. Si la contraseña está contenida en la contraseña ingresada por el usuario,
+entonces salimos del procesamiento del archivo:
++
+[source,cobol,linenums]
+----
+       IF WS-COUNT > 0 THEN
+           MOVE 1 TO WS-FLAG
+           PERFORM FINAL-PROCESS
+       END-IF
+----
+
+. A continuación, leemos el próximo registro:
++
+[source,cobol,linenums]
+----
+           READ COMMON-PASS
+               AT END SET WS-PASS-EOF TO TRUE
+           END-READ
+       END-PERFORM
+----
+
+. Como proceso final, se cierra el archivo:
++
+[source,cobol,linenums]
+----
+       FINAL-PROCESS.
+           CLOSE COMMON-PASS
+----
+
+. Si la bandera está en falso,
+significa que el requisito fue cumplido
+y la contraseña no contiene palabras de diccionario:
++
+[source,cobol,linenums]
+----
+       IF WS-FLAG-FALSE THEN
+           DISPLAY "Requisito cumplido"
+       ELSE
+           DISPLAY "Requisito no cumplido"
+       END-IF.
+
+       STOP RUN.
+----
+
+. A continuación se presenta una tabla
+con los resultados obtenidos
+luego de ejecutar la aplicación:
++
+.Resultados obtenidos luego de ejecutar la aplicación.
+[options="header"]
+|====
+|Palabra |Resultado
+
+|123
+|No cumplido
+
+|hello
+|No cumplido
+
+|admin
+|No cumplido
+
+|SystEM
+|No cumplido
+
+|abcd123abcd
+|No cumplido
+
+|My-Str0n6_P4assw0rd!
+|Cumplido
+|====
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolcpass.cbl[cobolcpass.cbl]# contiene
+todas las instrucciones +COBOL+ del programa.
+
+== Referencias
+
+. [[r1]] link:../../../rules/132/[REQ.132 Contraseñas con al menos 4 palabras]
+. [[r2]] link:http://dazzlepod.com/uniqpass/[Dazzlepod Uniqpass].
+. [[r3]] link:http://www.openwall.com/wordlists/[Openwall Wordlist].
+. [[r4]] link:http://wordlist.aspell.net/[Wordlist project].
+. [[r5]] link:https://packetstormsecurity.com/Crackers/wordlists/[Packet Storm Security Wordlists].
+. [[r6]] link:http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[Linux Password Security with pam_cracklib].
