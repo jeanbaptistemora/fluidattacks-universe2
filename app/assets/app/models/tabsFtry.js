@@ -105,24 +105,25 @@ angular.module("FluidIntegrates").factory(
       "findingEvidenceTab" (data) {
         const evidenceList = [];
         const updEvidenceList =
-    function updEvidenceList (source, keyU, keyD, ref, type, array, scope) {
-      const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
+        function updEvidenceList (source, keyU, keyD, ref, type, array, scope) {
+          const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
                       $window.location.href.split("dashboard#!/")[1]}/`;
-      const url = urlPre + source;
-      let descText = "";
-      if (type === "basic") {
-        descText = $translate.instant(`search_findings.tab_evidence.${keyU}`);
-      }
-      else {
-        descText = scope.finding[keyU];
-      }
-      array.push({
-        "desc": descText,
-        "name": $translate.instant(`search_findings.tab_evidence.${keyD}`),
-        ref,
-        url
-      });
-    };
+          const url = urlPre + source;
+          let descText = "";
+          if (type === "basic") {
+            descText = $translate.instant("search_findings." +
+                                          `tab_evidence.${keyU}`);
+          }
+          else {
+            descText = scope.finding[keyU];
+          }
+          array.push({
+            "desc": descText,
+            "name": $translate.instant(`search_findings.tab_evidence.${keyD}`),
+            ref,
+            url
+          });
+        };
         const setEvidenceList =
         function setEvidenceList (response, valFormstack) {
           for (let cont = 0; cont < response.data.length; cont++) {
@@ -155,20 +156,21 @@ angular.module("FluidIntegrates").factory(
             }
             const evidenceAmong = 6;
             for (let inc = 1; inc < evidenceAmong; inc++) {
-              if (angular.isDefined(valFormstack[`desc_evidencia_${inc}`]) &&
-            angular.isDefined(valS3[`ruta_evidencia_${inc}`]) &&
-            valS3[`es_ruta_evidencia_${inc}`] === true) {
+              if (angular.isDefined(valFormstack["evidence_" +
+                  `description_${inc}`]) &&
+                  angular.isDefined(valS3[`evidence_route_${inc}`]) &&
+                  valS3[`es_evidence_route_${inc}`] === true) {
                 updEvidenceList(
-                  valS3[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
+                  valS3[`evidence_route_${inc}`], `evidence_description_${inc}`,
                   "evidence_name", inc + 1, "special", evidenceList, data
                 );
               }
-              else if (angular.isDefined(valFormstack["desc_" +
-                    `evidencia_${inc}`]) &&
-                     angular.isDefined(valFormstack[`ruta_evidencia_${inc}`])) {
+              else if (angular.isDefined(valFormstack["evidence_" +
+                    `description_${inc}`]) &&
+                     angular.isDefined(valFormstack[`evidence_route_${inc}`])) {
                 updEvidenceList(
-                  valFormstack[`ruta_evidencia_${inc}`],
-                  `desc_evidencia_${inc}`,
+                  valFormstack[`evidence_route_${inc}`],
+                  `evidence_description_${inc}`,
                   "evidence_name", inc + 1, "special", evidenceList, data
                 );
               }
@@ -197,11 +199,12 @@ angular.module("FluidIntegrates").factory(
               }
               const evidenceAmong = 6;
               for (let inc = 1; inc < evidenceAmong; inc++) {
-                if (angular.isDefined(valFormstack[`desc_evidencia_${inc}`]) &&
-                angular.isDefined(valFormstack[`ruta_evidencia_${inc}`])) {
+                if (angular.isDefined(valFormstack["evidence_" +
+                  `description_${inc}`]) &&
+                  angular.isDefined(valFormstack[`evidence_route_${inc}`])) {
                   updEvidenceList(
-                    valFormstack[`ruta_evidencia_${inc}`],
-                    `desc_evidencia_${inc}`, "evidence_name", inc + 1,
+                    valFormstack[`evidence_route_${inc}`],
+                    `evidence_description_${inc}`, "evidence_name", inc + 1,
                     "special", evidenceList, data
                   );
                 }
