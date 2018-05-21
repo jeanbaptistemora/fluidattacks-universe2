@@ -89,6 +89,29 @@ angular.module("FluidIntegrates").controller(
           projectName,
           "Name"
         );
+        reqEventualities.then((response) => {
+          if (!response.error) {
+            if (angular.isUndefined(response.data)) {
+              location.reload();
+            }
+            eventsData = response.data;
+            mixPanelDashboard.trackSearch(
+              "SearchEventuality",
+              userEmail,
+              projectName
+            );
+            angular.element("#search_section").show();
+            angular.element("[data-toggle=\"tooltip\"]").tooltip();
+          }
+          else if (response.message === "Access to project denied") {
+            Rollbar.warning("Warning: Access to event denied");
+            $msg.error($translate.instant("proj_alerts.access_denied"));
+          }
+          else {
+            Rollbar.warning("Warning: Event not found");
+            $msg.error($translate.instant("proj_alerts.not_found"));
+          }
+        });
         reqProject.then((response) => {
           $scope.view.project = true;
           if (!response.error) {
@@ -101,7 +124,7 @@ angular.module("FluidIntegrates").controller(
               userEmail,
               projectName
             );
-            if (response.data.length === 0) {
+            if (response.data.length === 0 && eventsData.length === 0) {
               $scope.view.project = false;
               $scope.view.finding = false;
               $msg.error($translate.instant("proj_alerts.not_found"));
@@ -129,29 +152,6 @@ angular.module("FluidIntegrates").controller(
               Rollbar.warning("Warning: Project not found");
               $msg.error($translate.instant("proj_alerts.not_found"));
             }
-          }
-        });
-        reqEventualities.then((response) => {
-          if (!response.error) {
-            if (angular.isUndefined(response.data)) {
-              location.reload();
-            }
-            eventsData = response.data;
-            mixPanelDashboard.trackSearch(
-              "SearchEventuality",
-              userEmail,
-              projectName
-            );
-            angular.element("#search_section").show();
-            angular.element("[data-toggle=\"tooltip\"]").tooltip();
-          }
-          else if (response.message === "Access to project denied") {
-            Rollbar.warning("Warning: Access to event denied");
-            $msg.error($translate.instant("proj_alerts.access_denied"));
-          }
-          else {
-            Rollbar.warning("Warning: Event not found");
-            $msg.error($translate.instant("proj_alerts.not_found"));
           }
         });
       }

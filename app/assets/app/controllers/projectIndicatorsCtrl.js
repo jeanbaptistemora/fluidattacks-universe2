@@ -388,7 +388,7 @@ angular.module("FluidIntegrates").controller(
                 userEmail,
                 projectName
               );
-              if (response.data.length === 0) {
+              if (response.data.length === 0 && eventsData.length === 0) {
                 $scope.view.project = false;
                 $scope.view.finding = false;
                 $msg.error($translate.instant("proj_alerts.not_found"));
