@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "fs-cloudwatchagent-doc" {
   statement {
-    sid = "FS_CloudWatch_Agent"
+    sid = "FSCloudWatchAgent"
     actions = [
       "cloudwatch:PutMetricData",
       "ec2:DescribeTags",
