@@ -20,7 +20,7 @@ logging.getLogger('googleapiclient.discovery_cache').setLevel(logging.ERROR)
 
 
 class DriveAPI(object):
-    """Clase para consumir la API de Google Drive."""
+    """ Class to consume the Google Drive API. """
 
     SCOPES = []
     CLIENT_SECRET_FILE = ""
@@ -29,7 +29,7 @@ class DriveAPI(object):
     FILE = None
 
     def __init__(self, drive_file_id=""):
-        """Constructor de la clase."""
+        """ Class constructor """
         self.SCOPES = settings.DRIVE_SCOPES
         self.CLIENT_SECRET_FILE = settings.DRIVE_SECRET_FILE
         self.CLIENT_AUTHOR_FILE = settings.DRIVE_AUTHOR_FILE
@@ -38,7 +38,7 @@ class DriveAPI(object):
             self.FILE = self.download(drive_file_id)
 
     def download(self, drive_file_id=""):
-        """Descarga los archivos de google drive en /tmp/."""
+        """ Download the Google Drive files in /tmp/. """
         filename = "/tmp/:id.tmp".replace(":id", drive_file_id)
         credentials = self.get_credentials()
         http = credentials.authorize(httplib2.Http())
@@ -66,7 +66,7 @@ class DriveAPI(object):
         return None
 
     def download_images(self, drive_file_id=""):
-        """Descarga los archivos de google drive en /tmp/."""
+        """ Download the Google Drive images in /tmp/. """
         hard_path = "/usr/src/app/app/documentator/images/"
         filename = hard_path + ":id.png".replace(":id", drive_file_id)
         credentials = self.get_credentials()
@@ -93,7 +93,7 @@ class DriveAPI(object):
         return None
 
     def get_credentials(self):
-        """Obtiene las credenciales para autenticar la API."""
+        """ Gets the credentials to authenticate in the API. """
         store = Storage(self.CLIENT_AUTHOR_FILE)
         credentials = store.get()
         if not credentials or credentials.invalid:

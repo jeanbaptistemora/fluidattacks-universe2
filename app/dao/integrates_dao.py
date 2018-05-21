@@ -12,7 +12,7 @@ from datetime import datetime
 
 
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
-    """Agrega un nuevo usuario."""
+    """ Add a new user. """
     role = 'None'
     last_login = datetime.now()
     date_joined = last_login
@@ -34,7 +34,7 @@ VALUES (%s, %s, %s, %s, %s, %s, %s)'
 
 
 def create_project_dao(project=None, description=None):
-    """Agrega un nuevo proyecto."""
+    """ Add a new project. """
     if project and description:
         project = project.lower()
 
@@ -60,7 +60,7 @@ VALUES (%s, %s)'
 
 
 def update_user_login_dao(email):
-    """Actualiza el login de los usuarios."""
+    """Update the user's last login date. """
     last_login = datetime.now()
 
     with connections['integrates'].cursor() as cursor:
@@ -71,7 +71,7 @@ def update_user_login_dao(email):
 
 
 def get_user_last_login_dao(email):
-    """Obtiene el ultimo acceso de un usuario."""
+    """ Get the user's last login date. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT last_login FROM users WHERE email = %s'
         cursor.execute(query, (email,))
@@ -82,7 +82,7 @@ def get_user_last_login_dao(email):
 
 
 def get_company_dao(email):
-    """Obtiene la compania a la que pertenece el usuario."""
+    """ Get the company of a user. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT company FROM users WHERE email = %s'
         cursor.execute(query, (email,))
@@ -93,7 +93,7 @@ def get_company_dao(email):
 
 
 def get_role_dao(email):
-    """Obtiene el rol que tiene el usuario."""
+    """ Get the role of a user. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT role FROM users WHERE email = %s'
         cursor.execute(query, (email,))
@@ -104,7 +104,7 @@ def get_role_dao(email):
 
 
 def get_registered_projects():
-    """Obtiene el rol que que tiene el usuario."""
+    """ Get all the active projects. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT DISTINCT(project) FROM projects'
         cursor.execute(query)
@@ -115,7 +115,7 @@ def get_registered_projects():
 
 
 def is_registered_dao(email):
-    """Verifica si el usuario esta registrado."""
+    """ Check if the user is registered. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT registered FROM users WHERE email = %s'
         cursor.execute(query, (email,))
@@ -128,7 +128,7 @@ def is_registered_dao(email):
 
 
 def add_access_to_project_dao(email, project_name):
-    """Da acceso al proyecto en cuestion."""
+    """ Give access of a project to a user. """
     if has_access_to_project_dao(email, project_name):
         return True
     with connections['integrates'].cursor() as cursor:
@@ -160,7 +160,7 @@ has_access) VALUES(%s, %s, %s)'
 
 
 def has_access_to_project_dao(email, project_name):
-    """Verifica si el usuario tiene acceso al proyecto en cuestion."""
+    """ Verify that a user has access to a specific project. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT id FROM users WHERE email = %s'
         try:
@@ -192,7 +192,7 @@ WHERE user_id = %s and project_id = %s'
 
 
 def remove_all_access_to_project_dao(project_name=None):
-    """Quita el permiso de acceso a todos los usuarios de un projecto."""
+    """ Remove access permission to all users in a project. """
     if project_name:
         project_name = project_name.lower()
 
@@ -221,7 +221,7 @@ WHERE project_id = %s'
 
 
 def add_all_access_to_project_dao(project_name=None):
-    """Agrega permiso de acceso a todos los usuarios de un projecto."""
+    """ Add access permission to all users of a project. """
     if project_name:
         project_name = project_name.lower()
 
@@ -250,7 +250,7 @@ WHERE project_id = %s'
 
 
 def register(email):
-    """Registra usuario en la DB."""
+    """ Register user in the DB. """
     with connections['integrates'].cursor() as cursor:
         query = 'UPDATE users SET registered=1 WHERE email = %s'
         cursor.execute(query, (email,))
@@ -259,7 +259,7 @@ def register(email):
 
 
 def assign_role(email, role):
-    """Asigna un rol a un usuario en la DB."""
+    """ Assigns a role to a user in the DB. """
     if role != 'analyst' and role != 'customer':
         return
     with connections['integrates'].cursor() as cursor:
@@ -270,7 +270,7 @@ def assign_role(email, role):
 
 
 def assign_company(email, company):
-    """Asigna una compania a un usuario en la DB."""
+    """ Assigns a company to a user in the DB."""
     with connections['integrates'].cursor() as cursor:
         query = 'UPDATE users SET company=%s WHERE email = %s'
         cursor.execute(query, (company, email,))
@@ -279,7 +279,7 @@ def assign_company(email, company):
 
 
 def get_project_users(project):
-    """Trae los usuarios interesados de un proyecto."""
+    """ Gets the users related to a project. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT users.email, project_access.has_access \
 FROM users LEFT JOIN project_access ON users.id = project_access.user_id \
@@ -294,7 +294,7 @@ WHERE project_access.project_id=(SELECT id FROM projects where project=%s)'
 
 
 def get_projects_by_user(user_id):
-    """Trae los usuarios interesados de un proyecto."""
+    """ Gets the users related to a project. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT projects.project, projects.description, \
 project_access.has_access FROM project_access INNER JOIN users \
@@ -307,7 +307,7 @@ ORDER BY projects.project ASC'
 
 
 def get_findings_amount(project):
-    """Actualiza el numero de hallazgos en el proyecto."""
+    """ Gets the amount of findings in a project. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT amount FROM findings WHERE project = %s'
         cursor.execute(query, (project,))
@@ -318,7 +318,7 @@ def get_findings_amount(project):
 
 
 def get_vulns_by_project_dynamo(project_name):
-    """Obtiene la informacion de un hallazgo."""
+    """ Gets findings info by project name. """
     table = dynamodb_resource.Table('FI_findings_email')
     filter_key = 'project_name'
     if filter_key and project_name:
@@ -338,7 +338,7 @@ def get_vulns_by_project_dynamo(project_name):
 
 
 def get_vulns_by_id_dynamo(project_name, unique_id):
-    """Obtiene la informacion de un hallazgo."""
+    """ Gets findings info by finding ID. """
     table = dynamodb_resource.Table('FI_findings_email')
     filter_key = 'project_name'
     filter_sort = 'unique_id'
@@ -360,7 +360,7 @@ def get_vulns_by_id_dynamo(project_name, unique_id):
 
 
 def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
-    """Crea o actualiza una vulnerabilidad."""
+    """ Create or update a vulnerability. """
     table = dynamodb_resource.Table('FI_findings_email')
     item = get_vulns_by_id_dynamo(project_name, unique_id)
     if item == []:
@@ -397,7 +397,7 @@ def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
 
 
 def get_company_alert_dynamo(company_name, project_name):
-    """Obtiene la informacion de un hallazgo."""
+    """ Get alerts of a company. """
     company_name = company_name.lower()
     project_name = project_name.lower()
     table = dynamodb_resource.Table('FI_alerts_by_company')
@@ -428,7 +428,7 @@ def get_company_alert_dynamo(company_name, project_name):
 
 
 def set_company_alert_dynamo(message, company_name, project_name):
-    """Crea, actualiza o activa una alerta para una empresa."""
+    """ Create, update or activate an alert for a company. """
     project = project_name.lower()
     if project != 'all':
         with connections['integrates'].cursor() as cursor:
@@ -479,7 +479,7 @@ def set_company_alert_dynamo(message, company_name, project_name):
 
 
 def change_status_company_alert_dynamo(message, company_name, project_name):
-    """Activa o desativa la alerta de una empresa."""
+    """ Activate or deactivate the alert of a company. """
     message = message.lower()
     company_name = company_name.lower()
     project_name = project_name.lower()
@@ -507,7 +507,7 @@ def change_status_company_alert_dynamo(message, company_name, project_name):
 
 
 def update_findings_amount(project, amount):
-    """Actualiza el numero de hallazgos en el proyecto."""
+    """ Update amount of findings in a project."""
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT * FROM findings WHERE project = %s'
         cursor.execute(query, (project,))
@@ -524,7 +524,7 @@ def update_findings_amount(project, amount):
 
 
 def remove_access_project_dao(email=None, project_name=None):
-    """Remueve el acceso de un usuario a un proyecto."""
+    """ Remove a user's access to a project. """
     if email and project_name:
         project_name = project_name.lower()
 
@@ -561,7 +561,7 @@ def remove_access_project_dao(email=None, project_name=None):
 
 
 def all_users_report(company_name, finish_date):
-    """Extrae el numero de usuarios registrados en integrates."""
+    """ Gets the number of registered users in integrates. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
         registered = 1 and date_joined <= %s'
@@ -575,7 +575,7 @@ def all_users_report(company_name, finish_date):
 
 
 def logging_users_report(company_name, init_date, finish_date):
-    """Extrae el numero de usuarios logueados en integrates."""
+    """ Gets the number of logged in users in integrates. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
         registered = 1 and last_login >= %s and last_login <= %s'
@@ -589,7 +589,7 @@ def logging_users_report(company_name, init_date, finish_date):
 
 
 def all_inactive_users():
-    """Extrae los usuarios inactivos en integrates."""
+    """ Gets amount of inactive users in Integrates. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT id, last_login FROM users WHERE registered = 0'
         try:
@@ -602,7 +602,7 @@ def all_inactive_users():
 
 
 def delete_user(user_id=None):
-    """Elimina un usuario de integrates."""
+    """ Delete user of Integrates DB. """
     if user_id:
         with connections['integrates'].cursor() as cursor:
             query = 'DELETE FROM users WHERE id = %s'
@@ -623,7 +623,7 @@ dynamodb_resource = resource('dynamodb',
 
 
 def get_comments_dynamo(finding_id):
-    """Obtiene los comentarios de un hallazgo."""
+    """ Get comments of a finding. """
     table = dynamodb_resource.Table('FI_comments')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -643,7 +643,7 @@ def get_comments_dynamo(finding_id):
 
 
 def create_comment_dynamo(finding_id, email, data):
-    """Crea un comentario en un hallazgo."""
+    """ Create a comment in a finding. """
     table = dynamodb_resource.Table('FI_comments')
     try:
         response = table.put_item(
@@ -666,7 +666,7 @@ def create_comment_dynamo(finding_id, email, data):
 
 
 def delete_comment_dynamo(finding_id, data):
-    """Elimina un comentario en un hallazgo."""
+    """ Delete a comment in a finding. """
     table = dynamodb_resource.Table('FI_comments')
     try:
         response = table.delete_item(
@@ -683,7 +683,7 @@ def delete_comment_dynamo(finding_id, data):
 
 
 def get_replayer_dynamo(user_id):
-    """Obtiene los comentarios de un hallazgo por el id de un comentario."""
+    """ Gets comments by the ID parent comment. """
     table = dynamodb_resource.Table('FI_comments')
     filter_key = 'user_id'
     if filter_key and user_id:
@@ -703,7 +703,7 @@ def get_replayer_dynamo(user_id):
 
 
 def get_remediated_dynamo(finding_id):
-    """Obtiene el tratamiento de un hallazgo."""
+    """ Gets the remediated status of a finding. """
     table = dynamodb_resource.Table('FI_remediated')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -723,7 +723,7 @@ def get_remediated_dynamo(finding_id):
 
 
 def add_remediated_dynamo(finding_id, remediated, project, finding_name):
-    """Crea o actualiza un registro de remediado."""
+    """Create or update a remediate status."""
     table = dynamodb_resource.Table('FI_remediated')
     item = get_remediated_dynamo(finding_id)
     if item == []:
@@ -760,7 +760,7 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
 
 
 def get_remediated_allfindings_dynamo(filter_value):
-    """Obtiene el tratamiento de todos los hallazgos."""
+    """ Gets the treatment of all the findings. """
     table = dynamodb_resource.Table('FI_remediated')
     filter_key = 'remediated'
     if filter_key and filter_value:
@@ -781,7 +781,7 @@ def get_remediated_allfindings_dynamo(filter_value):
 
 
 def get_finding_dynamo(finding_id):
-    """Obtiene la informacion de un hallazgo."""
+    """Gets the info of a finding."""
     table = dynamodb_resource.Table('FI_findings')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -801,7 +801,7 @@ def get_finding_dynamo(finding_id):
 
 
 def add_finding_dynamo(finding_id, key, value, exist, val):
-    """Crea un hallazgo."""
+    """ Create a finding in DynamoDB. """
     table = dynamodb_resource.Table('FI_findings')
     item = get_finding_dynamo(finding_id)
     if item == []:
@@ -838,7 +838,7 @@ def add_finding_dynamo(finding_id, key, value, exist, val):
 
 
 def delete_finding_dynamo(finding_id):
-    """Elimina un hallazgo."""
+    """ Delete a finding in DynamoDb."""
     table = dynamodb_resource.Table('FI_findings')
     try:
         response = table.delete_item(
@@ -854,7 +854,7 @@ def delete_finding_dynamo(finding_id):
 
 
 def get_toe_dynamo(project):
-    """Obtiene el toe de un proyecto."""
+    """ Gets TOE of a proyect. """
     table = dynamodb_resource.Table('FI_toe')
     filter_key = 'project'
     if filter_key and project:
@@ -875,7 +875,7 @@ def get_toe_dynamo(project):
 
 def weekly_report_dynamo(
         init_date, finish_date, registered_users, logged_users):
-    """Guarda el numero de usuarios registrados y logueados semanalmente."""
+    """ Save the number of registered and logged users weekly. """
     table = dynamodb_resource.Table('FI_weekly_report')
     try:
         response = table.put_item(

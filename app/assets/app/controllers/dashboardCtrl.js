@@ -50,7 +50,7 @@ angular.module("FluidIntegrates").controller(
     };
 
     /**
-     * Redirect an user to the logout view.
+     * Redirect a user to the logout view.
      * @function logout
      * @member integrates.dashboardCtrl
      * @return {undefined}

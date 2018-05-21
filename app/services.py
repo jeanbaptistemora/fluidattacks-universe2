@@ -22,7 +22,7 @@ def get_company(user):
 
 
 def get_role(user):
-    """Gets the role of an user. """
+    """Gets the role of a user. """
     return integrates_dao.get_role_dao(user)
 
 

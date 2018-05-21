@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Funciones para consumir la API de Formstack."""
+""" Functions to consume the Formstack API. """
 
 from __future__ import absolute_import
 import json
@@ -14,7 +14,7 @@ requests.adapters.DEFAULT_RETRIES = 10
 
 
 class FormstackAPI(object):
-    """Clase para consumir la API de Formstack."""
+    """ Class to consume the Formstack API. """
 
     headers_config = {}
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
@@ -28,14 +28,14 @@ class FormstackAPI(object):
     CL_URL = "https://www.formstack.com/api/v2/form/2264008/submission.json"
 
     def __init__(self):
-        """Constructor."""
+        """ Constructor. """
         self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
 AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         self.valid_token()
 
     @retry(retry_on_exception=ConnectionError, stop_max_attempt_number=5)
     def request(self, method, url, data=None):
-        """Construye las peticiones usadas para consultar Formstack."""
+        """ Build the requests used to consult in Formstack. """
         executed_request = None
         try:
             if method != "GET":
@@ -75,7 +75,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return executed_request
 
     def valid_token(self):
-        """Valida que un token sea valido y lo asigna."""
+        """ Check if a token is valid. """
         ltokens = FI_FORMSTACK_TOKENS.split(',')
         url = "https://www.formstack.com/api/v2/submission/293276999.json"
         for x in range(0, len(ltokens)):
@@ -96,13 +96,13 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                     continue
 
     def delete_submission(self, submission_id):
-        """Elimina un id de submission."""
+        """ Delete a submission by ID. """
         data = {'id': submission_id}
         url = self.SUBMISSION_URL.replace(":id", submission_id)
         return self.request("DELETE", url, data=data)
 
     def get_eventualities(self, project):
-        """Obtiene las eventualidades partir del nombre de proyecto."""
+        """ Get the eventualities by project name. """
         search_field = "29042322"
         data = {'search_field_1': search_field,
                 'search_value_1': project,
@@ -110,12 +110,12 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return self.request("GET", self.EV_URL, data=data)
 
     def get_submission(self, submission_id):
-        """Obtiene un submission a partir de su ID."""
+        """ Get a submission by ID. """
         url = self.SUBMISSION_URL.replace(":id", submission_id)
         return self.request("GET", url)
 
     def get_findings(self, project):
-        """Obtiene los hallazgos a partir del nombre de proyecto."""
+        """ Get the findings of a project. """
         search_field = "32201732"
         data = {'search_field_1': search_field,
                 'search_value_1': project,
@@ -123,7 +123,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return self.request("GET", self.FN_URL, data=data)
 
     def get_project_info(self, project):
-        """Obtiene los hallazgos a partir del nombre de proyecto."""
+        """ Get the findings of a project by its name. """
         search_field = "52601266"
         data = {'search_field_1': search_field,
                 'search_value_1': project,
@@ -131,19 +131,19 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return self.request("GET", self.IN_URL, data=data)
 
     def get_closings_by_id(self, submission_id):
-        """Obtiene los cierres de un ID de proyecto."""
+        """ Get the closures of a finding by its ID """
         search_field = "39596063"
         data = {'search_field_1': search_field,
                 'search_value_1': submission_id}
         return self.request("GET", self.CL_URL, data=data)
 
     def get_closings_by_project(self, project):
-        """Obtiene los cierres de un proyecto."""
+        """ Get the all closures of a project """
         search_field = "39596058"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", self.CL_URL, data=data)
 
     def update(self, request_id, data_dto):
-        """Actualiza un registro en formstack."""
+        """ Update a record in formstack. """
         url = self.SUBMISSION_URL.replace(":id", request_id)
         return self.request("PUT", url, data=data_dto)
