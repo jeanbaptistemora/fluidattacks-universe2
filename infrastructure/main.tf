@@ -55,6 +55,7 @@ module "ec2-cron" {
   sgId = "${var.sgroupId}"
   snetId = "${var.snetId}"
   kName = "${var.kName}"
+  iamProfile = "${module.iam.fs-cloudwatchagent}"
 }
 output "variable_ip" {
   value = "server=\"${module.ec2-cron.ip}\""
