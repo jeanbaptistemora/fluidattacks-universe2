@@ -8,6 +8,11 @@ module "providers" {
   source = "./providers"
 }
 
+module "profiles" {
+  source = "./profiles"
+  fs-cloudwatchagent-role = "${module.roles.fs-cloudwatchagent-role}"
+}
+
 module "groups" {
   source = "./groups"
   fis3integration = "${module.users.fis3integration}"
@@ -61,4 +66,8 @@ output "fluidintegratesdynamoSECRET" {
 
 output "fws3userSECRET" {
   value = "${module.users.fws3userSECRET}"
+}
+
+output "fs-cloudwatchagent" {
+  value = "${module.profiles.fs-cloudwatchagent}"
 }
