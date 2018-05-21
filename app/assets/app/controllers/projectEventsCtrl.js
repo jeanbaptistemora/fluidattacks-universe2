@@ -226,7 +226,8 @@ angular.module("FluidIntegrates").controller(
                                                 "eventPositiveint"));
                   return false;
                 }
-                eventualityFactory.updateEvnt($scope.evt).then((response) => {
+                const reqEvents = eventualityFactory.updateEvnt($scope.evt);
+                reqEvents.then((response) => {
                   if (!response.error) {
                     const updatedAt = $translate.instant("proj_alerts." +
                                                          "updatedTitle");
