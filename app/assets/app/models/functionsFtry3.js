@@ -31,7 +31,7 @@ angular.module("FluidIntegrates").factory(
   ) {
     return {
       "configKeyboardView" ($scope) {
-        $document.onkeypress = function onkeypress (ev) {
+        $document[0].onkeypress = function onkeypress (ev) {
           const enterKey = 13;
           if (ev.keyCode === enterKey) {
             if (angular.element("#project").is(":focus")) {
