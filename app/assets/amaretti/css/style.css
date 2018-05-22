@@ -20169,7 +20169,7 @@ div.dataTables_wrapper div.dataTables_length label select {
     z-index: -1;
 }
 .inputfile + label {
-    max-width: 80%;
+    max-width: 100%;
     font-size: 1.25rem;
     /* 20px */
     font-weight: 700;
@@ -20205,7 +20205,7 @@ div.dataTables_wrapper div.dataTables_length label select {
 }
 .inputfile-evidence + label {
     border: 1px solid #DB3738;
-    background-color: #d2e5f4;
+    background-color: #F5AD99;
     padding: 0;
 }
 .inputfile-evidence:focus + label,
@@ -20219,7 +20219,7 @@ div.dataTables_wrapper div.dataTables_length label select {
     /* 10px 20px */
 }
 .inputfile-evidence + label span {
-    width: 200px;
+    width: 170px;
     min-height: 2em;
     display: inline-block;
     text-overflow: ellipsis;
@@ -20229,7 +20229,7 @@ div.dataTables_wrapper div.dataTables_length label select {
 }
 .inputfile-evidence + label strong {
     height: 100%;
-    color: #d2e5f4;
+    color: #fff;
     background-color: #DB3738;
     display: inline-block;
 }

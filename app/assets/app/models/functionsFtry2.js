@@ -71,7 +71,7 @@ angular.module("FluidIntegrates").factory(
         }
         // eslint-disable-next-line angular/document-service
         const inputs = document.querySelectorAll(".inputfile");
-        angular.forEach.call(inputs, (input) => {
+        angular.forEach(inputs, (input) => {
           const label = input.nextElementSibling;
           const labelVal = label.innerHTML;
 
