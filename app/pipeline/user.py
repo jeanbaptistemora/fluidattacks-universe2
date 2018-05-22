@@ -11,7 +11,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     last_name = details['last_name'][:29]
     email = details['email']
 
-    # Put details on session
+    # Put details on session.
     strategy.session_set('first_name', first_name)
     strategy.session_set('last_name', last_name)
 

@@ -490,7 +490,7 @@ def catch_finding(request, submission_id):
             for closingreq in closingreqset:
                 closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
                 findingcloseset.append(closingset)
-                #El ultimo es el ultimo ciclo de cierre
+                # The latest is the last closing cycle.
                 state = closingset
             finding["estado"] = state["estado"]
             finding["cierres"] = findingcloseset

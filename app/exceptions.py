@@ -1,6 +1,4 @@
-"""
-    Implementation of custom exceptions for FluidIntegrates
-"""
+""" Implementation of custom exceptions for FluidIntegrates. """
 
 
 class SecureAccessException(Exception):
@@ -12,7 +10,7 @@ class SecureAccessException(Exception):
 
 
 class SecureParamsException(Exception):
-    """ Exception to control parameter validation """
+    """ Exception to control parameter validation. """
     def __init__(self):
         """ Constructor """
         msg = "Exception - Incorrect or missing parameters"
@@ -28,9 +26,9 @@ class APIConnectionException(Exception):
 
 
 class LogicException(Exception):
-    """ Exception to control general logical errors """
+    """ Exception to control general logical errors. """
     def __init__(self, code=99):
-        """ Constructor """
+        """ Constructor. """
         if code == 100:
             msg = "E100 - Username or Password is incorrect"
         elif code == 101:

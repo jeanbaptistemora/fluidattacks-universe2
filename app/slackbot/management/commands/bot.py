@@ -13,7 +13,7 @@ from app.dao import integrates_dao
 from app.mailer import send_mail_add_access
 from mixpanel import Mixpanel
 
-# constants
+# Constants
 BOT_ID = 'U7H8PVATA'
 AT_BOT = "<@" + BOT_ID + ">"
 VALID_COMMANDS = ['add_access',

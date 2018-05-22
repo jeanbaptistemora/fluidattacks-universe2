@@ -1,24 +1,24 @@
-# Imagen base del ultimo linux estable de Debian (jessie)
+# Last stable Debian base image (jessie).
 FROM debian:jessie-slim
 
-# Dudas sobre la imagen en cuestion
+# Doubts about the image in question.
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Instala dependencias
+# Add server key.
 RUN gpg --recv-key --keyserver pgp.key-server.io 93C4A3FD7BB9C367 \
     && gpg --export --armor 93C4A3FD7BB9C367 | apt-key add -
 
-# Instalar software-properties y sudo
+# Install software-properties and sudo.
 RUN apt-get update && apt-get install -y software-properties-common sudo
 
-# Agregar ansible repo
+# Add ansible repository.
 RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
 
-# Instala dependencias
+# Install dependencies.
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
@@ -36,23 +36,23 @@ RUN apt-get update \
                libreadline6-dev libncurses5-dev \
                libffi-dev libgdbm3 libgdbm-dev
 
-# Instala nodejs
+# Install nodejs.
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
                nodejs
 
-# Instala dependencias pip
+# Install dependencies and pip.
 ADD requirements.txt /root/
-RUN easy_install pip 
+RUN easy_install pip
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 RUN pip install -r /root/requirements.txt --ignore-installed
 
-# SocialAuth Patch
+# SocialAuth Patch.
 ADD patch_socialauth.py /root/
 RUN python /root/patch_socialauth.py
 
-# Cambia al directorio root
+# Change root directory.
 WORKDIR /root/

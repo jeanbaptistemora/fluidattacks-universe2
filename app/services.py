@@ -17,12 +17,12 @@ def login(request):
 
 
 def get_company(user):
-    """ Gets the company to which the user belongs."""
+    """ Gets the company to which the user belongs. """
     return integrates_dao.get_company_dao(user)
 
 
 def get_role(user):
-    """Gets the role of a user. """
+    """ Gets the role of a user. """
     return integrates_dao.get_role_dao(user)
 
 

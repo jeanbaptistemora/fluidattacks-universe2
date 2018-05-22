@@ -3,10 +3,10 @@
 class EventualityDTO(object):
     """ Clase para crear un objeto con los atributos cssv2 """
     
-    ANALISTA = "29042426"
-    CLIENTE = "29042288"
-    PROYECTO_FLUID = "29042322"
-    PROYECTO_CLIENTE = "39595967"
+    ANALIST = "29042426"
+    CLIENT = "29042288"
+    FLUID_PROJECT = "29042322"
+    CLIENT_PROJECT = "39595967"
     TIPO = "29042327"
     DETALLE = "29042402"
     FECHA = "29042174"
@@ -28,7 +28,7 @@ class EventualityDTO(object):
             self.data[self.AFECTACION] \
                 = parameter["vuln[affectation]"]
         if "vuln[fluid_project]" in parameter:
-            self.data[self.PROYECTO_FLUID] \
+            self.data[self.FLUID_PROJECT] \
                 = parameter["vuln[fluid_project]"]
         if "vuln[affectation]" in parameter:
             if parameter["vuln[affectation]"] != "":
@@ -40,13 +40,13 @@ class EventualityDTO(object):
         self.data = dict()
         self.data["id"] = submission_id
         for row in request_arr["data"]:
-            if row["field"] == self.ANALISTA:
+            if row["field"] == self.ANALIST:
                 self.data["analista"] = row["value"]
-            if row["field"] == self.CLIENTE:
+            if row["field"] == self.CLIENT:
                 self.data["cliente"] = row["value"]
-            if row["field"] == self.PROYECTO_FLUID:
+            if row["field"] == self.FLUID_PROJECT:
                 self.data["fluid_project"] = row["value"]
-            if row["field"] == self.PROYECTO_CLIENTE:
+            if row["field"] == self.CLIENT_PROJECT:
                 self.data["proyecto_cliente"] = row["value"]
             if row["field"] == self.TIPO:
                 self.data["tipo"] = row["value"]

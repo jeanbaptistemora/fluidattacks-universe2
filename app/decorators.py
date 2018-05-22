@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-    Decoradores para FluidIntegrates
-"""
+""" Decorators for FluidIntegrates. """
 
 import functools
 from django.http import HttpResponse

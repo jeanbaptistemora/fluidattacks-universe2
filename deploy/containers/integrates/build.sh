@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# habilitar depuración
+# Enable debugging.
 if [ -n "$VERBOSE" ]; then
   set -x
 fi
 
-# Salir inmediatamente si algun comando retorna diferente de cero.
+# Exit immediately if any command returns different from zero.
 set -e
 
 SERVER="integrates"
@@ -18,10 +18,10 @@ FI_SSL_CERT=$6
 FI_SSL_KEY=$7
 FI_DRIVE_AUTHORIZATION_CLIENT=$8
 
-# Mensaje de inicio
+# Start message.
 echo "---### [${SERVER}] Compilando contenedor."
 
-# construir la imagen
+# Build the image.
 cp -a ../common .
 docker build --no-cache --build-arg ci_commit_ref_name="$CI_COMMIT_REF_NAME" \
             --build-arg gitlab_login="$FI_GITLAB_LOGIN" \

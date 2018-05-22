@@ -4,11 +4,11 @@ class FindingDTO(object):
     """ Clase para crear un objeto con los atributos de un hallazgo """
 
     #Atributos proyecto
-    ANALISTA = "32201744"
-    LIDER = "38193323"
+    ANALIST = "32201744"
+    LEADER = "38193323"
     INTERESADO = "38392409"
-    PROYECTO_FLUID = "32201732"
-    PROYECTO_CLIENTE = "38209122"
+    FLUID_PROJECT = "32201732"
+    CLIENT_PROJECT = "38209122"
     CONTEXTO = "38404474"
 
     #Atributos evidencia
@@ -32,10 +32,10 @@ class FindingDTO(object):
     REG_FILE = "49412246"
 
     #Atributos descriptivos
-    CLASE = "38392454" #detallado
+    CLASS = "38392454" #detallado
     HALLAZGO = "32201810"
     SUSCRIPCION = "54346108"
-    CODIGO_CLIENTE = "38193365"
+    CODIGO_CLIENT = "38193365"
     PROBABILIDAD = "38193660"
     SEVERIDAD = "38193659"
     NIVEL_RIESGO = "38194645"
@@ -46,7 +46,7 @@ class FindingDTO(object):
     VULNERABILIDAD = "32202728"
     AMENAZA = "38193361"
     COMPONENTE_APLICATIVO = "38209122"
-    TIPO_PRUEBA = "38254692"
+    TEST_TYPE = "38254692"
     TIPO_HALLAZGO = "54319180"
     RIESGO = "38193362"
     REQUISITOS = "38254586"
@@ -169,9 +169,9 @@ class FindingDTO(object):
             self.data[self.ULTIMA_VULNERABILIDAD] \
                 = parameter["data[ultimaVulnerabilidad]"]
         if "data[nivel]" in parameter:
-            self.data[self.CLASE] \
+            self.data[self.CLASS] \
                 = parameter["data[nivel]"]
-            if self.data[self.CLASE] == "Detallado":
+            if self.data[self.CLASS] == "Detallado":
                 if "data[categoria]" in parameter:
                     self.data[self.CATEGORIA] \
                         = parameter["data[categoria]"]
@@ -279,7 +279,7 @@ class FindingDTO(object):
                 self.data["hallazgo"] = finding["value"]
             if finding["field"] == self.SUSCRIPCION:
                 self.data["suscripcion"] = finding["value"]
-            if finding["field"] == self.CODIGO_CLIENTE:
+            if finding["field"] == self.CODIGO_CLIENT:
                 self.data["codigo_cliente"] = finding["value"]
             if finding["field"] == self.PROBABILIDAD:
                 self.data["probabilidad"] = finding["value"]
@@ -306,7 +306,7 @@ class FindingDTO(object):
                 self.data["amenaza"] = finding["value"]
             if finding["field"] == self.COMPONENTE_APLICATIVO:
                 self.data["componente_aplicativo"] = finding["value"]
-            if finding["field"] == self.TIPO_PRUEBA:
+            if finding["field"] == self.TEST_TYPE:
                 self.data["tipoPrueba"] = finding["value"]
             if finding["field"] == self.RIESGO:
                 self.data["riesgo"] = finding["value"]
@@ -402,15 +402,15 @@ class FindingDTO(object):
     def parse_project(self, request_arr):
         "Convierte la info de proyecto de un hallazgo en formstack"
         for finding in request_arr["data"]:
-            if finding["field"] == self.ANALISTA:
+            if finding["field"] == self.ANALIST:
                 self.data["analista"] = finding["value"]
-            if finding["field"] == self.LIDER:
+            if finding["field"] == self.LEADER:
                 self.data["lider"] = finding["value"]
             if finding["field"] == self.INTERESADO:
                 self.data["interesado"] = finding["value"]
-            if finding["field"] == self.PROYECTO_FLUID:
+            if finding["field"] == self.FLUID_PROJECT:
                 self.data["fluid_project"] = finding["value"]
-            if finding["field"] == self.PROYECTO_CLIENTE:
+            if finding["field"] == self.CLIENT_PROJECT:
                 self.data["proyecto_cliente"] = finding["value"]
             if finding["field"] == self.CONTEXTO:
                 self.data["contexto"] = finding["value"]

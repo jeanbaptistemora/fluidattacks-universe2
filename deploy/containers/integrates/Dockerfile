@@ -1,7 +1,7 @@
-# Imagen base del ultimo linux estable de Debian (jessie-slim)
+# Last stable Debian base image (jessie-slim)
 FROM registry.gitlab.com/fluidsignal/integrates:deps
 
-# Dudas sobre la imagen en cuestion
+# Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
 
 ARG ci_commit_ref_name
@@ -25,13 +25,13 @@ ENV FI_DRIVE_AUTHORIZATION_CLIENT=$drive_authorization_client
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Agrega las variables
+# Add variables
 ADD common/vars* /root/vars
 
-# Cambia al directorio root
+# Change root directory
 WORKDIR /root/
 
-# Remover archivo index, clonar repositorio Integrates $CI_COMMIT_REF_NAME y ejecuta el ansible
+# Remove index file, clone Integrates repository CI_COMMIT_REF_NAME and execute ansible
 RUN rm -r /var/www/html \
     && git clone --depth 1 -b $CI_COMMIT_REF_NAME https://$FI_GITLAB_LOGIN:$FI_GITLAB_PASSWORD@gitlab.com/fluidsignal/integrates.git  /usr/src/app \
     && gem install asciidoctor-pdf --pre \
@@ -62,7 +62,7 @@ RUN rm -r /var/www/html \
     && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
     && echo "ServerSignature Off" >> /etc/apache2/apache2.conf
 
-# Make port 80 and 443 available to the world outside this container
+# Make port 443 and 24224 available to the world outside this container
 EXPOSE 443 24224
 
 # Primer comando

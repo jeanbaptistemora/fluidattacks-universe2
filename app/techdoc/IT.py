@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-" Clase para generar Excel de hallazgos "
+""" Class for generate an xlsx file with findings information. """
 
 from openpyxl import load_workbook
 import re
@@ -98,31 +98,31 @@ class ITReport(object):
 
 
 	def __select_finding_sheet(self):
-		""" Seleccionar la hoja de hallazgos """
+		""" Select finding sheet. """
 		self.current_sheet = self.workbook[
 			self.sheet_names[self.lang]["finding"]
 		]
 
 	def __select_qc_sheet(self):
-		""" Seleccionar la hoja de matriz qc """
+		""" Select QC matrix sheet. """
 		self.current_sheet = self.workbook[
 			self.sheet_names[self.lang]["qc_matriz"]
 		]
 
 	def set_cell(self, col, value, inc = 0):
-		""" Asigna un valor a una celda con indice Hallazgos"""
+		""" Assign a value to a cell with findings index. """
 		self.current_sheet.cell(row = self.row + inc, column = col).value = value
 
 	def set_cell_number(self, col, value, inc = 0):
-		""" Asigna un valor a una celda con indice Hallazgos """
+		"""  Assign a numeric value to a cell with findings index.  """
 		self.current_sheet.cell(row = self.row + inc, column = col).value = float(value)
 
 	def set_cell_qc(self, col, value, inc = 0):
-		""" Asigna un valor a una celda con indice QC """
+		""" Assign a value to a cell with QC index. """
 		self.current_sheet.cell(row = self.qc_row + inc, column = col).value = value
 
 	def set_cell_number_qc(self, col, value, inc = 0):
-		""" Asigna un valor a una celda con indice QC """
+		""" Assign a numeric value to a cell with QC index. """
 		self.current_sheet.cell(row = self.qc_row + inc, column = col).value = float(value)
 
 	def __get_complexity(self, complexity_access):
@@ -135,7 +135,7 @@ class ITReport(object):
 		return complexity_access
 
 	def __get_measure(self, metricstr): # noqa
-		""" Extrae el numero de las metricas de cssv2 """
+		""" Extract number of CSSV2 metrics """
 		try:
 			metric = metricstr.split("|")[1]
 			metric = metric.strip()
@@ -145,7 +145,7 @@ class ITReport(object):
 			return ""
 
 	def __get_req(self, req_vect): # noqa
-		""" Obtiene todos los identificadores con el formato REQ.XXXX """
+		""" Get all the identifiers with the REQ.XXXX format """
 		try:
 			reqs = re.findall("REQ\\.\\d{3,4}", req_vect) # noqa
 			reqs = [x.replace("REQ.", "") for x in reqs]
@@ -155,7 +155,7 @@ class ITReport(object):
 			return ""
 
 	def __write(self, row):
-		""" Escribe un hallazgo de formstack en una fila en la hoja de Hallazgos """
+		""" Write Formstack finding in a row on the Findings sheet """
 		self.__select_finding_sheet()
 		self.set_cell(self.finding['name'], row["hallazgo"])
 		self.set_cell(self.finding['description'], row["vulnerabilidad"])
@@ -200,7 +200,7 @@ class ITReport(object):
 			8)
 
 	def __write_qc(self, row):
-		""" Escribe un hallazgo de formstack en una fila en la hoja de MatrizQC """
+		""" Write Formstack finding in a row on the QC matrix sheet """
 		self.__select_qc_sheet()
 		self.set_cell_qc(self.matriz['type'], row["tipoPrueba"])
 		self.set_cell_qc(self.matriz['component'], row["componente_aplicativo"])
