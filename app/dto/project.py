@@ -36,7 +36,7 @@ class ProjectDTO(object):
     ENVIRONMENT_CHANGES = "60185445"
 
     def __init__(self):
-        """ Constructor de la clase """
+        """ Class constructor """
         self.request_id = None
         self.data = dict()
 
@@ -49,73 +49,73 @@ class ProjectDTO(object):
         return self.data
 
     def parse_general(self, request_arr): # noqa: C901
-        "Convierte la descripcion de un hallazgo en formstack"
+        "Convert the description of a find into Formstack format."
         for finding in request_arr["data"]:
             if finding["field"] == self.FLUID_PROJECT:
-                self.data["fluid_project"] = finding["value"]
+                self.data["fluidProject"] = finding["value"]
             if finding["field"] == self.CLIENT_PROJECT:
-                self.data["proyecto_cliente"] = finding["value"]
+                self.data["clientProject"] = finding["value"]
             if finding["field"] == self.CLIENT:
-                self.data["cliente"] = finding["value"]
+                self.data["client"] = finding["value"]
             if finding["field"] == self.CLASS:
-                self.data["clase"] = finding["value"]
+                self.data["class"] = finding["value"]
             if finding["field"] == self.LEADER:
-                self.data["lider"] = finding["value"]
+                self.data["leader"] = finding["value"]
             if finding["field"] == self.ANALIST:
-                self.data["analista"] = finding["value"]
+                self.data["analist"] = finding["value"]
             if finding["field"] == self.ARQUITECT:
-                self.data["arquitecto"] = finding["value"]
+                self.data["arquitect"] = finding["value"]
             if finding["field"] == self.START_DATE:
-                self.data["fecha_inicio"] = finding["value"]
+                self.data["startDate"] = finding["value"]
             if finding["field"] == self.END_DATE:
-                self.data["fecha_fin"] = finding["value"]
+                self.data["endDate"] = finding["value"]
             if finding["field"] == self.TEST_TYPE:
-                self.data["tipoPrueba"] = finding["value"]
+                self.data["testType"] = finding["value"]
             if finding["field"] == self.ENVIRONMENT:
-                self.data["ambiente"] = finding["value"]
+                self.data["environment"] = finding["value"]
             if finding["field"] == self.ENVIRONMENT_CHANGES:
-                self.data["cambios_ambiente"] = finding["value"]
+                self.data["environment_changes"] = finding["value"]
             if finding["field"] == self.SUPPLIES:
-                self.data["insumos"] = finding["value"]
+                self.data["supplies"] = finding["value"]
 
     def parse_coverage(self, request_arr): # noqa: C901
-        "Convierte la cobertura de un hallazgo en proyecto"
+        "Convert coverage of finding into project format."
         for finding in request_arr["data"]:
             if finding["field"] == self.COVERAGE_TYPE:
-                self.data["tipo_cobertura"] = finding["value"]
+                self.data["coverageType"] = finding["value"]
             if finding["field"] == self.COVERAGE:
-                self.data["cobertura"] = finding["value"]
+                self.data["coverage"] = finding["value"]
             if finding["field"] == self.TOE_VISIBLE_FIELDS:
-                self.data["toe_campos_visibles"] = finding["value"]
+                self.data["toeVisibleFields"] = finding["value"]
             if finding["field"] == self.TOE_VISIBLE_LINES:
-                self.data["toe_lineas_visibles"] = finding["value"]
+                self.data["toeVisibleLines"] = finding["value"]
             if finding["field"] == self.TOE_VISIBLE_PORTS:
-                self.data["toe_puertos_visibles"] = finding["value"]
+                self.data["toeVisiblePorts"] = finding["value"]
             if finding["field"] == self.TOE_TESTED_FIELDS:
-                self.data["toe_campos_probados"] = finding["value"]
+                self.data["toeTestedFields"] = finding["value"]
             if finding["field"] == self.TOE_TESTED_LINES:
-                self.data["toe_lineas_probadas"] = finding["value"]
+                self.data["toeTestedLines"] = finding["value"]
             if finding["field"] == self.TOE_TESTED_PORTS:
-                self.data["toe_puertos_probados"] = finding["value"]
+                self.data["toeTestedPorts"] = finding["value"]
 
     def parse_resume(self, request_arr): # noqa: C901
-        "Convierte el resumen de un proyecto"
+        "Convert the summary of a project"
         for finding in request_arr["data"]:
             if finding["field"] == self.FINDINGS_MAP:
-                self.data["mapa_hallazgos"] = finding["value"]
+                self.data["findingsMap"] = finding["value"]
             if finding["field"] == self.SECURITY_LEVEL:
-                self.data["nivel_seguridad"] = finding["value"]
+                self.data["securityLevel"] = finding["value"]
             if finding["field"] == self.RELEVANT_IMPACT:
-                self.data["impacto_relevate"] = finding["value"]
+                self.data["relevantImpact"] = finding["value"]
             if finding["field"] == self.OBSERVATIONS:
-                self.data["observaciones"] = finding["value"]
+                self.data["observations"] = finding["value"]
             if finding["field"] == self.CONCLUSIONS:
-                self.data["conclusiones"] = finding["value"]
+                self.data["conclusions"] = finding["value"]
             if finding["field"] == self.RECOMMENDATIONS:
-                self.data["recomendaciones"] = finding["value"]
+                self.data["recommendations"] = finding["value"]
             if finding["field"] == self.INDUSTRY_TYPE:
-                self.data["tipo_industria"] = finding["value"]
+                self.data["industryType"] = finding["value"]
             if finding["field"] == self.LANGUAGE:
-                self.data["lenguaje"] = finding["value"]
+                self.data["language"] = finding["value"]
             if finding["field"] == self.APPLICATION_TYPE:
-                self.data["tipo_aplicacion"] = finding["value"]
+                self.data["applicationType"] = finding["value"]

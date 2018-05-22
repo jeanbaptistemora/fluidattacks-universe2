@@ -325,16 +325,16 @@ def project_to_pdf(request, lang, project, doctype):
         return HttpResponse("Reporte deshabilitado", content_type="text/html")
     else:
         project_info = get_project_info(project)
-        mapa_id = util.drive_url_filter(project_info["mapa_hallazgos"])
-        project_info["mapa_hallazgos"] = "image::../images/"+mapa_id+'.png[align="center"]'
+        mapa_id = util.drive_url_filter(project_info["findingsMap"])
+        project_info["findingsMap"] = "image::../images/"+mapa_id+'.png[align="center"]'
         DriveAPI().download_images(mapa_id)
-        nivel_sec = project_info["nivel_seguridad"].split(" ")[0]
+        nivel_sec = project_info["securityLevel"].split(" ")[0]
         if not util.is_numeric(nivel_sec):
             return HttpResponse("Parametrizacion incorrecta", content_type="text/html")
         nivel_sec = int(nivel_sec)
         if nivel_sec < 0 or nivel_sec > 6:
             return HttpResponse("Parametrizacion incorrecta", content_type="text/html")
-        project_info["nivel_seguridad"] = "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
+        project_info["securityLevel"] = "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
         print project_info
         if not project_info:
             return HttpResponse("Documentacion incompleta", content_type="text/html")
@@ -401,7 +401,7 @@ def get_eventualities(request):
         for row in frmset:
             submission = api.get_submission(row["id"])
             evtset = evt_dto.parse(row["id"], submission)
-            if evtset['fluid_project'].lower() == project.lower():
+            if evtset['fluidProject'].lower() == project.lower():
                 dataset.append(evtset)
         return util.response(dataset, 'Success', False)
     elif category == "ID":
@@ -461,7 +461,7 @@ def get_findings(request):
         if finding['vulnerabilidad'].lower() == 'masked':
             rollbar.report_message('Warning: Project masked', 'warning', request)
             return util.response([], 'Project masked', True)
-        if finding['fluid_project'].lower() == project.lower():
+        if finding['fluidProject'].lower() == project.lower():
             findings.append(finding)
     import json
     with open("/tmp/"+project+".txt", "w") as f:
@@ -481,7 +481,7 @@ def catch_finding(request, submission_id):
             api.get_submission(submission_id),
             request
         )
-        if not has_access_to_project(username, finding['fluid_project']):
+        if not has_access_to_project(username, finding['fluidProject']):
             rollbar.report_message('Error: Access to project denied', 'error', request)
             return None
         else:
@@ -947,7 +947,7 @@ def get_myevents(request):
         for evtsub in frmset:
             submission = api.get_submission(evtsub["id"])
             evtset = evt_dto.parse(evtsub["id"], submission)
-            if evtset['fluid_project'].lower() == project.lower():
+            if evtset['fluidProject'].lower() == project.lower():
                 if evtset['estado'] == "Pendiente":
                     dataset.append(evtset)
     return util.response(dataset, 'Success', False)
@@ -1061,7 +1061,7 @@ def delete_finding(request):
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq, request)
-        context["project"] = finding["fluid_project"]
+        context["project"] = finding["fluidProject"]
         context["name_finding"] = finding["hallazgo"]
         result = api.delete_submission(submission_id)
         if result is None:

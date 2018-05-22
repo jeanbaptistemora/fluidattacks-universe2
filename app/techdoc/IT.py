@@ -202,7 +202,7 @@ class ITReport(object):
 	def __write_qc(self, row):
 		""" Write Formstack finding in a row on the QC matrix sheet """
 		self.__select_qc_sheet()
-		self.set_cell_qc(self.matriz['type'], row["tipoPrueba"])
+		self.set_cell_qc(self.matriz['type'], row["testType"])
 		self.set_cell_qc(self.matriz['component'], row["componente_aplicativo"])
 		self.set_cell_qc(self.matriz['requirements_id'],
 			self.__get_req(row["requisitos"]))

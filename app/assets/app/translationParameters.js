@@ -19,7 +19,7 @@ const fieldsToTranslate = [
   "resolutionLevel",
   "probabilidad",
   "tipoHallazgoCliente",
-  "tipoPrueba",
+  "testType",
   "accessVector",
   "treatment"
 ];

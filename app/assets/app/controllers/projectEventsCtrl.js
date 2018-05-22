@@ -128,7 +128,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (eventsData.length > 0 &&
-           eventsData[0].fluid_project.toLowerCase() ===
+           eventsData[0].fluidProject.toLowerCase() ===
            $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadEventContent(eventsData, vlang, projectName);

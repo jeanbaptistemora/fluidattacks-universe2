@@ -342,7 +342,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].fluid_project.toLowerCase() !==
+                   eventsData[0].fluidProject.toLowerCase() !==
                    $scope.project.toLowerCase())) {
           const reqEventualities = projectFtry.eventualityByName(
             projectName,
@@ -366,7 +366,7 @@ angular.module("FluidIntegrates").controller(
           });
         }
         if (projectData.length > 0 &&
-            projectData[0].fluid_project.toLowerCase() ===
+            projectData[0].fluidProject.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadIndicatorsContent(projectData);

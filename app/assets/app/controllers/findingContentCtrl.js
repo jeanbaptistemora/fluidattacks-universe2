@@ -127,7 +127,7 @@ findingContentCtrl (
   };
   $scope.loadFindingByID = function loadFindingByID (id) {
     if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].fluid_project.toLowerCase() !==
+                   eventsData[0].fluidProject.toLowerCase() !==
                    $stateParams.project.toLowerCase())) {
       const reqEventualities = projectFtry.eventualityByName(
         $stateParams.project,
@@ -151,7 +151,7 @@ findingContentCtrl (
       });
     }
     if (!$scope.isEmpty(findingData) &&
-        findingData.data.fluid_project.toLowerCase() ===
+        findingData.data.fluidProject.toLowerCase() ===
         $stateParams.project.toLowerCase() &&
         findingData.data.id === $scope.finding.id) {
       $scope.view.project = false;
@@ -173,7 +173,7 @@ findingContentCtrl (
           location.reload();
         }
         if (!response.error && $stateParams.project ===
-            response.data.fluid_project.toLowerCase()) {
+            response.data.fluidProject.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
           functionsFtry3.loadFindingContent($scope);

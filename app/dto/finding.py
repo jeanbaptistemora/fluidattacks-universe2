@@ -307,7 +307,7 @@ class FindingDTO(object):
             if finding["field"] == self.COMPONENTE_APLICATIVO:
                 self.data["componente_aplicativo"] = finding["value"]
             if finding["field"] == self.TEST_TYPE:
-                self.data["tipoPrueba"] = finding["value"]
+                self.data["testType"] = finding["value"]
             if finding["field"] == self.RIESGO:
                 self.data["riesgo"] = finding["value"]
             if finding["field"] == self.REQUISITOS:
@@ -403,15 +403,15 @@ class FindingDTO(object):
         "Convierte la info de proyecto de un hallazgo en formstack"
         for finding in request_arr["data"]:
             if finding["field"] == self.ANALIST:
-                self.data["analista"] = finding["value"]
+                self.data["analist"] = finding["value"]
             if finding["field"] == self.LEADER:
-                self.data["lider"] = finding["value"]
+                self.data["leader"] = finding["value"]
             if finding["field"] == self.INTERESADO:
                 self.data["interesado"] = finding["value"]
             if finding["field"] == self.FLUID_PROJECT:
-                self.data["fluid_project"] = finding["value"]
+                self.data["fluidProject"] = finding["value"]
             if finding["field"] == self.CLIENT_PROJECT:
-                self.data["proyecto_cliente"] = finding["value"]
+                self.data["clientProject"] = finding["value"]
             if finding["field"] == self.CONTEXTO:
                 self.data["contexto"] = finding["value"]
 

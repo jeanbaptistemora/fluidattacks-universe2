@@ -149,7 +149,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].fluid_project.toLowerCase() !==
+                   eventsData[0].fluidProject.toLowerCase() !==
                    $scope.project.toLowerCase())) {
           const reqEventualities = projectFtry.eventualityByName(
             projectName,
@@ -173,7 +173,7 @@ angular.module("FluidIntegrates").controller(
           });
         }
         if (projectData.length > 0 &&
-            projectData[0].fluid_project.toLowerCase() ===
+            projectData[0].fluidProject.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadFindingContent(projectData, vlang);
@@ -251,7 +251,7 @@ angular.module("FluidIntegrates").controller(
         "onClickRow" (row) {
           $state.go("FindingDescription", {
             "id": row.id,
-            "project": row.fluid_project.toLowerCase()
+            "project": row.fluidProject.toLowerCase()
           });
           angular.element("#infoItem").addClass("active");
           angular.element("#info").addClass("active");
@@ -309,7 +309,7 @@ angular.module("FluidIntegrates").controller(
           for (let cont = 0; cont < data.length; cont++) {
             data[cont].atributos = 0;
             data[cont].link = `${$window.location.href.split("project/")[0]}` +
-                          `project/${data[cont].fluid_project.toLowerCase()}` +
+                          `project/${data[cont].fluidProject.toLowerCase()}` +
                           `/${data[cont].id}/description`;
             if (angular.isDefined(data[cont].registros) &&
                 data[cont].registros !== "") {

@@ -52,7 +52,7 @@ angular.module("FluidIntegrates").factory(
         }
         $scope.finding.cierres = cierresTmp;
         $scope.header.findingTitle = $scope.finding.hallazgo;
-        $scope.header.findingType = $scope.finding.tipoPrueba;
+        $scope.header.findingType = $scope.finding.testType;
         $scope.header.findingRisk = "";
         $scope.header.findingState = $scope.finding.estado;
         $scope.header.findingID = $scope.finding.id;
@@ -101,7 +101,7 @@ angular.module("FluidIntegrates").factory(
           "findingName": $scope.finding.hallazgo,
           "findingUrl": $window.location.href,
           "findingVulns": $scope.finding.openVulnerabilities,
-          "project": $scope.finding.fluid_project,
+          "project": $scope.finding.fluidProject,
           "userMail": userEmail
         };
         $uibModal.open({

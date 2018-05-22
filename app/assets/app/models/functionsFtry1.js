@@ -183,7 +183,7 @@ angular.module("FluidIntegrates").factory(
           "findingName": $scope.finding.hallazgo,
           "findingUrl": trackingUrl,
           "findingVulns": $scope.finding.openVulnerabilities,
-          "project": $scope.finding.fluid_project,
+          "project": $scope.finding.fluidProject,
           "userMail": userEmail
         };
         $uibModal.open({

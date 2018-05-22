@@ -144,7 +144,7 @@ def get_evidence_set(finding):
 def get_evidence_set_s3(finding, key_list, field_list):
     evidence_set = []
     for k in key_list:
-        evidence_route_1 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_1 = finding['id'] + "/" + finding['fluidProject'].lower() \
                             + "-" + finding['id'] + "-" + field_list[0]
         if "evidence_description_1" in finding and \
             evidence_route_1 in k:
@@ -152,7 +152,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id": k.split("/")[1],
                 "explanation": finding["evidence_description_1"].capitalize()
             })
-        evidence_route_2 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_2 = finding['id'] + "/" + finding['fluidProject'].lower() \
                             + "-" + finding['id'] + "-" + field_list[1]
         if "evidence_description_2" in finding and \
             evidence_route_2 in k:
@@ -160,7 +160,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id":  k.split("/")[1],
                 "explanation": finding["evidence_description_2"].capitalize()
             })
-        evidence_route_3 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_3 = finding['id'] + "/" + finding['fluidProject'].lower() \
                             + "-" + finding['id'] + "-" + field_list[2]
         if "evidence_description_3" in finding and \
             evidence_route_3 in finding:
@@ -168,7 +168,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id": k.split("/")[1],
                 "explanation": finding["evidence_description_3"].capitalize()
             })
-        evidence_route_4 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_4 = finding['id'] + "/" + finding['fluidProject'].lower() \
                             + "-" + finding['id'] + "-" + field_list[3]
         if "evidence_description_4" in finding and \
             evidence_route_4 in finding:
@@ -176,7 +176,7 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 "id":  k.split("/")[1],
                 "explanation": finding["evidence_description_4"].capitalize()
             })
-        evidence_route_5 = finding['id'] + "/" + finding['fluid_project'].lower() \
+        evidence_route_5 = finding['id'] + "/" + finding['fluidProject'].lower() \
                             + "-" + finding['id'] + "-" + field_list[4]
         if "evidence_description_5" in finding and \
             evidence_route_5 in finding:

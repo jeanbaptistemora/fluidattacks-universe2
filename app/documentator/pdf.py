@@ -224,41 +224,41 @@ class CreatorPDF(object):
 
     def project_info_context(self, project_info):
         """Crea un contexto con informacion del proyecto."""
-        self.context["fluid_project"] = project_info["fluid_project"]
-        self.context["proyecto_cliente"] = project_info["proyecto_cliente"]
-        self.context["cliente"] = project_info["cliente"]
-        self.context["lider"] = project_info["lider"]
-        self.context["analista"] = project_info["analista"]
-        self.context["arquitecto"] = project_info["arquitecto"]
-        self.context["fecha_inicio"] = project_info["fecha_inicio"]
-        self.context["fecha_fin"] = project_info["fecha_fin"]
-        self.context["tipoPrueba"] = project_info["tipoPrueba"]
-        self.context["ambiente"] = project_info["ambiente"]
-        self.context["tipo_cobertura"] = project_info["tipo_cobertura"]
-        self.context["mapa_hallazgos"] = project_info["mapa_hallazgos"]
-        self.context["nivel_seguridad"] = project_info["nivel_seguridad"]
-        self.context["cobertura"] = ""
-        self.context["toe_campos_visibles"] = ""
-        self.context["toe_lineas_visibles"] = ""
-        self.context["toe_puertos_visibles"] = ""
-        if "cobertura" in project_info:
-            self.context["cobertura"] = project_info["cobertura"]
-        if "toe_campos_visibles" in project_info:
-            self.context["toe_campos_visibles"] = project_info["toe_campos_visibles"]
-        if "toe_lineas_visibles" in project_info:
-            self.context["toe_lineas_visibles"] = project_info["toe_lineas_visibles"]
-        if "toe_puertos_visibles" in project_info:
-            self.context["toe_puertos_visibles"] = project_info["toe_puertos_visibles"]
-        self.context["toe_campos_probados"] = project_info["toe_campos_probados"]
-        self.context["toe_lineas_probadas"] = project_info["toe_lineas_probadas"]
-        self.context["toe_puertos_probados"] = project_info["toe_puertos_probados"]
-        self.context["impacto_relevate"] = project_info["impacto_relevate"]
-        self.context["observaciones"] = project_info["observaciones"]
-        self.context["conclusiones"] = project_info["conclusiones"]
-        self.context["recomendaciones"] = project_info["recomendaciones"]
-        self.context["tipo_industria"] = project_info["tipo_industria"]
-        self.context["lenguaje"] = project_info["lenguaje"]
-        self.context["tipo_aplicacion"] = project_info["tipo_aplicacion"]
+        self.context["fluidProject"] = project_info["fluidProject"]
+        self.context["clientProject"] = project_info["clientProject"]
+        self.context["client"] = project_info["client"]
+        self.context["leader"] = project_info["leader"]
+        self.context["analist"] = project_info["analist"]
+        self.context["arquitect"] = project_info["arquitect"]
+        self.context["startDate"] = project_info["startDate"]
+        self.context["endDate"] = project_info["endDate"]
+        self.context["testType"] = project_info["testType"]
+        self.context["environment"] = project_info["environment"]
+        self.context["coverageType"] = project_info["coverageType"]
+        self.context["findingsMap"] = project_info["findingsMap"]
+        self.context["securityLevel"] = project_info["securityLevel"]
+        self.context["coverage"] = ""
+        self.context["toeVisibleFields"] = ""
+        self.context["toeVisibleLines"] = ""
+        self.context["toeVisiblePorts"] = ""
+        if "coverage" in project_info:
+            self.context["coverage"] = project_info["coverage"]
+        if "toeVisibleFields" in project_info:
+            self.context["toeVisibleFields"] = project_info["toeVisibleFields"]
+        if "toeVisibleLines" in project_info:
+            self.context["toeVisibleLines"] = project_info["toeVisibleLines"]
+        if "toeVisiblePorts" in project_info:
+            self.context["toeVisiblePorts"] = project_info["toeVisiblePorts"]
+        self.context["toeTestedFields"] = project_info["toeTestedFields"]
+        self.context["toeTestedLines"] = project_info["toeTestedLines"]
+        self.context["toeTestedPorts"] = project_info["toeTestedPorts"]
+        self.context["relevantImpact"] = project_info["relevantImpact"]
+        self.context["observations"] = project_info["observations"]
+        self.context["conclusions"] = project_info["conclusions"]
+        self.context["recommendations"] = project_info["recommendations"]
+        self.context["industryType"] = project_info["industryType"]
+        self.context["language"] = project_info["language"]
+        self.context["applicationType"] = project_info["applicationType"]
 
     def make_content(self, words):
         """Crea contexto con los titulos del documento."""
@@ -411,7 +411,7 @@ class CreatorPDF(object):
     def fill_project(self, findings, project):
         """Agrega informacion del proyecto."""
         words = self.wordlist[self.lang]
-        full_project = findings[0]['proyecto_cliente']
+        full_project = findings[0]['clientProject']
         doctype = words[self.doctype]
         full_project += " [" + project + "]"
         team = "Engineering Team"
@@ -445,7 +445,7 @@ class CreatorPDF(object):
             "team": team,
             "team_mail": team_mail,
             "customer": "",
-            "toe": findings[0]["proyecto_cliente"],
+            "toe": findings[0]["clientProject"],
             "version": version,
             "revdate": doctype + " " + time.strftime("%d/%m/%Y"),
             "simpledate": time.strftime("%Y.%m.%d"),

@@ -2,7 +2,7 @@
 
 class EventualityDTO(object):
     """ Clase para crear un objeto con los atributos cssv2 """
-    
+
     ANALIST = "29042426"
     CLIENT = "29042288"
     FLUID_PROJECT = "29042322"
@@ -27,9 +27,9 @@ class EventualityDTO(object):
         if "vuln[affectation]" in parameter:
             self.data[self.AFECTACION] \
                 = parameter["vuln[affectation]"]
-        if "vuln[fluid_project]" in parameter:
+        if "vuln[fluidProject]" in parameter:
             self.data[self.FLUID_PROJECT] \
-                = parameter["vuln[fluid_project]"]
+                = parameter["vuln[fluidProject]"]
         if "vuln[affectation]" in parameter:
             if parameter["vuln[affectation]"] != "":
                 self.data[self.ESTADO] \
@@ -41,13 +41,13 @@ class EventualityDTO(object):
         self.data["id"] = submission_id
         for row in request_arr["data"]:
             if row["field"] == self.ANALIST:
-                self.data["analista"] = row["value"]
+                self.data["analist"] = row["value"]
             if row["field"] == self.CLIENT:
-                self.data["cliente"] = row["value"]
+                self.data["client"] = row["value"]
             if row["field"] == self.FLUID_PROJECT:
-                self.data["fluid_project"] = row["value"]
+                self.data["fluidProject"] = row["value"]
             if row["field"] == self.CLIENT_PROJECT:
-                self.data["proyecto_cliente"] = row["value"]
+                self.data["clientProject"] = row["value"]
             if row["field"] == self.TIPO:
                 self.data["tipo"] = row["value"]
             if row["field"] == self.DETALLE:

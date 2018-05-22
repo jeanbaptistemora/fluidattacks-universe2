@@ -120,7 +120,7 @@ angular.module("FluidIntegrates").controller(
                 $scope.evnt = data;
                 // Tracking mixpanel
                 const org = Organization.toUpperCase();
-                const projt = $scope.evnt.fluid_project.toUpperCase();
+                const projt = $scope.evnt.fluidProject.toUpperCase();
                 mixPanelDashboard.trackReadEventuality(
                   userName,
                   userEmail,

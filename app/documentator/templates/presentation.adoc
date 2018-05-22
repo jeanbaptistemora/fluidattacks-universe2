@@ -1,6 +1,6 @@
-= {{cliente}}: {{toe.upper()}}
+= {{client}}: {{toe.upper()}}
 :lang:		es
-:author:	Para uso exclusivo de {{cliente}}
+:author:	Para uso exclusivo de {{client}}
 :email:		engineering@fluidattacks.com
 :date: 	    2018-27-02
 :revnumber:	{{simpledate}}
@@ -36,31 +36,31 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 ^|*Valor*
 
 |*Tipo de prueba*
-|{{tipoPrueba}}
+|{{testType}}
 
 |*Fecha de inicio*
-|{{fecha_inicio}}
+|{{startDate}}
 
 |*Fecha de fin*
-|{{fecha_fin}}
+|{{endDate}}
 
 |*Alcance posible*
-|{%if cobertura != "" %} {{toe_campos_visibles}} entradas/{{toe_puertos_visibles}} puertos/{{toe_lineas_visibles}} líneas {% else %} - {% endif %}
+|{%if coverage != "" %} {{toeVisibleFields}} entradas/{{toeVisiblePorts}} puertos/{{toeVisibleLines}} líneas {% else %} - {% endif %}
 
 |*Alcance probado*
-|{{toe_campos_probados}} entradas/{{toe_puertos_probados}} puertos/{{toe_lineas_probadas}} líneas
+|{{toeTestedFields}} entradas/{{toeTestedPorts}} puertos/{{toeTestedLines}} líneas
 
 |*Cobertura*
-|{{tipo_cobertura}}
+|{{coverageType}}
 
 |*Ambiente*
-|{{ambiente}}
+|{{environment}}
 
 |*Cambios en el ambiente*
-|{{cambios_ambiente}}
+|{{environment_changes}}
 
 |*Insumos*
-|{{insumos}}
+|{{supplies}}
 |===
 
 [cols=3*]
@@ -68,7 +68,7 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 3+^.^|*{{resume_top_title}}*
 
 ^|*Security Tester* ^|*Security Architect* ^|*Project Manager*
-^|{{analista}} ^|{{arquitecto}} ^|{{lider}}
+^|{{analist}} ^|{{arquitect}} ^|{{leader}}
 
 |===
 
@@ -102,7 +102,7 @@ image::../resources/presentation_theme/t_panorama_es.png[width=400]
 	{%-  endfor %}
 {%- endfor %}
 ^.^|{{"*"+records_title+"*"}} 3+^.^| {{main_tables['num_reg']}}
-^.^|*Impactos Relevantes* 3+^.^|{{impacto_relevate}}
+^.^|*Impactos Relevantes* 3+^.^|{{relevantImpact}}
 |===
 
 <<<
@@ -130,7 +130,7 @@ image::../resources/presentation_theme/c_descripcion_es.png[pdfwidth=85%, align=
 image::../resources/presentation_theme/t_mapa_hallazgos_es.png[width=400]
 {nbsp} +
 
-{{mapa_hallazgos}}
+{{findingsMap}}
 
 <<<
 {nbsp} +
@@ -191,28 +191,28 @@ image::../resources/presentation_theme/t_evidencia_es.png[width=400]
 image::../resources/presentation_theme/t_observaciones_es.png[width=400]
 {nbsp} +
 
-{{observaciones}}
+{{observations}}
 
 <<<
 image::../resources/presentation_theme/t_recomendaciones_es.png[width=400]
 {nbsp} +
 
-{{recomendaciones}}
+{{recommendations}}
 
 <<<
 image::../resources/presentation_theme/t_conclusiones_es.png[width=400]
 {nbsp} +
 
-{{conclusiones}}
+{{conclusions}}
 
 <<<
 image::../resources/presentation_theme/t_nivel_es.png[width=400]
 {nbsp} +
 
 [.text-center]
-Por lo tanto se puede concluir que *{{proyecto_cliente}}* presenta un nivel de seguridad
+Por lo tanto se puede concluir que *{{clientProject}}* presenta un nivel de seguridad
 
-{{nivel_seguridad}}
+{{securityLevel}}
 
 [.text-center]
 Criticidad más alta *{{findings[0]["impacto"]}}* y vector de acceso mas riesgoso *{{findings[0]["accessVector"].split(" | ")[1].split(":")[0]}}*
