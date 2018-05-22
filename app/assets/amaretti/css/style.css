@@ -1154,6 +1154,10 @@ th {
   src: url('../lib/Source_Sans_Pro/SourceSansProRegular.ttf');
 }
 @font-face {
+  font-family: 'Montserrat ExtraBold', sans-serif;
+  src: url('../lib/Montserrat/Montserrat-ExtraBold.ttf');
+}
+@font-face {
   font-family: 'Montserrat', sans-serif;
   src: url('../lib/Montserrat/Montserrat-Regular.ttf');
 }
@@ -1253,9 +1257,14 @@ hr {
 }
 h1,
 h2,
-h3,
 .h1,
-.h2,
+.h2 {
+  font-family: 'Montserrat ExtraBold', sans-serif;
+  font-weight: 300;
+  line-height: 1.1;
+  color: inherit;
+}
+h3,
 .h3 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
@@ -8183,7 +8192,7 @@ button:focus {
 .am-top-header .navbar-header .page-title {
   display: none;
   color: #ffffff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 19px;
   line-height: 70px;
 }
@@ -8203,7 +8212,7 @@ button:focus {
 .am-top-header .navbar-collapse .navbar-nav > li > a {
   line-height: 80px;
   color: #ffffff;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   padding: 0 18px;
   outline: none;
@@ -8323,7 +8332,7 @@ button:focus {
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-messages .title,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-notifications .title,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-connections .title {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 13px;
   color: #8a8a8a;
   text-align: center;
@@ -8422,7 +8431,7 @@ button:focus {
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-messages .am-scroller > .content > ul > li > a .user-content .name,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-notifications .am-scroller > .content > ul > li > a .user-content .text-content,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-messages .am-scroller > .content > ul > li > a .user-content .text-content {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 500;
   font-size: 13px;
 }
@@ -8528,7 +8537,7 @@ button:focus {
   vertical-align: middle;
 }
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-connections .content ul li .field > span {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: #8a8a8a;
   font-weight: 500;
   font-size: 13px;
@@ -9146,7 +9155,7 @@ button:focus {
 }
 .am-right-sidebar .user-info span {
   display: block;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .am-right-sidebar .user-info span.name {
   color: #e1e1e1;
@@ -9570,7 +9579,7 @@ button:focus {
 .chat .contact .user a .user-data2 .name,
 .chat .chat-contact-list .user a .user-data2 .name {
   color: #555555;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 500;
 }
 .am-right-sidebar .chat .recent .user a .user-data .name,
@@ -10447,7 +10456,7 @@ button:focus {
   text-align: center;
   background-color: #ffffff;
   line-height: 50px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   color: #686868;
 }
@@ -11427,7 +11436,7 @@ li.L9 {
   line-height: 20px;
   font-size: 15px;
   font-weight: 400;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   margin-top: 10px;
   padding-bottom: 10px;
 }
@@ -11456,7 +11465,7 @@ li.L9 {
   box-shadow: none;
   color: #a3a2a2;
   padding: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   font-weight: 500;
   height: 36px;
@@ -11512,7 +11521,7 @@ li.L9 {
   display: block;
   color: #ffffff;
   font-size: 130px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
   line-height: 120px;
   text-shadow: 6px 5px 0 rgba(0, 0, 0, 0.1);
