@@ -41,7 +41,7 @@ class EventualityDTO(object):
         self.data["id"] = submission_id
         for row in request_arr["data"]:
             if row["field"] == self.ANALIST:
-                self.data["analist"] = row["value"]
+                self.data["analyst"] = row["value"]
             if row["field"] == self.CLIENT:
                 self.data["client"] = row["value"]
             if row["field"] == self.FLUID_PROJECT:

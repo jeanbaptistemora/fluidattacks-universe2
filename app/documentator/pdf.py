@@ -228,7 +228,7 @@ class CreatorPDF(object):
         self.context["clientProject"] = project_info["clientProject"]
         self.context["client"] = project_info["client"]
         self.context["leader"] = project_info["leader"]
-        self.context["analist"] = project_info["analist"]
+        self.context["analyst"] = project_info["analyst"]
         self.context["arquitect"] = project_info["arquitect"]
         self.context["startDate"] = project_info["startDate"]
         self.context["endDate"] = project_info["endDate"]

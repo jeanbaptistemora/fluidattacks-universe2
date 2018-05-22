@@ -62,7 +62,7 @@ class ProjectDTO(object):
             if finding["field"] == self.LEADER:
                 self.data["leader"] = finding["value"]
             if finding["field"] == self.ANALIST:
-                self.data["analist"] = finding["value"]
+                self.data["analyst"] = finding["value"]
             if finding["field"] == self.ARQUITECT:
                 self.data["arquitect"] = finding["value"]
             if finding["field"] == self.START_DATE:

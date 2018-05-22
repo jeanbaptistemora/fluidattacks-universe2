@@ -68,7 +68,7 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 3+^.^|*{{resume_top_title}}*
 
 ^|*Security Tester* ^|*Security Architect* ^|*Project Manager*
-^|{{analist}} ^|{{arquitect}} ^|{{leader}}
+^|{{analyst}} ^|{{arquitect}} ^|{{leader}}
 
 |===
 

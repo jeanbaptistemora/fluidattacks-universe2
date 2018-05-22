@@ -403,7 +403,7 @@ class FindingDTO(object):
         "Convierte la info de proyecto de un hallazgo en formstack"
         for finding in request_arr["data"]:
             if finding["field"] == self.ANALIST:
-                self.data["analist"] = finding["value"]
+                self.data["analyst"] = finding["value"]
             if finding["field"] == self.LEADER:
                 self.data["leader"] = finding["value"]
             if finding["field"] == self.INTERESADO:
