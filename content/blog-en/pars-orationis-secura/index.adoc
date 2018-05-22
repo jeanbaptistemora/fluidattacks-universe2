@@ -13,7 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
-:translate: pars-orationis-secura/
+:translate: pars-oraciones-seguro/
 
 = Pars orationis non est secura
 

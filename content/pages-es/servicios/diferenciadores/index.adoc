@@ -117,10 +117,10 @@ link:../hacking-continuo/#extraccion-de-informacion-critica[^8^]
 link:../hacking-puntual/#explotacion-de-hallazgos[^9^]
 link:../hacking-puntual/#extraccion-de-informacion-critica[^10^]:
 
-* link:../../../en/blog/fuzzy-bugs-online/[+Fuzzing+].
+* link:../../blog/fuzzy-bugs-enlinea/[+Fuzzing+].
 * Pruebas de Seguridad Dinámicas (+DAST+),
 Estáticas (+SAST+) e Interactivas (+IAST+).
-* link:../../../en/blog/stand-shoulders-giants/[+SCA+]
+* link:../../blog/pararse-hombros-gigantes/[+SCA+]
 (Software Composition Analysis).
 * Revisión manual de código.
 * link:../../../en/blog/reversing-mortals/[+Reversing+]

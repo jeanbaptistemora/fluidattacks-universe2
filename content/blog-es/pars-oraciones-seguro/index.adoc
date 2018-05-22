@@ -21,9 +21,9 @@
 porque es muy defectuoso!.
 Hemos mostrado cómo encontrar y explotar vulnerabilidades como
 link:../importancia-pentesting/[inyecciones]
-link:../fuzzy-bugs-online/#comparacion-con-la-inyeccion-manual[+SQL+],
+link:../fuzzy-bugs-enlinea/#comparacion-con-la-inyeccion-manual[+SQL+],
 link:../gherkin-esteroides/#deteccion-y-explotacion-dinamica[recorrido de directorios],
-link:../xml-exploitable-markup-language/#inyectando-xpath-en-una-aplicacion-vulnerable[inyección +XPath+],
+link:../xml-lenguaje-marcado-explotable/#inyectando-xpath-en-una-aplicacion-vulnerable[inyección +XPath+],
 e
 link:../app-aprieto/#documentando-vectores-de-ataque[inyección de comandos +UNIX+].
 Todas ellas tienen una cosa en común, a saber:
