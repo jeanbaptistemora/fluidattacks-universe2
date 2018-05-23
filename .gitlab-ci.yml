@@ -8,15 +8,13 @@ services:
 
 before_script:
   - sh env.sh
-  - apk update && apk add curl bash
+  - apk update && apk add curl bash tree
 
 after_script:
   - rm env.sh
 
 codequality:
   script:
-  - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-  - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
   - export SP_VERSION=$(echo "$CI_SERVER_VERSION" |
       sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
   - docker run 
@@ -45,9 +43,13 @@ stages:
   - push
   - deploy
   - test-deploy
+  - cleanup
 
 Build:
   stage: deps
+  before_script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
   script:
     - echo "$DOCKER_PASS" |
         docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
@@ -184,8 +186,6 @@ stop-review:
 Asserts-Review:
   stage: test
   script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-    - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
     - docker pull fluid-docker.jfrog.io/fluid:integrates
@@ -194,9 +194,8 @@ Asserts-Review:
         -e REVIEW=true -e ORG=fluid
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
+        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
         fluid-docker.jfrog.io/fluid:integrates
-    - rm -rf /tmp${CI_PROJECT_DIR}
     - docker logout fluid-docker.jfrog.io
   retry: 2
   except:
@@ -300,8 +299,6 @@ Deploy:
 asserts-prod:
   stage: test-deploy
   script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-    - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
     - docker pull fluid-docker.jfrog.io/fluid:integrates
@@ -316,3 +313,9 @@ asserts-prod:
   retry: 2
   only:
     - master
+
+cleanup-code:
+  stage: cleanup
+  script:
+    - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+  when: always
