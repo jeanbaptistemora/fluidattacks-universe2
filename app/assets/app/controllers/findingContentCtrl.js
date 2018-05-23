@@ -307,6 +307,9 @@ findingContentCtrl (
   $scope.urlEvents = function urlEvents () {
     $state.go("ProjectEvents", {"project": $stateParams.project});
   };
+  $scope.urlUsers = function urlUsers () {
+    $state.go("ProjectUsers", {"project": $scope.project});
+  };
   $scope.updateTreatment = function updateTreatment () {
     functionsFtry1.updateTreatment($scope);
   };

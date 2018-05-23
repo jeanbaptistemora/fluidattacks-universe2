@@ -51,6 +51,11 @@ angular.module("FluidIntegrates").config((
       "templateUrl": `${BASE.url}project_events?l=${localStorage.lang}`,
       "url": "/project/:project/events"
     }).
+    state("ProjectUsers", {
+      "controller": "projectUsersCtrl",
+      "templateUrl": `${BASE.url}project_users?l=${localStorage.lang}`,
+      "url": "/project/:project/users"
+    }).
     state("FindingDescription", {
       "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",

@@ -30,14 +30,27 @@
         </div>
     </div>
 </div>
+<!-- START: MODAL AVANCE -->
+<script type="text/ng-template" id="avance.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %} 'event_by_name.modal_avance.title' | translate {% templatetag closevariable %}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <ul style="list-style: none;">
+            <li ng-repeat="r in rowsEvent"> #{% templatetag openvariable %} r.id {% templatetag closevariable %} &nbsp;{% templatetag openvariable %} r.type {% templatetag closevariable %} &nbsp;[{% templatetag openvariable %} r.fecha {% templatetag closevariable %} ] ({% templatetag openvariable %}  (r.affectation === undefined)?"Pendiente":r.affectation {% templatetag closevariable %})
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="close()">OK</button>
+    </div>
+</script>
 <div class="main-content" ng-show="view.project" style="background-color: white;">
     <div class="row">
         <div class="col-md-12" id="search_section">
             <div class="row">
                 <div class="tab-container">
                     <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
-                        <!-- <li id="indicatorsTab" class="active" style="font-size:15px;" ui-sref="Forms" ng-click="urlIndicators();"> -->
-                        <li id="indicatorsTab" class="active" style="font-size:15px;" ng-click="urlIndicators();">
+                        <li id="indicatorsTab" class="" style="font-size:15px;" ng-click="urlIndicators();">
                             <a href="#indicators" data-toggle="tab" aria-expanded="false">
                                 <i class="icon s7-graph3"></i>&nbsp; {% templatetag openvariable %} 'tab_container.indicators' | translate {% templatetag closevariable %}
                             </a>
@@ -52,55 +65,39 @@
                                 <i class="icon s7-star"></i>&nbsp;{% templatetag openvariable %} 'tab_container.eventualities' | translate {% templatetag closevariable %}
                             </a>
                         </li>
-                        <li id="usersTab" class="" style="font-size:15px;" ng-click="urlUsers();">
+                        <li id="usersTab" class="active" style="font-size:15px;" ng-click="urlUsers();">
                             <a href="#users" data-toggle="tab" aria-expanded="true">
                                 <i class="icon s7-users"></i>&nbsp;{% templatetag openvariable %} 'tab_container.users' | translate {% templatetag closevariable %}
                             </a>
                         </li>
                     </ul>
-                    <div class="tab-content">
-                        <div id="indicators" class="tab-pane cont active">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" align="center">
+                <div class="col-md-12"  id="search_section">
+            <div class="tab-content">
+                        <div id="users" class="tab-pane cont active">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div ng-repeat="metric in metricsList">
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="widget-box equalWidgetHeight" data-toggle="tooltip" data-placement="top" title="{% templatetag openvariable %} metric.tooltip {% templatetag closevariable %}" style="{% templatetag openvariable %} metric.color {% templatetag closevariable %} color: #fff;">
-                                                <div class="col-md-4 col-xs-4">
-                                                    <div class="widget-icon">
-                                                        <span class="{% templatetag openvariable %} metric.icon {% templatetag closevariable %}"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8 col-xs-8">
-                                                    <div data-toggle="counter" class="widget-value">{% templatetag openvariable %} metric.value {% templatetag closevariable %}</div>
-                                                    <div class="widget-desc">{% templatetag openvariable %} metric.description {% templatetag closevariable %}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <!-- START: toolbar -->
+                                <div id="toolbar2">
+                                    <p><b>{{ search_findings.eventualities.description }}</b></p>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapExploit.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapType.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapStatus.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
+                                <div class="col-md-offset-3 col-md-5 col-sm-12" >
+                                    <table  id="tblUsers" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="false">
+                                        <thead>
+                                            <tr>
+                                              <th data-field="users" data-halign="left" data-valign="middle" data-width="10%" data-sortable="true">{{ search_findings.users_table.usermail }}</th>
+                                              <th data-field="usersLogin" data-halign="left" data-valign="middle" data-width="20%" data-sortable="true">{{ search_findings.users_table.lastlogin }}</th>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                     </div>
+                  </div>
+               </div>
 
 <!-- Start CommonStyles -->
 <style>
@@ -141,6 +138,7 @@
     }
     #vulnerabilities thead tr{ background-color: #898787; color:white;  }
     #eventualities thead tr{ background-color: #898787; color:white;  }
+    #users thead tr{ background-color: #898787; color:white;  }
 
 </style>
 <!-- End CommonStyles -->

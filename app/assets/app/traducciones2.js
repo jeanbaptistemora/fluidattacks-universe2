@@ -161,6 +161,7 @@ const traducciones2 = {
   "tab_container": {
     "eventualities": "Eventualidades",
     "findings": "Hallazgos",
-    "indicators": "Indicadores"
+    "indicators": "Indicadores",
+    "users": "Usuarios"
   }
 };

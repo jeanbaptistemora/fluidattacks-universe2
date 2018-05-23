@@ -368,6 +368,9 @@ angular.module("FluidIntegrates").controller(
     $scope.urlEvents = function urlEvents () {
       $state.go("ProjectEvents", {"project": $scope.project});
     };
+    $scope.urlUsers = function urlUsers () {
+      $state.go("ProjectUsers", {"project": $scope.project});
+    };
     $scope.init();
   }
 );

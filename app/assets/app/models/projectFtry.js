@@ -462,6 +462,21 @@ angular.module("FluidIntegrates").factory(
           "_": parseInt(secureRandom(5).join(""), 10),
           data
         }, oopsAc);
+      },
+
+      /**
+       * Return the eventualities of a project
+       * @function usersByProject
+       * @param {String} project Project name
+       * @member integrates.projectFtry
+       * @return {Object} Formstack response with the eventualities of a project
+       */
+      "usersByProject" (project) {
+        const oopsAc = "An error occurred getting events";
+        return $xhr.get($q, `${BASE.url}get_users_login`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          project
+        }, oopsAc);
       }
     };
   }

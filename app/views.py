@@ -186,6 +186,30 @@ def project_events(request):
         }
     return render(request, "project/events.html", dicLang)
 
+@never_cache
+@authenticate
+def project_users(request):
+    "eventualities view"
+    language = request.GET.get('l', 'en')
+    dicLang = {
+        "search_findings": {
+            "users_table": {
+               "usermail": "User email",
+               "lastlogin": "Last login"
+            },
+        }
+    }
+    if language == "es":
+        dicLang = {
+            "search_findings": {
+                "users_table": {
+                   "usermail": "Email",
+                   "lastlogin": "Último ingreso"
+                },
+            }
+        }
+    return render(request, "project/users.html", dicLang)
+
 @csrf_exempt
 @never_cache
 @authenticate
@@ -421,6 +445,26 @@ def get_eventualities(request):
     else:
         rollbar.report_message('Error: An error occurred getting events', 'error', request)
         return util.response(dataset, 'Not actions', True)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer'])
+def get_users_login(request):
+    "Get the email and last login date of all users in a project."
+    project = request.GET.get('project', None)
+    dataset = []
+    usersEmail = integrates_dao.get_project_users(project.lower())
+    users = [x[0] for x in usersEmail if x[1] == 1]
+    for user in users:
+        data = {}
+        last_login = integrates_dao.get_user_last_login_dao(user)
+        last_login = last_login.split('.',1)[0]
+        data['users']=user
+        data['usersLogin']=last_login
+        dataset.append(data)
+    return util.response(dataset, 'Success', False)
+
 
 @never_cache
 @csrf_exempt

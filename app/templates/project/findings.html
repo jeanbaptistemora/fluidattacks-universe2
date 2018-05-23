@@ -107,6 +107,11 @@
                                 <i class="icon s7-star"></i>&nbsp;{% templatetag openvariable %} 'tab_container.eventualities' | translate {% templatetag closevariable %}
                             </a>
                         </li>
+                        <li id="usersTab" class="" style="font-size:15px;" ng-click="urlUsers();">
+                            <a href="#users" data-toggle="tab" aria-expanded="true">
+                                <i class="icon s7-users"></i>&nbsp;{% templatetag openvariable %} 'tab_container.users' | translate {% templatetag closevariable %}
+                            </a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div id="findings" class="tab-pane cont active">

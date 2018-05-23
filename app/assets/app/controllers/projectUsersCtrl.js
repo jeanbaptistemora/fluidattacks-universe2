@@ -1,19 +1,46 @@
-/* eslint no-magic-numbers: ["error",{ "ignore": [-1,0,1] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
+/* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, win:true, window,
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, usersData:true,
 nonexploitLabel:true, totalHigLabel:true, exploitable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
-mixPanelDashboard, Organization, projectData:true, eventsData:true, i:true,
-angular
+mixPanelDashboard, win:true, window, Organization, projectData:true, i:true,
+eventsTranslations, keysToTranslate, labelEventState:true, angular
 */
 /**
- * @file ProjectCtrl.js
+ * @file projectUsersCtrl.js
  * @author engineering@fluidattacks.com
  */
 /**
- * Controller definition for project search view.
- * @name ProjectCtrl
+ * @function labelEventState
+ * @param {string} value Status of an eventuality
+ * @member integrates.registerCtrl
+ * @return {string|boolean} Html code for specific label
+ */
+labelEventState = function labelEventState (value) {
+  if (value === "Tratada") {
+    return "<label class='label label-success' style='background-color: " +
+           "#31c0be'>Tratada</label>";
+  }
+  else if (value === "Solved") {
+    return "<label class='label label-success' style='background-color: " +
+           "#31c0be'>Solved</label>";
+  }
+  else if (value === "Pendiente") {
+    return "<label class='label label-danger' style='background-color: " +
+           "#f22;'>Pendiente</label>";
+  }
+  else if (value === "Unsolved") {
+    return "<label class='label label-danger' style='background-color: " +
+           "#f22;'>Unsolved</label>";
+  }
+  return false;
+};
+
+/**
+ * Controller definition for eventuality view.
+ * @name projectUsersCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -23,8 +50,8 @@ angular
  */
 /** @export */
 angular.module("FluidIntegrates").controller(
-  "projectCtrl",
-  function projectCtrl (
+  "projectUsersCtrl",
+  function projectUsersCtrl (
     $location,
     $scope,
     $state,
@@ -32,20 +59,29 @@ angular.module("FluidIntegrates").controller(
     $timeout,
     $translate,
     $uibModal,
+    eventualityFactory,
     functionsFtry1,
     functionsFtry3,
     projectFtry
   ) {
     $scope.init = function init () {
+      let vlang = "en-US";
+      if (localStorage.lang === "en") {
+        vlang = "en-US";
+      }
+      else {
+        vlang = "es-CO";
+      }
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
+
       $scope.isManager = userRole !== "customer";
-      // Default flags value for view visualization.
+      // Default flags value for view visualization
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
-      // Route parameters.
+      // Route parameters
       if (angular.isDefined(findingId)) {
         $scope.findingId = findingId;
       }
@@ -53,8 +89,8 @@ angular.module("FluidIntegrates").controller(
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
+        $scope.loadUsersInfo(projectName, vlang, $scope.usersData);
       }
-      // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
@@ -63,9 +99,14 @@ angular.module("FluidIntegrates").controller(
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.search = function search () {
+      let vlang = "en-US";
+      if (localStorage.lang === "en") {
+        vlang = "en-US";
+      }
+      else {
+        vlang = "es-CO";
+      }
       const projectName = $scope.project;
-      const filterAux = $scope.filter;
-      const filter = filterAux;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -84,24 +125,15 @@ angular.module("FluidIntegrates").controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        const reqProject = projectFtry.projectByName(projectName, filter);
-        const reqEventualities = projectFtry.eventualityByName(
-          projectName,
-          "Name"
-        );
-        reqEventualities.then((response) => {
+        const reqUsersLogin = projectFtry.usersByProject(projectName);
+        reqUsersLogin.then((response) => {
           if (!response.error) {
             if (angular.isUndefined(response.data)) {
               location.reload();
             }
-            eventsData = response.data;
-            mixPanelDashboard.trackSearch(
-              "SearchEventuality",
-              userEmail,
-              projectName
-            );
-            angular.element("#search_section").show();
-            angular.element("[data-toggle=\"tooltip\"]").tooltip();
+            $scope.view.project = true;
+            const usersData = response.data;
+            $scope.loadUsersInfo(projectName, vlang, usersData);
           }
           else if (response.message === "Access to project denied") {
             Rollbar.warning("Warning: Access to event denied");
@@ -109,54 +141,25 @@ angular.module("FluidIntegrates").controller(
           }
           else {
             Rollbar.warning("Warning: Event not found");
-            $msg.error($translate.instant("proj_alerts.not_found"));
-          }
-        });
-        reqProject.then((response) => {
-          $scope.view.project = true;
-          if (!response.error) {
-            if (angular.isUndefined(response.data)) {
-              location.reload();
-            }
-            // Mixpanel tracking
-            mixPanelDashboard.trackSearch(
-              "SearchFinding",
-              userEmail,
-              projectName
-            );
-            if (response.data.length === 0 && eventsData.length === 0) {
-              $scope.view.project = false;
-              $scope.view.finding = false;
-              $msg.error($translate.instant("proj_alerts.not_found"));
-            }
-            else {
-              $scope.data = response.data;
-              projectData = response.data;
-              const org = Organization.toUpperCase();
-              const projt = $stateParams.project.toUpperCase();
-              functionsFtry1.alertHeader(org, projt);
-            }
-          }
-          else if (response.error) {
-            $scope.view.project = false;
-            $scope.view.finding = false;
-            if (response.message === "Access denied") {
-              Rollbar.warning("Warning: Access to project denied");
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else if (response.message === "Project masked") {
-              Rollbar.warning("Warning: Project deleted");
-              $msg.error($translate.instant("proj_alerts.project_deleted"));
-            }
-            else {
-              Rollbar.warning("Warning: Project not found");
-              $msg.error($translate.instant("proj_alerts.not_found"));
-            }
+            $msg.error($translate.instant("proj_alerts.eventExist"));
           }
         });
       }
       return true;
     };
+
+    $scope.loadUsersInfo = function loadUsersInfo (project, vlang, data) {
+      // Eventuality table configuration
+      angular.element("#tblUsers").bootstrapTable("destroy");
+      angular.element("#tblUsers").bootstrapTable({
+        data,
+        "locale": vlang
+      });
+      angular.element("#tblUsers").bootstrapTable("refresh");
+      angular.element("#search_section").show();
+      angular.element("[data-toggle=\"tooltip\"]").tooltip();
+    };
+
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});
     };

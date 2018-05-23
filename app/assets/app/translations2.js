@@ -160,6 +160,7 @@ const translations2 = {
   "tab_container": {
     "eventualities": "Events",
     "findings": "Findings",
-    "indicators": "Indicators"
+    "indicators": "Indicators",
+    "users": "Users"
   }
 };

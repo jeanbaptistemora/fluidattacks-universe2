@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^project_indicators/?\.*$', views.project_indicators),
     url(r'^project_findings/?\.*$', views.project_findings),
     url(r'^project_events/?\.*$', views.project_events),
+    url(r'^project_users/?\.*$', views.project_users),
     # Comments tab.
     url(r'^get_comments/?\.*$', views.get_comments, name='get_comments'),
     url(r'^add_comment/?\.*$', views.add_comment, name='add_comment'),
@@ -44,6 +45,7 @@ urlpatterns = [
     url(r'^get_eventualities/?\.*$',
         views.get_eventualities, name='get_eventualities'),
     url(r'^get_evidences/?\.*$', views.get_evidences, name='get_evidences'),
+    url(r'^get_users_login/?\.*$', views.get_users_login, name='get_users_login'),
     url(r'^get_alerts/?\.*$', views.get_alerts, name='get_alerts'),
     url(r'^project/([A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$', views.get_evidence),
     url(r'^get_exploit/?\.*$', views.get_exploit, name='get_exploit'),
