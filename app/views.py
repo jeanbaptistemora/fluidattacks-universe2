@@ -322,7 +322,7 @@ def project_to_pdf(request, lang, project, doctype):
         pdf_maker.tech(findings, project, user)
         report_filename = secure_pdf.create_full(user, pdf_maker.out_name)
     elif doctype == "executive":
-        return HttpResponse("Reporte deshabilitado", content_type="text/html")
+        return HttpResponse("Disabled report generation", content_type="text/html")
     else:
         project_info = get_project_info(project)
         mapa_id = util.drive_url_filter(project_info["findingsMap"])
@@ -330,14 +330,14 @@ def project_to_pdf(request, lang, project, doctype):
         DriveAPI().download_images(mapa_id)
         nivel_sec = project_info["securityLevel"].split(" ")[0]
         if not util.is_numeric(nivel_sec):
-            return HttpResponse("Parametrizacion incorrecta", content_type="text/html")
+            return HttpResponse("Incorrect parametrization", content_type="text/html")
         nivel_sec = int(nivel_sec)
         if nivel_sec < 0 or nivel_sec > 6:
-            return HttpResponse("Parametrizacion incorrecta", content_type="text/html")
+            return HttpResponse("Incorrect parametrization", content_type="text/html")
         project_info["securityLevel"] = "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
         print project_info
         if not project_info:
-            return HttpResponse("Documentacion incompleta", content_type="text/html")
+            return HttpResponse("Incomplete documentation", content_type="text/html")
         pdf_maker.presentation(findings, project, project_info, user)
         #secure_pdf = SecurePDF()
         #report_filename = secure_pdf.create_only_pass(user, pdf_maker.out_name)

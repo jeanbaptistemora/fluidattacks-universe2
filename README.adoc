@@ -5,7 +5,7 @@
 :revnumber:              v1.0
 :revdate:                2017
 :toc:                    macro
-:toc-title:              Tabla de Contenido
+:toc-title:              Table of Contents
 :icons:                  font
 :source-highlighter:     pygments
 :keywords:               fluidintegrates, fluidsignal,
@@ -15,10 +15,10 @@ image:https://gitlab.com/fluidsignal/integrates/badges/master/coverage.svg[link=
 
 toc::[]
 
-== Aplicación
+== Application
 
-Las instrucciones que se presentan a continuación han sido verificadas en los
-siguientes sistemas operativos basados en Debian:
+The instructions presented below have been verified in the
+following Debian based operating systems:
 
 * Ubuntu 16.04.1 LTS aka LTS
 
@@ -33,12 +33,11 @@ Codename:   xenial
 ----
 
 <<<
-== Actualización de paquetes
+== Packages update
 
-* Para una correcta instalación de la aplicación y evitar incompatibilidad
-  en las versiones de las dependencias, es necesario actualizar los paquetes
-  esenciales del ambiente.  Para sistemas operativos basados en *Debian* los
-  comandos   que actualiza estas dependencias es el siguiente:
+* For a correct installation and avoid incompatibility in the versions of the
+  dependencies, it is necessary to update essentials packages of the
+  environment. For operating systems based on *Debian* the update commands are:
 
 [source, console]
 ----
@@ -48,12 +47,12 @@ $ sudo apt-get update \
 ----
 
 <<<
-== Dependencias
+== Dependencies
 
-* Lo primero para comenzar a contribuir en el desarrollo es instalar algunas
-  herramientas dentro del sistema operativo que permiten tener un ambiente de
-  desarrollo idoneo.  Para sistemas operativos basados en *Debian* el comando
-  que instala estas dependencias es el siguiente:
+* First step to contribute in Integrates development is to install some tools
+  in the operating system that allow to have a proper develop environment.
+  For operating systems based on *Debian*, the command that
+  installs these dependencies is:
 
 [source, console]
 ----
@@ -67,8 +66,7 @@ $ sudo apt install git \
 
 ----
 
-* La siguiente libreria debe ser instalada de forma individual con el siguiente
-  comando:
+* The following library must be installed individually with the command:
 
 [source, console]
 ----
@@ -76,12 +74,12 @@ $ sudo apt install libapache2-mod-wsgi-py3
 
 ----
 
-  * NOTA:
+  * NOTE:
 
-  Para distirbuciones UBUNTU >= 14.04:
+  For UBUNTU distirbutions >= 14.04:
 
-* Es necesario que el comando *_pip_* esté actualizado en la versión más reciente,
-  para esto se debe ejecutar el siguiente comando:
+* It is necessary that *_pip_* is updated in the latest version,
+  for this you must execute the following command:
 
 [source, console]
 ----
@@ -89,7 +87,7 @@ $ pip install --upgrade pip
 
 ----
 
-* Continuamos instalando las siguientes dependencias:
+* Then, you need to install the following dependenciess:
 
 [source, console]
 ----
@@ -105,8 +103,8 @@ $ sudo apt install libtiff5-dev \
 
 ----
 
-* y por ultimo, instalamos los complementos necesarios para el correcto
-  funcionamiento de python:
+* Finally, we install the necessary complements for the correct
+  python operation:
 
 [source, console]
 ----
@@ -122,10 +120,10 @@ $ sudo pip install  django \
 ----
 
 <<<
-== Descarga
+== Download
 
-* En esta etapa procedemos a crear una copia local del repositorio central de
-  Integrates en una carpeta especifica en el sistema:
+* In this stage, we proceed to create a local branch of main Integrates
+  repository in a specific system folder:
 
 [source, console]
 ----
@@ -142,14 +140,11 @@ Checking connectivity... done.
 
 ----
 
-* El comando anterior descargará todo el repositorio de código completo del
-  producto, permitiendo navegar por diferentes versiones y ramas.
-
 <<<
-== Configuración GIT
+== GIT configuration
 
-* Para comenzar a realizar cambios sobre el repositorio deben configurarse los
-  usuarios con los cuales quedaran registrados sus cambios:
+* To start making changes to the repository, you must configure the
+   user with whom your changes will be registered:
 
 [source, console]
 ----
@@ -157,7 +152,7 @@ $ git config --global user.name "Faustino Asprilla"
 $ git config --global user.email fasprilla@fluidattacks.com
 ----
 
-* Usted puede verificar si los cambios estan registrados mediante la orden:
+* You can check if the changes were successfully registered with:
 
 [source, console]
 ----
@@ -169,12 +164,12 @@ push.default=matching
 ----
 
 <<<
-== Desplegar FLUIDintegrates de forma local
+== Deploy FLUIDintegrates locally
 
-* Antes de contribuir al repositorio central de FLUID, es necesario comprobar que
-  los cambios que vayamos a realizar funcionen correctamente y no alteren el buen
-  funcionamiento del resto del codigo. Esto se puede verifcar al desplegar el app
-  de forma local, lo cual se puede lograr a traves de los siguientes comandos:
+* Before any merge request, it is necessary to verify that changes we are going
+  to make work correctly and do not interfer with the good operation of the
+  rest of code. This can be verified when you deploy the app locally, which can
+  be achieved through the following commands:
 
 [source, console]
 ----
@@ -183,8 +178,8 @@ $ sudo ln -s /var/www/integrates/* .
 
 ----
 
-* Para instalar las otras dependencias que son requisito minimo para desplegar
-  FLUIDIntegrates, ejecute:
+*  Install other dependencies, that are a minimum requirement to deploy
+   FLUIDIntegrates, with command:
 
 [source, console]
 ----
@@ -197,8 +192,8 @@ $ sudo apt-get install libmysqlclient-dev \
 
 ----
 
-* A continuación se instalarán las dependencias faltantes y se actualizarán
-  aquellas que ya están instaladas:
+* Missing dependencies will be installed and those that are
+  already installed will be updated:
 
 [source, console]
 ----
@@ -208,17 +203,16 @@ $ cd /var/www/integrates/deploy/containers/deps && sudo pip install --upgrade -r
 
 ----
 
-* El anterior comando es esencial para el despliegue, por lo que usted debe
-  asegurarse que la instalación sea correcta (Sin mensajes de error o dependencias
-  no actualizadas)
+* The previous command is essential for deployment, so you should ensure that
+  the installation is correct (without error messages or not updated
+  dependencies)
 
 <<<
-== Instalación de NPM
-* Node Package Manager o simplemente npm es un gestor de paquetes desde el cual
-  podremos tener cualquier librería disponible con solo una línea de código, npm
-  nos ayudará a administrar nuestros módulos, distribuir paquetes y agregar
-  dependencias de una manera sencilla. Para instalar npm debemos instalar
-  _Nodejs_, este trae por defecto npm:
+== NPM Installation
+* Node Package Manager or simply npm is a package manager from which we can have
+  any library available with just one line of code, npm will help us manage our
+  modules, distribute packages and add dependencies in a simple way.
+  To install npm we must install _Nodejs_, this brings by default npm:
 
 [source, console]
 ----
@@ -228,8 +222,8 @@ $ sudo apt-get install -y nodejs
 
 ----
 
-* Para instalar las dependencias que ya se encuentran en FLUIDIntegrates ejecutar
-  el siguiente comando:
+* To install the dependencies that are already in FLUIDIntegrates,
+  execute the following command:
 
 [source, console]
 ----
@@ -238,7 +232,8 @@ $ npm install
 
 ----
 
-* Para instalar nuevas dependencias o paquetes se debe ejecutar el siguiente comando:
+* To install new dependencies or packages, the following command must be
+  executed:
 
 [source, console]
 ----
@@ -247,7 +242,7 @@ $ npm install <package_name> --save
 
 ----
 
-* Para borrar dependencias o paquetes que ya no serán utilizados:
+* To delete dependencies or packages that will no longer be used:
 
 [source, console]
 ----
@@ -256,18 +251,18 @@ $ npm uninstall <package_name> --save
 
 ----
 
-* Para ver mas información sobre los paquetes de npm visitar el siguiente
+* To see more information about npm packages, visit the following
 link: _https://www.npmjs.com/_.
 
 <<<
-== Variables de entorno para Integrates
+== Environment variables for Integrates
 
-* El archivo _**.envrc**_ contiene todas las variables de entorno para el correcto funcionamiento de Integrates,
-  por razones de seguridad el archivo no se encuentra en el repositorio. Para una copia por favor contactar a
-  _jrestrepo@fluidattacks.com_.
+* The file _**.envrc**_ contains all the environment variables for proper
+  execution of Integrates, for security reasons the file is not in the
+  repository. For a copy, please contact _jrestrepo@fluidattacks.com_.
 
-* Es necesario agregar la siguiente línea:  _**eval "$(direnv hook bash)"**_  al
-  final del archivo que se despliega al ejecutar el comando:
+* It is necessary to add the following line: _**eval"$(direnv hook bash)"**_ in
+  the end of file that is displayed when executing the command:
 
 [source, console]
 ----
@@ -275,8 +270,8 @@ $ nano ~/.bashrc
 
 ----
 
-* Ubicar el archivo _.envrc_ en la carpeta principal de Integrates, es decir, en la ruta
-  /var/www/integrates y luego ejecutar el siguiente comando:
+* Locate the file _.envrc_ in the main Integrates folder, that is, in the path
+  /var/www/integrates and then execute the following command:
 
 [source, console]
 ----
@@ -284,8 +279,8 @@ $ direnv allow
 
 ----
 
-* Para confirmar que las variables fueron correctamente cargadas, ejecute el siguiente comando y verifique
-  que se muestren las variables que están en el archivo _.envrc_ .
+* To confirm that variables were correctly loaded, run the following command
+  and verify that the variables that are in _.envrc_ file are displayed.
 
 [source, console]
 ----
@@ -294,12 +289,12 @@ $ printenv
 ----
 
 <<<
-== Crear servidor
+== Deploy server
 
-* Finalmente se debe lanzar el servidor local que contiene a la aplicación. Esto
-  se puede realizar de 2 maneras:
+* Finally you must launch the local server that contains the application. This
+  can be done in 2 ways:
 
-=== 1. Creación de server con Python
+=== 1. Deploy server with Python
 
 [source, console]
 ----
@@ -307,25 +302,25 @@ $ python manage.py runsslserver
 
 ----
 
-* En este punto la aplicación ya está desplegada localmente, para acceder a ella
-  vaya a la barra de direcciones de su navegador de preferencia y escriba la siguiente
-  dirección: _https://localhost:8000_.
+* At this point the application is already displayed locally. To access it go to
+  the address bar of your browser and write the following address:
+  _https: // localhost: 8000_.
 
-=== 1. Creación de server con Docker
+=== 1. Deploy server with Docker
 
-* Lo primero que hay que hacer es instalar Docker CE. Seguir los pasos de instalación que se encuentran
-  https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-convenience-script[aquí].
+* The first thing to do is install Docker CE. Follow the installation steps that are found
+  https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-convenience-script[here].
 
-* Ejecutar el siguiente comando, el cual le pedirá que ingrese un usuario y contraseña
-  correspondientes a sus credenciales en Gitlab.
+* Execute the following command, which will ask you to enter a username and
+  password corresponding to your credentials in Gitlab.
 
 [source, console]
 ----
 $ sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
 ----
-* Se debe especificar el nombre de la rama del repositorio de Integrates que se clonará
-  dentro del contenedor, usualmente se clona la rama _master_.
+* Branch name of Integrates repository that will be cloned inside the container
+  must be specified, usually the _master_ branch is cloned.
 
 [source, console]
 ----
@@ -333,8 +328,8 @@ $ CI_COMMIT_REF_NAME=master
 
 ----
 
-* Antes de lanzar el contenedor, es necesario crear la imagen que se utilizará
-  durante el despliegue.
+* Before launching the container, it is necessary to create the image that will
+  be used during deployment.
 
 [source, console]
 ----
@@ -342,7 +337,7 @@ $ sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE
 
 ----
 
-* Para desplegar el servidor con Integrates se ejecuta el siguiente comando:
+* To deploy the server, the following command is executed:
 
 [source, console]
 ----
@@ -350,6 +345,6 @@ $ sudo docker run -d -p 8000:443 --env-file /var/www/integrates/env.list -t --na
 
 ----
 
-* En este punto la aplicación ya está desplegada localmente, para acceder a ella
-  vaya a la barra de direcciones de su navegador de preferencia y escriba la siguiente
-  dirección: _https://localhost:8000_.
+* At this point the application is already displayed locally. To access it go to
+  the address bar of your browser and write the following address:
+  _https: // localhost: 8000_.

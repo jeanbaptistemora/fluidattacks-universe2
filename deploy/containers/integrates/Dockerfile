@@ -65,7 +65,7 @@ RUN rm -r /var/www/html \
 # Make port 443 and 24224 available to the world outside this container
 EXPOSE 443 24224
 
-# Primer comando
+# First command
 CMD env > /etc/environment  \
 && /etc/init.d/td-agent restart \
 && a2ensite integrates-ssl.conf \
