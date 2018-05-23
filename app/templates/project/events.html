@@ -37,13 +37,13 @@
     </div>
     <div class="modal-body" id="modal-body">
         <ul style="list-style: none;">
-            <li ng-repeat="r in rowsEvent"> #{% templatetag openvariable %} r.id {% templatetag closevariable %} &nbsp;{% templatetag openvariable %} r.tipo {% templatetag closevariable %} &nbsp;[{% templatetag openvariable %} r.fecha {% templatetag closevariable %} ] ({% templatetag openvariable %}  (r.affectation === undefined)?"Pendiente":r.affectation {% templatetag closevariable %})
+            <li ng-repeat="r in rowsEvent"> #{% templatetag openvariable %} r.id {% templatetag closevariable %} &nbsp;{% templatetag openvariable %} r.type {% templatetag closevariable %} &nbsp;[{% templatetag openvariable %} r.fecha {% templatetag closevariable %} ] ({% templatetag openvariable %}  (r.affectation === undefined)?"Pendiente":r.affectation {% templatetag closevariable %})
         </ul>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="close()">OK</button>
     </div>
-</script>             
+</script>
 <div class="main-content" ng-show="view.project" style="background-color: white;">
     <div class="row">
         <div class="col-md-12" id="search_section">
@@ -83,7 +83,7 @@
                                             data-placement="top"
                                             title="{{ search_findings.event_by_name.btn_group.resume }}!"
                                             ng-click="openModalEventAvance();">
-                                            {{ search_findings.event_by_name.btn_group.resume }} 
+                                            {{ search_findings.event_by_name.btn_group.resume }}
                                         <i class="glyphicon glyphicon-bookmark"></i>
                                     </button>
                                 </div>
@@ -98,7 +98,7 @@
                                                 <th data-field="id" data-halign="center" data-valign="middle" data-width="5%">{{ search_findings.event_table.id }}</th>
                                                 <th data-field="fecha" data-halign="center" data-valign="middle" data-width="10%" data-sortable="true">{{ search_findings.event_table.date }}</th>
                                                 <th data-field="detalle" data-halign="center" data-valign="middle" data-width="40%" data-sortable="true">{{ search_findings.event_table.details }}</th>
-                                                <th data-field="tipo" data-halign="center" data-valign="middle" data-width="15%">{{ search_findings.event_table.type }}</th>
+                                                <th data-field="type" data-halign="center" data-valign="middle" data-width="15%">{{ search_findings.event_table.type }}</th>
                                                 <th data-field="estado"
                                                     data-halign="center"
                                                     data-valign="middle"

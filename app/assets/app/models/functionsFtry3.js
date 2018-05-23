@@ -51,7 +51,7 @@ angular.module("FluidIntegrates").factory(
           cierresTmp.push(cierre);
         }
         $scope.finding.cierres = cierresTmp;
-        $scope.header.findingTitle = $scope.finding.hallazgo;
+        $scope.header.findingTitle = $scope.finding.finding;
         $scope.header.findingType = $scope.finding.testType;
         $scope.header.findingRisk = "";
         $scope.header.findingState = $scope.finding.estado;
@@ -98,7 +98,7 @@ angular.module("FluidIntegrates").factory(
       // Obtener datos
         const descData = {
           "findingId": $scope.finding.id,
-          "findingName": $scope.finding.hallazgo,
+          "findingName": $scope.finding.finding,
           "findingUrl": $window.location.href,
           "findingVulns": $scope.finding.openVulnerabilities,
           "project": $scope.finding.fluidProject,
@@ -193,11 +193,11 @@ angular.module("FluidIntegrates").factory(
       "loadFindingContent" ($scope) {
         $scope.aux = {};
         $scope.aux.treatment = $scope.finding.treatment;
-        $scope.aux.razon = $scope.finding.razonTratamiento;
+        $scope.aux.razon = $scope.finding.treatmentJustification;
         $scope.aux.openVulnerabilities = $scope.finding.openVulnerabilities;
         $scope.hasCompromisedAttributes = true;
         const defineStates = function defineStates () {
-          if (angular.isUndefined($scope.finding.registros)) {
+          if (angular.isUndefined($scope.finding.records)) {
             $scope.hasCompromisedAttributes = false;
           }
           if ($scope.finding.treatment === "Asumido") {
@@ -228,7 +228,7 @@ angular.module("FluidIntegrates").factory(
           }
         };
         defineStates();
-        $scope.aux.responsable = $scope.finding.responsableTratamiento;
+        $scope.aux.responsable = $scope.finding.treatmentManager;
         $scope.aux.bts = $scope.finding.btsExterno;
         $scope.severityInfo = {
           "accessComplexity": $scope.finding.accessComplexity,
@@ -244,7 +244,7 @@ angular.module("FluidIntegrates").factory(
         };
         $scope.descripcionInfo = {
           "actor": $scope.finding.actor,
-          "escenario": $scope.finding.escenario
+          "scenario": $scope.finding.scenario
         };
         $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);
         $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
@@ -262,8 +262,8 @@ angular.module("FluidIntegrates").factory(
                               $scope.finding.timestamp.slice(0, NEW_LIST_LIMIT);
         let closingEffect = 0;
         for (let close = 0; close < $scope.finding.cierres.length; close++) {
-          closingEffect = ($scope.finding.cierres[close].cerradas /
-                        $scope.finding.cierres[close].solicitadas) *
+          closingEffect = ($scope.finding.cierres[close].closed /
+                        $scope.finding.cierres[close].requested) *
                         PERCENTAGE_FACTOR;
           $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
           const timeFormat =
@@ -273,7 +273,7 @@ angular.module("FluidIntegrates").factory(
         // Fields activation control by finding type (General/Detailed)
         $scope.esDetallado = false;
         findingData.esDetallado = $scope.esDetallado;
-        if ($scope.finding.nivel === "Detallado") {
+        if ($scope.finding.level === "Detallado") {
           $scope.esDetallado = true;
           findingData.esDetallado = $scope.esDetallado;
         }
@@ -370,33 +370,33 @@ angular.module("FluidIntegrates").factory(
         const descData = {
           "actor": $scope.descripcionInfo.actor,
           "affectedSystems": $scope.finding.affectedSystems,
-          "amenaza": $scope.finding.amenaza,
-          "categoria": $scope.finding.categoria,
+          "attackVector": $scope.finding.attackVector,
+          "category": $scope.finding.category,
           "cwe": $scope.finding.cwe,
-          "donde": $scope.finding.donde,
-          "escenario": $scope.descripcionInfo.escenario,
-          "hallazgo": $scope.finding.hallazgo,
+          "effectSolution": $scope.finding.effectSolution,
+          "finding": $scope.finding.finding,
           "id": $scope.finding.id,
-          "nivel": $scope.finding.nivel,
+          "level": $scope.finding.level,
           "openVulnerabilities": $scope.finding.openVulnerabilities,
-          "probabilidad": $scope.finding.probabilidad,
-          "registros": $scope.finding.registros,
-          "registros_num": $scope.finding.registros_num,
-          "requisitos": $scope.finding.requisitos,
+          "probability": $scope.finding.probability,
+          "records": $scope.finding.records,
+          "recordsNumber": $scope.finding.recordsNumber,
+          "requirements": $scope.finding.requirements,
           "riskValue": $scope.finding.riskValue,
+          "scenario": $scope.descripcionInfo.scenario,
           "severity": $scope.finding.severity,
-          "solucion_efecto": $scope.finding.solucion_efecto,
-          "vector_ataque": $scope.finding.vector_ataque,
-          "vulnerabilidad": $scope.finding.vulnerabilidad
+          "threat": $scope.finding.threat,
+          "vulnerability": $scope.finding.vulnerability,
+          "where": $scope.finding.where
         };
         if ($scope.aux.openVulnerabilities !==
             $scope.finding.openVulnerabilities) {
           const todayDate = new Date();
           const NEW_LIST_LIMIT = 10;
-          descData.ultimaVulnerabilidad =
+          descData.lastVulnerability =
                                todayDate.toISOString().slice(0, NEW_LIST_LIMIT);
         }
-        if (descData.nivel === "Detallado") {
+        if (descData.level === "Detallado") {
         // Recalculate severity
           const severityInfo = functionsFtry1.calculateFindingSeverity();
           const choose = severityInfo[0];

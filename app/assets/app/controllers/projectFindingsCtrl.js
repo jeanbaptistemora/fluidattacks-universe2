@@ -4,7 +4,7 @@
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, projectData:true,
-nonexploitLabel:true, totalHigLabel:true, $scope:true,explotable:true, i:true,
+nonexploitLabel:true, totalHigLabel:true, $scope:true,exploitable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
 closeLabel:true, mixPanelDashboard, win:true, window, Organization, userRole,
@@ -311,9 +311,9 @@ angular.module("FluidIntegrates").controller(
             data[cont].link = `${$window.location.href.split("project/")[0]}` +
                           `project/${data[cont].fluidProject.toLowerCase()}` +
                           `/${data[cont].id}/description`;
-            if (angular.isDefined(data[cont].registros) &&
-                data[cont].registros !== "") {
-              data[cont].atributos = 1 + (data[cont].registros.match(/\n/g) ||
+            if (angular.isDefined(data[cont].records) &&
+                data[cont].records !== "") {
+              data[cont].atributos = 1 + (data[cont].records.match(/\n/g) ||
                                      []).length;
             }
           }

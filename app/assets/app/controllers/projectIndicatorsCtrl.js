@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, i:true, j:true,
-nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
+nonexploitLabel:true, totalHigLabel:true, exploitable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, angular,
 mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
@@ -181,9 +181,9 @@ angular.module("FluidIntegrates").controller(
       let totalSeg = 0;
       let totalHig = 0;
       angular.forEach(currData, (val) => {
-        const tipo = val.finding_type;
+        const type = val.finding_type;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
-          if (tipo === "Seguridad") {
+          if (type === "Seguridad") {
             totalSeg += 1;
           }
           else {
@@ -222,13 +222,13 @@ angular.module("FluidIntegrates").controller(
       let exploit = 0;
       let nonexploit = 0;
       angular.forEach(currData, (val) => {
-        const explotable = val.exploitability;
+        const exploitable = val.exploitability;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
-          if (explotable === "1.000 | Alta: No se requiere exploit o se puede" +
-                             " automatizar" || explotable === "0.950 | " +
-                             "Funcional: Existe exploit" || explotable ===
+          if (exploitable === "1.000 | Alta: No se requiere exploit o se" +
+                            " puede automatizar" || exploitable === "0.950 | " +
+                             "Funcional: Existe exploit" || exploitable ===
                              "1.000 | High: Exploit is not required or it can" +
-                             " be automated" || explotable === "0.950 | " +
+                             " be automated" || exploitable === "0.950 | " +
                              "Functional: There is an exploit") {
             exploit += 1;
           }

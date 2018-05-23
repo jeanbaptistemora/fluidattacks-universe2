@@ -32,7 +32,7 @@
 |===
 |{{finding_title}} |{{criticity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
 {% for fin in findings %}
-    {{"| "+fin['hallazgo']}}
+    {{"| "+fin['finding']}}
     {{"| "+fin['criticity']}}
     {{"| "+fin['openVulnerabilities']}}
     {{"| "+fin['estado']+"\n"}}
@@ -76,24 +76,24 @@
 <<<
 === {{finding_section_title}}
 {% for fin in findings %}
-==== {{fin['hallazgo'] + "\n"}}
+==== {{fin['finding'] + "\n"}}
 |===
 |{{criticity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
-{{"|"+fin['criticity']+"|"+fin['openVulnerabilities']+"|"+fin['registros_num']+"|"+fin['estado']}}
+{{"|"+fin['criticity']+"|"+fin['openVulnerabilities']+"|"+fin['recordsNumber']+"|"+fin['estado']}}
 |===
 ===== {{description_title}}
-{{fin['vulnerabilidad'] + "\n"}}
+{{fin['vulnerability'] + "\n"}}
 ===== {{threat_title}}
-{{fin['amenaza'] + "\n"}}
+{{fin['threat'] + "\n"}}
 
 {% if "riesgo" in fin %}
 ===== {{risk_title}}
 {{fin['riesgo'] + "\n"}}
 {% endif %}
 
-{% if "vector_ataque" in fin %}
+{% if "attackVector" in fin %}
 ===== {{attack_vector_title}}
-{{fin['vector_ataque'] + "\n"}}
+{{fin['attackVector'] + "\n"}}
 {% endif %}
 
 {% if "affectedSystems" in fin %}
@@ -102,9 +102,9 @@
 {% endif %}
 
 ===== {{solution_title}}
-{{fin['solucion_efecto'] + "\n"}}
+{{fin['effectSolution'] + "\n"}}
 ===== {{requisite_title}}
-    {% for req in fin['requisitos'].split("\n") %}
+    {% for req in fin['requirements'].split("\n") %}
         - {{req + "\n"}}
     {% endfor %}
 <<<

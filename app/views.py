@@ -429,7 +429,7 @@ def get_eventualities(request):
 def get_finding(request):
     submission_id = request.POST.get('id', "")
     finding = catch_finding(request, submission_id)
-    if finding['vulnerabilidad'].lower() == 'masked':
+    if finding['vulnerability'].lower() == 'masked':
         rollbar.report_message('Warning: Project masked', 'warning', request)
         return util.response([], 'Project masked', True)
     if finding:
@@ -458,7 +458,7 @@ def get_findings(request):
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
-        if finding['vulnerabilidad'].lower() == 'masked':
+        if finding['vulnerability'].lower() == 'masked':
             rollbar.report_message('Warning: Project masked', 'warning', request)
             return util.response([], 'Project masked', True)
         if finding['fluidProject'].lower() == project.lower():
@@ -495,24 +495,24 @@ def catch_finding(request, submission_id):
             finding["estado"] = state["estado"]
             finding["cierres"] = findingcloseset
             finding['cardinalidad_total'] = finding['openVulnerabilities']
-            if 'abiertas' in state:
-                finding['openVulnerabilities'] = state['abiertas']
-            if 'abiertas_cuales' in state:
-                finding['donde'] = state['abiertas_cuales']
+            if 'opened' in state:
+                finding['openVulnerabilities'] = state['opened']
+            if 'whichOpened' in state:
+                finding['where'] = state['whichOpened']
             else:
                 if state['estado'] == 'Cerrado':
-                    finding['donde'] = '-'
-            if 'cerradas_cuales' in state:
-                finding['cerradas'] = state['cerradas_cuales']
+                    finding['where'] = '-'
+            if 'whichClosed' in state:
+                finding['closed'] = state['whichClosed']
             if state['estado'] == 'Cerrado':
-                finding['donde'] = '-'
+                finding['where'] = '-'
                 finding['edad'] = '-'
-                finding['ultimaVulnerabilidad'] = '-'
+                finding['lastVulnerability'] = '-'
             else:
                 if 'timestamp' in state:
-                    if 'ultimaVulnerabilidad' in finding and \
-                        finding['ultimaVulnerabilidad'] != state['timestamp']:
-                        finding['ultimaVulnerabilidad'] = state['timestamp']
+                    if 'lastVulnerability' in finding and \
+                        finding['lastVulnerability'] != state['timestamp']:
+                        finding['lastVulnerability'] = state['timestamp']
                         generic_dto = FindingDTO()
                         generic_dto.create_last_vulnerability(finding)
                         generic_dto.to_formstack()
@@ -526,12 +526,12 @@ def catch_finding(request, submission_id):
                 final_date = (datetime.now(tz=tzn).date() - finding_date)
                 finding['edad'] = ":n".replace(":n", str(final_date.days))
                 finding_last_vuln = datetime.strptime(
-                    finding["ultimaVulnerabilidad"].split(" ")[0],
+                    finding["lastVulnerability"].split(" ")[0],
                     '%Y-%m-%d'
                 )
                 finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
                 final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
-                finding['ultimaVulnerabilidad'] = ":n".replace(":n", str(final_vuln_date.days))
+                finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
             return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
@@ -557,13 +557,13 @@ def finding_vulnerabilities(submission_id):
         finding["estado"] = state["estado"]
         finding["cierres"] = findingcloseset
         finding['cardinalidad_total'] = finding['openVulnerabilities']
-        if 'abiertas' in state:
-            finding['openVulnerabilities'] = state['abiertas']
+        if 'opened' in state:
+            finding['openVulnerabilities'] = state['opened']
         else:
             if state['estado'] == 'Cerrado':
-                finding['donde'] = '-'
+                finding['where'] = '-'
         if state['estado'] == 'Cerrado':
-            finding['donde'] = '-'
+            finding['where'] = '-'
             finding['edad'] = '-'
         else:
             tzn = pytz.timezone('America/Bogota')
@@ -655,11 +655,11 @@ def update_evidences_files(request):
     elif isinstance(upload, InMemoryUploadedFile):
         mime_type = mime.from_buffer(upload.file.getvalue())
     fieldNum = FindingDTO()
-    fieldname = [['animacion', fieldNum.ANIMATION], ['explotacion', fieldNum.EXPLOTATION], \
+    fieldname = [['animation', fieldNum.ANIMATION], ['exploitation', fieldNum.EXPLOTATION], \
                 ['evidence_route_1', fieldNum.DOC_ACHV1], ['evidence_route_2', fieldNum.DOC_ACHV2], \
                 ['evidence_route_3', fieldNum.DOC_ACHV3], ['evidence_route_4', fieldNum.DOC_ACHV4], \
                 ['evidence_route_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT], \
-                ['registros_archivo', fieldNum.REG_FILE]]
+                ['fileRecords', fieldNum.REG_FILE]]
     if mime_type == "image/gif" and parameters["id"] == '0':
         if upload.size > 10485760:
             rollbar.report_message('Error - File exceeds the size limits', 'error', request)
@@ -752,12 +752,12 @@ def migrate_all_files(parameters, request):
         finding = fin_dto.parse(parameters['findingId'], frmreq, request)
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.ANIMATION
         folder = key_existing_list(filename)
-        if "animacion" in finding and parameters["id"] != '0' and not folder:
-            send_file_to_s3(finding["animacion"], parameters, fin_dto.ANIMATION, "animacion", ".gif")
+        if "animation" in finding and parameters["id"] != '0' and not folder:
+            send_file_to_s3(finding["animation"], parameters, fin_dto.ANIMATION, "animation", ".gif")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOTATION
         folder = key_existing_list(filename)
-        if "explotacion" in finding and parameters["id"] != '1' and not folder:
-            send_file_to_s3(finding["explotacion"], parameters, fin_dto.EXPLOTATION, "explotacion", ".png")
+        if "exploitation" in finding and parameters["id"] != '1' and not folder:
+            send_file_to_s3(finding["exploitation"], parameters, fin_dto.EXPLOTATION, "exploitation", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV1
         folder = key_existing_list(filename)
         if "evidence_route_1" in finding and parameters["id"] != '2' and not folder:
@@ -784,8 +784,8 @@ def migrate_all_files(parameters, request):
             send_file_to_s3(finding["exploit"], parameters, fin_dto.EXPLOIT, "exploit", ".py")
         filename = parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.REG_FILE
         folder = key_existing_list(filename)
-        if "registros_archivo" in finding and parameters["id"] != '8' and not folder:
-            send_file_to_s3(finding["registros_archivo"], parameters, fin_dto.REG_FILE, "registros_archivo", ".csv")
+        if "fileRecords" in finding and parameters["id"] != '8' and not folder:
+            send_file_to_s3(finding["fileRecords"], parameters, fin_dto.REG_FILE, "fileRecords", ".csv")
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
@@ -1062,7 +1062,7 @@ def delete_finding(request):
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq, request)
         context["project"] = finding["fluidProject"]
-        context["name_finding"] = finding["hallazgo"]
+        context["name_finding"] = finding["finding"]
         result = api.delete_submission(submission_id)
         if result is None:
             rollbar.report_message('Error: An error ocurred deleting finding', 'error', request)

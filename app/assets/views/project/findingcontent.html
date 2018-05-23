@@ -157,8 +157,8 @@
                               <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.nivel}}</p>
-                                      <select ng-model="finding.nivel"
+                                      <p ng-show="onlyReadableTab1">{{finding.level}}</p>
+                                      <select ng-model="finding.level"
                                               ng-show="!onlyReadableTab1"
                                               ng-change="detectNivel();"
                                               class="form-control">
@@ -172,14 +172,14 @@
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
-                                             ng-model="finding.hallazgo"/>
+                                             ng-model="finding.finding"/>
                                   </div>
                               </div>
                               <div class="row table-row">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.stageTooltip' | translate}}"><label><b>{{'search_findings.tab_description.stage' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.stageTooltip' | translate}}">
-                                      <p ng-show="onlyReadableTab1">{{finding.escenario}}</p>
-                                      <select ng-model="descripcionInfo.escenario"
+                                      <p ng-show="onlyReadableTab1">{{finding.scenario}}</p>
+                                      <select ng-model="descripcionInfo.scenario"
                                               ng-show="!onlyReadableTab1"
                                               class="form-control">
                                           <option ng-repeat="item in list.scenario"
@@ -200,19 +200,19 @@
                               <div class="row table-row" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.descriptionTooltip' | translate}}">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.description' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.vulnerabilidad}}</p>
+                                      <p ng-show="onlyReadableTab1">{{finding.vulnerability}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.vulnerabilidad">{{finding.vulnerabilidad}}</textarea>
+                                                ng-model="finding.vulnerability">{{finding.vulnerability}}</textarea>
                                   </div>
                               </div>
                               <div class="row table-row" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.requirementsTooltip' | translate}}">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.requirements' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.requisitos}}</p>
+                                      <p ng-show="onlyReadableTab1">{{finding.requirements}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.requisitos">{{finding.requisitos}}</textarea>
+                                                ng-model="finding.requirements">{{finding.requirements}}</textarea>
                                   </div>
                               </div>
                               <div class="row table-row" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.whereTooltip' | translate}}">
@@ -221,10 +221,10 @@
                                       <textarea msd-elastic class="form-control" rows="4"
                                                 ng-show="onlyReadableTab1"
                                                 disabled style="margin-bottom: 5px;"
-                                                ng-model="finding.donde">{{finding.donde}}</textarea>
+                                                ng-model="finding.where">{{finding.where}}</textarea>
                                       <textarea msd-elastic class="form-control" rows="4" style="margin-bottom: 5px;"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.donde">{{finding.donde}}</textarea>
+                                                ng-model="finding.where">{{finding.where}}</textarea>
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="!onlyReadableTab1">
@@ -239,26 +239,26 @@
                               <div class="row table-row">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.vectorsTooltip' | translate}}"><label><b>{{'search_findings.tab_description.vectors' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.vectorsTooltip' | translate}}">
-                                      <p ng-show="onlyReadableTab1">{{finding.vector_ataque}}</p>
+                                      <p ng-show="onlyReadableTab1">{{finding.attackVector}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.vector_ataque">{{finding.vector_ataque}}</textarea>
+                                                ng-model="finding.attackVector">{{finding.attackVector}}</textarea>
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.threatTooltip' | translate}}"><label><b>{{'search_findings.tab_description.threat' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.threatTooltip' | translate}}">
-                                      <p ng-show="onlyReadableTab1">{{finding.amenaza}}</p>
+                                      <p ng-show="onlyReadableTab1">{{finding.threat}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.amenaza">{{finding.amenaza}}</textarea>
+                                                ng-model="finding.threat">{{finding.threat}}</textarea>
                                   </div>
                               </div>
                               <div class="row table-row">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.recommendationTooltip' | translate}}"><label><b>{{'search_findings.tab_description.recommendation' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.recommendationTooltip' | translate}}">
-                                      <p ng-show="onlyReadableTab1">{{finding.solucion_efecto}}</p>
+                                      <p ng-show="onlyReadableTab1">{{finding.effectSolution}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.solucion_efecto">{{finding.solucion_efecto}}</textarea>
+                                                ng-model="finding.effectSolution">{{finding.effectSolution}}</textarea>
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.systemTooltip' | translate}}"><label><b>{{'search_findings.tab_description.system' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.systemTooltip' | translate}}">
@@ -272,17 +272,17 @@
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.compromisedAtributesTooltip' | translate}}"><label><b>{{'search_findings.tab_description.compromisedAtributes' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.compromisedAtributesTooltip' | translate}}">
                                       <p ng-show="onlyReadableTab1 && !hasCompromisedAttributes">0</p>
-                                      <p ng-show="onlyReadableTab1 && hasCompromisedAttributes">{{finding.registros}}</p>
+                                      <p ng-show="onlyReadableTab1 && hasCompromisedAttributes">{{finding.records}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.registros">{{finding.registros}}</textarea>
+                                                ng-model="finding.records">{{finding.records}}</textarea>
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.compromisedRecordsTooltip' | translate}}"><label><b>{{'search_findings.tab_description.compromisedRecords' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.compromisedRecordsTooltip' | translate}}">
-                                      <p ng-show="onlyReadableTab1">{{finding.registros_num}}</p>
+                                      <p ng-show="onlyReadableTab1">{{finding.recordsNumber}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-model="finding.registros_num">{{finding.registros_num}}</textarea>
+                                                ng-model="finding.recordsNumber">{{finding.recordsNumber}}</textarea>
                                   </div>
                               </div>
                               <div class="row table-row">
@@ -296,8 +296,8 @@
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.btsTooltip' | translate}}"><label><b>{{'search_findings.tab_description.bts_external' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.btsTooltip' | translate}}">
-                                      <a ng-href="{{finding.btsExterno || ''}}" target="_blank" ng-show="onlyReadableTab4 && finding.hasUrl">{{finding.bts_externo || ''}}</a>
-                                      <p ng-show="onlyReadableTab4 && !finding.hasUrl">{{finding.bts_externo || ''}}</p>
+                                      <a ng-href="{{finding.btsExterno || ''}}" target="_blank" ng-show="onlyReadableTab4 && finding.hasUrl">{{finding.externalBts || ''}}</a>
+                                      <p ng-show="onlyReadableTab4 && !finding.hasUrl">{{finding.externalBts || ''}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab4"
                                              ng-model="finding.btsExterno">
@@ -318,16 +318,16 @@
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treat_managerTooltip' | translate}}"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treat_managerTooltip' | translate}}">
-                                      <p>{{finding.responsableTratamiento}}</p>
+                                      <p>{{finding.treatmentManager}}</p>
                                   </div>
                               </div>
                               <div class="row table-row" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treat_justificationTooltip' | translate}}">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab4">{{finding.razonTratamiento}}</p>
+                                      <p ng-show="onlyReadableTab4">{{finding.treatmentJustification}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab4"
-                                                ng-model="finding.razonTratamiento">{{finding.razonTratamiento}}</textarea>
+                                                ng-model="finding.treatmentJustification">{{finding.treatmentJustification}}</textarea>
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="!isManager">
@@ -643,11 +643,11 @@
                       <div class="row">
                           <div class="col-md-12">
                               <p>{{'search_findings.tab_tracking.open' | translate}}</p>
-                              <textarea msd-elastic ng-model="finding.donde" class="form-control" disabled>{{finding.donde}}</textarea>
+                              <textarea msd-elastic ng-model="finding.where" class="form-control" disabled>{{finding.where}}</textarea>
                           </div>
                           <div class="col-md-12">
                               <p>{{'search_findings.tab_tracking.close' | translate}}</p>
-                              <textarea msd-elastic ng-model="finding.cerradas" class="form-control" disabled>{{finding.cerradas}}</textarea>
+                              <textarea msd-elastic ng-model="finding.closed" class="form-control" disabled>{{finding.closed}}</textarea>
                           </div>
                       </div>
                       <div class="row">
@@ -662,7 +662,7 @@
                                   <li class="timeline-item" ng-repeat="x in finding.cierres">
                                       <div class="timeline-date"><span>{{x.timestamp}}</span></div>
                                       <div class="timeline-content">
-                                          <p>{{'search_findings.tab_tracking.cicle' | translate}}: {{x.position}}, {{'search_findings.tab_tracking.open' | translate}}: {{x.abiertas}}, {{'search_findings.tab_tracking.close' | translate}}: {{x.cerradas}}, {{'search_findings.tab_tracking.closingEffectiveness' | translate}}: {{x.efectividad}}%</p>
+                                          <p>{{'search_findings.tab_tracking.cicle' | translate}}: {{x.position}}, {{'search_findings.tab_tracking.open' | translate}}: {{x.opened}}, {{'search_findings.tab_tracking.close' | translate}}: {{x.closed}}, {{'search_findings.tab_tracking.closingEffectiveness' | translate}}: {{x.efectividad}}%</p>
                                       </div>
                                   </li>
                               </ul>

@@ -6,25 +6,25 @@
 const fieldsToTranslate = [
   "actor",
   "authentication",
-  "categoria",
+  "category",
   "accessComplexity",
-  "escenario",
+  "scenario",
   "estado",
   "exploitability",
-  "explotable",
+  "exploitable",
   "confidentialityImpact",
   "availabilityImpact",
   "integrityImpact",
   "confidenceLevel",
   "resolutionLevel",
-  "probabilidad",
-  "tipoHallazgoCliente",
+  "probability",
+  "clientFindingType",
   "testType",
   "accessVector",
   "treatment"
 ];
 const eventsTranslations = [
-  "tipo",
+  "type",
   "estado"
 ];
 const keysToTranslate = {

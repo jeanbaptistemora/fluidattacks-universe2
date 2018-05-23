@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Clase para aseguridad un PDF de hallazgos."""
+""" Class to secure a PDF of findings. """
 import time
 from pyPdf import PdfFileWriter, PdfFileReader
 
 
 class SecurePDF(object):
-    """Agrega seguridad basica a los PDF."""
+    """ Add basic security to PDF. """
 
     result_dir = ""
     watermark_tpl = ""
@@ -13,27 +13,27 @@ class SecurePDF(object):
     secure_pdf_filename = ""
 
     def __init__(self):
-        """Constructor de la clase."""
+        """Class constructor."""
         self.base = "/usr/src/app/app/documentator/"
         self.watermark_tpl = self.base + "resources/presentation_theme/"
         self.watermark_tpl += "watermark_integrates_es.pdf"
         self.result_dir = self.base + "/results/"
 
     def create_full(self, username, basic_pdf_name):
-        """Ejecuta el proceso de seguridad en un PDF."""
+        """ Execute the security process in a PDF. """
         self.secure_pdf_username = username
         water_pdf_name = self.watermark(basic_pdf_name)
         self.secure_pdf_filename = self.lock(water_pdf_name)
         return self.result_dir + self.secure_pdf_filename
 
     def create_only_pass(self, username, basic_pdf_name):
-        """Ejecuta el proceso de seguridad en un PDF."""
+        """ Execute the security process in a PDF. """
         self.secure_pdf_username = username
         self.secure_pdf_filename = self.lock(basic_pdf_name)
         return self.result_dir + self.secure_pdf_filename
 
     def watermark(self, in_filename):
-        """Agrega una marca de agua a todas las paginas de un PDF."""
+        """ Add a watermark to all pages of a PDF. """
         pdf_foutname = "water_" + in_filename
         input = PdfFileReader(file(self.result_dir + in_filename, "rb")) # noqa
         output = PdfFileWriter()
@@ -49,7 +49,7 @@ class SecurePDF(object):
         return pdf_foutname
 
     def lock(self, in_filename):
-        """Agrega una clave a un PDF."""
+        """  Add a password to a PDF. """
         pdf_foutname = self.secure_pdf_username + "_" + in_filename
         password = time.strftime("%d%m%Y") + \
             self.secure_pdf_username.encode('utf8', 'ignore')

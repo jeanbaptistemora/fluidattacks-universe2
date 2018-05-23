@@ -1,7 +1,7 @@
-"""DTO to map the Integrates fields to formstack"""
+""" DTO to map the Integrates fields to formstack """
 # pylint: disable=E0402
 class ProjectDTO(object):
-    """ Class to create an object with the attributes of a finding. """
+    """ Class to create an object with the attributes of a project. """
 
     #Atributos proyecto
     FLUID_PROJECT = "52601266"

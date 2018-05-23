@@ -29,20 +29,20 @@ def get_new_vulnerabilities():
                 act_finding = views.finding_vulnerabilities(str(finding['id']))
                 if act_finding["edad"] != "-" and act_finding["estado"] != "Cerrado" and "treatment" in act_finding:
                     if  act_finding["treatment"] == "Nuevo":
-                        context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['hallazgo'] + ' -' + act_finding["edad"] +' day(s)-'), \
+                        context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['finding'] + ' -' + act_finding["edad"] +' day(s)-'), \
                         'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
                             '/description')})
                 if row != []:
                     delta = int(act_finding['openVulnerabilities'])-int(row[0]['vuln_hoy'])
                     if int(act_finding['openVulnerabilities']) > int(row[0]['vuln_hoy']):
-                        finding_text = act_finding['hallazgo'] + ' (+' + str(delta) +')'
+                        finding_text = act_finding['finding'] + ' (+' + str(delta) +')'
                         context['findings'].append({'nombre_hallazgo': finding_text , \
                         'url_vuln': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
                             '/description')})
                         delta_total = delta_total + abs(delta)
                         integrates_dao.add_or_update_vulns_dynamo(str(project[0].lower()),int(finding['id']), int(act_finding['openVulnerabilities']))
                     elif int(act_finding['openVulnerabilities']) < int(row[0]['vuln_hoy']):
-                        finding_text = act_finding['hallazgo'] + ' (' + str(delta) +')'
+                        finding_text = act_finding['finding'] + ' (' + str(delta) +')'
                         context['findings'].append({'nombre_hallazgo': finding_text , \
                         'url_vuln': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
                             '/description')})
@@ -91,7 +91,7 @@ def get_age_notifications():
                 context = {
                     'project': project[0].upper(),
                     'finding': finding["id"],
-                    'finding_name': finding_parsed["hallazgo"],
+                    'finding_name': finding_parsed["finding"],
                     'finding_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
                                     + '/' + finding["id"] + '/description',
                     'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
@@ -126,7 +126,7 @@ def get_age_weekends_notifications():
                 context = {
                     'project': project[0].upper(),
                     'finding': finding["id"],
-                    'finding_name': finding_parsed["hallazgo"],
+                    'finding_name': finding_parsed["finding"],
                     'finding_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
                                     + '/' + finding["id"] + '/description',
                     'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \

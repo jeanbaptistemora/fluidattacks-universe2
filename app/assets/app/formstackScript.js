@@ -56,17 +56,17 @@ const requirement = $("#field38254586");
 const solution = $("#field38619077");
 const threat = $("#field38193361");
 const risk = $("#field38193362");
-const donde = $("#field38193357");
+const where = $("#field38193357");
 const hasSolution = $("#field38861717_1");
 const hasNoSolution = $("#field38861717_2");
 const solutionKb = $("#field38861739");
-const tipo = $("#field54319180");
+const type = $("#field54319180");
 const debilidad = $("#field38899046");
 const solutionPdf = $("#field38307753");
 const evidenciaHallazgo = $("#field32202896");
 const exploit = $("#field38307199");
 const evidenciaExplotacion = $("#field38307222");
-const animacion = $("#field38307272");
+const animation = $("#field38307272");
 const siEvidente = $("#field49132420_1");
 const noEvidente = $("#field49132420_2");
 const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
@@ -88,9 +88,9 @@ const showInfo = function showInfo (data) {
         description.val(obj[cont].Descripcion);
         requirement.val(obj[cont].Requisito);
         solution.val(obj[cont].Recomendacion);
-        donde.attr("placeholder", obj[cont].Donde);
+        where.attr("placeholder", obj[cont].Donde);
         debilidad.val(obj[cont].CWE.split("/")[REPORT_CONTEXT].split(".")[0]);
-        tipo.val(obj[cont].Tipo);
+        type.val(obj[cont].Tipo);
         if (obj[cont].Evidente === "Sí") {
           siEvidente.attr("checked", true);
         }
@@ -134,9 +134,9 @@ const showInfo = function showInfo (data) {
           evidenciaExplotacion.prop("required", false);
           evidenciaExplotacion.removeClass("fsRequired");
           evidenciaExplotacion.attr("aria-required", false);
-          animacion.prop("required", false);
-          animacion.removeClass("fsRequired");
-          animacion.attr("aria-required", false);
+          animation.prop("required", false);
+          animation.removeClass("fsRequired");
+          animation.attr("aria-required", false);
         }
         break;
       }
@@ -146,9 +146,9 @@ const showInfo = function showInfo (data) {
         solution.val("");
         threat.val("");
         risk.val("");
-        tipo.val("");
+        type.val("");
         debilidad.val(0);
-        donde.attr("placeholder", "Formato DONDE dependiendo " +
+        where.attr("placeholder", "Formato DONDE dependiendo " +
                    "de la vulnerabilidad.");
         $("#fsCell38861739").addClass("fsHidden");
         $("#fsCell38307753").addClass("fsHidden");
@@ -165,8 +165,8 @@ Tabletop.init({
   "simpleSheet": true
 });
 const FILE_NAME_INDEX = 2;
-$(donde).focusout(() => {
-  donde.val($.trim(donde.val()));
+$(where).focusout(() => {
+  where.val($.trim(where.val()));
 });
 
 $(requirement).focusout(() => {
@@ -254,15 +254,15 @@ $(evidenciaExplotacion).change(() => {
   }
 });
 
-$(animacion).change(() => {
-  const animacionUpload = $(animacion).val().
+$(animation).change(() => {
+  const animacionUpload = $(animation).val().
     split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (animacionUpload !== "animacion-de-explotacion") {
     $msg.error("El archivo se debe llamar: animacion-de-explotacion");
-    animacion.val("");
+    animation.val("");
   }
   else if (animacionUpload === "animacion-de-explotacion") {
-    animacion.attr("aria-invalid", false);
+    animation.attr("aria-invalid", false);
   }
 });
 

@@ -67,7 +67,7 @@ angular.module("FluidIntegrates").factory(
                            divConst).toString() +
                            (parseInt(secureRandom(3).join(""), 10) *
                             multiConst).toString(radix), 10);
-                  data.findingName = commentInfo.finding.hallazgo;
+                  data.findingName = commentInfo.finding.finding;
                   data.project = commentInfo.finding.fluidProject;
                   data.findingUrl = $window.location.href;
                   data.remediated = false;
@@ -128,29 +128,29 @@ angular.module("FluidIntegrates").factory(
         function setEvidenceList (response, valFormstack) {
           for (let cont = 0; cont < response.data.length; cont++) {
             const valS3 = response.data[cont];
-            if (angular.isDefined(valS3.animacion) &&
+            if (angular.isDefined(valS3.animation) &&
                     valS3.es_animacion === true) {
               updEvidenceList(
-                valS3.animacion, "animation_exploit",
+                valS3.animation, "animation_exploit",
                 "animation_exploit", 0, "basic", evidenceList, data
               );
             }
-            else if (angular.isDefined(valFormstack.animacion)) {
+            else if (angular.isDefined(valFormstack.animation)) {
               updEvidenceList(
-                valFormstack.animacion, "animation_exploit",
+                valFormstack.animation, "animation_exploit",
                 "animation_exploit", 0, "basic", evidenceList, data
               );
             }
-            if (angular.isDefined(valS3.explotacion) &&
+            if (angular.isDefined(valS3.exploitation) &&
                    valS3.es_explotacion === true) {
               updEvidenceList(
-                valS3.explotacion, "evidence_exploit",
+                valS3.exploitation, "evidence_exploit",
                 "evidence_exploit", 1, "basic", evidenceList, data
               );
             }
-            else if (angular.isDefined(valFormstack.explotacion)) {
+            else if (angular.isDefined(valFormstack.exploitation)) {
               updEvidenceList(
-                valFormstack.explotacion, "evidence_exploit",
+                valFormstack.exploitation, "evidence_exploit",
                 "evidence_exploit", 1, "basic", evidenceList, data
               );
             }
@@ -185,15 +185,15 @@ angular.module("FluidIntegrates").factory(
               setEvidenceList(response, valFormstack);
             }
             else {
-              if (angular.isDefined(data.finding.animacion)) {
+              if (angular.isDefined(data.finding.animation)) {
                 updEvidenceList(
-                  valFormstack.animacion, "animation_exploit",
+                  valFormstack.animation, "animation_exploit",
                   "animation_exploit", 0, "basic", evidenceList, data
                 );
               }
-              if (angular.isDefined(data.finding.explotacion)) {
+              if (angular.isDefined(data.finding.exploitation)) {
                 updEvidenceList(
-                  valFormstack.explotacion, "evidence_exploit",
+                  valFormstack.exploitation, "evidence_exploit",
                   "evidence_exploit", 1, "basic", evidenceList, data
                 );
               }
@@ -348,11 +348,11 @@ angular.module("FluidIntegrates").factory(
                 }
               };
               for (let cont = 0; cont < response.data.length; cont++) {
-                if (angular.isDefined(response.data[cont].registros_archivo) &&
+                if (angular.isDefined(response.data[cont].fileRecords) &&
                             response.data[cont].es_registros_archivo === true) {
                   record = projectFtry.getRecords(
                     data.finding.id,
-                    response.data[cont].registros_archivo
+                    response.data[cont].fileRecords
                   );
                   data.hasRecords = true;
                   findingData.hasRecords = data.hasRecords;
@@ -360,10 +360,10 @@ angular.module("FluidIntegrates").factory(
                     respFunction(response);
                   });
                 }
-                else if (angular.isDefined(data.finding.registros_archivo)) {
+                else if (angular.isDefined(data.finding.fileRecords)) {
                   record = projectFtry.getRecords(
                     data.finding.id,
-                    data.finding.registros_archivo
+                    data.finding.fileRecords
                   );
                   data.hasRecords = true;
                   findingData.hasRecords = data.hasRecords;
@@ -372,18 +372,18 @@ angular.module("FluidIntegrates").factory(
                   });
                 }
                 else if ((
-                  angular.isUndefined(data.finding.registros_archivo) ||
-              angular.isUndefined(response.data[cont].registros_archivo)) &&
+                  angular.isUndefined(data.finding.fileRecords) ||
+              angular.isUndefined(response.data[cont].fileRecords)) &&
               response.data[cont].es_registros_archivo === false) {
                   data.hasRecords = false;
                   findingData.hasRecords = data.hasRecords;
                 }
               }
             }
-            else if (angular.isDefined(data.finding.registros_archivo)) {
+            else if (angular.isDefined(data.finding.fileRecords)) {
               record = projectFtry.getRecords(
                 data.finding.id,
-                data.finding.registros_archivo
+                data.finding.fileRecords
               );
               data.hasRecords = true;
               record.then((response) => {
@@ -416,7 +416,7 @@ angular.module("FluidIntegrates").factory(
               });
             }
             else if (response.data.length <= 0 ||
-                 angular.isUndefined(data.finding.registros_archivo)) {
+                 angular.isUndefined(data.finding.fileRecords)) {
               data.hasRecords = false;
               findingData.hasRecords = data.hasRecords;
             }

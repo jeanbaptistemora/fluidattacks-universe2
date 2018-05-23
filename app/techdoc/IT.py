@@ -60,7 +60,7 @@ class ITReport(object):
 	def detect_format(self, data):
 		detailed = 0
 		for finding in data:
-			if finding["tipo"] =="Detallado":
+			if finding["type"] =="Detallado":
 				detailed += 1
 		detailed = detailed * 100 / len(data)
 		if detailed >= 50:
@@ -157,20 +157,20 @@ class ITReport(object):
 	def __write(self, row):
 		""" Write Formstack finding in a row on the Findings sheet """
 		self.__select_finding_sheet()
-		self.set_cell(self.finding['name'], row["hallazgo"])
-		self.set_cell(self.finding['description'], row["vulnerabilidad"])
-		self.set_cell(self.finding['where'], row["donde"])
-		if int(row["registros_num"]) != 0:
+		self.set_cell(self.finding['name'], row["finding"])
+		self.set_cell(self.finding['description'], row["vulnerability"])
+		self.set_cell(self.finding['where'], row["where"])
+		if int(row["recordsNumber"]) != 0:
 			self.set_cell(self.finding['where_records'],
-				"Evidencias/" + row["hallazgo"] + "/registros.csv")
-		self.set_cell(self.finding['requirements'], row["requisitos"])
+				"Evidencias/" + row["finding"] + "/records.csv")
+		self.set_cell(self.finding['requirements'], row["requirements"])
 		self.set_cell_number(self.finding['criticity'], row["criticity"])
 		self.set_cell_number(self.finding['cardinality'], row["openVulnerabilities"])
-		self.set_cell_number(self.finding['affected_records'], row["registros_num"])
-		self.set_cell(self.finding['evidence'], "Evidencias/" + row["hallazgo"])
-		self.set_cell(self.finding['solution'], row["solucion_efecto"])
+		self.set_cell_number(self.finding['affected_records'], row["recordsNumber"])
+		self.set_cell(self.finding['evidence'], "Evidencias/" + row["finding"])
+		self.set_cell(self.finding['solution'], row["effectSolution"])
 		self.set_cell(self.finding['requirements_id'],
-			self.__get_req(row["requisitos"]))
+			self.__get_req(row["requirements"]))
 		self.set_cell(self.finding['measurements'],
 			self.__get_measure(row["accessVector"]))
 		self.set_cell(self.finding['measurements'],
@@ -205,16 +205,16 @@ class ITReport(object):
 		self.set_cell_qc(self.matriz['type'], row["testType"])
 		self.set_cell_qc(self.matriz['component'], row["componente_aplicativo"])
 		self.set_cell_qc(self.matriz['requirements_id'],
-			self.__get_req(row["requisitos"]))
-		self.set_cell_qc(self.matriz['requirements'], row["requisitos"])
-		if "escenario" in row:
-			self.set_cell_qc(self.matriz['scenario'], row["escenario"])
+			self.__get_req(row["requirements"]))
+		self.set_cell_qc(self.matriz['requirements'], row["requirements"])
+		if "scenario" in row:
+			self.set_cell_qc(self.matriz['scenario'], row["scenario"])
 		if "ambito" in row:
 			self.set_cell_qc(self.matriz['ambit'], row["ambito"])
-		if "categoria" in row:
-			self.set_cell_qc(self.matriz['category'], row["categoria"])
-		if "amenaza" in row:
-			self.set_cell_qc(self.matriz['threat'], row["amenaza"])
+		if "category" in row:
+			self.set_cell_qc(self.matriz['category'], row["category"])
+		if "threat" in row:
+			self.set_cell_qc(self.matriz['threat'], row["threat"])
 		criticity = float(row['criticity'])
 		if criticity > 6.9:
 			self.set_cell_qc(self.matriz['cssv2_value'], "Alta")
@@ -222,8 +222,8 @@ class ITReport(object):
 			self.set_cell_qc(self.matriz['cssv2_value'], "Media")
 		else :
 			self.set_cell_qc(self.matriz['cssv2_value'], "Baja")
-		if "probabilidad" in row:
-			self.set_cell_qc(self.matriz['probability'], row["probabilidad"])
+		if "probability" in row:
+			self.set_cell_qc(self.matriz['probability'], row["probability"])
 		if "severity" in row:
 			self.set_cell_number_qc(self.matriz['severity'], row["severity"])
 		if "riesgo" in row:

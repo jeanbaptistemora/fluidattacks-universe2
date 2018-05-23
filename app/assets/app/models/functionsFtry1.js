@@ -65,7 +65,7 @@ angular.module("FluidIntegrates").factory(
             ];
           }
           try {
-            let prob = data.finding.probabilidad;
+            let prob = data.finding.probability;
             severity = data.finding.severity;
             prob = prob.split("%")[0];
             prob = parseFloat(prob) / PERCENTAGE_FACTOR;
@@ -180,7 +180,7 @@ angular.module("FluidIntegrates").factory(
         const trackingUrl = currUrl.replace("/description", "/tracking");
         const descData = {
           "findingId": $scope.finding.id,
-          "findingName": $scope.finding.hallazgo,
+          "findingName": $scope.finding.finding,
           "findingUrl": trackingUrl,
           "findingVulns": $scope.finding.openVulnerabilities,
           "project": $scope.finding.fluidProject,
@@ -236,16 +236,16 @@ angular.module("FluidIntegrates").factory(
       "treatmentEditable" ($scope) {
         functionsFtry2.goDown();
         if ($scope.onlyReadableTab4 === false) {
-          $scope.finding.responsableTratamiento = userEmail;
+          $scope.finding.treatmentManager = userEmail;
           $scope.onlyReadableTab4 = true;
           $scope.finding.treatment = $scope.aux.treatment;
-          $scope.finding.razonTratamiento = $scope.aux.razon;
+          $scope.finding.treatmentJustification = $scope.aux.razon;
           $scope.finding.btsExterno = $scope.aux.bts;
         }
         else if ($scope.onlyReadableTab4 === true) {
           $scope.finding.treatment = $scope.aux.treatment;
-          $scope.finding.razonTratamiento = $scope.aux.razon;
-          $scope.finding.responsableTratamiento = $scope.aux.responsable;
+          $scope.finding.treatmentJustification = $scope.aux.razon;
+          $scope.finding.treatmentManager = $scope.aux.responsable;
           $scope.finding.btsExterno = $scope.aux.bts;
           $scope.onlyReadableTab4 = false;
         }
@@ -323,24 +323,24 @@ angular.module("FluidIntegrates").factory(
         }
         else {
           if (evImage === "2") {
-            data.descEvidencia1 = description;
-            data.field = "descEvidencia1";
+            data.evidenceDescription1 = description;
+            data.field = "evidenceDescription1";
           }
           if (evImage === "3") {
-            data.descEvidencia2 = description;
-            data.field = "descEvidencia2";
+            data.evidenceDescription2 = description;
+            data.field = "evidenceDescription2";
           }
           if (evImage === "4") {
-            data.descEvidencia3 = description;
-            data.field = "descEvidencia3";
+            data.evidenceDescription3 = description;
+            data.field = "evidenceDescription3";
           }
           if (evImage === "5") {
-            data.descEvidencia4 = description;
-            data.field = "descEvidencia4";
+            data.evidenceDescription4 = description;
+            data.field = "evidenceDescription4";
           }
           if (evImage === "6") {
-            data.descEvidencia5 = description;
-            data.field = "descEvidencia5";
+            data.evidenceDescription5 = description;
+            data.field = "evidenceDescription5";
           }
           const req = projectFtry.updateEvidenceText(data);
           // Capture the promise
@@ -371,38 +371,39 @@ angular.module("FluidIntegrates").factory(
       "updateTreatment" ($scope) {
         const validateTreatment = function validateTreatment ($scope) {
           const minCharacter = 30;
-          if ($scope.aux.razon === $scope.finding.razonTratamiento) {
+          if ($scope.aux.razon === $scope.finding.treatmentJustification) {
             $msg.error($translate.instant("proj_alerts.differ_comment"));
             return false;
           }
-          else if ($scope.finding.razonTratamiento === "") {
+          else if ($scope.finding.treatmentJustification === "") {
             $msg.error($translate.instant("proj_alerts.empty_comment"));
             return false;
           }
-          else if ($scope.finding.razonTratamiento.length < minCharacter) {
+          else if ($scope.finding.treatmentJustification.length <
+                   minCharacter) {
             $msg.error($translate.instant("proj_alerts.short_comment"));
             return false;
           }
-          $scope.finding.responsableTratamiento = userEmail;
+          $scope.finding.treatmentManager = userEmail;
           return true;
         };
         let flag = false;
         if ($scope.aux.treatment === $scope.finding.treatment &&
-        $scope.aux.razon === $scope.finding.razonTratamiento &&
+        $scope.aux.razon === $scope.finding.treatmentJustification &&
         $scope.aux.bts !== $scope.finding.btsExterno) {
           flag = true;
         }
         else if (validateTreatment($scope)) {
-          $scope.finding.responsableTratamiento = userEmail;
+          $scope.finding.treatmentManager = userEmail;
           flag = true;
         }
         if (flag === true) {
           const newData = {
-            "bts_externo": $scope.finding.btsExterno,
+            "externalBts": $scope.finding.btsExterno,
             "id": $scope.finding.id,
-            "razonTratamiento": $scope.finding.razonTratamiento,
-            "responsableTratamiento": $scope.finding.responsableTratamiento,
-            "treatment": $scope.finding.treatment
+            "treatment": $scope.finding.treatment,
+            "treatmentJustification": $scope.finding.treatmentJustification,
+            "treatmentManager": $scope.finding.treatmentManager
           };
           $uibModal.open({
             "animation": true,

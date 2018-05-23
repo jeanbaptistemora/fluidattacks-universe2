@@ -114,7 +114,7 @@ image::../resources/presentation_theme/t_panorama_cierre_es.png[width=400]
 5+^.^|*Estado Hallazgos*
 |*{{finding_title}}* |*{{criticity_title}}* |*{{cardinality_title}}* |*{{state_title}}* |*{{treatment_title}}*
 {% for fin in findings %}
-    {{"| "+fin['hallazgo']}}
+    {{"| "+fin['finding']}}
     {{"| "+fin['criticity']}}
     {{"| "+fin['openVulnerabilities']}}
     {{"| "+fin['estado']+"\n"}}
@@ -147,7 +147,7 @@ image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=
 ////
 	BEGIN: DOCUMENT BLOCK FOR EVIDENCE
 ////
-== {{findings[i]['hallazgo']}}
+== {{findings[i]['finding']}}
 === *_(Criticidad Técnica: {{findings[i]['criticity']}})_*
 {nbsp} +
 
@@ -158,19 +158,19 @@ image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=
 <.^|*Estado*
 ^| {{findings[i]['estado']}}
 
-<.^|*Impacto a negocio* ^.^| {{findings[i]['impacto']}} <.^|*Registros comprometidos* ^.^| {{findings[i]['registros_num']}}
+<.^|*Impacto a negocio* ^.^| {{findings[i]['impact']}} <.^|*Registros comprometidos* ^.^| {{findings[i]['recordsNumber']}}
 <.^|*Debilidad*
-3+.^|{{findings[i]['vulnerabilidad']}}
+3+.^|{{findings[i]['vulnerability']}}
 <.^|*Vector de ataque*
-3+.^|{{findings[i]['vector_ataque']}}
+3+.^|{{findings[i]['attackVector']}}
 <.^|*Amenaza*
-3+.^|{{findings[i]['amenaza']}}
+3+.^|{{findings[i]['threat']}}
 <.^|*Sistema comprometido*
 3+.^|{{findings[i]['affectedSystems']}}
 <.^|*Recomendación*
-3+.^|{{findings[i]['solucion_efecto']}}
+3+.^|{{findings[i]['effectSolution']}}
 <.^|*Requisitos*
-3+.^|{% for req in findings[i]['requisitos'].split("\n") %}{{req + "\n"}}{% endfor %}
+3+.^|{% for req in findings[i]['requirements'].split("\n") %}{{req + "\n"}}{% endfor %}
 |===
 
 <<<
@@ -215,7 +215,7 @@ Por lo tanto se puede concluir que *{{clientProject}}* presenta un nivel de segu
 {{securityLevel}}
 
 [.text-center]
-Criticidad más alta *{{findings[0]["impacto"]}}* y vector de acceso mas riesgoso *{{findings[0]["accessVector"].split(" | ")[1].split(":")[0]}}*
+Criticidad más alta *{{findings[0]["impact"]}}* y vector de acceso mas riesgoso *{{findings[0]["accessVector"].split(" | ")[1].split(":")[0]}}*
 
 <<<
 image::../resources/presentation_theme/t_contacto_es.png[width=400]

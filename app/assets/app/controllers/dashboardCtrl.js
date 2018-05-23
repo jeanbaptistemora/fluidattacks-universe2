@@ -105,9 +105,9 @@ angular.module("FluidIntegrates").controller(
           location.reload();
         }
         for (let cont = 0; cont < response.data.length; cont++) {
-          if (response.data[cont].tipo in keysToTranslate) {
-            response.data[cont].tipo =
-                  $translate.instant(keysToTranslate[response.data[cont].tipo]);
+          if (response.data[cont].type in keysToTranslate) {
+            response.data[cont].type =
+                  $translate.instant(keysToTranslate[response.data[cont].type]);
           }
         }
         angular.element("#myEventsTbl").bootstrapTable({

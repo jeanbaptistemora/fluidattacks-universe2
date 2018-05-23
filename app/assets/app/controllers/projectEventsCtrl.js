@@ -2,7 +2,7 @@
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, eventsData:true,
-nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
+nonexploitLabel:true, totalHigLabel:true, exploitable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
 mixPanelDashboard, win:true, window, Organization, projectData:true, i:true,

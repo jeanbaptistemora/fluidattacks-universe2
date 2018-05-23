@@ -1,62 +1,62 @@
-"""DTO para mapear los campos de integrates a formstack"""
+""" DTO to map the Integrates fields to formstack """
 
 class ClosingDTO(object):
-    """ Clase para crear un objeto con los atributos de un cierre """
+    """ Class to create an object with the close attributes """
 
-    PROYECTO = '39596058'
-    CICLO = '50394892'
-    HALLAZGO = '39596063'
+    PROYECT = '39596058'
+    CYCLE = '50394892'
+    FINDING = '39596063'
     VISIBLES = '47484630'
-    SOLICITADAS = '39596365'
-    VERIFICADAS = '47700230'
-    ABIERTAS = '39596368'
-    ABIERTAS_CUALES = '39596128'
-    CERRADAS = '39596370'
-    CERRADAS_CUALES = '39596202'
+    REQUESTED = '39596365'
+    VERIFIED = '47700230'
+    OPENED = '39596368'
+    WHICH_OPENED = '39596128'
+    CLOSED = '39596370'
+    WHICH_CLOSED = '39596202'
 
     def __init__(self):
-        """ Constructor de la clase """
+        """ Class constructor """
         self.request_id = None
         self.data = dict()
 
     def parse(self, request):
-        """Convierte los campos de un JSON 
-           de Formstack para manipularlos en integrates."""
+        """ Converts a Formstack json into Integrates format  """
         self.data = dict()
         for closing in request["data"]:
             # DETALLES CIERRE
-            if closing["field"] == self.HALLAZGO:
-                self.data["hallazgo"] = closing["value"]
+            if closing["field"] == self.FINDING:
+                self.data["finding"] = closing["value"]
             if closing["field"] == self.VISIBLES:
                 self.data["visibles"] = closing["value"]
-            if closing["field"] == self.SOLICITADAS:
-                self.data["solicitadas"] = closing["value"]
-            if closing["field"] == self.VERIFICADAS:
-                self.data["verificadas"] = closing["value"]
-            if closing["field"] == self.ABIERTAS:
-                self.data["abiertas"] = closing["value"]
-            if closing["field"] == self.ABIERTAS_CUALES:
-                self.data["abiertas_cuales"] = closing["value"]
-            if closing["field"] == self.CERRADAS:
-                self.data["cerradas"] = closing["value"]
-            if closing["field"] == self.CERRADAS_CUALES:
-                self.data["cerradas_cuales"] = closing["value"]
-            if closing["field"] == self.CICLO:
-                self.data["ciclo"] = closing["value"]
+            if closing["field"] == self.REQUESTED:
+                self.data["requested"] = closing["value"]
+            if closing["field"] == self.VERIFIED:
+                self.data["verified"] = closing["value"]
+            if closing["field"] == self.OPENED:
+                self.data["opened"] = closing["value"]
+            if closing["field"] == self.WHICH_OPENED:
+                self.data["whichOpened"] = closing["value"]
+            if closing["field"] == self.CLOSED:
+                self.data["closed"] = closing["value"]
+            if closing["field"] == self.WHICH_CLOSED:
+                self.data["whichClosed"] = closing["value"]
+            if closing["field"] == self.CYCLE:
+                self.data["cycle"] = closing["value"]
         self.data["id"] = request["id"]
         self.data["timestamp"] = request["timestamp"]
         self.check_status()
         return self.data
 
     def check_status(self):
-        """ Verifica el estado de un hallazgo segun su calificacion """
+        """ Check the status of a finding based on
+            its number of open vulnerabilities """
         state = 'Parcialmente cerrado'
-        if self.data['visibles'] == self.data['solicitadas']:
-            if self.data['abiertas'] == '0':
+        if self.data['visibles'] == self.data['requested']:
+            if self.data['opened'] == '0':
                 state = 'Cerrado'
-            elif self.data['abiertas'] == self.data['visibles']:
+            elif self.data['opened'] == self.data['visibles']:
                 state = 'Abierto'
-            elif int(self.data['abiertas']) > 0 and \
-                 self.data['abiertas'] != self.data['visibles']:
-                state = 'Parcialmente cerrado' 
+            elif int(self.data['opened']) > 0 and \
+                 self.data['opened'] != self.data['visibles']:
+                state = 'Parcialmente cerrado'
         self.data['estado'] = state

@@ -1,38 +1,37 @@
-"""DTO para mapear los campos de integrates a formstack"""
+""" DTO to map the Integrates fields to formstack """
 
 class EventualityDTO(object):
-    """ Clase para crear un objeto con los atributos cssv2 """
+    """ Class to create an object with the CSSV2 attributes """
 
     ANALIST = "29042426"
     CLIENT = "29042288"
     FLUID_PROJECT = "29042322"
     CLIENT_PROJECT = "39595967"
-    TIPO = "29042327"
-    DETALLE = "29042402"
-    FECHA = "29042174"
-    ESTADO = "29062640"
-    AFECTACION = "29042542"
+    TYPE = "29042327"
+    DETAIL = "29042402"
+    DATE = "29042174"
+    STATUS = "29062640"
+    AFFECTATION = "29042542"
 
     def __init__(self):
-        """ Constructor de la clase """
+        """ Class constructor """
         self.request_id = None
         self.data = dict()
 
     def create(self, parameter):
-        """ Convierte los indices de un JSON a indices
-            de Formstack """
+        """ Converts the index of a JSON to Formstack index """
         if "vuln[id]" in parameter:
             self.request_id \
                 = parameter["vuln[id]"]
         if "vuln[affectation]" in parameter:
-            self.data[self.AFECTACION] \
+            self.data[self.AFFECTATION] \
                 = parameter["vuln[affectation]"]
         if "vuln[fluidProject]" in parameter:
             self.data[self.FLUID_PROJECT] \
                 = parameter["vuln[fluidProject]"]
         if "vuln[affectation]" in parameter:
             if parameter["vuln[affectation]"] != "":
-                self.data[self.ESTADO] \
+                self.data[self.STATUS] \
                     = "Tratada"
         self.to_formstack()
 
@@ -48,15 +47,15 @@ class EventualityDTO(object):
                 self.data["fluidProject"] = row["value"]
             if row["field"] == self.CLIENT_PROJECT:
                 self.data["clientProject"] = row["value"]
-            if row["field"] == self.TIPO:
-                self.data["tipo"] = row["value"]
-            if row["field"] == self.DETALLE:
+            if row["field"] == self.TYPE:
+                self.data["type"] = row["value"]
+            if row["field"] == self.DETAIL:
                 self.data["detalle"] = row["value"]
-            if row["field"] == self.FECHA:
+            if row["field"] == self.DATE:
                 self.data["fecha"] = row["value"]
-            if row["field"] == self.ESTADO:
+            if row["field"] == self.STATUS:
                 self.data["estado"] = row["value"]
-            if row["field"] == self.AFECTACION:
+            if row["field"] == self.AFFECTATION:
                 self.data["affectation"] = row["value"]
         return self.data
 

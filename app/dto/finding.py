@@ -1,7 +1,7 @@
-"""DTO para mapear los campos de integrates a formstack"""
+""" DTO to map the Integrates fields to formstack """
 # pylint: disable=E0402
 class FindingDTO(object):
-    """ Clase para crear un objeto con los atributos de un hallazgo """
+    """ Class to create an object with the attributes of a finding. """
 
     #Atributos proyecto
     ANALIST = "32201744"
@@ -9,7 +9,7 @@ class FindingDTO(object):
     INTERESADO = "38392409"
     FLUID_PROJECT = "32201732"
     CLIENT_PROJECT = "38209122"
-    CONTEXTO = "38404474"
+    CONTEXT = "38404474"
 
     #Atributos evidencia
     REVISION = "54856382"
@@ -33,53 +33,53 @@ class FindingDTO(object):
 
     #Atributos descriptivos
     CLASS = "38392454" #detallado
-    HALLAZGO = "32201810"
-    SUSCRIPCION = "54346108"
-    CODIGO_CLIENT = "38193365"
-    PROBABILIDAD = "38193660"
-    SEVERIDAD = "38193659"
-    NIVEL_RIESGO = "38194645"
-    VALOR_RIESGO = "38194645"
-    CARDINALIDAD = "38255025"
-    DONDE = "38193357"
+    FINDING = "32201810"
+    SUBSCRIPTION = "54346108"
+    CLIENT_CODE = "38193365"
+    PROBABILITY = "38193660"
+    SEVERITY = "38193659"
+    RISK_LEVEL = "38194645"
+    RISK_VALUE = "38194645"
+    CARDINALITY = "38255025"
+    WHERE = "38193357"
     CRITICITY = "38531129"
-    VULNERABILIDAD = "32202728"
-    AMENAZA = "38193361"
-    COMPONENTE_APLICATIVO = "38209122"
+    VULNERABILITY = "32202728"
+    THREAT = "38193361"
+    APPLICABLE_COMPONENT = "38209122"
     TEST_TYPE = "38254692"
-    TIPO_HALLAZGO = "54319180"
-    RIESGO = "38193362"
-    REQUISITOS = "38254586"
-    SOLUCION_EFECTO = "38619077"
+    FINDING_TYPE = "54319180"
+    RISK = "38193362"
+    REQUIREMENTS = "38254586"
+    EFFECT_SOLUTION = "38619077"
     KB = "38861739"
-    TIPO = "38392454"
+    TYPE = "38392454"
     ACTOR = "38606398"
-    CATEGORIA = "46956845"
-    ESCENARIO = "38692215"
-    AMBITO = "38254691"
-    SISTEMA_COMPROMETIDO = "48092123"
-    VECTOR_ATAQUE = "48092088"
+    CATEGORY = "46956845"
+    SCENARIO = "38692215"
+    AMBIT = "38254691"
+    AFFECTED_SYSTEMS = "48092123"
+    ATTACK_VECTOR = "48092088"
     CWE = "38899046"
-    TRATAMIENTO = "59350064"
-    RAZON_TRATAMIENTO = "59351642"
-    RESPONSABLE_TRATAMIENTO = "59381058"
-    BTS_EXTERNO = "56614832"
-    ULTIMA_VULNERABILIDAD = "63672923"
+    TREATMENT = "59350064"
+    TREATMENT_JUSTIFICATION = "59351642"
+    TREATMENT_MANAGER = "59381058"
+    EXTERNAL_BTS = "56614832"
+    LAST_VULNERABILITY = "63672923"
 
     #Atributos CssV2
-    VECTOR_ACCESO = "38529247"
-    COMPLEJIDAD_ACCESO = "38529248"
-    AUTENTICACION = "38529249"
-    EXPLOTABILIDAD = "38529253"
+    ACCESS_VECTOR = "38529247"
+    ACCESS_COMPLEXITY = "38529248"
+    AUTHENTICATION = "38529249"
+    EXPLOITABILITY = "38529253"
     CRITICITY = "38531129"
-    IMPACTO_CONFIDENCIALIDAD = "38529250"
-    IMPACTO_INTEGRIDAD = "38529251"
-    IMPACTO_DISPONIBILIDAD = "38529252"
-    NIVEL_RESOLUCION = "38529254"
-    NIVEL_CONFIANZA = "38529255"
+    CONFIDENTIALITY_IMPACT = "38529250"
+    INTEGRITY_IMPACT = "38529251"
+    AVAILABILITY_IMPACT = "38529252"
+    RESOLUTION_LEVEL = "38529254"
+    CONFIDENCE_LEVEL = "38529255"
 
     def __init__(self):
-        """ Constructor de la clase """
+        """ Class constructor """
         self.request_id = None
         self.data = dict()
 
@@ -91,164 +91,159 @@ class FindingDTO(object):
         if "id" in parameter:
             self.request_id \
                 = parameter["id"]
-        if "ultimaVulnerabilidad" in parameter:
-            self.data[self.ULTIMA_VULNERABILIDAD] \
-                = parameter["ultimaVulnerabilidad"]
+        if "lastVulnerability" in parameter:
+            self.data[self.LAST_VULNERABILITY] \
+                = parameter["lastVulnerability"]
 
     def create_evidence_description(self, parameter): # noqa: C901
-        """ Convierte los indices de un JSON a indices
-            de Formstack """
+        """ Converts the index of a JSON to Formstack index """
         if "data[id]" in parameter:
             self.request_id \
                 = parameter["data[id]"]
         if "data[" + parameter["data[field]"] + "]" in parameter:
-            if parameter["data[field]"] == "descEvidencia1":
+            if parameter["data[field]"] == "evidenceDescription1":
                 self.data[self.DOC_CMNT1] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "descEvidencia2":
+            if parameter["data[field]"] == "evidenceDescription2":
                 self.data[self.DOC_CMNT2] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "descEvidencia3":
+            if parameter["data[field]"] == "evidenceDescription3":
                 self.data[self.DOC_CMNT3] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "descEvidencia4":
+            if parameter["data[field]"] == "evidenceDescription4":
                 self.data[self.DOC_CMNT4] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "descEvidencia5":
+            if parameter["data[field]"] == "evidenceDescription5":
                 self.data[self.DOC_CMNT5] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
     def create_description(self, parameter): # noqa: C901
-        """ Convierte los indices de un JSON a indices
-            de Formstack """
+        """ Converts the index of a JSON to Formstack index """
         if "data[id]" in parameter:
             self.request_id \
                 = parameter["data[id]"]
-        if "data[hallazgo]" in parameter:
-            self.data[self.HALLAZGO] \
-                = parameter["data[hallazgo]"]
-        if "data[escenario]" in parameter:
-            self.data[self.ESCENARIO] \
-                = parameter["data[escenario]"]
+        if "data[finding]" in parameter:
+            self.data[self.FINDING] \
+                = parameter["data[finding]"]
+        if "data[scenario]" in parameter:
+            self.data[self.SCENARIO] \
+                = parameter["data[scenario]"]
         if "data[openVulnerabilities]" in parameter:
-            self.data[self.CARDINALIDAD] \
+            self.data[self.CARDINALITY] \
                 = parameter["data[openVulnerabilities]"]
         if "data[actor]" in parameter:
             self.data[self.ACTOR] \
                 = parameter["data[actor]"]
-        if "data[vulnerabilidad]" in parameter:
-            self.data[self.VULNERABILIDAD] \
-                = parameter["data[vulnerabilidad]"]
-        if "data[requisitos]" in parameter:
-            self.data[self.REQUISITOS] \
-                = parameter["data[requisitos]"]
-        if "data[donde]" in parameter:
-            self.data[self.DONDE] \
-                = parameter["data[donde]"]
-        if "data[solucion_efecto]" in parameter:
-            self.data[self.SOLUCION_EFECTO] \
-                = parameter["data[solucion_efecto]"]
-        if "data[amenaza]" in parameter:
-            self.data[self.AMENAZA] \
-                = parameter["data[amenaza]"]
-        if "data[vector_ataque]" in parameter:
-            self.data[self.VECTOR_ATAQUE] \
-                = parameter["data[vector_ataque]"]
+        if "data[vulnerability]" in parameter:
+            self.data[self.VULNERABILITY] \
+                = parameter["data[vulnerability]"]
+        if "data[requirements]" in parameter:
+            self.data[self.REQUIREMENTS] \
+                = parameter["data[requirements]"]
+        if "data[where]" in parameter:
+            self.data[self.WHERE] \
+                = parameter["data[where]"]
+        if "data[effectSolution]" in parameter:
+            self.data[self.EFFECT_SOLUTION] \
+                = parameter["data[effectSolution]"]
+        if "data[threat]" in parameter:
+            self.data[self.THREAT] \
+                = parameter["data[threat]"]
+        if "data[attackVector]" in parameter:
+            self.data[self.ATTACK_VECTOR] \
+                = parameter["data[attackVector]"]
         if "data[affectedSystems]" in parameter:
-            self.data[self.SISTEMA_COMPROMETIDO] \
+            self.data[self.AFFECTED_SYSTEMS] \
                 = parameter["data[affectedSystems]"]
         if "data[cwe]" in parameter:
             self.data[self.CWE] \
                 = parameter["data[cwe]"]
-        if "data[registros]" in parameter:
+        if "data[records]" in parameter:
             self.data[self.REG] \
-                = parameter["data[registros]"]
-        if "data[registros_num]" in parameter:
+                = parameter["data[records]"]
+        if "data[recordsNumber]" in parameter:
             self.data[self.REG_NUM] \
-                = parameter["data[registros_num]"]
-        if "data[ultimaVulnerabilidad]" in parameter:
-            self.data[self.ULTIMA_VULNERABILIDAD] \
-                = parameter["data[ultimaVulnerabilidad]"]
-        if "data[nivel]" in parameter:
+                = parameter["data[recordsNumber]"]
+        if "data[lastVulnerability]" in parameter:
+            self.data[self.LAST_VULNERABILITY] \
+                = parameter["data[lastVulnerability]"]
+        if "data[level]" in parameter:
             self.data[self.CLASS] \
-                = parameter["data[nivel]"]
+                = parameter["data[level]"]
             if self.data[self.CLASS] == "Detallado":
-                if "data[categoria]" in parameter:
-                    self.data[self.CATEGORIA] \
-                        = parameter["data[categoria]"]
-                if "data[valor_riesgo]" in parameter:
-                    self.data[self.VALOR_RIESGO] \
-                        = parameter["data[valor_riesgo]"]
-                if "data[probabilidad]" in parameter:
-                    self.data[self.PROBABILIDAD] \
-                        = parameter["data[probabilidad]"]
+                if "data[category]" in parameter:
+                    self.data[self.CATEGORY] \
+                        = parameter["data[category]"]
+                if "data[riskValue]" in parameter:
+                    self.data[self.RISK_VALUE] \
+                        = parameter["data[riskValue]"]
+                if "data[probability]" in parameter:
+                    self.data[self.PROBABILITY] \
+                        = parameter["data[probability]"]
                 if "data[severity]" in parameter:
-                    self.data[self.SEVERIDAD] \
+                    self.data[self.SEVERITY] \
                         = parameter["data[severity]"]
 
     def create_treatment(self, parameter):
-        """ Convierte los indices de un JSON a indices
-            de Formstack """
+        """ Converts the index of a JSON to Formstack index """
         if "data[id]" in parameter:
             self.request_id \
                 = parameter["data[id]"]
         if "data[treatment]" in parameter:
-            self.data[self.TRATAMIENTO] \
+            self.data[self.TREATMENT] \
                 = parameter["data[treatment]"]
-        if "data[razonTratamiento]" in parameter:
-            self.data[self.RAZON_TRATAMIENTO] \
-                = parameter["data[razonTratamiento]"]
-        if "data[responsableTratamiento]" in parameter:
-            self.data[self.RESPONSABLE_TRATAMIENTO] \
-                = parameter["data[responsableTratamiento]"]
-        if "data[bts_externo]" in parameter:
-            self.data[self.BTS_EXTERNO] \
-                = parameter["data[bts_externo]"]
+        if "data[treatmentJustification]" in parameter:
+            self.data[self.TREATMENT_JUSTIFICATION] \
+                = parameter["data[treatmentJustification]"]
+        if "data[treatmentManager]" in parameter:
+            self.data[self.TREATMENT_MANAGER] \
+                = parameter["data[treatmentManager]"]
+        if "data[externalBts]" in parameter:
+            self.data[self.EXTERNAL_BTS] \
+                = parameter["data[externalBts]"]
 
     def create_cssv2(self, parameter):
-        """ Convierte los indices de un JSON a indices
-            de Formstack """
+        """ Converts the index of a JSON to Formstack index """
         if "data[id]" in parameter:
             self.request_id \
                 = parameter["data[id]"]
         if "data[accessVector]" in parameter:
-            self.data[self.VECTOR_ACCESO] \
+            self.data[self.ACCESS_VECTOR] \
                 = parameter["data[accessVector]"]
         if "data[accessComplexity]" in parameter:
-            self.data[self.COMPLEJIDAD_ACCESO] \
+            self.data[self.ACCESS_COMPLEXITY] \
                 = parameter["data[accessComplexity]"]
         if "data[authentication]" in parameter:
-            self.data[self.AUTENTICACION] \
+            self.data[self.AUTHENTICATION] \
                 = parameter["data[authentication]"]
         if "data[exploitability]" in parameter:
-            self.data[self.EXPLOTABILIDAD] \
+            self.data[self.EXPLOITABILITY] \
                 = parameter["data[exploitability]"]
         if "data[criticity]" in parameter:
             self.data[self.CRITICITY] \
                 = parameter["data[criticity]"]
         if "data[confidentialityImpact]" in parameter:
-            self.data[self.IMPACTO_CONFIDENCIALIDAD] \
+            self.data[self.CONFIDENTIALITY_IMPACT] \
                 = parameter["data[confidentialityImpact]"]
         if "data[integrityImpact]" in parameter:
-            self.data[self.IMPACTO_INTEGRIDAD] \
+            self.data[self.INTEGRITY_IMPACT] \
                 = parameter["data[integrityImpact]"]
         if "data[availabilityImpact]" in parameter:
-            self.data[self.IMPACTO_DISPONIBILIDAD] \
+            self.data[self.AVAILABILITY_IMPACT] \
                 = parameter["data[availabilityImpact]"]
         if "data[resolutionLevel]" in parameter:
-            self.data[self.NIVEL_RESOLUCION] \
+            self.data[self.RESOLUTION_LEVEL] \
                 = parameter["data[resolutionLevel]"]
         if "data[confidenceLevel]" in parameter:
-            self.data[self.NIVEL_CONFIANZA] \
+            self.data[self.CONFIDENCE_LEVEL] \
                 = parameter["data[confidenceLevel]"]
 
     def create_delete(self, parameter, analyst, project, finding):
-        """ Crea un set de datos para enviar en el correo
-            de eliminacion de hallazgo """
+        """ Create a data set to send in the finding deletion email """
         return {
             'mail_analista': analyst,
             'name_finding': finding,
             'id_finding': parameter["data[id]"],
-            'description': parameter["data[justificacion]"],
+            'description': parameter["data[justification]"],
             'project': project,
         }
 
@@ -272,78 +267,78 @@ class FindingDTO(object):
         return self.data
 
     def parse_description(self, request_arr): # noqa: C901
-        "Convierte la descripcion de un hallazgo en formstack"
+        "Convert description of a finding into a formstack format"
         self.data["timestamp"] = request_arr["timestamp"]
         for finding in request_arr["data"]:
-            if finding["field"] == self.HALLAZGO:
-                self.data["hallazgo"] = finding["value"]
-            if finding["field"] == self.SUSCRIPCION:
+            if finding["field"] == self.FINDING:
+                self.data["finding"] = finding["value"]
+            if finding["field"] == self.SUBSCRIPTION:
                 self.data["suscripcion"] = finding["value"]
-            if finding["field"] == self.CODIGO_CLIENT:
+            if finding["field"] == self.CLIENT_CODE:
                 self.data["codigo_cliente"] = finding["value"]
-            if finding["field"] == self.PROBABILIDAD:
-                self.data["probabilidad"] = finding["value"]
-            if finding["field"] == self.SEVERIDAD:
+            if finding["field"] == self.PROBABILITY:
+                self.data["probability"] = finding["value"]
+            if finding["field"] == self.SEVERITY:
                 self.data["severity"] = finding["value"]
-            if finding["field"] == self.NIVEL_RIESGO:
+            if finding["field"] == self.RISK_LEVEL:
                 self.data["nivel_riesgo"] = finding["value"]
-            if finding["field"] == self.CARDINALIDAD:
+            if finding["field"] == self.CARDINALITY:
                 self.data["openVulnerabilities"] = finding["value"]
-            if finding["field"] == self.DONDE:
-                self.data["donde"] = finding["value"]
+            if finding["field"] == self.WHERE:
+                self.data["where"] = finding["value"]
             if finding["field"] == self.CRITICITY:
                 self.data["criticity"] = finding["value"]
                 criticity = float(finding["value"])
                 if(criticity <= 3.9):
-                    self.data["impacto"] = "Bajo"
+                    self.data["impact"] = "Bajo"
                 elif(criticity <= 6.9):
-                    self.data["impacto"] = "Medio"
+                    self.data["impact"] = "Medio"
                 else:
-                    self.data["impacto"] = "Alto"
-            if finding["field"] == self.VULNERABILIDAD:
-                self.data["vulnerabilidad"] = finding["value"]
-            if finding["field"] == self.AMENAZA:
-                self.data["amenaza"] = finding["value"]
-            if finding["field"] == self.COMPONENTE_APLICATIVO:
+                    self.data["impact"] = "Alto"
+            if finding["field"] == self.VULNERABILITY:
+                self.data["vulnerability"] = finding["value"]
+            if finding["field"] == self.THREAT:
+                self.data["threat"] = finding["value"]
+            if finding["field"] == self.APPLICABLE_COMPONENT:
                 self.data["componente_aplicativo"] = finding["value"]
             if finding["field"] == self.TEST_TYPE:
                 self.data["testType"] = finding["value"]
-            if finding["field"] == self.RIESGO:
+            if finding["field"] == self.RISK:
                 self.data["riesgo"] = finding["value"]
-            if finding["field"] == self.REQUISITOS:
-                self.data["requisitos"] = finding["value"]
-            if finding["field"] == self.SOLUCION_EFECTO:
-                self.data["solucion_efecto"] = finding["value"]
+            if finding["field"] == self.REQUIREMENTS:
+                self.data["requirements"] = finding["value"]
+            if finding["field"] == self.EFFECT_SOLUTION:
+                self.data["effectSolution"] = finding["value"]
             if finding["field"] == self.KB:
                 self.data["kb"] = finding["value"]
-            if finding["field"] == self.TIPO:
-                self.data["tipo"] = finding["value"]
-            if finding["field"] == self.SISTEMA_COMPROMETIDO:
+            if finding["field"] == self.TYPE:
+                self.data["type"] = finding["value"]
+            if finding["field"] == self.AFFECTED_SYSTEMS:
                 self.data["affectedSystems"] = finding["value"]
-            if finding["field"] == self.VECTOR_ATAQUE:
-                self.data["vector_ataque"] = finding["value"]
-            if finding["field"] == self.TIPO_HALLAZGO:
+            if finding["field"] == self.ATTACK_VECTOR:
+                self.data["attackVector"] = finding["value"]
+            if finding["field"] == self.FINDING_TYPE:
                 self.data["finding_type"] = finding["value"]
             if finding["field"] == self.REVISION:
                 self.data["revision"] = finding["value"]
-            if finding["field"] == self.ESCENARIO:
-                self.data["escenario"] = finding["value"]
-            if finding["field"] == self.AMBITO:
+            if finding["field"] == self.SCENARIO:
+                self.data["scenario"] = finding["value"]
+            if finding["field"] == self.AMBIT:
                 self.data["ambito"] = finding["value"]
-            if finding["field"] == self.CATEGORIA:
-                self.data["categoria"] = finding["value"]
+            if finding["field"] == self.CATEGORY:
+                self.data["category"] = finding["value"]
             if finding["field"] == self.ACTOR:
                 self.data["actor"] = finding["value"]
-            if finding["field"] == self.TRATAMIENTO:
+            if finding["field"] == self.TREATMENT:
                 self.data["treatment"] = finding["value"]
-            if finding["field"] == self.RAZON_TRATAMIENTO:
-                self.data["razonTratamiento"] = finding["value"]
-            if finding["field"] == self.RESPONSABLE_TRATAMIENTO:
-                self.data["responsableTratamiento"] = finding["value"]
-            if finding["field"] == self.BTS_EXTERNO:
-                self.data["bts_externo"] = finding["value"]
-            if finding["field"] == self.ULTIMA_VULNERABILIDAD:
-                self.data["ultimaVulnerabilidad"] = finding["value"]
+            if finding["field"] == self.TREATMENT_JUSTIFICATION:
+                self.data["treatmentJustification"] = finding["value"]
+            if finding["field"] == self.TREATMENT_MANAGER:
+                self.data["treatmentManager"] = finding["value"]
+            if finding["field"] == self.EXTERNAL_BTS:
+                self.data["externalBts"] = finding["value"]
+            if finding["field"] == self.LAST_VULNERABILITY:
+                self.data["lastVulnerability"] = finding["value"]
             if finding["field"] == self.CWE:
                 try:
                     value = int(finding["value"])
@@ -353,73 +348,73 @@ class FindingDTO(object):
                     self.data["cwe"] = 'None'
 
     def parse_description_mail(self, request_arr): # noqa: C901
-        "Convierte la descripcion de un hallazgo en formstack para envio de mail"
+        "Convert description of a finding into a formstack format para envio de mail"
         self.data["timestamp"] = request_arr["timestamp"]
         for finding in request_arr["data"]:
-            if finding["field"] == self.HALLAZGO:
-                self.data["hallazgo"] = finding["value"]
+            if finding["field"] == self.FINDING:
+                self.data["finding"] = finding["value"]
         return self.data
 
     def parse_description_vuln(self, request_arr): # noqa: C901
-        "Convierte la descripcion de un hallazgo en formstack"
+        "Convert description of a finding into a formstack format"
         self.data["timestamp"] = request_arr["timestamp"]
         for finding in request_arr["data"]:
-            if finding["field"] == self.CARDINALIDAD:
+            if finding["field"] == self.CARDINALITY:
                 self.data["openVulnerabilities"] = finding["value"]
         return self.data
 
     def parse_cssv2(self, request_arr): # noqa: C901
-        "Convierte la califiacion de un hallazgo en formstack"
+        "Convert the score of a finding into a formstack format"
         for finding in request_arr["data"]:
-            if finding["field"] == self.VECTOR_ACCESO:
+            if finding["field"] == self.ACCESS_VECTOR:
                 self.data["accessVector"] = finding["value"]
-            if finding["field"] == self.COMPLEJIDAD_ACCESO:
+            if finding["field"] == self.ACCESS_COMPLEXITY:
                 self.data["accessComplexity"] = finding["value"]
-            if finding["field"] == self.AUTENTICACION:
+            if finding["field"] == self.AUTHENTICATION:
                 self.data["authentication"] = finding["value"]
-            if finding["field"] == self.IMPACTO_CONFIDENCIALIDAD:
+            if finding["field"] == self.CONFIDENTIALITY_IMPACT:
                 self.data["confidentialityImpact"] = finding["value"]
-            if finding["field"] == self.IMPACTO_INTEGRIDAD:
+            if finding["field"] == self.INTEGRITY_IMPACT:
                 self.data["integrityImpact"] = finding["value"]
-            if finding["field"] == self.IMPACTO_DISPONIBILIDAD:
+            if finding["field"] == self.AVAILABILITY_IMPACT:
                 self.data["availabilityImpact"] = finding["value"]
-            if finding["field"] == self.EXPLOTABILIDAD:
+            if finding["field"] == self.EXPLOITABILITY:
                 self.data["exploitability"] = finding["value"]
-            if finding["field"] == self.NIVEL_RESOLUCION:
+            if finding["field"] == self.RESOLUTION_LEVEL:
                 self.data["resolutionLevel"] = finding["value"]
-            if finding["field"] == self.NIVEL_CONFIANZA:
+            if finding["field"] == self.CONFIDENCE_LEVEL:
                 self.data["confidenceLevel"] = finding["value"]
         if self.data['exploitability'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
             or self.data['exploitability'] == '0.950 | Funcional: Existe exploit':
-            self.data['explotable'] = 'Si'
+            self.data['exploitable'] = 'Si'
         else:
-            self.data['explotable'] = 'No'
+            self.data['exploitable'] = 'No'
         if 'finding_type' not in self.data or self.data['finding_type'] == 'Seguridad':
-            self.data['tipoHallazgoCliente'] = 'Vulnerabilidad'
+            self.data['clientFindingType'] = 'Vulnerabilidad'
         else:
-            self.data['tipoHallazgoCliente'] = self.data['finding_type']
+            self.data['clientFindingType'] = self.data['finding_type']
 
     def parse_project(self, request_arr):
-        "Convierte la info de proyecto de un hallazgo en formstack"
+        "Convert project info in formstack format"
         for finding in request_arr["data"]:
             if finding["field"] == self.ANALIST:
                 self.data["analyst"] = finding["value"]
             if finding["field"] == self.LEADER:
                 self.data["leader"] = finding["value"]
             if finding["field"] == self.INTERESADO:
-                self.data["interesado"] = finding["value"]
+                self.data["interested"] = finding["value"]
             if finding["field"] == self.FLUID_PROJECT:
                 self.data["fluidProject"] = finding["value"]
             if finding["field"] == self.CLIENT_PROJECT:
                 self.data["clientProject"] = finding["value"]
-            if finding["field"] == self.CONTEXTO:
-                self.data["contexto"] = finding["value"]
+            if finding["field"] == self.CONTEXT:
+                self.data["context"] = finding["value"]
 
     def parse_evidence_info(self, request_arr, sess_obj): # noqa: C901
-        "Convierte la descripcion de un request de formstack"
+        "Convert the score of a finding into a formstack format"
         for finding in request_arr["data"]:
             if finding["field"] == self.DOC_TOTAL:
-                self.data["total_evidencias"] = finding["value"]
+                self.data["evidenceTotal"] = finding["value"]
             if finding["field"] == self.DOC_ACHV1:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["evidence_route_1"] = filtered_url
@@ -447,12 +442,12 @@ class FindingDTO(object):
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.ANIMATION:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["animacion"] = filtered_url
+                self.data["animation"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.EXPLOTATION:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["explotacion"] = filtered_url
+                self.data["exploitation"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.EXPLOIT:
@@ -462,7 +457,7 @@ class FindingDTO(object):
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.REG_FILE:
                 filtered_url = self.drive_url_filter(finding["value"])
-                self.data["registros_archivo"] = filtered_url
+                self.data["fileRecords"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_CMNT1:
@@ -476,12 +471,12 @@ class FindingDTO(object):
             if finding["field"] == self.DOC_CMNT5:
                 self.data["evidence_description_5"] = finding["value"]
             if finding["field"] == self.REG:
-                self.data["registros"] = finding["value"]
+                self.data["records"] = finding["value"]
             if finding["field"] == self.REG_NUM:
-                self.data["registros_num"] = finding["value"]
+                self.data["recordsNumber"] = finding["value"]
 
     def drive_url_filter(self, drive):
-        """ Obtiene el ID de la imagen de drive """
+        """ Gets ID of the drive image """
         if(drive.find("s3.amazonaws.com") != -1):
             new_url = drive.split("/")[5]
             return new_url
