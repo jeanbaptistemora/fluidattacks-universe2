@@ -62,6 +62,7 @@ puede entrar a verificar y descartar si es un falso positivo.
 . +PHP+ link:../../defends/php/establecer-opciones-seguras/[Establecer Opciones Seguras por Defecto].
 . +PL/SQL+ link:../../defends/pl-sql/definir-opciones-defecto/[Establecer Opciones por Defecto].
 . +RPG 7.1+ link:../../defends/rpg/usar-condicionales/[Usar Estructuras Condicionales].
+. +Scala+ link:../../defends/scala/usar-opciones-seguras/[Usar opciones seguras en condicionales].
 . +TAL+ link:../../defends/tal/usar-condicionales/[Usar Estructuras Condicionales].
 
 == Ataques
