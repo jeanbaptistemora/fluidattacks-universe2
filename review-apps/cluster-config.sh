@@ -12,15 +12,7 @@ envsubst < review-apps/tls.yaml > tls.yaml && mv tls.yaml review-apps/tls.yaml
 
 
 # Replace variables in secret manifest
-sed -i 's#$FI_SSL_KEY#'"$FI_SSL_KEY"'#; \
-        s#$FI_SSL_CERT#'"$FI_SSL_CERT"'#; \
-        s#$K8_ENV_SECRET#'"$K8_ENV_SECRET"'#; \
-        s#$K8_AWS_SECRET#'"$K8_AWS_SECRET"'#; \
-        s#$FI_DEBUG#'"$(echo -n True | base64)"'#; \
-        s#$FI_ENVIRONMENT#'"$(echo -n review | base64)"'#; \
-        s#$TORUS_TOKEN_ID#'"$(echo -n $TORUS_TOKEN_ID | base64)"'#; \
-        s#$TORUS_TOKEN_SECRET#'"$(echo -n $TORUS_TOKEN_SECRET | base64)"'#' \
-        review-apps/variables.yaml
+sed -i 's#$FI_SSL_KEY#'"$FI_SSL_KEY"'#; s#$FI_SSL_CERT#'"$FI_SSL_CERT"'#;  s#$K8_ENV_SECRET#'"$K8_ENV_SECRET"'#; s#$K8_AWS_SECRET#'"$K8_AWS_SECRET"'#; s#$FI_DEBUG#'"$(echo -n True | base64)"'#; s#$FI_ENVIRONMENT#'"$(echo -n review | base64)"'#' review-apps/variables.yaml
 
 # Replace environmental variables with their base64 value
 # to pass to the container

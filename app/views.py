@@ -39,7 +39,7 @@ from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime
 from backports import csv
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET, TORUS_TEST
+from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -1277,7 +1277,6 @@ def delete_comment(request):
 def total_severity(request):
     project = request.GET.get('project', "")
     toe = integrates_dao.get_toe_dynamo(project)
-    rollbar.report_message(TORUS_TEST, 'info')
     return util.response(toe, 'Success', False)
 
 @never_cache
