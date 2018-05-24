@@ -14,24 +14,12 @@ envsubst < review-apps/tls.yaml > tls.yaml && mv tls.yaml review-apps/tls.yaml
 # Replace variables in secret manifest
 sed -i 's#$K8_ENV_SECRET#'"$K8_ENV_SECRET"'#; \
         s#$K8_AWS_SECRET#'"$K8_AWS_SECRET"'#; \
-        s#$FI_DEBUG#'"$(echo -n True | base64)"'#; \
-        s#$FI_ENVIRONMENT#'"$(echo -n review | base64)"'#; \
         s#$TORUS_TOKEN_ID#'"$(echo -n $TORUS_TOKEN_ID | base64)"'#; \
         s#$TORUS_TOKEN_SECRET#'"$(echo -n $TORUS_TOKEN_SECRET | base64)"'#; \
         s#$TORUS_ORG#'"$(echo -n $TORUS_ORG | base64)"'#; \
         s#$TORUS_PROJECT#'"$(echo -n $TORUS_PROJECT | base64)"'#; \
         s#$TORUS_ENVIRONMENT#'"$(echo -n $TORUS_ENVIRONMENT | base64)"'#' \
         review-apps/variables.yaml
-        
-# Replace environmental variables with their base64 value
-# to pass to the container
-IFS=$'\n' read -d '' -r -a lines < <(grep -o '^FI[^=]*' env.list)
-lines+=("CI_COMMIT_SHA")
-lines+=("CI_COMMIT_REF_NAME")
-lines+=("FI_RA_AWS_SECRET_ACCESS_KEY")
-for line in "${lines[@]}"; do
-  sed -i 's#$'"$line"'#'"$(echo -n ${!line} | base64 | tr -d '\n')"'#' review-apps/variables.yaml;
-done
 
 # Check NGINX server configuration
 if ! kubectl -n gitlab-managed-apps get configmaps | grep -q 'nginx-configuration'; then

@@ -8,11 +8,7 @@ services:
 
 
 before_script:
-  - sh env.sh
   - apk update && apk add curl bash
-
-after_script:
-  - rm env.sh
 
 
 codequality:
@@ -205,7 +201,6 @@ Linting:
   script:
     - docker login "$CI_REGISTRY" -u $DOCKER_USER -p $DOCKER_PASS
     - docker run
-        --env-file env.list
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
@@ -214,7 +209,6 @@ Linting:
         torus daemon start; sleep 5;
         torus run -- /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
     - docker run
-        --env-file env.list
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
@@ -222,7 +216,6 @@ Linting:
         torus daemon start; sleep 5;
         torus run -- node /usr/src/app/app/assets/node_modules/.bin/eslint
         /usr/src/app/app/assets/app/."
-    - rm env.list
     - docker logout "$CI_REGISTRY"
   retry: 2
   except:
@@ -235,27 +228,23 @@ Prospector:
     - echo "$DOCKER_PASS" |
         docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
     - docker run
-        --env-file env.list
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "torus daemon start; sleep 5;
         torus run -- prospector -u django -p /usr/src/app/app -i node_modules"
     - docker run
-        --env-file env.list
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "torus daemon start; sleep 5;
         torus run -- prospector -u django /usr/src/app/fluidintegrates"
     - docker run
-        --env-file env.list
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "torus daemon start; sleep 5;
         torus run -- python /usr/src/app/manage.py test app.tests"
-    - rm env.list
     - docker logout "$CI_REGISTRY"
   retry: 2
   except:
@@ -270,12 +259,6 @@ Deploy:
         FLUID_Serves.pem &&
         chmod 600 FLUID_Serves.pem
     - apk update && apk add openssh-client curl
-    - scp
-        -o StrictHostKeyChecking=no
-        -o UserKnownHostsFile=/dev/null
-        -i FLUID_Serves.pem
-        env.list
-        admin@fluidattacks.com:/home/admin
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
@@ -285,7 +268,7 @@ Deploy:
         sudo docker stop integrates &&
         sudo docker rm integrates &&
         sudo docker run
-        -d --env-file env.list -p 8000:443 --name=integrates
+        -d -p 8000:443 --name=integrates
         -e TORUS_TOKEN_SECRET='"$TORUS_TOKEN_SECRET"'
         -e TORUS_TOKEN_ID='"$TORUS_TOKEN_ID"'
         registry.gitlab.com/fluidsignal/integrates:master'
@@ -298,10 +281,10 @@ Deploy:
         sudo docker stop bot &&
         sudo docker rm bot &&
         sudo docker run
-        -d --env-file env.list --restart always --name=bot
+        -d --restart always --name=bot
         -e TORUS_TOKEN_SECRET='"$TORUS_TOKEN_SECRET"'
         -e TORUS_TOKEN_ID='"$TORUS_TOKEN_ID"'
-        registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
+        registry.gitlab.com/fluidsignal/integrates/bot:master'
     - curl https://api.rollbar.com/api/1/deploy/
         -F access_token=$FI_ROLLBAR_ACCESS_TOKEN
         -F environment=$FI_ROLLBAR_ENVIRONMENT
