@@ -12,16 +12,17 @@ envsubst < review-apps/tls.yaml > tls.yaml && mv tls.yaml review-apps/tls.yaml
 
 
 # Replace variables in secret manifest
-sed -i 's#$FI_SSL_KEY#'"$FI_SSL_KEY"'#; \
-        s#$FI_SSL_CERT#'"$FI_SSL_CERT"'#; \
-        s#$K8_ENV_SECRET#'"$K8_ENV_SECRET"'#; \
+sed -i 's#$K8_ENV_SECRET#'"$K8_ENV_SECRET"'#; \
         s#$K8_AWS_SECRET#'"$K8_AWS_SECRET"'#; \
         s#$FI_DEBUG#'"$(echo -n True | base64)"'#; \
         s#$FI_ENVIRONMENT#'"$(echo -n review | base64)"'#; \
         s#$TORUS_TOKEN_ID#'"$(echo -n $TORUS_TOKEN_ID | base64)"'#; \
-        s#$TORUS_TOKEN_SECRET#'"$(echo -n $TORUS_TOKEN_SECRET | base64)"'#' \
+        s#$TORUS_TOKEN_SECRET#'"$(echo -n $TORUS_TOKEN_SECRET | base64)"'#; \
+        s#$TORUS_ORG#'"$(echo -n $TORUS_ORG | base64)"'#; \
+        s#$TORUS_PROJECT#'"$(echo -n $TORUS_PROJECT | base64)"'#; \
+        s#$TORUS_ENVIRONMENT#'"$(echo -n $TORUS_ENVIRONMENT | base64)"'#' \
         review-apps/variables.yaml
-
+        
 # Replace environmental variables with their base64 value
 # to pass to the container
 IFS=$'\n' read -d '' -r -a lines < <(grep -o '^FI[^=]*' env.list)
@@ -104,6 +105,7 @@ done
 sleep 30
 kubectl exec $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") -- sed -i 's#/usr/share>#/usr/src/app>#' /etc/apache2/apache2.conf
 kubectl exec $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") -- apache2ctl restart
+kubectl delete secret "$K8_ENV_SECRET"
 
 # Erase file with keys
 rm review-apps/variables.yaml
