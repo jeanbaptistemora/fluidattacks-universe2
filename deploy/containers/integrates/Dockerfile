@@ -12,6 +12,11 @@ ARG documentroot
 ARG ssl_cert
 ARG ssl_key
 ARG drive_authorization_client
+ARG torus_token_id
+ARG torus_token_secret
+ARG torus_org
+ARG torus_project
+ARG torus_environment
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
@@ -23,6 +28,9 @@ ENV FI_SSL_CERT=$ssl_cert
 ENV FI_SSL_KEY=$ssl_key
 ENV FI_DRIVE_AUTHORIZATION_CLIENT=$drive_authorization_client
 ENV TZ=America/Bogota
+ENV TORUS_ORG=$torus_org
+ENV TORUS_PROJECT=$torus_project
+ENV TORUS_ENVIRONMENT=$torus_environment
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Add variables
@@ -70,8 +78,8 @@ CMD env > /etc/environment  \
 && /etc/init.d/td-agent restart \
 && a2ensite integrates-ssl.conf \
 && a2ensite 000-default.conf \
-&& /usr/src/app/manage.py makemigrations \
-&& /usr/src/app/manage.py migrate \
-&& /usr/src/app/manage.py crontab add \
+&& torus run -- /usr/src/app/manage.py makemigrations \
+&& torus run -- /usr/src/app/manage.py migrate \
+&& torus run -- /usr/src/app/manage.py crontab add \
 && if [ "$CI_COMMIT_REF_NAME" = "master" ]; then service cron start; fi \
-&& /usr/sbin/apache2ctl -D FOREGROUND
+&& torus run -- /usr/sbin/apache2ctl -D FOREGROUND

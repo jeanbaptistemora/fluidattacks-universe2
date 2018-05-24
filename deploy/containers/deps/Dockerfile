@@ -43,6 +43,13 @@ RUN apt-get update \
     && apt-get install -y --force-yes\
                nodejs
 
+# Install Torus
+RUN DISTRO=$(lsb_release -i | awk '{print tolower($3)}') \
+    && CODENAME=$(lsb_release -c | awk '{print $2}') \
+    && sudo echo "deb https://get.torus.sh/$DISTRO/ $CODENAME main" | sudo tee -a /etc/apt/sources.list.d/torus.list \
+    && apt-get update \
+    && apt-get install --allow-unauthenticated -y torus
+
 # Install dependencies and pip.
 ADD requirements.txt /root/
 RUN easy_install pip
