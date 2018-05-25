@@ -68,6 +68,7 @@ y por ende esta información debe ser validada.
 . +C Sharp+ link:../../defends/csharp/prevenir-sqli/[Prevenir Inyección de Código SQL].
 . +COBOL+ link:../../defends/cobol/prevenir-sqli-sentencias/[Prevenir SQLi Mediante Sentencias Parametrizadas].
 . +COBOL+ link:../../defends/cobol/validar-datos-variables/[Validar Datos en Variables].
+. +Finacle+ link:../../defends/finacle/prevenir-sqli/[Prevenir Inyección SQL].
 . +Java+ link:../../defends/java/prevenir-sqli/[Prevenir Inyección SQL].
 . +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
 . +Java+ link:../../defends/java/validar-redirecciones/[Validar Redirecciones a Páginas Web].
