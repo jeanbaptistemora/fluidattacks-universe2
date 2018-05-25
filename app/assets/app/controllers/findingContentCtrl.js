@@ -206,7 +206,7 @@ findingContentCtrl (
     }
   };
   $scope.remediatedView = function remediatedView () {
-    $scope.isManager = userRole !== "customer";
+    $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
     $scope.isRemediated = true;
     if (angular.isDefined($scope.finding.id)) {
       const req = projectFtry.remediatedView($scope.finding.id);
@@ -315,7 +315,7 @@ findingContentCtrl (
     $scope.onlyReadableTab4 = true;
     $scope.onlyReadableTab5 = true;
     $scope.onlyReadableTab6 = true;
-    $scope.isManager = userRole !== "customer";
+    $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
     // Default flags value for view visualization
     $scope.view = {};
     $scope.view.project = false;

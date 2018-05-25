@@ -280,7 +280,8 @@ angular.module("FluidIntegrates").factory(
         // Editable fields control
         $scope.onlyReadableTab1 = true;
         $scope.onlyReadableTab2 = true;
-        $scope.isManager = userRole !== "customer";
+        $scope.isManager = userRole !== "customer" &&
+                           userRole !== "customeradmin";
         if (!$scope.isManager && !$scope.isAssumed &&
           !$scope.isClosed && $scope.isContinuous) {
           angular.element(".finding-treatment").show();

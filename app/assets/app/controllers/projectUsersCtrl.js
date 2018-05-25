@@ -62,7 +62,8 @@ angular.module("FluidIntegrates").controller(
     eventualityFactory,
     functionsFtry1,
     functionsFtry3,
-    projectFtry
+    projectFtry,
+    projectFtry2
   ) {
     $scope.init = function init () {
       let vlang = "en-US";
@@ -75,8 +76,9 @@ angular.module("FluidIntegrates").controller(
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-
-      $scope.isManager = userRole !== "customer";
+      $scope.isManager = userRole !== "customer" &&
+                         userRole !== "customeradmin";
+      $scope.isAdmin = userRole !== "customer";
       // Default flags value for view visualization
       $scope.view = {};
       $scope.view.project = false;
@@ -159,6 +161,97 @@ angular.module("FluidIntegrates").controller(
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
     };
+
+    $scope.addUser = function addUser () {
+      // Obtener datos
+
+      const descData = {
+        "company": Organization.toLowerCase(),
+        "project": $stateParams.project.toLowerCase()
+      };
+      $uibModal.open({
+        "animation": true,
+        "backdrop": "static",
+        "controller" ($scope, $uibModalInstance, data) {
+          $scope.newUserInfo = {};
+          $scope.modalTitle = $translate.instant("search_findings." +
+                                          "tab_users.title");
+          $scope.ok = function ok () {
+            $scope.newUserInfo.company = data.company;
+            $scope.newUserInfo.project = data.project;
+            $scope.newUserInfo.userEmail = $scope.newUserInfo.userEmail.trim();
+            const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+            if (re.test(String($scope.newUserInfo.userEmail).toLowerCase())) {
+              // Make the request
+              const req = projectFtry.addAccessIntegrates($scope.newUserInfo);
+              // Capture the promise
+              req.then((response) => {
+                if (!response.error) {
+                  // Mixpanel tracking
+                  const projt = descData.project.toUpperCase();
+                  mixPanelDashboard.trackAddUser(
+                    "AddUser",
+                    userEmail,
+                    projt,
+                    "Add",
+                    $scope.newUserInfo.userEmail
+                  );
+                  $msg.success(
+                    $scope.newUserInfo.userEmail +
+                    $translate.instant("search_findings.tab_users." +
+                                                "success"),
+                    $translate.instant("search_findings.tab_users." +
+                                                "title_success")
+                  );
+                  $uibModalInstance.close();
+                  location.reload();
+                }
+                else if (response.error) {
+                  Rollbar.error("Error: An error occurred when " +
+                              "adding a new user");
+                  $msg.error($translate.instant("proj_alerts.error_textsad"));
+                }
+              });
+            }
+            else {
+              $msg.error($translate.instant("search_findings.tab_users." +
+                                          "wrong_format"));
+            }
+          };
+          $scope.close = function close () {
+            $uibModalInstance.close();
+          };
+        },
+        "resolve": {"data": descData},
+        "templateUrl": `${BASE.url}assets/views/project/adduserMdl.html`
+      });
+    };
+
+    $scope.assignAdmin = function assignAdmin () {
+      const adminEmail = [];
+      angular.element("#tblUsers :checked").each(function checkedFields () {
+        /* eslint-disable-next-line  no-invalid-this */
+        const vm = this;
+        const actualRow = angular.element("#tblUsers").find("tr");
+        const actualIndex = angular.element(vm).data().index + 1;
+        adminEmail.push(actualRow.eq(actualIndex)[0].innerText.split("\t")[1]);
+      });
+      if (adminEmail.length === 0) {
+        $msg.error($translate.instant("search_findings.tab_users." +
+                                  "no_selection"));
+      }
+      else if (adminEmail.length > 1) {
+        $msg.error($translate.instant("search_findings.tab_users." +
+                                    "assign_error"));
+      }
+      else {
+        projectFtry2.setProjectAdmin(adminEmail[0]);
+        $msg.success(adminEmail[0] +
+          $translate.instant("search_findings.tab_users." +
+                                      "success_admin"));
+      }
+    };
+
 
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});

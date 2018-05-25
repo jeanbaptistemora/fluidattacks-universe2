@@ -156,6 +156,16 @@ const traducciones2 = {
     "closingEffectiveness": "Efectividad",
     "finding": "Hallazgo reportado",
     "open": "Abiertas"
+  },
+  "tab_users": {
+    "assign_error": "Sólo puedes agregar a un administrador a la vez.",
+    "no_selection": "Debe seleccionar un correo de la tabla.",
+    "success": " fue agregado a este proyecto exitosamente.",
+    "success_admin": " es ahora un administrador del proyecto.",
+    "textbox": "Ingresa el correo de la persona que deseas agregar",
+    "title": "Agregar usuario a este proyecto",
+    "title_success": "Felicitaciones",
+    "wrong_format": "El correo ingresado no es valido."
   }
 },
   "tab_container": {

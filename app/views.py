@@ -227,7 +227,7 @@ def registration(request):
 
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def dashboard(request):
     "View of control panel for authenticated users"
     try:
@@ -259,7 +259,7 @@ def logout(request):
 #pylint: disable=too-many-locals
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def project_to_xls(request, lang, project):
     "Create the technical report"
     findings = []
@@ -309,7 +309,7 @@ def validation_project_to_pdf(request, lang, project, doctype):
 #pylint: disable=too-many-locals
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     findings = []
@@ -379,7 +379,7 @@ def project_to_pdf(request, lang, project, doctype):
 #pylint: disable-msg=R0913
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def check_pdf(request, project):
     username = request.session['username']
     if not util.is_name(project):
@@ -404,7 +404,7 @@ def get_project_info(project):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_eventualities(request):
     "Get the eventualities of a project."
     project = request.GET.get('project', None)
@@ -449,7 +449,7 @@ def get_eventualities(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_users_login(request):
     "Get the email and last login date of all users in a project."
     project = request.GET.get('project', None)
@@ -469,7 +469,7 @@ def get_users_login(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_finding(request):
     submission_id = request.POST.get('id', "")
     finding = catch_finding(request, submission_id)
@@ -484,7 +484,7 @@ def get_finding(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 # pylint: disable=R0912
 # pylint: disable=R0914
 def get_findings(request):
@@ -626,7 +626,7 @@ def finding_vulnerabilities(submission_id):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_evidences(request):
     finding_id = request.GET.get('id', None)
     resp = integrates_dao.get_finding_dynamo(int(finding_id))
@@ -634,7 +634,7 @@ def get_evidences(request):
 
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_evidence(request, findingid, fileid):
     if fileid is None:
         rollbar.report_message('Error: Missing evidence image ID', 'error', request)
@@ -855,7 +855,7 @@ def update_evidence_text(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_exploit(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -901,7 +901,7 @@ def get_exploit(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_records(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -977,7 +977,7 @@ def list_to_dict(header, li):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_myevents(request):
     user = request.session["username"]
     projects = integrates_dao.get_projects_by_user(user)
@@ -1000,7 +1000,7 @@ def get_myevents(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_myprojects(request):
     user = request.session["username"]
     data_set = integrates_dao.get_projects_by_user(user)
@@ -1052,7 +1052,7 @@ def update_description(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['customer'])
+@authorize(['customer', 'customeradmin'])
 def update_treatment(request):
     parameters = request.POST.dict()
     try:
@@ -1120,7 +1120,7 @@ def delete_finding(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['customer'])
+@authorize(['customer', 'customeradmin'])
 def finding_solved(request):
     """ Send an email requesting the verification of a finding """
     parameters = request.POST.dict()
@@ -1185,7 +1185,7 @@ def finding_verified(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_remediated(request):
     finding_id = request.GET.get('id', "")
     remediated = integrates_dao.get_remediated_dynamo(int(finding_id))
@@ -1199,7 +1199,7 @@ def get_remediated(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_comments(request):
     submission_id = request.GET.get('id', "")
     comments = integrates_dao.get_comments_dynamo(int(submission_id))
@@ -1220,7 +1220,7 @@ def get_comments(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def add_comment(request):
     submission_id = request.POST.get('id', "")
     data = request.POST.dict()
@@ -1260,7 +1260,7 @@ def add_comment(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def delete_comment(request):
     submission_id = request.POST.get('id', "")
     data = request.POST.dict()
@@ -1273,7 +1273,7 @@ def delete_comment(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def total_severity(request):
     project = request.GET.get('project', "")
     toe = integrates_dao.get_toe_dynamo(project)
@@ -1282,9 +1282,35 @@ def total_severity(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def get_alerts(request):
     company = request.GET.get('company', None)
     project = request.GET.get('project', None)
     resp = integrates_dao.get_company_alert_dynamo(company, project)
     return util.response(resp, 'Success', False)
+
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'customeradmin'])
+def add_access_integrates(request):
+    parameters = request.POST.dict()
+    newUser = parameters['data[userEmail]']
+    company = parameters['data[company]']
+    project = parameters['data[project]']
+    if integrates_dao.is_registered_dao(newUser) == '0':
+        integrates_dao.register(newUser)
+        integrates_dao.assign_role(newUser, 'customer')
+        integrates_dao.assign_company(newUser, company)
+    if integrates_dao.add_access_to_project_dao(newUser, project):
+        return util.response([], 'Success', False)
+    return util.response([], 'Error', True)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'customeradmin'])
+def set_project_admin(request):
+    email = request.POST.get('email', "")
+    if integrates_dao.assign_admin_role(email):
+        return util.response([], 'Success', False)
+    return util.response([], 'Error', True)

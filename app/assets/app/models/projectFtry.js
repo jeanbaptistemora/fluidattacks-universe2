@@ -21,6 +21,21 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
+       * Give access to an user in a project
+       * @function addAccessIntegrates
+       * @param {String} data Info of user to which access will be granted.
+       * @member integrates.projectFtry
+       * @return {Object} Response of request
+       */
+      "addAccessIntegrates" (data) {
+        const oopsAc = "An error occurred getting events";
+        return $xhr.post($q, `${BASE.url}add_access_integrates`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data
+        }, oopsAc);
+      },
+
+      /**
        * Make a request to add new comment in a finding
        * @function addComment
        * @param {String} id Numeric id of the finding

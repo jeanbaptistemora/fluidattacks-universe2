@@ -78,21 +78,30 @@
             <div class="row" align="center">
                 <div class="col-md-12"  id="search_section">
             <div class="tab-content">
-                        <div id="users" class="tab-pane cont active">
+                        <div id="users" class="tab-pane cont active" >
                             <div class="row">
                                 <!-- START: toolbar -->
-                                <div id="toolbar2">
-                                    <p><b>{{ search_findings.eventualities.description }}</b></p>
+                                <div  class="col-md-2 col-md-offset-8 col-xs-12 col-sm-12" style="width:100%;display:flex;" >
+                                  <button  id="add" ng-show="isAdmin" class="btn btn-primary btn-block"
+                                        ng-click="addUser();" style="width:15%;margin:10px;">
+                                        <i class="glyphicon glyphicon-plus"></i>  Add user
+                                  </button>
+                                  <button ng-show=isManager id="assign" class="btn btn-primary btn-block"
+                                        ng-click="assignAdmin();" style="width:15%;margin:10px;">
+                                        <i class="glyphicon glyphicon-user"></i>  Assign administrator
+                                  </button>
                                 </div>
                                 <div class="col-md-offset-3 col-md-5 col-sm-12" >
-                                    <table  id="tblUsers" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="false">
+                                    <table  id="tblUsers" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="false" data-sort-order="desc" data-sort-name="usersLogin">
                                         <thead>
                                             <tr>
+                                              <th data-field="selection" data-checkbox="true" data-width="2%"></th>
                                               <th data-field="users" data-halign="left" data-valign="middle" data-width="10%" data-sortable="true">{{ search_findings.users_table.usermail }}</th>
                                               <th data-field="usersLogin" data-halign="left" data-valign="middle" data-width="20%" data-sortable="true">{{ search_findings.users_table.lastlogin }}</th>
                                         </thead>
                                     </table>
                                 </div>
+
                             </div>
                         </div>
                      </div>

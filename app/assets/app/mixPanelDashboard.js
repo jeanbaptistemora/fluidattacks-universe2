@@ -128,3 +128,25 @@ mixPanelDashboard.trackFindingDetailed = function trackFindingDetailed (
   );
   return true;
 };
+
+mixPanelDashboard.trackAddUser = function trackAddUser (
+  trackName,
+  userEmail,
+  project,
+  action,
+  newUser
+) {
+  if (mixPanelDashboard.isProduction()) {
+    return false;
+  }
+  mixpanel.track(
+    trackName,
+    {
+      "Action": action,
+      "ByWho": userEmail,
+      "Project": project,
+      "ToWho": newUser
+    }
+  );
+  return true;
+};

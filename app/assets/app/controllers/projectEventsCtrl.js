@@ -69,7 +69,8 @@ angular.module("FluidIntegrates").controller(
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
 
-      $scope.isManager = userRole !== "customer";
+      $scope.isManager = userRole !== "customer" &&
+                         userRole !== "customeradmin";
       // Default flags value for view visualization
       $scope.view = {};
       $scope.view.project = false;
@@ -174,7 +175,8 @@ angular.module("FluidIntegrates").controller(
           }
         }
       }
-      $scope.isManager = userRole !== "customer";
+      $scope.isManager = userRole !== "customer" &&
+                         userRole !== "customeradmin";
       mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
       // Eventuality table configuration
       angular.element("#tblEventualities").bootstrapTable("destroy");
@@ -187,7 +189,8 @@ angular.module("FluidIntegrates").controller(
             "backdrop": "static",
             "controller" ($scope, $uibModalInstance, evt) {
               $scope.evt = evt;
-              $scope.evt.isManager = userRole !== "customer";
+              $scope.evt.isManager = userRole !== "customer" &&
+                                     userRole !== "customeradmin";
               $scope.evt.onlyReadableEvt1 = true;
               // Mixpanel tracking
               const nameOrg = Organization.toUpperCase();

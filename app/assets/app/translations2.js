@@ -155,7 +155,17 @@ const translations2 = {
        "closingEffectiveness": "Effectiveness",
        "finding": "Discovery",
        "open": "Open"
-     }
+     },
+   "tab_users": {
+     "assign_error": "You can only add one administrator at a time.",
+     "no_selection": "You must select an email from the table.",
+     "success": " now has access to this project.",
+     "success_admin": " is now an administrator of this project.",
+     "textbox": "Enter the email of the person you want to add",
+     "title": "Add user to this project",
+     "title_success": "Congratulations",
+     "wrong_format": "The email format is not valid."
+   }
  },
   "tab_container": {
     "eventualities": "Events",
