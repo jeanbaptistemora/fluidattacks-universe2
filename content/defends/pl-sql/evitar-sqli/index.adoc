@@ -1,0 +1,138 @@
+:slug: defends/pl-sql/evitar-sqli/
+:category: pl/sql
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PL/SQL al proteger las aplicaciones contra inyecciones de código SQL. Para desarrollar aplicaciones seguras es necesario realizar un proceso de validación en las entradas del sistema.
+:keywords: PL/SQL, Prevenir, Ataques, Inyección, SQL, Seguridad
+:defends: yes
+
+= Evitar Inyección SQL
+
+== Necesidad
+
+Se requiere contar con lineamientos
+que prevengan la inyección de código +SQL+
+en bloques de código +PL/SQL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se cuenta con una aplicación usando bloques de código +PL/SQL+,
+ya sea desde +forms+, +reports+, +packages+, funciones, procedimientos.
+
+. Debe validarse la entrada de información antes de ser usada.
+
+== Solución
+
+Al momento de desarrollar aplicaciones
+que utilicen bases de datos relacionales
+es muy importante protegerlas
+contra ataques de inyección de código +SQL+.
+A continuación presentamos las consideraciones para evitar
+este tipo de ataques:
+
+. Validar variables de entrada.
+Dentro de estas variables debemos considerar:
+
+* Variables tipo +varchar+.
+* Variables tipo +datetime+.
+* Variables tipo +numeric+.
+* Variables tipo +objeto+.
+
+. Reemplace las ocurrencias de comillas simples por comillas dobles.
+
+. Se recomienda el uso de los paquetes:
++DBMS_Assert.Simple_Sql_Name()+, +DBMS_Assert.Enquote_Literal()+
+y la función +!ToChar+.
+
+. Exponer los datos de la base de datos sólo a través de un +API+
+desarrollado en +PL/SQL+, libreria de aplicación.
+Recordar el usuario de estas librerías no debería poder acceder
+a efectuar sentencias +SQL+ sobre los datos.
+
+. Cuestionar un diseño donde el +SQL+ siempre sea dinámico.
+
+. Preferir el uso de +SQL+ estático,
+sólo usar +SQL+ dinámico como ultima opción.
+
+. No confundir contenido dinámico con +SQL+ dinámico,
+o no sacrificar seguridad
+por la necesidad de repetir procedimientos con valores constantes asignados.
+
+. Preferir +SQL+ generado con +placeholders+
+o posiciones asignadas de sustitución en vez de concatenación,
+tal y como se muestra en el siguiente ejemplo:
++
+.avoid-sql
+[source, sql, linenums]
+----
+/* Binding : placeholders */
+EXECUTE IMMEDIATE
+  'UPDATE employee SET salary = :val
+    WHERE hire_date BETWEEN :lodate AND :hidate'
+  USING v_start, v_end;
+
+/* Concatenation */
+EXECUTE IMMEDIATE
+  'UPDATE employee SET salary = ' || val_in ||
+  ' WHERE hire_date BETWEEN ' ||
+    ' TO_DATE (''' || TO_CHAR (v_start)  || ''')' ||
+    ' AND ' ||
+    ' TO_DATE (''' || TO_CHAR (v_end)  || ''')';
+----
+
+. Cuando una sentencia +SQL+ deba ser ejecutada
+por alguno de los objetos para generación dinámica de +SQL+ de +PL/SQL+,
+esta sentencia debe contener "texto de sentencia" seguro,
+esto es contenido de texto estático mas texto dinámico seguro.
+
+. El texto estático esta compuesto sólo por expresiones +varchar2+ estáticas.
+
+. El texto dinámico es cualquier texto que no sea estático.
+
+. El texto dinámico seguro esta conformado por la salida
+de uno de estos tres procedimientos de +Oracle+:
++DBMS_Assert.Simple_Sql_Name()+, +DBMS_Assert.Enquote_Literal()+
+o +To_Char(x f, n)+.
+
+. Siempre valide antes de ejecutar.
+Un ejemplo de código bien construido se muestra a continuación.
+Sin embargo falta la clausula +authid+:
++
+[source, sql, linenums]
+----
+function f(b in boolean, VC2 in varchar2) return number is
+  Quote         constant varchar2(1) := '''';
+  Doubled_Quote constant varchar2(2) := Quote||Quote;
+  Start_  constant varchar2(32767) := 'select PK from ';
+  Tab_1   constant varchar2(32767) := 'Tab_1';
+  Tab_2   constant varchar2(32767) := 'Tab_2';
+  Where_  constant varchar2(32767) := ' where VC2 = ';
+  Tab constant varchar2(32767) :=
+    case b
+      when true then Tab_1
+    else           Tab_2
+  end;
+  SQL_Text_Literal constant varchar2(32767) :=
+  Quote||Replace(VC2, Quote, Doubled_Quote)||Quote;
+  Stmt constant varchar2(32767) :=
+    Start_||
+    Tab||
+    Where_||
+    Sys.DBMS_Assert.Enquote_Literal(SQL_Text_Literal);
+  PK number;
+begin
+  execute immediate Stmt into PK;
+  return PK;
+end f;
+----
+
+== Referencias
+
+. [[r1]] link:https://www.blackhat.com/presentations/bh-europe-04/bh-eu-04-litchfield.pdf[Oracle PL/SQL Injection - Black Hat].
+
+. [[r2]] link:https://www.owasp.org/index.php/PL/SQL:SQL_Injection[PL/SQL:SQL Injection - OWASP].
+
+. [[r3]] link:http://www.oracle.com/technetwork/database/features/plsql/overview/how-to-write-injection-proof-plsql-1-129572.pdf[How to write SQL injection proof PL/SQL - Oracle].
+
+. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura].
