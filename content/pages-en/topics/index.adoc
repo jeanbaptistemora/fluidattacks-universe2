@@ -41,6 +41,7 @@ Among the topics of interest are:
 * Why we use +staticgen+?
 * Why we use +SLB+?
 * Why we use +asciidoc+?
+* Why +CI+ security tools don't break builds?
 * Refactoring +JS+ with linting.
 
 == Concepts
