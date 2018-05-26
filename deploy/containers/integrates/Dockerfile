@@ -66,5 +66,5 @@ CMD /etc/init.d/td-agent restart \
 && torus run -- /usr/src/app/manage.py makemigrations \
 && torus run -- /usr/src/app/manage.py migrate \
 && torus run -- /usr/src/app/manage.py crontab add \
-&& if [ "$CI_COMMIT_REF_NAME" = "master" ]; then service cron start; fi \
+&& if [ "$CI_COMMIT_REF_NAME" = "master" ]; then /root/cron.sh; fi \
 && torus run -- /usr/sbin/apache2ctl -D FOREGROUND
