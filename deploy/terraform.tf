@@ -26,6 +26,9 @@ resource "aws_dynamodb_table" "alerts_by_company" {
     type = "S"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
 }
 
 resource "aws_dynamodb_table" "comments" {
@@ -44,6 +47,10 @@ resource "aws_dynamodb_table" "comments" {
     name = "user_id"
     type = "N"
   }
+
+  point_in_time_recovery {
+    enabled = true
+  }
 }
 
 resource "aws_dynamodb_table" "findings" {
@@ -57,6 +64,9 @@ resource "aws_dynamodb_table" "findings" {
     type = "N"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
 }
 
 resource "aws_dynamodb_table" "findings_email" {
@@ -76,6 +86,9 @@ resource "aws_dynamodb_table" "findings_email" {
     type = "N"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
 }
 
 resource "aws_dynamodb_table" "remediated" {
@@ -87,6 +100,10 @@ resource "aws_dynamodb_table" "remediated" {
   attribute {
     name = "finding_id"
     type = "N"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 }
 
@@ -100,6 +117,10 @@ resource "aws_dynamodb_table" "toe" {
     name = "project"
     type = "S"
   }
+
+  point_in_time_recovery {
+    enabled = true
+  }
 }
 
 resource "aws_dynamodb_table" "weekly_report" {
@@ -111,5 +132,9 @@ resource "aws_dynamodb_table" "weekly_report" {
   attribute {
     name = "init_date"
     type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 }
