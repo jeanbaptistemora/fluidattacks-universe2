@@ -60,11 +60,12 @@ RUN rm -r /var/www/html \
 EXPOSE 443 24224
 
 # First command
-CMD /etc/init.d/td-agent restart \
+CMD env > /etc/environment \
+&& /etc/init.d/td-agent restart \
 && a2ensite integrates-ssl.conf \
 && a2ensite 000-default.conf \
 && torus run -- /usr/src/app/manage.py makemigrations \
 && torus run -- /usr/src/app/manage.py migrate \
 && torus run -- /usr/src/app/manage.py crontab add \
-&& if [ "$CI_COMMIT_REF_NAME" = "master" ]; then /root/cron.sh; fi \
+&& if [ "$CI_COMMIT_REF_NAME" = "master" ]; then /root/vars/cron.sh; fi \
 && torus run -- /usr/sbin/apache2ctl -D FOREGROUND
