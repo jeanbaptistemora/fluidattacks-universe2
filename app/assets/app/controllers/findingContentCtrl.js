@@ -41,16 +41,6 @@ findingContentCtrl (
   projectFtry,
   tabsFtry
 ) {
-  String.prototype.replaceAll = function replaceAll (
-    search,
-    replace
-  ) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
-    const vm = this;
-    if (angular.isUndefined(replace)) {
-      return vm.toString();
-    }
-    return vm.replace(new RegExp(`[${search}]`, "g"), replace);
-  };
   $scope.cssv2Editable = function cssv2Editable () {
     if ($scope.onlyReadableTab2 === false) {
       $scope.onlyReadableTab2 = true;

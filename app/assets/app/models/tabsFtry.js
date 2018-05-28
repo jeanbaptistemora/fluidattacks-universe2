@@ -228,8 +228,10 @@ angular.module("FluidIntegrates").factory(
               /* eslint func-style: ["error", "expression"]*/
               const respFunction = function respFunction (response) {
                 if (!response.error) {
-                  let responses = response.replaceAll("<", "&lt;");
-                  responses = response.replaceAll(">", "&gt;");
+                  let responses = response.replace(new RegExp("[<" +
+                                  "]", "g"), "&lt;");
+                  responses = responses.replace(new RegExp("[>" +
+                              "]", "g"), "&gt;");
                   data.exploitURL = responses;
                   findingData.exploitURL = data.exploitURL;
                 }
@@ -280,8 +282,10 @@ angular.module("FluidIntegrates").factory(
               findingData.hasExploit = data.hasExploit;
               exploit.then((response) => {
                 if (!response.error) {
-                  let responses = response.replaceAll("<", "&lt;");
-                  responses = response.replaceAll(">", "&gt;");
+                  let responses = response.replace(new RegExp("[<" +
+                                  "]", "g"), "&lt;");
+                  responses = responses.replace(new RegExp("[>" +
+                              "]", "g"), "&gt;");
                   data.exploitURL = responses;
                   findingData.exploitURL = data.exploitURL;
                 }
