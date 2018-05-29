@@ -6,290 +6,299 @@
 
 = Frequently asked questions
 
-Up next are a series of commonly asked questions
-that come to mind when discussing Continuous Hacking.
+Frequently asked questions about Continuous Hacking.
 
 [qanda]
 *What is Continuous Hacking?*::
-  The service that allows an organization to implement security testing
-  at an early stage in the software development life cycle.
-  The objective of the service
-  is to guarantee +100%+ coverage of the application.
+  Continuous Hacking is a security testing service
+  that allows testing to begin at an early stage
+  in the software development cycle.
+  Its purpose is to guarantee +100%+ testing coverage of the application.
 
-*What benefits does Continuous Hacking have, when applied to an application?*::
-  . Minimizing the repairing cost since the tests are done
-  when the application is in a development environment and not a production one.
 
-  . Reducing the certification time to zero since the tests
-  are done along with the development.
+*What are the benefits of Continuous Hacking?*::
+  Continuous Hacking:
+  . Minimizes the cost of remediation (repair) of a vulnerable security risk
+  while the software is in development rather than when it is in production.
 
-  . Giving clear and detailed information about the detected vulnerabilities,
-  allowing synchronization amongst all people involved in the project
-  and resolving all doubts and questions
-  the developers may have regarding the reported vulnerabilities,
-  thus allowing them to fix all issues without any setbacks.
+  . Reduces application certification time to zero
+  because the tests are done during development.
 
-*What are the necessary inputs and requirements needed for the service?*::
-  The service can be offered in the following phases:
+  . Provides clear and detailed information about vulnerable security risks
+  and facilitates a coordinated effort between external project personnel
+  (+FLUIDAttacks+ experts) identifying security risks,
+  and internal project personnel (client company)
+  fixing security issues without delays.
 
-  . *Phase 1:* The most important input needed for the service
-  is access to the integration branch of the repository
-  where the application's source code is stored.
-  In this phase, there still does not exist a deployed application
-  and, therefore, the security testing focuses on the source code.
+*What are the necessary inputs and requirements for Continuous Hacking?*::
+  The necessary inputs and requirements are:
 
-  . *Phase 2:* In addition to the prior,
-  and when the project has a deployed application (Integration Environment),
-  the tests coverage increases to include application security testing.
+  . *Phase 1:* Access to the integration branch of the repository
+  for the, not-yet deployed, application’s source code.
+  Security testing focuses on the source code.
 
-  . *Phase 3:* This phase is transversal to the others
-  and applies only if the infrastructure that supports the application
-  is defined as code and kept in the repository mentioned in Phase 1.
-  This phase includes infrastructure in the security testing.
+  . *Phase 2:* When the project has a deployed application
+  (Integration Environment) the test coverage expands
+  to include application security testing.
 
-*What type of tests does the Continuous Hacking Service include?*::
-  The service includes source code analysis,
-  application security testing(<<q3,see question 3>>)
-  and infrastructure security testing(<<q3,see question 3>>).
+  . *Phase 3:* This phase applies only if the infrastructure
+  supporting the application is defined as code and kept
+  in the integration branch of the repository referred to in Phase 1.
+  This phase includes infrastructure security testing.
 
-*What limits does the service have?*::
-  The service has a monthly limit of +10,000+ deltas on the source code.
+*What tests are included in Continuous Hacking?*::
+  Continuous Hacking includes source code analysis,
+  application security testing (<<q3,see question 3>>),
+  and infrastructure security testing (<<q3,see question 3>>).
+
+*What are the limits of Continuous Hacking?*::
+  Continuous Hacking has a limit of +10,000+ deltas per month
+  on the source code.
 
 *What is a delta?*::
-  It is the variable that indicates a change in the source code.
-  This variation can either be the addition or removal of a line of code.
+  A delta indicates a change in the source code
+  and can either be the addition or the removal of a line of code.
 
-*If I exceed the monthly limit for the service, can I choose to increase it?*::
-  Yes. The scope can be increased for a particular month
-  or in general for the duration of the project.
+*If I expect or want to exceed the monthly limit can I increase it?*::
+  Yes, the limit can be increased for any particular month or,
+  in general, for the duration of the project.
 
-*Is the service a series of automated tools or is it the result of a manual*::
-*process?*::
-  Automated tools are not capable of extracting sensitive business information
-  such as client or employee information that add more criticality
-  and value to the vulnerability.
-  +FLUIDAttackss+ service is performed by an expert using a series of tools
-  acquired and developed by +FLUIDAttacks+ that help the exploitation process.
-  We use this method because automated tools present the following problems:
+*Does Continuous Hacking use a series of automated tools*::
+*or is it the result of a manual (by hand) process?*::
+  Automated tools, by themselves,
+  are not capable of extracting sensitive business information,
+  such as client or employee information.
+  Continuous Hacking uses a series of tools
+  acquired and developed by +FLUIDAttacks+ and a detailed review process
+  performed by our expert technical staff.
+  We go the extra mile because automated tools present the following problems:
 
-  . Lack of detection of the majority of the vulnerabilities
-  (they detect a minimal percentage of the existing ones).
-  . The ones they do report are mainly false positives.
-  . Tools are not capable of combining the vulnerabilities
-  to increase the level of exploitation.
+  . Detection of a minimal percentage
+  of existing security risk vulnerabilities.
 
-*If the hacking is done manually, how does +FLUIDAttacks+ assure agile*::
-*development cycles are not slowed down?*::
-  Hacking is first performed on the source code,
-  therefore allowing for parallel security testing
-  and development (<<q3, see Phase 1 in question 3>>),
-  which minimizes the dependency on functional environments
+  . Detected vulnerabilities are primarily false positives.
+
+  . Incapable of combining individual vulnerabilities
+  in order to reveal additional vulnerabilities
+  which may be an even greater security risk
+  than the individual vulnerabilities alone.
+
+*If Continuous Hacking includes a manual review how does FLUIDAttacks*::
+*ensure that development cycles are not slowed down?*::
+  Continuous Hacking is first performed on the source code.
+  This allows for parallel security testing and development simultaneously.
+  This minimizes the dependency on functional environments
   and the need for coordination between hackers and developers.
-  Once vulnerabilities are found
-  they are prioritized by the agile project´s product owner
-  according to their criticity,
-  leaving the decision of what findings are prioritized
-  for each sprint solely to the product owner.
-  At last, it is important to clarify that,
-  unless we are dealing with a company with daily
-  CI/CD (Continuous Integration/Continuous Deployment),
-  not all sprints generate code that is eligible
-  for release and deployment on productive environments,
-  which helps improve the remedial time.
+  The client prioritizes detected vulnerabilities.
+  The decisions regarding what findings are prioritized for each sprint
+  rest solely with the client.
+  Unless we are dealing with a company with daily +CI/CD+
+  (Continuous Integration/Continuous Deployment)
+  not all sprints generate code eligible for release and deployment,
+  which improves the remediation (repair) time for detected vulnerabilities.
 
-*If the hacking is done manually, how can a big project escalate as more*::
-*and more developers join the team?*::
-  The standard service levels allow the coverage of +95%+
-  of all business applications being developed.
-  For the remaining cases,
-  it is possible to expand the limits of the service (<<q7, see question 7>>)
-  to evaluate the system when this grows at an unexpected rate.
+*If Continuous Hacking is done manually how can a big project move rapidly*::
+*and expand as more developers join the team?*::
+  Standard Continuous Hacking (at +10,000+ deltas per month)
+  covers +95%+ of all business applications being developed.
+  If a big project expands, the standard limit of +10,000+ deltas per month
+  can be revised upward as needed. (<<q7, see question 7>>).
 
-*If the hacking is done manually, how does it escalate when a client*::
-*has a very big application portfolio and in constant growth?*::
-  According to our historical data,
+*If Continuous Hacking is done manually how does it move rapidly*::
+*when a client has a big application portfolio that is constantly increasing?*::
+  According to +FLUIDAttacks+ historical data,
   recruitment and training capabilities,
-  and our internal innovation processes,
-  +FLUIDAttacks+ is fully capable of taking on anywhere
-  between +5+ and +10+ new applications each month
-  under the continuous hacking service.
+  and our ability to innovate internal processes,
+  +FLUIDAttacks+ is fully capable of taking on
+  between +5+ and +10+ new applications each month.
 
-*Does the cost of the service vary according to the scope or*::
-*developed phases?*::
-  No. There is a fixed cost for the service during the validity of the contract,
-  keeping in mind that if there is a change of year during the contract
-  there will be an increase in the cost
-  that was previously agreed on in the contract.
+*Does the cost of Continuous Hacking vary according to the scope*::
+*or development phases?*::
+  No, there is a fixed cost for Continuous Hacking during the contract period.
+  However, if during your contract period the calendar year changes
+  from one year to the next there will be an increase in cost
+  to reflect rising business costs.
+  This increase will be stated in your contract
+  and agreed upon before you sign it; there will be no hidden costs.
 
-*Why is it necessary to have access to the source code stored in the*::
-*repository?*::
-  The Continuous Hacking service
-  is based on always testing the latest version available
-  by executing continuous security testing.
+*Why is it necessary for Continuous Hacking to have access*::
+*to the source code stored in the repository?*::
+  Continuous Hacking needs access to the source code
+  because it is based on continuous security testing
+  of the latest version available.
 
-*When does the service begin?*::
-  From the moment that we have access to the source code and repository.
+*When does Continuous Hacking begin?*::
+  Continuous Hacking begins immediately when +FLUIDAttacks+
+  has access to the source code and repository.
 
-*Is it possible to hire an +OnPremise+ continuous hacking service?*::
-  Given the operational model that supports the service,
-  it can only be given remotely.
+*Is it possible to hire On-the-Premises Continuous Hacking?*::
+  No. Due to the operational model that supports Continuous Hacking
+  it can only be done remotely.
 
-*Is it possible to schedule follow up meetings?*::
-  All applications subscribed to the Continuous Hacking service
-  have a project leader assigned and available to attend all required meetings
-  with previous notice in order to schedule availability.
+*Is it possible to schedule follow-up meetings?*::
+  Yes. All applications covered by the contract for Continuous Hacking
+  are assigned to a specific project leader who is available
+  to attend all necessary meetings.
+  We simply require sufficient notice of an impending meeting
+  in order to schedule availability.
 
-*How is the project's progress determined?*::
-  We offer the following metrics that allow to determine
-  the current state of the project:
+*How is a project’s progress determined?*::
+  A project’s progress and current state is determined
+  using the following metrics:
   . Source code coverage indicator.
-  . Percentage of remediated vulnerabilities.
+  . Percentage of remediated (repaired) security risk vulnerabilities.
 
-*When does the service end?*::
-  The service is hired for a minimum of 12 months,
-  renewed automatically once the time has elapsed.
-  The finalization of the service is given by common agreement
-  after a written request through the defined channels.
+*When does Continuous Hacking end?*::
+  Continuous Hacking is contracted for a minimum of +12+ months
+  and is renewed automatically at the end of the +12+ month time period.
+  Continuous Hacking ends when we receive a written request
+  through previously defined channels to terminate the contract.
 
-*Can the subscription be cancelled at any point in time?*::
-  The service can be cancelled at any time after the fourth month.
-  The cancellation of the service can be requested
-  through any communication channel defined in the project.
+*Can the contract be canceled at any point in time?*::
+  You can cancel your contract at any time after the fourth month.
+  Cancellation can be requested through any communication channel
+  previously defined in the contract.
 
-*If the coverage of my application reaches +100%+, is the service suspended*::
-*until new code is added to the repository?*::
-  No. Even if +100%+ coverage is reached,
-  we continue checking the source code already tested
-  in order to rule out false negatives,
+*When the coverage of my application reaches 100% is Continuous Hacking*::
+*suspended until new code is added to the repository? *::
+  No. Even if +100%+ of coverage is reached,
+  we continue checking already tested source code to identify
+  any possible false negatives,
   including components developed by third parties in our tests.
 
 *What is a vulnerability?*::
-  It is any situation that represents a security risk
+  A vulnerability is anything that represents a security risk
   (Integrity, Availability, Confidentiality, Non-repudiation)
-  for the application.
+  to the application.
 
-*How is the technical criticity of a vulnerability calculated?*::
-  We use the link:https://www.first.org/cvss/[CVSS] international standard
-  to obtain a quantitative measure that goes from +0+ to +10+,
-  +0+ being the lowest and +10+ the highest and most critical
-  according to the qualitative characteristics of the vulnerability.
+*How is the severity and criticality of the vulnerability calculated?*::
+  +FLUIDAttacks+ uses the link:https://www.first.org/cvss/[CVSS]
+  (Common Vulnerability Scoring System),
+  an international standard using a “standardized framework used
+  to rate the severity of security vulnerabilities in software.”
+  It gives us a quantitative measure ranging from +0+ to +10+,
+  +0+ being the lowest level of risk and +10+ the highest
+  and most critical level of risk based on the qualitative characteristics
+  of a vulnerability.
 
-*How can I obtain information regarding the vulnerabilities found in my*::
-*application?*::
-  The Continuous Hacking service has an interactive report platform
-  called link:../../../products/integrates/[Integrates].
-  This allows all project stakeholders to have access
-  to the details of the vulnerabilities reported by FLUIDAttacks.
+*How do I get information about the vulnerabilities found in my application?*::
+  Continuous Hacking has an interactive reporting platform
+  called link:../../products/integrates/[Integrates].
+  Integrates gives all project stakeholders access
+  to details concerning vulnerabilities reported by +FLUIDAttacks+.
 
-*What types of reports are generated during the service?*::
-  From link:../../../products/integrates/[Integrates]
-  it is possible to generate a technical report in Excel and +PDF+ formats
-  during the execution of the project.
-  Once the project has ended,
-  it is possible to generate an presentation
-  and an executive report in a +PDF+ format.
+*What types of reports does Continuous Hacking generate?*::
+  Continuous Hacking generates and delivers,
+  through link:../../products/integrates/[Integrates],
+  a technical report available in +Excel+ and/or +PDF+ format
+  during the execution of the project contract.
+  Once the project ends, Integrates delivers a presentation
+  and an executive report also in +PDF+ format.
 
-*What is the next step after +FLUIDAttacks+ reports a vulnerability?*::
-  Once a vulnerability is reported,
-  the main objective is for it to be remediated.
-  To achieve this, the developers have access
-  to link:../../../products/integrates/[Integrates],
-  allowing them to obtain first-hand detailed information
-  regarding the vulnerability in order to apply
-  the necessary corrective measures to eliminate the existing vulnerability
-  from the application.
+*What happens after FLUIDAttacks reports a vulnerability?*::
+  Once +FLUIDAttacks+ reports a vulnerability,
+  the main objective, for developers, is to eliminate it.
+  Through Integrates a client company’s developers can also access
+  first-hand detailed information regarding a vulnerability
+  in order to plan and execute corrective measures
+  to remove it from the application.
 
-*How does +FLUIDAttacks+ know a vulnerability has been remediated?*::
-  Through link:../../../products/integrates/[Integrates],
-  any user with access to the project
-  can request the verification of a remediated vulnerability.
-  Once the verification is requested,
-  we receive a notification that includes a comment
-  regarding the applied solution,
-  we perform a closing verification to confirm
-  the effectiveness of the solution, and then proceed to notify
-  the whole project team about the results via email.
+*How does FLUIDAttacks know a vulnerability*::
+*has been eliminated or remediated?*::
+  Through link:../../products/integrates/[Integrates]
+  any user with access to the project can request verification
+  of a remediated vulnerability.
+  A request for verification that a remediated vulnerability
+  no longer poses a risk must be accompanied by notification from you
+  that the planned remediation has been executed.
+  Then +FLUIDAttacks+ performs a closing verification
+  to confirm the effectiveness of the remediation.
+  Results of the closing verification are then forwarded
+  to the project team by email.
 
-*How many closing verifications are included in the service?*::
-  The service offers unlimited closing verifications.
+*How many closing verifications are included in Continuous Hacking?*::
+  Continuous Hacking offers unlimited closing verifications.
 
-*Why do I need to notify the remediation of a vulnerability if +FLUIDAttacks+*::
-*has access to the source code repositories?*::
-  One of the objectives of the Continuous Hacking service
-  alongside link:../../../products/integrates/[Integrates]
-  is to maintain a clear and fluent communication
-  between all parties involved in the project.
-  When the client notifies the remediation of a vulnerability,
-  he is not only notifying +FLUIDAttacks+ but the whole project team.
+*Why do I need to notify FLUIDAttacks that a remediation has been executed*::
+*if you already have access to the source code repositories?*::
+  One of Continuous Hacking’s objectives
+  is to maintain clear and effortless communication
+  between all project members.
+  This is accomplished when you notify +FLUIDAttacks+
+  because the message goes through Integrates and by doing so,
+  the entire project team is notified.
 
-*What happens if I consider something is not a vulnerability?*::
-  Within link:../../../products/integrates/[Integrates]
-  we have a forum-like comments section where the client
-  can let +FLUIDAttacks+ know the reasons for which
-  they consider a finding is not a vulnerability.
-  In this section, +FLUIDAttacks+ and all other project members
-  can establish a conversation regarding the vulnerability
-  and determine the validity of a vulnerability.
+*What happens if I do not consider something a vulnerability?*::
+  Within link:../../products/integrates/[Integrates] there is a comment section.
+  A client company can post its reasons
+  for believing a vulnerability finding is not valid.
+  Then, +FLUIDAttacks+ experts and all other project members
+  can interface and discuss the relative merits of the vulnerability finding
+  and the validity of it as a security risk,
+  and a final determination can be made.
 
 *Do all reported vulnerabilities have to be remediated?*::
-  The remediation of a vulnerability
-  is a decision left to the client's discretion.
-  In link:../../../products/integrates/[Integrates],
-  there is a treatment option where it is defined
-  if a vulnerability is going to be remediated or assumed by the client.
+  No. However, this decision is made entirely by the client,
+  not by +FLUIDAttacks+, and the client assumes all responsibility
+  for possible negative impacts of non-remediation.
+  In link:../../products/integrates/[Integrates], under the treatment option,
+  a client company indicates whether it will remediate
+  or assume responsibility for an identified vulnerability.
 
-*If a vulnerability is assumed by the client, is it excluded from the reports*::
-*and link:../../../products/integrates/[Integrates]?*::
-  The reports contain information
-  regarding the treatment given to a vulnerability.
-  With this in mind, all assumed vulnerabilities remain in the reports
-  with the clarification of the treatment received.
+*If a client decides not to remediate a vulnerability, thus assuming*::
+*responsibility for it, is it excluded from the reports and Integrates?*::
+  No. Reports and Integrates include information regarding all vulnerabilities,
+  along with whether vulnerabilities were remediated or not.
+  Your report and Integrates will include
+  all the information with nothing excluded.
 
-*If the application is stored along multiple repositories, can they all be*::
-*tested?*::
-  It is possible to verify and test multiple repositories
-  with the only condition that the code is stored
-  on the same branch in each repository.
-  If it is established that all test will be performed on the QA branch,
-  this same branch must be present in all repositories included in the service.
+*If the application is stored along multiple repositories,*::
+*can they all be tested?*::
+  Yes, with one condition.
+  The code must be stored on the same branch in each repository.
+  For example: If it is agreed that all tests
+  will be performed on the +QA+ branch,
+  then this same branch must be present in all of the repositories
+  included for Continuous Hacking.
 
-*If I have code that was developed a long time ago, is it possible to still*::
-*hire the service?*::
-  Yes, it is possible. There are two options in this scenario:
+*If I have code that was developed a long time ago,*::
+*is it possible to still hire Continuous Hacking?*::
+  Yes, it is still possible to use Continuous Hacking.
+  There are two possible options available:
 
-  . A Health Check is performed in which all existing code is tested.
-  Following this, the service is executed normally
-  with the defined scope (<<q11,see question 11>>).
-  This option is better suited for applications that are being developed.
+  . A Health Check can be performed testing all existing code.
+  Then, Continuous Hacking is executed as usual
+  within the defined scope (<<q11,see question 11>>).
+  This option is better suited for applications under development.
 
-  . Start the subscription with the standard limits(<<q10,see question 10>>)
-  where we will increase the coverage on a monthly basis
-  until +100%+ is reached.
-  This option is better suited for applications
-  that are not in constant development.
+  . Start with the standard limits (<<q10,see question 10>>)
+  increasing the coverage on a monthly basis until +100%+ is reached.
+  This option is better suited for applications no longer in development.
 
 *Do the repositories need to be in a specific version control system?*::
-  The Continuous Hacking service is based on developments
-  that use +GIT+ for version control.
-  This makes the use of this system necessary for the service.
+  Continuous Hacking is based on using +GIT+ for version control.
+  Therefore, +GIT+ is necessary for Continuous Hacking.
 
-*Does +FLUIDAttacks+ keep or store information regarding the vulnerabilities*::
-*found?*::
-  The information is only kept for the duration of the service.
-  Once the service has ended, the information is kept for +7+ business days
-  after which all information is deleted
-  from all of +FLUIDAttacks+ information systems.
+*Does FLUIDAttacks keep or store information*::
+*regarding the vulnerabilities found?*::
+  Information is only kept for the duration of the Continuous Hacking contract.
+  Once the contract has ended, information is kept for +7+ business days
+  and then deleted from all +FLUIDAttacks+ information systems.
 
-*Does the Continuous Hacking service require any development methodology?*::
-  No. The Continuous Hacking service is independent
-  from the client's development methodology.
-  The results of the service then become an input
-  in the planning of future development cycles
-  and do not prevent the continuation of the development.
+*Does Continuous Hacking require any development methodology?*::
+  No. Continuous Hacking is independent
+  of the client’s development methodology.
+  Continuous Hacking test results become a planning tool
+  in future development cycles.
+  They do not prevent the continuation of development.
 
-*Does FLUIDAttacks make demonstrations in teleconference periodically?*::
-*What is the procedure to program it?*::
-  Yes, we make demonstrations frequently.
-  For this purpose you should only indicate the emails of the attendees
-  and +3+ hour options of +1+ hour duration,
-  with this we will send the invitation in the hours of our convenience.
+*Will FLUIDAttacks periodically do presentations via teleconferencing?*::
+*How do I set one up?*::
+  Yes. +FLUIDAttacks+ can schedule periodic presentations via teleconferencing.
+  To set up a teleconference presentation you will need to provide us
+  with the emails of attendees, and +3+ optional time periods
+  of +1+ hour duration for the teleconference.
+  We will then notify you of the best time for the teleconference
+  based on your availability and ours.
+  And, we will send emails to your list of attendees
+  inviting their participation.
