@@ -252,6 +252,34 @@ angular.module("FluidIntegrates").controller(
       }
     };
 
+    $scope.removeUserAccess = function removeUserAccess () {
+      const removedEmails = [];
+      angular.element("#tblUsers :checked").each(function checkedFields () {
+        /* eslint-disable-next-line  no-invalid-this */
+        const vm = this;
+        const actualRow = angular.element("#tblUsers").find("tr");
+        const actualIndex = angular.element(vm).data().index + 1;
+        removedEmails.push(actualRow.eq(actualIndex)[0].
+          innerText.split("\t")[1]);
+      });
+      if (removedEmails.length === 0) {
+        $msg.error($translate.instant("search_findings.tab_users." +
+                                  "no_selection"));
+      }
+      else {
+        for (const email in removedEmails) {
+          if (projectFtry2.removeAccessIntegrates(
+            removedEmails[email],
+            $stateParams.project.toLowerCase()
+          )) {
+            $msg.success(removedEmails[email] +
+                  $translate.instant("search_findings.tab_users." +
+                                     "success_delete"));
+          }
+        }
+      }
+    };
+
 
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});

@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'^get_evidences/?\.*$', views.get_evidences, name='get_evidences'),
     url(r'^get_users_login/?\.*$', views.get_users_login, name='get_users_login'),
     url(r'^add_access_integrates/?\.*$', views.add_access_integrates, name='add_access_integrates'),
+    url(r'^remove_access_integrates/?\.*$', views.remove_access_integrates, name='remove_access_integrates'),
     url(r'^set_project_admin/?\.*$', views.set_project_admin, name='set_project_admin'),
     url(r'^get_alerts/?\.*$', views.get_alerts, name='get_alerts'),
     url(r'^project/([A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$', views.get_evidence),

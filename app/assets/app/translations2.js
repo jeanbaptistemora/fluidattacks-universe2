@@ -157,10 +157,14 @@ const translations2 = {
        "open": "Open"
      },
    "tab_users": {
+     "add_button": "Add user",
      "assign_error": "You can only add one administrator at a time.",
      "no_selection": "You must select an email from the table.",
+     "remove_user": "Remove user",
+     "set_admin": "Set admin",
      "success": " now has access to this project.",
      "success_admin": " is now an administrator of this project.",
+     "success_delete": " was removed from this proyect.",
      "textbox": "Enter the email of the person you want to add",
      "title": "Add user to this project",
      "title_success": "Congratulations",

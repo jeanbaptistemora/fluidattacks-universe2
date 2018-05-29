@@ -1311,6 +1311,18 @@ def add_access_integrates(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'customeradmin'])
+def remove_access_integrates(request):
+    parameters = request.POST.dict()
+    user = parameters['email']
+    project = parameters['project']
+    if integrates_dao.remove_access_project_dao(user, project):
+        return util.response([], 'Success', False)
+    return util.response([], 'Error', True)
+
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'customeradmin'])
 def set_project_admin(request):
     email = request.POST.get('email', "")
     if integrates_dao.assign_admin_role(email):

@@ -158,10 +158,14 @@ const traducciones2 = {
     "open": "Abiertas"
   },
   "tab_users": {
+    "add_button": "Agregar usuario",
     "assign_error": "Sólo puedes agregar a un administrador a la vez.",
     "no_selection": "Debe seleccionar un correo de la tabla.",
+    "remove_user": "Remover usuario",
+    "set_admin": "Asignar administrador",
     "success": " fue agregado a este proyecto exitosamente.",
     "success_admin": " es ahora un administrador del proyecto.",
+    "success_delete": " fue removido del proyecto.",
     "textbox": "Ingresa el correo de la persona que deseas agregar",
     "title": "Agregar usuario a este proyecto",
     "title_success": "Felicitaciones",

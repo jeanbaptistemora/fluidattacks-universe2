@@ -18,6 +18,23 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
+       * Give access to an user in a project
+       * @function removeAccessIntegrates
+       * @param {String} email Email of user to which access will be removed.
+       * @param {String} project Project name.
+       * @member integrates.projectFtry
+       * @return {Object} Response of request
+       */
+      "removeAccessIntegrates" (email, project) {
+        const oopsAc = "An error occurred getting events";
+        return $xhr.post($q, `${BASE.url}remove_access_integrates`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          email,
+          project
+        }, oopsAc);
+      },
+
+      /**
        * Set the customer admin  of a project.
        * @function setProjectAdmin
        * @param {String} email Email of the new admin.
