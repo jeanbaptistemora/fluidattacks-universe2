@@ -240,7 +240,6 @@ const translations1 = {
         "asummed": "Accepted",
         "default": "-",
         "remediated": "In Progress",
-        "resolved": "Resolved",
         "working": "New"
       }
    },

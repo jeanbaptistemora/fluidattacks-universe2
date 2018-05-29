@@ -120,7 +120,6 @@ class CreatorPDF(object):
             "treat_status_wor": "Nuevo",
             "treat_status_asu": "Asumido",
             "treat_status_rem": "Remediar",
-            "treat_status_res": "Resuelto",
         }
 
     def lang_support_en(self):
@@ -172,7 +171,6 @@ class CreatorPDF(object):
             "treat_status_wor": "New",
             "treat_status_asu": "Accepted",
             "treat_status_rem": "In Progress",
-            "treat_status_res": "Resolved",
         }
 
     def executive(self, data, project):
@@ -433,8 +431,6 @@ class CreatorPDF(object):
                 finding["treatment"] = words["treat_status_asu"]
             elif finding["treatment"] == "Remediar":
                 finding["treatment"] = words["treat_status_rem"]
-            elif finding["treatment"] == "Resuelto":
-                finding["treatment"] = words["treat_status_res"]
         main_pie_filename = "image::../images/" \
             + main_pie_filename \
             + '[width=330, align="center"]'

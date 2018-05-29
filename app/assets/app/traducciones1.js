@@ -246,7 +246,6 @@ const traducciones1 = {
     "asummed": "Asumido",
     "default": "-",
     "remediated": "Remediar",
-    "resolved": "Resuelto",
     "working": "Nuevo"
   }
 },

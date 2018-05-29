@@ -107,7 +107,6 @@ const keysToTranslate = {
   "Pendiente": "eventFormstack.status.unsolve",
   "Registrar eventos para trazabilidad y auditoría": "finding_formstack.category.record_event",
   "Remediar": "finding_formstack.treatment_header.remediated",
-  "Resuelto": "finding_formstack.treatment_header.resolved",
   "Si": "finding_formstack.exploitable.yes",
   "Solo algunos clientes de la organización": "finding_formstack.actor.some_costumer",
   "Solo algunos empleados": "finding_formstack.actor.some_employee",
