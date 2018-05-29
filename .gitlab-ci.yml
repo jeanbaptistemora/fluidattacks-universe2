@@ -174,7 +174,6 @@ stop-review:
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
-
   except:
     - master
 
@@ -186,7 +185,7 @@ Asserts-Review:
     - docker pull fluid-docker.jfrog.io/fluid:integrates
     - docker run
         --rm -e BRANCH="$CI_COMMIT_REF_SLUG"
-        -e REVIEW=true -e ORG=fluid
+        -e STAGE=review -e ORG=fluid
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
         --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
@@ -305,7 +304,7 @@ asserts-prod:
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
     - docker pull fluid-docker.jfrog.io/fluid:integrates
     - docker run
-        --rm -e ORG=fluid
+        --rm -e ORG=fluid -e STAGE=post-deploy
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
         --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
