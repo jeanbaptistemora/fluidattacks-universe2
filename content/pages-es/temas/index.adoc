@@ -44,7 +44,8 @@ Dentro de los temas de interés se encuentran:
 * Por qué utilizamos +staticgen+?
 * Por qué utilizamos +SLB+?
 * Por qué utilizamos +asciidoc+?
-* Por que herramientas de seguridad en +CI+ no rompen el +build+?
+* Por qué herramientas de seguridad en +CI+ no rompen el +build+?
+* Por qué las herramientas automáticas tienen un mayor índice de fugas?
 * Refactorizando +JS+ con +linting+.
 
 == Conceptos
