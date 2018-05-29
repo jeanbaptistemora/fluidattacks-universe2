@@ -69,6 +69,15 @@ def update_user_login_dao(email):
         row = cursor.fetchone()
     return row
 
+def update_user_data(email, username, first_name, last_name):
+    """Update the user's last login date. """
+    with connections['integrates'].cursor() as cursor:
+        query = 'UPDATE users SET username=%s, first_name=%s, last_name=%s  \
+                 WHERE email = %s'
+        cursor.execute(query, (username, first_name, last_name, email,))
+        row = cursor.fetchone()
+    return row
+
 
 def get_user_last_login_dao(email):
     """ Get the user's last login date. """
@@ -126,6 +135,25 @@ def is_registered_dao(email):
         return '1'
     return '0'
 
+def is_in_database(email):
+    """ Check if the user exists in DB. """
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT id FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+    if row is None:
+        return False
+    return True
+
+def has_complete_data(email):
+    """ Check if the user has all data in DB . """
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT username FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+    if row is None or row[0] == '-':
+        return False
+    return True
 
 def add_access_to_project_dao(email, project_name):
     """ Give access of a project to a user. """

@@ -1298,6 +1298,8 @@ def add_access_integrates(request):
     newUser = parameters['data[userEmail]']
     company = parameters['data[company]']
     project = parameters['data[project]']
+    if not integrates_dao.is_in_database(newUser):
+        integrates_dao.create_user_dao(newUser)
     if integrates_dao.is_registered_dao(newUser) == '0':
         integrates_dao.register(newUser)
         integrates_dao.assign_role(newUser, 'customer')

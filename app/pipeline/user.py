@@ -16,7 +16,12 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     strategy.session_set('last_name', last_name)
 
     if user:
-        integrates_dao.update_user_login_dao(user)
+        if integrates_dao.has_complete_data(user):
+            integrates_dao.update_user_login_dao(user)
+        else:
+            integrates_dao.update_user_data(email, username, first_name,
+                                           last_name)
+            integrates_dao.update_user_login_dao(user)
     else:
         to = ["projects@fluidattacks.com", "production@fluidattacks.com",
               "technology@fluidattacks.com"]
