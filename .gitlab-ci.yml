@@ -31,14 +31,12 @@ codequality:
 
 stages:
   - deps
-  - terraform-test
-  - terraform-deploy
+  - terraform
   - build
   - review
   - test
-  - push
   - deploy
-  - test-deploy
+  - post-deploy
   - cleanup
 
 Build:
@@ -62,7 +60,7 @@ Build:
     - triggers
 
 terraform-test:
-  stage: terraform-test
+  stage: terraform
   before_script:
     - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
     - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
@@ -75,7 +73,7 @@ terraform-test:
     - master
 
 terraform-deploy:
-  stage: terraform-deploy
+  stage: terraform
   before_script:
     - pip install boto3
     - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
@@ -177,6 +175,9 @@ stop-review:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
 
+  except:
+    - master
+
 Asserts-Review:
   stage: test
   script:
@@ -253,12 +254,13 @@ Prospector:
 
 Deploy:
   stage: deploy
-  script:
+  before_script:
+    - apk update && apk add openssh-client curl
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         FLUID_Serves.pem &&
         chmod 600 FLUID_Serves.pem
-    - apk update && apk add openssh-client curl
+  script:
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
@@ -297,7 +299,7 @@ Deploy:
     - triggers
 
 asserts-prod:
-  stage: test-deploy
+  stage: post-deploy
   script:
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
