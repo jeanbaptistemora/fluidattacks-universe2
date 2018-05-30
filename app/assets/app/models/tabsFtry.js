@@ -129,7 +129,8 @@ angular.module("FluidIntegrates").factory(
           for (let cont = 0; cont < response.data.length; cont++) {
             const valS3 = response.data[cont];
             if (angular.isDefined(valS3.animation) &&
-                    valS3.es_animacion === true) {
+                    (valS3.is_animation === true ||
+                            valS3.is_animation === "true")) {
               updEvidenceList(
                 valS3.animation, "animation_exploit",
                 "animation_exploit", 0, "basic", evidenceList, data
@@ -142,7 +143,8 @@ angular.module("FluidIntegrates").factory(
               );
             }
             if (angular.isDefined(valS3.exploitation) &&
-                   valS3.es_explotacion === true) {
+                   (valS3.is_exploitation === true ||
+                          valS3.is_exploitation === "true")) {
               updEvidenceList(
                 valS3.exploitation, "evidence_exploit",
                 "evidence_exploit", 1, "basic", evidenceList, data
@@ -159,7 +161,8 @@ angular.module("FluidIntegrates").factory(
               if (angular.isDefined(valFormstack["evidence_" +
                   `description_${inc}`]) &&
                   angular.isDefined(valS3[`evidence_route_${inc}`]) &&
-                  valS3[`es_evidence_route_${inc}`] === true) {
+                  (valS3[`is_evidence_route_${inc}`] === true ||
+                    valS3[`is_evidence_route_${inc}`] === "true")) {
                 updEvidenceList(
                   valS3[`evidence_route_${inc}`], `evidence_description_${inc}`,
                   "evidence_name", inc + 1, "special", evidenceList, data
@@ -242,7 +245,8 @@ angular.module("FluidIntegrates").factory(
               };
               for (let cont = 0; cont < response.data.length; cont++) {
                 if (angular.isDefined(response.data[cont].exploit) &&
-                            response.data[cont].es_exploit === true &&
+                            (response.data[cont].is_exploit === true ||
+                            response.data[cont].is_exploit === "true") &&
                               data.finding.cierres.length === 0) {
                   exploit = projectFtry.getExploit(
                     data.finding.id,
@@ -352,11 +356,13 @@ angular.module("FluidIntegrates").factory(
                 }
               };
               for (let cont = 0; cont < response.data.length; cont++) {
-                if (angular.isDefined(response.data[cont].fileRecords) &&
-                            response.data[cont].es_registros_archivo === true) {
+                const recordItem = response.data[cont];
+                if (angular.isDefined(recordItem.fileRecords) &&
+                            (recordItem.is_fileRecords === true ||
+                                  recordItem.is_fileRecords === "true")) {
                   record = projectFtry.getRecords(
                     data.finding.id,
-                    response.data[cont].fileRecords
+                    recordItem.fileRecords
                   );
                   data.hasRecords = true;
                   findingData.hasRecords = data.hasRecords;
@@ -377,8 +383,9 @@ angular.module("FluidIntegrates").factory(
                 }
                 else if ((
                   angular.isUndefined(data.finding.fileRecords) ||
-              angular.isUndefined(response.data[cont].fileRecords)) &&
-              response.data[cont].es_registros_archivo === false) {
+              angular.isUndefined(recordItem.fileRecords)) &&
+              (recordItem.is_fileRecords === false ||
+                recordItem.is_fileRecords === "false")) {
                   data.hasRecords = false;
                   findingData.hasRecords = data.hasRecords;
                 }

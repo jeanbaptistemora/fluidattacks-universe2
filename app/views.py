@@ -760,15 +760,15 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext):
                 client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
             except ClientError:
                 rollbar.report_exc_info()
-                integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
+                integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
                 return False
-        resp = integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, True)
+        resp = integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, True)
         if not resp:
-            integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
+            integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
         os.unlink(fileroute)
         return resp
     else:
-        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
+        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
         return False
 
 def update_file_to_s3(parameters, field, fieldname, upload):
@@ -781,11 +781,11 @@ def update_file_to_s3(parameters, field, fieldname, upload):
     filename = fileurl + "-" + field + "-" + upload.name
     try:
         client_s3.upload_fileobj(upload.file, bucket_s3, filename)
-        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "es_" + fieldname, True)
+        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "is_" + fieldname, True)
         return False
     except ClientError:
         rollbar.report_exc_info()
-        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "es_" + fieldname, False)
+        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "is_" + fieldname, False)
         return True
 
 def migrate_all_files(parameters, request):
