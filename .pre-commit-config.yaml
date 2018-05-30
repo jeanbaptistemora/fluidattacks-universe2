@@ -1,0 +1,11 @@
+exclude: '^$'
+fail_fast: false
+repos:
+- repo: local
+  hooks:
+  - id: asserts-docker
+    name: Asserts
+    description: Run Asserts to perform SAST
+    entry: -v /var/www/integrates:/code fluidattacks/asserts:latest /code/asserts.sh
+    language: docker_image
+    verbose: true
