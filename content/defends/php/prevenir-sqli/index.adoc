@@ -1,0 +1,108 @@
+:slug: defends/php/prevenir-sqli/
+:category: php
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP al evitar ataques de inyección SQL mediante la validación de entradas. Las buenas prácticas de programación permiten desarrollar aplicaciones seguras y confiables.
+:keywords: PHP, Seguridad, Ataque, Inyección, SQL, Base de Datos.
+:defends: yes
+
+= Prevenir Inyección SQL
+
+== Necesidad
+
+Prevenir ataques de inyección de código +SQL+
+usando sentencias parametrizadas en +PHP+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida en +PHP 5.1.0+ en adelante.
+. La aplicación requiere de una conexión a una base de datos relacional
+a través del lenguaje de consulta +SQL+.
+. Debe validarse la entrada de información antes de ser usada.
+. Se desea evitar vulnerabilidades de tipo inyección +SQL+.
+
+== Solución
+
+Al momento de desarrollar aplicaciones
+es necesario considerar que los usuarios finales
+tienen los conocimientos y herramientas necesarias para vulnerarlas.
+Esto permite crear aplicaciones seguras
+a través de buenas prácticas de programación.
+
+Cuando se utilizan bases de datos
+que almacenan información sensible,
+es necesario proteger esta información adecuadamente.
+Uno de los tipos de ataque más comunes son las inyecciones de código +SQL+.
+En este ataque se introduce una consulta +SQL+ maligna disfrazada
+en una de las entradas de la aplicación,
+la cual es ejecutada por el servidor.
+Esto le permite al atacante, sustraer, modificar o eliminar información
+de la base de datos.
+Por esta razón es importante realizar un proceso de validación
+en las entradas de la aplicación.
+
+Existen diversos métodos para evitar las inyecciones +SQL+,
+disponibles según el lenguaje en que la aplicación fue desarrollada.
+Para el caso de este artículo,
+mostraremos cómo evitar ataques de inyección de código +SQL+ en +PHP+
+utilizando sentencias parametrizadas.
+Para ello debemos seguir la siguiente serie de pasos:
+
+. Para utilizar sentencias parametrizadas en +PHP+,
+se debe crear inicialmente un objeto de la clase +MySQLi+,
+indicando el nombre del servidor de base de datos,
+usuario de la base de datos, contraseña y nombre de la base de datos <<r1, ^[1]^>>.
++
+.mysqli object
+[source, php, linenums]
+----
+$mysqli = new mysqli("ServidorBaseDatos", "USuarioBaseDatos", "Clave", "NombreBaseDatos");
+----
+
+. Utilice el método prepare de la clase +MySQLi+,
+pasando como parámetro la consulta +SQL+ (de forma parametrizada)
+a ejecutarse en la base de datos <<r2, ^[2]^>>.
++
+[source, php, linenums]
+----
+...
+$query = "INSERT INTO myCity (Name, CountryCode, District) VALUES (?,?,?)";
+
+//El objeto stmt tiene una referencia a la sentencia parametrizada
+$stmt = $mysqli->prepare($query);
+...
+----
+
+. La variable +$stmt+ es un objeto del tipo +MySQLi_STMT+,
+el cual tiene una referencia a la sentencia parametrizada creada anteriormente.
+Por medio de este objeto se debe utilizar el método +bind_param+
+con el propósito de pasar cada uno de los valores
+involucrados en la sentencia SQL.
++
+[source, php, linenums]
+----
+...
+$stmt->bindParam(1, $name);
+$stmt->bindParam(2, $countryCode);
+$stmt->bindParam(2, $district);
+...
+----
+
+. Finalmente, para ejecutar la consulta +SQL+
+se debe utilizar el método execute de la clase MySQLi_STMT <<r3, ^[3]^>>.
++
+[source, php, linenums]
+----
+...
+
+$stmt->execute();
+...
+----
+
+== Referencias
+
+. [[r1]] link:http://www.php.net/manual/en/class.mysqli-stmt.php[PHP Manual - The mysqli_stmt class].
+. [[r2]] link:http://php.net/manual/en/pdo.prepared-statements.php[PHP Manual - Prepared statements and stored procedures].
+. [[r3]] link:http://www.php.net/manual/en/mysqli-stmt.execute.php[PHP Manual - mysqli_stmt::execute].
+. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura].
