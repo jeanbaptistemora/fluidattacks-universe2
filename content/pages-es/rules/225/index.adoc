@@ -39,6 +39,7 @@ que puede ser usada para realizar un ataque. Ejemplos:
 
 == Soluciones
 
+. +C Sharp+ link:../../defends/csharp/evitar-msg-error/[Evitar Mensajes de Errores en Autenticación].
 . +COBOL+ link:../../defends/cobol/evitar-msg-autenticacion/[Evitar Emitir Mensajes de Errores en Autenticación].
 
 == Ataques
