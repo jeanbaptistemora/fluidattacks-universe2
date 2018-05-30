@@ -1,0 +1,106 @@
+:slug: conferencias/habitos-secdevops/
+:category: conferencias
+:description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUIDAttacks. La presente conferencia tiene por objetivo socializar nuestras metodologías de trabajo para implementar un ambiente SecDevOps y ofrecer mejoras al cliente diariamente.
+:keywords: FLUIDAttacks, Conferencia, SecDevOps, Seguridad, Software, Tecnología.
+
+= Nuestros Hábitos SecDevOps
+
+== 1. Objetivo
+
+Con este espacio buscamos socializar nuestras prácticas de trabajo,
+metodologías y costumbres que nos permiten implementar un ambiente +SecDevOps+
+desde nuestros proyectos; desde la administración de la infraestructura,
+hasta el desarrollo de nuestra plataforma de gestión de riesgos:
+link:../../productos/integrates/[Integrates].
+Estos hábitos nos permiten aumentar nuestra productividad,
+generando valor diario al cliente, además de incrementar
+la seguridad de nuestros despliegues a producción.
+
+== 2. Contenido
+
+Esta conferencia se puede entender como la puesta en práctica
+de todo lo visto en link:../quemar-el-datacenter/[Quemar el DataCenter].
+Se describen los hábitos que seguimos, los beneficios que se obtienen,
+y las dificultades que se tuvieron a medida que se adoptaban.
+Estos hábitos tratan temas como:
+
+* Administración del código fuente al interior del repositorio,
+siguiendo una estructura *monorepo*.
+
+* Mantener un ambiente limpio y pequeño por desarrollador, incluyendo
+todos los cambios en la rama principal, evitando así la acumulación de código y
+logrando tener *cero inventario*.
+
+* Generar valor diario al cliente mediante la metodología de *microcambios*.
+
+* Migrar y administrar toda la infraestructura como código fuente, versionado,
+conviertiéndola en *infraestructura inmutable*.
+
+* Definir los ambientes de Integración Continua como código fuente,
+*pipeline as code*, versionado, de manera que sea más fácil de configurar,
+modificar, y realizar todo tipo de pruebas.
+
+* Evitar servidores a toda costa, migrando a servicios en la nube y alcanzando
+una estructura *serverless*
+
+* Administración segura de credenciales a la hora de desplegar una aplicación,
+sin quemarlas en el código fuente y manteniendo los *secretos protegidos*.
+
+* Desplegar *ambientes efímeros* que permitan probar todas las funcionalidades
+desarrolladas antes de hacer el paso a producción.
+
+* Ejecutar pruebas sobre el código fuente y sobre el despliegue:
+** Integración multiplataforma.
+** Pruebas unitarias.
+** Cobertura.
+** +Linters+.
+** +Security Gates (SAST y DAST)+
+
+* Uso correcto de la *caché*.
+
+* Aprovechar funcionalidades del cliente de control de versionamiento +Git+:
+** +Peer Review+.
+** +Squashing+.
+** +Rebasing+.
+** +Rollback+
+** +Trigger builds+.
+
+* Administración y manejo de errores.
+
+== 3. Experiencia
+
+Esta conferencia es nueva, se ha presentado a personas de tecnología
+de empresas como
+link:https://www.grupobancolombia.com/wps/portal/personas[+Bancolombia+] y
++F2X+.
+
+== 4. ¿Dónde?
+
+El lugar de la conferencia es denifido por +FLUIDAttacks+,
+por fuera de las instalaciones del cliente.
+
+== 5. Duración
+
+La conferencia tiene una duración de 5 horas
+(no es posible reducir su duración).
+
+== 6. Cuándo
+
+[button]#link:../#cuando[Cuando]#
+
+== 7. Público
+
+La conferencia es apta para personal técnico y
+personal gerencial de tecnología.
+Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.
+Sin embargo, si desea disparar cambios y experimentos
+dentro de su organización, es importante considerar
+la presencia de personas con poder de decisión.
+
+== 8. Requisitos
+
+[button]#link:../#requisitos[Requisitos]#
+
+== 9. Expositor
+
+[button]#link:../../personas/jrestrepo[Juan Carlos Restrepo]#

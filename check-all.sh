@@ -9,7 +9,7 @@ NC='\033[0m'
 ERRORS=0
 
 # Check use of incorrect names to address the company
-if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal|\ fluid[)}\ \]]' content; then
+if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal\ |\ fluid[)}\ \]]' content; then
   echo -e "${GC}\\nThe only accepted name is FLUID.${NC}"
 #  ERRORS=1; #temp disabled
 fi

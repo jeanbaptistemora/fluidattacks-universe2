@@ -9,6 +9,8 @@
 
 . link:aseguramiento-moviles/[Aseguramiento de Dispositivos Móviles]
 
+. link:habitos-secdevops/[Nuestros Hábitos +SecDevOps+]
+
 == ¿Cuándo?
 
 Acordaremos la fecha en que se dictará,
