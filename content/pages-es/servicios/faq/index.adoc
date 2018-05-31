@@ -58,10 +58,10 @@ El servicio se puede desarrollar en fases de forma complementaria:
  El servicio se encuentra limitado a +10.000+ deltas mensuales
  sobre el código fuente.
 
-*¿Qué es un delta?*::
- Es la variable que indica un cambio en el código fuente.
- Esta variación puede ser
- por la adición o eliminación de alguna línea de código.
+*¿Qué es una vulnerabilidad?*::
+ Es cualquier situación que representa un riesgo de seguridad
+ (Integridad, Disponibilidad, Confidencialidad, No repudio)
+ sobre una aplicación.
 
 *¿Si en un mes supero el límite del servicio puedo optar por ampliarlo?*::
  Si. Se puede ampliar el alcance para un mes en particular
@@ -162,11 +162,6 @@ El servicio se puede desarrollar en fases de forma complementaria:
  Incluyendo dentro de nuestras verificaciones
  las vulnerabilidades a componentes de terceros
  que van siendo publicadas día a día.
-
-*¿Qué es una vulnerabilidad?*::
- Es cualquier situación que representa un riesgo de seguridad
- (Integridad, Disponibilidad, Confidencialidad, No repudio)
- sobre una aplicación.
 
 *¿Cómo se califica la criticidad técnica de una vulnerabilidad?*::
  Usamos el estándar internacional link:https://www.first.org/cvss/[CVSS]
@@ -295,3 +290,57 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  y +3+ opciones de horario de +1+ hora de duración,
  con esto enviaremos la invitación
  en los horarios de nuestra conveniencia.
+
+*El desarrollo de la prueba en el modelo continuo*::
+*depente del tipo de repositorio donde tengo el código?*::
+ ​No, el cliente puede usar el repositorio que estime conveniente.
+ +FLUIDAttacks+ solo requiere ingreso a la rama de integración
+ y a su respectivo ambiente.​
+
+*Se pierden los derechos patrimoniales*::
+*si FLUIDAttacks revisa el código fuente?*::
+ No, el permitir revisar una creación u obra como lo es un código a un tercero​
+​ no le da ningún derecho sobre la misma.​
+
+*FLUIDAttacks cuenta con alguna herramienta que permita automatizar*::
+*las pruebas de cierre de las vulnerabilidades encontradas?*::
+ Si, +FLUIDAttacks+ cuenta con link:../../productos/asserts/[Asserts],
+ un motor que permite automatizar​ verificaciones de seguridad
+ una vez éstas han sido encontradas en una fase exploratoria.
+ link:../../productos/asserts/[Asserts]
+ opera directamente en el +JOB+ de integración continua
+ y tiene la capacidad de romper el +build+ enviado por el programador
+ en caso de incumplir requisitos de seguridad.
+ link:../../productos/asserts/[Asserts] corre en cualquier plataformas de integración continua
+ que soporten dockers como +JOB+, por ejemplo: +VSTS+, +GitLab+, +Jenkins+.
+​
+*El Hacking Continuo está enfocado únicamente sobre el código fuente?*::
+*Es posible incluir la infraestructura asociada a la aplicación?
+ +FLUIDAttacks+ ha evolucionado el modelo de Hacking Continuo
+ y ahora se puede incluir dentro del Target of Evaluation (+TOE+)
+ ​​los puertos y las entradas​ de la aplicación.
+ De hecho, en esta evolución, se puede suscribir una infraestructura tecnológica
+ (puertos) o una aplicación bajo el modelo de Hacking Continuo.
+
+*Donde corre Integrates?*::
+ La plataforma link:../../productos/integrates/[Integrates] corre en la nube​.
+
+*FLUIDAttacks gestiona las credenciales de acceso a Integrates?*::
+ No, usamos el concepto de autenticación federada,
+ es decir, que tanto +Google+ como +Azure+ (+Microsoft 360+)​
+ ​son quienes en realidad hace la validación de tus credenciales.​
+
+*Es posible activar doble token de autenticación?*::
+ Si es posible, de hecho, lo sugerimos para aumentar el nivel de seguridad
+ de tu credenciales y así evitar accesos no autorizados
+ a tu información por parte de un tercero.
+ Esta característica se habilita desde +Gmail+ o +Azure+ según sea tu caso.​
+
+*Que procedimiento tiene FLUIDAttacks para desatrasar la revisión*::
+*del código ya existente antes de iniciar la prueba?*::
+ +FLUIDAttacks+ recomienda que tanto el desarrollo de la aplicación
+ como las pruebas de seguridad comiencen al mismo tiempo.
+ Sin embargo, esto no siempre ocurre así.
+ Para ello, tenemos una actividad llamada link:../../../en/services/continuous-hacking/#healthcheck[+HealthCheck+]
+ que permite poner al día (desatrazar)​ las inspecciones de seguridad
+ cuando el desarrollo ha comenzado con anterioridad.

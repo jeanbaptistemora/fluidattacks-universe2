@@ -31,7 +31,7 @@ Frequently asked questions about Continuous Hacking.
   fixing security issues without delays.
 
 *What are the necessary inputs and requirements for Continuous Hacking?*::
-  The necessary inputs and requirements are:
+  The necessary inputs and requirements are
 
   . *Phase 1:* Access to the integration branch of the repository
   for the, not-yet deployed, application’s source code.
@@ -55,9 +55,10 @@ Frequently asked questions about Continuous Hacking.
   Continuous Hacking has a limit of +10,000+ deltas per month
   on the source code.
 
-*What is a delta?*::
-  A delta indicates a change in the source code
-  and can either be the addition or the removal of a line of code.
+*What is a vulnerability?*::
+  A vulnerability is anything that represents a security risk
+  (Integrity, Availability, Confidentiality, Non-repudiation)
+  to the application.
 
 *If I expect or want to exceed the monthly limit can I increase it?*::
   Yes, the limit can be increased for any particular month or,
@@ -160,16 +161,11 @@ Frequently asked questions about Continuous Hacking.
   previously defined in the contract.
 
 *When the coverage of my application reaches 100% is Continuous Hacking*::
-*suspended until new code is added to the repository? *::
+*suspended until new code is added to the repository?*::
   No. Even if +100%+ of coverage is reached,
   we continue checking already tested source code to identify
   any possible false negatives,
   including components developed by third parties in our tests.
-
-*What is a vulnerability?*::
-  A vulnerability is anything that represents a security risk
-  (Integrity, Availability, Confidentiality, Non-repudiation)
-  to the application.
 
 *How is the severity and criticality of the vulnerability calculated?*::
   +FLUIDAttacks+ uses the link:https://www.first.org/cvss/[CVSS]
@@ -302,3 +298,57 @@ Frequently asked questions about Continuous Hacking.
   based on your availability and ours.
   And, we will send emails to your list of attendees
   inviting their participation.
+
+*Does the development of the test in the continuous model*::
+*depends on the type of repository where the code is stored?*::
+ No, the client can use the repository he deems appropriate.
+ +FLUIDAttacks+ only requires the access to the integration branch
+ and its respective environment.
+
+*Are property rights lost if FLUIDAttacks reviews the source code?*::
+ No, allowing to review a creation or work as it is a code to a third party
+ does not grant any rights over it.
+
+*Does FLUIDAttacks have a tool that allows automation*::
+*over the closing tests in the found vulnerabilities?*::
+ Yes, +FLUIDAttacks+ has link:../../products/asserts/[Asserts],
+ an engine that allows to automate security checks
+ once they have been found in an exploratory phase.
+ link:../../productos/asserts/[Asserts] operates directly in the +JOB+
+ of continuous integration and has the ability to break the +build+
+ sent by the programmer in case of breach of security requirements.
+ link:../../productos/asserts/[Asserts] runs on any continuous integration platforms
+ that support dockers like +JOB+,
+ for example: +VSTS+, +GitLab+, +Jenkins+.
+
+*Is Continuous Hacking focused only over source code?*::
+*It is possible to include the infrastructure associated with the app?*::
+ +FLUIDAttacks+ has evolved the Continuous Hacking model
+ and infrastructure now can be included within the Target of Evaluation (+TOE+).
+ This include the ports and the inputs of the application.
+ In fact, in this evolution,
+ you can subscribe a technological infrastructure (ports)
+ or an application under the Continuous Hacking model.
+
+*Where does Integrates run?*::
+ The platform link:../../products/integrates/[Integrates] runs in the cloud.
+
+*Does FLUIDAttacks manages the access credentials to Integrates?*::
+ No, we use the concept of federated authentication,
+ that is, both +Google+ and +Azure+ (+Microsoft 360+)
+ are the ones who actually validate your credentials.
+
+*Is it possible to activate double authentication token?*
+ Yes, it is possible. In fact we recommend to activate
+ double token authentication to increase the security level of your credentials
+ in order to avoid unauthorised access by third parties over your information.
+ This feature is enabled from +Gmail+ or +Azure+ depending on your case.
+
+*What procedure has FLUIDAttacks to catch up with the revision*::
+*of the existing code before starting the test?*::
+ +FLUIDAttacks+ recommends that both the development of the application
+ and the security tests start at the same time.
+ However, this does not always happen.
+ To do this, we have an activity called link:../continuous-hacking/#healthcheck[+HealthCheck+]
+ that allows to catch up the security inspections
+ when the development has begun earlier.
