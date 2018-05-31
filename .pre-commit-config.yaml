@@ -4,8 +4,10 @@ repos:
 - repo: local
   hooks:
   - id: asserts-docker
-    name: Asserts
+    name: Running Asserts on the code
     description: Run Asserts to perform SAST
     entry: -v /var/www/integrates:/code fluidattacks/asserts:latest /code/asserts.sh
+    files: '\.(py|js)'
     language: docker_image
+    minimum_pre_commit_version: 0.18.0
     verbose: true
