@@ -53,6 +53,22 @@ resource "aws_dynamodb_table" "comments" {
   }
 }
 
+resource "aws_dynamodb_table" "findings" {
+  name           = "FI_findings"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "finding_id"
+
+  attribute {
+    name = "finding_id"
+    type = "N"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
+
 resource "aws_dynamodb_table" "findings_email" {
   name           = "FI_findings_email"
   read_capacity  = 5
