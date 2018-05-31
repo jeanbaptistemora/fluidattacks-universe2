@@ -35,6 +35,7 @@ stages:
   - build
   - review
   - test
+  - pre-deploy
   - deploy
   - post-deploy
   - cleanup
@@ -250,6 +251,45 @@ Prospector:
   except:
     - master
     - triggers
+
+asserts-pre-deploy:
+  stage: pre-deploy
+  before_script:
+    - apk update && apk add openssh-client curl
+    - aws s3 cp
+        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        FLUID_Serves.pem &&
+        chmod 600 FLUID_Serves.pem
+    - echo "$JFROG_PASS" |
+        docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
+    - docker pull fluid-docker.jfrog.io/fluid:integrates
+  script:
+    - ssh
+        -o StrictHostKeyChecking=no
+        -i FLUID_Serves.pem
+        admin@fluidattacks.com
+        'sudo docker pull
+        registry.gitlab.com/fluidsignal/integrates:master &&
+        sudo docker run
+        -d -p 8008:443 --name=test-integrates
+        -e TORUS_TOKEN_SECRET='"$TORUS_TOKEN_SECRET"'
+        -e TORUS_TOKEN_ID='"$TORUS_TOKEN_ID"'
+        registry.gitlab.com/fluidsignal/integrates:master'
+    - sleep 30
+    - docker run
+        --rm -e STAGE=pre-deploy -e ORG=fluid
+        -e APP=integrates -e USER="$JFROG_USER"
+        -e PASS="$JFROG_PASS" -e FA_STRICT="true"
+        fluid-docker.jfrog.io/fluid:integrates
+    - ssh
+        -o StrictHostKeyChecking=no
+        -i FLUID_Serves.pem
+        admin@fluidattacks.com
+        'sudo docker stop test-integrates &&
+        sudo docker rm test-integrates'
+    - docker logout fluid-docker.jfrog.io
+  only:
+    - master
 
 Deploy:
   stage: deploy
