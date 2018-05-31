@@ -59,6 +59,7 @@ con +scripts+ diseñados para ese fin.
 == Soluciones
 
 . +Red Hat+ link:../../defends/redhat/proteger-fuerza-bruta/[Proteger Autenticación de Ataques de Fuerza Bruta].
+. +Windows+ link:../../defends/windows/bloquear-temporalmente/[Bloquear cuentas temporalmente].
 . +WordPress+ link:../../defends/wordpress/evitar-fuerza-bruta/[Evitar Ataques de Diccionario o Fuerza Bruta].
 
 == Ataques

@@ -10,3 +10,7 @@
 
 El sistema nunca debe bloquear una cuenta de un usuario
 ante uno o varios intentos fallidos de autenticación.
+
+== Soluciones
+
+. +Windows+ link:../../defends/windows/bloquear-temporalmente/[Bloquear cuentas temporalmente].
