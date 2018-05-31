@@ -187,18 +187,18 @@ angular.module("FluidIntegrates").factory(
         }
         // eslint-disable-next-line angular/document-service
         const inputs = document.querySelectorAll(".inputfile");
-        angular.forEach.call(inputs, (input) => {
+        angular.forEach(inputs, (input) => {
           const label = input.nextElementSibling;
           const labelVal = label.innerHTML;
 
-          input.addEventListener("change", (err) => {
+          input.addEventListener("change", (aux) => {
             let fileName = "";
             if (input.files && input.files.length > 1) {
               fileName = (input.getAttribute("data-multiple-caption") ||
                         "").replace("{count}", input.files.length);
             }
             else {
-              fileName = err.target.value.split("\\").pop();
+              fileName = aux.target.value.split("\\").pop();
             }
 
             if (fileName) {
@@ -280,18 +280,18 @@ angular.module("FluidIntegrates").factory(
         }
         // eslint-disable-next-line angular/document-service
         const inputs = document.querySelectorAll(".inputfile");
-        angular.forEach.call(inputs, (input) => {
+        angular.forEach(inputs, (input) => {
           const label = input.nextElementSibling;
           const labelVal = label.innerHTML;
 
-          input.addEventListener("change", (err) => {
+          input.addEventListener("change", (aux) => {
             let fileName = "";
             if (input.files && input.files.length > 1) {
               fileName = (input.getAttribute("data-multiple-caption") ||
                         "").replace("{count}", input.files.length);
             }
             else {
-              fileName = err.target.value.split("\\").pop();
+              fileName = aux.target.value.split("\\").pop();
             }
 
             if (fileName) {
