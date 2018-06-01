@@ -20,7 +20,9 @@ def get_new_vulnerabilities():
             if len(old_findings) != len(finding_requests):
                 delta = abs(len(old_findings) - len(finding_requests))
                 for finding in finding_requests[-delta:]:
-                    integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),int(finding['id']), 0)
+                    act_finding = views.finding_vulnerabilities(str(finding['id']))
+                    if ("releaseDate" in act_finding and act_finding['fluidProject'].lower() == project[0].lower()):
+                        integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),int(finding['id']), 0)
                 old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
             context = {'findings': list(), 'findings_working_on': list()}
             delta_total = 0
@@ -29,7 +31,7 @@ def get_new_vulnerabilities():
                 act_finding = views.finding_vulnerabilities(str(finding['id']))
                 if (("releaseDate" in act_finding) and (act_finding["estado"] != "Cerrado") and
                     (act_finding["edad"] != "-") and ("treatment" in act_finding) and
-                            (act_finding['fluidProject'].lower() == project.lower())):
+                            (act_finding['fluidProject'].lower() == project[0].lower())):
                     if  act_finding["treatment"] == "Nuevo":
                         context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['finding'] + ' -' + act_finding["edad"] +' day(s)-'), \
                         'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
@@ -88,7 +90,7 @@ def get_age_notifications():
             finding_parsed = views.finding_vulnerabilities(finding["id"])
             if "suscripcion" not in finding_parsed:
                 pass
-            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project.lower() and
+            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project[0].lower() and
                     finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
                 age = int(finding_parsed["edad"])
                 context = {
@@ -124,7 +126,7 @@ def get_age_weekends_notifications():
             finding_parsed = views.finding_vulnerabilities(finding["id"])
             if "suscripcion" not in finding_parsed:
                 pass
-            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project.lower() and
+            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project[0].lower() and
                     finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
                 age = int(finding_parsed["edad"])
                 context = {

@@ -279,6 +279,7 @@ class FindingDTO(object):
         self.data["id"] = submission_id
         self.data["timestamp"] = request_arr["timestamp"]
         self.parse_description(request_arr)
+        self.parse_project(request_arr)
         return self.data
 
     def parse_description(self, request_arr): # noqa: C901
