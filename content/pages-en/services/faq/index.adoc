@@ -51,10 +51,6 @@ Frequently asked questions about Continuous Hacking.
   application security testing (<<q3,see question 3>>),
   and infrastructure security testing (<<q3,see question 3>>).
 
-*What are the limits of Continuous Hacking?*::
-  Continuous Hacking has a limit of +10,000+ deltas per month
-  on the source code.
-
 *What is a vulnerability?*::
   A vulnerability is anything that represents a security risk
   (Integrity, Availability, Confidentiality, Non-repudiation)
