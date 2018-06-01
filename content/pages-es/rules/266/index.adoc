@@ -47,6 +47,7 @@ antes de la salida a producción
 == Soluciones
 
 . +Apache+ link:../../defends/apache/desactivar-http-trace/[Desactivar Método HTTP TRACE].
+. +IOS 12+ link:../../defends/ios/remover-servicios-inseguros/[Remover Servicios Innecesarios o Inseguros].
 
 == Ataques
 

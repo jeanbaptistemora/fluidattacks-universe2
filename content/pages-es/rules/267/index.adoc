@@ -10,3 +10,7 @@
 
 La organización debe deshabilitar
 las funciones innecesarias de un sistema (+hardening+ de sistemas).
+
+== Soluciones
+
+. +IOS 12+ link:../../defends/ios/remover-servicios-inseguros/[Remover Servicios Innecesarios o Inseguros].
