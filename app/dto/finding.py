@@ -100,12 +100,9 @@ class FindingDTO(object):
         if "id" in parameter:
             self.request_id \
                 = parameter["id"]
-        # if "releaseDate" in parameter:
-        #     self.data[self.RELEASE_DATE] \
-        #         = parameter["releaseDate"]
-        if "timestamp" in parameter:
+        if "releaseDate" in parameter:
             self.data[self.RELEASE_DATE] \
-                = parameter["timestamp"]
+                = parameter["releaseDate"]
 
     def create_evidence_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """

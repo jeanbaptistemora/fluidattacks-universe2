@@ -5,7 +5,8 @@ import rollbar
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
-                    send_mail_age_finding, send_mail_age_kb_finding
+                    send_mail_age_finding, send_mail_age_kb_finding, \
+                    send_mail_new_releases
 from . import views
 from datetime import datetime, timedelta
 
@@ -176,3 +177,25 @@ def inactive_users():
     for user in inac_users:
         if user[1] <= final_date:
             integrates_dao.delete_user(user[0])
+
+def get_new_releases():
+    projects = integrates_dao.get_registered_projects()
+    api = FormstackAPI()
+    context = {'findings': list()}
+    cont = 0
+    for project in projects:
+        print project
+        try:
+            finding_requests = api.get_findings(project)["submissions"]
+            for finding in finding_requests:
+                finding_parsed = views.finding_vulnerabilities(finding["id"])
+                if "releaseDate" not in finding_parsed:
+                    context['findings'].append({'finding_name': finding_parsed["finding"], 'finding_url': \
+                        'https://fluidattacks.com/integrates/dashboard#!/project/'+ project[0].lower() + '/release/' + \
+                        str(finding["id"]) + '/description', 'project': project[0].upper()})
+                    cont += 1
+        except (TypeError, KeyError):
+            rollbar.report_message('Error: An error ocurred sending new release email', 'error')
+    context['total'] = cont
+    to = ["engineering@fluidattacks.com"]
+    send_mail_new_releases(to, context)
