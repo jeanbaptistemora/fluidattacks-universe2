@@ -334,7 +334,7 @@ Frequently asked questions about Continuous Hacking.
  that is, both +Google+ and +Azure+ (+Microsoft 360+)
  are the ones who actually validate your credentials.
 
-*Is it possible to activate double authentication token?*
+*Is it possible to activate double authentication token?*::
  Yes, it is possible. In fact we recommend to activate
  double token authentication to increase the security level of your credentials
  in order to avoid unauthorised access by third parties over your information.
