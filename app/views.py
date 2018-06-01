@@ -1397,19 +1397,21 @@ def accept_release(request):
     parameters = request.POST.get('id', "")
     generic_dto = FindingDTO()
     try:
-        tzn = pytz.timezone('America/Bogota')
-        releaseDate = datetime.now(tz=tzn).date()
-        release = {}
-        release['id'] = parameters
-        release['releaseDate'] = releaseDate
-        generic_dto.create_release(release)
-        generic_dto.to_formstack()
-        api = FormstackAPI()
-        request = api.update(generic_dto.request_id, generic_dto.data)
-        if request:
-            return util.response([], 'success', False)
-        rollbar.report_message('Error: An error occurred accepting the release', 'error', request)
-        return util.response([], 'error', True)
+        finding = catch_finding(request, parameters)
+        if "releaseDate" not in finding:
+            tzn = pytz.timezone('America/Bogota')
+            releaseDate = datetime.now(tz=tzn).date()
+            release = {}
+            release['id'] = parameters
+            release['releaseDate'] = releaseDate
+            generic_dto.create_release(release)
+            generic_dto.to_formstack()
+            api = FormstackAPI()
+            request = api.update(generic_dto.request_id, generic_dto.data)
+            if request:
+                return util.response([], 'success', False)
+            rollbar.report_message('Error: An error occurred accepting the release', 'error', request)
+            return util.response([], 'error', True)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
@@ -1423,25 +1425,27 @@ def reject_release(request):
     fin_dto = FindingDTO()
     try:
         submission_id = parameters["data[id]"]
-        api = FormstackAPI()
-        frmreq = api.get_submission(submission_id)
-        finding = fin_dto.parse(submission_id, frmreq, request)
-        context = {
-           'project': finding['fluidProject'],
-           'analyst_mail': finding['analyst'],
-           'finding_name': finding['finding'],
-           'admin_mail': username,
-           'finding_id': submission_id,
-           'rejectionCause': parameters['data[justification]'],
-        }
-        result = api.delete_submission(submission_id)
-        if result is None:
-            rollbar.report_message('Error: An error ocurred deleting the release', 'error', request)
-            return util.response([], 'Error', True)
-        to = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
-              "aroldan@fluidattacks.com", finding['analyst']]
-        send_mail_reject_release(to, context)
-        return util.response([], 'success', False)
+        findingData = catch_finding(request, submission_id)
+        if "releaseDate" not in findingData:
+            api = FormstackAPI()
+            frmreq = api.get_submission(submission_id)
+            finding = fin_dto.parse(submission_id, frmreq, request)
+            context = {
+               'project': finding['fluidProject'],
+               'analyst_mail': finding['analyst'],
+               'finding_name': finding['finding'],
+               'admin_mail': username,
+               'finding_id': submission_id,
+               'rejectionCause': parameters['data[justification]'],
+            }
+            result = api.delete_submission(submission_id)
+            if result is None:
+                rollbar.report_message('Error: An error ocurred deleting the release', 'error', request)
+                return util.response([], 'Error', True)
+            to = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
+                  "aroldan@fluidattacks.com", finding['analyst']]
+            send_mail_reject_release(to, context)
+            return util.response([], 'success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
