@@ -269,6 +269,41 @@ angular.module("FluidIntegrates").controller(
       }
     };
 
+    $scope.removeAdmin = function removeAdmin () {
+      const adminEmail = [];
+      angular.element("#tblUsers :checked").each(function checkedFields () {
+        /* eslint-disable-next-line  no-invalid-this */
+        const vm = this;
+        const actualRow = angular.element("#tblUsers").find("tr");
+        const actualIndex = angular.element(vm).data().index + 1;
+        adminEmail.push(actualRow.eq(actualIndex)[0].innerText.split("\t")[1]);
+      });
+      if (adminEmail.length === 0) {
+        $msg.error($translate.instant("search_findings.tab_users." +
+                                  "no_selection"));
+      }
+      else if (adminEmail.length > 1) {
+        $msg.error($translate.instant("search_findings.tab_users." +
+                                    "remove_admin_error"));
+      }
+      else {
+        const req = projectFtry2.removeProjectAdmin(adminEmail[0]);
+        req.then((response) => {
+          if (!response.error) {
+            $msg.success(adminEmail[0] +
+                        $translate.instant("search_findings.tab_users." +
+                                           "success_admin_remove"));
+            location.reload();
+          }
+          else if (response.error) {
+            Rollbar.error("Error: An error occurred " +
+                                                "removing an admin");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+        });
+      }
+    };
+
     $scope.removeUserAccess = function removeUserAccess () {
       const removedEmails = [];
       angular.element("#tblUsers :checked").each(function checkedFields () {

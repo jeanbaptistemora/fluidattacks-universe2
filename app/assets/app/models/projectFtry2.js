@@ -80,11 +80,26 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Remove a customer admin  of a project.
+       * @function removeProjectAdmin
+       * @param {String} email Email of the new admin.
+       * @member integrates.projectFtry2
+       * @return {Object} Response by SQL DB
+       */
+      "removeProjectAdmin" (email) {
+        const oopsAc = "An error occurred setting project admin";
+        return $xhr.post($q, `${BASE.url}remove_project_admin`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          email
+        }, oopsAc);
+      },
+
+      /**
        * Set the customer admin  of a project.
        * @function setProjectAdmin
        * @param {String} email Email of the new admin.
        * @member integrates.projectFtry2
-       * @return {Object} Formstack response with the eventualities of a project
+       * @return {Object} Response by SQL DB
        */
       "setProjectAdmin" (email) {
         const oopsAc = "An error occurred setting project admin";

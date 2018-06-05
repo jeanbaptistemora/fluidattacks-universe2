@@ -1490,6 +1490,14 @@ def remove_access_integrates(request):
         return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
+def remove_project_admin(request):
+    email = request.POST.get('email', "")
+    if integrates_dao.remove_admin_role(email):
+        return util.response([], 'Success', False)
+    return util.response([], 'Error', True)
 
 @never_cache
 @require_http_methods(["POST"])

@@ -297,13 +297,23 @@ def assign_role(email, role):
     return row
 
 def assign_admin_role(email):
-    """ Assigns a role to a costumer in the DB. """
+    """ Assigns admin role to a costumer in the DB. """
     role = get_role_dao(email)
     if role != 'customer':
         return False
     with connections['integrates'].cursor() as cursor:
         query = 'UPDATE users SET role=%s WHERE email = %s'
         cursor.execute(query, ('customeradmin', email,))
+    return True
+
+def remove_admin_role(email):
+    """ Remove admin role to a costumer in the DB. """
+    role = get_role_dao(email)
+    if role != 'customeradmin':
+        return False
+    with connections['integrates'].cursor() as cursor:
+        query = 'UPDATE users SET role=%s WHERE email = %s'
+        cursor.execute(query, ('customer', email,))
     return True
 
 def assign_company(email, company):

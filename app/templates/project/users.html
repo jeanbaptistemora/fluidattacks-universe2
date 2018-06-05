@@ -86,17 +86,21 @@
                         <div id="users" class="tab-pane cont active" >
                             <div class="row">
                                 <!-- START: toolbar -->
-                                <div  class="col-md-4 col-md-offset-6 col-xs-12 col-sm-12" style="width:100%;display:flex;" >
+                                <div  class="col-md-4 col-md-offset-4 col-xs-12 col-sm-12" style="width:100%;display:flex;" >
                                   <button id="assign" ng-show=isManager class="btn btn-primary btn-block"
-                                        ng-click="assignAdmin();" style="width:15%;margin:10px;">
-                                        <i class="glyphicon glyphicon-user"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.set_admin' | translate {% templatetag closevariable %}
+                                        ng-click="assignAdmin();" style="width:16%;margin:10px;">
+                                        <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.set_admin' | translate {% templatetag closevariable %}
+                                  </button>
+                                  <button id="removeadmin" ng-show=isManager class="btn btn-primary btn-block"
+                                        ng-click="removeAdmin();" style="width:16%;margin:10px;">
+                                        <i class="glyphicon glyphicon-minus-sign"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.remove_admin' | translate {% templatetag closevariable %}
                                   </button>
                                   <button  id="add" ng-show=isProjectAdmin class="btn btn-primary btn-block"
-                                        ng-click="addUser();" style="width:15%;margin:10px;">
+                                        ng-click="addUser();" style="width:16%;margin:10px;">
                                         <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %}'search_findings.tab_users.add_button' | translate {% templatetag closevariable %}
                                   </button>
                                   <button  id="remove" ng-show=isProjectAdmin class="btn btn-primary btn-block"
-                                        ng-click="removeUserAccess();" style="width:15%;margin:10px;">
+                                        ng-click="removeUserAccess();" style="width:16%;margin:10px;">
                                         <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.remove_user' | translate {% templatetag closevariable %}
                                   </button>
                                 </div>
