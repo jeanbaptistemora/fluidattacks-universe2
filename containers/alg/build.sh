@@ -15,8 +15,7 @@ echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
 echo 'web_bucket: '"$FW_S3_BUCKET_NAME" >> containers/alg/vars/vars.yml
-cp /tmp/.vault.txt containers/${SERVER}/
 docker build --no-cache \
+    --build-arg vault_pass="$VAULT" \
 	-t "registry.gitlab.com/fluidsignal/serves/alg/dev:$CI_COMMIT_SHA" \
 	containers/${SERVER}
-rm containers/${SERVER}/.vault.txt

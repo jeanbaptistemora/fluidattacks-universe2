@@ -10,7 +10,6 @@ services:
 before_script:
   - echo "$CI_REGISTRY_PASSWORD" |
         docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-  - echo $VAULT > /tmp/.vault.txt
 
 codequality:
   script:
@@ -69,7 +68,7 @@ build_alg:
 build_exams:
   stage: build
   script:
-    - sh containers/exams/build.sh
+    - torus run -- sh containers/exams/build.sh
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
   except:
@@ -78,7 +77,7 @@ build_exams:
 build_vpn:
   stage: build
   script:
-    - sh containers/vpn/build.sh
+    - torus run -- sh containers/vpn/build.sh
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
   except:

@@ -14,8 +14,7 @@ SERVER="exams"
 echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
-cp /tmp/.vault.txt containers/${SERVER}/
 docker build --no-cache \
+    --build-arg vault_pass="$VAULT" \
 	-t "registry.gitlab.com/fluidsignal/serves/exams/dev:$CI_COMMIT_SHA" \
 	containers/${SERVER}
-rm containers/${SERVER}/.vault.txt
