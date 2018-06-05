@@ -29,8 +29,10 @@ RUN ansible-playbook main.yml --vault-password-file .vault.txt \
     && rm /etc/init.d/td-agent \
     && mv vars/td-agent /etc/init.d/td-agent && chmod 0755 /etc/init.d/td-agent  \
     && mv vars/out_rollbar.rb /etc/td-agent/plugin/ \
-    && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter
-
+    && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
+    && rm -rf .vault.txt \
+        main.yml \
+        vars
 
 # Make port 80 and 443 available to the world outside this container
 EXPOSE 80

@@ -8,8 +8,8 @@ services:
 
 
 before_script:
-  - echo "$DOCKER_PASS" |
-        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
+  - echo "$CI_REGISTRY_PASSWORD" |
+        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
   - echo $VAULT > /tmp/.vault.txt
 
 codequality:
@@ -21,10 +21,8 @@ codequality:
         --env CODECLIMATE_CODE="/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}"
         --volume "/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}":/code
         --volume /var/run/docker.sock:/var/run/docker.sock
-        --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze
-        -e sonar-python
-        -e pep8
-        -e randon
+        --volume /tmp/cc:/tmp/cc codeclimate/codeclimate
+        analyze -e sonar-python -e pep8 -e randon
         -f json > codeclimate.json
     - rm -rf /tmp${CI_PROJECT_DIR}
   artifacts:
@@ -47,11 +45,22 @@ build_base:
   except:
     - master
 
+build_builder:
+  stage: deps
+  script:
+    - docker build
+        --cache-from "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:builder"
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:builder"
+        builder/
+    - docker push
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:builder"
+  except:
+    - master
+
 build_alg:
   stage: build
   script:
-    - "echo web_bucket: \"$FW_S3_BUCKET_NAME\" >> containers/alg/vars/vars.yml"
-    - sh containers/alg/build.sh
+    - torus run -- sh containers/alg/build.sh
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg/dev:$CI_COMMIT_SHA"
   except:
