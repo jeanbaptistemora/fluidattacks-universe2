@@ -179,6 +179,7 @@ angular.module("FluidIntegrates").controller(
           $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_users.title");
           $scope.ok = function ok () {
+            $scope.newUserInfo.admin = userEmail;
             $scope.newUserInfo.company = data.company;
             $scope.newUserInfo.project = data.project;
             $scope.newUserInfo.userEmail = $scope.newUserInfo.userEmail.trim();

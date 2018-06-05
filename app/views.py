@@ -33,6 +33,7 @@ from .mailer import send_mail_new_comment
 from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_reject_release
+from .mailer import send_mail_access_granted
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -1458,6 +1459,9 @@ def add_access_integrates(request):
     newUser = parameters['data[userEmail]']
     company = parameters['data[company]']
     project = parameters['data[project]']
+    admin = parameters['data[admin]']
+    project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
+                  + project.lower() + '/indicators'
     if not integrates_dao.is_in_database(newUser):
         integrates_dao.create_user_dao(newUser)
     if integrates_dao.is_registered_dao(newUser) == '0':
@@ -1465,6 +1469,13 @@ def add_access_integrates(request):
         integrates_dao.assign_role(newUser, 'customer')
         integrates_dao.assign_company(newUser, company)
     if integrates_dao.add_access_to_project_dao(newUser, project):
+        to = [newUser]
+        context = {
+           'admin': admin,
+           'project': project,
+           'project_url': project_url,
+        }
+        send_mail_access_granted(to, context)
         return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
