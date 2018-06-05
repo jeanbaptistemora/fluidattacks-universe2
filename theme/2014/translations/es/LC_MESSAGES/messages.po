@@ -953,8 +953,7 @@ msgstr ""
 "Aquí puedes encontrar una lista de etiquetas utilizadas para clasificar "
 "los artículos del blog. Estos artículos están relacionados con el tema de"
 " Seguridad de la Información y pueden tratar temas desde una opinión "
-"sobre un tema específicoo una solución a un reto, hasta simplemente "
-"información general"
+"sobre un tema específico, hasta simplemente información general"
 
 #: templates/tags.html:5
 msgid "Tags-keywords"
