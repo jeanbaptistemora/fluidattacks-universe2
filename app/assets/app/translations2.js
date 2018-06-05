@@ -167,7 +167,7 @@ const translations2 = {
      "set_admin": "Set admin",
      "success": " now has access to this project.",
      "success_admin": " is now an administrator of this project.",
-     "success_delete": " was removed from this proyect.",
+     "success_delete": " was removed from this project.",
      "textbox": "Enter the email of the person you want to add",
      "title": "Add user to this project",
      "title_success": "Congratulations",
