@@ -253,24 +253,20 @@ install_integrates:
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
     - cd infrastructure
-    - sh env.sh
   script:
     - chmod 600 FLUID_Serves.pem
-    - scp
-        -o StrictHostKeyChecking=no
-        -o UserKnownHostsFile=/dev/null
-        -i FLUID_Serves.pem
-        env.list admin@$(cat ip.txt):/home/admin
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
         admin@$(cat ip.txt)
         'sudo docker pull
         registry.gitlab.com/fluidsignal/integrates:master &&
-        (sudo docker stop integrates || echo "") &&
-        (sudo docker rm integrates || echo "") &&
+        (sudo docker stop integrates || echo true) &&
+        (sudo docker rm integrates || echo true) &&
         sudo docker run
-        -d --env-file env.list -p 8000:443 --name=integrates
+        -d -p 8000:443 --name=integrates
+        -e TORUS_TOKEN_SECRET='"$FI_TORUS_TOKEN_SECRET"'
+        -e TORUS_TOKEN_ID='"$FI_TORUS_TOKEN_ID"'
         registry.gitlab.com/fluidsignal/integrates:master'
     - ssh
         -o StrictHostKeyChecking=no
@@ -278,12 +274,13 @@ install_integrates:
         admin@$(cat ip.txt)
         'sudo docker pull
         registry.gitlab.com/fluidsignal/integrates/bot:master &&
-        (sudo docker stop bot || echo "") &&
-        (sudo docker rm bot || echo "") &&
+        (sudo docker stop bot || echo true) &&
+        (sudo docker rm bot || echo true) &&
         sudo docker run
-        -d --env-file env.list --restart always --name=bot
-        registry.gitlab.com/fluidsignal/integrates/bot:master &&
-        rm env.list'
+        -d --restart always --name=bot
+        -e TORUS_TOKEN_SECRET='"$FI_TORUS_TOKEN_SECRET"'
+        -e TORUS_TOKEN_ID='"$FI_TORUS_TOKEN_ID"'
+        registry.gitlab.com/fluidsignal/integrates/bot:master'
   only:
     - master
 
