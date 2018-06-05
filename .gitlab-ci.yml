@@ -88,22 +88,16 @@ build_vpn:
 test_terraform:
   stage: test
   before_script:
-    - mkdir infrastructure/vars &&
-        echo $AWS_VARS > infrastructure/vars/aws.tfvars
-    - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
-    - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
-    - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-    - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
-    - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
-    - echo $SSO_XML > infrastructure/vars/SSO.xml
-    - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
-    - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
-    - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
+    - mkdir infrastructure/vars
     - cd infrastructure
+    - torus run -- ./set-tfvars.sh
   script:
     - terraform init
     - tflint --var-file="vars/aws.tfvars"
     - terraform plan -var-file="vars/aws.tfvars"
+  after_script:
+    - rm -rf infrastructure/vars
+    - rm -rf infrastructure/terraform.tfvars
   except:
     - master
 
@@ -140,27 +134,19 @@ tag-production:
 deploy_terraform:
   stage: deploy
   before_script:
-    - mkdir infrastructure/vars &&
-        echo $AWS_VARS > infrastructure/vars/aws.tfvars
-    - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
-    - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
-    - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-    - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
-    - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
-    - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
-    - echo $SSO_XML > infrastructure/vars/SSO.xml
-    - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
+    - mkdir infrastructure/vars
     - echo sudo docker login "$CI_REGISTRY"
         -u "$DOCKER_USER" -p "$DOCKER_PASS" >> infrastructure/ec2/host/script.sh
+    - cd infrastructure
+    - torus run -- ./set-tfvars.sh
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
-        infrastructure/vars/FLUID_Serves.pem ||
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+        vars/FLUID_Serves.pem ||
         (pip install boto && python infrastructure/create-key.py && export
         NEW_DEPLOY=true)
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/terraform.tfstate
-        infrastructure/terraform.tfstate || echo ""
-    - cd infrastructure
+        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
+        terraform.tfstate || echo "No previous state found"
   script:
     - terraform init
     - terraform apply -auto-approve -var-file="vars/aws.tfvars"
@@ -176,10 +162,12 @@ deploy_terraform:
   after_script:
     - aws s3 cp
         infrastructure/terraform.tfstate
-        s3://$BUCKET_NAME/terraform/terraform.tfstate
+        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
     - aws s3 cp
         infrastructure/vars/FLUID_Serves.pem
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+    - rm -rf infrastructure/vars
+    - rm -rf infrastructure/terraform.tfvars
   artifacts:
     paths:
       - infrastructure/ip.txt
@@ -194,7 +182,7 @@ install_alg:
     - deploy_terraform
   before_script:
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
     - cd infrastructure
   script:
@@ -222,7 +210,7 @@ install_exams:
     - deploy_terraform
   before_script:
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
     - cd infrastructure
   script:
@@ -250,7 +238,7 @@ install_integrates:
     - deploy_terraform
   before_script:
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
     - cd infrastructure
   script:
@@ -290,7 +278,7 @@ install_vpn:
     - deploy_terraform
   before_script:
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
     - cd infrastructure
   script:
@@ -333,27 +321,19 @@ change_dns:
   stage: dns
   dependencies: []
   before_script:
-    - mkdir infrastructure/vars &&
-        echo $AWS_VARS > infrastructure/vars/aws.tfvars
-    - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
-    - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
-    - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-    - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
-    - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
-    - echo $SSO_XML > infrastructure/vars/SSO.xml
-    - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
-    - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
-    - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
-        infrastructure/vars/FLUID_Serves.pem
-    - aws s3 cp
-        s3://$BUCKET_NAME/terraform/terraform.tfstate
-        infrastructure/terraform.tfstate
-    - aws s3 cp
-        s3://$BUCKET_NAME/terraform/dns/terraform.tfstate
-        infrastructure/dns/terraform.tfstate || echo ""
-    - cp infrastructure/vars/aws.tfvars infrastructure/dns
+    - mkdir infrastructure/vars
     - cd infrastructure
+    - torus run -- ./set-tfvars.sh
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+        vars/FLUID_Serves.pem
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
+        terraform.tfstate
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
+        dns/terraform.tfstate || echo ""
+    - cp vars/aws.tfvars dns/
     - terraform init
     - terraform refresh -var-file="vars/aws.tfvars" > /dev/null
     - terraform output variable_ip >> dns/terraform.tfvars
@@ -367,6 +347,9 @@ change_dns:
   after_script:
     - aws s3 cp
         infrastructure/dns/terraform.tfstate
-        as3://$BUCKET_NAME/terraform/dns/terraform.tfstate
+        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
+    - rm -rf infrastructure/dns/aws.tfvars
+    - rm -rf infrastructure/vars
+    - rm -rf infrastructure/terraform.tfvars
   only:
     - master
