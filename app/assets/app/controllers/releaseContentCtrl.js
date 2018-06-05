@@ -138,7 +138,7 @@ releaseContentCtrl (
             $scope.hasRelease = true;
           }
           findingData.hasRelease = $scope.hasRelease;
-          if ($scope.isManager && !$scope.hasRelease) {
+          if ($scope.isAdmin && !$scope.hasRelease) {
             angular.element(".has-release").show();
           }
           else {
