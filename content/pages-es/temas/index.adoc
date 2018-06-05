@@ -58,6 +58,8 @@ Dentro de los temas de interés se encuentran:
 * +NixOS+.
 * +Linters+ como normalizadores.
 * +Linter+ del hombre pobre: +check-all/changed+ y +pcregrep+.
+* Qué es +SecDevOps+?
+* Embudo de cierre: Puntual, Continuo y Rompiendo el build.
 
 == Estándares
 

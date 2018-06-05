@@ -55,6 +55,8 @@ Among the topics of interest are:
 * +NixOS+
 * Linters as normalizers.
 * Poor man linter: +check-all/changed+ and +pcregrep+.
+* What is +SecDevOps+?
+* Failed Pipelines: One shot, Continuous, Breaking the +CI+.
 
 == Standards
 
