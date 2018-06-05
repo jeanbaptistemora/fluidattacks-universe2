@@ -160,6 +160,10 @@ angular.module("FluidIntegrates").controller(
         "locale": vlang
       });
       angular.element("#tblUsers").bootstrapTable("refresh");
+      angular.element("#tblUsers").bootstrapTable("hideColumn", "selection");
+      if ($scope.isProjectAdmin) {
+        angular.element("#tblUsers").bootstrapTable("showColumn", "selection");
+      }
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
     };
