@@ -71,7 +71,7 @@ angular.module("FluidIntegrates").factory(
        * @return {Object} Response of request
        */
       "removeAccessIntegrates" (email, project) {
-        const oopsAc = "An error occurred getting events";
+        const oopsAc = "An error occurred removing access to an user";
         return $xhr.post($q, `${BASE.url}remove_access_integrates`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           email,
@@ -87,7 +87,7 @@ angular.module("FluidIntegrates").factory(
        * @return {Object} Formstack response with the eventualities of a project
        */
       "setProjectAdmin" (email) {
-        const oopsAc = "An error occurred getting events";
+        const oopsAc = "An error occurred setting project admin";
         return $xhr.post($q, `${BASE.url}set_project_admin`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           email

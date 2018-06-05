@@ -248,10 +248,20 @@ angular.module("FluidIntegrates").controller(
                                     "assign_error"));
       }
       else {
-        projectFtry2.setProjectAdmin(adminEmail[0]);
-        $msg.success(adminEmail[0] +
-          $translate.instant("search_findings.tab_users." +
-                                      "success_admin"));
+        const req = projectFtry2.setProjectAdmin(adminEmail[0]);
+        req.then((response) => {
+          if (!response.error) {
+            $msg.success(adminEmail[0] +
+                        $translate.instant("search_findings.tab_users." +
+                                           "success_admin"));
+            location.reload();
+          }
+          else if (response.error) {
+            Rollbar.error("Error: An error occurred " +
+                                                "setting an admin");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+        });
       }
     };
 
@@ -261,25 +271,42 @@ angular.module("FluidIntegrates").controller(
         /* eslint-disable-next-line  no-invalid-this */
         const vm = this;
         const actualRow = angular.element("#tblUsers").find("tr");
-        const actualIndex = angular.element(vm).data().index + 1;
-        removedEmails.push(actualRow.eq(actualIndex)[0].
-          innerText.split("\t")[1]);
-      });
-      if (removedEmails.length === 0) {
-        $msg.error($translate.instant("search_findings.tab_users." +
-                                  "no_selection"));
-      }
-      else {
-        for (const email in removedEmails) {
-          if (projectFtry2.removeAccessIntegrates(
-            removedEmails[email],
-            $stateParams.project.toLowerCase()
-          )) {
-            $msg.success(removedEmails[email] +
-                  $translate.instant("search_findings.tab_users." +
-                                     "success_delete"));
-          }
+        const actualIndex = angular.element(vm).data().index;
+        if (angular.isUndefined(actualIndex)) {
+          return true;
         }
+        removedEmails.push(actualRow.eq(actualIndex + 1)[0].
+          innerText.split("\t")[1]);
+        return true;
+      });
+      if (removedEmails.length !== 0) {
+        for (let inc = 0; inc < removedEmails.length; inc++) {
+          const req = projectFtry2.removeAccessIntegrates(
+            removedEmails[inc],
+            $stateParams.project.toLowerCase()
+          );
+          req.then((response) => {
+            if (!response.error) {
+              $msg.success(removedEmails[inc] +
+         $translate.instant("search_findings.tab_users." +
+         "success_delete"));
+              if (inc === (removedEmails.length - 1)) {
+                location.reload();
+              }
+            }
+            else if (response.error) {
+              Rollbar.error("Error: An error occurred " +
+         "removing access to an user");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+              inc = removedEmails.length;
+              location.reload();
+            }
+          });
+        }
+      }
+      else if (removedEmails.length === 0) {
+        $msg.error($translate.instant("search_findings.tab_users." +
+         "no_selection"));
       }
     };
 
