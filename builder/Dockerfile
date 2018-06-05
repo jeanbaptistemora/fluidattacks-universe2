@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         git \
         gnupg2 \
         lsb-release \
+        openssh-client \
         python \
         python-dev \
         python-pip \

@@ -193,7 +193,6 @@ install_alg:
   dependencies:
     - deploy_terraform
   before_script:
-    - apk --update add openssh-client
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
@@ -222,7 +221,6 @@ install_exams:
   dependencies:
     - deploy_terraform
   before_script:
-    - apk --update add openssh-client
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
@@ -251,7 +249,6 @@ install_integrates:
   dependencies:
     - deploy_terraform
   before_script:
-    - apk --update add openssh-client
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
@@ -295,7 +292,6 @@ install_vpn:
   dependencies:
     - deploy_terraform
   before_script:
-    - apk --update add openssh-client
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         infrastructure/FLUID_Serves.pem
