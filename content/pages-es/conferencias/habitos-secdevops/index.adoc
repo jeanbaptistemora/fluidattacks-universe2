@@ -49,6 +49,9 @@ sin quemarlas en el código fuente y manteniendo los *secretos protegidos*.
 * Desplegar *ambientes efímeros* que permitan probar todas las funcionalidades
 desarrolladas antes de hacer el paso a producción.
 
+* Rompimiento del +build+ incluso antes de hacer +commit+ al repositorio,
+utilizando +*pre-commit*+ para hacer chequeos de seguridad.
+
 * Ejecutar pruebas sobre el código fuente y sobre el despliegue:
 ** Integración multiplataforma.
 ** Pruebas unitarias.
