@@ -51,6 +51,37 @@ El propósito del atributo +secure+
 es prevenir que la +cookies+ puedan visualizarse por terceros no autorizados
 debido a la trasmisión de la +cookie+ en texto plano.
 
+== Excepciones
+
+. Excepciones para el atributo +HttpOnly:+
+Aplicaciones web que usan JavaScript para la mayoría de sus operaciones
+pueden usar una técnica anti-Cross-Site-Request-Forgery (CSRF)
+basada en políticas de mismo  origen (same-origin policy).
+Esta técnica consiste en establecer una cookie al iniciar sesión
+con un token generado aleatoriamente.
+El JavaScript en el lado del cliente lee el valor
+y lo copia en una cabecera anti CSRF
+cuyo valor e integridad son validados por el servidor en cada petición.
+La seguridad de esta técnica se basa en el supuesto
+que solamente JavaScript corriendo  en el mismo origen
+tiene acceso al valor de las cookies.
+Todo JavaScript externo, ya sea corriendo desde un archivo malicioso
+o un correo no tendrá acceso a las cookies y no podrá leer su valor.
+De esta manera, aunque la cookie CSRF es enviada automáticamente
+por el navegador en cada petición,
+el servidor seguirá esperando un valor válido en la cabecera CSRF.
+Bajo este escenario,
+la cookie CSRF no debe de tener el atributo +HttpOnly+ establecido,
+pues está diseñada para ser leída por JavaScript.
+Sin embargo, este control se puede violar
+si el sitio web deshabilita su política de mismo origen
+de alguna de las siguientes maneras:
+
+* Cabecera  Access-Control-Allow-Origin con valor "*".
+* Archivo clientaccesspolicy.xml permitiendo acceso no intencionado
+a los controles Silverlight.
+* Archivo crossdomain.xml permitiendo acceso no intencionado a Flash.
+
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/usar-cookies-httponly/[Usar cookies HTTPOnly].
