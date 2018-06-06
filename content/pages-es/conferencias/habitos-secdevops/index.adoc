@@ -1,7 +1,7 @@
 :slug: conferencias/habitos-secdevops/
 :category: conferencias
 :description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUIDAttacks. La presente conferencia tiene por objetivo socializar nuestras metodologías de trabajo para implementar un ambiente SecDevOps y ofrecer mejoras al cliente diariamente.
-:keywords: FLUIDAttacks, Conferencia, SecDevOps, Seguridad, Software, Tecnología.
+:keywords: FLUIDAttacks, Taller, SecDevOps, Seguridad, Software, Tecnología.
 
 = Nuestros Hábitos SecDevOps
 
@@ -18,7 +18,7 @@ la seguridad de nuestros despliegues a producción.
 
 == 2. Contenido
 
-Esta conferencia se puede entender como la puesta en práctica
+Este *taller* se puede entender como la puesta en práctica
 de todo lo visto en link:../quemar-el-datacenter/[Quemar el DataCenter].
 Se describen los hábitos que seguimos, los beneficios que se obtienen,
 y las dificultades que se tuvieron a medida que se adoptaban.
@@ -69,19 +69,19 @@ desarrolladas antes de hacer el paso a producción.
 
 == 3. Experiencia
 
-Esta conferencia es nueva, se ha presentado a personas de tecnología
+Este *taller* es nuevo, se ha presentado a personas de tecnología
 de empresas como
 link:https://www.grupobancolombia.com/wps/portal/personas[+Bancolombia+] y
 +F2X+.
 
 == 4. ¿Dónde?
 
-El lugar de la conferencia es denifido por +FLUIDAttacks+,
+El lugar del *taller* es denifido por +FLUIDAttacks+,
 por fuera de las instalaciones del cliente.
 
 == 5. Duración
 
-La conferencia tiene una duración de 5 horas
+El *taller* tiene una duración de 5 horas
 (no es posible reducir su duración).
 
 == 6. Cuándo
@@ -90,7 +90,7 @@ La conferencia tiene una duración de 5 horas
 
 == 7. Público
 
-La conferencia es apta para personal técnico y
+El *taller* es apto para personal técnico y
 personal gerencial de tecnología.
 Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.
 Sin embargo, si desea disparar cambios y experimentos
