@@ -135,7 +135,7 @@ releaseContentCtrl (
         if (angular.isUndefined(response.data)) {
           location.reload();
         }
-        if (!response.error && $stateParams.project ===
+        if (!response.error && $stateParams.project.toLowerCase() ===
             response.data.fluidProject.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
