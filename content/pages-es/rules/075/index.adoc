@@ -66,7 +66,7 @@ que no dejará rastro durante un análisis forense,
 por lo tanto descubrir la causa del problema
 o el origen de uno o varios ataques puede probar ser muy difícil o imposible.
 
-== Atributos)
+== Atributos
 
 * Capa: Capa de Aplicación
 * Activo: Bitácoras
@@ -76,7 +76,16 @@ o el origen de uno o varios ataques puede probar ser muy difícil o imposible.
 
 == Referencias
 
-. link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
-. link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
-. link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
-. link:https://cwe.mitre.org/data/definitions/778.html[CWE - Insufficient logging].
+. [[r1]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
+
+. [[r2]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
+
+. [[r3]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/778.html[CWE - Insufficient logging].
+
+. [[r5]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(b):]
+Auditorías de Control: Implementar hardware, software
+y/o mecanismos procedimentales que registren y examinen la actividad
+en sistemas de información que contienen o utilizan información sensible
+protegida electrónicamente.
