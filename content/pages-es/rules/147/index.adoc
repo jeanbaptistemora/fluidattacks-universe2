@@ -15,3 +15,9 @@ pre-existentes  y vigentes.
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iv):]
+Cifrado y Descifrado: Implementar un mecanismo para cifrar y descifrar
+información sensible protegida electrónicamente.

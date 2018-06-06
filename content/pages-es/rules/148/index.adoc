@@ -9,8 +9,14 @@
 == Requisito
 
 Debe utilizarse como mecanismo de cifrado asimétrico
-un tamaño de clave mínimo de 2048 bits.
+un tamaño de clave mínimo de +2048 bits+.
 
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/generar-aleatorios-seguros/[Generar aleatorios seguros].
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iv):]
+Cifrado y Descifrado: Implementar un mecanismo para cifrar y descifrar
+información sensible protegida electrónicamente.
