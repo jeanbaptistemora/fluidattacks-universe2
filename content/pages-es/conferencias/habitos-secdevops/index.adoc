@@ -25,7 +25,7 @@ metodologías y costumbres que nos permiten implementar un ambiente +SecDevOps+
 en nuestros proyectos; desde la administración de la infraestructura,
 hasta el desarrollo de nuestra plataforma de orquestación
 para la remediación de vulnerabilidades:
-[button]#link:../../productos/integrates/[Integrates]#
+[button]#link:../../productos/integrates/[Integrates]# +
 Estos hábitos nos permiten aumentar nuestra productividad,
 generando valor diario al cliente, además de incrementar
 la seguridad de nuestros despliegues a producción.
