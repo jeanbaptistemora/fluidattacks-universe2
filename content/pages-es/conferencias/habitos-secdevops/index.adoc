@@ -13,12 +13,14 @@ sin embargo, toda persona, todo +Webinar+ que habla del tema,
 casos de uso; sin prestarle ni un minuto de atención a la razón
 por la que posiblemente muchos asistentes decidieron ir al evento,
 *¿cómo se hace?, ¿por dónde se empieza?*
-Si mucho lograremos ver cómo hacen una que otra prueba sobre un ambiente
-exageradamente simple con el que ningún asistente se relacionará en cuanto
-a su labor diaria, surgiendo otras preguntas, *¿esto en verdad funciona?*,
+Si mucho lograremos ver como hacen una que otra prueba o demostración
+sobre un ambiente exageradamente simple,
+con el que ningún asistente se relacionará en cuanto a su labor diaria,
+generando otras preguntas, *¿esto en verdad funciona?*,
 *¿esto aplica en mi empresa?*
 
-Con este espacio buscamos socializar nuestras prácticas de trabajo,
+En este espacio buscamos dar respuesta a estas preguntas,
+mediante la socialización de nuestras prácticas de trabajo,
 metodologías y costumbres que nos permiten implementar un ambiente +SecDevOps+
 desde nuestros proyectos; desde la administración de la infraestructura,
 hasta el desarrollo de nuestra plataforma de orquestación
@@ -33,8 +35,22 @@ la seguridad de nuestros despliegues a producción.
 Este *taller* se puede entender como la puesta en práctica
 de todo lo visto en
 [button]#link:../quemar-el-datacenter/[Quemar el DataCenter]#
-Se describen los hábitos que seguimos, los beneficios que se obtienen,
-y las dificultades que se tuvieron a medida que se adoptaban.
+Todo lo que se muestra es *en vivo y en directo*,
+no una aplicación ni una infraestructura diseñada
+como +demo+ específicamente para este taller.
+Se ofrece una visión de lo que está ocurriendo dentrás de cámaras,
+las herramientas que se utilizan, los +logs+ que arrojan
+y que permiten identificar problemas, incluso el código fuente
+que define cada uno de los pasos para el correcto despliegue
+de nuestros productos, todo esto resultando en que es posible ver
+cómo se actualiza nuestra infraestructura
+y nuestros productos en *tiempo real*.
+
+Para poder entender cómo ocurre todo lo mencionado anteriormente,
+además de mostrar cómo dar un primer paso para alcanzar esta configuración,
+la demostración viene acompañada de la explicación
+de todos los hábitos de trabajo que nos han permitido
+llegar hasta este punto y seguir mejorando diariamente.
 Estos hábitos tratan temas como:
 
 * Administración del código fuente al interior del repositorio,
