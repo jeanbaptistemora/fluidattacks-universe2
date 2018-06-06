@@ -79,7 +79,7 @@ sin quemarlas en el código fuente y manteniendo los *secretos protegidos*.
 desarrolladas antes de hacer el paso a producción.
 
 * Rompimiento del +build+ incluso antes de hacer +commit+ al repositorio,
-utilizando +*pre-commit*+ para hacer chequeos de seguridad.
+utilizando +*pre-commit*+ para hacer chequeos por verificaciones.
 
 * Ejecutar pruebas sobre el código fuente y sobre el despliegue:
 ** Integración multiplataforma.
