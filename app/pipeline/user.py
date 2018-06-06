@@ -33,7 +33,8 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
         send_mail_new_user(to, context)
         integrates_dao.create_user_dao(email, username=username,
                                        first_name=first_name,
-                                       last_name=last_name)
+                                       last_name=last_name,
+                                       first_time="1")
     admin = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
               "aroldan@fluidattacks.com", "cgomez@fluidattacks.com"]
     if email.endswith(FLUID_DOMAIN):

@@ -150,6 +150,9 @@ angular.module("FluidIntegrates").controller(
                 element.userRole = $translate.instant("search_findings." +
                                                     "tab_users.analyst");
               }
+              if (element.usersLogin === "1111-01-01 11:11:11") {
+                element.usersLogin = "-";
+              }
             });
             $scope.loadUsersInfo(projectName, vlang, usersData);
           }

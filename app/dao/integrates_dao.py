@@ -11,10 +11,13 @@ import rollbar
 from datetime import datetime
 
 
-def create_user_dao(email, username='-', first_name='-', last_name='-'):
+def create_user_dao(email, username='-', first_name='-', last_name='-', first_time='-' ):
     """ Add a new user. """
     role = 'None'
-    last_login = datetime.now()
+    if first_time == "1":
+        last_login = datetime.now()
+    else:
+        last_login = "1111-1-1 11:11:11"
     date_joined = last_login
 
     with connections['integrates'].cursor() as cursor:
