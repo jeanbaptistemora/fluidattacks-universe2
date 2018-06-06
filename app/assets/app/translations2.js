@@ -161,7 +161,10 @@ const translations2 = {
      },
    "tab_users": {
      "add_button": "Add user",
+     "analyst": "Analist",
      "assign_error": "You can only set one administrator at a time.",
+     "customer": "User",
+     "customer_admin": "Admin",
      "no_selection": "You must select an email from the table.",
      "remove_admin": "Remove admin",
      "remove_admin_error": "You can only remove one administrator at a time.",

@@ -137,6 +137,20 @@ angular.module("FluidIntegrates").controller(
             }
             $scope.view.project = true;
             const usersData = response.data;
+            angular.forEach(usersData, (element) => {
+              if (element.userRole === "customeradmin") {
+                element.userRole = $translate.instant("search_findings." +
+                                                    "tab_users.customer_admin");
+              }
+              else if (element.userRole === "customer") {
+                element.userRole = $translate.instant("search_findings." +
+                                                    "tab_users.customer");
+              }
+              else {
+                element.userRole = $translate.instant("search_findings." +
+                                                    "tab_users.analyst");
+              }
+            });
             $scope.loadUsersInfo(projectName, vlang, usersData);
           }
           else if (response.message === "Access to project denied") {
@@ -154,6 +168,7 @@ angular.module("FluidIntegrates").controller(
 
     $scope.loadUsersInfo = function loadUsersInfo (project, vlang, data) {
       // Eventuality table configuration
+
       angular.element("#tblUsers").bootstrapTable("destroy");
       angular.element("#tblUsers").bootstrapTable({
         data,
