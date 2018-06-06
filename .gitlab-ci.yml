@@ -8,8 +8,11 @@ services:
 
 
 before_script:
-  - apk update && apk add curl bash
+  - echo "$CI_REGISTRY_PASSWORD" |
+      docker login "CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
 
+after_script:
+  - docker logout "$CI_REGISTRY"
 
 codequality:
   script:
@@ -42,12 +45,9 @@ stages:
 
 Build:
   stage: deps
-  before_script:
+  script:
     - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
     - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
-  script:
-    - echo "$DOCKER_PASS" |
-        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
     - docker build
         --cache-from "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
@@ -55,7 +55,6 @@ Build:
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
     - grep ^DEBUG fluidintegrates/settings.py | grep -q False
-    - docker logout "$CI_REGISTRY"
   retry: 2
   except:
     - triggers
@@ -105,15 +104,12 @@ terraform-deploy:
 build-integrates:
   stage: build
   script:
-    - echo "$DOCKER_PASS" |
-        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
     - cd deploy/containers/integrates &&
         sh build.sh 
         "$CI_COMMIT_REF_NAME" "$TORUS_TOKEN_ID" "$TORUS_TOKEN_SECRET"
         "$TORUS_ORG" "$TORUS_PROJECT"
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
-    - docker logout "$CI_REGISTRY"
   retry: 2
   except:
     - triggers
@@ -121,15 +117,12 @@ build-integrates:
 build-bot:
   stage: build
   script:
-    - echo "$DOCKER_PASS" |
-        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
     - cd deploy/containers/bot &&
       sh build.sh
       "$CI_COMMIT_REF_NAME" "$TORUS_TOKEN_ID" "$TORUS_TOKEN_SECRET"
         "$TORUS_ORG" "$TORUS_PROJECT"
     - docker push
       "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/bot:$CI_COMMIT_REF_NAME"
-    - docker logout "$CI_REGISTRY"
   retry: 2
   except:
     - triggers
@@ -200,7 +193,6 @@ Asserts-Review:
 Linting:
   stage: test
   script:
-    - docker login "$CI_REGISTRY" -u $DOCKER_USER -p $DOCKER_PASS
     - docker run
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
@@ -217,7 +209,6 @@ Linting:
         torus daemon start; sleep 5;
         torus run -- node /usr/src/app/app/assets/node_modules/.bin/eslint
         /usr/src/app/app/assets/app/."
-    - docker logout "$CI_REGISTRY"
   retry: 2
   except:
     - master
@@ -226,8 +217,6 @@ Linting:
 Prospector:
   stage: test
   script:
-    - echo "$DOCKER_PASS" |
-        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
     - docker run
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
@@ -246,7 +235,6 @@ Prospector:
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "torus daemon start; sleep 5;
         torus run -- python /usr/src/app/manage.py test app.tests"
-    - docker logout "$CI_REGISTRY"
   retry: 2
   except:
     - master
@@ -255,7 +243,6 @@ Prospector:
 asserts-pre-deploy:
   stage: pre-deploy
   before_script:
-    - apk update && apk add openssh-client curl
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         FLUID_Serves.pem &&
@@ -294,7 +281,6 @@ asserts-pre-deploy:
 Deploy:
   stage: deploy
   before_script:
-    - apk update && apk add openssh-client curl
     - aws s3 cp
         s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
         FLUID_Serves.pem &&
