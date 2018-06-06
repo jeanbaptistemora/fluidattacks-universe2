@@ -9,3 +9,9 @@
 == Requisito
 
 Las credenciales de acceso al sistema deben ser únicas para cada actor.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(i):]
+Identificación de Usuario única: Asignar un único nombre y/o número
+para identificar y llevar el seguimiento de la identidad del usuario.
