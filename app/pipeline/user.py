@@ -35,7 +35,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
                                        first_name=first_name,
                                        last_name=last_name)
     admin = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
-              "aroldan@fluidattacks.com"]
+              "aroldan@fluidattacks.com", "cgomez@fluidattacks.com"]
     if email.endswith(FLUID_DOMAIN):
         integrates_dao.register(email)
         if email in admin:

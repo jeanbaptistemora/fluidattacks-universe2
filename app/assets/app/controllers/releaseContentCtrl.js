@@ -121,6 +121,12 @@ releaseContentCtrl (
       $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasRelease = findingData.hasRelease;
+      if ($scope.isAdmin && !findingData.hasRelease) {
+        $scope.releasesButton = true;
+      }
+      else {
+        $scope.releasesButton = false;
+      }
       functionsFtry3.loadFindingContent($scope);
     }
     else {
@@ -138,11 +144,11 @@ releaseContentCtrl (
             $scope.hasRelease = true;
           }
           findingData.hasRelease = $scope.hasRelease;
-          if ($scope.isAdmin && !$scope.hasRelease) {
-            angular.element(".has-release").show();
+          if ($scope.isAdmin && !findingData.hasRelease) {
+            $scope.releasesButton = true;
           }
           else {
-            angular.element(".has-release").hide();
+            $scope.releasesButton = false;
           }
           functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);

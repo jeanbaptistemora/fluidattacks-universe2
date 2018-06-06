@@ -103,6 +103,8 @@ class FindingDTO(object):
         if "releaseDate" in parameter:
             self.data[self.RELEASE_DATE] \
                 = parameter["releaseDate"]
+            self.data[self.LAST_VULNERABILITY] \
+                = parameter["releaseDate"]
 
     def create_evidence_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """

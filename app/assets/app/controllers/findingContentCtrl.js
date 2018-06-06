@@ -155,6 +155,7 @@ findingContentCtrl (
       $scope.exploitURL = findingData.exploitURL;
       $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
+      $scope.hasRelease = findingData.hasRelease;
       functionsFtry3.loadFindingContent($scope);
     }
     else {
@@ -167,6 +168,11 @@ findingContentCtrl (
             response.data.fluidProject.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
+          $scope.hasRelease = false;
+          if (angular.isDefined($scope.finding.releaseDate)) {
+            $scope.hasRelease = true;
+          }
+          findingData.hasRelease = $scope.hasRelease;
           functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
           $scope.remediatedView();
