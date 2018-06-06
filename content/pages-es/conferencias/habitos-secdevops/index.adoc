@@ -22,7 +22,7 @@ generando otras preguntas, *¿esto en verdad funciona?*,
 En este espacio buscamos dar respuesta a estas preguntas,
 mediante la socialización de nuestras prácticas de trabajo,
 metodologías y costumbres que nos permiten implementar un ambiente +SecDevOps+
-desde nuestros proyectos; desde la administración de la infraestructura,
+en nuestros proyectos; desde la administración de la infraestructura,
 hasta el desarrollo de nuestra plataforma de orquestación
 para la remediación de vulnerabilidades:
 [button]#link:../../productos/integrates/[Integrates]#
