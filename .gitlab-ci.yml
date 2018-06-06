@@ -9,7 +9,7 @@ services:
 
 before_script:
   - echo "$CI_REGISTRY_PASSWORD" |
-      docker login "CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+      docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
 
 after_script:
   - docker logout "$CI_REGISTRY"
@@ -79,7 +79,7 @@ terraform-deploy:
     - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
     - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate
+        s3://$FS_S3_BUCKET_NAME/terraform/integrates/terraform.tfstate
         deploy/terraform.tfstate || export NEW_DEPLOY=true
     - cd deploy
   script:
@@ -95,7 +95,7 @@ terraform-deploy:
   after_script:
     - aws s3 cp
         deploy/terraform.tfstate
-        s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate
+        s3://$FS_S3_BUCKET_NAME/terraform/integrates/terraform.tfstate
   only:
     - master
   except:
@@ -130,8 +130,13 @@ build-bot:
 review-integrates:
   stage: review
   image: lwolf/kubectl_deployer
+  before_script:
+    - apk update
+    - apk add bash
   script:
     - ./review-apps/cluster-config.sh
+  after_script:
+    - echo "Job finished"
   retry: 2
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
@@ -244,7 +249,7 @@ asserts-pre-deploy:
   stage: pre-deploy
   before_script:
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
         FLUID_Serves.pem &&
         chmod 600 FLUID_Serves.pem
     - echo "$JFROG_PASS" |
@@ -282,7 +287,7 @@ Deploy:
   stage: deploy
   before_script:
     - aws s3 cp
-        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
         FLUID_Serves.pem &&
         chmod 600 FLUID_Serves.pem
   script:
