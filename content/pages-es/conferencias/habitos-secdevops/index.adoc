@@ -57,7 +57,7 @@ utilizando +*pre-commit*+ para hacer chequeos de seguridad.
 ** Integración multiplataforma.
 ** Pruebas unitarias.
 ** Cobertura.
-** +Linters+.
+** +Linters+ intolerantes.
 ** +Security Gates (SAST y DAST)+
 
 * Reducción extrema del tiempo de +build+,
