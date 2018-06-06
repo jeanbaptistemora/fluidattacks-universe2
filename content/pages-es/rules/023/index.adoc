@@ -10,7 +10,7 @@
 
 El sistema debe cerrar una sesión
 si se presenta un tiempo de inactividad por parte del usuario,
-superior o igual a 5 minutos.
+superior o igual a +5+ minutos.
 
 == Descripción
 
@@ -35,7 +35,7 @@ y de la información que contiene.
 Dependiendo de las necesidades del negocio
 y/o de las políticas de manejo de sesiones de la compañía
 se deben configurar los tiempos de finalización de sesiones desatendidas
-a un tiempo prudencial (recomendado de 5 minutos o cercano).<<r1,^[1]^>>
+a un tiempo prudencial (recomendado de +5+ minutos o cercano).<<r1,^[1]^>>
 
 == Soluciones
 
@@ -63,7 +63,13 @@ y manteniendo los objetos de sesión.
 
 == Referencias
 
-. [[r1]] link:http://www.certicamara.com/download/correspondencia/20121005_Anexos_12_circular_042_de_2012.pdf[CAPÍTULO DÉCIMO SEGUNDO: REQUERIMIENTOS MÍNIMOS DE SEGURIDAD Y CALIDAD
-PARA LA REALIZACIÓN DE OPERACIONES].
+. [[r1]] link:http://www.certicamara.com/download/correspondencia/20121005_Anexos_12_circular_042_de_2012.pdf[Capítulo Décimo Segundo: Requerimientos Mínimos de Seguridad y Calidad
+para la Realización de Operaciones].
+
 . [[r2]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+
 . [[r3]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
+
+. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iii):]
+Cierre de Sesión Automático: Implementar procedimientos electrónicos
+que terminen una sesión después de un determinado tiempo de inactividad.
