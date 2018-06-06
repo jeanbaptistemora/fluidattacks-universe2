@@ -13,7 +13,7 @@ sin embargo, toda persona, todo +Webinar+ que habla del tema,
 casos de uso; sin prestarle ni un minuto de atención a la razón
 por la que posiblemente muchos asistentes decidieron ir al evento,
 *¿cómo se hace?, ¿por dónde se empieza?*
-Si mucho lograremos ver como hacen una que otra prueba o demostración
+Tal vez nos mostrarían cómo hacen una que otra prueba
 sobre un ambiente exageradamente simple,
 con el que ningún asistente se relacionará en cuanto a su labor diaria,
 generando otras preguntas, *¿esto en verdad funciona?*,
