@@ -7,6 +7,17 @@
 
 == 1. Objetivo
 
+El término +SecDevOps+ ha venido sonando mucho los últimos años,
+sin embargo, toda persona, todo +Webinar+ que habla del tema,
+únicamente se centra en los beneficios que trae, o en los posibles
+casos de uso; sin prestarle ni un minuto de atención a la razón
+por la que posiblemente muchos asistentes decidieron ir al evento,
+*¿cómo se hace?, ¿por dónde se empieza?*
+Si mucho lograremos ver cómo hacen una que otra prueba sobre un ambiente
+exageradamente simple con el que ningún asistente se relacionará en cuanto
+a su labor diaria, surgiendo otras preguntas, *¿esto en verdad funciona?*,
+*¿esto aplica en mi empresa?*
+
 Con este espacio buscamos socializar nuestras prácticas de trabajo,
 metodologías y costumbres que nos permiten implementar un ambiente +SecDevOps+
 desde nuestros proyectos; desde la administración de la infraestructura,
