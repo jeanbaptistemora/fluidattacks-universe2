@@ -60,7 +60,8 @@ utilizando +*pre-commit*+ para hacer chequeos de seguridad.
 ** +Linters+.
 ** +Security Gates (SAST y DAST)+
 
-* Uso correcto de la *caché*.
+* Reducción extrema del tiempo de +build+,
+mediante el correcto uso de la *caché*.
 
 * Aprovechar funcionalidades del cliente de control de versionamiento +Git+:
 ** +Peer Review+.
