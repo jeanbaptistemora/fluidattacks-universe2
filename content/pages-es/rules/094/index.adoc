@@ -11,3 +11,9 @@
 Debe preferirse especificar las reglas
 para control de acceso de modo declarativo
 en vez de modo programático.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(c)(1):]
+Integridad: Implementar políticas y procedimientos
+para proteger la información sensible de ser alterada o destruida.
