@@ -75,7 +75,7 @@ la cookie CSRF no debe de tener el atributo +HttpOnly+ establecido,
 pues está diseñada para ser leída por JavaScript.
 Sin embargo, este control se puede violar
 si el sitio web deshabilita su política de mismo origen
-de alguna de las siguientes maneras:
+de alguna de las siguientes maneras^<<r8,[8]>>:
 
 * Cabecera  Access-Control-Allow-Origin con valor "*".
 * Archivo clientaccesspolicy.xml permitiendo acceso no intencionado
@@ -118,3 +118,4 @@ y extrayendo la +cookie+ de sesión que se utiliza para robar la misma.
 . [[r5]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-3662[CVE-2008-3662 Session hijacking vulnerability].
 . [[r6]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-0128[CVE-2008-0128 Apache Tomcat 4.x vulnerability].
 . [[r7]] link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0053[CVE-2012-0053 Information Disclosure vulnerability in Apache HTTP Server].
+. [[r8]] link:https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-header_token[Cookie-to-header token - HttpOnly atribute exceptions].
