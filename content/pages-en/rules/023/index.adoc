@@ -1,0 +1,68 @@
+:slug: rules/023/
+:category: rules
+:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of closing inactive user sessions after a certain period inactivity in order to avoid security breaches.
+:keywords: Requirement, Security, Session, Cookies, Attributes, HttpOnly.
+:rules: yes
+:translate: rules/023/
+
+= REQ.023 Close inactive users sessions
+
+== Requirement
+
+The system must close a session if there is a period of inactivity
+on the user side, greater than or equal to +5+ minutes.
+
+== Description
+
+A system that has authentication and login
+can keep it open for an indefinite period
+if there is no automatic control of session closure
+and the user does not close it manually.
+
+Failure to control the closing times may allow an attacker
+to take advantage of unattended sessions and execute actions
+on behalf of the authenticated user without their authorization,
+altering confidential information associated with accounts,
+this risk can increase its criticality notably
+if the system allows the entry to administrators with high privileges,
+since it would affect the integrity,
+confidentiality and availability of the system,
+its users and the information it contains.
+
+== Implementation
+
+Set the session times: Depending on the business needs
+and/or the company's session management policies,
+end times of unattended sessions must be set at a prudential time
+(recommended of +5+ minutes).
+
+== Attacks
+
+. An employed or anonymous user takes control of an account
+unattended by another user without their authorization. <<r1, ^[1]^>> <<r2, ^[2]^>>
+
+. In a web server, having several open sessions during a long period
+force the server to consume a lot of memory
+by deploying and maintaining session objects.
+
+== Attributes
+
+* Layer: Resource Layer.
+
+* Asset: Session Management.
+
+* Scope: Adherence.
+
+* Phase: Operation.
+
+* Type of Control: Procedure.
+
+== References
+
+. [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iii):]
+Automatic Logoff: Implement electronic procedures
+that terminate an electronic session after a predetermined time of inactivity.
