@@ -1,0 +1,18 @@
+:slug: rules/148/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of cryptographic systems. This requirement establishes the importance of setting asymmetric encryption of minimum size in the cryptographic functions of the system.
+:keywords: Requirement, Security, Cryptographic, Asymmetric, Encryption, Size
+:rules: yes
+:translate: rules/148/
+
+= REQ.148 Set minimum size of asymmetric encryption
+
+== Requirement
+
+The asymmetric encryption mechanism must use a minimum key size of +2048 bits+.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iv):]
+Encryption and Decryption: Implement a mechanism to encrypt and decrypt
+electronic protected health information.

@@ -22,6 +22,12 @@
 
 * link:143/[REQ.143 Unique Access Credentials].
 
+== Cryptography
+
+* link:147/[REQ.147 Use pre-existent mechanisms].
+* link:148/[REQ.148 Set minimum size of asymmetric encryption].
+* link:149/[REQ.149 Set minimum size of symmetric encryption].
+
 This page is only available in Spanish language.
 Please click on the Spanish flag in the upper right corner
 to view the corresponding content.

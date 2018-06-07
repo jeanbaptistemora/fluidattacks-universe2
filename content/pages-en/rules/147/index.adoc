@@ -1,0 +1,19 @@
+:slug: rules/147/
+:category: rules
+:description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of using pre-existing and current mechanisms to implement the cryptographic functions used by the system.
+:keywords: Requirement, Security, Cryptographic, Encryption, Decryption, Mechanisms.
+:rules: yes
+:translate: rules/147/
+
+= REQ.147 Use pre-existent mechanisms
+
+== Requirement
+
+The cryptographic functions of the system
+must be implemented with pre-existing and current cryptographic mechanisms.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iv):]
+Encryption and Decryption: Implement a mechanism to encrypt and decrypt
+electronic protected health information.
