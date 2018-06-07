@@ -140,15 +140,23 @@
         padding-left: auto;
         padding-right: auto;
     }
+    .pull-right > input {
+        width: 400px;
+        display:flex;
+    }
     @media screen and (max-width: 1320px;) {
     .column-button {
         width: 50%;
         display:flex;
       }
     }
-    @media screen and (max-width: 1040px;) {
+    @media screen and (max-width: 1160px;) {
     .column-button {
         width: 50%;
+        display:flex;
+      }
+    .pull-right > input {
+        width: 300px;
         display:flex;
       }
     }
@@ -164,6 +172,10 @@
         width: 100%;
         display:initial;
         float: none;
+      }
+      .pull-right > input {
+          width: 250px;
+          display:flex;
       }
     }
 
