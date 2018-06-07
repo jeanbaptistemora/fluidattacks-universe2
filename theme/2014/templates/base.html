@@ -31,9 +31,9 @@
   <title>{% block title %}{% endblock title %}</title>
         {% block canonical %}{% endblock canonical %}
         {% block language %}{% endblock language %}
-        <link rel="shortcut icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=32" sizes="16x16" />
-        <link rel="icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=32" sizes="16x16" />
-        <link rel="apple-touch-icon-precomposed" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=114" />
+        <link rel="shortcut icon" type="image/x-icon" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" sizes="16x16" />
+        <link rel="icon" type="image/x-icon" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" sizes="16x16" />
+        <link rel="apple-touch-icon-precomposed" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" />
     {% for name,link in SOCIAL if name in ['rss', 'rss-square'] %}
         <link href="{{ link }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
     {% else %}

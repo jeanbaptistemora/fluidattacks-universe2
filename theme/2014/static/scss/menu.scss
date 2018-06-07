@@ -1,10 +1,8 @@
-$darkblue: rgba(29, 79, 114, 1);
-$dottedblue: rgba(66, 139, 202, 1);
-$gray: rgba(128, 128, 128, 1);
+$fluid-darker-red: rgba(139, 34, 35, 1);
+$dottedgray: rgba(128, 128, 128, 1);
 $menublack: rgba(7, 27, 47, 1);
 $menublackopacity: rgba(7, 27, 47, .2);
-$menublue: rgba(20, 88, 142, 1);
-$submenublue: rgba(27, 117, 187, 1);
+$fluid-dark-red: rgba(203, 50, 51, 1);
 $transparent: rgba(0, 0, 0, 0);
 $transparentblack: rgba(0, 0, 0, .5);
 $white: rgba(255, 255, 255, 1);
@@ -15,7 +13,7 @@ $white: rgba(255, 255, 255, 1);
   text-transform: uppercase;
 
   &:hover {
-    background-color: $darkblue;
+    background-color: $fluid-darker-red;
     color: $white;
   }
 }
@@ -39,7 +37,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .cssmenu {
-  background: $menublue;
+  background: $fluid-dark-red;
   line-height: 1;
 }
 
@@ -57,14 +55,13 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .m-opened {
-  background: $submenublue;
-  border-top: 5px solid $darkblue;
+  border-top: 5px solid $fluid-darker-red;
   display: block;
   margin: 0;
   padding: 0;
 
   li {
-    border-top: 1px dotted $dottedblue;
+    border-top: 1px dotted $dottedgray;
     display: block;
     line-height: 1;
     margin-top: 0;
@@ -75,14 +72,14 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .menu-button {
-  border-bottom: 5px solid $darkblue;
+  border-bottom: 5px solid $fluid-darker-red;
   cursor: pointer;
   min-height: 72px;
   position: relative;
   z-index: 1;
 
   &:hover {
-    background-color: $darkblue;
+    background-color: $fluid-darker-red;
   }
 
   &::before {
@@ -131,13 +128,13 @@ $white: rgba(255, 255, 255, 1);
   position: relative;
 
   li {
-    border-top: 1px dotted $dottedblue;
+    border-top: 1px dotted $dottedgray;
     height: 61px;
   }
 }
 
 .submenu-button {
-  border-left: 1px dotted $dottedblue;
+  border-left: 1px dotted $dottedgray;
   cursor: pointer;
   display: block;
   height: 60px;
@@ -147,11 +144,11 @@ $white: rgba(255, 255, 255, 1);
   width: 45px;
 
   &:hover {
-    background: $darkblue;
+    background: $fluid-darker-red;
   }
 
   &.submenu-opened {
-    background: $darkblue;
+    background: $fluid-darker-red;
 
     &::before {
       display: none;
@@ -184,7 +181,7 @@ $white: rgba(255, 255, 255, 1);
   left: 2px;
   margin-right: 20px;
   position: relative;
-  top: 27px;
+  top: 20px;
   width: 100px;
   z-index: 2;
 }
@@ -205,7 +202,7 @@ $white: rgba(255, 255, 255, 1);
 
 @media (min-width: 400px) {
   .fluid-screw {
-    top: 23px;
+    top: 10px;
     width: 150px;
   }
 }
@@ -290,7 +287,7 @@ $white: rgba(255, 255, 255, 1);
     position: absolute;
 
     li {
-      border-top: 1px dotted $gray;
+      border-top: 1px dotted $dottedgray;
       min-height: 61px;
       min-width: 260px;
       padding-top: 0;
@@ -303,13 +300,13 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .css-scrolled {
-    background-color: $menublue;
-    border-bottom: 5px solid $darkblue;
+    background-color: $fluid-dark-red;
+    border-bottom: 5px solid $fluid-darker-red;
     transition: background-color .2s;
   }
 
   .m-scrolled {
-    background-color: $menublue;
+    background-color: $fluid-dark-red;
     min-height: auto;
     transition: background-color .2s;
 
@@ -317,7 +314,7 @@ $white: rgba(255, 255, 255, 1);
       min-height: auto;
 
       &:hover {
-        background-color: $darkblue;
+        background-color: $fluid-darker-red;
       }
     }
   }
@@ -325,7 +322,7 @@ $white: rgba(255, 255, 255, 1);
   .has-sub-scrolled {
     &:hover {
       ul {
-        background: $menublue;
+        background: $fluid-dark-red;
       }
     }
   }

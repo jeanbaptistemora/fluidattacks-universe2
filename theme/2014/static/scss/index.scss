@@ -1,11 +1,19 @@
 $lightgray: rgba(211, 211, 211, 1);
 $darkblue: rgba(29, 79, 114, 1);
+$fluid-black: rgba(67, 67, 67, 1);
+$fluid-red: rgba(247, 60, 57, 1);
+$fluid-dark-red: rgba(203, 50, 51, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $white: rgba(255, 255, 255, 1);
 
 .aautor {
+  color: $fluid-black;
   font-size: 15px;
   text-transform: capitalize;
+
+  &:hover {
+    color: $fluid-red;
+  }
 }
 
 .article-summary {
@@ -17,7 +25,7 @@ $white: rgba(255, 255, 255, 1);
   margin: 10px 21px 0;
 
   .subtitle {
-    color: $darkblue;
+    color: $fluid-black;
     display: block;
     font-style: italic;
   }
@@ -31,10 +39,6 @@ $white: rgba(255, 255, 255, 1);
     color: $white;
     font-size: 16px;
     padding: 15px 21px;
-
-    &:hover {
-      color: $lightblue;
-    }
   }
 }
 
@@ -47,6 +51,7 @@ $white: rgba(255, 255, 255, 1);
   a {
     background-color: $white;
     border-radius: 15px;
+    color: $fluid-dark-red;
     display: inline-block;
     font-size: 14px;
     font-weight: 800;
@@ -56,7 +61,7 @@ $white: rgba(255, 255, 255, 1);
 
     &:hover,
     &:focus {
-      background-color: $lightblue;
+      background-color: $fluid-dark-red;
       color: $white;
     }
   }
@@ -72,6 +77,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .post-title {
+  color: $fluid-black;
   font-size: 22px;
   font-weight: 400;
   margin-bottom: 0;
@@ -80,11 +86,15 @@ $white: rgba(255, 255, 255, 1);
   .anchor-sign {
     bottom: 3px;
   }
+
+  &:hover {
+    color: $fluid-red;
+  }
 }
 
 .blog-post {
   background-color: $white;
-  border-top: 3px solid $darkblue;
+  border-top: 3px solid $fluid-black;
   margin-bottom: 20px;
   padding: 20px;
   position: relative;

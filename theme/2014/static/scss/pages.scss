@@ -1,4 +1,6 @@
 $darkblue: rgba(29, 79, 114, 1);
+$fluid-black: rgba(67, 67, 67, 1);
+$fluid-red: rgba(247, 60, 57, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
 $titleblack: rgba(48, 48, 48, 1);
@@ -61,7 +63,7 @@ $white: rgba(255, 255, 255, 1);
 
 .divpage {
   background-color: $white;
-  border-top: 3px solid $darkblue;
+  border-top: 3px solid $fluid-black;
   margin: 10px 21px;
   padding: 25px;
 }
@@ -80,7 +82,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .button {
-  background-color: $darkblue;
+  background-color: $fluid-black;
   border: 2px outset;
   border-radius: 10px;
   color: $white;
@@ -96,7 +98,7 @@ $white: rgba(255, 255, 255, 1);
     }
 
     &:hover {
-      color: $lightblue;
+      color: $fluid-red;
     }
   }
 

@@ -4,6 +4,9 @@ $blue: rgba(0, 0, 255, 1);
 $font: 'Ubuntu', sans-serif;
 $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
+$fluid-black: rgba(67, 67, 67, 1);
+$fluid-dark-red: rgba(203, 50, 51, 1);
+$fluid-red: rgba(247, 60, 57, 1);
 $fuchsia: rgba(255, 0, 255, 1);
 $gray: rgba(128, 128, 128, 1);
 $green: rgba(0, 128, 0, 1);
@@ -109,7 +112,7 @@ a {
   text-decoration: none;
 
   &:hover {
-    color: $lightblue;
+    color: $fluid-red;
   }
 
   .tooltip {
@@ -570,12 +573,13 @@ article {
     float: left;
 
     &:hover {
-      background-color: $lightblue;
+      background-color: $fluid-dark-red;
 
     }
   }
 
   a {
+    color: $fluid-black;
     display: block;
     font-size: 17px;
     padding: 10px 0;

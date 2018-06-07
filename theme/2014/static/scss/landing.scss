@@ -1,11 +1,11 @@
-$benefitblue: rgba(27, 117, 187, 1);
+$fluid-black: rgba(67, 67, 67, 1);
 $darkgray: rgba(102, 102, 102, 1);
-$lightblue: rgba(0, 133, 161, 1);
+$fluid-red: rgba(247, 60, 57, 1);
 $white: rgba(255, 255, 255, 1);
 
 .benefits {
   align-items: center;
-  background-color: $benefitblue;
+  background-color: $fluid-black;
   display: flex;
   flex-wrap: wrap;
   padding: 20px 0;
@@ -85,7 +85,7 @@ $white: rgba(255, 255, 255, 1);
     margin: auto;
 
     &:hover {
-      color: $lightblue;
+      color: $fluid-red;
     }
   }
 }

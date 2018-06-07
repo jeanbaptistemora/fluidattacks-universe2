@@ -1,8 +1,9 @@
 $darkgray: rgba(102, 102, 102, 1);
 $darkblue: rgba(29, 79, 114, 1);
+$fluid-black: rgba(67, 67, 67, 1);
+$fluid-dark-red: rgba(203, 50, 51, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
-$tagblue: rgba(27, 117, 187, 1);
 $white: rgba(255, 255, 255, 1);
 
 @mixin next-prev {
@@ -32,7 +33,7 @@ $white: rgba(255, 255, 255, 1);
 
 .divarticle {
   background-color: $white;
-  border-top: 3px solid $darkblue;
+  border-top: 3px solid $fluid-black;
   margin: 10px 21px;
   padding: 25px;
 
@@ -114,7 +115,7 @@ $white: rgba(255, 255, 255, 1);
   overflow: hidden;
 
   a {
-    background-color: $tagblue;
+    background-color: $fluid-dark-red;
     color: $white;
     float: left;
     margin: 0 5px 40px 0;
