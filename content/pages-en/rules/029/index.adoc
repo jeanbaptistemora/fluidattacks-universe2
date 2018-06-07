@@ -3,6 +3,7 @@
 :description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of using cookies with the required security attributes such as HttpOnly and Secure.
 :keywords: Requirement, Security, Session, Cookies, Attributes, HttpOnly.
 :rules: yes
+:translate: rules/029/
 
 = REQ.029 Cookies with security attributes
 
@@ -55,29 +56,29 @@ due to the plain text transmission of the +cookie+.
 
 . Exceptions for the +HttpOnly+ attribute:
 Web applications that use JavaScript for the majority of their operations
-may use an anti-Cross-Site-Request-Forgery(CSRF) technique
+may use an anti-Cross-Site-Request-Forgery(+CSRF+) technique
 that relies on same-origin policy.
 This technique consist of setting a cookie containing a random token.
 Client side JavaScript reads its value
-and copies it into a custom HTTP CSRF header sent with each request.
+and copies it into a custom +HTTP CSRF+ header sent with each request.
 The security of this technique
 is based on the assumption that only JavaScript
 running within the same origin will be able to access the cookie.
 JavaScript running from a rogue file or email
 will not be able to read it and copy into the custom header.
-Even though the CSRF cookie will be automatically sent with the rogue request,
-the server will be still expecting a valid CSRF header.
+Even though the +CSRF+ cookie will be automatically sent with the rogue request,
+the server will be still expecting a valid +CSRF+ header.
 In this implementation,
-the CSRF cookie must not have +HttpOnly+ attribute,
+the +CSRF+ cookie must not have +HttpOnly+ attribute,
 as it is intended to be read by the JavaScript by design.
 However, the protection provided by this technique
 can be thwarted if the target website disables its same-origin policy
-using one of the following techniques^<<r8,[8]>>:
+using one of the following techniques <<r8,^[8]^>>:
 
-* Access-Control-Allow-Origin header set to "*".
-* clientaccesspolicy.xml file granting unintended access
+* Access-Control-Allow-Origin header set to +*+.
+* +clientaccesspolicy.xml+ file granting unintended access
 to Silverlight controls.
-* crossdomain.xml file granting unintended access to Flash.
+* +crossdomain.xml+ file granting unintended access to Flash.
 
 == Solutions
 
@@ -100,13 +101,13 @@ and extracting the session +cookie+ used for session theft.
 
 == Attributes
 
-. Layer: Application layer
-. Asset: Session management
-. Scope: Confidentiality
-. Phase: Construction
-. Type of Control: Procedure
+. Layer: Application layer.
+. Asset: Session management.
+. Scope: Confidentiality.
+. Phase: Construction.
+. Type of Control: Procedure.
 
-== Referencias
+== References
 
 . [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
 . [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
