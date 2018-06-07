@@ -189,7 +189,8 @@ def get_new_releases():
             finding_requests = api.get_findings(project)["submissions"]
             for finding in finding_requests:
                 finding_parsed = views.finding_vulnerabilities(finding["id"])
-                if "releaseDate" not in finding_parsed:
+                if ("releaseDate" not in finding_parsed and
+                        finding_parsed['fluidProject'].lower() == project[0].lower()):
                     context['findings'].append({'finding_name': finding_parsed["finding"], 'finding_url': \
                         'https://fluidattacks.com/integrates/dashboard#!/project/'+ project[0].lower() + '/release/' + \
                         str(finding["id"]) + '/description', 'project': project[0].upper()})
