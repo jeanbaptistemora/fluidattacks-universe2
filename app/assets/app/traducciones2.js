@@ -39,7 +39,7 @@ const traducciones2 = {
   "pop_table":
   {
     "date": "Fecha",
-    "details": "Descripcion",
+    "details": "Descripción",
     "status": "Estado",
     "type": "Tipo"
   },
@@ -62,7 +62,7 @@ const traducciones2 = {
   "tab_comments": {"comments_name": "Comentarios"},
   "tab_cssv2":
    {
-     "authentication": "Autenticacion",
+     "authentication": "Autenticación",
      "availability": "Impacto Disponibilidad",
      "complexity": "Complejidad Acceso",
      "confidence": "Nivel Confianza",
@@ -71,7 +71,7 @@ const traducciones2 = {
      "editable": "Editar",
      "exploitability": "Explotabilidad",
      "integrity": "Impacto Integridad",
-     "resolution": "Nivel Resolucion",
+     "resolution": "Nivel Resolución",
      "update": "Actualizar",
      "vector": "Vector de Acceso"
    },
@@ -89,15 +89,15 @@ const traducciones2 = {
     "compromisedRecords": "Registros Comprometidos",
     "compromisedRecordsTooltip": "Número de datos comprometidos al explotar " +
                                   "la vulnerabilidad",
-    "description": "Descripcion",
+    "description": "Descripción",
     "descriptionTooltip": "Descripción del hallazgo",
-    "description_name": "Descripcion",
+    "description_name": "Descripción",
     "detailed": "Detallado",
     "edit_treatment": "Editar",
     "editable": "Editar",
     "general": "General",
     "probability": "Probabilidad",
-    "recommendation": "Recomendacion",
+    "recommendation": "Recomendación",
     "recommendationTooltip": "Recomendación general que se da para evitar " +
                               "esta falla de seguridad",
     "reject": "Justificación de rechazo",
@@ -158,7 +158,8 @@ const traducciones2 = {
     "close": "Cerradas",
     "closingEffectiveness": "Efectividad",
     "finding": "Hallazgo reportado",
-    "open": "Abiertas"
+    "open": "Abiertas",
+    "tracking_name": "Seguimiento"
   },
   "tab_users": {
     "add_button": "Agregar usuario",

@@ -157,7 +157,8 @@ const translations2 = {
        "close": "Closed",
        "closingEffectiveness": "Effectiveness",
        "finding": "Discovery",
-       "open": "Open"
+       "open": "Open",
+       "tracking_name": "Tracking"
      },
    "tab_users": {
      "add_button": "Add user",
