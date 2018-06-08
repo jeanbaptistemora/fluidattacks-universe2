@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, en este requerimiento se recomienda que se especifiquen reglas de modo declarativo en lugar de modo programático.
 :keywords: Sistema, Reglas, Control, Acceso, Declarativo, Programático.
 :rules: yes
+:translate: rules/075/
 
 = REQ.094 Especificar reglas de modo declarativo
 
