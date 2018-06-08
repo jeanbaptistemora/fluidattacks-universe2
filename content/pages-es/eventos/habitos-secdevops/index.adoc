@@ -67,7 +67,7 @@ todos los cambios en la rama principal, evitando así la acumulación de código
 logrando tener *cero inventario* (dejar atrás el +gitflow+).
 
 * Generar valor diario al cliente mediante la metodología de *microcambios*
-(no una funcionalidad enorme cada 6 meses o más).
+(no una funcionalidad enorme cada 3 semanas o más).
 
 * Migrar y administrar toda la infraestructura como código fuente, versionado,
 conviertiéndola en *infraestructura inmutable*
@@ -88,7 +88,7 @@ sin quemarlas en el código fuente y manteniendo los *secretos protegidos*.
 * Desplegar *ambientes efímeros* que permitan probar todas las funcionalidades
 desarrolladas antes de hacer el paso a producción
 (sin complicar más el proyecto teniendo ambientes de desarrollo, pruebas,
-+QA+, producción, ...).
++QA+, ...).
 
 * *Rompimiento del +build+* incluso antes de hacer +commit+ al repositorio,
 utilizando +*pre-commit*+ para hacer chequeos por verificaciones.
@@ -112,7 +112,8 @@ mediante el correcto uso de la *caché*.
 ** +Rollback+
 ** +Trigger builds+.
 
-* Administración y manejo de errores.
+* *Telemtría* accesible a los desarrolladores (no +logs+
+únicamente disponibles para el área de infraestructura).
 
 Cada punto descrito anteriormente está acompañado con la entrada al interior
 de los sistemas de +FLUIDAttacks+ para ver su implementación y funcionamiento.
