@@ -92,6 +92,16 @@ def get_user_last_login_dao(email):
         return '-'
     return unicode(row[0])
 
+def get_user_first_login_dao(email):
+    """ Get the user's first login date. """
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT date_joined FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+    if row is None:
+        return '-'
+    return unicode(row[0])
+
 
 def get_company_dao(email):
     """ Get the company of a user. """

@@ -152,6 +152,7 @@ angular.module("FluidIntegrates").controller(
               }
               if (element.usersLogin === "1111-01-01 11:11:11") {
                 element.usersLogin = "-";
+                element.usersFirstLogin = "-";
               }
             });
             $scope.loadUsersInfo(projectName, vlang, usersData);

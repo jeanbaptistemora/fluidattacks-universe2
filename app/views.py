@@ -258,6 +258,7 @@ def project_users(request):
         "search_findings": {
             "users_table": {
                "usermail": "User email",
+               "firstlogin": "First login",
                "lastlogin": "Last login",
                "userRole": "Role"
             },
@@ -268,6 +269,7 @@ def project_users(request):
             "search_findings": {
                 "users_table": {
                    "usermail": "Email",
+                   "firstlogin": "Primer ingreso",
                    "lastlogin": "Último ingreso",
                    "userRole": "Rol"
                 },
@@ -531,8 +533,11 @@ def get_users_login(request):
         data = {}
         last_login = integrates_dao.get_user_last_login_dao(user)
         last_login = last_login.split('.',1)[0]
+        first_login = integrates_dao.get_user_first_login_dao(user)
+        first_login = first_login.split('.',1)[0]
         data['users']=user
         data['usersLogin']=last_login
+        data['usersFirstLogin']=first_login
         data['userRole']=integrates_dao.get_role_dao(user)
         dataset.append(data)
     return util.response(dataset, 'Success', False)
