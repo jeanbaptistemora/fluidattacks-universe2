@@ -60,20 +60,24 @@ llegar hasta este punto y seguir mejorando diariamente.
 Estos hábitos tratan temas como:
 
 * Administración del código fuente al interior del repositorio,
-siguiendo una estructura *monorepo*.
+siguiendo una estructura *monorepo* (adiós al multirepo).
 
 * Mantener un ambiente limpio y pequeño por desarrollador, incluyendo
 todos los cambios en la rama principal, evitando así la acumulación de código y
-logrando tener *cero inventario*.
+logrando tener *cero inventario* (dejar atrás el +gitflow+).
 
-* Generar valor diario al cliente mediante la metodología de *microcambios*.
+* Generar valor diario al cliente mediante la metodología de *microcambios*
+(no una funcionalidad enorme cada 6 meses o más).
 
 * Migrar y administrar toda la infraestructura como código fuente, versionado,
-conviertiéndola en *infraestructura inmutable*.
+conviertiéndola en *infraestructura inmutable*
+(olvidar consolas de gestión y evitar cambios no autorizados).
 
 * Definir los ambientes de Integración Continua como código fuente,
 +*pipeline as code*+, versionado, de manera que sea más fácil de configurar,
-modificar, y realizar todo tipo de pruebas.
+modificar, y realizar todo tipo de pruebas
+(evitando ser susceptibles a las limitaciones que impone una interfaz gráfica
+para la configuración del +pipeline+).
 
 * Evitar servidores a toda costa, migrando a servicios en la nube y alcanzando
 una estructura *serverless*
@@ -82,13 +86,16 @@ una estructura *serverless*
 sin quemarlas en el código fuente y manteniendo los *secretos protegidos*.
 
 * Desplegar *ambientes efímeros* que permitan probar todas las funcionalidades
-desarrolladas antes de hacer el paso a producción.
+desarrolladas antes de hacer el paso a producción
+(sin complicar más el proyecto teniendo ambientes de desarrollo, pruebas,
++QA+, producción, ...).
 
 * *Rompimiento del +build+* incluso antes de hacer +commit+ al repositorio,
 utilizando +*pre-commit*+ para hacer chequeos por verificaciones.
 
 * Ejecutar pruebas sobre el código fuente y sobre el despliegue
-que *rompan el +build+* ante el más mínimo error:
+que *rompan el +build+* ante el más mínimo error
+(no que notifiquen y permiten que éste evolucione):
 ** Integración multiplataforma.
 ** Pruebas unitarias.
 ** Cobertura.
@@ -157,7 +164,7 @@ dentro de su organización, es importante considerar
 la presencia de personas con poder de decisión.
 
 El *taller* se encuentra diseñado para un público entre
-*6 y 12* personas por parte del cliente, además de las 4 adicionales
+*8 y 12* personas por parte del cliente, además de las 4 adicionales
 que puede invitar +FLUIDAttacks+.
 
 == 9. Requisitos
@@ -166,4 +173,4 @@ que puede invitar +FLUIDAttacks+.
 
 == 10. Expositor
 
-[button]#link:../../personas/jrestrepo[Juan Carlos Restrepo]#
+* [button]#link:../../personas/jrestrepo/[Juan Carlos Restrepo]#
