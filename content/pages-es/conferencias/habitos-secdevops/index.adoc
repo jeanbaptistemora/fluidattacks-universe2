@@ -156,6 +156,10 @@ Sin embargo, si desea disparar cambios y experimentos
 dentro de su organización, es importante considerar
 la presencia de personas con poder de decisión.
 
+El *taller* se encuentra diseñado para un público entre
+*6 y 12* personas por parte del cliente, además de las 4 adicionales
+que puede invitar +FLUIDAttacks+.
+
 == 9. Requisitos
 
 [button]#link:../#requisitos[Requisitos]#
