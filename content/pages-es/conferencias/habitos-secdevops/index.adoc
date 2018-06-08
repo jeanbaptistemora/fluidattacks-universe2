@@ -2,6 +2,7 @@
 :category: conferencias
 :description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUIDAttacks. La presente conferencia tiene por objetivo socializar nuestras metodologías de trabajo para implementar un ambiente SecDevOps y ofrecer mejoras al cliente diariamente.
 :keywords: FLUIDAttacks, Taller, SecDevOps, Seguridad, Software, Tecnología.
+:image-caption:
 
 = Nuestros Hábitos SecDevOps
 
@@ -29,12 +30,17 @@ para la remediación de vulnerabilidades:
 Estos hábitos nos permiten aumentar nuestra productividad,
 generando valor diario al cliente, además de incrementar
 la seguridad de nuestros despliegues a producción.
+Así logramos alcanzar, en los últimos seis meses, un promedio de:
+
+.Datos de 2018/01/01 a 2018/06/06
+[caption=""]
+image::metricas-secdevops.png[Métricas pasos a producción]
 
 == 2. Contenido
 
 Este *taller* se puede entender como la puesta en práctica
 de todo lo visto en
-[button]#link:../quemar-el-datacenter/[Quemar el DataCenter]#
+[button]#link:../quemar-el-datacenter/[Quemar el DataCenter]# +
 Todo lo que se muestra es *en vivo y en directo*,
 no una aplicación ni una infraestructura diseñada
 como +demo+ específicamente para este taller.
@@ -48,7 +54,7 @@ y nuestros productos en *tiempo real*.
 
 Para poder entender cómo ocurre todo lo mencionado anteriormente,
 además de mostrar cómo dar un primer paso para alcanzar esta configuración,
-el taller viene acompañada de la explicación
+el taller viene acompañado de la explicación
 de todos los hábitos de trabajo que nos han permitido
 llegar hasta este punto y seguir mejorando diariamente.
 Estos hábitos tratan temas como:
@@ -150,10 +156,10 @@ Sin embargo, si desea disparar cambios y experimentos
 dentro de su organización, es importante considerar
 la presencia de personas con poder de decisión.
 
-== 8. Requisitos
+== 9. Requisitos
 
 [button]#link:../#requisitos[Requisitos]#
 
-== 9. Expositor
+== 10. Expositor
 
 [button]#link:../../personas/jrestrepo[Juan Carlos Restrepo]#
