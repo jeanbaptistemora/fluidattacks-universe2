@@ -11,3 +11,11 @@
 El acceso físico a la red para los usuarios
 debe asignarse con base en las credenciales del usuario
 en la organización - +NAC+ (ej: +802.1x+).
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(e)(1):]
+Transmission Security: Implement technical security measures
+to guard against unauthorized access
+to electronic protected health information
+that is being transmitted over an electronic communications network.
