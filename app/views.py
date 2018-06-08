@@ -1472,10 +1472,12 @@ def add_access_integrates(request):
         integrates_dao.assign_role(newUser, 'customer')
         integrates_dao.assign_company(newUser, company)
     if integrates_dao.add_access_to_project_dao(newUser, project):
+        description = integrates_dao.get_project_description(project)
         to = [newUser]
         context = {
            'admin': admin,
            'project': project,
+           'project_description': description,
            'project_url': project_url,
         }
         send_mail_access_granted(to, context)
