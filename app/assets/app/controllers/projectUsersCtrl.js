@@ -138,32 +138,41 @@ angular.module("FluidIntegrates").controller(
             $scope.view.project = true;
             const usersData = response.data;
             angular.forEach(usersData, (element) => {
-              if (element.userRole === "customeradmin") {
-                element.userRole = $translate.instant("search_findings." +
-                                                    "tab_users.customer_admin");
+              element.userRole = $translate.instant(`${"search_findings." +
+                                            "tab_users."}${element.userRole}`);
+              if (element.usersLogin[0] > 0) {
+                element.usersLogin = element.usersLogin[0] +
+                                  $translate.instant("search_findings." +
+                                                "tab_users.days_ago");
               }
-              else if (element.userRole === "customer") {
-                element.userRole = $translate.instant("search_findings." +
-                                                    "tab_users.customer");
-              }
-              else {
-                element.userRole = $translate.instant("search_findings." +
-                                                    "tab_users.analyst");
-              }
-              if (element.usersLogin === "1111-01-01 11:11:11") {
+              else if (element.usersLogin[0] === -1) {
                 element.usersLogin = "-";
                 element.usersFirstLogin = "-";
+              }
+              else {
+                const SECONDS_IN_HOUR = 3600;
+                const ROUNDED_HOUR = Math.round(element.usersLogin[1] /
+                                               SECONDS_IN_HOUR);
+                const SECONDS_IN_HMINUTES = 60;
+                const ROUNDED_MINUTES = Math.round(element.usersLogin[1] /
+                                                  SECONDS_IN_HMINUTES);
+                if (ROUNDED_HOUR >= 1) {
+                  element.usersLogin = ROUNDED_HOUR +
+                                $translate.instant("search_findings." +
+                                              "tab_users.hours_ago");
+                }
+                else {
+                  element.usersLogin = ROUNDED_MINUTES +
+                                  $translate.instant("search_findings." +
+                                                "tab_users.minutes_ago");
+                }
               }
             });
             $scope.loadUsersInfo(projectName, vlang, usersData);
           }
-          else if (response.message === "Access to project denied") {
-            Rollbar.warning("Warning: Access to event denied");
-            $msg.error($translate.instant("proj_alerts.access_denied"));
-          }
-          else {
-            Rollbar.warning("Warning: Event not found");
-            $msg.error($translate.instant("proj_alerts.eventExist"));
+          else if (response.error) {
+            Rollbar.warning("Warning: Users not found");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
           }
         });
       }

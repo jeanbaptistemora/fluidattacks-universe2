@@ -533,12 +533,21 @@ def get_users_login(request):
         data = {}
         last_login = integrates_dao.get_user_last_login_dao(user)
         last_login = last_login.split('.',1)[0]
+        if last_login == "1111-01-01 11:11:11":
+            data['usersLogin']=[-1,-1]
+        else:
+            dates_difference = datetime.now()-datetime.strptime(last_login, "%Y-%m-%d %H:%M:%S")
+            diff_last_login=[dates_difference.days,dates_difference.seconds]
+            data['usersLogin']=diff_last_login
         first_login = integrates_dao.get_user_first_login_dao(user)
         first_login = first_login.split('.',1)[0]
         data['users']=user
-        data['usersLogin']=last_login
         data['usersFirstLogin']=first_login
-        data['userRole']=integrates_dao.get_role_dao(user)
+        userRole=integrates_dao.get_role_dao(user)
+        if userRole=="customeradmin":
+            data['userRole']="customer_admin"
+        else:
+            data['userRole']=userRole
         dataset.append(data)
     return util.response(dataset, 'Success', False)
 
