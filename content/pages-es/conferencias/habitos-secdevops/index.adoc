@@ -21,7 +21,7 @@ generando otras preguntas, *¿esto en verdad funciona?*,
 
 En este espacio buscamos dar respuesta a estas preguntas,
 mediante la socialización de nuestras prácticas de trabajo,
-metodologías y costumbres que nos permiten implementar un ambiente +SecDevOps+
+metodologías y costumbres que nos permiten implementar una cultura +SecDevOps+
 en nuestros proyectos; desde la administración de la infraestructura,
 hasta el desarrollo de nuestra plataforma de orquestación
 para la remediación de vulnerabilidades:
@@ -48,7 +48,7 @@ y nuestros productos en *tiempo real*.
 
 Para poder entender cómo ocurre todo lo mencionado anteriormente,
 además de mostrar cómo dar un primer paso para alcanzar esta configuración,
-la demostración viene acompañada de la explicación
+el taller viene acompañada de la explicación
 de todos los hábitos de trabajo que nos han permitido
 llegar hasta este punto y seguir mejorando diariamente.
 Estos hábitos tratan temas como:
@@ -66,7 +66,7 @@ logrando tener *cero inventario*.
 conviertiéndola en *infraestructura inmutable*.
 
 * Definir los ambientes de Integración Continua como código fuente,
-*pipeline as code*, versionado, de manera que sea más fácil de configurar,
++*pipeline as code*+, versionado, de manera que sea más fácil de configurar,
 modificar, y realizar todo tipo de pruebas.
 
 * Evitar servidores a toda costa, migrando a servicios en la nube y alcanzando
@@ -119,7 +119,7 @@ El *taller* tiene una duración de 5 horas
 
 == 6. Cuándo
 
-[button]#link:../#cuando[Cuando]#
+[button]#link:../#cuando[Cuándo]#
 
 == 7. Público
 
