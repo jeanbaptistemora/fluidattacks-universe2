@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de pruebas de seguridad definidos en un sistema. Por lo tanto, se deben gestionar pruebas de seguridad automatizadas y ejecutadas como parte del proceso de despliegue.
 :keywords: Pruebas, Automatizar, Despliegue, Integración, Unitarias, Seguridad.
 :rules: yes
+:translate: rules/070/
 
 = REQ.070 Definir pruebas de seguridad automatizadas
 
