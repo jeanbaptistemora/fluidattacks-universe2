@@ -10,3 +10,11 @@
 
 Los casos de uso
 deben tener documentados los eventos de seguridad del sistema.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(ii):]
+Procedimientos de emergencia:
+Establecer (e implementar cuando sea necesario)
+procedimientos para obtener la información sensible necesaria
+durante una emergencia.

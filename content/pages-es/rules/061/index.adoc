@@ -58,3 +58,11 @@ los usuarios no usan los posibles controles de seguridad establecidos.
 * Alcance: Mantenibilidad.
 * Fase: Operación.
 * Tipo de Control: Recomendación.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(ii):]
+Procedimientos de emergencia:
+Establecer (e implementar cuando sea necesario)
+procedimientos para obtener la información sensible necesaria
+durante una emergencia.
