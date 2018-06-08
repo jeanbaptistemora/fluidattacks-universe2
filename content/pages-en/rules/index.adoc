@@ -29,6 +29,8 @@
 == Access Control
 
 * link:094/[REQ.094 Specify rules in declarative mood].
+* link:096/[REQ.096 Set user required privileges].
+* link:097/[REQ.097 Define control access model].
 
 == Credentials
 
@@ -39,6 +41,10 @@
 * link:147/[REQ.147 Use pre-existent mechanisms].
 * link:148/[REQ.148 Set minimum size of asymmetric encryption].
 * link:149/[REQ.149 Set minimum size of symmetric encryption].
+
+== Authentication
+
+* link:229/[REQ.229 Request access credentials].
 
 This page is only available in Spanish language.
 Please click on the Spanish flag in the upper right corner

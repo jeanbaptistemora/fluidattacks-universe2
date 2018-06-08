@@ -1,0 +1,21 @@
+:slug: rules/096/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining the required privileges for each user to access the sensitive information of the organization.
+:keywords: Requirement, Security, Access, Control, Privileges, Users
+:rules: yes
+:translate: rules/096/
+
+= REQ.096 Set user required privileges
+
+== Requirement
+
+The privileges required by the users
+who will access the system must be defined.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Person or Entity Authentication:
+Implement procedures to verify  that a person or entity
+seeking access to electronic protected health information
+is the one claimed.

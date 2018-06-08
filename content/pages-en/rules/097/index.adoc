@@ -1,0 +1,20 @@
+:slug: rules/097/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining a control access model to the systems and the sensitive information there stored.
+:keywords: Requirement, Security, Access, Control, Model, Systems
+:rules: yes
+:translate: rules/097/
+
+= REQ.097 Define control access model
+
+== Requirement
+
+The organization must define a control access model for the systems.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Person or Entity Authentication:
+Implement procedures to verify  that a person or entity
+seeking access to electronic protected health information
+is the one claimed.
