@@ -7,7 +7,7 @@
 
 . link:quemar-el-datacenter/[Quemar el Datacenter: De Mascotas a Ganado]
 
-. link:rompiendo-build/[Rompiendo el +Build+: Nuestros Hábitos +SecDevOps+]
+. link:rompiendo-el-build/[Rompiendo el +Build+: Nuestros Hábitos +SecDevOps+]
 
 . link:aseguramiento-moviles/[Aseguramiento de Dispositivos Móviles]
 

@@ -1,4 +1,4 @@
-:slug: eventos/rompiendo-build/
+:slug: eventos/rompiendo-el-build/
 :subtitle: Nuestros Hábitos SecDevOps
 :category: eventos
 :description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUIDAttacks. La presente conferencia tiene por objetivo socializar nuestras metodologías de trabajo para implementar un ambiente SecDevOps y ofrecer mejoras al cliente diariamente.
@@ -22,9 +22,10 @@ generando otras preguntas,
 *¿esto en verdad funciona?*, *¿esto aplica en mi empresa?*
 
 En este espacio buscamos dar respuesta a estas preguntas,
-mediante la socialización de
-nuestras prácticas de trabajo, metodologías y costumbres
-que nos permiten implementar una cultura +SecDevOps+ en nuestros proyectos; desde la administración de la infraestructura,
+mediante la socialización
+de nuestras prácticas de trabajo, metodologías y costumbres
+que nos permiten implementar una cultura +SecDevOps+ en nuestros proyectos;
+desde la administración de la infraestructura,
 hasta el desarrollo de nuestra plataforma de orquestación
 para la remediación de vulnerabilidades:
 [button]#link:../../productos/integrates/[Integrates]#. +
@@ -129,11 +130,12 @@ mediante el correcto uso de la *caché*.
 ** +Rollback+
 ** +Trigger builds+.
 
-* *Telemtría* accesible a los desarrolladores
+* *Telemetría* accesible a los desarrolladores
 (no +logs+ únicamente disponibles para el área de infraestructura).
 
 Cada punto descrito anteriormente
-está acompañado con la entrada al interior de los sistemas de +FLUIDAttacks+ para ver su implementación y funcionamiento.
+está acompañado con la entrada al interior de los sistemas de +FLUIDAttacks+
+para ver su implementación y funcionamiento.
 Según la necesidad o el interés de los asistentes,
 es posible hacer énfasis en los temas que ellos consideren más importantes.
 
@@ -180,7 +182,7 @@ como la alimentación.
 ofrecidas por +FLUIDAttacks+,
 el material se le envía solo a los asistentes
 que diligencien la
-link:http://go.fluidattacks.com/rompiendo-el-build[evaluación de satisfacción]
+[button]#link:http://go.fluidattacks.com/rompiendo-el-build[evaluación de satisfacción]#
 1 día después del taller.
 
 == 8. Público
