@@ -95,7 +95,7 @@ utilizando +*pre-commit*+ para hacer chequeos por verificaciones.
 
 * Ejecutar pruebas sobre el código fuente y sobre el despliegue
 que *rompan el +build+* ante el más mínimo error
-(no que notifiquen y permiten que éste evolucione):
+(no que notifiquen y permitan que éste evolucione):
 ** Integración multiplataforma.
 ** Pruebas unitarias.
 ** Cobertura.
@@ -114,6 +114,11 @@ mediante el correcto uso de la *caché*.
 
 * Administración y manejo de errores.
 
+Cada punto descrito anteriormente está acompañado con la entrada al interior
+de los sistemas de +FLUIDAttacks+ para ver su implementación y funcionamiento.
+Según la necesidad o el interés de los asistentes,
+es posible hacer énfasis en los temas que ellos consideren más importantes.
+
 == 3. Experiencia
 
 Este *taller* es nuevo, se ha presentado a personas de tecnología
@@ -128,7 +133,7 @@ por fuera de las instalaciones del cliente.
 
 == 5. Duración
 
-El *taller* tiene una duración de 5 horas
+El *taller* tiene una duración de *5 horas*
 (no es posible reducir su duración).
 Comprende la demostración en vivo de nuestras prácticas,
 además de un espacio para tomar una media-mañana,
@@ -136,7 +141,9 @@ y un almuerzo al mediodía.
 
 == 6. Cuándo
 
-[button]#link:../#cuando[Cuándo]#
+El *taller* está diseñado para darse desde las *9 A.M.* hasta las *2 P.M.*.
+El día se agenda según común acuerdo entre los asistentes por parte del cliente
+y +FLUIDAttacks+.
 
 == 7. Detalles
 
