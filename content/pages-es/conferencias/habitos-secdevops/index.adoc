@@ -121,7 +121,23 @@ El *taller* tiene una duración de 5 horas
 
 [button]#link:../#cuando[Cuándo]#
 
-== 7. Público
+== 7. Detalles
+
+. *Inversión*: A diferencia de las demás conferencias
+ofrecidas por +FLUIDAttacks+, el espacio de este *taller*
+y los costos asociados a él corren enteramente por cuenta de +FLUIDAttacks+.
+La alimentación también está incluida en la invitación,
+con la opción de que el pago lo pueda hacer el cliente si decide cubrir
+la alimentación de los asistentes.
+Esto último es enteramente opcional, pues +FLUIDAttacks+ inicialmente
+ofrece tanto el espacio, como la alimentación.
+
+. *Material*: Al igual que las demás conferencias
+ofrecidas por +FLUIDAttacks+, el material se le envía solo a los asistentes
+que diligencien la evaluación de satisfacción 1 día después
+de la conferencia.
+
+== 8. Público
 
 El *taller* es apto para personal técnico y
 personal gerencial de tecnología.
