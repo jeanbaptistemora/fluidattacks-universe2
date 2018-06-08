@@ -159,8 +159,9 @@ ofrece tanto el espacio, como la alimentación.
 
 . *Material*: Al igual que las demás conferencias
 ofrecidas por +FLUIDAttacks+, el material se le envía solo a los asistentes
-que diligencien la evaluación de satisfacción 1 día después
-de la conferencia.
+que diligencien la
+link:http://go.fluidattacks.com/rompiendo-el-build[evaluación de satisfacción]
+1 día después del taller.
 
 == 8. Público
 
