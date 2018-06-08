@@ -15,7 +15,8 @@ deben permitir acceso sólo a los puertos necesarios.
 == Referencias
 
 . [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(e)(1):]
-Transmission Security: Implement technical security measures
-to guard against unauthorized access
-to electronic protected health information
-that is being transmitted over an electronic communications network.
+Seguridad en la transmisión:
+Implementar medidas técnicas de seguridad
+para proteger la información sensible
+transmitida a través de redes de comunicación
+contra accesos no autorizados.
