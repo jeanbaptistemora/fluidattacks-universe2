@@ -7,9 +7,9 @@
 
 . link:quemar-el-datacenter/[Quemar el Datacenter: De Mascotas a Ganado]
 
-. link:aseguramiento-moviles/[Aseguramiento de Dispositivos Móviles]
+. link:rompiendo-build/[Rompiendo el +Build+: Nuestros Hábitos +SecDevOps+]
 
-. link:habitos-secdevops/[Rompiendo el +Build+: Nuestros Hábitos +SecDevOps+]
+. link:aseguramiento-moviles/[Aseguramiento de Dispositivos Móviles]
 
 == ¿Cuándo?
 

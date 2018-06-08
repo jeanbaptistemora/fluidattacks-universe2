@@ -1,4 +1,4 @@
-:slug: eventos/habitos-secdevops/
+:slug: eventos/rompiendo-build/
 :subtitle: Nuestros Hábitos SecDevOps
 :category: eventos
 :description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUIDAttacks. La presente conferencia tiene por objetivo socializar nuestras metodologías de trabajo para implementar un ambiente SecDevOps y ofrecer mejoras al cliente diariamente.
@@ -26,15 +26,22 @@ metodologías y costumbres que nos permiten implementar una cultura +SecDevOps+
 en nuestros proyectos; desde la administración de la infraestructura,
 hasta el desarrollo de nuestra plataforma de orquestación
 para la remediación de vulnerabilidades:
-[button]#link:../../productos/integrates/[Integrates]# +
+[button]#link:../../productos/integrates/[Integrates]#. +
 Estos hábitos nos permiten aumentar nuestra productividad,
 generando valor diario al cliente, además de incrementar
 la seguridad de nuestros despliegues a producción.
 Así logramos alcanzar, en los últimos seis meses, un promedio de:
 
-.Datos de 2018/01/01 a 2018/06/06
-[caption=""]
-image::metricas-secdevops.png[Métricas pasos a producción]
+[role="tb-alt"]
+[frame="none",cols=2,caption=""]
+|====
+a|[caption=""]
+.Promedio de todos los sistemas 2018/01/01 - 2018/06/06
+image::promedio-global.png[Promedio de pasos a produccióndiario en todos los sistemas]
+a|[caption=""]
+.Sistema con el mayor promedio 2018/01/01 - 2018/06/06
+image::promedio-maximo.png[Sistema con el mayor promedio de pasos a producción]
+|====
 
 == 2. Contenido
 
@@ -182,4 +189,6 @@ que puede invitar +FLUIDAttacks+.
 
 == 10. Expositor
 
-* [button]#link:../../personas/jrestrepo/[Juan Carlos Restrepo]#
+* [button]#link:../../personas/jrestrepo/[Juan Restrepo]#
+* [button]#link:../../personas/ralvarez/[Rafael Álvarez]#
+* [button]#link:../../personas/acuberos/[Andrés Cuberos]#
