@@ -45,7 +45,3 @@
 == Authentication
 
 * link:229/[REQ.229 Request access credentials].
-
-This page is only available in Spanish language.
-Please click on the Spanish flag in the upper right corner
-to view the corresponding content.
