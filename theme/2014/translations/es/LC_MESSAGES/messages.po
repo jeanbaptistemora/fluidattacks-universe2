@@ -295,11 +295,11 @@ msgstr "Valores"
 
 #: templates/footer.html:18
 msgid "Footer-link-1.2"
-msgstr "conferencias"
+msgstr "eventos"
 
 #: templates/footer.html:18
 msgid "Footer-subtitle-1.2"
-msgstr "Conferencias"
+msgstr "Eventos"
 
 #: templates/footer.html:19
 msgid "Footer-link-1.3"

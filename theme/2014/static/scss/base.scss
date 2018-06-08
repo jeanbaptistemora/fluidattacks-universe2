@@ -704,6 +704,13 @@ article {
   text-align: center;
 }
 
+.subtitle {
+  display: block;
+  font-size: 25px;
+  font-style: italic;
+  text-align: center;
+}
+
 //scss-lint:disable ImportantRule
 .at-expanding-share-button[data-position=bottom-right] {
   bottom: 90px !important;

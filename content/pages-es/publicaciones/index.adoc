@@ -11,7 +11,7 @@ Para la propagación de conocimiento en seguridad de la información,
 +FLUIDAttacks+ dicta conferencias gratuitas
 en las instalaciones de cualquier organización.
 Los temas de estas tertulias, y el procedimiento de realización,
-se encuentran en la página de link:../conferencias/[Conferencias].
+se encuentran en la página de link:../eventos/[Conferencias].
 
 == Papers
 

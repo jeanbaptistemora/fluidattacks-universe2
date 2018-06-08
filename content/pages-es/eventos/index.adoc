@@ -1,15 +1,15 @@
-:slug: conferencias/
+:slug: eventos/
 :description: La presente página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUID. Las conferencias tratan temas relacionados con la Seguridad de la Información y son preparadas por profesionales experimentados en el campo.
 :keywords: FLUID, Conferencia, Seguridad, Experiencia, Información, Servicio
-:translate: talks/
+:translate: events/
 
-= Conferencias
+= Eventos
 
-. link:quemar-el-datacenter/[Quemar el Datacenter - De Mascotas a Ganado]
+. link:quemar-el-datacenter/[Quemar el Datacenter: De Mascotas a Ganado]
 
 . link:aseguramiento-moviles/[Aseguramiento de Dispositivos Móviles]
 
-. link:habitos-secdevops/[Nuestros Hábitos +SecDevOps+]
+. link:habitos-secdevops/[Rompiendo el +Build+: Nuestros Hábitos +SecDevOps+]
 
 == ¿Cuándo?
 

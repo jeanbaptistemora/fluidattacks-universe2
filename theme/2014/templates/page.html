@@ -72,7 +72,7 @@
                   <li><a href="{{ SITEURL }}/{{ page.category.name }}/">{{ page.category }} >>&nbsp;</a></li>
                   <li><a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">{{ page.category2|replace('-', ' ') }}</a></li>
                 {% else %}
-                  <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }}</a></li>
+                  <li><a href="{{ SITEURL }}/{{ page.category.name }}/">{{ page.category }}</a></li>
                 {% endif %}
               {% endif %}
           </ul>
@@ -94,6 +94,9 @@
         {% endif %}
       </div>
       <h1>{{ page.title }}</h1>
+      {% if page.subtitle %}
+        <span class="subtitle"><strong>{{ page.subtitle }}</strong></span>
+      {% endif %}
       {% if page.rules or page.defends %}
         <div class="description">
           {{ page.description }}
