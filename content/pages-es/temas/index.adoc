@@ -44,11 +44,12 @@ Dentro de los temas de interés se encuentran:
 * Por qué utilizamos +staticgen+?
 * Por qué utilizamos +SLB+?
 * Por qué utilizamos +asciidoc+?
+* Por qué utilizamos link:https://calver.org/[+CalVer+] en link:https://semver.org/[+SemVer+]?
 * Por qué herramientas de seguridad en +CI+ no rompen el +build+?
 * Por qué las herramientas automáticas tienen un mayor índice de fugas?
 * Refactorizando +JS+ con +linting+.
 * Por qué link:../productos/asserts/[Asserts] no utiliza +OpenSSL+?
-
+* Quién debe detectar un cambio en un +API+: proveedor o consumidor?
 
 == Conceptos
 
