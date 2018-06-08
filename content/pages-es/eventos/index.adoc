@@ -5,7 +5,7 @@
 
 = Eventos
 
-. link:quemar-el-datacenter/[Quemar el Datacenter: De Mascotas a Ganado]
+. link:quemar-el-datacenter/[Quemar el +Datacenter+: De Mascotas a Ganado]
 
 . link:rompiendo-el-build/[Rompiendo el +Build+: Nuestros Hábitos +SecDevOps+]
 

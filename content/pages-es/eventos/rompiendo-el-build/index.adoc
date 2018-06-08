@@ -28,7 +28,8 @@ que nos permiten implementar una cultura +SecDevOps+ en nuestros proyectos;
 desde la administración de la infraestructura,
 hasta el desarrollo de nuestra plataforma de orquestación
 para la remediación de vulnerabilidades:
-[button]#link:../../productos/integrates/[Integrates]#. +
+[button]#link:../../productos/integrates/[Integrates]#.
+
 Estos hábitos nos permiten aumentar nuestra productividad,
 generando valor diario al cliente,
 además de incrementar la seguridad de nuestros despliegues a producción.
@@ -49,7 +50,7 @@ image::promedio-maximo.png[Sistema con el mayor promedio de pasos a producción]
 
 Este *taller* se puede entender
 como la puesta en práctica de todo lo visto en
-[button]#link:../quemar-el-datacenter/[Quemar el DataCenter]# +
+[button]#link:../quemar-el-datacenter/[Quemar el DataCenter]#.
 Todo lo que se muestra es *en vivo y en directo*,
 no una aplicación ni una infraestructura diseñada como +demo+
 específicamente para este taller.
@@ -167,8 +168,8 @@ entre los asistentes por parte del cliente y +FLUIDAttacks+.
 
 == 7. Detalles
 
-. *Inversión*: A diferencia de las demás conferencias
-ofrecidas por +FLUIDAttacks+,
+. *Inversión*: A diferencia de los demás eventos
+ofrecidos por +FLUIDAttacks+,
 el espacio de este *taller* y los costos asociados a él
 corren enteramente por cuenta de +FLUIDAttacks+.
 La alimentación también está incluida en la invitación,
@@ -178,12 +179,12 @@ Esto último es enteramente opcional,
 pues +FLUIDAttacks+ inicialmente ofrece tanto el espacio,
 como la alimentación.
 
-. *Material*: Al igual que las demás conferencias
-ofrecidas por +FLUIDAttacks+,
+. *Material*: Al igual que los demás eventos
+ofrecidos por +FLUIDAttacks+,
 el material se le envía solo a los asistentes
 que diligencien la
 [button]#link:http://go.fluidattacks.com/rompiendo-el-build[evaluación de satisfacción]#
-1 día después del taller.
+*antes de salir* del lugar donde se hizo el taller.
 
 == 8. Público
 
@@ -203,7 +204,7 @@ además de las 4 adicionales que puede invitar +FLUIDAttacks+.
 
 [button]#link:../#requisitos[Requisitos]#
 
-== 10. Expositor
+== 10. Expositores
 
 * [button]#link:../../personas/jrestrepo/[Juan Restrepo]#
 * [button]#link:../../personas/ralvarez/[Rafael Álvarez]#
