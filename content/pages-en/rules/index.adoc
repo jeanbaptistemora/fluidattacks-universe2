@@ -18,6 +18,10 @@
 * link:023/[REQ.023 Close inactive users sessions].
 * link:029/[REQ.029 Cookies with security attributes].
 
+== Logs
+
+* link:075/[REQ.075 Record exceptional events in logs].
+
 == Credentials
 
 * link:143/[REQ.143 Unique Access Credentials].

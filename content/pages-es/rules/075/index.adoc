@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de registrar todos los eventos excepcionales en una o varias bitácoras.
 :keywords: Requerimiento, Seguridad, Bitácoras, Registrar, Eventos, Información.
 :rules: yes
+:translate: rules/075/
 
 = REQ.075 Registrar eventos en bitácoras
 
@@ -21,8 +22,8 @@ del problema en mensajes de error
 para prevenir el uso de esa información
 de parte de un atacante o usuario malintencionado.
 Registrar eventos permiten que las páginas de error
-muestren mensajes genéricos simple,
-alertando a los usuarios finales que un error a ocurrido,
+muestren mensajes genéricos simples,
+alertando a los usuarios finales que un error ha ocurrido,
 con alguna opción de contactar a soporte.
 El detalle de cómo atender estos problemas
 debe mantenerse seguramente almacenado
