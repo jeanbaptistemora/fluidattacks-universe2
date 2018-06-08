@@ -117,6 +117,9 @@ por fuera de las instalaciones del cliente.
 
 El *taller* tiene una duración de 5 horas
 (no es posible reducir su duración).
+Comprende la demostración en vivo de nuestras prácticas,
+además de un espacio para tomar una media-mañana,
+y un almuerzo al mediodía.
 
 == 6. Cuándo
 
