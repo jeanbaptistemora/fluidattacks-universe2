@@ -14,7 +14,14 @@ como mínimo un nombre de usuario y una contraseña.
 
 == Referencias
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(1):]
+Control de Acceso: Implementar políticas y procedimientos técnicos
+para sistemas de información electrónica
+que almacenen información sensible, permitiendo el acceso
+sólo a personas o programas autorizados,
+de acuerdo a lo especificado en link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
 Autenticación de Personas o Entidades: Implementar procedimientos
 para verificar que una persona o entidad que solicita acceso
 a la información sensible es quien dice ser.
