@@ -171,16 +171,11 @@ entre los asistentes por parte del cliente y +FLUIDAttacks+.
 
 == 7. Detalles
 
-. *Inversión*: A diferencia de los demás eventos
-ofrecidos por +FLUIDAttacks+,
-el espacio de este *taller* y los costos asociados a él
-corren enteramente por cuenta de +FLUIDAttacks+.
-La alimentación también está incluida en la invitación,
-con la opción de que el pago lo pueda hacer el cliente
-si decide cubrir la alimentación de los asistentes.
-Esto último es enteramente opcional,
-pues +FLUIDAttacks+ inicialmente ofrece tanto el espacio,
-como la alimentación.
+. *Inversión*: El espacio y alimentación de este taller
+son cubiertos enteramente por +FLUIDAttacks+.
+Los asistentes solo deben invertir de su parte el tiempo,
+los costos de desplazamiento y el parqueadero
+en caso que las instalaciones copen su capacidad o así lo indiquen.
 
 . *Material*: Al igual que los demás eventos
 ofrecidos por +FLUIDAttacks+,
