@@ -35,11 +35,15 @@ El dashboard permite a los usuarios tener acceso directo a todos sus proyectos.
 También es posible visualizar las eventualidades
 asociadas a cada uno de los proyectos.
 
-a|== Visualizar Eventualidades en Tiempo Real
+a|== Indicadores del proyecto
 
-Se puede conocer en tiempo real
-los sucesos que impiden el desarrollo del proyecto.
-a|image::eventualidades.png[Eventualidades]
+Permiten realizar un seguimiento del estado actual del proyecto.
+Algunos indicadores utilizados son:
+
+* La cantidad de vulnerabilidades encontradas.
+* La criticidad actual del proyecto.
+* Vulnerabilidades remediadas.
+a|image::indicadores.png[Indicadores]
 
 a|image::graficas.png[Gráficas]
 
@@ -53,15 +57,21 @@ de las vulnerabilidades que han sido reportadas, permitiendo así:
 y cuántos son problemas de tipo higiene de seguridad.
 * Saber cuántas vulnerabilidades han sido solucionados y cuántas aun no.
 
-a|== Métricas del proyecto
+a|== Visualizar Eventualidades en Tiempo Real
 
-Permiten realizar un seguimiento del estado actual del proyecto.
-Algunas métricas utilizadas son:
+Se puede conocer en tiempo real
+los sucesos que impiden el desarrollo del proyecto.
+a|image::eventualidades.png[Eventualidades]
 
-* La cantidad de vulnerabilidades encontradas.
-* La criticidad actual del proyecto.
-* Vulnerabilidades remediadas.
-a|image::metricas.png[Metricas]
+a|image::seguimiento-usuarios.png[Seguimiento Usuarios]
+a|== Seguimiento de usuarios
+
+Se visualiza el último acceso de los usuarios a un proyecto.
+
+a|== Acceso a otros usuarios
+
+Un usuario administrador puede dar / remover el acceso a otros usuarios.
+a|image::acceso-usuarios.png[Acceso Usuarios]
 
 a|image::informe-tecnico.png[Informe Técnico]
 a|== Generar Informes Técnicos
@@ -114,7 +124,7 @@ Para la documentación el cliente tiene las siguientes opciones:
 
 * *Asumido:* El cliente asume el riesgo
 que implica no solucionar el problema de seguridad.
-* *Pendiente:* El cliente aun no tiene claro
+* *Nuevo:* El cliente aun no tiene claro
 si asumirá o remediará la vulnerabilidad.
 * *Remediar:* El cliente solucionará el problema de seguridad.
 a|image::solicitar-verificacion.png[Solicitar Verificación]

@@ -32,14 +32,17 @@ a|== Main Menu
 The dashboard allows users direct access to all their projects.
 It is also possible to view the events associated to each one of the projects.
 
-a|== View Real-Time Events
+a|== Project Indicators
 
-All events that inhibit the execution of the project
-can be viewed in real time.
-a|image::eventualities.png[Events]
+They allow to perform a follow-up of the current state of the project.
+Some of the used indicators are:
+
+* The amount of detected vulnerabilities.
+* The current severity of the project.
+* Remediated vulnerabilities.
+a|image::indicators.png[Indicators]
 
 a|image::graphs.png[Graphs]
-
 a|== Project Status Graphs
 
 You can view the current state of the reported vulnerabilities.
@@ -50,15 +53,21 @@ Easily allowing to:
 and how many are security issues or hygiene issues.
 * Know how many vulnerabilities have been remediated and how many remain open.
 
-a|== Project Statistics
+a|== View Real-Time Events
 
-They allow to perform a follow-up of the current state of the project.
-Some of the used statistics are:
+All events that inhibit the execution of the project
+can be viewed in real time.
+a|image::eventualities.png[Events]
 
-* The amount of detected vulnerabilities.
-* The current severity of the project.
-* Remediated vulnerabilities.
-a|image::metrics.png[Statistics]
+a|image::user-tracking.png[User Tracking]
+a|== User tracking
+
+The last access of users to a project is displayed.
+
+a|== Access to other users
+
+An administrative user can grant / revoke access to other users.
+a|image::user-access.png[User Access]
 
 a|image::technical-report.png[Technical Report]
 a|== Generate Technical Reports
@@ -109,11 +118,11 @@ Clients may request the revision ^1^ of a vulnerability that has been corrected,
 and document ^2^ its treatment.
 For the documentation, the client has the following options:
 
-* *Assumed:* The client assumes the risk
+* *Accepted:* The client assumes the risk
 that implies not solving the security issue.
-* *Pending:* The client still has not decided whether to assume
+* *New:* The client still has not decided whether to assume
 or to remediate the vulnerability.
-* *Remediate:* The client will solve the security issue.
+* *In Progress:* The client will solve the security issue.
 a|image::request-verification.png[Request Verification]
 
 image::treatment.png[Treatment]
