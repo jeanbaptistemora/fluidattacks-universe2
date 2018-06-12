@@ -6,7 +6,7 @@ from .dao import integrates_dao
 from .api.formstack import FormstackAPI
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding, \
-                    send_mail_new_releases
+                    send_mail_new_releases, send_mail_continuous_report
 from . import views
 from datetime import datetime, timedelta
 
@@ -200,3 +200,12 @@ def get_new_releases():
     context['total'] = cont
     to = ["engineering@fluidattacks.com"]
     send_mail_new_releases(to, context)
+
+def continuous_report():
+    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com' ]
+    headers = ['Proyecto','Lineas','Campos']
+    context = {'projects':list(), 'headers': headers, 'date_now': str(datetime.now().date())}
+    data = integrates_dao.get_continuous_info()
+    for  x in data:
+        context['projects'].append({'project_name': str(x['project']), 'lines': str(x['lines']), 'fields': str(x['fields']) })
+    send_mail_continuous_report(to, context)

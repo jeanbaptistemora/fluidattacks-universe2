@@ -66,3 +66,6 @@ def send_mail_new_releases(email_to, context):
 
 def send_mail_access_granted(email_to, context):
     __send_mail('accessgrantedintegrates', email_to, context=context)
+
+def send_mail_continuous_report(email_to, context):
+    __send_mail('continuousreport', email_to, context=context)

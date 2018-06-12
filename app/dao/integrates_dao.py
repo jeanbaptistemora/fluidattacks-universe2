@@ -961,3 +961,22 @@ def weekly_report_dynamo(
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+def get_continuous_info():
+    """ Gets info of all continuous projects. """
+    table = dynamodb_resource.Table('FI_toe')
+    filter_key = 'last_update'
+    if filter_key:
+        filtering_exp = Key(filter_key).eq(str(datetime.now().date()))
+        response = table.scan(FilterExpression=filtering_exp)
+    else:
+        response = table.scan()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
