@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de la documentación que prinda soporte en todo sistema de una organización. Por lo tanto, se recomienda que se dedique al menos un capítulo donde se traten temas de seguridad del sistema.
 :keywords: Documentación, Sistema, Soporte, Capítulo, Organización, Seguridad.
 :rules: yes
+:translate: rules/061/
 
 = REQ.061 Documentar capítulo de seguridad
 
@@ -34,8 +35,8 @@ Esta documentación ayuda en la validación
 de la implementación de seguridad.
 
 . En la documentación de usuario,
-se debería los paso a paso de configuración
-y uso de controles
+se debería detallar paso por paso
+la configuración y el uso de controles
 que cada perfil de usuario puede aplicar.
 
 == Ataques
