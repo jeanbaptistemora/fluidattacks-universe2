@@ -48,3 +48,9 @@
 == Authentication
 
 * link:229/[REQ.229 Request access credentials].
+
+== Networks
+
+* link:255/[REQ.255 Allow access only to the necessary ports].
+* link:256/[REQ.256 Restrict server ports access].
+* link:257/[REQ.257 Access based on user credentials].
