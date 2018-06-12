@@ -106,11 +106,11 @@ angular.module("FluidIntegrates").factory(
         angular.forEach(data.data, (cont) => {
           openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
           cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
-          if (maximumSeverity < cont.criticity) {
-            maximumSeverity = cont.criticity;
+          if (maximumSeverity < parseFloat(cont.criticity)) {
+            maximumSeverity = parseFloat(cont.criticity);
           }
-          if (oldestFinding < cont.edad) {
-            oldestFinding = cont.edad;
+          if (oldestFinding < parseInt(cont.edad, 10)) {
+            oldestFinding = parseInt(cont.edad, 10);
           }
         });
         for (let event = 0; event < eventsData.length; event++) {
