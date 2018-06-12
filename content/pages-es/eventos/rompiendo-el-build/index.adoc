@@ -165,7 +165,7 @@ y un almuerzo al mediodía.
 
 == 6. Cuándo
 
-El *taller* está diseñado para darse desde las *9 A.M.* hasta las *2 P.M.*.
+El *taller* está diseñado para dictarse desde las *9 A.M.* hasta las *2 P.M.*.
 El día se agenda según común acuerdo
 entre los asistentes por parte del cliente y +FLUIDAttacks+.
 
