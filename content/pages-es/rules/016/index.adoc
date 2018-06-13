@@ -60,4 +60,8 @@ correctamente cuando se identificó.
 
 == Referencias
 
-. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. [[r1]] link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(B):]
+Análisis de Riesgo: Implementar las medidas suficientes
+para reducir riesgos y vulnerabilidades a un nivel razonable y apropiado
+para cumplir con la sección link:https://www.law.cornell.edu/cfr/text/45/164.306[164.306(a)].
