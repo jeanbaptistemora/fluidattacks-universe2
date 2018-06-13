@@ -202,10 +202,30 @@ def get_new_releases():
     send_mail_new_releases(to, context)
 
 def continuous_report():
-    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com' ]
-    headers = ['Proyecto','Lineas','Campos']
+    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', 'oparada@fluidattacks.com' ]
+    headers = ['Proyecto','Lineas','Campos','Efc. Cierre','CVSS']
     context = {'projects':list(), 'headers': headers, 'date_now': str(datetime.now().date())}
     data = integrates_dao.get_continuous_info()
-    for  x in data:
-        context['projects'].append({'project_name': str(x['project']), 'lines': str(x['lines']), 'fields': str(x['fields']) })
+    api = FormstackAPI()
+    for x in data:
+        openVulnerabilities = 0
+        cardinalidadTotal = 0
+        maximumSeverity = 0
+        finding_requests = api.get_findings(x['project'])["submissions"]
+        for finding in finding_requests:
+            act_finding = views.finding_vulnerabilities(str(finding['id']))
+            openVulnerabilities += int(act_finding['openVulnerabilities'])
+            cardinalidadTotal += int(act_finding['cardinalidad_total'])
+            if (maximumSeverity < float(act_finding['criticity'])):
+                maximumSeverity = float(act_finding['criticity'])
+        try:
+            fixed_vuln = int(round((1.0 - (float(openVulnerabilities) / float(cardinalidadTotal)))*100.0))
+        except ZeroDivisionError:
+            fixed_vuln = 0
+        context['projects'].append({'project_name': str(x['project']), \
+                                    'lines': str(x['lines']), \
+                                    'fields': str(x['fields']), \
+                                    'fixed_vuln': (str(fixed_vuln) + "%"), \
+                                    'cssv': maximumSeverity
+                                     })
     send_mail_continuous_report(to, context)
