@@ -183,20 +183,37 @@ angular.module("FluidIntegrates").controller(
           $scope.loadReleaseContent(releaseData, vlang);
         }
         else {
-          const reqProject = projectFtry2.releasesByName(
+          const reqReleases = projectFtry2.releasesByName(
             projectName,
             tableFilter
           );
-          reqProject.then((response) => {
+          reqReleases.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
+              releaseData = response.data;
               if (response.data.length === 0 && eventsData.length === 0) {
-                $scope.view.project = false;
-                $scope.view.finding = false;
-                $msg.error($translate.instant("proj_alerts.not_found"));
+                if ($scope.isManager) {
+                  const reqProject = projectFtry.projectByName(
+                    projectName,
+                    tableFilter
+                  );
+                  reqProject.then((resp) => {
+                    $scope.view.project = true;
+                    if (!resp.error) {
+                      if (resp.data.length > 0) {
+                        $scope.loadReleaseContent(releaseData, vlang);
+                      }
+                    }
+                  });
+                }
+                else {
+                  $scope.view.project = false;
+                  $scope.view.finding = false;
+                  $msg.error($translate.instant("proj_alerts.not_found"));
+                }
               }
               else {
                 releaseData = response.data;

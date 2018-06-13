@@ -36,7 +36,8 @@ angular.module("FluidIntegrates").controller(
     $uibModal,
     functionsFtry1,
     functionsFtry3,
-    projectFtry
+    projectFtry,
+    projectFtry2
   ) {
     const PERCENTAGE_FACTOR = 100;
     const MAX_DECIMALS = 2;
@@ -385,16 +386,34 @@ angular.module("FluidIntegrates").controller(
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
-              // Mixpanel tracking
               mixPanelDashboard.trackSearch(
                 "SearchFinding",
                 userEmail,
                 projectName
               );
               if (response.data.length === 0 && eventsData.length === 0) {
-                $scope.view.project = false;
-                $scope.view.finding = false;
-                $msg.error($translate.instant("proj_alerts.not_found"));
+                if ($scope.isManager) {
+                  const reqReleases = projectFtry2.releasesByName(
+                    projectName,
+                    tableFilter
+                  );
+                  reqReleases.then((resp) => {
+                    $scope.view.project = true;
+                    if (!resp.error) {
+                      if (resp.data.length > 0) {
+                        $state.go(
+                          "ProjectReleases",
+                          {"project": projectName.toLowerCase()}
+                        );
+                      }
+                    }
+                  });
+                }
+                else {
+                  $scope.view.project = false;
+                  $scope.view.finding = false;
+                  $msg.error($translate.instant("proj_alerts.not_found"));
+                }
               }
               else {
                 projectData = response.data;

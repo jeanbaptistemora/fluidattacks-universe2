@@ -82,7 +82,8 @@ angular.module("FluidIntegrates").controller(
     $window,
     functionsFtry1,
     functionsFtry3,
-    projectFtry
+    projectFtry,
+    projectFtry2
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -197,9 +198,28 @@ angular.module("FluidIntegrates").controller(
                 projectName
               );
               if (response.data.length === 0 && eventsData.length === 0) {
-                $scope.view.project = false;
-                $scope.view.finding = false;
-                $msg.error($translate.instant("proj_alerts.not_found"));
+                if ($scope.isManager) {
+                  const reqReleases = projectFtry2.releasesByName(
+                    projectName,
+                    tableFilter
+                  );
+                  reqReleases.then((resp) => {
+                    $scope.view.project = true;
+                    if (!resp.error) {
+                      if (resp.data.length > 0) {
+                        $state.go(
+                          "ProjectReleases",
+                          {"project": projectName.toLowerCase()}
+                        );
+                      }
+                    }
+                  });
+                }
+                else {
+                  $scope.view.project = false;
+                  $scope.view.finding = false;
+                  $msg.error($translate.instant("proj_alerts.not_found"));
+                }
               }
               else {
                 projectData = response.data;
