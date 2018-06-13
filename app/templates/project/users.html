@@ -115,12 +115,13 @@
                     </div>
                     <div class="row">
                                 <div class="col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3" >
-                                    <table  id="tblUsers" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="true" data-show-export="true" data-export-types="['csv','excel']" data-sort-order="desc" data-sort-name="usersLogin">
+                                    <table  id="tblUsers" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="true" data-show-export="true" data-export-types="['csv','excel']" data-export-data-type="all" data-sort-order="asc" data-sort-name="usersLogin">
                                         <thead>
                                             <tr>
                                               <th data-field="selection" data-checkbox="true" data-width="2%"></th>
                                               <th data-field="users" data-halign="left" data-valign="middle" data-width="10%" data-sortable="true">{{ search_findings.users_table.usermail }}</th>
-                                              <th data-field="usersLogin" data-halign="left" data-valign="middle" data-width="20%" data-sortable="true">{{ search_findings.users_table.lastlogin }}</th>
+                                              <th data-field="usersFirstLogin" data-halign="left" data-valign="middle" data-width="20%" data-sortable="true">{{ search_findings.users_table.firstlogin }}</th>
+                                              <th data-field="usersLogin" data-halign="left" data-valign="middle" data-width="20%" data-sortable="true" data-sorter="lastLogin">{{ search_findings.users_table.lastlogin }}</th>
                                               <th data-field="userRole" data-halign="left" data-valign="middle" data-width="8%" data-sortable="true">{{ search_findings.users_table.userRole }}</th>
                                         </thead>
                                     </table>
@@ -140,15 +141,23 @@
         padding-left: auto;
         padding-right: auto;
     }
+    .pull-right > input {
+        width: 400px;
+        display:flex;
+    }
     @media screen and (max-width: 1320px;) {
     .column-button {
         width: 50%;
         display:flex;
       }
     }
-    @media screen and (max-width: 1040px;) {
+    @media screen and (max-width: 1160px;) {
     .column-button {
         width: 50%;
+        display:flex;
+      }
+    .pull-right > input {
+        width: 300px;
         display:flex;
       }
     }
@@ -164,6 +173,10 @@
         width: 100%;
         display:initial;
         float: none;
+      }
+      .pull-right > input {
+          width: 250px;
+          display:flex;
       }
     }
 
