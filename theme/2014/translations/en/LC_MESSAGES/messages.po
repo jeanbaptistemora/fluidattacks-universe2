@@ -679,7 +679,7 @@ msgstr "<strong>One-Shot</strong> Hacking"
 
 #: templates/landing.html:56
 msgid "Index-bnft-header"
-msgstr "Why is <strong>FLUID better</strong> for you?"
+msgstr "Why <strong>Fluid Attacks</strong> is your <strong>best choice</strong>?"
 
 #: templates/landing.html:59
 msgid "Index-img-alt-2"
