@@ -17,7 +17,7 @@ y debe cubrir +STRIDE+
 == Soluciones
 
 La presente sección contiene enlaces a artículos
-cuyo contenido es propiedad de +FLUID+.
+cuyo contenido es propiedad de +FLUIDAttacks+.
 El objetivo es dar a conocer al público
 la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:
@@ -25,3 +25,11 @@ para diferentes plataformas o lenguajes de programación:
 . +Hacking+ link:../../defends/hacking/evitar-ataque-dos/[Evitar Ataque de Denegación de Servicio].
 . +C Sharp+ link:../../defends/csharp/ejecutar-minimo-privilegio/[Ejecutar aplicaciones con el mínimo privilegio].
 . +ASPNET+ link:../../defends/aspnet/ejecutar-min-privilegio/[Ejecutar aplicaciones con mínimo privilegio].
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(A):]
+Análisis de riesgos: Llevar a cabo una evaluación precisa y completa
+de los riesgos y vulnerabilidades potenciales a la confidencialidad, integridad
+y disponibilidad de la información sensible protegida electrónicamente
+almacenada en la organización.
