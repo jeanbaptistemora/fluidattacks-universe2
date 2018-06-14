@@ -95,6 +95,12 @@ no cuentan con un responsable asignado.
 
 == Referencias
 
-. link:http://www.pmg-ssi.com/2015/05/como-clasificar-los-activos-de-seguridad-en-un-sgsi/[SGSI - ¿Cómo clasificar los activos de seguridad en un SGSI?].
+. [[r1]] link:http://www.pmg-ssi.com/2015/05/como-clasificar-los-activos-de-seguridad-en-un-sgsi/[SGSI - ¿Cómo clasificar los activos de seguridad en un SGSI?].
 
-. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. [[r2]] link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(i):]
+Responsable de seguridad asignado:
+Identificar el oficial responsable del desarrollo e implementación
+de las políticas y procedimientos de seguridad requeridos
+por esta parte de la organización.
