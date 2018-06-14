@@ -138,3 +138,18 @@ resource "aws_dynamodb_table" "weekly_report" {
     enabled = true
   }
 }
+resource "aws_dynamodb_table" "projects" {
+  name           = "FI_projects"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "project_name"
+
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
