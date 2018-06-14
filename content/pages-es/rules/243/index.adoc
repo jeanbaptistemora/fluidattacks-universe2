@@ -15,6 +15,12 @@ para tratar los incidentes de seguridad.
 
 == Referencias
 
-. [[r1]] +HIPAA Security Rules+ link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(1)(i):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(i):]
 Administración de procesos de seguridad: Implementar políticas y procedimientos
 para prevenir, detectar y corregir violaciones de seguridad.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(ii):]
+Procedimientos de emergencia:
+Establecer (e implementar cuando sea necesario)
+procedimientos para obtener la información sensible necesaria
+durante una emergencia.
