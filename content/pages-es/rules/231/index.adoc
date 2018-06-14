@@ -11,3 +11,10 @@
 Un sistema con información crítica para el negocio
 debe tener un componente para verificación biométrica
 durante el proceso de autenticación.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Autenticación de Personas o Entidades: Implementar procedimientos
+para verificar que una persona o entidad que solicita acceso
+a la información sensible es quien dice ser.
