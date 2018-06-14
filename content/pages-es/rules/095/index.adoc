@@ -10,3 +10,12 @@
 
 Los usuarios que accederán al sistema con cuentas de administrador
 o super administrador deben estar definidos.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(i):]
+Implementar políticas y procedimientos para asegurarse
+que todos los empleados tengan acceso apropiado a la información sensible
+como se especifica en el párrafo (a)(4) de esta sección,
+y para prevenir que los empleados no autorizados
+obtengan acceso a esta información.
