@@ -45,4 +45,9 @@ al no estar definido a nivel contractual.
 
 == Referencias
 
-. link:http://es.presidencia.gov.co/dapre/DocumentosSIGEPRE/L-TI-05-Administracion-Niveles-Servicio.pdf[LINEAMIENTOS DE ADMINISTRACIÓN DE NIVELES DE SERVICIO].
+. [[r1]] link:http://es.presidencia.gov.co/dapre/DocumentosSIGEPRE/L-TI-05-Administracion-Niveles-Servicio.pdf[Lineamientos de Administración de Niveles de Servicio].
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(C):]
+Políticas de sanción: Aplicar sanciones apropiadas
+contra miembros que incumplan las políticas de seguridad y procedimientos
+definidos por la entidad.
