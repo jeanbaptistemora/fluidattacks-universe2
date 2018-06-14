@@ -140,6 +140,14 @@ releaseContentCtrl (
           findingData.data = response.data;
           $scope.finding = response.data;
           $scope.hasRelease = false;
+          if ($scope.finding.suscripcion === "Continua" ||
+            $scope.finding.suscripcion === "Concurrente" ||
+            $scope.finding.suscripcion === "Si") {
+            $scope.isContinuous = true;
+          }
+          else {
+            $scope.isContinuous = false;
+          }
           if (angular.isDefined($scope.finding.releaseDate)) {
             $scope.hasRelease = true;
           }

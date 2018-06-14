@@ -802,8 +802,8 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
                 Item={
                     'finding_id': finding_id,
                     'remediated': remediated,
-                    'project': project,
-                    'finding_name': finding_name,
+                    'project': project.lower(),
+                    'finding_name': finding_name
                 }
             )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
@@ -848,6 +848,62 @@ def get_remediated_allfindings_dynamo(filter_value):
         else:
             break
     return items
+
+
+def get_project_dynamo(filter_value):
+    """Get a project info."""
+    table = dynamodb_resource.Table('FI_projects')
+    filter_key = 'project_name'
+    if filter_key and filter_value:
+        filtering_exp = Key(filter_key).eq(filter_value)
+        response = table.scan(FilterExpression=filtering_exp)
+    else:
+        response = table.scan()
+
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+
+def add_release_toproject_dynamo(project_name, release_val):
+    """Add or Update release status in a project."""
+    table = dynamodb_resource.Table('FI_projects')
+    item = get_project_dynamo(project_name)
+    if item == []:
+        try:
+            response = table.put_item(
+                Item={
+                    'project_name': project_name.lower(),
+                    'hasRelease': release_val
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'project_name': project_name.lower(),
+                },
+                UpdateExpression='SET hasRelease = :val1',
+                ExpressionAttributeValues={
+                    ':val1': release_val
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
 
 
 def get_finding_dynamo(finding_id):

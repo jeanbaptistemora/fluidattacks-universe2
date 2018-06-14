@@ -224,6 +224,7 @@ CRONJOBS = [
     ('0 5 * * 1', 'app.scheduler.weekly_report'),
     ('0 4 * * *', 'app.scheduler.inactive_users'),
     ('0 18 * * 1-5', 'app.scheduler.continuous_report'),
+    ('30 4 * * *', 'app.scheduler.set_release_status'),
 ]
 
 AUTHENTICATION_BACKENDS = (

@@ -185,7 +185,6 @@ def get_new_releases():
     context = {'findings': list()}
     cont = 0
     for project in projects:
-        print project
         try:
             finding_requests = api.get_findings(project)["submissions"]
             for finding in finding_requests:
@@ -232,3 +231,11 @@ def continuous_report():
                                     'events': openEvents
                                      })
     send_mail_continuous_report(to, context)
+
+
+def set_release_status():
+    projects = integrates_dao.get_registered_projects()
+    for project in projects:
+        findings = integrates_dao.get_project_dynamo(project[0].lower())
+        for finding in findings:
+            integrates_dao.add_release_toproject_dynamo(finding["project_name"], False)

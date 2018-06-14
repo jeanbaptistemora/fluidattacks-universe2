@@ -355,6 +355,7 @@ const traducciones1 = {
   "no_text_update": "Falló al actualizar la descripción",
   "not_found": "No pudimos encontrarlo!",
   "project_deleted": "Projecto Eliminado",
+  "releases_per_day": "Este proyecto superó el número de releases por día",
   "remediated_success": "El hallazgo fue marcado como remediado, la " +
                        "solicitud de revisión de la solución fue enviada",
   "search_cont": "Buscando Proyecto...",

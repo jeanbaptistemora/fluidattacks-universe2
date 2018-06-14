@@ -1244,7 +1244,11 @@ def finding_solved(request):
     """ Send an email requesting the verification of a finding """
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
-    remediated = integrates_dao.add_remediated_dynamo(int(parameters['data[findingId]']), True, parameters['data[project]'], parameters['data[findingName]'])
+    remediated = integrates_dao.add_remediated_dynamo(
+        int(parameters['data[findingId]']),
+        True,
+        parameters['data[project]'],
+        parameters['data[findingName]'])
     rem_solution = parameters['data[justification]'].replace('\n', ' ')
     if not remediated:
         rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request)
@@ -1277,7 +1281,10 @@ def finding_verified(request):
     """ Send an email notifying that the finding was verified """
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
-    verified = integrates_dao.add_remediated_dynamo(int(parameters['data[findingId]']), False, parameters['data[project]'], parameters['data[findingName]'])
+    verified = integrates_dao.add_remediated_dynamo(
+        int(parameters['data[findingId]']),
+        False, parameters['data[project]'],
+        parameters['data[findingName]'])
     if not verified:
         rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request)
         return util.response([], 'Error', True)
@@ -1417,6 +1424,14 @@ def accept_release(request):
     try:
         finding = catch_finding(request, parameters)
         if "releaseDate" not in finding:
+            if ("suscripcion" in finding and
+                (finding["suscripcion"] == "Continua" or
+                    finding["suscripcion"] == "Concurrente" or
+                    finding["suscripcion"] == "Si")):
+                releases = integrates_dao.get_project_dynamo(finding["fluidProject"].lower())
+                for release in releases:
+                    if "hasRelease" in release and release["hasRelease"] is True:
+                        return util.response([], 'hasRelease', False)
             tzn = pytz.timezone('America/Bogota')
             releaseDate = datetime.now(tz=tzn).date()
             release = {}
@@ -1427,6 +1442,7 @@ def accept_release(request):
             api = FormstackAPI()
             request = api.update(generic_dto.request_id, generic_dto.data)
             if request:
+                integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True)
                 return util.response([], 'success', False)
             rollbar.report_message('Error: An error occurred accepting the release', 'error', request)
             return util.response([], 'error', True)
