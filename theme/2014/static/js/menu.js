@@ -43,7 +43,7 @@ of the screen
         resizeFix = function() {
           var mainmenu = cssmenu.find('.menu-button');
           var submenu = cssmenu.find('.submenu-button');
-          if ($( window ).width() >= 805) {
+          if ($( window ).width() >= 825) {
             if (!cssmenu.children('ul').hasClass('m-opened')) {
               cssmenu.children('ul').toggleClass('m-opened')
             }
@@ -52,7 +52,7 @@ of the screen
             }
           }
 
-          if ($(window).width() < 805) {
+          if ($(window).width() < 825) {
             cssmenu.children('ul').removeClass('m-opened');
             cssmenu.find('ul li ul').removeClass('sm-opened');
             mainmenu.removeClass('menu-opened');
@@ -73,18 +73,3 @@ of the screen
     });
   });
 })(jQuery);
-
-// Change color of navigation bar when scrolled
-$(document).scroll(function () {
-  var ScrollTop = $(document).scrollTop();
-  if (ScrollTop == 0 && $(".css-scrolled").length) {
-    $(".css-scrolled").toggleClass("css-scrolled");
-    $(".m-scrolled").toggleClass("m-scrolled");
-    $(".has-sub-scrolled").toggleClass("has-sub-scrolled");
-  }
-  else if (ScrollTop > 0 && !$(".css-scrolled").length) {
-    $(".cssmenu").toggleClass("css-scrolled");
-    $(".m-opened").toggleClass("m-scrolled");
-    $(".has-sub").toggleClass("has-sub-scrolled");
-  }
-});

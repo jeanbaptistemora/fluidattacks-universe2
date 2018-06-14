@@ -1,7 +1,5 @@
 $fluid-darker-red: rgba(139, 34, 35, 1);
 $dottedgray: rgba(128, 128, 128, 1);
-$menublack: rgba(7, 27, 47, 1);
-$menublackopacity: rgba(7, 27, 47, .2);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $transparent: rgba(0, 0, 0, 0);
 $transparentblack: rgba(0, 0, 0, .5);
@@ -176,7 +174,7 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.fluid-screw {
+.fluid-logo {
   float: left;
   left: 2px;
   margin-right: 20px;
@@ -201,21 +199,19 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 400px) {
-  .fluid-screw {
+  .fluid-logo {
     top: 10px;
     width: 150px;
   }
 }
 
-@media (min-width: 820px) {
+@media (min-width: 840px) {
   .intro-header {
     padding-top: 0;
   }
 
   .cssmenu {
-    background-color: transparent;
     height: 72px;
-    transition: background-color .2s;
   }
 
   .has-sub {
@@ -225,9 +221,8 @@ $white: rgba(255, 255, 255, 1);
 
     &:hover {
       ul {
-        background: $menublack;
+        background: $fluid-dark-red;
         display: block;
-        transition: background-color .2s;
       }
 
       &::before {
@@ -253,10 +248,9 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .m-opened {
-    background-color: $menublackopacity;
+    border-bottom: 5px solid $fluid-darker-red;
     border-top: 0;
-    min-height: 72px;
-    transition: background-color .2s;
+    height: 72px;
 
     li {
       border-top: 0;
@@ -294,36 +288,8 @@ $white: rgba(255, 255, 255, 1);
     }
   }
 
-  .fluid-screw {
+  .fluid-logo {
     left: 6px;
     margin-right: 5px;
-  }
-
-  .css-scrolled {
-    background-color: $fluid-dark-red;
-    border-bottom: 5px solid $fluid-darker-red;
-    transition: background-color .2s;
-  }
-
-  .m-scrolled {
-    background-color: $fluid-dark-red;
-    min-height: auto;
-    transition: background-color .2s;
-
-    li {
-      min-height: auto;
-
-      &:hover {
-        background-color: $fluid-darker-red;
-      }
-    }
-  }
-
-  .has-sub-scrolled {
-    &:hover {
-      ul {
-        background: $fluid-dark-red;
-      }
-    }
   }
 }
