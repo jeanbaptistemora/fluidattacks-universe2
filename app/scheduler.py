@@ -4,6 +4,7 @@
 import rollbar
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
+from .dto.eventuality import EventualityDTO
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding, \
                     send_mail_new_releases, send_mail_continuous_report
@@ -203,16 +204,17 @@ def get_new_releases():
 
 def continuous_report():
     to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', 'oparada@fluidattacks.com' ]
-    headers = ['Proyecto','Lineas','Campos','Efc. Cierre','CVSS']
+    headers = ['Proyecto','Lineas','Campos','Efc. Cierre','CVSS', 'Events']
     context = {'projects':list(), 'headers': headers, 'date_now': str(datetime.now().date())}
-    data = integrates_dao.get_continuous_info()
     api = FormstackAPI()
-    for x in data:
-        openVulnerabilities = 0
-        cardinalidadTotal = 0
-        maximumSeverity = 0
-        finding_requests = api.get_findings(x['project'])["submissions"]
-        for finding in finding_requests:
+    evt_dto = EventualityDTO()
+    for x in integrates_dao.get_continuous_info():
+        openVulnerabilities = cardinalidadTotal = maximumSeverity = openEvents = 0
+        for row in  api.get_eventualities(x['project'])["submissions"]:
+            evtset = evt_dto.parse(row["id"], api.get_submission(row["id"]))
+            if evtset['estado']=='Pendiente':
+                openEvents += 1
+        for finding in api.get_findings(x['project'])["submissions"]:
             act_finding = views.finding_vulnerabilities(str(finding['id']))
             openVulnerabilities += int(act_finding['openVulnerabilities'])
             cardinalidadTotal += int(act_finding['cardinalidad_total'])
@@ -226,6 +228,7 @@ def continuous_report():
                                     'lines': str(x['lines']), \
                                     'fields': str(x['fields']), \
                                     'fixed_vuln': (str(fixed_vuln) + "%"), \
-                                    'cssv': maximumSeverity
+                                    'cssv': maximumSeverity, \
+                                    'events': openEvents
                                      })
     send_mail_continuous_report(to, context)
