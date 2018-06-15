@@ -256,7 +256,7 @@ msgstr "careers"
 
 #: templates/footer.html:4
 msgid "Footer-logo-1"
-msgstr "FLUID logo"
+msgstr "Fluid Attacks logo"
 
 #: templates/footer.html:7
 msgid "Footer-logo-2"
@@ -583,7 +583,7 @@ msgstr ""
 #: templates/home.html:5
 msgid "Home-keywords"
 msgstr ""
-"FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
+"Fluid Attacks, Ethical Hacking, Vulnerability, Diagnosis, Application, "
 "Infrastructure"
 
 #: templates/home.html:8
@@ -636,7 +636,7 @@ msgstr ""
 #: templates/landing.html:5
 msgid "Landing-keywords"
 msgstr ""
-"FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
+"Fluid Attacks, Ethical Hacking, Vulnerability, Diagnosis, Application, "
 "Infrastructure"
 
 #: templates/landing.html:8
@@ -730,7 +730,7 @@ msgstr "Customers"
 #: templates/landing.html:87
 msgid "Index-msg-2"
 msgstr ""
-"FLUID has been providing Information Security services in the colombian "
+"Fluid Attacks has been providing Information Security services in the colombian "
 "market for over 18 years. Below, we list some of our customers."
 
 #: templates/location.html:21 templates/location.html:30
@@ -774,7 +774,7 @@ msgstr "Magnifying glass"
 
 #: templates/navigationbar.html:19
 msgid "Navb-logo"
-msgstr "FLUID logo"
+msgstr "Fluid Attacks logo"
 
 #: templates/navigationbar.html:22 templates/navigationbar.html:24
 #: templates/navigationbar.html:25

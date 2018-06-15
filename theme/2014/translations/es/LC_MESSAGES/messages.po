@@ -259,7 +259,7 @@ msgstr "empleos"
 
 #: templates/footer.html:4
 msgid "Footer-logo-1"
-msgstr "Logo de FLUID"
+msgstr "Logo de Fluid Attacks"
 
 #: templates/footer.html:7
 msgid "Footer-logo-2"
@@ -586,7 +586,7 @@ msgstr ""
 #: templates/home.html:5
 msgid "Home-keywords"
 msgstr ""
-"FLUID, Ethical hacking, Vulnerabilidad, Diagnóstico, Aplicación, "
+"Fluid Attacks, Ethical hacking, Vulnerabilidad, Diagnóstico, Aplicación, "
 "Infraestructura"
 
 #: templates/home.html:8
@@ -640,7 +640,7 @@ msgstr ""
 #: templates/landing.html:5
 msgid "Landing-keywords"
 msgstr ""
-"FLUID, Ethical hacking, Vulnerabilidad, Diagnóstico, Aplicación, "
+"Fluid Attacks, Ethical hacking, Vulnerabilidad, Diagnóstico, Aplicación, "
 "Infraestructura"
 
 #: templates/landing.html:8
@@ -684,7 +684,7 @@ msgstr "Hacking <strong>Puntual</strong>"
 
 #: templates/landing.html:56
 msgid "Index-bnft-header"
-msgstr "¿Por qué es <strong>FLUID la mejor opción</strong> para ti?"
+msgstr "¿Por qué es <strong>Fluid Attacks la mejor opción</strong> para ti?"
 
 #: templates/landing.html:59
 msgid "Index-img-alt-2"
@@ -735,7 +735,7 @@ msgstr "Clientes"
 #: templates/landing.html:87
 msgid "Index-msg-2"
 msgstr ""
-"FLUID lleva más de 18 años prestando servicios de Seguridad de la "
+"Fluid Attacks lleva más de 18 años prestando servicios de Seguridad de la "
 "Información en el mercado colombiano. A continuación listamos algunos de "
 "algunos de nuestros clientes."
 
@@ -780,7 +780,7 @@ msgstr "Lupa"
 
 #: templates/navigationbar.html:19
 msgid "Navb-logo"
-msgstr "Logo de FLUID"
+msgstr "Logo de Fluid Attacks"
 
 #: templates/navigationbar.html:22 templates/navigationbar.html:24
 #: templates/navigationbar.html:25
