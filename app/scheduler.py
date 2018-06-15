@@ -197,9 +197,10 @@ def get_new_releases():
                     cont += 1
         except (TypeError, KeyError):
             rollbar.report_message('Error: An error ocurred sending new release email', 'error')
-    context['total'] = cont
-    to = ["engineering@fluidattacks.com"]
-    send_mail_new_releases(to, context)
+    if cont > 0:
+        context['total'] = cont
+        to = ["engineering@fluidattacks.com"]
+        send_mail_new_releases(to, context)
 
 def continuous_report():
     to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', 'oparada@fluidattacks.com' ]
