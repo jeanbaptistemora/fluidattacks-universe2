@@ -39,7 +39,7 @@ from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
 from magic import Magic
-from datetime import datetime
+from datetime import datetime, timedelta
 from backports import csv
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
@@ -350,7 +350,15 @@ def project_to_xls(request, lang, project):
         fin = catch_finding(request, reqset["id"])
         if fin['fluidProject'].lower() == project.lower() and \
                 'releaseDate' in fin:
-            findings.append(fin)
+            tzn = pytz.timezone('America/Bogota')
+            today_day = datetime.now(tz=tzn).date()
+            finding_last_vuln = datetime.strptime(
+                fin["releaseDate"].split(" ")[0],
+                '%Y-%m-%d'
+            )
+            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+            if finding_last_vuln <= today_day:
+                findings.append(fin)
     data = util.ord_asc_by_criticidad(findings)
     it_report = ITReport(project, data, username)
     with open(it_report.result_filename, 'r') as document:
@@ -391,7 +399,15 @@ def project_to_pdf(request, lang, project, doctype):
         fin = catch_finding(request, reqset["id"])
         if fin['fluidProject'].lower() == project.lower() and \
                 'releaseDate' in fin:
-            findings.append(fin)
+            tzn = pytz.timezone('America/Bogota')
+            today_day = datetime.now(tz=tzn).date()
+            finding_last_vuln = datetime.strptime(
+                fin["releaseDate"].split(" ")[0],
+                '%Y-%m-%d'
+            )
+            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+            if finding_last_vuln <= today_day:
+                findings.append(fin)
     pdf_maker = CreatorPDF(lang, doctype)
     secure_pdf = SecurePDF()
     findings = util.ord_asc_by_criticidad(findings)
@@ -622,7 +638,15 @@ def get_findings(request):
             return util.response([], 'Project masked', True)
         if finding['fluidProject'].lower() == project.lower() and \
                 'releaseDate' in finding:
-            findings.append(finding)
+            tzn = pytz.timezone('America/Bogota')
+            today_day = datetime.now(tz=tzn).date()
+            finding_last_vuln = datetime.strptime(
+                finding["releaseDate"].split(" ")[0],
+                '%Y-%m-%d'
+            )
+            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+            if finding_last_vuln <= today_day:
+                findings.append(finding)
     import json
     with open("/tmp/"+project+".txt", "w") as f:
         f.write(json.dumps(findings))
@@ -730,13 +754,20 @@ def finding_vulnerabilities(submission_id):
             finding['edad'] = '-'
         elif 'releaseDate' in finding:
             tzn = pytz.timezone('America/Bogota')
-            finding_date = datetime.strptime(
+            today_day = datetime.now(tz=tzn).date()
+            finding_last_vuln = datetime.strptime(
                 finding["releaseDate"].split(" ")[0],
                 '%Y-%m-%d'
             )
-            finding_date = finding_date.replace(tzinfo=tzn).date()
-            final_date = (datetime.now(tz=tzn).date() - finding_date)
-            finding['edad'] = ":n".replace(":n", str(final_date.days))
+            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+            if finding_last_vuln <= today_day:
+                finding_date = datetime.strptime(
+                    finding["releaseDate"].split(" ")[0],
+                    '%Y-%m-%d'
+                )
+                finding_date = finding_date.replace(tzinfo=tzn).date()
+                final_date = (datetime.now(tz=tzn).date() - finding_date)
+                finding['edad'] = ":n".replace(":n", str(final_date.days))
         return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error')
@@ -1418,22 +1449,32 @@ def get_alerts(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['admin'])
+# pylint: disable=R0101
 def accept_release(request):
     parameters = request.POST.get('id', "")
     generic_dto = FindingDTO()
     try:
         finding = catch_finding(request, parameters)
         if "releaseDate" not in finding:
+            tzn = pytz.timezone('America/Bogota')
+            releaseDate = datetime.now(tz=tzn).date()
             if ("suscripcion" in finding and
                 (finding["suscripcion"] == "Continua" or
                     finding["suscripcion"] == "Concurrente" or
                     finding["suscripcion"] == "Si")):
                 releases = integrates_dao.get_project_dynamo(finding["fluidProject"].lower())
                 for release in releases:
-                    if "hasRelease" in release and release["hasRelease"] is True:
-                        return util.response([], 'hasRelease', False)
-            tzn = pytz.timezone('America/Bogota')
-            releaseDate = datetime.now(tz=tzn).date()
+                    if "lastRelease" in release:
+                        last_release = datetime.strptime(
+                            release["lastRelease"].split(" ")[0],
+                            '%Y-%m-%d'
+                        )
+                        last_release = last_release.replace(tzinfo=tzn).date()
+                        if last_release == releaseDate:
+                            releaseDate = releaseDate + timedelta(days=1)
+                        elif last_release > releaseDate:
+                            releaseDate = last_release + timedelta(days=1)
+            releaseDate = releaseDate.strftime('%Y-%m-%d %H:%M:%S')
             release = {}
             release['id'] = parameters
             release['releaseDate'] = releaseDate
@@ -1442,7 +1483,7 @@ def accept_release(request):
             api = FormstackAPI()
             request = api.update(generic_dto.request_id, generic_dto.data)
             if request:
-                integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True)
+                integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True, releaseDate)
                 return util.response([], 'success', False)
             rollbar.report_message('Error: An error occurred accepting the release', 'error', request)
             return util.response([], 'error', True)

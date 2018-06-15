@@ -349,7 +349,6 @@ const translations1 = {
      "no_text_update": "Failed to update the description",
      "not_found": "We could not find it!",
      "project_deleted": "Project Deleted",
-     "releases_per_day": "This project exceeded the number of releases per day",
      "remediated_success": "This finding was marked as remediated. A request " +
                            "to verify the solution was sent",
      "search_cont": "Searching Project...",

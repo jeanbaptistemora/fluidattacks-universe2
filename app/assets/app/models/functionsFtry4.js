@@ -52,39 +52,24 @@ angular.module("FluidIntegrates").factory(
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {
-                  if (response.message === "hasRelease") {
-                    const errorAlert =
-                                   $translate.instant("proj_alerts." +
-                                    "releases_per_day");
-                    $msg.error(errorAlert);
-                    $uibModalInstance.close();
-                    $state.go(
-                      "ProjectReleases",
-                      {"project": $stateParams.project}
-                    );
-                  }
-                  else {
-                    const updatedAt =
-                                   $translate.instant("proj_alerts." +
-                                    "updatedTitle");
-                    const updatedAc =
-                                   $translate.instant("proj_alerts." +
-                                    "updated_cont");
-                    $msg.success(updatedAc, updatedAt);
-                    // Mixpanel tracking
-                    mixPanelDashboard.trackFinding(
-                      "acceptRelease",
-                      userEmail,
-                      descData.id
-                    );
-                    $uibModalInstance.close();
-                    releaseData = [];
-                    projectData = [];
-                    $state.go(
-                      "ProjectReleases",
-                      {"project": $stateParams.project}
-                    );
-                  }
+                  const updatedAt =
+                                 $translate.instant("proj_alerts.updatedTitle");
+                  const updatedAc =
+                                 $translate.instant("proj_alerts.updated_cont");
+                  $msg.success(updatedAc, updatedAt);
+                  // Mixpanel tracking
+                  mixPanelDashboard.trackFinding(
+                    "acceptRelease",
+                    userEmail,
+                    descData.id
+                  );
+                  $uibModalInstance.close();
+                  releaseData = [];
+                  projectData = [];
+                  $state.go(
+                    "ProjectReleases",
+                    {"project": $stateParams.project}
+                  );
                 }
                 else if (response.error) {
                   const errorAc1 =
