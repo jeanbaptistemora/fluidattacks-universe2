@@ -72,7 +72,7 @@ class Command(BaseCommand):
                "* commands, delimited by spaces:"
             response  += """
             add_access <email> <project_name> <company>
-            add_project <project> <description>
+            add_project <project> <[company or companies]> <description>
             remove_access <email> <project>
             list_projects <email>
             list_users <project_name>
@@ -150,16 +150,25 @@ email address and that the project *%s* is created.' % (project)
     def do_add_project(self, data):
         try:
             project = data.split(CMD_SEP)[1]
-            description = ' '.join(data.split(CMD_SEP)[2:])
-            if project.find("'") >= 0:
+            text = ' '.join(data.split(CMD_SEP)[2:])
+            try:
+                companies_text = text[(text.index("[")+1):text.index("]")].split(',')
+                companies = map(str.strip,companies_text)
+                description = ' '.join(text.split("] ")[1:])
+            except ValueError:
+                output = """You must enter the company or companies names within square brackets [] and comma separated. """
+                return output
+            if project.find("'") >= 0 or description.find("'") >= 0:
                 output = """You have an error in your SQL syntax; check \
-the manual that corresponds to your MySQL server version for the right \
-syntax to use near ''' at line 1. Run this in your bash console \
-*:(){ :|: & };:*"""
+    the manual that corresponds to your MySQL server version for the right \
+    syntax to use near ''' at line 1. Run this in your bash console \
+    *:(){ :|: & };:*"""
+            elif companies == [""]:
+                output = """You must enter the company or companies names."""
             else:
                 if integrates_dao.create_project_dao(project, description):
-                    integrates_dao.add_project_dynamo(project, description)
-                    output = '*[OK]* Created project *%s* *"%s"*.' % (project, description)
+                    integrates_dao.add_project_dynamo(project, description, companies)
+                    output = '*[OK]* Created project *%s* *"%s"* *%s*.' % (project, description, companies)
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
                     mp.track(project.upper(), 'BOT_AddProject')
                 else:
