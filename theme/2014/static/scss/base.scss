@@ -1,7 +1,7 @@
 $aqua: rgba(0, 255, 255, 1);
 $black: rgba(0, 0, 0, 1);
 $blue: rgba(0, 0, 255, 1);
-$font: 'Ubuntu', sans-serif;
+$font: 'Source Sans Light';
 $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
 $fluid-black: rgba(67, 67, 67, 1);
@@ -28,6 +28,7 @@ $white: rgba(255, 255, 255, 1);
 $yellow: rgba(255, 255, 0, 1);
 
 @mixin hn {
+  font-family: 'Montserrat Extrabold';
   font-weight: 600;
   line-height: 1.1;
   margin: 20px 0 10px;
@@ -172,7 +173,7 @@ p {
     background-color: $lightergray;
     border-radius: 5px;
     font-family: monospace;
-    font-size: 17px;
+    font-size: 16px;
     overflow-wrap: break-word;
     padding: 0 5px;
     word-break: break-word;
@@ -764,10 +765,10 @@ article {
   }
 
   p {
-    font-size: 21px;
+    font-size: 20px;
 
     .monospaced {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 

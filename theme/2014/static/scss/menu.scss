@@ -1,6 +1,6 @@
+$fluid-dark-red: rgba(203, 50, 51, 1);
 $fluid-darker-red: rgba(139, 34, 35, 1);
 $dottedgray: rgba(128, 128, 128, 1);
-$fluid-dark-red: rgba(203, 50, 51, 1);
 $transparent: rgba(0, 0, 0, 0);
 $transparentblack: rgba(0, 0, 0, .5);
 $white: rgba(255, 255, 255, 1);
@@ -8,7 +8,6 @@ $white: rgba(255, 255, 255, 1);
 @mixin link {
   color: $white;
   display: block;
-  text-transform: uppercase;
 
   &:hover {
     background-color: $fluid-darker-red;
@@ -112,7 +111,7 @@ $white: rgba(255, 255, 255, 1);
 
 .sm-link {
   @include link;
-  font-size: 13px;
+  font-size: 15px;
   height: 100%;
   letter-spacing: 0;
   padding: 24px 30px 0 25px;
@@ -185,6 +184,8 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .menubar {
+  font-family: 'Montserrat Light';
+  font-weight: bold;
   position: fixed;
   width: 100%;
   z-index: 1;
@@ -228,22 +229,6 @@ $white: rgba(255, 255, 255, 1);
       &::before {
         display: none;
       }
-    }
-
-    &::before {
-      @include sm-pseudo;
-      height: 8px;
-      right: 12px;
-      top: 32px;
-      width: 2px;
-    }
-
-    &::after {
-      @include sm-pseudo;
-      height: 2px;
-      right: 9px;
-      top: 35px;
-      width: 8px;
     }
   }
 
@@ -290,6 +275,5 @@ $white: rgba(255, 255, 255, 1);
 
   .fluid-logo {
     left: 6px;
-    margin-right: 5px;
   }
 }

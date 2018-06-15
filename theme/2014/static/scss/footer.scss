@@ -42,11 +42,22 @@ $white: rgba(255, 255, 255, 1);
 
   a {
     color: $white;
+    font-size: 18px;
+    font-weight: bold;
 
     &:hover {
       color: $fluid-red;
     }
   }
+}
+
+.status-div {
+  background-color: $footerblack;
+  color: $white;
+  font-weight: bold;
+  position: absolute;
+  text-align: center;
+  width: 100%;
 }
 
 .status-link {
@@ -63,7 +74,7 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
   .colfoot {
     width: 16%;
   }
@@ -78,12 +89,4 @@ $white: rgba(255, 255, 255, 1);
     margin-left: 10px;
     width: 100%;
   }
-}
-
-.status-div {
-  background-color: $footerblack;
-  color: $white;
-  position: absolute;
-  text-align: center;
-  width: 100%;
 }
