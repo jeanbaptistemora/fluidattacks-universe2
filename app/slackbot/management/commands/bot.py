@@ -158,6 +158,7 @@ syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
                 if integrates_dao.create_project_dao(project, description):
+                    integrates_dao.add_project_dynamo(project, description)
                     output = '*[OK]* Created project *%s* *"%s"*.' % (project, description)
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
                     mp.track(project.upper(), 'BOT_AddProject')

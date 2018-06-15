@@ -871,6 +871,23 @@ def get_project_dynamo(filter_value):
     return items
 
 
+def add_project_dynamo(project, description):
+    """Add project to dynamo."""
+    table = dynamodb_resource.Table('FI_projects')
+    try:
+        response = table.put_item(
+            Item={
+                'project_name': project.lower(),
+                'description': description
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
 def add_release_toproject_dynamo(project_name, release_val):
     """Add or Update release status in a project."""
     table = dynamodb_resource.Table('FI_projects')
