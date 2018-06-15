@@ -327,6 +327,7 @@
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab4"
                                                 ng-model="finding.treatmentJustification">{{finding.treatmentJustification}}</textarea>
+                                      <span class="badge" style="font-size: 14px;background-color: #272727; margin-left:97%" ng-show="!onlyReadableTab4" >{{0 + finding.treatmentJustification.length}}</span>
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="!isManager">

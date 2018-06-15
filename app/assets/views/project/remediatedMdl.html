@@ -5,6 +5,7 @@
 	        <hr>
 	        <label> {{'search_findings.tab_description.solution' | translate}} </label><label style="color: #f22;"> *</label>
 	        <textarea rows="6" class="form-control" ng-model="remediatedData.justification" required></textarea>
+          <span class="badge" style="font-size: 14px;background-color: #272727;" >{{0 + remediatedData.justification.length}}</span>
 	        <br>
 	        <p>{{'confirmmodal.confirm' | translate}}</p>
     	</div>
