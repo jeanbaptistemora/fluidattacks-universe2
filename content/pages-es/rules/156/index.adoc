@@ -9,3 +9,9 @@
 == Requisito
 
 El código fuente no debe contener información sensible.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVSv3.1-1.10+]
+La seguridad se aborda en todas las partes
+del ciclo de vida de desarrollo de software.
