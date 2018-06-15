@@ -1055,3 +1055,44 @@ def get_continuous_info():
         else:
             break
     return items
+
+def add_company_dynamo(table, project_name, companies):
+    """ Add a company to a project un DynamoDB."""
+    try:
+        response = table.update_item(
+            Key={
+                'project_name': project_name.lower(),
+            },
+            UpdateExpression='SET companies =  :val1',
+            ExpressionAttributeValues={
+                ':val1': companies
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+def update_company_dynamo(project_name, companies):
+    """ Update a company to a project. """
+    table = dynamodb_resource.Table('FI_projects')
+    item = get_project_dynamo(project_name)
+    if item == [] or 'companies' not in item[0]:
+        add_company_dynamo(table, project_name, companies)
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'project_name': project_name.lower(),
+                },
+                UpdateExpression='SET companies = list_append(companies, :val1)',
+                ExpressionAttributeValues={
+                    ':val1': companies
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
