@@ -16,6 +16,7 @@
 == Session
 
 * link:023/[REQ.023 Close inactive users sessions].
+* link:026/[REQ.026 Encrypt client-side session information].
 * link:029/[REQ.029 Cookies with security attributes].
 
 == Architecture
