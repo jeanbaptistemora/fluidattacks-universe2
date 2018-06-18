@@ -19,7 +19,7 @@
 | link:../continuous-hacking/[*Continuous Hacking*]
 | link:../one-shot-hacking/[*One Shot Hacking*]
 
-a|==== Inspection Cycles
+a|==== Attack Cycles
 | Multiples link:../continuous-hacking/#remediation-validation[^1^].
 | Only +1+ link:../one-shot-hacking/#remediation-validation[^1^].
 

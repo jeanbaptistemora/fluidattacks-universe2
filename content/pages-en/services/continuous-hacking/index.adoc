@@ -104,9 +104,9 @@ a|image::img8.png[alt="img8", width="55%"]
 
 a|image::ciclos-continuo.png[alt="Ethical Hacking inspection cycles", width="55%"]
 
-a|== Inspection Cycles
+a|== Attack Cycles
 
-During subscription time selected system will have multiple inspection cycles
+During subscription time selected system will have multiple attack cycles
 on all different version generated during development cycle.
 A hacking team will be constantly attacking the system
 even if the functionalities had already been tested in a previous version.

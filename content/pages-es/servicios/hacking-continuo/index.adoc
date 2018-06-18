@@ -103,8 +103,8 @@ a|image::img8.png[alt="img8", width="55%"]
 
 a|image::ciclos-continuo.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
 
-a|== Ciclos de prueba
-Durante el tiempo de la suscripción se realizan múltiples ciclos de prueba
+a|== Ciclos de Ataque
+Durante el tiempo de la suscripción se realizan múltiples ciclos de ataque
 a las diferentes versiones del código y/o aplicación
 que se generan durante el desarrollo del sistema,
 nuestro equipo de hacking revisará constantemente

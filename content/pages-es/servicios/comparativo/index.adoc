@@ -19,7 +19,7 @@
 | link:../hacking-continuo/[*Hacking Continuo*]
 | link:../hacking-puntual/[*Hacking Puntual*]
 
-a|==== Ciclos de revisión
+a|==== Ciclos de ataque
 | Múltiples link:../hacking-continuo/#verificacion-de-cierre[^1^].
 | Solo +1+ link:../hacking-puntual/#verificacion-de-cierre-(opcional)[^1^].
 
