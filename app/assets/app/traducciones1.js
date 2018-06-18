@@ -269,7 +269,7 @@ const traducciones1 = {
   "close_label": "Cerrados",
   "open_label": "Abiertos",
   "partial_label": "Parciales",
-  "title": "Hallazgos por Estado"
+  "title": "Vulnerabilidades por Estado"
 },
   "grapType":
 {

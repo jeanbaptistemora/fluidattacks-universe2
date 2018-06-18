@@ -273,31 +273,26 @@ angular.module("FluidIntegrates").controller(
       });
     };
     $scope.mainGraphstatusPieChart = function mainGraphstatusPieChart () {
-      const currData = $scope.data;
+      const metricsData = $scope.metricsList;
       let total = 0;
       let open = 0;
-      let partial = 0;
       let close = 0;
-      angular.forEach(currData, (val) => {
-        const findingStatus = val.estado;
-        total += 1;
-        if (findingStatus === "Abierto" || findingStatus === "Open") {
-          open += 1;
+      let metricName = "";
+      angular.forEach(metricsData, (val) => {
+        metricName = "search_findings.filter_labels.vulnerabilities";
+        if (val.description === $translate.instant(metricName)) {
+          total = val.value;
         }
-        else if (findingStatus === "Cerrado" || findingStatus === "Closed") {
-          close += 1;
-        }
-        else {
-          partial += 1;
+        metricName = "search_findings.filter_labels.cardinalities";
+        if (val.description === $translate.instant(metricName)) {
+          open = val.value;
         }
       });
+      close = total - open;
       total = parseFloat(total);
       const openTransl = $translate.instant("grapStatus.open_label");
-      const partialTransl = $translate.instant("grapStatus.partial_label");
       const closeTransl = $translate.instant("grapStatus.close_label");
       const openLabel = openTransl + " :n%".replace(":n", (open *
-                   PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
-      const partialLabel = partialTransl + " :n%".replace(":n", (partial *
                    PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
       const closeLabel = closeTransl + " :n%".replace(":n", (close *
                    PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
@@ -308,11 +303,6 @@ angular.module("FluidIntegrates").controller(
             "color": "#ff1a1a",
             "label": openLabel,
             "value": open
-          },
-          {
-            "color": "#ffbf00",
-            "label": partialLabel,
-            "value": partial
           },
           {
             "color": "#31c0be",

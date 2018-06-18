@@ -263,7 +263,7 @@ const translations1 = {
      "close_label": "Closed",
      "open_label": "Open",
      "partial_label": "Partial",
-     "title": "Findings by Status"
+     "title": "Vulnerabilities by Status"
    },
   "grapType":
    {
