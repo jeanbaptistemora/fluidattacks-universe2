@@ -76,6 +76,23 @@
                         <button class="btn btn-primary" type="button" ng-click="okModalLogout()">{% templatetag openvariable %}'logout.ok'| translate{% templatetag closevariable %}</button>
                     </div>
                 </script>
+
+                <!-- START: MODAL DISCLOSURE WARN -->
+                <div class="modal" tabindex="-1" role="dialog" id="disclosureWarn">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'legal.disclosureWarning.title' | translate{% templatetag closevariable %}</h3>
+                      </div>
+                      <div class="modal-body">
+                        <p>{% templatetag openvariable %}'legal.disclosureWarning.description' | translate{% templatetag closevariable %}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" onclick="loadDashboard()" data-dismiss="modal">{% templatetag openvariable %}'legal.disclosureWarning.acceptBtn' | translate{% templatetag closevariable %}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
@@ -95,27 +112,29 @@
                         <br>
                         {% if is_registered == '1' %}
                             <script>
-                            if (localStorage.getItem("url_inicio") === null){
-                              location = "dashboard";
-                          } else {
-                              if (location.toString().indexOf("localhost:8000") === -1){
-                                if (location.toString().indexOf(".integrates.env") === -1) {
-                                  var link= "https://fluidattacks.com/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
+                            function loadDashboard(){
+                              if (localStorage.getItem("url_inicio") === null){
+                                location = "dashboard";
+                              } else {
+                                if (location.toString().indexOf("localhost:8000") === -1){
+                                  if (location.toString().indexOf(".integrates.env") === -1) {
+                                    var link= "https://fluidattacks.com/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
+                                    window.location= link;
+                                    localStorage.clear();
+                                  }
+                                  else {
+                                    var dev= location.toString().match("https://(.*).integrates")[1];
+                                    var link= "https://" + dev + ".integrates.env.fluidattacks.com/dashboard#" + localStorage.getItem("url_inicio") ;
+                                    window.location= link;
+                                    localStorage.clear();
+                                  }
+                                } else {
+                                  var link= "https://localhost:8000/dashboard#" + localStorage.getItem("url_inicio") ;
                                   window.location= link;
                                   localStorage.clear();
                                 }
-                                else {
-                                  var dev= location.toString().match("https://(.*).integrates")[1];
-                                  var link= "https://" + dev + ".integrates.env.fluidattacks.com/dashboard#" + localStorage.getItem("url_inicio") ;
-                                  window.location= link;
-                                  localStorage.clear();
-                                }
-                            } else {
-                                var link= "https://localhost:8000/dashboard#" + localStorage.getItem("url_inicio") ;
-                                window.location= link;
-                                localStorage.clear();
-                                 }
-                               }
+                              }
+                            }
                             </script>
                         {% else %}
                             <script>
@@ -177,6 +196,10 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        $('#disclosureWarn').appendTo("body").modal({
+          backdrop: 'static',
+          keyboard: false,
+          show: true});
       });
 
     </script>

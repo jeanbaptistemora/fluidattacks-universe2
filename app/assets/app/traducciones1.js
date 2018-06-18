@@ -282,6 +282,27 @@ const traducciones1 = {
   "first": "Hallazgos",
   "third": "Formularios"
 },
+  "legal":
+{
+  "disclosureWarning":
+  {
+    "acceptBtn": "Aceptar y continuar",
+    "description": "Integrates, Copyright (c) 2018 FLUID. Esta plataforma " +
+    "contiene información de propiedad de Fluidsignal Group. " +
+    "Dicha información puede ser usada por el cliente sólo con el propósito " +
+    "de documentación sin poder divulgar su contenido " +
+    "a terceras partes ya que contiene ideas, conceptos, precios y/o " +
+    "estructuras de propiedad de Fluidsignal Group S.A. La clasificación " +
+    "'propietaria' significa que esta información es solo para uso de las " +
+    "personas a quienes está dirigida. En caso de requerirse copias totales " +
+    "o parciales se debe contar con la autorización expresa y escrita de " +
+    "Fluidsignal Group S.A. Las normas que fundamentan la clasificación de " +
+    "la información son los artículos 72 y siguientes de la decisión del " +
+    "acuerdo de Cartagena, 344 de 1.993, el artículo 238 del código " +
+    "penal y los artículos 16 y siguientes de la ley 256 de 1.996.",
+    "title": "Aviso legal"
+  }
+},
   "logout":
 {
   "cancel": "Cancelar",
