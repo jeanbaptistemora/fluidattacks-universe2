@@ -31,8 +31,8 @@ def is_registered(user):
     return integrates_dao.is_registered_dao(user)
 
 
-def has_access_to_project(user, project_name):
+def has_access_to_project(user, project_name, rol):
     """ Verify if the user has access to a project. """
-    if user.endswith('fluidattacks.com'):
+    if rol == 'admin':
         return True
     return integrates_dao.has_access_to_project_dao(user, project_name)

@@ -2,7 +2,6 @@
 from ..dao import integrates_dao
 from ..mailer import send_mail_new_user
 
-FLUID_DOMAIN = '@fluidattacks.com'
 
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
@@ -35,15 +34,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
                                        first_name=first_name,
                                        last_name=last_name,
                                        first_time="1")
-    admin = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
-              "aroldan@fluidattacks.com", "cgomez@fluidattacks.com"]
-    if email.endswith(FLUID_DOMAIN):
-        integrates_dao.register(email)
-        if email in admin:
-            integrates_dao.assign_role(email, 'admin')
-        else:
-            integrates_dao.assign_role(email, 'analyst')
-        integrates_dao.assign_company(email, 'FLUID')
+
 
 def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email']

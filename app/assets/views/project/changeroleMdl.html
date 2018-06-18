@@ -4,11 +4,7 @@
             <h3>{{modalTitle}}</h3>
             <hr>
             <div class="row">
-                <textarea rows="1" class="form-control" style="resize:none;" ng-model="newUserInfo.userEmail" translate-attr="{ placeholder: 'search_findings.tab_users.textbox' }" required></textarea>
-            </div>
-            <br>
-            <div class="row">
-                <select ng-model="newUserInfo.userRole" class="form-control" required>
+                <select ng-model="userInfo.userRole" class="form-control" required>
                     <option ng-if="isAdmin" value="analyst">{{'search_findings.tab_users.analyst' | translate}}</option>
                     <option ng-if="isAdmin" value="admin">{{'search_findings.tab_users.admin' | translate}}</option>
                     <option ng-if="isAdmin || isProjectAdmin" value="customer">{{'search_findings.tab_users.customer' | translate}}</option>

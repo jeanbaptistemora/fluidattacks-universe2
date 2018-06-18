@@ -33,6 +33,23 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Set the customer admin  of a project.
+       * @function changeUserRole
+       * @param {String} email Email of the user.
+       * @param {String} role New user role.
+       * @member integrates.projectFtry2
+       * @return {Object} Response by SQL DB
+       */
+      "changeUserRole" (email, role) {
+        const oopsAc = "An error occurred setting project admin";
+        return $xhr.post($q, `${BASE.url}change_user_role`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          email,
+          role
+        }, oopsAc);
+      },
+
+      /**
        * Admin reject a release.
        * @function rejectRelease
        * @param {String} data Reject data.
@@ -76,36 +93,6 @@ angular.module("FluidIntegrates").factory(
           "_": parseInt(secureRandom(5).join(""), 10),
           email,
           project
-        }, oopsAc);
-      },
-
-      /**
-       * Remove a customer admin  of a project.
-       * @function removeProjectAdmin
-       * @param {String} email Email of the new admin.
-       * @member integrates.projectFtry2
-       * @return {Object} Response by SQL DB
-       */
-      "removeProjectAdmin" (email) {
-        const oopsAc = "An error occurred setting project admin";
-        return $xhr.post($q, `${BASE.url}remove_project_admin`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          email
-        }, oopsAc);
-      },
-
-      /**
-       * Set the customer admin  of a project.
-       * @function setProjectAdmin
-       * @param {String} email Email of the new admin.
-       * @member integrates.projectFtry2
-       * @return {Object} Response by SQL DB
-       */
-      "setProjectAdmin" (email) {
-        const oopsAc = "An error occurred setting project admin";
-        return $xhr.post($q, `${BASE.url}set_project_admin`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          email
         }, oopsAc);
       }
     };

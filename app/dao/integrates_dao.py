@@ -312,7 +312,8 @@ def register(email):
 
 def assign_role(email, role):
     """ Assigns a role to a user in the DB. """
-    if role != 'analyst' and role != 'customer' and role != 'admin':
+    if (role != 'analyst' and role != 'customer' and
+            role != 'admin' and role != 'customeradmin'):
         return False
     with connections['integrates'].cursor() as cursor:
         query = 'UPDATE users SET role=%s WHERE email = %s'
@@ -330,15 +331,6 @@ def assign_admin_role(email):
         cursor.execute(query, ('customeradmin', email,))
     return True
 
-def remove_admin_role(email):
-    """ Remove admin role to a costumer in the DB. """
-    role = get_role_dao(email)
-    if role != 'customeradmin':
-        return False
-    with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET role=%s WHERE email = %s'
-        cursor.execute(query, ('customer', email,))
-    return True
 
 def assign_company(email, company):
     """ Assigns a company to a user in the DB."""

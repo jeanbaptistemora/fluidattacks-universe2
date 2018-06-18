@@ -78,7 +78,8 @@ angular.module("FluidIntegrates").controller(
       $scope.userRole = userRole;
       $scope.isManager = userRole !== "customer" &&
                          userRole !== "customeradmin";
-      $scope.isProjectAdmin = userRole !== "customer";
+      $scope.isProjectAdmin = userRole !== "customer" &&
+        userRole !== "analyst";
       $scope.isAdmin = userRole !== "customer" &&
         userRole !== "customeradmin" && userRole !== "analyst";
       // Default flags value for view visualization
@@ -208,6 +209,10 @@ angular.module("FluidIntegrates").controller(
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance, data) {
           $scope.newUserInfo = {};
+          $scope.isAdmin = userRole !== "customer" &&
+                userRole !== "customeradmin" && userRole !== "analyst";
+          $scope.isProjectAdmin = userRole !== "customer" &&
+                userRole !== "analyst";
           $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_users.title");
           $scope.ok = function ok () {
@@ -262,7 +267,7 @@ angular.module("FluidIntegrates").controller(
       });
     };
 
-    $scope.assignAdmin = function assignAdmin () {
+    $scope.changeRole = function changeRole () {
       const adminEmail = [];
       angular.element("#tblUsers :checked").each(function checkedFields () {
         /* eslint-disable-next-line  no-invalid-this */
@@ -280,54 +285,62 @@ angular.module("FluidIntegrates").controller(
                                     "assign_error"));
       }
       else {
-        const req = projectFtry2.setProjectAdmin(adminEmail[0]);
-        req.then((response) => {
-          if (!response.error) {
-            $msg.success(adminEmail[0] +
-                        $translate.instant("search_findings.tab_users." +
-                                           "success_admin"));
-            location.reload();
-          }
-          else if (response.error) {
-            Rollbar.error("Error: An error occurred " +
-                                                "setting an admin");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
-          }
-        });
-      }
-    };
+        const descData = {
+          "company": Organization.toLowerCase(),
+          "project": $stateParams.project.toLowerCase()
+        };
+        $uibModal.open({
+          "animation": true,
+          "backdrop": "static",
+          "controller" ($scope, $uibModalInstance, data) {
+            $scope.userInfo = {};
+            $scope.isAdmin = userRole !== "customer" &&
+                userRole !== "customeradmin" && userRole !== "analyst";
+            $scope.isProjectAdmin = userRole !== "customer" &&
+                userRole !== "analyst";
+            $scope.modalTitle = $translate.instant("search_findings." +
+                                          "tab_users.change_role");
+            $scope.ok = function ok () {
+              $scope.userInfo.userEmail = adminEmail[0].trim();
 
-    $scope.removeAdmin = function removeAdmin () {
-      const adminEmail = [];
-      angular.element("#tblUsers :checked").each(function checkedFields () {
-        /* eslint-disable-next-line  no-invalid-this */
-        const vm = this;
-        const actualRow = angular.element("#tblUsers").find("tr");
-        const actualIndex = angular.element(vm).data().index + 1;
-        adminEmail.push(actualRow.eq(actualIndex)[0].innerText.split("\t")[1]);
-      });
-      if (adminEmail.length === 0) {
-        $msg.error($translate.instant("search_findings.tab_users." +
-                                  "no_selection"));
-      }
-      else if (adminEmail.length > 1) {
-        $msg.error($translate.instant("search_findings.tab_users." +
-                                    "remove_admin_error"));
-      }
-      else {
-        const req = projectFtry2.removeProjectAdmin(adminEmail[0]);
-        req.then((response) => {
-          if (!response.error) {
-            $msg.success(adminEmail[0] +
-                        $translate.instant("search_findings.tab_users." +
-                                           "success_admin_remove"));
-            location.reload();
-          }
-          else if (response.error) {
-            Rollbar.error("Error: An error occurred " +
-                                                "removing an admin");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
-          }
+              const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+              if (re.test(String($scope.userInfo.userEmail).toLowerCase())) {
+              // Make the request
+                const req = projectFtry2.
+                  changeUserRole(adminEmail[0], $scope.userInfo.userRole);
+                // Capture the promise
+                req.then((response) => {
+                  if (!response.error) {
+                  // Mixpanel tracking
+                    const projt = data.project.toUpperCase();
+                    mixPanelDashboard.trackSearch(
+                      "ChangeUserRole",
+                      userEmail,
+                      projt
+                    );
+                    $msg.success($translate.instant("search_findings." +
+                                           "tab_users.success_admin"));
+                    $uibModalInstance.close();
+                    location.reload();
+                  }
+                  else if (response.error) {
+                    Rollbar.error("Error: An error occurred " +
+                                                "changing a user role");
+                    $msg.error($translate.instant("proj_alerts.error_textsad"));
+                  }
+                });
+              }
+              else {
+                $msg.error($translate.instant("search_findings.tab_users." +
+                                          "wrong_format"));
+              }
+            };
+            $scope.close = function close () {
+              $uibModalInstance.close();
+            };
+          },
+          "resolve": {"data": descData},
+          "templateUrl": `${BASE.url}assets/views/project/changeroleMdl.html`
         });
       }
     };

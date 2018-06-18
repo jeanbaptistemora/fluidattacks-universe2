@@ -340,7 +340,7 @@ def project_to_xls(request, lang, project):
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project):
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
@@ -373,7 +373,7 @@ def validation_project_to_pdf(request, lang, project, doctype):
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project):
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
@@ -474,7 +474,7 @@ def check_pdf(request, project):
     if not util.is_name(project):
         rollbar.report_message('Error: Name error in project', 'error', request)
         return util.response([], 'Name error', True)
-    if not has_access_to_project(username, project):
+    if not has_access_to_project(username, project, request.session['role']):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     reqset = get_project_info(project)
@@ -502,7 +502,7 @@ def get_eventualities(request):
     dataset = []
     evt_dto = EventualityDTO()
     api = FormstackAPI()
-    if not has_access_to_project(username, project):
+    if not has_access_to_project(username, project, request.session['role']):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response(dataset, 'Access to project denied', True)
     if project is None:
@@ -598,7 +598,7 @@ def get_releases(request):
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(username, project):
+    if not has_access_to_project(username, project, request.session['role']):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     finreqset = api.get_findings(project)["submissions"]
@@ -627,7 +627,7 @@ def get_findings(request):
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(username, project):
+    if not has_access_to_project(username, project, request.session['role']):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     finreqset = api.get_findings(project)["submissions"]
@@ -665,7 +665,7 @@ def catch_finding(request, submission_id):
             api.get_submission(submission_id),
             request
         )
-        if not has_access_to_project(username, finding['fluidProject']):
+        if not has_access_to_project(username, finding['fluidProject'], request.session['role']):
             rollbar.report_message('Error: Access to project denied', 'error', request)
             return None
         else:
@@ -1527,37 +1527,60 @@ def reject_release(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
+@authorize(['customeradmin', 'admin'])
 def add_access_integrates(request):
     parameters = request.POST.dict()
     newUser = parameters['data[userEmail]']
     company = parameters['data[company]']
     project = parameters['data[project]']
     admin = parameters['data[admin]']
+    role = parameters['data[userRole]']
     project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
                   + project.lower() + '/indicators'
+    if (request.session['role'] == 'admin'):
+        if (role == 'admin' or role == 'analyst' or
+                role == 'customer'or role == 'customeradmin'):
+            create_new_user(newUser, role, company)
+            if integrates_dao.add_access_to_project_dao(newUser, project):
+                description = integrates_dao.get_project_description(project)
+                to = [newUser]
+                context = {
+                   'admin': admin,
+                   'project': project,
+                   'project_description': description,
+                   'project_url': project_url,
+                }
+                send_mail_access_granted(to, context)
+                return util.response([], 'Success', False)
+            return util.response([], 'Success', False)
+    elif (request.session['role'] == 'customeradmin'):
+        if (role == 'customer' or role == 'customeradmin'):
+            create_new_user(newUser, role, company)
+            if integrates_dao.add_access_to_project_dao(newUser, project):
+                description = integrates_dao.get_project_description(project)
+                to = [newUser]
+                context = {
+                   'admin': admin,
+                   'project': project,
+                   'project_description': description,
+                   'project_url': project_url,
+                }
+                send_mail_access_granted(to, context)
+                return util.response([], 'Success', False)
+    else:
+        return util.response([], 'Error', True)
+
+def create_new_user(newUser, role, company):
     if not integrates_dao.is_in_database(newUser):
         integrates_dao.create_user_dao(newUser)
     if integrates_dao.is_registered_dao(newUser) == '0':
         integrates_dao.register(newUser)
-        integrates_dao.assign_role(newUser, 'customer')
+        integrates_dao.assign_role(newUser, role)
         integrates_dao.assign_company(newUser, company)
-    if integrates_dao.add_access_to_project_dao(newUser, project):
-        description = integrates_dao.get_project_description(project)
-        to = [newUser]
-        context = {
-           'admin': admin,
-           'project': project,
-           'project_description': description,
-           'project_url': project_url,
-        }
-        send_mail_access_granted(to, context)
-        return util.response([], 'Success', False)
-    return util.response([], 'Error', True)
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
+@authorize(['customeradmin', 'admin'])
 def remove_access_integrates(request):
     parameters = request.POST.dict()
     user = parameters['email']
@@ -1566,20 +1589,20 @@ def remove_access_integrates(request):
         return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
-def remove_project_admin(request):
-    email = request.POST.get('email', "")
-    if integrates_dao.remove_admin_role(email):
-        return util.response([], 'Success', False)
-    return util.response([], 'Error', True)
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
-def set_project_admin(request):
+@authorize(['customeradmin', 'admin'])
+def change_user_role(request):
     email = request.POST.get('email', "")
-    if integrates_dao.assign_admin_role(email):
-        return util.response([], 'Success', False)
+    role = request.POST.get('role', "")
+    if request.session['role'] == 'admin':
+        if (role == 'admin' or role == 'analyst' or
+                role == 'customer'or role == 'customeradmin'):
+            if integrates_dao.assign_role(email, role) is None:
+                return util.response([], 'Success', False)
+    elif request.session['role'] == 'customeradmin':
+        if role == 'customer'or role == 'customeradmin':
+            if integrates_dao.assign_role(email, role) is None:
+                return util.response([], 'Success', False)
     return util.response([], 'Error', True)
