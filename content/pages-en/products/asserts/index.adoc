@@ -14,7 +14,7 @@ over execution environments +(DAST)+.
 .Use case
 image::fluidassertses.png[Asserts]
 
-Read the [button]#link:https://fluidsignal.gitlab.io/asserts/[API documentation]# (under construction).
+Read the [button]#link:https://fluidsignal.gitlab.io/asserts/[API documentation]#
 
 == 2. Execution
 
