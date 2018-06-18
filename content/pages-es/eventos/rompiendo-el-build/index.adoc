@@ -143,8 +143,9 @@ es posible hacer énfasis en los temas que ellos consideren más importantes.
 == 3. Experiencia
 
 Este *taller* se ha presentado a personas de tecnología de empresas como
+link:https://www.avianca.com/co/es/[+Avianca+],
 link:https://www.grupobancolombia.com/wps/portal/personas[+Bancolombia+]
-y +F2X+.
+y link:https://www.f2x.com.co/[+F2X+.]
 
 == 4. ¿Dónde?
 
