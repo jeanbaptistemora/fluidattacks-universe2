@@ -51,3 +51,7 @@ que registre las modificaciones en los archivos comprometidos.
 == Referencias
 
 . [[r1]] link:../046/[REQ.046 Gestionar integridad de archivos críticos].
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVSv3.1-1.4+]
+Los datos considerados sensibles en el contexto de la aplicación
+deben ser claramente identificados.

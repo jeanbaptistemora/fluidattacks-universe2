@@ -19,6 +19,10 @@
 * link:026/[REQ.026 Encrypt client-side session information].
 * link:029/[REQ.029 Cookies with security attributes].
 
+== Files
+
+* link:047/[REQ.047 Classify critical files for monitoring].
+
 == Architecture
 
 * link:052/[REQ.052 Identify critical components].
