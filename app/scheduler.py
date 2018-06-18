@@ -192,7 +192,7 @@ def get_new_releases():
                 if ("releaseDate" not in finding_parsed and
                         finding_parsed['fluidProject'].lower() == project[0].lower()):
                     context['findings'].append({'finding_name': finding_parsed["finding"], 'finding_url': \
-                        'https://fluidattacks.com/integrates/dashboard#!/project/'+ project[0].lower() + '/release/' + \
+                        'https://fluidattacks.com/integrates/dashboard#!/project/'+ project[0].lower() + '/' + \
                         str(finding["id"]) + '/description', 'project': project[0].upper()})
                     cont += 1
         except (TypeError, KeyError):
