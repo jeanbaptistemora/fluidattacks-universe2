@@ -74,10 +74,11 @@ def update_user_login_dao(email):
 
 def update_user_data(email, username, first_name, last_name):
     """Update the user's last login date. """
+    date_joined = datetime.now()
     with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET username=%s, first_name=%s, last_name=%s  \
+        query = 'UPDATE users SET username=%s, first_name=%s, last_name=%s, date_joined=%s   \
                  WHERE email = %s'
-        cursor.execute(query, (username, first_name, last_name, email,))
+        cursor.execute(query, (username, first_name, last_name, date_joined, email,))
         row = cursor.fetchone()
     return row
 
