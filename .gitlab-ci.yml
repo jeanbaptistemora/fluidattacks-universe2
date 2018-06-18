@@ -190,15 +190,15 @@ install_alg:
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
         admin@$(cat ip.txt)
-        '(sudo docker stop tmp_alg_1 || echo "") &&
+        'sudo docker pull
+        registry.gitlab.com/fluidsignal/serves/alg:master &&
+        (sudo docker stop tmp_alg_1 || echo "") &&
         (sudo docker rm tmp_alg_1 || echo "")'
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
         admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/serves/alg:master &&
-        sudo docker run -d -p 443:443 -p 80:80 --name=tmp_alg_1
+        'sudo docker run -d -p 443:443 -p 80:80 --name=tmp_alg_1
         registry.gitlab.com/fluidsignal/serves/alg:master'
   only:
     - master
@@ -218,15 +218,15 @@ install_exams:
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
         admin@$(cat ip.txt)
-        '(sudo docker stop tmp_exams_1 || echo "") &&
+        'sudo docker pull
+        registry.gitlab.com/fluidsignal/serves/exams:master &&
+        (sudo docker stop tmp_exams_1 || echo "") &&
         (sudo docker rm tmp_exams_1 || echo "")'
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
         admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/serves/exams:master &&
-        sudo docker run -d -p 8080:80 --name=tmp_exams_1
+        'sudo docker run -d -p 8080:80 --name=tmp_exams_1
         registry.gitlab.com/fluidsignal/serves/exams:master'
   only:
     - master
@@ -286,15 +286,15 @@ install_vpn:
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
         admin@$(cat ip.txt)
-        '(sudo docker stop tmp_vpn_1 || echo "") &&
+        'sudo docker pull
+        registry.gitlab.com/fluidsignal/serves/vpn:master &&
+        (sudo docker stop tmp_vpn_1 || echo "") &&
         (sudo docker rm tmp_vpn_1 || echo "")'
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
         admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/serves/vpn:master &&
-        sudo docker run
+        'sudo docker run
         -d --privileged=true -p 8081:443 --name=tmp_vpn_1
         registry.gitlab.com/fluidsignal/serves/vpn:master'
   only:
