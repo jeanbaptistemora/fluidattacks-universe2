@@ -264,7 +264,7 @@ angular.module("FluidIntegrates").controller(
         "exportDataType": "all",
         "locale": vlang,
         "onClickRow" (row) {
-          $state.go("ReleaseDescription", {
+          $state.go("FindingDescription", {
             "id": row.id,
             "project": row.fluidProject.toLowerCase()
           });

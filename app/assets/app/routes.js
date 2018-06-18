@@ -96,31 +96,6 @@ angular.module("FluidIntegrates").config((
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/comments"
     }).
-    state("ReleaseDescription", {
-      "controller": "releaseContentCtrl",
-      "templateUrl": "assets/views/project/releasecontent.html",
-      "url": "/project/:project/release/:id/description"
-    }).
-    state("ReleaseSeverity", {
-      "controller": "releaseContentCtrl",
-      "templateUrl": "assets/views/project/releasecontent.html",
-      "url": "/project/:project/release/:id/severity"
-    }).
-    state("ReleaseEvidence", {
-      "controller": "releaseContentCtrl",
-      "templateUrl": "assets/views/project/releasecontent.html",
-      "url": "/project/:project/release/:id/evidence"
-    }).
-    state("ReleaseExploit", {
-      "controller": "releaseContentCtrl",
-      "templateUrl": "assets/views/project/releasecontent.html",
-      "url": "/project/:project/release/:id/exploit"
-    }).
-    state("ReleaseRecords", {
-      "controller": "releaseContentCtrl",
-      "templateUrl": "assets/views/project/releasecontent.html",
-      "url": "/project/:project/release/:id/records"
-    }).
     state("Forms", {
       "controller": "formCtrl",
       "templateUrl": `${BASE.url}forms`,

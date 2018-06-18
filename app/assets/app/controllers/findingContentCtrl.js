@@ -99,6 +99,12 @@ findingContentCtrl (
   $scope.goUp = function goUp () {
     angular.element("html, body").animate({"scrollTop": 0}, "fast");
   };
+  $scope.acceptRelease = function acceptRelease () {
+    functionsFtry4.acceptRelease($scope);
+  };
+  $scope.rejectRelease = function rejectRelease () {
+    functionsFtry4.rejectRelease($scope);
+  };
   $scope.hasUrl = function hasUrl (element) {
     if (angular.isDefined(element)) {
       if (element.indexOf("https://") !== -1 ||
@@ -156,6 +162,12 @@ findingContentCtrl (
       $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasRelease = findingData.hasRelease;
+      if ($scope.isAdmin && !findingData.hasRelease) {
+        $scope.releasesButton = true;
+      }
+      else {
+        $scope.releasesButton = false;
+      }
       functionsFtry3.loadFindingContent($scope);
     }
     else {
@@ -169,10 +181,24 @@ findingContentCtrl (
           findingData.data = response.data;
           $scope.finding = response.data;
           $scope.hasRelease = false;
+          if ($scope.finding.suscripcion === "Continua" ||
+            $scope.finding.suscripcion === "Concurrente" ||
+            $scope.finding.suscripcion === "Si") {
+            $scope.isContinuous = true;
+          }
+          else {
+            $scope.isContinuous = false;
+          }
           if (angular.isDefined($scope.finding.releaseDate)) {
             $scope.hasRelease = true;
           }
           findingData.hasRelease = $scope.hasRelease;
+          if ($scope.isAdmin && !findingData.hasRelease) {
+            $scope.releasesButton = true;
+          }
+          else {
+            $scope.releasesButton = false;
+          }
           functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
           $scope.remediatedView();
@@ -325,6 +351,8 @@ findingContentCtrl (
     $scope.onlyReadableTab6 = true;
     $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
     // Default flags value for view visualization
+    $scope.isAdmin = userRole !== "customer" &&
+            userRole !== "customeradmin" && userRole !== "analyst";
     $scope.view = {};
     $scope.view.project = false;
     $scope.view.finding = false;
