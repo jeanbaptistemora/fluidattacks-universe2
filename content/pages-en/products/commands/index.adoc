@@ -1,13 +1,13 @@
 :slug: products/commands/
 :category: products
-:description: Commands is FLUIDAttacks´ cyberweapon used for in depth penetration testing of work stations and critical servers. It looks to take full control of multiple critical systems in order to create a network of infected nodes that can be controled from a command and control center.
+:description: Commands is Fluid Attacks´ cyberweapon used for in depth penetration testing of work stations and critical servers. It looks to take full control of multiple critical systems in order to create a network of infected nodes that can be controled from a command and control center.
 :keywords: FLUID, Products, Commands, Security, Pentesting, Application.
 :translate: productos/commands/
 :caption:
 
 = Commands
 
-Cyberweapon developed completely by +FLUIDAttacks+
+Cyberweapon developed completely by +Fluid Attacks+
 for in depth penetration of work stations and critical servers
 during the Pentests where its use is authorized
 in our [button]#link:../../services/one-shot-hacking/[One-Shot Hacking]# Service.

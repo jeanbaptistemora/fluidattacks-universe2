@@ -5,7 +5,7 @@
 
 = Style
 
-The goal of +FLUIDAttacks+ blog
+The goal of +Fluid Attacks+ blog
 is to share opinions and knowledge
 on information security issues
 in a clear and understandable manner.
@@ -158,7 +158,7 @@ must include a reference..
 
 . They must be your own videos.
 . The video must be sent
-in order to upload it to our +FLUIDAttacks+ youtube channel.
+in order to upload it to our +Fluid Attacks+ youtube channel.
 . They video must include an introduction and a conclusion.
 
 === 8. Font
@@ -252,7 +252,7 @@ The document must include 6 +keywords+.
 
 |+:translate:+ | Yes | Yes | Yes
 | Attribute that indicates if a translated version of the documents
-is available in the +FLUIDAttacks+ website.
+is available in the +Fluid Attacks+ website.
 In case there is a translated version available,
 The +slug+ of the translated document must be included.
 
@@ -345,7 +345,7 @@ check out our [button]#link:../../en/format[allowed formats and examples.]#
 == Authors
 
 If you want to share your security knowledge and opinions
-with the community and you are not part of +FLUIDAttacks+,
+with the community and you are not part of +Fluid Attacks+,
 you can be a guest author,
 write your +post+ in a text editor of your choosing and
 send us everything you need to publish it.
@@ -365,12 +365,12 @@ years of experience, certifications, likes and interests.
 
 === Requests
 
-. If you are part of the +FLUIDAttacks+ team,
+. If you are part of the +Fluid Attacks+ team,
 you can send us your document through a +Merge Request+
 in the +AsciiDoc+ format and
 complying with all the above rules.
 
-. If you are not part of the +FLUIDAttacks+ team,
+. If you are not part of the +Fluid Attacks+ team,
 you just have to send your document to communications@fluidattacks.com
 attaching all the required files in order to create the +post+.
 Once the document is sent,
@@ -378,11 +378,11 @@ It is put through an evaluation process to determine if it will be published.
 
 == Terms and Conditions
 
-. +FLUIDAttacks+ reserves the rights of admission
+. +Fluid Attacks+ reserves the rights of admission
 of all documents sent in.
 
 . We perform a non-substantive review of the document.
-+FLUIDAttacks+ doesn’t evaluate if we agree or not with the author’s opinion but
++Fluid Attacks+ doesn’t evaluate if we agree or not with the author’s opinion but
 only that the documents meets the required criteria described above.
 
 . Once a draft is completed
@@ -391,7 +391,7 @@ through a +Merge Request+
 so that we can evaluate the content.
 
 If the document is accepted and published
-the author *transfers* the copyrights of said document to +FLUIDAttacks+;
+the author *transfers* the copyrights of said document to +Fluid Attacks+;
 If necessary,
 changes will be made
 without the author’s consent.

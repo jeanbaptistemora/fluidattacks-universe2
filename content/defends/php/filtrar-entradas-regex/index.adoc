@@ -144,7 +144,7 @@ ya sea validar campos de forma básica, o para prevenir fallas similares
 en campos que alteren las consultas +SQL+ internas.
 
 * Si usted desea conocer más sobre este tema,
-lo invitamos a leer el siguiente artículo del blog de +FLUIDAttacks+,
+lo invitamos a leer el siguiente artículo del blog de +Fluid Attacks+,
 elaborado por uno de nuestros ethical hackers:
 [button]#link:../../../blog/mandamiento-validar-entradas/[Mandamiento #1: validar entradas]#
 

@@ -1,7 +1,7 @@
 :slug: services/faq/
 :category: services
 :description: Our Continuous Hacking service aims to detect and report all the vulnerabilities in your application as soon as possible. In this page we present a recompilation of questions and answers that help understand the Continuous Hacking service and how it can benefit an organization.
-:keywords: FLUIDAttacks, Services, Continuos Hacking, Ethical Hacking, FAQ, Questions.
+:keywords: Fluid Attacks, Services, Continuos Hacking, Ethical Hacking, FAQ, Questions.
 :translate: servicios/faq/
 
 = Frequently asked questions
@@ -26,7 +26,7 @@ Frequently asked questions about Continuous Hacking.
 
   . Provides clear and detailed information about vulnerable security risks
   and facilitates a coordinated effort between external project personnel
-  (+FLUIDAttacks+ experts) identifying security risks,
+  (+Fluid Attacks+ experts) identifying security risks,
   and internal project personnel (client company)
   fixing security issues without delays.
 
@@ -66,7 +66,7 @@ Frequently asked questions about Continuous Hacking.
   are not capable of extracting sensitive business information,
   such as client or employee information.
   Continuous Hacking uses a series of tools
-  acquired and developed by +FLUIDAttacks+ and a detailed review process
+  acquired and developed by +Fluid Attacks+ and a detailed review process
   performed by our expert technical staff.
   We go the extra mile because automated tools present the following problems:
 
@@ -80,7 +80,7 @@ Frequently asked questions about Continuous Hacking.
   which may be an even greater security risk
   than the individual vulnerabilities alone.
 
-*If Continuous Hacking includes a manual review how does FLUIDAttacks*::
+*If Continuous Hacking includes a manual review how does Fluid Attacks*::
 *ensure that development cycles are not slowed down?*::
   Continuous Hacking is first performed on the source code.
   This allows for parallel security testing and development simultaneously.
@@ -103,10 +103,10 @@ Frequently asked questions about Continuous Hacking.
 
 *If Continuous Hacking is done manually how does it move rapidly*::
 *when a client has a big application portfolio that is constantly increasing?*::
-  According to +FLUIDAttacks+ historical data,
+  According to +Fluid Attacks+ historical data,
   recruitment and training capabilities,
   and our ability to innovate internal processes,
-  +FLUIDAttacks+ is fully capable of taking on
+  +Fluid Attacks+ is fully capable of taking on
   between +5+ and +10+ new applications each month.
 
 *Does the cost of Continuous Hacking vary according to the scope*::
@@ -125,7 +125,7 @@ Frequently asked questions about Continuous Hacking.
   of the latest version available.
 
 *When does Continuous Hacking begin?*::
-  Continuous Hacking begins immediately when +FLUIDAttacks+
+  Continuous Hacking begins immediately when +Fluid Attacks+
   has access to the source code and repository.
 
 *Is it possible to hire On-the-Premises Continuous Hacking?*::
@@ -164,7 +164,7 @@ Frequently asked questions about Continuous Hacking.
   including components developed by third parties in our tests.
 
 *How is the severity and criticality of the vulnerability calculated?*::
-  +FLUIDAttacks+ uses the link:https://www.first.org/cvss/[CVSS]
+  +Fluid Attacks+ uses the link:https://www.first.org/cvss/[CVSS]
   (Common Vulnerability Scoring System),
   an international standard using a “standardized framework used
   to rate the severity of security vulnerabilities in software.”
@@ -177,7 +177,7 @@ Frequently asked questions about Continuous Hacking.
   Continuous Hacking has an interactive reporting platform
   called link:../../products/integrates/[Integrates].
   Integrates gives all project stakeholders access
-  to details concerning vulnerabilities reported by +FLUIDAttacks+.
+  to details concerning vulnerabilities reported by +Fluid Attacks+.
 
 *What types of reports does Continuous Hacking generate?*::
   Continuous Hacking generates and delivers,
@@ -187,15 +187,15 @@ Frequently asked questions about Continuous Hacking.
   Once the project ends, Integrates delivers a presentation
   and an executive report also in +PDF+ format.
 
-*What happens after FLUIDAttacks reports a vulnerability?*::
-  Once +FLUIDAttacks+ reports a vulnerability,
+*What happens after Fluid Attacks reports a vulnerability?*::
+  Once +Fluid Attacks+ reports a vulnerability,
   the main objective, for developers, is to eliminate it.
   Through Integrates a client company’s developers can also access
   first-hand detailed information regarding a vulnerability
   in order to plan and execute corrective measures
   to remove it from the application.
 
-*How does FLUIDAttacks know a vulnerability*::
+*How does Fluid Attacks know a vulnerability*::
 *has been eliminated or remediated?*::
   Through link:../../products/integrates/[Integrates]
   any user with access to the project can request verification
@@ -203,7 +203,7 @@ Frequently asked questions about Continuous Hacking.
   A request for verification that a remediated vulnerability
   no longer poses a risk must be accompanied by notification from you
   that the planned remediation has been executed.
-  Then +FLUIDAttacks+ performs a closing verification
+  Then +Fluid Attacks+ performs a closing verification
   to confirm the effectiveness of the remediation.
   Results of the closing verification are then forwarded
   to the project team by email.
@@ -211,12 +211,12 @@ Frequently asked questions about Continuous Hacking.
 *How many closing verifications are included in Continuous Hacking?*::
   Continuous Hacking offers unlimited closing verifications.
 
-*Why do I need to notify FLUIDAttacks that a remediation has been executed*::
+*Why do I need to notify Fluid Attacks that a remediation has been executed*::
 *if you already have access to the source code repositories?*::
   One of Continuous Hacking’s objectives
   is to maintain clear and effortless communication
   between all project members.
-  This is accomplished when you notify +FLUIDAttacks+
+  This is accomplished when you notify +Fluid Attacks+
   because the message goes through Integrates and by doing so,
   the entire project team is notified.
 
@@ -224,14 +224,14 @@ Frequently asked questions about Continuous Hacking.
   Within link:../../products/integrates/[Integrates] there is a comment section.
   A client company can post its reasons
   for believing a vulnerability finding is not valid.
-  Then, +FLUIDAttacks+ experts and all other project members
+  Then, +Fluid Attacks+ experts and all other project members
   can interface and discuss the relative merits of the vulnerability finding
   and the validity of it as a security risk,
   and a final determination can be made.
 
 *Do all reported vulnerabilities have to be remediated?*::
   No. However, this decision is made entirely by the client,
-  not by +FLUIDAttacks+, and the client assumes all responsibility
+  not by +Fluid Attacks+, and the client assumes all responsibility
   for possible negative impacts of non-remediation.
   In link:../../products/integrates/[Integrates], under the treatment option,
   a client company indicates whether it will remediate
@@ -271,11 +271,11 @@ Frequently asked questions about Continuous Hacking.
   Continuous Hacking is based on using +GIT+ for version control.
   Therefore, +GIT+ is necessary for Continuous Hacking.
 
-*Does FLUIDAttacks keep or store information*::
+*Does Fluid Attacks keep or store information*::
 *regarding the vulnerabilities found?*::
   Information is only kept for the duration of the Continuous Hacking contract.
   Once the contract has ended, information is kept for +7+ business days
-  and then deleted from all +FLUIDAttacks+ information systems.
+  and then deleted from all +Fluid Attacks+ information systems.
 
 *Does Continuous Hacking require any development methodology?*::
   No. Continuous Hacking is independent
@@ -284,9 +284,9 @@ Frequently asked questions about Continuous Hacking.
   in future development cycles.
   They do not prevent the continuation of development.
 
-*Will FLUIDAttacks periodically do presentations via teleconferencing?*::
+*Will Fluid Attacks periodically do presentations via teleconferencing?*::
 *How do I set one up?*::
-  Yes. +FLUIDAttacks+ can schedule periodic presentations via teleconferencing.
+  Yes. +Fluid Attacks+ can schedule periodic presentations via teleconferencing.
   To set up a teleconference presentation you will need to provide us
   with the emails of attendees, and +3+ optional time periods
   of +1+ hour duration for the teleconference.
@@ -298,16 +298,16 @@ Frequently asked questions about Continuous Hacking.
 *Does the development of the test in the continuous model*::
 *depends on the type of repository where the code is stored?*::
  No, the client can use the repository he deems appropriate.
- +FLUIDAttacks+ only requires the access to the integration branch
+ +Fluid Attacks+ only requires the access to the integration branch
  and its respective environment.
 
-*Are property rights lost if FLUIDAttacks reviews the source code?*::
+*Are property rights lost if Fluid Attacks reviews the source code?*::
  No, allowing to review a creation or work as it is a code to a third party
  does not grant any rights over it.
 
-*Does FLUIDAttacks have a tool that allows automation*::
+*Does Fluid Attacks have a tool that allows automation*::
 *over the closing tests in the found vulnerabilities?*::
- Yes, +FLUIDAttacks+ has link:../../products/asserts/[Asserts],
+ Yes, +Fluid Attacks+ has link:../../products/asserts/[Asserts],
  an engine that allows to automate security checks
  once they have been found in an exploratory phase.
  link:../../productos/asserts/[Asserts] operates directly in the +JOB+
@@ -319,7 +319,7 @@ Frequently asked questions about Continuous Hacking.
 
 *Is Continuous Hacking focused only over source code?*::
 *It is possible to include the infrastructure associated with the app?*::
- +FLUIDAttacks+ has evolved the Continuous Hacking model
+ +Fluid Attacks+ has evolved the Continuous Hacking model
  and infrastructure now can be included within the Target of Evaluation (+TOE+).
  This include the ports and the inputs of the application.
  In fact, in this evolution,
@@ -329,7 +329,7 @@ Frequently asked questions about Continuous Hacking.
 *Where does Integrates run?*::
  The platform link:../../products/integrates/[Integrates] runs in the cloud.
 
-*Does FLUIDAttacks manages the access credentials to Integrates?*::
+*Does Fluid Attacks manages the access credentials to Integrates?*::
  No, we use the concept of federated authentication,
  that is, both +Google+ and +Azure+ (+Microsoft 360+)
  are the ones who actually validate your credentials.
@@ -340,9 +340,9 @@ Frequently asked questions about Continuous Hacking.
  in order to avoid unauthorised access by third parties over your information.
  This feature is enabled from +Gmail+ or +Azure+ depending on your case.
 
-*What procedure has FLUIDAttacks to catch up with the revision*::
+*What procedure has Fluid Attacks to catch up with the revision*::
 *of the existing code before starting the test?*::
- +FLUIDAttacks+ recommends that both the development of the application
+ +Fluid Attacks+ recommends that both the development of the application
  and the security tests start at the same time.
  However, this does not always happen.
  To do this, we have an activity called link:../continuous-hacking/#healthcheck[+HealthCheck+]

@@ -1,7 +1,7 @@
 :slug: empleos/terminos/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. A continuación presentamos información sobre la empresa y los términos a tener en cuenta si deseas participar.
-:keywords: FLUIDAttacks, Empleo, Proceso, Selección, Términos, Empresa.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección realizado. A continuación presentamos información sobre la empresa y los términos a tener en cuenta si deseas participar.
+:keywords: Fluid Attacks, Empleo, Proceso, Selección, Términos, Empresa.
 :translate: careers/terms/
 
 = Términos
@@ -17,11 +17,11 @@ Para participar en el proceso, diligencia el siguiente [button]#link:https://flu
 
 Te invitamos a leer la sección
 [button]#link:../../nosotros/[Nosotros]#
-para mayor información sobre +FLUIDAttacks+.
+para mayor información sobre +Fluid Attacks+.
 
 === Contexto
 
-* En +FLUIDAttacks+ todos los sistemas están sujetos a monitoreo
+* En +Fluid Attacks+ todos los sistemas están sujetos a monitoreo
 mediante link:https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo].
 Con lo cual buscamos:
 
@@ -29,7 +29,7 @@ Con lo cual buscamos:
 
 ** Ser objetivos, precisos y justos en la evaluación del desempeño.
 
-* En +FLUIDAttacks+ seguimos un código de ética,
+* En +Fluid Attacks+ seguimos un código de ética,
 el cual puedes conocer haciendo click [button]#link:../../valores[aquí]#
 
 == El proceso de selección
@@ -37,7 +37,7 @@ el cual puedes conocer haciendo click [button]#link:../../valores[aquí]#
 . Mediante este proceso, se busca encontrar y contratar
 el +10%+ más alto de la población para cada rol y rango salarial requerido.
 
-. Con este proceso, +FLUIDAttacks+ desea seleccionar
+. Con este proceso, +Fluid Attacks+ desea seleccionar
 sólo a los mejores para construir un equipo:
 
 ** Élite.
@@ -104,7 +104,7 @@ y la coherencia de esta remuneración con su desempeño.
 no concuerde con tu expectativa salarial inicial.
 
 . Al aceptar estos términos y condiciones,
-aceptas ser recomendado para vacantes no solo de +FLUIDAttacks+
+aceptas ser recomendado para vacantes no solo de +Fluid Attacks+
 sino también para vacantes en nuestros aliados de negocio.
 
 . Por defecto tus registros

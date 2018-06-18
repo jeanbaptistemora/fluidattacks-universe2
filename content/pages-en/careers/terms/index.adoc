@@ -1,7 +1,7 @@
 :slug: careers/terms/
 :category: careers
-:description: This page is meant to inform everyone interested in being part of the FLUIDAttacks team about the selection process. Here we present information about our company and the terms and conditions that need to be accepted if you wish to be part of the team.
-:keywords: FLUIDAttacks, Careers, Process, Selection, Terms, Company.
+:description: This page is meant to inform everyone interested in being part of the Fluid Attacks team about the selection process. Here we present information about our company and the terms and conditions that need to be accepted if you wish to be part of the team.
+:keywords: Fluid Attacks, Careers, Process, Selection, Terms, Company.
 :translate: empleos/terminos/
 
 = Terms
@@ -20,17 +20,17 @@ fill out the following [button]#link:https://fluidattacks.com/forms/seleccion[fo
 
 We invite you to read our
 [button]#link:../../about-us[About us]# section
-for more information about +FLUIDAttacks+.
+for more information about +Fluid Attacks+.
 
 === Context
 
-* In +FLUIDAttacks+ all systems are subject to constant monitoring
+* In +Fluid Attacks+ all systems are subject to constant monitoring
 through link:https://www.timedoctor.com/[automatic time and activity control systems].
 With which we look to:
 ** Assure the security of our clients' information,
 ** Be objective, precise and fair in the performance evaluation.
 
-* In +FLUIDAttacks+ we follow an ethics code
+* In +Fluid Attacks+ we follow an ethics code
 which you can read by clicking [button]#link:../../values[here]#
 
 == The Selection Process
@@ -40,7 +40,7 @@ we look to find and hire
 the top 10% of the population
 for each required role and salary
 . With this process,
-+FLUIDAttacks+ looks to select only the best
++Fluid Attacks+ looks to select only the best
 to form a team that is:
 
 ** Elite.
@@ -107,7 +107,7 @@ does not match your initial salary expectations.
 
 . By accepting these terms and conditions
 you accept to being recommended
-for openings not only in +FLUIDAttacks+ but also
+for openings not only in +Fluid Attacks+ but also
 for openings in some of our business allies.
 
 . By default your records will stay in our database for future offers.

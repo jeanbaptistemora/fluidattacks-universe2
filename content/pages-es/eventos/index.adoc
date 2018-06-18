@@ -19,7 +19,7 @@ y nosotros seleccionamos 1.
 
 == Detalles
 
-. *Inversión:* $0 COP, +FLUIDAttacks+ se encarga de todos los costos
+. *Inversión:* $0 COP, +Fluid Attacks+ se encarga de todos los costos
 correspondientes, excepto el lugar y el tiempo de los asistentes.
 Si no se pueden cumplir los requisitos mínimos de número de asistentes
 y perfil de los mismos, la inversión de la conferencia en Medellín
@@ -37,7 +37,7 @@ la conferencia sin ningún contratiempo:
 . Todos los asistentes antes de retirarse DEBEN diligenciar por Internet
 una evaluación de satisfacción de 2 minutos.
 
-. +FLUIDAttacks+ PODRÁ invitar hasta 4 asistentes adicionales
+. +Fluid Attacks+ PODRÁ invitar hasta 4 asistentes adicionales
 a los de su organización.
 
 . Los asistentes NO DEBEN usar celulares ni portátiles

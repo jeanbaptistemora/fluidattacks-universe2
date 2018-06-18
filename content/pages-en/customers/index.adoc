@@ -11,7 +11,7 @@
 |====
 a|== link:financial/[Financial]
 
-+FLUIDAttacks+ customers in the financial sector
++Fluid Attacks+ customers in the financial sector
 comprise some of the most important banks in Latin America,
 besides companies in charge of the collection of social savings,
 among others.
@@ -25,7 +25,7 @@ a|.Icon made by link:https://smashicons.com/[Smashicons] from link:https://www.f
 image::communications.png[Smartphone]
 a|== link:communications/[Communications]
 
-+FLUIDAttacks+ has offered solutions to some of the main providers
++Fluid Attacks+ has offered solutions to some of the main providers
 of communication services in Colombia, such as +Claro+,
 +Tigo UNE+, +ETB+, +Edatel+, among others.
 
@@ -43,7 +43,7 @@ a|.Icon made by link:https://smashicons.com/[Smashicons] from link:https://www.f
 image::technology.png[Server and database]
 a|== link:technology/[Technology]
 
-+FLUIDAttacks+ has contributed to companies that offer software,
++Fluid Attacks+ has contributed to companies that offer software,
 infrastructure and other technology solutions to their customers,
 in a wide range of applications.
 Some of our customers in this area are +PSL+, +S4N+, +Arus+, +Ceiba+,
@@ -71,7 +71,7 @@ Some of these customers are +Grupo Argos+, +Manuelita+, +Corona+, +Cadena+ and
 
 a|== link:transportation/[Transportation]
 
-+FLUIDAttacks+ has worked with transportation giants like +Avianca+
++Fluid Attacks+ has worked with transportation giants like +Avianca+
 and +F2X+ to ensure that their applications and web platforms
 offer the best security to their users.
 a|.Icon made by link:https://www.freepik.com/[Freepik] from link:https://www.flaticon.com/[Flaticon]

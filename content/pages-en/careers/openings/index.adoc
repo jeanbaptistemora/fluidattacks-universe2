@@ -93,14 +93,14 @@ to improve labor insertion and
 a company’s competitiveness.
 
 Autonomic is also in charge of recruiting talents
-for +FLUIDAttacks+ and
+for +Fluid Attacks+ and
 offer their services to telecommunication companies,
 financial institutions and
 any other that requires talents with high technical abilities.
 
 Here are the openings
 we currently have available
-in clients other than +FLUIDAttacks+:
+in clients other than +Fluid Attacks+:
 
 == Front End Developer
 

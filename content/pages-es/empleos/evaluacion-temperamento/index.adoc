@@ -1,13 +1,13 @@
 :slug: empleos/evaluacion-temperamento/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. Ésta prueba pretende evaluar el temperamento y las fortalezas del candidato para determinar si se ajustan al perfil requerido.
-:keywords: FLUIDAttacks, Empleo, Selección, Fortalezas, Prueba, Temperamento.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección realizado. Ésta prueba pretende evaluar el temperamento y las fortalezas del candidato para determinar si se ajustan al perfil requerido.
+:keywords: Fluid Attacks, Empleo, Selección, Fortalezas, Prueba, Temperamento.
 :translate: careers/character-test/
 
 = Evaluación de Temperamento
 
 El siguiente paso en el proceso de selección
-para ser parte del equipo de trabajo de +FLUIDAttacks+,
+para ser parte del equipo de trabajo de +Fluid Attacks+,
 es presentar una prueba que busca cuantificar las *4* principales fortalezas
 que esperamos de un aspirante.
 Nuestra filosofía se basa en formar un equipo talentoso

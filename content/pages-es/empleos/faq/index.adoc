@@ -1,7 +1,7 @@
 :slug: empleos/faq/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. En esta sección respondemos a las preguntas más frecuentes de nuestros candidatos en proceso de selección.
-:keywords: FLUIDAttacks, FAQ, Preguntas, Frecuentes, Empleos, Selección.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección realizado. En esta sección respondemos a las preguntas más frecuentes de nuestros candidatos en proceso de selección.
+:keywords: Fluid Attacks, FAQ, Preguntas, Frecuentes, Empleos, Selección.
 :translate: careers/faq/
 
 = Preguntas frecuentes
@@ -119,7 +119,7 @@ durante el proceso de selección y sus respectivas respuestas
 
 *¿La oferta salarial tendrá el valor que tengo como expectativa?*::
   La expectativa salarial es importante saberla
-  y +FLUIDAttacks+ la respeta como expectativa.
+  y +Fluid Attacks+ la respeta como expectativa.
   El valor del salario estará definido por:
 
   . *El desempeño en el cargo*: para nuevos talentos, el desempeño
@@ -129,13 +129,13 @@ durante el proceso de selección y sus respectivas respuestas
   es decir, manteniendo la equidad interna.
   Esto es, a mayor desempeño, mayor salario,
   y personas de desempeño equivalente tendrán salario equivalente.
-  . La capacidad de +FLUIDAttacks+ de pagar
+  . La capacidad de +Fluid Attacks+ de pagar
   en el tiempo los salarios de todo el equipo.
 
 +
 En este sentido, es posible que la oferta salarial que hagamos
 no tenga relación con tu expectativa,
-pues +FLUIDAttacks+ no considera para su escala salarial la experiencia,
+pues +Fluid Attacks+ no considera para su escala salarial la experiencia,
 formación, jerarquía, títulos y demás;
 solo desempeño, equidad interna
 y capacidad de cumplir con dichos compromisos.
@@ -147,7 +147,7 @@ y capacidad de cumplir con dichos compromisos.
   por ejemplo: link:http://www.elempleo.com/co/calculadora-salarial/[Calculadora-Salarial]
 
 *¿Cambiará mi salario cada año?*::
-  +FLUIDAttacks+ realiza de forma automática
+  +Fluid Attacks+ realiza de forma automática
   la revisión de desempeño y de salario al finalizar los +12+ meses
   desde el último cambio de salario. +
   Tú puedes, por tu parte, solicitar dicha revisión

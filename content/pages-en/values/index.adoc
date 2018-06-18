@@ -57,7 +57,7 @@ attacks are made to third parties (partners, other companies, friends, etc.).
 
 . *The vulnerabilities found by the hacker are not revealed:*
 The hacker who finds the vulnerability does not tell anyone
-inside +FLUIDAttacks+ or even his family circle,
+inside +Fluid Attacks+ or even his family circle,
 about the details or the very existence
 of the vulnerabilities he discovers or knows.
 Only the client and the people in the project should know about them.
@@ -75,7 +75,7 @@ at higher levels of authority of the people involved in the issue.
 
 . *Faced an error of any nature, the fault is recognized without excuses*:
 Faced a lack of commitment of any nature
-involving a person of +FLUIDAttacks+ with any third party,
+involving a person of +Fluid Attacks+ with any third party,
 we recognize the fault immediately, explicitly, directly, face-to-face
 and without excuses before all those affected by said fault.
 

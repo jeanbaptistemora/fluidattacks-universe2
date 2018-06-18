@@ -1,12 +1,12 @@
 :slug: empleos/razones/
 :category: empleos
-:description: Si eres una persona talentosa, apasionada por el desarrollo de software, la informática y con muchas ganas de aprender, considera ser parte del equipo de trabajo de FLUIDAttacks. Aquí te presentamos algunas razones por las que FLUIDAttacks es un gran lugar para trabajar.
-:keywords: FLUIDAttacks, Empleo, Razones, Trabajar, Proyectos, Clientes.
+:description: Si eres una persona talentosa, apasionada por el desarrollo de software, la informática y con muchas ganas de aprender, considera ser parte del equipo de trabajo de Fluid Attacks. Aquí te presentamos algunas razones por las que Fluid Attacks es un gran lugar para trabajar.
+:keywords: Fluid Attacks, Empleo, Razones, Trabajar, Proyectos, Clientes.
 :translate: careers/reasons/
 
 = Razones para trabajar con nosotros
 
-+FLUIDAttacks+ es un gran lugar para trabajar.
++Fluid Attacks+ es un gran lugar para trabajar.
 Esto esto se debe a que:
 
 == Hacker que hace sus propias herramientas
@@ -18,7 +18,7 @@ Buscamos por ende hackers apasionados por el desarrollo y la programación.
 Nuestras tecnologías favoritas son +Linux+, +Git+, +Python+,
 +Docker+, +Ansible+ y +Amazon Web Services+.
 Si no las dominas no importa,
-en +FLUIDAttacks+ importa es tu capacidad de aprender autónomamente
+en +Fluid Attacks+ importa es tu capacidad de aprender autónomamente
 sobre los diversos retos que nos enfrentamos día a día,
 la disciplina con los que los enfrentas,
 la honestidad para decir lo que hay que decir
@@ -26,7 +26,7 @@ y la colaboración sin pretender ser más que nadie.
 Si quieres participar del proceso de selección más retador que existe,
 y del cual pase lo que pase aprenderás más que en ninguna otra empresa,
 te invitamos a conocerlo y ver por tu mismo
-que en +FLUIDAttacks+ vale más hacer que saber.
+que en +Fluid Attacks+ vale más hacer que saber.
 Nuestro proceso de selección es guiado mediante +Git+,
 es retroalimentado a través de un integrador continuo
 y además permite subir tu ranking mundial en programación y hacking,
@@ -46,7 +46,7 @@ problemas diferentes, métodos diferentes y ampliar tu conocimiento.
 
 == Mejora continua basada en Estándares Internacionales
 
-+FLUIDAttacks+ fue la primera empresa en Colombia
++Fluid Attacks+ fue la primera empresa en Colombia
 en obtener la certificación +ISO/IEC 27001+ (Seguridad de la Información)
 al mismo tiempo que obtuvo la certificación +ISO 9001+.
 Además, nuestro proceso de mejora continua
@@ -55,7 +55,7 @@ los estandares +ISO/IEC 17025+ y el estándar +Common Criteria+.
 
 == Trabaja con los grandes
 
-+FLUIDAttacks+ provee servicios de seguridad de la información
++Fluid Attacks+ provee servicios de seguridad de la información
 a algunas de las mayores organizaciones de Colombia.
 Esto significa que siempre habrá proyectos
 con grandes retos en los que puedes participar.
@@ -76,11 +76,11 @@ clientes, visita la sección link:../../clientes[Clientes].
 Nuestro componente más valioso es la gente,
 y nos sentimos orgullosos de nuestro gran equipo de trabajo.
 De hecho, es un equipo bastante joven con un promedio de edad de 25 años.
-Creemos que los talentos en nuestro equipo hacen de +FLUIDAttacks+
+Creemos que los talentos en nuestro equipo hacen de +Fluid Attacks+
 un lugar muy competitivo para trabajar
 y al mismo tiempo aprender y desarrollar tus habilidades.
 Los primeros tres desarrolladores de +Debian+ en Colombia
-trabajan con +FLUIDAttacks+,
+trabajan con +Fluid Attacks+,
 el mayor porcentaje de colombianos certificados en link:../../servicios/certificaciones/#ethical-hacker-certificado-(ceh)[+CEH+] y link:../../servicios/certificaciones/#profesional-en-seguridad-ofensiva-inalambrica-(oswp)[+OSCP+]
 están en nuestra organización,
 la mayoría de los miembros del equipo campeón latinoamericano de +wargames+
@@ -96,14 +96,14 @@ link:../../servicios/certificaciones/#certificacion-en-bibliotecas-de-infraestru
 
 == Responsables socialmente
 
-+FLUIDAttacks+ adicionalmente es consciente de que las organizaciones,
++Fluid Attacks+ adicionalmente es consciente de que las organizaciones,
 independiente de su tamaño y sector,
 deben retribuir a la sociedad permanentemente.
-Por tal motivo +FLUIDAttacks+ participa como organización
+Por tal motivo +Fluid Attacks+ participa como organización
 y estimula activamente a sus talentos
 a apoyar a la educación de los mas necesitados
 a través de la organización Dividendo por Colombia.
-Además, +FLUIDAttacks+ separa los residuos en vidrio, papel,
+Además, +Fluid Attacks+ separa los residuos en vidrio, papel,
 plástico y ordinarios para beneficio de la comunidad y los recicladores.
 
 == Ex-empleados
@@ -152,9 +152,9 @@ Principios de Seguridad de la Información y Hacking por medio de +Wargames+.
 
 == Computador Portátil
 
-A cada empleado de +FLUIDAttacks+ se le asigna un computador portátil.
+A cada empleado de +Fluid Attacks+ se le asigna un computador portátil.
 Puedes llevarlo a donde quieras, escoger tu distribución
 o sistema operativo y convertir en un computador personal de verdad.
-El computador deberá cumplir las políticas de uso de +FLUIDAttacks+
+El computador deberá cumplir las políticas de uso de +Fluid Attacks+
 y deberá tener en funcionamiento un sistema de control de tiempos
 mientras se está trabajando.

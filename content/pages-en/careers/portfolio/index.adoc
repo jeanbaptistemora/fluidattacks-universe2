@@ -1,7 +1,7 @@
 :slug: careers/portfolio/
 :category: careers
-:description: The following page is meant to inform everyone interested in being part of the +FLUIDAttacks+ team about the selection process. The portfolio is a document that describes your biggest personal, professional and academic achievements, examples and results of your best projects.
-:keywords: FLUIDAttacks, Career, Process, Selection, Portfolio, Candidate.
+:description: The following page is meant to inform everyone interested in being part of the +Fluid Attacks+ team about the selection process. The portfolio is a document that describes your biggest personal, professional and academic achievements, examples and results of your best projects.
+:keywords: Fluid Attacks, Career, Process, Selection, Portfolio, Candidate.
 :translate: empleos/portafolio/
 
 = Portfolio
@@ -60,5 +60,5 @@ capture our attention.
 
 Failure to complete these instructions
 would evidence difficulty to follow instructions or
-little interest in the +FLUIDAttacks+ process and
+little interest in the +Fluid Attacks+ process and
 for this reason the process will be terminated immediately.

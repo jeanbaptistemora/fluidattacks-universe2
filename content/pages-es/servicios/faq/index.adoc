@@ -1,7 +1,7 @@
 :slug: servicios/faq/
 :category: servicios
 :description: El servicio de Hacking Continuo busca reportar todas las vulnerabilidades durante el ciclo de vida de desarrollo. En esta página presentamos una recopilación de preguntas y respuestas que ayudan a comprender el servicio de Hacking Continuo y cómo este puede beneficiar una organización.
-:keywords: FLUIDAttacks, Hacking Continuo, FAQ, Ethical Hacking, Servicios, Aplicación.
+:keywords: Fluid Attacks, Hacking Continuo, FAQ, Ethical Hacking, Servicios, Aplicación.
 :translate: services/faq/
 
 = Preguntas frecuentes
@@ -68,9 +68,9 @@ El servicio se puede desarrollar en fases de forma complementaria:
  Las herramientas son incapaces de extraer información de negocio
  como información de clientes o empleados
  que le den sentido y peso a la vulnerabilidad.
- +FLUIDAttacks+ presta sus servicios con personal experto
+ +Fluid Attacks+ presta sus servicios con personal experto
  usando un conjunto de herramientas de asistencia al ataque
- adquiridas y desarrolladas por +FLUIDAttacks+.
+ adquiridas y desarrolladas por +Fluid Attacks+.
  Usamos este método pues las herramientas automáticas
  de detección de vulnerabilidades presentan los siguientes problemas:
  . No detección de la mayoría de vulnerabilidades
@@ -106,7 +106,7 @@ El servicio se puede desarrollar en fases de forma complementaria:
 *Si el hacking es manual, ¿Cómo se escala cuando se tiene*::
 *un portafolio de aplicaciones grande y en constante crecimiento?*::
  De acuerdo a nuestros históricos, capacidad de reclutamiento y formación.
- +FLUIDAttacks+ está en capacidad
+ +Fluid Attacks+ está en capacidad
  de incluir entre +5+ y +10+ aplicaciones nuevas
  cada mes en el servicio de hacking continuo.
 
@@ -171,7 +171,7 @@ El servicio se puede desarrollar en fases de forma complementaria:
  llamada link:../../../productos/integrates/[Integrates].
  Así todos los actores de la cadena de valor de un proyecto
  tienen acceso al detalle de las vulnerabilidades
- reportadas por +FLUIDAttacks+ en la prestación del servicio.
+ reportadas por +Fluid Attacks+ en la prestación del servicio.
 
 *¿Qué tipo de informes son generados durante la prestación del servicio?*::
  Desde link:../../../productos/integrates/#generar-informes-tecnicos[Integrates]
@@ -180,7 +180,7 @@ El servicio se puede desarrollar en fases de forma complementaria:
  También se puede generar un informe ejecutivo
  tipo presentación en formato PDF una vez se finaliza el proyecto.
 
-*¿Qué pasa luego de que FLUIDAttacks reporta una vulnerabilidad?*::
+*¿Qué pasa luego de que Fluid Attacks reporta una vulnerabilidad?*::
  Una vez se reporta la vulnerabilidad el objetivo es que esta sea solucionada.
  Para esto los desarrolladores
  cuentan con acceso a link:../../../productos/integrates/[Integrates],
@@ -188,7 +188,7 @@ El servicio se puede desarrollar en fases de forma complementaria:
  aplicando las correcciones necesarias
  para remover las vulnerabilidades de la aplicación.
 
-*¿Cómo se entera FLUIDAttacks que una vulnerabilidad está remediada?*::
+*¿Cómo se entera Fluid Attacks que una vulnerabilidad está remediada?*::
  A través de link:../../../productos/integrates/[Integrates]
  cualquier usuario con acceso al proyecto podrá solicitar
  la revisión de las vulnerabilidades corregidas.
@@ -203,21 +203,22 @@ El servicio se puede desarrollar en fases de forma complementaria:
 *¿Cuántas verificaciones de cierre están incluidas en el servicio?*::
  El servicio cuenta con verificaciones de cierre ilimitadas.
 
-*¿Por qué debo anunciar el cierre de una vulnerabilidad si +FLUIDAttacks+*::
+*¿Por qué debo anunciar el cierre de una vulnerabilidad si +Fluid Attacks+*::
 *tiene acceso al repositorio de código?*::
  Uno de los objetivos del servicio de Hacking Continuo
  en conjunto con link:../../../productos/integrates/[Integrates]
  es mantener una comunicación clara y fluida
  entre todos los actores del proyecto.
  Al dar aviso sobre la remediación de una vulnerabilidad
- no solo se está informando a +FLUIDAttacks+ sino a todo el equipo del proyecto.
+ se está informando no solo a +Fluid Attacks+
+ sino a todo el equipo del proyecto.
 
 *¿Qué pasa si considero que algo no es una vulnerabilidad?*::
 Dentro de link:../../../productos/integrates/[Integrates]
 contamos con una sección de comentarios
 donde se podrá dar a conocer las razones
 por las cuales considera que no es una vulnerabilidad.
-Allí +FLUIDAttacks+ y los demás integrantes del proyecto
+Allí +Fluid Attacks+ y los demás integrantes del proyecto
 podremos establecer un diálogo
 que nos lleve a determinar la validez de una vulnerabilidad.
 
@@ -265,11 +266,11 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  De esta forma se hace necesario el uso de este sistema
  para la correcta prestación del servicio.
 
-*¿FLUIDAttacks guarda la información de las vulnerabilidades encontradas?*::
+*¿Fluid Attacks guarda la información de las vulnerabilidades encontradas?*::
  La información se almacena únicamente durante la prestación del servicio.
  Una vez finalizado el servicio se conserva la información por 7 días hábiles
  tras los cuales es borrada
- de todos los sistemas de información de +FLUIDAttacks+.
+ de todos los sistemas de información de +Fluid Attacks+.
 
 *¿El servicio de Hacking Continuo requiere algún tipo*::
 *de metodología de desarrollo?*::
@@ -279,7 +280,7 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  se convierten en un insumo en la planeación de los ciclos de desarrollo.
  Por lo tanto no es impedimento para continuar con los desarrollos.
 
-*FLUIDAttacks realiza demostraciones en teleconferencia de forma periódica?*::
+*Fluid Attacks realiza demostraciones en teleconferencia de forma periódica?*::
 *¿Cuál es el procedimiento para programarlo?*::
  Si, hacemos demostraciones frecuentemente.
  Para tal fin solo debe indicarnos los emails de los asistentes
@@ -290,17 +291,17 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 *El desarrollo de la prueba en el modelo continuo*::
 *depente del tipo de repositorio donde tengo el código?*::
  ​No, el cliente puede usar el repositorio que estime conveniente.
- +FLUIDAttacks+ solo requiere ingreso a la rama de integración
+ +Fluid Attacks+ solo requiere ingreso a la rama de integración
  y a su respectivo ambiente.​
 
 *Se pierden los derechos patrimoniales*::
-*si FLUIDAttacks revisa el código fuente?*::
+*si Fluid Attacks revisa el código fuente?*::
  No, el permitir revisar una creación u obra como lo es un código a un tercero​
 ​ no le da ningún derecho sobre la misma.​
 
-*FLUIDAttacks cuenta con alguna herramienta que permita automatizar*::
+*Fluid Attacks cuenta con alguna herramienta que permita automatizar*::
 *las pruebas de cierre de las vulnerabilidades encontradas?*::
- Si, +FLUIDAttacks+ cuenta con link:../../productos/asserts/[Asserts],
+ Si, +Fluid Attacks+ cuenta con link:../../productos/asserts/[Asserts],
  un motor que permite automatizar​ verificaciones de seguridad
  una vez éstas han sido encontradas en una fase exploratoria.
  link:../../productos/asserts/[Asserts]
@@ -312,7 +313,7 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 ​
 *El Hacking Continuo está enfocado únicamente sobre el código fuente?*::
 *Es posible incluir la infraestructura asociada a la aplicación?
- +FLUIDAttacks+ ha evolucionado el modelo de Hacking Continuo
+ +Fluid Attacks+ ha evolucionado el modelo de Hacking Continuo
  y ahora se puede incluir dentro del Target of Evaluation (+TOE+)
  ​​los puertos y las entradas​ de la aplicación.
  De hecho, en esta evolución, se puede suscribir una infraestructura tecnológica
@@ -321,7 +322,7 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 *Donde corre Integrates?*::
  La plataforma link:../../productos/integrates/[Integrates] corre en la nube​.
 
-*FLUIDAttacks gestiona las credenciales de acceso a Integrates?*::
+*Fluid Attacks gestiona las credenciales de acceso a Integrates?*::
  No, usamos el concepto de autenticación federada,
  es decir, que tanto +Google+ como +Azure+ (+Microsoft 360+)​
  ​son quienes en realidad hace la validación de tus credenciales.​
@@ -332,9 +333,9 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  a tu información por parte de un tercero.
  Esta característica se habilita desde +Gmail+ o +Azure+ según sea tu caso.​
 
-*Que procedimiento tiene FLUIDAttacks para desatrasar la revisión*::
+*Que procedimiento tiene Fluid Attacks para desatrasar la revisión*::
 *del código ya existente antes de iniciar la prueba?*::
- +FLUIDAttacks+ recomienda que tanto el desarrollo de la aplicación
+ +Fluid Attacks+ recomienda que tanto el desarrollo de la aplicación
  como las pruebas de seguridad comiencen al mismo tiempo.
  Sin embargo, esto no siempre ocurre así.
  Para ello, tenemos una actividad llamada link:../../../en/services/continuous-hacking/#healthcheck[+HealthCheck+]

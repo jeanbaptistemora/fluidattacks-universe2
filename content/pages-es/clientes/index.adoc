@@ -11,7 +11,7 @@
 |====
 a|== link:financiero/[Financiero]
 
-Los clientes de +FLUIDAttacks+ en el sector financiero
+Los clientes de +Fluid Attacks+ en el sector financiero
 comprenden algunos de los bancos más importantes de América Latina,
 además de empresas encargadas del recaudo de aportes sociales, entre otras.
 Algunos de nuestos clientes son +Bancolombia+, +BBVA+,
@@ -24,7 +24,7 @@ a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www
 image::comunicaciones.png[Teléfono inteligente]
 a|== link:comunicaciones/[Comunicaciones]
 
-+FLUIDAttacks+ ha ofrecido soluciones a algunos de los principales proveedores
++Fluid Attacks+ ha ofrecido soluciones a algunos de los principales proveedores
 de servicios de comunicaciones en Colombia, entre ellos +Claro+,
 +Tigo UNE+, +ETB+ y +Edatel+.
 
@@ -42,7 +42,7 @@ a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www
 image::tecnologia.png[Servidor y base de datos]
 a|== link:tecnologia/[Tecnología]
 
-+FLUIDAttacks+ ha contribuido a empresas que ofrecen +software+,
++Fluid Attacks+ ha contribuido a empresas que ofrecen +software+,
 infraestructura y otras soluciones de tecnología a sus clientes,
 en un rango amplio de aplicaciones.
 Algunos de nuestros clientes en esta área son
@@ -70,7 +70,7 @@ Algunos de estos clientes son +Grupo Argos+, +Manuelita+, +Corona+,
 
 a|== link:transporte/[Transporte]
 
-+FLUIDAttacks+ ha trabajado con gigantes del sector de transporte
++Fluid Attacks+ ha trabajado con gigantes del sector de transporte
 como +Avianca+ y +F2X+, para asegurar que sus aplicaciones
 y plataformas +Web+ ofrezcan la mejor seguridad a sus usuarios.
 a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com/[Flaticon]

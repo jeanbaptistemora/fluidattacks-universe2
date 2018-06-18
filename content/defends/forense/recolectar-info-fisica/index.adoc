@@ -24,7 +24,7 @@ bajo las cuales la siguiente solución tiene sentido:
 * Actores:
 
 . Cliente.
-. Funcionario de +FLUIDAttacks+.
+. Funcionario de +Fluid Attacks+.
 . Información en cuestión.
 . Disco duro portátil.
 . Bóveda.
@@ -42,7 +42,7 @@ para transferir la información a la bóveda.
 * Procedimiento Alterno:
 
 . +1a+ El Cliente pide ayuda al funcionario para seleccionar la información.
-. +2a+ El Cliente se acerca a las instalaciones de +FLUIDAttacks+.
+. +2a+ El Cliente se acerca a las instalaciones de +Fluid Attacks+.
 
 * Puntos de Fuga:
 
@@ -53,7 +53,7 @@ para transferir la información a la bóveda.
 * Actores:
 
 . Cliente.
-. Funcionario de +FLUIDAttacks+.
+. Funcionario de +Fluid Attacks+.
 . Información en cuestión.
 . Disco duro portátil.
 . Acta de Entrega (contiene descripción y suma de verificación +SHA1+).
@@ -66,14 +66,14 @@ para transferir la información a la bóveda.
 . El funcionario se acerca a las instalaciones del Cliente.
 . El funcionario usa el disco duro portátil para recolectar la información.
 . El Cliente firma el Acta de Entrega de la información.
-. El funcionario se dirige a las instalaciones de +FLUIDAttacks+.
+. El funcionario se dirige a las instalaciones de +Fluid Attacks+.
 . El funcionario usa un canal seguro
 para transferir la información a la bóveda.
 
 * Procedimiento Alterno:
 
 . +1a+ El Cliente pide ayuda al funcionario para seleccionar la información.
-. +2a+ El Cliente se acerca a las instalaciones de +FLUIDAttacks+.
+. +2a+ El Cliente se acerca a las instalaciones de +Fluid Attacks+.
 
 
 .. Puntos de Fuga:
@@ -86,11 +86,11 @@ para transferir la información a la bóveda.
 * Actores:
 
 . Cliente.
-. Funcionario de +FLUIDAttacks+.
+. Funcionario de +Fluid Attacks+.
 . Información en cuestión.
 . Disco duro cifrado portátil.
 . Acta de Entrega (contiene descripción y suma de verificación +SHA256+).
-. Llave pública de cifrado asimétrico de +FLUIDAttacks+.
+. Llave pública de cifrado asimétrico de +Fluid Attacks+.
 . Recolector certificado.
 
 
@@ -100,7 +100,7 @@ para transferir la información a la bóveda.
 . El Cliente solicita la recolección de información.
 . El Cliente obtiene la suma de verificación +SHA256+
 de la información sin cifrar.
-. El Cliente usa la llave pública de +FLUIDAttacks+
+. El Cliente usa la llave pública de +Fluid Attacks+
 para cifrar la información
 . El funcionario se acerca a las instalaciones del Cliente.
 . El funcionario usa el disco duro cifrado portátil
@@ -121,15 +121,15 @@ para validar la suma de verificación +SHA256+.
 . +1a+ El Cliente pide ayuda al funcionario para seleccionar la información.
 . +2a+ El Cliente se acerca a las instalaciones de +FĹUIDAttacks+
 . +8a+ El funcionario es custodiado por el cliente
-hacia las instalaciones de +FLUIDAttacks+.
+hacia las instalaciones de +Fluid Attacks+.
 . +8b+ El funcionario se transporta en un vehículo certificado,
-sin paradas, hasta +FLUIDAttacks+.
+sin paradas, hasta +Fluid Attacks+.
 
 * Puntos de Fuga:
 
 . +4a+ La llave usada para cifrar no corresponde a . En este caso se debe:
 ** Destruir la información cifrada.
-** Cifrar con la llave de +FLUIDAttacks+.
+** Cifrar con la llave de +Fluid Attacks+.
 . +12a+ La suma de verificación no concuerda. En este caso se debe:
 ** Destruir la información en la bóveda, cifrada y sin cifrar.
 ** Realizar de nuevo el procedimiento.

@@ -29,7 +29,7 @@ have more weight than everything else.
 
 In this stage, we want you to evidence your technical skills
 through practical exercises and problems
-similar to the ones you will face in +FLUIDAttacks+,
+similar to the ones you will face in +Fluid Attacks+,
 with which you will be able to solve in an effective manner,
 our clients’ security issues.
 It also shows that you will be a valuable addition
@@ -60,11 +60,11 @@ encourage a new solution in a different way.
 . If the challenge is solved,
 make evident the similarity of the new solution to the old one.
 
-. Bring to life the solutions financed by +FLUIDAttacks+.
+. Bring to life the solutions financed by +Fluid Attacks+.
 
 . Allow third parties to view the deliverables of our team.
 
-The collateral effects of this decision allow +FLUIDAttacks+ to:
+The collateral effects of this decision allow +Fluid Attacks+ to:
 
 . Use the +GitLab+ infrastructure to analyze the quality and
 speed of the development
@@ -74,7 +74,7 @@ of the everyone in the process.
 familiarize potential talents with the tools
 (+Git+, +AsciiDoc+, +Python+, +Gherkin+, etc) and
 concepts (automation, unit tests, continuous integration, +linting+, etc.) that
-they will use in their daily work in +FLUIDAttacks+.
+they will use in their daily work in +Fluid Attacks+.
 
 . Make the results visible to the community and
 the team (peer pressure).
@@ -392,7 +392,7 @@ Your username must not exceed *12* characters in length and
 only contain lowercase letters and numbers.
 
 . Joing our link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMzU0MDc3NzQwNzI2LTQ1NTZmMDFhZjJmZDQ0ZGRmN2M5MGQ3N2JhYjg0ZTI4OWFkZGJmMjdkYzBjYmU2ZDM1NGI0MmM4OGQxOWVlNDc[Slack channel],
-where you can interact with +FLUIDAttacks+ personnel and
+where you can interact with +Fluid Attacks+ personnel and
 other candidates who are currently in the same stage
 to solve doubts or issues.
 
@@ -509,7 +509,7 @@ are defined in the file
 link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE].
 * Carrying out a +merge request+ implies the transfer of copyrights.
 Therefore, all information contained herein may be used
-by +FLUIDAttacks+ for any commercial purpose,
+by +Fluid Attacks+ for any commercial purpose,
 always preserving the moral rights of their authors.
 
 == 16. Plagirism
@@ -530,7 +530,7 @@ allows for public scrutiny in case of plagiarism.
 In other words, the current model avoids plagiarism
 through total transparency.
 
-+FLUIDAttacks+ actively applies algorithmic similarity detection techniques
++Fluid Attacks+ actively applies algorithmic similarity detection techniques
 on all solutions submitted.
 In particular using:
 

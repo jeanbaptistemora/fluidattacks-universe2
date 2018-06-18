@@ -1,7 +1,7 @@
 :slug: empleos/inmersion/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección. La etapa de inmersión consiste en un entrenamiento remunerado cuya finalidad es adquirir los conocimientos necesarios para desempeñar tu cargo.
-:keywords: FLUIDAttacks, Empleo, Proceso, Selección, Inmersión, Entrenamiento.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección. La etapa de inmersión consiste en un entrenamiento remunerado cuya finalidad es adquirir los conocimientos necesarios para desempeñar tu cargo.
+:keywords: Fluid Attacks, Empleo, Proceso, Selección, Inmersión, Entrenamiento.
 :toc: yes
 :translate: careers/immersion/
 
@@ -11,7 +11,7 @@ A esta altura del proceso, estamos a pocos pasos de culminar.
 Este nuevo paso, para el cual has sido seleccionado
 entre más de 1580 candidatos, busca que hagas parte
 de un auto-entrenamiento intensivo en retos de programación y
-+hacking+ financiado por +FLUIDAttacks+, llamado *Inmersión*.
++hacking+ financiado por +Fluid Attacks+, llamado *Inmersión*.
 
 == 1. Filosofía
 
@@ -22,7 +22,7 @@ sobre sistemas financieros y de telecomunicaciones, así como validar
 tus competencias humanas y de trabajo en equipo cerca a otros +hackers+
 que ya se encuentran en nuestra organización.
 
-Por lo extenso del proceso, +FLUIDAttacks+ busca, para esta etapa,
+Por lo extenso del proceso, +Fluid Attacks+ busca, para esta etapa,
 independiente del avance en puntos y ranking,
 que recibas una remuneración por el tiempo invertido en el proceso.
 
@@ -42,7 +42,7 @@ mediante la herramienta asignada en modo automático.
 . Los días pares se trabajarán retos de +hacking+.
 . Los días impares se trabajarán retos de programación.
 . El entrenamiento debe iniciar a las *7:00 AM*
-en las instalaciones de +FLUIDAttacks+.
+en las instalaciones de +Fluid Attacks+.
 . Debes enviar como mínimo un +MR+ que sea aceptado en +master+
 o un informe de avance estándar (cuando no se acepta el +MR+)
 antes de las *6:00 PM* del día en cuestión.

@@ -17,7 +17,7 @@ y sectores (Gobierno, Defensa)link:#evolution-it[^5^].
 Además con nuestra oferta complementan su propio portafolio
 (pruebas funcionales link:#choucair[^6^] link:#greensqa[^7^], desarrollo de software)
 para ofrecer una solución integral.
-Si quieres convertirte en un aliado de +FLUIDAttacks+
+Si quieres convertirte en un aliado de +Fluid Attacks+
 por favor comenzar con la lectura de las
 [button]#link:condiciones/[condiciones]# de nuestro acuerdo general de aliados.
 

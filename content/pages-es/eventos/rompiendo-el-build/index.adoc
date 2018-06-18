@@ -1,8 +1,8 @@
 :slug: eventos/rompiendo-el-build/
 :subtitle: Nuestros Hábitos SecDevOps
 :category: eventos
-:description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUIDAttacks. La presente conferencia tiene por objetivo socializar nuestras metodologías de trabajo para implementar un ambiente SecDevOps y ofrecer mejoras al cliente diariamente.
-:keywords: FLUIDAttacks, Taller, SecDevOps, Seguridad, Software, Tecnología.
+:description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por Fluid Attacks. La presente conferencia tiene por objetivo socializar nuestras metodologías de trabajo para implementar un ambiente SecDevOps y ofrecer mejoras al cliente diariamente.
+:keywords: Fluid Attacks, Taller, SecDevOps, Seguridad, Software, Tecnología.
 
 = Rompiendo el Build
 
@@ -135,7 +135,7 @@ mediante el correcto uso de la *caché*.
 (no +logs+ únicamente disponibles para el área de infraestructura).
 
 Cada punto descrito anteriormente
-está acompañado con la entrada al interior de los sistemas de +FLUIDAttacks+
+está acompañado con la entrada al interior de los sistemas de +Fluid Attacks+
 para ver su implementación y funcionamiento.
 Según la necesidad o el interés de los asistentes,
 es posible hacer énfasis en los temas que ellos consideren más importantes.
@@ -167,18 +167,18 @@ y un almuerzo al mediodía.
 
 El *taller* está diseñado para dictarse desde las *9 A.M.* hasta las *2 P.M.*.
 El día se agenda según común acuerdo
-entre los asistentes por parte del cliente y +FLUIDAttacks+.
+entre los asistentes por parte del cliente y +Fluid Attacks+.
 
 == 7. Detalles
 
 . *Inversión*: El espacio y alimentación de este taller
-son cubiertos enteramente por +FLUIDAttacks+.
+son cubiertos enteramente por +Fluid Attacks+.
 Los asistentes solo deben invertir de su parte el tiempo,
 los costos de desplazamiento y el parqueadero
 en caso que las instalaciones copen su capacidad o así lo indiquen.
 
 . *Material*: Al igual que los demás eventos
-ofrecidos por +FLUIDAttacks+,
+ofrecidos por +Fluid Attacks+,
 el material se envía al público
 cuando *todos* los asistentes diligencien la
 [button]#link:http://go.fluidattacks.com/rompiendo-el-build[evaluación de satisfacción]#
@@ -196,7 +196,7 @@ de personas con poder de decisión.
 
 El *taller* se encuentra diseñado para un público
 entre *8 y 12* personas por parte del cliente,
-además de las 4 adicionales que puede invitar +FLUIDAttacks+.
+además de las 4 adicionales que puede invitar +Fluid Attacks+.
 
 == 9. Requisitos
 

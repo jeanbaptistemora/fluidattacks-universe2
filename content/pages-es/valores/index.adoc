@@ -53,7 +53,7 @@ ni fuera de la organización, se realizan ataques a terceros
 
 . *Las vulnerabilidades encontradas por el hacker no son reveladas:*
 El hacker que encuentra la vulnerabilidad
-no cuenta a ninguna persona interna de +FLUIDAttacks+
+no cuenta a ninguna persona interna de +Fluid Attacks+
 o incluso de su circulo familiar,
 ni los detalles ni la existencia misma
 de las vulnerabilidades que descubre o conoce.
@@ -73,7 +73,7 @@ a las personas implicadas en la violación.
 
 . *Ante un error de cualquier naturaleza se reconoce la falta sin excusas*:
 Ante un incumplimiento de un compromiso de cualquier naturaleza
-que tenga una persona de +FLUIDAttacks+ con cualquier tercero,
+que tenga una persona de +Fluid Attacks+ con cualquier tercero,
 actuamos reconociendo la falta de forma inmediata,
 explícita, directa, presencial y sin escusas
 ante todos los afectados por dicho incumplimiento.

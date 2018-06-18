@@ -1,6 +1,6 @@
 :slug: aliados/condiciones/
 :category: aliados
-:description: Términos de la relación contractual entre FLUIDAttacks y sus ALIADOS (sean canales o integradores). Se especifican las comisiones, fechas de corte, metas, rangos de comisión, entre otros aspectos. Estos pueden cambiar en cualquier momento y se fijan solo mediante la firma del documento físico.
+:description: Términos de la relación contractual entre Fluid Attacks y sus ALIADOS (sean canales o integradores). Se especifican las comisiones, fechas de corte, metas, rangos de comisión, entre otros aspectos. Estos pueden cambiar en cualquier momento y se fijan solo mediante la firma del documento físico.
 :keywords: FLUID, Aliados, Comercial, Seguridad, Ethical Hacking, Condiciones.
 :translate: partners/terms/
 
@@ -8,13 +8,13 @@
 
 {description}
 
-. +FLUIDAttacks+ junto con el ALIADO
+. +Fluid Attacks+ junto con el ALIADO
 fijarán el precio de venta final en cada cliente.
 
 . El precio final al cliente será el valor base
 para el calculo de la comisión a pagar al ALIADO.
 
-. +FLUIDAttacks+ siempre será una marca visible al cliente final.
+. +Fluid Attacks+ siempre será una marca visible al cliente final.
 El +co-branding+ es posible pero no la marca blanca.
 
 . Todos los ALIADOS inician con un mínimo de *30% de comisión*
@@ -23,7 +23,7 @@ hasta que transcurran *2 fechas de corte*.
 . La fecha de corte será el *31 de diciembre* de cada año.
 
 . Todos los *15 de enero* posteriores a la segunda fecha de corte,
-se evaluará el crecimiento en el dinero recibido por +FLUIDAttacks+
+se evaluará el crecimiento en el dinero recibido por +Fluid Attacks+
 entre las ultimas *2 fechas de corte*
 para determinar la comisión del año que empieza:
 
@@ -42,16 +42,16 @@ y porcentaje de comisión del ALIADO (superior al +30%+).
 de +15+ puntos porcentuales en la comisión
 (+50%+ del +30%+ mínimo) ante el no crecimiento anual.
 
-. +FLUIDAttacks+ facturará y recaudará desde +USA+ al CLIENTE final
+. +Fluid Attacks+ facturará y recaudará desde +USA+ al CLIENTE final
 mediante un sistema automático recurrente por Internet
 que requiere tarjeta de crédito.
 
 .. En cualquier otro escenario o a voluntad del ALIADO,
 este se encargará de facturación y recaudo,
-sin transferir a +FLUIDAttacks+ el riesgo de cartera o mora
+sin transferir a +Fluid Attacks+ el riesgo de cartera o mora
 derivado del no pago del CLIENTE final.
 
-. +FLUIDAttacks+ comienza el servicio +1+ día después
+. +Fluid Attacks+ comienza el servicio +1+ día después
 de recibir el dinero correspondiente a configuración
 y primer mes de servicio.
 
@@ -63,12 +63,12 @@ por no pago de +15+ días calendario antes de la suspensión del servicio.
 
 . En el caso excepcional de tener que desplazar talentos:
 
-.. +FLUIDAttacks+ cubre los costos de mano de obra de su propio talento
+.. +Fluid Attacks+ cubre los costos de mano de obra de su propio talento
 y los tiquetes de avión.
 
 .. El ALIADO debe cubrir todo lo demás que se requiera.
 
-. +FLUIDAttacks+ no firma exclusividad con ningún ALIADO.
+. +Fluid Attacks+ no firma exclusividad con ningún ALIADO.
 
 . El ALIADO debe firmar acuerdo de confidencialidad y de +non solicitation+.
 
@@ -77,17 +77,17 @@ con base en la legislación tributaria de +USA+.
 
 . El ALIADO se obliga a informar de manera anticipada
 sobre los potenciales clientes en los que buscará promover
-los servicios profesionales de +FLUIDAttacks+.
+los servicios profesionales de +Fluid Attacks+.
 
-. Si +FLUIDAttacks+ es quien factura al cliente final en +LATAM+,
-la relación contractual entre ALIADO y +FLUIDAttacks+
+. Si +Fluid Attacks+ es quien factura al cliente final en +LATAM+,
+la relación contractual entre ALIADO y +Fluid Attacks+
 será mediante contrato de mandato.
 
-. +FLUIDAttacks+ se compromete a no comercializar
+. +Fluid Attacks+ se compromete a no comercializar
 a los prospectos que el ALIADO haya nominado
 si y solo si este último presenta evidencia escrita
 de gestión comercial en plazos que nunca superen los *30 días*.
 
 . Este acuerdo es enteramente recíproco,
 es decir, las mismas cláusulas aplican
-si +FLUIDAttacks+ comercializa exitosamente al ALIADO.
+si +Fluid Attacks+ comercializa exitosamente al ALIADO.

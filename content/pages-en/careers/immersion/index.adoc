@@ -13,7 +13,7 @@ This next step, for which you have been selected
 among more than 1580 candidates,
 seeks to make you a part of
 an intensive self-training in programming and
-+hacking+ challenges funded by +FLUIDAttacks+,
++hacking+ challenges funded by +Fluid Attacks+,
 called *Immersion*.
 
 == 1. Philosophy
@@ -26,7 +26,7 @@ This stage also aims to validate your human and
 teamwork skills.
 
 Due to the extent of the process,
-+FLUIDAttacks+, regardless of your progress in points and ranking,
++Fluid Attacks+, regardless of your progress in points and ranking,
 looks to give monetary compensation for the time invested.
 
 == 2. Objectives
@@ -45,7 +45,7 @@ using the assigned tool in automatic mode.
 . Even days will be dedicated to +hacking+ challenges.
 . Odd days will be dedicated to programming challenges.
 . Training must begin at *7:00 AM*
-in +FLUIDAttacks+ office.
+in +Fluid Attacks+ office.
 . You must send at least one +MR+ accepted into +master+
 or a standard progress report (when the +MR+ is rejected)
 before *6:00 PM* of the current day.

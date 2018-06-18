@@ -19,7 +19,7 @@ you just have to follow these detailed [button]#link:terms/[instructions]#
 == 2. Reasons
 
 The goal of this stage
-is for you to find out what makes +FLUIDAttacks+ a great place to work.
+is for you to find out what makes +Fluid Attacks+ a great place to work.
 This is mandatory and requires an estimated effort of 3 to 5 minutes.
 To begin,
 you just have to click [button]#link:reasons/[here]#
@@ -27,9 +27,9 @@ you just have to click [button]#link:reasons/[here]#
 == 3. Openings
 
 The goal of this stage
-is for you to understand the roles you can have in +FLUIDAttacks+,
+is for you to understand the roles you can have in +Fluid Attacks+,
 or in openings presented by AUTONOMIC,
-a +FLUIDAttacks+ Spin Off in charge of the recruitment process.
+a +Fluid Attacks+ Spin Off in charge of the recruitment process.
 This is mandatory and requires an estimated effort of 3 to 5 minutes.
 To begin,
 you just have to click [button]#link:openings/[here]#
@@ -125,7 +125,7 @@ you just have to follow these detailed [button]#link:non-technical-challenges/[i
 == 9. Interview
 
 . *Video Interview:* The goal of this stage
-is to show your interest and desire to be a part of +FLUIDAttacks+
+is to show your interest and desire to be a part of +Fluid Attacks+
 through a video interview.
 Requires an estimated effort of 25 to 30 minutes.
 To do this you must first finish the previous stage.
@@ -143,7 +143,7 @@ write us an email at careers@autonomicmind.co
 The goal of this stage
 is to take part of an intensive self-training period
 in programming and hacking challenges,
-paid for by +FLUIDAttacks+.
+paid for by +Fluid Attacks+.
 This is mandatory and requires an effort
 that is determined based on your knowledge.
 To begin, write us an email at careers@autonomicmind.co

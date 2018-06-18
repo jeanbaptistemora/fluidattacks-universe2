@@ -1,14 +1,15 @@
 :slug: empleos/retos-no-tecnicos/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. La etapa de retos no técnicos pretende evaluar la capacidad del candidato de analizar, clasificar y evaluar datos.
-:keywords: FLUIDAttacks, Empleo, Selección, Retos no Técnicos, Análisis, Datos.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección realizado. La etapa de retos no técnicos pretende evaluar la capacidad del candidato de analizar, clasificar y evaluar datos.
+:keywords: Fluid Attacks, Empleo, Selección, Retos no Técnicos, Análisis, Datos.
 :toc: yes
 :translate: careers/non-technical-challenges/
 
 = Retos no técnicos
 
 A continuación el detalle de la etapa denominada *Análisis de Datos*
-del proceso de selección para ser parte del equipo de trabajo de +FLUIDAttacks+.
+del proceso de selección para ser parte
+del equipo de trabajo de +Fluid Attacks+.
 
 El objetivo de esta etapa es determinar sus habilidades para:
 
@@ -26,7 +27,7 @@ El objetivo de esta etapa es determinar sus habilidades para:
 que se encuentra satisfecho.
 
 Para determinar estas habilidades, se le entregarán los hallazgos
-o vulnerabilidades encontradas por +FLUIDAttacks+ en los últimos meses.
+o vulnerabilidades encontradas por +Fluid Attacks+ en los últimos meses.
 Éstas se entregarán en una hoja de cálculo de la cual fueron eliminados
 o enmascarados los datos confidenciales.
 Posiblemente la hoja contenga datos incompletos,
@@ -40,7 +41,7 @@ y entregar en formato +PDF+ (no +PPTX+), que contenga una breve introducción
 (no más de 2 +slides+) y una gráfica por transparencia
 analizando las gráficas en las dimensiones y combinaciones
 que usted considere relevantes para que un gerente de una empresa de seguridad
-de la información como +FLUIDAttacks+ tome decisiones estratégicas
+de la información como +Fluid Attacks+ tome decisiones estratégicas
 que mejoren la implementación de la misión de la empresa en la sociedad:
 *"Encontrar todas las vulnerabilidades y reportarlas lo antes posible".*
 
@@ -48,7 +49,7 @@ Encontrará la hoja de cálculo en el siguiente [button]#link:hallazgos-open-dat
 
 Cada una de las gráficas debe dar origen al menos a una conclusión
 y a una recomendación de acción gerencial *concreta*
-que usted cree que +FLUIDAttacks+ debe implementar.
+que usted cree que +Fluid Attacks+ debe implementar.
 Al final de la presentación se esperan conclusiones y recomendaciones generales
 derivadas de las de cada gráfica, pero diferentes
 (no repetir, sí agrupar, sí abstraer).
@@ -100,10 +101,10 @@ solo debe ser analizada y procesada por usted.
 De igual forma se espera que el informe sea realizado solo por usted
 y sea 100% de su autoría.
 Si usted siente que requiere de ayuda de personas para realizar esta tarea,
-ésta es una pista de que las necesidades actuales de +FLUIDAttacks+
+ésta es una pista de que las necesidades actuales de +Fluid Attacks+
 no se acomodan a su perfil actual.
 Este tipo de actividades son la base de filosofía de gestión de proyectos
-y equipos en +FLUIDAttacks+ (gestión basada en datos y métricas),
+y equipos en +Fluid Attacks+ (gestión basada en datos y métricas),
 por ende esta actividad no es más que una simulación
 de lo que será su día a día.
 

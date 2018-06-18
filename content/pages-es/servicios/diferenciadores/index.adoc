@@ -15,7 +15,7 @@
 [cols="15,45,40"]
 |====
 | *Aspecto*
-| *FLUIDAttacks*
+| *Fluid Attacks*
 | *Otros*
 
 a|==== Foco

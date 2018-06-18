@@ -126,7 +126,7 @@ http.has_sqli(URL)
 .Results from executing ex1_open.py
 [source, yaml]
 ----
-# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
 # All rights reserved.
 # Loading attack modules ...
 ---
@@ -151,7 +151,7 @@ http.has_sqli(URL)
 .Results from executing ex1_close.py
 [source, yaml]
 ----
-# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
 # All rights reserved.
 # Loading attack modules ...
 ---
@@ -180,7 +180,7 @@ http.has_xss(URL, BAD_TEXT, data=DATA)
 .Results from executing ex2_open.py
 [source, yaml]
 ----
-# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
 # All rights reserved.
 # Loading attack modules ...
 ---
@@ -207,7 +207,7 @@ http.has_xss(URL, BAD_TEXT, data=DATA)
 .Results from executing ex2_close.py
 [source, yaml]
 ----
-# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
 # All rights reserved.
 # Loading attack modules ...
 ---
@@ -236,7 +236,7 @@ http.has_sqli(URL)
 $ export FA_STRICT="false"
 $ python ex1_open.py
 ---
-# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
 # All rights reserved.
 # Loading attack modules ...
 ---
@@ -251,7 +251,7 @@ $ echo $?
 $ export FA_STRICT="true"
 $ python ex1_open.py
 ---
-# FLUIDAsserts by FLUIDAttacks (https://fluidattacks.com)
+# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
 # All rights reserved.
 # Loading attack modules ...
 ---

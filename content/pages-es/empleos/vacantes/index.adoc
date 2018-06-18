@@ -1,7 +1,7 @@
 :slug: empleos/vacantes/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. A continuación se detallan los perfiles laborales deseados para integrarse en nuestro equipo de trabajo.
-:keywords: FLUIDAttacks, Empleo, Proceso, Selección, Vacantes, Perfiles.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección realizado. A continuación se detallan los perfiles laborales deseados para integrarse en nuestro equipo de trabajo.
+:keywords: Fluid Attacks, Empleo, Proceso, Selección, Vacantes, Perfiles.
 :translate: careers/openings/
 
 = Vacantes
@@ -78,12 +78,12 @@ a alcanzar sus metas de negocio proveyéndoles talentos
 con las capacidades idóneas para sus cargos técnicos,
 mejorar la inserción laboral y la competitividad de las empresas.
 
-+Autonomic+ también se encarga del reclutamiento para +FLUIDAttacks+
++Autonomic+ también se encarga del reclutamiento para +Fluid Attacks+
 y ofrece sus servicios a empresas del sector de telecomunicaciones,
 financieras y en general que manejen personal con altas capacidades técnicas.
 
 A continuación, las vacantes que actualmente tenemos en juego
-con clientes diferentes a +FLUIDAttacks+:
+con clientes diferentes a +Fluid Attacks+:
 
 == Front End Developer
 

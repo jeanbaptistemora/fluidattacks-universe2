@@ -6,7 +6,7 @@
 
 = Commands
 
-Troyano desarrollado completamente por +FLUIDAttacks+
+Troyano desarrollado completamente por +Fluid Attacks+
 para penetrar en profundidad estaciones de trabajo
 y servidores críticos durante las pruebas de intrusión
 en nuestro servicio de [button]#link:../../servicios/hacking-puntual/[Hacking Puntual]#
