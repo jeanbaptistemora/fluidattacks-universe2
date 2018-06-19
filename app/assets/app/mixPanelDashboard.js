@@ -65,6 +65,22 @@ mixPanelDashboard.trackReadEventuality = function trackReadEventuality (
   return true;
 };
 
+mixPanelDashboard.trackSessionLength = function trackSessionLength (
+  userName,
+  userEmail,
+  Organization
+) {
+  mixpanel.track(
+    "Logged out",
+    {
+      "Email": userEmail,
+      "Name": userName,
+      Organization
+    }
+  );
+  return true;
+};
+
 mixPanelDashboard.trackReports = function trackReports (
   trackName,
   userName,

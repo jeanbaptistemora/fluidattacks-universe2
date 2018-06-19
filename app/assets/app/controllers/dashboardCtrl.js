@@ -66,6 +66,12 @@ angular.module("FluidIntegrates").controller(
             projectData = [];
             eventsData = [];
             findingData = {};
+            const org = Organization.toUpperCase();
+            mixPanelDashboard.trackSessionLength(
+              userName,
+              userEmail,
+              org
+            );
             $window.location = `${BASE.url}logout`;
           };
         },

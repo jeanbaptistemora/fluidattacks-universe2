@@ -34,12 +34,13 @@
         "$last_name": "{{ request.session.last_name }}",
         "$last_login": new Date(),
     });
-    if (location.toString().indexOf("localhost:8000") == -1)
-        mixpanel.track(
-            "Logged In", {
-                "Email": "{{ request.session.username }}",
-            }
-        );
+    if (location.toString().indexOf("localhost:8000") == -1){
+      mixpanel.track(
+          "Logged In", {
+              "Email": "{{ request.session.username }}",
+          }
+      );
+    }
     </script>
   </head>
   <body ng-cloak class="am-splash-screen" ng-app="FluidIntegrates">
@@ -113,6 +114,7 @@
                         {% if is_registered == '1' %}
                             <script>
                             function loadDashboard(){
+                              mixpanel.time_event("Logged out");
                               if (localStorage.getItem("url_inicio") === null){
                                 location = "dashboard";
                               } else {

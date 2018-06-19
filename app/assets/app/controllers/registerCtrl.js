@@ -36,6 +36,7 @@ angular.module("FluidIntegrates").controller(
             projectData = [];
             eventsData = [];
             findingData = {};
+            mixpanel.track("Logged out");
             $window.location = `${BASE.url}logout`;
           };
         },
