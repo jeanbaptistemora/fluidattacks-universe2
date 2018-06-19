@@ -59,9 +59,17 @@
 
 * link:156/[REQ.156 Source code without sensitive information].
 
+== Data
+
+* link:179/[REQ.179 Define backup frequency].
+
 == Authentication
 
 * link:229/[REQ.229 Request access credentials].
+
+== Business Process
+
+* link:244/[REQ.244 Manage information backup].
 
 == Networks
 
