@@ -68,10 +68,11 @@ a|== Seguimiento de usuarios
 
 Se visualiza el último acceso de los usuarios a un proyecto.
 
-a|== Acceso a otros usuarios
+a|== Administración de usuarios
 
-Un usuario administrador puede dar / remover el acceso a otros usuarios.
-a|image::acceso-usuarios.png[Acceso Usuarios]
+Un usuario puede dar / remover el acceso a otros usuarios
+por medio de este módulo.
+a|image::administracion-usuarios.png[Administración Usuarios]
 
 a|image::informe-tecnico.png[Informe Técnico]
 a|== Generar Informes Técnicos

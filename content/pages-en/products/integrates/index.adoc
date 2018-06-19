@@ -64,10 +64,10 @@ a|== User tracking
 
 The last access of users to a project is displayed.
 
-a|== Access to other users
+a|== User Administration
 
-An administrative user can grant / revoke access to other users.
-a|image::user-access.png[User Access]
+An user can grant / revoke access to other users using this module.
+a|image::user-administration.png[Administration Access]
 
 a|image::technical-report.png[Technical Report]
 a|== Generate Technical Reports
