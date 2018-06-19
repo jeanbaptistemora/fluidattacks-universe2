@@ -1,6 +1,7 @@
+$fluid-black: rgba(39, 39, 39, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $fluid-darker-red: rgba(139, 34, 35, 1);
-$dottedgray: rgba(128, 128, 128, 1);
+$fluid-red: rgba(255, 52, 53, 1);
 $transparent: rgba(0, 0, 0, 0);
 $transparentblack: rgba(0, 0, 0, .5);
 $white: rgba(255, 255, 255, 1);
@@ -10,7 +11,7 @@ $white: rgba(255, 255, 255, 1);
   display: block;
 
   &:hover {
-    background-color: $fluid-darker-red;
+    background-color: $fluid-red;
     color: $white;
   }
 }
@@ -34,7 +35,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .cssmenu {
-  background: $fluid-dark-red;
+  background: $fluid-black;
   line-height: 1;
 }
 
@@ -52,13 +53,11 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .m-opened {
-  border-top: 5px solid $fluid-darker-red;
   display: block;
   margin: 0;
   padding: 0;
 
   li {
-    border-top: 1px dotted $dottedgray;
     display: block;
     line-height: 1;
     margin-top: 0;
@@ -69,14 +68,14 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .menu-button {
-  border-bottom: 5px solid $fluid-darker-red;
+  border-bottom: 2px solid $white;
   cursor: pointer;
   min-height: 72px;
   position: relative;
   z-index: 1;
 
   &:hover {
-    background-color: $fluid-darker-red;
+    background-color: $fluid-red;
   }
 
   &::before {
@@ -119,19 +118,21 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .sm-opened {
-  border-top: 0;
+  border-top: 1px solid $white;
   display: block;
   padding: 0;
   position: relative;
 
   li {
-    border-top: 1px dotted $dottedgray;
+    background: $fluid-black;
+    border-bottom: 1px solid $white;
     height: 61px;
   }
 }
 
 .submenu-button {
-  border-left: 1px dotted $dottedgray;
+  border-bottom: 1px solid $white;
+  border-left: 1px solid $white;
   cursor: pointer;
   display: block;
   height: 60px;
@@ -141,11 +142,11 @@ $white: rgba(255, 255, 255, 1);
   width: 45px;
 
   &:hover {
-    background: $fluid-darker-red;
+    background: $fluid-red;
   }
 
   &.submenu-opened {
-    background: $fluid-darker-red;
+    background: $fluid-red;
 
     &::before {
       display: none;
@@ -192,9 +193,9 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .intro-header {
-  padding-top: 72px;
 
   img {
+    margin-top: 72px;
     width: 100%;
   }
 }
@@ -206,11 +207,7 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-@media (min-width: 840px) {
-  .intro-header {
-    padding-top: 0;
-  }
-
+@media (min-width: 900px) {
   .cssmenu {
     height: 72px;
   }
@@ -222,8 +219,9 @@ $white: rgba(255, 255, 255, 1);
 
     &:hover {
       ul {
-        background: $fluid-dark-red;
+        background: $white;
         display: block;
+        margin-top: 4px;
       }
 
       &::before {
@@ -233,19 +231,19 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .m-opened {
-    border-bottom: 5px solid $fluid-darker-red;
+    border-bottom: 2px solid $white;
     border-top: 0;
     height: 72px;
 
     li {
       border-top: 0;
       display: inline-block;
-      min-height: 72px;
+      min-height: 70px;
       padding-top: 7px;
       width: auto;
 
       &:hover {
-        background-color: $transparentblack;
+        background-color: $fluid-red;
       }
     }
   }
@@ -262,11 +260,14 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .sm-opened {
+    border-top: 0;
     display: none;
+    left: -20px;
     position: absolute;
 
     li {
-      border-top: 1px dotted $dottedgray;
+      border-bottom: 0;
+      margin-top: 1px;
       min-height: 61px;
       min-width: 260px;
       padding-top: 0;

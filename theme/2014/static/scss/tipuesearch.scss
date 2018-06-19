@@ -3,6 +3,7 @@ $black: rgba(0, 0, 0, 1);
 $blue: rgba(83, 150, 234, 1);
 $blue2: rgba(25, 116, 186, 1);
 $darkblue: rgba(29, 79, 114, 1);
+$fluid-red: rgba(255, 52, 53, 1);
 $greenyellow: rgba(173, 255, 47, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
@@ -46,11 +47,12 @@ $white: rgba(255, 255, 255, 1);
 
 .langbutton {
   float: left;
-  margin: 20px 10px 0 0;
+  margin: 20px 5px 0 0;
 
   a {
     color: $white;
     font-size: 16px;
+    padding: 0 8px;
 
     &:hover {
       color: $lightblue;
@@ -58,7 +60,14 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .language {
-    color: $greenyellow;
+
+    &::after {
+      bottom: 10px;
+      color: $fluid-red;
+      content: '\00ac';
+      left: -5px;
+      position: relative;
+    }
   }
 }
 
