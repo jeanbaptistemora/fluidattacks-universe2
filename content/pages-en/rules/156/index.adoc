@@ -13,6 +13,6 @@ Source code must not contain sensitive information.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVSv3.1-1.10+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
 Security is addressed within all parts
 of the software development lifecycle.

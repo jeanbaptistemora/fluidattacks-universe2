@@ -13,9 +13,9 @@ Los componentes críticos para la seguridad deben identificarse (+TCB+).
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVSv3.1-1.1+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.1+]
 Todos los componentes que se necesitan son conocidos e identificados.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVSv3.1-1.4+]
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.4+]
 Los datos considerados sensibles en el contexto de la aplicación
 deben ser claramente identificados.
