@@ -1,7 +1,7 @@
 $aqua: rgba(0, 255, 255, 1);
 $black: rgba(0, 0, 0, 1);
 $blue: rgba(0, 0, 255, 1);
-$font: 'Source Sans Light';
+$font: 'Source Sans Pro';
 $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
 $fluid-black: rgba(67, 67, 67, 1);
@@ -28,7 +28,7 @@ $white: rgba(255, 255, 255, 1);
 $yellow: rgba(255, 255, 0, 1);
 
 @mixin hn {
-  font-family: 'Montserrat Extrabold';
+  font-family: 'Montserrat';
   font-weight: 600;
   line-height: 1.1;
   margin: 20px 0 10px;
