@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, la organización debe asignar carné y tarjeta de acceso al sistema de control a cada persona que realice actividades al interior de la misma.
 :keywords: Tarjeta, Control, Organización, Acceso, Personal, Carné.
 :rules: yes
+:translate: rules/101/
 
 = REQ.101 Asignar carnés y tarjetas a personal
 
@@ -11,3 +12,12 @@
 La organización debe garantizar que todo el personal
 que realiza actividades al interior de las instalaciones debe estar carnetizado
 y contar con las tarjetas del sistema de control de accesos correspondientes.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(1)]
+Controles de acceso a las instalaciones:
+Implementar políticas y procedimientos para limitar
+el acceso físico a la instalación o instalaciones
+donde se almacenan sistemas electrónicos con información sensible,
+verificando que todo acceso sea autorizado

@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que toda organización controle el acceso de vehículos y personas en las zonas de parqueo.
 :keywords: Activos, Control, Organización, Acceso, Personas, Vehículos.
 :rules: yes
+:translate: rules/099/
 
 = REQ.099 Controlar acceso vehícular y de personas
 
@@ -10,3 +11,12 @@
 
 La organización debe llevar control de acceso de vehículos
 y personas en las zonas de parqueaderos.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(1)]
+Controles de acceso a las instalaciones:
+Implementar políticas y procedimientos para limitar
+el acceso físico a la instalación o instalaciones
+donde se almacenan sistemas electrónicos con información sensible,
+verificando que todo acceso sea autorizado

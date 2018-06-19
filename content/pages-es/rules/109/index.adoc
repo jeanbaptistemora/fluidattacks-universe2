@@ -19,3 +19,10 @@ Autorización y/o Supervisión: Implementar procedimientos
 para la autorización y/o supervisión de los empleados
 que trabajen con información sensible
 o en lugares donde puede accederse a ésta.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(1)]
+Controles de acceso a las instalaciones:
+Implementar políticas y procedimientos para limitar
+el acceso físico a la instalación o instalaciones
+donde se almacenan sistemas electrónicos con información sensible,
+verificando que todo acceso sea autorizado

@@ -1,0 +1,24 @@
+:slug: rules/101/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of establish physical controls for vehicles and people in parking zones of the facilities.
+:keywords: Requirement, Security, Access Control, Parking, Vehicles, Physical Access
+:rules: yes
+:translate: rules/101/
+
+= REQ.101 Assign ID cards to workforce members
+
+== Requirement
+
+The organization must guarantee that
+all the workforce members that carry out activities inside the facilities
+must be registered and have
+the corresponding access control system cards.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(1)]
+Facility Access Controls:
+Implement policies and procedures to limit physical access
+to its electronic information systems and the facility or facilities
+in which they are housed,
+while ensuring that properly authorized access is allowed.

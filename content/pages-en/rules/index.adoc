@@ -40,6 +40,10 @@
 * link:094/[REQ.094 Specify rules in declarative mood].
 * link:096/[REQ.096 Set user required privileges].
 * link:097/[REQ.097 Define control access model].
+* link:099/[REQ.099 Vehicles and people access control].
+* link:101/[REQ.101 Assign ID cards to workforce members].
+* link:109/[REQ.109 Monitor restricted areas].
+
 
 == Credentials
 
