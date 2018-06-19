@@ -113,30 +113,36 @@
                         <br>
                         {% if is_registered == '1' %}
                             <script>
-                            function loadDashboard(){
-                              mixpanel.time_event("Logged out");
-                              if (localStorage.getItem("url_inicio") === null){
-                                location = "dashboard";
-                              } else {
-                                if (location.toString().indexOf("localhost:8000") === -1){
-                                  if (location.toString().indexOf(".integrates.env") === -1) {
-                                    var link= "https://fluidattacks.com/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
-                                    window.location= link;
-                                    localStorage.clear();
-                                  }
-                                  else {
-                                    var dev= location.toString().match("https://(.*).integrates")[1];
-                                    var link= "https://" + dev + ".integrates.env.fluidattacks.com/dashboard#" + localStorage.getItem("url_inicio") ;
-                                    window.location= link;
-                                    localStorage.clear();
-                                  }
+                              function loadDashboard(){
+                                mixpanel.time_event("Logged out");
+                                if (localStorage.getItem("url_inicio") === null){
+                                  location = "dashboard";
                                 } else {
-                                  var link= "https://localhost:8000/dashboard#" + localStorage.getItem("url_inicio") ;
-                                  window.location= link;
-                                  localStorage.clear();
+                                  if (location.toString().indexOf("localhost:8000") === -1){
+                                    if (location.toString().indexOf(".integrates.env") === -1) {
+                                      var link= "https://fluidattacks.com/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
+                                      window.location= link;
+                                      localStorage.clear();
+                                    }
+                                    else {
+                                      var dev= location.toString().match("https://(.*).integrates")[1];
+                                      var link= "https://" + dev + ".integrates.env.fluidattacks.com/dashboard#" + localStorage.getItem("url_inicio") ;
+                                      window.location= link;
+                                      localStorage.clear();
+                                    }
+                                  } else {
+                                    var link= "https://localhost:8000/dashboard#" + localStorage.getItem("url_inicio") ;
+                                    window.location= link;
+                                    localStorage.clear();
+                                  }
                                 }
                               }
-                            }
+                              $(document).ready(function(){
+                                $('#disclosureWarn').appendTo("body").modal({
+                                  backdrop: 'static',
+                                  keyboard: false,
+                                  show: true});
+                              });
                             </script>
                         {% else %}
                             <script>
@@ -198,13 +204,7 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
-        $('#disclosureWarn').appendTo("body").modal({
-          backdrop: 'static',
-          keyboard: false,
-          show: true});
       });
-
-    </script>
     </script>
   </body>
 </html>
