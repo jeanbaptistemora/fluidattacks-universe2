@@ -153,7 +153,7 @@ email address and that the project *%s* is created.' % (project)
             text = ' '.join(data.split(CMD_SEP)[2:])
             try:
                 companies_text = text[(text.index("[")+1):text.index("]")].split(',')
-                companies = map(str.strip,companies_text)
+                companies = map(unicode.strip,companies_text)
                 description = ' '.join(text.split("] ")[1:])
             except ValueError:
                 output = """You must enter the company or companies names within square brackets [] and comma separated. """
