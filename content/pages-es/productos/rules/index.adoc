@@ -21,4 +21,22 @@ que usted se compromete a cumplir
 y por ende en nuestro servicios de hacking determinamos
 si estos se cumplen o no.
 
+== Estándares Internacionales
+
+Rules está basado en diversos estándares internacionales
+relacionados a la seguridad informática
+entre los que se incluyen:
+
+. [button]#link:../../search.html?q=HIPAA[HIPAA]#
+Ley de Responsabilidad y Transferibilidad de Seguros Médicos
+(link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act]).
+
+. [button]#link:../../search.html?q=ASVS[ASVS]#
+Estándar de +OWASP+ para la verificación de seguridad en aplicaciones
+(link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[Application Security Verification Standard]).
+
+. [button]#link:../../search.html?q=CWE[CWE]#
+Enumeración de vulnerabilidades comunes
+(link:https://cwe.mitre.org/[Common Weakness Enumeration]).
+
 Puedes acceder al producto [button]#link:../../rules/[aquí]#

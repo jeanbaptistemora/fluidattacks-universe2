@@ -20,4 +20,18 @@ In a way they are the security commandments
 that you agree to follow and comply with and therefore,
 in our hacking services, we determine if these are met or not.
 
+== International Standards
+
+Rules is based on several international standards
+related to information security, including:
+
+. [button]#link:../../search.html?q=HIPAA[HIPAA]#
+link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act.]
+
+. [button]#link:../../search.html?q=ASVS[ASVS]#
+link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[+OWASP+ Application Security Verification Standard].
+
+. [button]#link:../../search.html?q=CWE[CWE]#
+link:https://cwe.mitre.org/[Common Weakness Enumeration].
+
 You can access the product [button]#link:../../rules/[here]#
