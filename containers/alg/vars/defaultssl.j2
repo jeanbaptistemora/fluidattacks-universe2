@@ -16,6 +16,10 @@
         RewriteRule ^/courses(.*)                http://fluidattacks.com:8080$1     [P,L]
         ProxyPassReverse /courses http://fluidattacks.com:8080
 
+        <Location "/courses">
+          ErrorDocument 404 {{ error_page }}
+        </Location>
+
     # Favicon KB
 	    Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
 	    Substitute "s|<a href=\"//kb.fluidattacks.com/help/article/link/|<a href=\"//fluidattacks.com/help/article/link/|i"
@@ -23,6 +27,10 @@
     # Formstack
         RewriteRule ^/forms(.*)                https://fluidsignal.formstack.com/forms$1     [P,L]
         ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
+
+        <Location "/forms">
+          ErrorDocument 404 {{ error_page }}
+        </Location>
 
     #Integrates
         RewriteEngine on
@@ -49,6 +57,7 @@
             Header always set Expires "0"
             Header always set Content-Security-Policy "script-src 'self' 'unsafe-inline' *.mxpnl.com *.cloudflare.com *.intercomcdn.com *.intercom.io *.pingdom.net;"
             Header always unset Server
+            ErrorDocument 404 {{ error_page }}
         </Location>
 
     # KB - Knowledgeowl
