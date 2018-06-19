@@ -84,9 +84,12 @@
 
     #Pagina WEB
         RewriteEngine on
-        RewriteRule ^/$         {{ landing }} [P]
-        RewriteRule ^/(.*)           {{ landing }}$1        [P]
-        ProxyPassReverse / {{ landing }}
+        RewriteCond %{HTTP:Accept-Language} ^es       [NC]
+        RewriteRule ^/$       {{ landing_es }}        [P,L]
+        
+        RewriteRule ^/$       {{ landing_en }}        [P,L]
+        RewriteRule ^/(.*)    {{ landing_en }}$1      [P,L]
+
         ErrorDocument 401 {{ error_page }}
         ErrorDocument 401 {{ error401_page }}
 	    ErrorDocument 405 {{ error401_page }}

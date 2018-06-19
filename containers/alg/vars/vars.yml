@@ -9,7 +9,8 @@ error_page: https://fluidattacks.com/web/en/error/
 error500_page: https://fluid.la/integrates/error500
 error401_page: /errors/
 servername: fluidattacks.com
-landing: https://fluidattacks.com/web/en/
+landing_en: https://fluidattacks.com/web/en/
+landing_es: https://fluidattacks.com/web/es/
 error_log: /var/log/apache2/error.log
 custom_log: /var/log/apache2/access.log
 log_level: warn
