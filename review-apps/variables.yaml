@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: $K8_ENV_SECRET
+  name: $K8_ENV_SECRET-$CI_COMMIT_REF_SLUG
 type: Opaque
 data:
   TORUS_TOKEN_ID: $TORUS_TOKEN_ID
