@@ -575,13 +575,14 @@ def get_users_login(request):
 def get_finding(request):
     submission_id = request.POST.get('id', "")
     finding = catch_finding(request, submission_id)
-    if finding['vulnerability'].lower() == 'masked':
-        rollbar.report_message('Warning: Project masked', 'warning', request)
-        return util.response([], 'Project masked', True)
-    if finding:
-        return util.response(finding, 'Success', False)
-    rollbar.report_message('Error: An error occurred getting finding', 'error', request)
+    if not finding is None:
+        if finding['vulnerability'].lower() == 'masked':
+            rollbar.report_message('Warning: Project masked', 'warning', request)
+            return util.response([], 'Project masked', True)
+        if finding:
+            return util.response(finding, 'Success', False)
     return util.response([], 'Wrong', True)
+
 
 @never_cache
 @csrf_exempt
