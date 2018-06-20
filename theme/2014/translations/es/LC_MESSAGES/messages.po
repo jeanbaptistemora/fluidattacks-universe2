@@ -672,7 +672,7 @@ msgstr "hacking-continuo"
 
 #: templates/landing.html:44
 msgid "Index-header-2"
-msgstr "Hacking <strong>Continuo</strong>"
+msgstr "Hacking<br/>Continuo"
 
 #: templates/landing.html:48
 msgid "Index-serv-2"
@@ -680,11 +680,11 @@ msgstr "hacking-puntual"
 
 #: templates/landing.html:48
 msgid "Index-header-3"
-msgstr "Hacking <strong>Puntual</strong>"
+msgstr "Hacking<br/>Puntual"
 
 #: templates/landing.html:56
 msgid "Index-bnft-header"
-msgstr "¿Por qué es <strong>Fluid Attacks la mejor opción</strong> para ti?"
+msgstr "¿Por qué es Fluid Attacks la mejor opción para ti?"
 
 #: templates/landing.html:59
 msgid "Index-img-alt-2"

@@ -667,7 +667,7 @@ msgstr "continuous-hacking"
 
 #: templates/landing.html:44
 msgid "Index-header-2"
-msgstr "<strong>Continuous</strong> Hacking"
+msgstr "Continuous<br/>Hacking"
 
 #: templates/landing.html:48
 msgid "Index-serv-2"
@@ -675,11 +675,11 @@ msgstr "one-shot-hacking"
 
 #: templates/landing.html:48
 msgid "Index-header-3"
-msgstr "<strong>One-Shot</strong> Hacking"
+msgstr "One-Shot<br/>Hacking"
 
 #: templates/landing.html:56
 msgid "Index-bnft-header"
-msgstr "Why <strong>Fluid Attacks</strong> is your <strong>best choice</strong>?"
+msgstr "Why is Fluid Attacks your best choice?"
 
 #: templates/landing.html:59
 msgid "Index-img-alt-2"
