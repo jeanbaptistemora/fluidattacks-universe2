@@ -24,18 +24,14 @@ def authorize(roles):
         @functools.wraps(func)
         def authorize_and_call(*args, **kwargs):
             request = args[0]
-            if not request.session.keys(): #Not logged in
-                return HttpResponse('<script>location = "/index";</script>')
-            else:
-                if "username" not in request.session or \
-                    request.session['registered'] != '1' or \
-                    request.session['role'] not in roles:
-                    if 'any' not in roles:
-                        return HttpResponse('<script> \
-                               var getUrl=window.location.hash.substr(1); \
-                  localStorage.setItem("url_inicio",getUrl); \
-                  location = window.location.href.split("/dashboard")[0] ; \
-                   </script>')
+            if "username" not in request.session or \
+                request.session['registered'] != '1' or \
+                request.session['role'] not in roles:
+                if 'any' not in roles:
+                    return HttpResponse('<script> \
+                           var getUrl=window.location.hash.substr(1); \
+              localStorage.setItem("url_inicio",getUrl); \
+              location = window.location.href.split("/dashboard")[0] ; </script>')
             return func(*args, **kwargs)
         return authorize_and_call
     return wrapper
