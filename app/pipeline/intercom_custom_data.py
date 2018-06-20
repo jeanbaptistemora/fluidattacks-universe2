@@ -18,7 +18,7 @@ class IntercomCustomData(object):
     def custom_data(self, user):
         """ Send extra data to Intercom. """
         email = user.get_username()
-        company = integrates_dao.get_company_dao(email)
+        company = integrates_dao.get_organization_dao(email)
         return {
             'Company' : company,
         }

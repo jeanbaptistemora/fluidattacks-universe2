@@ -257,6 +257,7 @@ def project_users(request):
     dicLang = {
         "search_findings": {
             "users_table": {
+               "userOrganization": "Organization",
                "usermail": "User email",
                "firstlogin": "First login",
                "lastlogin": "Last login",
@@ -268,6 +269,7 @@ def project_users(request):
         dicLang = {
             "search_findings": {
                 "users_table": {
+                   "userOrganization": "Organización",
                    "usermail": "Email",
                    "firstlogin": "Primer ingreso",
                    "lastlogin": "Último ingreso",
@@ -561,6 +563,7 @@ def get_users_login(request):
         first_login = first_login.split('.',1)[0]
         data['users']=user
         data['usersFirstLogin']=first_login
+        data['usersOrganization']=integrates_dao.get_organization_dao(user).title()
         userRole=integrates_dao.get_role_dao(user)
         if userRole=="customeradmin":
             data['userRole']="customer_admin"
@@ -584,7 +587,6 @@ def get_finding(request):
         if finding:
             return util.response(finding, 'Success', False)
     return util.response([], 'Wrong', True)
-
 
 @never_cache
 @csrf_exempt

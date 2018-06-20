@@ -104,7 +104,7 @@ def get_user_first_login_dao(email):
     return unicode(row[0])
 
 
-def get_company_dao(email):
+def get_organization_dao(email):
     """ Get the company of a user. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT company FROM users WHERE email = %s'

@@ -18,7 +18,7 @@ def login(request):
 
 def get_company(user):
     """ Gets the company to which the user belongs. """
-    return integrates_dao.get_company_dao(user)
+    return integrates_dao.get_organization_dao(user)
 
 
 def get_role(user):
