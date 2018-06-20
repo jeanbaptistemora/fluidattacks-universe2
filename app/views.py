@@ -685,6 +685,12 @@ def catch_finding(request, submission_id):
             finding["cierres"] = findingcloseset
             finding['cardinalidad_total'] = finding['openVulnerabilities']
             if 'opened' in state:
+                # Hack: This conditional temporarily solves the problem presented
+                #      when the number of vulnerabilities open in a closing cycle
+                # are higher than the number of vulnerabilities open in a finding 
+                # which causes negative numbers to be shown in the indicators view.
+                if int(state['opened']) > int(finding['cardinalidad_total']):
+                    finding['cardinalidad_total'] = state['opened']
                 finding['openVulnerabilities'] = state['opened']
             if 'whichOpened' in state:
                 finding['where'] = state['whichOpened']
