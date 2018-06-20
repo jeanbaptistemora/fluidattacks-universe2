@@ -154,7 +154,7 @@ small {
 }
 sub,
 sup {
-  font-size: 75%;
+  font-size: 90%;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
@@ -1149,25 +1149,13 @@ th {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-@font-face {
-  font-family: 'Source Sans Pro', sans-serif;
-  src: url('../lib/Source_Sans_Pro/SourceSansProRegular.ttf');
-}
-@font-face {
-  font-family: 'Montserrat ExtraBold', sans-serif;
-  src: url('../lib/Montserrat/Montserrat-ExtraBold.ttf');
-}
-@font-face {
-  font-family: 'Montserrat', sans-serif;
-  src: url('../lib/Montserrat/Montserrat-Regular.ttf');
-}
 html {
   font-size: 10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #555555;
   background-color: #f0f0f0;
@@ -1259,8 +1247,8 @@ h1,
 h2,
 .h1,
 .h2 {
-  font-family: 'Montserrat ExtraBold', sans-serif;
-  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
   line-height: 1.1;
   color: inherit;
 }
@@ -1278,7 +1266,6 @@ h6,
 .h5,
 .h6 {
   font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 300;
   line-height: 1.1;
   color: inherit;
 }
@@ -1354,7 +1341,7 @@ h5 .small,
 .h5 .small,
 h6 .small,
 .h6 .small {
-  font-size: 75%;
+  font-size: 90%;
 }
 h1,
 .h1 {
@@ -1374,18 +1361,18 @@ h4,
 }
 h5,
 .h5 {
-  font-size: 13px;
+  font-size: 16px;
 }
 h6,
 .h6 {
-  font-size: 12px;
+  font-size: 16px;
 }
 p {
   margin: 0 0 9px;
 }
 .lead {
   margin-bottom: 18px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.4;
 }
@@ -1652,7 +1639,7 @@ pre {
   display: block;
   padding: 8.5px;
   margin: 0 0 9px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.42857143;
   word-break: break-all;
   word-wrap: break-word;
@@ -2738,7 +2725,7 @@ input[type="checkbox"]:focus {
 output {
   display: block;
   padding-top: 9px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #777777;
 }
@@ -2747,7 +2734,7 @@ output {
   width: 100%;
   height: 44px;
   padding: 8px 12px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #777777;
   background-color: #ffffff;
@@ -2901,7 +2888,7 @@ fieldset[disabled] .checkbox label {
 .input-sm {
   height: 30px;
   padding: 5px 9px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
   border-radius: 0;
 }
@@ -2916,7 +2903,7 @@ select[multiple].input-sm {
 .form-group-sm .form-control {
   height: 30px;
   padding: 5px 9px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
   border-radius: 0;
 }
@@ -2932,13 +2919,13 @@ select[multiple].input-sm {
   height: 30px;
   min-height: 30px;
   padding: 6px 9px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
 }
 .input-lg {
   height: 51px;
   padding: 12px 16px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6333333;
   border-radius: 0;
 }
@@ -2953,7 +2940,7 @@ select[multiple].input-lg {
 .form-group-lg .form-control {
   height: 51px;
   padding: 12px 16px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6333333;
   border-radius: 0;
 }
@@ -2969,7 +2956,7 @@ select[multiple].input-lg {
   height: 51px;
   min-height: 33px;
   padding: 13px 16px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6333333;
 }
 .has-feedback {
@@ -3179,13 +3166,13 @@ select[multiple].input-lg {
 @media (min-width: 768px) {
   .form-horizontal .form-group-lg .control-label {
     padding-top: 13px;
-    font-size: 15px;
+    font-size: 16px;
   }
 }
 @media (min-width: 768px) {
   .form-horizontal .form-group-sm .control-label {
     padding-top: 6px;
-    font-size: 12px;
+    font-size: 16px;
   }
 }
 .btn {
@@ -3201,7 +3188,7 @@ select[multiple].input-lg {
   border: 1px solid transparent;
   white-space: nowrap;
   padding: 8px 12px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.42857143;
   border-radius: 0;
   -webkit-user-select: none;
@@ -3990,21 +3977,21 @@ fieldset[disabled] .btn-link:focus {
 .btn-lg,
 .btn-group-lg > .btn {
   padding: 12px 16px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6333333;
   border-radius: 0;
 }
 .btn-sm,
 .btn-group-sm > .btn {
   padding: 5px 9px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
   border-radius: 0;
 }
 .btn-xs,
 .btn-group-xs > .btn {
   padding: 1px 5px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
   border-radius: 0;
 }
@@ -4084,7 +4071,7 @@ tbody.collapse.in {
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
-  font-size: 13px;
+  font-size: 16px;
   text-align: left;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -4156,7 +4143,7 @@ tbody.collapse.in {
 .dropdown-header {
   display: block;
   padding: 3px 20px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #777777;
   white-space: nowrap;
@@ -4390,7 +4377,7 @@ tbody.collapse.in {
 .input-group-lg > .input-group-btn > .btn {
   height: 51px;
   padding: 12px 16px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6333333;
   border-radius: 0;
   height: 54px;
@@ -4420,7 +4407,7 @@ select[multiple].input-group-lg > .input-group-btn > .btn {
   line-height: 1.5;
   border-radius: 0;
   height: 33px;
-  font-size: 12px;
+  font-size: 16px;
   padding: 4px 12px;
 }
 select.input-group-sm > .form-control,
@@ -4455,7 +4442,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-addon {
   padding: 8px 12px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: normal;
   line-height: 1;
   color: #777777;
@@ -4466,12 +4453,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-addon.input-sm {
   padding: 5px 9px;
-  font-size: 12px;
+  font-size: 16px;
   border-radius: 0;
 }
 .input-group-addon.input-lg {
   padding: 12px 16px;
-  font-size: 15px;
+  font-size: 16px;
   border-radius: 0;
 }
 .input-group-addon input[type="radio"],
@@ -4830,7 +4817,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand {
   float: left;
   padding: 16px 15px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 18px;
   height: 50px;
 }
@@ -5328,7 +5315,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination-lg > li > a,
 .pagination-lg > li > span {
   padding: 12px 16px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6333333;
 }
 .pagination-lg > li:first-child > a,
@@ -5344,7 +5331,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination-sm > li > a,
 .pagination-sm > li > span {
   padding: 5px 9px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
 }
 .pagination-sm > li:first-child > a,
@@ -5398,7 +5385,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .label {
   display: inline;
   padding: .2em .6em .3em;
-  font-size: 75%;
+  font-size: 90%;
   font-weight: bold;
   line-height: 1;
   color: #ffffff;
@@ -5466,7 +5453,7 @@ a.label:focus {
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
   color: #ffffff;
   line-height: 1;
@@ -5694,7 +5681,7 @@ a.thumbnail.active {
   float: left;
   width: 0%;
   height: 100%;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 18px;
   color: #ffffff;
   text-align: center;
@@ -6025,7 +6012,7 @@ button.list-group-item-danger.active:focus {
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 15px;
+  font-size: 16px;
   color: inherit;
 }
 .panel-title > a,
@@ -6590,7 +6577,7 @@ button.close {
   word-break: normal;
   word-spacing: normal;
   word-wrap: normal;
-  font-size: 12px;
+  font-size: 16px;
   opacity: 0;
   filter: alpha(opacity=0);
 }
@@ -6708,7 +6695,7 @@ button.close {
   word-break: normal;
   word-spacing: normal;
   word-wrap: normal;
-  font-size: 13px;
+  font-size: 16px;
   background-color: #ffffff;
   background-clip: padding-box;
   border: 1px solid #cccccc;
@@ -6731,7 +6718,7 @@ button.close {
 .popover-title {
   margin: 0;
   padding: 8px 14px;
-  font-size: 13px;
+  font-size: 16px;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
   border-radius: -1 -1 0 0;
@@ -8194,6 +8181,7 @@ button:focus {
   color: #ffffff;
   font-family: 'Montserrat', sans-serif;
   font-size: 19px;
+  font-weight: bold;
   line-height: 70px;
 }
 @media (max-width: 767px) {
@@ -8213,7 +8201,7 @@ button:focus {
   line-height: 80px;
   color: #ffffff;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   padding: 0 18px;
   outline: none;
 }
@@ -8232,7 +8220,7 @@ button:focus {
   margin-top: 2px;
 }
 .am-top-header .navbar-collapse .navbar-nav > li.dropdown .dropdown-menu > li > a {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 300;
   color: #504e4e;
   padding: 10px 20px;
@@ -8333,7 +8321,7 @@ button:focus {
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-notifications .title,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-connections .title {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   color: #8a8a8a;
   text-align: center;
   padding: 3px 0 7px;
@@ -8357,7 +8345,7 @@ button:focus {
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-messages .footer a,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-notifications .footer a,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-connections .footer a {
-  font-size: 13px;
+  font-size: 16px;
   color: #8a8a8a;
   text-align: center;
   padding: 10px 0;
@@ -8433,12 +8421,12 @@ button:focus {
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-messages .am-scroller > .content > ul > li > a .user-content .text-content {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 16px;
 }
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-notifications .am-scroller > .content > ul > li > a .user-content .text-content,
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-messages .am-scroller > .content > ul > li > a .user-content .text-content {
   color: #8a8a8a;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 16px;
 }
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-notifications .am-scroller > .content > ul > li > a .user-content .date,
@@ -8540,7 +8528,7 @@ button:focus {
   font-family: 'Source Sans Pro', sans-serif;
   color: #8a8a8a;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 16px;
 }
 .am-top-header .navbar-collapse .am-icons-nav > li.dropdown .am-connections .content ul li .field .switch-button {
   vertical-align: middle;
@@ -8666,7 +8654,7 @@ button:focus {
   .am-top-header .navbar-collapse > .navbar-nav > li > a {
     padding: 0 20px;
     line-height: 50px;
-    font-size: 13px;
+    font-size: 16px;
     position: relative;
   }
   .am-top-header .navbar-collapse > .navbar-nav > li.open > a {
@@ -8829,7 +8817,7 @@ button:focus {
   padding: 15px;
   color: #e1e1e1;
   text-align: center;
-  font-size: 12px;
+  font-size: 16px;
 }
 .am-left-sidebar .sidebar-elements > li > a .icon {
   display: block;
@@ -8910,7 +8898,7 @@ button:focus {
 .am-left-sidebar .sidebar-elements > li > ul > .nav-items .am-scroller .content > ul > li > a {
   padding: 11px 25px;
   color: #b3b3b3;
-  font-size: 13px;
+  font-size: 16px;
   display: block;
   font-weight: 300;
 }
@@ -9159,7 +9147,7 @@ button:focus {
 }
 .am-right-sidebar .user-info span.name {
   color: #e1e1e1;
-  font-size: 14px;
+  font-size: 16px;
 }
 .am-right-sidebar .user-info span.name .status {
   border-radius: 50%;
@@ -9173,7 +9161,7 @@ button:focus {
 }
 .am-right-sidebar .user-info span.position {
   color: #aaaaaa;
-  font-size: 13px;
+  font-size: 16px;
 }
 @media (max-width: 767px) {
   .am-right-sidebar .user-info {
@@ -9192,13 +9180,13 @@ button:focus {
     padding-left: 46px;
   }
   .am-right-sidebar .user-info > span.position {
-    font-size: 12px;
+    font-size: 16px;
     line-height: 12px;
   }
 }
 .am-right-sidebar h2 {
   color: #e1e1e1;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   padding-bottom: 15px;
   border-bottom: 1px solid #6d6b6b;
@@ -9217,7 +9205,7 @@ button:focus {
   background-color: #333333;
   color: #b3b3b3;
   width: 100%;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 300;
   padding: 15px 20px;
   outline: none;
@@ -9337,7 +9325,7 @@ button:focus {
   display: block;
   color: #ffffff;
   padding-top: 3px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .am-right-sidebar .tab-panel .tab-content .announcement ul > li .content a:hover {
   color: #f38787;
@@ -9346,7 +9334,7 @@ button:focus {
   display: block;
   color: #b3b3b3;
   margin-top: 5px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .am-right-sidebar .tab-panel .tab-content .faqs .content,
 .am-right-sidebar .tab-panel .tab-content .faqs .nano-pane {
@@ -9400,7 +9388,7 @@ button:focus {
           transition: all 0.3s ease;
 }
 .am-right-sidebar .tab-panel .tab-content .faqs .panel-group .panel .panel-heading .panel-title a .title {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
 }
 .am-right-sidebar .tab-panel .tab-content .faqs .panel-group .panel .panel-heading .panel-title a.collapsed .icon {
@@ -9422,7 +9410,7 @@ button:focus {
   padding-top: 3px;
   padding-right: 0;
   padding-bottom: 0;
-  font-size: 12px;
+  font-size: 16px;
 }
 .am-right-sidebar .tab-panel .tab-content .ticket .content {
   padding: 10px 20px 30px;
@@ -9435,7 +9423,7 @@ button:focus {
 }
 .am-right-sidebar .tab-panel .tab-content .ticket form .send-ticket label {
   color: #ffffff;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   margin-bottom: 13px;
 }
@@ -9443,7 +9431,7 @@ button:focus {
   background-color: transparent;
   border-radius: 2px;
   box-shadow: none;
-  font-size: 13px;
+  font-size: 16px;
   border: 1px solid #646262;
   color: #e1e1e1;
   height: auto;
@@ -9489,7 +9477,7 @@ button:focus {
 }
 .chat .chat-category {
   margin: 30px 20px 15px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   padding-bottom: 15px;
   border-bottom: 1px solid #ededed;
@@ -9506,12 +9494,12 @@ button:focus {
 .chat .contact,
 .chat .chat-contact-list {
   margin-bottom: 30px;
-  font-size: 13px;
+  font-size: 16px;
 }
 .am-right-sidebar .chat .recent,
 .am-right-sidebar .chat .contact,
 .am-right-sidebar .chat .chat-contact-list {
-  font-size: 12px;
+  font-size: 16px;
 }
 .chat .recent .user a,
 .chat .contact .user a,
@@ -9598,7 +9586,7 @@ button:focus {
 .chat .chat-contact-list .user a .user-data2 .message {
   display: block;
   color: #999999;
-  font-size: 11px;
+  font-size: 16px;
 }
 .chat .recent .user a .user-data2,
 .chat .contact .user a .user-data2,
@@ -9681,11 +9669,11 @@ button:focus {
 }
 .chat .chat-window .title .user span {
   display: block;
-  font-size: 12px;
+  font-size: 16px;
   color: #999999;
 }
 .chat .chat-window .chat-messages {
-  font-size: 13px;
+  font-size: 16px;
   height: 274px;
 }
 .am-right-sidebar .chat .chat-window .chat-messages {
@@ -9710,7 +9698,7 @@ button:focus {
   display: inline-block;
   background-color: #f06c6c;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 16px;
   padding: 7px 8px;
   border-radius: 3px;
   white-space: normal;
@@ -9770,7 +9758,7 @@ button:focus {
 .chat-search > input {
   border: 0;
   width: 100%;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 300;
   padding: 20px;
   outline: none;
@@ -9794,7 +9782,7 @@ button:focus {
   border-width: 0;
   border-top: 1px solid #ededed;
   width: 100%;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 300;
   padding: 20px;
   padding-left: 42px;
@@ -9886,7 +9874,7 @@ button:focus {
   margin-bottom: 5px;
   margin-top: 6px;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
+  font-weight: bold;
   letter-spacing: -1px;
   font-size: 28px;
   line-height: 36px;
@@ -9987,7 +9975,7 @@ button:focus {
 }
 .aside-nav .nav li .label {
   float: right;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 300;
 }
 .aside-nav .nav li .icon {
@@ -10095,7 +10083,7 @@ button:focus {
 }
 .switch-button label:before {
   position: absolute;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
   z-index: 0;
   content: "OFF";
@@ -10125,7 +10113,7 @@ button:focus {
 }
 .switch-button input[type="checkbox"]:checked + span label:before {
   position: absolute;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
   z-index: 0;
   content: "ON";
@@ -10284,7 +10272,7 @@ button:focus {
 }
 .widget .chart-container > .counter .desc {
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 16px;
   color: #b2b2b2;
 }
 .widget.widget-fullwidth {
@@ -10535,7 +10523,7 @@ button:focus {
 }
 .gritter-item-wrapper .gritter-item .gritter-content.gritter-with-image p,
 .gritter-item-wrapper .gritter-item .gritter-content.gritter-without-image p {
-  font-size: 12px;
+  font-size: 16px;
   line-height: 19px;
 }
 .gritter-item-wrapper .gritter-item .gritter-content .gritter-without-image {
@@ -10693,7 +10681,7 @@ button:focus {
   line-height: 0;
 }
 .bs-grid-block .content .device:after {
-  font-size: 15px;
+  font-size: 16px;
 }
 @media (min-width: 1200px) {
   .bs-grid-block .content .device:after {
@@ -10744,7 +10732,7 @@ button:focus {
 }
 .icon-container .class {
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
 }
 /*------------------------------------------------------------------
@@ -10752,7 +10740,7 @@ button:focus {
 */
 /* Pretty printing styles. Used with prettify.js. */
 .prettyprint {
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
 }
 /* Light Theme*/
@@ -10895,7 +10883,7 @@ li.L9 {
 }
 .widget-pie .chart-container .legend table tr td {
   padding-bottom: 7px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .widget-pie .chart-container .legend table tr .legendColorBox {
   width: 1%;
@@ -10905,7 +10893,7 @@ li.L9 {
 }
 .widget-pie .chart-container .legend table tr .legendLabel {
   padding-left: 8px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .widget-pie .chart-container .legend table tr .legendData {
   text-align: right;
@@ -10923,7 +10911,7 @@ li.L9 {
   margin-bottom: 3px;
   text-transform: uppercase;
   color: #b2b2b2;
-  font-size: 12px;
+  font-size: 16px;
 }
 .widget-pie .chart-info span.number {
   font-size: 18px;
@@ -11009,7 +10997,7 @@ li.L9 {
 }
 .widget.line-chart .chart-container > .counter .desc {
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 16px;
   color: #b2b2b2;
 }
 .widget.line-chart .chart-table {
@@ -11083,12 +11071,12 @@ li.L9 {
   font-weight: 300;
 }
 .widget-calendar .cal-container .cal-notes span.date {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
   color: #fbd6d6;
 }
 .widget-calendar .cal-container .cal-notes span.title {
-  font-size: 14px;
+  font-size: 16px;
   border-bottom: 1px solid #ffffff;
   margin-top: 35px;
   padding-bottom: 3px;
@@ -11106,7 +11094,7 @@ li.L9 {
 }
 .widget-calendar .cal-container .cal-notes ul li {
   padding-bottom: 10px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .widget-calendar .cal-container .cal-notes ul li span {
   display: inline-block;
@@ -11136,7 +11124,7 @@ li.L9 {
   margin: 0 2.3em;
   text-align: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
 }
 .widget-calendar .cal-container .cal-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
 .widget-calendar .cal-container .cal-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
@@ -11186,7 +11174,7 @@ li.L9 {
   color: #555555;
 }
 .widget-calendar .cal-container .cal-calendar .ui-datepicker table.ui-datepicker-calendar th span {
-  font-size: 14px;
+  font-size: 16px;
 }
 .widget-calendar .cal-container .cal-calendar .ui-datepicker table.ui-datepicker-calendar tr td {
   border: 0;
@@ -11202,7 +11190,7 @@ li.L9 {
   width: 25px;
   height: 25px;
   line-height: 20px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .widget-calendar .cal-container .cal-calendar .ui-datepicker table.ui-datepicker-calendar tr td a.ui-state-active,
 .widget-calendar .cal-container .cal-calendar .ui-datepicker table.ui-datepicker-calendar tr td a.ui-state-highlight {
@@ -11243,7 +11231,7 @@ li.L9 {
   font-weight: 300;
 }
 .widget.widget-tile .data-info .desc {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
 }
 .widget.widget-tile .icon {
@@ -11272,7 +11260,7 @@ li.L9 {
 }
 .widget.widget-tile.widget-tile-wide .data-info .desc {
   color: #808080;
-  font-size: 12px;
+  font-size: 16px;
 }
 .widget.widget-tile.widget-tile-wide .tile-value {
   text-align: right;
@@ -11301,7 +11289,7 @@ li.L9 {
   text-align: center;
 }
 .widget-weather .wt-container .wt-hour .meridian {
-  font-size: 14px;
+  font-size: 16px;
   vertical-align: middle;
   margin-left: 8px;
   vertical-align: top;
@@ -11321,7 +11309,7 @@ li.L9 {
 .widget-weather .wt-container .wt-info .wt-day span {
   display: block;
   font-weight: 300;
-  font-size: 15px;
+  font-size: 16px;
 }
 .widget-weather .wt-container .wt-info .wt-day span.day {
   margin-bottom: 10px;
@@ -11341,7 +11329,7 @@ li.L9 {
 }
 .widget-weather .wt-container .wt-location {
   padding: 19px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
 }
 .widget-weather .wt-container .wt-location .icon {
@@ -11386,7 +11374,7 @@ li.L9 {
   color: #555555;
   display: block;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 16px;
 }
 .widget-download-list .widget-list li a .icon {
   float: right;
@@ -11434,7 +11422,7 @@ li.L9 {
   display: block;
   color: #858383;
   line-height: 20px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   font-family: 'Source Sans Pro', sans-serif;
   margin-top: 10px;
@@ -11466,7 +11454,7 @@ li.L9 {
   color: #a3a2a2;
   padding: 0;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   height: 36px;
 }
@@ -11483,7 +11471,7 @@ li.L9 {
 .login-container .panel-default .panel-body .form-group.footer {
   margin-top: 3px;
   line-height: 35px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .login-container .panel-default .panel-body .form-group .remember {
   text-align: right;
@@ -11554,7 +11542,7 @@ li.L9 {
 }
 @media (max-width: 767px) {
   .am-error .error-goback-text {
-    font-size: 15px;
+    font-size: 16px;
   }
 }
 /*------------------------------------------------------------------
@@ -11597,7 +11585,7 @@ li.L9 {
   margin-bottom: 15px !important;
 }
 .sign-up .panel-body .form-horizontal .title {
-  font-size: 15px;
+  font-size: 16px;
   color: #d9d9d9;
   text-align: center;
 }
@@ -11635,7 +11623,7 @@ li.L9 {
 }
 .forgot-password .panel-body .form-horizontal p {
   color: #979595;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 25px;
 }
 .forgot-password .panel-body .form-horizontal p a {
@@ -11761,12 +11749,12 @@ li.L9 {
 }
 @media (max-width: 767px) {
   .gallery-container .item .photo .description .desc h4 {
-    font-size: 15px;
+    font-size: 16px;
   }
 }
 .gallery-container .item .photo .description .desc span {
   color: #8a8888;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 300;
 }
 @media (max-width: 767px) {
@@ -11969,7 +11957,7 @@ li.L9 {
   margin-bottom: 5px;
 }
 .user-profile .user-display .bottom .user-info span {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   color: #7b7b7b;
 }
@@ -12090,11 +12078,11 @@ li.L9 {
 }
 .email-list .item .icon {
   margin-right: 7px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .email-list .item .from {
   font-weight: 400;
-  font-size: 13px;
+  font-size: 16px;
   margin: 0 0 3px 0;
 }
 .email-list .item .msg {
@@ -12136,7 +12124,7 @@ li.L9 {
   background-color: #ffffff;
   border-top: 1px solid #e6e6e6;
   padding: 30px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
 }
 .email-body p {
@@ -12205,7 +12193,7 @@ pre {
 }
 .btn-xs,
 .btn-group-xs > .btn {
-  font-size: 11px;
+  font-size: 16px;
   padding-top: 2px;
   padding-bottom: 2px;
 }
@@ -16467,7 +16455,7 @@ fieldset[disabled] .btn-social.btn-tumblr.active {
   margin-left: 3px;
 }
 .btn .icon.fa {
-  font-size: 15px;
+  font-size: 16px;
 }
 .btn.btn-lg .icon {
   font-size: 23px;
@@ -16478,7 +16466,7 @@ fieldset[disabled] .btn-social.btn-tumblr.active {
   line-height: 16px;
 }
 .btn.btn-xs .icon {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
 }
 .btn-group.open .dropdown-toggle {
@@ -17435,7 +17423,7 @@ fieldset[disabled] .btn-social.btn-tumblr.active {
 .table > thead > tr > th {
   border-bottom-width: 1px;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 16px;
 }
 .table > thead.primary > tr > th {
   color: #DB3738;
@@ -17490,7 +17478,7 @@ fieldset[disabled] .btn-social.btn-tumblr.active {
   [Badges]
 */
 .badge {
-  font-size: 11px;
+  font-size: 16px;
 }
 .badge-primary {
   background-color: #DB3738;
@@ -17597,7 +17585,7 @@ a.text-alt4:focus {
   border-width: 2px;
   box-shadow: none;
   padding: 10px 12px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .form-control:focus {
   box-shadow: none;
@@ -17615,7 +17603,7 @@ textarea.form-control {
 }
 label {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 8px;
 }
 .am-checkbox,
@@ -17706,7 +17694,7 @@ label {
   border-radius: 50%;
   font-family: 'Stroke 7';
   line-height: 17px;
-  font-size: 14px;
+  font-size: 16px;
 }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   .am-checkbox input[type="radio"] + label:before,
@@ -17739,7 +17727,7 @@ label {
   padding: 12px 0;
 }
 .input-group-addon {
-  font-size: 15px;
+  font-size: 16px;
 }
 .input-group-addon .am-checkbox,
 .input-group-addon .am-radio {
@@ -17766,12 +17754,12 @@ label {
 }
 .input-sm {
   height: 33px;
-  font-size: 12px;
+  font-size: 16px;
   padding: 4px 12px;
 }
 .input-xs {
   height: 25px;
-  font-size: 12px;
+  font-size: 16px;
   padding: 1px 7px;
 }
 /*------------------------------------------------------------------
@@ -17938,7 +17926,7 @@ form.dropzone .note {
 }
 .fuelux .wizard > .actions a {
   line-height: 45px;
-  font-size: 12px;
+  font-size: 16px;
   margin-right: 8px;
 }
 .fuelux .wizard > .actions .btn-prev[disabled] {
@@ -18008,7 +17996,7 @@ form.dropzone .note {
   border-left: 14px solid #f7f7f7;
 }
 .fuelux .wizard > .steps li {
-  font-size: 15px;
+  font-size: 16px;
 }
 .fuelux .wizard > .steps li:first-child {
   border-radius: 0;
@@ -18041,10 +18029,10 @@ form.dropzone .note {
   -moz-transform: scale(0.9999);
 }
 .fuelux .wizard > .actions button {
-  font-size: 12px;
+  font-size: 16px;
 }
 .fuelux .wizard > .actions button i {
-  font-size: 11px;
+  font-size: 16px;
   line-height: 18px;
 }
 .fuelux .wizard > .actions button.btn-prev i {
@@ -18073,7 +18061,7 @@ form.dropzone .note {
   padding: 0;
   max-width: 600px;
   list-style: none;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 20px;
 }
 .dd-list {
@@ -18190,7 +18178,7 @@ form.dropzone .note {
   margin: 0;
   padding: 0;
   min-height: 20px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 20px;
 }
 .dd-list .dd-placeholder,
@@ -18270,7 +18258,7 @@ form.dropzone .note {
 }
 .datetimepicker.dropdown-menu table thead tr th.switch {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
 }
 .datetimepicker.dropdown-menu table thead tr th.switch:hover {
   background-color: transparent;
@@ -18278,7 +18266,7 @@ form.dropzone .note {
 }
 .datetimepicker.dropdown-menu table thead tr th.dow {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   padding-top: 10px;
 }
 .datetimepicker.dropdown-menu table tbody tr td {
@@ -18343,7 +18331,7 @@ form.dropzone .note {
   padding: 10px 12px;
   height: 40px;
   line-height: 20px;
-  font-size: 14px;
+  font-size: 16px;
   color: #777777;
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -18393,7 +18381,7 @@ form.dropzone .note {
   top: -1px;
 }
 .select2-container--default .select2-results__group {
-  font-size: 12px;
+  font-size: 16px;
   color: #6f6f6f;
 }
 .select2-container--default .select2-results__option {
@@ -18464,7 +18452,7 @@ form.dropzone .note {
   padding-bottom: 5px;
 }
 .note-editor .note-toolbar .btn .fa {
-  font-size: 14px;
+  font-size: 16px;
 }
 .note-editor .note-toolbar > .btn-group {
   margin-left: 0;
@@ -18516,7 +18504,7 @@ form.dropzone .note {
 }
 .md-editor > textarea {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: 16px;
   outline: 0;
   outline: thin dotted  \9;
   /* IE6-9 */
@@ -18689,7 +18677,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 div.dataTables_wrapper div.dataTables_length label,
 div.dataTables_wrapper div.dataTables_filter label {
   margin-bottom: 0;
-  font-size: 13px;
+  font-size: 16px;
   color: #767676;
 }
 div.dataTables_wrapper div.dataTables_length label select {
@@ -20038,7 +20026,7 @@ div.dataTables_wrapper div.dataTables_length label select {
   margin-top: 20px;
 }
 .timeline-blockquote p {
-  font-size: 13px;
+  font-size: 16px;
 }
 .timeline-blockquote footer {
   color: #8a8a8a;
@@ -20058,7 +20046,7 @@ div.dataTables_wrapper div.dataTables_length label select {
   padding: 5px 9px;
   color: #424242;
   outline: none;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   position: absolute;
   left: 131px;
@@ -20268,7 +20256,7 @@ div.dataTables_wrapper div.dataTables_length label select {
     font-weight: 300;
 }
 .widget-desc {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 18px;
 }
 .widget-box {
