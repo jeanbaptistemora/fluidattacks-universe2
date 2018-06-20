@@ -20,9 +20,9 @@ In a way they are the security commandments
 that you agree to follow and comply with and therefore,
 in our hacking services, we determine if these are met or not.
 
-== International Standards
+== Standards
 
-Rules is based on several international standards
+Rules is based on several standards
 related to information security, including:
 
 . [button]#link:../../search.html?q=HIPAA[HIPAA]#

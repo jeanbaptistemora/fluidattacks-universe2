@@ -21,9 +21,9 @@ que usted se compromete a cumplir
 y por ende en nuestro servicios de hacking determinamos
 si estos se cumplen o no.
 
-== Estándares Internacionales
+== Estándares
 
-Rules está basado en diversos estándares internacionales
+Rules está basado en diversos estándares
 relacionados a la seguridad informática
 entre los que se incluyen:
 
