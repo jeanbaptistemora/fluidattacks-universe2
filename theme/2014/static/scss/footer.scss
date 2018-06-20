@@ -1,40 +1,40 @@
-$fluid-black: rgba(67, 67, 67, 1);
+$fluid-black: rgba(39, 39, 39, 1);
 $footerblack: rgba(51, 51, 51, 1);
-$fluid-red: rgba(247, 60, 57, 1);
+$fluid-red: rgba(255, 52, 53, 1);
 $white: rgba(255, 255, 255, 1);
 
 .divlogo {
-  margin: 0 0 10px;
-  padding: 30px 0 0 10px;
   text-align: center;
 }
 
 .divcompany {
-  display: inline-block;
-  vertical-align: top;
+  margin: auto;
+  padding-top: 45px;
+  width: 300px;
 }
 
 .divsocial {
-  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 45px 0;
 
   img {
-    &:hover {
-      background-color: $fluid-red;
-      border-radius: 15px;
-    }
+    width: 40px;
   }
 }
 
 .footer {
-  background-color: $fluid-black;
-  padding: 0 0 20px;
-  text-align: center;
+  background-color: $fluid-red;
+
+  h3 {
+    font-size: 22px;
+  }
 }
 
 .navfoot {
-  align-content: space-between;
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 45px;
 }
 
 .colfoot {
@@ -46,22 +46,29 @@ $white: rgba(255, 255, 255, 1);
     font-weight: bold;
 
     &:hover {
-      color: $fluid-red;
+      color: $fluid-black;
     }
   }
 }
 
+.colcontent {
+  margin-left: 10%;
+  width: max-content;
+}
+
 .status-div {
-  background-color: $footerblack;
-  color: $white;
-  font-weight: bold;
-  position: absolute;
-  text-align: center;
-  width: 100%;
+  background-color: $white;
+  height: 50px;
+
+  .status {
+    padding: 12px 0 12px 40px;
+  }
 }
 
 .status-link {
-  color: $white;
+  color: $fluid-black;
+  font-size: 18px;
+  font-weight: bold;
 
   &:hover {
     color: $fluid-red;
@@ -69,24 +76,55 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 480px) {
+  .colcontent {
+    margin-left: 20%;
+  }
+}
+
+@media (min-width: 580px) {
   .colfoot {
     width: 33%;
   }
 }
 
-@media (min-width: 900px) {
-  .colfoot {
-    width: 16%;
-  }
-}
-
-@media (min-width: 1080px) {
+@media (min-width: 780px) {
   .footer {
     display: flex;
   }
 
+  .divcompany {
+    padding: unset;
+  }
+
+  .divlogo {
+    margin-bottom: 100px;
+
+    img {
+      width: 250px;
+    }
+  }
+
   .navfoot {
-    margin-left: 10px;
+    padding-top: 25px;
+  }
+}
+
+@media (min-width: 1180px) {
+  .divcompany {
+    flex: 1 0 300px;
+    margin: unset;
+    padding-top: 45px;
+  }
+
+  .navfoot {
     width: 100%;
+  }
+
+  .colfoot {
+    width: 16%;
+  }
+
+  .colcontent {
+    margin: auto;
   }
 }
