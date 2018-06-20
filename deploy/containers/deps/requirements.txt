@@ -39,3 +39,4 @@ mixpanel
 pypdf==1.13
 backports.csv==1.0.5
 pyflakes==1.6.0
+graphene==2.1
