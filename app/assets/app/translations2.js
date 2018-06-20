@@ -169,6 +169,7 @@ const translations2 = {
      "customer": "User",
      "customer_admin": "Manager",
      "days_ago": " day(s) ago",
+     "email": "someone@domain.com",
      "hours_ago": " hour(s) ago",
      "minutes_ago": " minute(s) ago",
      "no_selection": "You must select an email from the table.",
@@ -179,7 +180,8 @@ const translations2 = {
      "success_admin": "Role Changed.",
      "success_admin_remove": " is no longer an administrator of this project.",
      "success_delete": " was removed from this project.",
-     "textbox": "Enter the email of the person you want to add",
+     "textbox": "Enter the email of the person you wish to add, it must be " +
+                  "an Office 365 or Google email.",
      "title": "Add user to this project",
      "title_success": "Congratulations",
      "wrong_format": "The email format is not valid."

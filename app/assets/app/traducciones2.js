@@ -170,6 +170,7 @@ const traducciones2 = {
     "customer": "Usuario",
     "customer_admin": "Manager",
     "days_ago": " dia(s) atrás",
+    "email": "alguien@dominio.com",
     "hours_ago": " hora(s) atrás",
     "minutes_ago": " minuto(s) atrás",
     "no_selection": "Debe seleccionar un correo de la tabla.",
@@ -180,7 +181,8 @@ const traducciones2 = {
     "success_admin": "Rol cambiado.",
     "success_admin_remove": " ya no es administrador de este proyecto.",
     "success_delete": " fue removido del proyecto.",
-    "textbox": "Ingresa el correo de la persona que deseas agregar",
+    "textbox": "Ingresa el correo de la persona que deseas agregar, este " +
+                "debe ser un correo de Office 365 o Google.",
     "title": "Agregar usuario a este proyecto",
     "title_success": "Felicitaciones",
     "wrong_format": "El correo ingresado no es valido."

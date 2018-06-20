@@ -4,7 +4,8 @@
             <h3>{{modalTitle}}</h3>
             <hr>
             <div class="row">
-                <textarea rows="1" class="form-control" style="resize:none;" ng-model="newUserInfo.userEmail" translate-attr="{ placeholder: 'search_findings.tab_users.textbox' }" required></textarea>
+                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.textbox' | translate}}</label>
+                <textarea rows="1" class="form-control" style="resize:none;" ng-model="newUserInfo.userEmail" translate-attr="{ placeholder: 'search_findings.tab_users.email' }" required></textarea>
             </div>
             <br>
             <div class="row">
