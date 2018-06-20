@@ -543,9 +543,11 @@ def get_users_login(request):
     "Get the email and last login date of all users in a project."
     project = request.GET.get('project', None)
     dataset = []
-    usersEmail = integrates_dao.get_project_users(project.lower())
-    users = [x[0] for x in usersEmail if x[1] == 1]
-    for user in users:
+    actualUser = request.session['username']
+    initialEmails = integrates_dao.get_project_users(project.lower())
+    initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
+    usersEmail = util.user_email_filter(initialEmailsList, actualUser)
+    for user in usersEmail:
         data = {}
         last_login = integrates_dao.get_user_last_login_dao(user)
         last_login = last_login.split('.',1)[0]

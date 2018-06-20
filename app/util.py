@@ -196,3 +196,13 @@ def get_ext_filename(drive_id):
         return filename+".jgp"
     elif mime_type == "image/gif":
         return filename+".gif"
+
+def user_email_filter(emails, actualUser):
+    if "@fluidattacks.com" in actualUser:
+        finalUsers = emails
+    else:
+        for user in emails:
+            if "@fluidattacks.com" in user:
+                emails.remove(user)
+        finalUsers = emails
+    return finalUsers
