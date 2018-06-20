@@ -203,7 +203,8 @@ def get_new_releases():
         send_mail_new_releases(to, context)
 
 def continuous_report():
-    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', 'oparada@fluidattacks.com' ]
+    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', \
+          'oparada@fluidattacks.com', 'projects@fluidattacks.com', 'relations@fluidattacks.com'  ]
     headers = ['Proyecto','Lineas','Campos','Efc. Cierre','CVSS', 'Events']
     context = {'projects':list(), 'headers': headers, 'date_now': str(datetime.now().date())}
     api = FormstackAPI()
