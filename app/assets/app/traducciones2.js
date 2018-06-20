@@ -173,6 +173,7 @@ const traducciones2 = {
     "email": "alguien@dominio.com",
     "hours_ago": " hora(s) atrás",
     "minutes_ago": " minuto(s) atrás",
+    "months_ago": " mes(es) atrás",
     "no_selection": "Debe seleccionar un correo de la tabla.",
     "remove_admin": "Remover admin",
     "remove_admin_error": "Sólo puedes remover a un administrador a la vez.",

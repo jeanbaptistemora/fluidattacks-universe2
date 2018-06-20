@@ -1,7 +1,10 @@
 function lastLogin(a, b) {
     function AlphanumericToNumber(s) {
         val=s.split(" ");
-        if (val[1]==="day(s)" || val[1]==="dia(s)"){
+        if (val[1]==="month(s)" || val[1]==="mes(es)"){
+          aux=400;
+        }
+        else if (val[1]==="day(s)" || val[1]==="dia(s)"){
           aux=300;
         } else if (val[1]==="hour(s)" || val[1]==="hora(s)")
         {

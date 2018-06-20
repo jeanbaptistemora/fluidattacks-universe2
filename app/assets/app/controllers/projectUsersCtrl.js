@@ -141,7 +141,16 @@ angular.module("FluidIntegrates").controller(
             angular.forEach(usersData, (element) => {
               element.userRole = $translate.instant(`${"search_findings." +
                                             "tab_users."}${element.userRole}`);
-              if (element.usersLogin[0] > 0) {
+              const DAYS_IN_MONTH = 30;
+              if (element.usersLogin[0] >= DAYS_IN_MONTH) {
+                const ROUNDED_MONTH = Math.round(element.usersLogin[0] /
+                                               DAYS_IN_MONTH);
+                element.usersLogin = ROUNDED_MONTH +
+                                  $translate.instant("search_findings." +
+                                                "tab_users.months_ago");
+              }
+              else if (element.usersLogin[0] > 0 &&
+                       element.usersLogin[0] < DAYS_IN_MONTH) {
                 element.usersLogin = element.usersLogin[0] +
                                   $translate.instant("search_findings." +
                                                 "tab_users.days_ago");
@@ -154,10 +163,11 @@ angular.module("FluidIntegrates").controller(
                 const SECONDS_IN_HOUR = 3600;
                 const ROUNDED_HOUR = Math.round(element.usersLogin[1] /
                                                SECONDS_IN_HOUR);
-                const SECONDS_IN_HMINUTES = 60;
+                const SECONDS_IN_MINUTES = 60;
                 const ROUNDED_MINUTES = Math.round(element.usersLogin[1] /
-                                                  SECONDS_IN_HMINUTES);
-                if (ROUNDED_HOUR >= 1) {
+                                                  SECONDS_IN_MINUTES);
+                if (ROUNDED_HOUR >= 1 &&
+                    ROUNDED_MINUTES >= SECONDS_IN_MINUTES) {
                   element.usersLogin = ROUNDED_HOUR +
                                 $translate.instant("search_findings." +
                                               "tab_users.hours_ago");
