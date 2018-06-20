@@ -620,7 +620,7 @@ def get_releases(request):
 # pylint: disable=R0914
 def get_findings(request):
     """Capture and process the name of a project to return the findings."""
-    project = request.GET.get('project', "")
+    project = request.GET.get('project', "").encode('utf-8')
     username = request.session['username']
     api = FormstackAPI()
     findings = []
