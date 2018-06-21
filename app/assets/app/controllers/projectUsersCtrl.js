@@ -78,9 +78,17 @@ angular.module("FluidIntegrates").controller(
       $scope.userRole = userRole;
       $scope.isManager = userRole !== "customer" &&
                          userRole !== "customeradmin";
-      $scope.isProjectAdmin = userRole !== "customer" &&
-        userRole !== "analyst";
       $scope.isCustomer = userRole !== "customer";
+      const customerAdmin =
+                        projectFtry2.isCustomerAdmin(projectName, userEmail);
+      customerAdmin.then((response) => {
+        if (!response.error) {
+          $scope.isProjectAdmin = response.data;
+        }
+        else if (response.error) {
+          $scope.isProjectAdmin = response.data;
+        }
+      });
       $scope.isAdmin = userRole !== "customer" &&
         userRole !== "customeradmin" && userRole !== "analyst";
       // Default flags value for view visualization
@@ -201,7 +209,7 @@ angular.module("FluidIntegrates").controller(
       });
       angular.element("#tblUsers").bootstrapTable("refresh");
       angular.element("#tblUsers").bootstrapTable("hideColumn", "selection");
-      if ($scope.isProjectAdmin) {
+      if ($scope.isProjectAdmin || $scope.isAdmin) {
         angular.element("#tblUsers").bootstrapTable("showColumn", "selection");
       }
       angular.element("#search_section").show();
@@ -222,8 +230,16 @@ angular.module("FluidIntegrates").controller(
           $scope.newUserInfo = {};
           $scope.isAdmin = userRole !== "customer" &&
                 userRole !== "customeradmin" && userRole !== "analyst";
-          $scope.isProjectAdmin = userRole !== "customer" &&
-                userRole !== "analyst";
+          const customerAdmin =
+                    projectFtry2.isCustomerAdmin(descData.project, userEmail);
+          customerAdmin.then((response) => {
+            if (!response.error) {
+              $scope.isProjectAdmin = response.data;
+            }
+            else if (response.error) {
+              $scope.isProjectAdmin = response.data;
+            }
+          });
           $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_users.title");
           $scope.ok = function ok () {
@@ -307,8 +323,16 @@ angular.module("FluidIntegrates").controller(
             $scope.userInfo = {};
             $scope.isAdmin = userRole !== "customer" &&
                 userRole !== "customeradmin" && userRole !== "analyst";
-            $scope.isProjectAdmin = userRole !== "customer" &&
-                userRole !== "analyst";
+            const customerAdmin =
+                        projectFtry2.isCustomerAdmin(data.project, userEmail);
+            customerAdmin.then((response) => {
+              if (!response.error) {
+                $scope.isProjectAdmin = response.data;
+              }
+              else if (response.error) {
+                $scope.isProjectAdmin = response.data;
+              }
+            });
             $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_users.change_role");
             $scope.ok = function ok () {
@@ -318,7 +342,11 @@ angular.module("FluidIntegrates").controller(
               if (re.test(String($scope.userInfo.userEmail).toLowerCase())) {
               // Make the request
                 const req = projectFtry2.
-                  changeUserRole(adminEmail[0], $scope.userInfo.userRole);
+                  changeUserRole(
+                    adminEmail[0],
+                    $scope.userInfo.userRole,
+                    data.project
+                  );
                 // Capture the promise
                 req.then((response) => {
                   if (!response.error) {

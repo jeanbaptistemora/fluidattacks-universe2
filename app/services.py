@@ -36,3 +36,13 @@ def has_access_to_project(user, project_name, rol):
     if rol == 'admin':
         return True
     return integrates_dao.has_access_to_project_dao(user, project_name)
+
+
+def is_customeradmin(project, email):
+    """Verify if a user is a customeradmin."""
+    project_data = integrates_dao.get_project_dynamo(project)
+    for data in project_data:
+        if 'customeradmin' in data:
+            if email in data["customeradmin"]:
+                return True
+    return False

@@ -35,6 +35,7 @@ from .mailer import send_mail_verified_finding
 from .mailer import send_mail_reject_release
 from .mailer import send_mail_access_granted
 from .services import has_access_to_project
+from .services import is_customeradmin
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
@@ -570,10 +571,13 @@ def get_users_login(request):
         data['usersFirstLogin']=first_login
         data['usersOrganization']=integrates_dao.get_organization_dao(user).title()
         userRole=integrates_dao.get_role_dao(user)
-        if userRole=="customeradmin":
-            data['userRole']="customer_admin"
+        if userRole == "customeradmin":
+            if is_customeradmin(project, user):
+                data['userRole'] = "customer_admin"
+            else:
+                data['userRole'] = "customer"
         else:
-            data['userRole']=userRole
+            data['userRole'] = userRole
         dataset.append(data)
     return util.response(dataset, 'Success', False)
 
@@ -1559,12 +1563,18 @@ def add_access_integrates(request):
     project = parameters['data[project]']
     admin = parameters['data[admin]']
     role = parameters['data[userRole]']
+    if project.strip() == "":
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        return util.response([], 'Empty fields', True)
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
     project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
                   + project.lower() + '/indicators'
     if (request.session['role'] == 'admin'):
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):
-            create_new_user(newUser, role, company)
+            create_new_user(newUser, role, company, project)
             if integrates_dao.add_access_to_project_dao(newUser, project):
                 description = integrates_dao.get_project_description(project)
                 to = [newUser]
@@ -1577,9 +1587,9 @@ def add_access_integrates(request):
                 send_mail_access_granted(to, context)
                 return util.response([], 'Success', False)
             return util.response([], 'Success', False)
-    elif (request.session['role'] == 'customeradmin'):
+    elif is_customeradmin(project, request.session['username']):
         if (role == 'customer' or role == 'customeradmin'):
-            create_new_user(newUser, role, company)
+            create_new_user(newUser, role, company, project)
             if integrates_dao.add_access_to_project_dao(newUser, project):
                 description = integrates_dao.get_project_description(project)
                 to = [newUser]
@@ -1594,13 +1604,36 @@ def add_access_integrates(request):
     else:
         return util.response([], 'Error', True)
 
-def create_new_user(newUser, role, company):
+def create_new_user(newUser, role, company, project):
     if not integrates_dao.is_in_database(newUser):
         integrates_dao.create_user_dao(newUser)
     if integrates_dao.is_registered_dao(newUser) == '0':
         integrates_dao.register(newUser)
         integrates_dao.assign_role(newUser, role)
         integrates_dao.assign_company(newUser, company)
+    if role == 'customeradmin':
+        integrates_dao.add_role_to_project_dynamo(project.lower(), [newUser], role)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
+def is_customer_admin(request):
+    project = request.GET.get('project', "")
+    email = request.GET.get('email', "")
+    if project.strip() == "":
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        return util.response(False, 'Empty fields', True)
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response(False, 'Access denied', True)
+    try:
+        if is_customeradmin(project, email):
+            return util.response(True, 'Success', False)
+        return util.response(False, 'Success', False)
+    except KeyError:
+        rollbar.report_exc_info(sys.exc_info(), request)
+        return util.response(False, 'Error', True)
 
 @never_cache
 @require_http_methods(["POST"])
@@ -1609,8 +1642,19 @@ def remove_access_integrates(request):
     parameters = request.POST.dict()
     user = parameters['email']
     project = parameters['project']
-    if integrates_dao.remove_access_project_dao(user, project):
-        return util.response([], 'Success', False)
+    if project.strip() == "":
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        return util.response([], 'Empty fields', True)
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
+    if (is_customeradmin(project, request.session['username']) or
+            request.session['role'] == 'admin'):
+        if integrates_dao.remove_access_project_dao(user, project):
+            role = integrates_dao.get_role_dao(user)
+            if role == 'customeradmin':
+                integrates_dao.remove_role_to_project_dynamo(project, user, role)
+            return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
 
@@ -1620,14 +1664,25 @@ def remove_access_integrates(request):
 def change_user_role(request):
     email = request.POST.get('email', "")
     role = request.POST.get('role', "")
+    project = request.POST.get('project', "")
+    if project.strip() == "":
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        return util.response([], 'Empty fields', True)
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
     if request.session['role'] == 'admin':
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):
             if integrates_dao.assign_role(email, role) is None:
+                if role == 'customeradmin':
+                    integrates_dao.add_role_to_project_dynamo(project.lower(), [email], role)
                 return util.response([], 'Success', False)
-    elif request.session['role'] == 'customeradmin':
+    elif is_customeradmin(project, request.session['username']):
         if role == 'customer'or role == 'customeradmin':
             if integrates_dao.assign_role(email, role) is None:
+                if role == 'customeradmin':
+                    integrates_dao.add_role_to_project_dynamo(project.lower(), [email], role)
                 return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 

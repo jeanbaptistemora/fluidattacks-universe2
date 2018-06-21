@@ -843,8 +843,9 @@ def get_remediated_allfindings_dynamo(filter_value):
     return items
 
 
-def get_project_dynamo(filter_value):
+def get_project_dynamo(project):
     """Get a project info."""
+    filter_value = project.lower()
     table = dynamodb_resource.Table('FI_projects')
     filter_key = 'project_name'
     if filter_key and filter_value:
@@ -917,6 +918,67 @@ def add_release_toproject_dynamo(project_name, release_val, last_release):
         except ClientError:
             rollbar.report_exc_info()
             return False
+
+
+def add_role_to_project_dynamo(project_name, user_email, role):
+    """Adding user role in a project."""
+    table = dynamodb_resource.Table('FI_projects')
+    item = get_project_dynamo(project_name)
+    if item == []:
+        try:
+            response = table.put_item(
+                Item={
+                    'project_name': project_name.lower(),
+                    role: set([user_email])
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'project_name': project_name.lower(),
+                },
+                UpdateExpression='ADD #rol :val1',
+                ExpressionAttributeNames={
+                    '#rol': role
+                },
+                ExpressionAttributeValues={
+                    ':val1': set([user_email])
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+
+
+def remove_role_to_project_dynamo(project_name, user_email, role):
+    """Remove user role in a project."""
+    table = dynamodb_resource.Table('FI_projects')
+    try:
+        response = table.update_item(
+            Key={
+                'project_name': project_name.lower(),
+            },
+            UpdateExpression='DELETE #rol :val1',
+            ExpressionAttributeNames={
+                '#rol': role
+            },
+            ExpressionAttributeValues={
+                ':val1': set([user_email])
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
 
 
 def get_finding_dynamo(finding_id):

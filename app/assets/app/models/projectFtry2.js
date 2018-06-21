@@ -183,15 +183,34 @@ angular.module("FluidIntegrates").factory(
        * @function changeUserRole
        * @param {String} email Email of the user.
        * @param {String} role New user role.
+       * @param {String} project New user project.
        * @member integrates.projectFtry2
        * @return {Object} Response by SQL DB
        */
-      "changeUserRole" (email, role) {
+      "changeUserRole" (email, role, project) {
         const oopsAc = "An error occurred setting project admin";
         return $xhr.post($q, `${BASE.url}change_user_role`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           email,
+          project,
           role
+        }, oopsAc);
+      },
+
+      /**
+       * Get role of a user.
+       * @function isCustomerAdmin
+       * @param {String} project Project name.
+       * @param {String} email User email.
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with the releases of a project
+       */
+      "isCustomerAdmin" (project, email) {
+        const oopsAc = "An error occurred getting user role";
+        return $xhr.get($q, `${BASE.url}is_customer_admin`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          email,
+          project
         }, oopsAc);
       },
 
