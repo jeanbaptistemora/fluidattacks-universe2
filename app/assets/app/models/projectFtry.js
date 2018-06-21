@@ -359,11 +359,12 @@ angular.module("FluidIntegrates").factory(
        * @member integrates.projectFtry
        * @return {Object} Response by DynamoDB finding comments
        */
-      "getComments" (id) {
+      "getComments" (id, project) {
         const oopsAc = "An error ocurred getting comments";
         return $xhr.get($q, `${BASE.url}get_comments`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          id
+          id,
+          project
         }, oopsAc);
       },
 

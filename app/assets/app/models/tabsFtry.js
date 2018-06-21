@@ -28,7 +28,9 @@ angular.module("FluidIntegrates").factory(
     return {
       "findingCommentTab" (commentInfo, $stateParams) {
         if (angular.isDefined(commentInfo.finding.id)) {
-          const comments = projectFtry.getComments(commentInfo.finding.id);
+          const comments =
+                 projectFtry.getComments(commentInfo.finding.id,
+                                         $stateParams.project.toLowerCase());
           comments.then((response) => {
             if (!response.error) {
               const usersArray = [];

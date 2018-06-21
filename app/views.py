@@ -687,7 +687,7 @@ def catch_finding(request, submission_id):
             if 'opened' in state:
                 # Hack: This conditional temporarily solves the problem presented
                 #      when the number of vulnerabilities open in a closing cycle
-                # are higher than the number of vulnerabilities open in a finding 
+                # are higher than the number of vulnerabilities open in a finding
                 # which causes negative numbers to be shown in the indicators view.
                 if int(state['opened']) > int(finding['cardinalidad_total']):
                     finding['cardinalidad_total'] = state['opened']
@@ -1369,6 +1369,10 @@ def get_remediated(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_comments(request):
+    project = request.GET.get('project', "")
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
     submission_id = request.GET.get('id', "")
     comments = integrates_dao.get_comments_dynamo(int(submission_id))
     json_data = []
