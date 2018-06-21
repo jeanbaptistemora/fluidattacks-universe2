@@ -321,8 +321,37 @@ a menos que sean frases puntuales.
 utilizadas por fuera de bloques de código
 deben ir en +monospace+.
 
-. Agregar la línea +link:+
+. Agregar la palabra +link:+
 antes de incluir un enlace.
+
+. Al escribir el nombre de la compañía (+Fluid Attacks+),
+tener en cuenta los siguientes casos:
+
+* *Caso 1:* Si el nombre está junto al logo de la compañía
+debe escribirse de la siguiente forma:
++
+----
+ ___
+| >>|> fluid
+|___|  attacks
+
+----
+
+* *Caso 2:* Si el nombre se utiliza como parte de un Dominio, +URL+
+o ruta de un archivo deberá escribirse sin espacios y en minúscula:
++
+----
+path/fluidattacks/file
+
+www.fluidattacks.com
+----
+
+* *Caso 3:* En cualquier otro caso, deberá escribirse
+con mayúsculas iniciales y separado:
++
+----
+Fluid Attacks: We hack your software, zero false positives
+----
 
 . Al incluir una referencia,
 utilizar como +anchor_ID+ la letra "r",

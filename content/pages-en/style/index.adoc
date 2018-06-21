@@ -323,6 +323,35 @@ must use +monospace+.
 . Make sure to include the +link:+
 before adding a link.
 
+. When writing the company name (+Fluid Attacks+),
+consider the following cases:
+
+* *Case 1:* If the name is placed next to the company logo,
+it must be written as follows:
++
+----
+ ___
+| >>|> fluid
+|___|  attacks
+
+----
+
+* *Case 2:* If the name is used as part of a domain, +URL+
+or file path, it must be written in lowercase without spaces:
++
+----
+path/fluidattacks/file
+
+www.fluidattacks.com
+----
+
+* *Case 3:* In any other case,
+it must be written in Title Case and separated:
++
+----
+Fluid Attacks: We hack your software, zero false positives
+----
+
 . When including a reference,
 use the letter "r" as an +anchor_ID+
 followed by the reference number.
