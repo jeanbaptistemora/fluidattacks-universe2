@@ -157,6 +157,6 @@ var calCCssv2 = {}; \
 var $window = {}; \
 var $interval = {}; \
 var ldclient = {}; \
-var showFeature = {}; \
+var showIndicator = {}; \
 var $document = {}; ";
 module.exports = { functions: variables }

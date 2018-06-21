@@ -101,71 +101,136 @@ angular.module("FluidIntegrates").factory(
         let openVulnerabilities = 0;
         let cardinalidadTotal = 0;
         let maximumSeverity = 0;
-        let compromisedRecords = 0;
         let oldestFinding = 0;
         let openEvents = 0;
-        angular.forEach(data.data, (cont) => {
-          compromisedRecords += parseInt(cont.recordsNumber, 10);
-          openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
-          cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
-          if (maximumSeverity < parseFloat(cont.criticity)) {
-            maximumSeverity = parseFloat(cont.criticity);
+        let metricColor = [];
+        let metricDes = [];
+        let metricTool = [];
+        let metricIcon = [];
+        let metricValue = [];
+        const showIndicator = ldclient.variation('integrates-indicator', false);
+        if (showIndicator) {
+          let compromisedRecords = 0;
+          angular.forEach(data.data, (cont) => {
+            compromisedRecords += parseInt(cont.recordsNumber, 10);
+            openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
+            cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
+            if (maximumSeverity < parseFloat(cont.criticity)) {
+              maximumSeverity = parseFloat(cont.criticity);
+            }
+            if (oldestFinding < parseInt(cont.edad, 10)) {
+              oldestFinding = parseInt(cont.edad, 10);
+            }
+          });
+          for (let event = 0; event < eventsData.length; event++) {
+            if (eventsData[event].estado === "Unsolved" ||
+              eventsData[event].estado === "Pendiente") {
+              openEvents += 1;
+            }
           }
-          if (oldestFinding < parseInt(cont.edad, 10)) {
-            oldestFinding = parseInt(cont.edad, 10);
+          metricColor = [
+            "#2197d6;",
+            "#aa2d30;",
+            "#ff9930;",
+            "#2e4050;",
+            "#9f5ab1;",
+            "#0a40ae;",
+            "#ff7373;"
+          ];
+          metricDes = [
+            "findings",
+            "cardinalities",
+            "vulnerabilities",
+            "maximumSeverity",
+            "oldestFinding",
+            "openEvents",
+            "compromisedRecords"
+          ];
+          metricTool = [
+            "findingsTooltip",
+            "cardinalitiesTooltip",
+            "vulnerabilitiesTooltip",
+            "maximumSeverityTooltip",
+            "oldestFindingTooltip",
+            "openEventsTooltip",
+            "compromisedRecordsTooltip"
+          ];
+          metricIcon = [
+            "s7-id",
+            "s7-attention",
+            "s7-info",
+            "s7-gleam",
+            "s7-date",
+            "s7-way",
+            "s7-notebook"
+          ];
+          metricValue = [
+            data.data.length,
+            openVulnerabilities,
+            cardinalidadTotal,
+            maximumSeverity,
+            oldestFinding,
+            openEvents,
+            compromisedRecords
+          ];
+        } else {
+          angular.forEach(data.data, (cont) => {
+            openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
+            cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
+            if (maximumSeverity < parseFloat(cont.criticity)) {
+              maximumSeverity = parseFloat(cont.criticity);
+            }
+            if (oldestFinding < parseInt(cont.edad, 10)) {
+              oldestFinding = parseInt(cont.edad, 10);
+            }
+          });
+          for (let event = 0; event < eventsData.length; event++) {
+            if (eventsData[event].estado === "Unsolved" ||
+              eventsData[event].estado === "Pendiente") {
+              openEvents += 1;
+            }
           }
-        });
-        for (let event = 0; event < eventsData.length; event++) {
-          if (eventsData[event].estado === "Unsolved" ||
-            eventsData[event].estado === "Pendiente") {
-            openEvents += 1;
-          }
+          metricColor = [
+            "#2197d6;",
+            "#aa2d30;",
+            "#ff9930;",
+            "#2e4050;",
+            "#9f5ab1;",
+            "#0a40ae;"
+          ];
+          metricDes = [
+            "findings",
+            "cardinalities",
+            "vulnerabilities",
+            "maximumSeverity",
+            "oldestFinding",
+            "openEvents"
+          ];
+          metricTool = [
+            "findingsTooltip",
+            "cardinalitiesTooltip",
+            "vulnerabilitiesTooltip",
+            "maximumSeverityTooltip",
+            "oldestFindingTooltip",
+            "openEventsTooltip"
+          ];
+          metricIcon = [
+            "s7-id",
+            "s7-attention",
+            "s7-info",
+            "s7-gleam",
+            "s7-date",
+            "s7-way"
+          ];
+          metricValue = [
+            data.data.length,
+            openVulnerabilities,
+            cardinalidadTotal,
+            maximumSeverity,
+            oldestFinding,
+            openEvents
+          ];
         }
-        const metricColor = [
-          "#2197d6;",
-          "#aa2d30;",
-          "#ff9930;",
-          "#2e4050;",
-          "#9f5ab1;",
-          "#0a40ae;",
-          "#ff7373;"
-        ];
-        const metricDes = [
-          "findings",
-          "cardinalities",
-          "vulnerabilities",
-          "maximumSeverity",
-          "oldestFinding",
-          "openEvents",
-          "compromisedRecords"
-        ];
-        const metricTool = [
-          "findingsTooltip",
-          "cardinalitiesTooltip",
-          "vulnerabilitiesTooltip",
-          "maximumSeverityTooltip",
-          "oldestFindingTooltip",
-          "openEventsTooltip",
-          "compromisedRecordsTooltip"
-        ];
-        const metricIcon = [
-          "s7-id",
-          "s7-attention",
-          "s7-info",
-          "s7-gleam",
-          "s7-date",
-          "s7-way",
-          "s7-notebook"
-        ];
-        const metricValue = [
-          data.data.length,
-          openVulnerabilities,
-          cardinalidadTotal,
-          maximumSeverity,
-          oldestFinding,
-          openEvents,
-          compromisedRecords
-        ];
         return [
           openVulnerabilities,
           cardinalidadTotal,

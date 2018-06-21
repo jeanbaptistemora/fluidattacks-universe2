@@ -225,7 +225,9 @@
     {% csrf_token %}
     <script>
       const lduser= {
-        key: 'test'
+        name: userName,
+        email: userEmail,
+        key: 'Fluid-user'
       };
       const ldclient = LDClient.initialize('5b2aca6e29d0ad3879848882', lduser);
     </script>
