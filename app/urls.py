@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^registration/?$', views.registration, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^forms/?\.*$', views.forms),
+    url(r'^api/?\.*$', views.graphql_api, name='graphql_api'),
     # Project view.
     url(r'^project_indicators/?\.*$', views.project_indicators),
     url(r'^project_findings/?\.*$', views.project_findings),

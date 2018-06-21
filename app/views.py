@@ -41,6 +41,8 @@ from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime, timedelta
 from backports import csv
+from .entity.query import Query
+from graphene import Schema
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
 client_s3 = boto3.client('s3',
@@ -1623,3 +1625,13 @@ def change_user_role(request):
             if integrates_dao.assign_role(email, role) is None:
                 return util.response([], 'Success', False)
     return util.response([], 'Error', True)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
+def graphql_api(request):
+    query = request.body
+    schema = Schema(query=Query)
+    result = schema.execute(query)
+    return util.response(result.data, 'success', False)
