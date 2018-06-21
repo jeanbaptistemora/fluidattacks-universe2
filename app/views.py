@@ -252,32 +252,34 @@ def project_events(request):
 @never_cache
 @authenticate
 def project_users(request):
-    "eventualities view"
-    language = request.GET.get('l', 'en')
-    dicLang = {
-        "search_findings": {
-            "users_table": {
-               "userOrganization": "Organization",
-               "usermail": "User email",
-               "firstlogin": "First login",
-               "lastlogin": "Last login",
-               "userRole": "Role"
-            },
-        }
-    }
-    if language == "es":
+    if request.session['role'] == 'customer':
+        return util.response([], 'Access denied', True)
+    else:
+        language = request.GET.get('l', 'en')
         dicLang = {
             "search_findings": {
                 "users_table": {
-                   "userOrganization": "Organización",
-                   "usermail": "Email",
-                   "firstlogin": "Primer ingreso",
-                   "lastlogin": "Último ingreso",
-                   "userRole": "Rol"
+                   "userOrganization": "Organization",
+                   "usermail": "User email",
+                   "firstlogin": "First login",
+                   "lastlogin": "Last login",
+                   "userRole": "Role"
                 },
             }
         }
-    return render(request, "project/users.html", dicLang)
+        if language == "es":
+            dicLang = {
+                "search_findings": {
+                    "users_table": {
+                       "userOrganization": "Organización",
+                       "usermail": "Email",
+                       "firstlogin": "Primer ingreso",
+                       "lastlogin": "Último ingreso",
+                       "userRole": "Rol"
+                    },
+                }
+            }
+        return render(request, "project/users.html", dicLang)
 
 @csrf_exempt
 @never_cache

@@ -89,7 +89,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-
+      $scope.isCustomer = userRole !== "customer";
       $scope.isManager = userRole !== "customer" &&
                          userRole !== "customeradmin";
       // Default flags value for view visualization.

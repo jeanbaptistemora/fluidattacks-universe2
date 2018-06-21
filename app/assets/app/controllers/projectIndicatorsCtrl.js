@@ -45,7 +45,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-
+      $scope.isCustomer = userRole !== "customer";
       $scope.isManager = userRole !== "customer" &&
                          userRole !== "customeradmin";
       $scope.isAdmin = userRole !== "customer" &&

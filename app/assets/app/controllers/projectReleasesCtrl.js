@@ -94,6 +94,7 @@ angular.module("FluidIntegrates").controller(
                          userRole !== "customeradmin";
       $scope.isAdmin = userRole !== "customer" &&
         userRole !== "customeradmin" && userRole !== "analyst";
+      $scope.isCustomer = userRole !== "customer";
       // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;

@@ -80,6 +80,7 @@ angular.module("FluidIntegrates").controller(
                          userRole !== "customeradmin";
       $scope.isProjectAdmin = userRole !== "customer" &&
         userRole !== "analyst";
+      $scope.isCustomer = userRole !== "customer";
       $scope.isAdmin = userRole !== "customer" &&
         userRole !== "customeradmin" && userRole !== "analyst";
       // Default flags value for view visualization
