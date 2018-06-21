@@ -106,8 +106,8 @@ se puede apreciar el siguiente mensaje:
 +
 [source, shell, linenums]
 ----
-login as: FLUID
-FLUID@192.168.0.106's password:
+login as: Fluid-Attacks
+Fluid-Attacks@192.168.0.106's password:
 
 Linux FLUIDTools 3.12-kali1-686-pae #1 SMP Debian 3.12.6-2kali1 (2014-01-06) i686
 The programs included with the Kali GNU/Linux system are free software;
@@ -115,11 +115,11 @@ the exact distribution terms for each program are described in the
 individual files in /usr/share/doc/*/copyright.
 Kali GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
-Too many logins for 'FLUID'.
+Too many logins for 'Fluid-Attacks'.
 Last login: Tue Mar 18 22:35:38 2014 from 192.168.0.100
 ----
 
-. El mensaje anterior indica que el usuario +FLUID+
+. El mensaje anterior indica que el usuario +Fluid-Attacks+
 ha sobrepasado el número de sesiones concurrentes
 el cual fue establecido en 1
 y por tanto, no admite la nueva conexión.

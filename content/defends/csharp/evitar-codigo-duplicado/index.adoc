@@ -75,7 +75,7 @@ En el cual termina el programa:
 ----
   public static void integerParseInt() {
     try {
-      Console.WriteLine("Resultado: " + int.Parse("FLUID"));
+      Console.WriteLine("Resultado: " + int.Parse("Fluid Attacks"));
     }
     catch (Exception e) {
       if (DEBUG) {
@@ -146,7 +146,7 @@ Un cambio en este método se ve reflejado en todas sus demás llamadas:
   }
   public static void integerParseInt() {
     try {
-      Console.WriteLine("Resultado: " + int.Parse("FLUID"));
+      Console.WriteLine("Resultado: " + int.Parse("Fluid Attacks"));
     }
     catch (Exception e) {
       showError(e);

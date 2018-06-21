@@ -9,9 +9,9 @@ NC='\033[0m'
 ERRORS=0
 
 # Check use of incorrect names to address the company
-if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal\ |\ fluid[)}\ \]]' content; then
-  echo -e "${GC}\\nThe only accepted name is FLUID.${NC}"
-#  ERRORS=1; #temp disabled
+if pcregrep --color -nr --include='\.adoc' -e 'Fluid(?!\WAttacks)|Fluidsignal\ Group|fluidsignal\ |\ fluid[)}\ \]] |FLUID\W|FLUIDAttacks' content; then
+  echo -e "${GC}\\nThe only accepted name is Fluid Attacks.${NC}"
+  ERRORS=1;
 fi
 
 # Check blank spaces after headers

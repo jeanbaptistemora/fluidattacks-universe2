@@ -90,8 +90,8 @@ debería ser la suma de las dos anteriores variables (Longitud máxima de 20).
       ********
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       01 W01-FIRSTNAME PIC X(10) VALUE "FLUID".
-       01 W02-LASTNAME  PIC X(10) VALUE "SIGNAL".
+       01 W01-FIRSTNAME PIC X(10) VALUE "Fluid-Attacks".
+       01 W02-LASTNAME  PIC X(10) VALUE "Group".
        01 W03-FULLNAME  PIC X(10).
 ----
 . Se concatena las variables de nombre (+W01-FIRSTNAME+)

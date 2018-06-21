@@ -49,7 +49,7 @@ Además, esta clase contiene un método sensible.
 .CLI.java
 [source, java, linenums]
 ----
-package com.FLUID;
+package com.Fluid-Attacks;
 
 class CLI
 {
@@ -70,8 +70,8 @@ los cuales deben ser almacenados en un +keystore+.
 +
 [source, shell, linenums]
 ----
-keytool -keystore keystore -alias FLUID -genkey \  -dname "cn=Technology, ou=Engineering,
-  o=FLUIDsignal Group, c=CO" \ -keypass keypass -storepass storepass
+keytool -keystore keystore -alias Fluid-Attacks -genkey \  -dname "cn=Technology, ou=Engineering,
+  o=Fluid Attacks, c=CO" \ -keypass keypass -storepass storepass
 ----
 
 . Luego, se procede a compilar la clase.
@@ -79,7 +79,7 @@ keytool -keystore keystore -alias FLUID -genkey \  -dname "cn=Technology, ou=Eng
 [source, shell, linenums]
 ----
 export CLASSPATH=src
-javac src/com/FLUID/CLI.java
+javac src/com/Fluid-Attacks/CLI.java
 ----
 
 . Se debe crear el archivo +MANIFEST.MF+
@@ -89,8 +89,8 @@ requerido al momento de crear el +.jar+.
 ----
 $ cat META-INF/MANIFEST.MF
 
-Main-Class: com.FLUID.CLI
-Name: com/FLUID/
+Main-Class: com.Fluid-Attacks.CLI
+Name: com/Fluid-Attacks/
 Sealed: true
 ----
 
@@ -102,19 +102,19 @@ El archivo será +paquete-1.0.jar+, el cual usaremos para firmar.
 $ jar -cvfm paquete-1.0.jar META-INF/MANIFEST.MF -C src .added manifest
 
 adding: com/(in = 0) (out= 0)(stored 0%)
-adding: com/FLUID/(in = 0) (out= 0)(stored 0%)
-adding: com/FLUID/CLI.java(in = 262) (out= 144)(deflated 45%)
-adding: com/FLUID/CLI.class(in = 551) (out= 348)(deflated 36%)
+adding: com/Fluid-Attacks/(in = 0) (out= 0)(stored 0%)
+adding: com/Fluid-Attacks/CLI.java(in = 262) (out= 144)(deflated 45%)
+adding: com/Fluid-Attacks/CLI.class(in = 551) (out= 348)(deflated 36%)
 ----
 
 . Finalmente, procedemos a firmar el paquete generado
-+paquete-1.0.jar+ con el alias +FLUID+
++paquete-1.0.jar+ con el alias +Fluid-Attacks+
 alojado en el +keystore+ previamente creado:
 +
 [source, shell, linenums]
 ----
 jarsigner -keystore keystore -storepass storepass -keypass keypass \
-   -signedjar paquete-firmado-1.0.jar paquete-1.0.jar FLUID
+   -signedjar paquete-firmado-1.0.jar paquete-1.0.jar Fluid-Attacks
 ----
 
 . Se procede a ejecutar el programa para verificar su funcionamiento.
@@ -134,16 +134,16 @@ Para el ejemplo, se verificará la firma de paquete +paquete-1.0.jar+.
 $ jarsigner -keystore keystore -certs -verbose -verify paquete-firmado-1.0.jar
 
  297 Thu Nov 24 10:45:14 COT 2011 META-INF/MANIFEST.MF
- 347 Thu Nov 24 10:45:14 COT 2011 META-INF/FLUIDSIG.SF
- 978 Thu Nov 24 10:45:14 COT 2011 META-INF/FLUIDSIG.DSA
+ 347 Thu Nov 24 10:45:14 COT 2011 META-INF/Fluid-AttacksSIG.SF
+ 978 Thu Nov 24 10:45:14 COT 2011 META-INF/Fluid-AttacksSIG.DSA
  0 Thu Nov 24 10:45:12 COT 2011 META-INF/
  0 Fri Sep 17 11:18:22 COT 2010 com/
- 0 Fri Sep 17 11:18:22 COT 2010 com/FLUID/
- smk 262 Tue Nov 11 11:31:06 COT 2008 com/FLUID/CLI.java
- X.509, CN=Technology, OU=Engineering, O=FLUIDsignal Group, C=CO (FLUID)
+ 0 Fri Sep 17 11:18:22 COT 2010 com/Fluid-Attacks/
+ smk 262 Tue Nov 11 11:31:06 COT 2008 com/Fluid-Attacks/CLI.java
+ X.509, CN=Technology, OU=Engineering, O=Fluid Attacks, C=CO (Fluid Attacks)
  [certificate will expire on 2/22/12 10:45 AM]
- smk 551 Thu Nov 24 10:45:10 COT 2011 com/FLUID/CLI.class
- X.509, CN=Technology, OU=Engineering, O=FLUID Group, C=CO (FLUID)
+ smk 551 Thu Nov 24 10:45:10 COT 2011 com/Fluid-Attacks/CLI.class
+ X.509, CN=Technology, OU=Engineering, O=Fluid Attacks Group, C=CO (Fluid Attacks)
  [certificate will expire on 2/22/12 10:45 AM]
  s = signature was verified
  m = entry is listed in manifest

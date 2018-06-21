@@ -87,7 +87,7 @@ el acceso a un directorio del sistema de archivos es +java.io.FilePermission+.
 ----
 Grant codeBase "file:/home/sysadmin/-"
 {
-  permission java.io.FilePermission "/home/FLUID/-", "read";
+  permission java.io.FilePermission "/home/Fluid-Attacks/-", "read";
 };
 ----
 
@@ -98,7 +98,7 @@ al cual se le va aplicar la política.
 .  En la regla anterior, se establece que cualquier código
 bajo la estructura del directorio +/home/sysadmin/+
 tiene permisos de solo lectura sobre todos los archivos y subdirectorios
-que contenga el directorio +/home/FLUID/-+.
+que contenga el directorio +/home/Fluid-Attacks/-+.
 
 . Para establecer permisos de conexión para acceder a un equipo en la red
 en un puerto determinado, se debe utilizar la clase +SocketPermission+
@@ -108,13 +108,13 @@ mediante la siguiente política:
 ----
 Grant codeBase "file:/home/sysadmin/-"
 {
-  permission java.net.SocketPermission "union.FLUID.com:3333" , "connect , accept";
+  permission java.net.SocketPermission "union.Fluid-Attacks.com:3333" , "connect , accept";
 };
 ----
 
 . Con este permiso se autoriza a la aplicación
 para que establezca una conexión al puerto +3333+
-con el equipo +union.FLUID.com+
+con el equipo +union.Fluid-Attacks.com+
 y además acepte conexiones en ese puerto.
 
 . Estos son los permisos
@@ -134,7 +134,7 @@ de la siguiente manera.
 ----
 Grant codeBase "file:/home/sysadmin/-"
 {
-  permission java.util.PropertyPermission "FLUID.version", "read";
+  permission java.util.PropertyPermission "Fluid-Attacks.version", "read";
 };
 ----
 +

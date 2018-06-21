@@ -67,19 +67,19 @@ import java.util.ArrayList;
 ----
 
 . Definimos una clase que simplemente creará los contenedores
-y les asignará los String +FLUID+ y después +SIGNAL+.
+y les asignará los String +Fluid-Attacks+ y después +Group+.
 +
 [source, java, linenums]
 ----
 public class Main {
   public static void main(String[] args) {
     StringBuilder sb = new StringBuilder();
-    sb.append("FLUID");
-    sb.append("SIGNAL");
+    sb.append("Fluid-Attacks");
+    sb.append("Group");
     System.out.println(sb);
     List<String> lista = new ArrayList<String>();
-    lista.add("FLUID");
-    lista.add("SIGNAL");
+    lista.add("Fluid-Attacks");
+    lista.add("Group");
     System.out.println(lista);
   }
 }
@@ -101,8 +101,8 @@ durante la creación de la lista.
 ----
 % javac Main.java
 % java Main
-FLUIDSIGNAL
-[FLUID, SIGNAL]
+Fluid-AttacksGroup
+[Fluid-Attacks, Group]
 ----
 
 == Descargas

@@ -60,7 +60,7 @@ llame al programa definido en su argumento (+ERRHDL1+).
        01 MISC.
            05 ERROR-HANDLER       PIC  X(20).
                06 OBJECT-NAME     PIC  X(10) VALUE "ERRHDL1".
-               06 LIBRARY-NAME    PIC  X(10) VALUE "FLUID".
+               06 LIBRARY-NAME    PIC  X(10) VALUE "Fluid Attacks".
            05 SCOPE               PIC  X(01) VALUE "C".
            05 ERROR-HANDLER-LIB   PIC  X(10) VALUE "".
            05 PRIOR-ERROR-HANDLER PIC  X(20).

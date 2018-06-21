@@ -54,15 +54,15 @@ para diferentes tipos de mensajes:
 
 . Para compilar un programa en +COBOL+ de forma estricta,
 se debe usar "0" como argumento en el parámetro +GENLVL+.
-Para crear el programa +COBOLSTR+ de la biblioteca +FLUID+
+Para crear el programa +COBOLSTR+ de la biblioteca +Fluid-Attacks+
 con un nivel de severidad 0 (Compilación estricta),
 se usa el siguiente comando:
 +
 [source,cobol,linenums]
 ----
       CRTBNDCBL
-      PGM(FLUID/COBOLSTR)
-      SRCFILE(FLUID/SOURCE)
+      PGM(Fluid-Attacks/COBOLSTR)
+      SRCFILE(Fluid-Attacks/SOURCE)
       SRCMBR(COBOLSTR)
       GENLVL(0)
       REPLACE(*YES)

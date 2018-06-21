@@ -102,9 +102,9 @@ keytool -import -alias cabco -keystore cacerts -file /tmp/ca.cer
 Enter keystore password:
 
 Owner: CN=VERISIGN, OU=Engineering Team,
-O=FLUID S.A., L=MEDELLIN, ST=ANTIOQUIA, C=CO
+O=Fluid Attacks S.A., L=MEDELLIN, ST=ANTIOQUIA, C=CO
 Issuer: CN=VERISIGN, OU=Engineering Team,
-O=FLUID S.A., L=MEDELLIN, ST=ANTIOQUIA, C=CO
+O=Fluid Attacks S.A., L=MEDELLIN, ST=ANTIOQUIA, C=CO
 Serial number: 3f817305
 Valid from: Sun Oct 05 08:49:57 COT 2003 until: Wed Jun 14 08:49:57 COT 2017
 Certificate fingerprints:

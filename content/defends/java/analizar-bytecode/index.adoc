@@ -61,7 +61,7 @@ para la concatenación del +String+.
 class Main {
 
  public static void main(String args []) {
-   String strPrueba="FLUID-Signal-Group-";
+   String strPrueba="Fluid-Attacks-";
    String tmpString = new String ();
    StringBuilder strBuilder = new StringBuilder ();
    int numIteraciones=5000;
@@ -93,7 +93,7 @@ la máquina virtual de +Java+.
 ----
 class MainUsandoMas {
    public static void main(String args []) {
-     String strPrueba="FLUID-Signal-Group-";
+     String strPrueba="Fluid-Attacks-";
      String tmpString = new String ();
      int numIteraciones=5000;
      for (int i=0; i < numIteraciones ;i++){

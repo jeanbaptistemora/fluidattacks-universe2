@@ -151,7 +151,7 @@ como puede ser observado a continuación:
 +
 [source, bash, linenums]
 ----
-$SYSTEM FLUID 1> RUN FLUIDP
+$SYSTEM Fluid-Attacks 1> RUN Fluid-AttacksP
 ABENDED: 0,161
 CPU time: 0:00:00.001
 -1: Process trapped

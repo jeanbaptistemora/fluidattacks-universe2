@@ -67,7 +67,7 @@ y medir su rendimiento:
 class Main {
   public static void main(String args []) {
     long startTime = System.currentTimeMillis ();
-    String strPrueba="FLUID";
+    String strPrueba="Fluid Attacks";
     String tmpString = new String ();
 ----
 

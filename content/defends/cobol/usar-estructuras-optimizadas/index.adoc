@@ -39,7 +39,7 @@ la forma de copiar código almacenado
 en bibliotecas reusables desde +COBOL+.
 
 . Creamos un nuevo miembro llamado +QPHONE+
-en la biblioteca +FLUID+ del archivo +QRPGSRC+.
+en la biblioteca +Fluid-Attacks+ del archivo +QRPGSRC+.
 Este archivo contiene una estructura de datos optimizada
 para el almacenamiento de registros telefónicos:
 
@@ -102,7 +102,7 @@ y la biblioteca usando el formato +MYLIB-MYFILE+.
 
 . Copiamos el código contenido
 en el miembro QPHONE que se encuentra
-en la biblioteca +FLUID+ del archivo +QRPGSRC+:
+en la biblioteca +Fluid-Attacks+ del archivo +QRPGSRC+:
 +
 [source,cobol,linenums]
 ----
@@ -111,7 +111,7 @@ en la biblioteca +FLUID+ del archivo +QRPGSRC+:
       ********
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       COPY QPHONE OF FLUID-QRPGSRC.
+       COPY QPHONE OF Fluid-Attacks-QRPGSRC.
 ----
 . Hacemos uso de la estructura +PHONE-RECORD:+
 +

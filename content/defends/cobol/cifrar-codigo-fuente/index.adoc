@@ -118,8 +118,8 @@ con la cual el código fuente será cifrado:
 [source,bat,linenums]
 ----
 CRTBNDCBL
-PGM(FLUID/COBOLDEBUG)
-SRCFILE(FLUID/QRPGSRC)
+PGM(Fluid-Attacks/COBOLDEBUG)
+SRCFILE(Fluid-Attacks/QRPGSRC)
 SRCMBR(COBOLDEBUG)
 DBGVIEW(*LIST)
 DBGENCKEY('$ecr3t-K3y')
