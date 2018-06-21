@@ -48,7 +48,7 @@ donde se almacenará el retorno de la sentencia.
 D sqlnombre       S             20A   INZ('fsg')
 
 D sqlcommand      S            256A   INZ('SELECT nombre, edad +
-D                                          FROM Fluid-Attacks/ESTUDIANTES +
+D                                          FROM fluidattacks/ESTUDIANTES +
 D                                          WHERE nombre = ')
 D                                     VARYING
 
@@ -183,7 +183,7 @@ es reemplazado al momento de abrir el cursor:
 [source, sql, linenums]
 ----
 D sqlcommand      S            256A   INZ('SELECT nombre, edad +
-D                                          FROM Fluid-Attacks/ESTUDIANTES +
+D                                          FROM fluidattacks/ESTUDIANTES +
 D                                          WHERE nombre = ? ')
 D                                     VARYING
 ----
@@ -222,7 +222,7 @@ el código correspondiente sería:
 [source, sql, linenums]
 ----
 D sqlcommand      S            256A   INZ('SELECT nombre, edad +
-D                                          FROM Fluid-Attacks/ESTUDIANTES +
+D                                          FROM fluidattacks/ESTUDIANTES +
 D                                          WHERE nombre = ? AND edad = ? ')
 D                                     VARYING
 ----
