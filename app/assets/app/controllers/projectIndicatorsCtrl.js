@@ -139,18 +139,22 @@ angular.module("FluidIntegrates").controller(
                                                   "criticityTooltip"),
                 "value": "n%".replace("n", totalSeverity.toFixed(0))
               });
-              $scope.metricsList.push({
-                "color": "background-color: #00cb77;",
-                "description": $translate.instant("search_findings." +
-                                                  "filter_labels.closure"),
-                "icon": "s7-like2",
-                "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                  "closureTooltip"),
-                "value": "n%".replace("n", Math.round((1 -
-                                     (cardinalityValues[0] /
-                                     cardinalityValues[1])) *
-                                     PERCENTAGE_FACTOR).toString())
-              });
+              showFeature = ldclient.variation("integrates-indicator");
+              if (showFeature) {
+                $scope.metricsList.push({
+                  "color": "background-color: #00cb77;",
+                  "description": $translate.instant("search_findings." +
+                                              "filter_labels.closure"),
+                  "icon": "s7-like2",
+                  "tooltip": $translate.instant("search_findings.filter_labels." +
+                                              "closureTooltip"),
+                  "value": "n%".replace("n", Math.round((1 -
+                                 (cardinalityValues[0] /
+                                 cardinalityValues[1])) *
+                                 PERCENTAGE_FACTOR).toString())
+                 });
+              } else {
+              }
             }
           }
           else {

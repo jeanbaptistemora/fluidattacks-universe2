@@ -91,7 +91,14 @@
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table-es-CO.min.js"></script>
     <script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
     <script src="assets/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="assets/node_modules/ldclient-js/dist/ldclient.min.js"></script>
     <script src="assets/app/login.js" type="text/javascript"></script>
+    <script>
+      const lduser= {
+        key: 'test'
+      };
+      const ldclient = LDClient.initialize('5b2aca6e29d0ad3879848882', lduser);
+    </script>
     <script type="text/javascript">
       function goLogin(page){
         if(page == "google"){
