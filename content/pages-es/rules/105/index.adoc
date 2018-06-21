@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que toda organización prohíba el ingreso de elementos que permitan extraen información digital o física de la misma.
 :keywords: Uniforme, Información, Organización, Activos, Manipulación, Operario.
 :rules: yes
+:translate: rules/105/
 
 = REQ.105 Evitar fuga de activos
 
@@ -11,3 +12,12 @@
 La organización no debe permitir
 el ingreso a las instalaciones de elementos
 que permitan la extracción de activos de información digitales o físicos.
+
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Plan de Seguridad en las Instalaciones:
+Implementar políticas y procedimientos para salvaguardar
+las instalaciones y los equipos
+de accesos no autorizados, manipulación y robo.

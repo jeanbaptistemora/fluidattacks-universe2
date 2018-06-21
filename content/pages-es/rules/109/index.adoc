@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que en toda organización y sobre todo en áreas restringidas, se realice vigilancia continua.
 :keywords: Área Restringida, Vigilancia, Cámaras, Sensores, Seguridad, Vigilantes.
 :rules: yes
+:translate: rules/109/
 
 = REQ.109 Monitorear áreas restringidas
 
@@ -26,3 +27,9 @@ Implementar políticas y procedimientos para limitar
 el acceso físico a la instalación o instalaciones
 donde se almacenan sistemas electrónicos con información sensible,
 verificando que todo acceso sea autorizado
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Plan de Seguridad en las Instalaciones:
+Implementar políticas y procedimientos para salvaguardar
+las instalaciones y los equipos
+de accesos no autorizados, manipulación y robo.

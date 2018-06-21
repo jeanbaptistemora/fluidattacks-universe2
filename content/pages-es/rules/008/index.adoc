@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. En este requerimiento se recomienda que toda organización cuente con un modelo propio de gestión de amenazas para el sistema en cuestión.
 :keywords: Organización, STRIDE, Modelo, Amenazas, Sistema, Spoofing.
 :rules: yes
+:translate: rules/008/
 
 = REQ.008 Generar modelo de amenazas del sistema
 
@@ -33,3 +34,9 @@ Análisis de riesgos: Llevar a cabo una evaluación precisa y completa
 de los riesgos y vulnerabilidades potenciales a la confidencialidad, integridad
 y disponibilidad de la información sensible protegida electrónicamente
 almacenada en la organización.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Plan de Seguridad en las Instalaciones:
+Implementar políticas y procedimientos para salvaguardar
+las instalaciones y los equipos
+de accesos no autorizados, manipulación y robo.

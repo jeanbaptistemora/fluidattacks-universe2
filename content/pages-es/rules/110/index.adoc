@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, en este requerimiento se recomienda que toda organización cuente con mecanismos de control de acceso físico preventivos.
 :keywords: Área Restringida, Vigilancia, Acceso, Cerradura, Seguridad, Vigilantes.
 :rules: yes
+:translate: rules/110/
 
 = REQ.110 Prevenir robos a la organización
 
@@ -11,3 +12,11 @@
 Las áreas restringidas deben contar
 con mecanismos de control de acceso físico preventivos
 (cerraduras, puertas, vigilantes, etc).
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Plan de Seguridad en las Instalaciones:
+Implementar políticas y procedimientos para salvaguardar
+las instalaciones y los equipos
+de accesos no autorizados, manipulación y robo.

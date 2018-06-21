@@ -12,6 +12,7 @@
 * link:002/[REQ.002 Asset Owners are Defined].
 * link:003/[REQ.003 Monetary Value of Assets is Defined].
 * link:004/[REQ.004 Identify threats to assets].
+* link:008/[REQ.008 Generate system threat model].
 
 == Session
 
@@ -42,8 +43,10 @@
 * link:097/[REQ.097 Define control access model].
 * link:099/[REQ.099 Vehicles and people access control].
 * link:101/[REQ.101 Assign ID cards to workforce members].
+* link:105/[REQ.105 Avoid assets leakage].
 * link:109/[REQ.109 Monitor restricted areas].
-
+* link:110/[REQ.110 Prevent theft in facilities].
+* link:111/[REQ.111 Define suitable physical controls].
 
 == Credentials
 
