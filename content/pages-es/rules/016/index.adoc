@@ -33,7 +33,7 @@ se debe tener en cuenta su priorización
 de forma que se corrijan en orden de criticidad.
 Una vez los responsables
 de remediar las vulnerabilidades notifiquen el fin de las actividades,
-se debe programar una prueba
+se debe programar un proceso de Ethical Hacking
 que verifique que efectivamente se solucionaron los inconvenientes,
 esta prueba debe garantizar su objetividad e imparcialidad.
 

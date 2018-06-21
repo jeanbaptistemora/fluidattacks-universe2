@@ -1,7 +1,7 @@
 :slug: servicios/comparativo/
 :category: servicios
 :description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. Es importante distinguir las características que componen nuestros servicios de Hacking continuo y Hacking puntual.
-:keywords: FLUID, Ethical Hacking, Comparación, Hacking Puntual, Hacking continuo, Pentesting.
+:keywords: Fluid Attacks, Ethical Hacking, Comparación, Hacking Puntual, Hacking continuo, Pentesting.
 :translate: services/comparative/
 :si: image:../../images/icons/yes.png[si]
 :no: image:../../images/icons/no.png[no]
@@ -11,7 +11,7 @@
 
 {description} Para ello presentamos la siguiente tabla comparativa:
 
-.Comparación entre los servicios de Hacking puntual y Hacking continuo de FLUID.
+.Comparación entre los servicios de Hacking puntual y continuo de Fluid Attacks.
 [role="tb-row"]
 [cols="15,45,40"]
 |====
@@ -76,7 +76,7 @@ a|{si} +100%+ cuando:
 * El código no cambie a más de +10K+
 tooltip:Medida de cambio del código, dada por el número de líneas adicionadas o removidas desde el primer día del mes hasta el último día del mes, respecto al mes anterior[deltas por mes] link:../hacking-continuo/#cobertura[^7^].
 
-a|{info} Acordada al inicio de la prueba
+a|{info} Acordada al inicio del proceso de hacking
 link:../hacking-puntual/#cobertura[^6^].
 
 a|==== Ventanas
@@ -88,7 +88,7 @@ los ambientes:
 * No estar congelados.
 * No se requiere ventanas para el hackeo.
 
-|{info} Se requieren ambientes congelados y ventanas deprueba.
+|{info} Se requieren ambientes congelados y ventanas de prueba.
 
 a|==== Infección
 | {no} No se infectan los ambientes con troyanos.

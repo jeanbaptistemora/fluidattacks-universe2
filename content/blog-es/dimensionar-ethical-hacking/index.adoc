@@ -1,7 +1,7 @@
 :slug: dimensionar-ethical-hacking/
 :date: 2018-01-09
 :category: filosofía
-:subtitle: Cómo definir el alcance de las pruebas de seguridad
+:subtitle: Cómo definir el alcance del Ethical Hacking
 :tags: ethical hacking, pentesting, pruebas de seguridad
 :image: dimensionar-ethical-hacking.png
 :alt: Persona trabajando en el computador, viendo el celular
@@ -18,7 +18,7 @@
 = Dimensionando un Ethical Hacking
 
 El principal problema que tiene una organización
-cuando tiene la necesidad de realizar una prueba de seguridad
+cuando tiene la necesidad de realizar un Ethical Hacking
 es establecer el alcance que la limita.
 
 Dimensionar el alcance de un Pentesting por medio de tiempo,
@@ -52,7 +52,7 @@ que soportan los sistemas (Servicios de red/SO),
 buscando explotar vulnerabilidades específicas de la tecnología evaluada,
 la prueba a realizar es un Ethical Hacking de Infraestructura.
 
-Una vez establecido el tipo de prueba que se desea realizar,
+Una vez establecido el tipo de Ethical Hacking que se desea realizar,
 se debe determinar el Objetivo de Evaluación o ToE (Target of Evaluation)
 por medio de 3 items.
 
@@ -60,7 +60,7 @@ por medio de 3 items.
 si lo que se evaluará es la infraestructura.
 
 * **Cantidad de Campos**,
-si el objetivo de prueba es la aplicación.
+si el objetivo del Ethical Hacking es la aplicación.
 
 * **Cantidad de Líneas de Código**,
 si se desean establecer los riesgos asociados al desarrollo.
@@ -73,9 +73,9 @@ con herramientas automatizadas y que solamente
 explotan un porcentaje de las vulnerabilidades reportadas por estas
 herramientas.
 
-En FLUID,
+En Fluid Attacks,
 nuestra promesa de valor va de la mano al cumplimiento del alcance
 comprometido,
 nunca enfocada en tiempos.
-Nuestras pruebas se dan por terminadas una vez hayamos logrado evaluar
+Nuestro Ethical Hacking se da por terminado una vez hayamos logrado evaluar
 todo el objetivo de la prueba.

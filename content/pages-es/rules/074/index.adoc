@@ -1,7 +1,7 @@
 :slug: rules/074/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de pruebas de seguridad definidos en un sistema. Por lo tanto, para este requerimiento, que todo sistema crítico para una determinada organización sea redundante.
-:keywords: Sistema, Organización, Redundancia, Pruebas, Requerimiento, Seguridad.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de la infraestructura lógica dentro de la organización. En este requerimiento se define la importancia de establecer redundancia en los sistemas críticos mejorando la seguridad general de la información.
+:keywords: Sistema, Organización, Redundancia, Información, Requerimiento, Seguridad.
 :rules: yes
 
 = REQ.074 Establecer redundancia en sistemas críticos

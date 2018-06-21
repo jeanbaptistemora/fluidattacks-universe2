@@ -79,7 +79,7 @@ image::configurar.png[configuracion]
 . Nota: Se deben realizar pruebas de las actualizaciones a implementar,
 previo a la instalación en los ambientes de producción.
 
-. Para concluir: hay que ser consciente
+. Para concluir: hay que ser conscientes
 de que actualizar no es una acción dirigida
 a complicar la vida de los usuarios.
 Muy por el contrario, se trata de un hábito invaluable

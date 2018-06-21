@@ -43,7 +43,7 @@ teniendo en cuenta el tipo de vulnerabilidad, el componente afectado
 y la clasificación del riesgo dentro de la organización.
 
 . Establecer políticas de seguridad sobre los componentes utilizados,
-requiriendo versiones actualizadas. +Software+ específicos, pruebas de seguridad
+requiriendo versiones actualizadas. +Software+ específicos, Ethical Hacking
 y sus respectivas licencias;
 incluir políticas internas para deshabilitar funcionalidades no utilizadas
 y actualizar configuraciones por defecto

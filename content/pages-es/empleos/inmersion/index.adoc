@@ -9,7 +9,7 @@
 
 A esta altura del proceso, estamos a pocos pasos de culminar.
 Este nuevo paso, para el cual has sido seleccionado
-entre más de 1580 candidatos, busca que hagas parte
+entre más de +1580+ candidatos, busca que hagas parte
 de un auto-entrenamiento intensivo en retos de programación y
 +hacking+ financiado por +Fluid Attacks+, llamado *Inmersión*.
 
@@ -17,7 +17,7 @@ de un auto-entrenamiento intensivo en retos de programación y
 
 El objetivo de esta etapa es que alcances
 los más altos niveles de fortaleza técnica,
-ésto previo a efectuar pruebas reales de seguridad
+ésto previo a efectuar Ethical Hacking real
 sobre sistemas financieros y de telecomunicaciones, así como validar
 tus competencias humanas y de trabajo en equipo cerca a otros +hackers+
 que ya se encuentran en nuestra organización.
@@ -28,10 +28,10 @@ que recibas una remuneración por el tiempo invertido en el proceso.
 
 == 2. Objetivos
 
-. Resolver 100 retos de programación.
-. Resolver 100 retos de hacking.
-. Finalizar 2 proyectos de entrenamiento.
-. Publicar 10 artículos en el blog.
+. Resolver +100+ retos de programación.
+. Resolver +100+ retos de hacking.
+. Finalizar +2+ proyectos de entrenamiento.
+. Publicar +10+ artículos en el blog.
 
 == 3. Condiciones
 

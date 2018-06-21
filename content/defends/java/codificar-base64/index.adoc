@@ -64,7 +64,7 @@ para los métodos previamente mencionados.
 .TestBase64.java
 [source, java, linenums]
 ----
-/* Este código es de pruebas, por tanto no debe ser desplegado en producción.
+/* Este es un código de prueba, por tanto no debe ser desplegado en producción.
 Para mantener el código simple, se imprime por salida estándar, sin embargo
 en el código real debe utilizarse el mecanismo estándar de biácoras (logs).
 */

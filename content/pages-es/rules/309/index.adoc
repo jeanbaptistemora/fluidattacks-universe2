@@ -11,4 +11,4 @@
 Los desarrollos que se realicen a través de terceros
 deben estar amparados por requisitos contractuales
 de propiedad del código, propiedad intelectual, auditoria de calidad
-y pruebas antes de la implantación para detectar código malicioso.
+y pruebas antes de la implementación para detectar código malicioso.

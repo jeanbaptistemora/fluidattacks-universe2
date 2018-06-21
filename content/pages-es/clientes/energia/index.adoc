@@ -1,7 +1,7 @@
 :slug: clientes/energia/
 :category: clientes
-:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestras soluciones en el sector energético.
-:keywords: FLUID, Seguridad, Energía, Clientes, Pentesting, Ethical Hacking.
+:description: Fluid Attacks es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestras soluciones en el sector energético.
+:keywords: Fluid Attacks, Seguridad, Energía, Clientes, Pentesting, Ethical Hacking.
 :translate: customers/utilities/
 
 = Energía

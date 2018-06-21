@@ -1,6 +1,6 @@
 :slug: eventos/
-:description: La presente página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUID. Las conferencias tratan temas relacionados con la Seguridad de la Información y son preparadas por profesionales experimentados en el campo.
-:keywords: FLUID, Conferencia, Seguridad, Experiencia, Información, Servicio
+:description: La presente página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por Fluid Attacks. Las conferencias tratan temas relacionados con la Seguridad de la Información y son preparadas por profesionales experimentados en el campo.
+:keywords: Fluid Attacks, Conferencia, Seguridad, Experiencia, Información, Servicio
 :translate: events/
 
 = Eventos

@@ -1,8 +1,8 @@
 :slug: hacking-aplicacion/
 :image: hacking-aplicacion.png
 :alt: Manos tecleando
-:description: El objetivo de esta página es informar a los clientes sobre los servicios de seguridad informática prestados por FLUID. El servicio de Ethical Hacking de aplicación es realizado por expertos. Somos hackers que desarrollamos nuestras propias herramientas.
-:keywords: FLUID, Servicios, Ethical hacking, Aplicaciones, Vulnerabilidades, Diagnóstico.
+:description: El objetivo de esta página es informar a los clientes sobre los servicios de seguridad informática prestados por Fluid Attacks. El servicio de Ethical Hacking de aplicación es realizado por expertos. Somos hackers que desarrollamos nuestras propias herramientas.
+:keywords: Fluid Attacks, Servicios, Ethical hacking, Aplicaciones, Vulnerabilidades, Diagnóstico.
 :home: yes
 :translate: application-hacking/
 
@@ -29,12 +29,12 @@ en el marco del negocio de la organización.
 
 * Detección de fallas que crean riesgos de seguridad.
 * Mejora en la calidad y el tiempo de desarrollo.
-* Personal clasificado en el top 200 de hackers en el mundo
-y en el top 10 de Colombia.
+* Personal clasificado en el top +200+ de hackers en el mundo
+y en el top +10+ de Colombia.
 * Entendimiento de los requisitos propios de cada solución.
 * Disminución de incidentes de seguridad.
 * Perfil de requisitos de seguridad en constante actualización.
-* Personal con certificaciones prácticas (OSCP y OSWP)
+* Personal con certificaciones prácticas (+OSCP+ y +OSWP+)
 y estudios relacionados a temas de seguridad.
 * Recomendaciones de alto nivel.
 * Informes de avance durante la ejecución del proyecto.
@@ -46,7 +46,7 @@ se envía un correo diariamente
 donde se muestra el avance del proyecto.
 Este informe contiene:
 ** Información general del proyecto:
-Técnica de prueba,
+Técnica de ataque,
 el objetivo de evaluación total y
 el avance ponderado.
 ** Métricas:
@@ -65,33 +65,33 @@ contados a partir de la fecha de entrega de resultados de la prueba de búsqueda
 
 == Modelo del Proyecto
 
-image::../../theme/images/escenario.png[Escenarios de la Prueba Ethical Hacking]
+image::../../theme/images/escenario.png[Escenarios de ataque de Ethical Hacking]
 
 
 **Escenario 1: Usuario anónimo desde Internet**
 En esta etapa,
 se enumeran los posibles blancos de sitios Web externos
 de propiedad de la compañía.
-Luego se ejecuta una prueba tipo Caja Negra
+Luego se ejecuta un ataque de tipo Caja Negra
 de las aplicaciones e infraestructura que las soportan.
 
 **Escenario 2: Usuario desde Internet**+
 En esta etapa,
 la compañía selecciona los sistemas críticos expuestos a internet y
 proporciona credenciales de acceso no privilegiadas,
-para que se haga una prueba tipo Caja Gris de
+para que se haga un ataque tipo Caja Gris de
 las aplicaciones e infraestructura que las soportan.
 
 **Escenario 3: Usuario anónimo desde red interna**+
 Esta etapa,
-consiste en una prueba inicial tipo caja negra
+consiste en un ataque inicial tipo caja negra
 para verificar los controles que existen actualmente en la red corporativa
 y las aplicaciones críticas para el negocio.
 
 **Escenario 4: Usuario desde red interna**
 En esta etapa,
 la compañía proporciona credenciales de red no privilegiadas.
-Luego se ejecuta una prueba tipo caja gris sobre
+Luego se ejecuta un ataque tipo caja gris sobre
 las aplicaciones misionales y la infraestructura que las soportan.
 
 **Retest**
@@ -108,7 +108,7 @@ en un plazo máximo de 90 días después de la entrega de resultados.
 |====
 .^|Informe Técnico
 |El informe describe de forma detalladacada uno de los resultados hallados
-durante la ejecución de las pruebas.
+durante la ejecución de los ataques.
 .3+.^.a|Por cada hallazgo de seguridad:
 
 * Vulnerabilidad.

@@ -1,7 +1,7 @@
 :slug: rules/071/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de pruebas de seguridad definidos en un sistema. Por lo tanto, se deben incluir todas aquellas vulnerabilidades detectadas dentro de la batería de pruebas automatizadas.
-:keywords: Pruebas, Automatizar, Vulnerabilidad, Regresiones, Detectar, Seguridad.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de arquitectura lógica dentro de la organización. En este requerimiento se establece la importancia de incluir todas las vulnerabilidades detectadas dentro de la batería de pruebas automatizadas.
+:keywords: Ethical Hacking, Automatizar, Vulnerabilidad, Regresiones, Detectar, Seguridad.
 :rules: yes
 
 = REQ.071 Incluir vulnerabilidades en pruebas

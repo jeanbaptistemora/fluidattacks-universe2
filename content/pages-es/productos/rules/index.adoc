@@ -1,7 +1,7 @@
 :slug: productos/rules/
 :category: productos
-:description: El propósito de esta página es presentar los productos ofrecidos por FLUID. Rules es una recopilación de criterios de seguridad desarrollados por FLUID, basados en diferentes estándares internacionales para garantizar la seguridad de la información en diferentes áreas.
-:keywords: FLUID, Productos, Rules, Criterios, Seguridad, Aplicaciones.
+:description: El propósito de esta página es presentar los productos ofrecidos por Fluid Attacks. Rules es una recopilación de criterios de seguridad desarrollados por Fluid Attacks, basados en diferentes estándares internacionales para garantizar la seguridad de la información en diferentes áreas.
+:keywords: Fluid Attacks, Productos, Rules, Criterios, Seguridad, Aplicaciones.
 :translate: products/rules/
 
 = Rules

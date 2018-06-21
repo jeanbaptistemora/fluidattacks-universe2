@@ -2,13 +2,13 @@
 :home: yes
 :image: hacking-infraestructura.png
 :alt: Persona en un computador, visto desde arriba
-:description: En FLUID somos especialistas en Ethical Hacking de infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, lo que nos permite encontrar todas las vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible.
-:keywords: FLUID, Servicios, Ethical hacking, Infraestructura, Vulnerabilidad, Diagnóstico.
+:description: En Fluid Attacks somos especialistas en Ethical Hacking de infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, lo que nos permite encontrar todas las vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible.
+:keywords: Fluid Attacks, Servicios, Ethical hacking, Infraestructura, Vulnerabilidad, Diagnóstico.
 :translate: network-hacking/
 
 = Ethical Hacking de Infraestructura
 
-Realizar pruebas sobre la infraestructura que soportan los sistemas
+Realizar ataques sobre la infraestructura que soportan los sistemas
 (Servicios de red/SO), buscando explotar vulnerabilidades específicas
 de la tecnología evaluada.
 Posteriormente suministrar soluciones documentadas que permitan al cliente
@@ -44,7 +44,7 @@ se envía un correo diariamente
 donde se muestra el avance del proyecto.
 Este informe contiene:
 ** Información general del proyecto:
-Técnica de prueba,
+Técnica de ataque,
 el objetivo de evaluación total y
 el avance ponderado.
 ** Métricas:
@@ -63,33 +63,33 @@ contados a partir de la fecha de entrega de resultados de la prueba de búsqueda
 
 == Modelo del Proyecto
 
-image::../../theme/images/escenario.png[Escenarios de la Prueba Ethical Hacking]
+image::../../theme/images/escenario.png[Escenarios del ataque Ethical Hacking]
 
 
 **Escenario 1: Usuario anónimo desde Internet**
 En esta etapa,
 se enumeran los posibles blancos de sitios Web externos
 de propiedad de la compañía.
-Luego se ejecuta una prueba tipo Caja Negra
-de las aplicaciones e infraestructura que las soportan.
+Luego se ejecuta un ataque tipo Caja Negra
+en las aplicaciones e infraestructura que las soportan.
 
 **Escenario 2: Usuario desde Internet**+
 En esta etapa,
 la compañía selecciona los sistemas críticos expuestos a internet y
 proporciona credenciales de acceso no privilegiadas,
-para que se haga una prueba tipo Caja Gris de
-las aplicaciones e infraestructura que las soportan.
+para que se realice un ataque tipo Caja Gris
+en las aplicaciones e infraestructura que las soportan.
 
 **Escenario 3: Usuario anónimo desde red interna**+
 Esta etapa,
-consiste en una prueba inicial tipo caja negra
+consiste en un ataque inicial tipo caja negra
 para verificar los controles que existen actualmente en la red corporativa
 y las aplicaciones críticas para el negocio.
 
 **Escenario 4: Usuario desde red interna**
 En esta etapa,
 la compañía proporciona credenciales de red no privilegiadas.
-Luego se ejecuta una prueba tipo caja gris sobre
+Luego se ejecuta un ataque tipo caja gris sobre
 las aplicaciones misionales y la infraestructura que las soportan.
 
 **Retest**
@@ -106,7 +106,7 @@ en un plazo máximo de 90 días después de la entrega de resultados.
 |====
 .^|Informe Técnico
 |El informe describe de forma detallada cada uno de los resultados hallados
-durante la ejecución de las pruebas.
+durante la ejecución de los ataques.
 .3+.^.a|Por cada hallazgo de seguridad:
 
 * Vulnerabilidad.

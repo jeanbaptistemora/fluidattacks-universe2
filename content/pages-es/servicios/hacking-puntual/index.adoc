@@ -1,12 +1,12 @@
 :slug: servicios/hacking-puntual/
 :category: servicios
 :description: En esta página presentamos nuestro servicio de Hacking Puntual, mediante el cual nuestro equipo de profesionales se encarga de encontrar y reportar todas las vulnerabilidades y hallazgos de seguridad existentes en la aplicación garantizando la ausencia de falsos positivos.
-:keywords: FLUID, Servicios, Ethical Hacking, Seguridad, Aplicación, Hacking Puntual.
+:keywords: Fluid Attacks, Servicios, Ethical Hacking, Seguridad, Aplicación, Hacking Puntual.
 :translate: services/one-shot-hacking/
 
 = Hacking Puntual
 
-Las pruebas puntuales buscan detectar y reportar todas las vulnerabilidades
+El Hacking puntual busca detectar y reportar todas las vulnerabilidades
 y problemas de seguridad de una versión específica de un sistema.
 La inspección rigurosa de nuestro equipo
 permite detectar todos los hallazgos de seguridad sin falsos positivos.
@@ -15,10 +15,10 @@ permite detectar todos los hallazgos de seguridad sin falsos positivos.
 [cols=2, frame="none"]
 |====
 
-a|== Tipos de prueba
+a|== Tipos de hacking
 Es posible analizar código fuente,
 aplicación e infraestructura correspondiente a un sistema específico,
-el cliente puede decidir ejecutar todos los tipos de prueba,
+el cliente puede decidir ejecutar todos los tipos de hacking,
 o solo uno en específico.
 
 a|image::ethical-hacking.png[alt="Ethical Hacking", width="55%"]
@@ -33,7 +33,7 @@ que componen el sistema a probar
 y se define posteriormente solo cubrir un porcentaje específico del mismo.
 
 Puede ser variable cuando no se hace enumeración de tamaño del sistema
-y se define un tamaño de prueba específico
+y se define un tamaño de hacking específico
 sin saber a que porcentaje corresponde del total.
 
 Puede ser completa cuando se enumeran
@@ -53,13 +53,13 @@ a|image::duracion.png[alt="Tiempo estimado de Ethical Hacking", width="55%"]
 
 a|== Duración específica
 
-Dependiendo del tamaño de la prueba típicamente estas
-toman entre +1+ y +4+ meses.
+Dependiendo del tamaño del hacking
+típicamente toma entre +1+ y +4+ meses.
 
-a|== Ciclos de prueba
+a|== Ciclos de hacking
 
-Al ser una prueba a una versión específica
-solo se contará con un ciclo de prueba.
+Al ser un proceso de hacking a una versión específica
+solo se contará con un ciclo de hacking.
 
 a|image::ciclos.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
 
@@ -80,16 +80,16 @@ a|image::ejecucion-programada.png[alt="Ejecución programada de Ethical Hacking"
 
 a|image::ambientes-pruebas.png[alt="Ambientes para Ethical Hacking", width="55%"]
 
-a|== Ambientes de prueba
+a|== Ambientes de hacking
 
-Es posible elegir un único ambiente de pruebas
+Es posible elegir un único ambiente de hacking
 entre producción, pruebas e integración.
 
 a|== Equipo de hacking altamente calificado
 
 Personal con certificaciones prácticas
 y estudios relacionados en temas de seguridad,
-realiza pruebas manuales y con herramientas
+realiza hacking manual y con herramientas
 para garantizar el reporte de hallazgos de impacto específicos del negocio,
 prácticas inseguras de programación, alineación a estándares
 y regulaciones de seguridad sin falsos positivos,
@@ -190,7 +190,7 @@ Se realiza un único ciclo validación de estado de los hallazgos
 hasta +3+ meses luego de la aprobación final de los informes iniciales,
 para esto es necesario que el cliente
 comparta nuevamente los informes iniciales
-y garantice el acceso al ambiente de pruebas.
+y garantice el acceso al ambiente de hacking.
 No se buscan nuevas vulnerabilidades,
 solo se valida lo ya encontrado previamente
 

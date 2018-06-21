@@ -168,7 +168,7 @@ basic()."img"
 "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul"
 ----
 
-. A continuación observe algunas pruebas de inyección
+. A continuación observe algunos ataques de inyección
 y su resultado luego de la purificación.
 
 image::salida.png[salida]

@@ -236,7 +236,7 @@ el acceso a los roles +rol1+ y +tomcat+.
 ----
 
 . Se termina de crear un servlet típico
-que solo muestra la palabra prueba como salida:
+que solo muestra la palabra +prueba+ como salida:
 +
 [source, java, linenums]
 ----

@@ -45,7 +45,7 @@ Para evitar los ataques que se aprovechan de la canonización,
 se debe seleccionar una forma canónica
 y todas las entradas de usuario deben ser canonizadas
 a esa forma antes de tomar decisiones de autorización.
-Se deben realizar pruebas de seguridad
+Se debe realizar un proceso de ethical hacking
 después de que se ha realizado la decodificación.
 +
 Se recomienda verificar que la codificación usada está soportada

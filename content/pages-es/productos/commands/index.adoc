@@ -1,14 +1,14 @@
 :slug: productos/commands/
 :category: productos
-:description: Commands es un producto de tipo troyano con command & control utilizado para realizar pruebas de intrusión en equipos críticos. Busca tomar control total de múltiples sistemas críticos para crear una red de nodos infectados que pueda ser controlada desde un centro de mando y control.
-:keywords: FLUID, Productos, Commands, Seguridad, Pentesting, Aplicaciones.
+:description: Commands es un producto de tipo troyano con command & control utilizado para realizar Ethical Hacking ofensivo en equipos críticos. Busca tomar control total de múltiples sistemas críticos para crear una red de nodos infectados que pueda ser controlada desde un centro de mando y control.
+:keywords: Fluid Attacks, Productos, Commands, Seguridad, Pentesting, Aplicaciones.
 :translate: products/commands/
 
 = Commands
 
 Troyano desarrollado completamente por +Fluid Attacks+
 para penetrar en profundidad estaciones de trabajo
-y servidores críticos durante las pruebas de intrusión
+y servidores críticos durante el Ethical Hacking
 en nuestro servicio de [button]#link:../../servicios/hacking-puntual/[Hacking Puntual]#
 donde su uso es autorizado.
 
@@ -17,7 +17,7 @@ donde su uso es autorizado.
 |====
 a|== Objetivo
 
-En FLUID no estamos únicamente interesados en encontrar
+En Fluid Attacks no estamos únicamente interesados en encontrar
 y reportar una vulnerabilidad, sino también en mostrar a nuestros clientes
 los riesgos potenciales que esta implica
 y el impacto de negocio que tiene.
@@ -31,7 +31,7 @@ a|== Como lo hacemos
 
 Para poder usar +FLUIDCommands+
 primero necesitamos tener acceso administrativos al sistema vulnerable,
-esto lo logramos a través de las pruebas manuales
+esto lo logramos a través de procesos de hacking manual
 que ejecutan nuestros expertos.
 Una vez se logre el acceso administrativo
 podemos proceder a infectar remotamente la máquina.
@@ -46,7 +46,7 @@ a|== Cero Efectos Colaterales
 Es importante resaltar que nuestro troyano +FLUIDCommands+
 nunca queda instalado en el sistema vulnerable
 como un servicio ni como una tarea programada.
-Una vez hayan finalizado todas las pruebas,
+Una vez hayan finalizado el Ethical Hacking,
 se desinstala remotamente
 sin dejar rastro alguno ni efectos colaterales.
 a|image::no-traces.png[Cero Daños, cero rastros]

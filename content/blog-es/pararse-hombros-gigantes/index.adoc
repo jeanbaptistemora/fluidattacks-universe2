@@ -25,7 +25,7 @@ y solo pesa +556 KiB+.
 
 Sin embargo, muchos paquetes dependen de ella.
 Para conocer cuántos paquetes
-en el repositorio Arch Linux dependen de +libpng+,
+en el repositorio +Arch Linux+ dependen de +libpng+,
 podemos utilizar +pacgraph+
 de link:http://kmkeen.com/pacgraph/[Kylee Keen]:
 
@@ -269,7 +269,7 @@ si se proveen pistas acerca de dónde podrían estar las vulnerabilidades
 en el código, y no como un reemplazo de los expertos.
 
 En el futuro, podríamos ver cosas
-como pruebas de seguridad distribuidas _en demanda_
+como ethical hacking distribuido _en demanda_
 y algoritmos de +machine learning+
 utilizando máquinas de vectores de soporte
 para intentar predecir qué cambios

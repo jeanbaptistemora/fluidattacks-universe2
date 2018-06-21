@@ -176,7 +176,7 @@ para conocer la efectividad de los ciclos de cierre realizados.
 a|== Registros Comprometidos
 
 Información como nombres, identificadores, saldos, productos, etc.
-que fue comprometida durante la ejecución de las pruebas de seguridad,
+que fue comprometida durante la ejecución del Ethical Hacking,
 por medio de la explotación de una vulnerabilidad.
 a|image::registros.png[Registros Comprometidos]
 
@@ -218,6 +218,6 @@ a|== Base De Conocimiento
 
 Los usuarios tienen acceso al producto de FLUID, [button]#link:../../defends/[Defends]#,
 el cual contiene ejemplos de cómo cumplir con los requisitos de seguridad
-que son evaluados en las pruebas realizadas.
+que son evaluados en el Ethical Hacking realizado.
 a|image::base-conocimiento.png[Base De Conocimiento]
 |====

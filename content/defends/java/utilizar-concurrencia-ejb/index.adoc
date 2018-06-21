@@ -192,7 +192,7 @@ public class Cliente {
        Object obj =
        contexto.lookup("Especialista.Concurrencia#Especialista.Concurrencia");
        Concurrencia Conc = (Concurrencia) PortableRemoteObject.narrow(obj, Concurrencia.class);
-       //se utilizan 2 procesos de el ejb como prueba
+       //se utilizan 2 procesos del ejb como prueba
        long tipo =i;
        long res =Conc.Proceso1(tipo);
        System.out.println("Pasa a proceso 2");

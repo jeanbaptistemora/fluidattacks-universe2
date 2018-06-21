@@ -165,7 +165,7 @@ deja una capa de la aplicación sin analizar.
 
 Otro detalle importante de mencionar es que
 los analizadores no se apuntaron a la página principal,
-como se haría en una prueba real.
+como se haría en un ethical hacking real.
 El objetivo del ataque fue una página particular de +bWAPP+
 donde se listaban enlaces a todas las demás páginas de la aplicación.
 De esta manera se logra una identificación completa por parte de la herramienta.

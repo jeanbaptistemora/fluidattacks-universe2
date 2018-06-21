@@ -1,12 +1,12 @@
 :slug: servicios/hacking-continuo/
 :category: servicios
 :description: Nuestro servicio de Hacking Continuo busca encontrar todas las vulnerabilidades y reportarlas lo antes posible. A través de la participación en el ciclo de vida de desarrollo, estamos en la capacidad de encontrar vulnerabilidades de forma paralela al desarrollo.
-:keywords: FLUID, Servicios, Hacking, Continuo, Vulnerabilidad, Seguridad.
+:keywords: Fluid Attacks, Servicios, Hacking, Continuo, Vulnerabilidad, Seguridad.
 :translate: services/continuous-hacking/
 
 = Hacking Continuo
 
-Las pruebas continuas buscan detectar y reportar todas las vulnerabilidades
+El hacking continuo busca detectar y reportar todas las vulnerabilidades
 y problemas de seguridad de un sistema
 durante todo el ciclo de desarrollo del mismo,
 nuestra participación durante este ciclo
@@ -20,7 +20,7 @@ antes de la salida a producción del sistema.
 [cols=2, frame="none"]
 |====
 
-a|== Pruebas antes que exista ambiente
+a|== Hacking antes que exista ambiente
 
 Se puede iniciar con las revisiones de seguridad
 desde el inicio del desarrollo,
@@ -32,19 +32,19 @@ a|image::img2.png[alt="img2", width="55%"]
 
 a|image::img3.png[alt="img3", width="55%"]
 
-a|== Tipos de prueba
+a|== Tipos de hacking
 
 * *Hacking Continuo Integral:*
-Se realizan pruebas de aplicación (ambiente de integración),
+Se realiza hacking de aplicación (ambiente de integración),
 infraestructura (si esta como código)
 y análisis de código fuente (repositorio en +GIT+).
 
-* *Hacking Continuo Limitado:* Se realizan pruebas de aplicación
+* *Hacking Continuo Limitado:* Se realiza hacking de aplicación
 o análisis de código fuente
 cuando se tiene acceso solo al ambiente de integración
 o al código fuente.
 
-a|== Límite de prueba mensual
+a|== Límite de hacking mensual
 
 El alcance mensual para +1+ sistema coherente,
 con +1+ equipo funcional y +1+ líder de proyecto,
@@ -60,7 +60,7 @@ a|== Cobertura
 
 El propósito es probar la totalidad del sistema
 durante el tiempo de la suscripción logrando una cobertura del +100%+.
-Es posible finalizar las pruebas de seguridad en paralelo al desarrollo
+Es posible finalizar el Ethical Hacking en paralelo al desarrollo
 si estas inician en conjunto con el desarrollo
 y mientras el desarrollo no supere las +10K+ deltas al mes.
 Cuando se superan las +10K+ deltas hay +2+ opciones:
@@ -68,7 +68,7 @@ Cuando se superan las +10K+ deltas hay +2+ opciones:
 * Solicitar la revisión de deltas adicionales.
 
 * Desplazar la revisión en el tiempo.
-Con esa última opción las pruebas de seguridad
+Con esa última opción el Ethical Hacking
 no terminarían en forma paralela al desarrollo.
 
 a|== Healthcheck
@@ -78,7 +78,7 @@ es necesario hacer un desatraso o +healthcheck+.
 Esto se realiza con el fin de revisar la totalidad de las líneas
 o entradas desarrolladas hasta el momento de la toma de la suscripción.
 En los primeros +3+ meses se realiza el desatraso
-y en los meses siguientes se continúa con la pruebas
+y en los meses siguientes se continúa con el Ethical Hacking
 de forma paralela al desarrollo
 (El +healthcheck+ tendrá un costo adicional a la suscripción).
 
@@ -121,9 +121,9 @@ a|image::img9.png[alt="img9", width="55%"]
 
 a|image::img10.png[alt="img10", width="55%"]
 
-a|== Ambientes de prueba
+a|== Ambientes de hacking
 
-Es posible elegir un único ambiente de pruebas entre producción,
+Es posible elegir un único ambiente de hacking entre producción,
 pruebas e integración con el servicio básico.
 También es posible adicionar ambientes
 para verificación de cierre de vulnerabilidades por un cargo adicional.
@@ -132,7 +132,7 @@ a|== Equipo de hacking altamente calificado
 
 Personal con certificaciones prácticas
 y estudios relacionados en temas de seguridad,
-realiza pruebas manuales y con herramientas
+realiza hacking manual y con herramientas
 para garantizar el reporte de vulnerabilidades
 de impacto específicos del negocio,
 prácticas inseguras de programación,

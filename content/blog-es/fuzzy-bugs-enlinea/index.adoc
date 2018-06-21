@@ -5,7 +5,7 @@
 :tags: sql, fuzzing, inyección
 :image: cover.png
 :alt: Fuzzy caterpillar
-:description: Cómo ejecutar pruebas fuzz en aplicaciones web. Específicamente aplicaremos fuzz para SQLi en una base de datos vulnerable de una página de búsqueda de bWAPP con el ZAProxy de OWASP, obteniendo resultados variados. También mostramos un ejemplo de una inyección no factible con fuzzing.
+:description: Cómo ejecutar un ataque SSfuzz en aplicaciones web. Específicamente aplicaremos fuzz para SQLi en una base de datos vulnerable de una página de búsqueda de bWAPP con el ZAProxy de OWASP, obteniendo resultados variados. También mostramos un ejemplo de una inyección no factible con fuzzing.
 :keywords: SQLi, Fuzzing, Ataque, Vulnerabilidad, Seguridad, Aplicación.
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -179,8 +179,8 @@ image::anim-run-zap-fuzzer.gif["Ejecutando un fuzzer ZAP"]
 Las consultas +SQL+ inyectadas exitosamente
 son marcadas con el estado +reflected+ en la lista:
 
-.Inyecciones SQL reflejadas en la prueba fuzz
-image::scr-reflected-fuzzed-injections.png["bWAPP prueba fuzz - Inyecciones SQL reflejadas"]
+.Inyecciones SQL reflejadas en el ataque fuzz
+image::scr-reflected-fuzzed-injections.png["bWAPP ataque fuzz - Inyecciones SQL reflejadas"]
 
 Aquí podemos ver que un test +fuzz+ es tan bueno
 como sus cargas o vectores +fuzz+.

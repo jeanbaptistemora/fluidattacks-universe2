@@ -5,8 +5,8 @@
 :tags: fuzzing, aplicación, probar
 :image: inf-monkey.png
 :alt: Teorema del mono infinito
-:description: Cómo ejecutar pruebas básicas de fuzz en aplicaciones de escritorio en C de Linux utilizando el American Fuzzy Lop. Discutimos los pros y contras del fuzzing en C, reproducimos el hallazgo del bug libpng donde optipng colapsa con un archivo png de baja profundidad de bit y alto número de paleta.
-:keywords: Fuzzing, Ataque, Vulnerabilidad, Seguridad, Aplicación, Prueba
+:description: Cómo ejecutar ataques básicos de fuzz en aplicaciones de escritorio en C de Linux utilizando el American Fuzzy Lop. Discutimos los pros y contras del fuzzing en C, reproducimos el hallazgo del bug libpng donde optipng colapsa con un archivo png de baja profundidad de bit y alto número de paleta.
+:keywords: Fuzzing, Ataque, Vulnerabilidad, Seguridad, Aplicación, Hacking
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

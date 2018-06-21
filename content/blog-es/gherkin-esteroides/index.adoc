@@ -118,7 +118,7 @@ image::default-file.png["Page with mysterious message"]
 Sin importar que tan tonto pueda parecer,
 ésto es lo primero que debemos documentar:
 Cómo la página, aplicación, o lo que sea que estemos probando
-funciona en el momento de la prueba.
+funciona en el momento del ataque.
 Podemos utilizar un escenario de "caso de uso normal" separado
 tal y como lo hicimos antes.
 

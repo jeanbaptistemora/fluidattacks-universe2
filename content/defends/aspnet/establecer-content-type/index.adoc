@@ -62,7 +62,7 @@ y modificar todas las entradas del usuario a dicha forma
 antes de tomar decisiones de autorización.
 
 . De la misma manera,
-se deben ejecutar pruebas de seguridad
+se debe ejecutar un proceso de ethical hacking
 después de que se ha realizado la decodificación,
 por lo cual se recomienda verificar
 que la codificación usada esté soportada

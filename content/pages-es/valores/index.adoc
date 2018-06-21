@@ -1,6 +1,6 @@
 :slug: valores/
-:description: Esta página establece expectativas sobre cómo los socios, empleados y aliados comerciales actúan frente a las situaciones cotidianas. FLUID está comprometida con un comportamiento íntegro y correcto espera que cada uno actúe cumpliendo la ley y las políticas definidas por la empresa.
-:keywords: FLUID, Valores, Políticas, Ética, Protección, Información.
+:description: Esta página establece expectativas sobre cómo los socios, empleados y aliados comerciales actúan frente a las situaciones cotidianas. Fluid Attacks está comprometida con un comportamiento íntegro y correcto espera que cada uno actúe cumpliendo la ley y las políticas definidas por la empresa.
+:keywords: Fluid Attacks, Valores, Políticas, Ética, Protección, Información.
 :translate: values/
 
 = Valores
@@ -9,24 +9,26 @@
 
 Esta página establece expectativas sobre cómo los socios,
 empleados y aliados comerciales actúan frente a las situaciones cotidianas.
-FLUID está comprometida con un comportamiento íntegro y correcto espera que
-cada uno actúe cumpliendo la ley y las políticas definidas por la empresa.
++Fluid Attacks+ está comprometida con un comportamiento íntegro y correcto
+espera que cada uno actúe cumpliendo la ley
+y las políticas definidas por la empresa.
 Se espera de cada uno comprensión y acatamiento.
 El incumplimiento de los principios aquí expresados podrá generar sanciones
-civiles y/o penales y puede acarrear el fin de la relación con FLUID.
+civiles y/o penales y puede acarrear el fin de la relación con +Fluid Attacks+.
 
 == 2. Principios
 
-FLUID es una empresa colombiana, que cree firmemente en sus fundamentos, los
-promueve y defiende. Nuestros principios no se negocian.
+Fluid Attacks es una empresa colombiana,
+que cree firmemente en sus fundamentos, los promueve y defiende.
+Nuestros principios no se negocian.
 
 Estos son, en orden de prioridad:
 
-* La *HONESTIDAD*, la verdad para FLUID es el bien mayor
+* La *HONESTIDAD*, la verdad para +Fluid Attacks+ es el bien mayor
 que prima sobre todo lo demás.
 Las acciones y palabras de cada uno deben reflejar legitimidad,
 el fraude es considerado una falta grave.
-* El *EQUIPO*, los resultados en FLUID son conseguidos
+* El *EQUIPO*, los resultados en +Fluid Attacks+ son conseguidos
 mediante el trabajo colaborativo de su personal.
 Por consiguiente, promovemos el trato digno y respetuoso a cada uno
 con igualdad de oportunidades.
@@ -46,7 +48,7 @@ y que se guardan para un futuro uso, personal o de la organización.
 
 . *Solo se realizan ataques cuando existe la autorización del cliente,
 en ambientes de prueba personales
-o ambientes creados para ser hackeados (CTFs, sitios de retos, etc)*:
+o ambientes creados para ser hackeados (+CTF+, sitios de retos, etc)*:
 Ni a modo de prueba, ni en tiempo fuera del trabajo,
 ni fuera de la organización, se realizan ataques a terceros
 (compañeros, otras empresas, amigos, etc).

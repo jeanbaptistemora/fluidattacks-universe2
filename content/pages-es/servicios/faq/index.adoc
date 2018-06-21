@@ -12,7 +12,7 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
 [qanda]
 *¿Qué es hacking continuo?*::
  Es el servicio que permite a una organización
- realizar pruebas de seguridad en etapas tempranas
+ realizar Ethical Hacking en etapas tempranas
  en el ciclo de vida de desarrollo de software.
  Teniendo como objetivo garantizar el 100% de cobertura sobre la aplicación.
 
@@ -21,7 +21,7 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
  ya que se realiza cuando la aplicación aún se encuentra en desarrollo,
  no en ambiente productivo.
  . Reducir el tiempo de certificación de seguridad a cero
- ya que las pruebas se ejecutan en paralelo al proceso de desarrollo.
+ ya que el Ethical Hacking se ejecuta en paralelo al proceso de desarrollo.
  . Obtener información clara y detallada
  sobre las vulnerabilidades detectadas en la aplicación
  para que todos las personas involucradas en el proyecto
@@ -36,23 +36,23 @@ El servicio se puede desarrollar en fases de forma complementaria:
  El insumo fundamental para el servicio es el acceso a la rama de integración
  del repositorio de código donde se almacena la aplicación.
  En esta fase aún no se cuenta con una aplicación desplegada
- por lo que las pruebas de seguridad se enfocan en el código fuente.
+ por lo que el Ethical Hacking se enfoca en el código fuente.
  . *Fase 2:*
  Sumado a lo anterior y cuando el proyecto
  cuenta con una aplicación desplegada (Ambiente de Integración),
- las pruebas aumentan su cobertura
- incluyendo pruebas de seguridad sobre la aplicación.
+ el Ethical Hacking aumentan su cobertura
+ incluyendo Ethical Hacking sobre la aplicación.
  . *Fase 3:*
  Esta fase es transversal a las anteriores.
- En ésta se incluye la infraestructura dentro de las pruebas de seguridad.
+ En ésta se incluye la infraestructura dentro del Ethical Hacking.
  Solo aplica si la infraestructura que soporta la aplicación
  se encuentra definida como código.
  Ademas de estar almacenada en el repositorio mencionado en la fase 1.
 
-*¿Qué tipo de pruebas incluye el servicio de Hacking Continuo?*::
+*¿Qué tipo de Ethical Hacking incluye el servicio de Hacking Continuo?*::
  El servicio incluye análisis de código fuente,
- pruebas de seguridad de aplicación (<<q3,Ver pregunta 3>>)
- y pruebas de seguridad sobre la infraestructura (<<q3,Ver pregunta 3>>).
+ Ethical Hacking de aplicación (<<q3,Ver pregunta 3>>)
+ y Ethical Hacking de infraestructura (<<q3,Ver pregunta 3>>).
 
 *¿Qué es una vulnerabilidad?*::
  Es cualquier situación que representa un riesgo de seguridad
@@ -117,7 +117,7 @@ El servicio se puede desarrollar en fases de forma complementaria:
 
 *¿Por qué es necesario el acceso al código almacenado en el repositorio?*::
  El servicio de Hacking Continuo
- se basa en ejecutar pruebas de seguridad de forma continua.
+ se basa en ejecutar el las pruebas de Hacking de forma continua.
  Siempre sobre la última versión del código.
 
 ¿Cuándo inicia la prestación del servicio?::
@@ -241,7 +241,7 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 *pueden ser revisados todos?*::
  Es posible realizar la verificación de múltiples repositorios
  con la única condición de que se hace sobre la misma rama en cada uno de ellos.
- Si se define que la rama sobre la que se ejecutarán las pruebas es QA
+ Si se define que la rama sobre la que se ejecutará el Ethical Hacking es +QA+
  esta misma rama debe estar presente
  en todos los repositorios incluidos dentro del servicio.
 
@@ -288,7 +288,7 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  con esto enviaremos la invitación
  en los horarios de nuestra conveniencia.
 
-*El desarrollo de la prueba en el modelo continuo*::
+*El desarrollo del Ethical Hacking en el modelo continuo*::
 *depente del tipo de repositorio donde tengo el código?*::
  ​No, el cliente puede usar el repositorio que estime conveniente.
  +Fluid Attacks+ solo requiere ingreso a la rama de integración
@@ -334,9 +334,9 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  Esta característica se habilita desde +Gmail+ o +Azure+ según sea tu caso.​
 
 *Que procedimiento tiene Fluid Attacks para desatrasar la revisión*::
-*del código ya existente antes de iniciar la prueba?*::
+*del código ya existente antes de iniciar el Ethical Hacking?*::
  +Fluid Attacks+ recomienda que tanto el desarrollo de la aplicación
- como las pruebas de seguridad comiencen al mismo tiempo.
+ como el Ethical Hacking de seguridad comiencen al mismo tiempo.
  Sin embargo, esto no siempre ocurre así.
  Para ello, tenemos una actividad llamada link:../../../en/services/continuous-hacking/#healthcheck[+HealthCheck+]
  que permite poner al día (desatrazar)​ las inspecciones de seguridad

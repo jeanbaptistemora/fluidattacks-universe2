@@ -19,9 +19,8 @@ por el proceso de gestión de riesgos de la institución.
 
 == Implementación
 
-
 . Es posible que algunas de las vulnerabilidades
-reportadas en los procesos de pruebas no puedan ser tratadas
+reportadas en los procesos de ethical hacking no puedan ser tratadas
 o corregidas inmediatamente,
 pues pueden existir implicaciones funcionales o económicas
 que la organización por el momento no pueda soportar.

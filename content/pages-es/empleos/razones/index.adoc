@@ -50,7 +50,7 @@ problemas diferentes, métodos diferentes y ampliar tu conocimiento.
 en obtener la certificación +ISO/IEC 27001+ (Seguridad de la Información)
 al mismo tiempo que obtuvo la certificación +ISO 9001+.
 Además, nuestro proceso de mejora continua
-utiliza como modelo de referencia para las pruebas de seguridad,
+utiliza como modelo de referencia para el Ethical Hacking,
 los estandares +ISO/IEC 17025+ y el estándar +Common Criteria+.
 
 == Trabaja con los grandes

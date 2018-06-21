@@ -20,7 +20,7 @@ cuales componentes fueron efectivamente probados.
 
 == Implementación
 
-. En el proceso de pruebas se debe verificar los componentes
+. En el proceso de Ethical Hacking se debe verificar los componentes
 que se hayan establecido en el alcance para la prueba,
 en caso de existir inconvenientes
 y que el alcance no pueda cubrirse por completo,

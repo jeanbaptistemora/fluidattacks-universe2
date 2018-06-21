@@ -1,6 +1,6 @@
 :slug: publicaciones/
-:description: En esta página presentamos las principales publicaciones que ha tenido FLUID a lo largo de los años. Dentro de éstas publicaciones se cuentan los artículos en revistas y congresos internacionales, los artículos de prensa, los hallazgos destacables en software dentro y fuera del país y más.
-:keywords: FLUID, Publicaciones, Conferencias, Papers, Prensa, Proyectos.
+:description: En esta página presentamos las principales publicaciones que ha tenido Fluid Attacks a lo largo de los años. Dentro de éstas publicaciones se cuentan los artículos en revistas y congresos internacionales, los artículos de prensa, los hallazgos destacables en software dentro y fuera del país y más.
+:keywords: Fluid Attacks, Publicaciones, Conferencias, Papers, Prensa, Proyectos.
 :translate: publications/
 
 = Publicaciones
@@ -55,8 +55,8 @@ estándares internacionales a Normas Técnicas Colombianas (+NTC+):
 == Vulnerabilidades
 
 +Fluid Attacks+, en el marco de múltiples proyectos que incluyen
-los servicios de pruebas de seguridad de aplicación
-y auditoría de código fuente,
+los servicios de Ethical Hacking de aplicación
+y revisión de código fuente,
 ha encontrado vulnerabilidades de seguridad sobre aplicaciones
 y servicios de uso masivo.
 
