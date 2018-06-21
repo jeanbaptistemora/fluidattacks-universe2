@@ -1,6 +1,6 @@
 :slug: facts/
-:description: In this page we show some interesting facts about our company. FLUID is an enterprise conformed by highly qualified personnel in several areas of information security. If you want to know more about us here we present some of our main achievements and acknowledgments.
-:keywords: FLUID, Facts, Awards,  Achievements, Acknowledgments, About Us.
+:description: In this page we show some interesting facts about our company. Fluid Attacks is an enterprise conformed by highly qualified personnel in several areas of information security. If you want to know more about us here we present some of our main achievements and acknowledgments.
+:keywords: Fluid Attacks, Facts, Awards,  Achievements, Acknowledgments, About Us.
 :translate: hechos/
 
 = Facts

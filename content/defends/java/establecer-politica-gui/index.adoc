@@ -201,8 +201,8 @@ image::policytool-2.png[permisos]
 ----
 /* AUTOMATICALLY GENERATED ON Wed Nov 30 10:39:30 COT 2011*/
 /* DO NOT EDIT */
-grant codeBase "file:/D:/FLUID/" {
-  permission java.io.FilePermission "D:\\FLUID\\sensible.txt", "read";};
+grant codeBase "file:/D:/Fluid-Attacks/" {
+  permission java.io.FilePermission "D:\\Fluid-Attacks\\sensible.txt", "read";};
 ----
 
 . Para ejecutar la aplicación con la política,

@@ -11,7 +11,7 @@
 :author: Felipe Gómez
 :writer: fgomez
 :name: Felipe Gómez Arango
-:about1: FLUID Account Manager, Bachelor of Business Management
+:about1: Fluid Attacks Account Manager, Bachelor of Business Management
 :about2: Passionate about technology and security
 
 = Delimiting an Ethical Hacking
@@ -72,7 +72,7 @@ as opposed to delimitations that are set based on execution time
 with automated tools that only
 exploit a small percentage of the reported vulnerabilities.
 
-In FLUID,
+In Fluid Attacks,
 our value proposition goes hand in hand with meeting the promised scope,
 never based on time.
 Our tests are said to be finished when we have evaluated

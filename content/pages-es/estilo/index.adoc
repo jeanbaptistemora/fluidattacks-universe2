@@ -1,11 +1,11 @@
 :slug: estilo/
-:description: Nuestros ethical hackers explican los criterios necesarios para la aceptación y posterior publicación de un documento en el blog de FLUID a través de un documento guía. Además se abordan algunos temas referentes a AsciiDoc y pautas a tener en cuenta a la hora de construir un documento.
+:description: Nuestros ethical hackers explican los criterios necesarios para la aceptación y posterior publicación de un documento en el blog de Fluid Attacks a través de un documento guía. Además se abordan algunos temas referentes a AsciiDoc y pautas a tener en cuenta a la hora de construir un documento.
 :keywords: Editorial, Guía, Artículos, AsciiDoc, Criterios, Aceptación.
 :translate: style/
 
 = Estilo
 
-El objetivo del blog de FLUID
+El objetivo del blog de Fluid Attacks
 es compartir opiniones y conocimientos
 sobre temas de seguridad de forma clara y fácil de entender.
 
@@ -156,7 +156,7 @@ deben incluir la referencia.
 === 7. Vídeos
 
 . Deben ser vídeos propios.
-. Se deben enviar el medio para subirlo al canal de FLUID en Youtube
+. Se deben enviar el medio para subirlo al canal de Fluid Attacks en Youtube
 . El vídeo no puede ir solo, debe tener introducción y conclusión.
 
 === 8. Fuente
@@ -254,7 +254,7 @@ El documento debe incluir 6 +keywords+.
 
 |+:translate:+ | Si | Si | Si
 | Atributo que indica si se encuentra disponible una versión traducida
-del documento dentro de la página de FLUID.
+del documento dentro de la página de Fluid Attacks.
 En caso afirmativo se debe incluir el +slug+ del documento traducido.
 
 |+:subtitle:+ | Si | Si | Si
@@ -346,7 +346,7 @@ consulta nuestra [button]#link:../../en/format[página de formatos permitidos y 
 == Autores
 
 Si quieres compartir tus conocimientos y opiniones de seguridad
-con la comunidad y no haces parte del talento de FLUID
+con la comunidad y no haces parte del talento de Fluid Attacks
 puedes ser autor invitado,
 escribe tu +post+ en el editor que te guste
 y envíanos todo lo necesario para publicarlo
@@ -365,12 +365,12 @@ certificaciones, gustos.
 
 === Solicitudes
 
-. Si eres parte del equipo de FLUID
+. Si eres parte del equipo de Fluid Attacks
 envía tu documento a través de un +Merge Request+
 en formato +AsciiDoc+ cumpliendo todas las reglas
 anteriormente mencionadas.
 
-. Si no eres parte del equipo de FLUID
+. Si no eres parte del equipo de Fluid Attacks
 solo debes enviar a communications@fluidattacks.com tu documento,
 adjuntando todos los archivos necesarios para crear el +post+.
 Una vez enviado el documento entrará en proceso de evaluación
@@ -378,11 +378,11 @@ para definir si es publicado.
 
 == Términos y condiciones
 
-. FLUID se reserva el derecho de admisión
+. Fluid Attacks se reserva el derecho de admisión
 de los documentos enviados.
 
 . La revisión es de forma no de fondo,
-FLUID no evalúa si está de acuerdo o no con la opinión del autor
+Fluid Attacks no evalúa si está de acuerdo o no con la opinión del autor
 solo revisa que cumpla con las normas descritas anteriormente.
 
 . Una vez completado el borrador
@@ -391,6 +391,6 @@ a través del +Merge Request+
 para entrar a evaluar el contenido.
 
 Si el documento es aceptado y se decide publicar en el blog
-el autor *cede* los derechos patrimoniales del mismo a FLUID;
+el autor *cede* los derechos patrimoniales del mismo a Fluid Attacks;
 de ser necesario se realizarán cambios de forma
 sin solicitar permisos al autor del mismo.

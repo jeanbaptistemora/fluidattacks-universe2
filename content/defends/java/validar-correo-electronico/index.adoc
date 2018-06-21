@@ -142,19 +142,19 @@ simplemente se muestra el mensaje +NO Válido+.
 [source, java, linenums]
 ----
 % javac Main.java
-% java Main FLUID.signal.group@gmail.com.co
+% java Main Fluid-Attacks@gmail.com.co
 Válido
 
-% java Main FLUID.signal.group+prueba@gmail.com.co
+% java Main Fluid-Attacks+prueba@gmail.com.co
 NO Válido
 
-% java Main FLUID+prueba@gmail.com.co
+% java Main Fluid-Attacks+prueba@gmail.com.co
 NO Válido
 
-% java Main FLUID@gmail.com.co
+% java Main Fluid-Attacks@gmail.com.co
 Válido
 
-% java Main FLUID@gmail.com
+% java Main Fluid-Attacks@gmail.com
 Válido
 ----
 

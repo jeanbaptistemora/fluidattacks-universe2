@@ -39,7 +39,7 @@ link:http://hackthis.co.uk/[hackthis]:
 image::level5.png[reto]
 
 Si deseas conocer la solución a anteriores retos,
-puedes ingresar al link:../categorias/retos/[blog de FLUID],
+puedes ingresar al link:../categorias/retos/[blog de Fluid Attacks],
 donde encontrarás éste y otros artículos interesantes
 sobre seguridad informática.
 

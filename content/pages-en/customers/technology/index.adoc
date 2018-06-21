@@ -1,7 +1,7 @@
 :slug: customers/technology/
 :category: customers
-:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the technological sector.
-:keywords: FLUID, Information, Technology, Security, Ethical Hacking, Pentesting.
+:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the technological sector.
+:keywords: Fluid Attacks, Information, Technology, Security, Ethical Hacking, Pentesting.
 :translate: clientes/tecnologia/
 :usa: image:../../images/icons/us-flag.png[USA Flag]
 :spain: image:../../images/icons/spain-flag.png[Spain Flag]

@@ -33,7 +33,7 @@ y son enviadas automáticamente por el navegador o el servidor Web.
 image::headers.png[headers]
 
 En la imagen se puede apreciar tanto los +headers+ de la petición
-hecha a la página principal de +FLUID+,
+hecha a la página principal de +Fluid Attacks+,
 como los +headers+ de la respuesta enviada por el servidor.
 
 Pero, los +headers+ no solo proporcionan

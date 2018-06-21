@@ -1,7 +1,7 @@
 :slug: customers/industrial/
 :category: customers
-:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the industrial sector.
-:keywords: FLUID, Security, Industrial, Information, Ethical Hacking, Pentesting.
+:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the industrial sector.
+:keywords: Fluid Attacks, Security, Industrial, Information, Ethical Hacking, Pentesting.
 :translate: clientes/industrial/
 :usa: image:../../images/icons/us-flag.png[USA Flag]
 

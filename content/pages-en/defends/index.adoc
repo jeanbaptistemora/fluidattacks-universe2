@@ -1,6 +1,6 @@
 :slug: defends/
-:description: The FLUID knowledge base is focused on information security topics. Here you can find many educational articles related to secure programming, good programming practices and securing your applications. This KB intends to educate developers and programmers in order to avoid common security issues.
-:keywords: FLUID, Knowledge Base, KB, Information, Security, Articles.
+:description: The Fluid Attacks knowledge base is focused on information security topics. Here you can find many educational articles related to secure programming, good programming practices and securing your applications. This KB intends to educate developers and programmers in order to avoid common security issues.
+:keywords: Fluid Attacks, Knowledge Base, KB, Information, Security, Articles.
 :defendsindex: yes
 :translate: defends/
 

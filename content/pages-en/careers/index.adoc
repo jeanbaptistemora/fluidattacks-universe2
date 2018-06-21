@@ -1,6 +1,6 @@
 :slug: careers/
-:description: FLUID is always looking for young talents with a passion for programming and Information Technology. This page is meant to inform everyone interested in being part of the FLUID team about the selection process and the various stages that it is made up of.
-:keywords: FLUID, Job, Process, Selection, Stages, Recruitment.
+:description: Fluid Attacks is always looking for young talents with a passion for programming and Information Technology. This page is meant to inform everyone interested in being part of the Fluid Attacks team about the selection process and the various stages that it is made up of.
+:keywords: Fluid Attacks, Job, Process, Selection, Stages, Recruitment.
 :translate: empleos/
 
 = Careers

@@ -1,8 +1,8 @@
 :slug: eventos/quemar-el-datacenter/
 :subtitle: De Mascotas a Ganado
 :category: eventos
-:description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUID. La presente conferencia tiene por objetivo socializar el futuro de la tecnología y el desarrollo de software en los próximos 10 años según la opinión de nuestros expertos.
-:keywords: FLUID, Conferencia, Datacenter, Seguridad, Software, Tecnología.
+:description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por Fluid Attacks. La presente conferencia tiene por objetivo socializar el futuro de la tecnología y el desarrollo de software en los próximos 10 años según la opinión de nuestros expertos.
+:keywords: Fluid Attacks, Conferencia, Datacenter, Seguridad, Software, Tecnología.
 
 = Quemar el Datacenter
 

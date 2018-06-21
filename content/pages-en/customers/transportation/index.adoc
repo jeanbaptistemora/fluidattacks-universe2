@@ -1,7 +1,7 @@
 :slug: customers/transportation/
 :category: customers
-:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the transportation sector.
-:keywords: FLUID, Information, Security, Transportation, Ethical Hacking, Pentesting.
+:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the transportation sector.
+:keywords: Fluid Attacks, Information, Security, Transportation, Ethical Hacking, Pentesting.
 :translate: clientes/transporte/
 
 = Transportation

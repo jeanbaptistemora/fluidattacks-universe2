@@ -49,7 +49,7 @@ cuyo contenido sea información sensible en memoria.
 == Soluciones
 
 La presente sección contiene enlaces a artículos
-cuyo contenido es propiedad de +FLUID+.
+cuyo contenido es propiedad de +Fluid Attacks+.
 El objetivo es dar a conocer al público
 la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:

@@ -1,7 +1,7 @@
 :slug: careers/openings/
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. Here we describe the desired profiles and available job openings in our company. If you fit any of them, do not hesitate to apply for it.
-:keywords: FLUID, Careers, Position, Profile, Selection, Process.
+:keywords: Fluid Attacks, Careers, Position, Profile, Selection, Process.
 :translate: empleos/vacantes/
 
 = Openings

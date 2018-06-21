@@ -1,6 +1,6 @@
 :slug: productos/defends/
-:description: El propósito de esta página es presentar los productos ofrecidos por FLUID. FLUIDDefends es una gran recopilación de artículos desarrollados por nuestro equipo de profesionales relacionados a la seguridad informática, buenas prácticas de programación y ethical hacking.
-:keywords: FLUID, Productos, FLUIDDefends, Información, Seguridad, Ethical Hacking.
+:description: El propósito de esta página es presentar los productos ofrecidos por Fluid Attacks. FLUIDDefends es una gran recopilación de artículos desarrollados por nuestro equipo de profesionales relacionados a la seguridad informática, buenas prácticas de programación y ethical hacking.
+:keywords: Fluid Attacks, Productos, FLUIDDefends, Información, Seguridad, Ethical Hacking.
 :category: productos
 :translate: products/defends/
 

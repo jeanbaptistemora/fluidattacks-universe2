@@ -1,6 +1,6 @@
 :slug: values/
-:description: This page sets the expectations regarding the behaviour of partners, employees and allies in everyday situations. FLUID is committed to always having an integral and correct behaviour and expects all members to act in accordance with the law and company policies.
-:keywords: FLUID, Values, Policies, Ethics, Protection, Information.
+:description: This page sets the expectations regarding the behaviour of partners, employees and allies in everyday situations. Fluid Attacks is committed to always having an integral and correct behaviour and expects all members to act in accordance with the law and company policies.
+:keywords: Fluid Attacks, Values, Policies, Ethics, Protection, Information.
 :translate: valores/
 
 = Values
@@ -10,27 +10,27 @@
 This page sets the expectations
 regarding the behaviour of partners,
 employees and allies in everyday situations.
-FLUID is committed to always having an integral and correct behaviour
+Fluid Attacks is committed to always having an integral and correct behaviour
 and expects all members to act in accordance with the law and company policies.
 Understanding and compliance is expected from everyone.
 The failure to meet the principles hereby stated could imply
 penalties and/or criminal sanctions
-and could result in the end of all relations with FLUID.
+and could result in the end of all relations with Fluid Attacks.
 
 == 2. Principles
 
-FLUID is a Colombian company that firmly believes
+Fluid Attacks is a Colombian company that firmly believes
 and stands by their principles,
 they are proudly promoted and defended.
 Our principles are not negotiable.
 
 Here they are in order of priority:
 
-* *HONESTY*, for FLUID the truth is the greater good
+* *HONESTY*, for Fluid Attacks the truth is the greater good
 and always prevails over everything else.
 Everyone´s words and actions must reflect legitimacy,
 fraud is considered a very serious fault.
-* The *TEAM*, All results in FLUID are achieved
+* The *TEAM*, All results in Fluid Attacks are achieved
 through the collaborative work of all the staff.
 It is a team effort.
 Therefore, we promote a dignified and respectful treatment

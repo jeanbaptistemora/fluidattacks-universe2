@@ -1,7 +1,7 @@
 :slug: productos/asserts/
 :category: productos
 :description: En esta página presentamos nuestros productos más destacados. Asserts es un motor de cierre de hallazgos de seguridad sobre ambientes en ejecución, el cual puede ser implementado en un pipeline de CI para evaluar si los hallazgos de seguridad continúan presentes en la aplicación.
-:keywords: FLUID, Productos, Asserts, Automatización, Hallazgos, Seguridad.
+:keywords: Fluid Attacks, Productos, Asserts, Automatización, Hallazgos, Seguridad.
 :translate: products/asserts/
 
 = Asserts
@@ -168,9 +168,9 @@ when: 2018-05-16 08:42:02.448463
 from fluidasserts.proto import http
 
 URL = 'http://testphp.vulnweb.com/guestbook.php'
-BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
+BAD_TEXT = r"<script>alert\('Hacked by Fluid Attacks'\)</script>"
 
-DATA = 'name=test&text=%3Cscript%3Ealert%28%27Hacked+by+FLUID%27%29%3C%2Fscript%3E&submit=add+message'
+DATA = 'name=test&text=%3Cscript%3Ealert%28%27Hacked+by+Fluid+Attacks%27%29%3C%2Fscript%3E&submit=add+message'
 http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
@@ -183,7 +183,7 @@ http.has_xss(URL, BAD_TEXT, data=DATA)
 ---
 check: fluidasserts.proto.http.has_text
 status: OPEN
-message: 'Bad text present: "<script>alert\(''Hacked by FLUID''\)</script>"'
+message: 'Bad text present: "<script>alert\(''Hacked by Fluid Attacks''\)</script>"'
 details:
   url: http://testphp.vulnweb.com/guestbook.php
 when: 2018-05-16 08:43:49.769936
@@ -195,9 +195,9 @@ when: 2018-05-16 08:43:49.769936
 from fluidasserts.proto import http
 
 URL = 'http://testphp.vulnweb.com/guestbook.php'
-BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
+BAD_TEXT = r"<script>alert\('Hacked by Fluid Attacks'\)</script>"
 
-DATA = 'name=test&text=Hacked+by+FLUID&submit=add+message'
+DATA = 'name=test&text=Hacked+by+Fluid+Attacks&submit=add+message'
 http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
@@ -210,7 +210,7 @@ http.has_xss(URL, BAD_TEXT, data=DATA)
 ---
 check: fluidasserts.proto.http.has_text
 status: CLOSE
-message: 'Bad text not present: "<script>alert\(''Hacked by FLUID''\)</script>"'
+message: 'Bad text not present: "<script>alert\(''Hacked by Fluid Attacks''\)</script>"'
 details:
   url: http://testphp.vulnweb.com/guestbook.php
 ----
