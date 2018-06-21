@@ -12,6 +12,9 @@ const translations2 = {
       "closure": "Fixed vulnerabilities",
       "closureTooltip": "Percentage of reported vulnerabilities " +
                         "that are already fixed",
+      "compromisedRecords": "Total Compromised Records",
+      "compromisedRecordsTooltip": "Total compromised records " +
+                                    "reported in the project",
       "criticity": "Total Severity Found",
       "criticityTooltip": "Severity of project against the average " +
                           "(<100% safer,> 100% more insecure)",

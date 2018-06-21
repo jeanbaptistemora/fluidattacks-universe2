@@ -101,9 +101,11 @@ angular.module("FluidIntegrates").factory(
         let openVulnerabilities = 0;
         let cardinalidadTotal = 0;
         let maximumSeverity = 0;
+        let compromisedRecords = 0;
         let oldestFinding = 0;
         let openEvents = 0;
         angular.forEach(data.data, (cont) => {
+          compromisedRecords += parseInt(cont.recordsNumber, 10);
           openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
           cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
           if (maximumSeverity < parseFloat(cont.criticity)) {
@@ -125,7 +127,8 @@ angular.module("FluidIntegrates").factory(
           "#ff9930;",
           "#2e4050;",
           "#9f5ab1;",
-          "#0a40ae;"
+          "#0a40ae;",
+          "#ff7373;"
         ];
         const metricDes = [
           "findings",
@@ -133,7 +136,8 @@ angular.module("FluidIntegrates").factory(
           "vulnerabilities",
           "maximumSeverity",
           "oldestFinding",
-          "openEvents"
+          "openEvents",
+          "compromisedRecords"
         ];
         const metricTool = [
           "findingsTooltip",
@@ -141,7 +145,8 @@ angular.module("FluidIntegrates").factory(
           "vulnerabilitiesTooltip",
           "maximumSeverityTooltip",
           "oldestFindingTooltip",
-          "openEventsTooltip"
+          "openEventsTooltip",
+          "compromisedRecordsTooltip"
         ];
         const metricIcon = [
           "s7-id",
@@ -149,7 +154,8 @@ angular.module("FluidIntegrates").factory(
           "s7-info",
           "s7-gleam",
           "s7-date",
-          "s7-way"
+          "s7-way",
+          "s7-notebook"
         ];
         const metricValue = [
           data.data.length,
@@ -157,7 +163,8 @@ angular.module("FluidIntegrates").factory(
           cardinalidadTotal,
           maximumSeverity,
           oldestFinding,
-          openEvents
+          openEvents,
+          compromisedRecords
         ];
         return [
           openVulnerabilities,
