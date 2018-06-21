@@ -31,7 +31,7 @@ def authorize(roles):
                     return HttpResponse('<script> \
                            var getUrl=window.location.hash.substr(1); \
               localStorage.setItem("url_inicio",getUrl); \
-              location = window.location.href.split("/dashboard")[0] ; </script>')
+              location = "/index" ; </script>')
             return func(*args, **kwargs)
         return authorize_and_call
     return wrapper
