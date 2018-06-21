@@ -285,7 +285,7 @@ angular.module("FluidIntegrates").controller(
         const vm = this;
         const actualRow = angular.element("#tblUsers").find("tr");
         const actualIndex = angular.element(vm).data().index + 1;
-        adminEmail.push(actualRow.eq(actualIndex)[0].innerText.split("\t")[1]);
+        adminEmail.push(actualRow.eq(actualIndex)[0].cells[1].innerHTML);
       });
       if (adminEmail.length === 0) {
         $msg.error($translate.instant("search_findings.tab_users." +

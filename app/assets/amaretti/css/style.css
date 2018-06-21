@@ -20298,3 +20298,6 @@ div.dataTables_wrapper div.dataTables_length label select {
   background-color: #337AB7;
   border-color: #337AB7;
 }
+td.lower-text {
+  text-transform: lowercase;
+}
