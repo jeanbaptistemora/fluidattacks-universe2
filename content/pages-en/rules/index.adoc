@@ -9,9 +9,9 @@
 == Information Assets
 
 * link:001/[REQ.001 Identified Information Assets].
-* link:002/[REQ.002 Asset Owners are Defined].
-* link:003/[REQ.003 Monetary Value of Assets is Defined].
-* link:004/[REQ.004 Identify threats to assets].
+* link:004/[REQ.004 Asset Owners are Defined].
+* link:005/[REQ.005 Monetary Value of Assets is Defined].
+* link:006/[REQ.006 Identify threats to assets].
 * link:008/[REQ.008 Generate system threat model].
 
 == Session
