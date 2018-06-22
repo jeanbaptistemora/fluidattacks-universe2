@@ -45,6 +45,7 @@
 * link:099/[REQ.099 Vehicles and people access control].
 * link:100/[REQ.100 Seal windows containing assets].
 * link:101/[REQ.101 Assign ID cards to workforce members].
+* link:103/[REQ.103 Manage access cards].
 * link:105/[REQ.105 Avoid assets leakage].
 * link:109/[REQ.109 Monitor restricted areas].
 * link:110/[REQ.110 Prevent theft in facilities].

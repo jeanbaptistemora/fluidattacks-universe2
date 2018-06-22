@@ -20,3 +20,10 @@ Plan de Seguridad en las Instalaciones:
 Implementar políticas y procedimientos para salvaguardar
 las instalaciones y los equipos
 de accesos no autorizados, manipulación y robo.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(c):]
+Seguridad en las estaciones de trabajo:
+Implementar sistemas de protección física
+para todas las estaciones de trabajo
+que tengan acceso a información sensible,
+restringiéndo su acceso sólo a usuarios autorizados.
