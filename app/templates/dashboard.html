@@ -31,6 +31,13 @@
     <script src="assets/prismjs/prism.js" data-manual></script>
 
     {% mixpanel %}
+    {% if legal_status != '1' %}
+      <script>
+        var getUrl=window.location.hash.substr(1);
+        localStorage.setItem("url_inicio", getUrl);
+        location = window.location.href.split("/dashboard")[0] + "/registration";
+      </script>
+    {% endif %}
     <script>
     var projectData = [];
     var eventsData = [];

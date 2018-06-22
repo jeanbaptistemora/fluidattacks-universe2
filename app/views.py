@@ -290,8 +290,7 @@ def registration(request):
     "Registry view for authenticated users"
     try:
         parameters = {
-            'username': request.session["username"],
-            'is_registered': request.session["registered"],
+            'username': request.session["username"]
         }
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -307,8 +306,10 @@ def dashboard(request):
         parameters = {
             'username': request.session["username"],
             'company': request.session["company"],
-            'last_login': request.session["last_login"],
+            'last_login': request.session["last_login"]
         }
+        if 'legal_status' in request.session:
+            parameters['legal_status'] = request.session['legal_status']
         integrates_dao.update_user_login_dao(request.session["username"])
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1627,6 +1628,20 @@ def change_user_role(request):
     return util.response([], 'Error', True)
 
 @never_cache
+@require_http_methods(["POST"])
+@authenticate
+def legal_status(request):
+    status = request.POST.get('status', "")
+    request.session['legal_status'] = status
+    return util.response([], 'Success', False)
+
+@never_cache
+@require_http_methods(["GET"])
+@authenticate
+def is_registered(request):
+    user = request.session['username'];
+    return util.response([], integrates_dao.is_registered_dao(user), False)
+
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'customeradmin', 'admin'])

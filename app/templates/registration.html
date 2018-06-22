@@ -81,21 +81,17 @@
                 </script>
 
                 <!-- START: MODAL DISCLOSURE WARN -->
-                <div class="modal" tabindex="-1" role="dialog" id="disclosureWarn">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'legal.disclosureWarning.title' | translate{% templatetag closevariable %}</h3>
-                      </div>
-                      <div class="modal-body">
-                        <p>{% templatetag openvariable %}'legal.disclosureWarning.description' | translate{% templatetag closevariable %}</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" onclick="loadDashboard()" data-dismiss="modal">{% templatetag openvariable %}'legal.disclosureWarning.acceptBtn' | translate{% templatetag closevariable %}</button>
-                      </div>
+                <script type="text/ng-template" id="legalNotice.html">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'legal.disclosureWarning.title' | translate{% templatetag closevariable %}</h3>
                     </div>
-                  </div>
-                </div>
+                    <div class="modal-body">
+                      <p>{% templatetag openvariable %}'legal.disclosureWarning.description' | translate{% templatetag closevariable %}</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-primary" type="button" ng-click="okModalNotice()" data-dismiss="modal">{% templatetag openvariable %}'legal.disclosureWarning.acceptBtn' | translate{% templatetag closevariable %}</button>
+                    </div>
+                </script>
               </li>
             </ul>
           </div>
@@ -106,62 +102,30 @@
         <div class="main-content">
           <div class="login-container">
             <div class="panel panel-default">
-                <div class="panel-heading"><img src="assets/img/logoFluidAttacks.png" alt="logo"   class="logo-img"></div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                    <span style="color: white;">
-                        <br>
-                        <h1>Hello {{ user.first_name }}!</h1>
-                        <br>
-                        {% if is_registered == '1' %}
-                            <script>
-                              function loadDashboard(){
-                                mixpanel.time_event("Logged out");
-                                if (localStorage.getItem("url_inicio") === null){
-                                  location = "dashboard";
-                                } else {
-                                  if (location.toString().indexOf("localhost:8000") === -1){
-                                    if (location.toString().indexOf(".integrates.env") === -1) {
-                                      var link= "https://fluidattacks.com/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
-                                      window.location= link;
-                                      localStorage.clear();
-                                    }
-                                    else {
-                                      var dev= location.toString().match("https://(.*).integrates")[1];
-                                      var link= "https://" + dev + ".integrates.env.fluidattacks.com/dashboard#" + localStorage.getItem("url_inicio") ;
-                                      window.location= link;
-                                      localStorage.clear();
-                                    }
-                                  } else {
-                                    var link= "https://localhost:8000/dashboard#" + localStorage.getItem("url_inicio") ;
-                                    window.location= link;
-                                    localStorage.clear();
-                                  }
-                                }
-                              }
-                              $(document).ready(function(){
-                                $('#disclosureWarn').appendTo("body").modal({
-                                  backdrop: 'static',
-                                  keyboard: false,
-                                  show: true});
-                              });
-                            </script>
-                        {% else %}
-                            <script>
-                                if (location.toString().indexOf("localhost:8000") == -1)
-                                    mixpanel.track(
-                                        "Registered User", {
-                                            "Email": "{{ request.session.username }}",
-                                        }
-                                    );
-                            </script>
-                            <p>You do not have authorization for login yet. Please contact FLUID's staff or your project administrator to get access.</p>
-                        {% endif %}
-                    </span>
-                    </div>
+              <div class="panel-heading"><img src="assets/img/logoFluidAttacks.png" alt="logo"   class="logo-img"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <span style="color: white;">
+                    <br>
+                    <h1>Hello {{ user.first_name }}!</h1>
+                    <br>
+                    <p id="notAuthorizedTxt" style="display: none">
+                      You do not have authorization for login yet.
+                      Please contact FLUID's staff or your project administrator to get access.
+                    </p>
+                  </span>
                 </div>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
+    <div id="full_loader" style="margin: 0px; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 30001; opacity: 0.8; display:none;">
+      <p style="position: absolute; color: White; top: 50%; left: 45%; text-align:center;">
+        <img src="assets/img/loading.gif" width="120" height="120"><br>
+        Powered by <b>fluid</b> attacks
+      </p>
     </div>
     <script src="assets/amaretti/js/main.js" type="text/javascript"></script>
     <script src="assets/amaretti/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
@@ -197,7 +161,8 @@
     <script src="assets/app/routes.js"></script>
     <script src="assets/app/cssv2DropDownList.js"></script>
     <script src="assets/app/xhr.js"></script>
-    <script src="assets/app/models/eventualityFactory.js" type="text/javascript"></script>
+    <script src="assets/node_modules/secure-random/lib/secure-random.js" type="text/javascript"></script>
+    <script src="assets/app/models/registerFactory.js" type="text/javascript"></script>
     <!-- Start Dashboard -->
     <script src="assets/app/controllers/registerCtrl.js" type="text/javascript"></script>
     <script src="https://rum-static.pingdom.net/pa-5ae7406129ccc50006000057.js" async></script>
