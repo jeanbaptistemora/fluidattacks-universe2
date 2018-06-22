@@ -82,7 +82,7 @@ angular.module("FluidIntegrates").controller(
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.calculateCardinality = function calculateCardinality (data) {
-      const cardinalityValues = projectFtry.calCardinality(data);
+      const cardinalityValues = projectFtry2.calCardinality(data);
       $scope.metricsList = [];
       const cardIndex2 = 2;
       const cardIndex3 = 3;

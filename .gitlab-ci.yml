@@ -105,7 +105,7 @@ build-integrates:
   stage: build
   script:
     - cd deploy/containers/integrates &&
-        sh build.sh 
+        sh build.sh
         "$CI_COMMIT_REF_NAME" "$TORUS_TOKEN_ID" "$TORUS_TOKEN_SECRET"
         "$TORUS_ORG" "$TORUS_PROJECT"
     - docker push
@@ -212,6 +212,7 @@ Linting:
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "npm install -g  n; n stable;
         torus daemon start; sleep 5;
+        cd /usr/src/app;
         torus run -- node /usr/src/app/app/assets/node_modules/.bin/eslint
         /usr/src/app/app/assets/app/."
   retry: 2
