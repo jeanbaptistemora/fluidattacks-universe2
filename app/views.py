@@ -857,6 +857,8 @@ def replace_all(text, dic):
 @authorize(['analyst', 'admin'])
 def update_evidences_files(request):
     parameters = request.POST.dict()
+    if catch_finding(request,parameters['findingId']) is None:
+        return util.response([], 'Access denied', True)
     upload = request.FILES.get("document", "")
     migrate_all_files(parameters, request)
     mime = Magic(mime=True)
@@ -1264,6 +1266,8 @@ def delete_finding(request):
     """Capture and process the ID of an eventuality to eliminate it"""
     parameters = request.POST.dict()
     username = request.session['username']
+    if catch_finding(request,parameters["data[id]"]) is None:
+        return util.response([], 'Access denied', True)
     fin_dto = FindingDTO()
     try:
         submission_id = parameters["data[id]"]
