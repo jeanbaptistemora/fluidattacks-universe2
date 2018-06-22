@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que las ventanas que contengan activos de información de cualquier tipo permanezcan selladas.
 :keywords: Activos, Control, Organización, Acceso, Sellar, Ventanas.
 :rules: yes
+:translate: rules/100/
 
 = REQ.100 Sellar ventanas que contengan activos
 
@@ -11,3 +12,11 @@
 Las ventanas de lugares
 que contengan activos de información físicos
 o lógicos deben permanecer selladas.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Plan de Seguridad en las Instalaciones:
+Implementar políticas y procedimientos para salvaguardar
+las instalaciones y los equipos
+de accesos no autorizados, manipulación y robo.
