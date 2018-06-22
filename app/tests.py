@@ -1,5 +1,7 @@
 from django.test import TestCase
 from .api.formstack import FormstackAPI
+from .entity.query import Query
+from graphene import Schema
 # Create your tests here.
 
 
@@ -44,3 +46,22 @@ class FormstackAPITests(TestCase):
         }
         request = api_frms.update(submission_id, data)
         self.assertIs("success" in request, True)
+
+class GraphQLTests(TestCase):
+
+    def test_get_alert(self):
+        """Check for project alert"""
+        query = """{
+            alert(project:"bwapp", organization:"testing"){
+                message
+            }
+        }"""
+        schema = Schema(query=Query)
+        result = schema.execute(query)
+        if "alert" in result.data:
+            message = result.data["alert"]["message"]
+            self.assertIs(
+                message == "Alerta de prueba unitaria",
+                True
+            )
+        self.assertFalse("alert" not in result.data)

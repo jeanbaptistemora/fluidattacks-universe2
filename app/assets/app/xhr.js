@@ -47,7 +47,6 @@ const sameOrigin = function sameOrigin (url) {
         (url === srOrigin || url.slice(0, srOrigin.length + 1) ===
         `${srOrigin}/`) || !(/^(\/\/|http:|https:).*/).test(url);
 };
-
 /**
  * Add the CSRF cookie to all ajax requests.
  * @function ajaxConfig
@@ -63,39 +62,51 @@ const ajaxConfig = function ajaxConfig () {
     }
   });
 };
-ajaxConfig();
+/**
+ * Add the CSRF cookie to all ajax requests.
+ * @function ajaxConfig
+ * @return {undefined}
+ */
 var $xhr = new class xhr {
-    request($method, $q, $url, $data, text){
-        if(!$q) throw "Undefined Promise";
-        if(!$url) throw "Undefined URL";
-        var deferred = $q.defer();
-        try {
-            $.ajax({
-                url: $url, type: $method, data: $data,
-                success: function (response) { deferred.resolve(response); },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                   if(XMLHttpRequest.status == 401){
-                       location = BASE.url + "index";
-                   }else{
-                       Rollbar.error(text);
-                       let textError = "There is an error";
-                       if (localStorage.lang === 'es') {
-                         textError = "Hay un error";
-                       }
-                       $.gritter.add({ title: 'Oops!', text: textError,
-                            class_name: 'color warning', sticky: false,
-                       });
-                   }
-                }
-            });
-        } catch (e) {
-            deferred.resolve(e);
+  request($method, $q, $url, $data, text){
+    var deferred = $q.defer();
+    try {
+      if(!$q) throw "Undefined Promise";
+      if(!$url) throw "Undefined URL";
+      $.ajax({
+        url: $url, type: $method, data: $data,
+        success: function (response) { 
+          deferred.resolve(response); 
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          if(XMLHttpRequest.status == 401){
+            location = BASE.url + "index";
+          }else{
+            throw text;
+          }
         }
-        return deferred.promise;
+      });
+    } catch (e) {
+      Rollbar.error(text);
+      let textError = (localStorage.lang === 'es')
+        ?"Hay un error"
+        :"There is an error";
+      $.gritter.add({ 
+          title: 'Oops!', text: textError,
+          class_name: 'color warning', sticky: false,
+      });
+      deferred.resolve(e);
     }
-    get($q, $url, $data, text = {}){ return this.request("get", $q, $url, $data, text) }
-    post($q, $url, $data, text = {}){ return this.request("post", $q, $url, $data, text) }
+    return deferred.promise;
+  }
+  get($q, $url, $data, text = {}){ return this.request("get", $q, $url, $data, text) }
+  post($q, $url, $data, text = {}){ return this.request("post", $q, $url, $data, text) }
+  fetch($q, $data, text = {}){
+    return this.request("post", $q, BASE.url + "api", $data, text);
+  }
 };
+//Run ajax config
+ajaxConfig();
 //Overriding ajax
 $("#full_loader").hide();
 $( document ).ajaxStart(function() { $("#full_loader").show(); });

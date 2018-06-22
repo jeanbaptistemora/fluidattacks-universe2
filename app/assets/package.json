@@ -10,6 +10,7 @@
     "eslint-plugin-angular": "^3.3.0",
     "eslint-plugin-unicorn": "^4.0.3",
     "google-closure-compiler-js": "20180402.0.0",
+    "graphql.js": "^0.4.20",
     "gulp": "3.9.1",
     "iframe-resizer": "3.6.1",
     "jquery-comments_brainkit": "1.2.8",

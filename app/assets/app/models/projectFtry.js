@@ -201,11 +201,15 @@ angular.module("FluidIntegrates").factory(
        */
       "getAlerts" (company, project) {
         const oopsAc = "An error occurred getting alerts";
-        return $xhr.get($q, `${BASE.url}get_alerts`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          company,
-          project
-        }, oopsAc);
+        let gQry = `{
+          alert(project:":prj", organization:":org"){
+            message
+            status
+          }
+        }`;
+        gQry = gQry.replace(":prj", project.toLocaleLowerCase());
+        gQry = gQry.replace(":org", company.toLocaleLowerCase());
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**

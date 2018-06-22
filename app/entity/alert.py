@@ -17,7 +17,7 @@ class Alert(ObjectType):
         self.organization, self.status = "", 0
         project = str(project)
         organization = str(organization)
-        resp = integrates_dao.get_company_alert_dynamo(project, organization)
+        resp = integrates_dao.get_company_alert_dynamo(organization, project)
         if resp:
             self.message = resp[0]['message']
             self.project = resp[0]['project_name']

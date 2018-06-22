@@ -35,12 +35,14 @@ angular.module("FluidIntegrates").factory(
           if (angular.isUndefined(response.data)) {
             location.reload();
           }
-          if (!response.error && response.data.length > 0) {
-            if (response.data[0].status_act === "1") {
+          if (!response.error &&
+            angular.isDefined(response.data)) {
+            const {alert} = response.data;
+            if (alert.status === 1) {
               let html = "<div class=\"alert alert-danger-2\">";
-              html += "<strong>Atención! </strong>" +
-                    `${response.data[0].message}</div>`;
-              $document[0].getElementById("header_alert").innerHTML = html;
+              html += "<strong>Atención! </strong> :msg:</div>";
+              html = html.replace(":msg:", alert.message);
+              angular.element("#header_alert").html(html);
             }
           }
         });
