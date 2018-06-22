@@ -21,3 +21,11 @@ Implementar políticas y procedimientos para limitar
 el acceso físico a la instalación o instalaciones
 donde se almacenan sistemas electrónicos con información sensible,
 verificando que todo acceso sea autorizado
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Procedimientos de control de acceso y validación:
+Implementar procedimientos para controlar y validar
+el acceso de una persona a las instalaciones basándose
+en su rol o función, incluyendo control de visitantes
+y control de acceso a software de la compañía
+para pruebas o revisión.

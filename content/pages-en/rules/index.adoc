@@ -39,6 +39,7 @@
 == Access Control
 
 * link:094/[REQ.094 Specify rules in declarative mood].
+* link:095/[REQ.095 Define users with privileges].
 * link:096/[REQ.096 Set user required privileges].
 * link:097/[REQ.097 Define control access model].
 * link:098/[REQ.098 Safeguard information assets].
@@ -50,6 +51,8 @@
 * link:109/[REQ.109 Monitor restricted areas].
 * link:110/[REQ.110 Prevent theft in facilities].
 * link:111/[REQ.111 Define suitable physical controls].
+* link:113/[REQ.113 Manage access points].
+* link:114/[REQ.114 Deny access with inactive credentials].
 
 == Credentials
 
@@ -72,6 +75,7 @@
 == Authentication
 
 * link:229/[REQ.229 Request access credentials].
+* link:231/[REQ.231 Define biometric verification component].
 
 == Business Process
 

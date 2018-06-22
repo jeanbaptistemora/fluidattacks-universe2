@@ -28,3 +28,11 @@ Implementar sistemas de protección física
 para todas las estaciones de trabajo
 que tengan acceso a información sensible,
 restringiéndo su acceso sólo a usuarios autorizados.
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Procedimientos de control de acceso y validación:
+Implementar procedimientos para controlar y validar
+el acceso de una persona a las instalaciones basándose
+en su rol o función, incluyendo control de visitantes
+y control de acceso a software de la compañía
+para pruebas o revisión.

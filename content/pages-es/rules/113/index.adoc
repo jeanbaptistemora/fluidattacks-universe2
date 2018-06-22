@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, toda organización debe velar porque las áreas restringidas cuenten con un número limitado de puntos de acceso así como el control de los mismos.
 :keywords: Organización, Acceso, Controlar, Seguridad, Área, Restringido.
 :rules: yes
+:translate: rules/113/
 
 = REQ.113 Gestionar puntos de acceso
 
@@ -19,3 +20,11 @@ que todos los empleados tengan acceso apropiado a la información sensible
 como se especifica en el párrafo (a)(4) de esta sección,
 y para prevenir que los empleados no autorizados
 obtengan acceso a esta información.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Procedimientos de control de acceso y validación:
+Implementar procedimientos para controlar y validar
+el acceso de una persona a las instalaciones basándose
+en su rol o función, incluyendo control de visitantes
+y control de acceso a software de la compañía
+para pruebas o revisión.
