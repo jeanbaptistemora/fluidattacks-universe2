@@ -30,6 +30,7 @@ angular.module("FluidIntegrates").controller(
     $scope.logout = function logout () {
       $uibModal.open({
         "animation": true,
+        "backdrop": "static",
         "controller" ($scope, $uibModalInstance) {
           $scope.closeModalLogout = function closeModalLogout () {
             $uibModalInstance.close();

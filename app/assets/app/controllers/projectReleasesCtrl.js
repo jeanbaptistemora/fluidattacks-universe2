@@ -318,6 +318,7 @@ angular.module("FluidIntegrates").controller(
     $scope.openModalAvance = function openModalAvance () {
       $uibModal.open({
         "animation": true,
+        "backdrop": "static",
         "controller" ($scope, $uibModalInstance) {
           const auxiliar =
                   angular.element("#releases").bootstrapTable("getData");

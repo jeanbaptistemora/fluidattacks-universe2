@@ -291,6 +291,7 @@ angular.module("FluidIntegrates").controller(
     $scope.openModalEventAvance = function openModalEventAvance () {
       $uibModal.open({
         "animation": true,
+        "backdrop": "static",
         "controller" ($scope, $uibModalInstance) {
           $scope.rowsEvent =
                  angular.element("#tblEventualities").bootstrapTable("getData");

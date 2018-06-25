@@ -43,6 +43,7 @@ angular.module("FluidIntegrates").controller(
       );
       $uibModal.open({
         "animation": true,
+        "backdrop": "static",
         "controller" ($scope, $uibModalInstance, $stateParams) {
           const projName = $stateParams.project;
           const currentLang = localStorage.lang;
