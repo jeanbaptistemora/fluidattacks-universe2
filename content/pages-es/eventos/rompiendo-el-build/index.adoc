@@ -8,32 +8,37 @@
 
 == 1. Objetivo
 
-El término +SecDevOps+ ha venido sonando mucho los últimos años,
-sin embargo, toda persona, todo +Webinar+ que habla del tema,
+El término +SecDevOps+ ha venido sonando mucho en estos últimos años.
+Sin embargo, toda persona, todo +Webinar+ que habla del tema,
 únicamente se centra en los beneficios que trae,
-o en los posibles casos de uso;
-sin prestarle ni un minuto de atención
-a la razón por la que posiblemente muchos asistentes decidieron ir al evento,
-*¿cómo se hace?, ¿por dónde se empieza?*
-Tal vez nos mostrarían cómo hacen una que otra prueba
-sobre un ambiente exageradamente simple,
-con el que ningún asistente se relacionará en cuanto a su labor diaria,
-generando otras preguntas,
-*¿esto en verdad funciona?*, *¿esto aplica en mi empresa?*
+o en los posibles casos de uso,
+sin prestarle mucha atención a la razón por la que probablemente
+muchos deciden  ir a estos eventos.
 
-En este espacio buscamos dar respuesta a estas preguntas,
+
+Mínimamente se deduce que quieren saber
+*¿ésto cómo se hace?, ¿por dónde empezar?* +
+Tal vez nos enseñen cómo se hace una que otra prueba
+sobre un ambiente exageradamente simple,
+con el que nadie se relacionará respecto a su labor diaria,
+por lo que se puede llegar a nuevas preguntas,
+*¿esto en verdad funciona?*, *¿cómo puedo aplicarlo en mi empresa?*
+
+Basados en los anterior,
+en este espacio buscamos dar respuesta a las preguntas planteadas,
 mediante la socialización
-de nuestras prácticas de trabajo, metodologías y costumbres
-que nos permiten implementar una cultura +SecDevOps+ en nuestros proyectos;
+de nuestras metodologías y prácticas de trabajo, o costumbres,
+que nos permiten implementar una cultura +SecDevOps+
+en la ejecución de nuestros proyectos;
 desde la administración de la infraestructura,
-hasta el desarrollo de nuestra plataforma de orquestación
+hasta el desarrollo de la plataforma de orquestación
 para la remediación de vulnerabilidades:
 [button]#link:../../productos/integrates/[Integrates]#.
 
-Estos hábitos nos permiten aumentar nuestra productividad,
-generando valor diario al cliente,
-además de incrementar la seguridad de nuestros despliegues a producción.
-Así logramos alcanzar, en los últimos seis meses, un promedio de:
+Estos hábitos nos permiten aumentar no solo nuestra productividad,
+y generar valor diario al cliente,
+sino también incrementar la seguridad de nuestros despliegues a producción.
+Así, logramos alcanzar, en los últimos seis meses, un promedio de:
 
 [role="tb-alt"]
 [frame="none",cols=2,caption=""]
@@ -54,17 +59,16 @@ como la puesta en práctica de todo lo visto en
 Todo lo que se muestra es *en vivo y en directo*,
 no una aplicación ni una infraestructura diseñada como +demo+
 específicamente para este taller.
-Se ofrece una visión de lo que está ocurriendo dentrás de cámaras,
+Se ofrece una visión de lo que está ocurriendo dentrás de cámaras:
 las herramientas que se utilizan,
 los +logs+ que arrojan y que permiten identificar problemas,
 incluso el código fuente que define cada uno de los pasos
 para el correcto despliegue de nuestros productos,
-todo esto resultando en que es posible ver cómo se actualiza
+todo esto orientado a hacer posible la observación de cómo se actualiza
 nuestra infraestructura y nuestros productos en *tiempo real*.
 
 Para poder entender cómo ocurre todo lo mencionado anteriormente,
-además de mostrar cómo dar un primer paso
-para alcanzar esta configuración,
+y poder demostrar cómo dar un primer paso para alcanzar esta configuración,
 el taller viene acompañado de la explicación de todos los hábitos de trabajo
 que nos han permitido llegar hasta este punto y seguir mejorando diariamente.
 Estos hábitos tratan temas como:
@@ -110,7 +114,7 @@ antes de hacer el paso a producción
 teniendo ambientes de desarrollo, pruebas, +QA+, ...).
 
 * *Rompimiento del +build+* incluso antes de hacer +commit+ al repositorio,
-utilizando +*pre-commit*+ para hacer chequeos por verificaciones.
+utilizando +*pre-commit*+ para hacer chequeos sobre el código fuente.
 
 * Ejecutar pruebas sobre el código fuente y sobre el despliegue
 que *rompan el +build+* ante el más mínimo error
@@ -138,27 +142,27 @@ Cada punto descrito anteriormente
 está acompañado con la entrada al interior de los sistemas de +Fluid Attacks+
 para ver su implementación y funcionamiento.
 Según la necesidad o el interés de los asistentes,
-es posible hacer énfasis en los temas que ellos consideren más importantes.
+es posible hacer énfasis en los temas que consideren más importantes.
 
 == 3. Experiencia
 
-Este *taller* se ha presentado a personas de tecnología de empresas como
-link:https://www.avianca.com/co/es/[+Avianca+],
+Este *taller* se ha presentado a profesionales del área de tecnología
+y auditoría de empresas como link:https://www.avianca.com/co/es/[+Avianca+],
 link:https://www.grupobancolombia.com/wps/portal/personas[+Bancolombia+]
 y link:https://www.f2x.com.co/[+F2X+.]
 
 == 4. ¿Dónde?
 
-* En *Bogotá* el taller es realizado en:
-Hotel Tryp Embajada, Avenida La Esperanza # 51 - 40, Salón Calatrava
+* En *Bogotá* el taller es realizado en: +
+Hotel Tryp Embajada, Avenida La Esperanza No. 51 - 40, Salón Calatrava
 
-* En *Medellin* el taller es realizado en:
+* En *Medellin* el taller es realizado en: +
 Country Club de Ejecutivos, Diagonal 28 No. 16 - 129,
 Kilometro 5 vía Las Palmas, Salon Siglo XXI
 
 == 5. Duración
 
-El *taller* tiene una duración de *5 horas*
+El *taller* tiene una intensidad de *5 horas*
 (no es posible reducir su duración).
 Comprende la demostración en vivo de nuestras prácticas,
 además de un espacio para tomar una media-mañana,
@@ -166,32 +170,33 @@ y un almuerzo al mediodía.
 
 == 6. Cuándo
 
-El *taller* está diseñado para dictarse desde las *9 A.M.* hasta las *2 P.M.*.
-El día se agenda según común acuerdo
+El *taller* está diseñado para ser trabajado desde las *9 A.M.*
+hasta las *2 P.M.*.
+La fecha se agenda de común acuerdo
 entre los asistentes por parte del cliente y +Fluid Attacks+.
 
 == 7. Detalles
 
 . *Inversión*: El espacio y alimentación de este taller
-son cubiertos enteramente por +Fluid Attacks+.
-Los asistentes solo deben invertir de su parte el tiempo,
-los costos de desplazamiento y el parqueadero
-en caso que las instalaciones copen su capacidad o así lo indiquen.
+son cubiertos en su totalidad por +Fluid Attacks+.
+Los asistentes solo deben comprometerse con el tiempo,
+con los costos de sus desplazamientos
+y con el parqueadero de sus vehículos
+en caso de que las instalaciones copen su capacidad, o así lo indiquen.
 
 . *Material*: Al igual que los demás eventos
 ofrecidos por +Fluid Attacks+,
-el material se envía al público
-cuando *todos* los asistentes diligencien la
+el material se envía a los asistentes
+cuando *todos* hayan diligenciado la
 [button]#link:http://go.fluidattacks.com/rompiendo-el-build[evaluación de satisfacción]#
-*antes de salir* del lugar donde se hizo el taller.
+*antes de salir* del lugar donde se realizó el taller.
 
 == 8. Público
 
-El *taller* es apto para personal técnico
-y personal gerencial de tecnología.
+El *taller* está orientado al personal técnico y gerencial de tecnología.
 Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.
-Sin embargo, si desea disparar cambios y experimentos
-dentro de su organización,
+Sin embargo, si su empresa desea disparar cambios
+y experimentos dentro de su organización,
 es importante considerar la presencia
 de personas con poder de decisión.
 
