@@ -22,7 +22,7 @@ const translations2 = {
       "findingsTooltip": "Security vulnerabilities reported by category",
       "maximumSeverity": "Maximum Severity Found",
       "maximumSeverityTooltip": "Maximum severity found based on CVSS standard",
-      "oldestFinding": "Oldest Finding",
+      "oldestFinding": "Day(s) from the Oldest Open Finding",
       "oldestFindingTooltip": "Oldest open vulnerability since report date",
       "openEvents": "Open Eventualities",
       "openEventsTooltip": "Events that interfere in the normal " +

@@ -23,7 +23,7 @@ const traducciones2 = {
     "maximumSeverity": "Máxima Severidad Encontrada",
     "maximumSeverityTooltip": "Máxima severidad encontrada de acuerdo " +
                               "al estándar CVSS",
-    "oldestFinding": "Hallazgo con Mayor Edad",
+    "oldestFinding": "Día(s) del Hallazgo Abierto más Antiguo",
     "oldestFindingTooltip": "Edad de la vulnerabilidad abierta con más " +
                             "días desde su reporte",
     "openEvents": "Eventualidades Abiertas",
