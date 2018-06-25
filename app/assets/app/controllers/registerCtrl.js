@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore":[-1,0,1] }]*/
 /* global
 integrates, BASE, userEmail, mixpanel, projectData:true,
-eventsData:true, findingData:true, angular, $window */
+eventsData:true, findingData:true, angular, $window, Rollbar */
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /**
  * @file registerCtrl.js
@@ -105,7 +105,13 @@ angular.module("FluidIntegrates").controller(
             const authorizationReq = registerFactory.isUserRegistered();
             authorizationReq.then((response) => {
               if (response.message === "1") {
-                mixpanel.time_event("Logged out");
+                try {
+                  mixpanel.time_event("Logged out");
+                }
+                catch (err) {
+                  const msg = "Couldn't track session length (Adblock)";
+                  Rollbar.warning(`Warning: ${msg}`);
+                }
                 const statusReq = registerFactory.updateLegalStatus("1");
                 statusReq.then(() => {
                   $scope.loadDashboard();
