@@ -1709,3 +1709,12 @@ def graphql_api(request):
     schema = Schema(query=Query)
     result = schema.execute(query)
     return util.response(result.data, 'success', False)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
+def access_to_project(request):
+    project = request.GET.get('project', "")
+    if has_access_to_project(request.session['username'], project, request.session['role']):
+        return util.response(True, 'success', False)
+    return util.response(False, 'success', False)

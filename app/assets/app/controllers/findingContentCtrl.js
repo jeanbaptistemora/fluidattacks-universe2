@@ -40,6 +40,7 @@ findingContentCtrl (
   functionsFtry4,
   ngNotify,
   projectFtry,
+  projectFtry2,
   tabsFtry
 ) {
   $scope.cssv2Editable = function cssv2Editable () {
@@ -349,7 +350,19 @@ findingContentCtrl (
     $scope.onlyReadableTab4 = true;
     $scope.onlyReadableTab5 = true;
     $scope.onlyReadableTab6 = true;
-    $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
+    const hasAccess = projectFtry2.accessToProject(projectName);
+    hasAccess.then((response) => {
+      if (!response.error) {
+        $scope.hasAccess = response.data;
+        $scope.isManager = userRole !== "customer" &&
+                           userRole !== "customeradmin";
+      }
+      else if (response.error) {
+        $scope.hasAccess = false;
+        $scope.isManager = false;
+        $msg.error($translate.instant("proj_alerts.access_denied"));
+      }
+    });
     // Default flags value for view visualization
     $scope.isAdmin = userRole !== "customer" &&
             userRole !== "customeradmin" && userRole !== "analyst";

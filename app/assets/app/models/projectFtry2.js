@@ -32,6 +32,21 @@ angular.module("FluidIntegrates").factory(
         }, oopsAc);
       },
 
+      /**
+       * Validate that a user has access to a project.
+       * @function accessToProject
+       * @param {String} project Project name.
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with the releases of a project
+       */
+      "accessToProject" (project) {
+        const oopsAc = "An error occurred getting releases";
+        return $xhr.get($q, `${BASE.url}access_to_project`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          project
+        }, oopsAc);
+      },
+
       "calCardinality" (data) {
         let openVulnerabilities = 0;
         let cardinalidadTotal = 0;

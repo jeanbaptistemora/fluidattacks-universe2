@@ -34,7 +34,7 @@
           </div>
       </div>
       <div ng-if="(!isAdmin) || (isAdmin && !releasesButton)">
-        	<div class="col-md-offset-2 col-md-2 col-xs-12 col-sm-12" ng-show="isManager">
+        	<div class="col-md-offset-2 col-md-2 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
               <button class="btn btn-warning btn-block" ng-click="deleteFinding();">
                   <i class="icon s7-trash"></i> {{'search_findings.project_buttons.delete' | translate}}
               </button>
@@ -117,7 +117,7 @@
                   <div id="info" class="tab-pane cont active">
                       <div class="row">
                           <div class="col-md-12 col-sm-12 col-xs-12">
-                              <div class="row table-row" ng-show="isManager">
+                              <div class="row table-row" ng-show="isManager && hasAccess">
                                   <div class="row">
                                       <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
                                           <button id="edit" class="btn btn-primary btn-block"
@@ -530,7 +530,7 @@
                   <!-- End Tab CSSv2 -->
                   <!-- Start Tab Evidence -->
                   <div id="evidence" class="tab-pane cont">
-                      <div class="row" ng-show="isManager" style="margin-bottom: 10px;">
+                      <div class="row" ng-show="isManager && hasAccess" style="margin-bottom: 10px;">
                           <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
                               <button class="btn btn-primary btn-block"
                                       ng-click="evidenceEditable();">
@@ -615,7 +615,7 @@
                   <!-- End Tab Evidence -->
                   <!-- Start Tab Exploit -->
                   <div id="exploit" class="tab-pane cont" ng-show="hasExploit || isManager">
-                    <div class="row" ng-show="isManager" style="margin-bottom: 10px;">
+                    <div class="row" ng-show="isManager && hasAccess" style="margin-bottom: 10px;">
                         <div class="row">
                             <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
                                 <button class="btn btn-primary btn-block"
@@ -686,7 +686,7 @@
                   <!-- End Tab Tracking -->
                   <!-- Start Tab Record -->
                   <div id="records" class="tab-pane cont" ng-show="hasRecords || isManager">
-                      <div class="row" ng-show="isManager" style="margin-bottom: 10px;">
+                      <div class="row" ng-show="isManager && hasAccess" style="margin-bottom: 10px;">
                           <div class="row">
                               <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
                                   <button class="btn btn-primary btn-block"
