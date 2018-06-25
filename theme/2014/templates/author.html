@@ -25,34 +25,21 @@
   <meta property="profile:last_name" content="{{ author.name.split(' ')[1:]|join(' ') }}">
   <meta property="profile:username" content="{{ author.slug }}">
 {% endblock opengraph %}
-
-{% block header %}
-  {% include "navigationbar.html" %}
-  {% if HEADER_COVER %}
-    <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
-  {% elif HEADER_COLOR %}
-    <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
-  {% else %}
-    <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src= "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
-  {% endif %}
-  </header>
-  <div class="list-title">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <div class="nav-info">
-            <div class="breadcrumbs">
-              <ul>
-                <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
-                <li><a href="{{ SITEURL }}/blog/">Blog >>&nbsp;</a></li>
-                <li><a href="../">{{ gettext('Author-breadcrumb-1') }}</a></li>
-              </ul>
-            </div>
+<div class="list-title">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="post-heading">
+        <div class="nav-info">
+          <div class="breadcrumbs">
+            <ul>
+              <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
+              <li><a href="{{ SITEURL }}/blog/">Blog >>&nbsp;</a></li>
+              <li><a href="../">{{ gettext('Author-breadcrumb-1') }}</a></li>
+            </ul>
           </div>
-          <h1>{{ author }}</h1>
         </div>
+        <h1>{{ author }}</h1>
       </div>
     </div>
   </div>
-{% endblock header %}
+</div>

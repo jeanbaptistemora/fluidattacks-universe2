@@ -192,11 +192,36 @@ $white: rgba(255, 255, 255, 1);
   z-index: 1;
 }
 
-.intro-header {
+.header {
+  padding-top: 72px;
 
   img {
-    margin-top: 72px;
     width: 100%;
+  }
+}
+
+.header-title {
+  position: absolute;
+  right: 0;
+  top: 16%;
+  width: 50%;
+
+  h1 {
+    color: $white;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .header-red {
+    color: $fluid-red;
+  }
+
+  p {
+    color: $white;
+    display: none;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 5px;
   }
 }
 
@@ -204,6 +229,60 @@ $white: rgba(255, 255, 255, 1);
   .fluid-logo {
     top: 10px;
     width: 150px;
+  }
+}
+
+@media (min-width: 480px) {
+  .header-title {
+    top: 12%;
+
+    h1 {
+      font-size: 18px;
+    }
+
+    p {
+      display: block;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .header-title {
+    top: 14%;
+
+    h1 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (min-width: 720px) {
+  .header-title {
+    h1 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (min-width: 840px) {
+  .header-title {
+    top: 15%;
+
+    h1 {
+      font-size: 34px;
+    }
+
+    p {
+      font-size: 18px;
+    }
   }
 }
 
@@ -276,5 +355,39 @@ $white: rgba(255, 255, 255, 1);
 
   .fluid-logo {
     left: 6px;
+  }
+}
+
+@media (min-width: 980px) {
+  .header-title {
+
+    h1 {
+      font-size: 38px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (min-width: 1100px) {
+  .header-title {
+    top: 18%;
+
+    h1 {
+      font-size: 42px;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .header-title {
+    width: 40%;
+
+    p {
+      margin-top: 20px;
+      width: 80%;
+    }
   }
 }
