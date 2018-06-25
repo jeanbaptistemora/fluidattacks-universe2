@@ -1614,6 +1614,8 @@ def create_new_user(newUser, role, company, project):
         integrates_dao.register(newUser)
         integrates_dao.assign_role(newUser, role)
         integrates_dao.assign_company(newUser, company)
+    elif integrates_dao.is_registered_dao(newUser) == '1':
+        integrates_dao.assign_role(newUser, role)
     if role == 'customeradmin':
         integrates_dao.add_role_to_project_dynamo(project.lower(), newUser, role)
 
