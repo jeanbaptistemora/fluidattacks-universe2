@@ -1615,7 +1615,7 @@ def create_new_user(newUser, role, company, project):
         integrates_dao.assign_role(newUser, role)
         integrates_dao.assign_company(newUser, company)
     if role == 'customeradmin':
-        integrates_dao.add_role_to_project_dynamo(project.lower(), [newUser], role)
+        integrates_dao.add_role_to_project_dynamo(project.lower(), newUser, role)
 
 @never_cache
 @csrf_exempt
@@ -1679,13 +1679,13 @@ def change_user_role(request):
                 role == 'customer'or role == 'customeradmin'):
             if integrates_dao.assign_role(email, role) is None:
                 if role == 'customeradmin':
-                    integrates_dao.add_role_to_project_dynamo(project.lower(), [email], role)
+                    integrates_dao.add_role_to_project_dynamo(project.lower(), email, role)
                 return util.response([], 'Success', False)
     elif is_customeradmin(project, request.session['username']):
         if role == 'customer'or role == 'customeradmin':
             if integrates_dao.assign_role(email, role) is None:
                 if role == 'customeradmin':
-                    integrates_dao.add_role_to_project_dynamo(project.lower(), [email], role)
+                    integrates_dao.add_role_to_project_dynamo(project.lower(), email, role)
                 return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
