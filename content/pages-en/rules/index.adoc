@@ -86,3 +86,8 @@
 * link:255/[REQ.255 Allow access only to the necessary ports].
 * link:256/[REQ.256 Restrict server ports access].
 * link:257/[REQ.257 Access based on user credentials].
+
+== Control
+
+* link:296/[REQ.296 Install physical intrusion alarms].
+* link:297/[REQ.297 Install sensors on information assets].
