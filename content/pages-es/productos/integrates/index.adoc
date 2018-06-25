@@ -157,7 +157,8 @@ a|== Exploit de la Vulnerabilidad
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
-Si el usuario cuenta con una licencia del producto [button]#link:../asserts/[Asserts]#,
+Al descargar nuestro producto [button]#link:../asserts/[Asserts]#
+y siguiendo su [button]#link:https://fluidsignal.gitlab.io/asserts/[documentación]#,
 podrá reproducir el ataque que aprovecha la vulnerabilidad
 y determinar autónomamente si ya fue remediado.
 Al reproducir un ataque, el código que explota la vulnerabilidad

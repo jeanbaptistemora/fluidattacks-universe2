@@ -151,8 +151,9 @@ a|== Exploit
 The *script* used to exploit the vulnerability is shown.
 This can be reused to validate the applied corrections.
 
-If the user has acquired a licence of the product [button]#link:../asserts/[Asserts]#,
-he may reproduce the attack that takes advantage of the vulnerability
+By downloading our product [button]#link:../asserts/[Asserts]#,
+and following the [button]#link:https://fluidsignal.gitlab.io/asserts/[documentation]#
+you may reproduce the attack that takes advantage of the vulnerability
 and determine autonomously if it was already remedied.
 When you reproduce an attack, the code that exploits the vulnerability
 is injected into the application.
