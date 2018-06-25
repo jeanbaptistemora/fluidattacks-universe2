@@ -24,7 +24,7 @@ a|== Ethical hacking can start before there is a working environment
 
 Ethical Hacking can start along with code development,
 even before a first application version is released.
-There's no need to have a working environment to start testing,
+There's no need to have a working environment to start hacking,
 since we are able to analyse source code
 published on project's +GIT+ repository.
 
@@ -33,7 +33,7 @@ a|image::img2.png[alt="img2", width="55%"]
 
 a|image::img3.png[alt="img3", width="55%"]
 
-a|== Testing techniques
+a|== Hacking techniques
 
 * Integral continuous hacking is achieved through application
 and infrastructure ethical hacking as well as source code analysis.
@@ -46,7 +46,7 @@ In order to perform limited continuous hacking,
 access to +GIT+ repository
 or integration environment is required.
 
-a|== Monthly test limit
+a|== Monthly hacking limit
 
 The monthly scope for +1+ coherent system,
 with +1+ functional team and +1+ project leader,
@@ -62,7 +62,7 @@ a|== Coverage
 
 Service goal is to achieve +100%+ coverage during the entire subscription time,
 when continuous ethical hacking starts with development,
-security testing can also finish together with development
+hacking process can also finish together with development
 as long as development does not exceed monthly +10K+ deltas test limit.
 If development exceeds the limit,
 customer can choose between +2+ options:
@@ -70,17 +70,17 @@ customer can choose between +2+ options:
 * Ask for extra monthly revision (with added monthly cost).
 
 * Take more months to get to the +100%+ coverage
-(this last options means security testing
+(this last options means Ethical Hacking
 will not end alongside development).
 
 a|== Healthcheck
 
 Whenever a new continuous ethical hacking subscription starts,
 if there are any previous developments is necessary to perform a healthcheck.
-This means we will test all developments up to subscription start point
+This means we will attack all developments up to subscription start point
 plus the monthly test limit to get even with development team
 within first +3+ subscription months,
-and then we’ll continue testing alongside development
+and then we’ll continue hacking alongside development
 (healthcheck will have additional fees).
 
 a|image::img6.png[alt="img6", width="55%"]
@@ -93,7 +93,7 @@ Customers are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling) through our
 [button]#link:../../products/rules/[Rules]# product.
 
-Customers will know the exact strictness for each test
+Customers will know the exact strictness for each hacking
 (For inspected and non-inspected profiled requirements).
 
 a|== Duration
@@ -109,7 +109,7 @@ a|== Attack Cycles
 During subscription time selected system will have multiple attack cycles
 on all different version generated during development cycle.
 A hacking team will be constantly attacking the system
-even if the functionalities had already been tested in a previous version.
+even if the functionalities had already been attacked in a previous version.
 
 a|== Direct and agile communication
 
@@ -121,7 +121,7 @@ a|image::img9.png[alt="img9", width="55%"]
 
 a|image::img10.png[alt="img10", width="55%"]
 
-a|== Testing environments
+a|== Hacking environments
 
 Basic service allows customers to choose a single environment from production,
 testing or integration environment,

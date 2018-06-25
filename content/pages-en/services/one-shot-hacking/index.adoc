@@ -15,10 +15,10 @@ all existing security issues with no false positives.
 [cols=2, frame="none"]
 |====
 
-a|== Testing techniques
+a|== Hacking techniques
 It's possible to perform source code,
 application or infrastructure Ethical Hacking.
-Customers are able to choose which testing technique
+Customers are able to choose which hacking technique
 suits best their needs regarding each system requiring security assessment.
 
 a|image::ethical-hacking.png[alt="Ethical Hacking", width="55%"]
@@ -38,7 +38,7 @@ and the customer chooses to cover only a specific percentage of the system.
 Variable coverage refers to a system where its overall size cannot be assessed
 and specific scope is predefined
 (fixed number of application fields, lines of code or open ports).
-Testing ends when the target size is achieved,
+Ethical Hacking ends when the target size is achieved,
 regardless of the total size the system has.
 
 Full coverage refers to a system where its overall size can be assessed
@@ -51,7 +51,7 @@ Customers are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling)
 through our [button]#link:../../products/rules/[Rules]# product
 
-Customers will know the exact Ethical Hacking strictness for each test
+Customers will know the exact Ethical Hacking strictness for each attack
 (For inspected and non-inspected profiled requirements).
 
 a|image::criterio-seguridad.png[alt="Ethical Hacking Security Criteria", width="55%"]
@@ -65,7 +65,7 @@ lasts between +1+ and +4+ months.
 
 a|==  Inspection Cycles
 
-One-shot Ethical hacking seeks to test a single version on your application
+One-shot Ethical hacking seeks to attack a single version on your application
 therefore it has only one inspection cycle on the selected system.
 
 a|image::ciclos.png[alt="Ethical Hacking inspection cycles", width="55%"]
@@ -80,15 +80,15 @@ so customers can express their needs before, during and after execution.
 a|== Scheduled ethical hacking
 
 After all requirements to start an Ethical hacking have been met,
-each test will have a defined start and finishing date.
+each attack will have a defined start and finishing date.
 
 a|image::ejecucion-programada.png[alt="Scheduled Ethical Hacking", width="55%"]
 
 a|image::ambientes-pruebas.png[alt="Ethical Hacking testing evironments", width="55%"]
 
-a|== Testing environments
+a|== Hacking environments
 
-Customers are able to choose one testing environment
+Customers are able to choose one hacking environment
 from their available software environments
 (production, development, integration, etc.)
 
@@ -96,7 +96,7 @@ a|== Highly trained hacking team
 
 Our hackers are certified in practical hacking in real scenarios,
 they also have security related studies,
-they are able to perform manual testing and also use tools
+they are able to perform manual hacking and also use tools
 to guarantee the reporting of several types of findings
 including those with specific business impact,
 those regarding insecure programming practices,
@@ -195,7 +195,8 @@ customers can request a remediation validation cycle
 to check if findings originally reported were correctly repaired.
 In order to arrange this, customer must provide system access
 and share final reports once again.
-In remediation cycle system does not get tested for new vulnerabilities.
+In remediation cycle system does not get attacked
+in search for new vulnerabilities.
 
 |====
 

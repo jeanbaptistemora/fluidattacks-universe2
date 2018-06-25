@@ -1,11 +1,11 @@
 :slug: fuzzy-bugs-online/
 :date: 2018-02-09
 :category: attacks
-:subtitle: Fuzz techniques for testing web applications
+:subtitle: Fuzz techniques for attacking web applications
 :tags: sql, fuzzing, injection
 :image: cover.png
 :alt: Fuzzy caterpillar
-:description: How to perform basic fuzz testing on web applications. Especifically we fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results. Only the most trivial injections succeded. We also show an example of an injection not feasible via fuzzing.
+:description: How to perform basic fuzz attacks on web applications. Especifically we fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results. Only the most trivial injections succeded. We also show an example of an injection not feasible via fuzzing.
 :keywords: SQLi, Fuzzing, Attack, Vulnerability, Security, Application.
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -184,10 +184,10 @@ image::anim-run-zap-fuzzer.gif["Running ZAP fuzzer"]
 Successfully injected +SQL+ queries
 are marked with the state ``reflected'' in the list:
 
-.Reflected +SQL+ injections in fuzz testing
+.Reflected +SQL+ injections in fuzz attacks
 image::scr-reflected-fuzzed-injections.png["bWAPP fuzz testing - reflected SQL injections"]
 
-Here we see a fuzz test is only as good
+Here we see a fuzz attack is only as good
 as its payloads or fuzz vectors.
 Only the most trivial injections succeeded, i.e.
 the ones of the form

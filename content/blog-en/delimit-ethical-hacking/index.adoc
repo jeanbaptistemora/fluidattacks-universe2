@@ -5,7 +5,7 @@
 :tags: ethical hacking, pentesting, security testing
 :image: dimensionar-ethical-hacking.png
 :alt: Person working on the computer while looking at cellphone
-:description: When security flaws are found through an ethical hacking it is important to delimit the scope of the objectives. An ethical hacking can be centered on three aspects: Application, Infrastructure and Source Code. Knowing this, it is possible to establish the target of evaluation for the test.
+:description: When security flaws are found through an ethical hacking it is important to delimit the scope of the objectives. An ethical hacking can be centered on three aspects: Application, Infrastructure and Source Code. Knowing this, it is possible to establish the target of evaluation for the hacking.
 :keywords: Security, Hacking, Pentesting, Application, Infrastructure, Code.
 :translate: dimensionar-ethical-hacking/
 :author: Felipe Gómez
@@ -17,12 +17,12 @@
 = Delimiting an Ethical Hacking
 
 The main problem encountered by an organization
-when they need to perform security testing
-is establishing the boundaries of the test.
+when they need to perform an Ethical Hacking
+is to establish the boundaries of the hacking.
 
-Delimiting the scope of a Pentest by time
+Delimiting the scope of an Ethical Hacking by time
 is a common mistake
-since it is not possible to know when a test,
+since it is not possible to know when the hacking,
 that is measured solely by effort,
 has ended nor whether the results were satisfactory
 or if it was just a big waste of time and resources
@@ -47,12 +47,12 @@ that can affect the proper functioning of the system,
 a Source Code Analysis should be done.
 
 Finally,
-if what is needed are tests on the underlying infrastructure
+if what is needed are attacks on the underlying infrastructure
 of the systems (Network services/OS),
 looking to exploit specific vulnerabilities of the implemented technology,
 an Ethical Hacking of the Infrastructure should be done.
 
-Once the type of test to be performed is decided,
+Once the type of attack to be performed is decided,
 the Target of Evaluation or ToE has to be determined
 based on three items.
 
@@ -60,14 +60,14 @@ based on three items.
 If what is going to be evaluated is Infrastructure.
 
 * **Number of Input Fields**,
-If the target of the test is the application.
+If the target of the attack is the application.
 
 * **Lines of Code**,
 If the risks associated to the development wished to be determined.
 
 Once these scopes are set and clear,
 one can be assured that everything related to that technology
-will be tested,
+will be attacked,
 as opposed to delimitations that are set based on execution time
 with automated tools that only
 exploit a small percentage of the reported vulnerabilities.
@@ -75,5 +75,5 @@ exploit a small percentage of the reported vulnerabilities.
 In Fluid Attacks,
 our value proposition goes hand in hand with meeting the promised scope,
 never based on time.
-Our tests are said to be finished when we have evaluated
+Our Ethical Hacking is to be finished when we have evaluated
 the complete target of evaluation.

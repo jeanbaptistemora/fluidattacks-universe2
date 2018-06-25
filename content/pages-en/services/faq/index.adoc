@@ -11,7 +11,7 @@ Frequently asked questions about Continuous Hacking.
 [qanda]
 *What is Continuous Hacking?*::
   Continuous Hacking is a security testing service
-  that allows testing to begin at an early stage
+  that allows hacking process to begin at an early stage
   in the software development cycle.
   Its purpose is to guarantee +100%+ testing coverage of the application.
 
@@ -22,7 +22,7 @@ Frequently asked questions about Continuous Hacking.
   while the software is in development rather than when it is in production.
 
   . Reduces application certification time to zero
-  because the tests are done during development.
+  because the hacking is done during development.
 
   . Provides clear and detailed information about vulnerable security risks
   and facilitates a coordinated effort between external project personnel
@@ -35,21 +35,21 @@ Frequently asked questions about Continuous Hacking.
 
   . *Phase 1:* Access to the integration branch of the repository
   for the, not-yet deployed, application’s source code.
-  Security testing focuses on the source code.
+  Ethical Hacking focuses on the source code.
 
   . *Phase 2:* When the project has a deployed application
-  (Integration Environment) the test coverage expands
+  (Integration Environment) the hacking coverage expands
   to include application security testing.
 
   . *Phase 3:* This phase applies only if the infrastructure
   supporting the application is defined as code and kept
   in the integration branch of the repository referred to in Phase 1.
-  This phase includes infrastructure security testing.
+  This phase includes infrastructure hacking.
 
-*What tests are included in Continuous Hacking?*::
+*What type of hacking is included in Continuous Hacking?*::
   Continuous Hacking includes source code analysis,
-  application security testing (<<q3,see question 3>>),
-  and infrastructure security testing (<<q3,see question 3>>).
+  application hacking (<<q3,see question 3>>),
+  and infrastructure hacking (<<q3,see question 3>>).
 
 *What is a vulnerability?*::
   A vulnerability is anything that represents a security risk
@@ -83,7 +83,7 @@ Frequently asked questions about Continuous Hacking.
 *If Continuous Hacking includes a manual review how does Fluid Attacks*::
 *ensure that development cycles are not slowed down?*::
   Continuous Hacking is first performed on the source code.
-  This allows for parallel security testing and development simultaneously.
+  This allows for parallel hacking and development simultaneously.
   This minimizes the dependency on functional environments
   and the need for coordination between hackers and developers.
   The client prioritizes detected vulnerabilities.
@@ -121,8 +121,8 @@ Frequently asked questions about Continuous Hacking.
 *Why is it necessary for Continuous Hacking to have access*::
 *to the source code stored in the repository?*::
   Continuous Hacking needs access to the source code
-  because it is based on continuous security testing
-  of the latest version available.
+  because it is based on continuous attacks
+  on the latest version available.
 
 *When does Continuous Hacking begin?*::
   Continuous Hacking begins immediately when +Fluid Attacks+
@@ -159,9 +159,9 @@ Frequently asked questions about Continuous Hacking.
 *When the coverage of my application reaches 100% is Continuous Hacking*::
 *suspended until new code is added to the repository?*::
   No. Even if +100%+ of coverage is reached,
-  we continue checking already tested source code to identify
+  we continue checking already attacked source code to identify
   any possible false negatives,
-  including components developed by third parties in our tests.
+  including components developed by third parties in our hacking process.
 
 *How is the severity and criticality of the vulnerability calculated?*::
   +Fluid Attacks+ uses the link:https://www.first.org/cvss/[CVSS]
@@ -245,10 +245,10 @@ Frequently asked questions about Continuous Hacking.
   all the information with nothing excluded.
 
 *If the application is stored along multiple repositories,*::
-*can they all be tested?*::
+*can they all be attacked?*::
   Yes, with one condition.
   The code must be stored on the same branch in each repository.
-  For example: If it is agreed that all tests
+  For example: If it is agreed that all attacks
   will be performed on the +QA+ branch,
   then this same branch must be present in all of the repositories
   included for Continuous Hacking.
@@ -341,9 +341,9 @@ Frequently asked questions about Continuous Hacking.
  This feature is enabled from +Gmail+ or +Azure+ depending on your case.
 
 *What procedure has Fluid Attacks to catch up with the revision*::
-*of the existing code before starting the test?*::
+*of the existing code before starting the hacking process?*::
  +Fluid Attacks+ recommends that both the development of the application
- and the security tests start at the same time.
+ and the hacking process start at the same time.
  However, this does not always happen.
  To do this, we have an activity called link:../continuous-hacking/#healthcheck[+HealthCheck+]
  that allows to catch up the security inspections
