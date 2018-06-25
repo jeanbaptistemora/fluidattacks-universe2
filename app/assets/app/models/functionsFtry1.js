@@ -40,7 +40,7 @@ angular.module("FluidIntegrates").factory(
               let html = "<div class=\"alert alert-danger-2\">";
               html += "<strong>Atención! </strong>" +
                     `${response.data[0].message}</div>`;
-              $document.getElementById("header_alert").innerHTML = html;
+              $document[0].getElementById("header_alert").innerHTML = html;
             }
           }
         });
