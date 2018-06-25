@@ -73,8 +73,6 @@ a|{si} +100%+ cuando:
 * Comenzamos el hacking en paralelo al desarrollo.
 * Realizamos un hacking de desatraso al inicio.
 * No se detiene el hacking mientras exista desarrollo.
-* El código no cambie a más de +10K+
-tooltip:Medida de cambio del código, dada por el número de líneas adicionadas o removidas desde el primer día del mes hasta el último día del mes, respecto al mes anterior[deltas por mes] link:../hacking-continuo/#cobertura[^7^].
 
 a|{info} Acordada al inicio del proceso de hacking
 link:../hacking-puntual/#cobertura[^6^].

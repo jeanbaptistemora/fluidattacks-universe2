@@ -46,33 +46,6 @@ In order to perform limited continuous hacking,
 access to +GIT+ repository
 or integration environment is required.
 
-a|== Monthly hacking limit
-
-The monthly scope for +1+ coherent system,
-with +1+ functional team and +1+ project leader,
-is up to +10+ repositories and +10K+ deltas per month.
-In case of only having the environment (application)
-the monthly scope is up to +10+ new entries per month.
-
-a|image::img4.png[alt="img4", width="55%"]
-
-a|image::img5.png[alt="img5", width="55%"]
-
-a|== Coverage
-
-Service goal is to achieve +100%+ coverage during the entire subscription time,
-when continuous ethical hacking starts with development,
-hacking process can also finish together with development
-as long as development does not exceed monthly +10K+ deltas test limit.
-If development exceeds the limit,
-customer can choose between +2+ options:
-
-* Ask for extra monthly revision (with added monthly cost).
-
-* Take more months to get to the +100%+ coverage
-(this last options means Ethical Hacking
-will not end alongside development).
-
 a|== Healthcheck
 
 Whenever a new continuous ethical hacking subscription starts,

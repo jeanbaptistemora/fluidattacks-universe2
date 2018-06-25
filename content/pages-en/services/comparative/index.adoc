@@ -70,9 +70,6 @@ a|{yes} 100% when:
 * We start simultaneously with production.
 * We make an up to date hacking at the beginning.
 * Hacking does not stop during development stage.
-* Code does not change more than 10K
-tooltip:Code change measure, given by the number of lines added or removed from the first day of the month until the last day of the month, with compared to the previous month.[deltas/month]
-link:../continuous-hacking/#coverage[^6^].
 
 a|{info} Agreed at the beginning of the test
 link:../one-shot-hacking/#coverage[^6^].

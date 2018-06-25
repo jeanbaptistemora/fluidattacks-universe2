@@ -44,33 +44,6 @@ o análisis de código fuente
 cuando se tiene acceso solo al ambiente de integración
 o al código fuente.
 
-a|== Límite de hacking mensual
-
-El alcance mensual para +1+ sistema coherente,
-con +1+ equipo funcional y +1+ líder de proyecto,
-es hasta +10+ repositorios y +10K+ deltas mes.
-En caso de solo contar con el ambiente (aplicación)
-el alcance mensual es hasta +10+ entradas nuevas mes.
-
-a|image::img4.png[alt="img4", width="55%"]
-
-a|image::img5.png[alt="img5", width="55%"]
-
-a|== Cobertura
-
-El propósito es probar la totalidad del sistema
-durante el tiempo de la suscripción logrando una cobertura del +100%+.
-Es posible finalizar el Ethical Hacking en paralelo al desarrollo
-si estas inician en conjunto con el desarrollo
-y mientras el desarrollo no supere las +10K+ deltas al mes.
-Cuando se superan las +10K+ deltas hay +2+ opciones:
-
-* Solicitar la revisión de deltas adicionales.
-
-* Desplazar la revisión en el tiempo.
-Con esa última opción el Ethical Hacking
-no terminarían en forma paralela al desarrollo.
-
 a|== Healthcheck
 
 Si al iniciar una suscripción ya hay desarrollos previos
