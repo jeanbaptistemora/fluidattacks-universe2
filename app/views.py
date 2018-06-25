@@ -552,6 +552,9 @@ def get_users_login(request):
     project = request.GET.get('project', None)
     dataset = []
     actualUser = request.session['username']
+    if not has_access_to_project(actualUser, project, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response(dataset, 'Access to project denied', True)
     initialEmails = integrates_dao.get_project_users(project.lower())
     initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
     usersEmail = util.user_email_filter(initialEmailsList, actualUser)
