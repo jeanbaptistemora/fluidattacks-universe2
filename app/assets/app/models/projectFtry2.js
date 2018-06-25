@@ -69,8 +69,8 @@ angular.module("FluidIntegrates").factory(
             "#ff9930;",
             "#2e4050;",
             "#9f5ab1;",
-            "#0a40ae;",
-            "#ff7373;"
+            "#ff3435;",
+            "#0a40ae;"
           ];
           metricDes = [
             "findings",
