@@ -52,7 +52,7 @@ class GraphQLTests(TestCase):
     def test_get_alert(self):
         """Check for project alert"""
         query = """{
-            alert(project:"bwapp", organization:"testing"){
+            alert(project:"unittesting", organization:"fluid"){
                 message
             }
         }"""
@@ -61,7 +61,41 @@ class GraphQLTests(TestCase):
         if "alert" in result.data:
             message = result.data["alert"]["message"]
             self.assertIs(
-                message == "Alerta de prueba unitaria",
+                message == "unittest",
                 True
             )
         self.assertFalse("alert" not in result.data)
+
+    def test_get_eventuality(self):
+        """Check for eventuality"""
+        query = """{
+            eventuality(submitID:"418900971"){
+                detail
+            }
+        }"""
+        schema = Schema(query=Query)
+        result = schema.execute(query)
+        if "eventuality" in result.data:
+            detail = result.data["eventuality"]["detail"]
+            self.assertIs(
+                detail == "Integrates unit test ",
+                True
+            )
+        self.assertFalse("eventuality" not in result.data)
+
+    def test_get_eventualities(self):
+        """Check for eventualities"""
+        query = """{
+            eventualities(project:"unittesting"){
+                detail
+            }
+        }"""
+        schema = Schema(query=Query)
+        result = schema.execute(query)
+        if "eventualities" in result.data:
+            detail = result.data["eventualities"]
+            self.assertIs(
+                len(detail) >= 1,
+                True
+            )
+        self.assertFalse("eventualities" not in result.data)
