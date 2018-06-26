@@ -5,7 +5,7 @@ dbreg = "us-east-1"
 
 #EC2 Vars
 amiID = "ami-49e5cb5e"
-iType = "t2.large"
+iType = "t2.xlarge"
 kName = "FLUID_Serves"
 
 # Network vars
