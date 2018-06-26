@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las sesiones de usuario establecidas por este. Por lo tanto, el sistema debe permitir a los usuarios autorizados consultar el historial de sesiones establecidas por él mismo.
 :keywords: Sistema, Usuario, Consultar, Sesión, Requerimiento, Seguridad.
 :rules: yes
+:translate: rules/085/
 
 = REQ.085 Permitir consultar historial de sesiones
 
@@ -10,3 +11,12 @@
 
 El sistema debe permitir a los usuarios autorizados
 consultar el historial de sesiones establecidas por él mismo.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(D):]
+Revisión de actividad en el sistema de información:
+Implementar procedimiento para revisar regularmente
+la actividad del sistema de información,
+como registro de auditorías, reportes de acceso
+y reportes de seguimiento a incidentes de seguridad.
