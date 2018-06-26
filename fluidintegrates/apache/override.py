@@ -1,7 +1,9 @@
 # pylint: disable=E0401
+from __future__ import absolute_import
 from fluidintegrates.settings import * # noqa
+from __init__ import  FI_DEBUG
 
-DEBUG = True
+DEBUG = FI_DEBUG!='False'
 
 ALLOWED_HOSTS = [
     'www.fluidattacks.com',
