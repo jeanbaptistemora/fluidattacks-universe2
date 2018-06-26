@@ -14,7 +14,6 @@ envsubst < review-apps/tls.yaml > tls.yaml && mv tls.yaml review-apps/tls.yaml
 # Replace variables in secret manifest
 sed -i 's#$K8_ENV_SECRET#'"$K8_ENV_SECRET"'#; \
         s#$K8_AWS_SECRET#'"$K8_AWS_SECRET"'#; \
-        s#$CI_COMMIT_REF_SLUG#'"$CI_COMMIT_REF_SLUG"'#; \
         s#$TORUS_TOKEN_ID#'"$(echo -n $TORUS_TOKEN_ID | base64)"'#; \
         s#$TORUS_TOKEN_SECRET#'"$(echo -n $TORUS_TOKEN_SECRET | base64)"'#; \
         s#$TORUS_ORG#'"$(echo -n $TORUS_ORG | base64)"'#; \
@@ -88,13 +87,9 @@ fi
 echo "Deploying latest image..."
 kubectl create -f review-apps/deploy-integrates.yaml
 
-while ! kubectl describe pod $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") | grep -m 1 'Running'; do
+while ! kubectl logs $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") | grep 'AH00558'; do
   sleep 15;
 done
-sleep 30
-kubectl exec $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") -- sed -i 's#/usr/share>#/usr/src/app>#' /etc/apache2/apache2.conf
-kubectl exec $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") -- apache2ctl restart
-kubectl delete secret "$K8_ENV_SECRET-$CI_COMMIT_REF_SLUG"
 
 # Erase file with keys
 rm review-apps/variables.yaml
