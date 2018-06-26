@@ -74,6 +74,13 @@
 
 * link:179/[REQ.179 Define backup frequency].
 
+== Foreign Devices
+
+* link:194/[REQ.194 Authorize device access to resources].
+* link:198/[REQ.198 Authorize foreign device usage].
+* link:199/[REQ.199 Authorize foreign devices access].
+* link:200/[REQ.200 Keep record of foreign devices].
+
 == Authentication
 
 * link:229/[REQ.229 Request access credentials].

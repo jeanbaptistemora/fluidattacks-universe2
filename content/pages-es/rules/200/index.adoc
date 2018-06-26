@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos foráneos de la organización. En este requerimiento, se recomienda que la organización lleve un registro adecuado de las máquinas foráneas entrantes y salientes.
 :keywords: Ingreso, Organización, Retiro, Foráneas, Registro, Máquinas.
 :rules: yes
+:translate: rules/200/
 
 = REQ.200 LLevar un registro de máquinas
 
@@ -10,3 +11,11 @@
 
 La organización debe llevar registro
 de las máquinas foráneas ingresadas y retiradas.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(1):]
+Control de dispositivos y medios: Implementar políticas y procedimientos
+para la recepción y remoción de hardware y medios electrónicos
+que contengan información sensible dentro y fuera de las instalaciones,
+y el movimiento de dichos objetos dentro de las instalaciones.
