@@ -43,6 +43,7 @@ angular.module("FluidIntegrates").controller(
             $window.location = `${BASE.url}logout`;
           };
         },
+        "keyboard": false,
         "resolve": {"done": true},
         "templateUrl": "logout.html",
         "windowClass": "modal avance-modal"

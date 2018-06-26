@@ -289,6 +289,7 @@ angular.module("FluidIntegrates").controller(
             $uibModalInstance.close();
           };
         },
+        "keyboard": false,
         "resolve": {"data": descData},
         "templateUrl": `${BASE.url}assets/views/project/adduserMdl.html`
       });
@@ -378,6 +379,7 @@ angular.module("FluidIntegrates").controller(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"data": descData},
           "templateUrl": `${BASE.url}assets/views/project/changeroleMdl.html`
         });

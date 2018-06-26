@@ -83,6 +83,7 @@ angular.module("FluidIntegrates").factory(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"updateData": descData},
           "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
         });
@@ -141,6 +142,7 @@ angular.module("FluidIntegrates").factory(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"updateData": descData},
           "templateUrl": `${BASE.url}assets/views/project/rejectMdl.html`
         });

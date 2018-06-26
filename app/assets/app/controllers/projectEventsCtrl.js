@@ -260,6 +260,7 @@ angular.module("FluidIntegrates").controller(
                 $uibModalInstance.close();
               };
             },
+            "keyboard": false,
             "resolve": {"evt": row},
             "templateUrl": `${BASE.url}assets/views/project/eventualityMdl.html`
           });
@@ -306,6 +307,7 @@ angular.module("FluidIntegrates").controller(
             }, TIMEOUT);
           };
         },
+        "keyboard": false,
         "resolve": {"ok": true},
         "templateUrl": "avance.html",
         "windowClass": "modal avance-modal"

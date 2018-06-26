@@ -185,6 +185,7 @@ angular.module("FluidIntegrates").factory(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"mailData": descData},
           "templateUrl": `${BASE.url}assets/views/project/remediatedMdl.html`
         });
@@ -457,6 +458,7 @@ angular.module("FluidIntegrates").factory(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"updateData": descData},
           "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
         });

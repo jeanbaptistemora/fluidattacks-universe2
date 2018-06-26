@@ -171,6 +171,7 @@ angular.module("FluidIntegrates").factory(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"updateData": descData},
           "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`
         });
@@ -230,6 +231,7 @@ angular.module("FluidIntegrates").factory(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"mailData": descData},
           "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
         });
@@ -303,6 +305,7 @@ angular.module("FluidIntegrates").factory(
               $uibModalInstance.close();
             };
           },
+          "keyboard": false,
           "resolve": {"updateData": cssv2Data},
           "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
         });
@@ -453,6 +456,7 @@ angular.module("FluidIntegrates").factory(
                 $uibModalInstance.close();
               };
             },
+            "keyboard": false,
             "resolve": {"updateData": newData},
             "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
           });
