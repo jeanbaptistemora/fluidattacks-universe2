@@ -1,22 +1,22 @@
-<div class="modal-body" id="modal-body">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>{{modalTitle}}</h3>
-            <hr>
-            <div class="row">
+<div class="modal-colored-header">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">{{modalTitle}}</h3>
+        </div>
+        <div class="modal-body form" id="modal-body">
+            <div class="form-group">
+                <label>{{'search_findings.tab_users.role' | translate}}:</label>
                 <select ng-model="userInfo.userRole" class="form-control" required>
-                    <option ng-if="isAdmin" value="analyst">{{'search_findings.tab_users.analyst' | translate}}</option>
-                    <option ng-if="isAdmin" value="admin">{{'search_findings.tab_users.admin' | translate}}</option>
-                    <option ng-if="isAdmin || isProjectAdmin" value="customer">{{'search_findings.tab_users.customer' | translate}}</option>
-                    <option ng-if="isAdmin || isProjectAdmin" value="customeradmin">{{'search_findings.tab_users.customer_admin' | translate}}</option>
-                </select>
+                        <option ng-if="isAdmin" value="analyst">{{'search_findings.tab_users.analyst' | translate}}</option>
+                        <option ng-if="isAdmin" value="admin">{{'search_findings.tab_users.admin' | translate}}</option>
+                        <option ng-if="isAdmin || isProjectAdmin" value="customer">{{'search_findings.tab_users.customer' | translate}}</option>
+                        <option ng-if="isAdmin || isProjectAdmin" value="customeradmin">{{'search_findings.tab_users.customer_admin' | translate}}</option>
+                    </select>
             </div>
-            <br>
-            <p>{{'confirmmodal.confirm' | translate}}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default modal-close" type="button" ng-click="close()">{{'confirmmodal.cancel' | translate}}</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()">{{'confirmmodal.proceed' | translate}}</button>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-warning" type="button" ng-click="close()">{{'confirmmodal.no' | translate}}</button>
-    <button class="btn btn-primary" type="button" ng-click="ok()">{{'confirmmodal.yes' | translate}}</button>
 </div>

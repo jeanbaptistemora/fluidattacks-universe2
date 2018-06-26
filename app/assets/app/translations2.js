@@ -180,6 +180,7 @@ const translations2 = {
      "remove_admin": "Remove admin",
      "remove_admin_error": "You can only remove one administrator at a time.",
      "remove_user": "Remove user",
+     "role": "Role",
      "success": " now has access to this project.",
      "success_admin": "Role Changed.",
      "success_admin_remove": " is no longer an administrator of this project.",

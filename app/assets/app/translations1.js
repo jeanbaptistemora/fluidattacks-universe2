@@ -6,8 +6,10 @@ const translations1 = {
   "confirmmodal":
    {
      "accept_release": "Accept Release",
+     "cancel": "Cancel",
      "confirm": "Are you sure?",
      "no": "No",
+     "proceed": "Proceed",
      "reject_release": "Reject Release",
      "title_cssv2": "Update CSSv2",
      "title_description": "Update Description",
