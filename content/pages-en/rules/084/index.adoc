@@ -5,12 +5,12 @@
 :rules: yes
 :translate: rules/084/
 
-= REQ.084 Allow to consult transaction history
+= REQ.084 Allow transaction history queries
 
 == Requirement
 
-System must allow authorized users to consult
-their own transaction history.
+System must allow authorized users the inspection
+of their own transaction history.
 
 == References
 

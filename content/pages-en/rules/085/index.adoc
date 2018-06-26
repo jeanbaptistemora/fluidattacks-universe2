@@ -5,12 +5,12 @@
 :rules: yes
 :translate: rules/085/
 
-= REQ.085 Allow to consult session history
+= REQ.085 Allow session history queries
 
 == Requirement
 
-System must allow authorized users to consult
-their own session history.
+System must allow authorized users the inspection
+of their own session history.
 
 == References
 
