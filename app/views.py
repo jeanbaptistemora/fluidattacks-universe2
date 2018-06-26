@@ -1096,7 +1096,7 @@ def get_records(request):
             mime_type = mime.from_file(localtmp)
             resp = []
             if mime_type == "text/plain":
-                with io.open(localtmp, "r", encoding='utf-8') as file_obj:
+                with io.open(localtmp, "r", encoding='utf-8', errors="ignore") as file_obj:
                     csvReader = csv.reader(file_obj)
                     header = csvReader.next()
                     for row in csvReader:
@@ -1120,7 +1120,7 @@ def get_records(request):
         mime_type = mime.from_file(filename)
         resp = []
         if mime_type == "text/plain":
-            with io.open(filename, "r", encoding='utf-8') as file_obj:
+            with io.open(filename, "r", encoding='utf-8', errors="ignore") as file_obj:
                 csvReader = csv.reader(file_obj)
                 header = csvReader.next()
                 for row in csvReader:
