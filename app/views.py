@@ -1165,10 +1165,11 @@ def get_myevents(request):
         frmset = submissions["submissions"]
         for evtsub in frmset:
             submission = api.get_submission(evtsub["id"])
-            evtset = evt_dto.parse(evtsub["id"], submission)
-            if evtset['fluidProject'].lower() == project.lower():
-                if evtset['estado'] == "Pendiente":
-                    dataset.append(evtset)
+            if not "error" in submission:
+                evtset = evt_dto.parse(evtsub["id"], submission)
+                if evtset['fluidProject'].lower() == project.lower():
+                    if evtset['estado'] == "Pendiente":
+                        dataset.append(evtset)
     return util.response(dataset, 'Success', False)
 
 
