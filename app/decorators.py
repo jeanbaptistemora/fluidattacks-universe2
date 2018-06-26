@@ -3,6 +3,8 @@
 
 import functools
 from django.http import HttpResponse
+# pylint: disable=E0402
+from . import util
 
 
 def authenticate(func):
@@ -24,14 +26,19 @@ def authorize(roles):
         @functools.wraps(func)
         def authorize_and_call(*args, **kwargs):
             request = args[0]
-            if "username" not in request.session or \
-                request.session['registered'] != '1' or \
-                request.session['role'] not in roles:
-                if 'any' not in roles:
-                    return HttpResponse('<script> \
-                           var getUrl=window.location.hash.substr(1); \
-              localStorage.setItem("url_inicio",getUrl); \
-              location = "/index" ; </script>')
+            # Verify role if the user is logged in
+            if "username" in request.session and \
+             request.session['registered'] == '1':
+                if request.session['role'] not in roles:
+                    return util.response([], 'Access denied', True)
+
+            else:
+                # The user is not even authenticated. Redirect to login
+                return HttpResponse('<script> \
+                               var getUrl=window.location.hash.substr(1); \
+                  localStorage.setItem("url_inicio",getUrl); \
+                  location = "/index" ; </script>')
+
             return func(*args, **kwargs)
         return authorize_and_call
     return wrapper
