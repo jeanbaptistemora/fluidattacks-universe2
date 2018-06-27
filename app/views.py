@@ -649,20 +649,21 @@ def get_findings(request):
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
-        if finding['vulnerability'].lower() == 'masked':
-            rollbar.report_message('Warning: Project masked', 'warning', request)
-            return util.response([], 'Project masked', True)
-        if finding['fluidProject'].lower() == project.lower() and \
-                'releaseDate' in finding:
-            tzn = pytz.timezone('America/Bogota')
-            today_day = datetime.now(tz=tzn).date()
-            finding_last_vuln = datetime.strptime(
-                finding["releaseDate"].split(" ")[0],
-                '%Y-%m-%d'
-            )
-            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-            if finding_last_vuln <= today_day:
-                findings.append(finding)
+        if not finding is None:
+            if finding['vulnerability'].lower() == 'masked':
+                rollbar.report_message('Warning: Project masked', 'warning', request)
+                return util.response([], 'Project masked', True)
+            if finding['fluidProject'].lower() == project.lower() and \
+                    'releaseDate' in finding:
+                tzn = pytz.timezone('America/Bogota')
+                today_day = datetime.now(tz=tzn).date()
+                finding_last_vuln = datetime.strptime(
+                    finding["releaseDate"].split(" ")[0],
+                    '%Y-%m-%d'
+                )
+                finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+                if finding_last_vuln <= today_day:
+                    findings.append(finding)
     import json
     with open("/tmp/"+project+".txt", "w") as f:
         f.write(json.dumps(findings))
@@ -676,9 +677,12 @@ def catch_finding(request, submission_id):
     username = request.session['username']
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
+        submissionData = api.get_submission(submission_id)
+        if "error" in submissionData:
+            return None
         finding = fin_dto.parse(
             submission_id,
-            api.get_submission(submission_id),
+            submissionData,
             request
         )
         if not has_access_to_project(username, finding['fluidProject'], request.session['role']):
