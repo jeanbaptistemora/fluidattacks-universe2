@@ -518,6 +518,8 @@ def get_eventualities(request):
         return util.response(dataset, 'Empty fields in project', True)
     if category == "Name":
         submissions = api.get_eventualities(project)
+        if 'error' in submissions:
+            return util.response(dataset, 'Event does not exist', True)
         frmset = submissions["submissions"]
         for row in frmset:
             submission = api.get_submission(row["id"])
