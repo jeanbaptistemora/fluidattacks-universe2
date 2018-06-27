@@ -62,6 +62,7 @@ angular.module("FluidIntegrates").controller(
     eventualityFactory,
     functionsFtry1,
     functionsFtry3,
+    functionsFtry4,
     projectFtry,
     projectFtry2
   ) {
@@ -76,21 +77,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-      $scope.isManager = userRole !== "customer" &&
-                         userRole !== "customeradmin";
-      $scope.isCustomer = userRole !== "customer";
-      const customerAdmin =
-                        projectFtry2.isCustomerAdmin(projectName, userEmail);
-      customerAdmin.then((response) => {
-        if (!response.error) {
-          $scope.isProjectAdmin = response.data;
-        }
-        else if (response.error) {
-          $scope.isProjectAdmin = response.data;
-        }
-      });
-      $scope.isAdmin = userRole !== "customer" &&
-        userRole !== "customeradmin" && userRole !== "analyst";
+      functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
       // Default flags value for view visualization
       $scope.view = {};
       $scope.view.project = false;
@@ -209,7 +196,7 @@ angular.module("FluidIntegrates").controller(
       });
       angular.element("#tblUsers").bootstrapTable("refresh");
       angular.element("#tblUsers").bootstrapTable("hideColumn", "selection");
-      if ($scope.isProjectAdmin || $scope.isAdmin) {
+      if ($scope.isProjectManager || $scope.isAdmin) {
         angular.element("#tblUsers").bootstrapTable("showColumn", "selection");
       }
       angular.element("#search_section").show();
@@ -218,7 +205,6 @@ angular.module("FluidIntegrates").controller(
 
     $scope.addUser = function addUser () {
       // Obtener datos
-
       const descData = {
         "company": Organization.toLowerCase(),
         "project": $stateParams.project.toLowerCase()
@@ -231,13 +217,13 @@ angular.module("FluidIntegrates").controller(
           $scope.isAdmin = userRole !== "customer" &&
                 userRole !== "customeradmin" && userRole !== "analyst";
           const customerAdmin =
-                    projectFtry2.isCustomerAdmin(descData.project, userEmail);
+                    projectFtry2.isCustomerAdmin(data.project, userEmail);
           customerAdmin.then((response) => {
             if (!response.error) {
-              $scope.isProjectAdmin = response.data;
+              $scope.isProjectManager = response.data;
             }
             else if (response.error) {
-              $scope.isProjectAdmin = response.data;
+              $scope.isProjectManager = response.data;
             }
           });
           $scope.modalTitle = $translate.instant("search_findings." +
@@ -323,10 +309,10 @@ angular.module("FluidIntegrates").controller(
                         projectFtry2.isCustomerAdmin(data.project, userEmail);
             customerAdmin.then((response) => {
               if (!response.error) {
-                $scope.isProjectAdmin = response.data;
+                $scope.isProjectManager = response.data;
               }
               else if (response.error) {
-                $scope.isProjectAdmin = response.data;
+                $scope.isProjectManager = response.data;
               }
             });
             $scope.modalTitle = $translate.instant("search_findings." +
@@ -425,7 +411,6 @@ angular.module("FluidIntegrates").controller(
          "no_selection"));
       }
     };
-
 
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});

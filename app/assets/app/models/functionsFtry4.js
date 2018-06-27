@@ -23,10 +23,13 @@ angular.module("FluidIntegrates").factory(
   function functionsFtry4 (
     $document,
     $stateParams,
+    $timeout,
     $translate,
     $uibModal,
     $window,
+    functionsFtry1,
     functionsFtry2,
+    projectFtry,
     projectFtry2
   ) {
     return {
@@ -88,6 +91,44 @@ angular.module("FluidIntegrates").factory(
           "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
         });
       },
+      "loadIndicatorsContent" ($scope, datatest) {
+        const org = Organization.toUpperCase();
+        const projt = $stateParams.project.toUpperCase();
+        functionsFtry1.alertHeader(org, projt);
+        $scope.calculateCardinality({"data": datatest});
+        if (!$scope.isManager) {
+          $scope.openEvents = projectFtry.alertEvents(eventsData);
+          $scope.atAlert = $translate.instant("main_content.eventualities." +
+                                              "descSingularAlert1");
+          if ($scope.openEvents === 1) {
+            $scope.descAlert1 = $translate.instant("main_content." +
+                                            "eventualities.descSingularAlert2");
+            $scope.descAlert2 = $translate.instant("main_content." +
+                                            "eventualities.descSingularAlert3");
+            angular.element("#events_alert").show();
+          }
+          else if ($scope.openEvents > 1) {
+            $scope.descAlert1 = $translate.instant("main_content." +
+                                              "eventualities.descPluralAlert1");
+            $scope.descAlert2 = $translate.instant("main_content." +
+                                              "eventualities.descPluralAlert2");
+            angular.element("#events_alert").show();
+          }
+        }
+        const TIMEOUT = 200;
+        $timeout($scope.mainGraphexploitPieChart, TIMEOUT);
+        $timeout($scope.mainGraphtypePieChart, TIMEOUT);
+        $timeout($scope.mainGraphstatusPieChart, TIMEOUT);
+        angular.element("#search_section").show();
+        angular.element("[data-toggle=\"tooltip\"]").tooltip();
+
+        if (angular.isDefined($stateParams.finding)) {
+          $scope.finding.id = $stateParams.finding;
+          $scope.view.project = false;
+          $scope.view.finding = false;
+        }
+        $scope.data = datatest;
+      },
       "rejectRelease" ($scope) {
       // Get data
         const descData = {"id": $scope.finding.id};
@@ -146,6 +187,26 @@ angular.module("FluidIntegrates").factory(
           "resolve": {"updateData": descData},
           "templateUrl": `${BASE.url}assets/views/project/rejectMdl.html`
         });
+      },
+      "verifyRoles" ($scope, projectName, userEmail, userRole) {
+        const customerAdmin =
+                          projectFtry2.isCustomerAdmin(projectName, userEmail);
+        customerAdmin.then((response) => {
+          if (!response.error) {
+            $scope.isProjectManager = response.data;
+            $scope.isCustomer = userRole !== "customer" ||
+                                $scope.isProjectManager;
+          }
+          else if (response.error) {
+            $scope.isProjectManager = response.data;
+            $scope.isCustomer = userRole !== "customer" ||
+                                $scope.isProjectManager;
+          }
+        });
+        $scope.isManager = userRole !== "customer" &&
+                          userRole !== "customeradmin";
+        $scope.isAdmin = userRole !== "customer" &&
+                        userRole !== "customeradmin" && userRole !== "analyst";
       }
     };
   }

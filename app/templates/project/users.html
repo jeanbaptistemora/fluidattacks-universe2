@@ -87,19 +87,19 @@
                     <div class="row">
                       <!-- START: toolbar -->
                       <div  class="column-button" style="width:50%;margin-right: auto;margin-left: auto;padding-left: auto;padding-right: auto;" >
-                        <div class="column-button" ng-show="isAdmin || isProjectAdmin">
+                        <div class="column-button" ng-show="isAdmin || isProjectManager">
                         <button id="assign" class="btn btn-primary btn-block"
                                     ng-click="changeRole();" style="width:100%;margin:10px;">
                             <i class="fa fa-exchange"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.change_role' | translate {% templatetag closevariable %}
                         </button>
                         </div>
-                        <div class="column-button" ng-show="isAdmin || isProjectAdmin" >
+                        <div class="column-button" ng-show="isAdmin || isProjectManager" >
                         <button  id="add"  class="btn btn-primary btn-block"
                                     ng-click="addUser();" style="width:100%;margin:10px;">
                           <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %}'search_findings.tab_users.add_button' | translate {% templatetag closevariable %}
                         </button>
                         </div>
-                        <div class="column-button" ng-show="isAdmin || isProjectAdmin" >
+                        <div class="column-button" ng-show="isAdmin || isProjectManager" >
                         <button  id="remove" class="btn btn-primary btn-block"
                                     ng-click="removeUserAccess();" style="width:100%;margin:10px;">
                           <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.remove_user' | translate {% templatetag closevariable %}

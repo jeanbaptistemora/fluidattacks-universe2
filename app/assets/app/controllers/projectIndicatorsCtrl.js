@@ -36,6 +36,7 @@ angular.module("FluidIntegrates").controller(
     $uibModal,
     functionsFtry1,
     functionsFtry3,
+    functionsFtry4,
     projectFtry,
     projectFtry2
   ) {
@@ -45,12 +46,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-      $scope.isCustomer = userRole !== "customer";
-      $scope.isManager = userRole !== "customer" &&
-                         userRole !== "customeradmin";
-      $scope.isAdmin = userRole !== "customer" &&
-        userRole !== "customeradmin" && userRole !== "analyst";
-      // Default flags value for view visualization.
+      functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
@@ -363,7 +359,7 @@ angular.module("FluidIntegrates").controller(
             projectData[0].fluidProject.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
-          $scope.loadIndicatorsContent(projectData);
+          functionsFtry4.loadIndicatorsContent($scope, projectData);
         }
         else {
           const reqProject = projectFtry.projectByName(
@@ -407,7 +403,7 @@ angular.module("FluidIntegrates").controller(
               }
               else {
                 projectData = response.data;
-                $scope.loadIndicatorsContent(projectData);
+                functionsFtry4.loadIndicatorsContent($scope, projectData);
               }
             }
             else if (response.error) {
@@ -430,44 +426,6 @@ angular.module("FluidIntegrates").controller(
         }
       }
       return true;
-    };
-    $scope.loadIndicatorsContent = function loadIndicatorsContent (datatest) {
-      const org = Organization.toUpperCase();
-      const projt = $stateParams.project.toUpperCase();
-      functionsFtry1.alertHeader(org, projt);
-      $scope.calculateCardinality({"data": datatest});
-      if (!$scope.isManager) {
-        $scope.openEvents = projectFtry.alertEvents(eventsData);
-        $scope.atAlert = $translate.instant("main_content.eventualities." +
-                                            "descSingularAlert1");
-        if ($scope.openEvents === 1) {
-          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
-                                                  "descSingularAlert2");
-          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
-                                                  "descSingularAlert3");
-          angular.element("#events_alert").show();
-        }
-        else if ($scope.openEvents > 1) {
-          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
-                                                  "descPluralAlert1");
-          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
-                                                  "descPluralAlert2");
-          angular.element("#events_alert").show();
-        }
-      }
-      const TIMEOUT = 200;
-      $timeout($scope.mainGraphexploitPieChart, TIMEOUT);
-      $timeout($scope.mainGraphtypePieChart, TIMEOUT);
-      $timeout($scope.mainGraphstatusPieChart, TIMEOUT);
-      angular.element("#search_section").show();
-      angular.element("[data-toggle=\"tooltip\"]").tooltip();
-
-      if (angular.isDefined($stateParams.finding)) {
-        $scope.finding.id = $stateParams.finding;
-        $scope.view.project = false;
-        $scope.view.finding = false;
-      }
-      $scope.data = datatest;
     };
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});

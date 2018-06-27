@@ -9,8 +9,8 @@
                 <select ng-model="userInfo.userRole" class="form-control" required>
                         <option ng-if="isAdmin" value="analyst">{{'search_findings.tab_users.analyst' | translate}}</option>
                         <option ng-if="isAdmin" value="admin">{{'search_findings.tab_users.admin' | translate}}</option>
-                        <option ng-if="isAdmin || isProjectAdmin" value="customer">{{'search_findings.tab_users.customer' | translate}}</option>
-                        <option ng-if="isAdmin || isProjectAdmin" value="customeradmin">{{'search_findings.tab_users.customer_admin' | translate}}</option>
+                        <option ng-if="isAdmin || isProjectManager" value="customer">{{'search_findings.tab_users.customer' | translate}}</option>
+                        <option ng-if="isAdmin || isProjectManager" value="customeradmin">{{'search_findings.tab_users.customer_admin' | translate}}</option>
                     </select>
             </div>
         </div>

@@ -62,17 +62,14 @@ angular.module("FluidIntegrates").controller(
     eventualityFactory,
     functionsFtry1,
     functionsFtry3,
+    functionsFtry4,
     projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-      $scope.isCustomer = userRole !== "customer";
-      $scope.isManager = userRole !== "customer" &&
-                         userRole !== "customeradmin";
-      $scope.isAdmin = userRole !== "customer" &&
-        userRole !== "customeradmin" && userRole !== "analyst";
+      functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
       // Default flags value for view visualization
       $scope.view = {};
       $scope.view.project = false;

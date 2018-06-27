@@ -82,6 +82,7 @@ angular.module("FluidIntegrates").controller(
     $window,
     functionsFtry1,
     functionsFtry3,
+    functionsFtry4,
     projectFtry,
     projectFtry2
   ) {
@@ -89,12 +90,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-
-      $scope.isManager = userRole !== "customer" &&
-                         userRole !== "customeradmin";
-      $scope.isAdmin = userRole !== "customer" &&
-        userRole !== "customeradmin" && userRole !== "analyst";
-      $scope.isCustomer = userRole !== "customer";
+      functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
       // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;
