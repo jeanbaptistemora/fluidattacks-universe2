@@ -16,7 +16,7 @@ def authenticate(func):
             return HttpResponse('Unauthorized \
             <script>var getUrl=window.location.hash.substr(1); \
             localStorage.setItem("url_inicio",getUrl); \
-            location = "/index"; </script>', status=401)
+            location = "/index"; </script>')
         return func(*args, **kwargs)
     return authenticate_and_call
 
