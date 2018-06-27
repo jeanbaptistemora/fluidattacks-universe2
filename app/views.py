@@ -574,11 +574,10 @@ def get_users_login(request):
         data['usersFirstLogin']=first_login
         data['usersOrganization']=integrates_dao.get_organization_dao(user).title()
         userRole=integrates_dao.get_role_dao(user)
-        if userRole == "customeradmin":
-            if is_customeradmin(project, user):
-                data['userRole'] = "customer_admin"
-            else:
-                data['userRole'] = "customer"
+        if is_customeradmin(project, user):
+            data['userRole'] = "customer_admin"
+        elif userRole == "customeradmin":
+            data['userRole'] = "customer"
         else:
             data['userRole'] = userRole
         dataset.append(data)
@@ -1657,9 +1656,8 @@ def remove_access_integrates(request):
     if (is_customeradmin(project, request.session['username']) or
             request.session['role'] == 'admin'):
         if integrates_dao.remove_access_project_dao(user, project):
-            role = integrates_dao.get_role_dao(user)
-            if role == 'customeradmin':
-                integrates_dao.remove_role_to_project_dynamo(project, user, role)
+            if is_customeradmin(project, user):
+                integrates_dao.remove_role_to_project_dynamo(project, user, "customeradmin")
             return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
@@ -1683,12 +1681,16 @@ def change_user_role(request):
             if integrates_dao.assign_role(email, role) is None:
                 if role == 'customeradmin':
                     integrates_dao.add_role_to_project_dynamo(project.lower(), email, role)
+                elif is_customeradmin(project, email):
+                    integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
                 return util.response([], 'Success', False)
     elif is_customeradmin(project, request.session['username']):
         if role == 'customer'or role == 'customeradmin':
             if integrates_dao.assign_role(email, role) is None:
                 if role == 'customeradmin':
                     integrates_dao.add_role_to_project_dynamo(project.lower(), email, role)
+                elif is_customeradmin(project, email):
+                    integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
                 return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
