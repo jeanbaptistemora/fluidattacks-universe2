@@ -11,12 +11,12 @@ def authenticate(func):
     @functools.wraps(func)
     def authenticate_and_call(*args, **kwargs):
         request = args[0]
-        if "username" in request.session:
-            if request.session["username"] is None:
-                return HttpResponse('Unauthorized \
-                <script>var getUrl=window.location.hash.substr(1); \
-                localStorage.setItem("url_inicio",getUrl); \
-                location = "/logout"; </script>', status=401)
+        if "username" not in request.session or \
+         request.session["username"] is None:
+            return HttpResponse('Unauthorized \
+            <script>var getUrl=window.location.hash.substr(1); \
+            localStorage.setItem("url_inicio",getUrl); \
+            location = "/index"; </script>', status=401)
         return func(*args, **kwargs)
     return authenticate_and_call
 
