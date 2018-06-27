@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos físicos de la organización. En este requerimiento, se recomienda que todo dispositivo sea capaz de eliminar información confidencial ante un evento de apertura.
 :keywords: Dispositivo, Eliminar, Información, Confidencial, Apertura, Seguridad.
 :rules: yes
+:translate: rules/202/
 
 = REQ.202 Eliminar información confidencial
 
@@ -11,3 +12,10 @@
 El dispositivo debe eliminar
 la información confidencial que contenga,
 ante el evento de apertura del mismo.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(i):]
+Disposición: implementar políticas y procedimientos
+para manejar la disposición final de la información sensible
+del hardware o medio electrónico que la contiene.

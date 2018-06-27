@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la pérdida de información personal almacenada en los dispositivos móviles. Por lo tanto, dichos dispositivos deben permitir la destrucción de sus datos de forma remota en caso de pérdida.
 :keywords: Dispositivo móvil, Datos, Destrucción, Remota, Pérdida, Requerimiento.
 :rules: yes
+:translate: rules/214/
 
 = REQ.214 Permitir destruir datos
 
@@ -10,3 +11,10 @@
 
 El dispositivo móvil debe permitir la destrucción de sus datos
 de forma remota en caso de pérdida.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(i):]
+Disposición: implementar políticas y procedimientos
+para manejar la disposición final de la información sensible
+del hardware o medio electrónico que la contiene.

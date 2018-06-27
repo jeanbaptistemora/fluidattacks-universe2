@@ -81,6 +81,14 @@
 * link:199/[REQ.199 Authorize foreign devices access].
 * link:200/[REQ.200 Keep record of foreign devices].
 
+== Physical Devices
+
+* link:202/[REQ.202 Delete sensitive information].
+
+== Mobile Devices
+
+* link:214/[REQ.214 Allow data destruction].
+
 == Authentication
 
 * link:229/[REQ.229 Request access credentials].
