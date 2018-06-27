@@ -105,7 +105,7 @@
       </script>
     <!-- End Mixpanel Event -->
     <!-- jQuery, Menu, Line Numbers in Source Code, Responsive Tables and Anchors -->
-      {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js", "js/intercom.js" %}
+      {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "/app/js/assets/tipuesearch/tipuesearch.min.js", "/app/js/assets/tipuesearch/tipuesearch_set.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js", "js/intercom.js" %}
         <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
       {% endassets %}
     <!-- Navigation -->

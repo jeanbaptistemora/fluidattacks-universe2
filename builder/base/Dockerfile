@@ -59,11 +59,11 @@ RUN apt-get update -qq && \
     mkdir js && \
     cd js && \
     git init && \
-    git remote add origin https://github.com/Tipue/Tipue-Search.git && \
+    git remote add origin https://github.com/jekylltools/jekyll-tipue-search.git && \
     git config core.sparsecheckout true && \
     cat ../js-files.txt >> .git/info/sparse-checkout && \
     git pull origin master && \
-    git reset --hard e14a5b6 && \
+    git reset --hard d4b5df7 && \
     cd ../ && \
 
     # Download only the plugins used in the site, from the Pelican-Plugins repository

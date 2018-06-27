@@ -1,2 +1,2 @@
-tipuesearch/tipuesearch.js
-tipuesearch/tipuesearch_set.js
+assets/tipuesearch/tipuesearch.min.js
+assets/tipuesearch/tipuesearch_set.js
