@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = FI_DJANGO_SECRET_KEY # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = FI_DEBUG!='False'
+DEBUG = FI_DEBUG=='True'
 
 ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la",
      "fluidattacks.com", "192.168.200.100.xip.io", "192.168.200.100",

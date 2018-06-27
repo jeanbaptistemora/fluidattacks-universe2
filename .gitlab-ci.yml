@@ -54,7 +54,7 @@ Build:
         deploy/containers/deps
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
-    - grep ^DEBUG fluidintegrates/settings.py | grep -q False
+    - grep ^DEBUG fluidintegrates/settings.py | grep "FI_DEBUG=='True'"
   retry: 2
   except:
     - triggers
