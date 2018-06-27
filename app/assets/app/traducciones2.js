@@ -181,6 +181,7 @@ const traducciones2 = {
     "remove_admin": "Remover admin",
     "remove_admin_error": "Sólo puedes remover a un administrador a la vez.",
     "remove_user": "Remover usuario",
+    "requiered_field": "Este campo es requerido.",
     "role": "Rol",
     "success": " fue agregado a este proyecto exitosamente.",
     "success_admin": "Rol cambiado.",

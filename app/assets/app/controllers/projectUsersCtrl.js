@@ -246,9 +246,8 @@ angular.module("FluidIntegrates").controller(
             $scope.newUserInfo.admin = userEmail;
             $scope.newUserInfo.company = data.company;
             $scope.newUserInfo.project = data.project;
-            $scope.newUserInfo.userEmail = $scope.newUserInfo.userEmail.trim();
-            const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-            if (re.test(String($scope.newUserInfo.userEmail).toLowerCase())) {
+            if (angular.element("#emailInput").parsley().
+              validate() === true) {
               // Make the request
               const req = projectFtry.addAccessIntegrates($scope.newUserInfo);
               // Capture the promise
@@ -279,10 +278,6 @@ angular.module("FluidIntegrates").controller(
                   $msg.error($translate.instant("proj_alerts.error_textsad"));
                 }
               });
-            }
-            else {
-              $msg.error($translate.instant("search_findings.tab_users." +
-                                          "wrong_format"));
             }
           };
           $scope.close = function close () {
