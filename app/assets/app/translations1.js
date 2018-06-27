@@ -356,7 +356,7 @@ const translations1 = {
      "error_severity": "Severity must be an integer bewteen 0 and 5",
      "error_text": "There is an error",
      "error_textsad": "There is an error :(",
-     "eventExist": "This proyect has no vulnerabilities or does not exist",
+     "eventExist": "This project has no eventualities or does not exist",
      "eventFormstack": "Unable to access Formstack",
      "eventPositiveint": "Affectation must be a positive integer or zero",
      "eventUpdated": "Event updated",
