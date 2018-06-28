@@ -19,3 +19,8 @@ Contingency Operations: Establish (and implement as needed)
 procedures that allow facility access in support of restoration
 of lost data under the disaster recovery plan
 and emergency mode operations plan in the event of an emergency.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iv)]
+Data Backup and Storage: Create a retrievable exact copy
+of electronic protected health information,
+when needed, before movement of equipment.
