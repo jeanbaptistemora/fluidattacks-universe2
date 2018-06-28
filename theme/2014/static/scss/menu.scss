@@ -1,70 +1,97 @@
 $fluid-black: rgba(39, 39, 39, 1);
-$fluid-dark-red: rgba(203, 50, 51, 1);
-$fluid-darker-red: rgba(139, 34, 35, 1);
+$fluid-gray: rgba(176, 176, 176, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $transparent: rgba(0, 0, 0, 0);
-$transparentblack: rgba(0, 0, 0, .5);
 $white: rgba(255, 255, 255, 1);
 
 @mixin link {
   color: $white;
   display: block;
+}
 
-  &:hover {
-    background-color: $fluid-red;
-    color: $white;
+@mixin menu-bars {
+  content: '';
+  left: 30px;
+  position: absolute;
+  width: 25px;
+}
+
+@mixin menu-cross {
+  background: $white;
+  top: 35px;
+  width: 25px;
+}
+
+@mixin submenu-plus {
+  background: $white;
+  content: '';
+  position: absolute;
+}
+
+.menubar {
+  font-family: 'Montserrat';
+  font-weight: bold;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.menu-logo {
+  position: absolute;
+  text-align: center;
+  top: 15px;
+  width: 100%;
+
+  img {
+    position: relative;
+    z-index: 2;
   }
 }
 
-@mixin menu-pseudo {
-  content: '';
+.searchbar {
   position: absolute;
-  width: 20px;
+  right: 10px;
+  top: 20px;
+
+  .search-box {
+    border: 2px solid $fluid-gray;
+    border-radius: 5px;
+    height: 45px;
+    position: absolute;
+    right: 35px;
+    top: -8px;
+    transform: translateY(-80px);
+    transition: transform ease 500ms;
+    widows: 240px;
+    z-index: 3;
+  }
+
+  img {
+    position: relative;
+    width: 25px;
+    z-index: 2;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
-@mixin active-pseudo {
-  background: $white;
-  top: 35px;
-  width: 18px;
+.search {
+  &:focus-within {
+    .search-box {
+      transform: translateY(0);
+    }
+  }
 }
 
-@mixin sm-pseudo {
-  background: $white;
-  content: '';
-  position: absolute;
+.langbutton {
+  display: none;
 }
 
 .cssmenu {
   background: $fluid-black;
   line-height: 1;
-}
-
-.m-closed,
-.sm-closed {
-  display: none;
-}
-
-.m-link {
-  @include link;
-  font-size: 16px;
-  letter-spacing: 1px;
-  min-height: 60px;
-  padding: 22px 10px 17px;
-}
-
-.m-opened {
-  display: block;
-  margin: 0;
-  padding: 0;
-
-  li {
-    display: block;
-    line-height: 1;
-    margin-top: 0;
-    min-height: 60px;
-    position: relative;
-    width: 100%;
-  }
 }
 
 .menu-button {
@@ -74,33 +101,31 @@ $white: rgba(255, 255, 255, 1);
   position: relative;
   z-index: 1;
 
-  &:hover {
-    background-color: $fluid-red;
-  }
-
   &::before {
-    @include menu-pseudo;
+    @include menu-bars;
     background: $white;
     height: 2px;
-    top: 29px;
+    top: 28px;
   }
 
   &::after {
-    @include menu-pseudo;
+    @include menu-bars;
     border-bottom: 2px solid $white;
     border-top: 2px solid $white;
-    height: 8px;
+    height: 9px;
     top: 35px;
   }
 
   &.menu-opened {
+    border-bottom: 0;
+
     &::before {
-      @include active-pseudo;
+      @include menu-cross;
       transform: rotate(-45deg);
     }
 
     &::after {
-      @include active-pseudo;
+      @include menu-cross;
       border: 0;
       height: 2px;
       transform: rotate(45deg);
@@ -108,45 +133,37 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.sm-link {
-  @include link;
-  font-size: 15px;
-  height: 100%;
-  letter-spacing: 0;
-  padding: 24px 30px 0 25px;
-  width: 100%;
+.m-closed,
+.sm-closed {
+  display: none;
 }
 
-.sm-opened {
-  border-top: 1px solid $white;
+.m-opened {
   display: block;
-  padding: 0;
-  position: relative;
+  margin: 0;
+  max-height: 75vh;
+  overflow-y: auto;
 
   li {
-    background: $fluid-black;
-    border-bottom: 1px solid $white;
-    height: 61px;
+    border-bottom: 1px solid $fluid-gray;
+    display: block;
+    margin: 0 30px;
+    position: relative;
+
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 }
 
 .submenu-button {
-  border-bottom: 1px solid $white;
-  border-left: 1px solid $white;
   cursor: pointer;
-  display: block;
   height: 60px;
   position: absolute;
   right: 0;
-  top: 0;
   width: 45px;
 
-  &:hover {
-    background: $fluid-red;
-  }
-
   &.submenu-opened {
-    background: $fluid-red;
 
     &::before {
       display: none;
@@ -158,38 +175,50 @@ $white: rgba(255, 255, 255, 1);
   }
 
   &::before {
-    @include sm-pseudo;
-    height: 10px;
+    @include submenu-plus;
+    height: 20px;
     right: 22px;
-    top: 26px;
-    width: 2px;
+    top: 20px;
+    width: 3px;
   }
 
   &::after {
-    @include sm-pseudo;
-    height: 2px;
-    right: 18px;
-    top: 30px;
-    width: 10px;
+    @include submenu-plus;
+    height: 3px;
+    right: 13px;
+    top: 28px;
+    width: 20px;
   }
 }
 
-.fluid-logo {
-  float: left;
-  left: 2px;
-  margin-right: 20px;
-  position: relative;
-  top: 20px;
-  width: 100px;
-  z-index: 2;
+.m-link {
+  @include link;
+  font-size: 20px;
+  letter-spacing: 1px;
+  min-height: 60px;
+  padding: 20px 10px 17px;
 }
 
-.menubar {
-  font-family: 'Montserrat';
-  font-weight: bold;
-  position: fixed;
+.sm-opened {
+  display: block;
+  position: relative;
+
+  li {
+    height: 61px;
+    margin: 0;
+
+    &:first-child {
+      border-top: 1px solid $fluid-gray;
+    }
+  }
+}
+
+.sm-link {
+  @include link;
+  font-size: 20px;
+  height: 100%;
+  padding: 20px 0 0 40px;
   width: 100%;
-  z-index: 1;
 }
 
 .header {
@@ -222,13 +251,6 @@ $white: rgba(255, 255, 255, 1);
     font-size: 12px;
     line-height: 1.5;
     margin-top: 5px;
-  }
-}
-
-@media (min-width: 400px) {
-  .fluid-logo {
-    top: 10px;
-    width: 150px;
   }
 }
 
@@ -286,43 +308,93 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 860px) {
+  .menu-logo {
+    left: 10px;
+    width: unset;
+  }
+
+  .searchbar {
+    top: 23px;
+  }
+
+  .language {
+    img {
+      left: 20px;
+      position: absolute;
+      width: 10px;
+    }
+  }
+
+  .langbutton {
+    display: inline-block;
+
+    a {
+      color: $white;
+      margin: 0 10px;
+      position: relative;
+
+      &:hover {
+        color: $fluid-red;
+      }
+    }
+  }
+
+  .search {
+    display: inline-block;
+    margin-left: 20px;
+  }
+
   .cssmenu {
     height: 72px;
+    padding-left: 170px;
+
+    a {
+      font-size: 16px;
+
+      &:hover {
+        color: $white;
+      }
+    }
+
+    .lang-resp {
+      display: none;
+    }
+  }
+
+  .m-opened {
+    height: 72px;
+    max-height: unset;
+    overflow-y: unset;
+
+    li {
+      border-bottom: 0;
+      display: inline-block;
+      margin: 0;
+      min-height: 72px;
+      padding-top: 7px;
+      width: auto;
+
+      &:hover {
+        background-color: $fluid-red;
+      }
+    }
   }
 
   .has-sub {
     a {
-      padding-right: 25px;
+      padding-right: 15px;
     }
 
     &:hover {
       ul {
-        background: $white;
+        background: $fluid-black;
         display: block;
         margin-top: 4px;
       }
 
       &::before {
         display: none;
-      }
-    }
-  }
-
-  .m-opened {
-    border-bottom: 2px solid $white;
-    border-top: 0;
-    height: 72px;
-
-    li {
-      border-top: 0;
-      display: inline-block;
-      min-height: 70px;
-      padding-top: 7px;
-      width: auto;
-
-      &:hover {
-        background-color: $fluid-red;
       }
     }
   }
@@ -339,22 +411,19 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .sm-opened {
-    border-top: 0;
     display: none;
     left: -20px;
     position: absolute;
 
     li {
-      border-bottom: 0;
-      margin-top: 1px;
-      min-height: 61px;
+      min-height: 60px;
       min-width: 260px;
       padding-top: 0;
-    }
-  }
 
-  .fluid-logo {
-    left: 6px;
+      &:first-child {
+        border-top: 0;
+      }
+    }
   }
 }
 

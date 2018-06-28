@@ -1,25 +1,7 @@
 <div class="menubar">
-  <div class="searchbar">
-    <form action="{{ SITEURL }}/search.html" onsubmit="return validateForm(this.elements['q'].value);">
-      <div class="langbutton">
-        {% if SUBSITE_LANG %}
-          {% for lang, url in SUBSITE_LANG.items() %}
-            <span><a href="{{ url }}/" {% if lang == DEFAULT_LANG %} class="language"{% endif %}>{{ lang|capitalize }} </a></span>
-          {% endfor %}
-        {% endif %}
-      </div>
-      <div class="search">
-        <input type="text" name="q" id="tipue_search_input" class="search-box" placeholder="{{ gettext('Navb-search-msg') }}">
-        <label for="tipue_search_input" class="search-box-label">
-          <span class="search-icon"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/search.png" alt="{{ gettext('Navb-img-alt-1') }}"></span>
-        </label>
-      </div>
-    </form>
-  </div>
-  <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo2.png" class="fluid-logo" alt="{{ gettext('Navb-logo') }}"></a>
   <div class='cssmenu'>
     <ul class="m-closed">
-      <li class='active'><a href="{{ SITEURL }}/{{ gettext('Navb-cat-1') }}/" class="m-link">{{ gettext('Navb-opt-2') }}</a>
+      <li><a href="{{ SITEURL }}/{{ gettext('Navb-cat-1') }}/" class="m-link">{{ gettext('Navb-opt-2') }}</a>
         <ul class="sm-closed">
           <li><a href="{{ SITEURL }}/{{ gettext('Navb-cat-1') }}/{{ gettext('Navb-link-2.1') }}/" class="sm-link">{{ gettext('Navb-opt-2.1') }}</a></li>
           <li><a href="{{ SITEURL }}/{{ gettext('Navb-cat-1') }}/{{ gettext('Navb-link-2.2') }}/" class="sm-link">{{ gettext('Navb-opt-2.2') }}</a></li>
@@ -46,7 +28,38 @@
         </ul>
       </li>
       <li><a href="{{ SITEURL }}/{{ gettext('Navb-link-5') }}/" class="m-link">{{ gettext('Navb-opt-5') }}</a></li>
-      <li class='active'><a href="{{ SITEURL }}/blog/" class="m-link">Blog</a></li>
+      <li><a href="{{ SITEURL }}/blog/" class="m-link">Blog</a></li>
+      <li class="lang-resp">
+        {% if DEFAULT_LANG == "en" %}
+          <a href="{{ SUBSITE_LANG.es }}" class="m-link">{{ gettext('Navb-opt-lang-es') }}</a>
+        {% else %}
+          <a href="{{ SUBSITE_LANG.en }}" class="m-link">{{ gettext('Navb-opt-lang-en') }}</a>
+        {% endif %}
+      </li>
     </ul>
+  </div>
+  <div class="menu-logo">
+    <a href="{{ SITEURL }}/">
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu.svg" alt="{{ gettext('Navb-logo') }}">
+    </a>
+  </div>
+  <div class="searchbar">
+    <form action="{{ SITEURL }}/search.html" onsubmit="return validateForm(this.elements['q'].value);">
+      <div class="langbutton">
+        {% if SUBSITE_LANG %}
+          {% for lang, url in SUBSITE_LANG.items() %}
+            <a href="{{ url }}/" {% if lang == DEFAULT_LANG %} class="language"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg">{% else %}>{% endif %}{{ lang|capitalize }}</a>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="search">
+        <input type="text" name="q" id="tipue_search_input" class="search-box" placeholder="{{ gettext('Navb-search-msg') }}">
+        <label for="tipue_search_input" class="search-box-label">
+          <span>
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/search.svg" alt="{{ gettext('Navb-img-alt-1') }}">
+          </span>
+        </label>
+      </div>
+    </form>
   </div>
 </div>

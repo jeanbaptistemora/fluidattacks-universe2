@@ -43,7 +43,7 @@ of the screen
         resizeFix = function() {
           var mainmenu = cssmenu.find('.menu-button');
           var submenu = cssmenu.find('.submenu-button');
-          if ($( window ).width() >= 885) {
+          if ($( window ).width() >= 845) {
             if (!cssmenu.children('ul').hasClass('m-opened')) {
               cssmenu.children('ul').toggleClass('m-opened')
             }
@@ -52,7 +52,7 @@ of the screen
             }
           }
 
-          if ($(window).width() < 885) {
+          if ($(window).width() < 845) {
             cssmenu.children('ul').removeClass('m-opened');
             cssmenu.find('ul li ul').removeClass('sm-opened');
             mainmenu.removeClass('menu-opened');
