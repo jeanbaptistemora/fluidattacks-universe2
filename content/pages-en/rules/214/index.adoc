@@ -17,3 +17,9 @@ The mobile device must allow remote data destruction in case of loss.
 Disposal: Implement policies and procedures
 to address the final disposition of electronic protected health information
 and/or the hardware or electronic media on which it is stored.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(e)(2)(i):]
+Integrity Controls: Implement security measures
+to ensure that electronically transmitted
+electronic protected health information
+is not improperly modified without detection until disposed of.
