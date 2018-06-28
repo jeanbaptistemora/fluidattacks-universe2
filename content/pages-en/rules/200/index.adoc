@@ -20,3 +20,7 @@ that govern the receipt and removal of hardware and electronic media
 that contain electronic protected health information
 into and out of a facility,
 and the movement of these items within the facility.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iii):]
+Accountability (A): Maintain a record of the movements of hardware
+and electronic media and any person responsible therefore.

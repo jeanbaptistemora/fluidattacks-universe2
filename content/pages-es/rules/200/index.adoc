@@ -19,3 +19,7 @@ Control de dispositivos y medios: Implementar políticas y procedimientos
 para la recepción y remoción de hardware y medios electrónicos
 que contengan información sensible dentro y fuera de las instalaciones,
 y el movimiento de dichos objetos dentro de las instalaciones.
+
+. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iii):]
+Contabilidad: Mantener un registro de movimientos de hardware
+y medios electrónicos y las personas responsables de ellos.
