@@ -89,7 +89,10 @@ angular.module("FluidIntegrates").factory(
         else {
           $scope.header.findingStateColor = $scope.colors.ok;
         }
-
+        $scope.header.releaseDate = "";
+        if ("releaseDate" in $scope.finding) {
+          $scope.header.releaseDate = $scope.finding.releaseDate.split(" ")[0];
+        }
         $scope.header.findingCount = $scope.finding.openVulnerabilities;
         findingData.header = $scope.header;
       },
