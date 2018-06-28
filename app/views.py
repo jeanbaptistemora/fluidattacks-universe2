@@ -498,6 +498,7 @@ def get_project_info(project):
         return ProjectDTO().parse(submission)
     return []
 
+#pylint: disable-msg=R1705
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -518,15 +519,16 @@ def get_eventualities(request):
         return util.response(dataset, 'Empty fields in project', True)
     if category == "Name":
         submissions = api.get_eventualities(project)
-        if 'error' in submissions:
+        if 'error' not in submissions:
+            frmset = submissions["submissions"]
+            for row in frmset:
+                submission = api.get_submission(row["id"])
+                evtset = evt_dto.parse(row["id"], submission)
+                if evtset['fluidProject'].lower() == project.lower():
+                    dataset.append(evtset)
+            return util.response(dataset, 'Success', False)
+        else:
             return util.response(dataset, 'Event does not exist', True)
-        frmset = submissions["submissions"]
-        for row in frmset:
-            submission = api.get_submission(row["id"])
-            evtset = evt_dto.parse(row["id"], submission)
-            if evtset['fluidProject'].lower() == project.lower():
-                dataset.append(evtset)
-        return util.response(dataset, 'Success', False)
     elif category == "ID":
         # Only fluid can filter by id
         if "@fluidattacks.com" not in username:
@@ -536,11 +538,12 @@ def get_eventualities(request):
             rollbar.report_message('Error: ID is not a number', 'error', request)
             return util.response(dataset, 'ID is not a number', True)
         submission = api.get_submission(project)
-        if 'error' in submission:
+        if 'error' not in submission:
+            evtset = evt_dto.parse(project, submission)
+            dataset.append(evtset)
+            return util.response(dataset, 'Success', False)
+        else:
             return util.response(dataset, 'Event does not exist', True)
-        evtset = evt_dto.parse(project, submission)
-        dataset.append(evtset)
-        return util.response(dataset, 'Success', False)
     else:
         rollbar.report_message('Error: An error occurred getting events', 'error', request)
         return util.response(dataset, 'Not actions', True)
