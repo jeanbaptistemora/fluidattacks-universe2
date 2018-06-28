@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-22 18:10-0500\n"
+"POT-Creation-Date: 2018-06-28 20:35+0000\n"
 "PO-Revision-Date: 2018-03-06 13:42+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -125,24 +125,23 @@ msgstr "authors"
 msgid "Authors-header"
 msgstr "Authors"
 
-#: templates/base.html:117
+#: templates/base.html:116
 msgid "Header-img-alt"
 msgstr "Young hacker smiling"
 
-#: templates/base.html:121
+#: templates/base.html:119
 msgid "Header-title-1"
 msgstr "We hack your software"
 
-#: templates/base.html:122
+#: templates/base.html:120
 msgid "Header-title-2"
 msgstr "zero false positives"
 
-#: templates/base.html:123
+#: templates/base.html:121
 msgid "Header-msg"
-msgstr "Attacking Applications, APIs, Mobile Apps "
-"Servers, Networks, IoT Devices "
-"<br/>ICS: Industrial Control System "
-"<br/>SOC: Security Operations Center"
+msgstr ""
+"Attacking Applications, APIs, Mobile Apps Servers, Networks, IoT Devices "
+"<br/>ICS: Industrial Control System <br/>SOC: Security Operations Center"
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"
@@ -584,6 +583,30 @@ msgstr "terms-use"
 msgid "Footer-stat-msg-2"
 msgstr "Terms of Use"
 
+#: templates/form.html:74
+msgid "Form-field-1"
+msgstr "First Name"
+
+#: templates/form.html:76
+msgid "Form-field-2"
+msgstr "Last Name"
+
+#: templates/form.html:78
+msgid "Form-field-3"
+msgstr "Email"
+
+#: templates/form.html:80
+msgid "Form-field-4"
+msgstr "Company Name"
+
+#: templates/form.html:82
+msgid "Form-field-5"
+msgstr "City"
+
+#: templates/form.html:84
+msgid "Form-field-6"
+msgstr "State/Province"
+
 #: templates/home.html:4
 msgid "Home-metadescription"
 msgstr ""
@@ -745,127 +768,135 @@ msgstr ""
 "Fluid Attacks has been providing Information Security services in the "
 "colombian market for over 18 years. Below, we list some of our customers."
 
-#: templates/navigationbar.html:12
-msgid "Navb-search-msg"
-msgstr "Search this site..."
-
-#: templates/navigationbar.html:14
-msgid "Navb-img-alt-1"
-msgstr "Magnifying glass"
-
-#: templates/navigationbar.html:19
-msgid "Navb-logo"
-msgstr "Fluid Attacks logo"
-
-#: templates/navigationbar.html:22 templates/navigationbar.html:24
-#: templates/navigationbar.html:25
+#: templates/navigationbar.html:4 templates/navigationbar.html:6
+#: templates/navigationbar.html:7
 msgid "Navb-cat-1"
 msgstr "services"
 
-#: templates/navigationbar.html:22
+#: templates/navigationbar.html:4
 msgid "Navb-opt-2"
 msgstr "Services"
 
-#: templates/navigationbar.html:24
+#: templates/navigationbar.html:6
 msgid "Navb-link-2.1"
 msgstr "one-shot-hacking"
 
-#: templates/navigationbar.html:24
+#: templates/navigationbar.html:6
 msgid "Navb-opt-2.1"
 msgstr "One Shot Hacking"
 
-#: templates/navigationbar.html:25
+#: templates/navigationbar.html:7
 msgid "Navb-link-2.2"
 msgstr "continuous-hacking"
 
-#: templates/navigationbar.html:25
+#: templates/navigationbar.html:7
 msgid "Navb-opt-2.2"
 msgstr "Continuous Hacking"
 
-#: templates/navigationbar.html:28 templates/navigationbar.html:30
-#: templates/navigationbar.html:31 templates/navigationbar.html:32
-#: templates/navigationbar.html:33 templates/navigationbar.html:34
+#: templates/navigationbar.html:10 templates/navigationbar.html:12
+#: templates/navigationbar.html:13 templates/navigationbar.html:14
+#: templates/navigationbar.html:15 templates/navigationbar.html:16
 msgid "Navb-cat-2"
 msgstr "products"
 
-#: templates/navigationbar.html:28
+#: templates/navigationbar.html:10
 msgid "Navb-opt-3"
 msgstr "Products"
 
-#: templates/navigationbar.html:37 templates/navigationbar.html:39
-#: templates/navigationbar.html:40 templates/navigationbar.html:41
-#: templates/navigationbar.html:42 templates/navigationbar.html:43
-#: templates/navigationbar.html:44 templates/navigationbar.html:45
+#: templates/navigationbar.html:19 templates/navigationbar.html:21
+#: templates/navigationbar.html:22 templates/navigationbar.html:23
+#: templates/navigationbar.html:24 templates/navigationbar.html:25
+#: templates/navigationbar.html:26 templates/navigationbar.html:27
 msgid "Navb-cat-4"
 msgstr "customers"
 
-#: templates/navigationbar.html:37
+#: templates/navigationbar.html:19
 msgid "Navb-opt-4"
 msgstr "Customers"
 
-#: templates/navigationbar.html:39
+#: templates/navigationbar.html:21
 msgid "Navb-link-4.1"
 msgstr "financial"
 
-#: templates/navigationbar.html:39
+#: templates/navigationbar.html:21
 msgid "Navb-opt-4.1"
 msgstr "Financial"
 
-#: templates/navigationbar.html:40
+#: templates/navigationbar.html:22
 msgid "Navb-link-4.2"
 msgstr "communications"
 
-#: templates/navigationbar.html:40
+#: templates/navigationbar.html:22
 msgid "Navb-opt-4.2"
 msgstr "Communications"
 
-#: templates/navigationbar.html:41
+#: templates/navigationbar.html:23
 msgid "Navb-link-4.3"
 msgstr "consumer"
 
-#: templates/navigationbar.html:41
+#: templates/navigationbar.html:23
 msgid "Navb-opt-4.3"
 msgstr "Consumer"
 
-#: templates/navigationbar.html:42
+#: templates/navigationbar.html:24
 msgid "Navb-link-4.4"
 msgstr "technology"
 
-#: templates/navigationbar.html:42
+#: templates/navigationbar.html:24
 msgid "Navb-opt-4.4"
 msgstr "Technology"
 
-#: templates/navigationbar.html:43
+#: templates/navigationbar.html:25
 msgid "Navb-link-4.5"
 msgstr "utilities"
 
-#: templates/navigationbar.html:43
+#: templates/navigationbar.html:25
 msgid "Navb-opt-4.5"
 msgstr "Utilities"
 
-#: templates/navigationbar.html:44
+#: templates/navigationbar.html:26
 msgid "Navb-link-4.6"
 msgstr "industrial"
 
-#: templates/navigationbar.html:44
+#: templates/navigationbar.html:26
 msgid "Navb-opt-4.6"
 msgstr "Industrial"
 
-#: templates/navigationbar.html:45
+#: templates/navigationbar.html:27
 msgid "Navb-link-4.7"
 msgstr "transportation"
 
-#: templates/navigationbar.html:45
+#: templates/navigationbar.html:27
 msgid "Navb-opt-4.7"
 msgstr "Transportation"
 
-#: templates/navigationbar.html:48
+#: templates/navigationbar.html:30
 msgid "Navb-link-5"
 msgstr "careers"
 
-#: templates/navigationbar.html:48
+#: templates/navigationbar.html:30
 msgid "Navb-opt-5"
 msgstr "Careers"
+
+#: templates/navigationbar.html:34
+msgid "Navb-opt-lang-es"
+msgstr "Spanish"
+
+#: templates/navigationbar.html:36
+msgid "Navb-opt-lang-en"
+msgstr ""
+
+#: templates/navigationbar.html:44
+msgid "Navb-logo"
+msgstr "Fluid Attacks logo"
+
+#: templates/navigationbar.html:57
+msgid "Navb-search-msg"
+msgstr "Search this site..."
+
+#: templates/navigationbar.html:60
+msgid "Navb-img-alt-1"
+msgstr "Magnifying glass"
 
 #: templates/page.html:123
 msgid "Page-disqus-sect"
@@ -946,75 +977,3 @@ msgstr "tags"
 #: templates/tags.html:44
 msgid "Tags-header"
 msgstr "Tags"
-
-#~ msgid "Footer-subtitle-1.7"
-#~ msgstr "Subscribe"
-
-#~ msgid "Footer-header-5"
-#~ msgstr "Customers"
-
-#~ msgid "Footer-link-5.7"
-#~ msgstr "transportation"
-
-#~ msgid "Footer-link-3.1"
-#~ msgstr "style"
-
-#~ msgid "Footer-subtitle-3.1"
-#~ msgstr "Style"
-
-#~ msgid "Footer-link-3.2"
-#~ msgstr "topics"
-
-#~ msgid "Footer-subtitle-3.2"
-#~ msgstr "Topics"
-
-#~ msgid "Footer-link-3.3"
-#~ msgstr "authors"
-
-#~ msgid "Footer-subtitle-3.3"
-#~ msgstr "Authors"
-
-#~ msgid "Footer-link-3.4"
-#~ msgstr "categories"
-
-#~ msgid "Footer-subtitle-3.4"
-#~ msgstr "Categories"
-
-#~ msgid "Footer-link-3.5"
-#~ msgstr "tags"
-
-#~ msgid "Footer-subtitle-3.5"
-#~ msgstr "Tags"
-
-#~ msgid "Footer-subtitle-3.6"
-#~ msgstr "Format"
-
-#~ msgid "Footer-subtitle-3.7"
-#~ msgstr ""
-
-#~ msgid "Footer-link-4.6"
-#~ msgstr "immersion"
-
-#~ msgid "Footer-subtitle-4.6"
-#~ msgstr "Immersion"
-
-#~ msgid "Footer-link-5.1"
-#~ msgstr "financial"
-
-#~ msgid "Location-tel"
-#~ msgstr "Land line"
-
-#~ msgid "Location-cel"
-#~ msgstr "Mobile"
-
-#~ msgid "CO-Md-building"
-#~ msgstr "Forum Building"
-
-#~ msgid "Location-office"
-#~ msgstr "Office"
-
-#~ msgid "Location-ZIP"
-#~ msgstr "Postal Code"
-
-#~ msgid "CO-Bg-building"
-#~ msgstr "Avenida Chile Building"
