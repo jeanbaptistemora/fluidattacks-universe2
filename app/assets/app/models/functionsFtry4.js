@@ -20,7 +20,7 @@ projectData: true, userEmail, userName,$document */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry4",
-  function functionsFtry1 (
+  function functionsFtry4 (
     $document,
     $stateParams,
     $translate,
