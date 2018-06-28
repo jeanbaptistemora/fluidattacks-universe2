@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada del proceso de negocio con el que cuenta una organización. En este caso, se recomienda que la organización defina, documente y trate los incidentes de seguridad.
 :keywords: Requisito, Seguridad, Organización, Documentar, Procedimiento, Incidentes.
 :rules: yes
+:translate: rules/243/
 
 = REQ.243 Gestionar incidentes de seguridad
 
