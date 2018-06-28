@@ -196,7 +196,7 @@ def get_new_releases():
                         str(finding["id"]) + '/description', 'project': project[0].upper()})
                     cont += 1
         except (TypeError, KeyError):
-            rollbar.report_message('Error: An error ocurred sending new release email', 'error')
+            rollbar.report_message('Error: An error ocurred getting data for new drafts email', 'error')
     if cont > 0:
         context['total'] = cont
         to = ["engineering@fluidattacks.com"]
