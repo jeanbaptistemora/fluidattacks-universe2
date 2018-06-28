@@ -1,0 +1,18 @@
+:slug: rules/133/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining passphrases with at least 4 words to improve credentials security
+:keywords: Requirement, Security, Credentials, Access, Password, Length
+:rules: yes
+:translate: rules/133/
+
+= REQ.133 Passwords with at least 20 characters
+
+== Requirement
+
+System passwords must be at least +20+ characters long.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.7+]
+Verify password entry fields allow, or encourage, the use of passphrases,
+and do not prevent long passphrases or highly complex passwords being entered.

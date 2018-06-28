@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas tipo frase de al menos 4 palabras de longitud.
 :keywords: Contraseña, Contraseña tipo frase, Longitud contraseña, Palabras de longitud, Secuencia de palabras, Seguridad contraseña.
 :rules: yes
+:translate: rules/132/
 
 = REQ.132 Contraseñas con al menos 4 palabras
 
@@ -32,4 +33,9 @@ para diferentes plataformas o lenguajes de programación:
 
 == Referencias
 
-. [[r1]] link:https://en.wikipedia.org/wiki/Passphrase[Passphrase].
+. [[r1]] link:https://en.wikipedia.org/wiki/Passphrase[Passphrase - Wikipedia].
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.7+]
+Verificar que los campos de entrada de las contraseñas permitan
+o sugieran sugieran el uso de contraseñas tipo frase,
+y que no se impida la entrada de frases largas o de alta complejidad.
