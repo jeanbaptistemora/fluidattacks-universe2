@@ -240,7 +240,7 @@ Prospector:
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "torus daemon start; sleep 5;
-        torus run -- python /usr/src/app/manage.py test app.tests"
+        torus run -- python -v /usr/src/app/manage.py test app.tests --no-input"
   retry: 2
   except:
     - master
