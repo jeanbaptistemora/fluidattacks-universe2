@@ -19,7 +19,7 @@ fieldsToTranslate, keysToTranslate, findingData, userRole, secureRandom */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry3",
-  function functionsFtry3 (
+  function functionsFtry3Function (
     $document,
     $timeout,
     $translate,

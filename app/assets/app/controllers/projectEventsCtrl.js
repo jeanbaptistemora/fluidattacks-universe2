@@ -18,7 +18,8 @@ eventsTranslations, keysToTranslate, labelEventState:true, angular
  * @member integrates.registerCtrl
  * @return {string|boolean} Html code for specific label
  */
-labelEventState = function labelEventState (value) {
+/* eslint-disable-next-line  func-name-matching */
+labelEventState = function labelEventStateFunction (value) {
   if (value === "Tratada") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Tratada</label>";

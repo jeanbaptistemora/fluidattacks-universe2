@@ -20,7 +20,8 @@ $window */
  * @member integrates.registerCtrl
  * @return {string} Date without hour
  */
-removeHour = function removeHour (value) {
+/* eslint-disable-next-line  func-name-matching */
+removeHour = function removeHourFunction (value) {
   if (value.indexOf(":") !== -1) {
     return value.split(" ")[0];
   }
@@ -33,7 +34,8 @@ removeHour = function removeHour (value) {
  * @member integrates.registerCtrl
  * @return {string} Html code for specific label
  */
-labelState = function labelState (value) {
+/* eslint-disable-next-line  func-name-matching */
+labelState = function labelStateFunction (value) {
   if (value === "Cerrado") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Cerrado</label>";

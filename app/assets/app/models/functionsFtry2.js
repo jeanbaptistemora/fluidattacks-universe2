@@ -21,7 +21,7 @@ realiabilityLevel, functionsFtry1, angular, mixPanelDashboard */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry2",
-  function functionsFtry2 (
+  function functionsFtry2Function (
     $injector,
     $stateParams,
     $translate,

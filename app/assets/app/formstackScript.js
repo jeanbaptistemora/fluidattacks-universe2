@@ -75,7 +75,6 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
 /**
  * @function showInfo
  * @param {Object} data Data entered by an analyst
- * @param {Object} tabletop Tabletop instance
  * @return {undefined} Info about findings
  */
 const showInfo = function showInfo (data) {

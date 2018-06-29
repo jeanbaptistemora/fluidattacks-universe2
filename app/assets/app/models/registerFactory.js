@@ -14,7 +14,7 @@ angular, secureRandom */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "registerFactory",
-  function registerFactory ($q) {
+  function registerFactoryFunction ($q) {
     return {
 
       /**

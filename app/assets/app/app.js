@@ -89,14 +89,6 @@ angular.module("FluidIntegrates").config([
     });
   }
 ]);
-
-/**
- * Configuration for the translation function in Integrates.
- * @name config
- * @config {AngularJS}
- * @param {Object} $translateProvider Angular translator dependecy
- * @return {undefined}
- */
 angular.module("FluidIntegrates").config([
   "$translateProvider",
   function config ($translateProvider) {

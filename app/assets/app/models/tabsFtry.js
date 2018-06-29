@@ -19,7 +19,7 @@ userEmail, userName, secureRandom, angular*/
 /** @export */
 angular.module("FluidIntegrates").factory(
   "tabsFtry",
-  function tabsFtry (
+  function tabsFtryFunction (
     $timeout,
     $translate,
     $window,

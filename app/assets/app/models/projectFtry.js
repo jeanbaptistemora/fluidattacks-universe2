@@ -14,7 +14,7 @@ $, Rollbar, eventsData, secureRandom, angular */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "projectFtry",
-  function projectFtry (
+  function projectFtryFunction (
     $q,
     $window
   ) {

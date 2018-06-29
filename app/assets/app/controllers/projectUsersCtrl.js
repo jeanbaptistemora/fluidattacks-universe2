@@ -6,7 +6,7 @@ nonexploitLabel:true, totalHigLabel:true, exploitable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
 mixPanelDashboard, win:true, window, Organization, projectData:true, i:true,
-eventsTranslations, keysToTranslate, labelEventState:true, angular
+eventsTranslations, keysToTranslate, labelEventState:true, angular, parsley
 */
 /**
  * @file projectUsersCtrl.js
@@ -18,7 +18,8 @@ eventsTranslations, keysToTranslate, labelEventState:true, angular
  * @member integrates.registerCtrl
  * @return {string|boolean} Html code for specific label
  */
-labelEventState = function labelEventState (value) {
+/* eslint-disable-next-line  func-name-matching */
+labelEventState = function labelEventStateFunction (value) {
   if (value === "Tratada") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Tratada</label>";
@@ -339,8 +340,12 @@ angular.module("FluidIntegrates").controller(
                       userEmail,
                       projt
                     );
-                    $msg.success($translate.instant("search_findings." +
-                                           "tab_users.success_admin"));
+                    $msg.success(
+                      $translate.instant("search_findings." +
+                                           "tab_users.success_admin"),
+                      $translate.instant("search_findings." +
+                                                  "tab_users.title_success")
+                    );
                     $uibModalInstance.close();
                     location.reload();
                   }
@@ -390,8 +395,8 @@ angular.module("FluidIntegrates").controller(
           req.then((response) => {
             if (!response.error) {
               $msg.success(removedEmails[inc] +
-         $translate.instant("search_findings.tab_users." +
-         "success_delete"));
+                               $translate.instant("search_findings.tab_users." +
+                 "success_delete"), "search_findings.tab_users.title_success");
               if (inc === (removedEmails.length - 1)) {
                 location.reload();
               }
