@@ -156,6 +156,12 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
+.active {
+  img {
+    display: none;
+  }
+}
+
 .submenu-button {
   cursor: pointer;
   height: 60px;
@@ -396,6 +402,15 @@ $white: rgba(255, 255, 255, 1);
       &::before {
         display: none;
       }
+    }
+  }
+
+  .active {
+    img {
+      display: block;
+      float: right;
+      margin: -44px 3px 0 0;
+      width: 10px;
     }
   }
 

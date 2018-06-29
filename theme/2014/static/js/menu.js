@@ -68,6 +68,32 @@ of the screen
 
 (function($){
   $(document).ready(function(){
+    var dict_en = {
+      "services": 0,
+      "products": 1,
+      "customers": 2,
+      "careers": 3,
+      "blog": 4
+    };
+    var dict_es = {
+      "servicios": 0,
+      "productos": 1,
+      "clientes": 2,
+      "empleos": 3,
+      "blog": 4
+    };
+    for (var i = 0; i < 5; i++) {
+      var cat_en = Object.keys(dict_en)[i];
+      var cat_es = Object.keys(dict_es)[i];
+      if(window.location.href.indexOf("en/" + cat_en + '/') != -1) {
+        $($(".cssmenu > ul > li")[dict_en[cat_en]]).toggleClass("active");
+        $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Selected field icon\" src=\"/web/en/theme/images/selected.svg\">")
+      }
+      if(window.location.href.indexOf("es/" + cat_es + '/') != -1) {
+        $($(".cssmenu > ul > li")[dict_es[cat_es]]).toggleClass("active");
+        $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Ícono de campo seleccionado\" src=\"/web/es/theme/images/selected.svg\">")
+      }
+    }
     $(".cssmenu").menumaker({
        format: "multitoggle"
     });
