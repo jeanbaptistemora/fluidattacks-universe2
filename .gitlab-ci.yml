@@ -204,8 +204,10 @@ Linting:
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "npm install -g  n; n stable;
         cd /usr/src/app/app/assets/app/;
-        torus daemon start; sleep 5;
-        torus run -- /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
+        result=$(/usr/src/app/app/assets/node_modules/.bin/gulp verbose | grep -c JSC_);
+        if [ "$result" -gt 0 ]; then /usr/src/app/app/assets/node_modules/.bin/gulp   verbose;
+        echo -e '\e[31mThere are some errors/warnings unsolved.\e[0m';exit 1;
+        else echo -e '\e[32mAll Good!'; exit 0; fi;"
     - docker run
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
