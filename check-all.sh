@@ -39,7 +39,7 @@ if find content -iname '*_*' | grep -E './.*'; then
 fi
 
 # Check every image is in PNG format
-if find . -name '*.jpg' -o -name '*.jpeg' -o -name '*.svg' |
+if find . -name '*.jpg' -o -name '*.jpeg' |
 grep -Ev '.*fonts.*' | grep -E './.*'; then
   echo -e "${GC}Image format must be \"png\".${NC}"
   ERRORS=1;
