@@ -47,6 +47,7 @@ Among the topics of interest are:
 * Refactoring +JS+ with linting.
 * Why link:../products/asserts/[Asserts] don't use +OpenSSL+?
 * Who must detect changes in an +API+: provider or consumer?
+* Should ethical hacking include vulnerabilities analysis?
 
 == Concepts
 
@@ -60,6 +61,9 @@ Among the topics of interest are:
 * Poor man linter: +check-all/changed+ and +pcregrep+.
 * What is +SecDevOps+?
 * Remediation Pipelines: One shot, Continuous, Breaking the +CI+.
+* Black Box testing
+* Gray Box testing
+* White Box testing
 
 == Standards
 

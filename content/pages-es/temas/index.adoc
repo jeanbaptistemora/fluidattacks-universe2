@@ -50,6 +50,8 @@ Dentro de los temas de interés se encuentran:
 * Refactorizando +JS+ con +linting+.
 * Por qué link:../productos/asserts/[Asserts] no utiliza +OpenSSL+?
 * Quién debe detectar un cambio en un +API+: proveedor o consumidor?
+* Un ethical hacking debería incluir un análisis de vulnerabilidades?
+
 
 == Conceptos
 
@@ -63,6 +65,9 @@ Dentro de los temas de interés se encuentran:
 * +Linter+ del hombre pobre: +check-all/changed+ y +pcregrep+.
 * Qué es +SecDevOps+?
 * Embudo de cierre: Puntual, Continuo y Rompiendo el build.
+* Pruebas de Caja Negra
+* Pruebas de Caja Gris
+* Pruebas de Caja Blanca
 
 == Estándares
 
