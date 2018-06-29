@@ -17,8 +17,33 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.index-msg {
-  width: 50%;
+.services {
+  background-color: $white;
+  padding: 20px 0;
+
+  p {
+    padding: 0 20px;
+    text-align: center;
+  }
+}
+
+.serv-offer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.serv {
+  margin-bottom: 20px;
+  width: 100%;
+
+  a {
+    color: $fluid-black;
+    margin: auto;
+
+    &:hover {
+      color: $fluid-red;
+    }
+  }
 }
 
 .benefits {
@@ -63,36 +88,6 @@ $white: rgba(255, 255, 255, 1);
 
   img {
     margin: 20px;
-  }
-}
-
-.services {
-  background-color: $white;
-  margin-top: 10px;
-  padding: 20px 0;
-
-  p {
-    padding: 0 20px;
-    text-align: center;
-  }
-}
-
-.serv-offer {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.serv {
-  margin-bottom: 20px;
-  width: 100%;
-
-  a {
-    color: $fluid-black;
-    margin: auto;
-
-    &:hover {
-      color: $fluid-red;
-    }
   }
 }
 
