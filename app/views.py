@@ -826,15 +826,7 @@ def get_evidence(request, findingid, fileid):
             ext = {'.png': '.tmp', '.gif': '.tmp'}
             localtmp = replace_all(localfile, ext)
             client_s3.download_file(bucket_s3, k, localtmp)
-            mime = Magic(mime=True)
-            mime_type = mime.from_file(localtmp)
-            if mime_type == "image/png":
-                with open(localtmp, "r") as file_obj:
-                    return HttpResponse(file_obj.read(), content_type="image/png")
-            elif mime_type == "image/gif":
-                with open(localtmp, "r") as file_obj:
-                    return HttpResponse(file_obj.read(), content_type="image/gif")
-            os.unlink(localtmp)
+            return retrieve_image(request, localtmp)
     else:
         if fileid not in request.session:
             rollbar.report_message('Error: Access to evidence denied', 'error', request)
@@ -849,20 +841,25 @@ def get_evidence(request, findingid, fileid):
             return HttpResponse("Error - Unable to download the image", content_type="text/html")
         else:
             filename = "/tmp/:id.tmp".replace(":id", fileid)
-            mime = Magic(mime=True)
-            mime_type = mime.from_file(filename)
-            if mime_type == "image/png":
-                with open(filename, "r") as file_obj:
-                    return HttpResponse(file_obj.read(), content_type="image/png")
-            elif mime_type == "image/gif":
-                with open(filename, "r") as file_obj:
-                    return HttpResponse(file_obj.read(), content_type="image/gif")
-            os.unlink(filename)
+            return retrieve_image(request, filename)
 
 def replace_all(text, dic):
     for i, j in dic.iteritems():
         text = text.replace(i, j)
     return text
+
+def retrieve_image(request, img_file):
+    mime = Magic(mime=True)
+    mime_type = mime.from_file(img_file)
+    try:
+        if mime_type.startswith('image/'):
+            with open(img_file, "r") as file_obj:
+                return HttpResponse(file_obj.read(), content_type=mime_type)
+        else:
+            rollbar.report_message('Error: Invalid evidence image format: ' + mime_type, 'error', request)
+            return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
+    finally:
+        os.unlink(img_file)
 
 @never_cache
 @csrf_exempt
