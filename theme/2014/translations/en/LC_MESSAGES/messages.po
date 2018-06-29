@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-28 20:35+0000\n"
+"POT-Creation-Date: 2018-06-29 00:10+0000\n"
 "PO-Revision-Date: 2018-03-06 13:42+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -886,15 +886,19 @@ msgstr "Spanish"
 msgid "Navb-opt-lang-en"
 msgstr ""
 
-#: templates/navigationbar.html:44
+#: templates/navigationbar.html:43
 msgid "Navb-logo"
 msgstr "Fluid Attacks logo"
 
-#: templates/navigationbar.html:57
+#: templates/navigationbar.html:51
+msgid "Selected-img-alt"
+msgstr "Selected field icon"
+
+#: templates/navigationbar.html:56
 msgid "Navb-search-msg"
 msgstr "Search this site..."
 
-#: templates/navigationbar.html:60
+#: templates/navigationbar.html:59
 msgid "Navb-img-alt-1"
 msgstr "Magnifying glass"
 

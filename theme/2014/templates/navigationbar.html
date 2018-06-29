@@ -48,7 +48,7 @@
       <div class="langbutton">
         {% if SUBSITE_LANG %}
           {% for lang, url in SUBSITE_LANG.items() %}
-            <a href="{{ url }}/" {% if lang == DEFAULT_LANG %} class="language"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg">{% else %}>{% endif %}{{ lang|capitalize }}</a>
+            <a href="{{ url }}/" {% if lang == DEFAULT_LANG %} class="language"><img alt="{{ gettext('Selected-img-alt') }}" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg">{% else %}>{% endif %}{{ lang|capitalize }}</a>
           {% endfor %}
         {% endif %}
       </div>
