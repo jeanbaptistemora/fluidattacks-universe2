@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de almacenar las contraseñas con derivaciones de clave.
 :keywords: Requerimiento, Seguridad, Credenciales, Acceso, Contraseñas, Salt.
 :rules: yes
+:translate: rules/134/
 
 = REQ.134 Almacenar contraseñas con Salt
 

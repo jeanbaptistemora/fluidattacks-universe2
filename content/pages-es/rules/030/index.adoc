@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. Por lo tanto, para el presente requerimiento, se recomienda que el sistema no permita reutilizar objetos vinculados a procesos de autenticación.
 :keywords: Sistema, Objeto, Sesión, Reutilizar, Cookie, Autenticación.
 :rules: yes
+:translate: rules/030/
 
 = REQ.030 Evitar reciclaje de objetos de autenticación
 
@@ -91,7 +92,13 @@ para evitar que sean capturadas (+Man in The Middle+).
 
 == Referencias
 
-. link:https://cwe.mitre.org/data/definitions/294.html[CWE-294: Authentication Bypass by Capture-replay].
-. link:http://capec.mitre.org/data/definitions/60.html[CAPEC-60: Reusing Session IDs (aka Session Replay)].
-. link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
-. link:http://www.ietf.org/rfc/rfc2617.txt[HTTP Authentication: Basic and Digest Access Authentication].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/294.html[CWE-294: Authentication Bypass by Capture-replay].
+. [[r2]] link:http://capec.mitre.org/data/definitions/60.html[CAPEC-60: Reusing Session IDs (aka Session Replay)].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
+. [[r4]] link:http://www.ietf.org/rfc/rfc2617.txt[HTTP Authentication: Basic and Digest Access Authentication].
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.12+]
+Verificar que todas las decisiones de autenticación puedan ser almacenadas,
+sin almacenar información sensible
+como identificadores de sesión o contraseñas.
+Esto debe incluir tambien solicitudes con metadatos relevantes
+necesarios para las investigaciones de seguridad.

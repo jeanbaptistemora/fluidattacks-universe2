@@ -1,0 +1,21 @@
+:slug: rules/031/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of sessions and session variables the organization. This requirement establishes the importance of defining controls to manage object sessions securely to avoid common attacks.
+:keywords: Requirement, Security, Session, Authentication, Objects, Control
+:rules: yes
+:translate: rules/031/
+
+= REQ.031 Discard user session data
+
+== Requirement
+
+When closing a session (automatic or manual),
+all data related to user session must be discarded.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.12+]
+Verify that all authentication decisions can be logged,
+without storing sensitive session identifiers or passwords.
+This should include requests with relevant metadata
+needed for security investigations.

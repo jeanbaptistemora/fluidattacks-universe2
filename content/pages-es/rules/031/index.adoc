@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. Por lo tanto, se recomienda que una vez cerrada la sesión del usuario, el sistema elimine toda la información relacionada a este.
 :keywords: Sistema, Cerrar, Sesión, Descartar, Usuario, Datos.
 :rules: yes
+:translate: rules/031/
 
 = REQ.031 Descartar datos de sesión del usuario
 
@@ -10,3 +11,11 @@
 
 Al cerrarse la sesión de un usuario (automática o manual)
 se debe descartar los datos relacionados con la sesión del usuario.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.12+]
+Verify that all authentication decisions can be logged,
+without storing sensitive session identifiers or passwords.
+This should include requests with relevant metadata
+needed for security investigations.
