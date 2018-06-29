@@ -672,6 +672,8 @@ def get_findings(request):
         f.write(json.dumps(findings))
     return util.response(findings, 'Success', False)
 
+# pylint: disable=R1702
+# pylint: disable=R0915
 def catch_finding(request, submission_id):
     finding = []
     state = {'estado': 'Abierto'}
@@ -681,74 +683,79 @@ def catch_finding(request, submission_id):
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
         submissionData = api.get_submission(submission_id)
-        if "error" in submissionData:
-            return None
-        finding = fin_dto.parse(
-            submission_id,
-            submissionData,
-            request
-        )
-        if not has_access_to_project(username, finding['fluidProject'], request.session['role']):
-            rollbar.report_message('Error: Access to project denied', 'error', request)
+        if submissionData is None or 'error' in submissionData:
             return None
         else:
-            closingreqset = api.get_closings_by_id(submission_id)["submissions"]
-            findingcloseset = []
-            for closingreq in closingreqset:
-                closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
-                findingcloseset.append(closingset)
-                # The latest is the last closing cycle.
-                state = closingset
-            finding["estado"] = state["estado"]
-            finding["cierres"] = findingcloseset
-            finding['cardinalidad_total'] = finding['openVulnerabilities']
-            if 'opened' in state:
-                # Hack: This conditional temporarily solves the problem presented
-                #      when the number of vulnerabilities open in a closing cycle
-                # are higher than the number of vulnerabilities open in a finding
-                # which causes negative numbers to be shown in the indicators view.
-                if int(state['opened']) > int(finding['cardinalidad_total']):
-                    finding['cardinalidad_total'] = state['opened']
-                finding['openVulnerabilities'] = state['opened']
-            if 'whichOpened' in state:
-                finding['where'] = state['whichOpened']
+            finding = fin_dto.parse(
+                submission_id,
+                submissionData,
+                request
+            )
+            if not has_access_to_project(username, finding['fluidProject'], request.session['role']):
+                rollbar.report_message('Error: Access to project denied', 'error', request)
+                return None
             else:
-                if state['estado'] == 'Cerrado':
-                    finding['where'] = '-'
-            if 'whichClosed' in state:
-                finding['closed'] = state['whichClosed']
-            if state['estado'] == 'Cerrado':
-                finding['where'] = '-'
-                finding['edad'] = '-'
-                finding['lastVulnerability'] = '-'
-            else:
-                if 'timestamp' in state:
-                    if 'lastVulnerability' in finding and \
-                            finding['lastVulnerability'] != state['timestamp']:
-                        finding['lastVulnerability'] = state['timestamp']
-                        generic_dto = FindingDTO()
-                        generic_dto.create_last_vulnerability(finding)
-                        generic_dto.to_formstack()
-                        api.update(generic_dto.request_id, generic_dto.data)
-                if 'releaseDate' in finding:
-                    tzn = pytz.timezone('America/Bogota')
-                    finding_date = datetime.strptime(
-                        finding["releaseDate"].split(" ")[0],
-                        '%Y-%m-%d'
-                    )
-                    finding_date = finding_date.replace(tzinfo=tzn).date()
-                    final_date = (datetime.now(tz=tzn).date() - finding_date)
-                    finding['edad'] = ":n".replace(":n", str(final_date.days))
-                    finding_last_vuln = datetime.strptime(
-                        finding["lastVulnerability"].split(" ")[0],
-                        '%Y-%m-%d'
-                    )
-                    finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-                    final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
-                    finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
+                closingData = api.get_closings_by_id(submission_id)
+                if closingData is None or 'error' in closingData:
+                    return None
                 else:
-                    finding['lastVulnerability'] = '-'
-            return finding
+                    closingreqset = closingData["submissions"]
+                    findingcloseset = []
+                    for closingreq in closingreqset:
+                        closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
+                        findingcloseset.append(closingset)
+                        # The latest is the last closing cycle.
+                        state = closingset
+                    finding["estado"] = state["estado"]
+                    finding["cierres"] = findingcloseset
+                    finding['cardinalidad_total'] = finding['openVulnerabilities']
+                    if 'opened' in state:
+                        # Hack: This conditional temporarily solves the problem presented
+                        #      when the number of vulnerabilities open in a closing cycle
+                        # are higher than the number of vulnerabilities open in a finding
+                        # which causes negative numbers to be shown in the indicators view.
+                        if int(state['opened']) > int(finding['cardinalidad_total']):
+                            finding['cardinalidad_total'] = state['opened']
+                        finding['openVulnerabilities'] = state['opened']
+                    if 'whichOpened' in state:
+                        finding['where'] = state['whichOpened']
+                    else:
+                        if state['estado'] == 'Cerrado':
+                            finding['where'] = '-'
+                    if 'whichClosed' in state:
+                        finding['closed'] = state['whichClosed']
+                    if state['estado'] == 'Cerrado':
+                        finding['where'] = '-'
+                        finding['edad'] = '-'
+                        finding['lastVulnerability'] = '-'
+                    else:
+                        if 'timestamp' in state:
+                            if 'lastVulnerability' in finding and \
+                                    finding['lastVulnerability'] != state['timestamp']:
+                                finding['lastVulnerability'] = state['timestamp']
+                                generic_dto = FindingDTO()
+                                generic_dto.create_last_vulnerability(finding)
+                                generic_dto.to_formstack()
+                                api.update(generic_dto.request_id, generic_dto.data)
+                        if 'releaseDate' in finding:
+                            tzn = pytz.timezone('America/Bogota')
+                            finding_date = datetime.strptime(
+                                finding["releaseDate"].split(" ")[0],
+                                '%Y-%m-%d'
+                            )
+                            finding_date = finding_date.replace(tzinfo=tzn).date()
+                            final_date = (datetime.now(tz=tzn).date() - finding_date)
+                            finding['edad'] = ":n".replace(":n", str(final_date.days))
+                            finding_last_vuln = datetime.strptime(
+                                finding["lastVulnerability"].split(" ")[0],
+                                '%Y-%m-%d'
+                            )
+                            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+                            final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
+                            finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
+                        else:
+                            finding['lastVulnerability'] = '-'
+                    return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
