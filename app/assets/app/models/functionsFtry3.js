@@ -27,6 +27,7 @@ angular.module("FluidIntegrates").factory(
     $window,
     functionsFtry1,
     functionsFtry2,
+    functionsFtry4,
     projectFtry
   ) {
     return {
@@ -297,7 +298,7 @@ angular.module("FluidIntegrates").factory(
         $scope.onlyReadableTab2 = true;
         $scope.isManager = userRole !== "customer" &&
                            userRole !== "customeradmin";
-        if (!$scope.isManager && !$scope.isAssumed &&
+        if ((!$scope.isManager || $scope.isAdmin) && !$scope.isAssumed &&
           !$scope.isClosed && $scope.isContinuous) {
           angular.element(".finding-treatment").show();
         }
