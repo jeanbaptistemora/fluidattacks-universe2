@@ -1,4 +1,4 @@
-cffi
+cffi==1.11.5
 six==1.11.0
 django==1.11
 requests==2.13.0
@@ -30,12 +30,12 @@ pytz==2017.2
 slackclient==1.0.9
 boto3==1.4.7
 watchtower==0.4.1
-jinja2
-matplotlib
-awscli
+jinja2==2.10
+matplotlib==2.2.2
+awscli==1.15.45
 pyOpenSSL==17.5.0
 rollbar==0.13.17
-mixpanel
+mixpanel==4.3.2
 pypdf==1.13
 backports.csv==1.0.5
 pyflakes==1.6.0
