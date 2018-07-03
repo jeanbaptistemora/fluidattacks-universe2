@@ -1,0 +1,16 @@
+:slug: customers/reviews/
+:category: reviews
+:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our customer reviews related to our services and products.
+:keywords: Fluid Attacks, Customers, Reviews, Services, Products, Evaluation.
+:translate: clientes/testimonios/
+
+= Reviews
+
+{description}
+
+++++
+<script type="text/javascript" src="https://static1.clutch.co/api/widget.js"></script>
+
+<div class="clutch-widget" data-url="https://clutch.co" data-widget-type="3" data-height="350"
+data-clutchcompany-id="488256"></div>
+++++

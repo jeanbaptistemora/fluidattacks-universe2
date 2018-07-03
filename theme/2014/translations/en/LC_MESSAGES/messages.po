@@ -465,6 +465,14 @@ msgstr "transportation"
 msgid "Footer-subtitle-4.7"
 msgstr "Transportation"
 
+#: templates/footer.html:57
+msgid "Footer-link-4.8"
+msgstr "reviews"
+
+#: templates/footer.html:57
+msgid "Footer-subtitle-4.8"
+msgstr "Reviews"
+
 #: templates/footer.html:63
 msgid "Footer-subtitle-5.1"
 msgstr "Subscribe"
