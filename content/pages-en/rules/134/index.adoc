@@ -18,3 +18,8 @@ with different key derivations (+Salt+)
 Verify that account passwords are one way hashed with a salt,
 and there is sufficient work factor
 to defeat brute force and password hash recovery attacks.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.21+]
+Verificar que todas las credenciales de autenticación
+para acceder a servicios externos a la aplicación
+estén encriptadas y almacenadas en una localización protegida.

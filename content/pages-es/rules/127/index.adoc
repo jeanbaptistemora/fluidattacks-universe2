@@ -21,3 +21,8 @@ de resúmenes criptográficos de una sola vía con +salt+,
 y que exista suficiente factor de trabajo
 para detener ataques de fuerza bruta
 y de recuperación de resúmenes de contraseñas
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.21+]
+Verificar que todas las credenciales de autenticación
+para acceder a servicios externos a la aplicación
+estén encriptadas y almacenadas en una localización protegida.
