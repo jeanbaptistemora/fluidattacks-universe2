@@ -72,6 +72,7 @@ body {
 
 .col-lg-8,
 .col-md-10 {
+  background: $white;
   text-align: center;
   width: 100%;
 }
@@ -113,7 +114,7 @@ a {
   text-decoration: none;
 
   &:hover {
-    color: $fluid-red;
+    color: $fluid-dark-red;
   }
 
   .tooltip {

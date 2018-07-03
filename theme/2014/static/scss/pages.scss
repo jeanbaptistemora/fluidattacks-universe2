@@ -1,6 +1,7 @@
 $darkblue: rgba(29, 79, 114, 1);
-$fluid-black: rgba(67, 67, 67, 1);
-$fluid-red: rgba(247, 60, 57, 1);
+$fluid-black: rgba(39, 39, 39, 1);
+$fluid-dark-red: rgba(145, 0, 14, 1);
+$fluid-red: rgba(255, 52, 53, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
 $titleblack: rgba(48, 48, 48, 1);
@@ -87,28 +88,21 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .button {
-  background-color: $fluid-black;
-  border: 2px outset;
+  background-color: $fluid-red;
   border-radius: 10px;
   color: $white;
+  font-family: 'Montserrat';
   font-size: 21px;
+  font-weight: bold;
   padding: 2px 10px;
   white-space: nowrap;
 
   a {
     color: $white;
-
-    &::after {
-      content: '\00a0>>';
-    }
-
-    &:hover {
-      color: $fluid-red;
-    }
   }
 
-  &:active {
-    border-style: inset;
+  &:hover {
+    background-color: $fluid-dark-red;
   }
 }
 
