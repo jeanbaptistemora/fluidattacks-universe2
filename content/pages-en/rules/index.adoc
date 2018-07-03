@@ -67,6 +67,7 @@
 * link:133/[REQ.133 Passwords with at least 20 characters]
 * link:134/[REQ.134 Store passwords with salt].
 * link:136/[REQ.136 Force temporary passwords changing].
+* link:142/[REQ.142 Change system default credentials].
 * link:143/[REQ.143 Unique Access Credentials].
 
 == Cryptography

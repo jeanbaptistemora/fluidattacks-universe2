@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que tiene en cuanto a vulnerabilidad se refiere, la modificación de todas las credenciales de acceso por defecto con las que cuenta cualquier sistema empaquetado.
 :keywords: Requerimiento, Seguridad, Sistema, Datos, Respaldo, Origen.
 :rules: yes
+:translate: rules/142/
 
 = REQ.142 Modificar credenciales de acceso por defecto
 
@@ -15,7 +16,7 @@ todas las credenciales de acceso por defecto de sistemas empaquetados.
 
 Las organizaciones por lo general dejan por defecto
 las configuraciones de los productos de terceros
-ya que estas se adaptan a la mayoría de entornos en donde se instalan
+ya que éstas se adaptan a la mayoría de entornos en donde se instalan
 y facilitan de esta forma el despliegue a producción,
 pero con esto se dejan abiertas las puertas por defecto a los productos
 y en la mayoría de los casos las credenciales
@@ -70,3 +71,7 @@ para detectar configuraciones incorrectas o parches faltantes.
 . [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[OWASP - Top 10 2013: A5]
 . [[r3]] link:http://capec.mitre.org/data/definitions/70.html[CAPEC-70 - Try Common Usernames and Passwords]
 . [[r4]] link:../266/[REQ.266 Deshabilitar funciones inseguras]
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.19+]
+Verificar que no existan contraseñas por defecto en uso para
+el framework de la aplicación o cualquier otro componente utilizado por ella
+(por ejemplo: "admin/password")
