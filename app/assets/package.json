@@ -5,7 +5,10 @@
   "repository": "https://gitlab.com/fluidsignal/integrates.git",
   "author": "Enginering Team",
   "dependencies": {
+    "angular": "1.7.2",
     "angular-elastic": "2.5.1",
+    "angular-sanitize": "^1.7.2",
+    "angular-translate": "^2.18.1",
     "eslint": "4.19.0",
     "eslint-plugin-angular": "^3.3.0",
     "eslint-plugin-unicorn": "^4.0.3",
