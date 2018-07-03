@@ -69,100 +69,97 @@ def get_remediated_findings():
     """ Summary mail send with findings that have not been verified yet. """
     findings = integrates_dao.get_remediated_allfindings_dynamo(True)
     if findings != []:
-        to = ['continuous@fluidattacks.com']
-        context = {'findings': list()}
-        cont = 0
-        for finding in findings:
-            context['findings'].append({'finding_name': finding['finding_name'], 'finding_url': \
-                'https://fluidattacks.com/integrates/dashboard#!/project/'+ finding['project'].lower() + '/' + \
-                str(finding['finding_id']) + '/description', 'project': finding['project'].upper()})
-            cont += 1
-        context['total'] = cont
-        send_mail_new_remediated(to, context)
+        try:
+            to = ['continuous@fluidattacks.com']
+            context = {'findings': list()}
+            cont = 0
+            for finding in findings:
+                context['findings'].append({'finding_name': finding['finding_name'], 'finding_url': \
+                    'https://fluidattacks.com/integrates/dashboard#!/project/'+ finding['project'].lower() + '/' + \
+                    str(finding['finding_id']) + '/description', 'project': finding['project'].upper()})
+                cont += 1
+            context['total'] = cont
+            send_mail_new_remediated(to, context)
+        except (TypeError, KeyError):
+            rollbar.report_message('Error: An error ocurred getting data for remediated email', 'error')
 
 def get_age_notifications():
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
-        recipients = integrates_dao.get_project_users(project)
-        to = [x[0] for x in recipients if x[1] == 1]
-        to.append('continuous@fluidattacks.com')
-        finding_requests = api.get_findings(project)["submissions"]
-        for finding in finding_requests:
-            finding_parsed = views.finding_vulnerabilities(finding["id"])
-            if "suscripcion" not in finding_parsed:
-                pass
-            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project[0].lower() and
-                    finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
-                age = int(finding_parsed["edad"])
-                context = {
-                    'project': project[0].upper(),
-                    'finding': finding["id"],
-                    'finding_name': finding_parsed["finding"],
-                    'finding_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
-                                    + '/' + finding["id"] + '/description',
-                    'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
-                                    + '/' + finding["id"] + '/comments',
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
-                    }
-                if "kb" in finding_parsed:
-                    if "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
+        try:
+            recipients = integrates_dao.get_project_users(project)
+            to = [x[0] for x in recipients if x[1] == 1]
+            to.append('continuous@fluidattacks.com')
+            finding_requests = api.get_findings(project)["submissions"]
+            for finding in finding_requests:
+                finding_parsed = views.finding_vulnerabilities(finding["id"])
+                if ("suscripcion" in finding_parsed and "releaseDate" in finding_parsed and
+                        finding_parsed['fluidProject'].lower() == project[0].lower() and
+                        finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
+                    age = int(finding_parsed["edad"])
+                    context = {
+                        'project': project[0].upper(),
+                        'finding': finding["id"],
+                        'finding_name': finding_parsed["finding"],
+                        'finding_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
+                                        + '/' + finding["id"] + '/description',
+                        'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
+                                        + '/' + finding["id"] + '/comments',
+                        'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
+                        }
+                    if "kb" in finding_parsed and "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
                         context["kb"] = finding_parsed["kb"]
-                ages = [15, 30, 60, 90, 120, 180, 240]
-                if age in ages:
-                    context["age"] = age
-                    if "kb" in context:
-                        send_mail_age_kb_finding(to, context)
-                    else:
-                        send_mail_age_finding(to, context)
+                    ages = [15, 30, 60, 90, 120, 180, 240]
+                    if age in ages:
+                        send_mail_age(age, to, context)
+        except (TypeError, KeyError):
+            rollbar.report_message('Error: An error ocurred getting data for age email', 'error')
+
 
 def get_age_weekends_notifications():
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
-        recipients = integrates_dao.get_project_users(project)
-        to = [x[0] for x in recipients if x[1] == 1]
-        to.append('continuous@fluidattacks.com')
-        finding_requests = api.get_findings(project)["submissions"]
-        for finding in finding_requests:
-            finding_parsed = views.finding_vulnerabilities(finding["id"])
-            if "suscripcion" not in finding_parsed:
-                pass
-            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project[0].lower() and
-                    finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
-                age = int(finding_parsed["edad"])
-                context = {
-                    'project': project[0].upper(),
-                    'finding': finding["id"],
-                    'finding_name': finding_parsed["finding"],
-                    'finding_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
-                                    + '/' + finding["id"] + '/description',
-                    'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
-                                    + '/' + finding["id"] + '/comments',
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
-                    }
-                if "kb" in finding_parsed:
-                    if "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
+        try:
+            recipients = integrates_dao.get_project_users(project)
+            to = [x[0] for x in recipients if x[1] == 1]
+            to.append('continuous@fluidattacks.com')
+            finding_requests = api.get_findings(project)["submissions"]
+            for finding in finding_requests:
+                finding_parsed = views.finding_vulnerabilities(finding["id"])
+                if ("suscripcion" in finding_parsed and "releaseDate" in finding_parsed and
+                        finding_parsed['fluidProject'].lower() == project[0].lower() and
+                        finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
+                    age = int(finding_parsed["edad"])
+                    context = {
+                        'project': project[0].upper(),
+                        'finding': finding["id"],
+                        'finding_name': finding_parsed["finding"],
+                        'finding_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
+                                        + '/' + finding["id"] + '/description',
+                        'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
+                                        + '/' + finding["id"] + '/comments',
+                        'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
+                        }
+                    if "kb" in finding_parsed and "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
                         context["kb"] = finding_parsed["kb"]
-                ages = [15, 30, 60, 90, 120, 180, 240]
-                if age in ages:
-                    context["age"] = age
-                    if "kb" in context:
-                        send_mail_age_kb_finding(to, context)
-                    else:
-                        send_mail_age_finding(to, context)
-                elif (age + 1) in ages:
-                    context["age"] = age + 1
-                    if "kb" in context:
-                        send_mail_age_kb_finding(to, context)
-                    else:
-                        send_mail_age_finding(to, context)
-                elif (age + 2) in ages:
-                    context["age"] = age + 2
-                    if "kb" in context:
-                        send_mail_age_kb_finding(to, context)
-                    else:
-                        send_mail_age_finding(to, context)
+                    ages = [15, 30, 60, 90, 120, 180, 240]
+                    if age in ages:
+                        send_mail_age(age, to, context)
+                    elif (age + 1) in ages:
+                        send_mail_age(age + 1, to, context)
+                    elif (age + 2) in ages:
+                        send_mail_age(age + 2, to, context)
+        except (TypeError, KeyError):
+            rollbar.report_message('Error: An error ocurred getting data for age weekends email', 'error')
+
+def send_mail_age(age, to, context):
+    context["age"] = age
+    if "kb" in context:
+        send_mail_age_kb_finding(to, context)
+    else:
+        send_mail_age_finding(to, context)
 
 def weekly_report():
     init_date = (datetime.today() - timedelta(days=7)).date()
