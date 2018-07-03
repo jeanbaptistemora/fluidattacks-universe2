@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la importancia que todo sistema debe dar en cuanto a forzar el cambio de todas aquellas contraseñas temporales después de su primer uso cuando estas sean generadas automáticamente.
 :keywords: Requerimiento, Contraseña, Temporal, Forzar, Cambiar, Sistema.
 :rules: yes
+:translate: rules/136/
 
 = REQ.136 Forzar cambio de contraseñas temporales
 
@@ -10,3 +11,11 @@
 
 El sistema debe forzar el cambio de contraseñas temporales
 generadas automáticamente después de su primer uso.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.17+]
+Verificar que la función de contraseña olvidada
+y otras rutas de restauración no revelen la contraseña actual
+y que la nueva contraseña no sea enviada en texto plano al usuario.
+En su lugar se debe utilizar un enlace a una contraseña de un solo uso.
