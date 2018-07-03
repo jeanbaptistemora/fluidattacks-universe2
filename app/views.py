@@ -1172,14 +1172,15 @@ def get_myevents(request):
     for row in projects:
         project = row[0]
         submissions = api.get_eventualities(project)
-        frmset = submissions["submissions"]
-        for evtsub in frmset:
-            submission = api.get_submission(evtsub["id"])
-            if not "error" in submission:
-                evtset = evt_dto.parse(evtsub["id"], submission)
-                if evtset['fluidProject'].lower() == project.lower():
-                    if evtset['estado'] == "Pendiente":
-                        dataset.append(evtset)
+        if not submissions is None and 'error' not in submissions:
+            frmset = submissions["submissions"]
+            for evtsub in frmset:
+                submission = api.get_submission(evtsub["id"])
+                if not "error" in submission:
+                    evtset = evt_dto.parse(evtsub["id"], submission)
+                    if evtset['fluidProject'].lower() == project.lower():
+                        if evtset['estado'] == "Pendiente":
+                            dataset.append(evtset)
     return util.response(dataset, 'Success', False)
 
 
