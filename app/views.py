@@ -1102,18 +1102,7 @@ def get_records(request):
             ext = {'.py': '.tmp'}
             localtmp = replace_all(localfile, ext)
             client_s3.download_file(bucket_s3, k, localtmp)
-            mime = Magic(mime=True)
-            mime_type = mime.from_file(localtmp)
-            resp = []
-            if mime_type == "text/plain":
-                with io.open(localtmp, "r", encoding='utf-8', errors="ignore") as file_obj:
-                    csvReader = csv.reader(file_obj)
-                    header = csvReader.next()
-                    for row in csvReader:
-                        dicTok = list_to_dict(header, row)
-                        resp.append(dicTok)
-                    return util.response(resp, 'Success', False)
-            os.unlink(localtmp)
+            return retrieve_csv(request, localtmp)
     else:
         if fileid not in request.session:
             rollbar.report_message('Error: Access to record file denied', 'error', request)
@@ -1126,18 +1115,26 @@ def get_records(request):
             rollbar.report_message('Error: Unable to download the record file', 'error', request)
             return util.response([], 'Unable to download the file', True)
         filename = "/tmp/:id.tmp".replace(":id", fileid)
-        mime = Magic(mime=True)
-        mime_type = mime.from_file(filename)
-        resp = []
+        return retrieve_csv(request, filename)
+
+def retrieve_csv(request, csv_file):
+    mime = Magic(mime=True)
+    mime_type = mime.from_file(csv_file)
+    data = []
+    try:
         if mime_type == "text/plain":
-            with io.open(filename, "r", encoding='utf-8', errors="ignore") as file_obj:
-                csvReader = csv.reader(file_obj)
+            with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
+                csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
                 header = csvReader.next()
                 for row in csvReader:
                     dicTok = list_to_dict(header, row)
-                    resp.append(dicTok)
-                return util.response(resp, 'Success', False)
-        os.unlink(filename)
+                    data.append(dicTok)
+                return util.response(data, 'Success', False)
+        else:
+            rollbar.report_message('Error: Invalid record file format: ' + mime_type, 'error', request)
+            return util.response([], 'Invalid record file format', True)
+    finally:
+        os.unlink(csv_file)
 
 def list_to_dict(header, li):
     dct = {}
