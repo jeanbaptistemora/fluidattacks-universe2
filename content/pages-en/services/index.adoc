@@ -6,8 +6,8 @@
 
 = Services
 
-[role="tb-alt"]
-[cols=2, frame="none"]
+[role="tb-alt tb-services"]
+[cols=2, frame="topbot"]
 |====
 
 a|== link:one-shot-hacking/[One-Shot Hacking]
@@ -15,11 +15,9 @@ a|== link:one-shot-hacking/[One-Shot Hacking]
 This service aims to detect and report all the vulnerabilities
 and security issues within one specific version of your application,
 with no false positives.
-a|.Icon made by Vectors Market from link:https://www.flaticon.com[Flaticon]
-image::one-shot.png[Bullseye with arrow in the center]
+a|image::one-shot.svg[Computer being attacked]
 
-a|.Icon made by link:https://www.freepik.com/[Freepik] from link:https://www.flaticon.com[Flaticon]
-image::continuous.png[Line graph in a computer]
+a|image::continuous.svg[Server being attacked]
 a|== link:continuous-hacking/[Continuous Hacking]
 
 This service aims to detect and report all the vulnerabilities
@@ -35,11 +33,9 @@ What is the difference between a +pen test+ and a +vulnerability analysis+
 using automated tools? +
 These items alow us to find and report all security vulnerabilities
 in your application.
-a|.Icon made by link:https://www.freepik.com/[Freepik] from link:https://www.flaticon.com[Flaticon]
-image::differentiators.png[Two gears of different size]
+a|image::differentiators.svg[Metal gear]
 
-a|.Icon made by link:https://smashicons.com/[Smashicons] from link:https://www.flaticon.com[Flaticon]
-image::comparative.png[Two plate scale]
+a|image::comparative.svg[Two plate scale]
 a|== link:comparative/[Comparative]
 
 What is the difference between the +One-Shot Hacking+ service
@@ -53,11 +49,9 @@ Our hackers have certifications in different areas
 of the Security of Information, like +OSCP+, +OSWP+,
 +CEH+, +CISSP+, among others.
 This to ensure that you are hiring a team of capable professionals.
-a|.Icon made by turkkub from link:https://www.flaticon.com[Flaticon]
-image::certifications.png[Diploma]
+a|image::certifications.svg[Certification diploma]
 
-a|.Icon made by Prosymbols from link:https://www.flaticon.com[Flaticon]
-image::faq.png[Question mark]
+a|image::faq.svg[Question being answered in a conversation]
 a|== link:faq/[FAQ]
 
 Do you have any question about the +Continuous Hacking+ service? +
