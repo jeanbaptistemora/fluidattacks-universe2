@@ -106,6 +106,12 @@
 * link:229/[REQ.229 Request access credentials].
 * link:231/[REQ.231 Define biometric verification component].
 
+== Development Process
+
+* link:240/[REQ.240 Check code with automated tools].
+* link:241/[REQ.241 Define security requirements].
+* link:242/[REQ.242 Avoid production support in applications].
+
 == Business Process
 
 * link:243/[REQ.243 Manage security events].

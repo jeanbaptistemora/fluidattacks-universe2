@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada del proceso de desarrollo con el que cuenta una organización. En este caso, se recomienda que el soporte a los sistemas desarrollados se realice en ambientes distintos al de producción.
 :keywords: Soporte, Aplicación, Ambiente, Producción, Desarrollo, Pruebas.
 :rules: yes
+:translate: rules/242/
 
 = REQ.242 Realizar soporte fuera de producción
 
@@ -11,3 +12,9 @@
 El soporte a las aplicaciones o sistemas debe realizarse
 sólo en ambientes diferentes a producción
 (desarrollo, pruebas o calidad, +UAT+).
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
+La seguridad se aborda en todas las partes
+del ciclo de vida de desarrollo de software.
