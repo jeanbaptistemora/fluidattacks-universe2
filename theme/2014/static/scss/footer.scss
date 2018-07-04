@@ -1,6 +1,6 @@
 $fluid-black: rgba(39, 39, 39, 1);
-$footerblack: rgba(51, 51, 51, 1);
 $fluid-red: rgba(255, 52, 53, 1);
+$fluid-dark-red: rgba(203, 50, 51, 1);
 $white: rgba(255, 255, 255, 1);
 
 .divlogo {
@@ -71,7 +71,7 @@ $white: rgba(255, 255, 255, 1);
   font-weight: bold;
 
   &:hover {
-    color: $fluid-red;
+    color: $fluid-dark-red;
   }
 }
 
