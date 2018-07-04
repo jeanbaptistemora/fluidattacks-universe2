@@ -325,6 +325,13 @@ Deploy:
         -F environment=$FI_ROLLBAR_ENVIRONMENT
         -F revision=$CI_COMMIT_SHA
         -F local_username="$CI_COMMIT_REF_NAME"
+    - docker run
+        -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
+        -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
+        /bin/bash -c "torus daemon start; sleep 5;
+        cd /usr/src/app/;
+        torus run -- python version_mail.py"
   retry: 2
   only:
     - master
