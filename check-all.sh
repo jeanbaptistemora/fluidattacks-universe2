@@ -235,4 +235,12 @@ done
 
 done < <(find content -iname '*.adoc')
 
+while IFS= read -r FILE; do
+  FOLDER=${FILE%$'index.adoc'};
+  IMAGE=$(pcregrep -o '(?<=:image:\s).*' "$FILE");
+  if ! file "$FOLDER$IMAGE" | grep -o '600 x 280'; then
+    echo "The featured image of the article $FILE does not have the appropriate resolution of 600 x 280.";
+  fi;
+done < <(find content/blog-* -iname '*.adoc')
+
 exit $ERRORS
