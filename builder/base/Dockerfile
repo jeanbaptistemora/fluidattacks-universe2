@@ -25,6 +25,7 @@ RUN apt-get update -qq && \
     apt-get install -qqy --no-install-recommends \
        diction \
        docker-ce \
+       file \
        gcc \
        git \
        make \
