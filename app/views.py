@@ -1578,43 +1578,57 @@ def add_access_integrates(request):
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response([], 'Access denied', True)
-    project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
-                  + project.lower() + '/indicators'
-    if (request.session['role'] == 'admin'):
-        if (role == 'admin' or role == 'analyst' or
-                role == 'customer'or role == 'customeradmin'):
-            create_new_user(newUser, role, company, project)
-            if integrates_dao.add_access_to_project_dao(newUser, project):
-                description = integrates_dao.get_project_description(project)
-                to = [newUser]
-                context = {
-                   'admin': admin,
-                   'project': project,
-                   'project_description': description,
-                   'project_url': project_url,
-                }
-                send_mail_access_granted(to, context)
-                return util.response([], 'Success', False)
-            return util.response([], 'Success', False)
-    elif is_customeradmin(project, request.session['username']):
-        if (role == 'customer' or role == 'customeradmin'):
-            create_new_user(newUser, role, company, project)
-            if integrates_dao.add_access_to_project_dao(newUser, project):
-                description = integrates_dao.get_project_description(project)
-                to = [newUser]
-                context = {
-                   'admin': admin,
-                   'project': project,
-                   'project_description': description,
-                   'project_url': project_url,
-                }
-                send_mail_access_granted(to, context)
-                return util.response([], 'Success', False)
     else:
-        return util.response([], 'Error', True)
+        if not has_access_to_project(request.session['username'], project, request.session['role']):
+            rollbar.report_message('Error: Access to project denied', 'error', request)
+            return util.response([], 'Access denied', True)
+        else:
+            project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
+                          + project.lower() + '/indicators'
+            if (request.session['role'] == 'admin'):
+                if (role == 'admin' or role == 'analyst' or
+                        role == 'customer'or role == 'customeradmin'):
+                    create_new_user(newUser, role, company, project)
+                    if integrates_dao.add_access_to_project_dao(newUser, project):
+                        description = integrates_dao.get_project_description(project)
+                        to = [newUser]
+                        context = {
+                           'admin': admin,
+                           'project': project,
+                           'project_description': description,
+                           'project_url': project_url,
+                        }
+                        send_mail_access_granted(to, context)
+                        return util.response([], 'Success', False)
+                    else:
+                        rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
+                        return util.response([], 'Error', True)
+                else:
+                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
+                    return util.response([], 'Error', True)
+            elif is_customeradmin(project, request.session['username']):
+                if (role == 'customer' or role == 'customeradmin'):
+                    create_new_user(newUser, role, company, project)
+                    if integrates_dao.add_access_to_project_dao(newUser, project):
+                        description = integrates_dao.get_project_description(project)
+                        to = [newUser]
+                        context = {
+                           'admin': admin,
+                           'project': project,
+                           'project_description': description,
+                           'project_url': project_url,
+                        }
+                        send_mail_access_granted(to, context)
+                        return util.response([], 'Success', False)
+                    else:
+                        rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
+                        return util.response([], 'Error', True)
+                else:
+                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
+                    return util.response([], 'Error', True)
+            else:
+                rollbar.report_message('Error: Only admin / customeradmin roles are allowed to add users', 'error', request)
+                return util.response([], 'Access denied', True)
 
 def create_new_user(newUser, role, company, project):
     if not integrates_dao.is_in_database(newUser):
