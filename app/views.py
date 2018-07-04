@@ -18,7 +18,7 @@ from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 # pylint: disable=E0402
 from . import util
-from .decorators import authenticate, authorize
+from .decorators import authenticate, authorize, require_project_access
 from .techdoc.IT import ITReport
 from .dto.finding import FindingDTO
 from .dto.closing import ClosingDTO
@@ -374,13 +374,7 @@ def project_to_xls(request, lang, project):
         response['Content-Disposition'] = file_name
     return response
 
-def validation_project_to_pdf(request, lang, project, doctype):
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response([], 'Access denied', True)
+def validation_project_to_pdf(request, lang, doctype):
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
@@ -397,7 +391,7 @@ def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     findings = []
     user = request.session['username'].split("@")[0]
-    validator = validation_project_to_pdf(request, lang, project, doctype)
+    validator = validation_project_to_pdf(request, lang, doctype)
     if validator is not None:
         return validator
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
@@ -500,6 +494,7 @@ def get_project_info(project):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 def get_eventualities(request):
     "Get the eventualities of a project."
     project = request.GET.get('project', None)
@@ -508,12 +503,6 @@ def get_eventualities(request):
     dataset = []
     evt_dto = EventualityDTO()
     api = FormstackAPI()
-    if not has_access_to_project(username, project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response(dataset, 'Access to project denied', True)
-    if project is None:
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response(dataset, 'Empty fields in project', True)
     if category == "Name":
         submissions = api.get_eventualities(project)
         if 'error' not in submissions:
@@ -549,13 +538,13 @@ def get_eventualities(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 def get_users_login(request):
     "Get the email and last login date of all users in a project."
     project = request.GET.get('project', None)
     dataset = []
     actualUser = request.session['username']
-    if (not has_access_to_project(actualUser, project, request.session['role']) or
-            (request.session['role'] == 'customer' and not is_customeradmin(project, actualUser))):
+    if request.session['role'] == 'customer' and not is_customeradmin(project, actualUser):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response(dataset, 'Access to project denied', True)
     initialEmails = integrates_dao.get_project_users(project.lower())
@@ -591,6 +580,7 @@ def get_users_login(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 def get_finding(request):
     submission_id = request.POST.get('id', "")
     finding = catch_finding(request, submission_id)
@@ -606,20 +596,14 @@ def get_finding(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])
+@require_project_access
 # pylint: disable=R0912
 # pylint: disable=R0914
 def get_releases(request):
     """Capture and process the name of a project to return the releases."""
     project = request.GET.get('project', "")
-    username = request.session['username']
     api = FormstackAPI()
     findings = []
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response([], 'Empty fields', True)
-    if not has_access_to_project(username, project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response([], 'Access denied', True)
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
@@ -635,20 +619,14 @@ def get_releases(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 # pylint: disable=R0912
 # pylint: disable=R0914
 def get_findings(request):
     """Capture and process the name of a project to return the findings."""
     project = request.GET.get('project', "").encode('utf-8')
-    username = request.session['username']
     api = FormstackAPI()
     findings = []
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response([], 'Empty fields', True)
-    if not has_access_to_project(username, project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response([], 'Access denied', True)
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
@@ -679,7 +657,6 @@ def catch_finding(request, submission_id):
     state = {'estado': 'Abierto'}
     fin_dto = FindingDTO()
     cls_dto = ClosingDTO()
-    username = request.session['username']
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
         submissionData = api.get_submission(submission_id)
@@ -691,71 +668,67 @@ def catch_finding(request, submission_id):
                 submissionData,
                 request
             )
-            if not has_access_to_project(username, finding['fluidProject'], request.session['role']):
-                rollbar.report_message('Error: Access to project denied', 'error', request)
+            closingData = api.get_closings_by_id(submission_id)
+            if closingData is None or 'error' in closingData:
                 return None
             else:
-                closingData = api.get_closings_by_id(submission_id)
-                if closingData is None or 'error' in closingData:
-                    return None
+                closingreqset = closingData["submissions"]
+                findingcloseset = []
+                for closingreq in closingreqset:
+                    closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
+                    findingcloseset.append(closingset)
+                    # The latest is the last closing cycle.
+                    state = closingset
+                finding["estado"] = state["estado"]
+                finding["cierres"] = findingcloseset
+                finding['cardinalidad_total'] = finding['openVulnerabilities']
+                if 'opened' in state:
+                    # Hack: This conditional temporarily solves the problem presented
+                    #      when the number of vulnerabilities open in a closing cycle
+                    # are higher than the number of vulnerabilities open in a finding
+                    # which causes negative numbers to be shown in the indicators view.
+                    if int(state['opened']) > int(finding['cardinalidad_total']):
+                        finding['cardinalidad_total'] = state['opened']
+                    finding['openVulnerabilities'] = state['opened']
+                if 'whichOpened' in state:
+                    finding['where'] = state['whichOpened']
                 else:
-                    closingreqset = closingData["submissions"]
-                    findingcloseset = []
-                    for closingreq in closingreqset:
-                        closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
-                        findingcloseset.append(closingset)
-                        # The latest is the last closing cycle.
-                        state = closingset
-                    finding["estado"] = state["estado"]
-                    finding["cierres"] = findingcloseset
-                    finding['cardinalidad_total'] = finding['openVulnerabilities']
-                    if 'opened' in state:
-                        # Hack: This conditional temporarily solves the problem presented
-                        #      when the number of vulnerabilities open in a closing cycle
-                        # are higher than the number of vulnerabilities open in a finding
-                        # which causes negative numbers to be shown in the indicators view.
-                        if int(state['opened']) > int(finding['cardinalidad_total']):
-                            finding['cardinalidad_total'] = state['opened']
-                        finding['openVulnerabilities'] = state['opened']
-                    if 'whichOpened' in state:
-                        finding['where'] = state['whichOpened']
-                    else:
-                        if state['estado'] == 'Cerrado':
-                            finding['where'] = '-'
-                    if 'whichClosed' in state:
-                        finding['closed'] = state['whichClosed']
                     if state['estado'] == 'Cerrado':
                         finding['where'] = '-'
-                        finding['edad'] = '-'
-                        finding['lastVulnerability'] = '-'
+                if 'whichClosed' in state:
+                    finding['closed'] = state['whichClosed']
+                if state['estado'] == 'Cerrado':
+                    finding['where'] = '-'
+                    finding['edad'] = '-'
+                    finding['lastVulnerability'] = '-'
+                else:
+                    if 'timestamp' in state:
+                        if 'lastVulnerability' in finding and \
+                                finding['lastVulnerability'] != state['timestamp']:
+                            finding['lastVulnerability'] = state['timestamp']
+                            generic_dto = FindingDTO()
+                            generic_dto.create_last_vulnerability(finding)
+                            generic_dto.to_formstack()
+                            api.update(generic_dto.request_id, generic_dto.data)
+                    if 'releaseDate' in finding:
+                        tzn = pytz.timezone('America/Bogota')
+                        finding_date = datetime.strptime(
+                            finding["releaseDate"].split(" ")[0],
+                            '%Y-%m-%d'
+                        )
+                        finding_date = finding_date.replace(tzinfo=tzn).date()
+                        final_date = (datetime.now(tz=tzn).date() - finding_date)
+                        finding['edad'] = ":n".replace(":n", str(final_date.days))
+                        finding_last_vuln = datetime.strptime(
+                            finding["lastVulnerability"].split(" ")[0],
+                            '%Y-%m-%d'
+                        )
+                        finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+                        final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
+                        finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
                     else:
-                        if 'timestamp' in state:
-                            if 'lastVulnerability' in finding and \
-                                    finding['lastVulnerability'] != state['timestamp']:
-                                finding['lastVulnerability'] = state['timestamp']
-                                generic_dto = FindingDTO()
-                                generic_dto.create_last_vulnerability(finding)
-                                generic_dto.to_formstack()
-                                api.update(generic_dto.request_id, generic_dto.data)
-                        if 'releaseDate' in finding:
-                            tzn = pytz.timezone('America/Bogota')
-                            finding_date = datetime.strptime(
-                                finding["releaseDate"].split(" ")[0],
-                                '%Y-%m-%d'
-                            )
-                            finding_date = finding_date.replace(tzinfo=tzn).date()
-                            final_date = (datetime.now(tz=tzn).date() - finding_date)
-                            finding['edad'] = ":n".replace(":n", str(final_date.days))
-                            finding_last_vuln = datetime.strptime(
-                                finding["lastVulnerability"].split(" ")[0],
-                                '%Y-%m-%d'
-                            )
-                            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-                            final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
-                            finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
-                        else:
-                            finding['lastVulnerability'] = '-'
-                    return finding
+                        finding['lastVulnerability'] = '-'
+                return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
@@ -1393,11 +1366,8 @@ def get_remediated(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 def get_comments(request):
-    project = request.GET.get('project', "")
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response([], 'Access denied', True)
     submission_id = request.GET.get('id', "")
     comments = integrates_dao.get_comments_dynamo(int(submission_id))
     json_data = []
@@ -1568,67 +1538,61 @@ def reject_release(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
+@require_project_access
 def add_access_integrates(request):
     parameters = request.POST.dict()
     newUser = parameters['data[userEmail]']
     company = parameters['data[company]']
-    project = parameters['data[project]']
     admin = parameters['data[admin]']
     role = parameters['data[userRole]']
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response([], 'Empty fields', True)
-    else:
-        if not has_access_to_project(request.session['username'], project, request.session['role']):
-            rollbar.report_message('Error: Access to project denied', 'error', request)
-            return util.response([], 'Access denied', True)
-        else:
-            project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
-                          + project.lower() + '/indicators'
-            if (request.session['role'] == 'admin'):
-                if (role == 'admin' or role == 'analyst' or
-                        role == 'customer'or role == 'customeradmin'):
-                    create_new_user(newUser, role, company, project)
-                    if integrates_dao.add_access_to_project_dao(newUser, project):
-                        description = integrates_dao.get_project_description(project)
-                        to = [newUser]
-                        context = {
-                           'admin': admin,
-                           'project': project,
-                           'project_description': description,
-                           'project_url': project_url,
-                        }
-                        send_mail_access_granted(to, context)
-                        return util.response([], 'Success', False)
-                    else:
-                        rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
-                        return util.response([], 'Error', True)
-                else:
-                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
-                    return util.response([], 'Error', True)
-            elif is_customeradmin(project, request.session['username']):
-                if (role == 'customer' or role == 'customeradmin'):
-                    create_new_user(newUser, role, company, project)
-                    if integrates_dao.add_access_to_project_dao(newUser, project):
-                        description = integrates_dao.get_project_description(project)
-                        to = [newUser]
-                        context = {
-                           'admin': admin,
-                           'project': project,
-                           'project_description': description,
-                           'project_url': project_url,
-                        }
-                        send_mail_access_granted(to, context)
-                        return util.response([], 'Success', False)
-                    else:
-                        rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
-                        return util.response([], 'Error', True)
-                else:
-                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
-                    return util.response([], 'Error', True)
+    project = request.POST.get('project', '')
+
+    project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
+                  + project.lower() + '/indicators'
+    if (request.session['role'] == 'admin'):
+        if (role == 'admin' or role == 'analyst' or
+                role == 'customer'or role == 'customeradmin'):
+            create_new_user(newUser, role, company, project)
+            if integrates_dao.add_access_to_project_dao(newUser, project):
+                description = integrates_dao.get_project_description(project)
+                to = [newUser]
+                context = {
+                   'admin': admin,
+                   'project': project,
+                   'project_description': description,
+                   'project_url': project_url,
+                }
+                send_mail_access_granted(to, context)
+                return util.response([], 'Success', False)
             else:
-                rollbar.report_message('Error: Only admin / customeradmin roles are allowed to add users', 'error', request)
-                return util.response([], 'Access denied', True)
+                rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
+                return util.response([], 'Error', True)
+        else:
+            rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
+            return util.response([], 'Error', True)
+    elif is_customeradmin(project, request.session['username']):
+        if (role == 'customer' or role == 'customeradmin'):
+            create_new_user(newUser, role, company, project)
+            if integrates_dao.add_access_to_project_dao(newUser, project):
+                description = integrates_dao.get_project_description(project)
+                to = [newUser]
+                context = {
+                   'admin': admin,
+                   'project': project,
+                   'project_description': description,
+                   'project_url': project_url,
+                }
+                send_mail_access_granted(to, context)
+                return util.response([], 'Success', False)
+            else:
+                rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
+                return util.response([], 'Error', True)
+        else:
+            rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
+            return util.response([], 'Error', True)
+    else:
+        rollbar.report_message('Error: Only admin / customeradmin roles are allowed to add users', 'error', request)
+        return util.response([], 'Access denied', True)
 
 def create_new_user(newUser, role, company, project):
     if not integrates_dao.is_in_database(newUser):
@@ -1666,15 +1630,10 @@ def calculate_indicators(project):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 def is_customer_admin(request):
     project = request.GET.get('project', "")
     email = request.GET.get('email', "")
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response(False, 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response(False, 'Access denied', True)
     try:
         if is_customeradmin(project, email):
             return util.response(True, 'Success', False)
@@ -1686,16 +1645,11 @@ def is_customer_admin(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
+@require_project_access
 def remove_access_integrates(request):
     parameters = request.POST.dict()
     user = parameters['email']
     project = parameters['project']
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response([], 'Access denied', True)
     if (is_customeradmin(project, request.session['username']) or
             request.session['role'] == 'admin'):
         if integrates_dao.remove_access_project_dao(user, project):
@@ -1708,16 +1662,11 @@ def remove_access_integrates(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
+@require_project_access
 def change_user_role(request):
     email = request.POST.get('email', "")
     role = request.POST.get('role', "")
     project = request.POST.get('project', "")
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response([], 'Access denied', True)
     if request.session['role'] == 'admin':
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):

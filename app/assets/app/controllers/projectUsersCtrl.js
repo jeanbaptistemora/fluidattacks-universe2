@@ -232,11 +232,10 @@ angular.module("FluidIntegrates").controller(
           $scope.ok = function ok () {
             $scope.newUserInfo.admin = userEmail;
             $scope.newUserInfo.company = data.company;
-            $scope.newUserInfo.project = data.project;
             if (angular.element("#emailInput").parsley().
               validate() === true) {
               // Make the request
-              const req = projectFtry.addAccessIntegrates($scope.newUserInfo);
+              const req = projectFtry.addAccessIntegrates($scope.newUserInfo, data.project);
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {

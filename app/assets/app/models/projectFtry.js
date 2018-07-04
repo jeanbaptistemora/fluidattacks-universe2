@@ -27,11 +27,12 @@ angular.module("FluidIntegrates").factory(
        * @member integrates.projectFtry
        * @return {Object} Response of request
        */
-      "addAccessIntegrates" (data) {
+      "addAccessIntegrates" (data, project) {
         const oopsAc = "An error occurred getting events";
         return $xhr.post($q, `${BASE.url}add_access_integrates`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          data
+          data,
+          project
         }, oopsAc);
       },
 
@@ -154,11 +155,12 @@ angular.module("FluidIntegrates").factory(
        * @member integrates.projectFtry
        * @return {Object} Formstack response with the data of a finding
        */
-      "findingById" (id) {
+      "findingById" (id, project) {
         const oopsAc = "An error occurred getting finding";
         return $xhr.post($q, `${BASE.url}get_finding`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          id
+          id,
+          project
         }, oopsAc);
       },
 
