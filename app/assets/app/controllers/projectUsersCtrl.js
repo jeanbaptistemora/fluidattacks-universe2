@@ -235,7 +235,10 @@ angular.module("FluidIntegrates").controller(
             if (angular.element("#emailInput").parsley().
               validate() === true) {
               // Make the request
-              const req = projectFtry.addAccessIntegrates($scope.newUserInfo, data.project);
+              const req = projectFtry.addAccessIntegrates(
+                $scope.newUserInfo,
+                data.project
+              );
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {

@@ -172,7 +172,10 @@ findingContentCtrl (
       functionsFtry3.loadFindingContent($scope);
     }
     else {
-      const req = projectFtry.findingById(id, $stateParams.project.toLowerCase());
+      const req = projectFtry.findingById(
+        id,
+        $stateParams.project.toLowerCase()
+      );
       req.then((response) => {
         if (angular.isUndefined(response.data)) {
           location.reload();

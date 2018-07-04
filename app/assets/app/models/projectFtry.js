@@ -24,6 +24,7 @@ angular.module("FluidIntegrates").factory(
        * Give access to an user in a project
        * @function addAccessIntegrates
        * @param {String} data Info of user to which access will be granted.
+       * @param {String} project Project name
        * @member integrates.projectFtry
        * @return {Object} Response of request
        */
@@ -152,6 +153,7 @@ angular.module("FluidIntegrates").factory(
        * Return all the information for a specific findinf ID
        * @function findingById
        * @param {Integer} id Numeric ID of a finding
+       * @param {String} project Project name
        * @member integrates.projectFtry
        * @return {Object} Formstack response with the data of a finding
        */
