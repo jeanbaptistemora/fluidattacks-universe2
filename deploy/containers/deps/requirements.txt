@@ -34,7 +34,7 @@ jinja2==2.10
 matplotlib==2.2.2
 awscli==1.15.45
 pyOpenSSL==17.5.0
-rollbar==0.13.17
+rollbar==0.14.0
 mixpanel==4.3.2
 pypdf==1.13
 backports.csv==1.0.5
