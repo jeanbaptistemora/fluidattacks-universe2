@@ -5,7 +5,10 @@
   "repository": "https://gitlab.com/fluidsignal/integrates.git",
   "author": "Enginering Team",
   "dependencies": {
-    "angular": "1.7.2",
+    "@cgross/angular-notify": "^2.5.1",
+    "@types/angular": "^1.6.48",
+    "@types/jquery": "^3.3.4",
+    "angular": "^1.7.2",
     "angular-elastic": "2.5.1",
     "angular-sanitize": "1.7.2",
     "angular-translate": "2.18.1",
@@ -16,13 +19,16 @@
     "graphql.js": "0.4.20",
     "gulp": "3.9.1",
     "iframe-resizer": "3.6.1",
+    "jquery": "^3.3.1",
     "jquery-comments_brainkit": "1.2.8",
     "jquery-match-height": "0.7.2",
     "ldclient-js": "2.1.2",
     "magnific-popup": "1.1.0",
-    "ng-rollbar": "2.3.10",
+    "mixpanel-browser": "^2.22.4",
+    "ng-rollbar": "2.3.8",
     "parsleyjs": "2.8.1",
     "secure-random": "1.1.1",
-    "tabletop": "1.5.2"
+    "tabletop": "1.5.2",
+    "uninstall": "0.0.0"
   }
 }

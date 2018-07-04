@@ -61,5 +61,8 @@ RUN pip install -r /root/requirements.txt --ignore-installed
 ADD patch_socialauth.py /root/
 RUN python /root/patch_socialauth.py
 
+
 # Change root directory.
 WORKDIR /root/
+
+
