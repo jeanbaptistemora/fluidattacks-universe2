@@ -1628,6 +1628,26 @@ def create_new_user(newUser, role, company, project):
     if role == 'customeradmin':
         integrates_dao.add_role_to_project_dynamo(project.lower(), newUser, role)
 
+def calculate_indicators(project):
+    api = FormstackAPI()
+    evt_dto = EventualityDTO()
+    openVulnerabilities = cardinalidadTotal = maximumSeverity = openEvents =  0
+    for row in  api.get_eventualities(project)["submissions"]:
+        evtset = evt_dto.parse(row["id"], api.get_submission(row["id"]))
+        if evtset['estado']=='Pendiente':
+            openEvents += 1
+    for finding in api.get_findings(project)["submissions"]:
+        act_finding = finding_vulnerabilities(str(finding['id']))
+        openVulnerabilities += int(act_finding['openVulnerabilities'])
+        cardinalidadTotal += int(act_finding['cardinalidad_total'])
+        if (maximumSeverity < float(act_finding['criticity'])):
+            maximumSeverity = float(act_finding['criticity'])
+    try:
+        fixed_vuln = int(round((1.0 - (float(openVulnerabilities) / float(cardinalidadTotal)))*100.0))
+    except ZeroDivisionError:
+        fixed_vuln = 0
+    return [openEvents,maximumSeverity, fixed_vuln]
+
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])

@@ -4,7 +4,6 @@
 import rollbar
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
-from .dto.eventuality import EventualityDTO
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding, \
                     send_mail_new_releases, send_mail_continuous_report
@@ -202,31 +201,21 @@ def get_new_releases():
 def continuous_report():
     to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', \
           'oparada@fluidattacks.com', 'projects@fluidattacks.com', 'relations@fluidattacks.com'  ]
-    headers = ['Proyecto','Lineas','Campos','Efc. Cierre','CVSS', 'Events']
+    headers = ['#','Project','Lines','Inputs','Fixed vulns','Max severity', 'Open Events']
     context = {'projects':list(), 'headers': headers, 'date_now': str(datetime.now().date())}
-    api = FormstackAPI()
-    evt_dto = EventualityDTO()
+    index = 0
     for x in integrates_dao.get_continuous_info():
-        openVulnerabilities = cardinalidadTotal = maximumSeverity = openEvents = 0
-        for row in  api.get_eventualities(x['project'])["submissions"]:
-            evtset = evt_dto.parse(row["id"], api.get_submission(row["id"]))
-            if evtset['estado']=='Pendiente':
-                openEvents += 1
-        for finding in api.get_findings(x['project'])["submissions"]:
-            act_finding = views.finding_vulnerabilities(str(finding['id']))
-            openVulnerabilities += int(act_finding['openVulnerabilities'])
-            cardinalidadTotal += int(act_finding['cardinalidad_total'])
-            if (maximumSeverity < float(act_finding['criticity'])):
-                maximumSeverity = float(act_finding['criticity'])
-        try:
-            fixed_vuln = int(round((1.0 - (float(openVulnerabilities) / float(cardinalidadTotal)))*100.0))
-        except ZeroDivisionError:
-            fixed_vuln = 0
-        context['projects'].append({'project_name': str(x['project']), \
+        index += 1
+        project_url = "https://fluidattacks.com/integrates/dashboard#!/project/" + \
+                      x['project'].lower() + "/indicators"
+        indicators = views.calculate_indicators(x['project'])
+        context['projects'].append({'project_url': str(project_url), \
+                                    'index': index, \
+                                    'project_name': str(x['project']), \
                                     'lines': str(x['lines']), \
                                     'fields': str(x['fields']), \
-                                    'fixed_vuln': (str(fixed_vuln) + "%"), \
-                                    'cssv': maximumSeverity, \
-                                    'events': openEvents
+                                    'fixed_vuln': (str(indicators[2]) + "%"), \
+                                    'cssv': indicators[1], \
+                                    'events': indicators[0]
                                      })
     send_mail_continuous_report(to, context)
