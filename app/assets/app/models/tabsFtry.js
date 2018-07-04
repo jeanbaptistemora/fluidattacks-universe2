@@ -26,12 +26,13 @@ angular.module("FluidIntegrates").factory(
     projectFtry
   ) {
     return {
-      "findingCommentTab" (commentInfo, $stateParams) {
+      "findingCommentTab" (commentInfo, $stateParams, commentType) {
         if (angular.isDefined(commentInfo.finding.id)) {
           const comments =
                  projectFtry.getComments(
                    commentInfo.finding.id,
-                   $stateParams.project.toLowerCase()
+                   $stateParams.project.toLowerCase(),
+                   commentType
                  );
           comments.then((response) => {
             if (!response.error) {
@@ -49,7 +50,7 @@ angular.module("FluidIntegrates").factory(
               const divConst = 1000;
               const multiConst = 100;
               const radix = 9;
-              angular.element("#comments-container").comments({
+              angular.element(`#${commentType}s-container`).comments({
                 "defaultNavigationSortKey": "oldest",
                 "enableAttachments": false,
                 "enableEditing": false,
@@ -75,6 +76,7 @@ angular.module("FluidIntegrates").factory(
                   data.project = commentInfo.finding.fluidProject;
                   data.findingUrl = $window.location.href;
                   data.remediated = false;
+                  data.commentType = commentType;
                   const comment =
                          projectFtry.addComment(commentInfo.finding.id, data);
                   comment.then((response) => {
@@ -82,8 +84,11 @@ angular.module("FluidIntegrates").factory(
                       // Mixpanel tracking
                       const org = Organization.toUpperCase();
                       const projt = $stateParams.project.toUpperCase();
+                      const eventName = "FindingNew" +
+                        `${commentType[0].toUpperCase()}` +
+                        `${commentType.slice(1)}`;
                       mixPanelDashboard.trackFindingDetailed(
-                        "FindingNewComment",
+                        eventName,
                         userName,
                         userEmail,
                         org,
@@ -95,7 +100,8 @@ angular.module("FluidIntegrates").factory(
                       }, TIMEOUT);
                     }
                     else if (response.error) {
-                      Rollbar.error("Error: An error occurred adding comment");
+                      Rollbar.error("Error: An error occurred adding" +
+                        `${commentType}`);
                     }
                   });
                 },

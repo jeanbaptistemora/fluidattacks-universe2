@@ -172,6 +172,7 @@ angular.module("FluidIntegrates").factory(
                     data.project = $scope.remediatedData.project;
                     data.findingUrl = $scope.remediatedData.findingUrl;
                     data.remediated = true;
+                    data.commentType = "comment";
                     projectFtry.addComment(
                       $scope.remediatedData.findingId,
                       data

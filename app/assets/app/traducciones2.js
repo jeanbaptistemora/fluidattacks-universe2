@@ -154,6 +154,7 @@ const traducciones2 = {
     "evidence_name": "Evidencia",
     "update": "Actualizar"
   },
+  "tab_observations": {"observations_name": "Observaciones"},
   "tab_records": {"records_name": "Registros"},
   "tab_tracking":
   {

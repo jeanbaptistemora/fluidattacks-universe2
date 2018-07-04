@@ -678,6 +678,16 @@ def delete_user(user_id=None):
                 return False
         return False
 
+def get_admins():
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT email FROM users WHERE role = %s'
+        try:
+            cursor.execute(query, ("admin", ))
+            rows = cursor.fetchall()
+        except OperationalError:
+            rollbar.report_exc_info()
+            rows = []
+    return rows
 
 dynamodb_resource = resource('dynamodb',
                              aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
@@ -685,19 +695,20 @@ dynamodb_resource = resource('dynamodb',
                              region_name='us-east-1')
 
 
-def get_comments_dynamo(finding_id):
+def get_comments_dynamo(finding_id, comment_type):
     """ Get comments of a finding. """
     table = dynamodb_resource.Table('FI_comments')
     filter_key = 'finding_id'
+    filter_attribute = 'comment_type'
     if filter_key and finding_id:
-        filtering_exp = Key(filter_key).eq(finding_id)
-        response = table.query(KeyConditionExpression=filtering_exp)
+        filtering_exp = Key(filter_key).eq(finding_id) & Key(filter_attribute).eq(comment_type)
+        response = table.scan(FilterExpression=filtering_exp)
     else:
-        response = table.query()
+        response = table.scan()
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(
+            response = table.scan(
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -719,6 +730,7 @@ def create_comment_dynamo(finding_id, email, data):
                 'fullname': data["data[fullname]"],
                 'modified': data["data[modified]"],
                 'parent': data["data[parent]"],
+                'comment_type': data["data[commentType]"]
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

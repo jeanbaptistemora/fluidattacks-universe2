@@ -223,7 +223,6 @@ findingContentCtrl (
           const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
           $scope.hasRecords = recordinfo[0];
           findingData.hasRecords = recordinfo[1];
-          tabsFtry.findingCommentTab($scope, $stateParams);
           return true;
         }
         else if (response.error) {
@@ -332,6 +331,10 @@ findingContentCtrl (
     location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/comments`);
   };
+  $scope.urlObservations = function urlObservations () {
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/observations`);
+  };
   $scope.urlEvents = function urlEvents () {
     $state.go("ProjectEvents", {"project": $stateParams.project});
   };
@@ -416,7 +419,12 @@ findingContentCtrl (
     }
     if ($window.location.hash.indexOf("comments") !== -1) {
       functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);
-      tabsFtry.findingCommentTab($scope, $stateParams);
+      tabsFtry.findingCommentTab($scope, $stateParams, "comment");
+    }
+    if ($window.location.hash.indexOf("observations") !== -1) {
+      functionsFtry2.
+        activeTab("#observations", "FindingObservations", org, projt, idF);
+      tabsFtry.findingCommentTab($scope, $stateParams, "observation");
     }
   };
   $scope.init();

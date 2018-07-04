@@ -96,6 +96,11 @@ angular.module("FluidIntegrates").config((
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/comments"
     }).
+    state("FindingObservations", {
+      "controller": "findingContentCtrl",
+      "templateUrl": "assets/views/project/findingcontent.html",
+      "url": "/project/:project/:id/observations"
+    }).
     state("Forms", {
       "controller": "formCtrl",
       "templateUrl": `${BASE.url}forms`,

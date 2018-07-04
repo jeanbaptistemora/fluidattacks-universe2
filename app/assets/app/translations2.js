@@ -153,6 +153,7 @@ const translations2 = {
          "evidence_name": "Evidence",
          "update": "Update"
        },
+   "tab_observations": {"observations_name": "Observations"},
    "tab_records": {"records_name": "Records"},
    "tab_tracking":
      {

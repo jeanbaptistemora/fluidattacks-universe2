@@ -101,23 +101,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Make a request to delete a comment in a finding
-       * @function deleteComment
-       * @param {String} id Numeric id of the finding
-       * @param {Object} data Data of the finding, including id of the comment
-       * @member integrates.projectFtry
-       * @return {Object} Response by DynamoDB about the delete request
-       */
-      "deleteComment" (id, data) {
-        const oopsAc = "An error ocurred deleting comment";
-        return $xhr.post($q, `${BASE.url}delete_comment`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          id
-        }, oopsAc);
-      },
-
-      /**
        * Make a request to delete a finding
        * @function deleteFinding
        * @param {JSON} data Data about the finding, including id
@@ -221,13 +204,15 @@ angular.module("FluidIntegrates").factory(
        * @function getComments
        * @param {String} id Numeric id of the finding
        * @param {String} project Project which finding belongs
+       * @param {String} commentType Type of comment
        * @member integrates.projectFtry
        * @return {Object} Response by DynamoDB finding comments
        */
-      "getComments" (id, project) {
+      "getComments" (id, project, commentType) {
         const oopsAc = "An error ocurred getting comments";
         return $xhr.get($q, `${BASE.url}get_comments`, {
           "_": parseInt(secureRandom(5).join(""), 10),
+          commentType,
           id,
           project
         }, oopsAc);

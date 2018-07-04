@@ -37,6 +37,7 @@ angular.module("FluidIntegrates").factory(
           "#evidence": "#evidenceItem",
           "#exploit": "#exploitItem",
           "#info": "#infoItem",
+          "#observations": "#observationsItem",
           "#records": "#recordsItem",
           "#tracking": "#trackingItem"
         };

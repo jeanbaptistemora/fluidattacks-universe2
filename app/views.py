@@ -1368,22 +1368,30 @@ def get_remediated(request):
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
 def get_comments(request):
-    submission_id = request.GET.get('id', "")
-    comments = integrates_dao.get_comments_dynamo(int(submission_id))
-    json_data = []
-    for row in comments:
-        aux = row['email'] == request.session["username"]
-        json_data.append({
-            'id': int(row['user_id']),
-            'parent': int(row['parent']),
-            'created': row['created'],
-            'modified': row['modified'],
-            'content': row['content'],
-            'fullname': row['fullname'],
-            'created_by_current_user': aux,
-            'email': row['email']
-        })
-    return util.response(json_data, 'Success', False)
+    comment_type = request.GET.get('commentType', "")
+    if comment_type != 'comment' and comment_type != 'observation':
+        rollbar.report_message('Error: Bad parameters in request', 'error', request)
+        return util.response([], 'Bad parameters in request', True)
+    elif comment_type == 'observation' and request.session['role'] == 'customer':
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
+    else:
+        submission_id = request.GET.get('id', "")
+        comments = integrates_dao.get_comments_dynamo(int(submission_id), comment_type)
+        json_data = []
+        for row in comments:
+            aux = row['email'] == request.session["username"]
+            json_data.append({
+                'id': int(row['user_id']),
+                'parent': int(row['parent']),
+                'created': row['created'],
+                'modified': row['modified'],
+                'content': row['content'],
+                'fullname': row['fullname'],
+                'created_by_current_user': aux,
+                'email': row['email']
+            })
+        return util.response(json_data, 'Success', False)
 
 @never_cache
 @require_http_methods(["POST"])
@@ -1401,8 +1409,15 @@ def add_comment(request):
         return util.response([], 'Error', True)
     try:
         recipients = integrates_dao.get_project_users(data['data[project]'].lower())
-        to = [x[0] for x in recipients if x[1] == 1]
-        to.append('continuous@fluidattacks.com')
+        if data['data[commentType]'] == 'observation':
+            admins = integrates_dao.get_admins()
+            to = [x[0] for x in admins]
+            for user in recipients:
+                if integrates_dao.get_role_dao(user[0]) == 'analyst':
+                    to.append(user[0])
+        else:
+            to = [x[0] for x in recipients if x[1] == 1]
+            to.append('continuous@fluidattacks.com')
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],
@@ -1425,17 +1440,6 @@ def add_comment(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
-def delete_comment(request):
-    submission_id = request.POST.get('id', "")
-    data = request.POST.dict()
-    comment = integrates_dao.delete_comment_dynamo(int(submission_id), data)
-    if not comment:
-        rollbar.report_message('Error: An error ocurred deleting comment', 'error', request)
-        return util.response([], 'Error', True)
-    return util.response([], 'Success', False)
 
 @never_cache
 @csrf_exempt
