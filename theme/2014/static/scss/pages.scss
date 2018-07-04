@@ -64,8 +64,6 @@ $white: rgba(255, 255, 255, 1);
 
 .divpage {
   background-color: $white;
-  border-top: 3px solid $fluid-black;
-  margin: 10px 21px;
   padding: 25px;
 
   .subtitle {
@@ -165,12 +163,6 @@ $white: rgba(255, 255, 255, 1);
         display: inline;
       }
     }
-  }
-}
-
-@media (min-width: 640px) {
-  .divpage {
-    margin: 10px 25px;
   }
 }
 

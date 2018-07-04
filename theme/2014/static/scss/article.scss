@@ -33,8 +33,6 @@ $white: rgba(255, 255, 255, 1);
 
 .divarticle {
   background-color: $white;
-  border-top: 3px solid $fluid-black;
-  margin: 10px 21px;
   padding: 25px;
 
   article {
@@ -135,9 +133,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 640px) {
-  .divarticle {
-    margin: 10px 25px;
-  }
 
   .meta-table {
     background-color: $white;
