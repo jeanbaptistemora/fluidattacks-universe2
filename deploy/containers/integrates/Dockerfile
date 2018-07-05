@@ -59,6 +59,7 @@ RUN rm -r /var/www/html \
     && cd /usr/src/app/app/assets/login \
     && tsc -p tsconfig.json \ 
     && browserify index.js | uglifyjs  > bundle.min.js \
+    && cd /usr/src/app && python -c 'import integrates_version; integrates_version.set_integrates_version()' \
     && cd /usr/src/app/app/assets/dashboard \
     && tsc -p tsconfig.json \ 
     && browserify index.js | uglifyjs  > bundle.min.js
