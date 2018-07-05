@@ -8,7 +8,10 @@
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.textbox' | translate}}</label>
                 <input rows="1" id="emailInput" class="form-control" data-parsley-type-message="{{'search_findings.tab_users.wrong_format' | translate}}" data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}" required="" type="email"   style="resize:none;" ng-model="newUserInfo.userEmail" translate-attr="{ placeholder: 'search_findings.tab_users.email' }" required>
                 <br>
-                <label>{{'search_findings.tab_users.role' | translate}}:</label>
+                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_organization' | translate}}</label>
+                <input rows="1" id="organizationInput" class="form-control" data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}" data-parsley-required="true" style="resize:none;" ng-model="newUserInfo.userOrganization" >
+                <br>
+                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.role' | translate}}:</label>
                 <select ng-model="newUserInfo.userRole" class="form-control" required>
                         <option ng-if="isAdmin" value="analyst">{{'search_findings.tab_users.analyst' | translate}}</option>
                         <option ng-if="isAdmin" value="admin">{{'search_findings.tab_users.admin' | translate}}</option>

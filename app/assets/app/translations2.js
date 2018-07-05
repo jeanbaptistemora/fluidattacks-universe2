@@ -191,6 +191,7 @@ const translations2 = {
                   "an Office 365 or Google email.",
      "title": "Add user to this project",
      "title_success": "Congratulations",
+     "user_organization": "User organization:",
      "wrong_format": "The email format is not valid."
    }
  },

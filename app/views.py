@@ -1546,15 +1546,14 @@ def reject_release(request):
 def add_access_integrates(request):
     parameters = request.POST.dict()
     newUser = parameters['data[userEmail]']
-    company = parameters['data[company]']
-    admin = parameters['data[admin]']
+    company = parameters['data[userOrganization]']
     role = parameters['data[userRole]']
     project = request.POST.get('project', '')
 
     if (request.session['role'] == 'admin'):
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):
-            if create_new_user(newUser, role, company, project, admin):
+            if create_new_user(newUser, role, company, project, request.session['role']):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
@@ -1564,7 +1563,7 @@ def add_access_integrates(request):
             return util.response([], 'Error', True)
     elif is_customeradmin(project, request.session['username']):
         if (role == 'customer' or role == 'customeradmin'):
-            if create_new_user(newUser, role, company, project, admin):
+            if create_new_user(newUser, role, company, project, request.session['role']):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)

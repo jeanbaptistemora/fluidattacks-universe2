@@ -192,6 +192,7 @@ const traducciones2 = {
                 "debe ser un correo de Office 365 o Google.",
     "title": "Agregar usuario a este proyecto",
     "title_success": "Felicitaciones",
+    "user_organization": "Organización del usuario:",
     "wrong_format": "El correo ingresado no es valido."
   }
 },

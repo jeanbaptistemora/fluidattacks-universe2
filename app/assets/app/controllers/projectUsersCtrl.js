@@ -206,10 +206,7 @@ angular.module("FluidIntegrates").controller(
 
     $scope.addUser = function addUser () {
       // Obtener datos
-      const descData = {
-        "company": Organization.toLowerCase(),
-        "project": $stateParams.project.toLowerCase()
-      };
+      const descData = {"project": $stateParams.project.toLowerCase()};
       $uibModal.open({
         "animation": true,
         "backdrop": "static",
@@ -230,10 +227,10 @@ angular.module("FluidIntegrates").controller(
           $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_users.title");
           $scope.ok = function ok () {
-            $scope.newUserInfo.admin = userEmail;
-            $scope.newUserInfo.company = data.company;
             if (angular.element("#emailInput").parsley().
-              validate() === true) {
+              validate() === true &&
+              angular.element("#organizationInput").parsley().
+                validate() === true) {
               // Make the request
               const req = projectFtry.addAccessIntegrates(
                 $scope.newUserInfo,
