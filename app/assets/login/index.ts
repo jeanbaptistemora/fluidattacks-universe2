@@ -134,7 +134,7 @@ angular.module("FluidIntegrates").controller(
                 "</img></a></div></div>";
       notify({
         "classes": "alert alert-info",
-        "duration": 5000,
+        "duration": 10000,
         "messageTemplate": alertTpl,
         "position": "right",
         "scope": $scope
@@ -150,7 +150,6 @@ angular.module("FluidIntegrates").controller(
     };
 
     $scope.google = () => {
-        Mixpanel.track("Login Google");
       if (BASE.isProduction) {
         Mixpanel.track("Login Google");
       }

@@ -58,6 +58,9 @@ RUN rm -r /var/www/html \
     && npm install -g typescript@2.9.2 browserify@16.2.2 uglify-js@3.4.3 \
     && cd /usr/src/app/app/assets/login \
     && tsc -p tsconfig.json \ 
+    && browserify index.js | uglifyjs  > bundle.min.js \
+    && cd /usr/src/app/app/assets/dashboard \
+    && tsc -p tsconfig.json \ 
     && browserify index.js | uglifyjs  > bundle.min.js
 
 # Make port 443 and 24224 available to the world outside this container
