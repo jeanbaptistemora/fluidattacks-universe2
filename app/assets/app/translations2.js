@@ -101,7 +101,7 @@ const translations2 = {
        "recommendation": "Recommendation",
        "recommendationTooltip": "General recommendation given to avoid this " +
                                 "security failure",
-       "reject": "Reject Justification",
+       "reject": "Justification",
        "remediated": "Request Verification",
        "remediated_finding": "Finding remediated",
        "requirements": "Requirements",

@@ -103,7 +103,7 @@ const traducciones2 = {
     "recommendation": "Recomendación",
     "recommendationTooltip": "Recomendación general que se da para evitar " +
                               "esta falla de seguridad",
-    "reject": "Justificación de rechazo",
+    "reject": "Justificación",
     "remediated": "Solicitar Verificación",
     "remediated_finding": "Hallazgo remediado",
     "requirements": "Requisitos",
