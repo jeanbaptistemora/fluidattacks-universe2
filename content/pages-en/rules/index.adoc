@@ -75,9 +75,13 @@
 
 == Cryptography
 
+* link:145/[REQ.145 Protect system cryptographic keys].
+* link:146/[REQ.146 Set timeout to cryptographic keys].
 * link:147/[REQ.147 Use pre-existent mechanisms].
 * link:148/[REQ.148 Set minimum size of asymmetric encryption].
 * link:149/[REQ.149 Set minimum size of symmetric encryption].
+* link:150/[REQ.150 Set minimum size for hash functions].
+* link:151/[REQ.151 Separate keys for encryption and signatures].
 
 == Source
 

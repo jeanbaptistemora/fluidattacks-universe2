@@ -1,0 +1,20 @@
+:slug: rules/145/
+:category: rules
+:description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of protecting system cryptographic keys in order to prevent leakages on encrypted sensitive information.
+:keywords: Requirement, Security, Asymmetric, Symmetric, System, Keys
+:rules: yes
+:translate: rules/145/
+
+= REQ.145 Protect system cryptographic keys
+
+== Requirement
+
+System private asymmetric or symmetric keys must be protected
+and must not be exposed.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
+There is an explicit policy for how cryptographic keys (if any) are managed,
+and the lifecycle of cryptographic keys is enforced.
+Ideally, follow a key management standard such as +NIST SP 800-57+.
