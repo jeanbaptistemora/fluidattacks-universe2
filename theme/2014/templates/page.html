@@ -43,42 +43,76 @@
   {% endif %}
 {% endblock language %}
 
+{% block breadcrumb%}
+  <div class="navcontent-container">
+    <div class="navcontent-info">
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <span>&gt;</span>
+          </li>
+          {% if page.defendsindex or page.rulesindex %}
+            <li>
+              <a href=".">&nbsp;{{ page.title }}</a>
+            </li>
+          {% endif %}
+          {% if page.defends %}
+            <li>
+              <a href="{{ SITEURL }}/defends/">&nbsp;<strong>Defends</strong>&nbsp;</a>
+              <span>&gt;</span>
+            </li>
+            <li>
+              <a href="{{ SITEURL }}/defends/#{{ page.category.name }}">&nbsp;{{ page.category|capitalize }}</a>
+            </li>
+          {% elif "misc" not in page.category.name %}
+            <li>
+              <a href="{{ SITEURL }}/{{ page.category.name }}/">&nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;</a>
+              <span>&gt;</span>
+            </li>
+            {% if page.category2 %}
+              <li>
+                <a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">&nbsp;<strong>{{ page.category2|replace('-', ' ') }}</strong>&nbsp;</a>
+                <span>&gt;</span>
+              </li>
+            {% endif %}
+            <li>
+              <a href=".">&nbsp;{{ page.title }}</a>
+            </li>
+          {% elif not page.defendsindex and not page.rulesindex %}
+            <li>
+              <a href=".">&nbsp;{{ page.title }}</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      {% if DEFAULT_LANG == "en" %}
+        {% if page.translate %}
+          <div class="translate">
+            <span>{{ gettext('Translate-msg-en') }}&nbsp;</span>
+            <a href="{{ SITEURL }}/{{ page.url }}">En
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
+            </a>
+            <a href="{{ SUBSITEURL }}/{{ page.translate }}">Es</a>
+          </div>
+        {% endif %}
+      {% elif DEFAULT_LANG == "es" %}
+        {% if page.translate %}
+          <div class="translate">
+            <span>{{ gettext('Translate-msg-es') }}&nbsp;</span>
+            <a href="{{ SUBSITEURL }}/{{ page.translate }}">En&nbsp;</a>
+            <a href="{{ SITEURL }}/{{ page.url }}">Es
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
     <article>
-      <div class="nav-info">
-        <div class="breadcrumbs">
-          <ul>
-            <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
-              {% if page.defends %}
-                <li><a href="{{ SITEURL }}/defends/">Defends >>&nbsp;</a></li>
-                <li><a href="{{ SITEURL }}/defends/#{{ page.category.name }}">{{ page.category }}</a></li>
-              {% elif "misc" not in page.category.name %}
-                {% if page.category2 %}
-                  <li><a href="{{ SITEURL }}/{{ page.category.name }}/">{{ page.category }} >>&nbsp;</a></li>
-                  <li><a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">{{ page.category2|replace('-', ' ') }}</a></li>
-                {% else %}
-                  <li><a href="{{ SITEURL }}/{{ page.category.name }}/">{{ page.category }}</a></li>
-                {% endif %}
-              {% endif %}
-          </ul>
-        </div>
-        {% if DEFAULT_LANG == "en" %}
-          {% if page.translate %}
-            <div class="translate">
-              <a href="{{ SITEURL }}/{{ page.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag"></a>
-              <a href="{{ SUBSITEURL }}/{{ page.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag" class="translate-inactive"></a>
-            </div>
-          {% endif %}
-        {% elif DEFAULT_LANG == "es" %}
-          {% if page.translate %}
-            <div class="translate">
-              <a href="{{ SUBSITEURL }}/{{ page.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag" class="translate-inactive"></a>
-              <a href="{{ SITEURL }}/{{ page.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"></a>
-            </div>
-          {% endif %}
-        {% endif %}
-      </div>
       <h1>{{ page.title }}</h1>
       {% if page.subtitle %}
         <span class="subtitle"><strong>{{ page.subtitle }}</strong></span>

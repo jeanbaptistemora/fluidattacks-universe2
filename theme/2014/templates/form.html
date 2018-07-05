@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
 
 {% block meta %}
   <meta name="description" content="{{ page.description }}">
@@ -39,31 +39,47 @@
   {% endif %}
 {% endblock language %}
 
+{% block breadcrumb%}
+  <div class="navcontent-container">
+    <div class="navcontent-info">
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <span>&gt;</span>
+          </li>
+          <li>
+            <a href="a">&nbsp;{{ page.title }}</a>
+          </li>
+        </ul>
+      </div>
+      {% if DEFAULT_LANG == "en" %}
+        {% if page.translate %}
+          <div class="translate">
+            <span>{{ gettext('Translate-msg-en') }}&nbsp;</span>
+            <a href="{{ SITEURL }}/{{ page.url }}">En
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
+            </a>
+            <a href="{{ SUBSITEURL }}/{{ page.translate }}">Es</a>
+          </div>
+        {% endif %}
+      {% elif DEFAULT_LANG == "es" %}
+        {% if page.translate %}
+          <div class="translate">
+            <span>{{ gettext('Translate-msg-es') }}&nbsp;</span>
+            <a href="{{ SUBSITEURL }}/{{ page.translate }}">En&nbsp;</a>
+            <a href="{{ SITEURL }}/{{ page.url }}">Es
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
     <article>
-      <div class="nav-info">
-        <div class="breadcrumbs">
-          <ul>
-            <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }}</a></li>
-          </ul>
-        </div>
-        {% if DEFAULT_LANG == "en" %}
-          {% if page.translate %}
-            <div class="translate">
-              <a href="{{ SITEURL }}/{{ page.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag"></a>
-              <a href="{{ SUBSITEURL }}/{{ page.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag" class="translate-inactive"></a>
-            </div>
-          {% endif %}
-        {% elif DEFAULT_LANG == "es" %}
-          {% if page.translate %}
-            <div class="translate">
-              <a href="{{ SUBSITEURL }}/{{ page.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag" class="translate-inactive"></a>
-              <a href="{{ SITEURL }}/{{ page.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"></a>
-            </div>
-          {% endif %}
-        {% endif %}
-      </div>
       {% if page.form == "salesforce" %}
         <h1>{{ page.title }}</h1>
         {{ page.content }}

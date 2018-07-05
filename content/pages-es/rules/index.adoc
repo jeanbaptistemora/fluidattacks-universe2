@@ -1,7 +1,7 @@
 :slug: rules/
-:category: rules
 :description: El propósito de esta página es presentar los productos ofrecidos por Fluid Attacks. Rules es una recopilación de criterios de seguridad desarrollados por Fluid Attacks, basados en diferentes estándares internacionales para garantizar la seguridad de la información en diferentes áreas.
 :keywords: Fluid Attacks, Productos, Rules, Criterios, Seguridad, Aplicaciones.
+:rulesindex: yes
 :translate: rules/
 
 = Rules

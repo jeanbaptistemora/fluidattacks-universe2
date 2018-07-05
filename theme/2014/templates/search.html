@@ -17,16 +17,26 @@
   {% endif %}
 {% endblock language %}
 
+{% block breadcrumb %}
+  <div class="navcontent-container">
+    <div class="navcontent-info">
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <span>&gt;</span>
+          </li>
+          <li>
+            <a href=".">&nbsp;{{ gettext('Search-breadcrumb-1') }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
     <article>
-      <div class="nav-info">
-        <div class="breadcrumbs">
-          <ul>
-            <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }}</a></li>
-          </ul>
-        </div>
-      </div>
       <div id="tipue_search_content"></div>
     </article>
   </div>

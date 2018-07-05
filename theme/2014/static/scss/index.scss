@@ -1,5 +1,5 @@
 $fluid-black: rgba(39, 39, 39, 1);
-$fluid-gray: rgba(241, 241, 241, 1);
+$fluid-light-gray: rgba(241, 241, 241, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $white: rgba(255, 255, 255, 1);
@@ -18,8 +18,8 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .blog-post {
-  border: 1px solid $fluid-gray;
-  box-shadow: -3px -2px  5px $fluid-gray;
+  border: 1px solid $fluid-light-gray;
+  box-shadow: -3px -2px  5px $fluid-light-gray;
   margin-bottom: 20px;
   position: relative;
   text-align: left;

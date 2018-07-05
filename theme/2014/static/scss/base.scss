@@ -6,6 +6,7 @@ $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
 $fluid-black: rgba(39, 39, 39, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
+$fluid-light-gray: rgba(241, 241, 241, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fuchsia: rgba(255, 0, 255, 1);
 $gray: rgba(128, 128, 128, 1);
@@ -29,8 +30,8 @@ $yellow: rgba(255, 255, 0, 1);
 
 @mixin hn {
   font-family: 'Montserrat';
-  font-weight: 600;
-  line-height: 1.1;
+  font-weight: bold;
+  line-height: 1;
   margin: 20px 0 10px;
 }
 
@@ -65,16 +66,78 @@ html {
 }
 
 body {
-  background-color: $lightgray;
+  background-color: $white;
   line-height: 1.42857143;
   margin: 0;
 }
 
 .col-lg-8,
 .col-md-10 {
-  background: $white;
   text-align: center;
   width: 100%;
+}
+
+.navcontent-container {
+  box-shadow: 0 5px 5px $fluid-light-gray;
+  padding: 0 25px;
+}
+
+.navcontent-info {
+  display: flex;
+  margin: auto;
+  max-width: 95ch;
+}
+
+.breadcrumb {
+  font-family: 'Montserrat';
+  font-size: 14px;
+  text-align: left;
+  width: 65%;
+
+  a {
+    color: $black;
+
+    &:hover {
+      color: $fluid-dark-red;
+    }
+  }
+
+  ul {
+    display: inline-block;
+    list-style: none;
+    width: 100%;
+
+    li {
+      display: inline-block;
+      margin-top: 0;
+    }
+  }
+
+  span {
+    color: $fluid-red;
+    font-size: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+}
+
+.translate {
+  margin: auto;
+  text-align: right;
+  width: 35%;
+
+  a {
+    color: $black;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  img {
+    left: -5px;
+    position: relative;
+    top: -5px;
+    width: 10px;
+  }
 }
 
 .list-title {
@@ -550,49 +613,6 @@ article {
   text-decoration: line-through;
 }
 
-.nav-info {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-}
-
-.translate {
-  text-align: center;
-
-  a {
-    font-size: 17px;
-  }
-}
-
-.breadcrumbs {
-
-  ul {
-    list-style: none;
-  }
-
-  li {
-    background-color: $white;
-    float: left;
-
-    &:hover {
-      background-color: $fluid-dark-red;
-
-    }
-  }
-
-  a {
-    color: $fluid-black;
-    display: block;
-    font-size: 17px;
-    padding: 10px 0;
-    text-transform: capitalize;
-
-    &:hover {
-      color: $white;
-    }
-  }
-}
-
 .paragraph {
   margin-bottom: 20px;
 }
@@ -651,9 +671,6 @@ article {
   max-width: 95ch;
 }
 
-.translate-inactive {
-  opacity: .4;
-}
 
 .tooltip {
   border-bottom: 1px dotted $darkgray;

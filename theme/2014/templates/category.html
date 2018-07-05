@@ -16,21 +16,28 @@
     <link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="es" />
   {% endif %}
 {% endblock language %}
-<div class="list-title">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <div class="post-heading">
-        <div class="nav-info">
-          <div class="breadcrumbs">
-            <ul>
-              <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
-              <li><a href="{{ SITEURL }}/blog/">Blog >>&nbsp;</a></li>
-              <li><a href="../">{{ gettext('Category-breadcrumb-1') }}</a></li>
-            </ul>
-          </div>
-        </div>
-        <h1>{{ category.name|replace("-", " ") }} </h1>
+{% block breadcrumb %}
+  <div class="navcontent-container">
+    <div class="navcontent-info">
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <span>&gt;</span>
+          </li>
+          <li>
+            <a href="{{ SITEURL }}/blog/">&nbsp;<strong>Blog</strong>&nbsp;</a>
+            <span>&gt;</span>
+          </li>
+          <li>
+            <a href="../">&nbsp;<strong>{{ gettext('Category-breadcrumb-1') }}</strong>&nbsp;</a>
+            <span>&gt;</span>
+          </li>
+          <li>
+            <a href=".">&nbsp;{{ category.name|replace("-", " ")|capitalize }}</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-</div>
+{% endblock breadcrumb %}
