@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. En este requerimiento se establece la importancia de utilizar cookies con atributos de seguridad, como HttpOnly o Secure.
 :keywords: Requerimiento, Seguridad, Sesiones, Cookies, Atributos, HttpOnly.
 :rules: yes
+:translate: rules/029/
 
 = REQ.029 Cookies con atributos de seguridad
 
@@ -119,3 +120,7 @@ y extrayendo la +cookie+ de sesión que se utiliza para robar la misma.
 . [[r6]] link:http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-0128[CVE-2008-0128 Apache Tomcat 4.x vulnerability].
 . [[r7]] link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0053[CVE-2012-0053 Information Disclosure vulnerability in Apache HTTP Server].
 . [[r8]] link:https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-header_token[Cookie-to-header token - HttpOnly attribute exceptions].
+. [[r9]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.12+].
+Verificar que los identificadores de sesión almacenados en las +cookies+
+sean evaluados utilizando el atributo +path+,
+y tengan habilitadas las banderas de +cookie+ +HttpOnly+ y +Secure+.
