@@ -25,13 +25,16 @@ es decir, tareas que se ejecutan simultáneamente de manera independiente.
 Los hilos poseen un estado de ejecución
 y pueden sincronizarse entre ellos
 para evitar problemas de compartición de recursos.
+Por ejemplo, si dos hilos necesitan acceder
+a un recurso, entre ellos mismos "negocean"
+cuál de los ha de acceder primero.
 Generalmente, cada hilo tiene una tarea específica y determinada,
 como forma de aumentar la eficiencia del uso del procesador.
 
 Los hilos tienden a ser usados para realizar trabajos interactivos
-y en segundo plano, procesamiento asíncrono,
-aceleración de la ejecución de un sistema,
-y estructuración modular de los programas.
+y en segundo plano, para el procesamiento asíncrono,
+la aceleración de la ejecución de un sistema,
+y la estructuración modular de los programas.
 
 En esta solución se verá la manera adecuada
 de detener los hilos o +threads+
@@ -111,7 +114,4 @@ public void run() {
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Hilo_(inform%C3%A1tica)[Hilos]
 . [[r2]] link:https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html[Java Thread Primitive Deprecation]
-. [[r3]] REQ.0153: La codificación del sistema
-debe estar implementada en una versión
-de un lenguaje de programación estable,
-actualizada, probada y libre de vulnerabilidades conocidas.
+. [[r3]] link:../../../rules/158/[REQ.158 Codificación Actualizada]

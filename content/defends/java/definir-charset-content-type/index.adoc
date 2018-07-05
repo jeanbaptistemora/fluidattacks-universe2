@@ -4,7 +4,7 @@
 :keywords: Java, Seguridad, Charset, Content-Type, Servlets, XSS.
 :defends: yes
 
-= Definir Character-Set y Content-Type Usando Servlets
+= Definir Character-Set Content-Type en Servlets
 
 == Necesidad
 
@@ -47,14 +47,14 @@ en una página usando +servlets+.
 
 . Para evitar que el navegador web
 tenga que adivinar el conjunto de caracteres usados,
-se recomienda especificarlo directamente,
+se recomienda especificarlo directamente
 en especial para archivos que son generados dinámicamente.
 
-. Las consecuencias de no usar un Char-set específico
-pueden resultar en vulnerabilidades tipo XSS ^<<r2,[2]>>^.
+. Las consecuencias de no usar un +Char-set+ específico
+pueden resultar en vulnerabilidades tipo +XSS+ ^<<r2,[2]>>^.
 
 . Dentro del directorio para despliegue de las aplicaciones +webapps+,
-crear la siguiente estructura de directorios.
+se debe crear la siguiente estructura de directorios.
 +
 .webapps.bash
 [source, bash, linenums]
@@ -70,7 +70,7 @@ test/
 TestServlet.java
 ----
 
-. El descriptor de despliegue +web.xml+
+. Descriptor de despliegue +web.xml+.
 define cuales +servlets+ existen mediante +<servlet-name>+
 y que clase lo representa usando +<servletclass>+.
 +
@@ -171,7 +171,5 @@ log/tomcat7 % tail -f catalina.out
 . [[r1]] link:https://en.wikipedia.org/wiki/Character_encoding#Character_sets,_character_maps_and_code_pages[Character encoding]
 . [[r2]] link:https://docs.oracle.com/javaee/5/tutorial/doc/bnayb.html[Character Sets and Encodings]
 . [[r3]] link:https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Content-Type[Content-Type]
-. [[r4]] REQ.0039: Los archivos generados de forma dinámica por el sistema
-deben tener definido un Content-Type explícito.
-. [[r5]] REQ.0040: Los archivos generados de forma dinámica por el sistema
-deben tener definido un Character-Set explícito.
+. [[r4]] link:../../../rules/043/[REQ.043 Definir content type explícito]
+. [[r5]] link:../../../rules/044/[REQ.044 Definir charset explícito]

@@ -1,4 +1,4 @@
-:slug: defends/java/evitar-ataque-inyeccion-xpath/
+:slug: defends/java/evitar-inyeccion-xpath/
 :category: java
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al evitar ataques inyección XPATH. Los ataques XPATH se aprovechan de los intérpretes para inyectar consultas maliciosas en las entradas de una aplicación.
 :keywords: Java, Seguridad, Inyección, XPATH, Buenas Prácticas, XML.
@@ -283,6 +283,4 @@ class myActionListener implements ActionListener {
 . [[r1]] link:https://es.wikipedia.org/wiki/Inyecci%C3%B3n_XPath[XPATH Injection]
 . [[r2]] link:https://www.owasp.org/index.php/XPATH_Injection[XPath injection]
 . [[r3]] link:https://sourceforge.net/projects/saxon/files/latest/download?source=files[Saxon Home Edition (HE) (open source)]
-. [[r4]] REQ.0168: El sistema debe descartar
-toda la información potencialmente insegura
-que sea recibida por entradas de datos.
+. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura]
