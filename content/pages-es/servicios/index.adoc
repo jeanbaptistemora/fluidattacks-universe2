@@ -7,20 +7,18 @@
 = Servicios
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
-a|== link:hacking-puntual/[Hacking Puntual]
+2+a|== link:hacking-puntual/[Hacking Puntual]
 
 Este servicio busca detectar y reportar todas las vulnerabilidades
 y problemas de seguridad en una versión específica de tu aplicación,
 sin ningún falso positivo.
-a|.Ícono hecho por Vectors Market de link:https://www.flaticon.com[Flaticon]
-image::puntual.png[Diana con una flecha en el centro]
+a|image::puntual.svg[Computador siendo atacado]
 
-a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com[Flaticon]
-image::continuo.png[Gráfica de línea en un computador]
-a|== link:hacking-continuo/[Hacking Continuo]
+a|image::continuo.svg[Servidor siendo atacado]
+2+a|== link:hacking-continuo/[Hacking Continuo]
 
 Este servicio busca detectar y reportar todas las vulnerabilidades
 y problemas de seguridad durante todo el ciclo de desarrollo de +software+.
@@ -29,36 +27,32 @@ de manera continua a medida que el +software+ evoluciona.
 Esta inspección se realiza sin falsos positivos y asegurando
 que los previos problemas fueron resueltos antes de salir a producción.
 
-a|== link:diferenciadores/[Diferenciadores]
+2+a|== link:diferenciadores/[Diferenciadores]
 
-¿Cuál es la diferencia entre un +pen test+ y un +análisis de vulnerabilidades+
+¿Cuál es la diferencia entre un +pentest+ y un +análisis de vulnerabilidades+
 usando herramientas automáticas? +
 Estos elementos son los que nos permiten encontrar y reportar
 todas las vulnerabilidades de seguridad en tu aplicación.
-a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com[Flaticon]
-image::diferenciadores.png[Dos engranajes de diferentes tamaño]
+a|image::diferenciadores.svg[Engranaje de metal]
 
-a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com[Flaticon]
-image::comparativo.png[Two plate scale]
-a|== link:comparativo/[Comparativo]
+a|image::comparativo.svg[Balanza de dos platos]
+2+a|== link:comparativo/[Comparativo]
 
 ¿Cuál es la diferencia entre el servicio +Hacking Puntual+
 y el servicio +Hacking Continuo+? +
 Estos elementos te ayudarán a decidir cuál de los servicios
 se ajusta mejor a tus necesidades.
 
-a|== link:certificaciones/[Certificaciones]
+2+a|== link:certificaciones/[Certificaciones]
 
 Nuestros +hackers+ se encuentran certificados en diferentes áreas
 de la Seguridad de la Información, como +OSCP+, +OSWP+,
 +CEH+, +CISSP+, entre otras.
 Así estás seguro de que estás contratando un equipo capaz de profesionales.
-a|.Ícono hecho por turkkub de link:https://www.flaticon.com[Flaticon]
-image::certificaciones.png[Diploma]
+a|image::certificaciones.svg[Diploma de certificación]
 
-a|.Ícono hecho por Prosymbols de link:https://www.flaticon.com[Flaticon]
-image::faq.png[Signo de pregunta]
-a|== link:faq/[FAQ]
+a|image::faq.svg[Signo de pregunta]
+2+a|== link:faq/[FAQ]
 
 ¿Tienes alguna pregunta acerca del serivico de +Hacking Continuo+? +
 Lee esta +FAQ+ para solucionar algunas de las dudas más comunes

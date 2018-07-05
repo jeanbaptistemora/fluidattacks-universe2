@@ -6,11 +6,11 @@
 
 = Services
 
-[role="tb-alt tb-services"]
-[cols=2, frame="topbot"]
+[role="tb-alt"]
+[cols=3, frame="topbot"]
 |====
 
-a|== link:one-shot-hacking/[One-Shot Hacking]
+2+a|== link:one-shot-hacking/[One-Shot Hacking]
 
 This service aims to detect and report all the vulnerabilities
 and security issues within one specific version of your application,
@@ -18,7 +18,7 @@ with no false positives.
 a|image::one-shot.svg[Computer being attacked]
 
 a|image::continuous.svg[Server being attacked]
-a|== link:continuous-hacking/[Continuous Hacking]
+2+a|== link:continuous-hacking/[Continuous Hacking]
 
 This service aims to detect and report all the vulnerabilities
 and security issues during the whole software development cycle.
@@ -27,23 +27,23 @@ as software evolves.
 This inspection is done without false positives and ensuring previous
 issues were resolved before going to production.
 
-a|== link:differentiators/[Differentiators]
+2+a|== link:differentiators/[Differentiators]
 
-What is the difference between a +pen test+ and a +vulnerability analysis+
+What is the difference between a +pentest+ and a +vulnerability analysis+
 using automated tools? +
 These items alow us to find and report all security vulnerabilities
 in your application.
 a|image::differentiators.svg[Metal gear]
 
 a|image::comparative.svg[Two plate scale]
-a|== link:comparative/[Comparative]
+2+a|== link:comparative/[Comparative]
 
 What is the difference between the +One-Shot Hacking+ service
 and the +Continuous Hacking+ service? +
 These items allow you to decide which service
 best suits your needs.
 
-a|== link:certifications/[Certifications]
+2+a|== link:certifications/[Certifications]
 
 Our hackers have certifications in different areas
 of the Security of Information, like +OSCP+, +OSWP+,
@@ -52,7 +52,7 @@ This to ensure that you are hiring a team of capable professionals.
 a|image::certifications.svg[Certification diploma]
 
 a|image::faq.svg[Question being answered in a conversation]
-a|== link:faq/[FAQ]
+2+a|== link:faq/[FAQ]
 
 Do you have any question about the +Continuous Hacking+ service? +
 Read these Frequently Asked Questions to solve

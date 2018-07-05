@@ -6,6 +6,7 @@ $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
 $fluid-black: rgba(39, 39, 39, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
+$fluid-gray: rgba(176, 176, 176, 1);
 $fluid-light-gray: rgba(241, 241, 241, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fuchsia: rgba(255, 0, 255, 1);
@@ -52,7 +53,7 @@ $yellow: rgba(255, 255, 0, 1);
 }
 
 @mixin cell($padding) {
-  border: 1px solid $lightgray;
+  border: 1px solid $fluid-gray;
   font-size: 21px;
   padding: $padding;
 
@@ -401,11 +402,57 @@ article {
   }
 }
 
-.tb-alt,
 .tb-row,
 .tb-col {
   display: table;
 }
+
+//scss-lint:disable NestingDepth
+.tb-alt {
+  display: table;
+  text-align: center;
+
+  a {
+    color: $fluid-black;
+
+    &:hover {
+      color: $fluid-dark-red;
+    }
+  }
+
+  td {
+    &:last-child {
+      border-top-style: hidden;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+
+  tr {
+    &:first-child {
+      td {
+        &:first-child {
+          border-top-style: hidden;
+        }
+      }
+    }
+
+    &:last-child {
+      td {
+        &:last-child {
+          border-bottom-style: hidden;
+        }
+      }
+    }
+  }
+
+  img {
+    width: 250px;
+  }
+}
+//scss-lint:enable NestingDepth
 
 .tb-responsive {
   td,
@@ -743,6 +790,44 @@ article {
   box-sizing: border-box;
 }
 
+@media (min-width: 675px) {
+  //scss-lint:disable NestingDepth
+  .tb-alt {
+    text-align: left;
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    td {
+      height: 320px;
+
+      &:last-child {
+        border-top-style: solid;
+      }
+
+      p {
+        text-align: left;
+      }
+    }
+
+    tr {
+      &:first-child {
+        td {
+          border-top-style: hidden;
+        }
+      }
+
+      &:last-child {
+        td {
+          border-bottom-style: hidden;
+        }
+      }
+    }
+  }
+//scss-lint:enable NestingDepth
+}
+
 @media (min-width: 770px) {
   h1 {
     font-size: 42px;
@@ -827,6 +912,13 @@ article {
   .at-expanding-share-button-desktop {
     display: none;
   }
+
+   //scss-lint:disable ImportantRule
+  .tb-alt {
+    margin-left: -12ch;
+    width: 120ch !important;
+  }
+  //scss-lint:enable ImportantRule
 }
 
 @media print {
