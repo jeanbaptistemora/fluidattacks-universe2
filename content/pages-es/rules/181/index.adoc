@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de transmitir información o ejecutar funciones cuyo contenido sea sensible mediante un protocolo o canal seguro que cumpla con todos los estándares de seguridad requeridos para dicho sistema.
 :keywords: Requerimiento, Seguridad, Protocolo, Transmisión, Funciones, Información sensible.
 :rules: yes
+:translate: rules/181/
 
 = REQ.181 Transmitir por medio de protocolos seguros
 
@@ -61,3 +62,6 @@ para interceptar y ver la información que se transmite.
 . [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
 . [[r2]] link:https://www.owasp.org/index.php/Top_10_2014-I4_Lack_of_Transport_Encryption[OWASP Top 10 2014: I4 Top 10 2014-I4 Lack of Transport Encryption]
 . [[r3]] link:https://www.owasp.org/index.php/Mobile_Top_10_2014-M3[OWASP Top 10 2014: M3 Insufficient Transport Layer Protection]
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.16+]
+Verificar que todos los datos de la aplicación
+sean transmitidos por un canal cifrado (por ejemplo +TLS+).
