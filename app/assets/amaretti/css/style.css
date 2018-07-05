@@ -20302,3 +20302,8 @@ div.dataTables_wrapper div.dataTables_length label select {
 td.lower-text {
   text-transform: lowercase;
 }
+#grapExploit svg text,
+#grapType svg text,
+#grapStatus svg text {
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
