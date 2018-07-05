@@ -109,6 +109,7 @@
 
 == Authentication
 
+* link:226/[REQ.226 Avoid account lockouts].
 * link:229/[REQ.229 Request access credentials].
 * link:231/[REQ.231 Define biometric verification component].
 
