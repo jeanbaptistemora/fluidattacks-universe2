@@ -10004,7 +10004,7 @@ button:focus {
   [Splash screen]
 */
 .am-splash-screen {
-  background-color: #383737;
+  background-color: #272727;
 }
 .am-splash-screen .am-wrapper {
   padding-top: 0;
@@ -10013,10 +10013,11 @@ button:focus {
   margin: 0;
 }
 .am-splash-screen .am-wrapper .am-content a {
-  color: #ababab;
+  color: #ffffff;
 }
 .am-splash-screen .am-wrapper .am-content a:hover {
   color: #ffffff;
+  font-weight: bold;
 }
 /*------------------------------------------------------------------
 	[Scroll to top button]
