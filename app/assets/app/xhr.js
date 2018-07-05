@@ -67,6 +67,7 @@ const ajaxConfig = function ajaxConfig () {
  * @function ajaxConfig
  * @return {undefined}
  */
+var refreshingPage = false;
 var $xhr = new class xhr {
   request($method, $q, $url, $data, text){
     var deferred = $q.defer();
@@ -75,14 +76,18 @@ var $xhr = new class xhr {
       if(!$url) throw "Undefined URL";
       $.ajax({
         url: $url, type: $method, data: $data,
-        success: function (response) { 
-          deferred.resolve(response); 
+        success: function (response) {
+          deferred.resolve(response);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           if(XMLHttpRequest.status == 401){
             location = BASE.url + "index";
-          }else{
-            throw text;
+          } else {
+            /* Discard errors caused by broken
+            pipes when page is being refreshed */
+            if(!refreshingPage){
+              throw text;
+            }
           }
         }
       });
@@ -91,7 +96,7 @@ var $xhr = new class xhr {
       let textError = (localStorage.lang === 'es')
         ?"Hay un error"
         :"There is an error";
-      $.gritter.add({ 
+      $.gritter.add({
           title: 'Oops!', text: textError,
           class_name: 'color warning', sticky: false,
       });
@@ -112,3 +117,4 @@ $("#full_loader").hide();
 $( document ).ajaxStart(function() { $("#full_loader").show(); });
 $( document ).ajaxStop(function() { $("#full_loader").hide(); });
 $( document ).ajaxError(function() { $("#full_loader").hide(); });
+$( window ).on('beforeunload', function() { refreshingPage = true; });
