@@ -12,6 +12,7 @@
     "angular-elastic": "2.5.1",
     "angular-sanitize": "1.7.2",
     "angular-translate": "2.18.1",
+    "@uirouter/angularjs": "0.4.2",
     "eslint": "4.19.0",
     "eslint-plugin-angular": "3.3.0",
     "eslint-plugin-unicorn": "4.0.3",
