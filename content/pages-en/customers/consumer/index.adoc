@@ -10,11 +10,11 @@
 {description}
 
 [role="comercial tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 a|image::logo-exito.png[alt="Logo Exito",link="https://www.exito.com/"]
 
-a|== Éxito Group
+2+a|== Éxito Group
 Colombian multinational company,
 carries out retail trade activities in South America.
 Present in Colombia with Grupo Éxito;
@@ -22,7 +22,7 @@ in Brazil with the Pão de Açúcar Group;
 in Uruguay with the Disco and Devoto Groups
 and in Argentina with Libertad
 
-a|== Grupo Uribe
+2+a|== Grupo Uribe
 
 Colombian textile group, family trend,
 founded in 1907 by the patriarch, John Uribe.
@@ -37,7 +37,7 @@ a|image::logo-uribe.png[Logo Uribe]
 
 a|image::logo-rappi.png[alt="Logo Rappi",link="https://www.rappi.com"]
 
-a|== Rappi
+2+a|== Rappi
 
 Colombian e-commerce company, founded in Bogotá in 2015.
 The mobile application allows consumers to order groceries,
@@ -45,7 +45,7 @@ food, and drugs from pharmacies,
 but also allows to send cash to someone,
 or to withdraw money from your bank account of an ATM.
 
-a|== Semana
+2+a|== Semana
 Media group of the magazines with the greatest circuliation
 and influence in Colombia,
 seeking to position in the public opinion different
@@ -58,7 +58,7 @@ a|image::logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
 
 a|image::logo-sodimac.png[alt="Logo Sodimac",link="http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa"]
 
-a|== Sodimac
+2+a|== Sodimac
 
 Company that operates in retail.
 It seeks to satisfy the customer through multiple points of contact
@@ -71,7 +71,7 @@ and decoration of their homes,
 offering excellence in service, integrity in their work
 and a strong commitment to the community.
 
-a|== The Missing Link
+2+a|== The Missing Link
 {australia} Australian provider of information technology solutions,
 provide services for infrastructure, security, backup,
 disaster recovery, communications and cloud services.

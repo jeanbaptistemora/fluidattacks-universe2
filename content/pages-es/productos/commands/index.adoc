@@ -13,9 +13,9 @@ en nuestro servicio de [button]#link:../../servicios/hacking-puntual/[Hacking Pu
 donde su uso es autorizado.
 
 [role="integrates tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
-a|== Objetivo
+2+a|== Objetivo
 
 En Fluid Attacks no estamos únicamente interesados en encontrar
 y reportar una vulnerabilidad, sino también en mostrar a nuestros clientes
@@ -27,7 +27,7 @@ para obtener información sensible o infectar aún más nodos.
 a|image::botnet.png[Botnet]
 
 a|image::how-its-done.png[Como lo hacemos]
-a|== Como lo hacemos
+2+a|== Como lo hacemos
 
 Para poder usar +FLUIDCommands+
 primero necesitamos tener acceso administrativos al sistema vulnerable,
@@ -41,7 +41,7 @@ o concentrarnos en la máquina comprometida
 para penetrar en profundidad en busca de información sensible
 y vectores de ataque más críticos.
 
-a|== Cero Efectos Colaterales
+2+a|== Cero Efectos Colaterales
 
 Es importante resaltar que nuestro troyano +FLUIDCommands+
 nunca queda instalado en el sistema vulnerable
@@ -52,7 +52,7 @@ sin dejar rastro alguno ni efectos colaterales.
 a|image::no-traces.png[Cero Daños, cero rastros]
 
 a|image::command-control.png[Centro de Mando y Control]
-a|== Centro de Mando y Control
+2+a|== Centro de Mando y Control
 
 +FLUIDCommands+ cuenta con su propio Centro de Mando y Control
 desde el cual se pueden enviar órdenes y comandos
@@ -63,7 +63,7 @@ dándonos siempre control total sobre nuestro troyano.
 Con un solo nodo infectado,
 +FLUIDCommands+ puede replicarse en sistemas adjacentes.
 
-a|== Función de Captura
+2+a|== Función de Captura
 
 * Captura de pantalla: A través del comando +scr+ podemos tomar pantallazos
 de la máquina infectada sin alertar la víctima.
@@ -76,13 +76,13 @@ o números de tarjetas de crédito.
 a|image::scrshot-min.png[Captura de Pantalla]
 
 a|image::exec.png[Ejecución de Comandos]
-a|== Función Exec
+2+a|== Función Exec
 
 Esta función nos permite ejecutar de manera remota cualquier comando disponible
 a través del +cmd+ en la máquina infectada.
 
 
-a|== Función echo
+2+a|== Función echo
 
 Este comando se usa para probar la conexión
 y garantizar que tengamos control sobre el nodo infectado.
@@ -90,7 +90,7 @@ Responde todo lo que se le pase como parametro al comando.
 a|image::echo.png[echo]
 
 a|image::av-evasion.png[Evasión de Detección]
-a|== Evasión de Detección
+2+a|== Evasión de Detección
 
 Nuestro troyano siempre evita ser detectado
 por todo tipo de controles

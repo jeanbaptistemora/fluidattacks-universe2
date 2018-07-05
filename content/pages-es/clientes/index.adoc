@@ -7,9 +7,9 @@
 = Clientes
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
-a|== link:financiero/[Financiero]
+2+a|== link:financiero/[Financiero]
 
 Los clientes de +Fluid Attacks+ en el sector financiero
 comprenden algunos de los bancos más importantes de América Latina,
@@ -22,13 +22,13 @@ image::financiero.png[Signo de dólar]
 
 a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com/[Flaticon]
 image::comunicaciones.png[Teléfono inteligente]
-a|== link:comunicaciones/[Comunicaciones]
+2+a|== link:comunicaciones/[Comunicaciones]
 
 +Fluid Attacks+ ha ofrecido soluciones a algunos de los principales proveedores
 de servicios de comunicaciones en Colombia, entre ellos +Claro+,
 +Tigo UNE+, +ETB+ y +Edatel+.
 
-a|== link:comercial/[Comercial]
+2+a|== link:comercial/[Comercial]
 
 Hemos trabajado con varias compañías cuyo objetivo es complacer al consumidor
 desde diferentes áreas, sea ventas al detal, +E-Commerce+, la industria textil,
@@ -40,7 +40,7 @@ image::comercial.png[Consumidores con diferentes reacciones]
 
 a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com/[Flaticon]
 image::tecnologia.png[Servidor y base de datos]
-a|== link:tecnologia/[Tecnología]
+2+a|== link:tecnologia/[Tecnología]
 
 +Fluid Attacks+ ha contribuido a empresas que ofrecen +software+,
 infraestructura y otras soluciones de tecnología a sus clientes,
@@ -49,7 +49,7 @@ Algunos de nuestros clientes en esta área son
 +PSL+, +S4N+, +Arus+, +Ceiba+, las empresas americanas +Cre8tive+, +KometSales+
 and +VM2020+, y la empresa española +Indra+.
 
-a|== link:energia/[Energía]
+2+a|== link:energia/[Energía]
 
 También hemos ejecutado proyectos en compañías que se especializan
 en el sector de la energía, ya sea en la generación, distribución
@@ -60,7 +60,7 @@ image::energia.png[Símbolo de un trueno]
 
 a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com/[Flaticon]
 image::industrial.png[Fábrica]
-a|== link:industrial/[Industrial]
+2+a|== link:industrial/[Industrial]
 
 También hemos asistido a diversos fabricantes y participantes
 del sector industrial en sus necesidades de seguridad de +software+
@@ -68,7 +68,7 @@ y seguridad de infraestructura.
 Algunos de estos clientes son +Grupo Argos+, +Manuelita+, +Corona+,
 +Cadena+ y +Odinsa+.
 
-a|== link:transporte/[Transporte]
+2+a|== link:transporte/[Transporte]
 
 +Fluid Attacks+ ha trabajado con gigantes del sector de transporte
 como +Avianca+ y +F2X+, para asegurar que sus aplicaciones

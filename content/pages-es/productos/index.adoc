@@ -7,10 +7,10 @@
 = Productos
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
-a|== link:integrates/[Integrates]
+2+a|== link:integrates/[Integrates]
 
 Sistema donde confluyen todos los interesados en el proyecto.
 Busca acercar al +hacker+ y al desarrollador,
@@ -21,14 +21,14 @@ image::integrates.png[Ventana de un navegador Web]
 
 a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com[Flaticon]
 image::asserts.png[Lupa encontrando un error en un documento]
-a|== link:asserts/[Asserts]
+2+a|== link:asserts/[Asserts]
 
 Motor para automatizar el cierre de hallazgos de seguridad
 sobre ambientes en ejecución.
 Puede ser ejecutado en computadores con Sistemas Operativos +Windows+ o +Linux+,
 y también puede incluirse en tu ambiente de +Integración Continua+.
 
-a|== link:rules/[Rules]
+2+a|== link:rules/[Rules]
 
 Conjunto de requisitos usados para parametrizar un +pen test+.
 Estas reglas determinan qué tan riguroso es realmente un +pen test+,
@@ -39,14 +39,14 @@ image::rules.png[Lista de ítems]
 
 a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com[Flaticon]
 image::defends.png[Escudo]
-a|== link:defends/[Defends]
+2+a|== link:defends/[Defends]
 
 Conjunto de procedimientos detallados que permiten el desarrollo
 de aplicaciones seguras, la configuración segura de componentes tecnológicos,
 y la remediación de vulnerabilidades encontradas
 y reportadas por nosostros.
 
-a|== link:commands/[Commands]
+2+a|== link:commands/[Commands]
 
 +Ciberarma+ desarrollada completamente por nosotros para una penetración
 más profunda en estaciones de trabajo y servidores críticos durante

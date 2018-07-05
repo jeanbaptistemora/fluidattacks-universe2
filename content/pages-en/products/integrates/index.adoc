@@ -18,21 +18,21 @@ regarding the state of their system´s security.
 You can access the product [button]#link:../../../../integrates[here]#
 
 [role="integrates tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
-a|== Easy and Fast Authentication
+2+a|== Easy and Fast Authentication
 
 User credentials are not stored.
 Federated identity, thus allowing authentication with corporate users.
 a|image::authentication.png[Authentication]
 
 a|image::main-menu.png[Main Menu]
-a|== Main Menu
+2+a|== Main Menu
 
 The dashboard allows users direct access to all their projects.
 It is also possible to view the events associated to each one of the projects.
 
-a|== Project Indicators
+2+a|== Project Indicators
 
 They allow to perform a follow-up of the current state of the project.
 Some of the used indicators are:
@@ -43,7 +43,7 @@ Some of the used indicators are:
 a|image::indicators.png[Indicators]
 
 a|image::graphs.png[Graphs]
-a|== Project Status Graphs
+2+a|== Project Status Graphs
 
 You can view the current state of the reported vulnerabilities.
 Easily allowing to:
@@ -53,30 +53,30 @@ Easily allowing to:
 and how many are security issues or hygiene issues.
 * Know how many vulnerabilities have been remediated and how many remain open.
 
-a|== View Real-Time Events
+2+a|== View Real-Time Events
 
 All events that inhibit the execution of the project
 can be viewed in real time.
 a|image::eventualities.png[Events]
 
 a|image::user-tracking.png[User Tracking]
-a|== User tracking
+2+a|== User tracking
 
 The last access of users to a project is displayed.
 
-a|== User Administration
+2+a|== User Administration
 
 An user can grant / revoke access to other users using this module.
 a|image::user-administration.png[Administration Access]
 
 a|image::technical-report.png[Technical Report]
-a|== Generate Technical Reports
+2+a|== Generate Technical Reports
 
 This document provides detailed information of each vulnerability.
 It is of great use to all technical personnel
 when it comes to remediating the reported security flaws.
 
-a|== Generate Executive Reports
+2+a|== Generate Executive Reports
 
 This document provides summarized and organized information.
 Thus, it may be useful for all the project's stakeholders.
@@ -84,7 +84,7 @@ Thus, it may be useful for all the project's stakeholders.
 a|image::executive-report.png[Executive Report]
 
 a|image::prioritize-remediation.png[Prioritize Remediation]
-a|== Prioritize Remediation
+2+a|== Prioritize Remediation
 
 Vulnerabilities can be prioritized based on several parameters.
 This with the aim of knowing which require an inmediate solution.
@@ -96,14 +96,14 @@ and the solution applied by the client.
 * *Status:* Open, closed or partially closed.
 * *Treatment:* Assumed, pending or remediate.
 
-a|== View Vulnerabilities
+2+a|== View Vulnerabilities
 
 Each vulnerability has information regarding its current state,
 as well as its severity, type and report date.
 a|image::vulnerabilities.png[Vulnerabilities]
 
 a|image::vulnerability-description.png[Vulnerability Description]
-a|== Vulnerability Description
+2+a|== Vulnerability Description
 
 Contains technical details
 that allow for a better understanding
@@ -112,7 +112,7 @@ location of the security issues,
 unfulfilled requirements,
 risks and recommendations for the solution.
 
-a|== Request Verification / Treatment
+2+a|== Request Verification / Treatment
 
 Clients may request the revision ^1^ of a vulnerability that has been corrected,
 and document ^2^ its treatment.
@@ -128,25 +128,25 @@ a|image::request-verification.png[Request Verification]
 image::treatment.png[Treatment]
 
 a|image::vulnerability-severity.png[Vulnerability Severity]
-a|== Vulnerability Severity
+2+a|== Vulnerability Severity
 
 The technical score according to the international +CVSS+
 (Common Vulnerability Scoring System) standard is shown.
 This with the aim of determining the severity of the vulnerability.
 
-a|== Vulnerability Evidences
+2+a|== Vulnerability Evidences
 
 Existence of a vulnerability is shown through a series of evidences (images)
 with its respective description.
 a|image::vulnerability-evidence.png[Vulnerability Evidence]
 
 a|image::exploitation-animation.gif[Exploitation Animation]
-a|== Exploitation Animation
+2+a|== Exploitation Animation
 
 Process executed to exploit the vulnerability
 is shown through an animation (+gif+).
 
-a|== Exploit
+2+a|== Exploit
 
 The *script* used to exploit the vulnerability is shown.
 This can be reused to validate the applied corrections.
@@ -160,7 +160,7 @@ is injected into the application.
 a|image::vulnerability-exploitation.png[Vulnerability Exploitation]
 
 a|image::timeline.png[Timeline]
-a|== Timeline of the Vulnerability
+2+a|== Timeline of the Vulnerability
 
 Shows the evolution of the vulnerability across time,
 indexing the report dates
@@ -168,7 +168,7 @@ and the different closing cycles performed.
 This section is of great utility to know the effectiveness
 of the closing cycles performed.
 
-a|== Compromised Records
+2+a|== Compromised Records
 
 Information such as names, identifiers, balances, products, etc.
 that was compromised during the execution of security tests,
@@ -176,7 +176,7 @@ through the exploitation of a vulnerability.
 a|image::records.png[Compromised Records]
 
 a|image::vulnerability-comments.png[Vulnerability Comments]
-a|== Doubts regarding the Vulnerabilities
+2+a|== Doubts regarding the Vulnerabilities
 
 The project's stakeholders, Fluid Attacks included,
 may exchange insights, doubts or observations
@@ -184,7 +184,7 @@ regarding the vulnerability in question.
 This section helps the developers understand where the issue is located
 in order to apply a solution.
 
-a|== Chat with Us
+2+a|== Chat with Us
 
 It allows the users to solve doubts regarding the vulnerabilities
 or the platform itself.
@@ -197,7 +197,7 @@ once a reply to the question has been posted.
 a|image::chat.png[Chat]
 
 a|image::mail.png[Mail]
-a|== Notifications via e-mail
+2+a|== Notifications via e-mail
 
 Notifications are sent via e-mail to the project's stakeholders.
 Some of them are:
@@ -209,7 +209,7 @@ Some of them are:
 * When a vulnerability reaches a certain age
 (15, 30, 60 days old ...) and has not been treated.
 
-a|== Knowledge Base
+2+a|== Knowledge Base
 
 Users have access to Fluid Attacks's product [button]#link:../../defends/[Defends]#
 where they can find examples about how to fulfill the security requirements

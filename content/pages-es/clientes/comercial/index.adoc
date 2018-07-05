@@ -10,11 +10,11 @@
 {description}
 
 [role="comercial tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 a|image::logo-exito.png[alt="Logo Exito",link="https://www.grupoexito.com.co/es/"]
 
-a|== Grupo Exito
+2+a|== Grupo Exito
 
 Empresa multinacional colombiana,
 realiza actividades de comercio al detal en Suramérica.
@@ -23,7 +23,7 @@ en Brasil con el Grupo Pão de Açúcar;
 en Uruguay con los Grupos Disco y Devoto
 y en Argentina con Libertad
 
-a|== Grupo Uribe
+2+a|== Grupo Uribe
 
 Grupo textil colombiano,
 de tendencia familiar, fundado en 1907 por el patriarca, John Uribe.
@@ -38,7 +38,7 @@ a|image::logo-uribe.png[Logo Uribe]
 
 a|image::logo-rappi.png[alt="Logo Rappi",link="https://www.rappi.com"]
 
-a|== Rappi
+2+a|== Rappi
 
 Es una compañía colombiana de comercio electrónico, fundada en Bogotá en 2015.
 La aplicación móvil permite a los consumidores
@@ -47,7 +47,7 @@ pero también permite enviar dinero en efectivo a alguien,
 o que un corredor retire dinero de su cuenta bancaria
 de un cajero automático y entregárselo.
 
-a|== Semana
+2+a|== Semana
 
 Grupo mediático que agrupa las revistas de mayor circulación
 e influencia en Colombia,
@@ -60,7 +60,7 @@ a|image::logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
 
 a|image::logo-sodimac.png[alt="Logo Sodimac",link="http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa"]
 
-a|== Sodimac
+2+a|== Sodimac
 
 Empresa que opera en el retail.
 Busca satisfacer al cliente a través de múltiples puntos de contacto
@@ -72,7 +72,7 @@ además de satisfacer las necesidades de mejoramiento
 y decoración de sus hogares, ofreciendo excelencia en el servicio,
 integridad en su trabajo y un fuerte compromiso con la comunidad.
 
-a|== The Missing Link
+2+a|== The Missing Link
 {australia} Proveedor de soluciones australiano
 enfocado en tecnología de la información,
 prestan servicios para infraestructuras, seguridad, backup,

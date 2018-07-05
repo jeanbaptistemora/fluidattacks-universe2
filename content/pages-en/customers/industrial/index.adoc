@@ -10,12 +10,12 @@
 {description}
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
 a|image::logo-cadena.png[alt="Logo Cadena",link="http://www.cadena.com.co/es/home.aspx"]
 
-a|== Cadena
+2+a|== Cadena
 
 Organization that provides its clients with reliable solutions
 to simplify their critical processes through technology,
@@ -23,7 +23,7 @@ increasing their efficiency, sustainability and profitability.
 They have knowledge of the key processes of the client's business,
 integrate their own and third-party capabilities.
 
-a|== Corona
+2+a|== Corona
 
 Colombian multinational with +135+ years of business history.
 It consists of six strategic business units dedicated to the manufacture
@@ -39,7 +39,7 @@ a|image::logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
 
 a|image::logo-creative.png[alt="Logo Creative",link="http://www.cre8software.com/"]
 
-a|== Cre8tive
+2+a|== Cre8tive
 
 {usa} Company with experience in the manufacture and sale of furniture
 with software dedicated to furniture manufacturing and furniture retail sales.
@@ -47,7 +47,7 @@ It has integration with an accounting system, today QuickBooks,
 and can be integrated with others
 so that there is integrity with transactions and automatic publication.
 
-a|== Argos Group
+2+a|== Argos Group
 
 Matrix of the Business Group of sustainable investments in infrastructure.
 Its legal nature corresponds to a corporation,
@@ -59,7 +59,7 @@ a|image::logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/
 
 a|image::logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
 
-a|== LAFRANCOL
+2+a|== LAFRANCOL
 
 Manufacturers and distributors at a national and international level,
 pharmaceutical products and functional foods for human consumption
@@ -70,7 +70,7 @@ before the medical team and the health society,
 reaching a leading position in the national pharmaceutical industry,
 both for its sales volume and for its quality image.
 
-a|== Manuelita
+2+a|== Manuelita
 
 Diversified agroindustrial organization, multilatina of Colombian origin,
 consolidated as a diversified agroindustrial organization,
@@ -83,7 +83,7 @@ a|image::logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/
 
 a|image::logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-somos/"]
 
-a|== Odinsa
+2+a|== Odinsa
 
 Subsidiary of Grupo Argos,
 is a Colombian company dedicated to the structuring, promotion,

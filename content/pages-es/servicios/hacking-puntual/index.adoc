@@ -12,10 +12,10 @@ La inspección rigurosa de nuestro equipo
 permite detectar todos los hallazgos de seguridad sin falsos positivos.
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
-a|== Tipos de hacking
+2+a|== Tipos de hacking
 Es posible analizar código fuente,
 aplicación e infraestructura correspondiente a un sistema específico,
 el cliente puede decidir ejecutar todos los tipos de hacking,
@@ -25,7 +25,7 @@ a|image::ethical-hacking.png[alt="Ethical Hacking", width="55%"]
 
 a|image::cobertura.png[alt="Alcance de Ethical Hacking", width="55%"]
 
-a|== Cobertura
+2+a|== Cobertura
 
 La cobertura puede ser específica,
 cuando se hace una enumeración del total de campos/lineas/puertos
@@ -39,7 +39,7 @@ sin saber a que porcentaje corresponde del total.
 Puede ser completa cuando se enumeran
 y prueban el total de campos/líneas/puertos que componen el sistema.
 
-a|== Rigurosidad
+2+a|== Rigurosidad
 
 Es posible que el cliente decida los requisitos de seguridad
 que se revisarán en el hacking (perfilamiento)
@@ -51,12 +51,12 @@ a|image::criterio-seguridad.png[alt="Criterio de Seguridad de Ethical Hacking", 
 
 a|image::duracion.png[alt="Tiempo estimado de Ethical Hacking", width="55%"]
 
-a|== Duración específica
+2+a|== Duración específica
 
 Dependiendo del tamaño del hacking
 típicamente toma entre +1+ y +4+ meses.
 
-a|== Ciclos de hacking
+2+a|== Ciclos de hacking
 
 Al ser un proceso de hacking a una versión específica
 solo se contará con un ciclo de hacking.
@@ -65,13 +65,13 @@ a|image::ciclos.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
 
 a|image::seguimiento-proyecto.png[alt="Seguimiento del proyecto de Ethical Hacking", width="55%"]
 
-a|== Seguimiento personalizado
+2+a|== Seguimiento personalizado
 
 Cada proyecto tiene asignado un +project manager+
 a través del cual los clientes pueden gestionar todo lo necesario
 antes, durante y después de la ejecución.
 
-a|== Ejecución programada
+2+a|== Ejecución programada
 
 Se acuerda una fecha de inicio y una fecha de fin
 previa confirmación de los insumos necesarios para el inicio.
@@ -80,12 +80,12 @@ a|image::ejecucion-programada.png[alt="Ejecución programada de Ethical Hacking"
 
 a|image::ambientes-pruebas.png[alt="Ambientes para Ethical Hacking", width="55%"]
 
-a|== Ambientes de hacking
+2+a|== Ambientes de hacking
 
 Es posible elegir un único ambiente de hacking
 entre producción, pruebas e integración.
 
-a|== Equipo de hacking altamente calificado
+2+a|== Equipo de hacking altamente calificado
 
 Personal con certificaciones prácticas
 y estudios relacionados en temas de seguridad,
@@ -99,14 +99,14 @@ a|image::equipo.png[alt="Equipo técnico para Ethical Hacking", width="55%"]
 
 a|image::explotacion.png[alt="Explotación de vulnerabilidades de Ethical Hacking", width="55%"]
 
-a|== Explotación de hallazgos
+2+a|== Explotación de hallazgos
 
 Siempre que se tenga acceso a la aplicación desplegada
 y se cuente con autorización por parte del cliente
 para la afectación de ambientes
 usando nuestro motor de explotación propio [button]#link:../../productos/asserts/[Asserts]#.
 
-a|== Extracción de información crítica
+2+a|== Extracción de información crítica
 
 En los hallazgos donde es posible se extraen todos los registros comprometidos
 con el fin de maximizar el impacto generado y comprometer información sensible.
@@ -116,7 +116,7 @@ a|image::extraccion.png[alt="Información comprometida en Ethical Hacking", widt
 
 a|image::infeccion.png[alt="Infección en Ethical Hacking", width="55%"]
 
-a|== Infección
+2+a|== Infección
 
 De ser posible se compromete la infraestructura
 con el uso de archivos maliciosos con el fin de obtener información adicional,
@@ -125,7 +125,7 @@ Se hace uso de +shells+ y nuestro troyano personalizado
 [button]#link:../../productos/commands/[Commands]#
 con previa autorización por parte del cliente.
 
-a|== Envío diario de informes de avance
+2+a|== Envío diario de informes de avance
 
 Informes de avance diarios al correo electrónico
 con estadísticas de cobertura, rigurosidad,
@@ -135,13 +135,13 @@ a|image::informes-avance.png[alt="Informes de Avance en Ethical Hacking", width=
 
 a|image::integrates.png[alt="Hallazgos de Ethical Hacking", width="55%"]
 
-a|== Seguimiento de hallazgos a través de Integrates
+2+a|== Seguimiento de hallazgos a través de Integrates
 
 Durante la ejecución del proyecto es posible verificar
 los hallazgos reportados en nuestra plataforma
 [button]#link:../../productos/integrates/[Integrates]#.
 
-a|== Soporte de remediación.
+2+a|== Soporte de remediación.
 
 Durante el proyecto es posible solicitar aclaraciones
 directamente a los hackers mediante
@@ -154,12 +154,12 @@ a|image::remediacion.png[alt="Remediar un hallazgo de Ethical Hacking", width="5
 
 a|image::boveda-segura.png[alt="Intercambio de información de Ethical Hacking", width="55%"]
 
-a|== Entrega de informes vía bóveda segura
+2+a|== Entrega de informes vía bóveda segura
 
 Entrega de versión definitiva de informes con evidencias
 a través de un sitio de transferencia de archivos.
 
-a|== Reunión de validación
+2+a|== Reunión de validación
 
 Reunión con el equipo técnico
 para validar los informes y atender observaciones.
@@ -169,13 +169,13 @@ a|image::validacion-informes.png[alt="Validación de informes de Ethical Hacking
 
 a|image::reunion-entrega.png[alt="Reunión de entrega de Ethical Hacking", width="55%"]
 
-a|== Reunión de entrega
+2+a|== Reunión de entrega
 
 Presentación formal de informes ejecutivos a todos los interesados.
 Consta de dos reuniones presenciales: una de validación
 y una de socialización general.
 
-a|== Borrado seguro de información
+2+a|== Borrado seguro de información
 
 +7+ días hábiles luego de la aprobación final de los informes
 se borra toda la información de nuestros sistemas
@@ -184,7 +184,7 @@ a|image::borrado-informacion.png[alt="Borrado de evidencias de Ethical Hacking",
 
 a|image::retest.png[alt="Retest de Ethical Hacking", width="55%"]
 
-a|== Verificación de cierre (Opcional)
+2+a|== Verificación de cierre (Opcional)
 
 Se realiza un único ciclo validación de estado de los hallazgos
 hasta +3+ meses luego de la aprobación final de los informes iniciales,

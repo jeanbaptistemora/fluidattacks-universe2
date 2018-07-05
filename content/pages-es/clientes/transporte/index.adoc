@@ -9,11 +9,11 @@
 {description}
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 a|image::logo-avianca.png[alt="Logo Avianca",link="https://www.avianca.com/co/es/"]
 
-a|== Avianca
+2+a|== Avianca
 
 Marca comercial que representa a las aerolíneas latinoamericanas
 integradas en Avianca Holdings S.A. Especializadas en el transporte
@@ -21,7 +21,7 @@ de pasajeros y carga, atención directa en más de 100 destinos
 en +26+ países de América y Europa a bordo de una moderna flota de
 +172+ aeronaves de corto, mediano y largo alcance.
 
-a|== F2X
+2+a|== F2X
 
 Son la unión de +2+ compañías colombianas de ingeniería,
 con +12+ años de experiencia y presencia en +5+ países de Latinoamerica.

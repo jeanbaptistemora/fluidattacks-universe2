@@ -19,10 +19,10 @@ that we report in the shortest possible time.
 You can access the product [button]#link:../../defends/[here]#
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |===
 
-a|== Develop safely
+2+a|== Develop safely
 
 Build secure applications following our guidelines
 for different programming languages.
@@ -31,14 +31,14 @@ a|image::secure-code.png[Secure applications]
 
 a|image::server.png[Servers]
 
-a|== Configure your servers properly
+2+a|== Configure your servers properly
 
 For us it is important to ensure
 that your information is well protected from possible attackers,
 for that reason in +Defends+
 we explain how to properly configure both web servers and applications.
 
-a|== Set up user roles in your system
+2+a|== Set up user roles in your system
 
 We teach you how to configure different user roles
 according to their functionalities within the organization.
@@ -47,14 +47,14 @@ a|image::user-roles.png[User role]
 
 a|image::download-code.png[Download Code]
 
-a|== Download our sample code
+2+a|== Download our sample code
 
 All our sample material is available for download
 and documented step by step
 so that you can run it on your computer
 and you can perform your own tests according to the needs of your project.
 
-a|== Resources and guidelines updated
+2+a|== Resources and guidelines updated
 
 We ensure that our guides are up-to-date in terms of security,
 ensuring that your applications are more secure.

@@ -10,12 +10,12 @@
 {description}
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
 a|image::logo-cadena.png[alt="Logo Cadena",link="http://www.cadena.com.co/es/home.aspx"]
 
-a|== Cadena
+2+a|== Cadena
 
 Organización que brinda a sus clientes soluciones confiables
 para simplificar sus procesos críticos a través de la tecnología,
@@ -23,7 +23,7 @@ incrementando su eficiencia, sostenibilidad y rentabilidad.
 Tienen conocimiento de los procesos clave del negocio del cliente,
 integran las capacidades propias y de terceros.
 
-a|== Corona
+2+a|== Corona
 
 Multinacional colombiana con +135+ años de historia empresarial.
 Está compuesta por seis unidades estratégicas de negocio
@@ -41,7 +41,7 @@ a|image::logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
 
 a|image::logo-creative.png[alt="Logo Creative",link="http://www.cre8software.com/"]
 
-a|== Cre8tive
+2+a|== Cre8tive
 
 {usa} Empresa con experiencia en la fabricación y venta de muebles
 con un software dedicado a la fabricación de muebles
@@ -51,7 +51,7 @@ hoy QuickBooks, y se puede integrar con otros
 para que haya integridad con las transacciones
 y la publicación automática.
 
-a|== Grupo Argos
+2+a|== Grupo Argos
 
 Matriz del Grupo Empresarial de inversiones sostenibles en infraestructura.
 Su naturaleza jurídica corresponde a una sociedad anónima,
@@ -63,7 +63,7 @@ a|image::logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/
 
 a|image::logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
 
-a|== LAFRANCOL
+2+a|== LAFRANCOL
 
 Fabricantes y distribuidores a nivel nacional e internacional
 de productos farmacéuticos y alimentos funcionales de consumo humano
@@ -74,7 +74,7 @@ LAFRANCOL ha ido creciendo sostenidamente durante casi +100+ años
 alcanzando una posición de liderazgo en la industria farmacéutica nacional,
 tanto por su volumen de ventas como por su imagen de calidad.
 
-a|== Manuelita
+2+a|== Manuelita
 
 Organización agroindustrial diversificada, multilatina de origen colombiano,
 consolidada como una organización agroindustrial diversificada,
@@ -88,7 +88,7 @@ a|image::logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/
 
 a|image::logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-somos/"]
 
-a|== Odinsa
+2+a|== Odinsa
 
 Filial del Grupo Argos,
 es una compañía colombiana dedicada a la estructuración,

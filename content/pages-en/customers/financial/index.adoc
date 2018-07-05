@@ -10,17 +10,17 @@
 {description}
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
 a|image::logo-ach.png[alt="Logo ACH",link="https://www.achcolombia.com.co/inicio"]
 
-a|== ACH Colombia
+2+a|== ACH Colombia
 Organization created by enterprises of the financial sector
 that allows the exchange of financial transactions and information
 between the companies that comprise it
 
-a|== AVAL Group
+2+a|== AVAL Group
 
 Grupo Aval Acciones y Valores S.A.
 It is a Colombian holding dedicated to a great variety
@@ -36,7 +36,7 @@ a|image::logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/porta
 
 a|image::logo-bancamia.png[alt="Logo Bancamia",link="https://www.bancamia.com.co/sobre-nosotros"]
 
-a|== Bancamía
+2+a|== Bancamía
 
 Bank with a social sense
 that seeks to support the productive development of entrepreneurs
@@ -47,7 +47,7 @@ for the social and monetary development of the most disadvantaged communities,
 by providing products and services
 aimed at generating income and surplus through the development of a business.
 
-a|== Bancolombia
+2+a|== Bancolombia
 Colombian financial organization, belonging to the Sura Group,
 it is the largest private bank in Colombia (due to the size of its assets)
 and one of the largest in America.
@@ -56,7 +56,7 @@ a|image::logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobanc
 
 a|image::logo-delta.png[alt="Logo Banco Delta",link="https://www.bandelta.com/"]
 
-a|== Banco Delta
+2+a|== Banco Delta
 
 {panama} Microfinance Bank of Panama.
 Financing of working capital for micro and small businesses,
@@ -64,7 +64,7 @@ financing of fixed assets (vehicles, machinery and equipment),
 factoring, credit lines, commercial, mortgage and personal loans,
 financial leasing, deposit accounts and debit cards.
 
-a|== Banco del Pacífico
+2+a|== Banco del Pacífico
 {panama} Part of the International Banking Center
 integrated in the city of Panama,
 with institutions from more than +30+ countries.
@@ -76,14 +76,14 @@ a|image::logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.banco
 
 a|image::logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
 
-a|== Banistmo
+2+a|== Banistmo
 {panama} Panamanian organization that has the support of Grupo Bancolombia,
 a financial institution with +140+ years in the market,
 with presence in +10+ countries,
 more than +40+ thousand employees,
 +9+ million customers and +3821+ ATMs.
 
-a|== BBVA
+2+a|== BBVA
 Banco Bilbao Vizcaya Argentaria Colombia S.A.
 It is one of the first banks in the eurozone for profitability and efficiency;
 It is the first financial institution in Mexico
@@ -94,7 +94,7 @@ a|image::logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
 
 a|image::logo-cfa.png[alt="Logo CFA",link="http://www.cfa.com.co/"]
 
-a|== CFA
+2+a|== CFA
 
 Organization resulted of the merge of the cooperatives
 +DONMATÍAS+ and +COOBANCOQUIA+
@@ -103,7 +103,7 @@ the security of all their savings and social contributions,
 being a social and economic alternative for the associates
 of the two cooperatives to channel resources to finance productive activities.
 
-a|== Coopcentral
+2+a|== Coopcentral
 
 Bank owned by entities of the solidary sector,
 oriented to the specialized attention.
@@ -116,7 +116,7 @@ a|image::logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentr
 
 a|image::logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion"]
 
-a|== Colpatria
+2+a|== Colpatria
 Colpatria is a Colombian business group,
 with businesses in banking, insurance, construction and mining among others.
 Participating since 2012 in the Canadian bank Scotiabank as a partner,
@@ -125,7 +125,7 @@ Since 2014, the French insurance company AXA,
 which is the largest insurer in the world,
 acquired +51%+ of the general insurance and life unit.
 
-a|== Davivienda
+2+a|== Davivienda
 
 Recognized banking entity, part of the Bolivar business group,
 whose objective is to generate value for its shareholders, customers,
@@ -138,7 +138,7 @@ a|image::logo-davivienda.png[alt="Logo Davivienda",link="https://www.davivienda.
 
 a|image::logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
 
-a|== Deceval
+2+a|== Deceval
 
 Centralized Deposit of Securities of Colombia -DECEVAL SA-,
 is an institution in charge of the custody, administration,
@@ -148,7 +148,7 @@ merchandise representatives and financial instruments
 that are registered in the National Registry of Securities and Issuers,
 whether they are issued, negotiated or registered locally or abroad.
 
-a|== Protección
+2+a|== Protección
 
 Public limited company, financial services company
 and administrator of pension and severance funds.
@@ -163,7 +163,7 @@ a|image::logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.
 
 a|image::logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
 
-a|== Sura
+2+a|== Sura
 
 The SURA Business Group is a Latin American company
 in the Miscellaneous Financial Services sector,

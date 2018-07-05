@@ -17,10 +17,10 @@ and check if issues were properly repaired
 before system goes into production phase.
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
-a|== Ethical hacking can start before there is a working environment
+2+a|== Ethical hacking can start before there is a working environment
 
 Ethical Hacking can start along with code development,
 even before a first application version is released.
@@ -33,7 +33,7 @@ a|image::img2.png[alt="img2", width="55%"]
 
 a|image::img3.png[alt="img3", width="55%"]
 
-a|== Hacking techniques
+2+a|== Hacking techniques
 
 * Integral continuous hacking is achieved through application
 and infrastructure ethical hacking as well as source code analysis.
@@ -46,7 +46,7 @@ In order to perform limited continuous hacking,
 access to +GIT+ repository
 or integration environment is required.
 
-a|== Healthcheck
+2+a|== Healthcheck
 
 Whenever a new continuous ethical hacking subscription starts,
 if there are any previous developments is necessary to perform a healthcheck.
@@ -60,7 +60,7 @@ a|image::img6.png[alt="img6", width="55%"]
 
 a|image::img7.png[alt="img7", width="55%"]
 
-a|== Strictness
+2+a|== Strictness
 
 Customers are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling) through our
@@ -69,7 +69,7 @@ on each Ethical Hacking (Profiling) through our
 Customers will know the exact strictness for each hacking
 (For inspected and non-inspected profiled requirements).
 
-a|== Duration
+2+a|== Duration
 
 Minimum subscription time to continuous ethical hacking is one year.
 
@@ -77,14 +77,14 @@ a|image::img8.png[alt="img8", width="55%"]
 
 a|image::ciclos-continuo.png[alt="Ethical Hacking inspection cycles", width="55%"]
 
-a|== Attack Cycles
+2+a|== Attack Cycles
 
 During subscription time selected system will have multiple attack cycles
 on all different version generated during development cycle.
 A hacking team will be constantly attacking the system
 even if the functionalities had already been attacked in a previous version.
 
-a|== Direct and agile communication
+2+a|== Direct and agile communication
 
 All project communication is done through
 [button]#link:../../products/integrates/[Integrates]#,
@@ -94,14 +94,14 @@ a|image::img9.png[alt="img9", width="55%"]
 
 a|image::img10.png[alt="img10", width="55%"]
 
-a|== Hacking environments
+2+a|== Hacking environments
 
 Basic service allows customers to choose a single environment from production,
 testing or integration environment,
 customers can also add additional testing environments
 for finding validation with an additional charge.
 
-a|== Highly trained hacking team
+2+a|== Highly trained hacking team
 
 Our hackers are certified in practical hacking in real scenarios,
 they also have security related studies,
@@ -117,13 +117,13 @@ a|image::img11.png[alt="img11", width="55%"]
 
 a|image::img12.png[alt="img12", width="55%"]
 
-a|== Exploitation
+2+a|== Exploitation
 
 As long as we have access to deployed applications
 and customer authorization,
 using our own exploitation engine [button]#link:../../products/asserts/[Asserts]#
 
-a|== Critical information extraction
+2+a|== Critical information extraction
 
 Whenever findings make it possible to get information,
 all compromised records are extracted
@@ -134,7 +134,7 @@ a|image::img13.png[alt="img13", width="55%"]
 
 a|image::img15.png[alt="img15", width="55%"]
 
-a|== Follow up using Integrates
+2+a|== Follow up using Integrates
 
 During project execution customers can check out finding information,
 visualize real time project statistics,
@@ -143,7 +143,7 @@ classify findings according age,
 and other functionalities using our
 [button]#link:../../products/integrates/[Integrates]# product.
 
-a|== Remediation validation
+2+a|== Remediation validation
 
 Multiple finding validation cycles are performed during subscription time
 to assure findings have been properly repaired,
@@ -157,7 +157,7 @@ a|image::img16.png[alt="img16", width="55%"]
 
 a|image::img17.png[alt="img17", width="55%"]
 
-a|== Remediation support
+2+a|== Remediation support
 
 During the project customers can request clarifications directly to our hackers
 via [button]#link:../../products/integrates/[Integrates]#.
@@ -165,7 +165,7 @@ via [button]#link:../../products/integrates/[Integrates]#.
 Customers can use our detailed remediation guides
 via [button]#link:../../products/defends/[Defends]#.
 
-a|== Generate technical and executive reports from Integrates
+2+a|== Generate technical and executive reports from Integrates
 
 Technical report provides detailed information of each vulnerability.
 It is of great use to all technical personnel
@@ -177,7 +177,7 @@ a|image::img18.png[alt="img18", width="55%"]
 
 a|image::img19.png[alt="img19", width="55%"]
 
-a|== Information gets deleted securely
+2+a|== Information gets deleted securely
 
 +7+ days after customer's final report approval
 all information gathered during Ethical Hacking

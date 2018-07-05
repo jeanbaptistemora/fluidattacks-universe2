@@ -11,11 +11,11 @@
 {description}
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 a|image::logo-arus.png[alt="Logo Arus",link="https://www.arus.com.co/"]
 
-a|== Arus
+2+a|== Arus
 
 Company that delivers integrated information,
 technology and knowledge solutions,
@@ -24,7 +24,7 @@ Resource integrator, focused on delivering a secure platform
 to make social security payments through its platform +SuAporte+,
 meeting the needs in an agile, timely and reliable manner.
 
-a|== Ceiba Software
+2+a|== Ceiba Software
 
 Company with +9+ years in the market and +185+ engineers,
 specialized in the construction
@@ -39,7 +39,7 @@ a|image::logo-ceiba.png[alt="Logo Ceiba",link="https://www.ceiba.com.co/es"]
 
 a|image::logo-conexia.png[alt="Logo Conexia",link="http://conexia.com/es/index.html"]
 
-a|== Conexia
+2+a|== Conexia
 Service company focused on the health industry,
 born from a vision of developing a comprehensive solution
 capable of connecting all its participants.
@@ -48,7 +48,7 @@ that aim to provide a health service to the population;
 whether they are public entities, private medicine companies,
 providers, cooperatives, trade unions and insurers.
 
-a|== Cre8tive
+2+a|== Cre8tive
 
 {usa} Trusted business partner with more than +10+ year of experience
 supporting manufacturing best practices
@@ -62,7 +62,7 @@ a|image::logo-creative.png[alt="Logo Cre8tive",link="http://www.ctnd.com/"]
 
 a|image::logo-heinson.png[alt="Logo Heinson",link="https://www.heinsohn.com.co"]
 
-a|== Heinsohn
+2+a|== Heinsohn
 
 Company with extensive knowledge in all sectors of the industry,
 with experience in the main companies in Latin America and the USA;
@@ -74,7 +74,7 @@ They comply with the ISO 9001: 2000 standard
 and are valued with the highest level of quality
 of the CMMI Level +5+, version +1.3+ processes.
 
-a|== Indra
+2+a|== Indra
 
 {spain} One of the leading global technology
 and consulting companies for key business operations.
@@ -86,7 +86,7 @@ a|image::logo-indra.png[alt="Logo Indra",link="https://www.indracompany.com/"]
 
 a|image::logo-intergrupo.png[alt="Logo Intergrupo",link="http://www.intergrupo.com/"]
 
-a|== Intergrupo
+2+a|== Intergrupo
 
 Organization with a presence in the Latin American and Spanish markets,
 recognized for delivering solutions and integral services
@@ -96,7 +96,7 @@ It has an important trajectory in the market,
 thanks to the positioning that it has been obtaining
 for more than +20+ years of service.
 
-a|== Kometsales
+2+a|== Kometsales
 
 {usa} Web platform for the flower industry that simplifies and automates sales,
 purchasing and logistics processes.
@@ -108,7 +108,7 @@ a|image::logo-komet.png[alt="Logo KometSales",link="https://www.kometsales.com/"
 
 a|image::logo-pragma.png[alt="Logo Pragma",link="http://www.pragma.com.co/"]
 
-a|== Pragma
+2+a|== Pragma
 
 Organization that offers digital solutions to meet the needs of companies.
 Currently with offices in Bogota, Medellin and Cali,
@@ -116,7 +116,7 @@ integrated by a staff of professionals composed of creative and engineers.
 The portfolio consists of: Software Factory,
 Process Automation and Integration, Digital Agency, Portals and +CERO+.
 
-a|== PSL
+2+a|== PSL
 
 Organization worldwide recognized for the adoption
 of the best existing Software Engineering practices in the world.
@@ -129,7 +129,7 @@ a|image::logo-psl.png[alt="Logo PSL",link="http://www.psl.com.co/"]
 
 a|image::logo-s4n.png[alt="Logo S4N",link="http://s4n.co/"]
 
-a|== S4N
+2+a|== S4N
 
 Technology company dedicated to transforming the way
 in which each of its clients operates,
@@ -138,7 +138,7 @@ and have an absolute focus on the creation of value.
 Technology service providers that seek to transform organizations
 and improve people's lives by taking advantage of technologies and new trends.
 
-a|== VM2020
+2+a|== VM2020
 
 {usa} Organization with technology in the areas of Disaster Recovery
 and Cybernetic Resistance.

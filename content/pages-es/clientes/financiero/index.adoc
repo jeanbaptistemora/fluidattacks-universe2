@@ -10,17 +10,17 @@
 {description}
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
 a|image::logo-ach.png[alt="Logo ACH",link="https://www.achcolombia.com.co/inicio"]
 
-a|== ACH Colombia
+2+a|== ACH Colombia
 Organización creada por empresas del sector financiero
 que permite el intercambio de transacciones financieras e información
 entre las compañías que la conforman.
 
-a|== AVAL
+2+a|== AVAL
 
 El Grupo de Acciones y Valores S.A. es un holding colombiano
 dedicado a una gran variedad de actividades principalmente financieras.
@@ -35,7 +35,7 @@ a|image::logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/porta
 
 a|image::logo-bancamia.png[alt="Logo Bancamia",link="https://www.bancamia.com.co/sobre-nosotros"]
 
-a|== Bancamía
+2+a|== Bancamía
 
 Banco con sentido social
 que busca apoyar el desarrollo productivo de los emprendedores
@@ -48,7 +48,7 @@ para el desarrollo social y monetario de las comunidades más desfavorecidas,
 al proveerles productos y servicios encaminados a generar ingresos
 y excedentes por medio del desarrollo de un negocio.
 
-a|== Bancolombia
+2+a|== Bancolombia
 
 Bancolombia es una organización financiera colombiana,
 perteneciente al Grupo Sura, a su vez parte del Grupo Empresarial Antioqueño,
@@ -59,7 +59,7 @@ a|image::logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobanc
 
 a|image::logo-delta.png[alt="Logo Banco Delta",link="https://www.bandelta.com/"]
 
-a|== Banco Delta
+2+a|== Banco Delta
 
 {panama} Banco de Microfinanzas de Panamá.
 Financiamiento de capital de trabajo para la micro y pequeña empresa,
@@ -67,7 +67,7 @@ financiamientos de activos fijos (vehículos, maquinarias y equipos),
 factoring, lineas de crédito, prestamos comerciales, hipotecarios y personales,
 arrendamiento financiero, cuentas de depósitos y tarjetas de débito.
 
-a|== Banco del Pacifico
+2+a|== Banco del Pacifico
 
 {panama} Banco que forma parte del Centro Bancario Internacional
 integrado en la ciudad de Panamá,
@@ -80,14 +80,14 @@ a|image::logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.banco
 
 a|image::logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
 
-a|== Banistmo
+2+a|== Banistmo
 
 {panama} Organización panameña que cuenta con la solidez y el respaldo del
 Grupo Bancolombia, una entidad financiera con +140+ años en el mercado,
 con presencia en +10+ países, más de +40+ mil empleados,
 +9+ millones de clientes y +3821+ cajeros automáticos.
 
-a|== BBVA
+2+a|== BBVA
 
 Banco Bilbao Vizcaya Argentaria Colombia S.A.
 es uno de los primeros bancos de la eurozona por rentabilidad y eficiencia;
@@ -99,7 +99,7 @@ a|image::logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
 
 a|image::logo-cfa.png[alt="Logo CFA",link="http://www.cfa.com.co/"]
 
-a|== CFA
+2+a|== CFA
 
 Organización fusión de las cooperativas +DONMATÍAS+ y +COOBANCOQUIA+
 con los propósitos de garantizar a los asociados y ahorradores
@@ -108,7 +108,7 @@ siendo una alternativa social y económica
 para los asociados de las dos cooperativas
 y para canalizar recursos para financiar actividades productivas.
 
-a|== Coopcentral
+2+a|== Coopcentral
 
 Banco propiedad de entidades del sector solidario,
 orientado a la atención especializada de dicho sector.
@@ -121,7 +121,7 @@ a|image::logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentr
 
 a|image::logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion"]
 
-a|== Colpatria
+2+a|== Colpatria
 
 Colpatria es un grupo empresarial colombiano,
 con negocios en banca, seguros, construccion y mineria entre otros.
@@ -131,7 +131,7 @@ En cuanto a los seguros, desde 2014, la aseguradora francesa AXA,
 quien es la mayor aseguradora del mundo,
 adquirio el +51%+ de la unidad de seguros generales y vida.
 
-a|== Davivienda
+2+a|== Davivienda
 
 Reconocida entidad bancaria parte del grupo empresarial Bolivar,
 cuyo objetivo es generar valor para sus accionistas, clientes,
@@ -144,7 +144,7 @@ a|image::logo-davivienda.png[alt="Logo Davivienda",link="https://www.davivienda.
 
 a|image::logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
 
-a|== Deceval
+2+a|== Deceval
 
 Depósito Centralizado de Valores de Colombia -DECEVAL S.A.-,
 es una institución encargada de la custodia, administración,
@@ -154,7 +154,7 @@ de participación, representativos de mercancías e instrumentos financieros
 que se encuentren inscritos en el Registro Nacional de Valores y Emisores,
 ya sea que se emitan, negocien o registren localmente o en el exterior.
 
-a|== Protección
+2+a|== Protección
 
 Sociedad Anónima, Sociedad de Servicios Financieros
 y Administradora de fondos de Pensiones y Cesantías.
@@ -168,7 +168,7 @@ a|image::logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.
 
 a|image::logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
 
-a|== Sura
+2+a|== Sura
 
 El Grupo Empresarial SURA es una compañía latinoamericana
 del sector Servicios Financieros Diversos,

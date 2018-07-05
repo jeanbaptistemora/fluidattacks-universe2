@@ -9,12 +9,12 @@
 {description}
 
 [role="Comunicaciones tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
 a|image::logo-claro.png[alt="Logo Claro",link="https://www.claro.com.co/personas/institucional/"]
 
-a|== Claro
+2+a|== Claro
 
 Subsidiary television operator and mobile telephony company,
 subsidiary of Claro in Colombia.
@@ -24,7 +24,7 @@ Comcel joins Telmex Colombia S.A to make way for the América Móvil brand;
 offering mobile telephony and fixed telephony services,
 as well as television and mobile and fixed internet.
 
-a|== Edatel
+2+a|== Edatel
 
 Public Services Company incorporated as a corporation
 whose main corporate purpose is the organization,
@@ -35,7 +35,7 @@ a|image::logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuest
 
 a|image::logo-etb.png[alt="Logo ETB",link="https://etb.com/Corporativo/Sobre-ETB#historia", width="70%"]
 
-a|== ETB
+2+a|== ETB
 
 The Telecommunications Company of Bogotá,
 has contributed to the growth of Bogotá and Colombia during +132+ years.
@@ -44,7 +44,7 @@ of information and communication technologies,
 contributing to the strengthening of the information society,
 within the framework of corporate social responsibility.
 
-a|== Internexa
+2+a|== Internexa
 
 Colombian company dedicated to the carrier business and the energy sector.
 It has +48,866+ km of fiber optic network in Latin America.
@@ -55,7 +55,7 @@ a|image::logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/
 
 a|image::logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
 
-a|== Tigo UNE
+2+a|== Tigo UNE
 
 Colombian company that provides integrated telecommunications services,
 with shareholding in the Millicom Group and the EPM Group.

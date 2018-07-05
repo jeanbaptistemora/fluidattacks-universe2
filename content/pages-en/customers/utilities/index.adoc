@@ -9,11 +9,11 @@
 {description}
 
 [role="energia tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 a|image::logo-celsia.png[alt="Logo Celsia",link="http://www.celsia.com/"]
 
-a|== Celsia
+2+a|== Celsia
 
 Company that generates, transmits, distributes and sells electricity
 in Colombia, Costa Rica and Panama.
@@ -22,7 +22,7 @@ the company operates a total of +21+ hydroelectric plants,
 +5+ thermoelectric plants,
 and a wind farm, serving +580,000 residential+, commercial and industrial users.
 
-a|== Internexa
+2+a|== Internexa
 
 Colombian company dedicated to the carrier business and the energy sector.
 It has +48,866+ km of fiber optic network in Latin America.
@@ -33,7 +33,7 @@ a|image::logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/
 
 a|image::logo-xm.png[alt="Logo XM",link="https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx"]
 
-a|== XM
+2+a|== XM
 
 +ISA+ company specialized in the management of real-time systems.
 The management of real-time systems consists of the planning,

@@ -12,10 +12,10 @@ The rigorous inspection carried out by our team allows us to detect
 all existing security issues with no false positives.
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
-a|== Hacking techniques
+2+a|== Hacking techniques
 It's possible to perform source code,
 application or infrastructure Ethical Hacking.
 Customers are able to choose which hacking technique
@@ -25,7 +25,7 @@ a|image::ethical-hacking.png[alt="Ethical Hacking", width="55%"]
 
 a|image::cobertura.png[alt="Ethical Hacking Scope", width="55%"]
 
-a|== Coverage
+2+a|== Coverage
 
 Ethical Hacking can be done to achieve specific coverage,
 variable coverage or full coverage.
@@ -45,7 +45,7 @@ Full coverage refers to a system where its overall size can be assessed
 (application fields, lines of code, open ports)
 and the customer chooses to cover the entire system.
 
-a|== Strictness
+2+a|== Strictness
 
 Customers are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling)
@@ -58,12 +58,12 @@ a|image::criterio-seguridad.png[alt="Ethical Hacking Security Criteria", width="
 
 a|image::duracion.png[alt="Ethical Hacking estimated time", width="55%"]
 
-a|== Duration
+2+a|== Duration
 
 Depending on system size, a typical Ethical hacking
 lasts between +1+ and +4+ months.
 
-a|==  Inspection Cycles
+2+a|==  Inspection Cycles
 
 One-shot Ethical hacking seeks to attack a single version on your application
 therefore it has only one inspection cycle on the selected system.
@@ -72,12 +72,12 @@ a|image::ciclos.png[alt="Ethical Hacking inspection cycles", width="55%"]
 
 a|image::seguimiento-proyecto.png[alt="Ethical Hacking follow up", width="55%"]
 
-a|== Follow up
+2+a|== Follow up
 
 Each project will have a project manager,
 so customers can express their needs before, during and after execution.
 
-a|== Scheduled ethical hacking
+2+a|== Scheduled ethical hacking
 
 After all requirements to start an Ethical hacking have been met,
 each attack will have a defined start and finishing date.
@@ -86,13 +86,13 @@ a|image::ejecucion-programada.png[alt="Scheduled Ethical Hacking", width="55%"]
 
 a|image::ambientes-pruebas.png[alt="Ethical Hacking testing evironments", width="55%"]
 
-a|== Hacking environments
+2+a|== Hacking environments
 
 Customers are able to choose one hacking environment
 from their available software environments
 (production, development, integration, etc.)
 
-a|== Highly trained hacking team
+2+a|== Highly trained hacking team
 
 Our hackers are certified in practical hacking in real scenarios,
 they also have security related studies,
@@ -108,12 +108,12 @@ a|image::equipo.png[alt="Ethical Hacking team", width="55%"]
 
 a|image::explotacion.png[alt="Ethical Hacking exploitation", width="55%"]
 
-a|== Exploitation
+2+a|== Exploitation
 
 As long as we have access to deployed applications and customer authorization,
 using our own exploitation engine [button]#link:../../products/asserts/[Asserts]#.
 
-a|== Critical information extraction
+2+a|== Critical information extraction
 
 Whenever findings allow the extraction of information,
 all compromised records are extracted to maximize finding impact
@@ -124,7 +124,7 @@ a|image::extraccion.png[alt="Ethical Hacking compromised records", width="55%"]
 
 a|image::infeccion.png[alt="Ethical Hacking Infection", width="55%"]
 
-a|== Infection
+2+a|== Infection
 
 Whenever findings allow it, infrastructure gets infected
 with malicious files in order to get additional information,
@@ -133,7 +133,7 @@ We use +Shells+ and  our customized cyberweapon
 [button]#link:../../products/commands/[Commands]#
 with previous customer authorization.
 
-a|== Daily progress reports
+2+a|== Daily progress reports
 
 Daily progress reports are sent via e-mail,
 report include coverage, strictness, partial result and overall progress.
@@ -142,12 +142,12 @@ a|image::informes-avance.png[alt="Ethical Hacking Progress reports", width="55%"
 
 a|image::integrates.png[alt="Ethical Hacking findings", width="55%"]
 
-a|== Finding follow up using Integrates
+2+a|== Finding follow up using Integrates
 
 Customers can check out finding status during project execution
 using our [button]#link:../../products/integrates/[Integrates]# product.
 
-a|== Remediation
+2+a|== Remediation
 
 Customers can use our detailed remediation guides
 via [button]#link:../../products/defends/[Defends]#.
@@ -156,12 +156,12 @@ a|image::remediacion.png[alt="Ethical Hacking Finding Remediation", width="55%"]
 
 a|image::boveda-segura.png[alt="Ethical Hacking information interchange", width="55%"]
 
-a|== Reports delivered by secure vault
+2+a|== Reports delivered by secure vault
 
 Final report versions along with all evidences gathered
 are delivered to customers using a secure file transfer website.
 
-a|== Validation meeting
+2+a|== Validation meeting
 
 Each Ethical Hacking test includes a meeting
 with customer's technical team to validate reports.
@@ -172,13 +172,13 @@ a|image::validacion-informes.png[alt="Ethical Hacking report validation", width=
 
 a|image::reunion-entrega.png[alt="Ethical Hacking validation meeting", width="55%"]
 
-a|== Report presentation meeting
+2+a|== Report presentation meeting
 
 Formal executive report presentation meeting,
 where all project stakeholders can take part of it.
 It can take place personally or remotely according to customer's need.
 
-a|== Information gets deleted securely
+2+a|== Information gets deleted securely
 
 +7+ days after customer's final report approval
 all information gathered during Ethical Hacking
@@ -188,7 +188,7 @@ a|image::borrado-informacion.png[alt="Ethical Hacking evidence deletion", width=
 
 a|image::retest.png[alt="Ethical Hacking retest", width="55%"]
 
-a|== Remediation validation
+2+a|== Remediation validation
 
 Up to 3 months after final report approval,
 customers can request a remediation validation cycle

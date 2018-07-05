@@ -17,10 +17,10 @@ así como verificar su corrección efectiva
 antes de la salida a producción del sistema.
 
 [role="tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
 
-a|== Hacking antes que exista ambiente
+2+a|== Hacking antes que exista ambiente
 
 Se puede iniciar con las revisiones de seguridad
 desde el inicio del desarrollo,
@@ -32,7 +32,7 @@ a|image::img2.png[alt="img2", width="55%"]
 
 a|image::img3.png[alt="img3", width="55%"]
 
-a|== Tipos de hacking
+2+a|== Tipos de hacking
 
 * *Hacking Continuo Integral:*
 Se realiza hacking de aplicación (ambiente de integración),
@@ -44,7 +44,7 @@ o análisis de código fuente
 cuando se tiene acceso solo al ambiente de integración
 o al código fuente.
 
-a|== Healthcheck
+2+a|== Healthcheck
 
 Si al iniciar una suscripción ya hay desarrollos previos
 es necesario hacer un desatraso o +healthcheck+.
@@ -59,7 +59,7 @@ a|image::img6.png[alt="img6", width="55%"]
 
 a|image::img7.png[alt="img7", width="55%"]
 
-a|== Rigurosidad
+2+a|== Rigurosidad
 
 Es posible que el cliente decida cuáles requisitos de seguridad se revisarán
 en el hacking (perfilamiento) a través de nuestro producto
@@ -68,7 +68,7 @@ en el hacking (perfilamiento) a través de nuestro producto
 Además sabrá la rigurosidad exacta del hackeo
 (lo revisado y lo no revisado).
 
-a|== Duración
+2+a|== Duración
 
 La suscripción se contrata por espacio mínimo de un año
 
@@ -76,7 +76,7 @@ a|image::img8.png[alt="img8", width="55%"]
 
 a|image::ciclos-continuo.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
 
-a|== Ciclos de Ataque
+2+a|== Ciclos de Ataque
 Durante el tiempo de la suscripción se realizan múltiples ciclos de ataque
 a las diferentes versiones del código y/o aplicación
 que se generan durante el desarrollo del sistema,
@@ -84,7 +84,7 @@ nuestro equipo de hacking revisará constantemente
 las funcionalidades del sistema
 incluso cuando ya han sido probadas en versiones anteriores.
 
-a|== Comunicación directa y ágil
+2+a|== Comunicación directa y ágil
 
 Toda la comunicación del proyecto se hace a través de
 [button]#link:../../productos/integrates/[Integrates]#,
@@ -94,14 +94,14 @@ a|image::img9.png[alt="img9", width="55%"]
 
 a|image::img10.png[alt="img10", width="55%"]
 
-a|== Ambientes de hacking
+2+a|== Ambientes de hacking
 
 Es posible elegir un único ambiente de hacking entre producción,
 pruebas e integración con el servicio básico.
 También es posible adicionar ambientes
 para verificación de cierre de vulnerabilidades por un cargo adicional.
 
-a|== Equipo de hacking altamente calificado
+2+a|== Equipo de hacking altamente calificado
 
 Personal con certificaciones prácticas
 y estudios relacionados en temas de seguridad,
@@ -116,7 +116,7 @@ a|image::img11.png[alt="img11", width="55%"]
 
 a|image::img12.png[alt="img12", width="55%"]
 
-a|== Explotación de vulnerabilidades
+2+a|== Explotación de vulnerabilidades
 
 Siempre que se tenga acceso a la aplicación desplegada
 y se cuente con autorización por parte del cliente
@@ -124,7 +124,7 @@ para la afectación de ambientes
 usando nuestro motor de explotación propio
 [button]#link:../../productos/asserts/[Asserts]#.
 
-a|== Extracción de información crítica
+2+a|== Extracción de información crítica
 
 En las vulnerabilidades donde sea posible se extraen
 todos los registros comprometidos
@@ -136,7 +136,7 @@ a|image::img13.png[alt="img13", width="55%"]
 
 a|image::img15.png[alt="img15", width="55%"]
 
-a|== Seguimiento de vulnerabilidades a través de Integrates
+2+a|== Seguimiento de vulnerabilidades a través de Integrates
 
 Durante la ejecución del proyecto es posible verificar
 las vulnerabilidades reportados en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#,
@@ -144,7 +144,7 @@ así como visualizar en tiempo real estadísticas del proyecto,
 del estado de remediación de las vulnerabilidades,
 clasificar las vulnerabilidades por edad, entre otros.
 
-a|== Verificación de cierre
+2+a|== Verificación de cierre
 
 Se realizan múltiples ciclos de verificación
 para actualizar el estado de una vulnerabilidad
@@ -156,7 +156,7 @@ a|image::img16.png[alt="img16", width="55%"]
 
 a|image::img17.png[alt="img17", width="55%"]
 
-a|== Soporte de Remediación.
+2+a|== Soporte de Remediación.
 
 Durante el proyecto es posible solicitar aclaraciones
 directamente a los hackers
@@ -165,7 +165,7 @@ mediante [button]#link:../../productos/integrates/[Integrates]#.
 Es posible utilizar nuestras guias detalladas de remediación
 mediante [button]#link:../../productos/defends/[Defends]#.
 
-a|== Generar Informes Técnicos y ejecutivos desde Integrates
+2+a|== Generar Informes Técnicos y ejecutivos desde Integrates
 
 En el informe técnico se encuentra
 la información detallada de cada vulnerabilidad.
@@ -180,7 +180,7 @@ a|image::img18.png[alt="img18", width="55%"]
 
 a|image::img19.png[alt="img19", width="55%"]
 
-a|== Borrado seguro de información
+2+a|== Borrado seguro de información
 
 +7+ días hábiles luego de la aprobación final de los informes
 se borra toda la información de nuestros sistemas.

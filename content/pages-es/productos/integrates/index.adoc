@@ -19,9 +19,9 @@ del estado de seguridad de los sistemas.
 Puedes acceder al producto [button]#link:../../../../integrates[aquí]#
 
 [role="integrates tb-alt"]
-[cols=2, frame="none"]
+[cols=3, frame="topbot"]
 |====
-a|== Autenticación fácil y rápida
+2+a|== Autenticación fácil y rápida
 
 No se guardan las credenciales del usuario.
 La autenticación es federada
@@ -29,13 +29,13 @@ permitiendo así la autenticación con usuarios corporativos.
 a|image::autenticacion.png[Autenticación]
 
 a|image::menu-principal.png[Menú Principal]
-a|== Menú principal
+2+a|== Menú principal
 
 El dashboard permite a los usuarios tener acceso directo a todos sus proyectos.
 También es posible visualizar las eventualidades
 asociadas a cada uno de los proyectos.
 
-a|== Indicadores del proyecto
+2+a|== Indicadores del proyecto
 
 Permiten realizar un seguimiento del estado actual del proyecto.
 Algunos indicadores utilizados son:
@@ -47,7 +47,7 @@ a|image::indicadores.png[Indicadores]
 
 a|image::graficas.png[Gráficas]
 
-a|== Gráficas de Estado del Proyecto
+2+a|== Gráficas de Estado del Proyecto
 
 Se puede visualizar el estado actual
 de las vulnerabilidades que han sido reportadas, permitiendo así:
@@ -57,31 +57,31 @@ de las vulnerabilidades que han sido reportadas, permitiendo así:
 y cuántos son problemas de tipo higiene de seguridad.
 * Saber cuántas vulnerabilidades han sido solucionados y cuántas aun no.
 
-a|== Visualizar Eventualidades en Tiempo Real
+2+a|== Visualizar Eventualidades en Tiempo Real
 
 Se puede conocer en tiempo real
 los sucesos que impiden el desarrollo del proyecto.
 a|image::eventualidades.png[Eventualidades]
 
 a|image::seguimiento-usuarios.png[Seguimiento Usuarios]
-a|== Seguimiento de usuarios
+2+a|== Seguimiento de usuarios
 
 Se visualiza el último acceso de los usuarios a un proyecto.
 
-a|== Administración de usuarios
+2+a|== Administración de usuarios
 
 Un usuario puede dar / remover el acceso a otros usuarios
 por medio de este módulo.
 a|image::administracion-usuarios.png[Administración Usuarios]
 
 a|image::informe-tecnico.png[Informe Técnico]
-a|== Generar Informes Técnicos
+2+a|== Generar Informes Técnicos
 
 En este documento se encuentra la información detallada de cada vulnerabilidad.
 Es de gran utilidad para el personal técnico
 a la hora de darle una solución a las fallas de seguridad reportadas.
 
-a|== Generar Informes Ejecutivos
+2+a|== Generar Informes Ejecutivos
 
 En este documento se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad
@@ -89,7 +89,7 @@ para todas las personas en la cadena de valor del proyecto.
 a|image::informe-ejecutivo.png[Informe Ejecutivo]
 
 a|image::priorizar-remediacion.png[Priorizar Remediación]
-a|== Priorizar Remediación
+2+a|== Priorizar Remediación
 
 Las vulnerabilidades se pueden priorizar de acuerdo a diferentes parámetros.
 Esto con el fin de conocer cuáles necesitan una solución inmediata.
@@ -101,14 +101,14 @@ y la solución aplicada por el cliente.
 * *El estado:* Abierto, cerrado o parcialmente cerrado.
 * *El tratamiento:* Asumido, pendiente o remediar.
 
-a|== Visualizar Vulnerabilidades
+2+a|== Visualizar Vulnerabilidades
 
 Cada vulnerabilidad incluye información acerca del estado actual,
 así como su criticidad, tipo y fecha de reporte.
 a|image::vulnerabilidades.png[Vulnerabilidades]
 
 a|image::descripcion-vulnerabilidad.png[Descripción De La Vulnerabilidad]
-a|== Descripción de la Vulnerabilidad
+2+a|== Descripción de la Vulnerabilidad
 
 Se encuentra el detalle técnico
 que permite entender la naturaleza de la vulnerabilidad,
@@ -116,7 +116,7 @@ donde se encuentran los problemas de seguridad,
 requisitos incumplidos,
 riesgos y recomendaciones de solución.
 
-a|== Solicitar Verificación / Tratamiento
+2+a|== Solicitar Verificación / Tratamiento
 
 Los clientes pueden solicitar la revisión^1^
 de una vulnerabilidad que ha sido corregida
@@ -133,13 +133,13 @@ a|image::solicitar-verificacion.png[Solicitar Verificación]
 image::tratamiento.png[Tratamiento]
 
 a|image::severidad-vulnerabilidad.png[Severidad De La Vulnerabilidad]
-a|== Severidad de la Vulnerabilidad
+2+a|== Severidad de la Vulnerabilidad
 
 Se muestra la calificación técnica de la vulnerabilidad
 basado en el estándar +CVSS+ (Common Vulnerability Scoring System).
 Esto con el fin de determinar la criticidad de la vulnerabilidad.
 
-a|== Evidencias de la Vulnerabilidad
+2+a|== Evidencias de la Vulnerabilidad
 
 La existencia de una vulnerabilidad
 se muestra a través de una serie de evidencias (imagenes)
@@ -147,12 +147,12 @@ con su respectiva descripción.
 a|image::evidencia-vulnerabilidad.png[Evidencia De La Vulnerabilidad]
 
 a|image::animacion-explotacion.gif[Animación de Explotación]
-a|== Animación de Explotación
+2+a|== Animación de Explotación
 
 El proceso ejecutado para la explotación de la vulnerabilidad
 se muestra a través de una animación (+gif+).
 
-a|== Exploit de la Vulnerabilidad
+2+a|== Exploit de la Vulnerabilidad
 
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
@@ -166,7 +166,7 @@ es inyectado a la aplicación.
 a|image::explotacion-vulnerabilidad.png[Explotación De La Vulnerabilidad]
 
 a|image::linea-tiempo.png[Linea De Tiempo]
-a|== Línea de Tiempo de la Vulnerabilidad
+2+a|== Línea de Tiempo de la Vulnerabilidad
 
 Se encuentra la evolución de la vulnerabilidad a lo largo del tiempo,
 relacionando las fechas de reporte
@@ -174,7 +174,7 @@ y los diferentes ciclos de cierre realizados.
 Esta sección es de gran utilidad
 para conocer la efectividad de los ciclos de cierre realizados.
 
-a|== Registros Comprometidos
+2+a|== Registros Comprometidos
 
 Información como nombres, identificadores, saldos, productos, etc.
 que fue comprometida durante la ejecución del Ethical Hacking,
@@ -182,7 +182,7 @@ por medio de la explotación de una vulnerabilidad.
 a|image::registros.png[Registros Comprometidos]
 
 a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
-a|== Aclaraciones de Dudas Sobre las Vulnerabilidades
+2+a|== Aclaraciones de Dudas Sobre las Vulnerabilidades
 
 Los usuarios de la cadena de valor del proyecto incluyendo a Fluid Attacks,
 pueden intercambiar apreciaciones,
@@ -191,7 +191,7 @@ Esta sección es de gran utilidad
 para que los desarrolladores entiendan dónde se encuentra el problema,
 y así puedan darle una solución.
 
-a|== Chatea con Nosotros
+2+a|== Chatea con Nosotros
 
 Le permite a los usuarios resolver dudas con respecto a las vulnerabilidades
 o de la plataforma en sí.
@@ -202,7 +202,7 @@ cuando le den respuesta a las dudas realizadas.
 a|image::chat.png[Chat]
 
 a|image::correo.png[Correo]
-a|== Notificaciones Por Correo
+2+a|== Notificaciones Por Correo
 
 Se envían notificaciones vía correo electrónico
 a los usuarios de la cadena de valor del proyecto.
@@ -215,7 +215,7 @@ Algunas de ellas son:
 * Cuando una vulnerabilidad cumple cierta edad
 (15, 30, 60 días...) y no ha sido remediada.
 
-a|== Base De Conocimiento
+2+a|== Base De Conocimiento
 
 Los usuarios tienen acceso al producto de Fluid Attacks, [button]#link:../../defends/[Defends]#,
 el cual contiene ejemplos de cómo cumplir con los requisitos de seguridad
