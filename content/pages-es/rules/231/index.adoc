@@ -27,3 +27,10 @@ el acceso de una persona a las instalaciones basándose
 en su rol o función, incluyendo control de visitantes
 y control de acceso a software de la compañía
 para pruebas o revisión.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.31+]
+Verificar que los usuarios puedan inscribirse
+y usar la verificación TOTP, de dos factores, biométrico
+(Touch ID o similar) o un mecanismo equivalente de autenticación
+de múltiples factores que brinde protección
+contra la divulgación de credenciales de un solo factor.

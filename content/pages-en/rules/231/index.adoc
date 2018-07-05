@@ -25,3 +25,8 @@ Access Control and Validation Procedures: Implement procedures
 to control and validate a person's access to facilities
 based on their role or function, including visitor control,
 and control of access to software programs for testing and revision.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.31+]
+Verify that users can enrol and use TOTP verification, two-factor, biometric
+(Touch ID or similar), or equivalent multi-factor authentication mechanism
+that provides protection against single factor credential disclosure.
