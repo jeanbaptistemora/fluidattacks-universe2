@@ -1,0 +1,22 @@
+:slug: rules/224/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of random number in the organization. This requirement establishes the importance of using secure cryptographic mechanisms to generate random numbers used in data encryption.
+:keywords: Requirement, Security, Logical, Network, Segment, Areas
+:rules: yes
+:translate: rules/224/
+
+= REQ.224 Use secure cryptographic mechanisms
+
+== Requirement
+
+System must use the most secure cryptographic mechanism
+provided by the platform (e.g +java.security.SecureRandom+)
+for random number generation used in critical processes
+(e.g +ID generation, code mapping, cryptographic keys+)
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
+There is an explicit policy for how cryptographic keys (if any) are managed,
+and the lifecycle of cryptographic keys is enforced.
+Ideally, follow a key management standard such as +NIST SP 800-57+.

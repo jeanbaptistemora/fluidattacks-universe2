@@ -108,6 +108,10 @@
 
 * link:214/[REQ.214 Allow data destruction].
 
+== Numbers
+
+* link:224/[REQ.224 Use secure cryptographic mechanisms].
+
 == Authentication
 
 * link:226/[REQ.226 Avoid account lockouts].

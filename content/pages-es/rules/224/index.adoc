@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los números aleatorios. En este requerimiento se establece la importancia de implementar mecanismos criptográficos seguros para la generación de números aleatorios usados en procesos críticos.
 :keywords: Requerimiento, Seguridad, Aleatorios, Mecanismos, Criptográficos, Seguros.
 :rules: yes
+:translate: rules/224/
 
 = REQ.224 Usar mecanismos criptográficos seguros
 
@@ -17,3 +18,11 @@ para la generación de números aleatorios usados en procesos críticos
 
 . +ASPNET+ link:../../defends/aspnet/generar-aleatorios-seguros/[Generar aleatorios seguros].
 . +COBOL+ link:../../defends/cobol/generar-llaves/[Generar llaves].
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
+Verificar que exista una política explícita
+sobre cómo administrar las claves criptográficas (si las hay)
+y se impone el ciclo de vida de las claves criptográficas.
+Idealmente, seguir un estándar de gestión de claves como +NIST SP 800-57+.
