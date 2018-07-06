@@ -103,15 +103,17 @@ angular.module("FluidIntegrates").factory(
       /**
        * Make a request to delete a finding
        * @function deleteFinding
-       * @param {JSON} data Data about the finding, including id
+       * @param {Integer} findingid Numeric ID of a finding
+       * @param {JSON} data Data about the finding
        * @member integrates.projectFtry
        * @return {Object} Response with the status of the delete request
        */
-      "deleteFinding" (data) {
+      "deleteFinding" (findingid, data) {
         const oopsAc = "An error ocurred deleting finding";
         return $xhr.post($q, `${BASE.url}delete_finding`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          data
+          data,
+          findingid
         }, oopsAc);
       },
 

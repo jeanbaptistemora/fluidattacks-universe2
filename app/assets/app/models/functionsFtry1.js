@@ -136,9 +136,8 @@ angular.module("FluidIntegrates").factory(
             $scope.modalTitle =
                                $translate.instant("confirmmodal.title_finding");
             $scope.ok = function ok () {
-              $scope.vuln.id = updateData.id;
               // Make the request
-              const req = projectFtry.deleteFinding($scope.vuln);
+              const req = projectFtry.deleteFinding(updateData.id, $scope.vuln);
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {

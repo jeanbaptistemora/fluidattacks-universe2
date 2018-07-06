@@ -256,7 +256,7 @@ class FindingDTO(object):
         return {
             'mail_analista': analyst,
             'name_finding': finding,
-            'id_finding': parameter["data[id]"],
+            'id_finding': finding,
             'description': parameter["data[justification]"],
             'project': project,
         }

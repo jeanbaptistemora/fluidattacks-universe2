@@ -18,7 +18,7 @@ from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 # pylint: disable=E0402
 from . import util
-from .decorators import authenticate, authorize, require_project_access
+from .decorators import authenticate, authorize, require_project_access, require_finding_access
 from .techdoc.IT import ITReport
 from .dto.finding import FindingDTO
 from .dto.closing import ClosingDTO
@@ -1033,6 +1033,7 @@ def update_evidence_text(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_finding_access
 def get_exploit(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -1056,9 +1057,6 @@ def get_exploit(request):
                     return HttpResponse(file_obj.read(), content_type="text/plain")
             os.unlink(localtmp)
     else:
-        if fileid not in request.session:
-            rollbar.report_message('Error: Access to exploit denied', 'error', request)
-            return util.response([], 'Access denied', True)
         if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
             rollbar.report_message('Error: Invalid exploit ID format', 'error', request)
             return HttpResponse("Error - ID with wrong format", content_type="text/html")
@@ -1079,6 +1077,7 @@ def get_exploit(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_finding_access
 def get_records(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -1096,9 +1095,6 @@ def get_records(request):
             client_s3.download_file(bucket_s3, k, localtmp)
             return retrieve_csv(request, localtmp)
     else:
-        if fileid not in request.session:
-            rollbar.report_message('Error: Access to record file denied', 'error', request)
-            return util.response([], 'Access denied', True)
         if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
             rollbar.report_message('Error: Invalid record file ID format', 'error', request)
             return util.response([], 'ID with wrong format', True)
@@ -1270,16 +1266,17 @@ def update_eventuality(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
+@require_finding_access
 def delete_finding(request):
     """Capture and process the ID of an eventuality to eliminate it"""
+    submission_id = request.POST.get('findingid', "")
     parameters = request.POST.dict()
     username = request.session['username']
-    if catch_finding(request,parameters["data[id]"]) is None:
+    if catch_finding(request, submission_id) is None:
         return util.response([], 'Access denied', True)
     fin_dto = FindingDTO()
     try:
-        submission_id = parameters["data[id]"]
-        context = fin_dto.create_delete(parameters, username, "", "")
+        context = fin_dto.create_delete(parameters, username, "", submission_id)
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq, request)
