@@ -10,10 +10,10 @@ $white: rgba(255, 255, 255, 1);
   .subtitle {
     color: $fluid-black;
     display: block;
-    font-size: 18px;
     font-style: italic;
     line-height: 1;
     min-height: 32px;
+    text-align: center;
   }
 }
 

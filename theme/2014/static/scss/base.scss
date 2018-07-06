@@ -773,7 +773,7 @@ article {
 
 .subtitle {
   display: block;
-  font-size: 25px;
+  font-size: 18px;
   font-style: italic;
   text-align: center;
 }
@@ -921,6 +921,11 @@ article {
     width: 120ch !important;
   }
   //scss-lint:enable ImportantRule
+
+  .navcontent-info,
+  article {
+    max-width: 120ch;
+  }
 }
 
 @media print {
@@ -929,7 +934,6 @@ article {
   .ent2,
   .footer,
   hr,
-  hrcomments,
   .tblnext,
   .tdresponsive {
     display: none;

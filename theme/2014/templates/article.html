@@ -96,7 +96,7 @@
         <div class="article-title">
           <h1>{{ article.title }}</h1>
           {% if article.subtitle %}
-            <span class="subtitle"><strong>{{ article.subtitle }}</strong></span>
+            <span class="subtitle">{{ article.subtitle }}</span>
           {% endif %}
           <br>
           <div class="description">
@@ -140,6 +140,7 @@
         </td></tr>
       </table>
       <br/>
+      <hr>
       {% if article.related_posts %}
         <h4>{{ gettext('Articles-related-sect') }}</h4>
           <section class="sect-related">
@@ -151,7 +152,6 @@
             {% endfor %}
          </section>
        {% endif %}
-       <hr>
        {% if article.tags %}
          <section>
            <div class="tags">
@@ -161,24 +161,23 @@
            </div>
          </section>
        {% endif %}
+       <hr>
        <br />
        <div class="article-nav">
          <div class="prev-article">
            {% if article.prev_article %}
-             <div class="button"><a href="{{ SITEURL }}/{{ article.prev_article.url}}"><< {{ article.prev_article.title }}</a></div>
+             <a href="{{ SITEURL }}/{{ article.prev_article.url}}">&lt;&nbsp;{{ article.prev_article.title }}</a>
            {% endif %}
          </div>
          <div class="next-article">
            {% if article.next_article %}
-             <div class="button"><a href="{{ SITEURL }}/{{ article.next_article.url}}">{{ article.next_article.title }} >></a></div>
+             <a href="{{ SITEURL }}/{{ article.next_article.url}}">{{ article.next_article.title }}&nbsp;&gt;</a>
            {% endif %}
          </div>
        </div>
        <br />
        {% if DISQUS_SITENAME and SITEURL %}
-         <hr class="hrcoments">
          <div class="comments">
-           <h3>{{ gettext('Articles-disqus-sect') }}</h3>
            <div id="disqus_thread"></div>
            {% if DEFAULT_LANG == "es" %}
              <script type="text/javascript">
