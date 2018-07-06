@@ -4,7 +4,7 @@
 :variable: AsciiDoc
 :category: blog
 :plus: &#43
-:toc: yes
+//:toc: yes
 
 = Format
 
