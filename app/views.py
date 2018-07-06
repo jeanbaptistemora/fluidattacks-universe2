@@ -601,7 +601,7 @@ def get_users_login(request):
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
 def get_finding(request):
-    submission_id = request.POST.get('id', "")
+    submission_id = request.POST.get('findingid', "")
     finding = catch_finding(request, submission_id)
     if not finding is None:
         if finding['vulnerability'].lower() == 'masked':
@@ -806,7 +806,7 @@ def finding_vulnerabilities(submission_id):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidences(request):
-    finding_id = request.GET.get('id', None)
+    finding_id = request.GET.get('findingid', None)
     resp = integrates_dao.get_finding_dynamo(int(finding_id))
     return util.response(resp, 'Success', False)
 
@@ -1372,7 +1372,7 @@ def finding_verified(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 def get_remediated(request):
-    finding_id = request.GET.get('id', "")
+    finding_id = request.GET.get('findingid', "")
     remediated = integrates_dao.get_remediated_dynamo(int(finding_id))
     if remediated == []:
         return util.response({'remediated': False}, 'Success', False)
@@ -1395,7 +1395,7 @@ def get_comments(request):
         rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     else:
-        submission_id = request.GET.get('id', "")
+        submission_id = request.GET.get('findingid', "")
         comments = integrates_dao.get_comments_dynamo(int(submission_id), comment_type)
         json_data = []
         for row in comments:
@@ -1416,7 +1416,7 @@ def get_comments(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
 def add_comment(request):
-    submission_id = request.POST.get('id', "")
+    submission_id = request.POST.get('findingid', "")
     data = request.POST.dict()
     data["data[created]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -1484,7 +1484,7 @@ def get_alerts(request):
 @authorize(['admin'])
 # pylint: disable=R0101
 def accept_release(request):
-    parameters = request.POST.get('id', "")
+    parameters = request.POST.get('findingid', "")
     generic_dto = FindingDTO()
     try:
         finding = catch_finding(request, parameters)

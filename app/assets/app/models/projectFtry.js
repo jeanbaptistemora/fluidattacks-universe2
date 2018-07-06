@@ -40,17 +40,17 @@ angular.module("FluidIntegrates").factory(
       /**
        * Make a request to add new comment in a finding
        * @function addComment
-       * @param {String} id Numeric id of the finding
+       * @param {String} findingid Numeric id of the finding
        * @param {Object} data Data of the finding, including id of the comment
        * @member integrates.projectFtry
        * @return {Object} DynamoDB reponse about the post request
        */
-      "addComment" (id, data) {
+      "addComment" (findingid, data) {
         const oopsAc = "An error occurred adding comment";
         return $xhr.post($q, `${BASE.url}add_comment`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           data,
-          id
+          findingid
         }, oopsAc);
       },
       "alertEvents" (events) {
@@ -135,16 +135,16 @@ angular.module("FluidIntegrates").factory(
       /**
        * Return all the information for a specific findinf ID
        * @function findingById
-       * @param {Integer} id Numeric ID of a finding
+       * @param {Integer} findingid Numeric ID of a finding
        * @param {String} project Project name
        * @member integrates.projectFtry
        * @return {Object} Formstack response with the data of a finding
        */
-      "findingById" (id, project) {
+      "findingById" (findingid, project) {
         const oopsAc = "An error occurred getting finding";
         return $xhr.post($q, `${BASE.url}get_finding`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          id,
+          findingid,
           project
         }, oopsAc);
       },
@@ -202,18 +202,18 @@ angular.module("FluidIntegrates").factory(
       /**
        * Make a request to get the comments of a finding.
        * @function getComments
-       * @param {String} id Numeric id of the finding
+       * @param {String} findingid Numeric id of the finding
        * @param {String} project Project which finding belongs
        * @param {String} commentType Type of comment
        * @member integrates.projectFtry
        * @return {Object} Response by DynamoDB finding comments
        */
-      "getComments" (id, project, commentType) {
+      "getComments" (findingid, project, commentType) {
         const oopsAc = "An error ocurred getting comments";
         return $xhr.get($q, `${BASE.url}get_comments`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           commentType,
-          id,
+          findingid,
           project
         }, oopsAc);
       },
@@ -221,15 +221,15 @@ angular.module("FluidIntegrates").factory(
       /**
        * Make a request to get the evidences of a finding.
        * @function getEvidences
-       * @param {String} id Numeric id of finding
+       * @param {String} findingid Numeric id of finding
        * @member integrates.projectFtry
        * @return {Object} Response by DynamoDB and S3 with finding evidences
        */
-      "getEvidences" (id) {
+      "getEvidences" (findingid) {
         const oopsAc = "An error occurred getting evidences";
         return $xhr.get($q, `${BASE.url}get_evidences`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          id
+          findingid
         }, oopsAc);
       },
 
@@ -285,15 +285,15 @@ angular.module("FluidIntegrates").factory(
       /**
        * Return a boolean saying whether the finding was remediated or not.
        * @function remediatedView
-       * @param {String} id Numeric ID of a finding
+       * @param {String} findingid Numeric ID of a finding
        * @member integrates.projectFtry
        * @return {Object}  DynamoDB response about remediate status of a finding
        */
-      "remediatedView" (id) {
+      "remediatedView" (findingid) {
         const oopsAc = "An error occurred getting remediate state";
         return $xhr.get($q, `${BASE.url}get_remediated`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          id
+          findingid
         }, oopsAc);
       },
 

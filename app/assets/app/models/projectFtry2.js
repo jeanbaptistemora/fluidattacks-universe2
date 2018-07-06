@@ -20,15 +20,15 @@ angular.module("FluidIntegrates").factory(
       /**
        * Admin accept a release.
        * @function acceptRelease
-       * @param {String} id Finding id.
+       * @param {String} findingid Finding id.
        * @member integrates.projectFtry2
        * @return {Object} Formstack response with updated data
        */
-      "acceptRelease" (id) {
+      "acceptRelease" (findingid) {
         const oopsAc = "An error occurred accepting release";
         return $xhr.post($q, `${BASE.url}accept_release`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          id
+          findingid
         }, oopsAc);
       },
 

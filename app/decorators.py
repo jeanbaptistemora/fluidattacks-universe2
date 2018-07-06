@@ -64,3 +64,23 @@ def require_project_access(func):
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
     return verify_and_call
+
+def require_finding_access(func):
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        request = args[0]
+
+        if request.method == "POST":
+            findingid = request.POST.get('findingid', '')
+        else:
+            findingid = request.GET.get('findingid', '')
+
+        # Skip this check for admin users since they don't have any assigned projects
+        if not request.session['role'] == "admin":
+            for project in request.session['access'].keys():
+                if findingid in request.session['access'][project]:
+                    return func(*args, **kwargs)
+            rollbar.report_message('Error: Access to project denied', 'error', request)
+            return util.response([], 'Access denied', True)
+        return func(*args, **kwargs)
+    return verify_and_call
