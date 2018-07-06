@@ -102,3 +102,6 @@ sin almacenar información sensible
 como identificadores de sesión o contraseñas.
 Esto debe incluir tambien solicitudes con metadatos relevantes
 necesarios para las investigaciones de seguridad.
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.7+]
+Verificar que toda autenticación exitosa y re autenticación
+genere una nueva sesión y un nuevo identificador de sesión.
