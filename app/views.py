@@ -1297,12 +1297,14 @@ def delete_finding(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
+@require_finding_access
 def finding_solved(request):
     """ Send an email requesting the verification of a finding """
+    submission_id = request.POST.get('findingid', "")
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
     remediated = integrates_dao.add_remediated_dynamo(
-        int(parameters['data[findingId]']),
+        int(submission_id),
         True,
         parameters['data[project]'],
         parameters['data[findingName]'])
@@ -1320,7 +1322,7 @@ def finding_solved(request):
            'finding_name': parameters['data[findingName]'],
            'user_mail': parameters['data[userMail]'],
            'finding_url': parameters['data[findingUrl]'],
-           'finding_id': parameters['data[findingId]'],
+           'finding_id': submission_id,
            'finding_vulns': parameters['data[findingVulns]'],
            'company': request.session["company"],
            'solution': rem_solution,
@@ -1483,6 +1485,7 @@ def get_alerts(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['admin'])
+@require_finding_access
 # pylint: disable=R0101
 def accept_release(request):
     parameters = request.POST.get('findingid', "")
@@ -1528,12 +1531,13 @@ def accept_release(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['admin'])
+@require_finding_access
 def reject_release(request):
+    submission_id = request.POST.get('findingid', "")
     parameters = request.POST.dict()
     username = request.session['username']
     fin_dto = FindingDTO()
     try:
-        submission_id = parameters["data[id]"]
         findingData = catch_finding(request, submission_id)
         if "releaseDate" not in findingData:
             api = FormstackAPI()

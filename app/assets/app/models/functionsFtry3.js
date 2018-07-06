@@ -122,7 +122,6 @@ angular.module("FluidIntegrates").factory(
               $scope.remediatedData.findingName = mailData.findingName;
               $scope.remediatedData.project = mailData.project;
               $scope.remediatedData.findingUrl = mailData.findingUrl;
-              $scope.remediatedData.findingId = mailData.findingId;
               $scope.remediatedData.findingVulns = mailData.findingVulns;
               $scope.remediatedData.justification =
                                 $scope.remediatedData.justification.trim();
@@ -133,7 +132,10 @@ angular.module("FluidIntegrates").factory(
               }
               else {
                 // Make the request
-                const req = projectFtry.findingSolved($scope.remediatedData);
+                const req = projectFtry.findingSolved(
+                  mailData.findingId,
+                  $scope.remediatedData
+                );
                 // Capture the promise
                 req.then((response) => {
                   if (!response.error) {
@@ -174,7 +176,7 @@ angular.module("FluidIntegrates").factory(
                     data.remediated = true;
                     data.commentType = "comment";
                     projectFtry.addComment(
-                      $scope.remediatedData.findingId,
+                      mailData.findingId,
                       data
                     );
                   }

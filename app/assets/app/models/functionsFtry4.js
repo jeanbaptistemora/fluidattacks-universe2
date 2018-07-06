@@ -146,9 +146,11 @@ angular.module("FluidIntegrates").factory(
             $scope.modalTitle = $translate.
               instant("confirmmodal.reject_release");
             $scope.ok = function ok () {
-              $scope.rejectData.id = updateData.id;
               // Make the request
-              const req = projectFtry2.rejectRelease($scope.rejectData);
+              const req = projectFtry2.rejectRelease(
+                updateData.id,
+                $scope.rejectData
+              );
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {

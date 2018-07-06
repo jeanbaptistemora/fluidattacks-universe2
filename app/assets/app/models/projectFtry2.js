@@ -232,15 +232,17 @@ angular.module("FluidIntegrates").factory(
       /**
        * Admin reject a release.
        * @function rejectRelease
+       * @param {String} findingid Numeric id of the finding
        * @param {String} data Reject data.
        * @member integrates.projectFtry2
        * @return {Object} Formstack response with updated data
        */
-      "rejectRelease" (data) {
+      "rejectRelease" (findingid, data) {
         const oopsAc = "An error occurred rejecting release";
         return $xhr.post($q, `${BASE.url}reject_release`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          data
+          data,
+          findingid
         }, oopsAc);
       },
 

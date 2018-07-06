@@ -153,15 +153,17 @@ angular.module("FluidIntegrates").factory(
 
       /**
        * @function findingSolved
+       * @param {String} findingid Numeric id of the finding
        * @param {JSON} data Data about the finding, including id
        * @member integrates.projectFtry
        * @return {Object} Response about the verification request
        */
-      "findingSolved" (data) {
+      "findingSolved" (findingid, data) {
         const oopsAc = "An error occurred when remediating the finding";
         return $xhr.post($q, `${BASE.url}finding_solved`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          data
+          data,
+          findingid
         }, oopsAc);
       },
 
