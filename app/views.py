@@ -599,7 +599,7 @@ def get_users_login(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
-@require_project_access
+@require_finding_access
 def get_finding(request):
     submission_id = request.POST.get('findingid', "")
     finding = catch_finding(request, submission_id)
@@ -805,6 +805,7 @@ def finding_vulnerabilities(submission_id):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_finding_access
 def get_evidences(request):
     finding_id = request.GET.get('findingid', None)
     resp = integrates_dao.get_finding_dynamo(int(finding_id))
@@ -1368,6 +1369,7 @@ def finding_verified(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_finding_access
 def get_remediated(request):
     finding_id = request.GET.get('findingid', "")
     remediated = integrates_dao.get_remediated_dynamo(int(finding_id))
@@ -1382,7 +1384,7 @@ def get_remediated(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
-@require_project_access
+@require_finding_access
 def get_comments(request):
     comment_type = request.GET.get('commentType', "")
     if comment_type != 'comment' and comment_type != 'observation':
@@ -1412,6 +1414,7 @@ def get_comments(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_finding_access
 def add_comment(request):
     submission_id = request.POST.get('findingid', "")
     data = request.POST.dict()
@@ -1470,6 +1473,7 @@ def total_severity(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 def get_alerts(request):
     company = request.GET.get('company', None)
     project = request.GET.get('project', None)

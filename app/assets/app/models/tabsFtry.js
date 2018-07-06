@@ -31,7 +31,6 @@ angular.module("FluidIntegrates").factory(
           const comments =
                  projectFtry.getComments(
                    commentInfo.finding.id,
-                   $stateParams.project.toLowerCase(),
                    commentType
                  );
           comments.then((response) => {

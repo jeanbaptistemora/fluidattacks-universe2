@@ -205,18 +205,16 @@ angular.module("FluidIntegrates").factory(
        * Make a request to get the comments of a finding.
        * @function getComments
        * @param {String} findingid Numeric id of the finding
-       * @param {String} project Project which finding belongs
        * @param {String} commentType Type of comment
        * @member integrates.projectFtry
        * @return {Object} Response by DynamoDB finding comments
        */
-      "getComments" (findingid, project, commentType) {
+      "getComments" (findingid, commentType) {
         const oopsAc = "An error ocurred getting comments";
         return $xhr.get($q, `${BASE.url}get_comments`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           commentType,
-          findingid,
-          project
+          findingid
         }, oopsAc);
       },
 
