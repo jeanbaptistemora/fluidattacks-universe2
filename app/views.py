@@ -34,7 +34,7 @@ from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_reject_release
 from .mailer import send_mail_access_granted
-from .services import has_access_to_project
+from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -815,33 +815,34 @@ def get_evidences(request):
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, findingid, fileid):
-    if fileid is None:
-        rollbar.report_message('Error: Missing evidence image ID', 'error', request)
-        return HttpResponse("Error - Unsent image ID", content_type="text/html")
-    key_list = key_existing_list(findingid + "/" + fileid)
-    if key_list:
-        for k in key_list:
-            start = k.find(findingid) + len(findingid)
-            localfile = "/tmp" + k[start:]
-            ext = {'.png': '.tmp', '.gif': '.tmp'}
-            localtmp = replace_all(localfile, ext)
-            client_s3.download_file(bucket_s3, k, localtmp)
-            return retrieve_image(request, localtmp)
+    if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
     else:
-        if fileid not in request.session:
-            rollbar.report_message('Error: Access to evidence denied', 'error', request)
-            return util.response([], 'Access denied', True)
-        if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
-            rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
-            return HttpResponse("Error - ID with wrong format", content_type="text/html")
-        drive_api = DriveAPI(fileid)
-        # pylint: disable=W0622
-        if not drive_api.FILE:
-            rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
-            return HttpResponse("Error - Unable to download the image", content_type="text/html")
+        if fileid is None:
+            rollbar.report_message('Error: Missing evidence image ID', 'error', request)
+            return HttpResponse("Error - Unsent image ID", content_type="text/html")
+        key_list = key_existing_list(findingid + "/" + fileid)
+        if key_list:
+            for k in key_list:
+                start = k.find(findingid) + len(findingid)
+                localfile = "/tmp" + k[start:]
+                ext = {'.png': '.tmp', '.gif': '.tmp'}
+                localtmp = replace_all(localfile, ext)
+                client_s3.download_file(bucket_s3, k, localtmp)
+                return retrieve_image(request, localtmp)
         else:
-            filename = "/tmp/:id.tmp".replace(":id", fileid)
-            return retrieve_image(request, filename)
+            if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
+                rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
+                return HttpResponse("Error - ID with wrong format", content_type="text/html")
+            drive_api = DriveAPI(fileid)
+            # pylint: disable=W0622
+            if not drive_api.FILE:
+                rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
+                return HttpResponse("Error - Unable to download the image", content_type="text/html")
+            else:
+                filename = "/tmp/:id.tmp".replace(":id", fileid)
+                return retrieve_image(request, filename)
 
 def replace_all(text, dic):
     for i, j in dic.iteritems():

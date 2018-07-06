@@ -5,7 +5,7 @@ import functools
 import rollbar
 from django.http import HttpResponse
 # pylint: disable=E0402
-from .services import has_access_to_project
+from .services import has_access_to_project, has_access_to_finding
 from . import util
 
 
@@ -75,11 +75,7 @@ def require_finding_access(func):
         else:
             findingid = request.GET.get('findingid', '')
 
-        # Skip this check for admin users since they don't have any assigned projects
-        if not request.session['role'] == "admin":
-            for project in request.session['access'].keys():
-                if findingid in request.session['access'][project]:
-                    return func(*args, **kwargs)
+        if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
             rollbar.report_message('Error: Access to project denied', 'error', request)
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)

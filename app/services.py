@@ -37,6 +37,18 @@ def has_access_to_project(user, project_name, rol):
         return True
     return integrates_dao.has_access_to_project_dao(user, project_name)
 
+def has_access_to_finding(allowed_findings, findingid, rol):
+    """ Verify if the user has access to a finding submission. """
+    hasAccess = False
+    # Skip this check for admin users since they don't have any assigned projects
+    if rol == 'admin':
+        hasAccess = True
+    else:
+        for project in allowed_findings.keys():
+            if findingid in allowed_findings[project]:
+                hasAccess = True
+                break
+    return hasAccess
 
 def is_customeradmin(project, email):
     """Verify if a user is a customeradmin."""
