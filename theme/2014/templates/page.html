@@ -132,13 +132,11 @@
           {% if defendspage.slug == page.slug and (loop.previtem != undefined or loop.nextitem != undefined) %}
             <div class="article-nav">
               <div class="prev-article">
-                {% if loop.previtem != undefined %}
-                  <div class="button"><a href="../../../{{ loop.previtem.slug }}"><< {{ loop.previtem.title }}</a></div>
+                {% if loop.previtem != undefined %}<a href="../../../{{ loop.previtem.slug }}">&lt;&nbsp;{{ loop.previtem.title }}</a>
                 {% endif %}
               </div>
               <div class="next-article">
-                {% if loop.nextitem != undefined %}
-                  <div class="button"><a href="../../../{{ loop.nextitem.slug }}">{{ loop.nextitem.title }} >></a></div>
+                {% if loop.nextitem != undefined %}<a href="../../../{{ loop.nextitem.slug }}">{{ loop.nextitem.title }}&nbsp;&gt;</a>
                 {% endif %}
               </div>
             </div>
