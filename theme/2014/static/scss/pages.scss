@@ -103,10 +103,10 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.integrates {
-  h2 {
-    margin-left: 0;
-    text-align: center;
+.tb-product {
+  .button {
+    padding: 10px 60px;
+    text-transform: capitalize;
   }
 }
 

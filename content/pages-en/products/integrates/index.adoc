@@ -6,7 +6,11 @@
 
 = Integrates
 
-System where all the project's stakeholders come together
+[role="tb-product"]
+[cols="^.^", frame="none"]
+|====
+
+a|System where all the project's stakeholders come together
 (hacker, developer, project managers, auditors, product owner, etc).
 It aims to bring the developer and the hacker closer together
 in order to remediate all reported vulnerabilities
@@ -15,18 +19,21 @@ It also provides the decision makers
 with real time information
 regarding the state of their system´s security.
 
-You can access the product [button]#link:../../../../integrates[here]#
+a|You can access the product
 
-[role="integrates tb-alt"]
+a|[button]#link:../../../../integrates[here]#
+|====
+
+[role="tb-alt"]
 [cols=3, frame="topbot"]
 |====
 2+a|== Easy and Fast Authentication
 
 User credentials are not stored.
 Federated identity, thus allowing authentication with corporate users.
-a|image::authentication.png[Authentication]
+a|image::authentication.svg[Authentication]
 
-a|image::main-menu.png[Main Menu]
+a|image::main-menu.svg[Main Menu]
 2+a|== Main Menu
 
 The dashboard allows users direct access to all their projects.
@@ -40,9 +47,9 @@ Some of the used indicators are:
 * The amount of detected vulnerabilities.
 * The current severity of the project.
 * Remediated vulnerabilities.
-a|image::indicators.png[Indicators]
+a|image::indicators.svg[Indicators]
 
-a|image::graphs.png[Graphs]
+a|image::graphs.svg[Graphs]
 2+a|== Project Status Graphs
 
 You can view the current state of the reported vulnerabilities.
@@ -57,9 +64,9 @@ and how many are security issues or hygiene issues.
 
 All events that inhibit the execution of the project
 can be viewed in real time.
-a|image::eventualities.png[Events]
+a|image::eventualities.svg[Events]
 
-a|image::user-tracking.png[User Tracking]
+a|image::user-tracking.svg[User Tracking]
 2+a|== User tracking
 
 The last access of users to a project is displayed.
@@ -67,9 +74,9 @@ The last access of users to a project is displayed.
 2+a|== User Administration
 
 An user can grant / revoke access to other users using this module.
-a|image::user-administration.png[Administration Access]
+a|image::user-administration.svg[Administration Access]
 
-a|image::technical-report.png[Technical Report]
+a|image::technical-report.svg[Technical Report]
 2+a|== Generate Technical Reports
 
 This document provides detailed information of each vulnerability.
@@ -81,9 +88,9 @@ when it comes to remediating the reported security flaws.
 This document provides summarized and organized information.
 Thus, it may be useful for all the project's stakeholders.
 
-a|image::executive-report.png[Executive Report]
+a|image::executive-report.svg[Executive Report]
 
-a|image::prioritize-remediation.png[Prioritize Remediation]
+a|image::prioritize-remediation.svg[Prioritize Remediation]
 2+a|== Prioritize Remediation
 
 Vulnerabilities can be prioritized based on several parameters.

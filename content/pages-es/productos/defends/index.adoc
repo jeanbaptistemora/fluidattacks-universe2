@@ -6,7 +6,11 @@
 
 = Defends
 
-FLUIDDefends es un conjunto de procedimientos detallados
+[role="tb-product"]
+[cols="^.^", frame="none"]
+|====
+
+a|+Defends+ es un conjunto de procedimientos detallados
 que permiten programar de forma segura,
 configurar componentes de tecnología de forma segura
 y remediar vulnerabilidades de seguridad encontradas por nosotros.
@@ -14,7 +18,10 @@ Los procedimientos contienen capturas de pantalla
 y fragmentos de código comentados,
 explicando el procedimiento paso a paso.
 Los programas completos también son fácilmente descargables y compilables.
-Con FLUIDDefends usted puede remediar las vulnerabilidades que encontramos
+Con +Defends+ usted puede remediar las vulnerabilidades que encontramos
 en el menor tiempo posible.
 
-Puedes acceder al producto [button]#link:../../defends/[aquí]#
+a|Puedes acceder al producto
+
+a|[button]#link:../../defends/[aquí]#
+|====

@@ -6,7 +6,11 @@
 
 = Integrates
 
-Sistema donde confluyen todos los interesados
+[role="tb-product"]
+[cols="^.^", frame="none"]
+|====
+
+a|Sistema donde confluyen todos los interesados
 (hacker, desarrolladores, gerentes de proyectos,
 auditores, gerentes de producto, etc),
 de la cadena de valor del proyecto.
@@ -16,7 +20,10 @@ de manera eficiente y eficaz.
 También brinda información en tiempo real a los tomadores de decisiones
 del estado de seguridad de los sistemas.
 
-Puedes acceder al producto [button]#link:../../../../integrates[aquí]#
+a|Puedes acceder al producto
+
+a|[button]#link:../../../../integrates[aquí]#
+|====
 
 [role="integrates tb-alt"]
 [cols=3, frame="topbot"]
@@ -26,9 +33,9 @@ Puedes acceder al producto [button]#link:../../../../integrates[aquí]#
 No se guardan las credenciales del usuario.
 La autenticación es federada
 permitiendo así la autenticación con usuarios corporativos.
-a|image::autenticacion.png[Autenticación]
+a|image::autenticacion.svg[Autenticación]
 
-a|image::menu-principal.png[Menú Principal]
+a|image::menu-principal.svg[Menú Principal]
 2+a|== Menú principal
 
 El dashboard permite a los usuarios tener acceso directo a todos sus proyectos.
@@ -43,9 +50,9 @@ Algunos indicadores utilizados son:
 * La cantidad de vulnerabilidades encontradas.
 * La criticidad actual del proyecto.
 * Vulnerabilidades remediadas.
-a|image::indicadores.png[Indicadores]
+a|image::indicadores.svg[Indicadores]
 
-a|image::graficas.png[Gráficas]
+a|image::graficas.svg[Gráficas]
 
 2+a|== Gráficas de Estado del Proyecto
 
@@ -61,9 +68,9 @@ y cuántos son problemas de tipo higiene de seguridad.
 
 Se puede conocer en tiempo real
 los sucesos que impiden el desarrollo del proyecto.
-a|image::eventualidades.png[Eventualidades]
+a|image::eventualidades.svg[Eventualidades]
 
-a|image::seguimiento-usuarios.png[Seguimiento Usuarios]
+a|image::seguimiento-usuarios.svg[Seguimiento Usuarios]
 2+a|== Seguimiento de usuarios
 
 Se visualiza el último acceso de los usuarios a un proyecto.
@@ -72,9 +79,9 @@ Se visualiza el último acceso de los usuarios a un proyecto.
 
 Un usuario puede dar / remover el acceso a otros usuarios
 por medio de este módulo.
-a|image::administracion-usuarios.png[Administración Usuarios]
+a|image::administracion-usuarios.svg[Administración Usuarios]
 
-a|image::informe-tecnico.png[Informe Técnico]
+a|image::informe-tecnico.svg[Informe Técnico]
 2+a|== Generar Informes Técnicos
 
 En este documento se encuentra la información detallada de cada vulnerabilidad.
@@ -86,9 +93,9 @@ a la hora de darle una solución a las fallas de seguridad reportadas.
 En este documento se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad
 para todas las personas en la cadena de valor del proyecto.
-a|image::informe-ejecutivo.png[Informe Ejecutivo]
+a|image::informe-ejecutivo.svg[Informe Ejecutivo]
 
-a|image::priorizar-remediacion.png[Priorizar Remediación]
+a|image::priorizar-remediacion.svg[Priorizar Remediación]
 2+a|== Priorizar Remediación
 
 Las vulnerabilidades se pueden priorizar de acuerdo a diferentes parámetros.

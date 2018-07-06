@@ -914,7 +914,8 @@ article {
   }
 
    //scss-lint:disable ImportantRule
-  .tb-alt {
+  .tb-alt,
+  .tb-product {
     margin-left: -12ch;
     width: 120ch !important;
   }
