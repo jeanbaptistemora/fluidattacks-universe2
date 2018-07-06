@@ -10,7 +10,7 @@
 == Requisito
 
 Las contraseñas de acceso de un sistema a otro
-deben tener una longitud superior a 20 caracteres.
+deben tener una longitud superior a +20+ caracteres.
 
 == Referencias
 
@@ -18,3 +18,7 @@ deben tener una longitud superior a 20 caracteres.
 Verificar que los campos de entrada de las contraseñas permitan
 o sugieran sugieran el uso de contraseñas tipo frase,
 y que no se impida la entrada de frases largas o de alta complejidad.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.27+]
+Verificar que existan medidas para bloquear el uso
+de contraseñas comunes y +passphrases+ débiles.

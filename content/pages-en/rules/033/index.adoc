@@ -65,3 +65,5 @@ in order to perform deeper and more detailed attacks.
 . [[r3]] link:https://www.owasp.org/index.php/Category:Access_Control[Category:Access Control].
 . [[r4]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[Top 10 2013-A5-Security Misconfiguration].
 . [[r5]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.32+]
+Verify that access to administrative interfaces
+are strictly controlled and not accessible to untrusted parties.

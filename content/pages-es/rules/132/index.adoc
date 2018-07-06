@@ -39,3 +39,7 @@ para diferentes plataformas o lenguajes de programación:
 Verificar que los campos de entrada de las contraseñas permitan
 o sugieran sugieran el uso de contraseñas tipo frase,
 y que no se impida la entrada de frases largas o de alta complejidad.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.27+]
+Verificar que existan medidas para bloquear el uso
+de contraseñas comunes y +passphrases+ débiles.
