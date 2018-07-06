@@ -390,32 +390,63 @@ def validation_project_to_pdf(request, lang, doctype):
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     findings = []
-    user = request.session['username'].split("@")[0]
-    validator = validation_project_to_pdf(request, lang, doctype)
-    if validator is not None:
-        return validator
-    for reqset in FormstackAPI().get_findings(project)["submissions"]:
-        fin = catch_finding(request, reqset["id"])
-        if fin['fluidProject'].lower() == project.lower() and \
-                'releaseDate' in fin:
-            tzn = pytz.timezone('America/Bogota')
-            today_day = datetime.now(tz=tzn).date()
-            finding_last_vuln = datetime.strptime(
-                fin["releaseDate"].split(" ")[0],
-                '%Y-%m-%d'
-            )
-            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-            if finding_last_vuln <= today_day:
-                findings.append(fin)
-    pdf_maker = CreatorPDF(lang, doctype)
-    secure_pdf = SecurePDF()
-    findings = util.ord_asc_by_criticidad(findings)
-    report_filename = ""
+    if project.strip() == "":
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        return util.response([], 'Empty fields', True)
+    if not has_access_to_project(request.session['username'], project, request.session['role']):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
+    else:
+        user = request.session['username'].split("@")[0]
+        validator = validation_project_to_pdf(request, lang, doctype)
+        if validator is not None:
+            return validator
+        for reqset in FormstackAPI().get_findings(project)["submissions"]:
+            fin = catch_finding(request, reqset["id"])
+            if fin['fluidProject'].lower() == project.lower() and \
+                    'releaseDate' in fin:
+                tzn = pytz.timezone('America/Bogota')
+                today_day = datetime.now(tz=tzn).date()
+                finding_last_vuln = datetime.strptime(
+                    fin["releaseDate"].split(" ")[0],
+                    '%Y-%m-%d'
+                )
+                finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+                if finding_last_vuln <= today_day:
+                    findings.append(fin)
+        pdf_maker = CreatorPDF(lang, doctype)
+        secure_pdf = SecurePDF()
+        findings_ord = util.ord_asc_by_criticidad(findings)
+        findings = pdf_evidences(findings_ord)
+        report_filename = ""
+        if doctype == "tech":
+            pdf_maker.tech(findings, project, user)
+            report_filename = secure_pdf.create_full(user, pdf_maker.out_name)
+        elif doctype == "executive":
+            return HttpResponse("Disabled report generation", content_type="text/html")
+        else:
+            report_filename = presentation_pdf(project, pdf_maker, findings, user)
+            if report_filename == "Incorrect parametrization":
+                return HttpResponse("Incorrect parametrization", content_type="text/html")
+            elif report_filename == "Incomplete documentation":
+                return HttpResponse("Incomplete documentation", content_type="text/html")
+        if not os.path.isfile(report_filename):
+            rollbar.report_message('Error: Documentation has not been generated', 'error', request)
+            raise HttpResponse('Documentation has not been generated :(', content_type="text/html")
+        with open(report_filename, 'r') as document:
+            response = HttpResponse(document.read(),
+                                    content_type="application/pdf")
+            response['Content-Disposition'] = \
+                "inline;filename=:id.pdf".replace(":id", user + "_" + project)
+        return response
+
+def pdf_evidences(findings):
+    fin_dto = FindingDTO()
     for finding in findings:
         key_list = key_existing_list(finding['id'])
-        field_list = [FindingDTO().DOC_ACHV1, FindingDTO().DOC_ACHV2, \
-                    FindingDTO().DOC_ACHV3, FindingDTO().DOC_ACHV4, \
-                    FindingDTO().DOC_ACHV5]
+        field_list = [fin_dto.DOC_ACHV1, fin_dto.DOC_ACHV2, \
+                    fin_dto.DOC_ACHV3, fin_dto.DOC_ACHV4, \
+                    fin_dto.DOC_ACHV5]
         evidence_set = util.get_evidence_set_s3(finding, key_list, field_list)
         if evidence_set:
             finding["evidence_set"] = evidence_set
@@ -430,39 +461,27 @@ def project_to_pdf(request, lang, project, doctype):
             for evidence in evidence_set:
                 DriveAPI().download_images(evidence["id"])
                 evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
-    if doctype == "tech":
-        pdf_maker.tech(findings, project, user)
-        report_filename = secure_pdf.create_full(user, pdf_maker.out_name)
-    elif doctype == "executive":
-        return HttpResponse("Disabled report generation", content_type="text/html")
-    else:
-        project_info = get_project_info(project)
-        mapa_id = util.drive_url_filter(project_info["findingsMap"])
-        project_info["findingsMap"] = "image::../images/"+mapa_id+'.png[align="center"]'
-        DriveAPI().download_images(mapa_id)
-        nivel_sec = project_info["securityLevel"].split(" ")[0]
-        if not util.is_numeric(nivel_sec):
-            return HttpResponse("Incorrect parametrization", content_type="text/html")
-        nivel_sec = int(nivel_sec)
-        if nivel_sec < 0 or nivel_sec > 6:
-            return HttpResponse("Incorrect parametrization", content_type="text/html")
-        project_info["securityLevel"] = "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
-        print project_info
-        if not project_info:
-            return HttpResponse("Incomplete documentation", content_type="text/html")
-        pdf_maker.presentation(findings, project, project_info, user)
-        #secure_pdf = SecurePDF()
-        #report_filename = secure_pdf.create_only_pass(user, pdf_maker.out_name)
-        report_filename = pdf_maker.RESULT_DIR + pdf_maker.out_name
-    if not os.path.isfile(report_filename):
-        rollbar.report_message('Error: Documentation has not been generated', 'error', request)
-        raise HttpResponse('Documentation has not been generated :(', content_type="text/html")
-    with open(report_filename, 'r') as document:
-        response = HttpResponse(document.read(),
-                                content_type="application/pdf")
-        response['Content-Disposition'] = \
-            "inline;filename=:id.pdf".replace(":id", user + "_" + project)
-    return response
+    return findings
+
+def presentation_pdf(project, pdf_maker, findings, user):
+    project_info = get_project_info(project)
+    mapa_id = util.drive_url_filter(project_info["findingsMap"])
+    project_info["findingsMap"] = "image::../images/"+mapa_id+'.png[align="center"]'
+    DriveAPI().download_images(mapa_id)
+    nivel_sec = project_info["securityLevel"].split(" ")[0]
+    if not util.is_numeric(nivel_sec):
+        return "Incorrect parametrization"
+    nivel_sec = int(nivel_sec)
+    if nivel_sec < 0 or nivel_sec > 6:
+        return "Incorrect parametrization"
+    project_info["securityLevel"] = "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
+    if not project_info:
+        return "Incomplete documentation"
+    pdf_maker.presentation(findings, project, project_info, user)
+    #secure_pdf = SecurePDF()
+    #report_filename = secure_pdf.create_only_pass(user, pdf_maker.out_name)
+    report_filename = pdf_maker.RESULT_DIR + pdf_maker.out_name
+    return report_filename
 
 #pylint: disable-msg=R0913
 @never_cache
