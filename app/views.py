@@ -1015,6 +1015,7 @@ def migrate_all_files(parameters, request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
+@require_project_access
 def update_evidence_text(request):
     parameters = request.POST.dict()
     try:
@@ -1189,6 +1190,7 @@ def get_myprojects(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
+@require_project_access
 def update_cssv2(request):
     parameters = request.POST.dict()
     try:
@@ -1208,6 +1210,7 @@ def update_cssv2(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
+@require_project_access
 def update_description(request):
     parameters = request.POST.dict()
     try:

@@ -280,7 +280,7 @@ angular.module("FluidIntegrates").factory(
             $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
             $scope.ok = function ok () {
             // Make the request
-              const req = projectFtry.updateCSSv2(updateData);
+              const req = projectFtry.updateCSSv2(updateData, updateData.id);
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {
@@ -346,7 +346,7 @@ angular.module("FluidIntegrates").factory(
             data.evidenceDescription5 = description;
             data.field = "evidenceDescription5";
           }
-          const req = projectFtry.updateEvidenceText(data);
+          const req = projectFtry.updateEvidenceText(data, data.id);
           // Capture the promise
           req.then((response) => {
             if (!response.error) {

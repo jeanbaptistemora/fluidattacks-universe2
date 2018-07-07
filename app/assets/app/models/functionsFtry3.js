@@ -434,7 +434,8 @@ angular.module("FluidIntegrates").factory(
                                                  "title_description");
             $scope.ok = function ok () {
               // Make the request
-              const req = projectFtry.updateDescription(updateData);
+              const req =
+                       projectFtry.updateDescription(updateData, updateData.id);
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {

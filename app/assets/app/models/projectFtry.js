@@ -318,14 +318,16 @@ angular.module("FluidIntegrates").factory(
        * Make a request to update the severity section of a finding.
        * @function updateCSSv2
        * @param {JSON} data New data in the severity tab
+       * @param {String} findingid Finding id
        * @member integrates.projectFtry
        * @return {Object} Formstack response about severity update request
        */
-      "updateCSSv2" (data) {
+      "updateCSSv2" (data, findingid) {
         const oopsAc = "An error occurred updating CSSV2";
         return $xhr.post($q, `${BASE.url}update_cssv2`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          data
+          data,
+          findingid
         }, oopsAc);
       },
 
@@ -333,14 +335,16 @@ angular.module("FluidIntegrates").factory(
        * Make a request to update the description section of a finding.
        * @function updateDescription
        * @param {JSON} data New data in the description tab
+       * @param {String} findingid Finding id
        * @member integrates.projectFtry
        * @return {Object} Formstack response about description update request
        */
-      "updateDescription" (data) {
+      "updateDescription" (data, findingid) {
         const oopsAc = "An error occurred updating description";
         return $xhr.post($q, `${BASE.url}update_description`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          data
+          data,
+          findingid
         }, oopsAc);
       },
       "updateEvidenceFiles" (data, callbackFn, errorFn) {
@@ -381,11 +385,12 @@ angular.module("FluidIntegrates").factory(
           Rollbar.error("Error: An error ocurred getting finding by ID", err);
         }
       },
-      "updateEvidenceText" (data) {
+      "updateEvidenceText" (data, findingid) {
         const oopsAc = "An error occurred updating evidence description";
         return $xhr.post($q, `${BASE.url}update_evidence_text`, {
           "_": parseInt(secureRandom(5).join(""), 10),
-          data
+          data,
+          findingid
         }, oopsAc);
       },
 
