@@ -196,7 +196,8 @@ angular.module("FluidIntegrates").factory(
                                           "tab_description.verified_finding");
             $scope.ok = function ok () {
               // Make the request
-              const req = projectFtry.findingVerified(mailData);
+              const req =
+                     projectFtry.findingVerified(mailData, mailData.findingId);
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {
@@ -418,7 +419,8 @@ angular.module("FluidIntegrates").factory(
                                                  "update_treatmodal");
               $scope.ok = function ok () {
                 // Make the request
-                const req = projectFtry.updateTreatment(updateData);
+                const req =
+                        projectFtry.updateTreatment(updateData, updateData.id);
                 // Capture the promise
                 req.then((response) => {
                   if (!response.error) {

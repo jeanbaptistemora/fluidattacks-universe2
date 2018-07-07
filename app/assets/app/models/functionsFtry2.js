@@ -420,7 +420,11 @@ angular.module("FluidIntegrates").factory(
           }
           return true;
         };
-        projectFtry.updateEvidenceFiles(data, responseFunction, errorFunction);
+        projectFtry.updateEvidenceFiles(
+          data,
+          responseFunction,
+          errorFunction
+        );
         return true;
       }
     };

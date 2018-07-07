@@ -1015,7 +1015,7 @@ def migrate_all_files(parameters, request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
-@require_project_access
+@require_finding_access
 def update_evidence_text(request):
     parameters = request.POST.dict()
     try:
@@ -1190,7 +1190,7 @@ def get_myprojects(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
-@require_project_access
+@require_finding_access
 def update_cssv2(request):
     parameters = request.POST.dict()
     try:
@@ -1210,7 +1210,7 @@ def update_cssv2(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
-@require_project_access
+@require_finding_access
 def update_description(request):
     parameters = request.POST.dict()
     try:
@@ -1230,6 +1230,7 @@ def update_description(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
+@require_finding_access
 def update_treatment(request):
     parameters = request.POST.dict()
     try:
@@ -1340,6 +1341,7 @@ def finding_solved(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
+@require_finding_access
 def finding_verified(request):
     """ Send an email notifying that the finding was verified """
     parameters = request.POST.dict()
