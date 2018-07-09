@@ -193,7 +193,7 @@ def get_ext_filename(drive_id):
     if mime_type == "image/png":
         return filename+".png"
     elif mime_type == "image/jpeg":
-        return filename+".jgp"
+        return filename+".jpg"
     elif mime_type == "image/gif":
         return filename+".gif"
 

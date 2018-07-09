@@ -48,21 +48,19 @@ class DriveAPI(object):
         fh = io.FileIO(filename, 'wb')
         downloader = MediaIoBaseDownload(fh, request)
         done = False
-        while done is False:
-            try:
-                # pylint: disable=unused-variable
-                status, done = downloader.next_chunk()
-            except HttpError:
-                rollbar.report_message(
-                    'Error: Unable to download the file',
-                    'error')
-        if done:
+        try:
+            while not done:
+                done = downloader.next_chunk()
+
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
             if mime_type in ["image/png", "image/jpeg", "image/gif",
-                             "text/x-c", "text/x-python", "text/plain",
-                             "text/html"]:
+                             "text/x-c", "text/x-python",
+                             "text/plain", "text/html"]:
                 return fh
+        except HttpError:
+            rollbar.report_message('Error: Unable to download the file','error')
+
         return None
 
     def download_images(self, drive_file_id=""):
@@ -77,19 +75,17 @@ class DriveAPI(object):
         fh = io.FileIO(filename, 'wb')
         downloader = MediaIoBaseDownload(fh, request)
         done = False
-        while done is False:
-            try:
-                # pylint: disable=unused-variable
-                status, done = downloader.next_chunk()
-            except HttpError:
-                rollbar.report_message(
-                    'Error: Unable to download the image',
-                    'error')
-        if done:
+        try:
+            while not done:
+                done = downloader.next_chunk()
+
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
             if mime_type in ["image/png", "image/jpeg", "image/gif"]:
                 return fh
+        except HttpError:
+            rollbar.report_message('Error: Unable to download the image','error')
+
         return None
 
     def get_credentials(self):
