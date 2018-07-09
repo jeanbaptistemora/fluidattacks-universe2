@@ -181,6 +181,8 @@ angular.module("FluidIntegrates").controller(
       // Eventuality table configuration
       angular.element("#tblEventualities").bootstrapTable("destroy");
       angular.element("#tblEventualities").bootstrapTable({
+        "cookie": true,
+        "cookieIdTable": "saveIEvent",
         data,
         "locale": vlang,
         "onClickRow" (row) {

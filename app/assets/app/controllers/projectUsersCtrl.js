@@ -192,6 +192,8 @@ angular.module("FluidIntegrates").controller(
 
       angular.element("#tblUsers").bootstrapTable("destroy");
       angular.element("#tblUsers").bootstrapTable({
+        "cookie": true,
+        "cookieIdTable": "saveIdUser",
         data,
         "locale": vlang
       });

@@ -102,7 +102,15 @@
                                     <p><b>{{ search_findings.eventualities.description }}</b></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <table id="tblEventualities" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="false">
+                                    <table id="tblEventualities"
+                                            data-classes="table table-hover table-striped"
+                                            data-cookie="true"
+                                            data-cookie-id-table="saveIdEvent"
+                                            data-striped="true"
+                                            data-pagination="true"
+                                            data-page-size="15"
+                                            data-toolbar="#toolbar2"
+                                            data-search="false">
                                         <thead>
                                             <tr>
                                                 <th data-field="id" data-halign="center" data-valign="middle" data-width="5%">{{ search_findings.event_table.id }}</th>
