@@ -32,7 +32,7 @@ from .mailer import send_mail_remediate_finding
 from .mailer import send_mail_new_comment
 from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
-from .mailer import send_mail_reject_release
+from .mailer import send_mail_delete_draft
 from .mailer import send_mail_access_granted
 from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin
@@ -1538,9 +1538,8 @@ def accept_draft(request):
 @require_http_methods(["POST"])
 @authorize(['admin'])
 @require_finding_access
-def reject_draft(request):
+def delete_draft(request):
     submission_id = request.POST.get('findingid', "")
-    parameters = request.POST.dict()
     username = request.session['username']
     fin_dto = FindingDTO()
     try:
@@ -1555,7 +1554,6 @@ def reject_draft(request):
                'finding_name': finding['finding'],
                'admin_mail': username,
                'finding_id': submission_id,
-               'rejectionCause': parameters['data[justification]'],
             }
             result = api.delete_submission(submission_id)
             if result is None:
@@ -1563,7 +1561,7 @@ def reject_draft(request):
                 return util.response([], 'Error', True)
             to = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
                   "aroldan@fluidattacks.com", finding['analyst']]
-            send_mail_reject_release(to, context)
+            send_mail_delete_draft(to, context)
             return util.response([], 'success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)

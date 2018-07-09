@@ -103,8 +103,8 @@ findingContentCtrl (
   $scope.acceptDraft = function acceptDraft () {
     functionsFtry4.acceptDraft($scope);
   };
-  $scope.rejectDraft = function rejectDraft () {
-    functionsFtry4.rejectDraft($scope);
+  $scope.deleteDraft = function deleteDraft () {
+    functionsFtry4.deleteDraft($scope);
   };
   $scope.hasUrl = function hasUrl (element) {
     if (angular.isDefined(element)) {

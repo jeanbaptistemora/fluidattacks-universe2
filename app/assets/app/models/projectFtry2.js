@@ -213,6 +213,21 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Admin delete a draft.
+       * @function deleteDraft
+       * @param {String} findingid Numeric id of the finding
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with updated data
+       */
+      "deleteDraft" (findingid) {
+        const oopsAc = "An error occurred deleting draft";
+        return $xhr.post($q, `${BASE.url}delete_draft`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          findingid
+        }, oopsAc);
+      },
+
+      /**
        * Get drafts by project name.
        * @function draftsByName
        * @param {String} project Project name.
@@ -241,23 +256,6 @@ angular.module("FluidIntegrates").factory(
           "_": parseInt(secureRandom(5).join(""), 10),
           email,
           project
-        }, oopsAc);
-      },
-
-      /**
-       * Admin reject a draft.
-       * @function rejectDraft
-       * @param {String} findingid Numeric id of the finding
-       * @param {String} data Reject data.
-       * @member integrates.projectFtry2
-       * @return {Object} Formstack response with updated data
-       */
-      "rejectDraft" (findingid, data) {
-        const oopsAc = "An error occurred rejecting draft";
-        return $xhr.post($q, `${BASE.url}reject_draft`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
         }, oopsAc);
       },
 

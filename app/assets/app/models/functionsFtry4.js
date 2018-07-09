@@ -91,6 +91,64 @@ angular.module("FluidIntegrates").factory(
           "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
         });
       },
+      "deleteDraft" ($scope) {
+      // Get data
+        const descData = {"id": $scope.finding.id};
+        $uibModal.open({
+          "animation": true,
+          "backdrop": "static",
+          "controller" (
+            $scope,
+            $uibModalInstance,
+            updateData,
+            $stateParams,
+            $state
+          ) {
+            $scope.rejectData = {};
+            $scope.modalTitle = $translate.
+              instant("confirmmodal.delete_draft");
+            $scope.ok = function ok () {
+              // Make the request
+              const req = projectFtry2.deleteDraft(updateData.id);
+              // Capture the promise
+              req.then((response) => {
+                if (!response.error) {
+                  const updatedAt =
+                                 $translate.instant("proj_alerts.updatedTitle");
+                  const updatedAc =
+                                 $translate.instant("proj_alerts.updated_cont");
+                  $msg.success(updatedAc, updatedAt);
+                  // Mixpanel tracking
+                  mixPanelDashboard.trackFinding(
+                    "deleteDraft",
+                    userEmail,
+                    descData.id
+                  );
+                  $uibModalInstance.close();
+                  draftData = [];
+                  projectData = [];
+                  $state.go(
+                    "ProjectDrafts",
+                    {"project": $stateParams.project}
+                  );
+                }
+                else if (response.error) {
+                  const errorAc1 =
+                                $translate.instant("proj_alerts.error_textsad");
+                  Rollbar.error("Error: An error occurred rejecting draft");
+                  $msg.error(errorAc1);
+                }
+              });
+            };
+            $scope.close = function close () {
+              $uibModalInstance.close();
+            };
+          },
+          "keyboard": false,
+          "resolve": {"updateData": descData},
+          "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
+        });
+      },
       "loadIndicatorsContent" ($scope, datatest) {
         const org = Organization.toUpperCase();
         const projt = $stateParams.project.toUpperCase();
@@ -128,67 +186,6 @@ angular.module("FluidIntegrates").factory(
           $scope.view.finding = false;
         }
         $scope.data = datatest;
-      },
-      "rejectDraft" ($scope) {
-      // Get data
-        const descData = {"id": $scope.finding.id};
-        $uibModal.open({
-          "animation": true,
-          "backdrop": "static",
-          "controller" (
-            $scope,
-            $uibModalInstance,
-            updateData,
-            $stateParams,
-            $state
-          ) {
-            $scope.rejectData = {};
-            $scope.modalTitle = $translate.
-              instant("confirmmodal.reject_draft");
-            $scope.ok = function ok () {
-              // Make the request
-              const req = projectFtry2.rejectDraft(
-                updateData.id,
-                $scope.rejectData
-              );
-              // Capture the promise
-              req.then((response) => {
-                if (!response.error) {
-                  const updatedAt =
-                                 $translate.instant("proj_alerts.updatedTitle");
-                  const updatedAc =
-                                 $translate.instant("proj_alerts.updated_cont");
-                  $msg.success(updatedAc, updatedAt);
-                  // Mixpanel tracking
-                  mixPanelDashboard.trackFinding(
-                    "rejectDraft",
-                    userEmail,
-                    descData.id
-                  );
-                  $uibModalInstance.close();
-                  draftData = [];
-                  projectData = [];
-                  $state.go(
-                    "ProjectDrafts",
-                    {"project": $stateParams.project}
-                  );
-                }
-                else if (response.error) {
-                  const errorAc1 =
-                                $translate.instant("proj_alerts.error_textsad");
-                  Rollbar.error("Error: An error occurred rejecting draft");
-                  $msg.error(errorAc1);
-                }
-              });
-            };
-            $scope.close = function close () {
-              $uibModalInstance.close();
-            };
-          },
-          "keyboard": false,
-          "resolve": {"updateData": descData},
-          "templateUrl": `${BASE.url}assets/views/project/rejectMdl.html`
-        });
       },
       "verifyRoles" ($scope, projectName, userEmail, userRole) {
         const customerAdmin =

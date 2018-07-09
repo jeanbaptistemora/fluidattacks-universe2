@@ -49,8 +49,7 @@ const traducciones2 = {
   "project_buttons": {
     "accept": "Aceptar",
     "back": "Volver",
-    "delete": "Eliminar",
-    "reject": "Rechazar"
+    "delete": "Eliminar"
   },
   "project_labels":
   {
@@ -103,7 +102,6 @@ const traducciones2 = {
     "recommendation": "Recomendación",
     "recommendationTooltip": "Recomendación general que se da para evitar " +
                               "esta falla de seguridad",
-    "reject": "Justificación",
     "remediated": "Solicitar Verificación",
     "remediated_finding": "Hallazgo remediado",
     "requirements": "Requisitos",
