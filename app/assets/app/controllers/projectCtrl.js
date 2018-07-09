@@ -41,7 +41,6 @@ angular.module("FluidIntegrates").controller(
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-      functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
       // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;
@@ -53,6 +52,7 @@ angular.module("FluidIntegrates").controller(
       if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
+        functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
         $scope.search();
       }
       // Search function assignation to button and enter key configuration.
