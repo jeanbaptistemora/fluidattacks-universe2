@@ -40,6 +40,7 @@ angular.module("FluidIntegrates").controller(
             eventsData = [];
             findingData = {};
             mixpanel.track("Logged out");
+            localStorage.clear();
             $window.location = `${BASE.url}logout`;
           };
         },
@@ -64,7 +65,6 @@ angular.module("FluidIntegrates").controller(
       $translate.use(localStorage.lang);
       mixpanel.identify(userEmail);
       mixpanel.people.set({"$Language": localStorage.lang});
-      $window.location.reload();
     };
 
     $scope.loadDashboard = function loadDashboard () {
@@ -116,6 +116,7 @@ angular.module("FluidIntegrates").controller(
                 }
                 const statusReq = registerFactory.updateLegalStatus("1");
                 statusReq.then(() => {
+                  $uibModalInstance.close();
                   $scope.loadDashboard();
                 });
               }
@@ -140,6 +141,12 @@ angular.module("FluidIntegrates").controller(
         "windowClass": "modal avance-modal"
       });
     };
-    $scope.showLegalNotice();
+    if (localStorage.getItem("showAlreadyLoggedin") === "1") {
+      angular.element("#alreadyLoggedin").show();
+      localStorage.clear();
+    }
+    else {
+      $scope.showLegalNotice();
+    }
   }
 );

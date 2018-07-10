@@ -394,6 +394,16 @@ const traducciones1 = {
   "verified_success": "El hallazgo fue marcado como remediado.",
   "wrong_severity": "Debes calcular correctamente la severidad"
 },
+  "registration": {
+    "continue_btn": "Continuar como",
+    "greeting": "Hola",
+    "logged_in_message": "Por favor ciérrala antes de intentar " +
+                          "acceder con otra cuenta",
+    "logged_in_title": "Ya has iniciado sesión",
+    "not_authorized": "Aún no tienes autorización para ingresar. " +
+                      "Por favor contacta al personal de FLUID o a tu " +
+                      "administrador de proyecto para obtener acceso."
+  },
   "reports":
 {
   "executive_report_mod":

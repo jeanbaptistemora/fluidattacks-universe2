@@ -73,6 +73,7 @@ angular.module("FluidIntegrates").controller(
               userEmail,
               org
             );
+            localStorage.clear();
             $window.location = `${BASE.url}logout`;
           };
         },

@@ -36,6 +36,7 @@
         "$last_name": "{{ request.session.last_name }}",
         "$last_login": new Date(),
     });
+    var userEmail = "{{ request.session.username }}";
     if (location.toString().indexOf("localhost:8000") == -1){
       mixpanel.track(
           "Logged In", {
@@ -45,7 +46,7 @@
     }
     </script>
   </head>
-  <body ng-cloak class="am-splash-screen" ng-app="FluidIntegrates">
+  <body ng-cloak class="am-splash-screen" ng-app="FluidIntegrates" ng-controller="registerCtrl">
     <div class="am-wrapper">
       <nav class="navbar navbar-default navbar-fixed-top am-top-header">
         <div class="container-fluid">
@@ -55,7 +56,7 @@
             </div>
             <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="dashboard" class="navbar-brand"></a>
           </div><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
-          <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="registerCtrl">
+          <div id="am-navbar-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav am-nav-right no-title-responsive">
             <li><a ui-sref="home" style="font-size: 2em;"><h1>Integrates</h1></a></li>
             </ul>
@@ -107,12 +108,25 @@
                 <div class="panel-heading">
                   <span style="color: white;">
                     <br>
-                    <h1>Hello {{ user.first_name }}!</h1>
+                    <h1>{% templatetag openvariable %}'registration.greeting' | translate{% templatetag closevariable %} {{ user.first_name }}!</h1>
                     <br>
                     <p id="notAuthorizedTxt" style="display: none">
-                      You do not have authorization for login yet.
-                      Please contact FLUID's staff or your project administrator to get access.
-                    </p>
+                      {% templatetag openvariable %}'registration.not_authorized' | translate{% templatetag closevariable %}
+                    <div id="alreadyLoggedin" style="display: none">
+                      <span style="color: white;">
+                        <br>
+                        <h3>{% templatetag openvariable %}'registration.logged_in_title' | translate{% templatetag closevariable %}</h3>
+                        <br>
+                        <p>
+                        {% templatetag openvariable %}'registration.logged_in_message' | translate{% templatetag closevariable %}
+                        </p>
+                        <div class="row">
+                          <button class="btn btn-danger btn-block google" ng-click="showLegalNotice()">
+                            <label class="pull-center">{% templatetag openvariable %}'registration.continue_btn' | translate{% templatetag closevariable %} {{ user.email }}</label>
+                          </button>
+                        </div>
+                        </span>
+                    <div>
                   </span>
                 </div>
               </div>
