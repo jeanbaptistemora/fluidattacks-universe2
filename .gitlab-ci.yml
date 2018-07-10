@@ -90,6 +90,9 @@ test_terraform:
     - mkdir infrastructure/vars
     - cd infrastructure
     - torus run -- ./set-tfvars.sh
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
+        terraform.tfstate || echo "No previous state found"
   script:
     - terraform init
     - tflint --var-file="vars/aws.tfvars"
