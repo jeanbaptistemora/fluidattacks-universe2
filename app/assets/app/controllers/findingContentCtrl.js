@@ -163,7 +163,7 @@ findingContentCtrl (
       $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasDraft = findingData.hasDraft;
-      if ($scope.isAdmin && !findingData.hasDraft) {
+      if ($scope.isAdmin && findingData.hasDraft) {
         $scope.draftsButton = true;
       }
       else {
@@ -193,11 +193,11 @@ findingContentCtrl (
           else {
             $scope.isContinuous = false;
           }
-          if (angular.isDefined($scope.finding.releaseDate)) {
+          if (angular.isUndefined($scope.finding.releaseDate)) {
             $scope.hasDraft = true;
           }
           findingData.hasDraft = $scope.hasDraft;
-          if ($scope.isAdmin && !findingData.hasDraft) {
+          if ($scope.isAdmin && findingData.hasDraft) {
             $scope.draftsButton = true;
           }
           else {
