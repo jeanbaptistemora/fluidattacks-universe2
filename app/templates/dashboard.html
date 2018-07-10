@@ -42,7 +42,7 @@
     var projectData = [];
     var eventsData = [];
     var findingData = {};
-    var releaseData = [];
+    var draftData = [];
     mixpanel.identify("{{ request.session.username }}");
     mixpanel.people.set({
         "$email": "{{ request.session.username }}",
@@ -226,7 +226,7 @@
     <script src="assets/app/controllers/projectEventsCtrl.js" type="text/javascript"></script>
     <script src="assets/app/controllers/projectUsersCtrl.js" type="text/javascript"></script>
     <script src="assets/app/controllers/reportGeneratorCtrl.js" type="text/javascript"></script>
-    <script src="assets/app/controllers/projectReleasesCtrl.js" type="text/javascript"></script>
+    <script src="assets/app/controllers/projectDraftsCtrl.js" type="text/javascript"></script>
     <!-- End Project -->
     <script src="assets/app/controllers/findingContentCtrl.js" type="text/javascript"></script>
     <script src="assets/dashboard/bundle.min.js" type="text/javascript"></script>

@@ -148,8 +148,8 @@ def project_findings(request):
 @never_cache
 @authenticate
 @authorize(['analyst', 'admin'])
-def project_releases(request):
-    "Releases date of findings"
+def project_drafts(request):
+    "Drafts view"
     language = request.GET.get('l', 'en')
     dicLang = {
         "search_findings": {
@@ -204,7 +204,7 @@ def project_releases(request):
                 }
             }
         }
-    return render(request, "project/releases.html", dicLang)
+    return render(request, "project/drafts.html", dicLang)
 
 @never_cache
 @authenticate
@@ -618,8 +618,8 @@ def get_finding(request):
 @require_project_access
 # pylint: disable=R0912
 # pylint: disable=R0914
-def get_releases(request):
-    """Capture and process the name of a project to return the releases."""
+def get_drafts(request):
+    """Capture and process the name of a project to return the drafts."""
     project = request.GET.get('project', "")
     api = FormstackAPI()
     findings = []
@@ -1493,7 +1493,7 @@ def get_alerts(request):
 @authorize(['admin'])
 @require_finding_access
 # pylint: disable=R0101
-def accept_release(request):
+def accept_draft(request):
     parameters = request.POST.get('findingid', "")
     generic_dto = FindingDTO()
     try:
@@ -1528,7 +1528,7 @@ def accept_release(request):
             if request:
                 integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True, releaseDate)
                 return util.response([], 'success', False)
-            rollbar.report_message('Error: An error occurred accepting the release', 'error', request)
+            rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)
             return util.response([], 'error', True)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1538,7 +1538,7 @@ def accept_release(request):
 @require_http_methods(["POST"])
 @authorize(['admin'])
 @require_finding_access
-def reject_release(request):
+def reject_draft(request):
     submission_id = request.POST.get('findingid', "")
     parameters = request.POST.dict()
     username = request.session['username']
@@ -1559,7 +1559,7 @@ def reject_release(request):
             }
             result = api.delete_submission(submission_id)
             if result is None:
-                rollbar.report_message('Error: An error ocurred deleting the release', 'error', request)
+                rollbar.report_message('Error: An error ocurred deleting the draft', 'error', request)
                 return util.response([], 'Error', True)
             to = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
                   "aroldan@fluidattacks.com", finding['analyst']]

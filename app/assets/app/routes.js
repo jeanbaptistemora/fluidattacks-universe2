@@ -46,10 +46,10 @@ angular.module("FluidIntegrates").config((
       "templateUrl": `${BASE.url}project_findings?l=${localStorage.lang}`,
       "url": "/project/:project/findings"
     }).
-    state("ProjectReleases", {
-      "controller": "projectReleasesCtrl",
-      "templateUrl": `${BASE.url}project_releases?l=${localStorage.lang}`,
-      "url": "/project/:project/releases"
+    state("ProjectDrafts", {
+      "controller": "projectDraftsCtrl",
+      "templateUrl": `${BASE.url}project_drafts?l=${localStorage.lang}`,
+      "url": "/project/:project/drafts"
     }).
     state("ProjectEvents", {
       "controller": "projectEventsCtrl",

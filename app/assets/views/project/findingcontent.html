@@ -21,19 +21,19 @@
       <div class="col-md-6 col-xs-12 col-sm-12 text-left">
           <h2 style="margin-top:0px !important;">{{header.findingTitle}}</h2>
       </div>
-      <div ng-if="isAdmin && releasesButton">
-          <div ng-if="releasesButton" class="col-md-2 col-xs-12 col-sm-12">
-              <button class="btn btn-success btn-block" ng-click="acceptRelease();">
+      <div ng-if="isAdmin && draftsButton">
+          <div ng-if="draftsButton" class="col-md-2 col-xs-12 col-sm-12">
+              <button class="btn btn-success btn-block" ng-click="acceptDraft();">
                   <i class="glyphicon glyphicon-ok"></i> {{'search_findings.project_buttons.accept' | translate}}
               </button>
           </div>
-          <div ng-if="releasesButton" class="col-md-2 col-xs-12 col-sm-12">
-              <button class="btn btn-warning btn-block" ng-click="rejectRelease();">
+          <div ng-if="draftsButton" class="col-md-2 col-xs-12 col-sm-12">
+              <button class="btn btn-warning btn-block" ng-click="rejectDraft();">
                   <i class="glyphicon glyphicon-remove"></i> {{'search_findings.project_buttons.reject' | translate}}
               </button>
           </div>
       </div>
-      <div ng-if="(!isAdmin) || (isAdmin && !releasesButton)">
+      <div ng-if="(!isAdmin) || (isAdmin && !draftsButton)">
         	<div class="col-md-offset-2 col-md-2 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
               <button class="btn btn-warning btn-block" ng-click="deleteFinding();">
                   <i class="icon s7-trash"></i> {{'search_findings.project_buttons.delete' | translate}}

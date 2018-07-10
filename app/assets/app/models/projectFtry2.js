@@ -18,15 +18,15 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
-       * Admin accept a release.
-       * @function acceptRelease
+       * Admin accept a draft.
+       * @function acceptDraft
        * @param {String} findingid Finding id.
        * @member integrates.projectFtry2
        * @return {Object} Formstack response with updated data
        */
-      "acceptRelease" (findingid) {
-        const oopsAc = "An error occurred accepting release";
-        return $xhr.post($q, `${BASE.url}accept_release`, {
+      "acceptDraft" (findingid) {
+        const oopsAc = "An error occurred accepting draft";
+        return $xhr.post($q, `${BASE.url}accept_draft`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           findingid
         }, oopsAc);
@@ -213,6 +213,21 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Get drafts by project name.
+       * @function draftsByName
+       * @param {String} project Project name.
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with the drafts of a project
+       */
+      "draftsByName" (project) {
+        const oopsAc = "An error occurred getting drafts";
+        return $xhr.get($q, `${BASE.url}get_drafts`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          project
+        }, oopsAc);
+      },
+
+      /**
        * Get role of a user.
        * @function isCustomerAdmin
        * @param {String} project Project name.
@@ -230,34 +245,19 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Admin reject a release.
-       * @function rejectRelease
+       * Admin reject a draft.
+       * @function rejectDraft
        * @param {String} findingid Numeric id of the finding
        * @param {String} data Reject data.
        * @member integrates.projectFtry2
        * @return {Object} Formstack response with updated data
        */
-      "rejectRelease" (findingid, data) {
-        const oopsAc = "An error occurred rejecting release";
-        return $xhr.post($q, `${BASE.url}reject_release`, {
+      "rejectDraft" (findingid, data) {
+        const oopsAc = "An error occurred rejecting draft";
+        return $xhr.post($q, `${BASE.url}reject_draft`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           data,
           findingid
-        }, oopsAc);
-      },
-
-      /**
-       * Get releases by project name.
-       * @function releasesByName
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Formstack response with the releases of a project
-       */
-      "releasesByName" (project) {
-        const oopsAc = "An error occurred getting releases";
-        return $xhr.get($q, `${BASE.url}get_releases`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
         }, oopsAc);
       },
 

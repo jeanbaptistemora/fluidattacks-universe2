@@ -8,7 +8,7 @@ mixPanelDashboard, userRole, findingType, actor, scenario, authentication,
 confidenciality, Organization, resolutionLevel, explotability, availability,
 updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
-accessComplexity, projectData:true, eventsData:true, releaseData:true,
+accessComplexity, projectData:true, eventsData:true, draftData:true,
 fieldsToTranslate, keysToTranslate, desc:true, angular, $window*/
 /**
  * @file findingContentCtrl.js
@@ -100,11 +100,11 @@ findingContentCtrl (
   $scope.goUp = function goUp () {
     angular.element("html, body").animate({"scrollTop": 0}, "fast");
   };
-  $scope.acceptRelease = function acceptRelease () {
-    functionsFtry4.acceptRelease($scope);
+  $scope.acceptDraft = function acceptDraft () {
+    functionsFtry4.acceptDraft($scope);
   };
-  $scope.rejectRelease = function rejectRelease () {
-    functionsFtry4.rejectRelease($scope);
+  $scope.rejectDraft = function rejectDraft () {
+    functionsFtry4.rejectDraft($scope);
   };
   $scope.hasUrl = function hasUrl (element) {
     if (angular.isDefined(element)) {
@@ -162,12 +162,12 @@ findingContentCtrl (
       $scope.exploitURL = findingData.exploitURL;
       $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
-      $scope.hasRelease = findingData.hasRelease;
-      if ($scope.isAdmin && !findingData.hasRelease) {
-        $scope.releasesButton = true;
+      $scope.hasDraft = findingData.hasDraft;
+      if ($scope.isAdmin && !findingData.hasDraft) {
+        $scope.draftsButton = true;
       }
       else {
-        $scope.releasesButton = false;
+        $scope.draftsButton = false;
       }
       functionsFtry3.loadFindingContent($scope);
     }
@@ -184,7 +184,7 @@ findingContentCtrl (
             response.data.fluidProject.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
-          $scope.hasRelease = false;
+          $scope.hasDraft = false;
           if ($scope.finding.suscripcion === "Continua" ||
             $scope.finding.suscripcion === "Concurrente" ||
             $scope.finding.suscripcion === "Si") {
@@ -194,14 +194,14 @@ findingContentCtrl (
             $scope.isContinuous = false;
           }
           if (angular.isDefined($scope.finding.releaseDate)) {
-            $scope.hasRelease = true;
+            $scope.hasDraft = true;
           }
-          findingData.hasRelease = $scope.hasRelease;
-          if ($scope.isAdmin && !findingData.hasRelease) {
-            $scope.releasesButton = true;
+          findingData.hasDraft = $scope.hasDraft;
+          if ($scope.isAdmin && !findingData.hasDraft) {
+            $scope.draftsButton = true;
           }
           else {
-            $scope.releasesButton = false;
+            $scope.draftsButton = false;
           }
           functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
@@ -296,7 +296,7 @@ findingContentCtrl (
     $scope.view.project = true;
     $scope.view.finding = false;
     projectData = [];
-    releaseData = [];
+    draftData = [];
     $state.go("ProjectFindings", {"project": $scope.project});
     angular.element("html, body").animate(
       {"scrollTop": $scope.currentScrollPosition},

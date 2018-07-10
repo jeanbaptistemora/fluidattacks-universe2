@@ -32,7 +32,7 @@ urlpatterns = [
     # Project view.
     url(r'^project_indicators/?\.*$', views.project_indicators),
     url(r'^project_findings/?\.*$', views.project_findings),
-    url(r'^project_releases/?\.*$', views.project_releases),
+    url(r'^project_drafts/?\.*$', views.project_drafts),
     url(r'^project_events/?\.*$', views.project_events),
     url(r'^project_users/?\.*$', views.project_users),
     # Comments tab.
@@ -41,7 +41,7 @@ urlpatterns = [
     # Dashboard view.
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     url(r'^get_myevents/?\.*$', views.get_myevents, name='get_myevents'),
-    url(r'^get_releases/?\.*$', views.get_releases, name='get_releases'),
+    url(r'^get_drafts/?\.*$', views.get_drafts, name='get_drafts'),
     # Use of Formstack services.
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
@@ -62,8 +62,8 @@ urlpatterns = [
     url(r'^update_eventuality/?\.*$',
         views.update_eventuality, name='update_eventuality'),
     url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),
-    url(r'^accept_release/?\.*$', views.accept_release, name='accept_release'),
-    url(r'^reject_release/?\.*$', views.reject_release, name='reject_release'),
+    url(r'^accept_draft/?\.*$', views.accept_draft, name='accept_draft'),
+    url(r'^reject_draft/?\.*$', views.reject_draft, name='reject_draft'),
     url(r'^finding_solved/?\.*$', views.finding_solved, name='finding_solved'),
     url(r'^update_cssv2/?$', views.update_cssv2, name='update_cssv2'),
     url(r'^update_description/?$', views.update_description, name='update_description'),

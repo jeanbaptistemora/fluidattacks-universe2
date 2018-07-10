@@ -3,7 +3,7 @@
 /* eslint no-shadow: ["error", { "allow":
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, releaseData:true,
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, draftData:true,
 nonexploitLabel:true, totalHigLabel:true, $scope:true,exploitable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
@@ -11,7 +11,7 @@ closeLabel:true, mixPanelDashboard, win:true, window, Organization, userRole,
 fieldsToTranslate, keysToTranslate, removeHour:true, labelState:true, angular,
 $window */
 /**
- * @file projectFindingsCtrl.js
+ * @file projectDraftsCtrl.js
  * @author engineering@fluidattacks.com
  */
 /**
@@ -62,7 +62,7 @@ labelState = function labelStateFunction (value) {
 
 /**
  * Controller definition for finding tab view.
- * @name ProjectCtrl
+ * @name projectDraftsCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -72,8 +72,8 @@ labelState = function labelStateFunction (value) {
  */
 /** @export */
 angular.module("FluidIntegrates").controller(
-  "projectReleasesCtrl",
-  function projectReleasesCtrl (
+  "projectDraftsCtrl",
+  function projectDraftsCtrl (
     $location,
     $scope,
     $state,
@@ -108,7 +108,7 @@ angular.module("FluidIntegrates").controller(
         const org = Organization.toUpperCase();
         const projt = projectName.toUpperCase();
         mixPanelDashboard.trackReports(
-          "ProjectReleases",
+          "ProjectDrafts",
           userName,
           userEmail,
           org,
@@ -175,24 +175,24 @@ angular.module("FluidIntegrates").controller(
             }
           });
         }
-        if (releaseData.length > 0 &&
-            releaseData[0].fluidProject.toLowerCase() ===
+        if (draftData.length > 0 &&
+            draftData[0].fluidProject.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
-          $scope.loadReleaseContent(releaseData, vlang);
+          $scope.loadDraftContent(draftData, vlang);
         }
         else {
-          const reqReleases = projectFtry2.releasesByName(
+          const reqDrafts = projectFtry2.draftsByName(
             projectName,
             tableFilter
           );
-          reqReleases.then((response) => {
+          reqDrafts.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
-              releaseData = response.data;
+              draftData = response.data;
               if (response.data.length === 0 && eventsData.length === 0) {
                 if ($scope.isManager) {
                   const reqProject = projectFtry.projectByName(
@@ -203,7 +203,7 @@ angular.module("FluidIntegrates").controller(
                     $scope.view.project = true;
                     if (!resp.error) {
                       if (resp.data.length > 0) {
-                        $scope.loadReleaseContent(releaseData, vlang);
+                        $scope.loadDraftContent(draftData, vlang);
                       }
                     }
                   });
@@ -215,8 +215,8 @@ angular.module("FluidIntegrates").controller(
                 }
               }
               else {
-                releaseData = response.data;
-                $scope.loadReleaseContent(releaseData, vlang);
+                draftData = response.data;
+                $scope.loadDraftContent(draftData, vlang);
               }
             }
             else if (response.error) {
@@ -240,7 +240,7 @@ angular.module("FluidIntegrates").controller(
       }
       return true;
     };
-    $scope.loadReleaseContent = function loadReleaseContent (datatest, vlang) {
+    $scope.loadDraftContent = function loadDraftContent (datatest, vlang) {
       const org = Organization.toUpperCase();
       const projt = $stateParams.project.toUpperCase();
       functionsFtry1.alertHeader(org, projt);
@@ -254,9 +254,9 @@ angular.module("FluidIntegrates").controller(
           }
         }
       }
-      // Findings table configuration
-      angular.element("#releases").bootstrapTable("destroy");
-      angular.element("#releases").bootstrapTable({
+      // Drafts table configuration
+      angular.element("#drafts").bootstrapTable("destroy");
+      angular.element("#drafts").bootstrapTable({
         "cookie": true,
         "cookieIdTable": "saveId",
         "data": datatest,
@@ -283,7 +283,7 @@ angular.module("FluidIntegrates").controller(
         },
         "pageSize": 50
       });
-      angular.element("#releases").bootstrapTable("refresh");
+      angular.element("#drafts").bootstrapTable("refresh");
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 
@@ -319,7 +319,7 @@ angular.module("FluidIntegrates").controller(
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance) {
           const auxiliar =
-                  angular.element("#releases").bootstrapTable("getData");
+                  angular.element("#drafts").bootstrapTable("getData");
           const data = auxiliar;
           for (let cont = 0; cont < data.length; cont++) {
             data[cont].atributos = 0;
@@ -361,7 +361,7 @@ angular.module("FluidIntegrates").controller(
             const TIMEOUT = 100;
             $uibModalInstance.close();
             $timeout(() => {
-              angular.element("#releases").bootstrapTable(
+              angular.element("#drafts").bootstrapTable(
                 "load",
                 auxiliar
               );
@@ -386,8 +386,8 @@ angular.module("FluidIntegrates").controller(
     $scope.urlUsers = function urlUsers () {
       $state.go("ProjectUsers", {"project": $scope.project});
     };
-    $scope.urlReleases = function urlReleases () {
-      $state.go("ProjectReleases", {"project": $scope.project});
+    $scope.urlDrafts = function urlDrafts () {
+      $state.go("ProjectDrafts", {"project": $scope.project});
     };
     $scope.init();
   }

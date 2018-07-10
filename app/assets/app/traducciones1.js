@@ -5,12 +5,12 @@
 const traducciones1 = {
   "confirmmodal":
 {
-  "accept_release": "Aceptar Release",
+  "accept_draft": "Aceptar Draft",
   "cancel": "Cancelar",
   "confirm": "¿Realizar esta acción?",
   "no": "Cancelar",
   "proceed": "Proceder",
-  "reject_release": "Rechazar Release",
+  "reject_draft": "Rechazar Draft",
   "title_cssv2": "Actualizar CSSv2",
   "title_description": "Actualizar Descripción",
   "title_finding": "Eliminar Hallazgo",

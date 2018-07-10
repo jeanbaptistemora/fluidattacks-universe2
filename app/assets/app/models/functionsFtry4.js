@@ -1,6 +1,6 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global integrates, BASE, $xhr, $window, response:true, Organization, angular,
-mixPanelDashboard,$msg, $, Rollbar, eventsData, releaseData:true,
+mixPanelDashboard,$msg, $, Rollbar, eventsData, draftData:true,
 projectData: true, userEmail, userName,$document */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
@@ -34,7 +34,7 @@ angular.module("FluidIntegrates").factory(
   ) {
     return {
 
-      "acceptRelease" ($scope) {
+      "acceptDraft" ($scope) {
       // Get data
         const descData = {"id": $scope.finding.id};
         $uibModal.open({
@@ -48,10 +48,10 @@ angular.module("FluidIntegrates").factory(
             $state
           ) {
             $scope.modalTitle = $translate.
-              instant("confirmmodal.accept_release");
+              instant("confirmmodal.accept_draft");
             $scope.ok = function ok () {
               // Make the request
-              const req = projectFtry2.acceptRelease(updateData.id);
+              const req = projectFtry2.acceptDraft(updateData.id);
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {
@@ -62,22 +62,22 @@ angular.module("FluidIntegrates").factory(
                   $msg.success(updatedAc, updatedAt);
                   // Mixpanel tracking
                   mixPanelDashboard.trackFinding(
-                    "acceptRelease",
+                    "acceptDraft",
                     userEmail,
                     descData.id
                   );
                   $uibModalInstance.close();
-                  releaseData = [];
+                  draftData = [];
                   projectData = [];
                   $state.go(
-                    "ProjectReleases",
+                    "ProjectDrafts",
                     {"project": $stateParams.project}
                   );
                 }
                 else if (response.error) {
                   const errorAc1 =
                                 $translate.instant("proj_alerts.error_textsad");
-                  Rollbar.error("Error: An error occurred accepting release");
+                  Rollbar.error("Error: An error occurred accepting draft");
                   $msg.error(errorAc1);
                 }
               });
@@ -129,7 +129,7 @@ angular.module("FluidIntegrates").factory(
         }
         $scope.data = datatest;
       },
-      "rejectRelease" ($scope) {
+      "rejectDraft" ($scope) {
       // Get data
         const descData = {"id": $scope.finding.id};
         $uibModal.open({
@@ -144,10 +144,10 @@ angular.module("FluidIntegrates").factory(
           ) {
             $scope.rejectData = {};
             $scope.modalTitle = $translate.
-              instant("confirmmodal.reject_release");
+              instant("confirmmodal.reject_draft");
             $scope.ok = function ok () {
               // Make the request
-              const req = projectFtry2.rejectRelease(
+              const req = projectFtry2.rejectDraft(
                 updateData.id,
                 $scope.rejectData
               );
@@ -161,22 +161,22 @@ angular.module("FluidIntegrates").factory(
                   $msg.success(updatedAc, updatedAt);
                   // Mixpanel tracking
                   mixPanelDashboard.trackFinding(
-                    "acceptRelease",
+                    "rejectDraft",
                     userEmail,
                     descData.id
                   );
                   $uibModalInstance.close();
-                  releaseData = [];
+                  draftData = [];
                   projectData = [];
                   $state.go(
-                    "ProjectReleases",
+                    "ProjectDrafts",
                     {"project": $stateParams.project}
                   );
                 }
                 else if (response.error) {
                   const errorAc1 =
                                 $translate.instant("proj_alerts.error_textsad");
-                  Rollbar.error("Error: An error occurred rejecting release");
+                  Rollbar.error("Error: An error occurred rejecting draft");
                   $msg.error(errorAc1);
                 }
               });
