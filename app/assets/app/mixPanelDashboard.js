@@ -145,7 +145,7 @@ mixPanelDashboard.trackFindingDetailed = function trackFindingDetailed (
   return true;
 };
 
-mixPanelDashboard.trackAddUser = function trackAddUser (
+mixPanelDashboard.trackUsersTab = function trackUsersTab (
   trackName,
   userEmail,
   project,

@@ -243,7 +243,7 @@ angular.module("FluidIntegrates").controller(
                 if (!response.error) {
                   // Mixpanel tracking
                   const projt = descData.project.toUpperCase();
-                  mixPanelDashboard.trackAddUser(
+                  mixPanelDashboard.trackUsersTab(
                     "AddUser",
                     userEmail,
                     projt,
@@ -335,11 +335,12 @@ angular.module("FluidIntegrates").controller(
                 req.then((response) => {
                   if (!response.error) {
                   // Mixpanel tracking
-                    const projt = data.project.toUpperCase();
-                    mixPanelDashboard.trackSearch(
-                      "ChangeUserRole",
+                    mixPanelDashboard.trackUsersTab(
+                      "ChangeRole",
                       userEmail,
-                      projt
+                      $stateParams.project.toLowerCase(),
+                      "ChangeRole",
+                      adminEmail[0]
                     );
                     $msg.success(
                       $translate.instant("search_findings." +
@@ -395,6 +396,13 @@ angular.module("FluidIntegrates").controller(
           );
           req.then((response) => {
             if (!response.error) {
+              mixPanelDashboard.trackUsersTab(
+                "RemoveUser",
+                userEmail,
+                $stateParams.project.toLowerCase(),
+                "Remove",
+                removedEmails[inc]
+              );
               $msg.success(removedEmails[inc] +
                                $translate.instant("search_findings.tab_users." +
                  "success_delete"), "search_findings.tab_users.title_success");

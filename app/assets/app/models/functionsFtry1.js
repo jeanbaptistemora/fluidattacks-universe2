@@ -285,6 +285,12 @@ angular.module("FluidIntegrates").factory(
               // Capture the promise
               req.then((response) => {
                 if (!response.error) {
+                  // Mixpanel tracking
+                  mixPanelDashboard.trackFinding(
+                    "UpdateCSSV2",
+                    userEmail,
+                    updateData.id
+                  );
                   const updatedAt = $translate.instant("proj_alerts." +
                                                      "updatedTitle");
                   const updatedAc = $translate.instant("proj_alerts." +
@@ -351,6 +357,12 @@ angular.module("FluidIntegrates").factory(
           // Capture the promise
           req.then((response) => {
             if (!response.error) {
+              // Mixpanel tracking
+              mixPanelDashboard.trackFinding(
+                "UpdateEvidencesText",
+                userEmail,
+                data.id
+              );
               const updatedAt = $translate.instant("proj_alerts.updatedTitle");
               const updatedAc = $translate.instant("proj_alerts." +
                                                  "updated_cont_description");

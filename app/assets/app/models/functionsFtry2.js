@@ -399,6 +399,12 @@ angular.module("FluidIntegrates").factory(
         }
         const responseFunction = function responseFunction (response) {
           if (!response.error) {
+            // Mixpanel tracking
+            mixPanelDashboard.trackFinding(
+              "UpdateEvidencesFiles",
+              userEmail,
+              $scope.finding.id
+            );
             const updatedAt = $translate.instant("proj_alerts.updatedTitle");
             const updatedAc =
                             $translate.instant("proj_alerts.updated_cont_file");
