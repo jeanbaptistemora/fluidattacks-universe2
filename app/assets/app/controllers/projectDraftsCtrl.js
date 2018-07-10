@@ -278,7 +278,7 @@ angular.module("FluidIntegrates").controller(
           angular.element("#exploitItem").removeClass("active");
           angular.element("#exploit").removeClass("active");
           // Mixpanel tracking
-          mixPanelDashboard.trackFinding("ReadRelease", userEmail, row.id);
+          mixPanelDashboard.trackFinding("ReadDraft", userEmail, row.id);
           $scope.currentScrollPosition = angular.element(document).scrollTop();
         },
         "pageSize": 50

@@ -200,16 +200,16 @@ angular.module("FluidIntegrates").controller(
               );
               if (response.data.length === 0 && eventsData.length === 0) {
                 if ($scope.isManager) {
-                  const reqReleases = projectFtry2.releasesByName(
+                  const reqDrafts = projectFtry2.draftsByName(
                     projectName,
                     tableFilter
                   );
-                  reqReleases.then((resp) => {
+                  reqDrafts.then((resp) => {
                     $scope.view.project = true;
                     if (!resp.error) {
                       if (resp.data.length > 0) {
                         $state.go(
-                          "ProjectReleases",
+                          "ProjectDrafts",
                           {"project": projectName.toLowerCase()}
                         );
                       }
