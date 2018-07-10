@@ -85,7 +85,7 @@ resource "kubernetes_service_account" "helm" {
   }
 
   provisioner "local-exec" {
-    command = "helm init --upgrade --service-account ${kubernetes_service_account.helm.metadata.0.name} --wait"
+    command = "./secure-tiller.sh ${kubernetes_service_account.helm.metadata.0.name}"
   }
 
   depends_on = ["kubernetes_config_map.aws_auth"]
