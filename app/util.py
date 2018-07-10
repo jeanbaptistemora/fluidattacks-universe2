@@ -206,3 +206,8 @@ def user_email_filter(emails, actualUser):
                 emails.remove(user)
         finalUsers = emails
     return finalUsers
+
+def assert_file_mime(filename, allowed_mimes):
+    mime = Magic(mime=True)
+    mime_type = mime.from_file(filename)
+    return mime_type in allowed_mimes

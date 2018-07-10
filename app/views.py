@@ -850,14 +850,12 @@ def replace_all(text, dic):
     return text
 
 def retrieve_image(request, img_file):
-    mime = Magic(mime=True)
-    mime_type = mime.from_file(img_file)
     try:
-        if mime_type.startswith('image/'):
+        if util.assert_file_mime(img_file, ["image/png", "image/jpeg", "image/gif"]):
             with open(img_file, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type=mime_type)
+                return HttpResponse(file_obj.read(), content_type="image/*")
         else:
-            rollbar.report_message('Error: Invalid evidence image format: ' + mime_type, 'error', request)
+            rollbar.report_message('Error: Invalid evidence image format', 'error', request)
             return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
     finally:
         os.unlink(img_file)
@@ -1056,13 +1054,7 @@ def get_exploit(request):
             ext = {'.py': '.tmp'}
             localtmp = replace_all(localfile, ext)
             client_s3.download_file(bucket_s3, k, localtmp)
-            mime = Magic(mime=True)
-            mime_type = mime.from_file(localtmp)
-            if mime_type == "text/x-python" or mime_type == "text/x-c" \
-                or mime_type == "text/plain" or mime_type == "text/html":
-                with open(localtmp, "r") as file_obj:
-                    return HttpResponse(file_obj.read(), content_type="text/plain")
-            os.unlink(localtmp)
+            return retrieve_script(request, localtmp)
     else:
         if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
             rollbar.report_message('Error: Invalid exploit ID format', 'error', request)
@@ -1072,13 +1064,19 @@ def get_exploit(request):
             rollbar.report_message('Error: Unable to download the exploit', 'error', request)
             return HttpResponse("Error - Unable to download the file", content_type="text/html")
         filename = "/tmp/:id.tmp".replace(":id", fileid)
-        mime = Magic(mime=True)
-        mime_type = mime.from_file(filename)
-        if mime_type == "text/x-c" or mime_type == "text/x-python" or mime_type == "text/plain" \
-            or mime_type == "text/html":
-            with open(filename, "r") as file_obj:
+        return retrieve_script(request, filename)
+
+def retrieve_script(request, script_file):
+    try:
+        if util.assert_file_mime(script_file, ["text/x-python", "text/x-c",
+                                               "text/plain", "text/html"]):
+            with open(script_file, "r") as file_obj:
                 return HttpResponse(file_obj.read(), content_type="text/plain")
-        os.unlink(filename)
+        else:
+            rollbar.report_message('Error: Invalid exploit file format', 'error', request)
+            return util.response([], 'Invalid exploit file format', True)
+    finally:
+        os.unlink(script_file)
 
 @never_cache
 @csrf_exempt
@@ -1113,11 +1111,9 @@ def get_records(request):
         return retrieve_csv(request, filename)
 
 def retrieve_csv(request, csv_file):
-    mime = Magic(mime=True)
-    mime_type = mime.from_file(csv_file)
     data = []
     try:
-        if mime_type == "text/plain":
+        if util.assert_file_mime(csv_file, ["text/plain"]):
             with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
                 csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
                 header = csvReader.next()
@@ -1126,7 +1122,7 @@ def retrieve_csv(request, csv_file):
                     data.append(dicTok)
                 return util.response(data, 'Success', False)
         else:
-            rollbar.report_message('Error: Invalid record file format: ' + mime_type, 'error', request)
+            rollbar.report_message('Error: Invalid record file format', 'error', request)
             return util.response([], 'Invalid record file format', True)
     finally:
         os.unlink(csv_file)

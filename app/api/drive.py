@@ -6,13 +6,13 @@ import httplib2
 import io
 import logging
 import rollbar
-from magic import Magic
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 from django.conf import settings
-
+# pylint: disable=E0402
+from .. import util
 from apiclient.http import MediaIoBaseDownload  # pylint: disable=import-error
 from apiclient.http import HttpError  # pylint: disable=import-error
 
@@ -50,13 +50,12 @@ class DriveAPI(object):
         done = False
         try:
             while not done:
-                done = downloader.next_chunk()
+                _, done = downloader.next_chunk()
 
-            mime = Magic(mime=True)
-            mime_type = mime.from_file(filename)
-            if mime_type in ["image/png", "image/jpeg", "image/gif",
-                             "text/x-c", "text/x-python",
-                             "text/plain", "text/html"]:
+            if util.assert_file_mime(filename, ["image/png", "image/jpeg",
+                                                "image/gif", "text/x-c",
+                                                "text/x-python", "text/plain",
+                                                "text/html"]):
                 return fh
         except HttpError:
             rollbar.report_message('Error: Unable to download the file','error')
@@ -77,11 +76,9 @@ class DriveAPI(object):
         done = False
         try:
             while not done:
-                done = downloader.next_chunk()
+                _, done = downloader.next_chunk()
 
-            mime = Magic(mime=True)
-            mime_type = mime.from_file(filename)
-            if mime_type in ["image/png", "image/jpeg", "image/gif"]:
+            if util.assert_file_mime(filename, ["image/png", "image/jpeg", "image/gif"]):
                 return fh
         except HttpError:
             rollbar.report_message('Error: Unable to download the image','error')
