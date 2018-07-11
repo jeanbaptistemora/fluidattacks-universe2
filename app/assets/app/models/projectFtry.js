@@ -145,7 +145,6 @@ angular.module("FluidIntegrates").factory(
       "findingById" (findingid, project) {
         const oopsAc = "An error occurred getting finding";
         return $xhr.post($q, `${BASE.url}get_finding`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
           findingid,
           project
         }, oopsAc);

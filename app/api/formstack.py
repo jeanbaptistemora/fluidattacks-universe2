@@ -8,6 +8,7 @@ import requests
 from __init__ import FI_FORMSTACK_TOKENS
 from requests.exceptions import ConnectionError
 from retrying import retry
+from django.views.decorators.cache import cache_control
 import rollbar
 
 requests.adapters.DEFAULT_RETRIES = 10
@@ -109,11 +110,13 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 'per_page': 100}
         return self.request("GET", self.EV_URL, data=data)
 
+    @cache_control(max_age=600)
     def get_submission(self, submission_id):
         """ Get a submission by ID. """
         url = self.SUBMISSION_URL.replace(":id", submission_id)
         return self.request("GET", url)
 
+    @cache_control(max_age=600)
     def get_findings(self, project):
         """ Get the findings of a project. """
         search_field = "32201732"

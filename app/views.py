@@ -12,7 +12,7 @@ import io
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
-from django.views.decorators.cache import never_cache
+from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
@@ -354,16 +354,8 @@ def project_to_xls(request, lang, project):
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
         fin = catch_finding(request, reqset["id"])
         if fin['fluidProject'].lower() == project.lower() and \
-                'releaseDate' in fin:
-            tzn = pytz.timezone('America/Bogota')
-            today_day = datetime.now(tz=tzn).date()
-            finding_last_vuln = datetime.strptime(
-                fin["releaseDate"].split(" ")[0],
-                '%Y-%m-%d'
-            )
-            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-            if finding_last_vuln <= today_day:
-                findings.append(fin)
+                util.validate_release_date(fin):
+            findings.append(fin)
     data = util.ord_asc_by_criticidad(findings)
     it_report = ITReport(project, data, username)
     with open(it_report.result_filename, 'r') as document:
@@ -404,16 +396,8 @@ def project_to_pdf(request, lang, project, doctype):
         for reqset in FormstackAPI().get_findings(project)["submissions"]:
             fin = catch_finding(request, reqset["id"])
             if fin['fluidProject'].lower() == project.lower() and \
-                    'releaseDate' in fin:
-                tzn = pytz.timezone('America/Bogota')
-                today_day = datetime.now(tz=tzn).date()
-                finding_last_vuln = datetime.strptime(
-                    fin["releaseDate"].split(" ")[0],
-                    '%Y-%m-%d'
-                )
-                finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-                if finding_last_vuln <= today_day:
-                    findings.append(fin)
+                    util.validate_release_date(fin):
+                findings.append(fin)
         pdf_maker = CreatorPDF(lang, doctype)
         secure_pdf = SecurePDF()
         findings_ord = util.ord_asc_by_criticidad(findings)
@@ -594,8 +578,7 @@ def get_users_login(request):
         dataset.append(data)
     return util.response(dataset, 'Success', False)
 
-
-@never_cache
+@cache_control(max_age=600)
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -603,21 +586,21 @@ def get_users_login(request):
 def get_finding(request):
     submission_id = request.POST.get('findingid', "")
     finding = catch_finding(request, submission_id)
-    if not finding is None:
+    if finding is not None:
         if finding['vulnerability'].lower() == 'masked':
             rollbar.report_message('Warning: Project masked', 'warning', request)
             return util.response([], 'Project masked', True)
-        if finding:
+        else:
             return util.response(finding, 'Success', False)
-    return util.response([], 'Wrong', True)
+    else:
+        rollbar.report_message('Error: An error occurred catching finding', 'error', request)
+        return util.response([], 'Error', True)
 
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])
 @require_project_access
-# pylint: disable=R0912
-# pylint: disable=R0914
 def get_drafts(request):
     """Capture and process the name of a project to return the drafts."""
     project = request.GET.get('project', "")
@@ -639,44 +622,30 @@ def get_drafts(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-# pylint: disable=R0912
-# pylint: disable=R0914
 def get_findings(request):
     """Capture and process the name of a project to return the findings."""
     project = request.GET.get('project', "").encode('utf-8')
     project = project.lower()
-    if ("projects" in request.session and project in request.session["projects"] and
-            project + "_date" in request.session["projects"]):
-        project_time = datetime.strptime(request.session["projects"][project + "_date"], "%Y-%m-%d %H:%M:%S.%f")
-        time_delta = (datetime.today() - project_time).total_seconds()
-        if time_delta < 600:
-            return util.response(request.session["projects"][project], 'Success', False)
-    api = FormstackAPI()
-    findings = []
-    finreqset = api.get_findings(project)["submissions"]
-    for submission_id in finreqset:
-        finding = catch_finding(request, submission_id["id"])
-        if finding is not None:
-            if finding['vulnerability'].lower() == 'masked':
-                rollbar.report_message('Warning: Project masked', 'warning', request)
-                return util.response([], 'Project masked', True)
-            if finding['fluidProject'].lower() == project and \
-                    'releaseDate' in finding:
-                tzn = pytz.timezone('America/Bogota')
-                today_day = datetime.now(tz=tzn).date()
-                finding_last_vuln = datetime.strptime(
-                    finding["releaseDate"].split(" ")[0],
-                    '%Y-%m-%d'
-                )
-                finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-                if finding_last_vuln <= today_day:
+    if util.validate_session_time(project, request):
+        return util.response(request.session["projects"][project], 'Success', False)
+    else:
+        api = FormstackAPI()
+        findings = []
+        finreqset = api.get_findings(project)["submissions"]
+        for submission_id in finreqset:
+            finding = catch_finding(request, submission_id["id"])
+            if finding is not None:
+                if finding['vulnerability'].lower() == 'masked':
+                    rollbar.report_message('Warning: Project masked', 'warning', request)
+                    return util.response([], 'Project masked', True)
+                elif finding['fluidProject'].lower() == project and \
+                        util.validate_release_date(finding):
                     findings.append(finding)
-    import json
-    with open("/tmp/"+project+".txt", "w") as f:
-        f.write(json.dumps(findings))
-    request.session["projects"][project] = findings
-    request.session["projects"][project + "_date"] = str(datetime.today())
-    return util.response(request.session["projects"][project], 'Success', False)
+            else:
+                rollbar.report_message('Error: An error occurred catching finding', 'error', request)
+        request.session["projects"][project] = findings
+        request.session["projects"][project + "_date"] = str(datetime.today())
+        return util.response(request.session["projects"][project], 'Success', False)
 
 # pylint: disable=R1702
 # pylint: disable=R0915
@@ -720,9 +689,6 @@ def catch_finding(request, submission_id):
                     finding['openVulnerabilities'] = state['opened']
                 if 'whichOpened' in state:
                     finding['where'] = state['whichOpened']
-                else:
-                    if state['estado'] == 'Cerrado':
-                        finding['where'] = '-'
                 if 'whichClosed' in state:
                     finding['closed'] = state['whichClosed']
                 if state['estado'] == 'Cerrado':

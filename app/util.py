@@ -7,6 +7,7 @@ import json
 import hmac
 import hashlib
 import rollbar
+import pytz
 from magic import Magic
 from django.http import JsonResponse
 
@@ -211,3 +212,33 @@ def assert_file_mime(filename, allowed_mimes):
     mime = Magic(mime=True)
     mime_type = mime.from_file(filename)
     return mime_type in allowed_mimes
+
+def validate_release_date(finding):
+    """Validate if a release has a valid date."""
+    if 'releaseDate' in finding:
+        tzn = pytz.timezone('America/Bogota')
+        today_day = datetime.datetime.now(tz=tzn).date()
+        finding_last_vuln = datetime.datetime.strptime(
+            finding["releaseDate"].split(" ")[0],
+            '%Y-%m-%d'
+        )
+        finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+        result = finding_last_vuln <= today_day
+    else:
+        result = False
+    return result
+
+def validate_session_time(project, request):
+    """Validate if project data is in session."""
+    if ("projects" in request.session and
+            project in request.session["projects"] and
+            project + "_date" in request.session["projects"]):
+        project_time = datetime.datetime.strptime(
+            request.session["projects"][project + "_date"],
+            "%Y-%m-%d %H:%M:%S.%f"
+        )
+        time_delta = (datetime.datetime.today() - project_time).total_seconds()
+        result = time_delta < 600
+    else:
+        result = False
+    return result
