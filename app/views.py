@@ -1537,7 +1537,11 @@ def accept_draft(request):
             if request:
                 integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True, releaseDate)
                 return util.response([], 'success', False)
-            rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)
+            else:
+                rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)
+                return util.response([], 'error', True)
+        else:
+            rollbar.report_message('Error: Attempted to accept an already released finding', 'error', request)
             return util.response([], 'error', True)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
