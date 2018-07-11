@@ -644,16 +644,23 @@ def get_drafts(request):
 def get_findings(request):
     """Capture and process the name of a project to return the findings."""
     project = request.GET.get('project', "").encode('utf-8')
+    project = project.lower()
+    if ("projects" in request.session and project in request.session["projects"] and
+            project + "_date" in request.session["projects"]):
+        project_time = datetime.strptime(request.session["projects"][project + "_date"], "%Y-%m-%d %H:%M:%S.%f")
+        time_delta = (datetime.today() - project_time).total_seconds()
+        if time_delta < 600:
+            return util.response(request.session["projects"][project], 'Success', False)
     api = FormstackAPI()
     findings = []
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
-        if not finding is None:
+        if finding is not None:
             if finding['vulnerability'].lower() == 'masked':
                 rollbar.report_message('Warning: Project masked', 'warning', request)
                 return util.response([], 'Project masked', True)
-            if finding['fluidProject'].lower() == project.lower() and \
+            if finding['fluidProject'].lower() == project and \
                     'releaseDate' in finding:
                 tzn = pytz.timezone('America/Bogota')
                 today_day = datetime.now(tz=tzn).date()
@@ -667,7 +674,9 @@ def get_findings(request):
     import json
     with open("/tmp/"+project+".txt", "w") as f:
         f.write(json.dumps(findings))
-    return util.response(findings, 'Success', False)
+    request.session["projects"][project] = findings
+    request.session["projects"][project + "_date"] = str(datetime.today())
+    return util.response(request.session["projects"][project], 'Success', False)
 
 # pylint: disable=R1702
 # pylint: disable=R0915

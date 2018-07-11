@@ -53,3 +53,4 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     strategy.session_set('company', company)
     strategy.session_set('last_login', last_login)
     strategy.session_set('access', access_to)
+    strategy.session_set('projects', {})
