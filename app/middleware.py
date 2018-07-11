@@ -10,7 +10,7 @@ class SocialAuthException(SocialAuthExceptionMiddleware):
             if exceptionType == "AuthAlreadyAssociated":
                 return HttpResponse('<script> \
                     localStorage.setItem("showAlreadyLoggedin","1"); \
-                    if (location.pathname.indexOf("/integrates") === -1) { \
+                    if (location.origin.indexOf("://fluidattacks.com") === -1) { \
                         location = "/registration"; \
                     }else{ location = "/integrates/registration"; } </script>')
             elif exceptionType == "AuthCanceled":
