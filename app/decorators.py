@@ -2,6 +2,7 @@
 """ Decorators for FluidIntegrates. """
 
 import functools
+import re
 import rollbar
 from django.http import HttpResponse
 # pylint: disable=E0402
@@ -75,6 +76,9 @@ def require_finding_access(func):
         else:
             findingid = request.GET.get('findingid', '')
 
+        if not re.match("^[0-9]*$", findingid):
+            rollbar.report_message('Error: Invalid finding id format', 'error', request)
+            return util.response([], 'Invalid finding id format', True)
         if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
             rollbar.report_message('Error: Access to project denied', 'error', request)
             return util.response([], 'Access denied', True)
