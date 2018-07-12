@@ -71,11 +71,14 @@ resource "kubernetes_config_map" "aws_auth" {
     - system:nodes
 YAML
   }
-  depends_on = ["null_resource.k8s_config"]
 
   provisioner "local-exec" {
     command = "sleep 60"
   }
+
+  depends_on = ["null_resource.k8s_config",
+    "aws_autoscaling_group.k8s_nodes_autoscaling"
+  ]
 }
 
 resource "kubernetes_service_account" "helm" {

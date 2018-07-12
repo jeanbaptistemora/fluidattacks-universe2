@@ -54,3 +54,5 @@ rm *.pem
 # with the Helm Client using the proper permissions
 kubectl -n kube-system patch deployment tiller-deploy \
  -p '{"spec": {"template": {"spec": {"automountServiceAccountToken": true}}}}'
+
+sleep 10
