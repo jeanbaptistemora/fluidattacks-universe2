@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         curl \
         git \
         gnupg2 \
+        jq \
         lsb-release \
         openssh-client \
         python \
@@ -23,6 +24,13 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         && unzip tflint.zip \
         && rm tflint.zip \
         && install tflint /usr/local/bin/ \
+    && curl -Lo heptio-authenticator-aws https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64 \
+        && chmod a+x heptio-authenticator-aws \
+        && mv heptio-authenticator-aws /usr/local/bin/ \
+    && curl -Lo helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz \
+        && tar -zxvf helm.tar.gz \
+        && mv linux-amd64/helm /usr/local/bin/ \
+        && rm -rf helm.tar.gz linux-amd64 \
     && pip install --upgrade pip \
         && pip install awscli \
     && DISTRO=$(lsb_release -i | awk '{print tolower($3)}') \
@@ -32,8 +40,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
        "deb [arch=amd64] https://download.docker.com/linux/debian \
        $(lsb_release -cs) \
        stable" \
+    && curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
+        && touch /etc/apt/sources.list.d/kubernetes.list \
+        && echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
     && apt-get update && apt-get install --allow-unauthenticated -y \
         docker-ce \
+        kubectl \
         torus \
     && curl -Lo go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz \
         && tar -C /usr/local -xzf go.tar.gz \
