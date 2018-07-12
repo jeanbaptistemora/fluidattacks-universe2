@@ -55,14 +55,16 @@ RUN rm -r /var/www/html \
     && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
     && export TORUS_TOKEN_ID='' \
     && export TORUS_TOKEN_SECRET='' \
-    && npm install -g typescript@2.9.2 browserify@16.2.2 uglify-js@3.4.3 \
+    && npm install -g typescript@2.9.2 browserify@16.2.2 uglify-js@3.4.3 tslint@5.10.0 \
     && cd /usr/src/app/app/assets/login \
     && tsc -p tsconfig.json \ 
     && browserify index.js | uglifyjs  > bundle.min.js \
     && cd /usr/src/app && python -c 'import integrates_version; integrates_version.set_integrates_version()' \
-    && cd /usr/src/app/app/assets/dashboard \
+    && cd /usr/src/app/front \
+    && mkdir -p /usr/src/app/app/assets/dashboard/ \
+    && npm install \
     && tsc -p tsconfig.json \ 
-    && browserify build/index.js | uglifyjs  > build/bundle.min.js
+    && browserify build/index.js | uglifyjs  > /usr/src/app/app/assets/dashboard/bundle.min.js
 
 # Make port 443 and 24224 available to the world outside this container
 EXPOSE 443 24224

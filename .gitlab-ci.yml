@@ -216,7 +216,8 @@ Linting:
         torus daemon start; sleep 5;
         cd /usr/src/app;
         torus run -- node /usr/src/app/app/assets/node_modules/.bin/eslint
-        /usr/src/app/app/assets/app/."
+        /usr/src/app/app/assets/app/.;
+        cd /usr/src/app/front && tslint -p tsconfig.json"
   retry: 2
   except:
     - master

@@ -25,7 +25,10 @@ deploy/terraform.tfstate
 env.list
 config/drive_client_secret.json
 .torus.json
-# Rule for ignore non compiled js files over login
-app/assets/login/*.js
-app/assets/dashboard/*.js
-app/assets/dashboard/*/*.js
+# Rule for ignore non compiled js files over dashboard
+front/node_modules
+front/build/**
+front/package-lock.json
+app/assets/login/bundle.min.js
+app/assets/login/index.js
+app/assets/dashboard/bundle.min.js

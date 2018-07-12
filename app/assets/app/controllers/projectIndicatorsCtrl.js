@@ -86,14 +86,15 @@ angular.module("FluidIntegrates").controller(
       const cardIndex5 = 5;
       const cardIndex6 = 6;
       for (let val = 0; val < cardinalityValues[cardIndex2].length; val++) {
+        const color = cardinalityValues[cardIndex2][val].replace(";", "");
         $scope.metricsList.push({
-          "color": `background-color:${cardinalityValues[cardIndex2][val]}`,
+          "color": `${color}`,
           "description": $translate.instant(`${"search_findings.filter_labels" +
                                     "."}${cardinalityValues[cardIndex3][val]}`),
           "icon": cardinalityValues[cardIndex4][val],
           "tooltip": $translate.instant(`${"search_findings.filter_labels" +
                                     "."}${cardinalityValues[cardIndex5][val]}`),
-          "value": cardinalityValues[cardIndex6][val]
+          "value": `${cardinalityValues[cardIndex6][val]}`
         });
       }
       let severity = 0;
@@ -127,7 +128,7 @@ angular.module("FluidIntegrates").controller(
               const totalSeverity = severity / ((sevConst1 * target) +
                                     sevConst2) * PERCENTAGE_FACTOR;
               $scope.metricsList.push({
-                "color": "background-color: #ef4c43;",
+                "color": "#ef4c43",
                 "description": $translate.instant("search_findings." +
                                                   "filter_labels.criticity"),
                 "icon": "s7-graph1",
@@ -136,7 +137,7 @@ angular.module("FluidIntegrates").controller(
                 "value": "n%".replace("n", totalSeverity.toFixed(0))
               });
               $scope.metricsList.push({
-                "color": "background-color: #00cb77;",
+                "color": "#00cb77",
                 "description": $translate.instant("search_findings." +
                                             "filter_labels.closure"),
                 "icon": "s7-like2",
@@ -152,7 +153,7 @@ angular.module("FluidIntegrates").controller(
           else {
             const totalSeverity = severity;
             $scope.metricsList.push({
-              "color": "background-color: #ef4c43;",
+              "color": "#ef4c43",
               "description": $translate.instant("search_findings." +
                                                 "filter_labels.criticity"),
               "icon": "s7-graph1",
@@ -161,7 +162,7 @@ angular.module("FluidIntegrates").controller(
               "value": totalSeverity.toFixed(0)
             });
             $scope.metricsList.push({
-              "color": "background-color: #00cb77;",
+              "color": "#00cb77",
               "description": $translate.instant("search_findings." +
                                                 "filter_labels.closure"),
               "icon": "s7-like2",

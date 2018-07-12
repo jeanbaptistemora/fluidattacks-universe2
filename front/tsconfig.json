@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
+    "strict": true,
     "target": "es5",               
     "module": "commonjs", 
     "allowJs": true,
     "outDir": "./build",                
-    "strict": true,                           
-    "esModuleInterop": true
+    "noImplicitAny": true,                  
+    "esModuleInterop": true,
+    "jsx": "react"
   },
-  "files": [
-    "./src/controller/form.controller.ts",
-    "./src/index.ts"
+  "include": [
+    "./scenes/**/*"
   ]
 }

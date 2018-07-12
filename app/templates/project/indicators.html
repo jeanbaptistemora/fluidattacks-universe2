@@ -68,19 +68,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div ng-repeat="metric in metricsList">
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="widget-box equalWidgetHeight" data-toggle="tooltip" data-placement="top" title="{% templatetag openvariable %} metric.tooltip {% templatetag closevariable %}" style="{% templatetag openvariable %} metric.color {% templatetag closevariable %} color: #fff;">
-                                                <div class="col-md-4 col-xs-4">
-                                                    <div class="widget-icon">
-                                                        <span class="{% templatetag openvariable %} metric.icon {% templatetag closevariable %}"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8 col-xs-8">
-                                                    <div data-toggle="counter" class="widget-value">{% templatetag openvariable %} metric.value {% templatetag closevariable %}</div>
-                                                    <div class="widget-desc">{% templatetag openvariable %} metric.description {% templatetag closevariable %}</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <indicator-box 
+                                            background-color="metric.color"
+                                            color="'#fff'"
+                                            icon="metric.icon"
+                                            name="metric.description"
+                                            quantity="metric.value"
+                                            title="metric.tooltip"/>
                                     </div>
                                 </div>
                             </div>

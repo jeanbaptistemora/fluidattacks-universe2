@@ -1,3 +1,4 @@
+/* tslint:disable */
 /**
  * @file form.controller.ts
  * @description Controller definition for forms view.

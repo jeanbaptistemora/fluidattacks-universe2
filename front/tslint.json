@@ -1,0 +1,15 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:all", "tslint-react"
+    ],
+    "cliOptions": {
+        "exclude": [
+        "build",
+        "node_modules"
+        ]
+    },
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": []
+}
