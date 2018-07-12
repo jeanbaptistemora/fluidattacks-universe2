@@ -62,7 +62,7 @@ RUN rm -r /var/www/html \
     && cd /usr/src/app && python -c 'import integrates_version; integrates_version.set_integrates_version()' \
     && cd /usr/src/app/app/assets/dashboard \
     && tsc -p tsconfig.json \ 
-    && browserify index.js | uglifyjs  > bundle.min.js
+    && browserify build/index.js | uglifyjs  > build/bundle.min.js
 
 # Make port 443 and 24224 available to the world outside this container
 EXPOSE 443 24224
