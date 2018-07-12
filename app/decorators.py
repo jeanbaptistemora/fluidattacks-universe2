@@ -61,7 +61,7 @@ def require_project_access(func):
             rollbar.report_message('Error: Empty fields in project', 'error', request)
             return util.response([], 'Empty fields', True)
         if not has_access_to_project(request.session['username'], project, request.session['role']):
-            rollbar.report_message('Error: Access to project denied', 'error', request)
+            rollbar.report_message('Security: Attempted to retrieve project info without permission', 'warning', request)
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
     return verify_and_call
@@ -80,7 +80,7 @@ def require_finding_access(func):
             rollbar.report_message('Error: Invalid finding id format', 'error', request)
             return util.response([], 'Invalid finding id format', True)
         if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
-            rollbar.report_message('Error: Access to project denied', 'error', request)
+            rollbar.report_message('Security: Attempted to retrieve finding-related info without permission', 'warning', request)
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
     return verify_and_call

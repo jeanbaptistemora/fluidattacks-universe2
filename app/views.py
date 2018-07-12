@@ -346,7 +346,7 @@ def project_to_xls(request, lang, project):
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
+        rollbar.report_message('Security: Attempted to export project xls without permission', 'warning', request)
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
@@ -394,7 +394,7 @@ def project_to_pdf(request, lang, project, doctype):
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(request.session['username'], project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
+        rollbar.report_message('Security: Attempted to export project pdf without permission', 'warning', request)
         return util.response([], 'Access denied', True)
     else:
         user = request.session['username'].split("@")[0]
@@ -493,7 +493,7 @@ def check_pdf(request, project):
         rollbar.report_message('Error: Name error in project', 'error', request)
         return util.response([], 'Name error', True)
     if not has_access_to_project(username, project, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
+        rollbar.report_message('Security: Attempted to export project pdf without permission', 'warning', request)
         return util.response([], 'Access denied', True)
     reqset = get_project_info(project)
     if reqset:
@@ -537,7 +537,7 @@ def get_eventualities(request):
     elif category == "ID":
         # Only fluid can filter by id
         if "@fluidattacks.com" not in username:
-            rollbar.report_message('Error: Access to project denied', 'error', request)
+            rollbar.report_message('Security: Non-fluid user attempted to filter events by ID', 'warning', request)
             return util.response(dataset, 'Access to project denied', True)
         if not project.isdigit():
             rollbar.report_message('Error: ID is not a number', 'error', request)
@@ -564,7 +564,7 @@ def get_users_login(request):
     dataset = []
     actualUser = request.session['username']
     if request.session['role'] == 'customer' and not is_customeradmin(project, actualUser):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
+        rollbar.report_message('Security: Attempted to retrieve project users without permission', 'warning', request)
         return util.response(dataset, 'Access to project denied', True)
     initialEmails = integrates_dao.get_project_users(project.lower())
     initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
@@ -825,7 +825,7 @@ def get_evidences(request):
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, findingid, fileid):
     if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
+        rollbar.report_message('Security: Attempted to retrieve evidence img without permission', 'warning', request)
         return util.response([], 'Access denied', True)
     else:
         if fileid is None:
@@ -876,7 +876,7 @@ def retrieve_image(request, img_file):
 def update_evidences_files(request):
     parameters = request.POST.dict()
     if not has_access_to_finding(request.session['access'], parameters['findingId'], request.session['role']):
-        rollbar.report_message('Error: Access to project denied', 'error', request)
+        rollbar.report_message('Security: Attempted to update evidence img without permission', 'warning', request)
         return util.response([], 'Access denied', True)
     else:
         if catch_finding(request,parameters['findingId']) is None:
@@ -1408,7 +1408,7 @@ def get_comments(request):
         rollbar.report_message('Error: Bad parameters in request', 'error', request)
         return util.response([], 'Bad parameters in request', True)
     elif comment_type == 'observation' and request.session['role'] == 'customer':
-        rollbar.report_message('Error: Access to project denied', 'error', request)
+        rollbar.report_message('Security: Attempted to post observation without permission', 'warning', request)
         return util.response([], 'Access denied', True)
     else:
         submission_id = request.GET.get('findingid', "")
