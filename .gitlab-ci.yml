@@ -34,6 +34,7 @@ stages:
   - deps
   - build
   - test
+  - eks-test
   - deploy
   - install
   - dns
@@ -105,6 +106,28 @@ test_terraform:
     - rm -rf infrastructure/terraform.tfvars
   except:
     - master
+
+eks_terraform:
+  stage: eks-test
+  before_script:
+    - cd infrastructure/eks/
+    - export TORUS_ENVIRONMENT='testing'
+    - export AWS_ACCESS_KEY_ID=$(torus view |
+        grep tf_var_aws_access | grep -oP '(?<==\ \ ).*')
+    - export AWS_SECRET_ACCESS_KEY=$(torus view |
+        grep tf_var_aws_secret | grep -oP '(?<==\ \ ).*')
+  script:
+    - torus run -- terraform init
+    - torus run -- terraform apply --auto-approve
+  after_script:
+    - echo "Kubernetes cluster succesfully created and initialized"
+  artifacts:
+    paths:
+      - infrastructure/eks/terraform.tfstate
+    when: always
+    expire_in: 24 hrs
+  only:
+    - acuberos
 
 tag-production:
   stage: deploy

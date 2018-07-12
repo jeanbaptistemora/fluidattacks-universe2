@@ -31,7 +31,11 @@ KUBECONFIG
 
 resource "null_resource" "k8s_config" {
   provisioner "local-exec" {
-    command = "echo \"${local.kubeconfig}\" > ~/.kube/config"
+    command = "mkdir \"$HOME/.kube\""
+  }
+
+  provisioner "local-exec" {
+    command = "echo \"${local.kubeconfig}\" > \"$HOME/.kube/config\""
   }
 
   depends_on = ["aws_eks_cluster.k8s_cluster"]
