@@ -19,30 +19,36 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-Un archivo +JAR+ (por sus siglas en inglés, +Java +ARchive+)
+Un archivo +JAR+ (por sus siglas en inglés, +Java+ +ARchive+)
 es un tipo de archivo que permite ejecutar aplicaciones escritas
 en el lenguaje de programación +Java+.
 
-La firma de un archivo +JAR+ tiene como objetivo
+La firma de un archivo +JAR+ tiene como principal objetivo
 permitir a la persona que lo ejecuta
 la verificación de la identidad de su creador
-con el fin de que ella pueda discernir si la aplicación es confiable o no,
-y por tanto hacer uso de la misma.
+con el fin de que
+el usuario de la aplicación
+pueda discernir si la misma es confiable o no,
+y por tanto, decida hacer uso de esta.
 En pocas palabras, El firmado digital de un +JAR+
 permite garantizar la integridad y el no repudio del +software+
 por parte de la persona que lo utilizará.
 
-La firma del archivo +JAR+ se hace a través de un certificado digital,
-este se define como un fichero informático
+La firma del archivo +JAR+ se hace a través de un certificado digital.
+Un certificado digital se define como un fichero informático
 generado por una entidad de servicios de certificación
-que asocia unos datos de identidad a una persona física, organismo o empresa,
-confirmando de esta manera su identidad digital.
+que asocia unos datos de identidad a una persona física,
+organismo o empresa, confirmando,
+de esta manera, su identidad digital.
 
-Además, los certificados se deben almacenar en +keystores+
-y para un mejor uso, cada certificado puede ser referenciado mediante un alias,
-que, por lo general, suele ser el nombre de la persona que firma la clave.
+Además, hay que tener presente que
+los certificados se deben almacenar en +keystores+
+y para un mejor uso, cada certificado
+puede ser referenciado mediante un alias,
+que, por lo general,
+suele ser el nombre de la persona que firma la clave.
 
-. Para cuestiones de ejemplo,
+. Para cuestiones de ejemplo de crear la firma,
 se utilizará la siguiente clase que será empaquetada en un +JAR+.
 Además, esta clase contiene un método sensible.
 +
@@ -158,5 +164,4 @@ $ jarsigner -keystore keystore -certs -verbose -verify paquete-firmado-1.0.jar
 . [[r2]] link:https://docs.oracle.com/javase/tutorial/deployment/jar/signing.html[Signing JAR Files]
 . [[r3]] link:https://es.wikipedia.org/wiki/Java_Archive[Java Archive]
 . [[r4]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
-. [[r5]] REQ.0173: Debe utilizarse firmas digitales para garantizar
-la autenticidad de información sensible.
+. [[r5]] link:../../../rules/178/[REQ.178 Utilizar firmas digitales]
