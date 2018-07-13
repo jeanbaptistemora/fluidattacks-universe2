@@ -1,9 +1,102 @@
 <VirtualHost *:{{ http_port }}>
-        ServerName fluid.com.co
-        ServerAlias *.fluid.com.co
-        ServerAdmin {{ server_admin }}
-        Options  +Indexes +Multiviews +FollowSymLinks
-        Redirect / {{ mainsite2 }}
-        ErrorLog {{ error_log }}
-        CustomLog {{ custom_log }} combined
+    ServerName fluid.com.co
+    ServerAlias *.fluid.com.co
+    ServerAdmin {{ server_admin }}
+    Options  +Indexes +Multiviews +FollowSymLinks
+        
+    RewriteEngine On
+
+    RequestHeader unset X-Forwarded-Host
+    RequestHeader unset X-Forwarded-For
+    RequestHeader unset X-Forwarded-Server
+
+    # Moodle
+      RewriteRule ^/courses(.*) http://exams.serves.svc.cluster.local$1    [P,L]
+      ProxyPassReverse /courses http://exams.serves.svc.cluster.local:8080
+
+      <Location "/courses">
+        ProxyErrorOverride On
+        ErrorDocument 404 {{ error_page }}
+      </Location>
+
+    # Formstack
+      RewriteRule ^/forms(.*)    https://fluidsignal.formstack.com/forms$1    [P,L]
+      ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
+
+      <Location "/forms">
+        ProxyErrorOverride On
+        ErrorDocument 404 {{ error_page }}
+      </Location>
+
+    # Integrates
+      RewriteRule ^/integrates(.*)$    http://integrates.serves.svc.cluster.local/$1    [P,L]
+      ProxyPassReverse /integrates http://integrates.serves.svc.cluster.local
+
+      RewriteRule ^/assets(.*)$    http://integrates.serves.svc.cluster.local/assets$1    [P,L]
+      ProxyPassReverse /assets http://integrates.serves.svc.cluster.local/assets
+
+      RewriteRule ^/oauth(.*)$    http://integrates.serves.svc.cluster.local/oauth$1    [P,L]
+      ProxyPassReverse /oauth http://integrates.serves.svc.cluster.local/oauth
+          
+      RewriteRule ^/index(.*)$    http://integrates.serves.svc.cluster.local/index$1    [P,L]
+      ProxyPassReverse /index http://integrates.serves.svc.cluster.local/index
+
+      RewriteRule ^/registration(.*)$    http://integrates.serves.svc.cluster.local$1     [P,L]
+      ProxyPassReverse /registration http://integrates.serves.svc.cluster.local/registration
+
+      RewriteRule ^/errors$    http://integrates.serves.svc.cluster.local/integrates/error401    [P,L]
+      ProxyPassReverse /errors http://integrates.serves.svc.cluster.local/integrates/error401
+
+      <Location "/integrates">
+        Header always set WWW-Authenticate "OAuth realm=\"Access to FLUIDIntegrates\" charset=\"UTF-8\""
+        Header always set Strict-Transport-Security "max-age=31536000"
+        Header always set X-XSS-Protection "1; mode=block"
+        Header always set X-Permitted-Cross-Domain-Policies "master-only"
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Pragma "no-cache"
+        Header always set Expires "0"
+        Header always set Content-Security-Policy "script-src 'self' 'unsafe-inline' *.mxpnl.com *.cloudflare.com *.intercomcdn.com *.intercom.io *.pingdom.net;"
+        Header always unset Server
+
+        ProxyErrorOverride On
+        ErrorDocument 404 {{ error_page }}
+      </Location>
+
+    #Pagina WEB
+      RewriteRule ^/web(.*)$    http://{{ web_bucket }}/web$1    [P,L]
+      ProxyPassReverse /web     http://{{ web_bucket }}/web
+
+      RewriteRule ^/sitemap.xml$  http://{{ web_bucket }}/web/sitemap.xml    [P,L]
+      ProxyPassReverse /sitemap.xml  http://{{ web_bucket }}/web/sitemap.xml
+    
+      RewriteRule ^/robots.txt$    http://{{ web_bucket }}/web/robots.txt    [P,L]
+	  ProxyPassReverse /robots.txt    http://{{ web_bucket }}/web/robots.txt   
+    
+      RewriteCond %{HTTP:Accept-Language} ^es       [NC]
+      RewriteRule ^/$       {{ landing_es }}        [P,L]
+        
+      RewriteRule ^/$       {{ landing_en }}        [P,L]
+      RewriteRule ^/(.*)    {{ landing_en }}$1      [P,L]
+
+      ErrorDocument 500 {{ error500_page }}
+
+      ErrorLog {{ error_log }}
+      CustomLog {{ custom_log }} combined
+
+    # Configuración SSL
+	  SSLEngine on
+	  SSLProxyEngine on
+      SSLProxyVerify none
+      SSLProxyCheckPeerCN off
+	  SSLProxyCheckPeerName off
+	  SSLProxyCheckPeerExpire off
+	  SSLCertificateFile    /etc/ssl/certs/fluidattackscom.crt
+	  SSLCertificateKeyFile /etc/ssl/private/fluidla.key
+
+	  <FilesMatch "\.(cgi|shtml|phtml|php)$">
+	    SSLOptions +StdEnvVars
+	  </FilesMatch>
+	  <Directory /usr/lib/cgi-bin>
+	    SSLOptions +StdEnvVars
+	  </Directory>
 </VirtualHost>
