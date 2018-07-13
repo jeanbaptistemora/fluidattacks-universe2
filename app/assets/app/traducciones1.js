@@ -373,6 +373,7 @@ const traducciones1 = {
   "file_type_gif": "La imagen debe ser de tipo .gif",
   "file_type_png": "La imagen debe ser de tipo .png",
   "file_type_py": "El archivo debe ser de tipo .py",
+  "file_type_wrong": "El archivo tiene un formato desconocido o no permitido",
   "no_file_update": "Falló al actualizar el archivo",
   "no_finding": "No encontramos el hallazgo!",
   "no_text_update": "Falló al actualizar la descripción",

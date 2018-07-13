@@ -349,7 +349,7 @@ angular.module("FluidIntegrates").factory(
           findingid
         }, oopsAc);
       },
-      "updateEvidenceFiles" (data, callbackFn, errorFn) {
+      "updateEvidenceFiles" (data, callbackFn) {
         const UNAUTHORIZED_ERROR = 401;
         const INTERNAL_SERVER_ERROR = 500;
         try {
@@ -366,7 +366,7 @@ angular.module("FluidIntegrates").factory(
                 Rollbar.error("Error: 401 Unauthorized");
                 $window.location = "error401";
               }
-              errorFn(angular.fromJson(response));
+              callbackFn(angular.fromJson(response));
             },
             "method": "POST",
             "mimeType": "multipart/form-data",

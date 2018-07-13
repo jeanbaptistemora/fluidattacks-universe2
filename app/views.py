@@ -894,40 +894,39 @@ def update_evidences_files(request):
                     ['evidence_route_3', fieldNum.DOC_ACHV3], ['evidence_route_4', fieldNum.DOC_ACHV4], \
                     ['evidence_route_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT], \
                     ['fileRecords', fieldNum.REG_FILE]]
-        if mime_type == "image/gif" and parameters["id"] == '0':
-            if upload.size > 10485760:
-                rollbar.report_message('Error - File exceeds the size limits', 'error', request)
-                return util.response([], 'Image exceeds the size limits', True)
-            updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
-            return util.response([], "sended" , updated)
-        elif mime_type == "image/png" and parameters["id"] == '1':
-            if upload.size > 2097152:
-                rollbar.report_message('Error - File exceeds the size limits', 'error', request)
-                return util.response([], 'Image exceeds the size limits', True)
-            updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
-            return util.response([], "sended" , updated)
-        elif mime_type == "image/png" and parameters["id"] in ['2', '3', '4', '5', '6']:
-            if upload.size > 2097152:
-                rollbar.report_message('Error - File exceeds the size limits', 'error', request)
-                return util.response([], 'Image exceeds the size limits', True)
-            updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
-            return util.response([], "sended" , updated)
-        elif (mime_type == "text/x-python" or mime_type == "text/x-c" \
-                    or mime_type == "text/plain" or mime_type == "text/html") \
-                        and parameters["id"] == '7':
-            if upload.size > 1048576:
+
+        if mime_type not in ["image/gif", "image/png", "text/x-python",
+                             "text/x-c", "text/plain", "text/html"]:
+            # Handle a possible front-end validation bypass
+            rollbar.report_message('Security: Attempted to upload evidence img with a non-allowed format: ' + mime_type, 'error', request)
+            return util.response([], 'Extension not allowed', True)
+        else:
+            if evidence_exceeds_size(upload, mime_type, parameters["id"]):
                 rollbar.report_message('Error - File exceeds the size limits', 'error', request)
                 return util.response([], 'File exceeds the size limits', True)
-            updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
-            return util.response([], "sended" , updated)
-        elif mime_type == "text/plain" and parameters["id"] == '8':
-            if upload.size > 1048576:
-                rollbar.report_message('Error - File exceeds the size limits', 'error', request)
-                return util.response([], 'File exceeds the size limits', True)
-            updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
-            return util.response([], "sended" , updated)
-        rollbar.report_message('Error - Extension not allowed', 'error', request)
-        return util.response([], 'Extension not allowed', True)
+            else:
+                updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
+                return util.response([], 'sent', updated)
+
+def evidence_exceeds_size(uploaded_file, mime_type, evidence_type):
+    if mime_type == "image/gif" and evidence_type == '0':
+        if uploaded_file.size > 10485760:
+            return True
+    elif mime_type == "image/png" and evidence_type == '1':
+        if uploaded_file.size > 2097152:
+            return True
+    elif mime_type == "image/png" and evidence_type in ['2', '3', '4', '5', '6']:
+        if uploaded_file.size > 2097152:
+            return True
+    elif (mime_type == "text/x-python" or mime_type == "text/x-c" \
+                or mime_type == "text/plain" or mime_type == "text/html") \
+                    and evidence_type == '7':
+        if uploaded_file.size > 1048576:
+            return True
+    elif mime_type == "text/plain" and evidence_type == '8':
+        if uploaded_file.size > 1048576:
+            return True
+    return False
 
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""

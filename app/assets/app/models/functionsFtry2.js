@@ -398,7 +398,22 @@ angular.module("FluidIntegrates").factory(
           return false;
         }
         const responseFunction = function responseFunction (response) {
-          if (!response.error) {
+          if (response.error) {
+            if (response.message === "Extension not allowed") {
+              errorAc1 = $translate.instant("proj_alerts.file_type_wrong");
+              $msg.error(errorAc1);
+            }
+            else if (response.message === "File exceeds the size limits") {
+              errorAc1 = $translate.instant("proj_alerts.file_size");
+              $msg.error(errorAc1);
+            }
+            else {
+              errorAc1 = $translate.instant("proj_alerts.no_file_update");
+              Rollbar.error("Error: An error occurred updating evidences");
+              $msg.error(errorAc1);
+            }
+          }
+          else {
             // Mixpanel tracking
             mixPanelDashboard.trackFinding(
               "UpdateEvidencesFiles",
@@ -407,29 +422,14 @@ angular.module("FluidIntegrates").factory(
             );
             const updatedAt = $translate.instant("proj_alerts.updatedTitle");
             const updatedAc =
-                            $translate.instant("proj_alerts.updated_cont_file");
+            $translate.instant("proj_alerts.updated_cont_file");
             $msg.success(updatedAc, updatedAt);
             location.reload();
-            return true;
           }
-          errorAc1 = $translate.instant("proj_alerts.no_file_update");
-          Rollbar.error("Error: An error occurred updating evidences");
-          $msg.error(errorAc1);
-          return false;
-        };
-        const errorFunction = function errorFunction (response) {
-          if (!response.error) {
-            errorAc1 = $translate.instant("proj_alerts.no_file_update");
-            Rollbar.error("Error: An error occurred updating evidences");
-            $msg.error(errorAc1);
-            return false;
-          }
-          return true;
         };
         projectFtry.updateEvidenceFiles(
           data,
-          responseFunction,
-          errorFunction
+          responseFunction
         );
         return true;
       }
