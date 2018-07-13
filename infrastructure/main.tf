@@ -67,8 +67,11 @@ output "instance_ip" {
 # Create Kubernetes cluster in existing VPC
 module "eks" {
   source = "./eks"
-  clusterName = "${var.clusterName}"
-  eksSnetReg  = ["${var.eksSnetReg}"]
+  clusterName  = "${var.clusterName}"
+  eksAmiId     = "${var.eksAmiId}"
+  eksSnetReg   = ["${var.eksSnetReg}"]
+  instanceType = "${var.iType}"
+  region  = "${var.reg}"
   rtbId   = "${var.rtbId}"
   vpcCidr = "${var.cidr}"
   vpcId   = "${var.vpcId}"

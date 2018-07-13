@@ -23,4 +23,5 @@ instance_class = "db.t2.small"
 # EKS Vars
 rtbId = "rtb-a74ad5c3"
 clusterName = "FluidServes"
-eksSnetReg = ["us-east-1b", "us-east-1c"]
+eksAmiId    = "ami-dea4d5a1"
+eksSnetReg  = ["us-east-1b", "us-east-1c"]

@@ -37,6 +37,7 @@ variable "db_id" {}
 
 # EKS Vars
 variable "clusterName" {}
+variable "eksAmiId" {}
 variable "eksSnetReg" {
   type = "list"
 }
