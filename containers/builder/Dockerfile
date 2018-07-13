@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         apt-transport-https \
         ca-certificates \
         curl \
+        gettext-base \
         git \
         gnupg2 \
         jq \

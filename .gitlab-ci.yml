@@ -122,6 +122,11 @@ eks_terraform:
     - helm install stable/nginx-ingress
         --name controller --namespace serves
         --set rbac.create=true --tls
+    - helm install stable/cert-manager
+        --name tls --namespace kube-system
+        --tls
+    - cd manifests/
+    - torus run -- ./deploy.sh
   after_script:
     - echo "Kubernetes cluster succesfully created and initialized"
   artifacts:
