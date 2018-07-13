@@ -97,3 +97,11 @@ resource "kubernetes_service_account" "helm" {
 
   depends_on = ["kubernetes_config_map.aws_auth"]
 }
+
+resource "null_resource" "deploy_apps" {
+  provisioner "local-exec" {
+    command = "./manifests/deploy.sh"    
+  }
+
+  depends_on = ["kubernetes_service_account.helm"]
+}
