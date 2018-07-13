@@ -34,3 +34,10 @@ variable "db_name" {}
 variable "db_user" {}
 variable "db_pass" {}
 variable "db_id" {}
+
+# EKS Vars
+variable "clusterName" {}
+variable "eksSnetReg" {
+  type = "list"
+}
+variable "rtbId" {}

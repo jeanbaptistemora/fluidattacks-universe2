@@ -64,6 +64,16 @@ output "instance_ip" {
   value = "${module.ec2-cron.ip}"
 }
 
+# Create Kubernetes cluster in existing VPC
+module "eks" {
+  source = "./eks"
+  clusterName = "${var.clusterName}"
+  eksSnetReg  = ["${var.eksSnetReg}"]
+  rtbId   = "${var.rtbId}"
+  vpcCidr = "${var.cidr}"
+  vpcId   = "${var.vpcId}"
+}
+
 
 # # Create with existing DB
 module database {
