@@ -119,6 +119,9 @@ eks_terraform:
   script:
     - torus run -- terraform init
     - torus run -- terraform apply --auto-approve
+    - helm install stable/nginx-ingress
+        --name controller --namespace serves
+        --set rbac.create=true --tls
   after_script:
     - echo "Kubernetes cluster succesfully created and initialized"
   artifacts:
