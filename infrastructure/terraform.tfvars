@@ -9,7 +9,7 @@ iType = "t2.xlarge"
 kName = "FLUID_Serves"
 
 # Network vars
-cdir = "192.168.100.0/24"
+cidr = "192.168.100.0/24"
 vpcId = "vpc-53ea4637"
 sgroupId = "sg-992bc3e4"
 snetId = "subnet-6a606433"

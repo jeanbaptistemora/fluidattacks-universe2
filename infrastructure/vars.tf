@@ -19,7 +19,7 @@ variable "iType" {}
 variable "kName" {}
 
 # Net Vars
-variable "cdir" {}
+variable "cidr" {}
 variable "vpcId" {}
 variable "sgroupId" {}
 variable "snetId" {}

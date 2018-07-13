@@ -23,7 +23,7 @@ module "iam" {
 # module "createNetwork" {
 #   source = "./network"
 #   sreg = "${var.sreg}"
-#   cdir = "${var.cdir}"
+#   cidr = "${var.cidr}"
 #   ciIP = "${var.ciIP}"
 # }
 # 
