@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: integrates-env
+  namespace: serves
+type: Opaque
+data:
+  TORUS_TOKEN_ID: $FI_TORUS_TOKEN_ID
+  TORUS_TOKEN_SECRET: $FI_TORUS_TOKEN_SECRET
+  TORUS_ORG: $TORUS_ORG
+  TORUS_PROJECT: $FI_TORUS_PROJECT
+  TORUS_ENVIRONMENT: $FI_TORUS_ENVIRONMENT
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: integrates
+  namespace: serves
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: integrates
+    spec:
+      containers:
+      - name: container-integrates
+        image: registry.gitlab.com/fluidsignal/integrates:master
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: integrates-env
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: gitlab-reg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: integrates
+  namespace: serves
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: integrates
+
