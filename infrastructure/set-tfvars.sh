@@ -18,6 +18,7 @@ echo "$SSO_FINANCE_XML" > vars/SSOFinance.xml
 
 echo "$FI_SSH_KEY" | base64 -d > vars/FLUID_Serves.pem
 
+mkdir -p $(helm home)
 echo "$HELM_KEY" | base64 -d > $(helm home)/key.pem
 echo "$HELM_CERT" | base64 -d > $(helm home)/cert.pem
 echo "$CA_CERT" | base64 -d > $(helm home)/ca.pem
