@@ -870,10 +870,10 @@ def update_evidences_files(request):
         if mime_type not in ["image/gif", "image/png", "text/x-python",
                              "text/x-c", "text/plain", "text/html"]:
             # Handle a possible front-end validation bypass
-            logger.info('Security: Attempted to upload evidence img with a non-allowed format: ' + mime_type)
+            logger.info('Security: Attempted to upload evidence file with a non-allowed format: ' + mime_type)
             return util.response([], 'Extension not allowed', True)
         else:
-            if evidence_exceeds_size(upload, mime_type, parameters["id"]):
+            if evidence_exceeds_size(upload, mime_type, int(parameters["id"])):
                 rollbar.report_message('Error - File exceeds the size limits', 'error', request)
                 return util.response([], 'File exceeds the size limits', True)
             else:
@@ -881,24 +881,26 @@ def update_evidences_files(request):
                 return util.response([], 'sent', updated)
 
 def evidence_exceeds_size(uploaded_file, mime_type, evidence_type):
-    if mime_type == "image/gif" and evidence_type == '0':
-        if uploaded_file.size > 10485760:
-            return True
-    elif mime_type == "image/png" and evidence_type == '1':
-        if uploaded_file.size > 2097152:
-            return True
-    elif mime_type == "image/png" and evidence_type in ['2', '3', '4', '5', '6']:
-        if uploaded_file.size > 2097152:
-            return True
-    elif (mime_type == "text/x-python" or mime_type == "text/x-c" \
-                or mime_type == "text/plain" or mime_type == "text/html") \
-                    and evidence_type == '7':
-        if uploaded_file.size > 1048576:
-            return True
-    elif mime_type == "text/plain" and evidence_type == '8':
-        if uploaded_file.size > 1048576:
-            return True
-    return False
+    ANIMATION = 0
+    EXPLOITATION = 1
+    EVIDENCE = [2, 3, 4, 5, 6]
+    EXPLOIT = 7
+    RECORDS = 8
+    MIB = 1048576
+
+    if evidence_type == ANIMATION and mime_type == "image/gif":
+        return uploaded_file.size > 10 * MIB
+    elif evidence_type == EXPLOITATION and mime_type == "image/png":
+        return uploaded_file.size > 2 * MIB
+    elif evidence_type in EVIDENCE and mime_type == "image/png":
+        return uploaded_file.size > 2 * MIB
+    elif evidence_type == EXPLOIT and mime_type in ["text/html", "text/plain",
+                                                    "text/x-c", "text/x-python"]:
+        return uploaded_file.size > 1 * MIB
+    elif evidence_type == RECORDS and mime_type == "text/plain":
+        return uploaded_file.size > 1 * MIB
+    else:
+        return False
 
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""
