@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de código fuente que compone a una determinada aplicación. Lo anterior, debido a que el código fuente de una aplicación no debe contener información sensible.
 :keywords: Requerimiento, Seguridad, Código Fuente, Información sensible, Aplicación, Robo de información.
 :rules: yes
+:translate: rules/156/
 
 = REQ.156 Código sin información sensible
 
@@ -15,3 +16,8 @@ El código fuente no debe contener información sensible.
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
 La seguridad se aborda en todas las partes
 del ciclo de vida de desarrollo de software.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.29+]
+Verificar que información sensible, llaves API y contraseñas
+no sean incluidas en el código fuente,
+ni en repositorios en línea de código.

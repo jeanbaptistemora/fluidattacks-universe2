@@ -16,3 +16,8 @@ Source code must not contain sensitive information.
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
 Security is addressed within all parts
 of the software development lifecycle.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.29+]
+Verify that secrets, API keys, and passwords
+are not included in the source code,
+or online source code repositories.
