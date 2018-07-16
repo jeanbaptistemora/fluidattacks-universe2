@@ -1,0 +1,23 @@
+:slug: rules/141/
+:category: rules
+:description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of force user re authentication when performing critical operations with sensitive data.
+:keywords: Requirement, Security, Authentication, Credentials, Session, Password
+:rules: yes
+:translate: rules/141/
+
+= REQ.141 Force re authentication
+
+== Requirement
+
+System must force users to re authenticate
+or invalidate the system session
+once changed the user state
+(password changing/recovery, lockouts, user deletion, etc)
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.26+]
+Verify that sensitive operations
+(e.g. change password, change email address, add new biller, etc.)
+require re-authentication (e.g. password or 2FA token).
+This is in addition to CSRF measures, not instead.
