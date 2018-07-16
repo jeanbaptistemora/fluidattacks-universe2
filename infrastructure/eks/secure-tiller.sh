@@ -12,9 +12,7 @@ SERVICE_ACCOUNT="$1"
 # Check that all the variables used in the script are defined
 vars=("CA_CERT"
 "TILLER_KEY"
-"TILLER_CERT"
-"HELM_KEY"
-"HELM_CERT")
+"TILLER_CERT")
 for var in "${vars[@]}"; do
   if [ -z "${!var}" ]; then
     echo "Variable $var is not defined"
@@ -29,13 +27,6 @@ echo "$CA_CERT" | base64 -d > ca-cert.pem
 echo "$TILLER_KEY" | base64 -d > tiller-key.pem
 echo "$TILLER_CERT" | base64 -d > tiller-cert.pem
 
-# Initialize directories and prepare certificates of the Helm Client
-# for the secure communication with the Tiller server
-mkdir -p "$(helm home)"
-echo "$HELM_KEY" | base64 -d > $(helm home)/key.pem
-echo "$HELM_CERT" | base64 -d > $(helm home)/cert.pem
-echo "$CA_CERT" | base64 -d > $(helm home)/ca.pem
-
 # Initialize Tiller server with secure configuration
 helm init \
   --tiller-tls \
@@ -48,7 +39,7 @@ helm init \
 # Wait until the Tiller Pod is ready
 kubectl rollout status -n kube-system deploy tiller-deploy -w
 
-rm *.pem
+rm tiller*.pem ca*.pem
 
 # Add the Service Account Token to the Tiller Pod to allow communications
 # with the Helm Client using the proper permissions
