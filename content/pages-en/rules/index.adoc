@@ -96,6 +96,7 @@
 
 * link:179/[REQ.179 Define backup frequency].
 * link:181/[REQ.181 Transmit data using secure protocols].
+* link:186/[REQ.186 Use minimum level of privileges].
 
 == Foreign Devices
 
@@ -139,6 +140,10 @@
 * link:256/[REQ.256 Restrict server ports access].
 * link:257/[REQ.257 Access based on user credentials].
 * link:259/[REQ.259 Segment organization network].
+
+== System
+
+* link:269/[REQ.269 Use principle of least privilege].
 
 == Control
 
