@@ -2,6 +2,7 @@
 
 # Install NGINX Ingress chart to route traffic within the cluster
 if ! helm list --tls | grep 'controller'; then
+  helm repo update
   helm install stable/nginx-ingress \
     --name controller --namespace serves \
     --set rbac.create=true --tls
