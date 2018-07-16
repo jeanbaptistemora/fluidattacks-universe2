@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir opciones por defecto seguras cuando se utilizan condicionales.
 :keywords: Requerimiento, Seguridad, Código Fuente, Condicionales, Seguros, Default.
 :rules: yes
+:translate: rules/161/
 
 = REQ.161 Opciones por defecto seguras
 
@@ -84,3 +85,5 @@ puede entrar a verificar y descartar si es un falso positivo.
 . [[r2]] link:https://cwe.mitre.org/data/definitions/398.html[+CWE-398+: Indicator of Poor Code Quality].
 . [[r3]] link:https://cwe.mitre.org/data/definitions/388.html[+CWE-388+: Error Handling].
 . [[r4]] link:https://standards.ieee.org/findstds/standard/1028-2008.html[+IEEE+: Standard for Software Reviews and Audits].
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.8+]
+Verificar que los controles de acceso fallen de manera segura.
