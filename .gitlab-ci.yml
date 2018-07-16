@@ -154,7 +154,7 @@ deploy_terraform:
         $HOME/.kube/config || echo "No Kubernetes configuration file found"
   script:
     - terraform init
-    - terraform apply -auto-approve -var-file="vars/aws.tfvars"
+    - torus run -- terraform apply -auto-approve -var-file="vars/aws.tfvars"
     - terraform output instance_ip > ip.txt
     - sh set-keys.sh
     - if [ -n "${NEW_DEPLOY}" ]; then
