@@ -31,10 +31,6 @@ KUBECONFIG
 
 resource "null_resource" "k8s_config" {
   provisioner "local-exec" {
-    command = "mkdir \"$HOME/.kube\""
-  }
-
-  provisioner "local-exec" {
     command = "echo \"${local.kubeconfig}\" > \"$HOME/.kube/config\""
   }
 

@@ -136,6 +136,7 @@ deploy_terraform:
   stage: deploy
   before_script:
     - mkdir infrastructure/vars
+    - mkdir $HOME/.kube
     - echo sudo docker login "$CI_REGISTRY"
         -u "$DOCKER_USER" -p "$DOCKER_PASS" >> infrastructure/ec2/host/script.sh
     - cd infrastructure
@@ -148,6 +149,9 @@ deploy_terraform:
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
         terraform.tfstate || echo "No previous state found"
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
+        $HOME/.kube/config || echo "No Kubernetes configuration file found"
   script:
     - terraform init
     - terraform apply -auto-approve -var-file="vars/aws.tfvars"
@@ -164,6 +168,9 @@ deploy_terraform:
     - aws s3 cp
         infrastructure/terraform.tfstate
         s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
+    - aws s3 cp
+        $HOME/.kube/config
+        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
     - aws s3 cp
         infrastructure/vars/FLUID_Serves.pem
         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
