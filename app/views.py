@@ -2,8 +2,6 @@
 """ Views and services for FluidIntegrates """
 
 from __future__ import absolute_import
-import logging
-import logging.config
 import os
 import sys
 import re
@@ -13,7 +11,6 @@ import boto3
 import io
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
-from django.conf import settings
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
@@ -48,9 +45,6 @@ from backports import csv
 from .entity.query import Query
 from graphene import Schema
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
-
-logging.config.dictConfig(settings.LOGGING)
-logger = logging.getLogger(__name__)
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -352,7 +346,7 @@ def project_to_xls(request, lang, project):
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(request.session['username'], project, request.session['role']):
-        logger.info('Security: Attempted to export project xls without permission')
+        util.cloudwatch_log(request, 'Security: Attempted to export project xls without permission')
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
@@ -392,7 +386,7 @@ def project_to_pdf(request, lang, project, doctype):
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(request.session['username'], project, request.session['role']):
-        logger.info('Security: Attempted to export project pdf without permission')
+        util.cloudwatch_log(request, 'Security: Attempted to export project pdf without permission')
         return util.response([], 'Access denied', True)
     else:
         user = request.session['username'].split("@")[0]
@@ -483,7 +477,7 @@ def check_pdf(request, project):
         rollbar.report_message('Error: Name error in project', 'error', request)
         return util.response([], 'Name error', True)
     if not has_access_to_project(username, project, request.session['role']):
-        logger.info('Security: Attempted to export project pdf without permission')
+        util.cloudwatch_log(request, 'Security: Attempted to export project pdf without permission')
         return util.response([], 'Access denied', True)
     reqset = get_project_info(project)
     if reqset:
@@ -527,7 +521,7 @@ def get_eventualities(request):
     elif category == "ID":
         # Only fluid can filter by id
         if "@fluidattacks.com" not in username:
-            logger.info('Security: Non-fluid user attempted to filter events by ID')
+            util.cloudwatch_log(request, 'Security: Non-fluid user attempted to filter events by ID')
             return util.response(dataset, 'Access to project denied', True)
         if not project.isdigit():
             rollbar.report_message('Error: ID is not a number', 'error', request)
@@ -554,7 +548,7 @@ def get_users_login(request):
     dataset = []
     actualUser = request.session['username']
     if request.session['role'] == 'customer' and not is_customeradmin(project, actualUser):
-        logger.info('Security: Attempted to retrieve project users without permission')
+        util.cloudwatch_log(request, 'Security: Attempted to retrieve project users without permission')
         return util.response(dataset, 'Access to project denied', True)
     initialEmails = integrates_dao.get_project_users(project.lower())
     initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
@@ -594,7 +588,7 @@ def get_finding(request):
     finding = catch_finding(request, submission_id)
     if finding is not None:
         if finding['vulnerability'].lower() == 'masked':
-            logger.info('Warning: Project masked')
+            util.cloudwatch_log(request, 'Warning: Project masked')
             return util.response([], 'Project masked', True)
         else:
             return util.response(finding, 'Success', False)
@@ -616,7 +610,7 @@ def get_drafts(request):
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
         if finding['vulnerability'].lower() == 'masked':
-            logger.info('Warning: Project masked')
+            util.cloudwatch_log(request, 'Warning: Project masked')
             return util.response([], 'Project masked', True)
         if finding['fluidProject'].lower() == project.lower() and \
                 'releaseDate' not in finding:
@@ -797,7 +791,7 @@ def get_evidences(request):
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, findingid, fileid):
     if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
-        logger.info('Security: Attempted to retrieve evidence img without permission')
+        util.cloudwatch_log(request, 'Security: Attempted to retrieve evidence img without permission')
         return util.response([], 'Access denied', True)
     else:
         if fileid is None:
@@ -847,11 +841,11 @@ def retrieve_image(request, img_file):
 @authorize(['analyst', 'admin'])
 def update_evidences_files(request):
     parameters = request.POST.dict()
-    if not has_access_to_finding(request.session['access'], parameters['findingId'], request.session['role']):
-        logger.info('Security: Attempted to update evidence img without permission')
+    if not has_access_to_finding(request.session['access'], parameters['findingid'], request.session['role']):
+        util.cloudwatch_log(request, 'Security: Attempted to update evidence img without permission')
         return util.response([], 'Access denied', True)
     else:
-        if catch_finding(request,parameters['findingId']) is None:
+        if catch_finding(request,parameters['findingid']) is None:
             return util.response([], 'Access denied', True)
         upload = request.FILES.get("document", "")
         migrate_all_files(parameters, request)
@@ -870,7 +864,7 @@ def update_evidences_files(request):
         if mime_type not in ["image/gif", "image/png", "text/x-python",
                              "text/x-c", "text/plain", "text/html"]:
             # Handle a possible front-end validation bypass
-            logger.info('Security: Attempted to upload evidence file with a non-allowed format: ' + mime_type)
+            util.cloudwatch_log(request, 'Security: Attempted to upload evidence file with a non-allowed format: ' + mime_type)
             return util.response([], 'Extension not allowed', True)
         else:
             if evidence_exceeds_size(upload, mime_type, int(parameters["id"])):
@@ -1381,7 +1375,7 @@ def get_comments(request):
         rollbar.report_message('Error: Bad parameters in request', 'error', request)
         return util.response([], 'Bad parameters in request', True)
     elif comment_type == 'observation' and request.session['role'] == 'customer':
-        logger.info('Security: Attempted to post observation without permission')
+        util.cloudwatch_log(request, 'Security: Attempted to post observation without permission')
         return util.response([], 'Access denied', True)
     else:
         submission_id = request.GET.get('findingid', "")
@@ -1514,7 +1508,7 @@ def accept_draft(request):
                 rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)
                 return util.response([], 'error', True)
         else:
-            logger.info('Security: Attempted to accept an already released finding')
+            util.cloudwatch_log(request, 'Security: Attempted to accept an already released finding')
             return util.response([], 'error', True)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1586,7 +1580,7 @@ def add_access_integrates(request):
             rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
             return util.response([], 'Error', True)
     else:
-        logger.info('Security: Attempted to grant access to project from unprivileged role: ' + request.session['role'])
+        util.cloudwatch_log(request, 'Security: Attempted to grant access to project from unprivileged role: ' + request.session['role'])
         return util.response([], 'Access denied', True)
 
 def create_new_user(newUser, role, company, project, admin):

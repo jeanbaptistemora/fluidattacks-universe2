@@ -327,7 +327,7 @@ angular.module("FluidIntegrates").factory(
         data.append("id", evImage);
         data.append("url", `${$stateParams.project.toLowerCase()}-` +
                          `${$scope.finding.id}`);
-        data.append("findingId", $scope.finding.id);
+        data.append("findingid", $scope.finding.id);
         data.append("document", fileInput.files[0]);
         const fileName = fileInput.files[0].name;
         const dots = fileName.split(".");

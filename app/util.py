@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
+import logging
+import logging.config
 import re
 import os
 import datetime
@@ -9,8 +11,11 @@ import hashlib
 import rollbar
 import pytz
 from magic import Magic
+from django.conf import settings
 from django.http import JsonResponse
 
+logging.config.dictConfig(settings.LOGGING)
+logger = logging.getLogger(__name__)
 
 def response(data, message, error):
     """ Create an object to send generic answers """
@@ -242,3 +247,13 @@ def validate_session_time(project, request):
     else:
         result = False
     return result
+
+def cloudwatch_log(request, msg):
+    info = [request.session["username"], request.session["company"]]
+    for parameter in ["project", "findingid"]:
+        if parameter in request.POST.dict():
+            info.append(request.POST.dict()[parameter])
+        elif parameter in request.GET.dict():
+            info.append(request.GET.dict()[parameter])
+    info.append(msg)
+    logger.info(":".join(info))
