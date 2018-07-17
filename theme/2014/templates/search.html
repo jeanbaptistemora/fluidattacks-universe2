@@ -7,6 +7,8 @@
 
 {% block title %}{{ gettext('Search-title') }} | {{ SITENAME }}{% endblock %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/search.html">{% endblock canonical %}
+
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/search.html" hreflang="en-us" />
