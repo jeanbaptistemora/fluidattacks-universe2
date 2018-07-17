@@ -149,11 +149,9 @@ angular.module("FluidIntegrates").controller(
               $scope.loadEventContent(eventsData, vlang, projectName);
             }
             else if (response.message === "Access to project denied") {
-              Rollbar.warning("Warning: Access to event denied");
               $msg.error($translate.instant("proj_alerts.access_denied"));
             }
             else {
-              Rollbar.warning("Warning: Event not found");
               $msg.error($translate.instant("proj_alerts.eventExist"));
             }
           });

@@ -139,11 +139,9 @@ findingContentCtrl (
           eventsData = response.data;
         }
         else if (response.message === "Access to project denied") {
-          Rollbar.warning("Warning: Access to event denied");
           $msg.error($translate.instant("proj_alerts.access_denied"));
         }
         else {
-          Rollbar.warning("Warning: Event not found");
           $msg.error($translate.instant("proj_alerts.eventExist"));
         }
       });
@@ -229,12 +227,10 @@ findingContentCtrl (
           $scope.view.project = false;
           $scope.view.finding = false;
           if (response.message === "Project masked") {
-            Rollbar.warning("Warning: Project deleted");
             $msg.error($translate.instant("proj_alerts.project_deleted"));
           }
           else {
             $msg.error($translate.instant("proj_alerts.no_finding"));
-            Rollbar.warning("Warning: Finding not found");
           }
         }
         return true;

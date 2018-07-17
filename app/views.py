@@ -517,7 +517,8 @@ def get_eventualities(request):
                     dataset.append(evtset)
             return util.response(dataset, 'Success', False)
         else:
-            return util.response(dataset, 'Event does not exist', True)
+            rollbar.report_message('Error: Formstack returned an error getting events', 'error', request)
+            return util.response(dataset, 'An error occurred getting events', True)
     elif category == "ID":
         # Only fluid can filter by id
         if "@fluidattacks.com" not in username:
@@ -532,10 +533,11 @@ def get_eventualities(request):
             dataset.append(evtset)
             return util.response(dataset, 'Success', False)
         else:
-            return util.response(dataset, 'Event does not exist', True)
+            rollbar.report_message('Error: Formstack returned an error getting events', 'error', request)
+            return util.response(dataset, 'An error occurred getting events', True)
     else:
-        rollbar.report_message('Error: An error occurred getting events', 'error', request)
-        return util.response(dataset, 'Not actions', True)
+        util.cloudwatch_log(request, 'Security: Attempted to get eventualities by unknown filter: ' + category)
+        return util.response(dataset, 'Unknown filter', True)
 
 @never_cache
 @csrf_exempt
@@ -593,7 +595,7 @@ def get_finding(request):
         else:
             return util.response(finding, 'Success', False)
     else:
-        rollbar.report_message('Error: An error occurred catching finding', 'error', request)
+        util.cloudwatch_log(request, 'Finding with submission id: ' + submission_id + ' not found')
         return util.response([], 'Error', True)
 
 @never_cache
@@ -636,7 +638,7 @@ def get_findings(request):
             finding = catch_finding(request, submission_id["id"])
             if finding is not None:
                 if finding['vulnerability'].lower() == 'masked':
-                    rollbar.report_message('Warning: Project masked', 'warning', request)
+                    util.cloudwatch_log(request, 'Warning: Project masked')
                     return util.response([], 'Project masked', True)
                 elif finding['fluidProject'].lower() == project and \
                         util.validate_release_date(finding):

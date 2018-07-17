@@ -347,11 +347,9 @@ angular.module("FluidIntegrates").controller(
               eventsData = response.data;
             }
             else if (response.message === "Access to project denied") {
-              Rollbar.warning("Warning: Access to event denied");
               $msg.error($translate.instant("proj_alerts.access_denied"));
             }
             else {
-              Rollbar.warning("Warning: Event not found");
               $msg.error($translate.instant("proj_alerts.eventExist"));
             }
           });
@@ -411,15 +409,12 @@ angular.module("FluidIntegrates").controller(
               $scope.view.project = false;
               $scope.view.finding = false;
               if (response.message === "Access denied") {
-                Rollbar.warning("Warning: Access to project denied");
                 $msg.error($translate.instant("proj_alerts.access_denied"));
               }
               else if (response.message === "Project masked") {
-                Rollbar.warning("Warning: Project deleted");
                 $msg.error($translate.instant("proj_alerts.project_deleted"));
               }
               else {
-                Rollbar.warning("Warning: Project not found");
                 $msg.error($translate.instant("proj_alerts.not_found"));
               }
             }
