@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "repository": "https://gitlab.com/fluidsignal/integrates.git",
-  "author": "Enginering Team",
+  "author": "Engineering Team",
   "dependencies": {
     "@cgross/angular-notify": "2.5.1",
     "@uirouter/angularjs": "0.4.2",
@@ -18,7 +18,7 @@
     "eslint-plugin-unicorn": "4.0.3",
     "google-closure-compiler-js": "20180402.0.0",
     "graphql.js": "0.4.20",
-    "gulp": "3.9.1",
+    "gulp": "4.0.0",
     "iframe-resizer": "3.6.1",
     "jquery": "3.3.1",
     "@types/jquery": "3.3.4",
