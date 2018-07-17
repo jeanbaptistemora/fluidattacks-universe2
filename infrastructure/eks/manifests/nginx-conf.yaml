@@ -1,0 +1,5 @@
+data:
+  hsts-include-subdomains: "false"
+  proxy-body-size: "8m"
+  server-tokens: "false"
+  use-gzip: "false"

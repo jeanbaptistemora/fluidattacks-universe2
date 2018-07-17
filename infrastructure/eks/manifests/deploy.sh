@@ -9,13 +9,19 @@ if ! helm list --tls | grep 'controller'; then
     --set rbac.create=true --tls
 fi
 
+# Set TLS certificates in the NGINX server
 sed -i 's/$TLS_KEY/'"$TLS_KEY"'/;
   s/$TLS_CERT/'"$TLS_CERT"'/' \
   eks/manifests/ingress-tls.yaml
 kubectl apply -f eks/manifests/ingress-tls.yaml
 
+# Set context to avoid using the --namespace flag in every command
 kubectl config set-context $(kubectl config current-context) \
   --namespace serves
+
+# Customize NGINX configuration
+kubectl patch cm controller-nginx-ingress-controller \
+  --patch "$(cat eks/manifests/nginx-conf.yaml)"
 
 # Provide information to access Gitlab Container Registry and pull images
 if ! kubectl get secret gitlab-reg; then
