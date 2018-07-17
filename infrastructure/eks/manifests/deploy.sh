@@ -43,3 +43,23 @@ sed -i 's/$FI_TORUS_TOKEN_ID/'"$(echo -n $FI_TORUS_TOKEN_ID | base64)"'/;
 kubectl apply -f eks/manifests/alg.yaml
 kubectl apply -f eks/manifests/exams.yaml
 kubectl apply -f eks/manifests/integrates.yaml
+
+# Wait until the initialization of the Load Balancer is complete
+sleep 5
+ELB_NAME="$(aws --region us-east-1 elb describe-load-balancers \
+  | jq -r '.LoadBalancerDescriptions[].LoadBalancerName')"
+ELB_STATUS="$(aws --region us-east-1 elb describe-instance-health \
+  --load-balancer-name $ELB_NAME | jq -r '.InstanceStates[].State')"
+I=0
+while [ "$ELB_STATUS" != "InService" ]; do
+  echo 'Waiting for Load Balancer to be ready...'
+  sleep 10
+  ELB_STATUS="$(aws --region us-east-1 elb describe-instance-health \
+  --load-balancer-name $ELB_NAME | jq -r '.InstanceStates[].State')"
+  I="$((I+1))"
+  if [[ "$I" == 10 ]]; then
+    echo "Load Balancer failed the Health Checks and is out of service."
+    exit 1
+  fi
+done
+echo 'Load Balancer is ready to receive requests.'

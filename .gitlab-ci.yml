@@ -156,7 +156,7 @@ deploy_terraform:
     - terraform init
     - torus run -- terraform apply -auto-approve -var-file="vars/aws.tfvars"
     - terraform output instance_ip > ip.txt
-    - torus run -- sh eks/manifests/deploy.sh
+    - torus run -- ./eks/manifests/deploy.sh
     - sh set-keys.sh
     - if [ -n "${NEW_DEPLOY}" ]; then
             git clone https://github.com/checkr/s3-sync.git;
