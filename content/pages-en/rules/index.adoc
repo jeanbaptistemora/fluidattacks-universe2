@@ -93,6 +93,7 @@
 * link:156/[REQ.156 Source code without sensitive information].
 * link:158/[REQ.158 Define secure programming language].
 * link:161/[REQ.161 Define secure default options].
+* link:173/[REQ.173 Discard unsafe inputs].
 
 == Data
 
