@@ -318,6 +318,35 @@ Deploy:
   except:
     - triggers
 
+deploy-k8s:
+  stage: deploy
+  before_script:
+    - mkdir $HOME/.kube
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
+        $HOME/.kube/config
+  script:
+    - kubectl config set-context "$(kubectl config current-context)"
+        --namespace serves
+    - if ! kubectl get secret gitlab-reg; then
+        echo "Creating secret to access Gitlab Registry..."
+        kubectl create secret docker-registry gitlab-reg \
+        --docker-server="$CI_REGISTRY" --docker-username="$DOCKER_USER" \
+        --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL";
+        fi
+    - sed -i 's/$TORUS_TOKEN_ID/'"$(echo -n $TORUS_TOKEN_ID | base64)"'/;
+        s/$TORUS_TOKEN_SECRET/'"$(echo -n $TORUS_TOKEN_SECRET | base64)"'/;
+        s/$TORUS_ORG/'"$(echo -n $TORUS_ORG | base64)"'/;
+        s/$TORUS_PROJECT/'"$(echo -n $TORUS_PROJECT | base64)"'/;
+        s/$TORUS_ENVIRONMENT/'"$(echo -n $TORUS_ENVIRONMENT | base64)"'/;
+        s/$DATE/'"$(date)"'/'
+        integrates-k8s.yaml
+    - kubectl apply -f integrates-k8s.yaml
+  after_script:
+    - rm integrates-k8s.yaml $HOME/.kube/config
+  only:
+    - master
+
 asserts-prod:
   stage: post-deploy
   script:

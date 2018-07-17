@@ -10,7 +10,7 @@ envsubst < review-apps/ingress.yaml > ingress.yaml && mv ingress.yaml review-app
 envsubst < review-apps/deploy-integrates.yaml > deploy-integrates.yaml && mv deploy-integrates.yaml review-apps/deploy-integrates.yaml
 envsubst < review-apps/tls.yaml > tls.yaml && mv tls.yaml review-apps/tls.yaml
 
-
+export TORUS_ENVIRONMENT='development'
 # Replace variables in secret manifest
 sed -i 's#$K8_ENV_SECRET#'"$K8_ENV_SECRET"'#; \
         s#$K8_AWS_SECRET#'"$K8_AWS_SECRET"'#; \
