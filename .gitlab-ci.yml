@@ -16,6 +16,7 @@ after_script:
 
 stages:
   - deps
+  - pre-test
   - build
   - review
   - test
@@ -80,6 +81,19 @@ terraform-deploy:
     - master
   except:
     - triggers
+
+react-testing:
+  stage: pre-test
+  before_script:
+    - echo "Start Unit Testing"  
+  image: registry.gitlab.com/fluidsignal/integrates:alldeps
+  script:
+    - cd front/ && npm install 
+    - tslint -p tsconfig.json -t verbose
+    - npm test
+    - tsc -p tsconfig.json
+  after_script:
+    - echo "Job finished"
 
 build-integrates:
   stage: build
@@ -195,8 +209,8 @@ Linting:
         torus daemon start; sleep 5;
         cd /usr/src/app;
         torus run -- node /usr/src/app/app/assets/node_modules/.bin/eslint
-        /usr/src/app/app/assets/app/.;
-        cd /usr/src/app/front && tslint -p tsconfig.json"
+        /usr/src/app/app/assets/app/."
+        
   retry: 2
   except:
     - master

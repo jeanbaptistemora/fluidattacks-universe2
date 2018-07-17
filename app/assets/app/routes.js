@@ -102,7 +102,7 @@ angular.module("FluidIntegrates").config((
       "url": "/project/:project/:id/observations"
     }).
     state("Forms", {
-      "controller": "formCtrl",
+      "controller": "formController",
       "templateUrl": `${BASE.url}forms`,
       "url": "/forms"
     });

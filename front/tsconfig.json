@@ -11,5 +11,10 @@
   },
   "include": [
     "./scenes/**/*"
+  ],
+  "exclude": [
+    "./node_modules/**",
+    "./scenes/**/*.spec.tsx"
   ]
+
 }

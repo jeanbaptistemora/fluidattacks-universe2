@@ -60,7 +60,7 @@ RUN rm -r /var/www/html \
     && cd /usr/src/app/front \
     && mkdir -p /usr/src/app/app/assets/dashboard/ \
     && npm install \
-    && tsc -p tsconfig.json \
+    && tsc -p tsconfig.json \ 
     && browserify build/index.js | uglifyjs  > /usr/src/app/app/assets/dashboard/bundle.min.js
 
 # Make port 443 and 24224 available to the world outside this container
