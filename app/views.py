@@ -910,7 +910,7 @@ def key_existing_list(key):
     return key_list
 
 def send_file_to_s3(filename, parameters, field, fieldname, ext):
-    fileurl = parameters['findingId'] + '/' + parameters['url']
+    fileurl = parameters['findingid'] + '/' + parameters['url']
     fileroute = "/tmp/:id.tmp".replace(":id", filename)
     namecomplete = fileurl + "-" + field + "-" + filename + ext
     if os.path.exists(fileroute):
@@ -919,19 +919,19 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext):
                 client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
             except ClientError:
                 rollbar.report_exc_info()
-                integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
+                integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
                 return False
-        resp = integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, True)
+        resp = integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, True)
         if not resp:
-            integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
+            integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
         os.unlink(fileroute)
         return resp
     else:
-        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
+        integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
         return False
 
 def update_file_to_s3(parameters, field, fieldname, upload):
-    fileurl = parameters['findingId'] + '/' + parameters['url']
+    fileurl = parameters['findingid'] + '/' + parameters['url']
     key_val = fileurl + "-" + field
     key_list = key_existing_list(key_val)
     if key_list:
@@ -940,52 +940,52 @@ def update_file_to_s3(parameters, field, fieldname, upload):
     filename = fileurl + "-" + field + "-" + upload.name
     try:
         client_s3.upload_fileobj(upload.file, bucket_s3, filename)
-        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "is_" + fieldname, True)
+        integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, filename.split("/")[1], "is_" + fieldname, True)
         return False
     except ClientError:
         rollbar.report_exc_info()
-        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "is_" + fieldname, False)
+        integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, filename.split("/")[1], "is_" + fieldname, False)
         return True
 
 def migrate_all_files(parameters, request):
     fin_dto = FindingDTO()
     try:
         api = FormstackAPI()
-        frmreq = api.get_submission(parameters['findingId'])
-        finding = fin_dto.parse(parameters['findingId'], frmreq, request)
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.ANIMATION
+        frmreq = api.get_submission(parameters['findingid'])
+        finding = fin_dto.parse(parameters['findingid'], frmreq, request)
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.ANIMATION
         folder = key_existing_list(filename)
         if "animation" in finding and parameters["id"] != '0' and not folder:
             send_file_to_s3(finding["animation"], parameters, fin_dto.ANIMATION, "animation", ".gif")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOTATION
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOTATION
         folder = key_existing_list(filename)
         if "exploitation" in finding and parameters["id"] != '1' and not folder:
             send_file_to_s3(finding["exploitation"], parameters, fin_dto.EXPLOTATION, "exploitation", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV1
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV1
         folder = key_existing_list(filename)
         if "evidence_route_1" in finding and parameters["id"] != '2' and not folder:
             send_file_to_s3(finding["evidence_route_1"], parameters, fin_dto.DOC_ACHV1, "evidence_route_1", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV2
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV2
         folder = key_existing_list(filename)
         if "evidence_route_2" in finding and parameters["id"] != '3' and not folder:
             send_file_to_s3(finding["evidence_route_2"], parameters, fin_dto.DOC_ACHV2, "evidence_route_2", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV3
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV3
         folder = key_existing_list(filename)
         if "evidence_route_3" in finding and parameters["id"] != '4' and not folder:
             send_file_to_s3(finding["evidence_route_3"], parameters, fin_dto.DOC_ACHV3, "evidence_route_3", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV4
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV4
         folder = key_existing_list(filename)
         if "evidence_route_4" in finding and parameters["id"] != '5' and not folder:
             send_file_to_s3(finding["evidence_route_4"], parameters, fin_dto.DOC_ACHV4, "evidence_route_4", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV5
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV5
         folder = key_existing_list(filename)
         if "evidence_route_5" in finding and parameters["id"] != '6' and not folder:
             send_file_to_s3(finding["evidence_route_5"], parameters, fin_dto.DOC_ACHV5, "evidence_route_5", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOIT
+        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOIT
         folder = key_existing_list(filename)
         if "exploit" in finding and parameters["id"] != '7' and not folder:
             send_file_to_s3(finding["exploit"], parameters, fin_dto.EXPLOIT, "exploit", ".py")
-        filename = parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.REG_FILE
+        filename = parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.REG_FILE
         folder = key_existing_list(filename)
         if "fileRecords" in finding and parameters["id"] != '8' and not folder:
             send_file_to_s3(finding["fileRecords"], parameters, fin_dto.REG_FILE, "fileRecords", ".csv")
