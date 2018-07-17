@@ -16,6 +16,8 @@ kind: Deployment
 metadata:
   name: integrates
   namespace: serves
+  annotations:
+    kubernetes.io/change-cause: "Integates deployment from Serves on $DATE"
 spec:
   replicas: 1
   template:
@@ -30,6 +32,9 @@ spec:
         envFrom:
           - secretRef:
               name: integrates-env
+        env:
+          - name: DEPLOYMENT_DATE
+            value: "$DATE"
         ports:
         - containerPort: 80
       imagePullSecrets:

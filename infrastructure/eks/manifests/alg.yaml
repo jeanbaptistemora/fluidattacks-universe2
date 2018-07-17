@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: alg
   namespace: serves
+  annotations:
+    kubernetes.io/change-cause: "ALG deployment from Serves on $DATE"
 spec:
   replicas: 1
   template:
@@ -14,6 +16,9 @@ spec:
       - name: container-alg
         image: registry.gitlab.com/fluidsignal/serves/alg:master
         imagePullPolicy: Always
+        env:
+          - name: DEPLOYMENT_DATE
+            value: "$DATE"
         ports:
         - containerPort: 80
       imagePullSecrets:

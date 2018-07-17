@@ -40,6 +40,7 @@ sed -i 's/$FI_TORUS_TOKEN_ID/'"$(echo -n $FI_TORUS_TOKEN_ID | base64)"'/;
   eks/manifests/integrates.yaml
 
 # Deploy apps containers
+sed -i 's/$DATE/'"$(date)"'/' eks/manifests/*.yaml
 kubectl apply -f eks/manifests/alg.yaml
 kubectl apply -f eks/manifests/exams.yaml
 kubectl apply -f eks/manifests/integrates.yaml
