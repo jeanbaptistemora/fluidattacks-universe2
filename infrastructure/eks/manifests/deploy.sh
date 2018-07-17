@@ -44,6 +44,7 @@ sed -i 's/$DATE/'"$(date)"'/' eks/manifests/*.yaml
 kubectl apply -f eks/manifests/alg.yaml
 kubectl apply -f eks/manifests/exams.yaml
 kubectl apply -f eks/manifests/integrates.yaml
+kubectl apply -f eks/manifests/vpn.yaml
 
 # Wait until the initialization of the Load Balancer is complete
 sleep 5

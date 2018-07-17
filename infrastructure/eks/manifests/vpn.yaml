@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: vpn
+  namespace: serves
+  annotations:
+    kubernetes.io/change-cause: "VPN deployment from Serves on $DATE"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vpn
+    spec:
+      containers:
+      - name: container-vpn
+        image: registry.gitlab.com/fluidsignal/serves/vpn:master
+        imagePullPolicy: Always
+        env:
+          - name: DEPLOYMENT_DATE
+            value: "$DATE"
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: gitlab-reg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpn
+  namespace: serves
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: vpn
