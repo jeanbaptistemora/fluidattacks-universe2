@@ -14,27 +14,8 @@ before_script:
 after_script:
   - docker logout "$CI_REGISTRY"
 
-codequality:
-  script:
-  - export SP_VERSION=$(echo "$CI_SERVER_VERSION" |
-      sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-  - docker run
-      --env CODECLIMATE_CODE="/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}"
-      --volume "/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}":/code
-      --volume /var/run/docker.sock:/var/run/docker.sock
-      --volume /tmp/cc:/tmp/cc
-      codeclimate/codeclimate analyze
-      -e sonar-python
-      -e pep8
-      -e randon
-      -f json > codeclimate.json || true
-  retry: 2
-  artifacts:
-    paths: [codeclimate.json]
-
 stages:
   - deps
-  - terraform
   - build
   - review
   - test
@@ -46,26 +27,25 @@ stages:
 Build:
   stage: deps
   script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
-    - docker build
-        --cache-from "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
-        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
+    - cp front/package.json deploy/containers/deps/
+    - docker build --no-cache 
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:alldeps"
         deploy/containers/deps
     - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
-    - grep ^DEBUG fluidintegrates/settings.py | grep "FI_DEBUG=='True'"
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:alldeps"
   retry: 2
-  except:
-    - triggers
+  only:
+    - schedules
 
 terraform-test:
-  stage: terraform
+  stage: deps
   before_script:
     - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
     - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
     - cd deploy
   script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
     - terraform init
     - terraform plan
   except:
@@ -73,7 +53,7 @@ terraform-test:
     - master
 
 terraform-deploy:
-  stage: terraform
+  stage: deps
   before_script:
     - pip install boto3
     - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
@@ -104,8 +84,7 @@ terraform-deploy:
 build-integrates:
   stage: build
   script:
-    - cd deploy/containers/integrates &&
-        sh build.sh
+    - sh deploy/containers/integrates/build.sh
         "$CI_COMMIT_REF_NAME" "$TORUS_TOKEN_ID" "$TORUS_TOKEN_SECRET"
         "$TORUS_ORG" "$TORUS_PROJECT"
     - docker push

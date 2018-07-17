@@ -12,6 +12,7 @@
     "angular-elastic": "2.5.1",
     "angular-sanitize": "1.7.2",
     "angular-translate": "2.18.1",
+    "browserify": "16.2.2",
     "eslint": "4.19.0",
     "eslint-plugin-angular": "3.3.0",
     "eslint-plugin-unicorn": "4.0.3",
@@ -40,6 +41,7 @@
     "tslint": "5.10.0",
     "tslint-react": "3.6.0",
     "typescript": "2.9.2",
+    "uglify-js": "3.4.3",
     "uninstall": "0.0.0"
   }
 }

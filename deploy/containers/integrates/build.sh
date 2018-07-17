@@ -25,12 +25,12 @@ fi
 echo "---### [${SERVER}] Compilando contenedor."
 
 # Build the image.
-cp -a ../common .
+cp -a deploy/containers/common deploy/containers/integrates
 docker build --no-cache --build-arg ci_commit_ref_name="$CI_COMMIT_REF_NAME" \
     --build-arg torus_token_id="$TORUS_TOKEN_ID" \
     --build-arg torus_token_secret="$TORUS_TOKEN_SECRET" \
     --build-arg torus_org="$TORUS_ORG" \
     --build-arg torus_project="$TORUS_PROJECT" \
     --build-arg torus_environment="$TORUS_ENVIRONMENT" \
-	-t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" .
+	-t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" deploy/containers/integrates/
 rm -rf common

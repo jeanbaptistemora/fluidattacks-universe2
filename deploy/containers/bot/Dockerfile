@@ -1,5 +1,5 @@
 # Last stable Debian base image (jessie-slim)
-FROM registry.gitlab.com/fluidsignal/integrates:deps
+FROM registry.gitlab.com/fluidsignal/integrates:alldeps
 
 # Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
@@ -27,7 +27,6 @@ RUN rm -r /var/www/html \
     && export TORUS_TOKEN_ID=$torus_token_id \
     && export TORUS_TOKEN_SECRET=$torus_token_secret \
     && torus run -- /root/vars/clone.sh \
-    && gem install asciidoctor-pdf --pre \
     && mkdir /usr/src/app/app/documentator/images  \
     && mkdir /usr/src/app/app/documentator/tpls  \
     && mkdir /usr/src/app/app/documentator/results  \

@@ -34,7 +34,7 @@ RUN apt-get update \
                libmysqlclient-dev cron autoconf \
                bison libssl-dev libyaml-dev \
                libreadline6-dev libncurses5-dev \
-               libffi-dev libgdbm3 libgdbm-dev
+               libffi-dev libgdbm3 libgdbm-dev ruby-dev
 
 # Install nodejs.
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -48,14 +48,18 @@ RUN DISTRO=$(lsb_release -i | awk '{print tolower($3)}') \
     && CODENAME=$(lsb_release -c | awk '{print $2}') \
     && sudo echo "deb https://get.torus.sh/$DISTRO/ $CODENAME main" | sudo tee -a /etc/apt/sources.list.d/torus.list \
     && apt-get update \
-    && apt-get install --allow-unauthenticated -y torus
+    && apt-get install --allow-unauthenticated -y torus \
+    && gem install asciidoctor-pdf --pre 
 
 # Install dependencies and pip.
 ADD requirements.txt /root/
+ADD package.json /root/
 RUN easy_install pip
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip install -r /root/requirements.txt --ignore-installed
+RUN pip install -r /root/requirements.txt --ignore-installed \
+    && cd /root/ && npm install -g \
+    && cp --symbolic-link /root/node_modules/.bin/* /usr/local/bin
 
 # SocialAuth Patch.
 ADD patch_socialauth.py /root/
@@ -64,5 +68,3 @@ RUN python /root/patch_socialauth.py
 
 # Change root directory.
 WORKDIR /root/
-
-
