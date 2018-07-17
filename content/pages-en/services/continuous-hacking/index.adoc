@@ -49,7 +49,8 @@ or integration environment is required.
 2+a|== Healthcheck
 
 Whenever a new continuous ethical hacking subscription starts,
-if there are any previous developments is necessary to perform a healthcheck.
+if there are any previous developments
+it is necessary to perform a healthcheck.
 This means we will attack all developments up to subscription start point
 plus the monthly test limit to get even with development team
 within first +3+ subscription months,
