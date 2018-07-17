@@ -1,6 +1,6 @@
 :slug: rules/229/
 :category: rules
-:description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of requiring access credentials such as username and password in order to validate the authentication process.
+:description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of requesting access credentials in order to validate the authentication process.
 :keywords: Requirement, Security, Architecture, Automated, Testing, Deploy.
 :rules: yes
 :translate: rules/229/

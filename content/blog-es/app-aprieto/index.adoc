@@ -91,7 +91,7 @@ pero sólo con moderación,
 debido a que estamos tratando de ser tan explícitos como sea posible
 sobre cómo la característica debería trabajar.
 
-== Documentando vectores de ataque
+== Documentando los ataques
 
 Ahora que hemos comprendido las bases de +Gherkin+,
 veamos como las podemos usar para explicar cómo atacar y explotar
