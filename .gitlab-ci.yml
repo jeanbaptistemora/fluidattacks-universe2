@@ -65,6 +65,9 @@ react-testing:
     - tsc -p tsconfig.json
   after_script:
     - echo "Job finished"
+  except:
+    - master
+    - triggers
 
 js-linter:
   stage: pre-test
@@ -91,6 +94,9 @@ prospector-testing:
     - torus run -- python -v manage.py test app.tests --no-input
   after_script:
     - echo "Job finished"
+  except:
+    - master
+    - triggers
 
 terraform-deploy:
   stage: build
