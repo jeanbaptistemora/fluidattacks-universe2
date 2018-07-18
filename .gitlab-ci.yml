@@ -18,8 +18,8 @@ stages:
   - deps
   - test-infra
   - build
+  - tag
   - deploy
-  - install
   - dns
 
 build_base:
@@ -102,8 +102,8 @@ build_vpn:
   except:
     - master
 
-tag-production:
-  stage: deploy
+tag-alg:
+  stage: tag
   script:
     - docker pull
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg/dev:$CI_COMMIT_SHA"
@@ -112,6 +112,12 @@ tag-production:
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg:master"
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg:master"
+  only:
+    - master
+
+tag-exams:
+  stage: tag
+  script:
     - docker pull
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
     - docker tag
@@ -119,6 +125,12 @@ tag-production:
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams:master"
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams:master"
+  only:
+    - master
+
+tag-vpn:
+  stage: tag
+  script:
     - docker pull
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
     - docker tag
@@ -129,7 +141,7 @@ tag-production:
   only:
     - master
 
-deploy_terraform:
+deploy_infra:
   stage: deploy
   before_script:
     - mkdir infrastructure/vars
@@ -182,146 +194,146 @@ deploy_terraform:
   only:
     - master
 
-install_alg:
-  stage: install
-  dependencies:
-    - deploy_terraform
-  before_script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
-        infrastructure/FLUID_Serves.pem
-    - cd infrastructure
-  script:
-    - chmod 600 FLUID_Serves.pem
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/serves/alg:master &&
-        (sudo docker stop tmp_alg_1 || echo "") &&
-        (sudo docker rm tmp_alg_1 || echo "")'
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker run -d -p 443:443 -p 80:80 --name=tmp_alg_1
-        registry.gitlab.com/fluidsignal/serves/alg:master'
-  only:
-    - master
+# install_alg:
+#   stage: install
+#   dependencies:
+#     - deploy_terraform
+#   before_script:
+#     - aws s3 cp
+#         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+#         infrastructure/FLUID_Serves.pem
+#     - cd infrastructure
+#   script:
+#     - chmod 600 FLUID_Serves.pem
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker pull
+#         registry.gitlab.com/fluidsignal/serves/alg:master &&
+#         (sudo docker stop tmp_alg_1 || echo "") &&
+#         (sudo docker rm tmp_alg_1 || echo "")'
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker run -d -p 443:443 -p 80:80 --name=tmp_alg_1
+#         registry.gitlab.com/fluidsignal/serves/alg:master'
+#   only:
+#     - master
 
-install_exams:
-  stage: install
-  dependencies:
-    - deploy_terraform
-  before_script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
-        infrastructure/FLUID_Serves.pem
-    - cd infrastructure
-  script:
-    - chmod 600 FLUID_Serves.pem
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/serves/exams:master &&
-        (sudo docker stop tmp_exams_1 || echo "") &&
-        (sudo docker rm tmp_exams_1 || echo "")'
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker run -d -p 8080:80 --name=tmp_exams_1
-        registry.gitlab.com/fluidsignal/serves/exams:master'
-  only:
-    - master
+# install_exams:
+#   stage: install
+#   dependencies:
+#     - deploy_terraform
+#   before_script:
+#     - aws s3 cp
+#         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+#         infrastructure/FLUID_Serves.pem
+#     - cd infrastructure
+#   script:
+#     - chmod 600 FLUID_Serves.pem
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker pull
+#         registry.gitlab.com/fluidsignal/serves/exams:master &&
+#         (sudo docker stop tmp_exams_1 || echo "") &&
+#         (sudo docker rm tmp_exams_1 || echo "")'
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker run -d -p 8080:80 --name=tmp_exams_1
+#         registry.gitlab.com/fluidsignal/serves/exams:master'
+#   only:
+#     - master
 
-install_integrates:
-  stage: install
-  dependencies:
-    - deploy_terraform
-  before_script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
-        infrastructure/FLUID_Serves.pem
-    - cd infrastructure
-  script:
-    - chmod 600 FLUID_Serves.pem
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/integrates:master &&
-        (sudo docker stop integrates || echo true) &&
-        (sudo docker rm integrates || echo true) &&
-        sudo docker run
-        -d -p 8000:443 --name=integrates
-        -e TORUS_TOKEN_SECRET='"$FI_TORUS_TOKEN_SECRET"'
-        -e TORUS_TOKEN_ID='"$FI_TORUS_TOKEN_ID"'
-        registry.gitlab.com/fluidsignal/integrates:master'
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/integrates/bot:master &&
-        (sudo docker stop bot || echo true) &&
-        (sudo docker rm bot || echo true) &&
-        sudo docker run
-        -d --restart always --name=bot
-        -e TORUS_TOKEN_SECRET='"$FI_TORUS_TOKEN_SECRET"'
-        -e TORUS_TOKEN_ID='"$FI_TORUS_TOKEN_ID"'
-        registry.gitlab.com/fluidsignal/integrates/bot:master'
-  only:
-    - master
+# install_integrates:
+#   stage: install
+#   dependencies:
+#     - deploy_terraform
+#   before_script:
+#     - aws s3 cp
+#         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+#         infrastructure/FLUID_Serves.pem
+#     - cd infrastructure
+#   script:
+#     - chmod 600 FLUID_Serves.pem
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker pull
+#         registry.gitlab.com/fluidsignal/integrates:master &&
+#         (sudo docker stop integrates || echo true) &&
+#         (sudo docker rm integrates || echo true) &&
+#         sudo docker run
+#         -d -p 8000:443 --name=integrates
+#         -e TORUS_TOKEN_SECRET='"$FI_TORUS_TOKEN_SECRET"'
+#         -e TORUS_TOKEN_ID='"$FI_TORUS_TOKEN_ID"'
+#         registry.gitlab.com/fluidsignal/integrates:master'
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker pull
+#         registry.gitlab.com/fluidsignal/integrates/bot:master &&
+#         (sudo docker stop bot || echo true) &&
+#         (sudo docker rm bot || echo true) &&
+#         sudo docker run
+#         -d --restart always --name=bot
+#         -e TORUS_TOKEN_SECRET='"$FI_TORUS_TOKEN_SECRET"'
+#         -e TORUS_TOKEN_ID='"$FI_TORUS_TOKEN_ID"'
+#         registry.gitlab.com/fluidsignal/integrates/bot:master'
+#   only:
+#     - master
 
-install_vpn:
-  stage: install
-  dependencies:
-    - deploy_terraform
-  before_script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
-        infrastructure/FLUID_Serves.pem
-    - cd infrastructure
-  script:
-    - chmod 600 FLUID_Serves.pem
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker pull
-        registry.gitlab.com/fluidsignal/serves/vpn:master &&
-        (sudo docker stop tmp_vpn_1 || echo "") &&
-        (sudo docker rm tmp_vpn_1 || echo "")'
-    - ssh
-        -o StrictHostKeyChecking=no
-        -i FLUID_Serves.pem
-        admin@$(cat ip.txt)
-        'sudo docker run
-        -d --privileged=true -p 8081:443 --name=tmp_vpn_1
-        registry.gitlab.com/fluidsignal/serves/vpn:master'
-  only:
-    - master
+# install_vpn:
+#   stage: install
+#   dependencies:
+#     - deploy_terraform
+#   before_script:
+#     - aws s3 cp
+#         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+#         infrastructure/FLUID_Serves.pem
+#     - cd infrastructure
+#   script:
+#     - chmod 600 FLUID_Serves.pem
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker pull
+#         registry.gitlab.com/fluidsignal/serves/vpn:master &&
+#         (sudo docker stop tmp_vpn_1 || echo "") &&
+#         (sudo docker rm tmp_vpn_1 || echo "")'
+#     - ssh
+#         -o StrictHostKeyChecking=no
+#         -i FLUID_Serves.pem
+#         admin@$(cat ip.txt)
+#         'sudo docker run
+#         -d --privileged=true -p 8081:443 --name=tmp_vpn_1
+#         registry.gitlab.com/fluidsignal/serves/vpn:master'
+#   only:
+#     - master
 
-install_web:
-  stage: install
-  dependencies: []
-  script:
-    - docker pull
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/web:master"
-    - docker run
-        -e AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
-        -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
-        -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME"
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/web:master"
-        bash -c "./deploy.sh"
-    - docker logout "$CI_REGISTRY"
-  only:
-    - master
+# install_web:
+#   stage: install
+#   dependencies: []
+#   script:
+#     - docker pull
+#         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/web:master"
+#     - docker run
+#         -e AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
+#         -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
+#         -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME"
+#         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/web:master"
+#         bash -c "./deploy.sh"
+#     - docker logout "$CI_REGISTRY"
+#   only:
+#     - master
 
 change_dns:
   stage: dns
