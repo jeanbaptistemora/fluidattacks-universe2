@@ -140,8 +140,9 @@ def update_new_vulnerabilities():
         except (TypeError, KeyError):
             rollbar.report_message('Error: An error ocurred updating new vulnerabilities', 'error')
 
+
 def get_remediated_findings():
-    """ Summary mail send with findings that have not been verified yet. """
+    """Summary mail send with findings that have not been verified yet."""
     findings = integrates_dao.get_remediated_allfindings_dynamo(True)
     if findings != []:
         try:
@@ -149,14 +150,23 @@ def get_remediated_findings():
             context = {'findings': list()}
             cont = 0
             for finding in findings:
-                context['findings'].append({'finding_name': finding['finding_name'], 'finding_url': \
-                    BASE_URL + '/dashboard#!/project/'+ finding['project'].lower() + '/' + \
-                    str(finding['finding_id']) + '/description', 'project': finding['project'].upper()})
+                context['findings'].append({
+                    'finding_name': finding['finding_name'],
+                    'finding_url':
+                    '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description' \
+                        .format(url=BASE_URL,
+                                project=str.lower(str(finding['project'])),
+                                finding=finding['finding_id']),
+                    'project': str.upper(str(finding['project']))})
                 cont += 1
             context['total'] = cont
             send_mail_new_remediated(to, context)
         except (TypeError, KeyError):
-            rollbar.report_message('Error: An error ocurred getting data for remediated email', 'error')
+            rollbar.report_message(
+                'Warning: An error ocurred getting data for remediated email',
+                'warning')
+    else:
+        logger.info('There are no findings to verificate')
 
 def get_age_notifications():
     projects = integrates_dao.get_registered_projects()
