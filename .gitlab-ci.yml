@@ -65,6 +65,12 @@ test_terraform:
     - terraform output variable_web >> dns/terraform.tfvars
     - terraform output variable_integrates >> dns/terraform.tfvars
     - cd dns/
+    - export TF_VAR_ELB_DNS="$(aws elb --region us-east-1
+        describe-load-balancers |
+        jq -r '.LoadBalancerDescriptions[].DNSName')"
+    - export TF_VAR_ELB_ZONE="$(aws elb --region us-east-1
+        describe-load-balancers |
+        jq -r '.LoadBalancerDescriptions[].CanonicalHostedZoneNameID')"
     - terraform init
     - terraform plan -var-file="aws.tfvars"
   after_script:
@@ -359,7 +365,13 @@ change_dns:
     - terraform output variable_web >> dns/terraform.tfvars
     - terraform output variable_integrates >> dns/terraform.tfvars
   script:
-    - cd dns
+    - cd dns/
+    - export TF_VAR_ELB_DNS="$(aws elb --region us-east-1
+        describe-load-balancers |
+        jq -r '.LoadBalancerDescriptions[].DNSName')"
+    - export TF_VAR_ELB_ZONE="$(aws elb --region us-east-1
+        describe-load-balancers |
+        jq -r '.LoadBalancerDescriptions[].CanonicalHostedZoneNameID')"
     - terraform init
     - terraform apply -auto-approve -var-file="aws.tfvars";
   after_script:

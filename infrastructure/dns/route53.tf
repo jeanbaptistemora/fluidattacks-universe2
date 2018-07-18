@@ -1,5 +1,7 @@
-variable "server" {}
 variable "domain" {}
+variable "ELB_DNS" {}
+variable "ELB_ZONE" {}
+variable "server" {}
 # AWS vars
 variable "acc_key" {}
 variable "sec_key" {}

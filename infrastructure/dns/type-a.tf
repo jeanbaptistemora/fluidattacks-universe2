@@ -2,16 +2,22 @@ resource "aws_route53_record" "mainA" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "${aws_route53_zone.fs_maindomain.name}"
   type    = "A"
-  ttl     = "300"
-  records = ["${var.server}"]
+  alias {
+    name    = "${var.ELB_DNS}"
+    zone_id = "${var.ELB_ZONE}"
+    evaluate_target_health = false
+  }
 }
 
 resource "aws_route53_record" "mail" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "mail.${aws_route53_zone.fs_maindomain.name}"
   type    = "A"
-  ttl     = "300"
-  records = ["${var.server}"]
+  alias {
+    name    = "${var.ELB_DNS}"
+    zone_id = "${var.ELB_ZONE}"
+    evaluate_target_health = false
+  }
 }
 
 resource "aws_route53_record" "env" {
