@@ -104,3 +104,29 @@ angular.module("FluidIntegrates").config([
       preferredLanguage(localStorage.lang);
   }
 ]);
+
+/*
+ * Ignoring exception in template load failures
+ *
+ * This exception is going to happen during deploy
+ * downtime. If an user attempts to browse into
+ * application right in the deployment.
+ *
+ * Disabling here is necessary because the error
+ * isn't a fixable issue, unless
+ * we achieve a zero-downtime deploy
+ */
+angular.module("FluidIntegrates").config([
+  "$provide",
+  function config ($provide) {
+    $provide.decorator("$templateRequest", [
+      "$delegate",
+      function catchRequest ($delegate) {
+        const callFn = function callFn (template) {
+          return $delegate(template, true);
+        };
+        return callFn;
+      }
+    ]);
+  }
+]);
