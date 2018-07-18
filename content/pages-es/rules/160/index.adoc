@@ -17,3 +17,13 @@ debe estar codificada en el lenguaje correspondiente (+escaping+).
 . +ASPNET+ link:../../defends/aspnet/codificar-salida/[Codificar Salida].
 . +COBOL+ link:../../defends/cobol/prevenir-xss/[Prevenir Cross Site Scripting].
 . +C Sharp+ link:../../defends/csharp/proteger-aplicacion-xss/[Proteger Aplicación de Ataques de XSS].
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
+Verificar que los datos no estructurados estén desinfectados
+para mejorar las medidas de seguridad genéricas
+como caracteres permitidos y longitud,
+y caracteres potencialmente peligrosos en un contexto dado
+deben eliminarse (por ejemplo nombre naturales con +Unicode+
+o apóstrofes como ねこ u O'Hara).
