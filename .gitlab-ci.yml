@@ -39,7 +39,7 @@ Build:
     - schedules
 
 terraform-test:
-  stage: deps
+  stage: pre-test
   before_script:
     - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
     - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
@@ -53,8 +53,33 @@ terraform-test:
     - triggers
     - master
 
+react-testing:
+  stage: pre-test
+  before_script:
+    - echo "Start Unit Testing"  
+  image: registry.gitlab.com/fluidsignal/integrates:alldeps
+  script:
+    - cd front/ && npm install 
+    - tslint -p tsconfig.json -t verbose
+    - npm test
+    - tsc -p tsconfig.json
+  after_script:
+    - echo "Job finished"
+
+js-linter:
+  stage: pre-test
+  before_script:
+    - echo "JS Linting"
+  image: registry.gitlab.com/fluidsignal/integrates:alldeps
+  script:
+    - eslint app/assets/app/.
+  retry: 2
+  except:
+    - master
+    - triggers
+
 terraform-deploy:
-  stage: deps
+  stage: build
   before_script:
     - pip install boto3
     - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
@@ -81,19 +106,6 @@ terraform-deploy:
     - master
   except:
     - triggers
-
-react-testing:
-  stage: pre-test
-  before_script:
-    - echo "Start Unit Testing"  
-  image: registry.gitlab.com/fluidsignal/integrates:alldeps
-  script:
-    - cd front/ && npm install 
-    - tslint -p tsconfig.json -t verbose
-    - npm test
-    - tsc -p tsconfig.json
-  after_script:
-    - echo "Job finished"
 
 build-integrates:
   stage: build
@@ -201,16 +213,6 @@ Linting:
         if [ "$result" -gt 0 ]; then /usr/src/app/app/assets/node_modules/.bin/gulp   verbose;
         echo -e '\e[31mThere are some errors/warnings unsolved.\e[0m';exit 1;
         else echo -e '\e[32mAll Good!'; exit 0; fi;"
-    - docker run
-        -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
-        -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
-        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
-        /bin/bash -c "npm install -g  n; n stable;
-        torus daemon start; sleep 5;
-        cd /usr/src/app;
-        torus run -- node /usr/src/app/app/assets/node_modules/.bin/eslint
-        /usr/src/app/app/assets/app/."
-        
   retry: 2
   except:
     - master
