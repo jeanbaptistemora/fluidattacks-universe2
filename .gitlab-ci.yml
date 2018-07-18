@@ -14,25 +14,9 @@ before_script:
 after_script:
   - docker logout "$CI_REGISTRY"
 
-codequality:
-  script:
-    - docker pull codeclimate/codeclimate
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-    - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-    - docker run
-        --env CODECLIMATE_CODE="/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}"
-        --volume "/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}":/code
-        --volume /var/run/docker.sock:/var/run/docker.sock
-        --volume /tmp/cc:/tmp/cc codeclimate/codeclimate
-        analyze -e sonar-python -e pep8 -e randon
-        -f json > codeclimate.json
-    - rm -rf /tmp${CI_PROJECT_DIR}
-  artifacts:
-    paths: [codeclimate.json]
-
 stages:
   - deps
-  - test
+  - test-infra
   - build
   - deploy
   - install
@@ -60,21 +44,34 @@ build_builder:
     - master
 
 test_terraform:
-  stage: test
+  stage: test-infra
   before_script:
     - mkdir infrastructure/vars
     - cd infrastructure
     - torus run -- ./set-tfvars.sh
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
-        terraform.tfstate || echo "No previous state found"
+        terraform.tfstate || echo "No previous state for infrastructure found"
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
+        dns/terraform.tfstate || echo "No previous state for DNS found"
+    - cp vars/aws.tfvars dns/
   script:
     - terraform init
     - tflint --var-file="vars/aws.tfvars"
     - terraform plan -var-file="vars/aws.tfvars"
+    - terraform output variable_ip >> dns/terraform.tfvars
+    - terraform output variable_db >> dns/terraform.tfvars
+    - terraform output variable_web >> dns/terraform.tfvars
+    - terraform output variable_integrates >> dns/terraform.tfvars
+    - cd dns/
+    - terraform init
+    - terraform plan -var-file="aws.tfvars"
   after_script:
     - rm -rf infrastructure/vars
     - rm -rf infrastructure/terraform.tfvars
+    - rm -rf infrastructure/dns/aws.tfvars
+    - rm -rf infrastructure/dns/terraform.tfvars
   except:
     - master
 
