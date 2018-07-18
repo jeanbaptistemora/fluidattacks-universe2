@@ -31,3 +31,9 @@ Access Control and Validation Procedures: Implement procedures
 to control and validate a person's access to facilities
 based on their role or function, including visitor control,
 and control of access to software programs for testing and revision.
+
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verify that access to sensitive records is protected,
+such that only authorized objects or data is accessible to each user
+(for example, protect against users
+tampering with a parameter to see or alter another user's account).

@@ -11,3 +11,12 @@
 Las credenciales para la autenticación
 a un sistema con información crítica para el negocio
 deben estar bajo la custodia de dos usuarios.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verificar que el acceso a registros sensibles esté protegido,
+por ejemplo, que sólo objetos o datos autorizados
+sean accesibles a cada usuario
+(por ejemplo, proteger a los usuarios de la manipulación de parámetros
+para espiar o alterar otra cuenta de usuario)

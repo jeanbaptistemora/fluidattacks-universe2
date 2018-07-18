@@ -33,3 +33,10 @@ el acceso de una persona a las instalaciones basándose
 en su rol o función, incluyendo control de visitantes
 y control de acceso a software de la compañía
 para pruebas o revisión.
+
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verificar que el acceso a registros sensibles esté protegido,
+por ejemplo, que sólo objetos o datos autorizados
+sean accesibles a cada usuario
+(por ejemplo, proteger a los usuarios de la manipulación de parámetros
+para espiar o alterar otra cuenta de usuario)

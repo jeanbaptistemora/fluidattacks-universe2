@@ -25,3 +25,10 @@ de acuerdo a lo especificado en link:https://www.law.cornell.edu/cfr/text/45/164
 Autenticación de Personas o Entidades: Implementar procedimientos
 para verificar que una persona o entidad que solicita acceso
 a la información sensible es quien dice ser.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verificar que el acceso a registros sensibles esté protegido,
+por ejemplo, que sólo objetos o datos autorizados
+sean accesibles a cada usuario
+(por ejemplo, proteger a los usuarios de la manipulación de parámetros
+para espiar o alterar otra cuenta de usuario)

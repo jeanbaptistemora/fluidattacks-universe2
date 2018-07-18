@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos recolectados por un determinado sistema, los cuales, deben ser protegidos con el máximo nivel de protección definido dentro del sistema. Lo anterior se debe cumplir según lo estipulado en ISACA.G31.5.
 :keywords: Requerimiento, Seguridad, Sistema, Datos personales, Nivel de protección, Usuario.
 :rules: yes
+:translate: rules/191/
 
 = REQ.191 Proteger datos con el máximo nivel
 
@@ -10,3 +11,12 @@
 
 Los datos personales deben protegerse
 con el máximo nivel de protección definido (+ISACA.G31.5+).
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verificar que el acceso a registros sensibles esté protegido,
+por ejemplo, que sólo objetos o datos autorizados
+sean accesibles a cada usuario
+(por ejemplo, proteger a los usuarios de la manipulación de parámetros
+para espiar o alterar otra cuenta de usuario)

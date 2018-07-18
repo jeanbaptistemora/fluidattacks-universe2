@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos físicos de la organización. En este requerimiento, se recomienda que la organización lleve un registro adecuado de las máquinas foráneas entrantes y salientes.
 :keywords: Dispositivo, Organización, Manipular, Autorización, Seguridad, Requerimiento.
 :rules: yes
+:translate: rules/201/
 
 = REQ.201 Detectar manipulación de dispositivo
 
@@ -10,3 +11,12 @@
 
 El dispositivo debe tener la capacidad de demostrar
 si fue manipulado o abierto de forma no autorizada.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verificar que el acceso a registros sensibles esté protegido,
+por ejemplo, que sólo objetos o datos autorizados
+sean accesibles a cada usuario
+(por ejemplo, proteger a los usuarios de la manipulación de parámetros
+para espiar o alterar otra cuenta de usuario)
