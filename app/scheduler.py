@@ -153,7 +153,7 @@ def get_remediated_findings():
                 context['findings'].append({
                     'finding_name': finding['finding_name'],
                     'finding_url':
-                    '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description' \
+                    '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description'
                         .format(url=BASE_URL,
                                 project=str.lower(str(finding['project'])),
                                 finding=finding['finding_id']),
@@ -168,7 +168,9 @@ def get_remediated_findings():
     else:
         logger.info('There are no findings to verificate')
 
+
 def get_age_notifications():
+    """Send mail with findings that match age criteria."""
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
@@ -177,29 +179,60 @@ def get_age_notifications():
             to = [x[0] for x in recipients if x[1] == 1]
             to.append('continuous@fluidattacks.com')
             finding_requests = api.get_findings(project)["submissions"]
+            project = str.lower(str(project[0]))
+            message = ""
             for finding in finding_requests:
                 finding_parsed = views.finding_vulnerabilities(finding["id"])
-                if ("suscripcion" in finding_parsed and "releaseDate" in finding_parsed and
-                        finding_parsed['fluidProject'].lower() == project[0].lower() and
-                        finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
+                if finding_parsed["edad"] != "-":
                     age = int(finding_parsed["edad"])
+                else:
+                    age = 0
+                ages = [15, 30, 60, 90, 120, 180, 240]
+                project_fin = str.lower(str(finding_parsed['fluidProject']))
+                if ("suscripcion" in finding_parsed and
+                        "releaseDate" in finding_parsed and
+                        project_fin == project and
+                        finding_parsed["suscripcion"] == "Continua" and
+                        age in ages):
                     context = {
-                        'project': project[0].upper(),
+                        'project': str.upper(str(project)),
                         'finding': finding["id"],
                         'finding_name': finding_parsed["finding"],
-                        'finding_url': BASE_URL + '/dashboard#!/project/' + project[0].lower() \
-                                        + '/' + finding["id"] + '/description',
-                        'finding_comment': BASE_URL + '/dashboard#!/project/' + project[0].lower() \
-                                        + '/' + finding["id"] + '/comments',
-                        'project_url': BASE_URL + '/dashboard#!/project/' + project[0].lower() + '/indicators'
-                        }
-                    if "kb" in finding_parsed and BASE_WEB_URL + "/es/defends" in finding_parsed["kb"]:
+                        'finding_url':
+                        '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
+                            '/description'
+                            .format(url=BASE_URL,
+                                    project=project,
+                                    finding=finding["id"]),
+                        'finding_comment':
+                        '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
+                            '/comments'
+                            .format(url=BASE_URL,
+                                    project=project,
+                                    finding=finding["id"]),
+                        'project_url':
+                        '{url!s}/dashboard#!/project/{project!s}/indicators'
+                            .format(url=BASE_URL, project=project)
+                    }
+                    if "kb" in finding_parsed and \
+                            BASE_WEB_URL + "/es/defends" in \
+                            finding_parsed["kb"]:
                         context["kb"] = finding_parsed["kb"]
-                    ages = [15, 30, 60, 90, 120, 180, 240]
-                    if age in ages:
-                        send_mail_age(age, to, context)
+                    else:
+                        message = 'Finding {finding!s} of project ' \
+                            '{project!s} does not have kb link' \
+                            .format(finding=finding["id"], project=project)
+                        logger.info(message)
+                    send_mail_age(age, to, context)
+                else:
+                    message = 'Finding {finding!s} of project {project!s} '\
+                        'does not match age mail criteria' \
+                        .format(finding=finding["id"], project=project)
+                    logger.info(message)
         except (TypeError, KeyError):
-            rollbar.report_message('Error: An error ocurred getting data for age email', 'error')
+            rollbar.report_message(
+                'Warning: An error ocurred getting data for age email',
+                'warning')
 
 
 def get_age_weekends_notifications():
