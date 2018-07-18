@@ -52,6 +52,23 @@ terraform-test:
     - triggers
     - master
 
+gulp-compiler:
+ stage: pre-test
+ before_script:
+   - echo "Start gulp compiler"  
+ image: registry.gitlab.com/fluidsignal/integrates:alldeps
+ script:
+   - cd app/assets && npm install
+   - cd ../../front 
+   - npm install
+   - gulp
+ after_script:
+   - echo "Job finished"
+ retry: 2
+ except:
+   - master
+   - triggers
+
 react-testing:
   stage: pre-test
   before_script:

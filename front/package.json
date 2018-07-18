@@ -24,7 +24,7 @@
     "eslint-plugin-unicorn": "4.0.3",
     "google-closure-compiler-js": "20180402.0.0",
     "graphql.js": "0.4.20",
-    "gulp": "4.0.0",
+    "gulp": "3.9.1",
     "iframe-resizer": "3.6.1",
     "jquery": "3.3.1",
     "@types/jquery": "3.3.4",
@@ -33,6 +33,7 @@
     "ldclient-js": "2.1.2",
     "magnific-popup": "1.1.0",
     "mixpanel-browser": "2.22.4",
+    "@types/mixpanel": "2.14.0",
     "mocha": "5.2.0",
     "@types/mocha": "5.2.5",
     "ng-rollbar": "2.3.8",
@@ -51,6 +52,9 @@
     "tslint-react": "3.6.0",
     "typescript": "2.9.2",
     "uglify-js": "3.4.3",
+    "gulp-typescript": "5.0.0-alpha.1",
+    "vinyl-source-stream": "2.0.0",
+    "gulp-cli": "2.0.1",
     "uninstall": "0.0.0"
   },
   "scripts": {

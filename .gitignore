@@ -29,6 +29,5 @@ config/drive_client_secret.json
 front/node_modules
 front/build/**
 front/package-lock.json
-app/assets/login/bundle.min.js
-app/assets/login/index.js
-app/assets/dashboard/bundle.min.js
+app/assets/login/*.js
+app/assets/dashboard/*.js
