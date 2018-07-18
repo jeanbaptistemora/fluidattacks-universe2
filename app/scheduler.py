@@ -180,55 +180,13 @@ def get_age_notifications():
             to.append('continuous@fluidattacks.com')
             finding_requests = api.get_findings(project)["submissions"]
             project = str.lower(str(project[0]))
-            message = ""
             for finding in finding_requests:
                 finding_parsed = views.finding_vulnerabilities(finding["id"])
                 if finding_parsed["edad"] != "-":
                     age = int(finding_parsed["edad"])
                 else:
                     age = 0
-                ages = [15, 30, 60, 90, 120, 180, 240]
-                project_fin = str.lower(str(finding_parsed['fluidProject']))
-                if ("suscripcion" in finding_parsed and
-                        "releaseDate" in finding_parsed and
-                        project_fin == project and
-                        finding_parsed["suscripcion"] == "Continua" and
-                        age in ages):
-                    context = {
-                        'project': str.upper(str(project)),
-                        'finding': finding["id"],
-                        'finding_name': finding_parsed["finding"],
-                        'finding_url':
-                        '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
-                            '/description'
-                            .format(url=BASE_URL,
-                                    project=project,
-                                    finding=finding["id"]),
-                        'finding_comment':
-                        '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
-                            '/comments'
-                            .format(url=BASE_URL,
-                                    project=project,
-                                    finding=finding["id"]),
-                        'project_url':
-                        '{url!s}/dashboard#!/project/{project!s}/indicators'
-                            .format(url=BASE_URL, project=project)
-                    }
-                    if "kb" in finding_parsed and \
-                            BASE_WEB_URL + "/es/defends" in \
-                            finding_parsed["kb"]:
-                        context["kb"] = finding_parsed["kb"]
-                    else:
-                        message = 'Finding {finding!s} of project ' \
-                            '{project!s} does not have kb link' \
-                            .format(finding=finding["id"], project=project)
-                        logger.info(message)
-                    send_mail_age(age, to, context)
-                else:
-                    message = 'Finding {finding!s} of project {project!s} '\
-                        'does not match age mail criteria' \
-                        .format(finding=finding["id"], project=project)
-                    logger.info(message)
+                format_age_email(finding_parsed, project, to, age)
         except (TypeError, KeyError):
             rollbar.report_message(
                 'Warning: An error ocurred getting data for age email',
@@ -236,6 +194,7 @@ def get_age_notifications():
 
 
 def get_age_weekends_notifications():
+    """Send mail on weekends with findings that match age criteria."""
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
@@ -244,33 +203,74 @@ def get_age_weekends_notifications():
             to = [x[0] for x in recipients if x[1] == 1]
             to.append('continuous@fluidattacks.com')
             finding_requests = api.get_findings(project)["submissions"]
+            project = str.lower(str(project[0]))
             for finding in finding_requests:
                 finding_parsed = views.finding_vulnerabilities(finding["id"])
-                if ("suscripcion" in finding_parsed and "releaseDate" in finding_parsed and
-                        finding_parsed['fluidProject'].lower() == project[0].lower() and
-                        finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
-                    age = int(finding_parsed["edad"])
-                    context = {
-                        'project': project[0].upper(),
-                        'finding': finding["id"],
-                        'finding_name': finding_parsed["finding"],
-                        'finding_url': BASE_URL + '/dashboard#!/project/' + project[0].lower() \
-                                        + '/' + finding["id"] + '/description',
-                        'finding_comment': BASE_URL + '/dashboard#!/project/' + project[0].lower() \
-                                        + '/' + finding["id"] + '/comments',
-                        'project_url': BASE_URL + '/dashboard#!/project/' + project[0].lower() + '/indicators'
-                        }
-                    if "kb" in finding_parsed and BASE_WEB_URL + "/es/defends" in finding_parsed["kb"]:
-                        context["kb"] = finding_parsed["kb"]
-                    ages = [15, 30, 60, 90, 120, 180, 240]
-                    if age in ages:
-                        send_mail_age(age, to, context)
-                    elif (age + 1) in ages:
-                        send_mail_age(age + 1, to, context)
-                    elif (age + 2) in ages:
-                        send_mail_age(age + 2, to, context)
+                if finding_parsed["edad"] != "-":
+                    unformatted_age = int(finding_parsed["edad"])
+                    age = format_age_weekend(unformatted_age)
+                else:
+                    age = 0
+                format_age_email(finding_parsed, project, to, age)
         except (TypeError, KeyError):
-            rollbar.report_message('Error: An error ocurred getting data for age weekends email', 'error')
+            rollbar.report_message(
+                'Error: An error ocurred getting data for age weekends email',
+                'error')
+
+
+def format_age_email(finding_parsed, project, to, age):
+    """Format data to send age email."""
+    ages = [15, 30, 60, 90, 120, 180, 240]
+    message = ""
+    project_fin = str.lower(str(finding_parsed['fluidProject']))
+    if ("suscripcion" in finding_parsed and
+            "releaseDate" in finding_parsed and
+            project_fin == project and
+            finding_parsed["suscripcion"] == "Continua" and
+            age in ages):
+        context = {
+            'project': str.upper(str(project)),
+            'finding': finding_parsed["id"],
+            'finding_name': finding_parsed["finding"],
+            'finding_url':
+            '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description'
+                .format(url=BASE_URL,
+                        project=project,
+                        finding=finding_parsed["id"]),
+            'finding_comment':
+            '{url!s}/dashboard#!/project/{project!s}/{finding!s}/comments'
+                .format(url=BASE_URL,
+                        project=project,
+                        finding=finding_parsed["id"]),
+            'project_url':
+            '{url!s}/dashboard#!/project/{project!s}/indicators'
+                .format(url=BASE_URL, project=project)
+        }
+        if "kb" in finding_parsed and \
+                BASE_WEB_URL + "/es/defends" in \
+                finding_parsed["kb"]:
+            context["kb"] = finding_parsed["kb"]
+        else:
+            message = 'Finding {finding!s} of project ' \
+                '{project!s} does not have kb link' \
+                .format(finding=finding_parsed["id"], project=project)
+            logger.info(message)
+        send_mail_age(age, to, context)
+    else:
+        message = 'Finding {finding!s} of project {project!s} '\
+            'does not match age mail criteria' \
+            .format(finding=finding_parsed["id"], project=project)
+        logger.info(message)
+
+def format_age_weekend(age):
+    ages = [15, 30, 60, 90, 120, 180, 240]
+    if (age + 1) in ages:
+        formatted_age = age + 1
+    elif (age + 2) in ages:
+        formatted_age = age + 2
+    else:
+        formatted_age = age
+    return formatted_age
 
 def send_mail_age(age, to, context):
     context["age"] = age
