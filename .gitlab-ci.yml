@@ -256,7 +256,7 @@ asserts-pre-deploy:
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
-        admin@fluidattacks.com
+        admin@52.1.64.44
         'sudo docker pull
         registry.gitlab.com/fluidsignal/integrates:master &&
         sudo docker run
@@ -273,7 +273,7 @@ asserts-pre-deploy:
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
-        admin@fluidattacks.com
+        admin@52.1.64.44
         'sudo docker stop test-integrates &&
         sudo docker rm test-integrates'
     - docker logout fluid-docker.jfrog.io
@@ -291,7 +291,7 @@ Deploy:
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
-        admin@fluidattacks.com
+        admin@52.1.64.44
         'sudo docker pull
         registry.gitlab.com/fluidsignal/integrates:master &&
         sudo docker stop integrates &&
@@ -304,7 +304,7 @@ Deploy:
     - ssh
         -o StrictHostKeyChecking=no
         -i FLUID_Serves.pem
-        admin@fluidattacks.com
+        admin@52.1.64.44
         'sudo docker pull
         registry.gitlab.com/fluidsignal/integrates/bot:master &&
         sudo docker stop bot &&
