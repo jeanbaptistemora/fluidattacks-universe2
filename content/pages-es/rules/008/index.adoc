@@ -40,3 +40,8 @@ Plan de Seguridad en las Instalaciones:
 Implementar políticas y procedimientos para salvaguardar
 las instalaciones y los equipos
 de accesos no autorizados, manipulación y robo.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.6+]
+Producir un modelo de amenazas para la aplicación
+y los servicios remotos asociados que identifique potenciales amenazas
+y contramedidas para tratarlas.
