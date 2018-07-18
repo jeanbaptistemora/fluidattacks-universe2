@@ -115,38 +115,38 @@ angular.module("FluidIntegrates").controller(
           if (angular.isUndefined(response.data)) {
             location.reload();
           }
-          if (response.data.length > 0) {
+          else if (response.data.length > 0) {
             const LINES_DIVISOR = 1000;
             const sevConst1 = 4.611;
             const sevConst2 = 43.221;
             const sevConst3 = 4;
             for (let cont = 0; cont < response.data.length; cont++) {
               const target = (parseInt(response.data[cont].lines, 10) /
-                             LINES_DIVISOR) +
-                             (parseInt(response.data[cont].fields, 10) /
-                             sevConst3);
+                               LINES_DIVISOR) +
+                               (parseInt(response.data[cont].fields, 10) /
+                               sevConst3);
               const totalSeverity = severity / ((sevConst1 * target) +
-                                    sevConst2) * PERCENTAGE_FACTOR;
+                                      sevConst2) * PERCENTAGE_FACTOR;
               $scope.metricsList.push({
                 "color": "#ef4c43",
                 "description": $translate.instant("search_findings." +
-                                                  "filter_labels.criticity"),
+                                                    "filter_labels.criticity"),
                 "icon": "s7-graph1",
                 "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                  "criticityTooltip"),
+                                                    "criticityTooltip"),
                 "value": "n%".replace("n", totalSeverity.toFixed(0))
               });
               $scope.metricsList.push({
                 "color": "#00cb77",
                 "description": $translate.instant("search_findings." +
-                                            "filter_labels.closure"),
+                                              "filter_labels.closure"),
                 "icon": "s7-like2",
                 "tooltip": $translate.instant("search_findings.filter_labels." +
-                                            "closureTooltip"),
+                                              "closureTooltip"),
                 "value": "n%".replace("n", Math.round((1 -
-                                (cardinalityValues[0] /
-                                cardinalityValues[1])) *
-                                PERCENTAGE_FACTOR).toString())
+                                  (cardinalityValues[0] /
+                                  cardinalityValues[1])) *
+                                  PERCENTAGE_FACTOR).toString())
               });
             }
           }
@@ -155,23 +155,23 @@ angular.module("FluidIntegrates").controller(
             $scope.metricsList.push({
               "color": "#ef4c43",
               "description": $translate.instant("search_findings." +
-                                                "filter_labels.criticity"),
+                                                  "filter_labels.criticity"),
               "icon": "s7-graph1",
               "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                  "criticityTooltip"),
+                                                    "criticityTooltip"),
               "value": totalSeverity.toFixed(0)
             });
             $scope.metricsList.push({
               "color": "#00cb77",
               "description": $translate.instant("search_findings." +
-                                                "filter_labels.closure"),
+                                                  "filter_labels.closure"),
               "icon": "s7-like2",
               "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                  "closureTooltip"),
+                                                    "closureTooltip"),
               "value": "n%".replace("n", Math.round((1 -
-                                    (cardinalityValues[0] /
-                                    cardinalityValues[1])) *
-                                    PERCENTAGE_FACTOR).toString())
+                                      (cardinalityValues[0] /
+                                      cardinalityValues[1])) *
+                                      PERCENTAGE_FACTOR).toString())
             });
           }
         }

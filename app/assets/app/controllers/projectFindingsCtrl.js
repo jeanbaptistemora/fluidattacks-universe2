@@ -190,39 +190,43 @@ angular.module("FluidIntegrates").controller(
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
-              // Mixpanel tracking
-              mixPanelDashboard.trackSearch(
-                "SearchFinding",
-                userEmail,
-                projectName
-              );
-              if (response.data.length === 0 && eventsData.length === 0) {
-                if ($scope.isManager) {
-                  const reqDrafts = projectFtry2.draftsByName(
-                    projectName,
-                    tableFilter
-                  );
-                  reqDrafts.then((resp) => {
-                    $scope.view.project = true;
-                    if (!resp.error) {
-                      if (resp.data.length > 0) {
+              else {
+                // Mixpanel tracking
+                mixPanelDashboard.trackSearch(
+                  "SearchFinding",
+                  userEmail,
+                  projectName
+                );
+                if (response.data.length === 0 && eventsData.length === 0) {
+                  if ($scope.isManager) {
+                    const reqDrafts = projectFtry2.draftsByName(
+                      projectName,
+                      tableFilter
+                    );
+                    reqDrafts.then((resp) => {
+                      $scope.view.project = true;
+                      if (!resp.error && resp.data.length > 0) {
                         $state.go(
                           "ProjectDrafts",
                           {"project": projectName.toLowerCase()}
                         );
                       }
-                    }
-                  });
+                      else {
+                        Rollbar.error("Error: An error occurred getting " +
+                                      "drafts");
+                      }
+                    });
+                  }
+                  else {
+                    $scope.view.project = false;
+                    $scope.view.finding = false;
+                    $msg.error($translate.instant("proj_alerts.not_found"));
+                  }
                 }
                 else {
-                  $scope.view.project = false;
-                  $scope.view.finding = false;
-                  $msg.error($translate.instant("proj_alerts.not_found"));
+                  projectData = response.data;
+                  $scope.loadFindingContent(projectData, vlang);
                 }
-              }
-              else {
-                projectData = response.data;
-                $scope.loadFindingContent(projectData, vlang);
               }
             }
             else if (response.error) {

@@ -113,43 +113,49 @@ angular.module("FluidIntegrates").controller(
         if (angular.isUndefined(response.data)) {
           location.reload();
         }
-        for (let cont = 0; cont < response.data.length; cont++) {
-          if (response.data[cont].type in keysToTranslate) {
-            response.data[cont].type =
+        else {
+          for (let cont = 0; cont < response.data.length; cont++) {
+            if (response.data[cont].type in keysToTranslate) {
+              response.data[cont].type =
                   $translate.instant(keysToTranslate[response.data[cont].type]);
+            }
+            else {
+              Rollbar.error(`Error: Couldn't find translation key for value: ${
+                response.data[cont].type}`);
+            }
           }
+          angular.element("#myEventsTbl").bootstrapTable({
+            "data": response.data,
+            "locale": vlang,
+            "onClickRow" (row) {
+              $uibModal.open({
+                "animation": true,
+                "backdrop": "static",
+                "controller" ($scope, data, $uibModalInstance) {
+                  $scope.evnt = data;
+                  // Tracking mixpanel
+                  const org = Organization.toUpperCase();
+                  const projt = $scope.evnt.fluidProject.toUpperCase();
+                  mixPanelDashboard.trackReadEventuality(
+                    userName,
+                    userEmail,
+                    org,
+                    projt,
+                    $scope.evnt.id
+                  );
+                  $scope.close = function close () {
+                    $uibModalInstance.close();
+                  };
+                },
+                "keyboard": false,
+                "resolve": {"data": row},
+                "templateUrl": "ver.html",
+                "windowClass": "modal avance-modal"
+              });
+            }
+          });
+          angular.element("#myEventsTbl").bootstrapTable("refresh");
         }
-        angular.element("#myEventsTbl").bootstrapTable({
-          "data": response.data,
-          "locale": vlang,
-          "onClickRow" (row) {
-            $uibModal.open({
-              "animation": true,
-              "backdrop": "static",
-              "controller" ($scope, data, $uibModalInstance) {
-                $scope.evnt = data;
-                // Tracking mixpanel
-                const org = Organization.toUpperCase();
-                const projt = $scope.evnt.fluidProject.toUpperCase();
-                mixPanelDashboard.trackReadEventuality(
-                  userName,
-                  userEmail,
-                  org,
-                  projt,
-                  $scope.evnt.id
-                );
-                $scope.close = function close () {
-                  $uibModalInstance.close();
-                };
-              },
-              "keyboard": false,
-              "resolve": {"data": row},
-              "templateUrl": "ver.html",
-              "windowClass": "modal avance-modal"
-            });
-          }
-        });
-        angular.element("#myEventsTbl").bootstrapTable("refresh");
       });
     };
     $scope.init = function init () {
