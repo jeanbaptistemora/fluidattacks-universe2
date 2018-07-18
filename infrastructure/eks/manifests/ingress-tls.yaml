@@ -1,12 +1,22 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: tls-certificate
+  name: tls-fluidattacks
   namespace: serves
 type: kubernetes.io/tls
 data:
   tls.key: $TLS_KEY
-  tls.crt: $TLS_CERT
+  tls.crt: $FA_TLS_CERT
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tls-fluidla
+  namespace: serves
+type: kubernetes.io/tls
+data:
+  tls.key: $TLS_KEY
+  tls.crt: $FLA_TLS_CERT
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -20,9 +30,30 @@ spec:
   tls:
   - hosts:
     - fluidattacks.com
-    secretName: tls-certificate
+    secretName: tls-fluidattacks
   rules:
   - host: fluidattacks.com
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress2
+  namespace: serves
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+spec:
+  tls:
+  - hosts:
+    - fluid.la
+    secretName: tls-fluidla
+  rules:
+  - host: fluid.la
     http:
       paths:
       - backend:
