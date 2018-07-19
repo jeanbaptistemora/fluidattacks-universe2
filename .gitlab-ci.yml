@@ -59,6 +59,7 @@ test_terraform:
   script:
     - terraform init
     - tflint --var-file="vars/aws.tfvars"
+    - terraform refresh --var-file="vars/aws.tfvars"
     - terraform plan -var-file="vars/aws.tfvars"
     - terraform output variable_db >> dns/terraform.tfvars
     - terraform output variable_web >> dns/terraform.tfvars
@@ -71,6 +72,7 @@ test_terraform:
         describe-load-balancers |
         jq -r '.LoadBalancerDescriptions[].CanonicalHostedZoneNameID')"
     - terraform init
+    - terraform refresh -var-file="aws.tfvars"
     - terraform plan -var-file="aws.tfvars"
   after_script:
     - rm -rf infrastructure/vars
@@ -166,6 +168,7 @@ deploy_infra:
         $HOME/.kube/config || echo "No Kubernetes configuration file found"
   script:
     - terraform init
+    - terraform refresh -var-file="vars/aws.tfvars"
     - torus run -- terraform apply -auto-approve -var-file="vars/aws.tfvars"
     - torus run -- ./eks/manifests/deploy.sh
     - sh set-keys.sh
@@ -209,7 +212,7 @@ change_dns:
         dns/terraform.tfstate || echo ""
     - cp vars/aws.tfvars dns/
     - terraform init
-    - terraform refresh -var-file="vars/aws.tfvars" > /dev/null
+    - terraform refresh -var-file="vars/aws.tfvars"
     - terraform output variable_db >> dns/terraform.tfvars
     - terraform output variable_web >> dns/terraform.tfvars
     - terraform output variable_integrates >> dns/terraform.tfvars
@@ -222,6 +225,7 @@ change_dns:
         describe-load-balancers |
         jq -r '.LoadBalancerDescriptions[].CanonicalHostedZoneNameID')"
     - terraform init
+    - terraform refresh -var-file="aws.tfvars"
     - terraform apply -auto-approve -var-file="aws.tfvars";
   after_script:
     - aws s3 cp
