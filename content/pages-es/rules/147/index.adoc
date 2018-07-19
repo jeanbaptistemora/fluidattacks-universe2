@@ -28,3 +28,10 @@ Verificar que exista una política explícita
 sobre cómo administrar las claves criptográficas (si las hay)
 y se impone el ciclo de vida de las claves criptográficas.
 Idealmente, seguir un estándar de gestión de claves como +NIST SP 800-57+
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.6+]
+Verificar que todos los números aleatorios, archivos aleatorios,
+GUIDs aleatorios y cadenas aleatorias sean generadas
+utilizando el generador de números aleatorios aprobado
+del módulo criptográfico cuando se espera que estos valores aleatoriossss
+no puedan ser adivinados por un atacante.

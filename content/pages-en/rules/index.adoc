@@ -125,6 +125,7 @@
 
 == Numbers
 
+* link:223/[REQ.223 Uniform distribution in random numbers].
 * link:224/[REQ.224 Use secure cryptographic mechanisms].
 
 == Authentication

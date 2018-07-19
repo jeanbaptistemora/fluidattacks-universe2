@@ -1,0 +1,22 @@
+:slug: rules/223/
+:category: rules
+:description: This document contains the details of the security requirements related to definition and management of random numbers in the application and system. This requirement establishes the importance of generating random numbers using a uniform distribution.
+:keywords: Requirement, Security, Random, Numbers, Distribution, System
+:rules: yes
+:translate: rules/223/
+
+= REQ.223 Uniform distribution in random numbers
+
+== Requirement
+
+System random numbers must be generated
+using a uniform distribution.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.6+]
+Verificar que todos los números aleatorios, archivos aleatorios,
+GUIDs aleatorios y cadenas aleatorias sean generadas
+utilizando el generador de números aleatorios aprobado
+del módulo criptográfico cuando se espera que estos valores aleatoriossss
+no puedan ser adivinados por un atacante.

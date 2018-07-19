@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la generación segura de números aleatorios utilizados por un determinado sistema. En este caso, se recomienda que dichos números sigan una distribución de tipo uniforme.
 :keywords: Generar, Aleatorio, Distribución, Números, Uniforme, Seguridad.
 :rules: yes
+:translate: rules/223/
 
 = REQ.223 Generar números con distribución uniforme
 
@@ -15,3 +16,12 @@ deben seguir una distribución uniforme.
 
 . +ASPNET+ link:../../defends/aspnet/generar-identificador-unico/[Generar identificador único para transacción].
 . +COBOL+ link:../../defends/cobol/generar-numeros-aleatorios/[Generar Números Aleatorios].
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.6+]
+Verificar que todos los números aleatorios, archivos aleatorios,
+GUIDs aleatorios y cadenas aleatorias sean generadas
+utilizando el generador de números aleatorios aprobado
+del módulo criptográfico cuando se espera que estos valores aleatoriossss
+no puedan ser adivinados por un atacante.
