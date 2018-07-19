@@ -167,7 +167,6 @@ deploy_infra:
   script:
     - terraform init
     - torus run -- terraform apply -auto-approve -var-file="vars/aws.tfvars"
-    - terraform output instance_ip > ip.txt
     - torus run -- ./eks/manifests/deploy.sh
     - sh set-keys.sh
     - if [ -n "${NEW_DEPLOY}" ]; then
@@ -189,11 +188,6 @@ deploy_infra:
         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
     - rm -rf infrastructure/vars
     - rm -rf infrastructure/terraform.tfvars
-  artifacts:
-    paths:
-      - infrastructure/ip.txt
-    expire_in: 12 hrs
-    when: on_success
   only:
     - master
 
