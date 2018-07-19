@@ -39,6 +39,10 @@ output "fis3integrationID" {
   value = "${module.users.fis3integrationID}"
 }
 
+output "fiS3Arn" {
+  value = "${module.users.fiS3Arn}"
+}
+
 output "cloudwatchID" {
   value = "${module.users.cloudwatchID}"
 }

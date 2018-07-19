@@ -1,10 +1,10 @@
 variable "bucket" {}
-variable "bucket-integrates" {}
+variable "fiBucket" {}
+variable "fiS3Arn" {}
 
 data "aws_s3_bucket" "b" {
   bucket = "${var.bucket}"
 }
-
 
 resource "aws_s3_bucket_policy" "b" {
   bucket = "${data.aws_s3_bucket.b.id}"
@@ -29,11 +29,9 @@ resource "aws_s3_bucket_policy" "b" {
 POLICY
 }
 
-
 data "aws_s3_bucket" "i" {
-  bucket = "${var.bucket-integrates}"
+  bucket = "${var.fiBucket}"
 }
-
 
 resource "aws_s3_bucket_policy" "i" {
   bucket = "${data.aws_s3_bucket.i.id}"
@@ -45,9 +43,11 @@ resource "aws_s3_bucket_policy" "i" {
           {
               "Sid": "Stmt1513113661499",
               "Effect": "Allow",
-              "Principal": "*",
+              "Principal": {
+                "AWS": "${var.fiS3Arn}"
+              },
               "Action": "s3:GetObject",
-              "Resource": "arn:aws:s3:::${var.bucket-integrates}/*"
+              "Resource": "arn:aws:s3:::${var.fiBucket}/*"
           }
       ]
   }

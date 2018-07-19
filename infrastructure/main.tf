@@ -19,6 +19,10 @@ module "iam" {
   webBucket = "${var.webBucket}"
 }
 
+output "fiS3Arn" {
+  value = "fiS3Arn=\"${module.iam.fiS3Arn}\""
+}
+
 # #Create from scratch
 # module "createNetwork" {
 #   source = "./network"

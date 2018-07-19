@@ -61,6 +61,7 @@ test_terraform:
     - tflint --var-file="vars/aws.tfvars"
     - terraform refresh --var-file="vars/aws.tfvars"
     - terraform plan -var-file="vars/aws.tfvars"
+    - terraform output fiS3Arn >> dns/terraform.tfvars
     - terraform output variable_db >> dns/terraform.tfvars
     - terraform output variable_web >> dns/terraform.tfvars
     - terraform output variable_integrates >> dns/terraform.tfvars
@@ -213,6 +214,7 @@ change_dns:
     - cp vars/aws.tfvars dns/
     - terraform init
     - terraform refresh -var-file="vars/aws.tfvars"
+    - terraform output fiS3Arn >> dns/terraform.tfvars
     - terraform output variable_db >> dns/terraform.tfvars
     - terraform output variable_web >> dns/terraform.tfvars
     - terraform output variable_integrates >> dns/terraform.tfvars
