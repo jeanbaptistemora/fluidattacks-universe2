@@ -17,3 +17,9 @@ Verificar que exista una política explícita
 sobre cómo administrar las claves criptográficas (si las hay)
 y se impone el ciclo de vida de las claves criptográficas.
 Idealmente, seguir un estándar de gestión de claves como +NIST SP 800-57+
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.9+]
+Verificar que exista una política explícita
+para la administración de llaves criptográficas
+(por ejemplo: generación, distribución, llaves revocadas y expiradas).
+Verificar que el ciclo de vida de la llave se aplique adecuadamente.
