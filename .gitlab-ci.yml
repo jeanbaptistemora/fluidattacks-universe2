@@ -317,4 +317,5 @@ cleanup-code:
   stage: cleanup
   script:
     - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - rm -rf /tmp/npm*
   when: always
