@@ -14,15 +14,11 @@ variable "fiBucket" {}
 variable "ciIP" {}
 
 #EC2 vars
-variable "amiID" {}
 variable "iType" {}
-variable "kName" {}
 
 # Net Vars
 variable "cidr" {}
 variable "vpcId" {}
-variable "sgroupId" {}
-variable "snetId" {}
 
 # DB Vars
 variable "db_vpcId" {}

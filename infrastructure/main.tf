@@ -26,43 +26,6 @@ module "iam" {
 #   cidr = "${var.cidr}"
 #   ciIP = "${var.ciIP}"
 # }
-# 
-# # Create from scratch
-# module "ec2instance" {
-#   source = "./ec2"
-#   amiID = "${var.amiID}"
-#   iType = "${var.iType}"
-#   sreg = "${var.sreg}"
-#   sgId = "${module.createNetwork.sgId}"
-#   snetId = "${module.createNetwork.snetId}"
-#   kName = "${var.kName}"
-# 
-# }
-# output "variable_ip" {
-#   value = "server=\"${module.ec2instance.ip}\""
-# }
-# output "instance_ip" {
-#   value = "${module.ec2instance.ip}"
-# }
-
-
-# new with cron and peer
-module "ec2-cron" {
-  source = "./ec2"
-  amiID = "${var.amiID}"
-  iType = "${var.iType}"
-  sreg = "${var.sreg}"
-  sgId = "${var.sgroupId}"
-  snetId = "${var.snetId}"
-  kName = "${var.kName}"
-  iamProfile = "${module.iam.fs-cloudwatchagent}"
-}
-output "variable_ip" {
-  value = "server=\"${module.ec2-cron.ip}\""
-}
-output "instance_ip" {
-  value = "${module.ec2-cron.ip}"
-}
 
 # Create Kubernetes cluster in existing VPC
 module "eks" {
