@@ -9,6 +9,7 @@
 == Information Assets
 
 * link:001/[REQ.001 Identified Information Assets].
+* link:002/[REQ.002 Identify dependencies or components].
 * link:004/[REQ.004 Asset Owners are Defined].
 * link:005/[REQ.005 Monetary Value of Assets is Defined].
 * link:006/[REQ.006 Identify threats to assets].
