@@ -310,11 +310,6 @@ Deploy:
         -e TORUS_TOKEN_SECRET='"$TORUS_TOKEN_SECRET"'
         -e TORUS_TOKEN_ID='"$TORUS_TOKEN_ID"'
         registry.gitlab.com/fluidsignal/integrates/bot:master'
-    - curl https://api.rollbar.com/api/1/deploy/
-        -F access_token=$FI_ROLLBAR_ACCESS_TOKEN
-        -F environment=$FI_ROLLBAR_ENVIRONMENT
-        -F revision=$CI_COMMIT_SHA
-        -F local_username="$CI_COMMIT_REF_NAME"
     - docker run
         -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
         -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
@@ -352,6 +347,11 @@ deploy-k8s:
         s/$DATE/'"$(date)"'/'
         integrates-k8s.yaml
     - kubectl apply -f integrates-k8s.yaml
+    - curl https://api.rollbar.com/api/1/deploy/
+        -F access_token=$FI_ROLLBAR_ACCESS_TOKEN
+        -F environment=$FI_ROLLBAR_ENVIRONMENT
+        -F revision=$CI_COMMIT_SHA
+        -F local_username="$CI_COMMIT_REF_NAME"
   after_script:
     - rm integrates-k8s.yaml $HOME/.kube/config
   only:
