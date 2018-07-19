@@ -23,5 +23,5 @@ deben seguir una distribución uniforme.
 Verificar que todos los números aleatorios, archivos aleatorios,
 GUIDs aleatorios y cadenas aleatorias sean generadas
 utilizando el generador de números aleatorios aprobado
-del módulo criptográfico cuando se espera que estos valores aleatoriossss
+del módulo criptográfico cuando se espera que estos valores aleatorios
 no puedan ser adivinados por un atacante.

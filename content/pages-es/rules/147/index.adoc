@@ -33,5 +33,5 @@ Idealmente, seguir un estándar de gestión de claves como +NIST SP 800-57+
 Verificar que todos los números aleatorios, archivos aleatorios,
 GUIDs aleatorios y cadenas aleatorias sean generadas
 utilizando el generador de números aleatorios aprobado
-del módulo criptográfico cuando se espera que estos valores aleatoriossss
+del módulo criptográfico cuando se espera que estos valores aleatorios
 no puedan ser adivinados por un atacante.
