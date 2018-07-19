@@ -812,14 +812,10 @@ def get_evidence(request, findingid, fileid):
             if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
                 rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
                 return HttpResponse("Error - ID with wrong format", content_type="text/html")
-            drive_api = DriveAPI(fileid)
-            # pylint: disable=W0622
-            if not drive_api.FILE:
-                rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
-                return HttpResponse("Error - Unable to download the image", content_type="text/html")
             else:
-                filename = "/tmp/:id.tmp".replace(":id", fileid)
-                return retrieve_image(request, filename)
+                drive_api = DriveAPI()
+                evidence_img = drive_api.download(fileid)
+                return retrieve_image(request, evidence_img)
 
 def replace_all(text, dic):
     for i, j in dic.iteritems():
@@ -1037,12 +1033,10 @@ def get_exploit(request):
         if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
             rollbar.report_message('Error: Invalid exploit ID format', 'error', request)
             return HttpResponse("Error - ID with wrong format", content_type="text/html")
-        drive_api = DriveAPI(fileid)
-        if drive_api.FILE is None:
-            rollbar.report_message('Error: Unable to download the exploit', 'error', request)
-            return HttpResponse("Error - Unable to download the file", content_type="text/html")
-        filename = "/tmp/:id.tmp".replace(":id", fileid)
-        return retrieve_script(request, filename)
+        else:
+            drive_api = DriveAPI()
+            exploit = drive_api.download(fileid)
+            return retrieve_script(request, exploit)
 
 def retrieve_script(request, script_file):
     try:
@@ -1081,12 +1075,10 @@ def get_records(request):
         if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
             rollbar.report_message('Error: Invalid record file ID format', 'error', request)
             return util.response([], 'ID with wrong format', True)
-        drive_api = DriveAPI(fileid)
-        if drive_api.FILE is None:
-            rollbar.report_message('Error: Unable to download the record file', 'error', request)
-            return util.response([], 'Unable to download the file', True)
-        filename = "/tmp/:id.tmp".replace(":id", fileid)
-        return retrieve_csv(request, filename)
+        else:
+            drive_api = DriveAPI()
+            record = drive_api.download(fileid)
+            return retrieve_csv(request, record)
 
 def retrieve_csv(request, csv_file):
     data = []
