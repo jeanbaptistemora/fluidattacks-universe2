@@ -151,8 +151,6 @@ deploy_infra:
   before_script:
     - mkdir infrastructure/vars
     - mkdir -p $HOME/.kube
-    - echo sudo docker login "$CI_REGISTRY"
-        -u "$DOCKER_USER" -p "$DOCKER_PASS" >> infrastructure/ec2/host/script.sh
     - cd infrastructure
     - torus run -- ./set-tfvars.sh
     - aws s3 cp
