@@ -23,13 +23,13 @@ resource "aws_iam_group" "vault_group" {
 }
 
 resource "aws_iam_group_membership" "vault_member" {
-  name = "Vault Membership"
+  name = "VaultMembership"
   users = ["${aws_iam_user.vault_user.name}"]
   group = "${aws_iam_group.vault_group.name}"
 }
 
 resource "aws_iam_group_policy" "vault_policy" {
-  name   = "Vault S3 Policy"
+  name   = "VaultS3Policy"
   group  = "${aws_iam_group.vault_group.id}"
   policy = <<EOF
   {
