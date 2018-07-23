@@ -23,3 +23,8 @@ Verify that there is an explicit policy
 for how cryptographic keys are managed
 (e.g., generated, distributed, revoked, and expired).
 Verify that this key lifecycle is properly enforced.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.13+]
+Verify that sensitive passwords or key material maintained in memory
+is overwritten with zeros as soon as it no longer required,
+to mitigate memory dumping attacks.
