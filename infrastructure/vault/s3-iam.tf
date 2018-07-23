@@ -32,19 +32,19 @@ resource "aws_iam_group_policy" "vault_policy" {
   name   = "VaultS3Policy"
   group  = "${aws_iam_group.vault_group.id}"
   policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Action": [
-          "s3:*"
-        ],
-        "Effect": "Allow",
-        "Resource": "arn:aws:s3:::${var.vaultBucket}"
-      }
-    ]
-  }
-  EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::${var.vaultBucket}"
+    }
+  ]
+}
+EOF
 }
 
 output "vault_access_key" {
