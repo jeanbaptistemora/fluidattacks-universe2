@@ -81,3 +81,8 @@ can prove to be very difficult or impossible.
 Audit Controls: Implement hardware, software, and/or procedural mechanisms
 that record and examine activity in information systems
 that contain or use electronic protected health information.
+
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-8.3+]
+Verify security logging controls provide the ability
+to log success and particularly failure events
+that are identified as security-relevant

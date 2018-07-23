@@ -90,3 +90,8 @@ Auditorías de Control: Implementar hardware, software
 y/o mecanismos procedimentales que registren y examinen la actividad
 en sistemas de información que contienen o utilizan información sensible
 protegida electrónicamente.
+
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-8.3+]
+Verificar que los controles de registro de seguridad
+registren eventos exitosos y fallidos
+identificables como relevantes para la seguridad del sistema.
