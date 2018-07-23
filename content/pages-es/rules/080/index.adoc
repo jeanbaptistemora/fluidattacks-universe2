@@ -3,9 +3,16 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de impedir la alteración del contenido de una bitácora en cualquier sistema. Por lo tanto, las bitácoras de un sistema no deben ser modificables o alterables.
 :keywords: Organización, Bitácora, Sistema, Evento, Modificar, Alterar.
 :rules: yes
+:translate: rules/080/
 
 = REQ.080 Impedir modificación de bitácoras
 
 == Requisito
 
 Las bitácoras de un sistema no deben ser modificables o alterables.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.6+]
+Verificar que las bitácoras de seguridad
+estén protegidas contra modificaciones y accesos no autorizados
