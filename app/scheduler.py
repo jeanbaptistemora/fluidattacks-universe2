@@ -294,7 +294,9 @@ def inactive_users():
         if user[1] <= final_date:
             integrates_dao.delete_user(user[0])
 
+
 def get_new_releases():
+    """Summary mail send with findings that have not been released yet."""
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     context = {'findings': list()}
@@ -302,20 +304,33 @@ def get_new_releases():
     for project in projects:
         try:
             finding_requests = api.get_findings(project)["submissions"]
+            project = str.lower(str(project[0]))
             for finding in finding_requests:
                 finding_parsed = views.finding_vulnerabilities(finding["id"])
+                project_fin = str.lower(str(finding_parsed['fluidProject']))
                 if ("releaseDate" not in finding_parsed and
-                        finding_parsed['fluidProject'].lower() == project[0].lower()):
-                    context['findings'].append({'finding_name': finding_parsed["finding"], 'finding_url': \
-                        BASE_URL + '/dashboard#!/project/'+ project[0].lower() + '/' + \
-                        str(finding["id"]) + '/description', 'project': project[0].upper()})
+                        project_fin == project):
+                    context['findings'].append({
+                        'finding_name': finding_parsed["finding"],
+                        'finding_url':
+                        '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
+                        '/description'
+                            .format(url=BASE_URL,
+                                    project=project,
+                                    finding=finding["id"]),
+                        'project': project
+                    })
                     cont += 1
         except (TypeError, KeyError):
-            rollbar.report_message('Error: An error ocurred getting data for new drafts email', 'error')
+            rollbar.report_message(
+                'Warning: An error ocurred getting data for new drafts email',
+                'warning')
     if cont > 0:
         context['total'] = cont
         to = ["engineering@fluidattacks.com"]
         send_mail_new_releases(to, context)
+    else:
+        logger.info('There are no new drafts')
 
 def continuous_report():
     to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', \
