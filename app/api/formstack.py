@@ -32,10 +32,28 @@ class FormstackAPI(object):
         """ Constructor. """
         self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
 AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
-        self.valid_token()
+        self.TOKEN_LIST = FI_FORMSTACK_TOKENS.split(',')
+        self.AVAILABLE_TOKENS = len(self.TOKEN_LIST)
+        self.CURRENT_TOKEN = self.TOKEN_LIST[0]
+
+
+    def request(self, method, url, data=None):
+        formstack_request = self.execute_request(method, url, data)
+
+        while formstack_request.status_code == 429 and \
+                                                self.AVAILABLE_TOKENS > 0:
+            if self.AVAILABLE_TOKENS < 3:
+                message = 'Warning: There are only {} available formstack \
+                tokens left for today.'.format(self.AVAILABLE_TOKENS)
+                rollbar.report_message(message, 'warning')
+
+            self.refresh_token()
+            formstack_request = self.execute_request(method, url, data)
+
+        return json.loads(formstack_request.text)
 
     @retry(retry_on_exception=ConnectionError, stop_max_attempt_number=5)
-    def request(self, method, url, data=None):
+    def execute_request(self, method, url, data=None):
         """ Build the requests used to consult in Formstack. """
         executed_request = None
         try:
@@ -44,17 +62,16 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 self.headers_config["content-type"] = \
                     "application/x-www-form-urlencoded"
                 url += "?oauth_token=:token".replace(":token",
-                                                     self.TOKEN)
+                                                     self.CURRENT_TOKEN)
             else:
                 if not data:
-                    data = {"oauth_token": self.TOKEN}
+                    data = {"oauth_token": self.CURRENT_TOKEN}
                 else:
-                    data["oauth_token"] = self.TOKEN
-            formstack_request = requests.request(
+                    data["oauth_token"] = self.CURRENT_TOKEN
+            executed_request = requests.request(
                 method, url,
                 data=data, headers=self.headers_config
             )
-            executed_request = json.loads(formstack_request.text)
         # Formstack SSLError
         except requests.exceptions.SSLError:
             executed_request = None
@@ -75,26 +92,11 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
             executed_request = None
         return executed_request
 
-    def valid_token(self):
-        """ Check if a token is valid. """
-        ltokens = FI_FORMSTACK_TOKENS.split(',')
-        url = "https://www.formstack.com/api/v2/submission/293276999.json"
-        for x in range(0, len(ltokens)):
-            test_token = ltokens[x]
-            data = {"oauth_token": test_token}
-            req = requests.request(
-                'GET', url,
-                data=data, headers=self.headers_config)
-            if req.status_code != 429:
-                self.TOKEN = test_token
-                return self.TOKEN
-            else:
-                if x == (len(ltokens) - 3):
-                    message = 'Error: There are only 2 available \
-                                formstack tokens left for today.'
-                    rollbar.report_message(message, 'error')
-                else:
-                    continue
+    def refresh_token(self):
+        next_index = (self.TOKEN_LIST.index(self.CURRENT_TOKEN) + 1)
+        self.AVAILABLE_TOKENS = \
+            len(self.TOKEN_LIST) - self.TOKEN_LIST.index(self.CURRENT_TOKEN)
+        self.CURRENT_TOKEN = self.TOKEN_LIST[next_index]
 
     def delete_submission(self, submission_id):
         """ Delete a submission by ID. """
