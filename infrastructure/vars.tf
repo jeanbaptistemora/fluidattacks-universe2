@@ -9,6 +9,7 @@ variable "dbreg" {}
 variable "bucket" {}
 variable "webBucket" {}
 variable "fiBucket" {}
+variable "vaultBucket" {}
 
 # gitlabCI
 variable "ciIP" {}

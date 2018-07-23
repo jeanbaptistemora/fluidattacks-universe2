@@ -44,6 +44,11 @@ module "eks" {
   vpcId   = "${var.vpcId}"
 }
 
+module "vault" {
+  source = "./vault"
+  vaultBucket = "${var.vaultBucket}"
+}
+
 
 # # Create with existing DB
 module database {

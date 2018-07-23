@@ -6,6 +6,9 @@ dbreg = "us-east-1"
 #EC2 Vars
 iType = "t2.xlarge"
 
+# S3 Vars
+vaultBucket = "vault.fluidattacks"
+
 # Network vars
 cidr = "192.168.100.0/24"
 vpcId = "vpc-53ea4637"
