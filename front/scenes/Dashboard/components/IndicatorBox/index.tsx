@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
+import style from "./index.css";
 /**
- *  Indicator's Box properties
+ * Indicator's Box properties
  */
 interface IBoxProps {
   backgroundColor: string;
@@ -19,25 +20,25 @@ const indicatorBox: React.StatelessComponent<IBoxProps> =
   <React.StrictMode>
     <div className="col-md-3 col-xs-12">
       <div
-        className="widget-box equalWidgetHeight"
+        className={style.widgetbox}
         data-toggle="tooltip"
         data-placement="top"
         title={props.title}
         style={{backgroundColor: props.backgroundColor, color: props.color}}
       >
         <div className="col-md-4 col-xs-4">
-          <div className="widget-icon">
+          <div className={style.widgeticon}>
               <span className={props.icon}/>
           </div>
         </div>
         <div className="col-md-8 col-xs-8">
           <div
             data-toggle="counter"
-            className="widget-value"
+            className={style.widgetvalue}
           >
             {props.quantity}
           </div>
-          <div className="widget-desc">
+          <div className={style.widgetdesc}>
             {props.name}
           </div>
         </div>

@@ -1,0 +1,27 @@
+:local .widgetbox {
+  display: flex;
+  padding: 20px 5px;
+  margin-top: 30px;
+  height: 110px;
+}
+
+:local .widgetbox:hover {
+  box-shadow: 0px 0px 2px rgba(0,0,0,1);
+}
+
+:local .widgeticon {
+    display: inline-block;
+    float: right;
+    font-size: 45px;
+    line-height: 54px;
+}
+
+:local .widgetvalue {
+    font-size: 23px;
+    font-weight: 300;
+}
+
+:local .widgetdesc {
+    font-size: 16px;
+    line-height: 18px;
+}

@@ -5,11 +5,14 @@
     ],
     "cliOptions": {
         "exclude": [
-        "build",
-        "node_modules"
+            "scenes/**/*.js",
+            "scenes/**/*.css.d.ts",
+            "node_modules"
         ]
     },
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "no-unsafe-any": false
+    },
     "rulesDirectory": []
 }

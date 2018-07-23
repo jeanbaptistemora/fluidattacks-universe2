@@ -25,6 +25,10 @@
     "google-closure-compiler-js": "20180402.0.0",
     "graphql.js": "0.4.20",
     "gulp": "3.9.1",
+    "react-bootstrap": "0.32.1",
+    "@types/react-bootstrap": "0.32.11",
+    "css-modulesify": "0.28.0",
+    "typed-css-modules": "0.3.5",
     "iframe-resizer": "3.6.1",
     "jquery": "3.3.1",
     "@types/jquery": "3.3.4",
@@ -45,6 +49,9 @@
     "react-dom": "16.4.1",
     "@types/react-dom": "16.0.6",
     "react2angular": "4.0.4",
+    "@types/react-css-modules": "4.6.1",
+    "react-css-modules": "4.7.4",
+    "gulp-typed-css-modules": "1.1.0",
     "secure-random": "1.1.1",
     "tabletop": "1.5.2",
     "ts-node": "7.0.0",
@@ -55,9 +62,21 @@
     "gulp-typescript": "5.0.0-alpha.1",
     "vinyl-source-stream": "2.0.0",
     "gulp-cli": "2.0.1",
+    "webpack": "4.16.2",
+    "webpack-stream": "5.0.0",
+    "extract-text-webpack-plugin": "4.0.0-beta.0",
+    "optimize-css-assets-webpack-plugin": "5.0.0",
+    "uglifyjs-webpack-plugin": "1.2.7",
+    "style-loader": "0.21.0",
+    "css-loader": "1.0.0",
+    "to-string-loader": "1.1.5",
+    "awesome-typescript-loader": "5.2.0",
+    "ignore-styles": "5.0.1",
+    "react-test-renderer": "16.4.1",
+    "@types/react-test-renderer": "16.0.1",
     "uninstall": "0.0.0"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register ./scenes/**/*.spec.tsx"
+    "test": "gulp compile && mocha --require ignore-styles -r ts-node/register ./scenes/**/*.spec.tsx"
   }
 }

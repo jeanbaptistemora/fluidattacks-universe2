@@ -7,14 +7,17 @@
     "outDir": "./build",                
     "noImplicitAny": true,                  
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react",
+    "typeRoots": ["./scenes/**.d.ts"]
   },
   "include": [
-    "./scenes/**/*"
+    "./scenes/**/*",
   ],
   "exclude": [
     "./node_modules/**",
-    "./scenes/**/*.spec.tsx"
+    "./scenes/**/*.spec.tsx",
+    "./scenes/**/*.css.d.ts",
+    "./scenes/**/*.js",
+    "./scenes/**/*.css"
   ]
-
 }
