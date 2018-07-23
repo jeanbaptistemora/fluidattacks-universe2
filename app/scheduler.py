@@ -19,19 +19,20 @@ logger = logging.getLogger(__name__)
 BASE_URL = "https://fluidattacks.com/integrates"
 BASE_WEB_URL = "https://fluidattacks.com/web"
 
+
 def get_new_vulnerabilities():
-    """ Summary mail send with the findings of a project. """
-    #pylint: disable-msg=R0914
+    """Summary mail send with the findings of a project."""
+    # pylint: disable-msg=R0914
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
-        finding_requests = api.get_findings(project)["submissions"]
         project = str.lower(str(project[0]))
         context = {'findings': list(), 'findings_working_on': list()}
         delta_total = 0
-        for finding in finding_requests:
-            message = ""
-            try:
+        try:
+            finding_requests = api.get_findings(project)["submissions"]
+            for finding in finding_requests:
+                message = ""
                 act_finding = views.finding_vulnerabilities(str(finding['id']))
                 row = integrates_dao.get_vulns_by_id_dynamo(
                     project,
@@ -39,13 +40,19 @@ def get_new_vulnerabilities():
                 )
                 if str.lower(str(act_finding['fluidProject'])) == project and \
                         "releaseDate" in act_finding and row:
-                    finding_url = '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description' \
-                        .format(url=BASE_URL, project=project, finding=finding['id'])
-                    has_treatment = finding_has_treatment(act_finding, finding_url)
+                    finding_url = '{url!s}/dashboard#!/project/{project!s}/' \
+                        '{finding!s}/description' \
+                        .format(url=BASE_URL,
+                                project=project,
+                                finding=finding['id'])
+                    has_treatment = finding_has_treatment(
+                        act_finding,
+                        finding_url)
                     if has_treatment:
                         context['findings_working_on'].append(has_treatment)
                     else:
-                        message = 'Finding {finding!s} of project {project!s} has defined treatment' \
+                        message = 'Finding {finding!s} of project {project!s} '
+                        'has defined treatment' \
                             .format(finding=finding['id'], project=project)
                         logger.info(message)
                     delta = int(act_finding['openVulnerabilities']) - \
@@ -63,20 +70,24 @@ def get_new_vulnerabilities():
                             int(act_finding['openVulnerabilities'])
                         )
                     else:
-                        message = 'Finding {finding!s} of project {project!s} no change during the week' \
+                        message = 'Finding {finding!s} of project ' \
+                            '{project!s} no change during the week' \
                             .format(finding=finding['id'], project=project)
                         logger.info(message)
                 else:
-                    message = 'Finding {finding!s} of project {project!s} is not valid' \
+                    message = 'Finding {finding!s} of project {project!s} is '
+                    'not valid' \
                         .format(finding=finding['id'], project=project)
                     logger.info(message)
-            except (TypeError, KeyError):
-                rollbar.report_message(
-                    'Error: An error ocurred getting new vulnerabilities notification email',
-                    'error')
+        except (TypeError, KeyError):
+            rollbar.report_message(
+                'Error: An error ocurred getting new vulnerabilities '
+                'notification email',
+                'error')
         if delta_total > 0:
             context['proyecto'] = str.upper(str(project))
-            context['url_proyecto'] = '{url!s}/dashboard#!/project/{project!s}/indicators' \
+            context['url_proyecto'] = '{url!s}/dashboard#!/project/' \
+                '{project!s}/indicators' \
                 .format(url=BASE_URL, project=project)
             recipients = integrates_dao.get_project_users(project)
             to = [x[0] for x in recipients if x[1] == 1]
@@ -88,9 +99,13 @@ def get_new_vulnerabilities():
 def format_vulnerabilities(delta, act_finding):
     """Format vulnerabities changes in findings."""
     if delta > 0:
-        finding_text = '{finding!s} (+{delta!s})'.format(finding=act_finding['finding'], delta=delta)
+        finding_text = u'{finding!s} (+{delta!s})'.format(
+            finding=act_finding['finding'],
+            delta=delta)
     elif delta < 0:
-        finding_text = '{finding!s} ({delta!s})'.format(finding=act_finding['finding'], delta=delta)
+        finding_text = u'{finding!s} ({delta!s})'.format(
+            finding=act_finding['finding'],
+            delta=delta)
     else:
         finding_text = ""
     return finding_text
