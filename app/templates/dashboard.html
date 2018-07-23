@@ -68,7 +68,7 @@
   </head>
   <body ng-cloak ng-app="FluidIntegrates">
     <div class="am-wrapper">
-      <nav class="navbar navbar-default navbar-fixed-top am-top-header">
+      <nav class="navbar navbar-default navbar-fixed-top am-top-header" ng-controller="navbarCtrl">
         <div class="container-fluid">
           <div class="navbar-header">
             <div class="page-title">
@@ -207,6 +207,7 @@
     <script src="assets/node_modules/graphql.js/graphql.min.js"></script>
     <script src="assets/app/xhr.js"></script>
     <script src="assets/app/models/eventualityFactory.js" type="text/javascript"></script>
+    <script src="assets/app/controllers/navbarCtrl.js" type="text/javascript"></script>
     <!-- Start Dashboard -->
     <script src="assets/app/models/dashboardFtry.js" type="text/javascript"></script>
     <script src="assets/app/controllers/dashboardCtrl.js" type="text/javascript"></script>

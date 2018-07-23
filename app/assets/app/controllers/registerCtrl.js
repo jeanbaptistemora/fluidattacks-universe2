@@ -27,46 +27,6 @@ angular.module("FluidIntegrates").controller(
     $window,
     registerFactory
   ) {
-    $scope.logout = function logout () {
-      $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance) {
-          $scope.closeModalLogout = function closeModalLogout () {
-            $uibModalInstance.close();
-          };
-          $scope.okModalLogout = function okModalLogout () {
-            projectData = [];
-            eventsData = [];
-            findingData = {};
-            mixpanel.track("Logged out");
-            localStorage.clear();
-            $window.location = `${BASE.url}logout`;
-          };
-        },
-        "keyboard": false,
-        "resolve": {"done": true},
-        "templateUrl": "logout.html",
-        "windowClass": "modal avance-modal"
-      });
-    };
-
-    /**
-     * Change the language of the user registration view.
-     * @function changeLang
-     * @param {string} langKey Language key set by the user
-     * @member integrates.registerCtrl
-     * @return {undefined}
-     */
-    $scope.changeLang = function changeLang (langKey) {
-      if (langKey === "es" || langKey === "en") {
-        localStorage.lang = langKey;
-      }
-      $translate.use(localStorage.lang);
-      mixpanel.identify(userEmail);
-      mixpanel.people.set({"$Language": localStorage.lang});
-    };
-
     $scope.loadDashboard = function loadDashboard () {
       const currentUrl = $window.location.toString();
       if (localStorage.getItem("url_inicio") === null) {

@@ -26,8 +26,7 @@ angular.module("FluidIntegrates").controller(
     $stateParams,
     $timeout,
     $translate,
-    $uibModal,
-    $window
+    $uibModal
   ) {
     $scope.initMyProjects = function initMyProjects () {
       let vlang = "en-US";
@@ -48,57 +47,6 @@ angular.module("FluidIntegrates").controller(
       });
     };
 
-    /**
-     * Redirect a user to the logout view.
-     * @function logout
-     * @member integrates.dashboardCtrl
-     * @return {undefined}
-     */
-    $scope.logout = function logout () {
-      $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance) {
-          $scope.closeModalLogout = function closeModalLogout () {
-            $uibModalInstance.close();
-          };
-          $scope.okModalLogout = function okModalLogout () {
-            projectData = [];
-            eventsData = [];
-            findingData = {};
-            const org = Organization.toUpperCase();
-            mixPanelDashboard.trackSessionLength(
-              userName,
-              userEmail,
-              org
-            );
-            localStorage.clear();
-            $window.location = `${BASE.url}logout`;
-          };
-        },
-        "keyboard": false,
-        "resolve": {"done": true},
-        "templateUrl": "logout.html",
-        "windowClass": "modal avance-modal"
-      });
-    };
-
-    /**
-     * Change the language of the Dashboard view
-     * @function changeLang
-     * @param {string} langKey Language key set by the user
-     * @member integrates.dashboardCtrl
-     * @return {undefined}
-     */
-    $scope.changeLang = function changeLang (langKey) {
-      if (langKey === "es" || langKey === "en") {
-        localStorage.lang = langKey;
-      }
-      $translate.use(localStorage.lang);
-      mixpanel.identify(userEmail);
-      mixpanel.people.set({"$Language": localStorage.lang});
-      location.reload();
-    };
     $scope.initMyEventualities = function initMyEventualities () {
       let vlang = "en-US";
       if (localStorage.lang === "en") {
