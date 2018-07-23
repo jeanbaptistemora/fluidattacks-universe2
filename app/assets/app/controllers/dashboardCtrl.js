@@ -45,7 +45,6 @@ angular.module("FluidIntegrates").controller(
           },
           "url": `${BASE.url}get_myprojects`
         });
-        angular.element("#myProjectsTbl").bootstrapTable("refresh");
       });
     };
 
