@@ -33,3 +33,9 @@ GUIDs aleatorios y cadenas aleatorias sean generadas
 utilizando el generador de números aleatorios aprobado
 del módulo criptográfico cuando se espera que estos valores aleatorios
 no puedan ser adivinados por un atacante.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.15+]
+Verificar que los números aleatorios sean creados
+con una entropía adecuada, incluso cuando la aplicación
+se encuentre bajo cargas pesadas,
+o que la aplicación se degrade adecuadamente en tales circunstancias.
