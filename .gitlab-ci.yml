@@ -20,7 +20,15 @@ stages:
   - build
   - tag
   - deploy
+  - postdeploy
   - dns
+
+build:
+  stage: deps 
+  script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
+  retry: 2
 
 build_base:
   stage: deps
@@ -192,6 +200,16 @@ deploy_infra:
         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
     - rm -rf infrastructure/vars
     - rm -rf infrastructure/terraform.tfvars
+  only:
+    - master
+
+fluidasserts:
+  stage: postdeploy
+  script:
+    - docker pull fluidattacks/asserts
+    - docker run -e FA_STRICT="false" -w /code
+      -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
+      fluidattacks/asserts asserts /code/asserts/exploit.py
   only:
     - master
 
