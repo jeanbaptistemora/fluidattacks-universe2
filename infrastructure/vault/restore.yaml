@@ -1,0 +1,11 @@
+apiVersion: etcd.database.coreos.com/v1beta2
+kind: EtcdRestore
+metadata:
+  name: vault-etcd
+spec:
+  etcdCluster:
+    name: vault-etcd
+  backupStorageType: S3
+  s3:
+    path: vault.fluidattacks/vault.etcd.backup
+    awsSecret: aws
