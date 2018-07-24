@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de definir parámetros que no contengan información sensible, como nombres de directorios o rutas.
 :keywords: Requerimiento, Seguridad, Archivos, Parámetros, Rutas, Directorios.
 :rules: yes
+:translate: rules/037/
 
 = REQ.037 Parámetros sin datos sensibles.
 
@@ -62,7 +63,6 @@ Por ejemplo añadir una nueva cuenta
 al final de un archivo de contraseñas
 que le permita al atacante sobrepasar la autenticación.
 
-
 . Un atacante puede ser capaz
 de leer el contenido de archivos inesperados
 y exponer información sensible.
@@ -92,8 +92,16 @@ y cada uno de los usuarios.
 
 == Referencias
 
-. link:https://www.owasp.org/index.php/Path_Traversal[Path Traversal].
-. link:https://www.owasp.org/index.php/Testing_Directory_traversal/file_include_(OTG-AUTHZ-001)[Testing Directory traversal/file include (OTG-AUTHZ-001)].
-. link:https://cwe.mitre.org/data/definitions/22.html[CWE-22: Improper Limitation of a Pathname to a Restricted Directory].
-. link:https://cwe.mitre.org/data/definitions/36.html[CWE-36: Absolute Path Traversal].
-. link:https://cwe.mitre.org/data/definitions/23.html[CWE-23: Relative Path Traversal].
+. [[r1]] link:https://www.owasp.org/index.php/Path_Traversal[Path Traversal].
+. [[r2]] link:https://www.owasp.org/index.php/Testing_Directory_traversal/file_include_(OTG-AUTHZ-001)[Testing Directory traversal/file include (OTG-AUTHZ-001)].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/22.html[CWE-22: Improper Limitation of a Pathname to a Restricted Directory].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/36.html[CWE-36: Absolute Path Traversal].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/23.html[CWE-23: Relative Path Traversal].
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.13+]
+Verificar que la aplicación no sea susceptible
+a ataques de inclusión de archivo remoto (RFI)
+o inclusión de archivo local (LFI)
+cuando el contenido utilizado incluye una ruta a un archivo.
+. [[r7]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.14+]
+Verificar que la aplicación no sea susceptible
+a ataques de inyección XPath o XML.
