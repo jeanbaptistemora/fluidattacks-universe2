@@ -83,7 +83,7 @@ const showInfo = function showInfo (data) {
     const title = $("#field32201810").val();
     const REPORT_CONTEXT = 5;
     for (let cont = 0; cont < obj.length; cont++) {
-      if (obj[cont].Titulo === title) {
+      if (obj[cont].FIN === title) {
         description.val(obj[cont].Descripcion);
         requirement.val(obj[cont].Requisito);
         solution.val(obj[cont].Recomendacion);
