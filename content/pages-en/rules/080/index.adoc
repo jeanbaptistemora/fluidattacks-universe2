@@ -16,3 +16,7 @@ System logs must not allow modifications or alterations.
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.6+]
 Verify that security logs are protected
 from unauthorized access and modification.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.11+]
+Verify that security logs have some form of integrity checking
+or controls to prevent unauthorized modification.
