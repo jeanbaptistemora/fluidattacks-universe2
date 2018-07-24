@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         apt-transport-https \
         ca-certificates \
         curl \
+        gcc \
         gettext-base \
         git \
         gnupg2 \
@@ -48,11 +49,19 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         docker-ce \
         kubectl \
         torus \
-    && curl -Lo go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz \
+    && curl -LsSo go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz \
         && tar -C /usr/local -xzf go.tar.gz \
+        && export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin \
         && rm go.tar.gz \
+    && curl -LsSo tls-gen.sh https://coreos.com/tectonic/docs/latest/hack/tls-gen.sh \
+        && mv tls-gen.sh /usr/local/bin/ \
+        && go get -u github.com/cloudflare/cfssl/cmd/cfssl \
+        && go get -u github.com/cloudflare/cfssl/cmd/cfssljson \
+    && curl -LsSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.3_linux_amd64.zip \
+        && unzip vault.zip \
+        && mv vault /usr/local/bin \
     && rm -rf /var/lib/apt
 
-ENV PATH=$PATH:/usr/local/go/bin/
+ENV PATH=$PATH:/usr/local/go/bin/:$HOME/go/bin
 
 CMD ["bash"]
