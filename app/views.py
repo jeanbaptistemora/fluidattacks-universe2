@@ -831,7 +831,8 @@ def retrieve_image(request, img_file):
             rollbar.report_message('Error: Invalid evidence image format', 'error', request)
             return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
     finally:
-        os.unlink(img_file)
+        if os.path.exists(img_file):
+            os.unlink(img_file)
 
 @never_cache
 @csrf_exempt
@@ -1048,7 +1049,8 @@ def retrieve_script(request, script_file):
             rollbar.report_message('Error: Invalid exploit file format', 'error', request)
             return util.response([], 'Invalid exploit file format', True)
     finally:
-        os.unlink(script_file)
+        if os.path.exists(script_file):
+            os.unlink(script_file)
 
 @never_cache
 @csrf_exempt
@@ -1095,7 +1097,8 @@ def retrieve_csv(request, csv_file):
             rollbar.report_message('Error: Invalid record file format', 'error', request)
             return util.response([], 'Invalid record file format', True)
     finally:
-        os.unlink(csv_file)
+        if os.path.exists(csv_file):
+            os.unlink(csv_file)
 
 def list_to_dict(header, li):
     dct = {}
