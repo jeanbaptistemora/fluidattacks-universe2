@@ -47,7 +47,13 @@ angular.module("FluidIntegrates").controller(
             projectData = [];
             eventsData = [];
             findingData = {};
-            const org = Organization.toUpperCase();
+            let org = "";
+            try {
+              org = Organization.toUpperCase();
+            }
+            catch (err) {
+              org = "undefined";
+            }
             mixPanelDashboard.trackSessionLength(
               userName,
               userEmail,

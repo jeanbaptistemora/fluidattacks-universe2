@@ -36,6 +36,7 @@
         "$last_name": "{{ request.session.last_name }}",
         "$last_login": new Date(),
     });
+    var userName = "{{ request.session.first_name }} {{ request.session.last_name }}";
     var userEmail = "{{ request.session.username }}";
     if (location.toString().indexOf("localhost:8000") == -1){
       mixpanel.track(
