@@ -58,3 +58,6 @@ al no tener el detalle claro en los registros.
 Verificar que cada evento registrado incluya la información necesaria
 que permita una investigación detallada
 de la línea de tiempo cuando se presente la ocurrencia de un evento.
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.13+]
+Las fuentes de tiempo deben estar sincronizadas
+para asegurar que las bitácoras registren la hora correcta.

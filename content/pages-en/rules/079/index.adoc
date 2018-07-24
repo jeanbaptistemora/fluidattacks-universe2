@@ -49,3 +49,5 @@ due to the lack of detail in event logs.
 Verify that each log event includes necessary information
 that would allow for a detailed investigation
 of the timeline when an event happens.
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.13+]
+Time sources should be synchronized to ensure logs have the correct time.
