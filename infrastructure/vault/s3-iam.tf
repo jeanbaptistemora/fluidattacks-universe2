@@ -40,7 +40,10 @@ resource "aws_iam_group_policy" "vault_policy" {
         "s3:*"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.vaultBucket}"
+      "Resource": [
+        "arn:aws:s3:::${var.vaultBucket}",
+        "arn:aws:s3:::${var.vaultBucket}/*"
+      ]
     }
   ]
 }
