@@ -180,6 +180,9 @@ deploy_infra:
     - terraform refresh -var-file="vars/aws.tfvars"
     - torus run -- terraform apply -auto-approve -var-file="vars/aws.tfvars"
     - torus run -- ./eks/manifests/deploy.sh
+    - cd vault;
+        ./vault.sh
+        cd ../
     - sh set-keys.sh
     - if [ -n "${NEW_DEPLOY}" ]; then
             git clone https://github.com/checkr/s3-sync.git;
@@ -198,6 +201,9 @@ deploy_infra:
     - aws s3 cp
         infrastructure/vars/FLUID_Serves.pem
         s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
+    - aws s3 cp
+        "$HOME/vault-ca.crt"
+        s3://$VAULT_S3_BUCKET/vault-ca.crt
     - rm -rf infrastructure/vars
     - rm -rf infrastructure/terraform.tfvars
   only:
