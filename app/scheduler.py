@@ -333,7 +333,7 @@ def get_new_releases():
                             .format(url=BASE_URL,
                                     project=project,
                                     finding=finding["id"]),
-                        'project': project
+                        'project': str.upper(str(project))
                     })
                     cont += 1
         except (TypeError, KeyError):
