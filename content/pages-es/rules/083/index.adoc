@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de evitar filtrar información sensible a través de eventos excepcionales almacenados en una bitácora.
 :keywords: Requerimiento, Seguridad, Bitácoras, Información, Eventos, Almacenamiento.
 :rules: yes
+:translate: rules/083/
 
 = REQ.083 No registrar datos sensibles en bitácoras
 
@@ -26,7 +27,7 @@ o hacer más difícil depurar problemas en ambientes de producción.
 
 == Implementación
 
-. Suprimir grandes volúmenes de registros en bitácoras duplicados
+. Suprimir grandes volúmenes de registros en bitácoras duplicadas
 y reemplazarlos con resúmenes periódicos.
 Por ejemplo, +syslog+ puede registrar un evento de repetición
 que indique "el último mensaje se ha repetido +X+ veces"
@@ -40,7 +41,7 @@ pero previene que los subsistemas
 impacten negativamente el sistema completo en general.
 
 . Ajuste apropiadamente la configuración de los sistemas
-cuando se pase de un estado de de depuración a producción.
+cuando se pase de un estado de depuración a producción.
 
 == Soluciones
 
@@ -81,3 +82,11 @@ lo que eventualmente termine con el sistema comprometido.
 . [[r1]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling]
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/ed577840(v=vs.100).aspx[Microsoft: How to: Handle Page-Level Errors]
 . [[r3]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-779: Logging of Excessive Data]
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.7+]
+Verificar que la aplicación no registre datos sensibles
+como se define bajo las leyes o regulaciones locales de privacidad,
+los datos sensibles de la organización
+definidos mediante un análisis de riesgos,
+o datos sensibles de autenticación que puedan ayudar a un atacante,
+incluyendo identificadores de sesión, contraseñas, hashes,
+o +tokens+ +API+.
