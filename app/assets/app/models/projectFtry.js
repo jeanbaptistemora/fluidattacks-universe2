@@ -350,20 +350,31 @@ angular.module("FluidIntegrates").factory(
       },
       "updateEvidenceFiles" (data, callbackFn) {
         const UNAUTHORIZED_ERROR = 401;
+        const REQUEST_ENTITY_TOO_LARGE = 413;
         const INTERNAL_SERVER_ERROR = 500;
         try {
           $.ajax({
             "cache": false,
             "contentType": false,
             data,
-            "error" (xhr, status, response) {
+            "error" (xhr, textStatus, errorThrown) {
               angular.element(".loader").hide();
+              const response = {"error": true};
               if (xhr.status === INTERNAL_SERVER_ERROR) {
                 Rollbar.error("Error: An error ocurred loading data");
+                response.message = "An error ocurred loading data";
               }
               else if (xhr.status === UNAUTHORIZED_ERROR) {
                 Rollbar.error("Error: 401 Unauthorized");
                 $window.location = "error401";
+              }
+              else if (xhr.status === REQUEST_ENTITY_TOO_LARGE) {
+                response.message = "File exceeds the size limits";
+              }
+              else {
+                Rollbar.error(`Error: Unhandled error ${errorThrown} at \
+                              updateEvidenceFiles`);
+                response.message = "An error ocurred loading data";
               }
               callbackFn(angular.fromJson(response));
             },
