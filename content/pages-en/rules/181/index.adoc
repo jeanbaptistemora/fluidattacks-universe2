@@ -25,7 +25,7 @@ such as +HTTP+, +FTP+, +POP3+, +Telnet+, etc.
 
 == Implementation
 
-. Deploy applications using + HTTPS + in the application server:
+. Deploy applications using +HTTPS+ in the application server:
 When using this protocol, the channel
 used for the deployment of web applications is encrypted,
 for this it's necessary to have certificates
@@ -62,3 +62,7 @@ the transmitted information.
 . [[r4]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.16+]
 Verify that all application data is transmitted
 over an encrypted channel (e.g. +TLS+).
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.3+]
+Verify that all sensitive data is sent to the server
+in the HTTP message body or headers
+(i.e., URL parameters are never used to send sensitive data).

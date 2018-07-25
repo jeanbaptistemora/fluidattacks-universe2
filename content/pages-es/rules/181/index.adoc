@@ -65,3 +65,7 @@ para interceptar y ver la información que se transmite.
 . [[r4]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.16+]
 Verificar que todos los datos de la aplicación
 sean transmitidos por un canal cifrado (por ejemplo +TLS+).
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.3+]
+Verificar que toda la información sensible
+es enviada en el cuerpo del mensaje HTTP o sus encabezados
+(Los parámetros URL nunca deben enviar información sensible).
