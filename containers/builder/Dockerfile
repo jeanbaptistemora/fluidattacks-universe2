@@ -54,6 +54,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         && export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin \
         && rm go.tar.gz \
     && curl -LsSo tls-gen.sh https://coreos.com/tectonic/docs/latest/hack/tls-gen.sh \
+        && chmod a+x tls-gen.sh \
         && mv tls-gen.sh /usr/local/bin/ \
         && go get -u github.com/cloudflare/cfssl/cmd/cfssl \
         && go get -u github.com/cloudflare/cfssl/cmd/cfssljson \
