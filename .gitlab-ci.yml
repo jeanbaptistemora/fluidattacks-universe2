@@ -181,7 +181,7 @@ deploy_infra:
     - torus run -- terraform apply -auto-approve -var-file="vars/aws.tfvars"
     - torus run -- ./eks/manifests/deploy.sh
     - cd vault;
-        ./vault.sh
+        ./vault.sh;
         cd ../
     - sh set-keys.sh
     - if [ -n "${NEW_DEPLOY}" ]; then
