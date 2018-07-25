@@ -51,7 +51,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         torus \
     && curl -LsSo go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz \
         && tar -C /usr/local -xzf go.tar.gz \
-        && export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin \
+        && export PATH=$PATH:/usr/local/go/bin \
+        && export GOPATH=/go \
         && rm go.tar.gz \
     && curl -LsSo tls-gen.sh https://coreos.com/tectonic/docs/latest/hack/tls-gen.sh \
         && chmod a+x tls-gen.sh \
@@ -63,6 +64,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         && mv vault /usr/local/bin \
     && rm -rf /var/lib/apt
 
-ENV PATH=$PATH:/usr/local/go/bin/:$HOME/go/bin
+ENV GOPATH /go
+ENV PATH $PATH:/usr/local/go/bin/:$GOPATH/bin
 
 CMD ["bash"]
