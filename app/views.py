@@ -44,7 +44,6 @@ from datetime import datetime, timedelta
 from backports import csv
 from .entity.query import Query
 from graphene import Schema
-from silk.profiling.profiler import silk_profile
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
 client_s3 = boto3.client('s3',
@@ -380,7 +379,6 @@ def validation_project_to_pdf(request, lang, doctype):
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
-@silk_profile()
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     findings = []
@@ -500,7 +498,6 @@ def get_project_info(project):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-@silk_profile()
 def get_eventualities(request):
     "Get the eventualities of a project."
     project = request.GET.get('project', None)
@@ -547,7 +544,6 @@ def get_eventualities(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-@silk_profile()
 def get_users_login(request):
     "Get the email and last login date of all users in a project."
     project = request.GET.get('project', None)
@@ -589,7 +585,6 @@ def get_users_login(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def get_finding(request):
     submission_id = request.POST.get('findingid', "")
     finding = catch_finding(request, submission_id)
@@ -608,7 +603,6 @@ def get_finding(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])
 @require_project_access
-@silk_profile()
 def get_drafts(request):
     """Capture and process the name of a project to return the drafts."""
     project = request.GET.get('project', "")
@@ -630,7 +624,6 @@ def get_drafts(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-@silk_profile()
 def get_findings(request):
     """Capture and process the name of a project to return the findings."""
     project = request.GET.get('project', "").encode('utf-8')
@@ -790,7 +783,6 @@ def finding_vulnerabilities(submission_id):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def get_evidences(request):
     finding_id = request.GET.get('findingid', None)
     resp = integrates_dao.get_finding_dynamo(int(finding_id))
@@ -799,7 +791,6 @@ def get_evidences(request):
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
-@silk_profile()
 def get_evidence(request, findingid, fileid):
     if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
         util.cloudwatch_log(request, 'Security: Attempted to retrieve evidence img without permission')
@@ -847,7 +838,6 @@ def retrieve_image(request, img_file):
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
-@silk_profile()
 def update_evidences_files(request):
     parameters = request.POST.dict()
     if not has_access_to_finding(request.session['access'], parameters['findingid'], request.session['role']):
@@ -1003,7 +993,6 @@ def migrate_all_files(parameters, request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
-@silk_profile()
 def update_evidence_text(request):
     parameters = request.POST.dict()
     try:
@@ -1025,7 +1014,6 @@ def update_evidence_text(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def get_exploit(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -1069,7 +1057,6 @@ def retrieve_script(request, script_file):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def get_records(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -1137,7 +1124,6 @@ def list_to_dict(header, li):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
-@silk_profile()
 def get_myevents(request):
     user = request.session["username"]
     projects = integrates_dao.get_projects_by_user(user)
@@ -1163,7 +1149,6 @@ def get_myevents(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
-@silk_profile()
 def get_myprojects(request):
     user = request.session["username"]
     data_set = integrates_dao.get_projects_by_user(user)
@@ -1179,7 +1164,6 @@ def get_myprojects(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
-@silk_profile()
 def update_cssv2(request):
     parameters = request.POST.dict()
     try:
@@ -1200,7 +1184,6 @@ def update_cssv2(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
-@silk_profile()
 def update_description(request):
     parameters = request.POST.dict()
     try:
@@ -1221,7 +1204,6 @@ def update_description(request):
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def update_treatment(request):
     parameters = request.POST.dict()
     try:
@@ -1241,7 +1223,6 @@ def update_treatment(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
-@silk_profile()
 def update_eventuality(request):
     "Update an eventuality associated to a project"
     parameters = request.POST.dict()
@@ -1265,7 +1246,6 @@ def update_eventuality(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
-@silk_profile()
 def delete_finding(request):
     """Capture and process the ID of an eventuality to eliminate it"""
     submission_id = request.POST.get('findingid', "")
@@ -1296,7 +1276,6 @@ def delete_finding(request):
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def finding_solved(request):
     """ Send an email requesting the verification of a finding """
     submission_id = request.POST.get('findingid', "")
@@ -1336,7 +1315,6 @@ def finding_solved(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
-@silk_profile()
 def finding_verified(request):
     """ Send an email notifying that the finding was verified """
     parameters = request.POST.dict()
@@ -1373,7 +1351,6 @@ def finding_verified(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def get_remediated(request):
     finding_id = request.GET.get('findingid', "")
     remediated = integrates_dao.get_remediated_dynamo(int(finding_id))
@@ -1389,7 +1366,6 @@ def get_remediated(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def get_comments(request):
     comment_type = request.GET.get('commentType', "")
     if comment_type != 'comment' and comment_type != 'observation':
@@ -1420,7 +1396,6 @@ def get_comments(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_finding_access
-@silk_profile()
 def add_comment(request):
     submission_id = request.POST.get('findingid', "")
     data = request.POST.dict()
@@ -1470,7 +1445,6 @@ def add_comment(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
-@silk_profile()
 def total_severity(request):
     project = request.GET.get('project', "")
     toe = integrates_dao.get_toe_dynamo(project)
@@ -1481,7 +1455,6 @@ def total_severity(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-@silk_profile()
 def get_alerts(request):
     company = request.GET.get('company', None)
     project = request.GET.get('project', None)
@@ -1492,7 +1465,6 @@ def get_alerts(request):
 @require_http_methods(["POST"])
 @authorize(['admin'])
 @require_finding_access
-@silk_profile()
 # pylint: disable=R0101
 def accept_draft(request):
     parameters = request.POST.get('findingid', "")
@@ -1543,7 +1515,6 @@ def accept_draft(request):
 @require_http_methods(["POST"])
 @authorize(['admin'])
 @require_finding_access
-@silk_profile()
 def delete_draft(request):
     submission_id = request.POST.get('findingid', "")
     username = request.session['username']
@@ -1577,7 +1548,6 @@ def delete_draft(request):
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
 @require_project_access
-@silk_profile()
 def add_access_integrates(request):
     parameters = request.POST.dict()
     newUser = parameters['data[userEmail]']
@@ -1662,7 +1632,6 @@ def calculate_indicators(project):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-@silk_profile()
 def is_customer_admin(request):
     project = request.GET.get('project', "")
     email = request.GET.get('email', "")
@@ -1678,7 +1647,6 @@ def is_customer_admin(request):
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
 @require_project_access
-@silk_profile()
 def remove_access_integrates(request):
     parameters = request.POST.dict()
     user = parameters['email']
@@ -1696,7 +1664,6 @@ def remove_access_integrates(request):
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
 @require_project_access
-@silk_profile()
 def change_user_role(request):
     email = request.POST.get('email', "")
     role = request.POST.get('role', "")
@@ -1723,7 +1690,6 @@ def change_user_role(request):
 @never_cache
 @require_http_methods(["POST"])
 @authenticate
-@silk_profile()
 def legal_status(request):
     status = request.POST.get('status', "")
     request.session['legal_status'] = status
@@ -1732,15 +1698,13 @@ def legal_status(request):
 @never_cache
 @require_http_methods(["GET"])
 @authenticate
-@silk_profile()
 def is_registered(request):
-    user = request.session['username']
+    user = request.session['username'];
     return util.response([], integrates_dao.is_registered_dao(user), False)
 
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
-@silk_profile()
 def graphql_api(request):
     query = request.body
     schema = Schema(query=Query)
@@ -1750,7 +1714,6 @@ def graphql_api(request):
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
-@silk_profile()
 def access_to_project(request):
     project = request.GET.get('project', "")
     if has_access_to_project(request.session['username'], project, request.session['role']):

@@ -689,22 +689,6 @@ def get_admins():
             rows = []
     return rows
 
-def is_admin(email):
-    """Validate if a user has admin role."""
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT id FROM users WHERE email = %s and role = %s'
-        try:
-            cursor.execute(query, (email, 'admin', ))
-            row = cursor.fetchone()
-        except OperationalError:
-            rollbar.report_exc_info()
-            row = None
-        if row is None:
-            result = False
-        else:
-            result = True
-    return result
-
 dynamodb_resource = resource('dynamodb',
                              aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
                              aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,

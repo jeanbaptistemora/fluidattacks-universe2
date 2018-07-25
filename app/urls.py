@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'^is_registered/?$', views.is_registered, name='is_registered'),
     url(r'^legal_status/?$', views.legal_status, name='legal_status'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^silk/', include('silk.urls', namespace='silk')),
     url(r'^forms/?\.*$', views.forms),
     url(r'^api/?\.*$', views.graphql_api, name='graphql_api'),
     # Project view.
