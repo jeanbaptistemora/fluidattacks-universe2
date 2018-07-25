@@ -23,6 +23,27 @@ stages:
   - postdeploy
   - dns
 
+.vault_login: &vault_login
+  before_script:
+    - aws s3 cp
+        s3://$VAULT_S3_BUCKET/vault-ca.crt
+        $HOME/vault-ca.crt
+    - cp $HOME/vault-ca.crt /usr/local/share/ca-certificates/
+    - update-ca-certificates
+    - ROLE_ID=$(aws secretsmanager --region us-east-1
+        get-secret-value --secret-id SERVES_ROLE_ID | jq -r '.SecretString')
+    - SECRET_ID=$(aws secretsmanager --region us-east-1
+        get-secret-value --secret-id SERVES_SECRET_ID | jq -r '.SecretString')
+    - export VAULT_TOKEN=$(curl --request POST --cacert $HOME/vault-ca.crt
+        --data '{"role_id":"'"$ROLE_ID"'","secret_id":"'"$SECRET_ID"'"}'
+        "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
+        jq -r '.auth.client_token')
+    - echo "$CI_REGISTRY_PASSWORD" |
+        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - export VAULT_HOST="$VAULT_S3_BUCKET.com"
+    - export VAULT_PORT=443
+    - export VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
+
 build:
   stage: deps 
   script:
@@ -102,8 +123,9 @@ build_alg:
 
 build_exams:
   stage: build
+  <<: *vault_login
   script:
-    - torus run -- sh containers/exams/build.sh
+    - vaultenv containers/exams/build.sh
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
   except:
