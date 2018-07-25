@@ -43,9 +43,16 @@ sed -i 's/$FI_TORUS_TOKEN_ID/'"$(echo -n $FI_TORUS_TOKEN_ID | base64)"'/;
 # Deploy apps containers
 sed -i 's/$DATE/'"$(date)"'/' eks/manifests/*.yaml
 kubectl apply -f eks/manifests/alg.yaml
+kubectl rollout status deploy/alg -w
+
 kubectl apply -f eks/manifests/exams.yaml
+kubectl rollout status deploy/exams -w
+
 kubectl apply -f eks/manifests/integrates.yaml
+kubectl rollout status deploy/integrates -w
+
 kubectl apply -f eks/manifests/vpn.yaml
+kubectl rollout status deploy/vpn -w
 
 # Wait until the initialization of the Load Balancer is complete
 sleep 5
