@@ -13,8 +13,10 @@ encryption
 engineering
 ethical hacking
 flaw
+functional
 fuzzing
 health
+imperative
 information
 injection
 jwt
@@ -33,6 +35,7 @@ software
 solve
 sql
 standard
+stateless
 test
 testing
 tls
