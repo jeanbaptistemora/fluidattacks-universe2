@@ -109,6 +109,7 @@
 * link:177/[REQ.177 Store data securely].
 * link:179/[REQ.179 Define backup frequency].
 * link:181/[REQ.181 Transmit data using secure protocols].
+* link:183/[REQ.183 Delete sensitive data securely].
 * link:186/[REQ.186 Use minimum level of privileges].
 * link:191/[REQ.191 Protect data with maximum level].
 

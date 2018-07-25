@@ -28,3 +28,7 @@ Verify that this key lifecycle is properly enforced.
 Verify that sensitive passwords or key material maintained in memory
 is overwritten with zeros as soon as it no longer required,
 to mitigate memory dumping attacks.
+
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+Verify that authenticated data is cleared from client storage,
+such as the browser DOM, after the client or session is terminated.
