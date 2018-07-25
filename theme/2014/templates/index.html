@@ -5,6 +5,8 @@
   <meta name="keywords" content="{{ gettext('Index-keywords') }}">
 {% endblock meta %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/index.html">{% endblock canonical %}
+
 {% block title %}
 {{ gettext('Index-title') }} | {{ SITENAME }}
 {% endblock title %}
