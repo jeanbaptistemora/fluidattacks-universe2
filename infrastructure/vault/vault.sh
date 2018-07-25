@@ -38,7 +38,7 @@ export VAULT_CACERT=$HOME/vault-ca.crt
 # Deploy Vault instance
 echo -e "${BC}Deploying Vault instance...${NC}"
 kubectl apply -f vault.yaml
-while ! kubectl get pods | egrep --color -o 'vault.*1\/2'; do
+while ! kubectl get pods | egrep --color -o 'vault.*(1|2)\/2'; do
   echo -e "${BC}Waiting for pods to be ready...${NC}"
   sleep 5
 done
