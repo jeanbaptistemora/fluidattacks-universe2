@@ -38,7 +38,7 @@ export VAULT_CACERT=$HOME/vault-ca.crt
 # Deploy Vault instance
 echo -e "${BC}Deploying Vault instance...${NC}"
 kubectl apply -f vault.yaml
-while ! kubectl get deploy 'vault'; do
+while ! kubectl get pods | egrep --color -o 'vault.*1\/2'; do
   echo -e "${BC}Waiting for pods to be ready...${NC}"
   sleep 5
 done
@@ -75,19 +75,21 @@ if [ ! -z "$SEALED" ] ; then
   if [ $? -eq 0 ]; then
     aws --region "us-east-1" secretsmanager put-secret-value \
       --secret-id "VAULT_KEY" \
-      --secret-string "$VAULT_KEY"
+      --secret-string "$VAULT_KEY" > /dev/null
     aws --region "us-east-1" secretsmanager put-secret-value \
       --secret-id "VAULT_TOKEN" \
-      --secret-string "$VAULT_TOKEN"
+      --secret-string "$VAULT_TOKEN" > /dev/null
+    echo -e "${BC}Vault secrets successfully updated!${NC}"
   else
     aws --region "us-east-1" secretsmanager create-secret \
       --name "VAULT_KEY" \
       --description 'Master key to unseal Vault' \
-      --secret-string "$VAULT_KEY"
+      --secret-string "$VAULT_KEY" > /dev/null
     aws --region "us-east-1" secretsmanager create-secret \
       --name "VAULT_TOKEN" \
       --description 'Vault root token' \
-      --secret-string "$VAULT_TOKEN"
+      --secret-string "$VAULT_TOKEN" > /dev/null
+    echo -e "${BC}Vault secrets successfully created!${NC}"
   fi
   vault operator unseal "$VAULT_KEY"
   pkill kubectl
