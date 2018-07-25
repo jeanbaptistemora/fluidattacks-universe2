@@ -44,6 +44,9 @@
       RewriteRule ^/registration(.*)$    http://integrates.serves.svc.cluster.local$1     [P,L]
       ProxyPassReverse /registration http://integrates.serves.svc.cluster.local/registration
 
+      RewriteRule ^/silk(.*)$    http://integrates.serves.svc.cluster.local$1     [P,L]
+      ProxyPassReverse /silk http://integrates.serves.svc.cluster.local/silk
+
       RewriteRule ^/errors$    http://integrates.serves.svc.cluster.local/integrates/error401    [P,L]
       ProxyPassReverse /errors http://integrates.serves.svc.cluster.local/integrates/error401
 
