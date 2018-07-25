@@ -1429,10 +1429,10 @@ def add_comment(request):
             }
         if data["data[remediated]"] != "true":
             if data["data[parent]"] == '0':
-                send_mail_new_comment(to, context)
+                send_mail_new_comment(to, context, data['data[commentType]'])
                 return util.response([], 'Success', False)
             elif data["data[parent]"] != '0':
-                send_mail_reply_comment(to, context)
+                send_mail_reply_comment(to, context, data['data[commentType]'])
                 return util.response([], 'Success', False)
         else:
             return util.response([], 'Success', False)
