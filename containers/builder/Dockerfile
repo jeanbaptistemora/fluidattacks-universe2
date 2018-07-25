@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         gnupg2 \
         jq \
         lsb-release \
+        netbase \
         openssh-client \
         python \
         python-dev \
@@ -62,6 +63,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && curl -LsSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.3_linux_amd64.zip \
         && unzip vault.zip \
         && mv vault /usr/local/bin \
+        && rm vault.zip \
+    && curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.7.1/vaultenv-0.7.1.deb \
+        && dpkg -i vaultenv.deb \
+        && rm vaultenv.deb \
     && rm -rf /var/lib/apt
 
 ENV GOPATH /go
