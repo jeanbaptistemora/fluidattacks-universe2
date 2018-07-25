@@ -23,3 +23,9 @@ needed for security investigations.
 . [[r2]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.2+].
 Verificar que la sesiones sean invalidadas
 cuando el usuario cierre sesión.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.14+]
+Verificar que los datos autenticados
+sean eliminados del almacenamiento del cliente,
+como el DOM del navegador
+una vez finalice la sesión o el cliente.
