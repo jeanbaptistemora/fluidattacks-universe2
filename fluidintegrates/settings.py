@@ -17,6 +17,8 @@ from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST,
          FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
          FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT
 from boto3.session import Session
+# pylint: disable=F0401
+from app.dao import integrates_dao
 import os
 import rollbar
 import sys
@@ -54,6 +56,7 @@ INSTALLED_APPS = [
     'analytical',
     'intercom',
     'app.slackbot',
+    'silk',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    'silk.middleware.SilkyMiddleware',
     'app.middleware.SocialAuthException'
 ]
 
@@ -317,3 +321,12 @@ DRIVE_APP_NAME = 'FLUIDIntegrates_Drive'
 # Azure OAuth2
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET # noqa
+
+#Silk configuration
+SILKY_PYTHON_PROFILER = True
+SILKY_AUTHORISATION = True
+
+def custom_permissions(user):
+    return integrates_dao.is_admin(user)
+
+SILKY_PERMISSIONS = custom_permissions
