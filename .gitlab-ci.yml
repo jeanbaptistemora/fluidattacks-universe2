@@ -278,6 +278,7 @@ deploy-k8s:
         s/$DATE/'"$(date)"'/'
         integrates-k8s.yaml
     - kubectl apply -f integrates-k8s.yaml
+    - kubectl rollout status deploy/integrates -w
     - curl https://api.rollbar.com/api/1/deploy/
         -F access_token=$FI_ROLLBAR_ACCESS_TOKEN
         -F environment=$FI_ROLLBAR_ENVIRONMENT
