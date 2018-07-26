@@ -153,3 +153,18 @@ resource "aws_dynamodb_table" "projects" {
     enabled = true
   }
 }
+resource "aws_dynamodb_table" "users" {
+  name           = "FI_users"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "email"
+
+  attribute {
+    name = "email"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
