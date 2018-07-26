@@ -1,11 +1,11 @@
 :slug: replaced-machines/
 :date: 2018-02-13
 :category: philosophy
-:subtitle: Automatic detection vs manual detection
+:subtitle: Automatic detection vs. manual detection
 :tags: application, detect, vulnerability, scanner
 :image: human-vs-machine.png
 :alt: Person playing chess against a robotic arm
-:description: Vulnerability detection at the hands of an automated tool is not enough to reach the conclusion that an app is secure. The knowledge and experience of a person are still necessary to compliment the analysis and achieve an effective and detailed evaluation of the security of said application.
+:description: Vulnerability detection at the hands of an automated tool is not enough to conclude that an app is secure. The knowledge and experience of a person are still necessary to complement the analysis and achieve an effective and detailed evaluation of such application's security.
 :keywords: Vulnerability Detection, Manual Detection, Automatic Detection, Security, Web Application, Automated Tools.
 :translate: desplazados-maquinas/
 :author: Andres Cuberos
@@ -21,18 +21,18 @@ since Garry Kasparov, the chess world champion,
 was defeated by +Deep Blue+, the supercomputer designed by +IBM+.
 For many people, that event was proof that
 machines had managed to exceed human intelligence <<r1,^[1]^>>.
-This believe raised many doubts and concerns
+This belief raised many doubts and concerns
 regarding technological advance,
 that went all the way from workers worried about their jobs,
-to believes that the apocalypse was coming, incentivated by +Hollywood+,
-and machines would conquer and oppress our world.
+to beliefs that the apocalypse was coming, incentivized by +Hollywood+,
+and beliefs that machines would conquer and oppress our world.
 
 Leaving all fiction aside,
 the first concern was well grounded and made some sense.
-Each year we witness new machines out in the market
+Every year we witness new machines out in the market
 with the ability to complete a task with precision and speed
 capable of outdoing tenths of experienced workers.
-By machine we are not talking about a robot
+By machine I am not talking about a robot
 with the appearance of a young Arnold Schwarzenegger wearing sunglasses.
 It could be any device programmed
 to complete a specific task.
@@ -54,71 +54,72 @@ the human role is still vital
 if a detailed and effective security analysis is desired.
 There are still situations in which we have the upper hand:
 
-* Tools can have knowledge of many vulnerabilities,
+* Tools may have a large database of vulnerabilities,
 know how to find them and what risk level they imply.
-However, they do not have that human factor and malice
+However, they do not have that human factor and expertise
 that comes with experience, that instinct that allows a security analyst
 to identify which vulnerabilities can be combined
 in order to create a more critical attack vector.
-Malice can also allow a person
+Expertise can also allow a person
 to find vulnerabilities a machine may overlook.
 
 * Yes, analyzers generate a report with all their findings
-and criticality but, how complete is said report?
+and criticality but, how complete is it?
 It tells you how many input fields are affected by a vulnerability but,
 does it tell you which of those inputs allow the extraction of sensitive data?
 Does it tell you how to take advantage of a form
-in order to modify the database?
+in order to modify a database?
 Sadly, the answer is no, automated tools only
 determine the existence of a flaw.
-The "how"  that flaw can be exploited and leveraged
-to an attackers favour in order to affect a particular business scenario
+How that flaw can be exploited and leveraged
+to an attackers favor in order to affect a particular business scenario
 is strictly a human ability,
-acquired thanks to the malice we previously mentioned.
+acquired thanks to the expertise we previously mentioned.
 
 * False positives, perhaps an analyzer´s greatest flaw,
 report the discovery of a vulnerability that,
 in reality, does not exist <<r2,^[2]^>>.
-A very common problem among these tools,
-which results of the inability to exploit a certain flaw.
+It's a very common problem among these tools,
+which results from the inability to exploit a certain flaw.
 A tool that does not properly filter out false positives
 can bring more damage than benefits.
 If it was used to avoid the cost
 of hiring a security professional,
 you now have X vulnerabilities reported.
-Out of those X, you have no idea which ones are false positives.
+Out of those, you have no idea which ones are false positives.
 The task of filtering those out now falls on the developer,
 someone who does not necessarily dominate the topic of security.
 Was the remedy worse than the illness?
 +
 False positives
 are also one of the reasons for which these tools
-are not very commonly used in Continuous Integration environments.
+are not commonly used in Continuous Integration environments.
 If we program an integrator to check
-every change done in a source code,
-and stop the deployment of the app if an error is encountered,
+every change made in a source code,
+and stop the deployment of the app if an error is found,
 false positives could make the deployment of an app
-a pain in the behind.
+a pain in the ass.
 
 * +Netsparker+ (the developer of one of these tools),
 agrees with this position <<r3,^[3]^>>,
-there does not exist an analyzer capable of detecting
+no analyzer is capable of detecting
 all vulnerabilities classified as the
 link:https://www.owasp.org/index.php/Top_10-2017_Top_10[Top 10]
 most critical.
-He reaches the conclusion that an analyzer
-cannot determine if an application is working as it is intended,
-if it is aligned with the companies objectives,
-if the sensitive information (which can vary depending on the type of business)
+They reach to the conclusion that an analyzer
+cannot determine if an application is working as intended
+and aligned with the company objectives,
+whether the sensitive information
+(which vary depending on the type of business)
 is being properly protected,
-if the users´ privileges are being properly assigned,
-and many more cases where human reasoning must make the final decision.
+and the users´ privileges are being properly assigned,
+among many other cases where human reasoning must make the final decision.
 
-Our goal is not to take merit away from these tools,
+Our goal is not to take merit away from these tools;
 we use many of them in our professional lives
 and they are very strong allies.
-What we want is to correct the mistaken believe
-that they are sufficient in order to decide
+What we want is to revise the mistaken belief
+that those tools are sufficient in order to decide
 if a web app is secure or not.
 
 To do this, we developed our own experiment.
@@ -191,15 +192,15 @@ to finish the analysis,
 time that is not appropriate for a Continuous Integration environment.
 
 A developer who wishes to reduce costs
-avoiding the hiring of a security analyst,
-and depended solely on the automated tools,
-would remediate the vulnerabilities and acquire
+avoiding hiring a security analyst,
+and relying solely on the automated tools,
+would remediate the vulnerabilities and would acquire
 a false sense of security.
 He would ignore that more than half of the flaws
-are still present, just waiting to be found and exploited
+could still present, just waiting to be found and exploited
 by a malicious user.
-This way, the resources that were saved during the development
-will be spent, with interest, in the production stage.
+This way, the resources saved during the development
+will be spent, with interests, in the production stage.
 
 == Conclusions
 
@@ -209,17 +210,17 @@ However, it is not necessary to look at it
 as a rivalry in every aspect.
 In the field of Information Security,
 more than a rivalry,
-a complimentary relationship can exist, where the tool
-helps the analyst performing the repetitive tasks faster
+a complementary relationship can exist, where the tool
+helps the analyst performing repetitive tasks faster
 and the analyst adds his/her instinct and experience
 to detect the maximum amount of vulnerabilities in an efficient manner.
 Therefore giving a greater sense of security
 and satisfaction to the web application developers.
 
 Paraphrasing Garry Kasparov in his +TED+ talk <<r6,^[6]^>>,
-where he uses a freestyle chess tournament as an example,
-in which amateur players with three common machines
-defeated grand-masters of the chess game and supercomputers,
+where he uses a freestyle chess tournament as an example
+(in which amateur players with three common machines
+defeated grand-masters of the chess game and supercomputers),
 the relationship between human and machine, through an effective process,
 is the perfect recipe to achieve our grandest dreams.
 
