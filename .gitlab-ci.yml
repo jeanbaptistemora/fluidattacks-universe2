@@ -133,8 +133,9 @@ build_exams:
 
 build_vpn:
   stage: build
+  <<: *vault_login
   script:
-    - torus run -- sh containers/vpn/build.sh
+    - vaultenv containers/vpn/build.sh
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
   except:
