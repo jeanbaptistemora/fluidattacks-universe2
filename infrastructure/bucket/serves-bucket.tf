@@ -1,6 +1,6 @@
-variable "bucketName" {}
+variable "fsBucket" {}
 
 resource "aws_s3_bucket" "serves_bucket" {
-  bucket = "${var.bucketName}"
+  bucket = "${var.fsBucket}"
   acl    = "private"
 }

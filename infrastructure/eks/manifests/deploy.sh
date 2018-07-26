@@ -10,9 +10,9 @@ if ! helm list --tls | grep 'controller'; then
 fi
 
 # Set TLS certificates in the NGINX server
-sed -i 's/$TLS_KEY/'"$TLS_KEY"'/;
-  s/$FA_TLS_CERT/'"$FA_TLS_CERT"'/;
-  s/$FLA_TLS_CERT/'"$FLA_TLS_CERT"'/' \
+sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
+  s/$FA_TLS_CERT/'"$FLUIDATTACKS_TLS_CERT"'/;
+  s/$FLA_TLS_CERT/'"$FLUIDLA_TLS_CERT"'/' \
   eks/manifests/ingress-tls.yaml
 kubectl apply -f eks/manifests/ingress-tls.yaml
 

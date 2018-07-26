@@ -1,22 +1,21 @@
-
 provider "aws" {
-  access_key = "${var.acc_key}"
-  secret_key = "${var.sec_key}"
-  region = "${var.reg}"
+  access_key = "${var.aws_access_key}"
+  secret_key = "${var.aws_secret_key}"
+  region = "${var.region}"
 }
 
 # Create from scratch
 module "bucket" {
   source = "./bucket"
-  bucketName = "${var.bucket}"
-  webBucket = "${var.webBucket}"
   fiBucket = "${var.fiBucket}"
+  fsBucket = "${var.fsBucket}"
+  fwBucket = "${var.fwBucket}"
 }
 
 # Create from scratch
 module "iam" {
   source = "./iam"
-  webBucket = "${var.webBucket}"
+  fwBucket = "${var.fwBucket}"
 }
 
 output "fiS3Arn" {
@@ -26,9 +25,9 @@ output "fiS3Arn" {
 # #Create from scratch
 # module "createNetwork" {
 #   source = "./network"
-#   sreg = "${var.sreg}"
+#   sNetRegion = "${var.sNetRegion}"
 #   cidr = "${var.cidr}"
-#   ciIP = "${var.ciIP}"
+#   runnerIp = "${var.runnerIp}"
 # }
 
 # Create Kubernetes cluster in existing VPC
@@ -37,8 +36,8 @@ module "eks" {
   clusterName  = "${var.clusterName}"
   eksAmiId     = "${var.eksAmiId}"
   eksSnetReg   = ["${var.eksSnetReg}"]
-  instanceType = "${var.iType}"
-  region  = "${var.reg}"
+  instanceType = "${var.instanceType}"
+  region  = "${var.region}"
   rtbId   = "${var.rtbId}"
   vpcCidr = "${var.cidr}"
   vpcId   = "${var.vpcId}"
@@ -54,71 +53,68 @@ module "vault" {
 module database {
   # source = "./database-outside"
   source = "./database"
-  dbreg="${var.dbreg}"
-  vpcId="${var.db_vpcId}"
-  storage_type="${var.storage_type}"
+  dbRegion="${var.dbRegion}"
+  dbVpcId="${var.dbVpcId}"
+  storageType="${var.storageType}"
   engine="${var.engine}"
-  engine_ver="${var.engine_ver}"
-  instance_class="${var.instance_class}"
-  db_name="${var.db_name}"
-  db_user="${var.db_user}"
-  db_pass="${var.db_pass}"
-  db_id="${var.db_id}"
+  engineVersion="${var.engineVersion}"
+  instanceClass="${var.instanceClass}"
+  dbName="${var.dbName}"
+  dbUser="${var.dbUser}"
+  dbPass="${var.dbPass}"
+  dbSnapId="${var.dbSnapId}"
 }
 
-output "variable_db" {
-  value = "db_instance=\"${module.database.endpoint}\""
+output "dbEndpoint" {
+  value = "dbInstance=\"${module.database.endpoint}\""
 }
 
-output "variable_web" {
-  value = "bucket=\"${module.bucket.webName}\""
+output "fwBucket" {
+  value = "fwBucket=\"${module.bucket.webName}\""
 }
 
-output "variable_integrates" {
-  value = "bucket-integrates=\"${module.bucket.fiName}\""
+output "fiBucket" {
+  value = "fiBucket=\"${module.bucket.fiName}\""
 }
 
-
-
-
-# CREDS
+# Credentials
 output "fis3integrationID" {
   sensitive = true
-value = "${module.iam.fis3integrationID}"
+  value = "${module.iam.fis3integrationID}"
 }
 
 output "cloudwatchID" {
   sensitive = true
-value = "${module.iam.cloudwatchID}"
+  value = "${module.iam.cloudwatchID}"
 }
 
 output "fluidintegratesdynamoID" {
   sensitive = true
-value = "${module.iam.fluidintegratesdynamoID}"
+  value = "${module.iam.fluidintegratesdynamoID}"
 }
 
 output "fws3userID" {
   sensitive = true
-value = "${module.iam.fws3userID}"
+  value = "${module.iam.fws3userID}"
 }
 
 #
 output "fis3integrationSECRET" {
   sensitive = true
-value = "${module.iam.fis3integrationSECRET}"
+  value = "${module.iam.fis3integrationSECRET}"
 }
 
 output "cloudwatchSECRET" {
   sensitive = true
-value = "${module.iam.cloudwatchSECRET}"
+  value = "${module.iam.cloudwatchSECRET}"
 }
 
 output "fluidintegratesdynamoSECRET" {
   sensitive = true
-value = "${module.iam.fluidintegratesdynamoSECRET}"
+  value = "${module.iam.fluidintegratesdynamoSECRET}"
 }
 
 output "fws3userSECRET" {
   sensitive = true
-value = "${module.iam.fws3userSECRET}"
+  value = "${module.iam.fws3userSECRET}"
 }

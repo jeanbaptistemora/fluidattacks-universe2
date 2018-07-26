@@ -1,4 +1,4 @@
-variable "ciIP" {}
+variable "runnerIp" {}
 
 variable "allow_all_http_ports" {
   default = ["80", "7090", "7001", "443","8081"]
@@ -33,7 +33,7 @@ resource "aws_security_group_rule" "ingress_http" {
 resource "aws_security_group_rule" "ingress_ssh" {
   type        = "ingress"
   protocol    = "tcp"
-  cidr_blocks = ["${var.ciIP}/32"]
+  cidr_blocks = ["${var.runnerIp}/32"]
   from_port   = "22"
   to_port     = "22"
 

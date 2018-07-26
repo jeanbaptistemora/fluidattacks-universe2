@@ -1,16 +1,16 @@
 variable "domain" {}
-variable "ELB_DNS" {}
-variable "ELB_ZONE" {}
+variable "elbDns" {}
+variable "elbZone" {}
 # AWS vars
-variable "acc_key" {}
-variable "sec_key" {}
-variable "reg" {}
-variable "db_instance" {}
+variable "aws_access_key" {}
+variable "aws_secret_key" {}
+variable "region" {}
+variable "dbInstance" {}
 
 provider "aws" {
-  access_key = "${var.acc_key}"
-  secret_key = "${var.sec_key}"
-  region = "${var.reg}"
+  access_key = "${var.aws_access_key}"
+  secret_key = "${var.aws_secret_key}"
+  region = "${var.region}"
 }
 
 resource "aws_route53_zone" "fs_maindomain" {

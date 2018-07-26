@@ -1,11 +1,11 @@
-variable "storage_type" {}
+variable "storageType" {}
 variable "engine" {}
-variable "engine_ver" {}
-variable "instance_class" {}
-variable "db_name" {}
-variable "db_user" {}
-variable "db_pass" {}
-variable "db_id" {}
+variable "engineVersion" {}
+variable "instanceClass" {}
+variable "dbName" {}
+variable "dbUser" {}
+variable "dbPass" {}
+variable "dbSnapId" {}
 
 resource "aws_db_subnet_group" "default" {
   name       = "main"
@@ -27,16 +27,16 @@ resource "aws_db_parameter_group" "default" {
 resource "aws_db_instance" "fluiddb" {
   apply_immediately = true
   allocated_storage    = 10
-  storage_type         = "${var.storage_type}"
+  storage_type         = "${var.storageType}"
   engine               = "${var.engine}"
-  engine_version       = "${var.engine_ver}"
-  instance_class       = "${var.instance_class}"
-  name                 = "${var.db_name}"
-  username             = "${var.db_user}"
-  password             = "${var.db_pass}"
+  engine_version       = "${var.engineVersion}"
+  instance_class       = "${var.instanceClass}"
+  name                 = "${var.dbName}"
+  username             = "${var.dbUser}"
+  password             = "${var.dbPass}"
   db_subnet_group_name = "${aws_db_subnet_group.default.id}"
   parameter_group_name = "${aws_db_parameter_group.default.id}"
-  snapshot_identifier = "${var.db_id}"
+  snapshot_identifier = "${var.dbSnapId}"
   skip_final_snapshot  = true
   publicly_accessible = true
   maintenance_window = "sun:05:00-sun:05:30"

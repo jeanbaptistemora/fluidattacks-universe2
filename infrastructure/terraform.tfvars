@@ -1,23 +1,20 @@
 # Region Vars
-reg = "us-east-1"
-sreg = "us-east-1b"
-dbreg = "us-east-1"
+region = "us-east-1"
+sNetRegion = "us-east-1b"
+dbRegion = "us-east-1"
 
 #EC2 Vars
-iType = "t2.xlarge"
-
-# S3 Vars
-vaultBucket = "vault.fluidattacks"
+instanceType = "t2.xlarge"
 
 # Network vars
 cidr = "192.168.100.0/24"
 vpcId = "vpc-53ea4637"
 
 # DB Vars
-db_vpcId = "vpc-98fd1fe1"
-storage_type = "gp2"
+dbVpcId = "vpc-98fd1fe1"
+storageType = "gp2"
 engine = "mysql"
-instance_class = "db.t2.small"
+instanceClass = "db.t2.small"
 
 # EKS Vars
 rtbId = "rtb-a74ad5c3"

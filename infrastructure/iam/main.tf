@@ -1,4 +1,4 @@
-variable "webBucket" {}
+variable "fwBucket" {}
 
 module "users" {
   source = "./users"
@@ -28,7 +28,7 @@ module "roles" {
 
 module "policies" {
   source = "./policies"
-  webBucket = "${var.webBucket}"
+  fwBucket = "${var.fwBucket}"
   web = "${module.groups.web}"
   fluidserves = "${module.groups.fluidserves}"
   fis3integration = "${module.groups.fis3integration}"

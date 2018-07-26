@@ -3,8 +3,8 @@ resource "aws_route53_record" "mainA" {
   name    = "${aws_route53_zone.fs_maindomain.name}"
   type    = "A"
   alias {
-    name    = "${var.ELB_DNS}"
-    zone_id = "${var.ELB_ZONE}"
+    name    = "${var.elbDns}"
+    zone_id = "${var.elbZone}"
     evaluate_target_health = false
   }
 }
@@ -14,8 +14,8 @@ resource "aws_route53_record" "mail" {
   name    = "mail.${aws_route53_zone.fs_maindomain.name}"
   type    = "A"
   alias {
-    name    = "${var.ELB_DNS}"
-    zone_id = "${var.ELB_ZONE}"
+    name    = "${var.elbDns}"
+    zone_id = "${var.elbZone}"
     evaluate_target_health = false
   }
 }

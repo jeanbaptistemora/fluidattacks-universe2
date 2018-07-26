@@ -10,7 +10,7 @@ fi
 SERVICE_ACCOUNT="$1"
 
 # Check that all the variables used in the script are defined
-vars=("CA_CERT"
+vars=("HELM_CA"
 "TILLER_KEY"
 "TILLER_CERT")
 for var in "${vars[@]}"; do
@@ -23,7 +23,7 @@ done
 
 # Prepare Tiller certificates for TLS communications between the Helm Client
 # and the Tiller server in the cluster
-echo "$CA_CERT" | base64 -d > ca-cert.pem
+echo "$HELM_CA" | base64 -d > ca-cert.pem
 echo "$TILLER_KEY" | base64 -d > tiller-key.pem
 echo "$TILLER_CERT" | base64 -d > tiller-cert.pem
 

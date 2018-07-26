@@ -1,36 +1,36 @@
 # AWS vars
-variable "acc_key" {}
-variable "sec_key" {}
-variable "reg" {}
-variable "sreg" {}
-variable "dbreg" {}
+variable "aws_access_key" {}
+variable "aws_secret_key" {}
+variable "region" {}
+variable "sNetRegion" {}
+variable "dbRegion" {}
 
 # S3 vars
-variable "bucket" {}
-variable "webBucket" {}
+variable "fsBucket" {}
+variable "fwBucket" {}
 variable "fiBucket" {}
 variable "vaultBucket" {}
 
 # gitlabCI
-variable "ciIP" {}
+variable "runnerIp" {}
 
 #EC2 vars
-variable "iType" {}
+variable "instanceType" {}
 
 # Net Vars
 variable "cidr" {}
 variable "vpcId" {}
 
 # DB Vars
-variable "db_vpcId" {}
-variable "storage_type" {}
+variable "dbVpcId" {}
+variable "storageType" {}
 variable "engine" {}
-variable "engine_ver" {}
-variable "instance_class" {}
-variable "db_name" {}
-variable "db_user" {}
-variable "db_pass" {}
-variable "db_id" {}
+variable "engineVersion" {}
+variable "instanceClass" {}
+variable "dbName" {}
+variable "dbUser" {}
+variable "dbPass" {}
+variable "dbSnapId" {}
 
 # EKS Vars
 variable "clusterName" {}

@@ -1,9 +1,9 @@
-variable "bucket" {}
+variable "fwBucket" {}
 variable "fiBucket" {}
 variable "fiS3Arn" {}
 
 data "aws_s3_bucket" "b" {
-  bucket = "${var.bucket}"
+  bucket = "${var.fwBucket}"
 }
 
 resource "aws_s3_bucket_policy" "b" {
@@ -20,8 +20,8 @@ resource "aws_s3_bucket_policy" "b" {
               "Action": ["s3:GetObject",
                   "s3:ListBucket"
               ],
-              "Resource": ["arn:aws:s3:::${var.bucket}/*",
-                  "arn:aws:s3:::${var.bucket}"
+              "Resource": ["arn:aws:s3:::${var.fwBucket}/*",
+                  "arn:aws:s3:::${var.fwBucket}"
               ]
           }
       ]

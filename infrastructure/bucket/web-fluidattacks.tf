@@ -1,7 +1,7 @@
-variable "webBucket" {}
+variable "fwBucket" {}
 
 resource "aws_s3_bucket" "web_fluidattacks" {
-  bucket = "${var.webBucket}"
+  bucket = "${var.fwBucket}"
   acl    = "private"
 
   website {
