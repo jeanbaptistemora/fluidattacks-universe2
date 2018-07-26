@@ -32,7 +32,7 @@
     <script src="assets/prismjs/prism.js" data-manual></script>
 
     {% mixpanel %}
-    {% if legal_status != '1' %}
+    {% if not request.session.accept_legal %}
       <script>
         var getUrl=window.location.hash.substr(1);
         localStorage.setItem("url_inicio", getUrl);

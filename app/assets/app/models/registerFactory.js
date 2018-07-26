@@ -18,33 +18,33 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
-       * Verify if the user has access to the platform
-       * @function isUserRegistered
+       * Update legal notice acceptance status
+       * @function acceptLegal
        * @member integrates.registerFactory
+       * @param {boolean} remember remember acceptance decision
        * @return {Object} Request result
        */
-      "isUserRegistered" () {
-        const oopsAc = "An error ocurred resolving user authorization";
-        return $xhr.get($q, `${BASE.url}is_registered`, {
-          "_": parseInt(
-            secureRandom(5).join(""),
-            10
-          )
+      "acceptLegal" (remember) {
+        const oopsAc = "An error ocurred updating legal acceptance status";
+        return $xhr.post($q, `${BASE.url}accept_legal`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          remember
         }, oopsAc);
       },
 
       /**
-       * Update legal notice acceptance status
-       * @function updateLegalAcceptance
+       * Get authorization and remember preferences info
+       * @function getLoginInfo
        * @member integrates.registerFactory
-       * @param {String} status Value that indicates if the user has accepted
        * @return {Object} Request result
        */
-      "updateLegalStatus" (status) {
-        const oopsAc = "An error ocurred updating legal acceptance status";
-        return $xhr.post($q, `${BASE.url}legal_status`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          status
+      "getLoginInfo" () {
+        const oopsAc = "An error ocurred resolving user authorization";
+        return $xhr.get($q, `${BASE.url}get_login_info`, {
+          "_": parseInt(
+            secureRandom(5).join(""),
+            10
+          )
         }, oopsAc);
       }
     };

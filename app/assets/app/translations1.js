@@ -295,6 +295,7 @@ const translations1 = {
        "that fundament the classification of information are articles 72, " +
        "Cartagena's agreement 344 of 1.993, article 238 of penal code and " +
        "articles 16 and its following ones from 256 law of 1.996.",
+       "remember": "Remember my decision",
        "title": "Legal notice"
      }
    },

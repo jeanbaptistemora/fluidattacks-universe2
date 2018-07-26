@@ -302,6 +302,7 @@ const traducciones1 = {
     "la información son los artículos 72 y siguientes de la decisión del " +
     "acuerdo de Cartagena, 344 de 1.993, el artículo 238 del código " +
     "penal y los artículos 16 y siguientes de la ley 256 de 1.996.",
+    "remember": "Recordar mi decisión",
     "title": "Aviso legal"
   }
 },

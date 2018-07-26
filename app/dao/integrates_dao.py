@@ -399,6 +399,58 @@ def get_vulns_by_project_dynamo(project_name):
             break
     return items
 
+def get_legal_remember_dynamo(email):
+    """ Get legal notice acceptance status """
+    table = dynamodb_resource.Table('FI_users')
+    filter_key = 'email'
+    if filter_key and email:
+        response = table.query(KeyConditionExpression=Key(filter_key).eq(email))
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def update_legal_remember_dynamo(email, remember):
+    """ Remember legal notice acceptance """
+    table = dynamodb_resource.Table('FI_users')
+    item = get_legal_remember_dynamo(email)
+    if item == []:
+        print "item empty"
+        try:
+            response = table.put_item(
+                Item={
+                    'email': email,
+                    'legal_remember': remember
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'email': email
+                },
+                UpdateExpression='SET legal_remember = :val1',
+                ExpressionAttributeValues={
+                    ':val1': remember
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
 
 def get_vulns_by_id_dynamo(project_name, unique_id):
     """ Gets findings info by finding ID. """

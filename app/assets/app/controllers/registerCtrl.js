@@ -58,52 +58,72 @@ angular.module("FluidIntegrates").controller(
       }
     };
 
+    $scope.showAlreadyLoggedin = function showAlreadyLoggedin () {
+      angular.element("#alreadyLoggedin").show();
+      localStorage.clear();
+    };
+
+    $scope.showNotAuthorized = function showNotAuthorized () {
+      angular.element("#notAuthorizedTxt").show();
+      const currentUrl = $window.location.toString();
+      if (currentUrl.indexOf("localhost:8000") === -1) {
+        mixpanel.track("Registered User", {
+          "Email":
+          "{{ request.session.username }}"
+        });
+      }
+    };
+
     $scope.showLegalNotice = function showLegalNotice () {
-      $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance) {
-          $scope.okModalNotice = function okModalNotice () {
-            const authorizationReq = registerFactory.isUserRegistered();
-            authorizationReq.then((response) => {
-              if (response.message === "1") {
-                try {
-                  mixpanel.time_event("Logged out");
-                }
-                catch (err) {
-                  const msg = "Couldn't track session length (Adblock)";
-                  Rollbar.warning(`Warning: ${msg}`);
-                }
-                const statusReq = registerFactory.updateLegalStatus("1");
-                statusReq.then(() => {
-                  $uibModalInstance.close();
-                  $scope.loadDashboard();
-                });
-              }
-              else {
-                angular.element("#notAuthorizedTxt").show();
-                $uibModalInstance.close();
-                const currentUrl = $window.location.toString();
-                if (currentUrl.indexOf("localhost:8000") === -1) {
-                  mixpanel.track("Registered User", {
-                    "Email":
-                  "{{ request.session.username }}"
+      const infoReq = registerFactory.getLoginInfo();
+      infoReq.then((response) => {
+        if (angular.isUndefined(response.data)) {
+          location.reload();
+        }
+        else if (response.data.remember) {
+          $scope.loadDashboard();
+        }
+        else {
+          $uibModal.open({
+            "animation": true,
+            "backdrop": "static",
+            "controller" ($scope, $uibModalInstance) {
+              $scope.okModalNotice = function okModalNotice () {
+                if (response.data.is_registered) {
+                  try {
+                    mixpanel.time_event("Logged out");
+                  }
+                  catch (err) {
+                    const msg = "Couldn't track session length (Adblock)";
+                    Rollbar.warning(`Warning: ${msg}`);
+                  }
+                  let remember = false;
+                  if (angular.isDefined($scope.remember_accept_legal)) {
+                    remember = $scope.remember_accept_legal;
+                  }
+                  const acceptReq = registerFactory.acceptLegal(remember);
+                  acceptReq.then(() => {
+                    $uibModalInstance.close();
+                    $scope.loadDashboard();
                   });
                 }
-              }
-            });
-          };
-        },
-        "keyboard": false,
-        "resolve": {"done": true},
-        "scope": $scope,
-        "templateUrl": "legalNotice.html",
-        "windowClass": "modal avance-modal"
+                else {
+                  $uibModalInstance.close();
+                  $scope.showNotAuthorized();
+                }
+              };
+            },
+            "keyboard": false,
+            "resolve": {"done": true},
+            "scope": $scope,
+            "templateUrl": "legalNotice.html",
+            "windowClass": "modal avance-modal"
+          });
+        }
       });
     };
     if (localStorage.getItem("showAlreadyLoggedin") === "1") {
-      angular.element("#alreadyLoggedin").show();
-      localStorage.clear();
+      $scope.showAlreadyLoggedin();
     }
     else {
       $scope.showLegalNotice();

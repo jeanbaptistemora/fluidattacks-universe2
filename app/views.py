@@ -308,8 +308,6 @@ def dashboard(request):
             'company': request.session["company"],
             'last_login': request.session["last_login"]
         }
-        if 'legal_status' in request.session:
-            parameters['legal_status'] = request.session['legal_status']
         integrates_dao.update_user_login_dao(request.session["username"])
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1703,17 +1701,31 @@ def change_user_role(request):
 @never_cache
 @require_http_methods(["POST"])
 @authenticate
-def legal_status(request):
-    status = request.POST.get('status', "")
-    request.session['legal_status'] = status
+def accept_legal(request):
+    parameters = request.POST.dict()
+    if "remember" in parameters:
+        integrates_dao.update_legal_remember_dynamo(request.session["username"],
+                                               parameters["remember"] == "true")
+    request.session['accept_legal'] = True
     return util.response([], 'Success', False)
 
 @never_cache
 @require_http_methods(["GET"])
 @authenticate
-def is_registered(request):
-    user = request.session['username'];
-    return util.response([], integrates_dao.is_registered_dao(user), False)
+def get_login_info(request):
+    user = request.session['username']
+    userInfo = integrates_dao.get_legal_remember_dynamo(user)
+    remember = False
+    if not userInfo == []:
+        userInfo = dict(userInfo[0])
+        if "legal_remember" in userInfo:
+            remember = userInfo["legal_remember"]
+            request.session['accept_legal'] = remember
+    info = {
+        'is_registered': integrates_dao.is_registered_dao(user) == '1',
+        'remember': bool(remember)
+    }
+    return util.response(info, "success", False)
 
 @csrf_exempt
 @require_http_methods(["POST"])

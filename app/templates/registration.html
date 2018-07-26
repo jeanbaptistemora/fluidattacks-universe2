@@ -82,17 +82,25 @@
                     </div>
                 </script>
 
-                <!-- START: MODAL DISCLOSURE WARN -->
+                <!-- START: MODAL LEGAL NOTICE -->
                 <script type="text/ng-template" id="legalNotice.html">
-                    <div class="modal-header">
-                      <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'legal.disclosureWarning.title' | translate{% templatetag closevariable %}</h3>
+                  <div class="modal-colored-header">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title">{% templatetag openvariable %}'legal.disclosureWarning.title' | translate{% templatetag closevariable %}</h3>
+                      </div>
+                      <div class="modal-body">
+                        <p>{% templatetag openvariable %}'legal.disclosureWarning.description' | translate{% templatetag closevariable %}</p>
+                        <p>
+                          <input type="checkbox" ng-model="remember_accept_legal">
+                          {% templatetag openvariable %}'legal.disclosureWarning.remember' | translate{% templatetag closevariable %}
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" ng-click="okModalNotice()" data-dismiss="modal">{% templatetag openvariable %}'legal.disclosureWarning.acceptBtn' | translate{% templatetag closevariable %}</button>
+                      </div>
                     </div>
-                    <div class="modal-body">
-                      <p>{% templatetag openvariable %}'legal.disclosureWarning.description' | translate{% templatetag closevariable %}</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="btn btn-primary" type="button" ng-click="okModalNotice()" data-dismiss="modal">{% templatetag openvariable %}'legal.disclosureWarning.acceptBtn' | translate{% templatetag closevariable %}</button>
-                    </div>
+                  </div>
                 </script>
               </li>
             </ul>
