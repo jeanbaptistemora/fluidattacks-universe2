@@ -114,8 +114,9 @@ test_terraform:
 
 build_alg:
   stage: build
+  <<: *vault_login
   script:
-    - torus run -- sh containers/alg/build.sh
+    - vaultenv containers/alg/build.sh
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg/dev:$CI_COMMIT_SHA"
   except:
