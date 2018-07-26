@@ -18,3 +18,7 @@ in case of opening.
 Disposal: Implement policies and procedures
 to address the final disposition of electronic protected health information
 and/or the hardware or electronic media on which it is stored.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+Verify that there is a method to remove each type of sensitive data
+from the application at the end of the required retention policy.

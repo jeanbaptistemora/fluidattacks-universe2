@@ -19,3 +19,8 @@ ante el evento de apertura del mismo.
 Disposición: implementar políticas y procedimientos
 para manejar la disposición final de la información sensible
 del hardware o medio electrónico que la contiene.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+Verificar que exista un método para remover todos los datos sensibles
+de la aplicación cuando ya no sean necesarios
+al final de la política de retención.

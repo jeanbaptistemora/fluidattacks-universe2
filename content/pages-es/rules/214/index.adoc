@@ -23,3 +23,8 @@ del hardware o medio electrónico que la contiene.
 Controles de Integridad: Implementar medidas de seguridad
 para garantizar que la información sensible no ha sido modificada
 inapropiadamente hasta la eliminación de la misma.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+Verificar que exista un método para remover todos los datos sensibles
+de la aplicación cuando ya no sean necesarios
+al final de la política de retención.

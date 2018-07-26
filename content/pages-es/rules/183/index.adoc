@@ -15,7 +15,12 @@ de tal forma que no puedan ser recuperados.
 
 == Referencias
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+Verificar que exista un método para remover todos los datos sensibles
+de la aplicación cuando ya no sean necesarios
+al final de la política de retención.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
 Verificar que la información mantenida en memoria
 sea sobreescrita con ceros cuando ya no sea necesaria,
 para mitigar ataques de vaciado de memoria.

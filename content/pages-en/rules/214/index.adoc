@@ -23,3 +23,8 @@ Integrity Controls: Implement security measures
 to ensure that electronically transmitted
 electronic protected health information
 is not improperly modified without detection until disposed of.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+Verify that sensitive information maintained in memory
+is overwritten with zeros as soon as it no longer required,
+to mitigate memory dumping attacks.
