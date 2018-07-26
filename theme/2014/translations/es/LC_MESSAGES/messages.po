@@ -164,9 +164,12 @@ msgstr "cero falsos positivos"
 #: templates/base.html:121
 msgid "Header-msg"
 msgstr ""
-"Atacando Aplicaciones, APIs, Apps Móviles, Servidores Redes, Dispositivos"
-" IoT <br/>SCI: Sistemas de Control Industrial <br/>COS: Centro de "
-"Operaciones de Seguridad"
+"Inteligencia experta + Tecnología especializada <br/>"
+"DXST -  SAST - IAST - SCA - DevSecOps <br/>"
+"Caja blanca - Caja gris - Caja negra <br/>"
+"Atacando Aplicaciones Web, APIs, Apps Móviles, <br/>"
+"Cliente Servidor, Servidores, Redes, Dispositivos IoT <br/>"
+"IoT SCI: Sistemas de Control Industrial "
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"

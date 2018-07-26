@@ -163,8 +163,12 @@ msgstr "zero false positives"
 #: templates/base.html:121
 msgid "Header-msg"
 msgstr ""
-"Attacking Applications, APIs, Mobile Apps Servers, Networks, IoT Devices "
-"<br/>ICS: Industrial Control System <br/>SOC: Security Operations Center"
+"Expert intelligence + Specialized technology <br/>"
+"DXST -  SAST - IAST - SCA - DevSecOps <br/>"
+"White Box - Gray Box - Black Box <br/>"
+"Attacking Web Applications, APIs, Mobile Apps <br/>"
+"Client-Server, Servers, Networks, IoT Devices <br/>"
+"ICS: Industrial Control System "
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"
