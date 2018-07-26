@@ -19,7 +19,7 @@ all existing security issues with no false positives.
 It's possible to perform source code,
 application or infrastructure Ethical Hacking.
 Customers are able to choose which hacking technique
-suits best their needs regarding each system requiring security assessment.
+best suits their needs to fulfill each system's required security assessment.
 
 a|image::ethical-hacking.png[alt="Ethical Hacking", width="55%"]
 
