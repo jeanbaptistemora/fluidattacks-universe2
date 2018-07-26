@@ -5,7 +5,7 @@
 :tags: application, functional, imperative, stateless
 :image: cover.png
 :alt: Rubber ducks depicting Karl Marx
-:description: An analysis of why it is necessary to go functional even with non-functional languages. Benefits of functional programming. A comparison between the imperative and the functional. How to migrate from object-oriented to functional in a non-traumatic way.
+:description: An analysis of why it is necessary to go functional even with non-functional languages. Benefits of functional programming. A comparison between the imperative and the functional. How Fluid Attacks migrate from object-oriented to functional in a non-traumatic way.
 :keywords: Functional paradigm, Object-oriented, Stateless, Multiparadigm application, Laziness, Programming revolution.
 :author: Oswaldo Parada
 :writer: oparada
@@ -27,12 +27,13 @@ you should probably read the manifesto.
 But my dear comrade, this article is not a communist declaration,
 quite the opposite.
 We just want to rescue an idea of the bearded Marx:
-The state should not exist.<<r1 ,^[1]^>>
+_The state should not exist_.<<r1 ,^[1]^>>
 
 With the motivation of developing a programming revolution
 (not a social one),
 the functional paradigm has been strengthening in the communities of developers
 and in the large technology companies.
+Of course, Fluid Attacks is not the exception.
 
 .Your face until this point.
 image::weird-look.png["Little girl judging with her look"]
@@ -67,22 +68,23 @@ myInteger.multiply (6);
 console.log (myInteger.number); //12
 
 // Multiply function in a functional way.
-
 const multiply = a => b => a * b;
 console.log (multiply (2) (6)); // 12
-
 ----
 
 == More benefits, less problems.
 
-The true benefits of functional programming
-lies where imperative programming has flaws.
+At the Fluid Attacks headquarters we made some investigation,
+dust off some old books
+and look under some stones to discover
+that true benefits of functional programming
+lie where imperative programming has flaws.
 The first advantage is the possibility of using laziness,
 which allows to delay the evaluation of an expression as much as possible,
 usually until the result is strictly required.
 This brings out another important benefit.
 The functions cease to be “imperative”,
-now the runtime has more control on what is executed and  at what moment,
+now the runtime has more control on what is executed and at what moment,
 so like electricity in a circuit,
 it is always going to take the shortest route.
 
@@ -95,6 +97,12 @@ The functional language seeks to separate the developer
 from all these trivialities of execution
 so he can concentrate completely on solving the problem.
 
+For us, the jewel in the declarative crown
+is the improvement of code structure and understandability.
+Now, any new developer who joins our team,
+can understand more easily what is being done.
+This is a great time saver both for analyzing and debugging.
+
 Another important benefit is related to the correlation
 between the mutable state and the tests:
 more of the first requires mores of the latter.
@@ -103,6 +111,13 @@ side effects that are generally unexpected,
 leading in the need to create more tests to avoid surprises,
 so we can infer that a functional code allows to generate fewer tests
 to cover more functionalities.
+
+A stateless world also gives the benefit of referential transparency,
+defined as the capacity of replace an operation for its result
+and achieve the same effect.
+This can be achieved only if the operation is deterministic
+(for same inputs, same outputs),
+isolated from the rest of the environment and obviously being stateless.
 
 .Main problem with imperative languages.
 image::functional-joke.png["Student asking to teacher in classroom"]
@@ -137,6 +152,34 @@ so deficient functions which do not allow flexibility,
 concurrency and parallelism in their execution are no longer profitable.
 Functional approximation brings us an immense scalability,
 a fast maintenance and robust expressions with long useful life.
+
+== Functional in non-functionals
+
+Maybe you're thinking that the benefits are really good,
+but you are an OOO (Object-Oriented Obsessive)
+and all your code is in an imperative language.
+It's normal, it's okay to be a little reluctant but do not worry.
+Here in Fluid Attacks, we are like you, we use object-oriented languages
+and that did not stop us from being functional.
+All languages can be functional.
+In fact, most languages have declarative characteristics through libraries
+with methods that reproduce functional behaviors quite well.
+Now you can read the docs.
+In general there are some keys that you must follow to be functional
+in a non-functional language:
+
+. Avoid the use of classes and classes attributes.
+Use classes only if strictly necessary (life or death matter).
+. Create granular functions that only do ONE thing.
+. Functions must be deterministic (you already know what is deterministic).
+. Minimize the amount of data structure.
+. Understand a list as the "first item"
+and the "rest of the list" and not as indexed values.
+. Store for late.
+It is preferable to check if a list is not empty
+to have to perform an operation again.
+. Use recursion and primitive functions instead of loops.
+. Do not use global variables. (The queen of the state-keepers)
 
 == Change your way of thinking instead of your code syntax!
 
