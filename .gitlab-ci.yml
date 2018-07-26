@@ -84,12 +84,9 @@ test_terraform:
         s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
         infrastructure/dns/terraform.tfstate ||
         echo "No previous state for DNS found"
-    - vaultenv infrastructure/terraform-plan.sh
+    - vaultenv infrastructure/terraform.sh
   after_script:
-    - rm -rf infrastructure/vars
-    - rm -rf infrastructure/terraform.tfvars
-    - rm -rf infrastructure/dns/aws.tfvars
-    - rm -rf infrastructure/dns/terraform.tfvars
+    - rm infrastructure/*.xml
     - docker logout "$CI_REGISTRY"
   except:
     - master
@@ -165,53 +162,36 @@ tag-vpn:
 
 deploy_infra:
   stage: deploy
-  before_script:
-    - mkdir infrastructure/vars
-    - mkdir -p $HOME/.kube
-    - cd infrastructure
-    - torus run -- ./set-tfvars.sh
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
-        vars/FLUID_Serves.pem ||
-        (pip install boto && python infrastructure/create-key.py && export
-        NEW_DEPLOY=true)
+  <<: *vault_login
+  script:
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
-        terraform.tfstate || echo "No previous state found"
+        infrastructure/terraform.tfstate ||
+        (echo "No previous state found" && NEW_DEPLOY=true)
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
+        infrastructure/dns/terraform.tfstate ||
+        echo "No previous state for DNS found"
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
         $HOME/.kube/config || echo "No Kubernetes configuration file found"
-  script:
-    - terraform init
-    - terraform refresh -var-file="vars/aws.tfvars"
-    - torus run -- terraform apply -auto-approve -var-file="vars/aws.tfvars"
-    - torus run -- ./eks/manifests/deploy.sh
-    - cd vault;
-        ./vault.sh;
-        cd ../
-    - sh set-keys.sh
-    - if [ -n "${NEW_DEPLOY}" ]; then
-            git clone https://github.com/checkr/s3-sync.git;
-            fi
-    - if [ -n "${NEW_DEPLOY}" ]; then
-            sh create-config.sh && cd s3-sync && \
-            go run main.go sync --config ./config-prod.yaml;
-            fi
+    - sed -i 's/plan/apply\ -auto-approve/g' infrastructure/terraform.sh
+    - vaultenv infrastructure/terraform.sh deployment
   after_script:
     - aws s3 cp
         infrastructure/terraform.tfstate
         s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
     - aws s3 cp
+        infrastructure/dns/terraform.tfstate
+        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
+    - aws s3 cp
         $HOME/.kube/config
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
     - aws s3 cp
-        infrastructure/vars/FLUID_Serves.pem
-        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
-    - aws s3 cp
         "$HOME/vault-ca.crt"
         s3://$VAULT_S3_BUCKET/vault-ca.crt
-    - rm -rf infrastructure/vars
-    - rm -rf infrastructure/terraform.tfvars
+    - rm infrastructure/*.xml
+    - docker logout "$CI_REGISTRY"
   only:
     - master
 
@@ -224,50 +204,6 @@ fluidasserts:
       -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
       -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
       fluidattacks/asserts asserts /code/asserts/exploit.py
-  only:
-    - master
-
-change_dns:
-  stage: dns
-  dependencies: []
-  before_script:
-    - mkdir infrastructure/vars
-    - cd infrastructure
-    - torus run -- ./set-tfvars.sh
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/FLUID_Serves.pem
-        vars/FLUID_Serves.pem
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
-        terraform.tfstate
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
-        dns/terraform.tfstate || echo ""
-    - cp vars/aws.tfvars dns/
-    - terraform init
-    - terraform refresh -var-file="vars/aws.tfvars"
-    - terraform output fiS3Arn >> dns/terraform.tfvars
-    - terraform output variable_db >> dns/terraform.tfvars
-    - terraform output variable_web >> dns/terraform.tfvars
-    - terraform output variable_integrates >> dns/terraform.tfvars
-  script:
-    - cd dns/
-    - export TF_VAR_ELB_DNS="$(aws elb --region us-east-1
-        describe-load-balancers |
-        jq -r '.LoadBalancerDescriptions[].DNSName')"
-    - export TF_VAR_ELB_ZONE="$(aws elb --region us-east-1
-        describe-load-balancers |
-        jq -r '.LoadBalancerDescriptions[].CanonicalHostedZoneNameID')"
-    - terraform init
-    - terraform refresh -var-file="aws.tfvars"
-    - terraform apply -auto-approve -var-file="aws.tfvars";
-  after_script:
-    - aws s3 cp
-        infrastructure/dns/terraform.tfstate
-        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
-    - rm -rf infrastructure/dns/aws.tfvars
-    - rm -rf infrastructure/vars
-    - rm -rf infrastructure/terraform.tfvars
   only:
     - master
 

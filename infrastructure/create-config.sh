@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 
 go get github.com/checkr/s3-sync/cmd
 

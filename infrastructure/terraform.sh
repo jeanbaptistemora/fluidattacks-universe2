@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+stage="${1:-test}"
+
 # Run Terraform Plan for AWS EKS, RDS and VPC infrastructure
 cd infrastructure/
 export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
@@ -12,6 +14,21 @@ tflint --deep --aws-access-key="$AWS_ACCESS_KEY_ID" \
   --aws-secret-key="$AWS_SECRET_KEY_ID" --aws-region='us-east-1'
 terraform refresh > /dev/null
 terraform plan
+
+if [ "$stage" == "deployment" ]; then
+  eks/manifests/deploy.sh
+  cd vault/
+  ./vault.sh
+  cd ../
+  ./set-keys.sh
+  if [ -n "${NEW_DEPLOY}" ]; then
+    git clone https://github.com/checkr/s3-sync.git;
+  fi
+  if [ -n "${NEW_DEPLOY}" ]; then
+    create-config.sh && cd s3-sync
+    go run main.go sync --config ./config-prod.yaml;
+  fi
+fi
 
 # Run Terraform Plan for AWS DNS infrastructure
 terraform output fiS3Arn >> dns/terraform.tfvars

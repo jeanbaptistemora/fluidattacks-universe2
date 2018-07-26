@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+set -e
 
 curl -s --request PUT --header "PRIVATE-TOKEN: $FS_GITLAB_API_SECRET" "https://gitlab.com/api/v4/groups/$GL_GROUP/variables/FI_AWS_S3_ACCESS_KEY" --form "value=$(terraform output fis3integrationID)" > /dev/null
 curl -s --request PUT --header "PRIVATE-TOKEN: $FS_GITLAB_API_SECRET" "https://gitlab.com/api/v4/groups/$GL_GROUP/variables/FI_AWS_CLOUDWATCH_ACCESS_KEY" --form "value=$(terraform output cloudwatchID)" > /dev/null
