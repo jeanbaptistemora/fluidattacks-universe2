@@ -1,4 +1,4 @@
-:slug: defends/java/implementar-cifrado-simetrico/
+:slug: defends/java/cifrar-simetricamente/
 :category: java
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al implementar un cifrado simétrico. Java permite la creación de llaves de cifrado además de proporcionar herramientas para cifrar y descifrar mensajes utilizando javax.cripto.
 :keywords: Java, Seguridad, Cifrado, Simétrico, Llave, AES.
@@ -22,9 +22,11 @@ bajo las cuales la siguiente solución tiene sentido:
 De manera general, se conoce como criptografía
 a las técnicas de cifrado o codificado destinadas a alterar
 las representaciones lingüísticas de ciertos mensajes
-con el fin de hacerlos ininteligibles a receptores no autorizados.
+con el fin de hacerlos ininteligibles,
+es decir, ilegibles a receptores no autorizados.
 Estas técnicas se utilizan tanto en el arte
-como en la ciencia y en la tecnología.
+como en la ciencia, la tecnología,
+y otras areas en general.
 
 Con la aparición de la informática
 y el uso masivo de las comunicaciones digitales,
@@ -90,5 +92,4 @@ Para este caso se va hacer referencia al algoritmo +AES+.
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Criptograf%C3%ADa[Criptografía]
 . [[r2]] link:https://es.wikipedia.org/wiki/Criptograf%C3%ADa_sim%C3%A9trica[Criptografía simétrica]
-. [[r3]] REQ.0144: Debe utilizarse como mecanismo de cifrado simétrico
-con un tamaño de clave mínimo de 256 bits.
+. [[r3]] link:../../../rules/149/[REQ.149 Cifrado simétrico de tamaño mínimo]

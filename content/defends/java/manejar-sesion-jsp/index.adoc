@@ -119,10 +119,6 @@ o volver a iniciar el proceso.
 . [[r1]] link:https://tomcat.apache.org/tomcat-5.5-doc/servletapi/javax/servlet/http/HttpSession.html[Interface HttpSession]
 . [[r2]] link:http://dis.um.es/~lopezquesada/documentos/IES_1213/IAW/curso/UT5/ActividadesAlumnos/12/sesiones.html[Manual JSP]
 . [[r3]] link:https://www.arquitecturajava.com/usando-java-session-en-aplicaciones-web/[Usando Java Session en aplicaciones web]
-. [[r4]] REQ.0020 El sistema debe cerrar una sesión
-si se presenta un tiempo de inactividad por parte del usuario,
-superior o igual a cinco minutos.
-. [[r5]] REQ.0021 Si el sistema debe transferir información entre páginas,
-debe realizarse a través de objetos de sesión.
-. [[r6]] REQ.0025 El sistema debe permitir al usuario terminar la sesión
-de forma manual, desde cualquier recurso protegido por autenticación.
+. [[r4]] link:../../../rules/023/[REQ.023 Cerrar sesión de un usuario inactivo]
+. [[r5]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión]
+. [[r6]] link:../../../rules/028/[REQ.028 Permitir finalizar sesión de usuario]

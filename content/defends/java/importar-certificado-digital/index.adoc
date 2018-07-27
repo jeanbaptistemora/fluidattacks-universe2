@@ -23,7 +23,7 @@ bajo las cuales la siguiente solución tiene sentido:
 Un certificado digital o certificado electrónico
 es un fichero informático con una estructura de datos
 que contiene información sobre una entidad.
-Este certificado es firmado por otra entidad,
+Este certificado es debe ser firmado por otra entidad,
 considerada por una colección de otras entidades
 como una autoridad para este tipo de contenido.
 La firma de la estructura de datos
@@ -32,8 +32,8 @@ de forma que no puede ser modificada
 sin que esta modificación sea detectada.
 
 Los certificados digitales se clasifican en dos tipos:
-certificados de atributos y certificados de clave pública.
-Los primeros, normalmente no contienen claves públicas,
+los certificados de atributos y los certificados de clave pública.
+Los primeros, por lo general, no contienen claves públicas,
 sino que asocian otro tipo de información
 a alguna representación de la identidad de una entidad.
 
@@ -54,11 +54,12 @@ con el objetivo que se pueda realizar una conexión +SSL/TLS+
 desde una aplicación que corre bajo esta.
 
 . Para realizar el procedimiento se utiliza la herramienta +keytool+
-que se incluye dentro del +JDK+ de +Java+.
+la cual está incluida dentro del +JDK+ de +Java+.
 
 . El +Keystore+ de +Java+ se encuentra ubicado
 en +$JAVA_HOME/jre/lib/security/cacerts+.
-La contraseña predeterminada es +changeit+.
+La contraseña predeterminada
+para este servicio es +changeit+.
 
 . Después, se deben verificar los certificados instalados
 que se encuentran instalados en el +keystore+ de la máquina virtual.
@@ -121,5 +122,4 @@ Certificate was added to keystore
 . [[r1]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
 . [[r2]] link:https://docs.microsoft.com/en-us/azure/java-add-certificate-ca-store[Adding a Certificate to the Java CA]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html[Key and Certificate Management Tool]
-. [[r4]] REQ.0142: Las funciones de criptografía del sistema
-deben ser implementadas con mecanismos criptográficos pre-existentes.
+. [[r4]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes]
