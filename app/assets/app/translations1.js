@@ -256,8 +256,8 @@ const translations1 = {
    },
   "grapExploit":
    {
-     "exploit_label": "Exploitable",
-     "nonexploit_label": "Not Exploitable",
+     "exploit_label": "Yes",
+     "nonexploit_label": "Not",
      "title": "Exploitability"
    },
   "grapStatus":
@@ -265,13 +265,13 @@ const translations1 = {
      "close_label": "Closed",
      "open_label": "Open",
      "partial_label": "Partial",
-     "title": "Vulnerabilities by Status"
+     "title": "Status"
    },
   "grapType":
    {
      "hig_label": "Hygiene",
      "seg_label": "Vulnerability",
-     "title": "Finding Type"
+     "title": "Type"
    },
   "left_menu": {
     "first": "Findings",

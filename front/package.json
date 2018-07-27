@@ -74,6 +74,9 @@
     "ignore-styles": "5.0.1",
     "react-test-renderer": "16.4.1",
     "@types/react-test-renderer": "16.0.1",
+    "chart.js": "2.7.2",
+    "@types/chart.js": "2.7.28",
+    "react-chartjs-2": "2.7.4",
     "uninstall": "0.0.0"
   },
   "scripts": {

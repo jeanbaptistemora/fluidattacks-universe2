@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Col } from "react-bootstrap";
 import style from "./index.css";
 /**
  * Indicator's Box properties
@@ -18,7 +19,7 @@ interface IBoxProps {
 const indicatorBox: React.StatelessComponent<IBoxProps> =
   (props: IBoxProps): JSX.Element => (
   <React.StrictMode>
-    <div className="col-md-3 col-xs-12">
+    <Col xs={12} md={3}>
       <div
         className={style.widgetbox}
         data-toggle="tooltip"
@@ -26,12 +27,12 @@ const indicatorBox: React.StatelessComponent<IBoxProps> =
         title={props.title}
         style={{backgroundColor: props.backgroundColor, color: props.color}}
       >
-        <div className="col-md-4 col-xs-4">
+        <Col xs={4} md={4}>
           <div className={style.widgeticon}>
               <span className={props.icon}/>
           </div>
-        </div>
-        <div className="col-md-8 col-xs-8">
+        </Col>
+        <Col xs={8} md={8}>
           <div
             data-toggle="counter"
             className={style.widgetvalue}
@@ -41,9 +42,9 @@ const indicatorBox: React.StatelessComponent<IBoxProps> =
           <div className={style.widgetdesc}>
             {props.name}
           </div>
-        </div>
+        </Col>
       </div>
-    </div>
+    </Col>
   </React.StrictMode>
 );
 /**

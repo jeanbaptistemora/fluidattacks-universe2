@@ -12,7 +12,8 @@
     },
     "jsRules": {},
     "rules": {
-        "no-unsafe-any": false
+        "no-unsafe-any": false,
+        "no-magic-numbers": false
     },
     "rulesDirectory": []
 }

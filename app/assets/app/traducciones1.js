@@ -262,22 +262,22 @@ const traducciones1 = {
 },
   "grapExploit":
 {
-  "exploit_label": "Explotable",
-  "nonexploit_label": "No Explotable",
-  "title": "Distribucion por Explotabilidad"
+  "exploit_label": "Si",
+  "nonexploit_label": "No",
+  "title": "Explotabilidad"
 },
   "grapStatus":
 {
   "close_label": "Cerrados",
   "open_label": "Abiertos",
   "partial_label": "Parciales",
-  "title": "Vulnerabilidades por Estado"
+  "title": "Estado"
 },
   "grapType":
 {
   "hig_label": "Higiene",
   "seg_label": "Vulnerabilidad",
-  "title": "Distribucion por Tipo Hallazgo"
+  "title": "Tipo"
 },
   "left_menu":
 {

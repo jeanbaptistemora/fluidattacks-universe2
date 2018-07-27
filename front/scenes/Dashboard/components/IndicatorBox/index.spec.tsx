@@ -1,13 +1,13 @@
-import React from 'react';
+import { shallow, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import IndicatorBox from './index';
 import 'mocha'
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
+import { Col } from "react-bootstrap";
 import style from "./index.css";
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() });
 
 describe('Indicator Box', () => {
 
@@ -43,7 +43,7 @@ describe('Indicator Box', () => {
 
     expect(
       wrapper.contains(
-        <div className="col-md-3 col-xs-12">
+        <Col xs={12} md={3}>
           <div
             className={style.widgetbox}
             data-toggle="tooltip"
@@ -51,12 +51,12 @@ describe('Indicator Box', () => {
             title="Unit title"
             style={{backgroundColor: "#070", color: "#700"}}
           >
-            <div className="col-md-4 col-xs-4">
+            <Col xs={4} md={4}>
               <div className={style.widgeticon}>
                   <span className="fa fa-star"/>
               </div>
-            </div>
-            <div className="col-md-8 col-xs-8">
+            </Col>
+            <Col xs={8} md={8}>
               <div
                 data-toggle="counter"
                 className={style.widgetvalue}
@@ -66,9 +66,9 @@ describe('Indicator Box', () => {
               <div className={style.widgetdesc}>
                 Unit test
               </div>
-            </div>
+            </Col>
           </div>
-        </div>
+        </Col>
       )
     ).to.equal(true);
   });

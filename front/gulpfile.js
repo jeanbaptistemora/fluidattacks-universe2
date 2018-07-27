@@ -25,7 +25,7 @@ var paths = {
   }
 };
 /**
- * 1. CSS Types Task: Custom CSS Types definition
+ * CSS Types Task: Custom CSS Types definition
  * Create css.d.ts before compilation 
  * it's used to import css modules on react
  */
@@ -35,7 +35,7 @@ gulp.task('css', function(){
     .pipe(gulp.dest("./scenes"));                                           
 });  
 /**
- * 2. Compile Task: Typescript Compilation
+ * Compile Task: Typescript Compilation
  * Compile all .ts files in javascript server files
  */
 gulp.task(
@@ -48,7 +48,7 @@ gulp.task(
   }
 );
 /**
- * 3.Package Task: Use webpack 
+ * Package Task: Use webpack 
  * it converts JS from serverside to clientside
  * it adds and minifies CSS
  */
@@ -62,7 +62,7 @@ gulp.task(
   }
 );
 /**
- * Temporary Task 1: Typescript Compilation (Login)
+ * Temporary Task: Typescript Compilation (Login)
  * Compile login, it's a temporary task while
  * integrate's migration is done
  */
@@ -75,7 +75,7 @@ gulp.task(
   }
 );
 /**
- * Temporary Task 2: Use browserify (Login)
+ * Temporary Task: Use browserify (Login)
  * it converts JS from serverside to clientside
  */
 gulp.task(

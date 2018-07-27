@@ -173,10 +173,6 @@ angular.module("FluidIntegrates").factory(
             angular.element("#events_alert").show();
           }
         }
-        const TIMEOUT = 200;
-        $timeout($scope.mainGraphexploitPieChart, TIMEOUT);
-        $timeout($scope.mainGraphtypePieChart, TIMEOUT);
-        $timeout($scope.mainGraphstatusPieChart, TIMEOUT);
         angular.element("#search_section").show();
         angular.element("[data-toggle=\"tooltip\"]").tooltip();
 

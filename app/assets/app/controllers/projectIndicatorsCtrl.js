@@ -72,7 +72,190 @@ angular.module("FluidIntegrates").controller(
       // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
-      $scope.finding = {};
+    };
+
+    /**
+     *  @name percent
+     *  @description calculate percent
+     *  @param {int} value Portion or percent
+     *  @param {int} total Total value
+     *  @return {string} return n% format
+     */
+    $scope.percent = (value, total) => ` ${
+      (value * PERCENTAGE_FACTOR / total).
+        toFixed(MAX_DECIMALS).
+        toString()}%`;
+
+    /**
+     *  @name reactGraphs
+     *  @description Order data to integrate graphs
+     *  @return {void}
+     */
+    $scope.reactGraphs = () => {
+      $scope.graphList = [
+        {
+          "data": $scope.reactExpoitability(),
+          "title": $translate.instant("grapExploit.title")
+        },
+        {
+          "data": $scope.reactFindingType(),
+          "title": $translate.instant("grapType.title")
+        },
+        {
+          "data": $scope.reactFindingStatus(),
+          "title": $translate.instant("grapStatus.title")
+        }
+      ];
+    };
+
+    /**
+     *  @name reactFindingType
+     *  @description Order data to indicatorGraph directive.
+     *  @return {object} Graph config
+     */
+    $scope.reactFindingType = () => {
+      let security = 0;
+      let hygiene = 0;
+      const {data} = $scope;
+      angular.forEach(data, (value) => {
+        if (value.estado !== "Cerrado" &&
+          value.estado !== "Closed") {
+          if (value.finding_type === "Seguridad") {
+            security += 1;
+          }
+          else {
+            hygiene += 1;
+          }
+        }
+      });
+      const total = security + hygiene;
+      return {
+        "datasets": [
+          {
+            "backgroundColor": [
+              "#ff1a1a",
+              "#31c0be"
+            ],
+            "data": [
+              security,
+              hygiene
+            ],
+            "hoverBackgroundColor": [
+              "#e51414",
+              "#258c8a"
+            ]
+          }
+        ],
+        "labels": [
+          $translate.instant("grapType.seg_label") +
+            $scope.percent(security, total),
+          $translate.instant("grapType.hig_label") +
+            $scope.percent(hygiene, total)
+        ]
+      };
+    };
+
+    /**
+     *  @name reactExpoitability
+     *  @description Order data to exploitabilityGraph directive.
+     *  @return {object} Graph config
+     */
+    $scope.reactExpoitability = () => {
+      let exploitable = 0;
+      let nonexploitable = 0;
+      const {data} = $scope;
+      const conditions = {
+        "alta": "1.000 | Alta: No se requiere exploit o se puede automatizar",
+        "funcional": "0.950 | Funcional: Existe exploit",
+        "functional": "0.950 | Functional: There is an exploit",
+        "high": "1.000 | High: Exploit is not required or it can be automated"
+      };
+      angular.forEach(data, (value) => {
+        if (value.estado !== "Cerrado" &&
+          value.estado !== "Closed") {
+          if (value.exploitability === conditions.high ||
+            value.exploitability === conditions.alta ||
+            value.exploitability === conditions.functional ||
+            value.exploitability === conditions.funcional) {
+            exploitable += 1;
+          }
+          else {
+            nonexploitable += 1;
+          }
+        }
+      });
+      const total = exploitable + nonexploitable;
+      return {
+        "datasets": [
+          {
+            "backgroundColor": [
+              "#ff1a1a",
+              "#31c0be"
+            ],
+            "data": [
+              exploitable,
+              nonexploitable
+            ],
+            "hoverBackgroundColor": [
+              "#e51414",
+              "#258c8a"
+            ]
+          }
+        ],
+        "labels": [
+          $translate.instant("grapExploit.exploit_label") +
+            $scope.percent(exploitable, total),
+          $translate.instant("grapExploit.nonexploit_label") +
+            $scope.percent(nonexploitable, total)
+        ]
+      };
+    };
+
+    /**
+     *  @name reactFindingStatus
+     *  @description Order data to statusGraph directive.
+     *  @return {object} Graph config
+     */
+    $scope.reactFindingStatus = () => {
+      const {metricsList} = $scope;
+      let metricName = "";
+      let open = 0;
+      let total = 0;
+      angular.forEach(metricsList, (val) => {
+        metricName = "search_findings.filter_labels.vulnerabilities";
+        if (val.description === $translate.instant(metricName)) {
+          total = parseFloat(val.value);
+        }
+        metricName = "search_findings.filter_labels.cardinalities";
+        if (val.description === $translate.instant(metricName)) {
+          open = parseFloat(val.value);
+        }
+      });
+      const close = total - open;
+      return {
+        "datasets": [
+          {
+            "backgroundColor": [
+              "#ff1a1a",
+              "#31c0be"
+            ],
+            "data": [
+              open,
+              close
+            ],
+            "hoverBackgroundColor": [
+              "#e51414",
+              "#258c8a"
+            ]
+          }
+        ],
+        "labels": [
+          $translate.instant("grapStatus.open_label") +
+            $scope.percent(open, total),
+          $translate.instant("grapStatus.close_label") +
+            $scope.percent(close, total)
+        ]
+      };
     };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
@@ -177,140 +360,6 @@ angular.module("FluidIntegrates").controller(
         }
       });
     };
-    $scope.mainGraphtypePieChart = function mainGraphtypePieChart () {
-      const currData = $scope.data;
-      let totalSeg = 0;
-      let totalHig = 0;
-      angular.forEach(currData, (val) => {
-        const type = val.finding_type;
-        if (val.estado !== "Cerrado" && val.estado !== "Closed") {
-          if (type === "Seguridad") {
-            totalSeg += 1;
-          }
-          else {
-            totalHig += 1;
-          }
-        }
-      });
-      const segTransl = $translate.instant("grapType.seg_label");
-      const higTransl = $translate.instant("grapType.hig_label");
-      const totalSegLabel = segTransl + " :n%".replace(":n", (totalSeg *
-                            PERCENTAGE_FACTOR / (totalSeg +
-                            totalHig)).toFixed(MAX_DECIMALS).toString());
-      const totalHigLabel = higTransl + " :n%".replace(":n", (totalHig *
-                            PERCENTAGE_FACTOR / (totalSeg +
-                            totalHig)).toFixed(MAX_DECIMALS).toString());
-      angular.element("#grapType").empty();
-      Morris.Donut({ /* eslint-disable-line new-cap */
-        "data": [
-          {
-            "color": "#ff1a1a",
-            "label": totalSegLabel,
-            "value": totalSeg
-          },
-          {
-            "color": "#31c0be",
-            "label": totalHigLabel,
-            "value": totalHig
-          }
-        ],
-        "element": "grapType",
-        "resize": true
-      });
-    };
-    $scope.mainGraphexploitPieChart = function mainGraphexploitPieChart () {
-      const currData = $scope.data;
-      let exploit = 0;
-      let nonexploit = 0;
-      angular.forEach(currData, (val) => {
-        const exploitable = val.exploitability;
-        if (val.estado !== "Cerrado" && val.estado !== "Closed") {
-          if (exploitable === "1.000 | Alta: No se requiere exploit o se" +
-                            " puede automatizar" || exploitable === "0.950 | " +
-                             "Funcional: Existe exploit" || exploitable ===
-                             "1.000 | High: Exploit is not required or it can" +
-                             " be automated" || exploitable === "0.950 | " +
-                             "Functional: There is an exploit") {
-            exploit += 1;
-          }
-          else {
-            nonexploit += 1;
-          }
-        }
-      });
-      const exploitTransl = $translate.instant("grapExploit.exploit_label");
-      const nonExploitTransl = $translate.instant("grapExploit." +
-                                                  "nonexploit_label");
-      const exploitLabel = exploitTransl + " :n%".replace(
-        ":n",
-        (exploit * PERCENTAGE_FACTOR / (exploit +
-                           nonexploit)).toFixed(MAX_DECIMALS).toString()
-      );
-      const nonexploitLabel = nonExploitTransl + " :n%".replace(
-        ":n",
-        (nonexploit * PERCENTAGE_FACTOR / (exploit +
-                              nonexploit)).toFixed(MAX_DECIMALS).toString()
-      );
-      angular.element("#grapExploit").empty();
-      Morris.Donut({ /* eslint-disable-line new-cap */
-        "data": [
-          {
-            "color": "#ff1a1a",
-            "label": exploitLabel,
-            "value": exploit
-          },
-          {
-            "color": "#31c0be",
-            "label": nonexploitLabel,
-            "value": nonexploit
-          }
-        ],
-        "element": "grapExploit",
-        "resize": true
-      });
-    };
-    $scope.mainGraphstatusPieChart = function mainGraphstatusPieChart () {
-      const metricsData = $scope.metricsList;
-      let total = 0;
-      let open = 0;
-      let close = 0;
-      let metricName = "";
-      angular.forEach(metricsData, (val) => {
-        metricName = "search_findings.filter_labels.vulnerabilities";
-        if (val.description === $translate.instant(metricName)) {
-          total = val.value;
-        }
-        metricName = "search_findings.filter_labels.cardinalities";
-        if (val.description === $translate.instant(metricName)) {
-          open = val.value;
-        }
-      });
-      close = total - open;
-      total = parseFloat(total);
-      const openTransl = $translate.instant("grapStatus.open_label");
-      const closeTransl = $translate.instant("grapStatus.close_label");
-      const openLabel = openTransl + " :n%".replace(":n", (open *
-                   PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
-      const closeLabel = closeTransl + " :n%".replace(":n", (close *
-                   PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
-      angular.element("#grapStatus").empty();
-      Morris.Donut({ /* eslint-disable-line new-cap */
-        "data": [
-          {
-            "color": "#ff1a1a",
-            "label": openLabel,
-            "value": open
-          },
-          {
-            "color": "#31c0be",
-            "label": closeLabel,
-            "value": close
-          }
-        ],
-        "element": "grapStatus",
-        "resize": true
-      });
-    };
     $scope.search = function search () {
       const projectName = $scope.project;
       const tableFilter = $scope.filter;
@@ -359,6 +408,7 @@ angular.module("FluidIntegrates").controller(
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           functionsFtry4.loadIndicatorsContent($scope, projectData);
+          $scope.reactGraphs();
         }
         else {
           const reqProject = projectFtry.projectByName(
@@ -403,6 +453,7 @@ angular.module("FluidIntegrates").controller(
               else {
                 projectData = response.data;
                 functionsFtry4.loadIndicatorsContent($scope, projectData);
+                $scope.reactGraphs();
               }
             }
             else if (response.error) {

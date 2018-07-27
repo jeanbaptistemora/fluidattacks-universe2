@@ -80,17 +80,10 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapExploit.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapType.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapStatus.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
+                                <div ng-repeat="graph in graphList">
+                                    <indicator-graph 
+                                        data="graph.data"
+                                        name="graph.title"/>
                                 </div>
                             </div>
                         </div>
