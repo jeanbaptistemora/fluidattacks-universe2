@@ -43,6 +43,11 @@ RUN apt-get update \
     && apt-get install -y --force-yes\
                nodejs
 
+# Install vaultenv
+RUN curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.7.1/vaultenv-0.7.1.deb \
+    && dpkg -i vaultenv.deb \
+    && rm vaultenv.deb
+
 # Install Torus
 RUN DISTRO=$(lsb_release -i | awk '{print tolower($3)}') \
     && CODENAME=$(lsb_release -c | awk '{print $2}') \
