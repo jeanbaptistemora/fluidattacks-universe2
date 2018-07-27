@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-$CI_PROJECT_NAME
+  name: ingress-integrates
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -17,10 +17,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - $CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS
-    secretName: $K8_TLS_SECRET
+    - $CI_COMMIT_REF_SLUG.integrates.env.fluidattacks.com
+    secretName: ssl-secret
   rules:
-  - host: $CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS
+  - host: $CI_COMMIT_REF_SLUG.integrates.env.fluidattacks.com
     http:
       paths:
       - backend:

@@ -1,19 +1,16 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: $K8_ENV_SECRET
+  name: env-secret
 type: Opaque
 data:
-  TORUS_TOKEN_ID: $TORUS_TOKEN_ID
-  TORUS_TOKEN_SECRET: $TORUS_TOKEN_SECRET
-  TORUS_ORG: $TORUS_ORG
-  TORUS_PROJECT: $TORUS_PROJECT
-  TORUS_ENVIRONMENT: $TORUS_ENVIRONMENT
----
-apiVersion: v1
-data:
-  sec-key: $FI_RA_AWS_SECRET_ACCESS_KEY
-kind: Secret
-metadata:
-  name: $K8_AWS_SECRET
-type: Opaque
+  VAULT_HOST: $VAULT_HOST
+  VAULT_TOKEN: $VAULT_TOKEN
+# ---
+# apiVersion: v1
+# data:
+#   sec-key: $FI_RA_AWS_SECRET_ACCESS_KEY
+# kind: Secret
+# metadata:
+#   name: $K8_AWS_SECRET
+# type: Opaque

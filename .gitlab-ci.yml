@@ -203,14 +203,10 @@ build-bot:
 
 review-integrates:
   stage: review
-  image: lwolf/kubectl_deployer
-  before_script:
-    - apk update
-    - apk add bash
+  <<: *variables-dev
+  <<: *vault_login
   script:
-    - ./review-apps/cluster-config.sh
-  after_script:
-    - echo "Job finished"
+    - vaultenv review-apps/cluster-config.sh
   retry: 2
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
@@ -222,7 +218,6 @@ review-integrates:
 
 stop-review:
   stage: review
-  image: lwolf/kubectl_deployer
   variables:
     GIT_STRATEGY: none
   before_script:
@@ -273,8 +268,6 @@ Linting:
   stage: test
   script:
     - docker run
-        -e TORUS_TOKEN_SECRET="$TORUS_TOKEN_SECRET"
-        -e TORUS_TOKEN_ID="$TORUS_TOKEN_ID"
         -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "npm install -g  n; n stable;
         cd /usr/src/app/app/assets/app/;

@@ -7,7 +7,7 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+    app: integrates-$CI_COMMIT_REF_SLUG
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -18,16 +18,16 @@ spec:
   template:
     metadata:
       labels:
-        app: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+        app: integrates-$CI_COMMIT_REF_SLUG
     spec:
       containers:
-      - name: $CI_PROJECT_NAME
-        image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME
+      - name: integrates
+        image: registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         envFrom:
           - secretRef:
-              name: $K8_ENV_SECRET
+              name: env-secret
         ports:
         - containerPort: 443
       imagePullSecrets:
-      - name: $K8_REG_SECRET
+      - name: gitlab-reg
