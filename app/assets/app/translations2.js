@@ -173,10 +173,13 @@ const translations2 = {
      "days_ago": " day(s) ago",
      "developer": "Developer",
      "email": "someone@domain.com",
+     "error_phone": "The phone number must not contain letters or special " +
+                    "characters",
      "hours_ago": " hour(s) ago",
      "minutes_ago": " minute(s) ago",
      "months_ago": " month(s) ago",
      "no_selection": "You must select an email from the table.",
+     "phone_number": "Phone Number",
      "product_owner": "Product Owner",
      "project_manager": "Project Manager",
      "remove_admin": "Remove admin",

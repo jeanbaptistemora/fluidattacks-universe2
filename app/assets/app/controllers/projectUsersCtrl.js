@@ -64,6 +64,7 @@ angular.module("FluidIntegrates").controller(
     functionsFtry1,
     functionsFtry3,
     functionsFtry4,
+    intlTelInputOptions,
     projectFtry,
     projectFtry2
   ) {
@@ -231,11 +232,16 @@ angular.module("FluidIntegrates").controller(
           });
           $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_users.title");
+          $scope.newUserInfo.utilsUrl =
+            `${BASE.url}assets/node_modules/intl-tel-input/build/js/utils.js`;
           $scope.ok = function ok () {
-            if (angular.element("#emailInput").parsley().
+            if (angular.isUndefined($scope.newUserInfo.userPhone)) {
+              $scope.newUserInfo.errorMessage = true;
+            }
+            else if (angular.element("#emailInput").parsley().
               validate() === true &&
-              angular.element("#organizationInput").parsley().
-                validate() === true) {
+                  angular.element("#organizationInput").parsley().
+                    validate() === true) {
               // Make the request
               const req = projectFtry.addAccessIntegrates(
                 $scope.newUserInfo,

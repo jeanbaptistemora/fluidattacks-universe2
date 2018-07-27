@@ -35,7 +35,7 @@ from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_access_granted
 from .services import has_access_to_project, has_access_to_finding
-from .services import is_customeradmin, has_responsibility
+from .services import is_customeradmin, has_responsibility, has_phone_number
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
@@ -263,6 +263,7 @@ def project_users(request):
                "usermail": "User email",
                "firstlogin": "First login",
                "lastlogin": "Last login",
+               "phoneNumber": "Phone Number",
                "userResponsibility": "Responsibility",
                "userRole": "Role"
             },
@@ -276,6 +277,7 @@ def project_users(request):
                    "usermail": "Email",
                    "firstlogin": "Primer ingreso",
                    "lastlogin": "Último ingreso",
+                   "phoneNumber": "Número Telefónico",
                    "userResponsibility": "Responsabilidad",
                    "userRole": "Rol"
                 },
@@ -572,6 +574,7 @@ def get_users_login(request):
         data['usersOrganization']=integrates_dao.get_organization_dao(user).title()
         userRole=integrates_dao.get_role_dao(user)
         user_responsibility = has_responsibility(project, user)
+        user_phone = has_phone_number(user)
         if user_responsibility:
             data['userResponsibility'] = user_responsibility
         else:
@@ -582,6 +585,7 @@ def get_users_login(request):
             data['userRole'] = "customer"
         else:
             data['userRole'] = userRole
+        data["userPhone"] = user_phone
         dataset.append(data)
     return util.response(dataset, 'Success', False)
 
@@ -1588,6 +1592,7 @@ def create_new_user(parameters, project, admin):
     company = parameters['data[userOrganization]']
     responsibility = parameters['data[userResponsibility]']
     role = parameters['data[userRole]']
+    phone = parameters['data[userPhone]']
     project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
                   + project.lower() + '/indicators'
     if not integrates_dao.is_in_database(newUser):
@@ -1602,6 +1607,10 @@ def create_new_user(parameters, project, admin):
             responsibility == 'product_owner' or responsibility == 'tester'):
         user_attr = "resp_" + responsibility
         integrates_dao.add_user_to_project_dynamo(project.lower(), newUser, user_attr)
+    if phone:
+        phone_number = phone[1:]
+        if phone_number.isdigit():
+            integrates_dao.add_phone_to_user_dynamo(newUser, phone)
     if role == 'customeradmin':
         integrates_dao.add_user_to_project_dynamo(project.lower(), newUser, role)
     if integrates_dao.add_access_to_project_dao(newUser, project):
@@ -1714,7 +1723,7 @@ def accept_legal(request):
 @authenticate
 def get_login_info(request):
     user = request.session['username']
-    userInfo = integrates_dao.get_legal_remember_dynamo(user)
+    userInfo = integrates_dao.get_user_dynamo(user)
     remember = False
     if not userInfo == []:
         userInfo = dict(userInfo[0])

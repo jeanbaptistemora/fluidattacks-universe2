@@ -26,6 +26,17 @@
                         <option value="product_owner">{{'search_findings.tab_users.product_owner' | translate}}</option>
                         <option value="tester">{{'search_findings.tab_users.tester' | translate}}</option>
                     </select>
+                <br>
+                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.phone_number' | translate}}:</label>
+                <input type="tel"
+                        id="phone"
+                        class="form-control"
+                        ng-model="newUserInfo.userPhone"
+                        intl-tel-input
+                        intl-tel-input-options="{
+                        separateDialCode: true,
+                        utilsScript: newUserInfo.utilsUrl, initialCountry: 'co'}" required>
+                <div ng-show="newUserInfo.errorMessage" style="color: #f22;">{{'search_findings.tab_users.error_phone' | translate}}</div>
             </div>
         </div>
         <div class="modal-footer">

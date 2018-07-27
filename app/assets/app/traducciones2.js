@@ -174,10 +174,13 @@ const traducciones2 = {
     "days_ago": " dia(s) atrás",
     "developer": "Desarrollador",
     "email": "alguien@dominio.com",
+    "error_phone": "El número telefónico no debe contener letras o " +
+                    "caracteres especiales",
     "hours_ago": " hora(s) atrás",
     "minutes_ago": " minuto(s) atrás",
     "months_ago": " mes(es) atrás",
     "no_selection": "Debe seleccionar un correo de la tabla.",
+    "phone_number": "Número Telefónico",
     "product_owner": "Product Owner",
     "project_manager": "Gerente del proyecto",
     "remove_admin": "Remover admin",

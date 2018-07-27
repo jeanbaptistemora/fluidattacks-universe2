@@ -70,3 +70,11 @@ def has_responsibility(project, email):
                 return resp
     user_resp = ""
     return user_resp
+
+def has_phone_number(email):
+    user_info = integrates_dao.get_user_dynamo(email)
+    for user in user_info:
+        if 'phone' in user:
+            return user["phone"]
+    user_phone = "-"
+    return user_phone

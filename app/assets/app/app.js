@@ -64,6 +64,7 @@ $msg.warning = function warning (text, title) {
  */
 angular.module("FluidIntegrates", [
   "ngSanitize",
+  "betsol.intlTelInput",
   "monospaced.elastic",
   "ngNotify",
   "pascalprecht.translate",

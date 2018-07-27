@@ -399,7 +399,7 @@ def get_vulns_by_project_dynamo(project_name):
             break
     return items
 
-def get_legal_remember_dynamo(email):
+def get_user_dynamo(email):
     """ Get legal notice acceptance status """
     table = dynamodb_resource.Table('FI_users')
     filter_key = 'email'
@@ -420,7 +420,7 @@ def get_legal_remember_dynamo(email):
 def update_legal_remember_dynamo(email, remember):
     """ Remember legal notice acceptance """
     table = dynamodb_resource.Table('FI_users')
-    item = get_legal_remember_dynamo(email)
+    item = get_user_dynamo(email)
     if item == []:
         print "item empty"
         try:
@@ -444,6 +444,40 @@ def update_legal_remember_dynamo(email, remember):
                 UpdateExpression='SET legal_remember = :val1',
                 ExpressionAttributeValues={
                     ':val1': remember
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+
+def add_phone_to_user_dynamo(email, phone):
+    """Update user phone number."""
+    table = dynamodb_resource.Table('FI_users')
+    item = get_user_dynamo(email)
+    if item == []:
+        try:
+            response = table.put_item(
+                Item={
+                    'email': email,
+                    'phone': phone
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'email': email
+                },
+                UpdateExpression='SET phone = :val1',
+                ExpressionAttributeValues={
+                    ':val1': phone
                 }
             )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
