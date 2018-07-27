@@ -1,12 +1,12 @@
 # AWS vars
-variable "acc_key" {}
-variable "sec_key" {}
-variable "reg" {}
+variable "dynamo_access_key" {}
+variable "dynamo_secret_key" {}
+variable "region" {}
 
 provider "aws" {
-  access_key = "${var.acc_key}"
-  secret_key = "${var.sec_key}"
-  region = "${var.reg}"
+  access_key = "${var.dynamo_access_key}"
+  secret_key = "${var.dynamo_secret_key}"
+  region = "${var.region}"
 }
 
 resource "aws_dynamodb_table" "alerts_by_company" {

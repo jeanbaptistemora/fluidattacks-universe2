@@ -11,6 +11,39 @@ before_script:
   - echo "$CI_REGISTRY_PASSWORD" |
       docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
 
+.variables-dev: &variables-dev
+  variables:
+    ENV: DEV
+    ENV_FULL: development
+
+.variables-prod: &variables-prod
+  variables:
+    ENV: PROD
+    ENV_FULL: production
+
+.vault_login: &vault_login
+  before_script:
+    - aws s3 cp
+        s3://$VAULT_S3_BUCKET/vault-ca.crt
+        /usr/local/share/ca-certificates/
+    - update-ca-certificates
+    - ROLE_ID=$(aws secretsmanager --region us-east-1
+        get-secret-value --secret-id 'INTEGRATES_'"$ENV"'_ROLE_ID' |
+        jq -r '.SecretString')
+    - SECRET_ID=$(aws secretsmanager --region us-east-1
+        get-secret-value --secret-id 'INTEGRATES_'"$ENV"'_SECRET_ID' |
+        jq -r '.SecretString')
+    - export VAULT_TOKEN=$(curl --request POST
+        --data '{"role_id":"'"$ROLE_ID"'","secret_id":"'"$SECRET_ID"'"}'
+        "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
+        jq -r '.auth.client_token')
+    - export VAULT_HOST="$VAULT_S3_BUCKET.com"
+    - export VAULT_PORT=443
+    - export VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
+    - sed -i 's/env#/'"$ENV_FULL"'#/g' "$VAULTENV_SECRETS_FILE"
+    - echo "$CI_REGISTRY_PASSWORD" |
+        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+
 after_script:
   - docker logout "$CI_REGISTRY"
 
@@ -39,15 +72,17 @@ Build:
 
 terraform-test:
   stage: pre-test
-  before_script:
-    - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
-    - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
-    - cd deploy
+  <<: *variables-dev
+  <<: *vault_login
   script:
     - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
     - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/integrates/terraform.tfstate
+        deploy/
+    - cd deploy
     - terraform init
-    - terraform plan
+    - vaultenv $(which terraform) plan
   except:
     - triggers
     - master
