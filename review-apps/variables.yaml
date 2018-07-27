@@ -6,6 +6,7 @@ type: Opaque
 data:
   VAULT_HOST: $VAULT_HOST
   VAULT_TOKEN: $VAULT_TOKEN
+  VAULT_PORT: NDQz
 # ---
 # apiVersion: v1
 # data:

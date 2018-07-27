@@ -2,10 +2,12 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: integrates-env
+  namespace: serves
 type: Opaque
 data:
   VAULT_HOST: $VAULT_HOST
   VAULT_TOKEN: $VAULT_TOKEN
+  VAULT_PORT: NDQz
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment

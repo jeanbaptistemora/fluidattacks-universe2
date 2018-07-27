@@ -16,7 +16,6 @@ ARG vault_ca
 ARG vault_env
 
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
-ENV VAULT_PORT=443
 ENV VAULTENV_SECRETS_FILE=/usr/src/app/env.vars
 
 # Add variables
