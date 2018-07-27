@@ -11,6 +11,9 @@ before_script:
   - echo "$CI_REGISTRY_PASSWORD" |
       docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
 
+after_script:
+  - docker logout "$CI_REGISTRY" || echo 'Docker not necessary'
+
 .variables-dev: &variables-dev
   variables:
     ENV: DEV
@@ -23,6 +26,13 @@ before_script:
 
 .vault_login: &vault_login
   before_script:
+    - if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
+        export ENV=PROD;
+        export ENV_FULL=production;
+        echo 'Variables updated';
+      fi
+    - apt-get install --no-install-recommends jq
+    - pip install awscli
     - aws s3 cp
         s3://$VAULT_S3_BUCKET/vault-ca.crt
         /usr/local/share/ca-certificates/
@@ -42,10 +52,8 @@ before_script:
     - export VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
     - sed -i 's/env#/'"$ENV_FULL"'#/g' "$VAULTENV_SECRETS_FILE"
     - echo "$CI_REGISTRY_PASSWORD" |
-        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-
-after_script:
-  - docker logout "$CI_REGISTRY"
+        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin ||
+        echo 'Docker not necessary'
 
 stages:
   - deps
@@ -83,6 +91,8 @@ terraform-test:
     - cd deploy
     - terraform init
     - vaultenv $(which terraform) plan
+  after_script:
+    - docker logout "$CI_REGISTRY"
   except:
     - triggers
     - master
@@ -134,17 +144,11 @@ js-linter:
 
 prospector-testing:
   stage: pre-test
-  before_script:
-    - echo "Start Prospector"  
   image: registry.gitlab.com/fluidsignal/integrates:alldeps
+  <<: *variables-dev
+  <<: *vault_login
   script:
-    - torus daemon start
-    - sleep 5
-    - torus run -- prospector -u django -p app/ -i node_modules
-    - torus run -- prospector -u django fluidintegrates/
-    - torus run -- python -v manage.py test app.tests --no-input
-  after_script:
-    - echo "Job finished"
+    - vaultenv prospector.sh
   except:
     - master
     - triggers
