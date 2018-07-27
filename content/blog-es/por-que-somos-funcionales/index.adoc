@@ -139,13 +139,12 @@ sobre funciones lambda y recursividad desarrolladas en 1930.
 Para los años cincuenta, nace LISP,
 el primer lenguaje con características funcionales,
 de ahí en adelante empiezan a surgir lenguajes
-como Clojure, haskell, etc. <<r2 ,^[2]^>>
+como Clojure, Haskell, Scala, etc. <<r2 ,^[2]^>>
 Pero ¿por qué apenas en los últimos años
 es que este paradigma está resonando tanto?.
 
-
 El paradigma funcional fue opacado por la existencia de lenguajes orientados
-a objetos como Java, que proponen un mayor facilidad para programar.
+a objetos como Java y Python, que proponen un mayor facilidad para programar.
 Durante el siglo pasado, los lenguajes funcionales
 se ejecutaban más lento que los orientados a objetos,
 un tema relacionado a la capacidad de los procesadores de aquel entonces.
@@ -163,6 +162,25 @@ y paralelismo en su ejecución dejan de ser rentables.
 Una aproximación funcional nos aporta
 una gran escalabilidad, un mantenimiento rápido
 y expresiones robustas, capaces de perdurar en el tiempo.
+
+== Por qué nosotros?
+
+¿Por qué una empresa que se dedica a la seguridad
+de la información le preocupa ser funcional?.
+La respuesta es sencilla: Queremos hacerlo bien a la primera,
+queremos que nuestro código sea un reflejo de la calidad
+y las buenas prácticas en las que se basa Fluid Attacks.
+Estamos seguros que el código será excelente
+desde el inicio porque pensamos de manera funcional,
+no hay espacio para la ambigüedad,
+no hay espacios para efectos secundarios.
+Algo hace lo que dice y nada mas, punto final.
+Todo esto en un código limpio
+y entendible hasta para los no iniciados
+en las profundas aguas de la programación.
+¿No nos crees? Compruebalo tu mismo
+con uno de nuestros productos insignia:
+[button]#link:https://fluidsignal.gitlab.io/asserts/[Asserts]#.
 
 == Funcional para no funcionales
 
@@ -206,7 +224,6 @@ abstracciones de alto nivel en tu problema. <<r3 ,^[3]^>>
 Aquí es necesario pensar fuera de la caja,
 categorizar los problemas de manera diferente,
 viendo los puntos en común de nuestra implementación.
-
 
 == Conclusión
 

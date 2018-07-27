@@ -132,14 +132,14 @@ In the 50’s, LISP was born,
 the first language with functional characteristics,
 since then,
 many languages with similar characteristics
-have emerged: Clojure, haskell, etc. <<r2 ,^[2]^>>
+have emerged: Clojure, Haskell, Scala, etc. <<r2 ,^[2]^>>
 But why just in recent years is that this paradigm is resonating so much?.
 
 The functional language was overshadowed
-by the existence of object-oriented languages ​​such as Java,
+by the existence of object-oriented languages such as Java and Python,
 which propose a greater facility to code for the general public.
 During the 20th century,
-functional languages ​​ran slower than object-oriented languages,
+functional languages ran slower than object-oriented languages,
 a problem related to the low capacity of the processors at that time.
 
 .Probably the situation of all functional languages in the nineties.
@@ -153,6 +153,23 @@ so deficient functions which do not allow flexibility,
 concurrency and parallelism in their execution are no longer profitable.
 Functional approximation brings us an immense scalability,
 a fast maintenance and robust expressions with long useful life.
+
+== Why us?
+
+Why a company in the information security business
+is worried about being functional?
+The answer is simple:
+We want to do it right at the first time,
+we want our code to be an image of the quality
+and good practices on which Fluid Attacks stands.
+We are sure that the code will be excellent from the begin
+because we think functional, there is no room for ambiguity,
+there is no room for side effects.
+Something does what it says and nothing else, period.
+All this on a clean and understandable code
+even for the freshmen in the deep waters of coding.
+Do not believe us? Check it yourself in one of our flagship products:
+[button]#link:https://fluidsignal.gitlab.io/asserts/[Asserts]#.
 
 == Functional in non-functionals
 
@@ -197,8 +214,6 @@ where you can apply high level abstractions in your problem. <<r3 ,^[3]^>>
 In this business is necessary to think outside the box,
 categorize the problems in a different way,
 seeing the common points of your implementation.
-
-
 
 == Conclusions
 
