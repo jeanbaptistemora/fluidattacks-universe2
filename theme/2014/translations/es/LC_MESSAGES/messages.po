@@ -688,10 +688,20 @@ msgid "Landing-title"
 msgstr "Inicio"
 
 #: templates/landing.html:25
+msgid "Index-header-0"
+msgstr "Propósito"
+
+#: templates/landing.html:26
+msgid "Index-msg-0"
+msgstr ""
+"Encontrar todas las vulnerabilidades y reportarlas lo antes posible."
+
+
+#: templates/landing.html:27
 msgid "Index-header-1"
 msgstr "Servicios"
 
-#: templates/landing.html:26
+#: templates/landing.html:28
 msgid "Index-msg-1"
 msgstr ""
 "Usando una metodología de caja blanca o revisión de código, ya sea en "

@@ -684,10 +684,19 @@ msgid "Landing-title"
 msgstr "Home"
 
 #: templates/landing.html:25
+msgid "Index-header-0"
+msgstr "Purpose"
+
+#: templates/landing.html:26
+msgid "Index-msg-0"
+msgstr ""
+"Find all vulnerabilities and report them as soon as possible."
+
+#: templates/landing.html:27
 msgid "Index-header-1"
 msgstr "Services"
 
-#: templates/landing.html:26
+#: templates/landing.html:28
 msgid "Index-msg-1"
 msgstr ""
 "Using a white-box methodology or code review, either on each application "
