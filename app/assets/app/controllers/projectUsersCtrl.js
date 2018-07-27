@@ -138,6 +138,9 @@ angular.module("FluidIntegrates").controller(
             angular.forEach(usersData, (element) => {
               element.userRole = $translate.instant(`${"search_findings." +
                                             "tab_users."}${element.userRole}`);
+              element.userResponsibility =
+                $translate.instant(`${"search_findings." +
+                  "tab_users."}${element.userResponsibility}`);
               const DAYS_IN_MONTH = 30;
               if (element.usersLogin[0] >= DAYS_IN_MONTH) {
                 const ROUNDED_MONTH = Math.round(element.usersLogin[0] /

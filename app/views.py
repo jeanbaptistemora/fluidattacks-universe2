@@ -35,7 +35,7 @@ from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_access_granted
 from .services import has_access_to_project, has_access_to_finding
-from .services import is_customeradmin
+from .services import is_customeradmin, has_responsibility
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
@@ -263,6 +263,7 @@ def project_users(request):
                "usermail": "User email",
                "firstlogin": "First login",
                "lastlogin": "Last login",
+               "userResponsibility": "Responsibility",
                "userRole": "Role"
             },
         }
@@ -275,6 +276,7 @@ def project_users(request):
                    "usermail": "Email",
                    "firstlogin": "Primer ingreso",
                    "lastlogin": "Último ingreso",
+                   "userResponsibility": "Responsabilidad",
                    "userRole": "Rol"
                 },
             }
@@ -571,6 +573,11 @@ def get_users_login(request):
         data['usersFirstLogin']=first_login
         data['usersOrganization']=integrates_dao.get_organization_dao(user).title()
         userRole=integrates_dao.get_role_dao(user)
+        user_responsibility = has_responsibility(project, user)
+        if user_responsibility:
+            data['userResponsibility'] = user_responsibility
+        else:
+            data['userResponsibility'] = "undefined"
         if is_customeradmin(project, user):
             data['userRole'] = "customer_admin"
         elif userRole == "customeradmin":
@@ -1550,15 +1557,13 @@ def delete_draft(request):
 @require_project_access
 def add_access_integrates(request):
     parameters = request.POST.dict()
-    newUser = parameters['data[userEmail]']
-    company = parameters['data[userOrganization]']
     role = parameters['data[userRole]']
     project = request.POST.get('project', '')
 
     if (request.session['role'] == 'admin'):
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):
-            if create_new_user(newUser, role, company, project, request.session['role']):
+            if create_new_user(parameters, project, request.session['role']):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
@@ -1568,7 +1573,7 @@ def add_access_integrates(request):
             return util.response([], 'Error', True)
     elif is_customeradmin(project, request.session['username']):
         if (role == 'customer' or role == 'customeradmin'):
-            if create_new_user(newUser, role, company, project, request.session['role']):
+            if create_new_user(parameters, project, request.session['role']):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
@@ -1580,7 +1585,11 @@ def add_access_integrates(request):
         util.cloudwatch_log(request, 'Security: Attempted to grant access to project from unprivileged role: ' + request.session['role'])
         return util.response([], 'Access denied', True)
 
-def create_new_user(newUser, role, company, project, admin):
+def create_new_user(parameters, project, admin):
+    newUser = parameters['data[userEmail]']
+    company = parameters['data[userOrganization]']
+    responsibility = parameters['data[userResponsibility]']
+    role = parameters['data[userRole]']
     project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
                   + project.lower() + '/indicators'
     if not integrates_dao.is_in_database(newUser):
@@ -1591,8 +1600,12 @@ def create_new_user(newUser, role, company, project, admin):
         integrates_dao.assign_company(newUser, company)
     elif integrates_dao.is_registered_dao(newUser) == '1':
         integrates_dao.assign_role(newUser, role)
+    if (responsibility == 'developer' or responsibility == 'project_manager' or
+            responsibility == 'product_owner' or responsibility == 'tester'):
+        user_attr = "resp_" + responsibility
+        integrates_dao.add_user_to_project_dynamo(project.lower(), newUser, user_attr)
     if role == 'customeradmin':
-        integrates_dao.add_role_to_project_dynamo(project.lower(), newUser, role)
+        integrates_dao.add_user_to_project_dynamo(project.lower(), newUser, role)
     if integrates_dao.add_access_to_project_dao(newUser, project):
         description = integrates_dao.get_project_description(project)
         to = [newUser]
@@ -1673,7 +1686,7 @@ def change_user_role(request):
                 role == 'customer'or role == 'customeradmin'):
             if integrates_dao.assign_role(email, role) is None:
                 if role == 'customeradmin':
-                    integrates_dao.add_role_to_project_dynamo(project.lower(), email, role)
+                    integrates_dao.add_user_to_project_dynamo(project.lower(), email, role)
                 elif is_customeradmin(project, email):
                     integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
                 return util.response([], 'Success', False)
@@ -1681,7 +1694,7 @@ def change_user_role(request):
         if role == 'customer'or role == 'customeradmin':
             if integrates_dao.assign_role(email, role) is None:
                 if role == 'customeradmin':
-                    integrates_dao.add_role_to_project_dynamo(project.lower(), email, role)
+                    integrates_dao.add_user_to_project_dynamo(project.lower(), email, role)
                 elif is_customeradmin(project, email):
                     integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
                 return util.response([], 'Success', False)

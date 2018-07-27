@@ -18,6 +18,14 @@
                         <option ng-if="isAdmin || isProjectManager" value="customer">{{'search_findings.tab_users.customer' | translate}}</option>
                         <option ng-if="isAdmin || isProjectManager" value="customeradmin">{{'search_findings.tab_users.customer_admin' | translate}}</option>
                     </select>
+                <br>
+                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_responsibility' | translate}}:</label>
+                <select ng-model="newUserInfo.userResponsibility" class="form-control" required>
+                        <option value="developer">{{'search_findings.tab_users.developer' | translate}}</option>
+                        <option value="project_manager">{{'search_findings.tab_users.project_manager' | translate}}</option>
+                        <option value="product_owner">{{'search_findings.tab_users.product_owner' | translate}}</option>
+                        <option value="tester">{{'search_findings.tab_users.tester' | translate}}</option>
+                    </select>
             </div>
         </div>
         <div class="modal-footer">

@@ -932,7 +932,7 @@ def add_release_toproject_dynamo(project_name, release_val, last_release):
             return False
 
 
-def add_role_to_project_dynamo(project_name, user_email, role):
+def add_user_to_project_dynamo(project_name, user_email, role):
     """Adding user role in a project."""
     table = dynamodb_resource.Table('FI_projects')
     item = get_project_dynamo(project_name)

@@ -58,3 +58,15 @@ def is_customeradmin(project, email):
             if email in data["customeradmin"]:
                 return True
     return False
+
+def has_responsibility(project, email):
+    """Verify if a user has responsability."""
+    project_data = integrates_dao.get_project_dynamo(project)
+    responsibilities = ["developer", "project_manager", "product_owner", "tester"]
+    for data in project_data:
+        for resp in responsibilities:
+            if 'resp_' + resp in data and \
+                    email in data['resp_' + resp]:
+                return resp
+    user_resp = ""
+    return user_resp
