@@ -700,7 +700,9 @@ msgstr "Services"
 msgid "Index-msg-1"
 msgstr ""
 "Using a white-box methodology or code review, either on each application "
-"or the complete suite of applications, we detect security issues:"
+"or the complete suite of applications, "
+"we attack your software during all the lifecycle or in a specific stage"
+
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"
@@ -725,6 +727,22 @@ msgstr "one-shot-hacking"
 #: templates/landing.html:34
 msgid "Index-header-3"
 msgstr "One-Shot<br/>Hacking"
+
+#: templates/landing.html:35
+msgid "Index-serv-3"
+msgstr "comparative"
+
+#: templates/landing.html:36
+msgid "Index-header-3.1"
+msgstr "Comparative"
+
+#: templates/landing.html:37
+msgid "Index-serv-4"
+msgstr "differentiators"
+
+#: templates/landing.html:38
+msgid "Index-header-3.2"
+msgstr "Differentiators"
 
 #: templates/landing.html:42
 msgid "Index-bnft-header"

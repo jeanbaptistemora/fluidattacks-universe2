@@ -705,8 +705,8 @@ msgstr "Servicios"
 msgid "Index-msg-1"
 msgstr ""
 "Usando una metodología de caja blanca o revisión de código, ya sea en "
-"cada aplicación o en el conjunto entero de aplicaciones, detectamos "
-"problemas de seguridad:"
+"cada aplicación o en el conjunto entero de aplicaciones, "
+"atacamos su software durante todo el ciclo de vida o en una etapa específica:"
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"
@@ -731,6 +731,23 @@ msgstr "hacking-puntual"
 #: templates/landing.html:34
 msgid "Index-header-3"
 msgstr "Hacking<br/>Puntual"
+
+#: templates/landing.html:35
+msgid "Index-serv-3"
+msgstr "comparativo"
+
+#: templates/landing.html:36
+msgid "Index-header-3.1"
+msgstr "Comparativo"
+
+#: templates/landing.html:37
+msgid "Index-serv-4"
+msgstr "diferenciadores"
+
+#: templates/landing.html:38
+msgid "Index-header-3.2"
+msgstr "Diferenciadores"
+
 
 #: templates/landing.html:42
 msgid "Index-bnft-header"
