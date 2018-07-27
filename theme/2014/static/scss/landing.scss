@@ -17,13 +17,31 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.services {
+.purpose {
   background-color: $white;
   padding: 20px 0;
 
   p {
     padding: 0 20px;
     text-align: center;
+  }
+}
+
+.services {
+  background-color: $fluid-black;
+  padding: 20px 0;
+
+  h1 {
+    color: $white;
+    }
+
+  p {
+    color: $white;
+    text-align: center;
+
+    strong {
+      color: $white;
+    }
   }
 }
 
@@ -37,7 +55,7 @@ $white: rgba(255, 255, 255, 1);
   width: 100%;
 
   a {
-    color: $fluid-black;
+    color: $white;
     margin: auto;
 
     &:hover {
@@ -49,6 +67,23 @@ $white: rgba(255, 255, 255, 1);
     height: 200px;
     width: 200px;
   }
+}
+
+.testing {
+  background-color: $white;
+  padding: 20px 0;
+
+  p {
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 }
 
 .benefits {

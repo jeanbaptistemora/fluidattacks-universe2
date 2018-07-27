@@ -744,6 +744,28 @@ msgstr "differentiators"
 msgid "Index-header-3.2"
 msgstr "Differentiators"
 
+#: templates/landing.html:39
+msgid "Index-tst-1"
+msgstr "Types of testing"
+
+#: templates/landing.html:40
+msgid "Index-tstmsg-1"
+msgstr ""
+"We attack your software with different types of testing "
+"and scenarios to achieve maximum strictness"
+
+#: templates/landing.html:40
+msgid "Index-itm1"
+msgstr "Application  security testing"
+
+#: templates/landing.html:40
+msgid "Index-itm2"
+msgstr "Source code analysis"
+
+#: templates/landing.html:40
+msgid "Index-itm3"
+msgstr "Infrastructure security testing"
+
 #: templates/landing.html:42
 msgid "Index-bnft-header"
 msgstr "Why is Fluid Attacks your best choice?"

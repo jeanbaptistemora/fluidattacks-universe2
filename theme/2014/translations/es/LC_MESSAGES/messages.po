@@ -748,6 +748,27 @@ msgstr "diferenciadores"
 msgid "Index-header-3.2"
 msgstr "Diferenciadores"
 
+#: templates/landing.html:39
+msgid "Index-tst-1"
+msgstr "Tipos de prueba"
+
+#: templates/landing.html:40
+msgid "Index-tstmsg-1"
+msgstr ""
+"Atacamos su software con diferentes tipos de pruebas "
+"y escenarios para lograr una máxima rigurosidad"
+
+#: templates/landing.html:40
+msgid "Index-itm1"
+msgstr "Pruebas de seguridad de aplicaciones"
+
+#: templates/landing.html:40
+msgid "Index-itm2"
+msgstr "Análisis de código fuente"
+
+#: templates/landing.html:40
+msgid "Index-itm3"
+msgstr "Pruebas de seguridad de infraestructura"
 
 #: templates/landing.html:42
 msgid "Index-bnft-header"

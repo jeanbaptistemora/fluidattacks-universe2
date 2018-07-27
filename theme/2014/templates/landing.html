@@ -21,9 +21,11 @@
 
 {% block content %}
 <div class="home">
-  <div class="services">
+  <div class="purpose">
     <h1>{{ gettext('Index-header-0') }}</h1>
     <p>{{ gettext('Index-msg-0') }}</p>
+  </div>
+  <div class="services">
     <h1>{{ gettext('Index-header-1') }}</h1>
     <p>{{ gettext('Index-msg-1') }}</p>
     <div class="serv-offer">
@@ -48,6 +50,17 @@
     <div class="serv-form">
     </div>
   </div>
+
+  <div class="testing">
+    <h1>{{ gettext('Index-tst-1') }}</h1>
+    <p>{{ gettext('Index-tstmsg-1') }}</p>
+    <ul>
+      <li><h4>{{ gettext('Index-itm1') }}</h4></li>
+      <li><h4>{{ gettext('Index-itm2') }}</h4></li>
+      <li><h4>{{ gettext('Index-itm3') }}</h4></li>
+    </ul>
+  </div>
+
   <div class="benefits">
     <div class="benefit-header">
       <h1>{{ gettext('Index-bnft-header') }}</h1>
