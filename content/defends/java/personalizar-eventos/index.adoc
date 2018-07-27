@@ -27,14 +27,16 @@ porque es importante utilizarlas
 y cual es la manera adecuada de generar dichos informes
 en una aplicación +Java+.
 
-En el presente artículo, se explicara la forma de realizar
-la configuración del +logger+ especificando un archivo de configuración
+En el presente artículo, se explicará la forma de realizar
+la configuración del +logger+
+especificando un archivo de configuración
 donde se establezcan las propiedades que éste debe tener.
 
 . Para realizar lo anterior,
 se debe utilizar, en modo ejecución,
-el parámetro +Djava.util.logging.config.file+,
-cuyo valor será usado por la clase +java.util.logging.LogManager+.
+el parámetro +Djava.util.logging.config.file+.
+El valor anterior será usado
+por la clase +java.util.logging.LogManager+.
 Dicha clase, en última instancia, se encarga de crear
 el +logger+ con las propiedades que se definan.
 
@@ -46,14 +48,15 @@ será creado como +logging.properties+.
 el uso de dos manejadores de eventos
 +java.util.logging.FileHandler+ y +java.util.logging.ConsoleHandler+.
 También, se establecen las propiedades
-para el manejador de eventos FileHandler;
+para el manejador de eventos +FileHandler+;
 el cual registra los eventos en el archivo de +log+.
-Y se configura el nivel de +log+
+Y configura el nivel de +log+
 para registrar los eventos que tengan
 una mayor o igual jerarquía al nivel +INFO+.
 
-. Después de eso, se configura el manejador de eventos +ConsoleHandler+
-para que registre en consola un evento de cualquier nivel.
+. Después de eso, se configura el manejador de eventos +ConsoleHandler+.
+Lo anterior se hace para que registre en consola
+un evento de cualquier nivel.
 +
 .handler.java
 [source, java, linenums]
@@ -197,6 +200,4 @@ los eventos que tengan una mayor o igual jerarquía del nivel +INFO+.
 
 . [[r1]] link:https://docs.oracle.com/javase/7/docs/api/java/util/logging/LogManager.html[Class LogManager]
 . [[r2]] link:https://docs.oracle.com/cd/E50629_01/wls/WLAPI/com/bea/logging/LogLevel.html[Class LogLevel]
-. [[r3]] REQ.0075: El sistema debe registrar
-todos los eventos excepcionales y de seguridad
-en una o varias bitácoras
+. [[r3]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]

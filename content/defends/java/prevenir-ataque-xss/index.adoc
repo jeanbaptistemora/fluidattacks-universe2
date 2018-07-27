@@ -80,7 +80,5 @@ que sea ella misma quien ejecuta la inyección de código.
 . [[r2]] link:https://www.ibm.com/developerworks/tivoli/library/s-csscript/[IBM - Library S-csscript]
 . [[r3]] link:https://hdivsecurity.com/[Http Data Integrity Validator - Hdiv]
 . [[r4]] link:https://dzone.com/articles/xss-filter-java-ee-web-apps[XSSFilter - Java]
-. [[r5]] REQ.0168 El sistema debe descartar toda la información
-potencialmente insegura que sea recibida por entradas de datos.
-. [[r6]] REQ.0155 La salida de información del sistema debe estar codificada
-en el lenguaje correspondiente (escaping).
+. [[r5]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]
+. [[r6]] link:../../../rules/160/[REQ.160 Salidas codificadas]

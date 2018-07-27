@@ -34,6 +34,9 @@ dicha aplicación se encarga de realizar
 la acción elegida por el atacante a través de la víctima,
 debido a que la actividad maliciosa
 será procesada en nombre del usuario legitimo.
+En pocas palabras, un atacante engaña
+a un usuario legitimo para que envíe
+peticiones maliciosas a la aplicación.
 
 Al contrario de los ataques +XSS+,
 los cuales explotan la confianza del usuario
@@ -115,5 +118,4 @@ image::formulario.png[formulario]
 
 . [[r1]] link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)[Cross-Site Request Forgery (CSRF)]
 . [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[CSRFGuard Project]
-. [[r3]] REQ.0169 La aplicación debe garantizar que las peticiones
-que ejecuten transacciones no sigan un patrón discernible.
+. [[r3]] link:../../../rules/174/[REQ.174 Transacciones sin patrón discernible]

@@ -160,6 +160,4 @@ todos los +request+ direccionados a cualquier página.
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
 . [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[OWASP CSRFGuard Project].
-. [[r3]] REQ.0169 La aplicación debe garantizar
-que las peticiones que ejecuten transacciones
-no sigan un patrón discernible.
+. [[r3]] link:../../../rules/174/[REQ.174 Transacciones sin patrón discernible]
