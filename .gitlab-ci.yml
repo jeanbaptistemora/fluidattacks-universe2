@@ -19,11 +19,6 @@ after_script:
     ENV: DEV
     ENV_FULL: development
 
-.variables-prod: &variables-prod
-  variables:
-    ENV: PROD
-    ENV_FULL: production
-
 .vault_login: &vault_login
   before_script:
     - if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
@@ -91,8 +86,6 @@ terraform-test:
     - cd deploy
     - terraform init
     - vaultenv $(which terraform) plan
-  after_script:
-    - docker logout "$CI_REGISTRY"
   except:
     - triggers
     - master
@@ -137,6 +130,8 @@ js-linter:
   image: registry.gitlab.com/fluidsignal/integrates:alldeps
   script:
     - eslint app/assets/app/.
+  after_script:
+    - echo "Job finished"
   retry: 2
   except:
     - master
@@ -184,10 +179,10 @@ terraform-deploy:
 
 build-integrates:
   stage: build
+  <<: *variables-dev
+  <<: *vault_login
   script:
-    - sh deploy/containers/integrates/build.sh
-        "$CI_COMMIT_REF_NAME" "$TORUS_TOKEN_ID" "$TORUS_TOKEN_SECRET"
-        "$TORUS_ORG" "$TORUS_PROJECT"
+    - vaultenv deploy/containers/integrates/build.sh "$CI_COMMIT_REF_NAME"
     - docker push
         "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
   retry: 2
@@ -196,11 +191,10 @@ build-integrates:
 
 build-bot:
   stage: build
+  <<: *variables-dev
+  <<: *vault_login
   script:
-    - cd deploy/containers/bot &&
-      sh build.sh
-      "$CI_COMMIT_REF_NAME" "$TORUS_TOKEN_ID" "$TORUS_TOKEN_SECRET"
-        "$TORUS_ORG" "$TORUS_PROJECT"
+    - vaultenv deploy/containers/bot/build.sh "$CI_COMMIT_REF_NAME"
     - docker push
       "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/bot:$CI_COMMIT_REF_NAME"
   retry: 2

@@ -39,3 +39,6 @@ def get_integrates_version():
             return version
     file.close()
     return version
+
+if __name__ == '__main__':
+  send_mail_version()
