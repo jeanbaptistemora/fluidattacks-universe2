@@ -8,6 +8,7 @@ import { react2angular } from "react2angular";
 import formController from "./controller/form.controller";
 import indicatorBox from "./Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./Dashboard/components/IndicatorGraph/index";
+import legalNotice from "./Registration/components/LegalNotice/index";
 angular.module("FluidIntegrates")
   .controller("formController", formController);
 /**
@@ -47,6 +48,28 @@ angular
       [
         "data",
         "name",
+      ],
+    ),
+  );
+/**
+ * @url: /registration
+ * @page: registration.html
+ * @controllers: ["registerCtrl"]
+ * @tag: <legal-notice/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "legalNotice",
+    react2angular(
+      legalNotice,
+      [
+        "btnAcceptText",
+        "id",
+        "onClick",
+        "rememberText",
+        "text",
+        "title",
       ],
     ),
   );

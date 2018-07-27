@@ -74,6 +74,15 @@ angular.module("FluidIntegrates").controller(
       }
     };
 
+    $scope.initializeModal = function initializeModal () {
+      $scope.legalNotice = {
+        "accept": $translate.instant("legal.disclosureWarning.acceptBtn"),
+        "remember": $translate.instant("legal.disclosureWarning.remember"),
+        "text": $translate.instant("legal.disclosureWarning.description"),
+        "title": $translate.instant("legal.disclosureWarning.title")
+      };
+    };
+
     $scope.showLegalNotice = function showLegalNotice () {
       const infoReq = registerFactory.getLoginInfo();
       infoReq.then((response) => {
@@ -97,10 +106,8 @@ angular.module("FluidIntegrates").controller(
                     const msg = "Couldn't track session length (Adblock)";
                     Rollbar.warning(`Warning: ${msg}`);
                   }
-                  let remember = false;
-                  if (angular.isDefined($scope.remember_accept_legal)) {
-                    remember = $scope.remember_accept_legal;
-                  }
+                  const checkbox = angular.element("#remember_accept_legal");
+                  const remember = checkbox.is(":checked");
                   const acceptReq = registerFactory.acceptLegal(remember);
                   acceptReq.then(() => {
                     $uibModalInstance.close();
@@ -122,6 +129,7 @@ angular.module("FluidIntegrates").controller(
         }
       });
     };
+    $scope.initializeModal();
     if (localStorage.getItem("showAlreadyLoggedin") === "1") {
       $scope.showAlreadyLoggedin();
     }

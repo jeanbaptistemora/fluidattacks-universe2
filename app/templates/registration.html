@@ -84,23 +84,13 @@
 
                 <!-- START: MODAL LEGAL NOTICE -->
                 <script type="text/ng-template" id="legalNotice.html">
-                  <div class="modal-colored-header">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h3 class="modal-title">{% templatetag openvariable %}'legal.disclosureWarning.title' | translate{% templatetag closevariable %}</h3>
-                      </div>
-                      <div class="modal-body">
-                        <p>{% templatetag openvariable %}'legal.disclosureWarning.description' | translate{% templatetag closevariable %}</p>
-                        <p>
-                          <input type="checkbox" ng-model="remember_accept_legal">
-                          {% templatetag openvariable %}'legal.disclosureWarning.remember' | translate{% templatetag closevariable %}
-                        </p>
-                      </div>
-                      <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" ng-click="okModalNotice()" data-dismiss="modal">{% templatetag openvariable %}'legal.disclosureWarning.acceptBtn' | translate{% templatetag closevariable %}</button>
-                      </div>
-                    </div>
-                  </div>
+                  <legal-notice
+                    id="'legalNotice'"
+                    title="legalNotice.title"
+                    text="legalNotice.text"
+                    btn-accept-text="legalNotice.accept"
+                    remember-text="legalNotice.remember"
+                    on-click="okModalNotice"/>
                 </script>
               </li>
             </ul>
@@ -188,6 +178,7 @@
     <script src="assets/app/models/registerFactory.js" type="text/javascript"></script>
     <script src="assets/app/controllers/navbarCtrl.js" type="text/javascript"></script>
     <!-- Start Dashboard -->
+    <script src="assets/dashboard/bundle.min.js" type="text/javascript"></script>
     <script src="assets/app/controllers/registerCtrl.js" type="text/javascript"></script>
     <script src="https://rum-static.pingdom.net/pa-5ae7406129ccc50006000057.js" async></script>
     <!-- End Dashboard -->
