@@ -333,7 +333,8 @@ deploy-k8s:
           --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL";
       fi
     - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
-        s/$VAULT_TOKEN/'"$(echo -n $VAULT_TOKEN | base64)"'/'
+        s/$VAULT_TOKEN/'"$(echo -n $VAULT_TOKEN | base64)"'/;
+        s/$DATE/'"$(date)"'/g'
         integrates-k8s.yaml
     - kubectl apply -f integrates-k8s.yaml
     - kubectl rollout status deploy/integrates -w
@@ -345,6 +346,7 @@ deploy-k8s:
     - docker run
        -e VAULT_HOST="$VAULT_HOST"
        -e VAULT_TOKEN="$VAULT_TOKEN"
+       -e VAULT_PORT="$VAULT_PORT"
        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
        /bin/bash -c "cd /usr/src/app/;
        vaultenv $(which python) integrates_version.py"
