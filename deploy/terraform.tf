@@ -168,3 +168,24 @@ resource "aws_dynamodb_table" "users" {
     enabled = true
   }
 }
+resource "aws_dynamodb_table" "project_access" {
+  name           = "FI_project_access"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "user_email"
+  range_key      = "project_name"
+
+  attribute {
+    name = "user_email"
+    type = "S"
+  }
+
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
