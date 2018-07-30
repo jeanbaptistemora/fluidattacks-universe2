@@ -8,6 +8,7 @@ services:
 
 
 before_script:
+  - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
   - echo "$CI_REGISTRY_PASSWORD" |
         docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
 
@@ -26,21 +27,14 @@ stages:
 
 .vault_login: &vault_login
   before_script:
-    - aws s3 cp
-        s3://$VAULT_S3_BUCKET/vault-ca.crt
-        /usr/local/share/ca-certificates/
-    - update-ca-certificates
-    - ROLE_ID=$(aws secretsmanager --region us-east-1
-        get-secret-value --secret-id SERVES_ROLE_ID | jq -r '.SecretString')
-    - SECRET_ID=$(aws secretsmanager --region us-east-1
-        get-secret-value --secret-id SERVES_SECRET_ID | jq -r '.SecretString')
     - export VAULT_TOKEN=$(curl --request POST
-        --data '{"role_id":"'"$ROLE_ID"'","secret_id":"'"$SECRET_ID"'"}'
+        --data '{"role_id":"'"$SERVES_ROLE_ID"'","secret_id":"'"$SERVES_SECRET_ID"'"}'
         "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
         jq -r '.auth.client_token')
     - export VAULT_HOST="$VAULT_S3_BUCKET.com"
     - export VAULT_PORT=443
     - export VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
+    - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
     - echo "$CI_REGISTRY_PASSWORD" |
         docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
 
@@ -55,20 +49,21 @@ build_base:
   stage: deps
   script:
     - sh containers/base/build.sh
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base"
+    - docker push "$DOCKER_BASENAME:base"
   except:
     - master
 
 build_builder:
   stage: deps
   script:
-    - docker build
-        --cache-from "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:builder"
-        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:builder"
+    - aws s3 cp
+        s3://$VAULT_S3_BUCKET/vault-ca.crt
+        $HOME/vault-ca.crt
+    - docker build --cache-from "$DOCKER_BASENAME:builder"
+        --build-arg vault_ca="$(cat $HOME/vault-ca.crt | base64 | tr -d '\n')"
+        -t "$DOCKER_BASENAME:builder"
         containers/builder/
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:builder"
+    - docker push "$DOCKER_BASENAME:builder"
   except:
     - master
 
@@ -96,8 +91,7 @@ build_alg:
   <<: *vault_login
   script:
     - vaultenv containers/alg/build.sh
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg/dev:$CI_COMMIT_SHA"
+    - docker push "$DOCKER_BASENAME/alg/dev:$CI_COMMIT_SHA"
   except:
     - master
 
@@ -106,8 +100,7 @@ build_exams:
   <<: *vault_login
   script:
     - vaultenv containers/exams/build.sh
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
+    - docker push "$DOCKER_BASENAME/exams/dev:$CI_COMMIT_SHA"
   except:
     - master
 
@@ -116,47 +109,40 @@ build_vpn:
   <<: *vault_login
   script:
     - vaultenv containers/vpn/build.sh
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
+    - docker push "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
   except:
     - master
 
 tag-alg:
   stage: tag
   script:
-    - docker pull
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg/dev:$CI_COMMIT_SHA"
+    - docker pull "$DOCKER_BASENAME/alg/dev:$CI_COMMIT_SHA"
     - docker tag
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg/dev:$CI_COMMIT_SHA"
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg:master"
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/alg:master"
+        "$DOCKER_BASENAME/alg/dev:$CI_COMMIT_SHA"
+        "$DOCKER_BASENAME/alg:master"
+    - docker push "$DOCKER_BASENAME/alg:master"
   only:
     - master
 
 tag-exams:
   stage: tag
   script:
-    - docker pull
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
+    - docker pull "$DOCKER_BASENAME/exams/dev:$CI_COMMIT_SHA"
     - docker tag
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams/dev:$CI_COMMIT_SHA"
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams:master"
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/exams:master"
+        "$DOCKER_BASENAME/exams/dev:$CI_COMMIT_SHA"
+        "$DOCKER_BASENAME/exams:master"
+    - docker push "$DOCKER_BASENAME/exams:master"
   only:
     - master
 
 tag-vpn:
   stage: tag
   script:
-    - docker pull
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
+    - docker pull "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
     - docker tag
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn/dev:$CI_COMMIT_SHA"
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn:master"
-    - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/vpn:master"
+        "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
+        "$DOCKER_BASENAME/vpn:master"
+    - docker push "$DOCKER_BASENAME/vpn:master"
   only:
     - master
 
