@@ -6,15 +6,15 @@
 
 = Continuous Hacking
 
-Continuous hacking service aims to detect and report all vulnerabilities
-and security issues during all software development cycle,
-our participation during all development period
-allow us to detect security issues continuously
-as software version evolve during development cycle,
-the rigorous inspection carried out by our team
+The Continuous Hacking service aims to detect and report all vulnerabilities
+and security issues during the entire software development cycle.
+Our participation during the entire development period
+allows us to detect security issues continuously
+as the software evolves during development.
+The rigorous inspection carried out by our team
 allows us to detect all security issues with no false positives
-and check if issues were properly repaired
-before system goes into production phase.
+and to check if issues were properly repaired
+before the system goes into the production phase.
 
 [role="tb-alt"]
 [cols=3, frame="topbot"]
@@ -41,38 +41,39 @@ In order to perform integral continuous hacking,
 access to both +GIT+ repository and integration environment are required.
 
 * In limited continuous ethical hacking
-customer can choose from application ethical hacking or source code analysis.
+the customer can choose between application ethical hacking
+or source code analysis.
 In order to perform limited continuous hacking,
-access to +GIT+ repository
-or integration environment is required.
+access to the +GIT+ repository or the integration environment is required.
 
 2+a|== Healthcheck
 
-Whenever a new continuous ethical hacking subscription starts,
-if there are any previous developments
+When a new continuous ethical hacking subscription starts,
+if there were any previous issues
 it is necessary to perform a healthcheck.
-This means we will attack all developments up to subscription start point
-plus the monthly test limit to get even with development team
-within first +3+ subscription months,
-and then we’ll continue hacking alongside development
+This means we will attack all versions of the existing code
+up to the subscription start point in addition to the monthly test limit
+to catch up with the development team
+within the first +3+ subscription months.
+Then we’ll continue hacking simultaneously as development continues
 (healthcheck will have additional fees).
 
 a|image::img6.png[alt="img6", width="55%"]
 
 a|image::img7.png[alt="img7", width="55%"]
 
-2+a|== Strictness
+2+a|== Severity
 
 Customers are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling) through our
 [button]#link:../../products/rules/[Rules]# product.
 
-Customers will know the exact strictness for each hacking
-(For inspected and non-inspected profiled requirements).
+Customers will know the exact severity for each hacking
+(for inspected and non-inspected profiled requirements).
 
 2+a|== Duration
 
-Minimum subscription time to continuous ethical hacking is one year.
+Minimum subscription time for continuous ethical hacking is one year.
 
 a|image::img8.png[alt="img8", width="55%"]
 
@@ -80,10 +81,12 @@ a|image::ciclos-continuo.png[alt="Ethical Hacking inspection cycles", width="55%
 
 2+a|== Attack Cycles
 
-During subscription time selected system will have multiple attack cycles
-on all different version generated during development cycle.
-A hacking team will be constantly attacking the system
-even if the functionalities had already been attacked in a previous version.
+During the subscription period the selected system
+will be attacked multiple times
+to test all versions generated during the development phase.
+The hacking team will constantly attack the system
+even though its functionalities
+may have already been attacked in a previous version.
 
 2+a|== Direct and agile communication
 
@@ -104,15 +107,14 @@ for finding validation with an additional charge.
 
 2+a|== Highly trained hacking team
 
-Our hackers are certified in practical hacking in real scenarios,
-they also have security related studies,
-they are able to perform manual testing
-and also use tools to guarantee the reporting of several types of findings
-including those with specific business impact,
-those regarding insecure programming practices,
-and those regarding standard alignment and security regulation compliance,
-enabling us to detect +Zero Day+ findings,
-all with no false positives reports.
+Our hackers have practical certifications and academic backgrounds
+related to security testing.
+They perform manual testing and use tools
+to guarantee that our reporting includes insecure programming practices,
+standard alignment and security regulation compliance,
+and findings with specific business impacts.
+This enables us to detect Zero Day findings
+with no false positive reports.
 
 a|image::img11.png[alt="img11", width="55%"]
 
