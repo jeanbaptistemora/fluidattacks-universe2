@@ -5,12 +5,10 @@
  */
 import angular from "angular";
 import { react2angular } from "react2angular";
-import formController from "./controller/form.controller";
+import frame from "./components/Frame/index";
 import indicatorBox from "./Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./Dashboard/components/IndicatorGraph/index";
 import legalNotice from "./Registration/components/LegalNotice/index";
-angular.module("FluidIntegrates")
-  .controller("formController", formController);
 /**
  * @url: #/project/:name/indicators
  * @page: indicators.html
@@ -70,6 +68,25 @@ angular
         "rememberText",
         "text",
         "title",
+      ],
+    ),
+  );
+/**
+ * @url: #/project/:name/indicators
+ * @page: indicators.html
+ * @controllers: ["projectIndicatorsCtrl"]
+ * @tag: <frame/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "formFrame",
+    react2angular(
+      frame,
+      [
+        "id",
+        "src",
+        "height",
       ],
     ),
   );
