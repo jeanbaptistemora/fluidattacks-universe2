@@ -16,7 +16,7 @@ class SecurePDF(object):
         """Class constructor."""
         self.base = "/usr/src/app/app/documentator/"
         self.watermark_tpl = self.base + "resources/presentation_theme/"
-        self.watermark_tpl += "watermark_integrates_es.pdf"
+        self.watermark_tpl += "watermark_integrates_en.pdf"
         self.result_dir = self.base + "/results/"
 
     def create_full(self, username, basic_pdf_name):
