@@ -26,6 +26,99 @@ Dentro de los temas de interés se encuentran:
 * Cracking con rainbow tables.
 * +Web shells+ sin efectos colaterales.
 * Descarga de archivo reflejado.
+* Revisión de +Frameworks+ de +Apache Struts 2+.
+* Detección +Apache Struts+.
+* Carga de archivos arbitrarios
+* Malas configuraciones en +ASP.Net+.
+* Serialización en +ASP.NET+.
+* Seguridad +ViewState+ en +ASP.NET+ (+ViewState Check+).
+* Revisión de autocompletado de atributos.
+* Inyección +SQL+ ciega.
+* Directiva caché del navegador (Filtrar información sensible).
+* Directiva caché del navegador (Afectar el desempeño de la aplicación).
+* Ataques de fuerza bruta (Autenticación +HTTP+).
+* Autenticación por fuerza bruta basada en formularios.
+* Abuso de lógica de negocio.
+* Archivos de políticas de dominio cruzado de clientes.
+* Evitar recolección de información sensible.
+* Inyección de comandos.
+* Atributos de +Cookies+ .
+* Credenciales en canales inseguros.
+* Credenciales almacenadas en texto plano en +cookies+
+(exposición de contraseñas).
+* Intercambio de recursos de origen cruzado (+CORS+).
+* Falsificación de petición en sitios cruzados (+CSRF+).
+* +Cross-site scripting+ (+XSS+)
+(Reflexión basada en +DOM+ a través de peticiones +AJAX+).
+* +Cross-site scripting+ (+XSS+),(basada en +DOM+).
+* +Cross-site tracing+ (+XST+ – Método Web).
+* Encabezados +CSP+.
+* Módulo de directorio personalizado.
+* Módulo de parámetro personalizado.
+* Módulo pasivo personalizado.
+* Indexado de directorios.
+* Exposición de correos electrónicos.
+* Inyección de expresión de lenguaje.
+* Inclusión de archivos.
+* +Browsing+ forzado.
+* Pruebas de fortaleza de formularios de sesión.
+* Revisión de +FrontPage+.
+* Revisión de +Heartbleed+.
+* Autenticación +HTTP+ en canales inseguros.
+* Encabezados +HTTP+.
+* Revisión de peticiones de sesión +HTTP+.
+* División de respuestas +HTTP+.
+* Seguridad de transporte estricto +HTTP+ (+HSTS+).
+* Manipulación de verbos +HTTP+ (Método de manipulación de peticiones).
+* +HTTPS+ +Downgrade+.
+* +HTTPS+ +Everywhere+.
+* Revelación de información en comentarios.
+* Revelación de información en respuestas.
+* Revelación de información en +Scripts+ (Revisión de +Scripts+).
+* Filtrado de información en respuestas.
+* +Java+ +Grinder+.
+* Inyección +LDAP+.
+* Utilización de almacenamiento local.
+* Código +NULL+ +Nginx+.
+* Inyección de comandos +OS+.
+* +Cross-site scripting+ fuera de banda (+XSS+).
+* +Cross-site scripting+ fuera de banda almacenada (+XSS+).
+* +Fuzzing+ de parámetros.
+* +Cross-site scripting+ persistente (pasivo).
+* +Cross-site scripting+ persistente (activo).
+* Ejecución de código +PHP+.
+* Localización predecible de recursos (Hallazgo de recursos).
+* Revelación de privacidad.
+* Escalamiento de privilegios.
+* +Cross Site Scripting+ reflejado.
+* +Cross Site Scripting+ reflejado simple.
+* +Clickjacking+ reverso.
+* +Proxy+ reverso.
+* Mezclas de contenidos seguros e inseguros.
+* Exposición de datos sensibles.
+* Datos sensibles en un canal inseguro.
+* Configuraciones de servidor
+* Inyección +Server Side Include+ (+SSI+).
+* Fijación de sesiones.
+* Fortaleza de sesiones.
+* Actualización de sesiones.
+* Revelación de código fuente.
+* Filtrado de información +SQL+ (Errores +SQL+).
+* Inyección +SQL+.
+* Derivación de autenticación de inyección +SQL+.
+* Revisión de parámetros +SQL+.
+* Fortaleza +SSL+.
+* Descubrimiento de subdominios.
+* Redireccionamientos no validados.
+* Reescritura de +URLs+.
+* +Web Beacon+.
+* +Fuzzing+ de parámetros de servicios Web.
+* Opciones +X-Content-Type+.
+* Opciones +X-Frame+.
+* Ataques de entidades externas +XML+.
+* Inyección +XPath+.
+* +X-Powered-By+.
+* Protección contra +X-XSS+.
 
 == Recomendaciones
 
