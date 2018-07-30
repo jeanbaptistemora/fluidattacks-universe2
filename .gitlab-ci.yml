@@ -304,7 +304,7 @@ test-deployment:
         integrates-k8s.yaml
     - cat integrates-k8s.yaml | head -n 54 | kubectl apply -f -
     - kubectl rollout status deploy/integrates-test
-    - kubectl get pods | egrep -o 'integrates-test[^ ]*' | tr -d '\n' | \
+    - kubectl get pods | egrep -o 'integrates-test[^ ]*' | tr -d '\n' |
         xargs -0 -I {} kubectl port-forward {} 8000:80 &
     - sleep 5
     - curl http://localhost:8000 | grep --color 'FluidIntegrates'
@@ -338,7 +338,7 @@ deploy-k8s:
     - kubectl apply -f integrates-k8s.yaml
     - kubectl rollout status deploy/integrates -w
     - curl https://api.rollbar.com/api/1/deploy/
-        -F access_token=$FI_ROLLBAR_ACCESS_TOKEN
+        -F access_token=$ROLLBAR_ACCESS_TOKEN
         -F environment=$FI_ROLLBAR_ENVIRONMENT
         -F revision=$CI_COMMIT_SHA
         -F local_username="$CI_COMMIT_REF_NAME"
