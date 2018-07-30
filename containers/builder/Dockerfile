@@ -2,6 +2,8 @@ FROM debian:jessie-slim
 
 WORKDIR /app
 
+ARG vault_ca
+
 RUN apt-get update && apt-get install --no-install-recommends -y \
         apt-transport-https \
         ca-certificates \
@@ -36,9 +38,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         && rm -rf helm.tar.gz linux-amd64 \
     && pip install --upgrade pip \
         && pip install awscli \
-    && DISTRO=$(lsb_release -i | awk '{print tolower($3)}') \
-        && CODENAME=$(lsb_release -c | awk '{print $2}') \
-        && echo "deb https://get.torus.sh/$DISTRO/ $CODENAME main" | tee -a /etc/apt/sources.list.d/torus.list \
     && add-apt-repository \
        "deb [arch=amd64] https://download.docker.com/linux/debian \
        $(lsb_release -cs) \
@@ -49,7 +48,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && apt-get update && apt-get install --allow-unauthenticated -y \
         docker-ce \
         kubectl \
-        torus \
     && curl -LsSo go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz \
         && tar -C /usr/local -xzf go.tar.gz \
         && export PATH=$PATH:/usr/local/go/bin \
@@ -67,6 +65,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.7.1/vaultenv-0.7.1.deb \
         && dpkg -i vaultenv.deb \
         && rm vaultenv.deb \
+    && echo -n "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
+        && update-ca-certificates \
     && rm -rf /var/lib/apt
 
 ENV GOPATH /go
