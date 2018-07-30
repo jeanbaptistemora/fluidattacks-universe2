@@ -179,3 +179,12 @@ Among the topics of interest are:
 * +Stellar+ security issues.
 * Machine learning for vulnerabilities searching.
 * Incidents associated with vulnerabilities.
+
+== Research
+
+* link:http://www.dvwa.co.uk/[+DVWA+] with false positives.
+
+== Marketing
+
+* Who discards false positives?
+* How to prioritize vulnerabilities remediation?

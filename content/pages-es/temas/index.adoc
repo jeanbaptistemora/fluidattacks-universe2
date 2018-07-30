@@ -185,3 +185,12 @@ Dentro de los temas de interés se encuentran:
 * Problemas de seguridad de +Stellar+.
 * Búsqueda de vulnerabilidades con +machine learning+.
 * Incidentes asociados a vulnerabilidades.
+
+== Investigación
+
+* link:http://www.dvwa.co.uk/[+DVWA+] con falsos positivos.
+
+== Mercadeo
+
+* Quién descarta los falsos positivos?
+* Cómo priorizar la remediación de vulnerabilidades?
