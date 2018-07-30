@@ -61,14 +61,14 @@ def is_customeradmin(project, email):
 
 def has_responsibility(project, email):
     """Verify if a user has responsability."""
-    project_data = integrates_dao.get_project_dynamo(project)
-    responsibilities = ["developer", "project_manager", "product_owner", "tester"]
+    project_data = integrates_dao.get_project_access_dynamo(email, project)
+    user_resp = "-"
     for data in project_data:
-        for resp in responsibilities:
-            if 'resp_' + resp in data and \
-                    email in data['resp_' + resp]:
-                return resp
-    user_resp = ""
+        if 'responsibility' in data:
+            user_resp = data["responsibility"]
+            break
+        else:
+            user_resp = "-"
     return user_resp
 
 def has_phone_number(email):

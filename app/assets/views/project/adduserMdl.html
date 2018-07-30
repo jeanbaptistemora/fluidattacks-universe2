@@ -8,7 +8,7 @@
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.textbox' | translate}}</label>
                 <input rows="1" id="emailInput" class="form-control" data-parsley-type-message="{{'search_findings.tab_users.wrong_format' | translate}}" data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}" required="" type="email"   style="resize:none;" ng-model="newUserInfo.userEmail" translate-attr="{ placeholder: 'search_findings.tab_users.email' }" required>
                 <br>
-                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_organization' | translate}}</label>
+                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_organization' | translate}}:</label>
                 <input rows="1" id="organizationInput" class="form-control" data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}" data-parsley-required="true" style="resize:none;" ng-model="newUserInfo.userOrganization" >
                 <br>
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.role' | translate}}:</label>
@@ -20,12 +20,15 @@
                     </select>
                 <br>
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_responsibility' | translate}}:</label>
-                <select ng-model="newUserInfo.userResponsibility" class="form-control" required>
-                        <option value="developer">{{'search_findings.tab_users.developer' | translate}}</option>
-                        <option value="project_manager">{{'search_findings.tab_users.project_manager' | translate}}</option>
-                        <option value="product_owner">{{'search_findings.tab_users.product_owner' | translate}}</option>
-                        <option value="tester">{{'search_findings.tab_users.tester' | translate}}</option>
-                    </select>
+                <input rows="1"
+                        id="responsibilityInput"
+                        class="form-control"
+                        data-parsley-required="true"
+                        data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}"
+                        data-parsley-maxlength="50"
+                        data-parsley-maxlength-message="{{'search_findings.tab_users.user_max_responsibility' | translate}}"
+                        ng-model="newUserInfo.userResponsibility"
+                        translate-attr="{ placeholder: 'search_findings.tab_users.responsibility_placeholder' }">
                 <br>
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.phone_number' | translate}}:</label>
                 <input type="tel"

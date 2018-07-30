@@ -181,25 +181,26 @@ const traducciones2 = {
     "months_ago": " mes(es) atrás",
     "no_selection": "Debe seleccionar un correo de la tabla.",
     "phone_number": "Número Telefónico",
-    "product_owner": "Product Owner",
-    "project_manager": "Gerente del proyecto",
     "remove_admin": "Remover admin",
     "remove_admin_error": "Sólo puedes remover a un administrador a la vez.",
     "remove_user": "Remover usuario",
     "requiered_field": "Este campo es requerido.",
+    "responsibility_placeholder": "Product Owner, Gerente del " +
+                                  "proyecto, Tester, ...",
     "role": "Rol",
     "success": " fue agregado a este proyecto exitosamente.",
     "success_admin": "Rol cambiado.",
     "success_admin_remove": " ya no es administrador de este proyecto.",
     "success_delete": " fue removido del proyecto.",
-    "tester": "Tester",
     "textbox": "Ingresa el correo de la persona que deseas agregar, este " +
                 "debe ser un correo de Office 365 o Google.",
     "title": "Agregar usuario a este proyecto",
     "title_success": "Felicitaciones",
     "undefined": "-",
-    "user_organization": "Organización del usuario:",
-    "user_responsibility": "Responsabilidad del usuario:",
+    "user_max_responsibility": "Debes ingresar una responsabilidad de máximo " +
+                                "50 caracteres",
+    "user_organization": "Organización",
+    "user_responsibility": "Responsabilidad",
     "wrong_format": "El correo ingresado no es valido."
   }
 },

@@ -180,25 +180,26 @@ const translations2 = {
      "months_ago": " month(s) ago",
      "no_selection": "You must select an email from the table.",
      "phone_number": "Phone Number",
-     "product_owner": "Product Owner",
-     "project_manager": "Project Manager",
      "remove_admin": "Remove admin",
      "remove_admin_error": "You can only remove one administrator at a time.",
      "remove_user": "Remove user",
      "requiered_field": "This field is required.",
+     "responsibility_placeholder": "Product Owner, Project Manager, " +
+                                    "Tester, ...",
      "role": "Role",
      "success": " now has access to this project.",
      "success_admin": "Role Changed.",
      "success_admin_remove": " is no longer an administrator of this project.",
      "success_delete": " was removed from this project.",
-     "tester": "Tester",
      "textbox": "Enter the email of the person you wish to add, it must be " +
                   "an Office 365 or Google email.",
      "title": "Add user to this project",
      "title_success": "Congratulations",
      "undefined": "-",
-     "user_organization": "User organization:",
-     "user_responsibility": "User Responsibility",
+     "user_max_responsibility": "You must enter a responsibility of maximum " +
+                                "50 characters",
+     "user_organization": "Organization",
+     "user_responsibility": "Responsibility",
      "wrong_format": "The email format is not valid."
    }
  },

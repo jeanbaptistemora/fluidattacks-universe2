@@ -139,9 +139,6 @@ angular.module("FluidIntegrates").controller(
             angular.forEach(usersData, (element) => {
               element.userRole = $translate.instant(`${"search_findings." +
                                             "tab_users."}${element.userRole}`);
-              element.userResponsibility =
-                $translate.instant(`${"search_findings." +
-                  "tab_users."}${element.userResponsibility}`);
               const DAYS_IN_MONTH = 30;
               if (element.usersLogin[0] >= DAYS_IN_MONTH) {
                 const ROUNDED_MONTH = Math.round(element.usersLogin[0] /
@@ -241,7 +238,9 @@ angular.module("FluidIntegrates").controller(
             else if (angular.element("#emailInput").parsley().
               validate() === true &&
                   angular.element("#organizationInput").parsley().
-                    validate() === true) {
+                    validate() === true &&
+                    angular.element("#responsibilityInput").parsley().
+                      validate() === true) {
               // Make the request
               const req = projectFtry.addAccessIntegrates(
                 $scope.newUserInfo,

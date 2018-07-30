@@ -575,10 +575,7 @@ def get_users_login(request):
         userRole=integrates_dao.get_role_dao(user)
         user_responsibility = has_responsibility(project, user)
         user_phone = has_phone_number(user)
-        if user_responsibility:
-            data['userResponsibility'] = user_responsibility
-        else:
-            data['userResponsibility'] = "undefined"
+        data['userResponsibility'] = user_responsibility
         if is_customeradmin(project, user):
             data['userRole'] = "customer_admin"
         elif userRole == "customeradmin":
@@ -1565,7 +1562,7 @@ def add_access_integrates(request):
     if (request.session['role'] == 'admin'):
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):
-            if create_new_user(parameters, project, request.session['role']):
+            if create_new_user(parameters, project, request.session['role'], request):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
@@ -1575,7 +1572,7 @@ def add_access_integrates(request):
             return util.response([], 'Error', True)
     elif is_customeradmin(project, request.session['username']):
         if (role == 'customer' or role == 'customeradmin'):
-            if create_new_user(parameters, project, request.session['role']):
+            if create_new_user(parameters, project, request.session['role'], request):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
@@ -1587,7 +1584,7 @@ def add_access_integrates(request):
         util.cloudwatch_log(request, 'Security: Attempted to grant access to project from unprivileged role: ' + request.session['role'])
         return util.response([], 'Access denied', True)
 
-def create_new_user(parameters, project, admin):
+def create_new_user(parameters, project, admin, request):
     newUser = parameters['data[userEmail]']
     company = parameters['data[userOrganization]']
     responsibility = parameters['data[userResponsibility]']
@@ -1603,10 +1600,15 @@ def create_new_user(parameters, project, admin):
         integrates_dao.assign_company(newUser, company)
     elif integrates_dao.is_registered_dao(newUser) == '1':
         integrates_dao.assign_role(newUser, role)
-    if (responsibility == 'developer' or responsibility == 'project_manager' or
-            responsibility == 'product_owner' or responsibility == 'tester'):
-        user_attr = "resp_" + responsibility
-        integrates_dao.add_user_to_project_dynamo(project.lower(), newUser, user_attr)
+    len_responsibility = len(responsibility)
+    if 0 < len_responsibility <= 50:
+        integrates_dao.add_project_access_dynamo(newUser, project, "responsibility", responsibility)
+    else:
+        util.cloudwatch_log(
+            request,
+            'Security: ' + request.session['username'] + 'Attempted to add ' +
+            'responsibility to project ' + project + ' without validation'
+        )
     if phone:
         phone_number = phone[1:]
         if phone_number.isdigit():
