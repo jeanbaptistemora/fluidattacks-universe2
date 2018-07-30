@@ -5,11 +5,9 @@ metadata:
   namespace: serves
 type: Opaque
 data:
-  TORUS_TOKEN_ID: $FI_TORUS_TOKEN_ID
-  TORUS_TOKEN_SECRET: $FI_TORUS_TOKEN_SECRET
-  TORUS_ORG: $TORUS_ORG
-  TORUS_PROJECT: $FI_TORUS_PROJECT
-  TORUS_ENVIRONMENT: $FI_TORUS_ENVIRONMENT
+  VAULT_HOST: $VAULT_HOST
+  VAULT_TOKEN: $VAULT_TOKEN
+  VAULT_PORT: NDQz
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -19,7 +17,7 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "Integates deployment from Serves on $DATE"
 spec:
-  minReadySeconds: 15
+  minReadySeconds: 30
   replicas: 1
   strategy:
     rollingUpdate:

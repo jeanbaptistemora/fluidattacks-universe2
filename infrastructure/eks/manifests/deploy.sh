@@ -32,13 +32,14 @@ if ! kubectl get secret gitlab-reg; then
     --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL"
 fi
 
-# Pass variables to Integrates to access Torus
-sed -i 's/$FI_TORUS_TOKEN_ID/'"$(echo -n $FI_TORUS_TOKEN_ID | base64)"'/; 
-  s/$FI_TORUS_TOKEN_SECRET/'"$(echo -n $FI_TORUS_TOKEN_SECRET | base64)"'/;
-  s/$TORUS_ORG/'"$(echo -n $TORUS_ORG | base64)"'/;
-  s/$FI_TORUS_PROJECT/'"$(echo -n $FI_TORUS_PROJECT | base64)"'/;
-  s/$FI_TORUS_ENVIRONMENT/'"$(echo -n $FI_TORUS_ENVIRONMENT | base64)"'/' \
-  eks/manifests/integrates.yaml
+# Pass variables to Integrates to access Vault
+INTEGRATES_VAULT_TOKEN=$(curl --request POST \
+  --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}' \
+  "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" | \
+  jq -r '.auth.client_token')
+sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
+  s/$INTEGRATES_VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/' \
+        eks/manifests/integrates.yaml
 
 # Deploy apps containers
 sed -i 's/$DATE/'"$(date)"'/' eks/manifests/*.yaml
