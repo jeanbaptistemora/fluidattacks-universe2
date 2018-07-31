@@ -33,3 +33,5 @@ front/package-lock.json
 app/assets/login/*.js
 app/assets/dashboard/*.js
 app/assets/dashboard/*.css
+env-dev.vars
+local-test.sh

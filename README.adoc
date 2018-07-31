@@ -257,38 +257,56 @@ link: _https://www.npmjs.com/_.
 <<<
 == Environment variables for Integrates
 
-* The file _**.envrc**_ contains all the environment variables for proper
-  execution of Integrates, for security reasons the file is not in the
-  repository. For a copy, please contact _jrestrepo@fluidattacks.com_.
+Integrates relies on an external service (`Vault`)
+to obtain all the `API` credentials and secret variables
+used to succesfully run the application.
+To be able to access the secrets, the following steps are required:
 
-* It is necessary to add the following line: _**eval"$(direnv hook bash)"**_ in
-  the end of file that is displayed when executing the command:
+. Download link:https://www.vaultproject.io/downloads.html[`Vault`],
+according to the `OS` running in the computer.
+Once downloaded, make the executable available at the `PATH`.
 
-[source, console]
+. Open the file `$HOME/.bashrc` or the equivalent in your shell of preference
+and append the following command:
++
+[source, bash]
 ----
-$ nano ~/.bashrc
-
-----
-
-* Locate the file _.envrc_ in the main Integrates folder, that is, in the path
-  /var/www/integrates and then execute the following command:
-
-[source, console]
-----
-$ direnv allow
-
+$ export VAULT_ADDR=https://vault.fluidattacks.com
 ----
 
-* To confirm that variables were correctly loaded, run the following command
-  and verify that the variables that are in _.envrc_ file are displayed.
-
-[source, console]
+. Open a new terminal to load the previous variable
+and authenticate against `Vault`,
+which uses the `RADIUS` protocol connected to `OneLogin`,
+so the credentials are the same ones used for `OneLogin`.
++
+[source, bash]
 ----
-$ printenv
+$ vault login -method=radius username=user@fluidattacks.com
 
+Password: password+OTP (not including the '+')
 ----
 
-<<<
+. Download the link:https://drive.google.com/open?id=1LO2bPr36oLyOHDUEPEaJd5OdslWJAZnm[Certificate]
+used to establish a `TLS` communication with `Vault`.
+To install the certificate, run the following commands:
++
+[source, bash]
+----
+$ sudo mv vault-ca.crt /usr/local/share/ca-certificates/
+$ sudo update-ca-certificates
+----
+
+. Download and install `virtualenv`, tool used to export
+the variables stored in `Vault` as environmental variables
+to the process which will run `Integrates`.
++
+[source, bash]
+----
+$ curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.7.1/vaultenv-0.7.1.deb \
+     && sudo dpkg -i vaultenv.deb \
+     && rm vaultenv.deb
+----
+
 == Deploy server
 
 * Finally you must launch the local server that contains the application. This
@@ -296,10 +314,33 @@ $ printenv
 
 === 1. Deploy server with Python
 
+* Save the following code to a script called `local-test.sh`
+and make it executable
++
 [source, console]
 ----
-$ python manage.py runsslserver
+#!/usr/bin/env bash
+set -e
 
+export VAULT_HOST='vault.fluidattacks.com'
+export VAULT_PORT=443
+export VAULTENV_SECRETS_FILE=/var/www/integrates/env-dev.vars
+export VAULT_TOKEN="$(cat ~/.vault-token)"
+
+if [ ! -f '/var/www/integrates/env-dev.vars' ]; then
+  sed 's/env#/development#/g' /var/www/integrates/env.vars \
+    > /var/www/integrates/env-dev.vars
+fi
+
+vaultenv $(which python) manage.py runsslserver
+----
+
+* Execute the script
++
+[source, bash]
+----
+$ chmod a+x local-test.sh
+$ ./local-test.sh
 ----
 
 * At this point the application is already displayed locally. To access it go to
