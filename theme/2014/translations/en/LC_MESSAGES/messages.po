@@ -119,8 +119,8 @@ msgid "Authors-title"
 msgstr "Authors"
 
 #: templates/authors.html:10
-msgid "Authors-canonical"
-msgstr "authors"
+msgid "Authors-url"
+msgstr "blog/authors/"
 
 #: templates/authors.html:36
 msgid "Authors-breadcrumb-1"
@@ -187,8 +187,8 @@ msgid "Categories-title"
 msgstr "Categories"
 
 #: templates/categories.html:10
-msgid "Categories-canonical"
-msgstr "categories"
+msgid "Categories-url"
+msgstr "blog/categories/"
 
 #: templates/categories.html:36
 msgid "Categories-breadcrumb-1"
@@ -1000,6 +1000,7 @@ msgstr ""
 msgid "Tag-keywords"
 msgstr "Article, Tag, Blog, Information, Security, Date"
 
+
 #: templates/tag.html:46 templates/tags.html:36
 msgid "Tag-breadcrumb-1"
 msgstr "Tags"
@@ -1020,10 +1021,10 @@ msgstr "Tag, Classify, Articles, Blog, Information, Security"
 msgid "Tags-title"
 msgstr "Tags"
 
-#: templates/tags.html:10
-msgid "Tags-canonical"
-msgstr "tags"
-
 #: templates/tags.html:63
 msgid "Tags-header"
 msgstr "Tags"
+
+#: templates/tag.html:5
+msgid "Tags-url"
+msgstr "blog/tags/"

@@ -120,8 +120,8 @@ msgid "Authors-title"
 msgstr "Autores"
 
 #: templates/authors.html:10
-msgid "Authors-canonical"
-msgstr "autores"
+msgid "Authors-url"
+msgstr "blog/autores/"
 
 #: templates/authors.html:36
 msgid "Authors-breadcrumb-1"
@@ -189,8 +189,8 @@ msgid "Categories-title"
 msgstr "Categorías"
 
 #: templates/categories.html:10
-msgid "Categories-canonical"
-msgstr "categorias"
+msgid "Categories-url"
+msgstr "blog/categorias/"
 
 #: templates/categories.html:36
 msgid "Categories-breadcrumb-1"
@@ -1031,3 +1031,7 @@ msgstr "etiquetas"
 #: templates/tags.html:63
 msgid "Tags-header"
 msgstr "Etiquetas"
+
+#: templates/tag.html:5
+msgid "Tags-url"
+msgstr "blog/etiquetas/"

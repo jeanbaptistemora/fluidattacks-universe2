@@ -7,7 +7,7 @@
 
 {% block title %}{{ gettext('Authors-title') }} | {{ SITENAME }}{% endblock title %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('Authors-canonical') }}/">{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ gettext('Authors-url') }}/">{% endblock canonical %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en"%}

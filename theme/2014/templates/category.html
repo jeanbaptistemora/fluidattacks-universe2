@@ -7,13 +7,13 @@
 
 {% block title %}{{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ category.url }}">{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ gettext('Categories-url') }}">{% endblock canonical %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="en-us" />
+    <link rel="alternate" href="{{ SITEURL }}/{{ gettext('Categories-url') }}" hreflang="en-us" />
   {% elif DEFAULT_LANG == "es" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="es" />
+    <link rel="alternate" href="{{ SITEURL }}/{{ gettext('Categories-url') }}" hreflang="es" />
   {% endif %}
 {% endblock language %}
 {% block breadcrumb %}

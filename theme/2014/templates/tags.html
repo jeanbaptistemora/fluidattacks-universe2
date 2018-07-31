@@ -7,7 +7,7 @@
 
 {% block title %}{{ gettext('Tags-title') }} | {{ SITENAME }}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('Tags-canonical') }}/">{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ gettext('Tags-url') }}">{% endblock canonical %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
