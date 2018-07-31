@@ -4,6 +4,8 @@ FROM debian:jessie-slim
 # Doubts about the image in question.
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
 
+ARG vault_ca
+
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -22,7 +24,7 @@ RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" 
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
-               git ansible curl \
+               git ansible curl jq \
                python-dev apache2 \
                python-setuptools python-tk \
                build-essential python-numpy python-scipy \
@@ -34,7 +36,7 @@ RUN apt-get update \
                libmysqlclient-dev cron autoconf \
                bison libssl-dev libyaml-dev \
                libreadline6-dev libncurses5-dev \
-               libffi-dev libgdbm3 libgdbm-dev ruby-dev
+               libffi-dev libgdbm3 libgdbm-dev ruby-dev unzip
 
 # Install nodejs.
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -43,18 +45,16 @@ RUN apt-get update \
     && apt-get install -y --force-yes\
                nodejs
 
-# Install vaultenv
-RUN curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.7.1/vaultenv-0.7.1.deb \
-    && dpkg -i vaultenv.deb \
-    && rm vaultenv.deb
-
-# Install Torus
-RUN DISTRO=$(lsb_release -i | awk '{print tolower($3)}') \
-    && CODENAME=$(lsb_release -c | awk '{print $2}') \
-    && sudo echo "deb https://get.torus.sh/$DISTRO/ $CODENAME main" | sudo tee -a /etc/apt/sources.list.d/torus.list \
-    && apt-get update \
-    && apt-get install --allow-unauthenticated -y torus \
-    && gem install asciidoctor-pdf --pre 
+# Install Vault
+RUN curl -LsSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.3_linux_amd64.zip \
+       && unzip vault.zip \
+       && mv vault /usr/local/bin \
+       && rm vault.zip \
+    && curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.7.1/vaultenv-0.7.1.deb \
+      && dpkg -i vaultenv.deb \
+      && rm vaultenv.deb \
+    && echo "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
+    && update-ca-certificates
 
 # Install dependencies and pip.
 ADD requirements.txt /root/
@@ -64,7 +64,8 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 RUN pip install -r /root/requirements.txt --ignore-installed \
     && cd /root/ && npm install -g \
-    && cp --symbolic-link /root/node_modules/.bin/* /usr/local/bin
+    && cp --symbolic-link /root/node_modules/.bin/* /usr/local/bin \
+    && gem install asciidoctor-pdf --pre 
 
 # SocialAuth Patch.
 ADD patch_socialauth.py /root/
