@@ -134,8 +134,8 @@ with previous customer authorization.
 
 2+a|== Daily progress reports
 
-Daily progress reports are sent via e-mail,
-report include coverage, strictness, partial result and overall progress.
+Daily progress reports are sent via e-mail.
+Reports include coverage, strictness, partial result and overall progress.
 
 a|image::informes-avance.png[alt="Ethical Hacking Progress reports", width="55%"]
 
