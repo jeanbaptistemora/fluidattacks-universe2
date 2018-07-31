@@ -53,8 +53,8 @@ a|image::duracion.png[alt="Tiempo estimado de Ethical Hacking", width="55%"]
 
 2+a|== Duración específica
 
-Dependiendo del tamaño del hacking
-típicamente toma entre +1+ y +4+ meses.
+Dependiendo del tamaño de la superficie de ataque
+del objetivo de evaluación.
 
 2+a|== Ciclos de hacking
 
@@ -172,8 +172,7 @@ a|image::reunion-entrega.png[alt="Reunión de entrega de Ethical Hacking", width
 2+a|== Reunión de entrega
 
 Presentación formal de informes ejecutivos a todos los interesados.
-Consta de dos reuniones presenciales: una de validación
-y una de socialización general.
+Consta de dos reuniones: una de validación y una de socialización general.
 
 2+a|== Borrado seguro de información
 
@@ -192,7 +191,7 @@ para esto es necesario que el cliente
 comparta nuevamente los informes iniciales
 y garantice el acceso al ambiente de hacking.
 No se buscan nuevas vulnerabilidades,
-solo se valida lo ya encontrado previamente
+solo se valida el cierre efectivo de lo ya encontrado previamente.
 
 |====
 

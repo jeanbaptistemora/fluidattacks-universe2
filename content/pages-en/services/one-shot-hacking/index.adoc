@@ -60,8 +60,7 @@ a|image::duracion.png[alt="Ethical Hacking estimated time", width="55%"]
 
 2+a|== Duration
 
-Depending on system size, a typical Ethical hacking
-lasts between +1+ and +4+ months.
+Depending on the size of the +ToE+ attack surface.
 
 2+a|==  Inspection Cycles
 
@@ -176,7 +175,8 @@ a|image::reunion-entrega.png[alt="Ethical Hacking validation meeting", width="55
 
 Formal executive report presentation meeting,
 where all project stakeholders can take part of it.
-It can take place personally or remotely according to customer's need.
+It consists of two meetings: one for validation
+and another for overall socialization.
 
 2+a|== Information gets deleted securely
 
@@ -190,13 +190,15 @@ a|image::retest.png[alt="Ethical Hacking retest", width="55%"]
 
 2+a|== Remediation validation
 
-Up to 3 months after final report approval,
+Up to +3+ months after final report approval,
 customers can request a remediation validation cycle
 to check if findings originally reported were correctly repaired.
 In order to arrange this, customer must provide system access
 and share final reports once again.
 In remediation cycle system does not get attacked
-in search for new vulnerabilities.
+searching new vulnerabilities,
+instead, it is validated the closure
+of the previously detected vulnerabilities.
 
 |====
 
