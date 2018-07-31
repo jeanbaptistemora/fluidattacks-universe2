@@ -12,7 +12,7 @@
 sobre ambientes en ejecución +(DAST)+.
 
 .Caso de uso
-image::fluidassertses.png[Asserts]
+image::asserts.svg[Asserts]
 
 Ver la [button]#link:https://fluidsignal.gitlab.io/asserts/[documentación de la API]#
 

@@ -25,10 +25,10 @@ To do this, we look to take full control of multiple critical systems
 in order to create a network of infected nodes
 and be able to control them
 to obtain sensitive information or further infect other nodes.
-a|.Image taken from link:https://www.cloudflare.com/learning/ddos/what-is-a-ddos-botnet/[Cloudflare]
-image::botnet.png[Botnet]
 
-a|image::how-its-done.png[How we do it]
+a|image::purpose.svg[Código propagándose en varios servidores]
+
+a|image::method.svg[Flechas entrando en un computador]
 2+a|== How we do it
 
 In order to be able to use +FLUIDCommands+
@@ -50,10 +50,10 @@ nor an automatic running task.
 Once all tests have concluded
 it is remotely uninstalled
 without leaving any traces or collateral damage.
-a|image::no-traces.png[Zero Damage, No traces]
+a|image::zero-effects.svg[Símbolo de calavera con un signo de verificación]
 
 a|.Image taken from link:https://www.darpa.mil/program/hallmark[Darpa]
-image::command-control.png[Command and Control Center]
+image::control.svg[Consola de control]
 2+a|== Command and Control Center
 
 +FLUIDCommands+ counts with a Command and Control Center
@@ -73,9 +73,9 @@ and capture live audio.
 * Keylogger: The +keylog+ command allows us to capture
 and log all your keyboard strokes in order to obtain sensitive data
 such as credentials or credit card info.
-a|image::scrshot-min.png[Screen shot]
+a|image::screenshot.svg[Toma de pantallazo]
 
-a|image::exec.png[Command execution]
+a|image::exec.svg[Ejecución del comando psexec]
 2+a|== exec Feature
 
 This feature allows us to remotely execute any command available
@@ -86,9 +86,9 @@ through +cmd+ on the infected machine.
 This command is used to test the connection and assure
 we have control of the infected node.
 It echos back whatever we pass to it.
-a|image::echo.png[echo]
+a|image::echo.svg[Ejecución del comando echo]
 
-a|image::av-evasion.png[AntiVirus Evasion]
+a|image::evasion.svg[Símbolo de calavera con un signo de escondido]
 2+a|== Detection Evasion
 
 Our cyberweapon avoids being detected

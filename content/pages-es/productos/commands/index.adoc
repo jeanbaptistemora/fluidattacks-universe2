@@ -24,9 +24,9 @@ y el impacto de negocio que tiene.
 Para esto, buscamos tomar el control total de multiples sistemas criticos
 y así crear una red de nodos infectados
 para obtener información sensible o infectar aún más nodos.
-a|image::botnet.png[Botnet]
+a|image::objetivo.svg[Code spreading throughout several servers]
 
-a|image::how-its-done.png[Como lo hacemos]
+a|image::metodo.svg[Arrows entering a computer]
 2+a|== Como lo hacemos
 
 Para poder usar +FLUIDCommands+
@@ -49,9 +49,9 @@ como un servicio ni como una tarea programada.
 Una vez hayan finalizado el Ethical Hacking,
 se desinstala remotamente
 sin dejar rastro alguno ni efectos colaterales.
-a|image::no-traces.png[Cero Daños, cero rastros]
+a|image::cero-efectos.svg[Skull symbol with a check mark]
 
-a|image::command-control.png[Centro de Mando y Control]
+a|image::control.svg[Control console]
 2+a|== Centro de Mando y Control
 
 +FLUIDCommands+ cuenta con su propio Centro de Mando y Control
@@ -73,9 +73,9 @@ de la víctima y capturar audio en vivo.
 las teclas presionadas en la máquina de la víctima
 para luego extraer información sensible como credenciales
 o números de tarjetas de crédito.
-a|image::scrshot-min.png[Captura de Pantalla]
+a|image::captura.svg[Square focusing on a screen]
 
-a|image::exec.png[Ejecución de Comandos]
+a|image::exec.svg[Execution of the psexec command]
 2+a|== Función Exec
 
 Esta función nos permite ejecutar de manera remota cualquier comando disponible
@@ -87,9 +87,9 @@ a través del +cmd+ en la máquina infectada.
 Este comando se usa para probar la conexión
 y garantizar que tengamos control sobre el nodo infectado.
 Responde todo lo que se le pase como parametro al comando.
-a|image::echo.png[echo]
+a|image::echo.svg[Execution of the echo command]
 
-a|image::av-evasion.png[Evasión de Detección]
+a|image::evasion.svg[Skull symbol with a hidden sign]
 2+a|== Evasión de Detección
 
 Nuestro troyano siempre evita ser detectado
