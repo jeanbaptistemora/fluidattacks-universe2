@@ -80,6 +80,6 @@
     "uninstall": "0.0.0"
   },
   "scripts": {
-    "test": "gulp compile && mocha --require ignore-styles -r ts-node/register ./scenes/**/*.spec.tsx"
+    "test": "gulp compile && mocha --require ignore-styles -r ts-node/register ./src/**/*.spec.tsx"
   }
 }

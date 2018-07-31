@@ -4,7 +4,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 /* Webpack common module definition */
 module.exports = {
-  entry: "./scenes/index.js",
+  entry: "./src/index.js",
   output: {
     filename: 'bundle.min.js'
   },

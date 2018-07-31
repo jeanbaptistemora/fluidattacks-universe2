@@ -30,9 +30,9 @@ var paths = {
  * it's used to import css modules on react
  */
 gulp.task('css', function(){
-    return gulp.src(["./scenes/**/*.css"])                                              
+    return gulp.src(["./src/**/*.css"])                                              
     .pipe(css())
-    .pipe(gulp.dest("./scenes"));                                           
+    .pipe(gulp.dest("./src"));                                           
 });  
 /**
  * Compile Task: Typescript Compilation
@@ -44,7 +44,7 @@ gulp.task(
   () => {
     return tsProject.src()
       .pipe(tsProject())
-      .js.pipe(gulp.dest("./scenes"));
+      .js.pipe(gulp.dest("./src"));
   }
 );
 /**
@@ -56,7 +56,7 @@ gulp.task(
   "package", 
   ['compile'], 
   () => {
-    return gulp.src('scenes/index.js')
+    return gulp.src('./src/index.js')
       .pipe(gulpWebpack(require('./webpack.config.js'), webpack))
       .pipe(gulp.dest(paths.dashboard.destination));
   }
@@ -95,7 +95,7 @@ gulp.task(
  * Run package's steps when a file change
  */
 gulp.task('watch', ['package'], function() {
-  gulp.watch('./scenes/**/*.ts', ['package']);
+  gulp.watch('./src/**/*.ts', ['package']);
 });
 /**
 * Integrate's Task: Deploy React App

@@ -5,7 +5,6 @@ import IndicatorGraph from './index';
 import 'mocha'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import style from "./index.css";
 
 Enzyme.configure({ adapter: new Adapter() });
 

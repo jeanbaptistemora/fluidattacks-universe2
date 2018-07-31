@@ -6,9 +6,9 @@
 import angular from "angular";
 import { react2angular } from "react2angular";
 import frame from "./components/Frame/index";
-import indicatorBox from "./Dashboard/components/IndicatorBox/index";
-import indicatorGraph from "./Dashboard/components/IndicatorGraph/index";
-import legalNotice from "./Registration/components/LegalNotice/index";
+import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
+import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
+import legalNotice from "./scenes/Registration/components/LegalNotice/index";
 /**
  * @url: #/project/:name/indicators
  * @page: indicators.html

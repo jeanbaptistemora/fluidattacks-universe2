@@ -4,20 +4,20 @@
     "target": "es5",               
     "module": "commonjs", 
     "allowJs": false,
-    "outDir": "./build",                
+    "outDir": "./src",                
     "noImplicitAny": true,                  
     "esModuleInterop": true,
     "jsx": "react",
-    "typeRoots": ["./scenes/**.d.ts"]
+    "typeRoots": ["./src/**/*.d.ts"]
   },
   "include": [
-    "./scenes/**/*",
+    "./src/**/*",
   ],
   "exclude": [
     "./node_modules/**",
-    "./scenes/**/*.spec.tsx",
-    "./scenes/**/*.css.d.ts",
-    "./scenes/**/*.js",
-    "./scenes/**/*.css"
+    "./src/**/*.spec.tsx",
+    "./src/**/*.css.d.ts",
+    "./src/**/*.js",
+    "./src/**/*.css"
   ]
 }

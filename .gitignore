@@ -27,8 +27,8 @@ config/drive_client_secret.json
 .torus.json
 # Rule for ignore non compiled js files over dashboard
 front/node_modules
-front/scenes/**/*.js
-front/scenes/**/*.css.d.ts
+front/src/**/*.js
+front/src/**/*.css.d.ts
 front/package-lock.json
 app/assets/login/*.js
 app/assets/dashboard/*.js
