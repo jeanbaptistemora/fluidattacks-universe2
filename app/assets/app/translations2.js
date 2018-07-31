@@ -163,7 +163,7 @@ const translations2 = {
        "tracking_name": "Tracking"
      },
    "tab_users": {
-     "add_button": "Add user",
+     "add_button": "Add",
      "admin": "Admin",
      "analyst": "Analyst",
      "assign_error": "You can only set one administrator at a time.",
@@ -182,7 +182,7 @@ const translations2 = {
      "phone_number": "Phone Number",
      "remove_admin": "Remove admin",
      "remove_admin_error": "You can only remove one administrator at a time.",
-     "remove_user": "Remove user",
+     "remove_user": "Remove",
      "requiered_field": "This field is required.",
      "responsibility_placeholder": "Product Owner, Project Manager, " +
                                     "Tester, ...",

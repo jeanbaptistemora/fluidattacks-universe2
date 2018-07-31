@@ -164,7 +164,7 @@ const traducciones2 = {
     "tracking_name": "Seguimiento"
   },
   "tab_users": {
-    "add_button": "Agregar usuario",
+    "add_button": "Agregar",
     "admin": "Admin",
     "analyst": "Analista",
     "assign_error": "Sólo puedes agregar a un administrador a la vez.",
@@ -183,7 +183,7 @@ const traducciones2 = {
     "phone_number": "Número Telefónico",
     "remove_admin": "Remover admin",
     "remove_admin_error": "Sólo puedes remover a un administrador a la vez.",
-    "remove_user": "Remover usuario",
+    "remove_user": "Remover",
     "requiered_field": "Este campo es requerido.",
     "responsibility_placeholder": "Product Owner, Gerente del " +
                                   "proyecto, Tester, ...",
