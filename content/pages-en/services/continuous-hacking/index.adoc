@@ -29,9 +29,9 @@ since we are able to analyse source code
 published on project's +GIT+ repository.
 
 
-a|image::img2.png[alt="img2", width="55%"]
+a|image::hacking-before-env.svg[alt="Application blueprint"]
 
-a|image::img3.png[alt="img3", width="55%"]
+a|image::hacking-techniques.svg[alt="Source code symbol"]
 
 2+a|== Hacking techniques
 
@@ -58,9 +58,9 @@ within the first +3+ subscription months.
 Then we’ll continue hacking simultaneously as development continues
 (healthcheck will have additional fees).
 
-a|image::img6.png[alt="img6", width="55%"]
+a|image::healthchecks.svg[alt="Source code with successful checks"]
 
-a|image::img7.png[alt="img7", width="55%"]
+a|image::severity.svg[alt="Checklist"]
 
 2+a|== Severity
 
@@ -75,9 +75,9 @@ Customers will know the exact severity for each hacking
 
 Minimum subscription time for continuous ethical hacking is one year.
 
-a|image::img8.png[alt="img8", width="55%"]
+a|image::duration.svg[alt="Calendar"]
 
-a|image::ciclos-continuo.png[alt="Ethical Hacking inspection cycles", width="55%"]
+a|image::attack-cycles.svg[alt="Metal Gear"]
 
 2+a|== Attack Cycles
 
@@ -94,9 +94,9 @@ All project communication is done through
 [button]#link:../../products/integrates/[Integrates]#,
 customers can use chat and comments for any project or finding question.
 
-a|image::img9.png[alt="img9", width="55%"]
+a|image::agile-communication.svg[alt="Two persons having a conversation"]
 
-a|image::img10.png[alt="img10", width="55%"]
+a|image::hacking-envs.svg[alt="Source code inside a scope target"]
 
 2+a|== Hacking environments
 
@@ -116,9 +116,9 @@ and findings with specific business impacts.
 This enables us to detect Zero Day findings
 with no false positive reports.
 
-a|image::img11.png[alt="img11", width="55%"]
+a|image::trained-team.svg[alt="Team"]
 
-a|image::img12.png[alt="img12", width="55%"]
+a|image::exploitation.svg[alt="Computer with an open lock symbol"]
 
 2+a|== Exploitation
 
@@ -133,9 +133,9 @@ all compromised records are extracted
 to maximize finding impact and compromise sensible information.
 [button]#link:../../products/integrates/#compromised-records[Example]#.
 
-a|image::img13.png[alt="img13", width="55%"]
+a|image::critical-info.svg[alt="Arrows flowing out of a lock"]
 
-a|image::img15.png[alt="img15", width="55%"]
+a|image::follow-up.svg[alt="Bar graph with a continuous line on top"]
 
 2+a|== Follow up using Integrates
 
@@ -156,9 +156,9 @@ customers must define a finding treatment
 and then request for finding validation through our
 [button]#link:../../products/integrates/[Integrates]# platform.
 
-a|image::img16.png[alt="img16", width="55%"]
+a|image::validate-remediation.svg[alt="Checklist"]
 
-a|image::img17.png[alt="img17", width="55%"]
+a|image::remediation-support.svg[alt="Question and answer symbol"]
 
 2+a|== Remediation support
 
@@ -176,9 +176,9 @@ when it comes to remediating the reported security flaws.
 Executive report provides summarized and organized information.
 Thus, it may be useful for all the project’s stakeholders.
 
-a|image::img18.png[alt="img18", width="55%"]
+a|image::reports.svg[alt="Bar graph in a presentation"]
 
-a|image::img19.png[alt="img19", width="55%"]
+a|image::secure-deletion.svg[alt="Trash can with a cloud behind"]
 
 2+a|== Information gets deleted securely
 
@@ -195,5 +195,3 @@ and other providers take a look at our differentiators
 * To check on differences between our One-shot hacking
 and Continuous hacking take a look at our comparative
 [button]#link:../comparative/[here]#.
-
-~Icons designed by Eucalyp from Flaticon~

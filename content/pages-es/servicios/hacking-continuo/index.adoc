@@ -28,9 +28,9 @@ incluso antes de contar con un ambiente funcional.
 Ya que se revisa el código fuente directamente
 en el repositorio de código del proyecto.
 
-a|image::img2.png[alt="img2", width="55%"]
+a|image::hacking-antes-ambiente.svg[alt="Planos de una aplicación"]
 
-a|image::img3.png[alt="img3", width="55%"]
+a|image::tipos-hacking.svg[alt="Símbolo de código fuente"]
 
 2+a|== Tipos de hacking
 
@@ -55,9 +55,9 @@ y en los meses siguientes se continúa con el Ethical Hacking
 de forma paralela al desarrollo
 (El +healthcheck+ tendrá un costo adicional a la suscripción).
 
-a|image::img6.png[alt="img6", width="55%"]
+a|image::healthchecks.svg[alt="Símbolo de código fuente con verificaciones exitosas"]
 
-a|image::img7.png[alt="img7", width="55%"]
+a|image::rigurosidad.svg[alt="Lista de revisiones"]
 
 2+a|== Rigurosidad
 
@@ -72,9 +72,9 @@ Además sabrá la rigurosidad exacta del hackeo
 
 La suscripción se contrata por espacio mínimo de un año
 
-a|image::img8.png[alt="img8", width="55%"]
+a|image::duracion.svg[alt="Calendario"]
 
-a|image::ciclos-continuo.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
+a|image::ciclos-ataque.svg[alt="Engranaje"]
 
 2+a|== Ciclos de Ataque
 Durante el tiempo de la suscripción se realizan múltiples ciclos de ataque
@@ -90,9 +90,9 @@ Toda la comunicación del proyecto se hace a través de
 [button]#link:../../productos/integrates/[Integrates]#,
 mediante las funcionalidades de Chat y de comentarios.
 
-a|image::img9.png[alt="img9", width="55%"]
+a|image::comunicacion-agil.svg[alt="Dos personas teniendo una conversación"]
 
-a|image::img10.png[alt="img10", width="55%"]
+a|image::ambientes-hacking.svg[alt="Código fuente dentro de una mira"]
 
 2+a|== Ambientes de hacking
 
@@ -112,9 +112,9 @@ prácticas inseguras de programación,
 alineación a estándares y regulaciones de seguridad sin falsos positivos,
 posibilitando la detección de vulnerabilidades +Zero Day+.
 
-a|image::img11.png[alt="img11", width="55%"]
+a|image::equipo-calificado.svg[alt="Equipo"]
 
-a|image::img12.png[alt="img12", width="55%"]
+a|image::explotacion.svg[alt="Computador con un candado abierto"]
 
 2+a|== Explotación de vulnerabilidades
 
@@ -132,9 +132,9 @@ con el fin de maximizar el impacto generado
 y comprometer información sensible.
 [button]#link:../../productos/integrates/#registros-comprometidos[Ejemplo]#.
 
-a|image::img13.png[alt="img13", width="55%"]
+a|image::info-critica.svg[alt="Flechas saliendo de un candado cerrado"]
 
-a|image::img15.png[alt="img15", width="55%"]
+a|image::seguimiento.svg[alt="Gráfica de barras con una línea continua encima"]
 
 2+a|== Seguimiento de vulnerabilidades a través de Integrates
 
@@ -152,9 +152,9 @@ durante la vigencia de la suscripción.
 Se pueden hacer tantos ciclos de cierre como sean necesarios
 para garantizar que el hallazgo sea solucionado efectivamente.
 
-a|image::img16.png[alt="img16", width="55%"]
+a|image::verificacion-cierre.svg[alt="Lista de pendientes"]
 
-a|image::img17.png[alt="img17", width="55%"]
+a|image::soporte-remediacion.svg[alt="Símbolos de pregunta y respuesta"]
 
 2+a|== Soporte de Remediación.
 
@@ -176,9 +176,9 @@ En el informe ejecutivo se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad
 para todas las personas en la cadena de valor del proyecto.
 
-a|image::img18.png[alt="img18", width="55%"]
+a|image::reportes.svg[alt="Gráfico de barras en una presentación"]
 
-a|image::img19.png[alt="img19", width="55%"]
+a|image::borrado-seguro.svg[alt="Caneca de basura con una nube detrás"]
 
 2+a|== Borrado seguro de información
 
@@ -194,7 +194,3 @@ y otros proveedores puede conocer nuestros diferenciadores
 * Si desea conocer las diferencias entre nuestros servicios
 puede ver nuestra tabla comparativa
 [button]#link:../comparativo/[aquí]#.
-
-
-
-~Íconos diseñados por Eucalyp de Flaticon~
