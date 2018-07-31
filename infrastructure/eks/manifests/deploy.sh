@@ -38,7 +38,7 @@ INTEGRATES_VAULT_TOKEN=$(curl --request POST \
   "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" | \
   jq -r '.auth.client_token')
 sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
-  s/$INTEGRATES_VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/' \
+  s/$VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/' \
         eks/manifests/integrates.yaml
 
 # Deploy apps containers
