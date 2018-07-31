@@ -88,6 +88,14 @@ a los prospectos que el ALIADO haya nominado
 si y solo si este último presenta evidencia escrita
 de gestión comercial en plazos que nunca superen los *30 días*.
 
+. El ALIADO recauda todos los días +25+ de cada mes,
+el ALIADO consolida todos los pagos que se hicieron
+antes de ese día y procede a efectuar el pago.
+
+. +Fluid Attacks+ recauda todos los +25+ de cada mes,
++Fluid Attacks+ consolida todos los pagos que se hicieron
+antes de ese día y procede a efectuar el pago.
+
 . Este acuerdo es enteramente recíproco,
 es decir, las mismas cláusulas aplican
 si +Fluid Attacks+ comercializa exitosamente al ALIADO.

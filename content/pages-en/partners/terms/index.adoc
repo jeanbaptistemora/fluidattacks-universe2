@@ -91,6 +91,14 @@ that the PARTNER has nominated for sales
 if the PARTNER provides evidence of sales progress
 every *30 days* or less.
 
+. The PARTNER will collect every +25+ day of each month.
+The PARTNER will consolidate all the payments made before
+that day and proceeds to make the payment.
+
+. +Fluid Attacks+ will collect every +25+ day of each month.
++Fluid Attacks+ will consolidate all the payments made before
+that day and proceeds to make the payment.
+
 . This agreement is reciprocal in its entirety, which means that
 the same clauses apply if +Fluid Attacks+ successfully sells the PARTNER.
 
