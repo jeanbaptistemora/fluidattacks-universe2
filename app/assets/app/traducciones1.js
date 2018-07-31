@@ -281,7 +281,7 @@ const traducciones1 = {
 },
   "left_menu":
 {
-  "first": "Hallazgos",
+  "first": "Proyectos",
   "third": "Formularios"
 },
   "legal":

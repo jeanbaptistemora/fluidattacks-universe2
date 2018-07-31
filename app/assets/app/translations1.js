@@ -274,7 +274,7 @@ const translations1 = {
      "title": "Type"
    },
   "left_menu": {
-    "first": "Findings",
+    "first": "Projects",
     "third": "Forms"
   },
   "legal":
