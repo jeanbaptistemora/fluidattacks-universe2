@@ -1,35 +1,16 @@
 font:
   catalog:
-    # Incluida para eastilos de fluid
-    Tahoma:
-      normal: tahoma-regular.ttf
-      bold: tahoma-bold.ttf
-      italic: tahoma-italic.ttf
-      bold_italic: tahoma-bold-italic.ttf
-    Tahoma Fallback:
-      normal: tahoma-regular.ttf
-      bold: tahoma-bold.ttf
-      italic: tahoma-italic.ttf
-      bold_italic: tahoma-bold-italic.ttf
-    # Noto Serif supports Latin, Latin-1 Supplement, Latin Extended-A, Greek, Cyrillic, Vietnamese & an assortment of symbols
-    #    Noto Serif:
-    #      normal: notoserif-regular-subset.ttf
-    #  bold: notoserif-bold-subset.ttf
-    #  italic: notoserif-italic-subset.ttf
-    #  bold_italic: notoserif-bold_italic-subset.ttf
-    # M+ 1mn supports ASCII and the circled numbers used for conums
-    M+ 1mn:
-      normal: mplus1mn-regular-ascii-conums.ttf
-      bold: mplus1mn-bold-ascii.ttf
-      italic: mplus1mn-italic-ascii.ttf
-      bold_italic: mplus1mn-bold_italic-ascii.ttf
-    M+ 1p Fallback:
-      normal: mplus1p-regular-fallback.ttf
-      bold: mplus1p-regular-fallback.ttf
-      italic: mplus1p-regular-fallback.ttf
-      bold_italic: mplus1p-regular-fallback.ttf
-  fallbacks:
-    - M+ 1p Fallback
+    # Incluida para estilos de fluid
+    Montserrat:
+      normal: montserrat/Montserrat-Regular.ttf
+      bold: montserrat/Montserrat-Bold.ttf
+      italic: montserrat/Montserrat-Italic.ttf
+      bold_italic: montserrat/Montserrat-BoldItalic.ttf
+    Source Sans:
+      normal: sourcesans/SourceSansPro-Regular.ttf
+      bold: sourcesans/SourceSansPro-Bold.ttf
+      italic: sourcesans/SourceSansPro-Italic.ttf
+      bold_italic: sourcesans/SourceSansPro-BoldItalic.ttf
 page:
   background_color: ffffff
   layout: portrait
@@ -45,8 +26,7 @@ base:
   # color as CMYK array (approximated)
   #font_color: [0, 0, 0, 0.92]
   #font_color: [0, 0, 0, 92%]
-  #  font_family: Noto Serif
-  font_family: Tahoma
+  font_family: Source Sans
   font_size: 12
   line_height_length: 15
   line_height: $base_line_height_length / $base_font_size
@@ -59,7 +39,6 @@ base:
   border_width: 0.5
 # FIXME vertical_rhythm is weird; we should think in terms of ems
 #vertical_rhythm: $base_line_height_length * 2 / 3
-# correct line height for Noto Serif metrics (comes with built-in line height)
 vertical_rhythm: $base_line_height_length
 horizontal_rhythm: $base_line_height_length
 # QUESTION should vertical_spacing be block_spacing instead?
@@ -69,11 +48,11 @@ link:
 # literal is currently used for inline monospaced in prose and table cells
 literal:
   font_color: 194D73
-  font_family: M+ 1mn
+  font_family: $base_font_family
 heading:
   #font_color: 181818
   font_color: $base_font_color
-  font_family: $base_font_family
+  font_family: Montserrat
   font_style: bold
   # h1 is used for part titles
   h1_font_size: floor($base_font_size * 2.6)
@@ -84,7 +63,6 @@ heading:
   h5_font_size: $base_font_size
   h6_font_size: $base_font_size_small
   #line_height: 1.4
-  # correct line height for Noto Serif metrics (comes with built-in line height)
   line_height: 1
   margin_top: $vertical_rhythm * 0.4
   margin_bottom: $vertical_rhythm * 0.9
@@ -153,7 +131,7 @@ code:
   border_radius: $base_border_radius
   border_width: 0.75
 conum:
-  font_family: M+ 1mn
+  font_family: $base_font_family
   font_color: $literal_font_color
   font_size: $base_font_size
   line_height: 4 / 3
