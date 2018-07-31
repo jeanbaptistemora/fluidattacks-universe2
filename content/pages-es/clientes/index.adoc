@@ -16,12 +16,10 @@ comprenden algunos de los bancos más importantes de América Latina,
 además de empresas encargadas del recaudo de aportes sociales, entre otras.
 Algunos de nuestos clientes son +Bancolombia+, +BBVA+,
 +Davivienda+, +Sura+, +Protección+, +Colpatria+.
-a|.Ícono hecho por link:https://creativemarket.com/eucalyp[Eucalyp] de link:https://www.flaticon.com/[Flaticon]
-image::financiero.png[Signo de dólar]
+a|image::financiero.svg[Signo de dólar]
 
 
-a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com/[Flaticon]
-image::comunicaciones.png[Teléfono inteligente]
+a|image::comunicaciones.svg[Teléfono inteligente]
 2+a|== link:comunicaciones/[Comunicaciones]
 
 +Fluid Attacks+ ha ofrecido soluciones a algunos de los principales proveedores
@@ -35,11 +33,9 @@ desde diferentes áreas, sea ventas al detal, +E-Commerce+, la industria textil,
 o soluciones de tecnología. Algunos de estos clientes son
 +Grupo Éxito+, +Grupo Uribe+, +Rappi+, +Semana+,
 y la compañía australiana +The Missing Link+.
-a|.Ícono hecho por mynamepong de link:https://www.flaticon.com/[Flaticon]
-image::comercial.png[Consumidores con diferentes reacciones]
+a|image::comercial.svg[Consumidores con diferentes reacciones]
 
-a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com/[Flaticon]
-image::tecnologia.png[Servidor y base de datos]
+a|image::tecnologia.svg[Servidor y base de datos]
 2+a|== link:tecnologia/[Tecnología]
 
 +Fluid Attacks+ ha contribuido a empresas que ofrecen +software+,
@@ -55,11 +51,9 @@ También hemos ejecutado proyectos en compañías que se especializan
 en el sector de la energía, ya sea en la generación, distribución
 y comercialización, como +Celsia+, o en la planeación, diseño y manejo
 de los sistemas transaccionales, como +XM+.
-a|.Ícono hecho por Good Ware de link:https://www.flaticon.com/[Flaticon]
-image::energia.png[Símbolo de un trueno]
+a|image::energia.svg[Símbolo de un trueno]
 
-a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com/[Flaticon]
-image::industrial.png[Fábrica]
+a|image::industrial.svg[Fábrica]
 2+a|== link:industrial/[Industrial]
 
 También hemos asistido a diversos fabricantes y participantes
@@ -73,7 +67,6 @@ Algunos de estos clientes son +Grupo Argos+, +Manuelita+, +Corona+,
 +Fluid Attacks+ ha trabajado con gigantes del sector de transporte
 como +Avianca+ y +F2X+, para asegurar que sus aplicaciones
 y plataformas +Web+ ofrezcan la mejor seguridad a sus usuarios.
-a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com/[Flaticon]
-image::transporte.png[Vista frontal de un bus]
+a|image::transporte.svg[Vista frontal de un bus]
 
 |====
