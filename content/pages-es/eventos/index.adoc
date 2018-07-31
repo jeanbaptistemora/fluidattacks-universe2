@@ -22,8 +22,8 @@ y nosotros seleccionamos 1.
 . *Inversión:* $0 COP, +Fluid Attacks+ se encarga de todos los costos
 correspondientes, excepto el lugar y el tiempo de los asistentes.
 Si no se pueden cumplir los requisitos mínimos de número de asistentes
-y perfil de los mismos, la inversión de la conferencia en Medellín
-es de $1.025.324 COP, en otras ciudades del país 2X, y 3X fuera de Colombia.
+y perfil de los mismos, la conferencia tendrá una inversión
+que debe ser cubierta por la compañía y será comunicada por +Fluid Attacks+.
 
 . *Material:* El material se le envia solo a los asistentes
 que diligencien la evaluación de satisfacción 1 día después de la conferencia.
@@ -49,10 +49,6 @@ de esta invitación de forma que puedan decidir voluntariamente si asistir o no.
 . El expositor DEBE poder ingresar 30 minutos antes al lugar de la conferencia
 a conectar equipos, hacer pruebas de conectividad +WiFi+
 y así empezar a la hora en punto la conferencia.
-
-. *Conexión +HDMI+ física:*  La presentación se hace desde un portatil +Linux+
-con animaciones, por ende no son soportados conectores inalámbricos +HDMI+
-que requieren instalación de +Drivers Windows+.
 
 . *Acceso a +Google Drive+ via +WiFi+:* La presentación dispone de animaciones
 y videos solo disponibles si el portátil de presentación
