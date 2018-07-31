@@ -158,12 +158,3 @@ short courses on specific topics completely free
 for students in different universities.
 So far, we have offered courses in Basics of Linux,
 Information Security Principles and Hacking through wargames.
-
-== Laptop
-
-Each +Fluid Attacks+ employee is assigned a laptop.
-You can take it wherever you like,
-choose the distribution or favorite OS
-and turn it into a truly personal computer.
-The laptop must meet +Fluid Attacks+ use policies
-and must have a time control software running when working.

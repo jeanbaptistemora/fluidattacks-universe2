@@ -149,12 +149,3 @@ a estudiantes de diferentes universidades.
 Actualmente hemos terminado dos ciclos de cursos
 en los que hemos ofrecido los temas de Linux Básico,
 Principios de Seguridad de la Información y Hacking por medio de +Wargames+.
-
-== Computador Portátil
-
-A cada empleado de +Fluid Attacks+ se le asigna un computador portátil.
-Puedes llevarlo a donde quieras, escoger tu distribución
-o sistema operativo y convertir en un computador personal de verdad.
-El computador deberá cumplir las políticas de uso de +Fluid Attacks+
-y deberá tener en funcionamiento un sistema de control de tiempos
-mientras se está trabajando.
