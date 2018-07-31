@@ -21,9 +21,9 @@ application or infrastructure Ethical Hacking.
 Customers are able to choose which hacking technique
 best suits their needs to fulfill each system's required security assessment.
 
-a|image::ethical-hacking.png[alt="Ethical Hacking", width="55%"]
+a|image::hacking-techniques.svg[alt="Source code symbol"]
 
-a|image::cobertura.png[alt="Ethical Hacking Scope", width="55%"]
+a|image::coverage.svg[alt="Source code symbol with successful checks"]
 
 2+a|== Coverage
 
@@ -54,9 +54,9 @@ through our [button]#link:../../products/rules/[Rules]# product
 Customers will know the exact Ethical Hacking strictness for each attack
 (For inspected and non-inspected profiled requirements).
 
-a|image::criterio-seguridad.png[alt="Ethical Hacking Security Criteria", width="55%"]
+a|image::strictness.svg[alt="Checklist"]
 
-a|image::duracion.png[alt="Ethical Hacking estimated time", width="55%"]
+a|image::duration.svg[alt="Clock"]
 
 2+a|== Duration
 
@@ -67,9 +67,9 @@ Depending on the size of the +ToE+ attack surface.
 One-shot Ethical hacking seeks to attack a single version on your application
 therefore it has only one inspection cycle on the selected system.
 
-a|image::ciclos.png[alt="Ethical Hacking inspection cycles", width="55%"]
+a|image::inspection-cycles.svg[alt="Metal Gear"]
 
-a|image::seguimiento-proyecto.png[alt="Ethical Hacking follow up", width="55%"]
+a|image::follow-up.svg[alt="Person working in a computer"]
 
 2+a|== Follow up
 
@@ -81,9 +81,9 @@ so customers can express their needs before, during and after execution.
 After all requirements to start an Ethical hacking have been met,
 each attack will have a defined start and finishing date.
 
-a|image::ejecucion-programada.png[alt="Scheduled Ethical Hacking", width="55%"]
+a|image::scheduled-hacking.svg[alt="Calendar"]
 
-a|image::ambientes-pruebas.png[alt="Ethical Hacking testing evironments", width="55%"]
+a|image::hacking-envs.svg[alt="Environment in a server"]
 
 2+a|== Hacking environments
 
@@ -103,9 +103,9 @@ and those regarding standard alignment and security regulation compliance,
 enabling us to detect +Zero Day+ findings,
 all with no false positives reports.
 
-a|image::equipo.png[alt="Ethical Hacking team", width="55%"]
+a|image::trained-team.svg[alt="Team"]
 
-a|image::explotacion.png[alt="Ethical Hacking exploitation", width="55%"]
+a|image::exploitation.svg[alt="Computer with an open lock symbol"]
 
 2+a|== Exploitation
 
@@ -119,9 +119,9 @@ all compromised records are extracted to maximize finding impact
 and compromise sensible information.
 [button]#link:../../products/integrates/#compromised-records[Example]#.
 
-a|image::extraccion.png[alt="Ethical Hacking compromised records", width="55%"]
+a|image::critical-info.svg[alt="Arrows flowing out of a lock"]
 
-a|image::infeccion.png[alt="Ethical Hacking Infection", width="55%"]
+a|image::infection.svg[alt="Skull symbol in front of a computer"]
 
 2+a|== Infection
 
@@ -137,9 +137,9 @@ with previous customer authorization.
 Daily progress reports are sent via e-mail.
 Reports include coverage, strictness, partial result and overall progress.
 
-a|image::informes-avance.png[alt="Ethical Hacking Progress reports", width="55%"]
+a|image::progress-report.svg[alt="Letter in an envelope"]
 
-a|image::integrates.png[alt="Ethical Hacking findings", width="55%"]
+a|image::finding-follow-up.svg[alt="Bar graph with a continuous line on top"]
 
 2+a|== Finding follow up using Integrates
 
@@ -151,9 +151,9 @@ using our [button]#link:../../products/integrates/[Integrates]# product.
 Customers can use our detailed remediation guides
 via [button]#link:../../products/defends/[Defends]#.
 
-a|image::remediacion.png[alt="Ethical Hacking Finding Remediation", width="55%"]
+a|image::remediation.svg[alt="Question and answer symbols"]
 
-a|image::boveda-segura.png[alt="Ethical Hacking information interchange", width="55%"]
+a|image::reports-delivery.svg[alt="Computer protected by password"]
 
 2+a|== Reports delivered by secure vault
 
@@ -167,9 +167,9 @@ with customer's technical team to validate reports.
 If there are any observations these are addressed.
 Meeting take place remotely.
 
-a|image::validacion-informes.png[alt="Ethical Hacking report validation", width="55%"]
+a|image::validation-meeting.svg[alt="Two persons having a conversation"]
 
-a|image::reunion-entrega.png[alt="Ethical Hacking validation meeting", width="55%"]
+a|image::report-meeting.svg[alt="Bar graph in a presentation"]
 
 2+a|== Report presentation meeting
 
@@ -184,9 +184,9 @@ and another for overall socialization.
 all information gathered during Ethical Hacking
 is deleted securely from all our systems.
 
-a|image::borrado-informacion.png[alt="Ethical Hacking evidence deletion", width="55%"]
+a|image::secure-deletion.svg[alt="Trash can with a cloud behind"]
 
-a|image::retest.png[alt="Ethical Hacking retest", width="55%"]
+a|image::validate-remediation.svg[alt="Checklist"]
 
 2+a|== Remediation validation
 
@@ -209,5 +209,3 @@ and other providers take a look at our differentiators
 * To check on differences between our One-shot hacking
 and Continuous hacking take a look at our comparative
 [button]#link:../comparative/[here]#.
-
-~Icons designed by Eucalyp from Flaticon~
