@@ -16,11 +16,9 @@ System where all the project's stakeholders come together.
 It aims to bring the hacker and the developer closer together,
 besides giving the ability to remediate reported vulnerabilities
 in an effective manner.
-a|.Icon made by link:https://www.alfredocreates.com/[Alfredo Hernandez] from link:https://www.flaticon.com[Flaticon]
-image::integrates.png[Web browser window]
+a|image::integrates.svg[Web browser window]
 
-a|.Icon made by link:https://www.freepik.com/[Freepik] from link:https://www.flaticon.com[Flaticon]
-image::asserts.png[Magnifying glass finding error in document]
+a|image::asserts.svg[Magnifying glass finding error in document]
 2+a|== link:asserts/[Asserts]
 
 Engine to automate the closing of security findings
@@ -34,11 +32,9 @@ Set of requirements  used to parameterize a +pen test+.
 These rules determine how rigurous a +pen test+ really is,
 by defining what is going to be tested,
 and what is going to be considered a vulnerability.
-a|.Icon made by link:https://smashicons.com/[Smashicons] from link:https://www.flaticon.com[Flaticon]
-image::rules.png[Checklist]
+a|image::rules.svg[Checklist]
 
-a|.Icon made by link:https://smashicons.com/[Smashicons] from link:https://www.flaticon.com[Flaticon]
-image::defends.png[Shield]
+a|image::defends.svg[Shield]
 2+a|== link:defends/[Defends]
 
 Set of detailed procedures which allow the development of secure applications,
@@ -49,7 +45,6 @@ and remediation of vulnerabilities found and reported by us.
 
 Cyberweapon developed entirely by us for in-depth penetration of work stations
 and critical servers during +pen tests+.
-a|.Icon made by link:https://www.freepik.com/[Freepik] from link:https://www.flaticon.com[Flaticon]
-image::commands.png[Command Line Interface]
+a|image::commands.svg[Command Line Interface]
 
 |====
