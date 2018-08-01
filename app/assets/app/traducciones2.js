@@ -190,7 +190,7 @@ const traducciones2 = {
                                   "proyecto, Tester, ...",
     "role": "Rol",
     "success": " fue agregado a este proyecto exitosamente.",
-    "success_admin": "Rol cambiado.",
+    "success_admin": "Información de usuario actualizada.",
     "success_admin_remove": " ya no es administrador de este proyecto.",
     "success_delete": " fue removido del proyecto.",
     "textbox": "Ingresa el correo de la persona que deseas agregar, este " +

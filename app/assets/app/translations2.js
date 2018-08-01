@@ -189,7 +189,7 @@ const translations2 = {
                                     "Tester, ...",
      "role": "Role",
      "success": " now has access to this project.",
-     "success_admin": "Role Changed.",
+     "success_admin": "User information updated.",
      "success_admin_remove": " is no longer an administrator of this project.",
      "success_delete": " was removed from this project.",
      "textbox": "Enter the email of the person you wish to add, it must be " +

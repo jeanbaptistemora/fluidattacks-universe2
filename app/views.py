@@ -1712,7 +1712,7 @@ def edit_user_information(parameters, project, request):
     project = project.lower()
     role = parameters['data[userRole]']
     email = parameters['data[userEmail]']
-    responsibility = parameters['data[userEmail]']
+    responsibility = parameters['data[userResponsibility]']
     phone = parameters['data[userPhone]']
     organization = parameters['data[userOrganization]']
     len_responsibility = len(responsibility)

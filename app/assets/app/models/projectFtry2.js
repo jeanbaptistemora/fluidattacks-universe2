@@ -224,15 +224,15 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Set the customer admin  of a project.
-       * @function changeUserRole
-       * @param {String} data New user data.
-       * @param {String} project New user project.
+       * Edit user information.
+       * @function editUser
+       * @param {String} data User data.
+       * @param {String} project User project.
        * @member integrates.projectFtry2
        * @return {Object} Response by SQL DB
        */
       "editUser" (data, project) {
-        const oopsAc = "An error occurred setting project admin";
+        const oopsAc = "An error occurred editing user information";
         return $xhr.post($q, `${BASE.url}edit_user`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           data,
