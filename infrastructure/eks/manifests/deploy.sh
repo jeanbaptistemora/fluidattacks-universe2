@@ -13,9 +13,9 @@ helm install stable/nginx-ingress \
   --name controller --namespace serves \
   --set rbac.create=true --tls 2>/dev/null || \
   echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
-helm install stable/cert-manager \
-  --name certificate --namespace default --tls 2>/dev/null || \
-  echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
+# helm install stable/cert-manager \
+#   --name certificate --namespace default --tls 2>/dev/null || \
+#   echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
 
 # Set TLS certificates for fluidattacks.com and fluid.ls in the NGINX server
 sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
@@ -25,11 +25,12 @@ sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
 kubectl apply -f eks/manifests/ingress-tls.yaml
 
 # Set Ingress rule and generate certificate for old domains
-kubectl apply -f eks/manifests/old-domains.yaml
+# kubectl apply -f eks/manifests/old-domains.yaml
 
 # Customize NGINX configuration
 kubectl patch cm controller-nginx-ingress-controller \
-  --patch "$(cat eks/manifests/nginx-conf.yaml)"
+  --patch "$(cat eks/manifests/nginx-conf.yaml)" || \
+  echo "NGINX server already configured"
 
 # Provide information to access Gitlab Container Registry and pull images
 if ! kubectl get secret gitlab-reg; then
