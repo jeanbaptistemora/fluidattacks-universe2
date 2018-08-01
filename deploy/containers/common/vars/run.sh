@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-env > /etc/environment
+env | egrep 'VAULT.*'  >> /etc/environment
 /etc/init.d/td-agent restart 
 a2ensite integrates-ssl.conf
 a2ensite 000-default.conf
