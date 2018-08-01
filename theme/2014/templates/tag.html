@@ -18,14 +18,14 @@
   {% endif %}
 {% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ gettext ('Tags-url') }}">{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/">{% endblock canonical %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ gettext ('Tags-url') }}" hreflang="en-us" />
+    <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="en-us" />
     <link rel="alternate" href="{{ SUBSITEURL }}/blog/etiquetas/{{ tag }}/" hreflang="es" />
   {% elif DEFAULT_LANG == "es" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ gettext ('Tags-url') }}" hreflang="es" />
+    <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="es" />
     <link rel="alternate" href="{{ SUBSITEURL }}/blog/tags/{{ tag }}/" hreflang="en-us" />
   {% endif %}
 {% endblock language %}

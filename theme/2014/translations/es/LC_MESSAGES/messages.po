@@ -119,10 +119,6 @@ msgstr "Autores, Blog, Publicar, Artículo, Información, Seguridad"
 msgid "Authors-title"
 msgstr "Autores"
 
-#: templates/authors.html:10
-msgid "Authors-url"
-msgstr "blog/autores/"
-
 #: templates/authors.html:36
 msgid "Authors-breadcrumb-1"
 msgstr "Autores"
@@ -187,10 +183,6 @@ msgstr "Categoría, Clasificar, Artículo, Blog, Información, Seguridad"
 #: templates/categories.html:8
 msgid "Categories-title"
 msgstr "Categorías"
-
-#: templates/categories.html:10
-msgid "Categories-url"
-msgstr "blog/categorias/"
 
 #: templates/categories.html:36
 msgid "Categories-breadcrumb-1"
@@ -1024,14 +1016,6 @@ msgstr "Etiqueta, Clasificar, Artículos, Blog, Información, Seguridad"
 msgid "Tags-title"
 msgstr "Etiquetas"
 
-#: templates/tags.html:10
-msgid "Tags-canonical"
-msgstr "etiquetas"
-
 #: templates/tags.html:63
 msgid "Tags-header"
 msgstr "Etiquetas"
-
-#: templates/tag.html:5
-msgid "Tags-url"
-msgstr "blog/etiquetas/"
