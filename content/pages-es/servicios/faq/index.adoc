@@ -168,13 +168,13 @@ El servicio se puede desarrollar en fases de forma complementaria:
 *encontradas en mi aplicación?*::
  El servicio de Hacking Continuo
  cuenta con una plataforma de reporte e interacción
- llamada link:../../../productos/integrates/[Integrates].
+ llamada link:../../productos/integrates/[Integrates].
  Así todos los actores de la cadena de valor de un proyecto
  tienen acceso al detalle de las vulnerabilidades
  reportadas por +Fluid Attacks+ en la prestación del servicio.
 
 *¿Qué tipo de informes son generados durante la prestación del servicio?*::
- Desde link:../../../productos/integrates/#generar-informes-tecnicos[Integrates]
+ Desde link:../../productos/integrates/#generar-informes-tecnicos[Integrates]
  es posible generar un informe técnico en formato Excel
  y otro en PDF disponibles durante toda la ejecución del proyecto.
  También se puede generar un informe ejecutivo
@@ -183,13 +183,13 @@ El servicio se puede desarrollar en fases de forma complementaria:
 *¿Qué pasa luego de que Fluid Attacks reporta una vulnerabilidad?*::
  Una vez se reporta la vulnerabilidad el objetivo es que esta sea solucionada.
  Para esto los desarrolladores
- cuentan con acceso a link:../../../productos/integrates/[Integrates],
+ cuentan con acceso a link:../../productos/integrates/[Integrates],
  permitiendo obtener de primera mano la información,
  aplicando las correcciones necesarias
  para remover las vulnerabilidades de la aplicación.
 
 *¿Cómo se entera Fluid Attacks que una vulnerabilidad está remediada?*::
- A través de link:../../../productos/integrates/[Integrates]
+ A través de link:../../productos/integrates/[Integrates]
  cualquier usuario con acceso al proyecto podrá solicitar
  la revisión de las vulnerabilidades corregidas.
  Una vez se solicita, recibimos una notificación que incluye un comentario
@@ -206,7 +206,7 @@ El servicio se puede desarrollar en fases de forma complementaria:
 *¿Por qué debo anunciar el cierre de una vulnerabilidad si +Fluid Attacks+*::
 *tiene acceso al repositorio de código?*::
  Uno de los objetivos del servicio de Hacking Continuo
- en conjunto con link:../../../productos/integrates/[Integrates]
+ en conjunto con link:../../productos/integrates/[Integrates]
  es mantener una comunicación clara y fluida
  entre todos los actores del proyecto.
  Al dar aviso sobre la remediación de una vulnerabilidad
@@ -214,7 +214,7 @@ El servicio se puede desarrollar en fases de forma complementaria:
  sino a todo el equipo del proyecto.
 
 *¿Qué pasa si considero que algo no es una vulnerabilidad?*::
-Dentro de link:../../../productos/integrates/[Integrates]
+Dentro de link:../../productos/integrates/[Integrates]
 contamos con una sección de comentarios
 donde se podrá dar a conocer las razones
 por las cuales considera que no es una vulnerabilidad.
@@ -225,13 +225,13 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 *¿Todas las vulnerabilidades reportadas deben ser remediadas?*::
  La remediación de una vulnerabilidad es una decisión
  que queda a discreción del cliente.
- En link:../../../productos/integrates/[Integrates]
+ En link:../../productos/integrates/[Integrates]
  se cuenta con la opción de tratamiento
  donde se define si la vulnerabilidad va a ser remediada
  o asumida por el cliente.
 
 *¿En caso de asumir una vulnerabilidad, se excluye de los informes*::
-*de link:../../../productos/integrates/[Integrates]?*::
+*de link:../../productos/integrates/[Integrates]?*::
  Dentro de los informes se encuentra
  el tratamiento definido para las vulnerabilidades.
  Teniendo esto en cuenta esto las vulnerabilidades asumidas
@@ -338,6 +338,6 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  +Fluid Attacks+ recomienda que tanto el desarrollo de la aplicación
  como el Ethical Hacking de seguridad comiencen al mismo tiempo.
  Sin embargo, esto no siempre ocurre así.
- Para ello, tenemos una actividad llamada link:../../../en/services/continuous-hacking/#healthcheck[+HealthCheck+]
+ Para ello, tenemos una actividad llamada link:../../servicios/hacking-continuo/#healthcheck[+HealthCheck+]
  que permite poner al día (desatrazar)​ las inspecciones de seguridad
  cuando el desarrollo ha comenzado con anterioridad.

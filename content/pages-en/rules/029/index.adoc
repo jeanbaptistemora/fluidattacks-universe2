@@ -80,11 +80,6 @@ using one of the following techniques <<r8,^[8]^>>:
 to Silverlight controls.
 * +crossdomain.xml+ file granting unintended access to Flash.
 
-== Solutions
-
-. +ASPNET+ link:../../defends/aspnet/usar-cookies-httponly/[Use HTTPOnly cookies].
-. +PHP+ link:../../defends/php/generar-cookies-httponly/[Create cookies with HttpOnly].
-
 == Attacks
 
 . An attacker generates a +script+ that is executed

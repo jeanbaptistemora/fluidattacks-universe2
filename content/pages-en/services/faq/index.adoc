@@ -310,10 +310,10 @@ Frequently asked questions about Continuous Hacking.
  Yes, +Fluid Attacks+ has link:../../products/asserts/[Asserts],
  an engine that allows to automate security checks
  once they have been found in an exploratory phase.
- link:../../productos/asserts/[Asserts] operates directly in the +JOB+
+ link:../../products/asserts/[Asserts] operates directly in the +JOB+
  of continuous integration and has the ability to break the +build+
  sent by the programmer in case of breach of security requirements.
- link:../../productos/asserts/[Asserts] runs on any continuous integration platforms
+ link:../../products/asserts/[Asserts] runs on any continuous integration platforms
  that support dockers like +JOB+,
  for example: +VSTS+, +GitLab+, +Jenkins+.
 
