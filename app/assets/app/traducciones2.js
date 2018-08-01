@@ -168,11 +168,12 @@ const traducciones2 = {
     "admin": "Admin",
     "analyst": "Analista",
     "assign_error": "Sólo puedes agregar a un administrador a la vez.",
-    "change_role": "Cambiar rol",
     "customer": "Usuario",
     "customer_admin": "Manager",
     "days_ago": " dia(s) atrás",
     "developer": "Desarrollador",
+    "edit": "Edit",
+    "edit_user_title": "Editar información del usuario",
     "email": "alguien@dominio.com",
     "error_phone": "El número telefónico no debe contener letras o " +
                     "caracteres especiales",

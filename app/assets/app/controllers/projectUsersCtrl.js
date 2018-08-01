@@ -214,6 +214,7 @@ angular.module("FluidIntegrates").controller(
         "animation": true,
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance, data) {
+          $scope.disableOnEdit = false;
           $scope.newUserInfo = {};
           $scope.isAdmin = userRole !== "customer" &&
                 userRole !== "customeradmin" && userRole !== "analyst";
@@ -286,14 +287,28 @@ angular.module("FluidIntegrates").controller(
       });
     };
 
-    $scope.changeRole = function changeRole () {
+    $scope.editUser = function editUser () {
       const adminEmail = [];
+      let userOrganization = "";
+      let userRole = "";
+      let userResponsibility = "";
+      let userPhone = "";
       angular.element("#tblUsers :checked").each(function checkedFields () {
         /* eslint-disable-next-line  no-invalid-this */
         const vm = this;
         const actualRow = angular.element("#tblUsers").find("tr");
         const actualIndex = angular.element(vm).data().index + 1;
         adminEmail.push(actualRow.eq(actualIndex)[0].cells[1].innerHTML);
+        const INDEX_ROLE = 2;
+        const INDEX_RESP = 3;
+        const INDEX_PHONE = 4;
+        const INDEX_ORG = 5;
+        userRole = actualRow.eq(actualIndex)[0].cells[INDEX_ROLE].innerHTML;
+        userResponsibility =
+          actualRow.eq(actualIndex)[0].cells[INDEX_RESP].innerHTML;
+        userPhone = actualRow.eq(actualIndex)[0].cells[INDEX_PHONE].innerHTML;
+        userOrganization =
+          actualRow.eq(actualIndex)[0].cells[INDEX_ORG].innerHTML;
       });
       if (adminEmail.length === 0) {
         $msg.error($translate.instant("search_findings.tab_users." +
@@ -312,7 +327,13 @@ angular.module("FluidIntegrates").controller(
           "animation": true,
           "backdrop": "static",
           "controller" ($scope, $uibModalInstance, data) {
-            $scope.userInfo = {};
+            $scope.newUserInfo = {};
+            $scope.newUserInfo.userRole = userRole;
+            $scope.newUserInfo.userResponsibility = userResponsibility;
+            $scope.newUserInfo.userPhone = userPhone;
+            $scope.newUserInfo.userOrganization = userOrganization;
+            $scope.newUserInfo.userEmail = adminEmail[0].trim();
+            $scope.disableOnEdit = true;
             $scope.isAdmin = userRole !== "customer" &&
                 userRole !== "customeradmin" && userRole !== "analyst";
             const customerAdmin =
@@ -325,18 +346,25 @@ angular.module("FluidIntegrates").controller(
                 $scope.isProjectManager = response.data;
               }
             });
+            $scope.newUserInfo.utilsUrl =
+              `${BASE.url}assets/node_modules/intl-tel-input/build/js/utils.js`;
             $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_users.change_role");
+                                          "tab_users.edit_user_title");
             $scope.ok = function ok () {
-              $scope.userInfo.userEmail = adminEmail[0].trim();
-
               const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-              if (re.test(String($scope.userInfo.userEmail).toLowerCase())) {
+              if (angular.isUndefined($scope.newUserInfo.userPhone)) {
+                $scope.newUserInfo.errorMessage = true;
+              }
+              else if (re.test(String($scope.newUserInfo.userEmail).
+                toLowerCase()) &&
+                  angular.element("#organizationInput").parsley().
+                    validate() === true &&
+                    angular.element("#responsibilityInput").parsley().
+                      validate() === true) {
               // Make the request
                 const req = projectFtry2.
-                  changeUserRole(
-                    adminEmail[0],
-                    $scope.userInfo.userRole,
+                  editUser(
+                    $scope.newUserInfo,
                     data.project
                   );
                 // Capture the promise
@@ -344,10 +372,10 @@ angular.module("FluidIntegrates").controller(
                   if (!response.error) {
                   // Mixpanel tracking
                     mixPanelDashboard.trackUsersTab(
-                      "ChangeRole",
+                      "EditUser",
                       userEmail,
                       $stateParams.project.toLowerCase(),
-                      "ChangeRole",
+                      "EditUser",
                       adminEmail[0]
                     );
                     $msg.success(
@@ -377,7 +405,7 @@ angular.module("FluidIntegrates").controller(
           },
           "keyboard": false,
           "resolve": {"data": descData},
-          "templateUrl": `${BASE.url}assets/views/project/changeroleMdl.html`
+          "templateUrl": `${BASE.url}assets/views/project/adduserMdl.html`
         });
       }
     };

@@ -167,11 +167,12 @@ const translations2 = {
      "admin": "Admin",
      "analyst": "Analyst",
      "assign_error": "You can only set one administrator at a time.",
-     "change_role": "Change role",
      "customer": "User",
      "customer_admin": "Manager",
      "days_ago": " day(s) ago",
      "developer": "Developer",
+     "edit": "Edit",
+     "edit_user_title": "Edit user information",
      "email": "someone@domain.com",
      "error_phone": "The phone number must not contain letters or special " +
                     "characters",

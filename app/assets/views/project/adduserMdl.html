@@ -5,8 +5,17 @@
         </div>
         <div class="modal-body form" id="modal-body">
             <div class="form-group" data-parsley-validate="">
-                <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.textbox' | translate}}</label>
-                <input rows="1" id="emailInput" class="form-control" data-parsley-type-message="{{'search_findings.tab_users.wrong_format' | translate}}" data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}" required="" type="email"   style="resize:none;" ng-model="newUserInfo.userEmail" translate-attr="{ placeholder: 'search_findings.tab_users.email' }" required>
+                <label ng-show="!disableOnEdit"><label style="color: #f22;">* </label>{{'search_findings.tab_users.textbox' | translate}}</label>
+                <input rows="1"
+                    id="emailInput"
+                    ng-show="!disableOnEdit"
+                    class="form-control"
+                    data-parsley-type-message="{{'search_findings.tab_users.wrong_format' | translate}}"
+                    data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}"
+                    required=""
+                    type="email"
+                    ng-model="newUserInfo.userEmail"
+                    translate-attr="{ placeholder: 'search_findings.tab_users.email' }" required>
                 <br>
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_organization' | translate}}:</label>
                 <input rows="1" id="organizationInput" class="form-control" data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}" data-parsley-required="true" style="resize:none;" ng-model="newUserInfo.userOrganization" >

@@ -194,25 +194,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Set the customer admin  of a project.
-       * @function changeUserRole
-       * @param {String} email Email of the user.
-       * @param {String} role New user role.
-       * @param {String} project New user project.
-       * @member integrates.projectFtry2
-       * @return {Object} Response by SQL DB
-       */
-      "changeUserRole" (email, role, project) {
-        const oopsAc = "An error occurred setting project admin";
-        return $xhr.post($q, `${BASE.url}change_user_role`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          email,
-          project,
-          role
-        }, oopsAc);
-      },
-
-      /**
        * Admin delete a draft.
        * @function deleteDraft
        * @param {String} findingid Numeric id of the finding
@@ -238,6 +219,23 @@ angular.module("FluidIntegrates").factory(
         const oopsAc = "An error occurred getting drafts";
         return $xhr.get($q, `${BASE.url}get_drafts`, {
           "_": parseInt(secureRandom(5).join(""), 10),
+          project
+        }, oopsAc);
+      },
+
+      /**
+       * Set the customer admin  of a project.
+       * @function changeUserRole
+       * @param {String} data New user data.
+       * @param {String} project New user project.
+       * @member integrates.projectFtry2
+       * @return {Object} Response by SQL DB
+       */
+      "editUser" (data, project) {
+        const oopsAc = "An error occurred setting project admin";
+        return $xhr.post($q, `${BASE.url}edit_user`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data,
           project
         }, oopsAc);
       },

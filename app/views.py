@@ -1686,28 +1686,67 @@ def remove_access_integrates(request):
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
 @require_project_access
-def change_user_role(request):
-    email = request.POST.get('email', "")
-    role = request.POST.get('role', "")
+def edit_user(request):
+    parameters = request.POST.dict()
+    role = parameters['data[userRole]']
+    email = parameters['data[userEmail]']
     project = request.POST.get('project', "")
     if request.session['role'] == 'admin':
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):
             if integrates_dao.assign_role(email, role) is None:
-                if role == 'customeradmin':
-                    integrates_dao.add_user_to_project_dynamo(project.lower(), email, role)
-                elif is_customeradmin(project, email):
-                    integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
+                edit_user_information(parameters, project, request)
                 return util.response([], 'Success', False)
+            else:
+                return util.response([], 'Error', True)
     elif is_customeradmin(project, request.session['username']):
         if role == 'customer'or role == 'customeradmin':
             if integrates_dao.assign_role(email, role) is None:
-                if role == 'customeradmin':
-                    integrates_dao.add_user_to_project_dynamo(project.lower(), email, role)
-                elif is_customeradmin(project, email):
-                    integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
+                edit_user_information(parameters, project, request)
                 return util.response([], 'Success', False)
+            else:
+                return util.response([], 'Error', True)
     return util.response([], 'Error', True)
+
+def edit_user_information(parameters, project, request):
+    project = project.lower()
+    role = parameters['data[userRole]']
+    email = parameters['data[userEmail]']
+    responsibility = parameters['data[userEmail]']
+    phone = parameters['data[userPhone]']
+    organization = parameters['data[userOrganization]']
+    len_responsibility = len(responsibility)
+    integrates_dao.assign_company(email, organization.lower())
+    if 0 < len_responsibility <= 50:
+        integrates_dao.add_project_access_dynamo(email, project, "responsibility", responsibility)
+    else:
+        util.cloudwatch_log(
+            request,
+            'Security: ' + request.session['username'] + 'Attempted to add ' +
+            'responsibility to project ' + project + ' without validation'
+        )
+    if phone:
+        phone_number = phone[1:]
+        if phone_number.isdigit():
+            integrates_dao.add_phone_to_user_dynamo(email, phone)
+        else:
+            util.cloudwatch_log(
+                request,
+                'Security: ' + request.session['username'] + 'Attempted to ' +
+                'add phone to user without validation'
+            )
+    else:
+        util.cloudwatch_log(
+            request,
+            'Security: ' + request.session['username'] + 'Attempted to ' +
+            'add phone to user without validation'
+        )
+    if role == 'customeradmin':
+        integrates_dao.add_user_to_project_dynamo(project, email, role)
+    elif is_customeradmin(project, email):
+        integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
+
+
 
 @never_cache
 @require_http_methods(["POST"])
