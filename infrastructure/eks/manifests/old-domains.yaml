@@ -1,0 +1,60 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: cert-issuer
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: technology@fluidattacks.com
+    privateKeySecretRef:
+      name: letsencrypt-account-key
+    http01: {}
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: certificate
+  namespace: serves
+spec:
+  secretName: tls-old-domains
+  dnsNames:
+  - fluidsignal.com.co
+  - fluidsignal.co
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - fluidsignal.com.co
+      - fluidsignal.co
+  issuerRef:
+    name: cert-issuer
+    kind: ClusterIssuer
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-old-domains
+  namespace: serves
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+spec:
+  tls:
+  - hosts:
+    - fluidsignal.com.co
+    - fluidsignal.co
+    secretName: tls-old-domains
+  rules:
+  - host: fluidsignal.com.co
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: fluidsignal.co
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80

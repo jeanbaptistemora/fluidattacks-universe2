@@ -1,24 +1,31 @@
 #!/usr/bin/env bash
+set -e
+
+# Set context to avoid using the --namespace flag in every command
+kubectl config set-context $(kubectl config current-context) \
+  --namespace serves
 
 # Install NGINX Ingress chart to route traffic within the cluster
-if ! helm list --tls | grep 'controller'; then
-  helm init --client-only
-  helm repo update
-  helm install stable/nginx-ingress \
-    --name controller --namespace serves \
-    --set rbac.create=true --tls
-fi
+# and Cert-Manager to produce valid certificates for old domains
+helm init --client-only
+helm repo update
+helm install stable/nginx-ingress \
+  --name controller --namespace serves \
+  --set rbac.create=true --tls 2>/dev/null || \
+  echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
+helm install stable/cert-manager \
+  --name certificate --namespace default --tls 2>/dev/null || \
+  echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
 
-# Set TLS certificates in the NGINX server
+# Set TLS certificates for fluidattacks.com and fluid.ls in the NGINX server
 sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
   s/$FA_TLS_CERT/'"$FLUIDATTACKS_TLS_CERT"'/;
   s/$FLA_TLS_CERT/'"$FLUIDLA_TLS_CERT"'/' \
   eks/manifests/ingress-tls.yaml
 kubectl apply -f eks/manifests/ingress-tls.yaml
 
-# Set context to avoid using the --namespace flag in every command
-kubectl config set-context $(kubectl config current-context) \
-  --namespace serves
+# Set Ingress rule and generate certificate for old domains
+kubectl apply -f eks/manifests/old-domains.yaml
 
 # Customize NGINX configuration
 kubectl patch cm controller-nginx-ingress-controller \
