@@ -139,7 +139,7 @@ CACHE_CONTENT = True
 LOAD_CONTENT_CACHE = True
 
 # Disqus
-DISQUS_SITENAME = 'fluidsignal'
+DISQUS_SITENAME = 'fluidattacks'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
