@@ -290,10 +290,6 @@ msgstr "Logo de Twitter"
 msgid "Footer-logo-3"
 msgstr "Logo de Facebook"
 
-#: templates/footer.html:9
-msgid "Footer-logo-4"
-msgstr "Logo de Google Plus"
-
 #: templates/footer.html:10
 msgid "Footer-logo-5"
 msgstr "Logo de LinkedIn"

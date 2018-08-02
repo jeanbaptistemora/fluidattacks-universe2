@@ -287,10 +287,6 @@ msgstr "Twitter logo"
 msgid "Footer-logo-3"
 msgstr "Facebook logo"
 
-#: templates/footer.html:9
-msgid "Footer-logo-4"
-msgstr "Google Plus logo"
-
 #: templates/footer.html:10
 msgid "Footer-logo-5"
 msgstr "LinkedIn logo"
