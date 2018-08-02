@@ -41,9 +41,12 @@ You will not be able to face functional Python
 and survive if you do not know the basic Python.
 If this is your case, do not feel bad,
 you can not walk if you don't even know how to stand,
-so go and scrape your knees in a Python playground,
-when you think you're ready, come back to the road,
-we'll always be waiting for you.
+so go and scrape your knees in a Python playground.
+Also, get some context by reading
+[button]#link:/web/en/blog/why-we-go-functional/[Why we go functional?]#,
+which is the prequel of this article.
+When you think you're ready,
+come back to the road, always be waiting for you.
 
 == Prepare your backpack
 
@@ -56,7 +59,9 @@ meaning that it supports several programing paradigms in its code.
 Paradigms can be the object-oriented,
 procedural, functional, among others.
 There are also libraries with functional features
-such as +itertools+ or +functools+ (of which we will go into details later)
+such as link:https://docs.python.org/2/library/itertools.html[+itertools+] or
+link:https://docs.python.org/2/library/functools.html[+functools+]
+(of which we will go into details later)
 that are included in the basic installation.
 
 == Fist baby steps
@@ -141,13 +146,10 @@ is applied to a list, for example:
 ----
 integer_list = [7, 8, 9]
 
-def greater_than_seven (x):
-  if x > 7:
-    return true
-  else:
-    return false
+def greater_than (x, y):
+  return True if x > y else False
 
-filter(greater_than_seven, integer_list) # [8, 9]
+filter(lambda x: greater_than(x, 7), integer_list) # [8, 9]
 ----
 
 These are really useful and simple functions to start coding
@@ -181,7 +183,8 @@ map(lambda x: x + 1,integer_list) # [8, 9, 10]
 
 We are now next to world-class athletes
 and we can learn a lot from them.
-One of the most prominent is +Itertools+,
+One of the most prominent is
+link:https://docs.python.org/2/library/itertools.html[+itertools+],
 a module designed to make efficient loops
 in iterable objects, based on languages such as +Haskell+ and +SML+.
 In fact, you already know some functions
@@ -190,7 +193,7 @@ but now they come with the whole family and on steroids.
 
 Some of the representative methods of this library are:
 
-.Example of some Itertools methods.
+.Example of some itertools methods.
 [source, python]
 ----
 import itertools
@@ -257,22 +260,25 @@ mult(4)
 How about taking our trip to the next level?
 We will learn something more sophisticated
 and exclusive than all of the above.
-I will teach you +Functools+,
+I will teach you
+link:https://docs.python.org/2/library/functools.html[+functools+],
 a module with higher-level functions,
 created with the specific purpose
 of making Python more functional.
-This module, like +itertools+, is in the core of Python.
+This module, like
+link:https://docs.python.org/2/library/itertools.html[+itertools+],
+is in the core of Python.
 
 Some examples of how to use it:
 
-.Example of some Functools methods.
+.Example of some functools methods.
 [source, python]
 ----
 import functools
 
-""" Partial, allows to partially execute a function, generating a new function with fewer input arguments """
+""" Partial, generates a function by partially executing an input function """
 def multiply(a,b):
-        return a * b
+  return a * b
 
 partial_multiply = partial(multiply,6)
 print(partial_multiply(2)) # 12
@@ -293,6 +299,11 @@ update_wrapper(bar, foo)
 bar.__doc__  # 'This is a foo attribute'
 ----
 
+You can even find fantastic external libraries
+that will help you to raise your code to a higher functional level.
+Some of these external libraries are
+link:https://pypi.org/project/PyMonad/[+PyMonad+]
+and link:https://pydash.readthedocs.io/en/latest/[+Pydash+].
 
 == Limit is in your mind
 
@@ -319,6 +330,9 @@ but from time to time there are some specimens
 who open their minds and take risks,
 those are who drive humanity to a superior level.
 Why not take the risk using functional Python then? Nothing to lose.
+We actually take the risk with functional Python
+and the result was one of our most awesome and acclaimed products:
+[button]#link:https://fluidsignal.gitlab.io/asserts/[Asserts]#.
 
 == Conclusions
 
