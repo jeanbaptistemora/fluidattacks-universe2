@@ -76,10 +76,16 @@ angular.module("FluidIntegrates").controller(
 
     $scope.initializeModal = function initializeModal () {
       $scope.legalNotice = {
-        "accept": $translate.instant("legal.disclosureWarning.acceptBtn"),
-        "remember": $translate.instant("legal.disclosureWarning.remember"),
-        "text": $translate.instant("legal.disclosureWarning.description"),
-        "title": $translate.instant("legal.disclosureWarning.title")
+        "accept": {
+          "text": $translate.instant("legalNotice.acceptBtn.text"),
+          "tooltip": $translate.instant("legalNotice.acceptBtn.tooltip")
+        },
+        "remember": {
+          "text": $translate.instant("legalNotice.rememberCbo.text"),
+          "tooltip": $translate.instant("legalNotice.rememberCbo.tooltip")
+        },
+        "text": $translate.instant("legalNotice.description"),
+        "title": $translate.instant("legalNotice.title")
       };
     };
 

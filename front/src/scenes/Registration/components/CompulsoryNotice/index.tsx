@@ -6,10 +6,12 @@ import React from "react";
  */
 interface IMdlProps {
   btnAcceptText: string;
+  btnAcceptTooltip: string;
   id: string;
+  noticeText: string;
+  noticeTitle: string;
   rememberText: string;
-  text: string;
-  title: string;
+  rememberTooltip: string;
   onClick(): void;
 }
 /**
@@ -21,12 +23,15 @@ const compulsoryNotice: React.StatelessComponent<IMdlProps> =
     <div className="modal-colored-header" id={props.id}>
       <div className="modal-content">
         <div className="modal-header">
-          <h3 className="modal-title">{props.title}</h3>
+          <h3 className="modal-title">{props.noticeTitle}</h3>
         </div>
         <div className="modal-body">
-          <p>{props.text}</p>
-          <p>
-            <input type="checkbox" id="remember_decision"/>
+          <p>{props.noticeText}</p>
+          <p title={props.rememberTooltip}>
+            <input
+              type="checkbox"
+              id="remember_decision"
+            />
             {props.rememberText}
           </p>
         </div>
@@ -35,6 +40,7 @@ const compulsoryNotice: React.StatelessComponent<IMdlProps> =
             className="btn btn-primary"
             onClick={props.onClick}
             type="button"
+            title={props.btnAcceptTooltip}
           >
             {props.btnAcceptText}
           </button>
@@ -48,11 +54,13 @@ const compulsoryNotice: React.StatelessComponent<IMdlProps> =
  */
 compulsoryNotice.propTypes = {
   btnAcceptText: PropTypes.string.isRequired,
+  btnAcceptTooltip: PropTypes.string,
   id: PropTypes.string.isRequired,
+  noticeText: PropTypes.string.isRequired,
+  noticeTitle: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   rememberText: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  rememberTooltip: PropTypes.string,
 };
 
 export = compulsoryNotice;

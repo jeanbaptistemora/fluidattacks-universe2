@@ -63,11 +63,13 @@ angular
       compulsoryNotice,
       [
         "btnAcceptText",
+        "btnAcceptTooltip",
         "id",
         "onClick",
         "rememberText",
-        "text",
-        "title",
+        "rememberTooltip",
+        "noticeText",
+        "noticeTitle",
       ],
     ),
   );

@@ -21,10 +21,12 @@ describe('Compulsory notice modal', () => {
     const wrapper = shallow(
       <CompulsoryNotice
         id="testModal"
-        title="Unit title"
-        text="Unit test"
+        noticeTitle="Unit title"
+        noticeText="Unit test"
         btnAcceptText="Accept"
+        btnAcceptTooltip="Accept help text"
         rememberText="Remember?"
+        rememberTooltip="Remember help text"
         onClick={testAlert}
       />
     );
@@ -38,8 +40,11 @@ describe('Compulsory notice modal', () => {
             </div>
             <div className="modal-body">
               <p>Unit test</p>
-              <p>
-                <input type="checkbox" id="remember_decision"/>
+              <p title="Remember help text">
+                <input
+                  type="checkbox"
+                  id="remember_decision"
+                />
                 Remember?
               </p>
             </div>
@@ -48,6 +53,7 @@ describe('Compulsory notice modal', () => {
                 className="btn btn-primary"
                 onClick={testAlert}
                 type="button"
+                title="Accept help text"
               >
                 Accept
               </button>
