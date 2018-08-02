@@ -692,9 +692,7 @@ msgstr "Servicios"
 #: templates/landing.html:28
 msgid "Index-msg-1"
 msgstr ""
-"Usando una metodología de caja blanca o revisión de código, ya sea en "
-"cada aplicación o en el conjunto entero de aplicaciones, "
-"atacamos su software durante todo el ciclo de vida o en una etapa específica:"
+"Atacamos su software durante todo el ciclo de vida o en una etapa específica:"
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"
@@ -726,15 +724,14 @@ msgstr "comparativo"
 
 #: templates/landing.html:36
 msgid "Index-header-3.1"
-msgstr "Comparativo"
+msgstr "comparativo."
 
-#: templates/landing.html:37
-msgid "Index-serv-4"
-msgstr "diferenciadores"
-
-#: templates/landing.html:38
-msgid "Index-header-3.2"
-msgstr "Diferenciadores"
+#: templates/landing.html:36
+msgid "Serv-txt"
+msgstr ""
+"Si aún no decide qué servicio "
+"se ajusta mejor a sus necesidades "
+"visite nuestra página  "
 
 #: templates/landing.html:39
 msgid "Index-tst-1"

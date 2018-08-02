@@ -687,10 +687,7 @@ msgstr "Services"
 #: templates/landing.html:28
 msgid "Index-msg-1"
 msgstr ""
-"Using a white-box methodology or code review, either on each application "
-"or the complete suite of applications, "
-"we attack your software during all the lifecycle or in a specific stage"
-
+"We attack your software during all the lifecycle or in a specific stage"
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"
@@ -722,15 +719,14 @@ msgstr "comparative"
 
 #: templates/landing.html:36
 msgid "Index-header-3.1"
-msgstr "Comparative"
+msgstr "comparative page."
 
-#: templates/landing.html:37
-msgid "Index-serv-4"
-msgstr "differentiators"
-
-#: templates/landing.html:38
-msgid "Index-header-3.2"
-msgstr "Differentiators"
+#: templates/landing.html:36
+msgid "Serv-txt"
+msgstr ""
+"If you haven't made up your mind "
+"about which service best suits your needs "
+"please visit our "
 
 #: templates/landing.html:39
 msgid "Index-tst-1"
