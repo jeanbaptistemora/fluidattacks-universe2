@@ -106,7 +106,7 @@ angular.module("FluidIntegrates").controller(
                     const msg = "Couldn't track session length (Adblock)";
                     Rollbar.warning(`Warning: ${msg}`);
                   }
-                  const checkbox = angular.element("#remember_accept_legal");
+                  const checkbox = angular.element("#remember_decision");
                   const remember = checkbox.is(":checked");
                   const acceptReq = registerFactory.acceptLegal(remember);
                   acceptReq.then(() => {

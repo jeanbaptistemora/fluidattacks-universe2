@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import LegalNotice from './index';
+import CompulsoryNotice from './index';
 import 'mocha'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -12,14 +12,14 @@ function testAlert(){
   alert("test");
 }
 
-describe('Legal notice modal', () => {
+describe('Compulsory notice modal', () => {
   it('should return a function', () => {
-    expect(typeof(LegalNotice)).to.equal('function');
+    expect(typeof(CompulsoryNotice)).to.equal('function');
   });
 
   it('should be rendered', () => {
     const wrapper = shallow(
-      <LegalNotice
+      <CompulsoryNotice
         id="testModal"
         title="Unit title"
         text="Unit test"
@@ -39,7 +39,7 @@ describe('Legal notice modal', () => {
             <div className="modal-body">
               <p>Unit test</p>
               <p>
-                <input type="checkbox" id="remember_accept_legal"/>
+                <input type="checkbox" id="remember_decision"/>
                 Remember?
               </p>
             </div>

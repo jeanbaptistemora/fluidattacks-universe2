@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 /**
- *  LegalNotice properties
+ *  CompulsoryNotice properties
  */
 interface IMdlProps {
   btnAcceptText: string;
@@ -13,9 +13,9 @@ interface IMdlProps {
   onClick(): void;
 }
 /**
- * LegalNotice component
+ * CompulsoryNotice component
  */
-const legalNotice: React.StatelessComponent<IMdlProps> =
+const compulsoryNotice: React.StatelessComponent<IMdlProps> =
   (props: IMdlProps): JSX.Element => (
   <React.StrictMode>
     <div className="modal-colored-header" id={props.id}>
@@ -26,7 +26,7 @@ const legalNotice: React.StatelessComponent<IMdlProps> =
         <div className="modal-body">
           <p>{props.text}</p>
           <p>
-            <input type="checkbox" id="remember_accept_legal"/>
+            <input type="checkbox" id="remember_decision"/>
             {props.rememberText}
           </p>
         </div>
@@ -44,9 +44,9 @@ const legalNotice: React.StatelessComponent<IMdlProps> =
   </React.StrictMode>
 );
 /**
- *  LegalNotice propTypes Definition
+ *  CompulsoryNotice propTypes Definition
  */
-legalNotice.propTypes = {
+compulsoryNotice.propTypes = {
   btnAcceptText: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -55,4 +55,4 @@ legalNotice.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export = legalNotice;
+export = compulsoryNotice;

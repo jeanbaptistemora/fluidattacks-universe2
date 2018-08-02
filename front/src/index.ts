@@ -8,7 +8,7 @@ import { react2angular } from "react2angular";
 import frame from "./components/Frame/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
-import legalNotice from "./scenes/Registration/components/LegalNotice/index";
+import compulsoryNotice from "./scenes/Registration/components/CompulsoryNotice/index";
 /**
  * @url: #/project/:name/indicators
  * @page: indicators.html
@@ -53,14 +53,14 @@ angular
  * @url: /registration
  * @page: registration.html
  * @controllers: ["registerCtrl"]
- * @tag: <legal-notice/>
+ * @tag: <compulsory-notice/>
  */
 angular
   .module("FluidIntegrates")
   .component(
-    "legalNotice",
+    "compulsoryNotice",
     react2angular(
-      legalNotice,
+      compulsoryNotice,
       [
         "btnAcceptText",
         "id",
