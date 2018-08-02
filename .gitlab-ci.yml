@@ -185,7 +185,7 @@ fluidasserts:
   stage: postdeploy
   script:
     - docker pull fluidattacks/asserts
-    - docker run -e FA_STRICT="true" -w /code
+    - docker run -t -e FA_STRICT="true" -w /code
       -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
       -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
       -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
