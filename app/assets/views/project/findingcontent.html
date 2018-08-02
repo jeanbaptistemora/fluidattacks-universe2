@@ -122,23 +122,18 @@
                       <div class="row">
                           <div class="col-md-12 col-sm-12 col-xs-12">
                               <div class="row table-row" ng-show="isManager && hasAccess">
-                                  <div class="row">
-                                      <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
-                                          <button id="edit" class="btn btn-primary btn-block"
-                                                  ng-click="descriptionEditable();">
-                                                  <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
-                                          </button>
-                                      </div>
+                                  <div class="col-md-2 col-md-offset-8 col-xs-6 col-sm-6">
+                                      <button class="btn btn-success btn-block"
+                                              ng-show="!onlyReadableTab1"
+                                              ng-click="updateDescription();">
+                                              <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
+                                      </button>
                                   </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
-                                          <button class="btn btn-success btn-block"
-                                                  ng-show="!onlyReadableTab1"
-                                                  ng-click="updateDescription();">
-                                                  <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
-                                          </button>
-                                      </div>
+                                  <div class="col-md-2 col-xs-6 col-sm-6">
+                                      <button id="edit" class="btn btn-primary btn-block"
+                                              ng-click="descriptionEditable();">
+                                              <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
+                                      </button>
                                   </div>
                               </div>
                               <div class="finding-verified row table-row" style="display: none;">
