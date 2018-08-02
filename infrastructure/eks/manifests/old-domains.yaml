@@ -20,6 +20,9 @@ spec:
   dnsNames:
   - fluidsignal.com.co
   - fluidsignal.co
+  - fluidsignal.com
+  - fluid.com.co
+  - fluid.la
   acme:
     config:
     - http01:
@@ -27,6 +30,9 @@ spec:
       domains:
       - fluidsignal.com.co
       - fluidsignal.co
+      - fluidsignal.com
+      - fluid.com.co
+      - fluid.la
   issuerRef:
     name: cert-issuer
     kind: ClusterIssuer
@@ -53,6 +59,24 @@ spec:
           serviceName: alg
           servicePort: 80
   - host: fluidsignal.co
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: fluidsignal.com
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: fluid.com.co
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: fluid.la
     http:
       paths:
       - backend:
