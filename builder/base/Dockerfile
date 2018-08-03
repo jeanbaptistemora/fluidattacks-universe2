@@ -1,5 +1,8 @@
 FROM debian:stable-slim
 
+ARG vault_addr
+ARG vault_ca
+
 WORKDIR /app
 
 COPY . /app
@@ -53,7 +56,7 @@ RUN apt-get update -qq && \
     gem install -N sass && \
 
     # Download and install tidy-html
-    curl -sSLo tidy.deb https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb && \
+    curl -LSo tidy.deb https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb && \
     dpkg -i tidy.deb && \
 
     # Download only the necessary .js to implement TipueSearch plugin, from its repository
@@ -85,15 +88,15 @@ RUN apt-get update -qq && \
     cd /app && \
 
     # Download the PlantUML filter for Asciidoc and install it, along with Java to execute it
-    curl -sSLo plantuml.zip \
+    curl -LSo plantuml.zip \
         https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip && \
         asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ && \
-    curl -sSLo java.tar.gz \
+    curl -LSo java.tar.gz \
         http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808 && \
         tar zxvf java.tar.gz && \
 
     # Download and install shellcheck to lint shell sripts
-    curl -sSLo shellcheck.tar.xz \
+    curl -LSo shellcheck.tar.xz \
         https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz && \
         tar xvf shellcheck.tar.xz && \
         mv shellcheck-stable/shellcheck /bin/shellcheck && \
@@ -117,6 +120,14 @@ RUN apt-get update -qq && \
     export PATTERN=$(head -n 2 /app/asciidoc.conf | tail -n -1 | sed 's/\\/\\\\/g') && \
     sed -i 's/\[macros\]/\[macros\]\n'"$PATTERN"'/' /etc/asciidoc/asciidoc.conf && \
 
+    # Install Vault
+    curl -LSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.3_linux_amd64.zip && \
+       unzip vault.zip && \
+       mv vault /usr/local/bin && \
+       rm vault.zip && \
+    echo "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt && \
+       update-ca-certificates && \
+
     # Remove and uninstall all files and dependecies not needed for the generation of the site
     apt-get --purge remove -qqy \
         apt-transport-https \
@@ -139,6 +150,9 @@ RUN apt-get update -qq && \
         shellcheck-stable \
         tidy.deb \
         yarn.lock
+
+# Set address for Vault communication
+ENV VAULT_ADDR $vault_addr
 
 # Add the uglifyjs and java executables to the PATH
 ENV PATH=$PATH:/app/node_modules/uglify-js/bin/:/app/jre1.8.0_161/bin/

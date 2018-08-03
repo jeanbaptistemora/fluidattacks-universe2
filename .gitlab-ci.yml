@@ -6,20 +6,42 @@ stages:
   - review
   - deployment
 
+before_script:
+  - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
+  - echo "$CI_REGISTRY_PASSWORD" |
+      docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+
+after_script:
+  - docker logout "$CI_REGISTRY"
+
+.vault_login: &vault_login
+  before_script:
+    - export VAULT_TOKEN=$(curl --request POST
+        --data '{"role_id":"'"$WEB_ROLE_ID"'","secret_id":"'"$WEB_SECRET_ID"'"}'
+        "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
+        jq -r '.auth.client_token')
+    - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
+    - echo "$CI_REGISTRY_PASSWORD" |
+        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+
 builder:
 # Only builds from scratch if the Dockerfile has changed
-  image: docker:17
+  image: registry.gitlab.com/fluidsignal/serves:builder
   services:
     - docker:dind
   stage: build
   script:
-    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-    - docker pull $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+    - aws s3 cp
+        s3://$VAULT_S3_BUCKET/vault-ca.crt
+        .
+    - docker pull "$DOCKER_BASENAME:base"
     - docker build
-        --cache-from $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
-        -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+        --build-arg vault_addr="https://$VAULT_S3_BUCKET.com"
+        --build-arg vault_ca="$(cat vault-ca.crt | base64 | tr -d '\n')"
+        --cache-from "$DOCKER_BASENAME:base"
+        -t "$DOCKER_BASENAME:base"
         builder/base/
-    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+    - docker push "$DOCKER_BASENAME:base"
     - docker logout "$CI_REGISTRY"
   retry: 2
 
@@ -62,12 +84,10 @@ checks:
     - ./html-lint.sh
     - mkdir -p review/output/
     - mv output/web review/output/
-    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker build --no-cache
-        -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
+        -t "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
         review/
-    - docker push
-        $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
+    - docker push "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
     - rm -rf output/ && rm -rf review/output
   retry: 2
   artifacts:
@@ -82,11 +102,13 @@ checks:
 review-web:
 # Deploy Review Apps
   stage: review
-  image: lwolf/kubectl_deployer
+  image: registry.gitlab.com/fluidsignal/serves:builder
   before_script:
-    - apk update && apk add bash
+    - echo 'Deploying Review Apps...''
   script:
     - ./review/cluster-config.sh
+  after_script:
+    - echo 'Review Apps deployed!'
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     url: https://$CI_PROJECT_NAME.$ENV_DNS/$CI_COMMIT_REF_SLUG/web/en/
@@ -97,7 +119,7 @@ review-web:
 stop-review:
 # Erase environment of the Review Apps
   stage: review
-  image: lwolf/kubectl_deployer
+  image: registry.gitlab.com/fluidsignal/serves:builder
   variables:
     GIT_STRATEGY: none
   script:
@@ -112,7 +134,7 @@ stop-review:
     - if
         kubectl get deployments | grep 'review-*';
         then kubectl create -f current-ingress.yaml;
-        fi
+      fi
   when: manual
   environment:
     name: review/$CI_COMMIT_REF_SLUG
@@ -122,8 +144,8 @@ deploy:
 # Deploy website to Amazon S3
   stage: deployment
   environment: production
+  <<: *vault_login
   script:
-    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     # Download cache from previous builds
     - if curl --fail -Lo artifacts.zip
         --header Private-Token:$GL_ACCESS_TOKEN
@@ -161,19 +183,18 @@ deploy:
     # Create container that deploys website
     - mv output builder/master
     - docker build --no-cache
-        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+        -t "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
         builder/master/
     - docker push
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+        "$$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
     - docker run
-        -e AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
-        -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
-        -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME"
-        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+        -e AWS_ACCESS_KEY_ID="$(vault read -field=aws_access_key_id secret/web)"
+        -e AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_secret_access_key secret/web)"
+        -e S3_BUCKET_NAME="$(vault read -field=s3_bucket secret/web)"
+        "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
         bash -c "./deploy.sh && ./amz-redirect.sh"
     # Erase output folder to reduce artifact size since it is untracked
     - rm -rf builder/master/output
-    - docker logout "$CI_REGISTRY"
   retry: 2
   artifacts:
     untracked: true
