@@ -1,6 +1,8 @@
 // tslint:disable jsx-no-lambda, no-unbound-method
 import PropTypes from "prop-types";
 import React from "react";
+import { Button } from "react-bootstrap";
+import style from "../../../../components/Modal/index.css";
 /**
  *  CompulsoryNotice properties
  */
@@ -12,7 +14,7 @@ interface IMdlProps {
   noticeTitle: string;
   rememberText: string;
   rememberTooltip: string;
-  onClick(): void;
+  onAccept(): void;
 }
 /**
  * CompulsoryNotice component
@@ -20,31 +22,28 @@ interface IMdlProps {
 const compulsoryNotice: React.StatelessComponent<IMdlProps> =
   (props: IMdlProps): JSX.Element => (
   <React.StrictMode>
-    <div className="modal-colored-header" id={props.id}>
-      <div className="modal-content">
-        <div className="modal-header">
-          <h3 className="modal-title">{props.noticeTitle}</h3>
-        </div>
-        <div className="modal-body">
-          <p>{props.noticeText}</p>
-          <p title={props.rememberTooltip}>
-            <input
-              type="checkbox"
-              id="remember_decision"
-            />
-            {props.rememberText}
-          </p>
-        </div>
-        <div className="modal-footer">
-          <button
-            className="btn btn-primary"
-            onClick={props.onClick}
-            type="button"
-            title={props.btnAcceptTooltip}
-          >
-            {props.btnAcceptText}
-          </button>
-        </div>
+    <div className={style.modalcontent} id={props.id}>
+      <div className={style.modalheader}>
+        <h3 className={style.modaltitle}>{props.noticeTitle}</h3>
+      </div>
+      <div className={style.modalbody}>
+        <p>{props.noticeText}</p>
+        <p title={props.rememberTooltip}>
+          <input
+            type="checkbox"
+            id="remember_decision"
+          />
+          {props.rememberText}
+        </p>
+      </div>
+      <div className={style.modalfooter}>
+        <Button
+          bsStyle="primary"
+          title={props.btnAcceptTooltip}
+          onClick={props.onAccept}
+        >
+          {props.btnAcceptText}
+        </Button>
       </div>
     </div>
   </React.StrictMode>
@@ -58,7 +57,7 @@ compulsoryNotice.propTypes = {
   id: PropTypes.string.isRequired,
   noticeText: PropTypes.string.isRequired,
   noticeTitle: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onAccept: PropTypes.func.isRequired,
   rememberText: PropTypes.string.isRequired,
   rememberTooltip: PropTypes.string,
 };

@@ -65,7 +65,7 @@ angular
         "btnAcceptText",
         "btnAcceptTooltip",
         "id",
-        "onClick",
+        "onAccept",
         "rememberText",
         "rememberTooltip",
         "noticeText",
