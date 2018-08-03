@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Button } from "react-bootstrap";
-import style from "../../../../components/Modal/index.css";
+import style from "./index.css";
 /**
  *  CompulsoryNotice properties
  */
@@ -22,11 +22,11 @@ interface IMdlProps {
 const compulsoryNotice: React.StatelessComponent<IMdlProps> =
   (props: IMdlProps): JSX.Element => (
   <React.StrictMode>
-    <div className={style.modalcontent} id={props.id}>
-      <div className={style.modalheader}>
-        <h3 className={style.modaltitle}>{props.noticeTitle}</h3>
+    <div className={style.content} id={props.id}>
+      <div className={style.header}>
+        <h3 className={style.title}>{props.noticeTitle}</h3>
       </div>
-      <div className={style.modalbody}>
+      <div className={style.body}>
         <p>{props.noticeText}</p>
         <p title={props.rememberTooltip}>
           <input
@@ -36,7 +36,7 @@ const compulsoryNotice: React.StatelessComponent<IMdlProps> =
           {props.rememberText}
         </p>
       </div>
-      <div className={style.modalfooter}>
+      <div className={style.footer}>
         <Button
           bsStyle="primary"
           title={props.btnAcceptTooltip}

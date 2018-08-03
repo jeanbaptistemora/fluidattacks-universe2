@@ -6,7 +6,7 @@ import 'mocha'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Button } from "react-bootstrap";
-import style from "../../../../components/Modal/index.css";
+import style from "./index.css";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -35,11 +35,11 @@ describe('Compulsory notice modal', () => {
 
     expect(
       wrapper.contains(
-        <div className={style.modalcontent} id='testModal'>
-          <div className={style.modalheader}>
-            <h3 className={style.modaltitle}>Unit title</h3>
+        <div className={style.content} id='testModal'>
+          <div className={style.header}>
+            <h3 className={style.title}>Unit title</h3>
           </div>
-          <div className={style.modalbody}>
+          <div className={style.body}>
             <p>Unit test</p>
             <p title='Remember help text'>
               <input
@@ -49,7 +49,7 @@ describe('Compulsory notice modal', () => {
               Remember?
             </p>
           </div>
-          <div className={style.modalfooter}>
+          <div className={style.footer}>
             <Button
               bsStyle="primary"
               title="Accept help text"
