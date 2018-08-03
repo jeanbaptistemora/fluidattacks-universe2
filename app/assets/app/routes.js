@@ -56,6 +56,11 @@ angular.module("FluidIntegrates").config((
       "templateUrl": `${BASE.url}project_events?l=${localStorage.lang}`,
       "url": "/project/:project/events"
     }).
+    state("ProjectResources", {
+      "controller": "projectResourcesCtrl",
+      "templateUrl": `${BASE.url}project_resources?l=${localStorage.lang}`,
+      "url": "/project/:project/resources"
+    }).
     state("ProjectUsers", {
       "controller": "projectUsersCtrl",
       "templateUrl": `${BASE.url}project_users?l=${localStorage.lang}`,

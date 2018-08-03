@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^project_findings/?\.*$', views.project_findings),
     url(r'^project_drafts/?\.*$', views.project_drafts),
     url(r'^project_events/?\.*$', views.project_events),
+    url(r'^project_resources/?\.*$', views.project_resources),
     url(r'^project_users/?\.*$', views.project_users),
     # Comments tab.
     url(r'^get_comments/?\.*$', views.get_comments, name='get_comments'),
@@ -41,6 +42,7 @@ urlpatterns = [
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     url(r'^get_myevents/?\.*$', views.get_myevents, name='get_myevents'),
     url(r'^get_drafts/?\.*$', views.get_drafts, name='get_drafts'),
+    url(r'^add_repositories/?\.*$', views.add_repositories, name='add_repositories'),
     # Use of Formstack services.
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
@@ -71,6 +73,7 @@ urlpatterns = [
     url(r'^get_remediated/?$', views.get_remediated, name='get_remediated'),
     url(r'^finding_verified/?\.*$', views.finding_verified, name='finding_verified'),
     url(r'^update_evidences_files/?\.*$', views.update_evidences_files, name='update_evidences_files'),
+    url(r'^get_repositories/?\.*$', views.get_repositories, name='get_repositories'),
     # Documentation.
     url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$', views.project_to_pdf),
     url(r'^xls/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/?$', views.project_to_xls),

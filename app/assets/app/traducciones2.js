@@ -154,6 +154,16 @@ const traducciones2 = {
   },
   "tab_observations": {"observations_name": "Observaciones"},
   "tab_records": {"records_name": "Registros"},
+  "tab_resources":
+  {
+    "add_repository": "Agregar",
+    "branch": "Rama",
+    "password": "Contraseña",
+    "repository": "Repositorio",
+    "success": "Repositorio agregado exitosamente.",
+    "title": "Agregar información de los repositorios",
+    "username": "Usuario"
+  },
   "tab_tracking":
   {
     "cicle": "Ciclo",
@@ -209,6 +219,7 @@ const traducciones2 = {
     "eventualities": "Eventualidades",
     "findings": "Hallazgos",
     "indicators": "Indicadores",
+    "resources": "Insumos",
     "users": "Usuarios"
   }
 };

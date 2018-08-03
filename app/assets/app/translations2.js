@@ -153,6 +153,16 @@ const translations2 = {
        },
    "tab_observations": {"observations_name": "Observations"},
    "tab_records": {"records_name": "Records"},
+   "tab_resources":
+   {
+     "add_repository": "Add",
+     "branch": "Branch",
+     "password": "Password",
+     "repository": "Repository",
+     "success": "Repository added successfully.",
+     "title": "Add repository information",
+     "username": "Username"
+   },
    "tab_tracking":
      {
        "cicle": "Cycle",
@@ -208,6 +218,7 @@ const translations2 = {
     "eventualities": "Events",
     "findings": "Findings",
     "indicators": "Indicators",
+    "resources": "Resources",
     "users": "Users"
   }
 };

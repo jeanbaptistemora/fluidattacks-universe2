@@ -254,6 +254,30 @@ def project_events(request):
 
 @never_cache
 @authenticate
+def project_resources(request):
+    "resources view"
+    language = request.GET.get('l', 'en')
+    dicLang = {
+        "search_findings": {
+            "repositories_table": {
+                "branch": "Branch",
+                "repository": "Repository"
+            },
+        }
+    }
+    if language == "es":
+        dicLang = {
+            "search_findings": {
+                "repositories_table": {
+                    "branch": "Rama",
+                    "repository": "Repositorio"
+                },
+            }
+        }
+    return render(request, "project/resources.html", dicLang)
+
+@never_cache
+@authenticate
 def project_users(request):
     language = request.GET.get('l', 'en')
     dicLang = {
@@ -1777,3 +1801,48 @@ def access_to_project(request):
     if has_access_to_project(request.session['username'], project, request.session['role']):
         return util.response(True, 'success', False)
     return util.response(False, 'success', False)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
+def get_repositories(request):
+    """Get the repositories of a project."""
+    project = request.GET.get('project', None)
+    json_info = {}
+    project_info = integrates_dao.get_project_dynamo(project)
+    for info in project_info:
+        if "repository_info" in info:
+            json_info = info['repository_info']
+            break
+        else:
+            json_info = {}
+    return util.response(json_info, 'Success', False)
+
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
+def add_repositories(request):
+    """Add repositories to proyect."""
+    parameters = request.POST.dict()
+    project = request.POST.get('project', "")
+    total_repositories = parameters["data[totalRepo]"]
+    json_data = []
+    dic_data = {}
+    for repo in range(int(total_repositories)):
+        repository = 'data[repositories][{repo!s}][repository]'.format(repo=repo)
+        branch = 'data[repositories][{repo!s}][branch]'.format(repo=repo)
+        if parameters[repository] and parameters[branch]:
+            json_data.append({
+                'url': parameters[repository],
+                'branch': parameters[branch]
+            })
+    dic_data["repositories"] = json_data
+    add_repo = integrates_dao.add_repository_dynamo(project, dic_data, "repository_info", "repositories")
+    if add_repo:
+        return util.response([], 'Success', False)
+    else:
+        return util.response([], 'Error', True)

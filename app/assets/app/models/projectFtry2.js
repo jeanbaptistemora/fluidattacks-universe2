@@ -47,6 +47,23 @@ angular.module("FluidIntegrates").factory(
         }, oopsAc);
       },
 
+      /**
+       * Adding new repositories.
+       * @function addRepositories
+       * @param {String} data Repositories data.
+       * @param {String} project Project name.
+       * @member integrates.projectFtry2
+       * @return {Object} Update of repositories
+       */
+      "addRepositories" (data, project) {
+        const oopsAc = "An error occurred adding repostories";
+        return $xhr.post($q, `${BASE.url}add_repositories`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data,
+          project
+        }, oopsAc);
+      },
+
       "calCardinality" (data) {
         let openVulnerabilities = 0;
         let cardinalidadTotal = 0;
@@ -270,6 +287,21 @@ angular.module("FluidIntegrates").factory(
         return $xhr.post($q, `${BASE.url}remove_access_integrates`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           email,
+          project
+        }, oopsAc);
+      },
+
+      /**
+       * Return the repositories of a project
+       * @function repositoriesbyProject
+       * @param {String} project Project name
+       * @member integrates.projectFtry
+       * @return {Object} Dynamo response with the repositories of a project
+       */
+      "repositoriesByProject" (project) {
+        const oopsAc = "An error occurred getting repositories";
+        return $xhr.get($q, `${BASE.url}get_repositories`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
           project
         }, oopsAc);
       }

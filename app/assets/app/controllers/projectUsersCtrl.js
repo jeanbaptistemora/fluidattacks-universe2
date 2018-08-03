@@ -389,7 +389,7 @@ angular.module("FluidIntegrates").controller(
                   }
                   else if (response.error) {
                     Rollbar.error("Error: An error occurred " +
-                                                "changing a user role");
+                                                "editing user information");
                     $msg.error($translate.instant("proj_alerts.error_textsad"));
                   }
                 });
@@ -476,6 +476,9 @@ angular.module("FluidIntegrates").controller(
     };
     $scope.urlDrafts = function urlDrafts () {
       $state.go("ProjectDrafts", {"project": $scope.project});
+    };
+    $scope.urlResources = function urlResources () {
+      $state.go("ProjectResources", {"project": $scope.project});
     };
     $scope.init();
   }

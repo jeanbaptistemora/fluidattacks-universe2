@@ -1309,3 +1309,91 @@ def update_project_access_dynamo(
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+
+def add_repository_dynamo(project_name, data, attr_name, attr_field):
+    """Add repository information to projects table."""
+    table = dynamodb_resource.Table('FI_projects')
+    item = get_project_dynamo(project_name)
+    if not item:
+        try:
+            response = table.put_item(
+                Item={
+                    'project_name': project_name.lower(),
+                    attr_name: data,
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        return update_repository_dynamo(
+            project_name,
+            data, attr_name,
+            attr_field,
+            item
+        )
+
+
+def update_repository_dynamo(project_name, data, attr_name, attr_field, item):
+    """Update repository information to projects table."""
+    table = dynamodb_resource.Table('FI_projects')
+    data_repo = data["repositories"]
+    try:
+        if attr_name not in item[0]:
+            table.update_item(
+                Key={
+                    'project_name': project_name.lower(),
+                },
+                UpdateExpression='SET #attrName.#attrField = :val1',
+                ExpressionAttributeNames={
+                    '#attrName': attr_name,
+                    '#attrField': attr_field
+                },
+                ExpressionAttributeValues={
+                    ':val1': []
+                }
+            )
+        update_response = table.update_item(
+            Key={
+                'project_name': project_name.lower(),
+            },
+            UpdateExpression='SET #attrName.#attrField = list_append(#attrName.#attrField, :val1)',
+            ExpressionAttributeNames={
+                '#attrName': attr_name,
+                '#attrField': attr_field
+            },
+            ExpressionAttributeValues={
+                ':val1': data_repo
+            }
+        )
+        resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+def delete_repository_dynamo(project_name, attr_name):
+    table = dynamodb_resource.Table('FI_projects')
+    try:
+        response = table.update_item(
+            Key={
+                'project_name': project_name.lower(),
+            },
+            UpdateExpression='DELETE #rol :val1',
+            ExpressionAttributeNames={
+                '#rol': attr_name
+            },
+            ExpressionAttributeValues={
+                ':val1': {}
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError as e:
+        print e
+        rollbar.report_exc_info()
+        return False

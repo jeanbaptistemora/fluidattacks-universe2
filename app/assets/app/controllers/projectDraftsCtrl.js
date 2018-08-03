@@ -384,6 +384,9 @@ angular.module("FluidIntegrates").controller(
     $scope.urlDrafts = function urlDrafts () {
       $state.go("ProjectDrafts", {"project": $scope.project});
     };
+    $scope.urlResources = function urlResources () {
+      $state.go("ProjectResources", {"project": $scope.project});
+    };
     $scope.init();
   }
 );
