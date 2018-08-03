@@ -104,14 +104,14 @@ review-web:
   stage: review
   image: registry.gitlab.com/fluidsignal/serves:builder
   before_script:
-    - echo 'Deploying Review Apps...''
+    - echo 'Deploying Review Apps...'
   script:
     - ./review/cluster-config.sh
   after_script:
     - echo 'Review Apps deployed!'
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: https://$CI_PROJECT_NAME.$ENV_DNS/$CI_COMMIT_REF_SLUG/web/en/
+    url: https://$CI_PROJECT_NAME.env.fluidattacks.com/$CI_COMMIT_REF_SLUG/web/en/
     on_stop: stop-review
   except:
     - master

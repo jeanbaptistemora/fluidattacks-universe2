@@ -6,9 +6,10 @@
 # production.
 
 # Prepare manifests by replacing the value of Environmental Variables
-envsubst < review/ingress.yaml > ingress.yaml && mv ingress.yaml review/ingress.yaml
-envsubst < review/deploy-web.yaml > deploy-web.yaml && mv deploy-web.yaml review/deploy-web.yaml
-envsubst < review/tls.yaml > tls.yaml && mv tls.yaml review/tls.yaml
+envsubst < review/ingress.yaml > ingress.yaml \
+  && mv ingress.yaml review/ingress.yaml
+envsubst < review/deploy-web.yaml > deploy-web.yaml \
+  && mv deploy-web.yaml review/deploy-web.yaml
 
 # Check if namespace for project exists
 if ! kubectl get namespaces | grep -q "$CI_PROJECT_NAME"; then
@@ -18,13 +19,15 @@ fi
 
 # Set namespace preference for kubectl commands
 echo "Setting namespace preferences..."
-kubectl config set-context "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
+kubectl config set-context \
+  "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
 
 # Check secret to pull images from Gitlab Registry and set if not present
-if ! kubectl get secret | grep -q "$K8_REG_SECRET"; then
+if ! kubectl get secret 'gitlab-reg'; then
   echo "Creating secret to access Gitlab Registry..."
-  kubectl create secret docker-registry "$K8_REG_SECRET" --docker-server="$CI_REGISTRY" \
-  --docker-username="$GL_USER" --docker-password="$GL_ACCESS_TOKEN" --docker-email="$GL_EMAIL"
+  kubectl create secret docker-registry 'gitlab-reg' \
+  --docker-server="$CI_REGISTRY" --docker-username="$DOCKER_USER" \
+  --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL"
 fi
 
 # Delete previous deployments and services of the same branch, if present
@@ -43,18 +46,15 @@ if kubectl get ingress "ingress-$CI_PROJECT_NAME"; then
   fi
   echo "Updating ingress manifest..."
   sed -n '/spec:/,/tls:/p' current-ingress.yaml | tail -n +6 | head -n -1 >> review/ingress.yaml
-  kubectl delete ingress "ingress-$CI_PROJECT_NAME"
-  kubectl create -f review/ingress.yaml;
+  kubectl apply -f review/ingress.yaml;
 else
-  kubectl create -f review/ingress.yaml;
+  kubectl apply -f review/ingress.yaml;
 fi
 
 # Check resources to enable TLS communication
-if ! kubectl get issuers | grep -q "cert-issuer"; then
-  echo "Creating Issuer and Certificate to enable communication through HTTPS..."
-  kubectl create -f review/tls.yaml
-fi
+kubectl apply -f review/tls.yaml
 
 # Deploy pod and service
 echo "Deploying latest image..."
 kubectl create -f review/deploy-web.yaml
+kubectl rollout status "deploy/review-$CI_COMMIT_REF_SLUG"
