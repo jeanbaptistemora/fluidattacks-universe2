@@ -31,6 +31,7 @@ RUN apt-get update -qq && \
        file \
        gcc \
        git \
+       jq \
        make \
        nodejs \
        optipng \
