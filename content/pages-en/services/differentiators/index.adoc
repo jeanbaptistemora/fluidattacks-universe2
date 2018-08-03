@@ -19,19 +19,19 @@
 | *Others*
 
 a|==== Focus
-| {yes} We only hack, all day, all projects, all hackers.
+| {yes} We do security risk hacking only. All day, all the time.
 | {no} Only from time to time,
 because they do other things besides hacking.
 
 a|==== Independence
-| {yes} We don't solve nor install any kind of control,
-thus we always report all the vulnerabilities with the maximum independence
+| {yes} We don't install, maintain, operate or sell other security products.
+With no hidden agendas, you can have confidence
+in the independence and impartiality of our report
 link:../continuous-hacking/#remediation-support[^1^]
 link:../one-shot-hacking/#remediation[^2^].
-| {no} Since other providers develop, maintain, install
-or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc,
-they are not independent to report the vulnerabilities
-for which they are responsible.
+| {no}  Since other providers develop, maintain, install or operate
+security controls such as +SOC+, +NAC+, Firewalls etc,
+they may not be truly impartial nor independent.
 
 a|==== Attributes
 a|{yes} We verify the basic security attributes:
@@ -182,7 +182,7 @@ a|{yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacki
 service environments:
 
 * Can constantly change.
-* Not necessarily are frozen.
+* Are not necessarily frozen.
 * Windows are not required for hacking.
 | {no} Frozen environments and test windows are required.
 
@@ -197,7 +197,7 @@ that will be verified and its proportion with respect to the total.
 * In variable scopes, the exact part of the attack surface
 that was verified and its proportion
 with respect to the total is reported at the end.
-| {no} Unknown, because they never accurately report
+| {no} Unknown, because they may not accurately report
 what was tested and what was not.
 
 a|==== Profiling
