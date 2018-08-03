@@ -18,8 +18,8 @@ all existing security issues with no false positives.
 2+a|== Hacking techniques
 It's possible to perform source code,
 application or infrastructure Ethical Hacking.
-Customers are able to choose which hacking technique
-best suits their needs to fulfill each system's required security assessment.
+Customers are able to choose which hacking technique best suits their needs
+to fulfill each system's required security assessment.
 
 a|image::hacking-techniques.svg[alt="Source code symbol"]
 
@@ -45,13 +45,13 @@ Full coverage refers to a system where its overall size can be assessed
 (application fields, lines of code, open ports)
 and the customer chooses to cover the entire system.
 
-2+a|== Strictness
+2+a|== Severity
 
 Customers are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling)
 through our [button]#link:../../products/rules/[Rules]# product
 
-Customers will know the exact Ethical Hacking strictness for each attack
+Customers will know the exact Ethical Hacking severity for each attack
 (For inspected and non-inspected profiled requirements).
 
 a|image::strictness.svg[alt="Checklist"]
@@ -64,7 +64,7 @@ Depending on the size of the +ToE+ attack surface.
 
 2+a|==  Inspection Cycles
 
-One-shot Ethical hacking seeks to attack a single version on your application
+One-shot Ethical hacking seeks to attack a single version of your application,
 therefore it has only one inspection cycle on the selected system.
 
 a|image::inspection-cycles.svg[alt="Metal Gear"]
@@ -79,7 +79,7 @@ so customers can express their needs before, during and after execution.
 2+a|== Scheduled ethical hacking
 
 After all requirements to start an Ethical hacking have been met,
-each attack will have a defined start and finishing date.
+each attack will have a defined start and end date.
 
 a|image::scheduled-hacking.svg[alt="Calendar"]
 
@@ -94,13 +94,13 @@ from their available software environments
 2+a|== Highly trained hacking team
 
 Our hackers are certified in practical hacking in real scenarios,
-they also have security related studies,
-they are able to perform manual hacking and also use tools
+and have academic backgrounds related to security testing.
+They are able to perform manual hacking and also use tools
 to guarantee the reporting of several types of findings
-including those with specific business impact,
+including those with specific business impacts,
 those regarding insecure programming practices,
-and those regarding standard alignment and security regulation compliance,
-enabling us to detect +Zero Day+ findings,
+and those regarding standard alignment and security regulation compliance.
+This enables us to detect +Zero Day+ findings,
 all with no false positives reports.
 
 a|image::trained-team.svg[alt="Team"]
@@ -114,9 +114,9 @@ using our own exploitation engine [button]#link:../../products/asserts/[Asserts]
 
 2+a|== Critical information extraction
 
-Whenever findings allow the extraction of information,
-all compromised records are extracted to maximize finding impact
-and compromise sensible information.
+Whenever findings indicate the need to obtain information,
+information extraction is done to maximize finding impacts
+without compromising sensitive information.
 [button]#link:../../products/integrates/#compromised-records[Example]#.
 
 a|image::critical-info.svg[alt="Arrows flowing out of a lock"]
@@ -157,15 +157,16 @@ a|image::reports-delivery.svg[alt="Computer protected by password"]
 
 2+a|== Reports delivered by secure vault
 
-Final report versions along with all evidences gathered
-are delivered to customers using a secure file transfer website.
+Final reports are all-inclusive
+(evidence of security vulnerabilities, remediation, etc.)
+and are delivered to customers using a secure file transfer website.
 
 2+a|== Validation meeting
 
 Each Ethical Hacking test includes a meeting
-with customer's technical team to validate reports.
-If there are any observations these are addressed.
-Meeting take place remotely.
+with the customer’s technical team to validate reports.
+If there are any issues, these are addressed.
+This meeting takes place remotely.
 
 a|image::validation-meeting.svg[alt="Two persons having a conversation"]
 
@@ -173,10 +174,10 @@ a|image::report-meeting.svg[alt="Bar graph in a presentation"]
 
 2+a|== Report presentation meeting
 
-Formal executive report presentation meeting,
-where all project stakeholders can take part of it.
-It consists of two meetings: one for validation
-and another for overall socialization.
+his is a formal executive report presentation
+including questions-and-answers.
+All project stakeholders can participate.
+It can take place personally or remotely according to the customer’s needs.
 
 2+a|== Information gets deleted securely
 
@@ -190,15 +191,13 @@ a|image::validate-remediation.svg[alt="Checklist"]
 
 2+a|== Remediation validation
 
-Up to +3+ months after final report approval,
+Up to +3+ months after the final report approval,
 customers can request a remediation validation cycle
-to check if findings originally reported were correctly repaired.
-In order to arrange this, customer must provide system access
+to check if the findings originally reported were correctly repaired.
+In order to arrange this, the customer must provide system access
 and share final reports once again.
-In remediation cycle system does not get attacked
-searching new vulnerabilities,
-instead, it is validated the closure
-of the previously detected vulnerabilities.
+In the remediation validation cycle
+the system does not get hacked searching for new vulnerabilities.
 
 |====
 
