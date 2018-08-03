@@ -186,7 +186,7 @@ deploy:
         -t "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
         builder/master/
     - docker push
-        "$$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
+        "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
     - docker run
         -e AWS_ACCESS_KEY_ID="$(vault read -field=aws_access_key_id secret/web)"
         -e AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_secret_access_key secret/web)"
