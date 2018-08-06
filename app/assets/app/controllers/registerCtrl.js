@@ -92,10 +92,11 @@ angular.module("FluidIntegrates").controller(
     $scope.showLegalNotice = function showLegalNotice () {
       const infoReq = registerFactory.getLoginInfo();
       infoReq.then((response) => {
-        if (angular.isUndefined(response.data)) {
+        const respData = response.data;
+        if (angular.isUndefined(respData)) {
           location.reload();
         }
-        else if (response.data.remember) {
+        else if (respData.login.remember) {
           $scope.loadDashboard();
         }
         else {
@@ -104,7 +105,7 @@ angular.module("FluidIntegrates").controller(
             "backdrop": "static",
             "controller" ($scope, $uibModalInstance) {
               $scope.okModalNotice = function okModalNotice () {
-                if (response.data.is_registered) {
+                if (respData.login.authorized) {
                   try {
                     mixpanel.time_event("Logged out");
                   }

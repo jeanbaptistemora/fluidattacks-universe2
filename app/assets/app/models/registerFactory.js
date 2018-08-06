@@ -33,19 +33,20 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Get authorization and remember preferences info
+       * Get authorization and remember preferences
        * @function getLoginInfo
        * @member integrates.registerFactory
        * @return {Object} Request result
        */
       "getLoginInfo" () {
         const oopsAc = "An error ocurred resolving user authorization";
-        return $xhr.get($q, `${BASE.url}get_login_info`, {
-          "_": parseInt(
-            secureRandom(5).join(""),
-            10
-          )
-        }, oopsAc);
+        const gQry = `{
+          login{
+            authorized
+            remember
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }

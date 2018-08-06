@@ -24,7 +24,6 @@ urlpatterns = [
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
     url(r'^registration/?$', views.registration, name='registration'),
-    url(r'^get_login_info/?$', views.get_login_info, name='get_login_info'),
     url(r'^accept_legal/?$', views.accept_legal, name='accept_legal'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^forms/?\.*$', views.forms),

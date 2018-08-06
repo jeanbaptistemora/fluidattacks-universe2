@@ -1760,31 +1760,13 @@ def accept_legal(request):
     request.session['accept_legal'] = True
     return util.response([], 'Success', False)
 
-@never_cache
-@require_http_methods(["GET"])
-@authenticate
-def get_login_info(request):
-    user = request.session['username']
-    userInfo = integrates_dao.get_user_dynamo(user)
-    remember = False
-    if not userInfo == []:
-        userInfo = dict(userInfo[0])
-        if "legal_remember" in userInfo:
-            remember = userInfo["legal_remember"]
-            request.session['accept_legal'] = remember
-    info = {
-        'is_registered': integrates_dao.is_registered_dao(user) == '1',
-        'remember': bool(remember)
-    }
-    return util.response(info, "success", False)
-
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
+@authenticate
 def graphql_api(request):
     query = request.body
     schema = Schema(query=Query)
-    result = schema.execute(query)
+    result = schema.execute(query, context_value=request)
     return util.response(result.data, 'success', False)
 
 @csrf_exempt
