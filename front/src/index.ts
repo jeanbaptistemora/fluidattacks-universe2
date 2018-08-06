@@ -4,11 +4,31 @@
  * @description Controllers integrator for Integrates
  */
 import angular from "angular";
-import { react2angular } from "react2angular";
 import frame from "./components/Frame/index";
+// tslint:disable-next-line: ordered-imports
+import Access from "./scenes/Login/components/Access/index";
+// tslint:disable-next-line: ordered-imports
+import { react2angular } from "react2angular";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import compulsoryNotice from "./scenes/Registration/components/CompulsoryNotice/index";
+
+/**
+ * @url: /index
+ * @page: index.html
+ * @controllers: undefined
+ * @tag: <login/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "login",
+    react2angular(
+      Access,
+      [],
+    ),
+  );
+
 /**
  * @url: #/project/:name/indicators
  * @page: indicators.html
