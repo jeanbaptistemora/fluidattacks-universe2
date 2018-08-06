@@ -2,6 +2,10 @@ $fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $white: rgba(255, 255, 255, 1);
 
+p {
+  font-size: 23px;
+}
+
 .home {
   h1 {
     color: $fluid-red;
@@ -69,21 +73,46 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.testing {
-  background-color: $white;
-  padding: 20px 0;
+.testing-left {
+  background-image: url('../../images/left.png');
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  float: left;
+  padding: 70px 130px;
+  width: 50%;
 
   p {
-    padding: 0 20px;
-    text-align: center;
+    text-align: right;
   }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  h1 {
+    text-align: right;
+  }
+
 }
 
+.testing-right {
+  background-image: url('../../images/right.png');
+  background-position: top right;
+  background-repeat: no-repeat;
+  float: left;
+  padding: 70px;
+  padding-left: 0;
+  width: 50%;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding-top: 30px;
+    text-align: left;
+  }
+
+  li {
+    background: url('../../images/selected.svg') no-repeat left top;
+    background-size: 11px;
+    display: block;
+    padding-left: 25px;
+  }
 }
 
 .benefits {

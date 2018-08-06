@@ -739,7 +739,7 @@ msgstr ""
 
 #: templates/landing.html:39
 msgid "Index-tst-1"
-msgstr "Tipos de prueba"
+msgstr "Técnicas"
 
 #: templates/landing.html:40
 msgid "Index-tstmsg-1"
