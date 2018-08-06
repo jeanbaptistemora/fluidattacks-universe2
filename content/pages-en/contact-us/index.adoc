@@ -3,5 +3,6 @@
 :keywords: Fluid Attacks, Contact, Information, Company, About us, Security.
 :form: https://fluidattacks.com/forms/contact
 :template: form
+:translate: contactanos/
 
 = Contact Us
