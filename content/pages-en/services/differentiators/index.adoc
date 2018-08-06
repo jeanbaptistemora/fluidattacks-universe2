@@ -204,11 +204,11 @@ a|==== Profiling
 | {yes} You decide the security requirements that we will check
 during the hacking service
 through our product [button]#link:../../products/rules/[Rules]#.
-| {no} Non parameterizable.
+| {no} Non-parameterizable.
 
 a|==== Strictness
 | {yes} You will know the exact strictness of the hacking
-(For inspected and non inspected
+(for inspected and non-inspected
 link:#profiling[profiled] requirements)
 link:../continuous-hacking/#strictness[^17^]
 link:../one-shot-hacking/#strictness[^18^].
@@ -221,8 +221,8 @@ a|* Of a specific business impact.
 a|* Based on signatures.
 * Syntax-based.
 
-a|==== Type of Evidences
-a|{yes} Some of the most relevant evidences are:
+a|==== Type of Evidence
+a|{yes}  Some of the most relevant evidence is:
 
 * Images of the attack with explanatory annotations.
 * Animated +GIFs+ of the attack
@@ -230,31 +230,30 @@ a|{yes} Some of the most relevant evidences are:
 a|{no} In the case of other suppliers:
 
 * Images without annotations.
-* Copy-paste of tools outcome without
-discarding false positives through attacks.
+* Copy-paste of test outcomes which may include false positives.
 
 a|==== Zero Day Vulnerabilities
-| {yes} link:../continuous-hacking/#highly-trained-hacking-team[^19^]
-| {no}
+| {yes} Yes link:../continuous-hacking/#highly-trained-hacking-team[^19^]
+| {no} No
 
 a|==== False Positives
 | {yes} 0%
 | {no} ~20%
 
 a|==== Exploitation
-a|{yes} As long as we have
+a|{yes} Yes, as long as we have
 link:../continuous-hacking/#exploitation[^20^]
 link:../one-shot-hacking/#exploitation[^21^]:
 
 * An available environment.
 * The appropriate authorization.
-| {no} Without possibilities of create and execute exploits.
+| {no} No
 
 a|==== Custom Exploits
 | {yes} Using our own exploitation engine
 [button]#link:../../products/asserts/[Asserts]#
 (link:../../products/integrates/#exploit[example]).
-| {no}
+| {no} Unable to create and execute exploits.
 
 a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
 | {yes} By combining vulnerabilities +A+ and +B+ we are able to find
@@ -271,10 +270,10 @@ link:../one-shot-hacking/#infection[^22^].
 | {no} Don't infect or dispose of custom cyberweapons.
 
 a|==== Compromised Records
-a|{yes} After discover a vulnerability and exploit it,
-we extract the business critical information
-which evidences a high impact allowing us to show
-the severity of a vulnerability withouth regarding the technical aspect:
+a|{yes} After discovering a vulnerability and exploiting it,
+we extract the critical business information
+which indicates a high impact level.
+This allows us to show the severity of any individual vulnerability on:
 
 * Users.
 * Passwords.
@@ -299,7 +298,7 @@ a|==== link:../../blog/replaced-machines/[Escapes]
 
 a|==== Remediation
 a|* During the project you can request clarifications
-directly to our hackers via
+directly from our hackers via
 [button]#link:../../products/integrates/[Integrates]#
 (link:../../products/integrates/#doubts-regarding-the-vulnerabilities[example]).
 * You can use our detailed remediation guides via
@@ -322,8 +321,8 @@ link:../one-shot-hacking/#daily-progress-reports[^27^]:
 * Graphics on the security of the system (link:../../products/integrates/#project-status-graphs[example]).
 * Metrics on the security of the system (link:../../products/integrates/#project-statistics[example]).
 
-a|{no} Available only at the end of the project due to
-its manual elaboration.
+a|{no}  Available only at the end of the project
+because it is manually generated.
 
 * Word document.
 * Tool reports without discarding false positives.
