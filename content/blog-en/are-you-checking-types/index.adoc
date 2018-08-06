@@ -261,6 +261,14 @@ but imagine applications of thousands of code lines,
 now, with a single command
 and a few seconds we can check the variable types.
 
+We already use mypy in our product
+[button]#link:https://fluidsignal.gitlab.io/asserts/[Asserts]#
+and the benefits have been questionless.
+We have even found that mypy helps directly to the documentation task,
+thanks to the fact that it is no longer necessary to write
+what is the type of the variables in the documentation
+because that information is already in the code.
+
 == Conclusions
 
 We demonstrate in many ways the importance
@@ -282,4 +290,9 @@ cleaner and easier to debug.
 This programming paradigm takes on a more versatility
 when merged with tools like mypy,
 which turns very tedious processes into a matter of seconds.
+If you still do not know much about functional programming
+or functional programming in Python, we invite you to read
+[button]#link:/web/en/blog/why-we-go-functional/[Why we go functional?]#
+and
+[button]#link:/web/en/blog/road-to-functional-python/[Road to functional Python]#.
 You already have the knowledge, so will you check types?
