@@ -343,6 +343,10 @@ msgstr "Location"
 msgid "Footer-subtitle-1.6"
 msgstr "Contact Us"
 
+#: templates/footer.html:24
+msgid "Footer-link-1.6"
+msgstr "contact-us"
+
 #: templates/footer.html:28 templates/footer.html:29 templates/footer.html:30
 #: templates/footer.html:31 templates/footer.html:32 templates/footer.html:33
 #: templates/footer.html:34

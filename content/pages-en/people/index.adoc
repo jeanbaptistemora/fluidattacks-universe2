@@ -84,7 +84,7 @@ image::jecheverri.png[alt="Juan Carlos Echeverri", width=100 ]
 Board Team +
 link:https://www.linkedin.com/in/juan-carlos-echeverri-cia-ccsa-29a6829a/[LinkedIn]
 
-a|=== link:john-gomez/[John Gómez]
+a|=== John Gómez
 Board Team +
 link:https://www.linkedin.com/in/john-g%C3%B3mez-594a3727/[LinkedIn]
 
