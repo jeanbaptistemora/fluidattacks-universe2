@@ -5,18 +5,6 @@
 # changes introduced by the developer, before accepting changes into
 # production.
 
-# Prepare manifests by replacing the value of Environmental Variables
-envsubst < review-apps/ingress.yaml > ingress.yaml && mv ingress.yaml review-apps/ingress.yaml
-envsubst < review-apps/deploy-integrates.yaml > deploy-integrates.yaml && mv deploy-integrates.yaml review-apps/deploy-integrates.yaml
-# envsubst < review-apps/tls.yaml > tls.yaml && mv tls.yaml review-apps/tls.yaml
-
-
-# Check NGINX server configuration
-# if ! kubectl -n gitlab-managed-apps get configmaps | grep -q 'nginx-configuration'; then
-#   echo "Configuring NGINX server..."
-#   kubectl -f review-apps/nginx-conf.yaml
-# fi
-
 # Check if namespace for project exists
 if ! kubectl get namespace "$CI_PROJECT_NAME"; then
   echo "Creating namespace for project..."
@@ -26,6 +14,35 @@ fi
 # Set namespace preference for kubectl commands
 echo "Setting namespace preferences..."
 kubectl config set-context "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
+
+# Check resources to enable TLS communication
+if ! kubectl get issuer cert-issuer; then
+  echo "Generating dynamic AWS credentials..."
+  vault read -format=json aws/creds/integrates-review > review.json
+  export RA_ACCESS_KEY="$(cat review.json | jq -r '.data.access_key')"
+  export RA_SECRET_KEY="$(cat review.json | jq -r '.data.secret_key')"
+  rm review.json
+  sleep 15
+  echo "Creating secret with AWS credentials..."
+  kubectl create secret generic ra-aws --type=opaque \
+    --from-literal=sec-key="$RA_SECRET_KEY"
+  echo "Creating Issuer and Certificate to enable communication through HTTPS..."
+  envsubst < review-apps/tls.yaml > tls.yaml && \
+    mv tls.yaml review-apps/tls.yaml
+  kubectl apply -f review-apps/tls.yaml
+fi
+
+
+# Prepare manifests by replacing the value of Environmental Variables
+envsubst < review-apps/ingress.yaml > ingress.yaml && mv ingress.yaml review-apps/ingress.yaml
+envsubst < review-apps/deploy-integrates.yaml > deploy-integrates.yaml && mv deploy-integrates.yaml review-apps/deploy-integrates.yaml
+
+
+# Check NGINX server configuration
+# if ! kubectl -n gitlab-managed-apps get configmaps | grep -q 'nginx-configuration'; then
+#   echo "Configuring NGINX server..."
+#   kubectl -f review-apps/nginx-conf.yaml
+# fi
 
 # Check secret to pull images from Gitlab Registry and set if not present
 if ! kubectl get secret gitlab-reg; then
@@ -67,12 +84,6 @@ if kubectl get ingress | grep "$CI_PROJECT_NAME"; then
   kubectl apply -f review-apps/ingress.yaml;
 else
   kubectl apply -f review-apps/ingress.yaml;
-fi
-
-# Check resources to enable TLS communication
-if ! kubectl get issuers | grep -q "cert-issuer"; then
-  echo "Creating Issuer and Certificate to enable communication through HTTPS..."
-  kubectl apply -f review-apps/tls.yaml
 fi
 
 # Deploy pod and service

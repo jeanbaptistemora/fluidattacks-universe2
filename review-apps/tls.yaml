@@ -4,19 +4,19 @@ metadata:
   name: cert-issuer
 spec:
   acme:
-    email: $DOCKER_EMAIL
+    email: technology@fluidattacks.com
     dns01:
       providers:
       - name: route53
         route53:
-          region: $DNS_REGION
-          accesskeyID: $FI_RA_AWS_ACCESS_KEY_ID
+          region: us-east-1
+          accesskeyID: $RA_ACCESS_KEY
           secretAccessKeySecretRef:
-            name: $K8_AWS_SECRET
+            name: ra-aws
             key: sec-key
           hostedZoneID: $DNS_ZONE_ID
     privateKeySecretRef:
-      name: $K8_TLS_KEY
+      name: letsencrypt-key
     server: https://acme-v02.api.letsencrypt.org/directory
 ---
 apiVersion: certmanager.k8s.io/v1alpha1
@@ -29,10 +29,10 @@ spec:
     - dns01:
         provider: route53
       domains:
-        - '*.$CI_PROJECT_NAME.$ENV_DNS'
+        - '*.$CI_PROJECT_NAME.env.fluidattacks.com'
   dnsNames:
-  - '*.$CI_PROJECT_NAME.$ENV_DNS'
+  - '*.$CI_PROJECT_NAME.env.fluidattacks.com'
   issuerRef:
     kind: Issuer
     name: cert-issuer
-  secretName: $K8_TLS_SECRET
+  secretName: ssl-secret

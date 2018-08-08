@@ -204,7 +204,7 @@ review-integrates:
   retry: 2
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
-    url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS"
+    url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com"
     on_stop: stop-review
   except:
     - master
