@@ -26,10 +26,13 @@ angular.module("FluidIntegrates").factory(
        */
       "acceptLegal" (remember) {
         const oopsAc = "An error ocurred updating legal acceptance status";
-        return $xhr.post($q, `${BASE.url}accept_legal`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          remember
-        }, oopsAc);
+        let gQry = `mutation {
+          acceptLegal(remember:$rem){
+            success
+          }
+        }`;
+        gQry = gQry.replace("$rem", remember);
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**

@@ -43,6 +43,7 @@ from magic import Magic
 from datetime import datetime, timedelta
 from backports import csv
 from .entity.query import Query
+from .entity.mutations import Mutations
 from graphene import Schema
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
@@ -1771,25 +1772,12 @@ def edit_user_information(parameters, project, request):
     elif is_customeradmin(project, email):
         integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
 
-
-
 @never_cache
-@require_http_methods(["POST"])
-@authenticate
-def accept_legal(request):
-    parameters = request.POST.dict()
-    if "remember" in parameters:
-        integrates_dao.update_legal_remember_dynamo(request.session["username"],
-                                               parameters["remember"] == "true")
-    request.session['accept_legal'] = True
-    return util.response([], 'Success', False)
-
-@csrf_exempt
 @require_http_methods(["POST"])
 @authenticate
 def graphql_api(request):
     query = request.body
-    schema = Schema(query=Query)
+    schema = Schema(query=Query, mutation=Mutations)
     result = schema.execute(query, context_value=request)
     return util.response(result.data, 'success', False)
 

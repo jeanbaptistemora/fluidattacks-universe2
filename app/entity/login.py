@@ -1,6 +1,6 @@
 # pylint: disable=F0401
 from app.dao import integrates_dao
-from graphene import Boolean, ObjectType
+from graphene import Boolean, ObjectType, Mutation
 
 class Login(ObjectType):
     # declare attributes
@@ -27,3 +27,21 @@ class Login(ObjectType):
     def resolve_remember(self, info):
         """ Resolve remember preference """
         return self.remember
+
+class AcceptLegal(Mutation):
+    class Arguments(object):
+        remember = Boolean()
+    success = Boolean()
+
+    @classmethod
+    #pylint: disable=unused-argument
+    def mutate(self, args, info, remember):
+        username = info.context.session['username']
+
+        integrates_dao.update_legal_remember_dynamo(
+            username,
+            remember
+        )
+
+        info.context.session['accept_legal'] = True
+        return AcceptLegal(success=True)
