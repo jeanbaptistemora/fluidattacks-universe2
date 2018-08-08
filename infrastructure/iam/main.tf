@@ -22,9 +22,10 @@ module "providers" {
 
 module "groups" {
   source = "./groups"
+  fiDynamo        = "${module.users.fiDynamo}"
   fis3integration = "${module.users.fis3integration}"
-  examss3 = "${module.users.examss3}"
-  fws3user = "${module.users.fws3user}"
+  examss3         = "${module.users.examss3}"
+  fws3user        = "${module.users.fws3user}"
 }
 
 module "roles" {
@@ -39,6 +40,7 @@ module "policies" {
   web = "${module.groups.web}"
   fluidserves = "${module.groups.fluidserves}"
   fis3integration = "${module.groups.fis3integration}"
+  fiDynamo = "${module.groups.fiDynamo}"
   ssofinance = "${module.roles.ssofinance}"
 }
 

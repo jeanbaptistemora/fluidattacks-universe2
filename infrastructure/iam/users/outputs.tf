@@ -2,6 +2,10 @@ output "fis3integration" {
   value = "${aws_iam_user.fis3integration.name}"
 }
 
+output "fiDynamo" {
+  value  = "${aws_iam_user.fluidintegratesdynamo.name}"
+}
+
 output "fiS3Arn" {
   value = "${aws_iam_user.fis3integration.arn}"
 }

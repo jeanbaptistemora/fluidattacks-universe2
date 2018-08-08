@@ -1,6 +1,9 @@
-
 output "fis3integration" {
   value = "${aws_iam_group.fis3integration.name}"
+}
+
+output "fiDynamo" {
+  value = "${aws_iam_group.fiDynamo.name}"
 }
 
 output "fluidserves" {

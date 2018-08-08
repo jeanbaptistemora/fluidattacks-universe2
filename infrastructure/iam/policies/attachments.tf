@@ -10,6 +10,12 @@ resource "aws_iam_policy_attachment" "FI_S3INTEGRATION-attach" {
   policy_arn = "${aws_iam_policy.FI_S3INTEGRATION.arn}"
 }
 
+resource "aws_iam_policy_attachment" "dynamo-attach" {
+    name       = "FluidIntegrates_DynamoDB_Attachment"
+    groups     = ["${var.fiDynamo}"]
+    policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+}
+
 resource "aws_iam_policy_attachment" "fluidserves-attach" {
   name       = "fluidserves-attachment"
   groups     = ["${var.fluidserves}"]
