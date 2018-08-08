@@ -33,7 +33,7 @@ Con el ánimo de desarrollar una revolución en programación (y no una social),
 el paradigma funcional cada vez viene tomando más fuerza
 tanto en las comunidades de desarrolladores
 como en las grandes empresas de tecnología.
-Por supuesto, Fluid Attacks no es la excepción.
+Por supuesto, +Fluid Attacks+ no es la excepción.
 
 .Tu cara hasta este punto.
 image::weird-look.png["Niña juzgando con su mirada"]
@@ -76,7 +76,7 @@ console.log (multiply (2) (6)); // 12
 
 == Más beneficios, menos problemas.
 
-En la oficinas de Fluid Attacks investigamos,
+En la oficinas de +Fluid Attacks+ investigamos,
 desempolvamos libros viejos
 y volteamos algunas piedras para descubrir
 que los verdaderos beneficios de la programación funcional
@@ -144,7 +144,7 @@ Pero ¿por qué apenas en los últimos años
 es que este paradigma está resonando tanto?.
 
 El paradigma funcional fue opacado por la existencia de lenguajes orientados
-a objetos como Java y Python, que proponen un mayor facilidad para programar.
+a objetos como Java y Python, que proponen una mayor facilidad para programar.
 Durante el siglo pasado, los lenguajes funcionales
 se ejecutaban más lento que los orientados a objetos,
 un tema relacionado a la capacidad de los procesadores de aquel entonces.
@@ -169,7 +169,7 @@ y expresiones robustas, capaces de perdurar en el tiempo.
 de la información le preocupa ser funcional?.
 La respuesta es sencilla: Queremos hacerlo bien a la primera,
 queremos que nuestro código sea un reflejo de la calidad
-y las buenas prácticas en las que se basa Fluid Attacks.
+y las buenas prácticas en las que se basa +Fluid Attacks+.
 Estamos seguros que el código será excelente
 desde el inicio porque pensamos de manera funcional,
 no hay espacio para la ambigüedad,
@@ -188,7 +188,7 @@ Quizás estás pensando que los beneficios son muy buenos,
 pero eres un OOO (Obsesionado por la Orientación a Objetos)
 y todo tu código está en un lenguaje imperativo.
 Es normal, esta bien ser un poco reacio pero no te preocupes.
-Aquí en Fluid Attacks somos como tú, usamos lenguajes orientados a objetos
+Aquí en +Fluid Attacks+ somos como tú, usamos lenguajes orientados a objetos
 y eso no nos impidió ser funcionales.
 Todos los lenguajes pueden ser funcionales.
 De hecho, la gran mayoría de lenguajes están tendiendo a lo funcional

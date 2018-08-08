@@ -161,7 +161,7 @@ Nice, right!
 In this way we understood that Python knows
 what the type is by analyzing the behavior
 and attributes of a variable.
-Honestly in Fluid Attacks we prefer
+Honestly in +Fluid Attacks+ we prefer
 the _Canard à l'orange_ (“duck with orange” in French)
 instead of living with it in our code.
 
