@@ -162,7 +162,7 @@ must include a reference..
 in order to upload it to our +Fluid Attacks+ youtube channel.
 . They video must include an introduction and a conclusion.
 
-=== 8. Font
+=== 8. Source
 
 Unless the language forces you to do otherwise,
 the source code must comply with the following:
