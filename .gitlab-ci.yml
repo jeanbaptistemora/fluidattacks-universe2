@@ -95,7 +95,7 @@ gulp-compiler:
    - cd app/assets && npm install
    - cd ../../front 
    - npm install
-   - gulp
+   - gulp integrates
  after_script:
    - echo "Job finished"
  retry: 2

@@ -5,6 +5,7 @@
   "repository": "https://gitlab.com/fluidsignal/integrates.git",
   "author": "Engineering Team",
   "dependencies": {
+    "font-awesome": "4.7.0",
     "@cgross/angular-notify": "2.5.1",
     "@uirouter/angularjs": "0.4.2",
     "angular": "1.7.2",

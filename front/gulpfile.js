@@ -3,7 +3,6 @@ var gulp = require("gulp");
 /* Module used under css type task */
 var css = require('gulp-typed-css-modules');
 /* Modules used under package task */
-var browserify = require("browserify");
 var webpack = require('webpack');
 var gulpWebpack = require('webpack-stream');
 /* Modules used under compilation task */
@@ -17,11 +16,6 @@ var paths = {
     source: './build/index.js',
     browser: 'bundle.min.js',
     destination: './../app/assets/dashboard'
-  },
-  login: {
-    source: './../app/assets/login/index.js',
-    browser: 'bundle.min.js',
-    destination: './../app/assets/login'
   }
 };
 /**
@@ -62,35 +56,6 @@ gulp.task(
   }
 );
 /**
- * Temporary Task: Typescript Compilation (Login)
- * Compile login, it's a temporary task while
- * integrate's migration is done
- */
-gulp.task(
-  "compile-login",
-  () => {
-    return tsLogin.src()
-    .pipe(tsLogin())
-    .js.pipe(gulp.dest(paths.login.destination));
-  }
-);
-/**
- * Temporary Task: Use browserify (Login)
- * it converts JS from serverside to clientside
- */
-gulp.task(
-  "package-login", 
-  ["compile-login"],
-  () => {
-    return browserify({
-      entries: [paths.login.source],
-      debug: true
-    }).bundle()
-      .pipe(source(paths.login.browser))
-      .pipe(gulp.dest(paths.login.destination));
-  }
-);
-/**
  * Development Task: Code's watcher
  * Run package's steps when a file change
  */
@@ -102,7 +67,7 @@ gulp.task('watch', ['package'], function() {
 * Deploy dashboard and login
 * "login" is a temporary task before full integration
 */
-gulp.task("integrates", ["package-login", "package"]);
+gulp.task("integrates", ["package"]);
 /**
  * Default Task: Run Integrate's Task
  */
