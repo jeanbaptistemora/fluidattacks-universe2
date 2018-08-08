@@ -1779,6 +1779,9 @@ def graphql_api(request):
     query = request.body
     schema = Schema(query=Query, mutation=Mutations)
     result = schema.execute(query, context_value=request)
+    if result.errors:
+        for error in result.errors:
+            rollbar.report_message('GraphQL Error: ' + str(error), 'error', request)
     return util.response(result.data, 'success', False)
 
 @csrf_exempt
