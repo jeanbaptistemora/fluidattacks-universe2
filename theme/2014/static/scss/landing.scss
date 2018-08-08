@@ -217,3 +217,29 @@ p {
     width: 20%;
   }
 }
+
+@media (max-width: 980px) {
+
+  .testing-left {
+    background-image: none;
+    float: none;
+    margin: auto;
+    width: 100%;
+
+    h1 {
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+
+  .testing-right {
+    background-image: none;
+    float: none;
+    margin-top: 0;
+    padding: 0 110px 50px;
+    width: 100%;
+  }
+}
