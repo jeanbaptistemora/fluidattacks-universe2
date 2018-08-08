@@ -42,7 +42,7 @@ But they are hard to remember,
 and that leads to frequent password forgets and resets.
 Thus most people tend to resort to
 short, easy to crack passwords.
-See the 2017 link:https://13639-presscdn-0-80-pagely.netdna-ssl.com/wp-content/uploads/2017/12/Top-100-Worst-Passwords-of-2017a.pdf[Splash Data 100 worst passwords (+PDF+)]
+See the 2017 link:http://templatelab.com/top-100-worst-passwords-of-2017/[Splash Data 100 worst passwords (+PDF+)]
 to see the problem.
 These are vulnerable to
 link:https://en.wikipedia.org/wiki/Brute-force_attack[brute-forcing],

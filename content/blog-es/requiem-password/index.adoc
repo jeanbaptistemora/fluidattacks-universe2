@@ -43,7 +43,7 @@ lo cual conlleva a un frecuente olvido y restablecimiento de contraseñas.
 Así, la mayoría de las personas tienden a inclinarse
 por contraseñas cortas y fáciles de descifrar.
 Observa por ejemplo las
-link:https://13639-presscdn-0-80-pagely.netdna-ssl.com/wp-content/uploads/2017/12/Top-100-Worst-Passwords-of-2017a.pdf[+100+ peores contraseñas del 2017 recopiladas por +Splash Data+ (+PDF+)]
+link:http://templatelab.com/top-100-worst-passwords-of-2017/[+100+ peores contraseñas del 2017 recopiladas por +Splash Data+ (+PDF+)]
 para darte cuenta del problema.
 Estas son vulnerables a
 link:https://en.wikipedia.org/wiki/Brute-force_attack[fuerza bruta],
