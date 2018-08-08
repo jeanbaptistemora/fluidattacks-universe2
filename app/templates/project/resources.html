@@ -95,12 +95,18 @@
                             <hr>
                             <div class="row">
                                 <!-- START: toolbar -->
-                                <div  class="column-button">
-                                    <div class="column-button">
+                                <div  class="col-md-12">
+                                    <div class="col-md-offset-4 col-md-2 col-sm-6">
                                         <button id="addRepository"
                                                 class="btn btn-primary btn-block"
                                                 ng-click="addRepository();">
                                             <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.add_repository' | translate {% templatetag closevariable %}
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2 col-sm-6">
+                                        <button  id="remove" class="btn btn-primary btn-block"
+                                                    ng-click="removeRepository();">
+                                          <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.remove_repository' | translate {% templatetag closevariable %}
                                         </button>
                                     </div>
                                 </div>
@@ -124,7 +130,7 @@
                                         <thead>
                                             <tr>
                                               <th data-field="selection" data-checkbox="true" data-width="2%"></th>
-                                              <th data-field="url" data-halign="left" data-valign="middle" data-width="70%" data-sortable="true"
+                                              <th data-field="urlRepo" data-halign="left" data-valign="middle" data-width="70%" data-sortable="true"
                                               data-class="lower-text">{{ search_findings.repositories_table.repository }}</th>
                                               <th data-field="branch" data-halign="left" data-valign="middle" data-width="30%" data-sortable="true">{{ search_findings.repositories_table.branch }}</th>
                                         </thead>

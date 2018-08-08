@@ -12,8 +12,6 @@ mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
  * @file projectResourcesCtrl.js
  * @author engineering@fluidattacks.com
  */
-/* Table Formatter */
-
 /**
  * Controller definition for indicators tab view.
  * @name projectResourcesCtrl
@@ -128,18 +126,61 @@ angular.module("FluidIntegrates").controller(
         "locale": vlang
       });
       angular.element("#tblRepositories").bootstrapTable("refresh");
-      angular.element("#tblRepositories").bootstrapTable(
-        "hideColumn",
-        "selection"
-      );
-      if ($scope.isProjectManager || $scope.isAdmin) {
-        angular.element("#tblRepositories").bootstrapTable(
-          "showColumn",
-          "selection"
-        );
-      }
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
+    };
+
+    $scope.removeRepository = function removeRepository () {
+      let repository = "";
+      let branch = "";
+      angular.element("#tblRepositories :checked").
+        each(function checkedFields () {
+          /* eslint-disable-next-line  no-invalid-this */
+          const vm = this;
+          const actualRow = angular.element("#tblRepositories").find("tr");
+          const actualIndex = angular.element(vm).data().index + 1;
+          const INDEX_BRANCH = 2;
+          repository = actualRow.eq(actualIndex)[0].cells[1].innerHTML;
+          branch =
+            actualRow.eq(actualIndex)[0].cells[INDEX_BRANCH].innerHTML;
+        });
+      if (repository.length === 0) {
+        $msg.error($translate.instant("search_findings.tab_resources." +
+                                  "no_selection"));
+      }
+      else {
+        const repositories = {};
+        repositories.urlRepo = repository;
+        repositories.branch = branch;
+        const project = $stateParams.project.toLowerCase();
+        const repo = projectFtry2.removeRepositories(
+          repositories,
+          project
+        );
+        // Capture the promise
+        repo.then((response) => {
+          if (!response.error) {
+            // Mixpanel tracking
+            const projt = project.toUpperCase();
+            mixPanelDashboard.trackSearch(
+              "removeRepository",
+              userEmail,
+              projt
+            );
+            const message = $translate.instant("search_findings" +
+                                          ".tab_resources.success_remove");
+            const messageTitle = $translate.instant("search_findings" +
+                                          ".tab_users.title_success");
+            $msg.success(message, messageTitle);
+            location.reload();
+          }
+          else if (response.error) {
+            Rollbar.error("Error: An error occurred when " +
+                        "removing repository");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+        });
+      }
     };
 
     $scope.addRepository = function addRepository () {

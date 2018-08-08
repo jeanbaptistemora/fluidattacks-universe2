@@ -157,9 +157,12 @@ const translations2 = {
    {
      "add_repository": "Add",
      "branch": "Branch",
+     "no_selection": "You must select an item from the table.",
      "password": "Password",
+     "remove_repository": "Remove",
      "repository": "Repository",
      "success": "Repository added successfully.",
+     "success_remove": "Repository removed successfully.",
      "title": "Add repository information",
      "username": "Username"
    },

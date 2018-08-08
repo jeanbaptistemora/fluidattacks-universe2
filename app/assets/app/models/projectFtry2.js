@@ -291,6 +291,15 @@ angular.module("FluidIntegrates").factory(
         }, oopsAc);
       },
 
+      "removeRepositories" (data, project) {
+        const oopsAc = "An error occurred removing repositories";
+        return $xhr.post($q, `${BASE.url}remove_repositories`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data,
+          project
+        }, oopsAc);
+      },
+
       /**
        * Return the repositories of a project
        * @function repositoriesbyProject

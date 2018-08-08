@@ -158,9 +158,12 @@ const traducciones2 = {
   {
     "add_repository": "Agregar",
     "branch": "Rama",
+    "no_selection": "Debe seleccionar un item de la tabla.",
     "password": "Contraseña",
+    "remove_repository": "Remover",
     "repository": "Repositorio",
     "success": "Repositorio agregado exitosamente.",
+    "success_remove": "Repositorio eliminado exitosamente.",
     "title": "Agregar información de los repositorios",
     "username": "Usuario"
   },

@@ -1376,24 +1376,22 @@ def update_repository_dynamo(project_name, data, attr_name, attr_field, item):
         return False
 
 
-def delete_repository_dynamo(project_name, attr_name):
+def remove_repository_dynamo(project_name, attr_name, attr_field, index):
+    """Update repository information to projects table."""
     table = dynamodb_resource.Table('FI_projects')
     try:
         response = table.update_item(
             Key={
                 'project_name': project_name.lower(),
             },
-            UpdateExpression='DELETE #rol :val1',
+            UpdateExpression='REMOVE #attrName.#attrField[' + str(index) + ']',
             ExpressionAttributeNames={
-                '#rol': attr_name
-            },
-            ExpressionAttributeValues={
-                ':val1': {}
+                '#attrName': attr_name,
+                '#attrField': attr_field
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
-    except ClientError as e:
-        print e
+    except ClientError:
         rollbar.report_exc_info()
         return False

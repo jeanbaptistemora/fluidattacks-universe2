@@ -34,6 +34,7 @@ from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_access_granted
+from .mailer import send_mail_repositories
 from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin, has_responsibility, has_phone_number
 from .dao import integrates_dao
@@ -52,6 +53,7 @@ client_s3 = boto3.client('s3',
                             aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
 bucket_s3 = FI_AWS_S3_BUCKET
+BASE_URL = "https://fluidattacks.com/integrates"
 
 @never_cache
 def index(request):
@@ -1828,12 +1830,71 @@ def add_repositories(request):
         branch = 'data[repositories][{repo!s}][branch]'.format(repo=repo)
         if parameters[repository] and parameters[branch]:
             json_data.append({
-                'url': parameters[repository],
+                'urlRepo': parameters[repository],
                 'branch': parameters[branch]
             })
     dic_data["repositories"] = json_data
-    add_repo = integrates_dao.add_repository_dynamo(project, dic_data, "repository_info", "repositories")
+    add_repo = integrates_dao.add_repository_dynamo(
+        project,
+        dic_data,
+        "repository_info",
+        "repositories"
+    )
     if add_repo:
+        to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+        context = {
+            'project': project.lower(),
+            'user_email': request.session["username"],
+            'action': 'Add',
+            'repositories': json_data,
+            'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
+            .format(url=BASE_URL, project=project)
+        }
+        send_mail_repositories(to, context)
         return util.response([], 'Success', False)
     else:
+        rollbar.report_message('Error: An error occurred adding repository', 'error', request)
+        return util.response([], 'Error', True)
+
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
+def remove_repositories(request):
+    """Remove repositories to proyect."""
+    parameters = request.POST.dict()
+    project = parameters["project"]
+    repository = parameters["data[urlRepo]"]
+    branch = parameters["data[branch]"]
+    project_info = integrates_dao.get_project_dynamo(project)
+    repo_list = project_info[0]["repository_info"]["repositories"]
+    index = -1
+    cont = 0
+    while index < 0 and len(repo_list) > cont:
+        if repo_list[cont]["urlRepo"] == repository and repo_list[cont]["branch"] == branch:
+            json_data = [repo_list[cont]]
+            index = cont
+        else:
+            index = -1
+        cont += 1
+    if index >= 0:
+        remove_repo = integrates_dao.remove_repository_dynamo(project, "repository_info", "repositories", index)
+        if remove_repo:
+            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            context = {
+                'project': project.lower(),
+                'user_email': request.session["username"],
+                'action': 'Remove',
+                'repositories': json_data,
+                'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
+                .format(url=BASE_URL, project=project)
+            }
+            send_mail_repositories(to, context)
+            return util.response([], 'Success', False)
+        else:
+            rollbar.report_message('Error: An error occurred removing repository', 'error', request)
+            return util.response([], 'Error', True)
+    else:
+        util.cloudwatch_log(request, 'Security: Attempted to remove repository that does not exist')
         return util.response([], 'Error', True)
