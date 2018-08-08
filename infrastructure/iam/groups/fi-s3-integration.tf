@@ -1,5 +1,5 @@
 resource "aws_iam_group" "fis3integration" {
-  name = "FI_S3INTEGRATION"
+  name = "FluidIntegrates_S3"
   path = "/"
 }
 

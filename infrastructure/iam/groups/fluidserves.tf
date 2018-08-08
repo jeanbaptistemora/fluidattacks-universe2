@@ -1,5 +1,5 @@
 resource "aws_iam_group" "fluidserves" {
-  name = "fluidserves"
+  name = "FluidServes"
   path = "/"
 }
 

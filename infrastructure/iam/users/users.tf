@@ -1,5 +1,5 @@
 resource "aws_iam_user" "fis3integration" {
-  name = "FI_S3INTEGRATION"
+  name = "FluidIntegrates_S3"
   path = "/"
 }
 
@@ -8,7 +8,7 @@ resource "aws_iam_access_key" "fis3integration2" {
 }
 
 resource "aws_iam_user" "cloudwatch" {
-  name = "Cloudwatch"
+  name = "FluidIntegrates_CloudWatch"
   path = "/"
 }
 
@@ -17,7 +17,7 @@ resource "aws_iam_access_key" "cloudwatch2" {
 }
 
 resource "aws_iam_user" "fluidintegratesdynamo" {
-  name = "FLUIDIntegratesDynamo"
+  name = "FluidIntegrates_DynamoDB"
   path = "/"
 }
 
@@ -26,7 +26,7 @@ resource "aws_iam_access_key" "fluidintegratesdynamo2" {
 }
 
 resource "aws_iam_user" "fws3user" {
-  name = "FW_S3_USER"
+  name = "FluidWeb_S3"
   path = "/"
 }
 
@@ -35,7 +35,7 @@ resource "aws_iam_access_key" "fws3user2" {
 }
 
 resource "aws_iam_user" "examss3" {
-  name = "FS_EXAMS_S3"
+  name = "FluidExams_S3"
   path = "/"
 }
 

@@ -1,5 +1,5 @@
 resource "aws_iam_group" "web" {
-  name = "web"
+  name = "FluidWeb"
   path = "/"
 }
 

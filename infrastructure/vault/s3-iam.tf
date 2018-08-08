@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "vault_bucket" {
 }
 
 resource "aws_iam_user" "vault_user" {
-  name = "Vault"
+  name = "FluidVault"
   path = "/"
 }
 
@@ -18,7 +18,7 @@ resource "aws_iam_access_key" "vault_key" {
 }
 
 resource "aws_iam_group" "vault_group" {
-  name = "Vault"
+  name = "FluidVault"
   path = "/"
 }
 
