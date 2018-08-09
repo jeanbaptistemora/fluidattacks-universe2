@@ -1803,14 +1803,14 @@ def access_to_project(request):
 def get_repositories(request):
     """Get the repositories of a project."""
     project = request.GET.get('project', None)
-    json_info = {}
+    json_info = []
     project_info = integrates_dao.get_project_dynamo(project)
     for info in project_info:
-        if "repository_info" in info:
-            json_info = info['repository_info']
+        if "repositories" in info:
+            json_info = info['repositories']
             break
         else:
-            json_info = {}
+            json_info = []
     return util.response(json_info, 'Success', False)
 
 
@@ -1824,7 +1824,6 @@ def add_repositories(request):
     project = request.POST.get('project', "")
     total_repositories = parameters["data[totalRepo]"]
     json_data = []
-    dic_data = {}
     for repo in range(int(total_repositories)):
         repository = 'data[repositories][{repo!s}][repository]'.format(repo=repo)
         branch = 'data[repositories][{repo!s}][branch]'.format(repo=repo)
@@ -1833,11 +1832,9 @@ def add_repositories(request):
                 'urlRepo': parameters[repository],
                 'branch': parameters[branch]
             })
-    dic_data["repositories"] = json_data
     add_repo = integrates_dao.add_repository_dynamo(
         project,
-        dic_data,
-        "repository_info",
+        json_data,
         "repositories"
     )
     if add_repo:
@@ -1868,7 +1865,7 @@ def remove_repositories(request):
     repository = parameters["data[urlRepo]"]
     branch = parameters["data[branch]"]
     project_info = integrates_dao.get_project_dynamo(project)
-    repo_list = project_info[0]["repository_info"]["repositories"]
+    repo_list = project_info[0]["repositories"]
     index = -1
     cont = 0
     while index < 0 and len(repo_list) > cont:
@@ -1879,7 +1876,7 @@ def remove_repositories(request):
             index = -1
         cont += 1
     if index >= 0:
-        remove_repo = integrates_dao.remove_repository_dynamo(project, "repository_info", "repositories", index)
+        remove_repo = integrates_dao.remove_repository_dynamo(project, "repositories", index)
         if remove_repo:
             to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
             context = {

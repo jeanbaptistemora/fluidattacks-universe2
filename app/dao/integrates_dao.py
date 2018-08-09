@@ -1311,7 +1311,7 @@ def update_project_access_dynamo(
         return False
 
 
-def add_repository_dynamo(project_name, data, attr_name, attr_field):
+def add_repository_dynamo(project_name, data, attr_name):
     """Add repository information to projects table."""
     table = dynamodb_resource.Table('FI_projects')
     item = get_project_dynamo(project_name)
@@ -1332,25 +1332,22 @@ def add_repository_dynamo(project_name, data, attr_name, attr_field):
         return update_repository_dynamo(
             project_name,
             data, attr_name,
-            attr_field,
             item
         )
 
 
-def update_repository_dynamo(project_name, data, attr_name, attr_field, item):
+def update_repository_dynamo(project_name, data, attr_name, item):
     """Update repository information to projects table."""
     table = dynamodb_resource.Table('FI_projects')
-    data_repo = data["repositories"]
     try:
         if attr_name not in item[0]:
             table.update_item(
                 Key={
                     'project_name': project_name.lower(),
                 },
-                UpdateExpression='SET #attrName.#attrField = :val1',
+                UpdateExpression='SET #attrName = :val1',
                 ExpressionAttributeNames={
-                    '#attrName': attr_name,
-                    '#attrField': attr_field
+                    '#attrName': attr_name
                 },
                 ExpressionAttributeValues={
                     ':val1': []
@@ -1360,13 +1357,12 @@ def update_repository_dynamo(project_name, data, attr_name, attr_field, item):
             Key={
                 'project_name': project_name.lower(),
             },
-            UpdateExpression='SET #attrName.#attrField = list_append(#attrName.#attrField, :val1)',
+            UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
             ExpressionAttributeNames={
-                '#attrName': attr_name,
-                '#attrField': attr_field
+                '#attrName': attr_name
             },
             ExpressionAttributeValues={
-                ':val1': data_repo
+                ':val1': data
             }
         )
         resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
@@ -1376,7 +1372,7 @@ def update_repository_dynamo(project_name, data, attr_name, attr_field, item):
         return False
 
 
-def remove_repository_dynamo(project_name, attr_name, attr_field, index):
+def remove_repository_dynamo(project_name, attr_name, index):
     """Update repository information to projects table."""
     table = dynamodb_resource.Table('FI_projects')
     try:
@@ -1384,10 +1380,9 @@ def remove_repository_dynamo(project_name, attr_name, attr_field, index):
             Key={
                 'project_name': project_name.lower(),
             },
-            UpdateExpression='REMOVE #attrName.#attrField[' + str(index) + ']',
+            UpdateExpression='REMOVE #attrName[' + str(index) + ']',
             ExpressionAttributeNames={
-                '#attrName': attr_name,
-                '#attrField': attr_field
+                '#attrName': attr_name
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

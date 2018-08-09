@@ -103,7 +103,7 @@ angular.module("FluidIntegrates").controller(
               location.reload();
             }
             $scope.view.project = true;
-            const projectRepoInfo = response.data.repositories;
+            const projectRepoInfo = response.data;
             $scope.loadRepoInfo(projectName, vlang, projectRepoInfo);
           }
           else if (response.error) {
