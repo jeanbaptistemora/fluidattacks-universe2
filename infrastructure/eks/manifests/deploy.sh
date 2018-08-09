@@ -70,7 +70,7 @@ ELB_NAME="$(aws --region us-east-1 elb describe-load-balancers \
 ELB_STATUS="$(aws --region us-east-1 elb describe-instance-health \
   --load-balancer-name $ELB_NAME | jq -r '.InstanceStates[].State')"
 I=0
-while [ "$ELB_STATUS" != "InService" ]; do
+while [[ "$ELB_STATUS" = *"OutOfService"* ]]; do
   echo 'Waiting for Load Balancer to be ready...'
   sleep 10
   ELB_STATUS="$(aws --region us-east-1 elb describe-instance-health \
