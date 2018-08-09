@@ -816,6 +816,38 @@ msgstr ""
 " Información en el mercado colombiano. A continuación listamos algunos de"
 " algunos de nuestros clientes."
 
+#: templates/landing.html:60
+msgid "Product-msg"
+msgstr "Conoce nuestros productos:"
+
+#: templates/landing.html:63
+msgid "Product-img-alt-1"
+msgstr "Cuaderno y signo de aprobación"
+
+#: templates/landing.html:67
+msgid "Product-img-alt-2"
+msgstr "Escudo pequeño"
+
+#: templates/landing.html:71
+msgid "Product-img-alt-3"
+msgstr "Ventana de consola mostrando el mensaje de Integrates"
+
+#: templates/landing.html:75
+msgid "Product-img-alt-4"
+msgstr "Lupa sobre consola de comando"
+
+#: templates/landing.html:79
+msgid "Product-img-alt-5"
+msgstr "Prompt de consola de comando"
+
+#: templates/landing.html:79
+msgid "Product-img-alt-5"
+msgstr "Prompt de consola de comando"
+
+#: templates/landing.html:65
+msgid "Product-img-alt-5"
+msgstr "Fluid Attacks red arrow"
+
 #: templates/navigationbar.html:4 templates/navigationbar.html:6
 #: templates/navigationbar.html:7
 msgid "Navb-cat-1"
