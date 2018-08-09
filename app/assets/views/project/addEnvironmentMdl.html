@@ -1,0 +1,34 @@
+<div class="modal-colored-header">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">{{modalTitle}}</h3>
+        </div>
+        <div class="modal-body form" id="modal-body">
+            <div class="form-group" data-parsley-validate="">
+                <div class="row" data-ng-repeat="env in envInfo.environments">
+                    <div class="col-md-10">
+                        <label><label style="color: #f22;">* </label>{{'search_findings.tab_resources.environment' | translate}}</label>
+                        <textarea rows="3"
+                            id="{{'env' + repo.id}}"
+                            class="form-control environmentInput no-resize"
+                            data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}"
+                            required=""
+                            ng-model="env.environment" required>
+                        </textarea>
+                    </div>
+                    <div class="col-md-1" style="margin-top: 40px;" ng-show="!isFirst">
+                        <button class="btn btn-primary" type="button" ng-click="removeEnvironment(env.id)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-primary" type="button" ng-click="addNewEnvironment()"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default modal-close" type="button" ng-click="close()">{{'confirmmodal.cancel' | translate}}</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()">{{'confirmmodal.proceed' | translate}}</button>
+        </div>
+    </div>
+</div>

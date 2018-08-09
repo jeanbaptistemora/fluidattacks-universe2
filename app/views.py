@@ -262,6 +262,9 @@ def project_resources(request):
     language = request.GET.get('l', 'en')
     dicLang = {
         "search_findings": {
+            "environment_table": {
+                "environment": "Environment"
+            },
             "repositories_table": {
                 "branch": "Branch",
                 "repository": "Repository"
@@ -271,6 +274,9 @@ def project_resources(request):
     if language == "es":
         dicLang = {
             "search_findings": {
+                "environment_table": {
+                    "environment": "Ambiente"
+                },
                 "repositories_table": {
                     "branch": "Rama",
                     "repository": "Repositorio"
@@ -1824,6 +1830,7 @@ def add_repositories(request):
     project = request.POST.get('project', "")
     total_repositories = parameters["data[totalRepo]"]
     json_data = []
+    email_data = []
     for repo in range(int(total_repositories)):
         repository = 'data[repositories][{repo!s}][repository]'.format(repo=repo)
         branch = 'data[repositories][{repo!s}][branch]'.format(repo=repo)
@@ -1832,7 +1839,10 @@ def add_repositories(request):
                 'urlRepo': parameters[repository],
                 'branch': parameters[branch]
             })
-    add_repo = integrates_dao.add_repository_dynamo(
+            email_text = 'Repository: {repository!s} Branch: {branch!s}' \
+                .format(repository=parameters[repository], branch=parameters[branch])
+            email_data.append({"urlEnv": email_text})
+    add_repo = integrates_dao.add_list_resource_dynamo(
         project,
         json_data,
         "repositories"
@@ -1840,10 +1850,10 @@ def add_repositories(request):
     if add_repo:
         to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
         context = {
-            'project': project.lower(),
+            'project': project.upper(),
             'user_email': request.session["username"],
-            'action': 'Add',
-            'repositories': json_data,
+            'action': 'Add repositories',
+            'resources': email_data,
             'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
             .format(url=BASE_URL, project=project)
         }
@@ -1868,22 +1878,25 @@ def remove_repositories(request):
     repo_list = project_info[0]["repositories"]
     index = -1
     cont = 0
+    email_data = []
     while index < 0 and len(repo_list) > cont:
         if repo_list[cont]["urlRepo"] == repository and repo_list[cont]["branch"] == branch:
-            json_data = [repo_list[cont]]
+            email_text = 'Repository: {repository!s} Branch: {branch!s}' \
+                .format(repository=repository, branch=branch)
+            email_data.append({"urlEnv": email_text})
             index = cont
         else:
             index = -1
         cont += 1
     if index >= 0:
-        remove_repo = integrates_dao.remove_repository_dynamo(project, "repositories", index)
+        remove_repo = integrates_dao.remove_list_resource_dynamo(project, "repositories", index)
         if remove_repo:
             to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
             context = {
-                'project': project.lower(),
+                'project': project.upper(),
                 'user_email': request.session["username"],
-                'action': 'Remove',
-                'repositories': json_data,
+                'action': 'Remove repositories',
+                'resources': email_data,
                 'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
                 .format(url=BASE_URL, project=project)
             }
@@ -1894,4 +1907,102 @@ def remove_repositories(request):
             return util.response([], 'Error', True)
     else:
         util.cloudwatch_log(request, 'Security: Attempted to remove repository that does not exist')
+        return util.response([], 'Error', True)
+
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
+def get_environments(request):
+    """Get the environments of a project."""
+    project = request.GET.get('project', None)
+    json_info = []
+    project_info = integrates_dao.get_project_dynamo(project)
+    for info in project_info:
+        if "environments" in info:
+            json_info = info['environments']
+            break
+        else:
+            json_info = []
+    return util.response(json_info, 'Success', False)
+
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
+def add_environments(request):
+    """Add environments to proyect."""
+    parameters = request.POST.dict()
+    project = parameters["project"]
+    total_environments = parameters["data[totalEnv]"]
+    json_data = []
+    for env in range(int(total_environments)):
+        environment = 'data[environments][{env!s}][environment]'.format(env=env)
+        if parameters[environment]:
+            json_data.append({
+                'urlEnv': parameters[environment],
+            })
+    add_env = integrates_dao.add_list_resource_dynamo(
+        project,
+        json_data,
+        "environments"
+    )
+    if add_env:
+        to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+        context = {
+            'project': project.upper(),
+            'user_email': request.session["username"],
+            'action': 'Add environments',
+            'resources': json_data,
+            'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
+            .format(url=BASE_URL, project=project)
+        }
+        send_mail_repositories(to, context)
+        return util.response([], 'Success', False)
+    else:
+        rollbar.report_message('Error: An error occurred adding environments', 'error', request)
+        return util.response([], 'Error', True)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
+def remove_environments(request):
+    """Remove environments to proyect."""
+    parameters = request.POST.dict()
+    project = parameters["project"]
+    environment = parameters["data[urlEnv]"]
+    project_info = integrates_dao.get_project_dynamo(project)
+    repo_list = project_info[0]["environments"]
+    index = -1
+    cont = 0
+    while index < 0 and len(repo_list) > cont:
+        if repo_list[cont]["urlEnv"] == environment:
+            json_data = [repo_list[cont]]
+            index = cont
+        else:
+            index = -1
+        cont += 1
+    if index >= 0:
+        remove_env = integrates_dao.remove_list_resource_dynamo(project, "environments", index)
+        if remove_env:
+            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            context = {
+                'project': project.upper(),
+                'user_email': request.session["username"],
+                'action': 'Remove environments',
+                'resources': json_data,
+                'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
+                .format(url=BASE_URL, project=project)
+            }
+            send_mail_repositories(to, context)
+            return util.response([], 'Success', False)
+        else:
+            rollbar.report_message('Error: An error occurred removing environment', 'error', request)
+            return util.response([], 'Error', True)
+    else:
+        util.cloudwatch_log(request, 'Security: Attempted to remove environment that does not exist')
         return util.response([], 'Error', True)

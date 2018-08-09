@@ -48,6 +48,23 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Adding new environments.
+       * @function addEnvironments
+       * @param {String} data environments data.
+       * @param {String} project Project name.
+       * @member integrates.projectFtry2
+       * @return {Object} Update of environments
+       */
+      "addEnvironments" (data, project) {
+        const oopsAc = "An error occurred adding environments";
+        return $xhr.post($q, `${BASE.url}add_environments`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data,
+          project
+        }, oopsAc);
+      },
+
+      /**
        * Adding new repositories.
        * @function addRepositories
        * @param {String} data Repositories data.
@@ -56,7 +73,7 @@ angular.module("FluidIntegrates").factory(
        * @return {Object} Update of repositories
        */
       "addRepositories" (data, project) {
-        const oopsAc = "An error occurred adding repostories";
+        const oopsAc = "An error occurred adding repositories";
         return $xhr.post($q, `${BASE.url}add_repositories`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           data,
@@ -258,6 +275,21 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Return the environments of a project
+       * @function environmentsbyProject
+       * @param {String} project Project name
+       * @member integrates.projectFtry2
+       * @return {Object} Dynamo response with the environments of a project
+       */
+      "environmentsByProject" (project) {
+        const oopsAc = "An error occurred getting environments";
+        return $xhr.get($q, `${BASE.url}get_environments`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          project
+        }, oopsAc);
+      },
+
+      /**
        * Get role of a user.
        * @function isCustomerAdmin
        * @param {String} project Project name.
@@ -279,7 +311,7 @@ angular.module("FluidIntegrates").factory(
        * @function removeAccessIntegrates
        * @param {String} email Email of user to which access will be removed.
        * @param {String} project Project name.
-       * @member integrates.projectFtry
+       * @member integrates.projectFtry2
        * @return {Object} Response of request
        */
       "removeAccessIntegrates" (email, project) {
@@ -291,6 +323,31 @@ angular.module("FluidIntegrates").factory(
         }, oopsAc);
       },
 
+      /**
+       * Remove an environment of a project
+       * @function removeEnvironments
+       * @param {String} data Information of the environment to remove.
+       * @param {String} project Project name.
+       * @member integrates.projectFtry2
+       * @return {Object} Response of request
+       */
+      "removeEnvironments" (data, project) {
+        const oopsAc = "An error occurred removing environments";
+        return $xhr.post($q, `${BASE.url}remove_environments`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data,
+          project
+        }, oopsAc);
+      },
+
+      /**
+       * Remove a repository of a project
+       * @function removeRepositories
+       * @param {String} data Information of the repository to remove.
+       * @param {String} project Project name.
+       * @member integrates.projectFtry2
+       * @return {Object} Response of request
+       */
       "removeRepositories" (data, project) {
         const oopsAc = "An error occurred removing repositories";
         return $xhr.post($q, `${BASE.url}remove_repositories`, {
@@ -304,7 +361,7 @@ angular.module("FluidIntegrates").factory(
        * Return the repositories of a project
        * @function repositoriesbyProject
        * @param {String} project Project name
-       * @member integrates.projectFtry
+       * @member integrates.projectFtry2
        * @return {Object} Dynamo response with the repositories of a project
        */
       "repositoriesByProject" (project) {

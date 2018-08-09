@@ -158,13 +158,17 @@ const traducciones2 = {
   {
     "add_repository": "Agregar",
     "branch": "Rama",
+    "environment": "Ambiente",
+    "environments": "Ambientes",
     "no_selection": "Debe seleccionar un item de la tabla.",
     "password": "Contraseña",
     "remove_repository": "Remover",
+    "repositories": "Repositorios",
     "repository": "Repositorio",
-    "success": "Repositorio agregado exitosamente.",
-    "success_remove": "Repositorio eliminado exitosamente.",
-    "title": "Agregar información de los repositorios",
+    "success": "Item agregado exitosamente.",
+    "success_remove": "Item eliminado exitosamente.",
+    "title_env": "Agregar información de los ambientes",
+    "title_repo": "Agregar información de los repositorios",
     "username": "Usuario"
   },
   "tab_tracking":

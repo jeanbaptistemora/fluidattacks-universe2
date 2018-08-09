@@ -157,13 +157,17 @@ const translations2 = {
    {
      "add_repository": "Add",
      "branch": "Branch",
+     "environment": "Environment",
+     "environments": "Environments",
      "no_selection": "You must select an item from the table.",
      "password": "Password",
      "remove_repository": "Remove",
+     "repositories": "Repositories",
      "repository": "Repository",
-     "success": "Repository added successfully.",
-     "success_remove": "Repository removed successfully.",
-     "title": "Add repository information",
+     "success": "Item added successfully.",
+     "success_remove": "Item removed successfully.",
+     "title_env": "Add environment information",
+     "title_repo": "Add repository information",
      "username": "Username"
    },
    "tab_tracking":

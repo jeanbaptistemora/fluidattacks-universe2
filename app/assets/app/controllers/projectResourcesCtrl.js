@@ -107,7 +107,22 @@ angular.module("FluidIntegrates").controller(
             $scope.loadRepoInfo(projectName, vlang, projectRepoInfo);
           }
           else if (response.error) {
-            Rollbar.warning("Warning: Users not found");
+            Rollbar.warning("Warning: Repositories not found");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+        });
+        const reqEnvironments = projectFtry2.environmentsByProject(projectName);
+        reqEnvironments.then((response) => {
+          if (!response.error) {
+            if (angular.isUndefined(response.data)) {
+              location.reload();
+            }
+            $scope.view.project = true;
+            const projectEnvInfo = response.data;
+            $scope.loadEnvironmentInfo(projectName, vlang, projectEnvInfo);
+          }
+          else if (response.error) {
+            Rollbar.warning("Warning: Environments not found");
             $msg.error($translate.instant("proj_alerts.error_textsad"));
           }
         });
@@ -116,7 +131,7 @@ angular.module("FluidIntegrates").controller(
     };
 
     $scope.loadRepoInfo = function loadRepoInfo (project, vlang, data) {
-      // Eventuality table configuration
+      // Resources tables configuration
 
       angular.element("#tblRepositories").bootstrapTable("destroy");
       angular.element("#tblRepositories").bootstrapTable({
@@ -126,6 +141,20 @@ angular.module("FluidIntegrates").controller(
         "locale": vlang
       });
       angular.element("#tblRepositories").bootstrapTable("refresh");
+      angular.element("#search_section").show();
+      angular.element("[data-toggle=\"tooltip\"]").tooltip();
+    };
+
+    $scope.loadEnvironmentInfo = function
+    loadEnvironmentInfo (project, vlang, data) {
+      angular.element("#tblEnvironments").bootstrapTable("destroy");
+      angular.element("#tblEnvironments").bootstrapTable({
+        "cookie": true,
+        "cookieIdTable": "saveIdEnvironments",
+        data,
+        "locale": vlang
+      });
+      angular.element("#tblEnvironments").bootstrapTable("refresh");
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
     };
@@ -192,7 +221,7 @@ angular.module("FluidIntegrates").controller(
         "controller" ($scope, $uibModalInstance, data) {
           $scope.repoInfo = {};
           $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_resources.title");
+                                          "tab_resources.title_repo");
           $scope.repoInfo.repositories = [{"id": 1}];
           $scope.isFirst = true;
           $scope.addNewRepository = function addNewRepository () {
@@ -265,6 +294,137 @@ angular.module("FluidIntegrates").controller(
         "size": "lg",
         "templateUrl": `${BASE.url}assets/views/project/addRepositoryMdl.html`
       });
+    };
+
+    $scope.addEnvironment = function addEnvironment () {
+      // Obtener datos
+      const descData = {"project": $stateParams.project.toLowerCase()};
+      $uibModal.open({
+        "animation": true,
+        "backdrop": "static",
+        "controller" ($scope, $uibModalInstance, data) {
+          $scope.envInfo = {};
+          $scope.modalTitle = $translate.instant("search_findings." +
+                                          "tab_resources.title_env");
+          $scope.envInfo.environments = [{"id": 1}];
+          $scope.isFirst = true;
+          $scope.addNewEnvironment = function addNewEnvironment () {
+            const newItemNo = $scope.envInfo.environments.length + 1;
+            $scope.isFirst = false;
+            $scope.envInfo.environments.push({"id": newItemNo});
+          };
+          $scope.removeEnvironment = function removeEnvironment (id) {
+            const index = parseInt(id, 10);
+            if ($scope.envInfo.environments.length > 1) {
+              $scope.envInfo.environments.splice(index - 1, 1);
+            }
+            else {
+              $scope.isFirst = true;
+            }
+          };
+          $scope.ok = function ok () {
+            $scope.envInfo.totalEnv = $scope.envInfo.environments.length;
+            const inputValidations = angular.element(".environmentInput");
+            let envValidation = true;
+            let elem = 0;
+            while (envValidation && inputValidations.length > elem) {
+              if (angular.element(`#${inputValidations[elem].id}`).parsley().
+                validate() === true) {
+                envValidation = true;
+              }
+              else {
+                envValidation = false;
+              }
+              elem += 1;
+            }
+            if (envValidation) {
+              // Make the request
+              const envReq = projectFtry2.addEnvironments(
+                $scope.envInfo,
+                data.project
+              );
+              // Capture the promise
+              envReq.then((response) => {
+                if (!response.error) {
+                  // Mixpanel tracking
+                  const projt = descData.project.toUpperCase();
+                  mixPanelDashboard.trackSearch(
+                    "addEnvironment",
+                    userEmail,
+                    projt
+                  );
+                  const message = $translate.instant("search_findings" +
+                                                ".tab_resources.success");
+                  const messageTitle = $translate.instant("search_findings" +
+                                                ".tab_users.title_success");
+                  $msg.success(message, messageTitle);
+                  $uibModalInstance.close();
+                  location.reload();
+                }
+                else if (response.error) {
+                  Rollbar.error("Error: An error occurred when " +
+                              "adding a new environment");
+                  $msg.error($translate.instant("proj_alerts.error_textsad"));
+                }
+              });
+            }
+          };
+          $scope.close = function close () {
+            $uibModalInstance.close();
+          };
+        },
+        "keyboard": false,
+        "resolve": {"data": descData},
+        "templateUrl": `${BASE.url}assets/views/project/addEnvironmentMdl.html`
+      });
+    };
+
+    $scope.removeEnvironment = function removeEnvironment () {
+      let environment = "";
+      angular.element("#tblEnvironments :checked").
+        each(function checkedFields () {
+          /* eslint-disable-next-line  no-invalid-this */
+          const vm = this;
+          const actualRow = angular.element("#tblEnvironments").find("tr");
+          const actualIndex = angular.element(vm).data().index + 1;
+          environment = actualRow.eq(actualIndex)[0].cells[1].innerHTML;
+        });
+      if (environment.length === 0) {
+        $msg.error($translate.instant("search_findings.tab_resources." +
+                                  "no_selection"));
+      }
+      else {
+        const environments = {};
+        environments.urlEnv = environment;
+        const project = $stateParams.project.toLowerCase();
+        const repo = projectFtry2.removeEnvironments(
+          environments,
+          project
+        );
+        // Capture the promise
+        repo.then((response) => {
+          if (!response.error) {
+            // Mixpanel tracking
+            const projt = project.toUpperCase();
+            mixPanelDashboard.trackSearch(
+              "removeEnvironment",
+              userEmail,
+              projt
+            );
+            const message = $translate.instant("search_findings" +
+                                          ".tab_resources.success_remove");
+            const messageTitle = $translate.instant("search_findings" +
+                                          ".tab_users.title_success");
+            $msg.success(message, messageTitle);
+            location.reload();
+          }
+          else if (response.error) {
+            Rollbar.error("Error: An error occurred when " +
+                        "removing environment");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+        });
+      }
     };
 
     $scope.urlIndicators = function urlIndicators () {

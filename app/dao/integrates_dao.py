@@ -1311,8 +1311,8 @@ def update_project_access_dynamo(
         return False
 
 
-def add_repository_dynamo(project_name, data, attr_name):
-    """Add repository information to projects table."""
+def add_list_resource_dynamo(project_name, data, attr_name):
+    """Add resource information to projects table."""
     table = dynamodb_resource.Table('FI_projects')
     item = get_project_dynamo(project_name)
     if not item:
@@ -1329,15 +1329,15 @@ def add_repository_dynamo(project_name, data, attr_name):
             rollbar.report_exc_info()
             return False
     else:
-        return update_repository_dynamo(
+        return update_list_resource_dynamo(
             project_name,
             data, attr_name,
             item
         )
 
 
-def update_repository_dynamo(project_name, data, attr_name, item):
-    """Update repository information to projects table."""
+def update_list_resource_dynamo(project_name, data, attr_name, item):
+    """Update resource information to projects table."""
     table = dynamodb_resource.Table('FI_projects')
     try:
         if attr_name not in item[0]:
@@ -1372,8 +1372,8 @@ def update_repository_dynamo(project_name, data, attr_name, item):
         return False
 
 
-def remove_repository_dynamo(project_name, attr_name, index):
-    """Update repository information to projects table."""
+def remove_list_resource_dynamo(project_name, attr_name, index):
+    """Remove resource information to projects table."""
     table = dynamodb_resource.Table('FI_projects')
     try:
         response = table.update_item(
