@@ -20,34 +20,35 @@
 | link:../one-shot-hacking/[*One Shot Hacking*]
 
 a|==== Attack Cycles
-| Multiples link:../continuous-hacking/#remediation-validation[^1^].
+| Multiple link:../continuous-hacking/#remediation-validation[^1^].
 | Only +1+ link:../one-shot-hacking/#remediation-validation[^1^].
 
 a|==== Remediation Support
-| {yes} link:../continuous-hacking/#remediation-support[^2^]
-| {no} link:../one-shot-hacking/#remediation[^2^]
+| {yes} Yes. link:../continuous-hacking/#remediation-support[^2^]
+| {no} No. link:../one-shot-hacking/#remediation[^2^]
 
 a|==== Average duration
-| Between +12+ and +36+ months link:../continuous-hacking/#duration[^3^].
-| Between +1+ and +4+ months link:../one-shot-hacking/#specific-length[^3^].
+| 12-36 months link:../continuous-hacking/#duration[^3^].
+| 1-4 months link:../one-shot-hacking/#specific-length[^3^].
 
 a|==== Multiple hackers
-|{yes} During all the service, at least +5+ hackers attack your system.
-|{info} At least +2+ hackers attack your system.
+|{yes} A minimum of +5+ hackers test your system.
+|{info} A minimum of +2+ hackers test your system.
 
 a|==== Face-to-face delivery
-|{info} All information deliveries are made via
+|{info}  Unlimited within the contract period.
+All information deliveries are made via
 [button]#link:../../products/integrates/[Integrates]#
 link:../continuous-hacking/#direct-and-agile-communication[^4^].
-a|{yes} Results socialization meetings:
+a|{yes} Limited to two within the contract period:
 
-* +1+ Virtual validation meeting link:../one-shot-hacking/#report-validation-meeting[^4^].
-* +1+ Face-to-face meeting of final results socialization link:../one-shot-hacking/#report-presentation-meeting[^5^].
+* +1+ meeting via video-teleconferencing link:../one-shot-hacking/#report-validation-meeting[^4^].
+* +1+ final results summary meeting at your location link:../one-shot-hacking/#report-presentation-meeting[^5^].
 
 a|==== Detection time
 a|{yes} Early
 
-* Vulnerabilities are detected near the time the programmer injects them.
+* Vulnerabilities are detected during development.
 
 a|{info} Late
 
@@ -60,18 +61,22 @@ to the project leaders about open vulnerabilities
 link:../continuous-hacking/#follow-up-using-integrates[^5^].
 |{info} No alerting system, only final reports.
 
-a|==== Vision
-|{yes} Information about your system security *up to date*.
-|{info} Information about your system security *in a moment of time*.
+a|==== View
+|{yes} *Up-to-date* information about your system’s security.
+|{info} Information about your system’s security
+at *only one particular point in time*.
 
 a|==== Coverage
 a|{yes} 100% when:
 
-* We start simultaneously with production.
-* We make an up to date hacking at the beginning.
-* Hacking does not stop during development stage.
+* We start simultaneously with development.
+* We attack all versions of the existing code
+up to the  subscription starting point to catch up,
+if necessary, with the development team.
+* Hacking does not stop during the development phase.
 
-a|{info} Agreed at the beginning of the test
+a|{info} Agreed upon by both the customer and +Fluid Attacks+
+before testing begins
 link:../one-shot-hacking/#coverage[^6^].
 
 a|==== Windows
@@ -80,7 +85,7 @@ a|{yes} In the
 service environments:
 
 * Can constantly change.
-* Not necessarily are frozen.
+* Are not necessarily frozen.
 * Windows are not required for hacking.
 
 | {info} Frozen environments and test windows are required.
@@ -92,17 +97,19 @@ are infected with our custom cyberweapon
 [button]#link:../../products/commands/[Commands]#
 link:../one-shot-hacking/#infection[^7^]
 
-a|==== Remediation ratio
-| {yes} Maximum of +100%+ of reported vulnerabilities.
-| {yes} Up to +80%+ of reported vulnerabilities.
+a|==== Remediation percentage
+| {yes} Up to +100%+ of reported vulnerabilities can,
+potentially, be remediated.
+| {yes} Up to +80%+ of reported vulnerabilities can,
+potentially, be remediated.
 
 a|==== Location
 | Always remote.
 | Remote or on premises.
 
 a|==== Time to remediate
-| {yes} +2+ or +3+ weeks.
-| {info} +3+ or +4+ months.
+| {yes} +2+ - +3+ weeks.
+| {info} +3+ - +4+ months.
 
 a|==== Payment
 | Monthly payment.
