@@ -19,23 +19,26 @@ class Query(ObjectType):
 
     login = Field(Login)
 
-    #pylint: disable=unused-argument
+
     def resolve_alert(self, info, project=None, organization=None):
         """ Resolve for alert """
+        del info
         return Alert(project, organization)
-    #pylint: disable=unused-argument
+
     def resolve_eventuality(self, info, submitID=None):
         """ Resolve for eventuality """
+        del info
         return Eventuality(submitID)
-    #pylint: disable=unused-argument
+
     def resolve_eventualities(self, info, project=""):
         """ Resolve for eventualities """
+        del info
         resp = FormstackAPI().get_eventualities(str(project))
         data = []
         if "submissions" in resp:
             data = [Eventuality(i["id"]) for i in resp["submissions"]]
         return data
-    #pylint: disable=unused-argument
+
     def resolve_login(self, info):
         """ Resolve for login info """
         user_email = info.context.session["username"]

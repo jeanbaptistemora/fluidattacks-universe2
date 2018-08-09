@@ -18,14 +18,14 @@ class Login(ObjectType):
                 self.remember = userInfo["legal_remember"]
                 session['accept_legal'] = True
 
-    #pylint: disable=unused-argument
     def resolve_authorized(self, info):
         """ Resolve user authorization """
+        del info
         return self.authorized
 
-    #pylint: disable=unused-argument
     def resolve_remember(self, info):
         """ Resolve remember preference """
+        del info
         return self.remember
 
 class AcceptLegal(Mutation):
@@ -34,8 +34,8 @@ class AcceptLegal(Mutation):
     success = Boolean()
 
     @classmethod
-    #pylint: disable=unused-argument
     def mutate(self, args, info, remember):
+        del args
         username = info.context.session['username']
 
         integrates_dao.update_legal_remember_dynamo(

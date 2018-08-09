@@ -50,43 +50,52 @@ class Eventuality(ObjectType):
             if "affectation" in evt_set:
                 self.affectation = evt_set["affectation"]
 
-    #pylint: disable=unused-argument
     def resolve_id(self, info):
         """ Resolve id attribute """
+        del info
         return self.id
-    #pylint: disable=unused-argument
+
     def resolve_analyst(self, info):
         """ Resolve analyst attribute """
+        del info
         return self.analyst
-    #pylint: disable=unused-argument
+
     def resolve_customer(self, info):
         """ Resolve customer attribute """
+        del info
         return self.customer
-    #pylint: disable=unused-argument
+
     def resolve_projectByFluid(self, info):
         """ Resolve projectByFluid attribute """
+        del info
         return self.projectByFluid
-    #pylint: disable=unused-argument
+
     def resolve_projectByCustomer(self, info):
         """ Resolve projectByCustomer attribute """
+        del info
         return self.projectByCustomer
-    #pylint: disable=unused-argument
+
     def resolve_type(self, info):
         """ Resolve type attribute """
+        del info
         return self.type
-    #pylint: disable=unused-argument
+
     def resolve_detail(self, info):
         """ Resolve detail attribute """
+        del info
         return self.detail
-    #pylint: disable=unused-argument
+
     def resolve_date(self, info):
         """ Resolve date attribute """
+        del info
         return self.date
-    #pylint: disable=unused-argument
+
     def resolve_status(self, info):
         """ Resolve status attribute """
+        del info
         return self.status
-    #pylint: disable=unused-argument
+
     def resolve_affectation(self, info):
         """ Resolve status attribute """
+        del info
         return self.affectation

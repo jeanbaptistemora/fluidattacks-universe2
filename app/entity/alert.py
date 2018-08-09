@@ -23,19 +23,23 @@ class Alert(ObjectType):
             self.project = resp[0]['project_name']
             self.organization = resp[0]['company_name']
             self.status = resp[0]['status_act']
-    #pylint: disable=unused-argument
+
     def resolve_message(self, info):
         """ Resolve message attribute """
+        del info
         return self.message
-    #pylint: disable=unused-argument
+
     def resolve_project(self, info):
         """ Resolve project attribute """
+        del info
         return self.project
-    #pylint: disable=unused-argument
+
     def resolve_organization(self, info):
         """ Resolve organization attribute """
+        del info
         return self.organization
-    #pylint: disable=unused-argument
+
     def resolve_status(self, info):
         """ Resolve status attribute """
+        del info
         return self.status
