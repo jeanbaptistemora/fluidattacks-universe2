@@ -73,7 +73,7 @@ YAML
   }
 
   depends_on = ["null_resource.k8s_config",
-    "aws_autoscaling_group.k8s_nodesv2_autoscaling"
+    "aws_autoscaling_group.k8s_nodes_autoscaling"
   ]
 }
 

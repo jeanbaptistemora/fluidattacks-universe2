@@ -16,7 +16,6 @@ variable "runnerIp" {}
 
 #EC2 vars
 variable "clusterInstanceType" {}
-variable "instanceType" {}
 
 # Net Vars
 variable "cidr" {}
