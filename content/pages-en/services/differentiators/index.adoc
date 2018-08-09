@@ -328,16 +328,16 @@ because it is manually generated.
 * Tool reports without discarding false positives.
 
 a|==== End
-|{yes} Our service ends when the agreed scope is reached,
-without prices augmentation
+|{yes} Our service ends when the agreed upon scope is completed,
+without any increase in cost to you.
 link:../continuous-hacking/#information-gets-deleted-securely[^28^]
 link:../one-shot-hacking/#information-gets-deleted-securely[^29^]
-|{no} The service ends when the agreed time runs out,
-therefore the scope and coverage of the hack
-are indeterminate at the end of the service.
+|{no} The service ends
+when a prior agreed upon time limit for the project runs out.
+Therefore, the scope and coverage was not defined and is unknown.
 
 a|==== Pricing
-| {yes} Fixed according to the agreed scope.
-| {no} Variable (time and materials).
+| {yes} Fixed, according to the previously agreed upon scope.
+| {no} Variable, depending on time and materials.
 
 |====
