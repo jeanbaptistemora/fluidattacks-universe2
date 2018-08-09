@@ -4,7 +4,8 @@ sNetRegion = "us-east-1b"
 dbRegion = "us-east-1"
 
 #EC2 Vars
-instanceType = "t2.xlarge"
+clusterInstanceType = "t2.medium"
+instanceType        = "t2.xlarge"
 
 # Network vars
 cidr = "192.168.100.0/24"
