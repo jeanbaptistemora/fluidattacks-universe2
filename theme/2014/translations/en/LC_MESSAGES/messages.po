@@ -684,6 +684,30 @@ msgid "Index-msg-0"
 msgstr ""
 "Find all vulnerabilities and report them as soon as possible."
 
+#: templates/landing.html:30
+msgid "Purpose-img-alt-1"
+msgstr "Target scope"
+
+#: templates/landing.html:34
+msgid "Purpose-img-alt-2"
+msgstr "Lock"
+
+#: templates/landing.html:38
+msgid "Purpose-img-alt-3"
+msgstr "Notepad and arrows"
+
+#: templates/landing.html:31
+msgid "Purpose-msg-1"
+msgstr "Find"
+
+#: templates/landing.html:35
+msgid "Purpose-msg-2"
+msgstr "Attack"
+
+#: templates/landing.html:39
+msgid "Purpose-msg-3"
+msgstr "Report"
+
 #: templates/landing.html:27
 msgid "Index-header-1"
 msgstr "Services"

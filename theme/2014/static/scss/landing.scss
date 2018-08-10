@@ -22,14 +22,48 @@ p {
   }
 }
 
-.purpose {
+.purpose-sec {
   background-color: $white;
-  padding: 20px 0;
+  background-image: url('../../images/purpose-mail.png');
+  background-size: 100% 100%;
+  height: 350px;
+  padding-top: 100px;
+}
+
+.purpose-txt {
+  float: left;
+  width: 55%;
 
   p {
-    padding: 0 20px;
-    text-align: center;
+    margin-left: 150px;
+    margin-right: 150px;
+    text-align: right;
   }
+
+  h1 {
+    margin-right: 150px;
+    text-align: right;
+  }
+}
+
+.purpose-img {
+  align-items: center;
+  display: block;
+  float: left;
+  padding-bottom: 10px;
+  width: 15%;
+
+  p {
+    margin-bottom: 10px;
+    text-align: center;
+
+  }
+
+  img {
+    height: 100px;
+    width: 100px;
+  }
+
 }
 
 .services {
@@ -277,6 +311,32 @@ p {
   .product {
     width: 100%;
   }
+
+  .purpose-sec {
+    background-color: $white;
+    background-image: none;
+    padding-top: 50px;
+  }
+
+  .purpose-txt {
+    width: 100%;
+
+    h1 {
+      margin: 0;
+      text-align: center;
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+    }
+
+  }
+
+  .purpose-img {
+    padding-top: 30px;
+    width: 33.33%;
+  }
 }
 
 @media screen and (max-width: 430px) {
@@ -284,6 +344,31 @@ p {
     ul {
       text-align: center;
     }
+  }
 
+  .purpose-sec {
+    background-color: $white;
+    background-image: none;
+    padding-top: 50px;
+  }
+
+  .purpose-txt {
+    width: 100%;
+
+    h1 {
+      margin: 0;
+      text-align: center;
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+    }
+  }
+
+  .purpose-img {
+    background-color: $white;
+    padding-top: 30px;
+    width: 100%;
   }
 }
