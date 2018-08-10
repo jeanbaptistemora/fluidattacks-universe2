@@ -11,8 +11,14 @@ helm init --client-only
 helm repo update
 helm install stable/nginx-ingress \
   --name controller --namespace serves \
-  --set rbac.create=true --tls 2>/dev/null || \
-  echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
+  --set controller.defaultBackendService=serves/alg \
+  --set controller.extraArgs.default-ssl-certificate=serves/tls-fluidattacks \
+  --set controller.kind=DaemonSet \
+  --set controller.minReadySeconds=20 \
+  --set defaultBackend.enabled=false \
+  --set rbac.create=true \
+  controller stable/nginx-ingress --tls 2>/dev/null || \
+    echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
 helm install stable/cert-manager \
   --name certificate --namespace default --tls 2>/dev/null || \
   echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
