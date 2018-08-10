@@ -120,6 +120,9 @@ angular.module("FluidIntegrates").controller(
       $scope.goUp();
       $scope.finding = {};
     };
+    $scope.deleteProject = function deleteProject () {
+      functionsFtry4.deleteProject();
+    };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };

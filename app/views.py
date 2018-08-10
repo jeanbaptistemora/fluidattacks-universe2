@@ -114,6 +114,7 @@ def project_findings(request):
             },
             "filter_buttons": {
                "advance": "Progress",
+               "delete_project": "Delete Project",
                "documentation": "Documentation"
             },
         }
@@ -142,6 +143,7 @@ def project_findings(request):
                 },
                 "filter_buttons": {
                    "advance": "Avance",
+                   "delete_project": "Borrar Proyecto",
                    "documentation": "Documentacion"
                 }
             }
@@ -1709,9 +1711,8 @@ def remove_access_integrates(request):
     project = parameters['project']
     if (is_customeradmin(project, request.session['username']) or
             request.session['role'] == 'admin'):
-        if integrates_dao.remove_access_project_dao(user, project):
-            if is_customeradmin(project, user):
-                integrates_dao.remove_role_to_project_dynamo(project, user, "customeradmin")
+        is_user_removed = remove_user_access(project, user)
+        if is_user_removed:
             return util.response([], 'Success', False)
     return util.response([], 'Error', True)
 
@@ -2006,3 +2007,42 @@ def remove_environments(request):
     else:
         util.cloudwatch_log(request, 'Security: Attempted to remove environment that does not exist')
         return util.response([], 'Error', True)
+
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['admin'])
+@require_project_access
+def delete_project(request):
+    """Delete project information."""
+    project = request.POST.get('project', "")
+    project = project.lower()
+    was_users_removed = remove_all_users_access(project)
+    if was_users_removed:
+        return util.response([], 'Success', False)
+    else:
+        return util.response([], 'Error', True)
+
+
+def remove_all_users_access(project):
+    """Remove user access to project."""
+    all_users = integrates_dao.get_project_users(project)
+    was_users_removed = True
+    for user in all_users:
+        is_user_removed = remove_user_access(project, user[0])
+        if is_user_removed:
+            was_users_removed = True
+        else:
+            was_users_removed = False
+            break
+    return was_users_removed
+
+
+def remove_user_access(project, user_email):
+    """Remove user access to project."""
+    integrates_dao.remove_role_to_project_dynamo(project, user_email, "customeradmin")
+    is_user_removed_dao = integrates_dao.remove_access_project_dao(user_email,
+                                                                   project)
+    is_user_removed_dynamo = integrates_dao.remove_project_access_dynamo(user_email, project)
+    is_user_removed = is_user_removed_dao and is_user_removed_dynamo
+    return is_user_removed

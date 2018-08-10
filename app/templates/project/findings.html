@@ -125,20 +125,25 @@
                     </ul>
                     <div class="tab-content">
                         <div id="findings" class="tab-pane cont active">
-                            <div class="btn-group" >
-                                <script>
-                                    $(document).ready(function() {
-                                        if (userRole == "customer" || userRole == "customeradmin") {
-                                            $('#progress_button').hide();
-                                        }
-                                    });
-                                </script>
-                                <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.advance}}!" ng-click="openModalAvance();">
-                                    {{ search_findings.filter_buttons.advance }} <i class="glyphicon glyphicon-bookmark"></i>
-                                </button>
-                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-controller="reportGeneratorCtrl" ng-click="reportModal();">
-                                    {% templatetag openvariable %} 'reports.title' | translate {% templatetag closevariable %} <i class="glyphicon glyphicon-briefcase"></i>
-                                </button>
+                            <div class="row">
+                                <div class=" col-md-6 col-sm-12 btn-group" >
+                                    <script>
+                                        $(document).ready(function() {
+                                            if (userRole == "customer" || userRole == "customeradmin") {
+                                                $('#progress_button').hide();
+                                            }
+                                        });
+                                    </script>
+                                    <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.advance}}!" ng-click="openModalAvance();">
+                                        {{ search_findings.filter_buttons.advance }} <i class="glyphicon glyphicon-bookmark"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-controller="reportGeneratorCtrl" ng-click="reportModal();">
+                                        {% templatetag openvariable %} 'reports.title' | translate {% templatetag closevariable %} <i class="glyphicon glyphicon-briefcase"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-offset-4 col-md-2 col-sm-12 ">
+                                    <button class="btn btn-primary btn-block" type="button" ng-if="isAdmin" ng-click="deleteProject()">{{ search_findings.filter_buttons.delete_project }}</button>
+                                </div>
                             </div>
                             <!-- START: toolbar -->
                             <div id="toolbar" style="padding-top: 5%;">

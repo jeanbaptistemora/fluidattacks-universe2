@@ -1286,6 +1286,23 @@ def add_project_access_dynamo(
         )
 
 
+def remove_project_access_dynamo(user_email, project_name):
+    """Remove project access in dynamo."""
+    table = dynamodb_resource.Table('FI_project_access')
+    try:
+        response = table.delete_item(
+            Key={
+                'user_email': user_email.lower(),
+                'project_name': project_name.lower(),
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
 def update_project_access_dynamo(
         user_email, project_name, project_attr, attr_value):
     """Update project access attribute."""

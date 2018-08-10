@@ -14,6 +14,7 @@ const translations1 = {
      "title_cssv2": "Update CSSv2",
      "title_description": "Update Description",
      "title_finding": "Delete Finding",
+     "title_project": "Delete Project",
      "yes": "Yes"
    },
   "deletemodal":
