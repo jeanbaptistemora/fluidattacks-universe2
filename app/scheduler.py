@@ -342,7 +342,8 @@ def get_new_releases():
                 'warning')
     if cont > 0:
         context['total'] = cont
-        to = ["projects@fluidattacks.com", "production@fluidattacks.com"]
+        to = ["projects@fluidattacks.com", "production@fluidattacks.com",
+              "jarmas@fluidattacks.com", "jaguirre@fluidattacks.com"]
         send_mail_new_releases(to, context)
     else:
         logger.info('There are no new drafts')
