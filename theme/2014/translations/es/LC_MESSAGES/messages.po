@@ -845,8 +845,8 @@ msgid "Product-img-alt-5"
 msgstr "Prompt de consola de comando"
 
 #: templates/landing.html:65
-msgid "Product-img-alt-5"
-msgstr "Fluid Attacks red arrow"
+msgid "Product-img-alt-6"
+msgstr "Flecha roja de Fluid Attacks"
 
 #: templates/navigationbar.html:4 templates/navigationbar.html:6
 #: templates/navigationbar.html:7

@@ -832,7 +832,11 @@ msgstr "Magnifying glass over a console window"
 
 #: templates/landing.html:65
 msgid "Product-img-alt-5"
-msgstr "Flecha roja de Fluid Attacks"
+msgstr "Prompt in command console window"
+
+#: templates/landing.html:65
+msgid "Product-img-alt-6"
+msgstr "Fluid Attacks red arrow"
 
 #: templates/navigationbar.html:4 templates/navigationbar.html:6
 #: templates/navigationbar.html:7
