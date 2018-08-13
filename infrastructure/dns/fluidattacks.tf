@@ -1,12 +1,4 @@
 # A Records
-resource "aws_route53_record" "env" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "env.${aws_route53_zone.fs_maindomain.name}"
-  type    = "A"
-  ttl     = "300"
-  records = ["35.192.68.246"]
-}
-
 resource "aws_route53_record" "mail" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "mail.${aws_route53_zone.fs_maindomain.name}"
@@ -43,7 +35,7 @@ resource "aws_route53_record" "env_cname" {
   name    = "*.env.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["env.fluidattacks.com"]
+  records = ["fluidattacks.com"]
 }
 
 resource "aws_route53_record" "database" {
