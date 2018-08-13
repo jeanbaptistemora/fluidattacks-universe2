@@ -2017,25 +2017,28 @@ def delete_project(request):
     """Delete project information."""
     project = request.POST.get('project', "")
     project = project.lower()
-    was_users_removed = remove_all_users_access(project)
-    if was_users_removed:
+    are_users_removed = remove_all_users_access(project)
+    is_project_masked = mask_project_findings(project)
+    is_project_deleted = are_users_removed and is_project_masked
+    if is_project_deleted:
         return util.response([], 'Success', False)
     else:
+        rollbar.report_message('Error: An error occurred deleting project', 'error', request)
         return util.response([], 'Error', True)
 
 
 def remove_all_users_access(project):
     """Remove user access to project."""
     all_users = integrates_dao.get_project_users(project)
-    was_users_removed = True
+    are_users_removed = True
     for user in all_users:
         is_user_removed = remove_user_access(project, user[0])
         if is_user_removed:
-            was_users_removed = True
+            are_users_removed = True
         else:
-            was_users_removed = False
+            are_users_removed = False
             break
-    return was_users_removed
+    return are_users_removed
 
 
 def remove_user_access(project, user_email):
@@ -2046,3 +2049,27 @@ def remove_user_access(project, user_email):
     is_user_removed_dynamo = integrates_dao.remove_project_access_dynamo(user_email, project)
     is_user_removed = is_user_removed_dao and is_user_removed_dynamo
     return is_user_removed
+
+
+def mask_project_findings(project):
+    """Mask project findings information."""
+    api = FormstackAPI()
+    try:
+        finreqset = api.get_findings(project)["submissions"]
+        masked = list(map(mask_finding, finreqset))
+        is_project_masked = all(masked)
+        return is_project_masked
+    except KeyError:
+        rollbar.report_message('Error: An error occurred masking project', 'error')
+        return False
+
+
+def mask_finding(submission_id):
+    """Mask finding information."""
+    api = FormstackAPI()
+    finding_id = submission_id["id"]
+    generic_dto = FindingDTO()
+    generic_dto.mask_finding(finding_id, "Masked")
+    generic_dto.to_formstack()
+    request = api.update(generic_dto.request_id, generic_dto.data)
+    return request

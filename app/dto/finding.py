@@ -1,4 +1,7 @@
 """ DTO to map the Integrates fields to formstack """
+import base64
+
+
 # pylint: disable=E0402
 class FindingDTO(object):
     """ Class to create an object with the attributes of a finding. """
@@ -66,6 +69,7 @@ class FindingDTO(object):
     EXTERNAL_BTS = "56614832"
     LAST_VULNERABILITY = "63672923"
     RELEASE_DATE = "64313858"
+    RELATED_FINDINGS = "38606215"
 
     #Atributos CssV2
     ACCESS_VECTOR = "38529247"
@@ -503,6 +507,37 @@ class FindingDTO(object):
                 if(new_url.find("&") != -1):
                     return new_url.split("&")[0]
         return drive
+
+    def mask_finding(self, findingid, mask_value):
+        """Mask finding."""
+        self.request_id = findingid
+        self.data[self.CLIENT_CODE] = mask_value
+        self.data[self.CLIENT_PROJECT] = mask_value
+        self.data[self.RELATED_FINDINGS] = mask_value
+        self.data[self.REG_FILE] = base64.b64encode(mask_value)
+        self.data[self.VULNERABILITY] = mask_value
+        self.data[self.WHERE] = mask_value
+        self.data[self.ATTACK_VECTOR] = mask_value
+        self.data[self.AFFECTED_SYSTEMS] = mask_value
+        self.data[self.THREAT] = mask_value
+        self.data[self.RISK] = mask_value
+        self.data[self.EFFECT_SOLUTION] = mask_value
+        self.data[self.DOC_ACHV1] = base64.b64encode(mask_value)
+        self.data[self.DOC_CMNT1] = mask_value
+        self.data[self.DOC_ACHV2] = base64.b64encode(mask_value)
+        self.data[self.DOC_CMNT2] = mask_value
+        self.data[self.DOC_ACHV3] = base64.b64encode(mask_value)
+        self.data[self.DOC_CMNT3] = mask_value
+        self.data[self.DOC_ACHV4] = base64.b64encode(mask_value)
+        self.data[self.DOC_CMNT4] = mask_value
+        self.data[self.DOC_ACHV5] = base64.b64encode(mask_value)
+        self.data[self.DOC_CMNT5] = mask_value
+        self.data[self.EXPLOTATION] = base64.b64encode(mask_value)
+        self.data[self.ANIMATION] = base64.b64encode(mask_value)
+        self.data[self.EXPLOIT] = base64.b64encode(mask_value)
+        self.data[self.TREATMENT] = mask_value
+        self.data[self.TREATMENT_MANAGER] = mask_value
+        self.data[self.TREATMENT_JUSTIFICATION] = mask_value
 
     def to_formstack(self):
         new_data = dict()
