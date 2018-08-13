@@ -19,6 +19,10 @@ p {
     h1 {
       color: $white;
     }
+
+    span {
+      color: $fluid-red;
+    }
   }
 }
 
@@ -180,18 +184,18 @@ p {
 
 
 .benefits {
-  align-items: center;
   background-color: $fluid-black;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20px 0;
+  clear: both;
+  content: '';
+  display: table;
+  padding: 20px 90px 30px;
   width: 100%;
 }
 
 .benefit {
-  height: 300px;
-  margin: 10px auto;
-  width: 90%;
+  float: left;
+  padding: 0;
+  width: 20%;
 
   span {
     color: $fluid-red;
@@ -203,6 +207,9 @@ p {
 
   p {
     color: $white;
+    font-size: 17px;
+    line-height: normal;
+    margin: 0 30px;
     text-align: center;
 
     strong {
@@ -211,8 +218,33 @@ p {
   }
 
   img {
-    height: 200px;
-    width: 200px;
+    height: 170px;
+    width: 170px;
+  }
+}
+
+.benefit-ftr {
+  background-color: $fluid-black;
+  padding-bottom: 40px;
+  padding-top: 15px;
+  width: 100%;
+
+  p {
+    color: $white;
+    font-size: 25px;
+    text-align: center;
+  }
+
+  span {
+    color: $fluid-red;
+    font-family: 'Montserrat';
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  img {
+    height: 17px;
+    width: 17px;
   }
 }
 
@@ -242,16 +274,7 @@ p {
   }
 }
 
-@media (min-width: 600px) {
-  .benefit {
-    width: 50%;
-  }
-}
-
 @media (min-width: 860px) {
-  .benefit {
-    width: 33%;
-  }
 
   .serv {
     width: 50%;
@@ -267,18 +290,6 @@ p {
   .cstmr-msg {
     margin: 10px auto;
     width: 65%;
-  }
-}
-
-@media (min-width: 980px) {
-  .benefits {
-    padding-right: 45px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .benefit {
-    width: 20%;
   }
 }
 
@@ -337,6 +348,14 @@ p {
     padding-top: 30px;
     width: 33.33%;
   }
+
+  .benefit {
+    width: 50%;
+  }
+
+  .benefit:last-child {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 430px) {
@@ -370,5 +389,21 @@ p {
     background-color: $white;
     padding-top: 30px;
     width: 100%;
+  }
+
+  .benefits {
+    padding: 20px auto;
+  }
+
+  .benefit {
+    width: 100%;
+
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      margin: 0;
+    }
   }
 }
