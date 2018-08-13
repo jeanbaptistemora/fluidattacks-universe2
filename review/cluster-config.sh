@@ -11,12 +11,6 @@ envsubst < review/ingress.yaml > ingress.yaml \
 envsubst < review/deploy-web.yaml > deploy-web.yaml \
   && mv deploy-web.yaml review/deploy-web.yaml
 
-# Check if namespace for project exists
-if ! kubectl get namespaces | grep -q "$CI_PROJECT_NAME"; then
-  echo "Creating namespace for project..."
-  kubectl create namespace "$CI_PROJECT_NAME"
-fi
-
 # Set namespace preference for kubectl commands
 echo "Setting namespace preferences..."
 kubectl config set-context \
