@@ -290,7 +290,7 @@ angular.module("FluidIntegrates").controller(
     $scope.editUser = function editUser () {
       const adminEmail = [];
       let userOrganization = "";
-      let userRole = "";
+      let userActualRole = "";
       let userResponsibility = "";
       let userPhone = "";
       angular.element("#tblUsers :checked").each(function checkedFields () {
@@ -303,7 +303,8 @@ angular.module("FluidIntegrates").controller(
         const INDEX_RESP = 3;
         const INDEX_PHONE = 4;
         const INDEX_ORG = 5;
-        userRole = actualRow.eq(actualIndex)[0].cells[INDEX_ROLE].innerHTML;
+        userActualRole =
+          actualRow.eq(actualIndex)[0].cells[INDEX_ROLE].innerHTML;
         userResponsibility =
           actualRow.eq(actualIndex)[0].cells[INDEX_RESP].innerHTML;
         userPhone = actualRow.eq(actualIndex)[0].cells[INDEX_PHONE].innerHTML;
@@ -328,7 +329,7 @@ angular.module("FluidIntegrates").controller(
           "backdrop": "static",
           "controller" ($scope, $uibModalInstance, data) {
             $scope.newUserInfo = {};
-            $scope.newUserInfo.userRole = userRole;
+            $scope.newUserInfo.userRole = userActualRole;
             $scope.newUserInfo.userResponsibility = userResponsibility;
             $scope.newUserInfo.userPhone = userPhone;
             $scope.newUserInfo.userOrganization = userOrganization;
