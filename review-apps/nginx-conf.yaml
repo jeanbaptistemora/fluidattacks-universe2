@@ -1,7 +1,0 @@
-apiVersion: v1
-data:
-  server-tokens: "false"
-kind: ConfigMap
-metadata:
-  name: nginx-configuration
-  namespace: gitlab-managed-apps

@@ -7,11 +7,3 @@ data:
   VAULT_HOST: $VAULT_HOST
   VAULT_TOKEN: $VAULT_TOKEN
   VAULT_PORT: NDQz
-# ---
-# apiVersion: v1
-# data:
-#   sec-key: $FI_RA_AWS_SECRET_ACCESS_KEY
-# kind: Secret
-# metadata:
-#   name: $K8_AWS_SECRET
-# type: Opaque

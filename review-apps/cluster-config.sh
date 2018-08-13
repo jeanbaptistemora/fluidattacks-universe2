@@ -5,12 +5,6 @@
 # changes introduced by the developer, before accepting changes into
 # production.
 
-# Check if namespace for project exists
-if ! kubectl get namespace "$CI_PROJECT_NAME"; then
-  echo "Creating namespace for project..."
-  kubectl create namespace "$CI_PROJECT_NAME"
-fi
-
 # Set namespace preference for kubectl commands
 echo "Setting namespace preferences..."
 kubectl config set-context "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
@@ -36,13 +30,6 @@ fi
 # Prepare manifests by replacing the value of Environmental Variables
 envsubst < review-apps/ingress.yaml > ingress.yaml && mv ingress.yaml review-apps/ingress.yaml
 envsubst < review-apps/deploy-integrates.yaml > deploy-integrates.yaml && mv deploy-integrates.yaml review-apps/deploy-integrates.yaml
-
-
-# Check NGINX server configuration
-# if ! kubectl -n gitlab-managed-apps get configmaps | grep -q 'nginx-configuration'; then
-#   echo "Configuring NGINX server..."
-#   kubectl -f review-apps/nginx-conf.yaml
-# fi
 
 # Check secret to pull images from Gitlab Registry and set if not present
 if ! kubectl get secret gitlab-reg; then
