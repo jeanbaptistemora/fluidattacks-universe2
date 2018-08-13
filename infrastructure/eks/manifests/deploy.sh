@@ -46,6 +46,9 @@ if ! kubectl get secret gitlab-reg; then
     --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL"
 fi
 
+# Prepare environments for Review Apps
+kubectl apply -f eks/manifests/review.yaml
+
 # Pass variables to Integrates to access Vault
 INTEGRATES_VAULT_TOKEN=$(curl --request POST \
   --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}' \
