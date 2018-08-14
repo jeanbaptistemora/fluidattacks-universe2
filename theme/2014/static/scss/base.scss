@@ -408,6 +408,15 @@ article {
 .tb-row,
 .tb-col {
   display: table;
+
+  h3 {
+    text-align: center;
+  }
+
+  iframe {
+    height: auto;
+    width: 270px;
+  }
 }
 
 .tb-ppl {
@@ -960,4 +969,19 @@ article {
   .tdborder {
     display: table-cell;
   }
+}
+
+@media screen and (max-width: 510px) {
+  .breadcrumb {
+    font-size: 11px;
+    text-align: none;
+    width: 50%;
+  }
+
+
+  .translate {
+    font-size: 11px;
+    text-align: none;
+    width: 50%;
+   }
 }
