@@ -31,7 +31,15 @@ module.exports = {
     }, { 
       test: /\.tsx?$/, 
       loader: "awesome-typescript-loader"
-    },{
+    }, {
+      test: /\.css$/,
+      include: /node_modules/,
+      use: ExtractTextPlugin.extract({
+        use: [{
+          loader: 'css-loader'
+        }]
+      })
+    }, {
       test: /\.css$/,
       use: ExtractTextPlugin.extract({
         use: [{
