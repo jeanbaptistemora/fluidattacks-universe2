@@ -2019,7 +2019,8 @@ def delete_project(request):
     project = project.lower()
     are_users_removed = remove_all_users_access(project)
     is_project_masked = mask_project_findings(project)
-    is_project_deleted = are_users_removed and is_project_masked
+    are_closings_masked = mask_project_closings(project)
+    is_project_deleted = are_users_removed and is_project_masked and are_closings_masked
     if is_project_deleted:
         return util.response([], 'Success', False)
     else:
@@ -2072,4 +2073,28 @@ def mask_finding(submission_id):
     generic_dto.mask_finding(finding_id, "Masked")
     generic_dto.to_formstack()
     request = api.update(generic_dto.request_id, generic_dto.data)
+    return request
+
+
+def mask_project_closings(project):
+    """Mask project closings information."""
+    api = FormstackAPI()
+    try:
+        closing_data = api.get_closings_by_project(project)["submissions"]
+        masked = list(map(mask_closing, closing_data))
+        is_closing_masked = all(masked)
+        return is_closing_masked
+    except KeyError:
+        rollbar.report_message('Error: An error occurred masking closing', 'error')
+        return False
+
+
+def mask_closing(submission_id):
+    """Mask closing information."""
+    api = FormstackAPI()
+    closing_dto = ClosingDTO()
+    closing_id = submission_id["id"]
+    closing_dto.mask_closing(closing_id, "Masked")
+    closing_dto.to_formstack()
+    request = api.update(closing_dto.request_id, closing_dto.data)
     return request

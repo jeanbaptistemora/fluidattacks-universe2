@@ -1,4 +1,5 @@
 """ DTO to map the Integrates fields to formstack """
+import base64
 
 class ClosingDTO(object):
     """ Class to create an object with the close attributes """
@@ -13,6 +14,12 @@ class ClosingDTO(object):
     WHICH_OPENED = '39596128'
     CLOSED = '39596370'
     WHICH_CLOSED = '39596202'
+    INTERESTED_CUSTOMER = '39596055'
+    CUSTOMER_CODE = '39597296'
+    WHERE = '39596328'
+    EXPLOIT = '52862857'
+    OPEN_EVIDENCE = '39596152'
+    CLOSE_EVIDENCE = '39596215'
 
     def __init__(self):
         """ Class constructor """
@@ -57,6 +64,24 @@ class ClosingDTO(object):
             elif self.data['opened'] == self.data['visibles']:
                 state = 'Abierto'
             elif int(self.data['opened']) > 0 and \
-                 self.data['opened'] != self.data['visibles']:
+                    self.data['opened'] != self.data['visibles']:
                 state = 'Parcialmente cerrado'
         self.data['estado'] = state
+
+    def mask_closing(self, closingid, mask_value):
+        """Mask closing."""
+        self.request_id = closingid
+        self.data[self.INTERESTED_CUSTOMER] = mask_value
+        self.data[self.CUSTOMER_CODE] = mask_value
+        self.data[self.WHERE] = mask_value
+        self.data[self.EXPLOIT] = base64.b64encode(mask_value)
+        self.data[self.WHICH_OPENED] = mask_value
+        self.data[self.OPEN_EVIDENCE] = base64.b64encode(mask_value)
+        self.data[self.WHICH_CLOSED] = mask_value
+        self.data[self.CLOSE_EVIDENCE] = base64.b64encode(mask_value)
+
+    def to_formstack(self):
+        new_data = dict()
+        for key, value in self.data.iteritems():
+            new_data["field_" + key] = value
+        self.data = new_data
