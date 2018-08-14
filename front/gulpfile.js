@@ -8,8 +8,6 @@ var gulpWebpack = require('webpack-stream');
 /* Modules used under compilation task */
 var ts = require("gulp-typescript");
 var tsProject = ts.createProject("tsconfig.json");
-var tsLogin = ts.createProject("./../app/assets/login/tsconfig.json");
-var source = require('vinyl-source-stream')
 /* Output filenames and paths */
 var paths = {
   dashboard: {
