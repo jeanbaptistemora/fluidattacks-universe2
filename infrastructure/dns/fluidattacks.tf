@@ -206,6 +206,14 @@ resource "aws_route53_record" "mainTXT" {
             "MS=ms97836067"]
 }
 
+resource "aws_route53_record" "googleTXT" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "google._domainkey.${aws_route53_zone.fs_maindomain.name}"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoVfDxzz1BbwFFyeQvKe7B4YMSR1HWmjCu4PQzESyAAc9XQDSbtoYQNCHaHisTJNgh4OGEWvgRcpsVljffC5jO3tHcra8xW8ls5O16sClQtfitcKhC1VxNbqYoAnUSNv9FBcsldK96jQgeMrsZUMo6SdldCDOkX7vOjgLzDw6dOMAENSoU3NsMfRwoDaanCf2gkFb+5mOtDUZCHukM5rpj+ePc3GJAzX8bakMdWD7BlZnPT0fRVcSQGOAM1GVcSDYR465hdBkADJg3KM2TdPTC/XLwEQXgqRZXVWMtSu/Rb/DcHILZNmzKxUk/B4eKjXGQDbs9hshgsqsZGYEbhOvrwIDAQAB"]
+}
+
 resource "aws_route53_record" "mailgunTXT" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "mailgun.${aws_route53_zone.fs_maindomain.name}"
