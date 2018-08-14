@@ -11,7 +11,7 @@ Frequently asked questions about Continuous Hacking.
 [qanda]
 *What is Continuous Hacking?*::
   Continuous Hacking is a security testing service
-  that allows hacking process to begin at an early stage
+  that allows the hacking process to begin at an early stage
   in the software development cycle.
   Its purpose is to guarantee +100%+ testing coverage of the application.
 
@@ -113,7 +113,7 @@ Frequently asked questions about Continuous Hacking.
 *or development phases?*::
   No, there is a fixed cost for Continuous Hacking during the contract period.
   However, if during your contract period the calendar year changes
-  from one year to the next there will be an increase in cost
+  from one year to the next, there will be an increase in cost
   to reflect rising business costs.
   This increase will be stated in your contract
   and agreed upon before you sign it; there will be no hidden costs.
@@ -295,15 +295,15 @@ Frequently asked questions about Continuous Hacking.
   And, we will send emails to your list of attendees
   inviting their participation.
 
-*Does the development of the test in the continuous model*::
-*depends on the type of repository where the code is stored?*::
- No, the client can use the repository he deems appropriate.
- +Fluid Attacks+ only requires the access to the integration branch
- and its respective environment.
+*Does the use of the Continuous Hacking model*::
+*depend on the type of repository where the code is stored?*::
+No. The client can use whatever repository they deem appropriate.
++Fluid Attacks+ only requires access to the integration branch
+and its respective environment.
 
-*Are property rights lost if Fluid Attacks reviews the source code?*::
- No, allowing to review a creation or work as it is a code to a third party
- does not grant any rights over it.
+*Do I lose my property rights if Fluid Attacks reviews my source code?*::
+No. Reviewing your code in no way compromises
+your proprietary rights to that code.
 
 *Does Fluid Attacks have a tool that allows automation*::
 *over the closing tests in the found vulnerabilities?*::
