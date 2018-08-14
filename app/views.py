@@ -2057,9 +2057,10 @@ def mask_project_findings(project):
     api = FormstackAPI()
     try:
         finreqset = api.get_findings(project)["submissions"]
-        masked = list(map(mask_finding, finreqset))
-        is_project_masked = all(masked)
-        return is_project_masked
+        are_evidences_deleted = list(map(delete_s3_all_evidences, finreqset))
+        is_project_masked = list(map(mask_finding, finreqset))
+        is_project_deleted = all(is_project_masked) and all(are_evidences_deleted)
+        return is_project_deleted
     except KeyError:
         rollbar.report_message('Error: An error occurred masking project', 'error')
         return False
@@ -2098,3 +2099,36 @@ def mask_closing(submission_id):
     closing_dto.to_formstack()
     request = api.update(closing_dto.request_id, closing_dto.data)
     return request
+
+
+def delete_s3_all_evidences(submission_id):
+    """Delete s3 evidences files."""
+    finding_id = submission_id["id"]
+    evidences_list = key_existing_list(finding_id)
+    is_evidence_deleted = False
+    if evidences_list:
+        is_evidence_deleted_s3 = list(map(delete_s3_evidence, evidences_list))
+        if any(is_evidence_deleted_s3):
+            integrates_dao.delete_finding_dynamo(finding_id)
+            is_evidence_deleted = True
+        else:
+            rollbar.report_message(
+                'Error: An error occurred deleting project evidences from s3',
+                'error')
+    else:
+        util.cloudwatch_log_plain(
+            'Info: Finding ' + finding_id + ' does not have evidences in s3')
+        is_evidence_deleted = True
+    return is_evidence_deleted
+
+
+def delete_s3_evidence(evidence):
+    """Delete s3 evidence file."""
+    try:
+        response = client_s3.delete_object(Bucket=bucket_s3, Key=evidence)
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200 or \
+            response['ResponseMetadata']['HTTPStatusCode'] == 204
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False

@@ -257,3 +257,6 @@ def cloudwatch_log(request, msg):
             info.append(request.GET.dict()[parameter])
     info.append(msg)
     logger.info(":".join(info))
+
+def cloudwatch_log_plain(msg):
+    logger.info(msg)
