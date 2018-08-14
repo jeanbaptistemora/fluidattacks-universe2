@@ -4,13 +4,12 @@
  * @description Controllers integrator for Integrates
  */
 import angular from "angular";
-import frame from "./components/Frame/index";
-// tslint:disable-next-line: ordered-imports
-import Access from "./scenes/Login/components/Access/index";
-// tslint:disable-next-line: ordered-imports
 import { react2angular } from "react2angular";
+import frame from "./components/Frame/index";
+import preloader from "./components/Preloader/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
+import Access from "./scenes/Login/components/Access/index";
 import compulsoryNotice from "./scenes/Registration/components/CompulsoryNotice/index";
 
 /**
@@ -110,5 +109,21 @@ angular
         "src",
         "height",
       ],
+    ),
+  );
+
+  /**
+   * @url: #/
+   * @page: *
+   * @controllers: []
+   * @tag: <preloader/>
+   */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "preloader",
+    react2angular(
+      preloader,
+      [],
     ),
   );
