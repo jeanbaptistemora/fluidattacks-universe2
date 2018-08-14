@@ -59,6 +59,8 @@
     "to-string-loader": "1.1.5",
     "awesome-typescript-loader": "5.2.0",
     "ignore-styles": "5.0.1",
+    "react-table": "6.8.6",
+    "@types/react-table": "6.7.12",
     "react-test-renderer": "16.4.1",
     "@types/react-test-renderer": "16.0.1",
     "font-awesome": "4.7.0",
