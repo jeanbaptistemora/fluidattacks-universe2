@@ -64,6 +64,7 @@
    - name: Descargando Moodle
      git:
       repo: "git://git.moodle.org/moodle.git"
+      depth: 1
       dest: "/var/www/html"
       version: "MOODLE_31_STABLE"
 
