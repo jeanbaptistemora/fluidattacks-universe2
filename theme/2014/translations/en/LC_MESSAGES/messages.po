@@ -868,8 +868,9 @@ msgstr "Customers"
 #: templates/landing.html:73
 msgid "Index-msg-2"
 msgstr ""
-"Fluid Attacks has been providing Information Security services in the "
-"colombian market for over 18 years. Below, we list some of our customers."
+"Fluid Attacks has over 17 years of experience "
+"working with companies from different markets and economic sectors. "
+"Below, we list some of our customers."
 
 #: templates/landing.html:60
 msgid "Product-msg"

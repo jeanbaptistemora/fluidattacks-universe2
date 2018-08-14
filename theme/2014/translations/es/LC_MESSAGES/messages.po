@@ -871,9 +871,9 @@ msgstr "Clientes"
 #: templates/landing.html:73
 msgid "Index-msg-2"
 msgstr ""
-"Fluid Attacks lleva más de 18 años prestando servicios de Seguridad de la"
-" Información en el mercado colombiano. A continuación listamos algunos de"
-" algunos de nuestros clientes."
+"Fluid Attacks tiene experiencia de más de 17 años "
+"trabajando con compañías diferentes mercados y sectores económicos. "
+"A continuación listamos algunos de nuestros clientes."
 
 #: templates/landing.html:60
 msgid "Product-msg"
