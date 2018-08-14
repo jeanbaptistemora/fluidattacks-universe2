@@ -1,4 +1,5 @@
 import Axios, { AxiosPromise, AxiosRequestConfig } from "axios";
+import rollbar from "../utils/rollbar";
 
 /**
  * XHR request wrapper
@@ -84,8 +85,7 @@ class Xhr {
     });
     promise.catch(() => {
       this.hidePreloader();
-      /* TODO: Add rollbar reporting
-      Rollbar.error(errorText);*/
+      rollbar.error(errorText);
     });
 
     return promise;
