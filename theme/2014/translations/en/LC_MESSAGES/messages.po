@@ -778,15 +778,39 @@ msgstr "Source code analysis"
 msgid "Index-itm3"
 msgstr "Infrastructure security testing"
 
+#: templates/landing.html:41
+msgid "Testing-hdr"
+msgstr "Types of testing"
+
 #: templates/landing.html:42
+msgid "Testing-msg"
+msgstr "We attack your software using all existent types of testing."
+
+#: templates/landing.html:43
+msgid "Testing-subtitle-1"
+msgstr "Fluid Attacks vs Attack techniques"
+
+#: templates/landing.html:44
+msgid "Testing-subtitle-2"
+msgstr "Fluid Attacks in DevOps = SecDevOps"
+
+#: templates/landing.html:45
+msgid "Tst-table-alt-1"
+msgstr "Fluid Attacks testing techniques"
+
+#: templates/landing.html:46
+msgid "Tst-table-alt-2"
+msgstr "Fluid Attacks in SecDevOps"
+
+#: templates/landing.html:47
 msgid "Index-bnft-header"
 msgstr "Why is <span>Fluid Attacks</span> your best choice?"
 
-#: templates/landing.html:45
+#: templates/landing.html:48
 msgid "Index-img-alt-2"
 msgstr "Magnifying glass analysing code"
 
-#: templates/landing.html:47
+#: templates/landing.html:49
 msgid "Index-bnft-1"
 msgstr ""
 "<strong>Maximum strictness</strong> We attack a system integrally "
