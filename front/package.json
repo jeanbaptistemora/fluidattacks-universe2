@@ -6,6 +6,7 @@
   "author": "Engineering Team",
   "dependencies": {
     "angular": "1.7.2",
+    "axios": "0.18.0",
     "@types/angular": "1.6.48",
     "chai": "4.1.2",
     "@types/chai": "4.1.4",
