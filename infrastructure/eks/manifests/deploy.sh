@@ -28,7 +28,7 @@ helm install gitlab/gitlab-runner \
   --set rbac.create=true \
   --set runnerRegistrationToken="$GITLAB_RUNNER_TOKEN" \
   --set runners.image=docker:latest \
-  --set runners.imagePullPolicy=IfNotPresent \
+  --set runners.imagePullPolicy=always \
   --set runners.privileged=true --tls 2>/dev/null || \
   echo "Release 'gitlab-runner' of chart 'gitlab/gitlab-runner already installed'"
 
