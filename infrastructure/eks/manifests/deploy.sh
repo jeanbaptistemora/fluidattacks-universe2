@@ -49,6 +49,12 @@ fi
 # Prepare environments for Review Apps
 kubectl apply -f eks/manifests/review.yaml
 
+# Install Calico to enforce Network Policies between Pods
+kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.1/config/v1.1/calico.yaml
+
+# Isolate Pods in production from those in Review Apps
+kubectl apply -f eks/manifests/network-policies.yaml
+
 # Pass variables to Integrates to access Vault
 INTEGRATES_VAULT_TOKEN=$(curl --request POST \
   --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}' \
