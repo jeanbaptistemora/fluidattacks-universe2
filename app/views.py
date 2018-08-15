@@ -1598,7 +1598,7 @@ def add_access_integrates(request):
     if (request.session['role'] == 'admin'):
         if (role == 'admin' or role == 'analyst' or
                 role == 'customer'or role == 'customeradmin'):
-            if create_new_user(parameters, project, request.session['role'], request):
+            if create_new_user(parameters, project, request):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
@@ -1608,7 +1608,7 @@ def add_access_integrates(request):
             return util.response([], 'Error', True)
     elif is_customeradmin(project, request.session['username']):
         if (role == 'customer' or role == 'customeradmin'):
-            if create_new_user(parameters, project, request.session['role'], request):
+            if create_new_user(parameters, project, request):
                 return util.response([], 'Success', False)
             else:
                 rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
@@ -1620,7 +1620,7 @@ def add_access_integrates(request):
         util.cloudwatch_log(request, 'Security: Attempted to grant access to project from unprivileged role: ' + request.session['role'])
         return util.response([], 'Access denied', True)
 
-def create_new_user(parameters, project, admin, request):
+def create_new_user(parameters, project, request):
     newUser = parameters['data[userEmail]']
     company = parameters['data[userOrganization]']
     responsibility = parameters['data[userResponsibility]']
@@ -1655,7 +1655,7 @@ def create_new_user(parameters, project, admin, request):
         description = integrates_dao.get_project_description(project)
         to = [newUser]
         context = {
-           'admin': admin,
+           'admin': request.session["username"],
            'project': project,
            'project_description': description,
            'project_url': project_url,
