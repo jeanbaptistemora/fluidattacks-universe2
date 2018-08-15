@@ -8,6 +8,7 @@ kubectl config set-context $(kubectl config current-context) \
 # Install NGINX Ingress chart to route traffic within the cluster
 # and Cert-Manager to produce valid certificates for old domains
 helm init --client-only
+helm repo add gitlab https://charts.gitlab.io
 helm repo update
 helm install stable/nginx-ingress \
   --name controller --namespace serves \
@@ -16,12 +17,22 @@ helm install stable/nginx-ingress \
   --set controller.kind=DaemonSet \
   --set controller.minReadySeconds=20 \
   --set defaultBackend.enabled=false \
-  --set rbac.create=true \
-  controller stable/nginx-ingress --tls 2>/dev/null || \
-    echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
+  --set rbac.create=true  --tls 2>/dev/null || \
+  echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
 helm install stable/cert-manager \
   --name certificate --namespace default --tls 2>/dev/null || \
   echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
+helm install gitlab/gitlab-runner \
+  --name gitlab-runner --namespace default \
+  --set gitlabUrl=https://gitlab.com \
+  --set rbac.create=true \
+  --set runnerRegistrationToken="$GITLAB_RUNNER_TOKEN" \
+  --set runners.image=docker:latest \
+  --set runners.imagePullPolicy=IfNotPresent \
+  --set runners.privileged=true --tls 2>/dev/null || \
+  echo "Release 'gitlab-runner' of chart 'gitlab/gitlab-runner already installed'"
+
+
 
 # Set TLS certificates for fluidattacks.com and fluid.ls in the NGINX server
 sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
