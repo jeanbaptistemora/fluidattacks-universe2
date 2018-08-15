@@ -50,9 +50,8 @@ fi
 kubectl apply -f eks/manifests/review.yaml
 
 # Install Calico to enforce Network Policies between Pods
+# and define policies
 kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.1/config/v1.1/calico.yaml
-
-# Isolate Pods in production from those in Review Apps
 kubectl apply -f eks/manifests/network-policies.yaml
 
 # Pass variables to Integrates to access Vault
