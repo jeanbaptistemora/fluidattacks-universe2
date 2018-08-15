@@ -1306,7 +1306,8 @@ def delete_finding(request):
         if result is None:
             rollbar.report_message('Error: An error ocurred deleting finding', 'error', request)
             return util.response([], 'Error', True)
-        to = ["engineering@fluidattacks.com"]
+        to = ["projects@fluidattacks.com", "production@fluidattacks.com",
+              "jarmas@fluidattacks.com", "jaguirre@fluidattacks.com"]
         send_mail_delete_finding(to, context)
         return util.response([], 'Success', False)
     except KeyError:
