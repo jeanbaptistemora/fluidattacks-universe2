@@ -6,6 +6,14 @@ resource "aws_s3_bucket" "vault_bucket" {
   tags {
     Name = "Vault Backup Bucket"
   }
+  lifecycle_rule {
+    id      = "cleanup"
+    prefix  = "vault.etcd"
+    enabled = true
+    expiration {
+      days  = 30
+    }
+  }
 }
 
 resource "aws_iam_user" "vault_user" {
