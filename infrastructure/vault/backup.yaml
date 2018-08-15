@@ -8,5 +8,5 @@ spec:
   storageType: S3
   clientTLSSecret: vault-etcd-client-tls
   s3:
-    path: vault.fluidattacks/vault.etcd.backup
+    path: vault.fluidattacks/vault.etcd.backup-$DATE
     awsSecret: aws

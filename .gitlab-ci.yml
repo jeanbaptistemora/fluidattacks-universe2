@@ -23,6 +23,7 @@ stages:
   - deploy
   - postdeploy
   - dns
+  - backup
   - cleanup
 
 .vault_login: &vault_login
@@ -201,6 +202,29 @@ fluidasserts_post:
   only:
     - master
   except:
+    - schedules
+
+vault_backup:
+  stage: backup
+  script:
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
+        $HOME/.kube/config
+    - cd infrastructure/vault
+    - envsubst < credentials > creds
+        && mv creds credentials
+    - kubectl create secret generic aws
+        --from-file=credentials
+        --from-file=config
+    - sed -i 's/$DATE/'"$(date +%Y-%m-%d)"'/' backup.yaml
+    - kubectl apply -f backup.yaml
+    - while ! aws s3 ls s3://$VAULT_S3_BUCKET | grep backup-$(date +%Y-%m-%d);
+        do sleep 2;
+      done
+    - kubectl delete -f backup.yaml
+    - kubectl delete secret aws
+    - rm credentials
+  only:
     - schedules
 
 clean:
