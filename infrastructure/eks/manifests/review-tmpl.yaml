@@ -1,35 +1,22 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: web
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: integrates
+  name: $PROJECT
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: web-review
-  namespace: web
-automountServiceAccountToken: false
-imagePullSecrets:
-  - name: gitlab-reg
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: integrates-review
-  namespace: integrates
+  name: $PROJECT-review
+  namespace: $PROJECT
 automountServiceAccountToken: false
 imagePullSecrets:
   - name: gitlab-reg
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
   name: review
+  namespace: $PROJECT
 rules:
   - apiGroups:
       - ""
@@ -79,19 +66,15 @@ rules:
       - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
-  name: web-attachment
+  name: $PROJECT-binding
+  namespace: $PROJECT
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
+  kind: Role
   name: review
 subjects:
   - kind: ServiceAccount
-    name: web-review
-    namespace: web
-    apiGroup: ""
-  - kind: ServiceAccount
-    name: integrates-review
-    namespace: integrates
+    name: $PROJECT-review
     apiGroup: ""

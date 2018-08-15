@@ -58,7 +58,8 @@ if ! kubectl get secret gitlab-reg; then
 fi
 
 # Prepare environments for Review Apps
-kubectl apply -f eks/manifests/review.yaml
+sed 's/$PROJECT/web/g' eks/manifests/review-tmpl.yaml | kubectl apply -f -
+sed 's/$PROJECT/integrates/g' eks/manifests/review-tmpl.yaml | kubectl apply -f -
 
 # Install Calico to enforce Network Policies between Pods
 # and define policies
