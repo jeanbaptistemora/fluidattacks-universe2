@@ -784,7 +784,7 @@ msgstr "Types of testing"
 
 #: templates/landing.html:42
 msgid "Testing-msg"
-msgstr "We attack your software using all existent types of testing."
+msgstr "We attack your software using all existent types of testing"
 
 #: templates/landing.html:43
 msgid "Testing-subtitle-1"
@@ -804,7 +804,7 @@ msgstr "Fluid Attacks in SecDevOps"
 
 #: templates/landing.html:47
 msgid "Index-bnft-header"
-msgstr "Why is <span>Fluid Attacks</span> your best choice?"
+msgstr "Why <span>Fluid Attacks</span> is your best choice"
 
 #: templates/landing.html:48
 msgid "Index-img-alt-2"

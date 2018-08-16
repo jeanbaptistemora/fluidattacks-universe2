@@ -25,6 +25,7 @@ $white: rgba(255, 255, 255, 1);
 
 .footer {
   background-color: $fluid-red;
+  min-width: 100%;
 
   h3 {
     font-size: 22px;
