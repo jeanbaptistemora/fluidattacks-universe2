@@ -305,46 +305,53 @@ and its respective environment.
 No. Reviewing your code in no way compromises
 your proprietary rights to that code.
 
-*Does Fluid Attacks have a tool that allows automation*::
-*over the closing tests in the found vulnerabilities?*::
- Yes, +Fluid Attacks+ has link:../../products/asserts/[Asserts],
- an engine that allows to automate security checks
- once they have been found in an exploratory phase.
- link:../../products/asserts/[Asserts] operates directly in the +JOB+
- of continuous integration and has the ability to break the +build+
- sent by the programmer in case of breach of security requirements.
- link:../../products/asserts/[Asserts] runs on any continuous integration platforms
- that support dockers like +JOB+,
- for example: +VSTS+, +GitLab+, +Jenkins+.
+*Does Fluid Attacks have a tool that enables*::
+*automatic remediation and closing of previously confirmed vulnerabilities?*::
+ Yes. link:../../products/asserts/[Asserts] is +Fluid Attacks'+ automated engine,
+ checking remediation of previously confirmed vulnerabilities.
+ link:../../products/asserts/[Asserts] operates in the +JOB+ of continuous integration.
+ It can break the build sent by the programmer in the event
+ of a breach of security requirements.
+ link:../../products/asserts/[Asserts] runs on any continuous integration platform that supports dockers
+ like +JOB+, for example: +VSTS+, +GitLab+, and +Jenkins+.
 
 *Is Continuous Hacking focused only over source code?*::
 *It is possible to include the infrastructure associated with the app?*::
- +Fluid Attacks+ has evolved the Continuous Hacking model
- and infrastructure now can be included within the Target of Evaluation (+TOE+).
- This include the ports and the inputs of the application.
- In fact, in this evolution,
- you can subscribe a technological infrastructure (ports)
- or an application under the Continuous Hacking model.
+ +Fluid Attacks+ has improved the Continuous Hacking model
+ to now include infrastructure within the Target of Evaluation (+ToE+).
+ This includes the application's ports, inputs,
+ infrastructure, and an application itself.
 
 *Where does Integrates run?*::
  The platform link:../../products/integrates/[Integrates] runs in the cloud.
 
-*Does Fluid Attacks manages the access credentials to Integrates?*::
- No, we use the concept of federated authentication,
- that is, both +Google+ and +Azure+ (+Microsoft 360+)
- are the ones who actually validate your credentials.
+*Does Fluid Attacks manage the access credentials to Integrates?*::
+ No. We use federated authentication.
+ +Google+ and +Azure+ (+Microsoft 360+)
+ are the entities who validate your user access credentials.
 
-*Is it possible to activate double authentication token?*::
- Yes, it is possible. In fact we recommend to activate
- double token authentication to increase the security level of your credentials
- in order to avoid unauthorised access by third parties over your information.
- This feature is enabled from +Gmail+ or +Azure+ depending on your case.
+*Is it possible to activate the double authentication token?*::
+ Yes, it is, and we recommend that you do so.
+ Using double authentication will increase
+ the security level of your credentials.
+ This will help prevent unauthorized users
+ from accessing and compromising your information.
+ This feature is enabled through +Gmail+ or +Azure+.
+
+*What does Fluid Attacks do to catch up with the revision*::
+*of the existing code before starting the hacking process?*::
 
 *What procedure has Fluid Attacks to catch up with the revision*::
 *of the existing code before starting the hacking process?*::
- +Fluid Attacks+ recommends that both the development of the application
- and the hacking process start at the same time.
- However, this does not always happen.
- To do this, we have an activity called link:../continuous-hacking/#healthcheck[+HealthCheck+]
- that allows to catch up the security inspections
- when the development has begun earlier.
+ +Fluid Attacks+ recommends that application development
+ and the hacking process begin simultaneously.
+ However, this is not always possible.
+ To catch up with developers
+ we perform a link:../continuous-hacking/#healthcheck[+HealthCheck+] (additional fees apply).
+ This means all versions of the existing code
+ are attacked up to the contracted starting point
+ in addition to the monthly test limit.
+ This allows us to catch up with the development team
+ within the first +3+ contract months.
+ Then, we continue hacking simultaneously with the development team
+ as development continues.
