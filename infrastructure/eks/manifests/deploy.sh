@@ -24,6 +24,7 @@ helm install stable/cert-manager \
   echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
 helm install gitlab/gitlab-runner \
   --name gitlab-runner --namespace default \
+  --set checkInterval=5 \
   --set gitlabUrl=https://gitlab.com \
   --set rbac.create=true \
   --set runnerRegistrationToken="$GITLAB_RUNNER_TOKEN" \
