@@ -875,6 +875,18 @@ msgstr ""
 "trabajando con compañías diferentes mercados y sectores económicos. "
 "A continuación listamos algunos de nuestros clientes."
 
+#: templates/landing.html:184
+msgid "Contact-txt"
+msgstr ""
+"Queremos que te pongas en contacto con nosotros "
+"para compartir tus comentarios, opiniones y necesidades "
+"o para recibir una asesoría completa "
+" sobre un producto o servicio de tu interés."
+
+#: templates/landing.html:185
+msgid "Contact-img-alt"
+msgstr "Sobre de carta y flecha roja"
+
 #: templates/landing.html:60
 msgid "Product-msg"
 msgstr "Conoce nuestros productos:"

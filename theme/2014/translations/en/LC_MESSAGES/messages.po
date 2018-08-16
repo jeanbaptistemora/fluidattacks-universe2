@@ -857,6 +857,7 @@ msgstr ""
 "We do <strong>security risk hacking only</strong>. "
 "All day, all the time."
 
+
 #: templates/landing.html:69
 msgid "Bnft-footmsg"
 msgstr "Learn more about our "
@@ -871,6 +872,18 @@ msgstr ""
 "Fluid Attacks has over 17 years of experience "
 "working with companies from different markets and economic sectors. "
 "Below, we list some of our customers."
+
+#: templates/landing.html:184
+msgid "Contact-txt"
+msgstr ""
+"Please do not hesitate to contact us "
+"to share your comments, opinions and needs "
+"or to receive a complete advising "
+"about a product or service of your interest."
+
+#: templates/landing.html:185
+msgid "Contact-img-alt"
+msgstr "Letter and red arrow"
 
 #: templates/landing.html:60
 msgid "Product-msg"
