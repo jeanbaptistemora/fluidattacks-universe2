@@ -297,8 +297,8 @@ test-deployment:
         xargs -0 -I {} kubectl port-forward {} 8000:80 &
     - sleep 5
     - curl http://localhost:8000 | grep --color 'FluidIntegrates'
+    - pkill kubectl
   after_script:
-    - pkill kubectl || echo 'Port Forwarding was not established'
     - kubectl delete deploy/integrates-test
     - kubectl delete svc/integrates-test
     - docker logout "$CI_REGISTRY"
