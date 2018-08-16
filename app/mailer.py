@@ -81,3 +81,6 @@ def send_mail_integrates_new_version(email_to, context):
 
 def send_mail_repositories(email_to, context):
     __send_mail('repositoriesintegrates', email_to, context=context)
+
+def send_mail_unsolved_events(email_to, context):
+    __send_mail('unsolvedevents', email_to, context=context)

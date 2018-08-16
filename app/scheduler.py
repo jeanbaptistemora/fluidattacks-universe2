@@ -4,13 +4,15 @@
 import rollbar
 import logging
 import logging.config
+from . import views
 from django.conf import settings
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
+from .dto.eventuality import EventualityDTO
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding, \
-                    send_mail_new_releases, send_mail_continuous_report
-from . import views
+                    send_mail_new_releases, send_mail_continuous_report, \
+                    send_mail_unsolved_events
 from datetime import datetime, timedelta
 
 logging.config.dictConfig(settings.LOGGING)
@@ -19,6 +21,57 @@ logger = logging.getLogger(__name__)
 BASE_URL = "https://fluidattacks.com/integrates"
 BASE_WEB_URL = "https://fluidattacks.com/web"
 
+def is_not_a_fluidattacks_email(email):
+    return "fluidattacks.com" not in email
+
+def remove_fluidattacks_emails_from_list(emails):
+    new_email_list = list(filter(is_not_a_fluidattacks_email, \
+                    emails))
+    return new_email_list
+
+def create_dictionary_from_event_submission (event_id, event_submission):
+    events_mapper = EventualityDTO()
+    return events_mapper.parse(event_id, event_submission)
+
+def get_event_by_id (event_id):
+    formstack_api = FormstackAPI()
+    event_submission = formstack_api.get_submission(event_id)
+    return create_dictionary_from_event_submission(event_id, event_submission)
+
+def is_a_unsolved_event(event):
+    return event['estado'] == 'Pendiente'
+
+def get_events_submissions_in_project (project):
+    formstack_api = FormstackAPI()
+    return formstack_api.get_eventualities(project)["submissions"]
+
+def get_unsolved_events_by_project (project):
+    events_submissions = get_events_submissions_in_project(project)
+    events = list(map(lambda x: get_event_by_id(x['id']), events_submissions))
+    unsolved_events =  list(filter(is_a_unsolved_event, \
+                        events))
+    return unsolved_events
+
+def extract_info_from_event_dict (event_dict):
+    return {'type': event_dict['type'], \
+            'details': event_dict['detalle']}
+
+def send_unsolved_events_email_by_project(project):
+    unsolved_events = get_unsolved_events_by_project (project)
+    to = client_recipients_by_project(project)
+    events_info_for_email = list(map(extract_info_from_event_dict, \
+                        unsolved_events))
+    context = {'project_name': project.capitalize() , \
+               'events': events_info_for_email}
+    if not context['events'] or not to:
+        context = []
+    else:
+        send_mail_unsolved_events(to, context)
+
+def client_recipients_by_project(project):
+    recipients = integrates_dao.get_project_users(project)
+    recipients_list = [x[0] for x in recipients if x[1] == 1]
+    return remove_fluidattacks_emails_from_list(recipients_list)
 
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
@@ -369,3 +422,8 @@ def continuous_report():
                                     'events': indicators[0]
                                      })
     send_mail_continuous_report(to, context)
+
+def send_unsolved_events_email_to_all_projects():
+    """Send email with unsolved events to all projects """
+    projects = integrates_dao.get_registered_projects()
+    list(map(lambda x: send_unsolved_events_email_by_project(x[0]), projects))
