@@ -24,7 +24,6 @@ stages:
   - postdeploy
   - dns
   - backup
-  - cleanup
 
 .vault_login: &vault_login
   before_script:
@@ -38,13 +37,6 @@ stages:
     - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
     - echo "$CI_REGISTRY_PASSWORD" |
         docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-
-build:
-  stage: deps 
-  script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
-  retry: 2
 
 build_base:
   stage: deps
@@ -60,6 +52,7 @@ build_builder:
     - aws s3 cp
         s3://$VAULT_S3_BUCKET/vault-ca.crt
         $HOME/vault-ca.crt
+    - docker pull "$DOCKER_BASENAME:builder"
     - docker build --cache-from "$DOCKER_BASENAME:builder"
         --build-arg vault_ca="$(cat $HOME/vault-ca.crt | base64 | tr -d '\n')"
         -t "$DOCKER_BASENAME:builder"
@@ -197,7 +190,7 @@ fluidasserts_post:
     - docker run -t -e FA_STRICT="true" -w /code
       -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
       -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-      -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
+      -v $(pwd):/code
       fluidattacks/asserts asserts /code/asserts/exploit.py
   only:
     - master
@@ -226,10 +219,3 @@ vault_backup:
     - rm credentials
   only:
     - schedules
-
-clean:
-  stage: cleanup
-  script:
-    - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - rm -rf /tmp/helm*
-  when: always
