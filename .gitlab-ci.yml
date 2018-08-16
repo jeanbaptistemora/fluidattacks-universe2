@@ -51,7 +51,6 @@ stages:
   - pre-deploy
   - deploy
   - post-deploy
-  - cleanup
 
 Build:
   stage: deps
@@ -74,8 +73,6 @@ terraform-test:
   <<: *variables-dev
   <<: *vault_login
   script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/integrates/terraform.tfstate
         deploy/
@@ -250,7 +247,7 @@ Asserts-Review:
         -e STAGE=review -e ORG=fluid
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
+        --volume $(pwd):/code
         fluid-docker.jfrog.io/fluid:integrates
     - docker logout fluid-docker.jfrog.io
   retry: 2
@@ -357,16 +354,9 @@ asserts-prod:
         --rm -e ORG=fluid -e STAGE=post-deploy
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
+        --volume $(pwd):/code
         fluid-docker.jfrog.io/fluid:integrates
     - docker logout fluid-docker.jfrog.io
   retry: 2
   only:
     - master
-
-cleanup-code:
-  stage: cleanup
-  script:
-    - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - rm -rf /tmp/npm*
-  when: always
