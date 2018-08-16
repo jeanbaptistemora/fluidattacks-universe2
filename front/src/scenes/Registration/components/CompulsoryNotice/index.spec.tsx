@@ -1,17 +1,24 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import CompulsoryNotice from './index';
-import 'mocha'
+import {
+  compulsoryNoticeComponent,
+  compulsoryNotice as CompulsoryNotice } from './index';
+import Modal from "react-responsive-modal";
+import 'mocha';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Button } from "react-bootstrap";
+import { Button, Checkbox } from "react-bootstrap";
 import style from "./index.css";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-function testAlert(){
-  alert("test");
+function onTestAccept(arg1: boolean){
+  alert(`Accepted the terms. Remember preferences will be set to: ${arg1}`);
+}
+
+function onTestRememberCheck(arg1: boolean){
+  alert(`Remember checkbox value: ${arg1}`);
 }
 
 describe('Compulsory notice modal', () => {
@@ -22,44 +29,22 @@ describe('Compulsory notice modal', () => {
   it('should be rendered', () => {
     const wrapper = shallow(
       <CompulsoryNotice
-        id="testModal"
-        noticeTitle="Unit title"
-        noticeText="Unit test"
         btnAcceptText="Accept"
         btnAcceptTooltip="Accept help text"
+        id="testModal"
+        noticeTitle="Unit test title"
+        noticeText="Unit test modal content"
+        open={true}
+        rememberDecision={false}
         rememberText="Remember?"
         rememberTooltip="Remember help text"
-        onAccept={testAlert}
+        onAccept={(): void => { onTestAccept(false) }}
+        onRememberCheck={() => { onTestRememberCheck(false) }}
       />
-    );
+    ),
 
-    expect(
-      wrapper.contains(
-        <div className={style.content} id='testModal'>
-          <div className={style.header}>
-            <h3 className={style.title}>Unit title</h3>
-          </div>
-          <div className={style.body}>
-            <p>Unit test</p>
-            <p title='Remember help text'>
-              <input
-                type="checkbox"
-                id="remember_decision"
-              />
-              Remember?
-            </p>
-          </div>
-          <div className={style.footer}>
-            <Button
-              bsStyle="primary"
-              title="Accept help text"
-              onClick={testAlert}
-            >
-              Accept
-            </Button>
-          </div>
-        </div>
-      )
-    ).to.equal(true);
+    // Get the component inside of ReduxWrapper
+    component = wrapper.dive().find(compulsoryNoticeComponent)
+    expect(component).to.exist;
   });
 });

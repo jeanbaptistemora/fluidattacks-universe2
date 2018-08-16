@@ -74,7 +74,7 @@ angular.module("FluidIntegrates").controller(
       }
     };
 
-    $scope.initializeModal = function initializeModal () {
+    $scope.initLegalNotice = function initLegalNotice () {
       $scope.legalNotice = {
         "accept": {
           "text": $translate.instant("legalNotice.acceptBtn.text"),
@@ -87,61 +87,34 @@ angular.module("FluidIntegrates").controller(
         "text": $translate.instant("legalNotice.description"),
         "title": $translate.instant("legalNotice.title")
       };
-    };
-
-    $scope.showLegalNotice = function showLegalNotice () {
       const infoReq = registerFactory.getLoginInfo();
       infoReq.then((response) => {
         const respData = response.data;
         if (angular.isUndefined(respData)) {
           location.reload();
         }
+        else if (!respData.login.authorized) {
+          $scope.showNotAuthorized();
+        }
         else if (respData.login.remember) {
           $scope.loadDashboard();
         }
         else {
-          $uibModal.open({
-            "animation": true,
-            "backdrop": "static",
-            "controller" ($scope, $uibModalInstance) {
-              $scope.okModalNotice = function okModalNotice () {
-                if (respData.login.authorized) {
-                  try {
-                    mixpanel.time_event("Logged out");
-                  }
-                  catch (err) {
-                    const msg = "Couldn't track session length (Adblock)";
-                    Rollbar.warning(`Warning: ${msg}`);
-                  }
-                  const checkbox = angular.element("#remember_decision");
-                  const remember = checkbox.is(":checked");
-                  const acceptReq = registerFactory.acceptLegal(remember);
-                  acceptReq.then(() => {
-                    $uibModalInstance.close();
-                    $scope.loadDashboard();
-                  });
-                }
-                else {
-                  $uibModalInstance.close();
-                  $scope.showNotAuthorized();
-                }
-              };
-            },
-            "keyboard": false,
-            "resolve": {"done": true},
-            "scope": $scope,
-            "templateUrl": "legalNotice.html",
-            "windowClass": "modal avance-modal"
-          });
+          $scope.showLegalNotice = true;
         }
       });
     };
-    $scope.initializeModal();
-    if (localStorage.getItem("showAlreadyLoggedin") === "1") {
-      $scope.showAlreadyLoggedin();
-    }
-    else {
-      $scope.showLegalNotice();
-    }
+
+    $scope.init = function init () {
+      $scope.showLegalNotice = false;
+      if (localStorage.getItem("showAlreadyLoggedin") === "1") {
+        $scope.showAlreadyLoggedin();
+      }
+      else {
+        $scope.initLegalNotice();
+      }
+    };
+
+    $scope.init();
   }
 );

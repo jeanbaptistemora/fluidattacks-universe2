@@ -16,7 +16,7 @@ class Login(ObjectType):
             userInfo = dict(userInfo[0])
             if "legal_remember" in userInfo:
                 self.remember = userInfo["legal_remember"]
-                session['accept_legal'] = True
+                session['accept_legal'] = self.remember
 
     def resolve_authorized(self, info):
         """ Resolve user authorization """

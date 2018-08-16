@@ -10,7 +10,7 @@ import preloader from "./components/Preloader/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import Access from "./scenes/Login/components/Access/index";
-import compulsoryNotice from "./scenes/Registration/components/CompulsoryNotice/index";
+import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
 
 /**
  * @url: /index
@@ -84,7 +84,6 @@ angular
         "btnAcceptText",
         "btnAcceptTooltip",
         "id",
-        "onAccept",
         "rememberText",
         "rememberTooltip",
         "noticeText",

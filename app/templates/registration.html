@@ -85,7 +85,7 @@
                 </script>
 
                 <!-- START: MODAL LEGAL NOTICE -->
-                <script type="text/ng-template" id="legalNotice.html">
+                <div ng-if="showLegalNotice">
                   <compulsory-notice
                     id="'legalNotice'"
                     notice-title="legalNotice.title"
@@ -93,9 +93,8 @@
                     btn-accept-text="legalNotice.accept.text"
                     btn-accept-tooltip="legalNotice.accept.tooltip"
                     remember-text="legalNotice.remember.text"
-                    remember-tooltip="legalNotice.remember.tooltip"
-                    on-accept="okModalNotice"/>
-                </script>
+                    remember-tooltip="legalNotice.remember.tooltip"/>
+                </div>
               </li>
             </ul>
           </div>
