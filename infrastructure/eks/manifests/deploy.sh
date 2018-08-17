@@ -10,19 +10,23 @@ kubectl config set-context $(kubectl config current-context) \
 helm init --client-only
 helm repo add gitlab https://charts.gitlab.io
 helm repo update
-helm install stable/nginx-ingress \
-  --name controller --namespace serves \
-  -f eks/manifests/helm_values/nginx.yaml  --tls 2>/dev/null || \
-  echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
+helm install --name controller \
+  --namespace serves \
+  -f eks/manifests/helm_values/nginx.yaml \
+  --tls stable/nginx-ingress  2>/dev/null || \
+  helm upgrade -f eks/manifests/helm_values/nginx.yaml --tls \
+    controller stable/nginx-ingress
 helm install stable/cert-manager \
   --name certificate --namespace default --tls 2>/dev/null || \
-  echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
+  helm upgrade --tls certificate stable/cert-manager
 sed -i 's/$GITLAB_RUNNER_TOKEN/'"$GITLAB_RUNNER_TOKEN"'/g' \
   eks/manifests/helm_values/runner.yaml
-helm install gitlab/gitlab-runner \
-  --name gitlab-runner --namespace default \
-  -f eks/manifests/helm_values/runner.yaml --tls 2>/dev/null || \
-  echo "Release 'gitlab-runner' of chart 'gitlab/gitlab-runner already installed'"
+helm install --name gitlab-runner \
+  --namespace default \
+  -f eks/manifests/helm_values/runner.yaml \
+  --tls gitlab/gitlab-runner 2>/dev/null || \
+  helm upgrade -f eks/manifests/helm_values/runner.yaml --tls \
+    gitlab-runner gitlab/gitlab-runner
 
 # Set TLS certificates for fluidattacks.com and fluid.ls in the NGINX server
 sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
