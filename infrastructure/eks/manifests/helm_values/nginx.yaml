@@ -1,0 +1,16 @@
+controller:
+  image:
+    tag: 0.17.1
+  kind: DaemonSet
+  defaultBackendService: serves/alg
+  extraArgs:
+    default-ssl-certificate: serves/tls-fluidattacks
+  minReadySeconds: 20
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+defaultBackend:
+  enabled: false
+rbac:
+  create: true

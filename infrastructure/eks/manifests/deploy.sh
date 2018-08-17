@@ -12,28 +12,17 @@ helm repo add gitlab https://charts.gitlab.io
 helm repo update
 helm install stable/nginx-ingress \
   --name controller --namespace serves \
-  --set controller.defaultBackendService=serves/alg \
-  --set controller.extraArgs.default-ssl-certificate=serves/tls-fluidattacks \
-  --set controller.kind=DaemonSet \
-  --set controller.minReadySeconds=20 \
-  --set defaultBackend.enabled=false \
-  --set rbac.create=true  --tls 2>/dev/null || \
+  -f eks/manifests/helm_values/nginx.yaml  --tls 2>/dev/null || \
   echo "Release 'controller' of chart 'stable/nginx-ingress' already installed"
 helm install stable/cert-manager \
   --name certificate --namespace default --tls 2>/dev/null || \
   echo "Release 'certificate' of chart 'stable/cert-manager' already installed"
+sed -i 's/$GITLAB_RUNNER_TOKEN/'"$GITLAB_RUNNER_TOKEN"'/g' \
+  eks/manifests/helm_values/runner.yaml
 helm install gitlab/gitlab-runner \
   --name gitlab-runner --namespace default \
-  --set checkInterval=5 \
-  --set gitlabUrl=https://gitlab.com \
-  --set rbac.create=true \
-  --set runnerRegistrationToken="$GITLAB_RUNNER_TOKEN" \
-  --set runners.image=docker:latest \
-  --set runners.imagePullPolicy=always \
-  --set runners.privileged=true --tls 2>/dev/null || \
+  -f eks/manifests/helm_values/runner.yaml --tls 2>/dev/null || \
   echo "Release 'gitlab-runner' of chart 'gitlab/gitlab-runner already installed'"
-
-
 
 # Set TLS certificates for fluidattacks.com and fluid.ls in the NGINX server
 sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;

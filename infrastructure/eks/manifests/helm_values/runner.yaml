@@ -1,0 +1,9 @@
+checkInterval: 5
+gitlabUrl: https://gitlab.com
+runnerRegistrationToken: $GITLAB_RUNNER_TOKEN
+rbac:
+  create: true
+runners:
+  image: docker:latest
+  imagePullPolicy: always
+  privileged: true
