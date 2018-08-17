@@ -21,3 +21,9 @@ that govern the receipt and removal of hardware and electronic media
 that contain electronic protected health information
 into and out of a facility,
 and the movement of these items within the facility.
+
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-3[+NIST+ 800-53 IA-3]
+Device identification and authentication:
+The information system uniquely identifies and authenticates
+organization-defined  devices before establishing
+a local or remote network connection.
