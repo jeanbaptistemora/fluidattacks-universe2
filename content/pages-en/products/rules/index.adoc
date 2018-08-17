@@ -42,3 +42,6 @@ link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verific
 
 . [button]#link:../../search.html?q=CWE[CWE]#
 link:https://cwe.mitre.org/[Common Weakness Enumeration].
+
+. [button]#link:../../search.html?q=NIST+800-53[NIST 800-53]#
+link:https://nvd.nist.gov/800-53/Rev4[+NIST+ Special Publication 800-53 (Rev. 4)].

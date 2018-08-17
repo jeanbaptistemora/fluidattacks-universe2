@@ -47,3 +47,6 @@ Estándar de +OWASP+ para la verificación de seguridad en aplicaciones
 . [button]#link:../../search.html?q=CWE[CWE]#
 Enumeración de vulnerabilidades comunes
 (link:https://cwe.mitre.org/[Common Weakness Enumeration]).
+
+. [button]#link:../../search.html?q=NIST+800-53[NIST 800-53]#
+link:https://nvd.nist.gov/800-53/Rev4[NIST Special Publication 800-53 (Rev. 4)].
