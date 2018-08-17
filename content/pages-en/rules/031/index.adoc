@@ -26,3 +26,8 @@ Verify that sessions are invalidated when the user logs out.
 . [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.14+]
 Verify that authenticated data is cleared from client storage,
 such as the browser DOM, after the client or session is terminated.
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-12[+NIST+ 800-53 AC-12]
+Session termination: The information system automatically terminates
+a user session after organization-defined conditions
+or trigger events requiring session disconnect.
