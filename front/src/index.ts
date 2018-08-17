@@ -7,6 +7,7 @@ import angular from "angular";
 import { react2angular } from "react2angular";
 import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
+import commentBox from "./scenes/Dashboard/components/CommentBox/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import Access from "./scenes/Login/components/Access/index";
@@ -111,12 +112,12 @@ angular
     ),
   );
 
-  /**
-   * @url: #/
-   * @page: *
-   * @controllers: []
-   * @tag: <preloader/>
-   */
+/**
+ * @url: #/
+ * @page: *
+ * @controllers: []
+ * @tag: <preloader/>
+ */
 angular
   .module("FluidIntegrates")
   .component(
@@ -124,5 +125,24 @@ angular
     react2angular(
       preloader,
       [],
+    ),
+  );
+
+/**
+ * @url: #/project/:project/:id/comments
+ * @page: findingcontent.html
+ * @controllers: ["findingContentCtrl"]
+ * @tag: <comment-box/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "commentBox",
+    react2angular(
+      commentBox,
+      [
+        "type",
+        "visible",
+      ],
     ),
   );

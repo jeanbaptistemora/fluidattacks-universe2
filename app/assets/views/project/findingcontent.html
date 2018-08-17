@@ -734,14 +734,14 @@
                   </div>
                   <!-- End Tab Record -->
                   <!-- Start Tab Comment -->
-                  <div id="comment" class="tab-pane cont" ng-show="!hasDraft">
-                    <div id="comments-container"></div>
-                  </div>
+                  <comment-box
+                    type="'comment'"
+                    visible="!hasDraft"/>
                   <!-- End Tab Comment -->
                   <!-- Start Tab observations -->
-                  <div id="observations" class="tab-pane cont">
-                    <div id="observations-container"></div>
-                  </div>
+                  <comment-box
+                    type="'observation'"
+                    visible="true"/>
                   <!-- End Tab observations -->
               </div>
               <!-- End Tabs -->
