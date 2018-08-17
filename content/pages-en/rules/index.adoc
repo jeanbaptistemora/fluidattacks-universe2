@@ -152,6 +152,10 @@
 * link:243/[REQ.243 Manage security events].
 * link:244/[REQ.244 Manage information backup].
 
+== Services
+
+* link:265/[REQ.265 Restrict access to critical processes].
+
 == Networks
 
 * link:255/[REQ.255 Allow access only to the necessary ports].
