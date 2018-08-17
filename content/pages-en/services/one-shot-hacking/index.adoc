@@ -187,18 +187,6 @@ is deleted securely from all our systems.
 
 a|image::secure-deletion.svg[alt="Trash can with a cloud behind"]
 
-a|image::validate-remediation.svg[alt="Checklist"]
-
-2+a|== Remediation validation
-
-Up to +3+ months after the final report approval,
-customers can request a remediation validation cycle
-to check if the findings originally reported were correctly repaired.
-In order to arrange this, the customer must provide system access
-and share final reports once again.
-In the remediation validation cycle
-the system does not get hacked searching for new vulnerabilities.
-
 |====
 
 * To check on differences between our services
