@@ -39,3 +39,8 @@ por ejemplo, que sólo objetos o datos autorizados
 sean accesibles a cada usuario
 (por ejemplo, proteger a los usuarios de la manipulación de parámetros
 para espiar o alterar otra cuenta de usuario)
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-1[+NIST+ 800-53 IA-1 - 2]
+La organización debe ejecutar procedimientos para facilitar la implementación
+de políticas de identificación y autenticación,
+así como sus controles asociados.
