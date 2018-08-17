@@ -84,3 +84,6 @@ def send_mail_repositories(email_to, context):
 
 def send_mail_unsolved_events(email_to, context):
     __send_mail('unsolvedevents', email_to, context=context)
+
+def send_mail_accepted_finding(email_to, context):
+    __send_mail('acceptedfinding', email_to, context=context)

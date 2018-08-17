@@ -35,6 +35,7 @@ from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_access_granted
 from .mailer import send_mail_repositories
+from .mailer import send_mail_accepted_finding
 from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin, has_responsibility, has_phone_number
 from .dao import integrates_dao
@@ -1254,7 +1255,23 @@ def update_treatment(request):
         api = FormstackAPI()
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
-            return util.response([], 'success', False)
+            if parameters['data[treatment]'] == 'Asumido':
+                context = {
+                   'user_mail': parameters['data[treatmentManager]'],
+                   'finding_name': parameters['data[findingName]'],
+                   'finding_id': parameters['data[id]'],
+                   'project_name': parameters['data[projectName]'].capitalize(),
+                   'justification': parameters['data[treatmentJustification]'],
+                    }
+                integrates_admins = [x[0] for x \
+                                    in list(integrates_dao.get_admins()) ]
+                project_name = parameters['data[projectName]'].lower()
+                recipients = integrates_dao.get_project_users(project_name)
+                to = [x[0] for x in recipients if x[1] == 1] + integrates_admins
+                send_mail_accepted_finding(to, context)
+                return util.response([], 'success', False)
+            else:
+                return util.response([], 'success', False)
         rollbar.report_message('Error: An error occurred updating treatment', 'error', request)
         return util.response([], 'error', False)
     except KeyError:

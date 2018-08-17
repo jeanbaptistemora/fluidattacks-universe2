@@ -417,7 +417,9 @@ angular.module("FluidIntegrates").factory(
         if (flag === true) {
           const newData = {
             "externalBts": $scope.finding.btsExterno,
+            "findingName": $scope.finding.finding,
             "id": $scope.finding.id,
+            "projectName": $scope.finding.fluidProject,
             "treatment": $scope.finding.treatment,
             "treatmentJustification": $scope.finding.treatmentJustification,
             "treatmentManager": $scope.finding.treatmentManager
