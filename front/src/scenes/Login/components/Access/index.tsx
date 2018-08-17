@@ -56,7 +56,7 @@ class Access extends React.Component<{}, ILoginState, {}> {
     recommend: "Te recomendamos encarecidamente el uso de un " +
       "segundo factor de autenticación, para más " +
       "información visita:",
-    title: "Porfavor ingrese.",
+    title: "Por favor ingresa.",
   };
 
   /**
