@@ -736,6 +736,28 @@ def logging_users_report(company_name, init_date, finish_date):
             rows = []
     return rows
 
+def get_all_companies():
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT DISTINCT UPPER(company) FROM users where company != %s'
+        try:
+            cursor.execute(query, ("None",))
+            rows = cursor.fetchall()
+        except OperationalError:
+            rollbar.report_exc_info()
+            rows = []
+    return rows
+
+def get_all_users(company_name):
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT COUNT(id) FROM users WHERE company = %s and \
+        registered = 1'
+        try:
+            cursor.execute(query, (company_name,))
+            rows = cursor.fetchall()
+        except OperationalError:
+            rollbar.report_exc_info()
+            rows = []
+    return rows
 
 def all_inactive_users():
     """ Gets amount of inactive users in Integrates. """
@@ -1173,7 +1195,7 @@ def get_toe_dynamo(project):
 
 
 def weekly_report_dynamo(
-        init_date, finish_date, registered_users, logged_users):
+        init_date, finish_date, registered_users, logged_users, companies):
     """ Save the number of registered and logged users weekly. """
     table = dynamodb_resource.Table('FI_weekly_report')
     try:
@@ -1183,6 +1205,7 @@ def weekly_report_dynamo(
                 'finish_date': finish_date,
                 'registered_users': registered_users,
                 'logged_users': logged_users,
+                'companies': companies,
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

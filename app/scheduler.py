@@ -348,12 +348,29 @@ def send_mail_age(age, to, context):
     else:
         send_mail_age_finding(to, context)
 
+
 def weekly_report():
+    """Save weekly report in dynamo."""
     init_date = (datetime.today() - timedelta(days=7)).date()
-    final_date =  (datetime.today() - timedelta(days=1)).date()
+    final_date = (datetime.today() - timedelta(days=1)).date()
+    all_companies = integrates_dao.get_all_companies()
+    all_users = [all_users_formatted(x) for x in all_companies]
     registered_users = integrates_dao.all_users_report("FLUID", final_date)
     logged_users = integrates_dao.logging_users_report("FLUID", init_date, final_date)
-    integrates_dao.weekly_report_dynamo(str(init_date), str(final_date), registered_users[0][0], logged_users[0][0])
+    integrates_dao.weekly_report_dynamo(
+        str(init_date),
+        str(final_date),
+        registered_users[0][0],
+        logged_users[0][0],
+        all_users
+    )
+
+
+def all_users_formatted(company):
+    """Format total users by company."""
+    total_users = integrates_dao.get_all_users(company)
+    all_users_by_company = {company[0]: int(total_users[0][0])}
+    return all_users_by_company
 
 
 def inactive_users():
