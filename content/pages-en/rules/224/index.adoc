@@ -31,3 +31,10 @@ when these random values are intended to be not guessable by an attacker.
 Verify that random numbers are created with proper entropy
 even when the application is under heavy load,
 or that the application degrades gracefully in such circumstances.
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[+NIST+ 800-53 IA-7]
+Cryptographic module authentication:
+The information system implements mechanisms for authentication
+to a cryptographic module that meet the requirements
+of applicable federal laws, Executive Orders, directives, policies,
+regulations, standards, and guidance for such authentication.

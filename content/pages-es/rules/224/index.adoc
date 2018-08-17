@@ -39,3 +39,11 @@ Verificar que los números aleatorios sean creados
 con una entropía adecuada, incluso cuando la aplicación
 se encuentre bajo cargas pesadas,
 o que la aplicación se degrade adecuadamente en tales circunstancias.
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[+NIST+ 800-53 IA-7]
+Módulo de autenticación criptográfica:
+Los sistemas de información deben implementar mecanismos
+para la autenticación con un módulo criptográfico
+que cumpla los requerimientos de las leyes federales aplicables,
+órdenes ejecutivas, directivas, políticas, regulaciones, estándares
+y guías para tal autenticación.

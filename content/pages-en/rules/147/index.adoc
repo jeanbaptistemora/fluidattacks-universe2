@@ -32,3 +32,10 @@ when these random values are intended to be not guessable by an attacker.
 . [[r4]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-7.7+]
 Verify that cryptographic algorithms used by the application
 have been validated against FIPS 140-2 or an equivalent standard.
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[+NIST+ 800-53 IA-7]
+Cryptographic module authentication:
+The information system implements mechanisms for authentication
+to a cryptographic module that meet the requirements
+of applicable federal laws, Executive Orders, directives, policies,
+regulations, standards, and guidance for such authentication.

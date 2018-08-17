@@ -41,3 +41,11 @@ Verificar que los algoritmos criptográficos
 utilizados por la aplicación
 hayan sido validados por +FIPS 140-2+
 o un estándar equivalente.
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[+NIST+ 800-53 IA-7]
+Módulo de autenticación criptográfica:
+Los sistemas de información deben implementar mecanismos
+para la autenticación con un módulo criptográfico
+que cumpla los requerimientos de las leyes federales aplicables,
+órdenes ejecutivas, directivas, políticas, regulaciones, estándares
+y guías para tal autenticación.
