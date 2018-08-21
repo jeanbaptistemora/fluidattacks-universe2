@@ -19,6 +19,7 @@
 
 * link:023/[REQ.023 Close inactive users sessions].
 * link:026/[REQ.026 Encrypt client-side session information].
+* link:027/[REQ.027 Allow session lockout].
 * link:028/[REQ.028 Allow user logout].
 * link:029/[REQ.029 Cookies with security attributes].
 * link:030/[REQ.030 Avoid object reutilization].
