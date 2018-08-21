@@ -32,3 +32,16 @@ para pruebas o revisión.
 . [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
 El sistema de información implementa el manejo dinámico de privilegios
 definidos por la organización.
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) a]
+La organización establece y administra las cuentas de usuario
+de acuerdo con un esquema de acceso basado en roles
+que organice los accesos permitidos al sistema de información
+y los privilegios en roles.
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) b]
+La organización monitorea las asignaciones de roles con privilegio asignadas.
+
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) c]
+La organización toma acciones definidas
+cuando la asignación de roles con privilegio ya no son apropiadas.

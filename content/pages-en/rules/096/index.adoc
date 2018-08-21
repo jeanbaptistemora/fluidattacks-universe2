@@ -38,3 +38,15 @@ The information system implements the following
 dynamic privilege management capabilities:
 [Assignment: organization-defined list
 of dynamic privilege management capabilities].
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) a]
+The organization establishes and administers privileged user accounts
+in accordance with a role-based access scheme
+that organizes allowed information system access and privileges into roles.
+
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) b]
+The organization monitors privileged role assignments.
+
+. [[r7]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) c]
+The organization Takes [Assignment: organization-defined actions]
+when privileged role assignments are no longer appropriate.
