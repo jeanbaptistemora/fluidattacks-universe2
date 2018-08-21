@@ -89,3 +89,8 @@ Cierre de sesión: El sistema de información
 debe terminar la sesión del usuario cuando se presente
 una condición o evento definido por la organización
 que requiera la terminación de la sesión.
+
+. [[r8]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-3[+NIST+ 800-53 AC-2 (2)]
+La organización requiere que el usuario termine la sesión
+cuando se presente un periodo de inactividad definido
+o un evento que requiera el cierre de sesión.

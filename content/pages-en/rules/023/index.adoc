@@ -78,3 +78,8 @@ maximum time period regardless of activity (an absolute timeout).
 Session termination: The information system automatically terminates
 a user session after organization-defined conditions
 or trigger events requiring session disconnect.
+
+. [[r8]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (2)]
+The organization requires that users log out when
+[Assignment: organization-defined time-period of expected inactivity
+or description of when to log out].
