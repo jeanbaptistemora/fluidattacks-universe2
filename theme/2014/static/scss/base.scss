@@ -443,6 +443,14 @@ article {
 
 }
 
+.img-ppl {
+  img {
+    border-radius: 50%;
+    filter: grayscale(100%);
+    width: 300px;
+  }
+}
+
 //scss-lint:disable NestingDepth
 .tb-alt {
   display: table;

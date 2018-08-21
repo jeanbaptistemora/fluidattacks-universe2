@@ -6,6 +6,7 @@
 
 = Andres Roldan
 
+[role="img-ppl"]
 image::aroldan.png[Andres Roldan]
 
 Cyber Security Specialist from the University of Maryland. +Fluid Attacks+

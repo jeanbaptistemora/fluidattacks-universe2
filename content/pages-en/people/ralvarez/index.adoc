@@ -6,6 +6,7 @@
 
 = Rafael Alvarez
 
+[role="img-ppl"]
 image::ralvarez.png[Rafael Alvarez]
 
 Computer Engineer. +Fluid Attacks+ co-founder and +CTO+,

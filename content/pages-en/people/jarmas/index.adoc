@@ -6,6 +6,7 @@
 
 = Jonathan Armas
 
+[role="img-ppl"]
 image::jarmas.png[Jonathan Armas]
 
 Born in Caracas Venezuela,
