@@ -32,3 +32,7 @@ por ejemplo, que sólo objetos o datos autorizados
 sean accesibles a cada usuario
 (por ejemplo, proteger a los usuarios de la manipulación de parámetros
 para espiar o alterar otra cuenta de usuario)
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+El sistema de información implementa el manejo dinámico de privilegios
+definidos por la organización.

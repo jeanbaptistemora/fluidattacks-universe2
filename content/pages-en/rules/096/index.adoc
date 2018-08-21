@@ -32,3 +32,9 @@ Verify that access to sensitive records is protected,
 such that only authorized objects or data is accessible to each user
 (for example, protect against users
 tampering with a parameter to see or alter another user's account).
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+The information system implements the following
+dynamic privilege management capabilities:
+[Assignment: organization-defined list
+of dynamic privilege management capabilities].

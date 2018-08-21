@@ -28,3 +28,7 @@ el acceso de una persona a las instalaciones basándose
 en su rol o función, incluyendo control de visitantes
 y control de acceso a software de la compañía
 para pruebas o revisión.
+
+. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+El sistema de información implementa el manejo dinámico de privilegios
+definidos por la organización.

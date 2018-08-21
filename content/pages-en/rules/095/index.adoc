@@ -28,3 +28,9 @@ Access Control and Validation Procedures: Implement procedures
 to control and validate a person's access to facilities
 based on their role or function, including visitor control,
 and control of access to software programs for testing and revision.
+
+. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+The information system implements the following
+dynamic privilege management capabilities:
+[Assignment: organization-defined list
+of dynamic privilege management capabilities].
