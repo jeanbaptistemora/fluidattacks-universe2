@@ -114,6 +114,7 @@
 * link:183/[REQ.183 Delete sensitive data securely].
 * link:186/[REQ.186 Use minimum level of privileges].
 * link:191/[REQ.191 Protect data with maximum level].
+* link:301/[REQ.301 Notify configuration changes].
 
 == Foreign Devices
 
