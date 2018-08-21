@@ -1,20 +1,12 @@
 :local .first_row{
   margin-top: 10%;
 }
-.google{
-  background-color: #CC0000;
-  border-color: #AA0000;
-  color: white !important;
-  height: 40px !important;
-  text-align: left !important;
+:local .text_center {
+  composes: text_center from '../../../../styles/global.css';
 }
-.azure{
-  color: white !important;
-  height: 40px !important;
-  text-align: left !important;
-}
-:local .text_center{
-  text-align: center !important;
+:local .message {
+  composes: text from '../../../../styles/global.css';
+  composes: text_center from '../../../../styles/global.css';
 }
 :local .lang_icon {
   cursor: pointer;
@@ -29,6 +21,7 @@
   margin-top: 10px;
 }
 :local .google_btn {
+  composes: text from '../../../../styles/global.css';
   background-color: #CC0000;
   border-color: #AA0000;
   border-radius: 0px !important;
@@ -36,9 +29,13 @@
   height: 40px !important;
 }
 :local .azure_btn {
+  composes: text from '../../../../styles/global.css';
   border-radius: 0px !important;
   color: white !important;
   height: 40px !important;
+}
+:local .lang_text {
+  composes: text from '../../../../styles/global.css';
 }
 :local .lang_text:hover{
   cursor: pointer;

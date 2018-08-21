@@ -9,3 +9,15 @@
 .primaryBg {
   background-color: #ff3435;
 }
+
+.text {
+  font-family: Source Sans Pro, sans-serif;
+}
+
+.title {
+  font-family: Montserrat, sans-serif;
+}
+
+.text_center{
+  text-align: center !important;
+}

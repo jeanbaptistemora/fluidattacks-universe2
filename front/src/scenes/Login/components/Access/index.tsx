@@ -212,10 +212,10 @@ class Access extends React.Component<{}, ILoginState, {}> {
           <Row className={`show-grid ${style.white} ${style.top_space}`}>
             <Col md={4} lg={4}/>
             <Col md={4} lg={4} lgOffset={4} mdOffset={4}>
-              <p className={style.text_center}>
+              <p className={style.message}>
                 {this.state.title}
               </p>
-              <p className={style.text_center}>
+              <p className={style.message}>
                 {this.state.message}
               </p>
             </Col>
