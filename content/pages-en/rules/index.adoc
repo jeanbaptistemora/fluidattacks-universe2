@@ -84,6 +84,7 @@
 * link:141/[REQ.141 Force re authentication].
 * link:142/[REQ.142 Change system default credentials].
 * link:143/[REQ.143 Unique Access Credentials].
+* link:144/[REQ.144 Purify accounts periodically].
 
 == Cryptography
 
