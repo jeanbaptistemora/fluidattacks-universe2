@@ -32,14 +32,14 @@ resource "aws_route53_record" "mainA" {
 }
 
 resource "aws_route53_zone" "fs_old_domains" {
-  count   = 5
+  count   = 8
   name    = "${element(var.secDomains, count.index)}" 
   comment = "Dominio secundario de Fluid Attacks"
   force_destroy = true
 }
 
 resource "aws_route53_record" "old_domains_elb" {
-  count   = 5
+  count   = 8
   zone_id = "${aws_route53_zone.fs_old_domains.*.zone_id[count.index]}"
   name    = "${aws_route53_zone.fs_old_domains.*.name[count.index]}"
   type    = "A"

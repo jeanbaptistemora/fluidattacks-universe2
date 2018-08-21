@@ -23,6 +23,9 @@ spec:
   - fluidsignal.com
   - fluid.com.co
   - fluid.la
+  - fluidattacks.co
+  - fluidattacks.com.co
+  - fluidattacks.io
   acme:
     config:
     - http01:
@@ -33,6 +36,9 @@ spec:
       - fluidsignal.com
       - fluid.com.co
       - fluid.la
+      - fluidattacks.co
+      - fluidattacks.com.co
+      - fluidattacks.io
   issuerRef:
     name: cert-issuer
     kind: ClusterIssuer
@@ -50,6 +56,12 @@ spec:
   - hosts:
     - fluidsignal.com.co
     - fluidsignal.co
+    - fluidsignal.com
+    - fluid.com.co
+    - fluid.la
+    - fluidattacks.co
+    - fluidattacks.com.co
+    - fluidattacks.io
     secretName: tls-old-domains
   rules:
   - host: fluidsignal.com.co
@@ -77,6 +89,24 @@ spec:
           serviceName: alg
           servicePort: 80
   - host: fluid.la
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: fluidattacks.co
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: fluidattacks.com.co
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: fluidattacks.io
     http:
       paths:
       - backend:

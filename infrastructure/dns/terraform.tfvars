@@ -6,5 +6,8 @@ secDomains = [
   "fluidsignal.co",
   "fluidsignal.com.co",
   "fluidsignal.com",
-  "fluid.la"
+  "fluid.la",
+  "fluidattacks.co",
+  "fluidattacks.com.co",
+  "fluidattacks.io"
 ]
