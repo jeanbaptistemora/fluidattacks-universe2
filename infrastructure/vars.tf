@@ -35,7 +35,6 @@ variable "dbSnapId" {}
 # EKS Vars
 variable "clusterName" {}
 variable "eksAmiId" {}
-variable "newEksAmiId" {}
 variable "eksSnetReg" {
   type = "list"
 }
