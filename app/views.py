@@ -1599,10 +1599,31 @@ def delete_draft(request):
             to = [x[0] for x in admins]
             to.append(finding['analyst'])
             send_mail_delete_draft(to, context)
+            delete_all_coments(submission_id)
             return util.response([], 'success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
+
+
+def delete_all_coments(finding_id):
+    """Delete all comments of a finding."""
+    all_comments = integrates_dao.get_comments_dynamo(int(finding_id), "comment")
+    comments_deleted = [delete_comment(i) for i in all_comments]
+    all_observations = integrates_dao.get_comments_dynamo(int(finding_id), "observation")
+    observations_deleted = [delete_comment(i) for i in all_observations]
+    return all(comments_deleted + observations_deleted)
+
+
+def delete_comment(comment):
+    """Delete comment."""
+    if comment:
+        finding_id = comment["finding_id"]
+        user_id = comment["user_id"]
+        response = integrates_dao.delete_comment_dynamo(finding_id, user_id)
+    else:
+        response = True
+    return response
 
 @never_cache
 @require_http_methods(["POST"])

@@ -848,14 +848,14 @@ def create_comment_dynamo(finding_id, email, data):
         return False
 
 
-def delete_comment_dynamo(finding_id, data):
+def delete_comment_dynamo(finding_id, user_id):
     """ Delete a comment in a finding. """
     table = dynamodb_resource.Table('FI_comments')
     try:
         response = table.delete_item(
             Key={
                 'finding_id': finding_id,
-                'user_id': int(data["data[id]"])
+                'user_id': user_id
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
