@@ -125,38 +125,18 @@ angular.module("FluidIntegrates").factory(
         });
       },
       "editUser" ($scope) {
-        const adminEmail = [];
-        let userOrganization = "";
-        let userActualRole = "";
-        let userResponsibility = "";
-        let userPhone = "";
-        angular.element("#tblUsers :checked").each(function checkedFields () {
-          /* eslint-disable-next-line  no-invalid-this */
-          const vm = this;
-          const actualRow = angular.element("#tblUsers").find("tr");
-          const actualIndex = angular.element(vm).data().index + 1;
-          adminEmail.push(actualRow.eq(actualIndex)[0].cells[1].innerHTML);
-          const INDEX_ROLE = 2;
-          const INDEX_RESP = 3;
-          const INDEX_PHONE = 4;
-          const INDEX_ORG = 5;
-          userActualRole =
-            actualRow.eq(actualIndex)[0].cells[INDEX_ROLE].innerHTML;
-          userResponsibility =
-            actualRow.eq(actualIndex)[0].cells[INDEX_RESP].innerHTML;
-          userPhone = actualRow.eq(actualIndex)[0].cells[INDEX_PHONE].innerHTML;
-          userOrganization =
-            actualRow.eq(actualIndex)[0].cells[INDEX_ORG].innerHTML;
-        });
-        if (adminEmail.length === 0) {
+        const DATA_IN_SELECTED_ROW =
+                angular.element("#tblUsers").bootstrapTable("getSelections")[0];
+        if (angular.isUndefined(DATA_IN_SELECTED_ROW)) {
           $msg.error($translate.instant("search_findings.tab_users." +
                                     "no_selection"));
         }
-        else if (adminEmail.length > 1) {
-          $msg.error($translate.instant("search_findings.tab_users." +
-                                      "assign_error"));
-        }
         else {
+          const USER_EMAIL = DATA_IN_SELECTED_ROW.users;
+          const USER_ROLE = DATA_IN_SELECTED_ROW.userRole;
+          const USER_RESPONSAILITY = DATA_IN_SELECTED_ROW.userResponsibility;
+          const USER_PHONE = DATA_IN_SELECTED_ROW.userPhone;
+          const USER_ORGANIZATION = DATA_IN_SELECTED_ROW.usersOrganization;
           const descData = {
             "company": Organization.toLowerCase(),
             "project": $scope.project.toLowerCase()
@@ -166,11 +146,11 @@ angular.module("FluidIntegrates").factory(
             "backdrop": "static",
             "controller" ($scope, $uibModalInstance, data) {
               $scope.newUserInfo = {};
-              $scope.newUserInfo.userRole = userActualRole;
-              $scope.newUserInfo.userResponsibility = userResponsibility;
-              $scope.newUserInfo.userPhone = userPhone;
-              $scope.newUserInfo.userOrganization = userOrganization;
-              $scope.newUserInfo.userEmail = adminEmail[0].trim();
+              $scope.newUserInfo.userRole = USER_ROLE;
+              $scope.newUserInfo.userResponsibility = USER_RESPONSAILITY;
+              $scope.newUserInfo.userPhone = USER_PHONE;
+              $scope.newUserInfo.userOrganization = USER_ORGANIZATION;
+              $scope.newUserInfo.userEmail = USER_EMAIL.trim();
               $scope.disableOnEdit = true;
               $scope.isAdmin = userRole !== "customer" &&
                   userRole !== "customeradmin" && userRole !== "analyst";
@@ -184,8 +164,8 @@ angular.module("FluidIntegrates").factory(
                   $scope.isProjectManager = response.data;
                 }
               });
-              $scope.newUserInfo.utilsUrl = `${BASE.url}assets/node_modules/
-                intl-tel-input/build/js/utils.js`;
+              $scope.newUserInfo.utilsUrl =
+              `${BASE.url}assets/node_modules/intl-tel-input/build/js/utils.js`;
               $scope.modalTitle = $translate.instant("search_findings." +
                                             "tab_users.edit_user_title");
               $scope.ok = function ok () {
@@ -214,7 +194,7 @@ angular.module("FluidIntegrates").factory(
                         userEmail,
                         $stateParams.project.toLowerCase(),
                         "EditUser",
-                        adminEmail[0]
+                        USER_EMAIL
                       );
                       $msg.success(
                         $translate.instant("search_findings." +
@@ -228,9 +208,8 @@ angular.module("FluidIntegrates").factory(
                     else if (response.error) {
                       Rollbar.error("Error: An error occurred " +
                                                   "editing user information");
-                      const errorMsg =
-                        $translate.instant("proj_alerts.error_textsad");
-                      $msg.error(errorMsg);
+                      $msg.error($translate.instant("proj_alerts." +
+                                                    "error_textsad"));
                     }
                   });
                 }
@@ -249,58 +228,41 @@ angular.module("FluidIntegrates").factory(
           });
         }
       },
+
       "removeUserAccess" ($scope) {
-        const removedEmails = [];
-        angular.element("#tblUsers :checked").each(function checkedFields () {
-          /* eslint-disable-next-line  no-invalid-this */
-          const vm = this;
-          const actualRow = angular.element("#tblUsers").find("tr");
-          const actualIndex = angular.element(vm).data().index;
-          if (angular.isUndefined(actualIndex)) {
-            return true;
-          }
-          removedEmails.push(actualRow.eq(actualIndex + 1)[0].
-            innerText.split("\t")[1]);
-          return true;
-        });
-        if (removedEmails.length !== 0) {
-          for (let inc = 0; inc < removedEmails.length; inc++) {
-            const req = projectFtry2.removeAccessIntegrates(
-              removedEmails[inc],
-              $stateParams.project.toLowerCase()
-            );
-            req.then((response) => {
-              if (!response.error) {
-                mixPanelDashboard.trackUsersTab(
-                  "RemoveUser",
-                  userEmail,
-                  $scope.project.toLowerCase(),
-                  "Remove",
-                  removedEmails[inc]
-                );
-                const removedMsg = removedEmails[inc] +
-                  $translate.instant("search_findings.tab_users." +
-                    "success_delete");
-                const titleMsg =
-                  $translate.instant("search_findings.tab_users.title_success");
-                $msg.success(removedMsg, titleMsg);
-                if (inc === (removedEmails.length - 1)) {
-                  location.reload();
-                }
-              }
-              else if (response.error) {
-                Rollbar.error("Error: An error occurred " +
-           "removing access to an user");
-                $msg.error($translate.instant("proj_alerts.error_textsad"));
-                inc = removedEmails.length;
-                location.reload();
-              }
-            });
-          }
-        }
-        else if (removedEmails.length === 0) {
+        const DATA_IN_SELECTED_ROW =
+                angular.element("#tblUsers").bootstrapTable("getSelections")[0];
+        if (angular.isUndefined(DATA_IN_SELECTED_ROW)) {
           $msg.error($translate.instant("search_findings.tab_users." +
            "no_selection"));
+        }
+        else {
+          const USER_EMAIL_TO_REMOVE = DATA_IN_SELECTED_ROW.users;
+          const req = projectFtry2.removeAccessIntegrates(
+            USER_EMAIL_TO_REMOVE,
+            $stateParams.project.toLowerCase()
+          );
+          req.then((response) => {
+            if (!response.error) {
+              mixPanelDashboard.trackUsersTab(
+                "RemoveUser",
+                userEmail,
+                $scope.project.toLowerCase(),
+                "Remove",
+                USER_EMAIL_TO_REMOVE
+              );
+              $msg.success(USER_EMAIL_TO_REMOVE +
+                          $translate.instant("search_findings.tab_users." +
+                  "success_delete"), "search_findings.tab_users.title_success");
+              location.reload();
+            }
+            else if (response.error) {
+              Rollbar.error("Error: An error occurred " +
+           "removing access to an user");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+              location.reload();
+            }
+          });
         }
       }
     };
