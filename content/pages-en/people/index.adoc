@@ -64,7 +64,7 @@ image::ccarrasco.png[alt="Carolina Carrasco", width=100 ]
 Project Team +
 link:https://www.linkedin.com/in/carolina-carrasco-01612767/[LinkedIn]
 
-a|=== Andrés Roldán
+a|=== link:aroldan/[Andrés Roldán]
 image::aroldan.png[alt="Andrés Roldan", width=100 ]
 Architecture Team +
 link:https://www.linkedin.com/in/andr%C3%A9s-rold%C3%A1n-0602702/[LinkedIn]
