@@ -8,6 +8,7 @@ import { react2angular } from "react2angular";
 import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
+import exploitView from "./scenes/Dashboard/components/ExploitView/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import Access from "./scenes/Login/components/Access/index";
@@ -142,6 +143,25 @@ angular
       commentBox,
       [
         "type",
+        "visible",
+      ],
+    ),
+  );
+
+/**
+ * @url: #/project/:project/:id/exploit
+ * @page: findingcontent.html
+ * @controllers: ["findingContentCtrl"]
+ * @tag: <exploit-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "exploitView",
+    react2angular(
+      exploitView,
+      [
+        "code",
         "visible",
       ],
     ),

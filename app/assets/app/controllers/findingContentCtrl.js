@@ -157,7 +157,7 @@ findingContentCtrl (
       $scope.isRemediated = findingData.remediated;
       $scope.tabEvidences = findingData.tabEvidences;
       $scope.hasExploit = findingData.hasExploit;
-      $scope.exploitURL = findingData.exploitURL;
+      $scope.exploitSrc = findingData.exploitSrc;
       $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasDraft = findingData.hasDraft;
@@ -215,9 +215,9 @@ findingContentCtrl (
           const exploitinfo =
                              tabsFtry.findingExploitTab($scope, findingData);
           $scope.hasExploit = exploitinfo[0];
-          $scope.exploitURL = exploitinfo[1];
+          $scope.exploitSrc = exploitinfo[1];
           findingData.hasExploit = exploitinfo[infoIndex2];
-          findingData.exploitURL = exploitinfo[infoIndex3];
+          findingData.exploitSrc = exploitinfo[infoIndex3];
           const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
           $scope.hasRecords = recordinfo[0];
           findingData.hasRecords = recordinfo[1];

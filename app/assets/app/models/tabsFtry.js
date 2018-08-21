@@ -244,8 +244,8 @@ angular.module("FluidIntegrates").factory(
                                   "]", "g"), "&lt;");
                   responses = responses.replace(new RegExp("[>" +
                               "]", "g"), "&gt;");
-                  data.exploitURL = responses;
-                  findingData.exploitURL = data.exploitURL;
+                  data.exploitSrc = responses;
+                  findingData.exploitSrc = data.exploitSrc;
                 }
                 else if (response.error) {
                   Rollbar.error("Error: An error occurred " +
@@ -299,8 +299,8 @@ angular.module("FluidIntegrates").factory(
                                   "]", "g"), "&lt;");
                   responses = responses.replace(new RegExp("[>" +
                               "]", "g"), "&gt;");
-                  data.exploitURL = responses;
-                  findingData.exploitURL = data.exploitURL;
+                  data.exploitSrc = responses;
+                  findingData.exploitSrc = data.exploitSrc;
                 }
                 else if (response.error) {
                   Rollbar.error("Error: An error occurred loading exploit");
@@ -315,9 +315,9 @@ angular.module("FluidIntegrates").factory(
         });
         return [
           data.hasExploit,
-          data.exploitURL,
+          data.exploitSrc,
           findingData.hasExploit,
-          findingData.exploitURL
+          findingData.exploitSrc
         ];
       },
       "findingRecordsTab" (data, findingData) {

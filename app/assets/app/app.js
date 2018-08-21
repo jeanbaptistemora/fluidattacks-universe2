@@ -68,7 +68,6 @@ angular.module("FluidIntegrates", [
   "monospaced.elastic",
   "ngNotify",
   "pascalprecht.translate",
-  "prismjsHighlight",
   "tandibar/ng-rollbar",
   "ui.bootstrap",
   "ui.router"

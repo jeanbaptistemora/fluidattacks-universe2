@@ -646,9 +646,10 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-show="hasExploit">
-                        <pre prism-highlight source="{{exploitURL}}" class="language-python line-numbers"></pre>
-                    </div>
+                    <exploit-view
+                      code="exploitSrc"
+                      visible="hasExploit"
+                    />
                   </div>
                   <!-- End Tab Exploit -->
                   <!-- Start Tab Tracking -->
