@@ -37,6 +37,7 @@ module "eks" {
   clusterName  = "${var.clusterName}"
   eksAmiId     = "${var.eksAmiId}"
   eksSnetReg   = ["${var.eksSnetReg}"]
+  newEksAmiId  = "${var.newEksAmiId}"
   region  = "${var.region}"
   rtbId   = "${var.rtbId}"
   vpcCidr = "${var.cidr}"

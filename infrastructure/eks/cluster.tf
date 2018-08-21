@@ -1,5 +1,6 @@
 variable "clusterInstanceType" {}
 variable "eksAmiId" {}
+variable "newEksAmiId" {}
 variable "region" {}
 
 resource "aws_eks_cluster" "k8s_cluster" {
@@ -40,6 +41,14 @@ sed -i s,CLIENT_CA_FILE,$CA_CERTIFICATE_FILE_PATH,g  /etc/systemd/system/kubelet
 systemctl daemon-reload
 systemctl restart kubelet
 USERDATA
+  k8s_nodes_userdata_v2 = <<USERDATA
+#!/bin/bash
+set -o xtrace
+/etc/eks/bootstrap.sh ${var.clusterName} \
+  --use-max-pods true \
+  --b64-cluster-ca ${aws_eks_cluster.k8s_cluster.certificate_authority.0.data} \
+  --apiserver-endpoint ${aws_eks_cluster.k8s_cluster.endpoint}
+USERDATA
 }
 
 resource "aws_launch_configuration" "k8s_nodes_launch_config" {
@@ -62,6 +71,41 @@ resource "aws_autoscaling_group" "k8s_nodes_autoscaling" {
   max_size             = 5
   min_size             = 3
   name                 = "EKSWorkerNodes"
+  vpc_zone_identifier  = ["${aws_subnet.k8s_subnets.*.id}"]
+
+  tag {
+    key                 = "Name"
+    value               = "Fluid-EKS"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "kubernetes.io/cluster/${var.clusterName}"
+    value               = "owned"
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_launch_configuration" "k8s_nodes_launch_config_v2" {
+  associate_public_ip_address = true
+  iam_instance_profile        = "${aws_iam_instance_profile.k8s_nodes_profile.name}"
+  image_id                    = "${var.newEksAmiId}"
+  instance_type               = "${var.clusterInstanceType}"
+  name_prefix                 = "EKSWorkerNodes"
+  security_groups             = ["${aws_security_group.k8s_nodes_sec_group.id}"]
+  user_data_base64            = "${base64encode(local.k8s_nodes_userdata_v2)}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_autoscaling_group" "k8s_nodes_autoscaling_v2" {
+  desired_capacity     = 3
+  launch_configuration = "${aws_launch_configuration.k8s_nodes_launch_config_v2.id}"
+  max_size             = 5
+  min_size             = 3
+  name                 = "EKSWorkerNodesv2"
   vpc_zone_identifier  = ["${aws_subnet.k8s_subnets.*.id}"]
 
   tag {
