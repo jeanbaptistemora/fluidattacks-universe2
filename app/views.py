@@ -2150,3 +2150,30 @@ def delete_s3_evidence(evidence):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
+def get_user_data(request):
+    """Get user information."""
+    project = request.GET.get('project', None)
+    parameters = request.GET.dict()
+    user_data = {}
+    actual_user = request.session['username']
+    email = parameters["data[userEmail]"]
+    if request.session['role'] == 'customer' and not is_customeradmin(project, actual_user):
+        util.cloudwatch_log(request, 'Security: Attempted to retrieve project users without permission')
+        return util.response(user_data, 'Access to project denied', True)
+    user_information = integrates_dao.get_user_dynamo(email)
+    if user_information and "phone" in user_information[0]:
+        user_data["phone"] = user_information[0]["phone"]
+    user_organization = integrates_dao.get_organization_dao(email)
+    if user_organization != 'None':
+        user_data["organization"] = user_organization
+    user_responsibility = integrates_dao.get_project_access_dynamo(email, project)
+    if user_responsibility and "responsibility" in user_responsibility[0]:
+        user_data["responsibility"] = user_responsibility[0]["responsibility"]
+    return util.response(user_data, 'Success', False)

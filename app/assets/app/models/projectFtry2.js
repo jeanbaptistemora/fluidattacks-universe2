@@ -305,6 +305,23 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Get user information.
+       * @function getUserData
+       * @param {String} data User data.
+       * @param {String} project User project.
+       * @member integrates.projectFtry2
+       * @return {Object} Response by SQL DB
+       */
+      "getUserData" (data, project) {
+        const oopsAc = "An error occurred getting user information";
+        return $xhr.get($q, `${BASE.url}get_user_data`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data,
+          project
+        }, oopsAc);
+      },
+
+      /**
        * Get role of a user.
        * @function isCustomerAdmin
        * @param {String} project Project name.

@@ -56,6 +56,7 @@ urlpatterns = [
         views.get_eventualities, name='get_eventualities'),
     url(r'^get_evidences/?\.*$', views.get_evidences, name='get_evidences'),
     url(r'^get_users_login/?\.*$', views.get_users_login, name='get_users_login'),
+    url(r'^get_user_data/?\.*$', views.get_user_data, name='get_user_data'),
     url(r'^access_to_project/?\.*$', views.access_to_project, name='access_to_project'),
     url(r'^add_access_integrates/?\.*$', views.add_access_integrates, name='add_access_integrates'),
     url(r'^remove_access_integrates/?\.*$', views.remove_access_integrates, name='remove_access_integrates'),

@@ -51,6 +51,23 @@ angular.module("FluidIntegrates").factory(
             });
             $scope.modalTitle = $translate.instant("search_findings." +
                                             "tab_users.title");
+            $scope.showPhone = function showPhone () {
+              if (angular.isDefined($scope.newUserInfo.userEmail)) {
+                const req = projectFtry2.getUserData(
+                  $scope.newUserInfo,
+                  data.project
+                );
+                req.then((response) => {
+                  if (!response.error) {
+                    $scope.newUserInfo.userPhone = response.data.phone;
+                    $scope.newUserInfo.userOrganization =
+                      response.data.organization;
+                    $scope.newUserInfo.userResponsibility =
+                      response.data.responsibility;
+                  }
+                });
+              }
+            };
             $scope.newUserInfo.utilsUrl =
               `${BASE.url}assets/node_modules/intl-tel-input/build/js/utils.js`;
             $scope.ok = function ok () {

@@ -15,6 +15,7 @@
                     required=""
                     type="email"
                     ng-model="newUserInfo.userEmail"
+                    ng-blur="showPhone()"
                     translate-attr="{ placeholder: 'search_findings.tab_users.email' }" required>
                 <br>
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_organization' | translate}}:</label>
