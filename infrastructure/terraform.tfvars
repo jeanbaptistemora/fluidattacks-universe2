@@ -20,5 +20,4 @@ instanceClass = "db.t2.small"
 rtbId = "rtb-a74ad5c3"
 clusterName = "FluidServes"
 eksAmiId    = "ami-dea4d5a1"
-newEksAmiId = "ami-048486555686d18a0"
 eksSnetReg  = ["us-east-1d", "us-east-1e"]
