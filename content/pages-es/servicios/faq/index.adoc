@@ -31,7 +31,7 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
  de forma que puedan trabajar en su remediación sin contratiempos.
 
 *¿Cuáles son los insumos necesarios para la prestación del servicio?*::
-El servicio se puede desarrollar en fases de forma complementaria:
+ El servicio se puede desarrollar en fases de forma complementaria:
  . *Fase 1:*
  El insumo fundamental para el servicio es el acceso a la rama de integración
  del repositorio de código donde se almacena la aplicación.
@@ -49,6 +49,15 @@ El servicio se puede desarrollar en fases de forma complementaria:
  se encuentra definida como código.
  Ademas de estar almacenada en el repositorio mencionado en la fase 1.
 
+*¿Cuales son las condiciones técnicas que debo cumplir para tener hacking*::
+*continuo?*::
+ Se requiere acceso a Git y al ambiente de la rama en monitoreo, mediante Linux
+ automatizable.
+ Es decir no se soporta ambientes que por ejemplo:
+ . Acceso al ambiente mediante una VPN que solo funcione en Windows
+ . VPN en Linux que requieren interacción manual como un token OTP.
+ . VPN Site to Site
+
 *¿Qué tipo de Ethical Hacking incluye el servicio de Hacking Continuo?*::
  El servicio incluye análisis de código fuente,
  Ethical Hacking de aplicación (<<q3,Ver pregunta 3>>)
@@ -59,49 +68,30 @@ El servicio se puede desarrollar en fases de forma complementaria:
  (Integridad, Disponibilidad, Confidencialidad, No repudio)
  sobre una aplicación.
 
-*¿Si en un mes supero el límite del servicio puedo optar por ampliarlo?*::
- Si. Se puede ampliar el alcance para un mes en particular
- o en general para todo el proyecto.
+*¿Que es un autor activo y como lo identifican?*::
+ Un autor activo es el usuario con acceso al repositorio Git que realizó cambios
+ sobre código almacenado en el repositorio durante el mes analizado.
 
 *¿El servicio es automático mediante herramientas*::
 *o es el resultado de un proceso manual?*::
- Las herramientas son incapaces de extraer información de negocio
- como información de clientes o empleados
- que le den sentido y peso a la vulnerabilidad.
- +Fluid Attacks+ presta sus servicios con personal experto
- usando un conjunto de herramientas de asistencia al ataque
- adquiridas y desarrolladas por +Fluid Attacks+.
- Usamos este método pues las herramientas automáticas
- de detección de vulnerabilidades presentan los siguientes problemas:
- . No detección de la mayoría de vulnerabilidades
- (detectan un porcentaje mínimo de las existentes).
+ Las herramientas son incapaces de extraer información de negocio como
+ información de clientes o empleados que le den sentido y peso a la
+ vulnerabilidad. Fluid Attacks presta sus servicios con personal experto usando
+ un conjunto de herramientas de asistencia al ataque adquiridas y otras
+ desarrolladas por Fluid Attacks. Usamos este método pues las herramientas
+ automáticas de detección de vulnerabilidades presentan los siguientes
+ problemas:
+ . Fuga de vulnerabilidades (detectan un porcentaje mínimo de las existentes).
  . De aquellas que reportan, muchas son falsos positivos.
- . Las herramientas no estan en la capacidad de combinar vulnerabilidades
- para aumentar el nivel de explotación.
-
-*Si el hacking es manual, ¿Cómo se escala cuando se tiene un portafolio*::
-*de aplicaciones grande y en constante crecimiento?*::
- El hacking se realiza en primera instancia sobre código,
- por ende esto permite la realización paralela del hacking
- mientras se continúa el desarrollo (<<q3,Ver fase 1 pregunta 3>>),
- esto mismo minimiza las dependencias de ambientes funcionales
- y la necesidad de coordinación entre hackers y developers.
- Una vez se han encontrado vulnerabilidades,
- estas son priorizadas por el +Product Owner+
- de un proyecto ágil de acuerdo a su criticidad.
- Es importante decir que a menos que se encuentre en una empresa
- con +CI(Continuous Integration)+/+CD(Continuous Delivery)+ diario
- no todos los ciclos de desarrollo generan código liberable a producción,
- lo que facilita aún más el tiempo de remediación.
+ . Las herramientas no están en la capacidad de relacionar vulnerabilidades para
+ aumentar el nivel de explotación.
 
 *Si el hacking es manual, ¿Cómo un proyecto grande puede escalar*::
-*a medida que se tienen más y más desarrolladores?*::
- Los niveles de servicio estándar
- permiten cubrir las necesidades del +95%+
- de las aplicaciones empresariales en desarrollo.
- Para el resto de los casos
- es posible ampliar los límites del servicio (<<q7,Ver pregunta 7>>)
- para revisar el sistema cuando este crece a velocidades inesperadas.
+*a medida que se tienen más y más autores activos (desarrolladores)?*::
+ Los niveles de servicio estándar permiten cubrir las necesidades del 95% de las
+ aplicaciones empresariales en desarrollo, ya que la suscripción se toma de
+ acuerdo a los desarrolladores activos en el proyecto y esto es lo que define la
+ cantidad de recursos asignados al proyecto.
 
 *Si el hacking es manual, ¿Cómo se escala cuando se tiene*::
 *un portafolio de aplicaciones grande y en constante crecimiento?*::
@@ -111,17 +101,23 @@ El servicio se puede desarrollar en fases de forma complementaria:
  cada mes en el servicio de hacking continuo.
 
 *¿El costo del servicio varía de acuerdo al alcance o fases desarrolladas?*::
- No. El costo del servicio es fijo durante la vigencia del contrato,
- teniendo en cuenta que si se presenta un cambio de año
- durante esta vigencia se aplicará lo pactado en la oferta comercial.
+ Si. El costo del servicio varia a la cantidad de autores activos identificados
+ en el proyecto cada mes
 
 *¿Por qué es necesario el acceso al código almacenado en el repositorio?*::
  El servicio de Hacking Continuo
  se basa en ejecutar el las pruebas de Hacking de forma continua.
  Siempre sobre la última versión del código.
 
-¿Cuándo inicia la prestación del servicio?::
- Desde el momento en que se cuente con acceso al repositorio de código fuente.
+*¿Cuándo inicia la prestación del servicio?*::
+ Desde el momento que se recibe la orden de compra.
+
+*¿Porque existe un mes 0 y como funciona el setup?*::
+ La mensualidad 0 es una mensualidad de inicio que se paga para comenzar el
+ setup de la prueba, en este setup se asigna un líder de proyecto y este es el
+ encargado de gestionar la conexión de ambientes, perfilamiento, creación de
+ usuarios, asignación de permisos y todos aquellos insumos necesarios para
+ iniciar la revisión sin contratiempos.
 
 *¿Es posible prestar el servicio de hacking continuo +OnPremise+?*::
  Dado el modelo operativo que soporta el servicio
@@ -259,6 +255,23 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  Esta opción aplica mejor para aplicaciones
  donde no se está desarrollando constantemente.
 
+*¿Que procedimiento tiene Fluid Attacks para desatrasar la revisión*::
+*del código ya existente antes de iniciar el Ethical Hacking?*::
+ +Fluid Attacks+ recomienda que tanto el desarrollo de la aplicación
+ como el Ethical Hacking de seguridad comiencen al mismo tiempo.
+ Sin embargo, esto no siempre ocurre así.
+ Para ello, tenemos una actividad llamada link:../../servicios/hacking-continuo/#healthcheck[+HealthCheck+]
+ que permite poner al día (desatrazar)​ las inspecciones de seguridad
+ cuando el desarrollo ha comenzado con anterioridad.
+
+*¿Que pasa si no se realiza el health check, pero igual quiero tomar el*::
+*servicio de hacking continuo?*::
+ Esto es una decisión de riesgo, ya que va existir un código que nunca se va ha
+ probar por ende no es posible saber que vulnerabilidades existen ahí y no se
+ van a identificar. Fluid Attacks  garantiza que se prueba el 100% del volumen
+ de cambio del código, pero lo que ya esta hecho no lo puedo probar nunca,
+ porque no alcanzo.
+
 *¿Los repositorios deben estar en un sistema de control*::
 *de versiones específico?*::
  El servicio de Hacking Continuo se basa en desarrollos
@@ -269,8 +282,8 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 *¿Fluid Attacks guarda la información de las vulnerabilidades encontradas?*::
  La información se almacena únicamente durante la prestación del servicio.
  Una vez finalizado el servicio se conserva la información por 7 días hábiles
- tras los cuales es borrada
- de todos los sistemas de información de +Fluid Attacks+.
+ tras los cuales es borrada de todos los sistemas de información de
+ +Fluid Attacks+.
 
 *¿El servicio de Hacking Continuo requiere algún tipo*::
 *de metodología de desarrollo?*::
@@ -280,7 +293,7 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  se convierten en un insumo en la planeación de los ciclos de desarrollo.
  Por lo tanto no es impedimento para continuar con los desarrollos.
 
-*Fluid Attacks realiza demostraciones en teleconferencia de forma periódica?*::
+*¿Fluid Attacks realiza demostraciones en teleconferencia de forma periódica?*::
 *¿Cuál es el procedimiento para programarlo?*::
  Si, hacemos demostraciones frecuentemente.
  Para tal fin solo debe indicarnos los emails de los asistentes
@@ -288,18 +301,18 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  con esto enviaremos la invitación
  en los horarios de nuestra conveniencia.
 
-*El desarrollo del Ethical Hacking en el modelo continuo*::
-*depente del tipo de repositorio donde tengo el código?*::
+*¿El desarrollo del Ethical Hacking en el modelo continuo*::
+*depende del tipo de repositorio donde tengo el código?*::
  ​No, el cliente puede usar el repositorio que estime conveniente.
  +Fluid Attacks+ solo requiere ingreso a la rama de integración
  y a su respectivo ambiente.​
 
-*Se pierden los derechos patrimoniales*::
+*¿Se pierden los derechos patrimoniales*::
 *si Fluid Attacks revisa el código fuente?*::
  No, el permitir revisar una creación u obra como lo es un código a un tercero​
 ​ no le da ningún derecho sobre la misma.​
 
-*Fluid Attacks cuenta con alguna herramienta que permita automatizar*::
+*¿Fluid Attacks cuenta con alguna herramienta que permita automatizar*::
 *las pruebas de cierre de las vulnerabilidades encontradas?*::
  Si, +Fluid Attacks+ cuenta con link:../../productos/asserts/[Asserts],
  un motor que permite automatizar​ verificaciones de seguridad
@@ -308,10 +321,9 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  opera directamente en el +JOB+ de integración continua
  y tiene la capacidad de romper el +build+ enviado por el programador
  en caso de incumplir requisitos de seguridad.
- link:../../productos/asserts/[Asserts] corre en cualquier plataformas de integración continua
- que soporten dockers como +JOB+, por ejemplo: +VSTS+, +GitLab+, +Jenkins+.
 ​
-*El Hacking Continuo está enfocado únicamente sobre el código fuente?*::
+*¿El Hacking Continuo está enfocado únicamente sobre el código fuente?*::
+*¿Es posible incluir la infraestructura asociada a la aplicación?*::
 *Es posible incluir la infraestructura asociada a la aplicación?
  +Fluid Attacks+ ha evolucionado el modelo de Hacking Continuo
  y ahora se puede incluir dentro del Target of Evaluation (+TOE+)
@@ -319,25 +331,104 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  De hecho, en esta evolución, se puede suscribir una infraestructura tecnológica
  (puertos) o una aplicación bajo el modelo de Hacking Continuo.
 
-*Donde corre Integrates?*::
+*¿Donde corre Integrates?*::
  La plataforma link:../../productos/integrates/[Integrates] corre en la nube​.
 
-*Fluid Attacks gestiona las credenciales de acceso a Integrates?*::
+*¿Fluid Attacks gestiona las credenciales de acceso a Integrates?*::
  No, usamos el concepto de autenticación federada,
  es decir, que tanto +Google+ como +Azure+ (+Microsoft 360+)​
  ​son quienes en realidad hace la validación de tus credenciales.​
 
-*Es posible activar doble token de autenticación?*::
+*¿Es posible activar doble token de autenticación?*::
  Si es posible, de hecho, lo sugerimos para aumentar el nivel de seguridad
  de tu credenciales y así evitar accesos no autorizados
  a tu información por parte de un tercero.
  Esta característica se habilita desde +Gmail+ o +Azure+ según sea tu caso.​
 
-*Que procedimiento tiene Fluid Attacks para desatrasar la revisión*::
-*del código ya existente antes de iniciar el Ethical Hacking?*::
- +Fluid Attacks+ recomienda que tanto el desarrollo de la aplicación
- como el Ethical Hacking de seguridad comiencen al mismo tiempo.
- Sin embargo, esto no siempre ocurre así.
- Para ello, tenemos una actividad llamada link:../../servicios/hacking-continuo/#healthcheck[+HealthCheck+]
- que permite poner al día (desatrazar)​ las inspecciones de seguridad
- cuando el desarrollo ha comenzado con anterioridad.
+*¿Si hago un commit, ¿en cuanto tiempo Fluid Attacks lo revisa y prueba?*::
+ El compromiso es ir con cobertura 100%, por lo que tienen resultados de
+ vulnerabilidades todo el tiempo.
+ Fluid Attacks tiene en cuenta los push a la rama que se este revisando,
+ los cuales son monitoreados por scripts automatizados (robots) que se
+ encargan todas las noches de extraer el código y analizar los cambios
+ realizados sobre el código fuente.
+
+ *¿Es decir que fluid attacks prueba cada que hago un push a la rama*::
+ *de la suscripción?*::
+ Durante la ejecución de un proyecto se pueden presentar los siguientes
+ escenarios:
+ A. Aplicación en desarrollo sin código atrasado (cobertura 100%): Los robots
+ detectan el cambio y generan archivos de control actualizados, esto hace que
+ uno de los hackers tome la aplicación y ataque la aplicación considerando los
+ cambios. Es decir, no se audita un commit o un archivo especifico, se toma el
+ análisis de cambios del robot para que el hacker  tome el ambiente y la rama,
+ e intente atacar dados los cambios.
+ A. Aplicación en producción sin código atrasado (cobertura 100%):
+ Incluso cuando no hay cambios, la aplicación se planifica para ser hackeada.
+ Internamente tenemos procesos que nos permiten identificar cuando a
+ una aplicación no le hemos encontrado vulnerabilidades en 7 días, 14 y 21 días.
+ Esto con el fin de tomar acciones como rotación de hackers o aumentar el numero
+ de hackers asignados al proyecto para lograr nuevas vulnerabilidades.
+ A. Aplicación en desarrollo con código atrasado (cobertura <100%):
+ Igual que A pero se ataca lo relacionado con el cambio realizado, no se ataca
+ superficie de ataque realizada antes de la suscripción.
+ A. Aplicación en producción con código atrasado (cobertura <100%):
+ Igual que B, solo que si en dicho mes no hay código nuevo, se hackea lo
+ equivalente a lo hecho por 1 autor activo en 1 mes anterior.
+
+*¿Es posible conocer el cronograma de actividades de las pruebas en hacking*::
+*continuo?*::
+Una vez realizado el setup y se tiene todo listo para realizar el
+servicio, comienzan las pruebas de seguridad. Las actividades realizadas dentro
+del servicio son: . Aprobación del pedido (Orden de compra confirmada) .
+Asignación de líder para el proyecto . El líder programa la reunion de inicio
+(teleconferencia) . Validación de las condiciones del servicio . Solicitud de
+insumos (acceso a ambientes y código) . El líder recibe los insumos y programa
+la configuración de los robots de
+   verificación y acceso
+ . El líder crea un usuario admin para el cliente en link:../../productos/integrates/[Integrates]
+ . El usuario admin invita a todos los interesados del proyecto
+ incluyendo los desarrolladores (deben tener Google Apps u Office365)
+ . Nuestros hackers reportan las vulnerabilidades en link:../../productos/integrates/[Integrates]
+ . Los interesados acceden a las vulnerabilidades y comienzan a remediar
+ . Si tienen dudas las pueden escalar por la sección de comentarios o el chat
+   disponible en link:../../productos/integrates/[Integrates]
+ . Una vez remediado el cliente solicita la verificación por link:../../productos/integrates/[Integrates]
+ . Nuestro hacker realiza la verificación de cierre y actualiza el reporte
+ . Los puntos 9 - 13 se repiten hasta finalizar la suscripción
+
+*Si quiero usar Asserts dentro de mi integrador continuo*::
+*¿Cuales son las condiciones técnicas que debo cumplir?*::
+ Asserts corre en cualquier plataforma de integración continua que soporte
+ Docker (Docker engine 18.03.1) y cuente con acceso a internet.
+
+*¿Existe documentación de Asserts?*::
+ La documentación esta disponible en:
+ link:https://fluidsignal.gitlab.io/asserts/[Asserts]
+
+*¿Es posible agrupar aplicaciones en una sola suscripción?*::
+*¿Como reconozco las vulnerabilidades por aplicación?*::
+ Según el modelo de autores activos, se puede crear una célula grande con todos
+ los desarrolladores o dividirla por aplicación según lo desee el cliente.
+ Cuando se maneja una sola célula es importante tener en cuenta:
+ - Todos los usuarios dentro del proyecto podrán ver todas las vulnerabilidades
+   de las diferentes aplicaciones dentro de la misma célula.
+ - En caso de que varias aplicaciones tengan la misma vulnerabilidad la única
+   forma de identificarlas es revisando dentro de la vulnerabilidad el campo
+   donde se especifica el lugar de la vulnerabilidad.
+
+*¿Es posible cambiar de ambiente cuando tengo una suscripción activa?*::
+ Si es posible con la condición de que el ambiente a revisar debe ser el mismo
+ ambiente de la rama en la que se revisa el código fuente, así fluid attacks
+ puede probar de forma estática y dinámica una misma versión del cambio.
+
+*¿Que pasa si quiero revisar diferentes ambientes de una misma aplicación?*::
+ El servicio incluye el ambiente del código revisado (<<q52,Ver pregunta 52>>),
+ es posible incluir ambientes diferentes por un valor adicional.
+
+*¿Si hago una pregunta por el sistema de comentarios, en cuanto tiempo tengo*::
+*respuesta?*::
+ Las consultas que se hacen via los comentarios de las vulnerabilidades, tienen
+ un SLA de 4  horas hábiles. L-V de 8AM a 12M y de 2PM a 6PM. (UTC-5  Colombia)
+ El SLA no esta definido contractualmente, simplemente es nuestra promesa de
+ valor.
