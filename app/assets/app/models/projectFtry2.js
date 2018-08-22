@@ -92,7 +92,7 @@ angular.module("FluidIntegrates").factory(
         let metricTool = [];
         let metricIcon = [];
         let metricValue = [];
-        const showIndicator = ldclient.variation("integrates-indicator", false);
+        const showIndicator = ldclient.variation("short-integrates-ind", false);
         if (showIndicator) {
           let compromisedRecords = 0;
           angular.forEach(data.data, (cont) => {
