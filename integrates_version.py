@@ -8,15 +8,13 @@ import os
 import sys
 import fileinput
 
-def set_integrates_version():
+def create_integrates_version():
     cur_time = time.localtime()
     min_month = (cur_time.tm_mday - 1) * 1440 + cur_time.tm_hour * 60 + \
         cur_time.tm_min
     version = time.strftime('%y.%m.{}').format(min_month)
-    file = fileinput.FileInput('app/templates/dashboard.html', inplace=True)
-    for line in file:
-        sys.stdout.write (line.replace(">v.<", ">v. " + version + "<"))
-    file.close()
+    with open('/usr/local/share/FI_version.txt', 'w') as version_file:
+        version_file.write(version)
 
 def send_mail_version():
     version = get_integrates_version()
