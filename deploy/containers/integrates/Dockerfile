@@ -59,7 +59,7 @@ RUN rm -r /var/www/html \
     && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
     && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
     && cd /usr/src/app/front/ && npm install && gulp \
-    && sed -i 's/>v./>v.'"$fi_version"'/' /usr/src/app/app/templates/dashboard.html \
+    && sed -i 's/>v./>v.\ '"$fi_version"'/' /usr/src/app/app/templates/dashboard.html \
     && echo -n "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
     && update-ca-certificates \
     && sed -i 's/env#/'"$vault_env"'#/g' /usr/src/app/env.vars
