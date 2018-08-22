@@ -17,6 +17,9 @@
                     ng-model="newUserInfo.userEmail"
                     ng-blur="showPhone()"
                     translate-attr="{ placeholder: 'search_findings.tab_users.email' }" required>
+                <br ng-show="disableOnEdit">
+                <label ng-show="disableOnEdit">{{'search_findings.tab_users.email_title' | translate}}:</label>
+                <input ng-show="disableOnEdit" readonly rows="1" id="emailText" class="form-control"  style="resize:none;" ng-model="newUserInfo.userEmail" >
                 <br>
                 <label><label style="color: #f22;">* </label>{{'search_findings.tab_users.user_organization' | translate}}:</label>
                 <input rows="1" id="organizationInput" class="form-control" data-parsley-required-message="{{'search_findings.tab_users.requiered_field' | translate}}" data-parsley-required="true" style="resize:none;" ng-model="newUserInfo.userOrganization" >

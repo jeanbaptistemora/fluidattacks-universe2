@@ -191,6 +191,7 @@ const translations2 = {
      "edit": "Edit",
      "edit_user_title": "Edit user information",
      "email": "someone@domain.com",
+     "email_title": "Email",
      "error_phone": "The phone number must not contain letters or special " +
                     "characters",
      "hours_ago": " hour(s) ago",

@@ -192,6 +192,7 @@ const traducciones2 = {
     "edit": "Edit",
     "edit_user_title": "Editar información del usuario",
     "email": "alguien@dominio.com",
+    "email_title": "Email",
     "error_phone": "El número telefónico no debe contener letras o " +
                     "caracteres especiales",
     "hours_ago": " hora(s) atrás",
