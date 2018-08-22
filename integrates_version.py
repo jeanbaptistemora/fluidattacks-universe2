@@ -13,7 +13,7 @@ def set_integrates_version():
     min_month = (cur_time.tm_mday - 1) * 1440 + cur_time.tm_hour * 60 + \
         cur_time.tm_min
     version = time.strftime('%y.%m.{}').format(min_month)
-    file = fileinput.FileInput('/usr/src/app/app/templates/dashboard.html', inplace=True)
+    file = fileinput.FileInput('app/templates/dashboard.html', inplace=True)
     for line in file:
         sys.stdout.write (line.replace(">v.<", ">v. " + version + "<"))
     file.close()

@@ -175,6 +175,7 @@ build-integrates:
   <<: *variables-dev
   <<: *vault_login
   script:
+    - pip install gitpython mandrill
     - vaultenv deploy/containers/integrates/build.sh "$CI_COMMIT_REF_NAME"
     - docker push "$DOCKER_BASENAME:$CI_COMMIT_REF_NAME"
   retry: 2

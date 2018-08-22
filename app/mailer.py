@@ -1,6 +1,8 @@
+from __future__ import absolute_import
 import mandrill
+from __init__ import FI_MANDRILL_API_KEY
 
-API_KEY = 'Cr-4ch24lDQrapMEy2F3VQ'
+API_KEY = FI_MANDRILL_API_KEY
 VERIFY_TAG = ['verify']
 COMMENTS_TAG = ['comments']
 VULNERABILITIES_TAG = ['vulnerabilities']

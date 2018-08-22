@@ -57,8 +57,7 @@ RUN rm -r /var/www/html \
     && echo "$ssl_key" | base64 -di > "/etc/ssl/private/fluidla.key" \
     && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
     && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
-    && cd /usr/src/app && python -c 'import integrates_version; integrates_version.set_integrates_version()'  \
-    && cd front/ && npm install && gulp \
+    && cd /usr/src/app/front/ && npm install && gulp \
     && echo -n "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
     && update-ca-certificates \
     && sed -i 's/env#/'"$vault_env"'#/g' /usr/src/app/env.vars

@@ -32,4 +32,5 @@ docker build --no-cache \
   --build-arg vault_env="$ENV_FULL" \
   -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" \
   deploy/containers/integrates/
+python -c 'import integrates_version; integrates_version.set_integrates_version()'
 rm -rf common
