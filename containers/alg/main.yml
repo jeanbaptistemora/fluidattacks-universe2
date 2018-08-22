@@ -79,6 +79,24 @@
       dest: "/etc/apache2/sites-enabled/fluidattacks.com"
       mode: "0644"
 
+   - name: Creando fluidattacks.io
+     template:
+      src: "vars/fluidattacks.io.j2"
+      dest: "/etc/apache2/sites-enabled/fluidattacks.io"
+      mode: "0644"
+
+   - name: Creando fluidattacks.co
+     template:
+      src: "vars/fluidattacks.co.j2"
+      dest: "/etc/apache2/sites-enabled/fluidattacks.co"
+      mode: "0644"
+
+   - name: Creando fluidattacks.com.co
+     template:
+      src: "vars/fluidattacks.com.co.j2"
+      dest: "/etc/apache2/sites-enabled/fluidattacks.com.co"
+      mode: "0644"
+
    - name: Creando www.fluid.la
      template:
       src: "vars/www.fluid.la.j2"
