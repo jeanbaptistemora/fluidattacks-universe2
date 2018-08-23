@@ -78,6 +78,7 @@ angular.module("FluidIntegrates").controller(
         vlang = "es-CO";
       }
       const projectName = $scope.project;
+      let hasAccess = true;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -107,8 +108,13 @@ angular.module("FluidIntegrates").controller(
             $scope.loadRepoInfo(projectName, vlang, projectRepoInfo);
           }
           else if (response.error) {
-            Rollbar.warning("Warning: Repositories not found");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
+            if (response.message === "Access denied") {
+              hasAccess = false;
+            }
+            else {
+              Rollbar.warning("Warning: Repositories not found");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
           }
         });
         const reqEnvironments = projectFtry2.environmentsByProject(projectName);
@@ -122,8 +128,13 @@ angular.module("FluidIntegrates").controller(
             $scope.loadEnvironmentInfo(projectName, vlang, projectEnvInfo);
           }
           else if (response.error) {
-            Rollbar.warning("Warning: Environments not found");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
+            if (response.message === "Access denied" || !hasAccess) {
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+            }
+            else {
+              Rollbar.warning("Warning: Environments not found");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
           }
         });
       }

@@ -352,7 +352,7 @@ const translations1 = {
   },
   "proj_alerts":
    {
-     "access_denied": "Access Denied",
+     "access_denied": "Access denied or project not found",
      "attentTitle": "Attention!",
      "attent_cont": "Empty search",
      "congratulation": "Congratulations",
@@ -363,7 +363,7 @@ const translations1 = {
      "error_severity": "Severity must be an integer bewteen 0 and 5",
      "error_text": "There is an error",
      "error_textsad": "There is an error :(",
-     "eventExist": "This project has no eventualities or does not exist",
+     "eventExist": "This project has no eventualities",
      "eventFormstack": "Unable to access Formstack",
      "eventPositiveint": "Affectation must be a positive integer or zero",
      "eventUpdated": "Event updated",
@@ -378,7 +378,7 @@ const translations1 = {
      "no_file_update": "Failed to update the file",
      "no_finding": "We could not find the finding!",
      "no_text_update": "Failed to update the description",
-     "not_found": "We could not find it!",
+     "not_found": "The project does not have findings",
      "project_deleted": "Project Deleted",
      "remediated_success": "This finding was marked as remediated. A request " +
                            "to verify the solution was sent",

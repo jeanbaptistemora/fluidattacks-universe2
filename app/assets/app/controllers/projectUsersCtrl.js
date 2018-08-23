@@ -180,8 +180,13 @@ angular.module("FluidIntegrates").controller(
             $scope.loadUsersInfo(projectName, vlang, usersData);
           }
           else if (response.error) {
-            Rollbar.warning("Warning: Users not found");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
+            if (response.message === "Access denied") {
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+            }
+            else {
+              Rollbar.warning("Warning: Users not found");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
           }
         });
       }

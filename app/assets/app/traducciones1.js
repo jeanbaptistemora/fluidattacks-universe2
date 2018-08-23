@@ -358,7 +358,7 @@ const traducciones1 = {
   },
   "proj_alerts":
 {
-  "access_denied": "Acceso Denegado",
+  "access_denied": "Acceso denegado o projecto no encontrado",
   "attentTitle": "Cuidado!",
   "attent_cont": "Busqueda vacia",
   "congratulation": "Felicidades",
@@ -369,7 +369,7 @@ const traducciones1 = {
   "error_severity": "La severidad debe ser un numero de 0 a 5",
   "error_text": "Hay un error",
   "error_textsad": "Hay un error :(",
-  "eventExist": "Este proyecto no tiene eventualidades o no existe",
+  "eventExist": "Este proyecto no tiene eventualidades",
   "eventFormstack": "No se tuvo acceso a Formstack...",
   "eventPositiveint": "La afectación debe ser un número positivo o cero",
   "eventUpdated": "Eventualidad actualizada",
@@ -384,7 +384,7 @@ const traducciones1 = {
   "no_file_update": "Falló al actualizar el archivo",
   "no_finding": "No encontramos el hallazgo!",
   "no_text_update": "Falló al actualizar la descripción",
-  "not_found": "No pudimos encontrarlo!",
+  "not_found": "El proyecto no tiene hallazgos",
   "project_deleted": "Projecto Eliminado",
   "remediated_success": "El hallazgo fue marcado como remediado, la " +
                        "solicitud de revisión de la solución fue enviada",

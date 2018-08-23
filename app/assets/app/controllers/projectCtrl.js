@@ -67,6 +67,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $scope.project;
       const filterAux = $scope.filter;
       const filter = filterAux;
+      let hasAccess = true;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -105,10 +106,7 @@ angular.module("FluidIntegrates").controller(
             angular.element("[data-toggle=\"tooltip\"]").tooltip();
           }
           else if (response.message === "Access to project denied") {
-            $msg.error($translate.instant("proj_alerts.access_denied"));
-          }
-          else {
-            $msg.error($translate.instant("proj_alerts.not_found"));
+            hasAccess = false;
           }
         });
         reqProject.then((response) => {
@@ -139,14 +137,14 @@ angular.module("FluidIntegrates").controller(
           else if (response.error) {
             $scope.view.project = false;
             $scope.view.finding = false;
-            if (response.message === "Access denied") {
+            if (response.message === "Access denied" || !hasAccess) {
               $msg.error($translate.instant("proj_alerts.access_denied"));
             }
             else if (response.message === "Project masked") {
               $msg.error($translate.instant("proj_alerts.project_deleted"));
             }
             else {
-              $msg.error($translate.instant("proj_alerts.not_found"));
+              $msg.error($translate.instant("proj_alerts.error_text"));
             }
           }
         });
