@@ -2,11 +2,11 @@
   margin-top: 10%;
 }
 :local .text_center {
-  composes: text_center from '../../../../styles/global.css';
+  text-align: center !important;
 }
 :local .message {
   composes: text from '../../../../styles/global.css';
-  composes: text_center from '../../../../styles/global.css';
+  text-align: center !important;
 }
 :local .lang_icon {
   cursor: pointer;
