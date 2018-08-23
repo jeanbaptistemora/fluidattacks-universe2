@@ -11,6 +11,7 @@ import commentBox from "./scenes/Dashboard/components/CommentBox/index";
 import exploitView from "./scenes/Dashboard/components/ExploitView/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
+import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
 
@@ -163,6 +164,32 @@ angular
       [
         "code",
         "visible",
+      ],
+    ),
+  );
+
+/**
+ * @url: #/project/:project/:id/tracking
+ * @page: findingcontent.html
+ * @controllers: ["findingContentCtrl"]
+ * @tag: <tracking-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "trackingView",
+    react2angular(
+      trackingView,
+      [
+        "openFindingsTitle",
+        "openFindingsContent",
+        "closedFindingsTitle",
+        "closedFindingsContent",
+        "closings",
+        "discoveryDate",
+        "discoveryText",
+        "cycleText",
+        "efectivenessText",
       ],
     ),
   );

@@ -341,6 +341,19 @@ findingContentCtrl (
     functionsFtry1.updateTreatment($scope);
   };
 
+  $scope.initializeTracking = function initializeTracking () {
+    $scope.translations = {
+      "closed": $translate.instant("search_findings.tab_tracking.close"),
+      "open": $translate.instant("search_findings.tab_tracking.open"),
+      "timeline": {
+        "cycle": $translate.instant("search_findings.tab_tracking.cicle"),
+        "discovery": $translate.instant("search_findings.tab_tracking.finding"),
+        "efectiveness":
+        $translate.instant("search_findings.tab_tracking.closingEffectiveness")
+      }
+    };
+  };
+
   $scope.init = function init () {
     const projectName = $stateParams.project;
     const findingId = $stateParams.finding;
@@ -422,6 +435,8 @@ findingContentCtrl (
         activeTab("#observations", "FindingObservations", org, projt, idF);
       tabsFtry.findingCommentTab($scope, $stateParams, "observation");
     }
+
+    $scope.initializeTracking();
   };
   $scope.init();
 });

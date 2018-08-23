@@ -654,34 +654,17 @@
                   <!-- End Tab Exploit -->
                   <!-- Start Tab Tracking -->
                   <div id="tracking" class="tab-pane cont">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <p>{{'search_findings.tab_tracking.open' | translate}}</p>
-                              <textarea msd-elastic ng-model="finding.where" class="form-control" disabled>{{finding.where}}</textarea>
-                          </div>
-                          <div class="col-md-12">
-                              <p>{{'search_findings.tab_tracking.close' | translate}}</p>
-                              <textarea msd-elastic ng-model="finding.closed" class="form-control" disabled>{{finding.closed}}</textarea>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-offset-3 col-md-9 col-sm-12">
-                              <ul class="timeline">
-                                  <li class="timeline-item text-left">
-                                      <div class="timeline-date"><span>{{findingFormatted}}</span></div>
-                                      <div class="timeline-content">
-                                          <p>{{'search_findings.tab_tracking.finding' | translate}}</p>
-                                      </div>
-                                  </li>
-                                  <li class="timeline-item" ng-repeat="x in finding.cierres">
-                                      <div class="timeline-date"><span>{{x.timeFormat}}</span></div>
-                                      <div class="timeline-content">
-                                          <p>{{'search_findings.tab_tracking.cicle' | translate}}: {{x.position}}, {{'search_findings.tab_tracking.open' | translate}}: {{x.opened}}, {{'search_findings.tab_tracking.close' | translate}}: {{x.closed}}, {{'search_findings.tab_tracking.closingEffectiveness' | translate}}: {{x.efectividad}}%</p>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
+                    <tracking-view
+                      open-findings-title="translations.open"
+                      open-findings-content="finding.where"
+                      closed-findings-title="translations.closed"
+                      closed-findings-content="finding.closed"
+                      closings="finding.cierres"
+                      discovery-date="findingFormatted"
+                      discovery-text="translations.timeline.discovery"
+                      cycle-text="translations.timeline.cycle"
+                      efectiveness-text="translations.timeline.efectiveness"
+                    />
                   </div>
                   <!-- End Tab Tracking -->
                   <!-- Start Tab Record -->
