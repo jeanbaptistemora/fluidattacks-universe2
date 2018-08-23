@@ -46,6 +46,17 @@ Frequently asked questions about Continuous Hacking.
   in the integration branch of the repository referred to in Phase 1.
   This phase includes infrastructure hacking.
 
+*What are the technical conditions that I must meet to perform a continuous*::
+*hacking?*::
+
+ Access to +Git+ and monitored environment in the branch are required,
+ through automated Linux.
+ Environments that are not supported:
+
+ . Access to environments through a +VPN+ that only runs on +Windows+.
+ . +VPN+ in +Windows+ that requires manual interaction as +OTP+ token.
+ . +VPN+ Site to Site
+
 *What type of hacking is included in Continuous Hacking?*::
   Continuous Hacking includes source code analysis,
   application hacking (<<q3,see question 3>>),
@@ -56,22 +67,23 @@ Frequently asked questions about Continuous Hacking.
   (Integrity, Availability, Confidentiality, Non-repudiation)
   to the application.
 
-*If I expect or want to exceed the monthly limit can I increase it?*::
-  Yes, the limit can be increased for any particular month or,
-  in general, for the duration of the project.
+*What is an active author and how can I identify it?*::
+ An active author is an user with access to the +Git+ repository
+ who made changes over the stored code in the repository during
+ the analyzed month.
 
 *Does Continuous Hacking use a series of automated tools*::
 *or is it the result of a manual (by hand) process?*::
   Automated tools, by themselves,
   are not capable of extracting sensitive business information,
-  such as client or employee information.
+  such as client or employee information .
   Continuous Hacking uses a series of tools
   acquired and developed by +Fluid Attacks+ and a detailed review process
   performed by our expert technical staff.
   We go the extra mile because automated tools present the following problems:
 
-  . Detection of a minimal percentage
-  of existing security risk vulnerabilities.
+  . Vulnerabilities leakages (detection of a minimal percentage
+  of existing security risk vulnerabilities).
 
   . Detected vulnerabilities are primarily false positives.
 
@@ -95,11 +107,12 @@ Frequently asked questions about Continuous Hacking.
   which improves the remediation (repair) time for detected vulnerabilities.
 
 *If Continuous Hacking is done manually how can a big project move rapidly*::
-*and expand as more developers join the team?*::
-  Standard Continuous Hacking (at +10,000+ deltas per month)
-  covers +95%+ of all business applications being developed.
-  If a big project expands, the standard limit of +10,000+ deltas per month
-  can be revised upward as needed. (<<q7, see question 7>>).
+*and expand as more active authors (developers) join the team?*::
+  Standard Continuous Hacking
+  covers +95%+ of all business applications being developed,
+  because the subscription is taken according to the number
+  of active developers in the project and defines the amount of resources
+  assigned to the project.
 
 *If Continuous Hacking is done manually how does it move rapidly*::
 *when a client has a big application portfolio that is constantly increasing?*::
@@ -111,12 +124,8 @@ Frequently asked questions about Continuous Hacking.
 
 *Does the cost of Continuous Hacking vary according to the scope*::
 *or development phases?*::
-  No, there is a fixed cost for Continuous Hacking during the contract period.
-  However, if during your contract period the calendar year changes
-  from one year to the next, there will be an increase in cost
-  to reflect rising business costs.
-  This increase will be stated in your contract
-  and agreed upon before you sign it; there will be no hidden costs.
+  Yes. The service cost varies depending on the amount of active authors
+  identified in the project each month.
 
 *Why is it necessary for Continuous Hacking to have access*::
 *to the source code stored in the repository?*::
@@ -125,8 +134,14 @@ Frequently asked questions about Continuous Hacking.
   on the latest version available.
 
 *When does Continuous Hacking begin?*::
-  Continuous Hacking begins immediately when +Fluid Attacks+
-  has access to the source code and repository.
+  Continuous Hacking begins immediately after receiving the purchase order.
+
+*Why there is a month 0 and how does setup work?*::
+  The monthly 0 is a start monthly payment to begin the setup of the test,
+  in this setup is assigned a project leader who is responsible
+  for managing the connection of environments, profiling, user creation,
+  allocation of privileges and all those necessary inputs
+  to begin the review without setbacks.
 
 *Is it possible to hire On-the-Premises Continuous Hacking?*::
   No. Due to the operational model that supports Continuous Hacking
@@ -267,6 +282,29 @@ Frequently asked questions about Continuous Hacking.
   increasing the coverage on a monthly basis until +100%+ is reached.
   This option is better suited for applications no longer in development.
 
+*What does Fluid Attacks do to catch up with the revision*::
+*of the existing code before starting the hacking process?*::
+ +Fluid Attacks+ recommends that application development
+ and the hacking process begin simultaneously.
+ However, this is not always possible.
+ To catch up with developers
+ we perform a link:../continuous-hacking/#healthcheck[+HealthCheck+] (additional fees apply).
+ This means all versions of the existing code
+ are attacked up to the contracted starting point
+ in addition to the monthly test limit.
+ This allows us to catch up with the development team
+ within the first +3+ contract months.
+ Then, we continue hacking simultaneously with the development team
+ as development continues.
+
+*What happens if I dont want to perform a Health Check, but I want to take*::
+*the continuous hacking service?*::
+ This is a risky choice, because there will be code that is never going to be
+ tested and it's not possible to know what vulnerabilities may exist there
+ and are not going to be identified.
+ +Fluid Attacks+ guarantees that the +100%+ of the code change
+ is going to be tested, but what can not be reached can not be tested.
+
 *Do the repositories need to be in a specific version control system?*::
   Continuous Hacking is based on using +GIT+ for version control.
   Therefore, +GIT+ is necessary for Continuous Hacking.
@@ -312,8 +350,6 @@ your proprietary rights to that code.
  link:../../products/asserts/[Asserts] operates in the +JOB+ of continuous integration.
  It can break the build sent by the programmer in the event
  of a breach of security requirements.
- link:../../products/asserts/[Asserts] runs on any continuous integration platform that supports dockers
- like +JOB+, for example: +VSTS+, +GitLab+, and +Jenkins+.
 
 *Is Continuous Hacking focused only over source code?*::
 *It is possible to include the infrastructure associated with the app?*::
@@ -338,20 +374,101 @@ your proprietary rights to that code.
  from accessing and compromising your information.
  This feature is enabled through +Gmail+ or +Azure+.
 
-*What does Fluid Attacks do to catch up with the revision*::
-*of the existing code before starting the hacking process?*::
+*If I make a commit ¿How long it takes to Fluid Attacks to review it*::
+*and test it?*::
+ The compromise is to reach +100%+ coverage, for this reason there will be
+ vulnerabilities results all the time.
+ +Fluid Attacks+ takes into account all the +pushes+ to the tested branch,
+ which are monitored using automated scripts (robots)
+ that extract and analyze the changes made to the source code every night.
 
-*What procedure has Fluid Attacks to catch up with the revision*::
-*of the existing code before starting the hacking process?*::
- +Fluid Attacks+ recommends that application development
- and the hacking process begin simultaneously.
- However, this is not always possible.
- To catch up with developers
- we perform a link:../continuous-hacking/#healthcheck[+HealthCheck+] (additional fees apply).
- This means all versions of the existing code
- are attacked up to the contracted starting point
- in addition to the monthly test limit.
- This allows us to catch up with the development team
- within the first +3+ contract months.
- Then, we continue hacking simultaneously with the development team
- as development continues.
+*Fluid Attacks tests every time I make a push in the subscription branch?*::
+ During the execution of a project the following scenarios can occur:
+
+ . Application in development without overdue code (+100%+ coverage):
+ The robots detects the change and generates the updated control files,
+ this allows our hackers to attack the application considering the changes.
+ This means that no specific file or commit is audited, the change analysis
+ performed by the robot is considered when the hacker takes the environment
+ and the branch and tries to attack the application taking into account
+ the changes made.
+
+ . Application in production without overdue code (+100%+ coverage):
+ Even when there are no changes, the application is attacked.
+ Internally we have processes that allow us to identify when we haven't find
+ vulnerabilities in the application in +7+, +14+ and +21+ days.
+ This in order to take actions such as hacker rotation
+ or increase the number of hackers assigned to the project
+ to achieve new vulnerabilities.
+
+ . Application in development with overdue code (+<100+ coverage):
+ Same as the first scenario, but it is attacked all related to the change made,
+ the attack surface made before the subscription point it is not attacked.
+
+ . Application in production with overdue code (+<100%+ coverage):
+ Same as the second scenario, but if in said month there is no new code,
+ it is hacked the equivalent to the changes made by +1+ active author in
+ +1+ previous month.
+
+*¿Is it possible to know the activities schedule in the continuous hacking*::
+test?*::
+ Once performed the setup and everything is ready to begin the service,
+ the security tests start.
+ The activities performed during the service are are:
+
+ . Request approval (purchase order confirmed).
+ . Project leader assignment.
+ . The project leader schedules the start meeting (teleconference).
+ . Service condition validation.
+ . Supplies request (access to environments and code).
+ . Project leader receives supplies and programs the setup of the verification
+ and access robots.
+ . The project leader creates an admin user for the client in link:../../products/integrates/[Integrates]
+ . The admin user invites all project stakeholders including the developers
+ (They must have +Google Apps+ or +Office365+)
+ . Our hackers report the vulnerabilities in link:../../products/integrates/[Integrates].
+ . Project stakeholders access to vulnerabilities and start the remediation.
+ . If any doubt comes out, they can be solved through the comments or chat
+ available in link:../../products/integrates/[Integrates]
+ . Once fixed the reported vulnerabilities the client request the validation
+ through link:../../products/integrates/[Integrates].
+ . Our hacker performs the closure verification and updates the report.
+ . Steps +3+ - +7+ are repeated until subscription ends.
+
+*If I want to use Asserts inside my continuous integrator*::
+*What are the technical conditions to be met?*::
+ Asserts runs on any continuous integration platform that supports +Docker+
+ (+Docker engine 18.03.1+) and has access to internet.
+
+*There is documentation for Asserts?*::
+Yes, it is available in link:https://fluidsignal.gitlab.io/asserts/[Asserts page].
+
+*Is it possible to group applications in only one subscription?*::
+*How do I recognize the vulnerabilities per application?*::
+ According to the active authors model, it is possible to create a large cell
+ with all the developers or to divide it into applications
+ according to the customer needs.
+ When managing only one cell it is important to consider that:
+ * All the users in the project can see all the vulnerabilities
+ of the application inside the same cell.
+ * In case of having the same vulnerability in several applications
+ the only way to identify them is by checking inside the vulnerability report
+ the field where the location is specified.
+
+*Is it possible to change environment when having an active subscription?*::
+Yes, it is possible with the condition that the new environment
+must be the same branch environment where the source code is reviewed,
+thus +Fluid Attacks+ can test statically and dynamically the same version
+of the change.
+
+*What happens if I want to review different environments*::
+*of the same application*::
+ The service includes the environment of the reviewed code (<<q52, see question 52>>),
+ it is possible to include different environments for an additional fee.
+
+
+*If I ask a question in the comment system,*::
+*how long it takes to get an answer?*::
+ All questions made through the vulnerabilities comment system,
+ have a +4+ business hours +SLA+. M - F from +8AM+ to +12M+ and +2PM+ to +6PM+.
+ (+UTC-5+ Colombia). SLA is not contractually defined, it is our value promise.

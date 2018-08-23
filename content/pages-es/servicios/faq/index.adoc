@@ -261,7 +261,7 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  como el Ethical Hacking de seguridad comiencen al mismo tiempo.
  Sin embargo, esto no siempre ocurre así.
  Para ello, tenemos una actividad llamada link:../../servicios/hacking-continuo/#healthcheck[+HealthCheck+]
- que permite poner al día (desatrazar)​ las inspecciones de seguridad
+ que permite poner al día (desatrasar)​ las inspecciones de seguridad
  cuando el desarrollo ha comenzado con anterioridad.
 
 *¿Que pasa si no se realiza el health check, pero igual quiero tomar el*::
@@ -421,7 +421,7 @@ la configuración de los robots de
 
 *¿Es posible cambiar de ambiente cuando tengo una suscripción activa?*::
  Si es posible con la condición de que el ambiente a revisar debe ser el mismo
- ambiente de la rama en la que se revisa el código fuente, así fluid attacks
+ ambiente de la rama en la que se revisa el código fuente, así +Fluid Attacks+
  puede probar de forma estática y dinámica una misma versión del cambio.
 
 *¿Que pasa si quiero revisar diferentes ambientes de una misma aplicación?*::
