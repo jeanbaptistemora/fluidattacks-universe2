@@ -712,8 +712,10 @@ def remove_access_project_dao(email=None, project_name=None):
 def all_users_report(company_name, finish_date):
     """ Gets the number of registered users in integrates. """
     with connections['integrates'].cursor() as cursor:
-        query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
-        registered = 1 and date_joined <= %s'
+        query = 'SELECT COUNT(DISTINCT(users.id)) FROM users  \
+        LEFT JOIN project_access ON users.id = project_access.user_id \
+        WHERE project_access.has_access = 1 and users.registered = 1 and \
+        users.company != %s and users.date_joined <= %s'
         try:
             cursor.execute(query, (company_name, finish_date,))
             rows = cursor.fetchall()
