@@ -303,7 +303,8 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 
 *¿El desarrollo del Ethical Hacking en el modelo continuo*::
 *depende del tipo de repositorio donde tengo el código?*::
- ​No, el cliente puede usar el repositorio que estime conveniente.
+ ​No, el cliente puede usar el repositorio que estime conveniente
+ siempre que esté basado en +GIT+.
  +Fluid Attacks+ solo requiere ingreso a la rama de integración
  y a su respectivo ambiente.​
 
@@ -331,8 +332,8 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  De hecho, en esta evolución, se puede suscribir una infraestructura tecnológica
  (puertos) o una aplicación bajo el modelo de Hacking Continuo.
 
-*¿Donde corre Integrates?*::
- La plataforma link:../../productos/integrates/[Integrates] corre en la nube​.
+*¿Donde se ejecuta Integrates?*::
+ La plataforma link:../../productos/integrates/[Integrates] se ejecuta en la nube​.
 
 *¿Fluid Attacks gestiona las credenciales de acceso a Integrates?*::
  No, usamos el concepto de autenticación federada,
@@ -395,12 +396,13 @@ la configuración de los robots de
    disponible en link:../../productos/integrates/[Integrates]
  . Una vez remediado el cliente solicita la verificación por link:../../productos/integrates/[Integrates]
  . Nuestro hacker realiza la verificación de cierre y actualiza el reporte
- . Los puntos 9 - 13 se repiten hasta finalizar la suscripción
+ . Los puntos +3+ - +7+ se repiten hasta finalizar la suscripción
 
 *Si quiero usar Asserts dentro de mi integrador continuo*::
 *¿Cuales son las condiciones técnicas que debo cumplir?*::
- Asserts corre en cualquier plataforma de integración continua que soporte
- Docker (Docker engine 18.03.1) y cuente con acceso a internet.
+ +Asserts+ se ejecuta en cualquier plataforma de integración continua
+ que soporte +Docker+ (+Docker engine 18.03.1+)
+ y cuente con acceso a internet.
 
 *¿Existe documentación de Asserts?*::
  La documentación esta disponible en:
