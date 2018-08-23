@@ -347,6 +347,7 @@ p {
   }
 
   .services {
+
     p {
       margin: 20px auto;
       width: 65%;
@@ -370,7 +371,7 @@ p {
     }
 
     p {
-      margin: 0;
+      margin: auto 10px;
       text-align: center;
     }
 
@@ -458,6 +459,19 @@ p {
 }
 
 @media screen and (max-width: 430px) {
+
+  .services {
+    display: inline-block;
+
+    h1 {
+      margin-top: 30px;
+    }
+
+    p {
+      margin: auto 10px;
+    }
+  }
+
   .tecniques-sec {
     ul {
       text-align: center;
