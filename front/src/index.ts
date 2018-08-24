@@ -5,6 +5,7 @@
  */
 import angular from "angular";
 import { react2angular } from "react2angular";
+import dataTable from "./components/DataTable/index";
 import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
@@ -192,4 +193,22 @@ angular
         "efectivenessText",
       ],
     ),
+  );
+
+/**
+ * @url: /dashboard
+ * @page: dashboard.html
+ * @controllers: dashboardCtrl
+ * @tag: <d-table/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "dTable",
+   react2angular(
+     dataTable, [
+       "dataset",
+       "title",
+     ],
+   ),
   );
