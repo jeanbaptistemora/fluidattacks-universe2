@@ -323,17 +323,10 @@ angular.module("FluidIntegrates").factory(
       "findingRecordsTab" (data, findingData) {
         data.hasRecords = false;
         findingData.hasRecords = data.hasRecords;
-        let vlang = "en-US";
         let record = {};
         const req = projectFtry.getEvidences(data.finding.id);
         req.then((response) => {
           if (!response.error) {
-            if (localStorage.lang === "en") {
-              vlang = "en-US";
-            }
-            else {
-              vlang = "es-CO";
-            }
             if (response.data.length > 0) {
               const respFunction = function respFunction (response) {
                 if (!response.error) {
@@ -346,15 +339,7 @@ angular.module("FluidIntegrates").factory(
                       });
                     }
                   }
-                  angular.element("#recordsTable").bootstrapTable("destroy");
-                  angular.element("#recordsTable").bootstrapTable({
-                    "columns": dataCols,
-                    "cookie": true,
-                    "cookieIdTable": "recordsTableCookie",
-                    "data": response.data,
-                    "locale": vlang
-                  });
-                  angular.element("#recordsTable").bootstrapTable("refresh");
+                  data.recordsDataset = response.data;
                 }
                 else if (response.error) {
                   Rollbar.error("Error: An error occurred " +
@@ -417,15 +402,7 @@ angular.module("FluidIntegrates").factory(
                       });
                     }
                   }
-                  angular.element("#recordsTable").bootstrapTable("destroy");
-                  angular.element("#recordsTable").bootstrapTable({
-                    "columns": dataCols,
-                    "cookie": true,
-                    "cookieIdTable": "recordsTableCookie",
-                    "data": response.data,
-                    "locale": vlang
-                  });
-                  angular.element("#recordsTable").bootstrapTable("refresh");
+                  data.recordsDataset = response.data;
                 }
                 else if (response.error) {
                   Rollbar.error("Error: An error occurred loading record");
