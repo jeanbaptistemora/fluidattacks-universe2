@@ -10,14 +10,15 @@
 [cols="^.^", frame="none"]
 |====
 
-a|System where all the project's stakeholders come together
-(hacker, developer, project managers, auditors, product owner, etc).
-It aims to bring the developer and the hacker closer together
-in order to remediate all reported vulnerabilities
-in an effective and efficient manner.
-It also provides the decision makers
-with real time information
-regarding the state of their system´s security.
+a|At Integrates a project’s stakeholders
+(developers, technicians, management, etc.) can interface
+with +Fluid Attacks+ hackers.
+Through Integrates, +Fluid Attacks+ communicates all identified security risks
+to a client’s systems for prompt,
+efficient and effective remediation by the client company.
+It also provides the client company’s decision-makers
+with real time information regarding their systems’ security
+and +Fluid Attacks+ project progress.
 
 a|You can access the product
 
@@ -29,36 +30,49 @@ a|[button]#link:../../../../integrates[here]#
 |====
 2+a|== Easy and Fast Authentication
 
-User credentials are not stored.
-Federated identity, thus allowing authentication with corporate users.
+A client company’s user credentials are not stored.
+Using Integrates, a client company can access information
+provided by +Fluid Attacks+ through their corporate email accounts
+from +Google+ or +Microsoft+.
+
 a|image::authentication.svg[Authentication]
 
 a|image::main-menu.svg[Main Menu]
 2+a|== Main Menu
 
-The dashboard allows users direct access to all their projects.
-It is also possible to view the events associated to each one of the projects.
+Dashboard allows a client company direct access
+to all their ongoing projects with +Fluid Attacks+.
+A client company can review an up-to-the-minute work history
+of each of their project's events.
 
 2+a|== Project Indicators
 
-They allow to perform a follow-up of the current state of the project.
-Some of the used indicators are:
+Project Indicators inform a client company
+about the current status of a project,
+using information including:
 
-* The amount of detected vulnerabilities.
-* The current severity of the project.
-* Remediated vulnerabilities.
+* Number of identified security vulnerabilities.
+* Current threat level vulnerabilities pose to a client company’s systems.
+* Vulnerabilities that have been remediated.
+
 a|image::indicators.svg[Indicators]
 
 a|image::graphs.svg[Graphs]
 2+a|== Project Status Graphs
 
-You can view the current state of the reported vulnerabilities.
-Easily allowing to:
+In Project Status Graphs a client company can see
+the current status of reported security vulnerabilities.
+This allows a client company to:
 
-* Prioritize vulnerabilities by their confirmed exploitability
-* Indicate which are vulnerabilities
-and how many are security issues or hygiene issues.
-* Know how many vulnerabilities have been remediated and how many remain open.
+* Prioritize security vulnerabilities by the threat level they pose
+to a client company’s systems.
+
+* Differentiate between real vulnerabilities,
+simple security issues, and hygiene issues.
+
+* See a project’s progress based on the number of vulnerabilities remediated,
+in the process of being remediated,
+or that are waiting to be remediated.
 
 2+a|== View Real-Time Events
 
@@ -69,19 +83,21 @@ a|image::eventualities.svg[Events]
 a|image::user-tracking.svg[User Tracking]
 2+a|== User tracking
 
-The last access of users to a project is displayed.
+Tracks and displays all users who have accessed a particular project.
 
 2+a|== User Administration
 
-An user can grant / revoke access to other users using this module.
+A user can grant or revoke access to other users using this module.
 a|image::user-administration.svg[Administration Access]
 
 a|image::technical-report.svg[Technical Report]
 2+a|== Generate Technical Reports
 
-This document provides detailed information of each vulnerability.
-It is of great use to all technical personnel
-when it comes to remediating the reported security flaws.
+Executive Reports are a summary version of the technical report
+specifically written so that non-technical stakeholders
+and decision-makers can understand a client company’s vulnerabilities,
+the threats they pose, the steps taken to insure system security,
+and to track progress toward an endpoint.
 
 2+a|== Generate Executive Reports
 
@@ -93,37 +109,48 @@ a|image::executive-report.svg[Executive Report]
 a|image::prioritize-remediation.svg[Prioritize Remediation]
 2+a|== Prioritize Remediation
 
-Vulnerabilities can be prioritized based on several parameters.
-This with the aim of knowing which require an inmediate solution.
-Some of these parameters are:
+Prioritizing remediation helps a client company
+determine which vulnerabilities require immediate attention.
+Security vulnerabilities are prioritized based on parameters including:
 
-* *Age:* Time that elapses between the report of the vulnerability
-and the solution applied by the client.
-* *Severity:* Criticality according to the +CVSS+ standard.
-* *Status:* Open, closed or partially closed.
-* *Treatment:* Assumed, pending or remediate.
+* *Age:* Time between the report of an identified vulnerability
+and the repair by a client company’s technical team.
+
+*  *Severity:* level of threat posed by a vulnerability
+according to the +CVSS+ (Common Vulnerability Scoring System) standard.
+
+* *Status:* *OPEN* (a current, active threat),
+*CLOSED* (no longer an active threat),
+*PARTIALLY CLOSED* (poses a lowered threat level).
+
+* *Resolution options:* *ASSUMED* (client company assumes any security risks
+stemming from inaction), *PENDING* (client company has not yet decided
+on any further action), *REMEDIATE* (client company will resolve
+the security risk posed by the vulnerability).
 
 2+a|== View Vulnerabilities
 
-Each vulnerability has information regarding its current state,
-as well as its severity, type and report date.
+View Vulnerabilities allows the client company to see vulnerabilities
+and information on their current status,
+including severity of the threat, type of threat posed,
+and identification/report date.
+
 a|image::vulnerabilities.png[Vulnerabilities]
 
 a|image::vulnerability-description.png[Vulnerability Description]
 2+a|== Vulnerability Description
 
-Contains technical details
-that allow for a better understanding
-of the nature of the vulnerability,
-location of the security issues,
-unfulfilled requirements,
-risks and recommendations for the solution.
+The Vulnerability Description contains technical information
+about each vulnerability.
+Information includes their location,
+security risks they pose, and recommendations on how to eliminate them.
 
 2+a|== Request Verification / Treatment
 
-Clients may request the revision ^1^ of a vulnerability that has been corrected,
-and document ^2^ its treatment.
-For the documentation, the client has the following options:
+Clients may request a revision ^1^ of a vulnerability
+they have remediated and ask +Fluid Attacks+ for documentation ^2^
+of their remediation or treatment.
+For documentation purposes, a client has the following options:
 
 * *Accepted:* The client assumes the risk
 that implies not solving the security issue.
@@ -137,14 +164,15 @@ image::treatment.png[Treatment]
 a|image::vulnerability-severity.png[Vulnerability Severity]
 2+a|== Vulnerability Severity
 
-The technical score according to the international +CVSS+
-(Common Vulnerability Scoring System) standard is shown.
-This with the aim of determining the severity of the vulnerability.
+Vulnerability Severity indicates the risk level
+an identified vulnerability poses to a client company’s systems
+using the international Common Vulnerability Scoring System (+CVSS+) standard.
 
-2+a|== Vulnerability Evidences
+2+a|== Vulnerability Evidence
 
-Existence of a vulnerability is shown through a series of evidences (images)
-with its respective description.
+In Vulnerability Evidence proof that a security vulnerability exists
+is shown graphically and includes a descriptive explanation.
+
 a|image::vulnerability-evidence.png[Vulnerability Evidence]
 
 a|image::exploitation-animation.gif[Exploitation Animation]
