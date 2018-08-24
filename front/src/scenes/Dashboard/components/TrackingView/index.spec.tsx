@@ -38,7 +38,6 @@ describe('Tracking view', () => {
     }]
     const wrapper = shallow(
       <TrackingView
-        id="tracking"
         openFindingsTitle="Open"
         openFindingsContent="unit/test/index.js line:32"
         closedFindingsTitle="Closed"
@@ -98,7 +97,6 @@ describe('Tracking view', () => {
     }]
     const wrapper = shallow(
       <TrackingView
-        id="tracking"
         openFindingsTitle="Open"
         openFindingsContent="unit/test/index.js line:32"
         closedFindingsTitle="Closed"
