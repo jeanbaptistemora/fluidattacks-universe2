@@ -316,8 +316,6 @@ const translations1 = {
    {
      "eventualities":
       {
-        "close": "CLOSE",
-        "date": "Date",
         "descPluralAlert1": "There are ",
         "descPluralAlert2": "open events that compromise the " +
                             "appropriate performance of the project, " +
@@ -327,14 +325,7 @@ const translations1 = {
         "descSingularAlert3": "open event that compromises the " +
                               "appropriate performance of the " +
                               "project, please give it the " +
-                              "appropriate treatment.",
-        "description": "Description",
-        "description_1": "You can check the details of an event by ",
-        "description_2": "clicking",
-        "description_3": "on it",
-        "project_title": "FLUID's Project",
-        "title": "My Events",
-        "type": "Type"
+                              "appropriate treatment."
       },
      "projects":
       {

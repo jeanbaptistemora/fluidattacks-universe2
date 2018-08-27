@@ -1162,30 +1162,6 @@ def list_to_dict(header, li):
         cont += 1
     return dct
 
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-def get_myevents(request):
-    user = request.session["username"]
-    projects = integrates_dao.get_projects_by_user(user)
-    dataset = []
-    evt_dto = EventualityDTO()
-    api = FormstackAPI()
-    for row in projects:
-        project = row[0]
-        submissions = api.get_eventualities(project)
-        if not submissions is None and 'error' not in submissions:
-            frmset = submissions["submissions"]
-            for evtsub in frmset:
-                submission = api.get_submission(evtsub["id"])
-                if not "error" in submission:
-                    evtset = evt_dto.parse(evtsub["id"], submission)
-                    if evtset['fluidProject'].lower() == project.lower():
-                        if evtset['estado'] == "Pendiente":
-                            dataset.append(evtset)
-    return util.response(dataset, 'Success', False)
-
 
 @never_cache
 @csrf_exempt

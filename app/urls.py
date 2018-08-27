@@ -39,7 +39,6 @@ urlpatterns = [
     url(r'^add_comment/?\.*$', views.add_comment, name='add_comment'),
     # Dashboard view.
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
-    url(r'^get_myevents/?\.*$', views.get_myevents, name='get_myevents'),
     url(r'^get_drafts/?\.*$', views.get_drafts, name='get_drafts'),
     url(r'^get_repositories/?\.*$', views.get_repositories, name='get_repositories'),
     url(r'^add_repositories/?\.*$', views.add_repositories, name='add_repositories'),

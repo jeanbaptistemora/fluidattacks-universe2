@@ -323,8 +323,6 @@ const traducciones1 = {
 {
   "eventualities":
   {
-    "close": "CERRAR",
-    "date": "Fecha",
     "descPluralAlert1": "Existen ",
     "descPluralAlert2": "eventualidades abiertas que comprometen el adecuado " +
                     "desempeño del proyecto, por favor darle el adecuado " +
@@ -333,14 +331,7 @@ const traducciones1 = {
     "descSingularAlert2": "Existe ",
     "descSingularAlert3": "eventualidad abierta que compromete el " +
                           "adecuado desempeño del proyecto, por " +
-                          "favor darle el adecuado tratamiento.",
-    "description": "Detalle",
-    "description_1": "Para ver el detalle de la eventualidad debes hacer",
-    "description_2": "click",
-    "description_3": "sobre la eventualidad",
-    "project_title": "Proyecto FLUID",
-    "title": "Mis Eventualidades",
-    "type": "Tipo"
+                          "favor darle el adecuado tratamiento."
   },
   "projects":
   {

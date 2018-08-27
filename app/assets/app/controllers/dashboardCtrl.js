@@ -24,9 +24,7 @@ angular.module("FluidIntegrates").controller(
     $scope,
     $state,
     $stateParams,
-    $timeout,
-    $translate,
-    $uibModal
+    $timeout
   ) {
     $scope.initMyProjects = function initMyProjects () {
       let vlang = "en-US";
@@ -47,67 +45,8 @@ angular.module("FluidIntegrates").controller(
       });
     };
 
-    $scope.initMyEventualities = function initMyEventualities () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
-      const aux = $xhr.get($q, `${BASE.url}get_myevents`, {});
-      aux.then((response) => {
-        if (angular.isUndefined(response.data)) {
-          location.reload();
-        }
-        else {
-          for (let cont = 0; cont < response.data.length; cont++) {
-            if (response.data[cont].type in keysToTranslate) {
-              response.data[cont].type =
-                  $translate.instant(keysToTranslate[response.data[cont].type]);
-            }
-            else {
-              Rollbar.error(`Error: Couldn't find translation key for value: ${
-                response.data[cont].type}`);
-            }
-          }
-          angular.element("#myEventsTbl").bootstrapTable({
-            "data": response.data,
-            "locale": vlang,
-            "onClickRow" (row) {
-              $uibModal.open({
-                "animation": true,
-                "backdrop": "static",
-                "controller" ($scope, data, $uibModalInstance) {
-                  $scope.evnt = data;
-                  // Tracking mixpanel
-                  const org = Organization.toUpperCase();
-                  const projt = $scope.evnt.fluidProject.toUpperCase();
-                  mixPanelDashboard.trackReadEventuality(
-                    userName,
-                    userEmail,
-                    org,
-                    projt,
-                    $scope.evnt.id
-                  );
-                  $scope.close = function close () {
-                    $uibModalInstance.close();
-                  };
-                },
-                "keyboard": false,
-                "resolve": {"data": row},
-                "templateUrl": "ver.html",
-                "windowClass": "modal avance-modal"
-              });
-            }
-          });
-          angular.element("#myEventsTbl").bootstrapTable("refresh");
-        }
-      });
-    };
     $scope.init = function init () {
       $scope.initMyProjects();
-      $scope.initMyEventualities();
     };
     $scope.init();
   }
