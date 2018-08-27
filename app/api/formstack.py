@@ -5,9 +5,12 @@ from __future__ import absolute_import
 import json
 import requests
 # pylint: disable=E0402
+# Pylint doesn't recognize absolute imports beyond top level modules.
+# pylint: disable=F0401
 from __init__ import FI_FORMSTACK_TOKENS
 from requests.exceptions import ConnectionError
 from retrying import retry
+from app.dto import remission
 from django.views.decorators.cache import cache_control
 import rollbar
 
@@ -159,6 +162,15 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 'page': 1,
                 'per_page': 50}
         return self.requests_per_page("GET", self.CL_URL, data=data)
+
+    def get_remmisions(self, project):
+        """ Get the remissions of a project by its name. """
+        search_field = "29187648"
+        data = {'search_field_1': search_field,
+                'search_value_1': project,
+                'page': 1,
+                'per_page': 50}
+        return self.requests_per_page("GET", remission.RM_URL, data=data)
 
     def get_closings_by_project(self, project):
         """ Get the all closures of a project """
