@@ -25,6 +25,7 @@ describe('Data table', () => {
     const wrapper = shallow(
       <DataTable
         dataset={data}
+        onClickRow={()=>{}}
         title="Unit test table"
       />
     );
@@ -47,6 +48,7 @@ describe('Data table', () => {
     const wrapper = shallow(
       <DataTable
         dataset={data}
+        onClickRow={()=>{}}
         title="Unit test table"
       />
     );

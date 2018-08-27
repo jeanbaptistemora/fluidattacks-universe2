@@ -11,7 +11,6 @@
   font-size: 16px;
   vertical-align: bottom;
   border-bottom: 1px solid #ddd;
-  cursor: pointer;
 }
 
 :local .td {
@@ -22,4 +21,5 @@
   vertical-align: middle;
   border-left: none;
   padding: 8px;
+  cursor: pointer;
 }
