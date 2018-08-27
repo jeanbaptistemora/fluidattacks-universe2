@@ -218,9 +218,6 @@ findingContentCtrl (
           $scope.exploitSrc = exploitinfo[1];
           findingData.hasExploit = exploitinfo[infoIndex2];
           findingData.exploitSrc = exploitinfo[infoIndex3];
-          const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
-          $scope.hasRecords = recordinfo[0];
-          findingData.hasRecords = recordinfo[1];
           return true;
         }
         else if (response.error) {
