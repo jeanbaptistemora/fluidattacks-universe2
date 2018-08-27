@@ -188,9 +188,9 @@ deploy:
     - docker push
         "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
     - docker run
-        -e AWS_ACCESS_KEY_ID="$(vault read -field=aws_access_key_id secret/web)"
-        -e AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_secret_access_key secret/web)"
-        -e S3_BUCKET_NAME="$(vault read -field=s3_bucket secret/web)"
+        -e AWS_ACCESS_KEY_ID="$(vault read -field=aws_s3_access_key secret/web)"
+        -e AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_s3_secret_key secret/web)"
+        -e S3_BUCKET_NAME="$(vault read -field=aws_s3_bucket secret/web)"
         "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
         bash -c "./deploy.sh && ./amz-redirect.sh"
     # Erase output folder to reduce artifact size since it is untracked
