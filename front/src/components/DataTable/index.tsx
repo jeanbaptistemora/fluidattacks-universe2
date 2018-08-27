@@ -31,7 +31,8 @@ const dataTable: React.StatelessComponent<ITableProps> =
         <h1 className={globalStyle.title}>{props.title}</h1>
         <ReactTable
           className="-striped -highlight"
-          showPagination={false}
+          showPagination={props.dataset.length > 25}
+          defaultPageSize={25}
           showPageSizeOptions={false}
           sortable={true}
           minRows={0}
