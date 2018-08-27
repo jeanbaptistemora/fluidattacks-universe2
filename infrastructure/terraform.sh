@@ -20,7 +20,6 @@ if [ "$stage" == "deployment" ]; then
   echo "$HELM_KEY" | base64 -d > $(helm home)/key.pem
   echo "$HELM_CERT" | base64 -d > $(helm home)/cert.pem
   echo "$HELM_CA" | base64 -d > $(helm home)/ca.pem
-  ./set-keys.sh
   eks/manifests/deploy.sh
   cd vault/
   ./vault.sh

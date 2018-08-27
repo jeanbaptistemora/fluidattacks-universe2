@@ -24,6 +24,7 @@ stages:
   - postdeploy
   - dns
   - backup
+  - rotation
 
 .vault_login: &vault_login
   before_script:
@@ -217,5 +218,14 @@ vault_backup:
     - kubectl delete -f backup.yaml
     - kubectl delete secret aws
     - rm credentials
+  only:
+    - schedules
+
+change_keys:
+  stage: rotation
+  <<: *vault_login
+  script:
+    - source infrastructure/rotate-keys.sh
+    - generate_keys web-s3
   only:
     - schedules
