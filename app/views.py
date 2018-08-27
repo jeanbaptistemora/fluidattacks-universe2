@@ -1239,11 +1239,9 @@ def update_treatment(request):
                    'project_name': parameters['data[projectName]'].capitalize(),
                    'justification': parameters['data[treatmentJustification]'],
                     }
-                integrates_admins = [x[0] for x \
-                                    in list(integrates_dao.get_admins()) ]
                 project_name = parameters['data[projectName]'].lower()
                 recipients = integrates_dao.get_project_users(project_name)
-                to = [x[0] for x in recipients if x[1] == 1] + integrates_admins
+                to = [x[0] for x in recipients if x[1] == 1]
                 send_mail_accepted_finding(to, context)
                 return util.response([], 'success', False)
             else:
