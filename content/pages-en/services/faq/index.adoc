@@ -351,7 +351,7 @@ your proprietary rights to that code.
  It can break the build sent by the programmer in the event
  of a breach of security requirements.
 
-*Is Continuous Hacking focused only over source code?*::
+*Does Continuous Hacking only focus on source code?*::
 *It is possible to include the infrastructure associated with the app?*::
  +Fluid Attacks+ has improved the Continuous Hacking model
  to now include infrastructure within the Target of Evaluation (+ToE+).

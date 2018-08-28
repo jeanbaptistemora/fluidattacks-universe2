@@ -11,18 +11,16 @@
 |====
 
 a|+Rules+ is a set of security requirements
-that allow you to parameterize a pentest
-according to the risk appetite of each organization.
-+Rules+ allows you to determine what will be tested and what won't,
-what is a vulnerability and what is not.
-In addition to this,
-it is also the basis to determine how rigorous a pentest was
+that allows you to parameterize a pentest
+according to the risk appetite of your organization.
++Rules+ allows you to determine what is tested and what is not,
+and what is considered a vulnerability and what is not.
+It is also the basis for determining how rigorous a pentest was,
 based on tested and untested requirements.
 The security requirements are independent of the type of technology being used
 and are written as specific and understandable objectives.
-In a way they are the security commandments
-that you agree to follow and comply with and therefore,
-in our hacking services, we determine if these are met or not.
+They are the security demands that you agree to follow and comply with.
+In our hacking services, we determine if these are met or not.
 
 a|You can access the product
 

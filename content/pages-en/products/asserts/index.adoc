@@ -8,8 +8,8 @@
 
 == 1. Description
 
-+Asserts+ is an engine to automate the *closing* of security findings
-over execution environments +(DAST)+.
++Asserts+ is an *automated closing engine* which closes security findings
+over execution environments (+DAST+).
 
 .Use case
 image::asserts.png[Asserts]
@@ -52,7 +52,7 @@ you may add it to your Continuous Integration pipeline.
 To achieve this, follow these steps:
 
 * Add the required environment variables +USER+, +PASS+, +ORG+ and +APP+.
-Don't worry, the values will be provided by us!:
+Don't worry, the values will be provided by us!
 
 ** +USER+: Name of the user from our Container Registry
 ** +PASS+: The password of the user
