@@ -233,6 +233,7 @@ change_keys:
     - vault_generate_aws_keys integrates-dynamodb
     - vault_generate_aws_keys integrates-s3
     - vault_generate_aws_keys web-s3
+    - sleep 15
     - export INTEGRATES_VAULT_TOKEN=$(curl --request POST
         --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}'
         "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
