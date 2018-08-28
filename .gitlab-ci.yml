@@ -225,6 +225,9 @@ change_keys:
   stage: rotation
   <<: *vault_login
   script:
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
+        $HOME/.kube/config
     - source infrastructure/rotate-keys.sh
     - vault_generate_aws_keys integrates-cloudwatch
     - vault_generate_aws_keys integrates-dynamodb
