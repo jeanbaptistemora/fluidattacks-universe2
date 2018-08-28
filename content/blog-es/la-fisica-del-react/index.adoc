@@ -5,7 +5,7 @@
 :tags: aplicación, funcional, javascript, react
 :image: cover.png
 :alt: Newton sentado debajo de un arbol de manzanas
-:description: Características de una interfaz de usuario exitosa. Que es React y como integrarlo con JavaScript. Principales bondades de React. Cosas no tan buenas al usar esta librería. Aproximación a los componentes sin estado en React. Cómo implementar un enfoque funcional a las interfaces de usuario con React.
+:description: Características de una interfaz de usuario exitosa. Que es React y como integrarlo con JavaScript. Principales bondades de React. Cosas no tan buenas al usar esta librería. Aproximación a los componentes sin estado en React. Cómo implementar un enfoque funcional a la interfaz de usuario con React.
 :keywords: React, JavaScript, Componentes, Frontend, Sin estado, Funcional.
 :author: Oswaldo Parada
 :writer: oparada
@@ -177,8 +177,8 @@ link:https://reactjs.org/[+React+] nos ha mostrado otro camino:
 lo cual va muy a la par con la filosofía
 que lleva +Fluid Attacks+ sobre programación funcional
 (te recomendamos que leas
-[button]#link:/web/es/blog/por-que-somos-funcionales[Por qué somos funcionales?]#
-y [button]#link:/web/en/blog/functional-fashion-in-javascript[Functional Fashion in JavaScript]#,
+[button]#link:../por-que-somos-funcionales/[Por qué somos funcionales?]#
+y [button]#link:../../../en/blog/functional-fashion-in-javascript/[Functional Fashion in JavaScript]#,
 para que entiendas un poco el contexto).
 
 Modifiquemos el ejemplo de Hello, World!

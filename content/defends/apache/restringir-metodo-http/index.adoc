@@ -104,4 +104,4 @@ para tal fin bastará con seguir la solución ^<<r4,[4]>>^
 . [[r1]] link:https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto[Protocolo de transferencia de hipertexto]
 . [[r2]] link:https://developer.mozilla.org/es/docs/Web/HTTP/Methods[Métodos de petición HTTP]
 . [[r3]] link:http://httpd.apache.org/docs/2.0/en/mod/core.html[AcceptPathInfo Directive]
-. [[r4]] link:../desactivar-http-trace[No TRACE Apache2]
+. [[r4]] link:../desactivar-http-trace/[No TRACE Apache2]
