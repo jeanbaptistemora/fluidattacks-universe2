@@ -46,7 +46,7 @@ function vault_update_keys() {
   for args in "$@"; do
     var="$1"
     value="$2"
-    shift 2
+    shift 2 || break
     cat vars.json | vault_update_value "${var}" "${value}" > vars_tmp.json
     mv vars_tmp.json vars.json
   done
