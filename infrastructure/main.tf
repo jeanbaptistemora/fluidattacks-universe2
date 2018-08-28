@@ -18,10 +18,6 @@ module "iam" {
   fwBucket = "${var.fwBucket}"
 }
 
-output "fiS3Arn" {
-  value = "fiS3Arn=\"${module.iam.fiS3Arn}\""
-}
-
 # #Create from scratch
 # module "createNetwork" {
 #   source = "./network"
@@ -75,46 +71,4 @@ output "fwBucket" {
 
 output "fiBucket" {
   value = "fiBucket=\"${module.bucket.fiName}\""
-}
-
-# Credentials
-output "fis3integrationID" {
-  sensitive = true
-  value = "${module.iam.fis3integrationID}"
-}
-
-output "cloudwatchID" {
-  sensitive = true
-  value = "${module.iam.cloudwatchID}"
-}
-
-output "fluidintegratesdynamoID" {
-  sensitive = true
-  value = "${module.iam.fluidintegratesdynamoID}"
-}
-
-output "fws3userID" {
-  sensitive = true
-  value = "${module.iam.fws3userID}"
-}
-
-#
-output "fis3integrationSECRET" {
-  sensitive = true
-  value = "${module.iam.fis3integrationSECRET}"
-}
-
-output "cloudwatchSECRET" {
-  sensitive = true
-  value = "${module.iam.cloudwatchSECRET}"
-}
-
-output "fluidintegratesdynamoSECRET" {
-  sensitive = true
-  value = "${module.iam.fluidintegratesdynamoSECRET}"
-}
-
-output "fws3userSECRET" {
-  sensitive = true
-  value = "${module.iam.fws3userSECRET}"
 }

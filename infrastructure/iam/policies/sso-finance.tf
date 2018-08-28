@@ -1,3 +1,5 @@
+variable "ssofinance" {}
+
 data "aws_iam_policy_document" "ssofinance-policy" {
   statement {
     sid = "Stmt1450111320000"
@@ -19,4 +21,10 @@ resource "aws_iam_policy" "SSO_Finance" {
   description = "Policy for SSO_Finance"
 
   policy = "${data.aws_iam_policy_document.ssofinance-policy.json}"
+}
+
+resource "aws_iam_policy_attachment" "SSO_Finance-attach" {
+  name       = "SSO_Finance-attachment"
+  roles     = ["${var.ssofinance}"]
+  policy_arn = "${aws_iam_policy.SSO_Finance.arn}"
 }
