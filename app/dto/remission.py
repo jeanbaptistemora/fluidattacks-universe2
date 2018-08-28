@@ -1,7 +1,10 @@
 """ DTO to map remission submission to Integrates format """
 
+from datetime import datetime
+
 # Remission form url
-RM_URL = "https://www.formstack.com/api/v2/form/1892477/submission.json"
+URL = "https://www.formstack.com/api/v2/form/1892477/submission.json"
+PROJECT_FIELD_ID = "29187648"
 
 def parse(submission, initial_dict):
     remission_fields = {
@@ -34,3 +37,19 @@ def create_dict(remission_submission):
 
 def get_lastest(remissions_list):
     return max(remissions_list, key=lambda x:x['timestamp'])
+
+def string_to_date(string):
+    return datetime.strptime(string, "%Y-%m-%d %H:%M:%S")
+
+def round_date(date):
+    seconds_in_hour = 3600
+    hours = round(date.seconds/seconds_in_hour)
+    if hours > 12:
+        rounded_date = date.days + 1
+    else:
+        rounded_date = date.days
+    return rounded_date
+
+def days_until_now(date):
+    delta_until_now = datetime.now() - string_to_date(date)
+    return round_date(delta_until_now)

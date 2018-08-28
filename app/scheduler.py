@@ -8,11 +8,12 @@ from . import views
 from django.conf import settings
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
+from .dto import remission
 from .dto.eventuality import EventualityDTO
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding, \
                     send_mail_new_releases, send_mail_continuous_report, \
-                    send_mail_unsolved_events
+                    send_mail_unsolved_events, send_mail_project_deletion
 from datetime import datetime, timedelta
 
 logging.config.dictConfig(settings.LOGGING)
@@ -445,3 +446,19 @@ def send_unsolved_events_email_to_all_projects():
     """Send email with unsolved events to all projects """
     projects = integrates_dao.get_registered_projects()
     list(map(lambda x: send_unsolved_events_email(x[0]), projects))
+
+def send_project_deletion_email(project):
+    days_after_last_remission_to_send_email = 6
+    formstack_api = FormstackAPI()
+    remission_submissions = formstack_api.get_remmisions(project)["submissions"]
+    remissions_dict = [remission.create_dict( \
+                       formstack_api.get_submission(x["id"])) \
+                       for x in remission_submissions]
+    lastest_remission = remission.get_lastest(remissions_dict)
+    context = {'project_name': project.capitalize()}
+    to = ["projects@fluidattacks.com","production@fluidattacks.com"]
+    if int(remission.days_until_now(lastest_remission["timestamp"])) == \
+       days_after_last_remission_to_send_email:
+        send_mail_project_deletion(to, context)
+    else:
+        context=[]

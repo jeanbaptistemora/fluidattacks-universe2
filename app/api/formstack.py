@@ -165,12 +165,11 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
 
     def get_remmisions(self, project):
         """ Get the remissions of a project by its name. """
-        search_field = "29187648"
-        data = {'search_field_1': search_field,
+        data = {'search_field_1': remission.PROJECT_FIELD_ID,
                 'search_value_1': project,
                 'page': 1,
                 'per_page': 50}
-        return self.requests_per_page("GET", remission.RM_URL, data=data)
+        return self.requests_per_page("GET", remission.URL, data=data)
 
     def get_closings_by_project(self, project):
         """ Get the all closures of a project """

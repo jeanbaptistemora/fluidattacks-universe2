@@ -95,3 +95,6 @@ def send_mail_unsolved_events(email_to, context):
 
 def send_mail_accepted_finding(email_to, context):
     __send_mail('acceptedfinding', email_to, context=context, tags=GENERAL_TAG)
+
+def send_mail_project_deletion(email_to, context):
+    __send_mail('projectdeletion', email_to, context=context, tags=GENERAL_TAG)
