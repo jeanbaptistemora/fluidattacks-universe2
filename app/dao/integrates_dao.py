@@ -1104,66 +1104,9 @@ def remove_role_to_project_dynamo(project_name, user_email, role):
         return False
 
 
-def get_finding_dynamo(finding_id):
-    """Gets the info of a finding."""
-    table = dynamodb_resource.Table('FI_findings')
-    filter_key = 'finding_id'
-    if filter_key and finding_id:
-        filtering_exp = Key(filter_key).eq(finding_id)
-        response = table.query(KeyConditionExpression=filtering_exp)
-    else:
-        response = table.query()
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
-def add_finding_dynamo(finding_id, key, value, exist, val):
-    """ Create a finding in DynamoDB. """
-    table = dynamodb_resource.Table('FI_findings')
-    item = get_finding_dynamo(finding_id)
-    if item == []:
-        try:
-            response = table.put_item(
-                Item={
-                    'finding_id': finding_id,
-                    key: value,
-                    exist: val
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    else:
-        try:
-            response = table.update_item(
-                Key={
-                    'finding_id': finding_id,
-                },
-                UpdateExpression='SET ' + key + '= :val1,' + exist + '= :val2',
-                ExpressionAttributeValues={
-                    ':val1': value,
-                    ':val2': val
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-
-
 def delete_finding_dynamo(finding_id):
     """ Delete a finding in DynamoDb."""
-    table = dynamodb_resource.Table('FI_findings')
+    table = dynamodb_resource.Table('FI_findings_new')
     try:
         response = table.delete_item(
             Key={
@@ -1354,15 +1297,38 @@ def update_project_access_dynamo(
         return False
 
 
-def add_list_resource_dynamo(project_name, data, attr_name):
-    """Add resource information to projects table."""
-    table = dynamodb_resource.Table('FI_projects')
-    item = get_project_dynamo(project_name)
+def get_data_dynamo(table_name, primary_name_key, primary_key):
+    """Gets atributes data"""
+    table = dynamodb_resource.Table(table_name)
+    primary_key = primary_key.lower()
+    filter_key = primary_name_key
+    if filter_key and primary_key:
+        filtering_exp = Key(filter_key).eq(primary_key)
+        response = table.query(KeyConditionExpression=filtering_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+
+def add_list_resource_dynamo(
+        table_name, primary_name_key, primary_key, data, attr_name):
+    """Adding list attribute in a table."""
+    table = dynamodb_resource.Table(table_name)
+    item = get_data_dynamo(table_name, primary_name_key, primary_key)
+    primary_key = primary_key.lower()
     if not item:
         try:
             response = table.put_item(
                 Item={
-                    'project_name': project_name.lower(),
+                    primary_name_key: primary_key,
                     attr_name: data,
                 }
             )
@@ -1372,21 +1338,24 @@ def add_list_resource_dynamo(project_name, data, attr_name):
             rollbar.report_exc_info()
             return False
     else:
+        primary_keys = [primary_name_key, primary_key]
         return update_list_resource_dynamo(
-            project_name,
-            data, attr_name,
+            table_name,
+            primary_keys,
+            data,
+            attr_name,
             item
         )
 
 
-def update_list_resource_dynamo(project_name, data, attr_name, item):
-    """Update resource information to projects table."""
-    table = dynamodb_resource.Table('FI_projects')
+def update_list_resource_dynamo(table_name, primary_keys, data, attr_name, item):
+    """Update list attribute in a table."""
+    table = dynamodb_resource.Table(table_name)
     try:
         if attr_name not in item[0]:
             table.update_item(
                 Key={
-                    'project_name': project_name.lower(),
+                    primary_keys[0]: primary_keys[1],
                 },
                 UpdateExpression='SET #attrName = :val1',
                 ExpressionAttributeNames={
@@ -1398,7 +1367,7 @@ def update_list_resource_dynamo(project_name, data, attr_name, item):
             )
         update_response = table.update_item(
             Key={
-                'project_name': project_name.lower(),
+                primary_keys[0]: primary_keys[1],
             },
             UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
             ExpressionAttributeNames={
@@ -1415,13 +1384,14 @@ def update_list_resource_dynamo(project_name, data, attr_name, item):
         return False
 
 
-def remove_list_resource_dynamo(project_name, attr_name, index):
-    """Remove resource information to projects table."""
-    table = dynamodb_resource.Table('FI_projects')
+def remove_list_resource_dynamo(
+        table_name, primary_name_key, primary_key, attr_name, index):
+    """Remove list attribute in a table."""
+    table = dynamodb_resource.Table(table_name)
     try:
         response = table.update_item(
             Key={
-                'project_name': project_name.lower(),
+                primary_name_key: primary_key.lower(),
             },
             UpdateExpression='REMOVE #attrName[' + str(index) + ']',
             ExpressionAttributeNames={

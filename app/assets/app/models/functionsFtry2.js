@@ -329,6 +329,7 @@ angular.module("FluidIntegrates").factory(
                          `${$scope.finding.id}`);
         data.append("findingid", $scope.finding.id);
         data.append("document", fileInput.files[0]);
+        data.append("project", $stateParams.project.toLowerCase());
         const fileName = fileInput.files[0].name;
         const dots = fileName.split(".");
         const fileType = `.${dots[dots.length - 1]}`;

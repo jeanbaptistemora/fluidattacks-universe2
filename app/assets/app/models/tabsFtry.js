@@ -133,59 +133,71 @@ angular.module("FluidIntegrates").factory(
             url
           });
         };
+        const formatEvidences = function formatEvidences (response) {
+          const evidencesS3 = {};
+          const TOTAL_EVIDENCES = 5;
+          for (let file = 0; file < response.data.length; file++) {
+            if (response.data[file].name === "animation") {
+              evidencesS3.animation = response.data[file].file_url;
+            }
+            else if (response.data[file].name === "exploitation") {
+              evidencesS3.exploitation = response.data[file].file_url;
+            }
+            else {
+              for (let ev = 1; ev <= TOTAL_EVIDENCES; ev++) {
+                if (response.data[file].name === `evidence_route_${ev}`) {
+                  evidencesS3[`evidence_route_${ev}`] =
+                    response.data[file].file_url;
+                }
+              }
+            }
+          }
+          return evidencesS3;
+        };
         const setEvidenceList =
-        function setEvidenceList (response, valFormstack) {
-          for (let cont = 0; cont < response.data.length; cont++) {
-            const valS3 = response.data[cont];
-            if (angular.isDefined(valS3.animation) &&
-                    (valS3.is_animation === true ||
-                            valS3.is_animation === "true")) {
+        function setEvidenceList (valS3, valFormstack) {
+          if (angular.isDefined(valS3.animation)) {
+            updEvidenceList(
+              valS3.animation, "animation_exploit",
+              "animation_exploit", 0, "basic", evidenceList, data
+            );
+          }
+          else if (angular.isDefined(valFormstack.animation)) {
+            updEvidenceList(
+              valFormstack.animation, "animation_exploit",
+              "animation_exploit", 0, "basic", evidenceList, data
+            );
+          }
+          if (angular.isDefined(valS3.exploitation)) {
+            updEvidenceList(
+              valS3.exploitation, "evidence_exploit",
+              "evidence_exploit", 1, "basic", evidenceList, data
+            );
+          }
+          else if (angular.isDefined(valFormstack.exploitation)) {
+            updEvidenceList(
+              valFormstack.exploitation, "evidence_exploit",
+              "evidence_exploit", 1, "basic", evidenceList, data
+            );
+          }
+          const evidenceAmong = 6;
+          for (let inc = 1; inc < evidenceAmong; inc++) {
+            if (angular.isDefined(valFormstack["evidence_" +
+                `description_${inc}`]) &&
+                angular.isDefined(valS3[`evidence_route_${inc}`])) {
               updEvidenceList(
-                valS3.animation, "animation_exploit",
-                "animation_exploit", 0, "basic", evidenceList, data
+                valS3[`evidence_route_${inc}`], `evidence_description_${inc}`,
+                "evidence_name", inc + 1, "special", evidenceList, data
               );
             }
-            else if (angular.isDefined(valFormstack.animation)) {
-              updEvidenceList(
-                valFormstack.animation, "animation_exploit",
-                "animation_exploit", 0, "basic", evidenceList, data
-              );
-            }
-            if (angular.isDefined(valS3.exploitation) &&
-                   (valS3.is_exploitation === true ||
-                          valS3.is_exploitation === "true")) {
-              updEvidenceList(
-                valS3.exploitation, "evidence_exploit",
-                "evidence_exploit", 1, "basic", evidenceList, data
-              );
-            }
-            else if (angular.isDefined(valFormstack.exploitation)) {
-              updEvidenceList(
-                valFormstack.exploitation, "evidence_exploit",
-                "evidence_exploit", 1, "basic", evidenceList, data
-              );
-            }
-            const evidenceAmong = 6;
-            for (let inc = 1; inc < evidenceAmong; inc++) {
-              if (angular.isDefined(valFormstack["evidence_" +
+            else if (angular.isDefined(valFormstack["evidence_" +
                   `description_${inc}`]) &&
-                  angular.isDefined(valS3[`evidence_route_${inc}`]) &&
-                  (valS3[`is_evidence_route_${inc}`] === true ||
-                    valS3[`is_evidence_route_${inc}`] === "true")) {
-                updEvidenceList(
-                  valS3[`evidence_route_${inc}`], `evidence_description_${inc}`,
-                  "evidence_name", inc + 1, "special", evidenceList, data
-                );
-              }
-              else if (angular.isDefined(valFormstack["evidence_" +
-                    `description_${inc}`]) &&
-                     angular.isDefined(valFormstack[`evidence_route_${inc}`])) {
-                updEvidenceList(
-                  valFormstack[`evidence_route_${inc}`],
-                  `evidence_description_${inc}`,
-                  "evidence_name", inc + 1, "special", evidenceList, data
-                );
-              }
+                   angular.isDefined(valFormstack[`evidence_route_${inc}`])) {
+              updEvidenceList(
+                valFormstack[`evidence_route_${inc}`],
+                `evidence_description_${inc}`,
+                "evidence_name", inc + 1, "special", evidenceList, data
+              );
             }
           }
         };
@@ -194,7 +206,8 @@ angular.module("FluidIntegrates").factory(
           if (!response.error) {
             const valFormstack = data.finding;
             if (response.data.length > 0) {
-              setEvidenceList(response, valFormstack);
+              const evidencesS3 = formatEvidences(response);
+              setEvidenceList(evidencesS3, valFormstack);
             }
             else {
               if (angular.isDefined(data.finding.animation)) {
@@ -252,44 +265,49 @@ angular.module("FluidIntegrates").factory(
                                 "loading exploit from S3");
                 }
               };
+              const exploitS3 = {};
               for (let cont = 0; cont < response.data.length; cont++) {
-                if (angular.isDefined(response.data[cont].exploit) &&
-                            (response.data[cont].is_exploit === true ||
-                            response.data[cont].is_exploit === "true") &&
-                              data.finding.cierres.length === 0) {
-                  exploit = projectFtry.getExploit(
-                    data.finding.id,
-                    response.data[cont].exploit
-                  );
-                  data.hasExploit = true;
-                  findingData.hasExploit = data.hasExploit;
-                  exploit.then((response) => {
-                    respFunction(response);
-                  });
+                if (response.data[cont].name === "exploit") {
+                  exploitS3.exploit = response.data[cont].file_url;
                 }
-                else if (angular.isDefined(data.finding.exploit) &&
-                     data.finding.cierres.length === 0) {
-                  exploit = projectFtry.getExploit(
-                    data.finding.id,
-                    data.finding.exploit
-                  );
-                  data.hasExploit = true;
-                  findingData.hasExploit = data.hasExploit;
-                  exploit.then((response) => {
-                    respFunction(response);
-                  });
-                }
-                else {
-                  data.hasExploit = false;
-                  findingData.hasExploit = data.hasExploit;
-                }
+              }
+              if (angular.isDefined(exploitS3.exploit) &&
+                      data.finding.cierres.length === 0) {
+                exploit = projectFtry.getExploit(
+                  data.finding.id,
+                  exploitS3.exploit,
+                  data.project.toLowerCase()
+                );
+                data.hasExploit = true;
+                findingData.hasExploit = data.hasExploit;
+                exploit.then((response) => {
+                  respFunction(response);
+                });
+              }
+              else if (angular.isDefined(data.finding.exploit) &&
+                   data.finding.cierres.length === 0) {
+                exploit = projectFtry.getExploit(
+                  data.finding.id,
+                  data.finding.exploit,
+                  data.project.toLowerCase()
+                );
+                data.hasExploit = true;
+                findingData.hasExploit = data.hasExploit;
+                exploit.then((response) => {
+                  respFunction(response);
+                });
+              }
+              else {
+                data.hasExploit = false;
+                findingData.hasExploit = data.hasExploit;
               }
             }
             else if (angular.isDefined(data.finding.exploit) &&
                  data.finding.cierres.length === 0) {
               exploit = projectFtry.getExploit(
                 data.finding.id,
-                data.finding.exploit
+                data.finding.exploit,
+                data.project.toLowerCase()
               );
               data.hasExploit = true;
               findingData.hasExploit = data.hasExploit;
@@ -349,46 +367,48 @@ angular.module("FluidIntegrates").factory(
                   $msg.error(errorAc1);
                 }
               };
+              const recordItemS3 = {};
               for (let cont = 0; cont < response.data.length; cont++) {
-                const recordItem = response.data[cont];
-                if (angular.isDefined(recordItem.fileRecords) &&
-                            (recordItem.is_fileRecords === true ||
-                                  recordItem.is_fileRecords === "true")) {
-                  record = projectFtry.getRecords(
-                    data.finding.id,
-                    recordItem.fileRecords
-                  );
-                  data.hasRecords = true;
-                  findingData.hasRecords = data.hasRecords;
-                  record.then((response) => {
-                    respFunction(response);
-                  });
+                if (response.data[cont].name === "fileRecords") {
+                  recordItemS3.fileRecords = response.data[cont].file_url;
                 }
-                else if (angular.isDefined(data.finding.fileRecords)) {
-                  record = projectFtry.getRecords(
-                    data.finding.id,
-                    data.finding.fileRecords
-                  );
-                  data.hasRecords = true;
-                  findingData.hasRecords = data.hasRecords;
-                  record.then((response) => {
-                    respFunction(response);
-                  });
-                }
-                else if ((
-                  angular.isUndefined(data.finding.fileRecords) ||
-              angular.isUndefined(recordItem.fileRecords)) &&
-              (recordItem.is_fileRecords === false ||
-                recordItem.is_fileRecords === "false")) {
-                  data.hasRecords = false;
-                  findingData.hasRecords = data.hasRecords;
-                }
+              }
+              if (angular.isDefined(recordItemS3.fileRecords)) {
+                record = projectFtry.getRecords(
+                  data.finding.id,
+                  recordItemS3.fileRecords,
+                  data.project.toLowerCase()
+                );
+                data.hasRecords = true;
+                findingData.hasRecords = data.hasRecords;
+                record.then((response) => {
+                  respFunction(response);
+                });
+              }
+              else if (angular.isDefined(data.finding.fileRecords)) {
+                record = projectFtry.getRecords(
+                  data.finding.id,
+                  data.finding.fileRecords,
+                  data.project.toLowerCase()
+                );
+                data.hasRecords = true;
+                findingData.hasRecords = data.hasRecords;
+                record.then((response) => {
+                  respFunction(response);
+                });
+              }
+              else if (
+                angular.isUndefined(data.finding.fileRecords) ||
+            angular.isUndefined(recordItemS3.fileRecords)) {
+                data.hasRecords = false;
+                findingData.hasRecords = data.hasRecords;
               }
             }
             else if (angular.isDefined(data.finding.fileRecords)) {
               record = projectFtry.getRecords(
                 data.finding.id,
-                data.finding.fileRecords
+                data.finding.fileRecords,
+                data.project.toLowerCase()
               );
               data.hasRecords = true;
               record.then((response) => {

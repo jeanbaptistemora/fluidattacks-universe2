@@ -825,13 +825,16 @@ def finding_vulnerabilities(submission_id):
 @require_finding_access
 def get_evidences(request):
     finding_id = request.GET.get('findingid', None)
-    resp = integrates_dao.get_finding_dynamo(int(finding_id))
-    return util.response(resp, 'Success', False)
+    resp = integrates_dao.get_data_dynamo("FI_findings_new", "finding_id", finding_id)
+    if resp:
+        return util.response(resp[0].get("files"), 'Success', False)
+    else:
+        return util.response([], 'Success', False)
 
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
-def get_evidence(request, findingid, fileid):
+def get_evidence(request, project, findingid, fileid):
     if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
         util.cloudwatch_log(request, 'Security: Attempted to retrieve evidence img without permission')
         return util.response([], 'Access denied', True)
@@ -839,7 +842,7 @@ def get_evidence(request, findingid, fileid):
         if fileid is None:
             rollbar.report_message('Error: Missing evidence image ID', 'error', request)
             return HttpResponse("Error - Unsent image ID", content_type="text/html")
-        key_list = key_existing_list(findingid + "/" + fileid)
+        key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
         if key_list:
             for k in key_list:
                 start = k.find(findingid) + len(findingid)
@@ -863,16 +866,12 @@ def replace_all(text, dic):
     return text
 
 def retrieve_image(request, img_file):
-    try:
-        if util.assert_file_mime(img_file, ["image/png", "image/jpeg", "image/gif"]):
-            with open(img_file, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/*")
-        else:
-            rollbar.report_message('Error: Invalid evidence image format', 'error', request)
-            return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
-    finally:
-        if os.path.exists(img_file):
-            os.unlink(img_file)
+    if util.assert_file_mime(img_file, ["image/png", "image/jpeg", "image/gif"]):
+        with open(img_file, "r") as file_obj:
+            return HttpResponse(file_obj.read(), content_type="image/*")
+    else:
+        rollbar.report_message('Error: Invalid evidence image format', 'error', request)
+        return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
 
 @never_cache
 @csrf_exempt
@@ -947,7 +946,7 @@ def key_existing_list(key):
     return key_list
 
 def send_file_to_s3(filename, parameters, field, fieldname, ext):
-    fileurl = parameters['findingid'] + '/' + parameters['url']
+    fileurl = parameters['project'] + '/' + parameters['findingid'] + '/' + parameters['url']
     fileroute = "/tmp/:id.tmp".replace(":id", filename)
     namecomplete = fileurl + "-" + field + "-" + filename + ext
     if os.path.exists(fileroute):
@@ -956,33 +955,70 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext):
                 client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
             except ClientError:
                 rollbar.report_exc_info()
-                integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
                 return False
-        resp = integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, True)
-        if not resp:
-            integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
+        file_name = namecomplete.split("/")[2]
+        is_file_saved = save_file_url(parameters['findingid'], fieldname, file_name)
         os.unlink(fileroute)
-        return resp
+        return is_file_saved
     else:
-        integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, namecomplete.split("/")[1], "is_" + fieldname, False)
         return False
 
 def update_file_to_s3(parameters, field, fieldname, upload):
-    fileurl = parameters['findingid'] + '/' + parameters['url']
+    fileurl = parameters['project'] + '/' + parameters['findingid'] + '/' + parameters['url']
     key_val = fileurl + "-" + field
     key_list = key_existing_list(key_val)
     if key_list:
         for k in key_list:
             client_s3.delete_object(Bucket=bucket_s3, Key=k)
-    filename = fileurl + "-" + field + "-" + upload.name
+    file_name_complete = fileurl + "-" + field + "-" + upload.name
     try:
-        client_s3.upload_fileobj(upload.file, bucket_s3, filename)
-        integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, filename.split("/")[1], "is_" + fieldname, True)
+        client_s3.upload_fileobj(upload.file, bucket_s3, file_name_complete)
+        file_name = file_name_complete.split("/")[2]
+        save_file_url(parameters['findingid'], fieldname, file_name)
         return False
     except ClientError:
         rollbar.report_exc_info()
-        integrates_dao.add_finding_dynamo(int(parameters['findingid']), fieldname, filename.split("/")[1], "is_" + fieldname, False)
         return True
+
+def save_file_url(finding_id, field_name, file_url):
+    file_data = []
+    file_data.append({"name": field_name, "file_url": file_url})
+    remove_file_url(finding_id, field_name)
+    is_url_saved = integrates_dao.add_list_resource_dynamo(
+        "FI_findings_new",
+        "finding_id",
+        finding_id,
+        file_data,
+        "files")
+    return is_url_saved
+
+def remove_file_url(finding_id, field_name):
+    findings = integrates_dao.get_data_dynamo(
+        "FI_findings_new",
+        "finding_id",
+        finding_id)
+    for finding in findings:
+        files = finding.get("files")
+        if files:
+            index = 0
+            for file_obj in files:
+                if file_obj.get("name") == field_name:
+                    integrates_dao.remove_list_resource_dynamo(
+                        "FI_findings_new",
+                        "finding_id",
+                        finding_id,
+                        "files",
+                        index)
+                else:
+                    message = \
+                        'Info: Finding {finding!s} does not have {field!s} in s3' \
+                        .format(finding=finding_id, field=field_name)
+                    util.cloudwatch_log_plain(message)
+                index += 1
+        else:
+            message = 'Info: Finding {finding!s} does not have evidences in s3' \
+                .format(finding=finding_id)
+            util.cloudwatch_log_plain(message)
 
 def migrate_all_files(parameters, request):
     fin_dto = FindingDTO()
@@ -990,42 +1026,58 @@ def migrate_all_files(parameters, request):
         api = FormstackAPI()
         frmreq = api.get_submission(parameters['findingid'])
         finding = fin_dto.parse(parameters['findingid'], frmreq, request)
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.ANIMATION
-        folder = key_existing_list(filename)
-        if "animation" in finding and parameters["id"] != '0' and not folder:
-            send_file_to_s3(finding["animation"], parameters, fin_dto.ANIMATION, "animation", ".gif")
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOTATION
-        folder = key_existing_list(filename)
-        if "exploitation" in finding and parameters["id"] != '1' and not folder:
-            send_file_to_s3(finding["exploitation"], parameters, fin_dto.EXPLOTATION, "exploitation", ".png")
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV1
-        folder = key_existing_list(filename)
-        if "evidence_route_1" in finding and parameters["id"] != '2' and not folder:
-            send_file_to_s3(finding["evidence_route_1"], parameters, fin_dto.DOC_ACHV1, "evidence_route_1", ".png")
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV2
-        folder = key_existing_list(filename)
-        if "evidence_route_2" in finding and parameters["id"] != '3' and not folder:
-            send_file_to_s3(finding["evidence_route_2"], parameters, fin_dto.DOC_ACHV2, "evidence_route_2", ".png")
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV3
-        folder = key_existing_list(filename)
-        if "evidence_route_3" in finding and parameters["id"] != '4' and not folder:
-            send_file_to_s3(finding["evidence_route_3"], parameters, fin_dto.DOC_ACHV3, "evidence_route_3", ".png")
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV4
-        folder = key_existing_list(filename)
-        if "evidence_route_4" in finding and parameters["id"] != '5' and not folder:
-            send_file_to_s3(finding["evidence_route_4"], parameters, fin_dto.DOC_ACHV4, "evidence_route_4", ".png")
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV5
-        folder = key_existing_list(filename)
-        if "evidence_route_5" in finding and parameters["id"] != '6' and not folder:
-            send_file_to_s3(finding["evidence_route_5"], parameters, fin_dto.DOC_ACHV5, "evidence_route_5", ".png")
-        filename =  parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOIT
-        folder = key_existing_list(filename)
-        if "exploit" in finding and parameters["id"] != '7' and not folder:
-            send_file_to_s3(finding["exploit"], parameters, fin_dto.EXPLOIT, "exploit", ".py")
-        filename = parameters['findingid'] + "/" + parameters['url'] + "-" + fin_dto.REG_FILE
-        folder = key_existing_list(filename)
-        if "fileRecords" in finding and parameters["id"] != '8' and not folder:
-            send_file_to_s3(finding["fileRecords"], parameters, fin_dto.REG_FILE, "fileRecords", ".csv")
+        file_url = parameters['project'] + "/" + parameters['findingid'] + "/" + parameters['url']
+        files = [{
+            "id": "0",
+            "name": "animation",
+            "field": fin_dto.ANIMATION,
+            "ext": ".gif"
+        }, {
+            "id": "1",
+            "name": "exploitation",
+            "field": fin_dto.EXPLOTATION,
+            "ext": ".png"
+        }, {
+            "id": "2",
+            "name": "evidence_route_1",
+            "field": fin_dto.DOC_ACHV1,
+            "ext": ".png"
+        }, {
+            "id": "3",
+            "name": "evidence_route_2",
+            "field": fin_dto.DOC_ACHV2,
+            "ext": ".png"
+        }, {
+            "id": "4",
+            "name": "evidence_route_3",
+            "field": fin_dto.DOC_ACHV3,
+            "ext": ".png"
+        }, {
+            "id": "5",
+            "name": "evidence_route_4",
+            "field": fin_dto.DOC_ACHV4,
+            "ext": ".png"
+        }, {
+            "id": "6",
+            "name": "evidence_route_5",
+            "field": fin_dto.DOC_ACHV5,
+            "ext": ".png"
+        }, {
+            "id": "7",
+            "name": "exploit",
+            "field": fin_dto.EXPLOIT,
+            "ext": ".py"
+        }, {
+            "id": "8",
+            "name": "fileRecords",
+            "field": fin_dto.REG_FILE,
+            "ext": ".csv"
+        }]
+        for file_obj in files:
+            filename = file_url + "-" + file_obj["field"]
+            folder = key_existing_list(filename)
+            if finding.get(file_obj["name"]) and parameters["id"] != file_obj["id"] and not folder:
+                send_file_to_s3(finding[file_obj["name"]], parameters, file_obj["field"],file_obj["name"], file_obj["ext"])
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
@@ -1058,10 +1110,11 @@ def get_exploit(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
     findingid = parameters['findingid']
+    project = parameters['project']
     if fileid is None:
         rollbar.report_message('Error: Missing exploit ID', 'error', request)
         return HttpResponse("Error - Unsent exploit ID", content_type="text/html")
-    key_list = key_existing_list(findingid + "/" + fileid)
+    key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
     if key_list:
         for k in key_list:
             start = k.find(findingid) + len(findingid)
@@ -1080,17 +1133,13 @@ def get_exploit(request):
             return retrieve_script(request, exploit)
 
 def retrieve_script(request, script_file):
-    try:
-        if util.assert_file_mime(script_file, ["text/x-python", "text/x-c",
-                                               "text/plain", "text/html"]):
-            with open(script_file, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="text/plain")
-        else:
-            rollbar.report_message('Error: Invalid exploit file format', 'error', request)
-            return util.response([], 'Invalid exploit file format', True)
-    finally:
-        if os.path.exists(script_file):
-            os.unlink(script_file)
+    if util.assert_file_mime(script_file, ["text/x-python", "text/x-c",
+                                           "text/plain", "text/html"]):
+        with open(script_file, "r") as file_obj:
+            return HttpResponse(file_obj.read(), content_type="text/plain")
+    else:
+        rollbar.report_message('Error: Invalid exploit file format', 'error', request)
+        return util.response([], 'Invalid exploit file format', True)
 
 @never_cache
 @csrf_exempt
@@ -1101,10 +1150,11 @@ def get_records(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
     findingid = parameters['findingid']
+    project = parameters['project']
     if fileid is None:
         rollbar.report_message('Error: Missing record file ID', 'error', request)
         return util.response([], 'Unsent record file ID', True)
-    key_list = key_existing_list(findingid + "/" + fileid)
+    key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
     if key_list:
         for k in key_list:
             start = k.find(findingid) + len(findingid)
@@ -1124,21 +1174,18 @@ def get_records(request):
 
 def retrieve_csv(request, csv_file):
     data = []
-    try:
-        if util.assert_file_mime(csv_file, ["text/plain"]):
-            with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
-                csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
-                header = csvReader.next()
-                for row in csvReader:
-                    dicTok = list_to_dict(header, row)
-                    data.append(dicTok)
-                return util.response(data, 'Success', False)
-        else:
-            rollbar.report_message('Error: Invalid record file format', 'error', request)
-            return util.response([], 'Invalid record file format', True)
-    finally:
-        if os.path.exists(csv_file):
-            os.unlink(csv_file)
+    if util.assert_file_mime(csv_file, ["text/plain"]):
+        with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
+            csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
+            header = csvReader.next()
+            for row in csvReader:
+                dicTok = list_to_dict(header, row)
+                data.append(dicTok)
+            return util.response(data, 'Success', False)
+    else:
+        rollbar.report_message('Error: Invalid record file format', 'error', request)
+        return util.response([], 'Invalid record file format', True)
+
 
 def list_to_dict(header, li):
     dct = {}
@@ -1855,6 +1902,8 @@ def add_repositories(request):
                 .format(repository=parameters[repository], branch=parameters[branch])
             email_data.append({"urlEnv": email_text})
     add_repo = integrates_dao.add_list_resource_dynamo(
+        "FI_projects",
+        "project_name",
         project,
         json_data,
         "repositories"
@@ -1901,7 +1950,12 @@ def remove_repositories(request):
             index = -1
         cont += 1
     if index >= 0:
-        remove_repo = integrates_dao.remove_list_resource_dynamo(project, "repositories", index)
+        remove_repo = integrates_dao.remove_list_resource_dynamo(
+            "FI_projects",
+            "project_name",
+            project,
+            "repositories",
+            index)
         if remove_repo:
             to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
             context = {
@@ -1958,6 +2012,8 @@ def add_environments(request):
                 'urlEnv': parameters[environment],
             })
     add_env = integrates_dao.add_list_resource_dynamo(
+        "FI_projects",
+        "project_name",
         project,
         json_data,
         "environments"
@@ -1999,7 +2055,12 @@ def remove_environments(request):
             index = -1
         cont += 1
     if index >= 0:
-        remove_env = integrates_dao.remove_list_resource_dynamo(project, "environments", index)
+        remove_env = integrates_dao.remove_list_resource_dynamo(
+            "FI_projects",
+            "project_name",
+            project,
+            "environments",
+            index)
         if remove_env:
             to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
             context = {
@@ -2058,7 +2119,7 @@ def mask_project_findings(project):
     api = FormstackAPI()
     try:
         finreqset = api.get_findings(project)["submissions"]
-        are_evidences_deleted = list(map(delete_s3_all_evidences, finreqset))
+        are_evidences_deleted = list(map(lambda x: delete_s3_all_evidences(x, project), finreqset))
         is_project_masked = list(map(mask_finding, finreqset))
         is_project_deleted = all(is_project_masked) and all(are_evidences_deleted)
         return is_project_deleted
@@ -2102,10 +2163,10 @@ def mask_closing(submission_id):
     return request
 
 
-def delete_s3_all_evidences(submission_id):
+def delete_s3_all_evidences(submission_id, project):
     """Delete s3 evidences files."""
     finding_id = submission_id["id"]
-    evidences_list = key_existing_list(finding_id)
+    evidences_list = key_existing_list(project + "/" + finding_id)
     is_evidence_deleted = False
     if evidences_list:
         is_evidence_deleted_s3 = list(map(delete_s3_evidence, evidences_list))

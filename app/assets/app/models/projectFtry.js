@@ -241,15 +241,17 @@ angular.module("FluidIntegrates").factory(
        * @function getExploit
        * @param {String} findingid Numeric id of finding
        * @param {String} id Unique id of the exploit
+       * @param {String} project Project name
        * @member integrates.projectFtry
        * @return {Object} Response with exploit data
        */
-      "getExploit" (findingid, id) {
+      "getExploit" (findingid, id, project) {
         const oopsAc = "An error occurred getting exploit ID";
         return $xhr.get($q, `${BASE.url}get_exploit`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           findingid,
-          id
+          id,
+          project
         }, oopsAc);
       },
 
@@ -258,15 +260,17 @@ angular.module("FluidIntegrates").factory(
        * @function getRecords
        * @param {String} findingid Numeric id of finding
        * @param {String} id Unique id of the record
+       * @param {String} project Project name
        * @member integrates.projectFtry
        * @return {Object} Response with records data
        */
-      "getRecords" (findingid, id) {
+      "getRecords" (findingid, id, project) {
         const oopsAc = "An error occurred getting records";
         return $xhr.get($q, `${BASE.url}get_records`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           findingid,
-          id
+          id,
+          project
         }, oopsAc);
       },
 
