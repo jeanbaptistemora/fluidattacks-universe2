@@ -954,6 +954,66 @@ msgstr "productos"
 msgid "Navb-opt-3"
 msgstr "Productos"
 
+#: templates/navigationbar.html:111
+msgid "Table1x1-msg"
+msgstr "Fluid Attacks \ Tipos de Pruebas"
+
+#: templates/navigationbar.html:119
+msgid "Table2x1-msg"
+msgstr "Hallazgos ACF"
+
+#: templates/navigationbar.html:127
+msgid "Table3x1-msg"
+msgstr "Hallazgos AB"
+
+#: templates/navigationbar.html:135
+msgid "Table4x1-msg"
+msgstr "Hallazgos PSA"
+
+#: templates/navigationbar.html:143
+msgid "Table5x1-msg"
+msgstr "Hallazgos PSI"
+
+#: templates/navigationbar.html:143
+msgid "Table6x1-msg"
+msgstr "Cierres - Asserts"
+
+#: templates/navigationbar.html:161
+msgid "tst-ftr-msg-1"
+msgstr "<strong>ACF:</strong> Análisis de Código Fuente"
+
+#: templates/navigationbar.html:162
+msgid "tst-ftr-msg-2"
+msgstr "<strong>AB:</strong>Análisis Binario"
+
+#: templates/navigationbar.html:163
+msgid "tst-ftr-msg-3"
+msgstr "<strong>PSA:</strong> Pruebas de Seguridad de Aplicación "
+
+#: templates/navigationbar.html:164
+msgid "tst-ftr-msg-4"
+msgstr "<strong>PSI:</strong> Pruebas de Seguridad de Infraestructura"
+
+#: templates/navigationbar.html:165
+msgid "tst-ftr-msg-5"
+msgstr "<strong>Asserts:</strong> Motor de Automatización de Cierre"
+
+#: templates/navigationbar.html:168
+msgid "tst-ftr-msg-6"
+msgstr "<strong>DXTS</strong> Pruebas Dinámicas de Seguridad en Aplicación"
+
+#: templates/navigationbar.html:169
+msgid "tst-ftr-msg-7"
+msgstr "<strong>SAST:</strong> Pruebas Estáticas de Seguridad en Aplicación"
+
+#: templates/navigationbar.html:170
+msgid "tst-ftr-msg-8"
+msgstr "<strong>IAST:</strong> Pruebas Interactivas de Seguridad en Aplicación"
+
+#: templates/navigationbar.html:171
+msgid "tst-ftr-msg-9"
+msgstr "<strong>SwCA:</strong> Análisis de Composición de Software"
+
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23
 #: templates/navigationbar.html:24 templates/navigationbar.html:25

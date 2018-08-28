@@ -2,6 +2,7 @@ $fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fluid-gray: rgba(239, 239, 239, 1);
 $white: rgba(255, 255, 255, 1);
+$fluid-dark-gray: rgba(200, 200, 200, 1);
 
 p {
   font-size: 23px;
@@ -60,7 +61,6 @@ p {
   p {
     margin-bottom: 10px;
     text-align: center;
-
   }
 
   img {
@@ -198,6 +198,85 @@ p {
   }
 }
 
+.firstcell {
+  font-family: 'Source Sans Pro';
+  font-size: 14px;
+}
+
+.tbl-testing {
+  display: inline-table;
+  font-family: 'Source Sans Pro';
+  font-size: 25px;
+  margin: auto;
+  text-align: center;
+
+  img {
+    height: auto;
+    width: 18px;
+  }
+
+  th {
+    border-right: solid 2px $fluid-dark-gray;
+    font-weight: normal;
+    height: 10px;
+    padding: 5px 45px;
+  }
+
+  td {
+    border-right: solid 2px $fluid-dark-gray;
+    font-weight: normal;
+    height: 10px;
+    padding: 5px 45px;
+  }
+}
+
+.graytd {
+  background-color: $fluid-gray;
+}
+
+.tst-ftr-1 {
+  display: block;
+  float: left;
+  font-family: 'Source Sans Pro';
+  height: 180px;
+  padding-left: 25%;
+  padding-top: 10px;
+  width: 50%;
+
+  p {
+    font-size: 16px;
+    line-height: 85%;
+    text-align: left;
+  }
+
+  strong {
+    font-weight: bolder;
+  }
+}
+
+.tst-ftr-2 {
+  display: block;
+  float: left;
+  font-family: 'Source Sans Pro';
+  height: 180px;
+  padding-left: 8%;
+  padding-top: 10px;
+  width: 50%;
+
+  p {
+    font-size: 16px;
+    line-height: 85%;
+    text-align: left;
+  }
+
+  strong {
+    font-weight: bolder;
+  }
+}
+
+.tst-diagram {
+  min-width: 100%;
+}
 
 .benefits {
   background-color: $fluid-black;
@@ -456,6 +535,31 @@ p {
     padding: 40px auto 25px;
     width: 50%;
   }
+
+  .tst-ftr-1 {
+    display: inline-block;
+    float: none;
+    height: auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+
+    p {
+      text-align: center;
+    }
+  }
+
+  .tst-ftr-2 {
+    display: inline-block;
+    float: none;
+    height: auto;
+    padding: 0;
+    width: 100%;
+
+    p {
+      text-align: center;
+    }
+  }
 }
 
 @media screen and (max-width: 430px) {
@@ -555,7 +659,5 @@ p {
   .contact-img {
     max-height: 0%;
     max-width: 0%;
-
   }
-
 }
