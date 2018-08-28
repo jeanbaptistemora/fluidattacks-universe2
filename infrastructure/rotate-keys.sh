@@ -8,11 +8,13 @@
 #   - The Vault token used must have permissions to read the AWS role
 #     and to read and update credentials in the respective projects
 
-function generate_keys() {
+function vault_generate_aws_keys() {
   local role="$1"
   local project="${role/-*/}"
   local aws_service=${role/*-/}
+  local access_key_name="aws_${aws_service}_access_key"
   local access_key
+  local secret_key_name="aws_${aws_service}_secret_key"
   local secret_key
   echo-green "Generating ${aws_service^} keys for ${project^}..."
   vault read -format=json "aws/creds/$role" > aws-keys.json
@@ -20,35 +22,39 @@ function generate_keys() {
   secret_key="$(cat aws-keys.json | jq -r '.data.secret_key')"
   rm aws-keys.json
   if [ "$project" = "integrates" ]; then
-    update-keys "$project/development" "$aws_service" "$access_key" \
-      "$secret_key"
-    update-keys "$project/production" "$aws_service" "$access_key" \
-      "$secret_key"
+    echo-green "Updating ${aws_service^} variables in ${project^}..."
+    vault_update_keys "$project/development" "$access_key_name" "$access_key" \
+      "$secret_key_name" "$secret_key"
+    vault_update_keys "$project/production" "$access_key_name" "$access_key" \
+      "$secret_key_name" "$secret_key"
     if [ "$aws_service" = "dynamodb" ]; then
-      update-keys "continuous/tools" "$aws_service" "$access_key" "$secret_key"
+      echo-green "Updating ${aws_service^} variables in Continuous..."
+      vault_update_keys "continuous/tools" "$access_key_name" "$access_key" \
+        "$secret_key_name" "$secret_key"
     fi
   else
-    update-keys "$project" "$aws_service" "$access_key" "$secret_key"
+    echo-green "Updating ${aws_service^} variables in ${project^}..."
+    vault_update_keys "$project" "$access_key_name" "$access_key" \
+      "$secret_key_name" "$secret_key"
   fi
 }
 
-function update-keys() {
-  local project="$1"
-  local access_key_name="aws_${2}_access_key"
-  local secret_key_name="aws_${2}_secret_key"
-  local access_key="$3"
-  local secret_key="$4"
-  vault read -format=json "secret/${project}" | jq '.data' > vars.json
-  cat vars.json | \
-    update-value "$access_key_name" "$access_key" | \
-    update-value "$secret_key_name" "$secret_key" > vars_tmp.json
-  mv vars_tmp.json vars.json
-  vault write "secret/${project}" @vars.json && \
-    echo-green "${2^} variables in \"${project}\" were updated successfully"
+function vault_update_keys() {
+  local secret_path="secret/${1}"
+  shift 1
+  vault read -format=json "${secret_path}" | jq '.data' > vars.json
+  for args in "$@"; do
+    var="$1"
+    value="$2"
+    shift 2
+    cat vars.json | vault_update_value "${var}" "${value}" > vars_tmp.json
+    mv vars_tmp.json vars.json
+  done
+  vault write "${secret_path}" @vars.json
   rm vars.json
 }
 
-function update-value() {
+function vault_update_value() {
   jq "to_entries |
         map(if .key == \"$1\"
           then . + {\"value\":\"$2\"}

@@ -226,6 +226,6 @@ change_keys:
   <<: *vault_login
   script:
     - source infrastructure/rotate-keys.sh
-    - generate_keys web-s3
+    - vault_generate_aws_keys web-s3
   only:
     - schedules
