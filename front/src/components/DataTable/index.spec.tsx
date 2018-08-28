@@ -18,14 +18,26 @@ describe('Data table', () => {
   it('should render title', () => {
     const data = [
       {
-          "Test header": "value 1",
-          "Test header2": "value 2"
+          test_header: "value 1",
+          test_header2: "value 2"
+      }
+    ];
+    const testHeaders = [
+      {
+        Header: "Prueba 1",
+        accessor: "test_header"
+      },
+      {
+        Header: "Prueba 2",
+        accessor: "test_header2"
       }
     ];
     const wrapper = shallow(
       <DataTable
         dataset={data}
+        headers={testHeaders}
         onClickRow={()=>{}}
+        pageSize={25}
         title="Unit test table"
       />
     );
@@ -45,10 +57,22 @@ describe('Data table', () => {
           "Test header2": "value 2"
       }
     ];
+    const testHeaders = [
+      {
+        Header: "Prueba 1",
+        accessor: "test_header"
+      },
+      {
+        Header: "Prueba 2",
+        accessor: "test_header2"
+      }
+    ];
     const wrapper = shallow(
       <DataTable
         dataset={data}
+        headers={testHeaders}
         onClickRow={()=>{}}
+        pageSize={25}
         title="Unit test table"
       />
     );

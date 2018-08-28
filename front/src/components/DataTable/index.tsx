@@ -21,8 +21,15 @@ interface ITableProps {
    * generic component
    */
   dataset: any[];
+  headers: IHeader[];
+  pageSize: number;
   title: string;
   onClickRow(arg1: RowInfo | undefined): void;
+}
+
+interface IHeader {
+  accessor: string;
+  Header: string;
 }
 
 const customColumn: Column = {
@@ -38,13 +45,14 @@ const dataTable: React.StatelessComponent<ITableProps> =
         <h1 className={globalStyle.title}>{props.title}</h1>
         <ReactTable
           className="-striped -highlight"
-          showPagination={props.dataset.length > 25}
-          defaultPageSize={25}
+          showPagination={props.dataset.length > props.pageSize}
+          defaultPageSize={props.pageSize}
           showPageSizeOptions={false}
           sortable={true}
           minRows={0}
           data={props.dataset}
           columns={
+            props.headers.length > 0 ? props.headers :
             Object.keys(props.dataset[0])
             .map((key: string) =>
               ({
@@ -74,12 +82,15 @@ const dataTable: React.StatelessComponent<ITableProps> =
 dataTable.propTypes = {
   dataset: PropTypes.any,
   onClickRow: PropTypes.func,
+  pageSize: PropTypes.number,
   title: PropTypes.string,
 };
 
 dataTable.defaultProps = {
   dataset: [{}],
+  headers: [],
   onClickRow: (arg1: RowInfo): void => undefined,
+  pageSize: 25,
 };
 
 export = dataTable;

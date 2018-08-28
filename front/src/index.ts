@@ -208,7 +208,9 @@ angular
    react2angular(
      dataTable, [
        "dataset",
+       "headers",
        "onClickRow",
+       "pageSize",
        "title",
      ],
    ),

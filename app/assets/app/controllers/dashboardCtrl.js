@@ -24,25 +24,29 @@ angular.module("FluidIntegrates").controller(
     $scope,
     $state,
     $stateParams,
-    $timeout
+    $timeout,
+    $translate,
+    dashboardFtry
   ) {
+    $scope.goToProject = function goToProject (rowInfo) {
+      $state.go("ProjectIndicators", {"project": rowInfo.project});
+    };
     $scope.initMyProjects = function initMyProjects () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
-      $timeout(() => {
-        angular.element("#myProjectsTbl").bootstrapTable({
-          "locale": vlang,
-          "onClickRow" (row) {
-            $state.go("ProjectIndicators", {"project": row.project});
-          },
-          "url": `${BASE.url}get_myprojects`
+      $scope.tblProjectHeaders = [
+        {
+          "Header": $translate.instant("main_content.projects.project_title"),
+          "accessor": "project"
+        },
+        {
+          "Header":
+          $translate.instant("main_content.projects.project_description"),
+          "accessor": "company_project"
+        }
+      ];
+      dashboardFtry.getMyProjects().
+        then((response) => {
+          $scope.projectsDataset = response.data;
         });
-      });
     };
 
     $scope.init = function init () {
