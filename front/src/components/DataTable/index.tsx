@@ -4,7 +4,7 @@
  */
 import PropTypes from "prop-types";
 import React from "react";
-import ReactTable, { Column, ReactTableDefaults, RowInfo } from "react-table";
+import ReactTable, { Column, ComponentPropsGetter0, ReactTableDefaults, RowInfo } from "react-table";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
  * Disabling this two rules is necessary for
  * allowing the import of default styles that ReactTable needs
@@ -38,6 +38,11 @@ const customColumn: Column = {
   headerClassName: style.th,
 };
 
+const customNoData: ComponentPropsGetter0 = (): {} =>
+  ({
+    className: style.noDataText,
+  });
+
 const dataTable: React.StatelessComponent<ITableProps> =
   (props: ITableProps): JSX.Element => (
     <React.StrictMode>
@@ -49,7 +54,7 @@ const dataTable: React.StatelessComponent<ITableProps> =
           defaultPageSize={props.pageSize}
           showPageSizeOptions={false}
           sortable={true}
-          minRows={0}
+          minRows={1}
           data={props.dataset}
           columns={
             props.headers.length > 0 ? props.headers :
@@ -74,6 +79,7 @@ const dataTable: React.StatelessComponent<ITableProps> =
                 }
               },
             })}
+          getNoDataProps={customNoData}
         />
       </div>
     </React.StrictMode>

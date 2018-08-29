@@ -23,3 +23,8 @@
   padding: 8px;
   cursor: pointer;
 }
+
+:local .noDataText {
+  background: none !important;
+  top: 70% !important;
+}
