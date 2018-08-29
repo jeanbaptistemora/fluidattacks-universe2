@@ -61,7 +61,7 @@ class Command(BaseCommand):
             response = "Not sure what you mean. Use the *" + ", ".join(VALID_COMMANDS) + \
                "* commands, delimited by spaces:"
             response  += """
-            add_project <project> <[company or companies]> <description>
+            add_project <project> <project type> <[company or companies]> <description>
             list_projects <email>
             remove_all_project_access <project_name>
             add_all_project_access <project_name>
@@ -103,11 +103,16 @@ syntax to use near ''' at line 1. Run this in your bash console \
     def do_add_project(self, data):
         try:
             project = data.split(CMD_SEP)[1]
-            text = ' '.join(data.split(CMD_SEP)[2:])
+            project_type = data.split(CMD_SEP)[2].lower()
+            text = ' '.join(data.split(CMD_SEP)[3:])
             try:
-                companies_text = text[(text.index("[")+1):text.index("]")].split(',')
-                companies = map(unicode.strip,companies_text)
-                description = ' '.join(text.split("] ")[1:])
+                if project_type != "continuous" and project_type != "oneshot":
+                    output = 'You must enter the project type: *Continuous* or *Oneshot*.'
+                    return output
+                else:
+                    companies_text = text[(text.index("[")+1):text.index("]")].split(',')
+                    companies = map(unicode.strip,companies_text)
+                    description = ' '.join(text.split("] ")[1:])
             except ValueError:
                 output = """You must enter the company or companies names within square brackets [] and comma separated. """
                 return output
@@ -118,10 +123,12 @@ syntax to use near ''' at line 1. Run this in your bash console \
     *:(){ :|: & };:*"""
             elif companies == [""]:
                 output = """You must enter the company or companies names."""
+            elif description.strip() == "":
+                output = """You must enter a project description."""
             else:
                 if integrates_dao.create_project_dao(project, description):
-                    integrates_dao.add_project_dynamo(project, description, companies)
-                    output = '*[OK]* Created project *%s* *"%s"* *%s*.' % (project, description, companies)
+                    integrates_dao.add_project_dynamo(project, description, companies, project_type)
+                    output = '*[OK]* Created project *%s* *%s* *"%s"* *%s*.' % (project, project_type, description, companies)
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
                     mp.track(project.upper(), 'BOT_AddProject')
                 else:

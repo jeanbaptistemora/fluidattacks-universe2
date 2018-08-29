@@ -987,7 +987,7 @@ def get_project_dynamo(project):
     return items
 
 
-def add_project_dynamo(project, description, companies):
+def add_project_dynamo(project, description, companies, project_type):
     """Add project to dynamo."""
     table = dynamodb_resource.Table('FI_projects')
     try:
@@ -995,7 +995,8 @@ def add_project_dynamo(project, description, companies):
             Item={
                 'project_name': project.lower(),
                 'description': description,
-                'companies': companies
+                'companies': companies,
+                'type': project_type
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
