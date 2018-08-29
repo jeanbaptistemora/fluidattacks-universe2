@@ -149,58 +149,6 @@ angular.module("FluidIntegrates").factory(
           "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
         });
       },
-      "deleteProject" () {
-      // Get data
-        const descData = {"project": $stateParams.project};
-        $uibModal.open({
-          "animation": true,
-          "backdrop": "static",
-          "controller" (
-            $scope,
-            $uibModalInstance,
-            data,
-            $stateParams,
-            $state
-          ) {
-            $scope.modalTitle =
-                               $translate.instant("confirmmodal.title_project");
-            $scope.ok = function ok () {
-              // Make the request
-              const req = projectFtry2.deleteProject(data.project);
-              // Capture the promise
-              req.then((response) => {
-                if (!response.error) {
-                  const updatedAt =
-                                 $translate.instant("proj_alerts.updatedTitle");
-                  const updatedAc =
-                            $translate.instant("proj_alerts.project_deleted");
-                  $msg.success(updatedAc, updatedAt);
-                  $uibModalInstance.close();
-                  $state.go("home");
-                  // Mixpanel tracking
-                  mixPanelDashboard.trackFinding(
-                    "deleteProject",
-                    userEmail,
-                    descData.id
-                  );
-                }
-                else if (response.error) {
-                  const errorAc1 =
-                                $translate.instant("proj_alerts.error_textsad");
-                  Rollbar.error("Error: An error occurred deleting project");
-                  $msg.error(errorAc1);
-                }
-              });
-            };
-            $scope.close = function close () {
-              $uibModalInstance.close();
-            };
-          },
-          "keyboard": false,
-          "resolve": {"data": descData},
-          "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-        });
-      },
       "loadIndicatorsContent" ($scope, datatest) {
         const org = Organization.toUpperCase();
         const projt = $stateParams.project.toUpperCase();

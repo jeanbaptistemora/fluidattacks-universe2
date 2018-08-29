@@ -115,7 +115,6 @@ def project_findings(request):
             },
             "filter_buttons": {
                "advance": "Progress",
-               "delete_project": "Delete Project",
                "documentation": "Documentation"
             },
         }
@@ -144,7 +143,6 @@ def project_findings(request):
                 },
                 "filter_buttons": {
                    "advance": "Avance",
-                   "delete_project": "Borrar Proyecto",
                    "documentation": "Documentacion"
                 }
             }
@@ -2022,24 +2020,14 @@ def remove_environments(request):
         return util.response([], 'Error', True)
 
 
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['admin'])
-@require_project_access
-def delete_project(request):
+def delete_project(project):
     """Delete project information."""
-    project = request.POST.get('project', "")
     project = project.lower()
     are_users_removed = remove_all_users_access(project)
     is_project_masked = mask_project_findings(project)
     are_closings_masked = mask_project_closings(project)
     is_project_deleted = are_users_removed and is_project_masked and are_closings_masked
-    if is_project_deleted:
-        return util.response([], 'Success', False)
-    else:
-        rollbar.report_message('Error: An error occurred deleting project', 'error', request)
-        return util.response([], 'Error', True)
-
+    return is_project_deleted
 
 def remove_all_users_access(project):
     """Remove user access to project."""

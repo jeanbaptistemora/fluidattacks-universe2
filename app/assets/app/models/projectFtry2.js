@@ -243,21 +243,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Admin delete a project.
-       * @function deleteProject
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Delete project
-       */
-      "deleteProject" (project) {
-        const oopsAc = "An error occurred deleting project";
-        return $xhr.post($q, `${BASE.url}delete_project`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
-        }, oopsAc);
-      },
-
-      /**
        * Get drafts by project name.
        * @function draftsByName
        * @param {String} project Project name.

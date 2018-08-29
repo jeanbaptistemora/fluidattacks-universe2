@@ -7,16 +7,25 @@ URL = "https://www.formstack.com/api/v2/form/1892477/submission.json"
 PROJECT_FIELD_ID = "29187648"
 
 def parse(submission, initial_dict):
-    remission_fields = {
-        "29187648":"FLUID_PROJECT",
-        "29187692":"SERVICE",
-        "29187890":"LEADER",
-        "35631688":"LAST_REMISION"
-    }
-    parsed_dict = {remission_fields[k]:initial_dict[k] \
-            for (k,v) in remission_fields.items()}
-    parsed_dict["timestamp"] = submission["timestamp"]
-    return parsed_dict
+    try:
+        remission_fields = {
+            "29187648":"FLUID_PROJECT",
+            "29187692":"SERVICE",
+            "29187890":"LEADER",
+            "35631688":"LAST_REMISSION"
+        }
+        parsed_dict = {remission_fields[k]:initial_dict[k] \
+                for (k,v) in remission_fields.items()}
+        parsed_dict["TIMESTAMP"] = submission["timestamp"]
+        parsed_dict["APPROVAL_STATUS"] = submission["approval_status"]
+        return parsed_dict
+    except KeyError:
+        project_field = {
+            "29187648":"FLUID_PROJECT",
+        }
+        parsed_dict = {project_field[k]:initial_dict[k] \
+                for (k,v) in project_field.items()}
+        return parsed_dict
 
 def dict_concatenation(dict_1, dict_2):
     dict_1_copy = dict_1.copy()
@@ -36,7 +45,7 @@ def create_dict(remission_submission):
     return parse(remission_submission, remission_dict)
 
 def get_lastest(remissions_list):
-    return max(remissions_list, key=lambda x:x['timestamp'])
+    return max(remissions_list, key=lambda x:x['TIMESTAMP'])
 
 def string_to_date(string):
     return datetime.strptime(string, "%Y-%m-%d %H:%M:%S")

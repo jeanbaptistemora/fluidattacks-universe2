@@ -447,18 +447,62 @@ def send_unsolved_events_email_to_all_projects():
     projects = integrates_dao.get_registered_projects()
     list(map(lambda x: send_unsolved_events_email(x[0]), projects))
 
-def send_project_deletion_email(project):
-    days_after_last_remission_to_send_email = 6
+def deletion (project, days_to_send, days_to_delete):
     formstack_api = FormstackAPI()
     remission_submissions = formstack_api.get_remmisions(project)["submissions"]
-    remissions_dict = [remission.create_dict( \
-                       formstack_api.get_submission(x["id"])) \
-                       for x in remission_submissions]
-    lastest_remission = remission.get_lastest(remissions_dict)
-    context = {'project_name': project.capitalize()}
-    to = ["projects@fluidattacks.com","production@fluidattacks.com"]
-    if int(remission.days_until_now(lastest_remission["timestamp"])) == \
-       days_after_last_remission_to_send_email:
-        send_mail_project_deletion(to, context)
+    if remission_submissions:
+        remissions_list = [remission.create_dict( \
+                           formstack_api.get_submission(x["id"])) \
+                           for x in remission_submissions]
+        filtered_remissions = list(filter(lambda x: x['FLUID_PROJECT'].lower() \
+                                      == project.lower(), remissions_list))
+        project_info = integrates_dao.get_project_dynamo(project)
+        if filtered_remissions and project_info:
+            lastest_remission = remission.get_lastest(filtered_remissions)
+            if lastest_remission["LAST_REMISSION"] == "Si" and \
+               lastest_remission["APPROVAL_STATUS"] == "Approved" and \
+               project_info[0]["type"] == "oneshot":
+                days_until_now = remission.days_until_now(lastest_remission["TIMESTAMP"])
+                if days_until_now in days_to_send:
+                    context = {'project_name': project.capitalize()}
+                    to = ["projects@fluidattacks.com","production@fluidattacks.com"]
+                    send_mail_project_deletion(to, context)
+                    was_deleted = False
+                    was_email_sended = True
+                elif days_until_now in days_to_delete:
+                    views.delete_project(project)
+                    was_deleted = True
+                    was_email_sended = False
+                else:
+                    was_email_sended = False
+                    was_deleted = False
+            else:
+                was_email_sended = False
+                was_deleted = False
+        else:
+            was_email_sended = False
+            was_deleted = False
     else:
-        context=[]
+        was_email_sended = False
+        was_deleted = False
+    return [was_email_sended, was_deleted]
+
+def deletion_of_finished_project():
+    today_weekday = datetime.today().weekday()
+    if today_weekday == 0:
+        days_to_send = [6, 7]
+        days_to_delete = [-1]
+    elif today_weekday == 1:
+        days_to_send = [6]
+        days_to_delete = [7, 8]
+    elif today_weekday == 4:
+        days_to_send = [5, 6]
+        days_to_delete = [7]
+    elif today_weekday == 5:
+        days_to_send = [-1]
+        days_to_delete = [6, 7]
+    else:
+        days_to_send = [6]
+        days_to_delete = [7]
+    projects = integrates_dao.get_registered_projects()
+    list(map(lambda x: deletion(x[0], days_to_send, days_to_delete), projects))
