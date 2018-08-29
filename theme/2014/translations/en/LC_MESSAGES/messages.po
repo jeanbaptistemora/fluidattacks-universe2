@@ -958,7 +958,7 @@ msgstr "Fluid Attacks \ Types of testing"
 
 #: templates/navigationbar.html:119
 msgid "Table2x1-msg"
-msgstr "SCA Discovery"
+msgstr "SAST Discovery"
 
 #: templates/navigationbar.html:127
 msgid "Table3x1-msg"
@@ -975,10 +975,6 @@ msgstr "IST Discovery"
 #: templates/navigationbar.html:143
 msgid "Table6x1-msg"
 msgstr "Asserts - Closing"
-
-#: templates/navigationbar.html:161
-msgid "tst-ftr-msg-1"
-msgstr "<strong>SCA:</strong> Source code analysis"
 
 #: templates/navigationbar.html:162
 msgid "tst-ftr-msg-2"
@@ -1010,7 +1006,7 @@ msgstr "<strong>IAST:</strong> Interactive Application Security Testing"
 
 #: templates/navigationbar.html:171
 msgid "tst-ftr-msg-9"
-msgstr "<strong>SwCA:</strong> Software Composition Analysis"
+msgstr "<strong>SCA:</strong> Software Composition Analysis"
 
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23

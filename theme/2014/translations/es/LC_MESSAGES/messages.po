@@ -964,7 +964,7 @@ msgstr "Fluid Attacks \ Tipos de Pruebas"
 
 #: templates/navigationbar.html:119
 msgid "Table2x1-msg"
-msgstr "Hallazgos ACF"
+msgstr "Hallazgos SAST"
 
 #: templates/navigationbar.html:127
 msgid "Table3x1-msg"
@@ -981,10 +981,6 @@ msgstr "Hallazgos PSI"
 #: templates/navigationbar.html:143
 msgid "Table6x1-msg"
 msgstr "Cierres - Asserts"
-
-#: templates/navigationbar.html:161
-msgid "tst-ftr-msg-1"
-msgstr "<strong>ACF:</strong> Análisis de Código Fuente"
 
 #: templates/navigationbar.html:162
 msgid "tst-ftr-msg-2"
@@ -1016,7 +1012,7 @@ msgstr "<strong>IAST:</strong> Pruebas Interactivas de Seguridad en Aplicación"
 
 #: templates/navigationbar.html:171
 msgid "tst-ftr-msg-9"
-msgstr "<strong>SwCA:</strong> Análisis de Composición de Software"
+msgstr "<strong>SCA:</strong> Análisis de Composición de Software"
 
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23
