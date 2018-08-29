@@ -158,13 +158,17 @@ msgstr "zero false positives"
 
 #: templates/base.html:121
 msgid "Header-msg"
+msgstr "<strong>Expert intelligence + specialized technology</strong>"
+
+#: templates/base.html:122
+msgid "Header-item-2"
+msgstr "White box - Gray box - Black box"
+
+#: templates/base.html:123
+msgid "Header-item-3"
 msgstr ""
-"Expert intelligence + Specialized technology <br/>"
-"DXST -  SAST - IAST - SCA - DevSecOps <br/>"
-"White Box - Gray Box - Black Box <br/>"
-"Attacking Web Applications, APIs, Mobile Apps <br/>"
-"Client-Server, Servers, Networks, IoT Devices <br/>"
-"ICS: Industrial Control System "
+"Attacking Web, Apis, mobile apps, client server, <br> "
+"Servers, Networks, IoT Devices, <br> Industrial control systems"
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"

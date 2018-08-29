@@ -159,13 +159,17 @@ msgstr "cero falsos positivos"
 
 #: templates/base.html:121
 msgid "Header-msg"
+msgstr "<strong>Inteligencia experta + tecnología especializada</strong>"
+
+#: templates/base.html:122
+msgid "Header-item-2"
+msgstr "Caja blanca Caja gris- Caja negra"
+
+#: templates/base.html:123
+msgid "Header-item-3"
 msgstr ""
-"Inteligencia experta + Tecnología especializada <br/>"
-"DXST -  SAST - IAST - SCA - DevSecOps <br/>"
-"Caja blanca - Caja gris - Caja negra <br/>"
-"Atacando Aplicaciones Web, APIs, Apps Móviles, <br/>"
-"Cliente Servidor, Servidores, Redes, Dispositivos IoT <br/>"
-"IoT SCI: Sistemas de Control Industrial "
+"Atacando Web, Apis, Apps móviles, cliente servidor, <br> "
+"Servidores, Redes, Dispositivos IoT, <br> Sistemas de control Industrial"
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"

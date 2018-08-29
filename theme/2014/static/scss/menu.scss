@@ -228,14 +228,39 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .header {
-  padding-top: 72px;
+  background-color: $fluid-black;
+  padding-top: 100px;
 
   img {
     width: 100%;
   }
+
+  ul {
+    list-style-image: url('../../images/bullet2.png');
+    text-align: left;
+  }
+
+  li {
+    color: $white;
+    font-family: 'Montserrat';
+    margin: 10px 0;
+  }
+}
+
+.fluidicon {
+  margin-right: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+
+  img {
+    width: 30px;
+  }
 }
 
 .header-title {
+  margin-right: 40px;
   position: absolute;
   right: 0;
   top: 16%;
@@ -243,8 +268,9 @@ $white: rgba(255, 255, 255, 1);
 
   h1 {
     color: $white;
-    font-size: 16px;
-    margin: 0;
+    line-height: 60%;
+    margin-left: -15px;
+
   }
 
   .header-red {
@@ -253,10 +279,12 @@ $white: rgba(255, 255, 255, 1);
 
   p {
     color: $white;
-    display: none;
-    font-size: 12px;
-    line-height: 1.5;
-    margin-top: 5px;
+    font-size: 17px;
+    margin-left: -15px;
+    }
+
+  strong {
+    color: $white;
   }
 }
 
@@ -449,8 +477,16 @@ $white: rgba(255, 255, 255, 1);
       font-size: 38px;
     }
 
+    .header-red {
+      font-size: 36px;
+    }
+
     p {
-      font-size: 20px;
+      font-size: 19px;
+    }
+
+    li {
+      font-size: 15px;
     }
   }
 }
@@ -458,20 +494,96 @@ $white: rgba(255, 255, 255, 1);
 @media (min-width: 1100px) {
   .header-title {
     top: 18%;
+    width: 40%;
 
     h1 {
       font-size: 42px;
+    }
+
+    .header-red {
+      font-size: 36px;
     }
   }
 }
 
 @media (min-width: 1280px) {
   .header-title {
-    width: 40%;
 
     p {
       margin-top: 20px;
       width: 80%;
     }
+  }
+}
+
+@media screen and (max-width: 1220px) {
+
+  .fluidicon {
+    width: 0%;
+  }
+}
+
+@media screen and (max-width: 930px) {
+
+  .header-title {
+    margin-left: 40px;
+
+    li {
+      font-size: 13px;
+      margin: 3px auto;
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
+
+  .header-title {
+
+    li {
+      font-size: 12px;
+      margin: 3px auto;
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+
+  .header-title {
+    margin-right: 0;
+
+    ul {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  .header-title {
+
+    h1 {
+      font-size: 16px;
+    }
+
+    .header-red {
+      font-size: 16px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 380px) {
+
+  .header-title {
+
+    h1 {
+      line-height: 1.5;
+      margin: 0 auto;
+    }
+
+    p {
+      display: none;
+    }
+
   }
 }
