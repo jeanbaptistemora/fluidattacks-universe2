@@ -34,7 +34,8 @@ if [ "$stage" == "deployment" ]; then
 fi
 
 # Run Terraform Plan for AWS DNS infrastructure
-terraform output fiS3Arn >> dns/terraform.tfvars
+echo 'fiS3Arn = '"$(aws iam list-users | jq '.Users[].Arn' | \
+  egrep 'integrates-s3')" >> dns/terraform.tfvars
 terraform output dbEndpoint >> dns/terraform.tfvars
 terraform output fwBucket >> dns/terraform.tfvars
 terraform output fiBucket >> dns/terraform.tfvars
