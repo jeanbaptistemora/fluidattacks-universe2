@@ -501,6 +501,9 @@ def deletion_of_finished_project():
     elif today_weekday == 5:
         days_to_send = [-1]
         days_to_delete = [6, 7]
+    elif today_weekday == 6:
+        days_to_send = [-1]
+        days_to_delete = [-1]
     else:
         days_to_send = [6]
         days_to_delete = [7]
