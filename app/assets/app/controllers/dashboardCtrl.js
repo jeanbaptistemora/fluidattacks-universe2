@@ -34,13 +34,13 @@ angular.module("FluidIntegrates").controller(
     $scope.initMyProjects = function initMyProjects () {
       $scope.tblProjectHeaders = [
         {
-          "Header": $translate.instant("main_content.projects.project_title"),
-          "accessor": "project"
+          "dataField": "project",
+          "header": $translate.instant("main_content.projects.project_title")
         },
         {
-          "Header":
-          $translate.instant("main_content.projects.project_description"),
-          "accessor": "company_project"
+          "dataField": "company_project",
+          "header":
+          $translate.instant("main_content.projects.project_description")
         }
       ];
       dashboardFtry.getMyProjects().

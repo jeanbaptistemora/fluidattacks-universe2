@@ -226,9 +226,11 @@ angular
    react2angular(
      dataTable, [
        "dataset",
+       "exportCsv",
        "headers",
        "onClickRow",
        "pageSize",
+       "search",
        "title",
      ],
    ),
