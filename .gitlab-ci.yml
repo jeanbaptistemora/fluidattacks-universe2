@@ -228,12 +228,21 @@ change_keys:
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
         $HOME/.kube/config
-    - source infrastructure/rotate-keys.sh
+    - cd infrastructure
+    - source rotate-keys.sh
     - vault_generate_aws_keys integrates-cloudwatch
     - vault_generate_aws_keys integrates-dynamodb
     - vault_generate_aws_keys integrates-s3
     - vault_generate_aws_keys web-s3
-    - sleep 15
+    - export FORMSTACK_EMAIL="$(vault read -field=formstack_email
+        secret/serves)"
+    - export FORMSTACK_PASS="$(vault read -field=formstack_pass
+        secret/serves)"
+    - FORMSTACK_TOKENS=`./rotate_fs_keys.py`
+    - vault_update_keys integrates/development
+        formstack_tokens "$FORMSTACK_TOKENS"
+    - vault_update_keys integrates/production
+        formstack_tokens "$FORMSTACK_TOKENS"
     - export INTEGRATES_VAULT_TOKEN=$(curl --request POST
         --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}'
         "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
@@ -244,5 +253,7 @@ change_keys:
     - sed -i 's/$DATE/'"$(date)"'/' infrastructure/eks/manifests/*.yaml
     - kubectl apply -f infrastructure/eks/manifests/integrates.yaml
     - kubectl rollout status deploy/integrates -w
+    - python3 -c "from rotate_fs_keys import delete_formstack_tokens;
+        delete_formstack_tokens()"
   only:
     - schedules
