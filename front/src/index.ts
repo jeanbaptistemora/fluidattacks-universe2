@@ -10,6 +10,7 @@ import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
 import exploitView from "./scenes/Dashboard/components/ExploitView/index";
+import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
@@ -31,7 +32,24 @@ angular
       [],
     ),
   );
-
+/**
+ * @url: #/project/:project/:id/tracking
+ * @page: findingcontent.html
+ * @controllers: ["findingContentCtrl"]
+ * @tag: <field-box/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "fieldBox",
+    react2angular(
+      fieldBox,
+      [
+        "title",
+        "content",
+      ],
+    ),
+  );
 /**
  * @url: #/project/:name/indicators
  * @page: indicators.html
