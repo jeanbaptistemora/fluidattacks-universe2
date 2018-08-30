@@ -19,7 +19,7 @@ pero si fuiste capaz de finalizar esta etapa,
 habrás evidenciado que tienes la competencia más valiosa:
 aprender de cosas nuevas sobre la marcha
 y aplicarlas para resolver problemas reales.
-Esto, con la calidad humana, y fuertes [button]#link:../../valores[valores]#
+Esto, con la calidad humana, y fuertes [button]#link:../../valores/[valores]#
 tienen mayor peso que todo lo demás.
 
 == 1. Filosofía
@@ -557,7 +557,7 @@ Ya puedes seguir los pasos descritos arriba para correr la integración.
 == 14. Preguntas
 
 * Antes de realizar una pregunta, por favor lee nuevamente este documento y
-las link:../faq[preguntas realizadas en el pasado] por otros participantes.
+las link:../faq/[preguntas realizadas en el pasado] por otros participantes.
 
 * Puede expresar tus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 

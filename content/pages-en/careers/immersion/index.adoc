@@ -75,7 +75,7 @@ you must train at your maximum capacity and dedication possible.
 the same [button]#link:../technical-challenges/#criteria[criteria]#
 from the challenge stage.
 . For the articles,
-the criteria defined in the [button]#link:../../style[style guide]#
+the criteria defined in the [button]#link:../../style/[style guide]#
 
 == 5. Cycles
 
@@ -114,8 +114,8 @@ the documents that allow us to make payments to your account:
 
 This stage begins when:
 
-. You finish the link:../technical-challenges[technical challenge stage]
-. You register as a third party in this [button]#link:../../../../forms/third-party[form]#
+. You finish the link:../technical-challenges/[technical challenge stage]
+. You register as a third party in this [button]#link:../../../../forms/tercero[form]#
 following these instructions:
 .. *Business name:* Enter your full name.
 .. *+ITIN/SSN+:* Follow the instructions in

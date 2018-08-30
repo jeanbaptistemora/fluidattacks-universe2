@@ -94,7 +94,7 @@ or less start from scratch.
 To know what we must change to be functional,
 it is enough to read what is functional programming
 and what are its cornerstones (we recommend you to read
-[button]#link:/web/en/blog/why-we-go-functional/[Why we go functional?]#).
+[button]#link:../why-we-go-functional/[Why we go functional?]#).
 This paradigm is against classes
 because this structures stimulate
 the use of states and its mutations.

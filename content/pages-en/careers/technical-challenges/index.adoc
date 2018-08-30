@@ -493,7 +493,7 @@ Then, follow the same procedure described above for +Linux+.
 
 * Before you send us a question,
 please read this document carefully once more and
-our link:../faq[Frequently Asked Questions].
+our link:../faq/[Frequently Asked Questions].
 
 * You can tell us your doubts and
 questions in our *#general*

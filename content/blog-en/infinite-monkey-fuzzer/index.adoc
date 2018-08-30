@@ -62,7 +62,7 @@ we can count:
 
 * corpus distillation
 * program flow analysis
-* link:../symbolic-execution-mortals[symbolic execution], and
+* link:../symbolic-execution-mortals/[symbolic execution], and
 * static analysis.
 
 However, while these methods appear to be very promising,

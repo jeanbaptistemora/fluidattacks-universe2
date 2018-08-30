@@ -66,7 +66,7 @@ la máxima dedicación posible.
 
 . Para los retos, los mismos [button]#link:../retos-tecnicos/#criterios[criterios]#
 de la etapa de retos.
-. Para los artículos, los criterios definidos en la guía de [button]#link:../../estilo[estilo]#
+. Para los artículos, los criterios definidos en la guía de [button]#link:../../estilo/[estilo]#
 
 == 5. Ciclos
 
@@ -106,7 +106,7 @@ los documentos que permiten consignar el dinero a tu cuenta:
 
 Esta etapa comienza cuando:
 
-. Hayas finalizado la etapa de link:../retos-tecnicos[retos técnicos]
+. Hayas finalizado la etapa de link:../retos-tecnicos/[retos técnicos]
 . Te registres como tercero en el siguiente [button]#link:../../../../forms/tercero[formulario]#
 de acuerdo a estas indicaciones:
 .. *Razón social:* Ingresa tu nombre completo.

@@ -30,7 +30,7 @@ Con lo cual buscamos:
 ** Ser objetivos, precisos y justos en la evaluación del desempeño.
 
 * En +Fluid Attacks+ seguimos un código de ética,
-el cual puedes conocer haciendo click [button]#link:../../valores[aquí]#
+el cual puedes conocer haciendo click [button]#link:../../valores/[aquí]#
 
 == El proceso de selección
 

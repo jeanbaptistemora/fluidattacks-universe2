@@ -276,7 +276,7 @@ Those are stored in
 link:https://www.cyberciti.biz/faq/understanding-etcshadow-file/[+/etc/shadow+]
 in the form of hashes,
 which can be
-link:../storing-password-safely[cracked if the passwords are weak].
+link:../storing-password-safely/[cracked if the passwords are weak].
 However, the +shadow+ file,
 unlike the +passwd+ file,
 is protected:

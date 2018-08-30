@@ -19,7 +19,7 @@ fill out the following [button]#link:https://fluidattacks.com/forms/seleccion[fo
 == The Company
 
 We invite you to read our
-[button]#link:../../about-us[About us]# section
+[button]#link:../../about-us/[About us]# section
 for more information about +Fluid Attacks+.
 
 === Context
@@ -31,7 +31,7 @@ With which we look to:
 ** Be objective, precise and fair in the performance evaluation.
 
 * In +Fluid Attacks+ we follow an ethics code
-which you can read by clicking [button]#link:../../values[here]#
+which you can read by clicking [button]#link:../../values/[here]#
 
 == The Selection Process
 

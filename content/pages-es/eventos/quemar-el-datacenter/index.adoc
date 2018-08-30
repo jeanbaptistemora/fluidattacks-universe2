@@ -122,4 +122,4 @@ Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas
 
 == 9. Expositor
 
-[button]#link:../../personas/ralvarez[Rafael Alvarez]#
+[button]#link:../../personas/ralvarez/[Rafael Alvarez]#
