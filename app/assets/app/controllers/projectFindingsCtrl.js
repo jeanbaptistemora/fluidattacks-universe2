@@ -34,31 +34,6 @@ removeHour = function removeHourFunction (value) {
  * @member integrates.registerCtrl
  * @return {string} Html code for specific label
  */
-/* eslint-disable-next-line  func-name-matching */
-labelState = function labelStateFunction (value) {
-  if (value === "Cerrado") {
-    return "<label class='label label-success' style='background-color: " +
-           "#31c0be'>Cerrado</label>";
-  }
-  else if (value === "Closed") {
-    return "<label class='label label-success' style='background-color: " +
-           "#31c0be'>Closed</label>";
-  }
-  else if (value === "Abierto") {
-    return "<label class='label label-danger' style='background-color: " +
-           "#f22;'>Abierto</label>";
-  }
-  else if (value === "Open") {
-    return "<label class='label label-danger' style='background-color: " +
-           "#f22;'>Open</label>";
-  }
-  else if (value === "Parcialmente cerrado") {
-    return "<label class='label label-info' style='background-color: " +
-           "#ffbf00'>Parcialmente cerrado</label>";
-  }
-  return "<label class='label label-info' style='background-color: " +
-         "#ffbf00'>Partially closed</label>";
-};
 
 /**
  * Controller definition for finding tab view.
@@ -120,17 +95,13 @@ angular.module("FluidIntegrates").controller(
       $scope.goUp();
       $scope.finding = {};
     };
+    $scope.deleteProject = function deleteProject () {
+      functionsFtry4.deleteProject();
+    };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.search = function search () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
       const projectName = $stateParams.project;
       const tableFilter = $scope.filter;
       let hasAccess = true;
@@ -175,7 +146,7 @@ angular.module("FluidIntegrates").controller(
             projectData[0].fluidProject.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
-          $scope.loadFindingContent(projectData, vlang);
+          $scope.loadFindingContent(projectData);
         }
         else {
           const reqProject = projectFtry.projectByName(
@@ -223,7 +194,7 @@ angular.module("FluidIntegrates").controller(
                 }
                 else {
                   projectData = response.data;
-                  $scope.loadFindingContent(projectData, vlang);
+                  $scope.loadFindingContent(projectData);
                 }
               }
             }
@@ -245,7 +216,16 @@ angular.module("FluidIntegrates").controller(
       }
       return true;
     };
-    $scope.loadFindingContent = function loadFindingContent (datatest, vlang) {
+    $scope.goToFinding = function goToFinding (rowInfo) {
+      // Mixpanel tracking
+      mixPanelDashboard.trackFinding("ReadFinding", userEmail, rowInfo.id);
+      $scope.currentScrollPosition = angular.element(document).scrollTop();
+      $state.go("FindingDescription", {
+        "id": rowInfo.id,
+        "project": rowInfo.fluidProject.toLowerCase()
+      });
+    };
+    $scope.loadFindingContent = function loadFindingContent (datatest) {
       const org = Organization.toUpperCase();
       const projt = $stateParams.project.toUpperCase();
       functionsFtry1.alertHeader(org, projt);
@@ -260,35 +240,74 @@ angular.module("FluidIntegrates").controller(
         }
       }
       // Findings table configuration
-      angular.element("#vulnerabilities").bootstrapTable("destroy");
-      angular.element("#vulnerabilities").bootstrapTable({
-        "cookie": true,
-        "cookieIdTable": "saveId",
-        "data": datatest,
-        "exportDataType": "all",
-        "locale": vlang,
-        "onClickRow" (row) {
-          $state.go("FindingDescription", {
-            "id": row.id,
-            "project": row.fluidProject.toLowerCase()
-          });
-          angular.element("#infoItem").addClass("active");
-          angular.element("#info").addClass("active");
-          angular.element("#cssv2Item").removeClass("active");
-          angular.element("#cssv2").removeClass("active");
-          angular.element("#trackingItem").removeClass("active");
-          angular.element("#tracking").removeClass("active");
-          angular.element("#evidenceItem").removeClass("active");
-          angular.element("#evidence").removeClass("active");
-          angular.element("#exploitItem").removeClass("active");
-          angular.element("#exploit").removeClass("active");
-          // Mixpanel tracking
-          mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
-          $scope.currentScrollPosition = angular.element(document).scrollTop();
+      $scope.tblFindingsHeaders = [
+        {
+          "align": "center",
+          "dataField": "edad",
+          "header": $translate.instant("search_findings.headings.age"),
+          "width": "4.8%"
         },
-        "pageSize": 50
-      });
-      angular.element("#vulnerabilities").bootstrapTable("refresh");
+        {
+          "align": "center",
+          "dataField": "lastVulnerability",
+          "header":
+            $translate.instant("search_findings.headings.lastVulnerability"),
+          "width": "4.8%"
+        },
+        {
+          "align": "center",
+          "dataField": "clientFindingType",
+          "header": $translate.instant("search_findings.headings.type"),
+          "width": "6.5%"
+        },
+        {
+          "align": "left",
+          "dataField": "finding",
+          "header": $translate.instant("search_findings.headings.finding"),
+          "width": "6%",
+          "wrapped": true
+        },
+        {
+          "align": "left",
+          "dataField": "vulnerability",
+          "header":
+            $translate.instant("search_findings.headings.vulnerability"),
+          "width": "13%",
+          "wrapped": true
+        },
+        {
+          "align": "center",
+          "dataField": "criticity",
+          "header": $translate.instant("search_findings.headings.criticity"),
+          "width": "5.5%"
+        },
+        {
+          "align": "center",
+          "dataField": "openVulnerabilities",
+          "header": $translate.instant("search_findings.headings.cardinality"),
+          "width": "5%"
+        },
+        {
+          "align": "center",
+          "dataField": "estado",
+          "header": $translate.instant("search_findings.headings.state"),
+          "isStatus": true,
+          "width": "10.5%"
+        },
+        {
+          "align": "center",
+          "dataField": "treatment",
+          "header": $translate.instant("search_findings.headings.treatment"),
+          "width": "6%"
+        },
+        {
+          "align": "center",
+          "dataField": "exploitable",
+          "header": $translate.instant("search_findings.headings.exploit"),
+          "width": "6%"
+        }
+      ];
+      $scope.findingsDataset = datatest;
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 
@@ -297,7 +316,6 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
       }
-      $scope.data = datatest;
       if (!$scope.isManager) {
         $scope.openEvents = projectFtry.alertEvents(eventsData);
         $scope.atAlert = $translate.instant("main_content.eventualities." +

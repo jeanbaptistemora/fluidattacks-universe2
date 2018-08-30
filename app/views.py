@@ -94,20 +94,6 @@ def project_findings(request):
     language = request.GET.get('l', 'en')
     dicLang = {
         "search_findings": {
-            "headings": {
-                "action": "Action",
-                "age": "Age (Days)",
-                "cardinality": "Open Vuln.",
-                "criticity": "Severity",
-                "exploit": "Exploitable",
-                "finding": "Title",
-                "lastVulnerability": "Last Report (Days)",
-                "state": "Status",
-                "timestamp": "Date",
-                "treatment": "Treatment",
-                "type": "Type",
-                "vulnerability": "Description"
-            },
             "descriptions": {
                 "description1": "",
                 "description2": "Click",
@@ -122,20 +108,6 @@ def project_findings(request):
     if language == "es":
         dicLang = {
             "search_findings": {
-                "headings": {
-                    "action": "Accion",
-                    "age": "Edad (Días)",
-                    "cardinality": "Vuln. Abiertas",
-                    "criticity": "Severidad",
-                    "exploit": "Explotable",
-                    "finding": "Titulo",
-                    "lastVulnerability": "Último Reporte (Días)",
-                    "state": "Estado",
-                    "timestamp": "Fecha",
-                    "treatment": "Tratamiento",
-                    "type": "Tipo",
-                    "vulnerability": "Descripcion"
-                },
                 "descriptions": {
                     "description1": "Haz",
                     "description2": "click",

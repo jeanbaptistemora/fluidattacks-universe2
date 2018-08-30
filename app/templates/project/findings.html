@@ -146,75 +146,14 @@
                             <div id="toolbar" style="padding-top: 5%;">
                               <p>{{ search_findings.descriptions.description1 }} <b>{{ search_findings.descriptions.description2 }}</b> {{ search_findings.descriptions.description3 }}</p>
                             </div>
-
-                            <table id="vulnerabilities"
-                                   class="fixed-table-container"
-                                   data-click-to-select="true"
-                                   data-classes="table table-hover table-striped"
-                                   data-striped="true"
-                                   data-show-columns="true"
-                                   data-cookie="true"
-                                   data-cookie-id-table="saveId"
-                                   data-show-export="true"
-                                   data-export-types="['sql', 'excel']"
-                                   data-pagination="true"
-                                   data-search="true"
-                                   data-page-size="15"
-                                   data-toolbar="#toolbar">
-                                <thead>
-                                    <tr class="head-blue result_table_header" style="background-color: #0361cc; color:white;">
-                                        <th data-field="releaseDate"
-                                            data-sortable="true"
-                                            data-width="5%"
-                                            data-formatter="removeHour"
-                                            data-visible="false"
-                                            class="result_table_col"
-                                            data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.timestamp }}
-                                        </th>
-                                        <th data-field="edad"
-                                            data-align="center"
-                                            data-width="5%"
-                                            data-sortable="true"
-                                            class="result_table_col"
-                                            data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.age }}
-                                        </th>
-                                        <th data-field="lastVulnerability"
-                                            data-align="center"
-                                            data-width="5%"
-                                            data-sortable="true"
-                                            class="result_table_col"
-                                            data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.lastVulnerability }}
-                                        </th>
-                                        <th data-field="clientFindingType" data-width="5%" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.type }}
-                                        </th>
-                                        <th data-field="finding" data-width="15%" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.finding }}
-                                        </th>
-                                        <th data-field="vulnerability" data-width="40%" style="display:none;" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.vulnerability }}
-                                        </th>
-                                        <th data-field="criticity" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.criticity }}
-                                        </th>
-                                        <th data-field="openVulnerabilities" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.cardinality }}
-                                        </th>
-                                        <th data-field="estado" data-width="5%" data-sortable="true" data-formatter="labelState" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.state }}
-                                        </th>
-                                        <th data-field="treatment" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.treatment }}
-                                        </th>
-                                        <th data-field="exploitable" data-width="5%" data-align="center" data-sortable="true" class="result_table_col" data-halign="center" data-valign="middle">
-                                            {{ search_findings.headings.exploit }}
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
+                            <d-table
+                              dataset="findingsDataset"
+                              export-csv="true"
+                              headers="tblFindingsHeaders"
+                              on-click-row="goToFinding"
+                              page-size="15"
+                              search="true"
+                            />
                         </div>
                     </div>
                 </div>

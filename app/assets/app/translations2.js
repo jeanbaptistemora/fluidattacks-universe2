@@ -36,6 +36,20 @@ const translations2 = {
        "placeholder": "FLUID project name"
      }
    },
+   "headings": {
+     "action": "Action",
+     "age": "Age (Days)",
+     "cardinality": "Open Vuln.",
+     "criticity": "Severity",
+     "exploit": "Exploitable",
+     "finding": "Title",
+     "lastVulnerability": "Last Report (Days)",
+     "state": "Status",
+     "timestamp": "Date",
+     "treatment": "Treatment",
+     "type": "Type",
+     "vulnerability": "Description"
+   },
    "page_head": {"breadcrumb": {"project": "Project"}},
    "pop_table":
     {
