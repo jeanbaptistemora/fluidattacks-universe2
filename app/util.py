@@ -218,17 +218,37 @@ def assert_file_mime(filename, allowed_mimes):
     mime_type = mime.from_file(filename)
     return mime_type in allowed_mimes
 
+def has_release(finding):
+    return "releaseDate" in finding
+
+def get_last_vuln(finding):
+    """Gets last release of a finding"""
+    tzn = pytz.timezone('America/Bogota')
+    finding_last_vuln = datetime.datetime.strptime(
+        finding["releaseDate"].split(" ")[0],
+        '%Y-%m-%d'
+    )
+    finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+    return finding_last_vuln
+
 def validate_release_date(finding):
-    """Validate if a release has a valid date."""
-    if 'releaseDate' in finding:
+    """Validate if a finding has a valid relese date."""
+    if has_release(finding):
+        last_vuln = get_last_vuln(finding)
         tzn = pytz.timezone('America/Bogota')
         today_day = datetime.datetime.now(tz=tzn).date()
-        finding_last_vuln = datetime.datetime.strptime(
-            finding["releaseDate"].split(" ")[0],
-            '%Y-%m-%d'
-        )
-        finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-        result = finding_last_vuln <= today_day
+        result = last_vuln <= today_day
+    else:
+        result = False
+    return result
+
+def validate_future_releases(finding):
+    """Validate if a finding has a future release."""
+    if has_release(finding):
+        last_vuln = get_last_vuln(finding)
+        tzn = pytz.timezone('America/Bogota')
+        today_day = datetime.datetime.now(tz=tzn).date()
+        result = last_vuln > today_day
     else:
         result = False
     return result

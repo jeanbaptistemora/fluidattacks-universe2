@@ -131,15 +131,12 @@ def project_drafts(request):
         "search_findings": {
             "headings": {
                 "action": "Action",
-                "age": "Age (Days)",
                 "cardinality": "Open Vuln.",
                 "criticity": "Severity",
                 "exploit": "Exploitable",
                 "finding": "Title",
-                "lastVulnerability": "Last Report (Days)",
-                "state": "Status",
+                "released": "Released",
                 "timestamp": "Date",
-                "treatment": "Treatment",
                 "type": "Type",
                 "vulnerability": "Description"
             },
@@ -158,15 +155,12 @@ def project_drafts(request):
             "search_findings": {
                 "headings": {
                     "action": "Accion",
-                    "age": "Edad (Días)",
                     "cardinality": "Vuln. Abiertas",
                     "criticity": "Severidad",
                     "exploit": "Explotable",
                     "finding": "Titulo",
-                    "lastVulnerability": "Último Reporte (Días)",
-                    "state": "Estado",
+                    "released": "Liberado",
                     "timestamp": "Fecha",
-                    "treatment": "Tratamiento",
                     "type": "Tipo",
                     "vulnerability": "Descripcion"
                 },
@@ -627,7 +621,12 @@ def get_drafts(request):
             util.cloudwatch_log(request, 'Warning: Project masked')
             return util.response([], 'Project masked', True)
         if finding['fluidProject'].lower() == project.lower() and \
-                'releaseDate' not in finding:
+                ('releaseDate' not in finding or
+                    util.validate_future_releases(finding)):
+            if finding.get("edad"):
+                finding["releaseStatus"] = "Si"
+            else:
+                finding["releaseStatus"] = "No"
             findings.append(finding)
     return util.response(findings, 'Success', False)
 
@@ -710,36 +709,45 @@ def catch_finding(request, submission_id):
                     finding['edad'] = '-'
                     finding['lastVulnerability'] = '-'
                 else:
-                    if 'timestamp' in state:
-                        if 'lastVulnerability' in finding and \
-                                finding['lastVulnerability'] != state['timestamp']:
-                            finding['lastVulnerability'] = state['timestamp']
-                            generic_dto = FindingDTO()
-                            generic_dto.create_last_vulnerability(finding)
-                            generic_dto.to_formstack()
-                            api.update(generic_dto.request_id, generic_dto.data)
-                    if 'releaseDate' in finding:
-                        tzn = pytz.timezone('America/Bogota')
-                        finding_date = datetime.strptime(
-                            finding["releaseDate"].split(" ")[0],
-                            '%Y-%m-%d'
-                        )
-                        finding_date = finding_date.replace(tzinfo=tzn).date()
-                        final_date = (datetime.now(tz=tzn).date() - finding_date)
-                        finding['edad'] = ":n".replace(":n", str(final_date.days))
-                        finding_last_vuln = datetime.strptime(
-                            finding["lastVulnerability"].split(" ")[0],
-                            '%Y-%m-%d'
-                        )
-                        finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-                        final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
-                        finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
-                    else:
-                        finding['lastVulnerability'] = '-'
+                    finding = format_release_date(finding, state)
                 return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
+
+def format_release_date(finding, state):
+    primary_keys = ["finding_id", finding["id"]]
+    table_name = "FI_findings_new"
+    finding_dynamo = integrates_dao.get_data_dynamo(
+        table_name, primary_keys[0], primary_keys[1])
+    if finding_dynamo:
+        if finding_dynamo[0].get("releaseDate"):
+            finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
+        if finding_dynamo[0].get("lastVulnerability"):
+            finding["lastVulnerability"] = finding_dynamo[0].get("lastVulnerability")
+    if 'timestamp' in state:
+        if finding.get('lastVulnerability') != state['timestamp']:
+            finding['lastVulnerability'] = state['timestamp']
+            integrates_dao.add_attribute_dynamo(
+                table_name, primary_keys, "lastVulnerability", state['timestamp'])
+    if finding.get("releaseDate"):
+        final_date = format_finding_date(finding["releaseDate"])
+        finding['edad'] = ":n".replace(":n", str(final_date.days))
+        final_vuln_date = format_finding_date(finding["lastVulnerability"])
+        finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
+    else:
+        finding['lastVulnerability'] = '-'
+    return finding
+
+def format_finding_date(format_attr):
+    tzn = pytz.timezone('America/Bogota')
+    finding_date = datetime.strptime(
+        format_attr.split(" ")[0],
+        '%Y-%m-%d'
+    )
+    finding_date = finding_date.replace(tzinfo=tzn).date()
+    final_date = (datetime.now(tz=tzn).date() - finding_date)
+    return final_date
 
 def finding_vulnerabilities(submission_id):
     finding = []
@@ -769,7 +777,16 @@ def finding_vulnerabilities(submission_id):
         if state['estado'] == 'Cerrado':
             finding['where'] = '-'
             finding['edad'] = '-'
-        elif 'releaseDate' in finding:
+        primary_keys = ["finding_id", submission_id]
+        table_name = "FI_findings_new"
+        finding_dynamo = integrates_dao.get_data_dynamo(
+            table_name, primary_keys[0], primary_keys[1])
+        if finding_dynamo:
+            if finding_dynamo[0].get("releaseDate"):
+                finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
+            if finding_dynamo[0].get("lastVulnerability"):
+                finding["lastVulnerability"] = finding_dynamo[0].get("lastVulnerability")
+        if finding.get("releaseDate"):
             tzn = pytz.timezone('America/Bogota')
             today_day = datetime.now(tz=tzn).date()
             finding_last_vuln = datetime.strptime(
@@ -778,12 +795,7 @@ def finding_vulnerabilities(submission_id):
             )
             finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
             if finding_last_vuln <= today_day:
-                finding_date = datetime.strptime(
-                    finding["releaseDate"].split(" ")[0],
-                    '%Y-%m-%d'
-                )
-                finding_date = finding_date.replace(tzinfo=tzn).date()
-                final_date = (datetime.now(tz=tzn).date() - finding_date)
+                final_date = format_finding_date(finding["releaseDate"])
                 finding['edad'] = ":n".replace(":n", str(final_date.days))
         return finding
     else:
@@ -1518,7 +1530,6 @@ def get_alerts(request):
 # pylint: disable=R0101
 def accept_draft(request):
     parameters = request.POST.get('findingid', "")
-    generic_dto = FindingDTO()
     try:
         finding = catch_finding(request, parameters)
         if "releaseDate" not in finding:
@@ -1544,11 +1555,13 @@ def accept_draft(request):
             release = {}
             release['id'] = parameters
             release['releaseDate'] = releaseDate
-            generic_dto.create_release(release)
-            generic_dto.to_formstack()
-            api = FormstackAPI()
-            request = api.update(generic_dto.request_id, generic_dto.data)
-            if request:
+            primary_keys = ["finding_id", parameters]
+            table_name = "FI_findings_new"
+            has_release = integrates_dao.add_attribute_dynamo(
+                table_name, primary_keys, "releaseDate", releaseDate)
+            has_last_vuln = integrates_dao.add_attribute_dynamo(
+                table_name, primary_keys, "lastVulnerability", releaseDate)
+            if has_release and has_last_vuln:
                 integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True, releaseDate)
                 return util.response([], 'success', False)
             else:

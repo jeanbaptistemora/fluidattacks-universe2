@@ -21,7 +21,8 @@ const fieldsToTranslate = [
   "clientFindingType",
   "testType",
   "accessVector",
-  "treatment"
+  "treatment",
+  "releaseStatus"
 ];
 const eventsTranslations = [
   "type",

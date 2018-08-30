@@ -1298,7 +1298,7 @@ def update_project_access_dynamo(
 
 
 def get_data_dynamo(table_name, primary_name_key, primary_key):
-    """Gets atributes data"""
+    """Get atributes data."""
     table = dynamodb_resource.Table(table_name)
     primary_key = primary_key.lower()
     filter_key = primary_name_key
@@ -1396,6 +1396,54 @@ def remove_list_resource_dynamo(
             UpdateExpression='REMOVE #attrName[' + str(index) + ']',
             ExpressionAttributeNames={
                 '#attrName': attr_name
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+def add_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
+    """Adding an attribute to a dynamo table."""
+    table = dynamodb_resource.Table(table_name)
+    item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
+    if item:
+        try:
+            response = table.put_item(
+                Item={
+                    primary_keys[0]: primary_keys[1],
+                    attr_name: attr_value
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        return update_attribute_dynamo(
+            table_name,
+            primary_keys,
+            attr_name,
+            attr_value)
+
+
+def update_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
+    """Updating an attribute to a dynamo table."""
+    table = dynamodb_resource.Table(table_name)
+    try:
+        response = table.update_item(
+            Key={
+                primary_keys[0]: primary_keys[1],
+            },
+            UpdateExpression='SET #attrName = :val1',
+            ExpressionAttributeNames={
+                '#attrName': attr_name
+            },
+            ExpressionAttributeValues={
+                ':val1': attr_value
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

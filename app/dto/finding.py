@@ -92,24 +92,6 @@ class FindingDTO(object):
         self.create_description(parameter)
         self.create_cssv2(parameter)
 
-    def create_last_vulnerability(self, parameter):
-        if "id" in parameter:
-            self.request_id \
-                = parameter["id"]
-        if "lastVulnerability" in parameter:
-            self.data[self.LAST_VULNERABILITY] \
-                = parameter["lastVulnerability"]
-
-    def create_release(self, parameter):
-        if "id" in parameter:
-            self.request_id \
-                = parameter["id"]
-        if "releaseDate" in parameter:
-            self.data[self.RELEASE_DATE] \
-                = parameter["releaseDate"]
-            self.data[self.LAST_VULNERABILITY] \
-                = parameter["releaseDate"]
-
     def create_evidence_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """
         if "data[id]" in parameter:
