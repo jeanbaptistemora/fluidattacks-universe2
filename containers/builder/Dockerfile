@@ -6,6 +6,7 @@ ARG vault_ca
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
         apt-transport-https \
+        bzip2 \
         ca-certificates \
         curl \
         gcc \
@@ -13,12 +14,18 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         git \
         gnupg2 \
         jq \
+        libgtk-3-dev \
+        libx11-xcb-dev \
+        libxt6 \
         lsb-release \
         netbase \
         openssh-client \
         python \
+        python3 \
         python-dev \
+        python3-dev \
         python-pip \
+        python3-pip \
         software-properties-common \
         unzip \
     && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip \
@@ -38,6 +45,16 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         && rm -rf helm.tar.gz linux-amd64 \
     && pip install --upgrade pip \
         && pip install awscli \
+    && pip3 install --upgrade selenium requests \
+    && curl -LSo geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.21.0/geckodriver-v0.21.0-linux64.tar.gz \
+         && tar -zxvf geckodriver.tar.gz \
+         && mv geckodriver /usr/local/bin/ \
+         && rm geckodriver.tar.gz \
+    && curl -LSo firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/61.0/linux-x86_64/en-US/firefox-61.0.tar.bz2 \
+         && tar xjvf firefox.tar.bz2 \
+         && mv firefox/ /opt \
+         && ln -s /opt/firefox/firefox /usr/local/bin/firefox \
+         && rm firefox.tar.bz2 \
     && add-apt-repository \
        "deb [arch=amd64] https://download.docker.com/linux/debian \
        $(lsb_release -cs) \
