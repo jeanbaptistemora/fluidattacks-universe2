@@ -39,10 +39,12 @@ import org.apache.commons.lang3.StringEscapeUtils;
 . La clase +StringEscapeUtils+ que se encuentra en el paquete
 +org.apache.commons.lang3+ de la biblioteca +Apache Commons+
 permite codificar la información de salida
-en un formato especifico (+HTML+, +JavaScript+, +CSS+, +SQL+, +XML+).
+en un formato especifico;
+dichos formatos pueden ser +HTML+, +JavaScript+, +CSS+, +SQL+, +XML+.
 
 . La clase +StringEscapeUtils+ ofrece los siguientes métodos estáticos
-que pueden ser usados para codificar la información de salida
+los cuales pueden ser usados
+para codificar la información de salida
 a un formato especifico.
 +
 [source, java, linenums]
@@ -57,7 +59,7 @@ escapeCsv (String str)
 . Cada uno de los métodos anteriormente mencionados,
 devuelve una cadena de caracteres con la información codificada.
 Para codificar la información que se muestra
-dentro de un código +HTML+ por ejemplo,
+dentro de un código +HTML+, por ejemplo,
 se puede usar el método +escapeHtml4+ de la siguiente forma:
 +
 [source, java, linenums]
@@ -69,7 +71,7 @@ String mensaje= request.getParameter("mensaje");
 
 . Esta clase puede usarse desde cualquier aplicación +Java+.
 A continuación se presenta un ejemplo
-de como utilizarla en una aplicación web.
+de como puede ser utilizada en una aplicación web.
 +
 [source, bash, linenums]
 ----
@@ -144,6 +146,4 @@ gracias a que las comillas simples fueron escapadas.
 . [[r2]] link:https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet[XSS Prevention Cheat Sheet]
 . [[r3]] link:https://commons.apache.org/proper/commons-lang/javadocs/api-2.6/org/apache/commons/lang/StringEscapeUtils.html[Class StringEscapeUtils]
 . [[r4]] link:http://www.java2s.com/Code/Jar/c/Downloadcommonslang331jar.htm[commons-lang3-3.1.jar]
-. [[r5]] REQ.0168 El sistema debe descartar
-toda la información potencialmente insegura
-que sea recibida por entradas de datos.
+. [[r5]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]

@@ -260,7 +260,4 @@ para comprobar que la aplicación no presenta fallas de inyección.
 
 . [[r1]] link:https://www.owasp.org/index.php/Preventing_SQL_Injection_in_Java[SQL Injection Prevention Cheat Sheet]
 . [[r2]] link:http://hdiv.org/[HDVI]
-. [[r3]] REQ.0164: Debe usarse construcciones parametrizadas
-o procedimientos almacenados parametrizados
-para la creación dinámica de sentencias
-(ej: java.sql.PreparedStatement)
+. [[r3]] link:../../../rules/169/[REQ.169 Usar construcciones parametrizadas]
