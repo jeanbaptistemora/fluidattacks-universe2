@@ -129,48 +129,19 @@ def project_drafts(request):
     language = request.GET.get('l', 'en')
     dicLang = {
         "search_findings": {
-            "headings": {
-                "action": "Action",
-                "cardinality": "Open Vuln.",
-                "criticity": "Severity",
-                "exploit": "Exploitable",
-                "finding": "Title",
-                "released": "Released",
-                "timestamp": "Date",
-                "type": "Type",
-                "vulnerability": "Description"
-            },
             "descriptions": {
                 "description1": "",
                 "description2": "Click",
                 "description3": "on a finding to see more details"
-            },
-            "filter_buttons": {
-               "advance": "Progress"
-            },
-        }
+            },        }
     }
     if language == "es":
         dicLang = {
             "search_findings": {
-                "headings": {
-                    "action": "Accion",
-                    "cardinality": "Vuln. Abiertas",
-                    "criticity": "Severidad",
-                    "exploit": "Explotable",
-                    "finding": "Titulo",
-                    "released": "Liberado",
-                    "timestamp": "Fecha",
-                    "type": "Tipo",
-                    "vulnerability": "Descripcion"
-                },
                 "descriptions": {
                     "description1": "Haz",
                     "description2": "click",
                     "description3": "para ver mas detalles del hallazgo"
-                },
-                "filter_buttons": {
-                   "advance": "Avance"
                 }
             }
         }

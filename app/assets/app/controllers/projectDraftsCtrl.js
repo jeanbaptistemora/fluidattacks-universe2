@@ -14,51 +14,6 @@ $window */
  * @file projectDraftsCtrl.js
  * @author engineering@fluidattacks.com
  */
-/**
- * @function removeHour
- * @param {string} value Date of the finging with hour
- * @member integrates.registerCtrl
- * @return {string} Date without hour
- */
-/* eslint-disable-next-line  func-name-matching */
-removeHour = function removeHourFunction (value) {
-  if (value.indexOf(":") !== -1) {
-    return value.split(" ")[0];
-  }
-  return value;
-};
-
-/**
- * @function labelState
- * @param {string} value Status of the finding
- * @member integrates.registerCtrl
- * @return {string} Html code for specific label
- */
-/* eslint-disable-next-line  func-name-matching */
-labelState = function labelStateFunction (value) {
-  if (value === "Cerrado") {
-    return "<label class='label label-success' style='background-color: " +
-           "#31c0be'>Cerrado</label>";
-  }
-  else if (value === "Closed") {
-    return "<label class='label label-success' style='background-color: " +
-           "#31c0be'>Closed</label>";
-  }
-  else if (value === "Abierto") {
-    return "<label class='label label-danger' style='background-color: " +
-           "#f22;'>Abierto</label>";
-  }
-  else if (value === "Open") {
-    return "<label class='label label-danger' style='background-color: " +
-           "#f22;'>Open</label>";
-  }
-  else if (value === "Parcialmente cerrado") {
-    return "<label class='label label-info' style='background-color: " +
-           "#ffbf00'>Parcialmente cerrado</label>";
-  }
-  return "<label class='label label-info' style='background-color: " +
-         "#ffbf00'>Partially closed</label>";
-};
 
 /**
  * Controller definition for finding tab view.
@@ -233,7 +188,16 @@ angular.module("FluidIntegrates").controller(
       }
       return true;
     };
-    $scope.loadDraftContent = function loadDraftContent (datatest, vlang) {
+    $scope.goToDraft = function goToDraft (rowInfo) {
+      // Mixpanel tracking
+      mixPanelDashboard.trackFinding("ReadDraft", userEmail, rowInfo.id);
+      $scope.currentScrollPosition = angular.element(document).scrollTop();
+      $state.go("FindingDescription", {
+        "id": rowInfo.id,
+        "project": rowInfo.fluidProject.toLowerCase()
+      });
+    };
+    $scope.loadDraftContent = function loadDraftContent (datatest) {
       const org = Organization.toUpperCase();
       const projt = $stateParams.project.toUpperCase();
       functionsFtry1.alertHeader(org, projt);
@@ -248,35 +212,61 @@ angular.module("FluidIntegrates").controller(
         }
       }
       // Drafts table configuration
-      angular.element("#drafts").bootstrapTable("destroy");
-      angular.element("#drafts").bootstrapTable({
-        "cookie": true,
-        "cookieIdTable": "saveId",
-        "data": datatest,
-        "exportDataType": "all",
-        "locale": vlang,
-        "onClickRow" (row) {
-          $state.go("FindingDescription", {
-            "id": row.id,
-            "project": row.fluidProject.toLowerCase()
-          });
-          angular.element("#infoItem").addClass("active");
-          angular.element("#info").addClass("active");
-          angular.element("#cssv2Item").removeClass("active");
-          angular.element("#cssv2").removeClass("active");
-          angular.element("#trackingItem").removeClass("active");
-          angular.element("#tracking").removeClass("active");
-          angular.element("#evidenceItem").removeClass("active");
-          angular.element("#evidence").removeClass("active");
-          angular.element("#exploitItem").removeClass("active");
-          angular.element("#exploit").removeClass("active");
-          // Mixpanel tracking
-          mixPanelDashboard.trackFinding("ReadDraft", userEmail, row.id);
-          $scope.currentScrollPosition = angular.element(document).scrollTop();
+      $scope.tblDraftsHeaders = [
+        {
+          "align": "center",
+          "dataField": "timestamp",
+          "header": $translate.instant("search_findings.headings.timestamp"),
+          "isDate": true,
+          "width": "4.8%"
         },
-        "pageSize": 50
-      });
-      angular.element("#drafts").bootstrapTable("refresh");
+        {
+          "align": "center",
+          "dataField": "clientFindingType",
+          "header": $translate.instant("search_findings.headings.type"),
+          "width": "6.5%"
+        },
+        {
+          "align": "left",
+          "dataField": "finding",
+          "header": $translate.instant("search_findings.headings.finding"),
+          "width": "6%",
+          "wrapped": true
+        },
+        {
+          "align": "left",
+          "dataField": "vulnerability",
+          "header":
+            $translate.instant("search_findings.headings.vulnerability"),
+          "width": "13%",
+          "wrapped": true
+        },
+        {
+          "align": "center",
+          "dataField": "criticity",
+          "header": $translate.instant("search_findings.headings.criticity"),
+          "width": "5.5%"
+        },
+        {
+          "align": "center",
+          "dataField": "openVulnerabilities",
+          "header": $translate.instant("search_findings.headings.cardinality"),
+          "width": "5%"
+        },
+        {
+          "align": "center",
+          "dataField": "exploitable",
+          "header": $translate.instant("search_findings.headings.exploit"),
+          "width": "6%"
+        },
+        {
+          "align": "center",
+          "dataField": "releaseStatus",
+          "header": $translate.instant("search_findings.headings.released"),
+          "width": "6%"
+        }
+      ];
+      $scope.draftsDataset = datatest;
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 

@@ -38,6 +38,7 @@ interface IHeader {
   align?: DataAlignType;
   dataField: string;
   header: string;
+  isDate: boolean;
   isStatus: boolean;
   width?: string;
   wrapped?: boolean;
@@ -75,6 +76,16 @@ const statusFormatter: ((value: string) => ReactElement<Label>) =
     );
 };
 
+const dateFormatter: ((value: string) => string) =
+  (value: string): string => {
+  if (value.indexOf(":") !== -1) {
+
+    return value.split(" ")[0];
+  }
+
+  return value;
+};
+
 const dataTable: React.StatelessComponent<ITableProps> =
   (props: ITableProps): JSX.Element => (
     <React.StrictMode>
@@ -105,7 +116,9 @@ const dataTable: React.StatelessComponent<ITableProps> =
                 dataField={key.dataField}
                 dataFormat={
                  key.isStatus ? statusFormatter :
-                                (value: string): string => value
+                                (key.isDate ? dateFormatter :
+                                  (value: string): string => value)
+
                 }
                 dataSort={true}
                 key={i}

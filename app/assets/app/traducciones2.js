@@ -46,6 +46,7 @@ const traducciones2 = {
     "exploit": "Explotable",
     "finding": "Titulo",
     "lastVulnerability": "Último Reporte (Días)",
+    "released": "Liberado",
     "state": "Estado",
     "timestamp": "Fecha",
     "treatment": "Tratamiento",
