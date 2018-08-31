@@ -257,9 +257,5 @@ Clase LoginServlet.
 . [[r1]] link:https://sourceforge.net/projects/jcaptcha/[JCaptcha Project]
 . [[r2]] link:https://www.owasp.org/index.php/JCaptcha_servlet_example[JCaptcha Servlet Example]
 . [[r3]] link:https://www.owasp.org/index.php/Captchas_en_Java[Captchas in Java]
-. [[r4]] REQ.0116: El sistema debe garantizar
-que la visualización de correos electrónicos expuestos
-sean vistos por humanos.
-. [[r5]] REQ.0233 El sistema debe garantizar
-que quien realiza las acciones de registro, autenticación
-y reestablecimiento de contraseña es un humano.
+. [[r4]] link:../../../rules/123/[REQ.123 Restringir lectura de correos]
+. [[r5]] link:../../../rules/237/[REQ.237 Establecer acciones de usuario seguras]

@@ -172,7 +172,4 @@ usando expresiones regulares.
 . [[r1]] link:../filtrar-entrada-datos-regex/[Filtrar Entrada De Datos Usando Expresión Regular]
 . [[r2]] link:https://tools.ietf.org/html/rfc5322[Internet Message Format]
 . [[r3]] link:http://programacionextrema.com/2015/11/17/validar-un-email-en-java/[Validar un email en Java]
-. [[r4]] REQ.0114: Sistemas que empleen cuentas de correo
-para el registro de usuarios
-deben garantizar la unicidad de los correos,
-siguiendo el estándar de la estructura de dirección de correo RFC822.
+. [[r4]] link:../../../rules/121/[REQ.121 Garantizar unicidad de correos]

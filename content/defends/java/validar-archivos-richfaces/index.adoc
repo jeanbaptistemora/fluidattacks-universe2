@@ -17,7 +17,7 @@ usando el +framework+ +Richfaces+.
 A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación está contruida en +Java EE 1.5+ en adelante.
+. La aplicación está construida en +Java EE 1.5+ en adelante.
 . La aplicación está utilizando el +framework+ +RichFaces 3.2.0+ en adelante.
 
 == Solución
@@ -27,18 +27,22 @@ tanto las personas como las empresas
 tienen la opción de buscar y ofrecer infinidad de servicios.
 Como prueba de ello, están las páginas web que permiten compartir,
 entre sus usuarios, todo tipo de contenido
-(imágenes, videos, animaciones, +software+, entre otros).
+(imágenes, videos, animaciones, +software+, productos, entre otros).
 Y, puesto que compartir dichos archivos implica,
-por lógica, permitir la subida de los mismos a los servidores
-donde están alojadas las páginas web,
+por lógica, permitir la subida o carga  de los mismos a los servidores
+donde están alojadas las páginas web.
 es absolutamente necesario contar con algún tipo de control
-que límite la cantidad, forma e incluso el tipo de archivo que se admitirá.
+que límite la cantidad, forma, tamaño
+e incluso el tipo de archivo que se admitirá.
 
-Mencionar que es absolutamente necesario,
+Al mencionar que es absolutamente necesario
+establecer controles frente al contenido,
 se debe a que cuando se permite la subida
 o carga de archivos por parte de los usuarios a una aplicación web,
 se abre la puerta a nuevas posibilidades de ser víctima
 de algún ataque cibernético o, como comúnmente se dice, ser hackeado.
+Eso implica poner en riesgo tanto la confidencialidad, la integridad
+y la disponibilidad del servicio o la aplicación web.
 
 Como se ha mencionado antes,
 una de las formas de controlar los archivos
@@ -55,7 +59,8 @@ se debe hacer lo siguiente:
 
 . En esta ocasión se utilizará el +framework+ +RichFaces+.
 +Richfaces+ es una biblioteca de código abierto
-basada en +Java+ que permite crear aplicaciones web con +Ajax+.
+basada en +Java+.
+Dicha biblioteca permite crear aplicaciones web con +Ajax+.
 
 . Para implemtar la validación
 se debe utilizar la propiedad +acceptedTypes+
@@ -76,5 +81,4 @@ o archivos comprimidos con extensión +zip+.
 
 . [[r1]] link:http://docs.jboss.org/richfaces/latest_3_3_X/en/devguide/html/rich_fileUpload.html[JBoss - Richfile]
 . [[r2]] link:http://richfaces.jboss.org/[RichFaces]
-. [[r3]] REQ.0168: El sistema debe descartar toda la información
-potencialmente insegura que sea recibida por entradas de datos.
+. [[r3]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]

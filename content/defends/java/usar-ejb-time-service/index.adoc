@@ -176,7 +176,4 @@ Clase TimeServlet.
 . [[r1]] link:http://cwe.mitre.org/data/definitions/383.html[CWE-383: J2EE Bad Practices: Direct Use of Threads]
 . [[r2]] link:http://cwe.mitre.org/data/definitions/381.html[CWE CATEGORY: J2EE Time and State Issues]
 . [[r3]] link:https://docs.oracle.com/javaee/6/api/javax/ejb/TimerService.html[javax.ejb Interface TimerService]
-. [[r4]] REQ.0153: La codificación del sistema
-debe estar implementada en una versión
-de un lenguaje de programación estable,
-actualizada, probada y libre de vulnerabilidades conocidas.
+. [[r4]] link:../../../rules/158/[REQ.158 Codificación Actualizada]
