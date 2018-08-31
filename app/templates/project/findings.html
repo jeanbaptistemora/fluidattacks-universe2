@@ -134,7 +134,7 @@
                                             }
                                         });
                                     </script>
-                                    <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.advance}}!" ng-click="openModalAvance();">
+                                    <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.advance}}!" ng-click="openModalAvance(findingsDataset);">
                                         {{ search_findings.filter_buttons.advance }} <i class="glyphicon glyphicon-bookmark"></i>
                                     </button>
                                     <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-controller="reportGeneratorCtrl" ng-click="reportModal();">

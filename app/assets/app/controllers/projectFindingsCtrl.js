@@ -336,14 +336,12 @@ angular.module("FluidIntegrates").controller(
         }
       }
     };
-    $scope.openModalAvance = function openModalAvance () {
+    $scope.openModalAvance = function openModalAvance (data) {
       $uibModal.open({
         "animation": true,
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance) {
-          const auxiliar =
-                  angular.element("#vulnerabilities").bootstrapTable("getData");
-          const data = auxiliar;
+          const auxiliar = data;
           for (let cont = 0; cont < data.length; cont++) {
             data[cont].atributos = 0;
             data[cont].link = `${$window.location.href.split("project/")[0]}` +
