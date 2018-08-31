@@ -229,7 +229,6 @@ $white: rgba(255, 255, 255, 1);
 
 .header {
   background-color: $fluid-black;
-  display: inline-block;
 
   img {
     width: 100%;
@@ -515,22 +514,28 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .header {
-
     height: 415px;
+    width: 100%;
 
     img {
       height: 415px;
+      width: 100%;
     }
   }
 }
 
 @media (min-width: 1280px) {
   .header-title {
-
     p {
       margin-top: 20px;
       width: 80%;
     }
+  }
+}
+
+@media (min-width: 3000px) {
+  .header-title {
+    top: 4%;
   }
 }
 
