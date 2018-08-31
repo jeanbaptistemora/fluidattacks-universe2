@@ -105,57 +105,87 @@
     <h1>{{ gettext('Testing-hdr') }}</h1>
     <p>{{ gettext('Testing-msg') }}</p>
     <h4>{{ gettext('Testing-subtitle-1') }}</h4>
-    <table class="tbl-testing">
-      <tr>
-        <th class="firstcell">{{ gettext('Table1x1-msg') }}</th>
-        <th>DXST</th>
-        <th>SAST</th>
-        <th>IAST</th>
-        <th>SCA</th>
-        <th>SecDevOps</th>
-      </tr>
-      <tr>
-        <td>{{ gettext('Table2x1-msg') }}</td>
-        <td></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-      </tr>
-      <tr>
-        <td class="graytd">{{ gettext('Table3x1-msg') }}</td>
-        <td class="graytd"></td>
-        <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td class="graytd"></td>
-        <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td class="graytd"></td>
-      </tr>
-      <tr>
-        <td >{{ gettext('Table4x1-msg') }}</td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="graytd">{{ gettext('Table5x1-msg') }}</td>
-        <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td class="graytd"></td>
-        <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td class="graytd"></td>
-      </tr>
-      <tr>
-        <td>{{ gettext('Table6x1-msg') }}</td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-        <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
-      </tr>
-    </table>
-      <div class="tst-ftr-1">
+    <div class="bigtable">
+      <table class="tbl-testing">
+        <tr>
+          <th class="firstcell">{{ gettext('Table1x1-msg') }}</th>
+          <th>DXST</th>
+          <th>SAST</th>
+          <th>IAST</th>
+          <th>SCA</th>
+          <th>SecDevOps</th>
+        </tr>
+        <tr>
+          <td>{{ gettext('Table2x1-msg') }}</td>
+          <td></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+        </tr>
+        <tr>
+          <td class="graytd">{{ gettext('Table3x1-msg') }}</td>
+          <td class="graytd"></td>
+          <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td class="graytd"></td>
+          <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td class="graytd"></td>
+        </tr>
+        <tr>
+          <td >{{ gettext('Table4x1-msg') }}</td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="graytd">{{ gettext('Table5x1-msg') }}</td>
+          <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td class="graytd"></td>
+          <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td class="graytd"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td class="graytd"></td>
+        </tr>
+        <tr>
+          <td>{{ gettext('Table6x1-msg') }}</td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+          <td><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}"></td>
+        </tr>
+      </table>
+      </div>
+      <div class="smalltable">
+        <table class="tbl-testing">
+         <tr>
+           <th class="graytd"><strong>Fluid Attacks</strong></th>
+           <th class="graytd"><strong>{{ gettext('Small-Table1x2-msg') }}</strong></th>
+         </tr>
+         <tr>
+           <td>{{ gettext('Table2x1-msg') }}</td>
+           <td>SAST, SCA, SecDevOps</td>
+         </tr>
+         <tr>
+           <td class="graytd">{{ gettext('Table3x1-msg') }}</td>
+           <td class="graytd">SAST, SCA</td>
+         </tr>
+         <tr>
+           <td>{{ gettext('Table4x1-msg') }}</td>
+           <td>DXST, IAST, SCA</td>
+         </tr>
+         <tr>
+           <td class="graytd">{{ gettext('Table5x1-msg') }}</td>
+           <td class="graytd">DXST, IAST, SCA</td>
+         </tr>
+         <tr>
+           <td>{{ gettext('Table6x1-msg') }}</td>
+           <td>DXST, SAST,SCA, SecDevOps</td>
+         </tr>
+        </table>
+      </div>
+        <div class="tst-ftr-1">
         <p>{{ gettext('tst-ftr-msg-2') }}</p>
         <p>{{ gettext('tst-ftr-msg-3') }}</p>
         <p>{{ gettext('tst-ftr-msg-4') }}</p>

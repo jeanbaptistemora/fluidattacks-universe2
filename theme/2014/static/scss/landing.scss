@@ -439,6 +439,12 @@ p {
   }
 }
 
+@media (min-width: 980px) {
+  .smalltable {
+    display: none;
+  }
+}
+
 @media (max-width: 980px) {
 
   .tecniques-sec {
@@ -465,6 +471,10 @@ p {
 
   .testing {
     background-image: none;
+  }
+
+  .bigtable {
+    display: none;
   }
 }
 
@@ -563,6 +573,18 @@ p {
 }
 
 @media screen and (max-width: 430px) {
+
+  .tbl-testing {
+    font-size: 20px;
+
+    th {
+      padding: 8px;
+    }
+
+    td {
+      padding: 8px;
+    }
+  }
 
   .services {
     display: inline-block;

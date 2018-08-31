@@ -976,6 +976,10 @@ msgstr "IST Discovery"
 msgid "Table6x1-msg"
 msgstr "Asserts - Closing"
 
+#: templates/navigationbar.html:164
+msgid "Small-Table1x2-msg"
+msgstr "Types of Testing"
+
 #: templates/navigationbar.html:162
 msgid "tst-ftr-msg-2"
 msgstr "<strong>BA:</strong>Binary Analysis"

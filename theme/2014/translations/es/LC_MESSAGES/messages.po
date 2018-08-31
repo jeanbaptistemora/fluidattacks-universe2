@@ -982,6 +982,10 @@ msgstr "Hallazgos PSI"
 msgid "Table6x1-msg"
 msgstr "Cierres - Asserts"
 
+#: templates/navigationbar.html:164
+msgid "Small-Table1x2-msg"
+msgstr "Tipos de Prueba"
+
 #: templates/navigationbar.html:162
 msgid "tst-ftr-msg-2"
 msgstr "<strong>AB:</strong>Análisis Binario"
