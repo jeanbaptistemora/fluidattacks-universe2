@@ -1409,7 +1409,7 @@ def add_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
     """Adding an attribute to a dynamo table."""
     table = dynamodb_resource.Table(table_name)
     item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
-    if item:
+    if not item:
         try:
             response = table.put_item(
                 Item={
