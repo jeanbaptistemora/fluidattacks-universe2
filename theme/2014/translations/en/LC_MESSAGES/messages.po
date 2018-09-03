@@ -1012,6 +1012,46 @@ msgstr "<strong>IAST:</strong> Interactive Application Security Testing"
 msgid "tst-ftr-msg-9"
 msgstr "<strong>SCA:</strong> Software Composition Analysis"
 
+#: templates/navigationbar.html:209
+msgid "Dev-txt-1"
+msgstr "Plan"
+
+#: templates/navigationbar.html:215
+msgid "Dev-txt-2"
+msgstr "Code"
+
+#: templates/navigationbar.html:215
+msgid "Dev-txt-4"
+msgstr "Test"
+
+#: templates/navigationbar.html:224
+msgid "Ops-txt-1"
+msgstr "Release"
+
+#: templates/navigationbar.html:228
+msgid "Ops-txt-2"
+msgstr "Deploy"
+
+#: templates/navigationbar.html:230
+msgid "Ops-txt-3"
+msgstr "Operation"
+
+#: templates/navigationbar.html:234
+msgid "Ops-txt-4"
+msgstr "Monitor"
+
+#: templates/navigationbar.html:243
+msgid "Grph-txt-1"
+msgstr "pre-commit check"
+
+#: templates/navigationbar.html:257
+msgid "Grph-txt-2"
+msgstr "Post-Deploy"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-3"
+msgstr "Smoke-Test"
+
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23
 #: templates/navigationbar.html:24 templates/navigationbar.html:25

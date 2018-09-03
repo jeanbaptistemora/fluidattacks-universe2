@@ -200,7 +200,66 @@
       <div class="tst-diagram">
         <h4>{{ gettext('Testing-subtitle-2') }}</h4>
       </div>
-    <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/table2.png" alt="{{ gettext('Tst-table-alt-2') }}">
+    <div class="tst-dev">
+      <p>DEV</p>
+      <p class="redline">-------------------------------------------------------</p>
+      <p class="item-drk-gray">{{ gettext('Dev-txt-1') }}</p>
+      <div class="itmntxt">
+        <p class="item-drk-gray">{{ gettext('Dev-txt-2') }}</p>
+        <p>SAST</p>
+        <p>SCA</p>
+      </div>
+      <p class="item-drk-gray">Build</p>
+      <div class="itmntxt">
+        <p class="item-drk-gray">{{ gettext('Dev-txt-4') }}</p>
+        <p>SAST</p>
+        <p>DXST</p>
+      </div>
+    </div>
+    <div class="tst-ops">
+      <p>OPS</p>
+      <p class="blackline">-------------------------------------------------------</p>
+      <div class="itmntxt">
+        <p class="item-gray">{{ gettext('Ops-txt-1') }}</p>
+        <p>DXST</p>
+        <p>IAST</p>
+      </div>
+      <p class="item-gray">{{ gettext('Ops-txt-2') }}</p>
+      <div class="itmntxt">
+        <p class="item-gray">{{ gettext('Ops-txt-3') }}</p>
+        <p>DXST</p>
+        <p>IAST</p>
+      </div>
+      <p class="item-gray">{{ gettext('Ops-txt-4') }}</p>
+    </div>
+    <div class="fluid-grph-lft">
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/rules-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+      <div class="imgntxt">
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/attacks-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+        <p>SAST</p>
+        <p>AB</p>
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/asserts-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+        <p class="smlltxt">{{ gettext('Grph-txt-1') }}</p>
+      </div>
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/asserts-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+      <div class="imgntxt">
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/attacks-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+        <p>SAST</p>
+        <p>PSA</p>
+        <p>PSI</p>
+      </div>
+    </div>
+    <div class="fluid-grph-rght">
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/asserts-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+      <div class="imgntxt">
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/asserts-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+        <p class="smlltxt">{{ gettext('Grph-txt-2') }}</p>
+        <p class="smlltxt">{{ gettext('Grph-txt-3') }}</p>
+      </div>
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/attacks-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/asserts-logo.svg" alt="{{ gettext('Tst-table-alt-2') }}">
+    </div>
+
   </div>
   <div class="benefits">
     <div class="benefit-header">

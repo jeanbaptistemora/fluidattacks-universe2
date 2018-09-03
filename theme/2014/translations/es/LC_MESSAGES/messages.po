@@ -1018,6 +1018,46 @@ msgstr "<strong>IAST:</strong> Pruebas Interactivas de Seguridad en Aplicación"
 msgid "tst-ftr-msg-9"
 msgstr "<strong>SCA:</strong> Análisis de Composición de Software"
 
+#: templates/navigationbar.html:209
+msgid "Dev-txt-1"
+msgstr "<small>Planeación</small>"
+
+#: templates/navigationbar.html:215
+msgid "Dev-txt-2"
+msgstr "Código"
+
+#: templates/navigationbar.html:215
+msgid "Dev-txt-4"
+msgstr "Pruebas"
+
+#: templates/navigationbar.html:224
+msgid "Ops-txt-1"
+msgstr "<small>Lanzamiento</small>"
+
+#: templates/navigationbar.html:228
+msgid "Ops-txt-2"
+msgstr "<small>Despliegue</small>"
+
+#: templates/navigationbar.html:230
+msgid "Ops-txt-3"
+msgstr "Operación"
+
+#: templates/navigationbar.html:234
+msgid "Ops-txt-4"
+msgstr "Monitoreo"
+
+#: templates/navigationbar.html:243
+msgid "Grph-txt-1"
+msgstr "Revisión pre-commit"
+
+#: templates/navigationbar.html:257
+msgid "Grph-txt-2"
+msgstr "Post-Despliegue"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-3"
+msgstr "Pruebas de Humo"
+
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23
 #: templates/navigationbar.html:24 templates/navigationbar.html:25
