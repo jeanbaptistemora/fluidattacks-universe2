@@ -29,7 +29,8 @@ describe('Data table', () => {
         width: "5%",
         wrapped: false,
         header: "Prueba 1",
-        dataField: "test_header"
+        dataField: "test_header",
+        isDate: false
       },
       {
         align: "center" as DataAlignType,
@@ -37,7 +38,8 @@ describe('Data table', () => {
         width: "5%",
         wrapped: false,
         header: "Prueba 2",
-        dataField: "test_header2"
+        dataField: "test_header2",
+        isDate: false
       }
     ];
     const wrapper = shallow(
@@ -74,7 +76,8 @@ describe('Data table', () => {
         width: "5%",
         wrapped: false,
         header: "Prueba 1",
-        dataField: "test_header"
+        dataField: "test_header",
+        isDate: false
       },
       {
         align: "center" as DataAlignType,
@@ -82,7 +85,8 @@ describe('Data table', () => {
         width: "5%",
         wrapped: false,
         header: "Prueba 2",
-        dataField: "test_header2"
+        dataField: "test_header2",
+        isDate: false
       }
     ];
     const wrapper = shallow(
