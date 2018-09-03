@@ -1040,6 +1040,18 @@ msgstr "Operation"
 msgid "Ops-txt-4"
 msgstr "Monitor"
 
+#: templates/navigationbar.html:236
+msgid "tst-graph-alt-1"
+msgstr "Fluid Rules Logo"
+
+#: templates/navigationbar.html:238
+msgid "tst-graph-alt-2"
+msgstr "Fluid Attacks Logo"
+
+#: templates/navigationbar.html:241
+msgid "tst-graph-alt-3"
+msgstr "Fluid Asserts Logo"
+
 #: templates/navigationbar.html:243
 msgid "Grph-txt-1"
 msgstr "pre-commit check"
@@ -1051,6 +1063,18 @@ msgstr "Post-Deploy"
 #: templates/navigationbar.html:258
 msgid "Grph-txt-3"
 msgstr "Smoke-Test"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-4"
+msgstr "BA"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-5"
+msgstr "AST"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-6"
+msgstr "IST"
 
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23

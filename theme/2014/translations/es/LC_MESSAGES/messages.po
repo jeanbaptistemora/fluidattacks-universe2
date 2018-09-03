@@ -1046,6 +1046,18 @@ msgstr "Operación"
 msgid "Ops-txt-4"
 msgstr "Monitoreo"
 
+#: templates/navigationbar.html:236
+msgid "tst-graph-alt-1"
+msgstr "Logo de Fluid Rules"
+
+#: templates/navigationbar.html:238
+msgid "tst-graph-alt-2"
+msgstr "Logo de Fluid Attacks"
+
+#: templates/navigationbar.html:241
+msgid "tst-graph-alt-3"
+msgstr "Logo de Fluid Asserts"
+
 #: templates/navigationbar.html:243
 msgid "Grph-txt-1"
 msgstr "Revisión pre-commit"
@@ -1057,6 +1069,18 @@ msgstr "Post-Despliegue"
 #: templates/navigationbar.html:258
 msgid "Grph-txt-3"
 msgstr "Pruebas de Humo"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-4"
+msgstr "AB"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-5"
+msgstr "PSA"
+
+#: templates/navigationbar.html:258
+msgid "Grph-txt-6"
+msgstr "PSI"
 
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23
