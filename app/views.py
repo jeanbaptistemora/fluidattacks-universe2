@@ -9,6 +9,7 @@ import pytz
 import rollbar
 import boto3
 import io
+import collections
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -1143,14 +1144,14 @@ def retrieve_csv(request, csv_file):
 
 
 def list_to_dict(header, li):
-    dct = {}
+    dct = collections.OrderedDict()
     cont = 0
     if len(header) < len(li):
-        dif  = len(li) - len(header)
+        dif = len(li) - len(header)
         for x in range(dif): # pylint: disable=unused-variable
             header.append("")
     elif len(header) > len(li):
-        dif  = len(header) - len(li)
+        dif = len(header) - len(li)
         for x in range(dif): # pylint: disable=unused-variable
             li.append("")
 
