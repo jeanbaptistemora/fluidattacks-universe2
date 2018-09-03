@@ -100,12 +100,16 @@ angular.module("FluidIntegrates").controller(
         const reqRepositories = projectFtry2.repositoriesByProject(projectName);
         reqRepositories.then((response) => {
           if (!response.error) {
-            if (angular.isUndefined(response.data)) {
+            const respData = response.data;
+            if (angular.isUndefined(respData)) {
               location.reload();
             }
-            $scope.view.project = true;
-            const projectRepoInfo = response.data;
-            $scope.loadRepoInfo(projectName, vlang, projectRepoInfo);
+            else {
+              $scope.view.project = true;
+              const projectRepoInfo =
+                              angular.fromJson(respData.resources.repositories);
+              $scope.loadRepoInfo(projectName, vlang, projectRepoInfo);
+            }
           }
           else if (response.error) {
             if (response.message === "Access denied") {
@@ -120,11 +124,13 @@ angular.module("FluidIntegrates").controller(
         const reqEnvironments = projectFtry2.environmentsByProject(projectName);
         reqEnvironments.then((response) => {
           if (!response.error) {
-            if (angular.isUndefined(response.data)) {
+            const respData = response.data;
+            if (angular.isUndefined(respData)) {
               location.reload();
             }
             $scope.view.project = true;
-            const projectEnvInfo = response.data;
+            const projectEnvInfo =
+                              angular.fromJson(respData.resources.environments);
             $scope.loadEnvironmentInfo(projectName, vlang, projectEnvInfo);
           }
           else if (response.error) {

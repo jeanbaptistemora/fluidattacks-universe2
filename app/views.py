@@ -1818,25 +1818,6 @@ def access_to_project(request):
     return util.response(False, 'success', False)
 
 @never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def get_repositories(request):
-    """Get the repositories of a project."""
-    project = request.GET.get('project', None)
-    json_info = []
-    project_info = integrates_dao.get_project_dynamo(project)
-    for info in project_info:
-        if "repositories" in info:
-            json_info = info['repositories']
-            break
-        else:
-            json_info = []
-    return util.response(json_info, 'Success', False)
-
-
-@never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
@@ -1931,26 +1912,6 @@ def remove_repositories(request):
     else:
         util.cloudwatch_log(request, 'Security: Attempted to remove repository that does not exist')
         return util.response([], 'Error', True)
-
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def get_environments(request):
-    """Get the environments of a project."""
-    project = request.GET.get('project', None)
-    json_info = []
-    project_info = integrates_dao.get_project_dynamo(project)
-    for info in project_info:
-        if "environments" in info:
-            json_info = info['environments']
-            break
-        else:
-            json_info = []
-    return util.response(json_info, 'Success', False)
-
 
 @never_cache
 @require_http_methods(["POST"])

@@ -283,10 +283,12 @@ angular.module("FluidIntegrates").factory(
        */
       "environmentsByProject" (project) {
         const oopsAc = "An error occurred getting environments";
-        return $xhr.get($q, `${BASE.url}get_environments`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
-        }, oopsAc);
+        const gQry = `{
+            resources (projectName: "${project}") {
+              environments
+            }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**
@@ -383,10 +385,12 @@ angular.module("FluidIntegrates").factory(
        */
       "repositoriesByProject" (project) {
         const oopsAc = "An error occurred getting repositories";
-        return $xhr.get($q, `${BASE.url}get_repositories`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
-        }, oopsAc);
+        const gQry = `{
+            resources (projectName: "${project}") {
+              repositories
+            }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }
