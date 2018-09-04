@@ -325,8 +325,6 @@ angular.module("FluidIntegrates").factory(
         const data = new FormData();
         const fileInput = angular.element(`#evidence${evImage}`)[0];
         data.append("id", evImage);
-        data.append("url", `${$stateParams.project.toLowerCase()}-` +
-                         `${$scope.finding.id}`);
         data.append("findingid", $scope.finding.id);
         data.append("document", fileInput.files[0]);
         data.append("project", $stateParams.project.toLowerCase());

@@ -842,7 +842,13 @@ def update_evidences_files(request):
         if catch_finding(request,parameters['findingid']) is None:
             return util.response([], 'Access denied', True)
         upload = request.FILES.get("document", "")
-        migrate_all_files(parameters, request)
+        file_first_name = '{project!s}-{findingid}'\
+            .format(project=parameters['project'], findingid=parameters['findingid'])
+        file_url = '{project!s}/{findingid}/{file_name}'\
+            .format(project=parameters['project'],
+                    findingid=parameters['findingid'],
+                    file_name=file_first_name)
+        migrate_all_files(parameters, file_url, request)
         mime = Magic(mime=True)
         if isinstance(upload, TemporaryUploadedFile):
             mime_type = mime.from_file(upload.temporary_file_path())
@@ -865,7 +871,11 @@ def update_evidences_files(request):
                 rollbar.report_message('Error - File exceeds the size limits', 'error', request)
                 return util.response([], 'File exceeds the size limits', True)
             else:
-                updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
+                updated = update_file_to_s3(parameters,
+                                            fieldname[int(parameters["id"])][1],
+                                            fieldname[int(parameters["id"])][0],
+                                            upload,
+                                            file_url)
                 return util.response([], 'sent', updated)
 
 def evidence_exceeds_size(uploaded_file, mime_type, evidence_type):
@@ -901,8 +911,7 @@ def key_existing_list(key):
         key_list.append(obj['Key'])
     return key_list
 
-def send_file_to_s3(filename, parameters, field, fieldname, ext):
-    fileurl = parameters['project'] + '/' + parameters['findingid'] + '/' + parameters['url']
+def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     fileroute = "/tmp/:id.tmp".replace(":id", filename)
     namecomplete = fileurl + "-" + field + "-" + filename + ext
     if os.path.exists(fileroute):
@@ -919,8 +928,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext):
     else:
         return False
 
-def update_file_to_s3(parameters, field, fieldname, upload):
-    fileurl = parameters['project'] + '/' + parameters['findingid'] + '/' + parameters['url']
+def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
     key_val = fileurl + "-" + field
     key_list = key_existing_list(key_val)
     if key_list:
@@ -976,13 +984,12 @@ def remove_file_url(finding_id, field_name):
                 .format(finding=finding_id)
             util.cloudwatch_log_plain(message)
 
-def migrate_all_files(parameters, request):
+def migrate_all_files(parameters, file_url, request):
     fin_dto = FindingDTO()
     try:
         api = FormstackAPI()
         frmreq = api.get_submission(parameters['findingid'])
         finding = fin_dto.parse(parameters['findingid'], frmreq, request)
-        file_url = parameters['project'] + "/" + parameters['findingid'] + "/" + parameters['url']
         files = [{
             "id": "0",
             "name": "animation",
@@ -1030,10 +1037,15 @@ def migrate_all_files(parameters, request):
             "ext": ".csv"
         }]
         for file_obj in files:
-            filename = file_url + "-" + file_obj["field"]
+            filename = '{file_url}-{field}'.format(file_url=file_url, field=file_obj["field"])
             folder = key_existing_list(filename)
-            if finding.get(file_obj["name"]) and parameters["id"] != file_obj["id"] and not folder:
-                send_file_to_s3(finding[file_obj["name"]], parameters, file_obj["field"],file_obj["name"], file_obj["ext"])
+            if finding.get(file_obj["name"]) and parameters.get("id") != file_obj["id"] and not folder:
+                send_file_to_s3(finding[file_obj["name"]],
+                                parameters,
+                                file_obj["field"],
+                                file_obj["name"],
+                                file_obj["ext"],
+                                file_url)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
