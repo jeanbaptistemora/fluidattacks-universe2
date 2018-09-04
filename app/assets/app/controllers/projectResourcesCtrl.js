@@ -108,7 +108,7 @@ angular.module("FluidIntegrates").controller(
               $scope.view.project = true;
               const projectRepoInfo =
                               angular.fromJson(respData.resources.repositories);
-              $scope.loadRepoInfo(projectName, vlang, projectRepoInfo);
+              $scope.loadRepoInfo(projectName, projectRepoInfo);
             }
           }
           else if (response.error) {
@@ -147,9 +147,15 @@ angular.module("FluidIntegrates").controller(
       return true;
     };
 
-    $scope.loadRepoInfo = function loadRepoInfo (project, vlang, data) {
+    $scope.loadRepoInfo = function loadRepoInfo (project, data) {
       // Resources tables configuration
-
+      let vlang = "en-US";
+      if (localStorage.lang === "en") {
+        vlang = "en-US";
+      }
+      else {
+        vlang = "es-CO";
+      }
       angular.element("#tblRepositories").bootstrapTable("destroy");
       angular.element("#tblRepositories").bootstrapTable({
         "cookie": true,
@@ -273,12 +279,18 @@ angular.module("FluidIntegrates").controller(
             if (repoValidation) {
               // Make the request
               const repo = projectFtry2.addRepositories(
-                $scope.repoInfo,
+                angular.toJson(angular.toJson($scope.repoInfo)),
                 data.project
               );
               // Capture the promise
               repo.then((response) => {
-                if (!response.error) {
+                if (response.error) {
+                  Rollbar.error("Error: An error occurred when " +
+                              "adding a new repository");
+                  $msg.error($translate.instant("proj_alerts.error_textsad"));
+                }
+                else {
+                  const respData = response.data;
                   // Mixpanel tracking
                   const projt = descData.project.toUpperCase();
                   mixPanelDashboard.trackSearch(
@@ -286,18 +298,21 @@ angular.module("FluidIntegrates").controller(
                     userEmail,
                     projt
                   );
-                  const message = $translate.instant("search_findings" +
-                                                ".tab_resources.success");
-                  const messageTitle = $translate.instant("search_findings" +
-                                                ".tab_users.title_success");
-                  $msg.success(message, messageTitle);
+                  if (respData.addRepositories.success) {
+                    const message = $translate.instant("search_findings" +
+                                                  ".tab_resources.success");
+                    const messageTitle = $translate.instant("search_findings" +
+                                                  ".tab_users.title_success");
+                    $msg.success(message, messageTitle);
+                    const repos = respData.addRepositories.
+                      resources.repositories;
+                    $scope.loadRepoInfo(projt, angular.fromJson(repos));
+                  }
+                  else {
+                    $msg.error($translate.instant("proj_alerts.error_textsad"));
+                  }
+
                   $uibModalInstance.close();
-                  location.reload();
-                }
-                else if (response.error) {
-                  Rollbar.error("Error: An error occurred when " +
-                              "adding a new repository");
-                  $msg.error($translate.instant("proj_alerts.error_textsad"));
                 }
               });
             }
@@ -308,6 +323,7 @@ angular.module("FluidIntegrates").controller(
         },
         "keyboard": false,
         "resolve": {"data": descData},
+        "scope": $scope,
         "size": "lg",
         "templateUrl": `${BASE.url}assets/views/project/addRepositoryMdl.html`
       });

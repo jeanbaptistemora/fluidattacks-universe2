@@ -1833,52 +1833,6 @@ def access_to_project(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-def add_repositories(request):
-    """Add repositories to proyect."""
-    parameters = request.POST.dict()
-    project = request.POST.get('project', "")
-    total_repositories = parameters["data[totalRepo]"]
-    json_data = []
-    email_data = []
-    for repo in range(int(total_repositories)):
-        repository = 'data[repositories][{repo!s}][repository]'.format(repo=repo)
-        branch = 'data[repositories][{repo!s}][branch]'.format(repo=repo)
-        if parameters[repository] and parameters[branch]:
-            json_data.append({
-                'urlRepo': parameters[repository],
-                'branch': parameters[branch]
-            })
-            email_text = 'Repository: {repository!s} Branch: {branch!s}' \
-                .format(repository=parameters[repository], branch=parameters[branch])
-            email_data.append({"urlEnv": email_text})
-    add_repo = integrates_dao.add_list_resource_dynamo(
-        "FI_projects",
-        "project_name",
-        project,
-        json_data,
-        "repositories"
-    )
-    if add_repo:
-        to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-        context = {
-            'project': project.upper(),
-            'user_email': request.session["username"],
-            'action': 'Add repositories',
-            'resources': email_data,
-            'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
-            .format(url=BASE_URL, project=project)
-        }
-        send_mail_repositories(to, context)
-        return util.response([], 'Success', False)
-    else:
-        rollbar.report_message('Error: An error occurred adding repository', 'error', request)
-        return util.response([], 'Error', True)
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
 def remove_repositories(request):
     """Remove repositories to proyect."""
     parameters = request.POST.dict()

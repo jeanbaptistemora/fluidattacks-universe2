@@ -74,11 +74,15 @@ angular.module("FluidIntegrates").factory(
        */
       "addRepositories" (data, project) {
         const oopsAc = "An error occurred adding repositories";
-        return $xhr.post($q, `${BASE.url}add_repositories`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          project
-        }, oopsAc);
+        const gQry = `mutation {
+          addRepositories (resourcesData: ${data}, projectName: "${project}") {
+            success,
+            resources {
+              repositories
+            }
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       "calCardinality" (data) {
