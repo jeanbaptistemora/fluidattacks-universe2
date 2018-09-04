@@ -295,9 +295,8 @@ p {
   }
 
   .redline {
-    color: $fluid-red;
-    letter-spacing: 4px;
-    overflow: hidden;
+    border-bottom: hidden;
+    border-top: 1px dashed $fluid-red;
   }
 }
 
@@ -321,9 +320,8 @@ p {
   }
 
   .blackline {
-    color: $fluid-black;
-    letter-spacing: 4px;
-    overflow: hidden;
+    border-bottom: hidden;
+    border-top: 1px dashed $fluid-black;
   }
 }
 
@@ -754,6 +752,21 @@ p {
   }
 }
 
+
+@media screen and (max-width: 575px) {
+
+  .itmntxt {
+
+    .item-drk-gray {
+      margin-left: 10px;
+    }
+
+    .item-gray {
+      margin-left: 10px;
+    }
+  }
+
+}
 
 @media screen and (max-width: 704px) {
 
