@@ -2039,7 +2039,8 @@ def mask_project_findings(project):
         finreqset = api.get_findings(project)["submissions"]
         are_evidences_deleted = list(map(lambda x: delete_s3_all_evidences(x, project), finreqset))
         is_project_masked = list(map(mask_finding, finreqset))
-        is_project_deleted = all(is_project_masked) and all(are_evidences_deleted)
+        are_comments_deleted = list(map(lambda x: delete_all_coments(x["id"]), finreqset))
+        is_project_deleted = all(is_project_masked) and all(are_evidences_deleted) and all(are_comments_deleted)
         return is_project_deleted
     except KeyError:
         rollbar.report_message('Error: An error occurred masking project', 'error')
