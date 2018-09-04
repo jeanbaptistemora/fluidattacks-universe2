@@ -1546,6 +1546,14 @@ def accept_draft(request):
             has_last_vuln = integrates_dao.add_attribute_dynamo(
                 table_name, primary_keys, "lastVulnerability", releaseDate)
             if has_release and has_last_vuln:
+                files_data = {"findingid": parameters, "project": finding["fluidProject"].lower()}
+                file_first_name = '{project!s}-{findingid}'\
+                    .format(project=files_data['project'], findingid=files_data['findingid'])
+                file_url = '{project!s}/{findingid}/{file_name}'\
+                    .format(project=files_data['project'],
+                            findingid=files_data['findingid'],
+                            file_name=file_first_name)
+                migrate_all_files(files_data, file_url, request)
                 integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True, releaseDate)
                 return util.response([], 'success', False)
             else:
