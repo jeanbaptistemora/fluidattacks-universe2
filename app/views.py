@@ -1841,56 +1841,6 @@ def access_to_project(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-def remove_repositories(request):
-    """Remove repositories to proyect."""
-    parameters = request.POST.dict()
-    project = parameters["project"]
-    repository = parameters["data[urlRepo]"]
-    branch = parameters["data[branch]"]
-    project_info = integrates_dao.get_project_dynamo(project)
-    repo_list = project_info[0]["repositories"]
-    index = -1
-    cont = 0
-    email_data = []
-    while index < 0 and len(repo_list) > cont:
-        if repo_list[cont]["urlRepo"] == repository and repo_list[cont]["branch"] == branch:
-            email_text = 'Repository: {repository!s} Branch: {branch!s}' \
-                .format(repository=repository, branch=branch)
-            email_data.append({"urlEnv": email_text})
-            index = cont
-        else:
-            index = -1
-        cont += 1
-    if index >= 0:
-        remove_repo = integrates_dao.remove_list_resource_dynamo(
-            "FI_projects",
-            "project_name",
-            project,
-            "repositories",
-            index)
-        if remove_repo:
-            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-            context = {
-                'project': project.upper(),
-                'user_email': request.session["username"],
-                'action': 'Remove repositories',
-                'resources': email_data,
-                'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
-                .format(url=BASE_URL, project=project)
-            }
-            send_mail_repositories(to, context)
-            return util.response([], 'Success', False)
-        else:
-            rollbar.report_message('Error: An error occurred removing repository', 'error', request)
-            return util.response([], 'Error', True)
-    else:
-        util.cloudwatch_log(request, 'Security: Attempted to remove repository that does not exist')
-        return util.response([], 'Error', True)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
 def add_environments(request):
     """Add environments to proyect."""
     parameters = request.POST.dict()

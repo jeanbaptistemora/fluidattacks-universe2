@@ -206,12 +206,17 @@ angular.module("FluidIntegrates").controller(
         repositories.branch = branch;
         const project = $stateParams.project.toLowerCase();
         const repo = projectFtry2.removeRepositories(
-          repositories,
+          angular.toJson(angular.toJson(repositories)),
           project
         );
         // Capture the promise
         repo.then((response) => {
-          if (!response.error) {
+          if (response.error) {
+            Rollbar.error("Error: An error occurred when removing repository");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+          else {
+            const respData = response.data;
             // Mixpanel tracking
             const projt = project.toUpperCase();
             mixPanelDashboard.trackSearch(
@@ -219,17 +224,22 @@ angular.module("FluidIntegrates").controller(
               userEmail,
               projt
             );
-            const message = $translate.instant("search_findings" +
-                                          ".tab_resources.success_remove");
-            const messageTitle = $translate.instant("search_findings" +
-                                          ".tab_users.title_success");
-            $msg.success(message, messageTitle);
-            location.reload();
-          }
-          else if (response.error) {
-            Rollbar.error("Error: An error occurred when " +
-                        "removing repository");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
+
+            if (respData.removeRepositories.success) {
+              const message = $translate.instant("search_findings" +
+                                            ".tab_resources.success_remove");
+              const messageTitle = $translate.instant("search_findings" +
+                                            ".tab_users.title_success");
+              $msg.success(message, messageTitle);
+              const repos = respData.removeRepositories.
+                resources.repositories;
+              $scope.loadRepoInfo(projt, angular.fromJson(repos));
+            }
+            else {
+              Rollbar.error("Error: An error occurred when removing " +
+                            "repository");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
           }
         });
       }

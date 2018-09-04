@@ -373,11 +373,18 @@ angular.module("FluidIntegrates").factory(
        */
       "removeRepositories" (data, project) {
         const oopsAc = "An error occurred removing repositories";
-        return $xhr.post($q, `${BASE.url}remove_repositories`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          project
-        }, oopsAc);
+        const gQry = `mutation {
+          removeRepositories (
+            repositoryData: ${data},
+            projectName: "${project}"
+          ) {
+            success,
+            resources {
+              repositories
+            }
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**
