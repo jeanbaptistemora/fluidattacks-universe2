@@ -100,20 +100,23 @@ angular.module("FluidIntegrates").controller(
               $msg.error($translate.instant("proj_alerts.error_textsad"));
             }
           }
+          else if (angular.isUndefined(response.data)) {
+            location.reload();
+          }
           else {
-            const respData = response.data;
-            if (angular.isUndefined(respData)) {
-              location.reload();
+            $scope.view.project = true;
+            const respData = response.data.resources;
+            let projectRepoInfo = [];
+            let projectEnvInfo = [];
+            if (respData.access) {
+              projectRepoInfo = angular.fromJson(respData.repositories);
+              projectEnvInfo = angular.fromJson(respData.environments);
             }
             else {
-              $scope.view.project = true;
-              const projectRepoInfo =
-                              angular.fromJson(respData.resources.repositories);
-              $scope.loadRepoInfo(projectName, projectRepoInfo);
-              const projectEnvInfo =
-                              angular.fromJson(respData.resources.environments);
-              $scope.loadEnvironmentInfo(projectName, projectEnvInfo);
+              $msg.error($translate.instant("proj_alerts.access_denied"));
             }
+            $scope.loadRepoInfo(projectName, projectRepoInfo);
+            $scope.loadEnvironmentInfo(projectName, projectEnvInfo);
           }
         });
       }
@@ -195,7 +198,6 @@ angular.module("FluidIntegrates").controller(
             $msg.error($translate.instant("proj_alerts.error_textsad"));
           }
           else {
-            const respData = response.data;
             // Mixpanel tracking
             const projt = project.toUpperCase();
             mixPanelDashboard.trackSearch(
@@ -204,20 +206,23 @@ angular.module("FluidIntegrates").controller(
               projt
             );
 
-            if (respData.removeRepositories.success) {
+            const respData = response.data.removeRepositories;
+            if (respData.success) {
               const message = $translate.instant("search_findings" +
                                             ".tab_resources.success_remove");
               const messageTitle = $translate.instant("search_findings" +
                                             ".tab_users.title_success");
               $msg.success(message, messageTitle);
-              const repos = respData.removeRepositories.
-                resources.repositories;
+              const repos = respData.resources.repositories;
               $scope.loadRepoInfo(projt, angular.fromJson(repos));
             }
-            else {
-              Rollbar.error("Error: An error occurred when removing " +
-                            "repository");
+            else if (respData.access) {
+              Rollbar.error("Error: An error occurred when removing a " +
+              "repository");
               $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
+            else {
+              $msg.error($translate.instant("proj_alerts.access_denied"));
             }
           }
         });
@@ -279,7 +284,6 @@ angular.module("FluidIntegrates").controller(
                   $msg.error($translate.instant("proj_alerts.error_textsad"));
                 }
                 else {
-                  const respData = response.data;
                   // Mixpanel tracking
                   const projt = descData.project.toUpperCase();
                   mixPanelDashboard.trackSearch(
@@ -287,18 +291,23 @@ angular.module("FluidIntegrates").controller(
                     userEmail,
                     projt
                   );
-                  if (respData.addRepositories.success) {
+                  const respData = response.data.addRepositories;
+                  if (respData.success) {
                     const message = $translate.instant("search_findings" +
                                                   ".tab_resources.success");
                     const messageTitle = $translate.instant("search_findings" +
                                                   ".tab_users.title_success");
                     $msg.success(message, messageTitle);
-                    const repos = respData.addRepositories.
-                      resources.repositories;
+                    const repos = respData.resources.repositories;
                     $scope.loadRepoInfo(projt, angular.fromJson(repos));
                   }
-                  else {
+                  else if (respData.access) {
+                    Rollbar.error("Error: An error occurred when adding a " +
+                    "repository");
                     $msg.error($translate.instant("proj_alerts.error_textsad"));
+                  }
+                  else {
+                    $msg.error($translate.instant("proj_alerts.access_denied"));
                   }
 
                   $uibModalInstance.close();

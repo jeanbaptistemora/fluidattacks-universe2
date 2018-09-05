@@ -362,6 +362,7 @@ angular.module("FluidIntegrates").factory(
             projectName: "${project}"
           ) {
             success,
+            access,
             resources {
               repositories
             }
@@ -382,7 +383,8 @@ angular.module("FluidIntegrates").factory(
         const gQry = `{
             resources (projectName: "${project}") {
               repositories,
-              environments
+              environments,
+              access
             }
         }`;
         return $xhr.fetch($q, gQry, oopsAc);

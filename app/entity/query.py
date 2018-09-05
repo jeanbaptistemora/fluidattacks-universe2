@@ -24,8 +24,7 @@ class Query(ObjectType):
 
     def resolve_alert(self, info, project=None, organization=None):
         """ Resolve for alert """
-        del info
-        return Alert(project, organization)
+        return Alert(info, project, organization)
 
     def resolve_eventuality(self, info, submitID=None):
         """ Resolve for eventuality """
@@ -47,5 +46,4 @@ class Query(ObjectType):
         return Login(user_email, info.context.session)
 
     def resolve_resources(self, info, project_name):
-        del info
-        return Resource(project_name)
+        return Resource(info, project_name)

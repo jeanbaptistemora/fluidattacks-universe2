@@ -1,4 +1,6 @@
 from django.test import TestCase
+from django.test.client import RequestFactory
+from django.contrib.sessions.middleware import SessionMiddleware
 from .api.formstack import FormstackAPI
 from .entity.query import Query
 from graphene import Schema
@@ -56,8 +58,14 @@ class GraphQLTests(TestCase):
                 message
             }
         }"""
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['role'] = "admin"
         schema = Schema(query=Query)
-        result = schema.execute(query)
+        result = schema.execute(query, context_value=request)
         if "alert" in result.data:
             message = result.data["alert"]["message"]
             self.assertIs(
