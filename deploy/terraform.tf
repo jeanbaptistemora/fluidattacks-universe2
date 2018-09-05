@@ -205,7 +205,7 @@ resource "aws_dynamodb_table" "findings_new" {
   }
 }
 resource "aws_dynamodb_table" "findings_test" {
-  name           = "FI_findings_test"
+  name           = "FI_findings_test_name"
   read_capacity  = 5
   write_capacity = 5
   hash_key       = "finding_id"
