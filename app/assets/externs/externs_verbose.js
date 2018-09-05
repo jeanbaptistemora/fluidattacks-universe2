@@ -148,7 +148,6 @@ var identify = {};   \
 var people = {};   \
 var html = {};    \
 var updateEvnt = {};    \
-var getEvntByName = {};   \
 var getEvidences = {};   \
 var es_exploit = {};   \
 var getExploit = {};  \

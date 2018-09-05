@@ -3,7 +3,7 @@
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "$state","response"] }]*/
 /* global
-angular, $msg, Rollbar, userRole
+angular, $msg, Rollbar, userRole, eventsTranslations, keysToTranslate
 */
 /**
  * @file eventContentCtrl.js
@@ -59,17 +59,26 @@ eventContentCtrl (
     }
     return true;
   };
-  $scope.loadEvent = function loadEvent (id) {
-    const reqEventualities = projectFtry.eventualityByName(
-      id,
-      "ID"
+  $scope.loadEvent = function loadEvent (project, id) {
+    const reqEventualities = projectFtry.eventByName(
+      project,
+      id
     );
     reqEventualities.then((response) => {
       if (!response.error) {
         if (angular.isUndefined(response.data)) {
           location.reload();
         }
-        $scope.eventData = response.data[0];
+        const eventData = response.data;
+        for (let inc = 0; inc < eventsTranslations.length; inc++) {
+          if (eventData[eventsTranslations[inc]] in keysToTranslate) {
+            eventData[eventsTranslations[inc]] =
+                    $translate.instant(keysToTranslate[
+                      eventData[eventsTranslations[inc]]
+                    ]);
+          }
+        }
+        $scope.eventData = eventData;
       }
       else if (response.message === "Access to project denied") {
         $msg.error($translate.instant("proj_alerts.access_denied"));
@@ -150,8 +159,6 @@ eventContentCtrl (
     const projectName = $stateParams.project;
     const eventId = $stateParams.id;
     $scope.isEditable = false;
-
-
     $scope.userRole = userRole;
     // Flags for editable fields activation
 
@@ -159,7 +166,7 @@ eventContentCtrl (
     hasAccess.then((response) => {
       // Initialization of search findings function
       $scope.configColorPalette();
-      $scope.loadEvent($stateParams.id);
+      $scope.loadEvent(projectName, eventId);
       $scope.goUp();
       if (!response.error) {
         $scope.hasAccess = response.data;

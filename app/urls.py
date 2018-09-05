@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^total_severity/?\.*$', views.total_severity, name='total_severity'),
     url(r'^get_eventualities/?\.*$',
         views.get_eventualities, name='get_eventualities'),
+    url(r'^get_event/?\.*$', views.get_event, name='get_event'),
     url(r'^get_evidences/?\.*$', views.get_evidences, name='get_evidences'),
     url(r'^get_users_login/?\.*$', views.get_users_login, name='get_users_login'),
     url(r'^get_user_data/?\.*$', views.get_user_data, name='get_user_data'),

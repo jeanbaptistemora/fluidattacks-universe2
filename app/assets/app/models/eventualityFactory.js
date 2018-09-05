@@ -17,23 +17,6 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
-       * Return the eventualities of a project
-       * @function getEvntByName
-       * @param {String} project Project Name
-       * @param {String} category Search filter: By Name or ID
-       * @member integrates.eventualityFactory
-       * @return {Object} Formstack response with the eventualities of a project
-       */
-      "getEvntByName" (project, category) {
-        const oopsAc = "An error ocurred getting event by name";
-        return $xhr.get($q, `${BASE.url}get_eventualities`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          category,
-          project
-        }, oopsAc);
-      },
-
-      /**
        * Update an eventuality
        * @function updateEvnt
        * @param {Object} vuln New data about an eventuality

@@ -518,6 +518,28 @@ def get_eventualities(request):
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
+def get_event(request):
+    "Get event by project and id"
+    project = request.GET.get('project', None)
+    event_id = request.GET.get('eventId', None)
+    events_dto = EventualityDTO()
+    api = FormstackAPI()
+    submission = api.get_submission(event_id)
+    if 'error' not in submission:
+        event = events_dto.parse(event_id, submission)
+        if event['fluidProject'].lower() == project.lower():
+            return util.response(event, 'Success', False)
+        else:
+            return util.response([], 'Access to project denied', True)
+    else:
+        rollbar.report_message('Error: Formstack returned an error getting events', 'error', request)
+        return util.response([], 'An error occurred getting events', True)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer', 'admin'])
+@require_project_access
 def get_users_login(request):
     "Get the email and last login date of all users in a project."
     project = request.GET.get('project', None)

@@ -56,7 +56,7 @@
                   <!-- Start Tab Info -->
                   <div id="info" class="tab-pane cont active">
                     <div class="row" >
-                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12">
+                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
                             <button id="edit" class="btn btn-primary btn-block"
                                     ng-click="eventEdit();">
                                     <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
@@ -105,8 +105,8 @@
                       </div>
                     </div>
                     <div class="row" >
-                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12">
-                            <button id="edit" class="btn btn-success btn-block"
+                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
+                            <button id="update" class="btn btn-success btn-block"
                                     ng-show="isEditable"
                                     ng-click="eventUpdate();">
                                     <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
