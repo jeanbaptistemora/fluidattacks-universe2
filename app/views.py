@@ -1961,7 +1961,7 @@ def mask_project_findings(project):
     api = FormstackAPI()
     try:
         finreqset = api.get_findings(project)["submissions"]
-        are_evidences_deleted = list(map(lambda x: delete_s3_all_evidences(x, project), finreqset))
+        are_evidences_deleted = list(map(lambda x: delete_s3_all_evidences(x["id"], project), finreqset))
         is_project_masked = list(map(mask_finding, finreqset))
         are_comments_deleted = list(map(lambda x: delete_all_coments(x["id"]), finreqset))
         is_project_deleted = all(is_project_masked) and all(are_evidences_deleted) and all(are_comments_deleted)
@@ -2006,9 +2006,8 @@ def mask_closing(submission_id):
     return request
 
 
-def delete_s3_all_evidences(submission_id, project):
+def delete_s3_all_evidences(finding_id, project):
     """Delete s3 evidences files."""
-    finding_id = submission_id["id"]
     evidences_list = key_existing_list(project + "/" + finding_id)
     is_evidence_deleted = False
     if evidences_list:
