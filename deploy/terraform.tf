@@ -204,3 +204,18 @@ resource "aws_dynamodb_table" "findings_new" {
     enabled = true
   }
 }
+resource "aws_dynamodb_table" "findings_test" {
+  name           = "FI_findings_test"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "finding_id"
+
+  attribute {
+    name = "finding_id"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
