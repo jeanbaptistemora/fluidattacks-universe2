@@ -1,0 +1,166 @@
+<div class="page-head" style="padding-bottom:1px!important;">
+    <ol class="breadcrumb">
+        <li><a ui-sref="home">Dashboard</a></li>
+        <li><a class="text-uppercase">{{project}}</a></li>
+    </ol>
+    <div id="header_alert"></div>
+    <br>
+    <div id="events_alert" class="alert alert-danger-2" ng-click="urlEvents();" style="display: none; cursor:pointer;">
+        <strong>{{ atAlert }}</strong> {{ descAlert1 }} {{ openEvents }} {{ descAlert2 }}
+    </div>
+</div>
+
+<!-- Start FindingContent -->
+<div class="main-content" style="background-color: white; padding-top:1px!important;" >
+  <div class="row">
+      <div class="col-md-2 col-xs-12 col-sm-12">
+          <button class="btn btn-default btn-block" ng-click="goBack();">
+              <i class="icon s7-angle-left"></i> {{'search_findings.project_buttons.back' | translate}}
+          </button>
+      </div>
+      <div class="col-md-6 col-xs-12 col-sm-12 text-left">
+          <h2 style="margin-top:0px !important;">{{eventData.type}}</h2>
+      </div>
+      <div class="col-md-12 col-xs-12 col-sm-12">
+          <hr/>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12 col-md-12">
+          <div class="row">
+              <div class="col-md-2 col-sm-6 col-xs-6 text-right">ID</div>
+              <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                  <span class="label label-default">{{eventData.id}}</span>
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'event_by_name.modal_ver.date' | translate}}</div>
+              <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                  <span class="label label-default">{{eventData.fecha}}</span>
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.status' | translate}}</div>
+              <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                      <span class="label label-default" style="{{header.findingValueColor}}">{{eventData.estado}}</span>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-12 col-md-12" style="margin-top:10px;">
+          <!-- Start Tab Set -->
+          <div class="tab-container">
+              <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
+                  <li id="infoItem" class="active" style="font-size:16px;" ng-click="urlDescription();" >
+                      <a href="#info" data-toggle="tab" aria-expanded="false">
+                      <i class="icon s7-note2" ></i>&nbsp;{{'search_findings.tab_description.description_name' | translate}}</a>
+                  </li>
+              </ul>
+              <!-- Start Tabs -->
+              <div class="tab-content">
+                  <!-- Start Tab Info -->
+                  <div id="info" class="tab-pane cont active">
+                    <div class="row" >
+                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12">
+                            <button id="edit" class="btn btn-primary btn-block"
+                                    ng-click="eventEdit();">
+                                    <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="row">
+                          <div class="col-md-6 col-xs-12 col-sm-12" >
+                            <field-box
+                              title="'event_by_name.modal_ver.detail' | translate"
+                              content="eventData.detalle"
+                            />
+                            <div class="row table-row">
+                              <div class="col-md-4 col-xs-12 col-sm-12">
+                                <div class="table-head">
+                                  <label><b>{{'event_by_name.modal_ver.affec' | translate}}</b></label>
+                                </div>
+                              </div>
+                              <div class="col-md-6 col-xs-12 col-sm-12">
+                                <p ng-show="!isEditable">{{eventData.affectation}}</p>
+                                <input type="text" class="form-control"
+                                       ng-show="isEditable"
+                                       ng-model="eventData.affectation">
+                              </div>
+                            </div>
+                            <field-box
+                              title="'event_by_name.modal_ver.analyst' | translate"
+                              content="eventData.analyst"
+                            />
+                          </div>
+                          <div class="col-md-6 col-xs-12 col-sm-12">
+                            <field-box
+                              title="'event_by_name.modal_ver.client' | translate"
+                              content="eventData.client"
+                            />
+                            <field-box
+                              title="'event_by_name.modal_ver.c_proj' | translate"
+                              content="eventData.clientProject"
+                            />
+                            <field-box
+                              title="'event_by_name.modal_ver.f_proj' | translate"
+                              content="eventData.fluidProject"
+                            />
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12">
+                            <button id="edit" class="btn btn-success btn-block"
+                                    ng-show="isEditable"
+                                    ng-click="eventUpdate();">
+                                    <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End Tab Info -->
+                </div>
+              <!-- End Tabs -->
+          </div>
+          <!--End Tab Set -->
+      </div>
+  </div>
+</div>
+<!-- End FindingContent -->
+
+<!-- Start CommonStyles -->
+<style>
+    .bg-critical{ background-color: #F12; }
+    .bg-moderate{ background-color: #F72; }
+    .bg-tolerable{ background-color: #FD2; }
+    .no-resize{ resize: none; height: 100px !important;}
+    .hide-detallado, .fl-hidden { display: none; }
+    .show-detallado, .fl-visible{ display: block;}
+    .pills-tabs > li.active > a,
+    .pills-tabs > li.active > a:hover,
+    .pills-tabs > li.active > a:focus{
+        background-color: #eee;
+        color: #777;
+    }
+    .pills-tabs > li > a,
+    .pills-tabs > li > a:hover,
+    .pills-tabs > li > a:focus{
+        background-color: white;
+        color: #666;
+    }
+    .table-head{
+        text-align: right;
+    }
+    @media (max-width: 768px) {
+        .table-head{
+            text-align: left;
+        }
+    }
+    .table-row{
+        margin-top: 15px;
+    }
+    .table-desc{
+        color: #888;
+        text-align: justify;
+        /*border-bottom: 0.5px #DDD solid;*/
+    }
+    #eventualities thead tr{ background-color: #898787; color:white;  }
+
+</style>
+<!-- End CommonStyles -->
