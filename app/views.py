@@ -805,9 +805,13 @@ def get_evidences(request):
     finding_id = request.GET.get('findingid', None)
     resp = integrates_dao.get_data_dynamo("FI_findings_new", "finding_id", finding_id)
     if resp:
-        return util.response(resp[0].get("files"), 'Success', False)
+        if resp[0].get("files"):
+            response = resp[0].get("files")
+        else:
+            response = []
     else:
-        return util.response([], 'Success', False)
+        response = []
+    return util.response(response, 'Success', False)
 
 @never_cache
 @csrf_exempt
