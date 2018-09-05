@@ -25,12 +25,12 @@ describe('Field Box', () => {
     expect(
       wrapper.contains(
         <div className="row table-row">
-          <Col xs={12} md={2}>
+          <Col xs={12} md={4}>
             <div className="table-head">
               <label><b>Unit test</b></label>
             </div>
           </Col>
-          <Col xs={12} md={10}>
+          <Col xs={12} md={8}>
             <p>
               Unit test description
             </p>

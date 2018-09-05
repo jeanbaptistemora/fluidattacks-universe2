@@ -15,12 +15,12 @@ const fieldBox: React.StatelessComponent<IFieldBoxProps> =
   (props: IFieldBoxProps): JSX.Element => (
     <React.StrictMode>
       <div className="row table-row">
-        <Col xs={12} md={2}>
+        <Col xs={12} md={4}>
           <div className="table-head">
             <label><b>{props.title}</b></label>
           </div>
         </Col>
-        <Col xs={12} md={10}>
+        <Col xs={12} md={8}>
           <p>
             {props.content}
           </p>

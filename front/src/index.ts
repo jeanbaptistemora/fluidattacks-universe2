@@ -33,9 +33,9 @@ angular
     ),
   );
 /**
- * @url: #/project/:project/:id/tracking
- * @page: findingcontent.html
- * @controllers: ["findingContentCtrl"]
+ * @url: #/project/:project/events/:id/description
+ * @page: eventcontent.html
+ * @controllers: ["eventContentCtrl"]
  * @tag: <field-box/>
  */
 angular

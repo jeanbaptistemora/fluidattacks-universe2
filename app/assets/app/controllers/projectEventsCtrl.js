@@ -6,7 +6,7 @@ nonexploitLabel:true, totalHigLabel:true, exploitable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
 mixPanelDashboard, win:true, window, Organization, projectData:true, i:true,
-eventsTranslations, keysToTranslate, labelEventState:true, angular
+eventsTranslations, keysToTranslate, labelEventState:true, angular, ldclient
 */
 /**
  * @file projectEventsCtrl.js
@@ -186,84 +186,98 @@ angular.module("FluidIntegrates").controller(
         data,
         "locale": vlang,
         "onClickRow" (row) {
-          $uibModal.open({
-            "animation": true,
-            "backdrop": "static",
-            "controller" ($scope, $uibModalInstance, evt) {
-              $scope.evt = evt;
-              $scope.evt.isManager = userRole !== "customer" &&
-                                     userRole !== "customeradmin";
-              $scope.evt.onlyReadableEvt1 = true;
-              // Mixpanel tracking
-              const nameOrg = Organization.toUpperCase();
-              const nameProj = project.toUpperCase();
-              mixPanelDashboard.trackReadEventuality(
-                userName,
-                userEmail,
-                nameOrg,
-                nameProj,
-                evt.id
-              );
-              if ($scope.evt.affectation === "" ||
-                  angular.isUndefined($scope.evt.affectation)) {
-                $scope.evt.affectation = "0";
-              }
-              $scope.evt.affectation = parseInt($scope.evt.affectation, 10);
-              $scope.eventEdit = function eventEdit () {
-                if ($scope.evt.onlyReadableEvt1 === false) {
-                  $scope.evt.onlyReadableEvt1 = true;
+          const enableEventView =
+                              ldclient.variation("new-event-window-ind", false);
+          if (enableEventView) {
+            $state.go("EventsDescription", {
+              "id": row.id,
+              "project": row.fluidProject.toLowerCase()
+            });
+          }
+          else {
+            $uibModal.open({
+              "animation": true,
+              "backdrop": "static",
+              "controller" ($scope, $uibModalInstance, evt) {
+                $scope.evt = evt;
+                $scope.evt.isManager = userRole !== "customer" &&
+                                       userRole !== "customeradmin";
+                $scope.evt.onlyReadableEvt1 = true;
+                // Mixpanel tracking
+                const nameOrg = Organization.toUpperCase();
+                const nameProj = project.toUpperCase();
+                mixPanelDashboard.trackReadEventuality(
+                  userName,
+                  userEmail,
+                  nameOrg,
+                  nameProj,
+                  evt.id
+                );
+                if ($scope.evt.affectation === "" ||
+                    angular.isUndefined($scope.evt.affectation)) {
+                  $scope.evt.affectation = "0";
                 }
-                else {
-                  $scope.evt.onlyReadableEvt1 = false;
-                }
-              };
-              $scope.okModalEditar = function okModalEditar () {
-                const neg = "negativo";
-                try {
-                  if (angular.isUndefined($scope.evt.affectation)) {
-                    throw neg;
+                $scope.evt.affectation = parseInt($scope.evt.affectation, 10);
+                $scope.eventEdit = function eventEdit () {
+                  if ($scope.evt.onlyReadableEvt1 === false) {
+                    $scope.evt.onlyReadableEvt1 = true;
                   }
-                }
-                catch (err) {
-                  Rollbar.error("Error: Affectation can not " +
-                                "be a negative number");
-                  $msg.error($translate.instant("proj_alerts." +
-                                                "eventPositiveint"));
-                  return false;
-                }
-                const reqEvents = eventualityFactory.updateEvnt($scope.evt);
-                reqEvents.then((response) => {
-                  if (!response.error) {
-                    const updatedAt = $translate.instant("proj_alerts." +
-                                                         "updatedTitle");
-                    const updatedAc = $translate.instant("proj_alerts." +
-                                                         "eventUpdated");
-                    $msg.success(updatedAc, updatedAt);
-                    $uibModalInstance.close();
-                    location.reload();
+                  else {
+                    $scope.evt.onlyReadableEvt1 = false;
                   }
-                  else if (response.error) {
-                    if (response.message === "Campos vacios") {
-                      Rollbar.error("Error: An error occurred updating events");
-                      $msg.error($translate.instant("proj_alerts.emptyField"));
-                    }
-                    else {
-                      Rollbar.error("Error: An error occurred updating events");
-                      $msg.error($translate.instant("proj_alerts." +
-                                                    "errorUpdatingEvent"));
+                };
+                $scope.okModalEditar = function okModalEditar () {
+                  const neg = "negativo";
+                  try {
+                    if (angular.isUndefined($scope.evt.affectation)) {
+                      throw neg;
                     }
                   }
-                });
-                return true;
-              };
-              $scope.close = function close () {
-                $uibModalInstance.close();
-              };
-            },
-            "keyboard": false,
-            "resolve": {"evt": row},
-            "templateUrl": `${BASE.url}assets/views/project/eventualityMdl.html`
-          });
+                  catch (err) {
+                    Rollbar.error("Error: Affectation can not " +
+                                  "be a negative number");
+                    $msg.error($translate.instant("proj_alerts." +
+                                                  "eventPositiveint"));
+                    return false;
+                  }
+                  const reqEvents = eventualityFactory.updateEvnt($scope.evt);
+                  reqEvents.then((response) => {
+                    if (!response.error) {
+                      const updatedAt = $translate.instant("proj_alerts." +
+                                                           "updatedTitle");
+                      const updatedAc = $translate.instant("proj_alerts." +
+                                                           "eventUpdated");
+                      $msg.success(updatedAc, updatedAt);
+                      $uibModalInstance.close();
+                      location.reload();
+                    }
+                    else if (response.error) {
+                      if (response.message === "Campos vacios") {
+                        Rollbar.error("Error: An error " +
+                                       "occurred updating events");
+                        $msg.error($translate.instant("proj_alerts." +
+                                                      "emptyField"));
+                      }
+                      else {
+                        Rollbar.error("Error: An error occurred " +
+                                      "updating events");
+                        $msg.error($translate.instant("proj_alerts." +
+                                                      "errorUpdatingEvent"));
+                      }
+                    }
+                  });
+                  return true;
+                };
+                $scope.close = function close () {
+                  $uibModalInstance.close();
+                };
+              },
+              "keyboard": false,
+              "resolve": {"evt": row},
+              "templateUrl": `${BASE.url}assets/views/` +
+                             "project/eventualityMdl.html"
+            });
+          }
         }
       });
       angular.element("#tblEventualities").bootstrapTable("refresh");
