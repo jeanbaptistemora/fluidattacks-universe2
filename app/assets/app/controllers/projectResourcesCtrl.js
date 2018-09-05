@@ -70,15 +70,7 @@ angular.module("FluidIntegrates").controller(
     };
 
     $scope.search = function search () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
       const projectName = $scope.project;
-      let hasAccess = true;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -97,9 +89,18 @@ angular.module("FluidIntegrates").controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        const reqRepositories = projectFtry2.repositoriesByProject(projectName);
-        reqRepositories.then((response) => {
-          if (!response.error) {
+        const reqResources = projectFtry2.resourcesByProject(projectName);
+        reqResources.then((response) => {
+          if (response.error) {
+            if (response.message === "Access denied") {
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+            }
+            else {
+              Rollbar.warning("Warning: Resources not found");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
+          }
+          else {
             const respData = response.data;
             if (angular.isUndefined(respData)) {
               location.reload();
@@ -109,37 +110,9 @@ angular.module("FluidIntegrates").controller(
               const projectRepoInfo =
                               angular.fromJson(respData.resources.repositories);
               $scope.loadRepoInfo(projectName, projectRepoInfo);
-            }
-          }
-          else if (response.error) {
-            if (response.message === "Access denied") {
-              hasAccess = false;
-            }
-            else {
-              Rollbar.warning("Warning: Repositories not found");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-            }
-          }
-        });
-        const reqEnvironments = projectFtry2.environmentsByProject(projectName);
-        reqEnvironments.then((response) => {
-          if (!response.error) {
-            const respData = response.data;
-            if (angular.isUndefined(respData)) {
-              location.reload();
-            }
-            $scope.view.project = true;
-            const projectEnvInfo =
+              const projectEnvInfo =
                               angular.fromJson(respData.resources.environments);
-            $scope.loadEnvironmentInfo(projectName, vlang, projectEnvInfo);
-          }
-          else if (response.error) {
-            if (response.message === "Access denied" || !hasAccess) {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else {
-              Rollbar.warning("Warning: Environments not found");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
+              $scope.loadEnvironmentInfo(projectName, projectEnvInfo);
             }
           }
         });
@@ -168,8 +141,14 @@ angular.module("FluidIntegrates").controller(
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
     };
 
-    $scope.loadEnvironmentInfo = function
-    loadEnvironmentInfo (project, vlang, data) {
+    $scope.loadEnvironmentInfo = function loadEnvironmentInfo (project, data) {
+      let vlang = "en-US";
+      if (localStorage.lang === "en") {
+        vlang = "en-US";
+      }
+      else {
+        vlang = "es-CO";
+      }
       angular.element("#tblEnvironments").bootstrapTable("destroy");
       angular.element("#tblEnvironments").bootstrapTable({
         "cookie": true,

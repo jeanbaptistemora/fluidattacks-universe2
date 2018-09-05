@@ -279,23 +279,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Return the environments of a project
-       * @function environmentsbyProject
-       * @param {String} project Project name
-       * @member integrates.projectFtry2
-       * @return {Object} Dynamo response with the environments of a project
-       */
-      "environmentsByProject" (project) {
-        const oopsAc = "An error occurred getting environments";
-        const gQry = `{
-            resources (projectName: "${project}") {
-              environments
-            }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Get user information.
        * @function getUserData
        * @param {String} data User data.
@@ -388,17 +371,18 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Return the repositories of a project
-       * @function repositoriesbyProject
+       * Return the repositories and environments of a project
+       * @function resourcesByProject
        * @param {String} project Project name
        * @member integrates.projectFtry2
        * @return {Object} Dynamo response with the repositories of a project
        */
-      "repositoriesByProject" (project) {
+      "resourcesByProject" (project) {
         const oopsAc = "An error occurred getting repositories";
         const gQry = `{
             resources (projectName: "${project}") {
-              repositories
+              repositories,
+              environments
             }
         }`;
         return $xhr.fetch($q, gQry, oopsAc);
