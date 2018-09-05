@@ -48,17 +48,19 @@ cómo los ambientes son infinitos.
 
 Esta conferencia académica gratuita la hemos estado dando ya hace 9 meses en:
 
-* *Grandes empresas de la región:* link:https://www.segurossura.com.co/Paginas/default.aspx[Sura],
+* *Grandes empresas de la región:*
 link:https://www.grupobancolombia.com/wps/portal/personas[Bancolombia],
-link:https://www.grupoexito.com.co/es/[Grupo Éxito],
-link:https://www.tigoune.com.co/[Tigo Une],
+link:https://www.bcp.com.bo/[Banco de Credito del Peru],
+link:https://www.banistmo.com/[Banistmo],
 link:http://www.celsia.com/[Celsia-EPSA],
 link:https://www.comfama.com/webinicio/default.asp[Comfama],
-link:https://www.banistmo.com/[Banistmo],
-link:https://www.stgeorgesbank.com/[St. Georges Bank],
-link:https://www.bcp.com.bo/[Banco de Credito del Peru],
-link:https://www.gnbsudameris.com.co/[GNB Sudameris],
 link:https://www.velez.com.co/[Cueros Velez]
+link:https://www.gnbsudameris.com.co/[GNB Sudameris],
+link:https://www.grupoexito.com.co/es/[Grupo Éxito],
+link:http://www.homecenter.com.co/homecenter-co/[Homecenter],
+link:https://www.stgeorgesbank.com/[St. Georges Bank],
+link:https://www.segurossura.com.co/Paginas/default.aspx[Sura]
+link:https://www.tigoune.com.co/[Tigo Une],
 
 * *Universidades:* link:http://www.eafit.edu.co/[EAFIT],
 link:https://www.udem.edu.co/[UdeM],
@@ -68,19 +70,22 @@ link:http://www.politecnicojic.edu.co/[Politécnico Jaime Isaza Cadavid],
 link:https://www.upb.edu.co/es/home[UPB],
 link:http://www.uniminuto.edu/[Uniminuto Bogotá]
 
-* *Empresas proveedoras de TI:* link:https://www.kometsales.com/[Komet Sales],
-link:http://perceptio.co/[Perceptio],
-link:http://www.internexa.com/Paginas/Home.aspx[Internexa],
-link:http://gluky.co/[Gluky],
-link:https://outsourcing.cidenet.com.co/home/[Cidenet],
-link:https://www.choucairtesting.com/[Choucair Testing],
+* *Empresas proveedoras de TI:*
+link:https://www.arus.com.co/[ARUS],
 link:http://www.cadena.com.co/es/home.aspx[Cadena],
-link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[SETI],
-link:http://novit.pe/[NovitIT Peru],
-link:http://flypass.com.co/[Flypass],
+link:https://www.choucairtesting.com/[Choucair Testing],
+link:https://outsourcing.cidenet.com.co/home/[Cidenet],
 link:http://www.cognox.co/sitios/Cognox/default.aspx[Cognox],
+link:http://flypass.com.co/[Flypass],
+link:http://gluky.co/[Gluky],
+link:http://www.internexa.com/Paginas/Home.aspx[Internexa],
+link:https://www.kometsales.com/[Komet Sales],
+link:http://perceptio.co/[Perceptio],
+link:http://www.mareigua.com/[Mareigua],
+link:http://novit.pe/[NovitIT Peru],
+link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[SETI],
 link:https://www.todo1services.com/[Todo1],
-link:http://www.mareigua.com/[Mareigua]
+
 
 * *Otros espacios abiertos:* link:https://www.rutanmedellin.org/es/[RutaN],
 link:https://www.meetup.com/es/mde-devops[MeetUp-Medellin-DevOps].
