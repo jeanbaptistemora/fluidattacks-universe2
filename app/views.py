@@ -1497,17 +1497,6 @@ def total_severity(request):
     return util.response(toe, 'Success', False)
 
 @never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def get_alerts(request):
-    company = request.GET.get('company', None)
-    project = request.GET.get('project', None)
-    resp = integrates_dao.get_company_alert_dynamo(company, project)
-    return util.response(resp, 'Success', False)
-
-@never_cache
 @require_http_methods(["POST"])
 @authorize(['admin'])
 @require_finding_access

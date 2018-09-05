@@ -55,7 +55,6 @@ urlpatterns = [
     url(r'^add_access_integrates/?\.*$', views.add_access_integrates, name='add_access_integrates'),
     url(r'^remove_access_integrates/?\.*$', views.remove_access_integrates, name='remove_access_integrates'),
     url(r'^edit_user/?\.*$', views.edit_user, name='edit_user'),
-    url(r'^get_alerts/?\.*$', views.get_alerts, name='get_alerts'),
     url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$', views.get_evidence),
     url(r'^get_exploit/?\.*$', views.get_exploit, name='get_exploit'),
     url(r'^get_records/?\.*$', views.get_records, name='get_records'),
