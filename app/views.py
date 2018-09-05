@@ -1591,11 +1591,12 @@ def delete_draft(request):
             if result is None:
                 rollbar.report_message('Error: An error ocurred deleting the draft', 'error', request)
                 return util.response([], 'Error', True)
+            delete_all_coments(submission_id)
+            delete_s3_all_evidences(submission_id, finding['fluidProject'].lower())
             admins = integrates_dao.get_admins()
             to = [x[0] for x in admins]
             to.append(finding['analyst'])
             send_mail_delete_draft(to, context)
-            delete_all_coments(submission_id)
             return util.response([], 'success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
