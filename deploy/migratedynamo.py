@@ -25,7 +25,8 @@ tables = ["alerts_by_company",
           "projects",
           "project_access",
           "users",
-          "findings_new"]
+          "findings_new",
+          "findings"]
 
 for table in tables:
     dynamopaginator = dynamoclient.get_paginator('scan')

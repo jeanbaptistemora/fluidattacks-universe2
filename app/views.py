@@ -711,7 +711,7 @@ def catch_finding(request, submission_id):
 
 def format_release_date(finding, state):
     primary_keys = ["finding_id", finding["id"]]
-    table_name = "FI_findings_new"
+    table_name = "FI_findings"
     finding_dynamo = integrates_dao.get_data_dynamo(
         table_name, primary_keys[0], primary_keys[1])
     if finding_dynamo:
@@ -772,7 +772,7 @@ def finding_vulnerabilities(submission_id):
             finding['where'] = '-'
             finding['edad'] = '-'
         primary_keys = ["finding_id", submission_id]
-        table_name = "FI_findings_new"
+        table_name = "FI_findings"
         finding_dynamo = integrates_dao.get_data_dynamo(
             table_name, primary_keys[0], primary_keys[1])
         if finding_dynamo:
@@ -803,7 +803,7 @@ def finding_vulnerabilities(submission_id):
 @require_finding_access
 def get_evidences(request):
     finding_id = request.GET.get('findingid', None)
-    resp = integrates_dao.get_data_dynamo("FI_findings_new", "finding_id", finding_id)
+    resp = integrates_dao.get_data_dynamo("FI_findings", "finding_id", finding_id)
     if resp:
         if resp[0].get("files"):
             response = resp[0].get("files")
@@ -976,7 +976,7 @@ def save_file_url(finding_id, field_name, file_url):
     file_data.append({"name": field_name, "file_url": file_url})
     remove_file_url(finding_id, field_name)
     is_url_saved = integrates_dao.add_list_resource_dynamo(
-        "FI_findings_new",
+        "FI_findings",
         "finding_id",
         finding_id,
         file_data,
@@ -985,7 +985,7 @@ def save_file_url(finding_id, field_name, file_url):
 
 def remove_file_url(finding_id, field_name):
     findings = integrates_dao.get_data_dynamo(
-        "FI_findings_new",
+        "FI_findings",
         "finding_id",
         finding_id)
     for finding in findings:
@@ -995,7 +995,7 @@ def remove_file_url(finding_id, field_name):
             for file_obj in files:
                 if file_obj.get("name") == field_name:
                     integrates_dao.remove_list_resource_dynamo(
-                        "FI_findings_new",
+                        "FI_findings",
                         "finding_id",
                         finding_id,
                         "files",
@@ -1556,7 +1556,7 @@ def accept_draft(request):
             release['id'] = parameters
             release['releaseDate'] = releaseDate
             primary_keys = ["finding_id", parameters]
-            table_name = "FI_findings_new"
+            table_name = "FI_findings"
             has_release = integrates_dao.add_attribute_dynamo(
                 table_name, primary_keys, "releaseDate", releaseDate)
             has_last_vuln = integrates_dao.add_attribute_dynamo(

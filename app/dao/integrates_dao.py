@@ -1106,7 +1106,7 @@ def remove_role_to_project_dynamo(project_name, user_email, role):
 
 def delete_finding_dynamo(finding_id):
     """ Delete a finding in DynamoDb."""
-    table = dynamodb_resource.Table('FI_findings_new')
+    table = dynamodb_resource.Table('FI_findings')
     try:
         response = table.delete_item(
             Key={
