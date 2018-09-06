@@ -40,7 +40,6 @@ urlpatterns = [
     # Dashboard view.
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     url(r'^get_drafts/?\.*$', views.get_drafts, name='get_drafts'),
-    url(r'^remove_environments/?\.*$', views.remove_environments, name='remove_environments'),
     # Use of Formstack services.
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),

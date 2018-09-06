@@ -345,11 +345,19 @@ angular.module("FluidIntegrates").factory(
        */
       "removeEnvironments" (data, project) {
         const oopsAc = "An error occurred removing environments";
-        return $xhr.post($q, `${BASE.url}remove_environments`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          project
-        }, oopsAc);
+        const gQry = `mutation {
+          removeEnvironments (
+            repositoryData: ${data},
+            projectName: "${project}"
+          ) {
+            success,
+            access,
+            resources {
+              environments
+            }
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**

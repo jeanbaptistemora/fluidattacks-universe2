@@ -205,7 +205,6 @@ angular.module("FluidIntegrates").controller(
               userEmail,
               projt
             );
-
             const respData = response.data.removeRepositories;
             if (respData.success) {
               const message = $translate.instant("search_findings" +
@@ -309,7 +308,6 @@ angular.module("FluidIntegrates").controller(
                   else {
                     $msg.error($translate.instant("proj_alerts.access_denied"));
                   }
-
                   $uibModalInstance.close();
                 }
               });
@@ -328,7 +326,6 @@ angular.module("FluidIntegrates").controller(
     };
 
     $scope.addEnvironment = function addEnvironment () {
-      // Obtener datos
       const descData = {"project": $stateParams.project.toLowerCase()};
       $uibModal.open({
         "animation": true,
@@ -382,14 +379,11 @@ angular.module("FluidIntegrates").controller(
                   $msg.error($translate.instant("proj_alerts.error_textsad"));
                 }
                 else {
-                  // Mixpanel tracking
                   const projt = descData.project.toUpperCase();
                   mixPanelDashboard.trackSearch(
                     "addEnvironment",
-                    userEmail,
-                    projt
+                    userEmail, projt
                   );
-
                   const respData = response.data.addEnvironments;
                   if (respData.success) {
                     const message = $translate.instant("search_findings" +
@@ -408,7 +402,6 @@ angular.module("FluidIntegrates").controller(
                   else {
                     $msg.error($translate.instant("proj_alerts.access_denied"));
                   }
-
                   $uibModalInstance.close();
                 }
               });
@@ -444,30 +437,40 @@ angular.module("FluidIntegrates").controller(
         environments.urlEnv = environment;
         const project = $stateParams.project.toLowerCase();
         const repo = projectFtry2.removeEnvironments(
-          environments,
+          angular.toJson(angular.toJson(environments)),
           project
         );
         // Capture the promise
         repo.then((response) => {
-          if (!response.error) {
+          if (response.error) {
+            Rollbar.error("Error: An error occurred when removing environment");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+          else {
             // Mixpanel tracking
             const projt = project.toUpperCase();
             mixPanelDashboard.trackSearch(
               "removeEnvironment",
-              userEmail,
-              projt
+              userEmail, projt
             );
-            const message = $translate.instant("search_findings" +
-                                          ".tab_resources.success_remove");
-            const messageTitle = $translate.instant("search_findings" +
-                                          ".tab_users.title_success");
-            $msg.success(message, messageTitle);
-            location.reload();
-          }
-          else if (response.error) {
-            Rollbar.error("Error: An error occurred when " +
-                        "removing environment");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
+            const respData = response.data.removeEnvironments;
+            if (respData.success) {
+              const message = $translate.instant("search_findings" +
+                                            ".tab_resources.success_remove");
+              const messageTitle = $translate.instant("search_findings" +
+                                            ".tab_users.title_success");
+              $msg.success(message, messageTitle);
+              const envs = respData.resources.environments;
+              $scope.loadEnvironmentInfo(projt, angular.fromJson(envs));
+            }
+            else if (respData.access) {
+              Rollbar.error("Error: An error occurred when " +
+                          "removing environment");
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
+            else {
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+            }
           }
         });
       }

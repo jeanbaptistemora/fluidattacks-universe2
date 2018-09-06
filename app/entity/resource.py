@@ -236,3 +236,64 @@ class AddEnvironments(Mutation):
             self.access = False
 
         return AddEnvironments(success=self.success, access=self.access, resources=Resource(info, project_name))
+
+class RemoveEnvironments(Mutation):
+    """Remove environments of a given project."""
+
+    class Arguments(object):
+        repository_data = JSONString()
+        project_name = String()
+    resources = Field(Resource)
+    success = Boolean()
+    access = Boolean()
+
+    @classmethod
+    def mutate(self, args, info, repository_data, project_name):
+        del args
+
+        self.success = False
+        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
+            and has_access_to_project(
+                info.context.session['username'],
+                project_name,
+                info.context.session['role'])):
+
+            self.access = True
+            environment_url = repository_data.get("urlEnv")
+            env_list = integrates_dao.get_project_dynamo(project_name)[0]["environments"]
+            index = -1
+            cont = 0
+            while index < 0 and len(env_list) > cont:
+                if env_list[cont]["urlEnv"] == environment_url:
+                    json_data = [env_list[cont]]
+                    index = cont
+                else:
+                    index = -1
+                cont += 1
+            if index >= 0:
+                remove_env = integrates_dao.remove_list_resource_dynamo(
+                    "FI_projects",
+                    "project_name",
+                    project_name,
+                    "environments",
+                    index)
+                if remove_env:
+                    to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+                    context = {
+                        'project': project_name.upper(),
+                        'user_email': info.context.session["username"],
+                        'action': 'Remove environments',
+                        'resources': json_data,
+                        'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                        .format(project=project_name)
+                    }
+                    send_mail_repositories(to, context)
+                    self.success = True
+                else:
+                    rollbar.report_message('Error: An error occurred removing an environment', 'error', info.context)
+            else:
+                util.cloudwatch_log(info.context, 'Security: Attempted to remove an environment that does not exist')
+        else:
+            self.access = False
+
+        return RemoveEnvironments(success=self.success, access=self.access, resources=Resource(info, project_name))

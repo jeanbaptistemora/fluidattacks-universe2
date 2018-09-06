@@ -35,7 +35,6 @@ from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_access_granted
-from .mailer import send_mail_repositories
 from .mailer import send_mail_accepted_finding
 from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin, has_responsibility, has_phone_number
@@ -1853,53 +1852,6 @@ def access_to_project(request):
     if has_access_to_project(request.session['username'], project, request.session['role']):
         return util.response(True, 'success', False)
     return util.response(False, 'success', False)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def remove_environments(request):
-    """Remove environments to proyect."""
-    parameters = request.POST.dict()
-    project = parameters["project"]
-    environment = parameters["data[urlEnv]"]
-    project_info = integrates_dao.get_project_dynamo(project)
-    repo_list = project_info[0]["environments"]
-    index = -1
-    cont = 0
-    while index < 0 and len(repo_list) > cont:
-        if repo_list[cont]["urlEnv"] == environment:
-            json_data = [repo_list[cont]]
-            index = cont
-        else:
-            index = -1
-        cont += 1
-    if index >= 0:
-        remove_env = integrates_dao.remove_list_resource_dynamo(
-            "FI_projects",
-            "project_name",
-            project,
-            "environments",
-            index)
-        if remove_env:
-            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-            context = {
-                'project': project.upper(),
-                'user_email': request.session["username"],
-                'action': 'Remove environments',
-                'resources': json_data,
-                'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
-                .format(url=BASE_URL, project=project)
-            }
-            send_mail_repositories(to, context)
-            return util.response([], 'Success', False)
-        else:
-            rollbar.report_message('Error: An error occurred removing environment', 'error', request)
-            return util.response([], 'Error', True)
-    else:
-        util.cloudwatch_log(request, 'Security: Attempted to remove environment that does not exist')
-        return util.response([], 'Error', True)
-
 
 def delete_project(project):
     """Delete project information."""
