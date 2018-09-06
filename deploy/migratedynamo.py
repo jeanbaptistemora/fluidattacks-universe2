@@ -25,7 +25,6 @@ tables = ["alerts_by_company",
           "projects",
           "project_access",
           "users",
-          "findings_new",
           "findings"]
 
 for table in tables:
