@@ -18,7 +18,6 @@ dynamotargetclient = boto3.client('dynamodb', region_name='us-east-1',
 
 tables = ["alerts_by_company",
           "comments",
-          "findings",
           "findings_email",
           "remediated",
           "toe",
@@ -26,8 +25,7 @@ tables = ["alerts_by_company",
           "projects",
           "project_access",
           "users",
-          "findings_new",
-          "findings_test_name"]
+          "findings_new"]
 
 for table in tables:
     dynamopaginator = dynamoclient.get_paginator('scan')

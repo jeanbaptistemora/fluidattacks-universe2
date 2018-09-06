@@ -53,22 +53,6 @@ resource "aws_dynamodb_table" "comments" {
   }
 }
 
-resource "aws_dynamodb_table" "findings" {
-  name           = "FI_findings"
-  read_capacity  = 5
-  write_capacity = 5
-  hash_key       = "finding_id"
-
-  attribute {
-    name = "finding_id"
-    type = "N"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-}
-
 resource "aws_dynamodb_table" "findings_email" {
   name           = "FI_findings_email"
   read_capacity  = 5
@@ -191,21 +175,6 @@ resource "aws_dynamodb_table" "project_access" {
 }
 resource "aws_dynamodb_table" "findings_new" {
   name           = "FI_findings_new"
-  read_capacity  = 5
-  write_capacity = 5
-  hash_key       = "finding_id"
-
-  attribute {
-    name = "finding_id"
-    type = "S"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-}
-resource "aws_dynamodb_table" "findings_test" {
-  name           = "FI_findings_test_name"
   read_capacity  = 5
   write_capacity = 5
   hash_key       = "finding_id"
