@@ -421,7 +421,9 @@ findingContentCtrl (
       functionsFtry2.activeTab("#records", "FindingRecords", org, projt, idF);
       const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
       $scope.hasRecords = recordinfo[0];
-      findingData.hasRecords = recordinfo[1];
+      findingData.hasRecords = recordinfo[0];
+      $scope.recordsDataset = recordinfo[1];
+      findingData.recordsDataset = recordinfo[1];
     }
     if ($window.location.hash.indexOf("comments") !== -1) {
       functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);

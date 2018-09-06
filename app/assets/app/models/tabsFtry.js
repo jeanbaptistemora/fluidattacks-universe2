@@ -441,7 +441,7 @@ angular.module("FluidIntegrates").factory(
         });
         return [
           data.hasRecords,
-          findingData.hasRecords
+          data.recordsDataset
         ];
       }
     };
