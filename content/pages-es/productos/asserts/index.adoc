@@ -16,248 +16,263 @@ image::asserts.svg[Asserts]
 
 Ver la [button]#link:https://fluidsignal.gitlab.io/asserts/[documentación de la API]#
 
-== 2. Ejecución
+== 2. Instalación
 
-=== En un PC
++Asserts+ está alojado +PyPI+,
+de modo que puedes instalarlo fácilmente utiizando +pip3+
+en un sistema con +Python3+:
 
-==== Linux
-
-
-Para correr un exploit, simplemente ejecuta:
-
-[source, bash]
+[source, bash, linenums]
+.asserts installation
 ----
-$ pip install -U fluidasserts
+$ pip3 install -U fluidasserts
+----
+
+Para uso normal o interactivo
+se debe configurar la variable +FA_STRICT+ a +false+
+en sistemas operativos similares a +UNIX+ (como se muestra a continuación):
+
+[source, bash, linenums]
+----
 $ export FA_STRICT="false"
-
-$ python exploit.py
 ----
 
-==== Windows
+En +Windows+:
 
-Igual que en Linux, simplemente ejecuta:
-[source, bash]
+[source, bash, linenums]
 ----
-> pip install -U fluidasserts
 > set FA_STRICT="false"
-
-> python exploit.py
 ----
 
-=== En un pipeline de CI
+Ahora, estás listo para empezar con las link:https://fluidsignal.gitlab.io/asserts/usage/[pruebas]
+de cierre de vulnerabilidades.
 
-Si tienes una aplicación suscrita a nuestro servicio de
-*Pruebas Concurrentes de Seguridad* que incluya el uso de +Asserts+,
-puedes agregarlo a tu pipeline de integración continua.
-Para eso, debes seguir los siguientes pasos:
+=== Instalación en un contenedor de Docker
 
-* Agregar las variables de entorno +USER+, +PASS+, +ORG+ y +APP+.
-No te preocupes, ¡los valores serán entregados por nosotros!:
-** +USER+: Nombre de usuario para obtener la imagen
-de nuestro registro de contenedores
-** +PASS+: Contraseña del usuario
-** +ORG+: Nombre de la compañía
-** +APP+: Nombre de la aplicación
+Si tienes +Docker+ puedes descargar y ejecutar +Asserts+
+dentro de un contenedor, para ello ejecuta el siguiente comando:
 
-.Ejemplo de variables en un ambiente Gitlab CI
-image::vars.png[Variables de entorno]
+[source, bash, linenums]
+----
+$ docker pull fluidattacks/asserts
+----
 
-* Agregar un job donde se ejecute el contenedor.
+Y luego entra al contenedor:
 
-.En Gitlab CI, agregar:
-[source, yaml]
+[source, bash, linenums]
+----
+$ docker run -it fluidattacks/asserts sh
+/ # asserts
+----
+
+[source, bash, linenums]
+----
+#  ___
+# | >>|> fluid
+# |___|  attacks, we hack your software
+#
+# Loading attack modules ...
+----
+
+Es necesario asegurarse de realizar el +docker pull+
+antes de cada ejecución del contenedor para asegurar que se está
+utilizando la versión más reciente de +Asserts+.
+
+Una vez dentro del contenedor es posible ejecutar +Asserts+
+desde el +shell+ interactivo de +Python+
+o contruir rápidamente un +script+ utilizando +vi+.
+Pero sería mucho más útil
+montar el directorio donde se localiza el +exploit+ en el contenedor.
+
+[source, bash, linenums]
+----
+$ docker run -v /home/me/myexploits/:/exploits/ -it fluidattacks/asserts sh
+/ # asserts /exploits/open-sqli.py
+----
+
+[source, bash, linenums]
+----
+#  ___
+# | >>|> fluid
+# |___|  attacks, we hack your software
+#
+# Loading attack modules ...
+
+check: fluidasserts.proto.http.has_sqli
+status: OPEN
+message: A bad text was present
+details:
+  bad_text: Warning.*mysql_.*
+  fingerprint:
+    banner: "Server: nginx/1.4.1\r\nContent-Type: text/xml\r\nTransfer-Encoding: chunked\r\
+      \nConnection: keep-alive\r\nX-Powered-By: PHP/5.3.10-1~lucid+2uwsgi2"
+    sha256: 588702eb0b53294654f934d86664956e9739db47c34ffd8d703550cd5fd670a0
+  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27
+when: 2018-09-06 08:33:08.781518
+----
+
+=== Uso en un pipeline de integración continua (CI)
+
+Si tienes una aplicación suscrita a nuestro link:../../servicios/hacking-continuo/[servicio de hacking continuo]
+el cual incluye el uso de +Asserts+,
+es posible integrarlo en tu +pipeline+ de +CI+
+para garantizar que tu software se construya y entregue
+sin vulnerabilidades abiertas.
+Entregaremos un contenedor +Docker+ personalizado
+con las pruebas específicas necesarias para mantener
+la ruptura de +builds+ con el +exploit+.
+
+Para lograr esto, sigue los siguientes pasos:
+
+. Agrega las variables de entorno requeridas: +USER+, +PASS+, +ORG+ y +APP+.
+No te preocupes, los valores serán entregados por nosotros!:
++
+* +USER:+ Nombre del usuario del registro de nuestro contenedor.
+* +PASS:+ La contraseña del usuario.
+* +ORG:+ El nombre de la organización.
+* +APP:+ El nombre de la aplicación.
++
+Por ejemplo, en +Gitlab+, tu entorno podría verse así:
++
+image::vars.png[Variables de entorno de Gitlab]
+
+
+. Agregar un +job+ para ejecutar +Asserts+.
+Por ejemplo en +Gitlab+,
+agregarías una de estas tres líneas a tu archivo +.gitlab-ci.yml+:
++
+.asserts in gitlab
+[source, bash, linenums]
 ----
 fluidasserts:
-    script:
-        - docker login fluid-docker.jfrog.io -u $USER -p $PASS
-        - docker pull fluid-docker.jfrog.io/$ORG:$APP
-        - docker run -e ORG=$ORG -e APP=$APP -e USER=$USER -e PASS=$PASS -e FA_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
+  script:
+    - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
+    - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
+    - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER"
+                 -e PASS="$PASS" -e FA_STRICT="true" --rm
+                 fluid-docker.jfrog.io/"$ORG":"$APP"
+    - docker logout fluid-docker.jfrog.io
 ----
 
-*NOTA:* La variable +FA_STRICT+ debe tener los valores +true+ o +false+.
-Si es +true+ y alguna de las vulnerabilidades está abierta,
-¡el pipeline se romperá!
+. A partir de ahora, tu +pipeline+ fallará
+si se encuentra alguna vulnerabilidades abierta.
+Para evitar romper el +build+ pero aún así correr las pruebas,
+cambia el valor de la variable +FA_STRICT+ a +false+.
 
-== 3. Requerimientos
+==== Etapas CI
 
-=== Para ejecutar en un PC
+De acuerdo, estoy dentro.
+Pero en qué etapa debería probar mi aplicación con +Asserts+ ?
+Existen al menos +3+ buenos momentos para ejecutar una prueba de cierre:
 
-* *Sistema operativo*:
-** Cualquier SO que soporte Python
-* *Red*:
-** Acceso al repositorio de artefactos link:https://fluid.jfrog.io[aquí].
-* *Dependencias de software*:
-** +Python 3.6+
+. Luego de desplegar a un ambiente efímero o real.
+. Luego de desplegar al ambiente de producción.
+. Luego de cada +commit+ !
 
-=== Para integrar en un pipeline de CI
+==== Post-producción
 
-* *Sistema operativo*:
-** Cualquier distribución basada en Linux que soporte +DockerCE+
-** Windows Server con +HyperV+ y +Docker+
-** MacOS
-* *Red*:
-** Acceso al ambiente de integración donde tengas la aplicación o plataforma
-* *Dependencias de software*:
-** +DockerCE 17+ ó superior
+Al igual que antes, iniciamos sesión en el repositorio de artefactos,
+actualizamos la imagen personalizada, y la ejecutamos con +Docker+.
+Esta vez, sin embargo, montamos el volumen correspondiente al +commit+ actual
++/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}+
+al directorio +/code+ en el contenedor,
+debido a que el contenedor
+ya está configurado para probar el código allí almacenado.
+Este +job+ sólo se ejecuta en la rama +master+
+y en una de las últimas etapas, llamada +post-deploy+
 
-=== Comunes
-
-* *CPU*: 4 cores @1.8GHz
-* *RAM*: 4GiB DDR3 @1.6Ghz
-* *Espacio en disco*: 10GiB
-
-== 4. Ejemplos de exploits
-
-=== Inyección SQL
-
-.ex1_open.py: Verificar inyección SQL aun presente
-[source, python, linenum]
+[source, bash, linenums]
+.post-deploy
 ----
-from fluidasserts.proto import http
-
-URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
-
-http.has_sqli(URL)
-----
-
-.Resultado de ejecución ex1_open.py
-[source, yaml]
-----
-# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
-# All rights reserved.
-# Loading attack modules ...
----
-check: fluidasserts.proto.http.has_multiple_text
-status: OPEN
-message: 'A bad text was present: "Warning.*mysql_.*"'
-details:
-  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27
-when: 2018-05-16 08:41:04.397649
+asserts-prod:
+  stage: post-deploy
+  script:
+    - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
+    - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
+    - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER" -e PASS="$PASS"
+                 -e FA_STRICT="true" --rm -e STAGE=post-deploy
+                 -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
+                 fluid-docker.jfrog.io/"$ORG":"$APP"
+    - docker logout fluid-docker.jfrog.io
+  retry: 2
+  only:
+    - master
 ----
 
-.ex1_close.py: Verificar inyección SQL ya solucionada
-[source, python, linenum]
+==== Post-efímero
+
+Pero espera! podemos evitar algunos +bugs+
+antes de realizar el despliegue a producción.
+Si utilizas ambientes efímeros,
+también puedes ejecutar pruebas de cierre en éstos:
+
+[source, bash, linenums]
 ----
-from fluidasserts.proto import http
-
-URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3'
-
-http.has_sqli(URL)
-----
-
-.Resultado de ejecución ex1_close.py
-[source, yaml]
-----
-# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
-# All rights reserved.
-# Loading attack modules ...
----
-check: fluidasserts.proto.http.has_multiple_text
-status: CLOSE
-message: No bad text was present
-details:
-  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3
-when: 2018-05-16 08:42:02.448463
-----
-
-=== Cross-Site Scripting
-
-.ex2_open.py: Verificar XSS aun presente
-[source, python, linenum]
-----
-from fluidasserts.proto import http
-
-URL = 'http://testphp.vulnweb.com/guestbook.php'
-BAD_TEXT = r"<script>alert\('Hacked by Fluid Attacks'\)</script>"
-
-DATA = 'name=test&text=%3Cscript%3Ealert%28%27Hacked+by+Fluid+Attacks%27%29%3C%2Fscript%3E&submit=add+message'
-http.has_xss(URL, BAD_TEXT, data=DATA)
+Asserts-Review:
+  stage: test
+  script:
+    - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
+    - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
+    - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER" -e PASS="$PASS"
+                 -e FA_STRICT="true" --rm -e STAGE=test
+                 -e BRANCH="$CI_COMMIT_REF_SLUG"
+                 -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}:/code
+                 fluid-docker.jfrog.io/"$ORG":"$APP"
+    - docker logout fluid-docker.jfrog.io
+  retry: 2
+  except:
+    - master
+    - triggers
 ----
 
-.Resultado de ejecución ex2_open.py
-[source, yaml]
+En contraste con el +job+ anterior de post-despliegue,
+este corre en las ramas de desarrollo, durante la etapa de pruebas (+test+).
+Aparte de esto, todo lo demás sigue siendo igual,
+justo como iniciar un ambiente de producción espejo.
+
+
+==== Pre-commit
+
+Como desarrollador, puede que te estés preguntando:
+"¿Por qué debo esperar a que todas las etapas de +CI+ terminen
+si solo quiero probar si mi ultimo +commit+ reparó la brecha de seguridad?"
+Puedes correr +Asserts+ localmente en tu máquina,
+pero a veces algunos pequeños detalles (como las versiones de las dependencias)
+pueden causar que la prueba pase exitosamente de forma local
+pero falle en la integración continua.
+
+En ese caso, puedes utilizar la versión +Dockerizada+ de +Asserts+
+como un +hook+ del +pre-commit+:
+
+[source, bash, linenums]
+.pre-commit
 ----
-# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
-# All rights reserved.
-# Loading attack modules ...
----
-check: fluidasserts.proto.http.has_text
-status: OPEN
-message: 'Bad text present: "<script>alert\(''Hacked by Fluid Attacks''\)</script>"'
-details:
-  url: http://testphp.vulnweb.com/guestbook.php
-when: 2018-05-16 08:43:49.769936
+- id: asserts-docker
+  name: Running Asserts on the code
+  description: Run Asserts to perform SAST
+  entry: -v /path/to/your/code/:/code fluidattacks/asserts:latest /code/asserts.sh
+  language: docker_image
 ----
 
-.ex2_close.py: Verificar XSS ya solucionado
-[source, python, linenum]
-----
-from fluidasserts.proto import http
+Esta configuración en particular funciona para la herramienta link:https://pre-commit.com/[+pre-commit+]
+pero puede ser adaptada a herramientas similares como link:https://github.com/brigade/overcommit[+overcommit+].
+El uso de dichas herramientas es conveniente para el desarrollador,
+ya que las pruebas pueden ser ejecutadas rápidamente en sus máquinas
+con cada +commit+:
 
-URL = 'http://testphp.vulnweb.com/guestbook.php'
-BAD_TEXT = r"<script>alert\('Hacked by Fluid Attacks'\)</script>"
+image::pre-commit-ok.png[Pre-commit test passed]
 
-DATA = 'name=test&text=Hacked+by+Fluid+Attacks&submit=add+message'
-http.has_xss(URL, BAD_TEXT, data=DATA)
-----
+image::pre-commit-fail.png[Pre-commit test failed]
 
-.Resultado de ejecución ex2_close.py
-[source, yaml]
+Las mismas pruebas pueden ser ejecutadas en tiempo de +CI+
+(por ejemplo, en una entapa de +lint+)
+para garantizar que nada se ha "roto"
+incluso si el desarrollador olvida ejecutarlo.
+Para ello sólo coloca la siguiente línea:
+
+[source, bash, linenums]
 ----
-# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
-# All rights reserved.
-# Loading attack modules ...
----
-check: fluidasserts.proto.http.has_text
-status: CLOSE
-message: 'Bad text not present: "<script>alert\(''Hacked by Fluid Attacks''\)</script>"'
-details:
-  url: http://testphp.vulnweb.com/guestbook.php
+pre-commit run --all-files
 ----
 
-=== Rompiendo el pipeline de Integración Continua
-
-.ex1_open.py: Verificar inyección SQL aun presente
-[source, python, linenum]
-----
-from fluidasserts.proto import http
-
-URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
-
-http.has_sqli(URL)
-----
-
-.Resultado de ejecución rompiendo el pipeline
-[source, bash]
-----
-$ export FA_STRICT="false"
-$ python ex1_open.py
----
-# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
-# All rights reserved.
-# Loading attack modules ...
----
-check: fluidasserts.proto.http.has_multiple_text
-status: OPEN
-message: 'A bad text was present: "Warning.*mysql_.*"'
-details:
-  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27
-when: 2018-05-16 08:46:28.312329
-$ echo $?
-0
-$ export FA_STRICT="true"
-$ python ex1_open.py
----
-# FLUIDAsserts by Fluid Attacks (https://fluidattacks.com)
-# All rights reserved.
-# Loading attack modules ...
----
-check: fluidasserts.proto.http.has_multiple_text
-status: OPEN
-message: 'A bad text was present: "Warning.*mysql_.*"'
-details:
-  url: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27
-when: 2018-05-16 08:46:45.719005
-$ echo $?
-1
-----
+En algún lugar de tu +script+ de +CI+.
