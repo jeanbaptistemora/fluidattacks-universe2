@@ -57,11 +57,16 @@ angular.module("FluidIntegrates").factory(
        */
       "addEnvironments" (data, project) {
         const oopsAc = "An error occurred adding environments";
-        return $xhr.post($q, `${BASE.url}add_environments`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          project
-        }, oopsAc);
+        const gQry = `mutation {
+          addEnvironments (resourcesData: ${data}, projectName: "${project}") {
+            success,
+            access,
+            resources {
+              environments
+            }
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**

@@ -1,5 +1,5 @@
 from .login import AcceptLegal
-from .resource import AddRepositories, RemoveRepositories
+from .resource import AddRepositories, RemoveRepositories, AddEnvironments
 from graphene import ObjectType
 
 class Mutations(ObjectType):
@@ -8,3 +8,5 @@ class Mutations(ObjectType):
     addRepositories = AddRepositories.Field()
 
     removeRepositories = RemoveRepositories.Field()
+
+    addEnvironments = AddEnvironments.Field()

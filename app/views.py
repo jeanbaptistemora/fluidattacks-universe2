@@ -1858,45 +1858,6 @@ def access_to_project(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
 @require_project_access
-def add_environments(request):
-    """Add environments to proyect."""
-    parameters = request.POST.dict()
-    project = parameters["project"]
-    total_environments = parameters["data[totalEnv]"]
-    json_data = []
-    for env in range(int(total_environments)):
-        environment = 'data[environments][{env!s}][environment]'.format(env=env)
-        if parameters[environment]:
-            json_data.append({
-                'urlEnv': parameters[environment],
-            })
-    add_env = integrates_dao.add_list_resource_dynamo(
-        "FI_projects",
-        "project_name",
-        project,
-        json_data,
-        "environments"
-    )
-    if add_env:
-        to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-        context = {
-            'project': project.upper(),
-            'user_email': request.session["username"],
-            'action': 'Add environments',
-            'resources': json_data,
-            'project_url': '{url!s}/dashboard#!/project/{project!s}/resources'
-            .format(url=BASE_URL, project=project)
-        }
-        send_mail_repositories(to, context)
-        return util.response([], 'Success', False)
-    else:
-        rollbar.report_message('Error: An error occurred adding environments', 'error', request)
-        return util.response([], 'Error', True)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
 def remove_environments(request):
     """Remove environments to proyect."""
     parameters = request.POST.dict()

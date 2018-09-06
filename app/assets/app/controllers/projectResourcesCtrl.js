@@ -371,12 +371,17 @@ angular.module("FluidIntegrates").controller(
             if (envValidation) {
               // Make the request
               const envReq = projectFtry2.addEnvironments(
-                $scope.envInfo,
+                angular.toJson(angular.toJson($scope.envInfo)),
                 data.project
               );
               // Capture the promise
               envReq.then((response) => {
-                if (!response.error) {
+                if (response.error) {
+                  Rollbar.error("Error: An error occurred when " +
+                              "adding a new environment");
+                  $msg.error($translate.instant("proj_alerts.error_textsad"));
+                }
+                else {
                   // Mixpanel tracking
                   const projt = descData.project.toUpperCase();
                   mixPanelDashboard.trackSearch(
@@ -384,18 +389,27 @@ angular.module("FluidIntegrates").controller(
                     userEmail,
                     projt
                   );
-                  const message = $translate.instant("search_findings" +
-                                                ".tab_resources.success");
-                  const messageTitle = $translate.instant("search_findings" +
-                                                ".tab_users.title_success");
-                  $msg.success(message, messageTitle);
+
+                  const respData = response.data.addEnvironments;
+                  if (respData.success) {
+                    const message = $translate.instant("search_findings" +
+                                                  ".tab_resources.success");
+                    const messageTitle = $translate.instant("search_findings" +
+                                                  ".tab_users.title_success");
+                    $msg.success(message, messageTitle);
+                    const envs = respData.resources.environments;
+                    $scope.loadEnvironmentInfo(projt, angular.fromJson(envs));
+                  }
+                  else if (respData.access) {
+                    Rollbar.error("Error: An error occurred when " +
+                                "adding a new environment");
+                    $msg.error($translate.instant("proj_alerts.error_textsad"));
+                  }
+                  else {
+                    $msg.error($translate.instant("proj_alerts.access_denied"));
+                  }
+
                   $uibModalInstance.close();
-                  location.reload();
-                }
-                else if (response.error) {
-                  Rollbar.error("Error: An error occurred when " +
-                              "adding a new environment");
-                  $msg.error($translate.instant("proj_alerts.error_textsad"));
                 }
               });
             }
@@ -406,6 +420,7 @@ angular.module("FluidIntegrates").controller(
         },
         "keyboard": false,
         "resolve": {"data": descData},
+        "scope": $scope,
         "templateUrl": `${BASE.url}assets/views/project/addEnvironmentMdl.html`
       });
     };

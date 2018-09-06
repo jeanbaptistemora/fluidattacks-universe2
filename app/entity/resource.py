@@ -179,3 +179,60 @@ class RemoveRepositories(Mutation):
             self.access = False
 
         return RemoveRepositories(success=self.success, access=self.access, resources=Resource(info, project_name))
+
+class AddEnvironments(Mutation):
+    """Add environments to a given project."""
+
+    class Arguments(object):
+        resources_data = JSONString()
+        project_name = String()
+    resources = Field(Resource)
+    success = Boolean()
+    access = Boolean()
+
+    @classmethod
+    def mutate(self, args, info, resources_data, project_name):
+        del args
+
+        self.success = False
+        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
+            and has_access_to_project(
+                info.context.session['username'],
+                project_name,
+                info.context.session['role'])):
+
+            self.access = True
+            json_data = []
+            for envInfo in resources_data.get("environments"):
+                if "environment" in envInfo:
+                    environment_url = envInfo.get("environment")
+                    json_data.append({
+                        'urlEnv': environment_url
+                    })
+                else:
+                    rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
+            add_env = integrates_dao.add_list_resource_dynamo(
+                "FI_projects",
+                "project_name",
+                project_name,
+                json_data,
+                "environments"
+            )
+            if add_env:
+                to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+                context = {
+                    'project': project_name.upper(),
+                    'user_email': info.context.session["username"],
+                    'action': 'Add environments',
+                    'resources': json_data,
+                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                    .format(project=project_name)
+                }
+                send_mail_repositories(to, context)
+                self.success = True
+            else:
+                rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
+        else:
+            self.access = False
+
+        return AddEnvironments(success=self.success, access=self.access, resources=Resource(info, project_name))
