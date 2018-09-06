@@ -824,6 +824,7 @@ def get_evidence(request, project, findingid, fileid):
         if fileid is None:
             rollbar.report_message('Error: Missing evidence image ID', 'error', request)
             return HttpResponse("Error - Unsent image ID", content_type="text/html")
+        project = project.lower()
         key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
         if key_list:
             for k in key_list:
@@ -1104,7 +1105,7 @@ def get_exploit(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
     findingid = parameters['findingid']
-    project = parameters['project']
+    project = parameters['project'].lower()
     if fileid is None:
         rollbar.report_message('Error: Missing exploit ID', 'error', request)
         return HttpResponse("Error - Unsent exploit ID", content_type="text/html")
@@ -1144,7 +1145,7 @@ def get_records(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
     findingid = parameters['findingid']
-    project = parameters['project']
+    project = parameters['project'].lower()
     if fileid is None:
         rollbar.report_message('Error: Missing record file ID', 'error', request)
         return util.response([], 'Unsent record file ID', True)
