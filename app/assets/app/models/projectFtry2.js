@@ -77,6 +77,7 @@ angular.module("FluidIntegrates").factory(
         const gQry = `mutation {
           addRepositories (resourcesData: ${data}, projectName: "${project}") {
             success,
+            access,
             resources {
               repositories
             }
