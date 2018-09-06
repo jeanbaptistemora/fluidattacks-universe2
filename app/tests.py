@@ -74,36 +74,36 @@ class GraphQLTests(TestCase):
             )
         self.assertFalse("alert" not in result.data)
 
-    def test_get_eventuality(self):
+    def test_get_event(self):
         """Check for eventuality"""
         query = """{
-            eventuality(submitID:"418900971"){
+            event(submitID:"418900971"){
                 detail
             }
         }"""
         schema = Schema(query=Query)
-        result = schema.execute(query)
-        if "eventuality" in result.data:
-            detail = result.data["eventuality"]["detail"]
+        result = dict(schema.execute(query).data)
+        if "event" in result.keys():
+            detail = result["event"]["detail"]
             self.assertIs(
                 detail == "Integrates unit test ",
                 True
             )
-        self.assertFalse("eventuality" not in result.data)
+        self.assertFalse("event" not in result)
 
-    def test_get_eventualities(self):
+    def test_get_events(self):
         """Check for eventualities"""
         query = """{
-            eventualities(project:"unittesting"){
+            events(projectName:"unittesting"){
                 detail
             }
         }"""
         schema = Schema(query=Query)
-        result = schema.execute(query)
-        if "eventualities" in result.data:
-            detail = result.data["eventualities"]
+        result = schema.execute(query).data
+        if "events" in result:
+            detail = result["events"]
             self.assertIs(
                 len(detail) >= 1,
                 True
             )
-        self.assertFalse("eventualities" not in result.data)
+        self.assertFalse("events" not in result)

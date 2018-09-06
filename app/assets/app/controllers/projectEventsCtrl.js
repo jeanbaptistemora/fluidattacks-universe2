@@ -64,7 +64,8 @@ angular.module("FluidIntegrates").controller(
     functionsFtry1,
     functionsFtry3,
     functionsFtry4,
-    projectFtry
+    projectFtry,
+    projectFtry2
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -135,17 +136,14 @@ angular.module("FluidIntegrates").controller(
           $scope.loadEventContent(eventsData, vlang, projectName);
         }
         else {
-          const reqEventualities = projectFtry.eventualityByName(
-            projectName,
-            "Name"
-          );
+          const reqEventualities = projectFtry2.eventsByProject(projectName);
           reqEventualities.then((response) => {
             if (!response.error) {
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
               $scope.view.project = true;
-              eventsData = response.data;
+              eventsData = response.data.events;
               $scope.loadEventContent(eventsData, vlang, projectName);
             }
             else if (response.error) {

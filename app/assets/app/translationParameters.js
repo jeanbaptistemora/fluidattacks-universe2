@@ -26,7 +26,7 @@ const fieldsToTranslate = [
 ];
 const eventsTranslations = [
   "type",
-  "estado"
+  "status"
 ];
 const keysToTranslate = {
   "0 | Ninguno: No se presenta ningún impacto": "finding_formstack.confidenciality.none",

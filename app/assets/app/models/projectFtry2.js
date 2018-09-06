@@ -285,6 +285,28 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Return the events of a project
+       * @function eventsByProject
+       * @param {String} project Project name
+       * @member integrates.projectFtry2
+       * @return {Object} Database response with events info
+       */
+      "eventsByProject" (project) {
+        const oopsAc = "An error occurred getting repositories";
+        const gQry = `{
+            events (projectName: "${project}") {
+              date,
+              detail,
+              id,
+              fluidProject,
+              status,
+              type
+            }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
+      },
+
+      /**
        * Get user information.
        * @function getUserData
        * @param {String} data User data.

@@ -1,17 +1,17 @@
-""" GraphQL Entity for Formstack Eventuality """
+""" GraphQL Entity for Formstack Events """
 # pylint: disable=F0401
 from app.api.formstack import FormstackAPI
 from app.dto.eventuality import EventualityDTO
 from graphene import String, ObjectType
 
 
-class Eventuality(ObjectType):
-    """ Formstack Eventuality Class """
+class Events(ObjectType):
+    """ Formstack Events Class """
     id = String()
     analyst = String()
-    customer = String()
-    projectByFluid = String()
-    projectByCustomer = String()
+    client = String()
+    fluidProject = String()
+    clientProject = String()
     detail = String()
     type = String()
     date = String()
@@ -21,11 +21,11 @@ class Eventuality(ObjectType):
     def __init__(self, submit_id):
         """ Class constructor """
         self.id = submit_id
-        self.analyst, self.customer = "", ""
-        self.projectByFluid, self.projectByCustomer = "", ""
+        self.analyst, self.client = "", ""
+        self.fluidProject, self.clientProject = "", ""
         self.type, self.date = "", ""
         self.detail, self.affectation = "", ""
-        self.status = ""
+        self.status, self.evidence = "", ""
         event_id = str(submit_id)
         resp = FormstackAPI().get_submission(event_id)
         if resp:
@@ -34,11 +34,11 @@ class Eventuality(ObjectType):
             if "analyst" in evt_set:
                 self.analyst = evt_set['analyst']
             if "client" in evt_set:
-                self.customer = evt_set['client']
+                self.client = evt_set['client']
             if "fluidProject" in evt_set:
-                self.projectByFluid = evt_set["fluidProject"]
+                self.fluidProject = evt_set["fluidProject"]
             if "clientProject" in evt_set:
-                self.projectByCustomer = evt_set["clientProject"]
+                self.clientProject = evt_set["clientProject"]
             if "type" in evt_set:
                 self.type = evt_set["type"]
             if "detalle" in evt_set:
@@ -47,8 +47,11 @@ class Eventuality(ObjectType):
                 self.date = evt_set["fecha"]
             if "estado" in evt_set:
                 self.status = evt_set["estado"]
+            if "evidence" in evt_set:
+                self.evidence = evt_set["evidence"]
             if "affectation" in evt_set:
                 self.affectation = evt_set["affectation"]
+
 
     def resolve_id(self, info):
         """ Resolve id attribute """
@@ -60,20 +63,25 @@ class Eventuality(ObjectType):
         del info
         return self.analyst
 
-    def resolve_customer(self, info):
-        """ Resolve customer attribute """
+    def resolve_client(self, info):
+        """ Resolve client attribute """
         del info
-        return self.customer
+        return self.client
+
+    def resolve_customer(self, info):
+        """ Resolve evidence attribute """
+        del info
+        return self.evidence
 
     def resolve_projectByFluid(self, info):
-        """ Resolve projectByFluid attribute """
+        """ Resolve fluidProject attribute """
         del info
-        return self.projectByFluid
+        return self.fluidProject
 
     def resolve_projectByCustomer(self, info):
-        """ Resolve projectByCustomer attribute """
+        """ Resolve clientProject attribute """
         del info
-        return self.projectByCustomer
+        return self.clientProject
 
     def resolve_type(self, info):
         """ Resolve type attribute """

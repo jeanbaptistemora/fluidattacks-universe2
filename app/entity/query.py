@@ -1,6 +1,6 @@
 from .alert import Alert
 from .login import Login
-from .eventuality import Eventuality
+from .events import Events
 from .resource import Resource
 # pylint: disable=F0401
 from app.api.formstack import FormstackAPI
@@ -12,11 +12,11 @@ class Query(ObjectType):
                   project=String(required=True),
                   organization=String(required=True))
 
-    eventuality = Field(Eventuality,
+    event = Field(Events,
                         submitID=String(required=True))
 
-    eventualities = List(Eventuality,
-                        project=String(required=True))
+    events = List(Events,
+                        projectName=String(required=True))
 
     login = Field(Login)
 
@@ -26,18 +26,18 @@ class Query(ObjectType):
         """ Resolve for alert """
         return Alert(info, project, organization)
 
-    def resolve_eventuality(self, info, submitID=None):
-        """ Resolve for eventuality """
+    def resolve_event(self, info, submitID=None):
+        """ Resolve for event """
         del info
-        return Eventuality(submitID)
+        return Events(submitID)
 
-    def resolve_eventualities(self, info, project=""):
+    def resolve_events(self, info, projectName=""):
         """ Resolve for eventualities """
         del info
-        resp = FormstackAPI().get_eventualities(str(project))
+        resp = FormstackAPI().get_eventualities(str(projectName))
         data = []
         if "submissions" in resp:
-            data = [Eventuality(i["id"]) for i in resp["submissions"]]
+            data = [Events(i["id"]) for i in resp["submissions"]]
         return data
 
     def resolve_login(self, info):
