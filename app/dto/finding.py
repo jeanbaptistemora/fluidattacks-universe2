@@ -256,7 +256,7 @@ class FindingDTO(object):
         self.parse_description(request_arr)
         self.parse_cssv2(request_arr)
         self.parse_project(request_arr)
-        self.parse_evidence_info(request_arr, sess_obj)
+        self.parse_evidence_info(request_arr)
         return self.data
 
     def parse_vulns_by_id(self, submission_id, request_arr):
@@ -265,6 +265,7 @@ class FindingDTO(object):
         self.data["timestamp"] = request_arr["timestamp"]
         self.parse_description(request_arr)
         self.parse_project(request_arr)
+        self.parse_evidence_info(request_arr)
         return self.data
 
     def parse_description(self, request_arr): # noqa: C901
@@ -413,7 +414,7 @@ class FindingDTO(object):
             if finding["field"] == self.CONTEXT:
                 self.data["context"] = finding["value"]
 
-    def parse_evidence_info(self, request_arr, sess_obj): # noqa: C901
+    def parse_evidence_info(self, request_arr): # noqa: C901
         "Convert the score of a finding into a formstack format"
         for finding in request_arr["data"]:
             if finding["field"] == self.DOC_TOTAL:
@@ -421,48 +422,30 @@ class FindingDTO(object):
             if finding["field"] == self.DOC_ACHV1:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["evidence_route_1"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV2:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["evidence_route_2"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV3:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["evidence_route_3"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV4:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["evidence_route_4"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_ACHV5:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["evidence_route_5"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.ANIMATION:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["animation"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.EXPLOTATION:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["exploitation"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.EXPLOIT:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["exploit"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.REG_FILE:
                 filtered_url = self.drive_url_filter(finding["value"])
                 self.data["fileRecords"] = filtered_url
-                if sess_obj is not None:
-                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_CMNT1:
                 self.data["evidence_description_1"] = finding["value"]
             if finding["field"] == self.DOC_CMNT2:
