@@ -38,43 +38,28 @@ angular.module("FluidIntegrates").controller(
           if (currentUrl.indexOf(".integrates.env") === -1) {
             baseUrl = "https://fluidattacks.com/integrates/dashboard";
             const link = `${baseUrl}#${localStorage.getItem("url_inicio")}`;
-            localStorage.clear();
+            localStorage.removeItem("url_inicio");
             $window.location = link;
           }
           else {
             const dev = currentUrl.match("https://(.*).integrates")[1];
             baseUrl = `https://${dev}.integrates.env.fluidattacks.com/dashbo`;
             const link = `${baseUrl}ard#${localStorage.getItem("url_inicio")}`;
-            localStorage.clear();
+            localStorage.removeItem("url_inicio");
             $window.location = link;
           }
         }
         else {
           baseUrl = "https://localhost:8000/dashboard";
           const link = `${baseUrl}#${localStorage.getItem("url_inicio")}`;
-          localStorage.clear();
+          localStorage.removeItem("url_inicio");
           $window.location = link;
         }
       }
     };
 
-    $scope.showAlreadyLoggedin = function showAlreadyLoggedin () {
-      angular.element("#alreadyLoggedin").show();
-      localStorage.clear();
-    };
-
-    $scope.showNotAuthorized = function showNotAuthorized () {
-      angular.element("#notAuthorizedTxt").show();
-      const currentUrl = $window.location.toString();
-      if (currentUrl.indexOf("localhost:8000") === -1) {
-        mixpanel.track("Registered User", {
-          "Email":
-          "{{ request.session.username }}"
-        });
-      }
-    };
-
     $scope.initLegalNotice = function initLegalNotice () {
+      $scope.alreadyLoggedIn = false;
       $scope.legalNotice = {
         "accept": {
           "text": $translate.instant("legalNotice.acceptBtn.text"),
@@ -94,7 +79,14 @@ angular.module("FluidIntegrates").controller(
           location.reload();
         }
         else if (!respData.login.authorized) {
-          $scope.showNotAuthorized();
+          $scope.isAuthorized = false;
+          const currentUrl = $window.location.toString();
+          if (currentUrl.indexOf("localhost:8000") === -1) {
+            mixpanel.track("Registered User", {
+              "Email":
+              "{{ request.session.username }}"
+            });
+          }
         }
         else if (respData.login.remember) {
           $scope.loadDashboard();
@@ -107,8 +99,14 @@ angular.module("FluidIntegrates").controller(
 
     $scope.init = function init () {
       $scope.showLegalNotice = false;
+      $scope.isAuthorized = true;
       if (localStorage.getItem("showAlreadyLoggedin") === "1") {
-        $scope.showAlreadyLoggedin();
+        const TIMEOUT = 200;
+        $timeout(() => {
+          angular.element("#full_loader").hide();
+        }, TIMEOUT);
+        $scope.alreadyLoggedIn = true;
+        localStorage.removeItem("showAlreadyLoggedin");
       }
       else {
         $scope.initLegalNotice();

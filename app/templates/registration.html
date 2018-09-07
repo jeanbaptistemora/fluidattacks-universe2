@@ -112,9 +112,10 @@
                     <br>
                     <h1>{% templatetag openvariable %}'registration.greeting' | translate{% templatetag closevariable %} {{ user.first_name }}!</h1>
                     <br>
-                    <p id="notAuthorizedTxt" style="display: none">
+                    <div ng-if="!isAuthorized">
                       {% templatetag openvariable %}'registration.not_authorized' | translate{% templatetag closevariable %}
-                    <div id="alreadyLoggedin" style="display: none">
+                    </div>
+                    <div ng-if="alreadyLoggedIn">
                       <span style="color: white;">
                         <br>
                         <h3>{% templatetag openvariable %}'registration.logged_in_title' | translate{% templatetag closevariable %}</h3>
@@ -123,12 +124,12 @@
                         {% templatetag openvariable %}'registration.logged_in_message' | translate{% templatetag closevariable %}
                         </p>
                         <div class="row">
-                          <button class="btn btn-danger btn-block google" ng-click="showLegalNotice()">
+                          <button class="btn btn-danger btn-block google" ng-click="initLegalNotice()">
                             <label class="pull-center">{% templatetag openvariable %}'registration.continue_btn' | translate{% templatetag closevariable %} {{ user.email }}</label>
                           </button>
                         </div>
-                        </span>
-                    <div>
+                      </span>
+                    </div>
                   </span>
                 </div>
               </div>
