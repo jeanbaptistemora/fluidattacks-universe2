@@ -11,6 +11,7 @@ import preloader from "./components/Preloader/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
 import exploitView from "./scenes/Dashboard/components/ExploitView/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
+import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
@@ -47,6 +48,30 @@ angular
       [
         "title",
         "content",
+      ],
+    ),
+  );
+/**
+ * @url: #/project/:project/events/:id/description
+ * @page: eventcontent.html
+ * @controllers: ["eventContentCtrl"]
+ * @tag: <image-gallery/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "imageGallery",
+    react2angular(
+      imageGallery,
+      [
+        "infinite",
+        "items",
+        "showBullets",
+        "showFullscreenButton",
+        "showIndex",
+        "showNav",
+        "showThumbnails",
+        "thumbnailPosition",
       ],
     ),
   );

@@ -10,6 +10,7 @@ import rollbar
 import boto3
 import io
 import collections
+import urlparse
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -526,6 +527,11 @@ def get_event(request):
     submission = api.get_submission(event_id)
     if 'error' not in submission:
         event = events_dto.parse(event_id, submission)
+        if 'evidence' in event  and ".png" in event['evidence']:
+            parsed_url = urlparse.urlparse(event['evidence'])
+            event['evidence'] = urlparse.parse_qs(parsed_url.query)['id']
+        else:
+            event['evidence'] = "-"
         if event['fluidProject'].lower() == project.lower():
             return util.response(event, 'Success', False)
         else:

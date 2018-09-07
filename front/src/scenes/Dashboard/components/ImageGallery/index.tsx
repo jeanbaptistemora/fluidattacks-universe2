@@ -25,6 +25,7 @@ const imageGallery: React.StatelessComponent<ReactImageGalleryProps> =
             showFullscreenButton={props.showFullscreenButton}
             showIndex={props.showIndex}
             showNav={props.showNav}
+            showPlayButton={props.showPlayButton}
             showThumbnails={props.showThumbnails}
             thumbnailPosition={props.thumbnailPosition}
           />
@@ -39,6 +40,7 @@ imageGallery.propTypes = {
   showFullscreenButton: PropTypes.bool,
   showIndex: PropTypes.bool,
   showNav: PropTypes.bool,
+  showPlayButton: PropTypes.bool,
   showThumbnails: PropTypes.bool,
   thumbnailPosition: PropTypes.string,
 };
@@ -48,6 +50,7 @@ imageGallery.defaultProps = {
   showFullscreenButton: true,
   showIndex: true,
   showNav: true,
+  showPlayButton: false,
   showThumbnails: true,
 };
 

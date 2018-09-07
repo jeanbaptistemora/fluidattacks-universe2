@@ -71,6 +71,11 @@ angular.module("FluidIntegrates").config((
       "templateUrl": "assets/views/project/eventcontent.html",
       "url": "/project/:project/events/:id/description"
     }).
+    state("EventsEvidence", {
+      "controller": "eventContentCtrl",
+      "templateUrl": "assets/views/project/eventcontent.html",
+      "url": "/project/:project/events/:id/evidence"
+    }).
     state("FindingDescription", {
       "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",

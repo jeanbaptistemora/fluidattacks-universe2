@@ -50,6 +50,10 @@
                       <a href="#info" data-toggle="tab" aria-expanded="false">
                       <i class="icon s7-note2" ></i>&nbsp;{{'search_findings.tab_description.description_name' | translate}}</a>
                   </li>
+                  <li id="evidenceItem" class="active" style="font-size:16px;" ng-click="urlEvidence()"; ng-show="hasEvidence" >
+                      <a href="#evidence" data-toggle="tab" aria-expanded="false">
+                      <i class="icon s7-note2" ></i>&nbsp;{{'search_findings.tab_evidence.evidence_name' | translate}}</a>
+                  </li>
               </ul>
               <!-- Start Tabs -->
               <div class="tab-content">
@@ -115,6 +119,17 @@
                     </div>
                   </div>
                   <!-- End Tab Info -->
+                  <!-- Start Tab Evidence -->
+                  <div id="evidence" class="tab-pane cont active">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <image-gallery
+                          items="eventData.evidenceUrl"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Tab Evidence -->
                 </div>
               <!-- End Tabs -->
           </div>

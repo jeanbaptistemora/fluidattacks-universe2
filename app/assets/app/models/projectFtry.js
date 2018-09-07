@@ -119,23 +119,6 @@ angular.module("FluidIntegrates").factory(
 
       /**
        * Return the eventualities of a project
-       * @function eventByName
-       * @param {String} project Project name
-       * @param {String} eventId Event ID
-       * @member integrates.projectFtry
-       * @return {Object} Formstack response with the eventualities of a project
-       */
-      "eventByName" (project, eventId) {
-        const oopsAc = "An error occurred getting events";
-        return $xhr.get($q, `${BASE.url}get_event`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          eventId,
-          project
-        }, oopsAc);
-      },
-
-      /**
-       * Return the eventualities of a project
        * @function eventualityByName
        * @param {String} project Project name
        * @param {String} category Search filter: By Name or ID
@@ -235,6 +218,23 @@ angular.module("FluidIntegrates").factory(
           "_": parseInt(secureRandom(5).join(""), 10),
           commentType,
           findingid
+        }, oopsAc);
+      },
+
+      /**
+       * Return the eventualities of a project
+       * @function getEvent
+       * @param {String} project Project name
+       * @param {String} eventId Event ID
+       * @member integrates.projectFtry
+       * @return {Object} Formstack response with the eventualities of a project
+       */
+      "getEvent" (project, eventId) {
+        const oopsAc = "An error occurred getting events";
+        return $xhr.get($q, `${BASE.url}get_event`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          eventId,
+          project
         }, oopsAc);
       },
 

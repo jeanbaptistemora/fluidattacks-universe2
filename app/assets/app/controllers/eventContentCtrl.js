@@ -3,7 +3,8 @@
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "$state","response"] }]*/
 /* global
-angular, $msg, Rollbar, userRole, eventsTranslations, keysToTranslate
+angular, $msg, Rollbar, userRole, eventsTranslations, keysToTranslate,
+Organization
 */
 /**
  * @file eventContentCtrl.js
@@ -60,7 +61,7 @@ eventContentCtrl (
     return true;
   };
   $scope.loadEvent = function loadEvent (project, id) {
-    const reqEventualities = projectFtry.eventByName(
+    const reqEventualities = projectFtry.getEvent(
       project,
       id
     );
@@ -79,6 +80,13 @@ eventContentCtrl (
           }
         }
         $scope.eventData = eventData;
+        $scope.getEventEvidence(eventData);
+        if ($scope.eventData.evidenceUrl.length === 0) {
+          $scope.hasEvidence = false;
+        }
+        else {
+          $scope.hasEvidence = true;
+        }
       }
       else if (response.message === "Access to project denied") {
         $msg.error($translate.instant("proj_alerts.access_denied"));
@@ -87,6 +95,25 @@ eventContentCtrl (
         $msg.error($translate.instant("proj_alerts.eventExist"));
       }
     });
+  };
+
+  $scope.getEventEvidence = function getEventEvidence (eventData) {
+    if (eventData.evidence === "-") {
+      $scope.eventData.evidenceUrl = [];
+    }
+    else {
+      const splitedUrl = $window.location.href.split("dashboard#!/");
+      const evidenceUrl = `${splitedUrl[0] +
+                          splitedUrl[1].replace("events/", "")}/${
+        eventData.evidence}`;
+      $scope.eventData.evidenceUrl =
+                         [
+                           {
+                             "original": evidenceUrl,
+                             "thumbnail": evidenceUrl
+                           }
+                         ];
+    }
   };
 
   $scope.eventEdit = function eventEdit () {
@@ -155,13 +182,34 @@ eventContentCtrl (
     );
   };
 
+  $scope.urlDescription = function urlDescription () {
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/description`);
+  };
+  $scope.urlEvidence = function urlEvidence () {
+    location.replace(`${$window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/evidence`);
+  };
+
   $scope.init = function init () {
     const projectName = $stateParams.project;
     const eventId = $stateParams.id;
+    const userOrganization = Organization.toUpperCase();
     $scope.isEditable = false;
     $scope.userRole = userRole;
     // Flags for editable fields activation
-
+    if ($window.location.hash.indexOf("evidence") === -1) {
+      functionsFtry2.activeTab(
+        "#info", "EventsDescription",
+        userOrganization, projectName, eventId
+      );
+    }
+    else {
+      functionsFtry2.activeTab(
+        "#evidence", "EventsEvidence",
+        userOrganization, projectName, eventId
+      );
+    }
     const hasAccess = projectFtry2.accessToProject(projectName);
     hasAccess.then((response) => {
       // Initialization of search findings function
