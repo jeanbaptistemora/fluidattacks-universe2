@@ -940,19 +940,16 @@ def key_existing_list(key):
 def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     fileroute = "/tmp/:id.tmp".replace(":id", filename)
     namecomplete = fileurl + "-" + field + "-" + filename + ext
-    if os.path.exists(fileroute):
-        with open(fileroute, "r") as file_obj:
-            try:
-                client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
-            except ClientError:
-                rollbar.report_exc_info()
-                return False
-        file_name = namecomplete.split("/")[2]
-        is_file_saved = save_file_url(parameters['findingid'], fieldname, file_name)
-        os.unlink(fileroute)
-        return is_file_saved
-    else:
-        return False
+    with open(fileroute, "r") as file_obj:
+        try:
+            client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    file_name = namecomplete.split("/")[2]
+    is_file_saved = save_file_url(parameters['findingid'], fieldname, file_name)
+    os.unlink(fileroute)
+    return is_file_saved
 
 def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
     key_val = fileurl + "-" + field
@@ -1066,12 +1063,30 @@ def migrate_all_files(parameters, file_url, request):
             filename = '{file_url}-{field}'.format(file_url=file_url, field=file_obj["field"])
             folder = key_existing_list(filename)
             if finding.get(file_obj["name"]) and parameters.get("id") != file_obj["id"] and not folder:
-                send_file_to_s3(finding[file_obj["name"]],
-                                parameters,
-                                file_obj["field"],
-                                file_obj["name"],
-                                file_obj["ext"],
-                                file_url)
+                file_id = finding[file_obj["name"]]
+                fileroute = "/tmp/:id.tmp".replace(":id", file_id)
+                if os.path.exists(fileroute):
+                    send_file_to_s3(finding[file_obj["name"]],
+                                    parameters,
+                                    file_obj["field"],
+                                    file_obj["name"],
+                                    file_obj["ext"],
+                                    file_url)
+                else:
+                    drive_api = DriveAPI()
+                    file_download_route = drive_api.download(file_id)
+                    if file_download_route:
+                        send_file_to_s3(finding[file_obj["name"]],
+                                        parameters,
+                                        file_obj["field"],
+                                        file_obj["name"],
+                                        file_obj["ext"],
+                                        file_url)
+                    else:
+                        rollbar.report_message(
+                            'Error: An error occurred downloading file from Drive',
+                            'error',
+                            request)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
