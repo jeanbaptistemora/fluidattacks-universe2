@@ -4,7 +4,7 @@
  */
 import PropTypes from "prop-types";
 import React, { ReactElement } from "react";
-import { Label } from "react-bootstrap";
+import { Label, Radio } from "react-bootstrap";
 import {
   BootstrapTable,
   DataAlignType,
@@ -26,8 +26,10 @@ interface ITableProps {
    * generic component
    */
   dataset: any[];
+  enableRowSelection: boolean;
   exportCsv: boolean;
   headers: IHeader[];
+  id: string;
   pageSize: number;
   search?: boolean;
   title: string;
@@ -86,6 +88,13 @@ const dateFormatter: ((value: string) => string) =
   return value;
 };
 
+const selectFormatter: (() => ReactElement<Radio>) =
+  (): ReactElement<Radio> => (
+  <Radio
+    name="selectRow"
+  />
+);
+
 const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
   (headers: IHeader[]): JSX.Element[] => (
   headers.map((key: IHeader, i: number) =>
@@ -141,7 +150,7 @@ const renderHeaders: ((arg1: ITableProps) => JSX.Element[]) =
 const dataTable: React.StatelessComponent<ITableProps> =
   (props: ITableProps): JSX.Element => (
     <React.StrictMode>
-      <div>
+      <div id={props.id}>
         <h1 className={globalStyle.title}>{props.title}</h1>
         <BootstrapTable
           data={props.dataset}
@@ -159,7 +168,17 @@ const dataTable: React.StatelessComponent<ITableProps> =
           striped={true}
         >
           {
-            renderHeaders(props)
+            props.enableRowSelection ?
+            [
+              <TableHeaderColumn
+                className={style.th}
+                key={0}
+                dataField=""
+                dataFormat={selectFormatter}
+                width={"3%"}
+              />,
+            ].concat(renderHeaders(props))
+            : renderHeaders(props)
           }
         </BootstrapTable>
       </div>
@@ -168,6 +187,8 @@ const dataTable: React.StatelessComponent<ITableProps> =
 
 dataTable.propTypes = {
   dataset: PropTypes.any,
+  enableRowSelection: PropTypes.bool,
+  id: PropTypes.string,
   onClickRow: PropTypes.func,
   pageSize: PropTypes.number,
   title: PropTypes.string,
@@ -175,6 +196,7 @@ dataTable.propTypes = {
 
 dataTable.defaultProps = {
   dataset: [{}],
+  enableRowSelection: false,
   exportCsv: false,
   headers: [],
   onClickRow: (arg1: string): void => undefined,
