@@ -89,100 +89,72 @@ angular.module("FluidIntegrates").controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        const reqResources = projectFtry2.resourcesByProject(projectName);
-        reqResources.then((response) => {
-          if (response.error) {
-            if (response.message === "Access denied") {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else {
-              Rollbar.warning("Warning: Resources not found");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-            }
-          }
-          else if (angular.isUndefined(response.data)) {
-            location.reload();
-          }
-          else {
-            $scope.view.project = true;
-            const respData = response.data.resources;
-            let projectRepoInfo = [];
-            let projectEnvInfo = [];
-            if (respData.access) {
-              projectRepoInfo = angular.fromJson(respData.repositories);
-              projectEnvInfo = angular.fromJson(respData.environments);
-            }
-            else {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            $scope.loadRepoInfo(projectName, projectRepoInfo);
-            $scope.loadEnvironmentInfo(projectName, projectEnvInfo);
-          }
-        });
+        $scope.loadResourcesInfo(projectName);
       }
       return true;
     };
 
-    $scope.loadRepoInfo = function loadRepoInfo (project, data) {
-      // Resources tables configuration
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
-      angular.element("#tblRepositories").bootstrapTable("destroy");
-      angular.element("#tblRepositories").bootstrapTable({
-        "cookie": true,
-        "cookieIdTable": "saveIdRepositories",
-        data,
-        "locale": vlang
-      });
-      angular.element("#tblRepositories").bootstrapTable("refresh");
-      angular.element("#search_section").show();
-      angular.element("[data-toggle=\"tooltip\"]").tooltip();
-    };
+    $scope.loadResourcesInfo = function loadResourcesInfo (projectName) {
+      $scope.tblReposHeaders = [
+        {
+          "dataField": "urlRepo",
+          "header":
+            $translate.instant("search_findings.repositories_table.repository"),
+          "width": "70%"
+        },
+        {
+          "dataField": "branch",
+          "header":
+            $translate.instant("search_findings.repositories_table.branch"),
+          "width": "30%"
+        }
+      ];
+      $scope.tblEnvsHeaders = [
+        {
+          "dataField": "urlEnv",
+          "header":
+            $translate.instant("search_findings.environment_table.environment")
+        }
+      ];
+      const reqResources = projectFtry2.resourcesByProject(projectName);
+      $scope.reposDataset = [];
+      $scope.envsDataset = [];
 
-    $scope.loadEnvironmentInfo = function loadEnvironmentInfo (project, data) {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
-      angular.element("#tblEnvironments").bootstrapTable("destroy");
-      angular.element("#tblEnvironments").bootstrapTable({
-        "cookie": true,
-        "cookieIdTable": "saveIdEnvironments",
-        data,
-        "locale": vlang
+      reqResources.then((response) => {
+        if (response.error) {
+          if (response.message === "Access denied") {
+            $msg.error($translate.instant("proj_alerts.access_denied"));
+          }
+          else {
+            Rollbar.warning("Warning: Resources not found");
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
+          }
+        }
+        else if (angular.isUndefined(response.data)) {
+          location.reload();
+        }
+        else {
+          $scope.view.project = true;
+          const respData = response.data.resources;
+          if (respData.access) {
+            $scope.reposDataset = angular.fromJson(respData.repositories);
+            $scope.envsDataset = angular.fromJson(respData.environments);
+          }
+          else {
+            $msg.error($translate.instant("proj_alerts.access_denied"));
+          }
+        }
       });
-      angular.element("#tblEnvironments").bootstrapTable("refresh");
-      angular.element("#search_section").show();
-      angular.element("[data-toggle=\"tooltip\"]").tooltip();
     };
 
     $scope.removeRepository = function removeRepository () {
-      let repository = "";
-      let branch = "";
-      angular.element("#tblRepositories :checked").
-        each(function checkedFields () {
-          /* eslint-disable-next-line  no-invalid-this */
-          const vm = this;
-          const actualRow = angular.element("#tblRepositories").find("tr");
-          const actualIndex = angular.element(vm).data().index + 1;
-          const INDEX_BRANCH = 2;
-          repository = actualRow.eq(actualIndex)[0].cells[1].innerHTML;
-          branch =
-            actualRow.eq(actualIndex)[0].cells[INDEX_BRANCH].innerHTML;
-        });
-      if (repository.length === 0) {
-        $msg.error($translate.instant("search_findings.tab_resources." +
-                                  "no_selection"));
-      }
-      else {
+      const selectedRow =
+        angular.element("#tblRepositories tr input:checked").closest("tr");
+      if (selectedRow.length > 0) {
+        const REPOSITORY_INDEX = 1;
+        const BRANCH_INDEX = 2;
+        const repository = selectedRow.children()[REPOSITORY_INDEX].innerText;
+        const branch = selectedRow.children()[BRANCH_INDEX].innerText;
         const repositories = {};
         repositories.urlRepo = repository;
         repositories.branch = branch;
@@ -213,7 +185,7 @@ angular.module("FluidIntegrates").controller(
                                             ".tab_users.title_success");
               $msg.success(message, messageTitle);
               const repos = respData.resources.repositories;
-              $scope.loadRepoInfo(projt, angular.fromJson(repos));
+              $scope.reposDataset = angular.fromJson(repos);
             }
             else if (respData.access) {
               Rollbar.error("Error: An error occurred when removing a " +
@@ -225,6 +197,10 @@ angular.module("FluidIntegrates").controller(
             }
           }
         });
+      }
+      else {
+        $msg.error($translate.instant("search_findings.tab_resources" +
+                                      ".no_selection"));
       }
     };
 
@@ -298,7 +274,7 @@ angular.module("FluidIntegrates").controller(
                                                   ".tab_users.title_success");
                     $msg.success(message, messageTitle);
                     const repos = respData.resources.repositories;
-                    $scope.loadRepoInfo(projt, angular.fromJson(repos));
+                    $scope.$parent.reposDataset = angular.fromJson(repos);
                   }
                   else if (respData.access) {
                     Rollbar.error("Error: An error occurred when adding a " +
@@ -392,7 +368,7 @@ angular.module("FluidIntegrates").controller(
                                                   ".tab_users.title_success");
                     $msg.success(message, messageTitle);
                     const envs = respData.resources.environments;
-                    $scope.loadEnvironmentInfo(projt, angular.fromJson(envs));
+                    $scope.$parent.envsDataset = angular.fromJson(envs);
                   }
                   else if (respData.access) {
                     Rollbar.error("Error: An error occurred when " +
@@ -419,22 +395,11 @@ angular.module("FluidIntegrates").controller(
     };
 
     $scope.removeEnvironment = function removeEnvironment () {
-      let environment = "";
-      angular.element("#tblEnvironments :checked").
-        each(function checkedFields () {
-          /* eslint-disable-next-line  no-invalid-this */
-          const vm = this;
-          const actualRow = angular.element("#tblEnvironments").find("tr");
-          const actualIndex = angular.element(vm).data().index + 1;
-          environment = actualRow.eq(actualIndex)[0].cells[1].innerHTML;
-        });
-      if (environment.length === 0) {
-        $msg.error($translate.instant("search_findings.tab_resources." +
-                                  "no_selection"));
-      }
-      else {
+      const selectedRow =
+        angular.element("#tblEnvironments tr input:checked").closest("tr");
+      if (selectedRow.length > 0) {
         const environments = {};
-        environments.urlEnv = environment;
+        environments.urlEnv = selectedRow.children()[1].innerText;
         const project = $stateParams.project.toLowerCase();
         const repo = projectFtry2.removeEnvironments(
           angular.toJson(angular.toJson(environments)),
@@ -461,7 +426,7 @@ angular.module("FluidIntegrates").controller(
                                             ".tab_users.title_success");
               $msg.success(message, messageTitle);
               const envs = respData.resources.environments;
-              $scope.loadEnvironmentInfo(projt, angular.fromJson(envs));
+              $scope.envsDataset = angular.fromJson(envs);
             }
             else if (respData.access) {
               Rollbar.error("Error: An error occurred when " +
@@ -473,6 +438,10 @@ angular.module("FluidIntegrates").controller(
             }
           }
         });
+      }
+      else {
+        $msg.error($translate.instant("search_findings.tab_resources." +
+                                  "no_selection"));
       }
     };
 

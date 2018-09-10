@@ -198,31 +198,8 @@ def project_events(request):
 @authenticate
 def project_resources(request):
     "resources view"
-    language = request.GET.get('l', 'en')
-    dicLang = {
-        "search_findings": {
-            "environment_table": {
-                "environment": "Environment"
-            },
-            "repositories_table": {
-                "branch": "Branch",
-                "repository": "Repository"
-            },
-        }
-    }
-    if language == "es":
-        dicLang = {
-            "search_findings": {
-                "environment_table": {
-                    "environment": "Ambiente"
-                },
-                "repositories_table": {
-                    "branch": "Rama",
-                    "repository": "Repositorio"
-                },
-            }
-        }
-    return render(request, "project/resources.html", dicLang)
+    parameters = {}
+    return render(request, "project/resources.html", parameters)
 
 @never_cache
 @authenticate

@@ -5,6 +5,7 @@
 const translations2 = {
   "search_findings":
  {
+   "environment_table": {"environment": "Environment"},
    "filter_labels":
     {
       "cardinalities": "Open Vulnerabilities",
@@ -74,6 +75,10 @@ const translations2 = {
       "type": "Type",
       "vulnerabilities": "Open Vulnerabilities"
     },
+   "repositories_table": {
+     "branch": "Branch",
+     "repository": "Repository"
+   },
    "tab_comments": {"comments_name": "Comments"},
    "tab_cssv2":
       {
