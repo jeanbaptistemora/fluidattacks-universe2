@@ -86,6 +86,58 @@ const dateFormatter: ((value: string) => string) =
   return value;
 };
 
+const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
+  (headers: IHeader[]): JSX.Element[] => (
+  headers.map((key: IHeader, i: number) =>
+   (
+    <TableHeaderColumn
+      className={style.th}
+      dataAlign={key.align}
+      dataField={key.dataField}
+      dataFormat={
+       key.isStatus ? statusFormatter :
+                      (key.isDate ? dateFormatter :
+                        (value: string): string => value)
+      }
+      dataSort={true}
+      key={i}
+      tdStyle={{
+       textAlign: key.align,
+       whiteSpace: key.wrapped === undefined ? "nowrap" :
+       key.wrapped ? "unset" : "nowrap",
+      }}
+      width={key.width}
+    >
+      {key.header}
+    </TableHeaderColumn>
+   ))
+);
+
+const renderDynamicHeaders: ((arg1: string[]) => JSX.Element[]) =
+  (dataFields: string[]): JSX.Element[] => (
+  dataFields.map((key: string, i: number) =>
+    (
+      <TableHeaderColumn
+        className={style.th}
+        dataField={key}
+        dataSort={true}
+        key={i}
+        tdStyle={{
+          whiteSpace: "unset",
+        }}
+      >
+        {key}
+      </TableHeaderColumn>
+    ))
+);
+
+const renderHeaders: ((arg1: ITableProps) => JSX.Element[]) =
+  (props: ITableProps): JSX.Element[] => (
+  props.headers.length > 0 ?
+  renderGivenHeaders(props.headers) :
+  renderDynamicHeaders(Object.keys(props.dataset[0]))
+);
+
 const dataTable: React.StatelessComponent<ITableProps> =
   (props: ITableProps): JSX.Element => (
     <React.StrictMode>
@@ -107,46 +159,7 @@ const dataTable: React.StatelessComponent<ITableProps> =
           striped={true}
         >
           {
-            props.headers.length > 0 ?
-            props.headers.map((key: IHeader, i: number) =>
-             (
-              <TableHeaderColumn
-                className={style.th}
-                dataAlign={key.align}
-                dataField={key.dataField}
-                dataFormat={
-                 key.isStatus ? statusFormatter :
-                                (key.isDate ? dateFormatter :
-                                  (value: string): string => value)
-
-                }
-                dataSort={true}
-                key={i}
-                tdStyle={{
-                 textAlign: key.align,
-                 whiteSpace: key.wrapped === undefined ? "nowrap" :
-                 key.wrapped ? "unset" : "nowrap",
-                }}
-                width={key.width}
-              >
-                {key.header}
-              </TableHeaderColumn>
-             )) :
-            Object.keys(props.dataset[0])
-            .map((key: string, i: number) =>
-              (
-                <TableHeaderColumn
-                  className={style.th}
-                  dataField={key}
-                  dataSort={true}
-                  key={i}
-                  tdStyle={{
-                    whiteSpace: "unset",
-                  }}
-                >
-                  {key}
-                </TableHeaderColumn>
-              ))
+            renderHeaders(props)
           }
         </BootstrapTable>
       </div>
