@@ -59,8 +59,12 @@ def extract_info_from_event_dict(event_dict):
             'details': event_dict['detalle']}
 
 def send_unsolved_events_email(project):
-    unsolved_events = get_unsolved_events (project)
+    unsolved_events = get_unsolved_events(project)
     to = get_external_recipients(project)
+    project_info = integrates_dao.get_project_dynamo(project)
+    if project_info and \
+            project_info[0].get("type") == "continuous":
+        to.append("continuous@fluidattacks.com")
     events_info_for_email = [extract_info_from_event_dict(x) \
                              for x in unsolved_events]
     context = {'project_name': project.capitalize() , \
