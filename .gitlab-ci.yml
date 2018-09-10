@@ -145,7 +145,7 @@ terraform-deploy:
   stage: build
   <<: *vault_login
   script:
-    - pip install boto3
+    - pip install boto3==1.8.9
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/integrates/terraform.tfstate
         deploy/terraform.tfstate || export NEW_DEPLOY=true
