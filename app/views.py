@@ -1888,10 +1888,19 @@ def mask_project_findings(project):
     """Mask project findings information."""
     api = FormstackAPI()
     try:
+        finding_deleted = []
         finreqset = api.get_findings(project)["submissions"]
         are_evidences_deleted = list(map(lambda x: delete_s3_all_evidences(x["id"], project), finreqset))
+        finding_deleted.append(
+            {"name": "S3", "was_deleted": all(are_evidences_deleted)})
         is_project_masked = list(map(mask_finding, finreqset))
+        finding_deleted.append(
+            {"name": "formstack", "was_deleted": all(is_project_masked)})
         are_comments_deleted = list(map(lambda x: delete_all_coments(x["id"]), finreqset))
+        finding_deleted.append(
+            {"name": "comments_dynamoDB", "was_deleted": all(are_comments_deleted)})
+        integrates_dao.add_list_resource_dynamo(
+            "FI_projects", "project_name", project, finding_deleted, "findings_deleted")
         is_project_deleted = all(is_project_masked) and all(are_evidences_deleted) and all(are_comments_deleted)
         return is_project_deleted
     except KeyError:
