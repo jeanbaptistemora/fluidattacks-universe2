@@ -25,9 +25,10 @@ spec:
         - name: DEPLOYMENT_DATE
           value: "$DATE"
         ports:
-        - containerPort: 80
+        - containerPort: 443
         securityContext:
-          privileged: true
+          capabilities:
+            add: ["NET_ADMIN"]
       imagePullSecrets:
       - name: gitlab-reg
 ---
@@ -38,7 +39,15 @@ metadata:
   namespace: serves
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 8080
+    targetPort: 443
   selector:
     app: vpn
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: expose-vpn
+  namespace: serves
+data:
+  8080: "serves/vpn:8080"

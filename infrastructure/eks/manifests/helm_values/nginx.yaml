@@ -5,6 +5,7 @@ controller:
   defaultBackendService: serves/alg
   extraArgs:
     default-ssl-certificate: serves/tls-fluidattacks
+    tcp-services-configmap: serves/expose-vpn
   minReadySeconds: 20
   updateStrategy:
     rollingUpdate:
