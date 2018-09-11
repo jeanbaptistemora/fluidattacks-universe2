@@ -451,7 +451,7 @@ def send_unsolved_events_email_to_all_projects():
     projects = integrates_dao.get_registered_projects()
     list(map(lambda x: send_unsolved_events_email(x[0]), projects))
 
-def deletion (project, days_to_send, days_to_delete):
+def deletion(project, days_to_send, days_to_delete):
     formstack_api = FormstackAPI()
     remission_submissions = formstack_api.get_remmisions(project)["submissions"]
     if remission_submissions:
@@ -475,6 +475,11 @@ def deletion (project, days_to_send, days_to_delete):
                     was_email_sended = True
                 elif days_until_now in days_to_delete:
                     views.delete_project(project)
+                    integrates_dao.add_attribute_dynamo(
+                        "FI_projects",
+                        ['project_name', project.lower()],
+                        "deletion_date",
+                        datetime.today().isoformat(' '))
                     was_deleted = True
                     was_email_sended = False
                 else:
