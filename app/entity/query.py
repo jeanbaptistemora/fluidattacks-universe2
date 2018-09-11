@@ -13,10 +13,10 @@ class Query(ObjectType):
                   organization=String(required=True))
 
     event = Field(Events,
-                        submitID=String(required=True))
+                        identifier=String(required=True))
 
     events = List(Events,
-                        projectName=String(required=True))
+                        identifier=String(required=True))
 
     login = Field(Login)
 
@@ -26,15 +26,15 @@ class Query(ObjectType):
         """ Resolve for alert """
         return Alert(info, project, organization)
 
-    def resolve_event(self, info, submitID=None):
+    def resolve_event(self, info, identifier=None):
         """ Resolve for event """
         del info
-        return Events(submitID)
+        return Events(identifier)
 
-    def resolve_events(self, info, projectName=""):
+    def resolve_events(self, info, identifier=""):
         """ Resolve for eventualities """
         del info
-        resp = FormstackAPI().get_eventualities(str(projectName))
+        resp = FormstackAPI().get_eventualities(str(identifier))
         data = []
         if "submissions" in resp:
             data = [Events(i["id"]) for i in resp["submissions"]]

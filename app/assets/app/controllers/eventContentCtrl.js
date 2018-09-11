@@ -61,16 +61,13 @@ eventContentCtrl (
     return true;
   };
   $scope.loadEvent = function loadEvent (project, id) {
-    const reqEventualities = projectFtry.getEvent(
-      project,
-      id
-    );
+    const reqEventualities = projectFtry.getEvent(id);
     reqEventualities.then((response) => {
       if (!response.error) {
-        if (angular.isUndefined(response.data)) {
+        if (angular.isUndefined(response.data.event)) {
           location.reload();
         }
-        const eventData = response.data;
+        const eventData = response.data.event;
         for (let inc = 0; inc < eventsTranslations.length; inc++) {
           if (eventData[eventsTranslations[inc]] in keysToTranslate) {
             eventData[eventsTranslations[inc]] =
@@ -98,7 +95,7 @@ eventContentCtrl (
   };
 
   $scope.getEventEvidence = function getEventEvidence (eventData) {
-    if (eventData.evidence === "-") {
+    if (eventData.evidence === "") {
       $scope.eventData.evidenceUrl = [];
     }
     else {

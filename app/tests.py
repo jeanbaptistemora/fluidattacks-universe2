@@ -77,7 +77,7 @@ class GraphQLTests(TestCase):
     def test_get_event(self):
         """Check for eventuality"""
         query = """{
-            event(submitID:"418900971"){
+            event(identifier:"418900971"){
                 detail
             }
         }"""
@@ -94,7 +94,7 @@ class GraphQLTests(TestCase):
     def test_get_events(self):
         """Check for eventualities"""
         query = """{
-            events(projectName:"unittesting"){
+            events(identifier:"unittesting"){
                 detail
             }
         }"""

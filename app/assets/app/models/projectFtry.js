@@ -224,18 +224,28 @@ angular.module("FluidIntegrates").factory(
       /**
        * Return the eventualities of a project
        * @function getEvent
-       * @param {String} project Project name
        * @param {String} eventId Event ID
        * @member integrates.projectFtry
        * @return {Object} Formstack response with the eventualities of a project
        */
-      "getEvent" (project, eventId) {
-        const oopsAc = "An error occurred getting events";
-        return $xhr.get($q, `${BASE.url}get_event`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          eventId,
-          project
-        }, oopsAc);
+      "getEvent" (eventId) {
+        const oopsAc = "An error occurred getting repositories";
+        const gQry = `{
+             event (identifier: "${eventId}") {
+               affectation,
+               analyst,
+               client,
+               clientProject,
+               date,
+               detail,
+               evidence,
+               id,
+               fluidProject,
+               status,
+               type
+             }
+         }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**

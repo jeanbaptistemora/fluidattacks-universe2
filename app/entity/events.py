@@ -1,9 +1,9 @@
 """ GraphQL Entity for Formstack Events """
 # pylint: disable=F0401
+import urlparse
 from app.api.formstack import FormstackAPI
 from app.dto.eventuality import EventualityDTO
 from graphene import String, ObjectType
-
 
 class Events(ObjectType):
     """ Formstack Events Class """
@@ -13,24 +13,27 @@ class Events(ObjectType):
     fluidProject = String()
     clientProject = String()
     detail = String()
+    evidence = String()
     type = String()
     date = String()
     status = String()
     affectation = String()
 
-    def __init__(self, submit_id):
+    def __init__(self, identifier):
         """ Class constructor """
-        self.id = submit_id
+        self.id = identifier
         self.analyst, self.client = "", ""
         self.fluidProject, self.clientProject = "", ""
         self.type, self.date = "", ""
         self.detail, self.affectation = "", ""
         self.status, self.evidence = "", ""
-        event_id = str(submit_id)
+
+        event_id = str(identifier)
         resp = FormstackAPI().get_submission(event_id)
         if resp:
             evt_dto = EventualityDTO()
             evt_set = evt_dto.parse(event_id, resp)
+            print evt_set
             if "analyst" in evt_set:
                 self.analyst = evt_set['analyst']
             if "client" in evt_set:
@@ -47,8 +50,9 @@ class Events(ObjectType):
                 self.date = evt_set["fecha"]
             if "estado" in evt_set:
                 self.status = evt_set["estado"]
-            if "evidence" in evt_set:
-                self.evidence = evt_set["evidence"]
+            if "evidence" in evt_set  and ".png" in evt_set['evidence']:
+                parsed_url = urlparse.urlparse(evt_set['evidence'])
+                self.evidence = urlparse.parse_qs(parsed_url.query)['id'][0]
             if "affectation" in evt_set:
                 self.affectation = evt_set["affectation"]
 
@@ -68,7 +72,7 @@ class Events(ObjectType):
         del info
         return self.client
 
-    def resolve_customer(self, info):
+    def resolve_evidence(self, info):
         """ Resolve evidence attribute """
         del info
         return self.evidence

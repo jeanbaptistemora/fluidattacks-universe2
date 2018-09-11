@@ -34,11 +34,11 @@
               </div>
               <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'event_by_name.modal_ver.date' | translate}}</div>
               <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-                  <span class="label label-default">{{eventData.fecha}}</span>
+                  <span class="label label-default">{{eventData.date}}</span>
               </div>
               <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.status' | translate}}</div>
               <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-                      <span class="label label-default" style="{{header.findingValueColor}}">{{eventData.estado}}</span>
+                      <span class="label label-default" style="{{header.findingValueColor}}">{{eventData.status}}</span>
               </div>
           </div>
       </div>
@@ -72,7 +72,7 @@
                           <div class="col-md-6 col-xs-12 col-sm-12" >
                             <field-box
                               title="'event_by_name.modal_ver.detail' | translate"
-                              content="eventData.detalle"
+                              content="eventData.detail"
                             />
                             <div class="row table-row">
                               <div class="col-md-4 col-xs-12 col-sm-12">
