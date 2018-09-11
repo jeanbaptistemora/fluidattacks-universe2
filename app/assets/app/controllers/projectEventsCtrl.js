@@ -129,33 +129,25 @@ angular.module("FluidIntegrates").controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        if (eventsData.length > 0 &&
-           eventsData[0].fluidProject.toLowerCase() ===
-           $scope.project.toLowerCase()) {
-          $scope.view.project = true;
-          $scope.loadEventContent(eventsData, vlang, projectName);
-        }
-        else {
-          const reqEventualities = projectFtry2.eventsByProject(projectName);
-          reqEventualities.then((response) => {
-            if (!response.error) {
-              if (angular.isUndefined(response.data)) {
-                location.reload();
-              }
-              $scope.view.project = true;
-              eventsData = response.data.events;
-              $scope.loadEventContent(eventsData, vlang, projectName);
+        const reqEventualities = projectFtry2.eventsByProject(projectName);
+        reqEventualities.then((response) => {
+          if (!response.error) {
+            if (angular.isUndefined(response.data)) {
+              location.reload();
             }
-            else if (response.error) {
-              if (response.message === "Access to project denied") {
-                $msg.error($translate.instant("proj_alerts.access_denied"));
-              }
-              else {
-                $msg.error($translate.instant("proj_alerts.eventExist"));
-              }
+            $scope.view.project = true;
+            eventsData = response.data.events;
+            $scope.loadEventContent(eventsData, vlang, projectName);
+          }
+          else if (response.error) {
+            if (response.message === "Access to project denied") {
+              $msg.error($translate.instant("proj_alerts.access_denied"));
             }
-          });
-        }
+            else {
+              $msg.error($translate.instant("proj_alerts.eventExist"));
+            }
+          }
+        });
       }
       return true;
     };
