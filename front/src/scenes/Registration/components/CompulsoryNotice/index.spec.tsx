@@ -9,7 +9,6 @@ import 'mocha';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Button, Checkbox } from "react-bootstrap";
-import style from "./index.css";
 
 Enzyme.configure({ adapter: new Adapter() });
 

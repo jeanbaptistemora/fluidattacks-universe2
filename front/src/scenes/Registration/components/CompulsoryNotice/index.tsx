@@ -10,9 +10,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Button, Checkbox } from "react-bootstrap";
-import Modal from "react-responsive-modal";
 import { Dispatch } from "redux";
 import { StateType } from "typesafe-actions";
+import { default as Modal } from "../../../../components/Modal/index";
 import connectWithStore from "../../../../store/connect";
 import {
   acceptLegal,
@@ -20,7 +20,6 @@ import {
   setRemember,
 } from "../../../../store/Registration/actions";
 import rootReducer from "../../../../store/rootReducer";
-import style from "./index.css";
 
 /**
  *  CompulsoryNotice properties
@@ -53,6 +52,32 @@ const mapDispatchToProps: any = (dispatch: Dispatch): any =>
     onRememberCheck: (value: boolean): RegistrationAction => dispatch(setRemember(value)),
   });
 
+const modalContent: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
+  (props: ICompulsoryNoticeProps): React.ReactNode => (
+  <div>
+    <p>{props.noticeText}</p>
+    <p title={props.rememberTooltip}>
+      <Checkbox
+        checked={props.rememberDecision}
+        onClick={(): void => { props.onRememberCheck(!props.rememberDecision); }}
+      >
+        {props.rememberText}
+      </Checkbox>
+    </p>
+  </div>
+);
+
+const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
+  (props: ICompulsoryNoticeProps): React.ReactNode => (
+  <Button
+    bsStyle="primary"
+    title={props.btnAcceptTooltip}
+    onClick={(): void => { props.onAccept(props.rememberDecision); }}
+  >
+    {props.btnAcceptText}
+  </Button>
+);
+
 /**
  * CompulsoryNotice component
  */
@@ -62,38 +87,10 @@ export const compulsoryNoticeComponent: React.StatelessComponent<ICompulsoryNoti
     <Modal
       open={props.open}
       onClose={(): void => { props.onAccept(props.rememberDecision); }}
-      classNames={{ overlay: style.overlay, modal: style.dialog }}
-      closeOnEsc={false}
-      closeOnOverlayClick={false}
-      showCloseIcon={false}
-      center={true}
-    >
-      <div className={style.content} id={props.id}>
-        <div className={style.header}>
-          <h3 className={style.title}>{props.noticeTitle}</h3>
-        </div>
-        <div className={style.body}>
-          <p>{props.noticeText}</p>
-          <p title={props.rememberTooltip}>
-            <Checkbox
-              checked={props.rememberDecision}
-              onClick={(): void => { props.onRememberCheck(!props.rememberDecision); }}
-            >
-              {props.rememberText}
-            </Checkbox>
-          </p>
-        </div>
-        <div className={style.footer}>
-          <Button
-            bsStyle="primary"
-            title={props.btnAcceptTooltip}
-            onClick={(): void => { props.onAccept(props.rememberDecision); }}
-          >
-            {props.btnAcceptText}
-          </Button>
-        </div>
-      </div>
-    </Modal>
+      headerTitle={props.noticeTitle}
+      content={modalContent(props)}
+      footer={modalFooter(props)}
+    />
   </React.StrictMode>
 );
 
