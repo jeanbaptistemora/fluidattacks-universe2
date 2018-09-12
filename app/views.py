@@ -1169,10 +1169,15 @@ def retrieve_csv(request, csv_file):
     if util.assert_file_mime(csv_file, ["text/plain"]):
         with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
             csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
+            cont = 0
             header = csvReader.next()
             for row in csvReader:
-                dicTok = list_to_dict(header, row)
-                data.append(dicTok)
+                if cont <= 1000:
+                    dicTok = list_to_dict(header, row)
+                    data.append(dicTok)
+                    cont += 1
+                else:
+                    break
             return util.response(data, 'Success', False)
     else:
         rollbar.report_message('Error: Invalid record file format', 'error', request)
