@@ -124,28 +124,6 @@ findingContentCtrl (
     return true;
   };
   $scope.loadFindingByID = function loadFindingByID (id) {
-    if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].fluidProject.toLowerCase() !==
-                   $stateParams.project.toLowerCase())) {
-      const reqEventualities = projectFtry.eventualityByName(
-        $stateParams.project,
-        "Name"
-      );
-      reqEventualities.then((response) => {
-        if (!response.error) {
-          if (angular.isUndefined(response.data)) {
-            location.reload();
-          }
-          eventsData = response.data;
-        }
-        else if (response.message === "Access to project denied") {
-          $msg.error($translate.instant("proj_alerts.access_denied"));
-        }
-        else {
-          $msg.error($translate.instant("proj_alerts.eventExist"));
-        }
-      });
-    }
     if (!$scope.isEmpty(findingData) &&
         findingData.data.fluidProject.toLowerCase() ===
         $stateParams.project.toLowerCase() &&

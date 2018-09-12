@@ -63,7 +63,10 @@ eventContentCtrl (
   $scope.loadEvent = function loadEvent (project, id) {
     const reqEventualities = projectFtry.getEvent(id);
     reqEventualities.then((response) => {
-      if (!response.error) {
+      if (response.error) {
+        $msg.error($translate.instant("proj_alerts.eventExist"));
+      }
+      else {
         if (angular.isUndefined(response.data.event)) {
           location.reload();
         }
@@ -76,20 +79,19 @@ eventContentCtrl (
                     ]);
           }
         }
-        $scope.eventData = eventData;
-        $scope.getEventEvidence(eventData);
-        if ($scope.eventData.evidenceUrl.length === 0) {
-          $scope.hasEvidence = false;
+        if (eventData.access) {
+          $scope.eventData = eventData;
+          $scope.getEventEvidence(eventData);
+          if ($scope.eventData.evidenceUrl.length === 0) {
+            $scope.hasEvidence = false;
+          }
+          else {
+            $scope.hasEvidence = true;
+          }
         }
         else {
-          $scope.hasEvidence = true;
+          $msg.error($translate.instant("proj_alerts.access_denied"));
         }
-      }
-      else if (response.message === "Access to project denied") {
-        $msg.error($translate.instant("proj_alerts.access_denied"));
-      }
-      else {
-        $msg.error($translate.instant("proj_alerts.eventExist"));
       }
     });
   };

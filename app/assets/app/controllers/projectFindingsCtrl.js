@@ -104,7 +104,7 @@ angular.module("FluidIntegrates").controller(
     $scope.search = function search () {
       const projectName = $stateParams.project;
       const tableFilter = $scope.filter;
-      let hasAccess = true;
+      const hasAccess = true;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -123,25 +123,6 @@ angular.module("FluidIntegrates").controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        if (eventsData.length === 0 || (eventsData.length > 0 &&
-                   eventsData[0].fluidProject.toLowerCase() !==
-                   $scope.project.toLowerCase())) {
-          const reqEventualities = projectFtry.eventualityByName(
-            projectName,
-            "Name"
-          );
-          reqEventualities.then((response) => {
-            if (!response.error) {
-              if (angular.isUndefined(response.data)) {
-                location.reload();
-              }
-              eventsData = response.data;
-            }
-            else if (response.message === "Access to project denied") {
-              hasAccess = false;
-            }
-          });
-        }
         if (projectData.length > 0 &&
             projectData[0].fluidProject.toLowerCase() ===
             $scope.project.toLowerCase()) {

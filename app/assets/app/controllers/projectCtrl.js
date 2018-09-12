@@ -67,7 +67,7 @@ angular.module("FluidIntegrates").controller(
       const projectName = $scope.project;
       const filterAux = $scope.filter;
       const filter = filterAux;
-      let hasAccess = true;
+      const hasAccess = true;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -87,28 +87,6 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         const reqProject = projectFtry.projectByName(projectName, filter);
-        const reqEventualities = projectFtry.eventualityByName(
-          projectName,
-          "Name"
-        );
-        reqEventualities.then((response) => {
-          if (!response.error) {
-            if (angular.isUndefined(response.data)) {
-              location.reload();
-            }
-            eventsData = response.data;
-            mixPanelDashboard.trackSearch(
-              "SearchEventuality",
-              userEmail,
-              projectName
-            );
-            angular.element("#search_section").show();
-            angular.element("[data-toggle=\"tooltip\"]").tooltip();
-          }
-          else if (response.message === "Access to project denied") {
-            hasAccess = false;
-          }
-        });
         reqProject.then((response) => {
           $scope.view.project = true;
           if (!response.error) {
