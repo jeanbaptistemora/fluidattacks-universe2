@@ -13,13 +13,13 @@ import { Button, Checkbox } from "react-bootstrap";
 import { Dispatch } from "redux";
 import { StateType } from "typesafe-actions";
 import { default as Modal } from "../../../../components/Modal/index";
-import connectWithStore from "../../../../store/connect";
+import rootReducer from "../../../../store/rootReducer";
+import reduxWrapper from "../../../../utils/reduxWrapper";
 import {
   acceptLegal,
   RegistrationAction,
   setRemember,
-} from "../../../../store/Registration/actions";
-import rootReducer from "../../../../store/rootReducer";
+} from "../../actions";
 
 /**
  *  CompulsoryNotice properties
@@ -114,7 +114,7 @@ compulsoryNoticeComponent.propTypes = {
 /**
  * Export the Redux-wrapped component
  */
-export const compulsoryNotice: React.StatelessComponent<ICompulsoryNoticeProps> = connectWithStore
+export const compulsoryNotice: React.StatelessComponent<ICompulsoryNoticeProps> = reduxWrapper
 (
   compulsoryNoticeComponent,
   mapStateToProps,

@@ -1,5 +1,5 @@
 import { combineReducers, Reducer } from "redux";
-import registration from "./Registration/reducer";
+import registration from "../scenes/Registration/reducer";
 
 const rootReducer: Reducer = combineReducers({
   registration,

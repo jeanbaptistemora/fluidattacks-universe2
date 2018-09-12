@@ -4,15 +4,15 @@
 */
 import React from "react";
 import { connect } from "react-redux";
-import store from "./index";
+import store from "../store/index";
 
 type ComponentMapping = ((
   arg1: React.StatelessComponent<any>,
   arg2: any,
   arg3: any) => React.StatelessComponent<any>);
 
-const connectWithStore: ComponentMapping =
-  (wrappedComponent: React.StatelessComponent<any>,
+const reduxWrapper: ComponentMapping =
+  (componentToWrap: React.StatelessComponent<any>,
    mapStateToProps: any,
    mapDispatchToProps: any,
   ): React.StatelessComponent<any> => {
@@ -22,12 +22,12 @@ const connectWithStore: ComponentMapping =
    * between lowerCamelCase var naming rule from tslint
    * and PascalCase rule for naming JSX elements
    */
-  const ReduxWrapper: React.ComponentClass =
-    connect(mapStateToProps, mapDispatchToProps)(wrappedComponent);
+  const ComponentWrapper: React.ComponentClass =
+    connect(mapStateToProps, mapDispatchToProps)(componentToWrap);
 
   return (props: any): JSX.Element => (
-    <ReduxWrapper {...props} store={store}/>
+    <ComponentWrapper {...props} store={store}/>
   );
 };
 
-export = connectWithStore;
+export = reduxWrapper;
