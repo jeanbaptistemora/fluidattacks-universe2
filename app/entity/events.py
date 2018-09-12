@@ -1,9 +1,15 @@
 """ GraphQL Entity for Formstack Events """
 # pylint: disable=F0401
+# pylint: disable=relative-beyond-top-level
+# Disabling this rule is necessary for importing modules beyond the top level
+# directory.
+
 import urlparse
+from .. import util
 from app.api.formstack import FormstackAPI
 from app.dto.eventuality import EventualityDTO
-from graphene import String, ObjectType
+from graphene import String, ObjectType, Boolean
+from ..services import has_access_to_finding
 
 class Events(ObjectType):
     """ Formstack Events Class """
@@ -18,10 +24,12 @@ class Events(ObjectType):
     date = String()
     status = String()
     affectation = String()
+    access = Boolean()
 
-    def __init__(self, identifier):
+    def __init__(self, info, identifier):
         """ Class constructor """
-        self.id = identifier
+        self.access = False
+        self.id = ""
         self.analyst, self.client = "", ""
         self.fluidProject, self.clientProject = "", ""
         self.type, self.date = "", ""
@@ -29,32 +37,40 @@ class Events(ObjectType):
         self.status, self.evidence = "", ""
 
         event_id = str(identifier)
-        resp = FormstackAPI().get_submission(event_id)
-        if resp:
-            evt_dto = EventualityDTO()
-            evt_set = evt_dto.parse(event_id, resp)
-            print evt_set
-            if "analyst" in evt_set:
-                self.analyst = evt_set['analyst']
-            if "client" in evt_set:
-                self.client = evt_set['client']
-            if "fluidProject" in evt_set:
-                self.fluidProject = evt_set["fluidProject"]
-            if "clientProject" in evt_set:
-                self.clientProject = evt_set["clientProject"]
-            if "type" in evt_set:
-                self.type = evt_set["type"]
-            if "detalle" in evt_set:
-                self.detail = evt_set["detalle"]
-            if "fecha" in evt_set:
-                self.date = evt_set["fecha"]
-            if "estado" in evt_set:
-                self.status = evt_set["estado"]
-            if "evidence" in evt_set  and ".png" in evt_set['evidence']:
-                parsed_url = urlparse.urlparse(evt_set['evidence'])
-                self.evidence = urlparse.parse_qs(parsed_url.query)['id'][0]
-            if "affectation" in evt_set:
-                self.affectation = evt_set["affectation"]
+        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
+            and has_access_to_finding(
+                info.context.session['access'],
+                event_id,
+                info.context.session['role'])):
+            self.access = True
+            resp = FormstackAPI().get_submission(event_id)
+            if resp:
+                evt_dto = EventualityDTO()
+                evt_set = evt_dto.parse(event_id, resp)
+                self.id = event_id
+                if "analyst" in evt_set:
+                    self.analyst = evt_set['analyst']
+                if "client" in evt_set:
+                    self.client = evt_set['client']
+                if "fluidProject" in evt_set:
+                    self.fluidProject = evt_set["fluidProject"]
+                if "clientProject" in evt_set:
+                    self.clientProject = evt_set["clientProject"]
+                if "type" in evt_set:
+                    self.type = evt_set["type"]
+                if "detalle" in evt_set:
+                    self.detail = evt_set["detalle"]
+                if "fecha" in evt_set:
+                    self.date = evt_set["fecha"]
+                if "estado" in evt_set:
+                    self.status = evt_set["estado"]
+                if "evidence" in evt_set  and ".png" in evt_set['evidence']:
+                    parsed_url = urlparse.urlparse(evt_set['evidence'])
+                    self.evidence = urlparse.parse_qs(parsed_url.query)['id'][0]
+                if "affectation" in evt_set:
+                    self.affectation = evt_set["affectation"]
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to retrieve event info without permission')
 
 
     def resolve_id(self, info):
@@ -111,3 +127,8 @@ class Events(ObjectType):
         """ Resolve status attribute """
         del info
         return self.affectation
+
+    def resolve_access(self, info):
+        """ Resolve access attribute """
+        del info
+        return self.access

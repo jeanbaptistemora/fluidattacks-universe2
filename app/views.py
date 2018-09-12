@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Disabling this rule is necessary for include returns inside if-else structure
+#pylint: disable-msg=R1705
 """ Views and services for FluidIntegrates """
 
 from __future__ import absolute_import
@@ -10,7 +12,6 @@ import rollbar
 import boto3
 import io
 import collections
-import urlparse
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -442,80 +443,6 @@ def get_project_info(project):
         submission = FormstackAPI().get_submission(submission_id)
         return ProjectDTO().parse(submission)
     return []
-
-#pylint: disable-msg=R1705
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def get_eventualities(request):
-    "Get the eventualities of a project."
-    project = request.GET.get('project', None)
-    category = request.GET.get('category', None)
-    username = request.session['username']
-    dataset = []
-    evt_dto = EventualityDTO()
-    api = FormstackAPI()
-    if category == "Name":
-        submissions = api.get_eventualities(project)
-        if 'error' not in submissions:
-            frmset = submissions["submissions"]
-            for row in frmset:
-                submission = api.get_submission(row["id"])
-                evtset = evt_dto.parse(row["id"], submission)
-                if evtset['fluidProject'].lower() == project.lower():
-                    dataset.append(evtset)
-            return util.response(dataset, 'Success', False)
-        else:
-            rollbar.report_message('Error: Formstack returned an error getting events', 'error', request)
-            return util.response(dataset, 'An error occurred getting events', True)
-    elif category == "ID":
-        # Only fluid can filter by id
-        if "@fluidattacks.com" not in username:
-            util.cloudwatch_log(request, 'Security: Non-fluid user attempted to filter events by ID')
-            return util.response(dataset, 'Access to project denied', True)
-        if not project.isdigit():
-            rollbar.report_message('Error: ID is not a number', 'error', request)
-            return util.response(dataset, 'ID is not a number', True)
-        submission = api.get_submission(project)
-        if 'error' not in submission:
-            evtset = evt_dto.parse(project, submission)
-            dataset.append(evtset)
-            return util.response(dataset, 'Success', False)
-        else:
-            rollbar.report_message('Error: Formstack returned an error getting events', 'error', request)
-            return util.response(dataset, 'An error occurred getting events', True)
-    else:
-        util.cloudwatch_log(request, 'Security: Attempted to get eventualities by unknown filter: ' + category)
-        return util.response(dataset, 'Unknown filter', True)
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def get_event(request):
-    "Get event by project and id"
-    project = request.GET.get('project', None)
-    event_id = request.GET.get('eventId', None)
-    events_dto = EventualityDTO()
-    api = FormstackAPI()
-    submission = api.get_submission(event_id)
-    if 'error' not in submission:
-        event = events_dto.parse(event_id, submission)
-        if 'evidence' in event  and ".png" in event['evidence']:
-            parsed_url = urlparse.urlparse(event['evidence'])
-            event['evidence'] = urlparse.parse_qs(parsed_url.query)['id']
-        else:
-            event['evidence'] = "-"
-        if event['fluidProject'].lower() == project.lower():
-            return util.response(event, 'Success', False)
-        else:
-            return util.response([], 'Access to project denied', True)
-    else:
-        rollbar.report_message('Error: Formstack returned an error getting events', 'error', request)
-        return util.response([], 'An error occurred getting events', True)
 
 @never_cache
 @csrf_exempt

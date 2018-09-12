@@ -28,16 +28,14 @@ class Query(ObjectType):
 
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
-        del info
-        return Events(identifier)
+        return Events(info, identifier)
 
     def resolve_events(self, info, identifier=""):
         """ Resolve for eventualities """
-        del info
         resp = FormstackAPI().get_eventualities(str(identifier))
         data = []
         if "submissions" in resp:
-            data = [Events(i["id"]) for i in resp["submissions"]]
+            data = [Events(info, i["id"]) for i in resp["submissions"]]
         return data
 
     def resolve_login(self, info):

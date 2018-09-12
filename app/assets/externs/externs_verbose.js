@@ -125,7 +125,6 @@ var getAlerts = {};   \
 var animate = {};    \
 var matchHeight = {};    \
 var bootstrapTable = {};   \
-var eventualityByName = {};   \
 var Interesado = {};   \
 var Talento = {};    \
 var VulnerabilidadesS = {};    \

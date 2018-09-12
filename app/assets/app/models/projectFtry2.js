@@ -295,6 +295,7 @@ angular.module("FluidIntegrates").factory(
         const oopsAc = "An error occurred getting repositories";
         const gQry = `{
             events (identifier: "${project}") {
+              access,
               date,
               detail,
               id,

@@ -118,23 +118,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Return the eventualities of a project
-       * @function eventualityByName
-       * @param {String} project Project name
-       * @param {String} category Search filter: By Name or ID
-       * @member integrates.projectFtry
-       * @return {Object} Formstack response with the eventualities of a project
-       */
-      "eventualityByName" (project, category) {
-        const oopsAc = "An error occurred getting events";
-        return $xhr.get($q, `${BASE.url}get_eventualities`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          category,
-          project
-        }, oopsAc);
-      },
-
-      /**
        * Return all the information for a specific findinf ID
        * @function findingById
        * @param {Integer} findingid Numeric ID of a finding
@@ -232,6 +215,7 @@ angular.module("FluidIntegrates").factory(
         const oopsAc = "An error occurred getting repositories";
         const gQry = `{
              event (identifier: "${eventId}") {
+               access,
                affectation,
                analyst,
                client,

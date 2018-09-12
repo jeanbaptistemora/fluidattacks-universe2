@@ -81,10 +81,18 @@ class GraphQLTests(TestCase):
                 detail
             }
         }"""
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.session['access'] = {"unittesting": [422286126, 436423161, 435326633, 435326463, 418900971]}
         schema = Schema(query=Query)
-        result = dict(schema.execute(query).data)
+        result = dict(schema.execute(query, context_value=request).data)
         if "event" in result.keys():
-            detail = result["event"]["detail"]
+            detail = dict(result["event"])["detail"]
             self.assertIs(
                 detail == "Integrates unit test ",
                 True
@@ -98,10 +106,18 @@ class GraphQLTests(TestCase):
                 detail
             }
         }"""
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.session['access'] = {"unittesting": ["422286126", "436423161", "435326633", "435326463", "418900971"]}
         schema = Schema(query=Query)
-        result = schema.execute(query).data
+        result = dict(schema.execute(query, context_value=request).data)
         if "events" in result:
-            detail = result["events"]
+            detail = dict(result["events"][0])["detail"]
             self.assertIs(
                 len(detail) >= 1,
                 True
