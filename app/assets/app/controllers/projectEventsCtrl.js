@@ -139,7 +139,7 @@ angular.module("FluidIntegrates").controller(
               location.reload();
             }
             const eventsData = response.data.events;
-            if (eventsData[0].access) {
+            if (eventsData.length === 0 || eventsData[0].access) {
               $scope.view.project = true;
               $scope.loadEventContent(eventsData, vlang, projectName);
             }
