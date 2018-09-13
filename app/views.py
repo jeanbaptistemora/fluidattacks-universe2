@@ -1410,7 +1410,8 @@ def add_comment(request):
         rollbar.report_message('Error: An error ocurred adding comment', 'error', request)
         return util.response([], 'Error', True)
     try:
-        recipients = integrates_dao.get_project_users(data['data[project]'].lower())
+        project = data['data[project]'].lower()
+        recipients = integrates_dao.get_project_users(project)
         if data['data[commentType]'] == 'observation':
             admins = integrates_dao.get_admins()
             to = [x[0] for x in admins]
@@ -1419,6 +1420,10 @@ def add_comment(request):
                     to.append(user[0])
         else:
             to = [x[0] for x in recipients if x[1] == 1]
+        project_info = integrates_dao.get_project_dynamo(project)
+        if project_info and project_info[0].get("type") == "oneshot":
+            to.append('projects@fluidattacks.com')
+        else:
             to.append('continuous@fluidattacks.com')
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
