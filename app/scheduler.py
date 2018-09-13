@@ -65,6 +65,7 @@ def send_unsolved_events_email(project):
     if project_info and \
             project_info[0].get("type") == "continuous":
         to.append("continuous@fluidattacks.com")
+        to.append('projects@fluidattacks.com')
     events_info_for_email = [extract_info_from_event_dict(x) \
                              for x in unsolved_events]
     context = {'project_name': project.capitalize() , \
