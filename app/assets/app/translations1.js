@@ -64,7 +64,9 @@ const translations1 = {
         },
      "modal_ver":
       {
+        "accessibility": "Event present in",
         "affec": "Affectation",
+        "affec_components": "Affected components",
         "analyst": "Analyst",
         "c_proj": "Customer's Project",
         "client": "Client",

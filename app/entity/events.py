@@ -25,6 +25,8 @@ class Events(ObjectType):
     status = String()
     affectation = String()
     access = Boolean()
+    accessibility = String()
+    affectedComponents = String()
 
     def __init__(self, info, identifier):
         """ Class constructor """
@@ -35,6 +37,7 @@ class Events(ObjectType):
         self.type, self.date = "", ""
         self.detail, self.affectation = "", ""
         self.status, self.evidence = "", ""
+        self.accessibility, self.affectedComponents = "", ""
 
         event_id = str(identifier)
         if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
@@ -69,6 +72,10 @@ class Events(ObjectType):
                     self.evidence = urlparse.parse_qs(parsed_url.query)['id'][0]
                 if "affectation" in evt_set:
                     self.affectation = evt_set["affectation"]
+                if "accessibility" in evt_set:
+                    self.accessibility = evt_set["accessibility"]
+                if "affectedComponents" in evt_set:
+                    self.affectedComponents = evt_set["affectedComponents"]
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to retrieve event info without permission')
 
@@ -127,6 +134,16 @@ class Events(ObjectType):
         """ Resolve status attribute """
         del info
         return self.affectation
+
+    def resolve_accessibility(self, info):
+        """ Resolve accessibility attribute """
+        del info
+        return self.accessibility
+
+    def resolve_affectedComponents(self, info):
+        """ Resolve affected components attribute """
+        del info
+        return self.affectedComponents
 
     def resolve_access(self, info):
         """ Resolve access attribute """

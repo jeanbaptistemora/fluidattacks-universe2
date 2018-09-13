@@ -63,7 +63,9 @@ const traducciones1 = {
   },
   "modal_ver":
   {
-    "affec": "Afectacion",
+    "accessibility": "Eventualidad presente en",
+    "affec": "Afectación",
+    "affec_components": "Insumos afectados",
     "analyst": "Analista",
     "c_proj": "Proyecto Cliente",
     "client": "Cliente",

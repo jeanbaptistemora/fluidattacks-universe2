@@ -216,7 +216,9 @@ angular.module("FluidIntegrates").factory(
         const gQry = `{
              event (identifier: "${eventId}") {
                access,
+               accessibility,
                affectation,
+               affectedComponents,
                analyst,
                client,
                clientProject,

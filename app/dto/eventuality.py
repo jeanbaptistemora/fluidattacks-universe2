@@ -13,6 +13,8 @@ class EventualityDTO(object):
     STATUS = "29062640"
     AFFECTATION = "29042542"
     EVIDENCE = "29042411"
+    ACCESSIBILITY = "57917686"
+    AFFECTED_COMPONENTS = "52661157"
 
     def __init__(self):
         """ Class constructor """
@@ -60,6 +62,10 @@ class EventualityDTO(object):
                 self.data["affectation"] = row["value"]
             if row["field"] == self.EVIDENCE:
                 self.data["evidence"] = row["value"]
+            if row["field"] == self.ACCESSIBILITY:
+                self.data["accessibility"] = row["value"]
+            if row["field"] == self.AFFECTED_COMPONENTS:
+                self.data["affectedComponents"] = row["value"]
         return self.data
 
     def to_formstack(self):

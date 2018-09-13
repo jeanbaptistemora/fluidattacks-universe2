@@ -91,6 +91,12 @@
                               title="'event_by_name.modal_ver.analyst' | translate"
                               content="eventData.analyst"
                             />
+                            <div ng-show="hasAffectedComponents">
+                              <field-box
+                                title="'event_by_name.modal_ver.affec_components' | translate"
+                                content="eventData.affectedComponents"
+                              />
+                            </div>
                           </div>
                           <div class="col-md-6 col-xs-12 col-sm-12">
                             <field-box
@@ -105,6 +111,12 @@
                               title="'event_by_name.modal_ver.f_proj' | translate"
                               content="eventData.fluidProject"
                             />
+                            <div ng-show="hasAccessibility">
+                              <field-box
+                                title="'event_by_name.modal_ver.accessibility' | translate"
+                                content="eventData.accessibility"
+                              />
+                            </div>
                           </div>
                       </div>
                     </div>

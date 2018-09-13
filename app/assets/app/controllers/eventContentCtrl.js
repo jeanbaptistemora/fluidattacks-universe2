@@ -71,6 +71,18 @@ eventContentCtrl (
           location.reload();
         }
         const eventData = response.data.event;
+        if (eventData.accessibility === "") {
+          $scope.hasAccessibility = false;
+        }
+        else {
+          $scope.hasAccessibility = true;
+        }
+        if (eventData.affectedComponents === "") {
+          $scope.hasAffectedComponents = false;
+        }
+        else {
+          $scope.hasAffectedComponents = true;
+        }
         for (let inc = 0; inc < eventsTranslations.length; inc++) {
           if (eventData[eventsTranslations[inc]] in keysToTranslate) {
             eventData[eventsTranslations[inc]] =
