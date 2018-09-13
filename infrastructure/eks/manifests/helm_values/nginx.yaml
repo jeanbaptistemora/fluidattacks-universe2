@@ -15,3 +15,5 @@ defaultBackend:
   enabled: false
 rbac:
   create: true
+tcp:
+  8080: "serves/vpn:8080"
