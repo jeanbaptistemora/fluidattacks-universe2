@@ -125,31 +125,7 @@ angular.module("FluidIntegrates").controller(
                 location.reload();
               }
               draftData = response.data;
-              if (response.data.length === 0 && eventsData.length === 0) {
-                if ($scope.isManager) {
-                  const reqProject = projectFtry.projectByName(
-                    projectName,
-                    tableFilter
-                  );
-                  reqProject.then((resp) => {
-                    $scope.view.project = true;
-                    if (!resp.error) {
-                      if (resp.data.length > 0) {
-                        $scope.loadDraftContent(draftData, vlang);
-                      }
-                    }
-                  });
-                }
-                else {
-                  $scope.view.project = false;
-                  $scope.view.finding = false;
-                  $msg.error($translate.instant("proj_alerts.not_found"));
-                }
-              }
-              else {
-                draftData = response.data;
-                $scope.loadDraftContent(draftData, vlang);
-              }
+              $scope.loadDraftContent(draftData, vlang);
             }
             else if (response.error) {
               $scope.view.project = false;

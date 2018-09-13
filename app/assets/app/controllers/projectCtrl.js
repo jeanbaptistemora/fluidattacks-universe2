@@ -99,18 +99,11 @@ angular.module("FluidIntegrates").controller(
               userEmail,
               projectName
             );
-            if (response.data.length === 0 && eventsData.length === 0) {
-              $scope.view.project = false;
-              $scope.view.finding = false;
-              $msg.error($translate.instant("proj_alerts.not_found"));
-            }
-            else {
-              $scope.data = response.data;
-              projectData = response.data;
-              const org = Organization.toUpperCase();
-              const projt = $stateParams.project.toUpperCase();
-              functionsFtry1.alertHeader(org, projt);
-            }
+            $scope.data = response.data;
+            projectData = response.data;
+            const org = Organization.toUpperCase();
+            const projt = $stateParams.project.toUpperCase();
+            functionsFtry1.alertHeader(org, projt);
           }
           else if (response.error) {
             $scope.view.project = false;

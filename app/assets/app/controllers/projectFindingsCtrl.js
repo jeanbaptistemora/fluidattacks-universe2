@@ -60,8 +60,7 @@ angular.module("FluidIntegrates").controller(
     functionsFtry1,
     functionsFtry3,
     functionsFtry4,
-    projectFtry,
-    projectFtry2
+    projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -147,36 +146,8 @@ angular.module("FluidIntegrates").controller(
                   userEmail,
                   projectName
                 );
-                if (response.data.length === 0 && eventsData.length === 0) {
-                  if ($scope.isManager) {
-                    const reqDrafts = projectFtry2.draftsByName(
-                      projectName,
-                      tableFilter
-                    );
-                    reqDrafts.then((resp) => {
-                      $scope.view.project = true;
-                      if (!resp.error && resp.data.length > 0) {
-                        $state.go(
-                          "ProjectDrafts",
-                          {"project": projectName.toLowerCase()}
-                        );
-                      }
-                      else {
-                        Rollbar.error("Error: An error occurred getting " +
-                                      "drafts");
-                      }
-                    });
-                  }
-                  else {
-                    $scope.view.project = false;
-                    $scope.view.finding = false;
-                    $msg.error($translate.instant("proj_alerts.not_found"));
-                  }
-                }
-                else {
-                  projectData = response.data;
-                  $scope.loadFindingContent(projectData);
-                }
+                projectData = response.data;
+                $scope.loadFindingContent(projectData);
               }
             }
             else if (response.error) {

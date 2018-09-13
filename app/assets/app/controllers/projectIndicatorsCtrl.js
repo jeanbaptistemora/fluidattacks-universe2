@@ -405,35 +405,9 @@ angular.module("FluidIntegrates").controller(
                 userEmail,
                 projectName
               );
-              if (response.data.length === 0 && eventsData.length === 0) {
-                if ($scope.isManager) {
-                  const reqDrafts = projectFtry2.draftsByName(
-                    projectName,
-                    tableFilter
-                  );
-                  reqDrafts.then((resp) => {
-                    $scope.view.project = true;
-                    if (!resp.error) {
-                      if (resp.data.length > 0) {
-                        $state.go(
-                          "ProjectDrafts",
-                          {"project": projectName.toLowerCase()}
-                        );
-                      }
-                    }
-                  });
-                }
-                else {
-                  $scope.view.project = false;
-                  $scope.view.finding = false;
-                  $msg.error($translate.instant("proj_alerts.not_found"));
-                }
-              }
-              else {
-                projectData = response.data;
-                functionsFtry4.loadIndicatorsContent($scope, projectData);
-                $scope.reactGraphs();
-              }
+              projectData = response.data;
+              functionsFtry4.loadIndicatorsContent($scope, projectData);
+              $scope.reactGraphs();
             }
             else if (response.error) {
               $scope.view.project = false;

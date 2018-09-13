@@ -371,7 +371,6 @@ const translations1 = {
      "no_file_update": "Failed to update the file",
      "no_finding": "We could not find the finding!",
      "no_text_update": "Failed to update the description",
-     "not_found": "The project does not have findings",
      "project_deleted": "Project Deleted",
      "remediated_success": "This finding was marked as remediated. A request " +
                            "to verify the solution was sent",
