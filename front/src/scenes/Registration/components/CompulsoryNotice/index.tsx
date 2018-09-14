@@ -10,14 +10,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Button, Checkbox } from "react-bootstrap";
-import { Dispatch } from "redux";
 import { StateType } from "typesafe-actions";
 import { default as Modal } from "../../../../components/Modal/index";
+import store from "../../../../store/index";
 import rootReducer from "../../../../store/rootReducer";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import {
   acceptLegal,
-  RegistrationAction,
   setRemember,
 } from "../../actions";
 
@@ -34,8 +33,6 @@ interface ICompulsoryNoticeProps {
   rememberDecision: boolean;
   rememberText: string;
   rememberTooltip: string;
-  onAccept(arg1: boolean): void;
-  onRememberCheck(arg1: boolean): void;
 }
 
 type RootState = StateType<typeof rootReducer>;
@@ -46,12 +43,6 @@ const mapStateToProps: any = (state: RootState): any =>
     rememberDecision: state.registration.legalNotice.rememberDecision,
   });
 
-const mapDispatchToProps: any = (dispatch: Dispatch): any =>
-  ({
-    onAccept: (remember: boolean): RegistrationAction => dispatch(acceptLegal(remember)),
-    onRememberCheck: (value: boolean): RegistrationAction => dispatch(setRemember(value)),
-  });
-
 const modalContent: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   (props: ICompulsoryNoticeProps): React.ReactNode => (
   <div>
@@ -59,7 +50,7 @@ const modalContent: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
     <p title={props.rememberTooltip}>
       <Checkbox
         checked={props.rememberDecision}
-        onClick={(): void => { props.onRememberCheck(!props.rememberDecision); }}
+        onClick={(): void => { store.dispatch(setRemember(!props.rememberDecision)); }}
       >
         {props.rememberText}
       </Checkbox>
@@ -72,7 +63,7 @@ const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   <Button
     bsStyle="primary"
     title={props.btnAcceptTooltip}
-    onClick={(): void => { props.onAccept(props.rememberDecision); }}
+    onClick={(): void => { store.dispatch(acceptLegal(props.rememberDecision)); }}
   >
     {props.btnAcceptText}
   </Button>
@@ -86,7 +77,7 @@ export const compulsoryNoticeComponent: React.StatelessComponent<ICompulsoryNoti
   <React.StrictMode>
     <Modal
       open={props.open}
-      onClose={(): void => { props.onAccept(props.rememberDecision); }}
+      onClose={(): void => { store.dispatch(acceptLegal(props.rememberDecision)); }}
       headerTitle={props.noticeTitle}
       content={modalContent(props)}
       footer={modalFooter(props)}
@@ -103,8 +94,6 @@ compulsoryNoticeComponent.propTypes = {
   id: PropTypes.string.isRequired,
   noticeText: PropTypes.string.isRequired,
   noticeTitle: PropTypes.string.isRequired,
-  onAccept: PropTypes.func.isRequired,
-  onRememberCheck: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   rememberDecision: PropTypes.bool.isRequired,
   rememberText: PropTypes.string.isRequired,
@@ -118,5 +107,4 @@ export const compulsoryNotice: React.StatelessComponent<ICompulsoryNoticeProps> 
 (
   compulsoryNoticeComponent,
   mapStateToProps,
-  mapDispatchToProps,
 );

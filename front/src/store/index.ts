@@ -1,5 +1,5 @@
-import { createStore } from "redux";
+import { createStore, Store } from "redux";
 import rootReducer from "./rootReducer";
 
-const store: typeof rootReducer = createStore(rootReducer);
+const store: Store = createStore(rootReducer);
 export = store;

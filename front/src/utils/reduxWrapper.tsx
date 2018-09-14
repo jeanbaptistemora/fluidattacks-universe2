@@ -8,13 +8,11 @@ import store from "../store/index";
 
 type ComponentMapping = ((
   arg1: React.StatelessComponent<any>,
-  arg2: any,
-  arg3: any) => React.StatelessComponent<any>);
+  arg2: any) => React.StatelessComponent<any>);
 
 const reduxWrapper: ComponentMapping =
   (componentToWrap: React.StatelessComponent<any>,
    mapStateToProps: any,
-   mapDispatchToProps: any,
   ): React.StatelessComponent<any> => {
 
   /* tslint:disable-next-line:variable-name
@@ -23,7 +21,7 @@ const reduxWrapper: ComponentMapping =
    * and PascalCase rule for naming JSX elements
    */
   const ComponentWrapper: React.ComponentClass =
-    connect(mapStateToProps, mapDispatchToProps)(componentToWrap);
+    connect(mapStateToProps)(componentToWrap);
 
   return (props: any): JSX.Element => (
     <ComponentWrapper {...props} store={store}/>
