@@ -12,6 +12,7 @@ import rollbar
 import boto3
 import io
 import collections
+import threading
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -1211,7 +1212,11 @@ def update_treatment(request):
                 project_name = parameters['data[projectName]'].lower()
                 recipients = integrates_dao.get_project_users(project_name)
                 to = [x[0] for x in recipients if x[1] == 1]
-                send_mail_accepted_finding(to, context)
+                email_send_thread = threading.Thread( \
+                                              name="Accepted finding email thread", \
+                                              target=send_mail_accepted_finding, \
+                                              args=(to, context,))
+                email_send_thread.start()
                 return util.response([], 'success', False)
             else:
                 return util.response([], 'success', False)
@@ -1268,7 +1273,11 @@ def delete_finding(request):
             return util.response([], 'Error', True)
         to = ["projects@fluidattacks.com", "production@fluidattacks.com",
               "jarmas@fluidattacks.com", "hvalencia@fluidattacks.com"]
-        send_mail_delete_finding(to, context)
+        email_send_thread = threading.Thread( \
+                                      name="Delete finding email thread", \
+                                      target=send_mail_delete_finding, \
+                                      args=(to, context,))
+        email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1307,7 +1316,11 @@ def finding_solved(request):
            'company': request.session["company"],
            'solution': rem_solution,
             }
-        send_mail_remediate_finding(to, context)
+        email_send_thread = threading.Thread( \
+                                      name="Remediate finding email thread", \
+                                      target=send_mail_remediate_finding, \
+                                      args=(to, context,))
+        email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1342,7 +1355,11 @@ def finding_verified(request):
            'finding_vulns': parameters['data[findingVulns]'],
            'company': request.session["company"],
             }
-        send_mail_verified_finding(to, context)
+        email_send_thread = threading.Thread( \
+                                      name="Verified finding email thread", \
+                                      target=send_mail_verified_finding, \
+                                      args=(to, context,))
+        email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1436,10 +1453,18 @@ def add_comment(request):
             }
         if data["data[remediated]"] != "true":
             if data["data[parent]"] == '0':
-                send_mail_new_comment(to, context, data['data[commentType]'])
+                email_send_thread = threading.Thread( \
+                                              name="New comment email thread", \
+                                              target=send_mail_new_comment, \
+                                              args=(to, context, data['data[commentType]']))
+                email_send_thread.start()
                 return util.response([], 'Success', False)
             elif data["data[parent]"] != '0':
-                send_mail_reply_comment(to, context, data['data[commentType]'])
+                email_send_thread = threading.Thread( \
+                                              name="Reply comment email thread", \
+                                              target=send_mail_reply_comment, \
+                                              args=(to, context, data['data[commentType]']))
+                email_send_thread.start()
                 return util.response([], 'Success', False)
         else:
             return util.response([], 'Success', False)
@@ -1546,7 +1571,11 @@ def delete_draft(request):
             admins = integrates_dao.get_admins()
             to = [x[0] for x in admins]
             to.append(finding['analyst'])
-            send_mail_delete_draft(to, context)
+            email_send_thread = threading.Thread( \
+                                          name="Delete draft email thread", \
+                                          target=send_mail_delete_draft, \
+                                          args=(to, context,))
+            email_send_thread.start()
             return util.response([], 'success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1646,7 +1675,11 @@ def create_new_user(parameters, project, request):
            'project_description': description,
            'project_url': project_url,
         }
-        send_mail_access_granted(to, context)
+        email_send_thread = threading.Thread( \
+                                      name="Access granted email thread", \
+                                      target=send_mail_access_granted, \
+                                      args=(to, context,))
+        email_send_thread.start()
         return True
     else:
         return False
