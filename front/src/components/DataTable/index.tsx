@@ -53,10 +53,14 @@ const statusFormatter: ((value: string) => ReactElement<Label>) =
     switch (value) {
       case "Cerrado":
       case "Closed":
+      case "Tratada":
+      case "Solved":
         bgColor = "#31c0be";
         break;
       case "Abierto":
       case "Open":
+      case "Pendiente":
+      case "Unsolved":
         bgColor = "#f22";
         break;
       case "Parcialmente cerrado":

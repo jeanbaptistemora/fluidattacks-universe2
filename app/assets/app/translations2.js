@@ -3,6 +3,15 @@
  */
 /* eslint-disable no-unused-vars */
 const translations2 = {
+  "search_events": {
+    "headings": {
+      "date": "Date",
+      "details": "Description",
+      "id": "ID",
+      "status": "Status",
+      "type": "Type"
+    }
+  },
   "search_findings":
  {
    "environment_table": {"environment": "Environment"},

@@ -97,7 +97,7 @@
                                             data-toggle="tooltip"
                                             data-placement="top"
                                             title="{{ search_findings.event_by_name.btn_group.resume }}!"
-                                            ng-click="openModalEventAvance();">
+                                            ng-click="openModalEventAvance(eventsDataset);">
                                             {{ search_findings.event_by_name.btn_group.resume }}
                                         <i class="glyphicon glyphicon-bookmark"></i>
                                     </button>
@@ -106,33 +106,14 @@
                                 <div id="toolbar2">
                                     <p><b>{{ search_findings.eventualities.description }}</b></p>
                                 </div>
-                                <div class="col-md-12">
-                                    <table id="tblEventualities"
-                                            data-classes="table table-hover table-striped"
-                                            data-cookie="true"
-                                            data-cookie-id-table="saveIdEvent"
-                                            data-striped="true"
-                                            data-pagination="true"
-                                            data-page-size="15"
-                                            data-toolbar="#toolbar2"
-                                            data-search="false">
-                                        <thead>
-                                            <tr>
-                                                <th data-field="id" data-halign="center" data-valign="middle" data-width="5%">{{ search_findings.event_table.id }}</th>
-                                                <th data-field="date" data-halign="center" data-valign="middle" data-width="10%" data-sortable="true">{{ search_findings.event_table.date }}</th>
-                                                <th data-field="detail" data-halign="center" data-valign="middle" data-width="40%" data-sortable="true">{{ search_findings.event_table.details }}</th>
-                                                <th data-field="type" data-halign="center" data-valign="middle" data-width="15%">{{ search_findings.event_table.type }}</th>
-                                                <th data-field="status"
-                                                    data-halign="center"
-                                                    data-valign="middle"
-                                                    data-width="10%"
-                                                    data-sortable="true"
-                                                    data-align="center"
-                                                    data-formatter="labelEventState">{{ search_findings.event_table.status }}</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
+                                <d-table
+                                  dataset="eventsDataset"
+                                  export-csv="true"
+                                  headers="tblEventsHeaders"
+                                  on-click-row="goToEvent"
+                                  page-size="15"
+                                  search="true"
+                                />
                             </div>
                         </div>
                     </div>

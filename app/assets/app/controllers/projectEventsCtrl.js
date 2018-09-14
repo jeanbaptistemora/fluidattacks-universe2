@@ -151,6 +151,15 @@ angular.module("FluidIntegrates").controller(
       }
       return true;
     };
+    $scope.goToEvent = function goToEvent (rowInfo) {
+      // Mixpanel tracking
+      mixPanelDashboard.trackFinding("ReadEvent", userEmail, rowInfo.id);
+      $scope.currentScrollPosition = angular.element(document).scrollTop();
+      $state.go("EventsDescription", {
+        "id": rowInfo.id,
+        "project": rowInfo.fluidProject.toLowerCase()
+      });
+    };
     $scope.loadEventContent = function loadEventContent (data, vlang, project) {
       const organizationName = Organization.toUpperCase();
       const projectName = project.toUpperCase();
@@ -168,21 +177,43 @@ angular.module("FluidIntegrates").controller(
       $scope.isManager = userRole !== "customer" &&
                          userRole !== "customeradmin";
       mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
-      // Eventuality table configuration
-      angular.element("#tblEventualities").bootstrapTable("destroy");
-      angular.element("#tblEventualities").bootstrapTable({
-        "cookie": true,
-        "cookieIdTable": "saveIEvent",
-        data,
-        "locale": vlang,
-        "onClickRow" (row) {
-          $state.go("EventsDescription", {
-            "id": row.id,
-            "project": row.fluidProject.toLowerCase()
-          });
+      $scope.tblEventsHeaders = [
+        {
+          "align": "center",
+          "dataField": "id",
+          "header": $translate.instant("search_events.headings.id"),
+          "width": "3.0%"
+        },
+        {
+          "align": "center",
+          "dataField": "date",
+          "header":
+            $translate.instant("search_events.headings.date"),
+          "width": "3.5%"
+        },
+        {
+          "align": "center",
+          "dataField": "detail",
+          "header": $translate.instant("search_events.headings.details"),
+          "width": "6.5%",
+          "wrapped": true
+        },
+        {
+          "align": "center",
+          "dataField": "type",
+          "header": $translate.instant("search_events.headings.type"),
+          "width": "4.8%",
+          "wrapped": true
+        },
+        {
+          "align": "center",
+          "dataField": "status",
+          "header": $translate.instant("search_events.headings.status"),
+          "isStatus": true,
+          "width": "3.0%"
         }
-      });
-      angular.element("#tblEventualities").bootstrapTable("refresh");
+      ];
+      $scope.eventsDataset = data;
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
       if (!$scope.isManager) {
@@ -205,13 +236,12 @@ angular.module("FluidIntegrates").controller(
         }
       }
     };
-    $scope.openModalEventAvance = function openModalEventAvance () {
+    $scope.openModalEventAvance = function openModalEventAvance (data) {
       $uibModal.open({
         "animation": true,
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance) {
-          $scope.rowsEvent =
-                 angular.element("#tblEventualities").bootstrapTable("getData");
+          $scope.rowsEvent = data;
           $scope.close = function close () {
             $uibModalInstance.close();
             const TIMEOUT = 100;

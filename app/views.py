@@ -157,13 +157,6 @@ def project_events(request):
     language = request.GET.get('l', 'en')
     dicLang = {
         "search_findings": {
-            "event_table": {
-               "date": "Date",
-               "details": "Description",
-               "id": "ID",
-               "status": "Status",
-               "type": "Type"
-            },
             "eventualities": {
                 "description": "Click on an event to see more details"
             },
@@ -177,13 +170,6 @@ def project_events(request):
     if language == "es":
         dicLang = {
             "search_findings": {
-                "event_table": {
-                   "date": "Fecha",
-                   "details": "Descripción",
-                   "id": "ID",
-                   "status": "Estado",
-                   "type": "Tipo"
-                },
                 "eventualities": {
                     "description": "Haz click para ver el detalle"
                 },
