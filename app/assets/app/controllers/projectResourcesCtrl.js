@@ -153,8 +153,8 @@ angular.module("FluidIntegrates").controller(
       if (selectedRow.length > 0) {
         const REPOSITORY_INDEX = 1;
         const BRANCH_INDEX = 2;
-        const repository = selectedRow.children()[REPOSITORY_INDEX].innerText;
-        const branch = selectedRow.children()[BRANCH_INDEX].innerText;
+        const repository = selectedRow.children()[REPOSITORY_INDEX].textContent;
+        const branch = selectedRow.children()[BRANCH_INDEX].textContent;
         const repositories = {};
         repositories.urlRepo = repository;
         repositories.branch = branch;
@@ -399,7 +399,7 @@ angular.module("FluidIntegrates").controller(
         angular.element("#tblEnvironments tr input:checked").closest("tr");
       if (selectedRow.length > 0) {
         const environments = {};
-        environments.urlEnv = selectedRow.children()[1].innerText;
+        environments.urlEnv = selectedRow.children()[1].textContent;
         const project = $stateParams.project.toLowerCase();
         const repo = projectFtry2.removeEnvironments(
           angular.toJson(angular.toJson(environments)),
