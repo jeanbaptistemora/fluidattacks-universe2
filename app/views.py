@@ -594,12 +594,11 @@ def catch_finding(request, submission_id):
                     finding['where'] = state['whichOpened']
                 if 'whichClosed' in state:
                     finding['closed'] = state['whichClosed']
+                finding = format_release_date(finding, state)
                 if state['estado'] == 'Cerrado':
                     finding['where'] = '-'
                     finding['edad'] = '-'
                     finding['lastVulnerability'] = '-'
-                else:
-                    finding = format_release_date(finding, state)
                 return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
