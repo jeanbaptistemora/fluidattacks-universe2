@@ -27,7 +27,7 @@ from .techdoc.IT import ITReport
 from .dto.finding import FindingDTO
 from .dto.closing import ClosingDTO
 from .dto.project import ProjectDTO
-from .dto.eventuality import EventualityDTO
+from .dto import eventuality
 from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
 # pylint: disable=E0402
@@ -1218,13 +1218,12 @@ def update_eventuality(request):
     "Update an eventuality associated to a project"
     parameters = request.POST.dict()
     try:
-        generic_dto = EventualityDTO()
-        generic_dto.create(parameters)
+        event_dict=eventuality.create(parameters)
         if not parameters["vuln[affectation]"].isdigit():
             rollbar.report_message('Error: Affectation can not be a negative number', 'error', request)
             return util.response([], 'Afectacion negativa', True)
         api = FormstackAPI()
-        request = api.update(generic_dto.request_id, generic_dto.data)
+        request = api.update(event_dict["request_id"], event_dict["data"])
         if request:
             return util.response([], 'success', False)
         rollbar.report_message('Error: An error ocurred updating event', 'error', request)
@@ -1671,10 +1670,9 @@ def create_new_user(parameters, project, request):
 
 def calculate_indicators(project):
     api = FormstackAPI()
-    evt_dto = EventualityDTO()
     openVulnerabilities = cardinalidadTotal = maximumSeverity = openEvents =  0
     for row in  api.get_eventualities(project)["submissions"]:
-        evtset = evt_dto.parse(row["id"], api.get_submission(row["id"]))
+        evtset = eventuality.parse(row["id"], api.get_submission(row["id"]))
         if evtset['estado']=='Pendiente':
             openEvents += 1
     for finding in api.get_findings(project)["submissions"]:

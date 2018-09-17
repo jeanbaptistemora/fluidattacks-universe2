@@ -9,7 +9,7 @@ from django.conf import settings
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
 from .dto import remission
-from .dto.eventuality import EventualityDTO
+from .dto import eventuality
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding, \
                     send_mail_new_releases, send_mail_continuous_report, \
@@ -31,8 +31,7 @@ def remove_fluidattacks_emails_from_recipients(emails):
     return new_email_list
 
 def create_dictionary_from_event_submission(event_id, event_submission):
-    events_mapper = EventualityDTO()
-    return events_mapper.parse(event_id, event_submission)
+    return eventuality.parse(event_id, event_submission)
 
 def get_event(event_id):
     formstack_api = FormstackAPI()

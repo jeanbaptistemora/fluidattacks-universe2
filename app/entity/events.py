@@ -7,7 +7,7 @@
 import urlparse
 from .. import util
 from app.api.formstack import FormstackAPI
-from app.dto.eventuality import EventualityDTO
+from app.dto import eventuality
 from graphene import String, ObjectType, Boolean
 from ..services import has_access_to_finding
 
@@ -48,8 +48,7 @@ class Events(ObjectType):
             self.access = True
             resp = FormstackAPI().get_submission(event_id)
             if resp:
-                evt_dto = EventualityDTO()
-                evt_set = evt_dto.parse(event_id, resp)
+                evt_set = eventuality.parse(event_id, resp)
                 self.id = event_id
                 if "analyst" in evt_set:
                     self.analyst = evt_set['analyst']

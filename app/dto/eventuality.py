@@ -1,75 +1,65 @@
-""" DTO to map the Integrates fields to formstack """
+":"""" DTO to map the Integrates fields to formstack """
 
-class EventualityDTO(object):
-    """ Class to create an object with the CSSV2 attributes """
+def create(parameter):
+    """ Converts the index of a JSON to Formstack index """
+    events_dict={}
+    status_field_id = "29062640"
+    events_fields = {
+        "29042322":"fluidProject",
+        "29042542":"affectation"
+    }
+    parsed_dict = {k:parameter["vuln[" + v + "]"] \
+            for (k,v) in events_fields.items()}
+    if parameter["vuln[affectation]"] != "":
+        parsed_dict[status_field_id] = "Tratada"
+    else:
+        parsed_dict[status_field_id] = parameter["vuln[status]"]
+    events_dict["request_id"] = parameter["vuln[id]"]
+    events_dict["data"] = to_formstack(parsed_dict)
+    return events_dict
 
-    ANALIST = "29042426"
-    CLIENT = "29042288"
-    FLUID_PROJECT = "29042322"
-    CLIENT_PROJECT = "39595967"
-    TYPE = "29042327"
-    DETAIL = "29042402"
-    DATE = "29042174"
-    STATUS = "29062640"
-    AFFECTATION = "29042542"
-    EVIDENCE = "29042411"
-    ACCESSIBILITY = "57917686"
-    AFFECTED_COMPONENTS = "52661157"
+def dict_concatenation(dict_1, dict_2):
+    dict_1_copy = dict_1.copy()
+    dict_1_copy.update(dict_2)
+    return dict_1_copy
 
-    def __init__(self):
-        """ Class constructor """
-        self.request_id = None
-        self.data = dict()
+def remove_standard_keys(dictionary):
+    return {dictionary['field']:dictionary['value']}
 
-    def create(self, parameter):
-        """ Converts the index of a JSON to Formstack index """
-        if "vuln[id]" in parameter:
-            self.request_id \
-                = parameter["vuln[id]"]
-        if "vuln[affectation]" in parameter:
-            self.data[self.AFFECTATION] \
-                = parameter["vuln[affectation]"]
-        if "vuln[fluidProject]" in parameter:
-            self.data[self.FLUID_PROJECT] \
-                = parameter["vuln[fluidProject]"]
-        if "vuln[affectation]" in parameter:
-            if parameter["vuln[affectation]"] != "":
-                self.data[self.STATUS] \
-                    = "Tratada"
-        self.to_formstack()
+def merge_dicts_list_into_dict(dicts_list):
+    dicts_without_standard_keys = [remove_standard_keys(x) \
+                                       for x in dicts_list]
+    return reduce(dict_concatenation, dicts_without_standard_keys)
 
-    def parse(self, submission_id, request_arr):
-        self.data = dict()
-        self.data["id"] = submission_id
-        for row in request_arr["data"]:
-            if row["field"] == self.ANALIST:
-                self.data["analyst"] = row["value"]
-            if row["field"] == self.CLIENT:
-                self.data["client"] = row["value"]
-            if row["field"] == self.FLUID_PROJECT:
-                self.data["fluidProject"] = row["value"]
-            if row["field"] == self.CLIENT_PROJECT:
-                self.data["clientProject"] = row["value"]
-            if row["field"] == self.TYPE:
-                self.data["type"] = row["value"]
-            if row["field"] == self.DETAIL:
-                self.data["detalle"] = row["value"]
-            if row["field"] == self.DATE:
-                self.data["fecha"] = row["value"]
-            if row["field"] == self.STATUS:
-                self.data["estado"] = row["value"]
-            if row["field"] == self.AFFECTATION:
-                self.data["affectation"] = row["value"]
-            if row["field"] == self.EVIDENCE:
-                self.data["evidence"] = row["value"]
-            if row["field"] == self.ACCESSIBILITY:
-                self.data["accessibility"] = row["value"]
-            if row["field"] == self.AFFECTED_COMPONENTS:
-                self.data["affectedComponents"] = row["value"]
-        return self.data
+def create_dict(remission_submission):
+    remission_dict = merge_dicts_list_into_dict(remission_submission["data"])
+    return remission_dict
 
-    def to_formstack(self):
-        new_data = dict()
-        for key, value in self.data.iteritems():
-            new_data["field_"+key] = value
-        self.data = new_data
+def parse(submission_id, request_arr):
+    initial_dict = create_dict(request_arr)
+    events_fields = {
+        "29042426":"analyst",
+        "29042288":"client",
+        "29042322":"fluidProject",
+        "39595967":"clientProject",
+        "29042327":"type",
+        "29042402":"detalle",
+        "29042174":"fecha",
+        "29062640":"estado",
+        "29042542":"affectation",
+        "29042411":"evidence",
+        "57917686":"accessibility",
+        "52661157":"affectedComponents"
+    }
+    parsed_dict = {events_fields[k]:initial_dict[k] \
+                   if k in initial_dict.keys() else "" \
+                   for (k,v) in events_fields.items()}
+    parsed_dict["id"] = submission_id
+    return parsed_dict
+
+
+def to_formstack(data):
+    new_data = dict()
+    for key, value in data.iteritems():
+        new_data["field_"+ str(key)] = value
+    return new_data
