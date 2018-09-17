@@ -8,6 +8,7 @@ import { react2angular } from "react2angular";
 import dataTable from "./components/DataTable/index";
 import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
+import button from "./components/RButton/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
 import exploitView from "./scenes/Dashboard/components/ExploitView/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
@@ -259,6 +260,26 @@ angular
        "pageSize",
        "search",
        "title",
+     ],
+   ),
+  );
+
+/**
+ * @url: /dashboard
+ * @page: dashboard.html
+ * @controllers: dashboardCtrl
+ * @tag: <r-button/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "rButton",
+   react2angular(
+     button, [
+       "bstyle",
+       "btitle",
+       "bicon",
+       "onClickButton",
      ],
    ),
   );
