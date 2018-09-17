@@ -23,8 +23,8 @@ stages:
   - deploy
   - postdeploy
   - dns
-  - backup
   - rotation
+  - backup
 
 .vault_login: &vault_login
   before_script:
@@ -198,29 +198,6 @@ fluidasserts_post:
   except:
     - schedules
 
-vault_backup:
-  stage: backup
-  script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-        $HOME/.kube/config
-    - cd infrastructure/vault
-    - envsubst < credentials > creds
-        && mv creds credentials
-    - kubectl create secret generic aws
-        --from-file=credentials
-        --from-file=config
-    - sed -i 's/$DATE/'"$(date +%Y-%m-%d)"'/' backup.yaml
-    - kubectl apply -f backup.yaml
-    - while ! aws s3 ls s3://$VAULT_S3_BUCKET | grep backup-$(date +%Y-%m-%d);
-        do sleep 2;
-      done
-    - kubectl delete -f backup.yaml
-    - kubectl delete secret aws
-    - rm credentials
-  only:
-    - schedules
-
 change_keys:
   stage: rotation
   <<: *vault_login
@@ -255,5 +232,28 @@ change_keys:
     - kubectl rollout status deploy/integrates -w
     - python3 -c "from rotate_fs_keys import delete_formstack_tokens;
         delete_formstack_tokens()"
+  only:
+    - schedules
+
+vault_backup:
+  stage: backup
+  script:
+    - aws s3 cp
+        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
+        $HOME/.kube/config
+    - cd infrastructure/vault
+    - envsubst < credentials > creds
+        && mv creds credentials
+    - kubectl create secret generic aws
+        --from-file=credentials
+        --from-file=config
+    - sed -i 's/$DATE/'"$(date +%Y-%m-%d)"'/' backup.yaml
+    - kubectl apply -f backup.yaml
+    - while ! aws s3 ls s3://$VAULT_S3_BUCKET | grep backup-$(date +%Y-%m-%d);
+        do sleep 2;
+      done
+    - kubectl delete -f backup.yaml
+    - kubectl delete secret aws
+    - rm credentials
   only:
     - schedules
