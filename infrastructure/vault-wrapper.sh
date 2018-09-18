@@ -8,6 +8,17 @@
 #   - The Vault token used must have permissions to read the AWS role
 #     and to read and update credentials in the respective projects
 
+function vault_add_policy() {
+  local email="$1"
+  shift 1
+  local new_policies
+  local curr_policies
+  new_policies=$(printf ', %s' "$@" | sed 's/,\ //')
+  curr_policies=$(vault_get_user_policies "$email")
+  new_policies="${curr_policies}, ${new_policies}"
+  vault write "auth/radius/users/$email" policies="$new_policies"
+}
+
 function vault_create_radius_user() {
   local email="$1"
   shift 1
@@ -56,6 +67,30 @@ function vault_generate_aws_keys() {
   fi
 }
 
+function vault_get_user_policies() {
+  local email="$1"
+  vault read -format=json "auth/radius/users/$email" | \
+    jq -r -c '.data.policies' | tr -d \"[] | sed 's/,/,\ /g'
+}
+
+function vault_remove_all_policies() {
+  local email="$1"
+  vault write "auth/radius/users/$email" policies=""
+}
+
+function vault_remove_policy() {
+  local email="$1"
+  shift 1
+  local removed_policies
+  read -r -a removed_policies <<< $(printf '%s ' "$@")
+  curr_policies=$(vault_get_user_policies "$email")
+  for policy in "${removed_policies[@]}"; do
+    curr_policies="${curr_policies//${policy}, }"
+    curr_policies="${curr_policies//${policy}}"
+  done
+  vault write "auth/radius/users/$email" policies="$curr_policies"
+}
+
 function vault_update_keys() {
   local secret_path="secret/${1}"
   shift 1
@@ -97,7 +132,34 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
 
   Functions:
 
-  1. vault_generate_aws_keys: Dynamically generate AWS credentials with a TTL of 25h.
+  1. vault_add_policy: Add permissions over a resource to a Vault user.
+
+     usage:
+       vault_add_policy user_email policy1 policy2 ...
+
+     params:
+       - user_email: Email address of the user whose permissions are going to be modified.
+       - policy: Permissions that are going to be attached to the user.
+
+  2. vault_create_radius_user: Create a new user who authenticates using OneLogin via RADIUS.
+
+     usage:
+       vault_create_radius_user user_email
+       vault_create_radius_user user_email policy1 policy2 ...
+
+     params:
+       - user_email: Email address of the user which is going to be created. It must be the same one used in OneLogin.
+       - policies (optional): Set of policies to attach to the newly created user. If none specified, the user will be created but will not have access to any resource.
+
+  3. vault_delete_radius_user: Delete a user who authenticates using OneLogin via RADIUS.
+
+     usage:
+       vault_delete_radius_user user_email
+
+     params:
+       - user_email: Email address of the user which is going to be deleted
+
+  4. vault_generate_aws_keys: Dynamically generate AWS credentials with a TTL of 25h.
 
      usage:
        vault_generate_aws_keys role
@@ -108,7 +170,32 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
 
      Find existing roles: vault list aws/roles
 
-  2. vault_update_keys: Overwrite the value of existing variables.
+  5. vault_get_user_policies: Read the permissions currently attached to a user.
+
+     usage:
+       vault_get_user_policies user_email
+
+     params:
+       - user_email: Email address of the user whose permissions are going to be read.
+
+  6. vault_remove_all_policies: Remove all permissions of a Vault user.
+
+     usage:
+       vault_remove_all_policies user_email
+
+     params:
+       - user_email: Email address of the user whose permissions are going to be removed.
+
+  7. vault_remove_policy: Remove permissions over a resource to a Vault user.
+
+     usage:
+       vault_remove_policy user_email policy1 policy2 ...
+
+     params:
+       - user_email: Email address of the user whose permissions are going to be modified.
+       - policy: Permissions that are going to be removed from the user.
+
+  8. vault_update_keys: Overwrite the value of existing variables.
 
      usage:
        vault_update_keys path var_name1 var_value1 var_name2 var_value2 ...
@@ -119,23 +206,5 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
        - var_value: New value which is going to be saved in Vault.
 
      Find variable names: vault read secret/path
-
-  3. vault_create_radius_user: Create a new user who authenticates using OneLogin via RADIUS.
-
-     usage:
-       vault_create_radius_user user_email
-       vault_create_radius_user user_email policy1 policy2 ...
-
-     params:
-       - user_email: Email address of the user which is going to be created. It must be the same one used in OneLogin.
-       - policies (optional): Set of policies to attach to the newly created user. If none specified, the user will be created but will not have access to any resource.
-
-  4. vault_delete_radius_user: Delete a user who authenticates using OneLogin via RADIUS.
-
-     usage:
-       vault_delete_radius_user user_email
-
-     params:
-       - user_email: Email address of the user which is going to be deleted
 HELP
 fi
