@@ -1,4 +1,8 @@
 ":"""" DTO to map the Integrates fields to formstack """
+# Disabling this rule is necessary for importing modules beyond the top level
+# pylint: disable=relative-beyond-top-level
+
+from ..utils import forms
 
 def create(parameter):
     """ Converts the index of a JSON to Formstack index """
@@ -18,25 +22,8 @@ def create(parameter):
     events_dict["data"] = to_formstack(parsed_dict)
     return events_dict
 
-def dict_concatenation(dict_1, dict_2):
-    dict_1_copy = dict_1.copy()
-    dict_1_copy.update(dict_2)
-    return dict_1_copy
-
-def remove_standard_keys(dictionary):
-    return {dictionary['field']:dictionary['value']}
-
-def merge_dicts_list_into_dict(dicts_list):
-    dicts_without_standard_keys = [remove_standard_keys(x) \
-                                       for x in dicts_list]
-    return reduce(dict_concatenation, dicts_without_standard_keys)
-
-def create_dict(remission_submission):
-    remission_dict = merge_dicts_list_into_dict(remission_submission["data"])
-    return remission_dict
-
 def parse(submission_id, request_arr):
-    initial_dict = create_dict(request_arr)
+    initial_dict = forms.create_dict(request_arr)
     events_fields = {
         "29042426":"analyst",
         "29042288":"client",
