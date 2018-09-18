@@ -206,7 +206,7 @@ change_keys:
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
         $HOME/.kube/config
     - cd infrastructure
-    - source rotate-keys.sh
+    - source vault-wrapper.sh
     - vault_generate_aws_keys integrates-cloudwatch
     - vault_generate_aws_keys integrates-dynamodb
     - vault_generate_aws_keys integrates-s3
