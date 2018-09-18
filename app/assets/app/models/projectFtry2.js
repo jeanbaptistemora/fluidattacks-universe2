@@ -69,28 +69,6 @@ angular.module("FluidIntegrates").factory(
         return $xhr.fetch($q, gQry, oopsAc);
       },
 
-      /**
-       * Adding new repositories.
-       * @function addRepositories
-       * @param {String} data Repositories data.
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Update of repositories
-       */
-      "addRepositories" (data, project) {
-        const oopsAc = "An error occurred adding repositories";
-        const gQry = `mutation {
-          addRepositories (resourcesData: ${data}, projectName: "${project}") {
-            success,
-            access,
-            resources {
-              repositories
-            }
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
       "calCardinality" (data) {
         let openVulnerabilities = 0;
         let cardinalidadTotal = 0;
@@ -384,31 +362,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Remove a repository of a project
-       * @function removeRepositories
-       * @param {String} data Information of the repository to remove.
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Response of request
-       */
-      "removeRepositories" (data, project) {
-        const oopsAc = "An error occurred removing repositories";
-        const gQry = `mutation {
-          removeRepositories (
-            repositoryData: ${data},
-            projectName: "${project}"
-          ) {
-            success,
-            access,
-            resources {
-              repositories
-            }
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Return the repositories and environments of a project
        * @function resourcesByProject
        * @param {String} project Project name
@@ -419,7 +372,6 @@ angular.module("FluidIntegrates").factory(
         const oopsAc = "An error occurred getting repositories";
         const gQry = `{
             resources (projectName: "${project}") {
-              repositories,
               environments,
               access
             }

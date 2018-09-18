@@ -15,6 +15,7 @@ import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
+import { resourcesView } from "./scenes/Dashboard/components/ResourcesView/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
@@ -282,4 +283,16 @@ angular
        "onClickButton",
      ],
    ),
+  );
+
+angular
+  .module("FluidIntegrates")
+  .component(
+    "resourcesView",
+    react2angular(
+      resourcesView, [
+        "projectName",
+        "translations",
+      ],
+    ),
   );

@@ -83,7 +83,9 @@
     "react-textarea-autosize": "7.0.4",
     "@types/react-textarea-autosize": "4.3.3",
     "react-image-gallery": "0.8.10",
-    "@types/react-image-gallery": "0.8.3"
+    "@types/react-image-gallery": "0.8.3",
+    "recompose": "0.30.0",
+    "@types/recompose": "0.26.5"
   },
   "scripts": {
     "test": "gulp compile && mocha --require ignore-styles -r ts-node/register ./src/**/*.spec.tsx"

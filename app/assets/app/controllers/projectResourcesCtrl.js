@@ -39,6 +39,29 @@ angular.module("FluidIntegrates").controller(
     projectFtry2
   ) {
     $scope.init = function init () {
+      const translationStrings = [
+        "search_findings.tab_resources.no_selection",
+        "search_findings.tab_resources.repositories",
+        "search_findings.tab_resources.title_repo",
+        "search_findings.tab_resources.branch",
+        "search_findings.tab_resources.add_repository",
+        "search_findings.tab_resources.remove_repository",
+        "search_findings.repositories_table.repository",
+        "search_findings.repositories_table.branch",
+
+        "search_findings.tab_resources.environments",
+        "search_findings.tab_resources.title_env",
+        "search_findings.tab_resources.repository",
+        "search_findings.environment_table.environment",
+
+        "confirmmodal.cancel",
+        "confirmmodal.proceed"
+      ];
+      $scope.translations = {};
+      angular.forEach(translationStrings, (value) => {
+        $scope.translations[value] = $translate.instant(value);
+      });
+
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -95,20 +118,6 @@ angular.module("FluidIntegrates").controller(
     };
 
     $scope.loadResourcesInfo = function loadResourcesInfo (projectName) {
-      $scope.tblReposHeaders = [
-        {
-          "dataField": "urlRepo",
-          "header":
-            $translate.instant("search_findings.repositories_table.repository"),
-          "width": "70%"
-        },
-        {
-          "dataField": "branch",
-          "header":
-            $translate.instant("search_findings.repositories_table.branch"),
-          "width": "30%"
-        }
-      ];
       $scope.tblEnvsHeaders = [
         {
           "dataField": "urlEnv",
@@ -116,8 +125,8 @@ angular.module("FluidIntegrates").controller(
             $translate.instant("search_findings.environment_table.environment")
         }
       ];
+
       const reqResources = projectFtry2.resourcesByProject(projectName);
-      $scope.reposDataset = [];
       $scope.envsDataset = [];
 
       reqResources.then((response) => {
@@ -137,167 +146,12 @@ angular.module("FluidIntegrates").controller(
           $scope.view.project = true;
           const respData = response.data.resources;
           if (respData.access) {
-            $scope.reposDataset = angular.fromJson(respData.repositories);
             $scope.envsDataset = angular.fromJson(respData.environments);
           }
           else {
             $msg.error($translate.instant("proj_alerts.access_denied"));
           }
         }
-      });
-    };
-
-    $scope.removeRepository = function removeRepository () {
-      const selectedRow =
-        angular.element("#tblRepositories tr input:checked").closest("tr");
-      if (selectedRow.length > 0) {
-        const REPOSITORY_INDEX = 1;
-        const BRANCH_INDEX = 2;
-        const repository = selectedRow.children()[REPOSITORY_INDEX].textContent;
-        const branch = selectedRow.children()[BRANCH_INDEX].textContent;
-        const repositories = {};
-        repositories.urlRepo = repository;
-        repositories.branch = branch;
-        const project = $stateParams.project.toLowerCase();
-        const repo = projectFtry2.removeRepositories(
-          angular.toJson(angular.toJson(repositories)),
-          project
-        );
-        // Capture the promise
-        repo.then((response) => {
-          if (response.error) {
-            Rollbar.error("Error: An error occurred when removing repository");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
-          }
-          else {
-            // Mixpanel tracking
-            const projt = project.toUpperCase();
-            mixPanelDashboard.trackSearch(
-              "removeRepository",
-              userEmail,
-              projt
-            );
-            const respData = response.data.removeRepositories;
-            if (respData.success) {
-              const message = $translate.instant("search_findings" +
-                                            ".tab_resources.success_remove");
-              const messageTitle = $translate.instant("search_findings" +
-                                            ".tab_users.title_success");
-              $msg.success(message, messageTitle);
-              const repos = respData.resources.repositories;
-              $scope.reposDataset = angular.fromJson(repos);
-            }
-            else if (respData.access) {
-              Rollbar.error("Error: An error occurred when removing a " +
-              "repository");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-            }
-            else {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-          }
-        });
-      }
-      else {
-        $msg.error($translate.instant("search_findings.tab_resources" +
-                                      ".no_selection"));
-      }
-    };
-
-    $scope.addRepository = function addRepository () {
-      // Obtener datos
-      const descData = {"project": $stateParams.project.toLowerCase()};
-      $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance, data) {
-          $scope.repoInfo = {};
-          $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_resources.title_repo");
-          $scope.repoInfo.repositories = [{"id": 1}];
-          $scope.isFirst = true;
-          $scope.addNewRepository = function addNewRepository () {
-            const newItemNo = $scope.repoInfo.repositories.length + 1;
-            $scope.isFirst = false;
-            $scope.repoInfo.repositories.push({"id": newItemNo});
-          };
-          $scope.removeRepository = function removeRepository (id) {
-            const index = parseInt(id, 10);
-            if ($scope.repoInfo.repositories.length > 1) {
-              $scope.repoInfo.repositories.splice(index - 1, 1);
-            }
-            else {
-              $scope.isFirst = true;
-            }
-          };
-          $scope.ok = function ok () {
-            $scope.repoInfo.totalRepo = $scope.repoInfo.repositories.length;
-            const inputValidations = angular.element(".repositoryInput");
-            let repoValidation = true;
-            let elem = 0;
-            while (repoValidation && inputValidations.length > elem) {
-              if (angular.element(`#${inputValidations[elem].id}`).parsley().
-                validate() === true) {
-                repoValidation = true;
-              }
-              else {
-                repoValidation = false;
-              }
-              elem += 1;
-            }
-            if (repoValidation) {
-              // Make the request
-              const repo = projectFtry2.addRepositories(
-                angular.toJson(angular.toJson($scope.repoInfo)),
-                data.project
-              );
-              // Capture the promise
-              repo.then((response) => {
-                if (response.error) {
-                  Rollbar.error("Error: An error occurred when " +
-                              "adding a new repository");
-                  $msg.error($translate.instant("proj_alerts.error_textsad"));
-                }
-                else {
-                  // Mixpanel tracking
-                  const projt = descData.project.toUpperCase();
-                  mixPanelDashboard.trackSearch(
-                    "addRepository",
-                    userEmail,
-                    projt
-                  );
-                  const respData = response.data.addRepositories;
-                  if (respData.success) {
-                    const message = $translate.instant("search_findings" +
-                                                  ".tab_resources.success");
-                    const messageTitle = $translate.instant("search_findings" +
-                                                  ".tab_users.title_success");
-                    $msg.success(message, messageTitle);
-                    const repos = respData.resources.repositories;
-                    $scope.$parent.reposDataset = angular.fromJson(repos);
-                  }
-                  else if (respData.access) {
-                    Rollbar.error("Error: An error occurred when adding a " +
-                    "repository");
-                    $msg.error($translate.instant("proj_alerts.error_textsad"));
-                  }
-                  else {
-                    $msg.error($translate.instant("proj_alerts.access_denied"));
-                  }
-                  $uibModalInstance.close();
-                }
-              });
-            }
-          };
-          $scope.close = function close () {
-            $uibModalInstance.close();
-          };
-        },
-        "keyboard": false,
-        "resolve": {"data": descData},
-        "scope": $scope,
-        "size": "lg",
-        "templateUrl": `${BASE.url}assets/views/project/addRepositoryMdl.html`
       });
     };
 

@@ -76,7 +76,7 @@ class AddRepositories(Mutation):
             self.access = True
             json_data = []
             email_data = []
-            for repo in resources_data.get("repositories"):
+            for repo in resources_data:
                 if "repository" in repo and "branch" in repo:
                     repository = repo.get("repository")
                     branch = repo.get("branch")

@@ -87,90 +87,54 @@
             </div>
             <div class="tab-content">
               <div id="resources" class="tab-pane cont active" >
-                <div class="row">
+                <resources-view
+                  project-name="project"
+                  translations="translations"
+                />
+              <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 col-sm-12 text-left">
-                            <h2>{% templatetag openvariable %} 'search_findings.tab_resources.repositories' | translate {% templatetag closevariable %}</h2>
-                            <div class="row">
-                                <!-- START: toolbar -->
-                                <div  class="col-md-12">
-                                    <div class="col-md-offset-4 col-md-2 col-sm-6">
-                                        <button id="addRepository"
-                                                class="btn btn-primary btn-block"
-                                                ng-click="addRepository();">
-                                            <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.add_repository' | translate {% templatetag closevariable %}
-                                        </button>
-                                    </div>
-                                    <div class="col-md-2 col-sm-6">
-                                        <button  id="remove" class="btn btn-primary btn-block"
-                                                    ng-click="removeRepository();">
-                                          <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.remove_repository' | translate {% templatetag closevariable %}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12" >
-                                  <d-table
-                                    dataset="reposDataset"
-                                    enable-row-selection="true"
-                                    export-csv="true"
-                                    headers="tblReposHeaders"
-                                    id="'tblRepositories'"
-                                    page-size="15"
-                                  />
-                                </div>
+                      <div class="row">
+                          <div class="col-md-12 col-xs-12 col-sm-12 text-left">
+                              <h2>{% templatetag openvariable %} 'search_findings.tab_resources.environments' | translate {% templatetag closevariable %}</h2>
+                              <div class="row">
+                                  <!-- START: toolbar -->
+                                  <div  class="col-md-12">
+                                      <div class="col-md-offset-4 col-md-2 col-sm-6">
+                                          <button id="addRepository"
+                                                  class="btn btn-primary btn-block"
+                                                  ng-click="addEnvironment();">
+                                              <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.add_repository' | translate {% templatetag closevariable %}
+                                          </button>
+                                      </div>
+                                      <div class="col-md-2 col-sm-6">
+                                          <button  id="remove" class="btn btn-primary btn-block"
+                                                      ng-click="removeEnvironment();">
+                                            <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.remove_repository' | translate {% templatetag closevariable %}
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                  <div class="col-md-12 col-sm-12" >
+                                    <d-table
+                                      dataset="envsDataset"
+                                      enable-row-selection="true"
+                                      export-csv="true"
+                                      headers="tblEnvsHeaders"
+                                      id="'tblEnvironments'"
+                                      page-size="15"
+                                    />
+                                  </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 col-sm-12 text-left">
-                            <h2>{% templatetag openvariable %} 'search_findings.tab_resources.environments' | translate {% templatetag closevariable %}</h2>
-                            <div class="row">
-                                <!-- START: toolbar -->
-                                <div  class="col-md-12">
-                                    <div class="col-md-offset-4 col-md-2 col-sm-6">
-                                        <button id="addRepository"
-                                                class="btn btn-primary btn-block"
-                                                ng-click="addEnvironment();">
-                                            <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.add_repository' | translate {% templatetag closevariable %}
-                                        </button>
-                                    </div>
-                                    <div class="col-md-2 col-sm-6">
-                                        <button  id="remove" class="btn btn-primary btn-block"
-                                                    ng-click="removeEnvironment();">
-                                          <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_resources.remove_repository' | translate {% templatetag closevariable %}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12" >
-                                  <d-table
-                                    dataset="envsDataset"
-                                    enable-row-selection="true"
-                                    export-csv="true"
-                                    headers="tblEnvsHeaders"
-                                    id="'tblEnvironments'"
-                                    page-size="15"
-                                  />
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         </div>
-      </div>
-   </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+           </div>
+        </div>
+     </div>
 
 <!-- Start CommonStyles -->
     <style>
