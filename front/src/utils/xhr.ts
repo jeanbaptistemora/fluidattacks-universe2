@@ -1,5 +1,6 @@
 import Axios, { AxiosPromise, AxiosRequestConfig } from "axios";
 import rollbar from "../utils/rollbar";
+import { getEnvironment } from "./context";
 
 /**
  * XHR request wrapper
@@ -78,7 +79,13 @@ class Xhr {
    */
   public request = (query: string, errorText: string): AxiosPromise<void> => {
     this.showPreloader();
-    const promise: AxiosPromise<void> = Axios.post<void>("api", query);
+    const promise: AxiosPromise<void> =
+      Axios.post<void>(
+        getEnvironment() === "production"
+        ? "integrates/api"
+        : "api",
+        query,
+      );
     // tslint:disable-next-line:no-floating-promises
     promise.then(() => {
       this.hidePreloader();
