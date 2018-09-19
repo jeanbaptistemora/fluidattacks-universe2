@@ -31,9 +31,47 @@ function vault_create_radius_user() {
   fi
 }
 
+function vault_create_variables() {
+  local secret_path="secret/${1}"
+  local curr_variables
+  shift 1
+  curr_variables=$(vault read -format=json "$secret_path" | jq '.data')
+  if [ -z "$curr_variables" ]; then
+    curr_variables='{}'
+  fi
+  for args in "$@"; do
+    var="$1"
+    value="$2"
+    shift 2 || break
+    curr_variables=$(echo "$curr_variables" | jq --arg "$var" "$value" '. + {'"$var"': $'"$var"'}')
+  done
+  echo "$curr_variables" | jq '.' > vars.json
+  vault write "$secret_path" @vars.json
+  rm vars.json
+}
+
 function vault_delete_radius_user() {
   local email="$1"
   vault delete "auth/radius/users/$email"
+}
+
+function vault_delete_variables() {
+  local secret_path="secret/$1"
+  local curr_variables
+  shift 1
+  curr_variables=$(vault read -format=json "$secret_path" | jq '.data')
+  for arg in "$@"; do
+    var="$arg"
+    shift 1 || break
+    curr_variables=$(echo "$curr_variables" | jq 'del(.'"$var"')')
+  done
+  if [ "$curr_variables" == '{}' ]; then
+    vault delete "$secret_path"
+  else
+    echo "$curr_variables" | jq '.' > vars.json
+    vault write "$secret_path" @vars.json
+    rm vars.json
+  fi
 }
 
 function vault_generate_aws_keys() {
@@ -51,18 +89,18 @@ function vault_generate_aws_keys() {
   rm aws-keys.json
   if [ "$project" = "integrates" ]; then
     echo-green "Updating ${aws_service^} variables in ${project^}..."
-    vault_update_keys "$project/development" "$access_key_name" "$access_key" \
+    vault_update_variables "$project/development" "$access_key_name" "$access_key" \
       "$secret_key_name" "$secret_key"
-    vault_update_keys "$project/production" "$access_key_name" "$access_key" \
+    vault_update_variables "$project/production" "$access_key_name" "$access_key" \
       "$secret_key_name" "$secret_key"
     if [ "$aws_service" = "dynamodb" ]; then
       echo-green "Updating ${aws_service^} variables in Continuous..."
-      vault_update_keys "continuous/tools" "$access_key_name" "$access_key" \
+      vault_update_variables "continuous/tools" "$access_key_name" "$access_key" \
         "$secret_key_name" "$secret_key"
     fi
   else
     echo-green "Updating ${aws_service^} variables in ${project^}..."
-    vault_update_keys "$project" "$access_key_name" "$access_key" \
+    vault_update_variables "$project" "$access_key_name" "$access_key" \
       "$secret_key_name" "$secret_key"
   fi
 }
@@ -91,7 +129,7 @@ function vault_remove_policy() {
   vault write "auth/radius/users/$email" policies="$curr_policies"
 }
 
-function vault_update_keys() {
+function vault_update_variables() {
   local secret_path="secret/${1}"
   shift 1
   vault read -format=json "${secret_path}" | jq '.data' > vars.json
@@ -151,7 +189,26 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
        - user_email: Email address of the user which is going to be created. It must be the same one used in OneLogin.
        - policies (optional): Set of policies to attach to the newly created user. If none specified, the user will be created but will not have access to any resource.
 
-  3. vault_delete_radius_user: Delete a user who authenticates using OneLogin via RADIUS.
+  3. vault_create_variables: Create a new set of variables or add a new ones to an existing set.
+
+     usage:
+       vault_create_variables path var_name1 var_value1 var_name2 var_value2 ...
+
+     params:
+       - path: Path in Vault where the variables are going to be written. The prefix "secret/" should not be included.
+       - var_name: Name of the variable in Vault which is going to be created.
+       - var_value: Value which is going to be saved in Vault.
+
+  4. vault_delete_variables: Delete variables from a Vault path.
+
+     usage:
+       vault_delete_variables path var_name1 var_name2 ...
+
+     params:
+       - path: Path in Vault where the variables are going to be written. The prefix "secret/" should not be included.
+       - var_name: Name of the variable in Vault which is going to be created.
+
+  5. vault_delete_radius_user: Delete a user who authenticates using OneLogin via RADIUS.
 
      usage:
        vault_delete_radius_user user_email
@@ -159,7 +216,7 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
      params:
        - user_email: Email address of the user which is going to be deleted
 
-  4. vault_generate_aws_keys: Dynamically generate AWS credentials with a TTL of 25h.
+  6. vault_generate_aws_keys: Dynamically generate AWS credentials with a TTL of 25h.
 
      usage:
        vault_generate_aws_keys role
@@ -170,7 +227,7 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
 
      Find existing roles: vault list aws/roles
 
-  5. vault_get_user_policies: Read the permissions currently attached to a user.
+  7. vault_get_user_policies: Read the permissions currently attached to a user.
 
      usage:
        vault_get_user_policies user_email
@@ -178,7 +235,7 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
      params:
        - user_email: Email address of the user whose permissions are going to be read.
 
-  6. vault_remove_all_policies: Remove all permissions of a Vault user.
+  8. vault_remove_all_policies: Remove all permissions of a Vault user.
 
      usage:
        vault_remove_all_policies user_email
@@ -186,7 +243,7 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
      params:
        - user_email: Email address of the user whose permissions are going to be removed.
 
-  7. vault_remove_policy: Remove permissions over a resource to a Vault user.
+  9. vault_remove_policy: Remove permissions over a resource to a Vault user.
 
      usage:
        vault_remove_policy user_email policy1 policy2 ...
@@ -195,10 +252,10 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
        - user_email: Email address of the user whose permissions are going to be modified.
        - policy: Permissions that are going to be removed from the user.
 
-  8. vault_update_keys: Overwrite the value of existing variables.
+  10. vault_update_variables: Overwrite the value of existing variables.
 
      usage:
-       vault_update_keys path var_name1 var_value1 var_name2 var_value2 ...
+       vault_update_variables path var_name1 var_value1 var_name2 var_value2 ...
 
      params:
        - path: Path in Vault where the variables are going to be overwritten. The prefix "secret/" should not be included.

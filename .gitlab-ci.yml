@@ -216,9 +216,9 @@ change_keys:
     - export FORMSTACK_PASS="$(vault read -field=formstack_pass
         secret/serves)"
     - FORMSTACK_TOKENS=`./rotate_fs_keys.py`
-    - vault_update_keys integrates/development
+    - vault_update_variables integrates/development
         formstack_tokens "$FORMSTACK_TOKENS"
-    - vault_update_keys integrates/production
+    - vault_update_variables integrates/production
         formstack_tokens "$FORMSTACK_TOKENS"
     - export INTEGRATES_VAULT_TOKEN=$(curl --request POST
         --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}'
