@@ -25,7 +25,7 @@ from . import util
 from .decorators import authenticate, authorize, require_project_access, require_finding_access
 from .techdoc.IT import ITReport
 from .dto.finding import FindingDTO
-from .dto.closing import ClosingDTO
+from .dto import closing
 from .dto import project as projectDTO
 from .dto import eventuality
 from .documentator.pdf import CreatorPDF
@@ -556,7 +556,6 @@ def catch_finding(request, submission_id):
     finding = []
     state = {'estado': 'Abierto'}
     fin_dto = FindingDTO()
-    cls_dto = ClosingDTO()
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
         submissionData = api.get_submission(submission_id)
@@ -575,7 +574,7 @@ def catch_finding(request, submission_id):
                 closingreqset = closingData["submissions"]
                 findingcloseset = []
                 for closingreq in closingreqset:
-                    closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
+                    closingset = closing.parse(api.get_submission(closingreq["id"]))
                     findingcloseset.append(closingset)
                     # The latest is the last closing cycle.
                     state = closingset
@@ -642,7 +641,6 @@ def finding_vulnerabilities(submission_id):
     finding = []
     state = {'estado': 'Abierto'}
     fin_dto = FindingDTO()
-    cls_dto = ClosingDTO()
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
         finding = fin_dto.parse_vulns_by_id(
@@ -652,7 +650,7 @@ def finding_vulnerabilities(submission_id):
         closingreqset = api.get_closings_by_id(submission_id)["submissions"]
         findingcloseset = []
         for closingreq in closingreqset:
-            closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
+            closingset = closing.parse(api.get_submission(closingreq["id"]))
             findingcloseset.append(closingset)
             state = closingset
         finding["estado"] = state["estado"]
@@ -1888,11 +1886,9 @@ def mask_project_closings(project):
 def mask_closing(submission_id):
     """Mask closing information."""
     api = FormstackAPI()
-    closing_dto = ClosingDTO()
     closing_id = submission_id["id"]
-    closing_dto.mask_closing(closing_id, "Masked")
-    closing_dto.to_formstack()
-    request = api.update(closing_dto.request_id, closing_dto.data)
+    closing_info = closing.mask_closing(closing_id, "Masked")["data"]
+    request = api.update(closing_info['request_id'], closing_info["data"])
     return request
 
 

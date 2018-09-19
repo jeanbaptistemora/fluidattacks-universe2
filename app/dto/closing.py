@@ -1,87 +1,50 @@
 """ DTO to map the Integrates fields to formstack """
 import base64
+# Disabling this rule is necessary for importing modules beyond the top level
+# pylint: disable=relative-beyond-top-level
+from ..utils import forms
 
-class ClosingDTO(object):
-    """ Class to create an object with the close attributes """
-
-    PROYECT = '39596058'
-    CYCLE = '50394892'
-    FINDING = '39596063'
-    VISIBLES = '47484630'
-    REQUESTED = '39596365'
-    VERIFIED = '47700230'
-    OPENED = '39596368'
-    WHICH_OPENED = '39596128'
-    CLOSED = '39596370'
-    WHICH_CLOSED = '39596202'
-    INTERESTED_CUSTOMER = '39596055'
-    CUSTOMER_CODE = '39597296'
-    WHERE = '39596328'
-    EXPLOIT = '52862857'
-    OPEN_EVIDENCE = '39596152'
-    CLOSE_EVIDENCE = '39596215'
-
-    def __init__(self):
-        """ Class constructor """
-        self.request_id = None
-        self.data = dict()
-
-    def parse(self, request):
-        """ Converts a Formstack json into Integrates format  """
-        self.data = dict()
-        for closing in request["data"]:
-            # DETALLES CIERRE
-            if closing["field"] == self.FINDING:
-                self.data["finding"] = closing["value"]
-            if closing["field"] == self.VISIBLES:
-                self.data["visibles"] = closing["value"]
-            if closing["field"] == self.REQUESTED:
-                self.data["requested"] = closing["value"]
-            if closing["field"] == self.VERIFIED:
-                self.data["verified"] = closing["value"]
-            if closing["field"] == self.OPENED:
-                self.data["opened"] = closing["value"]
-            if closing["field"] == self.WHICH_OPENED:
-                self.data["whichOpened"] = closing["value"]
-            if closing["field"] == self.CLOSED:
-                self.data["closed"] = closing["value"]
-            if closing["field"] == self.WHICH_CLOSED:
-                self.data["whichClosed"] = closing["value"]
-            if closing["field"] == self.CYCLE:
-                self.data["cycle"] = closing["value"]
-        self.data["id"] = request["id"]
-        self.data["timestamp"] = request["timestamp"]
-        self.check_status()
-        return self.data
-
-    def check_status(self):
-        """ Check the status of a finding based on
-            its number of open vulnerabilities """
+def parse(request):
+    """ Converts a Formstack json into Integrates format  """
+    initial_dict = forms.create_dict(request)
+    closing_fields = {
+      "50394892":"cycle",
+      "39596063":"finding",
+      "47484630":"visibles",
+      "39596365":"requested",
+      "47700230":"verified",
+      "39596368":"opened",
+      "39596128":"whichOpened",
+      "39596370":"closed",
+      "39596202":"whichClosed"
+    }
+    parsed_dict = {closing_fields[k]:initial_dict[k] \
+                   if k in initial_dict.keys() else "" \
+                   for (k,v) in closing_fields.items()}
+    parsed_dict["id"] = request["id"]
+    parsed_dict["timestamp"] = request["timestamp"]
+    if parsed_dict['visibles'] == parsed_dict['requested']:
+        if parsed_dict['opened'] == '0':
+            state = 'Cerrado'
+        elif parsed_dict['opened'] == parsed_dict['visibles']:
+            state = 'Abierto'
+        else:
+            state = 'Parcialmente cerrado'
+    else:
         state = 'Parcialmente cerrado'
-        if self.data['visibles'] == self.data['requested']:
-            if self.data['opened'] == '0':
-                state = 'Cerrado'
-            elif self.data['opened'] == self.data['visibles']:
-                state = 'Abierto'
-            elif int(self.data['opened']) > 0 and \
-                    self.data['opened'] != self.data['visibles']:
-                state = 'Parcialmente cerrado'
-        self.data['estado'] = state
+    parsed_dict['estado'] = state
+    return parsed_dict
 
-    def mask_closing(self, closingid, mask_value):
-        """Mask closing."""
-        self.request_id = closingid
-        self.data[self.INTERESTED_CUSTOMER] = mask_value
-        self.data[self.CUSTOMER_CODE] = mask_value
-        self.data[self.WHERE] = mask_value
-        self.data[self.EXPLOIT] = base64.b64encode(mask_value)
-        self.data[self.WHICH_OPENED] = mask_value
-        self.data[self.OPEN_EVIDENCE] = base64.b64encode(mask_value)
-        self.data[self.WHICH_CLOSED] = mask_value
-        self.data[self.CLOSE_EVIDENCE] = base64.b64encode(mask_value)
-
-    def to_formstack(self):
-        new_data = dict()
-        for key, value in self.data.iteritems():
-            new_data["field_" + key] = value
-        self.data = new_data
+def mask_closing(closingid, mask_value):
+    """Mask closing."""
+    data = {
+      "39596128":mask_value,
+      "39596202":mask_value,
+      "39596055":mask_value,
+      "39597296":mask_value,
+      "39596328":mask_value,
+      "52862857":base64.b64encode(mask_value),
+      "39596152":base64.b64encode(mask_value),
+      "39596215":base64.b64encode(mask_value)
+    }
+    return {"data":forms.to_formstack(data) , "request_id":closingid}
