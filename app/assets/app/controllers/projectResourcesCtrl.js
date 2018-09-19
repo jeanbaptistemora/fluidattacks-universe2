@@ -40,6 +40,9 @@ angular.module("FluidIntegrates").controller(
   ) {
     $scope.init = function init () {
       const translationStrings = [
+        "search_findings.tab_users.title_success",
+        "search_findings.tab_resources.success",
+        "search_findings.tab_resources.success_remove",
         "search_findings.tab_resources.no_selection",
         "search_findings.tab_resources.repositories",
         "search_findings.tab_resources.title_repo",
@@ -55,7 +58,10 @@ angular.module("FluidIntegrates").controller(
         "search_findings.environment_table.environment",
 
         "confirmmodal.cancel",
-        "confirmmodal.proceed"
+        "confirmmodal.proceed",
+
+        "proj_alerts.access_denied",
+        "proj_alerts.error_textsad"
       ];
       $scope.translations = {};
       angular.forEach(translationStrings, (value) => {

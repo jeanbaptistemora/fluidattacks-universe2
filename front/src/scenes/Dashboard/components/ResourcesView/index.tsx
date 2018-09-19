@@ -22,12 +22,11 @@ import { StateType } from "typesafe-actions";
 import { default as DataTable } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
-
-declare var $: any;
 
 interface IResourcesViewProps {
   addModal: {
@@ -42,7 +41,7 @@ interface IResourcesViewProps {
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
-    const { projectName }: any = this.props;
+    const { projectName, translations }: any = this.props;
     let gQry: string;
     gQry = `{
         resources (projectName: "${projectName}") {
@@ -52,18 +51,27 @@ lifecycle({
     }`;
     new Xhr().request(gQry, "An error occurred getting repositories")
     .then((resp: AxiosResponse) => {
-      store.dispatch(actions.loadResources(
-        JSON.parse(resp.data.data.resources.repositories),
-      ));
+      if (!resp.data.error) {
+        if (resp.data.data.resources.access) {
+          store.dispatch(actions.loadResources(
+            JSON.parse(resp.data.data.resources.repositories),
+          ));
+        } else {
+          msgError(translations["proj_alerts.access_denied"]);
+        }
+      } else {
+        msgError(translations["proj_alerts.error_textsad"]);
+      }
     })
     .catch((error: string) => {
+      msgError(translations["proj_alerts.error_textsad"]);
       rollbar.error(error);
     });
   },
 });
 
-const removeRepo: ((arg1: IResourcesViewProps) => void) =
-  (props: IResourcesViewProps): void => {
+const removeRepo: ((arg1: { [key: string]: string }, arg2: string) => void) =
+  (translations: { [key: string]: string }, projectName: string): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblRepositories tr input:checked");
   if (selectedQry.length > 0) {
     if (selectedQry[0].closest("tr") !== null) {
@@ -75,7 +83,7 @@ const removeRepo: ((arg1: IResourcesViewProps) => void) =
       gQry = `mutation {
         removeRepositories (
           repositoryData: ${JSON.stringify(JSON.stringify({ urlRepo: repository, branch}))},
-          projectName: "${props.projectName}"
+          projectName: "${projectName}"
         ) {
           success,
           access,
@@ -86,28 +94,40 @@ const removeRepo: ((arg1: IResourcesViewProps) => void) =
       }`;
       new Xhr().request(gQry, "An error occurred removing repositories")
       .then((resp: AxiosResponse) => {
-        store.dispatch(actions.loadResources(
-          JSON.parse(resp.data.data.removeRepositories.resources.repositories),
-        ));
+        if (!resp.data.error && resp.data.data.removeRepositories.success) {
+          if (resp.data.data.removeRepositories.access) {
+            store.dispatch(actions.loadResources(
+              JSON.parse(resp.data.data.removeRepositories.resources.repositories),
+            ));
+            msgSuccess(
+              translations["search_findings.tab_resources.success_remove"],
+              translations["search_findings.tab_users.title_success"],
+            );
+          } else {
+            msgError(translations["proj_alerts.access_denied"]);
+          }
+        } else {
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error("An error occurred removing repositories");
+        }
       })
       .catch((error: string) => {
+        msgError(translations["proj_alerts.error_textsad"]);
         rollbar.error(`An error occurred removing repositories: ${error}`);
       });
     } else {
+      msgError(translations["proj_alerts.error_textsad"]);
       rollbar.error("An error occurred removing repositories");
     }
   } else {
-    $.gritter.add({
-      class_name: "color danger",
-      sticky: false,
-      text: props.translations["search_findings.tab_resources.no_selection"],
-      title: "Oops!",
-    });
+    msgError(translations["search_findings.tab_resources.no_selection"]);
   }
 };
 
-const saveRepos: ((arg1: Array<{ branch: string; repository: string }>, arg2: string) => void) =
-  (reposData: Array<{ branch: string; repository: string }>, projectName: string): void => {
+const saveRepos: ((arg1: Array<{ branch: string; repository: string }>,
+                   arg2: string, arg3: { [key: string]: string }) => void) =
+  (reposData: Array<{ branch: string; repository: string }>, projectName: string,
+   translations: { [key: string]: string }): void => {
     let gQry: string;
     gQry = `mutation {
       addRepositories (
@@ -122,12 +142,26 @@ const saveRepos: ((arg1: Array<{ branch: string; repository: string }>, arg2: st
     }`;
     new Xhr().request(gQry, "An error occurred adding repositories")
     .then((resp: AxiosResponse) => {
-      store.dispatch(actions.closeAddModal());
-      store.dispatch(actions.loadResources(
-        JSON.parse(resp.data.data.addRepositories.resources.repositories),
-      ));
+      if (!resp.data.error && resp.data.data.addRepositories.success) {
+        if (resp.data.data.addRepositories.access) {
+          store.dispatch(actions.closeAddModal());
+          store.dispatch(actions.loadResources(
+            JSON.parse(resp.data.data.addRepositories.resources.repositories),
+          ));
+          msgSuccess(
+            translations["search_findings.tab_resources.success"],
+            translations["search_findings.tab_users.title_success"],
+          );
+        } else {
+          msgError(translations["proj_alerts.access_denied"]);
+        }
+      } else {
+        msgError(translations["proj_alerts.error_textsad"]);
+        rollbar.error("An error occurred adding repositories");
+      }
     })
     .catch((error: string) => {
+      msgError(translations["proj_alerts.error_textsad"]);
       rollbar.error(error);
     });
 };
@@ -165,7 +199,7 @@ const component: React.StatelessComponent<IResourcesViewProps> =
                       id="remove"
                       block={true}
                       bsStyle="primary"
-                      onClick={(): void => { removeRepo(props); }}
+                      onClick={(): void => { removeRepo(props.translations, props.projectName); }}
                     >
                       <Glyphicon glyph="minus"/>&nbsp;
                       {props.translations["search_findings.tab_resources.remove_repository"]}
@@ -284,7 +318,7 @@ const component: React.StatelessComponent<IResourcesViewProps> =
               </Button>
               <Button
                 bsStyle="primary"
-                onClick={(): void => { saveRepos(props.addModal.fields, props.projectName); }}
+                onClick={(): void => { saveRepos(props.addModal.fields, props.projectName, props.translations); }}
               >
                 {props.translations["confirmmodal.proceed"]}
               </Button>
