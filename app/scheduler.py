@@ -10,6 +10,7 @@ from .dao import integrates_dao
 from .api.formstack import FormstackAPI
 from .dto import remission
 from .dto import eventuality
+from .dto.finding import finding_vulnerabilities
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding, \
                     send_mail_new_releases, send_mail_continuous_report, \
@@ -92,7 +93,7 @@ def get_new_vulnerabilities():
             finding_requests = api.get_findings(project)["submissions"]
             for finding in finding_requests:
                 message = ""
-                act_finding = views.finding_vulnerabilities(str(finding['id']))
+                act_finding = finding_vulnerabilities(str(finding['id']))
                 row = integrates_dao.get_vulns_by_id_dynamo(
                     project,
                     int(finding['id'])
@@ -201,7 +202,7 @@ def update_new_vulnerabilities():
             if len(old_findings) != len(finding_requests):
                 delta = abs(len(old_findings) - len(finding_requests))
                 for finding in finding_requests[-delta:]:
-                    act_finding = views.finding_vulnerabilities(str(finding['id']))
+                    act_finding = finding_vulnerabilities(str(finding['id']))
                     if ("releaseDate" in act_finding and
                             str.lower(str(act_finding['fluidProject'])) == str.lower(str(project[0]))):
                         integrates_dao.add_or_update_vulns_dynamo(
@@ -255,7 +256,7 @@ def get_age_notifications():
             finding_requests = api.get_findings(project)["submissions"]
             project = str.lower(str(project[0]))
             for finding in finding_requests:
-                finding_parsed = views.finding_vulnerabilities(finding["id"])
+                finding_parsed = finding_vulnerabilities(finding["id"])
                 if finding_parsed["edad"] != "-":
                     age = int(finding_parsed["edad"])
                 else:
@@ -279,7 +280,7 @@ def get_age_weekends_notifications():
             finding_requests = api.get_findings(project)["submissions"]
             project = str.lower(str(project[0]))
             for finding in finding_requests:
-                finding_parsed = views.finding_vulnerabilities(finding["id"])
+                finding_parsed = finding_vulnerabilities(finding["id"])
                 if finding_parsed["edad"] != "-":
                     unformatted_age = int(finding_parsed["edad"])
                     age = format_age_weekend(unformatted_age)
@@ -397,7 +398,7 @@ def get_new_releases():
             finding_requests = api.get_findings(project)["submissions"]
             project = str.lower(str(project[0]))
             for finding in finding_requests:
-                finding_parsed = views.finding_vulnerabilities(finding["id"])
+                finding_parsed = finding_vulnerabilities(finding["id"])
                 project_fin = str.lower(str(finding_parsed['fluidProject']))
                 if ("releaseDate" not in finding_parsed and
                         project_fin == project):

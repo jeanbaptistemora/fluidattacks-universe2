@@ -109,6 +109,9 @@ var $xhr = new class xhr {
   fetch($q, $data, text = {}){
     return this.request("post", $q, BASE.url + "api", {query: $data}, text);
   }
+  upload($q, $url, $data, text = {}){
+    return this.request("post", $q, $url, {query: $data}, text);
+  }
 };
 //Run ajax config
 ajaxConfig();

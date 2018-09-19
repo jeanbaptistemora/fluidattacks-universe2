@@ -315,6 +315,73 @@ angular.module("FluidIntegrates").factory(
           }
         }`;
         return $xhr.fetch($q, gQry, oopsAc);
+      },
+
+      /**
+       * Return the vulnerabilities of a finding
+       * @function uploadVulnerabilities
+       * @param {FormData} data File
+       * @param {String} findingId Numeric id of the finding
+       * @param {Fuction} callbackFn Response function
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with the vulnerabilities
+       */
+
+      "uploadVulnerabilities" (data, findingId, callbackFn) {
+        const UNAUTHORIZED_ERROR = 401;
+        const REQUEST_ENTITY_TOO_LARGE = 413;
+        const INTERNAL_SERVER_ERROR = 500;
+        const gQry = `mutation {
+              uploadFile (
+                findingId: "${findingId}"
+              ) {
+                success,
+                access,
+              }
+            }`;
+        try {
+          $.ajax({
+            "cache": false,
+            "contentType": false,
+            data,
+            "error" (xhr, textStatus, errorThrown) {
+              angular.element(".loader").hide();
+              const response = {"error": true};
+              if (xhr.status === INTERNAL_SERVER_ERROR) {
+                Rollbar.error("Error: An error ocurred loading data");
+                response.message = "An error ocurred loading data";
+              }
+              else if (xhr.status === UNAUTHORIZED_ERROR) {
+                Rollbar.error("Error: 401 Unauthorized");
+                $window.location = "error401";
+              }
+              else if (xhr.status === REQUEST_ENTITY_TOO_LARGE) {
+                response.message = "File exceeds the size limits";
+              }
+              else {
+                Rollbar.error(`Error: Unhandled error ${errorThrown} at \
+                              updateEvidenceFiles`);
+                response.message = "An error ocurred loading data";
+              }
+              callbackFn(angular.fromJson(response));
+            },
+            "method": "POST",
+            "mimeType": "multipart/form-data",
+            "processData": false,
+            "success" (response) {
+              angular.element(".loader").hide();
+              callbackFn(angular.fromJson(response));
+            },
+            "url": `${BASE.url}upload_file?query=${gQry}`
+          });
+        }
+        catch (err) {
+          if (err.status === UNAUTHORIZED_ERROR) {
+            Rollbar.error("Error: 401 Unauthorized");
+            $window.location = "error401";
+          }
+          Rollbar.error("Error: An error ocurred getting finding by ID", err);
+        }
       }
     };
   }

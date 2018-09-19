@@ -8,6 +8,7 @@ from django.conf.urls import url, include, handler400, handler403, handler404, h
 from graphene_django.views import GraphQLView
 from .entity import schema
 from django.conf import settings
+from graphene_file_upload.django import FileUploadGraphQLView
 
 # pylint: disable=W0104
 handler400, handler403, handler404, handler500;
@@ -76,5 +77,7 @@ urlpatterns = [
     # Documentation.
     url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$', views.project_to_pdf),
     url(r'^xls/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/?$', views.project_to_xls),
-    url(r'^check_pdf/project/(?P<project>[A-Za-z0-9]+)/?$', views.check_pdf)
+    url(r'^check_pdf/project/(?P<project>[A-Za-z0-9]+)/?$', views.check_pdf),
+    url(r'^upload_file/?\.*$',
+        FileUploadGraphQLView.as_view(graphiql=True if settings.DEBUG else False, schema=schema.schema)),
 ]

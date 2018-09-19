@@ -8,6 +8,7 @@ from .resource import Resource
 from .user import User
 from ..dao import integrates_dao
 from .. import util
+from .finding import Finding
 # pylint: disable=F0401
 from app.api.formstack import FormstackAPI
 from graphene import Field, String, ObjectType, List
@@ -23,6 +24,8 @@ class Query(ObjectType):
 
     events = List(Events,
                         identifier=String(required=True))
+
+    finding = Field(Finding, identifier=String(required=True))
 
     login = Field(Login)
 
@@ -45,6 +48,10 @@ class Query(ObjectType):
         if "submissions" in resp:
             data = [Events(info, i["id"]) for i in resp["submissions"]]
         return data
+
+    def resolve_finding(self, info, identifier=None):
+        """Resolve for finding."""
+        return Finding(info, identifier)
 
     def resolve_login(self, info):
         """ Resolve for login info """

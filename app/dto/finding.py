@@ -3,7 +3,15 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # pylint: disable=relative-beyond-top-level
 import base64
+import pytz
+import rollbar
+from datetime import datetime
+from ..dao import integrates_dao
+from . import closing
+from ..api.formstack import FormstackAPI
 from ..utils import forms
+
+# pylint: disable=E0402
 
 class FindingDTO(object):
     """ Class to create an object with the attributes of a finding. """
@@ -408,3 +416,66 @@ class FindingDTO(object):
         for key, value in self.data.iteritems():
             new_data["field_"+key] = value
         self.data = new_data
+
+def format_finding_date(format_attr):
+    tzn = pytz.timezone('America/Bogota')
+    finding_date = datetime.strptime(
+        format_attr.split(" ")[0],
+        '%Y-%m-%d'
+    )
+    finding_date = finding_date.replace(tzinfo=tzn).date()
+    final_date = (datetime.now(tz=tzn).date() - finding_date)
+    return final_date
+
+def finding_vulnerabilities(submission_id):
+    finding = []
+    state = {'estado': 'Abierto'}
+    fin_dto = FindingDTO()
+    api = FormstackAPI()
+    if str(submission_id).isdigit() is True:
+        finding = fin_dto.parse_vulns_by_id(
+            submission_id,
+            api.get_submission(submission_id)
+        )
+        closingreqset = api.get_closings_by_id(submission_id)["submissions"]
+        findingcloseset = []
+        for closingreq in closingreqset:
+            closingset = closing.parse(api.get_submission(closingreq["id"]))
+            findingcloseset.append(closingset)
+            state = closingset
+        finding["estado"] = state["estado"]
+        finding["cierres"] = findingcloseset
+        finding['cardinalidad_total'] = finding['openVulnerabilities']
+        if state.get("opened"):
+            finding['openVulnerabilities'] = state['opened']
+        if state.get("estado") == 'Cerrado':
+            finding['where'] = '-'
+            finding['edad'] = '-'
+            finding['lastVulnerability'] = '-'
+        if 'whichOpened' in state:
+            finding['where'] = state['whichOpened']
+        if 'whichClosed' in state:
+            finding['closed'] = state['whichClosed']
+        primary_keys = ["finding_id", submission_id]
+        finding_dynamo = integrates_dao.get_data_dynamo(
+            "FI_findings", primary_keys[0], primary_keys[1])
+        if finding_dynamo:
+            if finding_dynamo[0].get("releaseDate"):
+                finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
+            if finding_dynamo[0].get("lastVulnerability"):
+                finding["lastVulnerability"] = finding_dynamo[0].get("lastVulnerability")
+        if finding.get("releaseDate"):
+            tzn = pytz.timezone('America/Bogota')
+            today_day = datetime.now(tz=tzn).date()
+            finding_last_vuln = datetime.strptime(
+                finding["releaseDate"].split(" ")[0],
+                '%Y-%m-%d'
+            )
+            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+            if finding_last_vuln <= today_day:
+                final_date = format_finding_date(finding["releaseDate"])
+                finding['edad'] = ":n".replace(":n", str(final_date.days))
+        return finding
+    else:
+        rollbar.report_message('Error: An error occurred catching finding', 'error')
+        return None

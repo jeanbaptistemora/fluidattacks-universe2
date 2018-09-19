@@ -24,7 +24,7 @@ from django.http import HttpResponse
 from . import util
 from .decorators import authenticate, authorize, require_project_access, require_finding_access
 from .techdoc.IT import ITReport
-from .dto.finding import FindingDTO
+from .dto.finding import FindingDTO, format_finding_date, finding_vulnerabilities
 from .dto import closing
 from .dto import project as projectDTO
 from .dto import eventuality
@@ -598,68 +598,6 @@ def format_release_date(finding, state):
     else:
         finding['lastVulnerability'] = '-'
     return finding
-
-def format_finding_date(format_attr):
-    tzn = pytz.timezone('America/Bogota')
-    finding_date = datetime.strptime(
-        format_attr.split(" ")[0],
-        '%Y-%m-%d'
-    )
-    finding_date = finding_date.replace(tzinfo=tzn).date()
-    final_date = (datetime.now(tz=tzn).date() - finding_date)
-    return final_date
-
-def finding_vulnerabilities(submission_id):
-    finding = []
-    state = {'estado': 'Abierto'}
-    fin_dto = FindingDTO()
-    api = FormstackAPI()
-    if str(submission_id).isdigit() is True:
-        finding = fin_dto.parse_vulns_by_id(
-            submission_id,
-            api.get_submission(submission_id)
-        )
-        closingreqset = api.get_closings_by_id(submission_id)["submissions"]
-        findingcloseset = []
-        for closingreq in closingreqset:
-            closingset = closing.parse(api.get_submission(closingreq["id"]))
-            findingcloseset.append(closingset)
-            state = closingset
-        finding["estado"] = state["estado"]
-        finding["cierres"] = findingcloseset
-        finding['cardinalidad_total'] = finding['openVulnerabilities']
-        if 'opened' in state:
-            finding['openVulnerabilities'] = state['opened']
-        else:
-            if state['estado'] == 'Cerrado':
-                finding['where'] = '-'
-        if state['estado'] == 'Cerrado':
-            finding['where'] = '-'
-            finding['edad'] = '-'
-        primary_keys = ["finding_id", submission_id]
-        table_name = "FI_findings"
-        finding_dynamo = integrates_dao.get_data_dynamo(
-            table_name, primary_keys[0], primary_keys[1])
-        if finding_dynamo:
-            if finding_dynamo[0].get("releaseDate"):
-                finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
-            if finding_dynamo[0].get("lastVulnerability"):
-                finding["lastVulnerability"] = finding_dynamo[0].get("lastVulnerability")
-        if finding.get("releaseDate"):
-            tzn = pytz.timezone('America/Bogota')
-            today_day = datetime.now(tz=tzn).date()
-            finding_last_vuln = datetime.strptime(
-                finding["releaseDate"].split(" ")[0],
-                '%Y-%m-%d'
-            )
-            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-            if finding_last_vuln <= today_day:
-                final_date = format_finding_date(finding["releaseDate"])
-                finding['edad'] = ":n".replace(":n", str(final_date.days))
-        return finding
-    else:
-        rollbar.report_message('Error: An error occurred catching finding', 'error')
-        return None
 
 @never_cache
 @csrf_exempt
