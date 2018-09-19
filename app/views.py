@@ -26,7 +26,7 @@ from .decorators import authenticate, authorize, require_project_access, require
 from .techdoc.IT import ITReport
 from .dto.finding import FindingDTO
 from .dto.closing import ClosingDTO
-from .dto.project import ProjectDTO
+from .dto import project as projectDTO
 from .dto import eventuality
 from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
@@ -387,7 +387,7 @@ def pdf_evidences(findings):
     return findings
 
 def presentation_pdf(project, pdf_maker, findings, user):
-    project_info = get_project_info(project)
+    project_info = get_project_info(project)["data"]
     mapa_id = util.drive_url_filter(project_info["findingsMap"])
     project_info["findingsMap"] = "image::../images/"+mapa_id+'.png[align="center"]'
     DriveAPI().download_images(mapa_id)
@@ -428,7 +428,7 @@ def get_project_info(project):
     if reqset:
         submission_id = reqset[-1]["id"]
         submission = FormstackAPI().get_submission(submission_id)
-        return ProjectDTO().parse(submission)
+        return projectDTO.parse(submission)
     return []
 
 @never_cache
