@@ -1,12 +1,3 @@
-export let PRODUCTION_URL: string;
-PRODUCTION_URL = "https://fluidattacks.com/integrates/";
-
-export let REVIEW_URL_PATTERN: string;
-REVIEW_URL_PATTERN = ".integrates.env";
-
-export let DEVELOPMENT_URL: string;
-DEVELOPMENT_URL = "https://localhost:8000/";
-
 export const getEnvironment: (() => string) = (): string => {
   let environment: string;
   /* tslint:disable-next-line:strict-type-predicates
@@ -19,11 +10,11 @@ export const getEnvironment: (() => string) = (): string => {
     environment = "development";
   } else {
     const currentUrl: string = window.location.href;
-    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1) {
+    if (currentUrl.indexOf("localhost:8000") !== -1) {
       environment = "development";
-    } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
+    } else if (currentUrl.indexOf(".integrates.env") !== -1) {
       environment = "review";
-    } else if (currentUrl.indexOf(PRODUCTION_URL) !== -1) {
+    } else if (currentUrl.indexOf("https://fluidattacks.com/") !== -1) {
       environment = "production";
     } else {
       throw new TypeError(`Couldn't identify environment for url: ${currentUrl}`);

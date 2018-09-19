@@ -1,6 +1,6 @@
 import Axios, { AxiosPromise, AxiosRequestConfig } from "axios";
 import rollbar from "../utils/rollbar";
-import { getEnvironment, PRODUCTION_URL } from "./context";
+import { getEnvironment } from "./context";
 
 /**
  * XHR request wrapper
@@ -82,7 +82,7 @@ class Xhr {
     const promise: AxiosPromise<void> =
       Axios.post<void>(
         getEnvironment() === "production"
-        ? `${PRODUCTION_URL}api`
+        ? "integrates/api"
         : "api",
         query,
       );
