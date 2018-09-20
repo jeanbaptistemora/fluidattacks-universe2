@@ -35,8 +35,7 @@ angular.module("FluidIntegrates").controller(
     $uibModal,
     functionsFtry1,
     functionsFtry3,
-    functionsFtry4,
-    projectFtry2
+    functionsFtry4
   ) {
     $scope.init = function init () {
       const translationStrings = [
@@ -52,6 +51,7 @@ angular.module("FluidIntegrates").controller(
         "search_findings.repositories_table.repository",
         "search_findings.repositories_table.branch",
 
+        "search_findings.tab_resources.environment",
         "search_findings.tab_resources.environments",
         "search_findings.tab_resources.title_env",
         "search_findings.tab_resources.repository",
@@ -111,198 +111,15 @@ angular.module("FluidIntegrates").controller(
         $state.go("ProjectIndicators", {"project": $scope.project});
       }
       else if ($stateParams.project === $scope.project) {
-        $scope.view.project = false;
+        $scope.view.project = true;
         $scope.view.finding = false;
 
         // Handling presentation button
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        $scope.loadResourcesInfo(projectName);
       }
       return true;
-    };
-
-    $scope.loadResourcesInfo = function loadResourcesInfo (projectName) {
-      $scope.tblEnvsHeaders = [
-        {
-          "dataField": "urlEnv",
-          "header":
-            $translate.instant("search_findings.environment_table.environment")
-        }
-      ];
-
-      const reqResources = projectFtry2.resourcesByProject(projectName);
-      $scope.envsDataset = [];
-
-      reqResources.then((response) => {
-        if (response.error) {
-          if (response.message === "Access denied") {
-            $msg.error($translate.instant("proj_alerts.access_denied"));
-          }
-          else {
-            Rollbar.warning("Warning: Resources not found");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
-          }
-        }
-        else if (angular.isUndefined(response.data)) {
-          location.reload();
-        }
-        else {
-          $scope.view.project = true;
-          const respData = response.data.resources;
-          if (respData.access) {
-            $scope.envsDataset = angular.fromJson(respData.environments);
-          }
-          else {
-            $msg.error($translate.instant("proj_alerts.access_denied"));
-          }
-        }
-      });
-    };
-
-    $scope.addEnvironment = function addEnvironment () {
-      const descData = {"project": $stateParams.project.toLowerCase()};
-      $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance, data) {
-          $scope.envInfo = {};
-          $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_resources.title_env");
-          $scope.envInfo.environments = [{"id": 1}];
-          $scope.isFirst = true;
-          $scope.addNewEnvironment = function addNewEnvironment () {
-            const newItemNo = $scope.envInfo.environments.length + 1;
-            $scope.isFirst = false;
-            $scope.envInfo.environments.push({"id": newItemNo});
-          };
-          $scope.removeEnvironment = function removeEnvironment (id) {
-            const index = parseInt(id, 10);
-            if ($scope.envInfo.environments.length > 1) {
-              $scope.envInfo.environments.splice(index - 1, 1);
-            }
-            else {
-              $scope.isFirst = true;
-            }
-          };
-          $scope.ok = function ok () {
-            $scope.envInfo.totalEnv = $scope.envInfo.environments.length;
-            const inputValidations = angular.element(".environmentInput");
-            let envValidation = true;
-            let elem = 0;
-            while (envValidation && inputValidations.length > elem) {
-              if (angular.element(`#${inputValidations[elem].id}`).parsley().
-                validate() === true) {
-                envValidation = true;
-              }
-              else {
-                envValidation = false;
-              }
-              elem += 1;
-            }
-            if (envValidation) {
-              // Make the request
-              const envReq = projectFtry2.addEnvironments(
-                angular.toJson(angular.toJson($scope.envInfo)),
-                data.project
-              );
-              // Capture the promise
-              envReq.then((response) => {
-                if (response.error) {
-                  Rollbar.error("Error: An error occurred when " +
-                              "adding a new environment");
-                  $msg.error($translate.instant("proj_alerts.error_textsad"));
-                }
-                else {
-                  const projt = descData.project.toUpperCase();
-                  mixPanelDashboard.trackSearch(
-                    "addEnvironment",
-                    userEmail, projt
-                  );
-                  const respData = response.data.addEnvironments;
-                  if (respData.success) {
-                    const message = $translate.instant("search_findings" +
-                                                  ".tab_resources.success");
-                    const messageTitle = $translate.instant("search_findings" +
-                                                  ".tab_users.title_success");
-                    $msg.success(message, messageTitle);
-                    const envs = respData.resources.environments;
-                    $scope.$parent.envsDataset = angular.fromJson(envs);
-                  }
-                  else if (respData.access) {
-                    Rollbar.error("Error: An error occurred when " +
-                                "adding a new environment");
-                    $msg.error($translate.instant("proj_alerts.error_textsad"));
-                  }
-                  else {
-                    $msg.error($translate.instant("proj_alerts.access_denied"));
-                  }
-                  $uibModalInstance.close();
-                }
-              });
-            }
-          };
-          $scope.close = function close () {
-            $uibModalInstance.close();
-          };
-        },
-        "keyboard": false,
-        "resolve": {"data": descData},
-        "scope": $scope,
-        "templateUrl": `${BASE.url}assets/views/project/addEnvironmentMdl.html`
-      });
-    };
-
-    $scope.removeEnvironment = function removeEnvironment () {
-      const selectedRow =
-        angular.element("#tblEnvironments tr input:checked").closest("tr");
-      if (selectedRow.length > 0) {
-        const environments = {};
-        environments.urlEnv = selectedRow.children()[1].textContent;
-        const project = $stateParams.project.toLowerCase();
-        const repo = projectFtry2.removeEnvironments(
-          angular.toJson(angular.toJson(environments)),
-          project
-        );
-        // Capture the promise
-        repo.then((response) => {
-          if (response.error) {
-            Rollbar.error("Error: An error occurred when removing environment");
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
-          }
-          else {
-            // Mixpanel tracking
-            const projt = project.toUpperCase();
-            mixPanelDashboard.trackSearch(
-              "removeEnvironment",
-              userEmail, projt
-            );
-            const respData = response.data.removeEnvironments;
-            if (respData.success) {
-              const message = $translate.instant("search_findings" +
-                                            ".tab_resources.success_remove");
-              const messageTitle = $translate.instant("search_findings" +
-                                            ".tab_users.title_success");
-              $msg.success(message, messageTitle);
-              const envs = respData.resources.environments;
-              $scope.envsDataset = angular.fromJson(envs);
-            }
-            else if (respData.access) {
-              Rollbar.error("Error: An error occurred when " +
-                          "removing environment");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-            }
-            else {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-          }
-        });
-      }
-      else {
-        $msg.error($translate.instant("search_findings.tab_resources." +
-                                  "no_selection"));
-      }
     };
 
     $scope.urlIndicators = function urlIndicators () {

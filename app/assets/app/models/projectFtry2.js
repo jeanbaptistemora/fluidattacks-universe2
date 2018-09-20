@@ -47,28 +47,6 @@ angular.module("FluidIntegrates").factory(
         }, oopsAc);
       },
 
-      /**
-       * Adding new environments.
-       * @function addEnvironments
-       * @param {String} data environments data.
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Update of environments
-       */
-      "addEnvironments" (data, project) {
-        const oopsAc = "An error occurred adding environments";
-        const gQry = `mutation {
-          addEnvironments (resourcesData: ${data}, projectName: "${project}") {
-            success,
-            access,
-            resources {
-              environments
-            }
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
       "calCardinality" (data) {
         let openVulnerabilities = 0;
         let cardinalidadTotal = 0;
@@ -334,49 +312,6 @@ angular.module("FluidIntegrates").factory(
           email,
           project
         }, oopsAc);
-      },
-
-      /**
-       * Remove an environment of a project
-       * @function removeEnvironments
-       * @param {String} data Information of the environment to remove.
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Response of request
-       */
-      "removeEnvironments" (data, project) {
-        const oopsAc = "An error occurred removing environments";
-        const gQry = `mutation {
-          removeEnvironments (
-            repositoryData: ${data},
-            projectName: "${project}"
-          ) {
-            success,
-            access,
-            resources {
-              environments
-            }
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
-       * Return the repositories and environments of a project
-       * @function resourcesByProject
-       * @param {String} project Project name
-       * @member integrates.projectFtry2
-       * @return {Object} Dynamo response with the repositories of a project
-       */
-      "resourcesByProject" (project) {
-        const oopsAc = "An error occurred getting repositories";
-        const gQry = `{
-            resources (projectName: "${project}") {
-              environments,
-              access
-            }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }

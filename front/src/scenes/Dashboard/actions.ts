@@ -12,8 +12,9 @@ export interface IActionStructure {
 type DashboardAction = ((...args: any[]) => IActionStructure);
 
 export const loadResources: DashboardAction =
-  (repos: Array<{ branch: string; repository: string }>): IActionStructure => ({
+  (repos: string[], envs: string[]): IActionStructure => ({
     payload: {
+      environments: envs,
       repositories: repos,
     },
     type: actionType.LOAD_RESOURCES,
@@ -31,9 +32,21 @@ export const removeRepositoryField: DashboardAction =
       type: actionType.REMOVE_REPO_FIELD,
 });
 
+export const addEnvironmentField: DashboardAction =
+  (): IActionStructure => ({
+      payload: undefined,
+      type: actionType.ADD_ENV_FIELD,
+});
+
+export const removeEnvironmentField: DashboardAction =
+  (index: number): IActionStructure => ({
+      payload: { index },
+      type: actionType.REMOVE_ENV_FIELD,
+});
+
 export const openAddModal: DashboardAction =
   (type: "repository" | "environment"): IActionStructure => ({
-      payload: type,
+      payload: { type },
       type: actionType.OPEN_ADD_MODAL,
 });
 
@@ -59,4 +72,13 @@ export const modifyRepoBranch: DashboardAction =
         newValue,
       },
       type: actionType.MODIFY_REPO_BRANCH,
+});
+
+export const modifyEnvUrl: DashboardAction =
+  (index: number, newValue: string): IActionStructure => ({
+      payload: {
+        index,
+        newValue,
+      },
+      type: actionType.MODIFY_ENV_URL,
 });

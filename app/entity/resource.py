@@ -203,7 +203,7 @@ class AddEnvironments(Mutation):
 
             self.access = True
             json_data = []
-            for envInfo in resources_data.get("environments"):
+            for envInfo in resources_data:
                 if "environment" in envInfo:
                     environment_url = envInfo.get("environment")
                     json_data.append({

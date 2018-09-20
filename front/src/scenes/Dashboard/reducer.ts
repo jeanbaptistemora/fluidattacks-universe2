@@ -4,9 +4,12 @@ import * as actionType from "./actionTypes";
 interface IDashboardState {
   resources: {
     addModal: {
-      fields: Array<{ branch: string; repository: string }>;
+      envFields: Array<{ environment: string }>;
       open: boolean;
+      repoFields: Array<{ branch: string; repository: string }>;
+      type: "repository" | "environment" | undefined;
     };
+    environments: Array<{ environment: string }>;
     repositories: Array<{ branch: string; repository: string }>;
   };
 }
@@ -14,9 +17,12 @@ interface IDashboardState {
 const initialState: IDashboardState = {
   resources: {
     addModal: {
-      fields: [{ branch: "", repository: ""}],
+      envFields: [{ environment: ""}],
       open: false,
+      repoFields: [{ branch: "", repository: ""}],
+      type: undefined,
     },
+    environments: [],
     repositories: [],
   },
 };
@@ -35,6 +41,7 @@ const dashboard: DashboardReducer =
         ...state,
         resources: {
           ...state.resources,
+          environments: action.payload.environments,
           repositories: action.payload.repositories,
         },
       };
@@ -46,6 +53,7 @@ const dashboard: DashboardReducer =
           addModal: {
             ...state.resources.addModal,
             open: true,
+            type: action.payload.type,
           },
         },
       };
@@ -55,8 +63,7 @@ const dashboard: DashboardReducer =
         resources: {
           ...state.resources,
           addModal: {
-            fields: [{ branch: "", repository: ""}],
-            open: false,
+            ...initialState.resources.addModal,
           },
         },
       };
@@ -67,7 +74,7 @@ const dashboard: DashboardReducer =
           ...state.resources,
           addModal: {
             ...state.resources.addModal,
-            fields: [...state.resources.addModal.fields, ({repository: "", branch: ""})],
+            repoFields: [...state.resources.addModal.repoFields, ({repository: "", branch: ""})],
           },
         },
       };
@@ -78,8 +85,31 @@ const dashboard: DashboardReducer =
           ...state.resources,
           addModal: {
             ...state.resources.addModal,
-            fields: [...state.resources.addModal.fields.filter(
+            repoFields: [...state.resources.addModal.repoFields.filter(
               (_0: { branch: string; repository: string }, index: number) => index !== action.payload.index)],
+          },
+        },
+      };
+    case actionType.ADD_ENV_FIELD:
+      return {
+        ...state,
+        resources: {
+          ...state.resources,
+          addModal: {
+            ...state.resources.addModal,
+            envFields: [...state.resources.addModal.envFields, ({environment: ""})],
+          },
+        },
+      };
+    case actionType.REMOVE_ENV_FIELD:
+      return {
+        ...state,
+        resources: {
+          ...state.resources,
+          addModal: {
+            ...state.resources.addModal,
+            envFields: [...state.resources.addModal.envFields.filter(
+              (_0: { environment: string }, index: number) => index !== action.payload.index)],
           },
         },
       };
@@ -90,7 +120,7 @@ const dashboard: DashboardReducer =
           ...state.resources,
           addModal: {
             ...state.resources.addModal,
-            fields: [...state.resources.addModal.fields.map(
+            repoFields: [...state.resources.addModal.repoFields.map(
               (field: { branch: string; repository: string }, index: number) =>
               ({
                 branch: field.branch,
@@ -108,7 +138,7 @@ const dashboard: DashboardReducer =
             ...state.resources,
             addModal: {
               ...state.resources.addModal,
-              fields: [...state.resources.addModal.fields.map(
+              repoFields: [...state.resources.addModal.repoFields.map(
                 (field: { branch: string; repository: string }, index: number) =>
                 ({
                   branch: index === action.payload.index
@@ -119,6 +149,23 @@ const dashboard: DashboardReducer =
             },
           },
         };
+    case actionType.MODIFY_ENV_URL:
+      return {
+        ...state,
+        resources: {
+          ...state.resources,
+          addModal: {
+            ...state.resources.addModal,
+            envFields: [...state.resources.addModal.envFields.map(
+              (field: { environment: string }, index: number) =>
+              ({
+                environment: index === action.payload.index
+                ? action.payload.newValue
+                : field.environment,
+              }))],
+          },
+        },
+      };
     default:
       return state;
   }

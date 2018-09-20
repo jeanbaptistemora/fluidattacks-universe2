@@ -30,9 +30,12 @@ import * as actions from "../../actions";
 
 interface IResourcesViewProps {
   addModal: {
-    fields: Array<{ branch: string; repository: string }>;
+    envFields: Array<{ environment: string }>;
     open: boolean;
+    repoFields: Array<{ branch: string; repository: string }>;
+    type: "repository" | "environment";
   };
+  environmentsDataset: string[];
   projectName: string;
   repositoriesDataset: string[];
   translations: { [key: string]: string };
@@ -45,6 +48,7 @@ lifecycle({
     let gQry: string;
     gQry = `{
         resources (projectName: "${projectName}") {
+          environments,
           repositories,
           access
         }
@@ -55,6 +59,7 @@ lifecycle({
         if (resp.data.data.resources.access) {
           store.dispatch(actions.loadResources(
             JSON.parse(resp.data.data.resources.repositories),
+            JSON.parse(resp.data.data.resources.environments),
           ));
         } else {
           msgError(translations["proj_alerts.access_denied"]);
@@ -136,6 +141,7 @@ const saveRepos: ((arg1: Array<{ branch: string; repository: string }>,
         success,
         access,
         resources {
+          environments,
           repositories
         }
       }
@@ -147,6 +153,106 @@ const saveRepos: ((arg1: Array<{ branch: string; repository: string }>,
           store.dispatch(actions.closeAddModal());
           store.dispatch(actions.loadResources(
             JSON.parse(resp.data.data.addRepositories.resources.repositories),
+            JSON.parse(resp.data.data.addRepositories.resources.environments),
+          ));
+          msgSuccess(
+            translations["search_findings.tab_resources.success"],
+            translations["search_findings.tab_users.title_success"],
+          );
+        } else {
+          msgError(translations["proj_alerts.access_denied"]);
+        }
+      } else {
+        msgError(translations["proj_alerts.error_textsad"]);
+        rollbar.error("An error occurred adding repositories");
+      }
+    })
+    .catch((error: string) => {
+      msgError(translations["proj_alerts.error_textsad"]);
+      rollbar.error(error);
+    });
+};
+
+const removeEnv: ((arg1: { [key: string]: string }, arg2: string) => void) =
+  (translations: { [key: string]: string }, projectName: string): void => {
+  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblEnvironments tr input:checked");
+  if (selectedQry.length > 0) {
+    if (selectedQry[0].closest("tr") !== null) {
+      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+      const env: string | null = selectedRow.children[1].textContent;
+
+      let gQry: string;
+      gQry = `mutation {
+        removeEnvironments (
+          repositoryData: ${JSON.stringify(JSON.stringify({ urlEnv: env}))},
+          projectName: "${projectName}"
+        ) {
+          success,
+          access,
+          resources {
+            environments,
+            repositories
+          }
+        }
+      }`;
+      new Xhr().request(gQry, "An error occurred removing environments")
+      .then((resp: AxiosResponse) => {
+        if (!resp.data.error && resp.data.data.removeEnvironments.success) {
+          if (resp.data.data.removeEnvironments.access) {
+            store.dispatch(actions.loadResources(
+              JSON.parse(resp.data.data.removeEnvironments.resources.repositories),
+              JSON.parse(resp.data.data.removeEnvironments.resources.environments),
+            ));
+            msgSuccess(
+              translations["search_findings.tab_resources.success_remove"],
+              translations["search_findings.tab_users.title_success"],
+            );
+          } else {
+            msgError(translations["proj_alerts.access_denied"]);
+          }
+        } else {
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error("An error occurred removing environments");
+        }
+      })
+      .catch((error: string) => {
+        msgError(translations["proj_alerts.error_textsad"]);
+        rollbar.error(`An error occurred removing environments: ${error}`);
+      });
+    } else {
+      msgError(translations["proj_alerts.error_textsad"]);
+      rollbar.error("An error occurred removing environments");
+    }
+  } else {
+    msgError(translations["search_findings.tab_resources.no_selection"]);
+  }
+};
+
+const saveEnvs: ((arg1: Array<{ environment: string }>,
+                  arg2: string, arg3: { [key: string]: string }) => void) =
+  (envsData: Array<{ environment: string }>, projectName: string,
+   translations: { [key: string]: string }): void => {
+    let gQry: string;
+    gQry = `mutation {
+      addEnvironments (
+        resourcesData: ${JSON.stringify(JSON.stringify(envsData))},
+        projectName: "${projectName}") {
+        success,
+        access,
+        resources {
+          environments,
+          repositories
+        }
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred adding environments")
+    .then((resp: AxiosResponse) => {
+      if (!resp.data.error && resp.data.data.addEnvironments.success) {
+        if (resp.data.data.addEnvironments.access) {
+          store.dispatch(actions.closeAddModal());
+          store.dispatch(actions.loadResources(
+            JSON.parse(resp.data.data.addEnvironments.resources.repositories),
+            JSON.parse(resp.data.data.addEnvironments.resources.environments),
           ));
           msgSuccess(
             translations["search_findings.tab_resources.success"],
@@ -170,6 +276,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IResourcesViewProps) =
   (state: StateType<Reducer>): IResourcesViewProps => ({
     ...state,
     addModal: state.dashboard.resources.addModal,
+    environmentsDataset: state.dashboard.resources.environments,
     repositoriesDataset: state.dashboard.resources.repositories,
   });
 
@@ -240,17 +347,111 @@ const component: React.StatelessComponent<IResourcesViewProps> =
           </Row>
         </Col>
       </Row>
+      <hr/>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <Row>
+            <Col md={12} sm={12} xs={12}>
+              <Row>
+                <Col md={12}>
+                  <Col mdOffset={4} md={2} sm={6}>
+                    <Button
+                      id="addEnvironment"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={(): void => { store.dispatch(actions.openAddModal("environment")); }}
+                    >
+                      <Glyphicon glyph="plus"/>&nbsp;
+                      {props.translations["search_findings.tab_resources.add_repository"]}
+                    </Button>
+                  </Col>
+                  <Col md={2} sm={6}>
+                    <Button
+                      id="remove"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={(): void => { removeEnv(props.translations, props.projectName); }}
+                    >
+                      <Glyphicon glyph="minus"/>&nbsp;
+                      {props.translations["search_findings.tab_resources.remove_repository"]}
+                    </Button>
+                  </Col>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} sm={12}>
+                  <DataTable
+                    dataset={props.environmentsDataset}
+                    onClickRow={(): void => {}}
+                    enableRowSelection={true}
+                    exportCsv={true}
+                    headers={[
+                      {
+                        dataField: "urlEnv",
+                        header: props.translations["search_findings.environment_table.environment"],
+                        isDate: false,
+                        isStatus: false,
+                      },
+                    ]}
+                    id="tblEnvironments"
+                    pageSize={15}
+                    title={props.translations["search_findings.tab_resources.environments"]}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
       <Modal
         open={props.addModal.open}
         onClose={(): void => {}}
         headerTitle={
-          props.translations["search_findings.tab_resources.title_repo"]
+          props.addModal.type === "environment"
+          ? props.translations["search_findings.tab_resources.title_env"]
+          : props.translations["search_findings.tab_resources.title_repo"]
         }
         content={
           <Grid>
-              <Row>
+            {
+              props.addModal.type === "environment"
+              ? <Row>
                 {
-                  props.addModal.fields.map((field: { branch: string; repository: string }, index: number) =>
+                  props.addModal.envFields.map((field: { environment: string }, index: number) => (
+                    <Row>
+                      <Col md={7}>
+                        <label>
+                          <label style={{color: "#f22"}}>* </label>
+                          {props.translations["search_findings.tab_resources.environment"]}
+                        </label>
+                        <FormControl
+                          id={`env: ${index}`}
+                          componentClass="textarea"
+                          value={field.environment}
+                          required={true}
+                          onChange={(evt: React.FormEvent<FormControl>): void => {
+                            store.dispatch(actions.modifyEnvUrl(index, (evt.target as HTMLInputElement).value));
+                          }}
+                        />
+                      </Col>
+                      {
+                        index > 0
+                        ? <Col md={2} style={{ marginTop: "40px"}}>
+                          <Button
+                            bsStyle="primary"
+                            onClick={(): void => { store.dispatch(actions.removeEnvironmentField(index)); }}
+                          >
+                            <Glyphicon glyph="trash"/>&nbsp;
+                          </Button>
+                        </Col>
+                        : <Col/>
+                      }
+                    </Row>
+                  ))}
+                </Row>
+              : <Row>
+                {
+                  props.addModal.repoFields.map((field: { branch: string; repository: string }, index: number) =>
                     (
                       <Row>
                         <Col md={5}>
@@ -296,12 +497,17 @@ const component: React.StatelessComponent<IResourcesViewProps> =
                           : <Col/>
                         }
                       </Row>
-                    ))}
-            </Row>
+                  ))}
+                </Row>
+            }
             <br/>
             <Button
               bsStyle="primary"
-              onClick={(): void => { store.dispatch(actions.addRepositoryField()); }}
+              onClick={
+                props.addModal.type === "environment"
+                ? (): void => { store.dispatch(actions.addEnvironmentField()); }
+                : (): void => { store.dispatch(actions.addRepositoryField()); }
+              }
             >
               <Glyphicon glyph="plus"/>
             </Button>
@@ -318,7 +524,11 @@ const component: React.StatelessComponent<IResourcesViewProps> =
               </Button>
               <Button
                 bsStyle="primary"
-                onClick={(): void => { saveRepos(props.addModal.fields, props.projectName, props.translations); }}
+                onClick={
+                  props.addModal.type === "environment"
+                  ? (): void => { saveEnvs(props.addModal.envFields, props.projectName, props.translations); }
+                  : (): void => { saveRepos(props.addModal.repoFields, props.projectName, props.translations); }
+                }
               >
                 {props.translations["confirmmodal.proceed"]}
               </Button>
