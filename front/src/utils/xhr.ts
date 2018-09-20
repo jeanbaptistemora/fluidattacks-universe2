@@ -82,7 +82,7 @@ class Xhr {
     const promise: AxiosPromise<void> =
       Axios.post<void>(
         getEnvironment() === "production"
-        ? `${PRODUCTION_URL}/api`
+        ? `${PRODUCTION_URL}/integrates/api`
         : "api",
         query,
       );

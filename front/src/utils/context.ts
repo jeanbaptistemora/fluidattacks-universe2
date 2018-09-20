@@ -1,5 +1,5 @@
 export let PRODUCTION_URL: string;
-PRODUCTION_URL = "https://fluidattacks.com/integrates";
+PRODUCTION_URL = "https://fluidattacks.com";
 
 export let REVIEW_URL_PATTERN: string;
 REVIEW_URL_PATTERN = ".integrates.env";
