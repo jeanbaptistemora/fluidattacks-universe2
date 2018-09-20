@@ -88,10 +88,6 @@ class FindingDTO(object):
         self.request_id = None
         self.data = dict()
 
-    def create(self, parameter):
-        self.create_description(parameter)
-        self.create_cssv2(parameter)
-
     def create_evidence_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """
         if "data[id]" in parameter:
@@ -185,57 +181,35 @@ class FindingDTO(object):
 
     def create_treatment(self, parameter):
         """ Converts the index of a JSON to Formstack index """
-        if "data[id]" in parameter:
-            self.request_id \
-                = parameter["data[id]"]
-        if "data[treatment]" in parameter:
-            self.data[self.TREATMENT] \
-                = parameter["data[treatment]"]
-        if "data[treatmentJustification]" in parameter:
-            self.data[self.TREATMENT_JUSTIFICATION] \
-                = parameter["data[treatmentJustification]"]
-        if "data[treatmentManager]" in parameter:
-            self.data[self.TREATMENT_MANAGER] \
-                = parameter["data[treatmentManager]"]
-        if "data[externalBts]" in parameter:
-            self.data[self.EXTERNAL_BTS] \
-                = parameter["data[externalBts]"]
+        treatment_fields = {
+            "59350064":"treatment",
+            "59351642":"treatmentJustification",
+            "59381058":"treatmentManager",
+            "56614832":"externalBts"
+        }
+        parsed_dict = {k:parameter["data[" + v + "]"] \
+                       if "data[" + v + "]" in parameter.keys() else "" \
+                       for (k,v) in treatment_fields.items()}
+        return {"data":parsed_dict, "request_id":parameter["data[id]"]}
+
 
     def create_cssv2(self, parameter):
         """ Converts the index of a JSON to Formstack index """
-        if "data[id]" in parameter:
-            self.request_id \
-                = parameter["data[id]"]
-        if "data[accessVector]" in parameter:
-            self.data[self.ACCESS_VECTOR] \
-                = parameter["data[accessVector]"]
-        if "data[accessComplexity]" in parameter:
-            self.data[self.ACCESS_COMPLEXITY] \
-                = parameter["data[accessComplexity]"]
-        if "data[authentication]" in parameter:
-            self.data[self.AUTHENTICATION] \
-                = parameter["data[authentication]"]
-        if "data[exploitability]" in parameter:
-            self.data[self.EXPLOITABILITY] \
-                = parameter["data[exploitability]"]
-        if "data[criticity]" in parameter:
-            self.data[self.CRITICITY] \
-                = parameter["data[criticity]"]
-        if "data[confidentialityImpact]" in parameter:
-            self.data[self.CONFIDENTIALITY_IMPACT] \
-                = parameter["data[confidentialityImpact]"]
-        if "data[integrityImpact]" in parameter:
-            self.data[self.INTEGRITY_IMPACT] \
-                = parameter["data[integrityImpact]"]
-        if "data[availabilityImpact]" in parameter:
-            self.data[self.AVAILABILITY_IMPACT] \
-                = parameter["data[availabilityImpact]"]
-        if "data[resolutionLevel]" in parameter:
-            self.data[self.RESOLUTION_LEVEL] \
-                = parameter["data[resolutionLevel]"]
-        if "data[confidenceLevel]" in parameter:
-            self.data[self.CONFIDENCE_LEVEL] \
-                = parameter["data[confidenceLevel]"]
+        severity_tab_fields = {
+            "38529247":"accessVector",
+            "38529248":"accessComplexity",
+            "38529249":"authentication",
+            "38529253":"exploitability",
+            "38531129":"criticity",
+            "38529250":"confidentialityImpact",
+            "38529251":"integrityImpact",
+            "38529252":"availabilityImpact",
+            "38529254":"resolutionLevel",
+            "38529255":"confidenceLevel"
+        }
+        parsed_dict = {k:parameter["data[" + v + "]"] \
+                for (k,v) in severity_tab_fields.items()}
+        return {"data":parsed_dict, "request_id":parameter["data[id]"]}
 
     def create_delete(self, parameter, analyst, project, finding):
         """ Create a data set to send in the finding deletion email """

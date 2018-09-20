@@ -41,6 +41,7 @@ from .mailer import send_mail_access_granted
 from .mailer import send_mail_accepted_finding
 from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin, has_responsibility, has_phone_number
+from .utils  import forms as forms_utils
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
@@ -1139,10 +1140,10 @@ def update_cssv2(request):
     parameters = request.POST.dict()
     try:
         generic_dto = FindingDTO()
-        generic_dto.create_cssv2(parameters)
-        generic_dto.to_formstack()
+        severity_dict = generic_dto.create_cssv2(parameters)
+        severity_info=forms_utils.to_formstack(severity_dict["data"])
         api = FormstackAPI()
-        request = api.update(generic_dto.request_id, generic_dto.data)
+        request = api.update(severity_dict["request_id"], severity_info)
         if request:
             return util.response([], 'success', False)
         rollbar.report_message('Error: An error occurred updating CSSV2', 'error', request)
@@ -1179,10 +1180,10 @@ def update_treatment(request):
     parameters = request.POST.dict()
     try:
         generic_dto = FindingDTO()
-        generic_dto.create_treatment(parameters)
-        generic_dto.to_formstack()
+        treatment_dict = generic_dto.create_treatment(parameters)
+        treatment_info=forms_utils.to_formstack(treatment_dict["data"])
         api = FormstackAPI()
-        request = api.update(generic_dto.request_id, generic_dto.data)
+        request = api.update(treatment_dict["request_id"], treatment_info)
         if request:
             if parameters['data[treatment]'] == 'Asumido':
                 context = {
