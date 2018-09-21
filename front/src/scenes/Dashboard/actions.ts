@@ -12,7 +12,8 @@ export interface IActionStructure {
 type DashboardAction = ((...args: any[]) => IActionStructure);
 
 export const loadResources: DashboardAction =
-  (repos: string[], envs: string[]): IActionStructure => ({
+  (repos: Array<{ branch: string; urlRepo: string }>,
+   envs: Array<{ urlEnv: string }>): IActionStructure => ({
     payload: {
       environments: envs,
       repositories: repos,

@@ -191,6 +191,7 @@ const translations2 = {
      "no_selection": "You must select an item from the table.",
      "password": "Password",
      "remove_repository": "Remove",
+     "repeated_item": "One or more items to add already exist.",
      "repositories": "Repositories",
      "repository": "Repository",
      "success": "Item added successfully.",

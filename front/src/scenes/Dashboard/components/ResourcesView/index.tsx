@@ -11,6 +11,7 @@
   * readability of the code that defines the headers of the table
  */
 import { AxiosResponse } from "axios";
+import _ from "lodash";
 import React, { ComponentType } from "react";
 import { Button, ButtonToolbar, Col, FormControl, Glyphicon, Grid, Row } from "react-bootstrap";
 import {
@@ -35,9 +36,9 @@ interface IResourcesViewProps {
     repoFields: Array<{ branch: string; repository: string }>;
     type: "repository" | "environment";
   };
-  environmentsDataset: string[];
+  environmentsDataset: Array<{ urlEnv: string }>;
   projectName: string;
-  repositoriesDataset: string[];
+  repositoriesDataset: Array<{ branch: string; urlRepo: string }>;
   translations: { [key: string]: string };
 }
 
@@ -129,48 +130,66 @@ const removeRepo: ((arg1: { [key: string]: string }, arg2: string) => void) =
   }
 };
 
-const saveRepos: ((arg1: Array<{ branch: string; repository: string }>,
-                   arg2: string, arg3: { [key: string]: string }) => void) =
-  (reposData: Array<{ branch: string; repository: string }>, projectName: string,
-   translations: { [key: string]: string }): void => {
-    let gQry: string;
-    gQry = `mutation {
-      addRepositories (
-        resourcesData: ${JSON.stringify(JSON.stringify(reposData))},
-        projectName: "${projectName}") {
-        success,
-        access,
-        resources {
-          environments,
-          repositories
+const saveRepos: (
+  (arg1: Array<{ branch: string; repository: string }>,
+   arg2: string,
+   arg3: { [key: string]: string },
+   arg4: Array<{ branch: string; urlRepo: string }>,
+  ) => void) =
+  (reposData: Array<{ branch: string; repository: string }>,
+   projectName: string,
+   translations: { [key: string]: string },
+   currentRepos: Array<{ branch: string; urlRepo: string }>,
+  ): void => {
+    let containsRepeated: boolean;
+    containsRepeated = reposData.filter(
+      (newItem: { branch: string; repository: string }) => _.findIndex(
+        currentRepos,
+        (currentItem: { branch: string; urlRepo: string }) =>
+          currentItem.urlRepo === newItem.repository  && currentItem.branch === newItem.branch,
+      ) > -1).length > 0;
+    if (containsRepeated) {
+      msgError(translations["search_findings.tab_resources.repeated_item"]);
+    } else {
+      let gQry: string;
+      gQry = `mutation {
+        addRepositories (
+          resourcesData: ${JSON.stringify(JSON.stringify(reposData))},
+          projectName: "${projectName}") {
+          success,
+          access,
+          resources {
+            environments,
+            repositories
+          }
         }
-      }
-    }`;
-    new Xhr().request(gQry, "An error occurred adding repositories")
-    .then((resp: AxiosResponse) => {
-      if (!resp.data.error && resp.data.data.addRepositories.success) {
-        if (resp.data.data.addRepositories.access) {
-          store.dispatch(actions.closeAddModal());
-          store.dispatch(actions.loadResources(
-            JSON.parse(resp.data.data.addRepositories.resources.repositories),
-            JSON.parse(resp.data.data.addRepositories.resources.environments),
-          ));
-          msgSuccess(
-            translations["search_findings.tab_resources.success"],
-            translations["search_findings.tab_users.title_success"],
-          );
+      }`;
+      new Xhr().request(gQry, "An error occurred adding repositories")
+      .then((resp: AxiosResponse) => {
+        if (!resp.data.error && resp.data.data.addRepositories.success) {
+          if (resp.data.data.addRepositories.access) {
+            store.dispatch(actions.closeAddModal());
+            store.dispatch(actions.loadResources(
+              JSON.parse(resp.data.data.addRepositories.resources.repositories),
+              JSON.parse(resp.data.data.addRepositories.resources.environments),
+            ));
+            msgSuccess(
+              translations["search_findings.tab_resources.success"],
+              translations["search_findings.tab_users.title_success"],
+            );
+          } else {
+            msgError(translations["proj_alerts.access_denied"]);
+          }
         } else {
-          msgError(translations["proj_alerts.access_denied"]);
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error("An error occurred adding repositories");
         }
-      } else {
+      })
+      .catch((error: string) => {
         msgError(translations["proj_alerts.error_textsad"]);
-        rollbar.error("An error occurred adding repositories");
-      }
-    })
-    .catch((error: string) => {
-      msgError(translations["proj_alerts.error_textsad"]);
-      rollbar.error(error);
-    });
+        rollbar.error(error);
+      });
+    }
 };
 
 const removeEnv: ((arg1: { [key: string]: string }, arg2: string) => void) =
@@ -228,48 +247,65 @@ const removeEnv: ((arg1: { [key: string]: string }, arg2: string) => void) =
   }
 };
 
-const saveEnvs: ((arg1: Array<{ environment: string }>,
-                  arg2: string, arg3: { [key: string]: string }) => void) =
-  (envsData: Array<{ environment: string }>, projectName: string,
-   translations: { [key: string]: string }): void => {
-    let gQry: string;
-    gQry = `mutation {
-      addEnvironments (
-        resourcesData: ${JSON.stringify(JSON.stringify(envsData))},
-        projectName: "${projectName}") {
-        success,
-        access,
-        resources {
-          environments,
-          repositories
+const saveEnvs: (
+  (arg1: Array<{ environment: string }>,
+   arg2: string,
+   arg3: { [key: string]: string },
+   arg4: Array<{ urlEnv: string }>,
+  ) => void) =
+  (envsData: Array<{ environment: string }>,
+   projectName: string,
+   translations: { [key: string]: string },
+   currentEnvs: Array<{ urlEnv: string }>,
+  ): void => {
+    let containsRepeated: boolean;
+    containsRepeated = envsData.filter(
+    (newItem: { environment: string }) => _.findIndex(
+       currentEnvs,
+       (currentItem: { urlEnv: string }) => currentItem.urlEnv === newItem.environment,
+    ) > -1).length > 0;
+    if (containsRepeated) {
+      msgError(translations["search_findings.tab_resources.repeated_item"]);
+    } else {
+      let gQry: string;
+      gQry = `mutation {
+        addEnvironments (
+          resourcesData: ${JSON.stringify(JSON.stringify(envsData))},
+          projectName: "${projectName}") {
+          success,
+          access,
+          resources {
+            environments,
+            repositories
+          }
         }
-      }
-    }`;
-    new Xhr().request(gQry, "An error occurred adding environments")
-    .then((resp: AxiosResponse) => {
-      if (!resp.data.error && resp.data.data.addEnvironments.success) {
-        if (resp.data.data.addEnvironments.access) {
-          store.dispatch(actions.closeAddModal());
-          store.dispatch(actions.loadResources(
-            JSON.parse(resp.data.data.addEnvironments.resources.repositories),
-            JSON.parse(resp.data.data.addEnvironments.resources.environments),
-          ));
-          msgSuccess(
-            translations["search_findings.tab_resources.success"],
-            translations["search_findings.tab_users.title_success"],
-          );
+      }`;
+      new Xhr().request(gQry, "An error occurred adding environments")
+      .then((resp: AxiosResponse) => {
+        if (!resp.data.error && resp.data.data.addEnvironments.success) {
+          if (resp.data.data.addEnvironments.access) {
+            store.dispatch(actions.closeAddModal());
+            store.dispatch(actions.loadResources(
+              JSON.parse(resp.data.data.addEnvironments.resources.repositories),
+              JSON.parse(resp.data.data.addEnvironments.resources.environments),
+            ));
+            msgSuccess(
+              translations["search_findings.tab_resources.success"],
+              translations["search_findings.tab_users.title_success"],
+            );
+          } else {
+            msgError(translations["proj_alerts.access_denied"]);
+          }
         } else {
-          msgError(translations["proj_alerts.access_denied"]);
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error("An error occurred adding repositories");
         }
-      } else {
+      })
+      .catch((error: string) => {
         msgError(translations["proj_alerts.error_textsad"]);
-        rollbar.error("An error occurred adding repositories");
-      }
-    })
-    .catch((error: string) => {
-      msgError(translations["proj_alerts.error_textsad"]);
-      rollbar.error(error);
-    });
+        rollbar.error(error);
+      });
+    }
 };
 
 const mapStateToProps: ((arg1: StateType<Reducer>) => IResourcesViewProps) =
@@ -526,8 +562,19 @@ const component: React.StatelessComponent<IResourcesViewProps> =
                 bsStyle="primary"
                 onClick={
                   props.addModal.type === "environment"
-                  ? (): void => { saveEnvs(props.addModal.envFields, props.projectName, props.translations); }
-                  : (): void => { saveRepos(props.addModal.repoFields, props.projectName, props.translations); }
+                  ? (): void => { saveEnvs(
+                      props.addModal.envFields,
+                      props.projectName, props.translations,
+                      props.environmentsDataset,
+                     );
+                   }
+                  : (): void => { saveRepos(
+                      props.addModal.repoFields,
+                      props.projectName,
+                      props.translations,
+                      props.repositoriesDataset,
+                     );
+                   }
                 }
               >
                 {props.translations["confirmmodal.proceed"]}

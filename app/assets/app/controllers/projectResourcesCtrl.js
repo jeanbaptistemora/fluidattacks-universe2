@@ -48,6 +48,7 @@ angular.module("FluidIntegrates").controller(
         "search_findings.tab_resources.branch",
         "search_findings.tab_resources.add_repository",
         "search_findings.tab_resources.remove_repository",
+        "search_findings.tab_resources.repeated_item",
         "search_findings.repositories_table.repository",
         "search_findings.repositories_table.branch",
 

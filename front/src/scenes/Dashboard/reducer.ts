@@ -12,8 +12,8 @@ interface IDashboardState {
       repoFields: Array<{ branch: string; repository: string }>;
       type: "repository" | "environment" | undefined;
     };
-    environments: Array<{ environment: string }>;
-    repositories: Array<{ branch: string; repository: string }>;
+    environments: Array<{ urlEnv: string }>;
+    repositories: Array<{ branch: string; urlRepo: string }>;
   };
 }
 

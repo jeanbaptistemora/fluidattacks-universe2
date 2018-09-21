@@ -192,6 +192,7 @@ const traducciones2 = {
     "no_selection": "Debe seleccionar un item de la tabla.",
     "password": "Contraseña",
     "remove_repository": "Remover",
+    "repeated_item": "Uno o varios items a añadir ya existen.",
     "repositories": "Repositorios",
     "repository": "Repositorio",
     "success": "Item agregado exitosamente.",
