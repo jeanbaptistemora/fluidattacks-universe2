@@ -1,58 +1,89 @@
-/* tslint:disable:jsx-no-lambda no-any
+/* tslint:disable:jsx-no-lambda
  * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
  * to call functions with props as params from the JSX element definition
  * without using lambda expressions () => {}
- *
- * NO-ANY: Disabling this rule is necessary because there are no specific types
- * for functions such as mapStateToProps and mapDispatchToProps used in the
- * redux wrapper of this component
  */
+import { AxiosResponse } from "axios";
 import PropTypes from "prop-types";
 import React from "react";
 import { Button, Checkbox } from "react-bootstrap";
+import { Reducer } from "redux";
 import { StateType } from "typesafe-actions";
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
-import rootReducer from "../../../../store/rootReducer";
 import reduxWrapper from "../../../../utils/reduxWrapper";
-import {
-  acceptLegal,
-  setRemember,
-} from "../../actions";
-
+import rollbar from "../../../../utils/rollbar";
+import Xhr from "../../../../utils/xhr";
+import * as actions from "../../actions";
 /**
  *  CompulsoryNotice properties
  */
 interface ICompulsoryNoticeProps {
-  btnAcceptText: string;
-  btnAcceptTooltip: string;
   id: string;
-  noticeText: string;
-  noticeTitle: string;
   open: boolean;
   rememberDecision: boolean;
-  rememberText: string;
-  rememberTooltip: string;
+  translations: { [key: string]: string };
+  loadDashboard(): void;
 }
 
-type RootState = StateType<typeof rootReducer>;
+const acceptLegal: ((arg1: ICompulsoryNoticeProps) => void) =
+  (props: ICompulsoryNoticeProps): void => {
+    let getLoginInfoQry: string;
+    getLoginInfoQry = `{
+      login{
+        authorized
+      }
+    }`;
+    new Xhr().request(getLoginInfoQry, "An error ocurred resolving user authorization")
+    .then((authorizationResp: AxiosResponse) => {
+      /* tslint:disable-next-line:no-any
+       * Disabling here is necessary because TypeScript relies
+       * on its JS base for functions like JSON.parse whose type is 'any'
+       */
+      const authorizedRespData: any = JSON.parse(JSON.stringify(authorizationResp.data)).data;
+      if (authorizedRespData.login.authorized) {
+        let acceptLegalQry: string;
+        acceptLegalQry = `mutation {
+          acceptLegal(remember:${props.rememberDecision}){
+            success
+          }
+        }`;
+        new Xhr().request(acceptLegalQry, "An error ocurred updating legal acceptance status")
+        .then((acceptResponse: AxiosResponse) => {
+          // tslint:disable-next-line:no-any
+          const acceptRespData: any = JSON.parse(JSON.stringify(acceptResponse.data)).data;
 
-const mapStateToProps: any = (state: RootState): any =>
-  ({
+          if (acceptRespData.acceptLegal.success) {
+            props.loadDashboard();
+          }
+        })
+        .catch((error: string) => {
+          rollbar.error(error);
+        });
+      }
+    })
+    .catch((error: string) => {
+      rollbar.error(error);
+    });
+};
+
+const mapStateToProps: ((arg1: StateType<Reducer>) => ICompulsoryNoticeProps) =
+  (state: StateType<Reducer>): ICompulsoryNoticeProps => ({
+    ...state,
     open: state.registration.legalNotice.open,
     rememberDecision: state.registration.legalNotice.rememberDecision,
-  });
+});
 
 const modalContent: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   (props: ICompulsoryNoticeProps): React.ReactNode => (
   <div>
-    <p>{props.noticeText}</p>
-    <p title={props.rememberTooltip}>
+    <p>{props.translations["legalNotice.description"]}</p>
+    <p title={props.translations["legalNotice.rememberCbo.tooltip"]}>
       <Checkbox
         checked={props.rememberDecision}
-        onClick={(): void => { store.dispatch(setRemember(!props.rememberDecision)); }}
+        onClick={(): void => { store.dispatch(actions.checkRemember()); }}
       >
-        {props.rememberText}
+        {props.translations["legalNotice.rememberCbo.text"]}
       </Checkbox>
     </p>
   </div>
@@ -62,23 +93,23 @@ const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   (props: ICompulsoryNoticeProps): React.ReactNode => (
   <Button
     bsStyle="primary"
-    title={props.btnAcceptTooltip}
-    onClick={(): void => { store.dispatch(acceptLegal(props.rememberDecision)); }}
+    title={props.translations["legalNotice.acceptBtn.tooltip"]}
+    onClick={(): void => { acceptLegal(props); }}
   >
-    {props.btnAcceptText}
+    {props.translations["legalNotice.acceptBtn.text"]}
   </Button>
 );
 
 /**
  * CompulsoryNotice component
  */
-export const compulsoryNoticeComponent: React.StatelessComponent<ICompulsoryNoticeProps> =
+export const component: React.StatelessComponent<ICompulsoryNoticeProps> =
   (props: ICompulsoryNoticeProps): JSX.Element => (
   <React.StrictMode>
     <Modal
       open={props.open}
-      onClose={(): void => { store.dispatch(acceptLegal(props.rememberDecision)); }}
-      headerTitle={props.noticeTitle}
+      onClose={(): void => { acceptLegal(props); }}
+      headerTitle={props.translations["legalNotice.title"]}
       content={modalContent(props)}
       footer={modalFooter(props)}
     />
@@ -88,16 +119,11 @@ export const compulsoryNoticeComponent: React.StatelessComponent<ICompulsoryNoti
 /**
  *  CompulsoryNotice propTypes Definition
  */
-compulsoryNoticeComponent.propTypes = {
-  btnAcceptText: PropTypes.string.isRequired,
-  btnAcceptTooltip: PropTypes.string,
+component.propTypes = {
   id: PropTypes.string.isRequired,
-  noticeText: PropTypes.string.isRequired,
-  noticeTitle: PropTypes.string.isRequired,
+  loadDashboard: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   rememberDecision: PropTypes.bool.isRequired,
-  rememberText: PropTypes.string.isRequired,
-  rememberTooltip: PropTypes.string,
 };
 
 /**
@@ -105,6 +131,6 @@ compulsoryNoticeComponent.propTypes = {
  */
 export const compulsoryNotice: React.StatelessComponent<ICompulsoryNoticeProps> = reduxWrapper
 (
-  compulsoryNoticeComponent,
+  component,
   mapStateToProps,
 );

@@ -11,9 +11,17 @@ import rootReducer from "./rootReducer";
 declare var window: any;
 const reduxDevTools: any = (): any =>
   (
-    window.__REDUX_DEVTOOLS_EXTENSION__
-    ? window.__REDUX_DEVTOOLS_EXTENSION__()
-    : undefined
+    /* tslint:disable-next-line:strict-type-predicates
+     * Disabling this rule is necessary because the following expression is
+     * misbelived to be always true by the linter while it is necessary for
+     * avoiding errors in the npm test environment where the object window
+     * doesn't exist.
+     */
+    typeof window === "undefined"
+    ? undefined
+    : window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : undefined
   );
 /* tslint:enable:no-any */
 

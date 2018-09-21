@@ -131,13 +131,9 @@ angular
     react2angular(
       compulsoryNotice,
       [
-        "btnAcceptText",
-        "btnAcceptTooltip",
         "id",
-        "rememberText",
-        "rememberTooltip",
-        "noticeText",
-        "noticeTitle",
+        "loadDashboard",
+        "translations",
       ],
     ),
   );

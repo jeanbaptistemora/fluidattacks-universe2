@@ -60,18 +60,18 @@ angular.module("FluidIntegrates").controller(
 
     $scope.initLegalNotice = function initLegalNotice () {
       $scope.alreadyLoggedIn = false;
-      $scope.legalNotice = {
-        "accept": {
-          "text": $translate.instant("legalNotice.acceptBtn.text"),
-          "tooltip": $translate.instant("legalNotice.acceptBtn.tooltip")
-        },
-        "remember": {
-          "text": $translate.instant("legalNotice.rememberCbo.text"),
-          "tooltip": $translate.instant("legalNotice.rememberCbo.tooltip")
-        },
-        "text": $translate.instant("legalNotice.description"),
-        "title": $translate.instant("legalNotice.title")
-      };
+      const translationStrings = [
+        "legalNotice.acceptBtn.text",
+        "legalNotice.acceptBtn.tooltip",
+        "legalNotice.rememberCbo.text",
+        "legalNotice.rememberCbo.tooltip",
+        "legalNotice.description",
+        "legalNotice.title"
+      ];
+      $scope.translations = {};
+      angular.forEach(translationStrings, (value) => {
+        $scope.translations[value] = $translate.instant(value);
+      });
       const infoReq = registerFactory.getLoginInfo();
       infoReq.then((response) => {
         const respData = response.data;
