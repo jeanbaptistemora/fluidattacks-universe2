@@ -35,7 +35,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IFileInputProps) =
     fileName: state.dashboard.fileInput.name,
   });
 
-const fileInputComponent: React.StatelessComponent<IFileInputProps> =
+export const fileInputComponent: React.StatelessComponent<IFileInputProps> =
   (props: IFileInputProps): JSX.Element => (
     <React.StrictMode>
       { props.visible

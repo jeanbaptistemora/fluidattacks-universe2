@@ -1,7 +1,7 @@
 import React from "react";
 import { expect } from "chai";
 import { shallow } from "enzyme";
-import FileInput from "./index";
+import { fileInputComponent as FileInput } from "./index";
 import "mocha";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -21,6 +21,7 @@ describe('File input', () => {
         id="test"
         type=".py"
         visible={true}
+        fileName=""
       />
     );
     expect(
