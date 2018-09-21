@@ -96,10 +96,10 @@ angular.module("FluidIntegrates").factory(
 
           // Firefox bug fix
           input.addEventListener("focus", () => {
-            input.classList.add("has-focus");
+            input.classList.add("has_focus");
           });
           input.addEventListener("blur", () => {
-            input.classList.remove("has-focus");
+            input.classList.remove("has_focus");
           });
         });
         $scope.evidenceDescription = [
@@ -212,10 +212,10 @@ angular.module("FluidIntegrates").factory(
 
           // Firefox bug fix
           input.addEventListener("focus", () => {
-            input.classList.add("has-focus");
+            input.classList.add("has_focus");
           });
           input.addEventListener("blur", () => {
-            input.classList.remove("has-focus");
+            input.classList.remove("has_focus");
           });
         });
       },
@@ -304,10 +304,10 @@ angular.module("FluidIntegrates").factory(
           });
           // Firefox bug fix
           input.addEventListener("focus", () => {
-            input.classList.add("has-focus");
+            input.classList.add("has_focus");
           });
           input.addEventListener("blur", () => {
-            input.classList.remove("has-focus");
+            input.classList.remove("has_focus");
           });
         });
       },

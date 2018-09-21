@@ -12,7 +12,7 @@ import button from "./components/RButton/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
 import exploitView from "./scenes/Dashboard/components/ExploitView/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
-import fileInput from "./scenes/Dashboard/components/FileInput/index";
+import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";

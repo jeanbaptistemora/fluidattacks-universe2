@@ -22,7 +22,7 @@
 }
 
 :local .inputfile:focus + label,
-.inputfile.has-focus + label {
+.inputfile.has_focus + label {
     outline: 1px dotted #000;
     outline: -webkit-focus-ring-color auto 5px;
 }
@@ -51,7 +51,7 @@
 }
 
 :local .inputfile_evidence:focus + label,
-.inputfile_evidence.has-focus + label,
+.inputfile_evidence.has_focus + label,
 .inputfile_evidence + label:hover {
     border-color: #8E1616;
 }
@@ -80,7 +80,7 @@
 }
 
 :local .inputfile_evidence:focus + label > strong,
-.inputfile_evidence.has-focus + label > strong,
+.inputfile_evidence.has_focus + label > strong,
 .inputfile_evidence + label:hover > strong {
     background-color: #8E1616;
 }

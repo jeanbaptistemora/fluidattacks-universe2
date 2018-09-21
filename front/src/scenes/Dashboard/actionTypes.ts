@@ -28,6 +28,9 @@ MODIFY_REPO_BRANCH = "dashboard/resources/add_modal/repo/modify_branch";
 let MODIFY_ENV_URL: string;
 MODIFY_ENV_URL = "dashboard/resources/add_modal/env/modify_url";
 
+let ADD_FILE_NAME: string;
+ADD_FILE_NAME = "dashboard/finding/description";
+
 export {
   LOAD_RESOURCES,
   ADD_REPO_FIELD,
@@ -39,4 +42,5 @@ export {
   MODIFY_ENV_URL,
   MODIFY_REPO_URL,
   MODIFY_REPO_BRANCH,
+  ADD_FILE_NAME,
 };

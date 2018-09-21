@@ -2,6 +2,9 @@ import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 
 interface IDashboardState {
+  fileInput: {
+    name: string;
+  };
   resources: {
     addModal: {
       envFields: Array<{ environment: string }>;
@@ -15,6 +18,9 @@ interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
+  fileInput: {
+    name: "",
+  },
   resources: {
     addModal: {
       envFields: [{ environment: ""}],
@@ -164,6 +170,13 @@ const dashboard: DashboardReducer =
                 : field.environment,
               }))],
           },
+        },
+      };
+      case actionType.ADD_FILE_NAME:
+      return {
+        ...state,
+        fileInput: {
+          name: action.payload.newValue[0].name,
         },
       };
     default:

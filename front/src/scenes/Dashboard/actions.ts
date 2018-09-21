@@ -82,3 +82,11 @@ export const modifyEnvUrl: DashboardAction =
       },
       type: actionType.MODIFY_ENV_URL,
 });
+
+export const addFileName: DashboardAction =
+  (newValue: string): IActionStructure => ({
+      payload: {
+        newValue,
+      },
+      type: actionType.ADD_FILE_NAME,
+});

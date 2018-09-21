@@ -20180,7 +20180,7 @@ div.dataTables_wrapper div.dataTables_length label select {
     /* 10px 20px */
 }
 .inputfile:focus + label,
-.inputfile.has-focus + label {
+.inputfile.has_focus + label {
     outline: 1px dotted #000;
     outline: -webkit-focus-ring-color auto 5px;
 }
@@ -20207,7 +20207,7 @@ div.dataTables_wrapper div.dataTables_length label select {
     padding: 0;
 }
 .inputfile-evidence:focus + label,
-.inputfile-evidence.has-focus + label,
+.inputfile-evidence.has_focus + label,
 .inputfile-evidence + label:hover {
     border-color: #8E1616;
 }
@@ -20232,7 +20232,7 @@ div.dataTables_wrapper div.dataTables_length label select {
     display: inline-block;
 }
 .inputfile-evidence:focus + label strong,
-.inputfile-evidence.has-focus + label strong,
+.inputfile-evidence.has_focus + label strong,
 .inputfile-evidence + label:hover strong {
     background-color: #8E1616;
 }
