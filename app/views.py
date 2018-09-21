@@ -993,10 +993,14 @@ def update_evidence_text(request):
     parameters = request.POST.dict()
     try:
         generic_dto = FindingDTO()
-        generic_dto.create_evidence_description(parameters)
+        evidence_description_dict = \
+                     generic_dto.create_evidence_description(parameters)
+        evidence_description_info= \
+                     forms_utils.to_formstack(evidence_description_dict["data"])
         generic_dto.to_formstack()
         api = FormstackAPI()
-        request = api.update(generic_dto.request_id, generic_dto.data)
+        request = api.update(evidence_description_dict["request_id"],\
+                             evidence_description_info)
         if request:
             return util.response([], 'success', False)
         rollbar.report_message('Error: An error occurred updating evidence description', 'error', request)

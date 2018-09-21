@@ -90,25 +90,18 @@ class FindingDTO(object):
 
     def create_evidence_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """
-        if "data[id]" in parameter:
-            self.request_id \
-                = parameter["data[id]"]
-        if "data[" + parameter["data[field]"] + "]" in parameter:
-            if parameter["data[field]"] == "evidenceDescription1":
-                self.data[self.DOC_CMNT1] \
-                = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "evidenceDescription2":
-                self.data[self.DOC_CMNT2] \
-                = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "evidenceDescription3":
-                self.data[self.DOC_CMNT3] \
-                = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "evidenceDescription4":
-                self.data[self.DOC_CMNT4] \
-                = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "evidenceDescription5":
-                self.data[self.DOC_CMNT5] \
-                = parameter["data[" + parameter["data[field]"] + "]"]
+        evidence_description_fields = {
+            "53713106":"evidenceDescription1",
+            "53713149":"evidenceDescription2",
+            "53713153":"evidenceDescription3",
+            "53714417":"evidenceDescription4",
+            "53714455":"evidenceDescription5"
+        }
+        parsed_dict = {k:parameter["data[" + v + "]"] \
+                      for (k, v) in evidence_description_fields.items() \
+                      if "data[" + v + "]" in parameter.keys()}
+        return {"data":parsed_dict, "request_id":parameter["data[id]"]}
+
     def create_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """
         if "data[id]" in parameter:
