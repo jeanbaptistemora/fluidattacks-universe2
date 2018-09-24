@@ -449,10 +449,19 @@ angular.module("FluidIntegrates").factory(
        */
       "usersByProject" (project) {
         const oopsAc = "An error occurred getting events";
-        return $xhr.get($q, `${BASE.url}get_users_login`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
-        }, oopsAc);
+        const gQry = `{
+          projectUsers(projectName:"${project}"){
+            email,
+            role,
+            responsability,
+            phoneNumber,
+            organization,
+            firstLogin,
+            lastLogin,
+            access
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }

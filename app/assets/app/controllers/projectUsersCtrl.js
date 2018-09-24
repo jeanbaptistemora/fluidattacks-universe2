@@ -134,50 +134,53 @@ angular.module("FluidIntegrates").controller(
             if (angular.isUndefined(response.data)) {
               location.reload();
             }
-            $scope.view.project = true;
-            const usersData = response.data;
-            angular.forEach(usersData, (element) => {
-              element.userRole = $translate.instant(`${"search_findings." +
-                                            "tab_users."}${element.userRole}`);
-              const DAYS_IN_MONTH = 30;
-              if (element.usersLogin[0] >= DAYS_IN_MONTH) {
-                const ROUNDED_MONTH = Math.round(element.usersLogin[0] /
-                                               DAYS_IN_MONTH);
-                element.usersLogin = ROUNDED_MONTH +
-                                  $translate.instant("search_findings." +
-                                                "tab_users.months_ago");
-              }
-              else if (element.usersLogin[0] > 0 &&
-                       element.usersLogin[0] < DAYS_IN_MONTH) {
-                element.usersLogin = element.usersLogin[0] +
-                                  $translate.instant("search_findings." +
-                                                "tab_users.days_ago");
-              }
-              else if (element.usersLogin[0] === -1) {
-                element.usersLogin = "-";
-                element.usersFirstLogin = "-";
-              }
-              else {
-                const SECONDS_IN_HOUR = 3600;
-                const ROUNDED_HOUR = Math.round(element.usersLogin[1] /
-                                               SECONDS_IN_HOUR);
-                const SECONDS_IN_MINUTES = 60;
-                const ROUNDED_MINUTES = Math.round(element.usersLogin[1] /
-                                                  SECONDS_IN_MINUTES);
-                if (ROUNDED_HOUR >= 1 &&
-                    ROUNDED_MINUTES >= SECONDS_IN_MINUTES) {
-                  element.usersLogin = ROUNDED_HOUR +
-                                $translate.instant("search_findings." +
-                                              "tab_users.hours_ago");
+            else {
+              $scope.view.project = true;
+              const usersData = response.data.projectUsers;
+              angular.forEach(usersData, (user) => {
+                user.role = $translate.instant(`${"search_findings." +
+                                              "tab_users."}${user.role}`);
+                user.lastLogin = angular.fromJson(user.lastLogin);
+                const DAYS_IN_MONTH = 30;
+                if (user.lastLogin[0] >= DAYS_IN_MONTH) {
+                  const ROUNDED_MONTH = Math.round(user.lastLogin[0] /
+                                                 DAYS_IN_MONTH);
+                  user.lastLogin = ROUNDED_MONTH +
+                                    $translate.instant("search_findings." +
+                                                  "tab_users.months_ago");
+                }
+                else if (user.lastLogin[0] > 0 &&
+                         user.lastLogin[0] < DAYS_IN_MONTH) {
+                  user.lastLogin = user.lastLogin[0] +
+                                    $translate.instant("search_findings." +
+                                                  "tab_users.days_ago");
+                }
+                else if (user.lastLogin[0] === -1) {
+                  user.lastLogin = "-";
+                  user.firstLogin = "-";
                 }
                 else {
-                  element.usersLogin = ROUNDED_MINUTES +
+                  const SECONDS_IN_HOUR = 3600;
+                  const ROUNDED_HOUR = Math.round(user.lastLogin[1] /
+                                                 SECONDS_IN_HOUR);
+                  const SECONDS_IN_MINUTES = 60;
+                  const ROUNDED_MINUTES = Math.round(user.lastLogin[1] /
+                                                    SECONDS_IN_MINUTES);
+                  if (ROUNDED_HOUR >= 1 &&
+                      ROUNDED_MINUTES >= SECONDS_IN_MINUTES) {
+                    user.lastLogin = ROUNDED_HOUR +
                                   $translate.instant("search_findings." +
-                                                "tab_users.minutes_ago");
+                                                "tab_users.hours_ago");
+                  }
+                  else {
+                    user.lastLogin = ROUNDED_MINUTES +
+                                    $translate.instant("search_findings." +
+                                                  "tab_users.minutes_ago");
+                  }
                 }
-              }
-            });
-            $scope.loadUsersInfo(projectName, vlang, usersData);
+              });
+              $scope.loadUsersInfo(projectName, vlang, usersData);
+            }
           }
           else if (response.error) {
             if (response.message === "Access denied") {
@@ -198,8 +201,6 @@ angular.module("FluidIntegrates").controller(
 
       angular.element("#tblUsers").bootstrapTable("destroy");
       angular.element("#tblUsers").bootstrapTable({
-        "cookie": true,
-        "cookieIdTable": "saveIdUser",
         data,
         "locale": vlang
       });

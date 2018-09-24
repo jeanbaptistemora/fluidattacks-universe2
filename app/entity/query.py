@@ -1,7 +1,13 @@
+# pylint: disable=relative-beyond-top-level
+# Disabling this rule is necessary for importing modules beyond the top level
+# directory.
 from .alert import Alert
 from .login import Login
 from .events import Events
 from .resource import Resource
+from .user import User
+from ..dao import integrates_dao
+from .. import util
 # pylint: disable=F0401
 from app.api.formstack import FormstackAPI
 from graphene import Field, String, ObjectType, List
@@ -21,6 +27,8 @@ class Query(ObjectType):
     login = Field(Login)
 
     resources = Field(Resource, project_name=String(required=True))
+
+    project_users = List(User, project_name=String(required=True))
 
     def resolve_alert(self, info, project=None, organization=None):
         """ Resolve for alert """
@@ -45,3 +53,16 @@ class Query(ObjectType):
 
     def resolve_resources(self, info, project_name):
         return Resource(info, project_name)
+
+    def resolve_project_users(self, info, project_name):
+        initialEmails = integrates_dao.get_project_users(project_name.lower())
+        initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
+        userEmailList = util.user_email_filter(
+            initialEmailsList,
+            info.context.session['username']
+        )
+        if userEmailList:
+            data = [User(info, project_name, user_email) for user_email in userEmailList]
+        else:
+            data = []
+        return data
