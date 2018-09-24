@@ -84,7 +84,7 @@ class Xhr {
         getEnvironment() === "production"
         ? `${PRODUCTION_URL}/integrates/api`
         : "api",
-        query,
+        {query},
       );
     // tslint:disable-next-line:no-floating-promises
     promise.then(() => {

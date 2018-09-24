@@ -48,9 +48,6 @@ from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime, timedelta
 from backports import csv
-from .entity.query import Query
-from .entity.mutations import Mutations
-from graphene import Schema
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
 client_s3 = boto3.client('s3',
@@ -1786,17 +1783,6 @@ def edit_user_information(parameters, project, request):
     elif is_customeradmin(project, email):
         integrates_dao.remove_role_to_project_dynamo(project, email, "customeradmin")
 
-@never_cache
-@require_http_methods(["POST"])
-@authenticate
-def graphql_api(request):
-    query = request.body
-    schema = Schema(query=Query, mutation=Mutations)
-    result = schema.execute(query, context_value=request)
-    if result.errors:
-        for error in result.errors:
-            rollbar.report_message('GraphQL Error: ' + str(error), 'error', request)
-    return util.response(result.data, 'success', False)
 
 @csrf_exempt
 @require_http_methods(["GET"])

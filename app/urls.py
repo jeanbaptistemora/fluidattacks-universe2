@@ -1,9 +1,13 @@
 """ File for linking routes between http queries and django views. """
 
 # pylint: disable=E0402
+from __future__ import absolute_import
 from . import views
 from . import services
 from django.conf.urls import url, include, handler400, handler403, handler404, handler500
+from graphene_django.views import GraphQLView
+from .entity import schema
+from django.conf import settings
 
 # pylint: disable=W0104
 handler400, handler403, handler404, handler500;
@@ -26,7 +30,8 @@ urlpatterns = [
     url(r'^registration/?$', views.registration, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^forms/?\.*$', views.forms),
-    url(r'^api/?\.*$', views.graphql_api, name='graphql_api'),
+    url(r'^api/?\.*$',
+        GraphQLView.as_view(graphiql=True if settings.DEBUG else False, schema=schema.schema)),
     # Project view.
     url(r'^project_indicators/?\.*$', views.project_indicators),
     url(r'^project_findings/?\.*$', views.project_findings),

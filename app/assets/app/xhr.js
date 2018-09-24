@@ -107,7 +107,7 @@ var $xhr = new class xhr {
   get($q, $url, $data, text = {}){ return this.request("get", $q, $url, $data, text) }
   post($q, $url, $data, text = {}){ return this.request("post", $q, $url, $data, text) }
   fetch($q, $data, text = {}){
-    return this.request("post", $q, BASE.url + "api", $data, text);
+    return this.request("post", $q, BASE.url + "api", {query: $data}, text);
   }
 };
 //Run ajax config

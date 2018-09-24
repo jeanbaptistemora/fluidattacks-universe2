@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'analytical',
     'intercom',
     'app.slackbot',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
