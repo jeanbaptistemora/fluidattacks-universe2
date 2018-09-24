@@ -78,7 +78,7 @@
     "chart.js": "2.7.2",
     "@types/chart.js": "2.7.28",
     "react-chartjs-2": "2.7.4",
-    "rollbar": "2.4.4",
+    "rollbar": "2.4.7",
     "uninstall": "0.0.0",
     "react-textarea-autosize": "7.0.4",
     "@types/react-textarea-autosize": "4.3.3",
