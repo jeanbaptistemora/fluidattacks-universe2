@@ -31,20 +31,39 @@ def create_dict(remission_submission):
     remission_dict = merge_dicts_list_into_dict(remission_submission["data"])
     return remission_dict
 
-def getFindingType(cssv2_dict):
+def get_finding_type(cssv2_dict):
     if 'finding_type' not in cssv2_dict or cssv2_dict['finding_type'] == 'Seguridad':
         finding_type = 'Vulnerabilidad'
     else:
         finding_type = cssv2_dict['finding_type']
     return finding_type
 
-def isExploitable(explotability):
+def get_impact(criticity):
+    criticity = float(criticity)
+    impact = "Alto"
+    if(criticity <= 3.9):
+        impact = "Bajo"
+    elif(criticity <= 6.9):
+        impact = "Medio"
+    else:
+        impact = "Alto"
+    return impact
+
+def get_cwe_url (cwe):
+    try:
+        value = int(cwe)
+        urlbase = 'https://cwe.mitre.org/data/definitions/:id.html'
+        return urlbase.replace(':id', str(value))
+    except ValueError:
+        return 'None'
+
+def is_exploitable(explotability):
     if explotability == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
        or explotability == '0.950 | Funcional: Existe exploit':
-        isExploitable = 'Si'
+        is_exploitable = 'Si'
     else:
-        isExploitable = 'No'
-    return isExploitable
+        is_exploitable = 'No'
+    return is_exploitable
 
 def to_formstack(data):
     new_data = dict()

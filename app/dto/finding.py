@@ -222,9 +222,9 @@ class FindingDTO(object):
         self.data["timestamp"] = request_arr["timestamp"]
         if sess_obj is not None:
             sess_obj.session["drive_urls"] = []
-        self.parse_description(request_arr)
+        self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_cssv2(request_arr))
-        self.parse_project(request_arr)
+        self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
         return self.data
 
@@ -232,93 +232,56 @@ class FindingDTO(object):
         self.data = dict()
         self.data["id"] = submission_id
         self.data["timestamp"] = request_arr["timestamp"]
-        self.parse_description(request_arr)
-        self.parse_project(request_arr)
+        self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
+        self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
         return self.data
 
     def parse_description(self, request_arr): # noqa: C901
         "Convert description of a finding into a formstack format"
+        initial_dict = forms.create_dict(request_arr)
         self.data["timestamp"] = request_arr["timestamp"]
-        for finding in request_arr["data"]:
-            if finding["field"] == self.FINDING:
-                self.data["finding"] = finding["value"]
-            if finding["field"] == self.SUBSCRIPTION:
-                self.data["suscripcion"] = finding["value"]
-            if finding["field"] == self.CLIENT_CODE:
-                self.data["codigo_cliente"] = finding["value"]
-            if finding["field"] == self.PROBABILITY:
-                self.data["probability"] = finding["value"]
-            if finding["field"] == self.SEVERITY:
-                self.data["severity"] = finding["value"]
-            if finding["field"] == self.RISK_LEVEL:
-                self.data["nivel_riesgo"] = finding["value"]
-            if finding["field"] == self.CARDINALITY:
-                self.data["openVulnerabilities"] = finding["value"]
-            if finding["field"] == self.WHERE:
-                self.data["where"] = finding["value"]
-            if finding["field"] == self.CRITICITY:
-                self.data["criticity"] = finding["value"]
-                criticity = float(finding["value"])
-                if(criticity <= 3.9):
-                    self.data["impact"] = "Bajo"
-                elif(criticity <= 6.9):
-                    self.data["impact"] = "Medio"
-                else:
-                    self.data["impact"] = "Alto"
-            if finding["field"] == self.VULNERABILITY:
-                self.data["vulnerability"] = finding["value"]
-            if finding["field"] == self.THREAT:
-                self.data["threat"] = finding["value"]
-            if finding["field"] == self.APPLICABLE_COMPONENT:
-                self.data["componente_aplicativo"] = finding["value"]
-            if finding["field"] == self.TEST_TYPE:
-                self.data["testType"] = finding["value"]
-            if finding["field"] == self.RISK:
-                self.data["riesgo"] = finding["value"]
-            if finding["field"] == self.REQUIREMENTS:
-                self.data["requirements"] = finding["value"]
-            if finding["field"] == self.EFFECT_SOLUTION:
-                self.data["effectSolution"] = finding["value"]
-            if finding["field"] == self.KB:
-                self.data["kb"] = finding["value"]
-            if finding["field"] == self.TYPE:
-                self.data["type"] = finding["value"]
-            if finding["field"] == self.AFFECTED_SYSTEMS:
-                self.data["affectedSystems"] = finding["value"]
-            if finding["field"] == self.ATTACK_VECTOR:
-                self.data["attackVector"] = finding["value"]
-            if finding["field"] == self.FINDING_TYPE:
-                self.data["finding_type"] = finding["value"]
-            if finding["field"] == self.REVISION:
-                self.data["revision"] = finding["value"]
-            if finding["field"] == self.SCENARIO:
-                self.data["scenario"] = finding["value"]
-            if finding["field"] == self.AMBIT:
-                self.data["ambito"] = finding["value"]
-            if finding["field"] == self.CATEGORY:
-                self.data["category"] = finding["value"]
-            if finding["field"] == self.ACTOR:
-                self.data["actor"] = finding["value"]
-            if finding["field"] == self.TREATMENT:
-                self.data["treatment"] = finding["value"]
-            if finding["field"] == self.TREATMENT_JUSTIFICATION:
-                self.data["treatmentJustification"] = finding["value"]
-            if finding["field"] == self.TREATMENT_MANAGER:
-                self.data["treatmentManager"] = finding["value"]
-            if finding["field"] == self.EXTERNAL_BTS:
-                self.data["externalBts"] = finding["value"]
-            if finding["field"] == self.LAST_VULNERABILITY:
-                self.data["lastVulnerability"] = finding["value"]
-            if finding["field"] == self.RELEASE_DATE:
-                self.data["releaseDate"] = finding["value"]
-            if finding["field"] == self.CWE:
-                try:
-                    value = int(finding["value"])
-                    urlbase = 'https://cwe.mitre.org/data/definitions/:id.html'
-                    self.data["cwe"] = urlbase.replace(':id', str(value))
-                except ValueError:
-                    self.data["cwe"] = 'None'
+        evidence_description_fields = {
+            "32201810":"finding",
+            "54346108":"suscripcion",
+            "38193365":"codigo_cliente",
+            "38193660":"probability",
+            "38193659":"severity",
+            "38194645":"nivel_riesgo",
+            "38255025":"openVulnerabilities",
+            "38193357":"where",
+            "38531129":"criticity",
+            "32202728":"vulnerability",
+            "38193361":"threat",
+            "38209122":"componente_aplicativo",
+            "38254692":"testType",
+            "38193362":"riesgo",
+            "38254586":"requirements",
+            "38619077":"effectSolution",
+            "38861739":"kb",
+            "38392454":"type",
+            "48092123":"affectedSystems",
+            "48092088":"attackVector",
+            "54319180":"finding_type",
+            "54856382":"revision",
+            "38692215":"scenario",
+            "38254691":"ambito",
+            "46956845":"category",
+            "38606398":"actor",
+            "59350064":"treatment",
+            "59351642":"treatmentJustification",
+            "59381058":"treatmentManager",
+            "56614832":"externalBts",
+            "63672923":"lastVulnerability",
+            "64313858":"releaseDate",
+            "38899046":"cwe"
+        }
+        parsed_dict = {v:initial_dict[k] \
+                      for (k, v) in evidence_description_fields.items() \
+                      if k in initial_dict.keys()}
+        parsed_dict["impact"] = forms.get_impact(parsed_dict["criticity"])
+        parsed_dict["cwe"] = forms.get_cwe_url(parsed_dict["cwe"])
+        return parsed_dict
 
     def parse_description_mail(self, request_arr): # noqa: C901
         "Convert description of a finding into a formstack format para envio de mail"
@@ -353,25 +316,26 @@ class FindingDTO(object):
         parsed_dict = {v:initial_dict[k] \
                       for (k, v) in severity_fields.items() \
                       if k in initial_dict.keys()}
-        parsed_dict['exploitable'] = forms.isExploitable(parsed_dict['exploitability'])
-        parsed_dict['clientFindingType'] = forms.getFindingType(parsed_dict)
+        parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
+        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         return parsed_dict
 
     def parse_project(self, request_arr):
         "Convert project info in formstack format"
-        for finding in request_arr["data"]:
-            if finding["field"] == self.ANALIST:
-                self.data["analyst"] = finding["value"]
-            if finding["field"] == self.LEADER:
-                self.data["leader"] = finding["value"]
-            if finding["field"] == self.INTERESADO:
-                self.data["interested"] = finding["value"]
-            if finding["field"] == self.FLUID_PROJECT:
-                self.data["fluidProject"] = finding["value"]
-            if finding["field"] == self.CLIENT_PROJECT:
-                self.data["clientProject"] = finding["value"]
-            if finding["field"] == self.CONTEXT:
-                self.data["context"] = finding["value"]
+        initial_dict = forms.create_dict(request_arr)
+        project_fields = {
+            "32201744":"analyst",
+            "38193323":"leader",
+            "38392409":"interested",
+            "32201732":"fluidProject",
+            "38209122":"clientProject",
+            "38404474":"context"
+        }
+        parsed_dict = {v:initial_dict[k] \
+                      for (k, v) in project_fields.items() \
+                      if k in initial_dict.keys()}
+        return parsed_dict
+
 
     def parse_evidence_info(self, request_arr): # noqa: C901
         "Convert the score of a finding into a formstack format"
