@@ -251,6 +251,15 @@ const traducciones2 = {
     "user_organization": "Organización",
     "user_responsibility": "Responsabilidad",
     "wrong_format": "El correo ingresado no es valido."
+  },
+  "users_table": {
+    "firstlogin": "Primer ingreso",
+    "lastlogin": "Último ingreso",
+    "phoneNumber": "Número Telefónico",
+    "userOrganization": "Organización",
+    "userResponsibility": "Responsabilidad",
+    "userRole": "Rol",
+    "usermail": "Email"
   }
 },
   "tab_container": {

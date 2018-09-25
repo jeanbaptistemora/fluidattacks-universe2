@@ -190,35 +190,9 @@ def project_resources(request):
 @never_cache
 @authenticate
 def project_users(request):
-    language = request.GET.get('l', 'en')
-    dicLang = {
-        "search_findings": {
-            "users_table": {
-               "userOrganization": "Organization",
-               "usermail": "User email",
-               "firstlogin": "First login",
-               "lastlogin": "Last login",
-               "phoneNumber": "Phone Number",
-               "userResponsibility": "Responsibility",
-               "userRole": "Role"
-            },
-        }
-    }
-    if language == "es":
-        dicLang = {
-            "search_findings": {
-                "users_table": {
-                   "userOrganization": "Organización",
-                   "usermail": "Email",
-                   "firstlogin": "Primer ingreso",
-                   "lastlogin": "Último ingreso",
-                   "phoneNumber": "Número Telefónico",
-                   "userResponsibility": "Responsabilidad",
-                   "userRole": "Rol"
-                },
-            }
-        }
-    return render(request, "project/users.html", dicLang)
+    "users view"
+    parameters = {}
+    return render(request, "project/users.html", parameters)
 
 @csrf_exempt
 @never_cache

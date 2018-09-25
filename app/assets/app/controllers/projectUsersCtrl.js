@@ -69,13 +69,6 @@ angular.module("FluidIntegrates").controller(
     usersFtry
   ) {
     $scope.init = function init () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -92,7 +85,7 @@ angular.module("FluidIntegrates").controller(
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
-        $scope.loadUsersInfo(projectName, vlang, $scope.usersData);
+        $scope.loadUsersInfo(projectName, $scope.usersData);
       }
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
@@ -102,13 +95,6 @@ angular.module("FluidIntegrates").controller(
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.search = function search () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
       const projectName = $scope.project;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
@@ -179,7 +165,7 @@ angular.module("FluidIntegrates").controller(
                   }
                 }
               });
-              $scope.loadUsersInfo(projectName, vlang, usersData);
+              $scope.loadUsersInfo(projectName, usersData);
             }
           }
           else if (response.error) {
@@ -196,21 +182,52 @@ angular.module("FluidIntegrates").controller(
       return true;
     };
 
-    $scope.loadUsersInfo = function loadUsersInfo (project, vlang, data) {
-      // Eventuality table configuration
-
-      angular.element("#tblUsers").bootstrapTable("destroy");
-      angular.element("#tblUsers").bootstrapTable({
-        data,
-        "locale": vlang
-      });
-      angular.element("#tblUsers").bootstrapTable("refresh");
-      angular.element("#tblUsers").bootstrapTable("hideColumn", "selection");
-      if ($scope.isProjectManager || $scope.isAdmin) {
-        angular.element("#tblUsers").bootstrapTable("showColumn", "selection");
-      }
-      angular.element("#search_section").show();
-      angular.element("[data-toggle=\"tooltip\"]").tooltip();
+    $scope.loadUsersInfo = function loadUsersInfo (project, data) {
+      // Users table configuration
+      $scope.tblUsersHeaders = [
+        {
+          "dataField": "email",
+          "header": $translate.instant("search_findings.users_table.usermail"),
+          "width": "27%"
+        },
+        {
+          "dataField": "role",
+          "header":
+          $translate.instant("search_findings.users_table.userRole"),
+          "width": "8%"
+        },
+        {
+          "dataField": "responsability",
+          "header":
+          $translate.instant("search_findings.users_table.userResponsibility"),
+          "width": "12%"
+        },
+        {
+          "dataField": "phoneNumber",
+          "header":
+          $translate.instant("search_findings.users_table.phoneNumber"),
+          "width": "10%"
+        },
+        {
+          "dataField": "organization",
+          "header":
+          $translate.instant("search_findings.users_table.userOrganization"),
+          "width": "10%"
+        },
+        {
+          "dataField": "firstLogin",
+          "header":
+          $translate.instant("search_findings.users_table.firstlogin"),
+          "width": "12%"
+        },
+        {
+          "dataField": "lastLogin",
+          "header":
+          $translate.instant("search_findings.users_table.lastlogin"),
+          "width": "12%"
+        }
+      ];
+      $scope.usersDataset = data;
     };
 
     $scope.addUser = function addUser () {

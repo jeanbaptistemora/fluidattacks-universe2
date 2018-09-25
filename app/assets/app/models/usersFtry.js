@@ -126,17 +126,28 @@ angular.module("FluidIntegrates").factory(
       },
       "editUser" ($scope) {
         const DATA_IN_SELECTED_ROW =
-                angular.element("#tblUsers").bootstrapTable("getSelections")[0];
-        if (angular.isUndefined(DATA_IN_SELECTED_ROW)) {
+         angular.element("#tblUsers tr input:checked").closest("tr").
+           children();
+
+        if (angular.isUndefined(DATA_IN_SELECTED_ROW) ||
+                                            DATA_IN_SELECTED_ROW.length === 0) {
           $msg.error($translate.instant("search_findings.tab_users." +
                                     "no_selection"));
         }
         else {
-          const USER_EMAIL = DATA_IN_SELECTED_ROW.users;
-          const USER_ROLE = DATA_IN_SELECTED_ROW.userRole;
-          const USER_RESPONSAILITY = DATA_IN_SELECTED_ROW.userResponsibility;
-          const USER_PHONE = DATA_IN_SELECTED_ROW.userPhone;
-          const USER_ORGANIZATION = DATA_IN_SELECTED_ROW.usersOrganization;
+          const EMAIL_INDEX = 1;
+          const ROLE_INDEX = 2;
+          const RESPONSABILITY_INDEX = 3;
+          const PHONE_INDEX = 4;
+          const ORGANIZATION_INDEX = 5;
+
+          const USER_EMAIL = DATA_IN_SELECTED_ROW[EMAIL_INDEX].textContent;
+          const USER_ROLE = DATA_IN_SELECTED_ROW[ROLE_INDEX].textContent;
+          const USER_RESPONSAILITY =
+            DATA_IN_SELECTED_ROW[RESPONSABILITY_INDEX].textContent;
+          const USER_PHONE = DATA_IN_SELECTED_ROW[PHONE_INDEX].textContent;
+          const USER_ORGANIZATION =
+            DATA_IN_SELECTED_ROW[ORGANIZATION_INDEX].textContent;
           const descData = {
             "company": Organization.toLowerCase(),
             "project": $scope.project.toLowerCase()
@@ -231,13 +242,15 @@ angular.module("FluidIntegrates").factory(
 
       "removeUserAccess" ($scope) {
         const DATA_IN_SELECTED_ROW =
-                angular.element("#tblUsers").bootstrapTable("getSelections")[0];
-        if (angular.isUndefined(DATA_IN_SELECTED_ROW)) {
+         angular.element("#tblUsers tr input:checked").closest("tr").
+           children();
+        if (angular.isUndefined(DATA_IN_SELECTED_ROW) ||
+                                            DATA_IN_SELECTED_ROW.length === 0) {
           $msg.error($translate.instant("search_findings.tab_users." +
            "no_selection"));
         }
         else {
-          const USER_EMAIL_TO_REMOVE = DATA_IN_SELECTED_ROW.users;
+          const USER_EMAIL_TO_REMOVE = DATA_IN_SELECTED_ROW[1].textContent;
           const req = projectFtry2.removeAccessIntegrates(
             USER_EMAIL_TO_REMOVE,
             $stateParams.project.toLowerCase()

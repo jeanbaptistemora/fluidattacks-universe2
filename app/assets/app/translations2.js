@@ -250,6 +250,15 @@ const translations2 = {
      "user_organization": "Organization",
      "user_responsibility": "Responsibility",
      "wrong_format": "The email format is not valid."
+   },
+   "users_table": {
+     "firstlogin": "First login",
+     "lastlogin": "Last login",
+     "phoneNumber": "Phone Number",
+     "userOrganization": "Organization",
+     "userResponsibility": "Responsibility",
+     "userRole": "Role",
+     "usermail": "User email"
    }
  },
   "tab_container": {

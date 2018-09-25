@@ -113,44 +113,23 @@
                       </div>
                     </div>
                     <div class="row">
-                                <div class="col-md-12 col-sm-12" >
-                                    <table  id="tblUsers"
-                                            data-classes="table table-hover table-striped"
-                                            data-cookie="true"
-                                            data-cookie-id-table="saveIdUser"
-                                            data-striped="true"
-                                            data-pagination="true"
-                                            data-page-size="15"
-                                            data-toolbar="#toolbar2"
-                                            data-search="true"
-                                            data-show-export="true"
-                                            data-export-types="['csv','excel']"
-                                            data-export-data-type="all"
-                                            data-sort-order="asc"
-                                            data-sort-name="lastLogin"
-                                            data-click-to-select="true"
-                                            data-single-select="true">
-                                        <thead>
-                                            <tr>
-                                              <th data-field="selection" data-checkbox="true" data-width="2%"></th>
-                                              <th data-field="email" data-halign="left" data-valign="middle" data-width="30%" data-sortable="true"
-                                              data-class="lower-text">{{ search_findings.users_table.usermail }}</th>
-                                              <th data-field="role" data-halign="left" data-valign="middle" data-width="8%" data-sortable="true">{{ search_findings.users_table.userRole }}</th>
-                                              <th data-field="responsability" data-halign="left" data-valign="middle" data-width="8%" data-sortable="true">{{ search_findings.users_table.userResponsibility }}</th>
-                                              <th data-field="phoneNumber" data-halign="left" data-valign="middle" data-width="10%" data-sortable="true">{{ search_findings.users_table.phoneNumber }}</th>
-                                              <th data-field="organization" data-halign="left" data-valign="middle" data-width="10%" data-sortable="true">{{ search_findings.users_table.userOrganization }}</th>
-                                              <th data-field="firstLogin" data-halign="left" data-valign="middle" data-width="20%" data-sortable="true">{{ search_findings.users_table.firstlogin }}</th>
-                                              <th data-field="lastLogin" data-halign="left" data-valign="middle" data-width="15%" data-sortable="true" data-sorter="lastLogin">{{ search_findings.users_table.lastlogin }}</th>
-                                        </thead>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                     </div>
+                      <div class="col-md-12 col-sm-12" >
+                        <d-table
+                          id="'tblUsers'"
+                          dataset="usersDataset"
+                          export-csv="true"
+                          headers="tblUsersHeaders"
+                          page-size="15"
+                          search="true"
+                          enable-row-selection="isProjectManager || isAdmin"
+                        />
+                      </div>
+                    </div>
                   </div>
-               </div>
-
+                </div>
+              </div>
+           </div>
+</div>
 <!-- Start CommonStyles -->
     <style>
     .column-button {
