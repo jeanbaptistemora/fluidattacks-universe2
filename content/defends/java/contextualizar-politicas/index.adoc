@@ -1,0 +1,102 @@
+:slug: defends/java/contextualizar-politicas/
+:category: java
+:description: Nuestros ethical hackers explican la importancia de tener políticas claras de seguridad en la información. Además explican como estas políticas pueden ser implementadas en Java haciendo un adecuado uso de la clase Policy y sus diversas implementaciones.
+:keywords: Java, Seguridad, Políticas, Clase, Información, Permisos.
+:defends: yes
+
+= Contextualizar Sobre Soluciones de Políticas
+
+== Necesidad
+
+Contextualizar sobre soluciones de políticas,
+a modo de índice,
+y ofrecer marco teórico básico para entenderlas en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java 1.2+ o superior.
+
+== Solución
+
+Las políticas, en este caso,
+de control de acceso y seguridad en la información,
+se definen como los lineamientos a seguir
+por parte de una organización
+con el fin de proteger su información.
+Estas políticas tienen como objetivo
+establecer medidas de control tanto internas como externas
+que permitan mitigar, en gran medida,
+los riesgos asociados a la pérdida de información.
+
+En el caso de esta solución,
+se explicará la manera de como funcionan,
+al igual que la forma de implementar
+políticas de seguridad en las aplicaciones desarrolladas en +Java+.
+
+. A partir de +Java 1.2+ se introdujeron
+nuevas características de control de acceso
+a la arquitectura de seguridad.
+Estas características están implementadas
+en el paquete +java.security+.
+Una de ellas es la clase +Policy+.
+La clase +Policy+ define políticas de seguridad
+que mapean objetos (+CodeSource+) a un conjunto de objetos (+Permission+).
+
+. Los objetos +CodeSource+ representan
+las fuentes de una pieza de código en +Java+.
+Dichas fuentes incluyen tanto la +URL+ del archivo de la clase
+como una lista de entidades que han aplicado
+firmas digitales al archivo de la clase.
+
+. Los objetos +Permission+ asociados a +CodeSource+
+en las políticas definidas en los objetos +Policy+
+definen los privilegios que se otorgarán
+al código de determinada fuente.
+
+. La clase responsable de aplicar
+las políticas de seguridad es +AccessController+.
+
+. Las políticas desde donde se verificará
+el acceso a determinados recursos
+pueden ser especificadas en uno o más archivos de configuración.
+
+. +Policy+ es la clase encargada de inicializar las políticas
+cuando se llama al método +getPermission+
+o cuando se invoca el método +refresh+.
+La inicialización comprende la interpretación
+del archivo de configuración de +Policy+ y, por tanto,
+el llenado de los valores correspondientes del objeto +Policy+.
+
+. Por defecto, los archivos de políticas
+son políticas de todo el sistema
+o Políticas de un solo usuario.
+Las del sistema se almacenan en +java.home/lib/security/java.policy+
+y las políticas de usuario se almacena en +user.home/.java.policy+.
+
+. También es posible definir un archivo de política diferente
+cuando se invoca la ejecución de una aplicación.
+Esto puede hacerse usando +Djava.security.policy+.
+Es importante anotar que para que esto funcione
+debe estar instalado un administrador de seguridad en el programa.
+Para garantizar esto,
+es deseable ejecutar el programa usando +Djava.security.manager+
+o bien instanciando el administrador de seguridad desde código.
+
+. Por último, la construcción del archivo de políticas permite:
+
+* Definir una base de datos de firmas digitales usando entradas +keystore+.
+* El código ejecutado se considera
+que viene de un archivo fuente en particular es decir,
+es representado por un objeto de tipo +CodeSource+.
+* Las entradas +grant+ incluyen una
+o más entradas +Permission+
+que especifican a que código se le desea otorgar privilegios.
+
+== Referencias
+
+. [[r1]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/es/SSAW57_9.0.0/com.ibm.websphere.nd.multiplatform.doc/ae/rsec_javapolicy.html[Permisos de archivo java.policy]
+. [[r3]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio]
