@@ -1,8 +1,10 @@
 """ DTO to map the Integrates fields to formstack """
-import base64
-
-
 # pylint: disable=E0402
+# Disabling this rule is necessary for importing modules beyond the top level
+# pylint: disable=relative-beyond-top-level
+import base64
+from ..utils import forms
+
 class FindingDTO(object):
     """ Class to create an object with the attributes of a finding. """
 
@@ -221,9 +223,9 @@ class FindingDTO(object):
         if sess_obj is not None:
             sess_obj.session["drive_urls"] = []
         self.parse_description(request_arr)
-        self.parse_cssv2(request_arr)
+        self.data = forms.dict_concatenation(self.data, self.parse_cssv2(request_arr))
         self.parse_project(request_arr)
-        self.parse_evidence_info(request_arr)
+        self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
         return self.data
 
     def parse_vulns_by_id(self, submission_id, request_arr):
@@ -232,7 +234,7 @@ class FindingDTO(object):
         self.data["timestamp"] = request_arr["timestamp"]
         self.parse_description(request_arr)
         self.parse_project(request_arr)
-        self.parse_evidence_info(request_arr)
+        self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
         return self.data
 
     def parse_description(self, request_arr): # noqa: C901
@@ -336,34 +338,24 @@ class FindingDTO(object):
 
     def parse_cssv2(self, request_arr): # noqa: C901
         "Convert the score of a finding into a formstack format"
-        for finding in request_arr["data"]:
-            if finding["field"] == self.ACCESS_VECTOR:
-                self.data["accessVector"] = finding["value"]
-            if finding["field"] == self.ACCESS_COMPLEXITY:
-                self.data["accessComplexity"] = finding["value"]
-            if finding["field"] == self.AUTHENTICATION:
-                self.data["authentication"] = finding["value"]
-            if finding["field"] == self.CONFIDENTIALITY_IMPACT:
-                self.data["confidentialityImpact"] = finding["value"]
-            if finding["field"] == self.INTEGRITY_IMPACT:
-                self.data["integrityImpact"] = finding["value"]
-            if finding["field"] == self.AVAILABILITY_IMPACT:
-                self.data["availabilityImpact"] = finding["value"]
-            if finding["field"] == self.EXPLOITABILITY:
-                self.data["exploitability"] = finding["value"]
-            if finding["field"] == self.RESOLUTION_LEVEL:
-                self.data["resolutionLevel"] = finding["value"]
-            if finding["field"] == self.CONFIDENCE_LEVEL:
-                self.data["confidenceLevel"] = finding["value"]
-        if self.data['exploitability'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
-            or self.data['exploitability'] == '0.950 | Funcional: Existe exploit':
-            self.data['exploitable'] = 'Si'
-        else:
-            self.data['exploitable'] = 'No'
-        if 'finding_type' not in self.data or self.data['finding_type'] == 'Seguridad':
-            self.data['clientFindingType'] = 'Vulnerabilidad'
-        else:
-            self.data['clientFindingType'] = self.data['finding_type']
+        initial_dict = forms.create_dict(request_arr)
+        severity_fields = {
+            "38529247":"accessVector",
+            "38529248":"accessComplexity",
+            "38529249":"authentication",
+            "38529250":"confidentialityImpact",
+            "38529251":"integrityImpact",
+            "38529252":"availabilityImpact",
+            "38529253":"exploitability",
+            "38529254":"resolutionLevel",
+            "38529255":"confidenceLevel"
+        }
+        parsed_dict = {v:initial_dict[k] \
+                      for (k, v) in severity_fields.items() \
+                      if k in initial_dict.keys()}
+        parsed_dict['exploitable'] = forms.isExploitable(parsed_dict['exploitability'])
+        parsed_dict['clientFindingType'] = forms.getFindingType(parsed_dict)
+        return parsed_dict
 
     def parse_project(self, request_arr):
         "Convert project info in formstack format"
@@ -383,62 +375,35 @@ class FindingDTO(object):
 
     def parse_evidence_info(self, request_arr): # noqa: C901
         "Convert the score of a finding into a formstack format"
-        for finding in request_arr["data"]:
-            if finding["field"] == self.DOC_TOTAL:
-                self.data["evidenceTotal"] = finding["value"]
-            if finding["field"] == self.DOC_ACHV1:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["evidence_route_1"] = filtered_url
-            if finding["field"] == self.DOC_ACHV2:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["evidence_route_2"] = filtered_url
-            if finding["field"] == self.DOC_ACHV3:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["evidence_route_3"] = filtered_url
-            if finding["field"] == self.DOC_ACHV4:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["evidence_route_4"] = filtered_url
-            if finding["field"] == self.DOC_ACHV5:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["evidence_route_5"] = filtered_url
-            if finding["field"] == self.ANIMATION:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["animation"] = filtered_url
-            if finding["field"] == self.EXPLOTATION:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["exploitation"] = filtered_url
-            if finding["field"] == self.EXPLOIT:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["exploit"] = filtered_url
-            if finding["field"] == self.REG_FILE:
-                filtered_url = self.drive_url_filter(finding["value"])
-                self.data["fileRecords"] = filtered_url
-            if finding["field"] == self.DOC_CMNT1:
-                self.data["evidence_description_1"] = finding["value"]
-            if finding["field"] == self.DOC_CMNT2:
-                self.data["evidence_description_2"] = finding["value"]
-            if finding["field"] == self.DOC_CMNT3:
-                self.data["evidence_description_3"] = finding["value"]
-            if finding["field"] == self.DOC_CMNT4:
-                self.data["evidence_description_4"] = finding["value"]
-            if finding["field"] == self.DOC_CMNT5:
-                self.data["evidence_description_5"] = finding["value"]
-            if finding["field"] == self.REG:
-                self.data["records"] = finding["value"]
-            if finding["field"] == self.REG_NUM:
-                self.data["recordsNumber"] = finding["value"]
-
-    def drive_url_filter(self, drive):
-        """ Gets ID of the drive image """
-        if(drive.find("s3.amazonaws.com") != -1):
-            new_url = drive.split("/")[5]
-            return new_url
-        else:
-            if(drive.find("id=") != -1):
-                new_url = drive.split("id=")[1]
-                if(new_url.find("&") != -1):
-                    return new_url.split("&")[0]
-        return drive
+        initial_dict = forms.create_dict(request_arr)
+        evidence_tab_fields = {
+            "53714016":"evidenceTotal",
+            "53713106":"evidence_description_1",
+            "53713149":"evidence_description_2",
+            "53713153":"evidence_description_3",
+            "53714417":"evidence_description_4",
+            "53714455":"evidence_description_5",
+            "53609444":"records",
+            "49412242":"recordsNumber"
+        }
+        evidence_fields_with_urls = {
+            "32202896":"evidence_route_1",
+            "53713035":"evidence_route_2",
+            "53713045":"evidence_route_3",
+            "53714414":"evidence_route_4",
+            "53714452":"evidence_route_5",
+            "38307272":"animation",
+            "38307222":"exploitation",
+            "38307199":"exploit",
+            "49412246":"fileRecords"
+        }
+        evidence_tab_info = {v:initial_dict[k] \
+                      for (k, v) in evidence_tab_fields.items() \
+                      if k in initial_dict.keys()}
+        evidence_urls_info = {v:forms.drive_url_filter(initial_dict[k]) \
+                      for (k, v) in evidence_fields_with_urls.items() \
+                      if k in initial_dict.keys()}
+        return forms.dict_concatenation(evidence_tab_info, evidence_urls_info)
 
     def mask_finding(self, findingid, mask_value):
         """Mask finding."""

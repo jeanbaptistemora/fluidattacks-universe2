@@ -7,6 +7,18 @@ def dict_concatenation(dict_1, dict_2):
     dict_1_copy.update(dict_2)
     return dict_1_copy
 
+def drive_url_filter(drive):
+    """ Gets ID of the drive image """
+    if(drive.find("s3.amazonaws.com") != -1):
+        new_url = drive.split("/")[5]
+        return new_url
+    else:
+        if(drive.find("id=") != -1):
+            new_url = drive.split("id=")[1]
+            if(new_url.find("&") != -1):
+                return new_url.split("&")[0]
+    return drive
+
 def remove_standard_keys(dictionary):
     return {dictionary['field']:dictionary['value']}
 
@@ -18,6 +30,21 @@ def merge_dicts_list_into_dict(dicts_list):
 def create_dict(remission_submission):
     remission_dict = merge_dicts_list_into_dict(remission_submission["data"])
     return remission_dict
+
+def getFindingType(cssv2_dict):
+    if 'finding_type' not in cssv2_dict or cssv2_dict['finding_type'] == 'Seguridad':
+        finding_type = 'Vulnerabilidad'
+    else:
+        finding_type = cssv2_dict['finding_type']
+    return finding_type
+
+def isExploitable(explotability):
+    if explotability == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
+       or explotability == '0.950 | Funcional: Existe exploit':
+        isExploitable = 'Si'
+    else:
+        isExploitable = 'No'
+    return isExploitable
 
 def to_formstack(data):
     new_data = dict()
