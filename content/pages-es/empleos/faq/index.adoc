@@ -605,7 +605,7 @@ Con tiempo y dinero:
   +Canvas+ para ataques a infraestructura,
   +Nessus+ para análisis preliminar de vulnerabilidades, entre otras.
 
-*¿Cuál es nuestra metodología de desarrollo?::
+*¿Cuál es nuestra metodología de desarrollo?*::
   +Fluid Attacks+ documenta, programa y configura
   infraestructura todo mediante código.
   Esto permite un uso de +Git+ extensivo,
