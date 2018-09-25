@@ -173,7 +173,7 @@ durante el proceso de selección y sus respectivas respuestas
   que no se pueden determinar por el empleador
   (aporte voluntario a pensión, intereses de vivienda,
   número de dependientes, etc).
-  Sin embargo con el siguiente link:http://www.elempleo.com/co/calculadora-salarial/[enlace]
+  Sin embargo con el siguiente [button]#link:http://www.elempleo.com/co/calculadora-salarial/[enlace]#
   usted podrá simular un valor aproximado de ingreso neto mensual.
   Ingrese el salario propuesto en la casilla +1+ llamada +Salario+.
   Luego presione el botón calcular.
@@ -334,7 +334,7 @@ Con tiempo y dinero:
   un horario de referencia personal de +48+ horas semanales
   entre Lunes y Viernes iniciando a las +7 AM+.
   Este horario de referencia debe intersectarse en un +75%+
-  con el horario de nuestros clientes (7AM a 6PM COT).
+  con el horario de nuestros clientes (+7AM+ a +6PM+ COT).
   Sin embargo, el horario es una referencia,
   usted sabe las fechas de sus compromisos,
   por tal motivo usted notifica oportunamente,
@@ -364,7 +364,7 @@ Con tiempo y dinero:
   No existe una cuota de tiempo total laboral esperado,
   dejamos a criterio del talento este valor.
   Sin embargo en los casos excepcionales que un talento
-  supera las 48 horas semanales de forma sistemática,
+  supera las +48+ horas semanales de forma sistemática,
   la organización unilateralmente ajusta sus asignaciones,
   además de otorgarle días compensatorios lo antes posible.
 
@@ -448,6 +448,57 @@ Con tiempo y dinero:
   y corresponde a la capacidad de +Fluid Attacks+
   de cumplir los compromisos con todos los talentos a largo plazo.
 
+*¿Qué se espera profesionalmente de un talento en Fluid Attacks?*::
+  Se espera que se adhiera estrictamente al código de ética,
+  que acepte genuinamente nuestra filosofía de trabajo,
+  que apoye a sus compañeros sean pares o líderes en aquellas actividades
+  que no le gustan pero que la naturaleza del trabajo demanda,
+  que se auto-gestione de inicio a fin sin la necesidad de un líder,
+  que cumpla los tiempos de entrega sin excusas,
+  que llegue a tiempo a todo compromiso con terceros,
+  que la revisión de sus entregables requiera cero ajustes,
+  que se involucren voluntariamente
+  en resolver los problemas que tiene la empresa,
+  que se empodere en llevar por sí solo hacia adelante iniciativas difíciles
+  que la compañía enfrenta,
+  que trabaje de forma dedicada y concentrada en los proyectos asignados,
+  preferiblemente terminándolos antes de tiempo sin sacrificar calidad.
+  Se espera que hable con la verdad usando oportunamente los canales definidos
+  siguiendo el valor de la prudencia.
+  Se espera un cuidado inmaculado
+  de la información confidencial de +Fluid Attacks+ y los clientes,
+  así como un uso responsable en cualquier espacio
+  fuera del conocimiento en hacking correspondiente.
+  Finalmente se espera que estas expectativas se cumplan siempre,
+  de forma constante y no eventual,
+  y que el rigor en su aplicación crezca con el tiempo.
+
+
+*¿Qué se espera técnicamente de un talento en Fluid Attacks?*::
+  Que programe de forma elegante, funcional y con tipos.
+  Que haga pasos diarios a producción.
+  Que busque hacer funcionar las cosas, no excusas para no hacerlas.
+  Que hackee los sistemas del cliente sin ser detectado.
+  Que extraiga la mayor información posible para hacer consciente al cliente
+  de los impactos verdaderos.
+  Que documente las vulnerabilidades de forma inmediata.
+  Que reporte todas las vulnerabilidades encontradas.
+  Que si instala +backdoors+ estos sean siempre notificados
+  y posteriormente desinstalados.
+  Que hackee el máximo número de sistemas del cliente en el tiempo asignado.
+  Que encuentre vulnerabilidades no evidentes y de alta criticidad.
+  Que enseñe a sus compañeros nuevas técnicas de hackeo
+  sin celos ni actitud pitagórica.
+  Que aporte al desarrollo de los productos en cuestión.
+  Que ante un bloqueo de un proyecto se dedique a su actividad por defecto
+  (migración, producto, artículos, etc).
+  Que busque primero la solución por sí solo con actitud investigativa.
+  Que cuando la solución no llega alce la mano para aprender a pescar,
+  no para que le entreguen el pescado.
+  En términos generales una persona dedicada,
+  que comparte y que cumple sin excusas.
+
+
 *¿Qué NO determina el salario?*::
   El salario no se encuentra influenciado por su nivel de escolaridad,
   sus certificaciones, experiencia dentro y fuera de +Fluid Attacks+,
@@ -515,8 +566,8 @@ Con tiempo y dinero:
   por ende es común encontrar ingenieros que ganan más que sus jefes.
   Ver <<q23, ¿Qué determina el salario?>>
 
-*¿Mi rol puede evolucionar al transcurrir suficiente tiempo*::
-*y según las certificaciones y conocimientos adquiridos?*::
+*¿Mi rol puede evolucionar al transcurrir suficiente tiempo y según las*::
+*certificaciones y conocimientos adquiridos?*::
   La permanencia, las certificaciones y conocimientos
   no garantizan evolución en el rol.
   Uno puede estar mucho tiempo con el mismo desempeño,
@@ -570,40 +621,40 @@ Con tiempo y dinero:
   realice la cuenta de cobro por las horas de entrenamiento pendientes de pago.
 
 *¿Cuál es nuestro stack tecnológico?*::
-  Toda nuestra tecnología se encuentra en +AWS+,
-  utilizando +Kubernetes+ para ambientes de producción y efímeros,
+  Toda nuestra tecnología se encuentra en link:https://aws.amazon.com/es/[+AWS+],
+  utilizando link:https://kubernetes.io/[+Kubernetes+] para ambientes de producción y efímeros,
   así como para los agentes de +CI/CD+.
-  Nuestra infraestructura se encuentra toda como código en +Terraform+,
-  +Ansible+ y +Dockerfile+.
-  Utilizamos +Gitlab as a Service+ para la orquestación de estos procesos
+  Nuestra infraestructura se encuentra toda como código en link:https://www.terraform.io/[+Terraform+],
+  link:https://www.ansible.com/[+Ansible+] y link:https://www.docker.com/[+Dockerfile+].
+  Utilizamos link:https://about.gitlab.com/[+Gitlab as a Service+] para la orquestación de estos procesos
   (+git+, +docker registry+, +issues+, etc).
   Los +backends+ de servicios y las armas de ataque
-  están desarrollados en +Python+,
-  el +frontend+ se encuentra en migración a +React+ sobre +Typescript+
+  están desarrollados en link:https://www.python.org/[+Python+],
+  el +frontend+ se encuentra en migración a link:https://reactjs.org/[+React+] sobre link:https://www.typescriptlang.org/[+Typescript+]
   solo con componentes +stateless+.
-  El +backend+ está en migración a +GraphQL+.
-  La documentación y página web toda esta escrita en +AsciiDoc+
+  El +backend+ está en migración a link:https://graphql.org/[+GraphQL+].
+  La documentación y página web toda esta escrita en link:http://asciidoc.org/[+AsciiDoc+]
   y utiliza en todos los casos
-  la estrategia de generación estática mediante +Pelican+.
+  la estrategia de generación estática mediante link:https://blog.getpelican.com/[+Pelican+].
   Los sistemas operativos en estaciones de trabajo
   son de elección de cada individuo,
-  pero abundan los +Debian+ y sus derivados de seguridad como +Kali+.
-  Algunos renegados usan +Arch+ o +NixOS+.
-  Dentro de +AWS+ usamos servicios +serverless+
-  como +Dynamo+ para base de datos,
-  +S3+ para almacenamiento de alta velocidad
-  y +RDS+ para bases de datos relacionales.
-  En el frente de clusters usamos +ELK+
+  pero abundan los link:https://www.debian.org/index.es.html[+Debian+] y sus derivados de seguridad como link:https://www.kali.org/[+Kali+].
+  Algunos renegados usan link:https://www.archlinux.org/[+Arch+] o link:https://nixos.org/[+NixOS+].
+  Dentro de link:https://aws.amazon.com/es/[+AWS+] usamos servicios +serverless+
+  como link:https://aws.amazon.com/es/dynamodb/[+Dynamo+] para base de datos,
+  link:https://aws.amazon.com/es/s3/[+S3+] para almacenamiento de alta velocidad
+  y link:https://aws.amazon.com/es/rds/[+RDS+] para bases de datos relacionales.
+  En el frente de clusters usamos link:https://aws.amazon.com/es/eks/[+EKS+]
   para evitar mantener componentes complejos del +cluster+.
-  Utilizamos servicios externos como +OneLogin+
-  para federación de identidad, +Rollbar+ para telemetria,
-  +Slack+ para chatops, +GitPrime+ para analitica de productividad,
-  +Vault+ para gestión de secretos efímeros,
-  +Helm+ para la administración del +cluster+,
-  +Launch Darkly+ para los +feature flags+,
-  +Burp+ para ataques web,
-  +Canvas+ para ataques a infraestructura,
-  +Nessus+ para análisis preliminar de vulnerabilidades, entre otras.
+  Utilizamos servicios externos como link:https://www.onelogin.com/[+OneLogin+]
+  para federación de identidad, link:https://rollbar.com/[+Rollbar+] para telemetria,
+  link:https://slack.com/intl/es/[+Slack+] para chatops, link:https://www.gitprime.com/[+GitPrime+] para analítica de productividad,
+  link:https://www.vaultproject.io/[+Vault+] para gestión de secretos efímeros,
+  link:https://helm.sh/[+Helm+] para la administración del +cluster+,
+  link:https://launchdarkly.com/[+Launch Darkly+] para los +feature flags+,
+  link:https://portswigger.net/burp[+Burp+] para ataques web,
+  link:https://www.immunityinc.com/products/canvas/[+Canvas+] para ataques a infraestructura,
+  link:https://www.tenable.com/products/nessus/nessus-professional[+Nessus+] para análisis preliminar de vulnerabilidades, entre otras.
 
 *¿Cuál es nuestra metodología de desarrollo?*::
   +Fluid Attacks+ documenta, programa y configura
@@ -673,7 +724,8 @@ Con tiempo y dinero:
   y facilita que el trabajo de cualquier ingeniero sea visible al mundo.
   Creemos en arquitecturas simples, sencillas, incluso en monolitos.
   Los micro-servicios en el tamaño de nuestras empresas
-  son más un sobre dimensionamiento arquitectónico que una necesidad real.
+  representan un sobre dimensionamiento arquitectónico
+  en lugar de una necesidad real.
   Creemos en la programación funcional
   incluso en lenguajes que no lo obligan estrictamente.
   Para nosotros esto es más una convicción en cómo programar
@@ -695,53 +747,3 @@ Con tiempo y dinero:
   Si usted tiene algún asunto eventual excepcional
   no tiene que sacar vacaciones para ello
   sino que simplemente notifica la excepción correspondiente.
-
-*¿Qué se espera profesionalmente de un talento en Fluid Attacks?*::
-  Se espera que se adhiera estrictamente al código de ética,
-  que acepte genuinamente nuestra filosofía de trabajo,
-  que apoye a sus sean pares o líderes en aquellas actividades
-  que no le gustan pero que la naturaleza del trabajo demanda,
-  que se auto-gestione de inicio a fin sin la necesidad de un líder,
-  que cumpla los tiempos de entrega sin excusas,
-  que llegue a tiempo a todo compromiso con terceros,
-  que la revisión de sus entregables requiera cero ajustes,
-  que se involucren voluntariamente
-  en resolver los problemas que tiene la empresa,
-  que se empodere en llevar por sí solo hacia adelante iniciativas difíciles
-  que la compañía enfrenta,
-  que trabaje de forma dedicada y concentrada en los proyectos asignados,
-  preferiblemente terminandolos antes de tiempo sin sacrificar calidad.
-  Se espera que hable con la verdad usando oportunamente los canales definidos
-  siguiendo el valor de la prudencia.
-  Se espera un cuidado inmaculado
-  de la información confidencial de +Fluid Attacks+ y los clientes,
-  así como un uso responsable en cualquier espacio
-  fuera del conocimiento en hacking correspondiente.
-  Finalmente se espera que estas expectativas se cumplan siempre,
-  de forma constante y no eventual,
-  y que el rigor en su aplicación crezca con el tiempo.
-
-
-*¿Qué se espera técnicamente de un talento en Fluid Attacks?*::
-  Que programe de forma elegante, funcional y con tipos.
-  Que haga pasos diarios a producción.
-  Que busque hacer funcionar las cosas, no excusas para no hacerlas.
-  Que hackee los sistemas del cliente sin ser detectado.
-  Que extraiga la mayor información posible para hacer consciente al cliente
-  de los impactos verdadero.
-  Que documente las vulnerabilidades de forma inmediata.
-  Que reporte todas las vulnerabilidades encontradas.
-  Que si instala +backdoors+ estos sean siempre notificados
-  y posteriormente desinstalados.
-  Que hackee el máximo número de sistemas del cliente en el tiempo asignado.
-  Que encuentre vulnerabilidades no evidentes y de alta criticidad.
-  Que enseñe a sus compañeros nuevas técnicas de hackeo
-  sin celos ni actitud pitagórica.
-  Que aporte al desarrollo de los productos en cuestión.
-  Que ante un bloqueo de un proyecto se dedique a su actividad por defecto
-  (migración, producto, artículos, etc).
-  Que busque primero la solución por sí solo con actitud investigativa.
-  Que cuando la solución no llega alce la mano para aprender a pescar,
-  no para que le entreguen el pescado.
-  En términos generales una persona dedicada,
-  que comparte y que cumple sin excusas.
