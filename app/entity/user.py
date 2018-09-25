@@ -3,7 +3,7 @@
 # directory.
 from .. import util
 from ..dao import integrates_dao
-from graphene import ObjectType, String, Boolean
+from graphene import ObjectType, Mutation, String, Boolean
 from ..services import is_customeradmin, has_responsibility, has_phone_number, has_access_to_project
 from datetime import datetime
 
@@ -103,3 +103,40 @@ class User(ObjectType):
         """ Resolve access to the current entity """
         del info
         return self.access
+
+class RemoveUserAccess(Mutation):
+    """Remove user of a given project."""
+
+    class Arguments(object):
+        project_name = String()
+        user_email = String()
+
+    removed_email = String()
+    success = Boolean()
+    access = Boolean()
+
+    @classmethod
+    def mutate(self, args, info, project_name, user_email):
+        del args
+
+        self.success = False
+        role = info.context.session['role']
+        if (role in ['customer', 'admin'] \
+            and has_access_to_project(
+                info.context.session['username'],
+                project_name,
+                role)):
+            self.access = True
+            if (role == "customer" and not is_customeradmin(project_name, info.context.session['username'])):
+                util.cloudwatch_log(info.context, 'Security: Attempted to remove project users without permission')
+            else:
+                integrates_dao.remove_role_to_project_dynamo(project_name, user_email, "customeradmin")
+                is_user_removed_dao = integrates_dao.remove_access_project_dao(user_email, project_name)
+                is_user_removed_dynamo = integrates_dao.remove_project_access_dynamo(user_email, project_name)
+                self.success = is_user_removed_dao and is_user_removed_dynamo
+                self.removed_email = user_email if self.success else None
+        else:
+            self.access = False
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove project users without permission')
+
+        return RemoveUserAccess(success=self.success, access=self.access, removed_email=self.removed_email)

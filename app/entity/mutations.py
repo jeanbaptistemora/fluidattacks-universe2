@@ -3,6 +3,7 @@ from .resource import (
     AddRepositories, RemoveRepositories,
     AddEnvironments, RemoveEnvironments
 )
+from .user import RemoveUserAccess
 from graphene import ObjectType
 
 class Mutations(ObjectType):
@@ -15,3 +16,5 @@ class Mutations(ObjectType):
     addEnvironments = AddEnvironments.Field()
 
     removeEnvironments = RemoveEnvironments.Field()
+
+    removeUserAccess = RemoveUserAccess.Field()

@@ -307,11 +307,14 @@ angular.module("FluidIntegrates").factory(
        */
       "removeAccessIntegrates" (email, project) {
         const oopsAc = "An error occurred removing access to an user";
-        return $xhr.post($q, `${BASE.url}remove_access_integrates`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          email,
-          project
-        }, oopsAc);
+        const gQry = `mutation {
+          removeUserAccess(projectName: "${project}", userEmail: "${email}"){
+            access,
+            removedEmail,
+            success
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }

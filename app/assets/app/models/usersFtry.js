@@ -256,24 +256,40 @@ angular.module("FluidIntegrates").factory(
             $stateParams.project.toLowerCase()
           );
           req.then((response) => {
-            if (!response.error) {
-              mixPanelDashboard.trackUsersTab(
-                "RemoveUser",
-                userEmail,
-                $scope.project.toLowerCase(),
-                "Remove",
-                USER_EMAIL_TO_REMOVE
-              );
-              $msg.success(USER_EMAIL_TO_REMOVE +
-                          $translate.instant("search_findings.tab_users." +
-                  "success_delete"), "search_findings.tab_users.title_success");
-              location.reload();
-            }
-            else if (response.error) {
-              Rollbar.error("Error: An error occurred " +
-           "removing access to an user");
+            if (response.error) {
+              Rollbar.error("Error: An error occurred removing user access");
               $msg.error($translate.instant("proj_alerts.error_textsad"));
               location.reload();
+            }
+            else if (angular.isUndefined(response.data)) {
+              location.reload();
+            }
+            else if (response.data.removeUserAccess.access) {
+              if (response.data.removeUserAccess.success) {
+                mixPanelDashboard.trackUsersTab(
+                  "RemoveUser",
+                  userEmail,
+                  $scope.project.toLowerCase(),
+                  "Remove",
+                  USER_EMAIL_TO_REMOVE
+                );
+                $msg.success(
+                  USER_EMAIL_TO_REMOVE +
+                    $translate.instant("search_findings.tab_users." +
+                                      "success_delete"),
+                  $translate.instant("search_findings.tab_users." +
+                                      "title_success")
+                );
+                const removed = response.data.removeUserAccess.removedEmail;
+                $scope.usersDataset = $scope.usersDataset.
+                  filter((item) => item.email !== removed);
+              }
+              else {
+                $msg.error($translate.instant("proj_alerts.error_textsad"));
+              }
+            }
+            else {
+              $msg.error($translate.instant("proj_alerts.access_denied"));
             }
           });
         }
