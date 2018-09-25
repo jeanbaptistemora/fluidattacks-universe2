@@ -49,17 +49,18 @@ cómo los ambientes son infinitos.
 Esta conferencia académica gratuita la hemos estado dando ya hace 9 meses en:
 
 * *Grandes empresas de la región:*
+link:https://www.avianca.com/co/es/[Avianca],
 link:https://www.grupobancolombia.com/wps/portal/personas[Bancolombia],
 link:https://www.bcp.com.bo/[Banco de Credito del Peru],
 link:https://www.banistmo.com/[Banistmo],
 link:http://www.celsia.com/[Celsia-EPSA],
 link:https://www.comfama.com/webinicio/default.asp[Comfama],
-link:https://www.velez.com.co/[Cueros Velez]
+link:https://www.velez.com.co/[Cueros Velez],
 link:https://www.gnbsudameris.com.co/[GNB Sudameris],
 link:https://www.grupoexito.com.co/es/[Grupo Éxito],
 link:http://www.homecenter.com.co/homecenter-co/[Homecenter],
 link:https://www.stgeorgesbank.com/[St. Georges Bank],
-link:https://www.segurossura.com.co/Paginas/default.aspx[Sura]
+link:https://www.segurossura.com.co/Paginas/default.aspx[Sura],
 link:https://www.tigoune.com.co/[Tigo Une],
 
 * *Universidades:* link:http://www.eafit.edu.co/[EAFIT],
