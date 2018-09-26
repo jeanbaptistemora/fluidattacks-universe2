@@ -1619,22 +1619,6 @@ def is_customer_admin(request):
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
 @require_project_access
-def remove_access_integrates(request):
-    parameters = request.POST.dict()
-    user = parameters['email']
-    project = parameters['project']
-    if (is_customeradmin(project, request.session['username']) or
-            request.session['role'] == 'admin'):
-        is_user_removed = remove_user_access(project, user)
-        if is_user_removed:
-            return util.response([], 'Success', False)
-    return util.response([], 'Error', True)
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['customer', 'admin'])
-@require_project_access
 def edit_user(request):
     parameters = request.POST.dict()
     role = parameters['data[userRole]']
