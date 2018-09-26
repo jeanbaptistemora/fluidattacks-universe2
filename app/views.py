@@ -39,7 +39,7 @@ from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_accepted_finding
 from .services import has_access_to_project, has_access_to_finding
-from .services import is_customeradmin, has_responsibility, has_phone_number
+from .services import is_customeradmin
 from .utils  import forms as forms_utils
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -401,51 +401,6 @@ def get_project_info(project):
         submission = FormstackAPI().get_submission(submission_id)
         return projectDTO.parse(submission)
     return []
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def get_users_login(request):
-    "Get the email and last login date of all users in a project."
-    project = request.GET.get('project', None)
-    dataset = []
-    actualUser = request.session['username']
-    if request.session['role'] == 'customer' and not is_customeradmin(project, actualUser):
-        util.cloudwatch_log(request, 'Security: Attempted to retrieve project users without permission')
-        return util.response(dataset, 'Access to project denied', True)
-    initialEmails = integrates_dao.get_project_users(project.lower())
-    initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
-    usersEmail = util.user_email_filter(initialEmailsList, actualUser)
-    for user in usersEmail:
-        data = {}
-        last_login = integrates_dao.get_user_last_login_dao(user)
-        last_login = last_login.split('.',1)[0]
-        if last_login == "1111-01-01 11:11:11":
-            data['usersLogin']=[-1,-1]
-        else:
-            dates_difference = datetime.now()-datetime.strptime(last_login, "%Y-%m-%d %H:%M:%S")
-            diff_last_login=[dates_difference.days,dates_difference.seconds]
-            data['usersLogin']=diff_last_login
-        first_login = integrates_dao.get_user_first_login_dao(user)
-        first_login = first_login.split('.',1)[0]
-        data['users']=user
-        data['usersFirstLogin']=first_login
-        data['usersOrganization']=integrates_dao.get_organization_dao(user).title()
-        userRole=integrates_dao.get_role_dao(user)
-        user_responsibility = has_responsibility(project, user)
-        user_phone = has_phone_number(user)
-        data['userResponsibility'] = user_responsibility
-        if is_customeradmin(project, user):
-            data['userRole'] = "customer_admin"
-        elif userRole == "customeradmin":
-            data['userRole'] = "customer"
-        else:
-            data['userRole'] = userRole
-        data["userPhone"] = user_phone
-        dataset.append(data)
-    return util.response(dataset, 'Success', False)
 
 @cache_control(max_age=600)
 @csrf_exempt

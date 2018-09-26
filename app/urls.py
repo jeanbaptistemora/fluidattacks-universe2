@@ -51,7 +51,6 @@ urlpatterns = [
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
     url(r'^total_severity/?\.*$', views.total_severity, name='total_severity'),
     url(r'^get_evidences/?\.*$', views.get_evidences, name='get_evidences'),
-    url(r'^get_users_login/?\.*$', views.get_users_login, name='get_users_login'),
     url(r'^get_user_data/?\.*$', views.get_user_data, name='get_user_data'),
     url(r'^access_to_project/?\.*$', views.access_to_project, name='access_to_project'),
     url(r'^edit_user/?\.*$', views.edit_user, name='edit_user'),
