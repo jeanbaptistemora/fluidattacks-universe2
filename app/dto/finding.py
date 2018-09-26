@@ -280,7 +280,10 @@ class FindingDTO(object):
                       for (k, v) in evidence_description_fields.items() \
                       if k in initial_dict.keys()}
         parsed_dict["impact"] = forms.get_impact(parsed_dict["criticity"])
-        parsed_dict["cwe"] = forms.get_cwe_url(parsed_dict["cwe"])
+        if "cwe" in parsed_dict.keys():
+            parsed_dict["cwe"] = forms.get_cwe_url(parsed_dict["cwe"])
+        else:
+            return parsed_dict
         return parsed_dict
 
     def parse_description_mail(self, request_arr): # noqa: C901
