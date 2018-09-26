@@ -30,11 +30,30 @@ angular.module("FluidIntegrates").factory(
        */
       "addAccessIntegrates" (data, project) {
         const oopsAc = "An error occurred getting events";
-        return $xhr.post($q, `${BASE.url}add_access_integrates`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          project
-        }, oopsAc);
+        const gQry = `mutation {
+          grantUserAccess(
+            email: "${data.userEmail}",
+            organization: "${data.userOrganization}",
+            phoneNumber: "${data.userPhone}",
+            projectName: "${project}",
+            responsibility: "${data.userResponsibility}",
+            role: "${data.userRole}"
+          ) {
+            success
+            access
+            grantedUser {
+              email
+              role
+              responsability
+              phoneNumber
+              organization
+              firstLogin
+              lastLogin
+              access
+            }
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**

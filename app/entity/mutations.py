@@ -4,7 +4,7 @@ from .resource import (
     AddEnvironments, RemoveEnvironments
 )
 
-from .user import RemoveUserAccess
+from .user import GrantUserAccess, RemoveUserAccess
 from .finding import UploadFile
 from graphene import ObjectType
 
@@ -22,3 +22,5 @@ class Mutations(ObjectType):
     removeUserAccess = RemoveUserAccess.Field()
 
     uploadFile = UploadFile.Field()
+
+    grantUserAccess = GrantUserAccess.Field()

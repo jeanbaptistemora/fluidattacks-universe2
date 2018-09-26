@@ -37,7 +37,6 @@ from .mailer import send_mail_new_comment
 from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
-from .mailer import send_mail_access_granted
 from .mailer import send_mail_accepted_finding
 from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin, has_responsibility, has_phone_number
@@ -1496,89 +1495,6 @@ def delete_comment(comment):
     else:
         response = True
     return response
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['customer', 'admin'])
-@require_project_access
-def add_access_integrates(request):
-    parameters = request.POST.dict()
-    role = parameters['data[userRole]']
-    project = request.POST.get('project', '')
-
-    if (request.session['role'] == 'admin'):
-        if (role == 'admin' or role == 'analyst' or
-                role == 'customer'or role == 'customeradmin'):
-            if create_new_user(parameters, project, request):
-                return util.response([], 'Success', False)
-            else:
-                rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
-                return util.response([], 'Error', True)
-        else:
-            rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
-            return util.response([], 'Error', True)
-    elif is_customeradmin(project, request.session['username']):
-        if (role == 'customer' or role == 'customeradmin'):
-            if create_new_user(parameters, project, request):
-                return util.response([], 'Success', False)
-            else:
-                rollbar.report_message("Error: Couldn't grant access to project", 'error', request)
-                return util.response([], 'Error', True)
-        else:
-            rollbar.report_message('Error: Invalid role provided: ' + role, 'error', request)
-            return util.response([], 'Error', True)
-    else:
-        util.cloudwatch_log(request, 'Security: Attempted to grant access to project from unprivileged role: ' + request.session['role'])
-        return util.response([], 'Access denied', True)
-
-def create_new_user(parameters, project, request):
-    newUser = parameters['data[userEmail]']
-    company = parameters['data[userOrganization]']
-    responsibility = parameters['data[userResponsibility]']
-    role = parameters['data[userRole]']
-    phone = parameters['data[userPhone]']
-    project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
-                  + project.lower() + '/indicators'
-    if not integrates_dao.is_in_database(newUser):
-        integrates_dao.create_user_dao(newUser)
-    if integrates_dao.is_registered_dao(newUser) == '0':
-        integrates_dao.register(newUser)
-        integrates_dao.assign_role(newUser, role)
-        integrates_dao.assign_company(newUser, company)
-    elif integrates_dao.is_registered_dao(newUser) == '1':
-        integrates_dao.assign_role(newUser, role)
-    len_responsibility = len(responsibility)
-    if 0 < len_responsibility <= 50:
-        integrates_dao.add_project_access_dynamo(newUser, project, "responsibility", responsibility)
-    else:
-        util.cloudwatch_log(
-            request,
-            'Security: ' + request.session['username'] + 'Attempted to add ' +
-            'responsibility to project ' + project + ' without validation'
-        )
-    if phone:
-        phone_number = phone[1:]
-        if phone_number.isdigit():
-            integrates_dao.add_phone_to_user_dynamo(newUser, phone)
-    if role == 'customeradmin':
-        integrates_dao.add_user_to_project_dynamo(project.lower(), newUser, role)
-    if integrates_dao.add_access_to_project_dao(newUser, project):
-        description = integrates_dao.get_project_description(project)
-        to = [newUser]
-        context = {
-           'admin': request.session["username"],
-           'project': project,
-           'project_description': description,
-           'project_url': project_url,
-        }
-        email_send_thread = threading.Thread( \
-                                      name="Access granted email thread", \
-                                      target=send_mail_access_granted, \
-                                      args=(to, context,))
-        email_send_thread.start()
-        return True
-    else:
-        return False
 
 def calculate_indicators(project):
     api = FormstackAPI()

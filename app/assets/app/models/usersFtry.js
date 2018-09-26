@@ -87,7 +87,12 @@ angular.module("FluidIntegrates").factory(
                 );
                 // Capture the promise
                 req.then((response) => {
-                  if (!response.error) {
+                  if (response.error) {
+                    Rollbar.error("Error: An error occurred when " +
+                                "adding a new user");
+                    $msg.error($translate.instant("proj_alerts.error_textsad"));
+                  }
+                  else {
                     // Mixpanel tracking
                     const projt = descData.project.toUpperCase();
                     mixPanelDashboard.trackUsersTab(
@@ -97,20 +102,30 @@ angular.module("FluidIntegrates").factory(
                       "Add",
                       $scope.newUserInfo.userEmail
                     );
-                    $msg.success(
-                      $scope.newUserInfo.userEmail +
-                      $translate.instant("search_findings.tab_users." +
-                                                  "success"),
-                      $translate.instant("search_findings.tab_users." +
-                                                  "title_success")
-                    );
-                    $uibModalInstance.close();
-                    location.reload();
-                  }
-                  else if (response.error) {
-                    Rollbar.error("Error: An error occurred when " +
-                                "adding a new user");
-                    $msg.error($translate.instant("proj_alerts.error_textsad"));
+                    if (angular.isUndefined(response.data)) {
+                      location.reload();
+                    }
+                    else if (response.data.grantUserAccess.access) {
+                      if (response.data.grantUserAccess.success) {
+                        $msg.success(
+                          $scope.newUserInfo.userEmail +
+                            $translate.instant("search_findings.tab_users." +
+                                                        "success"),
+                          $translate.instant("search_findings.tab_users." +
+                                                        "title_success")
+                        );
+                        $uibModalInstance.close();
+                        location.reload();
+                      }
+                      else {
+                        $msg.error($translate.instant("proj_alerts." +
+                                                      "error_textsad"));
+                      }
+                    }
+                    else {
+                      $msg.error($translate.instant("proj_alerts." +
+                                                    "access_denied"));
+                    }
                   }
                 });
               }
@@ -121,6 +136,7 @@ angular.module("FluidIntegrates").factory(
           },
           "keyboard": false,
           "resolve": {"data": descData},
+          "scope": $scope,
           "templateUrl": `${BASE.url}assets/views/project/adduserMdl.html`
         });
       },
