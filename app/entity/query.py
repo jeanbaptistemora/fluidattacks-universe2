@@ -33,6 +33,11 @@ class Query(ObjectType):
 
     project_users = List(User, project_name=String(required=True))
 
+    user_data = Field(User,
+        project_name=String(required=True),
+        user_email=String(required=True)
+    )
+
     def resolve_alert(self, info, project=None, organization=None):
         """ Resolve for alert """
         return Alert(info, project, organization)
@@ -73,3 +78,6 @@ class Query(ObjectType):
         else:
             data = []
         return data
+
+    def resolve_user_data(self, info, project_name, user_email):
+        return User(info, project_name, user_email)

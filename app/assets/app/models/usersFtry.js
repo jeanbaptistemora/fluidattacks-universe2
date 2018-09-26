@@ -54,16 +54,21 @@ angular.module("FluidIntegrates").factory(
             $scope.showPhone = function showPhone () {
               if (angular.isDefined($scope.newUserInfo.userEmail)) {
                 const req = projectFtry2.getUserData(
-                  $scope.newUserInfo,
+                  $scope.newUserInfo.userEmail,
                   data.project
                 );
                 req.then((response) => {
-                  if (!response.error) {
-                    $scope.newUserInfo.userPhone = response.data.phone;
+                  if (response.error) {
+                    Rollbar.error("Error: An error occurred retrieving " +
+                                "user data");
+                  }
+                  else {
+                    $scope.newUserInfo.userPhone =
+                      response.data.userData.phoneNumber;
                     $scope.newUserInfo.userOrganization =
-                      response.data.organization;
+                      response.data.userData.organization;
                     $scope.newUserInfo.userResponsibility =
-                      response.data.responsibility;
+                      response.data.userData.responsibility;
                   }
                 });
               }

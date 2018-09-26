@@ -266,18 +266,21 @@ angular.module("FluidIntegrates").factory(
       /**
        * Get user information.
        * @function getUserData
-       * @param {String} data User data.
+       * @param {String} email User email.
        * @param {String} project User project.
        * @member integrates.projectFtry2
-       * @return {Object} Response by SQL DB
+       * @return {Object} GraphQL response with the requested data
        */
-      "getUserData" (data, project) {
+      "getUserData" (email, project) {
         const oopsAc = "An error occurred getting user information";
-        return $xhr.get($q, `${BASE.url}get_user_data`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          project
-        }, oopsAc);
+        const gQry = `{
+          userData(projectName: "${project}", userEmail: "${email}") {
+            organization
+            responsability
+            phoneNumber
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**
