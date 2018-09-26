@@ -4,11 +4,16 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 
+import yaml
 from .. import util
 from app.dto import finding
 from graphene import String, ObjectType, Boolean, Mutation
 from ..services import has_access_to_finding
 from graphene_file_upload.scalars import Upload
+from pykwalify.core import Core
+from pykwalify.errors import CoreError
+
+FILE_PATH = "/usr/src/app/app/entity/"
 
 
 class Finding(ObjectType):
@@ -70,7 +75,15 @@ class UploadFile(Mutation):
             self.access = True
             file_input = info.context.FILES.get("file", None)
             if file_input:
-                self.success = True
+                vulnerabilities = yaml.load(file_input.read())
+                stream = file("/tmp/vulnerabilities.yaml", 'w')
+                yaml.dump(vulnerabilities, stream)
+                c = Core(source_file="/tmp/vulnerabilities.yaml", schema_files=[FILE_PATH + "schema.yaml"])
+                try:
+                    c.validate(raise_exception=True)
+                    self.success = True
+                except CoreError:
+                    self.success = False
         else:
             self.access = False
 

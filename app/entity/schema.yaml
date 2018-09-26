@@ -1,0 +1,38 @@
+type: map
+mapping:
+  inputs:
+    type: seq
+    sequence:
+      - type: map
+        mapping:
+          field: 
+            type: str
+          state:
+            type: str
+            enum: ['open', 'close']
+          url:
+            type: str
+  lines:
+    type: seq
+    sequence:
+      - type: map
+        mapping:
+          line:
+            type: int
+          path:
+            type: str
+          state:
+            type: str
+            enum: ['open', 'close']
+  ports:
+    type: seq
+    sequence:
+      - type: map
+        mapping:
+          ip:
+            type: str
+          port:
+            type: int
+          state:
+            type: str
+            enum: ['open', 'close']
