@@ -1481,9 +1481,7 @@ def delete_all_coments(finding_id):
     """Delete all comments of a finding."""
     all_comments = integrates_dao.get_comments_dynamo(int(finding_id), "comment")
     comments_deleted = [delete_comment(i) for i in all_comments]
-    all_observations = integrates_dao.get_comments_dynamo(int(finding_id), "observation")
-    observations_deleted = [delete_comment(i) for i in all_observations]
-    return all(comments_deleted + observations_deleted)
+    return all(comments_deleted)
 
 
 def delete_comment(comment):
