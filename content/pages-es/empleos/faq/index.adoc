@@ -119,7 +119,26 @@ durante el proceso de selección y sus respectivas respuestas
   y dependiendo para qué vacante estás postulado,
   se te darán indicaciones al respecto.
 
+*¿Qué significa el tiempo de vigencia de la oferta?*::
+  Significa el plazo durante el cual +Fluid Attacks+ puede mantener la oferta.
+  Si durante el tiempo de vigencia no se recibe la aceptación explícita
+  y escrita del talento la oferta deja de ser válida.
+  El espíritu de esta medida es darle con prontitud la posibilidad
+  a otros candidatos que se encuentran en el proceso de selección.
+
+*¿De no aceptar la oferta que sucede con la inmersión que estoy realizando?*::
+  La inmersión finaliza de forma inmediata.
+  +Fluid Attacks+ retirará los accesos a los sistemas de entrenamiento
+  y procederá a enviar el reporte de tiempo para que usted por su parte
+  realice la cuenta de cobro por las horas de entrenamiento pendientes de pago.
+
 == Después de Entrar
+
++Fluid Attacks+ es una empresa dedicada y especializada en +Red Team+.
+Aplicamos la seguridad informática desde un enfoque ofensivo,
+buscando encontrar todas las vulnerabilidades y reportarlas lo antes posible.
+A continuación presentamos algunas preguntas frecuentes que se presentan
+cuando el talento entra a formar parte de nuestro equipo de trabajo:
 
 [qanda]
 *¿Cuáles son exactamente las responsabilidades de mi rol?*::
@@ -406,6 +425,19 @@ Con tiempo y dinero:
   en la cual, dependiendo de sus funciones del momento,
   puede realizarse para atender calamidades de fuerza mayor.
 
+*¿Puedo adelantar vacaciones?*::
+  En +Fluid Attacks+ puedes adelantar las vacaciones
+  incluso si no tienes todos los períodos cumplidos.
+  Estas deben solicitarse mínimo con +30+ días calendario de anticipación,
+  estarán sometidas a aprobación
+  en función de otras que han sido solicitadas primero (+FIFO+).
+  Debe recordarse que el mínimo periodo de vacaciones
+  que se puede solicitar es aquel que permita mínimo 5 días de descanso,
+  incluyendo fines de semana.
+  Si usted tiene algún asunto eventual excepcional
+  no tiene que sacar vacaciones para ello
+  sino que simplemente notifica la excepción correspondiente.
+
 *¿Cuándo se revisa el monto del salario asignado?*::
   El salario se revisa en +3+ posibles circunstancias.
   La primera, llamada revisión anual, es de carácter obligatorio
@@ -448,57 +480,6 @@ Con tiempo y dinero:
   y corresponde a la capacidad de +Fluid Attacks+
   de cumplir los compromisos con todos los talentos a largo plazo.
 
-*¿Qué se espera profesionalmente de un talento en Fluid Attacks?*::
-  Se espera que se adhiera estrictamente al código de ética,
-  que acepte genuinamente nuestra filosofía de trabajo,
-  que apoye a sus compañeros sean pares o líderes en aquellas actividades
-  que no le gustan pero que la naturaleza del trabajo demanda,
-  que se auto-gestione de inicio a fin sin la necesidad de un líder,
-  que cumpla los tiempos de entrega sin excusas,
-  que llegue a tiempo a todo compromiso con terceros,
-  que la revisión de sus entregables requiera cero ajustes,
-  que se involucren voluntariamente
-  en resolver los problemas que tiene la empresa,
-  que se empodere en llevar por sí solo hacia adelante iniciativas difíciles
-  que la compañía enfrenta,
-  que trabaje de forma dedicada y concentrada en los proyectos asignados,
-  preferiblemente terminándolos antes de tiempo sin sacrificar calidad.
-  Se espera que hable con la verdad usando oportunamente los canales definidos
-  siguiendo el valor de la prudencia.
-  Se espera un cuidado inmaculado
-  de la información confidencial de +Fluid Attacks+ y los clientes,
-  así como un uso responsable en cualquier espacio
-  fuera del conocimiento en hacking correspondiente.
-  Finalmente se espera que estas expectativas se cumplan siempre,
-  de forma constante y no eventual,
-  y que el rigor en su aplicación crezca con el tiempo.
-
-
-*¿Qué se espera técnicamente de un talento en Fluid Attacks?*::
-  Que programe de forma elegante, funcional y con tipos.
-  Que haga pasos diarios a producción.
-  Que busque hacer funcionar las cosas, no excusas para no hacerlas.
-  Que hackee los sistemas del cliente sin ser detectado.
-  Que extraiga la mayor información posible para hacer consciente al cliente
-  de los impactos verdaderos.
-  Que documente las vulnerabilidades de forma inmediata.
-  Que reporte todas las vulnerabilidades encontradas.
-  Que si instala +backdoors+ estos sean siempre notificados
-  y posteriormente desinstalados.
-  Que hackee el máximo número de sistemas del cliente en el tiempo asignado.
-  Que encuentre vulnerabilidades no evidentes y de alta criticidad.
-  Que enseñe a sus compañeros nuevas técnicas de hackeo
-  sin celos ni actitud pitagórica.
-  Que aporte al desarrollo de los productos en cuestión.
-  Que ante un bloqueo de un proyecto se dedique a su actividad por defecto
-  (migración, producto, artículos, etc).
-  Que busque primero la solución por sí solo con actitud investigativa.
-  Que cuando la solución no llega alce la mano para aprender a pescar,
-  no para que le entreguen el pescado.
-  En términos generales una persona dedicada,
-  que comparte y que cumple sin excusas.
-
-
 *¿Qué NO determina el salario?*::
   El salario no se encuentra influenciado por su nivel de escolaridad,
   sus certificaciones, experiencia dentro y fuera de +Fluid Attacks+,
@@ -532,6 +513,103 @@ Con tiempo y dinero:
   A salarios menores más cantidad de personas con ellos,
   a salarios más altos el número de personas con ellos disminuye.
   Es decir, estos valores siguen una distribución exponencial.
+
+*¿Qué se espera profesionalmente de un talento en Fluid Attacks?*::
+  En +Fluid Attacks+ tenemos tres link:../../valores/[valores] inamovibles y no-negociables:
+  +
+  * *HONESTIDAD:* Se espera que el talento
+  se adhiera estrictamente al código de ética,
+  que acepte genuinamente nuestra filosofía de trabajo,
+  hablando siempre con la verdad,
+  utilizando oportunamente los canales definidos
+  y siguiendo el valor de la prudencia.
+  Se espera un cuidado inmaculado
+  de la información confidencial de +Fluid Attacks+ y los clientes,
+  así como un uso responsable del conocimiento de hacking.
+  No hackear sin autorizacion expresa, incluso fuera de +Fluid Attacks+
+  +
+  +
+  * *EQUIPO:* En cuanto al trabajo en equipo,
+  se espera que el talento apoye a sus compañeros
+  sean pares o líderes en aquellas actividades que no le gustan
+  pero que la naturaleza del trabajo demanda
+  y que trabaje de forma dedicada y concentrada en los proyectos asignados,
+  preferiblemente terminándolos antes de tiempo sin sacrificar calidad.
+  +
+  +
+  * *DISCIPLINA*: Se espera de un talento de +Fluid Attacks+
+  que se auto-gestione de inicio a fin sin la necesidad de un líder,
+  que cumpla los tiempos de entrega sin excusas,
+  que llegue a tiempo a todo compromiso con terceros,
+  que la revisión de sus entregables requiera cero ajustes,
+  que se involucren voluntariamente
+  en resolver los problemas que tiene la empresa,
+  y que se empodere en llevar por sí solo hacia adelante iniciativas difíciles
+  que la compañía enfrenta.
+  +
+  +
+  Finalmente se espera que estas expectativas se cumplan siempre,
+  de forma constante y no eventual,
+  y que el rigor en su aplicación crezca con el tiempo.
+
+*¿Qué se espera técnicamente de un talento en Fluid Attacks?*::
+  Encontrar todas las vulnerabilidades existentes
+  y reportarlas lo antes posible.
+  Para ello se espera que el talento:
+  +
+  +
+  * Programe de forma elegante, funcional y con tipos.
+  +
+  +
+  * Haga pasos diarios a producción.
+  +
+  +
+  * Busque hacer funcionar las cosas, no excusas para no hacerlas.
+  +
+  +
+  * Hackee los sistemas del cliente sin ser detectado.
+  +
+  +
+  * Extraiga la mayor información posible para hacer consciente al cliente
+  de los impactos verdaderos.
+  +
+  +
+  * Documente las vulnerabilidades de forma inmediata.
+  +
+  +
+  * Reporte todas las vulnerabilidades encontradas.
+  +
+  +
+  * Si instala +backdoors+ estos sean siempre notificados
+  y posteriormente desinstalados.
+  +
+  +
+  * Hackee el máximo número de sistemas del cliente en el tiempo asignado.
+  +
+  +
+  * Encuentre vulnerabilidades no evidentes y de alta criticidad.
+  +
+  +
+  * Enseñe a sus compañeros nuevas técnicas de hackeo
+  sin celos ni actitud pitagórica.
+  +
+  +
+  * Aporte al desarrollo de los productos en cuestión.
+  +
+  +
+  * Ante un bloqueo de un proyecto se dedique a su actividad por defecto
+  (migración, producto, artículos, etc).
+  +
+  +
+  * Busque primero la solución por sí solo con actitud investigativa.
+  +
+  +
+  * Cuando la solución no llega alce la mano para aprender a pescar,
+  no para que le entreguen el pescado.
+  +
+  +
+  En términos generales una persona dedicada,
+  que comparte y que cumple sin excusas.
 
 *¿Puedo crecer en Fluid Attacks?*::
   Para responder esta pregunta categorizamos el crecimiento en 3 niveles.
@@ -570,16 +648,16 @@ Con tiempo y dinero:
 *certificaciones y conocimientos adquiridos?*::
   La permanencia, las certificaciones y conocimientos
   no garantizan evolución en el rol.
-  Uno puede estar mucho tiempo con el mismo desempeño,
-  certificarse y no aumentar el desempeño y aprender de muchas cosas
-  pero no ponerlo al servicio de la empresa con dedicación.
+  Uno puede estar mucho tiempo en el mismo cargo, certificarse,
+  aprender de muchas cosas y no aumentar el desempeño
+  o no poner estos factores al servicio de la empresa con dedicación.
   Por tal motivo ninguna de esas variables garantiza evolución en el rol.
   Se puede evolucionar en el rol si su desempeño mejora trimestre a trimestre,
   si usted siguiendo el proceso definido
   y con dedicación entrega resultados mejores
   consistentemente que sus compañeros.
 
-*¿Qué mecanismos de reconocimientos al desempeño más de lo esperado existen?*::
+*¿Cómo se reconoce el desempeño que supere lo esperado?*::
   +Fluid Attacks+ tiene una filosofía simple en esta dirección,
   el desempeño constante más de lo esperado se reconoce
   mediante el re-escalafonamiento salarial.
@@ -597,28 +675,15 @@ Con tiempo y dinero:
   al desempeño histórico, a la alineación futura
   y equivalente a compañeros con los mismas evaluaciones en dichas variables.
   A medida que más tiempo se permanece en +Fluid Attacks+,
-  más reescalafonamientos han pasado y por ende
   su salario comienza a converger asintóticamente al rango salarial posible
-  y los reescalafonamientos son menos frecuentes.
+  a través de los reescalafonamientos que ha obtenido
+  y estos se vuelven menos frecuentes.
   Cuando una persona está en un rango salarial superior a su desempeño
   o la alineación futura no corresponde,
   se tiene una conversación privada con el talento
   para hacer un plan de mejora que de no implementarse en el corto plazo
   generará el retiro del talento de +Fluid Attacks+.
   Si dicha conversación no ocurre significa que todo va acorde a lo planeado.
-
-*¿Qué significa el tiempo de vigencia de la oferta?*::
-  Significa el plazo durante el cual +Fluid Attacks+ puede mantener la oferta.
-  Si durante el tiempo de vigencia no se recibe la aceptación explícita
-  y escrita del talento la oferta deja de ser válida.
-  El espíritu de esta medida es darle con prontitud la posibilidad
-  a otros candidatos que se encuentran en el proceso de selección.
-
-*¿De no aceptar la oferta que sucede con la inmersión que estoy realizando?*::
-  La inmersión finaliza de forma inmediata.
-  +Fluid Attacks+ retirará los accesos a los sistemas de entrenamiento
-  y procederá a enviar el reporte de tiempo para que usted por su parte
-  realice la cuenta de cobro por las horas de entrenamiento pendientes de pago.
 
 *¿Cuál es nuestro stack tecnológico?*::
   Toda nuestra tecnología se encuentra en link:https://aws.amazon.com/es/[+AWS+],
@@ -734,16 +799,3 @@ Con tiempo y dinero:
   así se logre con linters adicionales.
   El punto es apalancarse lo más posible en herramientas existentes
   en vez de reinventar la rueda.
-
-*¿Puedo adelantar vacaciones?*::
-  En +Fluid Attacks+ puedes adelantar las vacaciones
-  incluso si no tienes todos los períodos cumplidos.
-  Estas deben solicitarse mínimo con +30+ días calendario de anticipación,
-  estarán sometidas a aprobación
-  en función de otras que han sido solicitadas primero (+FIFO+).
-  Debe recordarse que el mínimo periodo de vacaciones
-  que se puede solicitar es aquel que permita mínimo 5 días de descanso,
-  incluyendo fines de semana.
-  Si usted tiene algún asunto eventual excepcional
-  no tiene que sacar vacaciones para ello
-  sino que simplemente notifica la excepción correspondiente.
