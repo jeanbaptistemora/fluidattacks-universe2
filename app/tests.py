@@ -2,10 +2,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from .api.formstack import FormstackAPI
-from .entity.query import Query
-from graphene import Schema
-# Create your tests here.
-
+from .entity import schema
 
 class FormstackAPITests(TestCase):
     def test_request(self):
@@ -64,8 +61,7 @@ class GraphQLTests(TestCase):
         request.session.save()
         request.session['username'] = "unittest"
         request.session['role'] = "admin"
-        schema = Schema(query=Query)
-        result = schema.execute(query, context_value=request)
+        result = schema.schema.execute(query, context_value=request)
         if "alert" in result.data:
             message = result.data["alert"]["message"]
             self.assertIs(
@@ -89,8 +85,7 @@ class GraphQLTests(TestCase):
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
         request.session['access'] = {"unittesting": [422286126, 436423161, 435326633, 435326463, 418900971]}
-        schema = Schema(query=Query)
-        result = dict(schema.execute(query, context_value=request).data)
+        result = dict(schema.schema.execute(query, context_value=request).data)
         if "event" in result.keys():
             detail = dict(result["event"])["detail"]
             self.assertIs(
@@ -114,8 +109,7 @@ class GraphQLTests(TestCase):
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
         request.session['access'] = {"unittesting": ["422286126", "436423161", "435326633", "435326463", "418900971"]}
-        schema = Schema(query=Query)
-        result = dict(schema.execute(query, context_value=request).data)
+        result = dict(schema.schema.execute(query, context_value=request).data)
         if "events" in result:
             detail = dict(result["events"][0])["detail"]
             self.assertIs(
@@ -123,3 +117,27 @@ class GraphQLTests(TestCase):
                 True
             )
         self.assertFalse("events" not in result)
+
+    def test_get_finding(self):
+        """ Check for finding """
+        query = """{
+          finding(identifier: "422286126"){
+            id
+            access
+          }
+        }"""
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.session['access'] = {"unittesting": [
+            "422286126", "436423161",
+            "435326633", "435326463",
+            "418900971"
+            ]}
+        result = schema.schema.execute(query, context_value=request)
+        assert not result.errors
+        self.assertEqual(result.data.get("finding")["id"], '422286126')
