@@ -245,7 +245,7 @@ Asserts-Review:
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
     - docker pull fluid-docker.jfrog.io/fluid:integrates
-    - docker run
+    - docker run -t
         --rm -e BRANCH="$CI_COMMIT_REF_SLUG"
         -e STAGE=review -e ORG=fluid
         -e APP=integrates -e USER="$JFROG_USER"
@@ -353,7 +353,7 @@ asserts-prod:
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
     - docker pull fluid-docker.jfrog.io/fluid:integrates
-    - docker run
+    - docker run -t
         --rm -e ORG=fluid -e STAGE=post-deploy
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
