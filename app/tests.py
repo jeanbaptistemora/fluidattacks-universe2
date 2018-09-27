@@ -1,3 +1,4 @@
+import json
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -141,3 +142,96 @@ class GraphQLTests(TestCase):
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
         self.assertEqual(result.data.get("finding")["id"], '422286126')
+
+    def test_get_resources(self):
+        """ Check for project resources """
+        query = """{
+          resources(projectName: "unittesting"){
+            repositories
+            environments
+          }
+        }"""
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.session['access'] = {"unittesting": [
+            "422286126", "436423161",
+            "435326633", "435326463",
+            "418900971"
+            ]}
+        result = schema.schema.execute(query, context_value=request)
+        assert not result.errors
+        self.assertTrue("https://gitlab.com/fluidsignal/engineering/" in \
+                        result.data.get("resources")["repositories"])
+        self.assertTrue("https://fluidattacks.com/" in \
+                        result.data.get("resources")["environments"])
+
+    def test_add_resources(self):
+        """ Check for add project resources"""
+        reposToAdd = [
+            {"branch": "master", "repository": "https://gitlab.com/fluidsignal/unittest"}
+        ]
+        envsToAdd = [
+            {"environment": "https://unittesting.fluidattacks.com/"},
+        ]
+        query = """mutation {
+          addRepositories(projectName: "unittesting", resourcesData: "$repos") {
+            success
+          }
+          addEnvironments(projectName: "unittesting", resourcesData: "$envs") {
+            success
+          }
+        }"""
+        query = query.replace("$repos", json.dumps(reposToAdd).replace('"', '\\"'))
+        query = query.replace("$envs", json.dumps(envsToAdd).replace('"', '\\"'))
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.session['access'] = {"unittesting": [
+            "422286126", "436423161",
+            "435326633", "435326463",
+            "418900971"
+            ]}
+        result = schema.schema.execute(query, context_value=request)
+        assert not result.errors
+        self.assertTrue(result.data.get("addRepositories")["success"])
+        self.assertTrue(result.data.get("addEnvironments")["success"])
+
+    def test_remove_resources(self):
+        """ Check for remove project resources """
+        repoToRemove = {"branch": "master", "urlRepo": "https://gitlab.com/fluidsignal/unittest"}
+        envToRemove = {"urlEnv": "https://unittesting.fluidattacks.com/"}
+        query = """mutation{
+          removeRepositories(projectName: "unittesting", repositoryData: "$repo"){
+            success
+          }
+          removeEnvironments(projectName: "unittesting", repositoryData: "$env"){
+            success
+          }
+        }"""
+        query = query.replace("$repo", json.dumps(repoToRemove).replace('"', '\\"'))
+        query = query.replace("$env", json.dumps(envToRemove).replace('"', '\\"'))
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.session['access'] = {"unittesting": [
+            "422286126", "436423161",
+            "435326633", "435326463",
+            "418900971"
+            ]}
+        result = schema.schema.execute(query, context_value=request)
+        assert not result.errors
+        self.assertTrue(result.data.get("removeRepositories")["success"])
+        self.assertTrue(result.data.get("removeEnvironments")["success"])

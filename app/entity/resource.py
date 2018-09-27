@@ -1,4 +1,5 @@
 import rollbar
+import threading
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
@@ -106,7 +107,11 @@ class AddRepositories(Mutation):
                     'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
-                send_mail_repositories(to, context)
+                email_send_thread = threading.Thread( \
+                                              name="Add repositories email thread", \
+                                              target=send_mail_repositories, \
+                                              args=(to, context,))
+                email_send_thread.start()
                 self.success = True
             else:
                 rollbar.report_message('Error: An error occurred adding repository', 'error', info.context)
@@ -169,7 +174,10 @@ class RemoveRepositories(Mutation):
                         'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                         .format(project=project_name)
                     }
-                    send_mail_repositories(to, context)
+                    threading.Thread( \
+                      name="Remove repositories email thread", \
+                      target=send_mail_repositories, \
+                      args=(to, context,)).start()
                     self.success = True
                 else:
                     rollbar.report_message('Error: An error occurred removing repository', 'error', info.context)
@@ -228,7 +236,11 @@ class AddEnvironments(Mutation):
                     'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
-                send_mail_repositories(to, context)
+                email_send_thread = threading.Thread( \
+                                              name="Add environments email thread", \
+                                              target=send_mail_repositories, \
+                                              args=(to, context,))
+                email_send_thread.start()
                 self.success = True
             else:
                 rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
@@ -287,7 +299,11 @@ class RemoveEnvironments(Mutation):
                         'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                         .format(project=project_name)
                     }
-                    send_mail_repositories(to, context)
+                    email_send_thread = threading.Thread( \
+                                                  name="Remove environments email thread", \
+                                                  target=send_mail_repositories, \
+                                                  args=(to, context,))
+                    email_send_thread.start()
                     self.success = True
                 else:
                     rollbar.report_message('Error: An error occurred removing an environment', 'error', info.context)
