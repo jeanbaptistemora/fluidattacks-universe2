@@ -45,7 +45,7 @@ class User(ObjectType):
                 last_login = integrates_dao.get_user_last_login_dao(user_email)
                 last_login = last_login.split('.',1)[0]
 
-                if last_login == "1111-01-01 11:11:11":
+                if last_login == "1111-01-01 11:11:11" or last_login == "-":
                     self.last_login=[-1,-1]
                 else:
                     dates_difference = datetime.now()-datetime.strptime(last_login, "%Y-%m-%d %H:%M:%S")
