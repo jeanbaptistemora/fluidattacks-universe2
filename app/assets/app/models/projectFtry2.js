@@ -233,11 +233,20 @@ angular.module("FluidIntegrates").factory(
        */
       "editUser" (data, project) {
         const oopsAc = "An error occurred editing user information";
-        return $xhr.post($q, `${BASE.url}edit_user`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          project
-        }, oopsAc);
+        const gQry = `mutation {
+          editUser(
+            projectName: "${project}",
+            email: "${data.userEmail}",
+            organization: "${data.userOrganization}",
+            phoneNumber: "${data.userPhone}",
+            responsibility: "${data.userResponsibility}",
+            role: "${data.userRole}"
+          ) {
+            access
+            success
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       },
 
       /**

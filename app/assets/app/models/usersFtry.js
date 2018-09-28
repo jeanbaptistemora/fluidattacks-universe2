@@ -219,29 +219,42 @@ angular.module("FluidIntegrates").factory(
                     );
                   // Capture the promise
                   req.then((response) => {
-                    if (!response.error) {
-                    // Mixpanel tracking
-                      mixPanelDashboard.trackUsersTab(
-                        "EditUser",
-                        userEmail,
-                        $stateParams.project.toLowerCase(),
-                        "EditUser",
-                        USER_EMAIL
-                      );
-                      $msg.success(
-                        $translate.instant("search_findings." +
-                                             "tab_users.success_admin"),
-                        $translate.instant("search_findings." +
-                                                    "tab_users.title_success")
-                      );
-                      $uibModalInstance.close();
-                      location.reload();
-                    }
-                    else if (response.error) {
+                    if (response.error) {
                       Rollbar.error("Error: An error occurred " +
                                                   "editing user information");
                       $msg.error($translate.instant("proj_alerts." +
                                                     "error_textsad"));
+                    }
+                    else if (angular.isUndefined(response.data)) {
+                      location.reload();
+                    }
+                    else if (response.data.editUser.access) {
+                      if (response.data.editUser.success) {
+                        // Mixpanel tracking
+                        mixPanelDashboard.trackUsersTab(
+                          "EditUser",
+                          userEmail,
+                          $stateParams.project.toLowerCase(),
+                          "EditUser",
+                          USER_EMAIL
+                        );
+                        $msg.success(
+                          $translate.instant("search_findings." +
+                              "tab_users.success_admin"),
+                          $translate.instant("search_findings." +
+                              "tab_users.title_success")
+                        );
+                        $uibModalInstance.close();
+                        location.reload();
+                      }
+                      else {
+                        $msg.error($translate.instant("proj_alerts." +
+                                                          "error_textsad"));
+                      }
+                    }
+                    else {
+                      $msg.error($translate.instant("proj_alerts." +
+                                                        "access_denied"));
                     }
                   });
                 }

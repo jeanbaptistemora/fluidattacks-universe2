@@ -3,8 +3,10 @@ from .resource import (
     AddRepositories, RemoveRepositories,
     AddEnvironments, RemoveEnvironments
 )
-
-from .user import GrantUserAccess, RemoveUserAccess
+from .user import (
+    GrantUserAccess, RemoveUserAccess,
+    EditUser
+)
 from .finding import UploadFile
 from graphene import ObjectType
 
@@ -24,3 +26,5 @@ class Mutations(ObjectType):
     uploadFile = UploadFile.Field()
 
     grantUserAccess = GrantUserAccess.Field()
+
+    editUser = EditUser.Field()
