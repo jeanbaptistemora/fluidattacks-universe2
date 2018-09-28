@@ -1,0 +1,192 @@
+:slug: defends/java/registrar-formateado/
+:category: java
+:description: Nuestros ethical hackers explican que son las bitácoras, porque es importante utilizarlas y cual es la manera adecuada de generar dichos informes en una aplicación Java utilizando diferentes formatos personalizados con el fin de hacerlas agradables y entendibles.
+:keywords: Java, Seguridad, Formatter, Log, Bitácora, Eventos.
+:defends: yes
+
+= Registrar Eventos Formateados
+
+== Necesidad
+
+Establecer un formato a los eventos que se registren
+en el +log+ de la aplicación
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de una aplicación +Java+
+conforme con la especificación del lenguaje +1.4.2+ o superior.
+
+== Solución
+
+Una bitácora o +log+ es una grabación secuencial en un archivo
+o en una base de datos de todos los acontecimientos (eventos o acciones)
+que afectan a un proceso particular
+(aplicación, actividad de una red informática, etc.).
+De esta forma constituye una evidencia
+del comportamiento del sistema.<<r1,[1]>>
+
+Generalmente los acontecimientos vienen anotados
+con el momento exacto o +data+ (fecha, hora, minuto, segundo)
+en el que ocurrió, lo que permite analizar paso a paso la actividad.
+Además, una o más categorizaciones del acontecimiento registrado.
+Es frecuente usar categorías distintas
+para distinguir la importancia del acontecimiento
+estableciendo distintos niveles de registro
+los cuales suelen ser: depuración, información, advertencia y error.
+
+El uso de bitácoras puede servir para:
+
+* Análisis forense.
+* Detección de intrusos.
+* Depuración de errores.
+* Motorización.
+* Cumplir con las leyes establecidas.
+* Auditoría.
+
+. El API estándar de bitácoras de +Java+,
+se forma principalmente por el concepto de +logger+.
+Dicho concepto corresponde a un nombre de estructura jerárquica
+similar a la de los paquetes y clases,
+además representa una configuración particular para grabar eventos.
+Así, una clase, paquete o aplicación particular
+puede tener un +logger+ particular
+cuya configuración puede ser cambiada
+en tiempo de despliegue.
+
+. Además, +Java+ proporciona la forma de establecer
+un formato para el registro de eventos.
+Para ello existen dos tipos de formatos
+que son +SimpleFormatter+ y +XMLFormatter+.
+Para establecer un formato personalizado
+se debe crear una clase que herede
+de la clase +java.util.logging.Formatter+.
++
+.MyFormatter.java
+[source, java, linenums]
+----
+import java.util.logging.Formatter;
+import java.util.logging.LogRecord;
+
+public class MyFormatter extends Formatter
+{
+  public String format(LogRecord record)
+  {
+    return("MyFormatter: " + record.getLevel().intValue()
+      + " - " + record.getMessage() + System.getProperty("line.separator"));
+  }
+}
+----
+
+. En el formato anterior, se define
+que cada registro de evento
+debe contener la palabra reservada +MyFormatter+,
+el valor del nivel del evento
+y el mensaje que describe el evento ocurrido.
+
+. Para crear un objeto +logger+ en la aplicación,
+es necesario importar las siguientes clases.
++
+.CLI.java
+[source, java, linenums]
+----
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+----
+
+. Para crear una instancia de la clase +Logger+
+se debe invocar el método estático +Logger.getLogger+
+pasandole como parámetro el nombre del +logger+.
++
+[source, java, linenums]
+----
+class CLI
+{
+  public static void main(String argv[]) throws Exception
+  {
+    Logger logger = Logger.getLogger(“”);
+----
+
+. Luego se configura el manejador de eventos
+que se encargará de registrar
+el evento a una salida especifica.
++
+[source, java, linenums]
+----
+FileHandler fh = new FileHandler("CLI.log");
+----
+
+. El formato personalizado creado anteriormente
+debe asignarse al manejador de eventos que,
+en última instancia, es quien registra
+el evento según el formato definido.
++
+[source, java, linenums]
+----
+fh.setFormatter(new MyFormatter());
+----
+
+. Luego se establece el nivel del evento
+que se quiere registrar en el archivo de +log+
+y se agrega el manejador de eventos al +logger+.
++
+[source, java, linenums]
+----
+logger.setLevel(Level.ALL);
+logger.addHandler(fh);
+----
+
+. Se registran algunos eventos de diferentes niveles
+en el +log+ de la aplicación llamado +CLI.log+.
++
+[source, java, linenums]
+----
+    logger.info("procesando...");
+    try
+    {
+      throw(new Exception());
+    }
+    catch (Exception e)
+    {
+      logger.log(Level.WARNING, "houston... we've got a problem", e);
+    }
+    logger.fine("hecho!");
+  }
+}
+----
+
+. Se compila y ejecuta el programa
++
+.salida.shell
+[source, shell, linenums]
+----
+$ javac MyFormatter.java
+$ javac CLI.java
+$ java CLI
+$ cat CLI.log
+MyFormatter: 800 - procesando...
+MyFormatter: 900 - houston... we've got a problem
+MyFormatter: 500 - hecho!
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
+
+[button]#link:src/myformatter.java[MyFormatter.java]#
+Clase MyFormatter.
+
+[button]#link:src/cli.java[Cli.java]#
+Clase Cli.
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)]
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html[Java Logging Overview]
+. [[r3]] link:https://docs.oracle.com/javase/7/docs/api/java/util/logging/Formatter.html[Class Formatter]
+. [[r4]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]
