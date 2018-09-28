@@ -125,6 +125,7 @@ class GraphQLTests(TestCase):
           finding(identifier: "422286126"){
             id
             access
+            vulnerabilities
           }
         }"""
         request = RequestFactory().get('/')
@@ -142,6 +143,13 @@ class GraphQLTests(TestCase):
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
         self.assertEqual(result.data.get("finding")["id"], '422286126')
+        test_data = {"finding_id": "422286126",
+                     "UUID": "80d6a69f-a376-46be-98cd-2fdedcffdcc0",
+                     "historic_state": [{"date": "2018-09-28 10:32:58", "state": "open"}],
+                     "specific": "phone",
+                     "vuln_type": "inputs",
+                     "where": "https://example.com"}
+        assert json.dumps(test_data) in result.data.get("finding")["vulnerabilities"]
 
     def test_get_resources(self):
         """ Check for project resources """

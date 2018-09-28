@@ -1451,3 +1451,43 @@ def update_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+
+def add_vulnerability_dynamo(table_name, data):
+    """Add vulnerabilities."""
+    table = dynamodb_resource.Table(table_name)
+    try:
+        response = table.put_item(
+            Item={
+                'finding_id': str(data["finding_id"]),
+                'UUID': str(data["UUID"]),
+                'vuln_type': data["vuln_type"],
+                'where': data["where"],
+                'specific': str(data["specific"]),
+                'historic_state': data["historic_state"],
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+def get_vulnerabilities_dynamo(finding_id):
+    """Get vulnerabilities of a finding."""
+    table = dynamodb_resource.Table('FI_vulnerabilities')
+    filter_key = 'finding_id'
+    if filter_key and finding_id:
+        response = table.query(KeyConditionExpression=Key(filter_key).eq(finding_id))
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items

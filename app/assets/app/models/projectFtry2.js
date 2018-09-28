@@ -273,6 +273,25 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Get finding data.
+       * @function getUserData
+       * @param {String} findingId Numeric id of the finding
+       * @member integrates.projectFtry2
+       * @return {Object} GraphQL response with the requested data
+       */
+      "getFinding" (findingId) {
+        const oopsAc = "An error occurred getting finding information";
+        const gQry = `{
+          finding(identifier: "${findingId}") {
+            id
+            access
+            vulnerabilities
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
+      },
+
+      /**
        * Get user information.
        * @function getUserData
        * @param {String} email User email.
@@ -384,7 +403,7 @@ angular.module("FluidIntegrates").factory(
               angular.element(".loader").hide();
               callbackFn(angular.fromJson(response));
             },
-            "url": `${BASE.url}upload_file?query=${gQry}`
+            "url": `${BASE.url}api?query=${gQry}`
           });
         }
         catch (err) {

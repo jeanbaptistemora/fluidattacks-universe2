@@ -7,11 +7,14 @@ mapping:
         mapping:
           field: 
             type: str
+            required: true
           state:
             type: str
-            enum: ['open', 'close']
+            enum: ['open', 'closed']
+            required: true
           url:
             type: str
+            required: true
   lines:
     type: seq
     sequence:
@@ -19,11 +22,14 @@ mapping:
         mapping:
           line:
             type: int
+            required: true
           path:
             type: str
+            required: true
           state:
             type: str
-            enum: ['open', 'close']
+            enum: ['open', 'closed']
+            required: true
   ports:
     type: seq
     sequence:
@@ -31,8 +37,12 @@ mapping:
         mapping:
           ip:
             type: str
+            pattern: ^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$
+            required: true
           port:
             type: int
+            required: true
           state:
             type: str
-            enum: ['open', 'close']
+            enum: ['open', 'closed']
+            required: true
