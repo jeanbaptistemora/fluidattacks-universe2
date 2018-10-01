@@ -545,6 +545,24 @@ def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
             return False
 
 
+def delete_vulns_email_dynamo(project_name, unique_id):
+    """Delete project in DynamoDb."""
+    table = dynamodb_resource.Table('FI_findings_email')
+    try:
+        response = table.delete_item(
+            Key={
+                'project_name': project_name,
+                'unique_id': int(unique_id),
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+
 def get_company_alert_dynamo(company_name, project_name):
     """ Get alerts of a company. """
     company_name = company_name.lower()
@@ -787,6 +805,22 @@ def delete_user(user_id=None):
                 rollbar.report_exc_info()
                 return False
         return False
+
+
+def delete_project(project=None):
+    """Delete project of Integrates DB."""
+    if project:
+        with connections['integrates'].cursor() as cursor:
+            query = 'DELETE FROM projects WHERE project = %s'
+            try:
+                cursor.execute(query, (project,))
+                cursor.fetchone()
+                return True
+            except OperationalError:
+                rollbar.report_exc_info()
+                return False
+        return False
+
 
 def get_admins():
     with connections['integrates'].cursor() as cursor:
@@ -1102,6 +1136,7 @@ def remove_role_to_project_dynamo(project_name, user_email, role):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
 
 
 def delete_finding_dynamo(finding_id):
