@@ -51,7 +51,6 @@
     "tslint": "5.10.0",
     "tslint-react": "3.6.0",
     "typescript": "2.9.2",
-    "uglify-js": "3.4.3",
     "vinyl-source-stream": "2.0.0",
     "webpack": "4.16.2",
     "webpack-stream": "5.0.0",
@@ -87,7 +86,8 @@
     "recompose": "0.30.0",
     "@types/recompose": "0.26.5",
     "lodash": "4.17.11",
-    "@types/lodash": "4.14.116"
+    "@types/lodash": "4.14.116",
+    "gulp-plumber": "1.2.0"
   },
   "scripts": {
     "test": "gulp compile && mocha --require ignore-styles -r ts-node/register ./src/**/*.spec.tsx"

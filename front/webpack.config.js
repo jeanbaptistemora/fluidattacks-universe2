@@ -9,11 +9,11 @@ module.exports = {
     filename: 'bundle.min.js'
   },
   module: {
-    rules: [{ 
+    rules: [{
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[hash].[ext]"
-    }, { 
-      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+    }, {
+      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: "file-loader",
       options: {
         name: 'fonts/[hash].[ext]'
@@ -28,8 +28,8 @@ module.exports = {
           publicPath: 'assets/dashboard/img/'
         }
       }]
-    }, { 
-      test: /\.tsx?$/, 
+    }, {
+      test: /\.tsx?$/,
       loader: "awesome-typescript-loader"
     }, {
       test: /\.css$/,
@@ -53,7 +53,7 @@ module.exports = {
     }]
   },
   plugins: [
-    new UglifyJsPlugin(),
+    new UglifyJsPlugin({parallel: true}),
     new ExtractTextPlugin("integrates.min.css"),
     new OptimizeCssAssetsPlugin()
   ],
