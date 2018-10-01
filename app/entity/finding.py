@@ -64,7 +64,7 @@ class Finding(ObjectType):
 
 
 class UploadFile(Mutation):
-    """Upload a file with the vuvlnerabilities."""
+    """Upload a file with the vulnerabilities."""
 
     class Arguments(object):
         """Arguments of the class."""
@@ -112,32 +112,67 @@ class UploadFile(Mutation):
         return UploadFile(access=self.access, success=self.success)
 
 
+def get_last_state(state_list):
+    """Get the last state of a vulnerability."""
+    for state in state_list:
+        current_date = datetime.today().min
+        state_date = datetime.strptime(state.get('date'), '%Y-%m-%d %H:%M:%S')
+        current_state = ""
+        if state_date > current_date:
+            current_date = state_date
+            current_state = state.get('state')
+    return current_state
+
+
 def add_to_dynamo(item, vuln_type, finding_id, info):
     """Add vulnerability to dynamo."""
     historic_state = []
     tzn = pytz.timezone('America/Bogota')
-    where = {}
-    where["inputs"] = {"where": "url", "specific": "field"}
-    where["lines"] = {"where": "path", "specific": "line"}
-    where["ports"] = {"where": "ip", "specific": "port"}
+    where_haders = {}
+    where_haders["inputs"] = {"where": "url", "specific": "field"}
+    where_haders["lines"] = {"where": "path", "specific": "line"}
+    where_haders["ports"] = {"where": "ip", "specific": "port"}
     response = False
     current_day = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    for vuln, vuln_info in where.items():
+    for vuln, vuln_info in where_haders.items():
         if vuln_type == vuln:
-            table_name = "FI_vulnerabilities"
-            data = {}
-            data["vuln_type"] = vuln
-            data["where"] = item.get(vuln_info.get("where"))
-            data["specific"] = item.get(vuln_info.get("specific"))
-            data["finding_id"] = finding_id
-            data["UUID"] = str(uuid.uuid4())
-            if item.get('state'):
-                current_state = {'date': current_day, 'state': item.get('state')}
-                historic_state.append(current_state)
-                data["historic_state"] = historic_state
-                response = integrates_dao.add_vulnerability_dynamo(table_name, data)
+            where = item.get(vuln_info.get("where"))
+            specific = item.get(vuln_info.get("specific"))
+            vuln_exits = integrates_dao.get_vulnerability_dynamo(finding_id, vuln, where, specific)
+            if vuln_exits:
+                response = update_state(vuln_exits, item, finding_id, current_day)
             else:
-                util.cloudwatch_log(
-                    info.context,
-                    'Security: Attempted to add vulnerability without state')
+                data = {}
+                data["vuln_type"] = vuln
+                data["where"] = where
+                data["specific"] = specific
+                data["finding_id"] = finding_id
+                data["UUID"] = str(uuid.uuid4())
+                if item.get('state'):
+                    historic_state.append({'date': current_day, 'state': item.get('state')})
+                    data["historic_state"] = historic_state
+                    response = integrates_dao.add_vulnerability_dynamo("FI_vulnerabilities", data)
+                else:
+                    util.cloudwatch_log(
+                        info.context,
+                        'Security: Attempted to add vulnerability without state')
+    return response
+
+
+def update_state(vuln_exits, item, finding_id, current_day):
+    """Update vulnerability state."""
+    last_state = get_last_state(vuln_exits[0].get('historic_state'))
+    response = False
+    if last_state != item.get('state'):
+        historic_state = []
+        current_state = {'date': current_day, 'state': item.get('state')}
+        historic_state.append(current_state)
+        response = integrates_dao.update_state_dynamo(
+            finding_id,
+            vuln_exits[0].get("UUID"),
+            "historic_state",
+            historic_state,
+            vuln_exits)
+    else:
+        response = False
     return response

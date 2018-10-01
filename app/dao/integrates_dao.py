@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from django.db import connections
 from django.db.utils import OperationalError
 from boto3 import resource
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 # pylint: disable=E0402
 from __init__ import FI_AWS_DYNAMODB_ACCESS_KEY
@@ -1526,3 +1526,63 @@ def get_vulnerabilities_dynamo(finding_id):
         else:
             break
     return items
+
+
+def get_vulnerability_dynamo(finding_id, vuln_type, where, specific):
+    """Get a vulnerability."""
+    table = dynamodb_resource.Table('FI_vulnerabilities')
+    filter_key = 'finding_id'
+    if filter_key and finding_id:
+        key_exp = Key(filter_key).eq(finding_id)
+        filtering_exp = Attr("vuln_type").eq(vuln_type) & Attr("where").eq(where) \
+            & Attr("specific").eq(str(specific))
+        response = table.query(
+            KeyConditionExpression=key_exp,
+            FilterExpression=filtering_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def update_state_dynamo(finding_id, vuln_id, attr_name, attr_value, item):
+    table = dynamodb_resource.Table('FI_vulnerabilities')
+    try:
+        if attr_name not in item[0]:
+            table.update_item(
+                Key={
+                    'finding_id': str(finding_id),
+                    'UUID': vuln_id,
+                },
+                UpdateExpression='SET #attrName = :val1',
+                ExpressionAttributeNames={
+                    '#attrName': attr_name
+                },
+                ExpressionAttributeValues={
+                    ':val1': []
+                }
+            )
+        update_response = table.update_item(
+            Key={
+                'finding_id': str(finding_id),
+                'UUID': vuln_id
+            },
+            UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
+            ExpressionAttributeNames={
+                '#attrName': attr_name
+            },
+            ExpressionAttributeValues={
+                ':val1': attr_value
+            }
+        )
+        resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
