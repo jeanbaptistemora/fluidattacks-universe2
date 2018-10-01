@@ -111,8 +111,8 @@ def get_new_vulnerabilities():
                     if has_treatment:
                         context['findings_working_on'].append(has_treatment)
                     else:
-                        message = 'Finding {finding!s} of project {project!s} '
-                        'has defined treatment' \
+                        message = 'Finding {finding!s} of project {project!s} ' \
+                            'has defined treatment' \
                             .format(finding=finding['id'], project=project)
                         logger.info(message)
                     delta = int(act_finding['openVulnerabilities']) - \
@@ -125,7 +125,7 @@ def get_new_vulnerabilities():
                         })
                         delta_total = delta_total + abs(delta)
                         integrates_dao.add_or_update_vulns_dynamo(
-                            str.lower(str(project[0])),
+                            project,
                             int(finding['id']),
                             int(act_finding['openVulnerabilities'])
                         )
@@ -135,8 +135,8 @@ def get_new_vulnerabilities():
                             .format(finding=finding['id'], project=project)
                         logger.info(message)
                 else:
-                    message = 'Finding {finding!s} of project {project!s} is '
-                    'not valid' \
+                    message = 'Finding {finding!s} of project {project!s} is ' \
+                        'not valid' \
                         .format(finding=finding['id'], project=project)
                     logger.info(message)
         except (TypeError, KeyError):
