@@ -316,7 +316,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IResourcesViewProps) =
     repositoriesDataset: state.dashboard.resources.repositories,
   });
 
-const component: React.StatelessComponent<IResourcesViewProps> =
+export const component: React.StatelessComponent<IResourcesViewProps> =
   (props: IResourcesViewProps): JSX.Element => (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
@@ -339,7 +339,7 @@ const component: React.StatelessComponent<IResourcesViewProps> =
                   </Col>
                   <Col md={2} sm={6}>
                     <Button
-                      id="remove"
+                      id="removeRepository"
                       block={true}
                       bsStyle="primary"
                       onClick={(): void => { removeRepo(props.translations, props.projectName); }}
@@ -403,7 +403,7 @@ const component: React.StatelessComponent<IResourcesViewProps> =
                   </Col>
                   <Col md={2} sm={6}>
                     <Button
-                      id="remove"
+                      id="removeEnvironment"
                       block={true}
                       bsStyle="primary"
                       onClick={(): void => { removeEnv(props.translations, props.projectName); }}
@@ -454,7 +454,7 @@ const component: React.StatelessComponent<IResourcesViewProps> =
               ? <Row>
                 {
                   props.addModal.envFields.map((field: { environment: string }, index: number) => (
-                    <Row>
+                    <Row key={index}>
                       <Col md={7}>
                         <label>
                           <label style={{color: "#f22"}}>* </label>
@@ -489,7 +489,7 @@ const component: React.StatelessComponent<IResourcesViewProps> =
                 {
                   props.addModal.repoFields.map((field: { branch: string; repository: string }, index: number) =>
                     (
-                      <Row>
+                      <Row key={index}>
                         <Col md={5}>
                           <label>
                             <label style={{color: "#f22"}}>* </label>
