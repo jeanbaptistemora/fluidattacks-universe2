@@ -28,7 +28,7 @@ a|[button]#link:../../../../integrates[aquí]#
 [role="integrates tb-alt"]
 [cols=3, frame="topbot"]
 |====
-2+a|== Autenticación fácil y rápida
+2+a|== Autenticación Fácil y Rápida
 
 No se guardan las credenciales del usuario.
 La autenticación es federada
@@ -36,13 +36,13 @@ permitiendo así la autenticación con usuarios corporativos.
 a|image::autenticacion.svg[Autenticación]
 
 a|image::menu-principal.svg[Menú Principal]
-2+a|== Menú principal
+2+a|== Menú Principal
 
 El dashboard permite a los usuarios tener acceso directo a todos sus proyectos.
 También es posible visualizar las eventualidades
 asociadas a cada uno de los proyectos.
 
-2+a|== Indicadores del proyecto
+2+a|== Indicadores del Proyecto
 
 Permiten realizar un seguimiento del estado actual del proyecto.
 Algunos indicadores utilizados son:
@@ -75,7 +75,7 @@ a|image::seguimiento-usuarios.svg[Seguimiento Usuarios]
 
 Se visualiza el último acceso de los usuarios a un proyecto.
 
-2+a|== Administración de usuarios
+2+a|== Administración de Usuarios
 
 Un usuario puede dar / remover el acceso a otros usuarios
 por medio de este módulo.
@@ -114,7 +114,7 @@ Cada vulnerabilidad incluye información acerca del estado actual,
 así como su criticidad, tipo y fecha de reporte.
 a|image::vulnerabilidades.png[Vulnerabilidades]
 
-a|image::descripcion-vulnerabilidad.png[Descripción De La Vulnerabilidad]
+a|image::descripcion-vulnerabilidad.png[Descripción de la Vulnerabilidad]
 2+a|== Descripción de la Vulnerabilidad
 
 Se encuentra el detalle técnico
@@ -151,7 +151,7 @@ Esto con el fin de determinar la criticidad de la vulnerabilidad.
 La existencia de una vulnerabilidad
 se muestra a través de una serie de evidencias (imagenes)
 con su respectiva descripción.
-a|image::evidencia-vulnerabilidad.png[Evidencia De La Vulnerabilidad]
+a|image::evidencia-vulnerabilidad.png[Evidencia de la Vulnerabilidad]
 
 a|image::animacion-explotacion.gif[Animación de Explotación]
 2+a|== Animación de Explotación
@@ -170,9 +170,9 @@ podrá reproducir el ataque que aprovecha la vulnerabilidad
 y determinar autónomamente si ya fue remediado.
 Al reproducir un ataque, el código que explota la vulnerabilidad
 es inyectado a la aplicación.
-a|image::explotacion-vulnerabilidad.png[Explotación De La Vulnerabilidad]
+a|image::explotacion-vulnerabilidad.png[Explotación de la Vulnerabilidad]
 
-a|image::linea-tiempo.png[Linea De Tiempo]
+a|image::linea-tiempo.png[Linea de Tiempo]
 2+a|== Línea de Tiempo de la Vulnerabilidad
 
 Se encuentra la evolución de la vulnerabilidad a lo largo del tiempo,
@@ -188,7 +188,7 @@ que fue comprometida durante la ejecución del Ethical Hacking,
 por medio de la explotación de una vulnerabilidad.
 a|image::registros.png[Registros Comprometidos]
 
-a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
+a|image::comentarios-vulnerabilidad.png[Comentarios de la Vulnerabilidad]
 2+a|== Aclaraciones de Dudas Sobre las Vulnerabilidades
 
 Los usuarios de la cadena de valor del proyecto incluyendo a Fluid Attacks,
@@ -209,7 +209,7 @@ cuando le den respuesta a las dudas realizadas.
 a|image::chat.png[Chat]
 
 a|image::correo.png[Correo]
-2+a|== Notificaciones Por Correo
+2+a|== Notificaciones por Correo
 
 Se envían notificaciones vía correo electrónico
 a los usuarios de la cadena de valor del proyecto.
@@ -222,10 +222,10 @@ Algunas de ellas son:
 * Cuando una vulnerabilidad cumple cierta edad
 (15, 30, 60 días...) y no ha sido remediada.
 
-2+a|== Base De Conocimiento
+2+a|== Base de Conocimiento
 
-Los usuarios tienen acceso al producto de Fluid Attacks, [button]#link:../../defends/[Defends]#,
+Los usuarios tienen acceso al producto de +Fluid Attacks+, [button]#link:../../defends/[Defends]#,
 el cual contiene ejemplos de cómo cumplir con los requisitos de seguridad
 que son evaluados en el Ethical Hacking realizado.
-a|image::base-conocimiento.png[Base De Conocimiento]
+a|image::base-conocimiento.png[Base de Conocimiento]
 |====
