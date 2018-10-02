@@ -7,7 +7,7 @@ from .user import (
     GrantUserAccess, RemoveUserAccess,
     EditUser
 )
-from .finding import UploadFile
+from .vulnerability import UploadFile
 from graphene import ObjectType
 
 class Mutations(ObjectType):
