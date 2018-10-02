@@ -1,13 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import DataTable from './index';
-import { BootstrapTable, DataAlignType } from 'react-bootstrap-table';
+import { DataAlignType } from 'react-bootstrap-table';
 import 'mocha';
-import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() });
 
 describe('Data table', () => {
 
@@ -44,6 +43,8 @@ describe('Data table', () => {
     ];
     const wrapper = shallow(
       <DataTable
+        id="testTable"
+        enableRowSelection={false}
         dataset={data}
         exportCsv={false}
         search={false}
@@ -91,6 +92,8 @@ describe('Data table', () => {
     ];
     const wrapper = shallow(
       <DataTable
+        id="testTable"
+        enableRowSelection={false}
         dataset={data}
         exportCsv={false}
         search={false}
