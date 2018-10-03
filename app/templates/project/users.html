@@ -86,48 +86,12 @@
               </div>
             </div>
             <div class="tab-content">
-              <div id="users" class="tab-pane cont active" >
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                      <!-- START: toolbar -->
-                      <div  class="column-button" style="width:50%;margin-right: auto;margin-left: auto;padding-left: auto;padding-right: auto;" >
-                        <div class="column-button" ng-show="isAdmin || isProjectManager">
-                        <button id="assign" class="btn btn-primary btn-block"
-                                    ng-click="editUser();" style="width:100%;margin:10px;">
-                            <i class="glyphicon glyphicon-edit"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.edit' | translate {% templatetag closevariable %}
-                        </button>
-                        </div>
-                        <div class="column-button" ng-show="isAdmin || isProjectManager" >
-                        <button  id="add"  class="btn btn-primary btn-block"
-                                    ng-click="addUser();" style="width:100%;margin:10px;">
-                          <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %}'search_findings.tab_users.add_button' | translate {% templatetag closevariable %}
-                        </button>
-                        </div>
-                        <div class="column-button" ng-show="isAdmin || isProjectManager" >
-                        <button  id="remove" class="btn btn-primary btn-block"
-                                    ng-click="removeUserAccess();" style="width:100%;margin:10px;">
-                          <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.remove_user' | translate {% templatetag closevariable %}
-                        </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12 col-sm-12" >
-                        <d-table
-                          id="'tblUsers'"
-                          dataset="usersDataset"
-                          export-csv="true"
-                          headers="tblUsersHeaders"
-                          page-size="15"
-                          search="true"
-                          enable-row-selection="isProjectManager || isAdmin"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <project-users-view
+                project-name="project"
+                translations="translations"
+                on-click-add="addUser"
+                on-click-edit="editUser"
+                on-click-remove="removeUserAccess"/>
            </div>
 </div>
 <!-- Start CommonStyles -->

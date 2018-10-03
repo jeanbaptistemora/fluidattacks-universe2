@@ -70,7 +70,7 @@ class User(ObjectType):
     def resolve_email(self, info):
         """ Resolve user email """
         del info
-        return self.email
+        return self.email.lower()
 
     def resolve_role(self, info):
         """ Resolve user role """

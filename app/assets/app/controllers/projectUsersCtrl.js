@@ -68,6 +68,42 @@ angular.module("FluidIntegrates").controller(
     projectFtry,
     usersFtry
   ) {
+    const initializeTable = function initializeTable () {
+      // Users table configuration
+      $scope.view.project = true;
+      const translationStrings = [
+        "search_findings.tab_users.edit",
+        "search_findings.tab_users.add_button",
+        "search_findings.tab_users.remove_user",
+
+        "search_findings.tab_users.admin",
+        "search_findings.tab_users.analyst",
+        "search_findings.tab_users.customer",
+        "search_findings.tab_users.customer_admin",
+        "search_findings.tab_users.developer",
+
+        "search_findings.tab_users.months_ago",
+        "search_findings.tab_users.days_ago",
+        "search_findings.tab_users.hours_ago",
+        "search_findings.tab_users.minutes_ago",
+
+        "search_findings.users_table.usermail",
+        "search_findings.users_table.userRole",
+        "search_findings.users_table.userResponsibility",
+        "search_findings.users_table.phoneNumber",
+        "search_findings.users_table.userOrganization",
+        "search_findings.users_table.firstlogin",
+        "search_findings.users_table.lastlogin",
+
+        "proj_alerts.access_denied",
+        "proj_alerts.error_textsad"
+      ];
+      $scope.translations = {};
+      angular.forEach(translationStrings, (value) => {
+        $scope.translations[value] = $translate.instant(value);
+      });
+    };
+
     $scope.init = function init () {
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
@@ -85,7 +121,7 @@ angular.module("FluidIntegrates").controller(
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
-        $scope.loadUsersInfo(projectName, $scope.usersData);
+        initializeTable();
       }
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
@@ -114,120 +150,9 @@ angular.module("FluidIntegrates").controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        const reqUsersLogin = projectFtry.usersByProject(projectName);
-        reqUsersLogin.then((response) => {
-          if (!response.error) {
-            if (angular.isUndefined(response.data)) {
-              location.reload();
-            }
-            else {
-              $scope.view.project = true;
-              const usersData = response.data.projectUsers;
-              angular.forEach(usersData, (user) => {
-                user.role = $translate.instant(`${"search_findings." +
-                                              "tab_users."}${user.role}`);
-                user.lastLogin = angular.fromJson(user.lastLogin);
-                const DAYS_IN_MONTH = 30;
-                if (user.lastLogin[0] >= DAYS_IN_MONTH) {
-                  const ROUNDED_MONTH = Math.round(user.lastLogin[0] /
-                                                 DAYS_IN_MONTH);
-                  user.lastLogin = ROUNDED_MONTH +
-                                    $translate.instant("search_findings." +
-                                                  "tab_users.months_ago");
-                }
-                else if (user.lastLogin[0] > 0 &&
-                         user.lastLogin[0] < DAYS_IN_MONTH) {
-                  user.lastLogin = user.lastLogin[0] +
-                                    $translate.instant("search_findings." +
-                                                  "tab_users.days_ago");
-                }
-                else if (user.lastLogin[0] === -1) {
-                  user.lastLogin = "-";
-                  user.firstLogin = "-";
-                }
-                else {
-                  const SECONDS_IN_HOUR = 3600;
-                  const ROUNDED_HOUR = Math.round(user.lastLogin[1] /
-                                                 SECONDS_IN_HOUR);
-                  const SECONDS_IN_MINUTES = 60;
-                  const ROUNDED_MINUTES = Math.round(user.lastLogin[1] /
-                                                    SECONDS_IN_MINUTES);
-                  if (ROUNDED_HOUR >= 1 &&
-                      ROUNDED_MINUTES >= SECONDS_IN_MINUTES) {
-                    user.lastLogin = ROUNDED_HOUR +
-                                  $translate.instant("search_findings." +
-                                                "tab_users.hours_ago");
-                  }
-                  else {
-                    user.lastLogin = ROUNDED_MINUTES +
-                                    $translate.instant("search_findings." +
-                                                  "tab_users.minutes_ago");
-                  }
-                }
-              });
-              $scope.loadUsersInfo(projectName, usersData);
-            }
-          }
-          else if (response.error) {
-            if (response.message === "Access denied") {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else {
-              Rollbar.warning("Warning: Users not found");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-            }
-          }
-        });
+        initializeTable();
       }
       return true;
-    };
-
-    $scope.loadUsersInfo = function loadUsersInfo (project, data) {
-      // Users table configuration
-      $scope.tblUsersHeaders = [
-        {
-          "dataField": "email",
-          "header": $translate.instant("search_findings.users_table.usermail"),
-          "width": "27%"
-        },
-        {
-          "dataField": "role",
-          "header":
-          $translate.instant("search_findings.users_table.userRole"),
-          "width": "8%"
-        },
-        {
-          "dataField": "responsability",
-          "header":
-          $translate.instant("search_findings.users_table.userResponsibility"),
-          "width": "12%"
-        },
-        {
-          "dataField": "phoneNumber",
-          "header":
-          $translate.instant("search_findings.users_table.phoneNumber"),
-          "width": "10%"
-        },
-        {
-          "dataField": "organization",
-          "header":
-          $translate.instant("search_findings.users_table.userOrganization"),
-          "width": "10%"
-        },
-        {
-          "dataField": "firstLogin",
-          "header":
-          $translate.instant("search_findings.users_table.firstlogin"),
-          "width": "12%"
-        },
-        {
-          "dataField": "lastLogin",
-          "header":
-          $translate.instant("search_findings.users_table.lastlogin"),
-          "width": "12%"
-        }
-      ];
-      $scope.usersDataset = data;
     };
 
     $scope.addUser = function addUser () {

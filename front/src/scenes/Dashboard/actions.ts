@@ -91,3 +91,17 @@ export const addFileName: DashboardAction =
       },
       type: actionType.ADD_FILE_NAME,
 });
+
+export const loadUsers: DashboardAction =
+  (userlist:
+    Array<{
+      email: string; firstLogin: string;
+      lastLogin: string; organization: string;
+      phoneNumber: string; responsability: string;
+      role: string;
+    }>): IActionStructure => ({
+    payload: {
+      userlist,
+    },
+    type: actionType.LOAD_USERS,
+});

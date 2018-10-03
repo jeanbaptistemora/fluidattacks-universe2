@@ -314,9 +314,7 @@ angular.module("FluidIntegrates").factory(
                   $translate.instant("search_findings.tab_users." +
                                       "title_success")
                 );
-                const removed = response.data.removeUserAccess.removedEmail;
-                $scope.usersDataset = $scope.usersDataset.
-                  filter((item) => item.email !== removed);
+                location.reload();
               }
               else {
                 $msg.error($translate.instant("proj_alerts.error_textsad"));

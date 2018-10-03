@@ -16,6 +16,7 @@ import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
+import { projectUsersView } from "./scenes/Dashboard/components/ProjectUsersView/index";
 import { resourcesView } from "./scenes/Dashboard/components/ResourcesView/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
@@ -296,7 +297,7 @@ angular
 
 /**
  * @url: /dashboard
- * @page: dashboard.html
+ * @page: users.html
  * @controllers: dashboardCtrl
  * @tag: <file-input/>
  */
@@ -310,6 +311,27 @@ angular
         "id",
         "type",
         "visible",
+     ],
+   ),
+  );
+
+/**
+ * @url: #/project/:project/users
+ * @page: users.html
+ * @controllers: projectUsersCtrl
+ * @tag: <project-Users-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "projectUsersView",
+   react2angular(
+      projectUsersView, [
+        "projectName",
+        "translations",
+        "onClickAdd",
+        "onClickEdit",
+        "onClickRemove",
      ],
    ),
   );

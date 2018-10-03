@@ -15,6 +15,18 @@ interface IDashboardState {
     environments: Array<{ urlEnv: string }>;
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
+  users: {
+    addModal: {
+      open: boolean;
+    };
+    userList:
+      Array<{
+        email: string; firstLogin: string;
+        lastLogin: string; organization: string;
+        phoneNumber: string; responsability: string;
+        role: string;
+      }>;
+  };
 }
 
 const initialState: IDashboardState = {
@@ -30,6 +42,12 @@ const initialState: IDashboardState = {
     },
     environments: [],
     repositories: [],
+  },
+  users: {
+    addModal: {
+      open: false,
+    },
+    userList: [],
   },
 };
 
@@ -137,24 +155,24 @@ const dashboard: DashboardReducer =
           },
         },
       };
-      case actionType.MODIFY_REPO_BRANCH:
-        return {
-          ...state,
-          resources: {
-            ...state.resources,
-            addModal: {
-              ...state.resources.addModal,
-              repoFields: [...state.resources.addModal.repoFields.map(
-                (field: { branch: string; repository: string }, index: number) =>
-                ({
-                  branch: index === action.payload.index
-                  ? action.payload.newValue
-                  : field.branch,
-                  repository: field.repository,
-                }))],
-            },
+    case actionType.MODIFY_REPO_BRANCH:
+      return {
+        ...state,
+        resources: {
+          ...state.resources,
+          addModal: {
+            ...state.resources.addModal,
+            repoFields: [...state.resources.addModal.repoFields.map(
+              (field: { branch: string; repository: string }, index: number) =>
+              ({
+                branch: index === action.payload.index
+                ? action.payload.newValue
+                : field.branch,
+                repository: field.repository,
+              }))],
           },
-        };
+        },
+      };
     case actionType.MODIFY_ENV_URL:
       return {
         ...state,
@@ -172,11 +190,19 @@ const dashboard: DashboardReducer =
           },
         },
       };
-      case actionType.ADD_FILE_NAME:
+    case actionType.ADD_FILE_NAME:
       return {
         ...state,
         fileInput: {
           name: action.payload.newValue[0].name,
+        },
+      };
+    case actionType.LOAD_USERS:
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          userList: action.payload.userlist,
         },
       };
     default:
