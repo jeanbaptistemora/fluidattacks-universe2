@@ -1,0 +1,185 @@
+:slug: defends/java/almacenar-sesion-filtro/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al almacenar el estado de sesión utilizando filtros. Las sesiones son frecuentemente utilizadas ya que permiten guardar información accesible en diferentes páginas web.
+:keywords: Java, Seguridad, Estado, Sesión, Estándar empresarial, Filtro.
+:defends: yes
+
+= Almacenar Estado de Sesión en Capa Web con Filtros
+
+== Necesidad
+
+Almacenar estado de sesión en la capa web con Filtros.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de una aplicación web
+la cual ha sido construida acorde
+al estándar empresarial de +Java+ o +JEE+.
+
+. Se dispone de un servidor de aplicaciones
+el cual soporta el estándar empresarial de +Java+.
+
+. Se está utilizando el +framework+ +JavaServer Faces+.
+
+== Solución
+
+La conexión que se establece entre un usuario
+y un servidor Web se denomina sesión.
+Las sesiones permiten almacenar información
+a lo largo de diferentes páginas,
+permitiendo acceder a ella en el momento que se requiera.
+Dentro de las sesiones es posible
+guardar cierta información la primera vez que el usuario visita la página,
+y dicha información puede ser mostrada en una visita posterior
+sin necesidad de interactuar con una base de datos o un archivo externo.
+Como estas sesiones son manejadas por lado del servidor,
+no se corre el riesgo de que el usuario las pueda alterar.
+Por lo general, dicha información contiene los datos del usuario,
+y el estado de las diferentes operaciones
+que el usuario realiza en la aplicación.
+En otras palabras, una sesión puede abarcar múltiples páginas Web
+y su seguimiento se realizará mediante la administración del estado
+sin que el usuario tenga que intervenir en ello.
+
+La administración del estado es el proceso por el cual
+se mantiene la misma información a través de múltiples peticiones
+para las mismas o distintas páginas web.
+
+En esta solución se verá la manera de almacenar
+o guardar los estados de sesión usando filtros.
+
+. En primer lugar, hay que declarar el filtro
+que se va a implementar dentro del archivo de configuración
++web.xml+ de la aplicación.
+Es necesario que dentro de ese mismo archivo
+se establezca que el filtro se va a aplicar
+a todas las solicitudes que se realicen a la aplicación.
++
+.web.xml
+[source, xml, linenums]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+  xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+  http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<display-name>Identifies</display-name>
+<filter>
+  <description></description>
+  <display-name>ControlFilter</display-name>
+  <filter-name>ControlFilter</filter-name>
+  <filter-class>com.example.web.filter.ControlFilter</filter-class>
+</filter>
+<filter-mapping>
+  <filter-name>ControlFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>
+----
+
+. Se debe de crear la clase
+que se va a encargar de gestionar el filtro.
+Para ello se establecerá el método +init+
+dentro del cual se va a utilizar
+una referencia al objeto +ServletContext+
+mediante la variable +servletContext+.
++
+.ControlFilter.java
+[source, java, linenums]
+----
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.FactoryFinder;
+import javax.faces.context.FacesContextFactory;
+import javax.faces.context.FacesContextFactory;
+import javax.faces.lifecycle.LifecycleFactory;
+import javax.faces.lifecycle.Lifecycle;
+import javax.servlet.ServletContext;
+import java.util.Map;
+import java.util.Set;
+
+public class ControlFilter implements Filter {
+  private !ServletContext servletContext;
+
+  public void init(FilterConfig config) throws ServletException {
+    this.servletContext = config.getServletContext();
+  }
+}
+----
+
+. Para obtener una referencia al contexto +Faces+
+se debe implementar, dentro del filtro,
+el método +getFacesContext+ de la siguiente forma.
++
+[source, java, linenums]
+----
+private FacesContext getFacesContext(ServletRequest request, ServletResponse response) {
+  FacesContext facesContext = FacesContext.getCurrentInstance();
+  if (facesContext != null) {
+    return facesContext;
+  }
+  FacesContextFactory contextFactory;
+  contextFactory = (FacesContextFactory)FactoryFinder.
+    getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+  LifecycleFactory lifecycleFactory;
+  lifecycleFactory = (LifecycleFactory)FactoryFinder.
+    getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+  Lifecycle lifecycle = lifecycleFactory.
+    getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+  facesContext = contextFactory.getFacesContext(this.servletContext,request,
+    response, lifecycle);
+  return facesContext;
+}
+----
+
+. Una vez obtenido una referencia al objeto +FacesContext+,
+se valida mediante la variable de control
+si se debe realizar una actualización de las variables de sesión
+con respecto a los valores de los parámetros
+involucrados en la solicitud actual.
+Esa variable de control
+debe ser enviada desde el lado del cliente
+indicando que los valores de los parámetros deben ser actualizados.
++
+[source, java, linenums]
+----
+public void doFilter(ServletRequest servletrequest, ServletResponse servletresponse,
+   FilterChain filterchain)throws IOException, ServletException {
+     ExternalContext contexto=getFacesContext(servletrequest, servletresponse).getExternalContext();
+     Map parametros = contexto.getRequestParameterMap();
+     String parametroControl=(String) parametros.get("variableControl");
+     if(parametroControl.equals(Constantes.PARAMETRO_ACTUALIZAR)) {
+       Iterator parametrosActualizar=parametros.entrySet().iterator();
+       while(parametrosActualizar.hasNext())
+       {
+          Map.Entry parametro =(Map.Entry)parametrosActualizar.next();
+          String key=(String)parametro.getKey();
+          String value=(String)parametro.getValue();
+          contexto.getSessionMap().put(key, value);
+       }
+     }
+}
+----
+
+. Para recuperar el valor de una variable de sesión
+desde un objeto +ManagedBean+
+se debe tener en cuenta lo siguiente.
++
+[source, java, linenums]
+----
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+ExternalContext contexto = FacesContext.getCurrentInstance().getExternalContext();
+String par1 =contexto.getSessionMap().get("par1");
+----
+
+== Referencias
+
+. [[r1]] link:http://novacreations.net/usando-filtros-en-una-aplicacion-web-java/[Usando Filtros en Java Web]
+. [[r2]] link:https://docs.oracle.com/javaee/6/api/javax/servlet/ServletContext.html[Interface ServletContext]
+. [[r3]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión]
