@@ -17,7 +17,10 @@ class Finding(ObjectType):
 
     id = String()
     access = Boolean()
-    vulnerabilities = List(Vulnerability)
+    vulnerabilities = List(
+        Vulnerability,
+        vuln_type=String(),
+        state=String())
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -49,7 +52,12 @@ class Finding(ObjectType):
         del info
         return self.access
 
-    def resolve_vulnerabilities(self, info):
+    def resolve_vulnerabilities(self, info, vuln_type="", state=""):
         """Resolve vulnerabilities attribute."""
         del info
-        return self.vulnerabilities
+        vuln_filtered = self.vulnerabilities
+        if vuln_type:
+            vuln_filtered = [i for i in vuln_filtered if i.vuln_type == vuln_type]
+        if state:
+            vuln_filtered = [i for i in vuln_filtered if i.current_state == state]
+        return vuln_filtered

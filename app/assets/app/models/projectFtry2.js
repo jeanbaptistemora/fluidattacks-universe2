@@ -273,25 +273,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Get finding data.
-       * @function getUserData
-       * @param {String} findingId Numeric id of the finding
-       * @member integrates.projectFtry2
-       * @return {Object} GraphQL response with the requested data
-       */
-      "getFinding" (findingId) {
-        const oopsAc = "An error occurred getting finding information";
-        const gQry = `{
-          finding(identifier: "${findingId}") {
-            id
-            access
-            vulnerabilities
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Get user information.
        * @function getUserData
        * @param {String} email User email.
@@ -307,6 +288,44 @@ angular.module("FluidIntegrates").factory(
             responsability
             phoneNumber
           }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
+      },
+
+      /**
+       * Get finding vulnerabilities.
+       * @function getVulnerabilities
+       * @param {String} findingId Numeric id of the finding
+       * @param {String} vulnState Filter for the vulnerabilities
+       * @member integrates.projectFtry2
+       * @return {Object} GraphQL response with the requested data
+       */
+      "getVulnerabilities" (findingId, vulnState) {
+        const oopsAc = "An error occurred getting finding information";
+        const gQry = `{
+          finding(identifier: "${findingId}") {
+            id
+            access
+            portsVulns: vulnerabilities(
+              vulnType: "ports", state: "${vulnState}") {
+              ...vulnInfo
+            }
+            linesVulns: vulnerabilities(
+              vulnType: "lines", state: "${vulnState}") {
+              ...vulnInfo
+            }
+            inputsVulns: vulnerabilities(
+              vulnType: "inputs", state: "${vulnState}") {
+              ...vulnInfo
+            }
+          }
+        }
+        fragment vulnInfo on Vulnerability {
+          vulnType
+          where
+          specific
+          historicState
+          currentState
         }`;
         return $xhr.fetch($q, gQry, oopsAc);
       },
