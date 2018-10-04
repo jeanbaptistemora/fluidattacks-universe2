@@ -457,30 +457,6 @@ angular.module("FluidIntegrates").factory(
           data,
           findingid
         }, oopsAc);
-      },
-
-      /**
-       * Return the eventualities of a project
-       * @function usersByProject
-       * @param {String} project Project name
-       * @member integrates.projectFtry
-       * @return {Object} Formstack response with the eventualities of a project
-       */
-      "usersByProject" (project) {
-        const oopsAc = "An error occurred getting events";
-        const gQry = `{
-          projectUsers(projectName:"${project}"){
-            email,
-            role,
-            responsability,
-            phoneNumber,
-            organization,
-            firstLogin,
-            lastLogin,
-            access
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }
