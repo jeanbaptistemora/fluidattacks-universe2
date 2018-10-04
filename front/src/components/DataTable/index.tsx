@@ -19,7 +19,8 @@ import "react-bootstrap-table/dist/react-bootstrap-table.min.css";
 import globalStyle from "../../styles/global.css";
 import style from "./index.css";
 
-interface ITableProps {
+export interface ITableProps {
+  bodyContainer?: string;
   /* tslint:disable-next-line:no-any
    * Disabling this rule is necessary because the dataset
    * array may contain different types since this is a
@@ -28,10 +29,15 @@ interface ITableProps {
   dataset: any[];
   enableRowSelection: boolean;
   exportCsv: boolean;
+  headerContainer?: string;
   headers: IHeader[];
   id: string;
   pageSize: number;
   search?: boolean;
+  striped?: boolean;
+  tableBody?: string;
+  tableContainer?: string;
+  tableHeader?: string;
   title: string;
   onClickRow(arg1: string | undefined): void;
 }
@@ -98,7 +104,6 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
    (
     <TableHeaderColumn
       isKey={index === 0}
-      className={style.th}
       dataAlign={key.align}
       dataField={key.dataField}
       dataFormat={
@@ -126,7 +131,6 @@ const renderDynamicHeaders: ((arg1: string[]) => JSX.Element[]) =
     (
       <TableHeaderColumn
         isKey={index === 0}
-        className={style.th}
         dataField={key}
         dataSort={true}
         key={index}
@@ -147,7 +151,7 @@ const renderHeaders: ((arg1: ITableProps) => JSX.Element[]) =
   renderDynamicHeaders(Object.keys(props.dataset[0]))
 );
 
-const dataTable: React.StatelessComponent<ITableProps> =
+export const dataTable: React.StatelessComponent<ITableProps> =
   (props: ITableProps): JSX.Element => (
     <React.StrictMode>
       <div id={props.id}>
@@ -173,7 +177,6 @@ const dataTable: React.StatelessComponent<ITableProps> =
                 }}
                 pagination={props.dataset.length > props.pageSize}
                 search={props.search}
-                striped={true}
                 selectRow={
                   props.enableRowSelection
                   ? {
@@ -182,6 +185,12 @@ const dataTable: React.StatelessComponent<ITableProps> =
                     }
                   : undefined
                 }
+                striped={props.striped}
+                tableContainerClass={props.tableContainer === undefined ? undefined : props.tableContainer}
+                headerContainerClass={props.headerContainer === undefined ? undefined : props.headerContainer}
+                bodyContainerClass={props.bodyContainer === undefined ? undefined : props.bodyContainer}
+                tableHeaderClass={props.tableHeader === undefined ? style.tableHeader : props.tableHeader}
+                tableBodyClass={props.tableBody === undefined ? undefined : props.tableBody}
               >
                 {renderHeaders(props)}
               </BootstrapTable>
@@ -192,21 +201,31 @@ const dataTable: React.StatelessComponent<ITableProps> =
   );
 
 dataTable.propTypes = {
+  bodyContainer: PropTypes.string,
   dataset: PropTypes.any.isRequired,
   enableRowSelection: PropTypes.bool,
+  headerContainer: PropTypes.string,
   id: PropTypes.string,
   onClickRow: PropTypes.func,
   pageSize: PropTypes.number,
+  striped: PropTypes.bool,
+  tableBody: PropTypes.string,
+  tableContainer: PropTypes.string,
+  tableHeader: PropTypes.string,
   title: PropTypes.string,
 };
 
 dataTable.defaultProps = {
+  bodyContainer: undefined,
   enableRowSelection: false,
   exportCsv: false,
+  headerContainer: undefined,
   headers: [],
   onClickRow: (arg1: string): void => undefined,
   pageSize: 25,
   search: false,
+  striped: true,
+  tableBody: undefined,
+  tableContainer: undefined,
+  tableHeader: undefined,
 };
-
-export = dataTable;

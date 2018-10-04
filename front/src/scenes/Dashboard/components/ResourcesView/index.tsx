@@ -20,7 +20,7 @@ import {
 } from "recompose";
 import { Reducer } from "redux";
 import { StateType } from "typesafe-actions";
-import { default as DataTable } from "../../../../components/DataTable/index";
+import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { msgError, msgSuccess } from "../../../../utils/notifications";

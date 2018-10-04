@@ -1,0 +1,24 @@
+:local .tableHeader {
+  background-color: white;
+  color: #555555;
+  text-align: left !important;
+  white-space: unset !important;
+}
+
+:local .tableHeader > thead > tr > th {
+  padding: 2px 3px;
+  padding: 2px 3px;
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  white-space: unset !important;
+  text-align: left !important;
+}
+
+:local .tableBody > tbody > tr > td {
+  border: none;
+  padding: 2px 3px;
+}
+
+:local .tableContainer {
+  border: none;
+}

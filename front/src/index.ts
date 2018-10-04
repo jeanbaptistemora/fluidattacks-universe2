@@ -5,7 +5,7 @@
  */
 import angular from "angular";
 import { react2angular } from "react2angular";
-import dataTable from "./components/DataTable/index";
+import { dataTable } from "./components/DataTable/index";
 import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
@@ -18,6 +18,7 @@ import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import { projectUsersView } from "./scenes/Dashboard/components/ProjectUsersView/index";
 import { resourcesView } from "./scenes/Dashboard/components/ResourcesView/index";
+import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
@@ -331,6 +332,31 @@ angular
         "translations",
         "onClickAdd",
         "onClickEdit",
+     ],
+   ),
+  );
+
+/**
+ * @url: /project/:project/:id/tracking
+ * @page: findingcontent.html
+ * @controllers: findingContentCtrl
+ * @tag: <simple-table/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "simpleTable",
+   react2angular(
+     simpleTable, [
+       "dataset",
+       "enableRowSelection",
+       "exportCsv",
+       "headers",
+       "id",
+       "onClickRow",
+       "pageSize",
+       "search",
+       "title",
      ],
    ),
   );

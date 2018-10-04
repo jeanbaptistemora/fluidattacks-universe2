@@ -1,6 +1,11 @@
-:local .th {
+:local .tableHeader {
   background-color: #898787;
   color: white;
+  text-align: center !important;
+  white-space: unset !important;
+}
+
+:local .tableHeader > thead > tr > th {
   text-align: center !important;
   white-space: unset !important;
 }

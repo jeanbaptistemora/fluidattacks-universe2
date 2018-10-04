@@ -2,7 +2,7 @@ import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
 import { component as ProjectUsersView } from "./index";
-import { default as DataTable } from "../../../../components/DataTable/index";
+import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import "mocha";
 import * as React from "react";
 import { Button, Glyphicon } from "react-bootstrap";
