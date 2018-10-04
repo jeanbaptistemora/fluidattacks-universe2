@@ -241,6 +241,9 @@ stop-review:
 
 Asserts-Review:
   stage: test
+  before_script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
   script:
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
@@ -250,10 +253,12 @@ Asserts-Review:
         -e STAGE=review -e ORG=fluid
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume $(pwd):/code
+        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
         fluid-docker.jfrog.io/fluid:integrates
-    - docker logout fluid-docker.jfrog.io
+    - docker logout fluid-doc"$PWD:/code"ker.jfrog.io
   retry: 2
+  after_script:
+    - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
   except:
     - master
     - triggers
@@ -349,6 +354,9 @@ deploy-k8s:
 
 asserts-prod:
   stage: post-deploy
+  before_script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
   script:
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
@@ -357,9 +365,11 @@ asserts-prod:
         --rm -e ORG=fluid -e STAGE=post-deploy
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume $(pwd):/code
+        --volume "$PWD:/code"
         fluid-docker.jfrog.io/fluid:integrates
     - docker logout fluid-docker.jfrog.io
   retry: 2
+  after_script:
+    - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
   only:
     - master
