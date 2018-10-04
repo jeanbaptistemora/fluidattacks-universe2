@@ -331,7 +331,6 @@ angular
         "translations",
         "onClickAdd",
         "onClickEdit",
-        "onClickRemove",
      ],
    ),
   );

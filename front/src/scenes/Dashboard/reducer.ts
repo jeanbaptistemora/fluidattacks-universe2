@@ -1,5 +1,6 @@
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
+import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
 
 interface IDashboardState {
   fileInput: {
@@ -214,6 +215,17 @@ const dashboard: DashboardReducer =
       return {
         ...state,
         users: initialState.users,
+      };
+    case actionType.REMOVE_USER:
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          userList: [...state.users.userList.filter(
+            (user: IProjectUsersViewProps["userList"][0]) =>
+            user.email !== action.payload.removedEmail,
+          )],
+        },
       };
     default:
       return state;

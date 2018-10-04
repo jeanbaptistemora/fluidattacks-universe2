@@ -32,7 +32,6 @@ describe('Project users view', () => {
       ]}
       onClickAdd={(): void => {}}
       onClickEdit={(): void => {}}
-      onClickRemove={(): void => {}}
     />
   );
 

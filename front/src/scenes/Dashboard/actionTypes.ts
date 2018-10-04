@@ -40,6 +40,9 @@ LOAD_USERS = "dashboard/users/load";
 let CLEAR_USERS: string;
 CLEAR_USERS = "dashboard/users/clear";
 
+let REMOVE_USER: string;
+REMOVE_USER = "dashboard/users/remove";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,
@@ -55,4 +58,5 @@ export {
   ADD_FILE_NAME,
   LOAD_USERS,
   CLEAR_USERS,
+  REMOVE_USER,
 };

@@ -272,59 +272,6 @@ angular.module("FluidIntegrates").factory(
             "templateUrl": `${BASE.url}assets/views/project/adduserMdl.html`
           });
         }
-      },
-
-      "removeUserAccess" ($scope) {
-        const DATA_IN_SELECTED_ROW =
-         angular.element("#tblUsers tr input:checked").closest("tr").
-           children();
-        if (angular.isUndefined(DATA_IN_SELECTED_ROW) ||
-                                            DATA_IN_SELECTED_ROW.length === 0) {
-          $msg.error($translate.instant("search_findings.tab_users." +
-           "no_selection"));
-        }
-        else {
-          const USER_EMAIL_TO_REMOVE = DATA_IN_SELECTED_ROW[1].textContent;
-          const req = projectFtry2.removeAccessIntegrates(
-            USER_EMAIL_TO_REMOVE,
-            $stateParams.project.toLowerCase()
-          );
-          req.then((response) => {
-            if (response.error) {
-              Rollbar.error("Error: An error occurred removing user access");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-              location.reload();
-            }
-            else if (angular.isUndefined(response.data)) {
-              location.reload();
-            }
-            else if (response.data.removeUserAccess.access) {
-              if (response.data.removeUserAccess.success) {
-                mixPanelDashboard.trackUsersTab(
-                  "RemoveUser",
-                  userEmail,
-                  $scope.project.toLowerCase(),
-                  "Remove",
-                  USER_EMAIL_TO_REMOVE
-                );
-                $msg.success(
-                  USER_EMAIL_TO_REMOVE +
-                    $translate.instant("search_findings.tab_users." +
-                                      "success_delete"),
-                  $translate.instant("search_findings.tab_users." +
-                                      "title_success")
-                );
-                location.reload();
-              }
-              else {
-                $msg.error($translate.instant("proj_alerts.error_textsad"));
-              }
-            }
-            else {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-          });
-        }
       }
     };
   }

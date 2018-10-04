@@ -14,13 +14,13 @@ import { Reducer } from "redux";
 import { StateType } from "typesafe-actions";
 import { default as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
-import { msgError } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 
-interface IProjectUsersViewProps {
+export interface IProjectUsersViewProps {
   projectName: string;
   translations: { [key: string]: string };
   userList: Array<{
@@ -31,7 +31,6 @@ interface IProjectUsersViewProps {
   }>;
   onClickAdd(): void;
   onClickEdit(): void;
-  onClickRemove(): void;
 }
 
 const formatRawUserData:
@@ -120,6 +119,159 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IProjectUsersViewProps) =
     userList: state.dashboard.users.userList,
   });
 
+const removeUser: ((arg1: string, arg2: IProjectUsersViewProps["translations"]) => void) =
+  (projectName: string, translations: IProjectUsersViewProps["translations"]): void => {
+  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
+  if (selectedQry.length > 0) {
+    if (selectedQry[0].closest("tr") !== null) {
+      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+      const email: string | null = selectedRow.children[1].textContent;
+      let gQry: string;
+      gQry = `mutation {
+        removeUserAccess(projectName: "${projectName}", userEmail: "${email}"){
+          access,
+          removedEmail,
+          success
+        }
+      }`;
+      new Xhr().request(gQry, "An error occurred removing users")
+      .then((resp: AxiosResponse) => {
+        if (!resp.data.error && resp.data.data.removeUserAccess.success) {
+          if (resp.data.data.removeUserAccess.access) {
+            const removedEmail: string = resp.data.data.removeUserAccess.removedEmail;
+            store.dispatch(actions.removeUser(removedEmail));
+            msgSuccess(
+              `${email} ${translations["search_findings.tab_users.success_delete"]}`,
+              translations["search_findings.tab_users.title_success"],
+            );
+          } else {
+            msgError(translations["proj_alerts.access_denied"]);
+          }
+        } else {
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error("An error occurred removing user");
+        }
+      })
+      .catch((error: string) => {
+        msgError(translations["proj_alerts.error_textsad"]);
+        rollbar.error(`An error occurred removing user: ${error}`);
+      });
+    } else {
+      msgError(translations["proj_alerts.error_textsad"]);
+      rollbar.error("An error occurred removing user");
+    }
+  } else {
+    msgError(translations["search_findings.tab_users.no_selection"]);
+  }
+};
+
+const renderUsersTable:
+((arg1: IProjectUsersViewProps["userList"],
+  arg2: IProjectUsersViewProps["translations"]) => JSX.Element) =
+  (userList: IProjectUsersViewProps["userList"],
+   translations: IProjectUsersViewProps["translations"]): JSX.Element => (
+  <DataTable
+    id="tblUsers"
+    dataset={userList}
+    exportCsv={true}
+    onClickRow={(): void => undefined}
+    headers={[
+      {
+        dataField: "email",
+        header: translations["search_findings.users_table.usermail"],
+        isDate: false,
+        isStatus: false,
+        width: "27%",
+      },
+      {
+        dataField: "role",
+        header: translations["search_findings.users_table.userRole"],
+        isDate: false,
+        isStatus: false,
+        width: "8%",
+      },
+      {
+        dataField: "responsability",
+        header: translations["search_findings.users_table.userResponsibility"],
+        isDate: false,
+        isStatus: false,
+        width: "12%",
+      },
+      {
+        dataField: "phoneNumber",
+        header: translations["search_findings.users_table.phoneNumber"],
+        isDate: false,
+        isStatus: false,
+        width: "10%",
+      },
+      {
+        dataField: "organization",
+        header: translations["search_findings.users_table.userOrganization"],
+        isDate: false,
+        isStatus: false,
+        width: "10%",
+      },
+      {
+        dataField: "firstLogin",
+        header: translations["search_findings.users_table.firstlogin"],
+        isDate: false,
+        isStatus: false,
+        width: "12%",
+      },
+      {
+        dataField: "lastLogin",
+        header: translations["search_findings.users_table.lastlogin"],
+        isDate: false,
+        isStatus: false,
+        width: "12%",
+      },
+    ]}
+    pageSize={15}
+    search={true}
+    enableRowSelection={true}
+    title=""
+  />
+);
+
+const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
+  (props: IProjectUsersViewProps): JSX.Element => (
+  <div>
+    <Col mdOffset={3} md={2} sm={6}>
+      <Button
+        id="editUser"
+        block={true}
+        bsStyle="primary"
+        onClick={(): void => { props.onClickEdit(); }}
+      >
+        <Glyphicon glyph="edit"/>&nbsp;
+        {props.translations["search_findings.tab_users.edit"]}
+      </Button>
+    </Col>
+    <Col md={2} sm={6}>
+      <Button
+        id="addUser"
+        block={true}
+        bsStyle="primary"
+        onClick={(): void => { props.onClickAdd(); }}
+      >
+        <Glyphicon glyph="plus"/>&nbsp;
+        {props.translations["search_findings.tab_users.add_button"]}
+      </Button>
+    </Col>
+    <Col md={2} sm={6}>
+      <Button
+        id="removeUser"
+        block={true}
+        bsStyle="primary"
+        onClick={(): void => { removeUser(props.projectName, props.translations); }}
+      >
+        <Glyphicon glyph="minus"/>&nbsp;
+        {props.translations["search_findings.tab_users.remove_user"]}
+      </Button>
+    </Col>
+  </div>
+);
+
 export const component: React.StatelessComponent<IProjectUsersViewProps>
   = (props: IProjectUsersViewProps): JSX.Element => (
     <React.StrictMode>
@@ -127,103 +279,11 @@ export const component: React.StatelessComponent<IProjectUsersViewProps>
         <Row>
           <Col md={12} sm={12} xs={12}>
             <Row>
-              <Col mdOffset={3} md={2} sm={6}>
-                <Button
-                  id="editUser"
-                  block={true}
-                  bsStyle="primary"
-                  onClick={(): void => { props.onClickEdit(); }}
-                >
-                  <Glyphicon glyph="edit"/>&nbsp;
-                  {props.translations["search_findings.tab_users.edit"]}
-                </Button>
-              </Col>
-              <Col md={2} sm={6}>
-                <Button
-                  id="addUser"
-                  block={true}
-                  bsStyle="primary"
-                  onClick={(): void => { props.onClickAdd(); }}
-                >
-                  <Glyphicon glyph="plus"/>&nbsp;
-                  {props.translations["search_findings.tab_users.add_button"]}
-                </Button>
-              </Col>
-              <Col md={2} sm={6}>
-                <Button
-                  id="removeUser"
-                  block={true}
-                  bsStyle="primary"
-                  onClick={(): void => { props.onClickRemove(); }}
-                >
-                  <Glyphicon glyph="minus"/>&nbsp;
-                  {props.translations["search_findings.tab_users.remove_user"]}
-                </Button>
-              </Col>
+              {renderActionButtons(props)}
             </Row>
             <Row>
               <Col md={12} sm={12}>
-                <DataTable
-                  id="tblUsers"
-                  dataset={props.userList}
-                  exportCsv={true}
-                  onClickRow={(): void => undefined}
-                  headers={[
-                    {
-                      dataField: "email",
-                      header: props.translations["search_findings.users_table.usermail"],
-                      isDate: false,
-                      isStatus: false,
-                      width: "27%",
-                    },
-                    {
-                      dataField: "role",
-                      header: props.translations["search_findings.users_table.userRole"],
-                      isDate: false,
-                      isStatus: false,
-                      width: "8%",
-                    },
-                    {
-                      dataField: "responsability",
-                      header: props.translations["search_findings.users_table.userResponsibility"],
-                      isDate: false,
-                      isStatus: false,
-                      width: "12%",
-                    },
-                    {
-                      dataField: "phoneNumber",
-                      header: props.translations["search_findings.users_table.phoneNumber"],
-                      isDate: false,
-                      isStatus: false,
-                      width: "10%",
-                    },
-                    {
-                      dataField: "organization",
-                      header: props.translations["search_findings.users_table.userOrganization"],
-                      isDate: false,
-                      isStatus: false,
-                      width: "10%",
-                    },
-                    {
-                      dataField: "firstLogin",
-                      header: props.translations["search_findings.users_table.firstlogin"],
-                      isDate: false,
-                      isStatus: false,
-                      width: "12%",
-                    },
-                    {
-                      dataField: "lastLogin",
-                      header: props.translations["search_findings.users_table.lastlogin"],
-                      isDate: false,
-                      isStatus: false,
-                      width: "12%",
-                    },
-                  ]}
-                  pageSize={15}
-                  search={true}
-                  enableRowSelection={true}
-                  title=""
-                />
+                {renderUsersTable(props.userList, props.translations)}
               </Col>
             </Row>
           </Col>

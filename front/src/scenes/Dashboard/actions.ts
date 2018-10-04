@@ -3,6 +3,7 @@
  * actions
  */
 import * as actionType from "./actionTypes";
+import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
 
 export interface IActionStructure {
   payload: any;
@@ -99,13 +100,7 @@ export const addFileName: DashboardAction =
 });
 
 export const loadUsers: DashboardAction =
-  (userlist:
-    Array<{
-      email: string; firstLogin: string;
-      lastLogin: string; organization: string;
-      phoneNumber: string; responsability: string;
-      role: string;
-    }>): IActionStructure => ({
+  (userlist: IProjectUsersViewProps["userList"]): IActionStructure => ({
     payload: {
       userlist,
     },
@@ -116,4 +111,10 @@ export const clearUsers: DashboardAction =
   (): IActionStructure => ({
   payload: undefined,
   type: actionType.CLEAR_USERS,
+});
+
+export const removeUser: DashboardAction =
+  (removedEmail: string): IActionStructure => ({
+    payload: { removedEmail },
+    type: actionType.REMOVE_USER,
 });

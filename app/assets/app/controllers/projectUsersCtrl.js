@@ -87,6 +87,10 @@ angular.module("FluidIntegrates").controller(
         "search_findings.tab_users.hours_ago",
         "search_findings.tab_users.minutes_ago",
 
+        "search_findings.tab_users.success_delete",
+        "search_findings.tab_users.title_success",
+        "search_findings.tab_users.no_selection",
+
         "search_findings.users_table.usermail",
         "search_findings.users_table.userRole",
         "search_findings.users_table.userResponsibility",
@@ -161,10 +165,6 @@ angular.module("FluidIntegrates").controller(
 
     $scope.editUser = function editUser () {
       usersFtry.editUser($scope);
-    };
-
-    $scope.removeUserAccess = function removeUserAccess () {
-      usersFtry.removeUserAccess($scope);
     };
 
     $scope.urlIndicators = function urlIndicators () {
