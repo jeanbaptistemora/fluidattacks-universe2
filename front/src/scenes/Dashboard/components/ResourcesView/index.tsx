@@ -45,6 +45,7 @@ interface IResourcesViewProps {
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
+    store.dispatch(actions.clearResources());
     const { projectName, translations }: any = this.props;
     let gQry: string;
     gQry = `{

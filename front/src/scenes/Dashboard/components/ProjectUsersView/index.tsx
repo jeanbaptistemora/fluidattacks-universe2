@@ -77,6 +77,7 @@ const formatRawUserData:
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
+    store.dispatch(actions.clearUsers());
     const { projectName, translations }: IProjectUsersViewProps = this.props as IProjectUsersViewProps;
     let gQry: string;
     gQry = `{

@@ -1,6 +1,9 @@
 let LOAD_RESOURCES: string;
 LOAD_RESOURCES = "dashboard/resources/load";
 
+let CLEAR_RESOURCES: string;
+CLEAR_RESOURCES = "dashboard/resources/clear";
+
 let OPEN_ADD_MODAL: string;
 OPEN_ADD_MODAL = "dashboard/resources/add_modal/open";
 
@@ -34,8 +37,12 @@ ADD_FILE_NAME = "dashboard/finding/description";
 let LOAD_USERS: string;
 LOAD_USERS = "dashboard/users/load";
 
+let CLEAR_USERS: string;
+CLEAR_USERS = "dashboard/users/clear";
+
 export {
   LOAD_RESOURCES,
+  CLEAR_RESOURCES,
   ADD_REPO_FIELD,
   REMOVE_REPO_FIELD,
   ADD_ENV_FIELD,
@@ -47,4 +54,5 @@ export {
   MODIFY_REPO_BRANCH,
   ADD_FILE_NAME,
   LOAD_USERS,
+  CLEAR_USERS,
 };

@@ -21,6 +21,12 @@ export const loadResources: DashboardAction =
     type: actionType.LOAD_RESOURCES,
 });
 
+export const clearResources: DashboardAction =
+  (): IActionStructure => ({
+  payload: undefined,
+  type: actionType.CLOSE_ADD_MODAL,
+});
+
 export const addRepositoryField: DashboardAction =
   (): IActionStructure => ({
       payload: undefined,
@@ -104,4 +110,10 @@ export const loadUsers: DashboardAction =
       userlist,
     },
     type: actionType.LOAD_USERS,
+});
+
+export const clearUsers: DashboardAction =
+  (): IActionStructure => ({
+  payload: undefined,
+  type: actionType.CLEAR_USERS,
 });

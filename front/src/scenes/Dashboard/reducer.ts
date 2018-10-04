@@ -69,6 +69,11 @@ const dashboard: DashboardReducer =
           repositories: action.payload.repositories,
         },
       };
+    case actionType.CLEAR_RESOURCES:
+      return {
+        ...state,
+        resources: initialState.resources,
+      };
     case actionType.OPEN_ADD_MODAL:
       return {
         ...state,
@@ -204,6 +209,11 @@ const dashboard: DashboardReducer =
           ...state.users,
           userList: action.payload.userlist,
         },
+      };
+    case actionType.CLEAR_USERS:
+      return {
+        ...state,
+        users: initialState.users,
       };
     default:
       return state;
