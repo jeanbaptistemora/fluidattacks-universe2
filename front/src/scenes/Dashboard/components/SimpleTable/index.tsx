@@ -43,7 +43,6 @@ simpleTable.propTypes = {
 };
 
 simpleTable.defaultProps = {
-  dataset: [{}],
   enableRowSelection: false,
   exportCsv: false,
   headers: [],
