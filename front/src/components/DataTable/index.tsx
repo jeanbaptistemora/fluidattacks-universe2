@@ -103,7 +103,6 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
   headers.map((key: IHeader, index: number) =>
    (
     <TableHeaderColumn
-      isKey={index === 0}
       dataAlign={key.align}
       dataField={key.dataField}
       dataFormat={
@@ -130,7 +129,6 @@ const renderDynamicHeaders: ((arg1: string[]) => JSX.Element[]) =
   dataFields.map((key: string, index: number) =>
     (
       <TableHeaderColumn
-        isKey={index === 0}
         dataField={key}
         dataSort={true}
         key={index}
@@ -168,6 +166,11 @@ export const dataTable: React.StatelessComponent<ITableProps> =
               <BootstrapTable
                 data={props.dataset}
                 exportCSV={props.exportCsv}
+                keyField={
+                  props.dataset.length > 0
+                    ? Object.keys(props.dataset[0])[0]
+                    : "_"
+                }
                 hover={true}
                 options={{
                  onRowClick: (row: string): void => {
