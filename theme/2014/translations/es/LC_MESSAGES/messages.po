@@ -163,7 +163,7 @@ msgstr "<strong>Inteligencia experta + tecnología especializada</strong>"
 
 #: templates/base.html:122
 msgid "Header-item-2"
-msgstr "Caja blanca Caja gris- Caja negra"
+msgstr "Caja blanca - Caja gris - Caja negra"
 
 #: templates/base.html:123
 msgid "Header-item-3"
