@@ -365,7 +365,7 @@ asserts-prod:
         --rm -e ORG=fluid -e STAGE=post-deploy
         -e APP=integrates -e USER="$JFROG_USER"
         -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume "$PWD:/code"
+        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
         fluid-docker.jfrog.io/fluid:integrates
     - docker logout fluid-docker.jfrog.io
   retry: 2
