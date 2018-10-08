@@ -55,6 +55,14 @@ y videos solo disponibles si el portátil de presentación
 puede conectarse a Internet mediante una +WiFi+
 que permita conexión a +Google Drive+.
 
+. +Video beam+ wide de radio +16:9+.
+
+. Cable +HDMI+ directo del computador portátil del expositor
+al +video beam+ (sin adaptadores +VGA+).
+
 . No incluir personas remotamente.
 La conferencia es muy dinámica y por ende depende mucho de la interacción
 cara a cara con el público.
+
+. Si es parte de un evento con más ponentes
+ser el penúltimo expositor de la jornada de la mañana.
