@@ -175,6 +175,8 @@ link:https://eslint.org/docs/rules/brace-style#stroustrup[Ejemplo].
 . No debe contener
 link:https://en.wikipedia.org/wiki/Comment_(computer_programming)#Debugging[comentarios de +debug+]
 abandonados.
+. La definición de funciones debe estar separada por +1+ renglón vacío,
+a menos que el linter o el lenguaje requiera lo contrario.
 
 Los fragmentos de código fuente embebidos en documentos siempre deben:
 
@@ -190,7 +192,7 @@ no usar imágenes.
 .example.c
 [source, C, linenums]
 ----
-function cool(x){
+function cool(x) {
   /*Please use SHORT comments in english when necessary.
   You must explain your code in the document*/
   int y;

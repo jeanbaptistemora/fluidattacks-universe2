@@ -174,6 +174,11 @@ link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroust
 (+no one liners+).
 link:https://eslint.org/docs/rules/brace-style#stroustrup[Example].
 . Lines must not exceed +80+ characters in length.
+. Lines must not contain
+link:https://en.wikipedia.org/wiki/Comment_(computer_programming)#Debugging[+debug+ comments]
+left behind.
+. Function definition must be separated by +1+ empty line,
+unless the linter or the language requires otherwise.
 
 Embedded code snippets must comply with the following:
 
@@ -189,7 +194,7 @@ don’t use images.
 .example.c
 [source, C, linenums]
 ----
-function cool(x){
+function cool(x) {
   /*Please use SHORT comments in english when necessary.
   You must explain your code in the document*/
   int y;
