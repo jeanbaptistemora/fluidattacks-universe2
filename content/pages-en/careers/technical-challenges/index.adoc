@@ -55,7 +55,10 @@ we look to:
 . Promote the solution of unresolved challenges.
 
 . If the challenge is solved,
-encourage a new solution in a different way (different programming language).
+encourage a new solution in a different way
+(another programming language, another programming paradigm
+or another radically different algorithm,
+semantically different or of another order).
 
 . If the challenge is solved,
 make evident the similarity of the new solution to the old one (plagiarism).
