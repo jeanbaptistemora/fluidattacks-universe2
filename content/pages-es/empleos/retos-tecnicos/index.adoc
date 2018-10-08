@@ -50,9 +50,11 @@ Al hacer los retos públicos buscamos:
 
 . Fomentar la solución de retos no resueltos.
 
-. Si el reto está resuelto, fomentar la solución del reto de otra forma.
+. Si el reto está resuelto,
+fomentar la solución del reto de otra forma (otro lenguaje).
 
-. Si el reto está resuelto, hacer evidente la similitud de la nueva solución.
+. Si el reto está resuelto,
+hacer evidente la similitud de la nueva solución (plagio).
 
 . Darles vida a las soluciones financiadas por +Fluid Attacks+.
 

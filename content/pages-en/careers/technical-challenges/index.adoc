@@ -55,10 +55,10 @@ we look to:
 . Promote the solution of unresolved challenges.
 
 . If the challenge is solved,
-encourage a new solution in a different way.
+encourage a new solution in a different way (different programming language).
 
 . If the challenge is solved,
-make evident the similarity of the new solution to the old one.
+make evident the similarity of the new solution to the old one (plagiarism).
 
 . Bring to life the solutions financed by +Fluid Attacks+.
 
