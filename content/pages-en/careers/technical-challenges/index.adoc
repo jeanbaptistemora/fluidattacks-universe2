@@ -478,11 +478,12 @@ git commit -m "Ejemplo"
 git push origin rama-personal
 ----
 
-* *For +Windows+:*
-A guide to run the integration locally
-Is not yet available for Windows and
-the fact that the integration is based on +Linux+
-makes the process that much more complicated for +Windows+.
+* *In Operating Systems different from +Linux+ (+Windows+, +Mac+, etc):*
+Continuous integration will never be available for +OS+ different from +Linux+.
+Additionally in your everyday life at +Fluid Attacks+
+you will need to familiarize with +Linux+ and its weapons.
+Hence we strongly recommend you to install it on your computer,
+or at least, to work with a +Linux+ virtual machine.
 
 We recommend installing virtualization software
 (link:https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],

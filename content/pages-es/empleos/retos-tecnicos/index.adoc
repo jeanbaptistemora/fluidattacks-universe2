@@ -445,7 +445,7 @@ y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/ap
 
 == 13. Builds
 
-Es posible correr integraciones locales con el fin de identificar errores
+Es posible ejecutar integraciones locales con el fin de identificar errores
 antes de hacer +push+ o +merge requests+ al repositorio.
 
 Para esto, se deben ejecutar los siguientes comandos:
@@ -486,10 +486,13 @@ git commit
 git push origin rama-personal
 ----
 
-* *En Sistemas Operativos +Windows+:* La forma de ejecutar la integración
-no se encuentra todavía disponible para Windows
-y al basarse la integración en +Linux+,
-esto hace que el proceso en +Windows+ sea más complicado.
+* *En otros sistemas operativos diferentes a +Linux+ (+Windows+, +Mac+, etc):*
+La integración continua no estará jamas disponible
+para sistemas operativos diferentes a +Linux+.
+Adicionalmente su día a día en +Fluid Attacks+
+requerirá familiaridad con +Linux+ y sus diferentes armas de ataque.
+Por estos motivos le recomendamos desde ya instalarlo en su computador
+o como mínimo trabajar con él en una maquina virtual.
 
 Se sugiere instalar el software de virtualización
 link:https://www.vagrantup.com/[Vagrant] y
@@ -557,7 +560,7 @@ vagrant@stretch:~$ sudo usermod -aG docker vagrant
 vagrant@stretch:~$ sudo systemctl start docker && sudo systemctl enable docker
 ----
 
-Ya puedes seguir los pasos descritos arriba para correr la integración.
+Ya puedes seguir los pasos descritos arriba para ejecutar la integración.
 
 == 14. Preguntas
 
