@@ -10,7 +10,7 @@
 At this stage of the process,
 we are just a few steps from finishing.
 This next step, for which you have been selected
-among more than 1580 candidates,
+among more than +6000+ candidates,
 seeks to make you a part of
 an intensive self-training in programming and
 +hacking+ challenges funded by +Fluid Attacks+,
@@ -88,7 +88,7 @@ which implies the cycle is renewed *one more week*.
 therefore, terminate the process.
 .. Formally notify that we don’t want to continue with another cycle
 Because we want to advance to the next stage.
-. Usually *8 to 16 cycles* are required to finish this stage.
+. Usually *12 to 36 cycles* are required to finish this stage.
 .. This is merely an estimate,
 It depends entirely on your dedication and performance.
 
@@ -109,6 +109,34 @@ as an independent worker.
 the documents that allow us to make payments to your account:
 .. A bill for the hours worked in the previous month.
 .. Payment stub of your social security for the previous period.
+
+If you live in the outskirts of Bogotá or Medellín,
+you can initially perform the immersion process remotely
+with all the other unalterable terms, *if and only if*:
+
+. When we ask you to continue the immersion process in person
+you accept to come to our facilities in maximum +7+
+calendar days after the request.
+
+. When you start the immersion process in person,
+the hourly pay rate will be twice as much as indicated
+(so you can cover transportation and accommodation costs).
+
+. We guarantee minimum +4+ immersion cycles in this stage.
+
+. We clarify that, in case of hiring, the job will be performed in person
+in our facilities located in Medellín or Bogotá.
+The immersion is still a stage of the selection process,
+where we seek to improve the interaction with our team
+and deepen other training topics.
+
+If you are currently working somewhere else,
+you can perform the immersion under the following conditions:
+
+. Indicate the weekly dedication that you are willing to train
+(minimum +8+ hours).
+
+. Perform it remotely without moving to our facilities.
 
 == 7. Get Started
 

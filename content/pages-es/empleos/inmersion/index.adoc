@@ -9,7 +9,7 @@
 
 A esta altura del proceso, estamos a pocos pasos de culminar.
 Este nuevo paso, para el cual has sido seleccionado
-entre más de +1580+ candidatos, busca que hagas parte
+entre más de +6000+ candidatos, busca que hagas parte
 de un auto-entrenamiento intensivo en retos de programación y
 +hacking+ financiado por +Fluid Attacks+, llamado *Inmersión*.
 
@@ -79,7 +79,7 @@ se renueva *una semana* más.
 y, por ende, finalizar el proceso.
 .. Formalizar que no deseamos continuar con otro ciclo,
 debido a que queremos adelantar la etapa siguiente.
-. Lo usual es que se requiera entre *8 y 16 ciclos* para finalizar esta etapa.
+. Lo usual es que se requiera entre *12 y 36 ciclos* para finalizar esta etapa.
 .. Esto es meramente un estimado,
 pues depende enteramente de su dedicación y rendimiento.
 
@@ -101,6 +101,34 @@ de entrenamiento reportadas.
 los documentos que permiten consignar el dinero a tu cuenta:
 .. Cuenta de cobro por las horas del mes anterior.
 .. Recibo de pago de la seguridad social por el periodo anterior.
+
+Si usted vive por fuera de las areas metropolitanas de Medellín o Bogotá,
+puede realizar la inmersión inicialmente remota
+con todos los demás términos inalterables, *si y solo si*:
+
+. Aceptas que cuando se te pida venir
+y continuar en modo presencial la inmersión,
+lo hagas como máximo en +7+ días calendario después de que se solicite.
+
+. En el momento que te encuentres presencial la tarifa por hora
+será del doble de lo indicado
+(de forma que puedas cubrir costos de traslado y alojamiento).
+
+. Se garantiza en este escenario mínimo +4+ ciclos de inmersión.
+
+. En cualquier caso aclaramos que el trabajo, en caso de ser contratado,
+seria presencial en alguna de nuestras oficinas de Medellín o Bogotá,
+y que la etapa de inmersión es una etapa aún del proceso de selección
+donde buscamos mas interacción con el equipo
+y profundización en otros temas de entrenamiento.
+
+Si usted trabaja actualmente
+usted puede realizar la inmersión en estas condiciones:
+
+. Indicar la dedicación semanal
+que se compromete a entrenar (mínimo +8+ horas).
+
+. Realizarla remotamente sin desplazarse a nuestras instalaciones.
 
 == 7. Inicio
 
