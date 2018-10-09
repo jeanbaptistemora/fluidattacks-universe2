@@ -78,7 +78,7 @@ los link:../../../en/blog/multiple-credentials-begone/[Servicios de autenticaci�
 y los administradores de contraseñas, tales como link:https://keepass.info/[Keepass].
 Pero éstos a veces son inviables,
 por ejemplo para ingresar a tu computadora,
-ya que no puedes correr ningún software antes.
+ya que no puedes ejecutar ningún software antes.
 Y si utilizas un administrador de contraseñas,
 la contraseña principal para desbloquearlo debe ser muy robusta,
 porque si es vulnerada, también lo serán todas las demás.

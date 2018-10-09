@@ -168,7 +168,7 @@ Todo lo que necesitamos hacer es:
 
 . Seleccionar las "cargas", es decir los +vectores fuzz+, y
 
-. Correr el +fuzzer+
+. Ejecutar el +fuzzer+
 
 +ZAP+ incluye muchas de estas por defecto;
 utilizaremos el vector de inyecciónes +SQL+ de +jbrofuzz+:

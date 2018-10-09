@@ -156,7 +156,7 @@ fluidasserts:
 
 . A partir de ahora, tu +pipeline+ fallará
 si se encuentra alguna vulnerabilidades abierta.
-Para evitar romper el +build+ pero aún así correr las pruebas,
+Para evitar romper el +build+ pero aún así ejecutar las pruebas,
 cambia el valor de la variable +FA_STRICT+ a +false+.
 
 ==== Etapas CI
@@ -236,7 +236,7 @@ justo como iniciar un ambiente de producción espejo.
 Como desarrollador, puede que te estés preguntando:
 "¿Por qué debo esperar a que todas las etapas de +CI+ terminen
 si solo quiero probar si mi ultimo +commit+ reparó la brecha de seguridad?"
-Puedes correr +Asserts+ localmente en tu máquina,
+Puedes ejecutar +Asserts+ localmente en tu máquina,
 pero a veces algunos pequeños detalles (como las versiones de las dependencias)
 pueden causar que la prueba pase exitosamente de forma local
 pero falle en la integración continua.

@@ -470,7 +470,7 @@ sin falsos positivos.
 
 Descarga el link:./sqli-parser.py[código]
 y los link:./test-cases.lst[casos de prueba].
-Correr desde la raíz del servidor +PHP+ probado.
+Ejecutar desde la raíz del servidor +PHP+ probado.
 
 .+sqli_parser.py+
 [source,python,numbered]

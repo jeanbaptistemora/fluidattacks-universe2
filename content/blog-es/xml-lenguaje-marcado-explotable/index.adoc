@@ -230,7 +230,7 @@ Warning: SimpleXMLElement::xpath(): xmlXPathEval: evaluation failed in
 ....
 
 Así que ahora sabemos que están utilizando la función +xpath()+ de +PHP+
-para correr una consulta +XPath+ en datos +XML+.
+para ejecutar una consulta +XPath+ en datos +XML+.
 Como no conocemos la estructura del archivo,
 quizás nunca sepamos el +XPath+ exacto,
 pero podemos suponer que termina así:

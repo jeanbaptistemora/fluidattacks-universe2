@@ -38,7 +38,7 @@ El usuario deberá ver que el +prompt+ cambia a +Switch (config)#+.
 salir de este modo por medio del comando +exit+.
 
 . Para guardar los cambios y que estos sean aplicados cuando inicie el equipo,
-correr el comando +copy running-configuration startup-configuration+.
+ejecutar el comando +copy running-configuration startup-configuration+.
 
 En algunos casos, las configuraciones expuestas a continuación
 deshabilitan los servicios para el dispositivo de forma global,

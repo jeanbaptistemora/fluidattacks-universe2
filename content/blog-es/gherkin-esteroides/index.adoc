@@ -126,7 +126,7 @@ tal y como lo hicimos antes.
 
 Sin embargo, dado que en esta ocasión el caso de uso es tan sencillo,
 podemos simplemente conectar ese comportamiento al +Background+.
-Esto debe incluir, en detalle, todo lo necesario para correr la aplicación.
+Esto debe incluir, en detalle, todo lo necesario para ejecutar la aplicación.
 Nuestro objetivo +bWAPP+ es un servidor web +PHP+;
 ¿Quizás lo estés corriendo dentro de una máquina virtual
 link:http://itsecgames.blogspot.com.co/2013/07/bee-box-hack-and-deface-bwapp.html[+bee-box+]?

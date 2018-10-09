@@ -79,7 +79,7 @@ En su lugar, lo que +AFL+ hace es, en pocas palabras:
 
 . Tomar el código fuente de tu aplicación.
 . Compilarlo de forma engañosa.
-. Correrlo con una entrada válida.
+. Ejecutarlo con una entrada válida.
 . Modificar continuamente esa entrada hasta obtener un error.
 
 Por ejemplo, podrías iniciar +AFL+ en un programa
@@ -104,7 +104,7 @@ lo que permitirá el proceso de +fuzzing+.
 De esta forma debes compilar utilizando los +afl-gcc+ incluidos
 los cuales son una versión modificada de la colección de compiladores +GNU+.
 
-Luego, deberías correr tu programa con una entrada válida y simple:
+Luego, deberías ejecutar tu programa con una entrada válida y simple:
 +Entrada al *programa*+.
 Si eso funciona bien,
 pon ese archivo de entrada en su propia carpeta.
@@ -112,7 +112,7 @@ Lo llamaré +in+.
 Crea otra carpeta vacía para los resultados llamada +out+.
 Voy a asumir que todo tu contenido está en la carpeta
 en la que estás en este momento.
-Ahora estás preparado para correr el +AFL+:
+Ahora estás preparado para ejecutar el +AFL+:
 
 .Invocando el fuzzer +AFL+
 [source,bash]
@@ -191,7 +191,7 @@ make install
 
 . Para utilizar todos los +n+ núcleos disponibles,
 crea +n+ subdirectorios en tu carpeta de salida.
-Ahora, es posuble correr +afl-fuzz+ como antes
+Ahora, es posuble ejecutar +afl-fuzz+ como antes
 con la opción +-M folder1+ para el primer núcleo,
 y +-S folderx+ para los demás.
 Ejemplo con dos núcleos:
