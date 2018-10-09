@@ -54,8 +54,8 @@ def is_customeradmin(project, email):
     """Verify if a user is a customeradmin."""
     project_data = integrates_dao.get_project_dynamo(project)
     for data in project_data:
-        if 'customeradmin' in data:
-            if email in data["customeradmin"]:
+        if data.get('customeradmin'):
+            if email.lower() in data["customeradmin"]:
                 return True
     return False
 

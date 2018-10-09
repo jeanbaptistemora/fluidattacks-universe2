@@ -203,7 +203,7 @@ def create_new_user(context, new_user_data, project_name):
         if phone_number[1:].isdigit():
             integrates_dao.add_phone_to_user_dynamo(email, phone_number)
     if role == 'customeradmin':
-        integrates_dao.add_user_to_project_dynamo(project_name.lower(), email, role)
+        integrates_dao.add_user_to_project_dynamo(project_name.lower(), email.lower(), role)
     if integrates_dao.add_access_to_project_dao(email, project_name):
         description = integrates_dao.get_project_description(project_name)
         project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
@@ -348,6 +348,6 @@ def modify_user_information(context, modified_user_data, project_name):
         )
 
     if role == 'customeradmin':
-        integrates_dao.add_user_to_project_dynamo(project_name, email, role)
+        integrates_dao.add_user_to_project_dynamo(project_name.lower(), email.lower(), role)
     elif is_customeradmin(project_name, email):
         integrates_dao.remove_role_to_project_dynamo(project_name, email, "customeradmin")
