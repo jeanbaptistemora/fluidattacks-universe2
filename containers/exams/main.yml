@@ -135,4 +135,4 @@
       dest: /etc/php5/apache2/php.ini
       section: PHP
       option: memory_limit
-      value: 1024M
+      value: 2048M
