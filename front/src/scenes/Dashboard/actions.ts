@@ -118,3 +118,9 @@ export const removeUser: DashboardAction =
     payload: { removedEmail },
     type: actionType.REMOVE_USER,
 });
+
+export const setUsersMdlVisibility: DashboardAction =
+  (isVisible: boolean): IActionStructure => ({
+    payload: { isVisible },
+    type: actionType.SET_MDL_USER_VISIBILIY,
+});

@@ -43,6 +43,9 @@ CLEAR_USERS = "dashboard/users/clear";
 let REMOVE_USER: string;
 REMOVE_USER = "dashboard/users/remove";
 
+let SET_MDL_USER_VISIBILIY: string;
+SET_MDL_USER_VISIBILIY = "dashboard/users/add_modal/set_visibility";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,
@@ -59,4 +62,5 @@ export {
   LOAD_USERS,
   CLEAR_USERS,
   REMOVE_USER,
+  SET_MDL_USER_VISIBILIY,
 };

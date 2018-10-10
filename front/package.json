@@ -87,7 +87,11 @@
     "@types/recompose": "0.26.5",
     "lodash": "4.17.11",
     "@types/lodash": "4.14.116",
-    "gulp-plumber": "1.2.0"
+    "gulp-plumber": "1.2.0",
+    "redux-form": "7.4.2",
+    "@types/redux-form": "7.4.8",
+    "revalidate": "1.2.0",
+    "@types/revalidate": "1.1.2"
   },
   "scripts": {
     "test": "gulp compile && mocha --require ignore-styles -r ts-node/register ./src/**/*.spec.tsx"

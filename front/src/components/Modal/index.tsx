@@ -14,7 +14,7 @@ interface IModalProps {
   footer: React.ReactNode;
   headerTitle: string;
   open: boolean;
-  onClose(): void;
+  onClose?(): void;
 }
 
 const modal: React.StatelessComponent<IModalProps> =
@@ -22,7 +22,7 @@ const modal: React.StatelessComponent<IModalProps> =
     <React.StrictMode>
       <ReactReponsiveModal
         open={props.open}
-        onClose={(): void => { props.onClose(); }}
+        onClose={(): void => { if (props.onClose !== undefined) { props.onClose(); }}}
         classNames={{ overlay: style.overlay, modal: style.dialog }}
         closeOnEsc={false}
         closeOnOverlayClick={false}
