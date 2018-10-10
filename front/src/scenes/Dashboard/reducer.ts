@@ -216,6 +216,14 @@ const dashboard: DashboardReducer =
         ...state,
         users: initialState.users,
       };
+    case actionType.ADD_USER:
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          userList: [...state.users.userList, action.payload.newUser],
+        },
+      };
     case actionType.REMOVE_USER:
       return {
         ...state,
@@ -225,6 +233,17 @@ const dashboard: DashboardReducer =
             (user: IProjectUsersViewProps["userList"][0]) =>
             user.email !== action.payload.removedEmail,
           )],
+        },
+      };
+    case actionType.SET_MDL_USER_VISIBILIY:
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          addModal: {
+            ...state.users.addModal,
+            open: action.payload.isVisible,
+          },
         },
       };
     default:

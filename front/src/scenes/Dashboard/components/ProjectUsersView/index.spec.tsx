@@ -6,6 +6,7 @@ import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import "mocha";
 import * as React from "react";
 import { Button, Glyphicon } from "react-bootstrap";
+import { reduxForm as ReduxForm } from "redux-form";
 
 configure({ adapter: new Adapter() });
 
@@ -13,6 +14,8 @@ describe('Project users view', () => {
 
   const wrapper = shallow(
     <ProjectUsersView
+      addModal={{open: true}}
+      userRole="admin"
       projectName="unittesting"
       translations={{
         "search_findings.tab_users.edit": "Edit",
@@ -92,5 +95,9 @@ describe('Project users view', () => {
     expect(
       wrapper.find(DataTable).html()
     ).to.contain('<div id="tblUsers">');
+  });
+
+  it('should render add user form', () => {
+    expect(wrapper).to.contain(ReduxForm);
   });
 });

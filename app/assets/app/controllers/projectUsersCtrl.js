@@ -66,9 +66,10 @@ angular.module("FluidIntegrates").controller(
     functionsFtry4,
     intlTelInputOptions,
     projectFtry,
+    projectFtry2,
     usersFtry
   ) {
-    const initializeTable = function initializeTable () {
+    const initializeView = function initializeView () {
       // Users table configuration
       $scope.view.project = true;
       const translationStrings = [
@@ -87,6 +88,15 @@ angular.module("FluidIntegrates").controller(
         "search_findings.tab_users.hours_ago",
         "search_findings.tab_users.minutes_ago",
 
+        "search_findings.tab_users.success",
+        "search_findings.tab_users.title",
+        "search_findings.tab_users.textbox",
+        "search_findings.tab_users.email",
+        "search_findings.tab_users.user_organization",
+        "search_findings.tab_users.user_responsibility",
+        "search_findings.tab_users.responsibility_placeholder",
+        "search_findings.tab_users.phone_number",
+        "search_findings.tab_users.role",
         "search_findings.tab_users.success_delete",
         "search_findings.tab_users.title_success",
         "search_findings.tab_users.no_selection",
@@ -98,6 +108,9 @@ angular.module("FluidIntegrates").controller(
         "search_findings.users_table.userOrganization",
         "search_findings.users_table.firstlogin",
         "search_findings.users_table.lastlogin",
+
+        "confirmmodal.cancel",
+        "confirmmodal.proceed",
 
         "proj_alerts.access_denied",
         "proj_alerts.error_textsad"
@@ -125,11 +138,23 @@ angular.module("FluidIntegrates").controller(
                 projectName !== "") {
         $scope.project = projectName;
         $scope.search();
-        initializeTable();
       }
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
+      projectFtry2.isCustomerAdmin(projectName, userEmail).
+        then((response) => {
+          if (angular.isUndefined(response)) {
+            location.reload();
+          }
+          else if (response.data) {
+            $scope.role = "customeradmin";
+          }
+          else {
+            $scope.role = userRole;
+          }
+        });
+      initializeView();
     };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
@@ -154,7 +179,6 @@ angular.module("FluidIntegrates").controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        initializeTable();
       }
       return true;
     };

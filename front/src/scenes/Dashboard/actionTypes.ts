@@ -40,6 +40,9 @@ LOAD_USERS = "dashboard/users/load";
 let CLEAR_USERS: string;
 CLEAR_USERS = "dashboard/users/clear";
 
+let ADD_USER: string;
+ADD_USER = "dashboard/users/add";
+
 let REMOVE_USER: string;
 REMOVE_USER = "dashboard/users/remove";
 
@@ -61,6 +64,7 @@ export {
   ADD_FILE_NAME,
   LOAD_USERS,
   CLEAR_USERS,
+  ADD_USER,
   REMOVE_USER,
   SET_MDL_USER_VISIBILIY,
 };

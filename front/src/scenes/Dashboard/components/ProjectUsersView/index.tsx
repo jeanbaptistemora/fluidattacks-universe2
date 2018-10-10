@@ -9,8 +9,10 @@
 import { AxiosResponse } from "axios";
 import React, { ComponentType } from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { Provider } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Reducer } from "redux";
+import { reset } from "redux-form";
 import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
@@ -19,8 +21,20 @@ import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
+import { addUserModal as AddUserModal } from "./AddUserModal/index";
+
+interface IUserData {
+  email: string;
+  organization: string;
+  phone: string;
+  responsability: string;
+  role: string;
+}
 
 export interface IProjectUsersViewProps {
+  addModal: {
+    open: boolean;
+  };
   projectName: string;
   translations: { [key: string]: string };
   userList: Array<{
@@ -29,7 +43,7 @@ export interface IProjectUsersViewProps {
     phoneNumber: string; responsability: string;
     role: string;
   }>;
-  onClickAdd(): void;
+  userRole: string;
   onClickEdit(): void;
 }
 
@@ -116,6 +130,7 @@ lifecycle({
 const mapStateToProps: ((arg1: StateType<Reducer>) => IProjectUsersViewProps) =
   (state: StateType<Reducer>): IProjectUsersViewProps => ({
     ...state,
+    addModal: state.dashboard.users.addModal,
     userList: state.dashboard.users.userList,
   });
 
@@ -252,7 +267,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         id="addUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { props.onClickAdd(); }}
+        onClick={(): void => { store.dispatch(actions.setUsersMdlVisibility(true)); }}
       >
         <Glyphicon glyph="plus"/>&nbsp;
         {props.translations["search_findings.tab_users.add_button"]}
@@ -272,6 +287,66 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
   </div>
 );
 
+const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
+  (props: IProjectUsersViewProps, data: IUserData): void => {
+  let gQry: string;
+  gQry = `mutation {
+    grantUserAccess(
+      email: "${data.email}",
+      organization: "${data.organization}",
+      phoneNumber: "${data.phone}",
+      projectName: "${props.projectName}",
+      responsibility: "${data.responsability}",
+      role: "${data.role}"
+    ) {
+      success
+      access
+      grantedUser {
+        email
+        role
+        responsability
+        phoneNumber
+        organization
+        firstLogin
+        lastLogin
+        access
+      }
+    }
+  }`;
+  new Xhr().request(gQry, "An error occurred adding user to project")
+  .then((resp: AxiosResponse) => {
+    const respData: {
+      grantUserAccess: {
+        access: boolean;
+        grantedUser: IProjectUsersViewProps["userList"][0];
+        success: boolean;
+      };
+    } = resp.data.data;
+    if (respData.grantUserAccess.access) {
+      if (respData.grantUserAccess.success) {
+        msgSuccess(
+          data.email + props.translations["search_findings.tab_users.success"],
+          props.translations["search_findings.tab_users.title_success"],
+        );
+        store.dispatch(reset("addUser"));
+        store.dispatch(actions.setUsersMdlVisibility(false));
+        store.dispatch(actions.addUser(formatRawUserData(
+          [respData.grantUserAccess.grantedUser],
+          props.translations)[0],
+        ));
+      } else {
+        msgError(props.translations["proj_alerts.error_textsad"]);
+      }
+    } else {
+      msgError(props.translations["proj_alerts.access_denied"]);
+    }
+  })
+  .catch((error: string) => {
+    msgError(props.translations["proj_alerts.error_textsad"]);
+    rollbar.error(error);
+  });
+};
+
 export const component: React.StatelessComponent<IProjectUsersViewProps>
   = (props: IProjectUsersViewProps): JSX.Element => (
     <React.StrictMode>
@@ -288,6 +363,15 @@ export const component: React.StatelessComponent<IProjectUsersViewProps>
             </Row>
           </Col>
         </Row>
+        <Provider store={store}>
+          <AddUserModal
+            onSubmit={(values: {}): void => { addUserToProject(props, values as IUserData); }}
+            open={props.addModal.open}
+            projectName={props.projectName}
+            translations={props.translations}
+            userRole={props.userRole}
+          />
+        </Provider>
       </div>
     </React.StrictMode>
 );

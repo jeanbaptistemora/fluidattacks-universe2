@@ -113,6 +113,12 @@ export const clearUsers: DashboardAction =
   type: actionType.CLEAR_USERS,
 });
 
+export const addUser: DashboardAction =
+  (newUser: IProjectUsersViewProps["userList"][0]): IActionStructure => ({
+    payload: { newUser },
+    type: actionType.ADD_USER,
+});
+
 export const removeUser: DashboardAction =
   (removedEmail: string): IActionStructure => ({
     payload: { removedEmail },
