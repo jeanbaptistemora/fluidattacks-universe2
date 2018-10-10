@@ -126,6 +126,8 @@ class GraphQLTests(TestCase):
           finding(identifier: "422286126"){
             id
             access
+            success
+            errorMessage
             vulnerabilities {
                 findingId
                 id

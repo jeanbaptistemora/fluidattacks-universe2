@@ -9,7 +9,7 @@ from app.dto import finding
 from graphene import String, ObjectType, Boolean, List
 from ..services import has_access_to_finding
 from ..dao import integrates_dao
-from .vulnerability import Vulnerability
+from .vulnerability import Vulnerability, validate_formstack_file
 
 
 class Finding(ObjectType):
@@ -17,6 +17,8 @@ class Finding(ObjectType):
 
     id = String()
     access = Boolean()
+    success = Boolean()
+    error_message = String()
     vulnerabilities = List(
         Vulnerability,
         vuln_type=String(),
@@ -26,6 +28,9 @@ class Finding(ObjectType):
         """Class constructor."""
         self.access = False
         self.id = ""
+        self.vulnerabilities = []
+        self.success = False
+        self.error_message = ""
 
         finding_id = str(identifier)
         if (info.context.session['role'] in ['analyst', 'admin'] \
@@ -38,7 +43,23 @@ class Finding(ObjectType):
             if resp:
                 self.id = finding_id
                 vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
-                self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                if vulnerabilities:
+                    self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                elif resp.get("vulnerabilities"):
+                    is_file_valid = validate_formstack_file(resp.get("vulnerabilities"), finding_id, info)
+                    if is_file_valid:
+                        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+                        self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                    else:
+                        self.success = False
+                        self.error_message = "Error in file"
+                else:
+                    vuln_info = {"finding_id": self.id, "vuln_type": "old", "where": resp.get("where")}
+                    self.vulnerabilities = [Vulnerability(info, vuln_info)]
+            else:
+                self.success = False
+                self.error_message = "Finding does not exist"
+            self.success = True
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to retrieve finding info without permission')
 
@@ -51,6 +72,16 @@ class Finding(ObjectType):
         """Resolve access attribute."""
         del info
         return self.access
+
+    def resolve_success(self, info):
+        """Resolve success attribute."""
+        del info
+        return self.success
+
+    def resolve_error_message(self, info):
+        """Resolve error_message attribute."""
+        del info
+        return self.error_message
 
     def resolve_vulnerabilities(self, info, vuln_type="", state=""):
         """Resolve vulnerabilities attribute."""

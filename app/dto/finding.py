@@ -43,6 +43,7 @@ class FindingDTO(object):
     REG = "53609444"
     REG_NUM = "49412242"
     REG_FILE = "49412246"
+    VULNERABILITIES_FILE = "69850357"
 
     #Atributos descriptivos
     CLASS = "38392454" #detallado
@@ -370,7 +371,8 @@ class FindingDTO(object):
             "38307272":"animation",
             "38307222":"exploitation",
             "38307199":"exploit",
-            "49412246":"fileRecords"
+            "49412246":"fileRecords",
+            "69850357":"vulnerabilities"
         }
         evidence_tab_info = {v:initial_dict[k] \
                       for (k, v) in evidence_tab_fields.items() \

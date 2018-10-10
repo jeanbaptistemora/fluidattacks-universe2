@@ -306,6 +306,8 @@ angular.module("FluidIntegrates").factory(
           finding(identifier: "${findingId}") {
             id
             access
+            success
+            errorMessage
             portsVulns: vulnerabilities(
               vulnType: "ports", state: "${vulnState}") {
               ...vulnInfo
