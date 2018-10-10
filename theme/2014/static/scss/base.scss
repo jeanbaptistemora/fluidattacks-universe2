@@ -408,10 +408,22 @@ article {
 
 .tb-row,
 .tb-col {
-  display: table;
+  display: inline;
 
   h3 {
     text-align: center;
+  }
+
+  h4 {
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  li {
+    display: inline;
   }
 
   iframe {
