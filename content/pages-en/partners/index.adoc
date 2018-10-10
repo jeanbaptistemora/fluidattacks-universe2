@@ -5,6 +5,7 @@
 :germany: image:../images/icons/germany-flag.png[Germany Flag]
 :usa: image:../images/icons/us-flag.png[USA Flag]
 :australia: image:../images/icons/australia-flag.png[Australia Flag]
+:peru: image:../images/icons/peru-flag.png[Peru Flag]
 
 = Partners
 
@@ -46,7 +47,17 @@ supported by a certified and effective methodology.
 
 a|image::logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
 
-a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
+a|image::ediligence-logo.png[alt="Logo Edilligence",link="http://ediligence.co/"]
+
+a|== Edilligence
+
+Company that provides information security services,
+forensics and technologies consulting.
+By aligning legal and technical concepts,
+support is given to litigation,
+administrative investigations and consultancy
+to the areas of compliance in topics such as:
+competence, protection of personal data and intellectual property.
 
 a|== Evolution IT
 
@@ -58,6 +69,17 @@ which help increase their profitability,
 employing world-class practices
 and establishing relationships of trust with customers,
 business partners and collaborators.
+
+a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
+
+a|image::gamma-logo.png[alt="Logo Gamma Ingenieros",link="https://www.gammaingenieros.com/"]
+
+a|== Gamma Ingenieros
+
+Colombian company focused on satisfying their customer needs
+over +IT+ services and solutions, consulting
+and auditing of construction works and telecommunications,
+generating confidence and improving the customer experience
 
 a|== GreenSQA
 
@@ -111,6 +133,19 @@ Recognized as a leader industry and accredited with the highest levels
 in design, delivery and support of the latest technologies.
 
 a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+
+a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
+
+a|== Zenda
+
+{peru} Peruvian provider of technological solutions,
+focused on designing value propositions aligned to the
+strategic objectives of your company and the management
+of the +IT+ area services.
+They seek to improve the +IT+ services impact,
+focused on the insights of each customer,
+and searching a continuous growth,
+delivering a simple, escalable and convergent solution.
 
 |====
 

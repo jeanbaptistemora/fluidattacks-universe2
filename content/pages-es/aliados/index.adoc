@@ -5,6 +5,7 @@
 :germany: image:../images/icons/germany-flag.png[Germany Flag]
 :usa: image:../images/icons/us-flag.png[USA Flag]
 :australia: image:../images/icons/australia-flag.png[Australia Flag]
+:peru: image:../images/icons/peru-flag.png[Peru Flag]
 
 = Aliados
 
@@ -48,7 +49,16 @@ apoyado en una metodología certificada y efectiva.
 
 a|image::logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
 
-a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
+a|image::ediligence-logo.png[alt="Logo Edilligence",link="http://ediligence.co/"]
+
+a|== Edilligence
+
+Empresa que presta servicios de seguridad de la información,
+informática forense y asesoría en tecnologías.
+Alineando conceptos legales y técnicos se brinda apoyo a litigios,
+investigaciones administrativas y consultoría
+a las áreas de cumplimiento en temas como:
+competencia, protección de datos personales, propiedad intelectual.
 
 a|== Evolution IT
 
@@ -60,6 +70,18 @@ que ayudan a incrementar su rentabilidad,
 empleando prácticas de clase mundial
 y estableciendo relaciones de confianza con los clientes,
 socios de negocio y colaboradores.
+
+a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
+
+a|image::gamma-logo.png[alt="Logo Gamma Ingenieros",link="https://www.gammaingenieros.com/"]
+
+a|== Gamma Ingenieros
+
+Empresa colombiana dedicada a satisfacer
+las necesidades de sus clientes con Soluciones y Servicios
+en Tecnologías de la Información, Consultoría
+e Interventoría en Obras Civiles y Telecomunicaciones,
+generando confianza y mejorando la experiencia de los clientes.
 
 a|== GreenSQA
 
@@ -115,6 +137,19 @@ y acreditado con los más altos niveles en el diseño,
 entrega y soporte de las últimas tecnologías.
 
 a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+
+a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
+
+a|== Zenda
+
+{peru} Empresa proveedora de soluciones tecnológicas,
+enfocada en el diseño de propuestas de valor
+apalancando los objetivos estratégicos de su empresa
+con la gestión de servicios del área +TI+.
+Buscan mejorar el impacto y uso de los servicios +TI+
+enfocados en los +insights+ de cada cliente
+buscando el crecimiento continuo,
+entregando una solución sencilla, escalable y convergente.
 
 |====
 
