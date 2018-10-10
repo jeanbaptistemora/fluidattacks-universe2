@@ -183,10 +183,6 @@ angular.module("FluidIntegrates").controller(
       return true;
     };
 
-    $scope.addUser = function addUser () {
-      usersFtry.addUser($scope);
-    };
-
     $scope.editUser = function editUser () {
       usersFtry.editUser($scope);
     };

@@ -21,42 +21,6 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
-       * Give access to an user in a project
-       * @function addAccessIntegrates
-       * @param {String} data Info of user to which access will be granted.
-       * @param {String} project Project name
-       * @member integrates.projectFtry
-       * @return {Object} Response of request
-       */
-      "addAccessIntegrates" (data, project) {
-        const oopsAc = "An error occurred getting events";
-        const gQry = `mutation {
-          grantUserAccess(
-            email: "${data.userEmail}",
-            organization: "${data.userOrganization}",
-            phoneNumber: "${data.userPhone}",
-            projectName: "${project}",
-            responsibility: "${data.userResponsibility}",
-            role: "${data.userRole}"
-          ) {
-            success
-            access
-            grantedUser {
-              email
-              role
-              responsability
-              phoneNumber
-              organization
-              firstLogin
-              lastLogin
-              access
-            }
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Make a request to add new comment in a finding
        * @function addComment
        * @param {String} findingid Numeric id of the finding
