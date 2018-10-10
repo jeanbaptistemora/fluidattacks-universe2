@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import _ from "lodash";
 import React from "react";
 import {
@@ -7,12 +8,15 @@ import {
 } from "react-bootstrap";
 import {
   ConfigProps, DecoratedComponentClass, Field,
-  FormProps, InjectedFormProps,
+  FormProps, formValueSelector, InjectedFormProps,
   reduxForm, WrappedFieldProps,
 } from "redux-form";
 import { default as Modal } from "../../../../../components/Modal/index";
 import store from "../../../../../store/index";
+import { msgError } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import { required, validEmail } from "../../../../../utils/validations";
+import Xhr from "../../../../../utils/xhr";
 import * as actions from "../../../actions";
 import style from "./index.css";
 
@@ -48,6 +52,7 @@ const formTextField: ((arg1: CustomFieldProps) => JSX.Element) =
         max={fieldProps.max}
         value={fieldProps.input.value}
         onChange={fieldProps.input.onChange}
+        onBlur={fieldProps.input.onBlur}
       />
       {fieldProps.meta.touched && fieldProps.meta.error ? <Error msg={fieldProps.meta.error as string}/> : undefined}
   </div>
@@ -85,6 +90,47 @@ const closeModal: ((arg1: CustomFormProps) => void) =
   props.reset();
 };
 
+const loadAutofillData: ((arg1: CustomFormProps) => void) =
+  (props: CustomFormProps): void => {
+  /* tslint:disable-next-line no-any
+   * Disabling here is necessary since forms are
+   * a generic component and their fields may differ
+   */
+  const fieldSelector: ((stateTree: {}, ...fields: string[]) => any) = formValueSelector("addUser");
+  const email: string = fieldSelector(store.getState(), "email");
+  if (!_.isEmpty(email)) {
+    let gQry: string;
+    gQry = `{
+      userData(projectName: "${props.projectName}", userEmail: "${email}") {
+        organization
+        responsability
+        phoneNumber
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred getting user information for autofill")
+    .then((resp: AxiosResponse) => {
+      const respData: {
+        userData: {
+          organization: string;
+          phoneNumber: string;
+          responsability: string;
+        };
+      } = resp.data.data;
+      if (_.isEmpty(respData)) {
+        msgError(props.translations["proj_alerts.error_textsad"]);
+      } else {
+        props.change("organization", respData.userData.organization);
+        props.change("phone", respData.userData.phoneNumber);
+        props.change("responsability", respData.userData.responsability);
+      }
+    })
+    .catch((error: string) => {
+      msgError(props.translations["proj_alerts.error_textsad"]);
+      rollbar.error(error);
+    });
+  }
+};
+
 const renderManagerRoles: ((arg1: CustomFormProps["translations"]) => JSX.Element) =
   (translations: CustomFormProps["translations"]): JSX.Element => (
   <React.Fragment>
@@ -118,6 +164,11 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
         type="text"
         placeholder={props.translations["search_findings.tab_users.email"]}
         validate={[required, validEmail]}
+        /* tslint:disable-next-line jsx-no-lambda
+         * Disabling this rule is necessary for the sake of simplicity and
+         * readability of the code that binds component events
+         */
+        onBlur={(): void => { loadAutofillData(props); }}
       />
     </FormGroup>
     <FormGroup>
