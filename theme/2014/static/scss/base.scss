@@ -432,11 +432,21 @@ article {
   }
 
   p {
-    text-align: center;
+    left: 35%;
+    position: relative;
+    text-align: left;
   }
 
   li {
     display: inline;
+  }
+}
+
+.subp {
+  p {
+    left: 2%;
+    position: relative;
+    text-align: left;
   }
 }
 
