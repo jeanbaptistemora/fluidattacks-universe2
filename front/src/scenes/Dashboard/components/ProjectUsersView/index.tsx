@@ -182,9 +182,11 @@ const removeUser: ((arg1: string, arg2: IProjectUsersViewProps["translations"]) 
 
 const renderUsersTable:
 ((arg1: IProjectUsersViewProps["userList"],
-  arg2: IProjectUsersViewProps["translations"]) => JSX.Element) =
+  arg2: IProjectUsersViewProps["translations"],
+  arg3: IProjectUsersViewProps["userRole"]) => JSX.Element) =
   (userList: IProjectUsersViewProps["userList"],
-   translations: IProjectUsersViewProps["translations"]): JSX.Element => (
+   translations: IProjectUsersViewProps["translations"],
+   userRole: IProjectUsersViewProps["userRole"]): JSX.Element => (
   <DataTable
     id="tblUsers"
     dataset={userList}
@@ -243,7 +245,7 @@ const renderUsersTable:
     ]}
     pageSize={15}
     search={true}
-    enableRowSelection={true}
+    enableRowSelection={userRole === "admin" || userRole === "customeradmin"}
     title=""
   />
 );
@@ -354,11 +356,15 @@ export const component: React.StatelessComponent<IProjectUsersViewProps>
         <Row>
           <Col md={12} sm={12} xs={12}>
             <Row>
-              {renderActionButtons(props)}
+              {
+                props.userRole === "admin" || props.userRole === "customeradmin"
+                ? renderActionButtons(props)
+                : undefined
+              }
             </Row>
             <Row>
               <Col md={12} sm={12}>
-                {renderUsersTable(props.userList, props.translations)}
+                {renderUsersTable(props.userList, props.translations, props.userRole)}
               </Col>
             </Row>
           </Col>
