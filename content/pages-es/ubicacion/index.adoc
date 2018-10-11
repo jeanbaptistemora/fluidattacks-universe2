@@ -5,42 +5,39 @@
 
 = Ubicación
 
-[role="tb-col"]
-[cols=2 , width="50%"]
+[role="tb-location tb-col"]
+[cols=2]
 |====
 
-2+a|=== Sede Principal
-2+a|==== San Francisco
+2+a|=== Principal
+2+a|==== Estados Unidos
 
-2+a|*Celular:* +1 415 404 2154 +
-*Dirección:* 795 Folsom Street, 1st Floor +
-*Código postal:* 94107 +
-San Francisco, California, USA. +
+2+a|795 Folsom Street, Primer piso +
+San Francisco, CA, USA. +
+94107 +
+*Teléfono:* +1.415.404.2154
 ++++
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12613.019591560002!2d-122.4031097883033!3d37.78406573491725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807e0e3b97b5%3A0x890f970065001c21!2s795+Folsom+St%2C+San+Francisco%2C+CA+94107%2C+EE.+UU.!5e0!3m2!1ses!2sco!4v1539184991930" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
 ++++
 
-2+a|=== Otras Sedes
+2+a|=== Sucursales
 a|====  Medellín
 a|==== Bogotá
 
-a|*Telefono* fijo: +57 (4) 444-26-37 +
-*Celular:* +57 314 653 3428 +
-*Dirección:* Calle 7 Sur 42 – 70 Edificio Forum, Oficina 2003 +
-*Código postal:* 050022 +
-Poblado, Medellín, Colombia
+a|Calle 7 Sur 42 – 70 Edificio Forum, Oficina 2003 +
+Poblado, Medellín, Colombia +
+050022 +
+*Teléfono:* +57.(4).444.26.37, +57.314.653.3428
 ++++
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5018222236636!2d-75.57561538523105!3d6.197327695513531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e468287e3771c03%3A0xbcb5bb4181365fff!2sEdificio+Forum+Torre!5e0!3m2!1sen!2sco!4v1514988923691" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
 ++++
 
-a|*Telefono fijo:* +57 (1) 466-16-73 +
-*Celular:* +57 314 653 3428 +
-*Dirección:* Carrera 11 N 71 – 41 Edificio Avenida Chile, Oficina 602 +
-*Código postal:* 110231 +
-Chapinero, Bogotá, Colombia
+a|Carrera 11 N 71 – 41 Edificio Avenida Chile, Oficina 602 +
+Chapinero, Bogotá, Colombia +
+110231 +
+*Teléfono:* +57.(1).466.16.73, +57.314.653.3428 +
 ++++
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.647548926837!2d-74.061627150199!3d4.656785343318136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a5b5630f1f3%3A0xf439d72dd756c156!2sCra.+11+%2371-41%2C+Bogot%C3%A1!5e0!3m2!1sen!2sco!4v1519846591294" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
 ++++
-
 
 |====

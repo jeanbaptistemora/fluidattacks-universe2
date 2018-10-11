@@ -418,17 +418,25 @@ article {
     text-align: center;
   }
 
+  iframe {
+    height: auto;
+    width: 270px;
+  }
+}
+
+.tb-location {
+
+  th,
+  td {
+    border: 0;
+  }
+
   p {
     text-align: center;
   }
 
   li {
     display: inline;
-  }
-
-  iframe {
-    height: auto;
-    width: 270px;
   }
 }
 
