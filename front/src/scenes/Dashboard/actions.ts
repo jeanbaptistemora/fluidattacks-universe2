@@ -25,7 +25,7 @@ export const loadResources: DashboardAction =
 export const clearResources: DashboardAction =
   (): IActionStructure => ({
   payload: undefined,
-  type: actionType.CLOSE_ADD_MODAL,
+  type: actionType.CLEAR_RESOURCES,
 });
 
 export const addRepositoryField: DashboardAction =
@@ -125,8 +125,14 @@ export const removeUser: DashboardAction =
     type: actionType.REMOVE_USER,
 });
 
-export const setUsersMdlVisibility: DashboardAction =
-  (isVisible: boolean): IActionStructure => ({
-    payload: { isVisible },
-    type: actionType.SET_MDL_USER_VISIBILIY,
+export const openUsersMdl: DashboardAction =
+  (type: "add" | "edit", initialValues?: {}): IActionStructure => ({
+    payload: { type, initialValues },
+    type: actionType.OPEN_USERS_MDL,
+});
+
+export const closeUsersMdl: DashboardAction =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionType.CLOSE_USERS_MDL,
 });

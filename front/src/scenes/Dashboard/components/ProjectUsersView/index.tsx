@@ -33,7 +33,9 @@ interface IUserData {
 
 export interface IProjectUsersViewProps {
   addModal: {
+    initialValues: {};
     open: boolean;
+    type: "add" | "edit";
   };
   projectName: string;
   translations: { [key: string]: string };
@@ -44,7 +46,6 @@ export interface IProjectUsersViewProps {
     role: string;
   }>;
   userRole: string;
-  onClickEdit(): void;
 }
 
 const formatRawUserData:
@@ -180,6 +181,32 @@ const removeUser: ((arg1: string, arg2: IProjectUsersViewProps["translations"]) 
   }
 };
 
+const openEditModal: ((arg1: IProjectUsersViewProps["translations"]) => void) =
+  (translations: IProjectUsersViewProps["translations"]): void => {
+  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
+  if (selectedQry.length > 0) {
+    if (selectedQry[0].closest("tr") !== null) {
+      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+      const DATA_IN_SELECTED_ROW: HTMLCollection = selectedRow.children;
+
+      const email: string | null = DATA_IN_SELECTED_ROW[1].textContent;
+      const responsability: string | null = DATA_IN_SELECTED_ROW[3].textContent;
+      const phone: string | null = DATA_IN_SELECTED_ROW[4].textContent;
+      const organization: string | null = DATA_IN_SELECTED_ROW[5].textContent;
+
+      store.dispatch(actions.openUsersMdl("edit", {
+        email, organization, phone,
+        responsability,
+      }));
+    } else {
+      msgError(translations["proj_alerts.error_textsad"]);
+      rollbar.error("An error occurred removing user");
+    }
+  } else {
+    msgError(translations["search_findings.tab_users.no_selection"]);
+  }
+};
+
 const renderUsersTable:
 ((arg1: IProjectUsersViewProps["userList"],
   arg2: IProjectUsersViewProps["translations"],
@@ -258,7 +285,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         id="editUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { props.onClickEdit(); }}
+        onClick={(): void => { openEditModal(props.translations); }}
       >
         <Glyphicon glyph="edit"/>&nbsp;
         {props.translations["search_findings.tab_users.edit"]}
@@ -269,7 +296,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         id="addUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { store.dispatch(actions.setUsersMdlVisibility(true)); }}
+        onClick={(): void => { store.dispatch(actions.openUsersMdl("add")); }}
       >
         <Glyphicon glyph="plus"/>&nbsp;
         {props.translations["search_findings.tab_users.add_button"]}
@@ -331,11 +358,57 @@ const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void
           props.translations["search_findings.tab_users.title_success"],
         );
         store.dispatch(reset("addUser"));
-        store.dispatch(actions.setUsersMdlVisibility(false));
+        store.dispatch(actions.closeUsersMdl());
         store.dispatch(actions.addUser(formatRawUserData(
           [respData.grantUserAccess.grantedUser],
           props.translations)[0],
         ));
+      } else {
+        msgError(props.translations["proj_alerts.error_textsad"]);
+      }
+    } else {
+      msgError(props.translations["proj_alerts.access_denied"]);
+    }
+  })
+  .catch((error: string) => {
+    msgError(props.translations["proj_alerts.error_textsad"]);
+    rollbar.error(error);
+  });
+};
+
+const editUserInfo: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
+  (props: IProjectUsersViewProps, data: IUserData): void => {
+  let gQry: string;
+  gQry = `mutation {
+    editUser(
+      projectName: "${props.projectName}",
+      email: "${data.email}",
+      organization: "${data.organization}",
+      phoneNumber: "${data.phone}",
+      responsibility: "${data.responsability}",
+      role: "${data.role}"
+    ) {
+      access
+      success
+    }
+  }`;
+  new Xhr().request(gQry, "An error occurred editing user information")
+  .then((resp: AxiosResponse) => {
+    const respData: {
+      editUser: {
+        access: boolean;
+        success: boolean;
+      };
+    } = resp.data.data;
+    if (respData.editUser.access) {
+      if (respData.editUser.success) {
+        msgSuccess(
+          props.translations["search_findings.tab_users.success_admin"],
+          props.translations["search_findings.tab_users.title_success"],
+        );
+        store.dispatch(reset("addUser"));
+        store.dispatch(actions.closeUsersMdl());
+        location.reload();
       } else {
         msgError(props.translations["proj_alerts.error_textsad"]);
       }
@@ -371,8 +444,12 @@ export const component: React.StatelessComponent<IProjectUsersViewProps>
         </Row>
         <Provider store={store}>
           <AddUserModal
-            onSubmit={(values: {}): void => { addUserToProject(props, values as IUserData); }}
-            open={props.addModal.open}
+            onSubmit={
+              props.addModal.type === "add"
+              ? (values: {}): void => { addUserToProject(props, values as IUserData); }
+              : (values: {}): void => { editUserInfo(props, values as IUserData); }
+            }
+            {...props.addModal}
             projectName={props.projectName}
             translations={props.translations}
             userRole={props.userRole}

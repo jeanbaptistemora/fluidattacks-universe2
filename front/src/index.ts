@@ -330,7 +330,6 @@ angular
       projectUsersView, [
         "projectName",
         "translations",
-        "onClickEdit",
         "userRole",
      ],
    ),

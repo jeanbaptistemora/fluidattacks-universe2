@@ -18,15 +18,11 @@ interface IDashboardState {
   };
   users: {
     addModal: {
+      initialValues: {};
       open: boolean;
+      type: "add" | "edit" | undefined;
     };
-    userList:
-      Array<{
-        email: string; firstLogin: string;
-        lastLogin: string; organization: string;
-        phoneNumber: string; responsability: string;
-        role: string;
-      }>;
+    userList: IProjectUsersViewProps["userList"];
   };
 }
 
@@ -46,7 +42,9 @@ const initialState: IDashboardState = {
   },
   users: {
     addModal: {
+      initialValues: {},
       open: false,
+      type: undefined,
     },
     userList: [],
   },
@@ -235,15 +233,25 @@ const dashboard: DashboardReducer =
           )],
         },
       };
-    case actionType.SET_MDL_USER_VISIBILIY:
+    case actionType.OPEN_USERS_MDL:
       return {
         ...state,
         users: {
           ...state.users,
           addModal: {
             ...state.users.addModal,
-            open: action.payload.isVisible,
+            initialValues: action.payload.initialValues,
+            open: true,
+            type: action.payload.type,
           },
+        },
+      };
+    case actionType.CLOSE_USERS_MDL:
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          addModal: initialState.users.addModal,
         },
       };
     default:

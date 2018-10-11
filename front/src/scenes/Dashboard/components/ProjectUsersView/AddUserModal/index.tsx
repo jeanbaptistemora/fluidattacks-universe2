@@ -24,6 +24,7 @@ export interface IAddUserModalProps {
   open: boolean;
   projectName: string;
   translations: { [key: string]: string };
+  type: "add" | "edit";
   userRole: string;
 }
 
@@ -53,6 +54,7 @@ const formTextField: ((arg1: CustomFieldProps) => JSX.Element) =
         value={fieldProps.input.value}
         onChange={fieldProps.input.onChange}
         onBlur={fieldProps.input.onBlur}
+        disabled={fieldProps.disabled}
       />
       {fieldProps.meta.touched && fieldProps.meta.error ? <Error msg={fieldProps.meta.error as string}/> : undefined}
   </div>
@@ -81,7 +83,7 @@ const formDropdownField: ((arg1: CustomFieldProps) => JSX.Element) =
 
 const closeModal: ((arg1: CustomFormProps) => void) =
   (props: CustomFormProps): void => {
-  store.dispatch(actions.setUsersMdlVisibility(false));
+  store.dispatch(actions.closeUsersMdl());
   /* tslint:disable-next-line no-any
    * Disabling here is necessary because this is a call to a JS function
    * attached to the window object, which is not recognized by TS
@@ -164,6 +166,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
         type="text"
         placeholder={props.translations["search_findings.tab_users.email"]}
         validate={[required, validEmail]}
+        disabled={props.type === "edit"}
         /* tslint:disable-next-line jsx-no-lambda
          * Disabling this rule is necessary for the sake of simplicity and
          * readability of the code that binds component events
@@ -251,6 +254,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
 export const addUserModal:
 DecoratedComponentClass<{}, IAddUserModalProps & Partial<ConfigProps<{}, IAddUserModalProps>>, string> =
   reduxForm<{}, IAddUserModalProps>({
+    enableReinitialize: true,
     form: "addUser",
   })((props: CustomFormProps): JSX.Element => {
     /* tslint:disable-next-line no-any
@@ -272,12 +276,15 @@ DecoratedComponentClass<{}, IAddUserModalProps & Partial<ConfigProps<{}, IAddUse
         }
       },         200);
     }
+    const title: string = props.type === "add"
+    ? props.translations["search_findings.tab_users.title"]
+    : props.translations["search_findings.tab_users.edit_user_title"];
 
     return (
       <React.StrictMode>
         <Modal
           open={props.open}
-          headerTitle={props.translations["search_findings.tab_users.title"]}
+          headerTitle={title}
           content={renderFormContent(props)}
           footer={<div/>}
         />

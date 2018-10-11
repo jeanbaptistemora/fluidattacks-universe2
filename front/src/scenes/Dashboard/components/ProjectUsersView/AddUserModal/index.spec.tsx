@@ -23,6 +23,7 @@ describe('Add user modal', () => {
           "search_findings.tab_users.add_button": "Add",
           "search_findings.tab_users.remove_user": "Remove",
         }}
+        type="add"
         userRole="admin"
       />
     </Provider>

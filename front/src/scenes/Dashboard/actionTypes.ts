@@ -46,8 +46,11 @@ ADD_USER = "dashboard/users/add";
 let REMOVE_USER: string;
 REMOVE_USER = "dashboard/users/remove";
 
-let SET_MDL_USER_VISIBILIY: string;
-SET_MDL_USER_VISIBILIY = "dashboard/users/add_modal/set_visibility";
+let OPEN_USERS_MDL: string;
+OPEN_USERS_MDL = "dashboard/users/add_modal/open";
+
+let CLOSE_USERS_MDL: string;
+CLOSE_USERS_MDL = "dashboard/users/add_modal/close";
 
 export {
   LOAD_RESOURCES,
@@ -66,5 +69,6 @@ export {
   CLEAR_USERS,
   ADD_USER,
   REMOVE_USER,
-  SET_MDL_USER_VISIBILIY,
+  OPEN_USERS_MDL,
+  CLOSE_USERS_MDL,
 };

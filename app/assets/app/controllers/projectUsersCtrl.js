@@ -89,7 +89,9 @@ angular.module("FluidIntegrates").controller(
         "search_findings.tab_users.minutes_ago",
 
         "search_findings.tab_users.success",
+        "search_findings.tab_users.success_admin",
         "search_findings.tab_users.title",
+        "search_findings.tab_users.edit_user_title",
         "search_findings.tab_users.textbox",
         "search_findings.tab_users.email",
         "search_findings.tab_users.user_organization",
