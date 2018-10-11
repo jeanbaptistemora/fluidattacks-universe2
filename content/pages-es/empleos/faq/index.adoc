@@ -51,6 +51,33 @@ durante el proceso de selección y sus respectivas respuestas
   Sí, haces el proceso una sola vez y nos escribes
   a cuáles vacantes deseas aplicar al correo careers@autonomicmind.co
 
+*¿Qué experiencia se requiere para aplicar a las vacantes?*::
+  Ninguna experiencia.
+  Lo que es indispensable es una alta capacidad para investigar,
+  resolver problemas y de esta manera aprender con autonomía.
+
+*¿Qué conocimientos previos son necesarios para aplicar a las vacantes?*::
+  Buscamos personas talentosas con alta capacidad de aprendizaje.
+  No importa tu carrera o si aún no te has graduado,
+  lo importante es que te adaptes a nuestra filosofía y valores.
+  Es preferible tener alguna experiencia con lenguajes de programación,
+  pero no es obligatorio.
+  Valoramos más la capacidad de resolver nuevos retos que los títulos.
+  Nuestro proceso de selección está diseñado
+  para que usted investigando
+  adquiera por su cuenta los conocimientos necesarios.
+  para el desempeño del cargo.
+
+*¿La empresa me capacitará para ejercer correctamente mi cargo?*::
+  En +Fluid Attacks+ no se exige ninguna experiencia,
+  ni certificar los conocimientos con títulos,
+  pero tampoco capacita a los candidatos en el proceso de selección.
+  Es necesario ir adquiriendo los conocimientos suficientes
+  y tener la actitud correcta para superar la etapa de retos y de inmersión,
+  por medio del autoaprendizaje que exigen estas dos etapas,
+  y esta misma capacidad de autoaprendizaje es la que se valora en el proceso,
+  dado que se requiere para cualquiera de los roles en la organización.
+
 *No me funciona la aplicación de examen, ¿qué puedo hacer?*::
   Prueba ejecutando la aplicación como administrador.
   Si el problema persiste puedes intentarlo desde otro PC.
@@ -401,9 +428,8 @@ Con tiempo y dinero:
 *¿Existe un código de vestuario?*::
   Podemos ejecutar proyectos en la sede de +Fluid Attacks+ o en el cliente:
   +
-  * Cuando asistimos a la oficina podemos vestir cómodamente,
-  es decir, ropa sport con pantalón largo,
-  camisa o camiseta y zapatos o tenis.
+  * Cuando asistimos a la oficina no hay código de vestuario.
+  Podemos vestir cómodamente.
   +
   +
   * Cuando ejecutamos los proyectos en las oficinas del cliente,
@@ -418,6 +444,9 @@ Con tiempo y dinero:
   y no cuentan con aquellas veces que el talento requiere trabajar
   fines de semana y en las noches por decisiones unilaterales
   derivadas del manejo personal del horario durante la semana.
+
+*¿En qué lugares se trabaja?*::
+  Podemos ejecutar proyectos en la sede de +Fluid Attacks+ o en el cliente.
 
 *¿Existe teletrabajo?*::
   No existe teletrabajo de forma sistemática.
