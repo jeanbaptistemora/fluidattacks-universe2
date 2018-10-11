@@ -352,14 +352,14 @@ your proprietary rights to that code.
  of a breach of security requirements.
 
 *Does Continuous Hacking only focus on source code?*::
-*It is possible to include the infrastructure associated with the app?*::
+*Is it possible to include the infrastructure associated with the app?*::
  +Fluid Attacks+ has improved the Continuous Hacking model
  to now include infrastructure within the Target of Evaluation (+ToE+).
  This includes the application's ports, inputs,
  infrastructure, and an application itself.
 
 *Where does Integrates run?*::
- The platform link:../../products/integrates/[Integrates] runs in the cloud.
+ The platform link:../../products/integrates/[Integrates], runs in the cloud.
 
 *Does Fluid Attacks manage the access credentials to Integrates?*::
  No. We use federated authentication.
@@ -374,24 +374,26 @@ your proprietary rights to that code.
  from accessing and compromising your information.
  This feature is enabled through +Gmail+ or +Azure+.
 
-*If I make a commit ¿How long it takes to Fluid Attacks to review it*::
-*and test it?*::
- The compromise is to reach +100%+ coverage, for this reason there will be
- vulnerabilities results all the time.
- +Fluid Attacks+ takes into account all the +pushes+ to the tested branch,
+*If I make a commit, how long does it take you*::
+*to review the commit and test it?*::
+ The goal is +100%+ coverage.
+ Therefore, there will be results
+ regarding system vulnerabilities continuously throughout the contract period.
+ +Fluid Attacks+ takes into account all pushes to the tested branch,
  which are monitored using automated scripts (robots)
  that extract and analyze the changes made to the source code every night.
 
-*Fluid Attacks tests every time I make a push in the subscription branch?*::
+*Does +Fluid Attacks+ test every time I make a push*::
+*in the subscription branch?*::
  During the execution of a project the following scenarios can occur:
 
  . Application in development without overdue code (+100%+ coverage):
- The robots detects the change and generates the updated control files,
- this allows our hackers to attack the application considering the changes.
- This means that no specific file or commit is audited, the change analysis
- performed by the robot is considered when the hacker takes the environment
- and the branch and tries to attack the application taking into account
- the changes made.
+ The robot detects the change and generates the updated control files.
+ This allows our hackers to attack the application bearing in mind the changes.
+ This means that no specific file or commit is audited,
+ the change analysis performed by the robot is considered
+ when the hacker takes the environment and the branch
+ and tries to attack the application taking into account the changes made.
 
  . Application in production without overdue code (+100%+ coverage):
  Even when there are no changes, the application is attacked.
@@ -402,46 +404,47 @@ your proprietary rights to that code.
  to achieve new vulnerabilities.
 
  . Application in development with overdue code (+<100+ coverage):
- Same as the first scenario, but it is attacked all related to the change made,
- the attack surface made before the subscription point it is not attacked.
+ Same as the first scenario, but attacks are only related
+ to the change that was made.
+ The attack surface that existed before the subscription point is not attacked.
 
  . Application in production with overdue code (+<100%+ coverage):
- Same as the second scenario, but if in said month there is no new code,
- it is hacked the equivalent to the changes made by +1+ active author in
- +1+ previous month.
+ Same as the second scenario, but if in a specified month there is no new code,
+ it is hacked only to the extent of the changes
+ made by +1+ active author in +1+ previous month.
 
-*¿Is it possible to know the activities schedule in the continuous hacking*::
-test?*::
- Once performed the setup and everything is ready to begin the service,
- the security tests start.
- The activities performed during the service are are:
+*What are the scheduled activities during the continuous hacking test?*::
+ Once the setup has been completed,
+ and everything is ready for the service to begin, the security tests start.
+ The steps are:
 
  . Request approval (purchase order confirmed).
  . Project leader assignment.
  . The project leader schedules the start meeting (teleconference).
  . Service condition validation.
  . Supplies request (access to environments and code).
- . Project leader receives supplies and programs the setup of the verification
- and access robots.
- . The project leader creates an admin user for the client in link:../../products/integrates/[Integrates]
- . The admin user invites all project stakeholders including the developers
+ . Project leader receives supplies,
+ and programs the setup of the verification and access robots.
+ . The project leader creates an admin user in link:../../products/integrates/[Integrates] for the client.
+ . The admin user invites all project stakeholders including the developers.
  (They must have +Google Apps+ or +Office365+)
- . Our hackers report the vulnerabilities in link:../../products/integrates/[Integrates].
- . Project stakeholders access to vulnerabilities and start the remediation.
- . If any doubt comes out, they can be solved through the comments or chat
- available in link:../../products/integrates/[Integrates]
- . Once fixed the reported vulnerabilities the client request the validation
- through link:../../products/integrates/[Integrates].
+ . Vulnerabilities are reported in link:../../products/integrates/[Integrates].
+ . Project stakeholders access vulnerabilities and start remediation.
+ . If any questions or problems arise,
+ they can be addressed through the comments or chat available in link:../../products/integrates/[Integrates].
+ . When the client has remediated the reported vulnerabilities,
+ they may request validation of their repairs through link:../../products/integrates/[Integrates].
  . Our hacker performs the closure verification and updates the report.
  . Steps +3+ - +7+ are repeated until subscription ends.
 
-*If I want to use Asserts inside my continuous integrator*::
-*What are the technical conditions to be met?*::
- Asserts runs on any continuous integration platform that supports +Docker+
- (+Docker engine 18.03.1+) and has access to internet.
+*What technical conditions do I need to meet*::
+*if I want to use Asserts inside my continuous integrator?*::
+ Asserts runs on any continuous integration platform
+ that supports +Docker+ (+Docker engine 18.03.1+)
+ and has access to the internet.
 
-*There is documentation for Asserts?*::
-Yes, it is available in link:https://fluidsignal.gitlab.io/asserts/[Asserts page].
+*Is there documentation for Asserts?*::
+Yes, it is available by going into link:https://fluidsignal.gitlab.io/asserts/[Asserts page].
 
 *Is it possible to group applications in only one subscription?*::
 *How do I recognize the vulnerabilities per application?*::
