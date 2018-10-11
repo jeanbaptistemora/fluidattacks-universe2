@@ -11,14 +11,14 @@
 |====
 
 a|+Defends+ is a set of detailed procedures
-that allow you to develop secure applications,
-configure technological components in a secure manner
+that allows you to develop secure applications,
+securely configure technological components,
 and fix security vulnerabilities found and reported by us.
-The procedures contain screenshots and commented snippets of code
-explaining the procedure step by step.
+The instructions explain each procedure step-by-step
+using screenshots and annotated snippets of code.
 The complete code examples are easily downloadable and compilable.
-With +Defends+ you can remediate the vulnerabilities
-that we report in the shortest possible time.
+With +Defends+ you can remediate the reported vulnerabilities
+in the shortest possible time.
 
 a|You can access the product
 
@@ -40,15 +40,15 @@ a|image::server.png[Servers]
 
 2+a|== Configure your servers properly
 
-For us it is important to ensure
-that your information is well protected from possible attackers,
-for that reason in +Defends+
-we explain how to properly configure both web servers and applications.
+For us, it is important
+that your information is well-protected from possible attackers.
+For that reason, +Defends+ explains how to properly configure
+both web servers as well as applications.
 
 2+a|== Set up user roles in your system
 
 We teach you how to configure different user roles
-according to their functionalities within the organization.
+according to their function within the organization.
 
 a|image::user-roles.png[User role]
 
@@ -57,14 +57,14 @@ a|image::download-code.png[Download Code]
 2+a|== Download our sample code
 
 All our sample material is available for download
-and documented step by step
+and is documented step-by-step
 so that you can run it on your computer
-and you can perform your own tests according to the needs of your project.
+and perform tests according to project needs.
 
-2+a|== Resources and guidelines updated
+2+a|== Resources and guidelines updates
 
-We ensure that our guides are up-to-date in terms of security,
-ensuring that your applications are more secure.
+We guarantee our guides and resources are up-to-date in terms of security,
+which means your applications will be more secure as well.
 
 a|image::secure-app.png[Secure]
 
