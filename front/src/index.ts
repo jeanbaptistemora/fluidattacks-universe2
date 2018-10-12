@@ -20,6 +20,7 @@ import { projectUsersView } from "./scenes/Dashboard/components/ProjectUsersView
 import { resourcesView } from "./scenes/Dashboard/components/ResourcesView/index";
 import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
+import { vulnsView } from "./scenes/Dashboard/components/Vulnerabilities/index";
 import Access from "./scenes/Login/components/Access/index";
 import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
 
@@ -356,6 +357,24 @@ angular
        "pageSize",
        "search",
        "title",
+     ],
+   ),
+  );
+
+/**
+ * @url: /project/:project/:id/description
+ * @page: findingcontent.html
+ * @controllers: findingContentCtrl
+ * @tag: <vulnerabilities-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "vulnerabilitiesView",
+   react2angular(
+     vulnsView, [
+        "findingId",
+        "translations",
      ],
    ),
   );

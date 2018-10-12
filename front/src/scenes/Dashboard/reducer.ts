@@ -1,6 +1,7 @@
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
+import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 interface IDashboardState {
   fileInput: {
@@ -23,6 +24,11 @@ interface IDashboardState {
       type: "add" | "edit" | undefined;
     };
     userList: IProjectUsersViewProps["userList"];
+  };
+  vulnerabilities: {
+    dataInputs: IVulnerabilitiesViewProps["dataInputs"];
+    dataLines: IVulnerabilitiesViewProps["dataLines"];
+    dataPorts: IVulnerabilitiesViewProps["dataPorts"];
   };
 }
 
@@ -47,6 +53,11 @@ const initialState: IDashboardState = {
       type: undefined,
     },
     userList: [],
+  },
+  vulnerabilities: {
+    dataInputs: [],
+    dataLines: [],
+    dataPorts: [],
   },
 };
 
@@ -252,6 +263,15 @@ const dashboard: DashboardReducer =
         users: {
           ...state.users,
           addModal: initialState.users.addModal,
+        },
+      };
+    case actionType.LOAD_VULNERABILITIES:
+      return {
+        ...state,
+        vulnerabilities: {
+          dataInputs: action.payload.dataInputs,
+          dataLines: action.payload.dataLines,
+          dataPorts: action.payload.dataPorts,
         },
       };
     default:

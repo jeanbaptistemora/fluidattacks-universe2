@@ -4,6 +4,7 @@
  */
 import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
+import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 export interface IActionStructure {
   payload: any;
@@ -135,4 +136,15 @@ export const closeUsersMdl: DashboardAction =
   (): IActionStructure => ({
     payload: undefined,
     type: actionType.CLOSE_USERS_MDL,
+});
+export const loadVulnerabilities: DashboardAction =
+  (dataInputs: IVulnerabilitiesViewProps["dataInputs"],
+   dataLines: IVulnerabilitiesViewProps["dataLines"],
+   dataPorts: IVulnerabilitiesViewProps["dataPorts"]): IActionStructure => ({
+    payload: {
+      dataInputs,
+      dataLines,
+      dataPorts,
+    },
+    type: actionType.LOAD_VULNERABILITIES,
 });

@@ -52,6 +52,9 @@ OPEN_USERS_MDL = "dashboard/users/add_modal/open";
 let CLOSE_USERS_MDL: string;
 CLOSE_USERS_MDL = "dashboard/users/add_modal/close";
 
+let LOAD_VULNERABILITIES: string;
+LOAD_VULNERABILITIES = "dashboard/finding/description/vulnerabilities";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,
@@ -71,4 +74,5 @@ export {
   REMOVE_USER,
   OPEN_USERS_MDL,
   CLOSE_USERS_MDL,
+  LOAD_VULNERABILITIES,
 };
