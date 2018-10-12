@@ -224,32 +224,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Edit user information.
-       * @function editUser
-       * @param {String} data User data.
-       * @param {String} project User project.
-       * @member integrates.projectFtry2
-       * @return {Object} Response by SQL DB
-       */
-      "editUser" (data, project) {
-        const oopsAc = "An error occurred editing user information";
-        const gQry = `mutation {
-          editUser(
-            projectName: "${project}",
-            email: "${data.userEmail}",
-            organization: "${data.userOrganization}",
-            phoneNumber: "${data.userPhone}",
-            responsibility: "${data.userResponsibility}",
-            role: "${data.userRole}"
-          ) {
-            access
-            success
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Return the events of a project
        * @function eventsByProject
        * @param {String} project Project name

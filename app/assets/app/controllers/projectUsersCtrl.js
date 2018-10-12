@@ -66,8 +66,7 @@ angular.module("FluidIntegrates").controller(
     functionsFtry4,
     intlTelInputOptions,
     projectFtry,
-    projectFtry2,
-    usersFtry
+    projectFtry2
   ) {
     const initializeView = function initializeView () {
       // Users table configuration
@@ -183,10 +182,6 @@ angular.module("FluidIntegrates").controller(
         $msg.info(searchAc, searchAt);
       }
       return true;
-    };
-
-    $scope.editUser = function editUser () {
-      usersFtry.editUser($scope);
     };
 
     $scope.urlIndicators = function urlIndicators () {
