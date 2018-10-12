@@ -51,9 +51,8 @@ export const trackingView: React.StatelessComponent<ITrackingViewProps> =
           <TextareaAutosize
             className={style.findingsBox}
             disabled={true}
-          >
-            {props.openFindingsContent}
-          </TextareaAutosize>
+            value={props.openFindingsContent}
+          />
         </Col>
         <Col
           md={12}
@@ -62,9 +61,8 @@ export const trackingView: React.StatelessComponent<ITrackingViewProps> =
           <TextareaAutosize
             className={style.findingsBox}
             disabled={true}
-          >
-            {props.closedFindingsContent}
-          </TextareaAutosize>
+            value={props.closedFindingsContent}
+          />
         </Col>
       </Row>
       <br/>
