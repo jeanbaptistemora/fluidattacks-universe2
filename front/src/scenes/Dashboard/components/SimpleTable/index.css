@@ -16,6 +16,7 @@
 
 :local .tableBody > tbody > tr > td {
   border: none;
+  white-space: unset !important;
   padding: 2px 3px;
 }
 
