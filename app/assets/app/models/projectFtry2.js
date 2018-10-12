@@ -297,11 +297,7 @@ angular.module("FluidIntegrates").factory(
           }
         }
         fragment vulnInfo on Vulnerability {
-          vulnType
           where
-          specific
-          historicState
-          currentState
         }`;
         return $xhr.fetch($q, gQry, oopsAc);
       },

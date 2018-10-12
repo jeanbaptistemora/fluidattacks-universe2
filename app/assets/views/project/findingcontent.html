@@ -230,7 +230,13 @@
                               </div>
                               <div class="row table-row" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.whereTooltip' | translate}}">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.where' | translate}}</b></label></div>
-                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc has-vulnerabilities" style="display: none;">
+                                    <vulnerabilities-view
+                                      finding-id="finding.id"
+                                      translations="vulnTranslations"
+                                    />
+                                  </div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc has-old-vulnerabilities" style="display: none;">
                                       <textarea msd-elastic class="form-control" rows="4"
                                                 ng-show="onlyReadableTab1"
                                                 disabled style="margin-bottom: 5px;"

@@ -383,6 +383,7 @@ angular.module("FluidIntegrates").factory(
             angular.element("#events_alert").show();
           }
         }
+        functionsFtry4.showVulnerabilities($scope, "open");
       },
 
       "updateDescription" ($scope) {

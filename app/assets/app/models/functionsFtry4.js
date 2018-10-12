@@ -183,6 +183,51 @@ angular.module("FluidIntegrates").factory(
         }
         $scope.data = datatest;
       },
+      "showVulnerabilities" ($scope, state) {
+        const reqVulnerabilities =
+          projectFtry2.getVulnerabilities($scope.finding.id, state);
+        reqVulnerabilities.then((response) => {
+          if (response.error) {
+            if (angular.isUndefined(response.data.finding)) {
+              $msg.error($translate.instant("proj_alerts.error_textsad"));
+            }
+          }
+          else if (response.data.finding.success) {
+            const findingInfo = response.data.finding;
+            const translationsStrings = [
+              "search_findings.tab_description.ports",
+              "search_findings.tab_description.port",
+              "search_findings.tab_description.lines",
+              "search_findings.tab_description.path",
+              "search_findings.tab_description.line",
+              "search_findings.tab_description.field",
+              "search_findings.tab_description.inputs",
+              "search_findings.tab_description.errorVuln",
+              "proj_alerts.access_denied",
+              "proj_alerts.error_textsad"
+            ];
+            $scope.vulnTranslations = {};
+            angular.forEach(translationsStrings, (value) => {
+              $scope.vulnTranslations[value] = $translate.instant(value);
+            });
+            if (findingInfo.portsVulns.length ||
+                findingInfo.inputsVulns.length ||
+                findingInfo.linesVulns.length) {
+              angular.element(".has-vulnerabilities").show();
+              angular.element(".has-old-vulnerabilities").hide();
+            }
+            else {
+              angular.element(".has-old-vulnerabilities").show();
+              angular.element(".has-vulnerabilities").hide();
+            }
+          }
+          else if (response.data.finding.errorMessage === "Error in file") {
+            const errorAc1 =
+              $translate.instant("search_findings.tab_description.errorVuln");
+            $msg.error(errorAc1);
+          }
+        });
+      },
       "verifyRoles" ($scope, projectName, userEmail, userRole) {
         const customerAdmin =
                           projectFtry2.isCustomerAdmin(projectName, userEmail);
