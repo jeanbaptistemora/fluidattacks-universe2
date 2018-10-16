@@ -192,7 +192,8 @@ angular.module("FluidIntegrates").factory(
               $msg.error($translate.instant("proj_alerts.error_textsad"));
             }
           }
-          else if (response.data.finding.success) {
+          else if (angular.isDefined(response.data.finding) &&
+              response.data.finding.success) {
             const findingInfo = response.data.finding;
             const translationsStrings = [
               "search_findings.tab_description.ports",
@@ -225,6 +226,9 @@ angular.module("FluidIntegrates").factory(
             const errorAc1 =
               $translate.instant("search_findings.tab_description.errorVuln");
             $msg.error(errorAc1);
+          }
+          else {
+            $msg.error($translate.instant("proj_alerts.error_textsad"));
           }
         });
       },
