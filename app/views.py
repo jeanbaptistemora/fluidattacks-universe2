@@ -546,9 +546,9 @@ def format_release_date(finding, state):
                 table_name, primary_keys, "lastVulnerability", state['timestamp'])
     if finding.get("releaseDate"):
         final_date = format_finding_date(finding["releaseDate"])
-        finding['edad'] = ":n".replace(":n", str(final_date.days))
+        finding['edad'] = final_date.days
         final_vuln_date = format_finding_date(finding["lastVulnerability"])
-        finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
+        finding['lastVulnerability'] = final_vuln_date.days
     else:
         finding['lastVulnerability'] = '-'
     return finding
