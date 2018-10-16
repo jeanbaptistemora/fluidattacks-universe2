@@ -167,7 +167,7 @@ msgstr "White box - Gray box - Black box"
 #: templates/base.html:123
 msgid "Header-item-3"
 msgstr ""
-"Attacking Web, Apis, mobile apps, client server, <br> "
+"Attacking Web, APIs, mobile apps, client server, <br> "
 "Servers, Networks, IoT Devices, <br> Industrial control systems"
 
 #: templates/categories.html:4

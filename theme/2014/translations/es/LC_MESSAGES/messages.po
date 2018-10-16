@@ -168,7 +168,7 @@ msgstr "Caja blanca - Caja gris - Caja negra"
 #: templates/base.html:123
 msgid "Header-item-3"
 msgstr ""
-"Atacando Web, Apis, Apps móviles, cliente servidor, <br> "
+"Atacando Web, APIs, Apps móviles, cliente servidor, <br> "
 "Servidores, Redes, Dispositivos IoT, <br> Sistemas de control Industrial"
 
 #: templates/categories.html:4
