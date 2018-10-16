@@ -64,24 +64,23 @@ durante el proceso de selección y sus respectivas respuestas
   pero no es obligatorio.
   Valoramos más la capacidad de resolver nuevos retos que los títulos.
   Nuestro proceso de selección está diseñado
-  para que usted investigando
-  adquiera por su cuenta los conocimientos necesarios.
+  para que investigando
+  adquieras por tu cuenta los conocimientos necesarios
   para el desempeño del cargo.
 
 *¿La empresa me capacitará para ejercer correctamente mi cargo?*::
   En +Fluid Attacks+ no se exige ninguna experiencia,
   ni certificar los conocimientos con títulos,
-  pero tampoco capacita a los candidatos en el proceso de selección.
+  pero tampoco capacita a los candidatos en ningún momento.
   Es necesario ir adquiriendo los conocimientos suficientes
   y tener la actitud correcta para superar la etapa de retos y de inmersión,
   por medio del autoaprendizaje que exigen estas dos etapas,
-  y esta misma capacidad de autoaprendizaje es la que se valora en el proceso,
+  y esta misma capacidad es la que se valora en el proceso,
   dado que se requiere para cualquiera de los roles en la organización.
 
 *No me funciona la aplicación de examen, ¿qué puedo hacer?*::
   Prueba ejecutando la aplicación como administrador.
   Si el problema persiste puedes intentarlo desde otro PC.
-
 
 *No llegó el adjunto para el análisis de datos, ¿cómo lo obtengo?*::
   Intenta descargarlo desde [button]#link:../retos-no-tecnicos/hallazgos-open-data.tar.bz2[aquí]#
