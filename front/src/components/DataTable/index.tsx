@@ -1,10 +1,13 @@
-/* tslint:disable jsx-no-multiline-js
- * Disabling this rule is necessary for the sake of
+/* tslint:disable jsx-no-multiline-js jsx-no-lambda
+ * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that dynamically creates the columns
+ * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
+ * to call functions with props as params from the JSX element definition
+ * without using lambda expressions () => {}
  */
 import PropTypes from "prop-types";
 import React, { ReactElement } from "react";
-import { Label } from "react-bootstrap";
+import { Glyphicon, Label } from "react-bootstrap";
 import {
   BootstrapTable,
   DataAlignType,
@@ -42,7 +45,7 @@ export interface ITableProps {
   onClickRow(arg1: string | undefined): void;
 }
 
-interface IHeader {
+export interface IHeader {
   align?: DataAlignType;
   dataField: string;
   header: string;
@@ -50,6 +53,7 @@ interface IHeader {
   isStatus: boolean;
   width?: string;
   wrapped?: boolean;
+  deleteFunction?(arg1: string | undefined): void;
 }
 
 const statusFormatter: ((value: string) => ReactElement<Label>) =
@@ -98,6 +102,14 @@ const dateFormatter: ((value: string) => string) =
   return value;
 };
 
+const deleteFormatter: ((value: string, row: string, key: IHeader) => JSX.Element) =
+  (value: string, row: string, key: IHeader): JSX.Element =>
+    (
+      <a onClick={(): void => { if (key.deleteFunction !== undefined) { key.deleteFunction(value); }}}>
+        <Glyphicon glyph="trash"/>
+      </a>
+    );
+
 const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
   (headers: IHeader[]): JSX.Element[] => (
   headers.map((key: IHeader, index: number) =>
@@ -108,8 +120,10 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
       dataFormat={
        key.isStatus ? statusFormatter :
                       (key.isDate ? dateFormatter :
-                        (value: string): string => value)
+                        (key.deleteFunction !== undefined ? deleteFormatter :
+                          (value: string): string => value))
       }
+      formatExtraData={key}
       dataSort={true}
       key={index}
       tdStyle={{
