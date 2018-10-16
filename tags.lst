@@ -17,6 +17,7 @@ flaw
 functional
 fuzzing
 health
+htb
 imperative
 information
 injection
@@ -28,6 +29,7 @@ openssl
 password
 pentesting
 protect
+pwn
 pythagoras
 python
 revert
