@@ -420,12 +420,14 @@ article {
 
   iframe {
     height: auto;
-    width: 270px;
+    width: 310px;
   }
 }
 
 .tb-location {
-  width: 400px;
+  left: 15%;
+  position: relative;
+  right: 15%;
 
   th,
   td {
@@ -433,7 +435,7 @@ article {
   }
 
   p {
-    left: 35%;
+    left: 25%;
     position: relative;
     text-align: left;
   }
@@ -445,7 +447,7 @@ article {
 
 .subp {
   p {
-    left: 8%;
+    left: 4%;
     position: relative;
     text-align: left;
   }

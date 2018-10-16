@@ -29,7 +29,8 @@ a|==== Bogotá
 a|
 [role="subp"]
 *Dirección*: +
-Calle 7 Sur 42 – 70 Edificio Forum +
+Calle 7 Sur N 42 – 70 +
+Edificio Forum +
 Oficina 2003 +
 Poblado, Medellín, Colombia +
 050022 +
@@ -43,7 +44,8 @@ Poblado, Medellín, Colombia +
 a|
 [role="subp"]
 *Dirección*: +
-Carrera 11 N 71 – 41 Edificio Avenida Chile +
+Carrera 11 N 71 – 41 +
+Edificio Avenida Chile +
 Oficina 602 +
 Chapinero, Bogotá, Colombia +
 110231 +

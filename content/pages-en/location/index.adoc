@@ -28,7 +28,8 @@ a|==== Bogotá
 
 a|[role="subp"]
 *Address:* +
-Calle 7 Sur 42 – 70 Forum Building, 2003 +
+Calle 7 Sur N 42 – 70 +
+Forum Building, 2003 +
 Poblado, Medellín, Colombia +
 050022 +
 *Phone:* +
@@ -40,7 +41,8 @@ Poblado, Medellín, Colombia +
 
 a|[role="subp"]
 *Address:* +
-Carrera 11 N 71 – 41 Avenida Chile Building, 602 +
+Carrera 11 N 71 – 41 +
+Avenida Chile Building, 602 +
 Chapinero, Bogotá, Colombia +
 110231 +
 *Phone:* +
