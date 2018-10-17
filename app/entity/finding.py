@@ -33,7 +33,7 @@ class Finding(ObjectType):
         self.error_message = ""
 
         finding_id = str(identifier)
-        if (info.context.session['role'] in ['analyst', 'admin'] \
+        if (info.context.session['role'] in ['analyst', 'admin', 'customer'] \
             and has_access_to_finding(
                 info.context.session['access'],
                 finding_id,
