@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
+# pylint: disable=relative-beyond-top-level
+# Disabling this rule is necessary for importing modules beyond the top level
+# directory.
 import time
 from pyPdf import PdfFileWriter, PdfFileReader
+from ..dao import integrates_dao
 
 
 class SecurePDF(object):
@@ -19,11 +23,15 @@ class SecurePDF(object):
         self.watermark_tpl += "watermark_integrates_en.pdf"
         self.result_dir = self.base + "/results/"
 
-    def create_full(self, username, basic_pdf_name):
+    def create_full(self, username, basic_pdf_name, project):
         """ Execute the security process in a PDF. """
         self.secure_pdf_username = username
-        water_pdf_name = self.watermark(basic_pdf_name)
-        self.secure_pdf_filename = self.lock(water_pdf_name)
+        project_info = integrates_dao.get_project_dynamo(project.lower())
+        if project_info and project_info[0].get("type") == "continuous":
+            self.secure_pdf_filename = self.lock(basic_pdf_name)
+        else:
+            water_pdf_name = self.watermark(basic_pdf_name)
+            self.secure_pdf_filename = self.lock(water_pdf_name)
         return self.result_dir + self.secure_pdf_filename
 
     def create_only_pass(self, username, basic_pdf_name):

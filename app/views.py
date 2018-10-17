@@ -315,7 +315,7 @@ def project_to_pdf(request, lang, project, doctype):
         report_filename = ""
         if doctype == "tech":
             pdf_maker.tech(findings, project, user)
-            report_filename = secure_pdf.create_full(user, pdf_maker.out_name)
+            report_filename = secure_pdf.create_full(user, pdf_maker.out_name, project)
         elif doctype == "executive":
             return HttpResponse("Disabled report generation", content_type="text/html")
         else:
