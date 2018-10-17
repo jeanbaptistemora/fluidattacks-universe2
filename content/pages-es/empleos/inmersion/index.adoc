@@ -28,10 +28,10 @@ que recibas una remuneración por el tiempo invertido en el proceso.
 
 == 2. Objetivos
 
-. Resolver +100+ retos de programación.
-. Resolver +100+ retos de hacking.
-. Finalizar +2+ proyectos de entrenamiento.
-. Publicar +10+ artículos en el blog.
+. Resolver +50+ retos de programación.
+. Resolver +50+ retos de hacking.
+. Finalizar +5+ proyectos de entrenamiento.
+. Publicar +5+ artículos en el blog.
 
 == 3. Condiciones
 
@@ -90,9 +90,9 @@ pues depende enteramente de su dedicación y rendimiento.
 (con relación al tiempo de referencia).
 . Si la dedicación total es mayor o menor a lo anterior,
 se pagará de manera proporcional.
-. Las primeras *96 horas* de entrenamiento reportadas no serán remuneradas y,
-de continuar en la etapa de inmersión, luego de estas primeras *96 horas*,
-se garantiza el pago mínimo de las siguientes *96 horas*
+. Las primeras *48 horas* de entrenamiento reportadas no serán remuneradas y,
+de continuar en la etapa de inmersión, luego de estas primeras *48 horas*,
+se garantiza el pago mínimo de las siguientes *48 horas*
 de entrenamiento reportadas.
 . El contrato es un contrato por servicios con pago mensual.
 . Debes pagar la seguridad social correspondiente a estos servicios
