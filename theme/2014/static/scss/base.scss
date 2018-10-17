@@ -425,9 +425,9 @@ article {
 }
 
 .tb-location {
-  left: 15%;
+  left: 33%;
   position: relative;
-  right: 15%;
+  right: 33%;
 
   th,
   td {
@@ -435,7 +435,7 @@ article {
   }
 
   p {
-    left: 25%;
+    left: 0%;
     position: relative;
     text-align: left;
   }
@@ -1026,4 +1026,25 @@ article {
     text-align: none;
     width: 50%;
    }
+}
+
+@media screen and (max-width: 990px) {
+  .tb-location {
+    left: 25%;
+    right: 25%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+  .tb-location {
+    left: 18%;
+    right: 18%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+  .tb-location {
+    left: 2%;
+    right: 2%;
+    }
 }
