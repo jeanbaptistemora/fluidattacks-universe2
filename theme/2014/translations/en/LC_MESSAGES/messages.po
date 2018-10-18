@@ -161,14 +161,8 @@ msgid "Header-msg"
 msgstr "<strong>Expert intelligence + effective automation</strong>"
 
 #: templates/base.html:122
-msgid "Header-item-2"
-msgstr "White box - Gray box - Black box"
-
-#: templates/base.html:123
-msgid "Header-item-3"
-msgstr ""
-"Attacking Web, APIs, mobile apps, client server, <br> "
-"Servers, Networks, IoT Devices, <br> Industrial control systems"
+msgid "Header-item-1"
+msgstr "Comprehensive security testing at DevOps speed"
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"
@@ -719,7 +713,10 @@ msgstr "Services"
 #: templates/landing.html:28
 msgid "Index-msg-1"
 msgstr ""
-"We attack your software during all the lifecycle or in a specific stage"
+"What we do is attack your software in a comprehensive way at high speed. "
+"We do Static Security Testing (SAST), Dynamic Security Testing (DAST), "
+"Interactive Security Testing (IAST) and Software Composition Analysis (SCA) "
+"into your Software Development Lifecycle (SDLC)."
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"

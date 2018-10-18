@@ -162,14 +162,8 @@ msgid "Header-msg"
 msgstr "<strong>Inteligencia experta + automatización eficaz</strong>"
 
 #: templates/base.html:122
-msgid "Header-item-2"
-msgstr "Caja blanca - Caja gris - Caja negra"
-
-#: templates/base.html:123
-msgid "Header-item-3"
-msgstr ""
-"Atacando Web, APIs, Apps móviles, cliente servidor, <br> "
-"Servidores, Redes, Dispositivos IoT, <br> Sistemas de control Industrial"
+msgid "Header-item-1"
+msgstr "Ataques exhaustivos a velocidad DevOps"
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"
@@ -723,7 +717,11 @@ msgstr "Servicios"
 #: templates/landing.html:28
 msgid "Index-msg-1"
 msgstr ""
-"Atacamos su software durante todo el ciclo de vida o en una etapa específica:"
+"Atacamos su software de forma integral a alta velocidad. "
+"Realizamos Pruebas de Seguridad Dinámicas (DAST) "
+"Pruebas de seguridad Interactivas (IAST) "
+"y Análisis de Composición de Software (SCA) "
+"dentro del ciclo de vida de desarrollo (SDLC)."
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"
