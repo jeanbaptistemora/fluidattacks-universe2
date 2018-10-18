@@ -53,7 +53,7 @@ export interface IHeader {
   isStatus: boolean;
   width?: string;
   wrapped?: boolean;
-  deleteFunction?(arg1: string | undefined): void;
+  deleteFunction?(arg1: { [key: string]: string } | undefined): void;
 }
 
 const statusFormatter: ((value: string) => ReactElement<Label>) =
@@ -102,10 +102,10 @@ const dateFormatter: ((value: string) => string) =
   return value;
 };
 
-const deleteFormatter: ((value: string, row: string, key: IHeader) => JSX.Element) =
-  (value: string, row: string, key: IHeader): JSX.Element =>
+const deleteFormatter: ((value: string, row: { [key: string]: string }, key: IHeader) => JSX.Element) =
+  (value: string, row: { [key: string]: string }, key: IHeader): JSX.Element =>
     (
-      <a onClick={(): void => { if (key.deleteFunction !== undefined) { key.deleteFunction(value); }}}>
+      <a onClick={(): void => { if (key.deleteFunction !== undefined) { key.deleteFunction(row); }}}>
         <Glyphicon glyph="trash"/>
       </a>
     );

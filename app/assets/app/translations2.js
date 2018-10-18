@@ -106,6 +106,7 @@ const translations2 = {
       },
    "tab_description":
      {
+       "action": "Action",
        "actorTooltip": "Person who could execute the attack vector using " +
                         "the finding which affects the specified targets",
        "btsTooltip": "Link to an external bugtracking system",

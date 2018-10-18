@@ -373,6 +373,7 @@ angular
    "vulnerabilitiesView",
    react2angular(
      vulnsView, [
+        "editMode",
         "findingId",
         "translations",
      ],

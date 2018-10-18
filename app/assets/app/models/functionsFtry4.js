@@ -204,6 +204,7 @@ angular.module("FluidIntegrates").factory(
               "search_findings.tab_description.field",
               "search_findings.tab_description.inputs",
               "search_findings.tab_description.errorVuln",
+              "search_findings.tab_description.action",
               "proj_alerts.access_denied",
               "proj_alerts.error_textsad"
             ];

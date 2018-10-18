@@ -1528,12 +1528,17 @@ def get_vulnerabilities_dynamo(finding_id):
     return items
 
 
-def get_vulnerability_dynamo(finding_id, vuln_type, where, specific):
+def get_vulnerability_dynamo(
+        finding_id, vuln_type="", where="", specific="", uuid=""):
     """Get a vulnerability."""
     table = dynamodb_resource.Table('FI_vulnerabilities')
-    filter_key = 'finding_id'
-    if filter_key and finding_id:
-        key_exp = Key(filter_key).eq(finding_id)
+    hash_key = 'finding_id'
+    if finding_id and uuid:
+        range_key = 'UUID'
+        key_exp = Key(hash_key).eq(finding_id) & Key(range_key).eq(uuid)
+        response = table.query(KeyConditionExpression=key_exp)
+    elif finding_id and vuln_type and where and specific:
+        key_exp = Key(hash_key).eq(finding_id)
         filtering_exp = Attr("vuln_type").eq(vuln_type) & Attr("where").eq(where) \
             & Attr("specific").eq(str(specific))
         response = table.query(
@@ -1550,6 +1555,7 @@ def get_vulnerability_dynamo(finding_id, vuln_type, where, specific):
         else:
             break
     return items
+
 
 def update_state_dynamo(finding_id, vuln_id, attr_name, attr_value, item):
     table = dynamodb_resource.Table('FI_vulnerabilities')
@@ -1582,6 +1588,23 @@ def update_state_dynamo(finding_id, vuln_id, attr_name, attr_value, item):
             }
         )
         resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+def delete_vulnerability_dynamo(uuid, finding_id):
+    """Delete a vulnerability of a finding."""
+    table = dynamodb_resource.Table('FI_vulnerabilities')
+    try:
+        response = table.delete_item(
+            Key={
+                'UUID': uuid,
+                'finding_id': finding_id
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
     except ClientError:
         rollbar.report_exc_info()

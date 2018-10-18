@@ -108,6 +108,7 @@ const traducciones2 = {
    },
   "tab_description":
   {
+    "action": "Acción",
     "actorTooltip": "Persona que podría ejecutar el vector de ataque, que " +
                     "afecta a los activos especificados, usando el hallazgo",
     "btsTooltip": "Link a un sistema de seguimiento de errores externo",

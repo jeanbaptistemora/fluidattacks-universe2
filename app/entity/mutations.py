@@ -7,7 +7,9 @@ from .user import (
     GrantUserAccess, RemoveUserAccess,
     EditUser
 )
-from .vulnerability import UploadFile
+from .vulnerability import (
+    UploadFile, DeleteVulnerability
+)
 from graphene import ObjectType
 
 class Mutations(ObjectType):
@@ -24,6 +26,8 @@ class Mutations(ObjectType):
     removeUserAccess = RemoveUserAccess.Field()
 
     uploadFile = UploadFile.Field()
+
+    deleteVulnerability = DeleteVulnerability.Field()
 
     grantUserAccess = GrantUserAccess.Field()
 

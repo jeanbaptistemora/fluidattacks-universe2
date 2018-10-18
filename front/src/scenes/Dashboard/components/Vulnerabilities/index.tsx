@@ -13,14 +13,16 @@
 import { AxiosResponse } from "axios";
 import PropTypes from "prop-types";
 import React, { ComponentType } from "react";
+import { DataAlignType } from "react-bootstrap-table";
 import {
   InferableComponentEnhancer,
   lifecycle,
 } from "recompose";
 import { Reducer } from "redux";
 import { StateType } from "typesafe-actions";
+import { IHeader } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
-import { msgError } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import Xhr from "../../../../utils/xhr";
@@ -41,6 +43,7 @@ export interface IVulnerabilitiesViewProps {
     currentState: string; specific: string;
     vulnType: string; where: string;
   }>;
+  editMode: boolean;
   findingId: string;
   translations: { [key: string]: string };
 }
@@ -84,11 +87,13 @@ lifecycle({
       where
       specific
       currentState
+      id
+      findingId
     }`;
     new Xhr().request(gQry, "An error occurred getting vulnerabilities")
     .then((resp: AxiosResponse) => {
       if (!resp.data.error) {
-        if (resp.data.data.finding.access) {
+        if (resp.data.data.finding !== undefined && resp.data.data.finding.access) {
           if (resp.data.data.finding.success) {
             store.dispatch(actions.loadVulnerabilities(
               resp.data.data.finding.inputsVulns,
@@ -112,9 +117,125 @@ lifecycle({
   },
 });
 
+const deleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) => void) =
+  (vulnInfo: { [key: string]: string } | undefined): void => {
+    if (vulnInfo !== undefined) {
+      let gQry: string;
+      gQry = `mutation {
+        deleteVulnerability(id: "${vulnInfo.id}", findingId: "${vulnInfo.findingId}"){
+          access,
+          success
+        }
+      }`;
+      new Xhr().request(gQry, "An error occurred getting vulnerabilities")
+      .then((resp: AxiosResponse) => {
+        if (!resp.data.error) {
+          if (resp.data.data.deleteVulnerability !== undefined && resp.data.data.deleteVulnerability.access) {
+            if (resp.data.data.deleteVulnerability.success) {
+              msgSuccess("Vulnerabilitiy was deleted of this finding", "Congratulations");
+              location.reload();
+            } else {
+              msgError("There is an error :(");
+            }
+          } else {
+            msgError("Access denied or project not found");
+          }
+        } else {
+          msgError("There is an error :(");
+        }
+      })
+      .catch((error: string) => {
+        msgError("There is an error :(");
+        rollbar.error(error);
+      });
+    }
+};
+
 export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
-  (props: IVulnerabilitiesViewProps): JSX.Element => (
-  <React.StrictMode>
+  (props: IVulnerabilitiesViewProps): JSX.Element => {
+  const inputsHeader: IHeader[] = [
+    {
+      align: "left" as DataAlignType,
+      dataField: "where",
+      header: "URL",
+      isDate: false,
+      isStatus: false,
+      width: "70%",
+    },
+    {
+      align: "left" as DataAlignType,
+      dataField: "specific",
+      header: props.translations["search_findings.tab_description.field"],
+      isDate: false,
+      isStatus: false,
+      width: "30%",
+    }];
+  const linesHeader: IHeader[] = [
+    {
+      align: "left" as DataAlignType,
+      dataField: "where",
+      header: props.translations["search_findings.tab_description.path"],
+      isDate: false,
+      isStatus: false,
+      width: "70%",
+    },
+    {
+      align: "left" as DataAlignType,
+      dataField: "specific",
+      header: props.translations["search_findings.tab_description.line"],
+      isDate: false,
+      isStatus: false,
+      width: "30%",
+    }];
+  const portsHeader: IHeader[] = [
+    {
+      align: "left" as DataAlignType,
+      dataField: "where",
+      header: props.translations["search_findings.tab_description.port"],
+      isDate: false,
+      isStatus: false,
+      width: "70%",
+    },
+    {
+      align: "left" as DataAlignType,
+      dataField: "specific",
+      header: "IP",
+      isDate: false,
+      isStatus: false,
+      width: "30%",
+    }];
+  if (props.editMode) {
+    inputsHeader.push({
+                align: "center" as DataAlignType,
+                dataField: "id",
+                deleteFunction: deleteVulnerability,
+                header: props.translations["search_findings.tab_description.action"],
+                isDate: false,
+                isStatus: false,
+                width: "10%",
+              });
+    linesHeader.push({
+                align: "center" as DataAlignType,
+                dataField: "id",
+                deleteFunction: deleteVulnerability,
+                header: props.translations["search_findings.tab_description.action"],
+                isDate: false,
+                isStatus: false,
+                width: "10%",
+              });
+    portsHeader.push({
+                align: "center" as DataAlignType,
+                dataField: "id",
+                deleteFunction: deleteVulnerability,
+                header: props.translations["search_findings.tab_description.action"],
+                isDate: false,
+                isStatus: false,
+                width: "10%",
+              });
+  }
+
+  return (
+    <React.StrictMode>
     { props.dataInputs.length > 0
       ? <React.Fragment>
           <label className={style.vuln_title}>{props.translations["search_findings.tab_description.inputs"]}</label>
@@ -122,24 +243,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
             id="inputsVulns"
             dataset={props.dataInputs}
             exportCsv={false}
-            headers={[
-              {
-                align: "left",
-                dataField: "where",
-                header: "URL",
-                isDate: false,
-                isStatus: false,
-                width: "70%",
-              },
-              {
-                align: "left",
-                dataField: "specific",
-                header: props.translations["search_findings.tab_description.field"],
-                isDate: false,
-                isStatus: false,
-                width: "30%",
-              },
-            ]}
+            headers={inputsHeader}
             onClickRow={(): void => undefined}
             pageSize={10}
             search={false}
@@ -157,24 +261,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
             id="linesVulns"
             dataset={props.dataLines}
             exportCsv={false}
-            headers={[
-              {
-                align: "left",
-                dataField: "where",
-                header: props.translations["search_findings.tab_description.path"],
-                isDate: false,
-                isStatus: false,
-                width: "70%",
-              },
-              {
-                align: "left",
-                dataField: "specific",
-                header: props.translations["search_findings.tab_description.line"],
-                isDate: false,
-                isStatus: false,
-                width: "30%",
-              },
-            ]}
+            headers={linesHeader}
             onClickRow={(): void => undefined}
             pageSize={10}
             search={false}
@@ -192,24 +279,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
             id="portsVulns"
             dataset={props.dataPorts}
             exportCsv={false}
-            headers={[
-              {
-                align: "left",
-                dataField: "where",
-                header: props.translations["search_findings.tab_description.port"],
-                isDate: false,
-                isStatus: false,
-                width: "70%",
-              },
-              {
-                align: "left",
-                dataField: "specific",
-                header: "IP",
-                isDate: false,
-                isStatus: false,
-                width: "30%",
-              },
-            ]}
+            headers={portsHeader}
             onClickRow={(): void => undefined}
             pageSize={10}
             search={false}
@@ -221,7 +291,8 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
       : undefined
     }
   </React.StrictMode>
-);
+  );
+};
 
 /**
  *  File Input's propTypes Definition
@@ -230,11 +301,13 @@ vulnsViewComponent.propTypes = {
   dataInputs: PropTypes.array,
   dataLines: PropTypes.array,
   dataPorts: PropTypes.array,
+  editMode: PropTypes.bool,
   findingId: PropTypes.string,
   translations: PropTypes.object,
 };
 
 vulnsViewComponent.defaultProps = {
+  editMode: false,
   findingId: "",
   translations: {},
 };
