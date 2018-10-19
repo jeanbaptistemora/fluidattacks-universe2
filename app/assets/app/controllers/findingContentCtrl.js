@@ -329,6 +329,10 @@ findingContentCtrl (
     };
   };
 
+  $scope.uploadVulnerabilites = function uploadVulnerabilites () {
+    functionsFtry4.uploadVulnerabilites($scope);
+  };
+
   $scope.init = function init () {
     const projectName = $stateParams.project;
     const findingId = $stateParams.finding;

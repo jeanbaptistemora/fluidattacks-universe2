@@ -368,6 +368,7 @@ const translations1 = {
      "file_type_png": "The image must be .png type",
      "file_type_py": "The file must be .py type",
      "file_type_wrong": "The file has an unknown or non-allowed format",
+     "file_type_yaml": "The file must be .yaml or .yml type",
      "no_file_update": "Failed to update the file",
      "no_finding": "We could not find the finding!",
      "no_text_update": "Failed to update the description",

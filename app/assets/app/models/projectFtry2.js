@@ -359,6 +359,7 @@ angular.module("FluidIntegrates").factory(
               ) {
                 success,
                 access,
+                errorMessage,
               }
             }`;
         try {
@@ -371,19 +372,17 @@ angular.module("FluidIntegrates").factory(
               const response = {"error": true};
               if (xhr.status === INTERNAL_SERVER_ERROR) {
                 Rollbar.error("Error: An error ocurred loading data");
-                response.message = "An error ocurred loading data";
               }
               else if (xhr.status === UNAUTHORIZED_ERROR) {
                 Rollbar.error("Error: 401 Unauthorized");
                 $window.location = "error401";
               }
               else if (xhr.status === REQUEST_ENTITY_TOO_LARGE) {
-                response.message = "File exceeds the size limits";
+                Rollbar.error("File exceeds the size limits");
               }
               else {
                 Rollbar.error(`Error: Unhandled error ${errorThrown} at \
-                              updateEvidenceFiles`);
-                response.message = "An error ocurred loading data";
+                              uploadVulnerabilities`);
               }
               callbackFn(angular.fromJson(response));
             },
@@ -402,7 +401,10 @@ angular.module("FluidIntegrates").factory(
             Rollbar.error("Error: 401 Unauthorized");
             $window.location = "error401";
           }
-          Rollbar.error("Error: An error ocurred getting finding by ID", err);
+          Rollbar.error(
+            "Error: An error ocurred updating vulnerabilities",
+            err
+          );
         }
       }
     };

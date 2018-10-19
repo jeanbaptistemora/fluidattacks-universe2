@@ -233,6 +233,83 @@ angular.module("FluidIntegrates").factory(
           }
         });
       },
+      "uploadVulnerabilites" ($scope) {
+        const dataP = {};
+        dataP.document = angular.element("#updatevulnerabilities").val();
+        if (dataP.document === "") {
+          const errorAc1 = $translate.instant("proj_alerts.error_textsad");
+          $msg.error(errorAc1);
+          return false;
+        }
+        const data = new FormData();
+        const fileInput = angular.element("#updatevulnerabilities")[0];
+        data.append("file", fileInput.files[0]);
+        const fileName = fileInput.files[0].name;
+        const dots = fileName.split(".");
+        const fileType = `.${dots[dots.length - 1]}`;
+        const validFileTypes = [
+          ".yml",
+          ".YML",
+          ".yaml",
+          ".YAML"
+        ];
+        const yamlMaxSize = 1048576;
+        if (validFileTypes.indexOf(fileType) === -1) {
+          const errorAc1 = $translate.instant("proj_alerts.file_type_yaml");
+          $msg.error(errorAc1);
+          return false;
+        }
+        if (fileInput.files[0].size > yamlMaxSize) {
+          const errorAc1 = $translate.instant("proj_alerts.file_size_py");
+          $msg.error(errorAc1);
+          return false;
+        }
+        const responseFunction = function responseFunction (response) {
+          if (response.error) {
+            const errorAc1 = $translate.instant("proj_alerts.error_textsad");
+            $msg.error(errorAc1);
+          }
+          else if (angular.isDefined(response.data.uploadFile) &&
+              response.data.uploadFile.access) {
+            if (response.data.uploadFile.success) {
+              // Mixpanel tracking
+              mixPanelDashboard.trackFinding(
+                "UploadVulnerabilites",
+                userEmail,
+                $scope.finding.id
+              );
+              const updatedAt = $translate.instant("proj_alerts.updatedTitle");
+              const updatedAc =
+              $translate.instant("proj_alerts.updated_cont_file");
+              $msg.success(updatedAc, updatedAt);
+              location.reload();
+            }
+            else if (response.data.uploadFile.errorMessage === "invalid type") {
+              const errorAc1 = $translate.instant("proj_alerts.file_type_yaml");
+              $msg.error(errorAc1);
+            }
+            else if (response.data.uploadFile.errorMessage ===
+              "file exceeds size limits") {
+              const errorAc1 = $translate.instant("proj_alerts.file_size_py");
+              $msg.error(errorAc1);
+            }
+            else {
+              const errorAc1 = $translate.instant("proj_alerts.error_textsad");
+              $msg.error(errorAc1);
+            }
+          }
+          else {
+            const errorAc1 = $translate.instant("proj_alerts.access_denied");
+            $msg.error(errorAc1);
+          }
+        };
+        projectFtry2.uploadVulnerabilities(
+          data,
+          $stateParams.id,
+          responseFunction
+        );
+        return true;
+      },
       "verifyRoles" ($scope, projectName, userEmail, userRole) {
         const customerAdmin =
                           projectFtry2.isCustomerAdmin(projectName, userEmail);
