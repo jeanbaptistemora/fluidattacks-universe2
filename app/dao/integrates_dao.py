@@ -1006,14 +1006,13 @@ def get_project_dynamo(project):
     filter_key = 'project_name'
     if filter_key and filter_value:
         filtering_exp = Key(filter_key).eq(filter_value)
-        response = table.scan(FilterExpression=filtering_exp)
+        response = table.query(KeyConditionExpression=filtering_exp)
     else:
-        response = table.scan()
-
+        response = table.query()
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.scan(
+            response = table.query(
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
