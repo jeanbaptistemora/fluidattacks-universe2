@@ -3,12 +3,15 @@
 
 import functools
 import re
-import rollbar
-from django.http import HttpResponse
-# pylint: disable=E0402
-from .services import has_access_to_project, has_access_to_finding
-from . import util
 
+import rollbar
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
+from graphql import GraphQLError
+
+# pylint: disable=E0402
+from .services import has_access_to_project, has_access_to_finding, is_customeradmin
+import util
 
 def authenticate(func):
     @functools.wraps(func)
@@ -82,5 +85,109 @@ def require_finding_access(func):
         if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
             util.cloudwatch_log(request, 'Security: Attempted to retrieve finding-related info without permission')
             return util.response([], 'Access denied', True)
+        return func(*args, **kwargs)
+    return verify_and_call
+
+
+# Access control decorators for GraphQL
+def require_login(func):
+    """
+    Require_login decorator
+
+    Verifies that the user is logged in with a valid JWT
+    """
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        token = util.get_jwt_content(context)
+        if not token:
+            raise GraphQLError('Login required')
+        else:
+            pass
+        return func(*args, **kwargs)
+    return verify_and_call
+
+def require_role(allowed_roles):
+    """
+    Require_role decorator
+
+    Verifies that the current user's role is within the specified allowed roles
+    """
+    def wrapper(func):
+        @functools.wraps(func)
+        def verify_and_call(*args, **kwargs):
+            context = args[1].context
+            user_data = util.get_jwt_content(context)
+            role = user_data['user_role']
+            email = user_data['user_email']
+
+            try:
+                if 'customeradmin' in allowed_roles and role == 'customer':
+                    project_name = kwargs.get('project_name')
+                    if not is_customeradmin(project_name, email):
+                        raise PermissionDenied()
+                    else:
+                        pass
+                else:
+                    if role not in allowed_roles:
+                        raise PermissionDenied()
+                    else:
+                        pass
+            except PermissionDenied:
+                util.cloudwatch_log(context,
+                    'Security: Unauthorized role attempted to perform operation')
+                raise GraphQLError('Access denied')
+            return func(*args, **kwargs)
+        return verify_and_call
+    return wrapper
+
+def require_project_access_gql(func):
+    """
+    Require_project_access decorator
+
+    Verifies that the current user has access to a given project
+    """
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        project_name = kwargs.get('project_name')
+        user_data = util.get_jwt_content(context)
+        if project_name:
+            if not has_access_to_project(
+                user_data['user_email'],
+                project_name,
+                user_data['user_role']
+            ):
+                util.cloudwatch_log(context,
+                    'Security: Attempted to retrieve project info without permission')
+                raise GraphQLError('Access denied')
+            else:
+                pass
+        else:
+            rollbar.report_message('Error: Empty fields in project', 'error', context)
+
+        return func(*args, **kwargs)
+    return verify_and_call
+
+def require_finding_access_gql(func):
+    """
+    Require_finding_access decorator
+
+    Verifies that the current user has access to a given finding
+    """
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        finding_id = kwargs.get('identifier')
+        allowed_findings = context.session['access']
+        user_data = util.get_jwt_content(context)
+
+        if not re.match('^[0-9]*$', finding_id):
+            rollbar.report_message('Error: Invalid finding id format', 'error', context)
+            raise GraphQLError('Invalid finding id format')
+        if not has_access_to_finding(allowed_findings, finding_id, user_data['user_role']):
+            util.cloudwatch_log(context,
+                'Security: Attempted to retrieve finding-related info without permission')
+            raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call

@@ -13,6 +13,7 @@ import pytz
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
+from jose import jwt, JWTError, ExpiredSignatureError
 
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
@@ -280,3 +281,16 @@ def cloudwatch_log(request, msg):
 
 def cloudwatch_log_plain(msg):
     logger.info(msg)
+
+def get_jwt_content(context):
+    token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
+
+    try:
+        content = jwt.decode(token=token, key=settings.JWT_SECRET)
+        return content
+    except ExpiredSignatureError:
+        raise
+    except JWTError:
+        cloudwatch_log(context,
+            'Security: Attempted to modify JWT. Invalid token signature')
+        raise
