@@ -106,7 +106,7 @@
                 <div class="panel-heading">
                   <span style="color: white;">
                     <br>
-                    <h1>{% templatetag openvariable %}'registration.greeting' | translate{% templatetag closevariable %} {{ user.first_name }}!</h1>
+                    <h1>{% templatetag openvariable %}'registration.greeting' | translate{% templatetag closevariable %} {{ request.session.first_name }}!</h1>
                     <br>
                     <div ng-if="!isAuthorized">
                       {% templatetag openvariable %}'registration.not_authorized' | translate{% templatetag closevariable %}
