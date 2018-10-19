@@ -43,4 +43,4 @@ graphene==2.1
 gitpython==2.1.10
 graphene-django==2.2.0
 pykwalify==1.6.1
-
+python-jose==3.0.1
