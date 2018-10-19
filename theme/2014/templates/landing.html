@@ -44,31 +44,22 @@
     <h1>{{ gettext('Index-header-1') }}</h1>
     <p>{{ gettext('Index-msg-1') }} </p>
     <div class="serv-offer">
+      <div class="filler-serv">
+      </div>
       <div class="serv">
         <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-1.svg" alt="{{ gettext('Index-img-alt') }}">
-        <h1><a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h1>
+        <h3><a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h3>
       </div>
       <div class="serv">
         <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-2.svg" alt="{{ gettext('Index-img-alt') }}">
-        <h1><a href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h1>
+        <h3><a href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h3>
+      </div>
+      <div class="filler-serv">
       </div>
     </div>
     <p>{{ gettext('Serv-txt') }} <a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}/"><strong>{{ gettext('Index-header-3.1') }}</strong></a></p>
-    <div class="serv-form">
+    <div class="serv">
     </div>
-  </div>
-  <div class="tecniques-sec">
-  <div class="tecniques">
-    <h1>{{ gettext('Index-tst-1') }}</h1>
-    <p>{{ gettext('Index-tstmsg-1') }}</p>
-  </div>
-  <div class="tecniques">
-    <ul>
-      <li><h4>{{ gettext('Index-itm1') }}</h4></li>
-      <li><h4>{{ gettext('Index-itm2') }}</h4></li>
-      <li><h4>{{ gettext('Index-itm3') }}</h4></li>
-    </ul>
-  </div>
   </div>
   <div class="products">
     <div class="product-header">
@@ -76,28 +67,15 @@
     <p>{{ gettext('Product-msg') }}</p>
     </div>
     <div class="product">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-1.svg" alt="{{ gettext('Product-img-alt-1') }}">
-     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/rules/"><span>Rules</span></a><br>
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}">
-    </div>
-    <div class="product">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-2.svg" alt="{{ gettext('Product-img-alt-2') }}">
-     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/defends/"><span>Defends</span></a><br>
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}">
-    </div>
-    <div class="product">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-3.svg" alt="{{ gettext('Product-img-alt-3') }}">
+     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-3.svg" alt="{{ gettext('Product-img-alt-3') }}"></a>
      <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates/"><span>Integrates</span></a><br>
+     <p>{{ gettext('product-desc-1') }}</p>
      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}">
     </div>
     <div class="product">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-4.svg" alt="{{ gettext('Product-img-alt-4') }}">
+      <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-4.svg" alt="{{ gettext('Product-img-alt-4') }}"></a>
      <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts/"><span>Asserts</span></a><br>
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}">
-    </div>
-    <div class="product">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/product-5.svg" alt="{{ gettext('Product-img-alt-5') }}">
-     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/commands/"><span>Commands</span></a><br>
+     <p>{{ gettext('product-desc-2') }}</p>
      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg" alt="{{ gettext('Product-img-alt-6') }}">
     </div>
   </div>

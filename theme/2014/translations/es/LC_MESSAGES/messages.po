@@ -762,28 +762,6 @@ msgstr ""
 "se ajusta mejor a sus necesidades "
 "visite nuestra página  "
 
-#: templates/landing.html:39
-msgid "Index-tst-1"
-msgstr "Técnicas"
-
-#: templates/landing.html:40
-msgid "Index-tstmsg-1"
-msgstr ""
-"Atacamos su software con diferentes tipos de pruebas "
-"y escenarios para lograr una máxima rigurosidad"
-
-#: templates/landing.html:41
-msgid "Index-itm1"
-msgstr "Pruebas de seguridad de aplicaciones"
-
-#: templates/landing.html:42
-msgid "Index-itm2"
-msgstr "Análisis de código fuente"
-
-#: templates/landing.html:43
-msgid "Index-itm3"
-msgstr "Pruebas de seguridad de infraestructura"
-
 #: templates/landing.html:44
 msgid "Testing-hdr"
 msgstr "Tipos de pruebas"
@@ -893,13 +871,13 @@ msgstr "Sobre de carta y flecha roja"
 msgid "Product-msg"
 msgstr "Conoce nuestros productos:"
 
-#: templates/landing.html:63
-msgid "Product-img-alt-1"
-msgstr "Cuaderno y signo de aprobación"
+#: templates/landing.html:72
+msgid "product-desc-1"
+msgstr "Plataforma de centralización y gestión de vulnerabilidades"
 
-#: templates/landing.html:67
-msgid "Product-img-alt-2"
-msgstr "Escudo pequeño"
+#: templates/landing.html:78
+msgid "product-desc-2"
+msgstr "Framework de automatización de vulnerabilidades"
 
 #: templates/landing.html:71
 msgid "Product-img-alt-3"
@@ -909,13 +887,6 @@ msgstr "Ventana de consola mostrando el mensaje de Integrates"
 msgid "Product-img-alt-4"
 msgstr "Lupa sobre consola de comando"
 
-#: templates/landing.html:79
-msgid "Product-img-alt-5"
-msgstr "Prompt de consola de comando"
-
-#: templates/landing.html:79
-msgid "Product-img-alt-5"
-msgstr "Prompt de consola de comando"
 
 #: templates/landing.html:65
 msgid "Product-img-alt-6"
