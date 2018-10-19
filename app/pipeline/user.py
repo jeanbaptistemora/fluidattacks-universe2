@@ -2,7 +2,9 @@
 from ..dao import integrates_dao
 from ..security import validations
 from ..mailer import send_mail_new_user
-
+from django.shortcuts import redirect
+from django.conf import settings
+from jose import jwt
 
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
@@ -54,3 +56,20 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     strategy.session_set('last_login', last_login)
     strategy.session_set('access', access_to)
     strategy.session_set('projects', {})
+    response = redirect(settings.SOCIAL_AUTH_LOGIN_REDIRECT_URL)
+    token = jwt.encode(
+        {
+          'user_email': email,
+          'user_role': role
+        },
+        algorithm='HS512',
+        key=settings.JWT_SECRET,
+    )
+    response.set_cookie(
+        key=settings.JWT_COOKIE_NAME,
+        value=token,
+        secure=True,
+        httponly=True,
+        max_age=settings.SESSION_COOKIE_AGE
+    )
+    return response

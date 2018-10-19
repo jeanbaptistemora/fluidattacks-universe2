@@ -13,6 +13,8 @@ import boto3
 import io
 import collections
 import threading
+
+from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -235,7 +237,10 @@ def logout(request):
         request.session.flush()
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
-    return redirect("/index")
+
+    response = redirect("/index")
+    response.delete_cookie(settings.JWT_COOKIE_NAME)
+    return response
 
 #pylint: disable=too-many-branches
 #pylint: disable=too-many-locals
