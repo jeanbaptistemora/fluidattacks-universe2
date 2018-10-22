@@ -12,7 +12,7 @@
 over execution environments (+DAST+).
 
 .Use case
-image::asserts.png[Asserts]
+image::asserts.svg[Asserts]
 
 Read the [button]#link:https://fluidsignal.gitlab.io/asserts/[API documentation]#
 
