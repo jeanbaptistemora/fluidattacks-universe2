@@ -1,9 +1,7 @@
 """ GraphQL Entity for Dynamo Alerts """
 # pylint: disable=F0401
-from app import util
 from app.dao import integrates_dao
-from graphene import Int, String, ObjectType, Boolean
-from app.services import has_access_to_project
+from graphene import Int, String, ObjectType
 
 class Alert(ObjectType):
     """ Dynamo Alert Class """
@@ -11,31 +9,19 @@ class Alert(ObjectType):
     project = String()
     organization = String()
     status = Int()
-    access = Boolean()
 
-    def __init__(self, info, project_name, organization):
+    def __init__(self, project_name, organization):
         """ Class constructor """
         self.message, self.project = "", ""
         self.organization, self.status = "", 0
-        self.access = False
-
-        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-
-            self.access = True
-            project = str(project_name)
-            organization = str(organization)
-            resp = integrates_dao.get_company_alert_dynamo(organization, project)
-            if resp:
-                self.message = resp[0]['message']
-                self.project = resp[0]['project_name']
-                self.organization = resp[0]['company_name']
-                self.status = resp[0]['status_act']
-        else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to retrieve alerts info without permission')
+        project = str(project_name)
+        organization = str(organization)
+        resp = integrates_dao.get_company_alert_dynamo(organization, project)
+        if resp:
+            self.message = resp[0]['message']
+            self.project = resp[0]['project_name']
+            self.organization = resp[0]['company_name']
+            self.status = resp[0]['status_act']
 
     def resolve_message(self, info):
         """ Resolve message attribute """
@@ -56,8 +42,3 @@ class Alert(ObjectType):
         """ Resolve status attribute """
         del info
         return self.status
-
-    def resolve_access(self, info):
-        """ Resolve access to the current entity """
-        del info
-        return self.access

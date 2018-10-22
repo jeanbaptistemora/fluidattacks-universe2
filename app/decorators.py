@@ -7,6 +7,7 @@ import re
 import rollbar
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
+from django.conf import settings
 from graphql import GraphQLError
 
 # pylint: disable=E0402
@@ -99,7 +100,7 @@ def require_login(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         context = args[1].context
-        token = util.get_jwt_content(context)
+        token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
         if not token:
             raise GraphQLError('Login required')
         else:

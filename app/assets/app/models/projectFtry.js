@@ -160,7 +160,7 @@ angular.module("FluidIntegrates").factory(
       "getAlerts" (company, project) {
         const oopsAc = "An error occurred getting alerts";
         let gQry = `{
-          alert(project:":prj", organization:":org"){
+          alert(projectName:":prj", organization:":org"){
             message
             status
           }

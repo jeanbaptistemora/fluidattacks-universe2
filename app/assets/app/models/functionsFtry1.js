@@ -32,11 +32,10 @@ angular.module("FluidIntegrates").factory(
       "alertHeader" (company, project) {
         const req = projectFtry.getAlerts(company, project);
         req.then((response) => {
-          if (angular.isUndefined(response.data)) {
+          if (!response.data) {
             location.reload();
           }
-          if (!response.error &&
-            angular.isDefined(response.data)) {
+          else if (!response.errors) {
             const {alert} = response.data;
             if (alert.status === 1) {
               let html = "<div class=\"alert alert-danger-2\">";

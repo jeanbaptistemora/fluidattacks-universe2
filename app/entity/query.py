@@ -12,11 +12,12 @@ from .finding import Finding
 # pylint: disable=F0401
 from app.api.formstack import FormstackAPI
 from graphene import Field, String, ObjectType, List
+from ..decorators import require_login, require_role, require_project_access_gql
 
 class Query(ObjectType):
     """ Graphql Class """
     alert = Field(Alert,
-                  project=String(required=True),
+                  project_name=String(required=True),
                   organization=String(required=True))
 
     event = Field(Events,
@@ -38,9 +39,13 @@ class Query(ObjectType):
         user_email=String(required=True)
     )
 
-    def resolve_alert(self, info, project=None, organization=None):
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def resolve_alert(self, info, project_name=None, organization=None):
         """ Resolve for alert """
-        return Alert(info, project, organization)
+        del info
+        return Alert(project_name, organization)
 
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
