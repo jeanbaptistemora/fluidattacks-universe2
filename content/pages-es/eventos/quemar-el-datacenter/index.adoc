@@ -6,6 +6,10 @@
 
 = Quemar el Datacenter
 
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qKsz-nvgMrU" frameborder="0" style="display: block;margin: 0 auto;" allowfullscreen></iframe>
+++++
+
 == 1. Objetivo
 
 En este espacio queremos socializar nuestras convicciones sobre lo que creemos
