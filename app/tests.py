@@ -179,17 +179,14 @@ class GraphQLTests(TestCase):
           }
         }"""
         request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = "unittest"
-        request.session['company'] = "unittest"
-        request.session['role'] = "admin"
-        request.session['access'] = {"unittesting": [
-            "422286126", "436423161",
-            "435326633", "435326463",
-            "418900971"
-            ]}
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+              'user_email': "unittest",
+              'user_role': "admin"
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
         self.assertTrue("https://gitlab.com/fluidsignal/engineering/" in \

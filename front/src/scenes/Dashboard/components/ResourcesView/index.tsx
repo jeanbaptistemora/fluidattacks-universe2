@@ -50,24 +50,29 @@ lifecycle({
     let gQry: string;
     gQry = `{
         resources (projectName: "${projectName}") {
-          environments,
-          repositories,
-          access
+          environments
+          repositories
         }
     }`;
     new Xhr().request(gQry, "An error occurred getting repositories")
-    .then((resp: AxiosResponse) => {
-      if (!resp.data.error) {
-        if (resp.data.data.resources.access) {
-          store.dispatch(actions.loadResources(
-            JSON.parse(resp.data.data.resources.repositories),
-            JSON.parse(resp.data.data.resources.environments),
-          ));
-        } else {
-          msgError(translations["proj_alerts.access_denied"]);
-        }
+    .then((response: AxiosResponse) => {
+      const { data, errors } = response.data;
+      if (_.isNil(data)) {
+        location.reload();
       } else {
-        msgError(translations["proj_alerts.error_textsad"]);
+        if (errors) {
+          const { message } = errors[0];
+          if (_.includes(["Login required", "Invalid token"], message)) {
+            location.assign("/logout");
+          } else if (message === "Access denied") {
+            msgError(translations["proj_alerts.access_denied"]);
+          }
+        } else {
+          store.dispatch(actions.loadResources(
+            JSON.parse(data.resources.repositories),
+            JSON.parse(data.resources.environments),
+          ));
+        }
       }
     })
     .catch((error: string) => {

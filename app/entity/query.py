@@ -68,8 +68,13 @@ class Query(ObjectType):
         user_email = info.context.session["username"]
         return Login(user_email, info.context.session)
 
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
     def resolve_resources(self, info, project_name):
-        return Resource(info, project_name)
+        """ Resolve for project resources """
+        del info
+        return Resource(project_name)
 
     def resolve_project_users(self, info, project_name):
         initialEmails = integrates_dao.get_project_users(project_name.lower())

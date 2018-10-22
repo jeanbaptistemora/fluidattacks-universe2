@@ -14,29 +14,17 @@ class Resource(ObjectType):
     """ GraphQL Entity for Project Resources """
     repositories = JSONString()
     environments = JSONString()
-    access = Boolean()
 
-    def __init__(self, info, project_name):
+    def __init__(self, project_name):
         self.repositories = []
         self.environments = []
-        self.access = False
+        project_info = integrates_dao.get_project_dynamo(project_name)
+        for item in project_info:
+            if "repositories" in item:
+                self.repositories = item['repositories']
 
-        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-
-            self.access = True
-            project_info = integrates_dao.get_project_dynamo(project_name)
-            for item in project_info:
-                if "repositories" in item:
-                    self.repositories = item['repositories']
-
-                if "environments" in item:
-                    self.environments = item['environments']
-        else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to retrieve project info without permission')
+            if "environments" in item:
+                self.environments = item['environments']
 
     def resolve_repositories(self, info):
         """ Resolve repositories of the given project """
@@ -47,11 +35,6 @@ class Resource(ObjectType):
         """ Resolve environments of the given project """
         del info
         return self.environments
-
-    def resolve_access(self, info):
-        """ Resolve access to the current entity """
-        del info
-        return self.access
 
 class AddRepositories(Mutation):
     """Add repositories to a given project."""
@@ -118,7 +101,7 @@ class AddRepositories(Mutation):
         else:
             self.access = False
 
-        return AddRepositories(success=self.success, access=self.access, resources=Resource(info, project_name))
+        return AddRepositories(success=self.success, access=self.access, resources=Resource(project_name))
 
 class RemoveRepositories(Mutation):
     """Remove repositories of a given project."""
@@ -186,7 +169,7 @@ class RemoveRepositories(Mutation):
         else:
             self.access = False
 
-        return RemoveRepositories(success=self.success, access=self.access, resources=Resource(info, project_name))
+        return RemoveRepositories(success=self.success, access=self.access, resources=Resource(project_name))
 
 class AddEnvironments(Mutation):
     """Add environments to a given project."""
@@ -247,7 +230,7 @@ class AddEnvironments(Mutation):
         else:
             self.access = False
 
-        return AddEnvironments(success=self.success, access=self.access, resources=Resource(info, project_name))
+        return AddEnvironments(success=self.success, access=self.access, resources=Resource(project_name))
 
 class RemoveEnvironments(Mutation):
     """Remove environments of a given project."""
@@ -312,4 +295,4 @@ class RemoveEnvironments(Mutation):
         else:
             self.access = False
 
-        return RemoveEnvironments(success=self.success, access=self.access, resources=Resource(info, project_name))
+        return RemoveEnvironments(success=self.success, access=self.access, resources=Resource(project_name))
