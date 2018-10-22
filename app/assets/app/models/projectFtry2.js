@@ -282,6 +282,7 @@ angular.module("FluidIntegrates").factory(
             access
             success
             errorMessage
+            openVulnerabilities
             portsVulns: vulnerabilities(
               vulnType: "ports", state: "${vulnState}") {
               ...vulnInfo

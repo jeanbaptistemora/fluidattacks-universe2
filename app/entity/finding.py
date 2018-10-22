@@ -6,7 +6,7 @@
 
 from .. import util
 from app.dto import finding
-from graphene import String, ObjectType, Boolean, List
+from graphene import String, ObjectType, Boolean, List, Int
 from ..services import has_access_to_finding
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
@@ -23,6 +23,7 @@ class Finding(ObjectType):
         Vulnerability,
         vuln_type=String(),
         state=String())
+    open_vulnerabilities = Int()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -31,6 +32,7 @@ class Finding(ObjectType):
         self.vulnerabilities = []
         self.success = False
         self.error_message = ""
+        self.open_vulnerabilities = 0
 
         finding_id = str(identifier)
         if (info.context.session['role'] in ['analyst', 'admin', 'customer'] \
@@ -45,6 +47,8 @@ class Finding(ObjectType):
                 vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
                 if vulnerabilities:
                     self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                    open_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == "open"]
+                    self.open_vulnerabilities = len(open_vulnerabilities)
                 elif resp.get("vulnerabilities"):
                     is_file_valid = validate_formstack_file(resp.get("vulnerabilities"), finding_id, info)
                     if is_file_valid:
@@ -92,3 +96,8 @@ class Finding(ObjectType):
         if state:
             vuln_filtered = [i for i in vuln_filtered if i.current_state == state]
         return vuln_filtered
+
+    def resolve_open_vulnerabilities(self, info):
+        """Resolve vulnerabilities attribute."""
+        del info
+        return self.open_vulnerabilities
