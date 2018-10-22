@@ -165,6 +165,10 @@ msgstr "<strong>Inteligencia experta + automatización eficaz</strong>"
 msgid "Header-item-1"
 msgstr "Ataques exhaustivos a velocidad DevOps"
 
+#: templates/base.html:124
+msgid "Header-item-3"
+msgstr "Atacando Web, APIs, Apps móviles, Servidores, Redes, Dispositivos IoT"
+
 #: templates/categories.html:4
 msgid "Categories-metadescription"
 msgstr ""
@@ -718,10 +722,12 @@ msgstr "Servicios"
 msgid "Index-msg-1"
 msgstr ""
 "Atacamos su software de forma integral a alta velocidad. "
-"Realizamos Pruebas de Seguridad Dinámicas (DAST) "
+"Realizamos Pruebas de Seguridad Estáticas (SAST), "
+"Pruebas de Seguridad Dinámicas (DAST), "
 "Pruebas de seguridad Interactivas (IAST) "
-"y Análisis de Composición de Software (SCA) "
-"dentro del ciclo de vida de desarrollo (SDLC)."
+"y Análisis de Composición de Software (SCA), "
+"automatizando las vulnerabilidades confirmadas, "
+"en cualquier etapa del ciclo de vida de desarrollo (SDLC)."
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"

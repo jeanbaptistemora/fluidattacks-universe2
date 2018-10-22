@@ -164,6 +164,10 @@ msgstr "<strong>Expert intelligence + effective automation</strong>"
 msgid "Header-item-1"
 msgstr "Comprehensive security testing at DevOps speed"
 
+#: templates/base.html:124
+msgid "Header-item-3"
+msgstr "Attacking Web, APIs, mobile apps, Servers, Networks, IoT Devices"
+
 #: templates/categories.html:4
 msgid "Categories-metadescription"
 msgstr ""
@@ -716,7 +720,8 @@ msgstr ""
 "What we do is attack your software in a comprehensive way at high speed. "
 "We do Static Security Testing (SAST), Dynamic Security Testing (DAST), "
 "Interactive Security Testing (IAST) and Software Composition Analysis (SCA) "
-"into your Software Development Lifecycle (SDLC)."
+"automating the confirmed vulnerabilities in any stage "
+"of the development lifecycle (SDLC)."
 
 #: templates/landing.html:29 templates/landing.html:33
 msgid "Index-img-alt"
