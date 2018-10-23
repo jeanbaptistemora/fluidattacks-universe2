@@ -211,6 +211,9 @@ change_keys:
     - vault_generate_aws_keys integrates-dynamodb
     - vault_generate_aws_keys integrates-s3
     - vault_generate_aws_keys web-s3
+    - NEW_JWT_SECRET=$(head -c 32 /dev/urandom | base64)
+    - vault_update_variables integrates/development jwt_secret $NEW_JWT_SECRET
+    - vault_update_variables integrates/production jwt_secret $NEW_JWT_SECRET
     - export FORMSTACK_EMAIL="$(vault read -field=formstack_email
         secret/serves)"
     - export FORMSTACK_PASS="$(vault read -field=formstack_pass
