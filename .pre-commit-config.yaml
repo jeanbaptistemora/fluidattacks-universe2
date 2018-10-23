@@ -6,8 +6,9 @@ repos:
   - id: asserts-docker
     name: Running Asserts on the code
     description: Run Asserts to perform SAST
-    entry: -v /var/www/integrates:/code fluidattacks/asserts:latest /code/asserts.sh
+    entry: -v CI_PROJECT_DIR:/code fluidattacks/asserts:latest /code/asserts.sh
     files: '\.(py|js)'
+    pass_filenames: false
     language: docker_image
     minimum_pre_commit_version: 0.18.0
     verbose: true
