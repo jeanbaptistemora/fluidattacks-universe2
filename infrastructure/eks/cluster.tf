@@ -28,10 +28,17 @@ set -o xtrace
 USERDATA
 }
 
+resource "aws_ami_copy" "eks_ami_encrypted" {
+  name  = "Fluid-EKS-Encrypted"
+  source_ami_id     = "${var.eksAmiId}"
+  source_ami_region = "${var.region}"
+  encrypted = true
+}
+
 resource "aws_launch_configuration" "k8s_nodes_launch_config" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.k8s_nodes_profile.name}"
-  image_id                    = "${var.eksAmiId}"
+  image_id                    = "${aws_ami_copy.eks_ami_encrypted.id}"
   instance_type               = "${var.clusterInstanceType}"
   name_prefix                 = "EKSWorkerNodes"
   security_groups             = ["${aws_security_group.k8s_nodes_sec_group.id}"]
