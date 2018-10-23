@@ -141,6 +141,19 @@ prospector-testing:
     - master
     - triggers
 
+asserts-code-test:
+  stage: pre-test
+  before_script:
+    - CODE_PATH=/tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - mkdir -p ${CODE_PATH}
+    - cp -a ${CI_PROJECT_DIR} ${CODE_PATH}/src
+    - pip install pre-commit
+    - sed -i 's#CODE_PATH#'"${CODE_PATH}"'#' .pre-commit-config.yaml
+  script:
+    - pre-commit run --all-files
+  after_script:
+    - echo 'Code check complete!'
+
 terraform-deploy:
   stage: build
   <<: *vault_login
@@ -241,9 +254,6 @@ stop-review:
 
 Asserts-Review:
   stage: test
-  before_script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
   script:
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
