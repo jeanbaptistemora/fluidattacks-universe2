@@ -1,10 +1,13 @@
+from datetime import datetime, timedelta
+
+from django.shortcuts import redirect
+from django.conf import settings
+from jose import jwt
+
 # pylint: disable=E0402
 from ..dao import integrates_dao
 from ..security import validations
 from ..mailer import send_mail_new_user
-from django.shortcuts import redirect
-from django.conf import settings
-from jose import jwt
 
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
@@ -60,7 +63,8 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     token = jwt.encode(
         {
           'user_email': email,
-          'user_role': role
+          'user_role': role,
+          'exp': datetime.utcnow() + timedelta(seconds=settings.SESSION_COOKIE_AGE)
         },
         algorithm='HS512',
         key=settings.JWT_SECRET,
