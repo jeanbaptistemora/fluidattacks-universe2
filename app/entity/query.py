@@ -9,6 +9,7 @@ from .user import User
 from ..dao import integrates_dao
 from .. import util
 from .finding import Finding
+from .project import Project
 # pylint: disable=F0401
 from app.api.formstack import FormstackAPI
 from graphene import Field, String, ObjectType, List
@@ -38,6 +39,9 @@ class Query(ObjectType):
         project_name=String(required=True),
         user_email=String(required=True)
     )
+
+    project = Field(Project, project_name=String(required=True))
+
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
@@ -91,3 +95,7 @@ class Query(ObjectType):
 
     def resolve_user_data(self, info, project_name, user_email):
         return User(info, project_name, user_email)
+
+    def resolve_project(self, info, project_name):
+        """Resolve for projects."""
+        return Project(info, project_name)

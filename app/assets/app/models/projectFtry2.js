@@ -247,6 +247,28 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
+       * Get project information.
+       * @function getProject
+       * @param {String} projectName Project Name
+       * @member integrates.projectFtry2
+       * @return {Object} GraphQL response with the requested data
+       */
+      "getProject" (projectName) {
+        const oopsAc = "An error occurred getting project information";
+        const gQry = `{
+          project (projectName: "${projectName}") {
+            name
+            access
+            success
+            errorMessage
+            openVulnerabilities
+            subscription
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
+      },
+
+      /**
        * Get user information.
        * @function getUserData
        * @param {String} email User email.

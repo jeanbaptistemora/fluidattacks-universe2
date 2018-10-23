@@ -24,6 +24,8 @@ class Finding(ObjectType):
         vuln_type=String(),
         state=String())
     open_vulnerabilities = Int()
+    project_name = String()
+    release_date = String()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -33,6 +35,8 @@ class Finding(ObjectType):
         self.success = False
         self.error_message = ""
         self.open_vulnerabilities = 0
+        self.project_name = ""
+        self.release_date = ""
 
         finding_id = str(identifier)
         if (info.context.session['role'] in ['analyst', 'admin', 'customer'] \
@@ -44,6 +48,11 @@ class Finding(ObjectType):
             resp = finding.finding_vulnerabilities(finding_id)
             if resp:
                 self.id = finding_id
+                self.project_name = resp.get('fluidProject')
+                if resp.get('releaseDate'):
+                    self.release_date = resp.get('releaseDate')
+                else:
+                    self.release_date = ""
                 vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
                 if vulnerabilities:
                     self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
@@ -72,6 +81,11 @@ class Finding(ObjectType):
         del info
         return self.id
 
+    def resolve_project_name(self, info):
+        """Resolve project_name attribute."""
+        del info
+        return self.project_name
+
     def resolve_access(self, info):
         """Resolve access attribute."""
         del info
@@ -98,6 +112,11 @@ class Finding(ObjectType):
         return vuln_filtered
 
     def resolve_open_vulnerabilities(self, info):
-        """Resolve vulnerabilities attribute."""
+        """Resolve open vulnerabilities attribute."""
         del info
         return self.open_vulnerabilities
+
+    def resolve_release_date(self, info):
+        """Resolve release date attribute."""
+        del info
+        return self.release_date
