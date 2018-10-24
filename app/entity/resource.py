@@ -1,13 +1,15 @@
-import rollbar
-import threading
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
+import threading
 
+import rollbar
+from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
+
+from ..decorators import require_login, require_role, require_project_access_gql
 from .. import util
 from ..dao import integrates_dao
 from ..mailer import send_mail_repositories
-from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 from ..services import has_access_to_project
 
 class Resource(ObjectType):
@@ -44,64 +46,55 @@ class AddRepositories(Mutation):
         project_name = String()
     resources = Field(Resource)
     success = Boolean()
-    access = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, resources_data, project_name):
-        del args
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, resources_data, project_name):
+        success = False
+        json_data = []
+        email_data = []
 
-        self.success = False
-        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-
-            self.access = True
-            json_data = []
-            email_data = []
-            for repo in resources_data:
-                if "repository" in repo and "branch" in repo:
-                    repository = repo.get("repository")
-                    branch = repo.get("branch")
-                    json_data.append({
-                        'urlRepo': repository,
-                        'branch': branch
-                    })
-                    email_text = 'Repository: {repository!s} Branch: {branch!s}' \
-                        .format(repository=repository, branch=branch)
-                    email_data.append({"urlEnv": email_text})
-                else:
-                    rollbar.report_message('Error: An error occurred adding repository', 'error', info.context)
-            add_repo = integrates_dao.add_list_resource_dynamo(
-                "FI_projects",
-                "project_name",
-                project_name,
-                json_data,
-                "repositories"
-            )
-            if add_repo:
-                to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-                context = {
-                    'project': project_name.upper(),
-                    'user_email': info.context.session["username"],
-                    'action': 'Add repositories',
-                    'resources': email_data,
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
-                    .format(project=project_name)
-                }
-                email_send_thread = threading.Thread( \
-                                              name="Add repositories email thread", \
-                                              target=send_mail_repositories, \
-                                              args=(to, context,))
-                email_send_thread.start()
-                self.success = True
+        for repo in resources_data:
+            if "repository" in repo and "branch" in repo:
+                repository = repo.get("repository")
+                branch = repo.get("branch")
+                json_data.append({
+                    'urlRepo': repository,
+                    'branch': branch
+                })
+                email_text = 'Repository: {repository!s} Branch: {branch!s}' \
+                    .format(repository=repository, branch=branch)
+                email_data.append({"urlEnv": email_text})
             else:
                 rollbar.report_message('Error: An error occurred adding repository', 'error', info.context)
+        add_repo = integrates_dao.add_list_resource_dynamo(
+            "FI_projects",
+            "project_name",
+            project_name,
+            json_data,
+            "repositories"
+        )
+        if add_repo:
+            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            context = {
+                'project': project_name.upper(),
+                'user_email': info.context.session["username"],
+                'action': 'Add repositories',
+                'resources': email_data,
+                'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                .format(project=project_name)
+            }
+            email_send_thread = threading.Thread( \
+                                          name="Add repositories email thread", \
+                                          target=send_mail_repositories, \
+                                          args=(to, context,))
+            email_send_thread.start()
+            success = True
         else:
-            self.access = False
+            rollbar.report_message('Error: An error occurred adding repository', 'error', info.context)
 
-        return AddRepositories(success=self.success, access=self.access, resources=Resource(project_name))
+        return AddRepositories(success=success, resources=Resource(project_name))
 
 class RemoveRepositories(Mutation):
     """Remove repositories of a given project."""
@@ -179,58 +172,49 @@ class AddEnvironments(Mutation):
         project_name = String()
     resources = Field(Resource)
     success = Boolean()
-    access = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, resources_data, project_name):
-        del args
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, resources_data, project_name):
+        success = False
+        json_data = []
 
-        self.success = False
-        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-
-            self.access = True
-            json_data = []
-            for envInfo in resources_data:
-                if "environment" in envInfo:
-                    environment_url = envInfo.get("environment")
-                    json_data.append({
-                        'urlEnv': environment_url
-                    })
-                else:
-                    rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
-            add_env = integrates_dao.add_list_resource_dynamo(
-                "FI_projects",
-                "project_name",
-                project_name,
-                json_data,
-                "environments"
-            )
-            if add_env:
-                to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-                context = {
-                    'project': project_name.upper(),
-                    'user_email': info.context.session["username"],
-                    'action': 'Add environments',
-                    'resources': json_data,
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
-                    .format(project=project_name)
-                }
-                email_send_thread = threading.Thread( \
-                                              name="Add environments email thread", \
-                                              target=send_mail_repositories, \
-                                              args=(to, context,))
-                email_send_thread.start()
-                self.success = True
+        for envInfo in resources_data:
+            if "environment" in envInfo:
+                environment_url = envInfo.get("environment")
+                json_data.append({
+                    'urlEnv': environment_url
+                })
             else:
                 rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
+        add_env = integrates_dao.add_list_resource_dynamo(
+            "FI_projects",
+            "project_name",
+            project_name,
+            json_data,
+            "environments"
+        )
+        if add_env:
+            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            context = {
+                'project': project_name.upper(),
+                'user_email': info.context.session["username"],
+                'action': 'Add environments',
+                'resources': json_data,
+                'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                .format(project=project_name)
+            }
+            email_send_thread = threading.Thread( \
+                                          name="Add environments email thread", \
+                                          target=send_mail_repositories, \
+                                          args=(to, context,))
+            email_send_thread.start()
+            success = True
         else:
-            self.access = False
+            rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
 
-        return AddEnvironments(success=self.success, access=self.access, resources=Resource(project_name))
+        return AddEnvironments(success=success, resources=Resource(project_name))
 
 class RemoveEnvironments(Mutation):
     """Remove environments of a given project."""

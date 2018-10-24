@@ -153,38 +153,38 @@ const saveRepos: (
         addRepositories (
           resourcesData: ${JSON.stringify(JSON.stringify(reposData))},
           projectName: "${projectName}") {
-          success,
-          access,
+          success
           resources {
-            environments,
+            environments
             repositories
           }
         }
       }`;
       new Xhr().request(gQry, "An error occurred adding repositories")
-      .then((resp: AxiosResponse) => {
-        if (!resp.data.error && resp.data.data.addRepositories.success) {
-          if (resp.data.data.addRepositories.access) {
-            store.dispatch(actions.closeAddModal());
-            store.dispatch(actions.loadResources(
-              JSON.parse(resp.data.data.addRepositories.resources.repositories),
-              JSON.parse(resp.data.data.addRepositories.resources.environments),
-            ));
-            msgSuccess(
-              translations["search_findings.tab_resources.success"],
-              translations["search_findings.tab_users.title_success"],
-            );
-          } else {
-            msgError(translations["proj_alerts.access_denied"]);
-          }
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+        if (data.addRepositories.success) {
+          store.dispatch(actions.closeAddModal());
+          store.dispatch(actions.loadResources(
+            JSON.parse(data.addRepositories.resources.repositories),
+            JSON.parse(data.addRepositories.resources.environments),
+          ));
+          msgSuccess(
+            translations["search_findings.tab_resources.success"],
+            translations["search_findings.tab_users.title_success"],
+          );
         } else {
           msgError(translations["proj_alerts.error_textsad"]);
           rollbar.error("An error occurred adding repositories");
         }
       })
-      .catch((error: string) => {
-        msgError(translations["proj_alerts.error_textsad"]);
-        rollbar.error(error);
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error(error.message, errors);
+        }
       });
     }
 };
@@ -269,38 +269,38 @@ const saveEnvs: (
         addEnvironments (
           resourcesData: ${JSON.stringify(JSON.stringify(envsData))},
           projectName: "${projectName}") {
-          success,
-          access,
+          success
           resources {
-            environments,
+            environments
             repositories
           }
         }
       }`;
       new Xhr().request(gQry, "An error occurred adding environments")
-      .then((resp: AxiosResponse) => {
-        if (!resp.data.error && resp.data.data.addEnvironments.success) {
-          if (resp.data.data.addEnvironments.access) {
-            store.dispatch(actions.closeAddModal());
-            store.dispatch(actions.loadResources(
-              JSON.parse(resp.data.data.addEnvironments.resources.repositories),
-              JSON.parse(resp.data.data.addEnvironments.resources.environments),
-            ));
-            msgSuccess(
-              translations["search_findings.tab_resources.success"],
-              translations["search_findings.tab_users.title_success"],
-            );
-          } else {
-            msgError(translations["proj_alerts.access_denied"]);
-          }
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+        if (data.addEnvironments.success) {
+          store.dispatch(actions.closeAddModal());
+          store.dispatch(actions.loadResources(
+            JSON.parse(data.addEnvironments.resources.repositories),
+            JSON.parse(data.addEnvironments.resources.environments),
+          ));
+          msgSuccess(
+            translations["search_findings.tab_resources.success"],
+            translations["search_findings.tab_users.title_success"],
+          );
         } else {
           msgError(translations["proj_alerts.error_textsad"]);
           rollbar.error("An error occurred adding repositories");
         }
       })
-      .catch((error: string) => {
-        msgError(translations["proj_alerts.error_textsad"]);
-        rollbar.error(error);
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error(error.message, errors);
+        }
       });
     }
 };
