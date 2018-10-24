@@ -265,8 +265,21 @@ angular.module("FluidIntegrates").factory(
           return false;
         }
         const responseFunction = function responseFunction (response) {
-          if (response.error) {
-            const errorAc1 = $translate.instant("proj_alerts.error_textsad");
+          if (response.errors) {
+            let errorAc1 = "";
+            for (let cont = 0; cont < response.errors.length; cont++) {
+              if (response.errors[cont].message ===
+                  "Exception - Error in range limit numbers") {
+                errorAc1 = $translate.instant("proj_alerts.range_error");
+              }
+              else if (response.errors[cont].message ===
+                  "Exception - Invalid Schema") {
+                errorAc1 = $translate.instant("proj_alerts.invalid_schema");
+              }
+              else {
+                errorAc1 = $translate.instant("proj_alerts.error_textsad");
+              }
+            }
             $msg.error(errorAc1);
           }
           else if (angular.isDefined(response.data.uploadFile) &&

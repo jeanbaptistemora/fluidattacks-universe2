@@ -5,11 +5,14 @@
 import base64
 import pytz
 import rollbar
+import uuid
 from datetime import datetime
 from ..dao import integrates_dao
 from . import closing
 from ..api.formstack import FormstackAPI
 from ..utils import forms
+from .. import util
+from ..exceptions import InvalidRange
 
 # pylint: disable=E0402
 
@@ -481,3 +484,87 @@ def finding_vulnerabilities(submission_id):
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error')
         return None
+
+
+def ungroup_specific(specific):
+    """Ungroup specific value."""
+    values = specific.split(",")
+    specific_values = []
+    for val in values:
+        if is_range(val):
+            range_list = range_to_list(val)
+            specific_values.extend(range_list)
+        else:
+            specific_values.append(val)
+    return specific_values
+
+
+def is_range(specific):
+    """Validate if a specific field has range value."""
+    return '-' in specific
+
+
+def is_secuence(specific):
+    """Validate if a specific field has secuence value."""
+    return ',' in specific
+
+
+def range_to_list(range_value):
+    """Convert a range value into list."""
+    limits = range_value.split("-")
+    if int(limits[1]) > int(limits[0]):
+        init_val = int(limits[0])
+        end_val = int(limits[1]) + 1
+    else:
+        raise InvalidRange()
+    specific_values = map(str, range(init_val, end_val))
+    return specific_values
+
+
+def update_vuln_state(vulnerability, item, finding_id, current_day):
+    """Update vulnerability state."""
+    historic_state = vulnerability[0].get('historic_state')
+    last_state = historic_state[len(historic_state) - 1]
+    response = False
+    if last_state.get('state') != item.get('state'):
+        historic_state = []
+        current_state = {'date': current_day, 'state': item.get('state')}
+        historic_state.append(current_state)
+        response = integrates_dao.update_state_dynamo(
+            finding_id,
+            vulnerability[0].get('UUID'),
+            'historic_state',
+            historic_state,
+            vulnerability)
+    else:
+        response = True
+    return response
+
+
+def add_vuln_to_dynamo(item, specific, vuln, finding_id, info):
+    """Add vulnerability to dynamo."""
+    historic_state = []
+    where = item.get('where')
+    vulnerability = integrates_dao.get_vulnerability_dynamo(
+        finding_id, vuln_type=vuln, where=where, specific=specific)
+    response = False
+    tzn = pytz.timezone('America/Bogota')
+    current_day = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    if vulnerability:
+        response = update_vuln_state(vulnerability, item, finding_id, current_day)
+    else:
+        data = {}
+        data['vuln_type'] = vuln
+        data['where'] = where
+        data['specific'] = specific
+        data['finding_id'] = finding_id
+        data['UUID'] = str(uuid.uuid4())
+        if item.get('state'):
+            historic_state.append({'date': current_day, 'state': item.get('state')})
+            data['historic_state'] = historic_state
+            response = integrates_dao.add_vulnerability_dynamo('FI_vulnerabilities', data)
+        else:
+            util.cloudwatch_log(
+                info.context,
+                'Security: Attempted to add vulnerability without state')
+    return response

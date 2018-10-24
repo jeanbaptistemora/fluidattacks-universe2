@@ -375,10 +375,12 @@ const traducciones1 = {
   "file_type_py": "El archivo debe ser de tipo .py",
   "file_type_wrong": "El archivo tiene un formato desconocido o no permitido",
   "file_type_yaml": "El archivo debe ser de tipo .yaml o .yml",
+  "invalid_schema": "El archivo no cumple con el esquema",
   "no_file_update": "Falló al actualizar el archivo",
   "no_finding": "No encontramos el hallazgo!",
   "no_text_update": "Falló al actualizar la descripción",
   "project_deleted": "Projecto Eliminado",
+  "range_error": "Los límites del rango son incorrectos",
   "remediated_success": "El hallazgo fue marcado como remediado, la " +
                        "solicitud de revisión de la solución fue enviada",
   "search_cont": "Buscando Proyecto...",

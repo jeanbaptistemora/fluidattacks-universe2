@@ -369,10 +369,12 @@ const translations1 = {
      "file_type_py": "The file must be .py type",
      "file_type_wrong": "The file has an unknown or non-allowed format",
      "file_type_yaml": "The file must be .yaml or .yml type",
+     "invalid_schema": "Uploaded file does not match with the schema",
      "no_file_update": "Failed to update the file",
      "no_finding": "We could not find the finding!",
      "no_text_update": "Failed to update the description",
      "project_deleted": "Project Deleted",
+     "range_error": "Range limits are wrong",
      "remediated_success": "This finding was marked as remediated. A request " +
                            "to verify the solution was sent",
      "search_cont": "Searching Project...",
