@@ -65,6 +65,10 @@
         ErrorDocument 404 {{ error_page }}
       </Location>
 
+    #Asserts Documentation
+      RewriteRule ^/asserts(.*)$    https://fluidsignal.gitlab.io/asserts$1    [P,L]
+      ProxyPassReverse /asserts     https://fluidsignal.gitlab.io/asserts    
+
     #Pagina WEB
       RewriteRule ^/web(.*)$    http://{{ web_bucket }}/web$1    [P,L]
       ProxyPassReverse /web     http://{{ web_bucket }}/web
