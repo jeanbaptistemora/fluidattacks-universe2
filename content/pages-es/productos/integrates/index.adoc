@@ -165,7 +165,7 @@ Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
 Al descargar nuestro producto [button]#link:../asserts/[Asserts]#
-y siguiendo su [button]#link:https://fluidsignal.gitlab.io/asserts/[documentación]#,
+y siguiendo su [button]#link:https://fluidattacks.com/asserts/[documentación]#,
 podrá reproducir el ataque que aprovecha la vulnerabilidad
 y determinar autónomamente si ya fue remediado.
 Al reproducir un ataque, el código que explota la vulnerabilidad

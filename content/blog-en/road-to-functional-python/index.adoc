@@ -333,7 +333,7 @@ those are who drive humanity to a superior level.
 Why not take the risk using functional Python then? Nothing to lose.
 We actually take the risk with functional Python
 and the result was one of our most awesome and acclaimed products:
-[button]#link:https://fluidsignal.gitlab.io/asserts/[Asserts]#.
+[button]#link:https://fluidattacks.com/asserts/[Asserts]#.
 
 == Conclusions
 

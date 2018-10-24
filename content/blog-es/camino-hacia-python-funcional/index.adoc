@@ -332,7 +332,7 @@ son esos sujetos los que impulsan a la humanidad a un nivel superior.
 No hay nada que perder.
 Nosotros, de hecho, nos arriesgamos a usar Python funcional
 y el resultado fue uno de nuestros productos más aclamados y asombrosos:
-[button]#link:https://fluidsignal.gitlab.io/asserts/[Asserts]#.
+[button]#link:https://fluidattacks.com/asserts/[Asserts]#.
 
 == Conclusiones
 

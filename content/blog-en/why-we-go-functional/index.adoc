@@ -169,7 +169,7 @@ Something does what it says and nothing else, period.
 All this on a clean and understandable code
 even for the freshmen in the deep waters of coding.
 Do not believe us? Check it yourself in one of our flagship products:
-[button]#link:https://fluidsignal.gitlab.io/asserts/[Asserts]#.
+[button]#link:https://fluidattacks.com/asserts/[Asserts]#.
 
 == Functional in non-functionals
 

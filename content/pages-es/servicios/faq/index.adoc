@@ -406,7 +406,7 @@ la configuración de los robots de
 
 *¿Existe documentación de Asserts?*::
  La documentación esta disponible en:
- link:https://fluidsignal.gitlab.io/asserts/[Asserts]
+ link:https://fluidattacks.com/asserts/[Asserts]
 
 *¿Es posible agrupar aplicaciones en una sola suscripción?*::
 *¿Como reconozco las vulnerabilidades por aplicación?*::

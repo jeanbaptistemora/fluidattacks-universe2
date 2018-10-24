@@ -14,7 +14,7 @@ over execution environments (+DAST+).
 .Use case
 image::asserts.svg[Asserts]
 
-Read the [button]#link:https://fluidsignal.gitlab.io/asserts/[API documentation]#
+Read the [button]#link:https://fluidattacks.com/asserts/[API documentation]#
 
 == 2. Installation
 
@@ -43,7 +43,7 @@ In +Windows+:
 > set FA_STRICT="false"
 ----
 
-Now you’re ready to begin link:https://fluidsignal.gitlab.io/asserts/usage/[testing]
+Now you’re ready to begin link:https://fluidattacks.com/asserts/usage/[testing]
 vulnerabilities’ closure.
 
 === Inside a Docker Container

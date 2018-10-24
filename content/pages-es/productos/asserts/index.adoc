@@ -14,7 +14,7 @@ sobre ambientes en ejecución +(DAST)+.
 .Caso de uso
 image::asserts.svg[Asserts]
 
-Ver la [button]#link:https://fluidsignal.gitlab.io/asserts/[documentación de la API]#
+Ver la [button]#link:https://fluidattacks.com/asserts/[documentación de la API]#
 
 == 2. Instalación
 
@@ -44,7 +44,7 @@ En +Windows+:
 > set FA_STRICT="false"
 ----
 
-Ahora, estás listo para empezar con las link:https://fluidsignal.gitlab.io/asserts/usage/[pruebas]
+Ahora, estás listo para empezar con las link:https://fluidattacks.com/asserts/usage/[pruebas]
 de cierre de vulnerabilidades.
 
 === Instalación en un contenedor de Docker
