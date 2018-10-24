@@ -8,7 +8,8 @@
     "noImplicitAny": true,                  
     "esModuleInterop": true,
     "jsx": "react",
-    "typeRoots": ["./src/**/*.d.ts"]
+    "typeRoots": ["./src/**/*.d.ts"],
+    "lib": ["dom", "es5", "es2015.promise"]
   },
   "include": [
     "./src/**/*",

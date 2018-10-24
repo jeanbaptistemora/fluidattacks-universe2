@@ -10,7 +10,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import _ from "lodash";
 import React, { ComponentType } from "react";
 import { Button, ButtonToolbar, Col, FormControl, Glyphicon, Grid, Row } from "react-bootstrap";
@@ -56,28 +56,19 @@ lifecycle({
     }`;
     new Xhr().request(gQry, "An error occurred getting repositories")
     .then((response: AxiosResponse) => {
-      const { data, errors } = response.data;
-      if (_.isNil(data)) {
-        location.reload();
-      } else {
-        if (errors) {
-          const { message } = errors[0];
-          if (_.includes(["Login required", "Invalid token"], message)) {
-            location.assign("/logout");
-          } else if (message === "Access denied") {
-            msgError(translations["proj_alerts.access_denied"]);
-          }
-        } else {
-          store.dispatch(actions.loadResources(
-            JSON.parse(data.resources.repositories),
-            JSON.parse(data.resources.environments),
-          ));
-        }
-      }
+      const { data } = response.data;
+      store.dispatch(actions.loadResources(
+        JSON.parse(data.resources.repositories),
+        JSON.parse(data.resources.environments),
+      ));
     })
-    .catch((error: string) => {
-      msgError(translations["proj_alerts.error_textsad"]);
-      rollbar.error(error);
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translations["proj_alerts.error_textsad"]);
+        rollbar.error(error.message, errors);
+      }
     });
   },
 });

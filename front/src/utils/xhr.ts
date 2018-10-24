@@ -1,6 +1,7 @@
-import Axios, { AxiosPromise, AxiosRequestConfig } from "axios";
-import rollbar from "../utils/rollbar";
+import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import _ from "lodash";
 import { getEnvironment, PRODUCTION_URL } from "./context";
+import { msgError } from "./notifications";
 
 /**
  * XHR request wrapper
@@ -77,26 +78,56 @@ class Xhr {
   /**
    * Perform axios (ajax) request against GraphQL endpoint
    */
-  public request = (query: string, errorText: string): AxiosPromise<void> => {
+   /* tslint:disable:no-any
+    * Disabling here is necessary becase this is a generic function that will
+    * return promises with objects of different types as response
+   */
+  public request = async (query: string, errorText: string): Promise<any> => {
     this.showPreloader();
-    const promise: AxiosPromise<void> =
-      Axios.post<void>(
-        getEnvironment() === "production"
-        ? `${PRODUCTION_URL}/integrates/api`
-        : "api",
-        {query},
-      );
-    // tslint:disable-next-line:no-floating-promises
-    promise.then(() => {
+    const promise: Promise<any> = Axios.post(
+      getEnvironment() === "production"
+      ? `${PRODUCTION_URL}/integrates/api`
+      : "api",
+      {query},
+    )
+    .then((response: AxiosResponse) => {
       this.hidePreloader();
-    });
-    promise.catch(() => {
-      this.hidePreloader();
-      rollbar.error(errorText);
+      const { data, errors } = response.data;
+      if (_.isNil(data)) {
+        location.reload();
+      } else {
+        if (errors) {
+          this.hidePreloader();
+          const { message } = errors[0];
+
+          if (_.includes(["Login required", "Invalid token"], message)) {
+            location.assign(
+              getEnvironment() === "production"
+              ? "/integrates/logout"
+              : "/logout",
+            );
+          } else if (message === "Access denied") {
+            msgError("Access denied or project not found");
+          } else {
+            const exception: AxiosError = {
+              config: response.config,
+              message: errorText,
+              name: "AxiosError",
+              response,
+            };
+            throw exception;
+          }
+
+          throw new Error();
+        } else {
+          return response;
+        }
+      }
     });
 
     return promise;
   }
+  // tslint:enable:no-any
 
   /**
    * Verify if the url is in Integrates domain.
