@@ -153,6 +153,9 @@ asserts-code-test:
     - pre-commit run --all-files
   after_script:
     - echo 'Code check complete!'
+  except:
+    - master
+    - triggers
 
 terraform-deploy:
   stage: build
