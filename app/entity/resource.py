@@ -10,7 +10,6 @@ from ..decorators import require_login, require_role, require_project_access_gql
 from .. import util
 from ..dao import integrates_dao
 from ..mailer import send_mail_repositories
-from ..services import has_access_to_project
 
 class Resource(ObjectType):
     """ GraphQL Entity for Project Resources """
@@ -104,65 +103,56 @@ class RemoveRepositories(Mutation):
         project_name = String()
     resources = Field(Resource)
     success = Boolean()
-    access = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, repository_data, project_name):
-        del args
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, repository_data, project_name):
+        success = False
+        repository = repository_data.get("urlRepo")
+        branch = repository_data.get("branch")
+        repo_list = integrates_dao.get_project_dynamo(project_name)[0]["repositories"]
+        index = -1
+        cont = 0
+        email_data = []
 
-        self.success = False
-        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-
-            self.access = True
-            repository = repository_data.get("urlRepo")
-            branch = repository_data.get("branch")
-            repo_list = integrates_dao.get_project_dynamo(project_name)[0]["repositories"]
-            index = -1
-            cont = 0
-            email_data = []
-            while index < 0 and len(repo_list) > cont:
-                if repo_list[cont]["urlRepo"] == repository and repo_list[cont]["branch"] == branch:
-                    email_text = 'Repository: {repository!s} Branch: {branch!s}' \
-                        .format(repository=repository, branch=branch)
-                    email_data.append({"urlEnv": email_text})
-                    index = cont
-                else:
-                    index = -1
-                cont += 1
-            if index >= 0:
-                remove_repo = integrates_dao.remove_list_resource_dynamo(
-                    "FI_projects",
-                    "project_name",
-                    project_name,
-                    "repositories",
-                    index)
-                if remove_repo:
-                    to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-                    context = {
-                        'project': project_name.upper(),
-                        'user_email': info.context.session["username"],
-                        'action': 'Remove repositories',
-                        'resources': email_data,
-                        'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
-                        .format(project=project_name)
-                    }
-                    threading.Thread( \
-                      name="Remove repositories email thread", \
-                      target=send_mail_repositories, \
-                      args=(to, context,)).start()
-                    self.success = True
-                else:
-                    rollbar.report_message('Error: An error occurred removing repository', 'error', info.context)
+        while index < 0 and len(repo_list) > cont:
+            if repo_list[cont]["urlRepo"] == repository and repo_list[cont]["branch"] == branch:
+                email_text = 'Repository: {repository!s} Branch: {branch!s}' \
+                    .format(repository=repository, branch=branch)
+                email_data.append({"urlEnv": email_text})
+                index = cont
             else:
-                util.cloudwatch_log(info.context, 'Security: Attempted to remove repository that does not exist')
+                index = -1
+            cont += 1
+        if index >= 0:
+            remove_repo = integrates_dao.remove_list_resource_dynamo(
+                "FI_projects",
+                "project_name",
+                project_name,
+                "repositories",
+                index)
+            if remove_repo:
+                to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+                context = {
+                    'project': project_name.upper(),
+                    'user_email': info.context.session["username"],
+                    'action': 'Remove repositories',
+                    'resources': email_data,
+                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                    .format(project=project_name)
+                }
+                threading.Thread( \
+                  name="Remove repositories email thread", \
+                  target=send_mail_repositories, \
+                  args=(to, context,)).start()
+                success = True
+            else:
+                rollbar.report_message('Error: An error occurred removing repository', 'error', info.context)
         else:
-            self.access = False
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove repository that does not exist')
 
-        return RemoveRepositories(success=self.success, access=self.access, resources=Resource(project_name))
+        return RemoveRepositories(success=success, resources=Resource(project_name))
 
 class AddEnvironments(Mutation):
     """Add environments to a given project."""
@@ -224,59 +214,50 @@ class RemoveEnvironments(Mutation):
         project_name = String()
     resources = Field(Resource)
     success = Boolean()
-    access = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, repository_data, project_name):
-        del args
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, repository_data, project_name):
+        success = False
+        environment_url = repository_data.get("urlEnv")
+        env_list = integrates_dao.get_project_dynamo(project_name)[0]["environments"]
+        index = -1
+        cont = 0
 
-        self.success = False
-        if (info.context.session['role'] in ['analyst', 'customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-
-            self.access = True
-            environment_url = repository_data.get("urlEnv")
-            env_list = integrates_dao.get_project_dynamo(project_name)[0]["environments"]
-            index = -1
-            cont = 0
-            while index < 0 and len(env_list) > cont:
-                if env_list[cont]["urlEnv"] == environment_url:
-                    json_data = [env_list[cont]]
-                    index = cont
-                else:
-                    index = -1
-                cont += 1
-            if index >= 0:
-                remove_env = integrates_dao.remove_list_resource_dynamo(
-                    "FI_projects",
-                    "project_name",
-                    project_name,
-                    "environments",
-                    index)
-                if remove_env:
-                    to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
-                    context = {
-                        'project': project_name.upper(),
-                        'user_email': info.context.session["username"],
-                        'action': 'Remove environments',
-                        'resources': json_data,
-                        'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
-                        .format(project=project_name)
-                    }
-                    email_send_thread = threading.Thread( \
-                                                  name="Remove environments email thread", \
-                                                  target=send_mail_repositories, \
-                                                  args=(to, context,))
-                    email_send_thread.start()
-                    self.success = True
-                else:
-                    rollbar.report_message('Error: An error occurred removing an environment', 'error', info.context)
+        while index < 0 and len(env_list) > cont:
+            if env_list[cont]["urlEnv"] == environment_url:
+                json_data = [env_list[cont]]
+                index = cont
             else:
-                util.cloudwatch_log(info.context, 'Security: Attempted to remove an environment that does not exist')
+                index = -1
+            cont += 1
+        if index >= 0:
+            remove_env = integrates_dao.remove_list_resource_dynamo(
+                "FI_projects",
+                "project_name",
+                project_name,
+                "environments",
+                index)
+            if remove_env:
+                to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+                context = {
+                    'project': project_name.upper(),
+                    'user_email': info.context.session["username"],
+                    'action': 'Remove environments',
+                    'resources': json_data,
+                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                    .format(project=project_name)
+                }
+                email_send_thread = threading.Thread( \
+                                              name="Remove environments email thread", \
+                                              target=send_mail_repositories, \
+                                              args=(to, context,))
+                email_send_thread.start()
+                success = True
+            else:
+                rollbar.report_message('Error: An error occurred removing an environment', 'error', info.context)
         else:
-            self.access = False
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove an environment that does not exist')
 
-        return RemoveEnvironments(success=self.success, access=self.access, resources=Resource(project_name))
+        return RemoveEnvironments(success=success, resources=Resource(project_name))

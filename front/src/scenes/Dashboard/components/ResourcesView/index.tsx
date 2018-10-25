@@ -88,35 +88,37 @@ const removeRepo: ((arg1: { [key: string]: string }, arg2: string) => void) =
           repositoryData: ${JSON.stringify(JSON.stringify({ urlRepo: repository, branch}))},
           projectName: "${projectName}"
         ) {
-          success,
-          access,
+          success
           resources {
+            environments
             repositories
           }
         }
       }`;
       new Xhr().request(gQry, "An error occurred removing repositories")
-      .then((resp: AxiosResponse) => {
-        if (!resp.data.error && resp.data.data.removeRepositories.success) {
-          if (resp.data.data.removeRepositories.access) {
-            store.dispatch(actions.loadResources(
-              JSON.parse(resp.data.data.removeRepositories.resources.repositories),
-            ));
-            msgSuccess(
-              translations["search_findings.tab_resources.success_remove"],
-              translations["search_findings.tab_users.title_success"],
-            );
-          } else {
-            msgError(translations["proj_alerts.access_denied"]);
-          }
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+        if (data.removeRepositories.success) {
+          store.dispatch(actions.loadResources(
+            JSON.parse(data.removeRepositories.resources.repositories),
+            JSON.parse(data.removeRepositories.resources.environments),
+          ));
+          msgSuccess(
+            translations["search_findings.tab_resources.success_remove"],
+            translations["search_findings.tab_users.title_success"],
+          );
         } else {
           msgError(translations["proj_alerts.error_textsad"]);
           rollbar.error("An error occurred removing repositories");
         }
       })
-      .catch((error: string) => {
-        msgError(translations["proj_alerts.error_textsad"]);
-        rollbar.error(`An error occurred removing repositories: ${error}`);
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error(error.message, errors);
+        }
       });
     } else {
       msgError(translations["proj_alerts.error_textsad"]);
@@ -203,37 +205,37 @@ const removeEnv: ((arg1: { [key: string]: string }, arg2: string) => void) =
           repositoryData: ${JSON.stringify(JSON.stringify({ urlEnv: env}))},
           projectName: "${projectName}"
         ) {
-          success,
-          access,
+          success
           resources {
-            environments,
+            environments
             repositories
           }
         }
       }`;
       new Xhr().request(gQry, "An error occurred removing environments")
-      .then((resp: AxiosResponse) => {
-        if (!resp.data.error && resp.data.data.removeEnvironments.success) {
-          if (resp.data.data.removeEnvironments.access) {
-            store.dispatch(actions.loadResources(
-              JSON.parse(resp.data.data.removeEnvironments.resources.repositories),
-              JSON.parse(resp.data.data.removeEnvironments.resources.environments),
-            ));
-            msgSuccess(
-              translations["search_findings.tab_resources.success_remove"],
-              translations["search_findings.tab_users.title_success"],
-            );
-          } else {
-            msgError(translations["proj_alerts.access_denied"]);
-          }
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+        if (data.removeEnvironments.success) {
+          store.dispatch(actions.loadResources(
+            JSON.parse(data.removeEnvironments.resources.repositories),
+            JSON.parse(data.removeEnvironments.resources.environments),
+          ));
+          msgSuccess(
+            translations["search_findings.tab_resources.success_remove"],
+            translations["search_findings.tab_users.title_success"],
+          );
         } else {
           msgError(translations["proj_alerts.error_textsad"]);
           rollbar.error("An error occurred removing environments");
         }
       })
-      .catch((error: string) => {
-        msgError(translations["proj_alerts.error_textsad"]);
-        rollbar.error(`An error occurred removing environments: ${error}`);
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error(error.message, errors);
+        }
       });
     } else {
       msgError(translations["proj_alerts.error_textsad"]);
