@@ -168,7 +168,8 @@ Unless the language forces you to do otherwise,
 the source code must comply with the following:
 
 . Be in english (even the comments).
-. Indent using +2+ spaces instead of tabs.
+. Indent using +2+ spaces instead of tabs,
+unless the language requires otherwise.
 . Use the +brace style+ seen in
 link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroustrup]
 (+no one liners+).

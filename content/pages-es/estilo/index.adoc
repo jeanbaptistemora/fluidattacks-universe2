@@ -166,7 +166,8 @@ A menos que el lenguaje obligue a lo contrario,
 el código fuente siempre debe:
 
 . Estar en inglés (incluso los comentarios).
-. Indentar utilizando +2+ espacios en lugar de tabulaciones.
+. Indentar utilizando +2+ espacios en lugar de tabulaciones,
+a menos que el lenguaje requiera lo contrario.
 . Utilizar el estilo de llaves (+brace style+)
 link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroustrup]
 en su variante sin bloques de una línea (+one liners+).
