@@ -276,6 +276,14 @@ angular.module("FluidIntegrates").factory(
                   "Exception - Invalid Schema") {
                 errorAc1 = $translate.instant("proj_alerts.invalid_schema");
               }
+              else if (response.errors[cont].message ===
+                  "Exception - Invalid File Size") {
+                errorAc1 = $translate.instant("proj_alerts.file_size_py");
+              }
+              else if (response.errors[cont].message ===
+                  "Exception - Invalid File Type") {
+                errorAc1 = $translate.instant("proj_alerts.file_type_yaml");
+              }
               else {
                 errorAc1 = $translate.instant("proj_alerts.error_textsad");
               }
@@ -296,15 +304,6 @@ angular.module("FluidIntegrates").factory(
               $translate.instant("proj_alerts.updated_cont_file");
               $msg.success(updatedAc, updatedAt);
               location.reload();
-            }
-            else if (response.data.uploadFile.errorMessage === "invalid type") {
-              const errorAc1 = $translate.instant("proj_alerts.file_type_yaml");
-              $msg.error(errorAc1);
-            }
-            else if (response.data.uploadFile.errorMessage ===
-              "file exceeds size limits") {
-              const errorAc1 = $translate.instant("proj_alerts.file_size_py");
-              $msg.error(errorAc1);
             }
             else {
               const errorAc1 = $translate.instant("proj_alerts.error_textsad");

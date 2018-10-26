@@ -52,3 +52,19 @@ class InvalidSchema(Exception):
         """ Constructor """
         msg = 'Exception - Invalid Schema'
         super(InvalidSchema, self).__init__(msg)
+
+
+class InvalidFileSize(Exception):
+    """Exception to control file size."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Invalid File Size'
+        super(InvalidFileSize, self).__init__(msg)
+
+
+class InvalidFileType(Exception):
+    """Exception to control file type."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Invalid File Type'
+        super(InvalidFileType, self).__init__(msg)
