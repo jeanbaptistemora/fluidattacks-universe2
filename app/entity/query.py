@@ -80,7 +80,11 @@ class Query(ObjectType):
         del info
         return Resource(project_name)
 
+    @require_login
+    @require_role(['analyst', 'customeradmin', 'admin'])
+    @require_project_access_gql
     def resolve_project_users(self, info, project_name):
+        """ Resolve for project users """
         initialEmails = integrates_dao.get_project_users(project_name.lower())
         initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
         userEmailList = util.user_email_filter(
@@ -88,13 +92,18 @@ class Query(ObjectType):
             info.context.session['username']
         )
         if userEmailList:
-            data = [User(info, project_name, user_email) for user_email in userEmailList]
+            data = [User(project_name, user_email) for user_email in userEmailList]
         else:
             data = []
         return data
 
+    @require_login
+    @require_role(['analyst', 'customeradmin', 'admin'])
+    @require_project_access_gql
     def resolve_user_data(self, info, project_name, user_email):
-        return User(info, project_name, user_email)
+        """ Resolve for user data """
+        del info
+        return User(project_name, user_email)
 
     def resolve_project(self, info, project_name):
         """Resolve for projects."""

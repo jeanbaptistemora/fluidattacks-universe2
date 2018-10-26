@@ -19,53 +19,38 @@ class User(ObjectType):
     organization = String()
     first_login = String()
     last_login = String()
-    access = Boolean()
 
-    def __init__(self, info, project_name, user_email):
-        self.email = ""
+    def __init__(self, project_name, user_email):
+        self.email = user_email
         self.role = ""
         self.responsability = ""
         self.phone_number = ""
         self.organization = ""
         self.first_login = "-"
         self.last_login = [-1,-1]
-        self.access = False
 
-        role = info.context.session['role']
-        if (role in ['analyst', 'customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                role)):
-            if role == "customer" and not is_customeradmin(project_name, info.context.session['username']):
-                util.cloudwatch_log(info.context, 'Security: Attempted to retrieve project users without permission')
-            else:
-                self.access = True
-                self.email=user_email
-                last_login = integrates_dao.get_user_last_login_dao(user_email)
-                last_login = last_login.split('.',1)[0]
+        last_login = integrates_dao.get_user_last_login_dao(user_email)
+        last_login = last_login.split('.',1)[0]
 
-                if last_login == "1111-01-01 11:11:11" or last_login == "-":
-                    self.last_login=[-1,-1]
-                else:
-                    dates_difference = datetime.now()-datetime.strptime(last_login, "%Y-%m-%d %H:%M:%S")
-                    diff_last_login=[dates_difference.days,dates_difference.seconds]
-                    self.last_login=diff_last_login
-
-                self.first_login = integrates_dao.get_user_first_login_dao(user_email).split('.',1)[0]
-                self.organization=integrates_dao.get_organization_dao(user_email).title()
-                self.responsability = has_responsibility(project_name, user_email)
-                self.phone_number = has_phone_number(user_email)
-                userRole=integrates_dao.get_role_dao(user_email)
-
-                if is_customeradmin(project_name, user_email):
-                    self.role = "customer_admin"
-                elif userRole == "customeradmin":
-                    self.role = "customer"
-                else:
-                    self.role = userRole
+        if last_login == "1111-01-01 11:11:11" or last_login == "-":
+            self.last_login=[-1,-1]
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to retrieve project users without permission')
+            dates_difference = datetime.now()-datetime.strptime(last_login, "%Y-%m-%d %H:%M:%S")
+            diff_last_login=[dates_difference.days,dates_difference.seconds]
+            self.last_login=diff_last_login
+
+        self.first_login = integrates_dao.get_user_first_login_dao(user_email).split('.',1)[0]
+        self.organization=integrates_dao.get_organization_dao(user_email).title()
+        self.responsability = has_responsibility(project_name, user_email)
+        self.phone_number = has_phone_number(user_email)
+        userRole=integrates_dao.get_role_dao(user_email)
+
+        if is_customeradmin(project_name, user_email):
+            self.role = "customer_admin"
+        elif userRole == "customeradmin":
+            self.role = "customer"
+        else:
+            self.role = userRole
 
     def resolve_email(self, info):
         """ Resolve user email """
@@ -101,11 +86,6 @@ class User(ObjectType):
         """ Resolve user's last login date """
         del info
         return self.last_login
-
-    def resolve_access(self, info):
-        """ Resolve access to the current entity """
-        del info
-        return self.access
 
 class GrantUserAccess(Mutation):
     """Grant access to a given project."""
@@ -172,7 +152,7 @@ class GrantUserAccess(Mutation):
             util.cloudwatch_log(info.context, 'Security: Attempted to grant access to project from unprivileged role: '
                                                 + info.context.session['role'])
 
-        return GrantUserAccess(success=self.success, access=self.access, granted_user=User(info, project_name, email))
+        return GrantUserAccess(success=self.success, access=self.access, granted_user=User(project_name, email))
 
 def create_new_user(context, new_user_data, project_name):
     email = new_user_data['email']
@@ -321,7 +301,7 @@ class EditUser(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to edit project users info without permission')
 
-        return EditUser(success=self.success, access=self.access, modified_user=User(info, project_name, email))
+        return EditUser(success=self.success, access=self.access, modified_user=User(project_name, email))
 
 def modify_user_information(context, modified_user_data, project_name):
     role = modified_user_data['role']

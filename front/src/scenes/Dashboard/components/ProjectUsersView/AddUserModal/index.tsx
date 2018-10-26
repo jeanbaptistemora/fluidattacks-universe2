@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import _ from "lodash";
 import React from "react";
 import {
@@ -110,25 +110,19 @@ const loadAutofillData: ((arg1: CustomFormProps) => void) =
       }
     }`;
     new Xhr().request(gQry, "An error occurred getting user information for autofill")
-    .then((resp: AxiosResponse) => {
-      const respData: {
-        userData: {
-          organization: string;
-          phoneNumber: string;
-          responsability: string;
-        };
-      } = resp.data.data;
-      if (_.isEmpty(respData)) {
-        msgError(props.translations["proj_alerts.error_textsad"]);
-      } else {
-        props.change("organization", respData.userData.organization);
-        props.change("phone", respData.userData.phoneNumber);
-        props.change("responsability", respData.userData.responsability);
-      }
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+      props.change("organization", data.userData.organization);
+      props.change("phone", data.userData.phoneNumber);
+      props.change("responsability", data.userData.responsability);
     })
-    .catch((error: string) => {
-      msgError(props.translations["proj_alerts.error_textsad"]);
-      rollbar.error(error);
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(props.translations["proj_alerts.error_textsad"]);
+        rollbar.error(error.message, errors);
+      }
     });
   }
 };

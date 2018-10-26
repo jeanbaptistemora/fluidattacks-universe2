@@ -6,7 +6,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import React, { ComponentType } from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
@@ -103,27 +103,25 @@ lifecycle({
         organization
         firstLogin
         lastLogin
-        access
       }
     }`;
     new Xhr().request(gQry, "An error occurred getting project users")
-    .then((resp: AxiosResponse) => {
-      if (resp.data.data.projectUsers.length > 0) {
-        if (resp.data.data.projectUsers[0].access) {
-          const usersList: IProjectUsersViewProps["userList"] =
-            formatRawUserData(
-              resp.data.data.projectUsers,
-              translations,
-            );
-          store.dispatch(actions.loadUsers(usersList));
-        } else {
-          msgError(translations["proj_alerts.access_denied"]);
-        }
-      }
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+      const usersList: IProjectUsersViewProps["userList"] =
+        formatRawUserData(
+          data.projectUsers,
+          translations,
+        );
+      store.dispatch(actions.loadUsers(usersList));
     })
-    .catch((error: string) => {
-      msgError(translations["proj_alerts.error_textsad"]);
-      rollbar.error(error);
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translations["proj_alerts.error_textsad"]);
+        rollbar.error(error.message, errors);
+      }
     });
   },
 });
