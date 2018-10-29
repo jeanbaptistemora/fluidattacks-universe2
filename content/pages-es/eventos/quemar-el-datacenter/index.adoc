@@ -6,10 +6,6 @@
 
 = Quemar el Datacenter
 
-++++
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qKsz-nvgMrU" frameborder="0" style="display: block;margin: 0 auto;" allowfullscreen></iframe>
-++++
-
 == 1. Objetivo
 
 En este espacio queremos socializar nuestras convicciones sobre lo que creemos
@@ -133,3 +129,9 @@ Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas
 == 9. Expositor
 
 [button]#link:../../personas/ralvarez/[Rafael Alvarez]#
+
+== 10. Videos
+
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qKsz-nvgMrU" frameborder="0" allowfullscreen></iframe>
+++++
