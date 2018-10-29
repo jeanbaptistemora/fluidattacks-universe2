@@ -143,32 +143,33 @@ const removeUser: ((arg1: string, arg2: IProjectUsersViewProps["translations"]) 
       let gQry: string;
       gQry = `mutation {
         removeUserAccess(projectName: "${projectName}", userEmail: "${email}"){
-          access,
-          removedEmail,
+          removedEmail
           success
         }
       }`;
       new Xhr().request(gQry, "An error occurred removing users")
-      .then((resp: AxiosResponse) => {
-        if (!resp.data.error && resp.data.data.removeUserAccess.success) {
-          if (resp.data.data.removeUserAccess.access) {
-            const removedEmail: string = resp.data.data.removeUserAccess.removedEmail;
-            store.dispatch(actions.removeUser(removedEmail));
-            msgSuccess(
-              `${email} ${translations["search_findings.tab_users.success_delete"]}`,
-              translations["search_findings.tab_users.title_success"],
-            );
-          } else {
-            msgError(translations["proj_alerts.access_denied"]);
-          }
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+
+        if (data.removeUserAccess.success) {
+          const removedEmail: string = data.removeUserAccess.removedEmail;
+
+          store.dispatch(actions.removeUser(removedEmail));
+          msgSuccess(
+            `${email} ${translations["search_findings.tab_users.success_delete"]}`,
+            translations["search_findings.tab_users.title_success"],
+          );
         } else {
           msgError(translations["proj_alerts.error_textsad"]);
-          rollbar.error("An error occurred removing user");
         }
       })
-      .catch((error: string) => {
-        msgError(translations["proj_alerts.error_textsad"]);
-        rollbar.error(`An error occurred removing user: ${error}`);
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          msgError(translations["proj_alerts.error_textsad"]);
+          rollbar.error(error.message, errors);
+        }
       });
     } else {
       msgError(translations["proj_alerts.error_textsad"]);
@@ -315,19 +316,18 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
 );
 
 const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
-  (props: IProjectUsersViewProps, data: IUserData): void => {
+  (props: IProjectUsersViewProps, newUser: IUserData): void => {
   let gQry: string;
   gQry = `mutation {
     grantUserAccess(
-      email: "${data.email}",
-      organization: "${data.organization}",
-      phoneNumber: "${data.phone}",
+      email: "${newUser.email}",
+      organization: "${newUser.organization}",
+      phoneNumber: "${newUser.phone}",
       projectName: "${props.projectName}",
-      responsibility: "${data.responsability}",
-      role: "${data.role}"
+      responsibility: "${newUser.responsability}",
+      role: "${newUser.role}"
     ) {
       success
-      access
       grantedUser {
         email
         role
@@ -336,87 +336,75 @@ const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void
         organization
         firstLogin
         lastLogin
-        access
       }
     }
   }`;
   new Xhr().request(gQry, "An error occurred adding user to project")
-  .then((resp: AxiosResponse) => {
-    const respData: {
-      grantUserAccess: {
-        access: boolean;
-        grantedUser: IProjectUsersViewProps["userList"][0];
-        success: boolean;
-      };
-    } = resp.data.data;
-    if (respData.grantUserAccess.access) {
-      if (respData.grantUserAccess.success) {
-        msgSuccess(
-          data.email + props.translations["search_findings.tab_users.success"],
-          props.translations["search_findings.tab_users.title_success"],
-        );
-        store.dispatch(reset("addUser"));
-        store.dispatch(actions.closeUsersMdl());
-        store.dispatch(actions.addUser(formatRawUserData(
-          [respData.grantUserAccess.grantedUser],
-          props.translations)[0],
-        ));
-      } else {
-        msgError(props.translations["proj_alerts.error_textsad"]);
-      }
+  .then((response: AxiosResponse) => {
+    const { data } = response.data;
+    if (data.grantUserAccess.success) {
+      msgSuccess(
+        newUser.email + props.translations["search_findings.tab_users.success"],
+        props.translations["search_findings.tab_users.title_success"],
+      );
+      store.dispatch(reset("addUser"));
+      store.dispatch(actions.closeUsersMdl());
+      store.dispatch(actions.addUser(formatRawUserData(
+        [data.grantUserAccess.grantedUser],
+        props.translations)[0],
+      ));
     } else {
-      msgError(props.translations["proj_alerts.access_denied"]);
+      msgError(props.translations["proj_alerts.error_textsad"]);
     }
   })
-  .catch((error: string) => {
-    msgError(props.translations["proj_alerts.error_textsad"]);
-    rollbar.error(error);
+  .catch((error: AxiosError) => {
+    if (error.response !== undefined) {
+      const { errors } = error.response.data;
+
+      msgError(props.translations["proj_alerts.error_textsad"]);
+      rollbar.error(error.message, errors);
+    }
   });
 };
 
 const editUserInfo: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
-  (props: IProjectUsersViewProps, data: IUserData): void => {
+  (props: IProjectUsersViewProps, modifiedUser: IUserData): void => {
   let gQry: string;
   gQry = `mutation {
     editUser(
       projectName: "${props.projectName}",
-      email: "${data.email}",
-      organization: "${data.organization}",
-      phoneNumber: "${data.phone}",
-      responsibility: "${data.responsability}",
-      role: "${data.role}"
+      email: "${modifiedUser.email}",
+      organization: "${modifiedUser.organization}",
+      phoneNumber: "${modifiedUser.phone}",
+      responsibility: "${modifiedUser.responsability}",
+      role: "${modifiedUser.role}"
     ) {
-      access
       success
     }
   }`;
   new Xhr().request(gQry, "An error occurred editing user information")
-  .then((resp: AxiosResponse) => {
-    const respData: {
-      editUser: {
-        access: boolean;
-        success: boolean;
-      };
-    } = resp.data.data;
-    if (respData.editUser.access) {
-      if (respData.editUser.success) {
-        msgSuccess(
-          props.translations["search_findings.tab_users.success_admin"],
-          props.translations["search_findings.tab_users.title_success"],
-        );
-        store.dispatch(reset("addUser"));
-        store.dispatch(actions.closeUsersMdl());
-        location.reload();
-      } else {
-        msgError(props.translations["proj_alerts.error_textsad"]);
-      }
+  .then((response: AxiosResponse) => {
+    const { data } = response.data;
+
+    if (data.editUser.success) {
+      msgSuccess(
+        props.translations["search_findings.tab_users.success_admin"],
+        props.translations["search_findings.tab_users.title_success"],
+      );
+      store.dispatch(reset("addUser"));
+      store.dispatch(actions.closeUsersMdl());
+      location.reload();
     } else {
-      msgError(props.translations["proj_alerts.access_denied"]);
+      msgError(props.translations["proj_alerts.error_textsad"]);
     }
   })
-  .catch((error: string) => {
-    msgError(props.translations["proj_alerts.error_textsad"]);
-    rollbar.error(error);
+  .catch((error: AxiosError) => {
+    if (error.response !== undefined) {
+      const { errors } = error.response.data;
+
+      msgError(props.translations["proj_alerts.error_textsad"]);
+      rollbar.error(error.message, errors);
+    }
   });
 };
 

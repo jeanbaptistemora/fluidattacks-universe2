@@ -1,13 +1,16 @@
-import rollbar
-import threading
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
+import threading
+from datetime import datetime
+
+import rollbar
+from graphene import ObjectType, Mutation, String, Boolean, Field
+
+from ..decorators import require_login, require_role, require_project_access_gql
 from .. import util
 from ..dao import integrates_dao
-from graphene import ObjectType, Mutation, String, Boolean, Field
-from ..services import is_customeradmin, has_responsibility, has_phone_number, has_access_to_project
-from datetime import datetime
+from ..services import is_customeradmin, has_responsibility, has_phone_number
 from ..mailer import send_mail_access_granted
 
 class User(ObjectType):
@@ -100,59 +103,34 @@ class GrantUserAccess(Mutation):
 
     granted_user = Field(User)
     success = Boolean()
-    access = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, **query_args):
-        del args
-
+    @require_login
+    @require_role(['customeradmin', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
-        role = query_args.get('role')
-        email = query_args.get('email')
-        self.success = False
+        success = False
 
-        if (info.context.session['role'] in ['customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-            self.access = True
+        new_user_data = {
+            'email': query_args.get('email'),
+            'organization': query_args.get('organization'),
+            'responsibility': query_args.get('responsibility'),
+            'role': query_args.get('role'),
+            'phone_number': query_args.get('phone_number')
+        }
 
-            new_user_data = {
-                'email': query_args.get('email'),
-                'organization': query_args.get('organization'),
-                'responsibility': query_args.get('responsibility'),
-                'role': query_args.get('role'),
-                'phone_number': query_args.get('phone_number')
-            }
-
-            if (info.context.session['role'] == 'admin'):
-                if (role == 'admin' or role == 'analyst' or
-                        role == 'customer' or role == 'customeradmin'):
-                    if create_new_user(info.context, new_user_data, project_name):
-                        self.success = True
-                    else:
-                        rollbar.report_message('Error: Couldn\'t grant access to project', 'error', info.context)
-                else:
-                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', info.context)
-            elif is_customeradmin(project_name, info.context.session['username']):
-                if (role == 'customer' or role == 'customeradmin'):
-                    if create_new_user(info.context, new_user_data, project_name):
-                        self.success = True
-                    else:
-                        rollbar.report_message('Error: Couldn\'t grant access to project', 'error', info.context)
-                else:
-                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', info.context)
+        if (info.context.session['role'] == 'admin'
+                and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
+            or (is_customeradmin(project_name, info.context.session['username'])
+                and new_user_data['role'] in ['customer', 'customeradmin']):
+            if create_new_user(info.context, new_user_data, project_name):
+                success = True
             else:
-                self.access = False
-                util.cloudwatch_log(info.context, 'Security: Attempted to grant access to project from unprivileged role: '
-                                                    + info.context.session['role'])
+                rollbar.report_message('Error: Couldn\'t grant access to project', 'error', info.context)
         else:
-            self.access = False
-            util.cloudwatch_log(info.context, 'Security: Attempted to grant access to project from unprivileged role: '
-                                                + info.context.session['role'])
+            rollbar.report_message('Error: Invalid role provided: ' + new_user_data['role'], 'error', info.context)
 
-        return GrantUserAccess(success=self.success, access=self.access, granted_user=User(project_name, email))
+        return GrantUserAccess(success=success, granted_user=User(project_name, new_user_data['email']))
 
 def create_new_user(context, new_user_data, project_name):
     email = new_user_data['email']
@@ -212,33 +190,21 @@ class RemoveUserAccess(Mutation):
 
     removed_email = String()
     success = Boolean()
-    access = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, project_name, user_email):
-        del args
+    @require_login
+    @require_role(['customeradmin', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, project_name, user_email):
+        del info
+        success = False
 
-        self.success = False
-        role = info.context.session['role']
-        if (role in ['customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                role)):
-            self.access = True
-            if (role == 'customer' and not is_customeradmin(project_name, info.context.session['username'])):
-                util.cloudwatch_log(info.context, 'Security: Attempted to remove project users without permission')
-            else:
-                integrates_dao.remove_role_to_project_dynamo(project_name, user_email, 'customeradmin')
-                is_user_removed_dao = integrates_dao.remove_access_project_dao(user_email, project_name)
-                is_user_removed_dynamo = integrates_dao.remove_project_access_dynamo(user_email, project_name)
-                self.success = is_user_removed_dao and is_user_removed_dynamo
-                self.removed_email = user_email if self.success else None
-        else:
-            self.access = False
-            util.cloudwatch_log(info.context, 'Security: Attempted to remove project users without permission')
+        integrates_dao.remove_role_to_project_dynamo(project_name, user_email, 'customeradmin')
+        is_user_removed_dao = integrates_dao.remove_access_project_dao(user_email, project_name)
+        is_user_removed_dynamo = integrates_dao.remove_project_access_dynamo(user_email, project_name)
+        success = is_user_removed_dao and is_user_removed_dynamo
+        removed_email = user_email if success else None
 
-        return RemoveUserAccess(success=self.success, access=self.access, removed_email=self.removed_email)
+        return RemoveUserAccess(success=success, removed_email=removed_email)
 
 class EditUser(Mutation):
     """Edit user of a given project."""
@@ -253,55 +219,35 @@ class EditUser(Mutation):
 
     modified_user = Field(User)
     success = Boolean()
-    access = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, **query_args):
-        del args
-
-        role = query_args.get('role')
-        email = query_args.get('email')
+    @require_login
+    @require_role(['customeradmin', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
-        self.success = False
+        success = False
 
-        if (info.context.session['role'] in ['customer', 'admin'] \
-            and has_access_to_project(
-                info.context.session['username'],
-                project_name,
-                info.context.session['role'])):
-            self.access = True
+        modified_user_data = {
+            'email': query_args.get('email'),
+            'organization': query_args.get('organization'),
+            'responsibility': query_args.get('responsibility'),
+            'role': query_args.get('role'),
+            'phone_number': query_args.get('phone_number')
+        }
 
-            modified_user_data = {
-                'email': query_args.get('email'),
-                'organization': query_args.get('organization'),
-                'responsibility': query_args.get('responsibility'),
-                'role': query_args.get('role'),
-                'phone_number': query_args.get('phone_number')
-            }
-
-            if info.context.session['role'] == 'admin':
-                if (role == 'admin' or role == 'analyst' or
-                        role == 'customer' or role == 'customeradmin'):
-                    if integrates_dao.assign_role(email, role) is None:
-                        modify_user_information(info.context, modified_user_data, project_name)
-                        self.success = True
-                    else:
-                        rollbar.report_message('Error: Couldn\'t update user role', 'error', info.context)
-                else:
-                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', info.context)
-            elif is_customeradmin(project_name, info.context.session['username']):
-                if role == 'customer' or role == 'customeradmin':
-                    if integrates_dao.assign_role(email, role) is None:
-                        modify_user_information(info.context, modified_user_data, project_name)
-                        self.success = True
-                    else:
-                        rollbar.report_message('Error: Couldn\'t update user role', 'error', info.context)
-                else:
-                    rollbar.report_message('Error: Invalid role provided: ' + role, 'error', info.context)
+        if (info.context.session['role'] == 'admin'
+                and modified_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
+            or (is_customeradmin(project_name, info.context.session['username'])
+                and modified_user_data['role'] in ['customer', 'customeradmin']):
+            if integrates_dao.assign_role(modified_user_data['email'], modified_user_data['role']) is None:
+                modify_user_information(info.context, modified_user_data, project_name)
+                success = True
+            else:
+                rollbar.report_message('Error: Couldn\'t update user role', 'error', info.context)
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to edit project users info without permission')
+            rollbar.report_message('Error: Invalid role provided: ' + modified_user_data['role'], 'error', info.context)
 
-        return EditUser(success=self.success, access=self.access, modified_user=User(project_name, email))
+        return EditUser(success=success, modified_user=User(project_name, modified_user_data['email']))
 
 def modify_user_information(context, modified_user_data, project_name):
     role = modified_user_data['role']
