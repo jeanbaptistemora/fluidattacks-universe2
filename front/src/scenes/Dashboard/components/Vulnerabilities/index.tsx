@@ -11,6 +11,7 @@
  * readability of the code that defines the headers of the table
 */
 import { AxiosResponse } from "axios";
+import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { ComponentType } from "react";
 import { DataAlignType } from "react-bootstrap-table";
@@ -151,6 +152,31 @@ const deleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
     }
 };
 
+const getSpecific: ((line: { [key: string]: string }) => number) =
+  (line: { [key: string]: string }): number =>
+    parseInt(line.specific, 10);
+
+const compareNumbers: ((a: number, b: number) => number) =
+  (a: number, b: number): number =>
+    a - b;
+
+const groupSpecific: ((lines: IVulnerabilitiesViewProps["dataLines"]) => IVulnerabilitiesViewProps["dataLines"]) =
+  (lines: IVulnerabilitiesViewProps["dataLines"]): IVulnerabilitiesViewProps["dataLines"] => {
+    const groups: { [key: string]: IVulnerabilitiesViewProps["dataLines"] }  = _.groupBy(lines, "where");
+    const specificGrouped: IVulnerabilitiesViewProps["dataLines"] =
+    _.map(groups, (line: IVulnerabilitiesViewProps["dataLines"]) =>
+      ({
+          currentState: line[0].currentState,
+          specific: line.map(getSpecific)
+                  .sort(compareNumbers)
+                  .toString(),
+          vulnType: line[0].vulnType,
+          where: line[0].where,
+      }));
+
+    return specificGrouped;
+};
+
 export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
   const inputsHeader: IHeader[] = [
@@ -204,6 +230,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
       isStatus: false,
       width: "30%",
     }];
+  let dataLines: IVulnerabilitiesViewProps["dataLines"] = props.dataLines;
   if (props.editMode) {
     inputsHeader.push({
                 align: "center" as DataAlignType,
@@ -232,6 +259,8 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
                 isStatus: false,
                 width: "10%",
               });
+  } else {
+    dataLines = groupSpecific(props.dataLines);
   }
 
   return (
@@ -259,7 +288,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
           <label className={style.vuln_title}>{props.translations["search_findings.tab_description.lines"]}</label>
           <SimpleTable
             id="linesVulns"
-            dataset={props.dataLines}
+            dataset={dataLines}
             exportCsv={false}
             headers={linesHeader}
             onClickRow={(): void => undefined}
