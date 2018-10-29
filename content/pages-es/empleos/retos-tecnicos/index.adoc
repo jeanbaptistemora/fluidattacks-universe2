@@ -102,7 +102,8 @@ para el lenguaje elegido por ti.
 
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#
 
-. Los comandos de *compilación* y/o *+linting+* utilizados,
+. Los comandos de *compilación* (opcional para lenguajes interpretados)
+y *+linting+* (obligatorio en todos los lenguajes) utilizados
 y su salida, deben estar como *preludio* al inicio del código.
 +
 .milogin.rs
@@ -110,7 +111,8 @@ y su salida, deben estar como *preludio* al inicio del código.
 ----
 
 /*
-$ rustup run nightly cargo clippy
+$ cargo clippy #linting
+$ rustup run nightly  #compilation
 Compiling milogin v0.1.0 (file:///../skhorn)
 Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
 $ rustc milogin.rs
@@ -555,9 +557,11 @@ vagrant@stretch:~$ sudo add-apt-repository \
 .Instalar y habilitar +Docker+ para el usuario +Vagrant+ del +box+
 [source,bash,linenums]
 ----
-vagrant@stretch:~$ sudo apt-get update && sudo apt-get install docker-ce
+vagrant@stretch:~$ sudo apt-get update
+vagrant@stretch:~$ sudo apt-get install docker-ce
 vagrant@stretch:~$ sudo usermod -aG docker vagrant
-vagrant@stretch:~$ sudo systemctl start docker && sudo systemctl enable docker
+vagrant@stretch:~$ sudo systemctl start docker
+vagrant@stretch:~$ sudo systemctl enable docker
 ----
 
 Ya puedes seguir los pasos descritos arriba para ejecutar la integración.

@@ -106,7 +106,8 @@ a solution in the language you chose.
 . They must not have an external indexed solution
 (links + OTHERS.lst + of the challenge) for the language chosen by you.
 . The programming language chosen must be accepted by [button]#link:http://www.codeabbey.com/[Codeabbey]#
-. The *compilation* and/or +linting+ commands used and
+. The *compilation* (optional for interpreted languages)
+and *linting* (mandatory for all languages) commands used and
 their output must be included in the *prelude*
 at the beginning of the code.
 +
@@ -115,7 +116,8 @@ at the beginning of the code.
 ----
 
 /*
-$ rustup run nightly cargo clippy
+$ cargo clippy #linting
+$ rustup run nightly #compilation
 Compiling milogin v0.1.0 (file:///../skhorn)
 Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
 $ rustc milogin.rs
