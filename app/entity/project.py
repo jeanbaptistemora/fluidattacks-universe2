@@ -24,7 +24,7 @@ class Project(ObjectType):
     def __init__(self, info, project_name):
         """Class constructor."""
         self.name = project_name.lower()
-        self.subscription = ""
+        self.subscription = ''
         api = FormstackAPI()
         finreqset = api.get_findings(self.name)['submissions']
 
@@ -39,7 +39,7 @@ class Project(ObjectType):
             if project_info:
                 self.subscription = project_info[0].get('type')
             else:
-                self.subscription = ""
+                self.subscription = ''
 
     def resolve_name(self, info):
         """Resolve name attribute."""
@@ -61,12 +61,12 @@ class Project(ObjectType):
         del info
         return self.subscription
 
-def validate_release_date(release_date=""):
+def validate_release_date(release_date=''):
     """Validate if a finding has a valid relese date."""
     if release_date:
         tzn = pytz.timezone('America/Bogota')
         finding_last_vuln = datetime.datetime.strptime(
-            release_date.split(" ")[0],
+            release_date.split(' ')[0],
             '%Y-%m-%d'
         )
         last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
