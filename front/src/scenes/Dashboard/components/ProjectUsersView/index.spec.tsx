@@ -14,7 +14,7 @@ describe('Project users view', () => {
 
   const wrapper = shallow(
     <ProjectUsersView
-      addModal={{open: true}}
+      addModal={{ initialValues: {}, open: true, type: "add" }}
       userRole="admin"
       projectName="unittesting"
       translations={{
@@ -33,8 +33,6 @@ describe('Project users view', () => {
           role: ""
         }
       ]}
-      onClickAdd={(): void => {}}
-      onClickEdit={(): void => {}}
     />
   );
 

@@ -12,6 +12,7 @@ describe('Vulnerabilities view', () => {
 
   const wrapper = shallow(
     <VulnerabilitiesView
+      editMode={false}
       dataInputs={[{currentState: "open",
         specific: "phone",
         vulnType: "inputs",
@@ -31,7 +32,7 @@ describe('Vulnerabilities view', () => {
   });
 
   it('should render input title', () => {
-    expect(wrapper.contains(<h4>Inputs</h4>)).to.equal(true);
+    expect(wrapper.contains(<label>Inputs</label>)).to.equal(true);
   });
 
   it('should render input table', () => {

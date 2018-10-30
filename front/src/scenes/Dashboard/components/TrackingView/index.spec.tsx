@@ -58,9 +58,8 @@ describe('Tracking view', () => {
             <p>Open</p>
             <TextareaAutosize
               disabled={true}
-            >
-              unit/test/index.js line:32
-            </TextareaAutosize>
+              value="unit/test/index.js line:32"
+            />
           </Col>
           <Col
             md={12}
@@ -68,9 +67,8 @@ describe('Tracking view', () => {
             <p>Closed</p>
             <TextareaAutosize
               disabled={true}
-            >
-              unit/main/index.js line:16
-            </TextareaAutosize>
+              value="unit/main/index.js line:16"
+            />
           </Col>
         </Row>
       )
