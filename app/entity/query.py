@@ -1,6 +1,8 @@
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
+from graphene import Field, String, ObjectType, List
+
 from .alert import Alert
 from .login import Login
 from .events import Events
@@ -12,8 +14,11 @@ from .finding import Finding
 from .project import Project
 # pylint: disable=F0401
 from app.api.formstack import FormstackAPI
-from graphene import Field, String, ObjectType, List
-from ..decorators import require_login, require_role, require_project_access_gql
+from ..decorators import (
+    require_login, require_role,
+    require_project_access_gql,
+    require_finding_access_gql
+)
 
 class Query(ObjectType):
     """ Graphql Class """
@@ -25,7 +30,7 @@ class Query(ObjectType):
                         identifier=String(required=True))
 
     events = List(Events,
-                        identifier=String(required=True))
+                        project_name=String(required=True))
 
     finding = Field(Finding, identifier=String(required=True))
 
@@ -51,16 +56,24 @@ class Query(ObjectType):
         del info
         return Alert(project_name, organization)
 
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_finding_access_gql
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
-        return Events(info, identifier)
+        del info
+        return Events(identifier)
 
-    def resolve_events(self, info, identifier=""):
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def resolve_events(self, info, project_name=""):
         """ Resolve for eventualities """
-        resp = FormstackAPI().get_eventualities(str(identifier))
+        del info
+        resp = FormstackAPI().get_eventualities(str(project_name))
         data = []
         if "submissions" in resp:
-            data = [Events(info, i["id"]) for i in resp["submissions"]]
+            data = [Events(i["id"]) for i in resp["submissions"]]
         return data
 
     def resolve_finding(self, info, identifier=None):

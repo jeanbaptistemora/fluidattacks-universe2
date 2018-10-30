@@ -231,10 +231,9 @@ angular.module("FluidIntegrates").factory(
        * @return {Object} Database response with events info
        */
       "eventsByProject" (project) {
-        const oopsAc = "An error occurred getting repositories";
+        const oopsAc = "An error occurred getting project events";
         const gQry = `{
-            events (identifier: "${project}") {
-              access,
+            events (projectName: "${project}") {
               date,
               detail,
               id,

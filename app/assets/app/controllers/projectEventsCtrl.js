@@ -131,21 +131,28 @@ angular.module("FluidIntegrates").controller(
         $msg.info(searchAc, searchAt);
         const reqEventualities = projectFtry2.eventsByProject(projectName);
         reqEventualities.then((response) => {
-          if (response.error) {
-            $msg.error($translate.instant("proj_alerts.eventExist"));
-          }
-          else {
-            if (angular.isUndefined(response.data)) {
+          if (response.errors) {
+            const {message} = response.errors[0];
+            if (message === "Login required") {
               location.reload();
             }
-            const eventsData = response.data.events;
-            if (eventsData.length === 0 || eventsData[0].access) {
-              $scope.view.project = true;
-              $scope.loadEventContent(eventsData, vlang, projectName);
-            }
-            else {
+            else if (message === "Access denied") {
               $msg.error($translate.instant("proj_alerts.access_denied"));
             }
+            else {
+              Rollbar.error(message);
+            }
+          }
+          else {
+            let eventsData = [];
+            if (response.data.events.length === 0) {
+              $msg.error($translate.instant("proj_alerts.eventExist"));
+            }
+            else {
+              eventsData = response.data.events;
+            }
+            $scope.view.project = true;
+            $scope.loadEventContent(eventsData, vlang, projectName);
           }
         });
       }

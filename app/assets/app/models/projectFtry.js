@@ -195,10 +195,9 @@ angular.module("FluidIntegrates").factory(
        * @return {Object} Formstack response with the eventualities of a project
        */
       "getEvent" (eventId) {
-        const oopsAc = "An error occurred getting repositories";
+        const oopsAc = "An error occurred getting event";
         const gQry = `{
              event (identifier: "${eventId}") {
-               access,
                accessibility,
                affectation,
                affectedComponents,

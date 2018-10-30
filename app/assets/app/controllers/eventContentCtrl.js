@@ -63,13 +63,19 @@ eventContentCtrl (
   $scope.loadEvent = function loadEvent (project, id) {
     const reqEventualities = projectFtry.getEvent(id);
     reqEventualities.then((response) => {
-      if (response.error) {
-        $msg.error($translate.instant("proj_alerts.eventExist"));
-      }
-      else {
-        if (angular.isUndefined(response.data.event)) {
+      if (response.errors) {
+        const {message} = response.errors[0];
+        if (message === "Login required") {
           location.reload();
         }
+        else if (message === "Access denied") {
+          $msg.error($translate.instant("proj_alerts.access_denied"));
+        }
+        else {
+          Rollbar.error(message);
+        }
+      }
+      else {
         const eventData = response.data.event;
         if (eventData.accessibility === "") {
           $scope.hasAccessibility = false;
@@ -91,18 +97,13 @@ eventContentCtrl (
                     ]);
           }
         }
-        if (eventData.access) {
-          $scope.eventData = eventData;
-          $scope.getEventEvidence(eventData);
-          if ($scope.eventData.evidenceUrl.length === 0) {
-            $scope.hasEvidence = false;
-          }
-          else {
-            $scope.hasEvidence = true;
-          }
+        $scope.eventData = eventData;
+        $scope.getEventEvidence(eventData);
+        if ($scope.eventData.evidenceUrl.length === 0) {
+          $scope.hasEvidence = false;
         }
         else {
-          $msg.error($translate.instant("proj_alerts.access_denied"));
+          $scope.hasEvidence = true;
         }
       }
     });
