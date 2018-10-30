@@ -4,10 +4,9 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 
-from .. import util
-from app.dto import finding
 from graphene import String, ObjectType, Boolean, List, Int
-from ..services import has_access_to_finding
+
+from app.dto import finding
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 
@@ -16,7 +15,6 @@ class Finding(ObjectType):
     """Formstack Finding Class."""
 
     id = String()
-    access = Boolean()
     success = Boolean()
     error_message = String()
     vulnerabilities = List(
@@ -29,7 +27,6 @@ class Finding(ObjectType):
 
     def __init__(self, info, identifier):
         """Class constructor."""
-        self.access = False
         self.id = ""
         self.vulnerabilities = []
         self.success = False
@@ -39,42 +36,35 @@ class Finding(ObjectType):
         self.release_date = ""
 
         finding_id = str(identifier)
-        if (info.context.session['role'] in ['analyst', 'admin', 'customer'] \
-            and has_access_to_finding(
-                info.context.session['access'],
-                finding_id,
-                info.context.session['role'])):
-            self.access = True
-            resp = finding.finding_vulnerabilities(finding_id)
-            if resp:
-                self.id = finding_id
-                self.project_name = resp.get('fluidProject')
-                if resp.get('releaseDate'):
-                    self.release_date = resp.get('releaseDate')
-                else:
-                    self.release_date = ""
-                vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
-                if vulnerabilities:
-                    self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
-                    open_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == "open"]
-                    self.open_vulnerabilities = len(open_vulnerabilities)
-                elif resp.get("vulnerabilities"):
-                    is_file_valid = validate_formstack_file(resp.get("vulnerabilities"), finding_id, info)
-                    if is_file_valid:
-                        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
-                        self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
-                    else:
-                        self.success = False
-                        self.error_message = "Error in file"
-                else:
-                    vuln_info = {"finding_id": self.id, "vuln_type": "old", "where": resp.get("where")}
-                    self.vulnerabilities = [Vulnerability(info, vuln_info)]
+        resp = finding.finding_vulnerabilities(finding_id)
+
+        if resp:
+            self.id = finding_id
+            self.project_name = resp.get('fluidProject')
+            if resp.get('releaseDate'):
+                self.release_date = resp.get('releaseDate')
             else:
-                self.success = False
-                self.error_message = "Finding does not exist"
-            self.success = True
+                self.release_date = ""
+            vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+            if vulnerabilities:
+                self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                open_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == "open"]
+                self.open_vulnerabilities = len(open_vulnerabilities)
+            elif resp.get("vulnerabilities"):
+                is_file_valid = validate_formstack_file(resp.get("vulnerabilities"), finding_id, info)
+                if is_file_valid:
+                    vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+                    self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                else:
+                    self.success = False
+                    self.error_message = "Error in file"
+            else:
+                vuln_info = {"finding_id": self.id, "vuln_type": "old", "where": resp.get("where")}
+                self.vulnerabilities = [Vulnerability(info, vuln_info)]
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to retrieve finding info without permission')
+            self.success = False
+            self.error_message = "Finding does not exist"
+        self.success = True
 
     def resolve_id(self, info):
         """Resolve id attribute."""
@@ -85,11 +75,6 @@ class Finding(ObjectType):
         """Resolve project_name attribute."""
         del info
         return self.project_name
-
-    def resolve_access(self, info):
-        """Resolve access attribute."""
-        del info
-        return self.access
 
     def resolve_success(self, info):
         """Resolve success attribute."""

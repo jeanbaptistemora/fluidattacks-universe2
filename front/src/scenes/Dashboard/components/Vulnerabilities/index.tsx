@@ -10,7 +10,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { ComponentType } from "react";
@@ -66,7 +66,6 @@ lifecycle({
     gQry = `{
       finding(identifier: "${findingId}") {
         id
-        access
         success
         errorMessage
         portsVulns: vulnerabilities(
@@ -92,28 +91,26 @@ lifecycle({
       findingId
     }`;
     new Xhr().request(gQry, "An error occurred getting vulnerabilities")
-    .then((resp: AxiosResponse) => {
-      if (!resp.data.error) {
-        if (resp.data.data.finding !== undefined && resp.data.data.finding.access) {
-          if (resp.data.data.finding.success) {
-            store.dispatch(actions.loadVulnerabilities(
-              resp.data.data.finding.inputsVulns,
-              resp.data.data.finding.linesVulns,
-              resp.data.data.finding.portsVulns,
-            ));
-          } else if (resp.data.data.finding.errorMessage === "Error in file") {
-            msgError(translations["search_findings.tab_description.errorVuln"]);
-          }
-        } else {
-          msgError(translations["proj_alerts.access_denied"]);
-        }
-      } else {
-        msgError(translations["proj_alerts.error_textsad"]);
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      if (data.finding.success) {
+        store.dispatch(actions.loadVulnerabilities(
+          data.finding.inputsVulns,
+          data.finding.linesVulns,
+          data.finding.portsVulns,
+        ));
+      } else if (data.finding.errorMessage === "Error in file") {
+        msgError(translations["search_findings.tab_description.errorVuln"]);
       }
     })
-    .catch((error: string) => {
-      msgError(translations["proj_alerts.error_textsad"]);
-      rollbar.error(error);
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translations["proj_alerts.error_textsad"]);
+        rollbar.error(error.message, errors);
+      }
     });
   },
 });

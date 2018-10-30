@@ -76,6 +76,9 @@ class Query(ObjectType):
             data = [Events(i["id"]) for i in resp["submissions"]]
         return data
 
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_finding_access_gql
     def resolve_finding(self, info, identifier=None):
         """Resolve for finding."""
         return Finding(info, identifier)

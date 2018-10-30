@@ -297,7 +297,6 @@ angular.module("FluidIntegrates").factory(
         const gQry = `{
           finding(identifier: "${findingId}") {
             id
-            access
             success
             errorMessage
             openVulnerabilities

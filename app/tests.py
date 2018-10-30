@@ -142,7 +142,6 @@ class GraphQLTests(TestCase):
         query = """{
           finding(identifier: "422286126"){
             id
-            access
             success
             errorMessage
             vulnerabilities {
@@ -167,6 +166,14 @@ class GraphQLTests(TestCase):
             "435326633", "435326463",
             "418900971"
             ]}
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+              'user_email': 'unittest',
+              'user_role': 'admin'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
         self.assertEqual(result.data.get("finding")["id"], '422286126')
