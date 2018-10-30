@@ -29,42 +29,42 @@ class Events(ObjectType):
     def __init__(self, identifier):
         """ Class constructor """
         self.id = str(identifier)
-        self.analyst, self.client = "", ""
-        self.fluidProject, self.clientProject = "", ""
-        self.type, self.date = "", ""
-        self.detail, self.affectation = "", ""
-        self.status, self.evidence = "", ""
-        self.accessibility, self.affectedComponents = "", ""
+        self.analyst, self.client = '', ''
+        self.fluidProject, self.clientProject = '', ''
+        self.type, self.date = '', ''
+        self.detail, self.affectation = '', ''
+        self.status, self.evidence = '', ''
+        self.accessibility, self.affectedComponents = '', ''
 
         resp = FormstackAPI().get_submission(self.id)
 
         if resp:
             evt_set = eventuality.parse(self.id, resp)
-            if "analyst" in evt_set:
+            if 'analyst' in evt_set:
                 self.analyst = evt_set['analyst']
-            if "client" in evt_set:
+            if 'client' in evt_set:
                 self.client = evt_set['client']
-            if "fluidProject" in evt_set:
-                self.fluidProject = evt_set["fluidProject"]
-            if "clientProject" in evt_set:
-                self.clientProject = evt_set["clientProject"]
-            if "type" in evt_set:
-                self.type = evt_set["type"]
-            if "detalle" in evt_set:
-                self.detail = evt_set["detalle"]
-            if "fecha" in evt_set:
-                self.date = evt_set["fecha"]
-            if "estado" in evt_set:
-                self.status = evt_set["estado"]
-            if "evidence" in evt_set  and ".png" in evt_set['evidence']:
+            if 'fluidProject' in evt_set:
+                self.fluidProject = evt_set['fluidProject']
+            if 'clientProject' in evt_set:
+                self.clientProject = evt_set['clientProject']
+            if 'type' in evt_set:
+                self.type = evt_set['type']
+            if 'detalle' in evt_set:
+                self.detail = evt_set['detalle']
+            if 'fecha' in evt_set:
+                self.date = evt_set['fecha']
+            if 'estado' in evt_set:
+                self.status = evt_set['estado']
+            if 'evidence' in evt_set  and '.png' in evt_set['evidence']:
                 parsed_url = urlparse.urlparse(evt_set['evidence'])
                 self.evidence = urlparse.parse_qs(parsed_url.query)['id'][0]
-            if "affectation" in evt_set:
-                self.affectation = evt_set["affectation"]
-            if "accessibility" in evt_set:
-                self.accessibility = evt_set["accessibility"]
-            if "affectedComponents" in evt_set:
-                self.affectedComponents = evt_set["affectedComponents"]
+            if 'affectation' in evt_set:
+                self.affectation = evt_set['affectation']
+            if 'accessibility' in evt_set:
+                self.accessibility = evt_set['accessibility']
+            if 'affectedComponents' in evt_set:
+                self.affectedComponents = evt_set['affectedComponents']
 
     def resolve_id(self, info):
         """ Resolve id attribute """
