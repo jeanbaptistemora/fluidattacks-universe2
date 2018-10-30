@@ -118,6 +118,9 @@ class Query(ObjectType):
         del info
         return User(project_name, user_email)
 
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
         return Project(info, project_name)

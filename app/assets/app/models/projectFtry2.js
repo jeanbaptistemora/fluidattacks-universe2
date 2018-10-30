@@ -257,9 +257,6 @@ angular.module("FluidIntegrates").factory(
         const gQry = `{
           project (projectName: "${projectName}") {
             name
-            access
-            success
-            errorMessage
             openVulnerabilities
             subscription
           }
