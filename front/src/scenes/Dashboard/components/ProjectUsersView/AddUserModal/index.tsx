@@ -6,6 +6,13 @@ import {
   FormControl, FormControlProps, FormGroup,
   Row,
 } from "react-bootstrap";
+/**
+ * Disabling here is necessary because
+ * there are currently no available type definitions for
+ * neither this nor any other 3rd-party react phone input components
+ */
+// @ts-ignore
+import ReactPhoneInput from "react-phone-input-2";
 import {
   ConfigProps, DecoratedComponentClass, Field,
   FormProps, formValueSelector, InjectedFormProps,
@@ -60,6 +67,19 @@ const formTextField: ((arg1: CustomFieldProps) => JSX.Element) =
   </div>
 );
 
+const phoneNumberField: ((arg1: CustomFieldProps) => JSX.Element) =
+  (fieldProps: CustomFieldProps): JSX.Element => (
+    <ReactPhoneInput
+      defaultCountry="co"
+      inputClass="form-control"
+      inputStyle={{ paddingLeft: "48px" }}
+      inputExtraProps={{ type: "" }}
+      onChange={fieldProps.input.onChange}
+      value={fieldProps.input.value}
+      {...fieldProps}
+    />
+);
+
 const handleDropdownChange: ((arg1: React.FormEvent<FormGroup>, arg2: CustomFieldProps) => void) =
   (event: React.FormEvent<FormGroup>, fieldProps: CustomFieldProps): void => {
   fieldProps.input.onChange((event.target as HTMLInputElement).value);
@@ -84,11 +104,6 @@ const formDropdownField: ((arg1: CustomFieldProps) => JSX.Element) =
 const closeModal: ((arg1: CustomFormProps) => void) =
   (props: CustomFormProps): void => {
   store.dispatch(actions.closeUsersMdl());
-  /* tslint:disable-next-line no-any
-   * Disabling here is necessary because this is a call to a JS function
-   * attached to the window object, which is not recognized by TS
-   */
-  (window as any).intlTelInputGlobals.instances = {};
   props.reset();
 };
 
@@ -215,8 +230,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
       </ControlLabel>
       <Field
         name="phone"
-        id="phone"
-        component={formTextField}
+        component={phoneNumberField}
         type="text"
         validate={[required]}
       />
@@ -251,25 +265,6 @@ DecoratedComponentClass<{}, IAddUserModalProps & Partial<ConfigProps<{}, IAddUse
     enableReinitialize: true,
     form: "addUser",
   })((props: CustomFormProps): JSX.Element => {
-    /* tslint:disable-next-line no-any
-     * Disabling here is necessary because this is a call to a JS function
-     * attached to the window object, which is not recognized by TS
-     */
-    const tsWindow: any = (window as any);
-    /* Hack: Initialize and apply intlTelInput plugin from JS since
-     * there are currently no 3rd party components compatible
-     * with React TS for creating phone number fields
-     */
-    if (props.open) {
-      setTimeout((): void => {
-        if (_.isEmpty(tsWindow.intlTelInputGlobals.instances)) {
-          tsWindow.intlTelInput(document.querySelector("#phone"), {
-            initialCountry: "co",
-            separateDialCode: true,
-          });
-        }
-      },         200);
-    }
     const title: string = props.type === "add"
     ? props.translations["search_findings.tab_users.title"]
     : props.translations["search_findings.tab_users.edit_user_title"];

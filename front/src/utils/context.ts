@@ -19,7 +19,7 @@ export const getEnvironment: (() => string) = (): string => {
     environment = "development";
   } else {
     const currentUrl: string = window.location.href;
-    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1) {
+    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank") {
       environment = "development";
     } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
       environment = "review";

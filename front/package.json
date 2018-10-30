@@ -91,9 +91,11 @@
     "redux-form": "7.4.2",
     "@types/redux-form": "7.4.8",
     "revalidate": "1.2.0",
-    "@types/revalidate": "1.1.2"
+    "@types/revalidate": "1.1.2",
+    "react-phone-input-2": "2.6.1",
+    "jsdom": "12.2.0"
   },
   "scripts": {
-    "test": "gulp compile && mocha --require ignore-styles -r ts-node/register ./src/**/*.spec.tsx"
+    "test": "gulp compile && mocha -r ignore-styles -r ts-node/register -r ./jsdom.js $(find src/ -name '*.spec.tsx')"
   }
 }
