@@ -11,6 +11,8 @@
 
 . link:aseguramiento-moviles/[Aseguramiento de Dispositivos Móviles]
 
+. link:hacking-en-vivo/[Hacking en Vivo]
+
 == ¿Cuándo?
 
 Acordaremos la fecha en que se dictará,
