@@ -160,6 +160,32 @@ const compareNumbers: ((a: number, b: number) => number) =
   (a: number, b: number): number =>
     a - b;
 
+const negativeInParens: ((num: number) => string) =
+  (num: number): string  =>
+  num < 0 ? `(${num})` : num.toString();
+
+const getRanges: ((array: number[]) => string) =
+ (array: number[]): string => {
+  const ranges: string[] = [];
+  let index: number;
+  for (index = 0; index < array.length; index++) {
+    const rstart: number = array[index];
+    let rend: number = rstart;
+    while (array[index + 1] - array[index] === 1) {
+      rend = array[index + 1];
+      index++;
+    }
+    ranges.push(
+      rstart === rend ? `${negativeInParens(rstart)}` : `${negativeInParens(rstart)}-${negativeInParens(rend)}`);
+  }
+
+  return ranges.toString();
+};
+
+const groupValues: ((values: number[]) => string) =
+  (values: number[]): string =>
+    getRanges(values.sort(compareNumbers));
+
 const groupSpecific: ((lines: IVulnerabilitiesViewProps["dataLines"]) => IVulnerabilitiesViewProps["dataLines"]) =
   (lines: IVulnerabilitiesViewProps["dataLines"]): IVulnerabilitiesViewProps["dataLines"] => {
     const groups: { [key: string]: IVulnerabilitiesViewProps["dataLines"] }  = _.groupBy(lines, "where");
@@ -167,9 +193,7 @@ const groupSpecific: ((lines: IVulnerabilitiesViewProps["dataLines"]) => IVulner
     _.map(groups, (line: IVulnerabilitiesViewProps["dataLines"]) =>
       ({
           currentState: line[0].currentState,
-          specific: line.map(getSpecific)
-                  .sort(compareNumbers)
-                  .toString(),
+          specific: groupValues(line.map(getSpecific)),
           vulnType: line[0].vulnType,
           where: line[0].where,
       }));
