@@ -284,14 +284,17 @@ angular.module("FluidIntegrates").factory(
                   "Exception - Invalid File Type") {
                 errorAc1 = $translate.instant("proj_alerts.file_type_yaml");
               }
+              else if (response.errors[cont].message ===
+                  "Access denied") {
+                errorAc1 = $translate.instant("proj_alerts.access_denied");
+              }
               else {
                 errorAc1 = $translate.instant("proj_alerts.error_textsad");
               }
             }
             $msg.error(errorAc1);
           }
-          else if (angular.isDefined(response.data.uploadFile) &&
-              response.data.uploadFile.access) {
+          else if (angular.isDefined(response.data.uploadFile)) {
             if (response.data.uploadFile.success) {
               // Mixpanel tracking
               mixPanelDashboard.trackFinding(
@@ -309,10 +312,6 @@ angular.module("FluidIntegrates").factory(
               const errorAc1 = $translate.instant("proj_alerts.error_textsad");
               $msg.error(errorAc1);
             }
-          }
-          else {
-            const errorAc1 = $translate.instant("proj_alerts.access_denied");
-            $msg.error(errorAc1);
           }
         };
         projectFtry2.uploadVulnerabilities(

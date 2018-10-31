@@ -121,30 +121,27 @@ const deleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
       let gQry: string;
       gQry = `mutation {
         deleteVulnerability(id: "${vulnInfo.id}", findingId: "${vulnInfo.findingId}"){
-          access,
           success
         }
       }`;
       new Xhr().request(gQry, "An error occurred getting vulnerabilities")
-      .then((resp: AxiosResponse) => {
-        if (!resp.data.error) {
-          if (resp.data.data.deleteVulnerability !== undefined && resp.data.data.deleteVulnerability.access) {
-            if (resp.data.data.deleteVulnerability.success) {
-              msgSuccess("Vulnerabilitiy was deleted of this finding", "Congratulations");
-              location.reload();
-            } else {
-              msgError("There is an error :(");
-            }
-          } else {
-            msgError("Access denied or project not found");
-          }
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+
+        if (data.deleteVulnerability.success) {
+          msgSuccess("Vulnerabilitiy was deleted of this finding", "Congratulations");
+          location.reload();
         } else {
           msgError("There is an error :(");
         }
       })
-      .catch((error: string) => {
-        msgError("There is an error :(");
-        rollbar.error(error);
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          msgError("There is an error :(");
+          rollbar.error(error.message, errors);
+        }
       });
     }
 };

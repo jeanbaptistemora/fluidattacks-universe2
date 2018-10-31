@@ -47,20 +47,20 @@ class Finding(ObjectType):
                 self.release_date = ''
             vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
             if vulnerabilities:
-                self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
                 open_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == 'open']
                 self.open_vulnerabilities = len(open_vulnerabilities)
             elif resp.get('vulnerabilities'):
                 is_file_valid = validate_formstack_file(resp.get('vulnerabilities'), finding_id, info)
                 if is_file_valid:
                     vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
-                    self.vulnerabilities = [Vulnerability(info, i) for i in vulnerabilities]
+                    self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
                 else:
                     self.success = False
                     self.error_message = 'Error in file'
             else:
                 vuln_info = {'finding_id': self.id, 'vuln_type': 'old', 'where': resp.get('where')}
-                self.vulnerabilities = [Vulnerability(info, vuln_info)]
+                self.vulnerabilities = [Vulnerability(vuln_info)]
         else:
             self.success = False
             self.error_message = 'Finding does not exist'

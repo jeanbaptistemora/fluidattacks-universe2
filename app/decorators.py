@@ -179,7 +179,7 @@ def require_finding_access_gql(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         context = args[1].context
-        finding_id = kwargs.get('identifier')
+        finding_id = kwargs.get('finding_id') if kwargs.get('identifier') is None else kwargs.get('identifier')
         allowed_findings = context.session['access']
         user_data = util.get_jwt_content(context)
 

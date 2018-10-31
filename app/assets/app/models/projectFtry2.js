@@ -375,8 +375,7 @@ angular.module("FluidIntegrates").factory(
               uploadFile (
                 findingId: "${findingId}"
               ) {
-                success,
-                access,
+                success
               }
             }`;
         try {
