@@ -11,33 +11,33 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 # pylint: disable=E0402
 from __future__ import absolute_import
+import sys
+import os
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST, \
-         FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, FI_INTERCOM_APPID, \
-         FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
-         FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
+         FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, \
+         FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, \
+         FI_DEBUG, FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
          FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET
 from boto3.session import Session
-import os
 import rollbar
-import sys
+from .production import FIELDS_FINDING, FN_URL
+
+FIELDS_FINDING = FIELDS_FINDING
+FN_URL = FN_URL
+
 sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = FI_DJANGO_SECRET_KEY # noqa
+SECRET_KEY = FI_DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = FI_DEBUG=='True'
+DEBUG = FI_DEBUG =='True'
 
 ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la",
      "fluidattacks.com", "192.168.200.100.xip.io", "192.168.200.100",
      ".integrates.env.fluidattacks.com"]
-
 
 # Application definition
 

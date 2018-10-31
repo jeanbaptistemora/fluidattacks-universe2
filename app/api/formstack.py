@@ -7,6 +7,7 @@ import requests
 # pylint: disable=E0402
 # Pylint doesn't recognize absolute imports beyond top level modules.
 # pylint: disable=F0401
+from django.conf import settings
 from __init__ import FI_FORMSTACK_TOKENS
 from requests.exceptions import ConnectionError
 from retrying import retry
@@ -23,7 +24,7 @@ class FormstackAPI(object):
     headers_config = {}
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
     # Finding URL
-    FN_URL = "https://www.formstack.com/api/v2/form/1998500/submission.json"
+    FN_URL = settings.FN_URL
     # Project information URL
     IN_URL = "https://www.formstack.com/api/v2/form/2696665/submission.json"
     # Eventuality URL
@@ -138,7 +139,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
     @cache_control(max_age=600)
     def get_findings(self, project):
         """ Get the findings of a project. """
-        search_field = "32201732"
+        search_field = settings.FIELDS_FINDING['FLUID_PROJECT']
         data = {'search_field_1': search_field,
                 'search_value_1': project,
                 'page': 1,

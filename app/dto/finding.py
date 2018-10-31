@@ -3,10 +3,14 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # pylint: disable=relative-beyond-top-level
 import base64
+from datetime import datetime
+import uuid
+
 import pytz
 import rollbar
-import uuid
-from datetime import datetime
+
+from django.conf import settings
+
 from ..dao import integrates_dao
 from . import closing
 from ..api.formstack import FormstackAPI
@@ -14,88 +18,88 @@ from ..utils import forms
 from .. import util
 from ..exceptions import InvalidRange
 
+
 # pylint: disable=E0402
 
 class FindingDTO(object):
     """ Class to create an object with the attributes of a finding. """
-
+    FIELDS_FINDING = settings.FIELDS_FINDING
     #Atributos proyecto
-    ANALIST = "32201744"
-    LEADER = "38193323"
-    INTERESADO = "38392409"
-    FLUID_PROJECT = "32201732"
-    CLIENT_PROJECT = "38209122"
-    CONTEXT = "38404474"
+    ANALIST = FIELDS_FINDING["ANALIST"]
+    LEADER = FIELDS_FINDING["LEADER"]
+    INTERESADO = FIELDS_FINDING["INTERESADO"]
+    FLUID_PROJECT = FIELDS_FINDING["FLUID_PROJECT"]
+    CLIENT_PROJECT = FIELDS_FINDING["CLIENT_PROJECT"]
+    CONTEXT = FIELDS_FINDING["CONTEXT"]
+    REVISION = FIELDS_FINDING["REVISION"]
 
     #Atributos evidencia
-    REVISION = "54856382"
-    DOC_TOTAL = "53714016"
-    DOC_ACHV1 = "32202896"
-    DOC_ACHV2 = "53713035"
-    DOC_ACHV3 = "53713045"
-    DOC_ACHV4 = "53714414"
-    DOC_ACHV5 = "53714452"
-    DOC_CMNT1 = "53713106"
-    DOC_CMNT2 = "53713149"
-    DOC_CMNT3 = "53713153"
-    DOC_CMNT4 = "53714417"
-    DOC_CMNT5 = "53714455"
-    ANIMATION = "38307272"
-    EXPLOTATION = "38307222"
-    EXPLOIT = "38307199"
-    REG = "53609444"
-    REG_NUM = "49412242"
-    REG_FILE = "49412246"
-    VULNERABILITIES_FILE = "69850357"
+    DOC_TOTAL = FIELDS_FINDING["DOC_TOTAL"]
+    DOC_ACHV1 = FIELDS_FINDING["DOC_ACHV1"]
+    DOC_ACHV2 = FIELDS_FINDING["DOC_ACHV2"]
+    DOC_ACHV3 = FIELDS_FINDING["DOC_ACHV3"]
+    DOC_ACHV4 = FIELDS_FINDING["DOC_ACHV4"]
+    DOC_ACHV5 = FIELDS_FINDING["DOC_ACHV5"]
+    DOC_CMNT1 = FIELDS_FINDING["DOC_CMNT1"]
+    DOC_CMNT2 = FIELDS_FINDING["DOC_CMNT2"]
+    DOC_CMNT3 = FIELDS_FINDING["DOC_CMNT3"]
+    DOC_CMNT4 = FIELDS_FINDING["DOC_CMNT4"]
+    DOC_CMNT5 = FIELDS_FINDING["DOC_CMNT5"]
+    ANIMATION = FIELDS_FINDING["ANIMATION"]
+    EXPLOTATION = FIELDS_FINDING["EXPLOTATION"]
+    EXPLOIT = FIELDS_FINDING["EXPLOIT"]
+    REG = FIELDS_FINDING["REG"]
+    REG_NUM = FIELDS_FINDING["REG_NUM"]
+    REG_FILE = FIELDS_FINDING["REG_FILE"]
+    VULNERABILITIES_FILE = FIELDS_FINDING["VULNERABILITIES_FILE"]
 
     #Atributos descriptivos
-    CLASS = "38392454" #detallado
-    FINDING = "32201810"
-    SUBSCRIPTION = "54346108"
-    CLIENT_CODE = "38193365"
-    PROBABILITY = "38193660"
-    SEVERITY = "38193659"
-    RISK_LEVEL = "38194645"
-    RISK_VALUE = "38194645"
-    CARDINALITY = "38255025"
-    WHERE = "38193357"
-    CRITICITY = "38531129"
-    VULNERABILITY = "32202728"
-    THREAT = "38193361"
-    APPLICABLE_COMPONENT = "38209122"
-    TEST_TYPE = "38254692"
-    FINDING_TYPE = "54319180"
-    RISK = "38193362"
-    REQUIREMENTS = "38254586"
-    EFFECT_SOLUTION = "38619077"
-    KB = "38861739"
-    TYPE = "38392454"
-    ACTOR = "38606398"
-    CATEGORY = "46956845"
-    SCENARIO = "38692215"
-    AMBIT = "38254691"
-    AFFECTED_SYSTEMS = "48092123"
-    ATTACK_VECTOR = "48092088"
-    CWE = "38899046"
-    TREATMENT = "59350064"
-    TREATMENT_JUSTIFICATION = "59351642"
-    TREATMENT_MANAGER = "59381058"
-    EXTERNAL_BTS = "56614832"
-    LAST_VULNERABILITY = "63672923"
-    RELEASE_DATE = "64313858"
-    RELATED_FINDINGS = "38606215"
+    CLASS = FIELDS_FINDING["CLASS"] #detallado
+    FINDING = FIELDS_FINDING["FINDING"]
+    SUBSCRIPTION = FIELDS_FINDING["SUBSCRIPTION"]
+    CLIENT_CODE = FIELDS_FINDING["CLIENT_CODE"]
+    PROBABILITY = FIELDS_FINDING["PROBABILITY"]
+    SEVERITY = FIELDS_FINDING["SEVERITY"]
+    RISK_LEVEL = FIELDS_FINDING["RISK_LEVEL"]
+    RISK_VALUE = FIELDS_FINDING["RISK_VALUE"]
+    CARDINALITY = FIELDS_FINDING["CARDINALITY"]
+    WHERE = FIELDS_FINDING["WHERE"]
+    VULNERABILITY = FIELDS_FINDING["VULNERABILITY"]
+    THREAT = FIELDS_FINDING["THREAT"]
+    APPLICABLE_COMPONENT = FIELDS_FINDING["APPLICABLE_COMPONENT"]
+    TEST_TYPE = FIELDS_FINDING["TEST_TYPE"]
+    FINDING_TYPE = FIELDS_FINDING["FINDING_TYPE"]
+    RISK = FIELDS_FINDING["RISK"]
+    REQUIREMENTS = FIELDS_FINDING["REQUIREMENTS"]
+    EFFECT_SOLUTION = FIELDS_FINDING["EFFECT_SOLUTION"]
+    KB_LINK = FIELDS_FINDING["KB"]
+    TYPE = FIELDS_FINDING["TYPE"]
+    ACTOR = FIELDS_FINDING["ACTOR"]
+    CATEGORY = FIELDS_FINDING["CATEGORY"]
+    SCENARIO = FIELDS_FINDING["SCENARIO"]
+    AMBIT = FIELDS_FINDING["AMBIT"]
+    AFFECTED_SYSTEMS = FIELDS_FINDING["AFFECTED_SYSTEMS"]
+    ATTACK_VECTOR = FIELDS_FINDING["ATTACK_VECTOR"]
+    CWE = FIELDS_FINDING["CWE"]
+    TREATMENT = FIELDS_FINDING["TREATMENT"]
+    TREATMENT_JUSTIFICATION = FIELDS_FINDING["TREATMENT_JUSTIFICATION"]
+    TREATMENT_MANAGER = FIELDS_FINDING["TREATMENT_MANAGER"]
+    EXTERNAL_BTS = FIELDS_FINDING["EXTERNAL_BTS"]
+    LAST_VULNERABILITY = FIELDS_FINDING["LAST_VULNERABILITY"]
+    RELEASE_DATE = FIELDS_FINDING["RELEASE_DATE"]
+    RELATED_FINDINGS = FIELDS_FINDING["RELATED_FINDINGS"]
 
     #Atributos CssV2
-    ACCESS_VECTOR = "38529247"
-    ACCESS_COMPLEXITY = "38529248"
-    AUTHENTICATION = "38529249"
-    EXPLOITABILITY = "38529253"
-    CRITICITY = "38531129"
-    CONFIDENTIALITY_IMPACT = "38529250"
-    INTEGRITY_IMPACT = "38529251"
-    AVAILABILITY_IMPACT = "38529252"
-    RESOLUTION_LEVEL = "38529254"
-    CONFIDENCE_LEVEL = "38529255"
+    ACCESS_VECTOR = FIELDS_FINDING["ACCESS_VECTOR"]
+    ACCESS_COMPLEXITY = FIELDS_FINDING["ACCESS_COMPLEXITY"]
+    AUTHENTICATION = FIELDS_FINDING["AUTHENTICATION"]
+    EXPLOITABILITY = FIELDS_FINDING["EXPLOITABILITY"]
+    CRITICITY = FIELDS_FINDING["CRITICITY"]
+    CONFIDENTIALITY_IMPACT = FIELDS_FINDING["CONFIDENTIALITY_IMPACT"]
+    INTEGRITY_IMPACT = FIELDS_FINDING["INTEGRITY_IMPACT"]
+    AVAILABILITY_IMPACT = FIELDS_FINDING["AVAILABILITY_IMPACT"]
+    RESOLUTION_LEVEL = FIELDS_FINDING["RESOLUTION_LEVEL"]
+    CONFIDENCE_LEVEL = FIELDS_FINDING["CONFIDENCE_LEVEL"]
 
     def __init__(self):
         """ Class constructor """
@@ -105,11 +109,11 @@ class FindingDTO(object):
     def create_evidence_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """
         evidence_description_fields = {
-            "53713106":"evidenceDescription1",
-            "53713149":"evidenceDescription2",
-            "53713153":"evidenceDescription3",
-            "53714417":"evidenceDescription4",
-            "53714455":"evidenceDescription5"
+            self.DOC_CMNT1: "evidenceDescription1",
+            self.DOC_CMNT2: "evidenceDescription2",
+            self.DOC_CMNT3: "evidenceDescription3",
+            self.DOC_CMNT4: "evidenceDescription4",
+            self.DOC_CMNT5: "evidenceDescription5"
         }
         parsed_dict = {k:parameter["data[" + v + "]"] \
                       for (k, v) in evidence_description_fields.items() \
@@ -189,33 +193,33 @@ class FindingDTO(object):
     def create_treatment(self, parameter):
         """ Converts the index of a JSON to Formstack index """
         treatment_fields = {
-            "59350064":"treatment",
-            "59351642":"treatmentJustification",
-            "59381058":"treatmentManager",
-            "56614832":"externalBts"
+            self.TREATMENT:"treatment",
+            self.TREATMENT_JUSTIFICATION:"treatmentJustification",
+            self.TREATMENT_MANAGER:"treatmentManager",
+            self.EXTERNAL_BTS:"externalBts"
         }
         parsed_dict = {k:parameter["data[" + v + "]"] \
                        if "data[" + v + "]" in parameter.keys() else "" \
-                       for (k,v) in treatment_fields.items()}
+                       for (k, v) in treatment_fields.items()}
         return {"data":parsed_dict, "request_id":parameter["data[id]"]}
 
 
     def create_cssv2(self, parameter):
         """ Converts the index of a JSON to Formstack index """
         severity_tab_fields = {
-            "38529247":"accessVector",
-            "38529248":"accessComplexity",
-            "38529249":"authentication",
-            "38529253":"exploitability",
-            "38531129":"criticity",
-            "38529250":"confidentialityImpact",
-            "38529251":"integrityImpact",
-            "38529252":"availabilityImpact",
-            "38529254":"resolutionLevel",
-            "38529255":"confidenceLevel"
+            self.ACCESS_VECTOR: "accessVector",
+            self.ACCESS_COMPLEXITY: "accessComplexity",
+            self.AUTHENTICATION: "authentication",
+            self.EXPLOITABILITY: "exploitability",
+            self.CRITICITY: "criticity",
+            self.CONFIDENTIALITY_IMPACT: "confidentialityImpact",
+            self.INTEGRITY_IMPACT: "integrityImpact",
+            self.AVAILABILITY_IMPACT: "availabilityImpact",
+            self.RESOLUTION_LEVEL: "resolutionLevel",
+            self.CONFIDENCE_LEVEL: "confidenceLevel"
         }
         parsed_dict = {k:parameter["data[" + v + "]"] \
-                for (k,v) in severity_tab_fields.items()}
+                for (k, v) in severity_tab_fields.items()}
         return {"data":parsed_dict, "request_id":parameter["data[id]"]}
 
     def create_delete(self, parameter, analyst, project, finding):
@@ -254,39 +258,39 @@ class FindingDTO(object):
         initial_dict = forms.create_dict(request_arr)
         self.data["timestamp"] = request_arr["timestamp"]
         evidence_description_fields = {
-            "32201810":"finding",
-            "54346108":"suscripcion",
-            "38193365":"codigo_cliente",
-            "38193660":"probability",
-            "38193659":"severity",
-            "38194645":"nivel_riesgo",
-            "38255025":"openVulnerabilities",
-            "38193357":"where",
-            "38531129":"criticity",
-            "32202728":"vulnerability",
-            "38193361":"threat",
-            "38209122":"componente_aplicativo",
-            "38254692":"testType",
-            "38193362":"riesgo",
-            "38254586":"requirements",
-            "38619077":"effectSolution",
-            "38861739":"kb",
-            "38392454":"type",
-            "48092123":"affectedSystems",
-            "48092088":"attackVector",
-            "54319180":"finding_type",
-            "54856382":"revision",
-            "38692215":"scenario",
-            "38254691":"ambito",
-            "46956845":"category",
-            "38606398":"actor",
-            "59350064":"treatment",
-            "59351642":"treatmentJustification",
-            "59381058":"treatmentManager",
-            "56614832":"externalBts",
-            "63672923":"lastVulnerability",
-            "64313858":"releaseDate",
-            "38899046":"cwe"
+            self.FINDING:"finding",
+            self.SUBSCRIPTION:"suscripcion",
+            self.CLIENT_CODE:"codigo_cliente",
+            self.PROBABILITY:"probability",
+            self.SEVERITY:"severity",
+            self.RISK_LEVEL:"nivel_riesgo",
+            self.CARDINALITY:"openVulnerabilities",
+            self.WHERE:"where",
+            self.CRITICITY:"criticity",
+            self.VULNERABILITY:"vulnerability",
+            self.THREAT:"threat",
+            self.CLIENT_PROJECT:"componente_aplicativo",
+            self.TEST_TYPE:"testType",
+            self.RISK:"riesgo",
+            self.REQUIREMENTS:"requirements",
+            self.EFFECT_SOLUTION:"effectSolution",
+            self.KB_LINK:"kb",
+            self.CLASS:"type",
+            self.AFFECTED_SYSTEMS:"affectedSystems",
+            self.ATTACK_VECTOR:"attackVector",
+            self.FINDING_TYPE:"finding_type",
+            self.REVISION:"revision",
+            self.SCENARIO:"scenario",
+            self.AMBIT:"ambito",
+            self.CATEGORY:"category",
+            self.ACTOR:"actor",
+            self.TREATMENT:"treatment",
+            self.TREATMENT_JUSTIFICATION:"treatmentJustification",
+            self.TREATMENT_MANAGER:"treatmentManager",
+            self.EXTERNAL_BTS:"externalBts",
+            self.LAST_VULNERABILITY:"lastVulnerability",
+            self.RELEASE_DATE:"releaseDate",
+            self.CWE:"cwe"
         }
         parsed_dict = {v:initial_dict[k] \
                       for (k, v) in evidence_description_fields.items() \
@@ -318,15 +322,15 @@ class FindingDTO(object):
         "Convert the score of a finding into a formstack format"
         initial_dict = forms.create_dict(request_arr)
         severity_fields = {
-            "38529247":"accessVector",
-            "38529248":"accessComplexity",
-            "38529249":"authentication",
-            "38529250":"confidentialityImpact",
-            "38529251":"integrityImpact",
-            "38529252":"availabilityImpact",
-            "38529253":"exploitability",
-            "38529254":"resolutionLevel",
-            "38529255":"confidenceLevel"
+            self.ACCESS_VECTOR:"accessVector",
+            self.ACCESS_COMPLEXITY:"accessComplexity",
+            self.AUTHENTICATION:"authentication",
+            self.CONFIDENTIALITY_IMPACT:"confidentialityImpact",
+            self.INTEGRITY_IMPACT:"integrityImpact",
+            self.AVAILABILITY_IMPACT:"availabilityImpact",
+            self.EXPLOITABILITY:"exploitability",
+            self.RESOLUTION_LEVEL:"resolutionLevel",
+            self.CONFIDENCE_LEVEL:"confidenceLevel"
         }
         parsed_dict = {v:initial_dict[k] \
                       for (k, v) in severity_fields.items() \
@@ -339,12 +343,12 @@ class FindingDTO(object):
         "Convert project info in formstack format"
         initial_dict = forms.create_dict(request_arr)
         project_fields = {
-            "32201744":"analyst",
-            "38193323":"leader",
-            "38392409":"interested",
-            "32201732":"fluidProject",
-            "38209122":"clientProject",
-            "38404474":"context"
+            self.ANALIST:"analyst",
+            self.LEADER:"leader",
+            self.INTERESADO:"interested",
+            self.FLUID_PROJECT:"fluidProject",
+            self.CLIENT_PROJECT:"clientProject",
+            self.CONTEXT:"context"
         }
         parsed_dict = {v:initial_dict[k] \
                       for (k, v) in project_fields.items() \
@@ -356,26 +360,26 @@ class FindingDTO(object):
         "Convert the score of a finding into a formstack format"
         initial_dict = forms.create_dict(request_arr)
         evidence_tab_fields = {
-            "53714016":"evidenceTotal",
-            "53713106":"evidence_description_1",
-            "53713149":"evidence_description_2",
-            "53713153":"evidence_description_3",
-            "53714417":"evidence_description_4",
-            "53714455":"evidence_description_5",
-            "53609444":"records",
-            "49412242":"recordsNumber"
+            self.DOC_TOTAL:"evidenceTotal",
+            self.DOC_CMNT1:"evidence_description_1",
+            self.DOC_CMNT2:"evidence_description_2",
+            self.DOC_CMNT3:"evidence_description_3",
+            self.DOC_CMNT4:"evidence_description_4",
+            self.DOC_CMNT5:"evidence_description_5",
+            self.REG:"records",
+            self.REG_NUM:"recordsNumber"
         }
         evidence_fields_with_urls = {
-            "32202896":"evidence_route_1",
-            "53713035":"evidence_route_2",
-            "53713045":"evidence_route_3",
-            "53714414":"evidence_route_4",
-            "53714452":"evidence_route_5",
-            "38307272":"animation",
-            "38307222":"exploitation",
-            "38307199":"exploit",
-            "49412246":"fileRecords",
-            "69850357":"vulnerabilities"
+            self.DOC_ACHV1:"evidence_route_1",
+            self.DOC_ACHV2:"evidence_route_2",
+            self.DOC_ACHV3:"evidence_route_3",
+            self.DOC_ACHV4:"evidence_route_4",
+            self.DOC_ACHV5:"evidence_route_5",
+            self.ANIMATION:"animation",
+            self.EXPLOTATION:"exploitation",
+            self.EXPLOIT:"exploit",
+            self.REG_FILE:"fileRecords",
+            self.VULNERABILITIES_FILE:"vulnerabilities"
         }
         evidence_tab_info = {v:initial_dict[k] \
                       for (k, v) in evidence_tab_fields.items() \
