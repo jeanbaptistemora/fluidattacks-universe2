@@ -73,4 +73,4 @@ FIELDS_FINDING = {
     'CONFIDENCE_LEVEL': '38529255'
 }
 
-FN_URL = "https://www.formstack.com/api/v2/form/1998500/submission.json"
+FN_URL = 'https://www.formstack.com/api/v2/form/1998500/submission.json'
