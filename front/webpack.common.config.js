@@ -1,7 +1,6 @@
 /* Webpack plugins */
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 /* Webpack common module definition */
 module.exports = {
   entry: "./src/index.js",
@@ -53,9 +52,7 @@ module.exports = {
     }]
   },
   plugins: [
-    new UglifyJsPlugin({parallel: true}),
-    new ExtractTextPlugin("integrates.min.css"),
-    new OptimizeCssAssetsPlugin()
+    new ExtractTextPlugin("integrates.min.css")
   ],
   stats: {
     children: false,

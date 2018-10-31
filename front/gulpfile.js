@@ -47,11 +47,21 @@ gulp.task(
  * it adds and minifies CSS
  */
 gulp.task(
-  "package",
+  "package:prod",
   ['compile'],
   () => {
     return gulp.src('./src/index.js')
-      .pipe(gulpWebpack(require('./webpack.config.js'), webpack))
+      .pipe(gulpWebpack(require('./webpack.prod.config.js'), webpack))
+      .pipe(gulp.dest(paths.dashboard.destination));
+  }
+);
+
+gulp.task(
+  "package:dev",
+  ['compile'],
+  () => {
+    return gulp.src('./src/index.js')
+      .pipe(gulpWebpack(require('./webpack.dev.config.js'), webpack))
       .pipe(gulp.dest(paths.dashboard.destination));
   }
 );
@@ -59,16 +69,16 @@ gulp.task(
  * Development Task: Code watcher
  * Run package task when a file change
  */
-gulp.task('watch', ['package'], function() {
-  gulp.watch(['./src/**/*.ts', './src/**/*.tsx'], ['package']);
+gulp.task('watch', ['package:dev'], function() {
+  gulp.watch(['./src/**/*.ts', './src/**/*.tsx'], ['package:dev']);
 });
 /**
-* Integrate's Task: Deploy React App
-* Deploy dashboard and login
-* "login" is a temporary task before full integration
+* Integrates Task: Bundle integrates front
+* Packages all compiled react components and styles
+* Minifies and uglifies the resulting JS
 */
-gulp.task("integrates", ["package"]);
+gulp.task("integrates", ["package:prod"]);
 /**
- * Default Task: Run Integrate's Task
+ * Default Task: Run Integrates Task
  */
 gulp.task("default", ["integrates"]);
