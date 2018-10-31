@@ -49,6 +49,7 @@ from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime, timedelta
 from backports import csv
+from .entity import schema
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
 client_s3 = boto3.client('s3',
@@ -502,6 +503,33 @@ def catch_finding(request, submission_id):
             if closingData is None or 'error' in closingData:
                 return None
             else:
+                query = """{
+                  finding(identifier: "findingid"){
+                    id
+                    success
+                    openVulnerabilities
+                    portsVulns: vulnerabilities(
+                      vulnType: "ports", state: "open") {
+                      ...vulnInfo
+                    }
+                    linesVulns: vulnerabilities(
+                      vulnType: "lines", state: "open") {
+                      ...vulnInfo
+                    }
+                    inputsVulns: vulnerabilities(
+                      vulnType: "inputs", state: "open") {
+                      ...vulnInfo
+                    }
+                  }
+                }
+                fragment vulnInfo on Vulnerability {
+                  vulnType
+                  where
+                  specific
+                }"""
+                query = query.replace('findingid', submission_id)
+                result = schema.schema.execute(query, context_value=request)
+                finding_new = result.data.get('finding')
                 closingreqset = closingData["submissions"]
                 findingcloseset = []
                 for closingreq in closingreqset:
@@ -512,7 +540,29 @@ def catch_finding(request, submission_id):
                 finding["estado"] = state["estado"]
                 finding["cierres"] = findingcloseset
                 finding['cardinalidad_total'] = finding['openVulnerabilities']
-                if 'opened' in state:
+                if finding_new:
+                    if finding_new.get('openVulnerabilities'):
+                        finding['openVulnerabilities'] = str(finding_new.get('openVulnerabilities'))
+                    else:
+                        # This finding does not have open vulnerabilities
+                        pass
+                    if finding_new.get('portsVulns'):
+                        finding['portsVulns'] = finding_new.get('portsVulns')
+                    else:
+                        # This finding does not have ports vulnerabilities
+                        pass
+                    if finding_new.get('linesVulns'):
+                        finding['linesVulns'] = finding_new.get('linesVulns')
+                    else:
+                        # This finding does not have lines vulnerabilities
+                        pass
+                    if finding_new.get('inputsVulns'):
+                        finding['inputsVulns'] = finding_new.get('inputsVulns')
+                    else:
+                        # This finding does not have inputs vulnerabilities
+                        pass
+                    finding['cardinalidad_total'] = finding['openVulnerabilities']
+                elif 'opened' in state:
                     # Hack: This conditional temporarily solves the problem presented
                     #      when the number of vulnerabilities open in a closing cycle
                     # are higher than the number of vulnerabilities open in a finding

@@ -107,7 +107,37 @@
         - {{req + "\n"}}
     {% endfor %}
 ==== {{where_title}}
-    {{fin['where'].lstrip() + "\n"}}
+{% if fin.get('portsVulns') or fin.get('linesVulns') or fin.get('inputsVulns') %}
+{% if 'portsVulns' in fin %}
+===== {{ports}}
+|===
+|{{'IP'}}|{{port}}
+{% for port in fin['portsVulns'] %}
+{{'|'+port['where']+'|'+port['specific']}}
+{% endfor %}
+|===
+{% endif %}
+{% if 'linesVulns' in fin %}
+===== {{lines}}
+|===
+|{{path}}|{{line}}
+{% for line in fin['linesVulns'] %}
+{{'|'+line['where']+'|'+line['specific']}}
+{% endfor %}
+|===
+{% endif %}
+{% if 'inputsVulns' in fin %}
+===== {{inputs}}
+|===
+|{{'URL'}}|{{field}}
+{% for input in fin['inputsVulns'] %}
+{{'|'+input['where']+'|'+input['specific']}}
+{% endfor %}
+|===
+{% endif %}
+{% else %}
+    {{fin['where'].lstrip() + '\n'}}
+{% endif %}
 ==== {{evidence_title}}
 {% for evi in fin['evidence_set'] %}
 {{evi['explanation'] + "\n"}}
