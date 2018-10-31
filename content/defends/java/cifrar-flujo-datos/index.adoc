@@ -1,0 +1,184 @@
+:slug: defends/java/cifrar-flujo-datos/
+:category: java
+:description: Nuestros ethical hackers dan una breve introducción a lo que es la criptografía y el porque es necesario usarla para proteger la información, además explican la manera de cifrar y descifrar el flujo de datos de un sistema usando un algoritmo de cifrado simétrico como AES.
+:keywords: Java, Seguridad, AES, Cifrado, Flujo, Datos.
+:defends: yes
+
+= Cifrar Flujo de Datos
+
+== Necesidad
+
+Se requiere cifrar un flujo de datos
+mediante el uso de un algoritmo de cifrado simétrico.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de un compilador estándar de +Java+.
+
+== Solución
+
+A través de toda la historia
+las personas siempre han tenido
+la necesidad de ocultar o resguardar
+la información importante ya que
+el conocimiento de la misma
+por parte de quien no debe,
+podría o, mejor dicho,
+puede acarrear consecuencias nefastas.
+
+A partir de dicha necesidad surge la criptografía.
+Se conoce por criptografía
+a las técnicas de cifrado o codificado
+destinadas a alterar las representaciones lingüísticas
+de ciertos mensajes con el fin de hacerlos ininteligibles,
+es decir, ilegibles a receptores no autorizados.
+
+Por otro lado y de manera general,
+se define como flujo de datos
+al movimiento que tienen estos en determinado sistema.
+Es decir, el proceso que sigue la información
+desde que entra al sistema hasta que sale.
+
+Entendido lo anterior, en esta solución
+miraremos la manera de proteger
+el flujo de datos
+mediante el uso de un algoritmo de cifrado simétrico.
+
+. Para proteger el flujo de datos
+y con el objetivo de cifrar y descifrar
+los datos entrantes a un sistema,
++Java+ proporciona la clase
++javax.crypto.CipherInputStream+.
+De igual manera, para cifrar y descifrar los datos salientes,
+se usa la clase +javax.crypto.CipherOutputStream+.
+
+. Para cifrar y descifrar un flujo de datos,
+se deben importar las siguientes clases.
++
+.cli.java
+[source, java, linenums]
+----
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+----
+
+. Entre las clases importadas,
+aquellas terminadas en +Exception+,
+representan excepciones que podrían ocurrir durante el proceso.
+Estas excepciones deben ser controladas
+por las clases que consuman el servicio de cifrado simétrico.
+
+. Además, las clases +javax.crypto.KeyGenerator+
+y +javax.crypto.SecretKey+ serán utilizadas
+para generar la clave secreta
+con la cual se va a cifrar y descifrar la información.
+
+. Para generar dicha clave
+se debe invocar el método estático
++getInstance+ de la clase +KeyGenerator+.
+Posteriormente, se establece el tamaño de clave
+y se genera la misma.
++
+[source, java, linenums]
+----
+class CLI {
+  public static void main(String args[]) throws NoSuchAlgorithmException,
+    NoSuchPaddingException, BadPaddingException, InvalidKeyException,
+      IllegalBlockSizeException, IOException {
+        String filename = "./CLI.java";
+        String algorithm = "AES";
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
+        keyGenerator.init(256);
+        SecretKey secretKey = keyGenerator.generateKey();
+----
+
+. Para cifrar la información
+se debe establecer el modo de operación +ENCRYPT_MODE+.
++
+[source, java, linenums]
+----
+Cipher encrypter = Cipher.getInstance(algorithm);
+encrypter.init(Cipher.ENCRYPT_MODE, secretKey);
+----
+
+. Se establece el flujo de datos.
+En este caso se accederá
+al contenido de la clase
+para luego cifrarlo y escribir
+el contenido cifrado en un archivo llamado +CLI.java.crypted+.
++
+[source, java, linenums]
+----
+FileInputStream fis = new FileInputStream(filename);
+FileOutputStream fos = new FileOutputStream(filename + ".crypted");
+CipherOutputStream cos = new CipherOutputStream(fos, encrypter);
+byte[] b = new byte[8];
+int i = fis.read(b);
+while (i != -1) {
+  cos.write(b, 0, i);
+  i = fis.read(b);
+}
+cos.close();
+----
+
+. Para descifrar la información
+se debe establecer el modo de operación +DECRYPT_MODE+
+pasándole como parámetro la misma clave secreta
+que se utilizó para cifrar el contenido.
++
+[source, java, linenums]
+----
+Cipher decrypter = Cipher.getInstance(algorithm);
+decrypter.init(Cipher.DECRYPT_MODE, secretKey);
+----
+
+. Se establece el flujo de datos.
+En este caso se va a acceder
+al contenido cifrado del archivo +CLI.java.crypted+,
+para luego descifrarlo y escribir
+el contenido en texto plano
+en un archivo llamado +CLI.java.decrypted+.
++
+[source, java, linenums]
+----
+  CipherInputStream cis;
+  fis = new FileInputStream(filename + ".crypted");
+  cis = new CipherInputStream(fis, decrypter);
+  fos = new FileOutputStream(filename + ".decrypted");
+  b = new byte[8];
+  i = cis.read(b);
+  while (i != -1) {
+    fos.write(b, 0, i);
+    i = cis.read(b);
+  }
+  cis.close();
+  }
+}
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+[button]#link:src/cli.java[CLI.java]#
+Clase CLI.
+
+== Referencias
+
+. [[r1]] link:https://docs.oracle.com/javase/6/docs/technotes/guides/security/crypto/CryptoSpec.html#CipherStream[The Cipher Stream Classes]
+. [[r2]] link:https://www.veracode.com/blog/research/encryption-and-decryption-java-cryptography[Encryption and Decryption in Java Cryptography]
