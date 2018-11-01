@@ -540,12 +540,8 @@ def catch_finding(request, submission_id):
                 finding["estado"] = state["estado"]
                 finding["cierres"] = findingcloseset
                 finding['cardinalidad_total'] = finding['openVulnerabilities']
-                if finding_new:
-                    if finding_new.get('openVulnerabilities'):
-                        finding['openVulnerabilities'] = str(finding_new.get('openVulnerabilities'))
-                    else:
-                        # This finding does not have open vulnerabilities
-                        pass
+                if finding_new.get('openVulnerabilities'):
+                    finding['openVulnerabilities'] = str(finding_new.get('openVulnerabilities'))
                     if finding_new.get('portsVulns'):
                         finding['portsVulns'] = finding_new.get('portsVulns')
                     else:
