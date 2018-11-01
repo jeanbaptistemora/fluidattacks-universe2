@@ -8,7 +8,8 @@ import uuid
 
 import pytz
 import rollbar
-
+import itertools
+from operator import itemgetter
 from django.conf import settings
 
 from ..dao import integrates_dao
@@ -572,3 +573,32 @@ def add_vuln_to_dynamo(item, specific, vuln, finding_id, info):
                 info.context,
                 'Security: Attempted to add vulnerability without state')
     return response
+
+
+def sort_vulnerabilities(item):
+    """Sort a vulnerability by its where field."""
+    sorted_item = sorted(item, key=itemgetter('where'))
+    return sorted_item
+
+
+def group_specific(specific):
+    """Group vulnerabilities by its specific field."""
+    sorted_specific = sort_vulnerabilities(specific)
+    lines = []
+    for key, group in itertools.groupby(sorted_specific, key=lambda x: x['where']):
+        specific_grouped = list(map(get_specific, list(group)))
+        specific_grouped.sort()
+        dictlines = {'where': key, 'specific': list_to_string(specific_grouped)}
+        lines.append(dictlines)
+    return lines
+
+
+def get_specific(value):
+    """Get specific value."""
+    return int(value.get('specific'))
+
+
+def list_to_string(value):
+    """Convert a list into string."""
+    str_value = ', '.join(map(str, value))
+    return str_value

@@ -13,7 +13,6 @@ import boto3
 import io
 import collections
 import threading
-
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
@@ -26,7 +25,10 @@ from django.http import HttpResponse
 from . import util
 from .decorators import authenticate, authorize, require_project_access, require_finding_access
 from .techdoc.IT import ITReport
-from .dto.finding import FindingDTO, format_finding_date, finding_vulnerabilities
+from .dto.finding import (
+    FindingDTO, format_finding_date, finding_vulnerabilities,
+    sort_vulnerabilities, group_specific
+)
 from .dto import closing
 from .dto import project as projectDTO
 from .dto import eventuality
@@ -540,20 +542,20 @@ def catch_finding(request, submission_id):
                 finding["estado"] = state["estado"]
                 finding["cierres"] = findingcloseset
                 finding['cardinalidad_total'] = finding['openVulnerabilities']
-                if finding_new.get('openVulnerabilities'):
+                if finding_new and finding_new.get('openVulnerabilities'):
                     finding['openVulnerabilities'] = str(finding_new.get('openVulnerabilities'))
                     if finding_new.get('portsVulns'):
-                        finding['portsVulns'] = finding_new.get('portsVulns')
+                        finding['portsVulns'] = sort_vulnerabilities(finding_new.get('portsVulns'))
                     else:
                         # This finding does not have ports vulnerabilities
                         pass
                     if finding_new.get('linesVulns'):
-                        finding['linesVulns'] = finding_new.get('linesVulns')
+                        finding['linesVulns'] = group_specific(finding_new.get('linesVulns'))
                     else:
                         # This finding does not have lines vulnerabilities
                         pass
                     if finding_new.get('inputsVulns'):
-                        finding['inputsVulns'] = finding_new.get('inputsVulns')
+                        finding['inputsVulns'] = sort_vulnerabilities(finding_new.get('inputsVulns'))
                     else:
                         # This finding does not have inputs vulnerabilities
                         pass
