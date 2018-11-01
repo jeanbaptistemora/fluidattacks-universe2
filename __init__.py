@@ -28,6 +28,9 @@ try:
     FI_ENVIRONMENT = os.environ['FI_ENVIRONMENT']
     FI_MANDRILL_API_KEY = os.environ['FI_MANDRILL_API_KEY']
     FI_JWT_SECRET = os.environ['FI_JWT_SECRET']
+    FI_ORGANIZATION_SECRET = os.environ['FI_ORGANIZATION_SECRET']
+    FI_DASHBOARD = os.environ['FI_DASHBOARD']
+    FI_ORGANIZATION = os.environ['FI_ORGANIZATION']
 except KeyError as e:
     print "Environment variable " + e.args[0] +  " doesn't exist"
     raise
