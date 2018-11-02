@@ -305,11 +305,10 @@ angular.module("FluidIntegrates").factory(
        * Get finding vulnerabilities.
        * @function getVulnerabilities
        * @param {String} findingId Numeric id of the finding
-       * @param {String} vulnState Filter for the vulnerabilities
        * @member integrates.projectFtry2
        * @return {Object} GraphQL response with the requested data
        */
-      "getVulnerabilities" (findingId, vulnState) {
+      "getVulnerabilities" (findingId) {
         const oopsAc = "An error occurred getting finding information";
         const gQry = `{
           finding(identifier: "${findingId}") {
@@ -317,22 +316,8 @@ angular.module("FluidIntegrates").factory(
             success
             errorMessage
             openVulnerabilities
-            portsVulns: vulnerabilities(
-              vulnType: "ports", state: "${vulnState}") {
-              ...vulnInfo
-            }
-            linesVulns: vulnerabilities(
-              vulnType: "lines", state: "${vulnState}") {
-              ...vulnInfo
-            }
-            inputsVulns: vulnerabilities(
-              vulnType: "inputs", state: "${vulnState}") {
-              ...vulnInfo
-            }
+            closedVulnerabilities
           }
-        }
-        fragment vulnInfo on Vulnerability {
-          where
         }`;
         return $xhr.fetch($q, gQry, oopsAc);
       },

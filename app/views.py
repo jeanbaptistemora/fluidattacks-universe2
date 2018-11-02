@@ -510,6 +510,7 @@ def catch_finding(request, submission_id):
                     id
                     success
                     openVulnerabilities
+                    closedVulnerabilities
                     portsVulns: vulnerabilities(
                       vulnType: "ports", state: "open") {
                       ...vulnInfo
@@ -542,24 +543,10 @@ def catch_finding(request, submission_id):
                 finding["estado"] = state["estado"]
                 finding["cierres"] = findingcloseset
                 finding['cardinalidad_total'] = finding['openVulnerabilities']
-                if finding_new and finding_new.get('openVulnerabilities'):
-                    finding['openVulnerabilities'] = str(finding_new.get('openVulnerabilities'))
-                    if finding_new.get('portsVulns'):
-                        finding['portsVulns'] = sort_vulnerabilities(finding_new.get('portsVulns'))
-                    else:
-                        # This finding does not have ports vulnerabilities
-                        pass
-                    if finding_new.get('linesVulns'):
-                        finding['linesVulns'] = group_specific(finding_new.get('linesVulns'))
-                    else:
-                        # This finding does not have lines vulnerabilities
-                        pass
-                    if finding_new.get('inputsVulns'):
-                        finding['inputsVulns'] = sort_vulnerabilities(finding_new.get('inputsVulns'))
-                    else:
-                        # This finding does not have inputs vulnerabilities
-                        pass
-                    finding['cardinalidad_total'] = finding['openVulnerabilities']
+                if (finding_new and
+                        (finding_new.get('openVulnerabilities') or
+                            finding_new.get('closedVulnerabilities'))):
+                    finding = cast_new_vulnerabilities(finding_new, finding)
                 elif 'opened' in state:
                     # Hack: This conditional temporarily solves the problem presented
                     #      when the number of vulnerabilities open in a closing cycle
@@ -573,7 +560,7 @@ def catch_finding(request, submission_id):
                 if 'whichClosed' in state:
                     finding['closed'] = state['whichClosed']
                 finding = format_release_date(finding, state)
-                if state['estado'] == 'Cerrado':
+                if finding['estado'] == 'Cerrado':
                     finding['where'] = '-'
                     finding['edad'] = '-'
                     finding['lastVulnerability'] = '-'
@@ -581,6 +568,44 @@ def catch_finding(request, submission_id):
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
+
+
+def cast_new_vulnerabilities(finding_new, finding):
+    """Cast values for new format."""
+    total_cardinality = finding_new.get('openVulnerabilities') + \
+        finding_new.get('closedVulnerabilities')
+    finding['cardinalidad_total'] = str(total_cardinality)
+    if (finding_new.get('closedVulnerabilities') > 0 and
+            finding_new.get('openVulnerabilities') == 0):
+        finding['estado'] = 'Cerrado'
+    else:
+        finding['estado'] = 'Abierto'
+    if finding_new.get('openVulnerabilities') >= 0:
+        finding['openVulnerabilities'] = \
+            str(finding_new.get('openVulnerabilities'))
+    else:
+        # This finding does not have open vulnerabilities
+        pass
+    if finding_new.get('portsVulns'):
+        finding['portsVulns'] = \
+            sort_vulnerabilities(finding_new.get('portsVulns'))
+    else:
+        # This finding does not have ports vulnerabilities
+        pass
+    if finding_new.get('linesVulns'):
+        finding['linesVulns'] = \
+            group_specific(finding_new.get('linesVulns'))
+    else:
+        # This finding does not have lines vulnerabilities
+        pass
+    if finding_new.get('inputsVulns'):
+        finding['inputsVulns'] = \
+            sort_vulnerabilities(finding_new.get('inputsVulns'))
+    else:
+        # This finding does not have inputs vulnerabilities
+        pass
+    return finding
+
 
 def format_release_date(finding, state):
     primary_keys = ["finding_id", finding["id"]]

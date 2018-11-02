@@ -22,6 +22,7 @@ class Finding(ObjectType):
         vuln_type=String(),
         state=String())
     open_vulnerabilities = Int()
+    closed_vulnerabilities = Int()
     project_name = String()
     release_date = String()
 
@@ -32,6 +33,7 @@ class Finding(ObjectType):
         self.success = False
         self.error_message = ''
         self.open_vulnerabilities = 0
+        self.closed_vulnerabilities = 0
         self.project_name = ''
         self.release_date = ''
 
@@ -50,6 +52,8 @@ class Finding(ObjectType):
                 self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
                 open_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == 'open']
                 self.open_vulnerabilities = len(open_vulnerabilities)
+                closed_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == 'closed']
+                self.closed_vulnerabilities = len(closed_vulnerabilities)
             elif resp.get('vulnerabilities'):
                 is_file_valid = validate_formstack_file(resp.get('vulnerabilities'), finding_id, info)
                 if is_file_valid:
@@ -105,3 +109,8 @@ class Finding(ObjectType):
         """Resolve release date attribute."""
         del info
         return self.release_date
+
+    def resolve_closed_vulnerabilities(self, info):
+        """Resolve closed vulnerabilities attribute."""
+        del info
+        return self.closed_vulnerabilities

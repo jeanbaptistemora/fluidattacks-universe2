@@ -246,8 +246,19 @@
                                                 ng-show="!onlyReadableTab1"
                                                 ng-model="finding.where">{{finding.where}}</textarea>
                                   </div>
+                                  <div class="row table-row" ng-if="isManager && hasAccess">
+                                      <div class="col-md-offset-4 col-md-4">
+                                          <file-input id="'updatevulnerabilities'"
+                                                visible="!onlyReadableTab1"
+                                                icon="'search'"
+                                                type="'.yaml, .yml'"/>
+                                      </div>
+                                      <div class="col-md-4" ng-show="!onlyReadableTab1">
+                                        <r-button bstyle="'btn-success'" btitle="'Update Vulnerabilities'"  bicon="'open'" on-click-button="uploadVulnerabilites"/>
+                                      </div>
+                                  </div>
                               </div>
-                              <div class="row table-row" ng-show="!onlyReadableTab1">
+                              <div class="row table-row has-old-vulnerabilities" ng-show="!onlyReadableTab1">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.cardinality' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.openVulnerabilities}}</p>

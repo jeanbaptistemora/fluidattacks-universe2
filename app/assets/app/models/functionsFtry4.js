@@ -212,9 +212,8 @@ angular.module("FluidIntegrates").factory(
             angular.forEach(translationsStrings, (value) => {
               $scope.vulnTranslations[value] = $translate.instant(value);
             });
-            if (findingInfo.portsVulns.length ||
-                findingInfo.inputsVulns.length ||
-                findingInfo.linesVulns.length) {
+            if (findingInfo.openVulnerabilities > 0 ||
+                findingInfo.closedVulnerabilities > 0) {
               angular.element(".has-vulnerabilities").show();
               angular.element(".has-old-vulnerabilities").hide();
             }
