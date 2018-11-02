@@ -588,7 +588,7 @@ def group_specific(specific):
     for key, group in itertools.groupby(sorted_specific, key=lambda x: x['where']):
         specific_grouped = list(map(get_specific, list(group)))
         specific_grouped.sort()
-        dictlines = {'where': key, 'specific': list_to_string(specific_grouped)}
+        dictlines = {'where': key, 'specific': get_ranges(specific_grouped)}
         lines.append(dictlines)
     return lines
 
@@ -598,7 +598,22 @@ def get_specific(value):
     return int(value.get('specific'))
 
 
-def list_to_string(value):
-    """Convert a list into string."""
-    str_value = ', '.join(map(str, value))
-    return str_value
+def as_range(iterable):
+    """Convert range into string."""
+    l = list(iterable)
+    range_value = ''
+    if len(l) > 1:
+        range_value = '{0}-{1}'.format(l[0], l[-1])
+    else:
+        range_value = '{0}'.format(l[0])
+    return range_value
+
+
+def get_ranges(numberlist):
+    """Transform list into ranges."""
+    range_str = ','.join(as_range(g) for _, g in itertools.groupby(
+        numberlist,
+        key=lambda n,
+        c=itertools.count(): n-next(c))
+    )
+    return range_str
