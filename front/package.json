@@ -95,6 +95,9 @@
     "react-phone-input-2": "2.6.1",
     "jsdom": "12.2.0"
   },
+  "resolutions": {
+      "graceful-fs": "4.1.13"
+  },
   "scripts": {
     "test": "gulp compile && mocha -r ignore-styles -r ts-node/register -r ./jsdom.js $(find src/ -name '*.spec.tsx')"
   }
