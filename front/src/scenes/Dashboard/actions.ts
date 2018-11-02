@@ -148,3 +148,9 @@ export const loadVulnerabilities: DashboardAction =
     },
     type: actionType.LOAD_VULNERABILITIES,
 });
+
+export const editRecords: DashboardAction =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionType.EDIT_RECORDS,
+});

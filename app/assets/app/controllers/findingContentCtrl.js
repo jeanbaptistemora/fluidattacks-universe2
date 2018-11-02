@@ -68,9 +68,6 @@ findingContentCtrl (
   $scope.exploitEditable = function exploitEditable () {
     functionsFtry2.exploitEditable($scope);
   };
-  $scope.recordsEditable = function recordsEditable () {
-    functionsFtry2.recordsEditable($scope);
-  };
   $scope.detectNivel = function detectNivel () {
     const TIMEOUT = 200;
     $timeout(() => {
@@ -88,7 +85,7 @@ findingContentCtrl (
   $scope.updateCSSv2 = function updateCSSv2 () {
     functionsFtry1.updateCSSv2($scope);
   };
-  updateEvidencesFiles = function updateEvidencesFiles (element) {
+  $scope.updateEvidencesFiles = function updateEvidencesFiles (element) {
     functionsFtry2.updateEvidencesFiles(element, $scope);
   };
   updateEvidenceText = function updateEvidenceText (element) {
@@ -344,6 +341,7 @@ findingContentCtrl (
     $scope.onlyReadableTab4 = true;
     $scope.onlyReadableTab5 = true;
     $scope.onlyReadableTab6 = true;
+    $scope.translations = {};
     const hasAccess = projectFtry2.accessToProject(projectName);
     hasAccess.then((response) => {
       if (!response.error) {
@@ -389,6 +387,7 @@ findingContentCtrl (
     }
     if ($window.location.hash.indexOf("tracking") !== -1) {
       functionsFtry2.activeTab("#tracking", "FindingTracking", org, projt, idF);
+      $scope.initializeTracking();
     }
     if ($window.location.hash.indexOf("evidence") !== -1) {
       functionsFtry2.activeTab("#evidence", "FindingEvidence", org, projt, idF);
@@ -406,6 +405,12 @@ findingContentCtrl (
       findingData.hasRecords = recordinfo[0];
       $scope.recordsDataset = recordinfo[1];
       findingData.recordsDataset = recordinfo[1];
+      angular.forEach([
+        "search_findings.tab_evidence.update",
+        "search_findings.tab_evidence.editable"
+      ], (value) => {
+        $scope.translations[value] = $translate.instant(value);
+      });
     }
     if ($window.location.hash.indexOf("comments") !== -1) {
       functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);
@@ -416,8 +421,6 @@ findingContentCtrl (
         activeTab("#observations", "FindingObservations", org, projt, idF);
       tabsFtry.findingCommentTab($scope, $stateParams, "observation");
     }
-
-    $scope.initializeTracking();
   };
   $scope.init();
 });

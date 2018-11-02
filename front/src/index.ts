@@ -17,6 +17,7 @@ import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import { projectUsersView } from "./scenes/Dashboard/components/ProjectUsersView/index";
+import { recordsView } from "./scenes/Dashboard/components/RecordsView/index";
 import { resourcesView } from "./scenes/Dashboard/components/ResourcesView/index";
 import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
@@ -375,6 +376,26 @@ angular
      vulnsView, [
         "editMode",
         "findingId",
+        "translations",
+     ],
+   ),
+  );
+
+/**
+ * @url: /project/:project/:id/records
+ * @page: findingcontent.html
+ * @controllers: findingContentCtrl
+ * @tag: <records-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "recordsView",
+   react2angular(
+     recordsView, [
+        "canEdit",
+        "dataset",
+        "onUploadFile",
         "translations",
      ],
    ),

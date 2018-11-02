@@ -2,12 +2,14 @@ import _ from "lodash";
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
+import { IRecordsViewProps } from "./components/RecordsView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 interface IDashboardState {
   fileInput: {
     name: string;
   };
+  records: Pick<IRecordsViewProps, "isEditing">;
   resources: {
     addModal: {
       envFields: Array<{ environment: string }>;
@@ -37,6 +39,9 @@ const initialState: IDashboardState = {
   fileInput: {
     name: "",
   },
+  records: {
+    isEditing: false,
+  },
   resources: {
     addModal: {
       envFields: [{ environment: ""}],
@@ -61,11 +66,6 @@ const initialState: IDashboardState = {
     dataPorts: [],
   },
 };
-
-type DashboardReducer = ((
-  arg1: IDashboardState | undefined,
-  arg2: actions.IActionStructure,
-) => IDashboardState);
 
 const actionMap: {
   [key: string]: ((arg1: IDashboardState, arg2: actions.IActionStructure) => IDashboardState);
@@ -312,6 +312,21 @@ actionMap[actionType.LOAD_VULNERABILITIES] =
       dataPorts: action.payload.dataPorts,
     },
   });
+
+actionMap[actionType.EDIT_RECORDS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    records: {
+      ...state.records,
+      isEditing: !state.records.isEditing,
+    },
+  });
+
+type DashboardReducer = ((
+  arg1: IDashboardState | undefined,
+  arg2: actions.IActionStructure,
+) => IDashboardState);
 
 const dashboard: DashboardReducer =
   (state: IDashboardState = initialState,

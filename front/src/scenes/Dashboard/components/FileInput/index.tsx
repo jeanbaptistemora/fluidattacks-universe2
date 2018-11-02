@@ -17,10 +17,11 @@ import style from "./index.css";
 /**
  * File Input properties
  */
-interface IFileInputProps {
+export interface IFileInputProps {
   fileName: string;
   icon: string;
   id: string;
+  target?: string;
   type: string;
   visible: boolean;
 }
@@ -41,6 +42,7 @@ export const fileInputComponent: React.StatelessComponent<IFileInputProps> =
       { props.visible
         ? <FormGroup controlId={props.id} className={style.text_center}>
             <FormControl
+              target={props.target}
               className={`${style.inputfile} ${style.inputfile_evidence}`}
               type="file"
               accept={props.type}
