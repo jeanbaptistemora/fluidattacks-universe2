@@ -5,7 +5,7 @@
 :tags: seguridad, bug, vulnerabilidad, pentesting
 :image: hackers.png
 :alt: Vulnerability disclosure
-:description: Cuando un analista de seguridad encuentra una nueva vulnerabilidad en un sistema o aplicación, ya sea de forma intencional o aleatoria, ¿Cómo puede proceder a reportarla para su futura remediación? Aqui explicamos las prácticas adecuadas para el reporte de vulnerabilidades.
+:description: Cuando un analista de seguridad encuentra una nueva vulnerabilidad en un sistema o aplicación, ya sea de forma intencional o aleatoria, ¿Cómo puede proceder a reportarla para su futura remediación? Aquí explicamos las prácticas adecuadas para el reporte de vulnerabilidades.
 :keywords: Securidad, CVE, Vulnerabilidad, Pentesting, Reporte, Políticas
 :author: Jonathan Armas
 :writer: johna
@@ -20,14 +20,14 @@ Una vulnerabilidad de seguridad
 es una falencia o debilidad en un sistema o aplicación
 que puede ser aprovechada por un atacante malicioso,
 comprometiendo la confidencialidad, integridad o disponibilidad
-tanto el +hardware+ como el +software+ de un sistema.
+tanto del +hardware+ como del +software+ de un sistema.
 
 Nosotros como analistas de seguridad
 (+pentesters+, Hackers de sombrero blanco)
 encontramos cada día nuevas vulnerabilidades
-en el software, los sistemas y procedimientos de nuestros clientes
-que si son explotadas antes de ser arregladas
-puede resultar en un gran problema,
+en el software, los sistemas y procedimientos de nuestros clientes.
+Dichas vulnerabilidades, en caso de ser explotadas antes de ser arregladas
+pueden generar un gran problema,
 tanto para los usuarios como para la compañía.
 
 A pesar de que es crucial identificar y corregir vulnerabilidades,
@@ -45,15 +45,15 @@ necesitamos conocer los actores que intervienen en el proceso:
 Individuos u organizaciones que encuentran las vulnerabilidades,
 pueden ser investigadores, compañías de seguridad, usuarios, entre otros.
 
-*Vendedores*::
+*Fabricantes*::
 Desarrollan y mantienen los productos del sistema que pueden ser vulnerables,
-esto incluye grandes vendedores de software
+esto incluye grandes fabricantes de software
 así como pequeños grupos de desarrollo de software libre.
 
 *Coordinadores*::
 Administran la respuesta del vendedor frente a las vulnerabilidades,
 ellos sirven como evaluadores de severidad independientes e imparciales
-y pueden actuar como un intermediario entre los vendedores y el público.
+y pueden actuar como un intermediario entre los fabricantes y el público.
 
 *Usuarios*::
 Cualquiera que utilice el producto del vendedor
@@ -98,7 +98,7 @@ labelloc=top;
 ----
 
 Un investigador de seguridad,
-ya sea una organización o un individuo
+ya sea una organización o un individuo,
 intenta descubrir nuevas vulnerabilidades
 en un sistema o aplicación.
 Ellos prueban y validan la vulnerabilidad
@@ -123,7 +123,7 @@ Aquí podemos establecer algunas buenas prácticas
 que un analista de seguridad puede utilizar
 en el momento de reportar una vulnerabilidad:
 
-* Notificar la compañía
+* Notificar a la compañía
 * Si la comunicación falla,
 intentarlo varias veces con varias personas en la cadena de mando
 * Si la comunicación con el vendedor falla,
@@ -143,7 +143,7 @@ La comunicación es clave en estos casos.
 El vendedor debería proveer actualizaciones de estado de la vulnerabilidad
 e intentar resolverla dentro del periodo de tiempo.
 Pueden pedir una prórroga,
-en donde el descrubridor y el coordinador
+en donde el descubridor y el coordinador
 no darán a conocer detalles de la vulnerabilidad.
 Todo depende de la severidad de la misma
 o de la dificultad para resolverla.
@@ -159,7 +159,7 @@ pero también muy gratificante para todas las partes involucradas.
 Es bien conocido que hoy en día
 existen muchas vulnerabilidades de seguridad y fugas de información
 que son aprovechadas por atacantes maliciosos.
-Un entorno benigno donde investigadores y vendedores
+Un entorno benigno donde investigadores y fabricantes
 puedan trabajar en conjunto para para encontrar y corregir
 las vulnerabilidades críticas
 antes de que puedan afectar a alguien
