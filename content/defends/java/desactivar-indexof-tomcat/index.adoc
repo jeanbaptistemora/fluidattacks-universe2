@@ -1,0 +1,106 @@
+:slug: defends/java/desactivar-indexof-tomcat/
+:category: java
+:description: Nuestros ethical hackers nos explican que una de las vulnerabilidades más comunes en aplicaciones web, el listado de directorios, permite a un atacante obtener acceso a información confidencial de una organización, por tanto, enseñan la manera de prevenirla en un servidor Tomcat.
+:keywords: Java, Seguridad, Tomcat, Indexof, Servlet, Vulnerabilidad.
+:defends: yes
+
+= Desactivar Listado de Directorios en Tomcat
+
+== Necesidad
+
+Desactivar el listado de directorios
+en el servidor de aplicaciones +Tomcat+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido.
+
+. Se cuenta con un +servlet+ +Java+
+desplegado en un servidor +Tomcat+.
+. Se cuenta con archivos de configuración +web.xml+.
+
+== Solución
+
+Al día de hoy son millones de sitios +Web+
+los que se encuentran en Internet,
+y por si fuera poco,
+ese número va en incremento exponencial día a día.
+Y como es de suponer,
+al haber tantos sitios +Web+,
+lo más probable es que gran cantidad
+de esos sitios poseen alguna vulnerabilidad.
+Inyección +SQL+ (+SQLi+), +Cross Site Scripting+ (+XSS+),
++Cross Site Request Forgery+ (+CSRF+) y, como no,
+listado de directorios (+Index Of+)
+son las vulnerabilidades que más tienden a encontrarse en páginas +Web+.
+Muchas de esas vulnerabilidades se presentan
+por malas configuraciones o errores de programación,
+como es el caso de la vulnerabilidad
+que se tratará en este apartado.
+En esta solución nos enfocaremos
+en entender y dar solución al listado de directorios.
+
+El listado de directorios,
+también conocido como +IndexOf+ se da
+cuando un atacante logra
+acceder a todos los archivos contenidos
+en un directorio o subdirectorio de un sitio +Web+.
+Dichos archivos se presentan
+en forma de lista en un navegador +Web+,
+de ahí su nombre listado de directorios.
+Esta vulnerabilidad se presenta
+cuando un navegador web está intentando acceder
+a la raíz o a un directorio de un sitio +Web+,
+y éste no tiene definido un archivo +index+.
+Un archivo +index+ es el archivo inicial
+o página principal de un sitio +Web+ o directorio del sitio.
+Entonces, como el navegador no encuentra el archivo +index+
+los demás archivos contenidos en ese directorio específico
+son listados en el navegador.
+
+Obviamente esta vulnerabilidad representa
+un riesgo, porque un atacante
+puede tener acceso a componentes
+o funcionalidades  restringidas del sitio +Web+,
+o en el peor de los casos,
+tener acceso a archivos
+con información sensible y confidencial
+de la organización dueña del sitio +Web+.
+
+. Para prevenir el listado de directorios,
+primero se debe identificar el archivo web.xml correspondiente.
+
+. Una vez obtenido el archivo +web.xml+,
+hay que buscar, dentro de ese archivo,
+el +servlet+ que se desea controlar.
+
+. Posteriormente, se establece el valor del parámetro +listings+ en false.
+
+. En el siguiente archivo se muestra
+como sería la correcta configuración
+del archivo +web.xml+.
++
+.web.xml
+[source, xml, linenums]
+----
+<servlet>
+  <servlet-name>default</servlet-name>
+  <servlet-class>org.apache.catalina.servlets.DefaultServlet</servletclass>
+  <init-param>
+    <param-name>debug</param-name>
+    <param-value>0</param-value>
+  </init-param>
+  <init-param>
+    <param-name>listings</param-name>
+    <param-value>false</param-value>
+  </init-param>
+  <load-on-startup>1</load-on-startup>
+</servlet>
+----
+
+== Referencias
+
+. [[r1]] link:http://linux-sxs.org/internet_serving/c581.html[Tomcat 5 on Linux Step-By-Step]
+. [[r2]] link:https://www.aldeid.com/wiki/Web_applications_attacks/Directory_listening[Web applications attacks/Directory listening]
+. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
