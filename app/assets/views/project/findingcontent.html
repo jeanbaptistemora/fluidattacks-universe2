@@ -659,7 +659,8 @@
                         <div class="col-sm-2" style="text-align: center;">
                               <button ng-show="!onlyReadableTab5"
                                       target="7"
-                                      onclick="updateEvidencesFiles(this);"
+                                      id="uploadExploit"
+                                      ng-click="updateEvidencesFiles('#uploadExploit');"
                                       class = "btn btn-primary btn-block">
                                       <i class="glyphicon glyphicon-cloud-upload"></i>  {{'search_findings.tab_evidence.update' | translate}}
                               </button>
