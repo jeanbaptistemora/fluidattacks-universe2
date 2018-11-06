@@ -3,8 +3,8 @@ resource "aws_db_subnet_group" "default" {
   subnet_ids = ["${aws_subnet.dev_subnet.*.id}"]
 }
 
-resource "aws_db_parameter_group" "default" {
-  name   = "default"
+resource "aws_db_parameter_group" "dev-parameter-group" {
+  name   = "dev-parameter-group"
   family = "mysql5.6"
 
   parameter {
@@ -24,7 +24,7 @@ resource "aws_db_instance" "fluiddb_dev" {
   username             = "${var.dbDevUser}"
   password             = "${var.dbDevPass}"
   db_subnet_group_name = "${aws_db_subnet_group.default.id}"
-  parameter_group_name = "${aws_db_parameter_group.default.id}"
+  parameter_group_name = "${aws_db_parameter_group.dev-parameter-group.id}"
   skip_final_snapshot  = true
   publicly_accessible = true
   maintenance_window = "sun:05:00-sun:05:30"
