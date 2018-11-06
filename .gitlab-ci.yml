@@ -181,7 +181,8 @@ deploy_infra:
         s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
     - aws s3 cp
         infrastructure/staging/terraform.tfstate
-        s3://$FS_S3_BUCKET_NAME/terraform/staging/terraform.tfstate
+        s3://$FS_S3_BUCKET_NAME/terraform/staging/terraform.tfstate ||
+        echo "No previous state for staging found"
     - aws s3 cp
         $HOME/.kube/config
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
