@@ -51,12 +51,12 @@ esto incluye grandes fabricantes de software
 así como pequeños grupos de desarrollo de software libre.
 
 *Coordinadores*::
-Administran la respuesta del vendedor frente a las vulnerabilidades,
+Administran la respuesta de los fabricantes frente a las vulnerabilidades,
 ellos sirven como evaluadores de severidad independientes e imparciales
 y pueden actuar como un intermediario entre los fabricantes y el público.
 
 *Usuarios*::
-Cualquiera que utilice el producto del vendedor
+Cualquiera que utilice el producto del fabricante
 que puede ser afectado por la vulnerabilidad.
 
 == Reporte responsable de vulnerabilidades
@@ -79,7 +79,7 @@ rankdir=TD;
   };
 
   subgraph cluster_1 {
-    label="Vendedor";
+    label="Fabricante";
     style=filled;
     color=lightblue;
     node [style=filled,color=white];
@@ -106,19 +106,19 @@ al desarrollar un proceso reproducible
 para verificar sus efectos.
 
 Luego el/ella comunica sus descubrimientos
-al vendedor del software.
-Esto podría hacerse directamente con el vendedor
+al fabricante del software.
+Esto podría hacerse directamente con el fabricante
 o con un coordinador como un +CSIRT+
 (Computer Security Incident Response Team).
 
-A continuación, el vendedor investiga la vulnerabilidad
+A continuación, el fabricante investiga la vulnerabilidad
 y si existe, empieza a trabajar en una nueva versión o una contramedida.
 Cuando termina de arreglarlo libera la nueva versión
 junto con la información de la vulnerabilidad.
 
 Comunicar la vulnerabilidad es la parte más importante del proceso.
 En este paso se pone a prueba la madurez
-tanto del vendedor como del investigador.
+tanto del fabricante como del investigador.
 Aquí podemos establecer algunas buenas prácticas
 que un analista de seguridad puede utilizar
 en el momento de reportar una vulnerabilidad:
@@ -126,7 +126,7 @@ en el momento de reportar una vulnerabilidad:
 * Notificar a la compañía
 * Si la comunicación falla,
 intentarlo varias veces con varias personas en la cadena de mando
-* Si la comunicación con el vendedor falla,
+* Si la comunicación con el fabricante falla,
 intentar con el +CSIRT+ nacional
 * Si nada de lo anterior funciona,
 reportar la vulnerabilidad con ayuda del +CSIRT+
@@ -140,7 +140,7 @@ En cualquier caso, es necesario ser flexible,
 ya que estos periodos pueden cambiar.
 La comunicación es clave en estos casos.
 
-El vendedor debería proveer actualizaciones de estado de la vulnerabilidad
+El fabricante debería proveer actualizaciones de estado de la vulnerabilidad
 e intentar resolverla dentro del periodo de tiempo.
 Pueden pedir una prórroga,
 en donde el descubridor y el coordinador
@@ -149,7 +149,7 @@ Todo depende de la severidad de la misma
 o de la dificultad para resolverla.
 
 Cuando la vulnerabilidad es arreglada,
-es común que el vendedor le dé crédito al descubridor,
+es común que el fabricante le dé crédito al descubridor,
 usualmente colocándolo en las notas de la nueva versión,
 algunos de ellos reciben recompensas por el hallazgo
 donde se les entrega dinero a los investigadores.
