@@ -8,8 +8,10 @@ import datetime
 import json
 import hmac
 import hashlib
-import rollbar
 import pytz
+import collections
+
+import rollbar
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
@@ -294,3 +296,48 @@ def get_jwt_content(context):
         cloudwatch_log(context,
             'Security: Attempted to modify JWT. Invalid token signature')
         raise
+
+def list_s3_objects(client_s3, bucket_s3, key):
+    response = client_s3.list_objects_v2(
+        Bucket=bucket_s3,
+        Prefix=key,
+    )
+    key_list = []
+    for obj in response.get('Contents', []):
+        key_list.append(obj['Key'])
+
+    return key_list
+
+def replace_all(text, dic):
+    for i, j in dic.iteritems():
+        text = text.replace(i, j)
+    return text
+
+def list_to_dict(keys, values):
+    """ Merge two lists into a {key: value} dictionary """
+
+    dct = collections.OrderedDict()
+    index = 0
+
+    if len(keys) < len(values):
+        diff = len(values) - len(keys)
+        for x in range(diff):
+            del x
+            keys.append("")
+    elif len(keys) > len(values):
+        diff = len(keys) - len(values)
+        for x in range(diff):
+            del x
+            values.append("")
+    else:
+        # Each key has a value associated, so there's no need to empty-fill
+        pass
+
+    for item in values:
+        if keys[index] == "":
+            dct[index] = item
+        else:
+            dct[keys[index]] = item
+        index += 1
+
+    return dct

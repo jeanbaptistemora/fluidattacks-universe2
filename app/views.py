@@ -11,7 +11,6 @@ import pytz
 import rollbar
 import boto3
 import io
-import collections
 import threading
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
@@ -666,7 +665,7 @@ def get_evidence(request, project, findingid, fileid):
                 start = k.find(findingid) + len(findingid)
                 localfile = "/tmp" + k[start:]
                 ext = {'.png': '.tmp', '.gif': '.tmp'}
-                localtmp = replace_all(localfile, ext)
+                localtmp = util.replace_all(localfile, ext)
                 client_s3.download_file(bucket_s3, k, localtmp)
                 return retrieve_image(request, localtmp)
         else:
@@ -677,11 +676,6 @@ def get_evidence(request, project, findingid, fileid):
                 drive_api = DriveAPI()
                 evidence_img = drive_api.download(fileid)
                 return retrieve_image(request, evidence_img)
-
-def replace_all(text, dic):
-    for i, j in dic.iteritems():
-        text = text.replace(i, j)
-    return text
 
 def retrieve_image(request, img_file):
     if util.assert_file_mime(img_file, ["image/png", "image/jpeg", "image/gif"]):
@@ -764,14 +758,8 @@ def evidence_exceeds_size(uploaded_file, mime_type, evidence_type):
 
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""
-    response = client_s3.list_objects_v2(
-        Bucket=bucket_s3,
-        Prefix=key,
-    )
-    key_list = []
-    for obj in response.get('Contents', []):
-        key_list.append(obj['Key'])
-    return key_list
+
+    return util.list_s3_objects(client_s3, bucket_s3, key)
 
 def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     fileroute = "/tmp/:id.tmp".replace(":id", filename)
@@ -969,7 +957,7 @@ def get_exploit(request):
             start = k.find(findingid) + len(findingid)
             localfile = "/tmp" + k[start:]
             ext = {'.py': '.tmp'}
-            localtmp = replace_all(localfile, ext)
+            localtmp = util.replace_all(localfile, ext)
             client_s3.download_file(bucket_s3, k, localtmp)
             return retrieve_script(request, localtmp)
     else:
@@ -1009,7 +997,7 @@ def get_records(request):
             start = k.find(findingid) + len(findingid)
             localfile = "/tmp" + k[start:]
             ext = {'.py': '.tmp'}
-            localtmp = replace_all(localfile, ext)
+            localtmp = util.replace_all(localfile, ext)
             client_s3.download_file(bucket_s3, k, localtmp)
             return retrieve_csv(request, localtmp)
     else:
@@ -1030,7 +1018,7 @@ def retrieve_csv(request, csv_file):
             header = csvReader.next()
             for row in csvReader:
                 if cont <= 1000:
-                    dicTok = list_to_dict(header, row)
+                    dicTok = util.list_to_dict(header, row)
                     data.append(dicTok)
                     cont += 1
                 else:
@@ -1039,28 +1027,6 @@ def retrieve_csv(request, csv_file):
     else:
         rollbar.report_message('Error: Invalid record file format', 'error', request)
         return util.response([], 'Invalid record file format', True)
-
-
-def list_to_dict(header, li):
-    dct = collections.OrderedDict()
-    cont = 0
-    if len(header) < len(li):
-        dif = len(li) - len(header)
-        for x in range(dif): # pylint: disable=unused-variable
-            header.append("")
-    elif len(header) > len(li):
-        dif = len(header) - len(li)
-        for x in range(dif): # pylint: disable=unused-variable
-            li.append("")
-
-    for item in li:
-        if header[cont] == "":
-            dct[cont] = item
-        else:
-            dct[header[cont]] = item
-        cont += 1
-    return dct
-
 
 @never_cache
 @csrf_exempt

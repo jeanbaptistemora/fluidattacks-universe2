@@ -4,12 +4,27 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 
-from graphene import String, ObjectType, Boolean, List, Int
+from __future__ import absolute_import
+import io
+import re
 
+import boto3
+from backports import csv
+from graphql import GraphQLError
+from graphene import String, ObjectType, Boolean, List, Int, JSONString
+
+from .. import util
 from app.dto import finding
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
+from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+from ..api.drive import DriveAPI
 
+client_s3 = boto3.client('s3',
+                            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+
+bucket_s3 = FI_AWS_S3_BUCKET
 
 class Finding(ObjectType):
     """Formstack Finding Class."""
@@ -25,6 +40,7 @@ class Finding(ObjectType):
     closed_vulnerabilities = Int()
     project_name = String()
     release_date = String()
+    records = JSONString()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -36,6 +52,7 @@ class Finding(ObjectType):
         self.closed_vulnerabilities = 0
         self.project_name = ''
         self.release_date = ''
+        self.records = {}
 
         finding_id = str(identifier)
         resp = finding.finding_vulnerabilities(finding_id)
@@ -114,3 +131,56 @@ class Finding(ObjectType):
         """Resolve closed vulnerabilities attribute."""
         del info
         return self.closed_vulnerabilities
+
+    def resolve_records(self, info):
+        """ Resolve compromised records attribute """
+        del info
+
+        resp = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
+        if resp and 'files' in resp[0].keys():
+            file_info = filter(lambda evidence: evidence['name'] == 'fileRecords', resp[0].get('files'))
+            if file_info:
+                file_name = file_info[0]['file_url']
+                file_id = '/'.join([self.project_name, self.id, file_name])
+                is_s3_file = util.list_s3_objects(client_s3, bucket_s3, file_id)
+
+                if is_s3_file:
+                    start = file_id.find(self.id) + len(self.id)
+                    localfile = "/tmp" + file_id[start:]
+                    ext = {'.py': '.tmp'}
+                    localtmp = util.replace_all(localfile, ext)
+                    client_s3.download_file(bucket_s3, file_id, localtmp)
+
+                    self.records = read_csv(localtmp)
+                else:
+                    if not re.match("[a-zA-Z0-9_-]{20,}", file_id):
+                        raise Exception('Wrong file id format')
+                    else:
+                        drive_api = DriveAPI()
+                        record = drive_api.download(file_id)
+                        self.records = read_csv(record)
+            else:
+                # Finding has no compromised records
+                pass
+        else:
+            self.records = {}
+
+        return self.records
+
+def read_csv(csv_file):
+    file_content = []
+
+    with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
+        try:
+            csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
+            cont = 0
+            header = csvReader.next()
+            for row in csvReader:
+                if cont <= 1000:
+                    file_content.append(util.list_to_dict(header, row))
+                    cont += 1
+                else:
+                    break
+            return file_content
+        except csv.Error:
+            raise GraphQLError('Invalid record file format')
