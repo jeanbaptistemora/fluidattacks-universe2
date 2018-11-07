@@ -247,14 +247,19 @@
                                                 ng-model="finding.where">{{finding.where}}</textarea>
                                   </div>
                                   <div class="row table-row" ng-if="isManager && hasAccess">
-                                      <div class="col-md-offset-4 col-md-4">
+                                      <div class="col-md-offset-2 col-md-3 col-sm-12" ng-show="!onlyReadableTab1">
+                                          <a ng-href="{{vulnerabilitiesURL || ''}}" target="_blank" download>
+                                              <r-button bstyle="'btn-warning'" btitle="vulnTranslations['search_findings.tab_description.downloadVulnerabilities']"  bicon="'save'" on-click-button=""/>
+                                          </a>
+                                      </div>
+                                      <div class="col-md-4 col-sm-12">
                                           <file-input id="'updatevulnerabilities'"
                                                 visible="!onlyReadableTab1"
                                                 icon="'search'"
                                                 type="'.yaml, .yml'"/>
                                       </div>
-                                      <div class="col-md-4" ng-show="!onlyReadableTab1">
-                                        <r-button bstyle="'btn-success'" btitle="'Update Vulnerabilities'"  bicon="'open'" on-click-button="uploadVulnerabilites"/>
+                                      <div class="col-md-3 col-sm-12" ng-show="!onlyReadableTab1">
+                                        <r-button bstyle="'btn-success'" btitle="vulnTranslations['search_findings.tab_description.updateVulnerabilities']"  bicon="'open'" on-click-button="uploadVulnerabilites"/>
                                       </div>
                                   </div>
                               </div>

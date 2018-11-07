@@ -206,7 +206,9 @@ angular.module("FluidIntegrates").factory(
               "search_findings.tab_description.errorVuln",
               "search_findings.tab_description.action",
               "proj_alerts.access_denied",
-              "proj_alerts.error_textsad"
+              "proj_alerts.error_textsad",
+              "search_findings.tab_description.downloadVulnerabilities",
+              "search_findings.tab_description.updateVulnerabilities"
             ];
             $scope.vulnTranslations = {};
             angular.forEach(translationsStrings, (value) => {

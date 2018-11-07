@@ -193,6 +193,9 @@ findingContentCtrl (
           $scope.exploitSrc = exploitinfo[1];
           findingData.hasExploit = exploitinfo[infoIndex2];
           findingData.exploitSrc = exploitinfo[infoIndex3];
+          const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
+                      id}/`;
+          $scope.vulnerabilitiesURL = `${urlPre}download_vulnerabilities`;
           return true;
         }
         else if (response.error) {

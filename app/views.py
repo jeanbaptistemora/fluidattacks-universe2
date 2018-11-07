@@ -11,6 +11,7 @@ import pytz
 import rollbar
 import boto3
 import io
+import yaml
 import threading
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
@@ -1673,3 +1674,71 @@ def delete_vulnerabilities(finding_id, project):
     """Delete vulnerabilities from dynamo."""
     are_vulns_deleted = integrates_dao.delete_vulns_email_dynamo(project, finding_id)
     return are_vulns_deleted
+
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'admin'])
+def download_vulnerabilities(request, findingid):
+    """Download a file with all the vulnerabilities."""
+    if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
+        util.cloudwatch_log(request, 'Security: Attempted to retrieve vulnerabilities without permission')
+        return util.response([], 'Access denied', True)
+    else:
+        query = """{
+          finding(identifier: "findingid") {
+            id
+            success
+            openVulnerabilities
+            closedVulnerabilities
+            ports: vulnerabilities(vulnType: "ports") {
+              ip: where
+              port: specific
+              state: currentState
+            }
+            lines: vulnerabilities(vulnType: "lines") {
+              path: where
+              line: specific
+              state: currentState
+            }
+            inputs: vulnerabilities(vulnType: "inputs") {
+              url: where
+              field: specific
+              state: currentState
+            }
+          }
+        }"""
+        query = query.replace('findingid', findingid)
+        result = schema.schema.execute(query, context_value=request)
+        finding = result.data.get('finding')
+        data_yml = {}
+        vuln_types = {'ports': cast_ports, 'lines': dict, 'inputs': dict}
+        if finding:
+            for vuln_key, cast_fuction in vuln_types.items():
+                if finding.get(vuln_key):
+                    data_yml[vuln_key] = list(map(cast_fuction, list(finding.get(vuln_key))))
+                else:
+                    # This finding does not have this type of vulnerabilities
+                    pass
+        else:
+            # This finding does not have new vulnerabilities
+            pass
+        file_name = '/tmp/vulnerabilities{findingid}.yaml'.format(findingid=findingid)
+        stream = file(file_name, 'w')
+        yaml.safe_dump(data_yml, stream, default_flow_style=False)
+        try:
+            with open(file_name, 'r') as file_obj:
+                response = HttpResponse(file_obj.read(), content_type='text/x-yaml')
+                response['Content-Disposition'] = 'attachment; filename="vulnerabilities.yaml"'
+                return response
+        except IOError:
+            rollbar.report_message('Error: Invalid vulnerabilities file format', 'error', request)
+            return util.response([], 'Invalid vulnerabilities file format', True)
+
+
+def cast_ports(ports):
+    """Cast ports to be int."""
+    ports = dict(ports)
+    ports['port'] = int(ports['port'])
+    return ports
