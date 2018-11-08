@@ -455,7 +455,7 @@ def finding_vulnerabilities(submission_id):
             state = closingset
         finding["estado"] = state["estado"]
         finding["cierres"] = findingcloseset
-        finding['cardinalidad_total'] = finding['openVulnerabilities']
+        finding['cardinalidad_total'] = finding.get('openVulnerabilities')
         if state.get("opened"):
             finding['openVulnerabilities'] = state['opened']
         if state.get("estado") == 'Cerrado':

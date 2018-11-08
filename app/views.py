@@ -542,7 +542,7 @@ def catch_finding(request, submission_id):
                     state = closingset
                 finding["estado"] = state["estado"]
                 finding["cierres"] = findingcloseset
-                finding['cardinalidad_total'] = finding['openVulnerabilities']
+                finding['cardinalidad_total'] = finding.get('openVulnerabilities')
                 if (finding_new and
                         (finding_new.get('openVulnerabilities') or
                             finding_new.get('closedVulnerabilities'))):
