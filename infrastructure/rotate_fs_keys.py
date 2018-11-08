@@ -13,7 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-NUM_TOKENS = 6
+NUM_TOKENS = 12
 
 def browser_initialize(url):
     """
