@@ -586,25 +586,40 @@ def cast_new_vulnerabilities(finding_new, finding):
     else:
         # This finding does not have open vulnerabilities
         pass
+    where = ''
     if finding_new.get('portsVulns'):
         finding['portsVulns'] = \
             sort_vulnerabilities(finding_new.get('portsVulns'))
+        where = format_where(where, finding['portsVulns'])
     else:
         # This finding does not have ports vulnerabilities
         pass
     if finding_new.get('linesVulns'):
         finding['linesVulns'] = \
             group_specific(finding_new.get('linesVulns'))
+        where = format_where(where, finding['linesVulns'])
     else:
         # This finding does not have lines vulnerabilities
         pass
     if finding_new.get('inputsVulns'):
         finding['inputsVulns'] = \
             sort_vulnerabilities(finding_new.get('inputsVulns'))
+        where = format_where(where, finding['inputsVulns'])
     else:
         # This finding does not have inputs vulnerabilities
         pass
+    finding['where'] = where
     return finding
+
+
+def format_where(where, vulnerabilities):
+    """Formate where field with new vulnerabilities."""
+    for vuln in vulnerabilities:
+        where = '{where}{vuln_where} ({vuln_specific})\n'\
+                .format(where=where,
+                        vuln_where=vuln.get('where'),
+                        vuln_specific=vuln.get('specific'))
+    return where
 
 
 def format_release_date(finding, state):
