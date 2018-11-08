@@ -1,10 +1,36 @@
-image: gitlab/gitlab-runner:alpine-v11.1.0
+image: gitlab/gitlab-runner:alpine-v11.4.0
 checkInterval: 5
+concurrent: 12
 gitlabUrl: https://gitlab.com
 runnerRegistrationToken: $GITLAB_RUNNER_TOKEN
 rbac:
   create: true
 runners:
-  image: docker:latest
-  imagePullPolicy: always
-  privileged: true
+  image: docker:18
+  imagePullPolicy: if-not-present
+  builds:
+    cpuLimit: 200m
+    memoryLimit: 256Mi
+    cpuRequests: 100m
+    memoryRequests: 128Mi
+  services:
+    cpuLimit: 200m
+    memoryLimit: 256Mi
+    cpuRequests: 100m
+    memoryRequests: 128Mi
+  helpers:
+    cpuLimit: 200m
+    memoryLimit: 256Mi
+    cpuRequests: 100m
+    memoryRequests: 128Mi
+    image: gitlab/gitlab-runner-helper:x86_64-latest
+resources:
+  limits:
+    memory: 256Mi
+    cpu: 200m
+  requests:
+    memory: 128Mi
+    cpu: 100m
+envVars:
+  - name: RUNNER_EXECUTOR
+    value: kubernetes

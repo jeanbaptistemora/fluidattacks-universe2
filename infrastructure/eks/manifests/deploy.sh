@@ -19,24 +19,50 @@ function echo-blue() {
   echo -e '\033[1;34m'"${1}"'\033[0m'
 }
 
+function replace_env_variables() {
+  local files=( "$@" )
+  for file in "${files[@]}"; do
+    envsubst < "${file}" > tmp
+    mv tmp "${file}"
+  done
+}
+
+function create_kubernetes_namespace() {
+  for namespace in "$@"; do
+    if kubectl get namespace "${namespace}"; then
+      echo-blue "Namespace ${namespace} already exists."
+    else
+      echo-blue "Creating namespace ${namespace}..."
+      kubectl create namespace "${namespace}"
+    fi
+  done
+}
+
+# Get files that were modified or added between the latest commit in master
+# and the latest commit in the developer branch
 function get_changed_files() {
-  git diff --name-status "${CI_COMMIT_BEFORE_SHA}" "${CI_COMMIT_SHA}" \
+  git diff --name-status --relative "${CI_COMMIT_BEFORE_SHA}" "${CI_COMMIT_SHA}" \
     | grep -Po '(?<=(M|A)\t).*'
 }
 
+# Get which of the changed files are related to the Helm Charts deployments
 function get_changed_helm_files() {
   mapfile -t changed_files < <(get_changed_files)
   local changed_helm_files=()
   for file in "${changed_files[@]}"; do
     if [[ "${file}" =~ 'helm_values/' ]]; then
+      replace_env_variables "${file}"
       changed_helm_files+=( "${file##*/}" )
     fi
   done
   echo "${changed_helm_files[*]}"
 }
 
+# Use the modified file to extract chart information from the maps
+# and install or upgrade it, if it exists
 function install_helm_chart() {
   local helm_values=( "$@" )
+  local files_dir="eks/manifests/helm_values"
   for file in "${helm_values[@]}"; do
     local file_no_extension="$(echo "${file}" | cut -d. -f1)"
     local chart="${chart_names_map[${file_no_extension}]}"
@@ -44,14 +70,16 @@ function install_helm_chart() {
     local namespace="${chart_namespace_map[${file_no_extension}]}"
     if helm list --tls | grep -q "${release}"; then
       echo-blue "Upgrading chart ${chart}..."
-      helm upgrade "${release}" "${chart}" -f "${file}" --tls
+      helm upgrade "${release}" "${chart}" -f "${files_dir}/${file}" --tls
     else
       echo-blue "Installing chart ${chart}..."
-      helm install "${chart}" --name "${release}" -f "${file}" \
+      helm install "${chart}" --name "${release}" -f "${files_dir}/${file}" \
         --namespace "${namespace}" --tls
     fi
   done
 }
+
+create_kubernetes_namespace serves operations integrates web
 
 # Set context to avoid using the --namespace flag in every command
 kubectl config set-context $(kubectl config current-context) \
@@ -76,11 +104,6 @@ kubectl apply -f eks/manifests/ingress-tls.yaml
 
 # Set Ingress rule and generate certificate for old domains
 kubectl apply -f eks/manifests/old-domains.yaml
-
-# Customize NGINX configuration
-kubectl patch cm controller-nginx-ingress-controller \
-  --patch "$(cat eks/manifests/nginx-conf.yaml)" || \
-  echo "NGINX server already configured"
 
 # Provide information to access Gitlab Container Registry and pull images
 if ! kubectl get secret gitlab-reg; then
