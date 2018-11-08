@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'sslserver',
     'django_crontab',
     'analytical',
-    'intercom',
+    'django_intercom',
     'app.slackbot',
     'graphene_django',
 ]
