@@ -58,9 +58,10 @@ cuando el sistema está próximo a salir a producción.
 
 a|==== Alertas
 |{si} Sistema de alertamiento continuo por email
-a los lideres de proyecto sobre vulnerabilidades no cerradas
+a los interesados en el proyecto sobre estado actual de las pruebas
 link:../hacking-continuo/#seguimiento-de-vulnerabilidades-a-traves-de-integrates[^5^].
-|{info} No hay sistema de alertas, solo los informes finales.
+|{si} Sistema de alertas por correo electrónico a los interesados del proyecto
+cuando se reporta una novedad.
 
 a|==== Visión
 |{si} Información de la seguridad de su sistema *al día*
@@ -72,15 +73,13 @@ a|{si} +100%+ cuando:
 
 * Comenzamos el hacking en paralelo al desarrollo.
 * Realizamos un hacking de desatraso al inicio.
-* No se detiene el hacking mientras exista desarrollo.
+* El hacking se mantiene aún en producción, cuando no hay desarrollos.
 
 a|{info} Acordada al inicio del proceso de hacking
 link:../hacking-puntual/#cobertura[^6^].
 
 a|==== Ventanas
-a|{si} En el servicio de
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#
-los ambientes:
+a|{si} Los ambientes:
 
 * Pueden cambiar constantemente.
 * No estar congelados.
@@ -96,12 +95,12 @@ con nuestro troyano personalizado
 link:../hacking-puntual/#infeccion[^7^].
 
 a|==== Tasa de remediación
-| {si} Cierre máximo del +100%+ de las vulnerabilidades reportadas.
+| {si} Cierre del +100%+ de las vulnerabilidades reportadas.
 
 | {info} Cierre hasta del +80%+ de las vulnerabilidades reportadas
 
 a|==== Localización
-| Siempre remoto.
+| Remoto.
 | Remoto o en las instalaciones.
 
 a|==== Tiempo de remediación

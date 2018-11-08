@@ -57,9 +57,10 @@ a|{info} Late
 a|==== Alerting
 
 |{yes} Continuous alerting system via email
-to the project leaders about open vulnerabilities
+to the project stakeholders about the current state of the project
 link:../continuous-hacking/#follow-up-using-integrates[^5^].
-|{info} No alerting system, only final reports.
+|{yes} Alerting system via email to the project stakeholders
+when a novelty is reported.
 
 a|==== View
 |{yes} *Up-to-date* information about your system’s security.
@@ -73,16 +74,14 @@ a|{yes} 100% when:
 * We attack all versions of the existing code
 up to the  subscription starting point to catch up,
 if necessary, with the development team.
-* Hacking does not stop during the development phase.
+* Hacking does not stop, even without new developments in the project.
 
 a|{info} Agreed upon by both the customer and +Fluid Attacks+
 before testing begins
 link:../one-shot-hacking/#coverage[^6^].
 
 a|==== Windows
-a|{yes} In the
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
-service environments:
+a|{yes} Environments:
 
 * Can constantly change.
 * Are not necessarily frozen.
@@ -104,7 +103,7 @@ potentially, be remediated.
 potentially, be remediated.
 
 a|==== Location
-| Always remote.
+| Remote.
 | Remote or on premises.
 
 a|==== Time to remediate
