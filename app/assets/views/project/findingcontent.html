@@ -98,7 +98,7 @@
                       <a href="#exploit" data-toggle="tab">
                       <i class="icon s7-file"></i>&nbsp;Exploit</a>
                   </li>
-                  <li id="trackingItem" class="" style="font-size:16px;" ng-click="urlTracking();">
+                  <li id="trackingItem" class=""  ng-show="isManager" style="font-size:16px;" ng-click="urlTracking();">
                       <a href="#tracking" data-toggle="tab" aria-expanded="true">
                       <i class="icon s7-graph1"></i>&nbsp;{{'search_findings.tab_tracking.tracking_name' | translate}}</a>
                   </li>
@@ -679,7 +679,7 @@
                   </div>
                   <!-- End Tab Exploit -->
                   <!-- Start Tab Tracking -->
-                  <div id="tracking" class="tab-pane cont">
+                  <div id="tracking" class="tab-pane cont" ng-show="isManager">
                     <tracking-view
                       open-findings-title="translations.open"
                       open-findings-content="finding.where"
