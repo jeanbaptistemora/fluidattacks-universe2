@@ -615,7 +615,7 @@ def cast_new_vulnerabilities(finding_new, finding):
 def format_where(where, vulnerabilities):
     """Formate where field with new vulnerabilities."""
     for vuln in vulnerabilities:
-        where = '{where}{vuln_where} ({vuln_specific})\n'\
+        where = u'{where!s}{vuln_where!s} ({vuln_specific!s})\n'\
                 .format(where=where,
                         vuln_where=vuln.get('where'),
                         vuln_specific=vuln.get('specific'))
