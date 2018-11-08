@@ -5,7 +5,7 @@
  * to call functions with props as params from the JSX element definition
  * without using lambda expressions () => {}
  */
-import PropTypes from "prop-types";
+import _ from "lodash";
 import React, { ReactElement } from "react";
 import { Glyphicon, Label } from "react-bootstrap";
 import {
@@ -168,12 +168,7 @@ export const dataTable: React.StatelessComponent<ITableProps> =
     <React.StrictMode>
       <div id={props.id}>
         {
-          /* tslint:disable-next-line:strict-type-predicates
-           * Disabling this rule is necessary because the following expression is
-           * misbelived to be always false by the linter while it is necessary for
-           * avoiding errors during data loading time, where the dataset is empty
-           */
-          props.dataset === undefined
+          _.isEmpty(props.dataset) && _.isEmpty(props.headers)
           ? <div/>
           : <div>
               <h1 className={globalStyle.title}>{props.title}</h1>
@@ -181,7 +176,7 @@ export const dataTable: React.StatelessComponent<ITableProps> =
                 data={props.dataset}
                 exportCSV={props.exportCsv}
                 keyField={
-                  props.dataset.length > 0
+                    !_.isEmpty(props.dataset) && props.dataset.length > 0
                     ? Object.keys(props.dataset[0])[0]
                     : "_"
                 }
@@ -192,7 +187,7 @@ export const dataTable: React.StatelessComponent<ITableProps> =
                  },
                  sizePerPage: props.pageSize,
                 }}
-                pagination={props.dataset.length > props.pageSize}
+                pagination={!_.isEmpty(props.dataset) && props.dataset.length > props.pageSize}
                 search={props.search}
                 selectRow={
                   props.enableRowSelection
@@ -216,21 +211,6 @@ export const dataTable: React.StatelessComponent<ITableProps> =
       </div>
     </React.StrictMode>
   );
-
-dataTable.propTypes = {
-  bodyContainer: PropTypes.string,
-  dataset: PropTypes.any.isRequired,
-  enableRowSelection: PropTypes.bool,
-  headerContainer: PropTypes.string,
-  id: PropTypes.string,
-  onClickRow: PropTypes.func,
-  pageSize: PropTypes.number,
-  striped: PropTypes.bool,
-  tableBody: PropTypes.string,
-  tableContainer: PropTypes.string,
-  tableHeader: PropTypes.string,
-  title: PropTypes.string,
-};
 
 dataTable.defaultProps = {
   bodyContainer: undefined,
