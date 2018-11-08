@@ -1,32 +1,71 @@
 #!/usr/bin/env bash
 set -e
 
+declare -A chart_names_map
+declare -A release_names_map
+declare -A chart_namespace_map
+
+chart_names_map=( ["nginx"]="stable/nginx-ingress" \
+  ["runner"]="gitlab/gitlab-runner" \
+  ["cert-manager"]="stable/cert-manager" )
+release_names_map=( ["nginx"]="controller" \
+  ["runner"]="gitlab-runner" \
+  ["cert-manager"]="cert-manager" )
+chart_namespace_map=( ["nginx"]="serves"
+  ["runner"]="operations"
+  ["cert-manager"]="operations" )
+
+function echo-blue() {
+  echo -e '\033[1;34m'"${1}"'\033[0m'
+}
+
+function get_changed_files() {
+  git diff --name-status "${CI_COMMIT_BEFORE_SHA}" "${CI_COMMIT_SHA}" \
+    | grep -Po '(?<=(M|A)\t).*'
+}
+
+function get_changed_helm_files() {
+  mapfile -t changed_files < <(get_changed_files)
+  local changed_helm_files=()
+  for file in "${changed_files[@]}"; do
+    if [[ "${file}" =~ 'helm_values/' ]]; then
+      changed_helm_files+=( "${file##*/}" )
+    fi
+  done
+  echo "${changed_helm_files[*]}"
+}
+
+function install_helm_chart() {
+  local helm_values=( "$@" )
+  for file in "${helm_values[@]}"; do
+    local file_no_extension="$(echo "${file}" | cut -d. -f1)"
+    local chart="${chart_names_map[${file_no_extension}]}"
+    local release="${release_names_map[${file_no_extension}]}"
+    local namespace="${chart_namespace_map[${file_no_extension}]}"
+    if helm list --tls | grep -q "${release}"; then
+      echo-blue "Upgrading chart ${chart}..."
+      helm upgrade "${release}" "${chart}" -f "${file}" --tls
+    else
+      echo-blue "Installing chart ${chart}..."
+      helm install "${chart}" --name "${release}" -f "${file}" \
+        --namespace "${namespace}" --tls
+    fi
+  done
+}
+
 # Set context to avoid using the --namespace flag in every command
 kubectl config set-context $(kubectl config current-context) \
   --namespace serves
 
-# Install NGINX Ingress chart to route traffic within the cluster
-# and Cert-Manager to produce valid certificates for old domains
-helm init --client-only
-helm repo add gitlab https://charts.gitlab.io
-helm repo update
-helm install --name controller \
-  --namespace serves \
-  -f eks/manifests/helm_values/nginx.yaml \
-  --tls stable/nginx-ingress  2>/dev/null || \
-  helm upgrade -f eks/manifests/helm_values/nginx.yaml --tls \
-    controller stable/nginx-ingress
-helm install stable/cert-manager \
-  --name certificate --namespace default --tls 2>/dev/null || \
-  helm upgrade --tls certificate stable/cert-manager
-sed -i 's/$GITLAB_RUNNER_TOKEN/'"$GITLAB_RUNNER_TOKEN"'/g' \
-  eks/manifests/helm_values/runner.yaml
-helm install --name gitlab-runner \
-  --namespace default \
-  -f eks/manifests/helm_values/runner.yaml \
-  --tls gitlab/gitlab-runner 2>/dev/null || \
-  helm upgrade -f eks/manifests/helm_values/runner.yaml --tls \
-    gitlab-runner gitlab/gitlab-runner
+IFS=" " read -r -a helm_files <<< "$(get_changed_helm_files)"
+if [ -z "${helm_files}" ]; then
+  echo-blue "Helm values were not updated in this deployment."
+else
+  helm init --client-only
+  helm repo add gitlab https://charts.gitlab.io
+  helm repo update
+  install_helm_chart "${helm_files[@]}"
+fi
 
 # Set TLS certificates for fluidattacks.com and fluid.ls in the NGINX server
 sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
