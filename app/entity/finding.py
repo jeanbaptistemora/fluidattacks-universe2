@@ -82,6 +82,11 @@ class Finding(ObjectType):
             else:
                 vuln_info = {'finding_id': self.id, 'vuln_type': 'old', 'where': resp.get('where')}
                 self.vulnerabilities = [Vulnerability(vuln_info)]
+
+            if 'fileRecords' in resp.keys():
+                self.records = get_records_from_file(self, resp['fileRecords'])
+            else:
+                self.records = {}
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -133,39 +138,50 @@ class Finding(ObjectType):
         return self.closed_vulnerabilities
 
     def resolve_records(self, info):
-        """ Resolve compromised records attribute """
+        """
+        Resolve compromised records attribute
+
+        Verifies if records were retrieved from formstack. if not, it
+        attempts to get them from dynamodb
+        """
         del info
 
-        resp = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
-        if resp and 'files' in resp[0].keys():
-            file_info = filter(lambda evidence: evidence['name'] == 'fileRecords', resp[0].get('files'))
-            if file_info:
-                file_name = file_info[0]['file_url']
-                file_id = '/'.join([self.project_name, self.id, file_name])
-                is_s3_file = util.list_s3_objects(client_s3, bucket_s3, file_id)
-
-                if is_s3_file:
-                    start = file_id.find(self.id) + len(self.id)
-                    localfile = "/tmp" + file_id[start:]
-                    ext = {'.py': '.tmp'}
-                    localtmp = util.replace_all(localfile, ext)
-                    client_s3.download_file(bucket_s3, file_id, localtmp)
-
-                    self.records = read_csv(localtmp)
-                else:
-                    if not re.match("[a-zA-Z0-9_-]{20,}", file_id):
-                        raise Exception('Wrong file id format')
-                    else:
-                        drive_api = DriveAPI()
-                        record = drive_api.download(file_id)
-                        self.records = read_csv(record)
-            else:
-                # Finding has no compromised records
-                pass
+        if self.records:
+            return self.records
         else:
-            self.records = {}
+            dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
+            if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
+                file_info = filter(lambda evidence: evidence['name'] == 'fileRecords', dynamo_evidence[0].get('files'))
+                if file_info:
+                    file_name = file_info[0]['file_url']
+                    self.records = get_records_from_file(self, file_name)
+                else:
+                    self.records = {}
+            else:
+                self.records = {}
 
-        return self.records
+            return self.records
+
+def get_records_from_file(self, file_name):
+    file_id = '/'.join([self.project_name.lower(), self.id, file_name])
+    is_s3_file = util.list_s3_objects(client_s3, bucket_s3, file_id)
+
+    if is_s3_file:
+        start = file_id.find(self.id) + len(self.id)
+        localfile = "/tmp" + file_id[start:]
+        ext = {'.py': '.tmp'}
+        tmp_filepath = util.replace_all(localfile, ext)
+
+        client_s3.download_file(bucket_s3, file_id, tmp_filepath)
+        return read_csv(tmp_filepath)
+    else:
+        if not re.match("[a-zA-Z0-9_-]{20,}", file_name):
+            raise Exception('Wrong file id format')
+        else:
+            drive_api = DriveAPI()
+            tmp_filepath = drive_api.download(file_name)
+
+            return read_csv(tmp_filepath)
 
 def read_csv(csv_file):
     file_content = []
