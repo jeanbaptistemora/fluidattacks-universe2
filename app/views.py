@@ -1726,7 +1726,7 @@ def download_vulnerabilities(request, findingid):
             openVulnerabilities
             closedVulnerabilities
             ports: vulnerabilities(vulnType: "ports") {
-              ip: where
+              host: where
               port: specific
               state: currentState
             }

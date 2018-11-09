@@ -235,7 +235,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     {
       align: "left" as DataAlignType,
       dataField: "where",
-      header: props.translations["search_findings.tab_description.port"],
+      header: "Host",
       isDate: false,
       isStatus: false,
       width: "70%",
@@ -243,7 +243,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     {
       align: "left" as DataAlignType,
       dataField: "specific",
-      header: "IP",
+      header: props.translations["search_findings.tab_description.port"],
       isDate: false,
       isStatus: false,
       width: "30%",

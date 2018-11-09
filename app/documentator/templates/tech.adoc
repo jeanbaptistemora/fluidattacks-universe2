@@ -111,7 +111,7 @@
 {% if 'portsVulns' in fin %}
 ===== {{ports}}
 |===
-|{{'IP'}}|{{port}}
+|{{'Host'}}|{{port}}
 {% for port in fin['portsVulns'] %}
 {{'|'+port['where']+'|'+port['specific']}}
 {% endfor %}
