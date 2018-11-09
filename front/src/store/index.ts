@@ -1,4 +1,5 @@
-import { createStore, Store } from "redux";
+import { applyMiddleware, createStore, Store } from "redux";
+import thunk from "redux-thunk";
 import { getEnvironment } from "../utils/context";
 import rootReducer from "./rootReducer";
 
@@ -30,6 +31,7 @@ const store: Store = createStore(
   getEnvironment() === "production"
   ? undefined
   : reduxDevTools(),
+  applyMiddleware(thunk),
 );
 
 export = store;

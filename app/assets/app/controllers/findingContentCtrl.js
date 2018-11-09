@@ -133,7 +133,6 @@ findingContentCtrl (
       $scope.tabEvidences = findingData.tabEvidences;
       $scope.hasExploit = findingData.hasExploit;
       $scope.exploitSrc = findingData.exploitSrc;
-      $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasDraft = findingData.hasDraft;
       if ($scope.isAdmin && findingData.hasDraft) {
@@ -403,11 +402,7 @@ findingContentCtrl (
     }
     if ($window.location.hash.indexOf("records") !== -1) {
       functionsFtry2.activeTab("#records", "FindingRecords", org, projt, idF);
-      const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
-      $scope.hasRecords = recordinfo[0];
-      findingData.hasRecords = recordinfo[0];
-      $scope.recordsDataset = recordinfo[1];
-      findingData.recordsDataset = recordinfo[1];
+      $scope.hasRecords = true;
       angular.forEach([
         "search_findings.tab_evidence.update",
         "search_findings.tab_evidence.editable"

@@ -17,6 +17,7 @@ describe('Records view', () => {
     const wrapper = shallow(
       <RecordsView
         canEdit={true}
+        findingId="422286126"
         dataset={[]}
         isEditing={true}
         translations={{

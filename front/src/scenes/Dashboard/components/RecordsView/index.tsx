@@ -5,7 +5,9 @@
 
 import React, { ComponentType } from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
-import { Reducer } from "redux";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { AnyAction, Reducer } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
@@ -20,6 +22,7 @@ export interface IRecordsViewProps {
    * may vary between findings
    */
   dataset: any[];
+  findingId: string;
   isEditing: boolean;
   translations: { [key: string]: string };
   onUploadFile(arg1: string): void;
@@ -99,9 +102,20 @@ export const component: React.SFC<IRecordsViewProps> =
     </React.StrictMode>
 );
 
+const enhance: InferableComponentEnhancer<{}> =
+lifecycle({
+  componentDidMount(): void {
+    const { findingId }: IRecordsViewProps = this.props as IRecordsViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.loadRecords(findingId));
+  },
+});
+
 export const recordsView: ComponentType<IRecordsViewProps> = reduxWrapper
 (
-  component,
+  enhance(component) as React.SFC<IRecordsViewProps>,
   (state: StateType<Reducer>): IRecordsViewProps => ({
     ...state.dashboard.records,
   }),

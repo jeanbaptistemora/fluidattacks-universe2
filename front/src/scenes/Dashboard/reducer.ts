@@ -1,4 +1,3 @@
-import _ from "lodash";
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
@@ -9,7 +8,7 @@ interface IDashboardState {
   fileInput: {
     name: string;
   };
-  records: Pick<IRecordsViewProps, "isEditing">;
+  records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
     addModal: {
       envFields: Array<{ environment: string }>;
@@ -40,6 +39,7 @@ const initialState: IDashboardState = {
     name: "",
   },
   records: {
+    dataset: [],
     isEditing: false,
   },
   resources: {
@@ -323,6 +323,16 @@ actionMap[actionType.EDIT_RECORDS] =
     },
   });
 
+actionMap[actionType.LOAD_RECORDS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    records: {
+      ...state.records,
+      dataset: action.payload.records,
+    },
+  });
+
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,
   arg2: actions.IActionStructure,
@@ -331,7 +341,7 @@ type DashboardReducer = ((
 const dashboard: DashboardReducer =
   (state: IDashboardState = initialState,
    action: actions.IActionStructure): IDashboardState => {
-  if (_.has(actionMap, action.type)) {
+  if (action.type in actionMap) {
     return actionMap[action.type](state, action);
   } else {
     return state;

@@ -2,8 +2,15 @@
  * Disabling this rule is necessary because the payload type may differ between
  * actions
  */
+import { AxiosError, AxiosResponse } from "axios";
+import { Action, AnyAction, Dispatch } from "redux";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { msgError } from "../../utils/notifications";
+import rollbar from "../../utils/rollbar";
+import Xhr from "../../utils/xhr";
 import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
+import { IRecordsViewProps } from "./components/RecordsView";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 export interface IActionStructure {
@@ -12,6 +19,8 @@ export interface IActionStructure {
 }
 
 type DashboardAction = ((...args: any[]) => IActionStructure);
+type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
+type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
 
 export const loadResources: DashboardAction =
   (repos: Array<{ branch: string; urlRepo: string }>,
@@ -148,6 +157,34 @@ export const loadVulnerabilities: DashboardAction =
     },
     type: actionType.LOAD_VULNERABILITIES,
 });
+
+export const loadRecords: ThunkActionStructure =
+(
+  findingId: IRecordsViewProps["findingId"],
+): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+  let gQry: string;
+  gQry = `{
+    finding(identifier: "${findingId}") {
+      records
+    }
+  }`;
+  new Xhr().request(gQry, "An error occurred getting compromised records")
+  .then((response: AxiosResponse) => {
+    const { data } = response.data;
+    dispatch({
+      payload: { records: JSON.parse(data.finding.records) },
+      type: actionType.LOAD_RECORDS,
+    });
+  })
+  .catch((error: AxiosError) => {
+    if (error.response !== undefined) {
+      const { errors } = error.response.data;
+
+      msgError("There was an error :(");
+      rollbar.error(error.message, errors);
+    }
+  });
+};
 
 export const editRecords: DashboardAction =
   (): IActionStructure => ({

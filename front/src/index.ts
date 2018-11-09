@@ -394,7 +394,7 @@ angular
    react2angular(
      recordsView, [
         "canEdit",
-        "dataset",
+        "findingId",
         "onUploadFile",
         "translations",
      ],

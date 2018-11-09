@@ -55,8 +55,11 @@ CLOSE_USERS_MDL = "dashboard/users/add_modal/close";
 let LOAD_VULNERABILITIES: string;
 LOAD_VULNERABILITIES = "dashboard/finding/description/vulnerabilities";
 
+export let LOAD_RECORDS: string;
+LOAD_RECORDS = "dashboard/finding/records/load";
+
 let EDIT_RECORDS: string;
-EDIT_RECORDS = "dashboard/finding/records";
+EDIT_RECORDS = "dashboard/finding/records/edit";
 
 export {
   LOAD_RESOURCES,
