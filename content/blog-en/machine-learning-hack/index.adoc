@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: machine-learning-vuln/
 
 = Machine-learning to hack
 
@@ -45,13 +46,13 @@ but do not fit into this definition exactly,
 such as:
 
 // out of focus
-- auto-fixing
-- vulnerability detection (+VD+) in binary code.
+- Automatically fixing vulnerabilities.
+- Vulnerability detection (+VD+) in binary code.
   We want to aid manual code review,
   done on human-readable source
 - +ML+-aided dynamic testing.
-- other automated techniques that don't involve +ML+.
-- exploitability prediction.
+- Other automated techniques that don't involve +ML+.
+- Exploitability prediction.
   Again, we just want to discover them to
   be manually reviewed and exploited later.
 
@@ -72,10 +73,10 @@ Ghaffarian and Shahriari (2017)<<r2 ,^[2]^>>,
 adding the papers and projects that have been added in the past year.
 
 // categories
-The approaches to applying ML to VD could be classified:
+The approaches to applying +ML+ to +VD+ could be classified:
 
-- by the type of ML techique used
-- by the degree of automation
+- by the type of +ML+ techique used,
+- by the degree of automation,
 - by the type of code they apply to, or
 - by the features that are extracted for input or pursued as output,
   i.e., what we want to look at in the code and
@@ -86,11 +87,11 @@ who then divide them according to whether
 program syntax and semantics are analyzed,
 The ones that do are further subdivided into two main categories:
 
-- vulnerable code pattern recognition.
+- Vulnerable code pattern recognition.
   Usually based on labeled data
   (samples of faulty and safe code)
   determine patterns that explain that, and
-- anomaly detection.
+- Anomaly detection.
   This means, based upon a large code base,
   extract models of what "normal code" should look like and
   determining pieces of code that do not fit in with this model.
@@ -100,9 +101,9 @@ The ones that do are further subdivided into two main categories:
 Most of the papers in this category are not security-focused,
 but their ideas can be used for +VD+.
 Also most of these works revolve around
-extracting features such as
+extracting features such as:
 
-- proper API usage patterns,
+- proper +API+ usage patterns,
   v.g. the pair +malloc+ and +free+,
 - missing checks, like ensuring a number is non-zero before dividing by it,
 - lack of input validation,
@@ -163,8 +164,9 @@ We summarize them here for the sake of completeness:
 
 // tabularize
 .Other anomaly-seeking approaches
-[cols="3"]
+[cols="3",options="header"]
 |=======================
+| Paper | Mined elements | Target
 | link:http://www.doc.ic.ac.uk/~livshits/papers/pdf/dynamine_ext.pdf[Livshits and Zimmermann (2005)]
 | commit logs                | app-specific patterns
 | link:https://www.cs.purdue.edu/homes/xyzhang/fall07/Papers/PRMiner.pdf[Li and Zhou (2005)]
@@ -172,7 +174,7 @@ We summarize them here for the sake of completeness:
 | link:https://www.st.cs.uni-saarland.de/edu/recommendation-systems/papers/p35-wasylkowski-1.pdf[Wasylowski et al. (2007)]
 | function call sequences    | object usage models
 | link:https://www.cs.sfu.ca/~jpei/publications/APIMining_FSE07.pdf[Acharya et al. (2007)]
-| API usage traces           | API usage orderings
+| +API+ usage traces           | +API+ usage orderings
 | link:https://www.computer.org/csdl/journal/ts/2008/05/tts2008050579/13rRUxAAT2W[Chang et al. (2008)]
 | neglected conditions       | implicit conditional rules
 | link:https://link.springer.com/article/10.1007/s10515-011-0086-z[Thummalapenta et al (2009)]
@@ -186,7 +188,7 @@ We summarize them here for the sake of completeness:
 In general terms, anomaly detection approaches have the following limitations:
 
 - they only apply to mature software,
-  where we assume wrong API usage are rare occurrences,
+  where we assume wrong +API+ usage are rare occurrences,
 - that particular usage must be relatively frequent
   in the codebase to be identified as an anomaly
   (otherwise the rule becomes the norm)
@@ -233,12 +235,12 @@ probably due to shallow information and simple methods.
 // vdiscover
 link:http://www.vdiscover.org/[VDiscover] doesn't exactly fit our definition,
 but needs mentioning.
-They identify each trace of a call to the standard C library
+They identify each trace of a call to the standard +C+ library
 as a text document and process them
 as link:https://en.wikipedia.org/wiki/N-gram[[red]#n-grams#]
 and encode them with
 link:https://en.wikipedia.org/wiki/Word2vec[[red]#word2vec#].
-They have tested several ML techniques such as
+They have tested several +ML+ techniques such as
 link:https://en.wikipedia.org/wiki/Logistic_regression[[red]#logistic regression#],
 link:https://en.wikipedia.org/wiki/Multilayer_perceptron[[red]#MLP#] and
 link:https://en.wikipedia.org/wiki/Random_forest[[red]#random forests#].
@@ -252,11 +254,11 @@ link:https://arxiv.org/abs/1807.06756v2[SySeVR (2018b)],
 which claim to extract both syntactic and semantic information from the code
 in the form of 'program slices', thus
 also considering both data and control flow.
-This information is then encoded as vectors using word2vec,
+This information is then encoded as vectors using +word2vec+,
 and fed to different
 link:https://en.wikipedia.org/wiki/Artificial_neural_network[[red]#neural networks#].
 They report good results with low false positives
-and 15 zero-day vulnerabilities in high-profile +FOSS+ libraries.
+and 15 zero-day vulnerabilities in high-profile open libraries.
 However, these systems:
 
 - need peer-reviewing as they are in pre-print state or are conference papers
@@ -323,7 +325,7 @@ Also noteworthy is
 link:https://saschafahl.de/papers/vccfinder2015.pdf[VCCFinder]
 by Perl et al. (2015),
 which works at the repository level
-to find vulnerability-contributing commits (+VCC+s).
+to find vulnerability-contributing commits (+VCCs+).
 
 According to <<r2 ,[2]>> and
 link:https://faculty.cs.nku.edu/~waldenj/papers/issre2014-php-prediction.pdf[Walden et al. (2014)],
@@ -357,7 +359,7 @@ which fall out of the scope of this article.
 link:https://www.acsac.org/2007/papers/22.pdf[Sparks et al. (2007)],
 link:https://www.researchgate.net/publication/260730962_Applications_of_computational_intelligence_for_static_software_checking_against_memory_corruption_vulnerabilities[Alvares et al.(2013)],
 link:http://www.gsd.inesc-id.pt/~mpc/pubs/fp694-medeiros.pdf[Medeiros et al. (2014)]
-focused on classifying reported vulnerabilites using ML techniques,
+focused on classifying reported vulnerabilites using +ML+ techniques,
 not discovery.
 
 ''''
