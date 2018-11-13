@@ -1,37 +1,37 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: tls-fluidattacks
+  name: fluidattacks-cert
   namespace: serves
 type: kubernetes.io/tls
 data:
-  tls.key: $TLS_KEY
-  tls.crt: $FA_TLS_CERT
+  tls.key: $FLUID_TLS_KEY
+  tls.crt: $FLUIDATTACKS_TLS_CERT
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: tls-fluidla
+  name: fluidla-cert
   namespace: serves
 type: kubernetes.io/tls
 data:
-  tls.key: $TLS_KEY
-  tls.crt: $FLA_TLS_CERT
+  tls.key: $FLUID_TLS_KEY
+  tls.crt: $FLUIDLA_TLS_CERT
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress
+  name: fluidattacks
   namespace: serves
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
-    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   tls:
   - hosts:
     - fluidattacks.com
-    secretName: tls-fluidattacks
+    secretName: fluidattacks-cert
   rules:
   - host: fluidattacks.com
     http:
@@ -43,16 +43,16 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress2
+  name: fluidla
   namespace: serves
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   tls:
   - hosts:
     - fluid.la
-    secretName: tls-fluidla
+    secretName: fluidla-cert
   rules:
   - host: fluid.la
     http:

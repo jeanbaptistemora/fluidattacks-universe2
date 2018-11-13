@@ -5,11 +5,11 @@ declare -A chart_names_map
 declare -A release_names_map
 declare -A chart_namespace_map
 
-chart_names_map=( ["nginx"]="stable/nginx-ingress" \
-  ["runner"]="gitlab/gitlab-runner" \
+chart_names_map=( ["nginx"]="stable/nginx-ingress"
+  ["runner"]="gitlab/gitlab-runner"
   ["cert-manager"]="stable/cert-manager" )
-release_names_map=( ["nginx"]="controller" \
-  ["runner"]="gitlab-runner" \
+release_names_map=( ["nginx"]="controller"
+  ["runner"]="gitlab-runner"
   ["cert-manager"]="cert-manager" )
 chart_namespace_map=( ["nginx"]="serves"
   ["runner"]="operations"
@@ -79,11 +79,40 @@ function install_helm_chart() {
   done
 }
 
-create_kubernetes_namespace serves operations integrates web
+# Automate the generation and renewal of TLS certificates for secondary domains
+function issue_secondary_domain_certificates() {
+  local manifest="${1}"
+  local secret="${2}"
+  local certificate_name="${3}"
+  local secret_age="$(kubectl get secret ${secret} | grep -Po '[0-9]+(d|m|s)$' | sed 's/.$//')"
+  if [ "${secret_age}" -gt 85 ]; then
+    echo-blue "Issuing TLS certificates for secondary domains..."
+    kubectl delete secret "${secret}"
+    kubectl delete certificate "${certificate_name}"
+    kubectl apply -f "${manifest}"
+    until kubectl describe certificate "${certificate_name}" | grep 'CertObtained'; do
+      echo-blue "Issuing certificate..."
+      sleep 10
+    done
+  else
+    echo-blue "Certificates for secondary domains are valid."
+  fi
+}
 
-# Set context to avoid using the --namespace flag in every command
+
+# Set working namespace to serves to avoid including the flag in every command
+create_kubernetes_namespace serves operations integrates web
 kubectl config set-context $(kubectl config current-context) \
   --namespace serves
+
+
+# Set TLS certificates for the main domains and automatically issue valid
+# certificates for the secondary domains using Cert-Manager and ACME protocol
+replace_env_variables eks/manifests/ingress-main-domains.yaml
+kubectl apply -f eks/manifests/ingress-main-domains.yaml
+issue_secondary_domain_certificates eks/manifests/ingress-sec-domains.yaml \
+  secondary-domains secondary-domains-cert
+
 
 IFS=" " read -r -a helm_files <<< "$(get_changed_helm_files)"
 if [ -z "${helm_files}" ]; then
@@ -94,16 +123,6 @@ else
   helm repo update
   install_helm_chart "${helm_files[@]}"
 fi
-
-# Set TLS certificates for fluidattacks.com and fluid.ls in the NGINX server
-sed -i 's/$TLS_KEY/'"$FLUID_TLS_KEY"'/;
-  s/$FA_TLS_CERT/'"$FLUIDATTACKS_TLS_CERT"'/;
-  s/$FLA_TLS_CERT/'"$FLUIDLA_TLS_CERT"'/' \
-  eks/manifests/ingress-tls.yaml
-kubectl apply -f eks/manifests/ingress-tls.yaml
-
-# Set Ingress rule and generate certificate for old domains
-kubectl apply -f eks/manifests/old-domains.yaml
 
 # Provide information to access Gitlab Container Registry and pull images
 if ! kubectl get secret gitlab-reg; then
