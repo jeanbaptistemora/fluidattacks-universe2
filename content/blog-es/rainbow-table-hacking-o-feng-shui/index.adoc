@@ -219,10 +219,10 @@ entradas:
 .Comando
 [source, bash, linenums]
 ----
-$ ./rtgen sha256 numeric 8 8 0 100 1000000 0
+$ ./rtgen sha256 numeric 8 8 0 100 1000000 1
 ----
 
-Tras unas decenas de minutos nuestra Rainbow Table esta lista.
+Tras 30 segundos nuestra Rainbow Table esta lista.
 Para agilizar la búsqueda, ordenemos esta tabla:
 
 .Comando
@@ -236,12 +236,12 @@ Y finalmente procedamos a obtener la contraseña
 .Comando
 [source, bash, linenums]
 ----
-$ ./rtcrack . -h C639FB319E252D72D4C74A96A20F25EA730D4134C79AFB78CBAF6B70A5882BDC
+$ ./rcrack . -h C639FB319E252D72D4C74A96A20F25EA730D4134C79AFB78CBAF6B70A5882BDC
 
 statistics
 plaintext found:                             1 of 1
-total time:                                  1.55 s
-performance of chain traverse:               0.98 million/s
+total time:                                  0.02 s
+performance of chain traverse:               0.70 million/s
 
 result
 c639fb319e252d72d4c74a96a20f25ea730d4134c79afb78cbaf6b70a5882bdc  84736181
