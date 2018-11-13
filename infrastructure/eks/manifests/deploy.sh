@@ -111,7 +111,7 @@ kubectl config set-context $(kubectl config current-context) \
 replace_env_variables eks/manifests/ingress-main-domains.yaml
 kubectl apply -f eks/manifests/ingress-main-domains.yaml
 issue_secondary_domain_certificates eks/manifests/ingress-sec-domains.yaml \
-  secondary-domains secondary-domains-cert
+  secondary-domains-cert secondary-domains 
 
 
 IFS=" " read -r -a helm_files <<< "$(get_changed_helm_files)"
