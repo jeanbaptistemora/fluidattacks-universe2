@@ -6,8 +6,9 @@
 
 = Vinculación
 
-En este paso, requerimos que nos envíes vía e-mail (careers@autonomicmind.co)
-un archivo +.ZIP+, meticulosamente organizado con un +PDF+
+En este paso,
+requerimos que nos envíes *un único e-mail* (careers@autonomicmind.co)
+*un solo archivo* +.ZIP+, meticulosamente organizado con un +PDF+
 por cada uno de los siguientes documentos:
 
 . Foto digital, a color, en fondo blanco, con traje y corbata (hombres).
@@ -17,6 +18,12 @@ si tienes pregrado.
 . Fotocopia del diploma de universidad, si tienes pregrado.
 . Fotocopia del diploma de bachiller, si no tienes pregrado.
 . Certificado de estudios actuales, si estás estudiando actualmente.
+Debe contener:
+.. Nombre del programa que estás cursando
+.. Créditos totales que componen el programa
+.. Créditos totales aprobados y finalizados a la fecha
+.. Créditos que te encuentras cursando en el periodo actual
+.. Promedio académico total acumulado a la fecha.
 . Fotocopia de certificaciones obtenidas.
 . Fotocopia de cursos realizados.
 . Fotocopia del +RUT+ actualizado.
@@ -26,7 +33,7 @@ debes incluir el certificado de afiliación.
 . Nombre de fondo de pensión obligatoria de tu preferencia,
 o de estar ya afiliado, debes incluir el certificado de afiliación.
 . Evidencia de asistencia al examen médico de Ingreso.
-. Certificación bancaria (Bancolombia).
+. Certificación bancaria.
 . Estado civil, indicando si tienes hijos.
 . Dirección completa de tu residencia (Nomenclatura con N°. de apto
 y nombre de la unidad, barrio, municipio, teléfono fijo y celular).
