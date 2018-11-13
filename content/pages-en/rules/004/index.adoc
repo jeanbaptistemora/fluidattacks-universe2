@@ -101,3 +101,6 @@ of the policies and procedures required by this subpart for the entity.
 . [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iii):]
 Accountability (A): Maintain a record of the movements of hardware
 and electronic media and any person responsible therefore.
+
+. [[r5]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM1.1:]
+Publish process (roles, responsibilities, plan), evolve as necessary.
