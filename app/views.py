@@ -572,9 +572,13 @@ def catch_finding(request, submission_id):
                     # which causes negative numbers to be shown in the indicators view.
                     if int(state['opened']) > int(finding['cardinalidad_total']):
                         finding['cardinalidad_total'] = state['opened']
+                    if 'whichOpened' in state:
+                        finding['where'] = state['whichOpened']
+                    else:
+                        # This finding does not have old open vulnerabilities
+                        # after a closing cicle.
+                        pass
                     finding['openVulnerabilities'] = state['opened']
-                if 'whichOpened' in state:
-                    finding['where'] = state['whichOpened']
                 if 'whichClosed' in state:
                     finding['closed'] = state['whichClosed']
                 finding = format_release_date(finding, state)
