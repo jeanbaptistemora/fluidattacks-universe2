@@ -437,7 +437,6 @@ export const component: React.StatelessComponent<IProjectUsersViewProps>
             }
             {...props.addModal}
             projectName={props.projectName}
-            translations={props.translations}
             userRole={props.userRole}
           />
         </Provider>

@@ -22,6 +22,7 @@ import { default as Modal } from "../../../../../components/Modal/index";
 import store from "../../../../../store/index";
 import { msgError } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
+import translate from "../../../../../utils/translations/translate";
 import { required, validEmail } from "../../../../../utils/validations";
 import Xhr from "../../../../../utils/xhr";
 import * as actions from "../../../actions";
@@ -30,7 +31,6 @@ import style from "./index.css";
 export interface IAddUserModalProps {
   open: boolean;
   projectName: string;
-  translations: { [key: string]: string };
   type: "add" | "edit";
   userRole: string;
 }
@@ -135,27 +135,25 @@ const loadAutofillData: ((arg1: CustomFormProps) => void) =
       if (error.response !== undefined) {
         const { errors } = error.response.data;
 
-        msgError(props.translations["proj_alerts.error_textsad"]);
+        msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(error.message, errors);
       }
     });
   }
 };
 
-const renderManagerRoles: ((arg1: CustomFormProps["translations"]) => JSX.Element) =
-  (translations: CustomFormProps["translations"]): JSX.Element => (
+const renderManagerRoles: JSX.Element = (
   <React.Fragment>
-    <option value="customer">{translations["search_findings.tab_users.customer"]}</option>
-    <option value="customeradmin">{translations["search_findings.tab_users.customer_admin"]}</option>
+    <option value="customer">{translate.t("search_findings.tab_users.customer")}</option>
+    <option value="customeradmin">{translate.t("search_findings.tab_users.customer_admin")}</option>
   </React.Fragment>
 );
 
-const renderAllRoles: ((arg1: CustomFormProps["translations"]) => JSX.Element) =
-  (translations: CustomFormProps["translations"]): JSX.Element => (
+const renderAllRoles: JSX.Element = (
   <React.Fragment>
-    <option value="analyst">{translations["search_findings.tab_users.analyst"]}</option>
-    <option value="admin">{translations["search_findings.tab_users.admin"]}</option>
-    {renderManagerRoles(translations)}
+    <option value="analyst">{translate.t("search_findings.tab_users.analyst")}</option>
+    <option value="admin">{translate.t("search_findings.tab_users.admin")}</option>
+    {renderManagerRoles}
   </React.Fragment>
 );
 
@@ -167,13 +165,13 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
     <FormGroup>
       <ControlLabel>
         {requiredIndicator}
-        {props.translations["search_findings.tab_users.textbox"]}
+        {translate.t("search_findings.tab_users.textbox")}
       </ControlLabel>
       <Field
         name="email"
         component={formTextField}
         type="text"
-        placeholder={props.translations["search_findings.tab_users.email"]}
+        placeholder={translate.t("search_findings.tab_users.email")}
         validate={[required, validEmail]}
         disabled={props.type === "edit"}
         /* tslint:disable-next-line jsx-no-lambda
@@ -186,7 +184,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
     <FormGroup>
       <ControlLabel>
         {requiredIndicator}
-        {props.translations["search_findings.tab_users.user_organization"]}
+        {translate.t("search_findings.tab_users.user_organization")}
       </ControlLabel>
       <Field
         name="organization"
@@ -198,7 +196,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
     <FormGroup>
       <ControlLabel>
         {requiredIndicator}
-        {props.translations["search_findings.tab_users.role"]}
+        {translate.t("search_findings.tab_users.role")}
       </ControlLabel>
       <Field
         name="role"
@@ -206,27 +204,27 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
         validate={[required]}
       >
         <option value="" selected={true}/>
-        {props.userRole === "admin" ? renderAllRoles(props.translations) : undefined}
-        {props.userRole === "customeradmin" ? renderManagerRoles(props.translations) : undefined}
+        {props.userRole === "admin" ? renderAllRoles : undefined}
+        {props.userRole === "customeradmin" ? renderManagerRoles : undefined}
       </Field>
     </FormGroup>
     <FormGroup>
       <ControlLabel>
         {requiredIndicator}
-        {props.translations["search_findings.tab_users.user_responsibility"]}
+        {translate.t("search_findings.tab_users.user_responsibility")}
       </ControlLabel>
       <Field
         name="responsability"
         component={formTextField}
         type="text"
-        placeholder={props.translations["search_findings.tab_users.responsibility_placeholder"]}
+        placeholder={translate.t("search_findings.tab_users.responsibility_placeholder")}
         validate={[required]}
       />
     </FormGroup>
     <FormGroup>
       <ControlLabel>
         {requiredIndicator}
-        {props.translations["search_findings.tab_users.phone_number"]}
+        {translate.t("search_findings.tab_users.phone_number")}
       </ControlLabel>
       <Field
         name="phone"
@@ -245,14 +243,14 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
            */
           onClick={(): void => { closeModal(props); }}
         >
-          {props.translations["confirmmodal.cancel"]}
+          {translate.t("confirmmodal.cancel")}
         </Button>
         <Button
           bsStyle="primary"
           type="submit"
           disabled={props.pristine || props.submitting}
         >
-          {props.translations["confirmmodal.proceed"]}
+          {translate.t("confirmmodal.proceed")}
         </Button>
       </ButtonToolbar>
     </Row>
@@ -266,8 +264,8 @@ DecoratedComponentClass<{}, IAddUserModalProps & Partial<ConfigProps<{}, IAddUse
     form: "addUser",
   })((props: CustomFormProps): JSX.Element => {
     const title: string = props.type === "add"
-    ? props.translations["search_findings.tab_users.title"]
-    : props.translations["search_findings.tab_users.edit_user_title"];
+    ? translate.t("search_findings.tab_users.title")
+    : translate.t("search_findings.tab_users.edit_user_title");
 
     return (
       <React.StrictMode>

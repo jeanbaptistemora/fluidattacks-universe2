@@ -18,11 +18,6 @@ describe('Add user modal', () => {
       <AddUserModal
         open={true}
         projectName="unittesting"
-        translations={{
-          "search_findings.tab_users.edit": "Edit",
-          "search_findings.tab_users.add_button": "Add",
-          "search_findings.tab_users.remove_user": "Remove",
-        }}
         type="add"
         userRole="admin"
       />
