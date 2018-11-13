@@ -187,8 +187,12 @@ angular.module("FluidIntegrates").factory(
         const reqVulnerabilities =
           projectFtry2.getVulnerabilities($scope.finding.id, state);
         reqVulnerabilities.then((response) => {
-          if (response.error) {
-            if (angular.isUndefined(response.data.finding)) {
+          if (response.errors) {
+            const {message} = response.errors[0];
+            if (message === "'access'") {
+              location.assign("/index");
+            }
+            else {
               $msg.error($translate.instant("proj_alerts.error_textsad"));
             }
           }
