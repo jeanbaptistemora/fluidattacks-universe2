@@ -94,10 +94,13 @@
     "@types/revalidate": "1.1.2",
     "react-phone-input-2": "2.6.1",
     "jsdom": "12.2.0",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "i18next": "12.0.0",
+    "@types/i18next": "11.9.3",
+    "react-i18next": "8.3.8"
   },
   "resolutions": {
-      "graceful-fs": "4.1.13"
+    "graceful-fs": "4.1.13"
   },
   "scripts": {
     "test": "gulp compile && mocha -r ignore-styles -r ts-node/register -r ./jsdom.js $(find src/ -name '*.spec.tsx')"

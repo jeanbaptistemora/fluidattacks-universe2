@@ -10,7 +10,8 @@
 
 const { JSDOM } = require('jsdom');
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const url = 'https://localhost:8000';
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url });
 const { window } = jsdom;
 
 function copyProps(src, target) {
