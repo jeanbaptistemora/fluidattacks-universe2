@@ -1,0 +1,144 @@
+:slug: defends/aspnet/lineamientos-seguridad/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la definición de líneamientos generales de seguridad. Una mala configuración puede causar una brecha de seguridad que comprometa la información confidencial de la organización. Aquí te mostramos cómo evitarlo.
+:keywords: ASP.NET, Seguridad, Lineamientos, Protección, Datos, Desarrollo
+:defends: yes
+
+= Entender Lineamientos de Seguridad
+
+== Necesidad
+
+Entender lineamientos generales de seguridad para +ASP.NET+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se tiene acceso a una máquina +Windows+ que presta servicios de +ASP.NET+.
+. Se requiere realizar un aseguramiento de una máquina
+con sistema operativo +Windows+
+y que preste servicios de +IIS+ y +ASP.NET+.
+
+== Solución
+
+. Proteger los sitios Web
+es un tema complejo crítico para los desarrolladores web.
+La protección de un sitio requiere de una cuidadosa planificación,
+y los administradores y programadores de sitios web
+deben tener un claro entendimiento de las opciones para proteger su sitio.
++ASP.NET+ trabaja en conjunto
+con los Servicios de Internet Information Server (+IIS+)
++Microsoft.NET Framework+,
+y para ayudar a proporcionar la seguridad de aplicaciones Web.
+Para ayudar a proteger su aplicación +ASP.NET+,
+debe realizar las dos funciones fundamentales descritos en la siguiente tabla:
++
+[cols="2"]
+.Funciones de seguridad en aplicaciones
+|====
+| *Función de seguridad*
+| *Descripción*
+| Autenticación
+| Ayuda a verificar que el usuario es, de hecho,
+que el usuario es quien dice ser.
+La aplicación obtiene las credenciales
+de un usuario y valida las credenciales contra alguna autoridad.
+Si las credenciales son válidas,
+la entidad que presentó las credenciales
+se considera una identidad autenticada.
+| Autorización
+| Límites de los derechos de acceso
+mediante la concesión o denegación de permisos
+específicos a una identidad autenticada.
+|====
++
++IIS+ también puede conceder o denegar el acceso
+basándose en el nombre de host de un usuario o la dirección +IP+.
+Cualquier autorización de acceso adicional
+se realiza mediante autorización de direcciones +URL+
+de archivos +NTFS+ de permiso de acceso.
++
+Una de las ventajas de utilizar +ASP.NET+ para alojar múltiples sitios web
+es el soporte en el +Common Language Runtime+ (+CLR+)
+para la seguridad de acceso a código (+CAS+).
+El Código se asigna a una clasificación
+de la zona de seguridad basada en la evidencia sobre el origen del código,
+como un nombre seguro para un conjunto o +URL+ del código de origen.
+
+. Fundamentos de seguridad de acceso a código (+CAS+).
+Cada aplicación que se dirige a +Common Language Runtime+
+debe interactuar con el sistema de seguridad del tiempo de ejecución.
+Cuando se carga una aplicación administrada,
+su anfitrión le otorga automáticamente un conjunto de permisos.
+Estos permisos se determinan por la configuración de seguridad local del host
+o por el entorno +sandbox+ limitado de la aplicación.
+En función de estos permisos,
+la aplicación o bien se ejecuta correctamente
+o genera una excepción de seguridad.
+Debe diseñar su aplicación para que utilice
+sólo los permisos que el +host+ de destino permite.
+Debe estar familiarizado con los siguientes conceptos de +CAS+
+para escribir aplicaciones efectivas
+que se dirigen a +Common Language Runtime+:
+
+.. Código +type-safe+: Para permitir que el código
+pueda beneficiarse de la seguridad de acceso a código,
+debe utilizar un compilador que genere código verificable +con type-safe+.
++Type-safe+ es el código que tiene acceso
+a sólo los tipos de formas bien definidas, permitidos.
+Por ejemplo, dada una referencia a un objeto válido,
+el código de seguridad de tipos
+puede tener acceso a la memoria en desplazamientos fijos
+correspondientes a los miembros reales de campo
+
+.. Sintaxis imperativo y declarativo:
+La interacción con el sistema de seguridad en tiempo de ejecución
+se realiza mediante llamadas de seguridad imperativas y declarativas.
+Llamadas declarativas se realizan utilizando atributos;
+llamadas imperativas se realizan
+utilizando nuevas instancias de clases dentro de su código.
+El código que se dirige a +Common Language Runtime+
+puede interactuar con el sistema de seguridad.
+Esto se logra mediante la solicitud de permisos,
+exigiendo que los llamados han especificado permisos,
+y redefinición de ciertos parámetros de seguridad.
+Algunas operaciones pueden realizarse usando las dos formas de sintaxis
+mientras que otras operaciones se pueden realizar
+usando sólo sintaxis declarativa.
+
+.. Utilizar bibliotecas de clases seguras:
+Las bibliotecas de clases utilizan la seguridad de acceso al código
+para especificar los permisos que se requieren para ser visitada.
+Usted debe ser consciente de los permisos necesarios
+para acceder a cualquier biblioteca que utiliza el código.
+Por ejemplo, una biblioteca de clases segura
+podría tener un método para la creación de archivos
+que exigiría permisos para crear archivos.
+El +.NET Framework+ incluye las bibliotecas de clases seguras.
+
+.. Código transparente (+Security-Transparent+):
+Disponible desde +.NET Framework+ versión +4+  en adelante.
+El código transparente en seguridad no puede llamar
+a tipos o miembros que son identificados como críticos para la seguridad.
+Esta regla se aplica a las aplicaciones de plena confianza,
+así como aplicaciones de confianza parcial.
+La seguridad consta de tres piezas que interactúan:
++sandboxing+, permisos y cumplimiento.
++Sandboxing+ se refiere a la práctica
+de crear dominios aislados en algún código,
+que se trata como de plena confianza
+y otro código que se limita a los permisos en el conjunto de permisos
+concedidos para la caja de arena.
+El conjunto de permisos concedidos por la caja de arena
+es determinada por pruebas (la clase +Evidence+).
++Evidence+ identifica qué permisos específicos
+son requeridos por cajas de arena,
+y qué tipos de cajas de arena puede ser creadas.
+
+
+== Referencias
+
+. [[r1]] link:https://docs.microsoft.com/en-us/previous-versions/aspnet/ks310b8y(v=vs.100)[Como funciona la seguridad en +ASP.NET+].
+
+. [[r2]] link:https://es.wikipedia.org/wiki/Entorno_de_pruebas_(inform%C3%A1tica)[Sandbox environment].
