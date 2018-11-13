@@ -828,7 +828,7 @@ msgstr "Hand holding a lock sign"
 #: templates/landing.html:62
 msgid "Index-bnft-4"
 msgstr ""
-"We seek a <strong>higher impact business impact</strong> "
+"We seek a <strong>higher business impact</strong> "
 "not only in terms of technology."
 
 #: templates/landing.html:65
