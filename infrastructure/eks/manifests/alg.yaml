@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "ALG deployment from Serves on $DATE"
 spec:
-  minReadySeconds: 5
+  minReadySeconds: 15
   replicas: 1
   strategy:
     rollingUpdate:
