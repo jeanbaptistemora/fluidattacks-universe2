@@ -137,7 +137,7 @@ para analizarlo.
 Un gráfico especial propuesto por los mismos autores,
 llamado el _Gráfico de propiedad de código_
 el cual combina otras representaciones gráficas del código, como
-el link:../oracle-code/#databases-out-of-programs[árbol abstracto de sintaxis],
+el link:../oraculo-codigo/#bases-de-datos-a-partir-de-programas[árbol abstracto de sintaxis],
 el link:http://research.cs.wisc.edu/wpis/papers/icse92.pdf#page=4[gráfico de dependencias]
 y el link:https://scitools.com/feature/control-flow-graphs/[gráfico de control de flujo],
 es almacenado en la base de datos orientada a gráficos link:https://neo4j.com/[neo4j]
