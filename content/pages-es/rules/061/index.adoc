@@ -67,3 +67,6 @@ Procedimientos de emergencia:
 Establecer (e implementar cuando sea necesario)
 procedimientos para obtener la información sensible necesaria
 durante una emergencia.
+
+. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.1:]
+Publicar internamente información sobre seguridad de software.

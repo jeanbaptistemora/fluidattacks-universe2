@@ -56,3 +56,6 @@ users do not use the defined security controls.
 Emergency Access Procedure: Establish (and implement as needed)
 procedures for obtaining necessary electronic protected health information
 during an emergency.
+
+. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.1:]
+Publish data about software security internally.
