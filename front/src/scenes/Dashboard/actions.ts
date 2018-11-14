@@ -4,12 +4,15 @@
  */
 import { AxiosError, AxiosResponse } from "axios";
 import { Action, AnyAction, Dispatch } from "redux";
+import { reset } from "redux-form";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { msgError } from "../../utils/notifications";
+import { formatUserlist } from "../../utils/formatHelpers";
+import { msgError, msgSuccess } from "../../utils/notifications";
 import rollbar from "../../utils/rollbar";
+import translate from "../../utils/translations/translate";
 import Xhr from "../../utils/xhr";
 import * as actionType from "./actionTypes";
-import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
+import { IProjectUsersViewProps, IUserData } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
@@ -109,25 +112,47 @@ export const addFileName: DashboardAction =
       type: actionType.ADD_FILE_NAME,
 });
 
-export const loadUsers: DashboardAction =
-  (userlist: IProjectUsersViewProps["userList"]): IActionStructure => ({
-    payload: {
-      userlist,
-    },
-    type: actionType.LOAD_USERS,
-});
-
 export const clearUsers: DashboardAction =
   (): IActionStructure => ({
   payload: undefined,
   type: actionType.CLEAR_USERS,
 });
 
-export const addUser: DashboardAction =
-  (newUser: IProjectUsersViewProps["userList"][0]): IActionStructure => ({
-    payload: { newUser },
-    type: actionType.ADD_USER,
-});
+export const loadUsers: ThunkActionStructure =
+  (
+    projectName: IProjectUsersViewProps["projectName"],
+  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+    dispatch(clearUsers());
+    let gQry: string;
+    gQry = `{
+      projectUsers(projectName:"${projectName}"){
+        email
+        role
+        responsability
+        phoneNumber
+        organization
+        firstLogin
+        lastLogin
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred getting project users")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      dispatch({
+          payload: { userlist: formatUserlist(data.projectUsers) },
+          type: actionType.LOAD_USERS,
+      });
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
 
 export const removeUser: DashboardAction =
   (removedEmail: string): IActionStructure => ({
@@ -146,6 +171,63 @@ export const closeUsersMdl: DashboardAction =
     payload: undefined,
     type: actionType.CLOSE_USERS_MDL,
 });
+
+export const addUser: ThunkActionStructure =
+ (
+   newUser: IUserData,
+   projectName: IProjectUsersViewProps["projectName"],
+ ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+   let gQry: string;
+   gQry = `mutation {
+     grantUserAccess(
+       email: "${newUser.email}",
+       organization: "${newUser.organization}",
+       phoneNumber: "${newUser.phone}",
+       projectName: "${projectName}",
+       responsibility: "${newUser.responsability}",
+       role: "${newUser.role}"
+     ) {
+       success
+       grantedUser {
+         email
+         role
+         responsability
+         phoneNumber
+         organization
+         firstLogin
+         lastLogin
+       }
+     }
+   }`;
+   new Xhr().request(gQry, "An error occurred adding user to project")
+   .then((response: AxiosResponse) => {
+     const { data } = response.data;
+
+     if (data.grantUserAccess.success) {
+       msgSuccess(
+         `${newUser.email}${translate.t("search_findings.tab_users.success")}`,
+         translate.t("search_findings.tab_users.title_success"),
+       );
+       dispatch(reset("addUser"));
+       dispatch(closeUsersMdl());
+       dispatch({
+         payload: { newUser: formatUserlist([data.grantUserAccess.grantedUser])[0] },
+         type: actionType.ADD_USER,
+       });
+     } else {
+       msgError(translate.t("proj_alerts.error_textsad"));
+     }
+   })
+   .catch((error: AxiosError) => {
+     if (error.response !== undefined) {
+       const { errors } = error.response.data;
+
+       msgError(translate.t("proj_alerts.error_textsad"));
+       rollbar.error(error.message, errors);
+     }
+   });
+};
+
 export const loadVulnerabilities: DashboardAction =
   (dataInputs: IVulnerabilitiesViewProps["dataInputs"],
    dataLines: IVulnerabilitiesViewProps["dataLines"],

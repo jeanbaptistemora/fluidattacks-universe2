@@ -11,8 +11,9 @@ import React, { ComponentType } from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 import { reset } from "redux-form";
+import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
@@ -24,7 +25,7 @@ import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
 
-interface IUserData {
+export interface IUserData {
   email: string;
   organization: string;
   phone: string;
@@ -48,74 +49,14 @@ export interface IProjectUsersViewProps {
   userRole: string;
 }
 
-const formatRawUserData:
-((arg1: IProjectUsersViewProps["userList"]) => IProjectUsersViewProps["userList"]) =
-  (usersList: IProjectUsersViewProps["userList"]): IProjectUsersViewProps["userList"] => {
-  for (const user of usersList) {
-    user.role = translate.t(`search_findings.tab_users.${user.role}`);
-    /* tslint:disable-next-line:no-any
-     * Disabling here is necessary because TypeScript relies
-     * on its JS base for functions like JSON.parse whose type is 'any'
-     */
-    const lastLoginDate: any = JSON.parse(user.lastLogin);
-    let DAYS_IN_MONTH: number;
-    DAYS_IN_MONTH = 30;
-    if (lastLoginDate[0] >= DAYS_IN_MONTH) {
-      const ROUNDED_MONTH: number = Math.round(lastLoginDate[0] / DAYS_IN_MONTH);
-      user.lastLogin = translate.t("search_findings.tab_users.months_ago", {count: ROUNDED_MONTH});
-    } else if (lastLoginDate[0] > 0 && lastLoginDate[0] < DAYS_IN_MONTH) {
-      user.lastLogin = translate.t("search_findings.tab_users.days_ago", {count: lastLoginDate[0]});
-    } else if (lastLoginDate[0] === -1) {
-      user.lastLogin = "-";
-      user.firstLogin = "-";
-    } else {
-      let SECONDS_IN_HOUR: number;
-      SECONDS_IN_HOUR = 3600;
-      const ROUNDED_HOUR: number = Math.round(lastLoginDate[1] / SECONDS_IN_HOUR);
-      let SECONDS_IN_MINUTES: number;
-      SECONDS_IN_MINUTES = 60;
-      const ROUNDED_MINUTES: number = Math.round(lastLoginDate[1] / SECONDS_IN_MINUTES);
-      user.lastLogin = ROUNDED_HOUR >= 1 && ROUNDED_MINUTES >= SECONDS_IN_MINUTES
-      ? translate.t("search_findings.tab_users.hours_ago", {count: ROUNDED_HOUR})
-      : translate.t("search_findings.tab_users.minutes_ago", {count: ROUNDED_MINUTES});
-    }
-  }
-
-  return usersList;
-};
-
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
-    store.dispatch(actions.clearUsers());
-    const { projectName }: IProjectUsersViewProps = this.props as IProjectUsersViewProps;
-    let gQry: string;
-    gQry = `{
-      projectUsers(projectName:"${projectName}"){
-        email
-        role
-        responsability
-        phoneNumber
-        organization
-        firstLogin
-        lastLogin
-      }
-    }`;
-    new Xhr().request(gQry, "An error occurred getting project users")
-    .then((response: AxiosResponse) => {
-      const { data } = response.data;
-      const usersList: IProjectUsersViewProps["userList"] =
-        formatRawUserData(data.projectUsers);
-      store.dispatch(actions.loadUsers(usersList));
-    })
-    .catch((error: AxiosError) => {
-      if (error.response !== undefined) {
-        const { errors } = error.response.data;
-
-        msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error(error.message, errors);
-      }
-    });
+    const { projectName } = this.props as IProjectUsersViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.loadUsers(projectName));
   },
 });
 
@@ -306,53 +247,10 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
 
 const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
   (props: IProjectUsersViewProps, newUser: IUserData): void => {
-  let gQry: string;
-  gQry = `mutation {
-    grantUserAccess(
-      email: "${newUser.email}",
-      organization: "${newUser.organization}",
-      phoneNumber: "${newUser.phone}",
-      projectName: "${props.projectName}",
-      responsibility: "${newUser.responsability}",
-      role: "${newUser.role}"
-    ) {
-      success
-      grantedUser {
-        email
-        role
-        responsability
-        phoneNumber
-        organization
-        firstLogin
-        lastLogin
-      }
-    }
-  }`;
-  new Xhr().request(gQry, "An error occurred adding user to project")
-  .then((response: AxiosResponse) => {
-    const { data } = response.data;
-    if (data.grantUserAccess.success) {
-      msgSuccess(
-        `${newUser.email}${translate.t("search_findings.tab_users.success")}`,
-        translate.t("search_findings.tab_users.title_success"),
-      );
-      store.dispatch(reset("addUser"));
-      store.dispatch(actions.closeUsersMdl());
-      store.dispatch(actions.addUser(formatRawUserData(
-        [data.grantUserAccess.grantedUser])[0],
-      ));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-    }
-  })
-  .catch((error: AxiosError) => {
-    if (error.response !== undefined) {
-      const { errors } = error.response.data;
-
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error(error.message, errors);
-    }
-  });
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.addUser(newUser, props.projectName));
 };
 
 const editUserInfo: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
