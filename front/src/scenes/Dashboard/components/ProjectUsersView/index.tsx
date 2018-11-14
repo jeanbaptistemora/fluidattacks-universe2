@@ -19,6 +19,7 @@ import store from "../../../../store/index";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
+import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
@@ -38,7 +39,6 @@ export interface IProjectUsersViewProps {
     type: "add" | "edit";
   };
   projectName: string;
-  translations: { [key: string]: string };
   userList: Array<{
     email: string; firstLogin: string;
     lastLogin: string; organization: string;
@@ -49,12 +49,10 @@ export interface IProjectUsersViewProps {
 }
 
 const formatRawUserData:
-((arg1: IProjectUsersViewProps["userList"],
-  arg2: IProjectUsersViewProps["translations"]) => IProjectUsersViewProps["userList"]) =
-  (usersList: IProjectUsersViewProps["userList"],
-   translations: IProjectUsersViewProps["translations"]): IProjectUsersViewProps["userList"] => {
+((arg1: IProjectUsersViewProps["userList"]) => IProjectUsersViewProps["userList"]) =
+  (usersList: IProjectUsersViewProps["userList"]): IProjectUsersViewProps["userList"] => {
   for (const user of usersList) {
-    user.role = translations[`search_findings.tab_users.${user.role}`];
+    user.role = translate.t(`search_findings.tab_users.${user.role}`);
     /* tslint:disable-next-line:no-any
      * Disabling here is necessary because TypeScript relies
      * on its JS base for functions like JSON.parse whose type is 'any'
@@ -64,11 +62,9 @@ const formatRawUserData:
     DAYS_IN_MONTH = 30;
     if (lastLoginDate[0] >= DAYS_IN_MONTH) {
       const ROUNDED_MONTH: number = Math.round(lastLoginDate[0] / DAYS_IN_MONTH);
-      user.lastLogin
-        = `${ROUNDED_MONTH} ${translations["search_findings.tab_users.months_ago"]}`;
+      user.lastLogin = translate.t("search_findings.tab_users.months_ago", {count: ROUNDED_MONTH});
     } else if (lastLoginDate[0] > 0 && lastLoginDate[0] < DAYS_IN_MONTH) {
-      user.lastLogin
-        = `${lastLoginDate[0]} ${translations["search_findings.tab_users.days_ago"]}`;
+      user.lastLogin = translate.t("search_findings.tab_users.days_ago", {count: lastLoginDate[0]});
     } else if (lastLoginDate[0] === -1) {
       user.lastLogin = "-";
       user.firstLogin = "-";
@@ -80,8 +76,8 @@ const formatRawUserData:
       SECONDS_IN_MINUTES = 60;
       const ROUNDED_MINUTES: number = Math.round(lastLoginDate[1] / SECONDS_IN_MINUTES);
       user.lastLogin = ROUNDED_HOUR >= 1 && ROUNDED_MINUTES >= SECONDS_IN_MINUTES
-      ? `${ROUNDED_HOUR} ${translations["search_findings.tab_users.hours_ago"]}`
-      : `${ROUNDED_MINUTES} ${translations["search_findings.tab_users.minutes_ago"]}`;
+      ? translate.t("search_findings.tab_users.hours_ago", {count: ROUNDED_HOUR})
+      : translate.t("search_findings.tab_users.minutes_ago", {count: ROUNDED_MINUTES});
     }
   }
 
@@ -92,7 +88,7 @@ const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
     store.dispatch(actions.clearUsers());
-    const { projectName, translations }: IProjectUsersViewProps = this.props as IProjectUsersViewProps;
+    const { projectName }: IProjectUsersViewProps = this.props as IProjectUsersViewProps;
     let gQry: string;
     gQry = `{
       projectUsers(projectName:"${projectName}"){
@@ -109,17 +105,14 @@ lifecycle({
     .then((response: AxiosResponse) => {
       const { data } = response.data;
       const usersList: IProjectUsersViewProps["userList"] =
-        formatRawUserData(
-          data.projectUsers,
-          translations,
-        );
+        formatRawUserData(data.projectUsers);
       store.dispatch(actions.loadUsers(usersList));
     })
     .catch((error: AxiosError) => {
       if (error.response !== undefined) {
         const { errors } = error.response.data;
 
-        msgError(translations["proj_alerts.error_textsad"]);
+        msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(error.message, errors);
       }
     });
@@ -133,8 +126,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IProjectUsersViewProps) =
     userList: state.dashboard.users.userList,
   });
 
-const removeUser: ((arg1: string, arg2: IProjectUsersViewProps["translations"]) => void) =
-  (projectName: string, translations: IProjectUsersViewProps["translations"]): void => {
+const removeUser: ((arg1: string) => void) = (projectName: string): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
   if (selectedQry.length > 0) {
     if (selectedQry[0].closest("tr") !== null) {
@@ -156,32 +148,31 @@ const removeUser: ((arg1: string, arg2: IProjectUsersViewProps["translations"]) 
 
           store.dispatch(actions.removeUser(removedEmail));
           msgSuccess(
-            `${email} ${translations["search_findings.tab_users.success_delete"]}`,
-            translations["search_findings.tab_users.title_success"],
+            `${email} ${translate.t("search_findings.tab_users.success_delete")}`,
+            translate.t("search_findings.tab_users.title_success"),
           );
         } else {
-          msgError(translations["proj_alerts.error_textsad"]);
+          msgError(translate.t("proj_alerts.error_textsad"));
         }
       })
       .catch((error: AxiosError) => {
         if (error.response !== undefined) {
           const { errors } = error.response.data;
 
-          msgError(translations["proj_alerts.error_textsad"]);
+          msgError(translate.t("proj_alerts.error_textsad"));
           rollbar.error(error.message, errors);
         }
       });
     } else {
-      msgError(translations["proj_alerts.error_textsad"]);
+      msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing user");
     }
   } else {
-    msgError(translations["search_findings.tab_users.no_selection"]);
+    msgError(translate.t("search_findings.tab_users.no_selection"));
   }
 };
 
-const openEditModal: ((arg1: IProjectUsersViewProps["translations"]) => void) =
-  (translations: IProjectUsersViewProps["translations"]): void => {
+const openEditModal: (() => void) =  (): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
   if (selectedQry.length > 0) {
     if (selectedQry[0].closest("tr") !== null) {
@@ -198,20 +189,18 @@ const openEditModal: ((arg1: IProjectUsersViewProps["translations"]) => void) =
         responsability,
       }));
     } else {
-      msgError(translations["proj_alerts.error_textsad"]);
+      msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing user");
     }
   } else {
-    msgError(translations["search_findings.tab_users.no_selection"]);
+    msgError(translate.t("search_findings.tab_users.no_selection"));
   }
 };
 
 const renderUsersTable:
 ((arg1: IProjectUsersViewProps["userList"],
-  arg2: IProjectUsersViewProps["translations"],
   arg3: IProjectUsersViewProps["userRole"]) => JSX.Element) =
   (userList: IProjectUsersViewProps["userList"],
-   translations: IProjectUsersViewProps["translations"],
    userRole: IProjectUsersViewProps["userRole"]): JSX.Element => (
   <DataTable
     id="tblUsers"
@@ -221,49 +210,49 @@ const renderUsersTable:
     headers={[
       {
         dataField: "email",
-        header: translations["search_findings.users_table.usermail"],
+        header: translate.t("search_findings.users_table.usermail"),
         isDate: false,
         isStatus: false,
         width: "27%",
       },
       {
         dataField: "role",
-        header: translations["search_findings.users_table.userRole"],
+        header: translate.t("search_findings.users_table.userRole"),
         isDate: false,
         isStatus: false,
         width: "8%",
       },
       {
         dataField: "responsability",
-        header: translations["search_findings.users_table.userResponsibility"],
+        header: translate.t("search_findings.users_table.userResponsibility"),
         isDate: false,
         isStatus: false,
         width: "12%",
       },
       {
         dataField: "phoneNumber",
-        header: translations["search_findings.users_table.phoneNumber"],
+        header: translate.t("search_findings.users_table.phoneNumber"),
         isDate: false,
         isStatus: false,
         width: "10%",
       },
       {
         dataField: "organization",
-        header: translations["search_findings.users_table.userOrganization"],
+        header: translate.t("search_findings.users_table.userOrganization"),
         isDate: false,
         isStatus: false,
         width: "10%",
       },
       {
         dataField: "firstLogin",
-        header: translations["search_findings.users_table.firstlogin"],
+        header: translate.t("search_findings.users_table.firstlogin"),
         isDate: false,
         isStatus: false,
         width: "12%",
       },
       {
         dataField: "lastLogin",
-        header: translations["search_findings.users_table.lastlogin"],
+        header: translate.t("search_findings.users_table.lastlogin"),
         isDate: false,
         isStatus: false,
         width: "12%",
@@ -284,10 +273,10 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         id="editUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { openEditModal(props.translations); }}
+        onClick={(): void => { openEditModal(); }}
       >
         <Glyphicon glyph="edit"/>&nbsp;
-        {props.translations["search_findings.tab_users.edit"]}
+        {translate.t("search_findings.tab_users.edit")}
       </Button>
     </Col>
     <Col md={2} sm={6}>
@@ -298,7 +287,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         onClick={(): void => { store.dispatch(actions.openUsersMdl("add")); }}
       >
         <Glyphicon glyph="plus"/>&nbsp;
-        {props.translations["search_findings.tab_users.add_button"]}
+        {translate.t("search_findings.tab_users.add_button")}
       </Button>
     </Col>
     <Col md={2} sm={6}>
@@ -306,10 +295,10 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         id="removeUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { removeUser(props.projectName, props.translations); }}
+        onClick={(): void => { removeUser(props.projectName); }}
       >
         <Glyphicon glyph="minus"/>&nbsp;
-        {props.translations["search_findings.tab_users.remove_user"]}
+        {translate.t("search_findings.tab_users.remove_user")}
       </Button>
     </Col>
   </div>
@@ -344,24 +333,23 @@ const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void
     const { data } = response.data;
     if (data.grantUserAccess.success) {
       msgSuccess(
-        newUser.email + props.translations["search_findings.tab_users.success"],
-        props.translations["search_findings.tab_users.title_success"],
+        `${newUser.email}${translate.t("search_findings.tab_users.success")}`,
+        translate.t("search_findings.tab_users.title_success"),
       );
       store.dispatch(reset("addUser"));
       store.dispatch(actions.closeUsersMdl());
       store.dispatch(actions.addUser(formatRawUserData(
-        [data.grantUserAccess.grantedUser],
-        props.translations)[0],
+        [data.grantUserAccess.grantedUser])[0],
       ));
     } else {
-      msgError(props.translations["proj_alerts.error_textsad"]);
+      msgError(translate.t("proj_alerts.error_textsad"));
     }
   })
   .catch((error: AxiosError) => {
     if (error.response !== undefined) {
       const { errors } = error.response.data;
 
-      msgError(props.translations["proj_alerts.error_textsad"]);
+      msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error(error.message, errors);
     }
   });
@@ -388,21 +376,21 @@ const editUserInfo: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
 
     if (data.editUser.success) {
       msgSuccess(
-        props.translations["search_findings.tab_users.success_admin"],
-        props.translations["search_findings.tab_users.title_success"],
+        translate.t("search_findings.tab_users.success_admin"),
+        translate.t("search_findings.tab_users.title_success"),
       );
       store.dispatch(reset("addUser"));
       store.dispatch(actions.closeUsersMdl());
       location.reload();
     } else {
-      msgError(props.translations["proj_alerts.error_textsad"]);
+      msgError(translate.t("proj_alerts.error_textsad"));
     }
   })
   .catch((error: AxiosError) => {
     if (error.response !== undefined) {
       const { errors } = error.response.data;
 
-      msgError(props.translations["proj_alerts.error_textsad"]);
+      msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error(error.message, errors);
     }
   });
@@ -423,7 +411,7 @@ export const component: React.StatelessComponent<IProjectUsersViewProps>
             </Row>
             <Row>
               <Col md={12} sm={12}>
-                {renderUsersTable(props.userList, props.translations, props.userRole)}
+                {renderUsersTable(props.userList, props.userRole)}
               </Col>
             </Row>
           </Col>
@@ -443,10 +431,6 @@ export const component: React.StatelessComponent<IProjectUsersViewProps>
       </div>
     </React.StrictMode>
 );
-
-component.defaultProps = {
-  translations: {},
-};
 
 export const projectUsersView: ComponentType<IProjectUsersViewProps> = reduxWrapper
 (

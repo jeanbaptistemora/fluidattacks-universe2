@@ -331,7 +331,6 @@ angular
    react2angular(
       projectUsersView, [
         "projectName",
-        "translations",
         "userRole",
      ],
    ),
