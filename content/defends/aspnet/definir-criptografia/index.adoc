@@ -1,0 +1,299 @@
+:slug: defends/aspnet/definir-criptografia/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET. En este artículo mostraremos cómo configurar adecuadamente los proveedores y clases criptográficas de la aplicación, estableciendo algoritmos de cifrado seguros.
+:keywords: ASP.NET, Seguridad, Clases, Algoritmos, Cifrado, Proveedores
+:defends: yes
+
+= Definir Proveedores y Clases Criptográficas
+
+== Necesidad
+
+Definir proveedores y clases criptográficas en +ASP.NET+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +ASP.NET+.
+. La aplicación hará uso de métodos criptográficos.
+. Debe usarse mecanismos criptográficos pre-existentes. <<r1, ^[1]^>>
+
+== Solución
+
+Existen diversas clases para el uso criptográfico en el +framework .NET+,
+podemos listar todos los proveedores y clases
+que son soportadas por el framework a través del uso de +Reflection+.
+
+. Primero usamos los nombres de espacio involucrados en la solución:
++
+.Inclusión de librerías
+[source, csharp, linenums]
+----
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+----
+
+. Declaramos nuestro nombre de espacios
+y definimos la entrada para el programa:
++
+[source, csharp, linenums]
+----
+namespace CryptographicClass {
+  class Program {
+    static void Main(string[] args) {
+
+----
+
+. Cargamos el archivo +mscorlib.dll+,
+el cual contiene todas las clases y métodos del núcleo de +.NET+:
++
+[source, csharp, linenums]
+----
+  Assembly assembly = Assembly.Load("mscorlib.dll");
+----
+
+. Definimos una lista donde agregaremos las clases criptográficas:
++
+[source, csharp, linenums]
+----
+  List<string> classes = new List<string>();
+----
+
+. Recorremos todas las clases soportadas por +.NET+:
++
+[source, csharp, linenums]
+----
+  foreach (Type type in assembly.GetTypes()) {
+----
+
+. Si el espacio de nombres de la clase
+pertenece a la biblioteca criptográfica,
+entonces agregamos el nombre de la clase
+a la lista definida anteriormente:
++
+[source, csharp, linenums]
+----
+  if (type.Namespace == "System.Security.Cryptography") {
+    classes.Add(type.Name);
+  }
+}
+----
+
+. Ordenamos alfabéticamente la lista y la imprimimos:
++
+[source, csharp, linenums]
+----
+      classes.Sort();
+      foreach (string classname in classes) {
+        Console.WriteLine(classname);
+      }
+    }
+  }
+}
+----
+
+. En la siguiente tabla encontrará un resumen
+de las clases criptográficas y el algoritmo que implementan:
+
+.Clases y algoritmos de cifrado de ASP.NET
+[cols="3"]
+|====
+|*Nombre simple* | *Clase* | *Algoritmo implementado*
+
+| 3DES, Triple DES, TripleDES
+| System.Security. +
+Cryptography. +
+TripleDES
+| TripleDESCryptoServiceProvider
+
+| AES
+| System.Security. +
+Cryptography. +
+AesCryptoServiceProvider
+| AesCryptoServiceProvider
+
+.2+| AesManaged
+| System.Security. +
+Cryptography.AesManaged
+| AesManaged
+
+| System.Security. +
+Cryptography. +
+AsymmetricAlgorithm
+| RSACryptoServiceProvider
+
+| DES
+| System.Security. +
+Cryptography.DES
+| DESCryptoServiceProvider
+
+| DSA
+| System.Security. +
+Cryptography.DSA
+| DSACryptoServiceProvider
+
+| ECDH
+| ECDiffieHellman, ECDiffieHellmanCng,
+System.Security. +
+Cryptography. +
+ECDiffieHellmanCng
+| ECDiffieHellmanCng
+
+.2+| ECDsa, ECDsaCng
+| System.Security. +
+Cryptography. +
+ECDsaCng
+| ECDsaCng
+
+| System.Security. +
+Cryptography. +
+HashAlgorithm
+| SHA1CryptoServiceProvider
+
+| HMAC
+| System.Security. +
+Cryptography.HMAC
+| HMACSHA1
+
+| HMACMD5
+| System.Security. +
+Cryptography. +
+HMACMD5
+| HMACMD5
+
+| HMACRIPEMD160
+| System.Security. +
+Cryptography. +
+HMACRIPEMD160
+| HMACRIPEMD160
+
+| HMACSHA1
+| System.Security. +
+Cryptography. +
+HMACSHA1
+| HMACSHA1
+
+| HMACSHA256
+| System.Security. +
+Cryptography. +
+HMACSHA256
+| HMACSHA256
+
+| HMACSHA384
+| System.Security. +
+Cryptography. +
+HMACSHA384
+| HMACSHA384
+
+.2+| HMACSHA512
+| System.Security. +
+Cryptography. +
+HMACSHA512
+| HMACSHA512
+
+| System.Security. +
+Cryptography. +
+KeyedHashAlgorithm
+| MACSHA1
+
+| MACTripleDES
+| System.Security. +
+Cryptography. +
+MACTripleDES
+| MACTripleDES
+
+.3+| MD5
+| System.Security. +
+Cryptography.MD5
+| MD5CryptoServiceProvider
+
+| System.Security. +
+Cryptography.MD5Cng
+| MD5Cng
+
+| System.Security. +
+Cryptography. +
+RandomNumberGenerator
+| RNGCryptoServiceProvider
+
+| RC2
+| System.Security. +
+Cryptography.RC2
+| RC2CryptoServiceProvider
+
+| Rijndael
+| System.Security. +
+Cryptography.Rijndael
+| RijndaelManaged
+
+| RIPEMD160,
+RIPEMD-160
+| System.Security. +
+Cryptography. +
+RIPEMD160Managed
+| RIPEMD160Managed
+
+| RSA
+| System.Security. +
+Cryptography.RSA
+| RSACryptoServiceProvider
+
+.2+| SHA, SHA1
+| System.Security. +
+Cryptography.SHA1
+| SHA1CryptoServiceProvider
+| System.Security. +
+Cryptography.SHA1Cng
+| SHA1Cng
+
+.3+| SHA256, SHA-256
+| System.Security. +
+Cryptography.SHA256
+| SHA256Managed
+| System.Security. +
+Cryptography.SHA256Cng
+| SHA256Cng
+| System.Security. +
+Cryptography. +
+SHA256CryptoServiceProvider
+| SHA256CryptoServiceProvider
+
+.3+| SHA384, SHA-384
+| System.Security. +
+Cryptography.SHA384
+| SHA384Managed
+| System.Security. +
+Cryptography.SHA384Cng
+| SHA384Cng
+| System.Security. +
+Cryptography. +
+SHA384CryptoServiceProvider
+| SHA384CryptoServiceProvider
+
+.4+| SHA512, SHA-512
+| System.Security. +
+Cryptography.SHA512
+| SHA512Managed
+| System.Security. +
+Cryptography.SHA512Cng
+| SHA512Cng
+| System.Security. +
+Cryptography. +
+SHA512CryptoServiceProvider
+| SHA512CryptoServiceProvider
+| System.Security. +
+Cryptography. +
+SymmetricAlgorithm
+| System.Security. +
+Cryptography.SHA1
+
+|====
+
+
+== Referencias
+
+. [[r1]] link:../../../rules/147[REQ.147 Utilizar mecanismos pre-existentes].
+. [[r2]] link:https://docs.microsoft.com/en-us/dotnet/standard/security/cryptography-model[.NET Framework Cryptography Model].
+. [[r3]] link:https://www.c-sharpcorner.com/article/cryptography-in-Asp-Net/[Cryptography in Asp.net].
