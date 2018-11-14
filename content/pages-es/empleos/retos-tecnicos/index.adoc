@@ -32,10 +32,13 @@ problemas de nuestros clientes en el ámbito de la seguridad.
 También demuestra que serás un compañero valioso
 para enriquecer a los miembros actuales del equipo de trabajo.
 
-Los retos técnicos se dividen en retos de +hacking+ y retos de programación.
-Con los primeros demuestras tu habilidad y astucia
-para sobrepasar controles de seguridad.
-Con los segundos demuestras que estás en capacidad
+Los retos técnicos se dividen en
+retos de +systems-hacking+, +ctf-hacking+ y retos de programación.
+Con los primeros demuestras tu habilidad técnica y astucia
+para sobrepasar controles de seguridad en ambientes diseñados para pentesting.
+Con los segundos demuestras tu capacidad de adaptación y creatividad
+a la hora de encontrar soluciones y alcanzar metas en ambientes desconocidos.
+Con los terceros demuestras que estás en capacidad
 de rápidamente entender un programa,
 comprender un lenguaje y por ende,
 te será más fácil auditar código fuente y encontrar vulnerabilidades.
@@ -65,8 +68,8 @@ hacer evidente la similitud de la nueva solución (plagio).
 
 Los efectos colaterales de esta decisión permiten a +Fluid Attacks+:
 
-. Utilizar la infraestructura de +GitLab+ para analizar la calidad y velocidad
-del desarrollo de las personas en formación,
+. Utilizar la infraestructura de +GitLab+ para analizar
+la calidad y velocidad del desarrollo de las personas en formación,
 
 . Desde etapas tempranas familiarizar a potenciales talentos
 con las herramientas (+Git+, +AsciiDoc+, +Python+, +Gherkin+, etc)
@@ -81,7 +84,9 @@ los resultados propios (presión de pares).
 
 . Resolver +5+ retos de programación.
 
-. Resolver +5+ retos de +hacking+.
+. Resolver +5+ retos de +ctf-hacking+.
+
+. Resolver +5+ retos de +systems-hacking+.
 
 == 3. Condiciones
 
@@ -90,8 +95,10 @@ los resultados propios (presión de pares).
 
 == 4. Criterios
 
-Las soluciones de retos, independiente si son de programacion o de +hacking+,
-siempre deben adherirse a la guía de [button]#link:../../estilo/#fuente[estilo]#.
+Las soluciones de retos,
+independiente si son de programacion, +ctf-hacking+ o +systems-hacking+,
+deben adherirse a la guía de [button]#link:../../estilo/#fuente[estilo]#.
+
 Las soluciones de programación deberán cumplir adicionalmente con lo siguiente:
 
 . No deben tener solución en el repositorio (carpeta del reto)
@@ -140,18 +147,35 @@ over obese obese normal obese obese obese obese ...
 deben leer del archivo +DATA.lst+ en el directorio del reto.
 Si no existe, debes incluirlo en tu +commit+.
 
-Las soluciones de retos de +hacking+ deberán cumplir con lo siguiente:
+Las soluciones de retos de +ctf-hacking+ y +systems-hacking+ deberán cumplir
+con lo siguiente:
 
 . No deben tener solución en +Gherkin+ (+*.feature+)
 en el repositorio (carpeta del reto).
 
-. No deben tener solución externa indexada (enlaces +OTHERS.lst+ del reto).
+. No deben tener solución externa indexada
+(enlaces +OTHERS.lst+ del reto).
 
 . Deben ser retos que requieran nivel técnico
 (no matemático ni de adivinanzas)
-de [button]#link:http://www.wechall.net/[WeChall]# o sus sitios relacionados.
+de [button]#link:http://www.wechall.net/[WeChall]#, [button]#link:http://www.itsecgames.com/[bWAPP]#
+o sus sitios relacionados.
 
-. (Opcionalmente) Pueden ser retos que correspondan a explotación en sistemas
+. La solución debe haber pasado sin errores ni +warnings+
+por un +linter+ del lenguaje correspondiente
+en su configuración más estricta posible.
+
+Adicionalmente, las soluciones de retos de +ctf-hacking+
+deberán cumplir con lo siguiente:
+
+. Deben adherirse a la plantilla link:https://gitlab.com/autonomicmind/training/blob/master/templates/hacking-challenges.feature[hacking-challenges.feature]
+
+Adicionalmente, las soluciones de retos de +systems-hacking+
+deberán cumplir con lo siguiente:
+
+. Deben adherirse a la plantilla link:https://gitlab.com/autonomicmind/training/blob/master/templates/hacking-systems.feature[hacking-systems.feature]
+
+. Deben ser retos que correspondan a explotación en sistemas
 (+ToE+) vulnerables intencionalmente listados en:
 
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
@@ -162,26 +186,16 @@ de [button]#link:http://www.wechall.net/[WeChall]# o sus sitios relacionados.
 
 .. [button]#link:https://www.vulnhub.com/[Vulnhub]#
 
-.  El formato +Gherkin+ a utilizar debe adherirse estricamente
-a lo descrito [button]#link:../../../en/blog/gherkin-steroids/[aquí]#
-
-. El código fuente de la solución debe seguir
-los parámetros de estilo de [button]#link:../../estilo/#fuente[esta guía]#
-
-. La solución debe haber pasado sin errores ni +warnings+
-por un +linter+ del lenguaje correspondiente
-en su configuración más estricta posible.
-
 == 5. Puntaje
 
-A medida que realices soluciones a retos,
+A medida que realices soluciones a retos de programación o +ctf-hacking+,
 debes reportar el puntaje, +ranking+ y +score+ obtenidos,
 lo cual permitirá evidenciar tu progreso en esta etapa.
 Todos estos datos deben ir en el +commit message+
 de acuerdo al formato indicado en las link:#envio[reglas de envío].
 
-A continuación, se indica cómo obtener los puntajes
-y posiciones en el +ranking+ de cada plataforma.
+A continuación, se indica cómo obtener los puntajes y posiciones
+en el +ranking+ de cada plataforma.
 
 === 5.1 Programación
 
@@ -194,7 +208,8 @@ y allí encontrarás tu posición en el +ranking+ mundial: image:ranking-mundial
 
 . Ranking Colombia
 
-.. Estando en la pestaña +Ranking+, seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
+.. Estando en la pestaña +Ranking+,
+seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
 
 .. La página no muestra directamente tu posición,
 por lo que deberás realizar el conteo manualmente.
@@ -204,7 +219,7 @@ Deberás avanzar a la siguiente página hasta encontrar tu nombre de usuario
 en el tablero de +ranking+.
 image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
-=== 5.2 Hacking
+=== 5.2 CTF-Hacking
 
 image::ranking-wechall.png[Ranking en WeChall]
 
@@ -239,8 +254,8 @@ deben corregirse los problemas indicados y hacer un nuevo +MR+.
 
 . El mensaje de +commit+ para enviar la solución
 debe adherirse a una de las dos plantillas
-link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[para retos de hacking de +WeChall+ y retos de programación]
-o link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-systems.txt[para vulnerabilidades de sistemas].
+link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[para retos de programación y retos ctf-hacking]
+o link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-systems.txt[para vulnerabilidades de systems-hacking].
 
 == 7. Externas
 
@@ -256,8 +271,13 @@ Las reglas para los enlaces (+URLs+) a soluciones externas
 .. Deben ser +OTHERS.lst+ nuevos, es decir,
 soluciones externas a retos del cual no tengamos solución externa alguna.
 
-.. Si tu solución es de hacking de sistemas (+systems+),
-las soluciones externas deben ser de +hacking+ de sistemas también.
+.. Si tu solución es de +systems-hacking+,
+las soluciones externas pueden ser una combinacion
+de soluciones de +ctf-hacking+ y +systems-hacking+.
+
+.. Si tu solución es de +ctf-hacking+,
+las soluciones externas pueden ser una combinacion
+de soluciones de +ctf-hacking+ y +systems-hacking+.
 
 . Los +OTHERS.lst+ deben ser de programación
 si se está solucionando un reto de programación.
@@ -291,8 +311,8 @@ Ejemplos de +MR+ aceptados en el pasado:
 
 [NOTE]
 Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas
-pues las reglas evolucionan y por ende, en el momento que se hicieron,
-las reglas pudieron ser otras.
+pues las reglas evolucionan y por ende,
+en el momento que se hicieron, las reglas pudieron ser otras.
 En ningún momento los ejemplos tienen prioridad sobre las reglas,
 sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 
@@ -330,28 +350,28 @@ Los soluciones a los retos se almacenan en las siguientes carpetas:
 [role="tb-col"]
 [frame="topbot"]
 |====
-^.^s| Carpeta ^.^| challenges ^.^| system
+^.^s| Carpeta ^.^| challenges ^.^| systems
 
 ^.^s| Descripción
-| Carpeta para almacenar retos de programación y +hacking+.
-| Carpeta exclusiva para retos de explotación de sistemas vulnerables
+| Carpeta para almacenar retos de programación y +ctf-hacking+.
+| Carpeta para retos de explotación de sistemas vulnerables +systems-hacking+
 
 ^.^s| Estructura
-a| * sitio (directorio)
-** código del reto (directorio)
-*** login-gitlab.ext (archivo de solución)
-a| * nombre del sistema o caja vulnerada (directorio)
-** nombre de la explotación realizada (directorio)
-*** login-gitlab.feature (archivo de solución)
+a| * <sitio> (directorio)
+** <código-del-reto> (directorio)
+*** <login-gitlab.ext> (archivo de solución)
+a| * <nombre-de-sistema-o-caja-vulnerada> (directorio)
+** <codigo-cwe>-<nombre-explotación> (directorio)
+*** <login-gitlab.feature> (archivo de solución)
 
 ^.^s| Ejemplo
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
 ** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/135/[135]
 *** link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/135/skhorn.rs[skhorn.rs]
 
-a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bWAPP]
-*** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp/a1-command-injection[a1-command-injection]
-**** link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/a1-command-injection/raballestasr.feature[raballestasr.feature]
+a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa[dvwa]
+*** link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa/657-csp-bypass-medium[657-csp-bypass-medium]
+**** link:https://gitlab.com/autonomicmind/training/blob/master/systems/dvwa/657-csp-bypass-medium/kedavamaru.feature[kedavamaru.feature]
 |====
 
 El nombramiento de todos los archivos y directorios,
@@ -369,15 +389,16 @@ especiales de control:
 ** *LINK.lst:* Contiene la +URL+ al enunciado del reto en la plataforma
 correspondiente
 (link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/001/LINK.lst[ejemplo]).
-Este archivo solo debe contener una linea y visitar el enlace debe
-generar la respuesta +HTTP 200+ (sin redirección).
+Este archivo solo debe contener una linea y visitar el enlace
+debe generar la respuesta +HTTP 200+ (sin redirección).
 
-** *DATA.lst:* Contiene los casos de prueba con los cuales se han verificado
-los retos. Este archivo solo debe contener casos de prueba que sean
-inmediatamente procesables por cualquier archivo de solución.
+** *DATA.lst:* Contiene los casos de prueba
+con los cuales se han verificado los retos.
+Este archivo solo debe contener casos de prueba
+que sean inmediatamente procesables por cualquier archivo de solución.
 
-** *OTHERS.lst:* Contiene los enlaces a las soluciones a dicho
-reto que se encuentran en Internet y que no deben leerse ni utilizarse
+** *OTHERS.lst:* Contiene los enlaces a las soluciones a dicho reto
+que se encuentran en Internet y que no deben leerse ni utilizarse
 como referencia para resolver el reto.
 Este archivo permite que un +script+ automático realice el análisis de similitud
 con los retos enviados por los candidatos.
@@ -430,7 +451,7 @@ esto es, +MR+ que no se le hace +merge+
 por cuestiones detalladas en la documentación y que aun así se incumplen.
 
 . Si explícitamente manifiestas mediante +e-mail+
-tu deseo para retirarse del proceso.
+tu deseo para retirarte del proceso.
 
 . Si presentas como propias soluciones totales o parciales
 realizadas por otra persona (plagio).
