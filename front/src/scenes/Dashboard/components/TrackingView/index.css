@@ -88,3 +88,12 @@
   top: 37.5px;
   left: -5px;
 }
+
+:local .track_title {
+  color: #555555;
+  font-weight: bold;
+}
+
+:local .text_right {
+  text-align: right;
+}

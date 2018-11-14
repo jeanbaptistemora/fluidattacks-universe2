@@ -46,16 +46,30 @@ export interface IVulnerabilitiesViewProps {
   }>;
   editMode: boolean;
   findingId: string;
+  state: string;
   translations: { [key: string]: string };
 }
 
-const mapStateToProps: ((arg1: StateType<Reducer>) => IVulnerabilitiesViewProps) =
-  (state: StateType<Reducer>): IVulnerabilitiesViewProps => ({
-    ...state,
-    dataInputs: state.dashboard.vulnerabilities.dataInputs,
-    dataLines: state.dashboard.vulnerabilities.dataLines,
-    dataPorts: state.dashboard.vulnerabilities.dataPorts,
-  });
+const filterState:
+  ((dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string) => IVulnerabilitiesViewProps["dataInputs"]) =
+    (dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string): IVulnerabilitiesViewProps["dataInputs"] =>
+
+      dataVuln.filter((vuln: IVulnerabilitiesViewProps["dataInputs"][0]) => vuln.currentState === state);
+
+const mapStateToProps: ((arg1: StateType<Reducer>, arg2: IVulnerabilitiesViewProps) => IVulnerabilitiesViewProps) =
+  (state: StateType<Reducer>, ownProps: IVulnerabilitiesViewProps): IVulnerabilitiesViewProps => {
+    const stateValue: IVulnerabilitiesViewProps = state.dashboard.vulnerabilities;
+    const dataInputs: IVulnerabilitiesViewProps["dataInputs"] = filterState(stateValue.dataInputs, ownProps.state);
+    const dataLines: IVulnerabilitiesViewProps["dataLines"] = filterState(stateValue.dataLines, ownProps.state);
+    const dataPorts: IVulnerabilitiesViewProps["dataPorts"] = filterState(stateValue.dataPorts, ownProps.state);
+
+    return ({
+      ...state,
+      dataInputs,
+      dataLines,
+      dataPorts,
+    });
+  };
 
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
@@ -69,15 +83,15 @@ lifecycle({
         success
         errorMessage
         portsVulns: vulnerabilities(
-          vulnType: "ports", state: "open") {
+          vulnType: "ports") {
           ...vulnInfo
         }
         linesVulns: vulnerabilities(
-          vulnType: "lines", state: "open") {
+          vulnType: "lines") {
           ...vulnInfo
         }
         inputsVulns: vulnerabilities(
-          vulnType: "inputs", state: "open") {
+          vulnType: "inputs") {
           ...vulnInfo
         }
       }
@@ -350,12 +364,14 @@ vulnsViewComponent.propTypes = {
   dataPorts: PropTypes.array,
   editMode: PropTypes.bool,
   findingId: PropTypes.string,
+  state: PropTypes.string,
   translations: PropTypes.object,
 };
 
 vulnsViewComponent.defaultProps = {
   editMode: false,
   findingId: "",
+  state: "",
   translations: {},
 };
 

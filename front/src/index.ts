@@ -237,6 +237,9 @@ angular
         "discoveryText",
         "cycleText",
         "efectivenessText",
+        "hasNewVulnerabilities",
+        "findingId",
+        "translations",
       ],
     ),
   );
@@ -375,6 +378,7 @@ angular
      vulnsView, [
         "editMode",
         "findingId",
+        "state",
         "translations",
      ],
    ),

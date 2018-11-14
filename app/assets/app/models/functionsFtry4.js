@@ -222,10 +222,12 @@ angular.module("FluidIntegrates").factory(
                 findingInfo.closedVulnerabilities > 0) {
               angular.element(".has-vulnerabilities").show();
               angular.element(".has-old-vulnerabilities").hide();
+              $scope.hasNewVulnerabilities = true;
             }
             else {
               angular.element(".has-old-vulnerabilities").show();
               angular.element(".has-vulnerabilities").hide();
+              $scope.hasNewVulnerabilities = false;
             }
           }
           else if (response.data.finding.errorMessage === "Error in file") {
