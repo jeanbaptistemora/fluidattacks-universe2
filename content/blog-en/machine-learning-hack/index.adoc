@@ -15,6 +15,7 @@
 :source-highlighter: pygments
 :translate: machine-learning-vuln/
 
+
 = Machine-learning to hack
 
 To date the
@@ -41,8 +42,7 @@ the use of machine learning (+ML+) techniques
 to find security vulnerabilities in source code.
 It is important to specify this since,
 as we will see,
-there are many other approaches that may be related to,
-but do not fit into this definition exactly,
+there are many other related, but different, approaches
 such as:
 
 // out of focus
@@ -75,7 +75,7 @@ adding the papers and projects that have been added in the past year.
 // categories
 The approaches to applying +ML+ to +VD+ could be classified:
 
-- by the type of +ML+ techique used,
+- by the type of +ML+ technique used,
 - by the degree of automation,
 - by the type of code they apply to, or
 - by the features that are extracted for input or pursued as output,
@@ -107,7 +107,7 @@ extracting features such as:
   v.g. the pair +malloc+ and +free+,
 - missing checks, like ensuring a number is non-zero before dividing by it,
 - lack of input validation,
-  which may lead to injections, buffer overflows, ...
+  leading to injections, buffer overflows, ...
 - lack of access controls, which may lead to
   confidential information being leaked, altered or denied access to.
 
@@ -183,7 +183,6 @@ We summarize them here for the sake of completeness:
 | function calls             | cross-project anomalies
 |=======================
 
-
 // conclude anomalies
 In general terms, anomaly detection approaches have the following limitations:
 
@@ -196,6 +195,7 @@ In general terms, anomaly detection approaches have the following limitations:
   or even 'if' the anomaly is a security vulnerability,
   only that it is a deviant element.
 - false-positive rates are generally high.
+
 
 == Pattern recognition approaches
 
@@ -234,7 +234,7 @@ probably due to shallow information and simple methods.
 
 // vdiscover
 link:http://www.vdiscover.org/[VDiscover] doesn't exactly fit our definition,
-but needs mentioning.
+but deserves mentioning.
 They identify each trace of a call to the standard +C+ library
 as a text document and process them
 as link:https://en.wikipedia.org/wiki/N-gram[[red]#n-grams#]
@@ -244,7 +244,6 @@ They have tested several +ML+ techniques such as
 link:https://en.wikipedia.org/wiki/Logistic_regression[[red]#logistic regression#],
 link:https://en.wikipedia.org/wiki/Multilayer_perceptron[[red]#MLP#] and
 link:https://en.wikipedia.org/wiki/Random_forest[[red]#random forests#].
-
 
 In the last few months,
 some in-scope papers have appeared.
@@ -262,7 +261,7 @@ and 15 zero-day vulnerabilities in high-profile open libraries.
 However, these systems:
 
 - need peer-reviewing as they are in pre-print state or are conference papers
-- are designed exclusive for `C(++)` code-base
+- are designed exclusively for `C(++)` code-base
 - are subject to the limitations of other systems, like coarse granularity.
 
 link:https://dl.acm.org/citation.cfm?id=3138840[Lin et al. (2017)]
@@ -362,6 +361,7 @@ link:http://www.gsd.inesc-id.pt/~mpc/pubs/fp694-medeiros.pdf[Medeiros et al. (20
 focused on classifying reported vulnerabilites using +ML+ techniques,
 not discovery.
 
+
 ''''
 
 // general conclusions
@@ -376,7 +376,7 @@ Some limitations that are common:
   since a program cannot identify semantic properties
   of another program in the general case.
 - Limited applicability. Be that because the technique only applies to
-  mature systems, or a particular language,
+  mature systems, or a particular programming language,
   it would be nice to have techniques with broader spectra.
 - Coarse granularity and lack of explanations.
   Most of the reviewed systems can only say
@@ -388,6 +388,13 @@ Some limitations that are common:
   not in order to replace, but to guide, manual code auditing.
   Purely automated approaches are, in view of Rice's theorem,
   imposible or misguided.
+
+Hence, our good old pentest is not dead.
+Even at the level of cutting-edge research,
+automated vulnerability discovery,
+let alone confirmation and exploitation
+is a task for human experts.
+
 
 == References
 
