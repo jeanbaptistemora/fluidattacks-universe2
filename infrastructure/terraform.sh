@@ -35,8 +35,8 @@ fi
 
 #Run Terraform Plan for Staging infrastructure
 cd staging/
-export TF_VAR_aws_innovation_access_key="$AWS_INNOVATION_ACCESS_KEY_ID"
-export TF_VAR_aws_innovation_secret_key="$AWS_INNOVATION_SECRET_KEY_ID"
+export AWS_INNOVATION_ACCESS_KEY_ID="$TF_VAR_aws_innovation_access_key"
+export AWS_INNOVATION_SECRET_KEY_ID="$TF_VAR_aws_innovation_secret_key"
 terraform init
 tflint --deep --aws-access-key="$AWS_INNOVATION_ACCESS_KEY_ID" \
   --aws-secret-key="$AWS_INNOVATION_SECRET_KEY_ID" --aws-region='us-east-1'
