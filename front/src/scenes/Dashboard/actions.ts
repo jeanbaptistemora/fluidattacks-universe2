@@ -154,11 +154,46 @@ export const loadUsers: ThunkActionStructure =
     });
 };
 
-export const removeUser: DashboardAction =
-  (removedEmail: string): IActionStructure => ({
-    payload: { removedEmail },
-    type: actionType.REMOVE_USER,
-});
+export const removeUser: ThunkActionStructure =
+  (
+    projectName: IProjectUsersViewProps["projectName"],
+    email: IUserData["email"],
+  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      removeUserAccess(projectName: "${projectName}", userEmail: "${email}"){
+        removedEmail
+        success
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred removing users")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      if (data.removeUserAccess.success) {
+        const removedEmail: string = data.removeUserAccess.removedEmail;
+
+        dispatch({
+          payload: { removedEmail },
+          type: actionType.REMOVE_USER,
+        });
+        msgSuccess(
+          `${email} ${translate.t("search_findings.tab_users.success_delete")}`,
+          translate.t("search_findings.tab_users.title_success"),
+        );
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
 
 export const openUsersMdl: DashboardAction =
   (type: "add" | "edit", initialValues?: {}): IActionStructure => ({
@@ -239,6 +274,50 @@ export const loadVulnerabilities: DashboardAction =
     },
     type: actionType.LOAD_VULNERABILITIES,
 });
+
+export const editUser: ThunkActionStructure =
+ (
+   modifiedUser: IUserData,
+   projectName: IProjectUsersViewProps["projectName"],
+ ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+   let gQry: string;
+   gQry = `mutation {
+     editUser(
+       projectName: "${projectName}",
+       email: "${modifiedUser.email}",
+       organization: "${modifiedUser.organization}",
+       phoneNumber: "${modifiedUser.phone}",
+       responsibility: "${modifiedUser.responsability}",
+       role: "${modifiedUser.role}"
+     ) {
+       success
+     }
+   }`;
+   new Xhr().request(gQry, "An error occurred editing user information")
+   .then((response: AxiosResponse) => {
+     const { data } = response.data;
+
+     if (data.editUser.success) {
+       msgSuccess(
+         translate.t("search_findings.tab_users.success_admin"),
+         translate.t("search_findings.tab_users.title_success"),
+       );
+       dispatch(reset("addUser"));
+       dispatch(closeUsersMdl());
+       location.reload();
+     } else {
+       msgError(translate.t("proj_alerts.error_textsad"));
+     }
+   })
+   .catch((error: AxiosError) => {
+     if (error.response !== undefined) {
+       const { errors } = error.response.data;
+
+       msgError(translate.t("proj_alerts.error_textsad"));
+       rollbar.error(error.message, errors);
+     }
+   });
+};
 
 export const loadRecords: ThunkActionStructure =
 (

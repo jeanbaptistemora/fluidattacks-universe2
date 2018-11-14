@@ -6,22 +6,19 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { AxiosError, AxiosResponse } from "axios";
 import React, { ComponentType } from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
-import { reset } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
+import { msgError } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
 
@@ -73,37 +70,11 @@ const removeUser: ((arg1: string) => void) = (projectName: string): void => {
     if (selectedQry[0].closest("tr") !== null) {
       const selectedRow: Element = selectedQry[0].closest("tr") as Element;
       const email: string | null = selectedRow.children[1].textContent;
-      let gQry: string;
-      gQry = `mutation {
-        removeUserAccess(projectName: "${projectName}", userEmail: "${email}"){
-          removedEmail
-          success
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred removing users")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
 
-        if (data.removeUserAccess.success) {
-          const removedEmail: string = data.removeUserAccess.removedEmail;
-
-          store.dispatch(actions.removeUser(removedEmail));
-          msgSuccess(
-            `${email} ${translate.t("search_findings.tab_users.success_delete")}`,
-            translate.t("search_findings.tab_users.title_success"),
-          );
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.removeUser(projectName, email));
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing user");
@@ -255,43 +226,10 @@ const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void
 
 const editUserInfo: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
   (props: IProjectUsersViewProps, modifiedUser: IUserData): void => {
-  let gQry: string;
-  gQry = `mutation {
-    editUser(
-      projectName: "${props.projectName}",
-      email: "${modifiedUser.email}",
-      organization: "${modifiedUser.organization}",
-      phoneNumber: "${modifiedUser.phone}",
-      responsibility: "${modifiedUser.responsability}",
-      role: "${modifiedUser.role}"
-    ) {
-      success
-    }
-  }`;
-  new Xhr().request(gQry, "An error occurred editing user information")
-  .then((response: AxiosResponse) => {
-    const { data } = response.data;
-
-    if (data.editUser.success) {
-      msgSuccess(
-        translate.t("search_findings.tab_users.success_admin"),
-        translate.t("search_findings.tab_users.title_success"),
-      );
-      store.dispatch(reset("addUser"));
-      store.dispatch(actions.closeUsersMdl());
-      location.reload();
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-    }
-  })
-  .catch((error: AxiosError) => {
-    if (error.response !== undefined) {
-      const { errors } = error.response.data;
-
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error(error.message, errors);
-    }
-  });
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.editUser(modifiedUser, props.projectName));
 };
 
 export const component: React.StatelessComponent<IProjectUsersViewProps>
