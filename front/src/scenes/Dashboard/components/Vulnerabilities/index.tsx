@@ -10,24 +10,20 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
-import { AxiosError, AxiosResponse } from "axios";
 import _ from "lodash";
-import PropTypes from "prop-types";
 import React, { ComponentType } from "react";
 import { DataAlignType } from "react-bootstrap-table";
 import {
   InferableComponentEnhancer,
   lifecycle,
 } from "recompose";
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { IHeader } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
@@ -75,90 +71,23 @@ const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
     store.dispatch(actions.clearResources());
-    const { findingId }: any = this.props;
-    let gQry: string;
-    gQry = `{
-      finding(identifier: "${findingId}") {
-        id
-        success
-        errorMessage
-        portsVulns: vulnerabilities(
-          vulnType: "ports") {
-          ...vulnInfo
-        }
-        linesVulns: vulnerabilities(
-          vulnType: "lines") {
-          ...vulnInfo
-        }
-        inputsVulns: vulnerabilities(
-          vulnType: "inputs") {
-          ...vulnInfo
-        }
-      }
-    }
-    fragment vulnInfo on Vulnerability {
-      vulnType
-      where
-      specific
-      currentState
-      id
-      findingId
-    }`;
-    new Xhr().request(gQry, "An error occurred getting vulnerabilities")
-    .then((response: AxiosResponse) => {
-      const { data } = response.data;
+    const { findingId } = this.props as IVulnerabilitiesViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
 
-      if (data.finding.success) {
-        store.dispatch(actions.loadVulnerabilities(
-          data.finding.inputsVulns,
-          data.finding.linesVulns,
-          data.finding.portsVulns,
-        ));
-      } else if (data.finding.errorMessage === "Error in file") {
-        msgError(translate.t("search_findings.tab_description.errorFileVuln"));
-      }
-    })
-    .catch((error: AxiosError) => {
-      if (error.response !== undefined) {
-        const { errors } = error.response.data;
-
-        msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error(error.message, errors);
-      }
-    });
+    thunkDispatch(actions.loadVulnerabilities(findingId));
   },
 });
 
 const deleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) => void) =
   (vulnInfo: { [key: string]: string } | undefined): void => {
     if (vulnInfo !== undefined) {
-      let gQry: string;
-      gQry = `mutation {
-        deleteVulnerability(id: "${vulnInfo.id}", findingId: "${vulnInfo.findingId}"){
-          success
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred getting vulnerabilities")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
 
-        if (data.deleteVulnerability.success) {
-          msgSuccess(
-            translate.t("search_findings.tab_description.vulnDeleted"),
-            translate.t("proj_alerts.title_success"));
-          location.reload();
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
+      thunkDispatch(actions.deleteVulnerability(vulnInfo));
     }
 };
 
@@ -355,18 +284,6 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     }
   </React.StrictMode>
   );
-};
-
-/**
- *  File Input's propTypes Definition
- */
-vulnsViewComponent.propTypes = {
-  dataInputs: PropTypes.array,
-  dataLines: PropTypes.array,
-  dataPorts: PropTypes.array,
-  editMode: PropTypes.bool,
-  findingId: PropTypes.string,
-  state: PropTypes.string,
 };
 
 vulnsViewComponent.defaultProps = {

@@ -15,7 +15,6 @@ import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps, IUserData } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView";
 import { IResourcesViewProps } from "./components/ResourcesView";
-import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 export interface IActionStructure {
   payload: any;
@@ -468,17 +467,95 @@ export const addUser: ThunkActionStructure =
    });
 };
 
-export const loadVulnerabilities: DashboardAction =
-  (dataInputs: IVulnerabilitiesViewProps["dataInputs"],
-   dataLines: IVulnerabilitiesViewProps["dataLines"],
-   dataPorts: IVulnerabilitiesViewProps["dataPorts"]): IActionStructure => ({
-    payload: {
-      dataInputs,
-      dataLines,
-      dataPorts,
-    },
-    type: actionType.LOAD_VULNERABILITIES,
-});
+export const loadVulnerabilities: ThunkActionStructure =
+  (findingId: string): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `{
+      finding(identifier: "${findingId}") {
+        id
+        success
+        errorMessage
+        portsVulns: vulnerabilities(
+          vulnType: "ports") {
+          ...vulnInfo
+        }
+        linesVulns: vulnerabilities(
+          vulnType: "lines") {
+          ...vulnInfo
+        }
+        inputsVulns: vulnerabilities(
+          vulnType: "inputs") {
+          ...vulnInfo
+        }
+      }
+    }
+    fragment vulnInfo on Vulnerability {
+      vulnType
+      where
+      specific
+      currentState
+      id
+      findingId
+    }`;
+    new Xhr().request(gQry, "An error occurred getting vulnerabilities")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      if (data.finding.success) {
+        dispatch({
+          payload: {
+            dataInputs: data.finding.inputsVulns,
+            dataLines: data.finding.linesVulns,
+            dataPorts: data.finding.portsVulns,
+          },
+          type: actionType.LOAD_VULNERABILITIES,
+        });
+      } else if (data.finding.errorMessage === "Error in file") {
+        msgError(translate.t("search_findings.tab_description.errorFileVuln"));
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
+
+export const deleteVulnerability: ThunkActionStructure =
+  (vulnInfo: { [key: string]: string }): ThunkAction<void, {}, {}, Action> =>
+    (_: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      deleteVulnerability(id: "${vulnInfo.id}", findingId: "${vulnInfo.findingId}"){
+        success
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred getting vulnerabilities")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      if (data.deleteVulnerability.success) {
+        msgSuccess(
+          translate.t("search_findings.tab_description.vulnDeleted"),
+          translate.t("proj_alerts.title_success"));
+        location.reload();
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
 
 export const editUser: ThunkActionStructure =
  (
