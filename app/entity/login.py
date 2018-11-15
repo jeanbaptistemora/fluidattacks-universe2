@@ -1,6 +1,8 @@
+from graphene import Boolean, ObjectType, Mutation
+
 # pylint: disable=F0401
 from app.dao import integrates_dao
-from graphene import Boolean, ObjectType, Mutation
+from app.util import get_jwt_content
 
 class Login(ObjectType):
     # declare attributes
@@ -33,15 +35,18 @@ class AcceptLegal(Mutation):
         remember = Boolean()
     success = Boolean()
 
-    @classmethod
-    def mutate(self, args, info, remember):
-        del args
-        username = info.context.session['username']
+    def mutate(self, info, remember):
+        user_email = get_jwt_content(info.context)["user_email"]
+        is_registered = integrates_dao.is_registered_dao(user_email) == '1'
 
-        integrates_dao.update_legal_remember_dynamo(
-            username,
-            remember
-        )
+        if is_registered:
+            integrates_dao.update_legal_remember_dynamo(
+                user_email,
+                remember
+            )
+            success = True
+        else:
+            success = False
 
-        info.context.session['accept_legal'] = True
-        return AcceptLegal(success=True)
+        info.context.session['accept_legal'] = success
+        return AcceptLegal(success=success)
