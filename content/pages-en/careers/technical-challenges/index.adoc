@@ -21,8 +21,7 @@ but if you able to successfully finish this stage,
 you will show that you have the most valuable competence of all:
 The ability to learn new things on the fly and
 apply them to solve real problems.
-This, along with human warmth and
-strong [button]#link:../../values[values]#,
+This, along with human warmth and strong [button]#link:../../values[values]#,
 have more weight than everything else.
 
 == 1. Philosophy
@@ -35,12 +34,15 @@ our clients’ security issues.
 It also shows that you will be a valuable addition
 who can enrich the knowledge of the current members of our team.
 
-The technical challenges are divided into +hacking+ challenges
-and programming challenges.
-With the former, you demonstrate your skill and wit
-to surpass security controls, with the latter,
-you show that you are able to quickly understand a program,
-a language and thus it will be easier for you to audit source code
+The technical challenges are divided into
++systems-hacking+, +ctf-hacking+ and programming challenges.
+With the former, you demonstrate your technical skill and cunning
+to surpass security controls in environments designed for pentesting.
+With the second one, you demonstrate your adaptation and creativity skills
+when it comes to solving problems and achieving goals in unknown environments
+with the latter, you show that you are able
+to quickly understand a program, a language,
+and thus it will be easier for you to audit source code
 and find vulnerabilities.
 
 The philosophy is to encourage learning
@@ -50,7 +52,7 @@ discourage passive learning.
 The repository contains the solutions to computational challenges
 built in the previous context.
 By uploading solutions to the repository,
-we look to:
+we look forward to:
 
 . Promote the solution of unresolved challenges.
 
@@ -69,9 +71,8 @@ make evident the similarity of the new solution to the old one (plagiarism).
 
 The collateral effects of this decision allow +Fluid Attacks+ to:
 
-. Use the +GitLab+ infrastructure to analyze the quality and
-speed of the development
-of the everyone in the process.
+. Use the +GitLab+ infrastructure to analyze
+the quality and speed of the development of everyone in the process.
 
 . From early stages,
 familiarize potential talents with the tools
@@ -84,9 +85,11 @@ the team (peer pressure).
 
 == 2. Objectives
 
-. Solve +10+ programming challenges.
+. Solve +5+ programming challenges.
 
-. Solve +10+ hacking challenges.
+. Solve +5+ +ctf-hacking+ challenges.
+
+. Solve +5+ +systems-hacking+ challenges.
 
 == 3. Terms
 
@@ -95,17 +98,20 @@ independent (on your own without instruction or assistance from others).
 
 == 4. Criteria
 
-The solutions to challenges,
-regardless if they are hacking or programming,
+Challenge solutions,
+regardless if they are programming, +ctf-hacking+ or +systems-hacking+
 must always meet the following [button]#link:../../style/#font[style]# guideline.
-The programming solutions
-must additionally comply with the following:
 
-. There must not already exist (in the challenge folder)
-a solution in the language you chose.
+Programming solutions must additionally comply with the following:
+
+. A solution in the same language you chose (in the challenge folder)
+must not exist already.
+
 . They must not have an external indexed solution
 (links + OTHERS.lst + of the challenge) for the language chosen by you.
+
 . The programming language chosen must be accepted by [button]#link:http://www.codeabbey.com/[Codeabbey]#
+
 . The *compilation* (optional for interpreted languages)
 and *linting* (mandatory for all languages) commands used and
 their output must be included in the *prelude*
@@ -142,19 +148,41 @@ over obese obese normal obese obese obese obese ...
 ----
 
 . If the solution takes a set of input data,
-it should not be hardcoded into the solution.
+such input must not be hardcoded into the solution.
+Meaning that the solution must read from a +DATA.lst+ file
+located in the challenge directory.
+If such file does not exist, you must include it in your commit
 
-Hacking solutions must comply with the following:
++ctf-hacking+ and +systems-hacking+ solutions must comply with the following:
 
 . They must not have a solution in +Gherkin+ (+*.Feature+)
 in the repository (challenge folder).
+
 . They must not have an external indexed solution
 (links +OTHERS.lst+ of the challenge).
+
 . They must be challenges that
-require a technical level (not mathematical nor riddle) from
-[button]#link:http://www.wechall.net/[WeChall]# or its related sites.
-. (Optional) They can be challenges that
-Require exploiting intentionally vulnerable systems (+ToE+) listed in:
+require a technical level (not mathematical nor riddle)
+from [button]#link:http://www.wechall.net/[WeChall]#
+or its related sites.
+
+. The solution must have passed,
+without any errors or +warnings+,
+through a +linter+ of the corresponding language
+in its most rigorous configuration.
+
+Aditionally, +ctf-hacking+ solutions
+must comply with the following:
+
+. They must follow the template link:https://gitlab.com/autonomicmind/training/blob/master/templates/hacking-challenges.feature[hacking-challenges.feature]
+
+Aditionally, +systems-hacking+ solutions
+must comply with the following:
+
+. They must follow the template link:https://gitlab.com/autonomicmind/training/blob/master/templates/hacking-systems.feature[hacking-systems.feature]
+
+. They must be challenges that Require
+exploiting intentionally vulnerable systems (+ToE+) listed in:
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
@@ -162,22 +190,18 @@ Require exploiting intentionally vulnerable systems (+ToE+) listed in:
 .  The Gherkin format to be used must strictly meet the [button]#link:../../../en/blog/gherkin-steroids/[the following]#
 . All source code in solutions must follow the parameters described in
 [button]#link:../../style/#font[this guide]#
-. The solution must have passed,
-without any errors or +warnings+,
-through a +linter+ of the corresponding language
-in its most rigorous configuration.
+
 
 == 5. Score
 
-As you go on solving challenges,
-you must report your total score, ranking and
-score obtained for the specific challenged solved,
+As you go on solving programming or +ctf-hacking+ challenges,
+you must report your +total score+, +ranking+ and
++score+ obtained for the specific challenged solved,
 which will allow us to follow your progress in this stage.
 All this information must be included in the +commit message+
 following the format described in the link:#envio[submission requirements]
 
-Here's how to get your scores and
-ranking for each platform.
+Here's how to get your scores and ranking for each platform.
 
 === 5.1 Programming
 
@@ -205,7 +229,7 @@ You must continue to the next page
 until you find your username on the ranking board
 image:ranking-colombia-codeabbey-2.png[Country Ranking - codeabbey]
 
-=== 5.2 Hacking
+=== 5.2 CTF-Hacking
 
 image::ranking-wechall.png[Wechall Ranking]
 
@@ -214,40 +238,35 @@ image::ranking-wechall.png[Wechall Ranking]
 
 The solutions are sent through a +Merge Request+ (+MR+)
 to the +master+ branch of the +training+ repository.
-Before sending a +MR+
+Before sending an +MR+
 please verify that you meet the following criteria:
 
 . You should only work on a branch
 whose name is exactly your username in +Gitlab+.
+
 . All files related to a challenge’s solution
 must respect the [button]#link:#structure[following structure]#
+
 . If the solutions requires additional files,
 they must be included in the corresponding challenge directory.
+
 . Each challenge solution must be submitted
 with +10+ link:#external[external solutions] (+10+ +URLs+ in an +OTHERS.lst+ file).
-. The solution and all files associated to it.
+
+. The solution and all files associated to it
 must be all sent in +1+ +commit+.
+
 . The +commit+ for each solution must be sent in only +1+ +MR+.
+
 . The +MR+ must only be sent
 once your branch has successfully finished integrating (green).
+
 . If the +MR+ is rejected it must not be reopened.
 The errors must be fixed and the solution sent in a new +MR+.
-. The +commit+ message to send the solution of a challenge
-with a complexity of +9.63+, with +17+ previous external solutions (+out+)
-and +8+ within the repo (+in+) that took +4.5+ hours to complete
-during the challenges phase is as follows:
 
-.commit-msg.txt
-[source, text]
-----
-solution(challenges): codeabbey, 78 (9.63)
-
-- others: 8 in, 17 out, 25 total.
-- score: 25665 initial, 25723 final, 58 progress.
-- global-rank: 797 initial, 795 final, 2 progress.
-- national-rank: 38 initial, 38 final, 0 progress.
-- effort: 4.5 hours during challenges phase.
-----
+. The +commit+ message to send the solution
+must follow one of the templates link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[for programming and ctf-hacking challenged]
+o link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-systems.txt[for systems-hacking vulnerabilities].
 
 == 7. External
 
@@ -255,18 +274,32 @@ The rules for the links (+URLs+)
 to external solutions (+OTHERS.lst+) are the following:
 
 . They must be direct links (+HTTP 200+) without redirection (+HTTP 301/302+).
-. They don’t need to be solutions to the same challenge you solved.
+
+. They don’t need to be solutions for the same challenge you solved.
+
 . They must be +hacking+ links if you solved a +hacking+ challenge.
+
 .. The +OTHERS.lst+ must be new links.
 in other words, external solutions to challenges
 to which we have no previous external solutions.
-.. If you send a +systems+ hacking solution,
-the external solutions must also be of +systems hacking+.
-. They must be programming solutions if you solved a programming challenge.
+
+.. If you send a +systems-hacking+ solution,
+the external solutions can be a combination
+of +ctf-hacking+ and +systems-hacking+ solutions.
+
+.. If you send a +ctf-hacking+ solution,
+the external solutions can be a combination
+of +ctf-hacking+ and +systems-hacking+ solutions.
+
+. They must be programming solutions
+if you solved a programming challenge.
+
 .. You must not add external solutions
 for a language that already has an external solution.
-.. Within the +OTHERS+ of programming solution
+
+.. Within the +OTHERS+ of a programming solution
 the +URLs+ must be ordered alphabetically by extension.
+
 . If it is in +github+ the +URL+ must be to its +raw+ version
 (link:https://raw.githubusercontent.com/[]).
 
@@ -302,8 +335,7 @@ we suggest looking for challenges that
 don’t have a solution in the +OTHERS+ file nor
 in the repository and
 solving the challenge in its respective platform.
-To do this,
-You can lean on the following
+To do this, you can lean on the following
 link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[script].
 
 . When solving programming challenges,
@@ -333,25 +365,25 @@ Challenge solutions are stored in the following folders:
 ^.^s| Folder ^.^| challenges ^.^| system
 
 ^.^s| Description
-| Folder to store programming and +hacking+ challenges.
-| Folder to exclusively store vulnerable system challenges.
+| Folder to store programming and +ctf-hacking+ challenges.
+| Folder to store vulnerable +systems-hacking+ challenges.
 
 ^.^s| Structure
-a| * site (directory)
-** challenge ID (directory)
-*** login-gitlab.ext (solution file)
-a| * name of the vulnerable machine (directory)
-** name of the exploit performed (directory)
-*** login-gitlab.feature (solution file)
+a| * <site> (directory)
+** <challenge-id> (directory)
+*** <login-gitlab.ext> (solution file)
+a| * <name-of-the-vulnerable-machine> (directory)
+** <cwe-code>-<exploit-name> (directory)
+*** <login-gitlab.feature> (solution file)
 
 ^.^s| Example
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
 ** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/135/[135]
 *** link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/135/skhorn.rs[skhorn.rs]
 
-a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bWAPP]
-*** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp/a1-command-injection[a1-command-injection]
-**** link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/a1-command-injection/raballestasr.feature[raballestasr.feature]
+a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa[dvwa]
+*** link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa/657-csp-bypass-medium[657-csp-bypass-medium]
+**** link:https://gitlab.com/autonomicmind/training/blob/master/systems/dvwa/657-csp-bypass-medium/kedavamaru.feature[kedavamaru.feature]
 |====
 
 The naming of all files and folders,
@@ -361,13 +393,13 @@ written in lowercase,
 without any special characters and
 In case a space is needed use a *-* (dash) to replace it.
 
-=== 10.2 Archivos
+=== 10.2 Files
 
 Some of the folders described in the structure contain special files:
 
 ** *LINK.lst:* Contains the challenge URL.
 (link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/001/LINK.lst[example]).
-This file must only have one line with the respective link and
+This file must only have one line with the challenge link and
 it must give a +HTTP 200+ response when visiting it (No redirection).
 
 ** *DATA.lst:* Contains the test cases
@@ -383,11 +415,14 @@ This file allows an automatic script to perform a similarity analysis
 with the challenges sent by the candidates.
 They must comply with what is specified [button]#link:#external[here]#
 
-** *SPEC.txt* (Only for vulnerable system challenges):
-Contains the specifications of the vulnerable machine you are working on.
+** *SPEC.txt* (in +systems-hacking+ and programming)
+and *spec.yml* (in +WeChall+ challenges):
+Contains the specifications of challenges site or
+the vulnerable machine you are working on,
+like number of challenges or vulnerabilities, +URL+ and difficulty.
 You can see an example link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[here]
 
-== 11. Get Started
+== 11. Getting Started
 
 To begin this stage, you must:
 
@@ -430,10 +465,10 @@ partial solutions as your own (plagiarism).
 
 In all cases, the email address for these steps is: careers@autonomicmind.co
 
-If you were removed from the process
-due to any of these circumstances, except for the last two,
-You may apply again at any time and
-start over the process by clicking
+If you were removed from the process due to any of these circumstances,
+except for the last two,
+You may apply again at any time
+and start over the process by clicking
 [button]#link:../../../../forms/aplicacion[here]#
 
 == 13. Builds
@@ -462,8 +497,8 @@ curl https://nixos.org/nix/install | sh
 .Set your credentials
 [source, bash, linenums]
 ----
-export DOCKER_USER=usuario-gitlab
-export DOCKER_PASS=contraseña-gitlab
+export DOCKER_USER=gitlab-user
+export DOCKER_PASS=gitlab-pass
 ----
 
 .Compile and test
@@ -476,7 +511,7 @@ export DOCKER_PASS=contraseña-gitlab
 [source, bash, linenums]
 ----
 git add .
-git commit -m "Ejemplo"
+git commit
 git push origin rama-personal
 ----
 
