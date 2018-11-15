@@ -6,7 +6,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { AxiosError, AxiosResponse } from "axios";
 import _ from "lodash";
 import React, { ComponentType } from "react";
 import { Button, ButtonToolbar, Col, FormControl, Glyphicon, Grid, Row } from "react-bootstrap";
@@ -20,11 +19,10 @@ import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
+import { msgError } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 
 export interface IResourcesViewProps {
@@ -42,31 +40,12 @@ export interface IResourcesViewProps {
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
-    store.dispatch(actions.clearResources());
     const { projectName } = this.props as IResourcesViewProps;
-    let gQry: string;
-    gQry = `{
-        resources (projectName: "${projectName}") {
-          environments
-          repositories
-        }
-    }`;
-    new Xhr().request(gQry, "An error occurred getting repositories")
-    .then((response: AxiosResponse) => {
-      const { data } = response.data;
-      store.dispatch(actions.loadResources(
-        JSON.parse(data.resources.repositories),
-        JSON.parse(data.resources.environments),
-      ));
-    })
-    .catch((error: AxiosError) => {
-      if (error.response !== undefined) {
-        const { errors } = error.response.data;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
 
-        msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error(error.message, errors);
-      }
-    });
+    thunkDispatch(actions.loadResources(projectName));
   },
 });
 
@@ -123,45 +102,11 @@ const removeEnv: ((arg1: string) => void) = (projectName: string): void => {
     if (selectedQry[0].closest("tr") !== null) {
       const selectedRow: Element = selectedQry[0].closest("tr") as Element;
       const env: string | null = selectedRow.children[1].textContent;
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
 
-      let gQry: string;
-      gQry = `mutation {
-        removeEnvironments (
-          repositoryData: ${JSON.stringify(JSON.stringify({ urlEnv: env}))},
-          projectName: "${projectName}"
-        ) {
-          success
-          resources {
-            environments
-            repositories
-          }
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred removing environments")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-        if (data.removeEnvironments.success) {
-          store.dispatch(actions.loadResources(
-            JSON.parse(data.removeEnvironments.resources.repositories),
-            JSON.parse(data.removeEnvironments.resources.environments),
-          ));
-          msgSuccess(
-            translate.t("search_findings.tab_resources.success_remove"),
-            translate.t("search_findings.tab_users.title_success"),
-          );
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred removing environments");
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
+      thunkDispatch(actions.removeEnv(projectName, env));
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing environments");
@@ -190,44 +135,10 @@ const saveEnvs: (
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      let gQry: string;
-      gQry = `mutation {
-        addEnvironments (
-          resourcesData: ${JSON.stringify(JSON.stringify(envsData))},
-          projectName: "${projectName}") {
-          success
-          resources {
-            environments
-            repositories
-          }
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred adding environments")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-        if (data.addEnvironments.success) {
-          store.dispatch(actions.closeAddModal());
-          store.dispatch(actions.loadResources(
-            JSON.parse(data.addEnvironments.resources.repositories),
-            JSON.parse(data.addEnvironments.resources.environments),
-          ));
-          msgSuccess(
-            translate.t("search_findings.tab_resources.success"),
-            translate.t("search_findings.tab_users.title_success"),
-          );
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred adding repositories");
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.saveEnvs(projectName, envsData));
     }
 };
 

@@ -26,15 +26,6 @@ type DashboardAction = ((...args: any[]) => IActionStructure);
 type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
 type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
 
-export const loadResources: DashboardAction =
-  (repos: Array<{ branch: string; urlRepo: string }>,
-   envs: Array<{ urlEnv: string }>): IActionStructure => ({
-    payload: {
-      environments: envs,
-      repositories: repos,
-    },
-    type: actionType.LOAD_RESOURCES,
-});
 export const removeRepo: ThunkActionStructure =
   (projectName: string, repository: string, branch: string): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
@@ -81,11 +72,89 @@ export const removeRepo: ThunkActionStructure =
     });
 };
 
+export const removeEnv: ThunkActionStructure =
+  (projectName: string, envToRemove: string): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      removeEnvironments (
+        repositoryData: ${JSON.stringify(JSON.stringify({ urlEnv: envToRemove }))},
+        projectName: "${projectName}"
+      ) {
+        success
+        resources {
+          environments
+          repositories
+        }
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred removing environments")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+      if (data.removeEnvironments.success) {
+        dispatch({
+          payload: {
+            environments: JSON.parse(data.removeEnvironments.resources.environments),
+            repositories: JSON.parse(data.removeEnvironments.resources.repositories),
+          },
+          type: actionType.LOAD_RESOURCES,
+        });
+        msgSuccess(
+          translate.t("search_findings.tab_resources.success_remove"),
+          translate.t("search_findings.tab_users.title_success"),
+        );
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error("An error occurred removing environments");
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
+
 export const clearResources: DashboardAction =
   (): IActionStructure => ({
   payload: undefined,
   type: actionType.CLEAR_RESOURCES,
 });
+
+export const loadResources: ThunkActionStructure =
+  (projectName: IResourcesViewProps["projectName"]): ThunkAction<void, {}, {}, Action> =>
+  (dispatch: ThunkDispatcher): void => {
+    dispatch(clearResources());
+    let gQry: string;
+    gQry = `{
+        resources (projectName: "${projectName}") {
+          environments
+          repositories
+        }
+    }`;
+    new Xhr().request(gQry, "An error occurred getting repositories")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+      dispatch({
+        payload: {
+          environments: JSON.parse(data.resources.environments),
+          repositories: JSON.parse(data.resources.repositories),
+        },
+        type: actionType.LOAD_RESOURCES,
+      });
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
 
 export const addRepositoryField: DashboardAction =
   (): IActionStructure => ({
@@ -148,6 +217,53 @@ export const saveRepos: ThunkActionStructure =
           JSON.parse(data.addRepositories.resources.environments),
         ));
         msgSuccess(
+          translate.t("search_findings.tab_resources.success"),
+          translate.t("search_findings.tab_users.title_success"),
+        );
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error("An error occurred adding repositories");
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
+
+export const saveEnvs: ThunkActionStructure =
+  (projectName: string,
+   envsData: IResourcesViewProps["addModal"]["envFields"]): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      addEnvironments (
+        resourcesData: ${JSON.stringify(JSON.stringify(envsData))},
+        projectName: "${projectName}") {
+        success
+        resources {
+          environments
+          repositories
+        }
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred adding environments")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+      if (data.addEnvironments.success) {
+      dispatch(closeAddModal());
+      dispatch({
+          payload: {
+            environments: JSON.parse(data.addEnvironments.resources.environments),
+            repositories: JSON.parse(data.addEnvironments.resources.repositories),
+          },
+          type: actionType.LOAD_RESOURCES,
+        });
+      msgSuccess(
           translate.t("search_findings.tab_resources.success"),
           translate.t("search_findings.tab_users.title_success"),
         );
