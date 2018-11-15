@@ -6,6 +6,7 @@ data "aws_iam_policy_document" "key_access_policy" {
   statement {
     sid     = "Allow Access to EKSNode role"
     actions = ["kms:Encrypt", "kms:Decrypt"]
+    resources = ["*"]
 
     principals {
       type        = "AWS"
@@ -29,6 +30,7 @@ data "aws_iam_policy_document" "key_access_policy" {
       "kms:ScheduleKeyDeletion",
       "kms:CancelKeyDeletion"
     ]
+    resources = ["*"]
 
     principals {
       type        = "AWS"
