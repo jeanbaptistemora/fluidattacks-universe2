@@ -37,5 +37,5 @@ resource "aws_db_instance" "fluiddb_dev" {
 
 
 output "dbDevEndpoint" {
-  value = "${aws_db_instance.fluiddb_dev.address}"
+  value = "dbDevInstance=\"${aws_db_instance.fluiddb_dev.address}\""
 }
