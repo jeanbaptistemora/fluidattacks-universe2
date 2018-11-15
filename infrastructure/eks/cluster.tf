@@ -32,7 +32,8 @@ resource "aws_ami_copy" "eks_ami_encrypted" {
   name  = "Fluid-EKS-Encrypted"
   source_ami_id     = "${var.eksAmiId}"
   source_ami_region = "${var.region}"
-  encrypted = true
+  description = "EKS Kubernetes Worker AMI with AmazonLinux2 image"
+  encrypted   = true
 }
 
 resource "aws_launch_configuration" "k8s_nodes_launch_config" {
