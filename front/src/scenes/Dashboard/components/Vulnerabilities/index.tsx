@@ -26,6 +26,7 @@ import store from "../../../../store/index";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
+import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 import { default as SimpleTable } from "../SimpleTable/index";
@@ -47,7 +48,6 @@ export interface IVulnerabilitiesViewProps {
   editMode: boolean;
   findingId: string;
   state: string;
-  translations: { [key: string]: string };
 }
 
 const filterState:
@@ -75,7 +75,7 @@ const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
     store.dispatch(actions.clearResources());
-    const { findingId, translations }: any = this.props;
+    const { findingId }: any = this.props;
     let gQry: string;
     gQry = `{
       finding(identifier: "${findingId}") {
@@ -115,14 +115,14 @@ lifecycle({
           data.finding.portsVulns,
         ));
       } else if (data.finding.errorMessage === "Error in file") {
-        msgError(translations["search_findings.tab_description.errorVuln"]);
+        msgError(translate.t("search_findings.tab_description.errorFileVuln"));
       }
     })
     .catch((error: AxiosError) => {
       if (error.response !== undefined) {
         const { errors } = error.response.data;
 
-        msgError(translations["proj_alerts.error_textsad"]);
+        msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(error.message, errors);
       }
     });
@@ -143,17 +143,19 @@ const deleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
         const { data } = response.data;
 
         if (data.deleteVulnerability.success) {
-          msgSuccess("Vulnerabilitiy was deleted of this finding", "Congratulations");
+          msgSuccess(
+            translate.t("search_findings.tab_description.vulnDeleted"),
+            translate.t("proj_alerts.title_success"));
           location.reload();
         } else {
-          msgError("There is an error :(");
+          msgError(translate.t("proj_alerts.error_textsad"));
         }
       })
       .catch((error: AxiosError) => {
         if (error.response !== undefined) {
           const { errors } = error.response.data;
 
-          msgError("There is an error :(");
+          msgError(translate.t("proj_alerts.error_textsad"));
           rollbar.error(error.message, errors);
         }
       });
@@ -223,7 +225,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     {
       align: "left" as DataAlignType,
       dataField: "specific",
-      header: props.translations["search_findings.tab_description.field"],
+      header: translate.t("search_findings.tab_description.field"),
       isDate: false,
       isStatus: false,
       width: "30%",
@@ -232,7 +234,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     {
       align: "left" as DataAlignType,
       dataField: "where",
-      header: props.translations["search_findings.tab_description.path"],
+      header: translate.t("search_findings.tab_description.path"),
       isDate: false,
       isStatus: false,
       width: "70%",
@@ -240,7 +242,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     {
       align: "left" as DataAlignType,
       dataField: "specific",
-      header: props.translations["search_findings.tab_description.line"],
+      header: translate.t("search_findings.tab_description.line", {count: 1}),
       isDate: false,
       isStatus: false,
       width: "30%",
@@ -257,7 +259,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     {
       align: "left" as DataAlignType,
       dataField: "specific",
-      header: props.translations["search_findings.tab_description.port"],
+      header: translate.t("search_findings.tab_description.port", {count: 1}),
       isDate: false,
       isStatus: false,
       width: "30%",
@@ -268,7 +270,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
                 align: "center" as DataAlignType,
                 dataField: "id",
                 deleteFunction: deleteVulnerability,
-                header: props.translations["search_findings.tab_description.action"],
+                header: translate.t("search_findings.tab_description.action"),
                 isDate: false,
                 isStatus: false,
                 width: "10%",
@@ -277,7 +279,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
                 align: "center" as DataAlignType,
                 dataField: "id",
                 deleteFunction: deleteVulnerability,
-                header: props.translations["search_findings.tab_description.action"],
+                header: translate.t("search_findings.tab_description.action"),
                 isDate: false,
                 isStatus: false,
                 width: "10%",
@@ -286,7 +288,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
                 align: "center" as DataAlignType,
                 dataField: "id",
                 deleteFunction: deleteVulnerability,
-                header: props.translations["search_findings.tab_description.action"],
+                header: translate.t("search_findings.tab_description.action"),
                 isDate: false,
                 isStatus: false,
                 width: "10%",
@@ -299,7 +301,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     <React.StrictMode>
     { props.dataInputs.length > 0
       ? <React.Fragment>
-          <label className={style.vuln_title}>{props.translations["search_findings.tab_description.inputs"]}</label>
+          <label className={style.vuln_title}>{translate.t("search_findings.tab_description.inputs")}</label>
           <SimpleTable
             id="inputsVulns"
             dataset={props.dataInputs}
@@ -317,7 +319,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     }
     { props.dataLines.length > 0
       ? <React.Fragment>
-          <label className={style.vuln_title}>{props.translations["search_findings.tab_description.lines"]}</label>
+          <label className={style.vuln_title}>{translate.t("search_findings.tab_description.line", {count: 2})}</label>
           <SimpleTable
             id="linesVulns"
             dataset={dataLines}
@@ -335,7 +337,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
     }
     { props.dataPorts.length > 0
       ? <React.Fragment>
-          <label className={style.vuln_title}>{props.translations["search_findings.tab_description.ports"]}</label>
+          <label className={style.vuln_title}>{translate.t("search_findings.tab_description.port", {count: 2})}</label>
           <SimpleTable
             id="portsVulns"
             dataset={props.dataPorts}
@@ -365,14 +367,12 @@ vulnsViewComponent.propTypes = {
   editMode: PropTypes.bool,
   findingId: PropTypes.string,
   state: PropTypes.string,
-  translations: PropTypes.object,
 };
 
 vulnsViewComponent.defaultProps = {
   editMode: false,
   findingId: "",
   state: "",
-  translations: {},
 };
 
 export const vulnsView: ComponentType<IVulnerabilitiesViewProps> = reduxWrapper

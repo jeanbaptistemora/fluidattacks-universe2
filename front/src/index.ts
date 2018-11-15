@@ -239,7 +239,6 @@ angular
         "efectivenessText",
         "hasNewVulnerabilities",
         "findingId",
-        "translations",
       ],
     ),
   );
@@ -379,7 +378,6 @@ angular
         "editMode",
         "findingId",
         "state",
-        "translations",
      ],
    ),
   );

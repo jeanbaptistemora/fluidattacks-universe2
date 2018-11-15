@@ -200,17 +200,6 @@ angular.module("FluidIntegrates").factory(
               response.data.finding.success) {
             const findingInfo = response.data.finding;
             const translationsStrings = [
-              "search_findings.tab_description.ports",
-              "search_findings.tab_description.port",
-              "search_findings.tab_description.lines",
-              "search_findings.tab_description.path",
-              "search_findings.tab_description.line",
-              "search_findings.tab_description.field",
-              "search_findings.tab_description.inputs",
-              "search_findings.tab_description.errorVuln",
-              "search_findings.tab_description.action",
-              "proj_alerts.access_denied",
-              "proj_alerts.error_textsad",
               "search_findings.tab_description.downloadVulnerabilities",
               "search_findings.tab_description.updateVulnerabilities"
             ];

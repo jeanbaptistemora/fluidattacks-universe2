@@ -5,8 +5,21 @@ const esTranslations: Map<string, string> = {
   },
   proj_alerts: {
     error_textsad: "Hay un error :(",
+    title_success: "Felicitaciones",
   },
   search_findings: {
+    tab_description: {
+      action: "Acción",
+      errorFileVuln: "El archivo de vulnerabilidades tiene errores",
+      field: "Campo",
+      inputs: "Entradas",
+      line: "Línea",
+      line_plural: "Líneas",
+      path: "Ruta",
+      port: "Puerto",
+      port_plural: "Puertos",
+      vulnDeleted: "La vulnerabilidad fue borrada de este hallazgo",
+    },
     tab_users: {
       add_button: "Agregar",
       admin: "Admin",

@@ -108,7 +108,6 @@ const traducciones2 = {
    },
   "tab_description":
   {
-    "action": "Acción",
     "actorTooltip": "Persona que podría ejecutar el vector de ataque, que " +
                     "afecta a los activos especificados, usando el hallazgo",
     "btsTooltip": "Link a un sistema de seguimiento de errores externo",
@@ -128,15 +127,7 @@ const traducciones2 = {
     "downloadVulnerabilities": "Descargar Vulnerabilidades",
     "edit_treatment": "Editar",
     "editable": "Editar",
-    "errorVuln": "El archivo de vulnerabilidades tiene errores",
-    "field": "Campo",
     "general": "General",
-    "inputs": "Entradas",
-    "line": "Linea",
-    "lines": "Lineas",
-    "path": "Ruta",
-    "port": "Puerto",
-    "ports": "Puertos",
     "probability": "Probabilidad",
     "recommendation": "Recomendación",
     "recommendationTooltip": "Recomendación general que se da para evitar " +

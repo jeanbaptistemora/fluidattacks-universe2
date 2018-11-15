@@ -106,7 +106,6 @@ const translations2 = {
       },
    "tab_description":
      {
-       "action": "Action",
        "actorTooltip": "Person who could execute the attack vector using " +
                         "the finding which affects the specified targets",
        "btsTooltip": "Link to an external bugtracking system",
@@ -126,15 +125,7 @@ const translations2 = {
        "downloadVulnerabilities": "Download Vulnerabilities",
        "edit_treatment": "Edit",
        "editable": "Edit",
-       "errorVuln": "Vulnerabilities file has errors",
-       "field": "Field",
        "general": "General",
-       "inputs": "Inputs",
-       "line": "Line",
-       "lines": "Lines",
-       "path": "Path",
-       "port": "Port",
-       "ports": "Ports",
        "probability": "Probability",
        "recommendation": "Recommendation",
        "recommendationTooltip": "General recommendation given to avoid this " +

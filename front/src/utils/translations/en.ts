@@ -5,8 +5,21 @@ const enTranslations: Map<string, string> = {
   },
   proj_alerts: {
     error_textsad: "There is an error :(",
+    title_success: "Congratulations",
   },
   search_findings: {
+    tab_description: {
+      action: "Action",
+      errorFileVuln: "Vulnerabilities file has errors",
+      field: "Field",
+      inputs: "Inputs",
+      line: "Line",
+      line_plural: "Lines",
+      path: "Path",
+      port: "Port",
+      port_plural: "Ports",
+      vulnDeleted: "Vulnerability was deleted of this finding",
+    },
     tab_users: {
       add_button: "Add",
       admin: "Admin",
