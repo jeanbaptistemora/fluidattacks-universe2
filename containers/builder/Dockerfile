@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         python3-pip \
         software-properties-common \
         unzip \
-    && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip \
+    && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip \
         && unzip terraform.zip \
         && rm terraform.zip \
         && cp terraform /usr/local/bin/terraform \
