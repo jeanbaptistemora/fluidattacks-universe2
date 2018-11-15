@@ -42,6 +42,7 @@ tflint --deep --aws-access-key="$AWS_INNOVATION_ACCESS_KEY_ID" \
   --aws-secret-key="$AWS_INNOVATION_SECRET_KEY_ID" --aws-region='us-east-1'
 terraform refresh > /dev/null
 terraform plan
+terraform output dbDevEndpoint >> ../dns/terraform.tfvars
 cd ../
 
 # Run Terraform Plan for AWS DNS infrastructure
