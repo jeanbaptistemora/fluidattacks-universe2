@@ -1,5 +1,7 @@
 variable "vaultBucket" {}
 
+data "aws_caller_identity" "current_account" {}
+
 data "aws_iam_policy_document" "key_access_policy" {
   statement {
     sid     = "Allow Access to EKSNode role"
@@ -8,6 +10,29 @@ data "aws_iam_policy_document" "key_access_policy" {
     principals {
       type        = "AWS"
       identifiers = ["${aws_iam_role.k8s_nodes_role.arn}"]
+    }
+  }
+
+  statement {
+    sid     = "Allow key management to Master acccount"
+    actions = [
+      "kms:Create*",
+      "kms:Describe*",
+      "kms:Enable*",
+      "kms:List*",
+      "kms:Put*",
+      "kms:Update*",
+      "kms:Revoke*",
+      "kms:Disable*",
+      "kms:Get*",
+      "kms:Delete*",
+      "kms:ScheduleKeyDeletion",
+      "kms:CancelKeyDeletion"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${data.aws_caller_identity.current_account.arn}"]
     }
   }
 }
