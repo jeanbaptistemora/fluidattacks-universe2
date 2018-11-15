@@ -137,7 +137,6 @@ angular
       [
         "id",
         "loadDashboard",
-        "translations",
       ],
     ),
   );

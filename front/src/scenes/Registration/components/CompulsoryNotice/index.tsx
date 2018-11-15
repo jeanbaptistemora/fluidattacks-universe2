@@ -4,7 +4,6 @@
  * without using lambda expressions () => {}
  */
 import { AxiosResponse } from "axios";
-import PropTypes from "prop-types";
 import React from "react";
 import { Button, Checkbox } from "react-bootstrap";
 import { Reducer } from "redux";
@@ -13,6 +12,7 @@ import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
+import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 /**
@@ -22,7 +22,6 @@ interface ICompulsoryNoticeProps {
   id: string;
   open: boolean;
   rememberDecision: boolean;
-  translations: { [key: string]: string };
   loadDashboard(): void;
 }
 
@@ -77,13 +76,13 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => ICompulsoryNoticeProps) =
 const modalContent: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   (props: ICompulsoryNoticeProps): React.ReactNode => (
   <div>
-    <p>{props.translations["legalNotice.description"]}</p>
-    <p title={props.translations["legalNotice.rememberCbo.tooltip"]}>
+    <p>{translate.t("legalNotice.description")}</p>
+    <p title={translate.t("legalNotice.rememberCbo.tooltip")}>
       <Checkbox
         checked={props.rememberDecision}
         onClick={(): void => { store.dispatch(actions.checkRemember()); }}
       >
-        {props.translations["legalNotice.rememberCbo.text"]}
+        {translate.t("legalNotice.rememberCbo.text")}
       </Checkbox>
     </p>
   </div>
@@ -93,10 +92,10 @@ const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   (props: ICompulsoryNoticeProps): React.ReactNode => (
   <Button
     bsStyle="primary"
-    title={props.translations["legalNotice.acceptBtn.tooltip"]}
+    title={translate.t("legalNotice.acceptBtn.tooltip")}
     onClick={(): void => { acceptLegal(props); }}
   >
-    {props.translations["legalNotice.acceptBtn.text"]}
+    {translate.t("legalNotice.acceptBtn.text")}
   </Button>
 );
 
@@ -109,22 +108,12 @@ export const component: React.StatelessComponent<ICompulsoryNoticeProps> =
     <Modal
       open={props.open}
       onClose={(): void => { acceptLegal(props); }}
-      headerTitle={props.translations["legalNotice.title"]}
+      headerTitle={translate.t("legalNotice.title")}
       content={modalContent(props)}
       footer={modalFooter(props)}
     />
   </React.StrictMode>
 );
-
-/**
- *  CompulsoryNotice propTypes Definition
- */
-component.propTypes = {
-  id: PropTypes.string.isRequired,
-  loadDashboard: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  rememberDecision: PropTypes.bool.isRequired,
-};
 
 /**
  * Export the Redux-wrapped component

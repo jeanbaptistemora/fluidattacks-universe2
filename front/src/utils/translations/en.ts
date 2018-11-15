@@ -3,6 +3,28 @@ const enTranslations: Map<string, string> = {
     cancel: "Cancel",
     proceed: "Proceed",
   },
+  legalNotice: {
+    acceptBtn: {
+      text: "Accept and continue",
+      tooltip: "Click if you understand and accept the terms above",
+    },
+    description: "Integrates, Copyright (c) 2018 FLUID. This platform contains \
+    information proprietary of Fluidsignal Group. The client is only allowed \
+    to use such information for documentation purposes and without disclosing \
+    its content to third parties because it may contain ideas, concepts, prices \
+    and/or structures propriety of Fluidsignal Group S.A. Its 'proprietary' \
+    classification means that this information will only be used by those who \
+    it was meant for. In case of requiring total or partial reproductions it \
+    must be done with express and written authorization of Fluidsignal Group \
+    S.A. The rules that fundament the classification of information are \
+    articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code \
+    and articles 16 and its following ones from 256 law of 1.996.",
+    rememberCbo: {
+      text: "Remember my decision",
+      tooltip: "Mark the checkbox if you want this decision to be permanent",
+    },
+    title: "Legal notice",
+  },
   proj_alerts: {
     error_textsad: "There is an error :(",
     title_success: "Congratulations",

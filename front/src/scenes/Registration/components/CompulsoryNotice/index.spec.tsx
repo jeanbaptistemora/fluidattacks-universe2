@@ -23,14 +23,6 @@ describe('Compulsory notice modal', () => {
         id="testModal"
         open={true}
         rememberDecision={false}
-        translations={{
-          "legalNotice.title": "Legal notice",
-          "legalNotice.description": "Test notice",
-          "legalNotice.rememberCbo.tooltip": "Test tooltip",
-          "legalNotice.rememberCbo.text": "Remember?",
-          "legalNotice.acceptBtn.tooltip": "Test tooltip",
-          "legalNotice.acceptBtn.text": "Accept",
-        }}
         loadDashboard={(): void => {}}
       />
     ),
