@@ -295,7 +295,6 @@ angular
     react2angular(
       resourcesView, [
         "projectName",
-        "translations",
       ],
     ),
   );

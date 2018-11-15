@@ -8,6 +8,13 @@ const enTranslations: Map<string, string> = {
     title_success: "Congratulations",
   },
   search_findings: {
+    environment_table: {
+      environment: "Environment",
+    },
+    repositories_table: {
+      branch: "Branch",
+      repository: "Repository",
+    },
     tab_description: {
       action: "Action",
       errorFileVuln: "Vulnerabilities file has errors",
@@ -19,6 +26,21 @@ const enTranslations: Map<string, string> = {
       port: "Port",
       port_plural: "Ports",
       vulnDeleted: "Vulnerability was deleted of this finding",
+    },
+    tab_resources: {
+      add_repository: "Add",
+      branch: "Branch",
+      environment: "Environment",
+      environments_title: "Environments",
+      modal_env_title: "Add environment information",
+      modal_repo_title: "Add repository information",
+      no_selection: "You must select an item from the table.",
+      remove_repository: "Remove",
+      repeated_item: "One or more items to add already exist.",
+      repositories_title: "Repositories",
+      repository: "Repository",
+      success: "Item added successfully.",
+      success_remove: "Item removed successfully.",
     },
     tab_users: {
       add_button: "Add",

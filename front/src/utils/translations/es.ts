@@ -8,6 +8,13 @@ const esTranslations: Map<string, string> = {
     title_success: "Felicitaciones",
   },
   search_findings: {
+    environment_table: {
+      environment: "Ambiente",
+    },
+    repositories_table: {
+      branch: "Rama",
+      repository: "Repositorio",
+    },
     tab_description: {
       action: "Acción",
       errorFileVuln: "El archivo de vulnerabilidades tiene errores",
@@ -19,6 +26,21 @@ const esTranslations: Map<string, string> = {
       port: "Puerto",
       port_plural: "Puertos",
       vulnDeleted: "La vulnerabilidad fue borrada de este hallazgo",
+    },
+    tab_resources: {
+      add_repository: "Agregar",
+      branch: "Rama",
+      environment: "Ambiente",
+      environments_title: "Ambientes",
+      modal_env_title: "Agregar información de los ambientes",
+      modal_repo_title: "Agregar información de los repositorios",
+      no_selection: "Debe seleccionar un item de la tabla.",
+      remove_repository: "Remover",
+      repeated_item: "Uno o varios items a añadir ya existen.",
+      repositories_title: "Repositorios",
+      repository: "Repositorio",
+      success: "Item agregado exitosamente.",
+      success_remove: "Item eliminado exitosamente.",
     },
     tab_users: {
       add_button: "Agregar",

@@ -22,11 +22,6 @@ describe('Resources view', () => {
       environmentsDataset={[]}
       projectName="unittesting"
       repositoriesDataset={[]}
-      translations={{
-        "search_findings.tab_resources.add_repository": "Add",
-        "search_findings.tab_resources.remove_repository": "Remove",
-        "search_findings.tab_resources.title_repo": "Add repos modal title",
-      }}
     />
   );
 
@@ -48,7 +43,7 @@ describe('Resources view', () => {
         onClick={(): void => {}}
       >
         <Glyphicon glyph="plus"/>
-         &nbsp;Add
+         &nbsp;search_findings.tab_resources.add_repository
       </Button>
     ).html();
     expect(addRepoBtn).to.equal(expectedAddRepoBtn);
@@ -62,7 +57,7 @@ describe('Resources view', () => {
         onClick={(): void => {}}
       >
         <Glyphicon glyph="minus"/>
-         &nbsp;Remove
+         &nbsp;search_findings.tab_resources.remove_repository
       </Button>
     ).html();
     expect(removeRepoBtn).to.equal(expectedRemoveRepoBtn);
@@ -76,7 +71,7 @@ describe('Resources view', () => {
         onClick={(): void => {}}
       >
         <Glyphicon glyph="plus"/>
-         &nbsp;Add
+         &nbsp;search_findings.tab_resources.add_repository
       </Button>
     ).html();
     expect(addEnvBtn).to.equal(expectedAddEnvBtn);
@@ -90,7 +85,7 @@ describe('Resources view', () => {
         onClick={(): void => {}}
       >
         <Glyphicon glyph="minus"/>
-         &nbsp;Remove
+         &nbsp;search_findings.tab_resources.remove_repository
       </Button>
     ).html();
     expect(removeEnvBtn).to.equal(expectedRemoveEnvBtn);
