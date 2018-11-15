@@ -555,6 +555,8 @@ def add_vuln_to_dynamo(item, specific, vuln, finding_id, info):
     response = False
     tzn = pytz.timezone('America/Bogota')
     current_day = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    user_data = util.get_jwt_content(info.context)
+    email = user_data['user_email']
     if vulnerability:
         response = update_vuln_state(vulnerability, item, finding_id, current_day)
     else:
@@ -564,6 +566,7 @@ def add_vuln_to_dynamo(item, specific, vuln, finding_id, info):
         data['specific'] = specific
         data['finding_id'] = finding_id
         data['UUID'] = str(uuid.uuid4())
+        data['analyst'] = email
         if item.get('state'):
             historic_state.append({'date': current_day, 'state': item.get('state')})
             data['historic_state'] = historic_state
