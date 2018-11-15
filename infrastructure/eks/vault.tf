@@ -28,7 +28,10 @@ data "aws_iam_policy_document" "key_access_policy" {
       "kms:Get*",
       "kms:Delete*",
       "kms:ScheduleKeyDeletion",
-      "kms:CancelKeyDeletion"
+      "kms:CancelKeyDeletion",
+      "kms:TagResource",
+      "kms:UntagResource",
+      "kms:ListResourceTags"
     ]
     resources = ["*"]
 
@@ -45,7 +48,7 @@ resource "aws_kms_key" "vault_encryption_key" {
   policy = "${data.aws_iam_policy_document.key_access_policy.json}"
 
   tags {
-    Name = "Vault_Encryption_Key"
+    Name = "Encryption_Key_Vault"
     App  = "Vault"
   }
 }
