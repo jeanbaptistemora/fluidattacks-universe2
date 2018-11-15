@@ -14,7 +14,8 @@ import {
   InferableComponentEnhancer,
   lifecycle,
 } from "recompose";
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
@@ -26,7 +27,7 @@ import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actions from "../../actions";
 
-interface IResourcesViewProps {
+export interface IResourcesViewProps {
   addModal: {
     envFields: Array<{ environment: string }>;
     open: boolean;
@@ -77,44 +78,10 @@ const removeRepo: ((arg1: string) => void) = (projectName: string): void => {
       const repository: string | null = selectedRow.children[1].textContent;
       const branch: string | null = selectedRow.children[2].textContent;
 
-      let gQry: string;
-      gQry = `mutation {
-        removeRepositories (
-          repositoryData: ${JSON.stringify(JSON.stringify({ urlRepo: repository, branch}))},
-          projectName: "${projectName}"
-        ) {
-          success
-          resources {
-            environments
-            repositories
-          }
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred removing repositories")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-        if (data.removeRepositories.success) {
-          store.dispatch(actions.loadResources(
-            JSON.parse(data.removeRepositories.resources.repositories),
-            JSON.parse(data.removeRepositories.resources.environments),
-          ));
-          msgSuccess(
-            translate.t("search_findings.tab_resources.success_remove"),
-            translate.t("search_findings.tab_users.title_success"),
-          );
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred removing repositories");
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.removeRepo(projectName, repository, branch));
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing repositories");
@@ -143,44 +110,10 @@ const saveRepos: (
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      let gQry: string;
-      gQry = `mutation {
-        addRepositories (
-          resourcesData: ${JSON.stringify(JSON.stringify(reposData))},
-          projectName: "${projectName}") {
-          success
-          resources {
-            environments
-            repositories
-          }
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred adding repositories")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-        if (data.addRepositories.success) {
-          store.dispatch(actions.closeAddModal());
-          store.dispatch(actions.loadResources(
-            JSON.parse(data.addRepositories.resources.repositories),
-            JSON.parse(data.addRepositories.resources.environments),
-          ));
-          msgSuccess(
-            translate.t("search_findings.tab_resources.success"),
-            translate.t("search_findings.tab_users.title_success"),
-          );
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred adding repositories");
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.saveRepos(projectName, reposData));
     }
 };
 
