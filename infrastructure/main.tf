@@ -35,15 +35,10 @@ module "eks" {
   eksSnetReg   = ["${var.eksSnetReg}"]
   region  = "${var.region}"
   rtbId   = "${var.rtbId}"
-  vpcCidr = "${var.cidr}"
-  vpcId   = "${var.vpcId}"
-}
-
-module "vault" {
-  source = "./vault"
   vaultBucket = "${var.vaultBucket}"
+  vpcCidr  = "${var.cidr}"
+  vpcId    = "${var.vpcId}"
 }
-
 
 # # Create with existing DB
 module database {
