@@ -12,8 +12,10 @@ from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 NUM_TOKENS = 12
+
 
 def browser_initialize(url):
     """
@@ -73,6 +75,27 @@ def browser_navigate_link(browser, link_text):
     """
     WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.LINK_TEXT, link_text)))
     browser.find_element_by_link_text(link_text).click()
+
+def browser_navigate_xpath(browser, xpath):
+    """
+    Allows the browser to navigate the website by finding and clicking
+    elements
+
+    :param browser: Selenium object that contains the session information
+    :param xpath: Path of a HTML link element
+    """
+    success = False
+    attempts = 0
+    while not success and attempts < 120:
+        try:
+            WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, xpath)))
+            browser.find_element_by_xpath(xpath).click()
+            success = True
+        except TimeoutException:
+            attempts += 10
+            browser.implicitly_wait(10)
+    if not success:
+        raise TimeoutException
 
 def browser_write_element_by_id(browser, elem_id, text):
     """
@@ -157,6 +180,7 @@ def open_formstack_profile_menu(browser):
     xpath = '//a[@aria-label=\"Account Menu\"]'
     WebDriverWait(browser, 10).until(EC.invisibility_of_element_located((By.ID, 'message')))
     browser.find_element_by_xpath(xpath).click()
+
 
 if __name__ == '__main__':
     FORMSTACK_TOKENS = generate_formstack_tokens()

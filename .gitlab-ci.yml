@@ -24,7 +24,7 @@ stages:
   - postdeploy
   - dns
   - rotation
-  # - backup
+  - backup
 
 .vault_login: &vault_login
   before_script:
@@ -281,3 +281,16 @@ change_keys:
 #     - rm credentials
 #   only:
 #     - schedules
+
+formstack_backup:
+  stage: backup
+  <<: *vault_login
+  script:
+    - pip3 install boto3
+    - export FORMSTACK_EMAIL="$(vault read -field=formstack_email
+        secret/serves)"
+    - export FORMSTACK_PASS="$(vault read -field=formstack_pass
+        secret/serves)"
+    - ./infrastructure/fs_backup.py
+  only:
+    - schedules

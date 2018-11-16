@@ -1,1 +1,3 @@
 .torus.json
+*.pyc
+geckodriver.log
