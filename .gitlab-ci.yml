@@ -41,6 +41,9 @@ stages:
 
 build_base:
   stage: deps
+  before_script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
   script:
     - sh containers/base/build.sh
     - docker push "$DOCKER_BASENAME:base"
@@ -203,7 +206,7 @@ fluidasserts_post:
     - docker run -t -e FA_STRICT="true" -w /code
       -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
       -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-      -v $(pwd):/code
+      -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
       fluidattacks/asserts asserts /code/asserts/exploit.py
   only:
     - master
