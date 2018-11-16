@@ -100,6 +100,9 @@ function issue_secondary_domain_certificates() {
 }
 
 
+cd eks/manifests/
+
+
 # Set working namespace to serves to avoid including the flag in every command
 create_kubernetes_namespace serves operations integrates web
 kubectl config set-context $(kubectl config current-context) \
@@ -108,9 +111,9 @@ kubectl config set-context $(kubectl config current-context) \
 
 # Set TLS certificates for the main domains and automatically issue valid
 # certificates for the secondary domains using Cert-Manager and ACME protocol
-replace_env_variables eks/manifests/ingress-main-domains.yaml
-kubectl apply -f eks/manifests/ingress-main-domains.yaml
-issue_secondary_domain_certificates eks/manifests/ingress-sec-domains.yaml \
+replace_env_variables ingress/main-domains.yaml
+kubectl apply -f ingress/main-domains.yaml
+issue_secondary_domain_certificates ingress/secondary-domains.yaml \
   secondary-domains-cert secondary-domains 
 
 
@@ -133,13 +136,13 @@ if ! kubectl get secret gitlab-reg; then
 fi
 
 # Prepare environments for Review Apps
-sed 's/$PROJECT/web/g' eks/manifests/review-tmpl.yaml | kubectl apply -f -
-sed 's/$PROJECT/integrates/g' eks/manifests/review-tmpl.yaml | kubectl apply -f -
+sed 's/$PROJECT/web/g' review-apps/env-template.yaml | kubectl apply -f -
+sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 
 # Install Calico to enforce Network Policies between Pods
 # and define policies
 kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.1/config/v1.1/calico.yaml
-kubectl apply -f eks/manifests/network-policies.yaml
+kubectl apply -f review-apps/network-policies.yaml
 
 # Pass variables to Integrates to access Vault
 INTEGRATES_VAULT_TOKEN=$(curl --request POST \
@@ -148,20 +151,20 @@ INTEGRATES_VAULT_TOKEN=$(curl --request POST \
   jq -r '.auth.client_token')
 sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
   s/$VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/' \
-        eks/manifests/integrates.yaml
+        deployments/integrates.yaml
 
 # Deploy apps containers
-sed -i 's/$DATE/'"$(date)"'/' eks/manifests/*.yaml
-kubectl apply -f eks/manifests/alg.yaml
+sed -i 's/$DATE/'"$(date)"'/' deployments/*.yaml
+kubectl apply -f deployments/alg.yaml
 kubectl rollout status deploy/alg -w
 
-kubectl apply -f eks/manifests/exams.yaml
+kubectl apply -f deployments/exams.yaml
 kubectl rollout status deploy/exams -w
 
-kubectl apply -f eks/manifests/integrates.yaml
+kubectl apply -f deployments/integrates.yaml
 kubectl rollout status deploy/integrates -w
 
-kubectl apply -f eks/manifests/vpn.yaml
+kubectl apply -f deployments/vpn.yaml
 kubectl rollout status deploy/vpn -w
 
 # Wait until the initialization of the Load Balancer is complete
