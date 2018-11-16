@@ -32,6 +32,17 @@ function deploy_application() {
   kubectl rollout status "deploy/${name}" -w
 }
 
+function get_aws_elb_name() {
+  aws elb describe-load-balancers | \
+    jq -r '.LoadBalancerDescriptions[].LoadBalancerName'
+}
+
+function get_aws_elb_status() {
+  local name="${1}"
+  aws elb describe-instance-health --load-balancer-name "${name}" | \
+    jq -r '.InstanceStates[].State'
+}
+
 # Get files that were modified or added between the latest commit in master
 # and the latest commit in the developer branch
 function get_changed_files() {
@@ -85,6 +96,23 @@ function issue_secondary_domain_certificates() {
   else
     echo-blue "Certificates for secondary domains are valid."
   fi
+}
+
+function wait_elb_initialization() {
+  local elb_name="$(get_aws_elb_name)"
+  local elb_status="$(get_aws_elb_status ${elb_name})"
+  local i=0
+  while [[ "${elb_status}" = *"OutOfService"* ]]; do
+    echo-blue 'Waiting for Load Balancer to be ready...'
+    sleep 10
+    elb_status="$(get_aws_elb_status ${elb_name})"
+    i="$((i+1))"
+    if [[ "$i" == 10 ]]; then
+      echo-blue "Load Balancer failed the Health Checks and is out of service."
+      exit 1
+    fi
+  done
+  echo-blue 'Load Balancer is ready to receive requests.'
 }
 
 
@@ -141,22 +169,6 @@ install_helm_chart stable/nginx-ingress controller serves nginx.yaml
 install_helm_chart gitlab/gitlab-runner runner operations runner.yaml
 install_helm_chart stable/cert-manager cert-manager operations cert-manager.yaml
 
+
 # Wait until the initialization of the Load Balancer is complete
-sleep 5
-ELB_NAME="$(aws --region us-east-1 elb describe-load-balancers \
-  | jq -r '.LoadBalancerDescriptions[].LoadBalancerName')"
-ELB_STATUS="$(aws --region us-east-1 elb describe-instance-health \
-  --load-balancer-name $ELB_NAME | jq -r '.InstanceStates[].State')"
-I=0
-while [[ "$ELB_STATUS" = *"OutOfService"* ]]; do
-  echo 'Waiting for Load Balancer to be ready...'
-  sleep 10
-  ELB_STATUS="$(aws --region us-east-1 elb describe-instance-health \
-  --load-balancer-name $ELB_NAME | jq -r '.InstanceStates[].State')"
-  I="$((I+1))"
-  if [[ "$I" == 10 ]]; then
-    echo "Load Balancer failed the Health Checks and is out of service."
-    exit 1
-  fi
-done
-echo 'Load Balancer is ready to receive requests.'
+wait_elb_initialization
