@@ -5,8 +5,8 @@ metadata:
   namespace: serves
 type: Opaque
 data:
-  VAULT_HOST: $VAULT_HOST
-  VAULT_TOKEN: $VAULT_TOKEN
+  VAULT_HOST: $FI_VAULT_HOST
+  VAULT_TOKEN: $FI_VAULT_TOKEN
   VAULT_PORT: NDQz
 ---
 apiVersion: extensions/v1beta1

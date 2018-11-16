@@ -38,6 +38,14 @@ function create_kubernetes_namespace() {
   done
 }
 
+function deploy_application() {
+  local manifest="${1}"
+  local name="$(echo ${1} | cut -d/ -f2 | cut -d. -f1)"
+  replace_env_variables "${manifest}"
+  kubectl apply -f "${manifest}"
+  kubectl rollout status "deploy/${name}" -w
+}
+
 # Get files that were modified or added between the latest commit in master
 # and the latest commit in the developer branch
 function get_changed_files() {
@@ -56,6 +64,14 @@ function get_changed_helm_files() {
     fi
   done
   echo "${changed_helm_files[*]}"
+}
+
+function get_vault_approle_token() {
+  local role_id="${1}"
+  local secret_id="${2}"
+  local url="https://${3}/v1/auth/approle/login"
+  local data='{"role_id":"'"${role_id}"'","secret_id":"'"${secret_id}"'"}'
+  curl --request POST --data "${data}" "${url}" | jq -r '.auth.client_token'
 }
 
 # Use the modified file to extract chart information from the maps
@@ -144,28 +160,19 @@ sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.1/config/v1.1/calico.yaml
 kubectl apply -f review-apps/network-policies.yaml
 
-# Pass variables to Integrates to access Vault
-INTEGRATES_VAULT_TOKEN=$(curl --request POST \
-  --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}' \
-  "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" | \
-  jq -r '.auth.client_token')
-sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
-  s/$VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/' \
-        deployments/integrates.yaml
 
-# Deploy apps containers
-sed -i 's/$DATE/'"$(date)"'/' deployments/*.yaml
-kubectl apply -f deployments/alg.yaml
-kubectl rollout status deploy/alg -w
+DATE="$(date)"
+FI_VAULT_HOST="$(echo -n ${VAULT_HOST} | base64)"
+FI_VAULT_TOKEN="$(get_vault_approle_token ${INTEGRATES_PROD_ROLE_ID} \
+  ${INTEGRATES_PROD_SECRET_ID} ${VAULT_HOST} | tr -d '\n' | base64)"
+export DATE
+export FI_VAULT_HOST
+export FI_VAULT_TOKEN
 
-kubectl apply -f deployments/exams.yaml
-kubectl rollout status deploy/exams -w
-
-kubectl apply -f deployments/integrates.yaml
-kubectl rollout status deploy/integrates -w
-
-kubectl apply -f deployments/vpn.yaml
-kubectl rollout status deploy/vpn -w
+deploy_application deployments/alg.yaml
+deploy_application deployments/exams.yaml
+deploy_application deployments/integrates.yaml
+deploy_application deployments/vpn.yaml
 
 # Wait until the initialization of the Load Balancer is complete
 sleep 5
