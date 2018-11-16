@@ -43,10 +43,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         && tar -zxvf helm.tar.gz \
         && mv linux-amd64/helm /usr/local/bin/ \
         && rm -rf helm.tar.gz linux-amd64 \
-    && pip install --upgrade pip \
-        && pip install awscli==1.16.55 \
     && pip3 install --upgrade \
         selenium==3.141.0 \
+        requests==2.20.1 \
+    && pip install --upgrade pip \
+        && pip install --upgrade \
+        awscli==1.16.55 \
         requests==2.20.1 \
     && curl -LSo geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.21.0/geckodriver-v0.21.0-linux64.tar.gz \
          && tar -zxvf geckodriver.tar.gz \
