@@ -41,9 +41,6 @@ stages:
 
 build_base:
   stage: deps
-  before_script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
   script:
     - sh containers/base/build.sh
     - docker push "$DOCKER_BASENAME:base"
@@ -53,6 +50,8 @@ build_base:
 build_builder:
   stage: deps
   script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
     - aws s3 cp
         s3://$VAULT_S3_BUCKET/vault-ca.crt
         $HOME/vault-ca.crt
@@ -244,9 +243,9 @@ change_keys:
         jq -r '.auth.client_token')
     - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
         s/$VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/'
-        eks/manifests/integrates.yaml
-    - sed -i 's/$DATE/'"$(date)"'/' eks/manifests/*.yaml
-    - kubectl apply -f eks/manifests/integrates.yaml
+        eks/manifests/deployments/integrates.yaml
+    - sed -i 's/$DATE/'"$(date)"'/' eks/manifests/deployments/*.yaml
+    - kubectl apply -f eks/manifests/deployments/integrates.yaml
     - kubectl rollout status deploy/integrates -w
     - python3 -c "from rotate_fs_keys import delete_formstack_tokens;
         delete_formstack_tokens()"
