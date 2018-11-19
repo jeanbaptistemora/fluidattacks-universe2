@@ -119,6 +119,29 @@ class Xhr {
         document.getElementById("full_loader") as HTMLElement;
     preloaderElement.style.display = "block";
   }
+
+  /**
+   * Upload files with GraphQL queries
+   */
+   /* tslint:disable:no-any
+    * Disabling here is necessary becase this is a generic function that will
+    * return promises with objects of different types as response
+   */
+  public upload = async (query: string, fieldId: string, errorText: string): Promise<any> => {
+    const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
+    if (_.isNil(selected) || selected.length === 0) {
+      msgError(translate.t("no_file_selected"));
+      throw new Error();
+    } else {
+      const payload: FormData = new FormData();
+      payload.append("query", query);
+      payload.append("document", selected[0]);
+
+      return this.executeRequest(payload, errorText);
+    }
+  }
+  // tslint:enable:no-any
+
   /**
    * Perform a POST request against the GraphQL endpoint.
    * function executeRequest

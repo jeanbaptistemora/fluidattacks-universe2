@@ -29,6 +29,7 @@ const esTranslations: Map<string, string> = {
   proj_alerts: {
     access_denied: "Acceso denegado o proyecto no encontrado",
     error_textsad: "Hay un error :(",
+    no_file_selected: "No se ha seleccionado ningún archivo",
     title_success: "Felicitaciones",
   },
   search_findings: {
