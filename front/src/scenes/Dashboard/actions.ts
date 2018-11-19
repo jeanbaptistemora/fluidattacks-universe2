@@ -211,10 +211,13 @@ export const saveRepos: ThunkActionStructure =
       const { data } = response.data;
       if (data.addRepositories.success) {
         dispatch(closeAddModal());
-        dispatch(loadResources(
-          JSON.parse(data.addRepositories.resources.repositories),
-          JSON.parse(data.addRepositories.resources.environments),
-        ));
+        dispatch({
+          payload: {
+            environments: JSON.parse(data.addRepositories.resources.environments),
+            repositories: JSON.parse(data.addRepositories.resources.repositories),
+          },
+          type: actionType.LOAD_RESOURCES,
+        });
         msgSuccess(
           translate.t("search_findings.tab_resources.success"),
           translate.t("search_findings.tab_users.title_success"),
