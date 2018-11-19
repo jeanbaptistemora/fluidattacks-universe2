@@ -447,49 +447,83 @@ def finding_vulnerabilities(submission_id):
             submission_id,
             api.get_submission(submission_id)
         )
-        closingreqset = api.get_closings_by_id(submission_id)["submissions"]
+        closingreqset = api.get_closings_by_id(submission_id)['submissions']
         findingcloseset = []
         for closingreq in closingreqset:
-            closingset = closing.parse(api.get_submission(closingreq["id"]))
+            closingset = closing.parse(api.get_submission(closingreq['id']))
             findingcloseset.append(closingset)
             state = closingset
-        finding["estado"] = state["estado"]
-        finding["cierres"] = findingcloseset
+        finding['estado'] = state['estado']
+        finding['cierres'] = findingcloseset
+        finding_new = total_vulnerabilities(submission_id)
         finding['cardinalidad_total'] = finding.get('openVulnerabilities')
-        if state.get("opened"):
+        if (finding_new and
+                (finding_new.get('openVulnerabilities') or
+                    finding_new.get('closedVulnerabilities'))):
+            total_cardinality = finding_new.get('openVulnerabilities') + \
+                finding_new.get('closedVulnerabilities')
+            finding['cardinalidad_total'] = str(total_cardinality)
+            if (finding_new.get('closedVulnerabilities') > 0 and
+                    finding_new.get('openVulnerabilities') == 0):
+                finding['estado'] = 'Cerrado'
+            else:
+                finding['estado'] = 'Abierto'
+            if finding_new.get('openVulnerabilities') >= 0:
+                finding['openVulnerabilities'] = \
+                    str(finding_new.get('openVulnerabilities'))
+            else:
+                # This finding does not have open vulnerabilities
+                pass
+        elif 'opened' in state:
+            # Hack: This conditional temporarily solves the problem presented
+            #      when the number of vulnerabilities open in a closing cycle
+            # are higher than the number of vulnerabilities open in a finding
+            # which causes negative numbers to be shown in the indicators view.
+            if int(state['opened']) > int(finding['cardinalidad_total']):
+                finding['cardinalidad_total'] = state['opened']
+            if 'whichOpened' in state:
+                finding['where'] = state['whichOpened']
+            else:
+                # This finding does not have old open vulnerabilities
+                # after a closing cicle.
+                pass
             finding['openVulnerabilities'] = state['opened']
-        if state.get("estado") == 'Cerrado':
+        if finding.get("estado") == 'Cerrado':
             finding['where'] = '-'
             finding['edad'] = '-'
             finding['lastVulnerability'] = '-'
-        if 'whichOpened' in state:
-            finding['where'] = state['whichOpened']
         if 'whichClosed' in state:
             finding['closed'] = state['whichClosed']
-        primary_keys = ["finding_id", submission_id]
-        finding_dynamo = integrates_dao.get_data_dynamo(
-            "FI_findings", primary_keys[0], primary_keys[1])
-        if finding_dynamo:
-            if finding_dynamo[0].get("releaseDate"):
-                finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
-            if finding_dynamo[0].get("lastVulnerability"):
-                finding["lastVulnerability"] = finding_dynamo[0].get("lastVulnerability")
-        if finding.get("releaseDate"):
-            tzn = pytz.timezone('America/Bogota')
-            today_day = datetime.now(tz=tzn).date()
-            finding_last_vuln = datetime.strptime(
-                finding["releaseDate"].split(" ")[0],
-                '%Y-%m-%d'
-            )
-            finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-            if finding_last_vuln <= today_day:
-                final_date = format_finding_date(finding["releaseDate"])
-                finding['edad'] = ":n".replace(":n", str(final_date.days))
+        finding = format_release(finding)
         return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error')
         return None
 
+
+def format_release(finding):
+    """Format formstack information to show release date."""
+    primary_keys = ['finding_id', finding['id']]
+    finding_dynamo = integrates_dao.get_data_dynamo(
+        'FI_findings', primary_keys[0], primary_keys[1])
+    if finding_dynamo:
+        finding_data = finding_dynamo[0]
+        if finding_data.get('releaseDate'):
+            finding['releaseDate'] = finding_data.get('releaseDate')
+        if finding_data.get('lastVulnerability'):
+            finding['lastVulnerability'] = finding_data.get('lastVulnerability')
+    if finding.get('releaseDate'):
+        tzn = pytz.timezone('America/Bogota')
+        today_day = datetime.now(tz=tzn).date()
+        finding_last_vuln = datetime.strptime(
+            finding['releaseDate'].split(' ')[0],
+            '%Y-%m-%d'
+        )
+        finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+        if finding_last_vuln <= today_day:
+            final_date = format_finding_date(finding['releaseDate'])
+            finding['edad'] = ':n'.replace(':n', str(final_date.days))
+    return finding
 
 def ungroup_specific(specific):
     """Ungroup specific value."""
@@ -620,3 +654,21 @@ def get_ranges(numberlist):
         c=itertools.count(): n-next(c))
     )
     return range_str
+
+
+def total_vulnerabilities(finding_id):
+    """Get total vulnerabilities in new format."""
+    vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+    finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
+    for vuln in vulnerabilities:
+        all_states = vuln.get('historic_state')
+        current_state = all_states[len(all_states) - 1].get('state')
+        if current_state == 'open':
+            finding['openVulnerabilities'] += 1
+        elif current_state == 'closed':
+            finding['closedVulnerabilities'] += 1
+        else:
+            util.cloudwatch_log_plain(
+                'Error: Vulnerability of finding {finding_id} does not have the right state'.format(finding_id=finding_id)
+            )
+    return finding
