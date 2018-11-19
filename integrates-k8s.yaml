@@ -18,7 +18,7 @@ metadata:
     kubernetes.io/change-cause: "New deployment version of Integrates on $DATE"
 spec:
   minReadySeconds: 45
-  replicas: 1
+  replicas: 3
   strategy:
     rollingUpdate:
       maxSurge: 1
