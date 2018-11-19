@@ -224,7 +224,8 @@ const translations1 = {
         "default": "-",
         "infra_scan": "Infrastructure scan",
         "unauth_extra": "Unauthorized Extranet user",
-        "unauth_inter": "Unauthorized Internet user"
+        "unauth_inter": "Unauthorized Internet user",
+        "unauth_intra": "Unauthorized Intranet user"
       },
      "status":
       {

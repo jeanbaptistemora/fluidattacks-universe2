@@ -225,12 +225,13 @@ const traducciones1 = {
    {
      "anon_inter": "Anónimo desde Internet",
      "anon_intra": "Anónimo desde Intranet",
-     "auth_inter": "Internet usuario autorizado",
-     "auth_intra": "Intranet usuario autorizado",
+     "auth_inter": "Usuario de Internet autorizado",
+     "auth_intra": "Usuario de Intranet autorizado",
      "default": "-",
      "infra_scan": "Escaneo de Infraestructura",
-     "unauth_extra": "Extranet usuario no autorizado",
-     "unauth_inter": "Internet usuario no autorizado"
+     "unauth_extra": "Usuario de Extranet no autorizado",
+     "unauth_inter": "Usuario de Internet no autorizado",
+     "unauth_intra": "Usuario de Intranet no autorizado"
    },
   "status":
    {

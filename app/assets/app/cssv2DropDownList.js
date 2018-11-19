@@ -6,11 +6,11 @@ const scenario = [
   {"name": "Anónimo desde Internet"},
   {"name": "Anónimo desde Intranet"},
   {"name": "Escaneo de Infraestructura"},
-  {"name": "Extranet usuario no autorizado"},
-  {"name": "Internet usuario autorizado"},
-  {"name": "Internet usuario no autorizado"},
-  {"name": "Intranet usuario autorizado"},
-  {"name": "Intranet usuario no autorizado"}
+  {"name": "Usuario de Extranet no autorizado"},
+  {"name": "Usuario de Internet autorizado"},
+  {"name": "Usuario de Internet no autorizado"},
+  {"name": "Usuario de Intranet autorizado"},
+  {"name": "Usuario de Intranet no autorizado"}
 ];
 
 const categories = [
