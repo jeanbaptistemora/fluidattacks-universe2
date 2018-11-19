@@ -26,6 +26,7 @@ const enTranslations: Map<string, string> = {
     title: "Legal notice",
   },
   proj_alerts: {
+    access_denied: "Access denied or project not found",
     error_textsad: "There is an error :(",
     title_success: "Congratulations",
   },

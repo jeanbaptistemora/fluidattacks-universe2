@@ -27,6 +27,7 @@ const esTranslations: Map<string, string> = {
     title: "Aviso legal",
   },
   proj_alerts: {
+    access_denied: "Acceso denegado o proyecto no encontrado",
     error_textsad: "Hay un error :(",
     title_success: "Felicitaciones",
   },
