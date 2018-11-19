@@ -51,8 +51,4 @@ RUN rm -r /var/www/html \
     && sed -i 's/env#/'"$vault_env"'#/g' /usr/src/app/env.vars
 
 # First command
-CMD a2ensite integrates-ssl.conf \
-&& a2ensite 000-default.conf \
-&& vaultenv /usr/src/app/manage.py makemigrations \
-&& vaultenv /usr/src/app/manage.py migrate \
-&& vaultenv /usr/src/app/manage.py bot
+CMD vaultenv vars/run.sh
