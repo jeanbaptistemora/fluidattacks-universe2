@@ -83,3 +83,6 @@ or trigger events requiring session disconnect.
 The organization requires that users log out when
 [Assignment: organization-defined time-period of expected inactivity
 or description of when to log out].
+
+. [[r9]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+Require security sign-off.

@@ -31,3 +31,6 @@ such as the browser DOM, after the client or session is terminated.
 Session termination: The information system automatically terminates
 a user session after organization-defined conditions
 or trigger events requiring session disconnect.
+
+. [[r5]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+Require security sign-off.

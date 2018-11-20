@@ -20,3 +20,6 @@ desde cualquier recurso protegido por autenticación.
 Verificar que la aplicación realice un seguimiento
 de todas las sesiones activas y permita a los usuarios
 finalizar sesiones selectivamente o globalmente desde sus cuentas.
+
+. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+Requerir cierre de sesión de seguridad.

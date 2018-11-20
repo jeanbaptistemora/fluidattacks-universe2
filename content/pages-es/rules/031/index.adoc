@@ -35,3 +35,6 @@ Cierre de sesión: El sistema de información
 debe terminar la sesión del usuario cuando se presente
 una condición o evento definido por la organización
 que requiera la terminación de la sesión.
+
+. [[r5]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+Requerir cierre de sesión de seguridad.

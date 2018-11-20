@@ -18,3 +18,6 @@ from any resource protected by authentication.
 Verify that the application tracks all active sessions.
 And allows users to terminate sessions
 selectively or globally from their account.
+
+. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+Require security sign-off.

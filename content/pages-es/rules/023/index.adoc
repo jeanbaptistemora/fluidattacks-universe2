@@ -94,3 +94,6 @@ que requiera la terminación de la sesión.
 La organización requiere que el usuario termine la sesión
 cuando se presente un periodo de inactividad definido
 o un evento que requiera el cierre de sesión.
+
+. [[r9]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+Requerir cierre de sesión de seguridad.
