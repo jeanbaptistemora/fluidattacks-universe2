@@ -1,0 +1,11 @@
+apiVersion: "etcd.database.coreos.com/v1beta2"
+kind: "EtcdBackup"
+metadata:
+  name: vault-etcd-cluster-backup
+spec:
+  etcdEndpoints: 
+    - http://etcd-cluster-client:2379
+  storageType: S3
+  s3:
+    path: ${VAULT_S3_BUCKET}/vault-etcd.backup-${DATE}
+    awsSecret: aws
