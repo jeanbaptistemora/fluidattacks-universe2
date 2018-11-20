@@ -47,7 +47,7 @@ La filosofía es fomentar el aprendizaje
 a partir de la solución activa de problemas
 y desestimular el aprendizaje pasivo.
 
-El repositorio contiene las soluciones a retos computacionales públicos
+Los repositorios contienen las soluciones a retos computacionales públicos
 construidos en el contexto anterior.
 Al hacer los retos públicos buscamos:
 
@@ -173,17 +173,14 @@ deberán cumplir con lo siguiente:
 Adicionalmente, las soluciones de retos de +systems-hacking+
 deberán cumplir con lo siguiente:
 
-. Deben adherirse a la plantilla link:https://gitlab.com/autonomicmind/training/blob/master/templates/hacking-systems.feature[hacking-systems.feature]
+. Deben adherirse a la plantilla link:https://gitlab.com/fluidattacks/writeups/blob/master/templates/hacking-systems.feature[hacking-systems.feature]
 
 . Deben ser retos que correspondan a explotación en sistemas
 (+ToE+) vulnerables intencionalmente listados en:
 
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
-
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
-
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
-
 .. [button]#link:https://www.vulnhub.com/[Vulnhub]#
 
 == 5. Puntaje
@@ -226,7 +223,11 @@ image::ranking-wechall.png[Ranking en WeChall]
 == 6. Envío
 
 Las soluciones se envían mediante +Merge Request+ (+MR+)
-a la rama +master+ del repositorio +training+.
+a la rama +master+ de los repositorios:
+
+. +writeups+ para retos de +systems-hacking+.
+. +training+ para retos de +ctf-hacking+ y Programación.
+
 Antes de realizar un +MR+
 por favor verifica que cumple con los siguientes criterios:
 
@@ -254,8 +255,9 @@ deben corregirse los problemas indicados y hacer un nuevo +MR+.
 
 . El mensaje de +commit+ para enviar la solución
 debe adherirse a una de las dos plantillas
-link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[para retos de programación y retos ctf-hacking]
-o link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-systems.txt[para vulnerabilidades de systems-hacking].
+según el tipo de solución:
+.. link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[Retos de programación y ctf-hacking]
+.. link:https://gitlab.com/fluidattacks/writeups/blob/master/templates/commit-msg-systems.txt[Retos de systems-hacking]
 
 == 7. Externas
 
@@ -272,12 +274,10 @@ Las reglas para los enlaces (+URLs+) a soluciones externas
 soluciones externas a retos del cual no tengamos solución externa alguna.
 
 .. Si tu solución es de +systems-hacking+,
-las soluciones externas pueden ser una combinacion
-de soluciones de +ctf-hacking+ y +systems-hacking+.
+las soluciones externas deben ser soluciones +systems-hacking+.
 
 .. Si tu solución es de +ctf-hacking+,
-las soluciones externas pueden ser una combinacion
-de soluciones de +ctf-hacking+ y +systems-hacking+.
+las soluciones externas deben ser soluciones de +ctf-hacking+.
 
 . Los +OTHERS.lst+ deben ser de programación
 si se está solucionando un reto de programación.
@@ -295,17 +295,21 @@ su versión +raw+ (link:https://raw.githubusercontent.com/[]),
 
 A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
-* +MR+ pendientes de aprobación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click aquí]#.
-
-* +MR+ rechazados en el pasado: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click aquí]#.
+* +MR+ pendientes de aprobación en +writeups+: [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click aquí]#.
+* +MR+ rechazados en el pasado en +writeups+: [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click aquí]#.
+* +MR+ pendientes de aprobación en +training+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click aquí]#.
+* +MR+ rechazados en el pasado en +training+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click aquí]#.
 
 Ejemplos de +MR+ aceptados en el pasado:
 
-* +MR+ ejemplares de +hacking+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/868/diffs[1]#,
-[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/873/diffs[2]#,
-[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703//diffs[3]#
+* +MR+ ejemplares de +systems-hacking+: [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests/3/diffs[1]#,
+[button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests/10/diffs[2]#
 
-* +MR+ ejemplares de programación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/871/diffs[1]#,
+* +MR+ ejemplares de +ctf-hacking+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/1873/diffs[1]#,
+[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/1864/diffs[2]#,
+[button]#https://gitlab.com/autonomicmind/training/merge_requests/1852/diffs[3]#
+
+* +MR+ ejemplares de programación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/1875/diffs[1]#,
 [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/882/diffs[2]#,
 [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/872/diffs[3]#
 
@@ -322,8 +326,6 @@ sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 se sugiere buscar retos que no tengan solución
 ni en +OTHERS+ ni en el repositorio
 y trabajar en resolver el reto en la respectiva plataforma.
-Para esto, puedes apoyarte usando el siguiente
-link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[+script+].
 
 . Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
@@ -338,18 +340,24 @@ tener que corregir tus soluciones más adelante.
 
 == 10. Repositorio
 
-El envío de soluciones se realizará en el siguiente [button]#link:https://gitlab.com/autonomicmind/training/[repositorio git]#
+El envío de soluciones se realizará en los siguientes repositorios:
+
+* [button]#link:https://gitlab.com/fluidattacks/writeups[writeups para systems-hacking]#
+* [button]#link:https://gitlab.com/autonomicmind/training/[training para ctf-hacking y Programación]#
 
 Es ideal que te familiarices con el versionamiento
 y la estructura que detallamos a continuación.
 
 === 10.1 Estructura
 
-Los soluciones a los retos se almacenan en las siguientes carpetas:
+Los soluciones a los retos se almacenan en las siguientes carpetas
+dependiendo del repo en el que te encuentres:
 
 [role="tb-col"]
 [frame="topbot"]
 |====
+^.^s| Repo ^.^| training ^.^| writeups
+
 ^.^s| Carpeta ^.^| challenges ^.^| systems
 
 ^.^s| Descripción
@@ -369,9 +377,9 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codea
 ** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/135/[135]
 *** link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/135/skhorn.rs[skhorn.rs]
 
-a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa[dvwa]
-*** link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa/657-csp-bypass-medium[657-csp-bypass-medium]
-**** link:https://gitlab.com/autonomicmind/training/blob/master/systems/dvwa/657-csp-bypass-medium/kedavamaru.feature[kedavamaru.feature]
+a| * link:https://gitlab.com/fluidattacks/writeups/tree/master/systems/dvwa[dvwa]
+*** link:https://gitlab.com/fluidattacks/writeups/tree/master/systems/dvwa/657-csp-bypass-medium[657-csp-bypass-medium]
+**** link:https://gitlab.com/fluidattacks/writeups/blob/master/systems/dvwa/657-csp-bypass-medium/kedavamaru.feature[kedavamaru.feature]
 |====
 
 El nombramiento de todos los archivos y directorios,
@@ -412,9 +420,9 @@ como número de retos o vulnerabilidades, +URL+ y dificultad.
 Puedes ver un ejemplo
 link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí].
 
-== 11. Inicio
+== 11. Pasos
 
-Para comenzar esta etapa, deberás:
+Para finalizar satisfactoriamente esta etapa, deberás:
 
 . Registrarte en +GitLab+ usando tu correo electrónico personal
 y creando el +ID+ de usuario que más te guste.
@@ -426,14 +434,34 @@ en donde encontrarás personal de +Fluid Attacks+
 y otros candidatos actualmente en esta etapa,
 quienes podrán guiarte en caso de tener dudas o inconvenientes.
 
-. Solicitar el permiso de acceso al repositorio vía +Slack+
+. Solicitar permisos de desarrollador al repositorio +writeups+ vía +Slack+
 presentándote a los demás en el canal *#general* con el siguiente mensaje:
++
 [quote]
 ____________________________________________________________________
 He leído y entendido toda la documentación de los retos técnicos,
-acepto las condiciones y por ende solicito acceso al repo +Git+
+acepto las condiciones y por ende solicito acceso al repo +Git+ +writeups+
 con mi usuario [nombre-usuario] en +GitLab+
 ____________________________________________________________________
+
+. Realizar cinco (5) retos +systems-hacking+ en el repo +writeups+
+
+. Solicitar permisos de desarrollador al repositorio +training+ vía +Slack+
+en el canal *#general* con el siguiente mensaje:
++
+[quote]
+____________________________________________________________________
+He completado +cinco (5)+ retos de clase +systems-hacking+
+en el repo +writeups+ y por ende solicito acceso al repo +Git+ +training+
+con mi usuario [nombre-usuario] en +GitLab+
+____________________________________________________________________
+
+. Realizar un reto +ctf-hacking+, luego un reto de programación
+Y repetir el ciclo hasta alcanzar +cinco (5)+ retos completados de cada tipo.
+
+.. Cada reto de programación realizado
+debe ser +una (1)+ unidad de puntaje (blessing para codeabbey)
+superior al anterior.
 
 == 12. Fin
 
@@ -469,7 +497,7 @@ y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/ap
 == 13. Builds
 
 Es posible ejecutar integraciones locales con el fin de identificar errores
-antes de hacer +push+ o +merge requests+ al repositorio.
+antes de hacer +push+ o +merge requests+ a los repositorios.
 
 Para esto, se deben ejecutar los siguientes comandos:
 
