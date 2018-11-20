@@ -40,6 +40,11 @@ module "eks" {
   vpcId    = "${var.vpcId}"
 }
 
+output "vaultKmsKey" {
+  value     = "${module.eks.vaultKmsKey}"
+  sensitive = true
+}
+
 # # Create with existing DB
 module database {
   # source = "./database-outside"

@@ -53,6 +53,11 @@ resource "aws_kms_key" "vault_encryption_key" {
   }
 }
 
+resource "aws_kms_alias" "vault_key_alias" {
+  name          = "alias/vault-key"
+  target_key_id = "${aws_kms_key.vault_encryption_key.key_id}"
+}
+
 resource "aws_s3_bucket" "vault" {
   bucket = "${var.vaultBucket}"
   acl    = "private"
@@ -70,4 +75,9 @@ resource "aws_s3_bucket" "vault" {
     Name = "Vault_Bucket"
     App  = "Vault"
   }
+}
+
+output "vaultKmsKey" {
+  value     = "${aws_kms_key.vault_encryption_key.key_id}"
+  sensitive = true
 }
