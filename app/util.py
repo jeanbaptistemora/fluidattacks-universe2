@@ -15,6 +15,7 @@ import rollbar
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
+from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
 from jose import jwt, JWTError, ExpiredSignatureError
 
 logging.config.dictConfig(settings.LOGGING)
@@ -219,6 +220,17 @@ def user_email_filter(emails, actualUser):
 def assert_file_mime(filename, allowed_mimes):
     mime = Magic(mime=True)
     mime_type = mime.from_file(filename)
+    return mime_type in allowed_mimes
+
+def assert_uploaded_file_mime(file_instance, allowed_mimes):
+    mime = Magic(mime=True)
+    if isinstance(file_instance, TemporaryUploadedFile):
+        mime_type = mime.from_file(file_instance.temporary_file_path())
+    elif isinstance(file_instance, InMemoryUploadedFile):
+        mime_type = mime.from_buffer(file_instance.file.getvalue())
+    else:
+        raise Exception('Provided file is not a valid django upload file. \
+                            Use util.assert_file_mime instead.')
     return mime_type in allowed_mimes
 
 def has_release(finding):

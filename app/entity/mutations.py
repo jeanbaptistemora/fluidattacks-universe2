@@ -10,6 +10,7 @@ from .user import (
 from .vulnerability import (
     UploadFile, DeleteVulnerability
 )
+from .finding import UpdateEvidence
 from graphene import ObjectType
 
 class Mutations(ObjectType):
@@ -32,3 +33,5 @@ class Mutations(ObjectType):
     grantUserAccess = GrantUserAccess.Field()
 
     editUser = EditUser.Field()
+
+    updateEvidence = UpdateEvidence.Field()

@@ -11,14 +11,16 @@ import re
 import boto3
 from backports import csv
 from graphql import GraphQLError
-from graphene import String, ObjectType, Boolean, List, Int, JSONString
+from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
 
 from .. import util
-from app.dto import finding
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from ..api.drive import DriveAPI
+from app.decorators import require_login, require_role, require_finding_access_gql
+from app.dto.finding import FindingDTO, finding_vulnerabilities
+from app.domain.finding import migrate_all_files, update_file_to_s3
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -55,7 +57,7 @@ class Finding(ObjectType):
         self.records = {}
 
         finding_id = str(identifier)
-        resp = finding.finding_vulnerabilities(finding_id)
+        resp = finding_vulnerabilities(finding_id)
 
         if resp:
             self.id = finding_id
@@ -200,3 +202,75 @@ def read_csv(csv_file):
             return file_content
         except csv.Error:
             raise GraphQLError('Invalid record file format')
+
+class UpdateEvidence(Mutation):
+    """ Update evidence files """
+
+    class Arguments(object):
+        finding_id = String(required=True)
+        project_name = String(required=True)
+        id = String(required=True)
+    success = Boolean()
+    finding = Field(Finding)
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, **parameters):
+        success = False
+        uploaded_file = info.context.FILES.get('document', '')
+
+        if util.assert_uploaded_file_mime(uploaded_file,
+            ['image/gif', 'image/png', 'text/x-python', 'text/x-c', 'text/plain', 'text/html']
+            ):
+            if evidence_exceeds_size(uploaded_file, int(parameters.get('id'))):
+                util.cloudwatch_log(info.context, 'Security: Attempted to upload evidence file heavier than allowed')
+                raise GraphQLError('File exceeds the size limits')
+            else:
+                fieldNum = FindingDTO()
+                fieldname = [
+                    ['animation', fieldNum.ANIMATION], ['exploitation', fieldNum.EXPLOTATION],
+                    ['evidence_route_1', fieldNum.DOC_ACHV1], ['evidence_route_2', fieldNum.DOC_ACHV2],
+                    ['evidence_route_3', fieldNum.DOC_ACHV3], ['evidence_route_4', fieldNum.DOC_ACHV4],
+                    ['evidence_route_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT],
+                    ['fileRecords', fieldNum.REG_FILE]
+                ]
+                file_id = '{project}/{finding_id}/{project}-{finding_id}'.format(
+                    project=parameters.get('project_name'),
+                    finding_id=parameters.get('finding_id')
+                )
+
+                migrate_all_files(parameters, file_id, info.context)
+                success = update_file_to_s3(
+                            parameters,
+                            fieldname[int(parameters.get('id'))][1],
+                            fieldname[int(parameters.get('id'))][0],
+                            uploaded_file, file_id)
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to upload evidence file with a non-allowed format')
+            raise GraphQLError('Extension not allowed')
+
+        return UpdateEvidence(success=success, \
+            finding=Finding(info=info, identifier=parameters.get('finding_id')))
+
+def evidence_exceeds_size(uploaded_file, evidence_type):
+    ANIMATION = 0
+    EXPLOITATION = 1
+    EVIDENCE = [2, 3, 4, 5, 6]
+    EXPLOIT = 7
+    RECORDS = 8
+    MIB = 1048576
+
+    if evidence_type == ANIMATION:
+        return uploaded_file.size > 10 * MIB
+    elif evidence_type == EXPLOITATION:
+        return uploaded_file.size > 2 * MIB
+    elif evidence_type in EVIDENCE:
+        return uploaded_file.size > 2 * MIB
+    elif evidence_type == EXPLOIT:
+        return uploaded_file.size > 1 * MIB
+    elif evidence_type == RECORDS:
+        return uploaded_file.size > 1 * MIB
+    else:
+        util.cloudwatch_log_plain('Security: Attempted to upload an unknown type of evidence')
+        raise Exception('Invalid evidence id')
