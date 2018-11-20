@@ -313,7 +313,7 @@ test-deployment:
         s/app:\ integrates/app:\ integrates-test/g;
         s/replicas:\ 3/replicas:\ 1/g'
         integrates-k8s.yaml
-    - cat integrates-k8s.yaml | head -n 54 | kubectl apply -f -
+    - cat integrates-k8s.yaml | head -n 64 | kubectl apply -f -
     - kubectl rollout status deploy/integrates-test
     - kubectl get pods | egrep -o 'integrates-test[^ ]*' | tr -d '\n' |
         xargs -0 -I {} kubectl port-forward {} 8000:80 &
