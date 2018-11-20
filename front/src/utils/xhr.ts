@@ -130,7 +130,7 @@ class Xhr {
   public upload = async (query: string, fieldId: string, errorText: string): Promise<any> => {
     const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
     if (_.isNil(selected) || selected.length === 0) {
-      msgError(translate.t("no_file_selected"));
+      msgError(translate.t("proj_alerts.no_file_selected"));
       throw new Error();
     } else {
       const payload: FormData = new FormData();

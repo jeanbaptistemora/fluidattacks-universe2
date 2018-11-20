@@ -28,7 +28,17 @@ const enTranslations: Map<string, string> = {
   proj_alerts: {
     access_denied: "Access denied or project not found",
     error_textsad: "There is an error :(",
+    file_size: "The file size must be less than 10mb",
+    file_size_png: "The image size must be less than 2mb",
+    file_size_py: "The file size must be less than 1mb",
+    file_type_csv: "The file must be .csv type",
+    file_type_gif: "The image must be .gif type",
+    file_type_png: "The image must be .png type",
+    file_type_py: "The file must be .py type",
+    file_type_wrong: "The file has an unknown or non-allowed format",
+    file_updated: "File Updated ;)",
     no_file_selected: "No file selected",
+    no_file_update: "Failed to update the file",
     title_success: "Congratulations",
   },
   search_findings: {

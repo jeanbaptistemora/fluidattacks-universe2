@@ -13,6 +13,7 @@ import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
+import { isValidEvidenceFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
 import { fileInput as FileInput } from "../FileInput/index";
 
@@ -29,6 +30,18 @@ export interface IRecordsViewProps {
   onUploadFile(arg1: string): void;
 }
 
+const updateRecords: ((arg1: string, arg2: string) => void) =
+  (findingId: string, projectName: string): void => {
+
+  if (isValidEvidenceFile("#evidence8")) {
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+
+    thunkDispatch(actions.updateRecords(findingId, projectName));
+  }
+};
+
 const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
   (props: IRecordsViewProps): JSX.Element => (
   <Row>
@@ -39,7 +52,6 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
           icon="search"
           id="evidence8"
           type=".csv"
-          target="8"
           visible={true}
         />
       </div>
@@ -48,7 +60,7 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
         <Button
           bsStyle="primary"
           block={true}
-          onClick={(): void => {props.onUploadFile("#evidence8"); }}
+          onClick={(): void => { updateRecords(props.findingId, props.projectName); }}
         >
           <Glyphicon glyph="cloud-upload"/>
           &nbsp;{translate.t("search_findings.tab_evidence.update")}

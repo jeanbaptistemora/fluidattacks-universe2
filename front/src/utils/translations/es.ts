@@ -29,7 +29,17 @@ const esTranslations: Map<string, string> = {
   proj_alerts: {
     access_denied: "Acceso denegado o proyecto no encontrado",
     error_textsad: "Hay un error :(",
+    file_size: "El archivo debe tener un tamaño menor a 10mb",
+    file_size_png: "La imagen debe tener un tamaño menor a 2mb",
+    file_size_py: "El archivo debe tener un tamaño menor a 1mb",
+    file_type_csv: "El archivo debe ser de tipo .csv",
+    file_type_gif: "La imagen debe ser de tipo .gif",
+    file_type_png: "La imagen debe ser de tipo .png",
+    file_type_py: "El archivo debe ser de tipo .py",
+    file_type_wrong: "El archivo tiene un formato desconocido o no permitido",
+    file_updated: "Archivo Actualizado ;)",
     no_file_selected: "No se ha seleccionado ningún archivo",
+    no_file_update: "Falló al actualizar el archivo",
     title_success: "Felicitaciones",
   },
   search_findings: {
