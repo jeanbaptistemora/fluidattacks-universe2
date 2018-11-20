@@ -52,6 +52,10 @@ const esTranslations: Map<string, string> = {
       port_plural: "Puertos",
       vulnDeleted: "La vulnerabilidad fue borrada de este hallazgo",
     },
+    tab_evidence: {
+      editable: "Editar",
+      update: "Actualizar",
+    },
     tab_resources: {
       add_repository: "Agregar",
       branch: "Rama",

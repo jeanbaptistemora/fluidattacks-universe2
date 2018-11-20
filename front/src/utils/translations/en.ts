@@ -51,6 +51,10 @@ const enTranslations: Map<string, string> = {
       port_plural: "Ports",
       vulnDeleted: "Vulnerability was deleted of this finding",
     },
+    tab_evidence: {
+      editable: "Edit",
+      update: "Update",
+    },
     tab_resources: {
       add_repository: "Add",
       branch: "Branch",

@@ -395,7 +395,7 @@ angular
         "canEdit",
         "findingId",
         "onUploadFile",
-        "translations",
+        "projectName",
      ],
    ),
   );

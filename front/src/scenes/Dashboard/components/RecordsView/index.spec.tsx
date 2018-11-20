@@ -20,10 +20,7 @@ describe('Records view', () => {
         findingId="422286126"
         dataset={[]}
         isEditing={true}
-        translations={{
-          "search_findings.tab_evidence.update": "Update",
-          "search_findings.tab_evidence.editable": "Edit",
-        }}
+        projectName="unittesting"
         onUploadFile={() => undefined}
       />
     );

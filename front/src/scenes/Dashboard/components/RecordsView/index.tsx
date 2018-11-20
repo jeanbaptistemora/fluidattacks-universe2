@@ -12,6 +12,7 @@ import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
+import translate from "../../../../utils/translations/translate";
 import * as actions from "../../actions";
 import { fileInput as FileInput } from "../FileInput/index";
 
@@ -24,7 +25,7 @@ export interface IRecordsViewProps {
   dataset: any[];
   findingId: string;
   isEditing: boolean;
-  translations: { [key: string]: string };
+  projectName: string;
   onUploadFile(arg1: string): void;
 }
 
@@ -50,7 +51,7 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
           onClick={(): void => {props.onUploadFile("#evidence8"); }}
         >
           <Glyphicon glyph="cloud-upload"/>
-          &nbsp;{props.translations["search_findings.tab_evidence.update"]}
+          &nbsp;{translate.t("search_findings.tab_evidence.update")}
         </Button>
       </Col>
   </Row>
@@ -67,7 +68,7 @@ const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) =
             onClick={(): void => { store.dispatch(actions.editRecords()); }}
           >
             <Glyphicon glyph="edit"/>
-            &nbsp;{props.translations["search_findings.tab_evidence.editable"]}
+            &nbsp;{translate.t("search_findings.tab_evidence.editable")}
           </Button>
         </Col>
       </Row>
