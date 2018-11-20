@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "es5",               
-    "module": "commonjs", 
+    "target": "es5",
+    "module": "commonjs",
     "allowJs": false,
-    "outDir": "./src",                
-    "noImplicitAny": true,                  
+    "outDir": "./src",
+    "noImplicitAny": true,
     "esModuleInterop": true,
     "jsx": "react",
     "typeRoots": ["./src/**/*.d.ts"],
     "lib": ["dom", "es5", "es2015.promise"]
   },
   "include": [
-    "./src/**/*",
+    "./src/**/*"
   ],
   "exclude": [
     "./node_modules/**",
