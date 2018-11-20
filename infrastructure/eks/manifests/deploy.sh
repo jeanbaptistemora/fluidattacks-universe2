@@ -32,6 +32,18 @@ function deploy_application() {
   kubectl rollout status "deploy/${name}" -w
 }
 
+function find_resource() {
+  local resource="${1}"
+  local regex="${2}"
+  shift 2
+  local options="$@"
+  if [ -z "${options}" ]; then
+    kubectl get "${resource}" | egrep "${regex}"
+  else
+    kubectl get "${resource}" | egrep "${regex}" "${options}"
+  fi
+}
+
 function get_aws_elb_name() {
   aws elb describe-load-balancers | \
     jq -r '.LoadBalancerDescriptions[].LoadBalancerName'
@@ -98,6 +110,30 @@ function issue_secondary_domain_certificates() {
   fi
 }
 
+function restore-vault() {
+  kubectl apply -f restore-operator.yaml
+  kubectl rollout status deploy/vault-etcd-operator-etcd-restore-operator
+  echo-blue "Restoring Vault..."
+  DATE="$(date +%Y-%m-%d)"
+  export DATE
+  replace_env_variables restore.yaml credentials config
+  kubectl create secret generic aws --from-file=credentials --from-file=config
+  kubectl apply -f restore.yaml
+  sleep 10
+  until [ "$(find_resource pods '^etcd.*1/1' -c)" = 3 ]; do
+    echo-blue "Uploading backup to Etcd cluster..."
+    sleep 10
+  done
+  kubectl delete pods -l app=vault
+  kubectl delete secret aws
+  kubectl delete -f restore.yaml
+  kubectl delete -f restore-operator.yaml
+  until find_resource pods '^vault-[0-9].*3/3' -q; do
+    echo-blue "Restoring Vault deployment..."
+    sleep 10
+  done
+}
+
 function wait_elb_initialization() {
   local elb_name="$(get_aws_elb_name)"
   local elb_status="$(get_aws_elb_status ${elb_name})"
@@ -123,6 +159,35 @@ cd eks/manifests/
 create_kubernetes_namespace serves operations integrates web
 kubectl config set-context $(kubectl config current-context) \
   --namespace serves
+
+
+helm init --client-only
+helm repo add gitlab https://charts.gitlab.io
+helm repo add banzaicloud http://kubernetes-charts.banzaicloud.com/branch/master
+helm repo update
+
+install_helm_chart stable/nginx-ingress controller serves nginx.yaml
+install_helm_chart gitlab/gitlab-runner runner operations runner.yaml
+install_helm_chart stable/cert-manager cert-manager operations cert-manager.yaml
+install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml
+
+if find_resource pods '^vault-[0-9].*3/3' -q; then
+  echo-blue "Vault already deployed and initialized."
+else
+  cd vault/
+  kubectl delete vault --all
+  echo-blue "Deploying Vault cluster..."
+  sleep 10
+  replace_env_variables vault.yaml
+  kubectl apply -f vault.yaml
+  until [ "$(find_resource pods '^etcd.*1/1' -c)" = 3 ]; do
+    echo-blue "Initializing pods..."
+    sleep 10
+  done
+  restore-vault
+  echo-blue "Vault successfully restored!"
+  cd ../
+fi
 
 
 # Set TLS certificates for the main domains and automatically issue valid
@@ -163,12 +228,6 @@ deploy_application deployments/alg.yaml
 deploy_application deployments/exams.yaml
 deploy_application deployments/integrates.yaml
 deploy_application deployments/vpn.yaml
-
-
-install_helm_chart stable/nginx-ingress controller serves nginx.yaml
-install_helm_chart gitlab/gitlab-runner runner operations runner.yaml
-install_helm_chart stable/cert-manager cert-manager operations cert-manager.yaml
-
 
 # Wait until the initialization of the Load Balancer is complete
 wait_elb_initialization

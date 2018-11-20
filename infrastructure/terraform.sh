@@ -20,10 +20,9 @@ if [ "$stage" == "deployment" ]; then
   echo "$HELM_KEY" | base64 -d > $(helm home)/key.pem
   echo "$HELM_CERT" | base64 -d > $(helm home)/cert.pem
   echo "$HELM_CA" | base64 -d > $(helm home)/ca.pem
+  VAULT_KMS_KEY=$(terraform output vaultKmsKey)
+  export VAULT_KMS_KEY
   eks/manifests/deploy.sh
-  cd vault/
-  ./vault.sh
-  cd ../
   if [ -n "${NEW_DEPLOY}" ]; then
     git clone https://github.com/checkr/s3-sync.git;
   fi
