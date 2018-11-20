@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         python-dev \
         python3-dev \
         python-pip \
-        python3-pip \
         software-properties-common \
         unzip \
     && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip \
@@ -43,6 +42,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         && tar -zxvf helm.tar.gz \
         && mv linux-amd64/helm /usr/local/bin/ \
         && rm -rf helm.tar.gz linux-amd64 \
+    && curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
+        && python3 get-pip.py \
     && pip3 install --upgrade \
         selenium==3.141.0 \
         requests==2.20.1 \
