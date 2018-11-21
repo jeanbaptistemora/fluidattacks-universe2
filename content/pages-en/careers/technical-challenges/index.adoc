@@ -492,7 +492,7 @@ The challenge stage ends under any of the following conditions:
 
 . You have met all link:#objectives[objectives] and
 Sent an +email+ with the links to your solutions in the +master+ branch.
-. If there is no activity (+push+ to the +git+ repo) in +14+ calendar days.
+. If there is no activity (+push+ to the +git+ repos) in +14+ calendar days.
 . If you reach the maximum of +10+ failed +MR+,
 this means the +MR+ was rejected and
 not merged due to its failure to meet the requirements.

@@ -338,7 +338,7 @@ de lo que estés haciendo de forma errónea
 y te puede generar múltiples reprocesos
 tener que corregir tus soluciones más adelante.
 
-== 10. Repositorio
+== 10. Repositorios
 
 El envío de soluciones se realizará en los siguientes repositorios:
 
@@ -471,7 +471,7 @@ en cualquiera de las siguientes circunstancias:
 . Has completado los link:#objetivos[objetivos]
 y enviaste vía +email+ los enlaces en +master+ de sus soluciones.
 
-. No has tenido movimiento (+push+ al repositorio +Git+)
+. No has tenido movimiento (+push+ a los repositorios +Git+)
 en +14+ días calendario.
 
 . Has alcanzado el tope máximo de +10+ +MR+ fallidos,
@@ -624,13 +624,17 @@ las link:../faq/[preguntas realizadas en el pasado] por otros participantes.
 
 == 15. Propiedad
 
-* Los derechos patrimoniales sobre el contenido de este repositorio
- se encuentran definidos en el archivo
- link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
+* Los derechos patrimoniales sobre el contenido de cada uno de los repositorios
+ se encuentran definidos en los archivos:
 
-* La licencia y privilegios que tienen los usuarios de este repositorio
-se encuentran definidos en el archivo
-link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE].
+ ** link:https://gitlab.com/fluidattacks/writeups/blob/master/COPYRIGHT.txt[writeups COPYRIGHT].
+ ** link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[training COPYRIGHT].
+
+* La licencia y privilegios que tienen los usuarios en cada repositorio
+se encuentran definidos en los archivos:
+
+** link:https://gitlab.com/fluidattacks/writeups/blob/master/LICENSE.txt[writeups LICENSE].
+** link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[training LICENSE].
 
 * Realizar un +merge request+ implica la cesión de derechos patrimoniales.
 Por ende, la información aquí contenida
