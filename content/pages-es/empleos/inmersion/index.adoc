@@ -94,7 +94,7 @@ y *un (1)* reto de Programación.
 realizado para esta etapa,
 tenga un puntaje (blessing para codeabbey)
 superior al último reto de programación finalizado en la etapa de
-[button]#link:../retos-tecnicos/[retos]#
+[button]#link:../retos-tecnicos/[Retos Técnicos]#
 
 .. Cada reto de programación realizado debe ser *una (1)*
 unidad de puntaje superior al anterior.
@@ -105,7 +105,7 @@ se debe solucionar el reto inmediatamente anterior en términos de puntaje.
 .. Repetir este ciclo *cinco (5)* veces
 hasta tener *cinco (5)* soluciones de cada tipo.
 
-. Luego de hacer *cinco (5)* veces el ciclo anterior,
+. Luego de hacer *cinco (5)* soluciones de cada tipo,
 realizar *un (1)* artículo en el blog.
 
 . Repetir los pasos anteriores hasta completar los [button]#link:../inmersion/#objetivos[objetivos]#

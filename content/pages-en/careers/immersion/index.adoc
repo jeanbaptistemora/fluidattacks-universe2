@@ -13,7 +13,7 @@ This next step, for which you have been selected
 among more than +6000+ candidates,
 seeks to make you a part of
 an intensive self-training in programming and
-+hacking+ challenges funded by +Fluid Attacks+,
++hacking+ funded by +Fluid Attacks+,
 called *Immersion*.
 
 == 1. Philosophy
@@ -31,10 +31,11 @@ looks to give monetary compensation for the time invested.
 
 == 2. Objectives
 
-. Solve 100 programming challenges.
-. Solve 100 hacking challenges.
-. Complete 2 training projects.
-. Publish 10 articles in our blog.
+. Solve +25+ programming challenges.
+. Solve +25+ +ctf-hacking+ challenges.
+. Solve +25+ +systems-hacking+ challenges.
+. Publish +5+ blog articles.
+. Finish +5+ training projects.
 
 == 3. Terms
 
@@ -42,8 +43,6 @@ looks to give monetary compensation for the time invested.
 from the technical challenge stage apply.
 . You must report all the time spent
 using the assigned tool in automatic mode.
-. Even days will be dedicated to +hacking+ challenges.
-. Odd days will be dedicated to programming challenges.
 . Training must begin at *7:00 AM*
 in +Fluid Attacks+ office.
 . You must send at least one +MR+ accepted into +master+
@@ -92,7 +91,34 @@ Because we want to advance to the next stage.
 .. This is merely an estimate,
 It depends entirely on your dedication and performance.
 
-== 6. Payment
+== 6. Working method
+
+Challenges and articles must be presented in the following order:
+
+. Complete *one (1)* +systems-hacking+ challenge,
+*one (1)* +ctf-hacking+ challenge,
+and *one (1)* Programming challenge.
+
+.. The score (blessing for codeabbey)
+of the first programming challenge solved for this stage
+does *NOT* have to be greater than the last programming challenge solved in
+[button]#link:../technical-challenges/[Technical Challenges]#
+
+.. Each programming challenge completed
+must be *one (1)* score point greater than the previous one.
+
+.. If no challenges with greater score exist,
+The immediate previous non-resolved challenge in terms of score must be solved
+
+.. Repeat this cycle *five (5)* times
+until you have *five (5)* solutions of each type
+
+. After making *five (5)* five solutions of each type,
+make *one (1)* blog article.
+
+. Repeat the previous steps until you complete the [button]#link:../immersion/#objectives[objectives]#
+
+== 7. Payment
 
 . The time reported to training will be paid at *$6,468 COP* an hour.
 . We expect a minimum dedication of *80%*
@@ -138,7 +164,7 @@ you can perform the immersion under the following conditions:
 
 . Perform it remotely without moving to our facilities.
 
-== 7. Get Started
+== 8. Get Started
 
 This stage begins when:
 
@@ -184,7 +210,7 @@ the required tools, among others,
 will be revealed on the first day of Immersion and
 when you have finished all the items mentioned in this section.
 
-== 8. End
+== 9. End
 
 The immersion stage ends under any of the following circumstances:
 
