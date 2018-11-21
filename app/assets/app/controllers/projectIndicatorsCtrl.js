@@ -181,19 +181,10 @@ angular.module("FluidIntegrates").controller(
       let exploitable = 0;
       let nonexploitable = 0;
       const {data} = $scope;
-      const conditions = {
-        "alta": "1.000 | Alta: No se requiere exploit o se puede automatizar",
-        "funcional": "0.950 | Funcional: Existe exploit",
-        "functional": "0.950 | Functional: There is an exploit",
-        "high": "1.000 | High: Exploit is not required or it can be automated"
-      };
       angular.forEach(data, (value) => {
         if (value.estado !== "Cerrado" &&
           value.estado !== "Closed") {
-          if (value.exploitability === conditions.high ||
-            value.exploitability === conditions.alta ||
-            value.exploitability === conditions.functional ||
-            value.exploitability === conditions.funcional) {
+          if (value.exploitable === "Si") {
             exploitable += 1;
           }
           else {
