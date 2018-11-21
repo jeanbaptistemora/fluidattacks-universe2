@@ -1452,6 +1452,8 @@ def accept_draft(request):
                 table_name, primary_keys, "releaseDate", releaseDate)
             has_last_vuln = integrates_dao.add_attribute_dynamo(
                 table_name, primary_keys, "lastVulnerability", releaseDate)
+            integrates_dao.add_attribute_dynamo(
+                table_name, primary_keys, 'project_name', finding['fluidProject'].lower())
             if has_release and has_last_vuln:
                 files_data = {"findingid": parameters, "project": finding["fluidProject"].lower()}
                 file_first_name = '{project!s}-{findingid}'\
