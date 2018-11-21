@@ -3,8 +3,9 @@ kind: "EtcdBackup"
 metadata:
   name: vault-etcd-cluster-backup
 spec:
+  clientTLSSecret: etcd-cluster-tls
   etcdEndpoints: 
-    - http://etcd-cluster-client:2379
+    - https://etcd-cluster-client.serves.svc:2379
   storageType: S3
   s3:
     path: ${VAULT_S3_BUCKET}/vault-etcd.backup-${DATE}
