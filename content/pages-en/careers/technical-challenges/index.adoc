@@ -49,9 +49,9 @@ The philosophy is to encourage learning
 from the active problem solving and
 discourage passive learning.
 
-The repository contains the solutions to computational challenges
+The repositories contain solutions to computational challenges
 built in the previous context.
-By uploading solutions to the repository,
+By uploading solutions to the repositories,
 we look forward to:
 
 . Promote the solution of unresolved challenges.
@@ -179,7 +179,7 @@ must comply with the following:
 Aditionally, +systems-hacking+ solutions
 must comply with the following:
 
-. They must follow the template link:https://gitlab.com/autonomicmind/training/blob/master/templates/hacking-systems.feature[hacking-systems.feature]
+. They must follow the template link:https://gitlab.com/fluidattacks/writeups/blob/master/templates/hacking-systems.feature[hacking-systems.feature]
 
 . They must be challenges that Require
 exploiting intentionally vulnerable systems (+ToE+) listed in:
@@ -236,8 +236,12 @@ image::ranking-wechall.png[Wechall Ranking]
 
 == 6. Submission
 
-The solutions are sent through a +Merge Request+ (+MR+)
-to the +master+ branch of the +training+ repository.
+Solutions are sent through a +Merge Request+ (+MR+)
+to the +master+ branch of the repositories:
+
+. +writeups+ for +systems-hacking+ challenges
+. +training+ for +ctf-hacking+ and programming challenges
+
 Before sending an +MR+
 please verify that you meet the following criteria:
 
@@ -265,8 +269,11 @@ once your branch has successfully finished integrating (green).
 The errors must be fixed and the solution sent in a new +MR+.
 
 . The +commit+ message to send the solution
-must follow one of the templates link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[for programming and ctf-hacking challenged]
-o link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-systems.txt[for systems-hacking vulnerabilities].
+must follow one of the templates
+according to the type of the solution:
+
+.. link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[Programming and ctf-hacking challenges]
+.. link:https://gitlab.com/fluidattacks/writeups/blob/master/templates/commit-msg-systems.txt[systems-hacking vulnerabilities].
 
 == 7. External
 
@@ -284,12 +291,10 @@ in other words, external solutions to challenges
 to which we have no previous external solutions.
 
 .. If you send a +systems-hacking+ solution,
-the external solutions can be a combination
-of +ctf-hacking+ and +systems-hacking+ solutions.
+the external solutions must be +systems-hacking+ solutions.
 
 .. If you send a +ctf-hacking+ solution,
-the external solutions can be a combination
-of +ctf-hacking+ and +systems-hacking+ solutions.
+the external solutions must be +ctf-hacking+ and +systems-hacking+ solutions.
 
 . They must be programming solutions
 if you solved a programming challenge.
@@ -307,18 +312,24 @@ the +URLs+ must be ordered alphabetically by extension.
 
 Here are the links to the different types of +MR+:
 
-* +MR+ pending approval: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click here]#.
-* +MR+ which were rejected: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click here]#.
+* +MR+ pending of approval in +writeups+: [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click here]#.
+* Rejected +MR+ in +writeups+: [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click here]#.
+* +MR+ pending of approval in +training+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click here]#.
+* Rejected +MR+ in +training+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click here]#.
 
 Examples of +MR+ accepted in the past:
 
-* +Hacking MR+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/868/diffs[1]#,
-[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/873/diffs[2]#,
-[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703//diffs[3]#
+* Exemplary +systems-hacking+ +MR+: [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests/3/diffs[1]#,
+[button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests/10/diffs[2]#
 
-* +Programming MR+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/871/diffs[1]#,
+* Exemplary +ctf-hacking+ +MR+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/1873/diffs[1]#,
+[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/1864/diffs[2]#,
+[button]#https://gitlab.com/autonomicmind/training/merge_requests/1852/diffs[3]#
+
+* Exemplary Programming +MR+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/1875/diffs[1]#,
 [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/882/diffs[2]#,
 [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/872/diffs[3]#
+
 
 [NOTE]
 These exemplary links do not necessarily follow all the above rules
@@ -335,8 +346,6 @@ we suggest looking for challenges that
 don’t have a solution in the +OTHERS+ file nor
 in the repository and
 solving the challenge in its respective platform.
-To do this, you can lean on the following
-link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[script].
 
 . When solving programming challenges,
 we suggest using a language that is not widely used.
@@ -348,20 +357,26 @@ you will never receive feedback
 in order to know what you are doing wrong and
 could result unnecessary repetition.
 
-== 10. Repository
+== 10. Repositories
 
-All submissions must be sent to this [button]#link:https://gitlab.com/autonomicmind/training/[git repository]#
+All submissions must be sent the the following repositories:
+
+* [button]#link:https://gitlab.com/fluidattacks/writeups[writeups for systems-hacking]#
+* [button]#link:https://gitlab.com/autonomicmind/training/[training for ctf-hacking and Programming]#
 
 It is ideal that you become familiar with the versioning and
 the structure that we detail below.
 
 === 10.1 Structure
 
-Challenge solutions are stored in the following folders:
+Challenge solutions are stored in the following folders
+depending on the repository you are currently in:
 
 [role="tb-col"]
 [frame="topbot"]
 |====
+^.^s| Repo ^.^| training ^.^| writeups
+
 ^.^s| Folder ^.^| challenges ^.^| system
 
 ^.^s| Description
@@ -381,9 +396,9 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codea
 ** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/135/[135]
 *** link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/135/skhorn.rs[skhorn.rs]
 
-a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa[dvwa]
-*** link:https://gitlab.com/autonomicmind/training/tree/master/systems/dvwa/657-csp-bypass-medium[657-csp-bypass-medium]
-**** link:https://gitlab.com/autonomicmind/training/blob/master/systems/dvwa/657-csp-bypass-medium/kedavamaru.feature[kedavamaru.feature]
+a| * link:https://gitlab.com/fluidattacks/writeups/tree/master/systems/dvwa[dvwa]
+*** link:https://gitlab.com/fluidattacks/writeups/tree/master/systems/dvwa/657-csp-bypass-medium[657-csp-bypass-medium]
+**** link:https://gitlab.com/fluidattacks/writeups/blob/master/systems/dvwa/657-csp-bypass-medium/kedavamaru.feature[kedavamaru.feature]
 |====
 
 The naming of all files and folders,
@@ -422,31 +437,54 @@ the vulnerable machine you are working on,
 like number of challenges or vulnerabilities, +URL+ and difficulty.
 You can see an example link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[here]
 
-== 11. Getting Started
+== 11. Stage steps
 
-To begin this stage, you must:
+To successfully finish this stage, you must:
 
 . Register on +GitLab+ using your personal email and
 a username of your liking.
 Your username must not exceed *12* characters in length and
 only contain lowercase letters and numbers.
 
-. Joing our link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMzU0MDc3NzQwNzI2LTQ1NTZmMDFhZjJmZDQ0ZGRmN2M5MGQ3N2JhYjg0ZTI4OWFkZGJmMjdkYzBjYmU2ZDM1NGI0MmM4OGQxOWVlNDc[Slack channel],
+. Join our link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMzU0MDc3NzQwNzI2LTQ1NTZmMDFhZjJmZDQ0ZGRmN2M5MGQ3N2JhYjg0ZTI4OWFkZGJmMjdkYzBjYmU2ZDM1NGI0MmM4OGQxOWVlNDc[Slack channel],
 where you can interact with +Fluid Attacks+ personnel and
 other candidates who are currently in the same stage
 to solve doubts or issues.
 
-. Request access rights to the repository through +Slack+
+. Request developer permissions to the +writeups+ repository through +Slack+
 Introducing yourself to everyone
 In the *#general* channel with the following message:
-
++
 [quote]
 ____________________________________________________________________
 I have read and understood all documentation pertaining to technical challenges,
 I agree to all of the terms and
-therefore request access to the +git+ repository
+therefore request access to the +git+ +writeups+ repository
 With my +GitLab+ username [username].
 ____________________________________________________________________
+
+. Complete +five (5)+ +systems-hacking+ challenges
+in the +writeups+ repository
+
+. Request developer permissions  to the +training+ repository through +Slack+
+In the *#general* channel with the following message:
++
+[quote]
+____________________________________________________________________
+I have completed +five (5)+ +systems-hacking+ challenges
+in the +writeups+ repo
+therefore request access to the +git+ +training+ repository
+With my +GitLab+ username [username].
+____________________________________________________________________
+
+. Complete one +ctf-hacking+ challenge, then one programming challenge...
+And repeat this until you reach +five (5)+
+completed challenges of each type
+
+.. Each programming challenge completed
+must be +one (1)+ score point (blessing for codeabbey)
+higher than the previous one.
+
 
 == 12. End
 
@@ -475,7 +513,7 @@ and start over the process by clicking
 
 It is possible to run local integrations
 in order to identify any errors before doing +push+ or
-sending a +merge requests+ to the repository.
+sending a +merge requests+ to the repositories.
 To do so,
 you must execute the following commands:
 
@@ -543,11 +581,17 @@ link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LW
 == 15. Property
 
 * The proprietary rights of all content
-in the repository are defined in the file
-link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
-* The license and privileges that users of this repository have
-are defined in the file
-link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE].
+in the repositories are defined in the files:
+
+** link:https://gitlab.com/fluidattacks/writeups/blob/master/COPYRIGHT.txt[writeups COPYRIGHT].
+** link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[training COPYRIGHT].
+
+* The license and privileges that users of the repositories have
+are defined in the files:
+
+** link:https://gitlab.com/fluidattacks/writeups/blob/master/LICENSE.txt[writeups LICENSE].
+** link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[training LICENSE].
+
 * Carrying out a +merge request+ implies the transfer of copyrights.
 Therefore, all information contained herein may be used
 by +Fluid Attacks+ for any commercial purpose,
