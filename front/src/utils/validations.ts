@@ -24,24 +24,25 @@ const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
   let EVIDENCE: number[]; EVIDENCE = [1, 2, 3, 4, 5, 6];
   let EXPLOIT: number; EXPLOIT = 7;
   let RECORDS: number; RECORDS = 8;
+  const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
 
   if (evidenceType === ANIMATION) {
-    valid = file.type === "image/gif";
+    valid = fileType === ".gif";
     if (!valid) {
       msgError(translate.t("proj_alerts.file_type_gif"));
     }
   } else if (_.includes(EVIDENCE, evidenceType)) {
-    valid = file.type === "image/png";
+    valid = fileType === ".png";
     if (!valid) {
       msgError(translate.t("proj_alerts.file_type_png"));
     }
   } else if (evidenceType === EXPLOIT) {
-    valid = file.type === "text/x-python";
+    valid = fileType === ".py";
     if (!valid) {
       msgError(translate.t("proj_alerts.file_type_py"));
     }
   } else if (evidenceType === RECORDS) {
-    valid = file.type === "text/csv";
+    valid = fileType === ".csv";
     if (!valid) {
       msgError(translate.t("proj_alerts.file_type_csv"));
     }
@@ -56,27 +57,28 @@ const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
 const evidenceHasValidSize: ((arg1: File) => boolean) = (file: File): boolean => {
   let valid: boolean;
   let MIB: number; MIB = 1048576;
+  const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
 
-  switch (file.type) {
-    case "image/gif":
+  switch (fileType) {
+    case ".gif":
       valid = file.size < MIB * 10;
       if (!valid) {
         msgError(translate.t("proj_alerts.file_size"));
       }
       break;
-    case "image/png":
+    case ".png":
       valid = file.size < MIB * 2;
       if (!valid) {
         msgError(translate.t("proj_alerts.file_size_png"));
       }
       break;
-    case "text/x-python":
+    case ".py":
       valid = file.size < MIB * 1;
       if (!valid) {
         msgError(translate.t("proj_alerts.file_size_py"));
       }
       break;
-    case "text/csv":
+    case ".csv":
       valid = file.size < MIB * 1;
       if (!valid) {
         msgError(translate.t("proj_alerts.file_size_py"));
