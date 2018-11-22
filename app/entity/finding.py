@@ -143,26 +143,23 @@ class Finding(ObjectType):
         """
         Resolve compromised records attribute
 
-        Verifies if records were retrieved from formstack. if not, it
-        attempts to get them from dynamodb
+        Verifies if there are records in dynamo. if not, it gets them from formstack
         """
         del info
 
-        if self.records:
-            return self.records
-        else:
-            dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
-            if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
-                file_info = filter(lambda evidence: evidence['name'] == 'fileRecords', dynamo_evidence[0].get('files'))
-                if file_info:
-                    file_name = file_info[0]['file_url']
-                    self.records = get_records_from_file(self, file_name)
-                else:
-                    self.records = {}
+        formstack_records = self.records
+        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
+        if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
+            file_info = filter(lambda evidence: evidence['name'] == 'fileRecords', dynamo_evidence[0].get('files'))
+            if file_info:
+                file_name = file_info[0]['file_url']
+                self.records = get_records_from_file(self, file_name)
             else:
-                self.records = {}
+                self.records = formstack_records
+        else:
+            self.records = formstack_records
 
-            return self.records
+        return self.records
 
 def get_records_from_file(self, file_name):
     file_id = '/'.join([self.project_name.lower(), self.id, file_name])
