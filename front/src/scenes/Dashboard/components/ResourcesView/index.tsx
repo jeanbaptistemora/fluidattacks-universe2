@@ -191,6 +191,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                     onClickRow={(): void => {}}
                     enableRowSelection={true}
                     exportCsv={true}
+                    search={true}
                     headers={[
                       {
                         dataField: "urlRepo",
@@ -255,6 +256,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                     onClickRow={(): void => {}}
                     enableRowSelection={true}
                     exportCsv={true}
+                    search={true}
                     headers={[
                       {
                         dataField: "urlEnv",
