@@ -251,25 +251,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Make a request to get the records of a finding.
-       * @function getRecords
-       * @param {String} findingid Numeric id of finding
-       * @param {String} id Unique id of the record
-       * @param {String} project Project name
-       * @member integrates.projectFtry
-       * @return {Object} Response with records data
-       */
-      "getRecords" (findingid, id, project) {
-        const oopsAc = "An error occurred getting records";
-        return $xhr.get($q, `${BASE.url}get_records`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          findingid,
-          id,
-          project
-        }, oopsAc);
-      },
-
-      /**
        * Make a request to get the all the findings in a project.
        * @function projectByName
        * @param {String} project Project name

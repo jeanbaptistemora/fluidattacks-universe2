@@ -54,7 +54,6 @@ urlpatterns = [
     url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$', views.get_evidence),
     url(r'^(?P<findingid>[0-9]+)/download_vulnerabilities?$', views.download_vulnerabilities),
     url(r'^get_exploit/?\.*$', views.get_exploit, name='get_exploit'),
-    url(r'^get_records/?\.*$', views.get_records, name='get_records'),
     url(r'^is_customer_admin/?\.*$', views.is_customer_admin, name='is_customer_admin'),
     url(r'^update_eventuality/?\.*$',
         views.update_eventuality, name='update_eventuality'),

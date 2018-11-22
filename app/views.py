@@ -10,7 +10,6 @@ import re
 import pytz
 import rollbar
 import boto3
-import io
 import yaml
 import threading
 from django.conf import settings
@@ -51,7 +50,6 @@ from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime, timedelta
-from backports import csv
 from .entity import schema
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
@@ -1015,56 +1013,6 @@ def retrieve_script(request, script_file):
     else:
         rollbar.report_message('Error: Invalid exploit file format', 'error', request)
         return util.response([], 'Invalid exploit file format', True)
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_finding_access
-def get_records(request):
-    parameters = request.GET.dict()
-    fileid = parameters['id']
-    findingid = parameters['findingid']
-    project = parameters['project'].lower()
-    if fileid is None:
-        rollbar.report_message('Error: Missing record file ID', 'error', request)
-        return util.response([], 'Unsent record file ID', True)
-    key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
-    if key_list:
-        for k in key_list:
-            start = k.find(findingid) + len(findingid)
-            localfile = "/tmp" + k[start:]
-            ext = {'.py': '.tmp'}
-            localtmp = util.replace_all(localfile, ext)
-            client_s3.download_file(bucket_s3, k, localtmp)
-            return retrieve_csv(request, localtmp)
-    else:
-        if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
-            rollbar.report_message('Error: Invalid record file ID format', 'error', request)
-            return util.response([], 'ID with wrong format', True)
-        else:
-            drive_api = DriveAPI()
-            record = drive_api.download(fileid)
-            return retrieve_csv(request, record)
-
-def retrieve_csv(request, csv_file):
-    data = []
-    if util.assert_file_mime(csv_file, ["text/plain"]):
-        with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
-            csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
-            cont = 0
-            header = csvReader.next()
-            for row in csvReader:
-                if cont <= 1000:
-                    dicTok = util.list_to_dict(header, row)
-                    data.append(dicTok)
-                    cont += 1
-                else:
-                    break
-            return util.response(data, 'Success', False)
-    else:
-        rollbar.report_message('Error: Invalid record file format', 'error', request)
-        return util.response([], 'Invalid record file format', True)
 
 @never_cache
 @csrf_exempt
