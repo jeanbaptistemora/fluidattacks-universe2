@@ -6,7 +6,9 @@ from django.views.decorators.http import require_http_methods
 from . import util
 # pylint: disable=E0402
 from .dao import integrates_dao
-
+from .api.formstack import FormstackAPI
+from .dto.finding import FindingDTO
+from .dto import eventuality
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -37,17 +39,28 @@ def has_access_to_project(user, project_name, rol):
         return True
     return integrates_dao.has_access_to_project_dao(user, project_name)
 
-def has_access_to_finding(allowed_findings, findingid, rol):
+def has_access_to_finding(user, findingid, role):
     """ Verify if the user has access to a finding submission. """
     hasAccess = False
     # Skip this check for admin users since they don't have any assigned projects
-    if rol == 'admin':
+    if role == 'admin':
         hasAccess = True
     else:
-        for project in allowed_findings.keys():
-            if findingid in allowed_findings[project]:
-                hasAccess = True
-                break
+        project = integrates_dao.get_finding_project(findingid)
+
+        if project:
+            hasAccess = has_access_to_project(user, project, role)
+        else:
+            api = FormstackAPI()
+            dto = FindingDTO()
+            finding_data = dto.parse_project(api.get_submission(findingid))
+            project = finding_data['fluidProject'] if 'fluidProject' in finding_data else None
+
+            if project:
+                hasAccess = has_access_to_project(user, project, role)
+            else:
+                project = eventuality.parse(findingid, api.get_submission(findingid))['fluidProject']
+                hasAccess = has_access_to_project(user, project, role)
     return hasAccess
 
 def is_customeradmin(project, email):

@@ -1609,3 +1609,17 @@ def delete_vulnerability_dynamo(uuid, finding_id):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+
+def get_finding_project(finding_id):
+    """ Get project associated to a finding. """
+    table = dynamodb_resource.Table('FI_findings')
+    response = table.get_item(
+        Key={
+            'finding_id': finding_id
+        },
+        AttributesToGet=['project_name']
+    )
+    item = response['Item'].get('project_name') if 'Item' in response else None
+
+    return item

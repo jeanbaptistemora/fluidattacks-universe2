@@ -689,7 +689,7 @@ def get_evidences(request):
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, findingid, fileid):
-    if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
+    if not has_access_to_finding(request.user, findingid, request.session['role']):
         util.cloudwatch_log(request, 'Security: Attempted to retrieve evidence img without permission')
         return util.response([], 'Access denied', True)
     else:
@@ -729,7 +729,7 @@ def retrieve_image(request, img_file):
 @authorize(['analyst', 'admin'])
 def update_evidences_files(request):
     parameters = request.POST.dict()
-    if not has_access_to_finding(request.session['access'], parameters['findingid'], request.session['role']):
+    if not has_access_to_finding(request.user, parameters['findingid'], request.session['role']):
         util.cloudwatch_log(request, 'Security: Attempted to update evidence img without permission')
         return util.response([], 'Access denied', True)
     else:
@@ -1721,7 +1721,7 @@ def delete_vulnerabilities(finding_id, project):
 @authorize(['analyst', 'admin'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
-    if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
+    if not has_access_to_finding(request.user, findingid, request.session['role']):
         util.cloudwatch_log(request, 'Security: Attempted to retrieve vulnerabilities without permission')
         return util.response([], 'Access denied', True)
     else:

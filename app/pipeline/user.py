@@ -1,6 +1,5 @@
 # pylint: disable=E0402
 from ..dao import integrates_dao
-from ..security import validations
 from ..mailer import send_mail_new_user
 
 # pylint: disable=W0613
@@ -42,7 +41,6 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     last_login = integrates_dao.get_user_last_login_dao(email)
     role = integrates_dao.get_role_dao(email)
     company = integrates_dao.get_organization_dao(email)
-    access_to = validations.get_projects_map_by_user(email)
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)
     if role == 'customeradmin':
@@ -52,5 +50,4 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     strategy.session_set('role', role)
     strategy.session_set('company', company)
     strategy.session_set('last_login', last_login)
-    strategy.session_set('access', access_to)
     strategy.session_set('projects', {})

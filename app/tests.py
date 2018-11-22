@@ -90,7 +90,6 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['access'] = {'unittesting': [422286126, 436423161, 435326633, 435326463, 418900971]}
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
               'user_email': 'unittest',
@@ -119,7 +118,6 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['access'] = {"unittesting": ["422286126", "436423161", "435326633", "435326463", "418900971"]}
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
               'user_email': 'unittest',
@@ -161,11 +159,6 @@ class GraphQLTests(TestCase):
         request.session['username'] = "unittest"
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
-        request.session['access'] = {"unittesting": [
-            "422286126", "436423161",
-            "435326633", "435326463",
-            "418900971"
-            ]}
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
               'user_email': 'unittest',
@@ -236,11 +229,6 @@ class GraphQLTests(TestCase):
         request.session['username'] = "unittest"
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
-        request.session['access'] = {"unittesting": [
-            "422286126", "436423161",
-            "435326633", "435326463",
-            "418900971"
-            ]}
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
               'user_email': "unittest",
@@ -275,11 +263,6 @@ class GraphQLTests(TestCase):
         request.session['username'] = "unittest"
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
-        request.session['access'] = {"unittesting": [
-            "422286126", "436423161",
-            "435326633", "435326463",
-            "418900971"
-            ]}
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
               'user_email': "unittest",

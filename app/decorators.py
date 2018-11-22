@@ -83,7 +83,7 @@ def require_finding_access(func):
         if not re.match("^[0-9]*$", findingid):
             rollbar.report_message('Error: Invalid finding id format', 'error', request)
             return util.response([], 'Invalid finding id format', True)
-        if not has_access_to_finding(request.session['access'], findingid, request.session['role']):
+        if not has_access_to_finding(request.user, findingid, request.session['role']):
             util.cloudwatch_log(request, 'Security: Attempted to retrieve finding-related info without permission')
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
@@ -180,13 +180,12 @@ def require_finding_access_gql(func):
     def verify_and_call(*args, **kwargs):
         context = args[1].context
         finding_id = kwargs.get('finding_id') if kwargs.get('identifier') is None else kwargs.get('identifier')
-        allowed_findings = context.session['access']
         user_data = util.get_jwt_content(context)
 
         if not re.match('^[0-9]*$', finding_id):
             rollbar.report_message('Error: Invalid finding id format', 'error', context)
             raise GraphQLError('Invalid finding id format')
-        if not has_access_to_finding(allowed_findings, finding_id, user_data['user_role']):
+        if not has_access_to_finding(user_data['user_email'], finding_id, user_data['user_role']):
             util.cloudwatch_log(context,
                 'Security: Attempted to retrieve finding-related info without permission')
             raise GraphQLError('Access denied')
