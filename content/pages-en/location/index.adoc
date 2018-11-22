@@ -5,14 +5,13 @@
 
 = Location
 
-[role="tb-location tb-col"]
+[role="tb-location-hq"]
 [cols=1]
 |====
 
 a|=== Headquarters
-a|==== United States
-
-a|*Address:* +
+a|=== United States
+*Address:* +
 795 Folsom Street, 1st Floor +
 San Francisco, CA. +
 94107 +
@@ -21,11 +20,14 @@ San Francisco, CA. +
 ++++
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12613.019591560002!2d-122.4031097883033!3d37.78406573491725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807e0e3b97b5%3A0x890f970065001c21!2s795+Folsom+St%2C+San+Francisco%2C+CA+94107%2C+EE.+UU.!5e0!3m2!1ses!2sco!4v1539184991930" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
 ++++
-
 a|=== Branches
-a|====  Medellín
+|====
 
-a|
+
+[role="tb-location-branch"]
+[cols=2]
+|====
+a|====  Medellín
 *Address:* +
 Calle 7 Sur N 42 – 70 +
 Forum Building, 2003 +
@@ -39,7 +41,6 @@ Poblado, Medellín, Colombia +
 ++++
 
 a|==== Bogotá
-a|
 *Address:* +
 Carrera 11 N 71 – 41 +
 Avenida Chile Building, 602 +
@@ -51,5 +52,4 @@ Chapinero, Bogotá, Colombia +
 ++++
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.647548926837!2d-74.061627150199!3d4.656785343318136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a5b5630f1f3%3A0xf439d72dd756c156!2sCra.+11+%2371-41%2C+Bogot%C3%A1!5e0!3m2!1sen!2sco!4v1519846591294" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
 ++++
-
 |====
