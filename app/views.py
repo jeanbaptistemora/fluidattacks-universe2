@@ -28,7 +28,7 @@ from .decorators import authenticate, authorize, require_project_access, require
 from .techdoc.IT import ITReport
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
-    sort_vulnerabilities, group_specific
+    sort_vulnerabilities, group_specific, update_vulnerabilities_date
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -1273,6 +1273,7 @@ def finding_verified(request):
     if not verified:
         rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request)
         return util.response([], 'Error', True)
+    update_vulnerabilities_date(parameters['data[findingId]'])
     # Send email parameters
     try:
         to = [x[0] for x in recipients if x[1] == 1]
