@@ -146,6 +146,7 @@ const renderDynamicHeaders: ((arg1: string[]) => JSX.Element[]) =
         dataField={key}
         dataSort={true}
         key={index}
+        width={dataFields.length > 10 ? "150px" : undefined}
         tdStyle={{
           whiteSpace: "unset",
         }}
