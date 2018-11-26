@@ -61,18 +61,12 @@ build_base:
 
 build_builder:
   stage: deps
+  <<: *kaniko_config
   script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
-    - aws s3 cp
-        s3://$VAULT_S3_BUCKET/vault-ca.crt
-        $HOME/vault-ca.crt
-    - docker pull "$DOCKER_BASENAME:builder"
-    - docker build --cache-from "$DOCKER_BASENAME:builder"
-        --build-arg vault_ca="$(cat $HOME/vault-ca.crt | base64 | tr -d '\n')"
-        -t "$DOCKER_BASENAME:builder"
-        containers/builder/
-    - docker push "$DOCKER_BASENAME:builder"
+    - /kaniko/executor
+        --context "${CI_PROJECT_DIR}/containers/builder/"
+        --dockerfile "${CI_PROJECT_DIR}/containers/builder/Dockerfile"
+        --destination "${IMAGE_NAME}:builder"
   except:
     - master
 
