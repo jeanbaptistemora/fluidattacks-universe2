@@ -136,3 +136,43 @@ def migrate_all_files(parameters, file_url, request):
                             request)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
+
+
+def remove_repeated(vulnerabilities):
+    """Remove vulnerabilities that changes in the same day."""
+    vuln_casted = []
+    for vuln in vulnerabilities:
+        vuln_without_repeated = {}
+        for state in vuln.historic_state:
+            format_date = state.get('date').split(' ')[0]
+            vuln_without_repeated[format_date] = state.get('state')
+        vuln_casted.append(vuln_without_repeated)
+    return vuln_casted
+
+
+def group_by_state(vulnerabilities):
+    """Group vulnerabilities by state."""
+    tracking = {}
+    for vuln in vulnerabilities:
+        for date, status in vuln.items():
+            status_dict = tracking.setdefault(date, {'open': 0, 'closed': 0})
+            status_dict[status] += 1
+    return tracking
+
+
+def cast_tracking(tracking):
+    """Cast tracking in accordance to schema."""
+    cycle = 1
+    tracking_casted = []
+    for date, value in tracking:
+        effectiveness = int(round((value['closed'] / float((value['open'] + value['closed']))) * 100))
+        closing_cicle = {
+            'cycle': cycle,
+            'open': value['open'],
+            'closed': value['closed'],
+            'effectiveness': effectiveness,
+            'date': date,
+        }
+        cycle += 1
+        tracking_casted.append(closing_cicle)
+    return tracking_casted

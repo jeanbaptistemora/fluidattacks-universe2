@@ -20,7 +20,11 @@ from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKE
 from ..api.drive import DriveAPI
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import FindingDTO, finding_vulnerabilities
-from app.domain.finding import migrate_all_files, update_file_to_s3
+from app.domain.finding import (
+    migrate_all_files, update_file_to_s3, remove_repeated,
+    group_by_state, cast_tracking
+)
+from graphene.types.generic import GenericScalar
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -43,6 +47,7 @@ class Finding(ObjectType):
     project_name = String()
     release_date = String()
     records = JSONString()
+    tracking = List(GenericScalar)
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -55,6 +60,7 @@ class Finding(ObjectType):
         self.project_name = ''
         self.release_date = ''
         self.records = {}
+        self.tracking = []
 
         finding_id = str(identifier)
         resp = finding_vulnerabilities(finding_id)
@@ -138,6 +144,19 @@ class Finding(ObjectType):
         """Resolve closed vulnerabilities attribute."""
         del info
         return self.closed_vulnerabilities
+
+    def resolve_tracking(self, info):
+        """Resolve tracking attribute."""
+        del info
+        if self.release_date:
+            vuln_casted = remove_repeated(self.vulnerabilities)
+            tracking = group_by_state(vuln_casted)
+            order_tracking = sorted(tracking.items())
+            tracking_casted = cast_tracking(order_tracking)
+            self.tracking = tracking_casted
+        else:
+            self.tracking = []
+        return self.tracking
 
     def resolve_records(self, info):
         """
