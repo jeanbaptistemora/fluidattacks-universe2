@@ -2,31 +2,22 @@ import { AxiosError, AxiosResponse } from "axios";
 import _ from "lodash";
 import React from "react";
 import {
-  Button, ButtonToolbar, ControlLabel,
-  FormControl, FormControlProps, FormGroup,
+  Button, ButtonToolbar, ControlLabel, FormGroup,
   Row,
 } from "react-bootstrap";
-/**
- * Disabling here is necessary because
- * there are currently no available type definitions for
- * neither this nor any other 3rd-party react phone input components
- */
-// @ts-ignore
-import ReactPhoneInput from "react-phone-input-2";
 import {
-  ConfigProps, DecoratedComponentClass, Field,
-  FormProps, formValueSelector, InjectedFormProps,
-  reduxForm, WrappedFieldProps,
+  ConfigProps, DecoratedComponentClass, Field, formValueSelector, InjectedFormProps,
+  reduxForm,
 } from "redux-form";
 import { default as Modal } from "../../../../../components/Modal/index";
 import store from "../../../../../store/index";
+import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
 import { msgError } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { required, validEmail } from "../../../../../utils/validations";
 import Xhr from "../../../../../utils/xhr";
 import * as actions from "../../../actions";
-import style from "./index.css";
 
 export interface IAddUserModalProps {
   open: boolean;
@@ -36,70 +27,6 @@ export interface IAddUserModalProps {
 }
 
 type CustomFormProps = IAddUserModalProps & InjectedFormProps<{}, IAddUserModalProps>;
-
-type CustomFieldProps = FormProps<{}, {}, {}> & FormControlProps & WrappedFieldProps;
-
-/* tslint:disable-next-line:variable-name
- * Disabling here is necessary due a conflict
- * between lowerCamelCase var naming rule from tslint
- * and PascalCase rule for naming JSX elements
- */
-const Error: ((arg1: { msg: string }) => JSX.Element) =
-  (props: { msg: string }): JSX.Element => (
-    <span className={style.validationError}>{props.msg}</span>
-);
-
-const formTextField: ((arg1: CustomFieldProps) => JSX.Element) =
-  (fieldProps: CustomFieldProps): JSX.Element => (
-    <div>
-      <FormControl
-        id={fieldProps.id}
-        type={fieldProps.type}
-        placeholder={fieldProps.placeholder}
-        min={fieldProps.min}
-        max={fieldProps.max}
-        value={fieldProps.input.value}
-        onChange={fieldProps.input.onChange}
-        onBlur={fieldProps.input.onBlur}
-        disabled={fieldProps.disabled}
-      />
-      {fieldProps.meta.touched && fieldProps.meta.error ? <Error msg={fieldProps.meta.error as string}/> : undefined}
-  </div>
-);
-
-const phoneNumberField: ((arg1: CustomFieldProps) => JSX.Element) =
-  (fieldProps: CustomFieldProps): JSX.Element => (
-    <ReactPhoneInput
-      defaultCountry="co"
-      inputClass="form-control"
-      inputStyle={{ paddingLeft: "48px" }}
-      inputExtraProps={{ type: "" }}
-      onChange={fieldProps.input.onChange}
-      value={fieldProps.input.value}
-      {...fieldProps}
-    />
-);
-
-const handleDropdownChange: ((arg1: React.FormEvent<FormGroup>, arg2: CustomFieldProps) => void) =
-  (event: React.FormEvent<FormGroup>, fieldProps: CustomFieldProps): void => {
-  fieldProps.input.onChange((event.target as HTMLInputElement).value);
-};
-
-const formDropdownField: ((arg1: CustomFieldProps) => JSX.Element) =
-  (fieldProps: CustomFieldProps): JSX.Element => (
-    <div>
-      <FormControl
-        componentClass="select"
-        children={fieldProps.children}
-        /* tslint:disable-next-line jsx-no-lambda
-         * Disabling this rule is necessary for the sake of simplicity and
-         * readability of the code that binds component events
-         */
-        onChange={(event: React.FormEvent<FormGroup>): void => { handleDropdownChange(event, fieldProps); }}
-      />
-      {fieldProps.meta.touched && fieldProps.meta.error ? <Error msg={fieldProps.meta.error as string}/> : undefined}
-  </div>
-);
 
 const closeModal: ((arg1: CustomFormProps) => void) =
   (props: CustomFormProps): void => {
@@ -169,7 +96,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
       </ControlLabel>
       <Field
         name="email"
-        component={formTextField}
+        component={textField}
         type="text"
         placeholder={translate.t("search_findings.tab_users.email")}
         validate={[required, validEmail]}
@@ -188,7 +115,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
       </ControlLabel>
       <Field
         name="organization"
-        component={formTextField}
+        component={textField}
         type="text"
         validate={[required]}
       />
@@ -200,7 +127,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
       </ControlLabel>
       <Field
         name="role"
-        component={formDropdownField}
+        component={dropdownField}
         validate={[required]}
       >
         <option value="" selected={true}/>
@@ -215,7 +142,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
       </ControlLabel>
       <Field
         name="responsability"
-        component={formTextField}
+        component={textField}
         type="text"
         placeholder={translate.t("search_findings.tab_users.responsibility_placeholder")}
         validate={[required]}
