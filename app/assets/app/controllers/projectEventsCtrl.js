@@ -144,7 +144,7 @@ angular.module("FluidIntegrates").controller(
             }
           }
           else {
-            let eventsData = [];
+            eventsData = [];
             if (response.data.events.length === 0) {
               $msg.error($translate.instant("proj_alerts.eventExist"));
             }

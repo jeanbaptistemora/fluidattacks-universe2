@@ -73,8 +73,8 @@ angular.module("FluidIntegrates").factory(
             }
           });
           for (let event = 0; event < eventsData.length; event++) {
-            if (eventsData[event].estado === "Unsolved" ||
-              eventsData[event].estado === "Pendiente") {
+            if (eventsData[event].status === "Unsolved" ||
+              eventsData[event].status === "Pendiente") {
               openEvents += 1;
             }
           }
@@ -136,8 +136,8 @@ angular.module("FluidIntegrates").factory(
             }
           });
           for (let event = 0; event < eventsData.length; event++) {
-            if (eventsData[event].estado === "Unsolved" ||
-              eventsData[event].estado === "Pendiente") {
+            if (eventsData[event].status === "Unsolved" ||
+              eventsData[event].status === "Pendiente") {
               openEvents += 1;
             }
           }
