@@ -169,7 +169,7 @@ const traducciones2 = {
     "verified_finding": "Hallazgo verificado",
     "weakness": "Debilidad",
     "weaknessTooltip": "Link de la vulnerabilidad categorizada en la CWE",
-    "where": "Donde",
+    "where": "Dónde",
     "whereTooltip": "URL y/o puertos de los recursos que tienen " +
                     "vulnerabilidades de seguridad"
   },

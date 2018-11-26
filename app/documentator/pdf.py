@@ -99,7 +99,7 @@ class CreatorPDF(object):
             'port': 'Puerto',
             'ports': 'Puertos',
             'resume_vuln_title': 'Vulnerabilidades',
-            'where_title': 'Donde',
+            'where_title': 'Dónde',
             'resume_perc_title': 'Porcentaje',
             'resume_regi_title': 'Total registros comprometidos',
             'resume_vnum_title': '#',
