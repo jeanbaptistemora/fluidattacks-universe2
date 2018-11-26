@@ -50,9 +50,12 @@ stages:
 
 build_base:
   stage: deps
+  <<: *kaniko_config
   script:
-    - sh containers/base/build.sh
-    - docker push "$DOCKER_BASENAME:base"
+    - /kaniko/executor
+        --context "${CI_PROJECT_DIR}/containers/base/"
+        --dockerfile "${CI_PROJECT_DIR}/containers/base/Dockerfile"
+        --destination "${IMAGE_NAME}:base"
   only:
     - schedules
 

@@ -1,28 +1,24 @@
-# Imagen base del ultimo linux estable de Debian (jessie)
 FROM debian:jessie
 
-# Dudas sobre la imagen en cuestion
-MAINTAINER FLUID Engineering Team <engineering@fluid.la>
+LABEL mantainer="engineering@fluidattacks.com"
 
-ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
+ENV DEBIAN_FRONTEND noninteractive
 
-# Instalar software-properties y sudo
-RUN apt-get update && apt-get install -y software-properties-common sudo
-
-# Agregar ansible repo
-RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
-
-# Instala dependencias
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --force-yes\
-               ansible
+    && apt-get dist-upgrade -y \
+    && apt-get install --no-install-recommends -y \
+        apache2 \
+        curl \
+        g++ \
+        gcc \
+        libffi-dev \
+        libssl-dev \
+        python \
+        python-dev \
+        software-properties-common \
+    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+        && python get-pip.py \
+        && rm get-pip.py \
+    && pip install ansible
 
-# Agrega el playbook
-ADD main.yml /root/
-
-# Cambia al directorio root
 WORKDIR /root/
-
-# Ejecuta el ansible
-RUN ansible-playbook main.yml
