@@ -39,6 +39,15 @@ stages:
     - echo "$CI_REGISTRY_PASSWORD" |
         docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
 
+.kaniko_config: &kaniko_config
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+    - export IMAGE_NAME="${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
+        > /kaniko/.docker/config.json
+
 build_base:
   stage: deps
   script:
