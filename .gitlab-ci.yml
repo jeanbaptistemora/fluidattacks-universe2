@@ -1,12 +1,5 @@
 image: registry.gitlab.com/fluidsignal/serves:builder
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-services:
-   - docker:dind
-
-
 before_script:
   - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
   - echo "$CI_REGISTRY_PASSWORD" |
@@ -47,6 +40,13 @@ stages:
     - export IMAGE_NAME="${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
     - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
         > /kaniko/.docker/config.json
+
+.dind_config: &dind_config
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+
 
 build_base:
   stage: deps
@@ -95,6 +95,7 @@ test_terraform:
 
 build_alg:
   stage: build
+  <<: *dind_config
   <<: *vault_login
   script:
     - vaultenv containers/alg/build.sh
@@ -104,6 +105,7 @@ build_alg:
 
 build_exams:
   stage: build
+  <<: *dind_config
   <<: *vault_login
   script:
     - vaultenv containers/exams/build.sh
@@ -113,6 +115,7 @@ build_exams:
 
 build_vpn:
   stage: build
+  <<: *dind_config
   <<: *vault_login
   script:
     - vaultenv containers/vpn/build.sh
@@ -121,6 +124,7 @@ build_vpn:
     - master
 
 tag-alg:
+  <<: *dind_config
   stage: tag
   script:
     - docker pull "$DOCKER_BASENAME/alg/dev:$CI_COMMIT_SHA"
@@ -134,6 +138,7 @@ tag-alg:
     - schedules
 
 tag-exams:
+  <<: *dind_config
   stage: tag
   script:
     - docker pull "$DOCKER_BASENAME/exams/dev:$CI_COMMIT_SHA"
@@ -147,6 +152,7 @@ tag-exams:
     - schedules
 
 tag-vpn:
+  <<: *dind_config
   stage: tag
   script:
     - docker pull "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
@@ -161,6 +167,7 @@ tag-vpn:
 
 deploy_infra:
   stage: deploy
+  <<: *dind_config
   <<: *vault_login
   script:
     - aws s3 cp
@@ -205,6 +212,7 @@ deploy_infra:
     - schedules
 
 fluidasserts_post:
+  <<: *dind_config
   stage: postdeploy
   script:
     - docker pull fluidattacks/asserts
