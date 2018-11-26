@@ -8,5 +8,5 @@ spec:
     - https://etcd-cluster-client.serves.svc:2379
   storageType: S3
   s3:
-    path: ${VAULT_S3_BUCKET}/vault-etcd.backup-${DATE}
+    path: ${VAULT_S3_BUCKET}/vault.etcd.backup-${DATE}
     awsSecret: aws
