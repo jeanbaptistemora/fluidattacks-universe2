@@ -52,7 +52,6 @@ angular.module("FluidIntegrates").factory(
         let cardinalidadTotal = 0;
         let maximumSeverity = 0;
         let oldestFinding = 0;
-        let openEvents = 0;
         let metricColor = [];
         let metricDes = [];
         let metricTool = [];
@@ -72,19 +71,12 @@ angular.module("FluidIntegrates").factory(
               oldestFinding = parseInt(cont.edad, 10);
             }
           });
-          for (let event = 0; event < eventsData.length; event++) {
-            if (eventsData[event].status === "Unsolved" ||
-              eventsData[event].status === "Pendiente") {
-              openEvents += 1;
-            }
-          }
           metricColor = [
             "#2197d6;",
             "#aa2d30;",
             "#ff9930;",
             "#2e4050;",
             "#9f5ab1;",
-            "#ff3435;",
             "#0a40ae;"
           ];
           metricDes = [
@@ -93,7 +85,6 @@ angular.module("FluidIntegrates").factory(
             "vulnerabilities",
             "maximumSeverity",
             "oldestFinding",
-            "openEvents",
             "compromisedRecords"
           ];
           metricTool = [
@@ -102,7 +93,6 @@ angular.module("FluidIntegrates").factory(
             "vulnerabilitiesTooltip",
             "maximumSeverityTooltip",
             "oldestFindingTooltip",
-            "openEventsTooltip",
             "compromisedRecordsTooltip"
           ];
           metricIcon = [
@@ -111,7 +101,6 @@ angular.module("FluidIntegrates").factory(
             "s7-info",
             "s7-gleam",
             "s7-date",
-            "s7-way",
             "s7-notebook"
           ];
           metricValue = [
@@ -120,7 +109,6 @@ angular.module("FluidIntegrates").factory(
             cardinalidadTotal,
             maximumSeverity,
             oldestFinding,
-            openEvents,
             compromisedRecords
           ];
         }
@@ -135,51 +123,40 @@ angular.module("FluidIntegrates").factory(
               oldestFinding = parseInt(cont.edad, 10);
             }
           });
-          for (let event = 0; event < eventsData.length; event++) {
-            if (eventsData[event].status === "Unsolved" ||
-              eventsData[event].status === "Pendiente") {
-              openEvents += 1;
-            }
-          }
           metricColor = [
             "#2197d6;",
             "#aa2d30;",
             "#ff9930;",
             "#2e4050;",
-            "#9f5ab1;",
-            "#0a40ae;"
+            "#9f5ab1;"
           ];
           metricDes = [
             "findings",
             "cardinalities",
             "vulnerabilities",
             "maximumSeverity",
-            "oldestFinding",
-            "openEvents"
+            "oldestFinding"
           ];
           metricTool = [
             "findingsTooltip",
             "cardinalitiesTooltip",
             "vulnerabilitiesTooltip",
             "maximumSeverityTooltip",
-            "oldestFindingTooltip",
-            "openEventsTooltip"
+            "oldestFindingTooltip"
           ];
           metricIcon = [
             "s7-id",
             "s7-attention",
             "s7-info",
             "s7-gleam",
-            "s7-date",
-            "s7-way"
+            "s7-date"
           ];
           metricValue = [
             data.data.length,
             openVulnerabilities,
             cardinalidadTotal,
             maximumSeverity,
-            oldestFinding,
-            openEvents
+            oldestFinding
           ];
         }
         return [
