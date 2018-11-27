@@ -148,7 +148,9 @@ class Finding(ObjectType):
     def resolve_tracking(self, info):
         """Resolve tracking attribute."""
         del info
-        if self.release_date:
+        if (self.release_date and
+            (self.open_vulnerabilities or
+                self.closed_vulnerabilities)):
             vuln_casted = remove_repeated(self.vulnerabilities)
             tracking = group_by_state(vuln_casted)
             order_tracking = sorted(tracking.items())

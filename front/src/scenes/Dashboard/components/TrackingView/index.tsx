@@ -4,97 +4,160 @@
  */
 import _ from "lodash";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
 import TextareaAutosize from "react-textarea-autosize";
+import {
+  InferableComponentEnhancer,
+  lifecycle,
+} from "recompose";
+import { AnyAction, Reducer } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { StateType } from "typesafe-actions";
+import store from "../../../../store/index";
+import reduxWrapper from "../../../../utils/reduxWrapper";
+import translate from "../../../../utils/translations/translate";
+import * as actions from "../../actions";
 import { vulnsView as VulnerabilitiesView } from "../Vulnerabilities/index";
 import style from "./index.css";
 
-interface ITrackingViewProps {
+export interface ITrackingViewProps {
   closedFindingsContent?: string;
-  closedFindingsTitle: string;
   closings: closing[];
-  cycleText: string;
-  discoveryDate: string;
-  discoveryText: string;
-  efectivenessText: string;
   findingId: string;
   hasNewVulnerabilities: boolean;
   openFindingsContent?: string;
-  openFindingsTitle: string;
 }
 
 interface IClosing {
   closed: string;
   cycle: string;
-  efectividad: string;
-  estado: string;
-  finding: string;
-  id: string;
-  opened: string;
-  position: number;
-  requested: string;
-  timeFormat: string;
-  timestamp: string;
-  verified: string;
-  visibles: string;
-  whichClosed: string;
-  whichOpened: string;
+  date: string;
+  effectiveness: string;
+  open: string;
 }
 
 export declare type closing = IClosing;
 
-export const trackingView: React.StatelessComponent<ITrackingViewProps> =
+const mapStateToProps: ((arg1: StateType<Reducer>) => ITrackingViewProps) =
+  (state: StateType<Reducer>): ITrackingViewProps =>
+  ({
+    ...state,
+    closings: state.dashboard.tracking.closings,
+  });
+
+const enhance: InferableComponentEnhancer<{}> =
+lifecycle({
+  componentDidMount(): void {
+    const { findingId } = this.props as ITrackingViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+
+    thunkDispatch(actions.loadTracking(findingId));
+  },
+});
+
+export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps> =
   (props: ITrackingViewProps): JSX.Element => (
     <React.StrictMode>
       <Row>
         { props.hasNewVulnerabilities
           ? <React.Fragment>
-            <Col
-              md={12}
-            >
-              <Row>
+            <Row>
                 <Col
-                  md={2}
-                  className={style.text_right}
+                  md={12}
                 >
-                  <label className={style.track_title}>{props.openFindingsTitle}</label>
-                </Col>
-                <Col
-                  md={10}
-                >
-                  <VulnerabilitiesView
-                    dataInputs={[]}
-                    dataLines={[]}
-                    dataPorts={[]}
-                    editMode={false}
-                    findingId={props.findingId}
-                    state={"open"}
-                  />
+                  <Row>
+                    <Col
+                      md={2}
+                      className={style.text_right}
+                    >
+                      <label className={style.track_title}>{translate.t("search_findings.tab_tracking.open")}</label>
+                    </Col>
+                    <Col
+                      md={10}
+                    >
+                      <VulnerabilitiesView
+                        dataInputs={[]}
+                        dataLines={[]}
+                        dataPorts={[]}
+                        editMode={false}
+                        findingId={props.findingId}
+                        state={"open"}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col
+                      md={2}
+                      className={style.text_right}
+                    >
+                      <label className={style.track_title}>{translate.t("search_findings.tab_tracking.closed")}</label>
+                    </Col>
+                    <Col
+                      md={10}
+                    >
+                      <VulnerabilitiesView
+                        dataInputs={[]}
+                        dataLines={[]}
+                        dataPorts={[]}
+                        editMode={false}
+                        findingId={props.findingId}
+                        state={"closed"}
+                      />
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
-              <Row>
-                <Col
-                  md={2}
-                  className={style.text_right}
-                >
-                  <label className={style.track_title}>{props.closedFindingsTitle}</label>
-                </Col>
-                <Col
-                  md={10}
-                >
-                  <VulnerabilitiesView
-                    dataInputs={[]}
-                    dataLines={[]}
-                    dataPorts={[]}
-                    editMode={false}
-                    findingId={props.findingId}
-                    state={"closed"}
-                  />
-                </Col>
-              </Row>
-            </Col>
-            </React.Fragment>
+              { props.closings.length > 0
+                ? <Row>
+                  <Col
+                    mdOffset={3}
+                    md={9}
+                    sm={12}
+                  >
+                    <ul className={style.timelineContainer}>
+                      <li key={0} className={style.timelineItem}>
+                        <div className={style.timelineDate}>
+                          <span>
+                            {props.closings[0].date}
+                          </span>
+                        </div>
+                        <div className={style.timelineContent}>
+                            <p>
+                              {translate.t("search_findings.tab_tracking.founded")},
+                                {translate.t("search_findings.tab_tracking.open")}: {props.closings[0].open},
+                                {translate.t("search_findings.tab_tracking.closed")}: {props.closings[0].closed}
+                             </p>
+                        </div>
+                      </li>
+                      {props.closings
+                        .filter((_0: { closed: string; cycle: string; effectiveness: string; open: string },
+                                 index: number) => index > 0)
+                        .map((item: closing) =>
+                        <li key={item.cycle} className={style.timelineItem}>
+                          <div className={style.timelineDate}>
+                            <span>
+                              {item.date}
+                            </span>
+                          </div>
+                          <div className={style.timelineContent}>
+                              <p>
+                                {translate.t("search_findings.tab_tracking.cycle")}: {item.cycle},
+                                 {translate.t("search_findings.tab_tracking.open")}: {item.open},
+                                 {translate.t("search_findings.tab_tracking.closed")}: {item.closed},
+                                 {translate.t("search_findings.tab_tracking.effectiveness")}: {item.effectiveness}%
+                              </p>
+                          </div>
+                        </li>,
+                      )}
+                    </ul>
+                  </Col>
+                  </Row>
+              : undefined
+            }
+          </React.Fragment>
           : undefined
         }
         {!props.hasNewVulnerabilities && !_.isNil(props.hasNewVulnerabilities)
@@ -102,7 +165,7 @@ export const trackingView: React.StatelessComponent<ITrackingViewProps> =
               <Col
                 md={12}
               >
-                <p>{props.openFindingsTitle}</p>
+                <p>{translate.t("search_findings.tab_tracking.open")}</p>
                 <TextareaAutosize
                   className={style.findingsBox}
                   disabled={true}
@@ -113,7 +176,7 @@ export const trackingView: React.StatelessComponent<ITrackingViewProps> =
                 <Col
                   md={12}
                 >
-                  <p>{props.closedFindingsTitle}</p>
+                  <p>{translate.t("search_findings.tab_tracking.closed")}</p>
                   <TextareaAutosize
                     className={style.findingsBox}
                     disabled={true}
@@ -127,19 +190,19 @@ export const trackingView: React.StatelessComponent<ITrackingViewProps> =
     </React.StrictMode>
 );
 
-trackingView.defaultProps = {
+trackingViewComponent.defaultProps = {
   closings: [],
 };
 
-trackingView.propTypes = {
+trackingViewComponent.propTypes = {
   closedFindingsContent: PropTypes.string,
-  closedFindingsTitle: PropTypes.string.isRequired,
   closings: PropTypes.array,
-  cycleText: PropTypes.string.isRequired,
-  discoveryDate: PropTypes.string.isRequired,
-  discoveryText: PropTypes.string.isRequired,
-  efectivenessText: PropTypes.string.isRequired,
   hasNewVulnerabilities: PropTypes.bool.isRequired,
   openFindingsContent: PropTypes.string,
-  openFindingsTitle: PropTypes.string.isRequired,
 };
+
+export const trackingView: ComponentType<ITrackingViewProps> = reduxWrapper
+(
+  enhance(trackingViewComponent) as React.StatelessComponent<ITrackingViewProps>,
+  mapStateToProps,
+);

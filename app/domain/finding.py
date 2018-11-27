@@ -162,7 +162,7 @@ def group_by_state(vulnerabilities):
 
 def cast_tracking(tracking):
     """Cast tracking in accordance to schema."""
-    cycle = 1
+    cycle = 0
     tracking_casted = []
     for date, value in tracking:
         effectiveness = int(round((value['closed'] / float((value['open'] + value['closed']))) * 100))

@@ -140,6 +140,13 @@ const enTranslations: Map<string, string> = {
         network: "Network: Exploitable from Internet",
       },
     },
+    tab_tracking: {
+      closed: "Closed",
+      cycle: "Cycle",
+      effectiveness: "Effectiveness",
+      founded: "Found",
+      open: "Open",
+    },
     tab_users: {
       add_button: "Add",
       admin: "Admin",

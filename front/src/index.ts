@@ -227,15 +227,8 @@ angular
     react2angular(
       trackingView,
       [
-        "openFindingsTitle",
         "openFindingsContent",
-        "closedFindingsTitle",
         "closedFindingsContent",
-        "closings",
-        "discoveryDate",
-        "discoveryText",
-        "cycleText",
-        "efectivenessText",
         "hasNewVulnerabilities",
         "findingId",
       ],

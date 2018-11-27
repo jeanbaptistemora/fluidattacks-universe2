@@ -2,7 +2,7 @@ import { shallow, configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
 import {
-  trackingView as TrackingView,
+  trackingViewComponent as TrackingView,
   closing
 } from "./index";
 import "mocha";
@@ -18,44 +18,32 @@ describe('Tracking view', () => {
     expect(typeof(TrackingView)).to.equal('function');
   });
 
-  it('should render findings', () => {
+  it('should render vulnerabilities', () => {
     const testClosings: closing[] = [{
       closed: "2",
       cycle: "1",
-      efectividad: "20",
-      estado: "Parcialmente cerrado",
-      finding: "363808260",
-      id: "400903395",
-      opened: "1",
-      position: 1,
-      requested: "10",
-      timeFormat: "2018/09/17",
-      timestamp: "2018/09/17 09:06:44",
-      verified: "10",
-      visibles: "10",
-      whichClosed: "unit/test/index.js line:32",
-      whichOpened: "",
+      date: "2018-10-10",
+      effectiveness: "20",
+      open: "1",
     }]
     const wrapper = shallow(
       <TrackingView
-        openFindingsTitle="Open"
         openFindingsContent="unit/test/index.js line:32"
-        closedFindingsTitle="Closed"
         closedFindingsContent="unit/main/index.js line:16"
         closings={testClosings}
-        discoveryDate="2018/08/23"
-        discoveryText="Discovery"
-        cycleText="Cycle"
-        efectivenessText="Efectiveness"
+        findingId="422286126"
+        hasNewVulnerabilities={false}
       />
     );
     expect(
       wrapper.contains(
         <Row>
+        <React.Fragment>
           <Col
             md={12}
+            componentClass="div"
           >
-            <p>Open</p>
+            <p>search_findings.tab_tracking.open</p>
             <TextareaAutosize
               disabled={true}
               value="unit/test/index.js line:32"
@@ -63,15 +51,50 @@ describe('Tracking view', () => {
           </Col>
           <Col
             md={12}
+            componentClass="div"
           >
-            <p>Closed</p>
+            <p>search_findings.tab_tracking.closed</p>
             <TextareaAutosize
               disabled={true}
               value="unit/main/index.js line:16"
             />
           </Col>
+          </React.Fragment>
         </Row>
       )
     ).to.equal(true);
   });
+  it('should render closings timeline', () => {
+    const testClosings: closing[] = [{
+      closed: "0",
+      cycle: "0",
+      date: "2018-10-10",
+      effectiveness: "0",
+      open: "4",
+    }]
+    const wrapper = shallow(
+      <TrackingView
+        closings={testClosings}
+        findingId="422286126"
+        hasNewVulnerabilities={true}
+      />
+    );
+    expect(
+      wrapper.find('ul').contains([
+        <li>
+          <div>
+            <span>
+              2018-10-10
+            </span>
+          </div>
+          <div>
+            <p>
+              search_findings.tab_tracking.founded,search_findings.tab_tracking.open: 4,search_findings.tab_tracking.closed: 0
+            </p>
+          </div>
+        </li>
+      ])
+    ).to.equal(true);
+
+ });
 });

@@ -61,6 +61,9 @@ LOAD_RECORDS = "dashboard/finding/records/load";
 let EDIT_RECORDS: string;
 EDIT_RECORDS = "dashboard/finding/records/edit";
 
+let LOAD_TRACKING: string;
+LOAD_TRACKING = "dashboard/finding/tracking/load";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,
@@ -82,4 +85,5 @@ export {
   CLOSE_USERS_MDL,
   LOAD_VULNERABILITIES,
   EDIT_RECORDS,
+  LOAD_TRACKING,
 };

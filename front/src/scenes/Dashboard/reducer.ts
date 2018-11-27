@@ -2,6 +2,7 @@ import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView/index";
+import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 interface IDashboardState {
@@ -19,6 +20,7 @@ interface IDashboardState {
     environments: Array<{ urlEnv: string }>;
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
+  tracking: Pick<ITrackingViewProps, "closings">;
   users: {
     addModal: {
       initialValues: {};
@@ -51,6 +53,9 @@ const initialState: IDashboardState = {
     },
     environments: [],
     repositories: [],
+  },
+  tracking: {
+    closings: [],
   },
   users: {
     addModal: {
@@ -330,6 +335,15 @@ actionMap[actionType.LOAD_RECORDS] =
     records: {
       ...state.records,
       dataset: action.payload.records,
+    },
+  });
+
+actionMap[actionType.LOAD_TRACKING] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    tracking: {
+      closings: action.payload.closings,
     },
   });
 

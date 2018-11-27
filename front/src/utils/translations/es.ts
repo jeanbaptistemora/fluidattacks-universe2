@@ -141,6 +141,13 @@ const esTranslations: Map<string, string> = {
         network: "Red: Explotable desde Internet",
       },
     },
+    tab_tracking: {
+      closed: "Cerradas",
+      cycle: "Ciclo",
+      effectiveness: "Efectividad",
+      founded: "Encontrado",
+      open: "Abiertas",
+    },
     tab_users: {
       add_button: "Agregar",
       admin: "Admin",
