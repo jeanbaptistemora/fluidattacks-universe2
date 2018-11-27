@@ -2,6 +2,7 @@ import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView/index";
+import { ISeverityViewProps } from "./components/SeverityView";
 import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
@@ -20,6 +21,7 @@ interface IDashboardState {
     environments: Array<{ urlEnv: string }>;
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
+  severity: Pick<ISeverityViewProps, "isEditing" | "cssv2base" | "criticity">;
   tracking: Pick<ITrackingViewProps, "closings">;
   users: {
     addModal: {
@@ -53,6 +55,11 @@ const initialState: IDashboardState = {
     },
     environments: [],
     repositories: [],
+  },
+  severity: {
+    criticity: 0,
+    cssv2base: 0,
+    isEditing: false,
   },
   tracking: {
     closings: [],
@@ -344,6 +351,27 @@ actionMap[actionType.LOAD_TRACKING] =
     ...state,
     tracking: {
       closings: action.payload.closings,
+    },
+  });
+
+actionMap[actionType.EDIT_SEVERITY] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    severity: {
+      ...state.severity,
+      isEditing: !state.severity.isEditing,
+    },
+  });
+
+actionMap[actionType.CALC_CVSSV2] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    severity: {
+      ...state.severity,
+      criticity: action.payload.temporal,
+      cssv2base: action.payload.baseScore,
     },
   });
 

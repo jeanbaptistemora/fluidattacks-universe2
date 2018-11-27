@@ -15,6 +15,7 @@ import * as actionType from "./actionTypes";
 import { IProjectUsersViewProps, IUserData } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView";
 import { IResourcesViewProps } from "./components/ResourcesView";
+import { ISeverityViewProps } from "./components/SeverityView";
 
 export interface IActionStructure {
   payload: any;
@@ -689,6 +690,7 @@ export const updateRecords: ThunkActionStructure =
     }
   });
 };
+
 export const loadTracking: ThunkActionStructure =
   (findingId: string): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
@@ -723,3 +725,48 @@ export const loadTracking: ThunkActionStructure =
       }
     });
 };
+
+export const editSeverity: DashboardAction =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionType.EDIT_SEVERITY,
+  });
+
+export const calcCVSSv2: DashboardAction =
+  (data: ISeverityViewProps["dataset"]): IActionStructure => {
+    let BASESCORE_FACTOR_1: number; BASESCORE_FACTOR_1 = 0.6;
+    let BASESCORE_FACTOR_2: number; BASESCORE_FACTOR_2 = 0.4;
+    let BASESCORE_FACTOR_3: number; BASESCORE_FACTOR_3 = 1.5;
+    let IMPACT_FACTOR: number; IMPACT_FACTOR = 10.41;
+    let EXPLOITABILITY_FACTOR: number; EXPLOITABILITY_FACTOR = 20;
+    let F_IMPACT_FACTOR: number; F_IMPACT_FACTOR = 1.176;
+
+    const impCon: number = parseFloat(data.confidentialityImpact.split(" | ")[0]);
+    const impInt: number = parseFloat(data.integrityImpact.split(" | ")[0]);
+    const impDis: number = parseFloat(data.availabilityImpact.split(" | ")[0]);
+    const accCom: number = parseFloat(data.accessComplexity.split(" | ")[0]);
+    const accVec: number = parseFloat(data.accessVector.split(" | ")[0]);
+    const auth: number = parseFloat(data.authentication.split(" | ")[0]);
+    const explo: number = parseFloat(data.exploitability.split(" | ")[0]);
+    const resol: number = parseFloat(data.resolutionLevel.split(" | ")[0]);
+    const confi: number = parseFloat(data.confidenceLevel.split(" | ")[0]);
+
+    /*
+     * The constants above are part of the BaseScore, Impact and
+     * Exploibility equations
+     * More information in https://www.first.org/cvss/v2/guide
+     */
+    const impact: number = IMPACT_FACTOR * (1 - ((1 - impCon) * (1 - impInt) * (1 - impDis)));
+    const exploitabilty: number = EXPLOITABILITY_FACTOR * accCom * auth * accVec;
+    const baseScore: number = ((BASESCORE_FACTOR_1 * impact) + (BASESCORE_FACTOR_2 * exploitabilty)
+                              - BASESCORE_FACTOR_3) * F_IMPACT_FACTOR;
+    const temporal: number = baseScore * explo * resol * confi;
+
+    return ({
+      payload: {
+        baseScore: baseScore.toFixed(1),
+        temporal: temporal.toFixed(1),
+      },
+      type: actionType.CALC_CVSSV2,
+    });
+  };

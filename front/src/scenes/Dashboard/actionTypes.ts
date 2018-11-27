@@ -64,6 +64,12 @@ EDIT_RECORDS = "dashboard/finding/records/edit";
 let LOAD_TRACKING: string;
 LOAD_TRACKING = "dashboard/finding/tracking/load";
 
+export let EDIT_SEVERITY: string;
+EDIT_SEVERITY = "dashboard/finding/severity/edit";
+
+export let CALC_CVSSV2: string;
+CALC_CVSSV2 = "dashboard/finding/severity/calc";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,
