@@ -315,19 +315,6 @@ findingContentCtrl (
     functionsFtry1.updateTreatment($scope);
   };
 
-  $scope.initializeTracking = function initializeTracking () {
-    $scope.translations = {
-      "closed": $translate.instant("search_findings.tab_tracking.close"),
-      "open": $translate.instant("search_findings.tab_tracking.open"),
-      "timeline": {
-        "cycle": $translate.instant("search_findings.tab_tracking.cicle"),
-        "discovery": $translate.instant("search_findings.tab_tracking.finding"),
-        "efectiveness":
-        $translate.instant("search_findings.tab_tracking.closingEffectiveness")
-      }
-    };
-  };
-
   $scope.uploadVulnerabilites = function uploadVulnerabilites () {
     functionsFtry4.uploadVulnerabilites($scope);
   };
@@ -389,7 +376,6 @@ findingContentCtrl (
     }
     if ($window.location.hash.indexOf("tracking") !== -1) {
       functionsFtry2.activeTab("#tracking", "FindingTracking", org, projt, idF);
-      $scope.initializeTracking();
     }
     if ($window.location.hash.indexOf("evidence") !== -1) {
       functionsFtry2.activeTab("#evidence", "FindingEvidence", org, projt, idF);
