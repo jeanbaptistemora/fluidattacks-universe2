@@ -1,0 +1,146 @@
+:slug: defends/java/controlar-tiempo/
+:category: java
+:description: Nuestros ethical hackers explican en que consiste el tiempo de ejecución de una aplicación y por qué es necesario tenerlo presente a la hora de desarrollar software. Además, enseñan dos formas de controlar la duración de ejecución de un ciclo for.
+:keywords: Java, Seguridad, Tiempo, Ejecución, Ciclos, DoS.
+:defends: yes
+
+= Controlar Tiempo de Ejecución de un Ciclo
+
+== Necesidad
+
+Controlar el tiempo de ejecución de un ciclo
+en un programa desarrollado en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java+
+
+. La aplicación hace uso de ciclos para el procesamiento de datos.
+
+. Debe validarse la entrada de información antes de ser usada.
+
+== Solución
+
+Para nadie es un secreto que,
+desde hace muchos años,
+la humanidad ha venido dando pasos agigantados
+en cuanto a la creación,
+desarrollo y evolución de la tecnología.
+Y no es para menos,
+hoy en día la tecnología
+hace parte de la vida cotidiana de las personas,
+desde entornos laborales, sociales
+e incluso íntimos y personales.
+Los computadores, los smartphones,
+los televisores, los vehículos,
+entre otros elementos tecnológicos
+funcionan mediante la intervención
+de uno o varios programas (software) y,
+ya que se tiene tan alta demanda,
+es obligatorio que dichos programas
+funcionen a la perfección.
+
+En ese orden de ideas,
+una de las principales variables
+que se deben tener en cuenta
+a la hora de realizar un programa
+es el tiempo de ejecución de dicho programa.
+Se conoce por tiempo de ejecución
+al intervalo de tiempo en el que un programa se ejecuta.
+Este tiempo inicia con la puesta del programa
+en la memoria del +host+ que lo procesa,
+y finaliza cuando el programa
+concluye sus instrucciones satisfactoriamente,
+o porque el programa produce algún error
+y el sistema debe forzar su finalización.
+
+Entonces, como el programa
+está consumiendo recursos del sistema,
+en caso de que este tarde demasiado
+en terminar su ejecución, o peor aun,
+que nunca termine de ejecutarse,
+puede ocasionar que otros programas,
+que también usan el sistema,
+no se ejecuten adecuadamente,
+o que el sistema en si mismo
+colapse ocasionando una denegación total del servicio.
+
+Con el fin de prevenir dicho problema
+se recomienda controlar el tiempo de ejecución del programa.
+En esta solución se verá la manera de como hacerlo
+específicamente en los ciclos o +loops+
+de una aplicación hecha en +Java+.
+
+. Existen  dos formas de controlar
+el tiempo de ejecución de un ciclo.
+En la primera, se establece un máximo de iteraciones.
+
+. Para hacerlo, se crea la constante MAX_INPUT.
+Esa constante establece el número máximo
+de iteraciones para los ciclos.
++
+.example.java
+[source, java, linenums]
+----
+public class While {
+  private static final int MAX_INPUT = 100;
+----
+
+. Como segundo paso, se define
+el punto de entrada para la aplicación.
++
+[source, java, linenums]
+----
+public static void main(String[] args) throws Exception {
+----
+
+. Se define una variable +number+,
+la cual recibirá la entrada del usuario.
+Esta variable será usada como parámetro del ciclo +for+.
++
+[source, java, linenums]
+----
+   long number = Integer.parseInt(args[0]);
+   int i;
+   for (i = 0; i < number && i < MAX_INPUT; i++) {
+     //Code for the application
+   }
+   System.out.println("Final i: " + i);
+  }
+}
+----
+
+. La segunda forma es establecer
+el tiempo máximo de ejecución.
+Para ello se establece
+el número máximo de milisegundos
+durante el cual el ciclo tendrá vida.
+Por lo que es necesario
+obtener el tiempo actual en milisegundos
+con el fin de hacer el cálculo respectivo.
++
+.example2.java
+[source, java, linenums]
+----
+int MAX_MILLISECONDS = 500;
+long starttime = System.currentTimeMillis();
+long currtime;
+----
+
+. Por lo tanto, el ciclo +for+ respectivo quedaría así.
++
+[source, java, linenums]
+----
+for (i=0; i < number &&
+  (System.currentTimeMillis() - starttime) < MAX_MILLISECONDS; i++) {
+    //Code for the application
+}
+----
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Tiempo_de_ejecuci%C3%B3n[Tiempo de ejecución]
+. [[r2]] link:https://medium.com/@abdurrafeymasood/understanding-time-complexity-and-its-importance-in-technology-8279f72d1c6a[Understanding Time Complexity]
