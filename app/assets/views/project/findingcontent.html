@@ -383,173 +383,23 @@
                   <!-- End Tab Info -->
                   <!-- Start Tab Cssv2 -->
                   <div id="cssv2" class="tab-pane cont">
-                      <div class="row">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
-                              <div class="row table-row" ng-show="isManager">
-                                  <div class="row">
-                                      <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
-                                          <button class="btn btn-primary btn-block"
-                                              ng-click="cssv2Editable();">
-                                              <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_cssv2.editable' | translate}}
-                                          </button>
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
-                                          <button class="btn btn-success btn-block"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-click="updateCSSv2();">
-                                              <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_cssv2.update' | translate}}
-                                          </button>
-                                      </div>
-                                  </div>
-
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.vector' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.accessVector}}</p>
-                                      <select ng-model="severityInfo.accessVector"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.accessVector"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidenciality' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.confidentialityImpact}}</p>
-                                      <select ng-model="severityInfo.confidentialityImpact"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.confidenciality"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div><div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.integrity' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.integrityImpact}}</p>
-                                      <select ng-model="severityInfo.integrityImpact"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.integrity"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.availability' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.availabilityImpact}}</p>
-                                      <select ng-model="severityInfo.availabilityImpact"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.availability"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.authentication' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.authentication}}</p>
-                                      <select ng-model="severityInfo.authentication"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.authentication"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                                  {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.exploitability' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.exploitability}}</p>
-                                      <select ng-model="severityInfo.exploitability"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.explotability"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                                  {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidence' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.confidenceLevel}}</p>
-                                      <select ng-model="severityInfo.confidenceLevel"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.realiabilityLevel"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.resolution' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.resolutionLevel}}</p>
-                                      <select ng-model="severityInfo.resolutionLevel"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.resolutionLevel"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.complexity' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab2">{{finding.accessComplexity}}</p>
-                                      <select ng-model="severityInfo.accessComplexity"
-                                              ng-show="!onlyReadableTab2"
-                                              ng-change="findingCalculateCSSv2();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.accessComplexity"
-                                                  value="{{item.value + ' | ' + item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CVSS v2 Base</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.cssv2base}}</p></div>
-                              </div>
-                              <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CVSS v2 Temporal</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.criticity}}</p></div>
-                              </div>
-                          </div>
-                      </div>
+                    <severity-view
+                      criticity="finding.criticity"
+                      cssv2base="finding.cssv2base"
+                      dataset="{
+                        accessComplexity: finding.accessComplexity,
+                        accessVector: finding.accessVector,
+                        authentication: finding.authentication,
+                        availabilityImpact: finding.availabilityImpact,
+                        confidenceLevel: finding.confidenceLevel,
+                        confidentialityImpact: finding.confidentialityImpact,
+                        exploitability: finding.exploitability,
+                        integrityImpact: finding.integrityImpact,
+                        resolutionLevel: finding.resolutionLevel,
+                      }"
+                      finding-id="finding.id"
+                      on-update="updateCSSv2"
+                    />
                   </div>
                   <!-- End Tab CSSv2 -->
                   <!-- Start Tab Evidence -->

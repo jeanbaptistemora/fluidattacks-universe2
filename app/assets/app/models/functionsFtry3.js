@@ -238,32 +238,13 @@ angular.module("FluidIntegrates").factory(
         defineStates();
         $scope.aux.responsable = $scope.finding.treatmentManager;
         $scope.aux.bts = $scope.finding.btsExterno;
-        $scope.severityInfo = {
-          "accessComplexity": $scope.finding.accessComplexity,
-          "accessVector": $scope.finding.accessVector,
-          "authentication": $scope.finding.authentication,
-          "availabilityImpact": $scope.finding.availabilityImpact,
-          "confidenceLevel": $scope.finding.confidenceLevel,
-          "confidentialityImpact": $scope.finding.confidentialityImpact,
-          "exploitability": $scope.finding.exploitability,
-          "id": $scope.finding.id,
-          "integrityImpact": $scope.finding.integrityImpact,
-          "resolutionLevel": $scope.finding.resolutionLevel
-        };
         $scope.descripcionInfo = {
           "actor": $scope.finding.actor,
           "scenario": $scope.finding.scenario
         };
         $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);
         $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
-        for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
-          if ($scope.finding[fieldsToTranslate[inc]] in keysToTranslate) {
-            $scope.finding[fieldsToTranslate[inc]] =
-                $translate.instant(keysToTranslate[
-                  $scope.finding[fieldsToTranslate[inc]]
-                ]);
-          }
-        }
+
         const NEW_LIST_LIMIT = -3;
         const PERCENTAGE_FACTOR = 100;
         const MIN_DATA_LENGTH = 10;

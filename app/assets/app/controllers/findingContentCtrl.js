@@ -82,7 +82,8 @@ findingContentCtrl (
       }
     }, TIMEOUT);
   };
-  $scope.updateCSSv2 = function updateCSSv2 () {
+  $scope.updateCSSv2 = function updateCSSv2 (values) {
+    $scope.severityInfo = values;
     functionsFtry1.updateCSSv2($scope);
   };
   $scope.updateEvidencesFiles = function updateEvidencesFiles (element) {

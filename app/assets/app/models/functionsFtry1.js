@@ -264,14 +264,12 @@ angular.module("FluidIntegrates").factory(
           "confidenceLevel": $scope.severityInfo.confidenceLevel,
           "confidentialityImpact":
                                     $scope.severityInfo.confidentialityImpact,
+          "criticity": $scope.severityInfo.criticity,
           "exploitability": $scope.severityInfo.exploitability,
           "id": $scope.severityInfo.id,
           "integrityImpact": $scope.severityInfo.integrityImpact,
           "resolutionLevel": $scope.severityInfo.resolutionLevel
         };
-        // Recalculate CSSV2
-        functionsFtry2.findingCalculateCSSv2($scope);
-        cssv2Data.criticity = $scope.finding.criticity;
         // Create an instance of the confirmation modal
         $uibModal.open({
           "animation": true,
