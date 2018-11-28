@@ -514,8 +514,7 @@ def catch_finding(request, submission_id):
         else:
             finding = fin_dto.parse(
                 submission_id,
-                submissionData,
-                request
+                submissionData
             )
             closingData = api.get_closings_by_id(submission_id)
             if closingData is None or 'error' in closingData:
@@ -872,7 +871,7 @@ def migrate_all_files(parameters, file_url, request):
     try:
         api = FormstackAPI()
         frmreq = api.get_submission(parameters['findingid'])
-        finding = fin_dto.parse(parameters['findingid'], frmreq, request)
+        finding = fin_dto.parse(parameters['findingid'], frmreq)
         files = [{
             "id": "0",
             "name": "animation",
@@ -1144,7 +1143,7 @@ def delete_finding(request):
         context = fin_dto.create_delete(parameters, username, "", submission_id)
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
-        finding = fin_dto.parse(submission_id, frmreq, request)
+        finding = fin_dto.parse(submission_id, frmreq)
         context["project"] = finding["fluidProject"]
         context["name_finding"] = finding["finding"]
         result = api.delete_submission(submission_id)
@@ -1437,7 +1436,7 @@ def delete_draft(request):
         if "releaseDate" not in findingData:
             api = FormstackAPI()
             frmreq = api.get_submission(submission_id)
-            finding = fin_dto.parse(submission_id, frmreq, request)
+            finding = fin_dto.parse(submission_id, frmreq)
             context = {
                'project': finding['fluidProject'],
                'analyst_mail': finding['analyst'],

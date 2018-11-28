@@ -48,6 +48,7 @@ class Finding(ObjectType):
     release_date = String()
     records = JSONString()
     tracking = List(GenericScalar)
+    severity = GenericScalar()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -60,6 +61,7 @@ class Finding(ObjectType):
         self.project_name = ''
         self.release_date = ''
         self.records = {}
+        self.severity = {}
         self.tracking = []
 
         finding_id = str(identifier)
@@ -95,6 +97,19 @@ class Finding(ObjectType):
                 self.records = get_records_from_file(self, resp['fileRecords'])
             else:
                 self.records = {}
+
+            self.severity = {
+                'accessComplexity': resp.get('accessComplexity'),
+                'accessVector': resp.get('accessVector'),
+                'authentication': resp.get('authentication'),
+                'availabilityImpact': resp.get('availabilityImpact'),
+                'confidenceLevel': resp.get('confidenceLevel'),
+                'confidentialityImpact': resp.get('confidentialityImpact'),
+                'criticity': resp.get('criticity'),
+                'exploitability': resp.get('exploitability'),
+                'integrityImpact': resp.get('integrityImpact'),
+                'resolutionLevel': resp.get('resolutionLevel'),
+            }
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -181,6 +196,12 @@ class Finding(ObjectType):
             self.records = formstack_records
 
         return self.records
+
+    def resolve_severity(self, info):
+        """ Resolve severity values from Formstack """
+        del info
+
+        return self.severity
 
 def get_records_from_file(self, file_name):
     file_id = '/'.join([self.project_name.lower(), self.id, file_name])

@@ -100,7 +100,7 @@ def migrate_all_files(parameters, file_url, request):
     try:
         api = FormstackAPI()
         frmreq = api.get_submission(parameters['finding_id'])
-        finding = fin_dto.parse(parameters['finding_id'], frmreq, request)
+        finding = fin_dto.parse(parameters['finding_id'], frmreq)
         files = [
             {'id': '0', 'name': 'animation', 'field': fin_dto.ANIMATION, 'ext': '.gif'},
             {'id': '1', 'name': 'exploitation', 'field': fin_dto.EXPLOTATION, 'ext': '.png'},

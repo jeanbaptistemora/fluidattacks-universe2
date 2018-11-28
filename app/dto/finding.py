@@ -233,23 +233,12 @@ class FindingDTO(object):
             'project': project,
         }
 
-    def parse(self, submission_id, request_arr, sess_obj):
+    def parse(self, submission_id, request_arr):
         self.data = dict()
         self.data["id"] = submission_id
         self.data["timestamp"] = request_arr["timestamp"]
-        if sess_obj is not None:
-            sess_obj.session["drive_urls"] = []
         self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_cssv2(request_arr))
-        self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr))
-        self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
-        return self.data
-
-    def parse_vulns_by_id(self, submission_id, request_arr):
-        self.data = dict()
-        self.data["id"] = submission_id
-        self.data["timestamp"] = request_arr["timestamp"]
-        self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
         return self.data
@@ -443,7 +432,7 @@ def finding_vulnerabilities(submission_id):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
-        finding = fin_dto.parse_vulns_by_id(
+        finding = fin_dto.parse(
             submission_id,
             api.get_submission(submission_id)
         )
