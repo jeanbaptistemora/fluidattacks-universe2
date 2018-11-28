@@ -9,34 +9,21 @@
 
    - name: Instalar paquetes necesarios
      apt:
-      pkg: "{{ item }}"
-      state: installed
+      name: "{{ packages }}"
+      state: latest
+     vars:
+      packages:
+       - cron
+       - git
+       - php5
+       - php5-curl
+       - php5-gd
+       - php5-intl
+       - php5-mysql
+       - php5-xmlrpc
+       - python-mysqldb
+       - unzip
      register: dependencias
-     with_items:
-      - apache2
-      - php5
-      - php5-gd
-      - php5-xmlrpc
-      - php5-intl
-      - php5-mysql
-      - php5-curl
-      - curl
-      - git
-      - python-mysqldb
-      - unzip
-      - cron
-      - python-pip
-      - python-dev
-
-   - name: Upgrade setuptools
-     pip:
-      name: "{{ item }}"
-      extra_args: -U --force
-     with_items:
-      - pip
-      - setuptools
-      - boto3
-      - botocore
 
    - name: Retirar index
      file:

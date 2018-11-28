@@ -13,9 +13,11 @@ RUN apt-get update \
         gcc \
         libffi-dev \
         libssl-dev \
+        make \
         python \
         python-dev \
         software-properties-common \
+        sudo \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
         && python get-pip.py \
         && rm get-pip.py \

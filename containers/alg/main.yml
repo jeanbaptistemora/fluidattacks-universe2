@@ -10,31 +10,6 @@
    - name: Incluir variables de configuracion
      include_vars: vars/vars.yml
 
-   - name: Instalar Dependencias
-     apt:
-      pkg: "{{ item }}"
-      state: installed
-     register: apacheinstalled
-     notify:
-      - iniciar apache2
-     with_items:
-      - apache2
-      - curl
-      - python-pip
-      - python-dev
-      - libffi-dev
-      - libssl-dev
-      - g++
-      - gcc
-
-   - name: Upgrade setuptools
-     pip:
-      name: "{{ item }}"
-      extra_args: -U --force
-     with_items:
-      - pip
-      - setuptools
-
    - name: Habilitar modulos necesarios de Apache
      command: a2enmod {{ item }}
      with_items:
@@ -45,7 +20,6 @@
       - headers
      notify:
       - reiniciar apache2
-     when: apacheinstalled
 
    - name: Deshabilitar modulo de compresión por BREACH
      command: a2dismod -f {{ item }}
@@ -53,7 +27,6 @@
       - deflate
      notify:
       - reiniciar apache2
-     when: apacheinstalled
 
    - name: Creando configuración Apache
      template:

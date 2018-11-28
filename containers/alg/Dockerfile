@@ -1,43 +1,24 @@
-# Imagen base del ultimo linux estable de Debian (jessie)
 FROM registry.gitlab.com/fluidsignal/serves:base
-
-# Dudas sobre la imagen en cuestion
-MAINTAINER FLUID Engineering Team <engineering@fluid.la>
-
-ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 
 ARG vault_pass
 
-# Instalar software-properties y sudo
-RUN apt-get update && apt-get upgrade -y --force-yes && apt-get install -y --force-yes software-properties-common sudo
+ADD . /root/
 
-# Agrega el playbook
-ADD main.yml /root/
-
-# Agrega las variables
-ADD vars* /root/vars
-
-# Cambia al directorio root
-WORKDIR /root/
-
-# Ejecuta el ansible
 RUN echo "$vault_pass" > .vault.txt \
     && ansible-playbook main.yml --vault-password-file .vault.txt \
     && curl -L https://toolbelt.treasuredata.com/sh/install-debian-jessie-td-agent2.sh | sh \
-    && rm /etc/td-agent/td-agent.conf \
-    && mv vars/fluent.conf /etc/td-agent/td-agent.conf \
-    && rm /etc/init.d/td-agent \
-    && mv vars/td-agent /etc/init.d/td-agent && chmod 0755 /etc/init.d/td-agent  \
-    && mv vars/out_rollbar.rb /etc/td-agent/plugin/ \
+        && rm /etc/td-agent/td-agent.conf \
+        && mv vars/fluent.conf /etc/td-agent/td-agent.conf \
+        && rm /etc/init.d/td-agent \
+        && mv vars/td-agent /etc/init.d/td-agent && chmod 0755 /etc/init.d/td-agent  \
+        && mv vars/out_rollbar.rb /etc/td-agent/plugin/ \
     && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
-    && rm -rf .vault.txt \
-        main.yml \
-        vars
+    && rm -rf \
+        /root/* \
+        /var/lib/apt/lists/*
 
-# Make port 80 and 443 available to the world outside this container
 EXPOSE 80
 EXPOSE 443
 
-# Primer comando
 CMD /etc/init.d/td-agent restart \
-&& /usr/sbin/apache2ctl -D FOREGROUND
+    && /usr/sbin/apache2ctl -D FOREGROUND

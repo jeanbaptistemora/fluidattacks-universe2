@@ -9,12 +9,13 @@
 
    - name: Instalar Dependencias
      apt:
-      pkg: "{{ item }}"
-      state: installed
+      name: "{{ packages }}"
+      state: latest
+     vars:
+      packages:
+       - iptables
+       - openvpn
      register: openvpninstalled
-     with_items:
-      - openvpn
-      - iptables
 
    - name: Crear directorio de certificados
      file:
