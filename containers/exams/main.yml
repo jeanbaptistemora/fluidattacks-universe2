@@ -4,122 +4,122 @@
   become: "yes"
 
   tasks:
-   - name: Inlcuir variables (Vault)
-     include_vars: vars/vars.yml
+    - name: Inlcuir variables (Vault)
+      include_vars: vars/vars.yml
 
-   - name: Instalar paquetes necesarios
-     apt:
-      name: "{{ packages }}"
-      state: latest
-     vars:
-      packages:
-       - cron
-       - git
-       - php5
-       - php5-curl
-       - php5-gd
-       - php5-intl
-       - php5-mysql
-       - php5-xmlrpc
-       - python-mysqldb
-       - unzip
-     register: dependencias
+    - name: Instalar paquetes necesarios
+      apt:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+          - cron
+          - git
+          - php5
+          - php5-curl
+          - php5-gd
+          - php5-intl
+          - php5-mysql
+          - php5-xmlrpc
+          - python-mysqldb
+          - unzip
+      register: dependencias
 
-   - name: Retirar index
-     file:
-      path: "/var/www/html/index.html"
-      state: absent
+    - name: Retirar index
+      file:
+        path: "/var/www/html/index.html"
+        state: absent
 
-   - name: Habilitar servicios
-     service:
-      name: "{{ item }}"
-      state: started
-      enabled: "yes"
-     with_items:
-      - apache2
-      - cron
+    - name: Habilitar servicios
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: "yes"
+      with_items:
+        - apache2
+        - cron
 
-   - name: Establecer permisos
-     file:
-      path: "/var/www/html"
-      state: directory
-      owner: "www-data"
-      group: "www-data"
-      mode: "0755"
-      recurse: "yes"
+    - name: Establecer permisos
+      file:
+        path: "/var/www/html"
+        state: directory
+        owner: "www-data"
+        group: "www-data"
+        mode: "0755"
+        recurse: "yes"
 
-   - name: Descargando Moodle
-     git:
-      repo: "git://git.moodle.org/moodle.git"
-      depth: 1
-      dest: "/var/www/html"
-      version: "MOODLE_31_STABLE"
+    - name: Descargando Moodle
+      git:
+        repo: "git://git.moodle.org/moodle.git"
+        depth: 1
+        dest: "/var/www/html"
+        version: "MOODLE_31_STABLE"
 
-   - name: Crear directorio para los datos de Moodle
-     file:
-      path: "/var/www/moodledata"
-      state: directory
-      owner: "www-data"
-      group: "www-data"
-      mode: "0777"
-      recurse: "yes"
+    - name: Crear directorio para los datos de Moodle
+      file:
+        path: "/var/www/moodledata"
+        state: directory
+        owner: "www-data"
+        group: "www-data"
+        mode: "0777"
+        recurse: "yes"
 
-   - name: Copiar moodledata al directorio
-     unarchive:
-      src: "vars/moodledata.tar.xz"
-      dest: "/"
-     register: moodledata
+    - name: Copiar moodledata al directorio
+      unarchive:
+        src: "vars/moodledata.tar.xz"
+        dest: "/"
+      register: moodledata
 
-   - name: Instalar Moodle
-     command: >
-      /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }}
-      --dataroot=/var/www/moodledata --dbhost={{ db_host }}
-      --dbuser={{ db_username }} --dbpass={{ db_password }}
-      --fullname="FLUID Courses" --shortname="Moodle"
-      --adminpass={{ admin_password }} --skip-database --agree-license
-      chdir=/var/www/html/admin/cli
-     when: dependencias
+    - name: Instalar Moodle
+      command: >
+        /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }}
+        --dataroot=/var/www/moodledata --dbhost={{ db_host }}
+        --dbuser={{ db_username }} --dbpass={{ db_password }}
+        --fullname="FLUID Courses" --shortname="Moodle"
+        --adminpass={{ admin_password }} --skip-database --agree-license
+        chdir=/var/www/html/admin/cli
+      when: dependencias
 
-   - name: Agregar config.php
-     template:
-      src: "vars/config.j2"
-      dest: "/var/www/html/config.php"
-      mode: "0644"
+    - name: Agregar config.php
+      template:
+        src: "vars/config.j2"
+        dest: "/var/www/html/config.php"
+        mode: "0644"
 
-   - name: Actualizar permisos
-     file:
-      path: "/var/www/html"
-      state: directory
-      owner: "www-data"
-      group: "www-data"
-      mode: "0755"
-      recurse: "yes"
+    - name: Actualizar permisos
+      file:
+        path: "/var/www/html"
+        state: directory
+        owner: "www-data"
+        group: "www-data"
+        mode: "0755"
+        recurse: "yes"
 
-   - name: Descargar tema para Moodle
-     get_url:
-      url: "https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31_2016090100.zip"
-      dest: "/tmp"
+    - name: Descargar tema para Moodle
+      get_url:
+        url: "https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31_2016090100.zip"
+        dest: "/tmp"
 
-   - name: Copiar tema en la ruta indicada
-     unarchive:
-      src: "/tmp/theme_eduhub_moodle31_2016090100.zip"
-      dest: "/var/www/html/theme"
-      copy: "no"
+    - name: Copiar tema en la ruta indicada
+      unarchive:
+        src: "/tmp/theme_eduhub_moodle31_2016090100.zip"
+        dest: "/var/www/html/theme"
+        copy: "no"
 
-   - name: Descargando secureexambrowser
-     git:
-      repo: "git://github.com/moodleou/moodle-quizaccess_safeexambrowser.git"
-      dest: "/var/www/html/mod/quiz/accessrule/safeexambrowser"
-      version: "v1.1"
+    - name: Descargando secureexambrowser
+      git:
+        repo: "git://github.com/moodleou/moodle-quizaccess_safeexambrowser.git"
+        dest: "/var/www/html/mod/quiz/accessrule/safeexambrowser"
+        version: "v1.1"
 
-   - name: Configurar cron
-     cron:
-      name: "Moodle"
-      job: "/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null"
+    - name: Configurar cron
+      cron:
+        name: "Moodle"
+        job: "/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null"
 
-   - name: Change Memory Limit
-     ini_file:
-      dest: /etc/php5/apache2/php.ini
-      section: PHP
-      option: memory_limit
-      value: 2048M
+    - name: Change Memory Limit
+      ini_file:
+        dest: /etc/php5/apache2/php.ini
+        section: PHP
+        option: memory_limit
+        value: 2048M
