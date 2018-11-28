@@ -19,6 +19,7 @@ import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import { projectUsersView } from "./scenes/Dashboard/components/ProjectUsersView/index";
 import { recordsView } from "./scenes/Dashboard/components/RecordsView/index";
 import { resourcesView } from "./scenes/Dashboard/components/ResourcesView/index";
+import { severityView } from "./scenes/Dashboard/components/SeverityView/index";
 import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
 import { vulnsView } from "./scenes/Dashboard/components/Vulnerabilities/index";
@@ -389,6 +390,27 @@ angular
         "findingId",
         "onUploadFile",
         "projectName",
+     ],
+   ),
+  );
+
+/**
+ * @url: /project/:project/:id/severity
+ * @page: findingcontent.html
+ * @controllers: findingContentCtrl
+ * @tag: <severity-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "severityView",
+   react2angular(
+     severityView, [
+       "criticity",
+       "cssv2base",
+       "dataset",
+       "findingId",
+       "onUpdate",
      ],
    ),
   );

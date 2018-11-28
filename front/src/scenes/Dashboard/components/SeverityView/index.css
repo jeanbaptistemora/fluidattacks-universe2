@@ -1,0 +1,12 @@
+:local .row {
+  margin-top: 15px;
+}
+
+:local .title {
+  text-align: right;
+}
+
+:local .desc {
+  color: #888;
+  text-align: justify;
+}

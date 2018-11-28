@@ -63,6 +63,7 @@ export const dropdownField: ((arg1: CustomFieldProps) => JSX.Element) =
       <FormControl
         componentClass="select"
         children={fieldProps.children}
+        defaultValue={fieldProps.meta.initial}
         onChange={(event: React.FormEvent<FormGroup>): void => { handleDropdownChange(event, fieldProps); }}
       />
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
