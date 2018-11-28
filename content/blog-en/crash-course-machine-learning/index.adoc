@@ -54,7 +54,7 @@ given a new picture, to what category does it belong?
 A related but different problem is that of *clustering*,
 which tries to divide the inputs into groups according to
 the features identified in them.
-The difference is that the groups are not known beforehad,
+The difference is that the groups are not known beforehand,
 so this is an unsupervised problem.
 
 .Classification.
@@ -85,11 +85,9 @@ image::http://www.turingfinance.com/wp-content/uploads/2014/10/Dimensionality.pn
 
 With these _classifications_ out of the way,
 let's go deeper into each particular technique
-that is interesting for our purposes:
+that is interesting for our purposes.
 
-== Algorithms
-
-=== Support vector machines
+== Support vector machines
 
 Much like linear regression tries to draw a line that
 best _joins_ a set of closely correlated points,
@@ -113,7 +111,7 @@ In both cases, the translation of image to vector is
 relatively easy since computer representations of images are
 merely matrices of three-number vectors (_pixels_).
 
-=== _K_-means clustering
+== _K_-means clustering
 
 We need to group unlabeled data in a meaningful way.
 Of course, the number of possible clusterings is very large.
@@ -130,7 +128,7 @@ image::distort.png[Distortion]
 
 With that defined, we can state the problem clearly
 as an optimization problem: minimize the sum of all distortions.
-However, this problem is `NP`-complete (computationally very difficult),
+However, this problem is `NP`-complete (computationally very difficult)
 but good estimations can be achieved via _k_-means.
 It can be shown and, more importantly, makes intuitive sense, that:
 
@@ -144,7 +142,9 @@ Where do we begin?
 The initial clustering choice could be random,
 we could space centroids evenly,
 or a perhaps an ad hoc strategy.
-In fact, since this is a hill-climbing algorithm, i.e. one that makes
+In fact, since this is a
+link:https://en.wikipedia.org/wiki/Hill_climbing[hill-climbing]
+algorithm, i.e. one that makes
 small improvements in each iteration thus ensuring finding a local maximum
 but perhaps not the global one,
 different starting points might lead to different optima.
@@ -156,14 +156,14 @@ link:https://scholarworks.sjsu.edu/etd_projects/404/[Pai (2015)] and
 link:https://link.springer.com/article/10.1007%2Fs11416-016-0265-3[Pai et al. (2017)].
 
 
-=== Artificial neural networks and deep learning
+== Artificial neural networks and deep learning
 
 Loosely inspired by the massive parallelism animal brains are capable of,
 these models  are highly interconnected graphs
 in which the nodes are (mathematical) functions and
 the edges have weights which are to be adjusted by the training.
 A set of weights is scored by the accuracy of labeled output,
-and optimized in the next step of _epoch_ of training
+and optimized in the next step or _epoch_ of training
 in a process called _back-propagation_ (of error).
 The weights are adjusted in such a way that
 the measured error decreases.
@@ -185,7 +185,7 @@ _recurrent neural networks_.
 _Convolutional_ networks use the mathematical process
 link:https://en.wikipedia.org/wiki/Cross-correlation[cross-correlation]
 which is similar to a
-link:https://en.wikipedia.org/wiki/Convolution[convolution],
+link:https://en.wikipedia.org/wiki/Convolution[convolution]
 instead of regular smooth step functions.
 _Deep_ neural networks owe their name to
 the great number of layers they use and
@@ -210,7 +210,7 @@ trying to build an airplane that flaps its wings.
 ____
 
 
-=== Decision trees and forests
+== Decision trees and forests
 
 In stark contrast to the unintelligible models extracted from neural networks,
 decision trees are simple enough to understand at a glance:
@@ -234,7 +234,7 @@ This solves overfitting, but
 the intution obtained from simple trees is lost.
 
 
-=== Anomaly detection via k-nearest neighbors
+== Anomaly detection via k-nearest neighbors
 
 Detecting anomalies is naturally an unsupervised problem
 and really makes up a whole class of algorithms and techniques,
@@ -262,14 +262,13 @@ Variations on the same theme are:
 The `kNN` algorithm can also be adapted to be used
 in the context of regression, classification and anomaly detection;
 in particular by scoring elements in terms of the distance
-its closest neighbor (`1NN`).
+to its closest neighbor (`1NN`).
 
 Notice that in `kNN` there is no training phase:
 the labeled input is the training data and the model in itself.
 The most natural application for anomaly detection
 in computer security is in
-link:https://en.wikipedia.org/wiki/Intrusion_detection_system[intrusion detection systems],
-see
+link:https://en.wikipedia.org/wiki/Intrusion_detection_system[intrusion detection systems].
 
 ''''
 
@@ -289,6 +288,5 @@ general ideas on machine learning:
 == References
 
 . [[r1]] Mark Stamp (2018). link:https://bit.ly/2Q9JSOG[
-hookid: trailing-whitespace
  _Introduction to Machine Learning with Applications in Information Security_].
   CRC Press.
