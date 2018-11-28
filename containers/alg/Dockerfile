@@ -1,21 +1,26 @@
 FROM registry.gitlab.com/fluidsignal/serves:base
 
-ARG vault_pass
+ARG VAULT_HOST
+ARG VAULT_PORT
+ARG VAULT_API_URL
+ARG ROLE_ID
+ARG SECRET_ID
 
 ADD . /root/
 
-RUN echo "$vault_pass" > .vault.txt \
-    && ansible-playbook main.yml --vault-password-file .vault.txt \
-    && curl -L https://toolbelt.treasuredata.com/sh/install-debian-jessie-td-agent2.sh | sh \
-        && rm /etc/td-agent/td-agent.conf \
-        && mv vars/fluent.conf /etc/td-agent/td-agent.conf \
-        && rm /etc/init.d/td-agent \
-        && mv vars/td-agent /etc/init.d/td-agent && chmod 0755 /etc/init.d/td-agent  \
-        && mv vars/out_rollbar.rb /etc/td-agent/plugin/ \
-    && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
-    && rm -rf \
-        /root/* \
-        /var/lib/apt/lists/*
+RUN export VAULT_TOKEN=$(curl \
+        --request POST \
+        --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
+        "${VAULT_API_URL}" | jq -r '.auth.client_token') \
+    && vaultenv \
+        --host "${VAULT_HOST}" \
+        --port "${VAULT_PORT}" \
+        --secrets-file ./env.vars \
+        ./build.sh \
+    && curl \
+        --request POST \
+        --header "X-Vault-Token: ${VAULT_TOKEN}" \
+        "https://${VAULT_HOST}/v1/auth/token/revoke-self"
 
 EXPOSE 80
 EXPOSE 443

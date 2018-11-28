@@ -4,9 +4,6 @@
   become: "yes"
 
   tasks:
-    - name: Incluir llaves de cifrado
-      include_vars: vars/key.yml
-
     - name: Incluir variables de configuracion
       include_vars: vars/vars.yml
 
@@ -125,7 +122,7 @@
 
     - name: Instalando certificado digital
       copy:
-        content: '{{ ssl_cert }}'
+        src: vars/fluidla.crt
         dest: /etc/ssl/certs/fluidla.crt
         owner: root
         group: root
@@ -133,7 +130,7 @@
 
     - name: Instalando nuevo certificado digital
       copy:
-        content: '{{ new_ssl_cert }}'
+        src: vars/fluidattacks.crt
         dest: /etc/ssl/certs/fluidattackscom.crt
         owner: root
         group: root
@@ -141,7 +138,7 @@
 
     - name: Instalando llave privada ssl
       copy:
-        content: '{{ ssl_key }}'
+        src: vars/fluid.key
         dest: /etc/ssl/private/fluidla.key
         owner: root
         group: root

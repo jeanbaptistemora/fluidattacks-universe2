@@ -37,9 +37,20 @@ stages:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   before_script:
-    - export IMAGE_NAME="${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
     - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
         > /kaniko/.docker/config.json
+
+.vault_vars: &vault_vars
+  variables:
+    VAULT_HOST: "${VAULT_S3_BUCKET}.com"
+    VAULT_PORT: 443
+    VAULT_API_URL: "https://${VAULT_S3_BUCKET}.com/v1/auth/approle/login"
+    ROLE_ID: "${SERVES_ROLE_ID}"
+    SECRET_ID: "${SERVES_SECRET_ID}"
+
+.kaniko_vault_config: &kaniko_vault_config
+  <<: *vault_vars
+  <<: *kaniko_config
 
 .dind_config: &dind_config
   variables:
@@ -55,7 +66,7 @@ build_base:
     - /kaniko/executor
         --context "${CI_PROJECT_DIR}/containers/base/"
         --dockerfile "${CI_PROJECT_DIR}/containers/base/Dockerfile"
-        --destination "${IMAGE_NAME}:base"
+        --destination "${CI_REGISTRY_IMAGE}:base"
   only:
     - schedules
 
@@ -66,7 +77,7 @@ build_builder:
     - /kaniko/executor
         --context "${CI_PROJECT_DIR}/containers/builder/"
         --dockerfile "${CI_PROJECT_DIR}/containers/builder/Dockerfile"
-        --destination "${IMAGE_NAME}:builder"
+        --destination "${CI_REGISTRY_IMAGE}:builder"
   except:
     - master
 
@@ -95,11 +106,18 @@ test_terraform:
 
 build_alg:
   stage: build
-  <<: *dind_config
-  <<: *vault_login
+  <<: *kaniko_vault_config
   script:
-    - vaultenv containers/alg/build.sh
-    - docker push "$DOCKER_BASENAME/alg/dev:$CI_COMMIT_SHA"
+    - cp env.vars containers/alg/
+    - /kaniko/executor
+        --build-arg VAULT_HOST="${VAULT_HOST}"
+        --build-arg VAULT_PORT="${VAULT_PORT}"
+        --build-arg VAULT_API_URL="${VAULT_API_URL}"
+        --build-arg ROLE_ID="${ROLE_ID}"
+        --build-arg SECRET_ID="${SECRET_ID}"
+        --context "${CI_PROJECT_DIR}/containers/alg/"
+        --dockerfile "${CI_PROJECT_DIR}/containers/alg/Dockerfile"
+        --destination "${CI_REGISTRY_IMAGE}/alg/dev:${CI_COMMIT_SHA}"
   except:
     - master
 
