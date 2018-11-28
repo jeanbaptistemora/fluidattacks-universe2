@@ -57,108 +57,58 @@ angular.module("FluidIntegrates").factory(
         let metricTool = [];
         let metricIcon = [];
         let metricValue = [];
-        const showIndicator = ldclient.variation("short-integrates-ind", false);
-        if (showIndicator) {
-          let compromisedRecords = 0;
-          angular.forEach(data.data, (cont) => {
-            compromisedRecords += parseInt(cont.recordsNumber, 10);
-            openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
-            cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
-            if (maximumSeverity < parseFloat(cont.criticity)) {
-              maximumSeverity = parseFloat(cont.criticity);
-            }
-            if (oldestFinding < parseInt(cont.edad, 10)) {
-              oldestFinding = parseInt(cont.edad, 10);
-            }
-          });
-          metricColor = [
-            "#2197d6;",
-            "#aa2d30;",
-            "#ff9930;",
-            "#2e4050;",
-            "#9f5ab1;",
-            "#0a40ae;"
-          ];
-          metricDes = [
-            "findings",
-            "cardinalities",
-            "vulnerabilities",
-            "maximumSeverity",
-            "oldestFinding",
-            "compromisedRecords"
-          ];
-          metricTool = [
-            "findingsTooltip",
-            "cardinalitiesTooltip",
-            "vulnerabilitiesTooltip",
-            "maximumSeverityTooltip",
-            "oldestFindingTooltip",
-            "compromisedRecordsTooltip"
-          ];
-          metricIcon = [
-            "s7-id",
-            "s7-attention",
-            "s7-info",
-            "s7-gleam",
-            "s7-date",
-            "s7-notebook"
-          ];
-          metricValue = [
-            data.data.length,
-            openVulnerabilities,
-            cardinalidadTotal,
-            maximumSeverity,
-            oldestFinding,
-            compromisedRecords
-          ];
-        }
-        else {
-          angular.forEach(data.data, (cont) => {
-            openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
-            cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
-            if (maximumSeverity < parseFloat(cont.criticity)) {
-              maximumSeverity = parseFloat(cont.criticity);
-            }
-            if (oldestFinding < parseInt(cont.edad, 10)) {
-              oldestFinding = parseInt(cont.edad, 10);
-            }
-          });
-          metricColor = [
-            "#2197d6;",
-            "#aa2d30;",
-            "#ff9930;",
-            "#2e4050;",
-            "#9f5ab1;"
-          ];
-          metricDes = [
-            "findings",
-            "cardinalities",
-            "vulnerabilities",
-            "maximumSeverity",
-            "oldestFinding"
-          ];
-          metricTool = [
-            "findingsTooltip",
-            "cardinalitiesTooltip",
-            "vulnerabilitiesTooltip",
-            "maximumSeverityTooltip",
-            "oldestFindingTooltip"
-          ];
-          metricIcon = [
-            "s7-id",
-            "s7-attention",
-            "s7-info",
-            "s7-gleam",
-            "s7-date"
-          ];
-          metricValue = [
-            data.data.length,
-            openVulnerabilities,
-            cardinalidadTotal,
-            maximumSeverity,
-            oldestFinding
-          ];
-        }
+        let compromisedRecords = 0;
+        angular.forEach(data.data, (cont) => {
+          compromisedRecords += parseInt(cont.recordsNumber, 10);
+          openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
+          cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
+          if (maximumSeverity < parseFloat(cont.criticity)) {
+            maximumSeverity = parseFloat(cont.criticity);
+          }
+          if (oldestFinding < parseInt(cont.edad, 10)) {
+            oldestFinding = parseInt(cont.edad, 10);
+          }
+        });
+        metricColor = [
+          "#2197d6;",
+          "#aa2d30;",
+          "#ff9930;",
+          "#2e4050;",
+          "#9f5ab1;",
+          "#0a40ae;"
+        ];
+        metricDes = [
+          "findings",
+          "cardinalities",
+          "vulnerabilities",
+          "maximumSeverity",
+          "oldestFinding",
+          "compromisedRecords"
+        ];
+        metricTool = [
+          "findingsTooltip",
+          "cardinalitiesTooltip",
+          "vulnerabilitiesTooltip",
+          "maximumSeverityTooltip",
+          "oldestFindingTooltip",
+          "compromisedRecordsTooltip"
+        ];
+        metricIcon = [
+          "s7-id",
+          "s7-attention",
+          "s7-info",
+          "s7-gleam",
+          "s7-date",
+          "s7-notebook"
+        ];
+        metricValue = [
+          data.data.length,
+          openVulnerabilities,
+          cardinalidadTotal,
+          maximumSeverity,
+          oldestFinding,
+          compromisedRecords
+        ];
         return [
           openVulnerabilities,
           cardinalidadTotal,
