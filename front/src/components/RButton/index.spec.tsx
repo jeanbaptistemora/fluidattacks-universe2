@@ -9,7 +9,7 @@ import { Button, Glyphicon } from "react-bootstrap";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Generic modal', () => {
+describe('RButton', () => {
   it('should return a function', () => {
     expect(typeof(RButton)).to.equal('function');
   });

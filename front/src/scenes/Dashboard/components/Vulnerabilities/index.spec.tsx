@@ -20,10 +20,7 @@ describe('Vulnerabilities view', () => {
       dataLines={[]}
       dataPorts={[]}
       findingId="422286126"
-      translations={{
-        "search_findings.tab_description.inputs": "Inputs",
-        "search_findings.tab_description.field": "Field",
-      }}
+      state="open"
     />
   );
 
@@ -32,7 +29,7 @@ describe('Vulnerabilities view', () => {
   });
 
   it('should render input title', () => {
-    expect(wrapper.contains(<label>Inputs</label>)).to.equal(true);
+    expect(wrapper.contains(<label>search_findings.tab_description.inputs</label>)).to.equal(true);
   });
 
   it('should render input table', () => {

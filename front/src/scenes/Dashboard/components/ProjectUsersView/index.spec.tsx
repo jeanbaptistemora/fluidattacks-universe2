@@ -17,11 +17,6 @@ describe('Project users view', () => {
       addModal={{ initialValues: {}, open: true, type: "add" }}
       userRole="admin"
       projectName="unittesting"
-      translations={{
-        "search_findings.tab_users.edit": "Edit",
-        "search_findings.tab_users.add_button": "Add",
-        "search_findings.tab_users.remove_user": "Remove",
-      }}
       userList={[
         {
           email: "",
@@ -53,7 +48,7 @@ describe('Project users view', () => {
         onClick={(): void => {}}
       >
         <Glyphicon glyph="edit"/>
-         &nbsp;Edit
+         &nbsp;search_findings.tab_users.edit
       </Button>
     ).html();
     expect(editBtn).to.equal(expectedEditBtn);
@@ -67,7 +62,7 @@ describe('Project users view', () => {
         onClick={(): void => {}}
       >
         <Glyphicon glyph="plus"/>
-         &nbsp;Add
+         &nbsp;search_findings.tab_users.add_button
       </Button>
     ).html();
 
@@ -82,7 +77,7 @@ describe('Project users view', () => {
         onClick={(): void => {}}
       >
         <Glyphicon glyph="minus"/>
-         &nbsp;Remove
+         &nbsp;search_findings.tab_users.remove_user
       </Button>
     ).html();
 

@@ -103,6 +103,6 @@
     "graceful-fs": "4.1.13"
   },
   "scripts": {
-    "test": "gulp compile && mocha -r ignore-styles -r ts-node/register -r ./jsdom.js $(find src/ -name '*.spec.tsx')"
+    "test": "gulp compile && ./runTests.sh"
   }
 }
