@@ -23,9 +23,11 @@ def browser_initialize(url):
 
     :param url: URL to load once the browser starts
     """
-    options = webdriver.FirefoxOptions()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--window-size=1366,768')
     options.add_argument('--headless')
-    browser = webdriver.Firefox(firefox_options=options)
+    options.add_argument('--no-sandbox')
+    browser = webdriver.Chrome(chrome_options=options)
     browser.get(url)
     return browser
 

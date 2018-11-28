@@ -24,6 +24,7 @@ RUN apt-get update \
         python3-dev \
         software-properties-common \
         unzip \
+        wget \
     && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip \
         && unzip terraform.zip \
         && rm terraform.zip \
@@ -49,15 +50,16 @@ RUN apt-get update \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \
-    && curl -LSo geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz \
-         && tar -zxvf geckodriver.tar.gz \
-         && mv geckodriver /usr/local/bin/ \
-         && rm geckodriver.tar.gz \
-    && curl -LSo firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/63.0.3/linux-x86_64/en-US/firefox-63.0.3.tar.bz2 \
-         && tar xjvf firefox.tar.bz2 \
-         && mv firefox/ /opt \
-         && ln -s /opt/firefox/firefox /usr/local/bin/firefox \
-         && rm firefox.tar.bz2 \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+        && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' \
+        && apt-get -y update \
+        && apt-get -y install google-chrome-stable \
+    && wget -N http://chromedriver.storage.googleapis.com/2.44/chromedriver_linux64.zip -P ~/ \
+        && unzip ~/chromedriver_linux64.zip -d ~/ \
+        && rm ~/chromedriver_linux64.zip \
+        && mv -f ~/chromedriver /usr/local/bin/chromedriver \
+        && chown root:root /usr/local/bin/chromedriver \
+        && chmod 0755 /usr/local/bin/chromedriver \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
         && add-apt-repository \
             "deb [arch=amd64] https://download.docker.com/linux/debian \

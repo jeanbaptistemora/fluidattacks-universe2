@@ -6,6 +6,7 @@ of Formstack backups
 """
 from __future__ import absolute_import
 import os
+import time
 import requests
 import boto3
 import rotate_fs_keys as fs_func
@@ -123,8 +124,19 @@ def browser_popup_navigate(browser, xpath):
     :param browser: Selenium object that contains the session information
     :param xpath: Path of a HTML link element
     """
-    WebDriverWait(browser, 30).until(EC.visibility_of_element_located((By.XPATH, xpath)))
-    browser.find_element_by_xpath(xpath).click()
+    success = False
+    attempts = 0
+    while not success and attempts < 120:
+        try:
+            WebDriverWait(browser, 40).until(EC.visibility_of_element_located((By.XPATH, xpath)))
+            browser.find_element_by_xpath(xpath).click()
+            success = True
+        except TimeoutException:
+            attempts += 40
+            browser.implicitly_wait(40)
+    if not success:
+        raise TimeoutException
+
 
 def formstack_backup(form_name):
     """
@@ -137,10 +149,12 @@ def formstack_backup(form_name):
     delete_old_exports(browser, '//div/span[contains(text(), \"Exporting Submissions\")]')
     fs_func.browser_navigate_xpath(browser, '//submissions-export-all')
     fs_func.browser_navigate_xpath(browser, '//ul/li/span[contains(text(), \"to CSV\")]')
+    time.sleep(10)
     browser_popup_navigate(browser, '//a/div/p[contains(text(), \"Export All Submissions in Filter\")]')
     date = datetime.now().strftime('%Y%m%d')
     form_name = form_name.replace(' ', '')
     file_name = '{file_name}_{date}.csv'.format(file_name=form_name, date=date)
+    time.sleep(5)
     file_downloaded = download_file(browser, file_name)
     if file_downloaded:
         fs_func.browser_navigate_xpath(browser, '//div/fs-icon[contains(@class, \"fs-icon-trash\")]')
