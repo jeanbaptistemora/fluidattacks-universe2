@@ -176,8 +176,8 @@ resource "aws_dynamodb_table" "project_access" {
 
 resource "aws_dynamodb_table" "findings" {
   name           = "FI_findings"
-  read_capacity  = 5
-  write_capacity = 5
+  read_capacity  = 10
+  write_capacity = 10
   hash_key       = "finding_id"
 
   attribute {
@@ -192,8 +192,8 @@ resource "aws_dynamodb_table" "findings" {
 
 resource "aws_dynamodb_table" "vulnerabilities" {
   name           = "FI_vulnerabilities"
-  read_capacity  = 5
-  write_capacity = 5
+  read_capacity  = 10
+  write_capacity = 10
   hash_key       = "finding_id"
   range_key      = "UUID"
 
