@@ -15,6 +15,7 @@ import { AnyAction, Reducer } from "redux";
 import { ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import store from "../../../../store/index";
 import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
@@ -39,7 +40,9 @@ export interface ISeverityViewProps {
     resolutionLevel: string;
   };
   findingId: string;
+  formValues: { editSeverity: { values: ISeverityViewProps["dataset"] }};
   isEditing: boolean;
+  isMdlConfirmOpen: boolean;
   onUpdate(values: ISeverityViewProps["dataset"]): void;
 }
 
@@ -238,12 +241,7 @@ export const component: React.SFC<ISeverityViewProps> =
                 {...props}
                 onChange={(values: {}): void => { store.dispatch(actions.calcCVSSv2(values)); }}
                 initialValues={props.dataset}
-                onSubmit={(values: {}): void => {
-                  props.onUpdate(_.merge(
-                    values as ISeverityViewProps["dataset"],
-                    { criticity: props.criticity, id: props.findingId  },
-                  ));
-                }}
+                onSubmit={(): void => { store.dispatch(actions.openConfirmMdl()); }}
               />
             </Provider>
             <Row className={style.row}>
@@ -257,6 +255,22 @@ export const component: React.SFC<ISeverityViewProps> =
           </Col>
         </Row>
       }
+      <ConfirmDialog
+        open={props.isMdlConfirmOpen}
+        title={translate.t("confirmmodal.title_cvssv2")}
+        onProceed={(): void => {
+          const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+            store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+          );
+
+          thunkDispatch(actions.updateSeverity(
+            props.findingId,
+            props.formValues.editSeverity.values,
+            props.criticity,
+          ));
+        }}
+        onCancel={(): void => { store.dispatch(actions.closeConfirmMdl()); }}
+      />
     </React.StrictMode>
   );
 
@@ -264,5 +278,7 @@ export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrappe
   enhance(component) as React.SFC<ISeverityViewProps>,
   (state: StateType<Reducer>): ISeverityViewProps => ({
     ...state.dashboard.severity,
+    formValues: state.form,
+    isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
   }),
 );

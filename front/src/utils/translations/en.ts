@@ -3,6 +3,7 @@ const enTranslations: Map<string, string> = {
     cancel: "Cancel",
     message: "Are you sure?",
     proceed: "Proceed",
+    title_cvssv2: "Update CVSSv2",
   },
   legalNotice: {
     acceptBtn: {

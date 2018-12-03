@@ -73,6 +73,12 @@ CALC_CVSSV2 = "dashboard/finding/severity/calc";
 export let LOAD_SEVERITY: string;
 LOAD_SEVERITY = "dashboard/finding/severity/load";
 
+export let OPEN_CONFIRM_MDL: string;
+OPEN_CONFIRM_MDL = "dashboard/confirm_open";
+
+export let CLOSE_CONFIRM_MDL: string;
+CLOSE_CONFIRM_MDL = "dashboard/confirm_close";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,

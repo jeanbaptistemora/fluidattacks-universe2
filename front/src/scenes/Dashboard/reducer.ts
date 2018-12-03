@@ -10,6 +10,7 @@ interface IDashboardState {
   fileInput: {
     name: string;
   };
+  isMdlConfirmOpen: boolean;
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
     addModal: {
@@ -42,6 +43,7 @@ const initialState: IDashboardState = {
   fileInput: {
     name: "",
   },
+  isMdlConfirmOpen: false,
   records: {
     dataset: [],
     isEditing: false,
@@ -394,6 +396,20 @@ actionMap[actionType.CALC_CVSSV2] =
       criticity: action.payload.temporal,
       cssv2base: action.payload.baseScore,
     },
+  });
+
+actionMap[actionType.OPEN_CONFIRM_MDL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    isMdlConfirmOpen: true,
+  });
+
+actionMap[actionType.CLOSE_CONFIRM_MDL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    isMdlConfirmOpen: false,
   });
 
 type DashboardReducer = ((

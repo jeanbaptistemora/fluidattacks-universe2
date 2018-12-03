@@ -801,3 +801,71 @@ export const loadSeverity: ThunkActionStructure =
       }
     });
 };
+
+export const openConfirmMdl: DashboardAction =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionType.OPEN_CONFIRM_MDL,
+});
+
+export const closeConfirmMdl: DashboardAction =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionType.CLOSE_CONFIRM_MDL,
+});
+
+export const updateSeverity: ThunkActionStructure =
+  (findingId: string, values: ISeverityViewProps["dataset"],
+   criticity: ISeverityViewProps["criticity"]): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      updateSeverity(
+        findingId: "${findingId}",
+        data: {
+          accessComplexity: "${values.accessComplexity}",
+          accessVector: "${values.accessVector}",
+          authentication: "${values.authentication}",
+          availabilityImpact: "${values.availabilityImpact}",
+          confidenceLevel: "${values.confidenceLevel}",
+          confidentialityImpact: "${values.confidentialityImpact}",
+          criticity: "${criticity}",
+          exploitability: "${values.exploitability}",
+          id: "${findingId}",
+          integrityImpact: "${values.integrityImpact}",
+          resolutionLevel: "${values.resolutionLevel}",
+        }
+      ) {
+        success
+        finding {
+          severity
+        }
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred updating severity")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      if (data.updateSeverity.success) {
+        dispatch(calcCVSSv2(data.updateSeverity.finding.severity));
+        dispatch({
+          payload: {
+            dataset: data.updateSeverity.finding.severity,
+          },
+          type: actionType.LOAD_SEVERITY,
+        });
+        dispatch(editSeverity());
+        dispatch(closeConfirmMdl());
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
