@@ -21,7 +21,7 @@ interface IDashboardState {
     environments: Array<{ urlEnv: string }>;
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
-  severity: Pick<ISeverityViewProps, "isEditing" | "cssv2base" | "criticity">;
+  severity: Pick<ISeverityViewProps, "isEditing" | "cssv2base" | "criticity" | "dataset">;
   tracking: Pick<ITrackingViewProps, "closings">;
   users: {
     addModal: {
@@ -59,6 +59,17 @@ const initialState: IDashboardState = {
   severity: {
     criticity: 0,
     cssv2base: 0,
+    dataset: {
+      accessComplexity: "",
+      accessVector: "",
+      authentication: "",
+      availabilityImpact: "",
+      confidenceLevel: "",
+      confidentialityImpact: "",
+      exploitability: "",
+      integrityImpact: "",
+      resolutionLevel: "",
+    },
     isEditing: false,
   },
   tracking: {
@@ -351,6 +362,16 @@ actionMap[actionType.LOAD_TRACKING] =
     ...state,
     tracking: {
       closings: action.payload.closings,
+    },
+  });
+
+actionMap[actionType.LOAD_SEVERITY] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    severity: {
+      ...state.severity,
+      dataset: action.payload.dataset,
     },
   });
 

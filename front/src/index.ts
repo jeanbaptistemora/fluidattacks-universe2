@@ -406,9 +406,6 @@ angular
    "severityView",
    react2angular(
      severityView, [
-       "criticity",
-       "cssv2base",
-       "dataset",
        "findingId",
        "onUpdate",
      ],

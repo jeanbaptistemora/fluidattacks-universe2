@@ -10,8 +10,10 @@ import _ from "lodash";
 import React from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
-import { Reducer } from "redux";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { AnyAction, Reducer } from "redux";
 import { ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm } from "redux-form";
+import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import { dropdownField } from "../../../../utils/forms/fields";
@@ -47,6 +49,18 @@ interface ISeverityField {
   options: Array<{ text: string; value: string }>;
   title: string;
 }
+
+const enhance: InferableComponentEnhancer<{}> =
+lifecycle({
+  componentDidMount(): void {
+    const { findingId } = this.props as ISeverityViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+
+    thunkDispatch(actions.loadSeverity(findingId));
+  },
+});
 
 type formProps = ISeverityViewProps & InjectedFormProps<{}, ISeverityViewProps>;
 
@@ -247,9 +261,8 @@ export const component: React.SFC<ISeverityViewProps> =
   );
 
 export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrapper(
-  component, (state: StateType<Reducer>, ownProps: ISeverityViewProps): ISeverityViewProps => ({
+  enhance(component) as React.SFC<ISeverityViewProps>,
+  (state: StateType<Reducer>): ISeverityViewProps => ({
     ...state.dashboard.severity,
-    criticity: state.dashboard.severity.criticity === 0 ? ownProps.criticity : state.dashboard.severity.criticity,
-    cssv2base: state.dashboard.severity.cssv2base === 0 ? ownProps.cssv2base : state.dashboard.severity.cssv2base,
   }),
 );

@@ -70,6 +70,9 @@ EDIT_SEVERITY = "dashboard/finding/severity/edit";
 export let CALC_CVSSV2: string;
 CALC_CVSSV2 = "dashboard/finding/severity/calc";
 
+export let LOAD_SEVERITY: string;
+LOAD_SEVERITY = "dashboard/finding/severity/load";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,

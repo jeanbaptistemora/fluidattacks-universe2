@@ -770,3 +770,34 @@ export const calcCVSSv2: DashboardAction =
       type: actionType.CALC_CVSSV2,
     });
   };
+
+export const loadSeverity: ThunkActionStructure =
+  (findingId: string): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `{
+      finding(identifier: "${findingId}") {
+        severity
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred getting severity")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      dispatch(calcCVSSv2(data.finding.severity));
+      dispatch({
+        payload: {
+          dataset: data.finding.severity,
+        },
+        type: actionType.LOAD_SEVERITY,
+      });
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
