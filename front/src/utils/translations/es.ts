@@ -1,6 +1,7 @@
 const esTranslations: Map<string, string> = {
   confirmmodal: {
     cancel: "Cancelar",
+    message: "¿Está seguro?",
     proceed: "Proceder",
   },
   legalNotice: {

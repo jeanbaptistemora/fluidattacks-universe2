@@ -29,6 +29,7 @@
 
 :local .body {
   position: relative;
+  min-width: 600px;
   padding: 30px 20px;
 }
 
