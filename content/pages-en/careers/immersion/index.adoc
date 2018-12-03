@@ -108,7 +108,19 @@ does *NOT* have to be greater than the last programming challenge solved in
 must be *one (1)* score point greater than the previous one.
 
 .. If no challenges with greater score exist,
-The immediate previous non-resolved challenge in terms of score must be solved
+start again solving a challenge of lower score.
+
+.. If you reach a point where the difficulty makes it hard to advance:
+
+... Read about the topics you don't master yet,
+(graphs, trees, modular arithmetic, etc).
+... Try different approaches,
+(Recursion, Heuristics, Dynamic Programming, Greedy, Divide and Conquer, etc).
+... Persevere! We are interested in disciplined programmers.
+
+.. If you reach a point where you definitely cannot advance:
+... Remember that the process is more important than the goal.
+... Start again solving a different challenge, the new difficulty is up to you.
 
 .. Repeat this cycle *five (5)* times
 until you have *five (5)* solutions of each type

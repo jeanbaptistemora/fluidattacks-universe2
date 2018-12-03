@@ -100,7 +100,21 @@ superior al último reto de programación finalizado en la etapa de
 unidad de puntaje superior al anterior.
 
 .. Si se alcanza el punto en que no existen retos de mayor puntaje,
-se debe solucionar el reto inmediatamente anterior en términos de puntaje.
+comienza de nuevo en un reto de menor nivel.
+
+.. Si se alcanza el punto en que debido a la dificultad
+sientes que no estas avanzando:
+
+... Lee sobre la tematica que no dominas,
+(grafos, arboles, aritmetica modular, etc).
+... Aborda el problema desde enfoques diferentes,
+(Recursión, Heuristica, Programación Dinamica, Codicia, Divide y Venceras, etc).
+... Persevera! nos interesan programadores disciplinados.
+
+.. Si se alcanza el punto en que definitivamente no lográs avanzar:
+
+... Recuerda que lo importante es el proceso, no el resultado.
+... Regresa a un nivel de dificultad que te permita seguir aprendiendo.
 
 .. Repetir este ciclo *cinco (5)* veces
 hasta tener *cinco (5)* soluciones de cada tipo.
