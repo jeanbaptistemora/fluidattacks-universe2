@@ -14,10 +14,12 @@ from graphql import GraphQLError
 from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
 
 from .. import util
+from ..utils  import forms as forms_utils
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from ..api.drive import DriveAPI
+from ..api.formstack import FormstackAPI
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import FindingDTO, finding_vulnerabilities
 from app.domain.finding import (
@@ -313,3 +315,25 @@ def evidence_exceeds_size(uploaded_file, evidence_type):
     else:
         util.cloudwatch_log_plain('Security: Attempted to upload an unknown type of evidence')
         raise Exception('Invalid evidence id')
+
+class UpdateSeverity(Mutation):
+
+    class Arguments(object):
+        finding_id = String(required=True)
+        data = GenericScalar(required=True)
+    success = Boolean()
+    finding = Field(Finding)
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, **parameters):
+        success = False
+        finding_dto = FindingDTO()
+        severity_dict = finding_dto.create_cvssv2(parameters.get('data'))
+        severity_info=forms_utils.to_formstack(severity_dict['data'])
+        api = FormstackAPI()
+        success = api.update(severity_dict['request_id'], severity_info)
+
+        return UpdateSeverity(success=success, \
+            finding=Finding(info=info, identifier=parameters.get('finding_id')))
