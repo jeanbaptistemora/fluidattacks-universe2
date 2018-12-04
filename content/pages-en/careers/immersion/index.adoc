@@ -91,13 +91,32 @@ Because we want to advance to the next stage.
 .. This is merely an estimate,
 It depends entirely on your dedication and performance.
 
-== 6. Working method
+== 6. Training sequence
 
 Challenges and articles must be presented in the following order:
 
-. Complete *one (1)* +systems-hacking+ challenge,
-*one (1)* +ctf-hacking+ challenge,
-and *one (1)* Programming challenge.
+. Complete *five (5)* challenge rounds.
+
+.. A challenge round consists of completing in strict order:
+
+... *one (1)* +systems-hacking+ challenge,
+
+... *one (1)* +ctf-hacking+ challenge,
+
+... *one (1)* +Programming+ challenge.
+
+.. You shall not do consecutive +MRs+ with solutions of the same kind.
+.. You shall not change the order in any way.
+.. You shall not skip any challenge type.
+
+. once you did *five (5)* challenge rounds.
+Write *one (1)* article for the blog.
+
+. Repeat the previous steps until you complete the
+[button]#link:../immersion/#objectives[objectives]#
+.. In short: [red]#((syst ctfh prog )\{5\}blog )\{5\}#
+
+. For programming challenges you should take into account:
 
 .. The score (blessing for codeabbey)
 of the first programming challenge solved for this stage
@@ -114,21 +133,17 @@ start again solving a challenge of lower score.
 
 ... Read about the topics you don't master yet,
 (graphs, trees, modular arithmetic, etc).
+
 ... Try different approaches,
 (Recursion, Heuristics, Dynamic Programming, Greedy, Divide and Conquer, etc).
+
 ... Persevere! We are interested in disciplined programmers.
 
 .. If you reach a point where you definitely cannot advance:
+
 ... Remember that the process is more important than the goal.
+
 ... Start again solving a different challenge, the new difficulty is up to you.
-
-.. Repeat this cycle *five (5)* times
-until you have *five (5)* solutions of each type
-
-. After making *five (5)* five solutions of each type,
-make *one (1)* blog article.
-
-. Repeat the previous steps until you complete the [button]#link:../immersion/#objectives[objectives]#
 
 == 7. Payment
 

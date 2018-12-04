@@ -82,13 +82,33 @@ debido a que queremos adelantar la etapa siguiente.
 .. Esto es meramente un estimado,
 pues depende enteramente de su dedicación y rendimiento.
 
-== 6. Orden de trabajo
+== 6. Secuencia de entrenamiento
 
 La manera en que deberán realizarse los retos y artículos, será:
 
-. Completar *un (1)* reto de +systems-hacking+,
-*un (1)* reto de +ctf-hacking+,
-y *un (1)* reto de Programación.
+. Realizar *cinco (5)* rondas de retos.
+
+.. Una ronda de retos consiste en realizar en estricto orden:
+
+... *un (1)* reto de +systems-hacking+,
+
+... *un (1)* reto de +ctf-hacking+, y
+
+... *un (1)* reto de +programación+.
+
+.. No deben hacerse +MRs+ consecutivos con soluciones de un mismo tipo.
+.. No debe cambiarse el orden de entrenamiento y envio de soluciones.
+.. No deben saltarse ningun tipo de retos.
+
+. Luego de hacer *cinco (5)* rondas de retos,
+realizar *un (1)* artículo para el blog.
+
+. Repetir los pasos anteriores hasta completar los
+[button]#link:../inmersion/#objetivos[objetivos]#.
+
+.. En resumen: [red]#((syst ctfh prog )\{5\}blog )\{5\}#
+
+. Para los retos de programación tener en cuenta:
 
 .. *NO* es necesario que el puntaje del primer reto de programación
 realizado para esta etapa,
@@ -105,24 +125,19 @@ comienza de nuevo en un reto de menor nivel.
 .. Si se alcanza el punto en que debido a la dificultad
 sientes que no estas avanzando:
 
-... Lee sobre la tematica que no dominas,
-(grafos, arboles, aritmetica modular, etc).
+... Lee sobre la temática que no dominas,
+(grafos, arboles, aritmética modular, etc).
+
 ... Aborda el problema desde enfoques diferentes,
-(Recursión, Heuristica, Programación Dinamica, Codicia, Divide y Venceras, etc).
+(Recursión, Heurística, Programación Dinámica, Codicia, Divide y Vencerás, etc).
+
 ... Persevera! nos interesan programadores disciplinados.
 
-.. Si se alcanza el punto en que definitivamente no lográs avanzar:
+.. Si se alcanza el punto en que definitivamente no logras avanzar:
 
 ... Recuerda que lo importante es el proceso, no el resultado.
+
 ... Regresa a un nivel de dificultad que te permita seguir aprendiendo.
-
-.. Repetir este ciclo *cinco (5)* veces
-hasta tener *cinco (5)* soluciones de cada tipo.
-
-. Luego de hacer *cinco (5)* soluciones de cada tipo,
-realizar *un (1)* artículo en el blog.
-
-. Repetir los pasos anteriores hasta completar los [button]#link:../inmersion/#objetivos[objetivos]#
 
 == 7. Pagos
 
