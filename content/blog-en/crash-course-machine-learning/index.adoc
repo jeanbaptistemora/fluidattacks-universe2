@@ -2,7 +2,7 @@
 :date: 2018-11-19
 :subtitle: A survey of machine learning algorithms
 :category: attacks
-:tags: vector, security, application
+:tags: machine learning, security, application
 :image: cover.png
 :alt: Mark Stamp's book cover. Blue team machine vs read team
 :description: A summary of machine learning and data mining algorithms and techniques which are relevant for our studies in automated vulnerability discovery in source code. We give a high level view of each of the most important ML algorithms that have relevant applications in information security.
@@ -37,7 +37,7 @@ first we need to train it with pictures of cats or dogs.
 Now, do we tell the system what each picture contains?
 If we do, it's _supervised learning_  and
 we say we are training the system with _labeled_ data.
-The opposite is completely _unsupervised_ learning, and
+The opposite is completely _unsupervised_ learning and
 there are a couple of stations in between, such as
 
 * _semi-supervised_: learning: with partially labeled data,
@@ -279,8 +279,9 @@ general ideas on machine learning:
   their basic ideas are quite old.
 - Fancy names can sometimes be used to masquerade simple ideas.
   Especially the word _learning_ can actually be misleading,
-  making us think of autonomic machines, when in reality
-  they are just algorithms that extract parameters from training data
+  making us think of link:../replaced-machines/[autonomous machines],
+  when in reality they are just algorithms
+  that extract parameters from training data
   and later use them in a deterministic way.
 - `ML` is not a field of its own, rather a field in between
   statistics, optimization, data analysis and data mining.

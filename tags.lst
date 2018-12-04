@@ -8,6 +8,7 @@ credential
 csv
 dependency
 detect
+discovery
 documentation
 encryption
 engineering
@@ -24,6 +25,7 @@ injection
 javascript
 jwt
 libssh
+machine learning
 multiparadigm
 mypy
 openssl

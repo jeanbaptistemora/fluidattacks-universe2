@@ -2,7 +2,7 @@
 :date: 2018-11-07
 :subtitle: Machine learning for vulnerability discovery
 :category: attacks
-:tags: detect, security, vulnerability
+:tags: machine learning, vulnerability, discovery
 :image: cover.png
 :alt: Can machines learn to hack?
 :description: A bird's eye view of machine learning techniques applied to vulnerability discovery in source code, reviewing papers from 2011 to 2018. Approaches are broadly grouped as anomaly detection, meta-code analysis and code pattern recognition, which will be the most interesting for our purposes.
@@ -210,7 +210,7 @@ link:../pars-orationis-secura/[parsers],
 data-flow and control-flow analysis,
 and even directly text mining the source code.
 Most of these papers use
-link:../crash-course-machine-learning/[classification#] algorithms.
+link:../crash-course-machine-learning/[classification] algorithms.
 
 // yama14 extrapol
 Once more Yamaguchi et al.
@@ -254,7 +254,7 @@ link:https://arxiv.org/abs/1807.06756v2[SySeVR (2018b)],
 which claim to extract both syntactic and semantic information from the code
 in the form of 'program slices', thus
 also considering both data and control flow.
-This information is then encoded as vectors using +word2vec+,
+This information is then encoded as vectors using +word2vec+
 and fed to different
 link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[neural networks].
 They report good results with low false positives
@@ -263,7 +263,7 @@ However, these systems:
 
 - need peer-reviewing as they are in pre-print state or are conference papers
 - are designed exclusively for `C(++)` code-base
-- are subject to the limitations of other systems, like coarse granularity.
+- are subject to the limitations of other systems like coarse granularity.
 
 link:https://dl.acm.org/citation.cfm?id=3138840[Lin et al. (2017)]
 propose a different variant
@@ -273,10 +273,9 @@ using
 link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[deep learning]
 in the form of
 link:https://en.wikipedia.org/wiki/Long_short-term_memory[bidirectional long short-term memory (BLSTM) networks],
-with a completely new element:
+plus a completely new element:
 unlike the vast majority of previous works,
 which work in the within-project domain
-(which is constantly reminded to us by Ghaffarian et al.),
 +POSTER+ involves software metrics (see below)
 in order to compare to other projects.
 
@@ -292,7 +291,7 @@ they are not without limitations:
 - Any work in machine learning for +VD+ should
   take into account several aspects of the code
   for a richer descriptions, such as
-  syntax, semantics and the flow of data and control,
+  syntax, semantics and the flow of data and control.
 - The quality of the results is believed to be
   mostly due to the features that are extracted and fed
   to the learning algorithms.
@@ -342,7 +341,7 @@ but that doesn't tell us anything about
 the presence of vulnerabilities in general.
 Most of the papers reviewed in this category present
 high false positive rates and
-hardly one of them has explored automateed techniques.
+hardly one of them has explored automated techniques.
 Hence, we deem these the least interesting for our purposes.
 
 link:https://bit.ly/2qBzPTZ[Wijayasekara et al (2012, 2014)]
@@ -390,11 +389,11 @@ Some limitations that are common:
   Purely automated approaches are, in view of Rice's theorem,
   imposible or misguided.
 
-Hence, our good old pentest is not dead.
+Thus our good old link:../importance-pentesting/[pentest is not dead].
 Even at the level of cutting-edge research,
 automated vulnerability discovery,
-let alone confirmation and exploitation
-is a task for human experts.
+and especially confirmation and exploitation,
+are tasks for human experts.
 
 
 == References
