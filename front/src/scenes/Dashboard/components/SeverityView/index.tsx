@@ -33,10 +33,15 @@ export interface ISeverityViewProps {
     accessVector: string;
     authentication: string;
     availabilityImpact: string;
+    availabilityRequirement: string;
+    collateralDamagePotential: string;
     confidenceLevel: string;
     confidentialityImpact: string;
+    confidentialityRequirement: string;
     exploitability: string;
+    findingDistribution: string;
     integrityImpact: string;
+    integrityRequirement: string;
     resolutionLevel: string;
   };
   findingId: string;

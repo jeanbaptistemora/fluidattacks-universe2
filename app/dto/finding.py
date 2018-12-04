@@ -101,6 +101,11 @@ class FindingDTO(object):
     AVAILABILITY_IMPACT = FIELDS_FINDING["AVAILABILITY_IMPACT"]
     RESOLUTION_LEVEL = FIELDS_FINDING["RESOLUTION_LEVEL"]
     CONFIDENCE_LEVEL = FIELDS_FINDING["CONFIDENCE_LEVEL"]
+    COLLATERAL_DAMAGE_POTENTIAL = FIELDS_FINDING['COLLATERAL_DAMAGE_POTENTIAL']
+    FINDING_DISTRIBUTION = FIELDS_FINDING['FINDING_DISTRIBUTION']
+    CONFIDENTIALITY_REQUIREMENT = FIELDS_FINDING['CONFIDENTIALITY_REQUIREMENT']
+    INTEGRITY_REQUIREMENT = FIELDS_FINDING['INTEGRITY_REQUIREMENT']
+    AVAILABILITY_REQUIREMENT = FIELDS_FINDING['AVAILABILITY_REQUIREMENT']
 
     def __init__(self):
         """ Class constructor """
@@ -216,7 +221,12 @@ class FindingDTO(object):
             self.INTEGRITY_IMPACT: "integrityImpact",
             self.AVAILABILITY_IMPACT: "availabilityImpact",
             self.RESOLUTION_LEVEL: "resolutionLevel",
-            self.CONFIDENCE_LEVEL: "confidenceLevel"
+            self.CONFIDENCE_LEVEL: "confidenceLevel",
+            self.COLLATERAL_DAMAGE_POTENTIAL: 'collateralDamagePotential',
+            self.FINDING_DISTRIBUTION: 'findingDistribution',
+            self.CONFIDENTIALITY_REQUIREMENT: 'confidentialityRequirement',
+            self.INTEGRITY_REQUIREMENT: 'integrityRequirement',
+            self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement'
         }
         parsed_dict = {k:parameter[v] for (k, v) in severity_tab_fields.items()}
         return {"data":parsed_dict, "request_id":parameter["id"]}
@@ -318,7 +328,12 @@ class FindingDTO(object):
             self.AVAILABILITY_IMPACT:"availabilityImpact",
             self.EXPLOITABILITY:"exploitability",
             self.RESOLUTION_LEVEL:"resolutionLevel",
-            self.CONFIDENCE_LEVEL:"confidenceLevel"
+            self.CONFIDENCE_LEVEL:"confidenceLevel",
+            self.COLLATERAL_DAMAGE_POTENTIAL: 'collateralDamagePotential',
+            self.FINDING_DISTRIBUTION: 'findingDistribution',
+            self.CONFIDENTIALITY_REQUIREMENT: 'confidentialityRequirement',
+            self.INTEGRITY_REQUIREMENT: 'integrityRequirement',
+            self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement'
         }
         parsed_dict = {v:initial_dict[k] \
                       for (k, v) in severity_fields.items() \

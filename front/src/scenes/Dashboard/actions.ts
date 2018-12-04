@@ -834,6 +834,11 @@ export const updateSeverity: ThunkActionStructure =
           id: "${findingId}",
           integrityImpact: "${values.integrityImpact}",
           resolutionLevel: "${values.resolutionLevel}",
+          collateralDamagePotential: "${values.collateralDamagePotential}",
+          findingDistribution: "${values.findingDistribution}",
+          confidentialityRequirement: "${values.confidentialityRequirement}",
+          integrityRequirement: "${values.integrityRequirement}",
+          availabilityRequirement: "${values.availabilityRequirement}",
         }
       ) {
         success

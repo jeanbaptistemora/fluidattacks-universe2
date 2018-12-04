@@ -111,6 +111,11 @@ class Finding(ObjectType):
                 'exploitability': resp.get('exploitability'),
                 'integrityImpact': resp.get('integrityImpact'),
                 'resolutionLevel': resp.get('resolutionLevel'),
+                'collateralDamagePotential': resp.get('collateralDamagePotential'),
+                'findingDistribution': resp.get('findingDistribution'),
+                'confidentialityRequirement': resp.get('confidentialityRequirement'),
+                'integrityRequirement': resp.get('integrityRequirement'),
+                'availabilityRequirement': resp.get('availabilityRequirement'),
             }
         else:
             self.success = False
@@ -331,7 +336,7 @@ class UpdateSeverity(Mutation):
         success = False
         finding_dto = FindingDTO()
         severity_dict = finding_dto.create_cvssv2(parameters.get('data'))
-        severity_info=forms_utils.to_formstack(severity_dict['data'])
+        severity_info = forms_utils.to_formstack(severity_dict['data'])
         api = FormstackAPI()
         success = api.update(severity_dict['request_id'], severity_info)
 
