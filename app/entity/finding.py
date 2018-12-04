@@ -51,6 +51,7 @@ class Finding(ObjectType):
     records = JSONString()
     tracking = List(GenericScalar)
     severity = GenericScalar()
+    exploit = String()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -99,6 +100,11 @@ class Finding(ObjectType):
                 self.records = get_records_from_file(self, resp['fileRecords'])
             else:
                 self.records = {}
+
+            if 'exploit' in resp.keys():
+                self.exploit = resp['exploit']
+            else:
+                self.exploit = ''
 
             self.severity = {
                 'accessComplexity': resp.get('accessComplexity'),
@@ -210,26 +216,61 @@ class Finding(ObjectType):
 
         return self.severity
 
+    def resolve_exploit(self, info):
+        """
+        Resolve exploit attribute
+
+        Verifies if the exploit is in dynamo. if not, it gets the filename from formstack
+        """
+        del info
+
+        formstack_exploit = get_exploit_from_file(self, self.exploit)
+        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
+        if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
+            file_info = filter(lambda evidence: evidence['name'] == 'exploit', dynamo_evidence[0].get('files'))
+            if file_info:
+                file_name = file_info[0]['file_url']
+                self.exploit = get_exploit_from_file(self, file_name)
+            else:
+                self.exploit = formstack_exploit
+        else:
+            self.exploit = formstack_exploit
+
+        return self.exploit
+
+def get_exploit_from_file(self, file_name):
+    return read_script(download_evidence_file(self, file_name))
+
 def get_records_from_file(self, file_name):
+    return read_csv(download_evidence_file(self, file_name))
+
+def download_evidence_file(self, file_name):
     file_id = '/'.join([self.project_name.lower(), self.id, file_name])
     is_s3_file = util.list_s3_objects(client_s3, bucket_s3, file_id)
 
     if is_s3_file:
         start = file_id.find(self.id) + len(self.id)
-        localfile = "/tmp" + file_id[start:]
+        localfile = '/tmp' + file_id[start:]
         ext = {'.py': '.tmp'}
         tmp_filepath = util.replace_all(localfile, ext)
 
         client_s3.download_file(bucket_s3, file_id, tmp_filepath)
-        return read_csv(tmp_filepath)
+        return tmp_filepath
     else:
-        if not re.match("[a-zA-Z0-9_-]{20,}", file_name):
+        if not re.match('[a-zA-Z0-9_-]{20,}', file_name):
             raise Exception('Wrong file id format')
         else:
             drive_api = DriveAPI()
             tmp_filepath = drive_api.download(file_name)
 
-            return read_csv(tmp_filepath)
+            return tmp_filepath
+
+def read_script(script_file):
+    if util.assert_file_mime(script_file, ['text/x-python', 'text/x-c', 'text/plain', 'text/html']):
+        with open(script_file, 'r') as file_obj:
+            return file_obj.read()
+    else:
+        raise GraphQLError('Invalid exploit file format')
 
 def read_csv(csv_file):
     file_content = []
