@@ -147,12 +147,17 @@ es posible hacer énfasis en los temas que consideren más importantes.
 == 3. Experiencia
 
 Este *taller* se ha presentado a profesionales del área de tecnología
-y auditoría de empresas como link:https://www.accenture.com/co-es/new-applied-now[+Accenture+], link:https://www.avianca.com/co/es/[+Avianca+],
+y auditoría de empresas como
+link:https://www.accenture.com/co-es/new-applied-now[+Accenture+],
+link:https://www.arus.com.co/[+Arus+],
+link:https://www.avianca.com/co/es/[+Avianca+],
 link:https://www.grupobancolombia.com/wps/portal/personas[+Bancolombia+],
 link:https://www.banistmo.com/[+Banitsmo+],
 link:https://www.biva.mx/en/web/portal-biva/home[+BIVA+],
 link:http://www.cadena.com.co/es/home.aspx[+Cadena+],
-link:http://cidenet.com.co/[+Cidenet+], link:http://www.cognox.co[+Cognox+],
+link:http://cidenet.com.co/[+Cidenet+],
+link:http://www.cognox.co[+Cognox+],
+link:http://www.eafit.edu.co/[+EAFIT+],
 link:https://www.f2x.com.co/[+F2X+], link:http://www.gco.com.co/[+GCO+],
 link:https://www.kometsales.com/[+Komet Sales+],
 link:https://www.payvalida.com/co/es/[+Pay valida+]
