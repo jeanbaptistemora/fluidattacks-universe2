@@ -79,6 +79,9 @@ OPEN_CONFIRM_MDL = "dashboard/confirm_open";
 export let CLOSE_CONFIRM_MDL: string;
 CLOSE_CONFIRM_MDL = "dashboard/confirm_close";
 
+export let LOAD_EXPLOIT: string;
+LOAD_EXPLOIT = "dashboard/finding/exploit/load";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,

@@ -224,7 +224,7 @@ class Finding(ObjectType):
         """
         del info
 
-        formstack_exploit = get_exploit_from_file(self, self.exploit)
+        formstack_exploit = '' if self.exploit == '' else get_exploit_from_file(self, self.exploit)
         dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
         if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
             file_info = filter(lambda evidence: evidence['name'] == 'exploit', dynamo_evidence[0].get('files'))

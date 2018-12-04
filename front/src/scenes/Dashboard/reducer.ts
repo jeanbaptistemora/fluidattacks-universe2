@@ -1,5 +1,6 @@
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
+import { IExploitViewProps } from "./components/ExploitView";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView/index";
 import { ISeverityViewProps } from "./components/SeverityView";
@@ -7,6 +8,7 @@ import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 interface IDashboardState {
+  exploit: Pick<IExploitViewProps, "code">;
   fileInput: {
     name: string;
   };
@@ -40,6 +42,9 @@ interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
+  exploit: {
+    code: "",
+  },
   fileInput: {
     name: "",
   },
@@ -415,6 +420,15 @@ actionMap[actionType.CLOSE_CONFIRM_MDL] =
   ({
     ...state,
     isMdlConfirmOpen: false,
+  });
+
+actionMap[actionType.LOAD_EXPLOIT] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    exploit: {
+      code: action.payload.code,
+    },
   });
 
 type DashboardReducer = ((

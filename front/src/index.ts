@@ -10,7 +10,7 @@ import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
-import exploitView from "./scenes/Dashboard/components/ExploitView/index";
+import { exploitView } from "./scenes/Dashboard/components/ExploitView/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
@@ -209,8 +209,7 @@ angular
     react2angular(
       exploitView,
       [
-        "code",
-        "visible",
+        "findingId",
       ],
     ),
   );

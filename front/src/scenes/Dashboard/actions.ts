@@ -874,3 +874,33 @@ export const updateSeverity: ThunkActionStructure =
       }
     });
 };
+
+export const loadExploit: ThunkActionStructure =
+  (findingId: string): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `{
+      finding(identifier: "${findingId}") {
+        exploit
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred getting exploit")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      dispatch({
+        payload: {
+          code: data.finding.exploit,
+        },
+        type: actionType.LOAD_EXPLOIT,
+      });
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};

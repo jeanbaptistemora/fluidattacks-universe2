@@ -245,26 +245,10 @@ angular.module("FluidIntegrates").factory(
       "findingExploitTab" (data, findingData) {
         data.hasExploit = false;
         findingData.hasExploit = data.hasExploit;
-        let exploit = {};
         const req = projectFtry.getEvidences(data.finding.id);
         req.then((response) => {
           if (!response.error) {
             if (response.data.length > 0) {
-              /* eslint func-style: ["error", "expression"]*/
-              const respFunction = function respFunction (response) {
-                if (!response.error) {
-                  let responses = response.replace(new RegExp("[<" +
-                                  "]", "g"), "&lt;");
-                  responses = responses.replace(new RegExp("[>" +
-                              "]", "g"), "&gt;");
-                  data.exploitSrc = responses;
-                  findingData.exploitSrc = data.exploitSrc;
-                }
-                else if (response.error) {
-                  Rollbar.error("Error: An error occurred " +
-                                "loading exploit from S3");
-                }
-              };
               const exploitS3 = {};
               for (let cont = 0; cont < response.data.length; cont++) {
                 if (response.data[cont].name === "exploit") {
@@ -273,29 +257,13 @@ angular.module("FluidIntegrates").factory(
               }
               if (angular.isDefined(exploitS3.exploit) &&
                       data.finding.cierres.length === 0) {
-                exploit = projectFtry.getExploit(
-                  data.finding.id,
-                  exploitS3.exploit,
-                  data.project.toLowerCase()
-                );
                 data.hasExploit = true;
                 findingData.hasExploit = data.hasExploit;
-                exploit.then((response) => {
-                  respFunction(response);
-                });
               }
               else if (angular.isDefined(data.finding.exploit) &&
                    data.finding.cierres.length === 0) {
-                exploit = projectFtry.getExploit(
-                  data.finding.id,
-                  data.finding.exploit,
-                  data.project.toLowerCase()
-                );
                 data.hasExploit = true;
                 findingData.hasExploit = data.hasExploit;
-                exploit.then((response) => {
-                  respFunction(response);
-                });
               }
               else {
                 data.hasExploit = false;
@@ -304,26 +272,8 @@ angular.module("FluidIntegrates").factory(
             }
             else if (angular.isDefined(data.finding.exploit) &&
                  data.finding.cierres.length === 0) {
-              exploit = projectFtry.getExploit(
-                data.finding.id,
-                data.finding.exploit,
-                data.project.toLowerCase()
-              );
               data.hasExploit = true;
               findingData.hasExploit = data.hasExploit;
-              exploit.then((response) => {
-                if (!response.error) {
-                  let responses = response.replace(new RegExp("[<" +
-                                  "]", "g"), "&lt;");
-                  responses = responses.replace(new RegExp("[>" +
-                              "]", "g"), "&gt;");
-                  data.exploitSrc = responses;
-                  findingData.exploitSrc = data.exploitSrc;
-                }
-                else if (response.error) {
-                  Rollbar.error("Error: An error occurred loading exploit");
-                }
-              });
             }
             else {
               data.hasExploit = false;
