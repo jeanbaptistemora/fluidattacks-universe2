@@ -212,13 +212,14 @@ $ cd /var/www/integrates/deploy/containers/deps && sudo pip install --upgrade -r
 * Node Package Manager or simply npm is a package manager from which we can have
   any library available with just one line of code, npm will help us manage our
   modules, distribute packages and add dependencies in a simple way.
-  To install npm we must install _Nodejs_, this brings by default npm:
+  To install npm we must install _Nodejs_ and _npm_:
 
 [source, console]
 ----
 $ sudo apt-get install curl
 $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 $ sudo apt-get install -y nodejs
+$ sudo apt-get install -y npm
 
 ----
 
@@ -274,8 +275,14 @@ and append the following command:
 $ export VAULT_ADDR=https://vault.fluidattacks.com
 ----
 
-. Open a new terminal to load the previous variable
-and authenticate against `Vault`,
+. Then load the previous variable with the following command:
++
+[source, bash]
+----
+$ source $HOME/.bashrc
+----
+
+. Now you can authenticate against `Vault`,
 which uses the `RADIUS` protocol connected to `OneLogin`,
 so the credentials are the same ones used for `OneLogin`.
 +
@@ -307,6 +314,19 @@ $ curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/downloa
      && rm vaultenv.deb
 ----
 
+== Compile `front-end` files
+
+Front-end files are written in `TypeScript` and
+must be compiled using `gulp`, in order to generate a `bundle.min.js` file,
+it can be done following the next commands:
++
+[source, bash]
+----
+$ cd /var/www/integrates/front && sudo apt-get install -y gulp
+$ sudo npm install
+$ sudo gulp package:dev
+----
+
 == Deploy server
 
 * Finally you must launch the local server that contains the application. This
@@ -321,6 +341,16 @@ and make it executable
 ----
 #!/usr/bin/env bash
 set -e
+
+export FI_DRIVE_AUTHORIZATION=$(vault read -field=drive_authorization secret/integrates/development | base64 --decode)
+export FI_DRIVE_AUTHORIZATION_CLIENT=$(vault read -field=drive_authorization_client secret/integrates/development | base64 --decode)
+export FI_DOCUMENTROOT=$(vault read -field=documentroot secret/integrates/development)
+
+$(which python) /var/www/integrates/deploy/containers/common/vars/render.py
+
+unset FI_DRIVE_AUTHORIZATION
+unset FI_DRIVE_AUTHORIZATION_CLIENT
+unset FI_DOCUMENTROOT
 
 export VAULT_HOST='vault.fluidattacks.com'
 export VAULT_PORT=443
