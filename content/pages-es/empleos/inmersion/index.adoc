@@ -184,8 +184,8 @@ link:https://www.dian.gov.co/impuestos/personas/Paginas/rut.aspx[página web de 
 y adjunta el documento +PDF+.
 .. *Concepto:* Ingresa tu primer nombre y la inicial de tu primer apellido.
 .. *Relación:* Proveedor.
-.. *Certificación bancaria:* Adjuntar el +PDF+ correspondiente.
-Solo se admiten cuentas Bancolombia.
+.. *Certificación bancaria:* Adjuntar el +PDF+ correspondiente
+de la entidad bancaria de tu elección.
 .. *Plazo de pago:* 5 días hábiles.
 .. *Formas de pago:* Ordinario.
 .. *Recepción y días de recepción:* Primer día de cada mes.

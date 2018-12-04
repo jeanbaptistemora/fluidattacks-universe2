@@ -189,8 +189,8 @@ link:https://www.irs.gov/individuals/international-taxpayers/taxpayer-identifica
 attach the +PDF+ document.
 .. *Concept:* Enter your first name and initial of your last name.
 .. *Relation:* Supplier.
-.. *Bank letter:* Attach the corresponding +PDF+.
-For Colombia, only Bancolombia accounts are accepted.
+.. *Bank letter:* Attach the corresponding +PDF+
+of the financial entity of your choice.
 .. *Payment deadline:* 5 business days.
 .. *Payment methods:* Ordinary.
 .. *Reception of invoice and Reception days:* First day of every month.
