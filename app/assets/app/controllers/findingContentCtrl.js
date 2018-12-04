@@ -43,14 +43,6 @@ findingContentCtrl (
   projectFtry2,
   tabsFtry
 ) {
-  $scope.cssv2Editable = function cssv2Editable () {
-    if ($scope.onlyReadableTab2 === false) {
-      $scope.onlyReadableTab2 = true;
-    }
-    else {
-      $scope.onlyReadableTab2 = false;
-    }
-  };
   $scope.descriptionEditable = function descriptionEditable () {
     if ($scope.onlyReadableTab1 === false) {
       $scope.onlyReadableTab1 = true;
@@ -81,10 +73,6 @@ findingContentCtrl (
         findingData.esDetallado = $scope.esDetallado;
       }
     }, TIMEOUT);
-  };
-  $scope.updateCSSv2 = function updateCSSv2 (values) {
-    $scope.severityInfo = values;
-    functionsFtry1.updateCSSv2($scope);
   };
   $scope.updateEvidencesFiles = function updateEvidencesFiles (element) {
     functionsFtry2.updateEvidencesFiles(element, $scope);
@@ -245,11 +233,6 @@ findingContentCtrl (
     $scope.colors.tolerable = "background-color: #ffbf00;";
     // Green
     $scope.colors.ok = "background-color: #008000;";
-  };
-  $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
-    const cssv2Info = functionsFtry2.findingCalculateCSSv2($scope);
-    $scope.finding.cssv2base = cssv2Info[0];
-    $scope.finding.criticity = cssv2Info[1];
   };
   $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

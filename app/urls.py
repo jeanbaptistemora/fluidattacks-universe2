@@ -61,7 +61,6 @@ urlpatterns = [
     url(r'^accept_draft/?\.*$', views.accept_draft, name='accept_draft'),
     url(r'^delete_draft/?\.*$', views.delete_draft, name='delete_draft'),
     url(r'^finding_solved/?\.*$', views.finding_solved, name='finding_solved'),
-    url(r'^update_cssv2/?$', views.update_cssv2, name='update_cssv2'),
     url(r'^update_description/?$', views.update_description, name='update_description'),
     url(r'^update_evidence_text/?$', views.update_evidence_text, name='update_evidence_text'),
     url(r'^update_treatment/?$', views.update_treatment, name='update_treatment'),

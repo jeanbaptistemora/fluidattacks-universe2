@@ -43,7 +43,6 @@ export interface ISeverityViewProps {
   formValues: { editSeverity: { values: ISeverityViewProps["dataset"] }};
   isEditing: boolean;
   isMdlConfirmOpen: boolean;
-  onUpdate(values: ISeverityViewProps["dataset"]): void;
 }
 
 interface ISeverityField {

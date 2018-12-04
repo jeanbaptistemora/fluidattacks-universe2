@@ -220,16 +220,6 @@ angular.module("FluidIntegrates").factory(
         });
       },
 
-      "findingCalculateCSSv2" ($scope) {
-        const calCSSv2 = projectFtry.calCCssv2($scope.severityInfo);
-        const BaseScore = calCSSv2[0];
-        const Temporal = calCSSv2[1];
-        return [
-          BaseScore.toFixed(1),
-          Temporal.toFixed(1)
-        ];
-      },
-
       "findingInformationTab" ($scope) {
         $scope.list = {};
         $scope.list.findingType = findingType;
@@ -237,15 +227,6 @@ angular.module("FluidIntegrates").factory(
         $scope.list.probability = probabilities;
         $scope.list.actor = actor;
         $scope.list.scenario = scenario;
-        $scope.list.accessVector = accessVector;
-        $scope.list.accessComplexity = accessComplexity;
-        $scope.list.authentication = authentication;
-        $scope.list.confidenciality = confidenciality;
-        $scope.list.integrity = integrity;
-        $scope.list.availability = availability;
-        $scope.list.explotability = explotability;
-        $scope.list.resolutionLevel = resolutionLevel;
-        $scope.list.realiabilityLevel = realiabilityLevel;
         $scope.finding.openVulnerabilities =
         parseInt($scope.finding.openVulnerabilities, 10);
         $scope.finding.criticity = parseFloat($scope.finding.criticity);

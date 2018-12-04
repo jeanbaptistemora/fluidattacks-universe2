@@ -1032,26 +1032,6 @@ def get_myprojects(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
-def update_cssv2(request):
-    parameters = request.POST.dict()
-    try:
-        generic_dto = FindingDTO()
-        severity_dict = generic_dto.create_cssv2(parameters)
-        severity_info=forms_utils.to_formstack(severity_dict["data"])
-        api = FormstackAPI()
-        request = api.update(severity_dict["request_id"], severity_info)
-        if request:
-            return util.response([], 'success', False)
-        rollbar.report_message('Error: An error occurred updating CSSV2', 'error', request)
-        return util.response([], 'error', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'admin'])
-@require_finding_access
 def update_description(request):
     parameters = request.POST.dict()
     try:

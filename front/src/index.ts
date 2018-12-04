@@ -407,7 +407,6 @@ angular
    react2angular(
      severityView, [
        "findingId",
-       "onUpdate",
      ],
    ),
   );

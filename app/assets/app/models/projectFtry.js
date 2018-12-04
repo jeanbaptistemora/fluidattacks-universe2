@@ -296,23 +296,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Make a request to update the severity section of a finding.
-       * @function updateCSSv2
-       * @param {JSON} data New data in the severity tab
-       * @param {String} findingid Finding id
-       * @member integrates.projectFtry
-       * @return {Object} Formstack response about severity update request
-       */
-      "updateCSSv2" (data, findingid) {
-        const oopsAc = "An error occurred updating CSSV2";
-        return $xhr.post($q, `${BASE.url}update_cssv2`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
-        }, oopsAc);
-      },
-
-      /**
        * Make a request to update the description section of a finding.
        * @function updateDescription
        * @param {JSON} data New data in the description tab

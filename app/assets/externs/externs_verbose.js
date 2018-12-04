@@ -151,7 +151,6 @@ var getEvidences = {};   \
 var es_exploit = {};   \
 var getExploit = {};  \
 var $apply = {};   \
-var updateCSSv2 = {};   \
 var updateEvidenceFiles = {};   \
 var updateEvidenceText = {};    \
 var deleteFinding = {};    \

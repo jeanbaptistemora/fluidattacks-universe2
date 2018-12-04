@@ -204,25 +204,6 @@ class FindingDTO(object):
                        for (k, v) in treatment_fields.items()}
         return {"data":parsed_dict, "request_id":parameter["data[id]"]}
 
-
-    def create_cssv2(self, parameter):
-        """ Converts the index of a JSON to Formstack index """
-        severity_tab_fields = {
-            self.ACCESS_VECTOR: "accessVector",
-            self.ACCESS_COMPLEXITY: "accessComplexity",
-            self.AUTHENTICATION: "authentication",
-            self.EXPLOITABILITY: "exploitability",
-            self.CRITICITY: "criticity",
-            self.CONFIDENTIALITY_IMPACT: "confidentialityImpact",
-            self.INTEGRITY_IMPACT: "integrityImpact",
-            self.AVAILABILITY_IMPACT: "availabilityImpact",
-            self.RESOLUTION_LEVEL: "resolutionLevel",
-            self.CONFIDENCE_LEVEL: "confidenceLevel"
-        }
-        parsed_dict = {k:parameter["data[" + v + "]"] \
-                for (k, v) in severity_tab_fields.items()}
-        return {"data":parsed_dict, "request_id":parameter["data[id]"]}
-
     def create_cvssv2(self, parameter):
         """ Converts the index of a JSON to Formstack index """
         severity_tab_fields = {

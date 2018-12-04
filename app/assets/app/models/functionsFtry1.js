@@ -254,66 +254,6 @@ angular.module("FluidIntegrates").factory(
         }
       },
 
-      "updateCSSv2" ($scope) {
-      // Get the actual data in the severity fields
-        const cssv2Data = {
-          "accessComplexity": $scope.severityInfo.accessComplexity,
-          "accessVector": $scope.severityInfo.accessVector,
-          "authentication": $scope.severityInfo.authentication,
-          "availabilityImpact": $scope.severityInfo.availabilityImpact,
-          "confidenceLevel": $scope.severityInfo.confidenceLevel,
-          "confidentialityImpact":
-                                    $scope.severityInfo.confidentialityImpact,
-          "criticity": $scope.severityInfo.criticity,
-          "exploitability": $scope.severityInfo.exploitability,
-          "id": $scope.severityInfo.id,
-          "integrityImpact": $scope.severityInfo.integrityImpact,
-          "resolutionLevel": $scope.severityInfo.resolutionLevel
-        };
-        // Create an instance of the confirmation modal
-        $uibModal.open({
-          "animation": true,
-          "backdrop": "static",
-          "controller" ($scope, $uibModalInstance, updateData) {
-            $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
-            $scope.ok = function ok () {
-            // Make the request
-              const req = projectFtry.updateCSSv2(updateData, updateData.id);
-              // Capture the promise
-              req.then((response) => {
-                if (!response.error) {
-                  // Mixpanel tracking
-                  mixPanelDashboard.trackFinding(
-                    "UpdateCSSV2",
-                    userEmail,
-                    updateData.id
-                  );
-                  const updatedAt = $translate.instant("proj_alerts." +
-                                                     "updatedTitle");
-                  const updatedAc = $translate.instant("proj_alerts." +
-                                                     "updated_cont");
-                  $msg.success(updatedAc, updatedAt);
-                  $uibModalInstance.close();
-                  location.reload();
-                }
-                else if (response.error) {
-                  const errorAc1 = $translate.instant("proj_alerts." +
-                                                   "error_textsad");
-                  Rollbar.error("Error: An error occurred updating CSSv2");
-                  $msg.error(errorAc1);
-                }
-              });
-            };
-            $scope.close = function close () {
-              $uibModalInstance.close();
-            };
-          },
-          "keyboard": false,
-          "resolve": {"updateData": cssv2Data},
-          "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-        });
-      },
-
       "updateEvidenceText" (element, $scope) {
         const evImage = angular.element(element).attr("target");
         const data = {};
