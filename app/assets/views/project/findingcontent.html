@@ -118,6 +118,7 @@
               <!-- Start Tabs -->
               <div class="tab-content">
                   <!-- Start Tab Info -->
+                  <div ng-if="currentTab === 'description'">
                   <div id="info" class="tab-pane cont active">
                       <div class="row">
                           <div class="col-md-12 col-sm-12 col-xs-12">
@@ -379,17 +380,21 @@
                               </div>
                          </div>
                       </div>
+                      </div>
                   </div>
                   <!-- End Tab Info -->
                   <!-- Start Tab Cssv2 -->
                   <div id="cssv2" class="tab-pane cont">
+                    <div ng-if="currentTab === 'severity'">
                     <severity-view
                       finding-id="finding.id"
                     />
+                    </div>
                   </div>
                   <!-- End Tab CSSv2 -->
                   <!-- Start Tab Evidence -->
                   <div id="evidence" class="tab-pane cont">
+                    <div ng-if="currentTab === 'evidence'">
                       <div class="row" ng-show="isManager && hasAccess" style="margin-bottom: 10px;">
                           <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
                               <button class="btn btn-primary btn-block"
@@ -471,10 +476,12 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                   </div>
                   <!-- End Tab Evidence -->
                   <!-- Start Tab Exploit -->
                   <div id="exploit" class="tab-pane cont" ng-show="hasExploit || isManager">
+                    <div ng-if="currentTab === 'exploit'">
                     <div class="row" ng-show="isManager && hasAccess" style="margin-bottom: 10px;">
                         <div class="row">
                             <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
@@ -511,11 +518,12 @@
                     <exploit-view
                       finding-id="finding.id"
                     />
+                    </div>
                   </div>
                   <!-- End Tab Exploit -->
                   <!-- Start Tab Tracking -->
                   <div id="tracking" class="tab-pane cont">
-                    <div class="tab-content">
+                    <div class="tab-content" ng-if="currentTab === 'tracking'">
                       <tracking-view
                         open-findings-content="finding.where"
                         closed-findings-content="finding.closed"
@@ -527,7 +535,7 @@
                   <!-- End Tab Tracking -->
                   <!-- Start Tab Record -->
                   <div id="records" class="tab-pane cont" ng-show="hasRecords || isManager">
-                    <div >
+                    <div ng-if="currentTab === 'records'">
                       <records-view
                         on-upload-file="updateEvidencesFiles"
                         finding-id="finding.id"
@@ -538,14 +546,18 @@
                   </div>
                   <!-- End Tab Record -->
                   <!-- Start Tab Comment -->
+                  <div ng-if="currentTab === 'comments'">
                   <comment-box
                     type="'comment'"
                     visible="!hasDraft"/>
+                  </div>
                   <!-- End Tab Comment -->
                   <!-- Start Tab observations -->
+                  <div ng-if="currentTab === 'observations'">
                   <comment-box
                     type="'observation'"
                     visible="true"/>
+                  </div>
                   <!-- End Tab observations -->
               </div>
               <!-- End Tabs -->
