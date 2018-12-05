@@ -422,7 +422,7 @@ def update_legal_remember_dynamo(email, remember):
     table = dynamodb_resource.Table('FI_users')
     item = get_user_dynamo(email)
     if item == []:
-        print "item empty"
+        print("item empty")
         try:
             response = table.put_item(
                 Item={

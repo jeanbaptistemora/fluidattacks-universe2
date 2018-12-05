@@ -12,7 +12,7 @@ from graphql import GraphQLError
 
 # pylint: disable=E0402
 from .services import has_access_to_project, has_access_to_finding, is_customeradmin
-import util
+from . import util
 
 def authenticate(func):
     @functools.wraps(func)

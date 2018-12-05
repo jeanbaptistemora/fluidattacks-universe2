@@ -200,7 +200,7 @@ class CreatorPDF(object):
         with open(tpl_name, 'w') as tplfile:
             tplfile.write(render_text.encode('utf-8'))
         self.create_command(tpl_name)
-        print self.command
+        print(self.command)
         os.system(self.command)
 
     def tech(self, data, project, user):
