@@ -90,11 +90,15 @@ La manera en que deberán realizarse los retos y artículos, será:
 
 .. Una ronda de retos consiste en realizar en estricto orden:
 
-... *un (1)* reto de +systems-hacking+,
+... *un (1)* +MR+ de +systems-hacking+ aceptado en la rama master del
+link:https://gitlab.com/fluidattacks/writeups[repo writeups],
 
-... *un (1)* reto de +ctf-hacking+, y
+... *un (1)* +MR+ de +ctf-hacking+ aceptado en la rama master del
+link:https://gitlab.com/autonomicmind/training/[repo training], y
 
-... *un (1)* reto de +programación+.
+... *un (1)*  +MR+ de +programación+ aceptado en la rama master del
+link:https://gitlab.com/autonomicmind/training/[repo training].
+
 
 .. No deben hacerse +MRs+ consecutivos con soluciones de un mismo tipo.
 .. No debe cambiarse el orden de entrenamiento y envio de soluciones.
@@ -106,15 +110,10 @@ realizar *un (1)* artículo para el blog.
 . Repetir los pasos anteriores hasta completar los
 [button]#link:../inmersion/#objetivos[objetivos]#.
 
-.. En resumen: [red]#((syst ctfh prog )\{5\}blog )\{5\}#
+.. En resumen:
+rondas de [red]#(syst ctfh prog )\{5\}blog# hasta completar los objetivos.
 
 . Para los retos de programación tener en cuenta:
-
-.. *NO* es necesario que el puntaje del primer reto de programación
-realizado para esta etapa,
-tenga un puntaje (blessing para codeabbey)
-superior al último reto de programación finalizado en la etapa de
-[button]#link:../retos-tecnicos/[Retos Técnicos]#
 
 .. Cada reto de programación realizado debe ser *una (1)*
 unidad de puntaje superior al anterior.

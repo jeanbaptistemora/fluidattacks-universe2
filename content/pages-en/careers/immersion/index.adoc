@@ -99,29 +99,28 @@ Challenges and articles must be presented in the following order:
 
 .. A challenge round consists of completing in strict order:
 
-... *one (1)* +systems-hacking+ challenge,
+... *one (1)* approved +MR+ of +systems-hacking+ on the master branch from the
+link:https://gitlab.com/fluidattacks/writeups[writeups repo],
 
-... *one (1)* +ctf-hacking+ challenge,
+... *one (1)* approved +MR+ of +ctf-hacking+ on the master branch from the
+link:https://gitlab.com/autonomicmind/training/[training repo], and
 
-... *one (1)* +Programming+ challenge.
+... *one (1)* approved +MR+ of +Programming+ on the master branch from the
+link:https://gitlab.com/autonomicmind/training/[training repo].
 
 .. You shall not do consecutive +MRs+ with solutions of the same kind.
 .. You shall not change the order in any way.
 .. You shall not skip any challenge type.
 
-. once you did *five (5)* challenge rounds.
+. Once you've done *five (5)* challenge rounds.
 Write *one (1)* article for the blog.
 
 . Repeat the previous steps until you complete the
 [button]#link:../immersion/#objectives[objectives]#
-.. In short: [red]#((syst ctfh prog )\{5\}blog )\{5\}#
+.. In short:
+rounds of [red]#(syst ctfh prog )\{5\}blog# until you complete the objectives.
 
 . For programming challenges you should take into account:
-
-.. The score (blessing for codeabbey)
-of the first programming challenge solved for this stage
-does *NOT* have to be greater than the last programming challenge solved in
-[button]#link:../technical-challenges/[Technical Challenges]#
 
 .. Each programming challenge completed
 must be *one (1)* score point greater than the previous one.
