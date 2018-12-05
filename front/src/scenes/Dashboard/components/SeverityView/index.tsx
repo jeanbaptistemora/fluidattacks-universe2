@@ -73,7 +73,7 @@ lifecycle({
 type formProps = ISeverityViewProps & InjectedFormProps<{}, ISeverityViewProps>;
 
 const renderEditPanel: ((arg1: formProps) => JSX.Element) = (props: formProps): JSX.Element => (
-  <Row ng-show="isManager">
+  <Row>
     <Row>
       <Col md={2} mdOffset={10} xs={12} sm={12}>
         <Button bsStyle="primary" block={true} onClick={(): void => { store.dispatch(actions.editSeverity()); }}>

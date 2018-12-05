@@ -8,7 +8,7 @@ import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 interface IDashboardState {
-  exploit: Pick<IExploitViewProps, "code">;
+  exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
     name: string;
   };
@@ -44,6 +44,7 @@ interface IDashboardState {
 const initialState: IDashboardState = {
   exploit: {
     code: "",
+    isEditing: false,
   },
   fileInput: {
     name: "",
@@ -427,7 +428,18 @@ actionMap[actionType.LOAD_EXPLOIT] =
   ({
     ...state,
     exploit: {
+      ...state.exploit,
       code: action.payload.code,
+    },
+  });
+
+actionMap[actionType.EDIT_EXPLOIT] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    exploit: {
+      ...state.exploit,
+      isEditing: !state.exploit.isEditing,
     },
   });
 

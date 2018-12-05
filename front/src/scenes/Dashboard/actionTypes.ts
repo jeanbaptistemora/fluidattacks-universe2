@@ -82,6 +82,9 @@ CLOSE_CONFIRM_MDL = "dashboard/confirm_close";
 export let LOAD_EXPLOIT: string;
 LOAD_EXPLOIT = "dashboard/finding/exploit/load";
 
+export let EDIT_EXPLOIT: string;
+EDIT_EXPLOIT = "dashboard/finding/exploit/edit";
+
 export {
   LOAD_RESOURCES,
   CLEAR_RESOURCES,

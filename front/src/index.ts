@@ -209,7 +209,9 @@ angular
     react2angular(
       exploitView,
       [
+        "canEdit",
         "findingId",
+        "projectName",
       ],
     ),
   );
