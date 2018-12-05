@@ -113,7 +113,7 @@ def drive_url_filter(drive):
 def get_hmac(request):
     result = hmac.new(
                 'xuk7Un2cie5Aenej8joo2Xaefui1ai',
-                request.user.email,
+                request.session['username'],
                 digestmod=hashlib.sha256)
     return result.hexdigest()
 

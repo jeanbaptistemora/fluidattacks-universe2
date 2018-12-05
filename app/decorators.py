@@ -83,7 +83,7 @@ def require_finding_access(func):
         if not re.match("^[0-9]*$", findingid):
             rollbar.report_message('Error: Invalid finding id format', 'error', request)
             return util.response([], 'Invalid finding id format', True)
-        if not has_access_to_finding(request.user, findingid, request.session['role']):
+        if not has_access_to_finding(request.session['username'], findingid, request.session['role']):
             util.cloudwatch_log(request, 'Security: Attempted to retrieve finding-related info without permission')
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
