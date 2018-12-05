@@ -2,6 +2,13 @@
 
 from datetime import datetime
 
+# pylint: disable=redefined-builtin
+try:
+    type(reduce)
+except NameError:
+    from functools import reduce
+
+
 def dict_concatenation(dict_1, dict_2):
     dict_1_copy = dict_1.copy()
     dict_1_copy.update(dict_2)

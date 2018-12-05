@@ -3,7 +3,10 @@
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
-import urlparse
+try:
+    from urlparse import urlparse, parse_qs
+except ImportError:
+    from urllib.parse import urlparse, parse_qs
 
 from graphene import String, ObjectType
 
@@ -57,8 +60,8 @@ class Events(ObjectType):
             if 'estado' in evt_set:
                 self.status = evt_set['estado']
             if 'evidence' in evt_set  and '.png' in evt_set['evidence']:
-                parsed_url = urlparse.urlparse(evt_set['evidence'])
-                self.evidence = urlparse.parse_qs(parsed_url.query)['id'][0]
+                parsed_url = urlparse(evt_set['evidence'])
+                self.evidence = parse_qs(parsed_url.query)['id'][0]
             if 'affectation' in evt_set:
                 self.affectation = evt_set['affectation']
             if 'accessibility' in evt_set:

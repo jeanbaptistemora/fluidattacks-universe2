@@ -11,6 +11,12 @@ import rollbar
 from datetime import datetime
 
 
+# pylint: disable=redefined-builtin
+try:
+    type(unicode)
+except NameError:
+    unicode = str
+
 def create_user_dao(email, username='-', first_name='-', last_name='-', first_time='-' ):
     """ Add a new user. """
     role = 'None'
