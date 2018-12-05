@@ -6,8 +6,6 @@ import re
 import os
 import datetime
 import json
-import hmac
-import hashlib
 import pytz
 import collections
 
@@ -109,13 +107,6 @@ def drive_url_filter(drive):
             return new_url.split("&")[0]
     return drive
 
-
-def get_hmac(request):
-    result = hmac.new(
-                'xuk7Un2cie5Aenej8joo2Xaefui1ai',
-                request.session['username'],
-                digestmod=hashlib.sha256)
-    return result.hexdigest()
 
 def get_evidence_set(finding):
     evidence_set = []
