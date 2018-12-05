@@ -18,6 +18,7 @@ dynamotargetclient = boto3.client('dynamodb', region_name='us-east-1',
 
 tables = ["alerts_by_company",
           "comments",
+          "eventualities",
           "findings_email",
           "remediated",
           "toe",
