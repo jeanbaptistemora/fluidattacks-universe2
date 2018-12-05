@@ -4,7 +4,7 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 import time
-from pyPdf import PdfFileWriter, PdfFileReader
+from PyPDF2 import PdfFileWriter, PdfFileReader
 from ..dao import integrates_dao
 
 

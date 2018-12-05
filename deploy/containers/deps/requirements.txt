@@ -36,7 +36,7 @@ awscli==1.15.45
 pyOpenSSL==17.5.0
 rollbar==0.14.5
 mixpanel==4.3.2
-pypdf==1.13
+pypdf2==1.26.0
 backports.csv==1.0.5
 pyflakes==1.6.0
 graphene==2.1.3
