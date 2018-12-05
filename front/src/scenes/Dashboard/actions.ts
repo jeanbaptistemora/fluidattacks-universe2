@@ -741,15 +741,15 @@ export const calcCVSSv2: DashboardAction =
     let EXPLOITABILITY_FACTOR: number; EXPLOITABILITY_FACTOR = 20;
     let F_IMPACT_FACTOR: number; F_IMPACT_FACTOR = 1.176;
 
-    const impCon: number = parseFloat(data.confidentialityImpact.split(" | ")[0]);
-    const impInt: number = parseFloat(data.integrityImpact.split(" | ")[0]);
-    const impDis: number = parseFloat(data.availabilityImpact.split(" | ")[0]);
-    const accCom: number = parseFloat(data.accessComplexity.split(" | ")[0]);
-    const accVec: number = parseFloat(data.accessVector.split(" | ")[0]);
-    const auth: number = parseFloat(data.authentication.split(" | ")[0]);
-    const explo: number = parseFloat(data.exploitability.split(" | ")[0]);
-    const resol: number = parseFloat(data.resolutionLevel.split(" | ")[0]);
-    const confi: number = parseFloat(data.confidenceLevel.split(" | ")[0]);
+    const impCon: number = parseFloat(data.confidentialityImpact);
+    const impInt: number = parseFloat(data.integrityImpact);
+    const impDis: number = parseFloat(data.availabilityImpact);
+    const accCom: number = parseFloat(data.accessComplexity);
+    const accVec: number = parseFloat(data.accessVector);
+    const auth: number = parseFloat(data.authentication);
+    const explo: number = parseFloat(data.exploitability);
+    const resol: number = parseFloat(data.resolutionLevel);
+    const confi: number = parseFloat(data.confidenceLevel);
 
     /*
      * The constants above are part of the BaseScore, Impact and
@@ -783,7 +783,6 @@ export const loadSeverity: ThunkActionStructure =
     new Xhr().request(gQry, "An error occurred getting severity")
     .then((response: AxiosResponse) => {
       const { data } = response.data;
-
       dispatch(calcCVSSv2(data.finding.severity));
       dispatch({
         payload: {
@@ -834,11 +833,6 @@ export const updateSeverity: ThunkActionStructure =
           id: "${findingId}",
           integrityImpact: "${values.integrityImpact}",
           resolutionLevel: "${values.resolutionLevel}",
-          collateralDamagePotential: "${values.collateralDamagePotential}",
-          findingDistribution: "${values.findingDistribution}",
-          confidentialityRequirement: "${values.confidentialityRequirement}",
-          integrityRequirement: "${values.integrityRequirement}",
-          availabilityRequirement: "${values.availabilityRequirement}",
         }
       ) {
         success

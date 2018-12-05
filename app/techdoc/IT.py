@@ -134,13 +134,64 @@ class ITReport(object):
 			return "Media"
 		return complexity_access
 
-	def __get_measure(self, metricstr): # noqa
+	def __get_measure(self, metric, metric_value): # noqa
 		""" Extract number of CSSV2 metrics """
 		try:
-			metric = metricstr.split("|")[1]
-			metric = metric.strip()
-			metric = metric.split(":")[0]
-			return metric.strip()
+			metrics = {
+				"accessVector": {
+					'0.395': 'Local',
+					'0.646': 'Red adyacente',
+					'1.0': 'Red',
+				},
+				'confidentialityImpact': {
+					'0.0': 'Ninguno',
+					'0.275': 'Parcial',
+					'0.66': 'Completo',
+				},
+				'integrityImpact': {
+					'0.0': 'Ninguno',
+					'0.275': 'Parcial',
+					'0.66': 'Completo',
+				},
+				'availabilityImpact': {
+					'0.0': 'Ninguno',
+					'0.275': 'Parcial',
+					'0.66': 'Completo',
+				},
+				'authentication': {
+					'0.45': 'Múltiple',
+					'0.56': 'Única',
+					'0.704': 'Ninguna',
+				},
+				'exploitability': {
+					'0.85': 'Improbable',
+					'0.9': 'Conceptual',
+					'0.95': 'Funcional',
+					'1.0': 'Alta',
+				},
+				'confidenceLevel': {
+					'0.9': 'No confirmado',
+					'0.95': 'No corroborado',
+					'1.0': 'Confirmado',
+				},
+				'resolutionLevel': {
+					'0.87': 'Oficial',
+					'0.9': 'Temporal',
+					'0.95': 'Paliativa',
+					'1.0': 'Inexistente',
+				},
+				'accessComplexity': {
+					'0.35': 'Alto',
+					'0.61': 'Medio',
+					'0.71': 'Bajo',
+				}
+			}
+			metric_descriptions = metrics.get(metric)
+			if metric_descriptions:
+				description = metric_descriptions.get(str(metric_value))
+			else:
+				description = ''
+			return description
 		except ValueError:
 			return ""
 
@@ -172,31 +223,31 @@ class ITReport(object):
 		self.set_cell(self.finding['requirements_id'],
 			self.__get_req(row["requirements"]))
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["accessVector"]))
+			self.__get_measure('accessVector', row['accessVector']))
 		self.set_cell(self.finding['measurements'],
 			self.__get_complexity(self.__get_measure(
-				row["accessComplexity"])),
+				'accessComplexity', row['accessComplexity'])),
 			1)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["authentication"]),
+			self.__get_measure('authentication', row['authentication']),
 			2)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["confidentialityImpact"]),
+			self.__get_measure('confidentialityImpact', row['confidentialityImpact']),
 			3)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["integrityImpact"]),
+			self.__get_measure('integrityImpact', row['integrityImpact']),
 			4)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["availabilityImpact"]),
+			self.__get_measure('availabilityImpact', row['availabilityImpact']),
 			5)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["exploitability"]),
+			self.__get_measure('exploitability', row['exploitability']),
 			6)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["resolutionLevel"]),
+			self.__get_measure('resolutionLevel', row['resolutionLevel']),
 			7)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["confidenceLevel"]),
+			self.__get_measure('confidenceLevel', row['confidenceLevel']),
 			8)
 
 	def __write_qc(self, row):
@@ -215,7 +266,7 @@ class ITReport(object):
 			self.set_cell_qc(self.matriz['category'], row["category"])
 		if "threat" in row:
 			self.set_cell_qc(self.matriz['threat'], row["threat"])
-		criticity = float(row['criticity'])
+		criticity = row['criticity']
 		if criticity > 6.9:
 			self.set_cell_qc(self.matriz['cssv2_value'], "Alta")
 		elif criticity >= 4.0:

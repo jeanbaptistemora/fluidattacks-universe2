@@ -297,7 +297,7 @@ class CreatorPDF(object):
         colors = ['red', 'orange', 'yellow']
         explode = (0, 0.1, 0)
         for finding in findings:
-            criticity = float(finding['criticity'])
+            criticity = finding['criticity']
             if criticity >= 7.0 and criticity <= 10:
                 finding_state_pie[0] += 1
             elif criticity >= 4.0 and criticity <= 6.9:
@@ -379,7 +379,7 @@ class CreatorPDF(object):
         top_table = []
         ttl_vulns, ttl_num_reg, top = 0, 0, 1
         for finding in findings:
-            criticity = float(finding['criticity'])
+            criticity = finding['criticity']
             crit_as_text = words['crit_l']
             vuln_amount = 0
             if finding['openVulnerabilities'] != '-':
@@ -400,6 +400,7 @@ class CreatorPDF(object):
                 vuln_table[2][1] += 1
                 vuln_table[2][3] += vuln_amount
             ttl_num_reg += int(finding['recordsNumber'])
+            finding['criticity'] = str(finding['criticity'])
             if top <= 5:
                 top_table.append([
                     top,

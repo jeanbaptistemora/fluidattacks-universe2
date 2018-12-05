@@ -1,4 +1,5 @@
 import { IProjectUsersViewProps } from "../scenes/Dashboard/components/ProjectUsersView";
+import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/components/SeverityView";
 import translate from "./translations/translate";
 
 export const formatUserlist:
@@ -32,4 +33,114 @@ export const formatUserlist:
   }
 
   return userList;
+};
+
+export const castFields: ((dataset: ISeverityViewProps["dataset"]) => ISeverityField[]) =
+  (dataset: ISeverityViewProps["dataset"]): ISeverityField[] => {
+
+  const accessVector: {[value: string]: string} = {
+    0.395: "search_findings.tab_severity.vector_options.local",
+    0.646: "search_findings.tab_severity.vector_options.adjacent",
+    1: "search_findings.tab_severity.vector_options.network",
+  };
+
+  const confidentialityImpact: {[value: string]: string} = {
+    0: "search_findings.tab_severity.confidentiality_options.none",
+    0.275: "search_findings.tab_severity.confidentiality_options.partial",
+    0.66: "search_findings.tab_severity.confidentiality_options.complete",
+  };
+
+  const integrityImpact: {[value: string]: string} = {
+    0: "search_findings.tab_severity.integrity_options.none",
+    0.275: "search_findings.tab_severity.integrity_options.partial",
+    0.66: "search_findings.tab_severity.integrity_options.complete",
+  };
+
+  const availabilityImpact: {[value: string]: string} = {
+    0: "search_findings.tab_severity.availability_options.none",
+    0.275: "search_findings.tab_severity.availability_options.partial",
+    0.66: "search_findings.tab_severity.availability_options.complete",
+  };
+
+  const authentication: {[value: string]: string} = {
+    0.45: "search_findings.tab_severity.authentication_options.multiple_auth",
+    0.56: "search_findings.tab_severity.authentication_options.single_auth",
+    0.704: "search_findings.tab_severity.authentication_options.no_auth",
+  };
+
+  const exploitability: {[value: string]: string} = {
+    0.85: "search_findings.tab_severity.exploitability_options.improbable",
+    0.9: "search_findings.tab_severity.exploitability_options.conceptual",
+    0.95: "search_findings.tab_severity.exploitability_options.functional",
+    1: "search_findings.tab_severity.exploitability_options.high",
+  };
+
+  const confidenceLevel: {[value: string]: string} = {
+    0.9: "search_findings.tab_severity.confidence_options.not_confirm",
+    0.95: "search_findings.tab_severity.confidence_options.not_corrob",
+    1: "search_findings.tab_severity.confidence_options.confirmed",
+  };
+
+  const resolutionLevel: {[value: string]: string} = {
+    0.87: "search_findings.tab_severity.resolution_options.official",
+    0.9: "search_findings.tab_severity.resolution_options.temporal",
+    0.95: "search_findings.tab_severity.resolution_options.palliative",
+    1: "search_findings.tab_severity.resolution_options.non_existent",
+  };
+
+  const accessComplexity: {[value: string]: string} = {
+    0.35: "search_findings.tab_severity.complexity_options.high_complex",
+    0.61: "search_findings.tab_severity.complexity_options.medium_complex",
+    0.71: "search_findings.tab_severity.complexity_options.low_complex",
+  };
+
+  const fields: ISeverityField[] = [
+    {
+      currentValue: dataset.accessVector, name: "accessVector",
+      options: accessVector,
+      title: translate.t("search_findings.tab_severity.vector"),
+    },
+    {
+      currentValue: dataset.confidentialityImpact, name: "confidentialityImpact",
+      options: confidentialityImpact,
+      title: translate.t("search_findings.tab_severity.confidentiality"),
+    },
+    {
+      currentValue: dataset.integrityImpact, name: "integrityImpact",
+      options: integrityImpact,
+      title: translate.t("search_findings.tab_severity.integrity"),
+    },
+    {
+      currentValue: dataset.availabilityImpact, name: "availabilityImpact",
+      options: availabilityImpact,
+      title: translate.t("search_findings.tab_severity.availability"),
+    },
+    {
+      currentValue: dataset.authentication, name: "authentication",
+      options: authentication,
+      title: translate.t("search_findings.tab_severity.authentication"),
+    },
+    {
+      currentValue: dataset.exploitability, name: "exploitability",
+      options: exploitability,
+      title: translate.t("search_findings.tab_severity.exploitability"),
+    },
+    {
+      currentValue: dataset.confidenceLevel, name: "confidenceLevel",
+      options: confidenceLevel,
+      title: translate.t("search_findings.tab_severity.confidence"),
+    },
+    {
+      currentValue: dataset.resolutionLevel, name: "resolutionLevel",
+      options: resolutionLevel,
+      title: translate.t("search_findings.tab_severity.resolution"),
+    },
+    {
+      currentValue: dataset.accessComplexity, name: "accessComplexity",
+      options: accessComplexity,
+      title: translate.t("search_findings.tab_severity.complexity"),
+    },
+  ];
+
+  return fields;
 };

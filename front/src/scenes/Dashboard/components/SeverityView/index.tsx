@@ -6,7 +6,6 @@
  * as input or <p> depending on their state
  */
 
-import _ from "lodash";
 import React from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
@@ -17,9 +16,9 @@ import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import store from "../../../../store/index";
+import { castFields } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
-import { translationsMap } from "../../../../utils/translations/formstackValues";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import * as actions from "../../actions";
@@ -34,15 +33,10 @@ export interface ISeverityViewProps {
     accessVector: string;
     authentication: string;
     availabilityImpact: string;
-    availabilityRequirement: string;
-    collateralDamagePotential: string;
     confidenceLevel: string;
     confidentialityImpact: string;
-    confidentialityRequirement: string;
     exploitability: string;
-    findingDistribution: string;
     integrityImpact: string;
-    integrityRequirement: string;
     resolutionLevel: string;
   };
   findingId: string;
@@ -51,10 +45,10 @@ export interface ISeverityViewProps {
   isMdlConfirmOpen: boolean;
 }
 
-interface ISeverityField {
+export interface ISeverityField {
   currentValue: string;
   name: string;
-  options: Array<{ text: string; value: string }>;
+  options: {[value: string]: string};
   title: string;
 }
 
@@ -96,131 +90,44 @@ const renderEditPanel: ((arg1: formProps) => JSX.Element) = (props: formProps): 
   </Row>
 );
 
-const renderFields: React.SFC<formProps> = (props: formProps): JSX.Element => {
+const renderFields: React.SFC<formProps> = (props: formProps): JSX.Element => (
+  <React.StrictMode>
+    <form onSubmit={props.handleSubmit}>
+      {props.canEdit ? renderEditPanel(props) : undefined}
+      {castFields(props.dataset)
+        .map((field: ISeverityField, index: number) => {
+        const value: string = field.currentValue;
+        const text: string = field.options[value];
 
-  const fields: ISeverityField[] = [
-    {
-      currentValue: props.dataset.accessVector, name: "accessVector",
-      options: [
-        { text: "search_findings.tab_severity.vector_options.local", value: "0.395" },
-        { text: "search_findings.tab_severity.vector_options.adjacent", value: "0.646" },
-        { text: "search_findings.tab_severity.vector_options.network", value: "1.000" },
-      ],
-      title: translate.t("search_findings.tab_severity.vector"),
-    },
-    {
-      currentValue: props.dataset.confidentialityImpact, name: "confidentialityImpact",
-      options: [
-        { text: "search_findings.tab_severity.confidentiality_options.none", value: "0" },
-        { text: "search_findings.tab_severity.confidentiality_options.partial", value: "0.275" },
-        { text: "search_findings.tab_severity.confidentiality_options.complete", value: "0.660" },
-      ],
-      title: translate.t("search_findings.tab_severity.confidentiality"),
-    },
-    {
-      currentValue: props.dataset.integrityImpact, name: "integrityImpact",
-      options: [
-        { text: "search_findings.tab_severity.integrity_options.none", value: "0" },
-        { text: "search_findings.tab_severity.integrity_options.partial", value: "0.275" },
-        { text: "search_findings.tab_severity.integrity_options.complete", value: "0.660" },
-      ],
-      title: translate.t("search_findings.tab_severity.integrity"),
-    },
-    {
-      currentValue: props.dataset.availabilityImpact, name: "availabilityImpact",
-      options: [
-        { text: "search_findings.tab_severity.availability_options.none", value: "0" },
-        { text: "search_findings.tab_severity.availability_options.partial", value: "0.275" },
-        { text: "search_findings.tab_severity.availability_options.complete", value: "0.660" },
-      ],
-      title: translate.t("search_findings.tab_severity.availability"),
-    },
-    {
-      currentValue: props.dataset.authentication, name: "authentication",
-      options: [
-        { text: "search_findings.tab_severity.authentication_options.multiple_auth", value: "0.450" },
-        { text: "search_findings.tab_severity.authentication_options.single_auth", value: "0.560" },
-        { text: "search_findings.tab_severity.authentication_options.no_auth", value: "0.704" },
-      ],
-      title: translate.t("search_findings.tab_severity.authentication"),
-    },
-    {
-      currentValue: props.dataset.exploitability, name: "exploitability",
-      options: [
-        { text: "search_findings.tab_severity.exploitability_options.improbable", value: "0.850" },
-        { text: "search_findings.tab_severity.exploitability_options.conceptual", value: "0.900" },
-        { text: "search_findings.tab_severity.exploitability_options.functional", value: "0.950" },
-        { text: "search_findings.tab_severity.exploitability_options.high", value: "1.000" },
-      ],
-      title: translate.t("search_findings.tab_severity.exploitability"),
-    },
-    {
-      currentValue: props.dataset.confidenceLevel, name: "confidenceLevel",
-      options: [
-        { text: "search_findings.tab_severity.confidence_options.not_confirm", value: "0.900" },
-        { text: "search_findings.tab_severity.confidence_options.not_corrob", value: "0.950" },
-        { text: "search_findings.tab_severity.confidence_options.confirmed", value: "1.000" },
-      ],
-      title: translate.t("search_findings.tab_severity.confidence"),
-    },
-    {
-      currentValue: props.dataset.resolutionLevel, name: "resolutionLevel",
-      options: [
-        { text: "search_findings.tab_severity.resolution_options.official", value: "0.870" },
-        { text: "search_findings.tab_severity.resolution_options.temporal", value: "0.900" },
-        { text: "search_findings.tab_severity.resolution_options.palliative", value: "0.950" },
-        { text: "search_findings.tab_severity.resolution_options.non_existent", value: "1.000" },
-      ],
-      title: translate.t("search_findings.tab_severity.resolution"),
-    },
-    {
-      currentValue: props.dataset.accessComplexity, name: "accessComplexity",
-      options: [
-        { text: "search_findings.tab_severity.complexity_options.high_complex", value: "0.350" },
-        { text: "search_findings.tab_severity.complexity_options.medium_complex", value: "0.610" },
-        { text: "search_findings.tab_severity.complexity_options.low_complex", value: "0.710" },
-      ],
-      title: translate.t("search_findings.tab_severity.complexity"),
-    },
-  ];
-
-  return (
-    <React.StrictMode>
-      <form onSubmit={props.handleSubmit}>
-        {props.canEdit ? renderEditPanel(props) : undefined}
-        {fields.map((field: ISeverityField, index: number) => {
-          const value: string = field.currentValue.split(" | ")[0];
-          const text: string = field.currentValue.split(" | ")[1];
-
-          return (
-            <Row className={style.row} key={index}>
-              <Col md={3} xs={12} sm={12} className={style.title}><label><b>{field.title}</b></label></Col>
-              <Col md={9} xs={12} sm={12}>
-                {props.isEditing
-                  ?
-                  <Field
-                    name={field.name}
-                    component={dropdownField}
-                    validate={[required]}
-                    onChange={(): void => undefined}
-                  >
-                    <option value="" selected={true} />
-                    {field.options.map((option: ISeverityField["options"][0]) => (
-                      <option value={`${option.value} | ${translate.t(option.text, { lng: "es" })}`}>
-                        {translate.t(option.text)}
-                      </option>
-                    ))}
-                  </Field>
-                  : <p className={style.desc}>{value} | {translate.t(translationsMap[text])}</p>
-                }
-              </Col>
-            </Row>
-          );
-        })}
-      </form>
-    </React.StrictMode>
-  );
-};
+        return (
+          <Row className={style.row} key={index}>
+            <Col md={3} xs={12} sm={12} className={style.title}><label><b>{field.title}</b></label></Col>
+            <Col md={9} xs={12} sm={12}>
+              {props.isEditing
+                ?
+                <Field
+                  name={field.name}
+                  component={dropdownField}
+                  validate={[required]}
+                  onChange={(): void => undefined}
+                >
+                  <option value="" selected={true} />
+                  {Object.keys(field.options)
+                    .map((key: string) => (
+                    <option value={`${key} | ${translate.t(field.options[key], { lng: "es" })}`}>
+                      {translate.t(field.options[key])}
+                    </option>
+                  ))}
+                </Field>
+                : <p className={style.desc}>{value} | {translate.t(text)}</p>
+              }
+            </Col>
+          </Row>
+        );
+      })}
+    </form>
+  </React.StrictMode>
+);
 
 type severityForm = DecoratedComponentClass<{}, ISeverityViewProps & Partial<ConfigProps<{}, ISeverityViewProps>>,
   string>;
@@ -235,17 +142,126 @@ const Form: severityForm = reduxForm<{}, ISeverityViewProps>({
   form: "editSeverity",
 })(renderFields);
 
+const initializeFields: ((key: string, value: string) => string) =
+  (key: string, value: string): string => {
+    let dataCasted: string;
+    const accessVector: {[value: string]: string} = {
+      0.395: "search_findings.tab_severity.vector_options.local",
+      0.646: "search_findings.tab_severity.vector_options.adjacent",
+      1: "search_findings.tab_severity.vector_options.network",
+    };
+
+    const confidentialityImpact: {[value: string]: string} = {
+      0: "search_findings.tab_severity.confidentiality_options.none",
+      0.275: "search_findings.tab_severity.confidentiality_options.partial",
+      0.66: "search_findings.tab_severity.confidentiality_options.complete",
+    };
+
+    const integrityImpact: {[value: string]: string} = {
+      0: "search_findings.tab_severity.integrity_options.none",
+      0.275: "search_findings.tab_severity.integrity_options.partial",
+      0.66: "search_findings.tab_severity.integrity_options.complete",
+    };
+
+    const availabilityImpact: {[value: string]: string} = {
+      0: "search_findings.tab_severity.availability_options.none",
+      0.275: "search_findings.tab_severity.availability_options.partial",
+      0.66: "search_findings.tab_severity.availability_options.complete",
+    };
+
+    const authentication: {[value: string]: string} = {
+      0.45: "search_findings.tab_severity.authentication_options.multiple_auth",
+      0.56: "search_findings.tab_severity.authentication_options.single_auth",
+      0.704: "search_findings.tab_severity.authentication_options.no_auth",
+    };
+
+    const exploitability: {[value: string]: string} = {
+      0.85: "search_findings.tab_severity.exploitability_options.improbable",
+      0.9: "search_findings.tab_severity.exploitability_options.conceptual",
+      0.95: "search_findings.tab_severity.exploitability_options.functional",
+      1: "search_findings.tab_severity.exploitability_options.high",
+    };
+
+    const confidenceLevel: {[value: string]: string} = {
+      0.9: "search_findings.tab_severity.confidence_options.not_confirm",
+      0.95: "search_findings.tab_severity.confidence_options.not_corrob",
+      1: "search_findings.tab_severity.confidence_options.confirmed",
+    };
+
+    const resolutionLevel: {[value: string]: string} = {
+      0.87: "search_findings.tab_severity.resolution_options.official",
+      0.9: "search_findings.tab_severity.resolution_options.temporal",
+      0.95: "search_findings.tab_severity.resolution_options.palliative",
+      1: "search_findings.tab_severity.resolution_options.non_existent",
+    };
+
+    const accessComplexity: {[value: string]: string} = {
+      0.35: "search_findings.tab_severity.complexity_options.high_complex",
+      0.61: "search_findings.tab_severity.complexity_options.medium_complex",
+      0.71: "search_findings.tab_severity.complexity_options.low_complex",
+    };
+    switch (key) {
+      case "accessVector":
+        dataCasted = `${value} | ${translate.t(accessVector[value], { lng: "es" })}`;
+        break;
+      case "confidentialityImpact":
+        dataCasted = `${value} | ${translate.t(confidentialityImpact[value], { lng: "es" })}`;
+        break;
+      case "integrityImpact":
+        dataCasted = `${value} | ${translate.t(integrityImpact[value], { lng: "es" })}`;
+        break;
+      case "availabilityImpact":
+        dataCasted = `${value} | ${translate.t(availabilityImpact[value], { lng: "es" })}`;
+        break;
+      case "authentication":
+        dataCasted = `${value} | ${translate.t(authentication[value], { lng: "es" })}`;
+        break;
+      case "exploitability":
+        dataCasted = `${value} | ${translate.t(exploitability[value], { lng: "es" })}`;
+        break;
+      case "confidenceLevel":
+        dataCasted = `${value} | ${translate.t(confidenceLevel[value], { lng: "es" })}`;
+        break;
+      case "resolutionLevel":
+        dataCasted = `${value} | ${translate.t(resolutionLevel[value], { lng: "es" })}`;
+        break;
+      case "accessComplexity":
+        dataCasted = `${value} | ${translate.t(accessComplexity[value], { lng: "es" })}`;
+        break;
+      default:
+        dataCasted = "";
+    }
+
+    return dataCasted;
+  };
 export const component: React.SFC<ISeverityViewProps> =
-  (props: ISeverityViewProps): JSX.Element => (
-    <React.StrictMode>
-      {_.isEmpty(props.dataset.accessComplexity) ? <div /> :
+  (props: ISeverityViewProps): JSX.Element => {
+    const dataset: ISeverityViewProps["dataset"] = {
+      accessComplexity: "",
+      accessVector: "",
+      authentication: "",
+      availabilityImpact: "",
+      confidenceLevel: "",
+      confidentialityImpact: "",
+      exploitability: "",
+      integrityImpact: "",
+      resolutionLevel: "",
+    };
+    Object.keys(props.dataset)
+      .forEach((key: string) => {
+        const value: string = props.dataset[key as keyof ISeverityViewProps["dataset"]];
+        dataset[key as keyof ISeverityViewProps["dataset"]] = initializeFields(key, value);
+    });
+
+    return (
+      <React.StrictMode>
         <Row>
           <Col md={12} sm={12} xs={12}>
             <Provider store={store}>
               <Form
                 {...props}
                 onChange={(values: {}): void => { store.dispatch(actions.calcCVSSv2(values)); }}
-                initialValues={props.dataset}
+                initialValues={dataset}
                 onSubmit={(): void => { store.dispatch(actions.openConfirmMdl()); }}
               />
             </Provider>
@@ -259,25 +275,25 @@ export const component: React.SFC<ISeverityViewProps> =
             </Row>
           </Col>
         </Row>
-      }
-      <ConfirmDialog
-        open={props.isMdlConfirmOpen}
-        title={translate.t("confirmmodal.title_cvssv2")}
-        onProceed={(): void => {
-          const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-            store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-          );
 
-          thunkDispatch(actions.updateSeverity(
-            props.findingId,
-            props.formValues.editSeverity.values,
-            props.criticity,
-          ));
-        }}
-        onCancel={(): void => { store.dispatch(actions.closeConfirmMdl()); }}
-      />
-    </React.StrictMode>
-  );
+        <ConfirmDialog
+          open={props.isMdlConfirmOpen}
+          title={translate.t("confirmmodal.title_cvssv2")}
+          onProceed={(): void => {
+            const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+              store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+            );
+
+            thunkDispatch(actions.updateSeverity(
+              props.findingId,
+              props.formValues.editSeverity.values,
+              props.criticity,
+            ));
+          }}
+          onCancel={(): void => { store.dispatch(actions.closeConfirmMdl()); }}
+        />
+      </React.StrictMode>
+    ); };
 
 export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrapper(
   enhance(component) as React.SFC<ISeverityViewProps>,

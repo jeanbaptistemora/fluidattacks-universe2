@@ -117,11 +117,6 @@ class Finding(ObjectType):
                 'exploitability': resp.get('exploitability'),
                 'integrityImpact': resp.get('integrityImpact'),
                 'resolutionLevel': resp.get('resolutionLevel'),
-                'collateralDamagePotential': resp.get('collateralDamagePotential'),
-                'findingDistribution': resp.get('findingDistribution'),
-                'confidentialityRequirement': resp.get('confidentialityRequirement'),
-                'integrityRequirement': resp.get('integrityRequirement'),
-                'availabilityRequirement': resp.get('availabilityRequirement'),
             }
         else:
             self.success = False

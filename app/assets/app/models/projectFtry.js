@@ -53,18 +53,15 @@ angular.module("FluidIntegrates").factory(
         const IMPACT_FACTOR = 10.41;
         const EXPLOITABILITY_FACTOR = 20;
         const F_IMPACT_FACTOR = 1.176;
-        const ImpCon =
-              parseFloat(data.confidentialityImpact.split(" | ")[0]);
-        const ImpInt =
-              parseFloat(data.integrityImpact.split(" | ")[0]);
-        const ImpDis =
-              parseFloat(data.availabilityImpact.split(" | ")[0]);
-        const AccCom = parseFloat(data.accessComplexity.split(" | ")[0]);
-        const AccVec = parseFloat(data.accessVector.split(" | ")[0]);
-        const Auth = parseFloat(data.authentication.split(" | ")[0]);
-        const Explo = parseFloat(data.exploitability.split(" | ")[0]);
-        const Resol = parseFloat(data.resolutionLevel.split(" | ")[0]);
-        const Confi = parseFloat(data.confidenceLevel.split(" | ")[0]);
+        const ImpCon = data.confidentialityImpact;
+        const ImpInt = data.integrityImpact;
+        const ImpDis = data.availabilityImpact;
+        const AccCom = data.accessComplexity;
+        const AccVec = data.accessVector;
+        const Auth = data.authentication;
+        const Explo = data.exploitability;
+        const Resol = data.resolutionLevel;
+        const Confi = data.confidenceLevel;
 
         /*
          * The constants above are part of the BaseScore, Impact and

@@ -1480,8 +1480,8 @@ def calculate_indicators(project):
         act_finding = finding_vulnerabilities(str(finding['id']))
         openVulnerabilities += int(act_finding['openVulnerabilities'])
         cardinalidadTotal += int(act_finding['cardinalidad_total'])
-        if (maximumSeverity < float(act_finding['criticity'])):
-            maximumSeverity = float(act_finding['criticity'])
+        if (maximumSeverity < act_finding['criticity']):
+            maximumSeverity = act_finding['criticity']
     try:
         fixed_vuln = int(round((1.0 - (float(openVulnerabilities) / float(cardinalidadTotal)))*100.0))
     except ZeroDivisionError:

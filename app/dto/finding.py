@@ -95,7 +95,6 @@ class FindingDTO(object):
     ACCESS_COMPLEXITY = FIELDS_FINDING["ACCESS_COMPLEXITY"]
     AUTHENTICATION = FIELDS_FINDING["AUTHENTICATION"]
     EXPLOITABILITY = FIELDS_FINDING["EXPLOITABILITY"]
-    CRITICITY = FIELDS_FINDING["CRITICITY"]
     CONFIDENTIALITY_IMPACT = FIELDS_FINDING["CONFIDENTIALITY_IMPACT"]
     INTEGRITY_IMPACT = FIELDS_FINDING["INTEGRITY_IMPACT"]
     AVAILABILITY_IMPACT = FIELDS_FINDING["AVAILABILITY_IMPACT"]
@@ -216,17 +215,11 @@ class FindingDTO(object):
             self.ACCESS_COMPLEXITY: "accessComplexity",
             self.AUTHENTICATION: "authentication",
             self.EXPLOITABILITY: "exploitability",
-            self.CRITICITY: "criticity",
             self.CONFIDENTIALITY_IMPACT: "confidentialityImpact",
             self.INTEGRITY_IMPACT: "integrityImpact",
             self.AVAILABILITY_IMPACT: "availabilityImpact",
             self.RESOLUTION_LEVEL: "resolutionLevel",
             self.CONFIDENCE_LEVEL: "confidenceLevel",
-            self.COLLATERAL_DAMAGE_POTENTIAL: 'collateralDamagePotential',
-            self.FINDING_DISTRIBUTION: 'findingDistribution',
-            self.CONFIDENTIALITY_REQUIREMENT: 'confidentialityRequirement',
-            self.INTEGRITY_REQUIREMENT: 'integrityRequirement',
-            self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement'
         }
         parsed_dict = {k:parameter[v] for (k, v) in severity_tab_fields.items()}
         return {"data":parsed_dict, "request_id":parameter["id"]}
@@ -264,7 +257,6 @@ class FindingDTO(object):
             self.RISK_LEVEL:"nivel_riesgo",
             self.CARDINALITY:"openVulnerabilities",
             self.WHERE:"where",
-            self.CRITICITY:"criticity",
             self.VULNERABILITY:"vulnerability",
             self.THREAT:"threat",
             self.CLIENT_PROJECT:"componente_aplicativo",
@@ -293,7 +285,6 @@ class FindingDTO(object):
         parsed_dict = {v:initial_dict[k] \
                       for (k, v) in evidence_description_fields.items() \
                       if k in initial_dict.keys()}
-        parsed_dict["impact"] = forms.get_impact(parsed_dict["criticity"])
         if "cwe" in parsed_dict.keys():
             parsed_dict["cwe"] = forms.get_cwe_url(parsed_dict["cwe"])
         else:
@@ -335,9 +326,29 @@ class FindingDTO(object):
             self.INTEGRITY_REQUIREMENT: 'integrityRequirement',
             self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement'
         }
-        parsed_dict = {v:initial_dict[k] \
+        parsed_dict = {v: float(initial_dict[k].split(' | ')[0]) \
                       for (k, v) in severity_fields.items() \
                       if k in initial_dict.keys()}
+        BASE_SCORE_FACTOR_1 = 0.6
+        BASE_SCORE_FACTOR_2 = 0.4
+        BASE_SCORE_FACTOR_3 = 1.5
+        IMPACT_FACTOR = 10.41
+        EXPLOITABILITY_FACTOR = 20
+        F_IMPACT_FACTOR = 1.176
+        impact = (IMPACT_FACTOR *
+                  (1 - ((1 - parsed_dict['confidentialityImpact']) *
+                   (1 - parsed_dict['integrityImpact']) *
+                   (1 - parsed_dict['availabilityImpact']))))
+        exploitability = (EXPLOITABILITY_FACTOR *
+                          parsed_dict['accessComplexity'] *
+                          parsed_dict['authentication'] * parsed_dict['accessVector'])
+        base_score = (((BASE_SCORE_FACTOR_1 * impact) +
+                      (BASE_SCORE_FACTOR_2 * exploitability) - BASE_SCORE_FACTOR_3) *
+                      F_IMPACT_FACTOR)
+        parsed_dict['criticity'] = round((base_score * parsed_dict['exploitability'] *
+                                    parsed_dict['resolutionLevel'] *
+                                    parsed_dict['confidenceLevel']), 1)
+        parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
         parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
         parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         return parsed_dict
