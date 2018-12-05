@@ -4,6 +4,7 @@
 from __future__ import absolute_import
 import json
 import requests
+import random
 # pylint: disable=E0402
 # Pylint doesn't recognize absolute imports beyond top level modules.
 # pylint: disable=F0401
@@ -37,8 +38,8 @@ class FormstackAPI(object):
         self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
 AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         self.TOKEN_LIST = FI_FORMSTACK_TOKENS.split(',')
-        self.AVAILABLE_TOKENS = len(self.TOKEN_LIST)
-        self.CURRENT_TOKEN = self.TOKEN_LIST[0]
+        self.FAILED_ATTEMPTS = 0
+        self.CURRENT_TOKEN = self.TOKEN_LIST[random.randint(0, len(self.TOKEN_LIST) - 1)]
 
     def requests_per_page(self, method, url, data=None):
         """Return the request from Formstack."""
@@ -58,15 +59,16 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
     def request(self, method, url, data=None):
         """Validate if a token is available."""
         formstack_request = self.execute_request(method, url, data)
-        while formstack_request.status_code == 429 and \
-                self.AVAILABLE_TOKENS > 0:
-            if self.AVAILABLE_TOKENS < 3:
-                message = 'Warning: There are only {} available formstack \
-                tokens left for today.'.format(self.AVAILABLE_TOKENS)
+        while formstack_request.status_code == 429:
+            self.FAILED_ATTEMPTS += 1
+            if self.FAILED_ATTEMPTS > 9:
+                message = 'Warning: Integrates is running out of Formstack API tokens. \
+                    9 failed requests in a row'
                 rollbar.report_message(message, 'warning')
-
-            self.refresh_token()
-            formstack_request = self.execute_request(method, url, data)
+                break
+            else:
+                self.refresh_token()
+                formstack_request = self.execute_request(method, url, data)
         return json.loads(formstack_request.text)
 
     @retry(retry_on_exception=ConnectionError, stop_max_attempt_number=5)
@@ -110,9 +112,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return executed_request
 
     def refresh_token(self):
-        next_index = (self.TOKEN_LIST.index(self.CURRENT_TOKEN) + 1)
-        self.AVAILABLE_TOKENS = \
-            len(self.TOKEN_LIST) - self.TOKEN_LIST.index(self.CURRENT_TOKEN)
+        next_index = random.randint(0, len(self.TOKEN_LIST) - 1)
         self.CURRENT_TOKEN = self.TOKEN_LIST[next_index]
 
     def delete_submission(self, submission_id):
