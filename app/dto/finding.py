@@ -68,7 +68,6 @@ class FindingDTO(object):
     VULNERABILITY = FIELDS_FINDING["VULNERABILITY"]
     THREAT = FIELDS_FINDING["THREAT"]
     APPLICABLE_COMPONENT = FIELDS_FINDING["APPLICABLE_COMPONENT"]
-    TEST_TYPE = FIELDS_FINDING["TEST_TYPE"]
     FINDING_TYPE = FIELDS_FINDING["FINDING_TYPE"]
     RISK = FIELDS_FINDING["RISK"]
     REQUIREMENTS = FIELDS_FINDING["REQUIREMENTS"]
@@ -268,7 +267,6 @@ class FindingDTO(object):
             self.VULNERABILITY:"vulnerability",
             self.THREAT:"threat",
             self.CLIENT_PROJECT:"componente_aplicativo",
-            self.TEST_TYPE:"testType",
             self.RISK:"riesgo",
             self.REQUIREMENTS:"requirements",
             self.EFFECT_SOLUTION:"effectSolution",
