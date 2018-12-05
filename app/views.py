@@ -516,74 +516,82 @@ def catch_finding(request, submission_id):
                 submission_id,
                 submissionData
             )
-            closingData = api.get_closings_by_id(submission_id)
-            if closingData is None or 'error' in closingData:
-                return None
-            else:
-                query = """{
-                  finding(identifier: "findingid"){
-                    id
-                    success
-                    openVulnerabilities
-                    closedVulnerabilities
-                    portsVulns: vulnerabilities(
-                      vulnType: "ports", state: "open") {
-                      ...vulnInfo
-                    }
-                    linesVulns: vulnerabilities(
-                      vulnType: "lines", state: "open") {
-                      ...vulnInfo
-                    }
-                    inputsVulns: vulnerabilities(
-                      vulnType: "inputs", state: "open") {
-                      ...vulnInfo
-                    }
-                  }
+            query = """{
+              finding(identifier: "findingid"){
+                id
+                success
+                openVulnerabilities
+                closedVulnerabilities
+                portsVulns: vulnerabilities(
+                  vulnType: "ports", state: "open") {
+                  ...vulnInfo
                 }
-                fragment vulnInfo on Vulnerability {
-                  vulnType
-                  where
-                  specific
-                }"""
-                query = query.replace('findingid', submission_id)
-                result = schema.schema.execute(query, context_value=request)
-                finding_new = result.data.get('finding')
-                closingreqset = closingData["submissions"]
-                findingcloseset = []
-                for closingreq in closingreqset:
-                    closingset = closing.parse(api.get_submission(closingreq["id"]))
-                    findingcloseset.append(closingset)
-                    # The latest is the last closing cycle.
-                    state = closingset
-                finding["estado"] = state["estado"]
-                finding["cierres"] = findingcloseset
-                finding['cardinalidad_total'] = finding.get('openVulnerabilities')
-                if (finding_new and
-                        (finding_new.get('openVulnerabilities') or
-                            finding_new.get('closedVulnerabilities'))):
-                    finding = cast_new_vulnerabilities(finding_new, finding)
-                elif 'opened' in state:
-                    # Hack: This conditional temporarily solves the problem presented
-                    #      when the number of vulnerabilities open in a closing cycle
-                    # are higher than the number of vulnerabilities open in a finding
-                    # which causes negative numbers to be shown in the indicators view.
-                    if int(state['opened']) > int(finding['cardinalidad_total']):
-                        finding['cardinalidad_total'] = state['opened']
-                    if 'whichOpened' in state:
-                        finding['where'] = state['whichOpened']
-                    else:
-                        # This finding does not have old open vulnerabilities
-                        # after a closing cicle.
-                        pass
-                    finding['openVulnerabilities'] = state['opened']
-                if 'whichClosed' in state:
-                    finding['closed'] = state['whichClosed']
-                finding = format_release_date(finding, state)
-                if finding['estado'] == 'Cerrado':
-                    finding['where'] = '-'
-                    finding['edad'] = '-'
-                    finding['lastVulnerability'] = '-'
-                return finding
+                linesVulns: vulnerabilities(
+                  vulnType: "lines", state: "open") {
+                  ...vulnInfo
+                }
+                inputsVulns: vulnerabilities(
+                  vulnType: "inputs", state: "open") {
+                  ...vulnInfo
+                }
+              }
+            }
+            fragment vulnInfo on Vulnerability {
+              vulnType
+              where
+              specific
+            }"""
+            query = query.replace('findingid', submission_id)
+            result = schema.schema.execute(query, context_value=request)
+            finding_new = result.data.get('finding')
+            finding['cardinalidad_total'] = finding.get('openVulnerabilities')
+            finding['cierres'] = []
+            if (finding_new and
+                    (finding_new.get('openVulnerabilities') or
+                        finding_new.get('closedVulnerabilities'))):
+                finding = cast_new_vulnerabilities(finding_new, finding)
+            else:
+                warning_msg = 'Warning: Finding {finding_id} of project {project} has vulnerabilities in old format'\
+                    .format(finding_id=submission_id, project=finding['fluidProject'])
+                rollbar.report_message(warning_msg, 'warning', request)
+                closingData = api.get_closings_by_id(submission_id)
+                if closingData is None or 'error' in closingData:
+                    return None
+                else:
+                    closingreqset = closingData['submissions']
+                    findingcloseset = []
+                    for closingreq in closingreqset:
+                        closingset = closing.parse(api.get_submission(closingreq["id"]))
+                        findingcloseset.append(closingset)
+                        # The latest is the last closing cycle.
+                        state = closingset
+                    finding['estado'] = state['estado']
+                    finding['cierres'] = findingcloseset
+            if 'opened' in state:
+                # Hack: This conditional temporarily solves the problem presented
+                #      when the number of vulnerabilities open in a closing cycle
+                # are higher than the number of vulnerabilities open in a finding
+                # which causes negative numbers to be shown in the indicators view.
+                if int(state['opened']) > int(finding['cardinalidad_total']):
+                    finding['cardinalidad_total'] = state['opened']
+                if 'whichOpened' in state:
+                    finding['where'] = state['whichOpened']
+                else:
+                    # This finding does not have old open vulnerabilities
+                    # after a closing cicle.
+                    pass
+                finding['openVulnerabilities'] = state['opened']
+            else:
+                # Finding does not have open vulnerabilities in a closing cycle
+                pass
+            if 'whichClosed' in state:
+                finding['closed'] = state['whichClosed']
+            finding = format_release_date(finding, state)
+            if finding['estado'] == 'Cerrado':
+                finding['where'] = '-'
+                finding['edad'] = '-'
+                finding['lastVulnerability'] = '-'
+            return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
