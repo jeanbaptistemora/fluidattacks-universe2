@@ -387,6 +387,7 @@
                   <div id="cssv2" class="tab-pane cont">
                     <div ng-if="currentTab === 'severity'">
                     <severity-view
+                      can-edit="(userRole === 'analyst' || userRole === 'admin') && hasAccess"
                       finding-id="finding.id"
                     />
                     </div>

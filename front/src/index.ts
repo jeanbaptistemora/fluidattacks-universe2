@@ -405,6 +405,7 @@ angular
    "severityView",
    react2angular(
      severityView, [
+       "canEdit",
        "findingId",
      ],
    ),

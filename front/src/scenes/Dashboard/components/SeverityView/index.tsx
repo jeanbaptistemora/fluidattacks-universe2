@@ -26,6 +26,7 @@ import * as actions from "../../actions";
 import style from "./index.css";
 
 export interface ISeverityViewProps {
+  canEdit: boolean;
   criticity: number;
   cssv2base: number;
   dataset: {
@@ -186,7 +187,7 @@ const renderFields: React.SFC<formProps> = (props: formProps): JSX.Element => {
   return (
     <React.StrictMode>
       <form onSubmit={props.handleSubmit}>
-        {renderEditPanel(props)}
+        {props.canEdit ? renderEditPanel(props) : undefined}
         {fields.map((field: ISeverityField, index: number) => {
           const value: string = field.currentValue.split(" | ")[0];
           const text: string = field.currentValue.split(" | ")[1];
