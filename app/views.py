@@ -723,7 +723,9 @@ def get_evidence(request, project, findingid, fileid):
 def retrieve_image(request, img_file):
     if util.assert_file_mime(img_file, ["image/png", "image/jpeg", "image/gif"]):
         with open(img_file, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="image/*")
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(img_file)
+            return HttpResponse(file_obj.read(), content_type=mime_type)
     else:
         rollbar.report_message('Error: Invalid evidence image format', 'error', request)
         return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
