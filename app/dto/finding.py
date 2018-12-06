@@ -57,6 +57,7 @@ class FindingDTO(object):
     #Atributos descriptivos
     CLASS = FIELDS_FINDING["CLASS"] #detallado
     FINDING = FIELDS_FINDING["FINDING"]
+    TEST_TYPE = FIELDS_FINDING["TEST_TYPE"]
     SUBSCRIPTION = FIELDS_FINDING["SUBSCRIPTION"]
     CLIENT_CODE = FIELDS_FINDING["CLIENT_CODE"]
     PROBABILITY = FIELDS_FINDING["PROBABILITY"]
@@ -275,6 +276,7 @@ class FindingDTO(object):
             self.AFFECTED_SYSTEMS:"affectedSystems",
             self.ATTACK_VECTOR:"attackVector",
             self.FINDING_TYPE:"finding_type",
+            self.TEST_TYPE:"testType",
             self.REVISION:"revision",
             self.SCENARIO:"scenario",
             self.AMBIT:"ambito",
