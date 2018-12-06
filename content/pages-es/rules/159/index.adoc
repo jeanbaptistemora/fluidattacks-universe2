@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de ofuscar el código fuente en ambientes de producción.
 :keywords: Requerimiento, Seguridad, Código Fuente, Ofuscar, Ambiente, Producción.
 :rules: yes
+:translate: rules/159/
 
 = REQ.159 Código ofuscado
 
@@ -15,3 +16,7 @@ El código fuente debe estar ofuscado en ambiente de producción.
 
 . +COBOL+ link:../../defends/cobol/cifrar-codigo-fuente/[Cifrar Código Fuente].
 . +COBOL+ link:../../defends/cobol/enmascarar-texto/[Enmascarar Texto].
+
+== Referencias
+
+. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.2  Utilizar protección de código].

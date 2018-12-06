@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de codificar las salidas arrojadas por la aplicación a través del escaping.
 :keywords: Requerimiento, Seguridad, Código Fuente, Salidas, Codificar, Escaping.
 :rules: yes
+:translate: rules/160/
 
 = REQ.160 Salidas codificadas
 
@@ -27,3 +28,5 @@ como caracteres permitidos y longitud,
 y caracteres potencialmente peligrosos en un contexto dado
 deben eliminarse (por ejemplo nombre naturales con +Unicode+
 o apóstrofes como ねこ u O'Hara).
+
+. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.2  Utilizar protección de código].
