@@ -436,7 +436,7 @@ class FindingDTO(object):
 
     def to_formstack(self):
         new_data = dict()
-        for key, value in self.data.iteritems():
+        for key, value in self.data.items():
             new_data["field_"+key] = value
         self.data = new_data
 

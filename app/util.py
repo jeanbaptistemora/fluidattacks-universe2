@@ -312,7 +312,7 @@ def list_s3_objects(client_s3, bucket_s3, key):
     return key_list
 
 def replace_all(text, dic):
-    for i, j in dic.iteritems():
+    for i, j in dic.items():
         text = text.replace(i, j)
     return text
 

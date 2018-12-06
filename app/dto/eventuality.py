@@ -47,6 +47,6 @@ def parse(submission_id, request_arr):
 
 def to_formstack(data):
     new_data = dict()
-    for key, value in data.iteritems():
+    for key, value in data.items():
         new_data["field_"+ str(key)] = value
     return new_data

@@ -19,7 +19,7 @@ def __send_mail(template_name, email_to, context, tags):
     for em in email_to:
         message['to'].append({'email': em})
 
-    for k, v in context.iteritems():
+    for k, v in context.items():
         message['global_merge_vars'].append(
             {'name': k, 'content': v}
         )

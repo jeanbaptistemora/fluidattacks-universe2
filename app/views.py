@@ -477,7 +477,7 @@ def get_drafts(request):
 @require_project_access
 def get_findings(request):
     """Capture and process the name of a project to return the findings."""
-    project = request.GET.get('project', "").encode('utf-8')
+    project = request.GET.get('project', "")
     project = project.lower()
     if util.validate_session_time(project, request):
         return util.response(request.session["projects"][project], 'Success', False)
