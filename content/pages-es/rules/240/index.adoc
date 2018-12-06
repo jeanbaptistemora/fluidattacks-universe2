@@ -17,3 +17,5 @@ a través de herramientas automatizadas.
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
 La seguridad se aborda en todas las partes
 del ciclo de vida de desarrollo de software.
+
+. [[r2]] link:https://www.bsimm.com/framework/software-security-development-lifecycle/code-review.html[+BSSIM9+ SE3.4  Automatizar la detección de código malicioso].
