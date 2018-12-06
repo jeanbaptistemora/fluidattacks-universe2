@@ -1,5 +1,6 @@
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
+import { IEvidenceViewProps } from "./components/EvidenceView";
 import { IExploitViewProps } from "./components/ExploitView";
 import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView/index";
@@ -8,6 +9,7 @@ import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 
 interface IDashboardState {
+  evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
     name: string;
@@ -42,6 +44,11 @@ interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
+  evidence: {
+    currentIndex: 0,
+    images: [],
+    isImageOpen: false,
+  },
   exploit: {
     code: "",
     isEditing: false,
@@ -435,6 +442,37 @@ actionMap[actionType.EDIT_EXPLOIT] =
     exploit: {
       ...state.exploit,
       isEditing: !state.exploit.isEditing,
+    },
+  });
+
+actionMap[actionType.OPEN_EVIDENCE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    evidence: {
+      ...state.evidence,
+      currentIndex: action.payload.imgIndex,
+      isImageOpen: true,
+    },
+  });
+
+actionMap[actionType.CLOSE_EVIDENCE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    evidence: {
+      ...state.evidence,
+      isImageOpen: false,
+    },
+  });
+
+actionMap[actionType.MOVE_EVIDENCE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    evidence: {
+      ...state.evidence,
+      currentIndex: action.payload.index,
     },
   });
 

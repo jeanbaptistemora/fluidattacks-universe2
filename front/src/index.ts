@@ -10,6 +10,7 @@ import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
 import commentBox from "./scenes/Dashboard/components/CommentBox/index";
+import { evidenceView } from "./scenes/Dashboard/components/EvidenceView/index";
 import { exploitView } from "./scenes/Dashboard/components/ExploitView/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
@@ -410,5 +411,20 @@ angular
        "canEdit",
        "findingId",
      ],
+   ),
+  );
+
+/**
+ * @url: /project/:project/:id/evidence
+ * @page: findingcontent.html
+ * @controllers: findingContentCtrl
+ * @tag: <evidence-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+   "evidenceView",
+   react2angular(
+     evidenceView, [],
    ),
   );

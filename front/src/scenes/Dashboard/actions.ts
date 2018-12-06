@@ -955,3 +955,24 @@ export const updateExploit: ThunkActionStructure =
     }
   });
 };
+
+export const openEvidence: DashboardAction =
+  (imgIndex: number): IActionStructure => ({
+    payload: { imgIndex },
+    type: actionType.OPEN_EVIDENCE,
+  });
+
+export const closeEvidence: DashboardAction =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionType.CLOSE_EVIDENCE,
+  });
+
+export const moveEvidenceIndex: DashboardAction =
+  (currentIndex: number, totalImages: number, direction: "next" | "previous"): IActionStructure => ({
+    payload: {
+      index: (direction === "next" ? (currentIndex + 1) : (currentIndex + totalImages - 1))
+        % totalImages,
+    },
+    type: actionType.MOVE_EVIDENCE,
+  });

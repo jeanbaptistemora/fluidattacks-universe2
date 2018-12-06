@@ -65,6 +65,7 @@ const esTranslations: Map<string, string> = {
       vulnDeleted: "La vulnerabilidad fue borrada de este hallazgo",
     },
     tab_evidence: {
+      detail: "Detalle",
       editable: "Editar",
       update: "Actualizar",
     },

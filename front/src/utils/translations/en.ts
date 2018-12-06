@@ -64,6 +64,7 @@ const enTranslations: Map<string, string> = {
       vulnDeleted: "Vulnerability was deleted of this finding",
     },
     tab_evidence: {
+      detail: "Detail",
       editable: "Edit",
       update: "Update",
     },
