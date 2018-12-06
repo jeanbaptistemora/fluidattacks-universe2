@@ -88,7 +88,7 @@ const traducciones2 = {
   },
   "repositories_table": {
     "branch": "Rama",
-    "repository": "Repositorio"
+    "repository": "URL Repositorio"
   },
   "tab_comments": {"comments_name": "Comentarios"},
   "tab_cssv2":
@@ -196,7 +196,7 @@ const traducciones2 = {
     "remove_repository": "Remover",
     "repeated_item": "Uno o varios items a añadir ya existen.",
     "repositories": "Repositorios",
-    "repository": "Repositorio",
+    "repository": "URL Repositorio",
     "success": "Item agregado exitosamente.",
     "success_remove": "Item eliminado exitosamente.",
     "title_env": "Agregar información de los ambientes",

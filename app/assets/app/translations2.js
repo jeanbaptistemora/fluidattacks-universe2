@@ -86,7 +86,7 @@ const translations2 = {
     },
    "repositories_table": {
      "branch": "Branch",
-     "repository": "Repository"
+     "repository": "Repository URL"
    },
    "tab_comments": {"comments_name": "Comments"},
    "tab_cssv2":
@@ -195,7 +195,7 @@ const translations2 = {
      "remove_repository": "Remove",
      "repeated_item": "One or more items to add already exist.",
      "repositories": "Repositories",
-     "repository": "Repository",
+     "repository": "Repository URL",
      "success": "Item added successfully.",
      "success_remove": "Item removed successfully.",
      "title_env": "Add environment information",

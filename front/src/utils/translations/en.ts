@@ -49,7 +49,7 @@ const enTranslations: Map<string, string> = {
     },
     repositories_table: {
       branch: "Branch",
-      repository: "Repository",
+      repository: "Repository URL",
     },
     tab_description: {
       action: "Action",
@@ -78,7 +78,7 @@ const enTranslations: Map<string, string> = {
       remove_repository: "Remove",
       repeated_item: "One or more items to add already exist.",
       repositories_title: "Repositories",
-      repository: "Repository",
+      repository: "Repository URL",
       success: "Item added successfully.",
       success_remove: "Item removed successfully.",
     },

@@ -50,7 +50,7 @@ const esTranslations: Map<string, string> = {
     },
     repositories_table: {
       branch: "Rama",
-      repository: "Repositorio",
+      repository: "URL Repositorio",
     },
     tab_description: {
       action: "Acción",
@@ -79,7 +79,7 @@ const esTranslations: Map<string, string> = {
       remove_repository: "Remover",
       repeated_item: "Uno o varios ítems a añadir ya existen.",
       repositories_title: "Repositorios",
-      repository: "Repositorio",
+      repository: "URL Repositorio",
       success: "Ítem agregado exitosamente.",
       success_remove: "Ítem eliminado exitosamente.",
     },
