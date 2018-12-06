@@ -1,5 +1,4 @@
-# Last stable Debian base image (jessie).
-FROM debian:jessie-slim
+FROM debian:buster-slim
 
 # Doubts about the image in question.
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
@@ -8,42 +7,21 @@ ARG vault_ca
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV TZ=America/Bogota
+
+ADD requirements.txt /root/
+ADD package.json /root/
+
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Add server key.
-RUN gpg --recv-key --keyserver keyserver.ubuntu.com 93C4A3FD7BB9C367 \
-    && gpg --export --armor 93C4A3FD7BB9C367 | apt-key add -
-
-# Install software-properties and sudo.
-RUN apt-get update && apt-get install -y software-properties-common sudo
-
-# Add ansible repository.
-RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
-
-# Install dependencies.
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --force-yes\
-               git ansible curl jq \
-               python-dev apache2 \
-               python-setuptools python-tk \
-               build-essential python-numpy python-scipy \
-               python-matplotlib ruby \
-               liblcms2-dev libwebp-dev tcl8.6-dev \
-               tk8.6-dev libxml2 libxml2-dev \
-               libxslt1-dev libapache2-mod-wsgi libtiff5-dev \
-               zlib1g-dev libfreetype6-dev libapache2-mod-python \
-               libmysqlclient-dev cron autoconf \
-               bison libssl-dev libyaml-dev \
-               libreadline6-dev libncurses5-dev \
-               libffi-dev libgdbm3 libgdbm-dev ruby-dev unzip
+    && apt-get install -y --no-install-recommends \
+    software-properties-common curl gpg gpg-agent \
+    unzip netbase \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get -y clean
 
 # Install nodejs.
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --force-yes\
-               nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 # Install Vault
 RUN curl -LsSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.3_linux_amd64.zip \
@@ -56,21 +34,38 @@ RUN curl -LsSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.
     && echo "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
     && update-ca-certificates
 
-# Install dependencies and pip.
-ADD requirements.txt /root/
-ADD package.json /root/
-RUN easy_install pip
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-RUN pip install -r /root/requirements.txt --ignore-installed \
-    && cd /root/ && npm install -g \
-    && cp --symbolic-link /root/node_modules/.bin/* /usr/local/bin \
-    && gem install asciidoctor-pdf --pre 
+# Install deps
+RUN apt-get update && apt-get install -y \
+               git sudo jq \
+               python-dev apache2 python-pip \
+               python-setuptools python-tk \
+               build-essential python-numpy python-scipy \
+               python-matplotlib ruby \
+               liblcms2-dev libwebp-dev tcl8.6-dev \
+               tk8.6-dev libxml2 libxml2-dev \
+               libxslt1-dev libapache2-mod-wsgi libtiff5-dev \
+               zlib1g-dev libfreetype6-dev libapache2-mod-python \
+               default-libmysqlclient-dev cron autoconf \
+               bison libssl-dev libyaml-dev \
+               libreadline6-dev libncurses5-dev \
+               libffi-dev libgdbm6 libgdbm-dev ruby-dev \
+	       nodejs libmagic1 \
+               && python2 -m pip install --upgrade pip setuptools ansible \
+               && python2 -m pip install -r /root/requirements.txt --ignore-installed \
+               && cd /root/ && npm install -g \
+               && cp --symbolic-link /root/node_modules/.bin/* /usr/local/bin \
+               && gem install asciidoctor-pdf --pre \
+               && apt-get -y purge liblcms2-dev libwebp-dev tcl8.6-dev build-essential \
+               libxml2-dev libxslt1-dev libtiff5-dev zlib1g-dev  libfreetype6-dev libssl-dev \
+               libyaml-dev libreadline6-dev libncurses5-dev libffi-dev libgdbm-dev ruby-dev \
+               && apt-get -y autoremove \
+               && apt-get -y install make \
+               && apt-get -y clean \
+               && rm -rf /var/lib/apt/lists/*
 
 # SocialAuth Patch.
 ADD patch_socialauth.py /root/
 RUN python /root/patch_socialauth.py
-
 
 # Change root directory.
 WORKDIR /root/

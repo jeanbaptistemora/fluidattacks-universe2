@@ -87,7 +87,7 @@ gulp-compiler:
  stage: pre-test
  before_script:
    - echo "Start gulp compiler"  
- image: registry.gitlab.com/fluidsignal/integrates:alldeps
+ image: registry.gitlab.com/fluidsignal/integrates:newdeps
  script:
    - cd app/assets && npm install
    - cd ../../front 
@@ -104,7 +104,7 @@ react-testing:
   stage: pre-test
   before_script:
     - echo "Start Unit Testing"  
-  image: registry.gitlab.com/fluidsignal/integrates:alldeps
+  image: registry.gitlab.com/fluidsignal/integrates:newdeps
   script:
     - cd front/ && npm install 
     - tslint -p tsconfig.json -t verbose
@@ -120,7 +120,7 @@ js-linter:
   stage: pre-test
   before_script:
     - echo "JS Linting"
-  image: registry.gitlab.com/fluidsignal/integrates:alldeps
+  image: registry.gitlab.com/fluidsignal/integrates:newdeps
   script:
     - eslint app/assets/app/.
   after_script:
@@ -132,7 +132,7 @@ js-linter:
 
 prospector-testing:
   stage: pre-test
-  image: registry.gitlab.com/fluidsignal/integrates:alldeps
+  image: registry.gitlab.com/fluidsignal/integrates:newdeps
   <<: *variables-dev
   <<: *vault_login
   script:

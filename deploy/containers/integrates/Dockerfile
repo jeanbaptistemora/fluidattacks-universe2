@@ -1,5 +1,4 @@
-# Last stable Debian base image (jessie-slim)
-FROM registry.gitlab.com/fluidsignal/integrates:alldeps
+FROM registry.gitlab.com/fluidsignal/integrates:newdeps
 
 # Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
@@ -31,10 +30,10 @@ RUN rm -r /var/www/html \
     && git clone --depth 1 -b $CI_COMMIT_REF_NAME \
          https://"$gitlab_login":"$gitlab_password"@gitlab.com/fluidsignal/integrates.git  \
          /usr/src/app \
-    && curl -L https://toolbelt.treasuredata.com/sh/install-debian-jessie-td-agent2.sh | sh \
-    && rm /etc/td-agent/td-agent.conf \
+    && curl -L https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh | sh \
+    && rm -f /etc/td-agent/td-agent.conf \
     && mv /usr/src/app/deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
-    && rm /etc/init.d/td-agent \
+    && rm -f /etc/init.d/td-agent \
     && mv /usr/src/app/deploy/containers/common/vars/td-agent /etc/init.d/td-agent && chmod 0755 /etc/init.d/td-agent  \
     && mv /usr/src/app/deploy/containers/common/vars/out_rollbar.rb /etc/td-agent/plugin/ \
     && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
