@@ -52,6 +52,7 @@ class Finding(ObjectType):
     tracking = List(GenericScalar)
     severity = GenericScalar()
     exploit = String()
+    evidence = GenericScalar()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -118,6 +119,16 @@ class Finding(ObjectType):
                 'integrityImpact': resp.get('integrityImpact'),
                 'resolutionLevel': resp.get('resolutionLevel'),
             }
+
+            self.evidence = {
+                'animation': { 'url': resp.get('animation'), 'description': '' },
+                'evidence1': { 'url': resp.get('evidence_route_1'), 'description': resp.get('evidence_description_1') },
+                'evidence2': { 'url': resp.get('evidence_route_2'), 'description': resp.get('evidence_description_2') },
+                'evidence3': { 'url': resp.get('evidence_route_3'), 'description': resp.get('evidence_description_3') },
+                'evidence4': { 'url': resp.get('evidence_route_4'), 'description': resp.get('evidence_description_4') },
+                'explotation': { 'url': resp.get('exploitation'), 'description': '' },
+            }
+
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -232,6 +243,47 @@ class Finding(ObjectType):
             self.exploit = formstack_exploit
 
         return self.exploit
+
+    def resolve_evidence(self, info):
+        """
+        Resolve evidence attribute
+
+        Verifies if the evidence is in dynamo. if not, it gets the filenames from formstack
+        """
+        del info
+
+        formstack_evidence = self.evidence
+        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
+
+        if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
+            self.evidence = {
+                'animation': { 'url': filter_evidence_filename(dynamo_evidence, 'animation'), 'description': '' },
+                'evidence1': {
+                    'url': filter_evidence_filename(dynamo_evidence, 'evidence_route_1'),
+                    'description': formstack_evidence['evidence1'].get('description')
+                },
+                'evidence2': {
+                    'url': filter_evidence_filename(dynamo_evidence, 'evidence_route_2'),
+                    'description': formstack_evidence['evidence2'].get('description')
+                },
+                'evidence3': {
+                    'url': filter_evidence_filename(dynamo_evidence, 'evidence_route_3'),
+                    'description': formstack_evidence['evidence3'].get('description')
+                },
+                'evidence4': {
+                    'url': filter_evidence_filename(dynamo_evidence, 'evidence_route_4'),
+                    'description': formstack_evidence['evidence4'].get('description')
+                },
+                'explotation': { 'url': filter_evidence_filename(dynamo_evidence, 'exploitation'), 'description': '' },
+            }
+        else:
+            self.evidence = formstack_evidence
+
+        return self.evidence
+
+def filter_evidence_filename(dynamo_evidence, name):
+    evidence_info = filter(lambda evidence: evidence['name'] == name, dynamo_evidence[0].get('files'))
+    return evidence_info[0]['file_url'] if evidence_info else ''
 
 def get_exploit_from_file(self, file_name):
     return read_script(download_evidence_file(self, file_name))
