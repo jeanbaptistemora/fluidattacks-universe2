@@ -2,11 +2,12 @@ import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IEvidenceViewProps } from "./components/EvidenceView";
 import { IExploitViewProps } from "./components/ExploitView";
-import { IProjectUsersViewProps } from "./components/ProjectUsersView/index";
 import { IRecordsViewProps } from "./components/RecordsView/index";
 import { ISeverityViewProps } from "./components/SeverityView";
 import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
+import * as usersActions from "./containers/ProjectUsersView/actionTypes";
+import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 
 interface IDashboardState {
@@ -276,7 +277,7 @@ actionMap[actionType.ADD_FILE_NAME] =
     },
   });
 
-actionMap[actionType.LOAD_USERS] =
+actionMap[usersActions.LOAD_USERS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -286,14 +287,14 @@ actionMap[actionType.LOAD_USERS] =
     },
   });
 
-actionMap[actionType.CLEAR_USERS] =
+actionMap[usersActions.CLEAR_USERS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
     users: initialState.users,
   });
 
-actionMap[actionType.ADD_USER] =
+actionMap[usersActions.ADD_USER] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -303,7 +304,7 @@ actionMap[actionType.ADD_USER] =
     },
   });
 
-actionMap[actionType.REMOVE_USER] =
+actionMap[usersActions.REMOVE_USER] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -316,7 +317,7 @@ actionMap[actionType.REMOVE_USER] =
     },
   });
 
-actionMap[actionType.OPEN_USERS_MDL] =
+actionMap[usersActions.OPEN_USERS_MDL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -331,7 +332,7 @@ actionMap[actionType.OPEN_USERS_MDL] =
     },
   });
 
-actionMap[actionType.CLOSE_USERS_MDL] =
+actionMap[usersActions.CLOSE_USERS_MDL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,

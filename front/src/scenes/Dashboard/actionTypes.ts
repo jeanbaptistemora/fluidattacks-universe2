@@ -1,24 +1,6 @@
 let ADD_FILE_NAME: string;
 ADD_FILE_NAME = "dashboard/finding/description";
 
-let LOAD_USERS: string;
-LOAD_USERS = "dashboard/users/load";
-
-let CLEAR_USERS: string;
-CLEAR_USERS = "dashboard/users/clear";
-
-let ADD_USER: string;
-ADD_USER = "dashboard/users/add";
-
-let REMOVE_USER: string;
-REMOVE_USER = "dashboard/users/remove";
-
-let OPEN_USERS_MDL: string;
-OPEN_USERS_MDL = "dashboard/users/add_modal/open";
-
-let CLOSE_USERS_MDL: string;
-CLOSE_USERS_MDL = "dashboard/users/add_modal/close";
-
 let LOAD_VULNERABILITIES: string;
 LOAD_VULNERABILITIES = "dashboard/finding/description/vulnerabilities";
 
@@ -63,12 +45,6 @@ MOVE_EVIDENCE = "dashboard/finding/evidence/move";
 
 export {
   ADD_FILE_NAME,
-  LOAD_USERS,
-  CLEAR_USERS,
-  ADD_USER,
-  REMOVE_USER,
-  OPEN_USERS_MDL,
-  CLOSE_USERS_MDL,
   LOAD_VULNERABILITIES,
   EDIT_RECORDS,
   LOAD_TRACKING,

@@ -17,7 +17,7 @@ import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { required, validEmail } from "../../../../../utils/validations";
 import Xhr from "../../../../../utils/xhr";
-import * as actions from "../../../actions";
+import * as actions from "../actions";
 
 export interface IAddUserModalProps {
   open: boolean;

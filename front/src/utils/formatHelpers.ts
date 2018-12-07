@@ -1,5 +1,5 @@
-import { IProjectUsersViewProps } from "../scenes/Dashboard/components/ProjectUsersView";
 import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/components/SeverityView";
+import { IProjectUsersViewProps } from "../scenes/Dashboard/containers/ProjectUsersView";
 import translate from "./translations/translate";
 
 export const formatUserlist:
