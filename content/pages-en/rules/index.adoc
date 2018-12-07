@@ -133,6 +133,11 @@
 
 * link:214/[REQ.214 Allow data destruction].
 
+== Hypervisor
+
+* link:218/[REQ.218 Control access to virtual machines].
+* link:219/[REQ.219 Manage hypervisors through software].
+
 == Numbers
 
 * link:223/[REQ.223 Uniform distribution in random numbers].
