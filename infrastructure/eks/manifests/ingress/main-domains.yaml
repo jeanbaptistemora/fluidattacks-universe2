@@ -31,9 +31,16 @@ spec:
   tls:
   - hosts:
     - fluidattacks.com
+    - www.fluidattacks.com
     secretName: fluidattacks-cert
   rules:
   - host: fluidattacks.com
+    http:
+      paths:
+      - backend:
+          serviceName: alg
+          servicePort: 80
+  - host: www.fluidattacks.com
     http:
       paths:
       - backend:
