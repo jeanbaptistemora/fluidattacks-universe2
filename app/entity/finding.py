@@ -194,7 +194,7 @@ class Finding(ObjectType):
         formstack_records = self.records
         dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
         if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
-            file_info = filter(lambda evidence: evidence['name'] == 'fileRecords', dynamo_evidence[0].get('files'))
+            file_info = list(filter(lambda evidence: evidence['name'] == 'fileRecords', dynamo_evidence[0].get('files')))
             if file_info:
                 file_name = file_info[0]['file_url']
                 self.records = get_records_from_file(self, file_name)
@@ -222,7 +222,7 @@ class Finding(ObjectType):
         formstack_exploit = '' if self.exploit == '' else get_exploit_from_file(self, self.exploit)
         dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
         if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
-            file_info = filter(lambda evidence: evidence['name'] == 'exploit', dynamo_evidence[0].get('files'))
+            file_info = list(filter(lambda evidence: evidence['name'] == 'exploit', dynamo_evidence[0].get('files')))
             if file_info:
                 file_name = file_info[0]['file_url']
                 self.exploit = get_exploit_from_file(self, file_name)

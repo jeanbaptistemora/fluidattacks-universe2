@@ -11,6 +11,11 @@ from pylab import figure, pie, axis, legend, savefig, cla, clf, close
 # pylint: disable=wrong-import-position
 from matplotlib.font_manager import FontProperties
 
+# pylint: disable=redefined-builtin
+try:
+    type(reload)
+except NameError:
+    from importlib import reload
 
 class CreatorPDF(object):
     """ Class to generate reports in PDF. """
@@ -45,7 +50,11 @@ class CreatorPDF(object):
             self.PROJ_TPL = 'templates/presentation.adoc'
             self.STYLE_DIR = self.PATH + '/resources/presentation_theme'
         reload(sys)
-        sys.setdefaultencoding('utf-8')
+        try:
+            sys.setdefaultencoding('utf-8')
+        except AttributeError:
+            # Py3
+            reload(sys)
         self.lang_support()
 
     def create_command(self, tpl_name):
