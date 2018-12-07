@@ -2,12 +2,13 @@ import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IEvidenceViewProps } from "./components/EvidenceView";
 import { IExploitViewProps } from "./components/ExploitView";
-import { IRecordsViewProps } from "./components/RecordsView/index";
 import { ISeverityViewProps } from "./components/SeverityView";
 import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
+import * as recordsActions from "./containers/RecordsView/actionTypes";
+import { IRecordsViewProps } from "./containers/RecordsView/index";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 
 interface IDashboardState {
@@ -353,7 +354,7 @@ actionMap[actionType.LOAD_VULNERABILITIES] =
     },
   });
 
-actionMap[actionType.EDIT_RECORDS] =
+actionMap[recordsActions.EDIT_RECORDS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -363,7 +364,7 @@ actionMap[actionType.EDIT_RECORDS] =
     },
   });
 
-actionMap[actionType.LOAD_RECORDS] =
+actionMap[recordsActions.LOAD_RECORDS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,

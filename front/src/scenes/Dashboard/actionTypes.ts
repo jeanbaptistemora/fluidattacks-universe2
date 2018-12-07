@@ -4,12 +4,6 @@ ADD_FILE_NAME = "dashboard/finding/description";
 let LOAD_VULNERABILITIES: string;
 LOAD_VULNERABILITIES = "dashboard/finding/description/vulnerabilities";
 
-export let LOAD_RECORDS: string;
-LOAD_RECORDS = "dashboard/finding/records/load";
-
-let EDIT_RECORDS: string;
-EDIT_RECORDS = "dashboard/finding/records/edit";
-
 let LOAD_TRACKING: string;
 LOAD_TRACKING = "dashboard/finding/tracking/load";
 
@@ -46,6 +40,5 @@ MOVE_EVIDENCE = "dashboard/finding/evidence/move";
 export {
   ADD_FILE_NAME,
   LOAD_VULNERABILITIES,
-  EDIT_RECORDS,
   LOAD_TRACKING,
 };

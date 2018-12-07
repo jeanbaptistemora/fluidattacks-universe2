@@ -14,8 +14,8 @@ import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { isValidEvidenceFile } from "../../../../utils/validations";
-import * as actions from "../../actions";
-import { fileInput as FileInput } from "../FileInput/index";
+import { fileInput as FileInput } from "../../components/FileInput/index";
+import * as actions from "./actions";
 
 export interface IRecordsViewProps {
   canEdit: boolean;
