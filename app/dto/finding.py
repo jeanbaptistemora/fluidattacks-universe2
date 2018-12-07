@@ -18,6 +18,7 @@ from ..api.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
 from ..exceptions import InvalidRange
+from decimal import Decimal
 
 
 # pylint: disable=E0402
@@ -208,22 +209,6 @@ class FindingDTO(object):
                        for (k, v) in treatment_fields.items()}
         return {"data":parsed_dict, "request_id":parameter["data[id]"]}
 
-    def create_cvssv2(self, parameter):
-        """ Converts the index of a JSON to Formstack index """
-        severity_tab_fields = {
-            self.ACCESS_VECTOR: "accessVector",
-            self.ACCESS_COMPLEXITY: "accessComplexity",
-            self.AUTHENTICATION: "authentication",
-            self.EXPLOITABILITY: "exploitability",
-            self.CONFIDENTIALITY_IMPACT: "confidentialityImpact",
-            self.INTEGRITY_IMPACT: "integrityImpact",
-            self.AVAILABILITY_IMPACT: "availabilityImpact",
-            self.RESOLUTION_LEVEL: "resolutionLevel",
-            self.CONFIDENCE_LEVEL: "confidenceLevel",
-        }
-        parsed_dict = {k:parameter[v] for (k, v) in severity_tab_fields.items()}
-        return {"data":parsed_dict, "request_id":parameter["id"]}
-
     def create_delete(self, parameter, analyst, project, finding):
         """ Create a data set to send in the finding deletion email """
         return {
@@ -239,7 +224,7 @@ class FindingDTO(object):
         self.data["id"] = submission_id
         self.data["timestamp"] = request_arr["timestamp"]
         self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
-        self.data = forms.dict_concatenation(self.data, self.parse_cssv2(request_arr))
+        self.data = forms.dict_concatenation(self.data, self.parse_cvssv2(request_arr, submission_id))
         self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
         return self.data
@@ -307,28 +292,43 @@ class FindingDTO(object):
                 self.data["openVulnerabilities"] = finding["value"]
         return self.data
 
-    def parse_cssv2(self, request_arr): # noqa: C901
+    def parse_cvssv2(self, request_arr, submission_id): # noqa: C901
         "Convert the score of a finding into a formstack format"
         initial_dict = forms.create_dict(request_arr)
-        severity_fields = {
-            self.ACCESS_VECTOR:"accessVector",
-            self.ACCESS_COMPLEXITY:"accessComplexity",
-            self.AUTHENTICATION:"authentication",
-            self.CONFIDENTIALITY_IMPACT:"confidentialityImpact",
-            self.INTEGRITY_IMPACT:"integrityImpact",
-            self.AVAILABILITY_IMPACT:"availabilityImpact",
-            self.EXPLOITABILITY:"exploitability",
-            self.RESOLUTION_LEVEL:"resolutionLevel",
-            self.CONFIDENCE_LEVEL:"confidenceLevel",
-            self.COLLATERAL_DAMAGE_POTENTIAL: 'collateralDamagePotential',
-            self.FINDING_DISTRIBUTION: 'findingDistribution',
-            self.CONFIDENTIALITY_REQUIREMENT: 'confidentialityRequirement',
-            self.INTEGRITY_REQUIREMENT: 'integrityRequirement',
-            self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement'
-        }
-        parsed_dict = {v: float(initial_dict[k].split(' | ')[0]) \
-                      for (k, v) in severity_fields.items() \
-                      if k in initial_dict.keys()}
+        severity = integrates_dao.get_severity_dynamo(submission_id)
+        if severity:
+            severity_title = ['accessVector', 'accessComplexity',
+                              'authentication', 'exploitability',
+                              'confidentialityImpact', 'integrityImpact',
+                              'availabilityImpact', 'resolutionLevel',
+                              'confidenceLevel', 'collateralDamagePotential',
+                              'findingDistribution', 'confidentialityRequirement',
+                              'integrityRequirement', 'availabilityRequirement']
+            severity_fields = {util.camelcase_to_snakecase(k): k
+                               for k in severity_title}
+            parsed_dict = {v: float(severity[k])
+                           for (k, v) in severity_fields.items()
+                           if k in severity.keys()}
+        else:
+            severity_fields = {
+                self.ACCESS_VECTOR: 'accessVector',
+                self.ACCESS_COMPLEXITY: 'accessComplexity',
+                self.AUTHENTICATION: 'authentication',
+                self.CONFIDENTIALITY_IMPACT: 'confidentialityImpact',
+                self.INTEGRITY_IMPACT: 'integrityImpact',
+                self.AVAILABILITY_IMPACT: 'availabilityImpact',
+                self.EXPLOITABILITY: 'exploitability',
+                self.RESOLUTION_LEVEL: 'resolutionLevel',
+                self.CONFIDENCE_LEVEL: 'confidenceLevel',
+                self.COLLATERAL_DAMAGE_POTENTIAL: 'collateralDamagePotential',
+                self.FINDING_DISTRIBUTION: 'findingDistribution',
+                self.CONFIDENTIALITY_REQUIREMENT: 'confidentialityRequirement',
+                self.INTEGRITY_REQUIREMENT: 'integrityRequirement',
+                self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement'
+            }
+            parsed_dict = {v: float(initial_dict[k].split(' | ')[0])
+                           for (k, v) in severity_fields.items()
+                           if k in initial_dict.keys()}
         BASE_SCORE_FACTOR_1 = 0.6
         BASE_SCORE_FACTOR_2 = 0.4
         BASE_SCORE_FACTOR_3 = 1.5
@@ -346,8 +346,8 @@ class FindingDTO(object):
                       (BASE_SCORE_FACTOR_2 * exploitability) - BASE_SCORE_FACTOR_3) *
                       F_IMPACT_FACTOR)
         parsed_dict['criticity'] = round((base_score * parsed_dict['exploitability'] *
-                                    parsed_dict['resolutionLevel'] *
-                                    parsed_dict['confidenceLevel']), 1)
+                                         parsed_dict['resolutionLevel'] *
+                                         parsed_dict['confidenceLevel']), 1)
         parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
         parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
         parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
@@ -714,3 +714,19 @@ def update_vulnerabilities_date(finding_id):
         else:
             # A finding that change the same day should not be updated
             pass
+
+
+def save_severity(finding):
+    """Organize severity metrics to save in dynamo."""
+    primary_keys = ['finding_id', str(finding['id'])]
+    severity_fields = ['accessVector', 'accessComplexity',
+                       'authentication', 'exploitability',
+                       'confidentialityImpact', 'integrityImpact',
+                       'availabilityImpact', 'resolutionLevel',
+                       'confidenceLevel', 'collateralDamagePotential',
+                       'findingDistribution', 'confidentialityRequirement',
+                       'integrityRequirement', 'availabilityRequirement']
+    severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+                for k in severity_fields}
+    response = integrates_dao.add_severity_dynamo(primary_keys, severity)
+    return response

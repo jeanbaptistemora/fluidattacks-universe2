@@ -14,14 +14,12 @@ from graphql import GraphQLError
 from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
 
 from .. import util
-from ..utils  import forms as forms_utils
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from ..api.drive import DriveAPI
-from ..api.formstack import FormstackAPI
 from app.decorators import require_login, require_role, require_finding_access_gql
-from app.dto.finding import FindingDTO, finding_vulnerabilities
+from app.dto.finding import FindingDTO, finding_vulnerabilities, save_severity
 from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
     group_by_state, cast_tracking
@@ -106,19 +104,14 @@ class Finding(ObjectType):
                 self.exploit = resp['exploit']
             else:
                 self.exploit = ''
-
-            self.severity = {
-                'accessComplexity': resp.get('accessComplexity'),
-                'accessVector': resp.get('accessVector'),
-                'authentication': resp.get('authentication'),
-                'availabilityImpact': resp.get('availabilityImpact'),
-                'confidenceLevel': resp.get('confidenceLevel'),
-                'confidentialityImpact': resp.get('confidentialityImpact'),
-                'criticity': resp.get('criticity'),
-                'exploitability': resp.get('exploitability'),
-                'integrityImpact': resp.get('integrityImpact'),
-                'resolutionLevel': resp.get('resolutionLevel'),
-            }
+            severity_fields = ['accessVector', 'accessComplexity',
+                               'authentication', 'exploitability',
+                               'confidentialityImpact', 'integrityImpact',
+                               'availabilityImpact', 'resolutionLevel',
+                               'confidenceLevel', 'collateralDamagePotential',
+                               'findingDistribution', 'confidentialityRequirement',
+                               'integrityRequirement', 'availabilityRequirement']
+            self.severity = {k: resp.get(k) for k in severity_fields}
 
             self.evidence = {
                 'animation': { 'url': resp.get('animation'), 'description': '' },
@@ -422,11 +415,7 @@ class UpdateSeverity(Mutation):
     @require_finding_access_gql
     def mutate(self, info, **parameters):
         success = False
-        finding_dto = FindingDTO()
-        severity_dict = finding_dto.create_cvssv2(parameters.get('data'))
-        severity_info = forms_utils.to_formstack(severity_dict['data'])
-        api = FormstackAPI()
-        success = api.update(severity_dict['request_id'], severity_info)
+        success = save_severity(parameters.get('data'))
 
-        return UpdateSeverity(success=success, \
+        return UpdateSeverity(success=success,
             finding=Finding(info=info, identifier=parameters.get('finding_id')))

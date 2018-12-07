@@ -65,8 +65,7 @@ def get_cwe_url (cwe):
         return 'None'
 
 def is_exploitable(explotability):
-    if explotability == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
-       or explotability == '0.950 | Funcional: Existe exploit':
+    if explotability == 1.0 or explotability == 0.95:
         is_exploitable = 'Si'
     else:
         is_exploitable = 'No'

@@ -33,10 +33,15 @@ export interface ISeverityViewProps {
     accessVector: string;
     authentication: string;
     availabilityImpact: string;
+    availabilityRequirement: string;
+    collateralDamagePotential: string;
     confidenceLevel: string;
     confidentialityImpact: string;
+    confidentialityRequirement: string;
     exploitability: string;
+    findingDistribution: string;
     integrityImpact: string;
+    integrityRequirement: string;
     resolutionLevel: string;
   };
   findingId: string;
@@ -114,7 +119,7 @@ const renderFields: React.SFC<formProps> = (props: formProps): JSX.Element => (
                   <option value="" selected={true} />
                   {Object.keys(field.options)
                     .map((key: string) => (
-                    <option value={`${key} | ${translate.t(field.options[key], { lng: "es" })}`}>
+                    <option value={`${key}`}>
                       {translate.t(field.options[key])}
                     </option>
                   ))}
@@ -142,158 +147,48 @@ const Form: severityForm = reduxForm<{}, ISeverityViewProps>({
   form: "editSeverity",
 })(renderFields);
 
-const initializeFields: ((key: string, value: string) => string) =
-  (key: string, value: string): string => {
-    let dataCasted: string;
-    const accessVector: {[value: string]: string} = {
-      0.395: "search_findings.tab_severity.vector_options.local",
-      0.646: "search_findings.tab_severity.vector_options.adjacent",
-      1: "search_findings.tab_severity.vector_options.network",
-    };
-
-    const confidentialityImpact: {[value: string]: string} = {
-      0: "search_findings.tab_severity.confidentiality_options.none",
-      0.275: "search_findings.tab_severity.confidentiality_options.partial",
-      0.66: "search_findings.tab_severity.confidentiality_options.complete",
-    };
-
-    const integrityImpact: {[value: string]: string} = {
-      0: "search_findings.tab_severity.integrity_options.none",
-      0.275: "search_findings.tab_severity.integrity_options.partial",
-      0.66: "search_findings.tab_severity.integrity_options.complete",
-    };
-
-    const availabilityImpact: {[value: string]: string} = {
-      0: "search_findings.tab_severity.availability_options.none",
-      0.275: "search_findings.tab_severity.availability_options.partial",
-      0.66: "search_findings.tab_severity.availability_options.complete",
-    };
-
-    const authentication: {[value: string]: string} = {
-      0.45: "search_findings.tab_severity.authentication_options.multiple_auth",
-      0.56: "search_findings.tab_severity.authentication_options.single_auth",
-      0.704: "search_findings.tab_severity.authentication_options.no_auth",
-    };
-
-    const exploitability: {[value: string]: string} = {
-      0.85: "search_findings.tab_severity.exploitability_options.improbable",
-      0.9: "search_findings.tab_severity.exploitability_options.conceptual",
-      0.95: "search_findings.tab_severity.exploitability_options.functional",
-      1: "search_findings.tab_severity.exploitability_options.high",
-    };
-
-    const confidenceLevel: {[value: string]: string} = {
-      0.9: "search_findings.tab_severity.confidence_options.not_confirm",
-      0.95: "search_findings.tab_severity.confidence_options.not_corrob",
-      1: "search_findings.tab_severity.confidence_options.confirmed",
-    };
-
-    const resolutionLevel: {[value: string]: string} = {
-      0.87: "search_findings.tab_severity.resolution_options.official",
-      0.9: "search_findings.tab_severity.resolution_options.temporal",
-      0.95: "search_findings.tab_severity.resolution_options.palliative",
-      1: "search_findings.tab_severity.resolution_options.non_existent",
-    };
-
-    const accessComplexity: {[value: string]: string} = {
-      0.35: "search_findings.tab_severity.complexity_options.high_complex",
-      0.61: "search_findings.tab_severity.complexity_options.medium_complex",
-      0.71: "search_findings.tab_severity.complexity_options.low_complex",
-    };
-    switch (key) {
-      case "accessVector":
-        dataCasted = `${value} | ${translate.t(accessVector[value], { lng: "es" })}`;
-        break;
-      case "confidentialityImpact":
-        dataCasted = `${value} | ${translate.t(confidentialityImpact[value], { lng: "es" })}`;
-        break;
-      case "integrityImpact":
-        dataCasted = `${value} | ${translate.t(integrityImpact[value], { lng: "es" })}`;
-        break;
-      case "availabilityImpact":
-        dataCasted = `${value} | ${translate.t(availabilityImpact[value], { lng: "es" })}`;
-        break;
-      case "authentication":
-        dataCasted = `${value} | ${translate.t(authentication[value], { lng: "es" })}`;
-        break;
-      case "exploitability":
-        dataCasted = `${value} | ${translate.t(exploitability[value], { lng: "es" })}`;
-        break;
-      case "confidenceLevel":
-        dataCasted = `${value} | ${translate.t(confidenceLevel[value], { lng: "es" })}`;
-        break;
-      case "resolutionLevel":
-        dataCasted = `${value} | ${translate.t(resolutionLevel[value], { lng: "es" })}`;
-        break;
-      case "accessComplexity":
-        dataCasted = `${value} | ${translate.t(accessComplexity[value], { lng: "es" })}`;
-        break;
-      default:
-        dataCasted = "";
-    }
-
-    return dataCasted;
-  };
 export const component: React.SFC<ISeverityViewProps> =
-  (props: ISeverityViewProps): JSX.Element => {
-    const dataset: ISeverityViewProps["dataset"] = {
-      accessComplexity: "",
-      accessVector: "",
-      authentication: "",
-      availabilityImpact: "",
-      confidenceLevel: "",
-      confidentialityImpact: "",
-      exploitability: "",
-      integrityImpact: "",
-      resolutionLevel: "",
-    };
-    Object.keys(props.dataset)
-      .forEach((key: string) => {
-        const value: string = props.dataset[key as keyof ISeverityViewProps["dataset"]];
-        dataset[key as keyof ISeverityViewProps["dataset"]] = initializeFields(key, value);
-    });
+  (props: ISeverityViewProps): JSX.Element => (
+    <React.StrictMode>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <Provider store={store}>
+            <Form
+              {...props}
+              onChange={(values: {}): void => { store.dispatch(actions.calcCVSSv2(values)); }}
+              initialValues={props.dataset}
+              onSubmit={(): void => { store.dispatch(actions.openConfirmMdl()); }}
+            />
+          </Provider>
+          <Row className={style.row}>
+            <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Base</b></label></Col>
+            <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.cssv2base}</p></Col>
+          </Row>
+          <Row className={style.row}>
+            <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Temporal</b></label></Col>
+            <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.criticity}</p></Col>
+          </Row>
+        </Col>
+      </Row>
 
-    return (
-      <React.StrictMode>
-        <Row>
-          <Col md={12} sm={12} xs={12}>
-            <Provider store={store}>
-              <Form
-                {...props}
-                onChange={(values: {}): void => { store.dispatch(actions.calcCVSSv2(values)); }}
-                initialValues={dataset}
-                onSubmit={(): void => { store.dispatch(actions.openConfirmMdl()); }}
-              />
-            </Provider>
-            <Row className={style.row}>
-              <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Base</b></label></Col>
-              <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.cssv2base}</p></Col>
-            </Row>
-            <Row className={style.row}>
-              <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Temporal</b></label></Col>
-              <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.criticity}</p></Col>
-            </Row>
-          </Col>
-        </Row>
+      <ConfirmDialog
+        open={props.isMdlConfirmOpen}
+        title={translate.t("confirmmodal.title_cvssv2")}
+        onProceed={(): void => {
+          const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+            store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+          );
 
-        <ConfirmDialog
-          open={props.isMdlConfirmOpen}
-          title={translate.t("confirmmodal.title_cvssv2")}
-          onProceed={(): void => {
-            const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-              store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-            );
-
-            thunkDispatch(actions.updateSeverity(
-              props.findingId,
-              props.formValues.editSeverity.values,
-              props.criticity,
-            ));
-          }}
-          onCancel={(): void => { store.dispatch(actions.closeConfirmMdl()); }}
-        />
-      </React.StrictMode>
-    ); };
+          thunkDispatch(actions.updateSeverity(
+            props.findingId,
+            props.formValues.editSeverity.values,
+            props.criticity,
+          ));
+        }}
+        onCancel={(): void => { store.dispatch(actions.closeConfirmMdl()); }}
+      />
+    </React.StrictMode>
+  );
 
 export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrapper(
   enhance(component) as React.SFC<ISeverityViewProps>,

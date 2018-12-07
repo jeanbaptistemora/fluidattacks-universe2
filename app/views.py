@@ -27,7 +27,8 @@ from .decorators import authenticate, authorize, require_project_access, require
 from .techdoc.IT import ITReport
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
-    sort_vulnerabilities, group_specific, update_vulnerabilities_date
+    sort_vulnerabilities, group_specific, update_vulnerabilities_date,
+    save_severity
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -1402,6 +1403,7 @@ def accept_draft(request):
                             file_name=file_first_name)
                 migrate_all_files(files_data, file_url, request)
                 integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True, releaseDate)
+                save_severity(finding)
                 return util.response([], 'success', False)
             else:
                 rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)
@@ -1412,6 +1414,7 @@ def accept_draft(request):
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
+
 
 @never_cache
 @require_http_methods(["POST"])

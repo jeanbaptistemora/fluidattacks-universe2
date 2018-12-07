@@ -9,6 +9,7 @@ from __init__ import FI_AWS_DYNAMODB_ACCESS_KEY
 from __init__ import FI_AWS_DYNAMODB_SECRET_KEY
 import rollbar
 from datetime import datetime
+from ..utils import forms
 
 
 # pylint: disable=redefined-builtin
@@ -1629,3 +1630,68 @@ def get_finding_project(finding_id):
     item = response['Item'].get('project_name') if 'Item' in response else None
 
     return item
+
+
+def add_severity_dynamo(primary_keys, severity):
+    """Adding an severity to a dynamo table."""
+    table = dynamodb_resource.Table('FI_findings')
+    item = get_data_dynamo('FI_findings', primary_keys[0], primary_keys[1])
+    if item:
+        resp = update_severity_dynamo(primary_keys, severity)
+    else:
+        try:
+            p_key = {primary_keys[0]: primary_keys[1]}
+            severity_field = {k: severity[k] for k in severity.keys()}
+            attr_to_add = forms.dict_concatenation(p_key, severity_field)
+            response = table.put_item(
+                Item=attr_to_add
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        except ClientError:
+            rollbar.report_exc_info()
+            resp = False
+    return resp
+
+
+def update_severity_dynamo(primary_keys, severity):
+    """Updating an attribute to a dynamo table."""
+    table = dynamodb_resource.Table('FI_findings')
+    try:
+        str_format = '{metric} = :{metric}'
+        severity_params = [str_format.format(metric=x) for x in severity.keys()]
+        query_params = 'SET ' + ', '.join(severity_params)
+        expression_params = {':' + k: severity[k] for k in severity.keys()}
+        response = table.update_item(
+            Key={
+                primary_keys[0]: primary_keys[1],
+            },
+            UpdateExpression=query_params,
+            ExpressionAttributeValues=expression_params
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+        resp = False
+    return resp
+
+def get_severity_dynamo(finding_id):
+    """ Get severity of a finding. """
+    table = dynamodb_resource.Table('FI_findings')
+    try:
+        response = table.get_item(
+            Key={
+                'finding_id': finding_id
+            },
+            AttributesToGet=['access_vector', 'access_complexity',
+                             'authentication', 'exploitability',
+                             'confidentiality_impact', 'integrity_impact',
+                             'availability_impact', 'resolution_level',
+                             'confidence_level', 'collateral_damage_potential',
+                             'finding_distribution', 'confidentiality_requirement',
+                             'integrity_requirement', 'availability_requirement']
+        )
+        items = response['Item']
+    except ClientError:
+        rollbar.report_exc_info()
+        items = {}
+    return items
