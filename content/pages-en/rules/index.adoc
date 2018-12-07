@@ -53,6 +53,7 @@
 * link:083/[REQ.083 Avoid sensitive data logging].
 * link:084/[REQ.084 Allow transaction history queries].
 * link:085/[REQ.085 Allow session history queries].
+* link:086/[REQ.086 Generate alarms on security events].
 
 == Access Control
 
