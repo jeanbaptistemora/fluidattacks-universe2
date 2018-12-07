@@ -96,7 +96,7 @@ function issue_secondary_domain_certificates() {
   local secret="${2}"
   local certificate_name="${3}"
   local secret_age="$(kubectl get secret ${secret} | grep -Po '[0-9]+(d|m|s)$' | sed 's/.$//')"
-  if [ "${secret_age}" -gt 85 ]; then
+  if [ "${secret_age}" -gt 85 ] || [[ $(get_changed_files) == *"${manifest}"*  ]]; then
     echo-blue "Issuing TLS certificates for secondary domains..."
     kubectl delete secret "${secret}"
     kubectl delete certificate "${certificate_name}"
