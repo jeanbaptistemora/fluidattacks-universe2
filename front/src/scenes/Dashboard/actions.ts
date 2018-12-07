@@ -119,41 +119,6 @@ export const deleteVulnerability: ThunkActionStructure =
     });
 };
 
-export const loadTracking: ThunkActionStructure =
-  (findingId: string): ThunkAction<void, {}, {}, Action> =>
-    (dispatch: ThunkDispatcher): void => {
-    let gQry: string;
-    gQry = `{
-      finding(identifier: "${findingId}") {
-        success
-        tracking
-      }
-    }`;
-    new Xhr().request(gQry, "An error occurred getting tracking")
-    .then((response: AxiosResponse) => {
-      const { data } = response.data;
-
-      if (data.finding.success) {
-        dispatch({
-          payload: {
-            closings: data.finding.tracking,
-          },
-          type: actionType.LOAD_TRACKING,
-        });
-      } else {
-        msgError(translate.t("proj_alerts.error_textsad"));
-      }
-    })
-    .catch((error: AxiosError) => {
-      if (error.response !== undefined) {
-        const { errors } = error.response.data;
-
-        msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error(error.message, errors);
-      }
-    });
-};
-
 export const editSeverity: DashboardAction =
   (): IActionStructure => ({
     payload: undefined,

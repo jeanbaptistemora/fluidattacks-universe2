@@ -3,13 +3,14 @@ import * as actionType from "./actionTypes";
 import { IEvidenceViewProps } from "./components/EvidenceView";
 import { IExploitViewProps } from "./components/ExploitView";
 import { ISeverityViewProps } from "./components/SeverityView";
-import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
 import { IRecordsViewProps } from "./containers/RecordsView/index";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
+import * as trackingActions from "./containers/TrackingView/actionTypes";
+import { ITrackingViewProps } from "./containers/TrackingView/index";
 
 interface IDashboardState {
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen">;
@@ -379,7 +380,7 @@ actionMap[recordsActions.LOAD_RECORDS] =
     },
   });
 
-actionMap[actionType.LOAD_TRACKING] =
+actionMap[trackingActions.LOAD_TRACKING] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,

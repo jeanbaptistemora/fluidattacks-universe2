@@ -17,8 +17,8 @@ import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import * as actions from "../../actions";
-import { vulnsView as VulnerabilitiesView } from "../Vulnerabilities/index";
+import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities/index";
+import * as actions from "./actions";
 import style from "./index.css";
 
 export interface ITrackingViewProps {
