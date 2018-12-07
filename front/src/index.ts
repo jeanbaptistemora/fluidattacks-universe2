@@ -19,11 +19,11 @@ import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import { projectUsersView } from "./scenes/Dashboard/components/ProjectUsersView/index";
 import { recordsView } from "./scenes/Dashboard/components/RecordsView/index";
-import { resourcesView } from "./scenes/Dashboard/components/ResourcesView/index";
 import { severityView } from "./scenes/Dashboard/components/SeverityView/index";
 import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
 import { trackingView } from "./scenes/Dashboard/components/TrackingView/index";
 import { vulnsView } from "./scenes/Dashboard/components/Vulnerabilities/index";
+import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
 

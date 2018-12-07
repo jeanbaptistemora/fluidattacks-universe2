@@ -7,6 +7,7 @@ import { IRecordsViewProps } from "./components/RecordsView/index";
 import { ISeverityViewProps } from "./components/SeverityView";
 import { ITrackingViewProps } from "./components/TrackingView/index";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
+import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 
 interface IDashboardState {
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen">;
@@ -109,7 +110,7 @@ const actionMap: {
   [key: string]: ((arg1: IDashboardState, arg2: actions.IActionStructure) => IDashboardState);
 } = {};
 
-actionMap[actionType.LOAD_RESOURCES] =
+actionMap[resourcesActions.LOAD_RESOURCES] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -120,14 +121,14 @@ actionMap[actionType.LOAD_RESOURCES] =
     },
   });
 
-actionMap[actionType.CLEAR_RESOURCES] =
+actionMap[resourcesActions.CLEAR_RESOURCES] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
     resources: initialState.resources,
   });
 
-actionMap[actionType.OPEN_ADD_MODAL] =
+actionMap[resourcesActions.OPEN_ADD_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -141,7 +142,7 @@ actionMap[actionType.OPEN_ADD_MODAL] =
     },
   });
 
-actionMap[actionType.CLOSE_ADD_MODAL] =
+actionMap[resourcesActions.CLOSE_ADD_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -153,7 +154,7 @@ actionMap[actionType.CLOSE_ADD_MODAL] =
     },
   });
 
-actionMap[actionType.ADD_REPO_FIELD] =
+actionMap[resourcesActions.ADD_REPO_FIELD] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -166,7 +167,7 @@ actionMap[actionType.ADD_REPO_FIELD] =
     },
   });
 
-actionMap[actionType.REMOVE_REPO_FIELD] =
+actionMap[resourcesActions.REMOVE_REPO_FIELD] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -180,7 +181,7 @@ actionMap[actionType.REMOVE_REPO_FIELD] =
     },
   });
 
-actionMap[actionType.ADD_ENV_FIELD] =
+actionMap[resourcesActions.ADD_ENV_FIELD] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -193,7 +194,7 @@ actionMap[actionType.ADD_ENV_FIELD] =
     },
   });
 
-actionMap[actionType.REMOVE_ENV_FIELD] =
+actionMap[resourcesActions.REMOVE_ENV_FIELD] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -207,7 +208,7 @@ actionMap[actionType.REMOVE_ENV_FIELD] =
     },
   });
 
-actionMap[actionType.MODIFY_REPO_URL] =
+actionMap[resourcesActions.MODIFY_REPO_URL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -227,7 +228,7 @@ actionMap[actionType.MODIFY_REPO_URL] =
     },
   });
 
-actionMap[actionType.MODIFY_REPO_BRANCH] =
+actionMap[resourcesActions.MODIFY_REPO_BRANCH] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -247,7 +248,7 @@ actionMap[actionType.MODIFY_REPO_BRANCH] =
     },
   });
 
-actionMap[actionType.MODIFY_ENV_URL] =
+actionMap[resourcesActions.MODIFY_ENV_URL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,

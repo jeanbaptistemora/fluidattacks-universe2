@@ -23,7 +23,7 @@ import { msgError } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import * as actions from "../../actions";
+import * as actions from "./actions";
 
 export interface IResourcesViewProps {
   addModal: {

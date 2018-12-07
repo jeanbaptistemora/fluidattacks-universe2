@@ -70,7 +70,6 @@ const mapStateToProps: ((arg1: StateType<Reducer>, arg2: IVulnerabilitiesViewPro
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
-    store.dispatch(actions.clearResources());
     const { findingId } = this.props as IVulnerabilitiesViewProps;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
