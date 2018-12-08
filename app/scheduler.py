@@ -498,6 +498,10 @@ def deletion(project, days_to_send, days_to_delete):
     return [was_email_sended, was_deleted]
 
 def deletion_of_finished_project():
+    rollbar.report_message(
+        'Warning: Function to delete finished project is running '
+        'deletion finished project',
+        'warning')
     today_weekday = datetime.today().weekday()
     if today_weekday == 0:
         days_to_send = [6, 7]
