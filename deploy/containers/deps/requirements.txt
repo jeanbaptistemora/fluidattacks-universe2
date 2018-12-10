@@ -45,3 +45,4 @@ graphene-django==2.2.0
 pykwalify==1.6.1
 python-jose==3.0.1
 flake8==3.5.0
+django-redis==4.10.0

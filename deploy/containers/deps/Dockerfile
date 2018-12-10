@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y \
                default-libmysqlclient-dev cron autoconf \
                bison libssl-dev libyaml-dev \
                libreadline6-dev libncurses5-dev \
-               libffi-dev libgdbm6 libgdbm-dev ruby-dev \
+               libffi-dev libgdbm6 libgdbm-dev ruby-dev redis \
 	       nodejs libmagic1 \
                && python2 -m pip install --upgrade pip setuptools ansible \
                && python2 -m pip install -r /root/requirements.txt --ignore-installed \

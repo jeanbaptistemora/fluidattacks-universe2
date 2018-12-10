@@ -16,7 +16,8 @@ from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
-from django.views.decorators.cache import never_cache, cache_control
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import never_cache, cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
@@ -54,12 +55,16 @@ from datetime import datetime, timedelta
 from .entity import schema
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
                             aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
 bucket_s3 = FI_AWS_S3_BUCKET
 BASE_URL = "https://fluidattacks.com/integrates"
+
 
 @never_cache
 def index(request):
@@ -86,11 +91,13 @@ def forms(request):
     "Forms view"
     return render(request, "forms.html")
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @authenticate
 def project_indicators(request):
     "Indicators view"
     return render(request, "project/indicators.html")
+
 
 @never_cache
 @authenticate
@@ -152,7 +159,8 @@ def project_drafts(request):
         }
     return render(request, "project/drafts.html", dicLang)
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @authenticate
 def project_events(request):
     "eventualities view"
@@ -198,6 +206,7 @@ def project_users(request):
     parameters = {}
     return render(request, "project/users.html", parameters)
 
+
 @csrf_exempt
 @never_cache
 @authenticate
@@ -229,7 +238,8 @@ def registration(request):
         return redirect('/error500')
     return response
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def dashboard(request):
@@ -264,7 +274,7 @@ def logout(request):
 
 #pylint: disable=too-many-branches
 #pylint: disable=too-many-locals
-@never_cache
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_xls(request, lang, project):
@@ -311,7 +321,7 @@ def validation_project_to_pdf(request, lang, doctype):
 
 #pylint: disable=too-many-branches
 #pylint: disable=too-many-locals
-@never_cache
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_pdf(request, lang, project, doctype):
@@ -403,7 +413,7 @@ def presentation_pdf(project, pdf_maker, findings, user):
     return report_filename
 
 #pylint: disable-msg=R0913
-@never_cache
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def check_pdf(request, project):
@@ -427,7 +437,7 @@ def get_project_info(project):
         return projectDTO.parse(submission)
     return []
 
-@cache_control(max_age=600)
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -471,7 +481,8 @@ def get_drafts(request):
             findings.append(finding)
     return util.response(findings, 'Success', False)
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -674,7 +685,8 @@ def format_release_date(finding, state):
         finding['lastVulnerability'] = '-'
     return finding
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -691,7 +703,8 @@ def get_evidences(request):
         response = []
     return util.response(response, 'Success', False)
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, findingid, fileid):
@@ -984,7 +997,8 @@ def update_evidence_text(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -1024,7 +1038,8 @@ def retrieve_script(request, script_file):
         rollbar.report_message('Error: Invalid exploit file format', 'error', request)
         return util.response([], 'Invalid exploit file format', True)
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -1656,7 +1671,7 @@ def delete_vulnerabilities(finding_id, project):
     return are_vulns_deleted
 
 
-@never_cache
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])

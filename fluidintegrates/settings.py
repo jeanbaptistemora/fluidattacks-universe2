@@ -214,6 +214,7 @@ STATICFILES_FINDERS = (
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
+    os.path.join(PROJECT_ROOT, '../front'),
 )
 
 CRONJOBS = [
@@ -233,6 +234,19 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.azuread.AzureADOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "fi"
+    }
+}
+
+CACHE_TTL = 60 * 10
 
 #Session
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

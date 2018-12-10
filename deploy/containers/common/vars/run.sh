@@ -14,5 +14,6 @@ if [ -z "${FI_VERSION}" ]; then
   /usr/src/app/manage.py bot
 else
   /etc/init.d/td-agent restart
+  service redis-server restart
   /usr/sbin/apache2ctl -D FOREGROUND
 fi
