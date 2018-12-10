@@ -21,7 +21,7 @@ import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
-import * as actions from "../../actions";
+import * as actions from "./actions";
 import style from "./index.css";
 
 export interface ISeverityViewProps {
@@ -155,7 +155,9 @@ export const component: React.SFC<ISeverityViewProps> =
           <Provider store={store}>
             <Form
               {...props}
-              onChange={(values: {}): void => { store.dispatch(actions.calcCVSSv2(values)); }}
+              onChange={(values: {}): void => {
+                store.dispatch(actions.calcCVSSv2(values as ISeverityViewProps["dataset"]));
+              }}
               initialValues={props.dataset}
               onSubmit={(): void => { store.dispatch(actions.openConfirmMdl()); }}
             />

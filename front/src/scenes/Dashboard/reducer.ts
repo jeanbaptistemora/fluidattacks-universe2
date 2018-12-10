@@ -2,13 +2,14 @@ import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IEvidenceViewProps } from "./components/EvidenceView";
 import { IExploitViewProps } from "./components/ExploitView";
-import { ISeverityViewProps } from "./components/SeverityView";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
 import { IRecordsViewProps } from "./containers/RecordsView/index";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
+import { ISeverityViewProps } from "./containers/SeverityView";
+import * as severityActions from "./containers/SeverityView/actionTypes";
 import * as trackingActions from "./containers/TrackingView/actionTypes";
 import { ITrackingViewProps } from "./containers/TrackingView/index";
 
@@ -389,7 +390,7 @@ actionMap[trackingActions.LOAD_TRACKING] =
     },
   });
 
-actionMap[actionType.LOAD_SEVERITY] =
+actionMap[severityActions.LOAD_SEVERITY] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -399,7 +400,7 @@ actionMap[actionType.LOAD_SEVERITY] =
     },
   });
 
-actionMap[actionType.EDIT_SEVERITY] =
+actionMap[severityActions.EDIT_SEVERITY] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -409,7 +410,7 @@ actionMap[actionType.EDIT_SEVERITY] =
     },
   });
 
-actionMap[actionType.CALC_CVSSV2] =
+actionMap[severityActions.CALC_CVSSV2] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -420,14 +421,14 @@ actionMap[actionType.CALC_CVSSV2] =
     },
   });
 
-actionMap[actionType.OPEN_CONFIRM_MDL] =
+actionMap[severityActions.OPEN_CONFIRM_MDL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
     isMdlConfirmOpen: true,
   });
 
-actionMap[actionType.CLOSE_CONFIRM_MDL] =
+actionMap[severityActions.CLOSE_CONFIRM_MDL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,

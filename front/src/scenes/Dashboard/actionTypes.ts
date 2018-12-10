@@ -4,21 +4,6 @@ ADD_FILE_NAME = "dashboard/finding/description";
 let LOAD_VULNERABILITIES: string;
 LOAD_VULNERABILITIES = "dashboard/finding/description/vulnerabilities";
 
-export let EDIT_SEVERITY: string;
-EDIT_SEVERITY = "dashboard/finding/severity/edit";
-
-export let CALC_CVSSV2: string;
-CALC_CVSSV2 = "dashboard/finding/severity/calc";
-
-export let LOAD_SEVERITY: string;
-LOAD_SEVERITY = "dashboard/finding/severity/load";
-
-export let OPEN_CONFIRM_MDL: string;
-OPEN_CONFIRM_MDL = "dashboard/confirm_open";
-
-export let CLOSE_CONFIRM_MDL: string;
-CLOSE_CONFIRM_MDL = "dashboard/confirm_close";
-
 export let LOAD_EXPLOIT: string;
 LOAD_EXPLOIT = "dashboard/finding/exploit/load";
 
