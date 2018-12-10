@@ -1627,7 +1627,7 @@ def get_finding_project(finding_id):
         },
         AttributesToGet=['project_name']
     )
-    item = response['Item'].get('project_name') if 'Item' in response else None
+    item = response.get('Item').get('project_name') if 'Item' in response else None
 
     return item
 
@@ -1690,7 +1690,7 @@ def get_severity_dynamo(finding_id):
                              'finding_distribution', 'confidentiality_requirement',
                              'integrity_requirement', 'availability_requirement']
         )
-        items = response['Item']
+        items = response.get('Item')
     except ClientError:
         rollbar.report_exc_info()
         items = {}
