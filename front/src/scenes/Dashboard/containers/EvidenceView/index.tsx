@@ -25,7 +25,7 @@ import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import * as actions from "../../actions";
+import * as actions from "./actions";
 
 export interface IEvidenceViewProps {
   currentIndex: number;

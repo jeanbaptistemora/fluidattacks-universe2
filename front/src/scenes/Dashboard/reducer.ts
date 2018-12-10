@@ -1,7 +1,8 @@
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
-import { IEvidenceViewProps } from "./components/EvidenceView";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
+import { IEvidenceViewProps } from "./containers/EvidenceView";
+import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
@@ -456,7 +457,7 @@ actionMap[exploitActions.EDIT_EXPLOIT] =
     },
   });
 
-actionMap[actionType.OPEN_EVIDENCE] =
+actionMap[evidenceActions.OPEN_EVIDENCE] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -467,7 +468,7 @@ actionMap[actionType.OPEN_EVIDENCE] =
     },
   });
 
-actionMap[actionType.CLOSE_EVIDENCE] =
+actionMap[evidenceActions.CLOSE_EVIDENCE] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -477,7 +478,7 @@ actionMap[actionType.CLOSE_EVIDENCE] =
     },
   });
 
-actionMap[actionType.MOVE_EVIDENCE] =
+actionMap[evidenceActions.MOVE_EVIDENCE] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
