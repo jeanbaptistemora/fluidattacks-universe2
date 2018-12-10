@@ -298,10 +298,10 @@ def format_age_email(finding_parsed, project, to, age):
     ages = [15, 30, 60, 90, 120, 180, 240]
     message = ""
     project_fin = str.lower(str(finding_parsed['fluidProject']))
-    if ("suscripcion" in finding_parsed and
+    if ('subscription' in finding_parsed and
             "releaseDate" in finding_parsed and
             project_fin == project and
-            finding_parsed["suscripcion"] == "Continua" and
+            finding_parsed['subscription'] == 'Continua' and
             age in ages):
         context = {
             'project': str.upper(str(project)),

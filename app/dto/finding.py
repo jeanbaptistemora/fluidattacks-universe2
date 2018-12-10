@@ -63,19 +63,16 @@ class FindingDTO(object):
     CLIENT_CODE = FIELDS_FINDING["CLIENT_CODE"]
     PROBABILITY = FIELDS_FINDING["PROBABILITY"]
     SEVERITY = FIELDS_FINDING["SEVERITY"]
-    RISK_LEVEL = FIELDS_FINDING["RISK_LEVEL"]
     RISK_VALUE = FIELDS_FINDING["RISK_VALUE"]
     CARDINALITY = FIELDS_FINDING["CARDINALITY"]
     WHERE = FIELDS_FINDING["WHERE"]
     VULNERABILITY = FIELDS_FINDING["VULNERABILITY"]
     THREAT = FIELDS_FINDING["THREAT"]
-    APPLICABLE_COMPONENT = FIELDS_FINDING["APPLICABLE_COMPONENT"]
     FINDING_TYPE = FIELDS_FINDING["FINDING_TYPE"]
     RISK = FIELDS_FINDING["RISK"]
     REQUIREMENTS = FIELDS_FINDING["REQUIREMENTS"]
     EFFECT_SOLUTION = FIELDS_FINDING["EFFECT_SOLUTION"]
     KB_LINK = FIELDS_FINDING["KB"]
-    TYPE = FIELDS_FINDING["TYPE"]
     ACTOR = FIELDS_FINDING["ACTOR"]
     CATEGORY = FIELDS_FINDING["CATEGORY"]
     SCENARIO = FIELDS_FINDING["SCENARIO"]
@@ -235,17 +232,16 @@ class FindingDTO(object):
         self.data["timestamp"] = request_arr["timestamp"]
         evidence_description_fields = {
             self.FINDING:"finding",
-            self.SUBSCRIPTION:"suscripcion",
-            self.CLIENT_CODE:"codigo_cliente",
+            self.SUBSCRIPTION: 'subscription',
+            self.CLIENT_CODE: 'clientCode',
             self.PROBABILITY:"probability",
             self.SEVERITY:"severity",
-            self.RISK_LEVEL:"nivel_riesgo",
             self.CARDINALITY:"openVulnerabilities",
             self.WHERE:"where",
             self.VULNERABILITY:"vulnerability",
             self.THREAT:"threat",
-            self.CLIENT_PROJECT:"componente_aplicativo",
             self.RISK:"riesgo",
+            self.RISK_VALUE: 'riskValue',
             self.REQUIREMENTS:"requirements",
             self.EFFECT_SOLUTION:"effectSolution",
             self.KB_LINK:"kb",
@@ -256,7 +252,7 @@ class FindingDTO(object):
             self.TEST_TYPE:"testType",
             self.REVISION:"revision",
             self.SCENARIO:"scenario",
-            self.AMBIT:"ambito",
+            self.AMBIT: 'ambit',
             self.CATEGORY:"category",
             self.ACTOR:"actor",
             self.TREATMENT:"treatment",

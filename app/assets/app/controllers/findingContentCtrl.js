@@ -146,9 +146,9 @@ findingContentCtrl (
           findingData.data = response.data;
           $scope.finding = response.data;
           $scope.hasDraft = false;
-          if ($scope.finding.suscripcion === "Continua" ||
-            $scope.finding.suscripcion === "Concurrente" ||
-            $scope.finding.suscripcion === "Si") {
+          if ($scope.finding.subscription === "Continua" ||
+            $scope.finding.subscription === "Concurrente" ||
+            $scope.finding.subscription === "Si") {
             $scope.isContinuous = true;
           }
           else {

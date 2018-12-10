@@ -1365,10 +1365,10 @@ def accept_draft(request):
         if "releaseDate" not in finding:
             tzn = pytz.timezone('America/Bogota')
             releaseDate = datetime.now(tz=tzn).date()
-            if ("suscripcion" in finding and
-                (finding["suscripcion"] == "Continua" or
-                    finding["suscripcion"] == "Concurrente" or
-                    finding["suscripcion"] == "Si")):
+            if ('subscription' in finding and
+                (finding['subscription'] == 'Continua' or
+                    finding['subscription'] == 'Concurrente' or
+                    finding['subscription'] == 'Si')):
                 releases = integrates_dao.get_project_dynamo(finding["fluidProject"].lower())
                 for release in releases:
                     if "lastRelease" in release:

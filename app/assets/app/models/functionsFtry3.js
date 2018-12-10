@@ -220,17 +220,17 @@ angular.module("FluidIntegrates").factory(
           else {
             $scope.isClosed = false;
           }
-          if ($scope.finding.suscripcion === "Continua" ||
-            $scope.finding.suscripcion === "Concurrente" ||
-            $scope.finding.suscripcion === "Si") {
+          if ($scope.finding.subscription === "Continua" ||
+            $scope.finding.subscription === "Concurrente" ||
+            $scope.finding.subscription === "Si") {
             $scope.isContinuous = true;
           }
           else {
             $scope.isContinuous = false;
           }
-          if ($scope.finding.suscripcion !== "Concurrente" &&
-            $scope.finding.suscripcion !== "Puntual" &&
-            $scope.finding.suscripcion !== "Continua") {
+          if ($scope.finding.subscription !== "Concurrente" &&
+            $scope.finding.subscription !== "Puntual" &&
+            $scope.finding.subscription !== "Continua") {
             Rollbar.warning(`Warning: Finding ${$scope.finding.id} ` +
                             "without type");
           }

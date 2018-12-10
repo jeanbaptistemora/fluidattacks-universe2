@@ -254,14 +254,14 @@ class ITReport(object):
 		""" Write Formstack finding in a row on the QC matrix sheet """
 		self.__select_qc_sheet()
 		self.set_cell_qc(self.matriz['type'], row["testType"])
-		self.set_cell_qc(self.matriz['component'], row["componente_aplicativo"])
+		self.set_cell_qc(self.matriz['component'], row['clientProject'])
 		self.set_cell_qc(self.matriz['requirements_id'],
 			self.__get_req(row["requirements"]))
 		self.set_cell_qc(self.matriz['requirements'], row["requirements"])
 		if "scenario" in row:
 			self.set_cell_qc(self.matriz['scenario'], row["scenario"])
-		if "ambito" in row:
-			self.set_cell_qc(self.matriz['ambit'], row["ambito"])
+		if 'ambit' in row:
+			self.set_cell_qc(self.matriz['ambit'], row['ambit'])
 		if "category" in row:
 			self.set_cell_qc(self.matriz['category'], row["category"])
 		if "threat" in row:
