@@ -1,8 +1,9 @@
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IEvidenceViewProps } from "./components/EvidenceView";
-import { IExploitViewProps } from "./components/ExploitView";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
+import { IExploitViewProps } from "./containers/ExploitView";
+import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
@@ -435,7 +436,7 @@ actionMap[severityActions.CLOSE_CONFIRM_MDL] =
     isMdlConfirmOpen: false,
   });
 
-actionMap[actionType.LOAD_EXPLOIT] =
+actionMap[exploitActions.LOAD_EXPLOIT] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
@@ -445,7 +446,7 @@ actionMap[actionType.LOAD_EXPLOIT] =
     },
   });
 
-actionMap[actionType.EDIT_EXPLOIT] =
+actionMap[exploitActions.EDIT_EXPLOIT] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
