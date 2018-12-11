@@ -24,80 +24,81 @@ from decimal import Decimal
 # pylint: disable=E0402
 
 class FindingDTO(object):
-    """ Class to create an object with the attributes of a finding. """
+    """Class to create an object with the attributes of a finding."""
+
     FIELDS_FINDING = settings.FIELDS_FINDING
     #Atributos proyecto
-    ANALIST = FIELDS_FINDING["ANALIST"]
-    LEADER = FIELDS_FINDING["LEADER"]
-    INTERESADO = FIELDS_FINDING["INTERESADO"]
-    PROJECT_NAME = FIELDS_FINDING["PROJECT_NAME"]
-    CLIENT_PROJECT = FIELDS_FINDING["CLIENT_PROJECT"]
-    CONTEXT = FIELDS_FINDING["CONTEXT"]
-    REVISION = FIELDS_FINDING["REVISION"]
+    ANALIST = FIELDS_FINDING['ANALIST']
+    LEADER = FIELDS_FINDING['LEADER']
+    INTERESADO = FIELDS_FINDING['INTERESADO']
+    PROJECT_NAME = FIELDS_FINDING['PROJECT_NAME']
+    CLIENT_PROJECT = FIELDS_FINDING['CLIENT_PROJECT']
+    CONTEXT = FIELDS_FINDING['CONTEXT']
+    REVISION = FIELDS_FINDING['REVISION']
 
     #Atributos evidencia
-    DOC_TOTAL = FIELDS_FINDING["DOC_TOTAL"]
-    DOC_ACHV1 = FIELDS_FINDING["DOC_ACHV1"]
-    DOC_ACHV2 = FIELDS_FINDING["DOC_ACHV2"]
-    DOC_ACHV3 = FIELDS_FINDING["DOC_ACHV3"]
-    DOC_ACHV4 = FIELDS_FINDING["DOC_ACHV4"]
-    DOC_ACHV5 = FIELDS_FINDING["DOC_ACHV5"]
-    DOC_CMNT1 = FIELDS_FINDING["DOC_CMNT1"]
-    DOC_CMNT2 = FIELDS_FINDING["DOC_CMNT2"]
-    DOC_CMNT3 = FIELDS_FINDING["DOC_CMNT3"]
-    DOC_CMNT4 = FIELDS_FINDING["DOC_CMNT4"]
-    DOC_CMNT5 = FIELDS_FINDING["DOC_CMNT5"]
-    ANIMATION = FIELDS_FINDING["ANIMATION"]
-    EXPLOTATION = FIELDS_FINDING["EXPLOTATION"]
-    EXPLOIT = FIELDS_FINDING["EXPLOIT"]
-    REG = FIELDS_FINDING["REG"]
-    REG_NUM = FIELDS_FINDING["REG_NUM"]
-    REG_FILE = FIELDS_FINDING["REG_FILE"]
-    VULNERABILITIES_FILE = FIELDS_FINDING["VULNERABILITIES_FILE"]
+    DOC_TOTAL = FIELDS_FINDING['DOC_TOTAL']
+    DOC_ACHV1 = FIELDS_FINDING['DOC_ACHV1']
+    DOC_ACHV2 = FIELDS_FINDING['DOC_ACHV2']
+    DOC_ACHV3 = FIELDS_FINDING['DOC_ACHV3']
+    DOC_ACHV4 = FIELDS_FINDING['DOC_ACHV4']
+    DOC_ACHV5 = FIELDS_FINDING['DOC_ACHV5']
+    DOC_CMNT1 = FIELDS_FINDING['DOC_CMNT1']
+    DOC_CMNT2 = FIELDS_FINDING['DOC_CMNT2']
+    DOC_CMNT3 = FIELDS_FINDING['DOC_CMNT3']
+    DOC_CMNT4 = FIELDS_FINDING['DOC_CMNT4']
+    DOC_CMNT5 = FIELDS_FINDING['DOC_CMNT5']
+    ANIMATION = FIELDS_FINDING['ANIMATION']
+    EXPLOTATION = FIELDS_FINDING['EXPLOTATION']
+    EXPLOIT = FIELDS_FINDING['EXPLOIT']
+    REG = FIELDS_FINDING['REG']
+    REG_NUM = FIELDS_FINDING['REG_NUM']
+    REG_FILE = FIELDS_FINDING['REG_FILE']
+    VULNERABILITIES_FILE = FIELDS_FINDING['VULNERABILITIES_FILE']
 
     #Atributos descriptivos
     REPORT_LEVEL = FIELDS_FINDING['REPORT_LEVEL'] #detallado
-    FINDING = FIELDS_FINDING["FINDING"]
-    TEST_TYPE = FIELDS_FINDING["TEST_TYPE"]
-    SUBSCRIPTION = FIELDS_FINDING["SUBSCRIPTION"]
-    CLIENT_CODE = FIELDS_FINDING["CLIENT_CODE"]
-    PROBABILITY = FIELDS_FINDING["PROBABILITY"]
-    SEVERITY = FIELDS_FINDING["SEVERITY"]
-    RISK_VALUE = FIELDS_FINDING["RISK_VALUE"]
-    CARDINALITY = FIELDS_FINDING["CARDINALITY"]
-    WHERE = FIELDS_FINDING["WHERE"]
-    VULNERABILITY = FIELDS_FINDING["VULNERABILITY"]
-    THREAT = FIELDS_FINDING["THREAT"]
-    FINDING_TYPE = FIELDS_FINDING["FINDING_TYPE"]
-    RISK = FIELDS_FINDING["RISK"]
-    REQUIREMENTS = FIELDS_FINDING["REQUIREMENTS"]
-    EFFECT_SOLUTION = FIELDS_FINDING["EFFECT_SOLUTION"]
-    KB_LINK = FIELDS_FINDING["KB"]
-    ACTOR = FIELDS_FINDING["ACTOR"]
-    CATEGORY = FIELDS_FINDING["CATEGORY"]
-    SCENARIO = FIELDS_FINDING["SCENARIO"]
-    AMBIT = FIELDS_FINDING["AMBIT"]
-    AFFECTED_SYSTEMS = FIELDS_FINDING["AFFECTED_SYSTEMS"]
-    ATTACK_VECTOR = FIELDS_FINDING["ATTACK_VECTOR"]
-    CWE = FIELDS_FINDING["CWE"]
-    TREATMENT = FIELDS_FINDING["TREATMENT"]
-    TREATMENT_JUSTIFICATION = FIELDS_FINDING["TREATMENT_JUSTIFICATION"]
-    TREATMENT_MANAGER = FIELDS_FINDING["TREATMENT_MANAGER"]
-    EXTERNAL_BTS = FIELDS_FINDING["EXTERNAL_BTS"]
-    LAST_VULNERABILITY = FIELDS_FINDING["LAST_VULNERABILITY"]
-    RELEASE_DATE = FIELDS_FINDING["RELEASE_DATE"]
-    RELATED_FINDINGS = FIELDS_FINDING["RELATED_FINDINGS"]
+    FINDING = FIELDS_FINDING['FINDING']
+    TEST_TYPE = FIELDS_FINDING['TEST_TYPE']
+    SUBSCRIPTION = FIELDS_FINDING['SUBSCRIPTION']
+    CLIENT_CODE = FIELDS_FINDING['CLIENT_CODE']
+    PROBABILITY = FIELDS_FINDING['PROBABILITY']
+    SEVERITY = FIELDS_FINDING['SEVERITY']
+    RISK_VALUE = FIELDS_FINDING['RISK_VALUE']
+    CARDINALITY = FIELDS_FINDING['CARDINALITY']
+    WHERE = FIELDS_FINDING['WHERE']
+    VULNERABILITY = FIELDS_FINDING['VULNERABILITY']
+    THREAT = FIELDS_FINDING['THREAT']
+    FINDING_TYPE = FIELDS_FINDING['FINDING_TYPE']
+    RISK = FIELDS_FINDING['RISK']
+    REQUIREMENTS = FIELDS_FINDING['REQUIREMENTS']
+    EFFECT_SOLUTION = FIELDS_FINDING['EFFECT_SOLUTION']
+    KB_LINK = FIELDS_FINDING['KB']
+    ACTOR = FIELDS_FINDING['ACTOR']
+    CATEGORY = FIELDS_FINDING['CATEGORY']
+    SCENARIO = FIELDS_FINDING['SCENARIO']
+    AMBIT = FIELDS_FINDING['AMBIT']
+    AFFECTED_SYSTEMS = FIELDS_FINDING['AFFECTED_SYSTEMS']
+    ATTACK_VECTOR = FIELDS_FINDING['ATTACK_VECTOR']
+    CWE = FIELDS_FINDING['CWE']
+    TREATMENT = FIELDS_FINDING['TREATMENT']
+    TREATMENT_JUSTIFICATION = FIELDS_FINDING['TREATMENT_JUSTIFICATION']
+    TREATMENT_MANAGER = FIELDS_FINDING['TREATMENT_MANAGER']
+    EXTERNAL_BTS = FIELDS_FINDING['EXTERNAL_BTS']
+    LAST_VULNERABILITY = FIELDS_FINDING['LAST_VULNERABILITY']
+    RELEASE_DATE = FIELDS_FINDING['RELEASE_DATE']
+    RELATED_FINDINGS = FIELDS_FINDING['RELATED_FINDINGS']
 
     #Atributos CssV2
-    ACCESS_VECTOR = FIELDS_FINDING["ACCESS_VECTOR"]
-    ACCESS_COMPLEXITY = FIELDS_FINDING["ACCESS_COMPLEXITY"]
-    AUTHENTICATION = FIELDS_FINDING["AUTHENTICATION"]
-    EXPLOITABILITY = FIELDS_FINDING["EXPLOITABILITY"]
-    CONFIDENTIALITY_IMPACT = FIELDS_FINDING["CONFIDENTIALITY_IMPACT"]
-    INTEGRITY_IMPACT = FIELDS_FINDING["INTEGRITY_IMPACT"]
-    AVAILABILITY_IMPACT = FIELDS_FINDING["AVAILABILITY_IMPACT"]
-    RESOLUTION_LEVEL = FIELDS_FINDING["RESOLUTION_LEVEL"]
-    CONFIDENCE_LEVEL = FIELDS_FINDING["CONFIDENCE_LEVEL"]
+    ACCESS_VECTOR = FIELDS_FINDING['ACCESS_VECTOR']
+    ACCESS_COMPLEXITY = FIELDS_FINDING['ACCESS_COMPLEXITY']
+    AUTHENTICATION = FIELDS_FINDING['AUTHENTICATION']
+    EXPLOITABILITY = FIELDS_FINDING['EXPLOITABILITY']
+    CONFIDENTIALITY_IMPACT = FIELDS_FINDING['CONFIDENTIALITY_IMPACT']
+    INTEGRITY_IMPACT = FIELDS_FINDING['INTEGRITY_IMPACT']
+    AVAILABILITY_IMPACT = FIELDS_FINDING['AVAILABILITY_IMPACT']
+    RESOLUTION_LEVEL = FIELDS_FINDING['RESOLUTION_LEVEL']
+    CONFIDENCE_LEVEL = FIELDS_FINDING['CONFIDENCE_LEVEL']
     COLLATERAL_DAMAGE_POTENTIAL = FIELDS_FINDING['COLLATERAL_DAMAGE_POTENTIAL']
     FINDING_DISTRIBUTION = FIELDS_FINDING['FINDING_DISTRIBUTION']
     CONFIDENTIALITY_REQUIREMENT = FIELDS_FINDING['CONFIDENTIALITY_REQUIREMENT']
@@ -105,106 +106,106 @@ class FindingDTO(object):
     AVAILABILITY_REQUIREMENT = FIELDS_FINDING['AVAILABILITY_REQUIREMENT']
 
     def __init__(self):
-        """ Class constructor """
+        """Class constructor."""
         self.request_id = None
         self.data = dict()
 
     def create_evidence_description(self, parameter): # noqa: C901
-        """ Converts the index of a JSON to Formstack index """
+        """Convert the index of a JSON to Formstack index."""
         evidence_description_fields = {
-            self.DOC_CMNT1: "evidenceDescription1",
-            self.DOC_CMNT2: "evidenceDescription2",
-            self.DOC_CMNT3: "evidenceDescription3",
-            self.DOC_CMNT4: "evidenceDescription4",
-            self.DOC_CMNT5: "evidenceDescription5"
+            self.DOC_CMNT1: 'evidenceDescription1',
+            self.DOC_CMNT2: 'evidenceDescription2',
+            self.DOC_CMNT3: 'evidenceDescription3',
+            self.DOC_CMNT4: 'evidenceDescription4',
+            self.DOC_CMNT5: 'evidenceDescription5'
         }
-        parsed_dict = {k:parameter["data[" + v + "]"] \
-                      for (k, v) in evidence_description_fields.items() \
-                      if "data[" + v + "]" in parameter.keys()}
-        return {"data":parsed_dict, "request_id":parameter["data[id]"]}
+        parsed_dict = {k: parameter['data[' + v + ']']
+                       for (k, v) in evidence_description_fields.items()
+                       if 'data[' + v + ']' in parameter.keys()}
+        return {'data': parsed_dict, 'request_id': parameter['data[id]']}
 
     def create_description(self, parameter): # noqa: C901
-        """ Converts the index of a JSON to Formstack index """
-        if "data[id]" in parameter:
+        """Convert the index of a JSON to Formstack index."""
+        if 'data[id]' in parameter:
             self.request_id \
-                = parameter["data[id]"]
-        if "data[finding]" in parameter:
+                = parameter['data[id]']
+        if 'data[finding]' in parameter:
             self.data[self.FINDING] \
-                = parameter["data[finding]"]
-        if "data[scenario]" in parameter:
+                = parameter['data[finding]']
+        if 'data[scenario]' in parameter:
             self.data[self.SCENARIO] \
-                = parameter["data[scenario]"]
-        if "data[openVulnerabilities]" in parameter:
+                = parameter['data[scenario]']
+        if 'data[openVulnerabilities]' in parameter:
             self.data[self.CARDINALITY] \
-                = parameter["data[openVulnerabilities]"]
-        if "data[actor]" in parameter:
+                = parameter['data[openVulnerabilities]']
+        if 'data[actor]' in parameter:
             self.data[self.ACTOR] \
-                = parameter["data[actor]"]
-        if "data[vulnerability]" in parameter:
+                = parameter['data[actor]']
+        if 'data[vulnerability]' in parameter:
             self.data[self.VULNERABILITY] \
-                = parameter["data[vulnerability]"]
-        if "data[requirements]" in parameter:
+                = parameter['data[vulnerability]']
+        if 'data[requirements]' in parameter:
             self.data[self.REQUIREMENTS] \
-                = parameter["data[requirements]"]
-        if "data[where]" in parameter:
+                = parameter['data[requirements]']
+        if 'data[where]' in parameter:
             self.data[self.WHERE] \
-                = parameter["data[where]"]
-        if "data[effectSolution]" in parameter:
+                = parameter['data[where]']
+        if 'data[effectSolution]' in parameter:
             self.data[self.EFFECT_SOLUTION] \
-                = parameter["data[effectSolution]"]
-        if "data[threat]" in parameter:
+                = parameter['data[effectSolution]']
+        if 'data[threat]' in parameter:
             self.data[self.THREAT] \
-                = parameter["data[threat]"]
-        if "data[attackVector]" in parameter:
+                = parameter['data[threat]']
+        if 'data[attackVector]' in parameter:
             self.data[self.ATTACK_VECTOR] \
-                = parameter["data[attackVector]"]
-        if "data[affectedSystems]" in parameter:
+                = parameter['data[attackVector]']
+        if 'data[affectedSystems]' in parameter:
             self.data[self.AFFECTED_SYSTEMS] \
-                = parameter["data[affectedSystems]"]
-        if "data[cwe]" in parameter:
+                = parameter['data[affectedSystems]']
+        if 'data[cwe]' in parameter:
             self.data[self.CWE] \
-                = parameter["data[cwe]"]
-        if "data[records]" in parameter:
+                = parameter['data[cwe]']
+        if 'data[records]' in parameter:
             self.data[self.REG] \
-                = parameter["data[records]"]
-        if "data[recordsNumber]" in parameter:
+                = parameter['data[records]']
+        if 'data[recordsNumber]' in parameter:
             self.data[self.REG_NUM] \
-                = parameter["data[recordsNumber]"]
-        if "data[lastVulnerability]" in parameter:
+                = parameter['data[recordsNumber]']
+        if 'data[lastVulnerability]' in parameter:
             self.data[self.LAST_VULNERABILITY] \
-                = parameter["data[lastVulnerability]"]
-        if "data[releaseDate]" in parameter:
+                = parameter['data[lastVulnerability]']
+        if 'data[releaseDate]' in parameter:
             self.data[self.RELEASE_DATE] \
-                = parameter["data[releaseDate]"]
+                = parameter['data[releaseDate]']
         if 'data[reportLevel]' in parameter:
             self.data[self.REPORT_LEVEL] \
                 = parameter['data[reportLevel]']
             if self.data[self.REPORT_LEVEL] == 'Detallado':
-                if "data[category]" in parameter:
+                if 'data[category]' in parameter:
                     self.data[self.CATEGORY] \
-                        = parameter["data[category]"]
-                if "data[riskValue]" in parameter:
+                        = parameter['data[category]']
+                if 'data[riskValue]' in parameter:
                     self.data[self.RISK_VALUE] \
-                        = parameter["data[riskValue]"]
-                if "data[probability]" in parameter:
+                        = parameter['data[riskValue]']
+                if 'data[probability]' in parameter:
                     self.data[self.PROBABILITY] \
-                        = parameter["data[probability]"]
-                if "data[severity]" in parameter:
+                        = parameter['data[probability]']
+                if 'data[severity]' in parameter:
                     self.data[self.SEVERITY] \
-                        = parameter["data[severity]"]
+                        = parameter['data[severity]']
 
     def create_treatment(self, parameter):
-        """ Converts the index of a JSON to Formstack index """
+        """Convert the index of a JSON to Formstack index."""
         treatment_fields = {
-            self.TREATMENT:"treatment",
-            self.TREATMENT_JUSTIFICATION:"treatmentJustification",
-            self.TREATMENT_MANAGER:"treatmentManager",
-            self.EXTERNAL_BTS:"externalBts"
+            self.TREATMENT: 'treatment',
+            self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
+            self.TREATMENT_MANAGER: 'treatmentManager',
+            self.EXTERNAL_BTS: 'externalBts'
         }
-        parsed_dict = {k:parameter["data[" + v + "]"] \
-                       if "data[" + v + "]" in parameter.keys() else "" \
+        parsed_dict = {k: parameter['data[' + v + ']']
+                       if 'data[' + v + ']' in parameter.keys() else '' \
                        for (k, v) in treatment_fields.items()}
-        return {"data":parsed_dict, "request_id":parameter["data[id]"]}
+        return {'data': parsed_dict, 'request_id': parameter['data[id]']}
 
     def create_delete(self, parameter, analyst, project, finding):
         """ Create a data set to send in the finding deletion email """
@@ -212,14 +213,14 @@ class FindingDTO(object):
             'mail_analista': analyst,
             'name_finding': finding,
             'id_finding': finding,
-            'description': parameter["data[justification]"],
+            'description': parameter['data[justification]'],
             'project': project,
         }
 
     def parse(self, submission_id, request_arr):
         self.data = dict()
-        self.data["id"] = submission_id
-        self.data["timestamp"] = request_arr["timestamp"]
+        self.data['id'] = submission_id
+        self.data['timestamp'] = request_arr['timestamp']
         self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_cvssv2(request_arr, submission_id))
         self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr))
@@ -229,67 +230,67 @@ class FindingDTO(object):
     def parse_description(self, request_arr): # noqa: C901
         "Convert description of a finding into a formstack format"
         initial_dict = forms.create_dict(request_arr)
-        self.data["timestamp"] = request_arr["timestamp"]
+        self.data['timestamp'] = request_arr['timestamp']
         evidence_description_fields = {
-            self.FINDING:"finding",
+            self.FINDING: 'finding',
             self.SUBSCRIPTION: 'subscription',
             self.CLIENT_CODE: 'clientCode',
-            self.PROBABILITY:"probability",
-            self.SEVERITY:"severity",
-            self.CARDINALITY:"openVulnerabilities",
-            self.WHERE:"where",
-            self.VULNERABILITY:"vulnerability",
-            self.THREAT:"threat",
-            self.RISK:"riesgo",
+            self.PROBABILITY: 'probability',
+            self.SEVERITY: 'severity',
+            self.CARDINALITY: 'openVulnerabilities',
+            self.WHERE: 'where',
+            self.VULNERABILITY: 'vulnerability',
+            self.THREAT: 'threat',
+            self.RISK: 'riesgo',
             self.RISK_VALUE: 'riskValue',
-            self.REQUIREMENTS:"requirements",
-            self.EFFECT_SOLUTION:"effectSolution",
-            self.KB_LINK:"kb",
+            self.REQUIREMENTS: 'requirements',
+            self.EFFECT_SOLUTION: 'effectSolution',
+            self.KB_LINK: 'kb',
             self.REPORT_LEVEL: 'reportLevel',
-            self.AFFECTED_SYSTEMS:"affectedSystems",
-            self.ATTACK_VECTOR:"attackVector",
-            self.FINDING_TYPE:"finding_type",
-            self.TEST_TYPE:"testType",
-            self.REVISION:"revision",
-            self.SCENARIO:"scenario",
+            self.AFFECTED_SYSTEMS: 'affectedSystems',
+            self.ATTACK_VECTOR: 'attackVector',
+            self.FINDING_TYPE: 'finding_type',
+            self.TEST_TYPE: 'testType',
+            self.REVISION: 'revision',
+            self.SCENARIO: 'scenario',
             self.AMBIT: 'ambit',
-            self.CATEGORY:"category",
-            self.ACTOR:"actor",
-            self.TREATMENT:"treatment",
-            self.TREATMENT_JUSTIFICATION:"treatmentJustification",
-            self.TREATMENT_MANAGER:"treatmentManager",
-            self.EXTERNAL_BTS:"externalBts",
-            self.LAST_VULNERABILITY:"lastVulnerability",
-            self.RELEASE_DATE:"releaseDate",
-            self.CWE:"cwe"
+            self.CATEGORY: 'category',
+            self.ACTOR: 'actor',
+            self.TREATMENT: 'treatment',
+            self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
+            self.TREATMENT_MANAGER: 'treatmentManager',
+            self.EXTERNAL_BTS: 'externalBts',
+            self.LAST_VULNERABILITY: 'lastVulnerability',
+            self.RELEASE_DATE: 'releaseDate',
+            self.CWE: 'cwe'
         }
-        parsed_dict = {v:initial_dict[k] \
-                      for (k, v) in evidence_description_fields.items() \
-                      if k in initial_dict.keys()}
-        if "cwe" in parsed_dict.keys():
-            parsed_dict["cwe"] = forms.get_cwe_url(parsed_dict["cwe"])
+        parsed_dict = {v: initial_dict[k]
+                       for (k, v) in evidence_description_fields.items() \
+                       if k in initial_dict.keys()}
+        if 'cwe' in parsed_dict.keys():
+            parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
         else:
             return parsed_dict
         return parsed_dict
 
     def parse_description_mail(self, request_arr): # noqa: C901
-        "Convert description of a finding into a formstack format para envio de mail"
-        self.data["timestamp"] = request_arr["timestamp"]
-        for finding in request_arr["data"]:
-            if finding["field"] == self.FINDING:
-                self.data["finding"] = finding["value"]
+        """Convert description of a finding into a formstack format para envio de mail."""
+        self.data['timestamp'] = request_arr['timestamp']
+        for finding in request_arr['data']:
+            if finding['field'] == self.FINDING:
+                self.data['finding'] = finding['value']
         return self.data
 
     def parse_description_vuln(self, request_arr): # noqa: C901
-        "Convert description of a finding into a formstack format"
-        self.data["timestamp"] = request_arr["timestamp"]
-        for finding in request_arr["data"]:
-            if finding["field"] == self.CARDINALITY:
-                self.data["openVulnerabilities"] = finding["value"]
+        """Convert description of a finding into a formstack format."""
+        self.data['timestamp'] = request_arr['timestamp']
+        for finding in request_arr['data']:
+            if finding['field'] == self.CARDINALITY:
+                self.data['openVulnerabilities'] = finding['value']
         return self.data
 
     def parse_cvssv2(self, request_arr, submission_id): # noqa: C901
-        "Convert the score of a finding into a formstack format"
+        """Convert the score of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
         severity = integrates_dao.get_severity_dynamo(submission_id)
         if severity:
@@ -350,53 +351,52 @@ class FindingDTO(object):
         return parsed_dict
 
     def parse_project(self, request_arr):
-        "Convert project info in formstack format"
+        """Convert project info in formstack format."""
         initial_dict = forms.create_dict(request_arr)
         project_fields = {
-            self.ANALIST:"analyst",
-            self.LEADER:"leader",
-            self.INTERESADO:"interested",
-            self.PROJECT_NAME:"projectName",
-            self.CLIENT_PROJECT:"clientProject",
-            self.CONTEXT:"context"
+            self.ANALIST: 'analyst',
+            self.LEADER: 'leader',
+            self.INTERESADO: 'interested',
+            self.PROJECT_NAME: 'projectName',
+            self.CLIENT_PROJECT: 'clientProject',
+            self.CONTEXT: 'context'
         }
-        parsed_dict = {v:initial_dict[k] \
-                      for (k, v) in project_fields.items() \
-                      if k in initial_dict.keys()}
+        parsed_dict = {v: initial_dict[k]
+                       for (k, v) in project_fields.items()
+                       if k in initial_dict.keys()}
         return parsed_dict
 
-
     def parse_evidence_info(self, request_arr): # noqa: C901
-        "Convert the score of a finding into a formstack format"
+        """Convert the score of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
         evidence_tab_fields = {
-            self.DOC_TOTAL:"evidenceTotal",
-            self.DOC_CMNT1:"evidence_description_1",
-            self.DOC_CMNT2:"evidence_description_2",
-            self.DOC_CMNT3:"evidence_description_3",
-            self.DOC_CMNT4:"evidence_description_4",
-            self.DOC_CMNT5:"evidence_description_5",
-            self.REG:"records",
-            self.REG_NUM:"recordsNumber"
+            self.DOC_TOTAL: 'evidenceTotal',
+            self.DOC_CMNT1: 'evidence_description_1',
+            self.DOC_CMNT2: 'evidence_description_2',
+            self.DOC_CMNT3: 'evidence_description_3',
+            self.DOC_CMNT4: 'evidence_description_4',
+            self.DOC_CMNT5: 'evidence_description_5',
+            self.REG: 'records',
+            self.REG_NUM: 'recordsNumber'
         }
         evidence_fields_with_urls = {
-            self.DOC_ACHV1:"evidence_route_1",
-            self.DOC_ACHV2:"evidence_route_2",
-            self.DOC_ACHV3:"evidence_route_3",
-            self.DOC_ACHV4:"evidence_route_4",
-            self.DOC_ACHV5:"evidence_route_5",
-            self.ANIMATION:"animation",
-            self.EXPLOTATION:"exploitation",
-            self.EXPLOIT:"exploit",
-            self.REG_FILE:"fileRecords",
-            self.VULNERABILITIES_FILE:"vulnerabilities"
+            self.DOC_ACHV1: 'evidence_route_1',
+            self.DOC_ACHV2: 'evidence_route_2',
+            self.DOC_ACHV3: 'evidence_route_3',
+            self.DOC_ACHV4: 'evidence_route_4',
+            self.DOC_ACHV5: 'evidence_route_5',
+            self.ANIMATION: 'animation',
+            self.EXPLOTATION: 'exploitation',
+            self.EXPLOIT: 'exploit',
+            self.REG_FILE: 'fileRecords',
+            self.VULNERABILITIES_FILE: 'vulnerabilities'
         }
-        evidence_tab_info = {v:initial_dict[k] \
-                      for (k, v) in evidence_tab_fields.items() \
-                      if k in initial_dict.keys()}
-        evidence_urls_info = {v:forms.drive_url_filter(initial_dict[k]) \
-                      for (k, v) in evidence_fields_with_urls.items() \
-                      if k in initial_dict.keys()}
+        evidence_tab_info = {v: initial_dict[k]
+                             for (k, v) in evidence_tab_fields.items()
+                             if k in initial_dict.keys()}
+        evidence_urls_info = {v: forms.drive_url_filter(initial_dict[k])
+                              for (k, v) in evidence_fields_with_urls.items()
+                              if k in initial_dict.keys()}
         return forms.dict_concatenation(evidence_tab_info, evidence_urls_info)
 
     def mask_finding(self, findingid, mask_value):
@@ -433,13 +433,13 @@ class FindingDTO(object):
     def to_formstack(self):
         new_data = dict()
         for key, value in self.data.items():
-            new_data["field_"+key] = value
+            new_data['field_' + key] = value
         self.data = new_data
 
 def format_finding_date(format_attr):
     tzn = pytz.timezone('America/Bogota')
     finding_date = datetime.strptime(
-        format_attr.split(" ")[0],
+        format_attr.split(' ')[0],
         '%Y-%m-%d'
     )
     finding_date = finding_date.replace(tzinfo=tzn).date()
@@ -497,7 +497,7 @@ def finding_vulnerabilities(submission_id):
                 # after a closing cicle.
                 pass
             finding['openVulnerabilities'] = state['opened']
-        if finding.get("estado") == 'Cerrado':
+        if finding.get('estado') == 'Cerrado':
             finding['where'] = '-'
             finding['edad'] = '-'
             finding['lastVulnerability'] = '-'
@@ -536,7 +536,7 @@ def format_release(finding):
 
 def ungroup_specific(specific):
     """Ungroup specific value."""
-    values = specific.split(",")
+    values = specific.split(',')
     specific_values = []
     for val in values:
         if is_range(val):
@@ -559,7 +559,7 @@ def is_secuence(specific):
 
 def range_to_list(range_value):
     """Convert a range value into list."""
-    limits = range_value.split("-")
+    limits = range_value.split('-')
     if int(limits[1]) > int(limits[0]):
         init_val = int(limits[0])
         end_val = int(limits[1]) + 1
