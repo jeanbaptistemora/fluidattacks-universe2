@@ -21,10 +21,3 @@ rtbId = "rtb-a74ad5c3"
 clusterName = "FluidServes"
 eksAmiId    = "ami-0a0b913ef3249b655"
 eksSnetReg  = ["us-east-1d", "us-east-1e"]
-
-
-# ElastiCache Vars
-cacheGroupId = "tf-redis-cluster"
-cacheGroupDescription = "Redis Cluster Cache"
-cacheNodeType = "cache.r5.large"
-cacheParamGroupName = "default.redis5.0.cluster.on"

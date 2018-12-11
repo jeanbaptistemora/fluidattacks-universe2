@@ -39,10 +39,3 @@ variable "eksSnetReg" {
   type = "list"
 }
 variable "rtbId" {}
-
-
-# ElastiCache Vars
-variable "cacheGroupId" {}
-variable "cacheGroupDescription" {}
-variable "cacheNodeType" {}
-variable "cacheParamGroupName" {}
