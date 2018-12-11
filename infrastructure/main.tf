@@ -40,6 +40,15 @@ module "eks" {
   vpcId    = "${var.vpcId}"
 }
 
+# Create ElastiCache Redis Cluster
+module "cache" {
+  source = "./cache"
+  cacheGroupId = "${var.cacheGroupId}"
+  cacheGroupDescription  = "${var.cacheGroupDescription}"
+  cacheNodeType     = "${var.cacheNodeType}"
+  cacheParamGroupName  = "${var.cacheParamGroupName}"
+}
+
 output "vaultKmsKey" {
   value     = "${module.eks.vaultKmsKey}"
   sensitive = true
