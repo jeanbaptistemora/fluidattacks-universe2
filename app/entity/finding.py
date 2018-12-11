@@ -71,7 +71,7 @@ class Finding(ObjectType):
 
         if resp:
             self.id = finding_id
-            self.project_name = resp.get('fluidProject')
+            self.project_name = resp.get('projectName')
             if resp.get('releaseDate'):
                 self.release_date = resp.get('releaseDate')
             else:

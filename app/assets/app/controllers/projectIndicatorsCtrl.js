@@ -391,7 +391,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (projectData.length > 0 &&
-            projectData[0].fluidProject.toLowerCase() ===
+            projectData[0].projectName.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           functionsFtry4.loadIndicatorsContent($scope, projectData);

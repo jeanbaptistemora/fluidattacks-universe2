@@ -184,7 +184,7 @@ angular.module("FluidIntegrates").factory(
           "findingName": $scope.finding.finding,
           "findingUrl": trackingUrl,
           "findingVulns": $scope.finding.openVulnerabilities,
-          "project": $scope.finding.fluidProject,
+          "project": $scope.finding.projectName,
           "userMail": userEmail
         };
         $uibModal.open({
@@ -356,7 +356,7 @@ angular.module("FluidIntegrates").factory(
             "externalBts": $scope.finding.btsExterno,
             "findingName": $scope.finding.finding,
             "id": $scope.finding.id,
-            "projectName": $scope.finding.fluidProject,
+            "projectName": $scope.finding.projectName,
             "treatment": $scope.finding.treatment,
             "treatmentJustification": $scope.finding.treatmentJustification,
             "treatmentManager": $scope.finding.treatmentManager

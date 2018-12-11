@@ -72,7 +72,7 @@ angular.module("FluidIntegrates").factory(
                            (parseInt(secureRandom(3).join(""), 10) *
                             multiConst).toString(radix), 10);
                   data.findingName = commentInfo.finding.finding;
-                  data.project = commentInfo.finding.fluidProject;
+                  data.project = commentInfo.finding.projectName;
                   data.findingUrl = $window.location.href;
                   data.remediated = false;
                   data.commentType = commentType;

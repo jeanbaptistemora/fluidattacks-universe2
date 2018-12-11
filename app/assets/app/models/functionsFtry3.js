@@ -105,7 +105,7 @@ angular.module("FluidIntegrates").factory(
           "findingName": $scope.finding.finding,
           "findingUrl": $window.location.href,
           "findingVulns": $scope.finding.openVulnerabilities,
-          "project": $scope.finding.fluidProject,
+          "project": $scope.finding.projectName,
           "userMail": userEmail
         };
         $uibModal.open({

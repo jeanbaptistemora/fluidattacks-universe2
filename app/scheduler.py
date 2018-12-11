@@ -98,7 +98,7 @@ def get_new_vulnerabilities():
                     project,
                     int(finding['id'])
                 )
-                if str.lower(str(act_finding['fluidProject'])) == project and \
+                if str.lower(str(act_finding['projectName'])) == project and \
                         "releaseDate" in act_finding and row:
                     finding_url = '{url!s}/dashboard#!/project/{project!s}/' \
                         '{finding!s}/description' \
@@ -204,7 +204,7 @@ def update_new_vulnerabilities():
                 for finding in finding_requests[-delta:]:
                     act_finding = finding_vulnerabilities(str(finding['id']))
                     if ("releaseDate" in act_finding and
-                            str.lower(str(act_finding['fluidProject'])) == str.lower(str(project[0]))):
+                            str.lower(str(act_finding['projectName'])) == str.lower(str(project[0]))):
                         integrates_dao.add_or_update_vulns_dynamo(
                             str.lower(str(project[0])),
                             int(finding['id']), 0)
@@ -297,7 +297,7 @@ def format_age_email(finding_parsed, project, to, age):
     """Format data to send age email."""
     ages = [15, 30, 60, 90, 120, 180, 240]
     message = ""
-    project_fin = str.lower(str(finding_parsed['fluidProject']))
+    project_fin = str.lower(str(finding_parsed['projectName']))
     if ('subscription' in finding_parsed and
             "releaseDate" in finding_parsed and
             project_fin == project and
@@ -399,7 +399,7 @@ def get_new_releases():
             project = str.lower(str(project[0]))
             for finding in finding_requests:
                 finding_parsed = finding_vulnerabilities(finding["id"])
-                project_fin = str.lower(str(finding_parsed['fluidProject']))
+                project_fin = str.lower(str(finding_parsed['projectName']))
                 if ("releaseDate" not in finding_parsed and
                         project_fin == project):
                     context['findings'].append({

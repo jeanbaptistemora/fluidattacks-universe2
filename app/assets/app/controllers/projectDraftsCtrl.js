@@ -108,7 +108,7 @@ angular.module("FluidIntegrates").controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         if (draftData.length > 0 &&
-            draftData[0].fluidProject.toLowerCase() ===
+            draftData[0].projectName.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadDraftContent(draftData, vlang);
@@ -151,7 +151,7 @@ angular.module("FluidIntegrates").controller(
       $scope.currentScrollPosition = angular.element(document).scrollTop();
       $state.go("FindingDescription", {
         "id": rowInfo.id,
-        "project": rowInfo.fluidProject.toLowerCase()
+        "project": rowInfo.projectName.toLowerCase()
       });
     };
     $scope.loadDraftContent = function loadDraftContent (datatest) {

@@ -111,7 +111,7 @@ findingContentCtrl (
   };
   $scope.loadFindingByID = function loadFindingByID (id) {
     if (!$scope.isEmpty(findingData) &&
-        findingData.data.fluidProject.toLowerCase() ===
+        findingData.data.projectName.toLowerCase() ===
         $stateParams.project.toLowerCase() &&
         findingData.data.id === $scope.finding.id) {
       $scope.view.project = false;
@@ -142,7 +142,7 @@ findingContentCtrl (
           location.reload();
         }
         if (!response.error && $stateParams.project.toLowerCase() ===
-            response.data.fluidProject.toLowerCase()) {
+            response.data.projectName.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
           $scope.hasDraft = false;

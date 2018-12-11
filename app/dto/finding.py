@@ -30,7 +30,7 @@ class FindingDTO(object):
     ANALIST = FIELDS_FINDING["ANALIST"]
     LEADER = FIELDS_FINDING["LEADER"]
     INTERESADO = FIELDS_FINDING["INTERESADO"]
-    FLUID_PROJECT = FIELDS_FINDING["FLUID_PROJECT"]
+    PROJECT_NAME = FIELDS_FINDING["PROJECT_NAME"]
     CLIENT_PROJECT = FIELDS_FINDING["CLIENT_PROJECT"]
     CONTEXT = FIELDS_FINDING["CONTEXT"]
     REVISION = FIELDS_FINDING["REVISION"]
@@ -356,7 +356,7 @@ class FindingDTO(object):
             self.ANALIST:"analyst",
             self.LEADER:"leader",
             self.INTERESADO:"interested",
-            self.FLUID_PROJECT:"fluidProject",
+            self.PROJECT_NAME:"projectName",
             self.CLIENT_PROJECT:"clientProject",
             self.CONTEXT:"context"
         }

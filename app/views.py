@@ -298,7 +298,7 @@ def project_to_xls(request, lang, project):
         return util.response([], 'Unsupported language', True)
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
         fin = catch_finding(request, reqset["id"])
-        if fin['fluidProject'].lower() == project.lower() and \
+        if fin['projectName'].lower() == project.lower() and \
                 util.validate_release_date(fin):
             findings.append(fin)
     data = util.ord_asc_by_criticidad(findings)
@@ -340,7 +340,7 @@ def project_to_pdf(request, lang, project, doctype):
             return validator
         for reqset in FormstackAPI().get_findings(project)["submissions"]:
             fin = catch_finding(request, reqset["id"])
-            if fin['fluidProject'].lower() == project.lower() and \
+            if fin['projectName'].lower() == project.lower() and \
                     util.validate_release_date(fin):
                 findings.append(fin)
         pdf_maker = CreatorPDF(lang, doctype)
@@ -471,7 +471,7 @@ def get_drafts(request):
         if finding['vulnerability'].lower() == 'masked':
             util.cloudwatch_log(request, 'Warning: Project masked')
             return util.response([], 'Project masked', True)
-        if finding['fluidProject'].lower() == project.lower() and \
+        if finding['projectName'].lower() == project.lower() and \
                 ('releaseDate' not in finding or
                     util.validate_future_releases(finding)):
             if finding.get("edad"):
@@ -503,7 +503,7 @@ def get_findings(request):
                 if finding['vulnerability'].lower() == 'masked':
                     util.cloudwatch_log(request, 'Warning: Project masked')
                     return util.response([], 'Project masked', True)
-                elif finding['fluidProject'].lower() == project and \
+                elif finding['projectName'].lower() == project and \
                         util.validate_release_date(finding):
                     findings.append(finding)
             else:
@@ -564,7 +564,7 @@ def catch_finding(request, submission_id):
                 finding = cast_new_vulnerabilities(finding_new, finding)
             else:
                 error_msg = 'Error: Finding {finding_id} of project {project} has vulnerabilities in old format'\
-                    .format(finding_id=submission_id, project=finding['fluidProject'])
+                    .format(finding_id=submission_id, project=finding['projectName'])
                 rollbar.report_message(error_msg, 'error', request)
                 closingData = api.get_closings_by_id(submission_id)
                 if closingData is None or 'error' in closingData:
@@ -1150,7 +1150,7 @@ def delete_finding(request):
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq)
-        context["project"] = finding["fluidProject"]
+        context['project'] = finding['projectName']
         context["name_finding"] = finding["finding"]
         result = api.delete_submission(submission_id)
         if result is None:
@@ -1384,7 +1384,7 @@ def accept_draft(request):
                 (finding['subscription'] == 'Continua' or
                     finding['subscription'] == 'Concurrente' or
                     finding['subscription'] == 'Si')):
-                releases = integrates_dao.get_project_dynamo(finding["fluidProject"].lower())
+                releases = integrates_dao.get_project_dynamo(finding['projectName'].lower())
                 for release in releases:
                     if "lastRelease" in release:
                         last_release = datetime.strptime(
@@ -1407,9 +1407,9 @@ def accept_draft(request):
             has_last_vuln = integrates_dao.add_attribute_dynamo(
                 table_name, primary_keys, "lastVulnerability", releaseDate)
             integrates_dao.add_attribute_dynamo(
-                table_name, primary_keys, 'project_name', finding['fluidProject'].lower())
+                table_name, primary_keys, 'project_name', finding['projectName'].lower())
             if has_release and has_last_vuln:
-                files_data = {"findingid": parameters, "project": finding["fluidProject"].lower()}
+                files_data = {'findingid': parameters, 'project': finding['projectName'].lower()}
                 file_first_name = '{project!s}-{findingid}'\
                     .format(project=files_data['project'], findingid=files_data['findingid'])
                 file_url = '{project!s}/{findingid}/{file_name}'\
@@ -1417,7 +1417,7 @@ def accept_draft(request):
                             findingid=files_data['findingid'],
                             file_name=file_first_name)
                 migrate_all_files(files_data, file_url, request)
-                integrates_dao.add_release_toproject_dynamo(finding["fluidProject"], True, releaseDate)
+                integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
                 save_severity(finding)
                 return util.response([], 'success', False)
             else:
@@ -1446,7 +1446,7 @@ def delete_draft(request):
             frmreq = api.get_submission(submission_id)
             finding = fin_dto.parse(submission_id, frmreq)
             context = {
-               'project': finding['fluidProject'],
+               'project': finding['projectName'],
                'analyst_mail': finding['analyst'],
                'finding_name': finding['finding'],
                'admin_mail': username,
@@ -1457,7 +1457,7 @@ def delete_draft(request):
                 rollbar.report_message('Error: An error ocurred deleting the draft', 'error', request)
                 return util.response([], 'Error', True)
             delete_all_coments(submission_id)
-            delete_s3_all_evidences(submission_id, finding['fluidProject'].lower())
+            delete_s3_all_evidences(submission_id, finding['projectName'].lower())
             admins = integrates_dao.get_admins()
             to = [x[0] for x in admins]
             to.append(finding['analyst'])

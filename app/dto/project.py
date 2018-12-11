@@ -8,7 +8,7 @@ def parse(request_arr): # noqa: C901
     project_dict={}
     initial_dict = forms.create_dict(request_arr)
     project_fields = {
-      "52601266":"fluidProject",
+      '52601266':'projectName',
       "60063920":"clientProject",
       "52601817":"client",
       "52602145":"class",

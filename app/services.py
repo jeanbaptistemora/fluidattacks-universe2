@@ -54,7 +54,7 @@ def has_access_to_finding(user, findingid, role):
             api = FormstackAPI()
             dto = FindingDTO()
             finding_data = dto.parse_project(api.get_submission(findingid))
-            project = finding_data['fluidProject'] if 'fluidProject' in finding_data else None
+            project = finding_data['projectName'] if 'projectName' in finding_data else None
 
             if project:
                 hasAccess = has_access_to_project(user, project, role)

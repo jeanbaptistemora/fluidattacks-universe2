@@ -245,7 +245,7 @@ class CreatorPDF(object):
 
     def project_info_context(self, project_info):
         """ Create the template to render and apply the context. """
-        self.context['fluidProject'] = project_info['fluidProject']
+        self.context['projectName'] = project_info['projectName']
         self.context['clientProject'] = project_info['clientProject']
         self.context['client'] = project_info['client']
         self.context['leader'] = project_info['leader']
