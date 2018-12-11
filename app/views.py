@@ -239,7 +239,7 @@ def registration(request):
     return response
 
 
-@cache_page(CACHE_TTL)
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def dashboard(request):
