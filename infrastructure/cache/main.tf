@@ -5,13 +5,13 @@ variable "cacheParamGroupName" {}
 variable "eksSnetReg" {
   type = "list"
 }
-variable "vpcCidr" {}
+variable "cacheCidr" {}
 variable "vpcId" {}
 
 resource "aws_subnet" "redis_subnet" {
   count = 2
   availability_zone = "${var.eksSnetReg[count.index]}"
-  cidr_block        = "${cidrsubnet(var.vpcCidr, 2, count.index + 2)}"
+  cidr_block        = "${cidrsubnet(var.cacheCidr, 2, count.index + 2)}"
   vpc_id            = "${var.vpcId}"
 
   tags = "${

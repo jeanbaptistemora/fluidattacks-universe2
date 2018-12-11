@@ -79,7 +79,7 @@ module "cache" {
   cacheGroupId = "${var.cacheGroupId}"
   cacheGroupDescription  = "${var.cacheGroupDescription}"
   cacheNodeType     = "${var.cacheNodeType}"
-  vpcCidr  = "${var.cidr}"
+  cacheCidr  = "${var.cacheCidr}"
   vpcId    = "${var.vpcId}"
   eksSnetReg   = ["${var.eksSnetReg}"]
   cacheParamGroupName  = "${var.cacheParamGroupName}"

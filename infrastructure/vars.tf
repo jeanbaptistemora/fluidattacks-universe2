@@ -41,6 +41,7 @@ variable "eksSnetReg" {
 variable "rtbId" {}
 
 # ElastiCache Vars
+variable "cacheCidr" {}
 variable "cacheGroupId" {}
 variable "cacheGroupDescription" {}
 variable "cacheNodeType" {}
