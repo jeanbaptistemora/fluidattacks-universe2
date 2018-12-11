@@ -267,7 +267,7 @@ class Finding(ObjectType):
                     'url': filter_evidence_filename(dynamo_evidence, 'evidence_route_4'),
                     'description': formstack_evidence['evidence4'].get('description')
                 },
-                'explotation': { 'url': filter_evidence_filename(dynamo_evidence, 'exploitation'), 'description': '' },
+                'exploitation': { 'url': filter_evidence_filename(dynamo_evidence, 'exploitation'), 'description': '' },
             }
         else:
             self.evidence = formstack_evidence
