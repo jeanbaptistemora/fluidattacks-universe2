@@ -273,7 +273,7 @@ angular.module("FluidIntegrates").factory(
         // Fields activation control by finding type (General/Detailed)
         $scope.esDetallado = false;
         findingData.esDetallado = $scope.esDetallado;
-        if ($scope.finding.level === "Detallado") {
+        if ($scope.finding.reportLevel === "Detallado") {
           $scope.esDetallado = true;
           findingData.esDetallado = $scope.esDetallado;
         }
@@ -378,11 +378,11 @@ angular.module("FluidIntegrates").factory(
           "effectSolution": $scope.finding.effectSolution,
           "finding": $scope.finding.finding,
           "id": $scope.finding.id,
-          "level": $scope.finding.level,
           "openVulnerabilities": $scope.finding.openVulnerabilities,
           "probability": $scope.finding.probability,
           "records": $scope.finding.records,
           "recordsNumber": $scope.finding.recordsNumber,
+          "reportLevel": $scope.finding.reportLevel,
           "requirements": $scope.finding.requirements,
           "riskValue": $scope.finding.riskValue,
           "scenario": $scope.descripcionInfo.scenario,
@@ -398,7 +398,7 @@ angular.module("FluidIntegrates").factory(
           descData.lastVulnerability =
                                todayDate.toISOString().slice(0, NEW_LIST_LIMIT);
         }
-        if (descData.level === "Detallado") {
+        if (descData.reportLevel === "Detallado") {
         // Recalculate severity
           const severityInfo = functionsFtry1.calculateFindingSeverity();
           const choose = severityInfo[0];

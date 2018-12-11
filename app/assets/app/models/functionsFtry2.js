@@ -235,7 +235,7 @@ angular.module("FluidIntegrates").factory(
         const Temporal = calCSSv2[1];
         $scope.finding.cssv2base = BaseScore.toFixed(1);
         $scope.finding.criticity = Temporal.toFixed(1);
-        if ($scope.finding.level === "Detallado") {
+        if ($scope.finding.reportLevel === "Detallado") {
           $scope.esDetallado = "show-detallado";
           $scope.esGeneral = "hide-detallado";
           const functionsFtry1 = $injector.get("functionsFtry1");

@@ -56,7 +56,7 @@ class FindingDTO(object):
     VULNERABILITIES_FILE = FIELDS_FINDING["VULNERABILITIES_FILE"]
 
     #Atributos descriptivos
-    CLASS = FIELDS_FINDING["CLASS"] #detallado
+    REPORT_LEVEL = FIELDS_FINDING['REPORT_LEVEL'] #detallado
     FINDING = FIELDS_FINDING["FINDING"]
     TEST_TYPE = FIELDS_FINDING["TEST_TYPE"]
     SUBSCRIPTION = FIELDS_FINDING["SUBSCRIPTION"]
@@ -176,10 +176,10 @@ class FindingDTO(object):
         if "data[releaseDate]" in parameter:
             self.data[self.RELEASE_DATE] \
                 = parameter["data[releaseDate]"]
-        if "data[level]" in parameter:
-            self.data[self.CLASS] \
-                = parameter["data[level]"]
-            if self.data[self.CLASS] == "Detallado":
+        if 'data[reportLevel]' in parameter:
+            self.data[self.REPORT_LEVEL] \
+                = parameter['data[reportLevel]']
+            if self.data[self.REPORT_LEVEL] == 'Detallado':
                 if "data[category]" in parameter:
                     self.data[self.CATEGORY] \
                         = parameter["data[category]"]
@@ -245,7 +245,7 @@ class FindingDTO(object):
             self.REQUIREMENTS:"requirements",
             self.EFFECT_SOLUTION:"effectSolution",
             self.KB_LINK:"kb",
-            self.CLASS:"type",
+            self.REPORT_LEVEL: 'reportLevel',
             self.AFFECTED_SYSTEMS:"affectedSystems",
             self.ATTACK_VECTOR:"attackVector",
             self.FINDING_TYPE:"finding_type",

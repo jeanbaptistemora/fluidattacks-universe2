@@ -60,7 +60,7 @@ class ITReport(object):
 	def detect_format(self, data):
 		detailed = 0
 		for finding in data:
-			if finding["type"] =="Detallado":
+			if finding['reportLevel'] == 'Detallado':
 				detailed += 1
 		detailed = detailed * 100 / len(data)
 		if detailed >= 50:

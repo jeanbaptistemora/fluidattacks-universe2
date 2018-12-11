@@ -64,7 +64,7 @@ findingContentCtrl (
     const TIMEOUT = 200;
     $timeout(() => {
       $scope.$digest();
-      if ($scope.finding.level === "Detallado") {
+      if ($scope.finding.reportLevel === "Detallado") {
         $scope.esDetallado = true;
         findingData.esDetallado = $scope.esDetallado;
       }

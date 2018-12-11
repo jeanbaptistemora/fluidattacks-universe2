@@ -165,8 +165,8 @@
                               <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.level}}</p>
-                                      <select ng-model="finding.level"
+                                      <p ng-show="onlyReadableTab1">{{finding.reportLevel}}</p>
+                                      <select ng-model="finding.reportLevel"
                                               ng-show="!onlyReadableTab1"
                                               ng-change="detectNivel();"
                                               class="form-control">
