@@ -29,7 +29,7 @@ class FormstackAPI(object):
     # Project information URL
     IN_URL = "https://www.formstack.com/api/v2/form/2696665/submission.json"
     # Eventuality URL
-    EV_URL = "https://www.formstack.com/api/v2/form/1886931/submission.json"
+    EV_URL = settings.EV_URL
     # Close finding URL
     CL_URL = "https://www.formstack.com/api/v2/form/2264008/submission.json"
 
@@ -123,7 +123,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
 
     def get_eventualities(self, project):
         """ Get the eventualities by project name. """
-        search_field = "29042322"
+        search_field = settings.FIELDS_EVENT['PROJECT_NAME']
         data = {'search_field_1': search_field,
                 'search_value_1': project,
                 'page': 1,
