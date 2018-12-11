@@ -10,7 +10,6 @@ after_script:
 
 stages:
   - deps
-  - test-code
   - test-infra
   - build
   - tag
@@ -59,6 +58,7 @@ stages:
   services:
     - docker:dind
 
+
 build_base:
   stage: deps
   <<: *kaniko_config
@@ -80,11 +80,6 @@ build_builder:
         --destination "${CI_REGISTRY_IMAGE}:builder"
   except:
     - master
-
-test_code:
-  stage: test-code
-  script:
-    - ./check-changed.sh
 
 test_terraform:
   stage: test-infra

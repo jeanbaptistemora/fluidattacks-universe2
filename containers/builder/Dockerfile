@@ -47,11 +47,9 @@ RUN apt-get update \
     && pip3 install \
         selenium==3.141.0 \
         requests==2.20.1 \
-        pylint==2.2.2 \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \
-        pre-commit==1.12.0 \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
         && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' \
         && apt-get -y update \
