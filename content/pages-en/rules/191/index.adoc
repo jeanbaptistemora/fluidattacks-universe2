@@ -19,3 +19,5 @@ Verify that access to sensitive records is protected,
 such that only authorized objects or data is accessible to each user
 (for example, protect against users
 tampering with a parameter to see or alter another user's account).
+
+. [[r2]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Protecting sensitive personal data].

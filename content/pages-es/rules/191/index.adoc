@@ -20,3 +20,5 @@ por ejemplo, que sólo objetos o datos autorizados
 sean accesibles a cada usuario
 (por ejemplo, proteger a los usuarios de la manipulación de parámetros
 para espiar o alterar otra cuenta de usuario)
+
+. [[r2]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Proteger información sensible personal].
