@@ -4,8 +4,6 @@
   position: absolute;
   top: -6px;
   left: 20px;
-  content: '';
-  display: block;
   width: 0;
   height: 0;
   transform: scale(0.9999);
@@ -22,4 +20,91 @@
   position: relative;
   background-color: #ff3435;
   color: #ffffff;
+}
+
+:local .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+:local .inputfile + label {
+    max-width: 100%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}
+
+:local .inputfile:focus + label,
+.inputfile.has_focus + label {
+    outline: 1px dotted #000000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+:local .inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    margin-right: 0.25em;
+}
+
+:local .inputfile_evidence + label {
+    color: #FF3435;
+    border: 1px solid #FF3435;
+    background-color: #F5AD99;
+    padding: 0;
+}
+
+:local .inputfile_evidence:focus + label,
+.inputfile_evidence.has_focus + label,
+.inputfile_evidence + label:hover {
+    border-color: #8E1616;
+}
+
+:local .inputfile_evidence + label > span,
+.inputfile_evidence + label > strong {
+    padding: 0.625rem 1.25rem;
+}
+
+:local .inputfile_evidence + label > span {
+    width: 165px;
+    min-height: 2em;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+:local .inputfile_evidence + label > strong {
+    height: 100%;
+    color: #FFFFFF;
+    background-color: #FF3435;
+    display: inline-block;
+}
+
+:local .inputfile_evidence:focus + label > strong,
+.inputfile_evidence.has_focus + label > strong,
+.inputfile_evidence + label:hover > strong {
+    background-color: #8E1616;
+}
+
+:local @media screen and (max-width: 50em) {
+  .inputfile_evidence + label > strong {
+    display: block;
+  }
+}
+
+:local .text_center {
+    text-align: center;
 }

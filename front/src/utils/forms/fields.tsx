@@ -3,8 +3,9 @@
  * readability of the code that binds click events
  */
 
+import _ from "lodash";
 import React from "react";
-import { FormControl, FormControlProps, FormGroup } from "react-bootstrap";
+import { ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon } from "react-bootstrap";
 /**
  * Disabling here is necessary because
  * there are currently no available type definitions for
@@ -65,6 +66,45 @@ export const dropdownField: ((arg1: CustomFieldProps) => JSX.Element) =
         children={fieldProps.children}
         defaultValue={fieldProps.meta.initial}
         onChange={(event: React.FormEvent<FormGroup>): void => { handleDropdownChange(event, fieldProps); }}
+      />
+      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
+    </div>
+  );
+
+const handleFileChange: ((arg1: React.FormEvent<FormControl>, arg2: CustomFieldProps) => void) =
+  (event: React.FormEvent<FormGroup>, fieldProps: CustomFieldProps): void => {
+    const files: FileList | null = (event.target as HTMLInputElement).files;
+    fieldProps.input.onChange(!_.isNil(files) ? files[0].name : "");
+  };
+
+export const fileInputField: ((arg1: CustomFieldProps) => JSX.Element) =
+  (fieldProps: CustomFieldProps): JSX.Element => (
+    <FormGroup controlId={fieldProps.id} className={style.text_center}>
+      <FormControl
+        target={fieldProps.target}
+        className={`${style.inputfile} ${style.inputfile_evidence}`}
+        type="file"
+        accept={fieldProps.accept}
+        name={fieldProps.name}
+        onChange={(event: React.FormEvent<FormControl>): void => { handleFileChange(event, fieldProps); }}
+        onClick={fieldProps.onClick}
+      />
+      <ControlLabel>
+        <span>{fieldProps.input.value}</span>
+        <strong>
+          <Glyphicon glyph="search" /> Choose a file&hellip;
+        </strong>
+      </ControlLabel>
+    </FormGroup>
+  );
+
+export const textAreaField: ((arg1: CustomFieldProps) => JSX.Element) =
+  (fieldProps: CustomFieldProps): JSX.Element => (
+    <div>
+      <FormControl
+        componentClass="textarea"
+        {...fieldProps}
+        {...fieldProps.input}
       />
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>
