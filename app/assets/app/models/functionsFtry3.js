@@ -400,7 +400,8 @@ angular.module("FluidIntegrates").factory(
         }
         if (descData.reportLevel === "Detallado") {
         // Recalculate severity
-          const severityInfo = functionsFtry1.calculateFindingSeverity();
+          const severityInfo =
+            functionsFtry1.calculateFindingSeverity(descData);
           const choose = severityInfo[0];
           if (!choose) {
             Rollbar.error("Error: An error occurred calculating severity");

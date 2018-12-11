@@ -239,7 +239,7 @@ angular.module("FluidIntegrates").factory(
           $scope.esDetallado = "show-detallado";
           $scope.esGeneral = "hide-detallado";
           const functionsFtry1 = $injector.get("functionsFtry1");
-          const severityInfo = functionsFtry1.calculateFindingSeverity();
+          const severityInfo = functionsFtry1.calculateFindingSeverity($scope);
           $scope.finding.riskValue = severityInfo[1];
         }
         else {
