@@ -214,7 +214,6 @@ STATICFILES_FINDERS = (
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
-    os.path.join(PROJECT_ROOT, '../front'),
 )
 
 CRONJOBS = [

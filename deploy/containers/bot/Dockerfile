@@ -1,5 +1,4 @@
-# Last stable Debian base image (jessie-slim)
-FROM registry.gitlab.com/fluidsignal/integrates:alldeps
+FROM registry.gitlab.com/fluidsignal/integrates:deps181210
 
 # Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
