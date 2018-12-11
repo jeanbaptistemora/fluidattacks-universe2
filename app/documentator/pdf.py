@@ -473,6 +473,8 @@ class CreatorPDF(object):
             'main_pie_filename': main_pie_filename,
             'main_tables': main_tables,
             'findings': findings,
+            'accessVector':
+                self.get_severity('accessVector', findings[0]['accessVector']),
             # Titulos segun lenguaje
             'finding_title': words['finding_title'],
             'finding_section_title': words['finding_section_title'],
@@ -511,3 +513,64 @@ class CreatorPDF(object):
             'ports': words['ports'],
 
         }
+
+    def get_severity(self, metric, metric_value):
+        """ Extract number of CSSV2 metrics """
+        try:
+            metrics = {
+                'accessVector': {
+                    '0.395': 'Local',
+                    '0.646': 'Red adyacente',
+                    '1.0': 'Red',
+                },
+                'confidentialityImpact': {
+                    '0.0': 'Ninguno',
+                    '0.275': 'Parcial',
+                    '0.66': 'Completo',
+                },
+                'integrityImpact': {
+                    '0.0': 'Ninguno',
+                    '0.275': 'Parcial',
+                    '0.66': 'Completo',
+                },
+                'availabilityImpact': {
+                    '0.0': 'Ninguno',
+                    '0.275': 'Parcial',
+                    '0.66': 'Completo',
+                },
+                'authentication': {
+                    '0.45': 'Múltiple',
+                    '0.56': 'Única',
+                    '0.704': 'Ninguna',
+                },
+                'exploitability': {
+                    '0.85': 'Improbable',
+                    '0.9': 'Conceptual',
+                    '0.95': 'Funcional',
+                    '1.0': 'Alta',
+                },
+                'confidenceLevel': {
+                    '0.9': 'No confirmado',
+                    '0.95': 'No corroborado',
+                    '1.0': 'Confirmado',
+                },
+                'resolutionLevel': {
+                    '0.87': 'Oficial',
+                    '0.9': 'Temporal',
+                    '0.95': 'Paliativa',
+                    '1.0': 'Inexistente',
+                },
+                'accessComplexity': {
+                    '0.35': 'Alto',
+                    '0.61': 'Medio',
+                    '0.71': 'Bajo',
+                }
+            }
+            metric_descriptions = metrics.get(metric)
+            if metric_descriptions:
+                description = metric_descriptions.get(str(metric_value))
+            else:
+                description = ''
+            return description
+        except ValueError:
+            return ''

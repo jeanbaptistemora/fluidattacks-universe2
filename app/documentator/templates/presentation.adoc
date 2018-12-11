@@ -215,7 +215,7 @@ Por lo tanto se puede concluir que *{{clientProject}}* presenta un nivel de segu
 {{securityLevel}}
 
 [.text-center]
-Criticidad más alta *{{findings[0]["impact"]}}* y vector de acceso mas riesgoso *{{findings[0]["accessVector"].split(" | ")[1].split(":")[0]}}*
+Criticidad más alta es *{{findings[0]["impact"]}}* y vector de acceso mas riesgoso es *{{accessVector}}*
 
 <<<
 image::../resources/presentation_theme/t_contacto_es.png[width=400]
