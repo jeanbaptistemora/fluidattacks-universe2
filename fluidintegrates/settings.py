@@ -20,10 +20,12 @@ from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST,
          FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET
 from boto3.session import Session
 import rollbar
-from .production import FIELDS_FINDING, FN_URL
+from .production import FIELDS_FINDING, FN_URL, FIELDS_EVENT, EV_URL
 
 FIELDS_FINDING = FIELDS_FINDING
+FIELDS_EVENT = FIELDS_EVENT
 FN_URL = FN_URL
+EV_URL = EV_URL
 
 sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

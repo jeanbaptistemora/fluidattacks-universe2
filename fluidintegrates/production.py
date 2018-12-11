@@ -77,3 +77,22 @@ FIELDS_FINDING = {
 }
 
 FN_URL = 'https://www.formstack.com/api/v2/form/1998500/submission.json'
+
+FIELDS_EVENT = {
+    'ANALYST': '29042426',
+    'CLIENT': '29042288',
+    'FLUID_PROJECT': '29042322',
+    'CLIENT_PROJECT': '39595967',
+    'TYPE': '29042327',
+    'DETAIL': '29042402',
+    'DATE': '29042174',
+    'STATUS': '29062640',
+    'AFFECTATION': '29042542',
+    'EVIDENCE': '29042411',
+    'ACCESSIBILITY': '57917686',
+    'AFFECTED_COMPONENTS': '52661157',
+    'SUBSCRIPTION': '57917587',
+    'CONTEXT': '52661136'
+}
+
+EV_URL = 'https://www.formstack.com/api/v2/form/1886931/submission.json'
