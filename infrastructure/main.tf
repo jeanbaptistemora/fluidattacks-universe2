@@ -72,3 +72,15 @@ output "fwBucket" {
 output "fiBucket" {
   value = "fiBucket=\"${module.bucket.fiName}\""
 }
+
+# Create ElastiCache Redis Cluster
+module "cache" {
+  source = "./cache"
+  cacheGroupId = "${var.cacheGroupId}"
+  cacheGroupDescription  = "${var.cacheGroupDescription}"
+  cacheNodeType     = "${var.cacheNodeType}"
+  vpcCidr  = "${var.cidr}"
+  vpcId    = "${var.vpcId}"
+  eksSnetReg   = ["${var.eksSnetReg}"]
+  cacheParamGroupName  = "${var.cacheParamGroupName}"
+}
