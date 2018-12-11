@@ -25,3 +25,7 @@ resource "aws_route_table_association" "k8s_routetb_association" {
   subnet_id      = "${aws_subnet.k8s_subnets.*.id[count.index]}"
   route_table_id = "${var.rtbId}"
 }
+
+output "k8sSubnet" {
+  value = ["${aws_subnet.k8s_subnets.*.id}"]
+}

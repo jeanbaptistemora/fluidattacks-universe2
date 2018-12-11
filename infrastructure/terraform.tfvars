@@ -24,7 +24,6 @@ eksSnetReg  = ["us-east-1d", "us-east-1e"]
 
 
 # ElastiCache Vars
-cacheCidr = "192.168.235.0/24"
 cacheGroupId = "tf-redis-cluster"
 cacheGroupDescription = "Redis Cluster Cache"
 cacheNodeType = "cache.t2.medium"

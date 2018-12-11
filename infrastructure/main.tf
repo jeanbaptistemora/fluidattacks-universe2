@@ -79,8 +79,6 @@ module "cache" {
   cacheGroupId = "${var.cacheGroupId}"
   cacheGroupDescription  = "${var.cacheGroupDescription}"
   cacheNodeType     = "${var.cacheNodeType}"
-  cacheCidr  = "${var.cacheCidr}"
-  vpcId    = "${var.vpcId}"
-  eksSnetReg   = ["${var.eksSnetReg}"]
   cacheParamGroupName  = "${var.cacheParamGroupName}"
+  k8sSubnet = "${module.eks.k8sSubnet}"
 }
