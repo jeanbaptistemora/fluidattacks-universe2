@@ -364,7 +364,7 @@ class FindingDTO(object):
     def parse_project(self, request_arr, submission_id):
         "Convert project info in formstack format"
         project_info = integrates_dao.get_project_info_dynamo(str(submission_id))
-        if project_info.get('analyst'):
+        if project_info and project_info.get('analyst'):
             project_title = ['analyst', 'leader', 'interested',
                              'clientProject', 'context', 'projectName']
             project_fields = {util.camelcase_to_snakecase(k): k
