@@ -233,7 +233,7 @@ class FindingDTO(object):
         self.data['timestamp'] = request_arr['timestamp']
         self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
         self.data = forms.dict_concatenation(self.data, self.parse_cvssv2(request_arr, submission_id))
-        self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr))
+        self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr, submission_id))
         self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
         return self.data
 
@@ -254,6 +254,7 @@ class FindingDTO(object):
             self.RISK: 'riesgo',
             self.RISK_VALUE: 'riskValue',
             self.REQUIREMENTS: 'requirements',
+            self.RELATED_FINDINGS: 'relatedFindings',
             self.EFFECT_SOLUTION: 'effectSolution',
             self.KB_LINK: 'kb',
             self.REPORT_LEVEL: 'reportLevel',
@@ -360,20 +361,30 @@ class FindingDTO(object):
         parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         return parsed_dict
 
-    def parse_project(self, request_arr):
-        """Convert project info in formstack format."""
-        initial_dict = forms.create_dict(request_arr)
-        project_fields = {
-            self.ANALIST: 'analyst',
-            self.LEADER: 'leader',
-            self.INTERESADO: 'interested',
-            self.PROJECT_NAME: 'projectName',
-            self.CLIENT_PROJECT: 'clientProject',
-            self.CONTEXT: 'context'
-        }
-        parsed_dict = {v: initial_dict[k]
-                       for (k, v) in project_fields.items()
-                       if k in initial_dict.keys()}
+    def parse_project(self, request_arr, submission_id):
+        "Convert project info in formstack format"
+        project_info = integrates_dao.get_project_info_dynamo(str(submission_id))
+        if project_info.get('analyst'):
+            project_title = ['analyst', 'leader', 'interested',
+                             'clientProject', 'context', 'projectName']
+            project_fields = {util.camelcase_to_snakecase(k): k
+                              for k in project_title}
+            parsed_dict = {v: project_info[k]
+                           for (k, v) in project_fields.items()
+                           if k in project_info.keys()}
+        else:
+            initial_dict = forms.create_dict(request_arr)
+            project_fields = {
+                self.ANALIST: 'analyst',
+                self.LEADER: 'leader',
+                self.INTERESADO: 'interested',
+                self.PROJECT_NAME: 'projectName',
+                self.CLIENT_PROJECT: 'clientProject',
+                self.CONTEXT: 'context'
+            }
+            parsed_dict = {v: initial_dict[k]
+                           for (k, v) in project_fields.items()
+                           if k in initial_dict.keys()}
         return parsed_dict
 
     def parse_evidence_info(self, request_arr): # noqa: C901
@@ -734,5 +745,15 @@ def save_severity(finding):
                        'integrityRequirement', 'availabilityRequirement']
     severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                 for k in severity_fields}
-    response = integrates_dao.add_severity_dynamo(primary_keys, severity)
+    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, severity)
+    return response
+
+
+def migrate_description(finding):
+    primary_keys = ['finding_id', str(finding['id'])]
+    description_fields = ['analyst', 'leader', 'interested', 'projectName',
+                          'clientProject', 'context']
+    description = {util.camelcase_to_snakecase(k): finding.get(k)
+                   for k in description_fields if finding.get(k)}
+    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
     return response

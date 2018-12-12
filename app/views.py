@@ -29,7 +29,7 @@ from .techdoc.IT import ITReport
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
-    save_severity
+    save_severity, migrate_description
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -1406,10 +1406,9 @@ def accept_draft(request):
                 table_name, primary_keys, "releaseDate", releaseDate)
             has_last_vuln = integrates_dao.add_attribute_dynamo(
                 table_name, primary_keys, "lastVulnerability", releaseDate)
-            integrates_dao.add_attribute_dynamo(
-                table_name, primary_keys, 'project_name', finding['projectName'].lower())
+            finding['projectName'] = finding['projectName'].lower()
             if has_release and has_last_vuln:
-                files_data = {'findingid': parameters, 'project': finding['projectName'].lower()}
+                files_data = {'findingid': parameters, 'project': finding['projectName']}
                 file_first_name = '{project!s}-{findingid}'\
                     .format(project=files_data['project'], findingid=files_data['findingid'])
                 file_url = '{project!s}/{findingid}/{file_name}'\
@@ -1419,6 +1418,7 @@ def accept_draft(request):
                 migrate_all_files(files_data, file_url, request)
                 integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
                 save_severity(finding)
+                migrate_description(finding)
                 return util.response([], 'success', False)
             else:
                 rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)

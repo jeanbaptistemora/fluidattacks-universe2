@@ -1632,17 +1632,17 @@ def get_finding_project(finding_id):
     return item
 
 
-def add_severity_dynamo(primary_keys, severity):
-    """Adding an severity to a dynamo table."""
+def add_multiple_attributes_dynamo(primary_keys, dic_data):
+    """Adding multiple attributes to a dynamo table."""
     table = dynamodb_resource.Table('FI_findings')
     item = get_data_dynamo('FI_findings', primary_keys[0], primary_keys[1])
     if item:
-        resp = update_severity_dynamo(primary_keys, severity)
+        resp = update_multiple_attributes_dynamo(primary_keys, dic_data)
     else:
         try:
             p_key = {primary_keys[0]: primary_keys[1]}
-            severity_field = {k: severity[k] for k in severity.keys()}
-            attr_to_add = forms.dict_concatenation(p_key, severity_field)
+            dic_data_field = {k: dic_data[k] for k in dic_data.keys()}
+            attr_to_add = forms.dict_concatenation(p_key, dic_data_field)
             response = table.put_item(
                 Item=attr_to_add
             )
@@ -1653,14 +1653,14 @@ def add_severity_dynamo(primary_keys, severity):
     return resp
 
 
-def update_severity_dynamo(primary_keys, severity):
-    """Updating an attribute to a dynamo table."""
+def update_multiple_attributes_dynamo(primary_keys, dic_data):
+    """Updating multiple data to a dynamo table."""
     table = dynamodb_resource.Table('FI_findings')
     try:
         str_format = '{metric} = :{metric}'
-        severity_params = [str_format.format(metric=x) for x in severity.keys()]
-        query_params = 'SET ' + ', '.join(severity_params)
-        expression_params = {':' + k: severity[k] for k in severity.keys()}
+        dic_data_params = [str_format.format(metric=x) for x in dic_data.keys()]
+        query_params = 'SET ' + ', '.join(dic_data_params)
+        expression_params = {':' + k: dic_data[k] for k in dic_data.keys()}
         response = table.update_item(
             Key={
                 primary_keys[0]: primary_keys[1],
@@ -1689,6 +1689,23 @@ def get_severity_dynamo(finding_id):
                              'confidence_level', 'collateral_damage_potential',
                              'finding_distribution', 'confidentiality_requirement',
                              'integrity_requirement', 'availability_requirement']
+        )
+        items = response.get('Item')
+    except ClientError:
+        rollbar.report_exc_info()
+        items = {}
+    return items
+
+def get_project_info_dynamo(finding_id):
+    table = dynamodb_resource.Table('FI_findings')
+    try:
+        response = table.get_item(
+            Key={
+                'finding_id': finding_id
+            },
+            AttributesToGet=['analyst', 'leader',
+                             'interested', 'project_name',
+                             'client_project', 'context']
         )
         items = response.get('Item')
     except ClientError:
