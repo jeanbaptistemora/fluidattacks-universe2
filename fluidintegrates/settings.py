@@ -239,9 +239,13 @@ AUTHENTICATION_BACKENDS = (
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://tf-redis-cluster.mqzqyv.clustercfg.use1.cache.amazonaws.com:6379",
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            'REDIS_CLIENT_CLASS': 'rediscluster.RedisCluster',
+            'CONNECTION_POOL_CLASS': 'rediscluster.connection.ClusterConnectionPool',
+            'CONNECTION_POOL_KWARGS': {
+                'skip_full_coverage_check': True
+            }
         },
         "KEY_PREFIX": "fi"
     }
