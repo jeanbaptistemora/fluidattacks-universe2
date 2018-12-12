@@ -17,6 +17,8 @@ describe('Evidence view', () => {
     const wrapper = shallow(
       <EvidenceView
         currentIndex={0}
+        findingId="422286126"
+        projectName="unittesting"
         images={[
           {
             description: "Test evidence",

@@ -7,7 +7,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 /**
  * Disabling here is necessary because
  * there are currently no available type
@@ -21,19 +21,55 @@ import Lightbox from "react-image-lightbox";
  * to display properly even if some of them are overridden later
  */
 import "react-image-lightbox/style.css";
-import { Reducer } from "redux";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { AnyAction, Reducer } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
+import translate from "../../../../utils/translations/translate";
+import { isFileSelected, isValidEvidenceFile } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import * as actions from "./actions";
 
 export interface IEvidenceViewProps {
   currentIndex: number;
+  findingId: string;
   images: Array<{ description: string; url: string }>;
   isEditing: boolean;
   isImageOpen: boolean;
+  projectName: string;
 }
+
+const enhance: InferableComponentEnhancer<{}> =
+  lifecycle({
+    componentDidMount(): void {
+      const { findingId } = this.props as IEvidenceViewProps;
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+
+      thunkDispatch(actions.loadEvidence(findingId));
+    },
+  });
+
+const updateEvidence: ((values: {}, evidenceId: number, props: IEvidenceViewProps) => void) =
+  (values: { [key: string]: string }, evidenceId: number, props: IEvidenceViewProps): void => {
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    let fileId: string; fileId = `#evidence${evidenceId}`;
+    let descriptionField: string; descriptionField = `evidence${evidenceId}_description`;
+
+    if (isFileSelected(fileId)) {
+      if (isValidEvidenceFile(fileId)) {
+        thunkDispatch(actions.updateEvidence(props.findingId, props.projectName, evidenceId));
+        thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
+      }
+    } else {
+      thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
+    }
+  };
 
 const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
   (props: IEvidenceViewProps): JSX.Element => {
@@ -58,7 +94,7 @@ const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
                   ? (): void => undefined
                   : (): void => { store.dispatch(actions.openEvidence(index)); }
               }
-              onUpdate={(): void => undefined}
+              onUpdate={(values: {}): void => { updateEvidence(values, index, props); }}
             />
             : <div />)}
       </div>
@@ -95,6 +131,17 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
 export const component: React.SFC<IEvidenceViewProps> = (props: IEvidenceViewProps): JSX.Element => (
   <React.StrictMode>
     <Row>
+      <Col md={2} mdOffset={10} xs={12} sm={12}>
+        <Button
+          bsStyle="primary"
+          block={true}
+          onClick={(): void => { store.dispatch(actions.editEvidence(!props.isEditing)); }}
+        >
+          <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
+        </Button>
+      </Col>
+    </Row>
+    <Row>
       {renderImages(props)}
     </Row>
     {props.isImageOpen ? renderLightBox(props) : undefined}
@@ -102,7 +149,7 @@ export const component: React.SFC<IEvidenceViewProps> = (props: IEvidenceViewPro
 );
 
 export const evidenceView: React.ComponentType<IEvidenceViewProps> = reduxWrapper(
-  component,
+  enhance(component) as React.SFC<IEvidenceViewProps>,
   (state: StateType<Reducer>): IEvidenceViewProps => ({
     ...state.dashboard.evidence,
   }),

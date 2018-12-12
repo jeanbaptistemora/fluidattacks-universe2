@@ -106,3 +106,10 @@ export const isValidEvidenceFile: ((arg1: string) => boolean) =
 
     return valid;
 };
+
+export const isFileSelected: ((arg1: string) => boolean) =
+  (fieldId: string): boolean => {
+    const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
+
+    return !(_.isNil(selected) || selected.length === 0);
+};
