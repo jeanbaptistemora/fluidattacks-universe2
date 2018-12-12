@@ -164,9 +164,9 @@ angular.module("FluidIntegrates").factory(
               date,
               detail,
               id,
-              fluidProject,
+              projectName,
               status,
-              type
+              eventType
             }
         }`;
         return $xhr.fetch($q, gQry, oopsAc);

@@ -164,7 +164,7 @@ angular.module("FluidIntegrates").controller(
       $scope.currentScrollPosition = angular.element(document).scrollTop();
       $state.go("EventsDescription", {
         "id": rowInfo.id,
-        "project": rowInfo.fluidProject.toLowerCase()
+        "project": rowInfo.projectName.toLowerCase()
       });
     };
     $scope.loadEventContent = function loadEventContent (data, vlang, project) {
@@ -207,7 +207,7 @@ angular.module("FluidIntegrates").controller(
         },
         {
           "align": "center",
-          "dataField": "type",
+          "dataField": "eventType",
           "header": $translate.instant("search_events.headings.type"),
           "width": "4.8%",
           "wrapped": true

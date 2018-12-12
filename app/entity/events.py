@@ -18,11 +18,11 @@ class Events(ObjectType):
     id = String()
     analyst = String()
     client = String()
-    fluidProject = String()
+    projectName = String()
     clientProject = String()
     detail = String()
     evidence = String()
-    type = String()
+    eventType = String()
     date = String()
     status = String()
     affectation = String()
@@ -33,8 +33,8 @@ class Events(ObjectType):
         """ Class constructor """
         self.id = str(identifier)
         self.analyst, self.client = '', ''
-        self.fluidProject, self.clientProject = '', ''
-        self.type, self.date = '', ''
+        self.projectName, self.clientProject = '', ''
+        self.eventType, self.date = '', ''
         self.detail, self.affectation = '', ''
         self.status, self.evidence = '', ''
         self.accessibility, self.affectedComponents = '', ''
@@ -47,18 +47,18 @@ class Events(ObjectType):
                 self.analyst = evt_set['analyst']
             if 'client' in evt_set:
                 self.client = evt_set['client']
-            if 'fluidProject' in evt_set:
-                self.fluidProject = evt_set['fluidProject']
+            if 'projectName' in evt_set:
+                self.projectName = evt_set['projectName']
             if 'clientProject' in evt_set:
                 self.clientProject = evt_set['clientProject']
-            if 'type' in evt_set:
-                self.type = evt_set['type']
-            if 'detalle' in evt_set:
-                self.detail = evt_set['detalle']
-            if 'fecha' in evt_set:
-                self.date = evt_set['fecha']
-            if 'estado' in evt_set:
-                self.status = evt_set['estado']
+            if 'eventType' in evt_set:
+                self.eventType = evt_set['eventType']
+            if 'detail' in evt_set:
+                self.detail = evt_set['detail']
+            if 'date' in evt_set:
+                self.date = evt_set['date']
+            if 'status' in evt_set:
+                self.status = evt_set['status']
             if 'evidence' in evt_set  and '.png' in evt_set['evidence']:
                 parsed_url = urlparse(evt_set['evidence'])
                 self.evidence = parse_qs(parsed_url.query)['id'][0]
@@ -89,20 +89,20 @@ class Events(ObjectType):
         del info
         return self.evidence
 
-    def resolve_projectByFluid(self, info):
-        """ Resolve fluidProject attribute """
+    def resolve_projectName(self, info):
+        """ Resolve projectName attribute """
         del info
-        return self.fluidProject
+        return self.projectName
 
     def resolve_projectByCustomer(self, info):
         """ Resolve clientProject attribute """
         del info
         return self.clientProject
 
-    def resolve_type(self, info):
-        """ Resolve type attribute """
+    def resolve_eventType(self, info):
+        """ Resolve eventType attribute """
         del info
-        return self.type
+        return self.eventType
 
     def resolve_detail(self, info):
         """ Resolve detail attribute """
@@ -120,7 +120,7 @@ class Events(ObjectType):
         return self.status
 
     def resolve_affectation(self, info):
-        """ Resolve status attribute """
+        """ Resolve affectation attribute """
         del info
         return self.affectation
 
@@ -133,8 +133,3 @@ class Events(ObjectType):
         """ Resolve affected components attribute """
         del info
         return self.affectedComponents
-
-    def resolve_access(self, info):
-        """ Resolve access attribute """
-        del info
-        return self.access

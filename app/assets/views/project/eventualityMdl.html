@@ -12,26 +12,26 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>{{'search_findings.pop_table.type' | translate}}</label>
-                <input type="text" class="form-control" ng-model="evt.type" disabled>
+                <input type="text" class="form-control" ng-model="evt.eventType" disabled>
             </div>
         </div>
         <div class="col-md-6" ng-class="esDetallado">
             <div class="form-group">
                 <label>{{'search_findings.pop_table.date' | translate}}</label>
-                <input type="text" class="form-control" ng-model="evt.fecha" disabled>
+                <input type="text" class="form-control" ng-model="evt.date" disabled>
             </div>
         </div>
         <div class="col-md-6" ng-class="esDetallado">
             <div class="form-group">
                 <label>{{'search_findings.pop_table.status' | translate}}</label>
-                <input type="text" class="form-control" ng-model="evt.estado" disabled>
+                <input type="text" class="form-control" ng-model="evt.status" disabled>
             </div>
         </div>
         <div ng-show="evt.isManager">
             <div class="col-md-4">
                 <div class="form-group">
                     <label>{{'event_by_name.modal_ver.f_proj' | translate}}</label>
-                    <input type="text" class="form-control" ng-model="evt.fluidProject" disabled>
+                    <input type="text" class="form-control" ng-model="evt.projectName" disabled>
                 </div>
             </div>
             <div class="col-md-4">
@@ -63,7 +63,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>{{'search_findings.pop_table.details' | translate}}</label>
-                <textarea class="form-control" id="email" rows="6" disabled> {{evt.detalle}} </textarea>
+                <textarea class="form-control" id="email" rows="6" disabled> {{evt.detail}} </textarea>
             </div>
         </div>
     </div>

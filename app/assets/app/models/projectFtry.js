@@ -205,9 +205,9 @@ angular.module("FluidIntegrates").factory(
                detail,
                evidence,
                id,
-               fluidProject,
+               projectName,
                status,
-               type
+               eventType
              }
          }`;
         return $xhr.fetch($q, gQry, oopsAc);

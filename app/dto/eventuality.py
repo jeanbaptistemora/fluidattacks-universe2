@@ -9,7 +9,7 @@ def create(parameter):
     events_dict={}
     status_field_id = "29062640"
     events_fields = {
-        "29042322":"fluidProject",
+        "29042322":"projectName",
         "29042542":"affectation"
     }
     parsed_dict = {k:parameter["vuln[" + v + "]"] \
@@ -27,12 +27,12 @@ def parse(submission_id, request_arr):
     events_fields = {
         "29042426":"analyst",
         "29042288":"client",
-        "29042322":"fluidProject",
+        "29042322":"projectName",
         "39595967":"clientProject",
-        "29042327":"type",
-        "29042402":"detalle",
-        "29042174":"fecha",
-        "29062640":"estado",
+        "29042327":"eventType",
+        "29042402":"detail",
+        "29042174":"date",
+        "29062640":"status",
         "29042542":"affectation",
         "29042411":"evidence",
         "57917686":"accessibility",
