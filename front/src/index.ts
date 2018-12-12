@@ -425,6 +425,10 @@ angular
   .component(
    "evidenceView",
    react2angular(
-     evidenceView, [],
+     evidenceView, [
+       "canEdit",
+       "findingId",
+       "projectName",
+     ],
    ),
   );

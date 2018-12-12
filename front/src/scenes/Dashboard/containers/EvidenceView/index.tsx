@@ -33,6 +33,7 @@ import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/i
 import * as actions from "./actions";
 
 export interface IEvidenceViewProps {
+  canEdit: boolean;
   currentIndex: number;
   findingId: string;
   images: Array<{ description: string; url: string }>;
@@ -71,6 +72,20 @@ const updateEvidence: ((values: {}, evidenceId: number, props: IEvidenceViewProp
     }
   };
 
+const renderEditPanel: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEvidenceViewProps): JSX.Element => (
+  <Row>
+    <Col md={2} mdOffset={10} xs={12} sm={12}>
+      <Button
+        bsStyle="primary"
+        block={true}
+        onClick={(): void => { store.dispatch(actions.editEvidence(!props.isEditing)); }}
+      >
+        <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
+      </Button>
+    </Col>
+  </Row>
+);
+
 const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
   (props: IEvidenceViewProps): JSX.Element => {
     let findingBaseUrl: string;
@@ -80,8 +95,10 @@ const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
 
     return (
       <div>
-        {props.images.map((image: IEvidenceViewProps["images"][0], index: number) =>
-          props.isEditing || !_.isEmpty(image.url) ?
+        {(props.isEditing
+          ? props.images
+          : props.images.filter((image: IEvidenceViewProps["images"][0]) => !_.isEmpty(image.url)))
+          .map((image: IEvidenceViewProps["images"][0], index: number) =>
             <EvidenceImage
               key={index}
               name={`evidence${index}`}
@@ -95,8 +112,8 @@ const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
                   : (): void => { store.dispatch(actions.openEvidence(index)); }
               }
               onUpdate={(values: {}): void => { updateEvidence(values, index, props); }}
-            />
-            : <div />)}
+            />,
+        )}
       </div>
     );
   };
@@ -113,7 +130,7 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
     <Lightbox
       imageTitle={evidenceImages[props.currentIndex].description}
       imagePadding={50}
-      mainSrc={`${findingBaseUrl}/${evidenceImages[props.currentIndex].url}`}
+      mainSrc={`${findingBaseUrl}/${evidenceImages[props.currentIndex].url}?_=${new Date().getUTCMilliseconds()}`}
       nextSrc={`${findingBaseUrl}/${evidenceImages[nextIndex].url}`}
       prevSrc={`${findingBaseUrl}/${evidenceImages[previousIndex].url}`}
       onCloseRequest={(): void => { store.dispatch(actions.closeEvidence()); }}
@@ -130,17 +147,7 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
 
 export const component: React.SFC<IEvidenceViewProps> = (props: IEvidenceViewProps): JSX.Element => (
   <React.StrictMode>
-    <Row>
-      <Col md={2} mdOffset={10} xs={12} sm={12}>
-        <Button
-          bsStyle="primary"
-          block={true}
-          onClick={(): void => { store.dispatch(actions.editEvidence(!props.isEditing)); }}
-        >
-          <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
-        </Button>
-      </Col>
-    </Row>
+    {props.canEdit ? renderEditPanel(props) : undefined}
     <Row>
       {renderImages(props)}
     </Row>
