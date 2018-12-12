@@ -116,6 +116,7 @@
 * link:183/[REQ.183 Delete sensitive data securely].
 * link:185/[REQ.185 Encrypt sensitive information].
 * link:186/[REQ.186 Use minimum level of privileges].
+* link:189/[REQ.189 Specify the purpose of data collection].
 * link:191/[REQ.191 Protect data with maximum level].
 * link:300/[REQ.300 Mask Sensitive data].
 * link:301/[REQ.301 Notify configuration changes].
