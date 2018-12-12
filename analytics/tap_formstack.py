@@ -2,7 +2,7 @@
 Singer tap for Formstack
 """
 
-## pyhton3 -m pylint (default configuration)
+## python3 -m pylint (default configuration)
 # Your code has been rated at 10.00/10
 
 import re
@@ -29,6 +29,9 @@ import api_formstack as API
 #     write support for the State   input
 #     write support for the Catalog input
 
+_TYPE_STRING = {"type": "string"}
+_TYPE_NUMBER = {"type": "number"}
+_TYPE_DATE = {"type": "string", "format": "date-time"}
 
 def get_available_forms(user_token):
     """ retrieve a dictionary with all pairs {form_name: form_id} """
@@ -47,27 +50,16 @@ def get_available_forms(user_token):
 
         for form in json_obj["forms"]:
             params["current_form"] += 1
-            form_name = form["name"].lower()
-            form_name_std = ""
-            for char in form_name:
-                if char in "abcdefghijklmnopqrstuvwxyz ":
-                    form_name_std += char
+            form_name_std = std_text(form["name"])
             available_forms[form_name_std] = form["id"]
 
     return available_forms
-
 
 def write_queries(user_token, form_name, form_id):
     """ write queries needed for a given form so it can be fast accessed """
     params = {}
     params["page"] = "0"
     params["current_form"] = 0
-
-    log_name = "tap_formstack." + form_name + ".json"
-    log_name_pretty = "tap_formstack." + form_name + ".pretty.json"
-
-    logs.initialize_log(log_name)
-    logs.initialize_log(log_name_pretty)
 
     while True:
         params["page"] = str(int(params["page"])+1)
@@ -82,25 +74,56 @@ def write_queries(user_token, form_name, form_id):
 
         for submissions in json_obj["submissions"]:
             params["current_form"] += 1
-            logs.log_json_obj(log_name, submissions, False)
-            logs.log_json_obj(log_name_pretty, submissions, True)
-
+            logs.log_json_obj(form_name, submissions)
 
 def write_schema(form_name, stdout=True):
     """ write the SCHEMA message for a given form to stdout """
 
-    stdout_json_obj = {}
-    stdout_json_obj["type"] = "SCHEMA"
-    stdout_json_obj["stream"] = form_name
-    stdout_json_obj["key_properties"] = ["id"]
-    stdout_json_obj["schema"] = {}
-    stdout_json_obj["schema"]["properties"] = {}
-    stdout_json_obj["schema"]["properties"]["id"] = {"type": "string"}
+    def assign_to_checkbox(json_obj, data):
+        """ handles the assignment of data to the json_obj """
+        name = data["label"]
+        value = data["value"]
+        if isinstance(value, str):
+            padded_name = "checkbox[" + name + "][" + value + "]"
+            stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
+        else:
+            for inner_name in value:
+                padded_name = "checkbox[" + name + "][" + inner_name + "]"
+                stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
+        return json_obj
 
-    log_name = "tap_formstack." + form_name + ".stdout.json"
-    log_name_pretty = "tap_formstack." + form_name + ".pretty.stdout.json"
+    def assign_to_matrix(json_obj, data):
+        """ handles the assignment of data to the json_obj """
+        name = data["label"]
+        value = data["value"]
+        if isinstance(value, str):
+            padded_name = "matrix[" + name + "][" + value + "]"
+            stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
+        else:
+            for inner_name in value:
+                padded_name = "matrix[" + name + "][" + inner_name + "]"
+                stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
+        return json_obj
 
-    file = open("./logs/tap_formstack." + form_name + ".json", "r")
+    stdout_json_obj = {
+        "type": "SCHEMA",
+        "stream": form_name,
+        "key_properties": ["_serial"],
+        "schema": {
+            "properties": {
+                "_id": _TYPE_STRING,
+                "_read": _TYPE_NUMBER,
+                "_timestamp": _TYPE_DATE,
+                "_serial": _TYPE_STRING,
+                "_latitude": _TYPE_NUMBER,
+                "_longitude": _TYPE_NUMBER,
+                "_user_agent": _TYPE_STRING,
+                "_remote_addr": _TYPE_STRING
+            }
+        }
+    }
+
+    file = open(logs.DOMAIN + form_name + ".json", "r")
     line = file.readline()
     while line:
         submission = json.loads(line)
@@ -108,88 +131,244 @@ def write_schema(form_name, stdout=True):
         for key_d in submission["data"]:
             kind = submission["data"][key_d]["type"]
             name = submission["data"][key_d]["label"]
-            value = submission["data"][key_d]["value"]
 
-            if kind in ["text", "textarea", "name", "address", "email", "phone"]:
-                stdout_json_obj["schema"]["properties"][name] = {"type": "string"}
-            if kind in  ["select", "radio", "checkbox", "richtext", "embed"]:
-                stdout_json_obj["schema"]["properties"][name] = {"type": "string"}
-            if kind in ["number"]:
-                stdout_json_obj["schema"]["properties"][name] = {"type": "number"}
-            if kind in ["datetime"]:
-                stdout_json_obj["schema"]["properties"][name] = {}
-                stdout_json_obj["schema"]["properties"][name]["type"] = "string"
-                stdout_json_obj["schema"]["properties"][name]["format"] = "date-time"
-            if kind in ["file", "section", "product", "creditcard"]:
-                pass
-            if kind == "matrix":
-                for inner_name in value:
-                    padded_name = "[" + name + "][" + inner_name + "]"
-                    stdout_json_obj["schema"]["properties"][padded_name] = {"type": "string"}
+            if not name in stdout_json_obj["schema"]["properties"]:
+                if kind in ["text", "textarea", "name", "address", "email", "phone"]:
+                    stdout_json_obj["schema"]["properties"][name] = _TYPE_STRING
+                elif kind in ["select", "radio", "richtext", "embed", "creditcard"]:
+                    stdout_json_obj["schema"]["properties"][name] = _TYPE_STRING
+                elif kind in ["file", "image"]:
+                    stdout_json_obj["schema"]["properties"][name] = _TYPE_STRING
+                elif kind in ["number"]:
+                    stdout_json_obj["schema"]["properties"][name] = _TYPE_NUMBER
+                elif kind in ["datetime"]:
+                    stdout_json_obj["schema"]["properties"][name] = _TYPE_DATE
+
+            if kind in ["matrix"]:
+                stdout_json_obj = assign_to_matrix(stdout_json_obj, submission["data"][key_d])
+            elif kind in ["checkbox"]:
+                stdout_json_obj = assign_to_checkbox(stdout_json_obj, submission["data"][key_d])
 
         line = file.readline()
 
-
-    logs.log_json_obj(log_name, stdout_json_obj, False)
-    logs.log_json_obj(log_name_pretty, stdout_json_obj, True)
+    logs.log_json_obj(form_name + ".stdout", stdout_json_obj)
 
     if stdout:
-        stdout_json_str = json.dumps(stdout_json_obj)
-        print(stdout_json_str)
+        print(json.dumps(stdout_json_obj))
 
+    return stdout_json_obj["schema"]["properties"]
 
-def write_records(form_name, stdout=True):
+def write_records(form_name, schema_properties, stdout=True):
     """ write all the RECORD messages for a given form to stdout """
 
-    log_name = "tap_formstack." + form_name + ".stdout.json"
-    log_name_pretty = "tap_formstack." + form_name + ".pretty.stdout.json"
+    def assign_to_checkbox(json_obj, data):
+        """ handles the assignment of data to the json_obj """
+        name = data["label"]
+        value = data["value"]
+        if isinstance(value, str):
+            padded_name = "checkbox[" + name + "][" + value + "]"
+            json_obj["record"][padded_name] = "selected"
+        elif isinstance(value, list):
+            for inner_name in value:
+                padded_name = "checkbox[" + name + "][" + inner_name + "]"
+                json_obj["record"][padded_name] = "selected"
 
-    file = open("./logs/tap_formstack." + form_name + ".json", "r")
+        return json_obj
+
+    def assign_to_matrix(json_obj, data):
+        """ handles the assignment of data to the json_obj """
+        name = data["label"]
+        value = data["value"]
+        if isinstance(value, str):
+            padded_name = "matrix[" + name + "][" + value + "]"
+            json_obj["record"][padded_name] = "selected"
+        elif isinstance(value, dict):
+            for inner_name in value:
+                padded_name = "matrix[" + name + "][" + inner_name + "]"
+                json_obj["record"][padded_name] = "selected"
+
+        return json_obj
+
+    file = open(logs.DOMAIN + form_name + ".json", "r")
     line = file.readline()
+
+    serial = 0
     while line:
+        serial += 1
         submission = json.loads(line)
 
-        stdout_json_obj = {}
-        stdout_json_obj["type"] = "RECORD"
-        stdout_json_obj["stream"] = form_name
-        stdout_json_obj["record"] = {}
-        stdout_json_obj["record"]["id"] = submission["id"]
+        stdout_json_obj = {
+            "type": "RECORD",
+            "stream": form_name,
+            "record": {
+                "_id": submission["id"],
+                "_read": std_number(submission["read"]),
+                "_timestamp": std_date(submission["timestamp"]),
+                "_serial": str(serial),
+                "_latitude": std_number(submission["latitude"]),
+                "_longitude": std_number(submission["longitude"]),
+                "_user_agent": submission["user_agent"],
+                "_remote_addr": submission["remote_addr"]
+            }
+        }
 
         for key_d in submission["data"]:
-            kind = submission["data"][key_d]["type"]
-            name = submission["data"][key_d]["label"]
-            value = submission["data"][key_d]["value"]
+            record_kind = submission["data"][key_d]["type"]
 
-            if kind in ["text", "textarea", "name", "address", "email", "phone"]:
-                stdout_json_obj["record"][name] = value
-            if kind in  ["select", "radio", "checkbox", "richtext", "embed"]:
-                stdout_json_obj["record"][name] = value
-            if kind in ["number"]:
+            if record_kind in ["matrix"]:
+                stdout_json_obj = assign_to_matrix(stdout_json_obj, submission["data"][key_d])
+            elif record_kind in ["checkbox"]:
+                stdout_json_obj = assign_to_checkbox(stdout_json_obj, submission["data"][key_d])
+            else:
                 try:
-                    stdout_json_obj["record"][name] = std_number(value)
-                except ExceptionIgnore:
-                    pass
-            if kind in ["datetime"]:
-                try:
-                    stdout_json_obj["record"][name] = std_date(value)
-                except ExceptionIgnore:
-                    pass
-            if kind == "matrix" and isinstance(value, dict):
-                for inner_name in value:
-                    padded_name = "[" + name + "][" + inner_name + "]"
-                    stdout_json_obj["record"][padded_name] = value[inner_name]
-            if kind == "file":
-                pass
+                    name = submission["data"][key_d]["label"]
+                    value = submission["data"][key_d]["value"]
+                    flat_value = submission["data"][key_d]["flat_value"]
 
-        logs.log_json_obj(log_name, stdout_json_obj, False)
-        logs.log_json_obj(log_name_pretty, stdout_json_obj, True)
+                    if schema_properties[name] == _TYPE_STRING:
+                        stdout_json_obj["record"][name] = flat_value
+                    elif schema_properties[name] == _TYPE_NUMBER:
+                        stdout_json_obj["record"][name] = std_number(value)
+                    elif schema_properties[name] == _TYPE_DATE:
+                        stdout_json_obj["record"][name] = std_date(value)
+                except UnrecognizedNumber:
+                    logs.log_error("number: [" + value + "]")
+                except UnrecognizedDate:
+                    logs.log_error("date:   [" + value + "]")
+
+        logs.log_json_obj(form_name + ".stdout", stdout_json_obj)
 
         if stdout:
-            stdout_json_str = json.dumps(stdout_json_obj)
-            print(stdout_json_str)
+            print(json.dumps(stdout_json_obj))
 
         line = file.readline()
 
+def std_text(text):
+    """ returns a CDN compliant text """
+
+    # log it
+    logs.log_conversions("text [" + text + "]")
+
+    # always lowercase
+    text = text.lower()
+
+    # no accent marks
+    to_replace = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u"
+    }
+
+    for old_char, new_char in to_replace.items():
+        text = text.replace(old_char, new_char)
+
+    # just letters and spaces
+    new_text = ""
+    for char in text:
+        if char in "abcdefghijklmnopqrstuvwxyz ":
+            new_text += char
+
+    # log it
+    logs.log_conversions("     [" + new_text + "]")
+
+    return new_text
+
+def std_date(date):
+    """
+    returns a json schema compliant date (RFC 3339)
+
+    standard: https://tools.ietf.org/html/rfc3339#section-5.6
+    """
+
+    def month_to_number(month):
+        """ returns the month number for a given month name """
+        correlation = {"jan": "01",
+                       "feb": "02",
+                       "mar": "03",
+                       "apr": "04",
+                       "may": "05",
+                       "jun": "06",
+                       "jul": "07",
+                       "aug": "08",
+                       "sep": "09",
+                       "oct": "10",
+                       "nov": "11",
+                       "dec": "12"}
+        for month_name, month_number in correlation.items():
+            if month_name in month.lower():
+                return month_number
+        return "err"
+
+    # log it
+    logs.log_conversions("date [" + date + "]")
+
+    new_date = ""
+    # Dec 31, 2018
+    if re.match("([a-zA-Z]{3} [0-9]{2}, [0-9]{4})", date):
+        new_date = date[8:12] + "-"
+        new_date += month_to_number(date[0:3]) + "-"
+        new_date += date[4:6] + "T00:00:00Z"
+    # 2018 12 31 or 2018/12/31 or 2018-12-31
+    elif re.match("([0-9]{4}( |/|-)[0-9]{2}( |/|-)[0-9]{2})", date):
+        new_date = date[0:10] + "T00:00:00Z"
+    # 12 31 2018 or 12/31/2018 or 12-31-2018
+    elif re.match("([0-9]{2}( |/|-)[0-9]{2}( |/|-)[0-9]{4})", date):
+        new_date = date[6:10] + "-" + date[3:5] + "-" + date[0:2] + "T00:00:00Z"
+    # Nov 2024
+    elif re.match("([a-zA-Z]{3} [0-9]{4})", date):
+        new_date = date[4:8] + "-"
+        new_date += month_to_number(date[0:3]) + "-"
+        new_date += "01T00:00:00Z"
+    # 19:27 represents an hour
+    elif re.match("([0-9]{2}:[0-9]{2})", date):
+        new_date = "1900-01-01T" + date[0:5] + ":00Z"
+    # User didn't fill the field
+    elif not date:
+        new_date = "1900-01-01T00:00:00Z"
+    # Not found
+    else:
+        raise UnrecognizedDate
+
+    # log it
+    logs.log_conversions("     [" + new_date + "]")
+
+    return new_date
+
+def std_number(number):
+    """ returns a json schema compliant number """
+    # log it
+    logs.log_conversions("number [" + str(number) + "]")
+
+    # type null instead of str
+    if not isinstance(number, str):
+        return 0.0
+
+    # point is the decimal separator
+    number = number.replace(",", ".")
+
+    # clean typos
+    new_number = ""
+    for char in number:
+        if char in "+-01234567890.":
+            new_number += char
+    number = new_number
+
+    # no numeric chars after cleaning
+    if not number:
+        raise UnrecognizedNumber
+
+    # seems ok, lets try
+    try:
+        number = float(number)
+    except:
+        raise UnrecognizedNumber
+
+    # log it
+    logs.log_conversions("       [" + str(number) + "]")
+
+    return number
 
 # this is not part of the tap but can be used to list all date-time formats in your formstack
 # use this later to add transformation rules for date-time fields
@@ -222,82 +401,11 @@ def scan_dates(user_token, form_name, form_id):
 
         print(json.dumps(stdout_json_obj, indent=4))
 
+class UnrecognizedString(Exception):
+    """ Raised when tap didn't find a conversion """
 
-def month_to_number(month):
-    """ returns the month number for a given month name """
-    correlation = {"jan": "01",
-                   "feb": "02",
-                   "mar": "03",
-                   "apr": "04",
-                   "may": "05",
-                   "jun": "06",
-                   "jul": "07",
-                   "aug": "08",
-                   "sep": "09",
-                   "oct": "10",
-                   "nov": "11",
-                   "dec": "12"}
-    for month_name, month_number in correlation.items():
-        if month_name in month.lower():
-            return month_number
-    raise Exception("month not found in arguments (" + month + ")")
+class UnrecognizedNumber(Exception):
+    """ Raised when tap didn't find a conversion """
 
-
-def std_date(date):
-    """
-    returns a json schema compliant date (RFC 3339)
-
-    standard: https://tools.ietf.org/html/rfc3339#section-5.6
-    """
-    new_date = ""
-    # Dec 31, 2018
-    if re.match("([a-zA-Z]{3} [0-9]{2}, [0-9]{4})", date):
-        new_date = date[8:12] + "-"
-        new_date += month_to_number(date[0:3]) + "-"
-        new_date += date[4:6] + "T00:00:00Z"
-    # 2018 12 31 or 2018/12/31 or 2018-12-31
-    elif re.match("([0-9]{4}( |/|-)[0-9]{2}( |/|-)[0-9]{2})", date):
-        new_date = date[0:10] + "T00:00:00Z"
-    # 12 31 2018 or 12/31/2018 or 12-31-2018
-    elif re.match("([0-9]{2}( |/|-)[0-9]{2}( |/|-)[0-9]{4})", date):
-        new_date = date[6:10] + "-" + date[3:5] + "-" + date[0:2] + "T00:00:00Z"
-    # Nov 2024
-    elif re.match("([a-zA-Z]{3} [0-9]{4})", date):
-        new_date = date[-4:] + "-"
-        new_date += month_to_number(date[0:3]) + "-"
-        new_date += "01T00:00:00Z"
-    # 19:27
-    elif re.match("([0-9]{2}:[0-9]{2})", date):
-        new_date = "1900-01-01T" + date + ":00Z"
-    # User didn't fill the field
-    elif date == "":
-        new_date = "1900-01-01T00:00:00Z"
-    # Not found
-    else:
-        raise Exception("Unrecognized Date Format (" + date + ")")
-    return new_date
-
-
-def std_number(number):
-    """ returns a json schema compliant number """
-    # discovered data quality problems
-    number = number.replace(",", ".")
-
-    new_number = ""
-    for char in number:
-        if char in "01234567890.":
-            new_number += char
-    number = new_number
-
-    if not number:
-        return 0.0
-
-    try:
-        number = float(number)
-    except:
-        raise ExceptionIgnore
-
-    return number
-
-class ExceptionIgnore(Exception):
-    """ Raised when tap should ignore the input """
+class UnrecognizedDate(Exception):
+    """ Raised when tap didn't find a conversion """

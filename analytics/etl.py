@@ -2,12 +2,11 @@
 Fluid ETL script
 """
 
-## pyhton3 -m pylint (default configuration)
+## python3 -m pylint (default configuration)
 # Your code has been rated at 10.00/10
 
 import sys
 
-import logs
 import tap_formstack
 
 # Long term goal:
@@ -32,18 +31,19 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # ==== Formstack  ==========================================================
-    # initialize log files
-    logs.initialize_log("tap_formstack.stdout.json")
-    logs.initialize_log("tap_formstack.stdout.pretty.json")
-
     # get the available forms in the account
     AVAILABLE_FORMS = tap_formstack.get_available_forms(FORMSTACK_TOKEN)
 
-    # first download everything
+    # first download everything, it won't download encrypted forms
     for form_name, form_id in AVAILABLE_FORMS.items():
         tap_formstack.write_queries(FORMSTACK_TOKEN, form_name, form_id)
 
-    # now write schema and records for each form
+    # now write schema and records for each form except encrypted forms
     for form_name, form_id in AVAILABLE_FORMS.items():
-        tap_formstack.write_schema(form_name)
-        tap_formstack.write_records(form_name)
+        try:
+            form_schema = tap_formstack.write_schema(form_name)
+            tap_formstack.write_records(form_name, form_schema)
+        # Given an encrypted form is not downloaded
+        # Then the file doesn't exist
+        except FileNotFoundError:
+            pass
