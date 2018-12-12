@@ -65,8 +65,10 @@ const esTranslations: Map<string, string> = {
       vulnDeleted: "La vulnerabilidad fue borrada de este hallazgo",
     },
     tab_evidence: {
+      animation_exploit: "Animación de explotación",
       detail: "Detalle",
       editable: "Editar",
+      evidence_exploit: "Evidencia de explotación",
       update: "Actualizar",
     },
     tab_resources: {

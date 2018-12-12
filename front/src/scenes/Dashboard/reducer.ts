@@ -16,7 +16,7 @@ import * as trackingActions from "./containers/TrackingView/actionTypes";
 import { ITrackingViewProps } from "./containers/TrackingView/index";
 
 interface IDashboardState {
-  evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen">;
+  evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
     name: string;
@@ -54,6 +54,7 @@ const initialState: IDashboardState = {
   evidence: {
     currentIndex: 0,
     images: [],
+    isEditing: false,
     isImageOpen: false,
   },
   exploit: {
@@ -485,6 +486,26 @@ actionMap[evidenceActions.MOVE_EVIDENCE] =
     evidence: {
       ...state.evidence,
       currentIndex: action.payload.index,
+    },
+  });
+
+actionMap[evidenceActions.EDIT_EVIDENCE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    evidence: {
+      ...state.evidence,
+      isEditing: action.payload.value,
+    },
+  });
+
+actionMap[evidenceActions.LOAD_EVIDENCE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    evidence: {
+      ...state.evidence,
+      images: action.payload.images,
     },
   });
 
