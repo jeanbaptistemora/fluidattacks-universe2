@@ -26,7 +26,7 @@ const renderEditBox: ((props: formProps) => JSX.Element) =
   (props: formProps): JSX.Element => (
     <form onSubmit={props.handleSubmit}>
       <Field name={`${props.name}_image`} id={props.name} component={fileInputField} />
-      {props.isDescriptionEditable ? <Field name={`${props.name}_desc`} component={textAreaField} /> : undefined}
+      {props.isDescriptionEditable ? <Field name={`${props.name}_description`} component={textAreaField} /> : undefined}
       <Button bsStyle="success" block={true} type="submit">
         <Glyphicon glyph="repeat" />
         &nbsp;{translate.t("search_findings.tab_evidence.update")}

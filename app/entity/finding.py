@@ -8,16 +8,19 @@ from __future__ import absolute_import
 import io
 import re
 
+import rollbar
 import boto3
 from backports import csv
 from graphql import GraphQLError
 from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
 
 from .. import util
+from ..utils import forms as forms_utils
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from ..api.drive import DriveAPI
+from ..api.formstack import FormstackAPI
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import FindingDTO, finding_vulnerabilities, save_severity
 from app.domain.finding import (
@@ -379,6 +382,33 @@ class UpdateEvidence(Mutation):
 
         return UpdateEvidence(success=success, \
             finding=Finding(info=info, identifier=parameters.get('finding_id')))
+
+class UpdateEvidenceDescription(Mutation):
+    """ Update evidence description """
+
+    class Arguments(object):
+        description = String(required=True)
+        finding_id = String(required=True)
+        field = String(required=True)
+    success = Boolean()
+    finding = Field(Finding)
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, finding_id, field, description):
+        success = False
+
+        try:
+            finding_dto = FindingDTO()
+            evidence_description_dict = finding_dto.parse_evidence_description(field, description)
+            formstack_payload = forms_utils.to_formstack(evidence_description_dict['data'])
+            api = FormstackAPI()
+            success = api.update(finding_id, formstack_payload)['success']
+        except KeyError:
+            rollbar.report_message('Error: An error occurred updating evidence description', 'error', info.context)
+
+        return UpdateEvidenceDescription(success=success, finding=Finding(info=info, identifier=finding_id))
 
 def evidence_exceeds_size(uploaded_file, evidence_type):
     ANIMATION = 0

@@ -10,30 +10,28 @@ from .user import (
 from .vulnerability import (
     UploadFile, DeleteVulnerability
 )
-from .finding import UpdateEvidence, UpdateSeverity
+from .finding import (
+    UpdateEvidence, UpdateSeverity,
+    UpdateEvidenceDescription
+)
 from graphene import ObjectType
 
 class Mutations(ObjectType):
     acceptLegal = AcceptLegal.Field()
 
     addRepositories = AddRepositories.Field()
-
     removeRepositories = RemoveRepositories.Field()
-
     addEnvironments = AddEnvironments.Field()
-
     removeEnvironments = RemoveEnvironments.Field()
 
-    removeUserAccess = RemoveUserAccess.Field()
-
     uploadFile = UploadFile.Field()
-
     deleteVulnerability = DeleteVulnerability.Field()
 
     grantUserAccess = GrantUserAccess.Field()
-
+    removeUserAccess = RemoveUserAccess.Field()
     editUser = EditUser.Field()
 
     updateEvidence = UpdateEvidence.Field()
+    updateEvidenceDescription = UpdateEvidenceDescription.Field()
 
     updateSeverity = UpdateSeverity.Field()
