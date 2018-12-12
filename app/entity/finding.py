@@ -122,6 +122,7 @@ class Finding(ObjectType):
                 'evidence2': { 'url': resp.get('evidence_route_2'), 'description': resp.get('evidence_description_2') },
                 'evidence3': { 'url': resp.get('evidence_route_3'), 'description': resp.get('evidence_description_3') },
                 'evidence4': { 'url': resp.get('evidence_route_4'), 'description': resp.get('evidence_description_4') },
+                'evidence5': { 'url': resp.get('evidence_route_5'), 'description': resp.get('evidence_description_5') },
                 'explotation': { 'url': resp.get('exploitation'), 'description': '' },
             }
 
@@ -269,6 +270,10 @@ class Finding(ObjectType):
                 'evidence4': {
                     'url': filter_evidence_filename(dynamo_evidence, 'evidence_route_4'),
                     'description': formstack_evidence['evidence4'].get('description')
+                },
+                'evidence5': {
+                    'url': filter_evidence_filename(dynamo_evidence, 'evidence_route_5'),
+                    'description': formstack_evidence['evidence5'].get('description')
                 },
                 'exploitation': { 'url': filter_evidence_filename(dynamo_evidence, 'exploitation'), 'description': '' },
             }

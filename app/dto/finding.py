@@ -127,10 +127,11 @@ class FindingDTO(object):
     def parse_evidence_description(self, description_field, value):
         """ Convert evidence description data to Formstack payload format. """
         formstack_fields = {
-            'evidence1_description': self.DOC_CMNT1,
-            'evidence2_description': self.DOC_CMNT2,
-            'evidence3_description': self.DOC_CMNT3,
-            'evidence4_description': self.DOC_CMNT4,
+            'evidence2_description': self.DOC_CMNT1,
+            'evidence3_description': self.DOC_CMNT2,
+            'evidence4_description': self.DOC_CMNT3,
+            'evidence5_description': self.DOC_CMNT4,
+            'evidence6_description': self.DOC_CMNT5,
         }
         return {'data': {formstack_fields[description_field]: value}}
 
