@@ -25,9 +25,9 @@ type formProps = IEvidenceImageProps & InjectedFormProps<{}, IEvidenceImageProps
 const renderEditBox: ((props: formProps) => JSX.Element) =
   (props: formProps): JSX.Element => (
     <form onSubmit={props.handleSubmit}>
-      <Field name={`${props.name}_image`} id={props.name} component={fileInputField} />
+      <Field name={`${props.name}_filename`} id={props.name} component={fileInputField} />
       {props.isDescriptionEditable ? <Field name={`${props.name}_description`} component={textAreaField} /> : undefined}
-      <Button bsStyle="success" block={true} type="submit">
+      <Button bsStyle="success" block={true} type="submit" disabled={props.pristine || props.submitting}>
         <Glyphicon glyph="repeat" />
         &nbsp;{translate.t("search_findings.tab_evidence.update")}
       </Button>
@@ -50,7 +50,11 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
 
   return (
     <Provider store={store}>
-      <Form {...props} onSubmit={(values: {}): void => { props.onUpdate(values); }} />
+      <Form
+        {...props}
+        onSubmit={(values: {}): void => { props.onUpdate(values); }}
+        initialValues={{ [`${props.name}_description`]: props.description }}
+      />
     </Provider>
   );
 };

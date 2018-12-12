@@ -5,8 +5,9 @@
  * readability of the code that binds click events
  */
 
+import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 /**
  * Disabling here is necessary because
  * there are currently no available type
@@ -24,59 +25,79 @@ import { Reducer } from "redux";
 import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
-import translate from "../../../../utils/translations/translate";
+import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import * as actions from "./actions";
 
 export interface IEvidenceViewProps {
   currentIndex: number;
   images: Array<{ description: string; url: string }>;
+  isEditing: boolean;
   isImageOpen: boolean;
 }
+
+const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
+  (props: IEvidenceViewProps): JSX.Element => {
+    let findingBaseUrl: string;
+    findingBaseUrl = `${window.location.href.split("dashboard#!/")[0]}${window.location.href.split("dashboard#!/")[1]}`;
+    let emptyImage: string;
+    emptyImage = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+
+    return (
+      <div>
+        {props.images.map((image: IEvidenceViewProps["images"][0], index: number) =>
+          props.isEditing || !_.isEmpty(image.url) ?
+            <EvidenceImage
+              key={index}
+              name={`evidence${index}`}
+              description={image.description}
+              isDescriptionEditable={index > 1}
+              isEditing={props.isEditing}
+              url={_.isEmpty(image.url) ? `data:image/png;base64,${emptyImage}` : `${findingBaseUrl}/${image.url}`}
+              onClick={
+                props.isEditing
+                  ? (): void => undefined
+                  : (): void => { store.dispatch(actions.openEvidence(index)); }
+              }
+              onUpdate={(): void => undefined}
+            />
+            : <div />)}
+      </div>
+    );
+  };
+
+const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEvidenceViewProps): JSX.Element => {
+  let findingBaseUrl: string; findingBaseUrl =
+    `${window.location.href.split("dashboard#!/")[0]}${window.location.href.split("dashboard#!/")[1]}`;
+  const evidenceImages: IEvidenceViewProps["images"] =
+    props.images.filter((image: IEvidenceViewProps["images"][0]) => !_.isEmpty(image.url));
+  const nextIndex: number = (props.currentIndex + 1) % evidenceImages.length;
+  const previousIndex: number = (props.currentIndex + evidenceImages.length - 1) % evidenceImages.length;
+
+  return (
+    <Lightbox
+      imageTitle={evidenceImages[props.currentIndex].description}
+      imagePadding={50}
+      mainSrc={`${findingBaseUrl}/${evidenceImages[props.currentIndex].url}`}
+      nextSrc={`${findingBaseUrl}/${evidenceImages[nextIndex].url}`}
+      prevSrc={`${findingBaseUrl}/${evidenceImages[previousIndex].url}`}
+      onCloseRequest={(): void => { store.dispatch(actions.closeEvidence()); }}
+      onMovePrevRequest={(): void => {
+        store.dispatch(actions.moveEvidenceIndex(props.currentIndex, evidenceImages.length, "previous"));
+      }}
+      onMoveNextRequest={(): void => {
+        store.dispatch(actions.moveEvidenceIndex(props.currentIndex, evidenceImages.length, "next"));
+      }}
+      reactModalStyle={{ content: { top: "80px" } }}
+    />
+  );
+};
 
 export const component: React.SFC<IEvidenceViewProps> = (props: IEvidenceViewProps): JSX.Element => (
   <React.StrictMode>
     <Row>
-      {props.images.map((image: IEvidenceViewProps["images"][0], index: number) => (
-        <Col key={index} md={4} sm={6} xs={12}>
-          <div className="panel panel-default">
-            <div className="panel-body">
-              <img
-                src={image.url}
-                style={{ maxWidth: "100%" }}
-                className="integrates-image img-thumbnail img-responsive"
-                width="600"
-                height="600"
-                onClick={(): void => { store.dispatch(actions.openEvidence(index)); }}
-              />
-            </div>
-            <div className="panel-footer" style={{ backgroundColor: "#fff" }}>
-              <Row>
-                <label><b>{translate.t("search_findings.tab_evidence.detail")}</b></label>
-              </Row>
-              <Row>
-                <p>{image.description}</p>
-              </Row>
-            </div>
-          </div>
-        </Col>
-      ))}
+      {renderImages(props)}
     </Row>
-    {props.isImageOpen ? (
-      <Lightbox
-        imagePadding={50}
-        mainSrc={props.images[props.currentIndex].url}
-        nextSrc={props.images[(props.currentIndex + 1) % props.images.length].url}
-        prevSrc={props.images[(props.currentIndex + props.images.length - 1) % props.images.length].url}
-        onCloseRequest={(): void => { store.dispatch(actions.closeEvidence()); }}
-        onMovePrevRequest={(): void => {
-          store.dispatch(actions.moveEvidenceIndex(props.currentIndex, props.images.length, "previous"));
-        }}
-        onMoveNextRequest={(): void => {
-          store.dispatch(actions.moveEvidenceIndex(props.currentIndex, props.images.length, "next"));
-        }}
-        reactModalStyle={{ content: { top: "80px" } }}
-      />
-    ) : undefined}
+    {props.isImageOpen ? renderLightBox(props) : undefined}
   </React.StrictMode>
 );
 
