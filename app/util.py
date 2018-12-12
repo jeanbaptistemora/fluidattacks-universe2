@@ -345,7 +345,13 @@ def list_to_dict(keys, values):
 
     return dct
 
+
 def camelcase_to_snakecase(str_value):
     """Convert a camelcase string to snackecase."""
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', str_value)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+
+def snakecase_to_camelcase(str_value):
+    """Convert a snackecase string to camelcase."""
+    return re.sub('_.', lambda x: x.group()[1].upper(), str_value)

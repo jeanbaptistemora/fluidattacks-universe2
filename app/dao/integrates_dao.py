@@ -1674,38 +1674,15 @@ def update_multiple_attributes_dynamo(primary_keys, dic_data):
         resp = False
     return resp
 
-def get_severity_dynamo(finding_id):
-    """ Get severity of a finding. """
+def get_finding_attributes_dynamo(finding_id, data_attributes):
+    """ Get a group of attributes of a finding. """
     table = dynamodb_resource.Table('FI_findings')
     try:
         response = table.get_item(
             Key={
                 'finding_id': finding_id
             },
-            AttributesToGet=['access_vector', 'access_complexity',
-                             'authentication', 'exploitability',
-                             'confidentiality_impact', 'integrity_impact',
-                             'availability_impact', 'resolution_level',
-                             'confidence_level', 'collateral_damage_potential',
-                             'finding_distribution', 'confidentiality_requirement',
-                             'integrity_requirement', 'availability_requirement']
-        )
-        items = response.get('Item')
-    except ClientError:
-        rollbar.report_exc_info()
-        items = {}
-    return items
-
-def get_project_info_dynamo(finding_id):
-    table = dynamodb_resource.Table('FI_findings')
-    try:
-        response = table.get_item(
-            Key={
-                'finding_id': finding_id
-            },
-            AttributesToGet=['analyst', 'leader',
-                             'interested', 'project_name',
-                             'client_project', 'context']
+            AttributesToGet=data_attributes
         )
         items = response.get('Item')
     except ClientError:

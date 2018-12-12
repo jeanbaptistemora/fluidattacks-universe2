@@ -304,16 +304,18 @@ class FindingDTO(object):
     def parse_cvssv2(self, request_arr, submission_id): # noqa: C901
         """Convert the score of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
-        severity = integrates_dao.get_severity_dynamo(submission_id)
+        severity_title = ['access_vector', 'access_complexity',
+                          'authentication', 'exploitability',
+                          'confidentiality_impact', 'integrity_impact',
+                          'availability_impact', 'resolution_level',
+                          'confidence_level', 'collateral_damage_potential',
+                          'finding_distribution', 'confidentiality_requirement',
+                          'integrity_requirement', 'availability_requirement']
+        severity = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            severity_title)
         if severity:
-            severity_title = ['accessVector', 'accessComplexity',
-                              'authentication', 'exploitability',
-                              'confidentialityImpact', 'integrityImpact',
-                              'availabilityImpact', 'resolutionLevel',
-                              'confidenceLevel', 'collateralDamagePotential',
-                              'findingDistribution', 'confidentialityRequirement',
-                              'integrityRequirement', 'availabilityRequirement']
-            severity_fields = {util.camelcase_to_snakecase(k): k
+            severity_fields = {k: util.snakecase_to_camelcase(k)
                                for k in severity_title}
             parsed_dict = {v: float(severity[k])
                            for (k, v) in severity_fields.items()
@@ -364,11 +366,13 @@ class FindingDTO(object):
 
     def parse_project(self, request_arr, submission_id):
         "Convert project info in formstack format"
-        project_info = integrates_dao.get_project_info_dynamo(str(submission_id))
+        project_title = ['analyst', 'leader', 'interested', 'project_name',
+                         'client_project', 'context']
+        project_info = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            project_title)
         if project_info and project_info.get('analyst'):
-            project_title = ['analyst', 'leader', 'interested',
-                             'clientProject', 'context', 'projectName']
-            project_fields = {util.camelcase_to_snakecase(k): k
+            project_fields = {k: util.snakecase_to_camelcase(k)
                               for k in project_title}
             parsed_dict = {v: project_info[k]
                            for (k, v) in project_fields.items()
