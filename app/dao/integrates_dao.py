@@ -1712,3 +1712,22 @@ def get_project_info_dynamo(finding_id):
         rollbar.report_exc_info()
         items = {}
     return items
+
+def get_event_dynamo(event_id):
+    """ Get an event. """
+    table = dynamodb_resource.Table('fi_events')
+    hash_key = 'event_id'
+    if hash_key and event_id:
+        key_exp = Key(hash_key).eq(event_id)
+        response = table.query(KeyConditionExpression=key_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items

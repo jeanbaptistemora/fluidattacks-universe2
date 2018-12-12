@@ -1,21 +1,28 @@
-""" GraphQL Entity for Formstack Events """
+""" GraphQL Entity for Formstack Findings """
 # pylint: disable=F0401
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
-try:
-    from urlparse import urlparse, parse_qs
-except ImportError:
-    from urllib.parse import urlparse, parse_qs
 
-from graphene import String, ObjectType
+from __future__ import absolute_import
 
-from app.api.formstack import FormstackAPI
-from app.dto import eventuality
+import boto3
+from graphene import String, ObjectType, Boolean
+
+from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+from app.dto.eventuality import event_data
+
+client_s3 = boto3.client('s3',
+                            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+
+bucket_s3 = FI_AWS_S3_BUCKET
 
 class Events(ObjectType):
     """ Formstack Events Class """
     id = String()
+    success = Boolean()
+    error_message = String()
     analyst = String()
     client = String()
     projectName = String()
@@ -28,46 +35,50 @@ class Events(ObjectType):
     affectation = String()
     accessibility = String()
     affectedComponents = String()
+    context = String()
+    subscription = String()
 
     def __init__(self, identifier):
         """ Class constructor """
-        self.id = str(identifier)
-        self.analyst, self.client = '', ''
-        self.projectName, self.clientProject = '', ''
-        self.eventType, self.date = '', ''
-        self.detail, self.affectation = '', ''
-        self.status, self.evidence = '', ''
-        self.accessibility, self.affectedComponents = '', ''
+        self.id = ''
+        self.analyst = ''
+        self.client = ''
+        self.projectName = ''
+        self.clientProject = ''
+        self.eventType = ''
+        self.date = ''
+        self.detail = ''
+        self.affectation = ''
+        self.status = ''
+        self.evidence = ''
+        self.accessibility = ''
+        self.affectedComponents = ''
+        self.context = ''
+        self.subscription = ''
 
-        resp = FormstackAPI().get_submission(self.id)
+        event_id = str(identifier)
+        resp = event_data(event_id)
 
         if resp:
-            evt_set = eventuality.parse(self.id, resp)
-            if 'analyst' in evt_set:
-                self.analyst = evt_set['analyst']
-            if 'client' in evt_set:
-                self.client = evt_set['client']
-            if 'projectName' in evt_set:
-                self.projectName = evt_set['projectName']
-            if 'clientProject' in evt_set:
-                self.clientProject = evt_set['clientProject']
-            if 'eventType' in evt_set:
-                self.eventType = evt_set['eventType']
-            if 'detail' in evt_set:
-                self.detail = evt_set['detail']
-            if 'date' in evt_set:
-                self.date = evt_set['date']
-            if 'status' in evt_set:
-                self.status = evt_set['status']
-            if 'evidence' in evt_set  and '.png' in evt_set['evidence']:
-                parsed_url = urlparse(evt_set['evidence'])
-                self.evidence = parse_qs(parsed_url.query)['id'][0]
-            if 'affectation' in evt_set:
-                self.affectation = evt_set['affectation']
-            if 'accessibility' in evt_set:
-                self.accessibility = evt_set['accessibility']
-            if 'affectedComponents' in evt_set:
-                self.affectedComponents = evt_set['affectedComponents']
+            self.id = event_id
+            self.analyst = resp.get('analyst')
+            self.client = resp.get('client')
+            self.projectName = resp.get('projectName')
+            self.clientProject = resp.get('clientProject')
+            self.eventType = resp.get('eventType')
+            self.date = resp.get('date')
+            self.detail = resp.get('detail')
+            self.affectation = resp.get('affectation')
+            self.status = resp.get('status')
+            self.evidence = resp.get('evidence')
+            self.accessibility = resp.get('accessibility')
+            self.affectedComponents = resp.get('affectedComponents')
+            self.context = resp.get('context')
+            self.subscription = resp.get('subscription')
+        else:
+            self.success = False
+            self.error_message = 'Finding does not exist'
+        self.success = True
 
     def resolve_id(self, info):
         """ Resolve id attribute """
@@ -133,3 +144,13 @@ class Events(ObjectType):
         """ Resolve affected components attribute """
         del info
         return self.affectedComponents
+
+    def resolve_context(self, info):
+        """ Resolve context attribute """
+        del info
+        return self.context
+        
+    def resolve_subscription(self, info):
+        """ Resolve subscription attribute """
+        del info
+        return self.subscription

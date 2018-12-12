@@ -8,7 +8,7 @@ from . import util
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
 from .dto.finding import FindingDTO
-from .dto import eventuality
+from .dto.eventuality import EventDTO
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -52,14 +52,15 @@ def has_access_to_finding(user, findingid, role):
             hasAccess = has_access_to_project(user, project, role)
         else:
             api = FormstackAPI()
-            dto = FindingDTO()
-            finding_data = dto.parse_project(api.get_submission(findingid), findingid)
+            fin_dto = FindingDTO()
+            evt_dto = EventDTO()
+            finding_data = fin_dto.parse_project(api.get_submission(findingid), findingid)
             project = finding_data['projectName'] if 'projectName' in finding_data else None
 
             if project:
                 hasAccess = has_access_to_project(user, project, role)
             else:
-                project = eventuality.parse(findingid, api.get_submission(findingid))['fluidProject']
+                project = evt_dto.parse(findingid, api.get_submission(findingid))['projectName']
                 hasAccess = has_access_to_project(user, project, role)
     return hasAccess
 
