@@ -15,7 +15,7 @@ def get_request_response(user_token, resource):
                "Authorization": "Bearer " + user_token}
     request = urllib.request.Request(resource, headers=headers)
     response = urllib.request.urlopen(request).read()
-    json_obj = json.loads(response)
+    json_obj = json.loads(response.decode('utf-8'))
     return json_obj
 
 def get_all_forms(user_token, params):

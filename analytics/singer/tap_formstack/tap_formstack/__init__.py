@@ -6,11 +6,13 @@ Singer tap for Formstack
 # Your code has been rated at 10.00/10
 
 import re
+import sys
 import json
+import argparse
 import urllib.request
 
-import logs
-import api_formstack as API
+from . import logs
+from . import api_formstack as API
 
 # Long term goal:
 #     singer tap to crawl the formstack forms
@@ -181,11 +183,11 @@ def write_records(form_name, schema_properties, stdout=True):
         value = data["value"]
         if isinstance(value, str):
             padded_name = "matrix[" + name + "][" + value + "]"
-            json_obj["record"][padded_name] = "selected"
+            json_obj["record"][padded_name] = value
         elif isinstance(value, dict):
             for inner_name in value:
                 padded_name = "matrix[" + name + "][" + inner_name + "]"
-                json_obj["record"][padded_name] = "selected"
+                json_obj["record"][padded_name] = value[inner_name]
 
         return json_obj
 
@@ -409,3 +411,47 @@ class UnrecognizedNumber(Exception):
 
 class UnrecognizedDate(Exception):
     """ Raised when tap didn't find a conversion """
+
+def arguments_error(parser):
+    """ Print help and exit """
+    parser.print_help()
+    exit(1)
+
+def main():
+    """ usual entry point """
+
+    # user interface
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-c',
+        help='JSON config file',
+        type=argparse.FileType('r'))
+    args = parser.parse_args()
+
+    if not args.c:
+        arguments_error(parser)
+
+    formstack_token = json.load(args.c).get("token")
+
+    if not formstack_token:
+        arguments_error(parser)
+
+    # ==== Formstack  ==========================================================
+    # get the available forms in the account
+    available_forms = get_available_forms(formstack_token)
+
+    for form_name, form_id in available_forms.items():
+        # first download, it won't download encrypted forms
+        write_queries(formstack_token, form_name, form_id)
+
+        # now write schema and records for this form
+        try:
+            form_schema = write_schema(form_name)
+            write_records(form_name, form_schema)
+        # Given an encrypted form is not downloaded
+        # Then the file doesn't exist
+        except FileNotFoundError:
+            pass
+
+if __name__ == "__main__":
+    main()

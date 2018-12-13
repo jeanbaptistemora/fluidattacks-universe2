@@ -7,7 +7,7 @@ logs manager
 
 import json
 
-DOMAIN = "__tap_formstack."
+DOMAIN = "/logs/__tap_formstack."
 
 def log_open(name):
     """ open a file in append mode, and creates it if not exists """
