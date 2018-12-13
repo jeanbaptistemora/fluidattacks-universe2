@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 # pylint: disable=E0402
 from __future__ import absolute_import
+import newrelic.agent
 import sys
 import os
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST, \
@@ -30,6 +31,9 @@ EV_URL = EV_URL
 sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+#Init New Relic agent
+newrelic.agent.initialize(os.path.join(BASE_DIR, 'newrelic.ini'))
 
 
 SECRET_KEY = FI_DJANGO_SECRET_KEY
