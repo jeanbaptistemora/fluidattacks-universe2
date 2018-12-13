@@ -41,14 +41,6 @@ $msg.error = function error (text, title = "Oops!") {
     title
   });
 };
-$msg.info = function info (text, title) {
-  $.gritter.add({
-    "class_name": "color info",
-    "sticky": false,
-    text,
-    title
-  });
-};
 $msg.warning = function warning (text, title) {
   $.gritter.add({
     "class_name": "color warning",

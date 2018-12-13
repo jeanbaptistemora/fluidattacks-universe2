@@ -82,10 +82,6 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
 
-        // Handling presentation button
-        const searchAt = $translate.instant("proj_alerts.search_title");
-        const searchAc = $translate.instant("proj_alerts.search_cont");
-        $msg.info(searchAc, searchAt);
         const reqProject = projectFtry.projectByName(projectName, filter);
         reqProject.then((response) => {
           $scope.view.project = true;

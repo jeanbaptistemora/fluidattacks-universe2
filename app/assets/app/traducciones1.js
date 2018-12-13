@@ -384,8 +384,6 @@ const traducciones1 = {
   "range_error": "Los límites del rango son incorrectos",
   "remediated_success": "El hallazgo fue marcado como remediado, la " +
                        "solicitud de revisión de la solución fue enviada",
-  "search_cont": "Buscando Proyecto...",
-  "search_title": "Noticia!",
   "short_comment": "Debes ingresar una justificación de mínimo 30 " +
                   "caracteres",
   "short_remediated_comment": "Debes ingresar una justificación de " +

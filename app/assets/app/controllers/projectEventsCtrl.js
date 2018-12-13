@@ -125,10 +125,6 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
 
-        // Handling presentation button
-        const searchAt = $translate.instant("proj_alerts.search_title");
-        const searchAc = $translate.instant("proj_alerts.search_cont");
-        $msg.info(searchAc, searchAt);
         const reqEventualities = projectFtry2.eventsByProject(projectName);
         reqEventualities.then((response) => {
           if (response.errors) {

@@ -378,8 +378,6 @@ const translations1 = {
      "range_error": "Range limits are wrong",
      "remediated_success": "This finding was marked as remediated. A request " +
                            "to verify the solution was sent",
-     "search_cont": "Searching Project...",
-     "search_title": "News!",
      "short_comment": "You must enter a justification of at least 30 " +
                        "characters",
      "short_remediated_comment": "You must enter a justification of at least " +

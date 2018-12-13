@@ -386,10 +386,6 @@ angular.module("FluidIntegrates").controller(
         $scope.view.project = false;
         $scope.view.finding = false;
 
-        // Handling presentation button
-        const searchAt = $translate.instant("proj_alerts.search_title");
-        const searchAc = $translate.instant("proj_alerts.search_cont");
-        $msg.info(searchAc, searchAt);
         if (projectData.length > 0 &&
             projectData[0].projectName.toLowerCase() ===
             $scope.project.toLowerCase()) {

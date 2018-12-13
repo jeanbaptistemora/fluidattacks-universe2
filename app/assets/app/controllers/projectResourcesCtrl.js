@@ -114,11 +114,6 @@ angular.module("FluidIntegrates").controller(
       else if ($stateParams.project === $scope.project) {
         $scope.view.project = true;
         $scope.view.finding = false;
-
-        // Handling presentation button
-        const searchAt = $translate.instant("proj_alerts.search_title");
-        const searchAc = $translate.instant("proj_alerts.search_cont");
-        $msg.info(searchAc, searchAt);
       }
       return true;
     };
