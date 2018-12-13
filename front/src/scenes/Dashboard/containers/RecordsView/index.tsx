@@ -27,7 +27,6 @@ export interface IRecordsViewProps {
   findingId: string;
   isEditing: boolean;
   projectName: string;
-  onUploadFile(arg1: string): void;
 }
 
 const updateRecords: ((arg1: string, arg2: string) => void) =

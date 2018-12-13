@@ -21,7 +21,6 @@ describe('Records view', () => {
         dataset={[]}
         isEditing={true}
         projectName="unittesting"
-        onUploadFile={() => undefined}
       />
     );
 

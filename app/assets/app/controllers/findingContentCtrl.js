@@ -399,13 +399,6 @@ findingContentCtrl (
     if ($window.location.hash.indexOf("records") !== -1) {
       $scope.currentTab = "records";
       functionsFtry2.activeTab("#records", "FindingRecords", org, projt, idF);
-      $scope.hasRecords = true;
-      angular.forEach([
-        "search_findings.tab_evidence.update",
-        "search_findings.tab_evidence.editable"
-      ], (value) => {
-        $scope.translations[value] = $translate.instant(value);
-      });
     }
     if ($window.location.hash.indexOf("comments") !== -1) {
       $scope.currentTab = "comments";

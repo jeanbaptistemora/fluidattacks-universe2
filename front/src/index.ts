@@ -391,7 +391,6 @@ angular
      recordsView, [
         "canEdit",
         "findingId",
-        "onUploadFile",
         "projectName",
      ],
    ),
