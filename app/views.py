@@ -1018,16 +1018,42 @@ def get_myprojects(request):
 @require_finding_access
 def update_description(request):
     parameters = request.POST.dict()
+    finding_id = str(parameters['findingid'])
     try:
         generic_dto = FindingDTO()
+        description_title = ['report_level', 'finding']
+        description = integrates_dao.get_finding_attributes_dynamo(
+            finding_id,
+            description_title)
+        description_title = ['reportLevel', 'finding', 'probability', 'id',
+                             'severity', 'riskValue', 'category', 'actor',
+                             'scenario', 'recordsNumber', 'records']
+        finding = {k: parameters['data[' + k + ']']
+                   for k in description_title
+                   if parameters.get('data[' + k + ']')}
+        if not description:
+            api = FormstackAPI()
+            submission_data = api.get_submission(finding_id)
+            if submission_data is None or 'error' in submission_data:
+                return util.response([], 'error', True)
+            else:
+                description_info = generic_dto.parse_description(submission_data, finding_id)
+                project_info = generic_dto.parse_project(submission_data, finding_id)
+                aditional_info = forms_utils.dict_concatenation(description_info, project_info)
+                finding = forms_utils.dict_concatenation(aditional_info, finding)
+        else:
+            # Finding have data in dynamo
+            pass
+        description_migrated = migrate_description(finding)
         generic_dto.create_description(parameters)
         generic_dto.to_formstack()
         api = FormstackAPI()
         request = api.update(generic_dto.request_id, generic_dto.data)
-        if request:
+        if request and description_migrated:
             return util.response([], 'success', False)
-        rollbar.report_message('Error: An error occurred updating description', 'error', request)
-        return util.response([], 'error', False)
+        else:
+            rollbar.report_message('Error: An error occurred updating description', 'error', request)
+            return util.response([], 'error', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)

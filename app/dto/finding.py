@@ -140,18 +140,9 @@ class FindingDTO(object):
         if 'data[id]' in parameter:
             self.request_id \
                 = parameter['data[id]']
-        if 'data[finding]' in parameter:
-            self.data[self.FINDING] \
-                = parameter['data[finding]']
-        if 'data[scenario]' in parameter:
-            self.data[self.SCENARIO] \
-                = parameter['data[scenario]']
         if 'data[openVulnerabilities]' in parameter:
             self.data[self.CARDINALITY] \
                 = parameter['data[openVulnerabilities]']
-        if 'data[actor]' in parameter:
-            self.data[self.ACTOR] \
-                = parameter['data[actor]']
         if 'data[vulnerability]' in parameter:
             self.data[self.VULNERABILITY] \
                 = parameter['data[vulnerability]']
@@ -176,34 +167,13 @@ class FindingDTO(object):
         if 'data[cwe]' in parameter:
             self.data[self.CWE] \
                 = parameter['data[cwe]']
-        if 'data[records]' in parameter:
-            self.data[self.REG] \
-                = parameter['data[records]']
-        if 'data[recordsNumber]' in parameter:
-            self.data[self.REG_NUM] \
-                = parameter['data[recordsNumber]']
         if 'data[lastVulnerability]' in parameter:
             self.data[self.LAST_VULNERABILITY] \
                 = parameter['data[lastVulnerability]']
         if 'data[releaseDate]' in parameter:
             self.data[self.RELEASE_DATE] \
                 = parameter['data[releaseDate]']
-        if 'data[reportLevel]' in parameter:
-            self.data[self.REPORT_LEVEL] \
-                = parameter['data[reportLevel]']
-            if self.data[self.REPORT_LEVEL] == 'Detallado':
-                if 'data[category]' in parameter:
-                    self.data[self.CATEGORY] \
-                        = parameter['data[category]']
-                if 'data[riskValue]' in parameter:
-                    self.data[self.RISK_VALUE] \
-                        = parameter['data[riskValue]']
-                if 'data[probability]' in parameter:
-                    self.data[self.PROBABILITY] \
-                        = parameter['data[probability]']
-                if 'data[severity]' in parameter:
-                    self.data[self.SEVERITY] \
-                        = parameter['data[severity]']
+
 
     def create_treatment(self, parameter):
         """Convert the index of a JSON to Formstack index."""
@@ -232,42 +202,60 @@ class FindingDTO(object):
         self.data = dict()
         self.data['id'] = submission_id
         self.data['timestamp'] = request_arr['timestamp']
-        self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr))
+        self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr, submission_id))
         self.data = forms.dict_concatenation(self.data, self.parse_cvssv2(request_arr, submission_id))
         self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr, submission_id))
-        self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr))
+        self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr, submission_id))
         return self.data
 
-    def parse_description(self, request_arr): # noqa: C901
-        "Convert description of a finding into a formstack format"
+    def parse_description(self, request_arr, submission_id): # noqa: C901
+        """Convert description of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
-        self.data['timestamp'] = request_arr['timestamp']
-        evidence_description_fields = {
-            self.FINDING: 'finding',
-            self.SUBSCRIPTION: 'subscription',
-            self.CLIENT_CODE: 'clientCode',
-            self.PROBABILITY: 'probability',
-            self.SEVERITY: 'severity',
+        description_title = ['report_level', 'subscription', 'client_code',
+                             'finding', 'probability', 'severity',
+                             'risk_value', 'ambit', 'category', 'test_type',
+                             'related_findings', 'actor', 'scenario']
+        description = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            description_title)
+        if description:
+            migrated_description_fields = {k: util.snakecase_to_camelcase(k)
+                                           for k in description_title}
+            migrated_dict = {v: description[k]
+                             for (k, v) in migrated_description_fields.items()
+                             if k in description.keys()}
+        else:
+            migrated_description_fields = {
+                self.FINDING: 'finding',
+                self.SUBSCRIPTION: 'subscription',
+                self.CLIENT_CODE: 'clientCode',
+                self.PROBABILITY: 'probability',
+                self.SEVERITY: 'severity',
+                self.RISK_VALUE: 'riskValue',
+                self.RELATED_FINDINGS: 'relatedFindings',
+                self.REPORT_LEVEL: 'reportLevel',
+                self.TEST_TYPE: 'testType',
+                self.SCENARIO: 'scenario',
+                self.AMBIT: 'ambit',
+                self.CATEGORY: 'category',
+                self.ACTOR: 'actor',
+            }
+            migrated_dict = {v: initial_dict[k]
+                             for (k, v) in migrated_description_fields.items()
+                             if k in initial_dict.keys()}
+        description_fields = {
             self.CARDINALITY: 'openVulnerabilities',
             self.WHERE: 'where',
             self.VULNERABILITY: 'vulnerability',
             self.THREAT: 'threat',
             self.RISK: 'riesgo',
-            self.RISK_VALUE: 'riskValue',
             self.REQUIREMENTS: 'requirements',
-            self.RELATED_FINDINGS: 'relatedFindings',
             self.EFFECT_SOLUTION: 'effectSolution',
             self.KB_LINK: 'kb',
-            self.REPORT_LEVEL: 'reportLevel',
             self.AFFECTED_SYSTEMS: 'affectedSystems',
             self.ATTACK_VECTOR: 'attackVector',
             self.FINDING_TYPE: 'finding_type',
-            self.TEST_TYPE: 'testType',
             self.REVISION: 'revision',
-            self.SCENARIO: 'scenario',
-            self.AMBIT: 'ambit',
-            self.CATEGORY: 'category',
-            self.ACTOR: 'actor',
             self.TREATMENT: 'treatment',
             self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
             self.TREATMENT_MANAGER: 'treatmentManager',
@@ -277,12 +265,14 @@ class FindingDTO(object):
             self.CWE: 'cwe'
         }
         parsed_dict = {v: initial_dict[k]
-                       for (k, v) in evidence_description_fields.items() \
+                       for (k, v) in description_fields.items()
                        if k in initial_dict.keys()}
+        parsed_dict = forms.dict_concatenation(parsed_dict, migrated_dict)
         if 'cwe' in parsed_dict.keys():
             parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
         else:
-            return parsed_dict
+            # The finding does not have cwe attribute
+            pass
         return parsed_dict
 
     def parse_description_mail(self, request_arr): # noqa: C901
@@ -392,9 +382,27 @@ class FindingDTO(object):
                            if k in initial_dict.keys()}
         return parsed_dict
 
-    def parse_evidence_info(self, request_arr): # noqa: C901
+    def parse_evidence_info(self, request_arr, submission_id): # noqa: C901
         """Convert the score of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
+        evidence_title = ['records_number', 'records']
+        evidence_info = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            evidence_title)
+        if evidence_info and evidence_info.get('records'):
+            evidence_fields = {k: util.snakecase_to_camelcase(k)
+                               for k in evidence_title}
+            migrated_dict = {v: evidence_info[k]
+                             for (k, v) in evidence_fields.items()
+                             if k in evidence_info.keys()}
+        else:
+            evidence_fields = {
+                self.REG: 'records',
+                self.REG_NUM: 'recordsNumber'
+            }
+            migrated_dict = {v: initial_dict[k]
+                             for (k, v) in evidence_fields.items()
+                             if k in initial_dict.keys()}
         evidence_tab_fields = {
             self.DOC_TOTAL: 'evidenceTotal',
             self.DOC_CMNT1: 'evidence_description_1',
@@ -402,8 +410,6 @@ class FindingDTO(object):
             self.DOC_CMNT3: 'evidence_description_3',
             self.DOC_CMNT4: 'evidence_description_4',
             self.DOC_CMNT5: 'evidence_description_5',
-            self.REG: 'records',
-            self.REG_NUM: 'recordsNumber'
         }
         evidence_fields_with_urls = {
             self.DOC_ACHV1: 'evidence_route_1',
@@ -420,6 +426,7 @@ class FindingDTO(object):
         evidence_tab_info = {v: initial_dict[k]
                              for (k, v) in evidence_tab_fields.items()
                              if k in initial_dict.keys()}
+        evidence_tab_info = forms.dict_concatenation(evidence_tab_info, migrated_dict)
         evidence_urls_info = {v: forms.drive_url_filter(initial_dict[k])
                               for (k, v) in evidence_fields_with_urls.items()
                               if k in initial_dict.keys()}
@@ -757,7 +764,11 @@ def save_severity(finding):
 def migrate_description(finding):
     primary_keys = ['finding_id', str(finding['id'])]
     description_fields = ['analyst', 'leader', 'interested', 'projectName',
-                          'clientProject', 'context']
+                          'clientProject', 'context', 'reportLevel',
+                          'subscription', 'clientCode', 'finding',
+                          'probability', 'severity', 'riskValue', 'ambit',
+                          'category', 'testType', 'relatedFindings', 'actor',
+                          'scenario', 'recordsNumber', 'records']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
