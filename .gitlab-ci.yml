@@ -83,6 +83,8 @@ test_code:
   stage: test-code
   script:
     - ./check-changed.sh
+  except:
+    - master
 
 test_terraform:
   stage: test-infra
