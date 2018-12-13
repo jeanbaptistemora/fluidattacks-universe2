@@ -57,9 +57,6 @@ findingContentCtrl (
   $scope.evidenceEditable = function evidenceEditable () {
     functionsFtry2.evidenceEditable($scope);
   };
-  $scope.exploitEditable = function exploitEditable () {
-    functionsFtry2.exploitEditable($scope);
-  };
   $scope.detectNivel = function detectNivel () {
     const TIMEOUT = 200;
     $timeout(() => {
@@ -120,8 +117,6 @@ findingContentCtrl (
       $scope.header = findingData.header;
       $scope.isRemediated = findingData.remediated;
       $scope.tabEvidences = findingData.tabEvidences;
-      $scope.hasExploit = findingData.hasExploit;
-      $scope.exploitSrc = findingData.exploitSrc;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasDraft = findingData.hasDraft;
       if ($scope.isAdmin && findingData.hasDraft) {
@@ -173,14 +168,6 @@ findingContentCtrl (
           const evidenceInfo = tabsFtry.findingEvidenceTab($scope);
           $scope.tabEvidences = evidenceInfo;
           findingData.tabEvidences = evidenceInfo;
-          const infoIndex2 = 2;
-          const infoIndex3 = 3;
-          const exploitinfo =
-                             tabsFtry.findingExploitTab($scope, findingData);
-          $scope.hasExploit = exploitinfo[0];
-          $scope.exploitSrc = exploitinfo[1];
-          findingData.hasExploit = exploitinfo[infoIndex2];
-          findingData.exploitSrc = exploitinfo[infoIndex3];
           const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
                       id}/`;
           $scope.vulnerabilitiesURL = `${urlPre}download_vulnerabilities`;

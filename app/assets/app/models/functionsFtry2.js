@@ -179,47 +179,6 @@ angular.module("FluidIntegrates").factory(
         $scope.tabEvidences.sort((auxa, auxb) => auxa.ref - auxb.ref);
       },
 
-      "exploitEditable" ($scope) {
-        if ($scope.onlyReadableTab5 === false) {
-          $scope.onlyReadableTab5 = true;
-        }
-        else {
-          $scope.onlyReadableTab5 = false;
-        }
-        // eslint-disable-next-line angular/document-service
-        const inputs = document.querySelectorAll(".inputfile");
-        angular.forEach(inputs, (input) => {
-          const label = input.nextElementSibling;
-          const labelVal = label.innerHTML;
-
-          input.addEventListener("change", (aux) => {
-            let fileName = "";
-            if (input.files && input.files.length > 1) {
-              fileName = (input.getAttribute("data-multiple-caption") ||
-                        "").replace("{count}", input.files.length);
-            }
-            else {
-              fileName = aux.target.value.split("\\").pop();
-            }
-
-            if (fileName) {
-              label.querySelector("span").innerHTML = fileName;
-            }
-            else {
-              label.innerHTML = labelVal;
-            }
-          });
-
-          // Firefox bug fix
-          input.addEventListener("focus", () => {
-            input.classList.add("has_focus");
-          });
-          input.addEventListener("blur", () => {
-            input.classList.remove("has_focus");
-          });
-        });
-      },
-
       "findingInformationTab" ($scope) {
         $scope.list = {};
         $scope.list.findingType = findingType;

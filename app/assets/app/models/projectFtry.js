@@ -229,25 +229,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Make a request to get the exploit of a finding.
-       * @function getExploit
-       * @param {String} findingid Numeric id of finding
-       * @param {String} id Unique id of the exploit
-       * @param {String} project Project name
-       * @member integrates.projectFtry
-       * @return {Object} Response with exploit data
-       */
-      "getExploit" (findingid, id, project) {
-        const oopsAc = "An error occurred getting exploit ID";
-        return $xhr.get($q, `${BASE.url}get_exploit`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          findingid,
-          id,
-          project
-        }, oopsAc);
-      },
-
-      /**
        * Make a request to get the all the findings in a project.
        * @function projectByName
        * @param {String} project Project name

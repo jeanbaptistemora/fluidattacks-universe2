@@ -241,52 +241,6 @@ angular.module("FluidIntegrates").factory(
           }
         });
         return evidenceList;
-      },
-      "findingExploitTab" (data, findingData) {
-        data.hasExploit = false;
-        findingData.hasExploit = data.hasExploit;
-        const req = projectFtry.getEvidences(data.finding.id);
-        req.then((response) => {
-          if (!response.error) {
-            if (response.data.length > 0) {
-              const exploitS3 = {};
-              for (let cont = 0; cont < response.data.length; cont++) {
-                if (response.data[cont].name === "exploit") {
-                  exploitS3.exploit = response.data[cont].file_url;
-                }
-              }
-              if (angular.isDefined(exploitS3.exploit) &&
-                      data.finding.cierres.length === 0) {
-                data.hasExploit = true;
-                findingData.hasExploit = data.hasExploit;
-              }
-              else if (angular.isDefined(data.finding.exploit) &&
-                   data.finding.cierres.length === 0) {
-                data.hasExploit = true;
-                findingData.hasExploit = data.hasExploit;
-              }
-              else {
-                data.hasExploit = false;
-                findingData.hasExploit = data.hasExploit;
-              }
-            }
-            else if (angular.isDefined(data.finding.exploit) &&
-                 data.finding.cierres.length === 0) {
-              data.hasExploit = true;
-              findingData.hasExploit = data.hasExploit;
-            }
-            else {
-              data.hasExploit = false;
-              findingData.hasExploit = data.hasExploit;
-            }
-          }
-        });
-        return [
-          data.hasExploit,
-          data.exploitSrc,
-          findingData.hasExploit,
-          findingData.exploitSrc
-        ];
       }
     };
   }

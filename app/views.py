@@ -997,48 +997,6 @@ def update_evidence_text(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
-
-@cache_page(CACHE_TTL)
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_finding_access
-def get_exploit(request):
-    parameters = request.GET.dict()
-    fileid = parameters['id']
-    findingid = parameters['findingid']
-    project = parameters['project'].lower()
-    if fileid is None:
-        rollbar.report_message('Error: Missing exploit ID', 'error', request)
-        return HttpResponse("Error - Unsent exploit ID", content_type="text/html")
-    key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
-    if key_list:
-        for k in key_list:
-            start = k.find(findingid) + len(findingid)
-            localfile = "/tmp" + k[start:]
-            ext = {'.py': '.tmp'}
-            localtmp = util.replace_all(localfile, ext)
-            client_s3.download_file(bucket_s3, k, localtmp)
-            return retrieve_script(request, localtmp)
-    else:
-        if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
-            rollbar.report_message('Error: Invalid exploit ID format', 'error', request)
-            return HttpResponse("Error - ID with wrong format", content_type="text/html")
-        else:
-            drive_api = DriveAPI()
-            exploit = drive_api.download(fileid)
-            return retrieve_script(request, exploit)
-
-def retrieve_script(request, script_file):
-    if util.assert_file_mime(script_file, ["text/x-python", "text/x-c",
-                                           "text/plain", "text/html"]):
-        with open(script_file, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    else:
-        rollbar.report_message('Error: Invalid exploit file format', 'error', request)
-        return util.response([], 'Invalid exploit file format', True)
-
-
 @cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["GET"])
