@@ -13,7 +13,6 @@ import boto3
 import yaml
 import threading
 from django.conf import settings
-from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -712,26 +711,6 @@ def format_release_date(finding):
         finding['lastVulnerability'] = '-'
     return finding
 
-
-@cache_content
-@cache_control(private=True, max_age=31536000)
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_finding_access
-def get_evidences(request):
-    finding_id = request.GET.get('findingid', None)
-    resp = integrates_dao.get_data_dynamo("FI_findings", "finding_id", finding_id)
-    if resp:
-        if resp[0].get("files"):
-            response = resp[0].get("files")
-        else:
-            response = []
-    else:
-        response = []
-    return util.response(response, 'Success', False)
-
-
 @cache_content
 @cache_control(private=True, max_age=31536000)
 @csrf_exempt
@@ -774,78 +753,6 @@ def retrieve_image(request, img_file):
     else:
         rollbar.report_message('Error: Invalid evidence image format', 'error', request)
         return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
-
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["POST"])
-@authorize(['analyst', 'admin'])
-def update_evidences_files(request):
-    parameters = request.POST.dict()
-    if not has_access_to_finding(request.session['username'], parameters['findingid'], request.session['role']):
-        util.cloudwatch_log(request, 'Security: Attempted to update evidence img without permission')
-        return util.response([], 'Access denied', True)
-    else:
-        if catch_finding(request,parameters['findingid']) is None:
-            return util.response([], 'Access denied', True)
-        upload = request.FILES.get("document", "")
-        file_first_name = '{project!s}-{findingid}'\
-            .format(project=parameters['project'], findingid=parameters['findingid'])
-        file_url = '{project!s}/{findingid}/{file_name}'\
-            .format(project=parameters['project'],
-                    findingid=parameters['findingid'],
-                    file_name=file_first_name)
-        migrate_all_files(parameters, file_url, request)
-        mime = Magic(mime=True)
-        if isinstance(upload, TemporaryUploadedFile):
-            mime_type = mime.from_file(upload.temporary_file_path())
-        elif isinstance(upload, InMemoryUploadedFile):
-            mime_type = mime.from_buffer(upload.file.getvalue())
-        fieldNum = FindingDTO()
-        fieldname = [['animation', fieldNum.ANIMATION], ['exploitation', fieldNum.EXPLOTATION], \
-                    ['evidence_route_1', fieldNum.DOC_ACHV1], ['evidence_route_2', fieldNum.DOC_ACHV2], \
-                    ['evidence_route_3', fieldNum.DOC_ACHV3], ['evidence_route_4', fieldNum.DOC_ACHV4], \
-                    ['evidence_route_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT], \
-                    ['fileRecords', fieldNum.REG_FILE]]
-
-        if mime_type not in ["image/gif", "image/png", "text/x-python",
-                             "text/x-c", "text/plain", "text/html"]:
-            # Handle a possible front-end validation bypass
-            util.cloudwatch_log(request, 'Security: Attempted to upload evidence file with a non-allowed format: ' + mime_type)
-            return util.response([], 'Extension not allowed', True)
-        else:
-            if evidence_exceeds_size(upload, mime_type, int(parameters["id"])):
-                rollbar.report_message('Error - File exceeds the size limits', 'error', request)
-                return util.response([], 'File exceeds the size limits', True)
-            else:
-                updated = update_file_to_s3(parameters,
-                                            fieldname[int(parameters["id"])][1],
-                                            fieldname[int(parameters["id"])][0],
-                                            upload,
-                                            file_url)
-                return util.response([], 'sent', updated)
-
-def evidence_exceeds_size(uploaded_file, mime_type, evidence_type):
-    ANIMATION = 0
-    EXPLOITATION = 1
-    EVIDENCE = [2, 3, 4, 5, 6]
-    EXPLOIT = 7
-    RECORDS = 8
-    MIB = 1048576
-
-    if evidence_type == ANIMATION and mime_type == "image/gif":
-        return uploaded_file.size > 10 * MIB
-    elif evidence_type == EXPLOITATION and mime_type == "image/png":
-        return uploaded_file.size > 2 * MIB
-    elif evidence_type in EVIDENCE and mime_type == "image/png":
-        return uploaded_file.size > 2 * MIB
-    elif evidence_type == EXPLOIT and mime_type in ["text/html", "text/plain",
-                                                    "text/x-c", "text/x-python"]:
-        return uploaded_file.size > 1 * MIB
-    elif evidence_type == RECORDS and mime_type == "text/plain":
-        return uploaded_file.size > 1 * MIB
-    else:
-        return False
 
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""
@@ -1004,31 +911,6 @@ def migrate_all_files(parameters, file_url, request):
                             request)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'admin'])
-@require_finding_access
-def update_evidence_text(request):
-    parameters = request.POST.dict()
-    try:
-        generic_dto = FindingDTO()
-        evidence_description_dict = \
-                     generic_dto.create_evidence_description(parameters)
-        evidence_description_info= \
-                     forms_utils.to_formstack(evidence_description_dict["data"])
-        generic_dto.to_formstack()
-        api = FormstackAPI()
-        request = api.update(evidence_description_dict["request_id"],\
-                             evidence_description_info)
-        if request:
-            return util.response([], 'success', False)
-        rollbar.report_message('Error: An error occurred updating evidence description', 'error', request)
-        return util.response([], 'error', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
 
 @cache_content
 @cache_control(private=True, max_age=3600)

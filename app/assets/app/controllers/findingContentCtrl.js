@@ -6,8 +6,8 @@
 BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar,
 mixPanelDashboard, userRole, findingType, actor, scenario, authentication,
 confidenciality, Organization, resolutionLevel, explotability, availability,
-updateEvidencesFiles:true, findingData:true, realiabilityLevel,
-updateEvidenceText:true, categories, probabilities, accessVector, integrity,
+findingData:true, realiabilityLevel,
+categories, probabilities, accessVector, integrity,
 accessComplexity, projectData:true, eventsData:true, draftData:true,
 fieldsToTranslate, keysToTranslate, desc:true, angular, $window*/
 /**
@@ -54,9 +54,6 @@ findingContentCtrl (
   $scope.treatmentEditable = function treatmentEditable () {
     functionsFtry1.treatmentEditable($scope);
   };
-  $scope.evidenceEditable = function evidenceEditable () {
-    functionsFtry2.evidenceEditable($scope);
-  };
   $scope.detectNivel = function detectNivel () {
     const TIMEOUT = 200;
     $timeout(() => {
@@ -70,12 +67,6 @@ findingContentCtrl (
         findingData.esDetallado = $scope.esDetallado;
       }
     }, TIMEOUT);
-  };
-  $scope.updateEvidencesFiles = function updateEvidencesFiles (element) {
-    functionsFtry2.updateEvidencesFiles(element, $scope);
-  };
-  updateEvidenceText = function updateEvidenceText (element) {
-    functionsFtry1.updateEvidenceText(element, $scope);
   };
   $scope.deleteFinding = function deleteFinding () {
     functionsFtry1.deleteFinding($scope);
@@ -116,7 +107,6 @@ findingContentCtrl (
       $scope.finding = findingData.data;
       $scope.header = findingData.header;
       $scope.isRemediated = findingData.remediated;
-      $scope.tabEvidences = findingData.tabEvidences;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasDraft = findingData.hasDraft;
       if ($scope.isAdmin && findingData.hasDraft) {
@@ -165,9 +155,6 @@ findingContentCtrl (
           findingData.remediated = $scope.isRemediated;
           $scope.view.project = false;
           $scope.view.finding = true;
-          const evidenceInfo = tabsFtry.findingEvidenceTab($scope);
-          $scope.tabEvidences = evidenceInfo;
-          findingData.tabEvidences = evidenceInfo;
           const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
                       id}/`;
           $scope.vulnerabilitiesURL = `${urlPre}download_vulnerabilities`;
