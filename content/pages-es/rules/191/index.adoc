@@ -21,4 +21,7 @@ sean accesibles a cada usuario
 (por ejemplo, proteger a los usuarios de la manipulación de parámetros
 para espiar o alterar otra cuenta de usuario)
 
-. [[r2]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Proteger información sensible personal].
+. [[r2]] link:https://gdpr-info.eu/recitals/no-6/[GDPR- 6	Garantizar un alto nivel de protección de datos
+a pesar del incremento en el intercambio de datos].
+
+. [[r3]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Proteger información sensible personal].
