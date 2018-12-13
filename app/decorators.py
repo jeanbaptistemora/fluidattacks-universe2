@@ -209,6 +209,6 @@ def get_cached(func):
         if ret:
             return ret
         ret = func(*args, **kwargs)
-        cache.set(key_name, ret, timeout=DEFAULT_TIMEOUT)
+        cache.set(key_name, ret, timeout=CACHE_TTL)
         return ret
     return decorated
