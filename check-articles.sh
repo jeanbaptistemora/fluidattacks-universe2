@@ -16,7 +16,7 @@ while IFS= read -r FILE; do
   ARTCAT=$(pcregrep --color -o '(?<=^:category:\s).*' "$FILE");
   if ! pcregrep -q "$ARTCAT" categorias.lst; then
     echo -e "${RD}$ARTCAT";
-    echo -e "${GC}The article does not match any valid category. Please correct the file \"$FILE\"${NC}";
+    echo -e "${GC}The article does not match any valid category. Please correct the file \"$FILE\"${NC} or add the new category to the file categorias.lst";
     ERRORS=1;
   fi
 done < <(find content/defends -iname '*.adoc')
@@ -38,7 +38,7 @@ while IFS= read -r FILE; do
     while IFS= read -r TAG; do
       if ! pcregrep -q "$TAG" etiquetas.lst; then
         echo -e "${RD}$TAG";
-        echo -e "${GC}The previous tag is not valid. Please correct the file \"$FILE\" or add the new tag in the list. ${NC}";
+        echo -e "${GC}The previous tag is not valid. Please correct the file \"$FILE\" or add the new tag to the file etiquetas.lst. ${NC}";
         ERRORS=1;
       fi
     done < <(echo "$ARTTAGS")
@@ -70,7 +70,7 @@ while IFS= read -r FILE; do
   ARTCAT=$(pcregrep --color -o '(?<=^:category:\s).*' "$FILE");
   if ! pcregrep -q "$ARTCAT" categories.lst; then
   echo -e "${RD}$ARTCAT";
-  echo -e "${GC}The article does not match any valid category. Please correct the file \"$FILE\"${NC}";
+  echo -e "${GC}The article does not match any valid category. Please correct the file \"$FILE\"${NC} or add the new category to the file categories.lst";
   ERRORS=1;
   fi
 
@@ -79,7 +79,7 @@ while IFS= read -r FILE; do
     while IFS= read -r TAG; do
       if ! pcregrep -q "$TAG" tags.lst; then
         echo -e "${RD}$TAG";
-        echo -e "${GC}The previous tag is not valid. Please correct the file \"$FILE\" or add the new tag in the list. ${NC}";
+        echo -e "${GC}The previous tag is not valid. Please correct the file \"$FILE\" or add the new tag to the file tag.lst. ${NC}";
         ERRORS=1;
       fi
     done < <(echo "$ARTTAGS")
