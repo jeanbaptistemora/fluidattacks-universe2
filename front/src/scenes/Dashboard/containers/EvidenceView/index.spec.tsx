@@ -16,6 +16,7 @@ describe('Evidence view', () => {
   it('should render lightbox', () => {
     const wrapper = shallow(
       <EvidenceView
+        canEdit={true}
         currentIndex={0}
         findingId="422286126"
         projectName="unittesting"
