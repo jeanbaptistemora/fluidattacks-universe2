@@ -390,7 +390,7 @@ class FindingDTO(object):
         evidence_info = integrates_dao.get_finding_attributes_dynamo(
             str(submission_id),
             evidence_title)
-        if evidence_info and evidence_info.get('records'):
+        if evidence_info:
             evidence_fields = {k: util.snakecase_to_camelcase(k)
                                for k in evidence_title}
             migrated_dict = {v: evidence_info[k]
