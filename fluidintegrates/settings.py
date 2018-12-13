@@ -258,7 +258,7 @@ CACHES = {
     }
 }
 
-CACHE_TTL = 60 * 10
+CACHE_TTL = 60 * 30
 
 #Session
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
