@@ -353,6 +353,7 @@ class UpdateEvidence(Mutation):
     @require_finding_access_gql
     def mutate(self, info, **parameters):
         success = False
+        util.invalidate_cache(parameters.get('finding_id'))
         uploaded_file = info.context.FILES.get('document', '')
 
         if util.assert_uploaded_file_mime(uploaded_file,
@@ -402,6 +403,7 @@ class UpdateEvidenceDescription(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, finding_id, field, description):
+        util.invalidate_cache(finding_id)
         success = False
 
         try:
@@ -449,6 +451,7 @@ class UpdateSeverity(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, **parameters):
+        util.invalidate_cache(parameters.get('finding_id'))
         success = False
         success = save_severity(parameters.get('data'))
 

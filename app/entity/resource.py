@@ -50,6 +50,7 @@ class AddRepositories(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, resources_data, project_name):
+        util.invalidate_cache(project_name)
         success = False
         json_data = []
         email_data = []
@@ -108,6 +109,7 @@ class RemoveRepositories(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, repository_data, project_name):
+        util.invalidate_cache(project_name)
         success = False
         repository = repository_data.get('urlRepo')
         branch = repository_data.get('branch')
@@ -167,6 +169,7 @@ class AddEnvironments(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, resources_data, project_name):
+        util.invalidate_cache(project_name)
         success = False
         json_data = []
 
@@ -219,6 +222,7 @@ class RemoveEnvironments(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, repository_data, project_name):
+        util.invalidate_cache(project_name)
         success = False
         environment_url = repository_data.get('urlEnv')
         env_list = integrates_dao.get_project_dynamo(project_name)[0]['environments']

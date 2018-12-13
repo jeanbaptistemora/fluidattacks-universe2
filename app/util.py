@@ -14,6 +14,7 @@ from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
 from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
+from django.core.cache import cache
 from jose import jwt, JWTError, ExpiredSignatureError
 
 logging.config.dictConfig(settings.LOGGING)
@@ -355,3 +356,8 @@ def camelcase_to_snakecase(str_value):
 def snakecase_to_camelcase(str_value):
     """Convert a snackecase string to camelcase."""
     return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
+
+
+def invalidate_cache(key_pattern):
+    """Remove keys from cache that matches a given pattern."""
+    cache.delete_pattern('*' + key_pattern + '*')

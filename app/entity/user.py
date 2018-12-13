@@ -109,6 +109,7 @@ class GrantUserAccess(Mutation):
     @require_project_access_gql
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
+        util.invalidate_cache(project_name)
         success = False
 
         new_user_data = {
@@ -196,6 +197,7 @@ class RemoveUserAccess(Mutation):
     @require_project_access_gql
     def mutate(self, info, project_name, user_email):
         del info
+        util.invalidate_cache(project_name)
         success = False
 
         integrates_dao.remove_role_to_project_dynamo(project_name, user_email, 'customeradmin')
@@ -225,6 +227,7 @@ class EditUser(Mutation):
     @require_project_access_gql
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
+        util.invalidate_cache(project_name)
         success = False
 
         modified_user_data = {
