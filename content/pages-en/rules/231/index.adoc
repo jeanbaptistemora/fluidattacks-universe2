@@ -30,3 +30,5 @@ and control of access to software programs for testing and revision.
 Verify that users can enrol and use TOTP verification, two-factor, biometric
 (Touch ID or similar), or equivalent multi-factor authentication mechanism
 that provides protection against single factor credential disclosure.
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-64/[GDPR- 64  Identity verification].

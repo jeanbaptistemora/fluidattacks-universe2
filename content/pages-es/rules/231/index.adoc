@@ -34,3 +34,5 @@ y usar la verificación TOTP, de dos factores, biométrico
 (Touch ID o similar) o un mecanismo equivalente de autenticación
 de múltiples factores que brinde protección
 contra la divulgación de credenciales de un solo factor.
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-64/[GDPR- 64  Verificación de Identidad].
