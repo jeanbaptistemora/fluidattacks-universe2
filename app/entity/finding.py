@@ -117,13 +117,13 @@ class Finding(ObjectType):
             self.severity = {k: resp.get(k) for k in severity_fields}
 
             self.evidence = {
-                'animation': { 'url': resp.get('animation'), 'description': '' },
-                'evidence1': { 'url': resp.get('evidence_route_1'), 'description': resp.get('evidence_description_1') },
-                'evidence2': { 'url': resp.get('evidence_route_2'), 'description': resp.get('evidence_description_2') },
-                'evidence3': { 'url': resp.get('evidence_route_3'), 'description': resp.get('evidence_description_3') },
-                'evidence4': { 'url': resp.get('evidence_route_4'), 'description': resp.get('evidence_description_4') },
-                'evidence5': { 'url': resp.get('evidence_route_5'), 'description': resp.get('evidence_description_5') },
-                'explotation': { 'url': resp.get('exploitation'), 'description': '' },
+                'animation': { 'url': resp.get('animation', ''), 'description': '' },
+                'evidence1': { 'url': resp.get('evidence_route_1', ''), 'description': resp.get('evidence_description_1', '') },
+                'evidence2': { 'url': resp.get('evidence_route_2', ''), 'description': resp.get('evidence_description_2', '') },
+                'evidence3': { 'url': resp.get('evidence_route_3', ''), 'description': resp.get('evidence_description_3', '') },
+                'evidence4': { 'url': resp.get('evidence_route_4', ''), 'description': resp.get('evidence_description_4', '') },
+                'evidence5': { 'url': resp.get('evidence_route_5', ''), 'description': resp.get('evidence_description_5', '') },
+                'exploitation': { 'url': resp.get('exploitation', ''), 'description': '' },
             }
 
         else:
