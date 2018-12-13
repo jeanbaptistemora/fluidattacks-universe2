@@ -5,6 +5,8 @@ import functools
 import re
 
 import rollbar
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.conf import settings
@@ -13,6 +15,9 @@ from graphql import GraphQLError
 # pylint: disable=E0402
 from .services import has_access_to_project, has_access_to_finding, is_customeradmin
 from . import util
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
 
 def authenticate(func):
     @functools.wraps(func)
@@ -191,3 +196,19 @@ def require_finding_access_gql(func):
             raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call
+
+
+def get_cached(func):
+    """Get cached response from function if it exists."""
+    @functools.wraps(func)
+    def decorated(*args, **kwargs):
+        """Get cached response from function if it exists."""
+        uniq_id = "_".join([str(kwargs[x])[:12] for x in kwargs])
+        key_name = func.__name__ + '_' + uniq_id
+        ret = cache.get(key_name)
+        if ret:
+            return ret
+        ret = func(*args, **kwargs)
+        cache.set(key_name, ret, timeout=DEFAULT_TIMEOUT)
+        return ret
+    return decorated

@@ -241,6 +241,9 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://tf-redis-cluster.mqzqyv.clustercfg.use1.cache.amazonaws.com:6379",
         "OPTIONS": {
+            'SOCKET_CONNECT_TIMEOUT': 20,
+            'SOCKET_TIMEOUT': 5,
+            'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
             'REDIS_CLIENT_CLASS': 'rediscluster.RedisCluster',
             'CONNECTION_POOL_CLASS': 'rediscluster.connection.ClusterConnectionPool',
             'CONNECTION_POOL_KWARGS': {

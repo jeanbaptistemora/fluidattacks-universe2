@@ -17,7 +17,7 @@ from app.api.formstack import FormstackAPI
 from ..decorators import (
     require_login, require_role,
     require_project_access_gql,
-    require_finding_access_gql
+    require_finding_access_gql, get_cached
 )
 
 class Query(ObjectType):
@@ -47,10 +47,10 @@ class Query(ObjectType):
 
     project = Field(Project, project_name=String(required=True))
 
-
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
+    @get_cached
     def resolve_alert(self, info, project_name=None, organization=None):
         """ Resolve for alert """
         del info
@@ -59,6 +59,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_finding_access_gql
+    @get_cached
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
         del info
@@ -67,6 +68,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
+    @get_cached
     def resolve_events(self, info, project_name=""):
         """ Resolve for eventualities """
         del info
@@ -79,6 +81,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_finding_access_gql
+    @get_cached
     def resolve_finding(self, info, identifier=None):
         """Resolve for finding."""
         return Finding(info, identifier)
@@ -91,6 +94,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
+    @get_cached
     def resolve_resources(self, info, project_name):
         """ Resolve for project resources """
         del info
@@ -99,6 +103,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customeradmin', 'admin'])
     @require_project_access_gql
+    @get_cached
     def resolve_project_users(self, info, project_name):
         """ Resolve for project users """
         initialEmails = integrates_dao.get_project_users(project_name.lower())
@@ -116,6 +121,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customeradmin', 'admin'])
     @require_project_access_gql
+    @get_cached
     def resolve_user_data(self, info, project_name, user_email):
         """ Resolve for user data """
         del info
@@ -124,6 +130,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
+    @get_cached
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
         return Project(info, project_name)
