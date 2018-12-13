@@ -85,9 +85,9 @@
 ===== {{threat_title}}
 {{fin['threat'] + "\n"}}
 
-{% if "riesgo" in fin %}
+{% if 'risk' in fin %}
 ===== {{risk_title}}
-{{fin['riesgo'] + "\n"}}
+{{fin['risk'] + "\n"}}
 {% endif %}
 
 {% if "attackVector" in fin %}

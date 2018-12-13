@@ -248,13 +248,13 @@ class FindingDTO(object):
             self.WHERE: 'where',
             self.VULNERABILITY: 'vulnerability',
             self.THREAT: 'threat',
-            self.RISK: 'riesgo',
+            self.RISK: 'risk',
             self.REQUIREMENTS: 'requirements',
             self.EFFECT_SOLUTION: 'effectSolution',
             self.KB_LINK: 'kb',
             self.AFFECTED_SYSTEMS: 'affectedSystems',
             self.ATTACK_VECTOR: 'attackVector',
-            self.FINDING_TYPE: 'finding_type',
+            self.FINDING_TYPE: 'findingType',
             self.REVISION: 'revision',
             self.TREATMENT: 'treatment',
             self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
@@ -262,12 +262,14 @@ class FindingDTO(object):
             self.EXTERNAL_BTS: 'externalBts',
             self.LAST_VULNERABILITY: 'lastVulnerability',
             self.RELEASE_DATE: 'releaseDate',
-            self.CWE: 'cwe'
+            self.CWE: 'cwe',
+            self.FINDING_TYPE: 'findingType'
         }
         parsed_dict = {v: initial_dict[k]
                        for (k, v) in description_fields.items()
                        if k in initial_dict.keys()}
         parsed_dict = forms.dict_concatenation(parsed_dict, migrated_dict)
+        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         if 'cwe' in parsed_dict.keys():
             parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
         else:
@@ -325,7 +327,7 @@ class FindingDTO(object):
                 self.FINDING_DISTRIBUTION: 'findingDistribution',
                 self.CONFIDENTIALITY_REQUIREMENT: 'confidentialityRequirement',
                 self.INTEGRITY_REQUIREMENT: 'integrityRequirement',
-                self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement'
+                self.AVAILABILITY_REQUIREMENT: 'availabilityRequirement',
             }
             parsed_dict = {v: float(initial_dict[k].split(' | ')[0])
                            for (k, v) in severity_fields.items()
@@ -351,7 +353,6 @@ class FindingDTO(object):
                                          parsed_dict['confidenceLevel']), 1)
         parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
         parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
-        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         return parsed_dict
 
     def parse_project(self, request_arr, submission_id):

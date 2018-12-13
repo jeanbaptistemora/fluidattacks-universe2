@@ -315,7 +315,7 @@ angular.module("FluidIntegrates").controller(
           let severity = 0;
           angular.forEach(data, (cont) => {
             try {
-              if (cont.finding_type === "Seguridad") {
+              if (cont.findingType === "Seguridad") {
                 const BaseScore = projectFtry.calCCssv2(cont)[0];
                 severity += BaseScore * parseFloat(cont.cardinalidad_total);
               }
