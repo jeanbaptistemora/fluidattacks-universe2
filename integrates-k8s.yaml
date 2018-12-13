@@ -17,10 +17,11 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "New deployment version of Integrates on $DATE"
 spec:
-  replicas: 3
+  replicas: 1
   strategy:
     rollingUpdate:
-      maxUnavailable: 2
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:

@@ -310,8 +310,7 @@ test-deployment:
     - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
         s/$VAULT_TOKEN/'"$(echo -n $VAULT_TOKEN | base64)"'/;
         s/name:\ integrates$/name:\ integrates-test/g;
-        s/app:\ integrates/app:\ integrates-test/g;
-        s/replicas:\ 3/replicas:\ 1/g'
+        s/app:\ integrates/app:\ integrates-test/g'
         integrates-k8s.yaml
     - cat integrates-k8s.yaml | head -n 64 | kubectl apply -f -
     - kubectl rollout status deploy/integrates-test
