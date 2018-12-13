@@ -6,6 +6,11 @@
 
 from __future__ import absolute_import
 
+try:
+    from urlparse import urlparse, parse_qs
+except ImportError:
+    from urllib.parse import urlparse, parse_qs
+
 import boto3
 from graphene import String, ObjectType, Boolean
 
@@ -70,7 +75,9 @@ class Events(ObjectType):
             self.detail = resp.get('detail')
             self.affectation = resp.get('affectation')
             self.status = resp.get('status')
-            self.evidence = resp.get('evidence')
+            if resp.get('evidence'):
+                parsedUrl = urlparse(resp.get('evidence'))
+                self.evidence = parse_qs(parsedUrl.query)['id'][0]
             self.accessibility = resp.get('accessibility')
             self.affectedComponents = resp.get('affectedComponents')
             self.context = resp.get('context')
