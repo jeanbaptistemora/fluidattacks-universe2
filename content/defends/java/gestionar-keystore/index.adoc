@@ -1,0 +1,123 @@
+:slug: defends/java/gestionar-keystore/
+:category: java
+:description: Nuestros ethical hackers explican que son los certificados digitales y por que es importante usarlos, para mantener la autenticidad de la información, en las operaciones cliente-servidor. Además, enseñan a gestionar de manera sencilla un Keystore usando la herramienta Keytool de Java.
+:keywords: Java, Seguridad, Certificado, Digital, Keystore, Keytool.
+:defends: yes
+
+= Gestionar un Keystore
+
+== Necesidad
+
+Se requiere utilizar un +Keystore+ para generar,
+importar, exportar y eliminar certificados digitales.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de un compilador estándar de Java.
+
+== Solución
+
+Al día de hoy la tecnología, y en especial el Internet,
+continuamente da pasos agigantados
+en cuanto a desarrollo e innovación,
+lo que permite que cada vez más personas
+puedan estar conectadas entre si alrededor del mundo.
+Es tal ese crecimiento que gran cantidad de empresas,
+e incluso personas del común,
+que proporcionan o venden algún servicio o producto
+han optado por ofrecer dichos servicios a través de la red.
+Pero es a partir de esta carrera
+de innovación y ofrecimiento en línea
+que surge una de las principales problemáticas
+en cuanto al contenido ofrecido en Internet:
+yo como usuario ¿cómo puedo saber
+que el contenido que me están ofreciendo
+realmente pertenece a la persona u organización que afirma ofrecerlo?
+
+Para responder a dicha pregunta,
+se crearon los certificados digitales.
+Un certificado digital es un fichero informático
+con una estructura de datos
+que contiene información sobre una entidad.
+Este certificado debe ser firmado por otra entidad,
+considerada como una autoridad para este tipo de contenido.
+Y la firma de dicho certificado
+garantiza que la información contenida
+no puede ser modificada
+sin que dicha modificación sea detectada.
+En pocas palabras, un certificado digital
+permite que una persona u organización
+se declaren como dueños o creadores
+de algún contenido digital
+sin que tal declaración pueda ser modificada o alterada.
+
+Por otro lado, un +Keystore+
+es un almacén de certificados utilizados por un cliente
+para identificarse ante un servidor.
+Normalmente no es necesario que
+en todas las transacciones cliente-servidor
+el cliente se identifique ante el servidor.
+No obstante se recomienda que en las comunicaciones
+que manejan información sensible, si lo hagan.
+Es por eso que en esta solución
+nos enfocaremos en la manera de gestionar un +Keystore+.
+Para hacerlo se usará la herramienta +Keytool+.
+La herramienta +Keytool+ es proporcionada
+por el +JDK+ de +Java+.
+
+. Para generar un +Keystore+ en particular
+que contenga una clave privada y su respectiva clave pública se usa:
++
+.Keystore.bash
+[source, bash, linenums]
+----
+$ Keytool -Keystore example -keyalg "RSA" -keysize 2048 -alias fluidattacks
+    -genkey -dname "cn=www.fluidattacks.com, o=fluidattacks, c=CO"
+      -keypass StrongPassword* -storepass StrongPassword*
+----
+
+. Para importar un certificado externo.
++
+[source, bash, linenums]
+----
+$ Keytool -import -alias externalcert -Keystore example -file /path/external.cer
+----
+
+. Para exportar un certificado.
++
+[source, bash, linenums]
+----
+$ Keytool -Keystore example -storepass StrongPassword* -alias fluidattacks
+    -file fluidattacks.cer -export
+----
+
+. Para listar la información de todos los certificados.
+almacenados en el +Keystore+.
++
+[source, bash, linenums]
+----
+$ Keytool -list -Keystore example
+----
+
+. Para eliminar un certificado del +Keystore+.
++
+[source, bash, linenums]
+----
+$ Keytool -Keystore example -storepass StrongPassword* -alias fluidattacks -delete
+----
+
+. Para cambiar la contraseña de acceso de un +Keystore+.
++
+[source, bash, linenums]
+----
+$ Keytool -Keystore example -storepass StrongPassword* -storepasswd -new NewPassword*
+----
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/technotes/tools/windows/Keytool.html[Keytool - Key and Certificate Management Tool]
+. [[r3]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes]
