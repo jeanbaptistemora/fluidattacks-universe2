@@ -17,14 +17,18 @@ from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUpload
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.views.decorators.cache import never_cache, cache_page
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from jose import jwt
 # pylint: disable=E0402
 from . import util
-from .decorators import authenticate, authorize, require_project_access, require_finding_access
+from .decorators import (
+    authenticate, authorize,
+    require_project_access, require_finding_access,
+    cache_content
+)
 from .techdoc.IT import ITReport
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
@@ -92,7 +96,8 @@ def forms(request):
     return render(request, "forms.html")
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @authenticate
 def project_indicators(request):
     "Indicators view"
@@ -134,7 +139,8 @@ def project_findings(request):
     return render(request, "project/findings.html", dicLang)
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @authenticate
 @authorize(['analyst', 'admin'])
 def project_drafts(request):
@@ -161,7 +167,8 @@ def project_drafts(request):
     return render(request, "project/drafts.html", dicLang)
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @authenticate
 def project_events(request):
     "eventualities view"
@@ -241,6 +248,7 @@ def registration(request):
 
 
 @never_cache
+@cache_content
 @csrf_exempt
 @authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def dashboard(request):
@@ -275,7 +283,8 @@ def logout(request):
 
 #pylint: disable=too-many-branches
 #pylint: disable=too-many-locals
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_xls(request, lang, project):
@@ -322,7 +331,8 @@ def validation_project_to_pdf(request, lang, doctype):
 
 #pylint: disable=too-many-branches
 #pylint: disable=too-many-locals
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_pdf(request, lang, project, doctype):
@@ -414,7 +424,8 @@ def presentation_pdf(project, pdf_maker, findings, user):
     return report_filename
 
 #pylint: disable-msg=R0913
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def check_pdf(request, project):
@@ -438,7 +449,8 @@ def get_project_info(project):
         return projectDTO.parse(submission)
     return []
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -457,7 +469,8 @@ def get_finding(request):
         return util.response([], 'Error', True)
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])
@@ -484,7 +497,8 @@ def get_drafts(request):
     return util.response(findings, 'Success', False)
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -688,7 +702,8 @@ def format_release_date(finding, state):
     return finding
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -706,7 +721,8 @@ def get_evidences(request):
     return util.response(response, 'Success', False)
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, findingid, fileid):
@@ -999,7 +1015,8 @@ def update_evidence_text(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -1657,7 +1674,8 @@ def delete_vulnerabilities(finding_id, project):
     return are_vulns_deleted
 
 
-@cache_page(CACHE_TTL)
+@cache_content
+@never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])
