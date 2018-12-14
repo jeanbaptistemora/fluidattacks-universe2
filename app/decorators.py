@@ -8,7 +8,7 @@ import rollbar
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse
 from django.conf import settings
 from graphql import GraphQLError
 
@@ -55,7 +55,6 @@ def authorize(roles):
         return authorize_and_call
     return wrapper
 
-
 def require_project_access(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
@@ -75,7 +74,6 @@ def require_project_access(func):
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
     return verify_and_call
-
 
 def require_finding_access(func):
     @functools.wraps(func)
@@ -115,7 +113,6 @@ def require_login(func):
         return func(*args, **kwargs)
     return verify_and_call
 
-
 def require_role(allowed_roles):
     """
     Require_role decorator
@@ -150,7 +147,6 @@ def require_role(allowed_roles):
         return verify_and_call
     return wrapper
 
-
 def require_project_access_gql(func):
     """
     Require_project_access decorator
@@ -179,7 +175,6 @@ def require_project_access_gql(func):
         return func(*args, **kwargs)
     return verify_and_call
 
-
 def require_finding_access_gql(func):
     """
     Require_finding_access decorator
@@ -201,27 +196,6 @@ def require_finding_access_gql(func):
             raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call
-
-
-def cache_content(func):
-    """Get cached content from a django view with a request object."""
-    @functools.wraps(func)
-    def decorated(*args, **kwargs):
-        """Get cached content from a django view with a request object."""
-        req = args[0]
-        assert isinstance(req, HttpRequest)
-        keys = ['username', 'company', 'role', 'findingid', 'project']
-        uniq_id = '_'.join([req.session[x] for x in keys if x in req.session])
-        uniq_id += '_'.join([req.GET[x] for x in keys if x in req.GET])
-        uniq_id += '_'.join([req.POST[x] for x in keys if x in req.POST])
-        key_name = func.__name__ + '_' + uniq_id
-        ret = cache.get(key_name)
-        if ret:
-            return ret
-        ret = func(*args, **kwargs)
-        cache.set(key_name, ret, timeout=CACHE_TTL)
-        return ret
-    return decorated
 
 
 def get_cached(func):
