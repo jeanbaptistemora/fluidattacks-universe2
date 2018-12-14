@@ -110,13 +110,12 @@ def write_schema(form_name, stdout=True):
     stdout_json_obj = {
         "type": "SCHEMA",
         "stream": form_name,
-        "key_properties": ["_serial"],
+        "key_properties": ["_form_unique_id"],
         "schema": {
             "properties": {
-                "_id": _TYPE_STRING,
+                "_form_unique_id": _TYPE_STRING,
                 "_read": _TYPE_NUMBER,
                 "_timestamp": _TYPE_DATE,
-                "_serial": _TYPE_STRING,
                 "_latitude": _TYPE_NUMBER,
                 "_longitude": _TYPE_NUMBER,
                 "_user_agent": _TYPE_STRING,
@@ -194,19 +193,16 @@ def write_records(form_name, schema_properties, stdout=True):
     file = open(logs.DOMAIN + form_name + ".json", "r")
     line = file.readline()
 
-    serial = 0
     while line:
-        serial += 1
         submission = json.loads(line)
 
         stdout_json_obj = {
             "type": "RECORD",
             "stream": form_name,
             "record": {
-                "_id": submission["id"],
+                "_form_unique_id": submission["id"],
                 "_read": std_number(submission["read"]),
                 "_timestamp": std_date(submission["timestamp"]),
-                "_serial": str(serial),
                 "_latitude": std_number(submission["latitude"]),
                 "_longitude": std_number(submission["longitude"]),
                 "_user_agent": submission["user_agent"],
