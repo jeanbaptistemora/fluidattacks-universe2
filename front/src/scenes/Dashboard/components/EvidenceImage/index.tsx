@@ -9,6 +9,7 @@ import { ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxFo
 import store from "../../../../store/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
+import { required } from "../../../../utils/validations";
 import style from "./index.css";
 
 interface IEvidenceImageProps {
@@ -22,11 +23,20 @@ interface IEvidenceImageProps {
 }
 
 type formProps = IEvidenceImageProps & InjectedFormProps<{}, IEvidenceImageProps>;
+
+const renderDescriptionField: ((props: formProps) => JSX.Element) = (props: formProps): JSX.Element => (
+  <Field
+    name={`${props.name}_description`}
+    component={textAreaField}
+    validate={[required]}
+  />
+);
+
 const renderEditBox: ((props: formProps) => JSX.Element) =
   (props: formProps): JSX.Element => (
     <form onSubmit={props.handleSubmit}>
       <Field name={`${props.name}_filename`} id={props.name} component={fileInputField} />
-      {props.isDescriptionEditable ? <Field name={`${props.name}_description`} component={textAreaField} /> : undefined}
+      {props.isDescriptionEditable ? renderDescriptionField(props) : undefined}
       <Button bsStyle="success" block={true} type="submit" disabled={props.pristine || props.submitting}>
         <Glyphicon glyph="repeat" />
         &nbsp;{translate.t("search_findings.tab_evidence.update")}

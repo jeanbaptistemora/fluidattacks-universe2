@@ -66,7 +66,9 @@ const updateEvidence: ((values: {}, evidenceId: number, props: IEvidenceViewProp
     if (isFileSelected(fileId)) {
       if (isValidEvidenceFile(fileId)) {
         thunkDispatch(actions.updateEvidence(props.findingId, props.projectName, evidenceId));
-        thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
+        if (evidenceId > 1) {
+          thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
+        }
       }
     } else {
       thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
