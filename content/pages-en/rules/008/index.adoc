@@ -30,3 +30,5 @@ from unauthorized physical access, tampering, and theft.
 . [[r3]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.6+]
 A threat model for the application and the associated remote services
 has been produced that identifies potential threats and countermeasures.
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-76/[GDPR- 76  Risk assessment].

@@ -45,3 +45,5 @@ de accesos no autorizados, manipulación y robo.
 Producir un modelo de amenazas para la aplicación
 y los servicios remotos asociados que identifique potenciales amenazas
 y contramedidas para tratarlas.
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-76/[GDPR- 76  Evaluación de riesgos].
