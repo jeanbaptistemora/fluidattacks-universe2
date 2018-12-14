@@ -133,7 +133,8 @@ def project_findings(request):
         }
     return render(request, "project/findings.html", dicLang)
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @authenticate
 @authorize(['analyst', 'admin'])
 def project_drafts(request):
@@ -455,7 +456,8 @@ def get_finding(request):
         util.cloudwatch_log(request, 'Finding with submission id: ' + submission_id + ' not found')
         return util.response([], 'Error', True)
 
-@never_cache
+
+@cache_page(CACHE_TTL)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])
