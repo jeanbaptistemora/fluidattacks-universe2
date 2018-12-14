@@ -1,7 +1,7 @@
 :slug: encontrando-el-gato/
 :date: 2018-12-12
 :category: retos
-:subtitle: Forensia digital 101 - Solución al reto de root-me.org
+:subtitle: Cómputo Forense 101 - Solución al reto de root-me.org
 :tags: solucionar, reto, herramienta, forense, investigación, digital, carving
 :image: csi-cyber.png
 :alt: Imagen de CSI Cyber
@@ -23,10 +23,10 @@ se hace zoom a una imagen de bajísima resolución
 para observar con extrema nitidez un detalle en la lejanía.
 Todos sabemos que ésto no es posible en el mundo real
 (al menos no al nivel que se muestra en éstas series... por ahora);
-pero, cuánto podemos acercar una imagen en realidad
+pero, ¿cuánto podemos acercar una imagen en realidad
 para encontrar información?
-O mejor, qué tan de cerca podemos observarla?
-A continuación estudiaremos varias herramientas de forensia digital
+O mejor, ¿qué tan de cerca podemos observarla?
+A continuación estudiaremos varias herramientas de cómputo forense
 que pueden ayudarnos a encontrar información útil
 en archivos que a simple vista pueden parecer inocuos,
 y de paso rescataremos
@@ -123,7 +123,7 @@ ____
 image::ransom.png[Mensaje]
 
 Suena como una nota escrita por los secuestradores.
-Podrá ser ésta una pista
+¿Podrá ser ésta una pista
 que nos acerque a nuestro maullante objetivo?
 
 Para averiguarlo, vamos a extraer el archivo
@@ -197,7 +197,7 @@ obtener la ciudad donde tienen al gato
 y resolver el reto.
 
 Espero que éste artículo haya sido enriquecedor,
-y que además de aprender algo de forensia digital
+y que además de aprender algo de cómputo forense
 haya servido como prueba
 de que hay que ser siempre muy cuidadoso
 con cómo disponemos de nuestros datos...
