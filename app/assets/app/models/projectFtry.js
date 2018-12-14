@@ -14,10 +14,7 @@ $, Rollbar, eventsData, secureRandom, angular */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "projectFtry",
-  function projectFtryFunction (
-    $q,
-    $window
-  ) {
+  function projectFtryFunction ($q) {
     return {
 
       /**
@@ -214,21 +211,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Make a request to get the evidences of a finding.
-       * @function getEvidences
-       * @param {String} findingid Numeric id of finding
-       * @member integrates.projectFtry
-       * @return {Object} Response by DynamoDB and S3 with finding evidences
-       */
-      "getEvidences" (findingid) {
-        const oopsAc = "An error occurred getting evidences";
-        return $xhr.get($q, `${BASE.url}get_evidences`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          findingid
-        }, oopsAc);
-      },
-
-      /**
        * Make a request to get the all the findings in a project.
        * @function projectByName
        * @param {String} project Project name
@@ -284,63 +266,6 @@ angular.module("FluidIntegrates").factory(
       "updateDescription" (data, findingid) {
         const oopsAc = "An error occurred updating description";
         return $xhr.post($q, `${BASE.url}update_description`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
-        }, oopsAc);
-      },
-      "updateEvidenceFiles" (data, callbackFn) {
-        const UNAUTHORIZED_ERROR = 401;
-        const REQUEST_ENTITY_TOO_LARGE = 413;
-        const INTERNAL_SERVER_ERROR = 500;
-        try {
-          $.ajax({
-            "cache": false,
-            "contentType": false,
-            data,
-            "error" (xhr, textStatus, errorThrown) {
-              angular.element(".loader").hide();
-              const response = {"error": true};
-              if (xhr.status === INTERNAL_SERVER_ERROR) {
-                Rollbar.error("Error: An error ocurred loading data");
-                response.message = "An error ocurred loading data";
-              }
-              else if (xhr.status === UNAUTHORIZED_ERROR) {
-                Rollbar.error("Error: 401 Unauthorized");
-                $window.location = "error401";
-              }
-              else if (xhr.status === REQUEST_ENTITY_TOO_LARGE) {
-                response.message = "File exceeds the size limits";
-              }
-              else {
-                Rollbar.error(`Error: Unhandled error ${errorThrown} at \
-                              updateEvidenceFiles`);
-                response.message = "An error ocurred loading data";
-              }
-              callbackFn(angular.fromJson(response));
-            },
-            "method": "POST",
-            "mimeType": "multipart/form-data",
-            "processData": false,
-            "success" (response) {
-              angular.element(".loader").hide();
-              callbackFn(angular.fromJson(response));
-            },
-            "url": `${BASE.url}update_evidences_files?_` +
-                `${parseInt(secureRandom(5).join(""), 10)}`
-          });
-        }
-        catch (err) {
-          if (err.status === UNAUTHORIZED_ERROR) {
-            Rollbar.error("Error: 401 Unauthorized");
-            $window.location = "error401";
-          }
-          Rollbar.error("Error: An error ocurred getting finding by ID", err);
-        }
-      },
-      "updateEvidenceText" (data, findingid) {
-        const oopsAc = "An error occurred updating evidence description";
-        return $xhr.post($q, `${BASE.url}update_evidence_text`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           data,
           findingid
