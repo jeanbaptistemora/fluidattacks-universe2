@@ -228,6 +228,7 @@ class EditUser(Mutation):
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
         util.invalidate_cache(project_name)
+        util.invalidate_cache(query_args.get('email'))
         success = False
 
         modified_user_data = {
