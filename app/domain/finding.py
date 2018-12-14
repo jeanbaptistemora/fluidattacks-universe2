@@ -176,3 +176,22 @@ def cast_tracking(tracking):
         cycle += 1
         tracking_casted.append(closing_cicle)
     return tracking_casted
+
+def get_dynamo_evidence(finding_id):
+    finding_data = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', finding_id)
+    evidence_files = finding_data[0].get('files') if finding_data and 'files' in finding_data[0].keys() else []
+    parsed_evidence = {
+        'animation': { 'url': filter_evidence_filename(evidence_files, 'animation') },
+        'evidence1': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_1') },
+        'evidence2': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_2') },
+        'evidence3': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_3') },
+        'evidence4': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_4') },
+        'evidence5': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_5') },
+        'exploitation': { 'url': filter_evidence_filename(evidence_files, 'exploitation') },
+    }
+
+    return parsed_evidence
+
+def filter_evidence_filename(evidence_files, name):
+    evidence_info = filter(lambda evidence: evidence['name'] == name, evidence_files)
+    return evidence_info[0]['file_url'] if evidence_info else ''
