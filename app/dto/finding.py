@@ -143,30 +143,9 @@ class FindingDTO(object):
         if 'data[openVulnerabilities]' in parameter:
             self.data[self.CARDINALITY] \
                 = parameter['data[openVulnerabilities]']
-        if 'data[vulnerability]' in parameter:
-            self.data[self.VULNERABILITY] \
-                = parameter['data[vulnerability]']
-        if 'data[requirements]' in parameter:
-            self.data[self.REQUIREMENTS] \
-                = parameter['data[requirements]']
         if 'data[where]' in parameter:
             self.data[self.WHERE] \
                 = parameter['data[where]']
-        if 'data[effectSolution]' in parameter:
-            self.data[self.EFFECT_SOLUTION] \
-                = parameter['data[effectSolution]']
-        if 'data[threat]' in parameter:
-            self.data[self.THREAT] \
-                = parameter['data[threat]']
-        if 'data[attackVector]' in parameter:
-            self.data[self.ATTACK_VECTOR] \
-                = parameter['data[attackVector]']
-        if 'data[affectedSystems]' in parameter:
-            self.data[self.AFFECTED_SYSTEMS] \
-                = parameter['data[affectedSystems]']
-        if 'data[cwe]' in parameter:
-            self.data[self.CWE] \
-                = parameter['data[cwe]']
         if 'data[lastVulnerability]' in parameter:
             self.data[self.LAST_VULNERABILITY] \
                 = parameter['data[lastVulnerability]']
@@ -211,6 +190,8 @@ class FindingDTO(object):
     def parse_description(self, request_arr, submission_id): # noqa: C901
         """Convert description of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
+        migrated_dict = {}
+        migrated_aditional_info_dict = {}
         description_title = ['report_level', 'subscription', 'client_code',
                              'finding', 'probability', 'severity',
                              'risk_value', 'ambit', 'category', 'test_type',
@@ -243,18 +224,43 @@ class FindingDTO(object):
             migrated_dict = {v: initial_dict[k]
                              for (k, v) in migrated_description_fields.items()
                              if k in initial_dict.keys()}
+        aditional_info_title = ['vulnerability', 'attack_vector',
+                                'affected_systems', 'threat', 'risk',
+                                'requirements', 'cwe', 'effect_solution',
+                                'kb', 'finding_type']
+        aditional_info = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            aditional_info_title)
+        if aditional_info:
+            migrated_aditional_info_fields = {k: util.snakecase_to_camelcase(k)
+                                              for k in aditional_info_title}
+            migrated_aditional_info_dict = {
+                v: aditional_info[k]
+                for (k, v) in migrated_aditional_info_fields.items()
+                if k in aditional_info.keys()}
+        else:
+            migrated_aditional_info_fields = {
+                self.VULNERABILITY: 'vulnerability',
+                self.ATTACK_VECTOR: 'attackVector',
+                self.AFFECTED_SYSTEMS: 'affectedSystems',
+                self.THREAT: 'threat',
+                self.RISK: 'risk',
+                self.REQUIREMENTS: 'requirements',
+                self.CWE: 'cwe',
+                self.EFFECT_SOLUTION: 'effectSolution',
+                self.KB_LINK: 'kb',
+                self.FINDING_TYPE: 'findingType'
+            }
+            migrated_aditional_info_dict = {
+                v: initial_dict[k]
+                for (k, v) in migrated_aditional_info_fields.items()
+                if k in initial_dict.keys()}
+        migrated_data = forms.dict_concatenation(
+            migrated_dict,
+            migrated_aditional_info_dict)
         description_fields = {
             self.CARDINALITY: 'openVulnerabilities',
             self.WHERE: 'where',
-            self.VULNERABILITY: 'vulnerability',
-            self.THREAT: 'threat',
-            self.RISK: 'risk',
-            self.REQUIREMENTS: 'requirements',
-            self.EFFECT_SOLUTION: 'effectSolution',
-            self.KB_LINK: 'kb',
-            self.AFFECTED_SYSTEMS: 'affectedSystems',
-            self.ATTACK_VECTOR: 'attackVector',
-            self.FINDING_TYPE: 'findingType',
             self.REVISION: 'revision',
             self.TREATMENT: 'treatment',
             self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
@@ -262,13 +268,11 @@ class FindingDTO(object):
             self.EXTERNAL_BTS: 'externalBts',
             self.LAST_VULNERABILITY: 'lastVulnerability',
             self.RELEASE_DATE: 'releaseDate',
-            self.CWE: 'cwe',
-            self.FINDING_TYPE: 'findingType'
         }
         parsed_dict = {v: initial_dict[k]
                        for (k, v) in description_fields.items()
                        if k in initial_dict.keys()}
-        parsed_dict = forms.dict_concatenation(parsed_dict, migrated_dict)
+        parsed_dict = forms.dict_concatenation(parsed_dict, migrated_data)
         parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         if 'cwe' in parsed_dict.keys():
             parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
@@ -769,7 +773,10 @@ def migrate_description(finding):
                           'subscription', 'clientCode', 'finding',
                           'probability', 'severity', 'riskValue', 'ambit',
                           'category', 'testType', 'relatedFindings', 'actor',
-                          'scenario', 'recordsNumber', 'records']
+                          'scenario', 'recordsNumber', 'records',
+                          'vulnerability', 'attackVector', 'affectedSystems',
+                          'threat', 'risk', 'requirements', 'cwe',
+                          'effectSolution', 'kb', 'findingType']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)

@@ -1040,13 +1040,15 @@ def update_description(request):
     finding_id = str(parameters['findingid'])
     try:
         generic_dto = FindingDTO()
-        description_title = ['report_level', 'finding']
+        description_attributes = ['vulnerability']
         description = integrates_dao.get_finding_attributes_dynamo(
             finding_id,
-            description_title)
+            description_attributes)
         description_title = ['reportLevel', 'finding', 'probability', 'id',
                              'severity', 'riskValue', 'category', 'actor',
-                             'scenario', 'recordsNumber', 'records']
+                             'scenario', 'recordsNumber', 'records',
+                             'vulnerability', 'attackVector', 'affectedSystems',
+                             'threat', 'requirements', 'cwe', 'effectSolution']
         finding = {k: parameters['data[' + k + ']']
                    for k in description_title
                    if parameters.get('data[' + k + ']')}
