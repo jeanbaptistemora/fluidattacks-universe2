@@ -291,7 +291,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                 {
                   props.addModal.envFields.map((field: { environment: string }, index: number) => (
                     <Row key={index}>
-                      <Col md={7}>
+                      <Col md={5}>
                         <label>
                           <label style={{color: "#f22"}}>* </label>
                           {translate.t("search_findings.tab_resources.environment")}
@@ -326,7 +326,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                   props.addModal.repoFields.map((field: { branch: string; repository: string }, index: number) =>
                     (
                       <Row key={index}>
-                        <Col md={5}>
+                        <Col md={3}>
                           <label>
                             <label style={{color: "#f22"}}>* </label>
                             {translate.t("search_findings.tab_resources.repository")}
@@ -386,36 +386,34 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
           </Grid>
         }
         footer={
-          <Row>
-            <ButtonToolbar className="pull-right">
-              <Button
-                bsStyle="default"
-                onClick={(): void => { store.dispatch(actions.closeAddModal()); }}
-              >
-                {translate.t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                bsStyle="primary"
-                onClick={
-                  props.addModal.type === "environment"
-                  ? (): void => { saveEnvs(
-                      props.addModal.envFields,
-                      props.projectName,
-                      props.environmentsDataset,
-                     );
-                   }
-                  : (): void => { saveRepos(
-                      props.addModal.repoFields,
-                      props.projectName,
-                      props.repositoriesDataset,
-                     );
-                   }
-                }
-              >
-                {translate.t("confirmmodal.proceed")}
-              </Button>
-            </ButtonToolbar>
-          </Row>
+          <ButtonToolbar className="pull-right">
+            <Button
+              bsStyle="default"
+              onClick={(): void => { store.dispatch(actions.closeAddModal()); }}
+            >
+              {translate.t("confirmmodal.cancel")}
+            </Button>
+            <Button
+              bsStyle="primary"
+              onClick={
+                props.addModal.type === "environment"
+                ? (): void => { saveEnvs(
+                    props.addModal.envFields,
+                    props.projectName,
+                    props.environmentsDataset,
+                   );
+                 }
+                : (): void => { saveRepos(
+                    props.addModal.repoFields,
+                    props.projectName,
+                    props.repositoriesDataset,
+                   );
+                 }
+              }
+            >
+              {translate.t("confirmmodal.proceed")}
+            </Button>
+          </ButtonToolbar>
         }
       />
     </div>

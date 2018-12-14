@@ -5,7 +5,7 @@ import { default as Modal } from "./index";
 import "mocha";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { Button } from "react-bootstrap";
+import { Button, ModalHeader, ModalTitle, ModalBody, ModalFooter } from "react-bootstrap";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -31,25 +31,23 @@ describe('Generic modal', () => {
       />
     );
     expect(
-      wrapper.contains(
-        <div>
-          <div>
-            <h3>
-              Unit test title
-            </h3>
-          </div>
-          <div>
-            <p>
-              Unit modal content
-            </p>
-          </div>
-          <div>
-            <Button>
-              test btn
-            </Button>
-          </div>
-        </div>
-      )
+      wrapper.contains([
+        <ModalHeader closeLabel="Close" closeButton={false} bsClass="modal-header">
+          <ModalTitle componentClass="h4">
+            Unit test title
+          </ModalTitle>
+        </ModalHeader>,
+        <ModalBody componentClass="div">
+          <p>
+            Unit modal content
+          </p>
+        </ModalBody>,
+        <ModalFooter componentClass="div">
+          <Button active={false} block={false} disabled={false} bsStyle="default" bsClass="btn">
+            test btn
+          </Button>
+        </ModalFooter>
+      ])
     ).to.equal(true);
   });
 });

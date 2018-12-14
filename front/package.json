@@ -73,7 +73,6 @@
     "@types/react-fontawesome": "1.6.3",
     "react-notification-system": "0.2.17",
     "@types/react-notification-system": "0.2.37",
-    "react-responsive-modal": "3.2.0",
     "chart.js": "2.7.2",
     "@types/chart.js": "2.7.28",
     "react-chartjs-2": "2.7.4",
