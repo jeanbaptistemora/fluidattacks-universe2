@@ -6,6 +6,7 @@
  * View: https://github.com/palantir/tslint/issues/711
  */
 export const LOAD_EVIDENCE: string = "dashboard/finding/evidence/load";
+export const CLEAR_EVIDENCE: string = "dashboard/finding/evidence/clear";
 export const OPEN_EVIDENCE: string = "dashboard/finding/evidence/open";
 export const CLOSE_EVIDENCE: string = "dashboard/finding/evidence/close";
 export const MOVE_EVIDENCE: string = "dashboard/finding/evidence/move";

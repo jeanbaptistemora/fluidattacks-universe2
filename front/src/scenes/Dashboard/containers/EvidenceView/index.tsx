@@ -44,6 +44,7 @@ export interface IEvidenceViewProps {
 
 const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
+    componentWillUnmount(): void { store.dispatch(actions.clearEvidence()); },
     componentDidMount(): void {
       const { findingId } = this.props as IEvidenceViewProps;
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (

@@ -509,6 +509,13 @@ actionMap[evidenceActions.LOAD_EVIDENCE] =
     },
   });
 
+actionMap[evidenceActions.CLEAR_EVIDENCE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    evidence: initialState.evidence,
+  });
+
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,
   arg2: actions.IActionStructure,

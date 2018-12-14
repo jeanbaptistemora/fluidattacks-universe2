@@ -51,6 +51,12 @@ export const editEvidence: ((value: boolean) => IActionStructure) =
     type: actionTypes.EDIT_EVIDENCE,
   });
 
+export const clearEvidence: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.CLEAR_EVIDENCE,
+  });
+
 export const loadEvidence: ThunkActionStructure =
   (findingId: string): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
