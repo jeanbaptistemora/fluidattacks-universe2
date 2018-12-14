@@ -1,7 +1,7 @@
 <div class="page-head" style="padding-bottom:1px!important;">
     <ol class="breadcrumb">
         <li><a ui-sref="home">Dashboard</a></li>
-        <li><a class="text-uppercase">{{project}}</a></li>
+        <li><a ng-click="goBack();" class="breadcrumb_pointer">{{project}}</a></li>
     </ol>
     <div id="header_alert"></div>
     <br>
@@ -13,12 +13,7 @@
 <!-- Start FindingContent -->
 <div class="main-content" style="background-color: white; padding-top:1px!important;" >
   <div class="row">
-      <div class="col-md-2 col-xs-12 col-sm-12">
-          <button class="btn btn-default btn-block" ng-click="goBack();">
-              <i class="icon s7-angle-left"></i> {{'search_findings.project_buttons.back' | translate}}
-          </button>
-      </div>
-      <div class="col-md-6 col-xs-12 col-sm-12 text-left">
+      <div class="col-md-8 col-xs-12 col-sm-12 text-left">
           <h2 style="margin-top:0px !important;">{{header.findingTitle}}</h2>
       </div>
       <div ng-if="isAdmin && draftsButton">

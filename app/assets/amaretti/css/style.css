@@ -20314,3 +20314,8 @@ td.lower-text {
 }
 .intl-tel-input {width: 100%;}
 .intl-tel-input .iti-flag .arrow {border: none;}
+
+.breadcrumb_pointer {
+    cursor: pointer;
+    text-transform: uppercase;
+}
