@@ -219,6 +219,7 @@ def cache_content(func):
         if kwargs:
             uniq_id += '_'.join([str(kwargs[x]) for x in kwargs])
         key_name = func.__name__ + '_' + uniq_id
+        key_name = key_name.lower()
         ret = cache.get(key_name)
         if ret:
             return ret
@@ -235,6 +236,7 @@ def get_cached(func):
         """Get cached response from function if it exists."""
         uniq_id = "_".join([str(kwargs[x])[:12] for x in kwargs])
         key_name = func.__name__ + '_' + uniq_id
+        key_name = key_name.lower()
         ret = cache.get(key_name)
         if ret:
             return ret
