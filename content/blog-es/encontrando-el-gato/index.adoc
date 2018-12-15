@@ -26,6 +26,7 @@ Todos sabemos que ésto no es posible en el mundo real
 pero, ¿cuánto podemos acercar una imagen en realidad
 para encontrar información?
 O mejor, ¿qué tan de cerca podemos observarla?
+
 A continuación estudiaremos varias herramientas de cómputo forense
 que pueden ayudarnos a encontrar información útil
 en archivos que a simple vista pueden parecer inocuos,
@@ -50,12 +51,13 @@ encontrar el paradero del minino presidencial.
 image::prompt.png[Enunciado]
 
 Se nos proporciona un archivo comprimido,
-el cual al descomprimir
-solo nos arroja un archivo
+que al descomprimir
+nos arroja un archivo
 llamado +ch9+ a secas,
 sin extensión que nos de una pista
 sobre con qué programa abrirlo
 para comenzar nuestra investigación.
+
 Es aquí donde viene nuestra primera herramienta forense.
 +file+ es un comando incluido en la gran mayoría de distribuciones +GNU/Linux+
 y +MacOS+ que nos mostrará el tipo del archivo que le pasemos,
@@ -78,16 +80,17 @@ con una tabla de particiones tipo +MBR+.
 Podríamos montarlo directamente en nuestro filesystem
 para empezar a hurgar en su interior,
 pero en ésta ocasión haremos algo mejor.
+
 Entra link:http://www.sleuthkit.org[+TSK - The Sleuth Kit+],
 una suite de herramientas forense
 que nos facilitará enormemente la vida
 como detectives digitales.
 El proyecto +TSK+ incluye link:http://www.sleuthkit.org/autopsy/[+Autopsy+],
-una interfaz gráfica para +TSK+
+una interfaz gráfica
 que permite usar todas sus herramientas fácilmente
 en una presentación organizada y optimizada
-para que lo único de lo que preocuparnos
-sea la investigación que nos concierne
+para que lo único que nos ocupe
+sea la investigación que nos concierne,
 seamos técnicos o no.
 
 .Pantalla principal de Autopsy, al abrir nuestra imagen
@@ -104,8 +107,8 @@ para buscar información específica para nuestro caso.
 
 == Tras las huellas: Data carving
 
-Rebuscando un poco en los archivos encontrados,
-vemos entre los archivos eliminados uno que llama la atención.
+Rebuscando un poco en los archivos recuperados,
+vemos entre los eliminados uno que llama la atención.
 Un documento llamado +revendications.odt+
 que contiene un texto muy particular
 que traducido reza:
@@ -202,7 +205,7 @@ haya servido como prueba
 de que hay que ser siempre muy cuidadoso
 con cómo disponemos de nuestros datos...
 no vaya a ser que por un descuido
-nos encuentre quien menos queremos que lo haga.
+te encuentre quien menos quieres que lo haga.
 
 == Referencias
 
