@@ -17,7 +17,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUpload
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.views.decorators.cache import never_cache
+from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
@@ -87,7 +87,8 @@ def error401(request):
     parameters = {}
     return render(request, "HTTP401.html", parameters)
 
-@never_cache
+
+@cache_control(private=True, max_age=3600)
 @authenticate
 @authorize(['analyst', 'admin'])
 def forms(request):
@@ -95,14 +96,14 @@ def forms(request):
     return render(request, "forms.html")
 
 
-@never_cache
+@cache_control(private=True, max_age=3600)
 @authenticate
 def project_indicators(request):
     "Indicators view"
     return render(request, "project/indicators.html")
 
 
-@never_cache
+@cache_control(private=True, max_age=3600)
 @authenticate
 def project_findings(request):
     "Project view"
@@ -137,7 +138,7 @@ def project_findings(request):
     return render(request, "project/findings.html", dicLang)
 
 
-@never_cache
+@cache_control(private=True, max_age=3600)
 @authenticate
 @authorize(['analyst', 'admin'])
 def project_drafts(request):
@@ -164,7 +165,7 @@ def project_drafts(request):
     return render(request, "project/drafts.html", dicLang)
 
 
-@never_cache
+@cache_control(private=True, max_age=3600)
 @authenticate
 def project_events(request):
     "eventualities view"
@@ -196,14 +197,16 @@ def project_events(request):
         }
     return render(request, "project/events.html", dicLang)
 
-@never_cache
+
+@cache_control(private=True, max_age=3600)
 @authenticate
 def project_resources(request):
     "resources view"
     parameters = {}
     return render(request, "project/resources.html", parameters)
 
-@never_cache
+
+@cache_control(private=True, max_age=3600)
 @authenticate
 def project_users(request):
     "users view"
@@ -212,7 +215,7 @@ def project_users(request):
 
 
 @csrf_exempt
-@never_cache
+@cache_control(private=True, max_age=3600)
 @authenticate
 def registration(request):
     "Registry view for authenticated users"
@@ -243,7 +246,7 @@ def registration(request):
     return response
 
 
-@never_cache
+@cache_control(private=True, max_age=3600)
 @csrf_exempt
 @authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def dashboard(request):
