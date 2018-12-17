@@ -419,15 +419,15 @@ def main():
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-c',
-        help='JSON config file',
+        '-auth',
+        help='JSON authentication file',
         type=argparse.FileType('r'))
     args = parser.parse_args()
 
-    if not args.c:
+    if not args.auth:
         arguments_error(parser)
 
-    formstack_token = json.load(args.c).get("token")
+    formstack_token = json.load(args.auth).get("token")
 
     if not formstack_token:
         arguments_error(parser)
