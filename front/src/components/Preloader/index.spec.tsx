@@ -21,15 +21,11 @@ describe('Preloader', () => {
     ));
     const element =
       <div id="full_loader" className={style.loader}>
-        <p className={style.text}>
-          <img
-            src="assets/img/loading.gif"
-            width="120"
-            height="120"
-          />
-          <br/>
-          Powered by <b>Fluid Attacks</b>
-        </p>
+        <img
+          src="assets/img/loading.gif"
+          width="100"
+          height="100"
+        />
       </div>
     expect(wrapper.contains(element))
     .to.equal(true);
