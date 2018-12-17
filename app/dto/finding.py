@@ -34,7 +34,6 @@ class FindingDTO(object):
     PROJECT_NAME = FIELDS_FINDING['PROJECT_NAME']
     CLIENT_PROJECT = FIELDS_FINDING['CLIENT_PROJECT']
     CONTEXT = FIELDS_FINDING['CONTEXT']
-    REVISION = FIELDS_FINDING['REVISION']
 
     #Atributos evidencia
     DOC_TOTAL = FIELDS_FINDING['DOC_TOTAL']
@@ -258,14 +257,35 @@ class FindingDTO(object):
         migrated_data = forms.dict_concatenation(
             migrated_dict,
             migrated_aditional_info_dict)
+        treatment_title = ['treatment', 'treatment_justification',
+                           'treatment_manager', 'external_bts']
+        treatment_info = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            treatment_title)
+        if treatment_info:
+            treatment_fields = {k: util.snakecase_to_camelcase(k)
+                                for k in treatment_title}
+            treatment_dict = {
+                v: treatment_info[k]
+                for (k, v) in treatment_fields.items()
+                if k in treatment_info.keys()}
+        else:
+            treatment_fields = {
+                self.TREATMENT: 'treatment',
+                self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
+                self.TREATMENT_MANAGER: 'treatmentManager',
+                self.EXTERNAL_BTS: 'externalBts'
+            }
+            treatment_dict = {
+                v: initial_dict[k]
+                for (k, v) in treatment_fields.items()
+                if k in initial_dict.keys()}
+        migrated_data = forms.dict_concatenation(
+            migrated_data,
+            treatment_dict)
         description_fields = {
             self.CARDINALITY: 'openVulnerabilities',
             self.WHERE: 'where',
-            self.REVISION: 'revision',
-            self.TREATMENT: 'treatment',
-            self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
-            self.TREATMENT_MANAGER: 'treatmentManager',
-            self.EXTERNAL_BTS: 'externalBts',
             self.LAST_VULNERABILITY: 'lastVulnerability',
             self.RELEASE_DATE: 'releaseDate',
         }
@@ -777,6 +797,15 @@ def migrate_description(finding):
                           'vulnerability', 'attackVector', 'affectedSystems',
                           'threat', 'risk', 'requirements', 'cwe',
                           'effectSolution', 'kb', 'findingType']
+    description = {util.camelcase_to_snakecase(k): finding.get(k)
+                   for k in description_fields if finding.get(k)}
+    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
+    return response
+
+def migrate_treatment(finding):
+    primary_keys = ['finding_id', str(finding['id'])]
+    description_fields = ['treatment', 'treatmentJustification',
+                          'treatmentManager', 'externalBts']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)

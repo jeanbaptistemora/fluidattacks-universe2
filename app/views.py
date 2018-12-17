@@ -32,7 +32,7 @@ from .techdoc.IT import ITReport
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
-    save_severity, migrate_description
+    save_severity, migrate_description, migrate_treatment
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -1090,11 +1090,12 @@ def update_treatment(request):
     parameters = request.POST.dict()
     try:
         util.invalidate_cache(parameters['data[id]'])
-        generic_dto = FindingDTO()
-        treatment_dict = generic_dto.create_treatment(parameters)
-        treatment_info=forms_utils.to_formstack(treatment_dict["data"])
-        api = FormstackAPI()
-        request = api.update(treatment_dict["request_id"], treatment_info)
+        description_title = ['id', 'treatment', 'treatmentJustification',
+                             'treatmentManager', 'externalBts']
+        finding = {k: parameters['data[' + k + ']']
+                   for k in description_title
+                   if parameters.get('data[' + k + ']')}
+        request = migrate_treatment(finding)
         if request:
             if parameters['data[treatment]'] == 'Asumido':
                 context = {
@@ -1430,6 +1431,7 @@ def accept_draft(request):
                 integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
                 save_severity(finding)
                 migrate_description(finding)
+                migrate_treatment(finding)
                 util.invalidate_cache(finding['projectName'])
                 util.invalidate_cache(parameters)
                 return util.response([], 'success', False)
