@@ -577,9 +577,13 @@ def catch_finding(request, submission_id):
                         finding_new.get('closedVulnerabilities'))):
                 finding = cast_new_vulnerabilities(finding_new, finding)
             else:
-                error_msg = 'Error: Finding {finding_id} of project {project} has vulnerabilities in old format'\
-                    .format(finding_id=submission_id, project=finding['projectName'])
-                rollbar.report_message(error_msg, 'error', request)
+                if finding.get('where'):
+                    error_msg = 'Error: Finding {finding_id} of project {project} has vulnerabilities in old format'\
+                        .format(finding_id=submission_id, project=finding['projectName'])
+                    rollbar.report_message(error_msg, 'error', request)
+                else:
+                    # Finding does not have vulnerabilities in old format.
+                    pass
                 closingData = api.get_closings_by_id(submission_id)
                 if closingData is None or 'error' in closingData:
                     return None
