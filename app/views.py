@@ -95,7 +95,6 @@ def forms(request):
     return render(request, "forms.html")
 
 
-@cache_content
 @never_cache
 @authenticate
 def project_indicators(request):
@@ -138,7 +137,6 @@ def project_findings(request):
     return render(request, "project/findings.html", dicLang)
 
 
-@cache_content
 @never_cache
 @authenticate
 @authorize(['analyst', 'admin'])
@@ -166,7 +164,6 @@ def project_drafts(request):
     return render(request, "project/drafts.html", dicLang)
 
 
-@cache_content
 @never_cache
 @authenticate
 def project_events(request):
@@ -1430,6 +1427,8 @@ def accept_draft(request):
                 integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
                 save_severity(finding)
                 migrate_description(finding)
+                util.invalidate_cache(finding['projectName'])
+                util.invalidate_cache(parameters)
                 return util.response([], 'success', False)
             else:
                 rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)
