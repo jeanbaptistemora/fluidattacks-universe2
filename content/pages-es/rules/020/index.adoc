@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento se define la importancia de establecer penalizaciones aplicadas en caso de incumplimiento de un acuerdo a nivel de servicio.
 :keywords: Requerimiento, Seguridad, Penalización, Incumplimiento, Acuerdos, Servicio.
 :rules: yes
+:translate: rules/020/
 
 = REQ.020 Definir penalizaciones por incumplimiento
 
@@ -51,3 +52,7 @@ al no estar definido a nivel contractual.
 Políticas de sanción: Aplicar sanciones apropiadas
 contra miembros que incumplan las políticas de seguridad y procedimientos
 definidos por la entidad.
+
+. [[r3]] link:https://gdpr-info.eu/recitals/no-149/[GDPR- 149  Penalizaciones por incumplimiento a reglas nacionales].
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-150/[GDPR- 150  Multas administrativas].

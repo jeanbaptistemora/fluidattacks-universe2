@@ -15,6 +15,10 @@
 * link:006/[REQ.006 Identify threats to assets].
 * link:008/[REQ.008 Generate system threat model].
 
+== SLA
+
+* link:020/[REQ.020 Set penalties for SLA infringements].
+
 == Session
 
 * link:023/[REQ.023 Close inactive users sessions].
