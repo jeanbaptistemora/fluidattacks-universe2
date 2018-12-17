@@ -6,6 +6,7 @@ Singer.io tap for the https://www.currencyconverterapi.com/ API
 # Your code has been rated at 10.00/10
 
 import json
+import datetime
 import urllib.request
 
 def get_exchange_rates():
@@ -36,7 +37,11 @@ def write_schema():
                 },
                 "COP_USD": {
                     "type": "number"
-                }
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
             }
         }
     }
@@ -46,13 +51,16 @@ def write_schema():
 def write_records(json_obj):
     """ write the RECORD message to stdout """
 
+    date = datetime.datetime.utcnow().isoformat("T") + "Z"
+
     stdout_json_obj = {
         "type": "RECORD",
         "stream": "currencies",
         "record": {
             "at": "last sync",
             "USD_COP": float(json_obj["USD_COP"]),
-            "COP_USD": float(json_obj["COP_USD"])
+            "COP_USD": float(json_obj["COP_USD"]),
+            "date": str(date)
         }
     }
 
