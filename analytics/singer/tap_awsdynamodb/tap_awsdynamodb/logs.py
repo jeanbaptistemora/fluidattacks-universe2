@@ -7,7 +7,7 @@ logs manager
 
 import json
 
-DOMAIN = "./logs/__tap_awsdynamodb."
+DOMAIN = "/logs/__tap_awsdynamodb."
 
 def log_open(name):
     """ open a file in append mode, and creates it if not exists """

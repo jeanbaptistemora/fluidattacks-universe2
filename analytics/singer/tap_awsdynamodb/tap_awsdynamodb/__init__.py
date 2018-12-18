@@ -8,6 +8,7 @@ Singer tap for AWS Dynamo DB
 # pylint: disable=import-error
 
 import re
+import ast
 import json
 import argparse
 
@@ -17,6 +18,7 @@ from . import logs
 
 _TYPE = {
     "string": {"type": "string"},
+    "special": {"type": "string"},
     "number": {"type": "number"},
     "date-time": {"type": "string", "format": "date-time"},
 }
@@ -150,15 +152,52 @@ def write_records(table_name, properties):
                     stdout_json_obj["record"][key] = std_number(val)
                 elif kind == "date-time":
                     stdout_json_obj["record"][key] = std_date(val)
+                elif kind == "special":
+                    # replaces Decimal('***') by '***' which can be structured by literal_eval
+                    new_val = re.sub(r"(Decimal\()(.{0,10})(\))", r"\g<2>", val)
+                    val_obj = ast.literal_eval(new_val)
+                    stdout_json_obj["record"][key] = std_structure(val_obj)
             except UnrecognizedNumber:
                 logs.log_error("number: [" + val + "]")
             except UnrecognizedDate:
                 logs.log_error("date:   [" + val + "]")
+            except ValueError:
+                logs.log_error("ValueError:  [" + val + "]")
 
         logs.log_json_obj(table_name + ".stdout", stdout_json_obj)
         print(json.dumps(stdout_json_obj))
 
         line = file.readline()
+
+def std_structure(obj):
+    """
+    turns a graph to a plain text representation
+        nodes may be (list, dict, set, or str)
+    """
+
+    logs.log_conversions("special [" + str(obj) + "]")
+
+    def simplify(obj):
+        """ aux function to do the heavy lifting """
+        structure = ""
+        if isinstance(obj, (list, set)):
+            for elem in obj:
+                structure += simplify(elem) + ","
+            structure = structure[:-1]
+        elif isinstance(obj, dict):
+            for key, val in obj.items():
+                structure += key + ":" + simplify(val) + "-"
+            structure = structure[:-1]
+        else:
+            obj_str = re.sub(r"(,|-|:)", r"", str(obj))
+            structure = obj_str
+        return structure
+
+    new_structure = simplify(obj)
+
+    logs.log_conversions("        [" + new_structure + "]")
+
+    return new_structure
 
 def std_date(date):
     """
@@ -298,21 +337,27 @@ def main():
             arguments_error(parser)
 
     # ==== AWS DynamoDB  =======================================================
+    # write_schema and write_records don't consume quota
+    # table_list and discover_schema consumes negligible quota
+    # write_queries consumes quota proportional to the table size
     (dynamodb_client, dynamodb_resource) = create_access_point(auth_keys)
 
-    table_list = get_all_tables(dynamodb_client)
-
-    # First download all tables, quota is used only once
-    for table_name in table_list:
-        write_queries(dynamodb_resource, table_name)
-
     if args.discovery_mode:
-        # This function makes a little query, quota use is negligible
+        table_list = get_all_tables(dynamodb_client)
+
+        for table_name, properties in conf_sett["tables"].items():
+            write_queries(dynamodb_resource, table_name)
+
         discover_schema(dynamodb_client, table_list)
     else:
         for table_name, properties in conf_sett["tables"].items():
-            write_schema(table_name, properties)
-            write_records(table_name, properties)
+            write_queries(dynamodb_resource, table_name)
+            try:
+                write_schema(table_name, properties)
+                write_records(table_name, properties)
+            # empty tables are not downloaded
+            except FileNotFoundError:
+                pass
 
 if __name__ == "__main__":
     main()

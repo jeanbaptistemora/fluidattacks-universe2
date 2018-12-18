@@ -41,7 +41,7 @@ def write_schema():
                 "date": {
                     "type": "string",
                     "format": "date-time"
-                },
+                }
             }
         }
     }
