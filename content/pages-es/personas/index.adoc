@@ -23,6 +23,7 @@ link:https://www.linkedin.com/in/pauveelez/[LinkedIn]
 a|=== link:ralvarez/[Rafael Alvarez]
 image::ralvarez.png[alt="Rafael Álvarez", width=100 ]
 Operations Team +
+link:https://www.linkedin.com/in/rafael-alvarez-7b04a2177/[LinkedIn]
 
 a|=== link:jarmas/[Jonathan Armas]
 image::jarmas.png[alt="Jonathan Armas", width=100 ]
