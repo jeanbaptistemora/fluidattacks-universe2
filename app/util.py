@@ -364,7 +364,7 @@ def invalidate_cache(key_pattern):
     cache.delete_pattern('*' + key_pattern + '*')
 
 
-def calculate_etag(request, img_file):
+def calculate_etag(_, img_file):
     """Calculate Etag for given file."""
     try:
         img_id = img_file.split('.')[0][-4:]

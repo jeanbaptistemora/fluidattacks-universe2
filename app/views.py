@@ -448,7 +448,7 @@ def get_project_info(project):
     return []
 
 @cache_content
-@never_cache
+@cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -468,7 +468,7 @@ def get_finding(request):
 
 
 @cache_content
-@never_cache
+@cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'admin'])
@@ -496,7 +496,7 @@ def get_drafts(request):
 
 
 @cache_content
-@never_cache
+@cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -705,7 +705,7 @@ def format_release_date(finding, state):
 
 
 @cache_content
-@never_cache
+@cache_control(private=True, max_age=31536000)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -724,7 +724,7 @@ def get_evidences(request):
 
 
 @cache_content
-@never_cache
+@cache_control(private=True, max_age=31536000)
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, findingid, fileid):
@@ -1020,8 +1020,9 @@ def update_evidence_text(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
+
 @cache_content
-@never_cache
+@cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -1035,6 +1036,7 @@ def get_myprojects(request):
             "company_project": row[1]
         })
     return util.response(json_data, 'Success', False)
+
 
 @never_cache
 @require_http_methods(["POST"])
@@ -1374,7 +1376,7 @@ def add_comment(request):
         return util.response([], 'Campos vacios', True)
 
 
-@never_cache
+@cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
