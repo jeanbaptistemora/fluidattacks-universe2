@@ -1,4 +1,4 @@
-# AWS vars
+  # AWS vars
 variable "dynamo_access_key" {}
 variable "dynamo_secret_key" {}
 variable "region" {}
@@ -11,8 +11,7 @@ provider "aws" {
 
 resource "aws_dynamodb_table" "alerts_by_company" {
   name           = "FI_alerts_by_company"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "company_name"
   range_key      = "project_name"
 
@@ -55,8 +54,7 @@ resource "aws_dynamodb_table" "comments" {
 
 resource "aws_dynamodb_table" "events" {
   name           = "fi_events"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "event_id"
 
   attribute {
@@ -72,8 +70,7 @@ resource "aws_dynamodb_table" "events" {
 
 resource "aws_dynamodb_table" "findings_email" {
   name           = "FI_findings_email"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "project_name"
   range_key      = "unique_id"
 
@@ -94,8 +91,7 @@ resource "aws_dynamodb_table" "findings_email" {
 
 resource "aws_dynamodb_table" "remediated" {
   name           = "FI_remediated"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "finding_id"
 
   attribute {
@@ -110,8 +106,7 @@ resource "aws_dynamodb_table" "remediated" {
 
 resource "aws_dynamodb_table" "toe" {
   name           = "FI_toe"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "project"
 
   attribute {
@@ -126,8 +121,7 @@ resource "aws_dynamodb_table" "toe" {
 
 resource "aws_dynamodb_table" "weekly_report" {
   name           = "FI_weekly_report"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "init_date"
 
   attribute {
@@ -156,8 +150,7 @@ resource "aws_dynamodb_table" "projects" {
 }
 resource "aws_dynamodb_table" "users" {
   name           = "FI_users"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "email"
 
   attribute {
@@ -171,8 +164,7 @@ resource "aws_dynamodb_table" "users" {
 }
 resource "aws_dynamodb_table" "project_access" {
   name           = "FI_project_access"
-  read_capacity  = 5
-  write_capacity = 5
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "user_email"
   range_key      = "project_name"
 
