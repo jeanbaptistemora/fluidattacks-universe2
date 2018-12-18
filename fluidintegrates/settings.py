@@ -33,7 +33,8 @@ sys.path.append('/usr/src/app')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #Init New Relic agent
-newrelic.agent.initialize(os.path.join(BASE_DIR, 'newrelic.ini'))
+new_relic_conf_file = os.path.join(BASE_DIR, 'newrelic.ini')
+newrelic.agent.initialize(new_relic_conf_file)
 
 
 SECRET_KEY = FI_DJANGO_SECRET_KEY
