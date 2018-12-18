@@ -1169,7 +1169,7 @@ def delete_finding(request):
             rollbar.report_message('Error: An error ocurred deleting finding', 'error', request)
             return util.response([], 'Error', True)
         to = ["projects@fluidattacks.com", "production@fluidattacks.com",
-              "jarmas@fluidattacks.com", "hvalencia@fluidattacks.com"]
+              "jarmas@fluidattacks.com", "smunoz@fluidattacks.com"]
         email_send_thread = threading.Thread( \
                                       name="Delete finding email thread", \
                                       target=send_mail_delete_finding, \
