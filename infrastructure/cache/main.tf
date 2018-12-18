@@ -24,7 +24,7 @@ resource "aws_elasticache_replication_group" "rediscache" {
   subnet_group_name		          = "redis-subnet-group"
 
   cluster_mode {
-    replicas_per_node_group = 2
-    num_node_groups         = 3
+    replicas_per_node_group = 1
+    num_node_groups         = 1
   }
 }
