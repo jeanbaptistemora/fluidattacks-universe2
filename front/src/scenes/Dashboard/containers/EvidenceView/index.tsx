@@ -133,7 +133,7 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
     <Lightbox
       imageTitle={evidenceImages[props.currentIndex].description}
       imagePadding={50}
-      mainSrc={`${findingBaseUrl}/${evidenceImages[props.currentIndex].url}?_=${new Date().getUTCMilliseconds()}`}
+      mainSrc={`${findingBaseUrl}/${evidenceImages[props.currentIndex].url}`}
       nextSrc={`${findingBaseUrl}/${evidenceImages[nextIndex].url}`}
       prevSrc={`${findingBaseUrl}/${evidenceImages[previousIndex].url}`}
       onCloseRequest={(): void => { store.dispatch(actions.closeEvidence()); }}
