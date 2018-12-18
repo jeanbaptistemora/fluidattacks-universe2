@@ -36,7 +36,6 @@ class FindingDTO(object):
     CONTEXT = FIELDS_FINDING['CONTEXT']
 
     #Atributos evidencia
-    DOC_TOTAL = FIELDS_FINDING['DOC_TOTAL']
     DOC_ACHV1 = FIELDS_FINDING['DOC_ACHV1']
     DOC_ACHV2 = FIELDS_FINDING['DOC_ACHV2']
     DOC_ACHV3 = FIELDS_FINDING['DOC_ACHV3']
@@ -108,31 +107,6 @@ class FindingDTO(object):
         """Class constructor."""
         self.request_id = None
         self.data = dict()
-
-    def create_evidence_description(self, parameter): # noqa: C901
-        """Convert the index of a JSON to Formstack index."""
-        evidence_description_fields = {
-            self.DOC_CMNT1: 'evidenceDescription1',
-            self.DOC_CMNT2: 'evidenceDescription2',
-            self.DOC_CMNT3: 'evidenceDescription3',
-            self.DOC_CMNT4: 'evidenceDescription4',
-            self.DOC_CMNT5: 'evidenceDescription5'
-        }
-        parsed_dict = {k: parameter['data[' + v + ']']
-                       for (k, v) in evidence_description_fields.items()
-                       if 'data[' + v + ']' in parameter.keys()}
-        return {'data': parsed_dict, 'request_id': parameter['data[id]']}
-
-    def parse_evidence_description(self, description_field, value):
-        """ Convert evidence description data to Formstack payload format. """
-        formstack_fields = {
-            'evidence2_description': self.DOC_CMNT1,
-            'evidence3_description': self.DOC_CMNT2,
-            'evidence4_description': self.DOC_CMNT3,
-            'evidence5_description': self.DOC_CMNT4,
-            'evidence6_description': self.DOC_CMNT5,
-        }
-        return {'data': {formstack_fields[description_field]: value}}
 
     def create_description(self, parameter): # noqa: C901
         """Convert the index of a JSON to Formstack index."""
@@ -428,14 +402,33 @@ class FindingDTO(object):
             migrated_dict = {v: initial_dict[k]
                              for (k, v) in evidence_fields.items()
                              if k in initial_dict.keys()}
-        evidence_tab_fields = {
-            self.DOC_TOTAL: 'evidenceTotal',
-            self.DOC_CMNT1: 'evidence_description_1',
-            self.DOC_CMNT2: 'evidence_description_2',
-            self.DOC_CMNT3: 'evidence_description_3',
-            self.DOC_CMNT4: 'evidence_description_4',
-            self.DOC_CMNT5: 'evidence_description_5',
+        files_field = ['files']
+        description_fields = {
+            'evidence_route_1': 'evidence_description_1',
+            'evidence_route_2': 'evidence_description_2',
+            'evidence_route_3': 'evidence_description_3',
+            'evidence_route_4': 'evidence_description_4',
+            'evidence_route_5': 'evidence_description_5'
         }
+        if has_migrated_evidence(submission_id):
+            files_info = integrates_dao.get_finding_attributes_dynamo(
+                str(submission_id),
+                files_field)
+            evidence_tab_info = {description_fields[file_obj['name']]: file_obj.get('description')
+                                 for file_obj in files_info.get('files')
+                                 if file_obj.get('name') in description_fields and
+                                 file_obj.get('description')}
+        else:
+            evidence_tab_fields = {
+                self.DOC_CMNT1: 'evidence_description_1',
+                self.DOC_CMNT2: 'evidence_description_2',
+                self.DOC_CMNT3: 'evidence_description_3',
+                self.DOC_CMNT4: 'evidence_description_4',
+                self.DOC_CMNT5: 'evidence_description_5',
+            }
+            evidence_tab_info = {v: initial_dict[k]
+                                 for (k, v) in evidence_tab_fields.items()
+                                 if k in initial_dict.keys()}
         evidence_fields_with_urls = {
             self.DOC_ACHV1: 'evidence_route_1',
             self.DOC_ACHV2: 'evidence_route_2',
@@ -448,9 +441,6 @@ class FindingDTO(object):
             self.REG_FILE: 'fileRecords',
             self.VULNERABILITIES_FILE: 'vulnerabilities'
         }
-        evidence_tab_info = {v: initial_dict[k]
-                             for (k, v) in evidence_tab_fields.items()
-                             if k in initial_dict.keys()}
         evidence_tab_info = forms.dict_concatenation(evidence_tab_info, migrated_dict)
         evidence_urls_info = {v: forms.drive_url_filter(initial_dict[k])
                               for (k, v) in evidence_fields_with_urls.items()
@@ -809,4 +799,20 @@ def migrate_treatment(finding):
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
+    return response
+
+def has_migrated_evidence(finding_id):
+    """Validate if a finding has evidence description in dynamo."""
+    attr_name = 'files'
+    files = integrates_dao.get_finding_attributes_dynamo(finding_id, [attr_name])
+    if files and files.get(attr_name):
+        for file_obj in files.get(attr_name):
+            if (file_obj.get('name') == 'evidence_route_1' and
+                    file_obj.get('description')):
+                response = True
+                break
+            else:
+                response = False
+    else:
+        response = False
     return response

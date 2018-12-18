@@ -15,17 +15,20 @@ from graphql import GraphQLError
 from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
 
 from .. import util
-from ..utils import forms as forms_utils
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from ..api.drive import DriveAPI
 from ..api.formstack import FormstackAPI
 from app.decorators import require_login, require_role, require_finding_access_gql
-from app.dto.finding import FindingDTO, finding_vulnerabilities, save_severity
+from app.dto.finding import (
+    FindingDTO, finding_vulnerabilities, save_severity,
+    has_migrated_evidence
+)
 from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
-    group_by_state, cast_tracking, get_dynamo_evidence
+    group_by_state, cast_tracking, get_dynamo_evidence,
+    add_file_attribute, migrate_evidence_description,
 )
 from graphene.types.generic import GenericScalar
 
@@ -379,11 +382,32 @@ class UpdateEvidenceDescription(Mutation):
         success = False
 
         try:
-            finding_dto = FindingDTO()
-            evidence_description_dict = finding_dto.parse_evidence_description(field, description)
-            formstack_payload = forms_utils.to_formstack(evidence_description_dict['data'])
-            api = FormstackAPI()
-            success = api.update(finding_id, formstack_payload)['success']
+            description_parse = {
+                'evidence2_description': 'evidence_route_1',
+                'evidence3_description': 'evidence_route_2',
+                'evidence4_description': 'evidence_route_3',
+                'evidence5_description': 'evidence_route_4',
+                'evidence6_description': 'evidence_route_5',
+            }
+            has_migrated_description = has_migrated_evidence(finding_id)
+            if not has_migrated_description:
+                generic_dto = FindingDTO()
+                api = FormstackAPI()
+                submission_data = api.get_submission(finding_id)
+                if submission_data is None or 'error' in submission_data:
+                    return util.response([], 'error', True)
+                else:
+                    finding = generic_dto.parse_evidence_info(submission_data, finding_id)
+                    finding['id'] = finding_id
+                    migrate_evidence_description(finding)
+            else:
+                # Finding has the description field migrated to dynamo.
+                pass
+            success = add_file_attribute(
+                finding_id,
+                description_parse[field],
+                'description',
+                description)
         except KeyError:
             rollbar.report_message('Error: An error occurred updating evidence description', 'error', info.context)
 

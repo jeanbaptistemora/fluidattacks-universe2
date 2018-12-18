@@ -25,16 +25,7 @@ client_s3 = boto3.client('s3',
 bucket_s3 = FI_AWS_S3_BUCKET
 
 def save_file_url(finding_id, field_name, file_url):
-    file_data = []
-    file_data.append({'name': field_name, 'file_url': file_url})
-    remove_file_url(finding_id, field_name)
-    is_url_saved = integrates_dao.add_list_resource_dynamo(
-        'FI_findings',
-        'finding_id',
-        finding_id,
-        file_data,
-        'files')
-    return is_url_saved
+    return add_file_attribute(finding_id, field_name, 'file_url', file_url)
 
 #pylint: disable-msg=R0913
 def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
@@ -67,33 +58,35 @@ def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
         rollbar.report_exc_info()
         return False
 
-def remove_file_url(finding_id, field_name):
-    findings = integrates_dao.get_data_dynamo(
-        'FI_findings',
-        'finding_id',
-        finding_id)
-    for fin in findings:
-        files = fin.get('files')
-        if files:
-            index = 0
-            for file_obj in files:
-                if file_obj.get('name') == field_name:
-                    integrates_dao.remove_list_resource_dynamo(
-                        'FI_findings',
-                        'finding_id',
-                        finding_id,
-                        'files',
-                        index)
-                else:
-                    message = \
-                        'Info: Finding {finding!s} does not have {field!s} in s3' \
-                        .format(finding=finding_id, field=field_name)
-                    util.cloudwatch_log_plain(message)
-                index += 1
-        else:
-            message = 'Info: Finding {finding!s} does not have evidences in s3' \
-                .format(finding=finding_id)
-            util.cloudwatch_log_plain(message)
+def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
+    attr_name = 'files'
+    files = integrates_dao.get_finding_attributes_dynamo(finding_id, [attr_name])
+    index = 0
+    response = False
+    primary_keys = ['finding_id', finding_id]
+    if files and files.get(attr_name):
+        for file_obj in files.get(attr_name):
+            if file_obj.get('name') == file_name:
+                response = integrates_dao.update_item_list_dynamo(
+                    primary_keys, attr_name, index, file_attr, file_attr_value)
+                break
+            else:
+                response = False
+            index += 1
+    else:
+        response = False
+    if response:
+        is_url_saved = True
+    else:
+        file_data = []
+        file_data.append({'name': file_name, file_attr: file_attr_value})
+        is_url_saved = integrates_dao.add_list_resource_dynamo(
+            'FI_findings',
+            'finding_id',
+            finding_id,
+            file_data,
+            attr_name)
+    return is_url_saved
 
 def migrate_all_files(parameters, file_url, request):
     fin_dto = FindingDTO()
@@ -195,3 +188,19 @@ def get_dynamo_evidence(finding_id):
 def filter_evidence_filename(evidence_files, name):
     evidence_info = filter(lambda evidence: evidence['name'] == name, evidence_files)
     return evidence_info[0]['file_url'] if evidence_info else ''
+
+
+def migrate_evidence_description(finding):
+    """Migrate evidence description to dynamo."""
+    finding_id = finding['id']
+    description_fields = {
+        'evidence_description_1': 'evidence_route_1',
+        'evidence_description_2': 'evidence_route_2',
+        'evidence_description_3': 'evidence_route_3',
+        'evidence_description_4': 'evidence_route_4',
+        'evidence_description_5': 'evidence_route_5'}
+    description = {k: finding.get(k)
+                   for (k, v) in description_fields.items() if finding.get(k)}
+    response = [add_file_attribute(finding_id, description_fields[k], 'description', v)
+                for (k, v) in description.items()]
+    return all(response)

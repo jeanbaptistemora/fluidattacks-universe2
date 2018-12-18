@@ -29,6 +29,7 @@ from .decorators import (
     require_project_access, require_finding_access,
     cache_content)
 from .techdoc.IT import ITReport
+from .domain import finding as FindingDomain
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
@@ -1432,11 +1433,12 @@ def accept_draft(request):
                     .format(project=files_data['project'],
                             findingid=files_data['findingid'],
                             file_name=file_first_name)
-                migrate_all_files(files_data, file_url, request)
+                FindingDomain.migrate_all_files(files_data, file_url, request)
                 integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
                 save_severity(finding)
                 migrate_description(finding)
                 migrate_treatment(finding)
+                FindingDomain.migrate_evidence_description(finding)
                 util.invalidate_cache(finding['projectName'])
                 util.invalidate_cache(parameters)
                 return util.response([], 'success', False)

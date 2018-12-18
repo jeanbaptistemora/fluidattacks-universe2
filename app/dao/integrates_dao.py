@@ -1708,3 +1708,28 @@ def get_event_dynamo(event_id):
         else:
             break
     return items
+
+
+def update_item_list_dynamo(
+        primary_keys, attr_name, index, field, field_value):
+    """update list attribute in a table."""
+    table = dynamodb_resource.Table('FI_findings')
+    try:
+        response = table.update_item(
+            Key={
+                primary_keys[0]: primary_keys[1].lower(),
+            },
+            UpdateExpression='SET #attrName[' + str(index) + '].#field = :field_val',
+            ExpressionAttributeNames={
+                '#attrName': attr_name,
+                '#field': field,
+            },
+            ExpressionAttributeValues={
+                ':field_val': field_value
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
