@@ -19,7 +19,7 @@ from django.shortcuts import render, redirect
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, condition
 from django.http import HttpResponse
 from jose import jwt
 # pylint: disable=E0402
@@ -754,6 +754,8 @@ def get_evidence(request, project, findingid, fileid):
                 evidence_img = drive_api.download(fileid)
                 return retrieve_image(request, evidence_img)
 
+
+@condition(etag_func=util.calculate_etag)
 def retrieve_image(request, img_file):
     if util.assert_file_mime(img_file, ["image/png", "image/jpeg", "image/gif"]):
         with open(img_file, "r") as file_obj:
@@ -763,6 +765,7 @@ def retrieve_image(request, img_file):
     else:
         rollbar.report_message('Error: Invalid evidence image format', 'error', request)
         return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
+
 
 @never_cache
 @csrf_exempt

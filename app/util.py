@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
+import hashlib
 import logging
 import logging.config
 import re
@@ -361,3 +362,14 @@ def snakecase_to_camelcase(str_value):
 def invalidate_cache(key_pattern):
     """Remove keys from cache that matches a given pattern."""
     cache.delete_pattern('*' + key_pattern + '*')
+
+
+def calculate_etag(request, img_file):
+    """Calculate Etag for given file."""
+    try:
+        img_id = img_file.split('.')[0][-4:]
+        etag = '{}-{}'.format(img_id,
+                              hashlib.md5(open(img_file, 'rb').read()).hexdigest())
+        return etag
+    except OSError:
+        return None
