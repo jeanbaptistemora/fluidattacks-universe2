@@ -102,7 +102,7 @@ class GraphQLTests(TestCase):
         if "event" in result.keys():
             detail = dict(result["event"])["detail"]
             self.assertIs(
-                detail == "Integrates unit test ",
+                detail == "Integrates unit test",
                 True
             )
         self.assertFalse("event" not in result)
