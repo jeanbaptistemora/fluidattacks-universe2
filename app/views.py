@@ -33,7 +33,7 @@ from .domain import finding as FindingDomain
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
-    save_severity, migrate_description, migrate_treatment
+    save_severity, migrate_description, migrate_treatment, migrate_report_date
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -1080,6 +1080,7 @@ def update_description(request):
             # Finding have data in dynamo
             pass
         description_migrated = migrate_description(finding)
+        migrate_report_date(finding)
         generic_dto.create_description(parameters)
         generic_dto.to_formstack()
         api = FormstackAPI()
@@ -1443,6 +1444,7 @@ def accept_draft(request):
                 save_severity(finding)
                 migrate_description(finding)
                 migrate_treatment(finding)
+                migrate_report_date(finding)
                 FindingDomain.migrate_evidence_description(finding)
                 util.invalidate_cache(finding['projectName'])
                 util.invalidate_cache(parameters)

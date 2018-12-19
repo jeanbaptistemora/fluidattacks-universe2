@@ -259,16 +259,15 @@ angular.module("FluidIntegrates").factory(
         }
         else {
           $scope.findingFormatted =
-                              $scope.finding.timestamp.slice(0, NEW_LIST_LIMIT);
+            $scope.finding.reportDate.slice(0, NEW_LIST_LIMIT);
         }
         let closingEffect = 0;
         for (let close = 0; close < $scope.finding.cierres.length; close++) {
           closingEffect = ($scope.finding.cierres[close].closed /
-                        $scope.finding.cierres[close].requested) *
-                        PERCENTAGE_FACTOR;
+            $scope.finding.cierres[close].requested) * PERCENTAGE_FACTOR;
           $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
           $scope.finding.cierres[close].timeFormat =
-               $scope.finding.cierres[close].timestamp.slice(0, NEW_LIST_LIMIT);
+            $scope.finding.cierres[close].reportDate.slice(0, NEW_LIST_LIMIT);
         }
         // Fields activation control by finding type (General/Detailed)
         $scope.esDetallado = false;

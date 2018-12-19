@@ -168,7 +168,7 @@ angular.module("FluidIntegrates").controller(
       $scope.tblDraftsHeaders = [
         {
           "align": "center",
-          "dataField": "timestamp",
+          "dataField": "reportDate",
           "header": $translate.instant("search_findings.headings.timestamp"),
           "isDate": true,
           "width": "4.8%"

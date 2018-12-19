@@ -126,20 +126,6 @@ class FindingDTO(object):
             self.data[self.RELEASE_DATE] \
                 = parameter['data[releaseDate]']
 
-
-    def create_treatment(self, parameter):
-        """Convert the index of a JSON to Formstack index."""
-        treatment_fields = {
-            self.TREATMENT: 'treatment',
-            self.TREATMENT_JUSTIFICATION: 'treatmentJustification',
-            self.TREATMENT_MANAGER: 'treatmentManager',
-            self.EXTERNAL_BTS: 'externalBts'
-        }
-        parsed_dict = {k: parameter['data[' + v + ']']
-                       if 'data[' + v + ']' in parameter.keys() else '' \
-                       for (k, v) in treatment_fields.items()}
-        return {'data': parsed_dict, 'request_id': parameter['data[id]']}
-
     def create_delete(self, parameter, analyst, project, finding):
         """ Create a data set to send in the finding deletion email """
         return {
@@ -153,7 +139,14 @@ class FindingDTO(object):
     def parse(self, submission_id, request_arr):
         self.data = dict()
         self.data['id'] = submission_id
-        self.data['timestamp'] = request_arr['timestamp']
+        report_title = ['report_date']
+        report_date = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            report_title)
+        if report_date:
+            self.data['reportDate'] = report_date.get('report_date')
+        else:
+            self.data['reportDate'] = request_arr['timestamp']
         self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr, submission_id))
         self.data = forms.dict_concatenation(self.data, self.parse_cvssv2(request_arr, submission_id))
         self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr, submission_id))
@@ -274,22 +267,6 @@ class FindingDTO(object):
             # The finding does not have cwe attribute
             pass
         return parsed_dict
-
-    def parse_description_mail(self, request_arr): # noqa: C901
-        """Convert description of a finding into a formstack format para envio de mail."""
-        self.data['timestamp'] = request_arr['timestamp']
-        for finding in request_arr['data']:
-            if finding['field'] == self.FINDING:
-                self.data['finding'] = finding['value']
-        return self.data
-
-    def parse_description_vuln(self, request_arr): # noqa: C901
-        """Convert description of a finding into a formstack format."""
-        self.data['timestamp'] = request_arr['timestamp']
-        for finding in request_arr['data']:
-            if finding['field'] == self.CARDINALITY:
-                self.data['openVulnerabilities'] = finding['value']
-        return self.data
 
     def parse_cvssv2(self, request_arr, submission_id): # noqa: C901
         """Convert the score of a finding into a formstack format."""
@@ -815,4 +792,12 @@ def has_migrated_evidence(finding_id):
                 response = False
     else:
         response = False
+    return response
+
+def migrate_report_date(finding):
+    primary_keys = ['finding_id', str(finding['id'])]
+    description_fields = ['reportDate']
+    description = {util.camelcase_to_snakecase(k): finding.get(k)
+                   for k in description_fields if finding.get(k)}
+    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
     return response
