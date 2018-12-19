@@ -353,6 +353,7 @@ deploy-k8s:
         -F environment=$FI_ROLLBAR_ENVIRONMENT
         -F revision=$CI_COMMIT_SHA
         -F local_username="$CI_COMMIT_REF_NAME"
+    - vaultenv ./new_relic_deployment.sh
     - docker run
        -e VAULT_HOST="$VAULT_HOST"
        -e VAULT_TOKEN="$VAULT_TOKEN"
