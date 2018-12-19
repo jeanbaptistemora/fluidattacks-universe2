@@ -18,7 +18,7 @@ from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST,
          FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, \
          FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, \
          FI_DEBUG, FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
-         FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET
+         FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, FI_REDIS_SERVER
 from boto3.session import Session
 import rollbar
 from .production import FIELDS_FINDING, FN_URL, FIELDS_EVENT, EV_URL
@@ -244,7 +244,7 @@ AUTHENTICATION_BACKENDS = (
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://tf-redis-cluster.mqzqyv.clustercfg.use1.cache.amazonaws.com:6379",
+        "LOCATION": "redis://" + FI_REDIS_SERVER + ":6379",
         "OPTIONS": {
             'SOCKET_CONNECT_TIMEOUT': 20,
             'SOCKET_TIMEOUT': 5,
