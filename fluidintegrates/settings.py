@@ -246,7 +246,7 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://" + FI_REDIS_SERVER + ":6379",
         "OPTIONS": {
-            'SOCKET_CONNECT_TIMEOUT': 20,
+            'SOCKET_CONNECT_TIMEOUT': 5,
             'SOCKET_TIMEOUT': 5,
             'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
             'REDIS_CLIENT_CLASS': 'rediscluster.RedisCluster',

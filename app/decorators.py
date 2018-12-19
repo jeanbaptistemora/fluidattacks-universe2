@@ -15,6 +15,8 @@ from graphql import GraphQLError
 # pylint: disable=E0402
 from .services import has_access_to_project, has_access_to_finding, is_customeradmin
 from . import util
+from rediscluster.nodemanager import RedisClusterException
+
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -220,12 +222,16 @@ def cache_content(func):
             uniq_id += '_'.join([str(kwargs[x]) for x in kwargs])
         key_name = func.__name__ + '_' + uniq_id
         key_name = key_name.lower()
-        ret = cache.get(key_name)
-        if ret:
+        try:
+            ret = cache.get(key_name)
+            if ret:
+                return ret
+            ret = func(*args, **kwargs)
+            cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
-        ret = func(*args, **kwargs)
-        cache.set(key_name, ret, timeout=CACHE_TTL)
-        return ret
+        except RedisClusterException:
+            rollbar.report_exc_info()
+            return func(*args, **kwargs)
     return decorated
 
 
@@ -237,10 +243,14 @@ def get_cached(func):
         uniq_id = "_".join([str(kwargs[x])[:12] for x in kwargs])
         key_name = func.__name__ + '_' + uniq_id
         key_name = key_name.lower()
-        ret = cache.get(key_name)
-        if ret:
+        try:
+            ret = cache.get(key_name)
+            if ret:
+                return ret
+            ret = func(*args, **kwargs)
+            cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
-        ret = func(*args, **kwargs)
-        cache.set(key_name, ret, timeout=CACHE_TTL)
-        return ret
+        except RedisClusterException:
+            rollbar.report_exc_info()
+            return func(*args, **kwargs)
     return decorated
