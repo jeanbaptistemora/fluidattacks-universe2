@@ -147,46 +147,19 @@ def get_evidence_set(finding):
 def get_evidence_set_s3(finding, key_list, field_list):
     evidence_set = []
     for k in key_list:
-        evidence_route_1 = finding['id'] + '/' + finding['projectName'].lower() \
-                            + "-" + finding['id'] + "-" + field_list[0]
-        if "evidence_description_1" in finding and \
-            evidence_route_1 in k:
-            evidence_set.append({
-                "id": k.split("/")[1],
-                "explanation": finding["evidence_description_1"].capitalize()
-            })
-        evidence_route_2 = finding['id'] + '/' + finding['projectName'].lower() \
-                            + "-" + finding['id'] + "-" + field_list[1]
-        if "evidence_description_2" in finding and \
-            evidence_route_2 in k:
-            evidence_set.append({
-                "id":  k.split("/")[1],
-                "explanation": finding["evidence_description_2"].capitalize()
-            })
-        evidence_route_3 = finding['id'] + '/' + finding['projectName'].lower() \
-                            + "-" + finding['id'] + "-" + field_list[2]
-        if "evidence_description_3" in finding and \
-            evidence_route_3 in finding:
-            evidence_set.append({
-                "id": k.split("/")[1],
-                "explanation": finding["evidence_description_3"].capitalize()
-            })
-        evidence_route_4 = finding['id'] + '/' + finding['projectName'].lower() \
-                            + "-" + finding['id'] + "-" + field_list[3]
-        if "evidence_description_4" in finding and \
-            evidence_route_4 in finding:
-            evidence_set.append({
-                "id":  k.split("/")[1],
-                "explanation": finding["evidence_description_4"].capitalize()
-            })
-        evidence_route_5 = finding['id'] + '/' + finding['projectName'].lower() \
-                            + "-" + finding['id'] + "-" + field_list[4]
-        if "evidence_description_5" in finding and \
-            evidence_route_5 in finding:
-            evidence_set.append({
-                "id":  k.split("/")[1],
-                "explanation": finding["evidence_description_5"].capitalize()
-            })
+        for i in range(1, 6):
+            evidence_route = \
+                '{project}/{findingid}/{project}-{findingid}-{fieldid}'.format(
+                    project=finding['projectName'].lower(),
+                    findingid=finding['id'],
+                    fieldid=field_list[i - 1])
+            description = 'evidence_description_' + str(i)
+            if description in finding and \
+                    evidence_route in k:
+                evidence_set.append({
+                    'id': k,
+                    'explanation': finding[description].capitalize()
+                })
     return evidence_set
 
 def get_ext_filename(drive_id):

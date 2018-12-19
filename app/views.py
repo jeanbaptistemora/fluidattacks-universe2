@@ -382,24 +382,29 @@ def project_to_pdf(request, lang, project, doctype):
 def pdf_evidences(findings):
     fin_dto = FindingDTO()
     for finding in findings:
-        key_list = key_existing_list(finding['id'])
+        folder_name = finding['projectName'] + '/' + finding['id']
+        key_list = key_existing_list(folder_name)
         field_list = [fin_dto.DOC_ACHV1, fin_dto.DOC_ACHV2, \
-                    fin_dto.DOC_ACHV3, fin_dto.DOC_ACHV4, \
-                    fin_dto.DOC_ACHV5]
+                      fin_dto.DOC_ACHV3, fin_dto.DOC_ACHV4, \
+                      fin_dto.DOC_ACHV5]
         evidence_set = util.get_evidence_set_s3(finding, key_list, field_list)
         if evidence_set:
-            finding["evidence_set"] = evidence_set
+            finding['evidence_set'] = evidence_set
             for evidence in evidence_set:
-                client_s3.download_file(bucket_s3, \
-                                        finding['id'] + "/" + evidence["id"], \
-                                        "/usr/src/app/app/documentator/images/" + evidence["id"])
-                evidence['name'] = "image::../images/"+evidence["id"]+'[align="center"]'
+                client_s3.download_file(
+                    bucket_s3,
+                    evidence['id'],
+                    '/usr/src/app/app/documentator/images/' +
+                    evidence['id'].split('/')[2])
+                evidence['name'] = 'image::../images/' + \
+                    evidence['id'].split('/')[2] + '[align="center"]'
         else:
             evidence_set = util.get_evidence_set(finding)
-            finding["evidence_set"] = evidence_set
+            finding['evidence_set'] = evidence_set
             for evidence in evidence_set:
-                DriveAPI().download_images(evidence["id"])
-                evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
+                DriveAPI().download_images(evidence['id'])
+                evidence['name'] = 'image::../images/' + \
+                    evidence['id'] + '.png[align="center"]'
     return findings
 
 def presentation_pdf(project, pdf_maker, findings, user):
