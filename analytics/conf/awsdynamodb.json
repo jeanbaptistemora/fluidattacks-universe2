@@ -1,201 +1,201 @@
 {
-    "tables": {
-        "FI_alerts_by_company": {
-            "primary-keys": [
-                "company_name",
-                "project_name"
-            ],
-            "schema": {
-                "message": "string",
-                "project_name": "string",
-                "company_name": "string",
-                "status_act": "string"
-            }
-        },
-        "FI_comments": {
-            "primary-keys": [
-                "finding_id",
-                "user_id"
-            ],
-            "schema": {
-                "content": "string",
-                "user_id": "string",
-                "comment_type": "string",
-                "finding_id": "string",
-                "created": "date-time",
-                "parent": "string",
-                "email": "string",
-                "fullname": "string",
-                "modified": "date-time"
-            }
-        },
-        "FI_findings": {
-            "primary-keys": [
-                "finding_id"
-            ],
-            "schema": {
-                "project_name": "string",
-                "finding_id": "string",
-                "lastVulnerability": "date-time",
-                "files": "special",
-                "releaseDate": "date-time",
-                "access_complexity": "number",
-                "access_vector": "number",
-                "authentication": "number",
-                "availability_impact": "number",
-                "availability_requirement": "number",
-                "collateral_damage_potential": "number",
-                "confidence_level": "number",
-                "confidentiality_impact": "number",
-                "confidentiality_requirement": "number",
-                "exploitability": "number",
-                "finding_distribution": "number",
-                "integrity_impact": "number",
-                "integrity_requirement": "number",
-                "resolution_level": "number",
-                "leader": "string",
-                "report_level": "string",
-                "subscription": "string",
-                "client_project": "string",
-                "records_number": "number",
-                "actor": "string",
-                "finding": "string",
-                "test_type": "string",
-                "context": "string",
-                "scenario": "string",
-                "analyst": "string",
-                "interested": "string",
-                "related_findings": "string",
-                "records": "string",
-                "effect_solution": "string",
-                "cwe": "string",
-                "threat": "string",
-                "requirements": "string",
-                "attack_vector": "string",
-                "finding_type": "string",
-                "affected_systems": "string",
-                "vulnerability": "string",
-                "client_code": "string",
-                "probability": "string",
-                "risk_value": "number",
-                "severity": "number",
-                "category": "string",
-                "ambit": "string",
-                "risk": "string",
-                "kb": "string"
-            }
-        },
-        "FI_findings_email": {
-            "primary-keys": [
-                "project_name",
-                "unique_id"
-            ],
-            "schema": {
-                "project_name": "string",
-                "vuln_hoy": "number",
-                "unique_id": "string"
-            }
-        },
-        "FI_project_access": {
-            "primary-keys": [
-                "user_email",
-                "project_name"
-            ],
-            "schema": {
-                "responsibility": "string",
-                "user_email": "string",
-                "project_name": "string"
-            }
-        },
-        "FI_projects": {
-            "primary-keys": [
-                "project_name"
-            ],
-            "schema": {
-                "project_name": "string",
-                "findings_deleted": "special",
-                "lastRelease": "date-time",
-                "hasRelease": "string",
-                "companies": "special",
-                "deletion_date": "date-time",
-                "description": "string",
-                "type": "string",
-                "portfolio": "string",
-                "project_status": "string",
-                "customeradmin": "special",
-                "status": "string",
-                "repositories": "special",
-                "environments": "special",
-                "resp_developer": "string",
-                "resp_project_manager": "string",
-                "resp_tester": "string",
-                "resp_product_owner": "string",
+  "tables": {
+    "FI_alerts_by_company": {
+      "primary-keys": [
+        "company_name",
+        "project_name"
+      ],
+      "schema": {
+        "message": "string",
+        "project_name": "string",
+        "company_name": "string",
+        "status_act": "string"
+      }
+    },
+    "FI_comments": {
+      "primary-keys": [
+        "finding_id",
+        "user_id"
+      ],
+      "schema": {
+        "content": "string",
+        "user_id": "string",
+        "comment_type": "string",
+        "finding_id": "string",
+        "created": "date-time",
+        "parent": "string",
+        "email": "string",
+        "fullname": "string",
+        "modified": "date-time"
+      }
+    },
+    "FI_findings": {
+      "primary-keys": [
+        "finding_id"
+      ],
+      "schema": {
+        "project_name": "string",
+        "finding_id": "string",
+        "lastVulnerability": "date-time",
+        "files": "special",
+        "releaseDate": "date-time",
+        "access_complexity": "number",
+        "access_vector": "number",
+        "authentication": "number",
+        "availability_impact": "number",
+        "availability_requirement": "number",
+        "collateral_damage_potential": "number",
+        "confidence_level": "number",
+        "confidentiality_impact": "number",
+        "confidentiality_requirement": "number",
+        "exploitability": "number",
+        "finding_distribution": "number",
+        "integrity_impact": "number",
+        "integrity_requirement": "number",
+        "resolution_level": "number",
+        "leader": "string",
+        "report_level": "string",
+        "subscription": "string",
+        "client_project": "string",
+        "records_number": "number",
+        "actor": "string",
+        "finding": "string",
+        "test_type": "string",
+        "context": "string",
+        "scenario": "string",
+        "analyst": "string",
+        "interested": "string",
+        "related_findings": "string",
+        "records": "string",
+        "effect_solution": "string",
+        "cwe": "string",
+        "threat": "string",
+        "requirements": "string",
+        "attack_vector": "string",
+        "finding_type": "string",
+        "affected_systems": "string",
+        "vulnerability": "string",
+        "client_code": "string",
+        "probability": "string",
+        "risk_value": "number",
+        "severity": "number",
+        "category": "string",
+        "ambit": "string",
+        "risk": "string",
+        "kb": "string"
+      }
+    },
+    "FI_findings_email": {
+      "primary-keys": [
+        "project_name",
+        "unique_id"
+      ],
+      "schema": {
+        "project_name": "string",
+        "vuln_hoy": "number",
+        "unique_id": "string"
+      }
+    },
+    "FI_project_access": {
+      "primary-keys": [
+        "user_email",
+        "project_name"
+      ],
+      "schema": {
+        "responsibility": "string",
+        "user_email": "string",
+        "project_name": "string"
+      }
+    },
+    "FI_projects": {
+      "primary-keys": [
+        "project_name"
+      ],
+      "schema": {
+        "project_name": "string",
+        "findings_deleted": "special",
+        "lastRelease": "date-time",
+        "hasRelease": "string",
+        "companies": "special",
+        "deletion_date": "date-time",
+        "description": "string",
+        "type": "string",
+        "portfolio": "string",
+        "project_status": "string",
+        "customeradmin": "special",
+        "status": "string",
+        "repositories": "special",
+        "environments": "special",
+        "resp_developer": "string",
+        "resp_project_manager": "string",
+        "resp_tester": "string",
+        "resp_product_owner": "string",
 
-                "tag": "special"
-            }
-        },
-        "FI_remediated": {
-            "primary-keys": [
-                "finding_id"
-            ],
-            "schema": {
-                "project": "string",
-                "remediated": "string",
-                "finding_id": "string",
-                "finding_name": "string",
-                "hasRelease": "string"
-            }
-        },
-        "FI_toe": {
-            "primary-keys": [
-                "project"
-            ],
-            "schema": {
-                "project": "string",
-                "fields": "number",
-                "fields_tested": "number",
-                "lines_tested": "number",
-                "lines": "number",
-                "last_update": "date-time"
-            }
-        },
-        "FI_users": {
-            "primary-keys": [
-                "email"
-            ],
-            "schema": {
-                "email": "string",
-                "phone": "string",
-                "legal_remember": "string",
-                "remember": "string"
-            }
-        },
-        "FI_vulnerabilities": {
-            "primary-keys": [
-                "finding_id",
-                "UUID"
-            ],
-            "schema": {
-                "specific": "number",
-                "vuln_type": "string",
-                "where": "string",
-                "finding_id": "string",
-                "UUID": "string",
-                "historic_state": "special",
-                "analyst": "string"
-            }
-        },
-        "FI_weekly_report": {
-            "primary-keys": [
-                "init_date"
-            ],
-            "schema": {
-                "logged_users": "number",
-                "finish_date": "date-time",
-                "companies": "special",
-                "init_date": "date-time",
-                "registered_users": "number"
-            }
-        }
+        "tag": "special"
+      }
+    },
+    "FI_remediated": {
+      "primary-keys": [
+        "finding_id"
+      ],
+      "schema": {
+        "project": "string",
+        "remediated": "string",
+        "finding_id": "string",
+        "finding_name": "string",
+        "hasRelease": "string"
+      }
+    },
+    "FI_toe": {
+      "primary-keys": [
+        "project"
+      ],
+      "schema": {
+        "project": "string",
+        "fields": "number",
+        "fields_tested": "number",
+        "lines_tested": "number",
+        "lines": "number",
+        "last_update": "date-time"
+      }
+    },
+    "FI_users": {
+      "primary-keys": [
+        "email"
+      ],
+      "schema": {
+        "email": "string",
+        "phone": "string",
+        "legal_remember": "string",
+        "remember": "string"
+      }
+    },
+    "FI_vulnerabilities": {
+      "primary-keys": [
+        "finding_id",
+        "UUID"
+      ],
+      "schema": {
+        "specific": "number",
+        "vuln_type": "string",
+        "where": "string",
+        "finding_id": "string",
+        "UUID": "string",
+        "historic_state": "special",
+        "analyst": "string"
+      }
+    },
+    "FI_weekly_report": {
+      "primary-keys": [
+        "init_date"
+      ],
+      "schema": {
+        "logged_users": "number",
+        "finish_date": "date-time",
+        "companies": "special",
+        "init_date": "date-time",
+        "registered_users": "number"
+      }
     }
+  }
 }
