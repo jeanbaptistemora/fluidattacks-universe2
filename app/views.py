@@ -1435,12 +1435,12 @@ def accept_draft(request):
                 table_name, primary_keys, "lastVulnerability", releaseDate)
             finding['projectName'] = finding['projectName'].lower()
             if has_release and has_last_vuln:
-                files_data = {'findingid': parameters, 'project': finding['projectName']}
+                files_data = {'finding_id': parameters, 'project': finding['projectName']}
                 file_first_name = '{project!s}-{findingid}'\
-                    .format(project=files_data['project'], findingid=files_data['findingid'])
+                    .format(project=files_data['project'], findingid=files_data['finding_id'])
                 file_url = '{project!s}/{findingid}/{file_name}'\
                     .format(project=files_data['project'],
-                            findingid=files_data['findingid'],
+                            findingid=files_data['finding_id'],
                             file_name=file_first_name)
                 FindingDomain.migrate_all_files(files_data, file_url, request)
                 integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
