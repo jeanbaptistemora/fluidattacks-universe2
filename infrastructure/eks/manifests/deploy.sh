@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+AMZ_VPC_PLUGIN_VER=1.3.0
+
 function echo-blue() {
   echo -e '\033[1;34m'"${1}"'\033[0m'
 }
@@ -87,6 +89,18 @@ function install_helm_chart() {
     echo-blue "Installing chart ${chart}..."
     helm install "${chart}" --name "${name}" --namespace "${namespace}" \
       --values "${values}" --wait --tls
+  fi
+}
+
+function install_amazon_vpc_plugin() {
+  local curr_version="$(kubectl describe daemonset aws-node \
+    --namespace kube-system | grep Image | cut -d ':' -f 3)"
+  local minor_version="v${AMZ_VPC_PLUGIN_VER::-2}"
+  if [ "${curr_version}" = "${AMZ_VPC_PLUGIN_VER}" ]; then
+    echo-blue "Amazon VPC plugin is up to date"
+  else
+    kubectl apply -f "https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/${minor_version}/aws-k8s-cni.yaml"
+    kubectl apply -f "https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/${minor_version}/calico.yaml"
   fi
 }
 
@@ -212,7 +226,7 @@ sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 
 # Install Calico to enforce Network Policies between Pods
 # and define policies
-kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.1/config/v1.1/calico.yaml
+install_amazon_vpc_plugin
 kubectl apply -f review-apps/network-policies.yaml
 
 
