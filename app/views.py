@@ -1290,7 +1290,9 @@ def get_remediated(request):
         resp = row['remediated']
     return util.response({'remediated': resp}, 'Success', False)
 
-@never_cache
+
+@cache_control(private=True, max_age=3600)
+@cache_content
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -1336,6 +1338,7 @@ def add_comment(request):
     if not comment:
         rollbar.report_message('Error: An error ocurred adding comment', 'error', request)
         return util.response([], 'Error', True)
+    util.invalidate_cache(submission_id)
     try:
         project = data['data[project]'].lower()
         recipients = integrates_dao.get_project_users(project)
@@ -1506,6 +1509,7 @@ def delete_all_coments(finding_id):
     """Delete all comments of a finding."""
     all_comments = integrates_dao.get_comments_dynamo(int(finding_id), "comment")
     comments_deleted = [delete_comment(i) for i in all_comments]
+    util.invalidate_cache(finding_id)
     return all(comments_deleted)
 
 
@@ -1515,6 +1519,7 @@ def delete_comment(comment):
         finding_id = comment["finding_id"]
         user_id = comment["user_id"]
         response = integrates_dao.delete_comment_dynamo(finding_id, user_id)
+        util.invalidate_cache(finding_id)
     else:
         response = True
     return response
