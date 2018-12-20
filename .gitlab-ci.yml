@@ -10,6 +10,7 @@ after_script:
 
 stages:
   - deps
+  - analytics
   - test-code
   - test-infra
   - build
@@ -68,7 +69,13 @@ build_base:
         --dockerfile "${CI_PROJECT_DIR}/containers/base/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}:base"
   only:
-    - schedules
+    refs:
+      - schedules
+  except:
+    variables:
+      - $FLAG_SYNC_CURRENCIES
+      - $FLAG_SYNC_FORMSTACK
+      - $FLAG_SYNC_AWSDYNAMODB
 
 build_builder:
   stage: deps
@@ -287,7 +294,13 @@ change_keys:
     - python3 -c "from rotate_fs_keys import delete_formstack_tokens;
         delete_formstack_tokens()"
   only:
-    - schedules
+    refs:
+      - schedules
+  except:
+    variables:
+      - $FLAG_SYNC_CURRENCIES
+      - $FLAG_SYNC_FORMSTACK
+      - $FLAG_SYNC_AWSDYNAMODB
 
 vault_backup:
   stage: backup
@@ -317,7 +330,13 @@ vault_backup:
     - kubectl delete -f backup-operator.yaml
     - rm credentials
   only:
-    - schedules
+    refs:
+      - schedules
+  except:
+    variables:
+      - $FLAG_SYNC_CURRENCIES
+      - $FLAG_SYNC_FORMSTACK
+      - $FLAG_SYNC_AWSDYNAMODB
 
 formstack_backup:
   stage: backup
@@ -330,4 +349,68 @@ formstack_backup:
         secret/serves)"
     - ./infrastructure/fs_backup.py
   only:
-    - schedules
+    refs:
+      - schedules
+  except:
+    variables:
+      - $FLAG_SYNC_CURRENCIES
+      - $FLAG_SYNC_FORMSTACK
+      - $FLAG_SYNC_AWSDYNAMODB
+
+sync_currencies:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - pip3 install analytics/singer/tap_currencyconverterapi
+    - echo "$(vault read
+        -field=analytics_auth_stitch_currencies secret/serves)" > /target_secret.json
+    - tap_currencyconverterapi | target-stitch -c /target_secret.json
+    - rm -fr /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_CURRENCIES
+
+sync_formstack:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - mkdir /logs
+    - pip3 install analytics/singer/tap_formstack
+    - echo "$(vault read
+        -field=analytics_auth_formstack secret/serves)" > /tap_secret.json
+    - echo "$(vault read
+        -field=analytics_auth_stitch_formstack secret/serves)" > /target_secret.json
+    - tap_formstack
+        -auth /tap_secret.json | target-stitch -c /target_secret.json
+    - rm -fr /tap_secret.json /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_FORMSTACK
+
+sync_awsdynamodb:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - mkdir /logs
+    - pip3 install analytics/singer/tap_awsdynamodb
+    - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read
+        -field=aws_dynamodb_access_key secret/serves)'",
+              "AWS_SECRET_ACCESS_KEY":"'$(vault read
+        -field=aws_dynamodb_secret_key secret/serves)'",
+              "AWS_DEFAULT_REGION":"'$(vault read
+        -field=aws_dynamodb_default_region secret/serves)'"}' > /tap_secret.json
+    - echo "$(vault read
+        -field=analytics_auth_stitch_awsdynamodb secret/serves)" > /target_secret.json
+    - tap_awsdynamodb
+        -auth /tap_secret.json
+        -conf analytics/conf/awsdynamodb.json | target-stitch -c /target_secret.json
+    - rm -fr /tap_secret.json /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_AWSDYNAMODB

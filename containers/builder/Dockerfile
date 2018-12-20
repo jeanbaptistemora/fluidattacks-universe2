@@ -1,5 +1,8 @@
 FROM debian:jessie
 
+ENV LC_ALL=C.UTF-8
+ENV PYTHONIOENCODING=utf8
+
 RUN apt-get update \
     && apt-get dist-upgrade -y \
     && apt-get install --no-install-recommends -y \
@@ -48,10 +51,11 @@ RUN apt-get update \
         selenium==3.141.0 \
         requests==2.20.1 \
         pylint==2.2.2 \
+        target-stitch==1.8.1 \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \
-    && python -m pip install pre_commit==1.12.0 \
+        pre_commit==1.12.0 \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
         && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' \
         && apt-get -y update \

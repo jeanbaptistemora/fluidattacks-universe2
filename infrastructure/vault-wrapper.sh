@@ -97,6 +97,10 @@ function vault_generate_aws_keys() {
       echo-green "Updating ${aws_service^} variables in Continuous..."
       vault_update_variables "continuous/tools" "$access_key_name" "$access_key" \
         "$secret_key_name" "$secret_key"
+
+      echo-green "Updating ${aws_service^} variables in Serves..."
+      vault_update_variables "serves" "$access_key_name" "$access_key" \
+        "$secret_key_name" "$secret_key"
     fi
   else
     echo-green "Updating ${aws_service^} variables in ${project^}..."
@@ -220,9 +224,9 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
 
      usage:
        vault_generate_aws_keys role
-    
+
      params:
-       - role: Pre-defined role in Vault for which the credentials are going to be created. 
+       - role: Pre-defined role in Vault for which the credentials are going to be created.
                IAM policies are already attached in the role definition.
 
      Find existing roles: vault list aws/roles
