@@ -10,7 +10,7 @@ curl -X POST 'https://api.newrelic.com/v2/applications/'"$NEW_RELIC_APP_ID"'/dep
   '{
     "deployment": {
       "revision": "'"$CI_COMMIT_SHA"'",
-      "changelog": "'"$CI_COMMIT_MESSAGE"'"
+      "changelog": "'"$CI_COMMIT_TITLE"'",
       "description": "'"$NEW_RELIC_ENVIRONMENT"'",
       "user": "'"$CI_COMMIT_REF_NAME"'"
     }
