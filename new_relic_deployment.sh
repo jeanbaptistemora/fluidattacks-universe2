@@ -2,6 +2,9 @@
 
 #Script to save a deployment record in New Relic
 #Reference: https://rpm.newrelic.com/api/explore/application_deployments/create
+COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ce')
+LAST_COMMITS_MASTER=$(git log "$CI_COMMIT_BEFORE_SHA"..HEAD --pretty=format:'%s')
+CHANGELOG=$(printf "$LAST_COMMITS_MASTER" | sed -ze 's/\n/\\n/g')
 
 curl -X POST 'https://api.newrelic.com/v2/applications/'"$NEW_RELIC_APP_ID"'/deployments.json' \
 -H 'X-Api-Key:'"$NEW_RELIC_API_KEY" -i \
@@ -10,8 +13,8 @@ curl -X POST 'https://api.newrelic.com/v2/applications/'"$NEW_RELIC_APP_ID"'/dep
   '{
     "deployment": {
       "revision": "'"$CI_COMMIT_SHA"'",
-      "changelog": "'"$CI_COMMIT_TITLE"'",
+      "changelog": "'"$CHANGELOG"'",
       "description": "'"$NEW_RELIC_ENVIRONMENT"'",
-      "user": "'"$CI_COMMIT_REF_NAME"'"
+      "user": "'"$COMMITTER_EMAIL"'"
     }
   }'
