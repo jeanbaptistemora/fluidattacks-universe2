@@ -473,7 +473,6 @@ def get_finding(request):
         return util.response([], 'Error', True)
 
 
-@cache_content
 @cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -531,6 +530,7 @@ def get_findings(request):
         request.session["projects"][project] = findings
         request.session["projects"][project + "_date"] = str(datetime.today())
         return util.response(request.session["projects"][project], 'Success', False)
+
 
 # pylint: disable=R1702
 # pylint: disable=R0915
