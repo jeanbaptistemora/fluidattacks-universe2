@@ -1491,6 +1491,10 @@ def delete_draft(request):
                 return util.response([], 'Error', True)
             delete_all_coments(submission_id)
             delete_s3_all_evidences(submission_id, finding['projectName'].lower())
+            integrates_dao.delete_finding_dynamo(submission_id)
+            vulns = integrates_dao.get_vulnerabilities_dynamo(submission_id)
+            for vuln in vulns:
+                integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], submission_id)
             admins = integrates_dao.get_admins()
             to = [x[0] for x in admins]
             to.append(finding['analyst'])
