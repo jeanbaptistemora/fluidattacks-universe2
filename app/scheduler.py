@@ -221,7 +221,7 @@ def get_remediated_findings():
     findings = integrates_dao.get_remediated_allfindings_dynamo(True)
     if findings != []:
         try:
-            to = ['continuous@fluidattacks.com']
+            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
             context = {'findings': list()}
             cont = 0
             for finding in findings:
