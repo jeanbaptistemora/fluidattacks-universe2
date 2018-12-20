@@ -267,7 +267,7 @@ angular.module("FluidIntegrates").factory(
             $scope.finding.cierres[close].requested) * PERCENTAGE_FACTOR;
           $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
           $scope.finding.cierres[close].timeFormat =
-            $scope.finding.cierres[close].reportDate.slice(0, NEW_LIST_LIMIT);
+            $scope.finding.cierres[close].timestamp.slice(0, NEW_LIST_LIMIT);
         }
         // Fields activation control by finding type (General/Detailed)
         $scope.esDetallado = false;
