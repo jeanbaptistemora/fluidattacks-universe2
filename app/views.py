@@ -1669,13 +1669,7 @@ def delete_s3_all_evidences(finding_id, project):
     is_evidence_deleted = False
     if evidences_list:
         is_evidence_deleted_s3 = list(map(delete_s3_evidence, evidences_list))
-        if any(is_evidence_deleted_s3):
-            integrates_dao.delete_finding_dynamo(finding_id)
-            is_evidence_deleted = True
-        else:
-            rollbar.report_message(
-                'Error: An error occurred deleting project evidences from s3',
-                'error')
+        is_evidence_deleted = any(is_evidence_deleted_s3)
     else:
         util.cloudwatch_log_plain(
             'Info: Finding ' + finding_id + ' does not have evidences in s3')
