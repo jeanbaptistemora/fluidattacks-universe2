@@ -755,6 +755,11 @@ def save_severity(finding):
 
 def migrate_description(finding):
     primary_keys = ['finding_id', str(finding['id'])]
+    if finding.get('projectName'):
+        finding['projectName'] = finding['projectName'].lower()
+    else:
+        # Finding does not have project name
+        pass
     description_fields = ['analyst', 'leader', 'interested', 'projectName',
                           'clientProject', 'context', 'reportLevel',
                           'subscription', 'clientCode', 'finding',
@@ -775,7 +780,10 @@ def migrate_treatment(finding):
                           'treatmentManager', 'externalBts']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
-    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
+    if description:
+        response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
+    else:
+        response = True
     return response
 
 def has_migrated_evidence(finding_id):
