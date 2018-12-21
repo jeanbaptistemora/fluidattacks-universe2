@@ -136,10 +136,28 @@ prospector-testing:
   <<: *variables-dev
   <<: *vault_login
   script:
-    - vaultenv prospector.sh
+    - vaultenv -- $(which prospector) -u django -p app/ -i node_modules
+    - vaultenv -- $(which prospector) -u django fluidintegrates/
   except:
     - master
     - triggers
+
+unit-testing:
+  stage: pre-test
+  image: registry.gitlab.com/fluidsignal/integrates:deps181210
+  <<: *variables-dev
+  <<: *vault_login
+  script:
+    - cp -a $PWD /usr/src/app_src
+    - cd /usr/src/app_src
+    - vaultenv -- $(which pytest) --ds=fluidintegrates.settings --verbose --exitfirst
+      --cov=fluidintegrates --cov-report term
+      --cov-report html:build/coverage/html
+      --cov-report xml:build/coverage/results.xml
+      --cov-report annotate:build/coverage/annotate
+      --basetemp=build/test
+      --junitxml=build/test/results.xml
+      app/tests.py
 
 asserts-code-test:
   stage: pre-test
