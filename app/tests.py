@@ -10,6 +10,7 @@ from jose import jwt
 from .api.formstack import FormstackAPI
 from .entity import schema
 
+
 class FormstackAPITests(TestCase):
     def test_request(self):
         """ Make a request to formstack and verify that
@@ -17,21 +18,21 @@ class FormstackAPITests(TestCase):
         api_frms = FormstackAPI()
         url = "https://www.formstack.com/api/v2/submission/293276999.json"
         request = api_frms.request("GET", url)
-        self.assertIs("data" in request, True)
+        assert "data" in request
 
     def test_get_submission(self):
         """ Check that Formstack correctly return a submission query. """
         api_frms = FormstackAPI()
         submission_id = "293276999"
         request = api_frms.get_submission(submission_id)
-        self.assertEquals(request["id"], submission_id)
+        assert request["id"] == submission_id
 
     def test_get_findings(self):
         """ Check that Formstack correctly return the findings of a project. """
         api_frms = FormstackAPI()
         project = "basaiti"
         request = api_frms.get_findings(project)
-        self.assertIs("submissions" in request, True)
+        assert "submissions" in request
 
     def test_get_eventualities(self):
         """ Check that Formstack correctly return
@@ -39,7 +40,7 @@ class FormstackAPITests(TestCase):
         api_frms = FormstackAPI()
         project = "basaiti"
         request = api_frms.get_eventualities(project)
-        self.assertIs("submissions" in request, True)
+        assert "submissions" in request
 
     def test_update_eventuality(self):
         """Check that an eventuality update request works correctly."""
@@ -50,7 +51,8 @@ class FormstackAPITests(TestCase):
             "29042542": affectation
         }
         request = api_frms.update(submission_id, data)
-        self.assertIs("success" in request, True)
+        assert "success" in request
+
 
 class GraphQLTests(TestCase):
 
@@ -73,11 +75,8 @@ class GraphQLTests(TestCase):
         result = schema.schema.execute(query, context_value=request)
         if "alert" in result.data:
             message = result.data["alert"]["message"]
-            self.assertIs(
-                message == "unittest",
-                True
-            )
-        self.assertFalse("alert" not in result.data)
+            assert message == "unittest"
+        assert "alert" in result.data
 
     def test_get_event(self):
         """Check for eventuality"""
@@ -101,11 +100,8 @@ class GraphQLTests(TestCase):
         result = dict(schema.schema.execute(query, context_value=request).data)
         if "event" in result.keys():
             detail = dict(result["event"])["detail"]
-            self.assertIs(
-                detail == "Integrates unit test",
-                True
-            )
-        self.assertFalse("event" not in result)
+            assert detail == "Integrates unit test"
+        assert "event" in result
 
     def test_get_events(self):
         """Check for eventualities"""
@@ -129,11 +125,8 @@ class GraphQLTests(TestCase):
         result = dict(schema.schema.execute(query, context_value=request).data)
         if "events" in result:
             detail = dict(result["events"][0])["detail"]
-            self.assertIs(
-                len(detail) >= 1,
-                True
-            )
-        self.assertFalse("events" not in result)
+            assert len(detail) >= 1
+        assert "events" in result
 
     def test_get_finding(self):
         """ Check for finding """
@@ -169,7 +162,7 @@ class GraphQLTests(TestCase):
         )
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
-        self.assertEqual(result.data.get("finding")["id"], '422286126')
+        assert result.data.get("finding")["id"] == '422286126'
         test_data = OrderedDict([
             ('findingId', '422286126'),
             ('id', u'80d6a69f-a376-46be-98cd-2fdedcffdcc0'),
@@ -199,10 +192,10 @@ class GraphQLTests(TestCase):
         )
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
-        self.assertTrue("https://gitlab.com/fluidsignal/engineering/" in \
-                        result.data.get("resources")["repositories"])
-        self.assertTrue("https://fluidattacks.com/" in \
-                        result.data.get("resources")["environments"])
+        assert "https://gitlab.com/fluidsignal/engineering/" in \
+               result.data.get("resources")["repositories"]
+        assert "https://fluidattacks.com/" in \
+               result.data.get("resources")["environments"]
 
     def test_add_resources(self):
         """ Check for add project resources"""
@@ -239,8 +232,8 @@ class GraphQLTests(TestCase):
         )
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
-        self.assertTrue(result.data.get("addRepositories")["success"])
-        self.assertTrue(result.data.get("addEnvironments")["success"])
+        assert result.data.get("addRepositories")["success"]
+        assert result.data.get("addEnvironments")["success"]
 
     def test_remove_resources(self):
         """ Check for remove project resources """
@@ -273,5 +266,5 @@ class GraphQLTests(TestCase):
         )
         result = schema.schema.execute(query, context_value=request)
         assert not result.errors
-        self.assertTrue(result.data.get("removeRepositories")["success"])
-        self.assertTrue(result.data.get("removeEnvironments")["success"])
+        assert result.data.get("removeRepositories")["success"]
+        assert result.data.get("removeEnvironments")["success"]
