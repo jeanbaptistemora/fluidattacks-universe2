@@ -200,13 +200,13 @@ def write_records(form_name, schema_properties, stdout=True):
             "type": "RECORD",
             "stream": form_name,
             "record": {
-                "_form_unique_id": submission["id"],
-                "_read": std_number(submission["read"]),
-                "_timestamp": std_date(submission["timestamp"]),
-                "_latitude": std_number(submission["latitude"]),
-                "_longitude": std_number(submission["longitude"]),
-                "_user_agent": submission["user_agent"],
-                "_remote_addr": submission["remote_addr"]
+                "_form_unique_id": submission.get("id", ""),
+                "_read": std_number(submission.get("read"), default=0.0),
+                "_latitude": std_number(submission.get("latitude"), default=0.0),
+                "_longitude": std_number(submission.get("longitude"), default=0.0),
+                "_timestamp": std_date(submission.get("timestamp"), default="1900-01-01T00:00:00Z"),
+                "_user_agent": submission.get("user_agent", ""),
+                "_remote_addr": submission.get("remote_addr", "")
             }
         }
 
@@ -273,7 +273,7 @@ def std_text(text):
 
     return new_text
 
-def std_date(date):
+def std_date(date, default=None):
     """
     returns a json schema compliant date (RFC 3339)
 
@@ -309,11 +309,11 @@ def std_date(date):
         new_date += month_to_number(date[0:3]) + "-"
         new_date += date[4:6] + "T00:00:00Z"
     # 2018 12 31 or 2018/12/31 or 2018-12-31
-    elif re.match("([0-9]{4}( |/|-)[0-9]{2}( |/|-)[0-9]{2})", date):
+    elif re.match("([0-9]{4}( |/|-)(01|02|03|04|05|06|07|08|09|10|11|12)( |/|-)[0-9]{2})", date):
         new_date = date[0:10] + "T00:00:00Z"
     # 12 31 2018 or 12/31/2018 or 12-31-2018
-    elif re.match("([0-9]{2}( |/|-)[0-9]{2}( |/|-)[0-9]{4})", date):
-        new_date = date[6:10] + "-" + date[3:5] + "-" + date[0:2] + "T00:00:00Z"
+    elif re.match("((01|02|03|04|05|06|07|08|09|10|11|12)( |/|-)[0-9]{2}( |/|-)[0-9]{4})", date):
+        new_date = date[6:10] + "-" + date[0:2] + "-" + date[3:5] + "T00:00:00Z"
     # Nov 2024
     elif re.match("([a-zA-Z]{3} [0-9]{4})", date):
         new_date = date[4:8] + "-"
@@ -325,7 +325,10 @@ def std_date(date):
     # User didn't fill the field
     elif not date:
         new_date = "1900-01-01T00:00:00Z"
-    # Not found
+    # User supplied default value
+    elif default is not None:
+        new_date = default
+    # Not possible to match, hit the panic button
     else:
         raise UnrecognizedDate
 
@@ -334,7 +337,7 @@ def std_date(date):
 
     return new_date
 
-def std_number(number):
+def std_number(number, default=None):
     """ returns a json schema compliant number """
     # log it
     logs.log_conversions("number [" + str(number) + "]")
@@ -353,15 +356,14 @@ def std_number(number):
             new_number += char
     number = new_number
 
-    # no numeric chars after cleaning
-    if not number:
-        raise UnrecognizedNumber
-
     # seems ok, lets try
     try:
         number = float(number)
-    except:
-        raise UnrecognizedNumber
+    except ValueError:
+        if default is None:
+            raise UnrecognizedNumber
+        else:
+            number = default
 
     # log it
     logs.log_conversions("       [" + str(number) + "]")
@@ -422,6 +424,10 @@ def main():
         '-auth',
         help='JSON authentication file',
         type=argparse.FileType('r'))
+    parser.add_argument(
+        '-conf',
+        help='JSON configuration file',
+        type=argparse.FileType('r'))
     args = parser.parse_args()
 
     if not args.auth:
@@ -432,15 +438,28 @@ def main():
     if not formstack_token:
         arguments_error(parser)
 
+    tap_conf = {}
+    if args.conf:
+        tap_conf = json.load(args.conf)
+
     # ==== Formstack  ==========================================================
     # get the available forms in the account
     available_forms = get_available_forms(formstack_token)
 
-    for form_name, form_id in available_forms.items():
-        # first download, it won't download encrypted forms
-        write_queries(formstack_token, form_name, form_id)
+    # forms after merge
+    real_forms = set()
 
-        # now write schema and records for this form
+    for form_name, form_id in available_forms.items():
+        # first download, it won't download encrypted/archived forms
+        if form_name in tap_conf.get("alias", []):
+            alias = tap_conf["alias"].get(form_name)
+            write_queries(formstack_token, alias, form_id)
+            real_forms.add(alias)
+        else:
+            write_queries(formstack_token, form_name, form_id)
+            real_forms.add(form_name)
+
+    for form_name in real_forms:
         try:
             form_schema = write_schema(form_name)
             write_records(form_name, form_schema)

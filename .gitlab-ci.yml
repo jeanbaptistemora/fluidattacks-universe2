@@ -383,7 +383,8 @@ sync_formstack:
     - echo "$(vault read
         -field=analytics_auth_stitch_formstack secret/serves)" > /target_secret.json
     - tap_formstack
-        -auth /tap_secret.json | target-stitch -c /target_secret.json
+        -auth /tap_secret.json
+        -conf analytics/conf/formstack.json | target-stitch -c /target_secret.json
     - rm -fr /tap_secret.json /target_secret.json
   only:
     refs:
