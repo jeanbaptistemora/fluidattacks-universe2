@@ -283,16 +283,16 @@ angular.module("FluidIntegrates").factory(
                            userRole !== "customeradmin";
         if ((!$scope.isManager || $scope.isAdmin) && !$scope.isAssumed &&
           !$scope.isClosed && $scope.isContinuous) {
-          angular.element(".finding-treatment").show();
+          $scope.customerVerification = true;
         }
         else {
-          angular.element(".finding-treatment").hide();
+          $scope.customerVerification = false;
         }
         if ($scope.isManager && $scope.isRemediated) {
-          angular.element(".finding-verified").show();
+          $scope.analystVerification = true;
         }
         else {
-          angular.element(".finding-verified").hide();
+          $scope.analystVerification = false;
         }
         // Initialize evidence gallery
         angular.element(".popup-gallery").magnificPopup({

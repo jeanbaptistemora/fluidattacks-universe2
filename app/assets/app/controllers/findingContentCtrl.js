@@ -187,6 +187,37 @@ findingContentCtrl (
       });
     }
   };
+  $scope.requestVerification = function requestVerification () {
+    $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
+    if ($scope.finding.treatment === "Asumido") {
+      $scope.isAssumed = true;
+    }
+    else {
+      $scope.isAssumed = false;
+    }
+    if ($scope.finding.estado === "Cerrado") {
+      $scope.isClosed = true;
+    }
+    else {
+      $scope.isClosed = false;
+    }
+    if ($scope.finding.subscription === "Continua" ||
+      $scope.finding.subscription === "Concurrente" ||
+      $scope.finding.subscription === "Si") {
+      $scope.isContinuous = true;
+    }
+    else {
+      $scope.isContinuous = false;
+    }
+    if ((!$scope.isManager || $scope.isAdmin) && !$scope.isAssumed &&
+          !$scope.isClosed && $scope.isContinuous) {
+      $scope.customerVerification = true;
+    }
+    else {
+      $scope.customerVerification = false;
+    }
+  };
+
   $scope.remediatedView = function remediatedView () {
     $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
     $scope.isRemediated = true;
@@ -197,10 +228,10 @@ findingContentCtrl (
           $scope.isRemediated = response.data.remediated;
           findingData.remediated = $scope.isRemediated;
           if ($scope.isManager && $scope.isRemediated) {
-            angular.element(".finding-verified").show();
+            $scope.analystVerification = true;
           }
           else {
-            angular.element(".finding-verified").hide();
+            $scope.analystVerification = false;
           }
         }
         else if (response.error) {
@@ -343,6 +374,8 @@ findingContentCtrl (
     if ($window.location.hash.indexOf("description") !== -1) {
       $scope.currentTab = "description";
       functionsFtry2.activeTab("#info", "FindingDescription", org, projt, idF);
+      $scope.remediatedView();
+      $scope.requestVerification();
     }
     if ($window.location.hash.indexOf("severity") !== -1) {
       $scope.currentTab = "severity";
