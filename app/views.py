@@ -1143,6 +1143,12 @@ def delete_finding(request):
         finding = fin_dto.parse(submission_id, frmreq)
         context['project'] = finding['projectName']
         context["name_finding"] = finding["finding"]
+        delete_all_coments(submission_id)
+        delete_s3_all_evidences(submission_id, finding['projectName'].lower())
+        integrates_dao.delete_finding_dynamo(submission_id)
+        vulns = integrates_dao.get_vulnerabilities_dynamo(submission_id)
+        for vuln in vulns:
+            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], submission_id)
         util.invalidate_cache(context['project'])
         result = api.delete_submission(submission_id)
         if result is None:
