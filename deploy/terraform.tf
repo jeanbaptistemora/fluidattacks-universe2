@@ -52,6 +52,28 @@ resource "aws_dynamodb_table" "comments" {
   }
 }
 
+resource "aws_dynamodb_table" "project_comments" {
+  name           = "fi_project_comments"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "project_name"
+  range_key      = "user_id"
+
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+
+  attribute {
+    name = "user_id"
+    type = "N"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
+
 resource "aws_dynamodb_table" "events" {
   name           = "fi_events"
   billing_mode   = "PAY_PER_REQUEST"
