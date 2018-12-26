@@ -28,6 +28,7 @@ class Project(ObjectType):
         """Class constructor."""
         self.name = project_name.lower()
         self.subscription = ''
+        self.charts_key = ''
         api = FormstackAPI()
         finreqset = api.get_findings(self.name)['submissions']
 
@@ -43,18 +44,6 @@ class Project(ObjectType):
                 self.subscription = project_info[0].get('type')
             else:
                 self.subscription = ''
-
-        charts_token = jwt.encode(
-            {
-              'organization': int(FI_ORGANIZATION),
-              'dashboard': int(FI_DASHBOARD),
-              'exp': datetime.utcnow() + timedelta(seconds=30),
-              'env': {'PROJECT': self.name}
-            },
-            FI_ORGANIZATION_SECRET,
-            algorithm='HS256'
-        )
-        self.charts_key = "%s/%s" % (FI_DASHBOARD, charts_token)
 
     def resolve_name(self, info):
         """Resolve name attribute."""
@@ -77,8 +66,21 @@ class Project(ObjectType):
         return self.subscription
 
     def resolve_charts_key(self, info):
-        """ Resolve chartio url """
+        """ Resolve chartio token """
         del info
+
+        charts_token = jwt.encode(
+            {
+              'organization': int(FI_ORGANIZATION),
+              'dashboard': int(FI_DASHBOARD),
+              'exp': datetime.utcnow() + timedelta(seconds=30),
+              'env': {'PROJECT': self.name}
+            },
+            FI_ORGANIZATION_SECRET,
+            algorithm='HS256'
+        )
+        self.charts_key = '%s/%s' % (FI_DASHBOARD, charts_token)
+
         return self.charts_key
 
 def validate_release_date(release_date=''):
