@@ -447,9 +447,12 @@ class UpdateSeverity(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, **parameters):
-        util.invalidate_cache(parameters.get('finding_id'))
+        finding_id = parameters.get('finding_id')
+        project = integrates_dao.get_finding_project(finding_id)
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project)
         success = False
         success = save_severity(parameters.get('data'))
 
         return UpdateSeverity(success=success,
-            finding=Finding(info=info, identifier=parameters.get('finding_id')))
+            finding=Finding(info=info, identifier=finding_id))

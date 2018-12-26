@@ -1019,7 +1019,9 @@ def get_myprojects(request):
 def update_description(request):
     parameters = request.POST.dict()
     finding_id = str(parameters['findingid'])
+    project = integrates_dao.get_finding_project(finding_id)
     util.invalidate_cache(finding_id)
+    util.invalidate_cache(project)
     try:
         generic_dto = FindingDTO()
         description_attributes = ['vulnerability']
@@ -1069,7 +1071,9 @@ def update_description(request):
 def update_treatment(request):
     parameters = request.POST.dict()
     try:
+        project = integrates_dao.get_finding_project(parameters['data[id]'])
         util.invalidate_cache(parameters['data[id]'])
+        util.invalidate_cache(project)
         description_title = ['id', 'treatment', 'treatmentJustification',
                              'treatmentManager', 'externalBts']
         finding = {k: parameters['data[' + k + ']']
