@@ -151,7 +151,7 @@ unit-testing:
     - cp -a $PWD /usr/src/app_src
     - cd /usr/src/app_src
     - vaultenv -- $(which pytest) --ds=fluidintegrates.settings --verbose --exitfirst
-      --cov=fluidintegrates --cov-report term
+      --cov=fluidintegrates --cov=app --cov-report term
       --cov-report html:build/coverage/html
       --cov-report xml:build/coverage/results.xml
       --cov-report annotate:build/coverage/annotate
