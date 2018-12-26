@@ -34,7 +34,7 @@ from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
     save_severity, migrate_description, migrate_treatment, migrate_report_date,
-    parse_dashboard_finding_dynamo
+    parse_dashboard_finding_dynamo, parse_finding
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -462,7 +462,15 @@ def get_project_info(project):
 @require_finding_access
 def get_finding(request):
     submission_id = request.POST.get('findingid', "")
-    finding = catch_finding(request, submission_id)
+    finding = integrates_dao.get_data_dynamo(
+        'FI_findings',
+        'finding_id',
+        submission_id)
+    if finding and finding[0].get('report_date'):
+        finding_parsed = parse_finding(finding[0])
+        finding = format_finding(finding_parsed, request)
+    else:
+        finding = catch_finding(request, submission_id)
     if finding is not None:
         if finding['vulnerability'].lower() == 'masked':
             util.cloudwatch_log(request, 'Warning: Project masked')
