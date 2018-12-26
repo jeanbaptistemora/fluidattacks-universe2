@@ -1733,3 +1733,25 @@ def update_item_list_dynamo(
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+
+def get_findings_dynamo(project, data_attr):
+    """Get all the findings of a project."""
+    table = dynamodb_resource.Table('FI_findings')
+    filter_key = 'project_name'
+    project_name = project.lower()
+    filtering_exp = Attr(filter_key).eq(project_name)
+    response = table.scan(
+        FilterExpression=filtering_exp,
+        ProjectionExpression=data_attr)
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(
+                FilterExpression=filtering_exp,
+                ProjectionExpression=data_attr,
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items

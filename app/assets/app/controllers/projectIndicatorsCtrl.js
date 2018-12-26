@@ -184,7 +184,7 @@ angular.module("FluidIntegrates").controller(
       angular.forEach(data, (value) => {
         if (value.estado !== "Cerrado" &&
           value.estado !== "Closed") {
-          if (value.exploitable === "Si") {
+          if (value.exploitable === "Si" || value.exploitable === "Yes") {
             exploitable += 1;
           }
           else {

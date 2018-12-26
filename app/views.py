@@ -33,7 +33,8 @@ from .domain import finding as FindingDomain
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
-    save_severity, migrate_description, migrate_treatment, migrate_report_date
+    save_severity, migrate_description, migrate_treatment, migrate_report_date,
+    parse_dashboard_finding_dynamo
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -510,33 +511,30 @@ def get_findings(request):
     """Capture and process the name of a project to return the findings."""
     project = request.GET.get('project', "")
     project = project.lower()
-    if util.validate_session_time(project, request):
-        return util.response(request.session["projects"][project], 'Success', False)
-    else:
-        api = FormstackAPI()
-        findings = []
-        finreqset = api.get_findings(project)["submissions"]
-        for submission_id in finreqset:
-            finding = catch_finding(request, submission_id["id"])
-            if finding is not None:
-                if finding['vulnerability'].lower() == 'masked':
-                    util.cloudwatch_log(request, 'Warning: Project masked')
-                    return util.response([], 'Project masked', True)
-                elif finding['projectName'].lower() == project and \
-                        util.validate_release_date(finding):
-                    findings.append(finding)
-            else:
-                rollbar.report_message('Error: An error occurred catching finding', 'error', request)
-        request.session["projects"][project] = findings
-        request.session["projects"][project + "_date"] = str(datetime.today())
-        return util.response(request.session["projects"][project], 'Success', False)
-
+    data_attr = "finding_id, records_number, vulnerability, lastVulnerability, \
+                releaseDate, finding_type, treatment, exploitability, \
+                confidentiality_impact, integrity_impact, availability_impact, \
+                access_complexity, authentication, access_vector, resolution_level, \
+                confidence_level, project_name, finding"
+    findings = integrates_dao.get_findings_dynamo(project, data_attr)
+    findings_parsed = []
+    for finding in findings:
+        if (finding.get('vulnerability') and
+                finding.get('vulnerability').lower() == 'masked'):
+            util.cloudwatch_log(request, 'Warning: Project masked')
+            return util.response([], 'Project masked', True)
+        elif util.validate_release_date(finding):
+            finding_parsed = parse_dashboard_finding_dynamo(finding)
+            finding = format_finding(finding_parsed, request)
+            findings_parsed.append(finding)
+        else:
+            rollbar.report_message('Error: An error occurred formatting finding', 'error', request)
+    return util.response(findings_parsed, 'Success', False)
 
 # pylint: disable=R1702
 # pylint: disable=R0915
 def catch_finding(request, submission_id):
     finding = []
-    state = {'estado': 'Abierto'}
     fin_dto = FindingDTO()
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
@@ -548,90 +546,65 @@ def catch_finding(request, submission_id):
                 submission_id,
                 submissionData
             )
-            query = """{
-              finding(identifier: "findingid"){
-                id
-                success
-                openVulnerabilities
-                closedVulnerabilities
-                portsVulns: vulnerabilities(
-                  vulnType: "ports", state: "open") {
-                  ...vulnInfo
-                }
-                linesVulns: vulnerabilities(
-                  vulnType: "lines", state: "open") {
-                  ...vulnInfo
-                }
-                inputsVulns: vulnerabilities(
-                  vulnType: "inputs", state: "open") {
-                  ...vulnInfo
-                }
-              }
-            }
-            fragment vulnInfo on Vulnerability {
-              vulnType
-              where
-              specific
-            }"""
-            query = query.replace('findingid', submission_id)
-            result = schema.schema.execute(query, context_value=request)
-            finding_new = result.data.get('finding')
-            finding['cardinalidad_total'] = finding.get('openVulnerabilities')
-            finding['cierres'] = []
-            if (finding_new and
-                    (finding_new.get('openVulnerabilities') or
-                        finding_new.get('closedVulnerabilities'))):
-                finding = cast_new_vulnerabilities(finding_new, finding)
-            else:
-                if finding.get('where'):
-                    error_msg = 'Error: Finding {finding_id} of project {project} has vulnerabilities in old format'\
-                        .format(finding_id=submission_id, project=finding['projectName'])
-                    rollbar.report_message(error_msg, 'error', request)
-                else:
-                    # Finding does not have vulnerabilities in old format.
-                    pass
-                closingData = api.get_closings_by_id(submission_id)
-                if closingData is None or 'error' in closingData:
-                    return None
-                else:
-                    closingreqset = closingData['submissions']
-                    findingcloseset = []
-                    for closingreq in closingreqset:
-                        closingset = closing.parse(api.get_submission(closingreq["id"]))
-                        findingcloseset.append(closingset)
-                        # The latest is the last closing cycle.
-                        state = closingset
-                    finding['estado'] = state['estado']
-                    finding['cierres'] = findingcloseset
-            if 'opened' in state:
-                # Hack: This conditional temporarily solves the problem presented
-                #      when the number of vulnerabilities open in a closing cycle
-                # are higher than the number of vulnerabilities open in a finding
-                # which causes negative numbers to be shown in the indicators view.
-                if int(state['opened']) > int(finding['cardinalidad_total']):
-                    finding['cardinalidad_total'] = state['opened']
-                if 'whichOpened' in state:
-                    finding['where'] = state['whichOpened']
-                else:
-                    # This finding does not have old open vulnerabilities
-                    # after a closing cicle.
-                    pass
-                finding['openVulnerabilities'] = state['opened']
-            else:
-                # Finding does not have open vulnerabilities in a closing cycle
-                pass
-            if 'whichClosed' in state:
-                finding['closed'] = state['whichClosed']
-            finding = format_release_date(finding, state)
-            if finding['estado'] == 'Cerrado':
-                finding['where'] = '-'
-                finding['edad'] = '-'
-                finding['lastVulnerability'] = '-'
+            finding = format_finding(finding, request)
             return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
 
+
+def format_finding(finding, request):
+    """Format some attributes in a finding."""
+    finding_id = finding.get('id')
+    query = """{
+      finding(identifier: "findingid"){
+        id
+        success
+        openVulnerabilities
+        closedVulnerabilities
+        portsVulns: vulnerabilities(
+          vulnType: "ports", state: "open") {
+          ...vulnInfo
+        }
+        linesVulns: vulnerabilities(
+          vulnType: "lines", state: "open") {
+          ...vulnInfo
+        }
+        inputsVulns: vulnerabilities(
+          vulnType: "inputs", state: "open") {
+          ...vulnInfo
+        }
+      }
+    }
+    fragment vulnInfo on Vulnerability {
+      vulnType
+      where
+      specific
+    }"""
+    query = query.replace('findingid', finding_id)
+    result = schema.schema.execute(query, context_value=request)
+    finding_new = result.data.get('finding')
+    finding['cardinalidad_total'] = finding.get('openVulnerabilities')
+    finding['cierres'] = []
+    if (finding_new and
+            (finding_new.get('openVulnerabilities') or
+                finding_new.get('closedVulnerabilities'))):
+        finding = cast_new_vulnerabilities(finding_new, finding)
+    else:
+        if finding.get('where'):
+            error_msg = 'Error: Finding {finding_id} of project {project} has vulnerabilities in old format'\
+                .format(finding_id=finding_id, project=finding['projectName'])
+            rollbar.report_message(error_msg, 'error', request)
+        else:
+            # Finding does not have vulnerabilities in old format.
+            pass
+        finding['estado'] = 'Abierto'
+    finding = format_release_date(finding)
+    if finding['estado'] == 'Cerrado':
+        finding['where'] = '-'
+        finding['edad'] = '-'
+        finding['lastVulnerability'] = '-'
+    return finding
 
 def cast_new_vulnerabilities(finding_new, finding):
     """Cast values for new format."""
@@ -685,7 +658,7 @@ def format_where(where, vulnerabilities):
     return where
 
 
-def format_release_date(finding, state):
+def format_release_date(finding):
     primary_keys = ["finding_id", finding["id"]]
     table_name = "FI_findings"
     finding_dynamo = integrates_dao.get_data_dynamo(
@@ -695,11 +668,6 @@ def format_release_date(finding, state):
             finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
         if finding_dynamo[0].get("lastVulnerability"):
             finding["lastVulnerability"] = finding_dynamo[0].get("lastVulnerability")
-    if 'timestamp' in state:
-        if finding.get('lastVulnerability') != state['timestamp']:
-            finding['lastVulnerability'] = state['timestamp']
-            integrates_dao.add_attribute_dynamo(
-                table_name, primary_keys, "lastVulnerability", state['timestamp'])
     if finding.get("releaseDate"):
         final_date = format_finding_date(finding["releaseDate"])
         finding['edad'] = final_date.days

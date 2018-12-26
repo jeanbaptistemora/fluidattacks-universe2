@@ -809,3 +809,119 @@ def migrate_report_date(finding):
                    for k in description_fields if finding.get(k)}
     response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
     return response
+
+
+def parse_finding(finding):
+    """Parse data from dynamo."""
+    finding_titles = [
+        'report_date', 'report_level', 'subscription', 'client_code',
+        'finding', 'probability', 'severity', 'risk_value', 'ambit',
+        'category', 'test_type', 'related_findings', 'actor', 'scenario',
+        'vulnerability', 'attack_vector', 'affected_systems', 'threat', 'risk',
+        'requirements', 'cwe', 'effect_solution', 'kb', 'finding_type',
+        'treatment', 'treatment_justification', 'treatment_manager',
+        'external_bts', 'analyst', 'leader', 'interested', 'project_name',
+        'client_project', 'context', 'records_number', 'records'
+    ]
+    if finding:
+        finding_fields = {k: util.snakecase_to_camelcase(k)
+                          for k in finding_titles}
+        parsed_dict = {v: finding[k]
+                       for (k, v) in finding_fields.items()
+                       if k in finding.keys()}
+
+        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
+        if 'cwe' in parsed_dict.keys():
+            parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
+        else:
+            # The finding does not have cwe attribute
+            pass
+        parsed_dict['id'] = finding.get('finding_id')
+        parsed_dict['lastVulnerability'] = finding.get('lastVulnerability')
+        parsed_dict['releaseDate'] = finding.get('releaseDate')
+        parsed_severity = parse_severity(finding)
+        parsed_evidence_description = parse_evidence_description(finding)
+        parsed_values = forms.dict_concatenation(parsed_severity, parsed_evidence_description)
+        parsed_dict = forms.dict_concatenation(parsed_dict, parsed_values)
+    return parsed_dict
+
+
+def parse_severity(finding):
+    """Parse finding severity."""
+    severity_title = ['access_vector', 'access_complexity',
+                      'authentication', 'exploitability',
+                      'confidentiality_impact', 'integrity_impact',
+                      'availability_impact', 'resolution_level',
+                      'confidence_level', 'collateral_damage_potential',
+                      'finding_distribution', 'confidentiality_requirement',
+                      'integrity_requirement', 'availability_requirement']
+
+    severity_fields = {k: util.snakecase_to_camelcase(k)
+                       for k in severity_title}
+    parsed_dict = {v: float(finding[k])
+                   for (k, v) in severity_fields.items()
+                   if k in finding.keys()}
+
+    BASE_SCORE_FACTOR_1 = 0.6
+    BASE_SCORE_FACTOR_2 = 0.4
+    BASE_SCORE_FACTOR_3 = 1.5
+    IMPACT_FACTOR = 10.41
+    EXPLOITABILITY_FACTOR = 20
+    F_IMPACT_FACTOR = 1.176
+    impact = (IMPACT_FACTOR *
+              (1 - ((1 - parsed_dict['confidentialityImpact']) *
+               (1 - parsed_dict['integrityImpact']) *
+               (1 - parsed_dict['availabilityImpact']))))
+    exploitability = (EXPLOITABILITY_FACTOR *
+                      parsed_dict['accessComplexity'] *
+                      parsed_dict['authentication'] * parsed_dict['accessVector'])
+    base_score = (((BASE_SCORE_FACTOR_1 * impact) +
+                  (BASE_SCORE_FACTOR_2 * exploitability) - BASE_SCORE_FACTOR_3) *
+                  F_IMPACT_FACTOR)
+    parsed_dict['criticity'] = round((base_score * parsed_dict['exploitability'] *
+                                     parsed_dict['resolutionLevel'] *
+                                     parsed_dict['confidenceLevel']), 1)
+    parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
+    parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
+    return parsed_dict
+
+
+def parse_evidence_description(finding):
+    """Parse evidence description."""
+    description_fields = {
+        'evidence_route_1': 'evidence_description_1',
+        'evidence_route_2': 'evidence_description_2',
+        'evidence_route_3': 'evidence_description_3',
+        'evidence_route_4': 'evidence_description_4',
+        'evidence_route_5': 'evidence_description_5'
+    }
+    if has_migrated_evidence(finding.get('id')):
+        evidence_tab_info = {description_fields[file_obj['name']]: file_obj.get('description')
+                             for file_obj in finding.get('files')
+                             if file_obj.get('name') in description_fields and
+                             file_obj.get('description')}
+    else:
+        evidence_tab_info = {}
+    return evidence_tab_info
+
+
+def parse_dashboard_finding_dynamo(finding):
+    """Parse data from finding to show in dashboard."""
+    finding_titles = [
+        'report_date', 'vulnerability', 'finding_type', 'records_number',
+        'treatment', 'exploitability', 'project_name', 'finding'
+    ]
+    if finding:
+        finding_fields = {k: util.snakecase_to_camelcase(k)
+                          for k in finding_titles}
+        parsed_dict = {v: finding[k]
+                       for (k, v) in finding_fields.items()
+                       if k in finding.keys()}
+
+        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
+        parsed_dict['id'] = finding.get('finding_id')
+        parsed_dict['lastVulnerability'] = finding.get('lastVulnerability')
+        parsed_dict['releaseDate'] = finding.get('releaseDate')
+        parsed_severity = parse_severity(finding)
+        parsed_dict = forms.dict_concatenation(parsed_dict, parsed_severity)
+    return parsed_dict
