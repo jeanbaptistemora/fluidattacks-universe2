@@ -890,6 +890,39 @@ def create_comment_dynamo(finding_id, email, data):
         rollbar.report_exc_info()
         return False
 
+def get_project_comments_dynamo(project_name):
+    """ Get comments of a project. """
+    table = dynamodb_resource.Table('fi_project_comments')
+    filter_key = 'project_name'
+    filtering_exp = Key(filter_key).eq(project_name)
+    response = table.scan(FilterExpression=filtering_exp)
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def add_project_comment_dynamo(project_name, email, comment_data):
+    """ Add a comment in a project. """
+    table = dynamodb_resource.Table('fi_project_comments')
+    try:
+        payload = {
+            'project_name': project_name,
+            'email': email
+        }
+        payload.update(comment_data)
+        response = table.put_item(
+            Item=payload
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
 
 def delete_comment_dynamo(finding_id, user_id):
     """ Delete a comment in a finding. """

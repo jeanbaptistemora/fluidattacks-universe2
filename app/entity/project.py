@@ -5,15 +5,19 @@
 # directory.
 from __future__ import absolute_import
 import pytz
+import time
 from datetime import datetime, timedelta
 
 import jwt
-from graphene import String, ObjectType, List, Int
+from graphene import String, ObjectType, List, Int, Boolean, Mutation
+from graphene.types.generic import GenericScalar
 
 from __init__ import FI_ORGANIZATION_SECRET, FI_DASHBOARD, FI_ORGANIZATION
 from app.api.formstack import FormstackAPI
 from ..dao import integrates_dao
 from .finding import Finding
+from app import util
+from app.decorators import require_role, require_login, require_project_access_gql
 
 class Project(ObjectType):
     """Formstack Project Class."""
@@ -23,12 +27,14 @@ class Project(ObjectType):
     open_vulnerabilities = Int()
     subscription = String()
     charts_key = String()
+    comments = List(GenericScalar)
 
     def __init__(self, info, project_name):
         """Class constructor."""
         self.name = project_name.lower()
         self.subscription = ''
         self.charts_key = ''
+        self.comments = []
         api = FormstackAPI()
         finreqset = api.get_findings(self.name)['submissions']
 
@@ -83,6 +89,25 @@ class Project(ObjectType):
 
         return self.charts_key
 
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_comments(self, info):
+        comments = integrates_dao.get_project_comments_dynamo(self.name)
+
+        for comment in comments:
+            comment_data = {
+                'content': comment['content'],
+                'created': comment['created'],
+                'created_by_current_user': comment['email'] == util.get_jwt_content(info.context)["user_email"],
+                'email': comment['email'],
+                'fullname': comment['fullname'],
+                'id': int(comment['user_id']),
+                'modified': comment['modified'],
+                'parent': int(comment['parent'])
+            }
+            self.comments.append(comment_data)
+
+        return self.comments
+
 def validate_release_date(release_date=''):
     """Validate if a finding has a valid relese date."""
     if release_date:
@@ -97,3 +122,34 @@ def validate_release_date(release_date=''):
     else:
         result = False
     return result
+
+class AddProjectComment(Mutation):
+    """ Add comment to project """
+
+    class Arguments(object):
+        content = String(required=True)
+        parent = String(required=True)
+        project_name = String(required=True)
+    success = Boolean()
+    comment_id = String()
+
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, **parameters):
+        project_name = parameters.get('project_name').lower()
+        email = util.get_jwt_content(info.context)["user_email"]
+        util.invalidate_cache(project_name)
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        comment_id = int(round(time.time() * 1000))
+        comment_data = {
+            'user_id': comment_id,
+            'content': parameters.get('content'),
+            'created': current_time,
+            'fullname': str.join(' ', [info.context.session['first_name'], info.context.session['last_name']]),
+            'modified': current_time,
+            'parent': int(parameters.get('parent'))
+        }
+        success = integrates_dao.add_project_comment_dynamo(project_name, email, comment_data)
+
+        return AddProjectComment(success=success, comment_id=comment_id)

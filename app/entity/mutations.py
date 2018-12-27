@@ -14,6 +14,7 @@ from .finding import (
     UpdateEvidence, UpdateSeverity,
     UpdateEvidenceDescription
 )
+from .project import AddProjectComment
 from graphene import ObjectType
 
 class Mutations(ObjectType):
@@ -35,3 +36,5 @@ class Mutations(ObjectType):
     updateEvidenceDescription = UpdateEvidenceDescription.Field()
 
     updateSeverity = UpdateSeverity.Field()
+
+    addProjectComment = AddProjectComment.Field()
