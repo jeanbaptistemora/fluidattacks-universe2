@@ -19,6 +19,7 @@ import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
 import { vulnsView } from "./scenes/Dashboard/components/Vulnerabilities/index";
 import { evidenceView } from "./scenes/Dashboard/containers/EvidenceView/index";
 import { exploitView } from "./scenes/Dashboard/containers/ExploitView/index";
+import { projectCommentsView } from "./scenes/Dashboard/containers/ProjectCommentsView";
 import { projectUsersView } from "./scenes/Dashboard/containers/ProjectUsersView/index";
 import { recordsView } from "./scenes/Dashboard/containers/RecordsView/index";
 import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index";
@@ -432,3 +433,20 @@ angular
      ],
    ),
   );
+
+/**
+ * @url: #/project/:project/comments
+ * @page: comments.html
+ * @controllers: projectCommentsCtrl
+ * @tag: <project-comments-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "projectCommentsView",
+    react2angular(
+      projectCommentsView, [
+        "projectName",
+      ],
+    ),
+);
