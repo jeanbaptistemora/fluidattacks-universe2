@@ -334,7 +334,7 @@ def snakecase_to_camelcase(str_value):
 
 def invalidate_cache(key_pattern):
     """Remove keys from cache that matches a given pattern."""
-    cache.delete_pattern('*' + key_pattern + '*')
+    cache.delete_pattern('*' + str(key_pattern) + '*')
 
 
 def calculate_etag(_, img_file):
