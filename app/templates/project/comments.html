@@ -37,7 +37,7 @@
     </div>
     <div class="modal-body" id="modal-body">
         <ul style="list-style: none;">
-            <li ng-repeat="r in rowsEvent"> #{% templatetag openvariable %} r.id {% templatetag closevariable %} &nbsp;{% templatetag openvariable %} r.eventType {% templatetag closevariable %} &nbsp;[{% templatetag openvariable %} r.date {% templatetag closevariable %} ] ({% templatetag openvariable %}  (r.affectation === undefined)?"Pendiente":r.affectation {% templatetag closevariable %})
+            <li ng-repeat="r in rowsEvent"> #{% templatetag openvariable %} r.id {% templatetag closevariable %} &nbsp;{% templatetag openvariable %} r.type {% templatetag closevariable %} &nbsp;[{% templatetag openvariable %} r.fecha {% templatetag closevariable %} ] ({% templatetag openvariable %}  (r.affectation === undefined)?"Pendiente":r.affectation {% templatetag closevariable %})
         </ul>
     </div>
     <div class="modal-footer">
@@ -65,7 +65,7 @@
                                 <i class="icon s7-stopwatch"></i>&nbsp; Drafts
                             </a>
                         </li>
-                        <li id="eventsTab" class="active" style="font-size:15px;" ng-click="urlEvents();">
+                        <li id="eventsTab" class="" style="font-size:15px;" ng-click="urlEvents();">
                             <a href="#eventualities" data-toggle="tab" aria-expanded="true">
                                 <i class="icon s7-star"></i>&nbsp;{% templatetag openvariable %} 'tab_container.eventualities' | translate {% templatetag closevariable %}
                             </a>
@@ -80,59 +80,70 @@
                                 <i class="icon s7-users"></i>&nbsp;{% templatetag openvariable %} 'tab_container.users' | translate {% templatetag closevariable %}
                             </a>
                         </li>
-                        <li id="commentsTab" class="" ng-show="isCustomer" style="font-size:15px;" ng-click="urlComments();">
+                        <li id="commentsTab" class="active" ng-show="isCustomer" style="font-size:15px;" ng-click="urlComments();">
                             <a href="#comments" data-toggle="tab" aria-expanded="true">
                                 <i class="icon s7-comment"></i>&nbsp;{% templatetag openvariable %} 'tab_container.comments' | translate {% templatetag closevariable %}
                             </a>
                         </li>
                     </ul>
-                    <div class="tab-content">
-                        <div id="eventualities" class="tab-pane cont active">
-                            <div class="row">
-                                <script>
-                                    $(document).ready(function() {
-                                        if (userRole == "customer" || userRole == "customeradmin") {
-                                            $('#progress_event').hide();
-                                        }
-                                    });
-                                </script>
-                                <div class="btn-group"  id="progress_event">
-                                    <button type="button"
-                                            class="btn btn-default"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="{{ search_findings.event_by_name.btn_group.resume }}!"
-                                            ng-click="openModalEventAvance(eventsDataset);">
-                                            {{ search_findings.event_by_name.btn_group.resume }}
-                                        <i class="glyphicon glyphicon-bookmark"></i>
-                                    </button>
-                                </div>
-                                <!-- START: toolbar -->
-                                <div id="toolbar2">
-                                    <p><b>{{ search_findings.eventualities.description }}</b></p>
-                                </div>
-                                <d-table
-                                  dataset="eventsDataset"
-                                  export-csv="true"
-                                  headers="tblEventsHeaders"
-                                  on-click-row="goToEvent"
-                                  page-size="15"
-                                  search="true"
-                                />
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div id="comments" class="tab-pane cont active" >
+          <project-comments-view project-name="project"/>
         </div>
     </div>
 </div>
 
 <!-- Start CommonStyles -->
-<style>
-    .bg-critical{ background-color: #F12; }
-    .bg-moderate{ background-color: #F72; }
-    .bg-tolerable{ background-color: #FD2; }
+    <style>
+    .column-button {
+        width: 50%;
+        display:flex;
+        padding-left: auto;
+        padding-right: auto;
+    }
+    .pull-right > input {
+        width: 400px;
+        display:flex;
+    }
+    @media screen and (max-width: 1320px;) {
+    .column-button {
+        width: 50%;
+        display:flex;
+      }
+    }
+    @media screen and (max-width: 1160px;) {
+    .column-button {
+        width: 50%;
+        display:flex;
+      }
+    .pull-right > input {
+        width: 300px;
+        display:flex;
+      }
+    }
+    @media screen and (max-width: 768px) {
+    .column-button {
+        width: 100%;
+        display:initial;
+        float: none;
+      }
+    }
+    @media screen and (max-width: 400px) {
+    .column-button {
+        width: 100%;
+        display:initial;
+        float: none;
+      }
+      .pull-right > input {
+          width: 250px;
+          display:flex;
+      }
+    }
+
     .no-resize{ resize: none; height: 100px !important;}
     .hide-detallado, .fl-hidden { display: none; }
     .show-detallado, .fl-visible{ display: block;}
@@ -164,7 +175,7 @@
         text-align: justify;
         /*border-bottom: 0.5px #DDD solid;*/
     }
-    #eventualities thead tr{ background-color: #898787; color:white;  }
+    #resources thead tr{ background-color: #898787; color:white;  }
 
 </style>
 <!-- End CommonStyles -->

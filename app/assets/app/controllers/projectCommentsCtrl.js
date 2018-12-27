@@ -9,12 +9,12 @@ mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
 */
 /* eslint-env node*/
 /**
- * @file projectResourcesCtrl.js
+ * @file projectCommentsCtrl.js
  * @author engineering@fluidattacks.com
  */
 /**
- * Controller definition for indicators tab view.
- * @name projectResourcesCtrl
+ * Controller definition for comments tab view.
+ * @name projectCommentsCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -24,51 +24,18 @@ mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
  */
 /** @export */
 angular.module("FluidIntegrates").controller(
-  "projectResourcesCtrl",
-  function projectResourcesCtrl (
+  "projectCommentsCtrl",
+  function projectCommentsCtrl (
     $location,
     $scope,
     $state,
     $stateParams,
     $timeout,
     $translate,
-    $uibModal,
-    functionsFtry1,
     functionsFtry3,
     functionsFtry4
   ) {
     $scope.init = function init () {
-      const translationStrings = [
-        "search_findings.tab_users.title_success",
-        "search_findings.tab_resources.success",
-        "search_findings.tab_resources.success_remove",
-        "search_findings.tab_resources.no_selection",
-        "search_findings.tab_resources.repositories",
-        "search_findings.tab_resources.title_repo",
-        "search_findings.tab_resources.branch",
-        "search_findings.tab_resources.add_repository",
-        "search_findings.tab_resources.remove_repository",
-        "search_findings.tab_resources.repeated_item",
-        "search_findings.repositories_table.repository",
-        "search_findings.repositories_table.branch",
-
-        "search_findings.tab_resources.environment",
-        "search_findings.tab_resources.environments",
-        "search_findings.tab_resources.title_env",
-        "search_findings.tab_resources.repository",
-        "search_findings.environment_table.environment",
-
-        "confirmmodal.cancel",
-        "confirmmodal.proceed",
-
-        "proj_alerts.access_denied",
-        "proj_alerts.error_textsad"
-      ];
-      $scope.translations = {};
-      angular.forEach(translationStrings, (value) => {
-        $scope.translations[value] = $translate.instant(value);
-      });
-
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -86,9 +53,8 @@ angular.module("FluidIntegrates").controller(
         $scope.search();
         const org = Organization.toUpperCase();
         const projt = projectName.toUpperCase();
-        angular.element(".equalWidgetHeight").matchHeight();
         mixPanelDashboard.trackReports(
-          "ProjectResources",
+          "ProjectComments",
           userName,
           userEmail,
           org,

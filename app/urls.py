@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^project_events/?\.*$', views.project_events),
     url(r'^project_resources/?\.*$', views.project_resources),
     url(r'^project_users/?\.*$', views.project_users),
+    url(r'^project_comments/?\.*$', views.project_comments),
     # Comments tab.
     url(r'^get_comments/?\.*$', views.get_comments, name='get_comments'),
     url(r'^add_comment/?\.*$', views.add_comment, name='add_comment'),

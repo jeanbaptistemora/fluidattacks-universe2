@@ -264,6 +264,7 @@ const translations2 = {
    }
  },
   "tab_container": {
+    "comments": "Comments",
     "eventualities": "Events",
     "findings": "Findings",
     "indicators": "Indicators",

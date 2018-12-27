@@ -265,6 +265,7 @@ const traducciones2 = {
   }
 },
   "tab_container": {
+    "comments": "Comentarios",
     "eventualities": "Eventualidades",
     "findings": "Hallazgos",
     "indicators": "Indicadores",
