@@ -13,7 +13,6 @@ from operator import itemgetter
 from django.conf import settings
 
 from ..dao import integrates_dao
-from . import closing
 from ..api.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
@@ -473,22 +472,20 @@ def format_finding_date(format_attr):
 
 def finding_vulnerabilities(submission_id):
     finding = []
-    state = {'estado': 'Abierto'}
-    fin_dto = FindingDTO()
-    api = FormstackAPI()
     if str(submission_id).isdigit() is True:
-        finding = fin_dto.parse(
-            submission_id,
-            api.get_submission(submission_id)
-        )
-        closingreqset = api.get_closings_by_id(submission_id)['submissions']
-        findingcloseset = []
-        for closingreq in closingreqset:
-            closingset = closing.parse(api.get_submission(closingreq['id']))
-            findingcloseset.append(closingset)
-            state = closingset
-        finding['estado'] = state['estado']
-        finding['cierres'] = findingcloseset
+        finding = integrates_dao.get_data_dynamo(
+            'FI_findings',
+            'finding_id',
+            str(submission_id))
+        if finding and finding[0].get('report_date'):
+            finding = parse_finding(finding[0])
+        else:
+            fin_dto = FindingDTO()
+            api = FormstackAPI()
+            finding = fin_dto.parse(
+                submission_id,
+                api.get_submission(submission_id)
+            )
         finding_new = total_vulnerabilities(submission_id)
         finding['cardinalidad_total'] = finding.get('openVulnerabilities')
         if (finding_new and
@@ -508,26 +505,12 @@ def finding_vulnerabilities(submission_id):
             else:
                 # This finding does not have open vulnerabilities
                 pass
-        elif 'opened' in state:
-            # Hack: This conditional temporarily solves the problem presented
-            #      when the number of vulnerabilities open in a closing cycle
-            # are higher than the number of vulnerabilities open in a finding
-            # which causes negative numbers to be shown in the indicators view.
-            if int(state['opened']) > int(finding['cardinalidad_total']):
-                finding['cardinalidad_total'] = state['opened']
-            if 'whichOpened' in state:
-                finding['where'] = state['whichOpened']
-            else:
-                # This finding does not have old open vulnerabilities
-                # after a closing cicle.
-                pass
-            finding['openVulnerabilities'] = state['opened']
+        else:
+            finding['estado'] = 'Abierto'
         if finding.get('estado') == 'Cerrado':
             finding['where'] = '-'
             finding['edad'] = '-'
             finding['lastVulnerability'] = '-'
-        if 'whichClosed' in state:
-            finding['closed'] = state['whichClosed']
         finding = format_release(finding)
         return finding
     else:
@@ -895,7 +878,7 @@ def parse_evidence_description(finding):
         'evidence_route_4': 'evidence_description_4',
         'evidence_route_5': 'evidence_description_5'
     }
-    if has_migrated_evidence(finding.get('id')):
+    if has_migrated_evidence(finding.get('finding_id')):
         evidence_tab_info = {description_fields[file_obj['name']]: file_obj.get('description')
                              for file_obj in finding.get('files')
                              if file_obj.get('name') in description_fields and

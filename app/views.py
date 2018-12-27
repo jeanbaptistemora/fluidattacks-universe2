@@ -465,7 +465,7 @@ def get_finding(request):
     finding = integrates_dao.get_data_dynamo(
         'FI_findings',
         'finding_id',
-        submission_id)
+        str(submission_id))
     if finding and finding[0].get('report_date'):
         finding_parsed = parse_finding(finding[0])
         finding = format_finding(finding_parsed, request)
