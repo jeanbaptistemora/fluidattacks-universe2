@@ -322,8 +322,8 @@
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.btsTooltip' | translate}}"><label><b>{{'search_findings.tab_description.bts_external' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.btsTooltip' | translate}}">
-                                      <a ng-href="{{finding.btsExterno || ''}}" target="_blank" ng-show="onlyReadableTab4 && finding.hasUrl">{{finding.externalBts || ''}}</a>
-                                      <p ng-show="onlyReadableTab4 && !finding.hasUrl">{{finding.externalBts || ''}}</p>
+                                      <a ng-href="{{finding.externalBts || ''}}" target="_blank" ng-show="onlyReadableTab4 && finding.externalBts.startsWith('https://')">{{finding.externalBts || ''}}</a>
+                                      <p ng-show="onlyReadableTab4 && !finding.externalBts.startsWith('https://')">{{finding.externalBts || ''}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab4"
                                              ng-model="finding.btsExterno">
