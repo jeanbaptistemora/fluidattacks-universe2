@@ -354,7 +354,7 @@ def validation_project_to_pdf(request, lang, doctype):
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
-    findings = []
+    findings_parsed = []
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
@@ -366,14 +366,24 @@ def project_to_pdf(request, lang, project, doctype):
         validator = validation_project_to_pdf(request, lang, doctype)
         if validator is not None:
             return validator
-        for reqset in FormstackAPI().get_findings(project)["submissions"]:
-            fin = catch_finding(request, reqset["id"])
-            if fin['projectName'].lower() == project.lower() and \
-                    util.validate_release_date(fin):
-                findings.append(fin)
+        findings = integrates_dao.get_findings_dynamo(project)
+        if findings:
+            for fin in findings:
+                if util.validate_release_date(fin):
+                    finding_parsed = parse_finding(fin)
+                    finding = format_finding(finding_parsed, request)
+                    findings_parsed.append(finding)
+                else:
+                    # Finding does not have a valid release date
+                    pass
+        else:
+            rollbar.report_message(
+                'Error: project' + project + 'does not have findings in dynamo',
+                'error',
+                request)
         pdf_maker = CreatorPDF(lang, doctype)
         secure_pdf = SecurePDF()
-        findings_ord = util.ord_asc_by_criticidad(findings)
+        findings_ord = util.ord_asc_by_criticidad(findings_parsed)
         findings = pdf_evidences(findings_ord)
         report_filename = ""
         if doctype == "tech":
