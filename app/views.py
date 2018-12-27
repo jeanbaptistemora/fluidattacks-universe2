@@ -289,7 +289,7 @@ def logout(request):
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_xls(request, lang, project):
     "Create the technical report"
-    findings = []
+    findings_parsed = []
     detail = {
         "content_type": "application/vnd.openxmlformats\
                         -officedocument.spreadsheetml.sheet",
@@ -306,12 +306,23 @@ def project_to_xls(request, lang, project):
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
-    for reqset in FormstackAPI().get_findings(project)["submissions"]:
-        fin = catch_finding(request, reqset["id"])
-        if fin['projectName'].lower() == project.lower() and \
-                util.validate_release_date(fin):
-            findings.append(fin)
-    data = util.ord_asc_by_criticidad(findings)
+    findings = integrates_dao.get_findings_dynamo(project)
+    if findings:
+        for fin in findings:
+            if util.validate_release_date(fin):
+                finding_parsed = parse_finding(fin)
+                finding = format_finding(finding_parsed, request)
+                findings_parsed.append(finding)
+            else:
+                # Finding does not have a valid release date
+                pass
+    else:
+        rollbar.report_message(
+            'Error: project' + project + 'does not have findings in dynamo',
+            'error',
+            request)
+        return util.response([], 'Empty fields', True)
+    data = util.ord_asc_by_criticidad(findings_parsed)
     it_report = ITReport(project, data, username)
     with open(it_report.result_filename, 'r') as document:
         response = HttpResponse(document.read(),
