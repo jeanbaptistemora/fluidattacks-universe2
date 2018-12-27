@@ -34,7 +34,7 @@ from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
     save_severity, migrate_description, migrate_treatment, migrate_report_date,
-    parse_dashboard_finding_dynamo, parse_finding
+    parse_dashboard_finding_dynamo, parse_finding, get_project_name
 )
 from .dto import closing
 from .dto import project as projectDTO
@@ -1027,7 +1027,7 @@ def get_myprojects(request):
 def update_description(request):
     parameters = request.POST.dict()
     finding_id = str(parameters['findingid'])
-    project = integrates_dao.get_finding_project(finding_id)
+    project = get_project_name(finding_id)
     util.invalidate_cache(finding_id)
     util.invalidate_cache(project)
     try:
@@ -1079,7 +1079,7 @@ def update_description(request):
 def update_treatment(request):
     parameters = request.POST.dict()
     try:
-        project = integrates_dao.get_finding_project(parameters['data[id]'])
+        project = get_project_name(parameters['data[id]'])
         util.invalidate_cache(parameters['data[id]'])
         util.invalidate_cache(project)
         description_title = ['id', 'treatment', 'treatmentJustification',

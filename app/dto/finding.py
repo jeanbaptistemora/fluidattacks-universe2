@@ -908,3 +908,17 @@ def parse_dashboard_finding_dynamo(finding):
         parsed_severity = parse_severity(finding)
         parsed_dict = forms.dict_concatenation(parsed_dict, parsed_severity)
     return parsed_dict
+
+
+def get_project_name(finding_id):
+    """Get the name of the project of a finding."""
+    project = integrates_dao.get_finding_project(finding_id)
+    if not project:
+        api = FormstackAPI()
+        fin_dto = FindingDTO()
+        finding_data = fin_dto.parse_project(api.get_submission(finding_id), finding_id)
+        project = finding_data.get('projectName')
+    else:
+        # Project exist in dynamo
+        pass
+    return project
