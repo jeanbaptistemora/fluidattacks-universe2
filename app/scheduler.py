@@ -20,11 +20,11 @@ from datetime import datetime, timedelta
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
-BASE_URL = "https://fluidattacks.com/integrates"
-BASE_WEB_URL = "https://fluidattacks.com/web"
+BASE_URL = 'https://fluidattacks.com/integrates'
+BASE_WEB_URL = 'https://fluidattacks.com/web'
 
 def is_not_a_fluidattacks_email(email):
-    return "fluidattacks.com" not in email
+    return 'fluidattacks.com' not in email
 
 def remove_fluidattacks_emails_from_recipients(emails):
     new_email_list = list(filter(is_not_a_fluidattacks_email, \
@@ -44,7 +44,7 @@ def is_a_unsolved_event(event):
 
 def get_events_submissions(project):
     formstack_api = FormstackAPI()
-    return formstack_api.get_eventualities(project)["submissions"]
+    return formstack_api.get_eventualities(project)['submissions']
 
 def get_unsolved_events(project):
     events_submissions = get_events_submissions(project)
@@ -63,8 +63,8 @@ def send_unsolved_events_email(project):
     to = get_external_recipients(project)
     project_info = integrates_dao.get_project_dynamo(project)
     if project_info and \
-            project_info[0].get("type") == "continuous":
-        to.append("continuous@fluidattacks.com")
+            project_info[0].get('type') == 'continuous':
+        to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
     events_info_for_email = [extract_info_from_event_dict(x) \
                              for x in unsolved_events]
@@ -91,7 +91,7 @@ def get_new_vulnerabilities():
         try:
             finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
             for finding in finding_requests:
-                message = ""
+                message = ''
                 finding['id'] = finding['finding_id']
                 act_finding = finding_vulnerabilities(str(finding['id']))
                 row = integrates_dao.get_vulns_by_id_dynamo(
@@ -99,7 +99,7 @@ def get_new_vulnerabilities():
                     int(finding['id'])
                 )
                 if str.lower(str(act_finding['projectName'])) == project and \
-                        "releaseDate" in act_finding and row:
+                        'releaseDate' in act_finding and row:
                     finding_url = '{url!s}/dashboard#!/project/{project!s}/' \
                         '{finding!s}/description' \
                         .format(url=BASE_URL,
@@ -118,7 +118,7 @@ def get_new_vulnerabilities():
                     delta = int(act_finding['openVulnerabilities']) - \
                         int(row[0]['vuln_hoy'])
                     finding_text = format_vulnerabilities(delta, act_finding)
-                    if finding_text != "":
+                    if finding_text != '':
                         context['findings'].append({
                             'nombre_hallazgo': finding_text,
                             'url_vuln': finding_url
@@ -167,19 +167,19 @@ def format_vulnerabilities(delta, act_finding):
             finding=act_finding['finding'],
             delta=delta)
     else:
-        finding_text = ""
+        finding_text = ''
     return finding_text
 
 
 def finding_has_treatment(act_finding, finding_url):
     """Validate if a finding has treatment."""
-    if ("releaseDate" in act_finding) and \
-            (act_finding["estado"] != "Cerrado") and \
-            (act_finding["edad"] != "-"):
-        if "treatment" in act_finding and \
-                act_finding["treatment"] == "Nuevo":
+    if ('releaseDate' in act_finding) and \
+            (act_finding['estado'] != 'Cerrado') and \
+            (act_finding['edad'] != '-'):
+        if 'treatment' in act_finding and \
+                act_finding['treatment'] == 'Nuevo':
             finding_name = act_finding['finding'] + ' -' + \
-                act_finding["edad"] + ' day(s)-'
+                act_finding['edad'] + ' day(s)-'
             resp = {
                 'hallazgo_pendiente': finding_name,
                 'url_hallazgo': finding_url
@@ -203,7 +203,7 @@ def update_new_vulnerabilities():
                 delta = abs(len(old_findings) - len(finding_requests))
                 for finding in finding_requests[-delta:]:
                     act_finding = finding_vulnerabilities(str(finding['finding_id']))
-                    if ("releaseDate" in act_finding):
+                    if ('releaseDate' in act_finding):
                         integrates_dao.add_or_update_vulns_dynamo(
                             project,
                             int(finding['finding_id']), 0)
@@ -254,9 +254,9 @@ def get_age_notifications():
             project = str.lower(str(project[0]))
             finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding["finding_id"])
-                if finding_parsed["edad"] != "-":
-                    age = int(finding_parsed["edad"])
+                finding_parsed = finding_vulnerabilities(finding['finding_id'])
+                if finding_parsed['edad'] != '-':
+                    age = int(finding_parsed['edad'])
                 else:
                     age = 0
                 format_age_email(finding_parsed, project, to, age)
@@ -277,9 +277,9 @@ def get_age_weekends_notifications():
             project = str.lower(str(project[0]))
             finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding["finding_id"])
-                if finding_parsed["edad"] != "-":
-                    unformatted_age = int(finding_parsed["edad"])
+                finding_parsed = finding_vulnerabilities(finding['finding_id'])
+                if finding_parsed['edad'] != '-':
+                    unformatted_age = int(finding_parsed['edad'])
                     age = format_age_weekend(unformatted_age)
                 else:
                     age = 0
@@ -293,45 +293,45 @@ def get_age_weekends_notifications():
 def format_age_email(finding_parsed, project, to, age):
     """Format data to send age email."""
     ages = [15, 30, 60, 90, 120, 180, 240]
-    message = ""
+    message = ''
     project_fin = str.lower(str(finding_parsed['projectName']))
     if ('subscription' in finding_parsed and
-            "releaseDate" in finding_parsed and
+            'releaseDate' in finding_parsed and
             project_fin == project and
             finding_parsed['subscription'] == 'Continua' and
             age in ages):
         context = {
             'project': str.upper(str(project)),
-            'finding': finding_parsed["id"],
-            'finding_name': finding_parsed["finding"],
+            'finding': finding_parsed['id'],
+            'finding_name': finding_parsed['finding'],
             'finding_url':
             '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description'
                 .format(url=BASE_URL,
                         project=project,
-                        finding=finding_parsed["id"]),
+                        finding=finding_parsed['id']),
             'finding_comment':
             '{url!s}/dashboard#!/project/{project!s}/{finding!s}/comments'
                 .format(url=BASE_URL,
                         project=project,
-                        finding=finding_parsed["id"]),
+                        finding=finding_parsed['id']),
             'project_url':
             '{url!s}/dashboard#!/project/{project!s}/indicators'
                 .format(url=BASE_URL, project=project)
         }
-        if "kb" in finding_parsed and \
-                BASE_WEB_URL + "/es/defends" in \
-                finding_parsed["kb"]:
-            context["kb"] = finding_parsed["kb"]
+        if 'kb' in finding_parsed and \
+                BASE_WEB_URL + '/es/defends' in \
+                finding_parsed['kb']:
+            context['kb'] = finding_parsed['kb']
         else:
             message = 'Finding {finding!s} of project ' \
                 '{project!s} does not have kb link' \
-                .format(finding=finding_parsed["id"], project=project)
+                .format(finding=finding_parsed['id'], project=project)
             logger.info(message)
         send_mail_age(age, to, context)
     else:
         message = 'Finding {finding!s} of project {project!s} '\
             'does not match age mail criteria' \
-            .format(finding=finding_parsed["id"], project=project)
+            .format(finding=finding_parsed['id'], project=project)
         logger.info(message)
 
 def format_age_weekend(age):
@@ -345,8 +345,8 @@ def format_age_weekend(age):
     return formatted_age
 
 def send_mail_age(age, to, context):
-    context["age"] = age
-    if "kb" in context:
+    context['age'] = age
+    if 'kb' in context:
         send_mail_age_kb_finding(to, context)
     else:
         send_mail_age_finding(to, context)
@@ -358,8 +358,8 @@ def weekly_report():
     final_date = (datetime.today() - timedelta(days=1)).date()
     all_companies = integrates_dao.get_all_companies()
     all_users = [all_users_formatted(x) for x in all_companies]
-    registered_users = integrates_dao.all_users_report("FLUID", final_date)
-    logged_users = integrates_dao.logging_users_report("FLUID", init_date, final_date)
+    registered_users = integrates_dao.all_users_report('FLUID', final_date)
+    logged_users = integrates_dao.logging_users_report('FLUID', init_date, final_date)
     integrates_dao.weekly_report_dynamo(
         str(init_date),
         str(final_date),
@@ -392,21 +392,21 @@ def get_new_releases():
     cont = 0
     for project in projects:
         try:
-            finding_requests = api.get_findings(project)["submissions"]
+            finding_requests = api.get_findings(project)['submissions']
             project = str.lower(str(project[0]))
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding["id"])
+                finding_parsed = finding_vulnerabilities(finding['id'])
                 project_fin = str.lower(str(finding_parsed['projectName']))
-                if ("releaseDate" not in finding_parsed and
+                if ('releaseDate' not in finding_parsed and
                         project_fin == project):
                     context['findings'].append({
-                        'finding_name': finding_parsed["finding"],
+                        'finding_name': finding_parsed['finding'],
                         'finding_url':
                         '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
                         '/description'
                             .format(url=BASE_URL,
                                     project=project,
-                                    finding=finding["id"]),
+                                    finding=finding['id']),
                         'project': str.upper(str(project))
                     })
                     cont += 1
@@ -416,8 +416,8 @@ def get_new_releases():
                 'warning')
     if cont > 0:
         context['total'] = cont
-        to = ["projects@fluidattacks.com", "production@fluidattacks.com",
-              "jarmas@fluidattacks.com", "smunoz@fluidattacks.com"]
+        to = ['projects@fluidattacks.com', 'production@fluidattacks.com',
+              'jarmas@fluidattacks.com', 'smunoz@fluidattacks.com']
         send_mail_new_releases(to, context)
     else:
         logger.info('There are no new drafts')
@@ -430,15 +430,15 @@ def continuous_report():
     index = 0
     for x in integrates_dao.get_continuous_info():
         index += 1
-        project_url = BASE_URL + "/dashboard#!/project/" + \
-                      x['project'].lower() + "/indicators"
+        project_url = BASE_URL + '/dashboard#!/project/' + \
+                      x['project'].lower() + '/indicators'
         indicators = views.calculate_indicators(x['project'])
         context['projects'].append({'project_url': str(project_url), \
                                     'index': index, \
                                     'project_name': str(x['project']), \
                                     'lines': str(x['lines']), \
                                     'fields': str(x['fields']), \
-                                    'fixed_vuln': (str(indicators[2]) + "%"), \
+                                    'fixed_vuln': (str(indicators[2]) + '%'), \
                                     'cssv': indicators[1], \
                                     'events': indicators[0]
                                      })
@@ -451,32 +451,32 @@ def send_unsolved_events_email_to_all_projects():
 
 def deletion(project, days_to_send, days_to_delete):
     formstack_api = FormstackAPI()
-    remission_submissions = formstack_api.get_remmisions(project)["submissions"]
+    remission_submissions = formstack_api.get_remmisions(project)['submissions']
     if remission_submissions:
         remissions_list = [remission.create_dict( \
-                           formstack_api.get_submission(x["id"])) \
+                           formstack_api.get_submission(x['id'])) \
                            for x in remission_submissions]
         filtered_remissions = list(filter(lambda x: x['FLUID_PROJECT'].lower() \
                                       == project.lower(), remissions_list))
         project_info = integrates_dao.get_project_dynamo(project)
         if filtered_remissions and project_info:
             lastest_remission = remission.get_lastest(filtered_remissions)
-            if lastest_remission["LAST_REMISSION"] == "Si" and \
-               lastest_remission["APPROVAL_STATUS"] == "Approved" and \
-               project_info[0]["type"] == "oneshot":
-                days_until_now = remission.days_until_now(lastest_remission["TIMESTAMP"])
+            if lastest_remission['LAST_REMISSION'] == 'Si' and \
+               lastest_remission['APPROVAL_STATUS'] == 'Approved' and \
+               project_info[0]['type'] == 'oneshot':
+                days_until_now = remission.days_until_now(lastest_remission['TIMESTAMP'])
                 if days_until_now in days_to_send:
                     context = {'project_name': project.capitalize()}
-                    to = ["projects@fluidattacks.com","production@fluidattacks.com"]
+                    to = ['projects@fluidattacks.com','production@fluidattacks.com']
                     send_mail_project_deletion(to, context)
                     was_deleted = False
                     was_email_sended = True
                 elif days_until_now in days_to_delete:
                     views.delete_project(project)
                     integrates_dao.add_attribute_dynamo(
-                        "FI_projects",
+                        'FI_projects',
                         ['project_name', project.lower()],
-                        "deletion_date",
+                        'deletion_date',
                         datetime.today().isoformat(' '))
                     was_deleted = True
                     was_email_sended = False
