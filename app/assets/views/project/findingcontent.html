@@ -83,7 +83,7 @@
                       <a href="#evidence" data-toggle="tab">
                       <i class="icon s7-photo"></i>&nbsp;{{'search_findings.tab_evidence.evidence_name' | translate}}</a>
                   </li>
-                  <li id="exploitItem" style="font-size:16px;" ng-show="hasExploit || isManager" ng-click="urlExploit();">
+                  <li id="exploitItem" style="font-size:16px;" ng-click="urlExploit();">
                       <a href="#exploit" data-toggle="tab">
                       <i class="icon s7-file"></i>&nbsp;Exploit</a>
                   </li>
@@ -394,7 +394,7 @@
                   </div>
                   <!-- End Tab Evidence -->
                   <!-- Start Tab Exploit -->
-                  <div id="exploit" class="tab-pane cont" ng-show="hasExploit || isManager">
+                  <div id="exploit" class="tab-pane cont">
                     <div ng-if="currentTab === 'exploit'">
                       <exploit-view
                         can-edit="(userRole === 'analyst' || userRole === 'admin') && hasAccess"
