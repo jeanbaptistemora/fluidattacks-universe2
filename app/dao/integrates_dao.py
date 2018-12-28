@@ -1723,6 +1723,22 @@ def get_finding_attributes_dynamo(finding_id, data_attributes):
         items = {}
     return items
 
+def get_project_attributes_dynamo(project_name, data_attributes):
+    """ Get a group of attributes of a project. """
+    table = dynamodb_resource.Table('FI_projects')
+    try:
+        response = table.get_item(
+            Key={
+                'project_name': project_name
+            },
+            AttributesToGet=data_attributes
+        )
+        items = response.get('Item')
+    except ClientError:
+        rollbar.report_exc_info()
+        items = {}
+    return items
+
 def get_event_dynamo(event_id):
     """ Get an event. """
     table = dynamodb_resource.Table('fi_events')

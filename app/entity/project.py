@@ -28,6 +28,7 @@ class Project(ObjectType):
     subscription = String()
     charts_key = String()
     comments = List(GenericScalar)
+    tags = List(String)
 
     def __init__(self, info, project_name):
         """Class constructor."""
@@ -35,6 +36,7 @@ class Project(ObjectType):
         self.subscription = ''
         self.charts_key = ''
         self.comments = []
+        self.tags = []
         api = FormstackAPI()
         finreqset = api.get_findings(self.name)['submissions']
 
@@ -107,6 +109,15 @@ class Project(ObjectType):
             self.comments.append(comment_data)
 
         return self.comments
+
+    def resolve_tags(self, info):
+        """ Resolve project tags """
+        del info
+
+        project_data = integrates_dao.get_project_attributes_dynamo(project_name=self.name, data_attributes=['tag'])
+        self.tags = project_data['tag'] if project_data and 'tag' in project_data else []
+
+        return self.tags
 
 def validate_release_date(release_date=''):
     """Validate if a finding has a valid relese date."""

@@ -78,6 +78,24 @@ angular.module("FluidIntegrates").controller(
       if (showChartio) {
         $scope.initChartio();
       }
+      const showTags = userEmail.endsWith("@fluidattacks.com");
+      if (showTags) {
+        $scope.initTags();
+      }
+    };
+
+    $scope.initTags = function initTags () {
+      $scope.tblTagsHeaders = [
+        {
+          "dataField": "tagName",
+          "header": "Tags"
+        }
+      ];
+      projectFtry2.getTags($scope.project).
+        then((response) => {
+          $scope.tagsDataset = response.data.project.tags.
+            map((tagName) => ({tagName}));
+        });
     };
 
     $scope.initChartio = () => {
