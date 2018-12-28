@@ -13,7 +13,6 @@ from graphene import String, ObjectType, List, Int, Boolean, Mutation
 from graphene.types.generic import GenericScalar
 
 from __init__ import FI_ORGANIZATION_SECRET, FI_DASHBOARD, FI_ORGANIZATION
-from app.api.formstack import FormstackAPI
 from ..dao import integrates_dao
 from .finding import Finding
 from app import util
@@ -37,13 +36,12 @@ class Project(ObjectType):
         self.charts_key = ''
         self.comments = []
         self.tags = []
-        api = FormstackAPI()
-        finreqset = api.get_findings(self.name)['submissions']
+        finreqset = integrates_dao.get_findings_dynamo(self.name, 'finding_id')
 
         if finreqset:
-            findings = [Finding(info, i['id']) for i in finreqset]
+            findings = [Finding(info, i['finding_id']) for i in finreqset]
             self.findings = [fin for fin in findings
-                             if fin.project_name.lower() == self.name and validate_release_date(fin.release_date)]
+                             if validate_release_date(fin.release_date)]
             open_vulnerabilities = [i.open_vulnerabilities for i in self.findings
                                     if i.open_vulnerabilities > 0]
             self.open_vulnerabilities = sum(open_vulnerabilities)

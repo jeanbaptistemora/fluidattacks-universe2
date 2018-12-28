@@ -84,15 +84,15 @@ def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     # pylint: disable-msg=R0914
     projects = integrates_dao.get_registered_projects()
-    api = FormstackAPI()
     for project in projects:
         project = str.lower(str(project[0]))
         context = {'findings': list(), 'findings_working_on': list()}
         delta_total = 0
         try:
-            finding_requests = api.get_findings(project)["submissions"]
+            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
             for finding in finding_requests:
                 message = ""
+                finding['id'] = finding['finding_id']
                 act_finding = finding_vulnerabilities(str(finding['id']))
                 row = integrates_dao.get_vulns_by_id_dynamo(
                     project,
@@ -194,23 +194,22 @@ def finding_has_treatment(act_finding, finding_url):
 def update_new_vulnerabilities():
     """Summary mail send to update the vulnerabilities of a project."""
     projects = integrates_dao.get_registered_projects()
-    api = FormstackAPI()
     for project in projects:
         try:
-            old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
-            finding_requests = api.get_findings(project)["submissions"]
+            project = str.lower(str(project[0]))
+            old_findings = integrates_dao.get_vulns_by_project_dynamo(project)
+            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
             if len(old_findings) != len(finding_requests):
                 delta = abs(len(old_findings) - len(finding_requests))
                 for finding in finding_requests[-delta:]:
-                    act_finding = finding_vulnerabilities(str(finding['id']))
-                    if ("releaseDate" in act_finding and
-                            str.lower(str(act_finding['projectName'])) == str.lower(str(project[0]))):
+                    act_finding = finding_vulnerabilities(str(finding['finding_id']))
+                    if ("releaseDate" in act_finding):
                         integrates_dao.add_or_update_vulns_dynamo(
-                            str.lower(str(project[0])),
-                            int(finding['id']), 0)
+                            project,
+                            int(finding['finding_id']), 0)
             else:
                 message = 'Project {project!s} does not have new vulnerabilities' \
-                    .format(project=project[0])
+                    .format(project=project)
                 logger.info(message)
         except (TypeError, KeyError):
             rollbar.report_message('Error: An error ocurred updating new vulnerabilities', 'error')
@@ -247,16 +246,15 @@ def get_remediated_findings():
 def get_age_notifications():
     """Send mail with findings that match age criteria."""
     projects = integrates_dao.get_registered_projects()
-    api = FormstackAPI()
     for project in projects:
         try:
             recipients = integrates_dao.get_project_users(project)
             to = [x[0] for x in recipients if x[1] == 1]
             to.append('continuous@fluidattacks.com')
-            finding_requests = api.get_findings(project)["submissions"]
             project = str.lower(str(project[0]))
+            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding["id"])
+                finding_parsed = finding_vulnerabilities(finding["finding_id"])
                 if finding_parsed["edad"] != "-":
                     age = int(finding_parsed["edad"])
                 else:
@@ -271,16 +269,15 @@ def get_age_notifications():
 def get_age_weekends_notifications():
     """Send mail on weekends with findings that match age criteria."""
     projects = integrates_dao.get_registered_projects()
-    api = FormstackAPI()
     for project in projects:
         try:
             recipients = integrates_dao.get_project_users(project)
             to = [x[0] for x in recipients if x[1] == 1]
             to.append('continuous@fluidattacks.com')
-            finding_requests = api.get_findings(project)["submissions"]
             project = str.lower(str(project[0]))
+            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding["id"])
+                finding_parsed = finding_vulnerabilities(finding["finding_id"])
                 if finding_parsed["edad"] != "-":
                     unformatted_age = int(finding_parsed["edad"])
                     age = format_age_weekend(unformatted_age)

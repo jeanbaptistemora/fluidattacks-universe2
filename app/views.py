@@ -1172,7 +1172,8 @@ def delete_finding(request):
     parameters = request.POST.dict()
     util.invalidate_cache(submission_id)
     username = request.session['username']
-    if catch_finding(request, submission_id) is None:
+    if not has_access_to_finding(request.session['username'], submission_id, request.session['role']):
+        util.cloudwatch_log(request, 'Security: Attempted to delete findings without permission')
         return util.response([], 'Access denied', True)
     fin_dto = FindingDTO()
     try:
@@ -1543,13 +1544,15 @@ def delete_comment(comment):
 
 def calculate_indicators(project):
     api = FormstackAPI()
+    event = eventuality.EventDTO()
     openVulnerabilities = cardinalidadTotal = maximumSeverity = openEvents =  0
-    for row in  api.get_eventualities(project)["submissions"]:
-        evtset = eventuality.parse(row["id"], api.get_submission(row["id"]))
-        if evtset['estado']=='Pendiente':
+    for row in api.get_eventualities(project)["submissions"]:
+        evtset = event.parse(row["id"], api.get_submission(row["id"]))
+        if evtset['status'] == 'Pendiente':
             openEvents += 1
-    for finding in api.get_findings(project)["submissions"]:
-        act_finding = finding_vulnerabilities(str(finding['id']))
+    findings = integrates_dao.get_findings_dynamo(project, 'finding_id')
+    for finding in findings:
+        act_finding = finding_vulnerabilities(str(finding['finding_id']))
         openVulnerabilities += int(act_finding['openVulnerabilities'])
         cardinalidadTotal += int(act_finding['cardinalidad_total'])
         if (maximumSeverity < act_finding['criticity']):
@@ -1558,7 +1561,7 @@ def calculate_indicators(project):
         fixed_vuln = int(round((1.0 - (float(openVulnerabilities) / float(cardinalidadTotal)))*100.0))
     except ZeroDivisionError:
         fixed_vuln = 0
-    return [openEvents,maximumSeverity, fixed_vuln]
+    return [openEvents, maximumSeverity, fixed_vuln]
 
 @never_cache
 @csrf_exempt
