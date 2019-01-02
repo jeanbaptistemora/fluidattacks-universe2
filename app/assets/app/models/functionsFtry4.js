@@ -220,8 +220,8 @@ angular.module("FluidIntegrates").factory(
             }
           }
           else if (response.data.finding.errorMessage === "Error in file") {
-            const errorAc1 =
-              $translate.instant("search_findings.tab_description.errorVuln");
+            const errorAc1 = $translate.instant("search_findings." +
+                                              "tab_description.errorFileVuln");
             $msg.error(errorAc1);
           }
           else {

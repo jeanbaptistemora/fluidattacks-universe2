@@ -127,6 +127,7 @@ const traducciones2 = {
     "downloadVulnerabilities": "Descargar Vulnerabilidades",
     "edit_treatment": "Editar",
     "editable": "Editar",
+    "errorFileVuln": "El archivo de vulnerabilidades tiene errores",
     "general": "General",
     "probability": "Probabilidad",
     "recommendation": "Recomendación",

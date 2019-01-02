@@ -89,17 +89,20 @@ class Finding(ObjectType):
                 self.open_vulnerabilities = len(open_vulnerabilities)
                 closed_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == 'closed']
                 self.closed_vulnerabilities = len(closed_vulnerabilities)
+                self.success = True
             elif resp.get('vulnerabilities'):
                 is_file_valid = validate_formstack_file(resp.get('vulnerabilities'), finding_id, info)
                 if is_file_valid:
                     vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
                     self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
+                    self.success = True
                 else:
                     self.success = False
                     self.error_message = 'Error in file'
             else:
                 vuln_info = {'finding_id': self.id, 'vuln_type': 'old', 'where': resp.get('where')}
                 self.vulnerabilities = [Vulnerability(vuln_info)]
+                self.success = True
 
             if 'fileRecords' in resp.keys():
                 self.records = get_records_from_file(self, resp['fileRecords'])
@@ -132,7 +135,6 @@ class Finding(ObjectType):
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
-        self.success = True
 
     def resolve_id(self, info):
         """Resolve id attribute."""
