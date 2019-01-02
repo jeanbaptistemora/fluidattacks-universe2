@@ -19,7 +19,7 @@ import style from "./index.css";
 type CustomFieldProps = FormProps<{}, {}, {}> & FormControlProps & WrappedFieldProps;
 
 const renderError: ((arg1: string) => JSX.Element) = (msg: string): JSX.Element => (
-  <span className={style.validationError}>{msg}</span>
+  <span id="validationError" className={style.validationError}>{msg}</span>
 );
 
 export const textField: ((arg1: CustomFieldProps) => JSX.Element) =
