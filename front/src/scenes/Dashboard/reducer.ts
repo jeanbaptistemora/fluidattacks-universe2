@@ -25,9 +25,7 @@ interface IDashboardState {
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
     addModal: {
-      envFields: Array<{ environment: string }>;
       open: boolean;
-      repoFields: Array<{ branch: string; repository: string }>;
       type: "repository" | "environment" | undefined;
     };
     environments: Array<{ urlEnv: string }>;
@@ -71,9 +69,7 @@ const initialState: IDashboardState = {
   },
   resources: {
     addModal: {
-      envFields: [{ environment: ""}],
       open: false,
-      repoFields: [{ branch: "", repository: ""}],
       type: undefined,
     },
     environments: [],
@@ -162,119 +158,6 @@ actionMap[resourcesActions.CLOSE_ADD_MODAL] =
       ...state.resources,
       addModal: {
         ...initialState.resources.addModal,
-      },
-    },
-  });
-
-actionMap[resourcesActions.ADD_REPO_FIELD] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        repoFields: [...state.resources.addModal.repoFields, ({repository: "", branch: ""})],
-      },
-    },
-  });
-
-actionMap[resourcesActions.REMOVE_REPO_FIELD] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        repoFields: [...state.resources.addModal.repoFields.filter(
-          (_0: { branch: string; repository: string }, index: number) => index !== action.payload.index)],
-      },
-    },
-  });
-
-actionMap[resourcesActions.ADD_ENV_FIELD] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        envFields: [...state.resources.addModal.envFields, ({environment: ""})],
-      },
-    },
-  });
-
-actionMap[resourcesActions.REMOVE_ENV_FIELD] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        envFields: [...state.resources.addModal.envFields.filter(
-          (_0: { environment: string }, index: number) => index !== action.payload.index)],
-      },
-    },
-  });
-
-actionMap[resourcesActions.MODIFY_REPO_URL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        repoFields: [...state.resources.addModal.repoFields.map(
-          (field: { branch: string; repository: string }, index: number) =>
-          ({
-            branch: field.branch,
-            repository: index === action.payload.index
-            ? action.payload.newValue
-            : field.repository,
-          }))],
-      },
-    },
-  });
-
-actionMap[resourcesActions.MODIFY_REPO_BRANCH] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        repoFields: [...state.resources.addModal.repoFields.map(
-          (field: { branch: string; repository: string }, index: number) =>
-          ({
-            branch: index === action.payload.index
-            ? action.payload.newValue
-            : field.branch,
-            repository: field.repository,
-          }))],
-      },
-    },
-  });
-
-actionMap[resourcesActions.MODIFY_ENV_URL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        envFields: [...state.resources.addModal.envFields.map(
-          (field: { environment: string }, index: number) =>
-          ({
-            environment: index === action.payload.index
-            ? action.payload.newValue
-            : field.environment,
-          }))],
       },
     },
   });

@@ -74,57 +74,6 @@ export const closeAddModal: (() => IActionStructure) =
     type: actionTypes.CLOSE_ADD_MODAL,
   });
 
-export const addRepositoryField: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.ADD_REPO_FIELD,
-  });
-
-export const removeRepositoryField: ((index: number) => IActionStructure) =
-  (index: number): IActionStructure => ({
-    payload: { index },
-    type: actionTypes.REMOVE_REPO_FIELD,
-  });
-
-export const modifyRepoUrl: ((index: number, newValue: string) => IActionStructure) =
-  (index: number, newValue: string): IActionStructure => ({
-    payload: {
-      index,
-      newValue,
-    },
-    type: actionTypes.MODIFY_REPO_URL,
-  });
-
-export const modifyRepoBranch: ((index: number, newValue: string) => IActionStructure) =
-  (index: number, newValue: string): IActionStructure => ({
-    payload: {
-      index,
-      newValue,
-    },
-    type: actionTypes.MODIFY_REPO_BRANCH,
-  });
-
-export const addEnvironmentField: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.ADD_ENV_FIELD,
-  });
-
-export const removeEnvironmentField: ((index: number) => IActionStructure) =
-  (index: number): IActionStructure => ({
-    payload: { index },
-    type: actionTypes.REMOVE_ENV_FIELD,
-  });
-
-export const modifyEnvUrl: ((index: number, newValue: string) => IActionStructure) =
-  (index: number, newValue: string): IActionStructure => ({
-    payload: {
-      index,
-      newValue,
-    },
-    type: actionTypes.MODIFY_ENV_URL,
-  });
-
 export const saveRepos: ThunkActionStructure =
   (projectName: string, reposData: IResourcesViewProps["repositoriesDataset"],
   ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
