@@ -28,10 +28,12 @@ function create_kubernetes_namespace() {
 
 function deploy_application() {
   local manifest="${1}"
+  local resource="$(echo ${1} | cut -d/ -f1)"
   local name="$(echo ${1} | cut -d/ -f2 | cut -d. -f1)"
+  local namespace="$(grep -m1 -Po '(?<=namespace: ).*' ${manifest})"
   replace_env_variables "${manifest}"
   kubectl apply -f "${manifest}"
-  kubectl rollout status "deploy/${name}" -w
+  kubectl rollout status "${resource}/${name}" -w -n "${namespace}"
 }
 
 function find_resource() {
@@ -184,6 +186,7 @@ install_helm_chart stable/nginx-ingress controller serves nginx.yaml
 install_helm_chart gitlab/gitlab-runner runner operations runner.yaml
 install_helm_chart stable/cert-manager cert-manager operations cert-manager.yaml
 install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml
+install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml 
 
 if find_resource pods '^vault-[0-9].*3/3' -q; then
   echo-blue "Vault already deployed and initialized."
@@ -242,6 +245,7 @@ deploy_application deployments/alg.yaml
 deploy_application deployments/exams.yaml
 deploy_application deployments/integrates.yaml
 deploy_application deployments/vpn.yaml
+deploy_application daemonsets/newrelic-infra.yaml
 
 # Wait until the initialization of the Load Balancer is complete
 wait_elb_initialization
