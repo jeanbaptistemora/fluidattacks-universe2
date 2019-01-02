@@ -8,7 +8,7 @@
  */
 import _ from "lodash";
 import React, { ComponentType } from "react";
-import { Button, ButtonToolbar, Col, FormControl, Glyphicon, Grid, Row } from "react-bootstrap";
+import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -17,19 +17,17 @@ import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
-import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { msgError } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
+import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
 import * as actions from "./actions";
 
 export interface IResourcesViewProps {
   addModal: {
-    envFields: Array<{ environment: string }>;
     open: boolean;
-    repoFields: Array<{ branch: string; repository: string }>;
     type: "repository" | "environment";
   };
   environmentsDataset: Array<{ urlEnv: string }>;
@@ -71,20 +69,20 @@ const removeRepo: ((arg1: string) => void) = (projectName: string): void => {
 };
 
 const saveRepos: (
-  (arg1: IResourcesViewProps["addModal"]["repoFields"],
-   arg2: IResourcesViewProps["projectName"],
-   arg3: IResourcesViewProps["repositoriesDataset"],
+  (resources: IResourcesViewProps["repositoriesDataset"],
+   projectName: IResourcesViewProps["projectName"],
+   currentRepos: IResourcesViewProps["repositoriesDataset"],
   ) => void) =
-  (reposData: IResourcesViewProps["addModal"]["repoFields"],
+  (resources: IResourcesViewProps["repositoriesDataset"],
    projectName: IResourcesViewProps["projectName"],
    currentRepos: IResourcesViewProps["repositoriesDataset"],
   ): void => {
     let containsRepeated: boolean;
-    containsRepeated = reposData.filter(
-      (newItem: IResourcesViewProps["addModal"]["repoFields"][0]) => _.findIndex(
+    containsRepeated = resources.filter(
+      (newItem: IResourcesViewProps["repositoriesDataset"][0]) => _.findIndex(
         currentRepos,
         (currentItem: IResourcesViewProps["repositoriesDataset"][0]) =>
-          currentItem.urlRepo === newItem.repository  && currentItem.branch === newItem.branch,
+          currentItem.urlRepo === newItem.urlRepo && currentItem.branch === newItem.branch,
       ) > -1).length > 0;
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
@@ -92,9 +90,9 @@ const saveRepos: (
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
         store.dispatch as ThunkDispatch<{}, {}, AnyAction>
       );
-      thunkDispatch(actions.saveRepos(projectName, reposData));
+      thunkDispatch(actions.saveRepos(projectName, resources));
     }
-};
+  };
 
 const removeEnv: ((arg1: string) => void) = (projectName: string): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblEnvironments tr input:checked");
@@ -117,30 +115,28 @@ const removeEnv: ((arg1: string) => void) = (projectName: string): void => {
 };
 
 const saveEnvs: (
-  (arg1: IResourcesViewProps["addModal"]["envFields"],
-   arg2: IResourcesViewProps["projectName"],
-   arg3: IResourcesViewProps["environmentsDataset"],
+  (resources: IResourcesViewProps["environmentsDataset"], projectName: IResourcesViewProps["projectName"],
+   currentEnvs: IResourcesViewProps["environmentsDataset"],
   ) => void) =
-  (envsData: IResourcesViewProps["addModal"]["envFields"],
-   projectName: IResourcesViewProps["projectName"],
+  (resources: IResourcesViewProps["environmentsDataset"], projectName: IResourcesViewProps["projectName"],
    currentEnvs: IResourcesViewProps["environmentsDataset"],
   ): void => {
     let containsRepeated: boolean;
-    containsRepeated = envsData.filter(
-    (newItem: IResourcesViewProps["addModal"]["envFields"][0]) => _.findIndex(
-       currentEnvs,
-       (currentItem: IResourcesViewProps["environmentsDataset"][0]) =>
-          currentItem.urlEnv === newItem.environment,
-    ) > -1).length > 0;
+    containsRepeated = resources.filter(
+      (newItem: IResourcesViewProps["environmentsDataset"][0]) => _.findIndex(
+        currentEnvs,
+        (currentItem: IResourcesViewProps["environmentsDataset"][0]) =>
+          currentItem.urlEnv === newItem.urlEnv,
+      ) > -1).length > 0;
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
         store.dispatch as ThunkDispatch<{}, {}, AnyAction>
       );
-      thunkDispatch(actions.saveEnvs(projectName, envsData));
+      thunkDispatch(actions.saveEnvs(projectName, resources));
     }
-};
+  };
 
 const mapStateToProps: ((arg1: StateType<Reducer>) => IResourcesViewProps) =
   (state: StateType<Reducer>): IResourcesViewProps => ({
@@ -275,145 +271,18 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
           </Row>
         </Col>
       </Row>
-      <Modal
-        open={props.addModal.open}
-        onClose={(): void => {}}
-        headerTitle={
+      <AddResourcesModal
+        isOpen={props.addModal.open}
+        type={props.addModal.type}
+        onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
+        onSubmit={
           props.addModal.type === "environment"
-          ? translate.t("search_findings.tab_resources.modal_env_title")
-          : translate.t("search_findings.tab_resources.modal_repo_title")
-        }
-        content={
-          <Grid>
-            {
-              props.addModal.type === "environment"
-              ? <Row>
-                {
-                  props.addModal.envFields.map((field: { environment: string }, index: number) => (
-                    <Row key={index}>
-                      <Col md={5}>
-                        <label>
-                          <label style={{color: "#f22"}}>* </label>
-                          {translate.t("search_findings.tab_resources.environment")}
-                        </label>
-                        <FormControl
-                          id={`env: ${index}`}
-                          componentClass="textarea"
-                          value={field.environment}
-                          required={true}
-                          onChange={(evt: React.FormEvent<FormControl>): void => {
-                            store.dispatch(actions.modifyEnvUrl(index, (evt.target as HTMLInputElement).value));
-                          }}
-                        />
-                      </Col>
-                      {
-                        index > 0
-                        ? <Col md={2} style={{ marginTop: "40px"}}>
-                          <Button
-                            bsStyle="primary"
-                            onClick={(): void => { store.dispatch(actions.removeEnvironmentField(index)); }}
-                          >
-                            <Glyphicon glyph="trash"/>&nbsp;
-                          </Button>
-                        </Col>
-                        : <Col/>
-                      }
-                    </Row>
-                  ))}
-                </Row>
-              : <Row>
-                {
-                  props.addModal.repoFields.map((field: { branch: string; repository: string }, index: number) =>
-                    (
-                      <Row key={index}>
-                        <Col md={3}>
-                          <label>
-                            <label style={{color: "#f22"}}>* </label>
-                            {translate.t("search_findings.tab_resources.repository")}
-                          </label>
-                          <FormControl
-                            id={`repo: ${index}`}
-                            type="text"
-                            value={field.repository}
-                            required={true}
-                            onChange={(evt: React.FormEvent<FormControl>): void => {
-                              store.dispatch(actions.modifyRepoUrl(index, (evt.target as HTMLInputElement).value));
-                            }}
-                          />
-                        </Col>
-                        <Col md={2}>
-                          <label>
-                            <label style={{color: "#f22"}}>* </label>
-                            {translate.t("search_findings.tab_resources.branch")}
-                          </label>
-                          <FormControl
-                            id={`branch: ${index}`}
-                            type="text"
-                            value={field.branch}
-                            required={true}
-                            onChange={(evt: React.FormEvent<FormControl>): void => {
-                              store.dispatch(actions.modifyRepoBranch(index, (evt.target as HTMLInputElement).value));
-                            }}
-                          />
-                        </Col>
-                        {
-                          index > 0
-                          ? <Col md={2} style={{ marginTop: "40px"}}>
-                            <Button
-                              bsStyle="primary"
-                              onClick={(): void => { store.dispatch(actions.removeRepositoryField(index)); }}
-                            >
-                              <Glyphicon glyph="trash"/>&nbsp;
-                            </Button>
-                          </Col>
-                          : <Col/>
-                        }
-                      </Row>
-                  ))}
-                </Row>
+            ? (values: { resources: IResourcesViewProps["environmentsDataset"] }): void => {
+              saveEnvs(values.resources, props.projectName, props.environmentsDataset);
             }
-            <br/>
-            <Button
-              bsStyle="primary"
-              onClick={
-                props.addModal.type === "environment"
-                ? (): void => { store.dispatch(actions.addEnvironmentField()); }
-                : (): void => { store.dispatch(actions.addRepositoryField()); }
-              }
-            >
-              <Glyphicon glyph="plus"/>
-            </Button>
-          </Grid>
-        }
-        footer={
-          <ButtonToolbar className="pull-right">
-            <Button
-              bsStyle="default"
-              onClick={(): void => { store.dispatch(actions.closeAddModal()); }}
-            >
-              {translate.t("confirmmodal.cancel")}
-            </Button>
-            <Button
-              bsStyle="primary"
-              onClick={
-                props.addModal.type === "environment"
-                ? (): void => { saveEnvs(
-                    props.addModal.envFields,
-                    props.projectName,
-                    props.environmentsDataset,
-                   );
-                 }
-                : (): void => { saveRepos(
-                    props.addModal.repoFields,
-                    props.projectName,
-                    props.repositoriesDataset,
-                   );
-                 }
-              }
-            >
-              {translate.t("confirmmodal.proceed")}
-            </Button>
-          </ButtonToolbar>
+            : (values: { resources: IResourcesViewProps["repositoriesDataset"] }): void => {
+              saveRepos(values.resources, props.projectName, props.repositoriesDataset);
+            }
         }
       />
     </div>

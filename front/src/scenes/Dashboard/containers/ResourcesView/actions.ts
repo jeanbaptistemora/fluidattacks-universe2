@@ -126,7 +126,7 @@ export const modifyEnvUrl: ((index: number, newValue: string) => IActionStructur
   });
 
 export const saveRepos: ThunkActionStructure =
-  (projectName: string, reposData: IResourcesViewProps["addModal"]["repoFields"],
+  (projectName: string, reposData: IResourcesViewProps["repositoriesDataset"],
   ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
@@ -219,7 +219,7 @@ export const removeRepo: ThunkActionStructure =
 
 export const saveEnvs: ThunkActionStructure =
   (projectName: string,
-   envsData: IResourcesViewProps["addModal"]["envFields"]): ThunkAction<void, {}, {}, Action> =>
+   envsData: IResourcesViewProps["environmentsDataset"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {

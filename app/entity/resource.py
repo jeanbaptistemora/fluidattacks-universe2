@@ -56,8 +56,8 @@ class AddRepositories(Mutation):
         email_data = []
 
         for repo in resources_data:
-            if 'repository' in repo and 'branch' in repo:
-                repository = repo.get('repository')
+            if 'urlRepo' in repo and 'branch' in repo:
+                repository = repo.get('urlRepo')
                 branch = repo.get('branch')
                 json_data.append({
                     'urlRepo': repository,
@@ -174,8 +174,8 @@ class AddEnvironments(Mutation):
         json_data = []
 
         for envInfo in resources_data:
-            if 'environment' in envInfo:
-                environment_url = envInfo.get('environment')
+            if 'urlEnv' in envInfo:
+                environment_url = envInfo.get('urlEnv')
                 json_data.append({
                     'urlEnv': environment_url
                 })
