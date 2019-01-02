@@ -244,6 +244,8 @@ deploy_infra:
 fluidasserts_post:
   stage: postdeploy
   image: fluidattacks/asserts
+  before_script:
+    - echo 'Testing the security of the infrastructure...'
   script:
     - asserts asserts/exploit.py
   only:
