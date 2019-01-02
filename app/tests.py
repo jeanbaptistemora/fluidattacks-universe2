@@ -200,10 +200,10 @@ class GraphQLTests(TestCase):
     def test_add_resources(self):
         """ Check for add project resources"""
         reposToAdd = [
-            {"branch": "master", "repository": "https://gitlab.com/fluidsignal/unittest"}
+            {"branch": "master", "urlRepo": "https://gitlab.com/fluidsignal/unittest"}
         ]
         envsToAdd = [
-            {"environment": "https://unittesting.fluidattacks.com/"},
+            {"urlEnv": "https://unittesting.fluidattacks.com/"},
         ]
         query = """mutation {
           addRepositories(projectName: "unittesting", resourcesData: "$repos") {
