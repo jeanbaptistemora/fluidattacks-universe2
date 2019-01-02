@@ -850,7 +850,6 @@ def parse_severity(finding):
     BASE_SCORE_FACTOR_3 = 1.5
     IMPACT_FACTOR = 10.41
     EXPLOITABILITY_FACTOR = 20
-    F_IMPACT_FACTOR = 1.176
     impact = (IMPACT_FACTOR *
               (1 - ((1 - parsed_dict['confidentialityImpact']) *
                (1 - parsed_dict['integrityImpact']) *
@@ -858,6 +857,10 @@ def parse_severity(finding):
     exploitability = (EXPLOITABILITY_FACTOR *
                       parsed_dict['accessComplexity'] *
                       parsed_dict['authentication'] * parsed_dict['accessVector'])
+    if impact:
+        F_IMPACT_FACTOR = 1.176
+    else:
+        F_IMPACT_FACTOR = 0
     base_score = (((BASE_SCORE_FACTOR_1 * impact) +
                   (BASE_SCORE_FACTOR_2 * exploitability) - BASE_SCORE_FACTOR_3) *
                   F_IMPACT_FACTOR)
