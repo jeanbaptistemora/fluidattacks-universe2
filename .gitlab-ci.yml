@@ -70,7 +70,6 @@ build_base:
         --destination "${CI_REGISTRY_IMAGE}:base"
   only:
     refs:
-      - master
       - schedules
   except:
     variables:
@@ -294,7 +293,6 @@ change_keys:
         delete_formstack_tokens()"
   only:
     refs:
-      - master
       - schedules
   except:
     variables:
@@ -352,7 +350,6 @@ formstack_backup:
     - ./infrastructure/fs_backup.py
   only:
     refs:
-      - master
       - schedules
   except:
     variables:
