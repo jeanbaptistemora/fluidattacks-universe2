@@ -14,9 +14,7 @@ describe('Resources view', () => {
   const wrapper = shallow(
     <ResourcesView
       addModal={{
-        envFields: [{ environment: ""}],
         open: false,
-        repoFields: [{ branch: "", repository: ""}],
         type: "repository"
       }}
       environmentsDataset={[]}
