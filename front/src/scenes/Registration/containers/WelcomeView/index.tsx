@@ -67,7 +67,7 @@ const renderAlreadyLoggedIn: ((email: string) => JSX.Element) =
         <Row style={{ paddingBottom: "20px" }}><h3>{translate.t("registration.logged_in_title")}</h3></Row>
         <Row><p>{translate.t("registration.logged_in_message")}</p></Row>
         <Row>
-          <Button bsStyle="primary" block={true}>
+          <Button bsStyle="primary" block={true} onClick={actions.loadDashboard}>
             {translate.t("registration.continue_btn")} {email}
           </Button>
         </Row>
