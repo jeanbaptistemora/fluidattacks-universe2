@@ -44,6 +44,14 @@ const esTranslations: Map<string, string> = {
     no_file_update: "Falló al actualizar el archivo",
     title_success: "Felicitaciones",
   },
+  registration: {
+    continue_btn: "Continuar como",
+    greeting: "¡Hola",
+    logged_in_message: "Por favor ciérrala antes de intentar acceder con otra cuenta.",
+    logged_in_title: "Ya has iniciado sesión",
+    unauthorized: "Aún no tienes autorización para ingresar. Por favor contacta al personal de FLUID o a tu " +
+      "administrador de proyecto para obtener acceso.",
+  },
   search_findings: {
     environment_table: {
       environment: "Ambiente",

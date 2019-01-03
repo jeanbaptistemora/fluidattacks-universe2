@@ -3,8 +3,10 @@
  * actions
  */
 import { AxiosError, AxiosResponse } from "axios";
+import { default as lodash } from "lodash";
 import { Action, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { getEnvironment, PRODUCTION_URL } from "../../utils/context";
 import { msgError } from "../../utils/notifications";
 import rollbar from "../../utils/rollbar";
 import translate from "../../utils/translations/translate";
@@ -54,3 +56,49 @@ export const acceptLegal: ThunkActionStructure =
       }
     });
 };
+
+export const loadDashboard: (() => void) = (): void => {
+  let initialUrl: string | null = localStorage.getItem("url_inicio");
+  initialUrl = lodash.isNil(initialUrl) ? "" : initialUrl;
+
+  localStorage.removeItem("url_inicio");
+  location.assign(
+    getEnvironment() === "production"
+      ? `${PRODUCTION_URL}/integrates/dashboard#${initialUrl}`
+      : `dashboard#${initialUrl}`,
+  );
+};
+
+export const loadAuthorization: ThunkActionStructure =
+  (): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+    let gQry: string; gQry = `{
+      login {
+        authorized
+        remember
+      }
+    }`;
+    new Xhr().request(gQry, "An error ocurred resolving user authorization")
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+
+        dispatch<IActionStructure>({
+          payload: {
+            isAuthorized: data.login.authorized,
+            isRememberEnabled: data.login.remember,
+          },
+          type: actionType.LOAD_AUTHORIZATION,
+        });
+
+        if (data.login.remember) {
+          loadDashboard();
+        }
+      })
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error(error.message, errors);
+        }
+      });
+  };

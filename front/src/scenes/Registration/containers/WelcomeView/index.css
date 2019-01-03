@@ -1,0 +1,11 @@
+:local .container {
+  composes: darkBg from '../../../../styles/global.css';
+  min-height: 100%;
+  overflow: auto;
+  text-align: center;
+}
+
+:local .content {
+  margin: 90px auto;
+  max-width: 400px;
+}

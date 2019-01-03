@@ -27,6 +27,7 @@ import { severityView } from "./scenes/Dashboard/containers/SeverityView/index";
 import { trackingView } from "./scenes/Dashboard/containers/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
+import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
 
 /**
  * @url: /index
@@ -446,6 +447,23 @@ angular
     react2angular(
       projectCommentsView, [
         "projectName",
+      ],
+    ),
+);
+
+/**
+ * @url: /registration
+ * @page: registration.html
+ * @tag: <welcome-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "welcomeView",
+    react2angular(
+      welcomeView, [
+        "email",
+        "username",
       ],
     ),
 );

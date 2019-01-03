@@ -3,9 +3,9 @@ import React from "react";
 import { Button, Col, Grid, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import NotificationSystem from "react-notification-system";
-import style from "./index.css";
 // tslint:disable-next-line: match-default-export-name
-import logo from "./logo.png";
+import logo from "../../../../resources/logo.png";
+import style from "./index.css";
 
 // tslint:disable-next-line: no-any
 declare var mixpanel: any;
