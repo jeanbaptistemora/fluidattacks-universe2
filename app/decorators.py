@@ -225,6 +225,7 @@ def cache_content(func):
         try:
             ret = cache.get(key_name)
             if ret:
+                cache.touch(key_name, CACHE_TTL)
                 return ret
             ret = func(*args, **kwargs)
             cache.set(key_name, ret, timeout=CACHE_TTL)
@@ -246,6 +247,7 @@ def get_cached(func):
         try:
             ret = cache.get(key_name)
             if ret:
+                cache.touch(key_name, CACHE_TTL)
                 return ret
             ret = func(*args, **kwargs)
             cache.set(key_name, ret, timeout=CACHE_TTL)
