@@ -70,12 +70,14 @@ build_base:
         --destination "${CI_REGISTRY_IMAGE}:base"
   only:
     refs:
+      - master
       - schedules
   except:
     variables:
       - $FLAG_SYNC_CURRENCIES
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
+      - $FLAG_SYNC_TIMEDOCTOR
 
 build_builder:
   stage: deps
@@ -292,12 +294,14 @@ change_keys:
         delete_formstack_tokens()"
   only:
     refs:
+      - master
       - schedules
   except:
     variables:
       - $FLAG_SYNC_CURRENCIES
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
+      - $FLAG_SYNC_TIMEDOCTOR
 
 vault_backup:
   stage: backup
@@ -334,6 +338,7 @@ vault_backup:
       - $FLAG_SYNC_CURRENCIES
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
+      - $FLAG_SYNC_TIMEDOCTOR
 
 formstack_backup:
   stage: backup
@@ -347,12 +352,14 @@ formstack_backup:
     - ./infrastructure/fs_backup.py
   only:
     refs:
+      - master
       - schedules
   except:
     variables:
       - $FLAG_SYNC_CURRENCIES
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
+      - $FLAG_SYNC_TIMEDOCTOR
 
 sync_currencies:
   stage: analytics
@@ -412,3 +419,22 @@ sync_awsdynamodb:
       - schedules
     variables:
       - $FLAG_SYNC_AWSDYNAMODB
+
+sync_timedoctor:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - mkdir /logs
+    - pip3 install analytics/singer/tap_timedoctor
+    - echo "$(vault read
+        -field=analytics_auth_timedoctor secret/serves)" > /tap_secret.json
+    - echo "$(vault read
+        -field=analytics_auth_stitch_timedoctor secret/serves)" > /target_secret.json
+    - tap_timedoctor
+        -auth /tap_secret.json | target-stitch -c /target_secret.json
+    - rm -fr /tap_secret.json /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_TIMEDOCTOR
