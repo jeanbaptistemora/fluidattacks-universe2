@@ -5,42 +5,29 @@
  */
 import React from "react";
 import { Button, Checkbox } from "react-bootstrap";
-import { AnyAction, Reducer } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import { StateType } from "typesafe-actions";
 import { default as Modal } from "../../../../components/Modal/index";
-import store from "../../../../store/index";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import * as actions from "../../actions";
 
 /**
  *  CompulsoryNotice properties
  */
 export interface ICompulsoryNoticeProps {
+  content: string;
   id: string;
   open: boolean;
   rememberDecision: boolean;
-  loadDashboard(): void;
+  onAccept(rememberValue: boolean): void;
+  onCheckRemember(): void;
 }
-
-const acceptLegal: ((arg1: ICompulsoryNoticeProps) => void) =
-  (props: ICompulsoryNoticeProps): void => {
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-
-    thunkDispatch(actions.acceptLegal(props));
-};
 
 const modalContent: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   (props: ICompulsoryNoticeProps): React.ReactNode => (
   <div>
-    <p>{translate.t("legalNotice.description")}</p>
+    <p>{props.content}</p>
     <p title={translate.t("legalNotice.rememberCbo.tooltip")}>
       <Checkbox
         checked={props.rememberDecision}
-        onClick={(): void => { store.dispatch(actions.checkRemember()); }}
+        onClick={(): void => { props.onCheckRemember(); }}
       >
         {translate.t("legalNotice.rememberCbo.text")}
       </Checkbox>
@@ -53,7 +40,7 @@ const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
   <Button
     bsStyle="primary"
     title={translate.t("legalNotice.acceptBtn.tooltip")}
-    onClick={(): void => { acceptLegal(props); }}
+    onClick={(): void => { props.onAccept(props.rememberDecision); }}
   >
     {translate.t("legalNotice.acceptBtn.text")}
   </Button>
@@ -62,26 +49,14 @@ const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
 /**
  * CompulsoryNotice component
  */
-export const component: React.StatelessComponent<ICompulsoryNoticeProps> =
+export const compulsoryNotice: React.SFC<ICompulsoryNoticeProps> =
   (props: ICompulsoryNoticeProps): JSX.Element => (
   <React.StrictMode>
     <Modal
       open={props.open}
-      onClose={(): void => { acceptLegal(props); }}
       headerTitle={translate.t("legalNotice.title")}
       content={modalContent(props)}
       footer={modalFooter(props)}
     />
   </React.StrictMode>
-);
-
-/**
- * Export the Redux-wrapped component
- */
-export const compulsoryNotice: React.SFC<ICompulsoryNoticeProps> = reduxWrapper
-(
-  component,
-  (state: StateType<Reducer>): ICompulsoryNoticeProps => ({
-    ...state.registration.legalNotice,
-  }),
 );

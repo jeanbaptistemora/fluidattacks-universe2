@@ -12,7 +12,6 @@ import rollbar from "../../utils/rollbar";
 import translate from "../../utils/translations/translate";
 import Xhr from "../../utils/xhr";
 import * as actionType from "./actionTypes";
-import { ICompulsoryNoticeProps } from "./components/CompulsoryNotice";
 
 export interface IActionStructure {
   payload: any;
@@ -29,34 +28,6 @@ export const checkRemember: RegistrationAction =
     type: actionType.CHECK_REMEMBER,
 });
 
-export const acceptLegal: ThunkActionStructure =
-  (
-    props: ICompulsoryNoticeProps,
-  ): ThunkAction<void, {}, {}, Action> => (_: ThunkDispatcher): void => {
-    let gQry: string;
-    gQry = `mutation {
-      acceptLegal(remember:${props.rememberDecision}){
-        success
-      }
-    }`;
-    new Xhr().request(gQry, "An error ocurred updating legal acceptance status")
-    .then((response: AxiosResponse) => {
-      const { data } = response.data;
-
-      if (data.acceptLegal.success) {
-        props.loadDashboard();
-      }
-    })
-    .catch((error: AxiosError) => {
-      if (error.response !== undefined) {
-        const { errors } = error.response.data;
-
-        msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error(error.message, errors);
-      }
-    });
-};
-
 export const loadDashboard: (() => void) = (): void => {
   let initialUrl: string | null = localStorage.getItem("url_inicio");
   initialUrl = lodash.isNil(initialUrl) ? "" : initialUrl;
@@ -67,6 +38,32 @@ export const loadDashboard: (() => void) = (): void => {
       ? `${PRODUCTION_URL}/integrates/dashboard#${initialUrl}`
       : `dashboard#${initialUrl}`,
   );
+};
+
+export const acceptLegal: ThunkActionStructure =
+  (rememberValue: boolean): ThunkAction<void, {}, {}, Action> => (_: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      acceptLegal(remember:${rememberValue}){
+        success
+      }
+    }`;
+    new Xhr().request(gQry, "An error ocurred updating legal acceptance status")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      if (data.acceptLegal.success) {
+        loadDashboard();
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
 };
 
 export const loadAuthorization: ThunkActionStructure =

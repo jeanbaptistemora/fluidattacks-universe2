@@ -2,7 +2,6 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { component as WelcomeView } from './index';
-import { component as CompulsoryNotice } from '../../components/CompulsoryNotice/index';
 import 'mocha';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -20,6 +19,10 @@ describe('Welcome view', () => {
         email={"unittesting@fluidattacks.com"}
         isAuthorized={false}
         isRememberEnabled={false}
+        legalNotice={{
+          open: true,
+          rememberDecision: false,
+        }}
         username={"Test"}
       />
     );
@@ -33,6 +36,10 @@ describe('Welcome view', () => {
         email={"unittesting@fluidattacks.com"}
         isAuthorized={false}
         isRememberEnabled={false}
+        legalNotice={{
+          open: true,
+          rememberDecision: false,
+        }}
         username={"Test"}
       />
     );
@@ -46,6 +53,10 @@ describe('Welcome view', () => {
         email={"unittesting@fluidattacks.com"}
         isAuthorized={false}
         isRememberEnabled={false}
+        legalNotice={{
+          open: true,
+          rememberDecision: false,
+        }}
         username={"Test"}
       />
     );
@@ -59,6 +70,10 @@ describe('Welcome view', () => {
         email={"unittesting@fluidattacks.com"}
         isAuthorized={true}
         isRememberEnabled={false}
+        legalNotice={{
+          open: true,
+          rememberDecision: false,
+        }}
         username={"Test"}
       />
     );

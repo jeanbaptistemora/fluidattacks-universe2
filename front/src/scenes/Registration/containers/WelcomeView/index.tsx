@@ -1,3 +1,8 @@
+/* tslint:disable jsx-no-lambda
+ * Disabling this rule is necessary for the sake of simplicity and
+ * readability of the code that binds click events
+ */
+
 import _ from "lodash";
 import React, { ComponentType } from "react";
 import { Button, Row } from "react-bootstrap";
@@ -18,6 +23,10 @@ export interface IWelcomeViewProps {
   email: string;
   isAuthorized: boolean | undefined;
   isRememberEnabled: boolean;
+  legalNotice: {
+    open: boolean;
+    rememberDecision: boolean;
+  };
   username: string;
 }
 
@@ -35,15 +44,25 @@ const enhance: InferableComponentEnhancer<{}> =
     },
   });
 
+const acceptLegal: ((rememberValue: boolean) => void) = (rememberValue: boolean): void => {
+  const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+    store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+  );
+
+  thunkDispatch(actions.acceptLegal(rememberValue));
+};
+
 const renderLegalNotice: ((props: IWelcomeViewProps) => JSX.Element) = (props: IWelcomeViewProps): JSX.Element =>
 
   props.isRememberEnabled ? <div /> : (
     <React.Fragment>
       <CompulsoryNotice
+        content={translate.t("legalNotice.description")}
         id="legalNotice"
-        loadDashboard={actions.loadDashboard}
-        open={true}
-        rememberDecision={false}
+        onAccept={acceptLegal}
+        onCheckRemember={(): void => { store.dispatch(actions.checkRemember()); }}
+        open={props.legalNotice.open}
+        rememberDecision={props.legalNotice.rememberDecision}
       />
     </React.Fragment>
   );
@@ -95,5 +114,6 @@ export const welcomeView: ComponentType<IWelcomeViewProps> = reduxWrapper(
   enhance(component) as React.SFC<IWelcomeViewProps>,
   (state: StateType<Reducer>): Partial<IWelcomeViewProps> => ({
     ...state.registration.welcomeView,
+    legalNotice: state.registration.legalNotice,
   }),
 );
