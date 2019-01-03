@@ -59,11 +59,16 @@ def ensure_200(status_code):
 
 def translate_date(date_str):
     """ translates a date-time value from the timedoctor format to RFC3339 format """
-    try:
+
+    # let's remember the old times
+    if re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}\.\d+", date_str):
         date_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S.%f")
-        date_str = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
-    except ValueError:
-        date_str = "1900-01-01T00:00:00Z"
+    elif re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}", date_str):
+        date_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+    else:
+        date_obj = datetime.datetime(1900, 1, 1, 0, 0, 0)
+
+    date_str = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
     return date_str
 
 def sync_worklogs(api_worker, company_id, users_map):
