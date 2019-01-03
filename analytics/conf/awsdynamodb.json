@@ -82,7 +82,13 @@
         "category": "string",
         "ambit": "string",
         "risk": "string",
-        "kb": "string"
+        "kb": "string",
+
+        "report_date": "date-time",
+        "treatment": "string",
+        "treatment_manager": "string",
+        "treatment_justification": "string",
+        "external_bts": "string"
       }
     },
     "FI_findings_email": {
