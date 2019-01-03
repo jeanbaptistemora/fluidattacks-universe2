@@ -26,7 +26,6 @@ import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index
 import { severityView } from "./scenes/Dashboard/containers/SeverityView/index";
 import { trackingView } from "./scenes/Dashboard/containers/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
-import { compulsoryNotice } from "./scenes/Registration/components/CompulsoryNotice/index";
 import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
 
 /**
@@ -126,24 +125,7 @@ angular
       ],
     ),
   );
-/**
- * @url: /registration
- * @page: registration.html
- * @controllers: ["registerCtrl"]
- * @tag: <compulsory-notice/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "compulsoryNotice",
-    react2angular(
-      compulsoryNotice,
-      [
-        "id",
-        "loadDashboard",
-      ],
-    ),
-  );
+
 /**
  * @url: #/project/:name/indicators
  * @page: indicators.html
