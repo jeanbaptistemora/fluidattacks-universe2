@@ -21,6 +21,7 @@ RUN apt-get update \
         lsb-release \
         netbase \
         openssh-client \
+        procps \
         python \
         python3 \
         python-dev \
