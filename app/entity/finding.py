@@ -29,6 +29,7 @@ from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
     group_by_state, cast_tracking, get_dynamo_evidence,
     add_file_attribute, migrate_evidence_description,
+    list_comments
 )
 from graphene.types.generic import GenericScalar
 
@@ -57,6 +58,8 @@ class Finding(ObjectType):
     severity = GenericScalar()
     exploit = String()
     evidence = GenericScalar()
+    comments = List(GenericScalar)
+    observations = List(GenericScalar)
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -71,6 +74,8 @@ class Finding(ObjectType):
         self.records = {}
         self.severity = {}
         self.tracking = []
+        self.comments = []
+        self.observations = []
 
         finding_id = str(identifier)
         resp = finding_vulnerabilities(finding_id)
@@ -262,6 +267,28 @@ class Finding(ObjectType):
             fs_url = formstack_evidence[evidence_name]['url']
             self.evidence[evidence_name]['url'] = dyn_url if dyn_url else fs_url
         return self.evidence
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_comments(self, info):
+        """ Resolve comments attribute """
+
+        self.comments = list_comments(
+            user_email=util.get_jwt_content(info.context)['user_email'],
+            comment_type='comment',
+            finding_id=self.id
+            )
+        return self.comments
+
+    @require_role(['analyst', 'admin'])
+    def resolve_observations(self, info):
+        """ Resolve observations attribute """
+
+        self.observations = list_comments(
+            user_email=util.get_jwt_content(info.context)['user_email'],
+            comment_type='observation',
+            finding_id=self.id
+            )
+        return self.observations
 
 def get_exploit_from_file(self, file_name):
     return read_script(download_evidence_file(self, file_name))

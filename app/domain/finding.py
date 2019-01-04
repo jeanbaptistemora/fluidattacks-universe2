@@ -204,3 +204,17 @@ def migrate_evidence_description(finding):
     response = [add_file_attribute(finding_id, description_fields[k], 'description', v)
                 for (k, v) in description.items()]
     return all(response)
+
+def list_comments(user_email, comment_type, finding_id):
+    comments = list(map(lambda comment: {
+        'content': comment['content'],
+        'created': comment['created'],
+        'created_by_current_user': comment['email'] == user_email,
+        'email': comment['email'],
+        'fullname': comment['fullname'],
+        'id': int(comment['user_id']),
+        'modified': comment['modified'],
+        'parent': int(comment['parent'])
+    }, integrates_dao.get_comments_dynamo(int(finding_id), comment_type)))
+
+    return comments
