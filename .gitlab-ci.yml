@@ -6,7 +6,6 @@ variables:
 services:
   - docker:dind
 
-
 before_script:
   - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
   - echo "$CI_REGISTRY_PASSWORD" |
@@ -48,6 +47,7 @@ stages:
   - build
   - review
   - test
+  - merge-request-test
   - pre-deploy
   - deploy
   - post-deploy
@@ -308,6 +308,22 @@ Linting:
   except:
     - master
     - triggers
+
+danger:
+  stage: merge-request-test
+  only:
+    - merge_requests
+  variables:
+    DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
+    DANGER_GITLAB_HOST: "gitlab.com"
+    DANGER_GITLAB_API_BASE_URL: "https://gitlab.com/api/v4"
+  before_script:
+    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
+      | grep ${CI_COMMIT_SHA}
+      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - bundle install
+  script:
+    - bundle exec danger --verbose
 
 test-deployment:
   stage: pre-deploy
