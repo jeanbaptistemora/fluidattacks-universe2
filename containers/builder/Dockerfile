@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:buster
 
 ENV LC_ALL=C.UTF-8
 ENV PYTHONIOENCODING=utf8
