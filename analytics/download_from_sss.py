@@ -1,0 +1,58 @@
+"""
+A simple script to download from AWS S3
+"""
+
+import json
+import argparse
+
+# E0401L: import error boto3
+# pylint: disable=E0401
+import boto3 as AWS_SDK
+
+def create_access_point(auth_keys):
+    """ create an access point """
+
+    session = AWS_SDK.session.Session(
+        aws_access_key_id=auth_keys.get("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=auth_keys.get("AWS_SECRET_ACCESS_KEY"),
+        region_name=auth_keys.get("AWS_DEFAULT_REGION")
+    )
+
+    sss_client = session.client('s3')
+    sss_resource = session.resource('s3')
+
+    return (sss_client, sss_resource)
+
+def download_file(sss_resource, conf):
+    """ do the heavy lifting """
+    sss_resource.Bucket(conf["bucket_name"]).download_file(conf["object_key"], conf["save_as"])
+
+def main():
+    """ usual entry point """
+
+    # user interface
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-auth',
+        help='JSON authentication file',
+        type=argparse.FileType('r'))
+    parser.add_argument(
+        '-conf',
+        help='JSON configuration file',
+        type=argparse.FileType('r'))
+    args = parser.parse_args()
+
+    if not args.auth or not args.conf:
+        parser.print_help()
+        exit(1)
+
+    # load user params
+    auth_keys = json.load(args.auth)
+    conf_file = json.load(args.conf)
+
+    # Download
+    (_, sss_resource) = create_access_point(auth_keys)
+    download_file(sss_resource, conf_file)
+
+if __name__ == "__main__":
+    main()
