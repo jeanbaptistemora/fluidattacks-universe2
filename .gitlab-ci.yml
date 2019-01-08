@@ -4,6 +4,7 @@ stages:
   - build
   - lint
   - review
+  - merge-request-test
   - deployment
 
 before_script:
@@ -139,6 +140,23 @@ stop-review:
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
+
+danger:
+  stage: merge-request-test
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  variables:
+    DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
+    DANGER_GITLAB_HOST: "gitlab.com"
+    DANGER_GITLAB_API_BASE_URL: "https://gitlab.com/api/v4"
+  before_script:
+    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
+      | grep ${CI_COMMIT_SHA}
+      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - bundle install
+  script:
+    - bundle exec danger --verbose
+  only:
+    - merge_requests
 
 deploy:
 # Deploy website to Amazon S3

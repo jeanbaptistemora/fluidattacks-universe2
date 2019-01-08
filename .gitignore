@@ -8,3 +8,7 @@ messages.mo
 cache/
 diagram*.png
 venv/*
+
+# Bundler
+
+Gemfile.lock
