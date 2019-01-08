@@ -514,7 +514,8 @@ class AddFindingComment(Mutation):
                 content=parameters.get('content'),
                 comment_type=parameters.get('type'),
                 comment_id=comment_id,
-                finding_id=parameters.get('finding_id')
+                finding_id=parameters.get('finding_id'),
+                is_remediation_comment=False
                 )
         else:
             raise GraphQLError('Invalid comment type')

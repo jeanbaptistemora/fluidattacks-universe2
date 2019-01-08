@@ -12,6 +12,7 @@ import rollbar
 import boto3
 import yaml
 import threading
+from time import time
 from django.conf import settings
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -1103,6 +1104,18 @@ def finding_solved(request):
         parameters['data[project]'],
         parameters['data[findingName]'])
     rem_solution = parameters['data[justification]'].replace('\n', ' ')
+    FindingDomain.add_comment(
+        user_email=request.session['username'],
+        parent='0',
+        content=rem_solution,
+        comment_type='comment',
+        comment_id=int(round(time() * 1000)),
+        finding_id=submission_id,
+        user_fullname=str.join(' ', [request.session['first_name'], request.session['last_name']]),
+        is_remediation_comment=True
+        )
+    util.invalidate_cache(submission_id)
+
     if not remediated:
         rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request)
         return util.response([], 'Error', True)

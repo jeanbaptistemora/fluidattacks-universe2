@@ -274,7 +274,7 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
     email_send_thread.start()
 
 
-def add_comment(user_email, user_fullname, parent, content, comment_type, comment_id, finding_id):
+def add_comment(user_email, user_fullname, parent, content, comment_type, comment_id, finding_id, is_remediation_comment):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_data = {
         'user_id': comment_id,
@@ -285,6 +285,8 @@ def add_comment(user_email, user_fullname, parent, content, comment_type, commen
         'modified': current_time,
         'parent': int(parent)
     }
-    send_comment_mail(user_email, content, parent, comment_type, finding_id)
+
+    if not is_remediation_comment:
+        send_comment_mail(user_email, content, parent, comment_type, finding_id)
 
     return integrates_dao.add_finding_comment_dynamo(int(finding_id), user_email, comment_data)

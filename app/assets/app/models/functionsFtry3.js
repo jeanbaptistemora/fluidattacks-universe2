@@ -159,26 +159,6 @@ angular.module("FluidIntegrates").factory(
                     );
                     $uibModalInstance.close();
                     location.reload();
-                    const data = {};
-                    const ID_GENERATOR_FACTOR_1 = 1000;
-                    const ID_GENERATOR_FACTOR_2 = 100;
-                    const INTEGER_BASE = 9;
-                    data.id = parseInt(Math.round(new Date() /
-                            ID_GENERATOR_FACTOR_1).toString() +
-                            (parseInt(secureRandom(3).join(""), 10) *
-                            ID_GENERATOR_FACTOR_2).toString(INTEGER_BASE), 10);
-                    data.content = $scope.remediatedData.justification;
-                    data.parent = 0;
-                    data.email = $scope.remediatedData.userMail;
-                    data.findingName = $scope.remediatedData.findingName;
-                    data.project = $scope.remediatedData.project;
-                    data.findingUrl = $scope.remediatedData.findingUrl;
-                    data.remediated = true;
-                    data.commentType = "comment";
-                    projectFtry.addComment(
-                      mailData.findingId,
-                      data
-                    );
                   }
                   else if (response.error) {
                     Rollbar.error("Error: An error occurred when " +
