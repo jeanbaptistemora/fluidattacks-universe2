@@ -9,7 +9,6 @@ import { dataTable } from "./components/DataTable/index";
 import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
-import commentBox from "./scenes/Dashboard/components/CommentBox/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
@@ -160,25 +159,6 @@ angular
     react2angular(
       preloader,
       [],
-    ),
-  );
-
-/**
- * @url: #/project/:project/:id/comments
- * @page: findingcontent.html
- * @controllers: ["findingContentCtrl"]
- * @tag: <comment-box/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "commentBox",
-    react2angular(
-      commentBox,
-      [
-        "type",
-        "visible",
-      ],
     ),
   );
 
