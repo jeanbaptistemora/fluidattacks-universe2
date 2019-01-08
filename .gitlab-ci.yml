@@ -14,7 +14,7 @@ stages:
   - test-code
   - test-infra
   - build
-  - merge-request-test
+  - mr-check
   - tag
   - deploy
   - postdeploy
@@ -95,6 +95,17 @@ test_code:
   except:
     - master
 
+commitlint:
+  stage: test-code
+  before_script:
+    - npm install
+  image: node:10
+  script:
+    - ./ci-scripts/commitlint-checks.sh
+  except:
+    - master
+    - schedules
+
 test_terraform:
   stage: test-infra
   <<: *vault_login
@@ -156,7 +167,7 @@ build_vpn:
     - master
 
 danger:
-  stage: merge-request-test
+  stage: mr-check
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
