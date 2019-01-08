@@ -1,0 +1,29 @@
+{
+  "name": "serves",
+  "version": "1.0.0",
+  "description": "Code repository to store Fluid Attacks' infrastructure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/fluidsignal/serves.git"
+  },
+  "author": "Fluid Attacks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/fluidsignal/serves/issues"
+  },
+  "homepage": "https://gitlab.com/fluidsignal/serves#readme",
+  "devDependencies": {
+    "@commitlint/cli": "7.2.1",
+    "@commitlint/config-conventional": "7.1.2",
+    "husky": "1.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
