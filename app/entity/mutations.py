@@ -12,7 +12,8 @@ from .vulnerability import (
 )
 from .finding import (
     UpdateEvidence, UpdateSeverity,
-    UpdateEvidenceDescription
+    UpdateEvidenceDescription,
+    AddFindingComment
 )
 from .project import AddProjectComment
 from graphene import ObjectType
@@ -38,3 +39,4 @@ class Mutations(ObjectType):
     updateSeverity = UpdateSeverity.Field()
 
     addProjectComment = AddProjectComment.Field()
+    addFindingComment = AddFindingComment.Field()

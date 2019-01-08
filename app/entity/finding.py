@@ -7,6 +7,7 @@
 from __future__ import absolute_import
 import io
 import re
+from time import time
 
 import rollbar
 import boto3
@@ -29,7 +30,7 @@ from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
     group_by_state, cast_tracking, get_dynamo_evidence,
     add_file_attribute, migrate_evidence_description,
-    list_comments
+    list_comments, add_comment
 )
 from graphene.types.generic import GenericScalar
 
@@ -485,3 +486,37 @@ class UpdateSeverity(Mutation):
 
         return UpdateSeverity(success=success,
             finding=Finding(info=info, identifier=finding_id))
+
+class AddFindingComment(Mutation):
+    """ Add comment to finding """
+
+    class Arguments(object):
+        content = String(required=True)
+        finding_id = String(required=True)
+        parent = String(required=True)
+        type = String(required=True)
+    success = Boolean()
+    comment_id = String()
+
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, **parameters):
+        if parameters.get('type') in ['comment', 'observation']:
+            user_email = util.get_jwt_content(info.context)['user_email']
+            util.invalidate_cache(parameters.get('finding_id'))
+            comment_id = int(round(time() * 1000))
+            success = add_comment(
+                user_email=user_email,
+                user_fullname=str.join(' ', [info.context.session['first_name'], \
+                                        info.context.session['last_name']]),
+                parent=parameters.get('parent'),
+                content=parameters.get('content'),
+                comment_type=parameters.get('type'),
+                comment_id=comment_id,
+                finding_id=parameters.get('finding_id')
+                )
+        else:
+            raise GraphQLError('Invalid comment type')
+
+        return AddFindingComment(success=success, comment_id=comment_id)

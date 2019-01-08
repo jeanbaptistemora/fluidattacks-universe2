@@ -6,6 +6,8 @@
 from __future__ import absolute_import
 import os
 import sys
+import threading
+from datetime import datetime
 
 import boto3
 import rollbar
@@ -16,7 +18,9 @@ from app import util
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
-from app.dto.finding import FindingDTO
+from app.dto.finding import FindingDTO, get_project_name
+from app.mailer import send_mail_new_comment
+from app.mailer import send_mail_reply_comment
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -218,3 +222,69 @@ def list_comments(user_email, comment_type, finding_id):
     }, integrates_dao.get_comments_dynamo(int(finding_id), comment_type)))
 
     return comments
+
+def comment_has_parent(parent):
+    return parent != '0'
+
+def get_email_recipients(project_name, comment_type):
+    project_users = integrates_dao.get_project_users(project_name)
+    recipients = []
+
+    if comment_type == 'observation':
+        admins = [user[0] for user in integrates_dao.get_admins()]
+        analysts = [user[0] for user in project_users if integrates_dao.get_role_dao(user[0]) == 'analyst']
+
+        recipients += admins
+        recipients += analysts
+    else:
+        recipients = [user[0] for user in project_users if user[1] == 1]
+
+    project_info = integrates_dao.get_project_dynamo(project_name)
+    if project_info and project_info[0].get('type') == 'oneshot':
+        recipients.append('projects@fluidattacks.com')
+    else:
+        recipients.append('continuous@fluidattacks.com')
+
+    return recipients
+
+def send_comment_mail(user_email, content, parent, comment_type, finding_id):
+    project_name = get_project_name(finding_id).lower()
+    recipients = get_email_recipients(project_name, comment_type)
+
+    if comment_has_parent(parent):
+        mail_title="New {comment_type!s} email thread".format(comment_type=comment_type)
+        mail_function=send_mail_new_comment
+    else:
+        mail_title="Reply {comment_type!s} email thread".format(comment_type=comment_type)
+        mail_function=send_mail_reply_comment
+
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_send_thread = threading.Thread(
+        name=mail_title, \
+        target=mail_function, \
+        args=(recipients, {
+         'project': project_name,
+         'finding_name': integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding'),
+         'user_email': user_email,
+         'finding_id': finding_id,
+         'comment': content.replace('\n', ' '),
+         'finding_url': base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
+         .format(project=project_name, finding=finding_id, comment_type=comment_type)
+        }, comment_type))
+    email_send_thread.start()
+
+
+def add_comment(user_email, user_fullname, parent, content, comment_type, comment_id, finding_id):
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    comment_data = {
+        'user_id': comment_id,
+        'comment_type': comment_type,
+        'content': content,
+        'created': current_time,
+        'fullname': user_fullname,
+        'modified': current_time,
+        'parent': int(parent)
+    }
+    send_comment_mail(user_email, content, parent, comment_type, finding_id)
+
+    return integrates_dao.add_finding_comment_dynamo(int(finding_id), user_email, comment_data)

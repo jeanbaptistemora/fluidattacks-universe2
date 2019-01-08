@@ -890,6 +890,24 @@ def create_comment_dynamo(finding_id, email, data):
         rollbar.report_exc_info()
         return False
 
+def add_finding_comment_dynamo(finding_id, email, comment_data):
+    """ Add a comment in a finding. """
+    table = dynamodb_resource.Table('FI_comments')
+    try:
+        payload = {
+            'finding_id': finding_id,
+            'email': email
+        }
+        payload.update(comment_data)
+        response = table.put_item(
+            Item=payload
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
 def get_project_comments_dynamo(project_name):
     """ Get comments of a project. """
     table = dynamodb_resource.Table('fi_project_comments')
