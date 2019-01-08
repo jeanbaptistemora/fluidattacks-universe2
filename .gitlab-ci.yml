@@ -47,7 +47,7 @@ stages:
   - build
   - review
   - test
-  - merge-request-test
+  - mr-check
   - pre-deploy
   - deploy
   - post-deploy
@@ -99,6 +99,16 @@ gulp-compiler:
  except:
    - master
    - triggers
+
+commitlint:
+  stage: pre-test
+  before_script:
+    - npm install
+  image: node:10
+  script:
+    - ./ci-scripts/commitlint-checks.sh
+  except:
+    - master
 
 react-testing:
   stage: pre-test
@@ -310,7 +320,7 @@ Linting:
     - triggers
 
 danger:
-  stage: merge-request-test
+  stage: mr-check
   only:
     - merge_requests
   variables:
