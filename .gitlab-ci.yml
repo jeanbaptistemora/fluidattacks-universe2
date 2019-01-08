@@ -14,6 +14,7 @@ stages:
   - test-code
   - test-infra
   - build
+  - merge-request-test
   - tag
   - deploy
   - postdeploy
@@ -153,6 +154,22 @@ build_vpn:
     - docker push "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
   except:
     - master
+
+danger:
+  stage: merge-request-test
+  variables:
+    DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
+    DANGER_GITLAB_HOST: "gitlab.com"
+    DANGER_GITLAB_API_BASE_URL: "https://gitlab.com/api/v4"
+  before_script:
+    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
+      | grep ${CI_COMMIT_SHA}
+      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - bundle install
+  script:
+    - bundle exec danger --verbose
+  only:
+    - merge_requests
 
 tag-alg:
   <<: *dind_config

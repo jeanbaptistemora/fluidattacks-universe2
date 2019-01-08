@@ -1,3 +1,6 @@
 .torus.json
 *.pyc
 geckodriver.log
+
+# Bundler
+Gemfile.lock
