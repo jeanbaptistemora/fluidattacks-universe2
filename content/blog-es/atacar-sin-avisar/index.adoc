@@ -103,7 +103,7 @@ debe ser conocida por la mínima cantidad de personal de la organización.
 A esta política se le llama política de cero conocimiento.
 +
 .Ejercicios de seguridad: Red team vs Blue Team
-image::red-blue.png[Red team vs blue team]
+image::red-blue.png[width=500, alt="Red team vs blue team"]
 +
 Esta política implica que aquellos responsables de la seguridad
 no son los indicados para ordenar y/o coordinar un hackeo ético,
@@ -145,7 +145,7 @@ o aplicar penalidades que con alguna frecuencia
 hacen que el ejercicio de ataque se pague a sí mismo.
 +
 .Protección continua de la información empresarial
-image::protect.png[Protección de la información]
+image::protect.png[width=500, alt="Protección de la información"]
 +
 La implicación directa de las últimas dos políticas:
 cero conocimiento y reacción hasta el final,
