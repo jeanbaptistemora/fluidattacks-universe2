@@ -429,16 +429,16 @@
                   <!-- End Tab Record -->
                   <!-- Start Tab Comment -->
                   <div ng-if="currentTab === 'comments'">
-                  <comment-box
+                  <comments-view
                     type="'comment'"
-                    visible="!hasDraft"/>
+                    finding-id="finding.id"/>
                   </div>
                   <!-- End Tab Comment -->
                   <!-- Start Tab observations -->
                   <div ng-if="currentTab === 'observations'">
-                  <comment-box
+                  <comments-view
                     type="'observation'"
-                    visible="true"/>
+                    finding-id="finding.id"/>
                   </div>
                   <!-- End Tab observations -->
               </div>

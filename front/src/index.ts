@@ -17,6 +17,7 @@ import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
 import { vulnsView } from "./scenes/Dashboard/components/Vulnerabilities/index";
+import { commentsView } from "./scenes/Dashboard/containers/CommentsView";
 import { evidenceView } from "./scenes/Dashboard/containers/EvidenceView/index";
 import { exploitView } from "./scenes/Dashboard/containers/ExploitView/index";
 import { projectCommentsView } from "./scenes/Dashboard/containers/ProjectCommentsView";
@@ -446,6 +447,24 @@ angular
       welcomeView, [
         "email",
         "username",
+      ],
+    ),
+);
+
+/**
+ * @url: /project/:project/:id/{comments | observations}
+ * @page: findingcontent.html
+ * @controllers: findingContentCtrl
+ * @tag: <comments-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "commentsView",
+    react2angular(
+      commentsView, [
+        "findingId",
+        "type",
       ],
     ),
 );
