@@ -35,3 +35,8 @@ app/assets/login/*.js
 app/assets/dashboard/*
 env-dev.vars
 local-test.sh
+
+# npm
+
+package-lock.json
+node_modules
