@@ -44,8 +44,6 @@ from .documentator.secure_pdf import SecurePDF
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
 from .mailer import send_mail_remediate_finding
-from .mailer import send_mail_new_comment
-from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_accepted_finding
@@ -1198,102 +1196,6 @@ def get_remediated(request):
     for row in remediated:
         resp = row['remediated']
     return util.response({'remediated': resp}, 'Success', False)
-
-
-@cache_control(private=True, max_age=3600)
-@cache_content
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_finding_access
-def get_comments(request):
-    comment_type = request.GET.get('commentType', "")
-    if comment_type != 'comment' and comment_type != 'observation':
-        rollbar.report_message('Error: Bad parameters in request', 'error', request)
-        return util.response([], 'Bad parameters in request', True)
-    elif comment_type == 'observation' and request.session['role'] == 'customer':
-        util.cloudwatch_log(request, 'Security: Attempted to post observation without permission')
-        return util.response([], 'Access denied', True)
-    else:
-        submission_id = request.GET.get('findingid', "")
-        comments = integrates_dao.get_comments_dynamo(int(submission_id), comment_type)
-        json_data = []
-        for row in comments:
-            aux = row['email'] == request.session["username"]
-            json_data.append({
-                'id': int(row['user_id']),
-                'parent': int(row['parent']),
-                'created': row['created'],
-                'modified': row['modified'],
-                'content': row['content'],
-                'fullname': row['fullname'],
-                'created_by_current_user': aux,
-                'email': row['email']
-            })
-        return util.response(json_data, 'Success', False)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_finding_access
-def add_comment(request):
-    submission_id = request.POST.get('findingid', "")
-    data = request.POST.dict()
-    data["data[created]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    email = request.session["username"]
-    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"]
-    comment = integrates_dao.create_comment_dynamo(int(submission_id), email, data)
-    if not comment:
-        rollbar.report_message('Error: An error ocurred adding comment', 'error', request)
-        return util.response([], 'Error', True)
-    util.invalidate_cache(submission_id)
-    try:
-        project = data['data[project]'].lower()
-        recipients = integrates_dao.get_project_users(project)
-        if data['data[commentType]'] == 'observation':
-            admins = integrates_dao.get_admins()
-            to = [x[0] for x in admins]
-            for user in recipients:
-                if integrates_dao.get_role_dao(user[0]) == 'analyst':
-                    to.append(user[0])
-        else:
-            to = [x[0] for x in recipients if x[1] == 1]
-        project_info = integrates_dao.get_project_dynamo(project)
-        if project_info and project_info[0].get("type") == "oneshot":
-            to.append('projects@fluidattacks.com')
-        else:
-            to.append('continuous@fluidattacks.com')
-        comment_content = data['data[content]'].replace('\n', ' ')
-        context = {
-           'project': data['data[project]'],
-           'finding_name': data['data[findingName]'],
-           'user_email': email,
-           'finding_url': data['data[findingUrl]'],
-           'finding_id': submission_id,
-           'comment': comment_content,
-            }
-        if data["data[remediated]"] != "true":
-            if data["data[parent]"] == '0':
-                email_send_thread = threading.Thread( \
-                                              name="New comment email thread", \
-                                              target=send_mail_new_comment, \
-                                              args=(to, context, data['data[commentType]']))
-                email_send_thread.start()
-                return util.response([], 'Success', False)
-            elif data["data[parent]"] != '0':
-                email_send_thread = threading.Thread( \
-                                              name="Reply comment email thread", \
-                                              target=send_mail_reply_comment, \
-                                              args=(to, context, data['data[commentType]']))
-                email_send_thread.start()
-                return util.response([], 'Success', False)
-        else:
-            return util.response([], 'Success', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
 
 @cache_control(private=True, max_age=3600)
 @csrf_exempt

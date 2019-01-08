@@ -17,22 +17,6 @@ angular.module("FluidIntegrates").factory(
   function projectFtryFunction ($q) {
     return {
 
-      /**
-       * Make a request to add new comment in a finding
-       * @function addComment
-       * @param {String} findingid Numeric id of the finding
-       * @param {Object} data Data of the finding, including id of the comment
-       * @member integrates.projectFtry
-       * @return {Object} DynamoDB reponse about the post request
-       */
-      "addComment" (findingid, data) {
-        const oopsAc = "An error occurred adding comment";
-        return $xhr.post($q, `${BASE.url}add_comment`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
-        }, oopsAc);
-      },
       "alertEvents" (events) {
         let openEvents = 0;
         for (let event = 0; event < events.length; event++) {
@@ -162,23 +146,6 @@ angular.module("FluidIntegrates").factory(
         gQry = gQry.replace(":prj", project.toLocaleLowerCase());
         gQry = gQry.replace(":org", company.toLocaleLowerCase());
         return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
-       * Make a request to get the comments of a finding.
-       * @function getComments
-       * @param {String} findingid Numeric id of the finding
-       * @param {String} commentType Type of comment
-       * @member integrates.projectFtry
-       * @return {Object} Response by DynamoDB finding comments
-       */
-      "getComments" (findingid, commentType) {
-        const oopsAc = "An error ocurred getting comments";
-        return $xhr.get($q, `${BASE.url}get_comments`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          commentType,
-          findingid
-        }, oopsAc);
       },
 
       /**

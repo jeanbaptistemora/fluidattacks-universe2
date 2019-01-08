@@ -40,8 +40,7 @@ findingContentCtrl (
   functionsFtry4,
   ngNotify,
   projectFtry,
-  projectFtry2,
-  tabsFtry
+  projectFtry2
 ) {
   $scope.descriptionEditable = function descriptionEditable () {
     if ($scope.onlyReadableTab1 === false) {
@@ -390,13 +389,11 @@ findingContentCtrl (
     if ($window.location.hash.indexOf("comments") !== -1) {
       $scope.currentTab = "comments";
       functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);
-      tabsFtry.findingCommentTab($scope, $stateParams, "comment");
     }
     if ($window.location.hash.indexOf("observations") !== -1) {
       $scope.currentTab = "observations";
       functionsFtry2.
         activeTab("#observations", "FindingObservations", org, projt, idF);
-      tabsFtry.findingCommentTab($scope, $stateParams, "observation");
     }
   };
   $scope.init();
