@@ -5,7 +5,7 @@
 :tags: proteger, información, negocio, red team, blue team, políticas
 :image: cover.png
 :alt: Pc de gerente con fugas de información
-:description: Actualmente con el auge de las tecnologías de la información, se busca que ésta sea accesible a cada vez más personas. Sin embargo para proteger la información de su empresa es necesario implementar políticas empresariales que garanticen una respuesta adecuada ante brechas de seguridad.
+:description: En ejercicios de Hacking Etico, las politicas de ataque continuo, cero conocimiento, reacción hasta el final, intrusión total y coherencia, le permitirán saber qué tan seguro está realmente, remediar rápido y ahorrar dinero en tecnologías que generan inmensos reportes llenos de falsos positivos.
 :keywords: Información, Empresa, Seguridad, Protección, Hacking, Buenas Prácticas
 :author: Rafael Álvarez
 :writer: ralvarez
