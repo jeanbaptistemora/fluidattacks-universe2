@@ -5,7 +5,7 @@ A simple script to download from AWS S3
 import json
 import argparse
 
-# E0401L: import error boto3
+# E0401: import error boto3
 # pylint: disable=E0401
 import boto3 as AWS_SDK
 
@@ -23,9 +23,9 @@ def create_access_point(auth_keys):
 
     return (sss_client, sss_resource)
 
-def download_file(sss_resource, conf):
+def download_file(sss_resource, file):
     """ do the heavy lifting """
-    sss_resource.Bucket(conf["bucket_name"]).download_file(conf["object_key"], conf["save_as"])
+    sss_resource.Bucket(file["bucket_name"]).download_file(file["object_key"], file["save_as"])
 
 def main():
     """ usual entry point """
@@ -48,11 +48,12 @@ def main():
 
     # load user params
     auth_keys = json.load(args.auth)
-    conf_file = json.load(args.conf)
+    file_list = json.load(args.conf)
 
     # Download
     (_, sss_resource) = create_access_point(auth_keys)
-    download_file(sss_resource, conf_file)
+    for file in file_list:
+        download_file(sss_resource, file)
 
 if __name__ == "__main__":
     main()

@@ -102,6 +102,11 @@ function vault_generate_aws_keys() {
       vault_update_variables "serves" "$access_key_name" "$access_key" \
         "$secret_key_name" "$secret_key"
     fi
+    if [ "$aws_service" = "s3" ]; then
+      echo-green "Updating ${aws_service^} variables in Serves..."
+      vault_update_variables "serves" "$access_key_name" "$access_key" \
+        "$secret_key_name" "$secret_key"
+    fi
   else
     echo-green "Updating ${aws_service^} variables in ${project^}..."
     vault_update_variables "$project" "$access_key_name" "$access_key" \
