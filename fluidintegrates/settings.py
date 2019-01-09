@@ -262,11 +262,22 @@ CACHES = {
 CACHE_TTL = 60 * 30
 
 #Session
+SESSION_ENGINE = 'redis_sessions.session'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = "Integratesv3"
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 40*60
+
+SESSION_REDIS = {
+    'host': FI_REDIS_SERVER,
+    'port': 6379,
+    'db': 0,
+    'prefix': 'fi_session',
+    'socket_timeout': 1,
+    'retry_on_timeout': False,
+    'cluster': True
+    }
 
 #JWT
 JWT_COOKIE_NAME = "integrates_session"

@@ -52,3 +52,4 @@ newrelic==4.8.0.110
 pytest==4.0.2
 pytest-django==3.4.4
 pytest-cov==2.6.0
+django-redis-sessions==0.6.1
