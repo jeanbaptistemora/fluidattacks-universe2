@@ -65,7 +65,8 @@ RUN apt-get update && apt-get install -y \
 
 # SocialAuth Patch.
 ADD patch_socialauth.py /root/
-RUN python /root/patch_socialauth.py
+ADD remove_google_plus.diff /root/
+RUN python /root/patch_socialauth.py && cd /usr/local/lib/python2.7/dist-packages/social_core && cat /root/remove_google_plus.diff | patch -p1
 
 # Change root directory.
 WORKDIR /root/
