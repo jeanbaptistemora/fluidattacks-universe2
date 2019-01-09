@@ -37,7 +37,7 @@
         "project_name": "string",
         "finding_id": "string",
         "lastVulnerability": "date-time",
-        "files": "special",
+        "files": "list<dict>",
         "releaseDate": "date-time",
         "access_complexity": "number",
         "access_vector": "number",
@@ -119,25 +119,24 @@
       ],
       "schema": {
         "project_name": "string",
-        "findings_deleted": "special",
+        "findings_deleted": "list<dict>",
         "lastRelease": "date-time",
         "hasRelease": "string",
-        "companies": "special",
+        "companies": "list",
         "deletion_date": "date-time",
         "description": "string",
         "type": "string",
         "portfolio": "string",
         "project_status": "string",
-        "customeradmin": "special",
+        "customeradmin": "set",
         "status": "string",
-        "repositories": "special",
-        "environments": "special",
+        "repositories": "list<dict>",
+        "environments": "list<dict>",
         "resp_developer": "string",
         "resp_project_manager": "string",
         "resp_tester": "string",
         "resp_product_owner": "string",
-
-        "tag": "special"
+        "tag": "set"
       }
     },
     "FI_remediated": {
@@ -187,7 +186,7 @@
         "where": "string",
         "finding_id": "string",
         "UUID": "string",
-        "historic_state": "special",
+        "historic_state": "list<dict>",
         "analyst": "string"
       }
     },
@@ -198,10 +197,11 @@
       "schema": {
         "logged_users": "number",
         "finish_date": "date-time",
-        "companies": "special",
+        "companies": "list<dict>",
         "init_date": "date-time",
         "registered_users": "number"
       }
     }
   }
 }
+

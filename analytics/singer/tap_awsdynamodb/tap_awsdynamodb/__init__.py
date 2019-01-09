@@ -12,15 +12,22 @@ import ast
 import json
 import argparse
 
+from uuid     import uuid4    as gen_id
+from datetime import datetime
+
 import boto3 as AWS_SDK
 
 from . import logs
 
+
 _TYPE = {
     "string": {"type": "string"},
-    "special": {"type": "string"},
     "number": {"type": "number"},
     "date-time": {"type": "string", "format": "date-time"},
+
+    "set": {"type": "string"},
+    "list": {"type": "string"},
+    "list<dict>": {"type": "string"},
 }
 
 def create_access_point(auth_keys):
@@ -106,7 +113,7 @@ def discover_schema(dynamodb_client, table_list):
         line = file.readline()
         while line:
             json_obj = json.loads(line)
-            for key in json_obj.items():
+            for key in json_obj:
                 schema["tables"][table_name]["schema"][key] = "string"
             line = file.readline()
 
@@ -132,6 +139,8 @@ def write_schema(table_name, properties):
 
 def write_records(table_name, properties):
     """ write all the RECORD messages for a given table to stdout """
+    special_fields = set()
+
     file = open(logs.DOMAIN + table_name + ".json", "r")
     line = file.readline()
     while line:
@@ -152,11 +161,16 @@ def write_records(table_name, properties):
                     stdout_json_obj["record"][key] = std_number(val)
                 elif kind == "date-time":
                     stdout_json_obj["record"][key] = std_date(val)
-                elif kind == "special":
-                    # replaces Decimal('***') by '***' which can be structured by literal_eval
-                    new_val = re.sub(r"(Decimal\()(.{0,10})(\))", r"\g<2>", val)
-                    val_obj = ast.literal_eval(new_val)
-                    stdout_json_obj["record"][key] = std_structure(val_obj)
+                elif kind in ["set", "list", "list<dict>"]:
+                    identifier = str(gen_id())
+                    stdout_json_obj["record"][key] = identifier
+                    new_table_name = f"{table_name}___{key}"
+                    nested_obj = {
+                        "source_id": identifier,
+                        "value": val
+                    }
+                    logs.log_json_obj(new_table_name, nested_obj)
+                    special_fields.add((new_table_name, kind))
             except UnrecognizedNumber:
                 logs.log_error("number: [" + val + "]")
             except UnrecognizedDate:
@@ -168,6 +182,153 @@ def write_records(table_name, properties):
         print(json.dumps(stdout_json_obj))
 
         line = file.readline()
+
+    return special_fields
+
+def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
+    """
+        When this tap finds a nested object instead of a value:
+
+            -------example_table-------
+              ColumnA   |   ColumnB
+                123     | {6, 2, "ejm"}
+
+        Then it replaces the nested object in ColumnB with an identifier (type string)
+        It does so because relational databases like redshift don't support nested objects )
+
+            -------example_table-------
+              ColumnA   |   ColumnB
+                123     | id:A2BE3F42
+
+        And inserts a new table:
+
+            ----example_table___ColumnB----
+               Source_ID    |     Values
+              id:A2BE3F42   |       6
+              id:A2BE3F42   |       2
+              id:A2BE3F42   |     "ejm"
+
+        You can later do look ups by JOIN on Source_ID
+    """
+    def type_str(obj):
+        """ returns a string with the python type of an object """
+        if isinstance(obj, str) and is_date(obj):
+            return "datetime"
+        return type(obj).__name__
+    def is_date(date):
+        """ detects if a string can be converted to an RFC3339 date """
+        try:
+            std_date(date)
+            return True
+        except UnrecognizedDate:
+            pass
+        return False
+    def map_types(type_str):
+        map_types = {
+            "str": {"type": "string"},
+            "int": {"type": "number"},
+            "bool": {"type": "boolean"},
+            "float": {"type": "number"},
+            "datetime": {"type": "string", "format": "date-time"},
+        }
+        return map_types[type_str]
+    def load_records():
+        """ load records from file into memory """
+
+        records = []
+
+        # every line contains
+        #   { "source_id": identifier, "value": nested_obj }
+        #   where nested_obj is a string representing the object to denest
+
+        with open(f"{logs.DOMAIN}{table_name}.json", "r") as file:
+            line = file.readline()
+            while line:
+                json_obj = json.loads(line)
+                source_id = json_obj["source_id"]
+                nested_str = json_obj["value"]
+                nested_str = re.sub(r"(Decimal\()(.{0,10})(\))", r"\g<2>", nested_str)
+                nested_obj = ast.literal_eval(nested_str)
+                records.append((source_id, nested_obj))
+                line = file.readline()
+        return records
+    def base_singer_record():
+        """ returns a base singer record """
+        singer_record = {
+            "type": "RECORD",
+            "stream": table_name,
+            "record": {
+                "__source_id": source_id
+            }
+        }
+        return singer_record
+    def denest_list_schema(nested_obj):
+        """ linearizes a set or list given its elements are any primitive types """
+        properties = set()
+        for elem in nested_obj:
+            elem_type = type_str(elem)
+            field_name = f"{table_name}__{elem_type}"
+            properties.add((field_name, elem_type))
+        return {f: map_types(t) for f, t in properties}
+    def denest_list_record(elem):
+        """ linearizes a set or list given its elements are any primitive types """
+        singer_record = base_singer_record()
+        field_name = f"{table_name}__{type_str(elem)}"
+        singer_record["record"][field_name] = elem
+        return singer_record
+    def denest_list_dict_schema(nested_obj):
+        """ linearizes a list<dict> given its elements are any primitive types """
+        properties = set()
+        for elem in nested_obj:
+            for key, val in elem.items():
+                val_type = type_str(val)
+                field_name = f"{key}__{val_type}"
+                properties.add((field_name, val_type))
+        return {f: map_types(t) for f, t in properties}
+    def denest_list_dict_record(elem):
+        """ linearizes a list<dict> given its elements are any primitive types """
+        singer_record = base_singer_record()
+        for key, val in elem.items():
+            val_type = type_str(val)
+            field_name = f"{key}__{type_str(val)}"
+            if val_type == "datetime":
+                try:
+                    singer_record["record"][field_name] = std_date(val)
+                except UnrecognizedDate:
+                    pass
+            else:
+                singer_record["record"][field_name] = val
+        return singer_record
+
+    # variables
+    records = load_records()
+
+    # schema
+    singer_schema = {
+        "type": "SCHEMA",
+        "stream": table_name,
+        "key_properties": [],
+        "schema": {
+            "properties": {}
+        }
+    }
+    for source_id, nested_obj in records:
+        if kind in ["set", "list"]:
+            singer_schema["schema"]["properties"] = denest_list_schema(nested_obj)
+        if kind in ["list<dict>"]:
+            singer_schema["schema"]["properties"] = denest_list_dict_schema(nested_obj)
+
+    singer_schema["schema"]["properties"]["__source_id"] = map_types("str")
+    print(json.dumps(singer_schema))
+
+    # records
+    for source_id, nested_obj  in records:
+        for elem in nested_obj:
+            if kind in ["set", "list"]:
+                singer_record = denest_list_record(elem)
+            elif kind in ["list<dict>"]:
+                singer_record = denest_list_dict_record(elem)
+            print(json.dumps(singer_record))
 
 def std_structure(obj):
     """
@@ -330,11 +491,10 @@ def main():
 
     auth_keys = json.load(args.auth)
 
-    if not args.discovery_mode:
-        if args.conf:
-            conf_sett = json.load(args.conf)
-        else:
-            arguments_error(parser)
+    if args.conf:
+        conf_sett = json.load(args.conf)
+    else:
+        arguments_error(parser)
 
     # ==== AWS DynamoDB  =======================================================
     # write_schema and write_records don't consume quota
@@ -354,7 +514,9 @@ def main():
             write_queries(dynamodb_resource, table_name)
             try:
                 write_schema(table_name, properties)
-                write_records(table_name, properties)
+                special_fields = write_records(table_name, properties)
+                for new_table_name, kind in special_fields:
+                    transform_nested_objects(new_table_name, kind)
             # empty tables are not downloaded
             except FileNotFoundError:
                 pass
