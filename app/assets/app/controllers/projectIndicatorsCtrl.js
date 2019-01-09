@@ -294,7 +294,7 @@ angular.module("FluidIntegrates").controller(
       const cardIndex4 = 4;
       const cardIndex5 = 5;
       const cardIndex6 = 6;
-      for (let val = 0; val < cardinalityValues[cardIndex2].length; val++) {
+      for (let val = 0; val < cardIndex3; val++) {
         const color = cardinalityValues[cardIndex2][val].replace(";", "");
         $scope.metricsList.push({
           "color": `${color}`,
@@ -337,15 +337,6 @@ angular.module("FluidIntegrates").controller(
               const totalSeverity = severity / ((sevConst1 * target) +
                                       sevConst2) * PERCENTAGE_FACTOR;
               $scope.metricsList.push({
-                "color": "#ef4c43",
-                "description": $translate.instant("search_findings." +
-                                                    "filter_labels.criticity"),
-                "icon": "s7-graph1",
-                "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                    "criticityTooltip"),
-                "value": "n%".replace("n", totalSeverity.toFixed(0))
-              });
-              $scope.metricsList.push({
                 "color": "#00cb77",
                 "description": $translate.instant("search_findings." +
                                               "filter_labels.closure"),
@@ -357,19 +348,19 @@ angular.module("FluidIntegrates").controller(
                                   cardinalityValues[1])) *
                                   PERCENTAGE_FACTOR).toString())
               });
+              $scope.metricsList.push({
+                "color": "#ef4c43",
+                "description": $translate.instant("search_findings." +
+                                                    "filter_labels.criticity"),
+                "icon": "s7-graph1",
+                "tooltip": $translate.instant("search_findings.filter_labels." +
+                                                    "criticityTooltip"),
+                "value": "n%".replace("n", totalSeverity.toFixed(0))
+              });
             }
           }
           else {
             const totalSeverity = severity;
-            $scope.metricsList.push({
-              "color": "#ef4c43",
-              "description": $translate.instant("search_findings." +
-                                                  "filter_labels.criticity"),
-              "icon": "s7-graph1",
-              "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                    "criticityTooltip"),
-              "value": totalSeverity.toFixed(0)
-            });
             $scope.metricsList.push({
               "color": "#00cb77",
               "description": $translate.instant("search_findings." +
@@ -382,7 +373,28 @@ angular.module("FluidIntegrates").controller(
                                       cardinalityValues[1])) *
                                       PERCENTAGE_FACTOR).toString())
             });
+            $scope.metricsList.push({
+              "color": "#ef4c43",
+              "description": $translate.instant("search_findings." +
+                                                  "filter_labels.criticity"),
+              "icon": "s7-graph1",
+              "tooltip": $translate.instant("search_findings.filter_labels." +
+                                                    "criticityTooltip"),
+              "value": totalSeverity.toFixed(0)
+            });
           }
+        }
+        for (let val = 3; val < cardinalityValues[cardIndex2].length; val++) {
+          const color = cardinalityValues[cardIndex2][val].replace(";", "");
+          $scope.metricsList.push({
+            "color": `${color}`,
+            "description": $translate.instant(`${"search_findings." +
+                      "filter_labels."}${cardinalityValues[cardIndex3][val]}`),
+            "icon": cardinalityValues[cardIndex4][val],
+            "tooltip": $translate.instant(`${"search_findings.filter_labels" +
+                                  "."}${cardinalityValues[cardIndex5][val]}`),
+            "value": `${cardinalityValues[cardIndex6][val]}`
+          });
         }
       });
     };

@@ -71,40 +71,40 @@ angular.module("FluidIntegrates").factory(
         });
         metricColor = [
           "#2197d6;",
-          "#aa2d30;",
           "#ff9930;",
+          "#aa2d30;",
           "#2e4050;",
           "#9f5ab1;",
           "#0a40ae;"
         ];
         metricDes = [
           "findings",
-          "cardinalities",
           "vulnerabilities",
+          "cardinalities",
           "maximumSeverity",
           "oldestFinding",
           "compromisedRecords"
         ];
         metricTool = [
           "findingsTooltip",
-          "cardinalitiesTooltip",
           "vulnerabilitiesTooltip",
+          "cardinalitiesTooltip",
           "maximumSeverityTooltip",
           "oldestFindingTooltip",
           "compromisedRecordsTooltip"
         ];
         metricIcon = [
           "s7-id",
-          "s7-attention",
           "s7-info",
+          "s7-attention",
           "s7-gleam",
           "s7-date",
           "s7-notebook"
         ];
         metricValue = [
           data.data.length,
-          openVulnerabilities,
           cardinalidadTotal,
+          openVulnerabilities,
           maximumSeverity,
           oldestFinding,
           compromisedRecords
