@@ -77,11 +77,11 @@ bajo el pretexto de que no han remediado
 las vulnerabilidades del ciclo anterior.
 No es necesario argumentar sobre la ingenuidad de esta forma de razonar.
 Una vez su organización evoluciona a ejercicios continuos de ataque,
-la siguiente política consistente en realizarlos
+la siguiente política consiste en realizarlos
 de modo silencioso e imprevisto.
 Es decir, realizar ataques de
 
-. *Cero conocimiento*
+. *Cero conocimiento:*
 No tiene sentido que los que atacan (red team o equipo rojo)
 realicen la prueba cuando los que defienden (blue team o equipo azul)
 están enterados del lugar y momento de los ataques.
@@ -135,7 +135,7 @@ llevando el procedimiento hasta el final:
 bloqueo, reporte, gestión de crisis, denuncia, etc.
 Esta es nuestra tercera política:
 
-. *Reaccionar hasta el final* ante cualquier detección
+. *Reaccionar hasta el final:* Ante cualquier detección
 sin distinción de la intención del hacker.
 Esta aproximación mantiene aceitado el engranaje de reacción,
 permite evaluar la calidad del equipo rojo contratado,
@@ -176,7 +176,7 @@ dónde y hasta qué punto se realizó el ataque.
 Como punto final queremos invitar
 a uno de los aspectos más olvidados de los hackeos éticos, lo llamamos
 
-. *Política de coherencia*.
+. *Política de coherencia:*
 Si usted le pregunta a un gerente general:
 ¿qué es más importante, la disponibilidad
 o la confidencialidad de la información? siempre responderá que ambas.
