@@ -426,7 +426,9 @@ sync_awsdynamodb:
   <<: *vault_login
   script:
     - mkdir /logs
-    - pip3 install analytics/singer/tap_awsdynamodb
+    - pip3 install
+        psycopg2
+        analytics/singer/tap_awsdynamodb
     - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read
         -field=aws_dynamodb_access_key secret/serves)'",
               "AWS_SECRET_ACCESS_KEY":"'$(vault read
@@ -435,10 +437,12 @@ sync_awsdynamodb:
         -field=aws_dynamodb_default_region secret/serves)'"}' > /tap_secret.json
     - echo "$(vault read
         -field=analytics_auth_stitch_awsdynamodb secret/serves)" > /target_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /db_auth.json
+    - python3 analytics/postgres.py -auth /db_auth.json -exec "DROP SCHEMA dynamodb CASCADE"
     - tap_awsdynamodb
         -auth /tap_secret.json
         -conf analytics/conf/awsdynamodb.json | target-stitch -c /target_secret.json
-    - rm -fr /tap_secret.json /target_secret.json
+    - rm -fr /db_auth.json /tap_secret.json /target_secret.json
   only:
     refs:
       - schedules
