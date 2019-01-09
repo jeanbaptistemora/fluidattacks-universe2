@@ -172,7 +172,7 @@ export const updateEvidenceDescription: ThunkActionStructure =
     let gQry: string;
     gQry = `mutation {
           updateDescription: updateEvidenceDescription (
-            description: "${value}",
+            description: ${JSON.stringify(value)},
             findingId: "${findingId}",
             field: "${field}") {
             success

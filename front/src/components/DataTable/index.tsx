@@ -121,7 +121,7 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
        key.isStatus ? statusFormatter :
                       (key.isDate ? dateFormatter :
                         (key.deleteFunction !== undefined ? deleteFormatter :
-                          (value: string): string => value))
+                          undefined))
       }
       formatExtraData={key}
       dataSort={true}
