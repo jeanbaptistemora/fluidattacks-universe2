@@ -58,7 +58,7 @@ export const postComment: ThunkActionStructure =
     let gQry: string;
     gQry = `mutation {
       addFindingComment(
-        content: "${comment.content.replace(/"/g, '\\"')}",
+        content: ${JSON.stringify(comment.content)},
         findingId: "${findingId}",
         type: "${type}",
         parent: "${comment.parent}"
