@@ -18,37 +18,21 @@ _TYPE_STRING = {"type": "string"}
 _TYPE_NUMBER = {"type": "number"}
 _TYPE_DATE = {"type": "string", "format": "date-time"}
 
+def standard_name(name):
+    """ remove heading and trailing whitespaces, and put exactly one space between words """
+    return " ".join(name.split())
+
 def get_users_list(timedoctor_users_str):
     """ parses the users response into a list of users """
     def parse(user):
-        """
-        parses the user information from the raw response
-            FA Fluid Activo (incluidos insourcing, opción por defecto, por ende dejar vacio)
-            FR Fluid Retirado
-            AR Autonomic Activo
-            AR Autonomic Retirado
-            IA Inmersión Activo
-            IR Inmersión Retirado (no contratado, si contratado pasa a FA o FR)
-        """
-
-        user_full_name = user["full_name"]
+        """ parses the user information from the raw response """
         user_id = str(user["user_id"])
-        user_email = user["email"]
-
-        user_tokens = user_full_name.split()
-        user_status = user_tokens[-1].upper()
-
-        if user_status in ["FR", "AA", "AR", "IA", "IR"]:
-            user_name = " ".join(user_tokens[0:-1])
-        else:
-            user_name = " ".join(user_tokens)
-            user_status = "FA"
-        return (user_id, user_email, user_name, user_status)
+        user_name = standard_name(user["full_name"])
+        return (user_id, user_name)
 
     users = json.loads(timedoctor_users_str)["users"]
     users_list = list(map(parse, users))
-    users_map = {i: {"email": e, "name": n, "status": s} for i, e, n, s in users_list}
-    return users_list, users_map
+    return users_list
 
 def ensure_200(status_code):
     """ Timedoctor's API have a lot of downtimes throughout the day, ensure 200 or exit """
@@ -71,7 +55,7 @@ def translate_date(date_str):
     date_str = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
     return date_str
 
-def sync_worklogs(api_worker, company_id, users_map):
+def sync_worklogs(api_worker, company_id):
     """ API version 1.1
             https://webapi.timedoctor.com/doc#worklogs """
 
@@ -88,8 +72,6 @@ def sync_worklogs(api_worker, company_id, users_map):
                     "length": _TYPE_NUMBER,
                     "user_id": _TYPE_STRING,
                     "user_name": _TYPE_STRING,
-                    "user_email": _TYPE_STRING,
-                    "user_status": _TYPE_STRING,
                     "task_id": _TYPE_STRING,
                     "task_name": _TYPE_STRING,
                     "project_id": _TYPE_STRING,
@@ -135,26 +117,14 @@ def sync_worklogs(api_worker, company_id, users_map):
                 break
 
             for worklog in worklogs["items"]:
-                user_id = worklog.get("user_id", "")
-                user_name = worklog.get("user_name", "")
-                user_email = ""
-                user_status = ""
-                if user_id in users_map:
-                    user_info = users_map[user_id]
-                    user_name = user_info.get("name", "")
-                    user_email = user_info.get("email", "")
-                    user_status = user_info.get("status", "")
-
                 stdout_json_obj = {
                     "type": "RECORD",
                     "stream": "worklogs",
                     "record": {
                         "worklog_id": worklog.get("id", ""),
                         "length": float(worklog.get("length", "0.0")),
-                        "user_id": user_id,
-                        "user_name": user_name,
-                        "user_email": user_email,
-                        "user_status": user_status,
+                        "user_id": worklog.get("user_id", ""),
+                        "user_name": standard_name(worklog.get("user_name", "")),
                         "task_id": worklog.get("task_id", ""),
                         "task_name": worklog.get("task_name", ""),
                         "project_id": worklog.get("project_id", ""),
@@ -191,16 +161,13 @@ def sync_computer_activity(api_worker, company_id, users_list):
                     "date": _TYPE_DATE,
 
                     "user_id": _TYPE_STRING,
-                    "user_email": _TYPE_STRING,
                     "user_name": _TYPE_STRING,
-                    "user_status": _TYPE_STRING,
 
                     "task_id": _TYPE_STRING,
                     "project_id": _TYPE_STRING,
 
                     "process": _TYPE_STRING,
                     "window": _TYPE_STRING,
-
 
                     "keystrokes": _TYPE_NUMBER,
                     "mousemovements": _TYPE_NUMBER,
@@ -212,7 +179,7 @@ def sync_computer_activity(api_worker, company_id, users_list):
         }
         logs.log_json_obj("computer_activity.stdout", stdout_json_obj)
         print(json.dumps(stdout_json_obj))
-    def write_records(user_id, user_email, user_name, user_status):
+    def write_records(user_id, user_name):
         """ write the records for this table """
         def sass(obj, keys, default):
             """ safely get the nested value after accessing a dict sucessively """
@@ -240,15 +207,13 @@ def sync_computer_activity(api_worker, company_id, users_list):
                     "task_id": str(record["task_id"]),
                     "project_id": record["project_id"],
 
+                    "user_id": user_id,
+                    "user_name": user_name,
+
                     "keystrokes": record["keystrokes"],
                     "mousemovements": record["mousemovements"],
                 }
             }
-
-            stdout_json_obj["record"]["user_id"] = user_id
-            stdout_json_obj["record"]["user_email"] = user_email
-            stdout_json_obj["record"]["user_name"] = user_name
-            stdout_json_obj["record"]["user_status"] = user_status
 
             stdout_json_obj["record"]["process"] = sass(record, ["appInfo", "process"], "")
             stdout_json_obj["record"]["window"] = sass(record, ["appInfo", "window"], "")
@@ -260,8 +225,8 @@ def sync_computer_activity(api_worker, company_id, users_list):
 
     write_schema()
     for user in users_list:
-        user_id, user_email, user_name, user_status = user
-        write_records(user_id, user_email, user_name, user_status)
+        user_id, user_name = user
+        write_records(user_id, user_name)
 
 def arguments_error(parser):
     """ Print help and exit """
@@ -299,10 +264,10 @@ def main():
     # get the id of all users in the company
     (status_code, response) = api_worker.get_users(company_id)
     ensure_200(status_code)
-    users_list, users_map = get_users_list(response)
+    users_list = get_users_list(response)
 
     # sync
-    sync_worklogs(api_worker, company_id, users_map)
+    sync_worklogs(api_worker, company_id)
     sync_computer_activity(api_worker, company_id, users_list)
 
 if __name__ == "__main__":

@@ -48,7 +48,10 @@ class Worker():
             status_code = 200
         except urllib.error.HTTPError as error:
             status_code = error.code
-            if status_code == 403:
+            if status_code == 401:
+                print("INFO: Please reauthorize using the refresh token")
+                exit(1)
+            elif status_code == 403:
                 print("INFO: Unauthorized/Forbidden")
                 exit(1)
         except urllib.error.URLError:
@@ -71,7 +74,7 @@ class Worker():
         resource = self.url + "/v1.1/companies/" + company_id + "/worklogs"
 
         # fetch historical
-        resource += "?start_date=1900-01-01&end_date=2999-12-31"
+        resource += "?start_date=2017-01-01&end_date=2999-12-31"
         resource += "&limit=" + str(limit) + "&offset=" + str(offset)
 
         # fetch working time, not breaks
@@ -85,7 +88,7 @@ class Worker():
     def get_computer_activity(self, company_id, user_id):
         """ returns screenshots, keystrokes, mouse activities for the specified user_id """
         resource = self.url + "/v1.1/companies/" + company_id + "/screenshots"
-        resource += "?start_date=1900-01-01&end_date=2999-12-31"
+        resource += "?start_date=2017-01-01&end_date=2999-12-31"
         resource += "&user_id=" + user_id
         return self.request(resource)
 

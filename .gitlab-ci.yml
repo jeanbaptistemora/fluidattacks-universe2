@@ -450,14 +450,22 @@ sync_timedoctor:
   <<: *vault_login
   script:
     - mkdir /logs
-    - pip3 install analytics/singer/tap_timedoctor
-    - echo "$(vault read
-        -field=analytics_auth_timedoctor secret/serves)" > /tap_secret.json
-    - echo "$(vault read
-        -field=analytics_auth_stitch_timedoctor secret/serves)" > /target_secret.json
-    - tap_timedoctor
-        -auth /tap_secret.json | target-stitch -c /target_secret.json
-    - rm -fr /tap_secret.json /target_secret.json
+    - pip3 install
+        boto3
+        analytics/singer/tap_timedoctor
+    - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read
+        -field=aws_s3_access_key secret/serves)'",
+              "AWS_SECRET_ACCESS_KEY":"'$(vault read
+        -field=aws_s3_secret_key secret/serves)'",
+              "AWS_DEFAULT_REGION":"'$(vault read
+        -field=aws_s3_default_region secret/serves)'"}' > /s3_auth.json
+    - echo "$(vault read -field=analytics_s3_cache_timedoctor secret/serves)" > /s3_files.json
+    - echo "$(vault read -field=analytics_auth_timedoctor secret/serves)" > /tap_secret.json
+    - echo "$(vault read -field=analytics_auth_stitch_timedoctor secret/serves)" > /target_secret.json
+    - python3 analytics/download_from_aws_sss.py -auth /s3_auth.json -conf /s3_files.json
+    - cat timedoctor.worklogs.2013-2016.singer | target-stitch -c /target_secret.json
+    - tap_timedoctor -auth /tap_secret.json | target-stitch -c /target_secret.json
+    - rm -fr /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json
   only:
     refs:
       - schedules
