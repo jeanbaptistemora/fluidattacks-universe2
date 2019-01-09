@@ -100,6 +100,16 @@ checks:
   except:
     - master
 
+commitlint:
+  stage: lint
+  before_script:
+    - npm install
+  image: node:10
+  script:
+    - ./ci-scripts/commitlint-checks.sh
+  except:
+    - master
+
 review-web:
 # Deploy Review Apps
   stage: review
