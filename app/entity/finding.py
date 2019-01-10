@@ -64,6 +64,7 @@ class Finding(ObjectType):
     report_level = String()
     title = String()
     scenario = String()
+    actor = String()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -131,6 +132,7 @@ class Finding(ObjectType):
             self.report_level = resp.get('reportLevel', '')
             self.title = resp.get('finding', '')
             self.scenario = resp.get('scenario', '')
+            self.actor = resp.get('actor', '')
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -314,6 +316,16 @@ class Finding(ObjectType):
         self.scenario = dynamo_value['scenario'] if 'scenario' in dynamo_value else fs_value
         return self.scenario
 
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_actor(self, info):
+        """ Resolve actor attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['actor'])
+        fs_value = self.actor
+        self.actor = dynamo_value['actor'] if 'actor' in dynamo_value else fs_value
+        return self.actor
+
 def set_initial_values(self):
     self.id = ''
     self.vulnerabilities = []
@@ -331,6 +343,7 @@ def set_initial_values(self):
     self.report_level = ''
     self.title = ''
     self.scenario = ''
+    self.actor = ''
 
 def get_exploit_from_file(self, file_name):
     return read_script(download_evidence_file(self, file_name))
