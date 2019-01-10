@@ -85,7 +85,8 @@ You just have to follow these detailed [button]#link:character-test/[instruction
 . *Knowledge:* The goal of this stage
 is to assess your skills and abilities in different areas.
 This is mandatory and requires an estimated effort of 2 to 3 hours
-depending on your knowledge.
+depending on your knowledge,
+with an average time of +1+ minute to answer each question.
 To do this you must first complete the previous stage.
 To begin,
 You just have to follow these detailed [button]#link:knowledge-test/[instructions]#

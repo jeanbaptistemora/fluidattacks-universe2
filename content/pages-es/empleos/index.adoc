@@ -86,7 +86,8 @@ solo debes seguir las instrucciones detalladas [button]#link:evaluacion-temperam
 . *Conocimientos:* El objetivo de esta etapa
 es evidenciar tus aptitudes y habilidades en distintas áreas.
 Ésto es obligatorio y requiere un esfuerzo estimado
-de 2 a 3 horas según tu conocimiento.
+de 2 a 3 horas según tu conocimiento,
+con un tiempo promedio de +1+ minuto para contestar cada una de las preguntas.
 Para hacerla requieres haber finalizado la evaluación anterior.
 Para iniciar,
 solo debes seguir las instrucciones detalladas [button]#link:evaluacion-conocimientos/[aquí]#
