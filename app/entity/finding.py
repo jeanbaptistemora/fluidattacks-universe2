@@ -293,7 +293,7 @@ class Finding(ObjectType):
 
         dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['report_level'])
         fs_value = self.report_level
-        self.report_level = dynamo_value['report_level'] if 'report_level' in dynamo_value else fs_value
+        self.report_level = dynamo_value.get('report_level') if dynamo_value else fs_value
         return self.report_level
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -303,7 +303,7 @@ class Finding(ObjectType):
 
         dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['finding'])
         fs_value = self.title
-        self.title = dynamo_value['finding'] if 'finding' in dynamo_value else fs_value
+        self.title = dynamo_value.get('finding') if dynamo_value else fs_value
         return self.title
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -313,7 +313,7 @@ class Finding(ObjectType):
 
         dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['scenario'])
         fs_value = self.scenario
-        self.scenario = dynamo_value['scenario'] if 'scenario' in dynamo_value else fs_value
+        self.scenario = dynamo_value.get('scenario') if dynamo_value else fs_value
         return self.scenario
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -323,7 +323,7 @@ class Finding(ObjectType):
 
         dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['actor'])
         fs_value = self.actor
-        self.actor = dynamo_value['actor'] if 'actor' in dynamo_value else fs_value
+        self.actor = dynamo_value.get('actor') if dynamo_value else fs_value
         return self.actor
 
 def set_initial_values(self):

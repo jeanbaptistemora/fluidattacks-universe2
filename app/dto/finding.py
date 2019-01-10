@@ -473,19 +473,12 @@ def format_finding_date(format_attr):
 def finding_vulnerabilities(submission_id):
     finding = []
     if str(submission_id).isdigit() is True:
-        finding = integrates_dao.get_data_dynamo(
-            'FI_findings',
-            'finding_id',
-            str(submission_id))
-        if finding and finding[0].get('report_date'):
-            finding = parse_finding(finding[0])
-        else:
-            fin_dto = FindingDTO()
-            api = FormstackAPI()
-            finding = fin_dto.parse(
-                submission_id,
-                api.get_submission(submission_id)
-            )
+        fin_dto = FindingDTO()
+        api = FormstackAPI()
+        finding = fin_dto.parse(
+            submission_id,
+            api.get_submission(submission_id)
+        )
         finding_new = total_vulnerabilities(submission_id)
         finding['cardinalidad_total'] = finding.get('openVulnerabilities')
         if (finding_new and
