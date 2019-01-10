@@ -1,7 +1,7 @@
 :slug: atacar-sin-avisar/
 :date: 2018-12-18
 :category: opiniones
-:subtitle: Cómo proteger la información de su empresa
+:subtitle: Nadie sabe nada pero todo es permitido
 :tags: proteger, información, negocio, red team, blue team, políticas
 :image: cover.png
 :alt: Pc de gerente con fugas de información
