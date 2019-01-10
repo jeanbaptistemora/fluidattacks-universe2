@@ -239,12 +239,6 @@ def get_email_recipients(project_name, comment_type):
     else:
         recipients = [user[0] for user in project_users if user[1] == 1]
 
-    project_info = integrates_dao.get_project_dynamo(project_name)
-    if project_info and project_info[0].get('type') == 'oneshot':
-        recipients.append('projects@fluidattacks.com')
-    else:
-        recipients.append('continuous@fluidattacks.com')
-
     return recipients
 
 def send_comment_mail(user_email, content, parent, comment_type, finding_id):
