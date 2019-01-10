@@ -65,20 +65,7 @@ class Finding(ObjectType):
 
     def __init__(self, info, identifier):
         """Class constructor."""
-        self.id = ''
-        self.vulnerabilities = []
-        self.success = False
-        self.error_message = ''
-        self.open_vulnerabilities = 0
-        self.closed_vulnerabilities = 0
-        self.project_name = ''
-        self.release_date = ''
-        self.records = {}
-        self.severity = {}
-        self.tracking = []
-        self.comments = []
-        self.observations = []
-        self.report_level = ''
+        set_initial_values(self)
 
         finding_id = str(identifier)
         resp = finding_vulnerabilities(finding_id)
@@ -302,6 +289,22 @@ class Finding(ObjectType):
         fs_value = self.report_level
         self.report_level = dynamo_value['report_level'] if 'report_level' in dynamo_value else fs_value
         return self.report_level
+
+def set_initial_values(self):
+    self.id = ''
+    self.vulnerabilities = []
+    self.success = False
+    self.error_message = ''
+    self.open_vulnerabilities = 0
+    self.closed_vulnerabilities = 0
+    self.project_name = ''
+    self.release_date = ''
+    self.records = {}
+    self.severity = {}
+    self.tracking = []
+    self.comments = []
+    self.observations = []
+    self.report_level = ''
 
 def get_exploit_from_file(self, file_name):
     return read_script(download_evidence_file(self, file_name))
