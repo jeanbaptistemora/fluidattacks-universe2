@@ -19,3 +19,7 @@ Verify that the forgotten password function
 and other recovery paths do not reveal the current password
 and that the new password is not sent in clear text to the user.
 A one time password reset link should be used instead.
+
+. [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Requirements_Project[+OWASP+ Application Security Requirements]
+Upon initial or first instance of requesting
+the application the user should be forced to select their password.
