@@ -406,15 +406,19 @@ sync_formstack:
   <<: *vault_login
   script:
     - mkdir /logs
-    - pip3 install analytics/singer/tap_formstack
+    - pip3 install
+        psycopg2
+        analytics/singer/tap_formstack
     - echo "$(vault read
         -field=analytics_auth_formstack secret/serves)" > /tap_secret.json
     - echo "$(vault read
         -field=analytics_auth_stitch_formstack secret/serves)" > /target_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /db_auth.json
+    - python3 analytics/postgres.py -auth /db_auth.json -exec "DROP SCHEMA formstack CASCADE"
     - tap_formstack
         -auth /tap_secret.json
         -conf analytics/conf/formstack.json | target-stitch -c /target_secret.json
-    - rm -fr /tap_secret.json /target_secret.json
+    - rm -fr /db_auth.json /tap_secret.json /target_secret.json
   only:
     refs:
       - schedules
