@@ -21,7 +21,7 @@ setuptools.setup(
 
     entry_points='''
         [console_scripts]
-        tap_awsdynamodb=tap_awsdynamodb:main
+        tap-awsdynamodb=tap_awsdynamodb:main
     ''',
 
     packages=['tap_awsdynamodb'],

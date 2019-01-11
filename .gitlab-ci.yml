@@ -431,22 +431,18 @@ sync_awsdynamodb:
   script:
     - mkdir /logs
     - pip3 install
-        psycopg2
         analytics/singer/tap_awsdynamodb
+        analytics/singer/target_redshift
     - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read
         -field=aws_dynamodb_access_key secret/serves)'",
               "AWS_SECRET_ACCESS_KEY":"'$(vault read
         -field=aws_dynamodb_secret_key secret/serves)'",
               "AWS_DEFAULT_REGION":"'$(vault read
         -field=aws_dynamodb_default_region secret/serves)'"}' > /tap_secret.json
-    - echo "$(vault read
-        -field=analytics_auth_stitch_awsdynamodb secret/serves)" > /target_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /db_auth.json
-    - python3 analytics/postgres.py -auth /db_auth.json -exec "DROP SCHEMA dynamodb CASCADE"
-    - tap_awsdynamodb
-        -auth /tap_secret.json
-        -conf analytics/conf/awsdynamodb.json | target-stitch -c /target_secret.json
-    - rm -fr /db_auth.json /tap_secret.json /target_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - tap-awsdynamodb --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json |
+      target-redshift --auth /target_secret.json --drop-schema --drop-tables --schema-name "dynamodb"
+    - rm -fr /tap_secret.json /target_secret.json
   only:
     refs:
       - schedules

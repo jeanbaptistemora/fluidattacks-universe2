@@ -19,7 +19,6 @@ import boto3 as AWS_SDK
 
 from . import logs
 
-
 _TYPE = {
     "string": {"type": "string"},
     "number": {"type": "number"},
@@ -247,12 +246,12 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
                 json_obj = json.loads(line)
                 source_id = json_obj["source_id"]
                 nested_str = json_obj["value"]
-                nested_str = re.sub(r"(Decimal\()(.{0,10})(\))", r"\g<2>", nested_str)
+                nested_str = re.sub(r"Decimal\('(\d*\.?\d*)'\)", r"\g<1>", nested_str)
                 nested_obj = ast.literal_eval(nested_str)
                 records.append((source_id, nested_obj))
                 line = file.readline()
         return records
-    def base_singer_record():
+    def base_singer_record(source_id):
         """ returns a base singer record """
         singer_record = {
             "type": "RECORD",
@@ -262,32 +261,34 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
             }
         }
         return singer_record
-    def denest_list_schema(nested_obj):
+    def denest_list_schema(records):
         """ linearizes a set or list given its elements are any primitive types """
         properties = set()
-        for elem in nested_obj:
-            elem_type = type_str(elem)
-            field_name = f"{table_name}__{elem_type}"
-            properties.add((field_name, elem_type))
+        for _, nested_obj in records:
+            for elem in nested_obj:
+                elem_type = type_str(elem)
+                field_name = f"{table_name}__{elem_type}"
+                properties.add((field_name, elem_type))
         return {f: map_types(t) for f, t in properties}
-    def denest_list_record(elem):
+    def denest_list_record(source_id, elem):
         """ linearizes a set or list given its elements are any primitive types """
-        singer_record = base_singer_record()
+        singer_record = base_singer_record(source_id)
         field_name = f"{table_name}__{type_str(elem)}"
         singer_record["record"][field_name] = elem
         return singer_record
-    def denest_list_dict_schema(nested_obj):
+    def denest_list_dict_schema(records):
         """ linearizes a list<dict> given its elements are any primitive types """
         properties = set()
-        for elem in nested_obj:
-            for key, val in elem.items():
-                val_type = type_str(val)
-                field_name = f"{key}__{val_type}"
-                properties.add((field_name, val_type))
+        for _, nested_obj in records:
+            for elem in nested_obj:
+                for key, val in elem.items():
+                    val_type = type_str(val)
+                    field_name = f"{key}__{val_type}"
+                    properties.add((field_name, val_type))
         return {f: map_types(t) for f, t in properties}
-    def denest_list_dict_record(elem):
+    def denest_list_dict_record(source_id, elem):
         """ linearizes a list<dict> given its elements are any primitive types """
-        singer_record = base_singer_record()
+        singer_record = base_singer_record(source_id)
         for key, val in elem.items():
             val_type = type_str(val)
             field_name = f"{key}__{type_str(val)}"
@@ -312,22 +313,24 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
             "properties": {}
         }
     }
-    for source_id, nested_obj in records:
-        if kind in ["set", "list"]:
-            singer_schema["schema"]["properties"] = denest_list_schema(nested_obj)
-        if kind in ["list<dict>"]:
-            singer_schema["schema"]["properties"] = denest_list_dict_schema(nested_obj)
+
+    if kind in ["set", "list"]:
+        singer_schema["schema"]["properties"] = denest_list_schema(records)
+    elif kind in ["list<dict>"]:
+        singer_schema["schema"]["properties"] = denest_list_dict_schema(records)
 
     singer_schema["schema"]["properties"]["__source_id"] = map_types("str")
+    logs.log_json_obj(f"{table_name}.stdout", singer_schema)
     print(json.dumps(singer_schema))
 
     # records
     for source_id, nested_obj  in records:
         for elem in nested_obj:
             if kind in ["set", "list"]:
-                singer_record = denest_list_record(elem)
+                singer_record = denest_list_record(source_id, elem)
             elif kind in ["list<dict>"]:
-                singer_record = denest_list_dict_record(elem)
+                singer_record = denest_list_dict_record(source_id, elem)
+            logs.log_json_obj(f"{table_name}.stdout", singer_record)
             print(json.dumps(singer_record))
 
 def std_structure(obj):
@@ -461,40 +464,33 @@ class UnrecognizedNumber(Exception):
 class UnrecognizedDate(Exception):
     """ Raised when tap didn't find a conversion """
 
-def arguments_error(parser):
-    """ Print help and exit """
-    parser.print_help()
-    exit(1)
-
 def main():
     """ usual entry point """
 
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-auth',
+        '-a', '--auth',
         help='JSON authentication file',
-        type=argparse.FileType('r'))
+        dest='auth',
+        type=argparse.FileType('r'),
+        required=True)
     parser.add_argument(
-        '-conf',
+        '-c', '--conf',
         help='JSON config file',
-        type=argparse.FileType('r'))
+        dest='conf',
+        type=argparse.FileType('r'),
+        required=True)
     parser.add_argument(
-        '-disc',
+        '-d', '--disc',
         help='Runs the script in discovery mode (generates a customizable CONF file)',
         dest='discovery_mode',
-        action='store_true')
+        action='store_true',
+        default=False)
     args = parser.parse_args()
 
-    if not args.auth:
-        arguments_error(parser)
-
     auth_keys = json.load(args.auth)
-
-    if args.conf:
-        conf_sett = json.load(args.conf)
-    else:
-        arguments_error(parser)
+    conf_sett = json.load(args.conf)
 
     # ==== AWS DynamoDB  =======================================================
     # write_schema and write_records don't consume quota
