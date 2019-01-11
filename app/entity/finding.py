@@ -76,10 +76,7 @@ class Finding(ObjectType):
         if resp:
             self.id = finding_id
             self.project_name = resp.get('projectName')
-            if resp.get('releaseDate'):
-                self.release_date = resp.get('releaseDate')
-            else:
-                self.release_date = ''
+            self.release_date = resp.get('releaseDate', '')
             vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
             if vulnerabilities:
                 self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
@@ -107,10 +104,7 @@ class Finding(ObjectType):
             else:
                 self.records = {}
 
-            if 'exploit' in resp.keys():
-                self.exploit = resp['exploit']
-            else:
-                self.exploit = ''
+            self.exploit = resp.get('exploit', '')
             severity_fields = ['accessVector', 'accessComplexity',
                                'authentication', 'exploitability',
                                'confidentialityImpact', 'integrityImpact',
