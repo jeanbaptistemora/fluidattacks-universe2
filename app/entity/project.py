@@ -17,6 +17,7 @@ from ..dao import integrates_dao
 from .finding import Finding
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
+from app.domain.project import add_comment
 
 class Project(ObjectType):
     """Formstack Project Class."""
@@ -159,6 +160,6 @@ class AddProjectComment(Mutation):
             'modified': current_time,
             'parent': int(parameters.get('parent'))
         }
-        success = integrates_dao.add_project_comment_dynamo(project_name, email, comment_data)
+        success = add_comment(project_name, email, comment_data)
 
         return AddProjectComment(success=success, comment_id=comment_id)

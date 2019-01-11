@@ -46,13 +46,17 @@ def send_mail_remediate_finding(email_to, context):
     __send_mail('remediatefindingintegrates', email_to, context=context, tags=VERIFY_TAG)
 
 def send_mail_new_comment(email_to, context, comment_type):
-    if comment_type == 'observation':
+    if comment_type == 'project':
+        __send_mail('newprojectcommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
+    elif comment_type == 'observation':
         __send_mail('newobservationintegrates', email_to, context=context, tags=COMMENTS_TAG)
     else:
         __send_mail('newcommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
 
 def send_mail_reply_comment(email_to, context, comment_type):
-    if comment_type == 'observation':
+    if comment_type == 'project':
+        __send_mail('replyprojectcommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
+    elif comment_type == 'observation':
         __send_mail('replyobservationintegrates', email_to, context=context, tags=COMMENTS_TAG)
     else:
         __send_mail('replycommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
