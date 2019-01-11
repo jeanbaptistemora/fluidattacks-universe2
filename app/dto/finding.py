@@ -647,12 +647,12 @@ def get_specific(value):
 
 def as_range(iterable):
     """Convert range into string."""
-    l = list(iterable)
+    my_list = list(iterable)
     range_value = ''
-    if len(l) > 1:
-        range_value = '{0}-{1}'.format(l[0], l[-1])
+    if len(my_list) > 1:
+        range_value = '{0}-{1}'.format(my_list[0], my_list[-1])
     else:
-        range_value = '{0}'.format(l[0])
+        range_value = '{0}'.format(my_list[0])
     return range_value
 
 

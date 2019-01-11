@@ -99,7 +99,7 @@ syntax to use near ''' at line 1. Run this in your bash console \
             output = "That's not something I can do yet, human."
         return output
 
-
+    # pylint: disable=too-many-branches
     def do_add_project(self, data):
         try:
             project = data.split(CMD_SEP)[1]

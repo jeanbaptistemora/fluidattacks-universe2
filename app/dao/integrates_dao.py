@@ -18,6 +18,12 @@ try:
 except NameError:
     unicode = str
 
+dynamodb_resource = resource('dynamodb',
+                             aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+                             aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+                             region_name='us-east-1')
+
+
 def create_user_dao(email, username='-', first_name='-', last_name='-', first_time='-' ):
     """ Add a new user. """
     role = 'None'
@@ -839,11 +845,6 @@ def get_admins():
             rollbar.report_exc_info()
             rows = []
     return rows
-
-dynamodb_resource = resource('dynamodb',
-                             aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-                             aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-                             region_name='us-east-1')
 
 
 def get_comments_dynamo(finding_id, comment_type):
