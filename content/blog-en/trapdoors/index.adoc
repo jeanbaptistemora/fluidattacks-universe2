@@ -79,7 +79,7 @@ and decrypts it with a different private key
 |*K~p~* : Public key +
 *K~s~* : Private key +
 |====
-The data ins encrypted with
+The data is encrypted with
 |====
 |*E* = f(*P*,*K~p~*) +
 |====
