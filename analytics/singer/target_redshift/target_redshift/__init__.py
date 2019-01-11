@@ -6,11 +6,16 @@ import io
 import re
 import sys
 import json
+import time
 import argparse
+
+from datetime import datetime
 
 # pylint: disable=import-error
 import psycopg2 as postgres
-import psycopg2.extensions as postgres_ext
+import psycopg2.extensions as postgres_extensions
+
+from psycopg2.extras import execute_values
 
 def make_access_point(auth):
     """ returns a connection and a cursor to the database """
@@ -25,7 +30,7 @@ def make_access_point(auth):
     )
 
     dbcon.set_session(readonly=False)
-    dbcon.set_isolation_level(postgres_ext.ISOLATION_LEVEL_AUTOCOMMIT)
+    dbcon.set_isolation_level(postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT)
 
     dbcur = dbcon.cursor()
 
@@ -42,8 +47,11 @@ def escape(str_obj):
     if not isinstance(str_obj, str):
         str_obj = str(str_obj)
 
+    str_obj = re.sub("\x00", "", str_obj)
+
     for char in "'\"":
         str_obj = re.sub(char, f"\\{char}", str_obj)
+
     return str_obj
 
 def translate_schema(singer_schema):
@@ -67,12 +75,10 @@ def translate_schema(singer_schema):
         elif stype == sdatetime:
             rtype = "TIMESTAMP"
         else:
-            print(f"WARN: Ignoring type {stype}")
-            print(f"REAS: because it's not supported by the target")
+            print(f"WARN: Ignoring type {stype}, it's not supported by the target (yet).")
         return rtype
 
-    redshift_schema = {escape(f): stor(st) for f, st in singer_schema.items() if stor(st)}
-    return redshift_schema
+    return {escape(f): stor(st) for f, st in singer_schema.items() if stor(st)}
 
 def translate_record(schema, record):
     """ translates a singer record to a redshift record """
@@ -85,126 +91,162 @@ def translate_record(schema, record):
         new_field = escape(user_field)
         new_value = ""
         if not new_field in schema:
-            print(f"WARN: Ignoring field {new_field}")
-            print(f"REAS: because it's not in the SCHEMA")
+            print(f"WARN: Ignoring field {new_field}, it's not in the streamed schema.")
         else:
-            if schema[new_field] == "BOOLEAN":
+            new_field_type = schema[new_field]
+            if new_field_type == "BOOLEAN":
                 new_value = f"{escape(user_value).lower()}"
-            elif schema[new_field] == "FLOAT8":
+            elif new_field_type == "FLOAT8":
                 new_value = f"{escape(user_value)}"
-            elif schema[new_field] == "VARCHAR(1024)":
+            elif new_field_type == "VARCHAR(1024)":
                 new_value = f"'{escape(user_value)}'"
                 while str_len(new_value) > 1024:
                     new_value = new_value[0:-2] + new_value[-1]
-            elif schema[new_field] == "TIMESTAMP":
+            elif new_field_type == "TIMESTAMP":
                 new_value = f"'{escape(user_value)}'"
             else:
-                print(f"WARN: Ignoring type {schema[new_field]}")
-                print(f"REAS: because it's not supported by the target")
+                print(f"WARN: Ignoring type {new_field_type}, it's not in the streamed schema.")
 
         new_record[new_field] = new_value
     return new_record
 
-def ex(dbcur, statement, print_statement=False):
-    """ executes a statement """
-    if print_statement:
-        print(f"EXEC:{statement}")
-    dbcur.execute(statement)
-
-def drop_schema(dbcur, schema_name):
+def drop_schema(batcher, schema_name):
     """ drops the schema unless it doesn't exist """
     try:
-        # https://docs.aws.amazon.com/redshift/latest/dg/r_DROP_SCHEMA.html
-        ex(dbcur, f"DROP SCHEMA \"{schema_name}\" CASCADE")
+        batcher.ex(f"DROP SCHEMA \"{schema_name}\" CASCADE")
     except postgres.ProgrammingError:
         pass
 
-def drop_table(dbcur, schema_name, table_name):
+def drop_table(batcher, schema_name, table_name):
     """ drops the table unless it doesn't exist """
     try:
-        # https://docs.aws.amazon.com/redshift/latest/dg/r_DROP_TABLE.html
-        ex(dbcur, f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE")
+        batcher.ex(f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE")
     except postgres.ProgrammingError:
         pass
 
-def create_schema(dbcur, schema_name):
+def create_schema(batcher, schema_name):
     """ creates the schema unless it currently exist """
     try:
-        # https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_SCHEMA.html
-        ex(dbcur, f"CREATE SCHEMA \"{schema_name}\"")
+        batcher.ex(f"CREATE SCHEMA \"{schema_name}\"")
     except postgres.ProgrammingError:
         pass
 
-def create_table(dbcur, schema_name, table_name, fields, pkeys):
+# pylint: disable=too-many-arguments
+def create_table(batcher, schema_name, table_name, table_fields, table_types, table_pkeys):
     """ creates a table on the schema with (field type) and primary keys """
-    # https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_TABLE_NEW.html
-    ex(dbcur, f"CREATE TABLE \"{schema_name}\".\"{table_name}\" ({fields},PRIMARY KEY({pkeys}))")
+    path = f"\"{schema_name}\".\"{table_name}\""
+    fields = ",".join([f"\"{n}\" {table_types[n]}" for n in table_fields])
+
+    if table_pkeys:
+        pkeys = ",".join([f"\"{n}\"" for n in table_pkeys])
+        batcher.ex(f"CREATE TABLE {path} ({fields},PRIMARY KEY({pkeys}))")
+    else:
+        batcher.ex(f"CREATE TABLE {path} ({fields})")
+
+# pylint: disable=too-many-instance-attributes
+class Batcher():
+    """ A worker to grab requests from the same table and batch them to Redshift """
+    def __init__(self, dbcon, dbcur, schema_name):
+        print(f"INFO: worker up at {datetime.utcnow()}.")
+
+        self.initt = time.time()
+
+        self.print = False
+        self.dbcon = dbcon
+        self.dbcur = dbcur
+
+        self.sname = schema_name
+        self.tname = "__START"
+
+        self.params = []
+        self.template = ""
+
+        self.count = 0
+
+    def ex(self, statement):
+        """ executes a single statement, no performance buff here """
+        if self.print:
+            print(f"EXEC:{statement}.")
+        self.dbcur.execute(statement)
+
+    def load(self, table_name, values):
+        """ executes multiple statements, big performance buff here """
+        self.count += 1
+        if self.tname == table_name and self.count < 10000:
+            self.params.append(tuple(values))
+        else:
+            if self.template:
+                if self.print:
+                    print(f"EXEC:{self.template}.")
+                    print(f"EXEC:{self.params}.")
+                # dev: need for speed ? try
+                # dev: self.dbcur.execute("PREPARE stmt AS complex_query with $1 $2 params")
+                execute_values(self.dbcur, self.template, self.params)
+                print(f"INFO: {self.count} messages sent to Redshift/{self.sname}/{self.tname}.")
+                # dev: self.dbcur.execute("DEALLOCATE stmt")
+
+            # prepare the params list for this batch
+            self.count = 0
+            self.tname = table_name
+            self.params = [tuple(values)]
+            self.template = f"INSERT INTO \"{self.sname}\".\"{self.tname}\" VALUES %s"
+
+    def __del__(self, *args):
+        print(f"INFO: worker down at {datetime.utcnow()}.")
+        print(f"INFO: {time.time() - self.initt} seconds elapsed.")
 
 # pylint: disable=too-many-locals
 def persist_messages(dbcon, dbcur, messages, args):
     """ persist messages received in stdin to Amazon Redshift """
     schema = {}
+    ofields = {}
 
-    schema_name = args.schema_name
-    do_drop_schema = args.drop_schema
-    do_drop_tables = args.drop_tables
+    batcher = Batcher(dbcon, dbcur, args.schema_name)
 
-    print(f"INFO: receiving messages")
+    if args.drop_schema:
+        drop_schema(batcher, args.schema_name)
 
-    count_messages = 0
     for message in messages:
-        count_messages += 1
-        if count_messages % 1000 == 0:
-            print(f"INFO: {count_messages} messages sent to Amazon Redshift")
-
         json_obj = json.loads(message)
         message_type = json_obj["type"]
         if message_type == "RECORD":
             table_name = escape(json_obj["stream"].lower())
             table_schema = schema[table_name]
+            table_ofields = ofields[table_name]
 
-            try:
-                table_record = translate_record(table_schema, json_obj["record"])
-            except ValueError as err:
-                print(err)
-                print(table_name)
-                print(table_schema)
-                exit()
+            table_record = translate_record(table_schema, json_obj["record"])
 
-            fields_values = [(f, v) for f, v in table_record.items() if v]
-            fields = ",".join([f"\"{f}\"" for f, v in fields_values])
-            values = ",".join([v for f, v in fields_values])
+            record_ov = []
+            for field in table_ofields:
+                if field in table_record:
+                    record_ov.append(table_record[field])
+                else:
+                    record_ov.append(None)
 
-            # https://docs.aws.amazon.com/redshift/latest/dg/r_INSERT_30.html
-            ex(dbcur, f"INSERT INTO \"{schema_name}\".\"{table_name}\" ({fields}) VALUES({values})")
+            batcher.load(table_name, record_ov)
 
         elif message_type == "SCHEMA":
             table_name = escape(json_obj["stream"].lower())
             table_pkeys = list(map(escape, json_obj["key_properties"]))
             table_schema = json_obj["schema"]
 
-            if do_drop_schema:
-                drop_schema(dbcur, schema_name)
-            elif do_drop_tables:
-                drop_table(dbcur, schema_name, table_name)
+            if args.drop_tables:
+                drop_table(batcher, args.schema_name, table_name)
 
-            schema[table_name] = translate_schema(table_schema["properties"])
+            schema[table_name] = table_ft = translate_schema(table_schema["properties"])
+            ofields[table_name] = table_of = list(table_ft.keys())
 
-            pkeys = ",".join([f"\"{n}\"" for n in table_pkeys])
-            fields = ",".join([f"\"{n}\" {t}" for n, t in schema[table_name].items()])
+            create_schema(batcher, args.schema_name)
+            create_table(batcher, args.schema_name, table_name, table_of, table_ft, table_pkeys)
 
-            create_schema(dbcur, schema_name)
-            create_table(dbcur, schema_name, table_name, fields, pkeys)
-
-    dbcon.commit()
-    print(f"INFO: messages sent successfully")
+    batcher.load("finish", [])
 
 def main():
     """ usual entry point """
 
     print("\n  Singer target for Amazon Redshift\n")
     print("Fluid Attacks, We hack your software.")
-    print("    https://fluidattacks.com/\n")
+    print("      https://fluidattacks.com/\n")
 
     # user interface
     parser = argparse.ArgumentParser(
@@ -243,16 +285,12 @@ def main():
     args = parser.parse_args()
     auth = json.load(args.auth)
 
-    print(f"INFO: Pushing all tables to schema \"{args.schema_name}\"\n")
-
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
 
     # pylint: disable=broad-except
     try:
         (dbcon, dbcur) = make_access_point(auth)
         persist_messages(dbcon, dbcur, input_messages, args)
-    except Exception as exception:
-        print(f"Error: {exception}")
     finally:
         drop_access_point(dbcon, dbcur)
 
