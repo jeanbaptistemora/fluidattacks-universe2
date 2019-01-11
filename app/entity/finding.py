@@ -65,6 +65,19 @@ class Finding(ObjectType):
     title = String()
     scenario = String()
     actor = String()
+    description = String()
+    requirements = String()
+    attack_vector = String()
+    threat = String()
+    recommendation = String()
+    affected_systems = String()
+    compromised_attributes = String()
+    compromised_records = Int()
+    cwe_url = String()
+    bts_url = String()
+    treatment = String()
+    treatment_manager = String()
+    treatment_justification = String()
 
     def __init__(self, info, identifier):
         """Class constructor."""
@@ -127,6 +140,19 @@ class Finding(ObjectType):
             self.title = resp.get('finding', '')
             self.scenario = resp.get('scenario', '')
             self.actor = resp.get('actor', '')
+            self.description = resp.get('vulnerability', '')
+            self.requirements = resp.get('requirements', '')
+            self.attack_vector = resp.get('attackVector', '')
+            self.threat = resp.get('threat', '')
+            self.recommendation = resp.get('effectSolution', '')
+            self.affected_systems = resp.get('affectedSystems', '')
+            self.compromised_attributes = resp.get('records', '')
+            self.compromised_records = int(resp.get('recordsNumber', '0'))
+            self.cwe_url = resp.get('cwe', '')
+            self.bts_url = resp.get('externalBts', '')
+            self.treatment = resp.get('treatment', '')
+            self.treatment_manager = resp.get('treatmentManager', '')
+            self.treatment_justification = resp.get('treatmentJustification', '')
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -320,6 +346,136 @@ class Finding(ObjectType):
         self.actor = dynamo_value.get('actor') if dynamo_value else fs_value
         return self.actor
 
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_description(self, info):
+        """ Resolve description attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['vulnerability'])
+        fs_value = self.description
+        self.description = dynamo_value.get('vulnerability') if dynamo_value else fs_value
+        return self.description
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_requirements(self, info):
+        """ Resolve requirements attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['requirements'])
+        fs_value = self.requirements
+        self.requirements = dynamo_value.get('requirements') if dynamo_value else fs_value
+        return self.requirements
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_attack_vector(self, info):
+        """ Resolve requirements attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['attack_vector'])
+        fs_value = self.attack_vector
+        self.attack_vector = dynamo_value.get('attack_vector') if dynamo_value else fs_value
+        return self.attack_vector
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_threat(self, info):
+        """ Resolve threat attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['threat'])
+        fs_value = self.threat
+        self.threat = dynamo_value.get('threat') if dynamo_value else fs_value
+        return self.threat
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_recommendation(self, info):
+        """ Resolve recommendation attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['effect_solution'])
+        fs_value = self.recommendation
+        self.recommendation = dynamo_value.get('effect_solution') if dynamo_value else fs_value
+        return self.recommendation
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_affected_systems(self, info):
+        """ Resolve affected_systems attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['affected_systems'])
+        fs_value = self.affected_systems
+        self.affected_systems = dynamo_value.get('affected_systems') if dynamo_value else fs_value
+        return self.affected_systems
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_compromised_attributes(self, info):
+        """ Resolve compromised_attributes attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['records'])
+        fs_value = self.compromised_attributes
+        self.compromised_attributes = dynamo_value.get('records') if dynamo_value else fs_value
+        return self.compromised_attributes
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_compromised_records(self, info):
+        """ Resolve compromised_records attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['records_number'])
+        fs_value = self.compromised_records
+        self.compromised_records = int(dynamo_value.get('records_number') if dynamo_value else fs_value)
+        return self.compromised_records
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_cwe_url(self, info):
+        """ Resolve cwe_url attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['cwe'])
+        fs_value = self.cwe_url
+        self.cwe_url = dynamo_value.get('cwe') if dynamo_value else fs_value
+        return self.cwe_url
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_bts_url(self, info):
+        """ Resolve bts_url attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['external_bts'])
+        fs_value = self.bts_url
+        self.bts_url = dynamo_value.get('external_bts') if dynamo_value else fs_value
+        return self.bts_url
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_treatment(self, info):
+        """ Resolve treatment attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['treatment'])
+        fs_value = self.treatment
+        self.treatment = dynamo_value.get('treatment') if dynamo_value else fs_value
+        return self.treatment
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_treatment_manager(self, info):
+        """ Resolve treatment_manager attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['treatment_manager'])
+        fs_value = self.treatment_manager
+        self.treatment_manager = dynamo_value.get('treatment_manager') if dynamo_value else fs_value
+        return self.treatment_manager
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_treatment_justification(self, info):
+        """ Resolve treatment_justification attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['treatment_justification'])
+        fs_value = self.treatment_justification
+        self.treatment_justification = dynamo_value.get('treatment_justification') if dynamo_value else fs_value
+        return self.treatment_justification
+
 def set_initial_values(self):
     self.id = ''
     self.vulnerabilities = []
@@ -338,6 +494,19 @@ def set_initial_values(self):
     self.title = ''
     self.scenario = ''
     self.actor = ''
+    self.description = ''
+    self.requirements = ''
+    self.attack_vector = ''
+    self.threat = ''
+    self.recommendation = ''
+    self.affected_systems = ''
+    self.compromised_attributes = ''
+    self.compromised_records = 0
+    self.cwe_url = ''
+    self.bts_url = ''
+    self.treatment = ''
+    self.treatment_manager = ''
+    self.treatment_justification = ''
 
 def get_exploit_from_file(self, file_name):
     return read_script(download_evidence_file(self, file_name))
