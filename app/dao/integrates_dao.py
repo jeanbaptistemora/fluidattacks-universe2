@@ -334,16 +334,6 @@ def assign_role(email, role):
         row = cursor.fetchone()
     return row
 
-def assign_admin_role(email):
-    """ Assigns admin role to a costumer in the DB. """
-    role = get_role_dao(email)
-    if role != 'customer':
-        return False
-    with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET role=%s WHERE email = %s'
-        cursor.execute(query, ('customeradmin', email,))
-    return True
-
 
 def assign_company(email, company):
     """ Assigns a company to a user in the DB."""
@@ -380,17 +370,6 @@ ORDER BY projects.project ASC'
         cursor.execute(query, (user_id,))
         rows = cursor.fetchall()
     return rows
-
-
-def get_findings_amount(project):
-    """ Gets the amount of findings in a project. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT amount FROM findings WHERE project = %s'
-        cursor.execute(query, (project,))
-        row = cursor.fetchone()
-    if row is None:
-        return 0
-    return row[0]
 
 
 def get_vulns_by_project_dynamo(project_name):
@@ -686,23 +665,6 @@ def change_status_company_alert_dynamo(message, company_name, project_name):
             return False
 
 
-def update_findings_amount(project, amount):
-    """ Update amount of findings in a project."""
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT * FROM findings WHERE project = %s'
-        cursor.execute(query, (project,))
-        row = cursor.fetchone()
-        if row is None:
-            query = 'INSERT INTO findings(project, amount) VALUES(%s, %s)'
-            cursor.execute(query, (project, amount,))
-            row = cursor.fetchone()
-        else:
-            query = 'UPDATE findings SET amount=%s WHERE project = %s'
-            cursor.execute(query, (amount, project,))
-            row = cursor.fetchone()
-    return row
-
-
 def remove_access_project_dao(email=None, project_name=None):
     """ Remove a user's access to a project. """
     if email and project_name:
@@ -868,29 +830,6 @@ def get_comments_dynamo(finding_id, comment_type):
     return items
 
 
-def create_comment_dynamo(finding_id, email, data):
-    """ Create a comment in a finding. """
-    table = dynamodb_resource.Table('FI_comments')
-    try:
-        response = table.put_item(
-            Item={
-                'finding_id': finding_id,
-                'user_id': int(data["data[id]"]),
-                'content': data["data[content]"],
-                'created': data["data[created]"],
-                'email': email,
-                'fullname': data["data[fullname]"],
-                'modified': data["data[modified]"],
-                'parent': data["data[parent]"],
-                'comment_type': data["data[commentType]"]
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
 def add_finding_comment_dynamo(finding_id, email, comment_data):
     """ Add a comment in a finding. """
     table = dynamodb_resource.Table('FI_comments')
@@ -958,26 +897,6 @@ def delete_comment_dynamo(finding_id, user_id):
     except ClientError:
         rollbar.report_exc_info()
         return False
-
-
-def get_replayer_dynamo(user_id):
-    """ Gets comments by the ID parent comment. """
-    table = dynamodb_resource.Table('FI_comments')
-    filter_key = 'user_id'
-    if filter_key and user_id:
-        filtering_exp = Key(filter_key).eq(user_id)
-        response = table.scan(FilterExpression=filtering_exp)
-    else:
-        response = table.scan()
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.scan(
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
 
 
 def get_remediated_dynamo(finding_id):
@@ -1271,29 +1190,6 @@ def get_continuous_info():
         else:
             break
     return items
-
-def update_company_dynamo(project_name, companies):
-    """ Update a company to a project. """
-    table = dynamodb_resource.Table('FI_projects')
-    item = get_project_dynamo(project_name)
-    if item == [] or 'companies' not in item[0]:
-        return False
-    else:
-        try:
-            response = table.update_item(
-                Key={
-                    'project_name': project_name.lower(),
-                },
-                UpdateExpression='SET companies = list_append(companies, :val1)',
-                ExpressionAttributeValues={
-                    ':val1': companies
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
 
 
 def get_project_access_dynamo(user_email, project_name):

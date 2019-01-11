@@ -155,14 +155,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 'per_page': 50}
         return self.requests_per_page("GET", self.IN_URL, data=data)
 
-    def get_closings_by_id(self, submission_id):
-        """ Get the closures of a finding by its ID """
-        search_field = "39596063"
-        data = {'search_field_1': search_field,
-                'search_value_1': submission_id,
-                'page': 1,
-                'per_page': 50}
-        return self.requests_per_page("GET", self.CL_URL, data=data)
 
     def get_remmisions(self, project):
         """ Get the remissions of a project by its name. """

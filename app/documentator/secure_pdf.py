@@ -34,12 +34,6 @@ class SecurePDF(object):
             self.secure_pdf_filename = self.lock(water_pdf_name)
         return self.result_dir + self.secure_pdf_filename
 
-    def create_only_pass(self, username, basic_pdf_name):
-        """ Execute the security process in a PDF. """
-        self.secure_pdf_username = username
-        self.secure_pdf_filename = self.lock(basic_pdf_name)
-        return self.result_dir + self.secure_pdf_filename
-
     def watermark(self, in_filename):
         """ Add a watermark to all pages of a PDF. """
         pdf_foutname = "water_" + in_filename

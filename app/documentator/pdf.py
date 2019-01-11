@@ -196,22 +196,6 @@ class CreatorPDF(object):
             'treat_status_rem': 'In Progress',
         }
 
-    def executive(self, data, project):
-        """ Create the template to render and apply the context. """
-        self.fill_project(data, project)
-        self.out_name = project + '_IE.pdf'
-        searchpath = self.PATH
-        template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
-        template_env = jinja2.Environment(loader=template_loader)
-        template = template_env.get_template(self.PROJ_TPL)
-        tpl_name = self.TPL_DIR + ':id_IE.tpl'.replace(':id', project)
-        render_text = template.render(self.context)
-        with open(tpl_name, 'w') as tplfile:
-            tplfile.write(render_text.encode('utf-8'))
-        self.create_command(tpl_name)
-        print(self.command)
-        os.system(self.command)
-
     def tech(self, data, project, user):
         """ Create the template to render and apply the context. """
         self.fill_project(data, project)
@@ -328,47 +312,6 @@ class CreatorPDF(object):
         font_properties.set_size('small')
         legend(prop=font_properties, loc='best')
         pie_filename = 'finding_graph_:prj.png'.replace(':prj', project)
-        hard_path = self.TPL_IMG_PATH
-        hard_path += pie_filename
-        savefig(hard_path, bbox_inches='tight', transparent=True, dpi=100)
-        cla()
-        clf()
-        close('all')
-        return pie_filename
-
-    def make_pie_closing(self, findings, project):
-        """ Create the vulnerability status graph. """
-        figure(1, figsize=(6, 6))
-        finding_state_pie = [0, 0, 0]  # A, PC, C
-        finding_state_pielabels = [
-            'Abiertas',
-            'Parcialmente Cerradas',
-            'Cerradas'
-        ]
-        colors = ['red', 'orange', 'yellow']
-        explode = (0, 0.1, 0)
-        for finding in findings:
-            if finding['estado'] == 'Abierto':
-                finding_state_pie[0] += 1
-            elif finding['estado'] == 'Parcialmente cerrado':
-                finding_state_pie[1] += 1
-            elif finding['estado'] == 'Cerrado':
-                finding_state_pie[2] += 1
-            else:  # Abierto por defecto
-                finding_state_pie[2] += 1
-        pie(
-            finding_state_pie,
-            explode=explode,
-            labels=finding_state_pielabels,
-            autopct='%1.0f%%',
-            startangle=90,
-            colors=colors
-        )
-        axis('equal')
-        font_properties = FontProperties()
-        font_properties.set_size('small')
-        legend(prop=font_properties, loc='best')
-        pie_filename = 'main_graph_:prj.png'.replace(':prj', project)
         hard_path = self.TPL_IMG_PATH
         hard_path += pie_filename
         savefig(hard_path, bbox_inches='tight', transparent=True, dpi=100)
