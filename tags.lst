@@ -1,5 +1,7 @@
 application
+blue team
 bug
+business
 cbc
 challenge
 cloud
@@ -34,10 +36,12 @@ mypy
 openssl
 password
 pentesting
+policies
 protect
 pwn
 pythagoras
 python
+red team
 revert
 saml
 scanner

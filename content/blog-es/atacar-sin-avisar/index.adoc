@@ -5,13 +5,14 @@
 :tags: proteger, información, negocio, red team, blue team, políticas
 :image: cover.png
 :alt: Pc de gerente con fugas de información
-:description: En ejercicios de Hacking Etico, las politicas de ataque continuo, cero conocimiento, reacción hasta el final, intrusión total y coherencia, le permitirán saber qué tan seguro está realmente, remediar rápido y ahorrar dinero en tecnologías que generan inmensos reportes llenos de falsos positivos.
+:description: En ejercicios de Hacking Ético, las políticas de ataque continuo, cero conocimiento, reacción hasta el final, intrusión total y coherencia, le permitirán saber qué tan seguro está realmente, remediar rápido y ahorrar dinero en tecnologías que generan inmensos reportes llenos de falsos positivos.
 :keywords: Información, Empresa, Seguridad, Protección, Hacking, Buenas Prácticas
 :author: Rafael Álvarez
 :writer: ralvarez
 :name: Rafael Álvarez
 :about1: Operations Team
 :about2: Fluid Attacks
+:translate: attack-no-announce/
 
 = Atacar sin avisar
 
