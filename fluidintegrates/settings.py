@@ -259,7 +259,7 @@ CACHES = {
     }
 }
 
-CACHE_TTL = 60 * 30
+CACHE_TTL = 60 * 60 * 8
 
 #Session
 SESSION_ENGINE = 'redis_sessions.session'
