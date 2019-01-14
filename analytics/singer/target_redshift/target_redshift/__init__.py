@@ -133,15 +133,18 @@ def create_schema(batcher, schema_name):
 
 # pylint: disable=too-many-arguments
 def create_table(batcher, schema_name, table_name, table_fields, table_types, table_pkeys):
-    """ creates a table on the schema with (field type) and primary keys """
+    """ creates a table on the schema unless it currently exists """
     path = f"\"{schema_name}\".\"{table_name}\""
     fields = ",".join([f"\"{n}\" {table_types[n]}" for n in table_fields])
 
-    if table_pkeys:
-        pkeys = ",".join([f"\"{n}\"" for n in table_pkeys])
-        batcher.ex(f"CREATE TABLE {path} ({fields},PRIMARY KEY({pkeys}))")
-    else:
-        batcher.ex(f"CREATE TABLE {path} ({fields})")
+    try:
+        if table_pkeys:
+            pkeys = ",".join([f"\"{n}\"" for n in table_pkeys])
+            batcher.ex(f"CREATE TABLE {path} ({fields},PRIMARY KEY({pkeys}))")
+        else:
+            batcher.ex(f"CREATE TABLE {path} ({fields})")
+    except postgres.ProgrammingError:
+        pass
 
 # pylint: disable=too-many-instance-attributes
 class Batcher():
