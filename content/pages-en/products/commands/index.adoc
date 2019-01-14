@@ -7,11 +7,10 @@
 
 = Commands
 
-Cyberweapon developed completely by +Fluid Attacks+
-for in depth penetration of work stations and critical servers
-during the Pentests where its use is authorized
-in our [button]#link:../../services/one-shot-hacking/[One-Shot Hacking]# Service.
-
+Commands is a cyberweapon developed entirely by +Fluid Attacks+
+for in-depth penetration of workstations and critical servers
+during Pentesting in [button]#link:../../services/one-shot-hacking/[One-Shot Hacking]#
+when its use is authorized.
 
 [role="integrates tb-alt"]
 [cols=3, frame="topbot"]
