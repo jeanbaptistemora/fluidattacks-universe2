@@ -99,11 +99,11 @@ def translate_record(schema, record):
             elif new_field_type == "FLOAT8":
                 new_value = f"{escape(user_value)}"
             elif new_field_type == "VARCHAR(1024)":
-                new_value = f"'{escape(user_value)}'"
+                new_value = f"{escape(user_value)}"
                 while str_len(new_value) > 1024:
-                    new_value = new_value[0:-2] + new_value[-1]
+                    new_value = new_value[0:-1]
             elif new_field_type == "TIMESTAMP":
-                new_value = f"'{escape(user_value)}'"
+                new_value = f"{escape(user_value)}"
             else:
                 print(f"WARN: Ignoring type {new_field_type}, it's not in the streamed schema.")
 

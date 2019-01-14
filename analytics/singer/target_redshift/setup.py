@@ -16,7 +16,7 @@ setuptools.setup(
     py_modules=[],
 
     install_requires=[
-        "psycopg2"
+        "psycopg2-binary"
     ],
 
     entry_points='''
