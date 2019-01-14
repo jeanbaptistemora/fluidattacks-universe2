@@ -45,6 +45,7 @@ interface IDashboardState {
     dataInputs: IVulnerabilitiesViewProps["dataInputs"];
     dataLines: IVulnerabilitiesViewProps["dataLines"];
     dataPorts: IVulnerabilitiesViewProps["dataPorts"];
+    releaseDate: IVulnerabilitiesViewProps["releaseDate"];
   };
 }
 
@@ -111,6 +112,7 @@ const initialState: IDashboardState = {
     dataInputs: [],
     dataLines: [],
     dataPorts: [],
+    releaseDate: "",
   },
 };
 
@@ -244,6 +246,7 @@ actionMap[actionType.LOAD_VULNERABILITIES] =
       dataInputs: action.payload.dataInputs,
       dataLines: action.payload.dataLines,
       dataPorts: action.payload.dataPorts,
+      releaseDate: action.payload.releaseDate,
     },
   });
 

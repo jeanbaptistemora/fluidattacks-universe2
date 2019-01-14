@@ -85,6 +85,7 @@ export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps>
                         editMode={false}
                         findingId={props.findingId}
                         state={"open"}
+                        releaseDate={""}
                       />
                     </Col>
                   </Row>
@@ -105,6 +106,7 @@ export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps>
                         editMode={false}
                         findingId={props.findingId}
                         state={"closed"}
+                        releaseDate={""}
                       />
                     </Col>
                   </Row>

@@ -43,6 +43,7 @@ export interface IVulnerabilitiesViewProps {
   }>;
   editMode: boolean;
   findingId: string;
+  releaseDate: string;
   state: string;
 }
 
@@ -55,6 +56,7 @@ const filterState:
 const mapStateToProps: ((arg1: StateType<Reducer>, arg2: IVulnerabilitiesViewProps) => IVulnerabilitiesViewProps) =
   (state: StateType<Reducer>, ownProps: IVulnerabilitiesViewProps): IVulnerabilitiesViewProps => {
     const stateValue: IVulnerabilitiesViewProps = state.dashboard.vulnerabilities;
+    const releaseDate: IVulnerabilitiesViewProps["releaseDate"] = stateValue.releaseDate;
     const dataInputs: IVulnerabilitiesViewProps["dataInputs"] = filterState(stateValue.dataInputs, ownProps.state);
     const dataLines: IVulnerabilitiesViewProps["dataLines"] = filterState(stateValue.dataLines, ownProps.state);
     const dataPorts: IVulnerabilitiesViewProps["dataPorts"] = filterState(stateValue.dataPorts, ownProps.state);
@@ -64,6 +66,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>, arg2: IVulnerabilitiesViewPro
       dataInputs,
       dataLines,
       dataPorts,
+      releaseDate,
     });
   };
 
@@ -193,7 +196,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
       width: "30%",
     }];
   let dataLines: IVulnerabilitiesViewProps["dataLines"] = props.dataLines;
-  if (props.editMode) {
+  if (props.editMode && _.isEmpty(props.releaseDate)) {
     inputsHeader.push({
                 align: "center" as DataAlignType,
                 dataField: "id",

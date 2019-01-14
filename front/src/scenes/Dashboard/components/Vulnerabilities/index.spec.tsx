@@ -21,6 +21,7 @@ describe('Vulnerabilities view', () => {
       dataPorts={[]}
       findingId="422286126"
       state="open"
+      releaseDate=""
     />
   );
 

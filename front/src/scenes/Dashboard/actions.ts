@@ -37,6 +37,7 @@ export const loadVulnerabilities: ThunkActionStructure =
         id
         success
         errorMessage
+        releaseDate
         portsVulns: vulnerabilities(
           vulnType: "ports") {
           ...vulnInfo
@@ -69,6 +70,7 @@ export const loadVulnerabilities: ThunkActionStructure =
             dataInputs: data.finding.inputsVulns,
             dataLines: data.finding.linesVulns,
             dataPorts: data.finding.portsVulns,
+            releaseDate: data.finding.releaseDate,
           },
           type: actionType.LOAD_VULNERABILITIES,
         });
