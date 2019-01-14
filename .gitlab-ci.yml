@@ -468,10 +468,10 @@ sync_timedoctor:
     - echo "$(vault read -field=analytics_auth_timedoctor secret/serves)" > /tap_secret.json
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
     - python3 analytics/download_from_aws_sss.py -auth /s3_auth.json -conf /s3_files.json
-    - cat timedoctor.worklogs.2013-2016.singer |
-      target-redshift --auth /target_secret.json --drop-schema --drop-tables --schema-name "timedoctor"
-    - tap_timedoctor -auth /tap_secret.json |
-      target-redshift --auth /target_secret.json --drop-schema --drop-tables --schema-name "timedoctor"
+    - mv timedoctor.worklogs.2013-2016.singer timedoctor.singer
+    - tap_timedoctor -auth /tap_secret.json >> timedoctor.singer
+    - cat timedoctor.singer |
+        target-redshift --auth /target_secret.json --drop-schema --schema-name "timedoctor"
     - rm -fr /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json
   only:
     refs:
