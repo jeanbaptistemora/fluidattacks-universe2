@@ -5,7 +5,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon } from "react-bootstrap";
+import { Badge, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon } from "react-bootstrap";
 /**
  * Disabling here is necessary because
  * there are currently no available type definitions for
@@ -20,6 +20,10 @@ type CustomFieldProps = FormProps<{}, {}, {}> & FormControlProps & WrappedFieldP
 
 const renderError: ((arg1: string) => JSX.Element) = (msg: string): JSX.Element => (
   <span id="validationError" className={style.validationError}>{msg}</span>
+);
+
+const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JSX.Element => (
+  <Badge pullRight={true}>{text.length}</Badge>
 );
 
 export const textField: ((arg1: CustomFieldProps) => JSX.Element) =
@@ -98,14 +102,15 @@ export const fileInputField: ((arg1: CustomFieldProps) => JSX.Element) =
     </FormGroup>
   );
 
-export const textAreaField: ((arg1: CustomFieldProps) => JSX.Element) =
-  (fieldProps: CustomFieldProps): JSX.Element => (
+export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) => JSX.Element) =
+  (fieldProps: CustomFieldProps & { withCount?: boolean }): JSX.Element => (
     <div>
       <FormControl
         componentClass="textarea"
         {...fieldProps}
         {...fieldProps.input}
       />
+      {fieldProps.withCount === true ? renderCharacterCount(fieldProps.input.value as string) : undefined}
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>
   );
