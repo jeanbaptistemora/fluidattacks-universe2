@@ -797,7 +797,7 @@ msgstr "Magnifying glass analysing code"
 #: templates/landing.html:49
 msgid "Index-bnft-1"
 msgstr ""
-"<strong>Maximum strictness</strong> We attack a system integrally "
+"<strong>Maximum strictness:</strong> We attack a system integrally "
 "evaluating its components one by one."
 
 #: templates/landing.html:50
@@ -807,8 +807,8 @@ msgstr "Closing admiration sign"
 #: templates/landing.html:52
 msgid "Index-bnft-2"
 msgstr ""
-"<strong>Security in the SDLC</strong> "
-"We include good security practices since early stages "
+"<strong>Security in the SDLC:</strong> "
+"We follow good security practices from the earliest stages "
 "in the development lifecycle."
 
 #: templates/landing.html:55
@@ -818,8 +818,9 @@ msgstr "Graph showing the increase of earnings"
 #: templates/landing.html:57
 msgid "Index-bnft-3"
 msgstr ""
-"We are specialized in finding "
-"<strong>zero day vulnerabilities.</strong>"
+
+"We specialize in finding "
+"<strong>zero-day vulnerabilities.</strong>"
 
 #: templates/landing.html:60
 msgid "Index-img-alt-5"
@@ -855,15 +856,16 @@ msgid "Index-msg-2"
 msgstr ""
 "Fluid Attacks has over 17 years of experience "
 "working with companies from different markets and economic sectors. "
-"Below, we list some of our customers."
+"See below for a partial list of our customers."
 
 #: templates/landing.html:184
 msgid "Contact-txt"
 msgstr ""
 "Please do not hesitate to contact us "
-"to share your comments, opinions and needs "
-"or to receive a complete advising "
-"about a product or service of your interest."
+"to share your comments, opinions and needs, "
+"or to receive an in-depth consultation "
+"concerning a product or the service of your choice."
+
 
 #: templates/landing.html:185
 msgid "Contact-img-alt"
