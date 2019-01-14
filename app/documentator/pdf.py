@@ -391,7 +391,7 @@ class CreatorPDF(object):
             if 'treatment' not in finding:
                 finding['treatment'] = words['treat_status_wor']
             elif finding['treatment'] == '-':
-                finding['treatment'] = words['treat_status_wor']
+                finding['treatment'] = '-'
             elif finding['treatment'] == 'Nuevo':
                 finding['treatment'] = words['treat_status_wor']
             elif finding['treatment'] == 'Asumido':

@@ -637,6 +637,9 @@ def format_finding(finding, request):
         finding['where'] = '-'
         finding['edad'] = '-'
         finding['lastVulnerability'] = '-'
+        finding['treatmentManager'] = '-'
+        finding['treatmentJustification'] = '-'
+        finding['treatment'] = '-'
     return finding
 
 def cast_new_vulnerabilities(finding_new, finding):

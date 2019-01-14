@@ -504,6 +504,9 @@ def finding_vulnerabilities(submission_id):
             finding['where'] = '-'
             finding['edad'] = '-'
             finding['lastVulnerability'] = '-'
+            finding['treatmentManager'] = '-'
+            finding['treatmentJustification'] = '-'
+            finding['treatment'] = '-'
         finding = format_release(finding)
         return finding
     else:
