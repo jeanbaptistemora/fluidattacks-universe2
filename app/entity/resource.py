@@ -11,6 +11,9 @@ from .. import util
 from ..dao import integrates_dao
 from ..mailer import send_mail_repositories
 
+
+# pylint: disable=too-many-locals
+
 class Resource(ObjectType):
     """ GraphQL Entity for Project Resources """
     repositories = JSONString()
@@ -37,6 +40,7 @@ class Resource(ObjectType):
         del info
         return self.environments
 
+
 class AddRepositories(Mutation):
     """Add repositories to a given project."""
 
@@ -50,7 +54,6 @@ class AddRepositories(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, resources_data, project_name):
-        util.invalidate_cache(project_name)
         success = False
         json_data = []
         email_data = []
@@ -94,7 +97,10 @@ class AddRepositories(Mutation):
         else:
             rollbar.report_message('Error: An error occurred adding repository', 'error', info.context)
 
-        return AddRepositories(success=success, resources=Resource(project_name))
+        ret = AddRepositories(success=success, resources=Resource(project_name))
+        util.invalidate_cache(project_name)
+        return ret
+
 
 class RemoveRepositories(Mutation):
     """Remove repositories of a given project."""
@@ -109,7 +115,6 @@ class RemoveRepositories(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, repository_data, project_name):
-        util.invalidate_cache(project_name)
         success = False
         repository = repository_data.get('urlRepo')
         branch = repository_data.get('branch')
@@ -154,7 +159,10 @@ class RemoveRepositories(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to remove repository that does not exist')
 
-        return RemoveRepositories(success=success, resources=Resource(project_name))
+        ret = RemoveRepositories(success=success, resources=Resource(project_name))
+        util.invalidate_cache(project_name)
+        return ret
+
 
 class AddEnvironments(Mutation):
     """Add environments to a given project."""
@@ -169,7 +177,6 @@ class AddEnvironments(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, resources_data, project_name):
-        util.invalidate_cache(project_name)
         success = False
         json_data = []
 
@@ -207,7 +214,10 @@ class AddEnvironments(Mutation):
         else:
             rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
 
-        return AddEnvironments(success=success, resources=Resource(project_name))
+        ret = AddEnvironments(success=success, resources=Resource(project_name))
+        util.invalidate_cache(project_name)
+        return ret
+
 
 class RemoveEnvironments(Mutation):
     """Remove environments of a given project."""
@@ -222,7 +232,6 @@ class RemoveEnvironments(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
     def mutate(self, info, repository_data, project_name):
-        util.invalidate_cache(project_name)
         success = False
         environment_url = repository_data.get('urlEnv')
         env_list = integrates_dao.get_project_dynamo(project_name)[0]['environments']
@@ -264,4 +273,6 @@ class RemoveEnvironments(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to remove an environment that does not exist')
 
-        return RemoveEnvironments(success=success, resources=Resource(project_name))
+        ret = RemoveEnvironments(success=success, resources=Resource(project_name))
+        util.invalidate_cache(project_name)
+        return ret
