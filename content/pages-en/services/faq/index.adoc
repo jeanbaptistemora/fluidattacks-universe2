@@ -446,8 +446,8 @@ your proprietary rights to that code.
 *Is there documentation for Asserts?*::
 Yes, it is available by going into link:https://fluidattacks.com/asserts/[Asserts page].
 
-*Is it possible to group applications in only one subscription?*::
-*How do I recognize the vulnerabilities per application?*::
+*Is it possible to group multiple applications into one subscription?*::
+*How would I recognize the vulnerabilities within each application?*::
  According to the active authors model, it is possible to create a large cell
  with all the developers or to divide it into applications
  according to the customer needs.
