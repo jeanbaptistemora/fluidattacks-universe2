@@ -159,12 +159,7 @@ class Batcher():
         self.dbcur = dbcur
 
         self.sname = schema_name
-        self.tname = "__START"
-
-        self.params = []
-        self.template = ""
-
-        self.count = 0
+        self.buckets = {}
 
     def ex(self, statement):
         """ executes a single statement, no performance buff here """
@@ -172,27 +167,38 @@ class Batcher():
             print(f"EXEC:{statement}.")
         self.dbcur.execute(statement)
 
-    def load(self, table_name, values):
-        """ executes multiple statements, big performance buff here """
-        self.count += 1
-        if self.tname == table_name and self.count < 10000:
-            self.params.append(tuple(values))
-        else:
-            if self.template:
-                if self.print:
-                    print(f"EXEC:{self.template}.")
-                    print(f"EXEC:{self.params}.")
-                # dev: need for speed ? try
-                # dev: self.dbcur.execute("PREPARE stmt AS complex_query with $1 $2 params")
-                execute_values(self.dbcur, self.template, self.params)
-                print(f"INFO: {self.count} messages sent to Redshift/{self.sname}/{self.tname}.")
-                # dev: self.dbcur.execute("DEALLOCATE stmt")
+    def queue(self, table_name, values):
+        """ queue 10k records before pushing them in batch to Redshift """
+        if not table_name in self.buckets:
+            self.buckets[table_name] = {
+                "params": [],
+                "count": 0
+            }
 
-            # prepare the params list for this batch
-            self.count = 0
-            self.tname = table_name
-            self.params = [tuple(values)]
-            self.template = f"INSERT INTO \"{self.sname}\".\"{self.tname}\" VALUES %s"
+        self.buckets[table_name]["params"].append(tuple(values))
+        self.buckets[table_name]["count"] += 1
+
+        if self.buckets[table_name]["count"] >= 10000:
+            self.load(table_name)
+
+    def load(self, table_name):
+        """ executes multiple statements, big performance buff here """
+        template = f"INSERT INTO \"{self.sname}\".\"{table_name}\" VALUES %s"
+        params = self.buckets[table_name]["params"]
+        count = self.buckets[table_name]["count"]
+        if self.print:
+            print(f"EXEC:{template}.")
+            print(f"EXEC:{params}.")
+        execute_values(self.dbcur, template, params)
+        print(f"INFO: {count} messages sent to Redshift/{self.sname}/{table_name}.")
+
+        self.buckets[table_name]["params"] = []
+        self.buckets[table_name]["count"] = 0
+
+    def flush(self):
+        """ flush it at the end to push buckets with less than 10k elements """
+        for table_name in self.buckets:
+            self.load(table_name)
 
     def __del__(self, *args):
         print(f"INFO: worker down at {datetime.utcnow()}.")
@@ -226,7 +232,7 @@ def persist_messages(dbcon, dbcur, messages, args):
                 else:
                     record_ov.append(None)
 
-            batcher.load(table_name, record_ov)
+            batcher.queue(table_name, record_ov)
 
         elif message_type == "SCHEMA":
             table_name = escape(json_obj["stream"].lower())
@@ -242,7 +248,7 @@ def persist_messages(dbcon, dbcur, messages, args):
             create_schema(batcher, args.schema_name)
             create_table(batcher, args.schema_name, table_name, table_of, table_ft, table_pkeys)
 
-    batcher.load("finish", [])
+    batcher.flush()
 
 def main():
     """ usual entry point """
