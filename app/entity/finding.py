@@ -40,6 +40,7 @@ client_s3 = boto3.client('s3',
 
 bucket_s3 = FI_AWS_S3_BUCKET
 
+
 class Finding(ObjectType):
     """Formstack Finding Class."""
 
@@ -476,6 +477,7 @@ class Finding(ObjectType):
         self.treatment_justification = dynamo_value.get('treatment_justification') if dynamo_value else fs_value
         return self.treatment_justification
 
+
 def set_initial_values(self):
     self.id = ''
     self.vulnerabilities = []
@@ -508,11 +510,14 @@ def set_initial_values(self):
     self.treatment_manager = ''
     self.treatment_justification = ''
 
+
 def get_exploit_from_file(self, file_name):
     return read_script(download_evidence_file(self, file_name))
 
+
 def get_records_from_file(self, file_name):
     return read_csv(download_evidence_file(self, file_name))
+
 
 def download_evidence_file(self, file_name):
     file_id = '/'.join([self.project_name.lower(), self.id, file_name])
@@ -534,6 +539,7 @@ def download_evidence_file(self, file_name):
             tmp_filepath = drive_api.download(file_name)
 
             return tmp_filepath
+
 
 def read_script(script_file):
     if util.assert_file_mime(script_file, ['text/x-python', 'text/x-c', 'text/plain', 'text/html']):
@@ -560,6 +566,7 @@ def read_csv(csv_file):
         except csv.Error:
             raise GraphQLError('Invalid record file format')
 
+
 class UpdateEvidence(Mutation):
     """ Update evidence files """
 
@@ -575,7 +582,6 @@ class UpdateEvidence(Mutation):
     @require_finding_access_gql
     def mutate(self, info, **parameters):
         success = False
-        util.invalidate_cache(parameters.get('finding_id'))
         uploaded_file = info.context.FILES.get('document', '')
 
         if util.assert_uploaded_file_mime(uploaded_file,
@@ -608,8 +614,11 @@ class UpdateEvidence(Mutation):
             util.cloudwatch_log(info.context, 'Security: Attempted to upload evidence file with a non-allowed format')
             raise GraphQLError('Extension not allowed')
 
-        return UpdateEvidence(success=success, \
+        ret = UpdateEvidence(success=success, \
             finding=Finding(info=info, identifier=parameters.get('finding_id')))
+        util.invalidate_cache(parameters.get('finding_id'))
+        return ret
+
 
 class UpdateEvidenceDescription(Mutation):
     """ Update evidence description """
@@ -625,7 +634,6 @@ class UpdateEvidenceDescription(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, finding_id, field, description):
-        util.invalidate_cache(finding_id)
         success = False
 
         try:
@@ -658,7 +666,10 @@ class UpdateEvidenceDescription(Mutation):
         except KeyError:
             rollbar.report_message('Error: An error occurred updating evidence description', 'error', info.context)
 
-        return UpdateEvidenceDescription(success=success, finding=Finding(info=info, identifier=finding_id))
+        ret = UpdateEvidenceDescription(success=success, finding=Finding(info=info, identifier=finding_id))
+        util.invalidate_cache(finding_id)
+        return ret
+
 
 def evidence_exceeds_size(uploaded_file, evidence_type):
     ANIMATION = 0
@@ -682,6 +693,7 @@ def evidence_exceeds_size(uploaded_file, evidence_type):
         util.cloudwatch_log_plain('Security: Attempted to upload an unknown type of evidence')
         raise Exception('Invalid evidence id')
 
+
 class UpdateSeverity(Mutation):
 
     class Arguments(object):
@@ -696,13 +708,15 @@ class UpdateSeverity(Mutation):
     def mutate(self, info, **parameters):
         finding_id = parameters.get('finding_id')
         project = integrates_dao.get_finding_project(finding_id)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project)
         success = False
         success = save_severity(parameters.get('data'))
 
-        return UpdateSeverity(success=success,
+        ret = UpdateSeverity(success=success,
             finding=Finding(info=info, identifier=finding_id))
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project)
+        return ret
+
 
 class AddFindingComment(Mutation):
     """ Add comment to finding """
@@ -721,7 +735,6 @@ class AddFindingComment(Mutation):
     def mutate(self, info, **parameters):
         if parameters.get('type') in ['comment', 'observation']:
             user_email = util.get_jwt_content(info.context)['user_email']
-            util.invalidate_cache(parameters.get('finding_id'))
             comment_id = int(round(time() * 1000))
             success = add_comment(
                 user_email=user_email,
@@ -737,4 +750,6 @@ class AddFindingComment(Mutation):
         else:
             raise GraphQLError('Invalid comment type')
 
-        return AddFindingComment(success=success, comment_id=comment_id)
+        ret = AddFindingComment(success=success, comment_id=comment_id)
+        util.invalidate_cache(parameters.get('finding_id'))
+        return ret
