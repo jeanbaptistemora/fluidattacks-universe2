@@ -174,7 +174,7 @@ danger:
     - npm install
     - bundle install
   script:
-    - bundle exec danger --verbose
+    - bundle exec danger --verbose --fail-on-errors=true
   only:
     - merge_requests
 
