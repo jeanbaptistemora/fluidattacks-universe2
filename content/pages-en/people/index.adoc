@@ -35,7 +35,7 @@ image::dnaspiran.png[alt="Diana Naspirán", width=100 ]
 Projects Team +
 link:https://www.linkedin.com/in/dianacarolinanaspiran/[LinkedIn]
 
-a|=== Juan Carlos Restrepo
+a|=== Juan Restrepo
 image::jrestrepo.png[alt="Juan Carlos Restrepo", width=100 ]
 Development Team +
 link:https://www.linkedin.com/in/juancrestrepo[LinkedIn]
@@ -80,7 +80,7 @@ image::eecheverri.png[alt="Elkin Echeverri", width=100 ]
 Board Team +
 link:https://www.linkedin.com/in/elkin-echeverri-garcia-bb81505/[LinkedIn]
 
-a|=== Juan Carlos Echeverri
+a|=== Juan Echeverri
 image::jecheverri.png[alt="Juan Carlos Echeverri", width=100 ]
 Board Team +
 link:https://www.linkedin.com/in/juan-carlos-echeverri-cia-ccsa-29a6829a/[LinkedIn]
