@@ -344,7 +344,7 @@ danger:
     - bundle install
   image: starefossen/ruby-node:2-10
   script:
-    - bundle exec danger --verbose
+    - bundle exec danger --verbose --fail-on-errors=true
 
 test-deployment:
   stage: pre-deploy
