@@ -104,7 +104,7 @@ commitlint:
   stage: pre-test
   before_script:
     - npm install
-  image: node:10
+  image: starefossen/ruby-node:2-10
   script:
     - ./ci-scripts/commitlint-checks.sh
   except:
@@ -319,6 +319,15 @@ Linting:
     - master
     - triggers
 
+mr-test:
+  stage: mr-check
+  only:
+    - merge_requests
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    ./ci-scripts/check-branch.sh
+
 danger:
   stage: mr-check
   only:
@@ -331,7 +340,9 @@ danger:
     - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
       | grep ${CI_COMMIT_SHA}
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - npm install
     - bundle install
+  image: starefossen/ruby-node:2-10
   script:
     - bundle exec danger --verbose
 
