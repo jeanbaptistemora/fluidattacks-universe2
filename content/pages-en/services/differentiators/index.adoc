@@ -66,8 +66,8 @@ link:../one-shot-hacking/#highly-trained-hacking-team[^4^]:
 Additionally they are selected and trained through the most demanding
 [button]#link:../../careers/[process]# in the industry,
 guaranteeing  their ability to program their own tools
-and audit code in multiple languages, that is to say
-they are *programmer-hackers*
+and audit code in multiple languages, that is to say,
+they are *programmer-hackers*.
 
 a|{no} They are certified in theoretical hacking
 through questions and answers:
@@ -191,8 +191,8 @@ a|{yes} Known
 link:../continuous-hacking/#coverage[^15^]
 link:../one-shot-hacking/#coverage[^16^]:
 
-* In fixed scopes, it is agreed the exact part of the attack surface
-that will be verified and its proportion with respect to the total.
+* In fixed scopes the exact part of the attack surface to be verified,
+and its proportion with respect to the total, is agreed upon in advance.
 
 * In variable scopes, the exact part of the attack surface
 that was verified and its proportion
