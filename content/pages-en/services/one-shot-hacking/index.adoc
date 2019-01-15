@@ -49,7 +49,7 @@ and the customer chooses to cover the entire system.
 
 Customers are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling)
-through our [button]#link:../../products/rules/[Rules]# product
+through our [button]#link:../../products/rules/[Rules]# product.
 
 Customers will know the exact Ethical Hacking severity for each attack
 (For inspected and non-inspected profiled requirements).
@@ -101,7 +101,7 @@ including those with specific business impacts,
 those regarding insecure programming practices,
 and those regarding standard alignment and security regulation compliance.
 This enables us to detect +Zero Day+ findings,
-all with no false positives reports.
+all with no false positive reports.
 
 a|image::trained-team.svg[alt="Team"]
 
@@ -174,7 +174,7 @@ a|image::report-meeting.svg[alt="Bar graph in a presentation"]
 
 2+a|== Report presentation meeting
 
-his is a formal executive report presentation
+This is a formal executive report presentation
 including questions-and-answers.
 All project stakeholders can participate.
 It can take place personally or remotely according to the customer’s needs.
