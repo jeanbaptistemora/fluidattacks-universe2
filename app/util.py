@@ -4,13 +4,10 @@ import hashlib
 import logging
 import logging.config
 import re
-import os
 import datetime
-import json
 import pytz
 import collections
 
-import rollbar
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
@@ -21,6 +18,7 @@ from jose import jwt, JWTError, ExpiredSignatureError
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
+
 def response(data, message, error):
     """ Create an object to send generic answers """
     response_data = {}
@@ -28,22 +26,6 @@ def response(data, message, error):
     response_data['message'] = message
     response_data['error'] = error
     return JsonResponse(response_data)
-
-
-def traceability(msg, user):
-    """ Function to create a customizable actions log
-        independent of the traditional log. """
-    file_obj = None
-    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    try:
-        filename = base + "/logs/integrates.log"
-        logmsg = str(datetime.datetime.now()) + "," + user + "," + msg
-        file_obj = open(filename, 'a')
-        file_obj.write(logmsg)
-        file_obj.close()
-    except (OSError, IOError) as expt:
-        rollbar.report_message("ERROR WITH LOG " + expt.message(), 'error')
-        print("ERROR CON EL LOG " + expt.message())
 
 
 def is_name(name):
@@ -72,18 +54,6 @@ def is_numeric(name):
         elif not re.search("^[0-9]+$", name):
             raise ValueError("")
     except ValueError:
-        valid = False
-    return valid
-
-
-def is_json(data):
-    """ Check if the given parameter is a json """
-    valid = True
-    try:
-        json.loads(data)
-    except ValueError:
-        valid = False
-    except TypeError:
         valid = False
     return valid
 
@@ -162,16 +132,6 @@ def get_evidence_set_s3(finding, key_list, field_list):
                 })
     return evidence_set
 
-def get_ext_filename(drive_id):
-    filename = "/tmp/img_:id".replace(":id", drive_id)
-    mime = Magic(mime=True)
-    mime_type = mime.from_file(filename)
-    if mime_type == "image/png":
-        return filename+".png"
-    elif mime_type == "image/jpeg":
-        return filename+".jpg"
-    elif mime_type == "image/gif":
-        return filename+".gif"
 
 def user_email_filter(emails, actualUser):
     if "@fluidattacks.com" in actualUser:
@@ -234,20 +194,6 @@ def validate_future_releases(finding):
         result = False
     return result
 
-def validate_session_time(project, request):
-    """Validate if project data is in session."""
-    if ("projects" in request.session and
-            project in request.session["projects"] and
-            project + "_date" in request.session["projects"]):
-        project_time = datetime.datetime.strptime(
-            request.session["projects"][project + "_date"],
-            "%Y-%m-%d %H:%M:%S.%f"
-        )
-        time_delta = (datetime.datetime.today() - project_time).total_seconds()
-        result = time_delta < 600
-    else:
-        result = False
-    return result
 
 def cloudwatch_log(request, msg):
     info = [request.session["username"], request.session["company"]]

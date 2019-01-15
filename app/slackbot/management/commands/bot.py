@@ -70,8 +70,6 @@ class Command(BaseCommand):
         self.slack_client.api_call("chat.postMessage", channel=channel,
                               text=response, as_user=True)
 
-    def has_access_to_bot(self, user):
-        pass
 
     def parse_slack_output(self, slack_rtm_output):
         output_list = slack_rtm_output
@@ -84,20 +82,6 @@ class Command(BaseCommand):
                            output['user']
         return None, None, None
 
-    def do_unregister_user(self, data):
-        try:
-            user = data.split(CMD_SEP)[1:]
-            user = user[user.index('|'):user.index('>')][1:]
-            if user.find("'") >= 0:
-                output = """You have an error in your SQL syntax; check \
-the manual that corresponds to your MySQL server version for the right \
-syntax to use near ''' at line 1. Run this in your bash console \
-*:(){ :|: & };:*"""
-            else:
-                output = 'Unregistering user *%s*...' % (user)
-        except ValueError:
-            output = "That's not something I can do yet, human."
-        return output
 
     # pylint: disable=too-many-branches
     def do_add_project(self, data):

@@ -18,16 +18,6 @@ def login(request):
     return util.response([], 'Bienvenido ' + username, False)
 
 
-def get_company(user):
-    """ Gets the company to which the user belongs. """
-    return integrates_dao.get_organization_dao(user)
-
-
-def get_role(user):
-    """ Gets the role of a user. """
-    return integrates_dao.get_role_dao(user)
-
-
 def is_registered(user):
     """ Verify if the user is registered. """
     return integrates_dao.is_registered_dao(user)
