@@ -111,6 +111,7 @@ export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) 
         {...fieldProps.input}
       />
       {fieldProps.withCount === true ? renderCharacterCount(fieldProps.input.value as string) : undefined}
+      {(fieldProps.withCount === true && fieldProps.meta.error) ? <br/> : undefined}
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>
   );

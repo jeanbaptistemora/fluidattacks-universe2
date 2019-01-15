@@ -46,3 +46,8 @@
   background-color: #eeeeee;
   opacity: 1;
 }
+
+.noResize {
+  resize: none;
+  min-height: 100px !important;
+}

@@ -70,6 +70,10 @@ const esTranslations: Map<string, string> = {
       path: "Ruta",
       port: "Puerto",
       port_plural: "Puertos",
+      remediation_modal: {
+        justification: "¿Cuál fue la solución aplicada?",
+        title: "Hallazgo remediado",
+      },
       vulnDeleted: "La vulnerabilidad fue borrada de este hallazgo",
     },
     tab_evidence: {

@@ -1,11 +1,14 @@
 import _ from "lodash";
-import { isRequired } from "revalidate";
+import { ConfigurableValidator, hasLengthGreaterThan, isRequired } from "revalidate";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
 
 export const required: typeof isRequired = isRequired({
   message: "This field is required.",
 });
+
+export const minLength: ((min: number) => ConfigurableValidator) = (min: number): ConfigurableValidator =>
+  hasLengthGreaterThan(min - 1)({ message: `This field requires at least ${min} characters` });
 
 export const validEmail: ((arg1: string) => string | undefined) =
   (value: string): string | undefined => {

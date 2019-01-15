@@ -69,6 +69,10 @@ const enTranslations: Map<string, string> = {
       path: "Path",
       port: "Port",
       port_plural: "Ports",
+      remediation_modal: {
+        justification: "Which was the applied solution?",
+        title: "Finding remediated",
+      },
       vulnDeleted: "Vulnerability was deleted of this finding",
     },
     tab_evidence: {
