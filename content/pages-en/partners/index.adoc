@@ -9,15 +9,14 @@
 
 = Partners
 
-Partners facilitate the delivery of our services to the end customer
-in different geographies (Germany link:#teraport[^1^],
+Partners facilitate the delivery of our services to our end customers
+located in a variety of geographic areas (Germany link:#teraport[^1^],
 Australia link:#the-missing-link[^2^] and the United States link:#arroyo-consulting[^3^] link:#sba[^4^])
 and sectors (Government, Defense) link:#evolution-it[^5^].
-In addition, with our offer,
-they complete their own portfolio
+In addition to our services, they complete their own portfolio
 (functional testing link:#choucair[^6^] link:#greensqa[^7^], software development)
-to provide an integral solution.
-If you want to become a partner of +Fluid Attacks+
+providing integrated solutions.
+If you are interested in partnering with +Fluid Attacks+,
 please start by reading the [button]#link:terms/[terms]#
 of our general partner agreement.
 
@@ -29,7 +28,7 @@ a|image::logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
 
 a|== Arroyo Consulting
 
-{usa} Agile nearshore information technology development firm formed in 2009.
+{usa} Agile nearshore information technology development firm formed in +2009+.
 They have offices located in the United States
 and low-cost operation centers located across Latin America in Mexico City,
 Mexico, and Medellín and Bogotá, Colombia.
@@ -38,11 +37,11 @@ with partners in a variety of industries and sectors.
 
 a|== Choucair
 
-Colombian company pioneer in software testing created in 1999
-with international projection, which offers services
-related to software testing to reduce the risks of its operation.
-The success of the services provided by the organization
-are based on research and qualified human resources,
+Colombian company, a pioneer in software testing.
+Created in 1999, with international scope,
+offering services related to software testing to reduce operational risks.
+The success of their services is based on research
+and qualified human resources,
 supported by a certified and effective methodology.
 
 a|image::logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
@@ -55,20 +54,20 @@ Company that provides information security services,
 forensics and technologies consulting.
 By aligning legal and technical concepts,
 support is given to litigation,
-administrative investigations and consultancy
-to the areas of compliance in topics such as:
-competence, protection of personal data and intellectual property.
+administrative investigations,
+and consultancy in the areas of compliance such as competence,
+protection of personal data and intellectual property.
 
 a|== Evolution IT
 
-Company that promotes, implements and strengthens
-the effective management of information technology
-as a pillar of companies to improve their competitiveness
-through better quality services,
-which help increase their profitability,
-employing world-class practices
-and establishing relationships of trust with customers,
-business partners and collaborators.
+Company that promotes, implements, and strengthens
+the effective management of information technology.
+Helps companies improve their competitiveness
+through better quality services
+resulting in an increase in their profitability.
+Employs world-class practices and successfully establishes
+business relationships with customers, business partners,
+and collaborators based on mutual trust.
 
 a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
 
@@ -76,38 +75,39 @@ a|image::gamma-logo.png[alt="Logo Gamma Ingenieros",link="https://www.gammaingen
 
 a|== Gamma Ingenieros
 
-Colombian company focused on satisfying their customer needs
-over +IT+ services and solutions, consulting
-and auditing of construction works and telecommunications,
-generating confidence and improving the customer experience
+Colombian company focused on satisfying their customers' needs
+regarding +IT+ services and solutions.
+Consulting and auditing of construction works and telecommunications
+with a proven track record of fostering customer confidence
+and improving the customer experience.
 
 a|== GreenSQA
 
-Company focused on software testing,
-such as performance tests,
-tests on different mobile devices and tests automation throughout
-the life cycle of product development
-with 15 years of experience lending its services.
+Company with +15+ years of experience in software testing,
+such as performance tests and tests on different mobile devices.
+Tests automation throughout the product development life-cycle.
 
 a|image::logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
 
 a|image::logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
 
 a|== NewNet
-Colombian company dedicated to provide services and solutions in +IT+,
-a pioneer in the field of information technology,
-with more than 20 years of experience.
-Its objective is to plan, establish, implement, operate,
-review, maintain, and improve technological management
-within a framework of security, service, support and support
-according to the needs of each organization.
+
+Colombian company dedicated to providing IT services and solutions.
+A pioneer in information technology,
+with more than +20+ years of experience.
+NewNet's objective is to plan, establish, implement, operate,
+review, maintain, and improve technology management
+within the framework of security, service,
+and support according to each organization's needs.
 
 a|== SBA
 
 {usa} Partner firm focused on obtaining rapid sales
-while laying the foundation for sustained business growth,
-giving advise and helping to implement what is needed to efficiently succeed
-in the target market(s) both in the short and long-term.
+while laying the foundation for sustained business growth.
+Providing advice and help in implementing what is needed
+to efficiently succeed in a target market,
+both in the short and long-term.
 SBA services include marketing, sales, operational support,
 and capital fundraising.
 
@@ -117,20 +117,20 @@ a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
 
 a|== Teraport
 
-{germany} German company specialized in software development
-and services in the field of virtual product development.
-Experts in automotive, aerospace and manufacturing industries fields,
-offering specific solutions and standardized products regarding development,
-simulation and quality assurance
-as well as services and consulting in product development engineering.
+{germany} German company specializing in software development,
+and in services in virtual product development.
+Experts in the automotive, aerospace, and manufacturing industries.
+Offering specific solutions and standardized products in development,
+simulation, and quality assurance,
+as well as, services and consulting in product development engineering.
 
 a|== The missing link
 
-{australia} Australian provider of information technology solutions,
-provide services for infrastructure, security, backup, disaster recovery,
-communications and cloud services.
-Recognized as a leader industry and accredited with the highest levels
-in design, delivery and support of the latest technologies.
+{australia} Australian company providing information technology solutions,
+infrastructure services, security, backup, disaster recovery,
+communications, and cloud services.
+Recognized as an industry leader accredited at the highest levels in design,
+delivery, and cutting-edge technology support.
 
 a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
@@ -138,17 +138,16 @@ a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
 
 a|== Zenda
 
-{peru} Peruvian provider of technological solutions,
-focused on designing value propositions aligned to the
-strategic objectives of your company and the management
-of the +IT+ area services.
-They seek to improve the +IT+ services impact,
-focused on the insights of each customer,
-and searching a continuous growth,
-delivering a simple, escalable and convergent solution.
+{peru} Peruvian company providing technology solutions.
+Focused on designing value propositions aligned to the strategic objectives
+of your company and management of the +IT+ area services.
+Seeking to improve +IT+ services impact
+by focusing on the insights of each customer,
+and fostering continuous business growth
+through the delivery of a simple, scalable, and convergent solution.
 
 |====
 
-If you agree the [button]#link:terms/[terms]#
-and wish to start the bonding process as a partner,
-please proceed through the following contact [button]#link:../contact-us/[form]# .
+If you agree with the [button]#link:terms/[terms]#
+of our general partner agreement, and would like to become a partner,
+please submit the following contact [button]#link:../contact-us/[form]#.
