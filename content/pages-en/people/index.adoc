@@ -5,11 +5,11 @@
 
 = People
 
-We are a passionate team focused on hacking software
-and finding vulnerabilities, enthusiastic about technology and security.
-We are always attacking, testing and developing new applications,
-the change is part of our DNA.
-Meet some of our members:
+We are a dedicated and enthusiastic team focused on software hacking,
+finding vulnerabilities, and passionate about our work.
+Technology and security is part of our DNA;
+we are always attacking, testing, and developing new applications.
+Meet some of our team:
 
 [role= "tb-ppl"]
 [cols=3]
@@ -47,7 +47,7 @@ link:https://www.linkedin.com/in/felipegomezarango[LinkedIn]
 
 a|=== Eliana Cudriz
 image::ecudriz.png[alt="Eliana Cudriz", width=100 ]
-Finnance Team +
+Finance Team +
 link:https://www.linkedin.com/in/eliana-cudriz-53b82210b/[LinkedIn]
 
 a|=== Vladimir Villa
