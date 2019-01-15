@@ -19,6 +19,7 @@ from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
 from app.domain.project import add_comment
 
+
 class Project(ObjectType):
     """Formstack Project Class."""
 
@@ -118,6 +119,7 @@ class Project(ObjectType):
 
         return self.tags
 
+
 def validate_release_date(release_date=''):
     """Validate if a finding has a valid relese date."""
     if release_date:
@@ -132,6 +134,7 @@ def validate_release_date(release_date=''):
     else:
         result = False
     return result
+
 
 class AddProjectComment(Mutation):
     """ Add comment to project """
@@ -149,7 +152,6 @@ class AddProjectComment(Mutation):
     def mutate(self, info, **parameters):
         project_name = parameters.get('project_name').lower()
         email = util.get_jwt_content(info.context)["user_email"]
-        util.invalidate_cache(project_name)
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_id = int(round(time.time() * 1000))
         comment_data = {
@@ -162,4 +164,6 @@ class AddProjectComment(Mutation):
         }
         success = add_comment(project_name, email, comment_data)
 
-        return AddProjectComment(success=success, comment_id=comment_id)
+        ret = AddProjectComment(success=success, comment_id=comment_id)
+        util.invalidate_cache(project_name)
+        return ret

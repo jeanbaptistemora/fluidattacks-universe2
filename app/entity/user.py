@@ -13,6 +13,7 @@ from ..dao import integrates_dao
 from ..services import is_customeradmin, has_responsibility, has_phone_number
 from ..mailer import send_mail_access_granted
 
+
 class User(ObjectType):
     """ GraphQL Entity for Project Users """
     email = String()
@@ -90,6 +91,7 @@ class User(ObjectType):
         del info
         return self.last_login
 
+
 class GrantUserAccess(Mutation):
     """Grant access to a given project."""
 
@@ -109,8 +111,6 @@ class GrantUserAccess(Mutation):
     @require_project_access_gql
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
-        util.invalidate_cache(project_name)
-        util.invalidate_cache(query_args.get('email'))
         success = False
 
         new_user_data = {
@@ -132,7 +132,11 @@ class GrantUserAccess(Mutation):
         else:
             rollbar.report_message('Error: Invalid role provided: ' + new_user_data['role'], 'error', info.context)
 
-        return GrantUserAccess(success=success, granted_user=User(project_name, new_user_data['email']))
+        ret = GrantUserAccess(success=success, granted_user=User(project_name, new_user_data['email']))
+        util.invalidate_cache(project_name)
+        util.invalidate_cache(query_args.get('email'))
+        return ret
+
 
 def create_new_user(context, new_user_data, project_name):
     email = new_user_data['email']
@@ -183,6 +187,7 @@ def create_new_user(context, new_user_data, project_name):
         success = True
     return success
 
+
 class RemoveUserAccess(Mutation):
     """Remove user of a given project."""
 
@@ -198,8 +203,6 @@ class RemoveUserAccess(Mutation):
     @require_project_access_gql
     def mutate(self, info, project_name, user_email):
         del info
-        util.invalidate_cache(project_name)
-        util.invalidate_cache(user_email)
         success = False
 
         integrates_dao.remove_role_to_project_dynamo(project_name, user_email, 'customeradmin')
@@ -208,7 +211,11 @@ class RemoveUserAccess(Mutation):
         success = is_user_removed_dao and is_user_removed_dynamo
         removed_email = user_email if success else None
 
-        return RemoveUserAccess(success=success, removed_email=removed_email)
+        ret = RemoveUserAccess(success=success, removed_email=removed_email)
+        util.invalidate_cache(project_name)
+        util.invalidate_cache(user_email)
+        return ret
+
 
 class EditUser(Mutation):
     """Edit user of a given project."""
@@ -229,8 +236,6 @@ class EditUser(Mutation):
     @require_project_access_gql
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
-        util.invalidate_cache(project_name)
-        util.invalidate_cache(query_args.get('email'))
         success = False
 
         modified_user_data = {
@@ -253,7 +258,11 @@ class EditUser(Mutation):
         else:
             rollbar.report_message('Error: Invalid role provided: ' + modified_user_data['role'], 'error', info.context)
 
-        return EditUser(success=success, modified_user=User(project_name, modified_user_data['email']))
+        ret = EditUser(success=success, modified_user=User(project_name, modified_user_data['email']))
+        util.invalidate_cache(project_name)
+        util.invalidate_cache(query_args.get('email'))
+        return ret
+
 
 def modify_user_information(context, modified_user_data, project_name):
     role = modified_user_data['role']
