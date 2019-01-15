@@ -31,7 +31,7 @@ issues were resolved before going to production.
 
 What is the difference between a +pentest+ and a +vulnerability analysis+
 using automated tools? +
-These items alow us to find and report all security vulnerabilities
+These items allow us to find and report all security vulnerabilities
 in your application.
 a|image::differentiators.svg[Metal gear]
 
@@ -45,17 +45,23 @@ best suits your needs.
 
 2+a|== link:certifications/[Certifications]
 
-Our hackers have certifications in different areas
-of the Security of Information, like +OSCP+, +OSWP+,
-+CEH+, +CISSP+, among others.
-This to ensure that you are hiring a team of capable professionals.
+Our hackers have professional certifications in a variety of areas
+in information security
+such as Offensive Security Certified Professional (+OSCP+),
+Offensive Security Wireless Professional (+OSWP+),
+Certified Ethical Hacker (+CEH+),
+Certified Information Systems Security Professional (+CISSP+), among others.
+You can be confident that when you hire us,
+you are getting a team of highly capable professionals.
+
 a|image::certifications.svg[Certification diploma]
 
 a|image::faq.svg[Question being answered in a conversation]
 2+a|== link:faq/[FAQ]
 
-Do you have any question about the +Continuous Hacking+ service? +
-Read these Frequently Asked Questions to solve
-some of the most common doubts regarding our service.
+Do you have any questions about One-Shot Hacking
+or Continuous Hacking services? +
+Scroll through the Frequently Asked Questions section
+to find the answers to the most common questions we get about our services.
 
 |====
