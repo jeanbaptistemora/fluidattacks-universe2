@@ -1160,7 +1160,8 @@ def finding_verified(request):
     if not verified:
         rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request)
         return util.response([], 'Error', True)
-    update_vulnerabilities_date(parameters['data[findingId]'])
+    analyst = request.session['username']
+    update_vulnerabilities_date(analyst, parameters['data[findingId]'])
     # Send email parameters
     try:
         to = [x[0] for x in recipients if x[1] == 1]

@@ -1453,8 +1453,7 @@ def add_vulnerability_dynamo(table_name, data):
                 'vuln_type': data["vuln_type"],
                 'where': data["where"],
                 'specific': str(data["specific"]),
-                'historic_state': data["historic_state"],
-                'analyst': data['analyst']
+                'historic_state': data["historic_state"]
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

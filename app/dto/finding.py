@@ -573,14 +573,19 @@ def range_to_list(range_value):
     return specific_values
 
 
-def update_vuln_state(vulnerability, item, finding_id, current_day):
+def update_vuln_state(info, vulnerability, item, finding_id, current_day):
     """Update vulnerability state."""
     historic_state = vulnerability[0].get('historic_state')
     last_state = historic_state[len(historic_state) - 1]
     response = False
     if last_state.get('state') != item.get('state'):
         historic_state = []
-        current_state = {'date': current_day, 'state': item.get('state')}
+        user_data = util.get_jwt_content(info.context)
+        analyst = user_data['user_email']
+        current_state = {
+            'date': current_day,
+            'state': item.get('state'),
+            'analyst': analyst}
         historic_state.append(current_state)
         response = integrates_dao.update_state_dynamo(
             finding_id,
@@ -605,7 +610,7 @@ def add_vuln_to_dynamo(item, specific, vuln, finding_id, info):
     user_data = util.get_jwt_content(info.context)
     email = user_data['user_email']
     if vulnerability:
-        response = update_vuln_state(vulnerability, item, finding_id, current_day)
+        response = update_vuln_state(info, vulnerability, item, finding_id, current_day)
     else:
         data = {}
         data['vuln_type'] = vuln
@@ -613,9 +618,11 @@ def add_vuln_to_dynamo(item, specific, vuln, finding_id, info):
         data['specific'] = specific
         data['finding_id'] = finding_id
         data['UUID'] = str(uuid.uuid4())
-        data['analyst'] = email
         if item.get('state'):
-            historic_state.append({'date': current_day, 'state': item.get('state')})
+            historic_state.append({
+                'date': current_day,
+                'state': item.get('state'),
+                'analyst': email})
             data['historic_state'] = historic_state
             response = integrates_dao.add_vulnerability_dynamo('FI_vulnerabilities', data)
         else:
@@ -687,7 +694,7 @@ def total_vulnerabilities(finding_id):
     return finding
 
 
-def update_vulnerabilities_date(finding_id):
+def update_vulnerabilities_date(analyst, finding_id):
     """Update vulnerabilities date when a verification is required."""
     vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
     for vuln in vulnerabilities:
@@ -703,7 +710,10 @@ def update_vulnerabilities_date(finding_id):
         if last_date != current_date:
             historic_state = []
             current_time = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-            last_state = {'date': current_time, 'state': current_state.get('state')}
+            last_state = {
+                'date': current_time,
+                'state': current_state.get('state'),
+                'analyst': analyst}
             historic_state.append(last_state)
             integrates_dao.update_state_dynamo(
                 finding_id,
