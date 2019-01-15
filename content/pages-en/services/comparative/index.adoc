@@ -1,7 +1,7 @@
 :slug: services/comparative/
 :category: services
 :description: Our Ethical Hacking and Pentesting services seek to find and report all the present security vulnerabilities in your application. It is important to distinguish between the different services we offer in order to select the service that fits your needs.
-:keywords: Fluid Attacks, Ethical Hacking, Comparison, One Shot Hacking, Continuous Hacking, Pentesting.
+:keywords: Fluid Attacks, Ethical Hacking, Comparison, One-Shot Hacking, Continuous Hacking, Pentesting.
 :translate: servicios/comparativo/
 :yes: image:../../images/icons/yes.png[yes]
 :no: image:../../images/icons/no.png[no]
@@ -11,13 +11,13 @@
 
 {description} To this end we present the following table:
 
-.Comparison between Continuous and One Shot Hacking services.
+.Comparison between Continuous and One-Shot Hacking services.
 [role="tb-row"]
 [cols="15,45,40"]
 |====
 | *Aspects*
 | link:../continuous-hacking/[*Continuous Hacking*]
-| link:../one-shot-hacking/[*One Shot Hacking*]
+| link:../one-shot-hacking/[*One-Shot Hacking*]
 
 a|==== Attack Cycles
 | Multiple link:../continuous-hacking/#remediation-validation[^1^].
@@ -60,7 +60,7 @@ a|==== Alerting
 to the project stakeholders about the current state of the project
 link:../continuous-hacking/#follow-up-using-integrates[^5^].
 |{yes} Alerting system via email to the project stakeholders
-when a novelty is reported.
+when an anomaly is reported.
 
 a|==== View
 |{yes} *Up-to-date* information about your system’s security.
