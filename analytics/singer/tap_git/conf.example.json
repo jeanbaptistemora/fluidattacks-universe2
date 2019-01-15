@@ -1,0 +1,12 @@
+{
+  "myrepo_name": {                     # you choose this name
+    "group": "group_name",             # a column that will help to filter repos by subscription
+    "location": "~/Downloads/my_repo", # path to local repo
+    "branches": [                      # list of branches to track
+      "master"
+    ]
+  },
+  "otherrepo_name": {
+    ...
+  }
+}

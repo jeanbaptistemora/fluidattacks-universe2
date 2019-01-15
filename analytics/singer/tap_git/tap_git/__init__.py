@@ -21,7 +21,8 @@ def get_extension(file_name):
     tokens = file_name.split(".")
     return tokens[-1].lower() if len(tokens) > 1 else "none"
 
-def changes_table(repo_name, branch, last_commit, commit, files):
+# pylint: disable=too-many-arguments
+def changes_table(group, repo_name, branch, last_commit, commit, files):
     """ writes singer records to stdout
 
         analytics of every commit yields a side-efect that is the "changes" table
@@ -33,6 +34,7 @@ def changes_table(repo_name, branch, last_commit, commit, files):
             "type": "RECORD",
             "stream": "changes",
             "record": {
+                "group": group,
                 "repo_name": repo_name,
                 "branch": branch,
                 "sha1": commit.hexsha,
@@ -100,8 +102,12 @@ def changes_table(repo_name, branch, last_commit, commit, files):
             srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
         SPRINT(srecord)
 
-def scan_commits(repo_name, repo_obj, branches):
+def scan_commits(repo_name, config):
     """ extracts all information possible from the commit object """
+
+    repo_obj = git.Repo(config["location"])
+    branches = config["branches"]
+    group = config.get("group", "_not_specified")
 
     def write_schemas():
         """ writes singer schemas to stdout """
@@ -116,10 +122,9 @@ def scan_commits(repo_name, repo_obj, branches):
     def write_records(branch):
         """ writes singer records to stdout """
 
-        skip = 0
         last_commit = None
         # iterate from first to latest
-        for commit in repo_obj.iter_commits(branch, skip=skip, reverse=True):
+        for commit in repo_obj.iter_commits(branch, reverse=True):
             total_insertions = commit.stats.total.get("insertions", 0)
             total_deletions = commit.stats.total.get("deletions", 0)
 
@@ -127,6 +132,7 @@ def scan_commits(repo_name, repo_obj, branches):
                 "type": "RECORD",
                 "stream": "commits",
                 "record": {
+                    "group": group,
                     "repo_name": repo_name,
                     "branch": branch,
                     "sha1": commit.hexsha,
@@ -150,11 +156,13 @@ def scan_commits(repo_name, repo_obj, branches):
             SPRINT(srecord)
 
             if not last_commit is None:
-                changes_table(repo_name, branch, last_commit, commit, commit.stats.files)
+                changes_table(group, repo_name, branch, last_commit, commit, commit.stats.files)
 
             last_commit = commit
 
             skip += 1
+
+        return skip
 
     write_schemas()
 
@@ -172,19 +180,12 @@ def main():
         help='JSON configuration file',
         type=argparse.FileType('r'),
         dest="conf")
-    parser.add_argument(
-        '-s', '--state',
-        help='JSON state file',
-        type=argparse.FileType('r'),
-        dest="state")
     args = parser.parse_args()
 
-    confs = json.load(args.conf)
+    configs = json.load(args.conf)
 
-    for repo_name, conf in confs.items():
-        repo_obj = git.Repo(conf["location"])
-
-        scan_commits(repo_name, repo_obj, conf["branches"])
+    for repo_name, conf in configs.items():
+        scan_commits(repo_name, conf)
 
 if __name__ == "__main__":
     main()
