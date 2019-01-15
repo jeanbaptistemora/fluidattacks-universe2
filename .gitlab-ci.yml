@@ -102,9 +102,9 @@ checks:
 
 commitlint:
   stage: lint
+  image: starefossen/ruby-node:2-10
   before_script:
     - npm install
-  image: node:10
   script:
     - ./ci-scripts/commitlint-checks.sh
   except:
@@ -151,9 +151,18 @@ stop-review:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
 
+mr-test:
+  stage: mr-check
+  only:
+    - merge_requests
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    ./ci-scripts/check-branch.sh
+
 danger:
   stage: mr-check
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: starefossen/ruby-node:2-10
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
@@ -162,6 +171,7 @@ danger:
     - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
       | grep ${CI_COMMIT_SHA}
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - npm install
     - bundle install
   script:
     - bundle exec danger --verbose
