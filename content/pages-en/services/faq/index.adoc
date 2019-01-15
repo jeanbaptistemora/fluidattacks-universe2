@@ -68,7 +68,7 @@ Frequently asked questions about Continuous Hacking.
   to the application.
 
 *What is an active author and how can I identify it?*::
- An active author is an user with access to the +Git+ repository
+ An active author is a user with access to the +Git+ repository
  who made changes over the stored code in the repository during
  the analyzed month.
 
@@ -137,10 +137,11 @@ Frequently asked questions about Continuous Hacking.
   Continuous Hacking begins immediately after receiving the purchase order.
 
 *Why there is a month 0 and how does setup work?*::
-  The monthly 0 is a start monthly payment to begin the setup of the test,
-  in this setup is assigned a project leader who is responsible
+
+  Month +0+ begins the test setup and is the start of the monthly payment.
+  A project leader is assigned who is responsible
   for managing the connection of environments, profiling, user creation,
-  allocation of privileges and all those necessary inputs
+  allocation of privileges, and all the necessary inputs
   to begin the review without setbacks.
 
 *Is it possible to hire On-the-Premises Continuous Hacking?*::
@@ -297,13 +298,15 @@ Frequently asked questions about Continuous Hacking.
  Then, we continue hacking simultaneously with the development team
  as development continues.
 
-*What happens if I dont want to perform a Health Check, but I want to take*::
-*the continuous hacking service?*::
- This is a risky choice, because there will be code that is never going to be
- tested and it's not possible to know what vulnerabilities may exist there
- and are not going to be identified.
- +Fluid Attacks+ guarantees that the +100%+ of the code change
- is going to be tested, but what can not be reached can not be tested.
+*What happens if I don't want to perform a Health Check, but I want*::
+*the Continuous Hacking service?*::
+ This is a risky choice.
+ Not performing a Health Check means there will be code
+ that is never going to be tested and, therefore,
+ it's not possible to know what vulnerabilities may exist in it;
+ those vulnerabilities are not going to be identified.
+ +Fluid Attacks+ guarantees that +100%+ of the code change
+ is going to be tested, but what cannot be reached, cannot be tested.
 
 *Do the repositories need to be in a specific version control system?*::
   Continuous Hacking is based on using +GIT+ for version control.
@@ -395,13 +398,13 @@ your proprietary rights to that code.
  when the hacker takes the environment and the branch
  and tries to attack the application taking into account the changes made.
 
- . Application in production without overdue code (+100%+ coverage):
+ . Application in production without overdue code (100% coverage):
  Even when there are no changes, the application is attacked.
- Internally we have processes that allow us to identify when we haven't find
- vulnerabilities in the application in +7+, +14+ and +21+ days.
- This in order to take actions such as hacker rotation
- or increase the number of hackers assigned to the project
- to achieve new vulnerabilities.
+ Internally, we have processes that help us identify
+ why we haven’t found vulnerabilities in the application in 7, 14 and 21 days.
+ These processes include such things as hacker rotations
+ or increasing the number of hackers assigned to the project
+ in order to find undiscovered vulnerabilities.
 
  . Application in development with overdue code (+<100+ coverage):
  Same as the first scenario, but attacks are only related
@@ -448,17 +451,19 @@ Yes, it is available by going into link:https://fluidattacks.com/asserts/[Assert
 
 *Is it possible to group multiple applications into one subscription?*::
 *How would I recognize the vulnerabilities within each application?*::
- According to the active authors model, it is possible to create a large cell
- with all the developers or to divide it into applications
- according to the customer needs.
+According to the active authors model,
+ it is possible to create a large cell with all the developers
+ or to divide it into applications according to the customer's needs.
  When managing only one cell it is important to consider that:
  * All the users in the project can see all the vulnerabilities
  of the application inside the same cell.
- * In case of having the same vulnerability in several applications
- the only way to identify them is by checking inside the vulnerability report
- the field where the location is specified.
+ * When the same vulnerability appears in several applications
+ the only way to identify/locate each one, in each individual application
+ is by checking the vulnerability report under the heading, location.
+ There it will specify where each can be found.
 
-*Is it possible to change environment when having an active subscription?*::
+*Is it possible to change the environment*::
+*when the subscription is already active??*::
 Yes, it is possible with the condition that the new environment
 must be the same branch environment where the source code is reviewed,
 thus +Fluid Attacks+ can test statically and dynamically the same version
@@ -471,7 +476,9 @@ of the change.
 
 
 *If I ask a question in the comment system,*::
-*how long it takes to get an answer?*::
+*how long does it take to get an answer?*::
  All questions made through the vulnerabilities comment system,
- have a +4+ business hours +SLA+. M - F from +8AM+ to +12M+ and +2PM+ to +6PM+.
- (+UTC-5+ Colombia). SLA is not contractually defined, it is our value promise.
+ have a +4+ business hours +SLA+. M - F
+ from +8AM+ to +12+ noon and +2PM+ to +6PM+.
+ (+UTC-5+ Colombia = same as Eastern Standard Time +USA+).
+ +SLA+ is not contractually defined, it is our value promise.
