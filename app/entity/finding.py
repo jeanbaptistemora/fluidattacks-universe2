@@ -30,7 +30,7 @@ from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
     group_by_state, cast_tracking, get_dynamo_evidence,
     add_file_attribute, migrate_evidence_description,
-    list_comments, add_comment
+    list_comments, add_comment, verify_finding
 )
 from graphene.types.generic import GenericScalar
 
@@ -751,5 +751,27 @@ class AddFindingComment(Mutation):
             raise GraphQLError('Invalid comment type')
 
         ret = AddFindingComment(success=success, comment_id=comment_id)
+        util.invalidate_cache(parameters.get('finding_id'))
+        return ret
+
+class VerifyFinding(Mutation):
+    """ Verify a finding """
+
+    class Arguments(object):
+        finding_id = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, **parameters):
+        user_email = util.get_jwt_content(info.context)['user_email']
+        success = verify_finding(
+            company=info.context.session['company'],
+            finding_id=parameters.get('finding_id'),
+            user_email=user_email
+            )
+
+        ret = VerifyFinding(success=success)
         util.invalidate_cache(parameters.get('finding_id'))
         return ret

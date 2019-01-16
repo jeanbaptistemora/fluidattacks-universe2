@@ -18,9 +18,8 @@ from app import util
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
-from app.dto.finding import FindingDTO, get_project_name
-from app.mailer import send_mail_new_comment
-from app.mailer import send_mail_reply_comment
+from app.dto.finding import FindingDTO, get_project_name, update_vulnerabilities_date
+from app.mailer import send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -284,3 +283,32 @@ def add_comment(user_email, user_fullname, parent, content, comment_type, commen
         send_comment_mail(user_email, content, parent, comment_type, finding_id)
 
     return integrates_dao.add_finding_comment_dynamo(int(finding_id), user_email, comment_data)
+
+def send_finding_verified_email(company, finding_id, finding_name, project_name):
+    project_users = integrates_dao.get_project_users(project_name)
+    recipients = [user[0] for user in project_users if user[1] == 1]
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_send_thread = threading.Thread(
+        name='Verified finding email thread', \
+        target=send_mail_verified_finding, \
+        args=(recipients, {
+           'project': project_name,
+           'finding_name': finding_name,
+           'finding_url': base_url + '/project/{project!s}/{finding!s}/tracking',
+           'finding_id': finding_id,
+           'company': company,
+        }))
+
+    email_send_thread.start()
+
+def verify_finding(company, finding_id, user_email):
+    project_name = get_project_name(finding_id).lower()
+    finding_name = integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding')
+    success = integrates_dao.add_remediated_dynamo(int(finding_id), False, project_name, finding_name)
+    if success:
+        update_vulnerabilities_date(user_email, finding_id)
+        send_finding_verified_email(company, finding_id, finding_name, project_name)
+    else:
+        rollbar.report_message('Error: An error occurred verifying the finding', 'error')
+
+    return success
