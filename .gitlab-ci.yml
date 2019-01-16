@@ -122,9 +122,6 @@ react-testing:
     - tsc -p tsconfig.json
   after_script:
     - echo "Job finished"
-  except:
-    - master
-    - triggers
 
 js-linter:
   stage: pre-test

@@ -97,16 +97,14 @@
     "i18next": "12.0.0",
     "@types/i18next": "11.9.3",
     "react-i18next": "8.3.8",
-    "react-image-lightbox": "5.0.0"
+    "react-image-lightbox": "5.0.0",
+    "nyc": "13.1.0"
   },
   "resolutions": {
     "graceful-fs": "4.1.13"
   },
   "scripts": {
     "test": "gulp compile && ./runTests.sh"
-  },
-  "devDependencies": {
-    "nyc": "13.1.0"
   },
   "nyc": {
     "extension": [
@@ -115,6 +113,9 @@
     ],
     "exclude": [
       "**/*.d.ts"
+    ],
+    "reporter": [
+      "text-summary"
     ],
     "all": true
   }
