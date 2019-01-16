@@ -5,7 +5,7 @@ exitCode=0
 
 for test in $testFiles
 do
-  mocha -r ignore-styles -r ts-node/register -r ./jsdom.js "$test";
+  nyc mocha -r ignore-styles -r ts-node/register -r ./jsdom.js "$test";
   exitCode=$?
 
   if [ "$exitCode" -ne 0 ]

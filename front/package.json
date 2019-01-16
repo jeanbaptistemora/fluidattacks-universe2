@@ -104,5 +104,18 @@
   },
   "scripts": {
     "test": "gulp compile && ./runTests.sh"
+  },
+  "devDependencies": {
+    "nyc": "13.1.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "all": true
   }
 }
