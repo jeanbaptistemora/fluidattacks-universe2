@@ -370,54 +370,24 @@ def std_date(date):
     standard: https://tools.ietf.org/html/rfc3339#section-5.6
     """
 
-    def month_to_number(month):
-        """ returns the month number for a given month name """
-        correlation = {"jan": "01",
-                       "feb": "02",
-                       "mar": "03",
-                       "apr": "04",
-                       "may": "05",
-                       "jun": "06",
-                       "jul": "07",
-                       "aug": "08",
-                       "sep": "09",
-                       "oct": "10",
-                       "nov": "11",
-                       "dec": "12"}
-        for month_name, month_number in correlation.items():
-            if month_name in month.lower():
-                return month_number
-        return "err"
-
     # log it
     logs.log_conversions("date [" + date + "]")
 
     new_date = ""
-    # Dec 31, 2018
-    if re.match("([a-zA-Z]{3} [0-9]{2}, [0-9]{4})", date):
-        new_date = date[8:12] + "-"
-        new_date += month_to_number(date[0:3]) + "-"
-        new_date += date[4:6] + "T00:00:00Z"
-    # 2018 12 31 or 2018/12/31 or 2018-12-31
-    elif re.match("([0-9]{4}( |/|-)[0-9]{2}( |/|-)[0-9]{2})", date):
-        new_date = date[0:10] + "T00:00:00Z"
-    # 12 31 2018 or 12/31/2018 or 12-31-2018
-    elif re.match("([0-9]{2}( |/|-)[0-9]{2}( |/|-)[0-9]{4})", date):
-        new_date = date[6:10] + "-" + date[3:5] + "-" + date[0:2] + "T00:00:00Z"
-    # Nov 2024
-    elif re.match("([a-zA-Z]{3} [0-9]{4})", date):
-        new_date = date[4:8] + "-"
-        new_date += month_to_number(date[0:3]) + "-"
-        new_date += "01T00:00:00Z"
-    # 19:27 represents an hour
-    elif re.match("([0-9]{2}:[0-9]{2})", date):
-        new_date = "1900-01-01T" + date[0:5] + ":00Z"
-    # User didn't fill the field
-    elif not date:
-        new_date = "1900-01-01T00:00:00Z"
-    # Not found
+
+    # 2018-12-28 14:03:42.123456
+    if re.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+", date):
+        date_obj = datetime.strptime(date, "%Y-%m-%d %H:%M:%S.%f")
+    # 2018-12-28 14:03:42
+    elif re.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", date):
+        date_obj = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+    # 2017-11-15
+    elif re.match(r"^\d{4}-\d{2}-\d{2}", date):
+        date_obj = datetime.strptime(date, "%Y-%m-%d")
     else:
         raise UnrecognizedDate
+
+    new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # log it
     logs.log_conversions("     [" + new_date + "]")
