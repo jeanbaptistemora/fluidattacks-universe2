@@ -5,55 +5,22 @@
   ],
   "schema":{
     "properties":{
-      "group":{
-        "type":"string"
-      },
-      "repo_name":{
-        "type":"string"
-      },
-      "branch":{
-        "type":"string"
-      },
       "sha1":{
         "type":"string"
       },
-      "sha1_short":{
+      "type":{
         "type":"string"
       },
-      "add":{
+      "source_path":{
         "type":"string"
       },
-      "add_ext":{
+      "source_ext":{
         "type":"string"
       },
-      "del":{
+      "target_path":{
         "type":"string"
       },
-      "del_ext":{
-        "type":"string"
-      },
-      "ren_from":{
-        "type":"string"
-      },
-      "ren_from_ext":{
-        "type":"string"
-      },
-      "ren_to":{
-        "type":"string"
-      },
-      "ren_to_ext":{
-        "type":"string"
-      },
-      "mod":{
-        "type":"string"
-      },
-      "mod_ext":{
-        "type":"string"
-      },
-      "modtype":{
-        "type":"string"
-      },
-      "modtype_ext":{
+      "target_ext":{
         "type":"string"
       },
       "insertions":{
