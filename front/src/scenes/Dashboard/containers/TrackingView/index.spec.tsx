@@ -20,11 +20,11 @@ describe('Tracking view', () => {
 
   it('should render vulnerabilities', () => {
     const testClosings: closing[] = [{
-      closed: "2",
-      cycle: "1",
+      closed: 2,
+      cycle: 1,
       date: "2018-10-10",
-      effectiveness: "20",
-      open: "1",
+      effectiveness: 20,
+      open: 1,
     }]
     const wrapper = shallow(
       <TrackingView
@@ -66,11 +66,11 @@ describe('Tracking view', () => {
   });
   it('should render closings timeline', () => {
     const testClosings: closing[] = [{
-      closed: "0",
-      cycle: "0",
+      closed: 0,
+      cycle: 0,
       date: "2018-10-10",
-      effectiveness: "0",
-      open: "4",
+      effectiveness: 0,
+      open: 4,
     }]
     const wrapper = shallow(
       <TrackingView
@@ -81,7 +81,7 @@ describe('Tracking view', () => {
     );
     expect(
       wrapper.find('ul').contains([
-        <li>
+        <li className="undefined undefined">
           <div>
             <span>
               2018-10-10

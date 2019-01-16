@@ -30,11 +30,11 @@ export interface ITrackingViewProps {
 }
 
 interface IClosing {
-  closed: string;
-  cycle: string;
+  closed: number;
+  cycle: number;
   date: string;
-  effectiveness: string;
-  open: string;
+  effectiveness: number;
+  open: number;
 }
 
 export declare type closing = IClosing;
@@ -120,7 +120,11 @@ export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps>
                     sm={12}
                   >
                     <ul className={style.timelineContainer}>
-                      <li key={0} className={style.timelineItem}>
+                      <li
+                        key={0}
+                        className={`${style.timelineItem} ${props.closings[0].effectiveness === 100 ?
+                          style.timelineItemGreen : style.timelineItemRed}`}
+                      >
                         <div className={style.timelineDate}>
                           <span>
                             {props.closings[0].date}
@@ -135,10 +139,14 @@ export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps>
                         </div>
                       </li>
                       {props.closings
-                        .filter((_0: { closed: string; cycle: string; effectiveness: string; open: string },
+                        .filter((_0: { closed: number; cycle: number; effectiveness: number; open: number },
                                  index: number) => index > 0)
                         .map((item: closing) =>
-                        <li key={item.cycle} className={style.timelineItem}>
+                        <li
+                          key={item.cycle}
+                          className={`${style.timelineItem} ${item.effectiveness === 100 ?
+                            style.timelineItemGreen : style.timelineItemRed}`}
+                        >
                           <div className={style.timelineDate}>
                             <span>
                               {item.date}

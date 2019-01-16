@@ -42,16 +42,10 @@
   border-radius: 50px;
 }
 
-:local .timelineItem:nth-child(4n+1):before {
+:local .timelineItemRed:before {
   border-color: #ef6262;
 }
-:local .timelineItem:nth-child(4n+2):before {
-  border-color: #8dcadf;
-}
-:local .timelineItem:nth-child(4n+3):before {
-  border-color: #FFC870;
-}
-:local .timelineItem:nth-child(4n+4):before {
+:local .timelineItemGreen:before {
   border-color: #7ACCBE;
 }
 
