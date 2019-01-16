@@ -138,21 +138,47 @@ def remove_repeated(vulnerabilities):
     """Remove vulnerabilities that changes in the same day."""
     vuln_casted = []
     for vuln in vulnerabilities:
-        vuln_without_repeated = {}
         for state in vuln.historic_state:
+            vuln_without_repeated = {}
             format_date = state.get('date').split(' ')[0]
-            vuln_without_repeated[format_date] = state.get('state')
-        vuln_casted.append(vuln_without_repeated)
+            vuln_without_repeated[format_date] = {vuln.id: state.get('state')}
+            vuln_casted.append(vuln_without_repeated)
     return vuln_casted
 
 
-def group_by_state(vulnerabilities):
+def get_unique_dict(list_dict):
+    """Get unique dict."""
+    unique_dict = {}
+    for d in list_dict:
+        date = next(iter(d))
+        if not unique_dict.get(date):
+            unique_dict[date] = {}
+        vuln = next(iter(d[date]))
+        unique_dict[date][vuln] = d[date][vuln]
+    return unique_dict
+
+
+def get_tracking_dict(unique_dict):
+    """Get tracking dictionary."""
+    sorted_dates = sorted(unique_dict.keys())
+    tracking_dict = {}
+    tracking_dict[sorted_dates[0]] = unique_dict[sorted_dates[0]]
+    for date in range(1, len(sorted_dates)):
+        prev_date = sorted_dates[date - 1]
+        tracking_dict[sorted_dates[date]] = tracking_dict[prev_date].copy()
+        actual_date_dict = unique_dict[sorted_dates[date]].items()
+        for vuln, state in actual_date_dict:
+            tracking_dict[sorted_dates[date]][vuln] = state
+    return tracking_dict
+
+
+def group_by_state(tracking_dict):
     """Group vulnerabilities by state."""
     tracking = {}
-    for vuln in vulnerabilities:
-        for date, status in vuln.items():
-            status_dict = tracking.setdefault(date, {'open': 0, 'closed': 0})
-            status_dict[status] += 1
+    for tracking_date, status in tracking_dict.items():
+        for vuln_state in status.values():
+            status_dict = tracking.setdefault(tracking_date, {'open': 0, 'closed': 0})
+            status_dict[vuln_state] += 1
     return tracking
 
 

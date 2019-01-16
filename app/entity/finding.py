@@ -30,7 +30,8 @@ from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
     group_by_state, cast_tracking, get_dynamo_evidence,
     add_file_attribute, migrate_evidence_description,
-    list_comments, add_comment, verify_finding
+    list_comments, add_comment, verify_finding,
+    get_unique_dict, get_tracking_dict
 )
 from graphene.types.generic import GenericScalar
 
@@ -210,8 +211,10 @@ class Finding(ObjectType):
             (self.open_vulnerabilities or
                 self.closed_vulnerabilities)):
             vuln_casted = remove_repeated(self.vulnerabilities)
-            tracking = group_by_state(vuln_casted)
-            order_tracking = sorted(tracking.items())
+            unique_dict = get_unique_dict(vuln_casted)
+            tracking = get_tracking_dict(unique_dict)
+            tracking_grouped = group_by_state(tracking)
+            order_tracking = sorted(tracking_grouped.items())
             tracking_casted = cast_tracking(order_tracking)
             self.tracking = tracking_casted
         else:
