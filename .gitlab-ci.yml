@@ -143,8 +143,8 @@ prospector-testing:
   <<: *variables-dev
   <<: *vault_login
   script:
-    - vaultenv -- $(which prospector) -u django -p app/ -i node_modules
-    - vaultenv -- $(which prospector) -u django fluidintegrates/
+    - vaultenv -- $(which prospector) -F -u django -p app/ -i node_modules || true
+    - vaultenv -- $(which prospector) -F -u django fluidintegrates/ || true
   except:
     - master
     - triggers
