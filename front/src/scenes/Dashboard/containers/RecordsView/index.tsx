@@ -26,18 +26,16 @@ export interface IRecordsViewProps {
   dataset: any[];
   findingId: string;
   isEditing: boolean;
-  projectName: string;
 }
 
-const updateRecords: ((arg1: string, arg2: string) => void) =
-  (findingId: string, projectName: string): void => {
+const updateRecords: ((arg1: string) => void) = (findingId: string): void => {
 
   if (isValidEvidenceFile("#evidence8")) {
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
 
-    thunkDispatch(actions.updateRecords(findingId, projectName));
+    thunkDispatch(actions.updateRecords(findingId));
   }
 };
 
@@ -59,7 +57,7 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
         <Button
           bsStyle="primary"
           block={true}
-          onClick={(): void => { updateRecords(props.findingId, props.projectName); }}
+          onClick={(): void => { updateRecords(props.findingId); }}
         >
           <Glyphicon glyph="cloud-upload"/>
           &nbsp;{translate.t("search_findings.tab_evidence.update")}

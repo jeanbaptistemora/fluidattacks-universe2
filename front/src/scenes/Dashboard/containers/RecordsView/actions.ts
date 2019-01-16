@@ -59,15 +59,12 @@ export const editRecords: (() => IActionStructure) =
   });
 
 export const updateRecords: ThunkActionStructure =
-  (
-    findingId: string, projectName: string,
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+  (findingId: string): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
     updateEvidence (
       id: "8",
-      findingId: "${findingId}",
-      projectName: "${projectName}") {
+      findingId: "${findingId}") {
       success
       finding {
         records

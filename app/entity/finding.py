@@ -24,7 +24,7 @@ from ..api.formstack import FormstackAPI
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import (
     FindingDTO, finding_vulnerabilities, save_severity,
-    has_migrated_evidence
+    has_migrated_evidence, get_project_name
 )
 from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
@@ -575,7 +575,6 @@ class UpdateEvidence(Mutation):
 
     class Arguments(object):
         finding_id = String(required=True)
-        project_name = String(required=True)
         id = String(required=True)
     success = Boolean()
     finding = Field(Finding)
@@ -602,8 +601,9 @@ class UpdateEvidence(Mutation):
                     ['evidence_route_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT],
                     ['fileRecords', fieldNum.REG_FILE]
                 ]
+                project_name = get_project_name(parameters.get('finding_id')).lower()
                 file_id = '{project}/{finding_id}/{project}-{finding_id}'.format(
-                    project=parameters.get('project_name'),
+                    project=project_name,
                     finding_id=parameters.get('finding_id')
                 )
 

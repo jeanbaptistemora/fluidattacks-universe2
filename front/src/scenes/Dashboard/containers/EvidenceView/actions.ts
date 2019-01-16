@@ -102,14 +102,13 @@ export const loadEvidence: ThunkActionStructure =
 
 export const updateEvidence: ThunkActionStructure =
   (
-    findingId: string, projectName: string, evidenceId: number,
+    findingId: string, evidenceId: number,
   ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
         updateEvidence (
           id: "${evidenceId}",
-          findingId: "${findingId}",
-          projectName: "${projectName}") {
+          findingId: "${findingId}") {
           success
           finding {
             evidence

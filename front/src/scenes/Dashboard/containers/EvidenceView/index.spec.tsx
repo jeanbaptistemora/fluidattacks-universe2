@@ -19,7 +19,6 @@ describe('Evidence view', () => {
         canEdit={true}
         currentIndex={0}
         findingId="422286126"
-        projectName="unittesting"
         images={[
           {
             description: "Test evidence",

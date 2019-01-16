@@ -39,7 +39,6 @@ export interface IEvidenceViewProps {
   images: Array<{ description: string; url: string }>;
   isEditing: boolean;
   isImageOpen: boolean;
-  projectName: string;
 }
 
 const enhance: InferableComponentEnhancer<{}> =
@@ -65,7 +64,7 @@ const updateEvidence: ((values: {}, evidenceId: number, props: IEvidenceViewProp
 
     if (isFileSelected(fileId)) {
       if (isValidEvidenceFile(fileId)) {
-        thunkDispatch(actions.updateEvidence(props.findingId, props.projectName, evidenceId));
+        thunkDispatch(actions.updateEvidence(props.findingId, evidenceId));
         if (evidenceId > 1) {
           thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
         }

@@ -177,7 +177,6 @@ angular
       [
         "canEdit",
         "findingId",
-        "projectName",
       ],
     ),
   );
@@ -355,7 +354,6 @@ angular
      recordsView, [
         "canEdit",
         "findingId",
-        "projectName",
      ],
    ),
   );
@@ -392,7 +390,6 @@ angular
      evidenceView, [
        "canEdit",
        "findingId",
-       "projectName",
      ],
    ),
   );
