@@ -8,6 +8,7 @@ import os
 import sys
 import threading
 from datetime import datetime
+from time import time
 
 import boto3
 import rollbar
@@ -19,7 +20,10 @@ from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.dto.finding import FindingDTO, get_project_name, update_vulnerabilities_date
-from app.mailer import send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding
+from app.mailer import (
+    send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
+    send_mail_remediate_finding
+)
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -313,6 +317,9 @@ def add_comment(user_email, user_fullname, parent, content, comment_type, commen
 def send_finding_verified_email(company, finding_id, finding_name, project_name):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
+    recipients.append('continuous@fluidattacks.com')
+    recipients.append('projects@fluidattacks.com')
+
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
         name='Verified finding email thread', \
@@ -320,7 +327,8 @@ def send_finding_verified_email(company, finding_id, finding_name, project_name)
         args=(recipients, {
            'project': project_name,
            'finding_name': finding_name,
-           'finding_url': base_url + '/project/{project!s}/{finding!s}/tracking',
+           'finding_url': base_url + '/project/{project!s}/{finding!s}/tracking'
+           .format(project=project_name, finding=finding_id),
            'finding_id': finding_id,
            'company': company,
         }))
@@ -336,5 +344,48 @@ def verify_finding(company, finding_id, user_email):
         send_finding_verified_email(company, finding_id, finding_name, project_name)
     else:
         rollbar.report_message('Error: An error occurred verifying the finding', 'error')
+
+    return success
+
+def send_remediation_email(user_email, finding_id, finding_name, project_name, justification):
+    project_users = integrates_dao.get_project_users(project_name)
+    recipients = [user[0] for user in project_users if user[1] == 1]
+    recipients.append('continuous@fluidattacks.com')
+    recipients.append('projects@fluidattacks.com')
+
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_send_thread = threading.Thread(
+        name='Remediate finding email thread', \
+        target=send_mail_remediate_finding, \
+        args=(recipients, {
+           'project': project_name,
+           'finding_name': finding_name,
+           'finding_url': base_url + '/project/{project!s}/{finding!s}/description'
+           .format(project=project_name, finding=finding_id),
+           'finding_id': finding_id,
+           'user_mail': user_email,
+           'solution': justification
+        }))
+
+    email_send_thread.start()
+
+def request_verification(finding_id, user_email, user_fullname, justification):
+    project_name = get_project_name(finding_id).lower()
+    finding_name = integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding')
+    success = integrates_dao.add_remediated_dynamo(int(finding_id), True, project_name, finding_name)
+    if success:
+        add_comment(
+            user_email=user_email,
+            parent='0',
+            content=justification,
+            comment_type='comment',
+            comment_id=int(round(time() * 1000)),
+            finding_id=finding_id,
+            user_fullname=user_fullname,
+            is_remediation_comment=True
+            )
+        send_remediation_email(user_email, finding_id, finding_name, project_name, justification)
+    else:
+        rollbar.report_message('Error: An error occurred remediating the finding', 'error')
 
     return success

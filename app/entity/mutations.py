@@ -13,7 +13,7 @@ from .vulnerability import (
 from .finding import (
     UpdateEvidence, UpdateSeverity,
     UpdateEvidenceDescription,
-    AddFindingComment, VerifyFinding
+    AddFindingComment, VerifyFinding, RequestVerification
 )
 from .project import AddProjectComment
 from graphene import ObjectType
@@ -42,3 +42,4 @@ class Mutations(ObjectType):
     addFindingComment = AddFindingComment.Field()
 
     verifyFinding = VerifyFinding.Field()
+    requestVerification = RequestVerification.Field()

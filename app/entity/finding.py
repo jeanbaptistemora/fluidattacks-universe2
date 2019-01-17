@@ -31,7 +31,7 @@ from app.domain.finding import (
     group_by_state, cast_tracking, get_dynamo_evidence,
     add_file_attribute, migrate_evidence_description,
     list_comments, add_comment, verify_finding,
-    get_unique_dict, get_tracking_dict
+    get_unique_dict, get_tracking_dict, request_verification
 )
 from graphene.types.generic import GenericScalar
 
@@ -776,5 +776,32 @@ class VerifyFinding(Mutation):
             )
 
         ret = VerifyFinding(success=success)
+        util.invalidate_cache(parameters.get('finding_id'))
+        return ret
+
+class RequestVerification(Mutation):
+    """ Request verification """
+
+    class Arguments(object):
+        finding_id = String(required=True)
+        justification = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['customer', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, **parameters):
+        user_email = util.get_jwt_content(info.context)['user_email']
+        success = request_verification(
+            finding_id=parameters.get('finding_id'),
+            user_email=user_email,
+            user_fullname=str.join(' ', [
+                info.context.session['first_name'],
+                info.context.session['last_name']
+                ]),
+            justification=parameters.get('justification')
+            )
+
+        ret = RequestVerification(success=success)
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
