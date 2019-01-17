@@ -15,10 +15,10 @@ import newrelic.agent
 import sys
 import os
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST, \
-         FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, \
-         FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, \
-         FI_DEBUG, FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
-         FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, FI_REDIS_SERVER
+    FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, \
+    FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, \
+    FI_DEBUG, FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
+    FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, FI_REDIS_SERVER
 from boto3.session import Session
 import rollbar
 from .production import FIELDS_FINDING, FN_URL, FIELDS_EVENT, EV_URL
@@ -32,7 +32,7 @@ sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-#Init New Relic agent
+# Init New Relic agent
 new_relic_conf_file = os.path.join(BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(new_relic_conf_file)
 
@@ -40,11 +40,11 @@ newrelic.agent.initialize(new_relic_conf_file)
 SECRET_KEY = FI_DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = FI_DEBUG =='True'
+DEBUG = FI_DEBUG == 'True'
 
 ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la",
-     "fluidattacks.com", "192.168.200.100.xip.io", "192.168.200.100",
-     ".integrates.env.fluidattacks.com"]
+                 "fluidattacks.com", "192.168.200.100.xip.io", "192.168.200.100",
+                 ".integrates.env.fluidattacks.com"]
 
 # Application definition
 
@@ -159,53 +159,53 @@ boto3_session = Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
                         region_name=AWS_REGION_NAME)
 LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'filters': {
-            'require_debug_false': {
-                '()': 'django.utils.log.RequireDebugFalse'
-            }
-        },
-        'handlers': {
-            'console':{
-                'level': 'ERROR',
-                'class': 'logging.StreamHandler'
-            },
-            'watchtower': {
-                'level': 'INFO',
-                'class': 'watchtower.CloudWatchLogHandler',
-                         'boto3_session': boto3_session,
-                         'log_group': 'FLUID',
-                         'stream_name': 'FLUIDIntegrates',
-                'formatter': 'aws',
-            },
-        },
-        'formatters': {
-            'simple': {
-                'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
-                'datefmt': "%Y-%m-%d %H:%M:%S"
-            },
-            'aws': {
-                'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
-                'datefmt': "%Y-%m-%d %H:%M:%S"
-            },
-        },
-        'loggers': {
-            'django.request': {
-                'handlers': ['console'],
-                'level': 'ERROR',
-                'propagate': True,
-                },
-            'django_crontab.crontab': {
-                'handlers': ['console'],
-                'level': 'INFO'
-            },
-            'app': {
-                'handlers': ['console', 'watchtower'],
-                'level': 'INFO'
-            },
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
         }
+    },
+    'handlers': {
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler'
+        },
+        'watchtower': {
+            'level': 'INFO',
+            'class': 'watchtower.CloudWatchLogHandler',
+                     'boto3_session': boto3_session,
+                     'log_group': 'FLUID',
+                     'stream_name': 'FLUIDIntegrates',
+            'formatter': 'aws',
+        },
+    },
+    'formatters': {
+        'simple': {
+            'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
+            'datefmt': "%Y-%m-%d %H:%M:%S"
+        },
+        'aws': {
+            'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
+            'datefmt': "%Y-%m-%d %H:%M:%S"
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django_crontab.crontab': {
+            'handlers': ['console'],
+            'level': 'INFO'
+        },
+        'app': {
+            'handlers': ['console', 'watchtower'],
+            'level': 'INFO'
+        },
     }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -261,7 +261,7 @@ CACHES = {
 
 CACHE_TTL = 60 * 60 * 8
 
-#Session
+# Session
 SESSION_ENGINE = 'redis_sessions.session'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
@@ -277,9 +277,9 @@ SESSION_REDIS = {
     'socket_timeout': 1,
     'retry_on_timeout': False,
     'cluster': True
-    }
+}
 
-#JWT
+# JWT
 JWT_COOKIE_NAME = "integrates_session"
 JWT_SECRET = FI_JWT_SECRET
 
@@ -290,7 +290,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
-    #'social_core.pipeline.social_auth.associate_by_email',
     'app.pipeline.user.create_user',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
@@ -328,7 +327,7 @@ INTERCOM_CUSTOM_DATA_CLASSES = [
 SLACK_BOT_TOKEN = FI_SLACK_BOT_TOKEN
 
 if DEBUG:
-    SOCIAL_AUTH_LOGIN_REDIRECT_URL     = '/registration'
+    SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
     SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
 else:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluidattacks.com/integrates/registration'
