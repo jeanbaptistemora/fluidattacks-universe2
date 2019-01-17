@@ -189,7 +189,7 @@ angular.module("FluidIntegrates").controller(
         },
         {
           "align": "center",
-          "dataField": "date",
+          "dataField": "eventDate",
           "header":
             $translate.instant("search_events.headings.date"),
           "width": "3.5%"
@@ -210,7 +210,7 @@ angular.module("FluidIntegrates").controller(
         },
         {
           "align": "center",
-          "dataField": "status",
+          "dataField": "eventStatus",
           "header": $translate.instant("search_events.headings.status"),
           "isStatus": true,
           "width": "3.0%"

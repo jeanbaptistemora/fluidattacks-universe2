@@ -20,8 +20,8 @@ angular.module("FluidIntegrates").factory(
       "alertEvents" (events) {
         let openEvents = 0;
         for (let event = 0; event < events.length; event++) {
-          if (eventsData[event].status === "Unsolved" ||
-            eventsData[event].status === "Pendiente") {
+          if (eventsData[event].eventStatus === "Unsolved" ||
+            eventsData[event].eventStatus === "Pendiente") {
             openEvents += 1;
           }
         }
@@ -165,12 +165,12 @@ angular.module("FluidIntegrates").factory(
                analyst,
                client,
                clientProject,
-               date,
+               eventDate,
                detail,
                evidence,
                id,
                projectName,
-               status,
+               eventStatus,
                eventType
              }
          }`;

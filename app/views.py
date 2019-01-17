@@ -1349,7 +1349,7 @@ def calculate_indicators(project):
     openVulnerabilities = cardinalidadTotal = maximumSeverity = openEvents =  0
     for row in api.get_eventualities(project)["submissions"]:
         evtset = event.parse(row["id"], api.get_submission(row["id"]))
-        if evtset['status'] == 'Pendiente':
+        if evtset['eventStatus'] == 'Pendiente':
             openEvents += 1
     findings = integrates_dao.get_findings_dynamo(project, 'finding_id')
     for finding in findings:

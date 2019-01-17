@@ -40,7 +40,7 @@ def get_event(event_id):
     return create_dictionary_from_event_submission(event_id, event_submission)
 
 def is_a_unsolved_event(event):
-    return event['status'] == 'Pendiente'
+    return event['eventStatus'] == 'Pendiente'
 
 def get_events_submissions(project):
     formstack_api = FormstackAPI()

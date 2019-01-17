@@ -21,14 +21,19 @@ class EventDTO(object):
     CLIENT_PROJECT = FIELDS_EVENT['CLIENT_PROJECT']
     EVENT_TYPE = FIELDS_EVENT['EVENT_TYPE']
     DETAIL = FIELDS_EVENT['DETAIL']
-    DATE = FIELDS_EVENT['DATE']
-    STATUS = FIELDS_EVENT['STATUS']
+    EVENT_DATE = FIELDS_EVENT['EVENT_DATE']
+    EVENT_STATUS = FIELDS_EVENT['EVENT_STATUS']
     AFFECTATION = FIELDS_EVENT['AFFECTATION']
     EVIDENCE = FIELDS_EVENT['EVIDENCE']
     ACCESSIBILITY = FIELDS_EVENT['ACCESSIBILITY']
     AFFECTED_COMPONENTS = FIELDS_EVENT['AFFECTED_COMPONENTS']
     SUBSCRIPTION = FIELDS_EVENT['SUBSCRIPTION']
     CONTEXT = FIELDS_EVENT['CONTEXT']
+    CLIENT_RESPONSIBLE = FIELDS_EVENT['CLIENT_RESPONSIBLE']
+    HOURS_BEFORE_BLOCKING = FIELDS_EVENT['HOURS_BEFORE_BLOCKING']
+    ACTION_BEFORE_BLOCKING = FIELDS_EVENT['ACTION_BEFORE_BLOCKING']
+    ACTION_AFTER_BLOCKING = FIELDS_EVENT['ACTION_AFTER_BLOCKING']
+    CLOSER = FIELDS_EVENT['CLOSER']
 
     def __init__(self):
         """ Class constructor """
@@ -67,14 +72,19 @@ class EventDTO(object):
                 self.CLIENT_PROJECT: 'clientProject',
                 self.EVENT_TYPE: 'eventType',
                 self.DETAIL: 'detail',
-                self.DATE: 'date',
-                self.STATUS: 'status',
+                self.EVENT_DATE: 'eventDate',
+                self.EVENT_STATUS: 'eventStatus',
                 self.AFFECTATION: 'affectation',
                 self.EVIDENCE: 'evidence',
                 self.ACCESSIBILITY: 'accessibility',
                 self.AFFECTED_COMPONENTS: 'affectedComponents',
                 self.SUBSCRIPTION: 'subscription',
-                self.CONTEXT: 'context'
+                self.CONTEXT: 'context',
+                self.CLIENT_RESPONSIBLE: 'clientResponsible',
+                self.HOURS_BEFORE_BLOCKING: 'hoursBeforeBlocking',
+                self.ACTION_BEFORE_BLOCKING: 'actionBeforeBlocking',
+                self.ACTION_AFTER_BLOCKING: 'actionAfterBlocking',
+                self.CLOSER: 'closer'
             }
             parsed_dict = {v: initial_dict[k] \
                            for (k, v) in event_fields.items() \

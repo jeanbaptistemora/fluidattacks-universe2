@@ -30,16 +30,16 @@ class Events(ObjectType):
     error_message = String()
     analyst = String()
     client = String()
-    projectName = String()
-    clientProject = String()
+    project_name = String()
+    client_project = String()
     detail = String()
     evidence = String()
-    eventType = String()
-    date = String()
-    status = String()
+    event_type = String()
+    event_date = String()
+    event_status = String()
     affectation = String()
     accessibility = String()
-    affectedComponents = String()
+    affected_components = String()
     context = String()
     subscription = String()
 
@@ -48,16 +48,16 @@ class Events(ObjectType):
         self.id = ''
         self.analyst = ''
         self.client = ''
-        self.projectName = ''
-        self.clientProject = ''
-        self.eventType = ''
-        self.date = ''
+        self.project_name = ''
+        self.client_project = ''
+        self.event_type = ''
+        self.event_date = ''
         self.detail = ''
         self.affectation = ''
-        self.status = ''
+        self.event_status = ''
         self.evidence = ''
         self.accessibility = ''
-        self.affectedComponents = ''
+        self.affected_components = ''
         self.context = ''
         self.subscription = ''
 
@@ -68,18 +68,18 @@ class Events(ObjectType):
             self.id = event_id
             self.analyst = resp.get('analyst')
             self.client = resp.get('client')
-            self.projectName = resp.get('projectName')
-            self.clientProject = resp.get('clientProject')
-            self.eventType = resp.get('eventType')
-            self.date = resp.get('date')
+            self.project_name = resp.get('projectName')
+            self.client_project = resp.get('clientProject')
+            self.event_type = resp.get('eventType')
+            self.event_date = resp.get('eventDate')
             self.detail = resp.get('detail')
             self.affectation = resp.get('affectation')
-            self.status = resp.get('status')
+            self.event_status = resp.get('eventStatus')
             if resp.get('evidence'):
                 parsedUrl = urlparse(resp.get('evidence'))
                 self.evidence = parse_qs(parsedUrl.query)['id'][0]
             self.accessibility = resp.get('accessibility')
-            self.affectedComponents = resp.get('affectedComponents')
+            self.affected_components = resp.get('affectedComponents')
             self.context = resp.get('context')
             self.subscription = resp.get('subscription')
         else:
@@ -107,35 +107,35 @@ class Events(ObjectType):
         del info
         return self.evidence
 
-    def resolve_projectName(self, info):
-        """ Resolve projectName attribute """
+    def resolve_project_name(self, info):
+        """ Resolve project_name attribute """
         del info
-        return self.projectName
+        return self.project_name
 
-    def resolve_projectByCustomer(self, info):
-        """ Resolve clientProject attribute """
+    def resolve_client_project(self, info):
+        """ Resolve client_project attribute """
         del info
-        return self.clientProject
+        return self.client_project
 
-    def resolve_eventType(self, info):
-        """ Resolve eventType attribute """
+    def resolve_event_type(self, info):
+        """ Resolve event_type attribute """
         del info
-        return self.eventType
+        return self.event_type
 
     def resolve_detail(self, info):
         """ Resolve detail attribute """
         del info
         return self.detail
 
-    def resolve_date(self, info):
+    def resolve_event_date(self, info):
         """ Resolve date attribute """
         del info
-        return self.date
+        return self.event_date
 
-    def resolve_status(self, info):
+    def resolve_event_status(self, info):
         """ Resolve status attribute """
         del info
-        return self.status
+        return self.event_status
 
     def resolve_affectation(self, info):
         """ Resolve affectation attribute """
@@ -147,10 +147,10 @@ class Events(ObjectType):
         del info
         return self.accessibility
 
-    def resolve_affectedComponents(self, info):
+    def resolve_affected_components(self, info):
         """ Resolve affected components attribute """
         del info
-        return self.affectedComponents
+        return self.affected_components
 
     def resolve_context(self, info):
         """ Resolve context attribute """

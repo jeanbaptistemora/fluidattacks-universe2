@@ -161,11 +161,11 @@ angular.module("FluidIntegrates").factory(
         const oopsAc = "An error occurred getting project events";
         const gQry = `{
             events (projectName: "${project}") {
-              date,
+              eventDate,
               detail,
               id,
               projectName,
-              status,
+              eventStatus,
               eventType
             }
         }`;
