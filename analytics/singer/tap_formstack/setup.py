@@ -19,7 +19,7 @@ setuptools.setup(
 
     entry_points='''
         [console_scripts]
-        tap_formstack=tap_formstack:main
+        tap-formstack=tap_formstack:main
     ''',
 
     packages=['tap_formstack'],

@@ -421,11 +421,11 @@ def main():
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-auth',
+        '-a', '--auth',
         help='JSON authentication file',
         type=argparse.FileType('r'))
     parser.add_argument(
-        '-conf',
+        '-c', '--conf',
         help='JSON configuration file',
         type=argparse.FileType('r'))
     args = parser.parse_args()
