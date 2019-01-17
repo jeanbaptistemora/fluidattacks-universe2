@@ -1579,12 +1579,12 @@ def get_finding_project(finding_id):
     return item
 
 
-def add_multiple_attributes_dynamo(primary_keys, dic_data):
+def add_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
     """Adding multiple attributes to a dynamo table."""
-    table = dynamodb_resource.Table('FI_findings')
-    item = get_data_dynamo('FI_findings', primary_keys[0], primary_keys[1])
+    table = dynamodb_resource.Table(table_name)
+    item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
     if item:
-        resp = update_multiple_attributes_dynamo(primary_keys, dic_data)
+        resp = update_multiple_attributes_dynamo(table_name, primary_keys, dic_data)
     else:
         try:
             p_key = {primary_keys[0]: primary_keys[1]}
@@ -1600,9 +1600,9 @@ def add_multiple_attributes_dynamo(primary_keys, dic_data):
     return resp
 
 
-def update_multiple_attributes_dynamo(primary_keys, dic_data):
+def update_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
     """Updating multiple data to a dynamo table."""
-    table = dynamodb_resource.Table('FI_findings')
+    table = dynamodb_resource.Table(table_name)
     try:
         str_format = '{metric} = :{metric}'
         dic_data_params = [str_format.format(metric=x) for x in dic_data.keys()]
@@ -1672,6 +1672,22 @@ def get_event_dynamo(event_id):
             break
     return items
 
+def get_event_attributes_dynamo(event_id, data_attributes):
+    """ Get a group of attributes of a event. """
+    table = dynamodb_resource.Table('fi_events')
+    try:
+        response = table.get_item(
+            Key={
+                'event_id': event_id
+            },
+            ProjectionExpression=data_attributes
+        )
+        items = response.get('Item')
+    except ClientError:
+        rollbar.report_exc_info()
+        items = {}
+    return items
+
 
 def update_item_list_dynamo(
         primary_keys, attr_name, index, field, field_value):
@@ -1730,4 +1746,21 @@ def get_findings_dynamo(project, data_attr=''):
                 items += response['Items']
             else:
                 break
+    return items
+
+
+def get_events():
+    """Get all the events of a project."""
+    filter_key = 'event_id'
+    table = dynamodb_resource.Table('fi_events')
+    filtering_exp = Attr(filter_key).exists()
+    response = table.scan(FilterExpression=filtering_exp)
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
     return items

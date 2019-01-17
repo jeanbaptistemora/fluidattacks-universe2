@@ -738,7 +738,7 @@ def save_severity(finding):
                        'integrityRequirement', 'availabilityRequirement']
     severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                 for k in severity_fields}
-    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, severity)
+    response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, severity)
     return response
 
 
@@ -760,7 +760,7 @@ def migrate_description(finding):
                           'effectSolution', 'kb', 'findingType']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
-    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
+    response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
     return response
 
 def migrate_treatment(finding):
@@ -770,7 +770,7 @@ def migrate_treatment(finding):
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     if description:
-        response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
+        response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
     else:
         response = True
     return response
@@ -796,7 +796,7 @@ def migrate_report_date(finding):
     description_fields = ['reportDate']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
-    response = integrates_dao.add_multiple_attributes_dynamo(primary_keys, description)
+    response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
     return response
 
 

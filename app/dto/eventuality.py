@@ -11,10 +11,11 @@ from ..api.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
 
+
 class EventDTO(object):
-    """ Class to create an object with the attributes of an event. """
+    """Class to create an object with the attributes of an event."""
+
     FIELDS_EVENT = settings.FIELDS_EVENT
-    #Atributos evento
     ANALYST = FIELDS_EVENT['ANALYST']
     CLIENT = FIELDS_EVENT['CLIENT']
     PROJECT_NAME = FIELDS_EVENT['PROJECT_NAME']
@@ -36,34 +37,34 @@ class EventDTO(object):
     CLOSER = FIELDS_EVENT['CLOSER']
 
     def __init__(self):
-        """ Class constructor """
+        """Class constructor."""
         self.request_id = None
         self.data = dict()
 
     def parse(self, submission_id, request_arr):
+        """Parse event data."""
         self.data = dict()
         self.data['id'] = submission_id
-        self.data['timestamp'] = request_arr['timestamp']
+        report_title = 'report_date'
+        report_date = integrates_dao.get_event_attributes_dynamo(
+            str(submission_id),
+            report_title)
+        if report_date:
+            self.data['reportDate'] = report_date.get('report_date')
+        else:
+            self.data['reportDate'] = request_arr['timestamp']
         self.data = forms.dict_concatenation(self.data, self.parse_event(submission_id, request_arr))
         return self.data
 
     def parse_event(self, submission_id, request_arr):
-        """ Converts the data of an event into a formstack """
+        """Convert the data of an event into a formstack."""
         initial_dict = forms.create_dict(request_arr)
-        event = integrates_dao.get_event_dynamo(submission_id)
+        event_title = 'event_date'
+        event = integrates_dao.get_event_attributes_dynamo(
+            submission_id,
+            event_title)
         if event:
-            event_title = ['analyst', 'client',
-                           'projectName', 'clientProject',
-                           'eventType', 'detail',
-                           'date', 'status',
-                           'affectation', 'evidence',
-                           'accessibility', 'affectedComponents',
-                           'subscription', 'context']
-            event_fields = {util.camelcase_to_snakecase(k): k
-                               for k in event_title}
-            parsed_dict = {v: event[k]
-                           for (k, v) in event_fields.items()
-                           if k in event.keys()}
+            parsed_dict = parse_event_dynamo(submission_id)
         else:
             event_fields = {
                 self.ANALYST: 'analyst',
@@ -86,17 +87,45 @@ class EventDTO(object):
                 self.ACTION_AFTER_BLOCKING: 'actionAfterBlocking',
                 self.CLOSER: 'closer'
             }
-            parsed_dict = {v: initial_dict[k] \
-                           for (k, v) in event_fields.items() \
+            parsed_dict = {v: initial_dict[k]
+                           for (k, v) in event_fields.items()
                            if k in initial_dict.keys()}
-            return parsed_dict
+        return parsed_dict
 
     def to_formstack(self, data):
         new_data = dict()
         for key, value in data.items():
             new_data["field_"+ str(key)] = value
         return new_data
-    
+
+
+def parse_event_dynamo(submission_id):
+    event_headers = [
+        'analyst', 'client', 'project_name', 'client_project', 'report_date',
+        'event_type', 'detail', 'event_date', 'event_status', 'affectation',
+        'evidence', 'accessibility', 'affected_components', 'subscription',
+        'context', 'client_responsible', 'hours_before_blocking', 'event_id',
+        'action_before_blocking', 'action_after_blocking', 'closer']
+    event_title = ','.join(event_headers)
+    event = integrates_dao.get_event_attributes_dynamo(
+        submission_id,
+        event_title)
+    parsed_dict = {}
+    if event:
+        event_fields = {k: util.snakecase_to_camelcase(k)
+                        for k in event_headers}
+        parsed_dict = {v: event[k]
+                       for (k, v) in event_fields.items()
+                       if k in event.keys()}
+        parsed_dict['id'] = event.get('event_id')
+    else:
+        util.cloudwatch_log_plain(
+            'Event {submission_id} does not have data in dynamo'.format(
+                submission_id=submission_id)
+        )
+    return parsed_dict
+
+
 def event_data(submission_id):
     event = []
     ev_dto = EventDTO()
