@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """ Class to export the findings A PDF. """
+import matplotlib
+matplotlib.use('Agg')
+
 from pylab import figure, pie, axis, legend, savefig, cla, clf, close
 from matplotlib.font_manager import FontProperties
 import jinja2
 import os
 import time
 import sys
-import matplotlib
-matplotlib.use('Agg')
 
 
 class CreatorPDF(object):
