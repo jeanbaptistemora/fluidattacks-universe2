@@ -83,6 +83,16 @@ class Finding(ObjectType):
     treatment_manager = String()
     treatment_justification = String()
 
+    # Additional attributes of detailed findings
+    client_code = String()
+    client_project = String()
+    probability = String()
+    detailed_severity = Int()
+    risk = String()
+    risk_level = String()
+    ambit = String()
+    category = String()
+
     def __init__(self, info, identifier):
         """Class constructor."""
         set_initial_values(self)
@@ -157,6 +167,14 @@ class Finding(ObjectType):
             self.treatment = resp.get('treatment', '')
             self.treatment_manager = resp.get('treatmentManager', '')
             self.treatment_justification = resp.get('treatmentJustification', '')
+            self.client_code = resp.get('clientCode', '')
+            self.client_project = resp.get('clientProject', '')
+            self.probability = resp.get('probability', '')
+            self.detailed_severity = int(resp.get('severity', '0'))
+            self.risk = resp.get('risk', '')
+            self.risk_level = resp.get('riskValue', '')
+            self.ambit = resp.get('ambit', '')
+            self.category = resp.get('category', '')
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -481,6 +499,86 @@ class Finding(ObjectType):
         fs_value = self.treatment_justification
         self.treatment_justification = dynamo_value.get('treatment_justification') if dynamo_value else fs_value
         return self.treatment_justification
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_client_code(self, info):
+        """ Resolve client_code attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['client_code'])
+        fs_value = self.client_code
+        self.client_code = dynamo_value.get('client_code') if dynamo_value else fs_value
+        return self.client_code
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_client_project(self, info):
+        """ Resolve client_project attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['client_project'])
+        fs_value = self.client_project
+        self.client_project = dynamo_value.get('client_project') if dynamo_value else fs_value
+        return self.client_project
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_probability(self, info):
+        """ Resolve probability attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['probability'])
+        fs_value = self.probability
+        self.probability = dynamo_value.get('probability') if dynamo_value else fs_value
+        return self.probability
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_detailed_severity(self, info):
+        """ Resolve detailed_severity attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['severity'])
+        fs_value = self.detailed_severity
+        self.detailed_severity = int(dynamo_value.get('severity') if dynamo_value else fs_value)
+        return self.detailed_severity
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_risk(self, info):
+        """ Resolve risk attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['risk'])
+        fs_value = self.risk
+        self.risk = dynamo_value.get('risk') if dynamo_value else fs_value
+        return self.risk
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_risk_level(self, info):
+        """ Resolve risk_level attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['risk_value'])
+        fs_value = self.risk_level
+        self.risk_level = dynamo_value.get('risk_value') if dynamo_value else fs_value
+        return self.risk_level
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_ambit(self, info):
+        """ Resolve ambit attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['ambit'])
+        fs_value = self.ambit
+        self.ambit = dynamo_value.get('ambit') if dynamo_value else fs_value
+        return self.ambit
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_category(self, info):
+        """ Resolve category attribute """
+        del info
+
+        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['category'])
+        fs_value = self.category
+        self.category = dynamo_value.get('category') if dynamo_value else fs_value
+        return self.category
 
 
 def set_initial_values(self):
