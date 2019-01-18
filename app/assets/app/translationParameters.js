@@ -25,8 +25,8 @@ const fieldsToTranslate = [
   "releaseStatus"
 ];
 const eventsTranslations = [
-  "type",
-  "status"
+  "eventType",
+  "eventStatus"
 ];
 const keysToTranslate = {
   "100% Vulnerado Anteriormente": "finding_formstack.probability.prev_vuln",

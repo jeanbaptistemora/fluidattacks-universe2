@@ -59,37 +59,30 @@ class EventDTO(object):
     def parse_event(self, submission_id, request_arr):
         """Convert the data of an event into a formstack."""
         initial_dict = forms.create_dict(request_arr)
-        event_title = 'event_date'
-        event = integrates_dao.get_event_attributes_dynamo(
-            submission_id,
-            event_title)
-        if event:
-            parsed_dict = parse_event_dynamo(submission_id)
-        else:
-            event_fields = {
-                self.ANALYST: 'analyst',
-                self.CLIENT: 'client',
-                self.PROJECT_NAME: 'projectName',
-                self.CLIENT_PROJECT: 'clientProject',
-                self.EVENT_TYPE: 'eventType',
-                self.DETAIL: 'detail',
-                self.EVENT_DATE: 'eventDate',
-                self.EVENT_STATUS: 'eventStatus',
-                self.AFFECTATION: 'affectation',
-                self.EVIDENCE: 'evidence',
-                self.ACCESSIBILITY: 'accessibility',
-                self.AFFECTED_COMPONENTS: 'affectedComponents',
-                self.SUBSCRIPTION: 'subscription',
-                self.CONTEXT: 'context',
-                self.CLIENT_RESPONSIBLE: 'clientResponsible',
-                self.HOURS_BEFORE_BLOCKING: 'hoursBeforeBlocking',
-                self.ACTION_BEFORE_BLOCKING: 'actionBeforeBlocking',
-                self.ACTION_AFTER_BLOCKING: 'actionAfterBlocking',
-                self.CLOSER: 'closer'
-            }
-            parsed_dict = {v: initial_dict[k]
-                           for (k, v) in event_fields.items()
-                           if k in initial_dict.keys()}
+        event_fields = {
+            self.ANALYST: 'analyst',
+            self.CLIENT: 'client',
+            self.PROJECT_NAME: 'projectName',
+            self.CLIENT_PROJECT: 'clientProject',
+            self.EVENT_TYPE: 'eventType',
+            self.DETAIL: 'detail',
+            self.EVENT_DATE: 'eventDate',
+            self.EVENT_STATUS: 'eventStatus',
+            self.AFFECTATION: 'affectation',
+            self.EVIDENCE: 'evidence',
+            self.ACCESSIBILITY: 'accessibility',
+            self.AFFECTED_COMPONENTS: 'affectedComponents',
+            self.SUBSCRIPTION: 'subscription',
+            self.CONTEXT: 'context',
+            self.CLIENT_RESPONSIBLE: 'clientResponsible',
+            self.HOURS_BEFORE_BLOCKING: 'hoursBeforeBlocking',
+            self.ACTION_BEFORE_BLOCKING: 'actionBeforeBlocking',
+            self.ACTION_AFTER_BLOCKING: 'actionAfterBlocking',
+            self.CLOSER: 'closer'
+        }
+        parsed_dict = {v: initial_dict[k]
+                       for (k, v) in event_fields.items()
+                       if k in initial_dict.keys()}
         return parsed_dict
 
     def to_formstack(self, data):
@@ -128,14 +121,41 @@ def parse_event_dynamo(submission_id):
 
 def event_data(submission_id):
     event = []
-    ev_dto = EventDTO()
-    api = FormstackAPI()
-    if str(submission_id).isdigit() is True:
-        event = ev_dto.parse(
-            submission_id,
-            api.get_submission(submission_id)
-        )
+    event_title = 'event_date'
+    event = integrates_dao.get_event_attributes_dynamo(
+        submission_id,
+        event_title)
+    if event:
+        event_parsed = parse_event_dynamo(submission_id)
     else:
-        rollbar.report_message('Error: An error occurred catching event', 'error')
-        return None
-    return event
+        ev_dto = EventDTO()
+        api = FormstackAPI()
+        if str(submission_id).isdigit() is True:
+            event_parsed = ev_dto.parse(
+                submission_id,
+                api.get_submission(submission_id)
+            )
+            resp = migrate_event(event_parsed)
+        else:
+            rollbar.report_message('Error: An error occurred catching event', 'error')
+    return event_parsed
+
+
+def migrate_event(event):
+    primary_keys = ['event_id', str(event['id'])]
+    if event.get('projectName'):
+        event['projectName'] = event['projectName'].lower()
+    else:
+        # Event does not have project name
+        pass
+    event_fields = [
+        'analyst', 'client', 'project_name', 'client_project', 'report_date',
+        'event_type', 'detail', 'event_date', 'event_status', 'affectation',
+        'evidence', 'accessibility', 'affected_components', 'subscription',
+        'context', 'client_responsible', 'hours_before_blocking',
+        'action_before_blocking', 'action_after_blocking', 'closer']
+    event_data = {k: event.get(util.snakecase_to_camelcase(k))
+                  for k in event_fields
+                  if event.get(util.snakecase_to_camelcase(k))}
+    response = integrates_dao.add_multiple_attributes_dynamo('fi_events', primary_keys, event_data)
+    return response
