@@ -207,6 +207,11 @@ const enTranslations: Map<string, string> = {
       usermail: "User email",
     },
   },
+  validations: {
+    email: "The email format is not valid",
+    minLength: "This field requires at least {{count}} characters",
+    required: "This field is required",
+  },
 };
 
 export = enTranslations;

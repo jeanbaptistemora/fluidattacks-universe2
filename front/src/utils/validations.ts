@@ -4,17 +4,17 @@ import { msgError } from "./notifications";
 import translate from "./translations/translate";
 
 export const required: typeof isRequired = isRequired({
-  message: "This field is required.",
+  message: translate.t("validations.required"),
 });
 
 export const minLength: ((min: number) => ConfigurableValidator) = (min: number): ConfigurableValidator =>
-  hasLengthGreaterThan(min - 1)({ message: `This field requires at least ${min} characters` });
+  hasLengthGreaterThan(min - 1)({ message: translate.t("validations.minLength", { count: min }) });
 
 export const validEmail: ((arg1: string) => string | undefined) =
   (value: string): string | undefined => {
   const pattern: RegExp = /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
   if (_.isEmpty(value) || !pattern.test(value)) {
-    return "The email format is not valid.";
+    return translate.t("validations.email");
   } else {
     return undefined;
   }

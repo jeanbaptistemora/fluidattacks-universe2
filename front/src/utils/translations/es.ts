@@ -208,6 +208,11 @@ const esTranslations: Map<string, string> = {
       usermail: "Email",
     },
   },
+  validations: {
+    email: "El formato de email no es válido",
+    minLength: "Este campo requiere por lo menos {{count}} caracteres",
+    required: "Este campo es obligatorio",
+  },
 };
 
 export = esTranslations;
