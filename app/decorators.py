@@ -25,8 +25,7 @@ def authenticate(func):
     @functools.wraps(func)
     def authenticate_and_call(*args, **kwargs):
         request = args[0]
-        if "username" not in request.session or \
-         request.session["username"] is None:
+        if "username" not in request.session or request.session["username"] is None:
             return HttpResponse('Unauthorized \
             <script>var getUrl=window.location.hash.substr(1); \
             localStorage.setItem("url_inicio",getUrl); \
@@ -41,11 +40,9 @@ def authorize(roles):
         def authorize_and_call(*args, **kwargs):
             request = args[0]
             # Verify role if the user is logged in
-            if "username" in request.session and \
-             request.session['registered'] == '1':
+            if "username" in request.session and request.session['registered'] == '1':
                 if request.session['role'] not in roles:
                     return util.response([], 'Access denied', True)
-
             else:
                 # The user is not even authenticated. Redirect to login
                 return HttpResponse('<script> \
@@ -146,7 +143,8 @@ def require_role(allowed_roles):
                         pass
             except PermissionDenied:
                 util.cloudwatch_log(context,
-                    'Security: Unauthorized role attempted to perform operation')
+                                    'Security: \
+Unauthorized role attempted to perform operation')
                 raise GraphQLError('Access denied')
             return func(*args, **kwargs)
         return verify_and_call
@@ -171,7 +169,8 @@ def require_project_access_gql(func):
                 user_data['user_role']
             ):
                 util.cloudwatch_log(context,
-                    'Security: Attempted to retrieve project info without permission')
+                                    'Security: \
+Attempted to retrieve project info without permission')
                 raise GraphQLError('Access denied')
             else:
                 pass
@@ -199,7 +198,8 @@ def require_finding_access_gql(func):
             raise GraphQLError('Invalid finding id format')
         if not has_access_to_finding(user_data['user_email'], finding_id, user_data['user_role']):
             util.cloudwatch_log(context,
-                'Security: Attempted to retrieve finding-related info without permission')
+                                'Security: \
+Attempted to retrieve finding-related info without permission')
             raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call

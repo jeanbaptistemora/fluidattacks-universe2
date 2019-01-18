@@ -52,7 +52,7 @@ class DriveAPI(object):
             os.fsync(fh)
             return filename
         except HttpError:
-            rollbar.report_message('Error: Unable to download the file','error')
+            rollbar.report_message('Error: Unable to download the file', 'error')
             return None
 
     def download_images(self, drive_file_id=""):
@@ -74,7 +74,7 @@ class DriveAPI(object):
             fh.flush()
             os.fsync(fh)
         except HttpError:
-            rollbar.report_message('Error: Unable to download the image','error')
+            rollbar.report_message('Error: Unable to download the image', 'error')
 
     def get_credentials(self):
         """ Gets the credentials to authenticate in the API. """

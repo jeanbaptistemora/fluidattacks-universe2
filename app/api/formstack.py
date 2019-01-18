@@ -155,7 +155,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 'per_page': 50}
         return self.requests_per_page("GET", self.IN_URL, data=data)
 
-
     def get_remmisions(self, project):
         """ Get the remissions of a project by its name. """
         data = {'search_field_1': remission.PROJECT_FIELD_ID,

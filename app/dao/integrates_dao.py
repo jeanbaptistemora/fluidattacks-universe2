@@ -24,7 +24,7 @@ dynamodb_resource = resource('dynamodb',
                              region_name='us-east-1')
 
 
-def create_user_dao(email, username='-', first_name='-', last_name='-', first_time='-' ):
+def create_user_dao(email, username='-', first_name='-', last_name='-', first_time='-'):
     """ Add a new user. """
     role = 'None'
     if first_time == "1":
@@ -85,6 +85,7 @@ def update_user_login_dao(email):
         row = cursor.fetchone()
     return row
 
+
 def update_user_data(email, username, first_name, last_name):
     """Update the user's last login date. """
     date_joined = datetime.now()
@@ -105,6 +106,7 @@ def get_user_last_login_dao(email):
     if row is None:
         return '-'
     return unicode(row[0])
+
 
 def get_user_first_login_dao(email):
     """ Get the user's first login date. """
@@ -137,6 +139,7 @@ def get_role_dao(email):
     if row is None:
         return "None"
     return row[0]
+
 
 def get_project_description(project):
     """ Get the description of a project. """
@@ -172,6 +175,7 @@ def is_registered_dao(email):
         return '1'
     return '0'
 
+
 def is_in_database(email):
     """ Check if the user exists in DB. """
     with connections['integrates'].cursor() as cursor:
@@ -182,6 +186,7 @@ def is_in_database(email):
         return False
     return True
 
+
 def has_complete_data(email):
     """ Check if the user has all data in DB . """
     with connections['integrates'].cursor() as cursor:
@@ -191,6 +196,7 @@ def has_complete_data(email):
     if row is None or row[0] == '-':
         return False
     return True
+
 
 def add_access_to_project_dao(email, project_name):
     """ Give access of a project to a user. """
@@ -391,6 +397,7 @@ def get_vulns_by_project_dynamo(project_name):
             break
     return items
 
+
 def get_user_dynamo(email):
     """ Get legal notice acceptance status """
     table = dynamodb_resource.Table('FI_users')
@@ -408,6 +415,7 @@ def get_user_dynamo(email):
         else:
             break
     return items
+
 
 def update_legal_remember_dynamo(email, remember):
     """ Remember legal notice acceptance """
@@ -444,6 +452,7 @@ def update_legal_remember_dynamo(email, remember):
             rollbar.report_exc_info()
             return False
 
+
 def add_phone_to_user_dynamo(email, phone):
     """Update user phone number."""
     table = dynamodb_resource.Table('FI_users')
@@ -477,6 +486,7 @@ def add_phone_to_user_dynamo(email, phone):
         except ClientError:
             rollbar.report_exc_info()
             return False
+
 
 def get_vulns_by_id_dynamo(project_name, unique_id):
     """ Gets findings info by finding ID. """
@@ -552,7 +562,6 @@ def delete_vulns_email_dynamo(project_name, unique_id):
     except ClientError:
         rollbar.report_exc_info()
         return False
-
 
 
 def get_company_alert_dynamo(company_name, project_name):
@@ -731,6 +740,7 @@ def logging_users_report(company_name, init_date, finish_date):
             rows = []
     return rows
 
+
 def get_all_companies():
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT DISTINCT UPPER(company) FROM users where company != %s'
@@ -741,6 +751,7 @@ def get_all_companies():
             rollbar.report_exc_info()
             rows = []
     return rows
+
 
 def get_all_users(company_name):
     with connections['integrates'].cursor() as cursor:
@@ -753,6 +764,7 @@ def get_all_users(company_name):
             rollbar.report_exc_info()
             rows = []
     return rows
+
 
 def all_inactive_users():
     """ Gets amount of inactive users in Integrates. """
@@ -848,6 +860,7 @@ def add_finding_comment_dynamo(finding_id, email, comment_data):
         rollbar.report_exc_info()
         return False
 
+
 def get_project_comments_dynamo(project_name):
     """ Get comments of a project. """
     table = dynamodb_resource.Table('fi_project_comments')
@@ -863,6 +876,7 @@ def get_project_comments_dynamo(project_name):
         else:
             break
     return items
+
 
 def add_project_comment_dynamo(project_name, email, comment_data):
     """ Add a comment in a project. """
@@ -881,6 +895,7 @@ def add_project_comment_dynamo(project_name, email, comment_data):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
 
 def delete_comment_dynamo(finding_id, user_id):
     """ Delete a comment in a finding. """
@@ -1115,7 +1130,6 @@ def remove_role_to_project_dynamo(project_name, user_email, role):
         return False
 
 
-
 def delete_finding_dynamo(finding_id):
     """ Delete a finding in DynamoDb."""
     table = dynamodb_resource.Table('FI_findings')
@@ -1171,6 +1185,7 @@ def weekly_report_dynamo(
     except ClientError:
         rollbar.report_exc_info()
         return False
+
 
 def get_continuous_info():
     """ Gets info of all continuous projects. """
@@ -1621,6 +1636,7 @@ def update_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
         resp = False
     return resp
 
+
 def get_finding_attributes_dynamo(finding_id, data_attributes):
     """ Get a group of attributes of a finding. """
     table = dynamodb_resource.Table('FI_findings')
@@ -1637,6 +1653,7 @@ def get_finding_attributes_dynamo(finding_id, data_attributes):
         items = {}
     return items
 
+
 def get_project_attributes_dynamo(project_name, data_attributes):
     """ Get a group of attributes of a project. """
     table = dynamodb_resource.Table('FI_projects')
@@ -1652,6 +1669,7 @@ def get_project_attributes_dynamo(project_name, data_attributes):
         rollbar.report_exc_info()
         items = {}
     return items
+
 
 def get_event_dynamo(event_id):
     """ Get an event. """
@@ -1671,6 +1689,7 @@ def get_event_dynamo(event_id):
         else:
             break
     return items
+
 
 def get_event_attributes_dynamo(event_id, data_attributes):
     """ Get a group of attributes of a event. """
