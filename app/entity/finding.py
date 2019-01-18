@@ -13,9 +13,10 @@ import rollbar
 import boto3
 from backports import csv
 from graphql import GraphQLError
-from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
+from graphene import String, ObjectType, Boolean, List, Int, Float, JSONString, Mutation, Field
 
 from .. import util
+from app.utils import forms as form_util
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
@@ -31,7 +32,8 @@ from app.domain.finding import (
     group_by_state, cast_tracking, get_dynamo_evidence,
     add_file_attribute, migrate_evidence_description,
     list_comments, add_comment, verify_finding,
-    get_unique_dict, get_tracking_dict, request_verification
+    get_unique_dict, get_tracking_dict, request_verification,
+    update_description
 )
 from graphene.types.generic import GenericScalar
 
@@ -437,7 +439,7 @@ class Finding(ObjectType):
 
         dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['cwe'])
         fs_value = self.cwe_url
-        self.cwe_url = dynamo_value.get('cwe') if dynamo_value else fs_value
+        self.cwe_url = form_util.get_cwe_url(dynamo_value.get('cwe') if dynamo_value else fs_value)
         return self.cwe_url
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -804,4 +806,41 @@ class RequestVerification(Mutation):
 
         ret = RequestVerification(success=success)
         util.invalidate_cache(parameters.get('finding_id'))
+        return ret
+
+class UpdateDescription(Mutation):
+    """ Update description of a finding """
+
+    class Arguments(object):
+        actor = String(required=True)
+        affected_systems = String(required=True)
+        attack_vector = String(required=True)
+        category = String()
+        cwe = String(required=True)
+        description = String(required=True)
+        finding_id = String(required=True)
+        probability = String()
+        recommendation = String(required=True)
+        records = String(required=True)
+        records_number = Int(required=True)
+        report_level = String(required=True)
+        requirements = String(required=True)
+        risk_value = Float()
+        severity = Int()
+        scenario = String(required=True)
+        threat = String(required=True)
+        title = String(required=True)
+    success = Boolean()
+    finding = Field(Finding)
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, finding_id, **parameters):
+        success = update_description(finding_id, parameters)
+
+        ret = UpdateDescription(success=success, finding=Finding(info=info, identifier=finding_id))
+        project_name = get_project_name(finding_id)
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
         return ret

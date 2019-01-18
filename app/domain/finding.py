@@ -404,3 +404,17 @@ def request_verification(finding_id, user_email, user_fullname, justification):
         rollbar.report_message('Error: An error occurred remediating the finding', 'error')
 
     return success
+
+def update_description(finding_id, updated_values):
+    updated_values['finding'] = updated_values.get('title')
+    updated_values['vulnerability'] = updated_values.get('description')
+    updated_values['effect_solution'] = updated_values.get('recommendation')
+    del updated_values['title']
+    del updated_values['description']
+    del updated_values['recommendation']
+
+    return integrates_dao.update_multiple_attributes_dynamo(
+        'FI_findings',
+        ['finding_id', finding_id],
+        updated_values
+        )
