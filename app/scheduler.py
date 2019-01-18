@@ -31,13 +31,9 @@ def remove_fluidattacks_emails_from_recipients(emails):
                     emails))
     return new_email_list
 
-def create_dictionary_from_event_submission(event_id, event_submission):
-    return eventuality.parse(event_id, event_submission)
-
 def get_event(event_id):
-    formstack_api = FormstackAPI()
-    event_submission = formstack_api.get_submission(event_id)
-    return create_dictionary_from_event_submission(event_id, event_submission)
+    event = eventuality.event_data(event_id)
+    return event
 
 def is_a_unsolved_event(event):
     return event['eventStatus'] == 'Pendiente'
@@ -55,8 +51,8 @@ def get_unsolved_events(project):
     return unsolved_events
 
 def extract_info_from_event_dict(event_dict):
-    return {'eventType': event_dict['eventType'], \
-            'detail': event_dict['detail']}
+    return {'type': event_dict['eventType'], \
+            'details': event_dict['detail']}
 
 def send_unsolved_events_email(project):
     unsolved_events = get_unsolved_events(project)
