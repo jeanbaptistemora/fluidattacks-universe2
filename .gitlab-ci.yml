@@ -78,6 +78,7 @@ build_base:
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
+      - $FLAG_SYNC_GIT
 
 build_builder:
   stage: deps
@@ -339,6 +340,7 @@ change_keys:
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
+      - $FLAG_SYNC_GIT
 
 vault_backup:
   stage: backup
@@ -376,6 +378,7 @@ vault_backup:
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
+      - $FLAG_SYNC_GIT
 
 formstack_backup:
   stage: backup
@@ -396,6 +399,7 @@ formstack_backup:
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
+      - $FLAG_SYNC_GIT
 
 sync_currencies:
   stage: analytics
@@ -484,3 +488,26 @@ sync_timedoctor:
       - schedules
     variables:
       - $FLAG_SYNC_TIMEDOCTOR
+
+sync_git:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - mkdir ~/.ssh
+    - pip3 install
+        pyyaml
+        analytics/singer/tap_git
+        analytics/singer/target_redshift
+    - analytics/git/set_awscli.sh
+    - python3 analytics/git/clone_us.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_us.log
+    - python3 analytics/git/clone_them.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_them.log
+    - python3 analytics/git/generate_config.py 2>&1 | aws s3 cp - s3://fluidanalytics/generate_config.log
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - tap-git --conf /config.json --last-n-days 180 |
+        target-redshift --auth /target_secret.json --drop-schema --schema-name "git"
+    - rm -fr ~/.aws/{credentials, config} /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_GIT
