@@ -53,10 +53,10 @@ class EventDTO(object):
             self.data['reportDate'] = report_date.get('report_date')
         else:
             self.data['reportDate'] = request_arr['timestamp']
-        self.data = forms.dict_concatenation(self.data, self.parse_event(submission_id, request_arr))
+        self.data = forms.dict_concatenation(self.data, self.parse_event(request_arr))
         return self.data
 
-    def parse_event(self, submission_id, request_arr):
+    def parse_event(self, request_arr):
         """Convert the data of an event into a formstack."""
         initial_dict = forms.create_dict(request_arr)
         event_fields = {
@@ -88,7 +88,7 @@ class EventDTO(object):
     def to_formstack(self, data):
         new_data = dict()
         for key, value in data.items():
-            new_data["field_"+ str(key)] = value
+            new_data["field_" + str(key)] = value
         return new_data
 
 
@@ -135,7 +135,7 @@ def event_data(submission_id):
                 submission_id,
                 api.get_submission(submission_id)
             )
-            resp = migrate_event(event_parsed)
+            migrate_event(event_parsed)
         else:
             rollbar.report_message('Error: An error occurred catching event', 'error')
     return event_parsed

@@ -26,7 +26,7 @@ class FindingDTO(object):
     """Class to create an object with the attributes of a finding."""
 
     FIELDS_FINDING = settings.FIELDS_FINDING
-    #Atributos proyecto
+    # Atributos proyecto
     ANALIST = FIELDS_FINDING['ANALIST']
     LEADER = FIELDS_FINDING['LEADER']
     INTERESADO = FIELDS_FINDING['INTERESADO']
@@ -34,7 +34,7 @@ class FindingDTO(object):
     CLIENT_PROJECT = FIELDS_FINDING['CLIENT_PROJECT']
     CONTEXT = FIELDS_FINDING['CONTEXT']
 
-    #Atributos evidencia
+    # Atributos evidencia
     DOC_ACHV1 = FIELDS_FINDING['DOC_ACHV1']
     DOC_ACHV2 = FIELDS_FINDING['DOC_ACHV2']
     DOC_ACHV3 = FIELDS_FINDING['DOC_ACHV3']
@@ -53,8 +53,8 @@ class FindingDTO(object):
     REG_FILE = FIELDS_FINDING['REG_FILE']
     VULNERABILITIES_FILE = FIELDS_FINDING['VULNERABILITIES_FILE']
 
-    #Atributos descriptivos
-    REPORT_LEVEL = FIELDS_FINDING['REPORT_LEVEL'] #detallado
+    # Atributos descriptivos
+    REPORT_LEVEL = FIELDS_FINDING['REPORT_LEVEL']  # detallado
     FINDING = FIELDS_FINDING['FINDING']
     TEST_TYPE = FIELDS_FINDING['TEST_TYPE']
     SUBSCRIPTION = FIELDS_FINDING['SUBSCRIPTION']
@@ -86,7 +86,7 @@ class FindingDTO(object):
     RELEASE_DATE = FIELDS_FINDING['RELEASE_DATE']
     RELATED_FINDINGS = FIELDS_FINDING['RELATED_FINDINGS']
 
-    #Atributos CssV2
+    # Atributos CssV2
     ACCESS_VECTOR = FIELDS_FINDING['ACCESS_VECTOR']
     ACCESS_COMPLEXITY = FIELDS_FINDING['ACCESS_COMPLEXITY']
     AUTHENTICATION = FIELDS_FINDING['AUTHENTICATION']
@@ -107,7 +107,7 @@ class FindingDTO(object):
         self.request_id = None
         self.data = dict()
 
-    def create_description(self, parameter): # noqa: C901
+    def create_description(self, parameter):  # noqa: C901
         """Convert the index of a JSON to Formstack index."""
         if 'data[id]' in parameter:
             self.request_id \
@@ -306,22 +306,22 @@ class FindingDTO(object):
             parsed_dict = {v: float(initial_dict[k].split(' | ')[0])
                            for (k, v) in severity_fields.items()
                            if k in initial_dict.keys()}
-        BASE_SCORE_FACTOR_1 = 0.6
-        BASE_SCORE_FACTOR_2 = 0.4
-        BASE_SCORE_FACTOR_3 = 1.5
-        IMPACT_FACTOR = 10.41
-        EXPLOITABILITY_FACTOR = 20
-        F_IMPACT_FACTOR = 1.176
-        impact = (IMPACT_FACTOR *
+        base_score_factor_1 = 0.6
+        base_score_factor_2 = 0.4
+        base_score_factor_3 = 1.5
+        impact_factor = 10.41
+        expl_factor = 20
+        f_impact_factor = 1.176
+        impact = (impact_factor *
                   (1 - ((1 - parsed_dict['confidentialityImpact']) *
                    (1 - parsed_dict['integrityImpact']) *
                    (1 - parsed_dict['availabilityImpact']))))
-        exploitability = (EXPLOITABILITY_FACTOR *
+        exploitability = (expl_factor *
                           parsed_dict['accessComplexity'] *
                           parsed_dict['authentication'] * parsed_dict['accessVector'])
-        base_score = (((BASE_SCORE_FACTOR_1 * impact) +
-                      (BASE_SCORE_FACTOR_2 * exploitability) - BASE_SCORE_FACTOR_3) *
-                      F_IMPACT_FACTOR)
+        base_score = (((base_score_factor_1 * impact) +
+                      (base_score_factor_2 * exploitability) - base_score_factor_3) *
+                      f_impact_factor)
         parsed_dict['criticity'] = round((base_score * parsed_dict['exploitability'] *
                                          parsed_dict['resolutionLevel'] *
                                          parsed_dict['confidenceLevel']), 1)
@@ -460,6 +460,7 @@ class FindingDTO(object):
             new_data['field_' + key] = value
         self.data = new_data
 
+
 def format_finding_date(format_attr):
     tzn = pytz.timezone('America/Bogota')
     finding_date = datetime.strptime(
@@ -469,6 +470,7 @@ def format_finding_date(format_attr):
     finding_date = finding_date.replace(tzinfo=tzn).date()
     final_date = (datetime.now(tz=tzn).date() - finding_date)
     return final_date
+
 
 def finding_vulnerabilities(submission_id):
     finding = []
@@ -537,6 +539,7 @@ def format_release(finding):
             final_date = format_finding_date(finding['releaseDate'])
             finding['edad'] = ':n'.replace(':n', str(final_date.days))
     return finding
+
 
 def ungroup_specific(specific):
     """Ungroup specific value."""
@@ -763,6 +766,7 @@ def migrate_description(finding):
     response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
     return response
 
+
 def migrate_treatment(finding):
     primary_keys = ['finding_id', str(finding['id'])]
     description_fields = ['treatment', 'treatmentJustification',
@@ -774,6 +778,7 @@ def migrate_treatment(finding):
     else:
         response = True
     return response
+
 
 def has_migrated_evidence(finding_id):
     """Validate if a finding has evidence description in dynamo."""
@@ -790,6 +795,7 @@ def has_migrated_evidence(finding_id):
     else:
         response = False
     return response
+
 
 def migrate_report_date(finding):
     primary_keys = ['finding_id', str(finding['id'])]
@@ -851,25 +857,25 @@ def parse_severity(finding):
                    for (k, v) in severity_fields.items()
                    if k in finding.keys()}
 
-    BASE_SCORE_FACTOR_1 = 0.6
-    BASE_SCORE_FACTOR_2 = 0.4
-    BASE_SCORE_FACTOR_3 = 1.5
-    IMPACT_FACTOR = 10.41
-    EXPLOITABILITY_FACTOR = 20
-    impact = (IMPACT_FACTOR *
+    base_score_factor_1 = 0.6
+    base_score_factor_2 = 0.4
+    base_score_factor_3 = 1.5
+    impact_factor = 10.41
+    expl_factor = 20
+    impact = (impact_factor *
               (1 - ((1 - parsed_dict['confidentialityImpact']) *
                (1 - parsed_dict['integrityImpact']) *
                (1 - parsed_dict['availabilityImpact']))))
-    exploitability = (EXPLOITABILITY_FACTOR *
+    exploitability = (expl_factor *
                       parsed_dict['accessComplexity'] *
                       parsed_dict['authentication'] * parsed_dict['accessVector'])
     if impact:
-        F_IMPACT_FACTOR = 1.176
+        f_impact_factor = 1.176
     else:
-        F_IMPACT_FACTOR = 0
-    base_score = (((BASE_SCORE_FACTOR_1 * impact) +
-                  (BASE_SCORE_FACTOR_2 * exploitability) - BASE_SCORE_FACTOR_3) *
-                  F_IMPACT_FACTOR)
+        f_impact_factor = 0
+    base_score = (((base_score_factor_1 * impact) +
+                  (base_score_factor_2 * exploitability) - base_score_factor_3) *
+                  f_impact_factor)
     parsed_dict['criticity'] = round((base_score * parsed_dict['exploitability'] *
                                      parsed_dict['resolutionLevel'] *
                                      parsed_dict['confidenceLevel']), 1)
