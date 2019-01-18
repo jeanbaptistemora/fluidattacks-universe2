@@ -122,6 +122,32 @@ Frequently asked questions about Continuous Hacking.
   +Fluid Attacks+ is fully capable of taking on
   between +5+ and +10+ new applications each month.
 
+*What kind of information does Fluid Attacks need*::
+*in order to serve a quotation?*::
+
+  To serve a proposal, +Fluid Attacks+ needs to determine
+  what will the target of evaluations (scope) be.
+  So, here we ask you for the following items:
+  +
+  . *One-shot hacking* (by project):
+  +
+  .. How many ports are included in the scope?
+  .. How many inputs of applications are included in the scope?
+  .. How many +LoC+ are included in the scope?
+  +Fluid Attacks+ suggest to you, running link:https://github.com/AlDanial/cloc[+CLOC+] on it for quantifying it.
+  +
+  *Note:* It would be desirable to get the credential to access
+  (standard user, not privileges) to the applications
+  in the cases that it will be included.
+
+  . *Continuous hacking* (+SDLC+):
+  Under this model, we should know how many active authors
+  will be involved in the project.
+  +
+  Regarding the health check estimation,
+  it will be considered as one-shot hacking.
+  So, the customer should provide these answers as well.
+
 *Does the cost of Continuous Hacking vary according to the scope*::
 *or development phases?*::
   Yes. The service cost varies depending on the amount of active authors

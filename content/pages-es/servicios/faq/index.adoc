@@ -100,6 +100,32 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
  de incluir entre +5+ y +10+ aplicaciones nuevas
  cada mes en el servicio de hacking continuo.
 
+*Qué tipo de información necesita Fluid Attacks*::
+*para realizar una cotización de los servicios?*::
+  Para realizar una propuesta, +Fluid Attacks+ necesita determinar
+  cual será el objetivo de las pruebas (alcance).
+  Por lo cual, pediremos la siguiente información, de acuerdo al servicio:
+  +
+  . *Hacking puntual* (por proyecto):
+  +
+  .. Cuántos puertos se incluyen en el alcance?
+  .. Cuántas entradas de la aplicación se incluyen en el alcance?
+  .. Cuántas líneas de código (+LoC+) se incluyen en el alcance?
+  Para esto +Fluid Attacks+ recomienda utilizar la herramienta link:https://github.com/AlDanial/cloc/[+CLOC+]
+  para realizar el conteo.
+  +
+  *Nota:* Para ejecutar las pruebas es deseable tener credenciales
+  (de usuario normal, sin privilegios) para acceder a las aplicaciones
+  en caso de que se requiera.
+
+  . *Hacking Continuo* (+SDLC+):
+  Bajo este modelo, debemos conocer cuantos autores activos
+  están involucrados en el proyecto.
+  +
+  Teniendo en cuenta la estimación del +Health Check+
+  será considerado como un hacking puntual.
+  De esta forma, el cliente también deberá proveer esta información.
+
 *¿El costo del servicio varía de acuerdo al alcance o fases desarrolladas?*::
  Si. El costo del servicio varia a la cantidad de autores activos identificados
  en el proyecto cada mes
