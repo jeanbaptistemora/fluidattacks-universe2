@@ -1,21 +1,14 @@
 # -*- coding: utf-8 -*-
 """ Class to export the findings A PDF. """
+from pylab import figure, pie, axis, legend, savefig, cla, clf, close
+from matplotlib.font_manager import FontProperties
 import jinja2
 import os
 import time
 import sys
-import matplotlib  # pylint: disable=wrong-import-position
-matplotlib.use('Agg')  # pylint: disable=wrong-import-position
-# pylint: disable=wrong-import-position
-from pylab import figure, pie, axis, legend, savefig, cla, clf, close
-# pylint: disable=wrong-import-position
-from matplotlib.font_manager import FontProperties
+import matplotlib
+matplotlib.use('Agg')
 
-# pylint: disable=redefined-builtin
-try:
-    type(reload)
-except NameError:
-    from importlib import reload
 
 class CreatorPDF(object):
     """ Class to generate reports in PDF. """

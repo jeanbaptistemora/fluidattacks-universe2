@@ -26,15 +26,17 @@ from app.mailer import (
 )
 
 client_s3 = boto3.client('s3',
-                            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
 bucket_s3 = FI_AWS_S3_BUCKET
+
 
 def save_file_url(finding_id, field_name, file_url):
     return add_file_attribute(finding_id, field_name, 'file_url', file_url)
 
-#pylint: disable-msg=R0913
+
+# pylint: disable=too-many-arguments
 def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     fileroute = '/tmp/:id.tmp'.replace(':id', filename)
     namecomplete = fileurl + '-' + field + '-' + filename + ext
@@ -48,6 +50,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     is_file_saved = save_file_url(parameters['finding_id'], fieldname, file_name)
     os.unlink(fileroute)
     return is_file_saved
+
 
 def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
     key_val = fileurl + '-' + field
@@ -64,6 +67,7 @@ def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
 
 def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
     attr_name = 'files'
@@ -94,6 +98,7 @@ def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
             file_data,
             attr_name)
     return is_url_saved
+
 
 def migrate_all_files(parameters, file_url, request):
     fin_dto = FindingDTO()
@@ -203,20 +208,22 @@ def cast_tracking(tracking):
         tracking_casted.append(closing_cicle)
     return tracking_casted
 
+
 def get_dynamo_evidence(finding_id):
     finding_data = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', finding_id)
     evidence_files = finding_data[0].get('files') if finding_data and 'files' in finding_data[0].keys() else []
     parsed_evidence = {
-        'animation': { 'url': filter_evidence_filename(evidence_files, 'animation') },
-        'evidence1': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_1') },
-        'evidence2': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_2') },
-        'evidence3': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_3') },
-        'evidence4': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_4') },
-        'evidence5': { 'url': filter_evidence_filename(evidence_files, 'evidence_route_5') },
-        'exploitation': { 'url': filter_evidence_filename(evidence_files, 'exploitation') },
+        'animation': {'url': filter_evidence_filename(evidence_files, 'animation')},
+        'evidence1': {'url': filter_evidence_filename(evidence_files, 'evidence_route_1')},
+        'evidence2': {'url': filter_evidence_filename(evidence_files, 'evidence_route_2')},
+        'evidence3': {'url': filter_evidence_filename(evidence_files, 'evidence_route_3')},
+        'evidence4': {'url': filter_evidence_filename(evidence_files, 'evidence_route_4')},
+        'evidence5': {'url': filter_evidence_filename(evidence_files, 'evidence_route_5')},
+        'exploitation': {'url': filter_evidence_filename(evidence_files, 'exploitation')},
     }
 
     return parsed_evidence
+
 
 def filter_evidence_filename(evidence_files, name):
     evidence_info = filter(lambda evidence: evidence['name'] == name, evidence_files)
@@ -238,6 +245,7 @@ def migrate_evidence_description(finding):
                 for (k, v) in description.items()]
     return all(response)
 
+
 def list_comments(user_email, comment_type, finding_id):
     comments = list(map(lambda comment: {
         'content': comment['content'],
@@ -252,8 +260,10 @@ def list_comments(user_email, comment_type, finding_id):
 
     return comments
 
+
 def comment_has_parent(parent):
     return parent != '0'
+
 
 def get_email_recipients(project_name, comment_type):
     project_users = integrates_dao.get_project_users(project_name)
@@ -270,29 +280,30 @@ def get_email_recipients(project_name, comment_type):
 
     return recipients
 
+
 def send_comment_mail(user_email, content, parent, comment_type, finding_id):
     project_name = get_project_name(finding_id).lower()
     recipients = get_email_recipients(project_name, comment_type)
 
     if comment_has_parent(parent):
-        mail_title="New {comment_type!s} email thread".format(comment_type=comment_type)
-        mail_function=send_mail_new_comment
+        mail_title = "New {comment_type!s} email thread".format(comment_type=comment_type)
+        mail_function = send_mail_new_comment
     else:
-        mail_title="Reply {comment_type!s} email thread".format(comment_type=comment_type)
-        mail_function=send_mail_reply_comment
+        mail_title = "Reply {comment_type!s} email thread".format(comment_type=comment_type)
+        mail_function = send_mail_reply_comment
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
-        name=mail_title, \
-        target=mail_function, \
+        name=mail_title,
+        target=mail_function,
         args=(recipients, {
-         'project': project_name,
-         'finding_name': integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding'),
-         'user_email': user_email,
-         'finding_id': finding_id,
-         'comment': content.replace('\n', ' '),
-         'finding_url': base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
-         .format(project=project_name, finding=finding_id, comment_type=comment_type)
+            'project': project_name,
+            'finding_name': integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding'),
+            'user_email': user_email,
+            'finding_id': finding_id,
+            'comment': content.replace('\n', ' '),
+            'finding_url': base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
+            .format(project=project_name, finding=finding_id, comment_type=comment_type)
         }, comment_type))
     email_send_thread.start()
 
@@ -314,6 +325,7 @@ def add_comment(user_email, user_fullname, parent, content, comment_type, commen
 
     return integrates_dao.add_finding_comment_dynamo(int(finding_id), user_email, comment_data)
 
+
 def send_finding_verified_email(company, finding_id, finding_name, project_name):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
@@ -322,18 +334,19 @@ def send_finding_verified_email(company, finding_id, finding_name, project_name)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
-        name='Verified finding email thread', \
-        target=send_mail_verified_finding, \
+        name='Verified finding email thread',
+        target=send_mail_verified_finding,
         args=(recipients, {
-           'project': project_name,
-           'finding_name': finding_name,
-           'finding_url': base_url + '/project/{project!s}/{finding!s}/tracking'
-           .format(project=project_name, finding=finding_id),
-           'finding_id': finding_id,
-           'company': company,
+            'project': project_name,
+            'finding_name': finding_name,
+            'finding_url': base_url + '/project/{project!s}/{finding!s}/tracking'
+            .format(project=project_name, finding=finding_id),
+            'finding_id': finding_id,
+            'company': company,
         }))
 
     email_send_thread.start()
+
 
 def verify_finding(company, finding_id, user_email):
     project_name = get_project_name(finding_id).lower()
@@ -347,6 +360,7 @@ def verify_finding(company, finding_id, user_email):
 
     return success
 
+
 def send_remediation_email(user_email, finding_id, finding_name, project_name, justification):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
@@ -355,19 +369,20 @@ def send_remediation_email(user_email, finding_id, finding_name, project_name, j
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
-        name='Remediate finding email thread', \
-        target=send_mail_remediate_finding, \
+        name='Remediate finding email thread',
+        target=send_mail_remediate_finding,
         args=(recipients, {
-           'project': project_name,
-           'finding_name': finding_name,
-           'finding_url': base_url + '/project/{project!s}/{finding!s}/description'
-           .format(project=project_name, finding=finding_id),
-           'finding_id': finding_id,
-           'user_mail': user_email,
-           'solution': justification
+            'project': project_name,
+            'finding_name': finding_name,
+            'finding_url': base_url + '/project/{project!s}/{finding!s}/description'
+            .format(project=project_name, finding=finding_id),
+            'finding_id': finding_id,
+            'user_mail': user_email,
+            'solution': justification
         }))
 
     email_send_thread.start()
+
 
 def request_verification(finding_id, user_email, user_fullname, justification):
     project_name = get_project_name(finding_id).lower()
@@ -383,7 +398,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
             finding_id=finding_id,
             user_fullname=user_fullname,
             is_remediation_comment=True
-            )
+        )
         send_remediation_email(user_email, finding_id, finding_name, project_name, justification)
     else:
         rollbar.report_message('Error: An error occurred remediating the finding', 'error')
