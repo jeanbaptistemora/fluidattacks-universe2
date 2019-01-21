@@ -61,6 +61,7 @@ def translate_schema(singer_schema):
     sbool = {"type": "boolean"}
     sstring = {"type": "string"}
     snumber = {"type": "number"}
+    sinteger = {"type": "integer"}
     sdatetime = {"type": "string", "format": "date-time"}
 
     def stor(stype):
@@ -68,6 +69,8 @@ def translate_schema(singer_schema):
         rtype = ""
         if stype == sbool:
             rtype = "BOOLEAN"
+        elif stype == sinteger:
+            rtype = "INT8"
         elif stype == snumber:
             rtype = "FLOAT8"
         elif stype == sstring:
@@ -96,10 +99,13 @@ def translate_record(schema, record):
             new_field_type = schema[new_field]
             if new_field_type == "BOOLEAN":
                 new_value = f"{escape(user_value).lower()}"
+            elif new_field_type == "INT8":
+                new_value = f"{escape(user_value)}"
             elif new_field_type == "FLOAT8":
                 new_value = f"{escape(user_value)}"
             elif new_field_type == "VARCHAR(1024)":
                 new_value = f"{escape(user_value)}"
+                # preserves 1024 bytes from left, truncates everything else
                 while str_len(new_value) > 1024:
                     new_value = new_value[0:-1]
             elif new_field_type == "TIMESTAMP":
@@ -113,21 +119,21 @@ def translate_record(schema, record):
 def drop_schema(batcher, schema_name):
     """ drops the schema unless it doesn't exist """
     try:
-        batcher.ex(f"DROP SCHEMA \"{schema_name}\" CASCADE")
+        batcher.ex(f"DROP SCHEMA \"{schema_name}\" CASCADE", True)
     except postgres.ProgrammingError:
         pass
 
 def drop_table(batcher, schema_name, table_name):
     """ drops the table unless it doesn't exist """
     try:
-        batcher.ex(f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE")
+        batcher.ex(f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE", True)
     except postgres.ProgrammingError:
         pass
 
 def create_schema(batcher, schema_name):
     """ creates the schema unless it currently exist """
     try:
-        batcher.ex(f"CREATE SCHEMA \"{schema_name}\"")
+        batcher.ex(f"CREATE SCHEMA \"{schema_name}\"", True)
     except postgres.ProgrammingError:
         pass
 
@@ -146,6 +152,15 @@ def create_table(batcher, schema_name, table_name, table_fields, table_types, ta
     except postgres.ProgrammingError:
         pass
 
+def rename_schema(batcher, from_name, to_name):
+    """ renames the schema unless
+            - from_name doesn't exist
+            - to_name schema already exists """
+    try:
+        batcher.ex(f"ALTER SCHEMA \"{from_name}\" RENAME TO \"{to_name}\"", True)
+    except postgres.ProgrammingError:
+        pass
+
 # pylint: disable=too-many-instance-attributes
 class Batcher():
     """ A worker to grab requests from the same table and batch them to Redshift """
@@ -154,17 +169,16 @@ class Batcher():
 
         self.initt = time.time()
 
-        self.print = False
         self.dbcon = dbcon
         self.dbcur = dbcur
 
         self.sname = schema_name
         self.buckets = {}
 
-    def ex(self, statement):
+    def ex(self, statement, do_print=False):
         """ executes a single statement, no performance buff here """
-        if self.print:
-            print(f"EXEC:{statement}.")
+        if do_print:
+            print(f"EXEC: {statement}.")
         self.dbcur.execute(statement)
 
     def queue(self, table_name, values):
@@ -181,39 +195,34 @@ class Batcher():
         if self.buckets[table_name]["count"] >= 10000:
             self.load(table_name)
 
-    def load(self, table_name):
+    def load(self, table_name, do_print=False):
         """ executes multiple statements, big performance buff here """
         template = f"INSERT INTO \"{self.sname}\".\"{table_name}\" VALUES %s"
         params = self.buckets[table_name]["params"]
         count = self.buckets[table_name]["count"]
-        if self.print:
-            print(f"EXEC:{template}.")
-            print(f"EXEC:{params}.")
+        if do_print:
+            print(f"EXEC: {template}.")
+            print(f"EXEC: {params}.")
         execute_values(self.dbcur, template, params)
         print(f"INFO: {count} messages sent to Redshift/{self.sname}/{table_name}.")
 
         self.buckets[table_name]["params"] = []
         self.buckets[table_name]["count"] = 0
 
-    def flush(self):
+    def flush(self, do_print=False):
         """ flush it at the end to push buckets with less than 10k elements """
         for table_name in self.buckets:
-            self.load(table_name)
+            self.load(table_name, do_print)
 
     def __del__(self, *args):
         print(f"INFO: worker down at {datetime.utcnow()}.")
         print(f"INFO: {time.time() - self.initt} seconds elapsed.")
 
 # pylint: disable=too-many-locals
-def persist_messages(dbcon, dbcur, messages, args):
+def persist_messages(batcher, schema_name, messages):
     """ persist messages received in stdin to Amazon Redshift """
     schema = {}
     ofields = {}
-
-    batcher = Batcher(dbcon, dbcur, args.schema_name)
-
-    if args.drop_schema:
-        drop_schema(batcher, args.schema_name)
 
     for message in messages:
         json_obj = json.loads(message)
@@ -239,14 +248,10 @@ def persist_messages(dbcon, dbcur, messages, args):
             table_pkeys = list(map(escape, json_obj["key_properties"]))
             table_schema = json_obj["schema"]
 
-            if args.drop_tables:
-                drop_table(batcher, args.schema_name, table_name)
-
             schema[table_name] = table_ft = translate_schema(table_schema["properties"])
             ofields[table_name] = table_of = list(table_ft.keys())
 
-            create_schema(batcher, args.schema_name)
-            create_table(batcher, args.schema_name, table_name, table_of, table_ft, table_pkeys)
+            create_table(batcher, schema_name, table_name, table_of, table_ft, table_pkeys)
 
     batcher.flush()
 
@@ -294,12 +299,43 @@ def main():
     args = parser.parse_args()
     auth = json.load(args.auth)
 
+    target_schema = f"{args.schema_name}"
+    backup_schema = f"{target_schema}_backup"
+    loading_schema = f"{target_schema}_loading"
+
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
 
     # pylint: disable=broad-except
     try:
         (dbcon, dbcur) = make_access_point(auth)
-        persist_messages(dbcon, dbcur, input_messages, args)
+
+        batcher = Batcher(dbcon, dbcur, loading_schema)
+
+        if args.drop_schema:
+            # It means user wants to guarantee 100% data integrity
+            # It also implies the use of a loading strategy
+            #   to guarantee continuated service availability
+
+            # The loading strategy is:
+            #   DROP loading_schema
+            drop_schema(batcher, loading_schema)
+            #   MAKE loading_schema
+            create_schema(batcher, loading_schema)
+            #   LOAD loading_schema
+            persist_messages(batcher, loading_schema, input_messages)
+            #   DROP backup_schema IF EXISTS
+            drop_schema(batcher, backup_schema)
+            #   REN  target_schema TO backup_schema
+            rename_schema(batcher, target_schema, backup_schema)
+            #   REN  loading_schema TO target_schema
+            rename_schema(batcher, loading_schema, target_schema)
+        else:
+            # It means user only wants to push data and just cares about having it there
+            #   the trade-off is:
+            #     - data integrity
+            #     - possible un-updated schema
+            #     - and dangling/orphan/duplicated records
+            persist_messages(batcher, target_schema, input_messages)
     finally:
         drop_access_point(dbcon, dbcur)
 
