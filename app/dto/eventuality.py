@@ -83,6 +83,11 @@ class EventDTO(object):
         parsed_dict = {v: initial_dict[k]
                        for (k, v) in event_fields.items()
                        if k in initial_dict.keys()}
+        if parsed_dict.get('evidence'):
+            parsed_dict['evidence'] = forms.drive_url_filter(parsed_dict['evidence'])
+        else:
+            # Event does not have evidences
+            pass
         return parsed_dict
 
     def to_formstack(self, data):

@@ -5,12 +5,6 @@
 # directory.
 
 from __future__ import absolute_import
-
-try:
-    from urlparse import urlparse, parse_qs
-except ImportError:
-    from urllib.parse import urlparse, parse_qs
-
 import boto3
 from graphene import String, ObjectType, Boolean
 
@@ -77,8 +71,10 @@ class Events(ObjectType):
             self.affectation = resp.get('affectation')
             self.event_status = resp.get('eventStatus')
             if resp.get('evidence'):
-                parsed_url = urlparse(resp.get('evidence'))
-                self.evidence = parse_qs(parsed_url.query)['id'][0]
+                self.evidence = resp.get('evidence')
+            else:
+                # Event does not have evidences
+                pass
             self.accessibility = resp.get('accessibility')
             self.affected_components = resp.get('affectedComponents')
             self.context = resp.get('context')
