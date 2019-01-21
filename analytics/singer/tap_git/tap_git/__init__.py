@@ -198,7 +198,8 @@ def scan_commits(repo_name, config, mailmap, sync_changes, after):
 
         last_commit = None
         # iterate from first to latest
-        for commit in repo_obj.iter_commits(branch, after=after, reverse=True):
+        # test kwargs mangling in this function: git.cmd.Git().transform_kwargs()
+        for commit in repo_obj.iter_commits(branch, after=after, reverse=True, no_merges=True):
             total_insertions = commit.stats.total.get("insertions", 0)
             total_deletions = commit.stats.total.get("deletions", 0)
 
