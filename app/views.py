@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Disabling this rule is necessary for include returns inside if-else structure
-#pylint: disable-msg=R1705
+# pylint: disable-msg=R1705
 """ Views and services for FluidIntegrates """
 
 from __future__ import absolute_import
@@ -29,7 +29,7 @@ from .decorators import (
     require_project_access, require_finding_access,
     cache_content)
 from .techdoc.IT import ITReport
-from .domain import finding as FindingDomain
+from .domain import finding as finding_domain
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
     sort_vulnerabilities, group_specific, update_vulnerabilities_date,
@@ -37,7 +37,7 @@ from .dto.finding import (
     parse_dashboard_finding_dynamo, parse_finding, get_project_name
 )
 from .dto import closing
-from .dto import project as projectDTO
+from .dto import project as project_dto
 from .dto import eventuality
 from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
@@ -49,7 +49,7 @@ from .mailer import send_mail_delete_draft
 from .mailer import send_mail_accepted_finding
 from .services import has_access_to_project, has_access_to_finding
 from .services import is_customeradmin
-from .utils  import forms as forms_utils
+from .utils import forms as forms_utils
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
@@ -62,8 +62,8 @@ from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKE
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 client_s3 = boto3.client('s3',
-                            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
 bucket_s3 = FI_AWS_S3_BUCKET
 BASE_URL = "https://fluidattacks.com/integrates"
@@ -108,7 +108,7 @@ def project_indicators(request):
 def project_findings(request):
     "Project view"
     language = request.GET.get('l', 'en')
-    dicLang = {
+    dic_lang = {
         "search_findings": {
             "descriptions": {
                 "description1": "",
@@ -116,13 +116,13 @@ def project_findings(request):
                 "description3": "on a finding to see more details"
             },
             "filter_buttons": {
-               "advance": "Progress",
-               "documentation": "Documentation"
+                "advance": "Progress",
+                "documentation": "Documentation"
             },
         }
     }
     if language == "es":
-        dicLang = {
+        dic_lang = {
             "search_findings": {
                 "descriptions": {
                     "description1": "Haz",
@@ -130,12 +130,12 @@ def project_findings(request):
                     "description3": "para ver mas detalles del hallazgo"
                 },
                 "filter_buttons": {
-                   "advance": "Avance",
-                   "documentation": "Documentacion"
+                    "advance": "Avance",
+                    "documentation": "Documentacion"
                 }
             }
         }
-    return render(request, "project/findings.html", dicLang)
+    return render(request, "project/findings.html", dic_lang)
 
 
 @cache_control(private=True, max_age=3600)
@@ -144,16 +144,17 @@ def project_findings(request):
 def project_drafts(request):
     "Drafts view"
     language = request.GET.get('l', 'en')
-    dicLang = {
+    dic_lang = {
         "search_findings": {
             "descriptions": {
                 "description1": "",
                 "description2": "Click",
                 "description3": "on a finding to see more details"
-            },        }
+            },
+        }
     }
     if language == "es":
-        dicLang = {
+        dic_lang = {
             "search_findings": {
                 "descriptions": {
                     "description1": "Haz",
@@ -162,7 +163,7 @@ def project_drafts(request):
                 }
             }
         }
-    return render(request, "project/drafts.html", dicLang)
+    return render(request, "project/drafts.html", dic_lang)
 
 
 @cache_control(private=True, max_age=3600)
@@ -170,32 +171,32 @@ def project_drafts(request):
 def project_events(request):
     "eventualities view"
     language = request.GET.get('l', 'en')
-    dicLang = {
+    dic_lang = {
         "search_findings": {
             "eventualities": {
                 "description": "Click on an event to see more details"
             },
             "event_by_name": {
                 "btn_group": {
-                   "resume": "Resume"
+                    "resume": "Resume"
                 }
             }
         }
     }
     if language == "es":
-        dicLang = {
+        dic_lang = {
             "search_findings": {
                 "eventualities": {
                     "description": "Haz click para ver el detalle"
                 },
                 "event_by_name": {
                     "btn_group": {
-                       "resume": "Resumen"
+                        "resume": "Resumen"
                     }
                 }
             }
         }
-    return render(request, "project/events.html", dicLang)
+    return render(request, "project/events.html", dic_lang)
 
 
 @cache_control(private=True, max_age=3600)
@@ -213,12 +214,14 @@ def project_users(request):
     parameters = {}
     return render(request, "project/users.html", parameters)
 
+
 @cache_control(private=True, max_age=3600)
 @authenticate
 def project_comments(request):
     """ Project comments view """
     parameters = {}
     return render(request, 'project/comments.html', parameters)
+
 
 @csrf_exempt
 @cache_control(private=True, max_age=3600)
@@ -232,9 +235,9 @@ def registration(request):
         response = render(request, "registration.html", parameters)
         token = jwt.encode(
             {
-              'user_email': request.session["username"],
-              'user_role': request.session["role"],
-              'exp': datetime.utcnow() + timedelta(seconds=settings.SESSION_COOKIE_AGE)
+                'user_email': request.session["username"],
+                'user_role': request.session["role"],
+                'exp': datetime.utcnow() + timedelta(seconds=settings.SESSION_COOKIE_AGE)
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -285,8 +288,9 @@ def logout(request):
     response.delete_cookie(settings.JWT_COOKIE_NAME)
     return response
 
-#pylint: disable=too-many-branches
-#pylint: disable=too-many-locals
+
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-locals
 @cache_content
 @never_cache
 @csrf_exempt
@@ -336,6 +340,7 @@ def project_to_xls(request, lang, project):
         response['Content-Disposition'] = file_name
     return response
 
+
 def validation_project_to_pdf(request, lang, doctype):
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
@@ -344,8 +349,9 @@ def validation_project_to_pdf(request, lang, doctype):
         rollbar.report_message('Error: Unsupported doctype', 'error', request)
         return util.response([], 'Unsupported doctype', True)
 
-#pylint: disable=too-many-branches
-#pylint: disable=too-many-locals
+
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-locals
 @cache_content
 @never_cache
 @csrf_exempt
@@ -405,13 +411,14 @@ def project_to_pdf(request, lang, project, doctype):
                 "inline;filename=:id.pdf".replace(":id", user + "_" + project)
         return response
 
+
 def pdf_evidences(findings):
     fin_dto = FindingDTO()
     for finding in findings:
         folder_name = finding['projectName'] + '/' + finding['id']
         key_list = key_existing_list(folder_name)
-        field_list = [fin_dto.DOC_ACHV1, fin_dto.DOC_ACHV2, \
-                      fin_dto.DOC_ACHV3, fin_dto.DOC_ACHV4, \
+        field_list = [fin_dto.DOC_ACHV1, fin_dto.DOC_ACHV2,
+                      fin_dto.DOC_ACHV3, fin_dto.DOC_ACHV4,
                       fin_dto.DOC_ACHV5]
         evidence_set = util.get_evidence_set_s3(finding, key_list, field_list)
         if evidence_set:
@@ -433,6 +440,7 @@ def pdf_evidences(findings):
                     evidence['id'] + '.png[align="center"]'
     return findings
 
+
 def presentation_pdf(project, pdf_maker, findings, user):
     project_info = get_project_info(project)["data"]
     mapa_id = util.drive_url_filter(project_info["findingsMap"])
@@ -448,10 +456,9 @@ def presentation_pdf(project, pdf_maker, findings, user):
     if not project_info:
         return "Incomplete documentation"
     pdf_maker.presentation(findings, project, project_info, user)
-    #secure_pdf = SecurePDF()
-    #report_filename = secure_pdf.create_only_pass(user, pdf_maker.out_name)
     report_filename = pdf_maker.RESULT_DIR + pdf_maker.out_name
     return report_filename
+
 
 #pylint: disable-msg=R0913
 @cache_content
@@ -471,13 +478,15 @@ def check_pdf(request, project):
         return util.response({"enable": True}, 'Success', False)
     return util.response({"enable": False}, 'Success', False)
 
+
 def get_project_info(project):
     reqset = FormstackAPI().get_project_info(project)["submissions"]
     if reqset:
         submission_id = reqset[-1]["id"]
         submission = FormstackAPI().get_submission(submission_id)
-        return projectDTO.parse(submission)
+        return project_dto.parse(submission)
     return []
+
 
 @cache_content
 @cache_control(private=True, max_age=3600)
@@ -564,6 +573,7 @@ def get_findings(request):
             rollbar.report_message('Error: An error occurred formatting finding', 'error', request)
     return util.response(findings_parsed, 'Success', False)
 
+
 # pylint: disable=R1702
 # pylint: disable=R0915
 def catch_finding(request, submission_id):
@@ -571,13 +581,13 @@ def catch_finding(request, submission_id):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     if str(submission_id).isdigit() is True:
-        submissionData = api.get_submission(submission_id)
-        if submissionData is None or 'error' in submissionData:
+        submission_data = api.get_submission(submission_id)
+        if submission_data is None or 'error' in submission_data:
             return None
         else:
             finding = fin_dto.parse(
                 submission_id,
-                submissionData
+                submission_data
             )
             finding = format_finding(finding, request)
             return finding
@@ -641,6 +651,7 @@ def format_finding(finding, request):
         finding['treatmentJustification'] = '-'
         finding['treatment'] = '-'
     return finding
+
 
 def cast_new_vulnerabilities(finding_new, finding):
     """Cast values for new format."""
@@ -713,6 +724,7 @@ def format_release_date(finding):
         finding['lastVulnerability'] = '-'
     return finding
 
+
 @cache_content
 @cache_control(private=True, max_age=31536000)
 @csrf_exempt
@@ -756,10 +768,11 @@ def retrieve_image(request, img_file):
         rollbar.report_message('Error: Invalid evidence image format', 'error', request)
         return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
 
+
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""
-
     return util.list_s3_objects(client_s3, bucket_s3, key)
+
 
 def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     fileroute = "/tmp/:id.tmp".replace(":id", filename)
@@ -774,6 +787,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     is_file_saved = save_file_url(parameters['findingid'], fieldname, file_name)
     os.unlink(fileroute)
     return is_file_saved
+
 
 def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
     key_val = fileurl + "-" + field
@@ -791,6 +805,7 @@ def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
         rollbar.report_exc_info()
         return True
 
+
 def save_file_url(finding_id, field_name, file_url):
     file_data = []
     file_data.append({"name": field_name, "file_url": file_url})
@@ -802,6 +817,7 @@ def save_file_url(finding_id, field_name, file_url):
         file_data,
         "files")
     return is_url_saved
+
 
 def remove_file_url(finding_id, field_name):
     findings = integrates_dao.get_data_dynamo(
@@ -830,6 +846,7 @@ def remove_file_url(finding_id, field_name):
             message = 'Info: Finding {finding!s} does not have evidences in s3' \
                 .format(finding=finding_id)
             util.cloudwatch_log_plain(message)
+
 
 def migrate_all_files(parameters, file_url, request):
     fin_dto = FindingDTO()
@@ -914,6 +931,7 @@ def migrate_all_files(parameters, file_url, request):
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
+
 @cache_content
 @cache_control(private=True, max_age=3600)
 @csrf_exempt
@@ -983,6 +1001,7 @@ def update_description(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
+
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
@@ -1002,19 +1021,19 @@ def update_treatment(request):
         if request:
             if parameters['data[treatment]'] == 'Asumido':
                 context = {
-                   'user_mail': parameters['data[treatmentManager]'],
-                   'finding_name': parameters['data[findingName]'],
-                   'finding_id': parameters['data[id]'],
-                   'project_name': parameters['data[projectName]'].capitalize(),
-                   'justification': parameters['data[treatmentJustification]'],
-                    }
+                    'user_mail': parameters['data[treatmentManager]'],
+                    'finding_name': parameters['data[findingName]'],
+                    'finding_id': parameters['data[id]'],
+                    'project_name': parameters['data[projectName]'].capitalize(),
+                    'justification': parameters['data[treatmentJustification]'],
+                }
                 project_name = parameters['data[projectName]'].lower()
                 recipients = integrates_dao.get_project_users(project_name)
                 to = [x[0] for x in recipients if x[1] == 1]
-                email_send_thread = threading.Thread( \
-                                              name="Accepted finding email thread", \
-                                              target=send_mail_accepted_finding, \
-                                              args=(to, context,))
+                email_send_thread = \
+                    threading.Thread(name="Accepted finding email thread",
+                                     target=send_mail_accepted_finding,
+                                     args=(to, context,))
                 email_send_thread.start()
                 return util.response([], 'success', False)
             else:
@@ -1024,6 +1043,7 @@ def update_treatment(request):
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
+
 
 @never_cache
 @require_http_methods(["POST"])
@@ -1074,6 +1094,7 @@ def update_eventuality(request):
         else:
             return util.response([], 'success', False)
 
+
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
@@ -1118,6 +1139,7 @@ def delete_finding(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
+
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['customer', 'admin'])
@@ -1133,7 +1155,7 @@ def finding_solved(request):
         parameters['data[project]'],
         parameters['data[findingName]'])
     rem_solution = parameters['data[justification]'].replace('\n', ' ')
-    FindingDomain.add_comment(
+    finding_domain.add_comment(
         user_email=request.session['username'],
         parent='0',
         content=rem_solution,
@@ -1172,6 +1194,7 @@ def finding_solved(request):
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
+
 
 @never_cache
 @require_http_methods(["POST"])
@@ -1214,6 +1237,7 @@ def finding_verified(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
+
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -1229,6 +1253,7 @@ def get_remediated(request):
         resp = row['remediated']
     return util.response({'remediated': resp}, 'Success', False)
 
+
 @cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -1237,6 +1262,7 @@ def total_severity(request):
     project = request.GET.get('project', "")
     toe = integrates_dao.get_toe_dynamo(project)
     return util.response(toe, 'Success', False)
+
 
 @never_cache
 @require_http_methods(["POST"])
@@ -1285,13 +1311,13 @@ def accept_draft(request):
                     .format(project=files_data['project'],
                             findingid=files_data['finding_id'],
                             file_name=file_first_name)
-                FindingDomain.migrate_all_files(files_data, file_url, request)
+                finding_domain.migrate_all_files(files_data, file_url, request)
                 integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
                 save_severity(finding)
                 migrate_description(finding)
                 migrate_treatment(finding)
                 migrate_report_date(finding)
-                FindingDomain.migrate_evidence_description(finding)
+                finding_domain.migrate_evidence_description(finding)
                 util.invalidate_cache(finding['projectName'])
                 util.invalidate_cache(parameters)
                 return util.response([], 'success', False)
@@ -1371,6 +1397,7 @@ def delete_comment(comment):
         response = True
     return response
 
+
 def calculate_indicators(project):
     api = FormstackAPI()
     event = eventuality.EventDTO()
@@ -1392,6 +1419,7 @@ def calculate_indicators(project):
         fixed_vuln = 0
     return [openEvents, maximumSeverity, fixed_vuln]
 
+
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -1408,6 +1436,7 @@ def is_customer_admin(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response(False, 'Error', True)
 
+
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer', 'admin'])
@@ -1416,6 +1445,7 @@ def access_to_project(request):
     if has_access_to_project(request.session['username'], project, request.session['role']):
         return util.response(True, 'success', False)
     return util.response(False, 'success', False)
+
 
 def delete_project(project):
     """Delete project information."""
@@ -1428,6 +1458,7 @@ def delete_project(project):
     is_project_deleted = are_users_removed and is_project_masked \
         and are_closings_masked and project_deleted
     return is_project_deleted
+
 
 def remove_all_users_access(project):
     """Remove user access to project."""
