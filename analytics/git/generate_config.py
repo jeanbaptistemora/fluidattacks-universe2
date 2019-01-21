@@ -16,21 +16,30 @@ FLUID_PROJ = (
     "fluidsignal"
 )
 
+# subscriptions with sub-subscriptions
+NESTED = ("banistmo",)
+
 CONFIG = {}
 for proj in os.listdir(TARGET):
-    if not proj in BRANCHES:
+    if not proj in FLUID_PROJ and not proj in BRANCHES:
         print(f"ERROR|no {proj} in BRANCHES|")
         continue
 
+    mailmap_path = f"{SOURCE}/subscriptions/{proj}/.mailmap"
+
+    if any(subs in proj for subs in NESTED):
+        nested_proj = proj.replace("-", "/")
+        mailmap_path = f"{SOURCE}/subscriptions/{nested_proj}/.mailmap"
+
     proj_path = f"{TARGET}/{proj}"
     for repo in os.listdir(proj_path):
-        if not repo in BRANCHES[proj]:
+        if not proj in FLUID_PROJ and not repo in BRANCHES[proj]:
             print(f"ERROR|no {repo} in BRANCHES[{proj}]|")
             continue
 
         repo_path = f"{proj_path}/{repo}"
         repo_name = f"{proj}/{repo}"
-        mailmap_path = f"{SOURCE}/subscriptions/{proj}/.mailmap"
+
         CONFIG[repo_name] = {
             "group": proj,
             "tag": proj,
