@@ -298,5 +298,5 @@ def calculate_etag(_, img_file):
         etag = '{}-{}'.format(img_id,
                               hashlib.md5(open(img_file, 'rb').read()).hexdigest())
         return etag
-    except OSError:
+    except (OSError, AttributeError):
         return None
