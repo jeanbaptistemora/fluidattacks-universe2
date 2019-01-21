@@ -3,6 +3,7 @@
 import os
 import json
 
+SOURCE = "/git/fluidsignal/continuous"
 TARGET = "/git"
 
 BRANCHES = {}
@@ -17,11 +18,19 @@ FLUID_PROJ = (
 
 CONFIG = {}
 for proj in os.listdir(TARGET):
+    if not proj in BRANCHES:
+        print(f"ERROR|no {proj} in BRANCHES|")
+        continue
+
     proj_path = f"{TARGET}/{proj}"
     for repo in os.listdir(proj_path):
+        if not repo in BRANCHES[proj]:
+            print(f"ERROR|no {repo} in BRANCHES[{proj}]|")
+            continue
+
         repo_path = f"{proj_path}/{repo}"
         repo_name = f"{proj}/{repo}"
-        mailmap_path = f"{repo_path}/.mailmap"
+        mailmap_path = f"{SOURCE}/subscriptions/{proj}/.mailmap"
         CONFIG[repo_name] = {
             "group": proj,
             "tag": proj,
