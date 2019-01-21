@@ -50,6 +50,13 @@ resource "aws_dynamodb_table" "comments" {
   point_in_time_recovery {
     enabled = true
   }
+
+  lifecycle {
+    ignore_changes = [
+      "read_capacity",
+      "write_capacity"
+    ]
+  }
 }
 
 resource "aws_appautoscaling_target" "dynamodb_table_read_target" {
