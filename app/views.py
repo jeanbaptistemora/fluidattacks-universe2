@@ -460,7 +460,7 @@ def presentation_pdf(project, pdf_maker, findings, user):
     return report_filename
 
 
-#pylint: disable-msg=R0913
+# pylint: disable-msg=R0913
 @cache_content
 @never_cache
 @csrf_exempt
@@ -1090,9 +1090,10 @@ def update_eventuality(request):
         has_error = True
     finally:
         if has_error and not updated:
-            return util.response([], 'error', True)
+            resp = 'error'
         else:
-            return util.response([], 'success', False)
+            resp = 'success'
+    return util.response([], 'error', resp == 'error')
 
 
 @never_cache
@@ -1129,10 +1130,10 @@ def delete_finding(request):
             return util.response([], 'Error', True)
         to = ["projects@fluidattacks.com", "production@fluidattacks.com",
               "jarmas@fluidattacks.com", "smunoz@fluidattacks.com"]
-        email_send_thread = threading.Thread( \
-                                      name="Delete finding email thread", \
-                                      target=send_mail_delete_finding, \
-                                      args=(to, context,))
+        email_send_thread = \
+            threading.Thread(name="Delete finding email thread",
+                             target=send_mail_delete_finding,
+                             args=(to, context,))
         email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
@@ -1164,7 +1165,7 @@ def finding_solved(request):
         finding_id=submission_id,
         user_fullname=str.join(' ', [request.session['first_name'], request.session['last_name']]),
         is_remediation_comment=True
-        )
+    )
     util.invalidate_cache(submission_id)
 
     if not remediated:
@@ -1176,19 +1177,19 @@ def finding_solved(request):
         to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
         context = {
-           'project': parameters['data[project]'],
-           'finding_name': parameters['data[findingName]'],
-           'user_mail': parameters['data[userMail]'],
-           'finding_url': parameters['data[findingUrl]'],
-           'finding_id': submission_id,
-           'finding_vulns': parameters['data[findingVulns]'],
-           'company': request.session["company"],
-           'solution': rem_solution,
-            }
-        email_send_thread = threading.Thread( \
-                                      name="Remediate finding email thread", \
-                                      target=send_mail_remediate_finding, \
-                                      args=(to, context,))
+            'project': parameters['data[project]'],
+            'finding_name': parameters['data[findingName]'],
+            'user_mail': parameters['data[userMail]'],
+            'finding_url': parameters['data[findingUrl]'],
+            'finding_id': submission_id,
+            'finding_vulns': parameters['data[findingVulns]'],
+            'company': request.session["company"],
+            'solution': rem_solution,
+        }
+        email_send_thread = \
+            threading.Thread(name="Remediate finding email thread",
+                             target=send_mail_remediate_finding,
+                             args=(to, context,))
         email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
@@ -1219,18 +1220,18 @@ def finding_verified(request):
         to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
         context = {
-           'project': parameters['data[project]'],
-           'finding_name': parameters['data[findingName]'],
-           'user_mail': parameters['data[userMail]'],
-           'finding_url': parameters['data[findingUrl]'],
-           'finding_id': parameters['data[findingId]'],
-           'finding_vulns': parameters['data[findingVulns]'],
-           'company': request.session["company"],
-            }
-        email_send_thread = threading.Thread( \
-                                      name="Verified finding email thread", \
-                                      target=send_mail_verified_finding, \
-                                      args=(to, context,))
+            'project': parameters['data[project]'],
+            'finding_name': parameters['data[findingName]'],
+            'user_mail': parameters['data[userMail]'],
+            'finding_url': parameters['data[findingUrl]'],
+            'finding_id': parameters['data[findingId]'],
+            'finding_vulns': parameters['data[findingVulns]'],
+            'company': request.session["company"],
+        }
+        email_send_thread = \
+            threading.Thread(name="Verified finding email thread",
+                             target=send_mail_verified_finding,
+                             args=(to, context,))
         email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
@@ -1275,7 +1276,7 @@ def accept_draft(request):
         finding = catch_finding(request, parameters)
         if "releaseDate" not in finding:
             tzn = pytz.timezone('America/Bogota')
-            releaseDate = datetime.now(tz=tzn).date()
+            release_date = datetime.now(tz=tzn).date()
             if ('subscription' in finding and
                 (finding['subscription'] == 'Continua' or
                     finding['subscription'] == 'Concurrente' or
@@ -1288,20 +1289,20 @@ def accept_draft(request):
                             '%Y-%m-%d'
                         )
                         last_release = last_release.replace(tzinfo=tzn).date()
-                        if last_release == releaseDate:
-                            releaseDate = releaseDate + timedelta(days=1)
-                        elif last_release > releaseDate:
-                            releaseDate = last_release + timedelta(days=1)
-            releaseDate = releaseDate.strftime('%Y-%m-%d %H:%M:%S')
+                        if last_release == release_date:
+                            release_date = release_date + timedelta(days=1)
+                        elif last_release > release_date:
+                            release_date = last_release + timedelta(days=1)
+            release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
             release = {}
             release['id'] = parameters
-            release['releaseDate'] = releaseDate
+            release['releaseDate'] = release_date
             primary_keys = ["finding_id", parameters]
             table_name = "FI_findings"
             has_release = integrates_dao.add_attribute_dynamo(
-                table_name, primary_keys, "releaseDate", releaseDate)
+                table_name, primary_keys, "releaseDate", release_date)
             has_last_vuln = integrates_dao.add_attribute_dynamo(
-                table_name, primary_keys, "lastVulnerability", releaseDate)
+                table_name, primary_keys, "lastVulnerability", release_date)
             finding['projectName'] = finding['projectName'].lower()
             if has_release and has_last_vuln:
                 files_data = {'finding_id': parameters, 'project': finding['projectName']}
@@ -1312,7 +1313,7 @@ def accept_draft(request):
                             findingid=files_data['finding_id'],
                             file_name=file_first_name)
                 finding_domain.migrate_all_files(files_data, file_url, request)
-                integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, releaseDate)
+                integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, release_date)
                 save_severity(finding)
                 migrate_description(finding)
                 migrate_treatment(finding)
@@ -1342,17 +1343,17 @@ def delete_draft(request):
     username = request.session['username']
     fin_dto = FindingDTO()
     try:
-        findingData = catch_finding(request, submission_id)
-        if "releaseDate" not in findingData:
+        finding_data = catch_finding(request, submission_id)
+        if "releaseDate" not in finding_data:
             api = FormstackAPI()
             frmreq = api.get_submission(submission_id)
             finding = fin_dto.parse(submission_id, frmreq)
             context = {
-               'project': finding['projectName'],
-               'analyst_mail': finding['analyst'],
-               'finding_name': finding['finding'],
-               'admin_mail': username,
-               'finding_id': submission_id,
+                'project': finding['projectName'],
+                'analyst_mail': finding['analyst'],
+                'finding_name': finding['finding'],
+                'admin_mail': username,
+                'finding_id': submission_id,
             }
             result = api.delete_submission(submission_id)
             if result is None:
@@ -1367,10 +1368,10 @@ def delete_draft(request):
             admins = integrates_dao.get_admins()
             to = [x[0] for x in admins]
             to.append(finding['analyst'])
-            email_send_thread = threading.Thread( \
-                                          name="Delete draft email thread", \
-                                          target=send_mail_delete_draft, \
-                                          args=(to, context,))
+            email_send_thread = \
+                threading.Thread(name="Delete draft email thread",
+                                 target=send_mail_delete_draft,
+                                 args=(to, context,))
             email_send_thread.start()
             return util.response([], 'success', False)
     except KeyError:
@@ -1401,23 +1402,23 @@ def delete_comment(comment):
 def calculate_indicators(project):
     api = FormstackAPI()
     event = eventuality.EventDTO()
-    openVulnerabilities = cardinalidadTotal = maximumSeverity = openEvents =  0
+    open_vulns = card_total = max_severity = open_events = 0
     for row in api.get_eventualities(project)["submissions"]:
         evtset = event.parse(row["id"], api.get_submission(row["id"]))
         if evtset['eventStatus'] == 'Pendiente':
-            openEvents += 1
+            open_events += 1
     findings = integrates_dao.get_findings_dynamo(project, 'finding_id')
     for finding in findings:
         act_finding = finding_vulnerabilities(str(finding['finding_id']))
-        openVulnerabilities += int(act_finding['openVulnerabilities'])
-        cardinalidadTotal += int(act_finding['cardinalidad_total'])
-        if (maximumSeverity < act_finding['criticity']):
-            maximumSeverity = act_finding['criticity']
+        open_vulns += int(act_finding['openVulnerabilities'])
+        card_total += int(act_finding['cardinalidad_total'])
+        if (max_severity < act_finding['criticity']):
+            max_severity = act_finding['criticity']
     try:
-        fixed_vuln = int(round((1.0 - (float(openVulnerabilities) / float(cardinalidadTotal)))*100.0))
+        fixed_vuln = int(round((1.0 - (float(open_vulns) / float(card_total)))*100.0))
     except ZeroDivisionError:
         fixed_vuln = 0
-    return [openEvents, maximumSeverity, fixed_vuln]
+    return [open_events, max_severity, fixed_vuln]
 
 
 @never_cache
