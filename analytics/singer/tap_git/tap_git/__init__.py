@@ -16,6 +16,11 @@ import git
 
 SPRINT = lambda s: print(json.dumps(s))
 
+def go_back(this_days):
+    """ returns today minus this_days """
+    now = datetime.datetime.now() + datetime.timedelta(-1 * int(this_days))
+    return now.strftime("%Y-%m-%d")
+
 def line_iter(file_path):
     """ iterator to the lines of a file """
     with open(file_path, "r") as file:
@@ -170,11 +175,12 @@ def changes_table(last_commit, commit, files):
             srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
         SPRINT(srecord)
 
-def scan_commits(repo_name, config, mailmap, sync_changes):
+def scan_commits(repo_name, config, mailmap, sync_changes, after):
     """ extracts all information possible from the commit object """
 
     repo_obj = git.Repo(config["location"])
     group = config.get("group", "__")
+    tag = config.get("tag", "__")
     branches = config["branches"]
 
     def write_schemas():
@@ -192,7 +198,7 @@ def scan_commits(repo_name, config, mailmap, sync_changes):
 
         last_commit = None
         # iterate from first to latest
-        for commit in repo_obj.iter_commits(branch, reverse=True):
+        for commit in repo_obj.iter_commits(branch, after=after, reverse=True):
             total_insertions = commit.stats.total.get("insertions", 0)
             total_deletions = commit.stats.total.get("deletions", 0)
 
@@ -207,6 +213,7 @@ def scan_commits(repo_name, config, mailmap, sync_changes):
                 "stream": "commits",
                 "record": {
                     "group": group,
+                    "tag": tag,
                     "repo_name": repo_name,
                     "branch": branch,
                     "sha1": commit.hexsha,
@@ -251,6 +258,12 @@ def main():
         type=argparse.FileType('r'),
         dest="conf")
     parser.add_argument(
+        '--last-n-days',
+        help='in days (positive) how many days to go back and sync',
+        type=int,
+        dest="this_days",
+        default=36500)
+    parser.add_argument(
         '--no-changes',
         help='flag to indicate if changes table should not be generated',
         action='store_false',
@@ -260,10 +273,16 @@ def main():
 
     configs = json.load(args.conf)
 
+    after = go_back(args.this_days)
+
     for repo_name, conf in configs.items():
-        mailmap_path = conf[".mailmap"]
-        mailmap = load_mailmap(mailmap_path) if mailmap_path else []
-        scan_commits(repo_name, conf, mailmap, args.sync_changes)
+        # pylint: disable=bare-except
+        try:
+            mailmap_path = conf[".mailmap"]
+            mailmap = load_mailmap(mailmap_path) if mailmap_path else []
+            scan_commits(repo_name, conf, mailmap, args.sync_changes, after)
+        except:
+            pass
 
 if __name__ == "__main__":
     main()

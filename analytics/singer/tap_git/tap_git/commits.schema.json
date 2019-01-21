@@ -11,6 +11,9 @@
       "group":{
         "type":"string"
       },
+      "tag":{
+        "type":"string"
+      },
       "repo_name":{
         "type":"string"
       },
