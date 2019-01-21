@@ -33,7 +33,7 @@ from app.domain.finding import (
     add_file_attribute, migrate_evidence_description,
     list_comments, add_comment, verify_finding,
     get_unique_dict, get_tracking_dict, request_verification,
-    update_description
+    update_description, update_treatment
 )
 from graphene.types.generic import GenericScalar
 
@@ -938,6 +938,30 @@ class UpdateDescription(Mutation):
         success = update_description(finding_id, parameters)
 
         ret = UpdateDescription(success=success, finding=Finding(info=info, identifier=finding_id))
+        project_name = get_project_name(finding_id)
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
+        return ret
+
+class UpdateTreatment(Mutation):
+    """ Update treatment of a finding """
+
+    class Arguments(object):
+        bts_url = String(required=True)
+        finding_id = String(required=True)
+        treatment = String(required=True)
+        treatment_justification = String(required=True)
+    success = Boolean()
+    finding = Field(Finding)
+
+    @require_login
+    @require_role(['customer', 'admin'])
+    @require_finding_access_gql
+    def mutate(self, info, finding_id, **parameters):
+        user_email = util.get_jwt_content(info.context)['user_email']
+        success = update_treatment(finding_id, parameters, user_email)
+
+        ret = UpdateTreatment(success=success, finding=Finding(info=info, identifier=finding_id))
         project_name = get_project_name(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)

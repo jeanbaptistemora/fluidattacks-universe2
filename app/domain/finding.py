@@ -22,7 +22,7 @@ from app.dao import integrates_dao
 from app.dto.finding import FindingDTO, get_project_name, update_vulnerabilities_date
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
-    send_mail_remediate_finding
+    send_mail_remediate_finding, send_mail_accepted_finding
 )
 
 client_s3 = boto3.client('s3',
@@ -412,6 +412,38 @@ def update_description(finding_id, updated_values):
     del updated_values['title']
     del updated_values['description']
     del updated_values['recommendation']
+
+    return integrates_dao.update_multiple_attributes_dynamo(
+        'FI_findings',
+        ['finding_id', finding_id],
+        updated_values
+        )
+
+def send_accepted_email(finding_id, user_email, justification):
+    project_name = get_project_name(finding_id).lower()
+    project_users = integrates_dao.get_project_users(project_name)
+    recipients = [user[0] for user in project_users if user[1] == 1]
+    finding_name = integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding')
+
+    email_send_thread = threading.Thread(
+        name='Accepted finding email thread',
+        target=send_mail_accepted_finding,
+        args=(recipients, {
+            'user_mail': user_email,
+            'finding_name': finding_name,
+            'finding_id': finding_id,
+            'project_name': project_name.capitalize(),
+            'justification': justification,
+        }))
+
+    email_send_thread.start()
+
+def update_treatment(finding_id, updated_values, user_email):
+    updated_values['external_bts'] = updated_values.get('bts_url')
+    del updated_values['bts_url']
+
+    if updated_values['treatment'] == 'Asumido':
+        send_accepted_email(finding_id, user_email, updated_values.get('treatment_justification'))
 
     return integrates_dao.update_multiple_attributes_dynamo(
         'FI_findings',
