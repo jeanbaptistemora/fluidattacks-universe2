@@ -11,130 +11,151 @@ import yaml # pylint: disable=import-error
 SOURCE = "/git/fluidsignal/continuous"
 TARGET = "/git"
 
+# exit on errors
+PORCELAIN = False
+
+# repos that use OAUTH2
 USEAUTH2 = ("Repo_Alis_Front", )
+
+# subscriptions with sub-subscriptions
 NESTED = ("banistmo",)
 
 # repos with problems
 IGNORE = (
-    "bowky",        # fails
-    "caphec",       # fails
-    "aldak",        # no link to clone
-    "valvanera",    # no authorization
-    "villasilvia",  # unable to resolve host (or host down)
-    "yarumossac",   # unable to resolve host
-    "stebbins",     # unable to resolve host
-    "vilachuaga",   # unable to resolve host
-    "volantin",     # unable to resolve host
-    "paitu"         # unable to resolve host
+    "caphec",       # URL returned 403 (does repo exist?)
+    "aldak",        # no link to clone (no 'code' tag in config.yml)
+    "bowky",        # bad private key (bad auth or auth declined)
+    "yarumossac",   # Could not resolve host: serdev.gco.com.co
+    "stebbins",     # Could not resolve host: inboggit01.suramericana.com.co
+    "valvanera",    # Field "repo_key" not present in secret
+    "villasilvia",  # Field "repo_key" not present in secret & Network is unreachable
+    "volantin",     # Field "repo_key" not present in secret & Network is unreachable
+)
+
+# repos to ignore when found inside subscriptions
+SPECIAL = (
+    "asserts",
+    "integrates"
 )
 
 SUBSCRIPTIONS = []
 for subscription in os.listdir(f"{SOURCE}/subscriptions"):
+    subscription_path = f"{SOURCE}/subscriptions/{subscription}"
     if subscription in IGNORE:
         continue
-    for multiple in NESTED:
-        if subscription == multiple:
-            for sub in os.listdir(f"{SOURCE}/subscriptions/{subscription}"):
-                if sub in ("asserts",):
-                    continue
-                SUBSCRIPTIONS.append(f"{SOURCE}/subscriptions/{subscription}/{sub}")
-            break
+    elif subscription in NESTED:
+        for sub in os.listdir(subscription_path):
+            if not sub in SPECIAL:
+                SUBSCRIPTIONS.append(f"{subscription_path}/{sub}")
     else:
-        if not subscription in ("integrates",):
-            SUBSCRIPTIONS.append(f"{SOURCE}/subscriptions/{subscription}")
+        if not subscription in SPECIAL:
+            SUBSCRIPTIONS.append(subscription_path)
 
 BRANCHES = {}
 for subscription in SUBSCRIPTIONS:
-    print(f"===={subscription}")
-
+    nrepos = 0
     os.chdir(subscription)
 
     repo_name = subscription.split(os.sep)[-1]
-    if subscription.split(os.sep)[-2] == "banistmo":
-        project = f"banistmo-{repo_name}"
+    subs_name = subscription.split(os.sep)[-2]
+    if subs_name in NESTED:
+        project = f"{subs_name}-{repo_name}"
     else:
         project = repo_name
 
-    extension = ".git"
     with open(f"{subscription}/config.yml", "r") as config_file:
-        config = yaml.load(config_file).get("code")
+        config = yaml.load(config_file).get("code", None)
 
-    base_url = str(config.get("url")[0])
-    list_of_repos = config.get("branches")
-    git_type = config.get("git-type", "http://")
+    if config is None:
+        print(f"ERROR|{subscription}|no code tag in yml|")
+        continue
 
-    protocol = base_url[:base_url.index("://") + 3]
-    host = base_url[base_url.rfind("@"):]
-    git_user = base_url[base_url.index("//") + 2 :base_url.index("@")]
+    url = str(config.get("url")[0])
+    rsplit = lambda rb, x: rb.rsplit("/", 1)[x]
+    path_branch = [(rsplit(pb, 0), rsplit(pb, 1).lower()) for pb in config.get("branches", [])]
+    git_type = config.get("git-type", "")
+
+    # filter the url into canonical parts
+    groups = re.match(r"(.*?)://(.*?)@(.*?)/(.*)", url).groups()
+    prot, user = groups[0], groups[1]
+    if groups[3]:
+        rest = groups[3][0:-1] if groups[3][-1] == "/" else groups[3]
+    else:
+        rest = ""
+    groups = groups[2].split(":")
+    host, port = groups[0], groups[1] if len(groups) == 2 else ""
+    host_port = f"{host}:{port}" if port else host
+
+    print(f"INFO|YML|{subscription}|{url}|{path_branch}|")
+    print(f"INFO|URL|{prot}|{user}|{host}|{port}|{rest}|")
 
     repo_user = ""
-    pass_url = ""
-    if protocol in ("https://", "http://"):
+    repo_pass = ""
+    if prot in ("http", "https"):
         repo_user = os.popen((f"vault read -field=repo_user "
                               f"secret/continuous/{project}")).read()
         repo_pass = os.popen((f"vault read -field=repo_pass "
                               f"secret/continuous/{project}")).read()
-        pass_url = urllib.parse.quote_plus(repo_pass)
-
-    BRANCHES[project] = {}
+        repo_pass = urllib.parse.quote_plus(repo_pass)
 
     once = True
-    for repo in list_of_repos:
-        repository = repo.rsplit("/", 1)[0].replace("/", "-")
-        branch = repo.rsplit("/", 1)[1]
+    BRANCHES[project] = {}
+    for path, branch in path_branch:
+        repo = path.replace("/", "-")
+        BRANCHES[project][repo] = branch
+        restpath = f"{rest}/{path}" if rest else path
+        target_repo = f"{TARGET}/{project}/{repo}"
 
-        BRANCHES[project][repository] = branch
-
-        target_repo = f"{TARGET}/{project}/{repository}"
-
-        if repository in USEAUTH2:
-            repo_user_2 = os.popen((f"vault read -field=repo_user_2 "
-                                    f"secret/continuous/{project}")).read()
-            repo_pass_2 = os.popen((f"vault read -field=repo_pass_2 "
-                                    f"secret/continuous/{project}")).read()
-            pass_url_2 = urllib.parse.quote_plus(repo_pass_2)
-            uri = f"{protocol}{repo_user_2}:{pass_url_2}{host}/{repository}{extension}"
+        if repo in USEAUTH2:
+            repo_user2 = os.popen((f"vault read -field=repo_user_2 "
+                                   f"secret/continuous/{project}")).read()
+            repo_pass2 = os.popen((f"vault read -field=repo_pass_2 "
+                                   f"secret/continuous/{project}")).read()
+            repo_pass2 = urllib.parse.quote_plus(repo_pass2)
+            uri = f"{prot}://{repo_user2}:{repo_pass2}@{host_port}/{restpath}.git"
             clone = f"git clone -b {branch} --single-branch {uri} {target_repo}"
             update = f"cd {target_repo}; git pull origin {branch}"
-        elif protocol in ("http://", "https://"):
-            uri = f"{protocol}{repo_user}:{pass_url}{host}/{repository}{extension}"
+        elif prot in ("http", "https"):
+            uri = f"{prot}://{repo_user}:{repo_pass}@{host_port}/{restpath}.git"
             clone = f"git clone -b {branch} --single-branch {uri} {target_repo}"
             update = f"cd {target_repo}; git pull origin {branch}"
         else:
             if git_type == "ssh-codecommit":
-                uri = f"{protocol}{git_user}{host}{repository}"
+                uri = f"ssh://{user}@{host_port}/{restpath}"
             else:
-                uri = f"{git_user}{host}{repository}"
-            if "fluid-attacks" not in base_url:
-                if once:
-                    key = os.popen(f"vault read -field=repo_key secret/continuous/{project}").read()
-                    data = base64.b64decode(key)
-                    os.system(f"rm -rf ~/.ssh/{project}")
-                    with open(os.path.expanduser(f'~/.ssh/{project}'), "wb") as file:
-                        file.write(data)
-                    os.system(f"chmod 0400 ~/.ssh/{project}")
-                    once = False
+                uri = f"{user}@{host_port}/{restpath}"
 
-                # love you very much regexp
-                real_host = re.sub(r".*@(.*?)[:/].*", r"\g<1>", host)
-                clone = (f"ssh-agent sh -c \""
-                         f"ssh-keyscan {real_host} >> ~/.ssh/known_hosts;"
-                         f"ssh-add ~/.ssh/{project};"
-                         f"git clone -b {branch} --single-branch {uri} {target_repo}\"")
-                update = (f"ssh-agent sh -c \""
-                          f"ssh-keyscan {real_host} >> ~/.ssh/known_hosts;"
-                          f"ssh-add ~/.ssh/{project};"
-                          f"git pull origin {branch}\"")
-            else:
-                clone = f"git clone -b {branch} --single-branch {uri} {target_repo}"
-                update = f"git pull origin {branch}"
+            if once:
+                once = False
+                key = os.popen(f"vault read -field=repo_key secret/continuous/{project}").read()
+                data = base64.b64decode(key)
+                os.system(f"rm -rf ~/.ssh/{project}")
+                with open(os.path.expanduser(f'~/.ssh/{project}'), "wb") as file:
+                    file.write(data)
+                os.system(f"chmod 0400 ~/.ssh/{project}")
+
+            clone = (f"ssh-agent sh -c \""
+                     f"ssh-keyscan {host} >> ~/.ssh/known_hosts;"
+                     f"ssh-add ~/.ssh/{project};"
+                     f"git clone -b {branch} --single-branch {uri} {target_repo}\"")
+            update = (f"ssh-agent sh -c \""
+                      f"ssh-keyscan {host} >> ~/.ssh/known_hosts;"
+                      f"ssh-add ~/.ssh/{project};"
+                      f"git pull origin {branch}\"")
 
         if not os.path.isdir(f"{target_repo}"):
-            os.makedirs(f"{target_repo}")
-            os.system(clone)
+            if not os.system(clone):
+                nrepos += 1
+            elif PORCELAIN:
+                exit(1)
         else:
             os.chdir(target_repo)
-            os.system(update)
+            if not os.system(update):
+                nrepos += 1
+            elif PORCELAIN:
+                exit(1)
+
+    print(f"INFO|STATS|{subscription}|{nrepos}|")
 
 with open(f"{TARGET}/../branches.json", "w") as file:
     json.dump(BRANCHES, file, indent=2)
