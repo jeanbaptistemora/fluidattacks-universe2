@@ -18,10 +18,11 @@ from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKE
 from app.dto.eventuality import event_data
 
 client_s3 = boto3.client('s3',
-                            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
 bucket_s3 = FI_AWS_S3_BUCKET
+
 
 class Events(ObjectType):
     """ Formstack Events Class """
@@ -76,8 +77,8 @@ class Events(ObjectType):
             self.affectation = resp.get('affectation')
             self.event_status = resp.get('eventStatus')
             if resp.get('evidence'):
-                parsedUrl = urlparse(resp.get('evidence'))
-                self.evidence = parse_qs(parsedUrl.query)['id'][0]
+                parsed_url = urlparse(resp.get('evidence'))
+                self.evidence = parse_qs(parsed_url.query)['id'][0]
             self.accessibility = resp.get('accessibility')
             self.affected_components = resp.get('affectedComponents')
             self.context = resp.get('context')
@@ -156,7 +157,7 @@ class Events(ObjectType):
         """ Resolve context attribute """
         del info
         return self.context
-        
+
     def resolve_subscription(self, info):
         """ Resolve subscription attribute """
         del info

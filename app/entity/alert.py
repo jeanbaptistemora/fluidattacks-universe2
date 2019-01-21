@@ -3,6 +3,7 @@
 from app.dao import integrates_dao
 from graphene import Int, String, ObjectType
 
+
 class Alert(ObjectType):
     """ Dynamo Alert Class """
     message = String()

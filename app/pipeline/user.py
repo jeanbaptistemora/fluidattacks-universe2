@@ -2,6 +2,7 @@
 from ..dao import integrates_dao
 from ..mailer import send_mail_new_user
 
+
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
     username = details['username'][:63]
@@ -18,7 +19,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
             integrates_dao.update_user_login_dao(user)
         else:
             integrates_dao.update_user_data(email, username, first_name,
-                                           last_name)
+                                            last_name)
             integrates_dao.update_user_login_dao(user)
     else:
         to = ["projects@fluidattacks.com", "production@fluidattacks.com",
@@ -27,7 +28,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
         context = {
             'name_user': name,
             'mail_user': email,
-            }
+        }
         send_mail_new_user(to, context)
         integrates_dao.create_user_dao(email, username=username,
                                        first_name=first_name,

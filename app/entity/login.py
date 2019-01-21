@@ -4,6 +4,7 @@ from graphene import Boolean, ObjectType, Mutation
 from app.dao import integrates_dao
 from app.util import get_jwt_content
 
+
 class Login(ObjectType):
     # declare attributes
     authorized = Boolean()
@@ -12,12 +13,12 @@ class Login(ObjectType):
     def __init__(self, user_email, session):
         """ Login information class """
         self.authorized = integrates_dao.is_registered_dao(user_email) == '1'
-        userInfo = integrates_dao.get_user_dynamo(user_email)
+        user_info = integrates_dao.get_user_dynamo(user_email)
         self.remember = False
-        if not userInfo == []:
-            userInfo = dict(userInfo[0])
-            if "legal_remember" in userInfo:
-                self.remember = userInfo["legal_remember"]
+        if not user_info == []:
+            user_info = dict(user_info[0])
+            if "legal_remember" in user_info:
+                self.remember = user_info["legal_remember"]
                 session['accept_legal'] = self.remember
 
     def resolve_authorized(self, info):
@@ -29,6 +30,7 @@ class Login(ObjectType):
         """ Resolve remember preference """
         del info
         return self.remember
+
 
 class AcceptLegal(Mutation):
     class Arguments(object):

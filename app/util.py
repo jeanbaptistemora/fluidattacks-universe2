@@ -82,37 +82,33 @@ def drive_url_filter(drive):
 
 def get_evidence_set(finding):
     evidence_set = []
-    if "evidence_route_1" in finding and \
-        "evidence_description_1" in finding:
+    if "evidence_route_1" in finding and "evidence_description_1" in finding:
         evidence_set.append({
             "id": finding["evidence_route_1"],
             "explanation": finding["evidence_description_1"].capitalize()
         })
-    if "evidence_route_2" in finding and \
-        "evidence_description_2" in finding:
+    if "evidence_route_2" in finding and "evidence_description_2" in finding:
         evidence_set.append({
             "id": finding["evidence_route_2"],
             "explanation": finding["evidence_description_2"].capitalize()
         })
-    if "evidence_route_3" in finding and \
-        "evidence_description_3" in finding:
+    if "evidence_route_3" in finding and "evidence_description_3" in finding:
         evidence_set.append({
             "id": finding["evidence_route_3"],
             "explanation": finding["evidence_description_3"].capitalize()
         })
-    if "evidence_route_4" in finding and \
-        "evidence_description_4" in finding:
+    if "evidence_route_4" in finding and "evidence_description_4" in finding:
         evidence_set.append({
             "id": finding["evidence_route_4"],
             "explanation": finding["evidence_description_4"].capitalize()
         })
-    if "evidence_route_5" in finding and \
-        "evidence_description_5" in finding:
+    if "evidence_route_5" in finding and "evidence_description_5" in finding:
         evidence_set.append({
             "id": finding["evidence_route_5"],
             "explanation": finding["evidence_description_5"].capitalize()
         })
     return evidence_set
+
 
 def get_evidence_set_s3(finding, key_list, field_list):
     evidence_set = []
@@ -133,20 +129,22 @@ def get_evidence_set_s3(finding, key_list, field_list):
     return evidence_set
 
 
-def user_email_filter(emails, actualUser):
-    if "@fluidattacks.com" in actualUser:
-        finalUsers = emails
+def user_email_filter(emails, actual_user):
+    if "@fluidattacks.com" in actual_user:
+        final_users = emails
     else:
         for user in emails:
             if "@fluidattacks.com" in user:
                 emails.remove(user)
-        finalUsers = emails
-    return finalUsers
+        final_users = emails
+    return final_users
+
 
 def assert_file_mime(filename, allowed_mimes):
     mime = Magic(mime=True)
     mime_type = mime.from_file(filename)
     return mime_type in allowed_mimes
+
 
 def assert_uploaded_file_mime(file_instance, allowed_mimes):
     mime = Magic(mime=True)
@@ -159,8 +157,10 @@ def assert_uploaded_file_mime(file_instance, allowed_mimes):
                             Use util.assert_file_mime instead.')
     return mime_type in allowed_mimes
 
+
 def has_release(finding):
     return "releaseDate" in finding
+
 
 def get_last_vuln(finding):
     """Gets last release of a finding"""
@@ -172,6 +172,7 @@ def get_last_vuln(finding):
     finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
     return finding_last_vuln
 
+
 def validate_release_date(finding):
     """Validate if a finding has a valid relese date."""
     if has_release(finding):
@@ -182,6 +183,7 @@ def validate_release_date(finding):
     else:
         result = False
     return result
+
 
 def validate_future_releases(finding):
     """Validate if a finding has a future release."""
@@ -205,8 +207,10 @@ def cloudwatch_log(request, msg):
     info.append(msg)
     logger.info(":".join(info))
 
+
 def cloudwatch_log_plain(msg):
     logger.info(msg)
+
 
 def get_jwt_content(context):
     token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
@@ -218,8 +222,10 @@ def get_jwt_content(context):
         raise
     except JWTError:
         cloudwatch_log(context,
-            'Security: Attempted to modify JWT. Invalid token signature')
+                       'Security: \
+Attempted to modify JWT. Invalid token signature')
         raise
+
 
 def list_s3_objects(client_s3, bucket_s3, key):
     response = client_s3.list_objects_v2(
@@ -232,10 +238,12 @@ def list_s3_objects(client_s3, bucket_s3, key):
 
     return key_list
 
+
 def replace_all(text, dic):
     for i, j in dic.items():
         text = text.replace(i, j)
     return text
+
 
 def list_to_dict(keys, values):
     """ Merge two lists into a {key: value} dictionary """

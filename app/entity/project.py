@@ -79,10 +79,10 @@ class Project(ObjectType):
 
         charts_token = jwt.encode(
             {
-              'organization': int(FI_ORGANIZATION),
-              'dashboard': int(FI_DASHBOARD),
-              'exp': datetime.utcnow() + timedelta(seconds=30),
-              'env': {'PROJECT': self.name}
+                'organization': int(FI_ORGANIZATION),
+                'dashboard': int(FI_DASHBOARD),
+                'exp': datetime.utcnow() + timedelta(seconds=30),
+                'env': {'PROJECT': self.name}
             },
             FI_ORGANIZATION_SECRET,
             algorithm='HS256'

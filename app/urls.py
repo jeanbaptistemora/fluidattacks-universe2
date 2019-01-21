@@ -10,7 +10,7 @@ from .entity import schema
 from django.conf import settings
 
 # pylint: disable=W0104
-handler400, handler403, handler404, handler500;
+handler400, handler403, handler404, handler500
 
 handler400 = 'app.views.error500'
 handler401 = 'app.views.error401'

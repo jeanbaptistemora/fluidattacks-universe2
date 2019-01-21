@@ -19,6 +19,7 @@ from .finding import (
 from .project import AddProjectComment
 from graphene import ObjectType
 
+
 class Mutations(ObjectType):
     acceptLegal = AcceptLegal.Field()
 
