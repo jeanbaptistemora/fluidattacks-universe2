@@ -10,6 +10,7 @@ from .api.formstack import FormstackAPI
 from .dto.finding import FindingDTO
 from .dto.eventuality import EventDTO
 
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def login(request):
@@ -29,17 +30,18 @@ def has_access_to_project(user, project_name, rol):
         return True
     return integrates_dao.has_access_to_project_dao(user, project_name)
 
+
 def has_access_to_finding(user, findingid, role):
     """ Verify if the user has access to a finding submission. """
-    hasAccess = False
+    has_access = False
     # Skip this check for admin users since they don't have any assigned projects
     if role == 'admin':
-        hasAccess = True
+        has_access = True
     else:
         project = integrates_dao.get_finding_project(findingid)
 
         if project:
-            hasAccess = has_access_to_project(user, project, role)
+            has_access = has_access_to_project(user, project, role)
         else:
             api = FormstackAPI()
             fin_dto = FindingDTO()
@@ -48,11 +50,12 @@ def has_access_to_finding(user, findingid, role):
             project = finding_data['projectName'] if 'projectName' in finding_data else None
 
             if project:
-                hasAccess = has_access_to_project(user, project, role)
+                has_access = has_access_to_project(user, project, role)
             else:
                 project = evt_dto.parse(findingid, api.get_submission(findingid))['projectName']
-                hasAccess = has_access_to_project(user, project, role)
-    return hasAccess
+                has_access = has_access_to_project(user, project, role)
+    return has_access
+
 
 def is_customeradmin(project, email):
     """Verify if a user is a customeradmin."""
@@ -62,6 +65,7 @@ def is_customeradmin(project, email):
             if email.lower() in data["customeradmin"]:
                 return True
     return False
+
 
 def has_responsibility(project, email):
     """Verify if a user has responsability."""
@@ -74,6 +78,7 @@ def has_responsibility(project, email):
         else:
             user_resp = "-"
     return user_resp
+
 
 def has_phone_number(email):
     user_info = integrates_dao.get_user_dynamo(email)

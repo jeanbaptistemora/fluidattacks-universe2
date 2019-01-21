@@ -31,30 +31,30 @@ class User(ObjectType):
         self.phone_number = ''
         self.organization = ''
         self.first_login = '-'
-        self.last_login = [-1,-1]
+        self.last_login = [-1, -1]
 
         last_login = integrates_dao.get_user_last_login_dao(user_email)
-        last_login = last_login.split('.',1)[0]
+        last_login = last_login.split('.', 1)[0]
 
         if last_login == '1111-01-01 11:11:11' or last_login == '-':
-            self.last_login=[-1,-1]
+            self.last_login = [-1, -1]
         else:
             dates_difference = datetime.now()-datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
-            diff_last_login=[dates_difference.days,dates_difference.seconds]
-            self.last_login=diff_last_login
+            diff_last_login = [dates_difference.days, dates_difference.seconds]
+            self.last_login = diff_last_login
 
-        self.first_login = integrates_dao.get_user_first_login_dao(user_email).split('.',1)[0]
-        self.organization=integrates_dao.get_organization_dao(user_email).title()
+        self.first_login = integrates_dao.get_user_first_login_dao(user_email).split('.', 1)[0]
+        self.organization = integrates_dao.get_organization_dao(user_email).title()
         self.responsability = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
-        userRole=integrates_dao.get_role_dao(user_email)
+        user_role = integrates_dao.get_role_dao(user_email)
 
         if is_customeradmin(project_name, user_email):
             self.role = 'customer_admin'
-        elif userRole == 'customeradmin':
+        elif user_role == 'customeradmin':
             self.role = 'customer'
         else:
-            self.role = userRole
+            self.role = user_role
 
     def resolve_email(self, info):
         """ Resolve user email """
@@ -174,15 +174,15 @@ def create_new_user(context, new_user_data, project_name):
                       + project_name.lower() + '/indicators'
         to = [email]
         context = {
-           'admin': context.session['username'],
-           'project': project_name,
-           'project_description': description,
-           'project_url': project_url,
+            'admin': context.session['username'],
+            'project': project_name,
+            'project_description': description,
+            'project_url': project_url,
         }
-        email_send_thread = threading.Thread( \
-                                      name='Access granted email thread', \
-                                      target=send_mail_access_granted, \
-                                      args=(to, context,))
+        email_send_thread = \
+            threading.Thread(name='Access granted email thread',
+                             target=send_mail_access_granted,
+                             args=(to, context,))
         email_send_thread.start()
         success = True
     return success

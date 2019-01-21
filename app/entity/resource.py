@@ -88,10 +88,10 @@ class AddRepositories(Mutation):
                 'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                 .format(project=project_name)
             }
-            email_send_thread = threading.Thread( \
-                                          name='Add repositories email thread', \
-                                          target=send_mail_repositories, \
-                                          args=(to, context,))
+            email_send_thread = \
+                threading.Thread(name='Add repositories email thread',
+                                 target=send_mail_repositories,
+                                 args=(to, context,))
             email_send_thread.start()
             success = True
         else:
@@ -149,10 +149,9 @@ class RemoveRepositories(Mutation):
                     'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
-                threading.Thread( \
-                  name='Remove repositories email thread', \
-                  target=send_mail_repositories, \
-                  args=(to, context,)).start()
+                threading.Thread(name='Remove repositories email thread',
+                                 target=send_mail_repositories,
+                                 args=(to, context,)).start()
                 success = True
             else:
                 rollbar.report_message('Error: An error occurred removing repository', 'error', info.context)
@@ -205,10 +204,10 @@ class AddEnvironments(Mutation):
                 'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                 .format(project=project_name)
             }
-            email_send_thread = threading.Thread( \
-                                          name='Add environments email thread', \
-                                          target=send_mail_repositories, \
-                                          args=(to, context,))
+            email_send_thread = \
+                threading.Thread(name='Add environments email thread',
+                                 target=send_mail_repositories,
+                                 args=(to, context,))
             email_send_thread.start()
             success = True
         else:
@@ -262,10 +261,10 @@ class RemoveEnvironments(Mutation):
                     'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
-                email_send_thread = threading.Thread( \
-                                              name='Remove environments email thread', \
-                                              target=send_mail_repositories, \
-                                              args=(to, context,))
+                email_send_thread = \
+                    threading.Thread(name='Remove environments email thread',
+                                     target=send_mail_repositories,
+                                     args=(to, context,))
                 email_send_thread.start()
                 success = True
             else:
