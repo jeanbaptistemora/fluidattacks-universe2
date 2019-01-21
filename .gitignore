@@ -37,6 +37,9 @@ env-dev.vars
 local-test.sh
 
 # npm
-
 package-lock.json
 node_modules
+
+# Commitlint
+commitlint.config.js
+parser-preset.js

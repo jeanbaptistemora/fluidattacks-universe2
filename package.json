@@ -4,7 +4,7 @@
   "description": "Platform for vulnerability centralization and management",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "./ci-scripts/commitlint-conf.sh"
   },
   "repository": {
     "type": "git",
