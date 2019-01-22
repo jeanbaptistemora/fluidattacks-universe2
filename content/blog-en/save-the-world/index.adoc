@@ -4,7 +4,7 @@
 :subtitle: How to solve Save the World from We Chall!
 :tags: security, vulnerability, information
 :image: cover.png
-:alt: calling a super-hero
+:alt: man standing in heroic pose
 :description: Save the World is a cryptography challenge at We Chall. The objective is to break the asymmetric RSA algorithm from three intercepted messages and three public keys. Once one decrypt the message, an RSA symmetric key is revealed, and the government can intercept high-tech weapons from the enemy.
 :keywords: RSA, Coppersmith's attack, Save the World, WeChall, WriteUp, Solution.
 :author: Kevin Amado
