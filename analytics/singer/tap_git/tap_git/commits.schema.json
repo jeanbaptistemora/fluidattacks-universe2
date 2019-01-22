@@ -2,19 +2,22 @@
   "type":"SCHEMA",
   "stream":"commits",
   "key_properties":[
-    "repo_name",
+    "repository",
     "branch",
     "sha1"
   ],
   "schema":{
     "properties":{
-      "group":{
+      "organization":{
+        "type":"string"
+      },
+      "subscription":{
+        "type":"string"
+      },
+      "repository":{
         "type":"string"
       },
       "tag":{
-        "type":"string"
-      },
-      "repo_name":{
         "type":"string"
       },
       "branch":{
@@ -52,19 +55,19 @@
       "message":{
         "type":"string"
       },
-      "total_files":{
+      "commit_files":{
         "type":"number"
       },
-      "total_lines":{
+      "commit_insertions":{
         "type":"number"
       },
-      "total_insertions":{
+      "commit_deletions":{
         "type":"number"
       },
-      "total_deletions":{
+      "commit_tot_lines":{
         "type":"number"
       },
-      "net_lines":{
+      "commit_net_lines":{
         "type":"number"
       }
     }

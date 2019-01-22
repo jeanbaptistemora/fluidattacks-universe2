@@ -120,8 +120,8 @@ def changes_table(last_commit, commit, files):
         ret = {
             "insertions": insertions,
             "deletions": deletions,
-            "total_deltas": insertions + deletions,
-            "net_deltas": insertions - deletions,
+            "tot_lines": insertions + deletions,
+            "net_lines": insertions - deletions,
         }
         return ret
 
@@ -175,13 +175,18 @@ def changes_table(last_commit, commit, files):
             srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
         SPRINT(srecord)
 
-def scan_commits(repo_name, config, mailmap, sync_changes, after):
+def scan_commits(config, mailmap, sync_changes, after):
     """ extracts all information possible from the commit object """
 
-    repo_obj = git.Repo(config["location"])
-    group = config.get("group", "__")
-    tag = config.get("tag", "__")
+    # must have
+    repository = config["repository"]
     branches = config["branches"]
+    repo_obj = git.Repo(config["location"])
+
+    # optional
+    organization = config.get("organization", "__")
+    subscription = config.get("subscription", "__")
+    tag = config.get("tag", "__")
 
     def write_schemas():
         """ writes singer schemas to stdout """
@@ -200,8 +205,8 @@ def scan_commits(repo_name, config, mailmap, sync_changes, after):
         # iterate from first to latest
         # test kwargs mangling in this function: git.cmd.Git().transform_kwargs()
         for commit in repo_obj.iter_commits(branch, after=after, reverse=True, no_merges=True):
-            total_insertions = commit.stats.total.get("insertions", 0)
-            total_deletions = commit.stats.total.get("deletions", 0)
+            commit_insertions = commit.stats.total.get("insertions", 0)
+            commit_deletions = commit.stats.total.get("deletions", 0)
 
             authorn, authore = commit.author.name, commit.author.email
             commitn, commite = commit.committer.name, commit.committer.email
@@ -213,9 +218,10 @@ def scan_commits(repo_name, config, mailmap, sync_changes, after):
                 "type": "RECORD",
                 "stream": "commits",
                 "record": {
-                    "group": group,
+                    "organization": organization,
+                    "subscription": subscription,
+                    "repository": repository,
                     "tag": tag,
-                    "repo_name": repo_name,
                     "branch": branch,
                     "sha1": commit.hexsha,
                     "sha1_short": commit.hexsha[0:7],
@@ -227,11 +233,11 @@ def scan_commits(repo_name, config, mailmap, sync_changes, after):
                     "committed_at": commit.committed_datetime.strftime("%Y-%m-%dT%H:%M:%SZ"),
                     "summary": commit.summary,
                     "message": re.sub(r"^[\n\r]*", "", commit.message.replace(commit.summary, "")),
-                    "total_files": commit.stats.total.get("files", 0),
-                    "total_lines": commit.stats.total.get("lines", 0),
-                    "total_insertions": total_insertions,
-                    "total_deletions": total_deletions,
-                    "net_lines": total_insertions - total_deletions
+                    "commit_files": commit.stats.total.get("files", 0),
+                    "commit_insertions": commit_insertions,
+                    "commit_deletions": commit_deletions,
+                    "commit_tot_lines": commit_insertions + commit_deletions,
+                    "commit_net_lines": commit_insertions - commit_deletions
                 }
             }
 
@@ -291,24 +297,20 @@ def main():
         default=1)
     args = parser.parse_args()
 
-    # catch the config file (JSON-dict)
+    # catch the config file (JSON) (list<dict>)
     configs = json.load(args.conf)
-    # parse it into a sorted structure
-    #   dict<key:val> is not deterministically iterated
-    #   list<tuple(key:val)> is
-    configs = sorted(configs.items())
     # divide it into chunks, and pick the n-th chunk
     configs = get_chunk(configs, args.nthreads, args.fork_id)
     # now process that chunk
 
     after = go_back(args.this_days)
 
-    for repo_name, conf in configs:
+    for conf in configs:
         # pylint: disable=bare-except
         try:
             mailmap_path = conf[".mailmap"]
             mailmap = load_mailmap(mailmap_path) if mailmap_path else []
-            scan_commits(repo_name, conf, mailmap, args.sync_changes, after)
+            scan_commits(conf, mailmap, args.sync_changes, after)
         except:
             pass
 

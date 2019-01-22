@@ -29,10 +29,10 @@
       "deletions":{
         "type":"number"
       },
-      "total_deltas":{
+      "tot_lines":{
         "type":"number"
       },
-      "net_deltas":{
+      "net_lines":{
         "type":"number"
       }
     }
