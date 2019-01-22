@@ -17,6 +17,15 @@ import psycopg2.extensions as postgres_extensions
 
 from psycopg2.extras import execute_values
 
+# identity function
+IDM = lambda x: x
+
+# stringifies an iterable
+#   it: (a, b, c) => "(f(a)),(f(b)),(f(c))"
+STRINGIFY = lambda it, c=",", b="(", e=")", f=IDM: c.join(f"{b}{f(x)}{e}" for x in it)
+
+STR_LEN = lambda str_obj: len(str_obj.encode('utf-8'))
+
 def make_access_point(auth):
     """ returns a connection and a cursor to the database """
     # dev note, http://initd.org/psycopg/docs/extras.html
@@ -44,12 +53,11 @@ def drop_access_point(dbcon, dbcur):
 def escape(str_obj):
     """ scape characters """
 
-    if not isinstance(str_obj, str):
-        str_obj = str(str_obj)
-
+    str_obj = str(str_obj)
     str_obj = re.sub("\x00", "", str_obj)
+    str_obj = str_obj.replace("\\", "\\\\")
 
-    for char in "'\"":
+    for char in ("'", '"'):
         str_obj = re.sub(char, f"\\{char}", str_obj)
 
     return str_obj
@@ -74,7 +82,7 @@ def translate_schema(singer_schema):
         elif stype == snumber:
             rtype = "FLOAT8"
         elif stype == sstring:
-            rtype = "VARCHAR(1024)"
+            rtype = "VARCHAR(256)"
         elif stype == sdatetime:
             rtype = "TIMESTAMP"
         else:
@@ -85,9 +93,6 @@ def translate_schema(singer_schema):
 
 def translate_record(schema, record):
     """ translates a singer record to a redshift record """
-    def str_len(str_obj):
-        """ returns the number of bytes on a python string """
-        return len(str_obj.encode('utf-8'))
 
     new_record = {}
     for user_field, user_value in record.items():
@@ -103,13 +108,13 @@ def translate_record(schema, record):
                 new_value = f"{escape(user_value)}"
             elif new_field_type == "FLOAT8":
                 new_value = f"{escape(user_value)}"
-            elif new_field_type == "VARCHAR(1024)":
-                new_value = f"{escape(user_value)}"
-                # preserves 1024 bytes from left, truncates everything else
-                while str_len(new_value) > 1024:
+            elif new_field_type == "VARCHAR(256)":
+                new_value = user_value[0:256]
+                while STR_LEN(escape(new_value)) > 256:
                     new_value = new_value[0:-1]
+                new_value = f"'{escape(new_value)}'"
             elif new_field_type == "TIMESTAMP":
-                new_value = f"{escape(user_value)}"
+                new_value = f"'{escape(user_value)}'"
             else:
                 print(f"WARN: Ignoring type {new_field_type}, it's not in the streamed schema.")
 
@@ -176,41 +181,49 @@ class Batcher():
         self.buckets = {}
 
     def ex(self, statement, do_print=False):
-        """ executes a single statement, no performance buff here """
+        """ executes a single statement """
         if do_print:
             print(f"EXEC: {statement}.")
         self.dbcur.execute(statement)
 
     def queue(self, table_name, values):
-        """ queue 10k records before pushing them in batch to Redshift """
+        """ queue rows before pushing them in batch to Redshift """
         if not table_name in self.buckets:
             self.buckets[table_name] = {
-                "params": [],
-                "count": 0
+                "values": [],
+                "count": 0,
+                "size": 0
             }
 
-        self.buckets[table_name]["params"].append(tuple(values))
-        self.buckets[table_name]["count"] += 1
+        statement = STRINGIFY(values, c=",", b="", e="")
+        stmt_size = STR_LEN(statement)
 
-        if self.buckets[table_name]["count"] >= 10000:
+        # a redshift statement must be less than 16MB, reserve 1KB for the header
+        if self.buckets[table_name]["size"] + stmt_size >= 15999000:
             self.load(table_name)
 
-    def load(self, table_name, do_print=False):
-        """ executes multiple statements, big performance buff here """
-        template = f"INSERT INTO \"{self.sname}\".\"{table_name}\" VALUES %s"
-        params = self.buckets[table_name]["params"]
-        count = self.buckets[table_name]["count"]
-        if do_print:
-            print(f"EXEC: {template}.")
-            print(f"EXEC: {params}.")
-        execute_values(self.dbcur, template, params)
-        print(f"INFO: {count} messages sent to Redshift/{self.sname}/{table_name}.")
+        self.buckets[table_name]["values"].append(statement)
+        self.buckets[table_name]["count"] += 1
+        self.buckets[table_name]["size"] += stmt_size
 
-        self.buckets[table_name]["params"] = []
+    def load(self, table_name, do_print=False):
+        """ loads a batch """
+
+        # take every comma separated string, and surround it with parenthesis
+        values = STRINGIFY(self.buckets[table_name]["values"], c=",", b="(", e=")")
+
+        self.ex(f"INSERT INTO \"{self.sname}\".\"{table_name}\" VALUES {values}", do_print)
+
+        count = self.buckets[table_name]["count"]
+        size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
+        print(f"INFO: {count} rows ({size} MB) loaded to Redshift/{self.sname}/{table_name}.")
+
+        self.buckets[table_name]["values"] = []
         self.buckets[table_name]["count"] = 0
+        self.buckets[table_name]["size"] = 0
 
     def flush(self, do_print=False):
-        """ flush it at the end to push buckets with less than 10k elements """
+        """ flush it at the end to push pending buckets """
         for table_name in self.buckets:
             self.load(table_name, do_print)
 
@@ -236,20 +249,20 @@ def persist_messages(batcher, schema_name, messages):
 
             record_ov = []
             for field in table_ofields:
-                if field in table_record:
+                try:
                     record_ov.append(table_record[field])
-                else:
-                    record_ov.append(None)
+                except KeyError:
+                    record_ov.append("null")
 
             batcher.queue(table_name, record_ov)
 
         elif message_type == "SCHEMA":
             table_name = escape(json_obj["stream"].lower())
-            table_pkeys = list(map(escape, json_obj["key_properties"]))
+            table_pkeys = tuple(map(escape, json_obj["key_properties"]))
             table_schema = json_obj["schema"]
 
             schema[table_name] = table_ft = translate_schema(table_schema["properties"])
-            ofields[table_name] = table_of = list(table_ft.keys())
+            ofields[table_name] = table_of = tuple(table_ft.keys())
 
             create_table(batcher, schema_name, table_name, table_of, table_ft, table_pkeys)
 
