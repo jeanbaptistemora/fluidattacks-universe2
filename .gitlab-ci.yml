@@ -88,6 +88,16 @@ build_builder:
         --context "${CI_PROJECT_DIR}/containers/builder/"
         --dockerfile "${CI_PROJECT_DIR}/containers/builder/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}:builder"
+  only:
+    refs:
+      - schedules
+  except:
+    variables:
+      - $FLAG_SYNC_CURRENCIES
+      - $FLAG_SYNC_FORMSTACK
+      - $FLAG_SYNC_AWSDYNAMODB
+      - $FLAG_SYNC_TIMEDOCTOR
+      - $FLAG_SYNC_GIT
 
 test_code:
   stage: test-code
