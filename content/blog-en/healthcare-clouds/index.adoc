@@ -3,8 +3,8 @@
 :category: opinions
 :subtitle: Cloud based systems in healthcare and their issues
 :tags: cloud, protect, health
-:image: health-cloud.png
-:alt: The word Health Insurance being lift up to the sky by balloons
+:image: cover.png
+:alt: several balloons floating in the air
 :description: Technology advances nowadays allow us to exchange accurate, near real time information using the cloud. This advantage can benefit many enterprises and Healthcare institutions are no exception, however cloud-based systems may carry security issues that must be considered. Here we explain them.
 :keywords: Health care, Cloud, Information, Risks, Security, Protect.
 :author: Juan Aguirre
@@ -15,8 +15,6 @@
 
 = Healthcare in the clouds
 
-.Healthcare in the cloud
-image::image1.png[healthcare]
 
 The healthcare nowadays is in the clouds, and not just the prices.
 With the fast pace in which technology advances and the many
@@ -27,6 +25,9 @@ are no exception. The cloud provides near real time, accurate exchange of
 information to support a variety of health care scenarios—which is the
 objective of the Health Information Technology for Economic and Clinical Health
 Act (+HITECH+ Act), (Filkins, 2011).
+
+.Healthcare in the cloud
+image::image1.png[healthcare]
 
 The first steps hospitals took into migrating to the cloud was +SaaS+ (Software
 as a Service). "+SaaS+ is a way of delivering applications
