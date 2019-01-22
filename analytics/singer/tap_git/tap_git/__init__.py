@@ -247,6 +247,13 @@ def scan_commits(repo_name, config, mailmap, sync_changes, after):
     for branch in branches:
         write_records(branch)
 
+def get_chunk(iterable, nchunks, chunk_id):
+    """ yield successive chunks from iterable """
+    schunk = len(iterable) // nchunks + 1
+    beg = (chunk_id - 1) * schunk
+    end = (chunk_id - 0) * schunk - 1
+    return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
+
 def main():
     """ usual entry point """
 
@@ -270,13 +277,33 @@ def main():
         action='store_false',
         dest="sync_changes",
         default=True)
+    parser.add_argument(
+        '--threads',
+        help='=the number of processes to fork in',
+        type=int,
+        dest="nthreads",
+        default=1)
+    parser.add_argument(
+        '--fork-id',
+        help='=the id of the current fork',
+        type=int,
+        dest="fork_id",
+        default=1)
     args = parser.parse_args()
 
+    # catch the config file (JSON-dict)
     configs = json.load(args.conf)
+    # parse it into a sorted structure
+    #   dict<key:val> is not deterministically iterated
+    #   list<tuple(key:val)> is
+    configs = sorted(configs.items())
+    # divide it into chunks, and pick the n-th chunk
+    configs = get_chunk(configs, args.nthreads, args.fork_id)
+    # now process that chunk
 
     after = go_back(args.this_days)
 
-    for repo_name, conf in configs.items():
+    for repo_name, conf in configs:
         # pylint: disable=bare-except
         try:
             mailmap_path = conf[".mailmap"]
