@@ -95,7 +95,8 @@ FIELDS_EVENT = {
     'HOURS_BEFORE_BLOCKING': '31741526',
     'ACTION_BEFORE_BLOCKING': '52906422',
     'ACTION_AFTER_BLOCKING': '52906369',
-    'CLOSER': '43555786'
+    'CLOSER': '43555786',
+    'EVIDENCE_FILE': '73346097'
 }
 
 EV_URL = 'https://www.formstack.com/api/v2/form/1886931/submission.json'

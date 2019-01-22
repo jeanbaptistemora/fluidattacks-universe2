@@ -35,6 +35,7 @@ class EventDTO(object):
     ACTION_BEFORE_BLOCKING = FIELDS_EVENT['ACTION_BEFORE_BLOCKING']
     ACTION_AFTER_BLOCKING = FIELDS_EVENT['ACTION_AFTER_BLOCKING']
     CLOSER = FIELDS_EVENT['CLOSER']
+    EVIDENCE_FILE = FIELDS_EVENT['EVIDENCE_FILE']
 
     def __init__(self):
         """Class constructor."""
@@ -78,7 +79,8 @@ class EventDTO(object):
             self.HOURS_BEFORE_BLOCKING: 'hoursBeforeBlocking',
             self.ACTION_BEFORE_BLOCKING: 'actionBeforeBlocking',
             self.ACTION_AFTER_BLOCKING: 'actionAfterBlocking',
-            self.CLOSER: 'closer'
+            self.CLOSER: 'closer',
+            self.EVIDENCE_FILE: 'evidenceFile'
         }
         parsed_dict = {v: initial_dict[k]
                        for (k, v) in event_fields.items()
@@ -87,6 +89,12 @@ class EventDTO(object):
             parsed_dict['evidence'] = forms.drive_url_filter(parsed_dict['evidence'])
         else:
             # Event does not have evidences
+            pass
+        if parsed_dict.get('evidenceFile'):
+            parsed_dict['evidenceFile'] = \
+                forms.drive_url_filter(parsed_dict['evidenceFile'])
+        else:
+            # Event does not have evidence file
             pass
         return parsed_dict
 
@@ -103,7 +111,8 @@ def parse_event_dynamo(submission_id):
         'event_type', 'detail', 'event_date', 'event_status', 'affectation',
         'evidence', 'accessibility', 'affected_components', 'subscription',
         'context', 'client_responsible', 'hours_before_blocking', 'event_id',
-        'action_before_blocking', 'action_after_blocking', 'closer']
+        'action_before_blocking', 'action_after_blocking', 'closer',
+        'evidence_file']
     event_title = ','.join(event_headers)
     event = integrates_dao.get_event_attributes_dynamo(
         submission_id,
@@ -158,7 +167,8 @@ def migrate_event(event):
         'event_type', 'detail', 'event_date', 'event_status', 'affectation',
         'evidence', 'accessibility', 'affected_components', 'subscription',
         'context', 'client_responsible', 'hours_before_blocking',
-        'action_before_blocking', 'action_after_blocking', 'closer']
+        'action_before_blocking', 'action_after_blocking', 'closer',
+        'evidence_file']
     event_data = {k: event.get(util.snakecase_to_camelcase(k))
                   for k in event_fields
                   if event.get(util.snakecase_to_camelcase(k))}
