@@ -3,13 +3,25 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # pylint: disable=relative-beyond-top-level
 
+from __future__ import absolute_import
+import os
 import rollbar
+import boto3
 from django.conf import settings
-
+from magic import Magic
+from botocore.exceptions import ClientError
+from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+from app.api.drive import DriveAPI
 from ..dao import integrates_dao
 from ..api.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
+
+CLIENT_S3 = boto3.client('s3',
+                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+
+BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
 class EventDTO(object):
@@ -54,7 +66,8 @@ class EventDTO(object):
             self.data['reportDate'] = report_date.get('report_date')
         else:
             self.data['reportDate'] = request_arr['timestamp']
-        self.data = forms.dict_concatenation(self.data, self.parse_event(request_arr))
+        self.data = forms.dict_concatenation(
+            self.data, self.parse_event(request_arr))
         return self.data
 
     def parse_event(self, request_arr):
@@ -86,7 +99,8 @@ class EventDTO(object):
                        for (k, v) in event_fields.items()
                        if k in initial_dict.keys()}
         if parsed_dict.get('evidence'):
-            parsed_dict['evidence'] = forms.drive_url_filter(parsed_dict['evidence'])
+            parsed_dict['evidence'] = \
+                forms.drive_url_filter(parsed_dict['evidence'])
         else:
             # Event does not have evidences
             pass
@@ -98,14 +112,9 @@ class EventDTO(object):
             pass
         return parsed_dict
 
-    def to_formstack(self, data):
-        new_data = dict()
-        for key, value in data.items():
-            new_data["field_" + str(key)] = value
-        return new_data
-
 
 def parse_event_dynamo(submission_id):
+    """Parse event data."""
     event_headers = [
         'analyst', 'client', 'project_name', 'client_project', 'report_date',
         'event_type', 'detail', 'event_date', 'event_status', 'affectation',
@@ -134,6 +143,7 @@ def parse_event_dynamo(submission_id):
 
 
 def event_data(submission_id):
+    """Get event data."""
     event = []
     event_title = 'event_date'
     event = integrates_dao.get_event_attributes_dynamo(
@@ -150,12 +160,15 @@ def event_data(submission_id):
                 api.get_submission(submission_id)
             )
             migrate_event(event_parsed)
+            migrate_event_files(event_parsed)
         else:
-            rollbar.report_message('Error: An error occurred catching event', 'error')
+            rollbar.report_message(
+                'Error: An error occurred catching event', 'error')
     return event_parsed
 
 
 def migrate_event(event):
+    """Migrate event to dynamo."""
     primary_keys = ['event_id', str(event['id'])]
     if event.get('projectName'):
         event['projectName'] = event['projectName'].lower()
@@ -169,8 +182,80 @@ def migrate_event(event):
         'context', 'client_responsible', 'hours_before_blocking',
         'action_before_blocking', 'action_after_blocking', 'closer',
         'evidence_file']
-    event_data = {k: event.get(util.snakecase_to_camelcase(k))
-                  for k in event_fields
-                  if event.get(util.snakecase_to_camelcase(k))}
-    response = integrates_dao.add_multiple_attributes_dynamo('fi_events', primary_keys, event_data)
+    event_attributes = {k: event.get(util.snakecase_to_camelcase(k))
+                        for k in event_fields
+                        if event.get(util.snakecase_to_camelcase(k))}
+    response = integrates_dao.add_multiple_attributes_dynamo(
+        'fi_events', primary_keys, event_attributes)
     return response
+
+
+def migrate_event_files(event):
+    """Migrate event files to s3."""
+    project_name = event.get('projectName').lower()
+    event_id = event.get('id')
+    evidence_id = event.get('evidence')
+    evidence_file = event.get('evidenceFile')
+    files = [
+        {'id': evidence_id,
+            'file_type': {'image/jpeg': '.jpeg',
+                          'image/gif': '.gif',
+                          'image/png': '.png'}},
+        {'id': evidence_file,
+            'file_type': {'application/zip': '.zip',
+                          'text/plain': '.csv',
+                          'text/csv': '.csv'}}
+    ]
+    for curr_file in files:
+        if curr_file.get('id'):
+            file_name = '{project_name}/{event_id}/{file_id}'.format(
+                project_name=project_name,
+                event_id=event_id,
+                file_id=curr_file['id'])
+            folder = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_name)
+            if folder:
+                # File exist in s3
+                pass
+            else:
+                fileroute = '/tmp/:id.tmp'.replace(':id', curr_file['id'])
+                if os.path.exists(fileroute):
+                    send_file_to_s3(file_name, curr_file, event_id)
+                else:
+                    drive_api = DriveAPI()
+                    file_download_route = drive_api.download(
+                        curr_file['id'])
+                    if file_download_route:
+                        send_file_to_s3(file_name, curr_file, event_id)
+                    else:
+                        rollbar.report_message(
+                            'Error: An error occurred downloading \
+                            file from Drive', 'error')
+        else:
+            # Event does not have evidences
+            pass
+
+
+def send_file_to_s3(file_name, evidence, event_id):
+    """Save evidence files in s2."""
+    evidence_id = evidence['id']
+    fileroute = '/tmp/:id.tmp'.replace(':id', evidence_id)
+    evidence_type = evidence['file_type']
+    is_file_saved = False
+    with open(fileroute, 'r') as file_obj:
+        try:
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(fileroute)
+            if evidence_type.get(mime_type):
+                file_name_s3 = file_name + evidence_type.get(mime_type)
+                CLIENT_S3.upload_fileobj(file_obj, BUCKET_S3, file_name_s3)
+                is_file_saved = True
+            else:
+                util.cloudwatch_log_plain(
+                    'File of event {event_id} does not have the right type'
+                    .format(event_id=event_id)
+                )
+        except ClientError:
+            rollbar.report_exc_info()
+            is_file_saved = False
+    os.unlink(fileroute)
+    return is_file_saved

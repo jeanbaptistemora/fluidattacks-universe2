@@ -37,6 +37,7 @@ class Events(ObjectType):
     affected_components = String()
     context = String()
     subscription = String()
+    evidence_file = String()
 
     def __init__(self, identifier):
         """ Class constructor """
@@ -55,6 +56,7 @@ class Events(ObjectType):
         self.affected_components = ''
         self.context = ''
         self.subscription = ''
+        self.evidence_file = ''
 
         event_id = str(identifier)
         resp = event_data(event_id)
@@ -70,11 +72,8 @@ class Events(ObjectType):
             self.detail = resp.get('detail')
             self.affectation = resp.get('affectation')
             self.event_status = resp.get('eventStatus')
-            if resp.get('evidence'):
-                self.evidence = resp.get('evidence')
-            else:
-                # Event does not have evidences
-                pass
+            self.evidence = resp.get('evidence', '')
+            self.evidence_file = resp.get('evidence_file', '')
             self.accessibility = resp.get('accessibility')
             self.affected_components = resp.get('affectedComponents')
             self.context = resp.get('context')
@@ -158,3 +157,8 @@ class Events(ObjectType):
         """ Resolve subscription attribute """
         del info
         return self.subscription
+
+    def resolve_evidence_file(self, info):
+        """ Resolve evidence file attribute """
+        del info
+        return self.evidence_file
