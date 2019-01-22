@@ -28,6 +28,7 @@ CHANNEL = 'fluidintegrates'
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
+
 class Command(BaseCommand):
     help = 'Starts the admin bot'
 
@@ -45,7 +46,7 @@ class Command(BaseCommand):
             response = "Running " + " ".join(command_parsed)
             # pylint: disable=W1201
             logger.info('User %s executed %s' % (self.get_user_by_id(user),
-                " ".join(command_parsed),))
+                        " ".join(command_parsed),))
             if command_parsed[0] == 'add_project':
                 response = self.do_add_project(command)
             elif command_parsed[0] == 'list_projects':
@@ -58,9 +59,9 @@ class Command(BaseCommand):
                 response = self.do_set_alert(command)
 
         else:
-            response = "Not sure what you mean. Use the *" + ", ".join(VALID_COMMANDS) + \
-               "* commands, delimited by spaces:"
-            response  += """
+            response = "Not sure what you mean. Use the *" +\
+                ", ".join(VALID_COMMANDS) + "* commands, delimited by spaces:"
+            response += """
             add_project <project> <project type> <[company or companies]> <description>
             list_projects <email>
             remove_all_project_access <project_name>
@@ -68,8 +69,7 @@ class Command(BaseCommand):
             set_alert <company_name> <project_name> <message>
             """
         self.slack_client.api_call("chat.postMessage", channel=channel,
-                              text=response, as_user=True)
-
+                                   text=response, as_user=True)
 
     def parse_slack_output(self, slack_rtm_output):
         output_list = slack_rtm_output
@@ -78,10 +78,9 @@ class Command(BaseCommand):
                 if output and 'text' in output and AT_BOT in output['text']:
                     # return text after the @ mention, whitespace removed
                     return output['text'].split(AT_BOT)[1].strip(), \
-                           output['channel'], \
-                           output['user']
+                        output['channel'], \
+                        output['user']
         return None, None, None
-
 
     # pylint: disable=too-many-branches
     def do_add_project(self, data):
@@ -95,7 +94,7 @@ class Command(BaseCommand):
                     return output
                 else:
                     companies_text = text[(text.index("[")+1):text.index("]")].split(',')
-                    companies = map(unicode.strip,companies_text)
+                    companies = map(unicode.strip, companies_text)
                     description = ' '.join(text.split("] ")[1:])
             except ValueError:
                 output = """You must enter the company or companies names within square brackets [] and comma separated. """
@@ -121,7 +120,6 @@ class Command(BaseCommand):
             output = "That's not something I can do yet, human."
         return output
 
-
     def do_list_projects(self, data):
         try:
             user = data.split(CMD_SEP)[1:][0]
@@ -144,7 +142,6 @@ syntax to use near ''' at line 1. Run this in your bash console \
         except ValueError:
             output = "That's not something I can do yet, human."
         return output
-
 
     def do_remove_all_project_access(self, data):
         try:
@@ -203,7 +200,7 @@ the manual that corresponds to your MySQL server version for the right \
 syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
-                if message=='ACTIVATE' or  message=='DEACTIVATE':
+                if message == 'ACTIVATE' or message == 'DEACTIVATE':
                     integrates_dao.change_status_company_alert_dynamo(message, company, project)
                     output = '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % (project.upper(), company.upper(), message.upper())
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
@@ -219,24 +216,24 @@ syntax to use near ''' at line 1. Run this in your bash console \
             output = "That's not something I can do yet, human."
         return output
 
-# pylint: disable=W0613
+    # pylint: disable=W0613
     def handle(self, *args, **kwargs):
-        READ_WEBSOCKET_DELAY = 1
+        ws_delay = 1
         self.slack_client = slackclient.SlackClient(settings.SLACK_BOT_TOKEN)
         if self.slack_client.rtm_connect():
             try:
                 print("FLUIDIntegrates connected and running!")
                 start_msg = "FLUIDIntegrates admin bot now available."
                 self.slack_client.api_call("chat.postMessage", channel=CHANNEL,
-                                      text=start_msg, as_user=True)
+                                           text=start_msg, as_user=True)
                 while True:
                     command, channel, user = self.parse_slack_output(self.slack_client.rtm_read())
                     if command and channel and user:
                         self.handle_command(command, channel, user)
-                    time.sleep(READ_WEBSOCKET_DELAY)
+                    time.sleep(ws_delay)
             except KeyboardInterrupt:
                 bye_msg = "FLUIDIntegrates admin bot has disconnected."
                 self.slack_client.api_call("chat.postMessage", channel=CHANNEL,
-                                      text=bye_msg, as_user=True)
+                                           text=bye_msg, as_user=True)
         else:
             print("Connection failed. Invalid Slack token or bot ID?")

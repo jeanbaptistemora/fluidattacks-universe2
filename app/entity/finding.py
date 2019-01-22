@@ -952,6 +952,7 @@ class UpdateDescription(Mutation):
         util.invalidate_cache(project_name)
         return ret
 
+
 class UpdateTreatment(Mutation):
     """ Update treatment of a finding """
 

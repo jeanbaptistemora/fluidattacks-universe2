@@ -418,7 +418,7 @@ def update_description(finding_id, updated_values):
         'FI_findings',
         ['finding_id', finding_id],
         updated_values
-        )
+    )
 
 
 def send_accepted_email(finding_id, user_email, justification):
@@ -452,4 +452,4 @@ def update_treatment(finding_id, updated_values, user_email):
         'FI_findings',
         ['finding_id', finding_id],
         updated_values
-        )
+    )

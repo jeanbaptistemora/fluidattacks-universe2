@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """ Class to export the findings A PDF. """
+# pylint: disable=wrong-import-position
 import matplotlib
 matplotlib.use('Agg')
 
-from pylab import figure, pie, axis, legend, savefig, cla, clf, close
+from pylab import figure, pie, axis, legend, savefig, cla, clf, close  # noqa
 from matplotlib.font_manager import FontProperties
 import jinja2
 import os
