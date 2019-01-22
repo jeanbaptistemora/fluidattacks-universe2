@@ -12,9 +12,9 @@ from .dto import remission
 from .dto import eventuality
 from .dto.finding import finding_vulnerabilities
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
-                    send_mail_age_finding, send_mail_age_kb_finding, \
-                    send_mail_new_releases, send_mail_continuous_report, \
-                    send_mail_unsolved_events, send_mail_project_deletion
+    send_mail_age_finding, send_mail_age_kb_finding, \
+    send_mail_new_releases, send_mail_continuous_report, \
+    send_mail_unsolved_events, send_mail_project_deletion
 from datetime import datetime, timedelta
 
 logging.config.dictConfig(settings.LOGGING)
@@ -23,36 +23,41 @@ logger = logging.getLogger(__name__)
 BASE_URL = 'https://fluidattacks.com/integrates'
 BASE_WEB_URL = 'https://fluidattacks.com/web'
 
+
 def is_not_a_fluidattacks_email(email):
     return 'fluidattacks.com' not in email
 
+
 def remove_fluidattacks_emails_from_recipients(emails):
-    new_email_list = list(filter(is_not_a_fluidattacks_email, \
-                    emails))
+    new_email_list = list(filter(is_not_a_fluidattacks_email, emails))
     return new_email_list
+
 
 def get_event(event_id):
     event = eventuality.event_data(event_id)
     return event
 
+
 def is_a_unsolved_event(event):
     return event['eventStatus'] == 'Pendiente'
+
 
 def get_events_submissions(project):
     formstack_api = FormstackAPI()
     return formstack_api.get_eventualities(project)['submissions']
 
+
 def get_unsolved_events(project):
     events_submissions = get_events_submissions(project)
 
     events = [get_event(x['id']) for x in events_submissions]
-    unsolved_events =  list(filter(is_a_unsolved_event, \
-                        events))
+    unsolved_events = list(filter(is_a_unsolved_event, events))
     return unsolved_events
 
+
 def extract_info_from_event_dict(event_dict):
-    return {'type': event_dict['eventType'], \
-            'details': event_dict['detail']}
+    return {'type': event_dict['eventType'], 'details': event_dict['detail']}
+
 
 def send_unsolved_events_email(project):
     unsolved_events = get_unsolved_events(project)
@@ -62,19 +67,21 @@ def send_unsolved_events_email(project):
             project_info[0].get('type') == 'continuous':
         to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
-    events_info_for_email = [extract_info_from_event_dict(x) \
+    events_info_for_email = [extract_info_from_event_dict(x)
                              for x in unsolved_events]
-    context = {'project_name': project.capitalize() , \
+    context = {'project_name': project.capitalize(),
                'events': events_info_for_email}
     if not context['events'] or not to:
         context = []
     else:
         send_mail_unsolved_events(to, context)
 
+
 def get_external_recipients(project):
     recipients = integrates_dao.get_project_users(project)
     recipients_list = [x[0] for x in recipients if x[1] == 1]
     return remove_fluidattacks_emails_from_recipients(recipients_list)
+
 
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
@@ -85,7 +92,8 @@ def get_new_vulnerabilities():
         context = {'findings': list(), 'findings_working_on': list()}
         delta_total = 0
         try:
-            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
+            finding_requests = integrates_dao.get_findings_dynamo(project,
+                                                                  'finding_id')
             for finding in finding_requests:
                 message = ''
                 finding['id'] = finding['finding_id']
@@ -208,7 +216,8 @@ def update_new_vulnerabilities():
                     .format(project=project)
                 logger.info(message)
         except (TypeError, KeyError):
-            rollbar.report_message('Error: An error ocurred updating new vulnerabilities', 'error')
+            rollbar.report_message('Error: \
+An error ocurred updating new vulnerabilities', 'error')
 
 
 def get_remediated_findings():
@@ -248,7 +257,8 @@ def get_age_notifications():
             to = [x[0] for x in recipients if x[1] == 1]
             to.append('continuous@fluidattacks.com')
             project = str.lower(str(project[0]))
-            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
+            finding_requests = integrates_dao.get_findings_dynamo(project,
+                                                                  'finding_id')
             for finding in finding_requests:
                 finding_parsed = finding_vulnerabilities(finding['finding_id'])
                 if finding_parsed['edad'] != '-':
@@ -271,7 +281,8 @@ def get_age_weekends_notifications():
             to = [x[0] for x in recipients if x[1] == 1]
             to.append('continuous@fluidattacks.com')
             project = str.lower(str(project[0]))
-            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
+            finding_requests = integrates_dao.get_findings_dynamo(project,
+                                                                  'finding_id')
             for finding in finding_requests:
                 finding_parsed = finding_vulnerabilities(finding['finding_id'])
                 if finding_parsed['edad'] != '-':
@@ -330,6 +341,7 @@ def format_age_email(finding_parsed, project, to, age):
             .format(finding=finding_parsed['id'], project=project)
         logger.info(message)
 
+
 def format_age_weekend(age):
     ages = [15, 30, 60, 90, 120, 180, 240]
     if (age + 1) in ages:
@@ -339,6 +351,7 @@ def format_age_weekend(age):
     else:
         formatted_age = age
     return formatted_age
+
 
 def send_mail_age(age, to, context):
     context['age'] = age
@@ -354,8 +367,11 @@ def weekly_report():
     final_date = (datetime.today() - timedelta(days=1)).date()
     all_companies = integrates_dao.get_all_companies()
     all_users = [all_users_formatted(x) for x in all_companies]
-    registered_users = integrates_dao.all_users_report('FLUID', final_date)
-    logged_users = integrates_dao.logging_users_report('FLUID', init_date, final_date)
+    registered_users = integrates_dao.all_users_report('FLUID',
+                                                       final_date)
+    logged_users = integrates_dao.logging_users_report('FLUID',
+                                                       init_date,
+                                                       final_date)
     integrates_dao.weekly_report_dynamo(
         str(init_date),
         str(final_date),
@@ -418,52 +434,61 @@ def get_new_releases():
     else:
         logger.info('There are no new drafts')
 
+
 def continuous_report():
-    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com', \
-          'oparada@fluidattacks.com', 'projects@fluidattacks.com', 'relations@fluidattacks.com'  ]
-    headers = ['#','Project','Lines','Inputs','Fixed vulns','Max severity', 'Open Events']
-    context = {'projects':list(), 'headers': headers, 'date_now': str(datetime.now().date())}
+    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com',
+          'oparada@fluidattacks.com', 'projects@fluidattacks.com',
+          'relations@fluidattacks.com']
+    headers = ['#', 'Project', 'Lines', 'Inputs',
+               'Fixed vulns', 'Max severity', 'Open Events']
+    context = {'projects': list(), 'headers': headers,
+               'date_now': str(datetime.now().date())}
     index = 0
     for x in integrates_dao.get_continuous_info():
         index += 1
         project_url = BASE_URL + '/dashboard#!/project/' + \
-                      x['project'].lower() + '/indicators'
+            x['project'].lower() + '/indicators'
         indicators = views.calculate_indicators(x['project'])
-        context['projects'].append({'project_url': str(project_url), \
-                                    'index': index, \
-                                    'project_name': str(x['project']), \
-                                    'lines': str(x['lines']), \
-                                    'fields': str(x['fields']), \
-                                    'fixed_vuln': (str(indicators[2]) + '%'), \
-                                    'cssv': indicators[1], \
+        context['projects'].append({'project_url': str(project_url),
+                                    'index': index,
+                                    'project_name': str(x['project']),
+                                    'lines': str(x['lines']),
+                                    'fields': str(x['fields']),
+                                    'fixed_vuln': (str(indicators[2]) + '%'),
+                                    'cssv': indicators[1],
                                     'events': indicators[0]
-                                     })
+                                    })
     send_mail_continuous_report(to, context)
+
 
 def send_unsolved_events_email_to_all_projects():
     """Send email with unsolved events to all projects """
     projects = integrates_dao.get_registered_projects()
     list(map(lambda x: send_unsolved_events_email(x[0]), projects))
 
+
 def deletion(project, days_to_send, days_to_delete):
     formstack_api = FormstackAPI()
     remission_submissions = formstack_api.get_remmisions(project)['submissions']
     if remission_submissions:
-        remissions_list = [remission.create_dict( \
-                           formstack_api.get_submission(x['id'])) \
-                           for x in remission_submissions]
-        filtered_remissions = list(filter(lambda x: x['FLUID_PROJECT'].lower() \
-                                      == project.lower(), remissions_list))
+        remissions_list = [
+            remission.create_dict(
+                formstack_api.get_submission(x['id'])
+            ) for x in remission_submissions]
+        filtered_remissions = list(filter(lambda x: x['FLUID_PROJECT'].lower()
+                                          == project.lower(), remissions_list))
         project_info = integrates_dao.get_project_dynamo(project)
         if filtered_remissions and project_info:
             lastest_remission = remission.get_lastest(filtered_remissions)
             if lastest_remission['LAST_REMISSION'] == 'Si' and \
                lastest_remission['APPROVAL_STATUS'] == 'Approved' and \
                project_info[0]['type'] == 'oneshot':
-                days_until_now = remission.days_until_now(lastest_remission['TIMESTAMP'])
+                days_until_now = \
+                    remission.days_until_now(lastest_remission['TIMESTAMP'])
                 if days_until_now in days_to_send:
                     context = {'project_name': project.capitalize()}
-                    to = ['projects@fluidattacks.com','production@fluidattacks.com']
+                    to = ['projects@fluidattacks.com',
+                          'production@fluidattacks.com']
                     send_mail_project_deletion(to, context)
                     was_deleted = False
                     was_email_sended = True
@@ -489,6 +514,7 @@ def deletion(project, days_to_send, days_to_delete):
         was_email_sended = False
         was_deleted = False
     return [was_email_sended, was_deleted]
+
 
 def deletion_of_finished_project():
     rollbar.report_message(
