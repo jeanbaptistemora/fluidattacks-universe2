@@ -1,6 +1,8 @@
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
+import { IDescriptionViewProps } from "./containers/DescriptionView";
+import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";
@@ -16,6 +18,7 @@ import * as trackingActions from "./containers/TrackingView/actionTypes";
 import { ITrackingViewProps } from "./containers/TrackingView/index";
 
 interface IDashboardState {
+  description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
@@ -50,6 +53,30 @@ interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
+  description: {
+    dataset: {
+      actor: "",
+      affectedSystems: "",
+      attackVector: "",
+      btsUrl: "",
+      compromisedAttributes: "",
+      compromisedRecords: "",
+      cweUrl: "",
+      description: "",
+      recommendation: "",
+      releaseDate: "",
+      reportLevel: "",
+      requirements: "",
+      scenario: "",
+      threat: "",
+      title: "",
+      treatment: "",
+      treatmentJustification: "",
+      treatmentManager: "",
+    },
+    isEditing: false,
+    isRemediationOpen : false,
+  },
   evidence: {
     currentIndex: 0,
     images: [],
@@ -400,6 +427,44 @@ actionMap[evidenceActions.CLEAR_EVIDENCE] =
   ({
     ...state,
     evidence: initialState.evidence,
+  });
+
+actionMap[descriptionActions.LOAD_DESCRIPTION] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    description: {
+      ...state.description,
+      dataset: {...state.description.dataset, ...action.payload.descriptionData},
+    },
+  });
+
+actionMap[descriptionActions.EDIT_DESCRIPTION] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    description: {
+      ...state.description,
+      isEditing: !state.description.isEditing,
+    },
+  });
+
+actionMap[descriptionActions.OPEN_REMEDIATION_MDL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    description: {
+      ...state.description,
+      isRemediationOpen: true,
+    },
+  });
+
+actionMap[descriptionActions.CLOSE_REMEDIATION_MDL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    description: {
+      ...state.description,
+      isRemediationOpen: false,
+    },
   });
 
 type DashboardReducer = ((
