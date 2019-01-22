@@ -52,3 +52,5 @@ for proj in os.listdir(TARGET):
 
 with open(f"{TARGET}/../config.json", "w") as file:
     json.dump(CONFIG, file, indent=2)
+
+print(json.dumps(CONFIG, indent=2))

@@ -512,10 +512,8 @@ sync_git:
     - python3 analytics/git/clone_us.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_us.log
     - python3 analytics/git/clone_them.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_them.log
     - python3 analytics/git/generate_config.py 2>&1 | aws s3 cp - s3://fluidanalytics/generate_config.log
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - tap-git --conf /config.json --last-n-days 180 |
-        target-redshift --auth /target_secret.json --drop-schema --schema-name "git"
-    - rm -fr ~/.aws/{credentials, config} /target_secret.json
+    - analytics/git/sync_forked.sh
+    - rm -fr ~/.aws/{credentials, config}
   only:
     refs:
       - schedules
