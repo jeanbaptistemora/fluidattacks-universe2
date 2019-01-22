@@ -3,8 +3,8 @@
 :category: attacks
 :subtitle: New vulnerability on libssh CVE-2018-10933
 :tags: security, bug, libssh, pentesting
-:image: yodameme.png
-:alt: Blank CSV document icon
+:image: cover.png
+:alt: man standing in front of blue and red lights
 :description: Libssh is a library to implement SSHv2 protocol on client and server side, recently a security analyst discovered a vulnerability that allows a remote attacker to bypass authentication by sending an user authenticated packet to the server. Here we are going to explain this vulnerability
 :keywords: Libssh, Security, CVE, Vulnerability, Pentesting, PoC.
 :author: Jonathan Armas
