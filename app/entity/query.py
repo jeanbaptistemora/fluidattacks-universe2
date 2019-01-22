@@ -20,17 +20,16 @@ from ..decorators import (
     require_finding_access_gql, get_cached
 )
 
+
 class Query(ObjectType):
     """ Graphql Class """
     alert = Field(Alert,
                   project_name=String(required=True),
                   organization=String(required=True))
 
-    event = Field(Events,
-                        identifier=String(required=True))
+    event = Field(Events, identifier=String(required=True))
 
-    events = List(Events,
-                        project_name=String(required=True))
+    events = List(Events, project_name=String(required=True))
 
     finding = Field(Finding, identifier=String(required=True))
 
@@ -40,10 +39,8 @@ class Query(ObjectType):
 
     project_users = List(User, project_name=String(required=True))
 
-    user_data = Field(User,
-        project_name=String(required=True),
-        user_email=String(required=True)
-    )
+    user_data = Field(User, project_name=String(required=True),
+                      user_email=String(required=True))
 
     project = Field(Project, project_name=String(required=True))
 
@@ -104,14 +101,12 @@ class Query(ObjectType):
     @get_cached
     def resolve_project_users(self, info, project_name):
         """ Resolve for project users """
-        initialEmails = integrates_dao.get_project_users(project_name.lower())
-        initialEmailsList = [x[0] for x in initialEmails if x[1] == 1]
-        userEmailList = util.user_email_filter(
-            initialEmailsList,
-            info.context.session['username']
-        )
-        if userEmailList:
-            data = [User(project_name, user_email) for user_email in userEmailList]
+        init_emails = integrates_dao.get_project_users(project_name.lower())
+        init_email_list = [x[0] for x in init_emails if x[1] == 1]
+        user_email_list = util.user_email_filter(init_email_list,
+                                                 info.context.session['username'])
+        if user_email_list:
+            data = [User(project_name, user_email) for user_email in user_email_list]
         else:
             data = []
         return data

@@ -405,6 +405,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
 
     return success
 
+
 def update_description(finding_id, updated_values):
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
@@ -418,6 +419,7 @@ def update_description(finding_id, updated_values):
         ['finding_id', finding_id],
         updated_values
         )
+
 
 def send_accepted_email(finding_id, user_email, justification):
     project_name = get_project_name(finding_id).lower()
@@ -437,6 +439,7 @@ def send_accepted_email(finding_id, user_email, justification):
         }))
 
     email_send_thread.start()
+
 
 def update_treatment(finding_id, updated_values, user_email):
     updated_values['external_bts'] = updated_values.get('bts_url')

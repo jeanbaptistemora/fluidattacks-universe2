@@ -38,8 +38,8 @@ from app.domain.finding import (
 from graphene.types.generic import GenericScalar
 
 client_s3 = boto3.client('s3',
-                            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
 bucket_s3 = FI_AWS_S3_BUCKET
 
@@ -93,6 +93,7 @@ class Finding(ObjectType):
     ambit = String()
     category = String()
 
+    # pylint: disable=too-many-statements
     def __init__(self, info, identifier):
         """Class constructor."""
         set_initial_values(self)
@@ -142,13 +143,13 @@ class Finding(ObjectType):
             self.severity = {k: resp.get(k) for k in severity_fields}
 
             self.evidence = {
-                'animation': { 'url': resp.get('animation', ''), 'description': '' },
-                'evidence1': { 'url': resp.get('evidence_route_1', ''), 'description': resp.get('evidence_description_1', '') },
-                'evidence2': { 'url': resp.get('evidence_route_2', ''), 'description': resp.get('evidence_description_2', '') },
-                'evidence3': { 'url': resp.get('evidence_route_3', ''), 'description': resp.get('evidence_description_3', '') },
-                'evidence4': { 'url': resp.get('evidence_route_4', ''), 'description': resp.get('evidence_description_4', '') },
-                'evidence5': { 'url': resp.get('evidence_route_5', ''), 'description': resp.get('evidence_description_5', '') },
-                'exploitation': { 'url': resp.get('exploitation', ''), 'description': '' },
+                'animation': {'url': resp.get('animation', ''), 'description': ''},
+                'evidence1': {'url': resp.get('evidence_route_1', ''), 'description': resp.get('evidence_description_1', '')},
+                'evidence2': {'url': resp.get('evidence_route_2', ''), 'description': resp.get('evidence_description_2', '')},
+                'evidence3': {'url': resp.get('evidence_route_3', ''), 'description': resp.get('evidence_description_3', '')},
+                'evidence4': {'url': resp.get('evidence_route_4', ''), 'description': resp.get('evidence_description_4', '')},
+                'evidence5': {'url': resp.get('evidence_route_5', ''), 'description': resp.get('evidence_description_5', '')},
+                'exploitation': {'url': resp.get('exploitation', ''), 'description': ''},
             }
             self.report_level = resp.get('reportLevel', '')
             self.title = resp.get('finding', '')
@@ -316,7 +317,7 @@ class Finding(ObjectType):
             user_email=util.get_jwt_content(info.context)['user_email'],
             comment_type='comment',
             finding_id=self.id
-            )
+        )
         return self.comments
 
     @require_role(['analyst', 'admin'])
@@ -327,7 +328,7 @@ class Finding(ObjectType):
             user_email=util.get_jwt_content(info.context)['user_email'],
             comment_type='observation',
             finding_id=self.id
-            )
+        )
         return self.observations
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -651,15 +652,16 @@ def read_script(script_file):
     else:
         raise GraphQLError('Invalid exploit file format')
 
+
 def read_csv(csv_file):
     file_content = []
 
     with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
         try:
-            csvReader = csv.reader(x.replace('\0', '') for x in file_obj)
+            csv_reader = csv.reader(x.replace('\0', '') for x in file_obj)
             cont = 0
-            header = csvReader.next()
-            for row in csvReader:
+            header = csv_reader.next()
+            for row in csv_reader:
                 if cont <= 1000:
                     file_content.append(util.list_to_dict(header, row))
                     cont += 1
@@ -687,19 +689,23 @@ class UpdateEvidence(Mutation):
         uploaded_file = info.context.FILES.get('document', '')
 
         if util.assert_uploaded_file_mime(uploaded_file,
-            ['image/gif', 'image/png', 'text/x-python', 'text/x-c', 'text/plain', 'text/html']
-            ):
+                                          ['image/gif',
+                                           'image/png',
+                                           'text/x-python',
+                                           'text/x-c',
+                                           'text/plain',
+                                           'text/html']):
             if evidence_exceeds_size(uploaded_file, int(parameters.get('id'))):
                 util.cloudwatch_log(info.context, 'Security: Attempted to upload evidence file heavier than allowed')
                 raise GraphQLError('File exceeds the size limits')
             else:
-                fieldNum = FindingDTO()
+                field_num = FindingDTO()
                 fieldname = [
-                    ['animation', fieldNum.ANIMATION], ['exploitation', fieldNum.EXPLOTATION],
-                    ['evidence_route_1', fieldNum.DOC_ACHV1], ['evidence_route_2', fieldNum.DOC_ACHV2],
-                    ['evidence_route_3', fieldNum.DOC_ACHV3], ['evidence_route_4', fieldNum.DOC_ACHV4],
-                    ['evidence_route_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT],
-                    ['fileRecords', fieldNum.REG_FILE]
+                    ['animation', field_num.ANIMATION], ['exploitation', field_num.EXPLOTATION],
+                    ['evidence_route_1', field_num.DOC_ACHV1], ['evidence_route_2', field_num.DOC_ACHV2],
+                    ['evidence_route_3', field_num.DOC_ACHV3], ['evidence_route_4', field_num.DOC_ACHV4],
+                    ['evidence_route_5', field_num.DOC_ACHV5], ['exploit', field_num.EXPLOIT],
+                    ['fileRecords', field_num.REG_FILE]
                 ]
                 project_name = get_project_name(parameters.get('finding_id')).lower()
                 file_id = '{project}/{finding_id}/{project}-{finding_id}'.format(
@@ -708,17 +714,17 @@ class UpdateEvidence(Mutation):
                 )
 
                 migrate_all_files(parameters, file_id, info.context)
-                success = update_file_to_s3(
-                            parameters,
-                            fieldname[int(parameters.get('id'))][1],
-                            fieldname[int(parameters.get('id'))][0],
-                            uploaded_file, file_id)
+                success = update_file_to_s3(parameters,
+                                            fieldname[int(parameters.get('id'))][1],
+                                            fieldname[int(parameters.get('id'))][0],
+                                            uploaded_file, file_id)
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to upload evidence file with a non-allowed format')
             raise GraphQLError('Extension not allowed')
 
-        ret = UpdateEvidence(success=success, \
-            finding=Finding(info=info, identifier=parameters.get('finding_id')))
+        ret = UpdateEvidence(success=success,
+                             finding=Finding(info=info,
+                                             identifier=parameters.get('finding_id')))
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
 
@@ -775,23 +781,23 @@ class UpdateEvidenceDescription(Mutation):
 
 
 def evidence_exceeds_size(uploaded_file, evidence_type):
-    ANIMATION = 0
-    EXPLOITATION = 1
-    EVIDENCE = [2, 3, 4, 5, 6]
-    EXPLOIT = 7
-    RECORDS = 8
-    MIB = 1048576
+    animation = 0
+    exploitation = 1
+    evidence = [2, 3, 4, 5, 6]
+    exploit = 7
+    records = 8
+    mib = 1048576
 
-    if evidence_type == ANIMATION:
-        return uploaded_file.size > 10 * MIB
-    elif evidence_type == EXPLOITATION:
-        return uploaded_file.size > 2 * MIB
-    elif evidence_type in EVIDENCE:
-        return uploaded_file.size > 2 * MIB
-    elif evidence_type == EXPLOIT:
-        return uploaded_file.size > 1 * MIB
-    elif evidence_type == RECORDS:
-        return uploaded_file.size > 1 * MIB
+    if evidence_type == animation:
+        return uploaded_file.size > 10 * mib
+    elif evidence_type == exploitation:
+        return uploaded_file.size > 2 * mib
+    elif evidence_type in evidence:
+        return uploaded_file.size > 2 * mib
+    elif evidence_type == exploit:
+        return uploaded_file.size > 1 * mib
+    elif evidence_type == records:
+        return uploaded_file.size > 1 * mib
     else:
         util.cloudwatch_log_plain('Security: Attempted to upload an unknown type of evidence')
         raise Exception('Invalid evidence id')
@@ -815,7 +821,8 @@ class UpdateSeverity(Mutation):
         success = save_severity(parameters.get('data'))
 
         ret = UpdateSeverity(success=success,
-            finding=Finding(info=info, identifier=finding_id))
+                             finding=Finding(info=info,
+                                             identifier=finding_id))
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
         return ret
@@ -841,21 +848,22 @@ class AddFindingComment(Mutation):
             comment_id = int(round(time() * 1000))
             success = add_comment(
                 user_email=user_email,
-                user_fullname=str.join(' ', [info.context.session['first_name'], \
-                                        info.context.session['last_name']]),
+                user_fullname=str.join(' ', [info.context.session['first_name'],
+                                       info.context.session['last_name']]),
                 parent=parameters.get('parent'),
                 content=parameters.get('content'),
                 comment_type=parameters.get('type'),
                 comment_id=comment_id,
                 finding_id=parameters.get('finding_id'),
                 is_remediation_comment=False
-                )
+            )
         else:
             raise GraphQLError('Invalid comment type')
 
         ret = AddFindingComment(success=success, comment_id=comment_id)
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
+
 
 class VerifyFinding(Mutation):
     """ Verify a finding """
@@ -873,11 +881,12 @@ class VerifyFinding(Mutation):
             company=info.context.session['company'],
             finding_id=parameters.get('finding_id'),
             user_email=user_email
-            )
+        )
 
         ret = VerifyFinding(success=success)
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
+
 
 class RequestVerification(Mutation):
     """ Request verification """
@@ -895,16 +904,16 @@ class RequestVerification(Mutation):
         success = request_verification(
             finding_id=parameters.get('finding_id'),
             user_email=user_email,
-            user_fullname=str.join(' ', [
-                info.context.session['first_name'],
-                info.context.session['last_name']
-                ]),
+            user_fullname=str.join(' ',
+                                   [info.context.session['first_name'],
+                                    info.context.session['last_name']]),
             justification=parameters.get('justification')
-            )
+        )
 
         ret = RequestVerification(success=success)
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
+
 
 class UpdateDescription(Mutation):
     """ Update description of a finding """
