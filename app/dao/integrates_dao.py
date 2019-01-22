@@ -1,4 +1,6 @@
+# pylint: disable=too-many-lines
 from __future__ import absolute_import
+from datetime import datetime
 from django.db import connections
 from django.db.utils import OperationalError
 from boto3 import resource
@@ -8,17 +10,10 @@ from botocore.exceptions import ClientError
 from __init__ import FI_AWS_DYNAMODB_ACCESS_KEY
 from __init__ import FI_AWS_DYNAMODB_SECRET_KEY
 import rollbar
-from datetime import datetime
 from ..utils import forms
 
 
-# pylint: disable=redefined-builtin
-try:
-    type(unicode)
-except NameError:
-    unicode = str
-
-dynamodb_resource = resource('dynamodb',
+DYNAMODB_RESOURCE = resource('dynamodb',
                              aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
                              aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
                              region_name='us-east-1')
@@ -262,7 +257,7 @@ WHERE user_id = %s and project_id = %s'
     return False
 
 
-def remove_all_access_to_project_dao(project_name=None):
+def remove_all_project_access_dao(project_name=None):
     """ Remove access permission to all users in a project. """
     if project_name:
         project_name = project_name.lower()
@@ -380,7 +375,7 @@ ORDER BY projects.project ASC'
 
 def get_vulns_by_project_dynamo(project_name):
     """ Gets findings info by project name. """
-    table = dynamodb_resource.Table('FI_findings_email')
+    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
     filter_key = 'project_name'
     if filter_key and project_name:
         filtering_exp = Key(filter_key).eq(project_name)
@@ -400,7 +395,7 @@ def get_vulns_by_project_dynamo(project_name):
 
 def get_user_dynamo(email):
     """ Get legal notice acceptance status """
-    table = dynamodb_resource.Table('FI_users')
+    table = DYNAMODB_RESOURCE.Table('FI_users')
     filter_key = 'email'
     if filter_key and email:
         response = table.query(KeyConditionExpression=Key(filter_key).eq(email))
@@ -419,10 +414,9 @@ def get_user_dynamo(email):
 
 def update_legal_remember_dynamo(email, remember):
     """ Remember legal notice acceptance """
-    table = dynamodb_resource.Table('FI_users')
+    table = DYNAMODB_RESOURCE.Table('FI_users')
     item = get_user_dynamo(email)
     if item == []:
-        print("item empty")
         try:
             response = table.put_item(
                 Item={
@@ -455,7 +449,7 @@ def update_legal_remember_dynamo(email, remember):
 
 def add_phone_to_user_dynamo(email, phone):
     """Update user phone number."""
-    table = dynamodb_resource.Table('FI_users')
+    table = DYNAMODB_RESOURCE.Table('FI_users')
     item = get_user_dynamo(email)
     if item == []:
         try:
@@ -490,7 +484,7 @@ def add_phone_to_user_dynamo(email, phone):
 
 def get_vulns_by_id_dynamo(project_name, unique_id):
     """ Gets findings info by finding ID. """
-    table = dynamodb_resource.Table('FI_findings_email')
+    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
     filter_key = 'project_name'
     filter_sort = 'unique_id'
     if filter_key and project_name and filter_sort and unique_id:
@@ -512,7 +506,7 @@ def get_vulns_by_id_dynamo(project_name, unique_id):
 
 def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
     """ Create or update a vulnerability. """
-    table = dynamodb_resource.Table('FI_findings_email')
+    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
     item = get_vulns_by_id_dynamo(project_name, unique_id)
     if item == []:
         try:
@@ -549,7 +543,7 @@ def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
 
 def delete_vulns_email_dynamo(project_name, unique_id):
     """Delete project in DynamoDb."""
-    table = dynamodb_resource.Table('FI_findings_email')
+    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
     try:
         response = table.delete_item(
             Key={
@@ -568,7 +562,7 @@ def get_company_alert_dynamo(company_name, project_name):
     """ Get alerts of a company. """
     company_name = company_name.lower()
     project_name = project_name.lower()
-    table = dynamodb_resource.Table('FI_alerts_by_company')
+    table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
     filter_key = 'company_name'
     filter_sort = 'project_name'
     if project_name == 'all':
@@ -608,7 +602,7 @@ def set_company_alert_dynamo(message, company_name, project_name):
                 return False
     company_name = company_name.lower()
     project_name = project_name.lower()
-    table = dynamodb_resource.Table('FI_alerts_by_company')
+    table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
     item = get_company_alert_dynamo(company_name, project_name)
     if item == []:
         try:
@@ -626,12 +620,12 @@ def set_company_alert_dynamo(message, company_name, project_name):
             rollbar.report_exc_info()
             return False
     else:
-        for a in item:
+        for _item in item:
             try:
                 response = table.update_item(
                     Key={
-                        'company_name': a['company_name'],
-                        'project_name': a['project_name'],
+                        'company_name': _item['company_name'],
+                        'project_name': _item['project_name'],
                     },
                     UpdateExpression='SET message = :val1, status_act = :val2',
                     ExpressionAttributeValues={
@@ -646,21 +640,21 @@ def set_company_alert_dynamo(message, company_name, project_name):
         return resp
 
 
-def change_status_company_alert_dynamo(message, company_name, project_name):
+def change_status_comalert_dynamo(message, company_name, project_name):
     """ Activate or deactivate the alert of a company. """
     message = message.lower()
     company_name = company_name.lower()
     project_name = project_name.lower()
-    table = dynamodb_resource.Table('FI_alerts_by_company')
+    table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
     if ((project_name == 'all' and message == 'deactivate') or
             (project_name != 'all' and message == 'deactivate')):
         status = '0'
     else:
         status = '1'
     item = get_company_alert_dynamo(company_name, project_name)
-    for a in item:
-        payload = {'company_name': a['company_name'],
-                   'project_name': a['project_name'], }
+    for _item in item:
+        payload = {'company_name': _item['company_name'],
+                   'project_name': _item['project_name'], }
         try:
             table.update_item(
                 Key=payload,
@@ -823,7 +817,7 @@ def get_admins():
 
 def get_comments_dynamo(finding_id, comment_type):
     """ Get comments of a finding. """
-    table = dynamodb_resource.Table('FI_comments')
+    table = DYNAMODB_RESOURCE.Table('FI_comments')
     filter_key = 'finding_id'
     filter_attribute = 'comment_type'
     if filter_key and finding_id:
@@ -844,7 +838,7 @@ def get_comments_dynamo(finding_id, comment_type):
 
 def add_finding_comment_dynamo(finding_id, email, comment_data):
     """ Add a comment in a finding. """
-    table = dynamodb_resource.Table('FI_comments')
+    table = DYNAMODB_RESOURCE.Table('FI_comments')
     try:
         payload = {
             'finding_id': finding_id,
@@ -863,7 +857,7 @@ def add_finding_comment_dynamo(finding_id, email, comment_data):
 
 def get_project_comments_dynamo(project_name):
     """ Get comments of a project. """
-    table = dynamodb_resource.Table('fi_project_comments')
+    table = DYNAMODB_RESOURCE.Table('fi_project_comments')
     filter_key = 'project_name'
     filtering_exp = Key(filter_key).eq(project_name)
     response = table.scan(FilterExpression=filtering_exp)
@@ -880,7 +874,7 @@ def get_project_comments_dynamo(project_name):
 
 def add_project_comment_dynamo(project_name, email, comment_data):
     """ Add a comment in a project. """
-    table = dynamodb_resource.Table('fi_project_comments')
+    table = DYNAMODB_RESOURCE.Table('fi_project_comments')
     try:
         payload = {
             'project_name': project_name,
@@ -899,7 +893,7 @@ def add_project_comment_dynamo(project_name, email, comment_data):
 
 def delete_comment_dynamo(finding_id, user_id):
     """ Delete a comment in a finding. """
-    table = dynamodb_resource.Table('FI_comments')
+    table = DYNAMODB_RESOURCE.Table('FI_comments')
     try:
         response = table.delete_item(
             Key={
@@ -916,7 +910,7 @@ def delete_comment_dynamo(finding_id, user_id):
 
 def get_remediated_dynamo(finding_id):
     """ Gets the remediated status of a finding. """
-    table = dynamodb_resource.Table('FI_remediated')
+    table = DYNAMODB_RESOURCE.Table('FI_remediated')
     filter_key = 'finding_id'
     if filter_key and finding_id:
         filtering_exp = Key(filter_key).eq(finding_id)
@@ -936,7 +930,7 @@ def get_remediated_dynamo(finding_id):
 
 def add_remediated_dynamo(finding_id, remediated, project, finding_name):
     """Create or update a remediate status."""
-    table = dynamodb_resource.Table('FI_remediated')
+    table = DYNAMODB_RESOURCE.Table('FI_remediated')
     item = get_remediated_dynamo(finding_id)
     if item == []:
         try:
@@ -971,9 +965,9 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
             return False
 
 
-def get_remediated_allfindings_dynamo(filter_value):
+def get_remediated_allfin_dynamo(filter_value):
     """ Gets the treatment of all the findings. """
-    table = dynamodb_resource.Table('FI_remediated')
+    table = DYNAMODB_RESOURCE.Table('FI_remediated')
     filter_key = 'remediated'
     if filter_key and filter_value:
         filtering_exp = Key(filter_key).eq(filter_value)
@@ -995,7 +989,7 @@ def get_remediated_allfindings_dynamo(filter_value):
 def get_project_dynamo(project):
     """Get a project info."""
     filter_value = project.lower()
-    table = dynamodb_resource.Table('FI_projects')
+    table = DYNAMODB_RESOURCE.Table('FI_projects')
     filter_key = 'project_name'
     if filter_key and filter_value:
         filtering_exp = Key(filter_key).eq(filter_value)
@@ -1015,7 +1009,7 @@ def get_project_dynamo(project):
 
 def add_project_dynamo(project, description, companies, project_type):
     """Add project to dynamo."""
-    table = dynamodb_resource.Table('FI_projects')
+    table = DYNAMODB_RESOURCE.Table('FI_projects')
     try:
         response = table.put_item(
             Item={
@@ -1034,7 +1028,7 @@ def add_project_dynamo(project, description, companies, project_type):
 
 def add_release_toproject_dynamo(project_name, release_val, last_release):
     """Add or Update release status in a project."""
-    table = dynamodb_resource.Table('FI_projects')
+    table = DYNAMODB_RESOURCE.Table('FI_projects')
     item = get_project_dynamo(project_name)
     if item == []:
         try:
@@ -1071,7 +1065,7 @@ def add_release_toproject_dynamo(project_name, release_val, last_release):
 
 def add_user_to_project_dynamo(project_name, user_email, role):
     """Adding user role in a project."""
-    table = dynamodb_resource.Table('FI_projects')
+    table = DYNAMODB_RESOURCE.Table('FI_projects')
     item = get_project_dynamo(project_name)
     if item == []:
         try:
@@ -1109,7 +1103,7 @@ def add_user_to_project_dynamo(project_name, user_email, role):
 
 def remove_role_to_project_dynamo(project_name, user_email, role):
     """Remove user role in a project."""
-    table = dynamodb_resource.Table('FI_projects')
+    table = DYNAMODB_RESOURCE.Table('FI_projects')
     try:
         response = table.update_item(
             Key={
@@ -1132,7 +1126,7 @@ def remove_role_to_project_dynamo(project_name, user_email, role):
 
 def delete_finding_dynamo(finding_id):
     """ Delete a finding in DynamoDb."""
-    table = dynamodb_resource.Table('FI_findings')
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
     try:
         response = table.delete_item(
             Key={
@@ -1148,7 +1142,7 @@ def delete_finding_dynamo(finding_id):
 
 def get_toe_dynamo(project):
     """ Gets TOE of a proyect. """
-    table = dynamodb_resource.Table('FI_toe')
+    table = DYNAMODB_RESOURCE.Table('FI_toe')
     filter_key = 'project'
     if filter_key and project:
         filtering_exp = Key(filter_key).eq(project)
@@ -1169,7 +1163,7 @@ def get_toe_dynamo(project):
 def weekly_report_dynamo(
         init_date, finish_date, registered_users, logged_users, companies):
     """ Save the number of registered and logged users weekly. """
-    table = dynamodb_resource.Table('FI_weekly_report')
+    table = DYNAMODB_RESOURCE.Table('FI_weekly_report')
     try:
         response = table.put_item(
             Item={
@@ -1189,7 +1183,7 @@ def weekly_report_dynamo(
 
 def get_continuous_info():
     """ Gets info of all continuous projects. """
-    table = dynamodb_resource.Table('FI_toe')
+    table = DYNAMODB_RESOURCE.Table('FI_toe')
     filter_key = 'last_update'
     if filter_key:
         filtering_exp = Key(filter_key).eq(str(datetime.now().date()))
@@ -1211,7 +1205,7 @@ def get_project_access_dynamo(user_email, project_name):
     """Get user access of a project."""
     user_email = user_email.lower()
     project_name = project_name.lower()
-    table = dynamodb_resource.Table('FI_project_access')
+    table = DYNAMODB_RESOURCE.Table('FI_project_access')
     filter_key = 'user_email'
     filter_sort = 'project_name'
     if user_email and project_name:
@@ -1234,7 +1228,7 @@ def get_project_access_dynamo(user_email, project_name):
 def add_project_access_dynamo(
         user_email, project_name, project_attr, attr_value):
     """Add project access attribute."""
-    table = dynamodb_resource.Table('FI_project_access')
+    table = DYNAMODB_RESOURCE.Table('FI_project_access')
     item = get_project_access_dynamo(user_email, project_name)
     if item == []:
         try:
@@ -1261,7 +1255,7 @@ def add_project_access_dynamo(
 
 def remove_project_access_dynamo(user_email, project_name):
     """Remove project access in dynamo."""
-    table = dynamodb_resource.Table('FI_project_access')
+    table = DYNAMODB_RESOURCE.Table('FI_project_access')
     try:
         response = table.delete_item(
             Key={
@@ -1279,7 +1273,7 @@ def remove_project_access_dynamo(user_email, project_name):
 def update_project_access_dynamo(
         user_email, project_name, project_attr, attr_value):
     """Update project access attribute."""
-    table = dynamodb_resource.Table('FI_project_access')
+    table = DYNAMODB_RESOURCE.Table('FI_project_access')
     try:
         response = table.update_item(
             Key={
@@ -1303,7 +1297,7 @@ def update_project_access_dynamo(
 
 def get_data_dynamo(table_name, primary_name_key, primary_key):
     """Get atributes data."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     primary_key = primary_key.lower()
     filter_key = primary_name_key
     if filter_key and primary_key:
@@ -1325,7 +1319,7 @@ def get_data_dynamo(table_name, primary_name_key, primary_key):
 def add_list_resource_dynamo(
         table_name, primary_name_key, primary_key, data, attr_name):
     """Adding list attribute in a table."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     item = get_data_dynamo(table_name, primary_name_key, primary_key)
     primary_key = primary_key.lower()
     if not item:
@@ -1354,7 +1348,7 @@ def add_list_resource_dynamo(
 
 def update_list_resource_dynamo(table_name, primary_keys, data, attr_name, item):
     """Update list attribute in a table."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         if attr_name not in item[0]:
             table.update_item(
@@ -1391,7 +1385,7 @@ def update_list_resource_dynamo(table_name, primary_keys, data, attr_name, item)
 def remove_list_resource_dynamo(
         table_name, primary_name_key, primary_key, attr_name, index):
     """Remove list attribute in a table."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         response = table.update_item(
             Key={
@@ -1411,7 +1405,7 @@ def remove_list_resource_dynamo(
 
 def add_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
     """Adding an attribute to a dynamo table."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
     if not item:
         try:
@@ -1436,7 +1430,7 @@ def add_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
 
 def update_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
     """Updating an attribute to a dynamo table."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         response = table.update_item(
             Key={
@@ -1459,7 +1453,7 @@ def update_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
 
 def add_vulnerability_dynamo(table_name, data):
     """Add vulnerabilities."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         response = table.put_item(
             Item={
@@ -1480,7 +1474,7 @@ def add_vulnerability_dynamo(table_name, data):
 
 def get_vulnerabilities_dynamo(finding_id):
     """Get vulnerabilities of a finding."""
-    table = dynamodb_resource.Table('FI_vulnerabilities')
+    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
     filter_key = 'finding_id'
     if filter_key and finding_id:
         response = table.query(KeyConditionExpression=Key(filter_key).eq(finding_id))
@@ -1500,7 +1494,7 @@ def get_vulnerabilities_dynamo(finding_id):
 def get_vulnerability_dynamo(
         finding_id, vuln_type="", where="", specific="", uuid=""):
     """Get a vulnerability."""
-    table = dynamodb_resource.Table('FI_vulnerabilities')
+    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
     hash_key = 'finding_id'
     if finding_id and uuid:
         range_key = 'UUID'
@@ -1527,7 +1521,7 @@ def get_vulnerability_dynamo(
 
 
 def update_state_dynamo(finding_id, vuln_id, attr_name, attr_value, item):
-    table = dynamodb_resource.Table('FI_vulnerabilities')
+    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
     try:
         if attr_name not in item[0]:
             table.update_item(
@@ -1565,7 +1559,7 @@ def update_state_dynamo(finding_id, vuln_id, attr_name, attr_value, item):
 
 def delete_vulnerability_dynamo(uuid, finding_id):
     """Delete a vulnerability of a finding."""
-    table = dynamodb_resource.Table('FI_vulnerabilities')
+    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
     try:
         response = table.delete_item(
             Key={
@@ -1582,7 +1576,7 @@ def delete_vulnerability_dynamo(uuid, finding_id):
 
 def get_finding_project(finding_id):
     """ Get project associated to a finding. """
-    table = dynamodb_resource.Table('FI_findings')
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
     response = table.get_item(
         Key={
             'finding_id': finding_id
@@ -1596,10 +1590,10 @@ def get_finding_project(finding_id):
 
 def add_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
     """Adding multiple attributes to a dynamo table."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
     if item:
-        resp = update_multiple_attributes_dynamo(table_name, primary_keys, dic_data)
+        resp = update_mult_attrs_dynamo(table_name, primary_keys, dic_data)
     else:
         try:
             p_key = {primary_keys[0]: primary_keys[1]}
@@ -1615,9 +1609,9 @@ def add_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
     return resp
 
 
-def update_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
+def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):
     """Updating multiple data to a dynamo table."""
-    table = dynamodb_resource.Table(table_name)
+    table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         str_format = '{metric} = :{metric}'
         dic_data_params = [str_format.format(metric=x) for x in dic_data.keys()]
@@ -1639,7 +1633,7 @@ def update_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
 
 def get_finding_attributes_dynamo(finding_id, data_attributes):
     """ Get a group of attributes of a finding. """
-    table = dynamodb_resource.Table('FI_findings')
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
     try:
         response = table.get_item(
             Key={
@@ -1656,7 +1650,7 @@ def get_finding_attributes_dynamo(finding_id, data_attributes):
 
 def get_project_attributes_dynamo(project_name, data_attributes):
     """ Get a group of attributes of a project. """
-    table = dynamodb_resource.Table('FI_projects')
+    table = DYNAMODB_RESOURCE.Table('FI_projects')
     try:
         response = table.get_item(
             Key={
@@ -1673,7 +1667,7 @@ def get_project_attributes_dynamo(project_name, data_attributes):
 
 def get_event_dynamo(event_id):
     """ Get an event. """
-    table = dynamodb_resource.Table('fi_events')
+    table = DYNAMODB_RESOURCE.Table('fi_events')
     hash_key = 'event_id'
     if hash_key and event_id:
         key_exp = Key(hash_key).eq(event_id)
@@ -1693,7 +1687,7 @@ def get_event_dynamo(event_id):
 
 def get_event_attributes_dynamo(event_id, data_attributes):
     """ Get a group of attributes of a event. """
-    table = dynamodb_resource.Table('fi_events')
+    table = DYNAMODB_RESOURCE.Table('fi_events')
     try:
         response = table.get_item(
             Key={
@@ -1711,7 +1705,7 @@ def get_event_attributes_dynamo(event_id, data_attributes):
 def update_item_list_dynamo(
         primary_keys, attr_name, index, field, field_value):
     """update list attribute in a table."""
-    table = dynamodb_resource.Table('FI_findings')
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
     try:
         response = table.update_item(
             Key={
@@ -1735,7 +1729,7 @@ def update_item_list_dynamo(
 
 def get_findings_dynamo(project, data_attr=''):
     """Get all the findings of a project."""
-    table = dynamodb_resource.Table('FI_findings')
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
     filter_key = 'project_name'
     project_name = project.lower()
     filtering_exp = Attr(filter_key).eq(project_name)
@@ -1771,7 +1765,7 @@ def get_findings_dynamo(project, data_attr=''):
 def get_events():
     """Get all the events of a project."""
     filter_key = 'event_id'
-    table = dynamodb_resource.Table('fi_events')
+    table = DYNAMODB_RESOURCE.Table('fi_events')
     filtering_exp = Attr(filter_key).exists()
     response = table.scan(FilterExpression=filtering_exp)
     items = response['Items']

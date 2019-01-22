@@ -222,7 +222,7 @@ An error ocurred updating new vulnerabilities', 'error')
 
 def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
-    findings = integrates_dao.get_remediated_allfindings_dynamo(True)
+    findings = integrates_dao.get_remediated_allfin_dynamo(True)
     if findings != []:
         try:
             to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']

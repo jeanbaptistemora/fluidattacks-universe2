@@ -153,7 +153,7 @@ the manual that corresponds to your MySQL server version for the right \
 syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
-                if integrates_dao.remove_all_access_to_project_dao(project):
+                if integrates_dao.remove_all_project_access_dao(project):
                     output = '*[OK]* Removed access to all users to project *%s*.' % (project)
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
                     mp.track(project.upper(), 'BOT_RemoveAllAccess', {
@@ -201,7 +201,7 @@ syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
                 if message == 'ACTIVATE' or message == 'DEACTIVATE':
-                    integrates_dao.change_status_company_alert_dynamo(message, company, project)
+                    integrates_dao.change_status_comalert_dynamo(message, company, project)
                     output = '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % (project.upper(), company.upper(), message.upper())
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
                     mp.track(project, 'BOT_ActivateAlert')

@@ -414,7 +414,7 @@ def update_description(finding_id, updated_values):
     del updated_values['description']
     del updated_values['recommendation']
 
-    return integrates_dao.update_multiple_attributes_dynamo(
+    return integrates_dao.update_mult_attrs_dynamo(
         'FI_findings',
         ['finding_id', finding_id],
         updated_values
@@ -448,7 +448,7 @@ def update_treatment(finding_id, updated_values, user_email):
     if updated_values['treatment'] == 'Asumido':
         send_accepted_email(finding_id, user_email, updated_values.get('treatment_justification'))
 
-    return integrates_dao.update_multiple_attributes_dynamo(
+    return integrates_dao.update_mult_attrs_dynamo(
         'FI_findings',
         ['finding_id', finding_id],
         updated_values
