@@ -13,7 +13,7 @@ import psycopg2
 #   SELECT * FROM PG_TABLE_DEF
 # Returns tables
 #   SELECT * FROM pg_catalog.pg_tables
-#   SELECT * FROM pg_catalog.pg_tables WHERE schemaname = 'name'
+#   SELECT * FROM pg_catalog.pg_tables WHERE schemaname = "name"
 # Push data
 #   CREATE SCHEMA newschema AUTHORIZATION user
 #   CREATE TABLE newschema.newtable (id int)
@@ -55,55 +55,53 @@ def close_access_point(db_connection, db_cursor):
     db_cursor.close()
     db_connection.close()
 
-def arguments_error(parser):
-    """ Print help and exit """
-    parser.print_help()
-    exit(1)
-
 def main():
     """ usual entry point """
 
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-auth',
-        help='JSON authentication file',
-        type=argparse.FileType('r'))
+        "-a", "--auth",
+        required=True,
+        dest="auth",
+        help="JSON authentication file",
+        type=argparse.FileType("r"))
     parser.add_argument(
-        '-exec',
-        help='Command to execute')
+        "-e", "--exec",
+        required=True,
+        dest="exec",
+        help="Command to execute")
     parser.add_argument(
-        '--fetch',
-        dest='fetch',
-        action='store_true')
+        "-f", "--fetch",
+        dest="fetch",
+        action="store_true",
+        default=False)
     args = parser.parse_args()
 
-    if not args.auth:
-        arguments_error(parser)
-
+    # authentication file
     auth = json.load(args.auth)
-
-    (db_connection, db_cursor) = get_access_point(auth)
-
-    print(f"INFO: Statement to run:\n\"{args.exec}\"\n")
 
     # pylint: disable=broad-except
     try:
+        (db_connection, db_cursor) = get_access_point(auth)
+
+        print(f"INFO: Statement to run:\n\"{args.exec}\"\n")
         db_cursor.execute(args.exec)
         print("INFO: Statement ran successfully.\n")
+
+        if args.fetch:
+            # prints to console the results of the query
+            # it"s used mainly to fetch a SELECT query
+
+            print(f"INFO: Fetching results:\n")
+            response_list = db_cursor.fetchall()
+
+            # one row per line, columns between bars
+            print("\n".join(list(map(lambda row: "|".join(list(map(str, row))), response_list))))
     except Exception as exception:
         print(f"INFO: Statement ran with errors:\n{exception}")
-        exit(1)
-
-    if args.fetch:
-        print(f"INFO: Fetching results:\n")
-
-        response_list = db_cursor.fetchall()
-
-        # feeling functional
-        print("\n".join(list(map(lambda row: "|".join(list(map(str, row))), response_list))))
-
-    close_access_point(db_connection, db_cursor)
+    finally:
+        close_access_point(db_connection, db_cursor)
 
 if __name__ == "__main__":
     main()
