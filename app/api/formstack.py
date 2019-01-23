@@ -3,17 +3,17 @@
 
 from __future__ import absolute_import
 import json
-import requests
 import random
+import requests
+from requests.exceptions import ConnectionError
 # pylint: disable=E0402
 # Pylint doesn't recognize absolute imports beyond top level modules.
 # pylint: disable=F0401
 from django.conf import settings
+from django.views.decorators.cache import cache_control
 from __init__ import FI_FORMSTACK_TOKENS
-from requests.exceptions import ConnectionError
 from retrying import retry
 from app.dto import remission
-from django.views.decorators.cache import cache_control
 import rollbar
 
 requests.adapters.DEFAULT_RETRIES = 10
@@ -37,9 +37,9 @@ class FormstackAPI(object):
         """ Constructor. """
         self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
 AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
-        self.TOKEN_LIST = FI_FORMSTACK_TOKENS.split(',')
-        self.FAILED_ATTEMPTS = 0
-        self.CURRENT_TOKEN = self.TOKEN_LIST[random.randint(0, len(self.TOKEN_LIST) - 1)]
+        self.token_list = FI_FORMSTACK_TOKENS.split(',')
+        self.failed_attemps = 0
+        self.current_token = self.token_list[random.randint(0, len(self.token_list) - 1)]
 
     def requests_per_page(self, method, url, data=None):
         """Return the request from Formstack."""
@@ -60,8 +60,8 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         """Validate if a token is available."""
         formstack_request = self.execute_request(method, url, data)
         while formstack_request.status_code == 429:
-            self.FAILED_ATTEMPTS += 1
-            if self.FAILED_ATTEMPTS > 9:
+            self.failed_attemps += 1
+            if self.failed_attemps > 9:
                 message = 'Warning: Integrates is running out of Formstack API tokens. \
                     9 failed requests in a row'
                 rollbar.report_message(message, 'warning')
@@ -81,12 +81,12 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 self.headers_config["content-type"] = \
                     "application/x-www-form-urlencoded"
                 url += "?oauth_token=:token".replace(":token",
-                                                     self.CURRENT_TOKEN)
+                                                     self.current_token)
             else:
                 if not data:
-                    data = {"oauth_token": self.CURRENT_TOKEN}
+                    data = {"oauth_token": self.current_token}
                 else:
-                    data["oauth_token"] = self.CURRENT_TOKEN
+                    data["oauth_token"] = self.current_token
             executed_request = requests.request(
                 method, url,
                 data=data, headers=self.headers_config
@@ -112,8 +112,8 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return executed_request
 
     def refresh_token(self):
-        next_index = random.randint(0, len(self.TOKEN_LIST) - 1)
-        self.CURRENT_TOKEN = self.TOKEN_LIST[next_index]
+        next_index = random.randint(0, len(self.token_list) - 1)
+        self.current_token = self.token_list[next_index]
 
     def delete_submission(self, submission_id):
         """ Delete a submission by ID. """
