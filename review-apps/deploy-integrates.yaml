@@ -29,5 +29,15 @@ spec:
               name: env-secret
         ports:
         - containerPort: 443
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - grep 'AH00558' /var/log/apache2/error.log
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          successThreshold: 2
+          failureThreshold: 10
       imagePullSecrets:
       - name: gitlab-reg

@@ -1,7 +1,7 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Issuer
 metadata:
-  name: cert-issuer
+  name: letsencrypt
 spec:
   acme:
     email: technology@fluidattacks.com
@@ -10,7 +10,7 @@ spec:
       - name: route53
         route53:
           region: us-east-1
-          accesskeyID: $RA_ACCESS_KEY
+          accessKeyID: $RA_ACCESS_KEY
           secretAccessKeySecretRef:
             name: ra-aws
             key: sec-key
@@ -22,7 +22,7 @@ spec:
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: cert-template
+  name: ssl-review-apps
 spec:
   acme:
     config:
@@ -34,5 +34,5 @@ spec:
   - '*.$CI_PROJECT_NAME.env.fluidattacks.com'
   issuerRef:
     kind: Issuer
-    name: cert-issuer
-  secretName: ssl-secret
+    name: letsencrypt
+  secretName: ssl-certificate

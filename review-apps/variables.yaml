@@ -4,6 +4,6 @@ metadata:
   name: env-secret
 type: Opaque
 data:
-  VAULT_HOST: $VAULT_HOST
-  VAULT_TOKEN: $VAULT_TOKEN
+  VAULT_HOST: $VAULT_HOST_B64
+  VAULT_TOKEN: $VAULT_TOKEN_B64
   VAULT_PORT: NDQz
