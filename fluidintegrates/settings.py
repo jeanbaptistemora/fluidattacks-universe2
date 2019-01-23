@@ -11,13 +11,14 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 # pylint: disable=E0402
 from __future__ import absolute_import
-import newrelic.agent
 import sys
 import os
-from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST, \
-    FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, \
-    FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, \
-    FI_DEBUG, FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
+import newrelic.agent
+from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
+    FI_DB_HOST, FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, \
+    FI_MIXPANEL_API_TOKEN, FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, \
+    FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
+    FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
     FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, FI_REDIS_SERVER
 from boto3.session import Session
 import rollbar
@@ -33,8 +34,8 @@ sys.path.append('/usr/src/app')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Init New Relic agent
-new_relic_conf_file = os.path.join(BASE_DIR, 'newrelic.ini')
-newrelic.agent.initialize(new_relic_conf_file)
+NEW_RELIC_CONF_FILE = os.path.join(BASE_DIR, 'newrelic.ini')
+newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
 
 SECRET_KEY = FI_DJANGO_SECRET_KEY
@@ -43,8 +44,8 @@ SECRET_KEY = FI_DJANGO_SECRET_KEY
 DEBUG = FI_DEBUG == 'True'
 
 ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la",
-                 "fluidattacks.com", "192.168.200.100.xip.io", "192.168.200.100",
-                 ".integrates.env.fluidattacks.com"]
+                 "fluidattacks.com", "192.168.200.100.xip.io",
+                 "192.168.200.100", ".integrates.env.fluidattacks.com"]
 
 # Application definition
 
@@ -155,7 +156,7 @@ AWS_ACCESS_KEY_ID = FI_AWS_CLOUDWATCH_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY = FI_AWS_CLOUDWATCH_SECRET_KEY # noqa
 AWS_REGION_NAME = 'us-east-1'
 
-boto3_session = Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
+BOTO3_SESSION = Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
                         region_name=AWS_REGION_NAME)
 LOGGING = {
@@ -174,7 +175,7 @@ LOGGING = {
         'watchtower': {
             'level': 'INFO',
             'class': 'watchtower.CloudWatchLogHandler',
-                     'boto3_session': boto3_session,
+                     'boto3_session': BOTO3_SESSION,
                      'log_group': 'FLUID',
                      'stream_name': 'FLUIDIntegrates',
             'formatter': 'aws',
@@ -231,7 +232,8 @@ CRONJOBS = [
     ('0 5 * * 1', 'app.scheduler.weekly_report'),
     ('0 4 * * *', 'app.scheduler.inactive_users'),
     ('0 18 * * 1-5', 'app.scheduler.continuous_report'),
-    ('0 9 * * 1-5', 'app.scheduler.send_unsolved_events_email_to_all_projects'),
+    ('0 9 * * 1-5',
+        'app.scheduler.send_unsolved_events_email_to_all_projects'),
     ('0 8 * * 1-6', 'app.scheduler.deletion_of_finished_project'),
 ]
 
@@ -250,7 +252,8 @@ CACHES = {
             'SOCKET_TIMEOUT': 5,
             'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
             'REDIS_CLIENT_CLASS': 'rediscluster.RedisCluster',
-            'CONNECTION_POOL_CLASS': 'rediscluster.connection.ClusterConnectionPool',
+            'CONNECTION_POOL_CLASS':
+                'rediscluster.connection.ClusterConnectionPool',
             'CONNECTION_POOL_KWARGS': {
                 'skip_full_coverage_check': True
             }
@@ -267,7 +270,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = "Integratesv3"
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_AGE = 40*60
+SESSION_COOKIE_AGE = 40 * 60
 
 SESSION_REDIS = {
     'host': FI_REDIS_SERVER,
@@ -330,8 +333,10 @@ if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
     SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
 else:
-    SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluidattacks.com/integrates/registration'
-    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluidattacks.com/integrates/registration'
+    SOCIAL_AUTH_LOGIN_REDIRECT_URL = \
+        'https://fluidattacks.com/integrates/registration'
+    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = \
+        'https://fluidattacks.com/integrates/registration'
 
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/index'
 SOCIAL_AUTH_INACTIVE_USER_URL = '/index'
