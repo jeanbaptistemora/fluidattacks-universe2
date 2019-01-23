@@ -14,7 +14,17 @@ import datetime
 # pylint: disable=import-error
 import git
 
+# print a JSON as a string
 SPRINT = lambda s: print(json.dumps(s))
+
+def get_names_emails(path, sha1):
+    """ cd into the path and grab the name and email
+        if there is a .mailmap, it will use it """
+    authorn = os.popen(f"cd '{path}'; git --no-pager show -s --format='%aN' {sha1}").read()[0:-1]
+    authore = os.popen(f"cd '{path}'; git --no-pager show -s --format='%aE' {sha1}").read()[0:-1]
+    commitn = os.popen(f"cd '{path}'; git --no-pager show -s --format='%cN' {sha1}").read()[0:-1]
+    commite = os.popen(f"cd '{path}'; git --no-pager show -s --format='%cE' {sha1}").read()[0:-1]
+    return authorn, authore, commitn, commite
 
 def go_back(this_days):
     """ returns today minus this_days """
@@ -38,6 +48,25 @@ def load_mailmap(mailmap_path):
     # n = git name
     # e = git email
     # _ = anything
+
+    # In the simple form, each line in the file consists of the canonical real name of an author,
+    # whitespace, and an email address used in the commit (enclosed by < and >) to map to the name.
+    #
+    # For example:
+    #
+    #    1. Proper Name <commit@email.xx>
+    #       and:
+    #
+    #    2. <proper@email.xx> <commit@email.xx>
+    #       which allows mailmap to replace only the email part of a commit, and:
+    #
+    #    3. Proper Name <proper@email.xx> <commit@email.xx>
+    #       which allows mailmap to replace both the name and the email of a commit
+    #       matching the specified commit email address, and:
+    #
+    #    4. Proper Name <proper@email.xx> Commit Name <commit@email.xx>
+    #       which allows mailmap to replace both the name and the email of a commit
+    #       matching both the specified commit name and email address.
 
     mm_structure = []
 
@@ -179,13 +208,14 @@ def changes_table(last_commit, commit, files):
             srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
         SPRINT(srecord)
 
-def scan_commits(config, mailmap, sync_changes, after):
+def scan_commits(config, sync_changes, after):
     """ extracts all information possible from the commit object """
 
     # must have
     repository = config["repository"]
     branches = config["branches"]
-    repo_obj = git.Repo(config["location"])
+    repo_path = config["location"]
+    repo_obj = git.Repo(repo_path)
 
     # optional
     organization = config.get("organization", "__")
@@ -212,16 +242,12 @@ def scan_commits(config, mailmap, sync_changes, after):
             commit_insertions = commit.stats.total.get("insertions", 0)
             commit_deletions = commit.stats.total.get("deletions", 0)
 
-            authorn, authore = commit.author.name, commit.author.email
-            commitn, commite = commit.committer.name, commit.committer.email
+            # Gitpython don't parse it correctly
+            #authorn, authore = commit.author.name, commit.author.email
+            #commitn, commite = commit.committer.name, commit.committer.email
 
-            authorn = "" if authorn is None else authorn
-            authore = "" if authore is None else authore
-            commitn = "" if commitn is None else commitn
-            commite = "" if commite is None else commite
-
-            authorn, authore = replace_mailmap(authorn, authore, mailmap)
-            commitn, commite = replace_mailmap(commitn, commite, mailmap)
+            # let's parse it ourselves
+            authorn, authore, commitn, commite = get_names_emails(repo_path, commit.hexsha)
 
             srecord = {
                 "type": "RECORD",
@@ -317,9 +343,7 @@ def main():
     for conf in configs:
         # pylint: disable=bare-except
         try:
-            mailmap_path = conf[".mailmap"]
-            mailmap = load_mailmap(mailmap_path) if mailmap_path else []
-            scan_commits(conf, mailmap, args.sync_changes, after)
+            scan_commits(conf, args.sync_changes, after)
         except:
             pass
 

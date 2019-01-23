@@ -2,6 +2,7 @@
 
 import os
 import json
+import shutil
 
 import yaml # pylint: disable=import-error
 
@@ -42,8 +43,6 @@ for proj in os.listdir(TARGET):
     ymlconf_path = f"{project_path}/config.yml"
     mailmap_path = f"{project_path}/.mailmap"
 
-    if not os.path.exists(mailmap_path):
-        mailmap_path = ""
     if not os.path.exists(ymlconf_path):
         ymlconf_path = ""
 
@@ -64,6 +63,9 @@ for proj in os.listdir(TARGET):
         repo_path = f"{proj_path}/{repo}"
         repo_name = f"{proj}/{repo}"
 
+        if os.path.exists(mailmap_path):
+            shutil.copyfile(mailmap_path, f"{repo_path}/.mailmap")
+
         CONFIG.append(
             {
                 "organization":  organization,
@@ -73,7 +75,6 @@ for proj in os.listdir(TARGET):
                 "branches": [
                     "master" if proj in FLUID_PROJ else BRANCHES[proj][repo]
                 ],
-                ".mailmap": mailmap_path
             }
         )
 
