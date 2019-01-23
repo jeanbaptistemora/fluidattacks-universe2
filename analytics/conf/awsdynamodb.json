@@ -83,7 +83,6 @@
         "ambit": "string",
         "risk": "string",
         "kb": "string",
-
         "report_date": "date-time",
         "treatment": "string",
         "treatment_manager": "string",
@@ -200,6 +199,51 @@
         "companies": "list<dict>",
         "init_date": "date-time",
         "registered_users": "number"
+      }
+    },
+    "fi_events": {
+      "primary-keys": [
+        "event_id"
+      ],
+      "schema": {
+        "accessibility": "string",
+        "action_after_blocking": "string",
+        "action_before_blocking": "string",
+        "affectation": "number",
+        "affected_components": "string",
+        "analyst": "string",
+        "client": "string",
+        "client_project": "string",
+        "client_responsible": "string",
+        "closer": "string",
+        "context": "string",
+        "detail": "string",
+        "event_date": "date-time",
+        "event_id": "string",
+        "event_status": "string",
+        "event_type": "string",
+        "evidence": "string",
+        "evidence_file": "string",
+        "hours_before_blocking": "number",
+        "project_name": "string",
+        "report_date": "date-time",
+        "subscription": "string"
+      }
+    },
+    "fi_project_comments": {
+      "primary-keys": [
+        "project_name",
+        "user_id"
+      ],
+      "schema": {
+        "content": "string",
+        "created": "date-time",
+        "email": "string",
+        "fullname": "string",
+        "modified": "date-time",
+        "parent": "string",
+        "project_name": "string",
+        "user_id": "string"
       }
     }
   }
