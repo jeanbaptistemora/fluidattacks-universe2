@@ -16,6 +16,7 @@ setuptools.setup(
     py_modules=[],
 
     install_requires=[
+        "jsonschema",
         "psycopg2-binary"
     ],
 

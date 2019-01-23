@@ -12,19 +12,19 @@ import argparse
 from datetime import datetime
 
 # pylint: disable=import-error
+import jsonschema
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
-
-from psycopg2.extras import execute_values
 
 # identity function
 IDM = lambda x: x
 
+# returns the length in bytes of a UTF-8 string
+STR_LEN = lambda str_obj: len(str_obj.encode('utf-8'))
+
 # stringifies an iterable
 #   it: (a, b, c) => "(f(a)),(f(b)),(f(c))"
 STRINGIFY = lambda it, c=",", b="(", e=")", f=IDM: c.join(f"{b}{f(x)}{e}" for x in it)
-
-STR_LEN = lambda str_obj: len(str_obj.encode('utf-8'))
 
 def make_access_point(auth):
     """ returns a connection and a cursor to the database """
@@ -100,7 +100,7 @@ def translate_record(schema, record):
         new_value = ""
         if not new_field in schema:
             print(f"WARN: Ignoring field {new_field}, it's not in the streamed schema.")
-        else:
+        elif not user_value is None:
             new_field_type = schema[new_field]
             if new_field_type == "BOOLEAN":
                 new_value = f"{escape(user_value).lower()}"
@@ -109,7 +109,7 @@ def translate_record(schema, record):
             elif new_field_type == "FLOAT8":
                 new_value = f"{escape(user_value)}"
             elif new_field_type == "VARCHAR(256)":
-                new_value = user_value[0:256]
+                new_value = f"{user_value}"[0:256]
                 while STR_LEN(escape(new_value)) > 256:
                     new_value = new_value[0:-1]
                 new_value = f"'{escape(new_value)}'"
@@ -118,7 +118,7 @@ def translate_record(schema, record):
             else:
                 print(f"WARN: Ignoring type {new_field_type}, it's not in the streamed schema.")
 
-        new_record[new_field] = new_value
+            new_record[new_field] = new_value
     return new_record
 
 def drop_schema(batcher, schema_name):
@@ -236,6 +236,7 @@ def persist_messages(batcher, schema_name, messages):
     """ persist messages received in stdin to Amazon Redshift """
     schema = {}
     ofields = {}
+    validator = {}
 
     for message in messages:
         json_obj = json.loads(message)
@@ -245,12 +246,20 @@ def persist_messages(batcher, schema_name, messages):
             table_schema = schema[table_name]
             table_ofields = ofields[table_name]
 
-            table_record = translate_record(table_schema, json_obj["record"])
+            json_record = json_obj["record"]
+
+            try:
+                validator[table_name].validate(json_record)
+            except jsonschema.exceptions.ValidationError as err:
+                print(f"WARN: record did not conform to schema")
+                print(err)
+
+            record = translate_record(table_schema, json_record)
 
             record_ov = []
             for field in table_ofields:
                 try:
-                    record_ov.append(table_record[field])
+                    record_ov.append(record[field])
                 except KeyError:
                     record_ov.append("null")
 
@@ -260,6 +269,15 @@ def persist_messages(batcher, schema_name, messages):
             table_name = escape(json_obj["stream"].lower())
             table_pkeys = tuple(map(escape, json_obj["key_properties"]))
             table_schema = json_obj["schema"]
+
+            validator[table_name] = jsonschema.Draft4Validator(table_schema)
+
+            try:
+                validator[table_name].check_schema(table_schema)
+            except jsonschema.exceptions.SchemaError as err:
+                print(f"ERROR: schema did not conform to draft 4")
+                print(err)
+                exit(1)
 
             schema[table_name] = table_ft = translate_schema(table_schema["properties"])
             ofields[table_name] = table_of = tuple(table_ft.keys())
