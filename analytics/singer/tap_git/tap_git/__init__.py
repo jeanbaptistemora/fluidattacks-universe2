@@ -215,6 +215,11 @@ def scan_commits(config, mailmap, sync_changes, after):
             authorn, authore = commit.author.name, commit.author.email
             commitn, commite = commit.committer.name, commit.committer.email
 
+            authorn = "" if authorn is None else authorn
+            authore = "" if authore is None else authore
+            commitn = "" if commitn is None else commitn
+            commite = "" if commite is None else commite
+
             authorn, authore = replace_mailmap(authorn, authore, mailmap)
             commitn, commite = replace_mailmap(commitn, commite, mailmap)
 
