@@ -88,7 +88,7 @@
     "@types/lodash": "4.14.116",
     "gulp-plumber": "1.2.0",
     "redux-form": "7.4.2",
-    "@types/redux-form": "7.4.8",
+    "@types/redux-form": "7.4.16",
     "revalidate": "1.2.0",
     "@types/revalidate": "1.1.2",
     "react-phone-input-2": "2.6.1",
