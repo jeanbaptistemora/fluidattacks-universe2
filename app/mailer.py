@@ -16,12 +16,12 @@ def _send_mail(template_name, email_to, context, tags):
         'to': [],
         'global_merge_vars': []
     }
-    for em in email_to:
-        message['to'].append({'email': em})
+    for email in email_to:
+        message['to'].append({'email': email})
 
-    for k, v in context.items():
+    for key, value in context.items():
         message['global_merge_vars'].append(
-            {'name': k, 'content': v}
+            {'name': key, 'content': value}
         )
     message['tags'] = tags
     mandrill_client.messages.send_template(template_name, [], message)
@@ -101,7 +101,7 @@ def send_mail_continuous_report(email_to, context):
     _send_mail('continuousreport', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_integrates_new_version(email_to, context):
+def send_mail_new_version(email_to, context):
     _send_mail('integratesnewversion', email_to, context=context, tags=GENERAL_TAG)
 
 

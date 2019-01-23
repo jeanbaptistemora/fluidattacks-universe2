@@ -22,14 +22,14 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
                                             last_name)
             integrates_dao.update_user_login_dao(user)
     else:
-        to = ["projects@fluidattacks.com", "production@fluidattacks.com",
-              "technology@fluidattacks.com"]
+        mail_to = ["projects@fluidattacks.com", "production@fluidattacks.com",
+                   "technology@fluidattacks.com"]
         name = first_name + ' ' + last_name
         context = {
             'name_user': name,
             'mail_user': email,
         }
-        send_mail_new_user(to, context)
+        send_mail_new_user(mail_to, context)
         integrates_dao.create_user_dao(email, username=username,
                                        first_name=first_name,
                                        last_name=last_name,

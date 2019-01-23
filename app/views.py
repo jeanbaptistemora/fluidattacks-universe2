@@ -456,7 +456,7 @@ def presentation_pdf(project, pdf_maker, findings, user):
     if not project_info:
         return "Incomplete documentation"
     pdf_maker.presentation(findings, project, project_info, user)
-    report_filename = pdf_maker.RESULT_DIR + pdf_maker.out_name
+    report_filename = pdf_maker.result_dir + pdf_maker.out_name
     return report_filename
 
 
@@ -625,7 +625,7 @@ def format_finding(finding, request):
       specific
     }"""
     query = query.replace('findingid', finding_id)
-    result = schema.schema.execute(query, context_value=request)
+    result = schema.SCHEMA.execute(query, context_value=request)
     finding_new = result.data.get('finding')
     finding['cardinalidad_total'] = finding.get('openVulnerabilities')
     finding['cierres'] = []
@@ -1617,7 +1617,7 @@ def download_vulnerabilities(request, findingid):
           }
         }"""
         query = query.replace('findingid', findingid)
-        result = schema.schema.execute(query, context_value=request)
+        result = schema.SCHEMA.execute(query, context_value=request)
         finding = result.data.get('finding')
         data_yml = {}
         vuln_types = {'ports': cast_ports, 'lines': dict, 'inputs': dict}

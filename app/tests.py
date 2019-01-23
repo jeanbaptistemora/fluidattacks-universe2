@@ -72,7 +72,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.schema.execute(query, context_value=request)
+        result = schema.SCHEMA.execute(query, context_value=request)
         if "alert" in result.data:
             message = result.data["alert"]["message"]
             assert message == "unittest"
@@ -97,7 +97,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = dict(schema.schema.execute(query, context_value=request).data)
+        result = dict(schema.SCHEMA.execute(query, context_value=request).data)
         if "event" in result.keys():
             detail = dict(result["event"])["detail"]
             assert detail == "Integrates unit test"
@@ -122,7 +122,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = dict(schema.schema.execute(query, context_value=request).data)
+        result = dict(schema.SCHEMA.execute(query, context_value=request).data)
         if "events" in result:
             detail = dict(result["events"][0])["detail"]
             assert len(detail) >= 1
@@ -160,7 +160,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.schema.execute(query, context_value=request)
+        result = schema.SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get("finding")["id"] == '422286126'
         test_data = OrderedDict([
@@ -191,7 +191,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.schema.execute(query, context_value=request)
+        result = schema.SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert "https://gitlab.com/fluidsignal/engineering/" in \
                result.data.get("resources")["repositories"]
@@ -231,7 +231,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.schema.execute(query, context_value=request)
+        result = schema.SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get("addRepositories")["success"]
         assert result.data.get("addEnvironments")["success"]
@@ -265,7 +265,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.schema.execute(query, context_value=request)
+        result = schema.SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get("removeRepositories")["success"]
         assert result.data.get("removeEnvironments")["success"]

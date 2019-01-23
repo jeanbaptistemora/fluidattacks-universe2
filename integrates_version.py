@@ -26,7 +26,7 @@ def send_mail_version():
         'version': version,
         'message': commit_message,
         }
-    mailer.send_mail_integrates_new_version(to, context)
+    mailer.send_mail_new_version(to, context)
 
 def get_integrates_version():
     file = fileinput.FileInput('/usr/src/app/app/templates/dashboard.html')
