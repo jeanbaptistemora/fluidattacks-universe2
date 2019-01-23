@@ -340,8 +340,6 @@ def main():
     try:
         (dbcon, dbcur) = make_access_point(auth)
 
-        batcher = Batcher(dbcon, dbcur, loading_schema)
-
         if args.drop_schema:
             # It means user wants to guarantee 100% data integrity
             # It also implies the use of a loading strategy
@@ -353,6 +351,7 @@ def main():
             #   MAKE loading_schema
             create_schema(batcher, loading_schema)
             #   LOAD loading_schema
+            batcher = Batcher(dbcon, dbcur, loading_schema)
             persist_messages(batcher, loading_schema, input_messages)
             #   DROP backup_schema IF EXISTS
             drop_schema(batcher, backup_schema)
@@ -366,6 +365,7 @@ def main():
             #     - data integrity
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
+            batcher = Batcher(dbcon, dbcur, target_schema)
             persist_messages(batcher, target_schema, input_messages)
     finally:
         drop_access_point(dbcon, dbcur)
