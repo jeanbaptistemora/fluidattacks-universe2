@@ -116,7 +116,7 @@ def discover_schema(dynamodb_client, table_list):
                 schema["tables"][table_name]["schema"][key] = "string"
             line = file.readline()
 
-    print(json.dumps(schema, indent=4))
+    print(json.dumps(schema, indent=2))
 
 def write_schema(table_name, properties):
     """ write the SCHEMA message for a given table to stdout """
@@ -471,7 +471,7 @@ def main():
     if args.discovery_mode:
         table_list = get_all_tables(dynamodb_client)
 
-        for table_name, properties in conf_sett["tables"].items():
+        for table_name in table_list:
             write_queries(dynamodb_resource, table_name)
 
         discover_schema(dynamodb_client, table_list)
