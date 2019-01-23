@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 """ Class to export the findings A PDF. """
 # pylint: disable=wrong-import-position
-import jinja2
 import os
 import time
 import sys
+import jinja2
 import matplotlib
 from matplotlib.font_manager import FontProperties
 matplotlib.use('Agg')
 from pylab import figure, pie, axis, legend, savefig, cla, clf, close  # noqa
 
 
+# pylint: disable=too-many-instance-attributes
 class CreatorPDF(object):
     """ Class to generate reports in PDF. """
 
-    STYLE_DIR = '/resources/themes'
-    TPL_DIR = '/tpls/'
-    FONT_DIR = '/resources/fonts'
-    RESULT_DIR = '/results/'
-    PROJ_TPL = 'templates/executive.adoc'
-    GRAPH_PATH = '/usr/src/app/app/documentator/images/'
-    STYLE = 'fluid'
+    style_dir = '/resources/themes'
+    tpl_dir = '/tpls/'
+    font_dir = '/resources/fonts'
+    result_dir = '/results/'
+    proj_tpl = 'templates/executive.adoc'
+    style = 'fluid'
     lang = 'es'
     doctype = 'executive'
     wordlist = None
@@ -30,19 +30,19 @@ class CreatorPDF(object):
 
     def __init__(self, lang, doctype):
         """Class constructor."""
-        self.PATH = os.path.dirname(os.path.abspath(__file__))
-        self.RESULT_DIR = self.PATH + self.RESULT_DIR
-        self.FONT_DIR = self.PATH + self.FONT_DIR
-        self.TPL_DIR = self.PATH + self.TPL_DIR
-        self.TPL_IMG_PATH = '/usr/src/app/app/documentator/images/'
+        self.path = os.path.dirname(os.path.abspath(__file__))
+        self.result_dir = self.path + self.result_dir
+        self.font_dir = self.path + self.font_dir
+        self.tpl_dir = self.path + self.tpl_dir
+        self.tpl_img_path = '/usr/src/app/app/documentator/images/'
         self.lang = lang
         self.doctype = doctype
-        self.STYLE_DIR = self.PATH + self.STYLE_DIR
-        if(self.doctype == 'tech'):
-            self.PROJ_TPL = 'templates/tech.adoc'
-        if(self.doctype == 'presentation'):
-            self.PROJ_TPL = 'templates/presentation.adoc'
-            self.STYLE_DIR = self.PATH + '/resources/presentation_theme'
+        self.style_dir = self.path + self.style_dir
+        if self.doctype == 'tech':
+            self.proj_tpl = 'templates/tech.adoc'
+        if self.doctype == 'presentation':
+            self.proj_tpl = 'templates/presentation.adoc'
+            self.style_dir = self.path + '/resources/presentation_theme'
         reload(sys)
         try:
             sys.setdefaultencoding('utf-8')
@@ -61,10 +61,10 @@ class CreatorPDF(object):
         self.command += '-D :result_dir: '
         self.command += '-o :out_name: '
         self.command += ':template: && chmod 777 :template:'
-        self.command = self.command.replace(':style:', self.STYLE)
-        self.command = self.command.replace(':style_dir:', self.STYLE_DIR)
-        self.command = self.command.replace(':font_dir:', self.FONT_DIR)
-        self.command = self.command.replace(':result_dir:', self.RESULT_DIR)
+        self.command = self.command.replace(':style:', self.style)
+        self.command = self.command.replace(':style_dir:', self.style_dir)
+        self.command = self.command.replace(':font_dir:', self.font_dir)
+        self.command = self.command.replace(':result_dir:', self.result_dir)
         self.command = self.command.replace(':out_name:', self.out_name)
         self.command = self.command.replace(':template:', tpl_name)
 
@@ -194,11 +194,11 @@ class CreatorPDF(object):
         """ Create the template to render and apply the context. """
         self.fill_project(data, project)
         self.out_name = user + '_' + project + '_IT.pdf'
-        searchpath = self.PATH
+        searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
-        template = template_env.get_template(self.PROJ_TPL)
-        tpl_name = self.TPL_DIR + ':id_IT.tpl'.replace(':id', project)
+        template = template_env.get_template(self.proj_tpl)
+        tpl_name = self.tpl_dir + ':id_IT.tpl'.replace(':id', project)
         render_text = template.render(self.context)
         with open(tpl_name, 'w') as tplfile:
             tplfile.write(render_text.encode('utf-8'))
@@ -210,11 +210,11 @@ class CreatorPDF(object):
         self.fill_project(data, project)
         self.project_info_context(project_info)
         self.out_name = user + '_' + project + '_PR.pdf'
-        searchpath = self.PATH
+        searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
-        template = template_env.get_template(self.PROJ_TPL)
-        tpl_name = self.TPL_DIR + ':id_PR.tpl'.replace(':id', project)
+        template = template_env.get_template(self.proj_tpl)
+        tpl_name = self.tpl_dir + ':id_PR.tpl'.replace(':id', project)
         render_text = template.render(self.context)
         with open(tpl_name, 'w') as tplfile:
             tplfile.write(render_text.encode('utf-8'))
@@ -306,7 +306,7 @@ class CreatorPDF(object):
         font_properties.set_size('small')
         legend(prop=font_properties, loc='best')
         pie_filename = 'finding_graph_:prj.png'.replace(':prj', project)
-        hard_path = self.TPL_IMG_PATH
+        hard_path = self.tpl_img_path
         hard_path += pie_filename
         savefig(hard_path, bbox_inches='tight', transparent=True, dpi=100)
         cla()

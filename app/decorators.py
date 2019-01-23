@@ -13,10 +13,10 @@ from django.conf import settings
 from graphql import GraphQLError
 
 # pylint: disable=E0402
-from .services import has_access_to_project, has_access_to_finding, is_customeradmin
-from . import util
 from rediscluster.nodemanager import RedisClusterException
 
+from .services import has_access_to_project, has_access_to_finding, is_customeradmin
+from . import util
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -67,10 +67,14 @@ def require_project_access(func):
 
         project = project.encode('utf-8')
         if project.strip() == "":
-            rollbar.report_message('Error: Empty fields in project', 'error', request)
+            rollbar.report_message('Error: Empty fields in project',
+                                   'error',
+                                   request)
             return util.response([], 'Empty fields', True)
-        if not has_access_to_project(request.session['username'], project, request.session['role']):
-            util.cloudwatch_log(request, 'Security: Attempted to retrieve project info without permission')
+        if not has_access_to_project(
+                request.session['username'], project, request.session['role']):
+            util.cloudwatch_log(request, 'Security: \
+Attempted to retrieve project info without permission')
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
     return verify_and_call
@@ -87,10 +91,13 @@ def require_finding_access(func):
             findingid = request.GET.get('findingid', '')
 
         if not re.match("^[0-9]*$", findingid):
-            rollbar.report_message('Error: Invalid finding id format', 'error', request)
+            rollbar.report_message('Error: Invalid finding id format',
+                                   'error', request)
             return util.response([], 'Invalid finding id format', True)
-        if not has_access_to_finding(request.session['username'], findingid, request.session['role']):
-            util.cloudwatch_log(request, 'Security: Attempted to retrieve finding-related info without permission')
+        if not has_access_to_finding(
+                request.session['username'], findingid, request.session['role']):
+            util.cloudwatch_log(request, 'Security: \
+Attempted to retrieve finding-related info without permission')
             return util.response([], 'Access denied', True)
         return func(*args, **kwargs)
     return verify_and_call
@@ -175,7 +182,8 @@ Attempted to retrieve project info without permission')
             else:
                 pass
         else:
-            rollbar.report_message('Error: Empty fields in project', 'error', context)
+            rollbar.report_message('Error: Empty fields in project',
+                                   'error', context)
 
         return func(*args, **kwargs)
     return verify_and_call
@@ -190,13 +198,16 @@ def require_finding_access_gql(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         context = args[1].context
-        finding_id = kwargs.get('finding_id') if kwargs.get('identifier') is None else kwargs.get('identifier')
+        finding_id = kwargs.get('finding_id') \
+            if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
 
         if not re.match('^[0-9]*$', finding_id):
-            rollbar.report_message('Error: Invalid finding id format', 'error', context)
+            rollbar.report_message('Error: Invalid finding id format',
+                                   'error', context)
             raise GraphQLError('Invalid finding id format')
-        if not has_access_to_finding(user_data['user_email'], finding_id, user_data['user_role']):
+        if not has_access_to_finding(user_data['user_email'],
+                                     finding_id, user_data['user_role']):
             util.cloudwatch_log(context,
                                 'Security: \
 Attempted to retrieve finding-related info without permission')
