@@ -204,7 +204,8 @@ def migrate_event_files(event):
         {'id': evidence_file,
             'file_type': {'application/zip': '.zip',
                           'text/plain': '.csv',
-                          'text/csv': '.csv'}}
+                          'text/csv': '.csv',
+                          'application/pdf': '.pdf'}}
     ]
     for curr_file in files:
         if curr_file.get('id'):
