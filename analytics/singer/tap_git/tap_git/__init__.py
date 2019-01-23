@@ -41,6 +41,9 @@ def load_mailmap(mailmap_path):
 
     mm_structure = []
 
+    # turns every element in a list to lowercase
+    lower_list = lambda it: [x.lower() for x in it]
+
     for line in line_iter(mailmap_path):
         statement = re.sub(r"\s+", " ", line)
         NEne = re.match(r"(.*) <(.*)> (.*) <(.*)>", statement)
@@ -49,16 +52,16 @@ def load_mailmap(mailmap_path):
         N__e = re.match(r"(.*) <(.*)>", statement)
 
         if NEne:
-            groups = NEne.groups()
+            groups = lower_list(NEne.groups())
             mm_structure.append((groups[0], groups[1], groups[2], groups[3]))
         elif NE_e:
-            groups = NE_e.groups()
+            groups = lower_list(NE_e.groups())
             mm_structure.append((groups[0], groups[1], None, groups[2]))
         elif _E_e:
-            groups = _E_e.groups()
+            groups = lower_list(_E_e.groups())
             mm_structure.append((None, groups[0], None, groups[1]))
         elif N__e:
-            groups = N__e.groups()
+            groups = lower_list(N__e.groups())
             mm_structure.append((groups[0], None, None, groups[1]))
 
     return mm_structure
@@ -73,6 +76,7 @@ def replace_mailmap(user_n, user_e, mailmap):
     # e = git email
     # _ = anything
 
+    user_n, user_e = user_n.lower(), user_e.lower()
     user_N, user_E = user_n, user_e
     for N, E, n, e in mailmap:
         # NEne
