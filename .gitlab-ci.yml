@@ -415,10 +415,13 @@ sync_currencies:
   stage: analytics
   <<: *vault_login
   script:
-    - pip3 install analytics/singer/tap_currencyconverterapi
-    - echo "$(vault read
-        -field=analytics_auth_stitch_currencies secret/serves)" > /target_secret.json
-    - tap_currencyconverterapi | target-stitch -c /target_secret.json
+    - pip3 install
+        analytics/singer/tap_currencyconverterapi
+        analytics/singer/target_redshift
+    - tap_currencyconverterapi > /currencies.singer
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - cat /currencies.singer |
+        target-redshift --auth /target_secret.json --drop-schema --schema-name "currencies"
     - rm -fr /target_secret.json
   only:
     refs:
