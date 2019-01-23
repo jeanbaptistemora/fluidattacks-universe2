@@ -314,59 +314,6 @@ class CreatorPDF(object):
         close('all')
         return pie_filename
 
-    def make_vuln_table(self, findings, words):
-        """Label findings percent quantity."""
-        vuln_table = [
-            [words['vuln_h'], 0, 0, 0],
-            [words['vuln_m'], 0, 0, 0],
-            [words['vuln_l'], 0, 0, 0],
-            ['Total', len(findings), '100.00%', 0],
-        ]
-        top_table = []
-        ttl_vulns, ttl_num_reg, top = 0, 0, 1
-        for finding in findings:
-            criticity = finding['criticity']
-            crit_as_text = words['crit_l']
-            vuln_amount = 0
-            if finding['openVulnerabilities'] != '-':
-                vuln_amount = int(finding['openVulnerabilities'])
-            ttl_vulns += vuln_amount
-            if criticity >= 7.0 and criticity <= 10:
-                vuln_table[0][1] += 1
-                vuln_table[0][3] += vuln_amount
-                crit_as_text = words['crit_h']
-            elif criticity >= 4.0 and criticity <= 6.9:
-                vuln_table[1][1] += 1
-                vuln_table[1][3] += vuln_amount
-                crit_as_text = words['crit_m']
-            elif criticity >= 0.0 and criticity <= 3.9:  # Abierto por defecto
-                vuln_table[2][1] += 1
-                vuln_table[2][3] += vuln_amount
-            else:
-                vuln_table[2][1] += 1
-                vuln_table[2][3] += vuln_amount
-            ttl_num_reg += int(finding['recordsNumber'])
-            finding['criticity'] = str(finding['criticity'])
-            if top <= 5:
-                top_table.append([
-                    top,
-                    finding['criticity'] + ' ' + crit_as_text,
-                    finding['finding']
-                ])
-                top += 1
-        vuln_table[0][2] = vuln_table[0][1] * 100 / float(len(findings))
-        vuln_table[1][2] = vuln_table[1][1] * 100 / float(len(findings))
-        vuln_table[2][2] = vuln_table[2][1] * 100 / float(len(findings))
-        vuln_table[0][2] = '{0:.2f}%'.format(vuln_table[0][2])
-        vuln_table[1][2] = '{0:.2f}%'.format(vuln_table[1][2])
-        vuln_table[2][2] = '{0:.2f}%'.format(vuln_table[2][2])
-        vuln_table[3][3] = ttl_vulns
-        return {
-            'resume': vuln_table,
-            'top': top_table,
-            'num_reg': ttl_num_reg
-        }
-
     def fill_project(self, findings, project):
         """ Add project information. """
         words = self.wordlist[self.lang]
@@ -395,7 +342,7 @@ class CreatorPDF(object):
         main_pie_filename = 'image::../images/' \
             + main_pie_filename \
             + '[width=330, align="center"]'
-        main_tables = self.make_vuln_table(findings, words)
+        main_tables = make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
         self.context = {
             'full_project': full_project.upper(),
@@ -511,3 +458,57 @@ class CreatorPDF(object):
             return description
         except ValueError:
             return ''
+
+
+def make_vuln_table(findings, words):
+    """Label findings percent quantity."""
+    vuln_table = [
+        [words['vuln_h'], 0, 0, 0],
+        [words['vuln_m'], 0, 0, 0],
+        [words['vuln_l'], 0, 0, 0],
+        ['Total', len(findings), '100.00%', 0],
+    ]
+    top_table = []
+    ttl_vulns, ttl_num_reg, top = 0, 0, 1
+    for finding in findings:
+        criticity = finding['criticity']
+        crit_as_text = words['crit_l']
+        vuln_amount = 0
+        if finding['openVulnerabilities'] != '-':
+            vuln_amount = int(finding['openVulnerabilities'])
+        ttl_vulns += vuln_amount
+        if criticity >= 7.0 and criticity <= 10:
+            vuln_table[0][1] += 1
+            vuln_table[0][3] += vuln_amount
+            crit_as_text = words['crit_h']
+        elif criticity >= 4.0 and criticity <= 6.9:
+            vuln_table[1][1] += 1
+            vuln_table[1][3] += vuln_amount
+            crit_as_text = words['crit_m']
+        elif criticity >= 0.0 and criticity <= 3.9:  # Abierto por defecto
+            vuln_table[2][1] += 1
+            vuln_table[2][3] += vuln_amount
+        else:
+            vuln_table[2][1] += 1
+            vuln_table[2][3] += vuln_amount
+        ttl_num_reg += int(finding['recordsNumber'])
+        finding['criticity'] = str(finding['criticity'])
+        if top <= 5:
+            top_table.append([
+                top,
+                finding['criticity'] + ' ' + crit_as_text,
+                finding['finding']
+            ])
+            top += 1
+    vuln_table[0][2] = vuln_table[0][1] * 100 / float(len(findings))
+    vuln_table[1][2] = vuln_table[1][1] * 100 / float(len(findings))
+    vuln_table[2][2] = vuln_table[2][1] * 100 / float(len(findings))
+    vuln_table[0][2] = '{0:.2f}%'.format(vuln_table[0][2])
+    vuln_table[1][2] = '{0:.2f}%'.format(vuln_table[1][2])
+    vuln_table[2][2] = '{0:.2f}%'.format(vuln_table[2][2])
+    vuln_table[3][3] = ttl_vulns
+    return {
+        'resume': vuln_table,
+        'top': top_table,
+        'num_reg': ttl_num_reg
+    }
