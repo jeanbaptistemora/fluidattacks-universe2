@@ -461,6 +461,40 @@ class FindingDTO(object):
         self.data = new_data
 
 
+def mask_fields_dynamo(finding_id, fields, mask_value):
+    primary_keys = ['finding_id', str(finding_id)]
+    description = {k: mask_value for k in fields}
+    is_masked = integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+                                                              primary_keys,
+                                                              description)
+    if is_masked:
+        response = mask_evidence_dynamo(finding_id)
+    else:
+        response = False
+    return response
+
+
+def mask_evidence_dynamo(finding_id):
+    attr_name = 'files'
+    files = integrates_dao.get_finding_attributes_dynamo(finding_id, [attr_name])
+    primary_keys = ['finding_id', finding_id]
+    index = 0
+    if files and files.get(attr_name):
+        for file_obj in files.get(attr_name):
+            are_evidences_masked = list(map(lambda x:
+                                            integrates_dao.
+                                            update_item_list_dynamo
+                                            (primary_keys,
+                                             attr_name,
+                                             index, x,
+                                             'Masked'), file_obj.keys()))
+            index += 1
+        response = all(are_evidences_masked)
+    else:
+        response = False
+    return response
+
+
 def format_finding_date(format_attr):
     tzn = pytz.timezone('America/Bogota')
     finding_date = datetime.strptime(

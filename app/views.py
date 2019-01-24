@@ -39,6 +39,7 @@ from .dto.finding import (
 from .dto import closing
 from .dto import project as project_dto
 from .dto import eventuality
+from .dto.finding import mask_fields_dynamo
 from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
 # pylint: disable=E0402
@@ -1476,10 +1477,13 @@ def delete_project(project):
     util.invalidate_cache(project)
     are_users_removed = remove_all_users_access(project)
     is_project_masked = mask_project_findings(project)
+    is_project_masked_in_dynamo = mask_project_findings_dynamo(project)
     are_closings_masked = mask_project_closings(project)
     project_deleted = remove_project_from_db(project)
-    is_project_deleted = are_users_removed and is_project_masked \
-        and are_closings_masked and project_deleted
+    is_project_deleted = \
+        are_users_removed and is_project_masked and \
+        are_closings_masked and project_deleted and \
+        is_project_masked_in_dynamo
     return is_project_deleted
 
 
@@ -1530,6 +1534,27 @@ def mask_project_findings(project):
         return is_project_deleted
     except KeyError:
         rollbar.report_message('Error: An error occurred masking project', 'error')
+        return False
+
+
+def mask_project_findings_dynamo(project):
+    """Mask project findings information un DynamoDB."""
+    api = FormstackAPI()
+    fields = ['client_code', 'client_project', 'related_findings',
+              'vulnerability', 'attack_vector', 'affected_systems',
+              'threat', 'risk', 'treatment_justification', 'treatment',
+              'treatment_manager', 'effect_solution']
+    try:
+        finreqset = api.get_findings(project)["submissions"]
+        are_findings_masked = list(map(
+                                   lambda x:
+                                   mask_fields_dynamo(x['id'],
+                                                      fields,
+                                                      'Masked'), finreqset))
+        is_project_deleted = all(are_findings_masked)
+        return is_project_deleted
+    except KeyError:
+        rollbar.report_message('Error: An error occurred masking project in DynamoDB', 'error')
         return False
 
 
