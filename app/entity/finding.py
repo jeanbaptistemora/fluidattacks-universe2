@@ -16,7 +16,6 @@ from graphql import GraphQLError
 from graphene import String, ObjectType, Boolean, List, Int, Float, JSONString, Mutation, Field
 
 from .. import util
-from app.utils import forms as form_util
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
@@ -336,9 +335,6 @@ class Finding(ObjectType):
         """ Resolve report_level attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['report_level'])
-        fs_value = self.report_level
-        self.report_level = dynamo_value.get('report_level') if dynamo_value else fs_value
         return self.report_level
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -346,9 +342,6 @@ class Finding(ObjectType):
         """ Resolve title attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['finding'])
-        fs_value = self.title
-        self.title = dynamo_value.get('finding') if dynamo_value else fs_value
         return self.title
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -356,9 +349,6 @@ class Finding(ObjectType):
         """ Resolve scenario attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['scenario'])
-        fs_value = self.scenario
-        self.scenario = dynamo_value.get('scenario') if dynamo_value else fs_value
         return self.scenario
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -366,9 +356,6 @@ class Finding(ObjectType):
         """ Resolve actor attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['actor'])
-        fs_value = self.actor
-        self.actor = dynamo_value.get('actor') if dynamo_value else fs_value
         return self.actor
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -376,9 +363,6 @@ class Finding(ObjectType):
         """ Resolve description attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['vulnerability'])
-        fs_value = self.description
-        self.description = dynamo_value.get('vulnerability') if dynamo_value else fs_value
         return self.description
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -386,9 +370,6 @@ class Finding(ObjectType):
         """ Resolve requirements attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['requirements'])
-        fs_value = self.requirements
-        self.requirements = dynamo_value.get('requirements') if dynamo_value else fs_value
         return self.requirements
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -396,9 +377,6 @@ class Finding(ObjectType):
         """ Resolve requirements attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['attack_vector'])
-        fs_value = self.attack_vector
-        self.attack_vector = dynamo_value.get('attack_vector') if dynamo_value else fs_value
         return self.attack_vector
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -406,9 +384,6 @@ class Finding(ObjectType):
         """ Resolve threat attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['threat'])
-        fs_value = self.threat
-        self.threat = dynamo_value.get('threat') if dynamo_value else fs_value
         return self.threat
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -416,9 +391,6 @@ class Finding(ObjectType):
         """ Resolve recommendation attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['effect_solution'])
-        fs_value = self.recommendation
-        self.recommendation = dynamo_value.get('effect_solution') if dynamo_value else fs_value
         return self.recommendation
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -426,9 +398,6 @@ class Finding(ObjectType):
         """ Resolve affected_systems attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['affected_systems'])
-        fs_value = self.affected_systems
-        self.affected_systems = dynamo_value.get('affected_systems') if dynamo_value else fs_value
         return self.affected_systems
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -436,9 +405,6 @@ class Finding(ObjectType):
         """ Resolve compromised_attributes attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['records'])
-        fs_value = self.compromised_attributes
-        self.compromised_attributes = dynamo_value.get('records') if dynamo_value else fs_value
         return self.compromised_attributes
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -446,9 +412,6 @@ class Finding(ObjectType):
         """ Resolve compromised_records attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['records_number'])
-        fs_value = self.compromised_records
-        self.compromised_records = int(dynamo_value.get('records_number') if dynamo_value else fs_value)
         return self.compromised_records
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -456,9 +419,6 @@ class Finding(ObjectType):
         """ Resolve cwe_url attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['cwe'])
-        fs_value = self.cwe_url
-        self.cwe_url = form_util.get_cwe_url(dynamo_value.get('cwe') if dynamo_value else fs_value)
         return self.cwe_url
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -466,9 +426,6 @@ class Finding(ObjectType):
         """ Resolve bts_url attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['external_bts'])
-        fs_value = self.bts_url
-        self.bts_url = dynamo_value.get('external_bts') if dynamo_value else fs_value
         return self.bts_url
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -476,9 +433,6 @@ class Finding(ObjectType):
         """ Resolve treatment attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['treatment'])
-        fs_value = self.treatment
-        self.treatment = dynamo_value.get('treatment') if dynamo_value else fs_value
         return self.treatment
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -486,9 +440,6 @@ class Finding(ObjectType):
         """ Resolve treatment_manager attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['treatment_manager'])
-        fs_value = self.treatment_manager
-        self.treatment_manager = dynamo_value.get('treatment_manager') if dynamo_value else fs_value
         return self.treatment_manager
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -496,9 +447,6 @@ class Finding(ObjectType):
         """ Resolve treatment_justification attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['treatment_justification'])
-        fs_value = self.treatment_justification
-        self.treatment_justification = dynamo_value.get('treatment_justification') if dynamo_value else fs_value
         return self.treatment_justification
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -506,9 +454,6 @@ class Finding(ObjectType):
         """ Resolve client_code attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['client_code'])
-        fs_value = self.client_code
-        self.client_code = dynamo_value.get('client_code') if dynamo_value else fs_value
         return self.client_code
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -516,9 +461,6 @@ class Finding(ObjectType):
         """ Resolve client_project attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['client_project'])
-        fs_value = self.client_project
-        self.client_project = dynamo_value.get('client_project') if dynamo_value else fs_value
         return self.client_project
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -526,9 +468,6 @@ class Finding(ObjectType):
         """ Resolve probability attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['probability'])
-        fs_value = self.probability
-        self.probability = dynamo_value.get('probability') if dynamo_value else fs_value
         return self.probability
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -536,9 +475,6 @@ class Finding(ObjectType):
         """ Resolve detailed_severity attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['severity'])
-        fs_value = self.detailed_severity
-        self.detailed_severity = int(dynamo_value.get('severity') if dynamo_value else fs_value)
         return self.detailed_severity
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -546,9 +482,6 @@ class Finding(ObjectType):
         """ Resolve risk attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['risk'])
-        fs_value = self.risk
-        self.risk = dynamo_value.get('risk') if dynamo_value else fs_value
         return self.risk
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -556,9 +489,6 @@ class Finding(ObjectType):
         """ Resolve risk_level attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['risk_value'])
-        fs_value = self.risk_level
-        self.risk_level = dynamo_value.get('risk_value') if dynamo_value else fs_value
         return self.risk_level
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -566,9 +496,6 @@ class Finding(ObjectType):
         """ Resolve ambit attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['ambit'])
-        fs_value = self.ambit
-        self.ambit = dynamo_value.get('ambit') if dynamo_value else fs_value
         return self.ambit
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -576,9 +503,6 @@ class Finding(ObjectType):
         """ Resolve category attribute """
         del info
 
-        dynamo_value = integrates_dao.get_finding_attributes_dynamo(self.id, ['category'])
-        fs_value = self.category
-        self.category = dynamo_value.get('category') if dynamo_value else fs_value
         return self.category
 
 
