@@ -1103,57 +1103,6 @@ An error occurred updating treatment', 'error', request)
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
-def update_eventuality(request):
-    "Update an eventuality associated to a project"
-    parameters = request.POST.dict()
-    try:
-        event_data = {}
-        affectation = parameters.get('vuln[affectation]')
-        has_error = False
-        updated = False
-        if affectation.isdigit():
-            if int(affectation) >= 0:
-                event_data['event_status'] = 'Tratada'
-            else:
-                rollbar.report_message(
-                    'Error: Affectation can not be a negative number', 'error',
-                    request)
-                has_error = True
-        else:
-            rollbar.report_message(
-                'Error: Affectation must be a number', 'error', request)
-            has_error = True
-        if has_error:
-            # Couldn't update the eventuality because it has error
-            pass
-        else:
-            event_data['affectation'] = affectation
-            primary_keys = ['event_id', str(parameters.get('vuln[id]'))]
-            table_name = 'fi_events'
-            closer = request.session['username']
-            event_data['closer'] = closer
-            event_migrated = integrates_dao.add_multiple_attributes_dynamo(
-                table_name, primary_keys, event_data)
-            if event_migrated:
-                updated = True
-            else:
-                rollbar.report_message(
-                    'Error: An error ocurred updating event', 'error', request)
-                has_error = True
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        has_error = True
-    finally:
-        if has_error and not updated:
-            resp = 'error'
-        else:
-            resp = 'success'
-    return util.response([], 'error', resp == 'error')
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'admin'])
 @require_finding_access
 def delete_finding(request):
     """Capture and process the ID of an eventuality to eliminate it"""

@@ -77,7 +77,9 @@ def has_access_to_event(user, event_id, role):
                 has_access = has_access_to_project(user, project, role)
             else:
                 rollbar.report_message(
-                    'Error: An error ocurred getting event project', 'error')
+                    'Error: Event {event_id} does not have project'.format(
+                        event_id=event_id),
+                    'error')
     return has_access
 
 
