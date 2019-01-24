@@ -125,3 +125,125 @@ def json_from_file(file_path):
     with open(file_path, "r") as json_file:
         json_obj = load(json_file)
     return json_obj
+
+def linearize(table_name, structura):
+    """ breaks a structura into flat records.
+        records are suitable for use into a relational database structure """
+
+    def simplify(stru):
+        """ applies CLEANIT to every key in the structura
+            removes unsuported data types
+            denests every dict of dict to a compound dict """
+
+        if IS_PRIM(stru):
+            return stru
+        if IS_LIST(stru):
+            return list(map(simplify, list(filter(IS_STRU, stru))))
+        if IS_DICT(stru):
+            new_stru = dict()
+            for key, val in stru.items():
+                if IS_DICT(val):
+                    for nkey, nval in val.items():
+                        if IS_STRU(nval):
+                            new_stru[f"{CLEANIT(key)}{_FSEP}{CLEANIT(nkey)}"] = nval
+                    new_stru = simplify(new_stru)
+                elif IS_STRU(val):
+                    new_stru[CLEANIT(key)] = simplify(val)
+            return new_stru
+        return None
+
+    def deconstruct(table="", stru=None, ids=None):
+        """ breaks a structura into records of a relational database structure """
+
+        if IS_PRIM(stru):
+            deconstruct(table=table, stru=[stru], ids=ids)
+        elif IS_LIST(stru):
+            for nstru in stru:
+                mstru = nstru if IS_DICT(nstru) else {"val": nstru}
+                for lvl, this_id in zip(range(len(ids)), ids):
+                    mstru[f"sid{lvl}"] = this_id
+                deconstruct(table=table, ids=ids, stru=mstru)
+        elif IS_DICT(stru):
+            record = {}
+            for nkey, nstru in stru.items():
+                if IS_PRIM(nstru):
+                    record[nkey] = nstru
+                elif IS_LIST(nstru):
+                    nid = ID_GEN.get()
+                    ntable = f"{table}{_TSEP}{nkey}"
+                    ntable_ids = [nid] if ids is None else ids + [nid]
+                    record[ntable] = nid
+                    deconstruct(table=ntable, stru=nstru, ids=ntable_ids)
+            write(_RDIR, table, record, func=dumps)
+
+    deconstruct(table=table_name, stru=simplify(structura))
+
+def catalog():
+    """ deduce the schema of the generated tables """
+
+    for table_name in os.listdir(_RDIR):
+        schema = {}
+        for structura in read(_RDIR, table_name, loads):
+            for key, val in structura.items():
+                vtype = TYPE(val)
+                try:
+                    if not vtype in schema[key]:
+                        schema[key].append(vtype)
+                except KeyError:
+                    schema[key] = [vtype]
+        write(_SDIR, table_name, schema, dumps)
+
+def main():
+    """ usual entry point """
+
+    parser = argparse.ArgumentParser(
+        description=" dumps a JSON stream to a Singer stream ")
+    parser.add_argument(
+        "--enable-timestamps",
+        help="JSON authentication file",
+        action="store_true",
+        default=False,
+        dest="enable_timestamps")
+    args = parser.parse_args()
+
+    # some dates may come in the form of a timestamp
+    # we need some way to tell the entire module that timestamps should be recognized as dates
+    # this is an on-demand feature,
+    # because may yield ambiguity with numbers that are not timestamps
+    global ENABLE_TS # pylint: disable=global-statement
+    ENABLE_TS = args.enable_timestamps
+
+    input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
+
+    # Do the heavy lifting (structura)
+    prepare_env()
+    for stream_str in input_messages:
+        stream_obj = loads(stream_str)
+        linearize(stream_obj["stream"], stream_obj["record"])
+    catalog()
+
+    # Parse everything to singer
+    for table in os.listdir(_SDIR):
+        pschema = json_from_file(f"{_SDIR}/{table}")
+        sschema = {
+            "type": "SCHEMA",
+            "stream": table,
+            "schema": {
+                "properties": {f"{f}_{ft}": pt2st(ft) for f, fts in pschema.items() for ft in fts}
+            },
+            "key_properties": []
+        }
+        print(dumps(sschema))
+
+        for precord in read(_RDIR, table, loads):
+            srecord = {
+                "type": "RECORD",
+                "stream": table,
+                "record": {f"{f}_{TYPE(v)}": CAST(v) for f, v in precord.items()}
+            }
+            print(dumps(srecord))
+
+    clean_env()
+
+if __name__ == "__main__":
+    main()
