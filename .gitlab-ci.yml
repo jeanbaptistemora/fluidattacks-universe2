@@ -112,7 +112,7 @@ commitlint:
   stage: test-code
   image: starefossen/ruby-node:2-10
   before_script:
-    - npm install
+    - npm install --unsafe-perm
   script:
     - ./ci-scripts/commitlint-checks.sh
   except:
@@ -199,7 +199,7 @@ danger:
     - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
       | grep ${CI_COMMIT_SHA}
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install
+    - npm install --unsafe-perm
     - bundle install
   script:
     - bundle exec danger --verbose --fail-on-errors=true
