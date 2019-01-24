@@ -53,6 +53,7 @@ RUN apt-get update \
         requests==2.20.1 \
         pre-commit==1.14.2 \
         pylint==2.2.2 \
+        mypy==0.660 \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \

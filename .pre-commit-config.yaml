@@ -6,8 +6,7 @@ repos:
         entry: python3 -m pylint --disable=import-error
         language: system
         files: \.py$
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.660
+-   repo: local
     hooks:
     -   id: mypy
         name: mypy
