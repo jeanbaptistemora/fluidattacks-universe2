@@ -89,9 +89,9 @@ gulp-compiler:
    - echo "Start gulp compiler"
  image: registry.gitlab.com/fluidsignal/integrates:deps190109
  script:
-   - cd app/assets && npm install
+   - cd app/assets && npm install --unsafe-perm
    - cd ../../front
-   - npm install
+   - npm install --unsafe-perm
    - gulp integrates
  after_script:
    - echo "Job finished"
@@ -103,7 +103,7 @@ gulp-compiler:
 commitlint:
   stage: pre-test
   before_script:
-    - npm install
+    - npm install --unsafe-perm
   image: starefossen/ruby-node:2-10
   script:
     - ./ci-scripts/commitlint-checks.sh
@@ -119,7 +119,7 @@ react-testing:
     - echo "Start Unit Testing"
   image: registry.gitlab.com/fluidsignal/integrates:deps190109
   script:
-    - cd front/ && npm install
+    - cd front/ && npm install --unsafe-perm
     - tslint -p tsconfig.json -t verbose || true
     - npm test
     - tsc -p tsconfig.json || true
@@ -323,7 +323,7 @@ Linting:
   stage: test
   script:
     - docker run -t "$DOCKER_BASENAME:$CI_COMMIT_REF_NAME"
-        /bin/bash -c "npm install -g  n; n stable;
+        /bin/bash -c "npm install --unsafe-perm -g  n; n stable;
         cd /usr/src/app/app/assets/app/;
         result=$(/usr/src/app/app/assets/node_modules/.bin/gulp verbose | grep -c JSC_);
         if [ "$result" -gt 0 ]; then /usr/src/app/app/assets/node_modules/.bin/gulp   verbose;
@@ -355,7 +355,7 @@ danger:
     - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
       | grep ${CI_COMMIT_SHA}
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install
+    - npm install --unsafe-perm
     - bundle install
   image: starefossen/ruby-node:2-10
   script:
