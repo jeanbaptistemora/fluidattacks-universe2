@@ -84,7 +84,7 @@ The approaches to applying +ML+ to +VD+ could be classified:
 
 We feel this last approach makes more sense, as do <<r2 ,[2]>>,
 who then divide them according to whether
-program syntax and semantics are analyzed,
+program syntax and semantics are analyzed.
 The ones that do are further subdivided into two main categories:
 
 - Vulnerable code pattern recognition.
@@ -119,7 +119,7 @@ a laborius and error-prone process if done by hand.
 Hence the mix with non-security related papers in this area.
 
 // star chucky
-The system link:http://chucky.readthedocs.io/en/latest/[Chucky] by
+The system link:../anomaly-serial-killer-doll/[Chucky] by
 link:https://user.informatik.uni-goettingen.de/~krieck/docs/2013-ccs.pdf[Yamaguchi et al. (2013)]
 is the one that interests us the most
 since it is more compatible with our interests, i.e.,
@@ -169,19 +169,19 @@ We summarize them here for the sake of completeness:
 |=======================
 | Paper | Mined elements | Target
 | link:http://www.doc.ic.ac.uk/~livshits/papers/pdf/dynamine_ext.pdf[Livshits and Zimmermann (2005)]
-| commit logs                | app-specific patterns
+| Commit logs                | App-specific patterns
 | link:https://www.cs.purdue.edu/homes/xyzhang/fall07/Papers/PRMiner.pdf[Li and Zhou (2005)]
-| source code                | implicit coding rules
+| Source code                | Implicit coding rules
 | link:https://www.st.cs.uni-saarland.de/edu/recommendation-systems/papers/p35-wasylkowski-1.pdf[Wasylowski et al. (2007)]
-| function call sequences    | object usage models
+| Function call sequences    | Object usage models
 | link:https://www.cs.sfu.ca/~jpei/publications/APIMining_FSE07.pdf[Acharya et al. (2007)]
 | +API+ usage traces           | +API+ usage orderings
 | link:https://www.computer.org/csdl/journal/ts/2008/05/tts2008050579/13rRUxAAT2W[Chang et al. (2008)]
-| neglected conditions       | implicit conditional rules
+| Neglected conditions       | Implicit conditional rules
 | link:https://link.springer.com/article/10.1007/s10515-011-0086-z[Thummalapenta et al (2009)]
-| programming rules          | alternative patterns
+| Programming rules          | Alternative patterns
 | link:https://www.st.cs.uni-saarland.de/publications/files/gruska-issta-2010.pdf[Gruska et al (2010)]
-| function calls             | cross-project anomalies
+| Function calls             | Cross-project anomalies
 |=======================
 
 // conclude anomalies
@@ -189,12 +189,12 @@ In general terms, anomaly detection approaches have the following limitations:
 
 - they only apply to mature software,
   where we assume wrong +API+ usage are rare occurrences,
-- that particular usage must be relatively frequent
+- that particular usage must be relatively infrequent
   in the codebase to be identified as an anomaly
-  (otherwise the rule becomes the norm)
+  (otherwise the rule becomes the norm),
 - they generally cannot identify the type of the vulnerability,
   or even 'if' the anomaly is a security vulnerability,
-  only that it is a deviant element.
+  only that it is a deviant element, and
 - false-positive rates are generally high.
 
 
@@ -218,7 +218,7 @@ Once more Yamaguchi et al.
 link:https://www.researchgate.net/publication/233997025_Generalized_Vulnerability_Extrapolation_using_Abstract_Syntax_Trees[2012]) take the lead,
 mimicking the mental process behind the daily grind of the code auditor:
 searching for similar instances of
-previously (recently) discovered vulnerabilities.
+recently discovered vulnerabilities.
 They sensibly call this 'vulnerability extrapolation'.
 The gist: parse, embed into vector space via a bag-of-words-like method,
 perform semantic analysis to obtain particular matrices,
@@ -229,11 +229,13 @@ link:https://en.wikipedia.org/wiki/Similarity_learning[distance functions].
 Other approaches in this category are
 link:https://core.ac.uk/download/pdf/34611720.pdf[Scandariato et al. (2014)] and
 link:https://www.researchgate.net/publication/300414677_Predicting_Vulnerable_Software_Components_through_N-Gram_Analysis_and_Statistical_Feature_Selection[Pang et al. (2015)],
-which attempt to use techniques such as n-gram analysis using bag-of-words,
+who attempted to use techniques such as
+link:https://en.wikipedia.org/wiki/N-gram[n-gram] analysis using bag-of-words,
 but with limited results,
 probably due to shallow information and simple methods.
 
 // vdiscover
+The binary analysis tool
 link:http://www.vdiscover.org/[VDiscover] doesn't exactly fit our definition,
 but deserves mentioning.
 They identify each trace of a call to the standard +C+ library
@@ -258,7 +260,7 @@ This information is then encoded as vectors using +word2vec+
 and fed to different
 link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[neural networks].
 They report good results with low false positives
-and 15 zero-day vulnerabilities in high-profile open libraries.
+and 15 zero-day vulnerabilities in high-profile open source libraries.
 However, these systems:
 
 - need peer-reviewing as they are in pre-print state or are conference papers
@@ -275,7 +277,7 @@ in the form of
 link:https://en.wikipedia.org/wiki/Long_short-term_memory[bidirectional long short-term memory (BLSTM) networks],
 plus a completely new element:
 unlike the vast majority of previous works,
-which work in the within-project domain
+which work in the within-project domain,
 +POSTER+ involves software metrics (see below)
 in order to compare to other projects.
 
@@ -290,7 +292,7 @@ they are not without limitations:
   the exact locations of the potential flaws.
 - Any work in machine learning for +VD+ should
   take into account several aspects of the code
-  for a richer descriptions, such as
+  for richer descriptions, such as
   syntax, semantics and the flow of data and control.
 - The quality of the results is believed to be
   mostly due to the features that are extracted and fed
@@ -324,7 +326,7 @@ Also noteworthy is
 link:https://saschafahl.de/papers/vccfinder2015.pdf[VCCFinder]
 by Perl et al. (2015),
 which works at the repository level
-to find vulnerability-contributing commits (+VCCs+).
+to find potential vulnerability-contributing commits (+VCCs+).
 
 According to <<r2 ,[2]>> and
 link:https://faculty.cs.nku.edu/~waldenj/papers/issre2014-php-prediction.pdf[Walden et al. (2014)],
@@ -337,8 +339,8 @@ image::https://imgs.xkcd.com/comics/correlation.png[XKCD on correlation]
 
 That is, there might be a correlation between
 certain metrics and the presence of vulnerabilities,
-but that doesn't tell us anything about
-the presence of vulnerabilities in general.
+but that doesn't tell us anything, in general,
+about the latter.
 Most of the papers reviewed in this category present
 high false positive rates and
 hardly one of them has explored automated techniques.
@@ -351,7 +353,7 @@ seems like a good idea, in order to
 find 'hidden impact bugs', i.e.,
 bugs which have been reported but
 whose security implications we ignore.
-Several other authors focus on usage of
+Several other authors focus on using
 link:https://en.wikipedia.org/wiki/Genetic_algorithm[genetic algorithms] and
 other techniques from "computational/artificial intelligence"
 which fall out of the scope of this article.
