@@ -79,6 +79,7 @@ build_base:
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
+      - $FLAG_SYNC_MANDRILL
 
 build_builder:
   stage: deps
@@ -98,6 +99,7 @@ build_builder:
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
+      - $FLAG_SYNC_MANDRILL
 
 test_code:
   stage: test-code
@@ -351,6 +353,7 @@ change_keys:
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
+      - $FLAG_SYNC_MANDRILL
 
 vault_backup:
   stage: backup
@@ -389,6 +392,7 @@ vault_backup:
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
+      - $FLAG_SYNC_MANDRILL
 
 formstack_backup:
   stage: backup
@@ -410,6 +414,7 @@ formstack_backup:
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
+      - $FLAG_SYNC_MANDRILL
 
 sync_currencies:
   stage: analytics
@@ -522,3 +527,23 @@ sync_git:
       - schedules
     variables:
       - $FLAG_SYNC_GIT
+
+sync_mandrill:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - pip3 install
+        analytics/singer/streamer_mandrill
+        analytics/singer/tap_json
+        analytics/singer/target_redshift
+    - echo "$(vault read -field=analytics_auth_mandrill secret/serves)" > /stream_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - streamer-mandrill --auth /streamer_secret.json > mandrill.jsonstream
+    - cat mandrill.jsonstream | tap-json > mandrill.singer
+    - cat mandrill.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "mandrill"
+    - rm -rf /stream_secret.json /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_MANDRILL
