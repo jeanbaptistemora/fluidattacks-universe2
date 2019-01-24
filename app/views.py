@@ -237,7 +237,8 @@ def registration(request):
             {
                 'user_email': request.session["username"],
                 'user_role': request.session["role"],
-                'exp': datetime.utcnow() + timedelta(seconds=settings.SESSION_COOKIE_AGE)
+                'exp': datetime.utcnow() +
+                timedelta(seconds=settings.SESSION_COOKIE_AGE)
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -308,8 +309,11 @@ def project_to_xls(request, lang, project):
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        util.cloudwatch_log(request, 'Security: Attempted to export project xls without permission')
+    if not has_access_to_project(request.session['username'],
+                                 project, request.session['role']):
+        util.cloudwatch_log(request,
+                            'Security: \
+Attempted to export project xls without permission')
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
@@ -360,10 +364,14 @@ def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     findings_parsed = []
     if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        rollbar.report_message('Error: Empty fields in project',
+                               'error', request)
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(request.session['username'], project, request.session['role']):
-        util.cloudwatch_log(request, 'Security: Attempted to export project pdf without permission')
+    if not has_access_to_project(request.session['username'],
+                                 project, request.session['role']):
+        util.cloudwatch_log(request,
+                            'Security: \
+Attempted to export project pdf without permission')
         return util.response([], 'Access denied', True)
     else:
         user = request.session['username'].split("@")[0]
@@ -392,18 +400,26 @@ def project_to_pdf(request, lang, project, doctype):
         report_filename = ""
         if doctype == "tech":
             pdf_maker.tech(findings, project, user)
-            report_filename = secure_pdf.create_full(user, pdf_maker.out_name, project)
+            report_filename = secure_pdf.create_full(user,
+                                                     pdf_maker.out_name,
+                                                     project)
         elif doctype == "executive":
-            return HttpResponse("Disabled report generation", content_type="text/html")
+            return HttpResponse("Disabled report generation",
+                                content_type="text/html")
         else:
-            report_filename = presentation_pdf(project, pdf_maker, findings, user)
+            report_filename = presentation_pdf(project, pdf_maker,
+                                               findings, user)
             if report_filename == "Incorrect parametrization":
-                return HttpResponse("Incorrect parametrization", content_type="text/html")
+                return HttpResponse("Incorrect parametrization",
+                                    content_type="text/html")
             elif report_filename == "Incomplete documentation":
-                return HttpResponse("Incomplete documentation", content_type="text/html")
+                return HttpResponse("Incomplete documentation",
+                                    content_type="text/html")
         if not os.path.isfile(report_filename):
-            rollbar.report_message('Error: Documentation has not been generated', 'error', request)
-            raise HttpResponse('Documentation has not been generated :(', content_type="text/html")
+            rollbar.report_message('Error: \
+Documentation has not been generated', 'error', request)
+            raise HttpResponse('Documentation has not been generated :(',
+                               content_type="text/html")
         with open(report_filename, 'r') as document:
             response = HttpResponse(document.read(),
                                     content_type="application/pdf")
@@ -444,7 +460,8 @@ def pdf_evidences(findings):
 def presentation_pdf(project, pdf_maker, findings, user):
     project_info = get_project_info(project)["data"]
     mapa_id = util.drive_url_filter(project_info["findingsMap"])
-    project_info["findingsMap"] = "image::../images/"+mapa_id+'.png[align="center"]'
+    project_info["findingsMap"] = \
+        "image::../images/"+mapa_id+'.png[align="center"]'
     DriveAPI().download_images(mapa_id)
     nivel_sec = project_info["securityLevel"].split(" ")[0]
     if not util.is_numeric(nivel_sec):
@@ -452,7 +469,8 @@ def presentation_pdf(project, pdf_maker, findings, user):
     nivel_sec = int(nivel_sec)
     if nivel_sec < 0 or nivel_sec > 6:
         return "Incorrect parametrization"
-    project_info["securityLevel"] = "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
+    project_info["securityLevel"] = \
+        "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
     if not project_info:
         return "Incomplete documentation"
     pdf_maker.presentation(findings, project, project_info, user)
@@ -468,10 +486,13 @@ def presentation_pdf(project, pdf_maker, findings, user):
 def check_pdf(request, project):
     username = request.session['username']
     if not util.is_name(project):
-        rollbar.report_message('Error: Name error in project', 'error', request)
+        rollbar.report_message('Error: Name error in project',
+                               'error', request)
         return util.response([], 'Name error', True)
     if not has_access_to_project(username, project, request.session['role']):
-        util.cloudwatch_log(request, 'Security: Attempted to export project pdf without permission')
+        util.cloudwatch_log(request,
+                            'Security: \
+Attempted to export project pdf without permission')
         return util.response([], 'Access denied', True)
     reqset = get_project_info(project)
     if reqset:
@@ -512,7 +533,9 @@ def get_finding(request):
         else:
             return util.response(finding, 'Success', False)
     else:
-        util.cloudwatch_log(request, 'Finding with submission id: ' + submission_id + ' not found')
+        util.cloudwatch_log(request,
+                            'Finding with submission id: ' +
+                            submission_id + ' not found')
         return util.response([], 'Error', True)
 
 
@@ -553,11 +576,12 @@ def get_findings(request):
     """Capture and process the name of a project to return the findings."""
     project = request.GET.get('project', "")
     project = project.lower()
-    data_attr = "finding_id, records_number, vulnerability, lastVulnerability, \
-                releaseDate, finding_type, treatment, exploitability, \
-                confidentiality_impact, integrity_impact, availability_impact, \
-                access_complexity, authentication, access_vector, resolution_level, \
-                confidence_level, project_name, finding"
+    data_attr = "finding_id, records_number, vulnerability, \
+                lastVulnerability, releaseDate, finding_type, treatment, \
+                exploitability, confidentiality_impact, integrity_impact, \
+                availability_impact, access_complexity, authentication, \
+                access_vector, resolution_level, confidence_level, \
+                project_name, finding"
     findings = integrates_dao.get_findings_dynamo(project, data_attr)
     findings_parsed = []
     for finding in findings:
@@ -570,7 +594,8 @@ def get_findings(request):
             finding = format_finding(finding_parsed, request)
             findings_parsed.append(finding)
         else:
-            rollbar.report_message('Error: An error occurred formatting finding', 'error', request)
+            rollbar.report_message('Error: \
+An error occurred formatting finding', 'error', request)
     return util.response(findings_parsed, 'Success', False)
 
 
@@ -592,7 +617,8 @@ def catch_finding(request, submission_id):
             finding = format_finding(finding, request)
             return finding
     else:
-        rollbar.report_message('Error: An error occurred catching finding', 'error', request)
+        rollbar.report_message('Error: An error occurred catching finding',
+                               'error', request)
         return None
 
 
@@ -635,7 +661,9 @@ def format_finding(finding, request):
         finding = cast_new_vulnerabilities(finding_new, finding)
     else:
         if finding.get('where'):
-            error_msg = 'Error: Finding {finding_id} of project {project} has vulnerabilities in old format'\
+            error_msg = \
+                'Error: Finding {finding_id} of project {project} has \
+vulnerabilities in old format'\
                 .format(finding_id=finding_id, project=finding['projectName'])
             rollbar.report_message(error_msg, 'error', request)
         else:
@@ -714,7 +742,8 @@ def format_release_date(finding):
         if finding_dynamo[0].get("releaseDate"):
             finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
         if finding_dynamo[0].get("lastVulnerability"):
-            finding["lastVulnerability"] = finding_dynamo[0].get("lastVulnerability")
+            finding["lastVulnerability"] = \
+                finding_dynamo[0].get("lastVulnerability")
     if finding.get("releaseDate"):
         final_date = format_finding_date(finding["releaseDate"])
         finding['edad'] = final_date.days
@@ -730,13 +759,18 @@ def format_release_date(finding):
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, findingid, fileid):
-    if not has_access_to_finding(request.session['username'], findingid, request.session['role']):
-        util.cloudwatch_log(request, 'Security: Attempted to retrieve evidence img without permission')
+    if not has_access_to_finding(request.session['username'], findingid,
+                                 request.session['role']):
+        util.cloudwatch_log(request,
+                            'Security: \
+Attempted to retrieve evidence img without permission')
         return util.response([], 'Access denied', True)
     else:
         if fileid is None:
-            rollbar.report_message('Error: Missing evidence image ID', 'error', request)
-            return HttpResponse("Error - Unsent image ID", content_type="text/html")
+            rollbar.report_message('Error: Missing evidence image ID',
+                                   'error', request)
+            return HttpResponse("Error - Unsent image ID",
+                                content_type="text/html")
         project = project.lower()
         key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
         if key_list:
@@ -749,8 +783,10 @@ def get_evidence(request, project, findingid, fileid):
                 return retrieve_image(request, localtmp)
         else:
             if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
-                rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
-                return HttpResponse("Error - ID with wrong format", content_type="text/html")
+                rollbar.report_message('Error: \
+Invalid evidence image ID format', 'error', request)
+                return HttpResponse("Error - ID with wrong format",
+                                    content_type="text/html")
             else:
                 drive_api = DriveAPI()
                 evidence_img = drive_api.download(fileid)
@@ -759,14 +795,17 @@ def get_evidence(request, project, findingid, fileid):
 
 @condition(etag_func=util.calculate_etag)
 def retrieve_image(request, img_file):
-    if util.assert_file_mime(img_file, ["image/png", "image/jpeg", "image/gif"]):
+    if util.assert_file_mime(img_file, ["image/png", "image/jpeg",
+                                        "image/gif"]):
         with open(img_file, "r") as file_obj:
             mime = Magic(mime=True)
             mime_type = mime.from_file(img_file)
             return HttpResponse(file_obj.read(), content_type=mime_type)
     else:
-        rollbar.report_message('Error: Invalid evidence image format', 'error', request)
-        return HttpResponse("Error: Invalid evidence image format", content_type="text/html")
+        rollbar.report_message('Error: Invalid evidence image format',
+                               'error', request)
+        return HttpResponse("Error: Invalid evidence image format",
+                            content_type="text/html")
 
 
 def key_existing_list(key):
@@ -784,7 +823,8 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
             rollbar.report_exc_info()
             return False
     file_name = namecomplete.split("/")[2]
-    is_file_saved = save_file_url(parameters['findingid'], fieldname, file_name)
+    is_file_saved = save_file_url(parameters['findingid'],
+                                  fieldname, file_name)
     os.unlink(fileroute)
     return is_file_saved
 
@@ -901,9 +941,11 @@ def migrate_all_files(parameters, file_url, request):
             "ext": ".csv"
         }]
         for file_obj in files:
-            filename = '{file_url}-{field}'.format(file_url=file_url, field=file_obj["field"])
+            filename = '{file_url}-{field}'.format(file_url=file_url,
+                                                   field=file_obj["field"])
             folder = key_existing_list(filename)
-            if finding.get(file_obj["name"]) and parameters.get("id") != file_obj["id"] and not folder:
+            if finding.get(file_obj["name"]) and \
+                    parameters.get("id") != file_obj["id"] and not folder:
                 file_id = finding[file_obj["name"]]
                 fileroute = "/tmp/:id.tmp".replace(":id", file_id)
                 if os.path.exists(fileroute):
@@ -979,10 +1021,15 @@ def update_description(request):
             if submission_data is None or 'error' in submission_data:
                 return util.response([], 'error', True)
             else:
-                description_info = generic_dto.parse_description(submission_data, finding_id)
-                project_info = generic_dto.parse_project(submission_data, finding_id)
-                aditional_info = forms_utils.dict_concatenation(description_info, project_info)
-                finding = forms_utils.dict_concatenation(aditional_info, finding)
+                description_info = \
+                    generic_dto.parse_description(submission_data, finding_id)
+                project_info = \
+                    generic_dto.parse_project(submission_data, finding_id)
+                aditional_info = \
+                    forms_utils.dict_concatenation(description_info,
+                                                   project_info)
+                finding = \
+                    forms_utils.dict_concatenation(aditional_info, finding)
         else:
             # Finding have data in dynamo
             pass
@@ -995,7 +1042,8 @@ def update_description(request):
         if request and description_migrated:
             return util.response([], 'success', False)
         else:
-            rollbar.report_message('Error: An error occurred updating description', 'error', request)
+            rollbar.report_message('Error: \
+An error occurred updating description', 'error', request)
             return util.response([], 'error', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1024,8 +1072,10 @@ def update_treatment(request):
                     'user_mail': parameters['data[treatmentManager]'],
                     'finding_name': parameters['data[findingName]'],
                     'finding_id': parameters['data[id]'],
-                    'project_name': parameters['data[projectName]'].capitalize(),
-                    'justification': parameters['data[treatmentJustification]'],
+                    'project_name':
+                        parameters['data[projectName]'].capitalize(),
+                    'justification':
+                        parameters['data[treatmentJustification]'],
                 }
                 project_name = parameters['data[projectName]'].lower()
                 recipients = integrates_dao.get_project_users(project_name)
@@ -1038,7 +1088,8 @@ def update_treatment(request):
                 return util.response([], 'success', False)
             else:
                 return util.response([], 'success', False)
-        rollbar.report_message('Error: An error occurred updating treatment', 'error', request)
+        rollbar.report_message('Error: \
+An error occurred updating treatment', 'error', request)
         return util.response([], 'error', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1106,12 +1157,16 @@ def delete_finding(request):
     parameters = request.POST.dict()
     util.invalidate_cache(submission_id)
     username = request.session['username']
-    if not has_access_to_finding(request.session['username'], submission_id, request.session['role']):
-        util.cloudwatch_log(request, 'Security: Attempted to delete findings without permission')
+    if not has_access_to_finding(request.session['username'],
+                                 submission_id, request.session['role']):
+        util.cloudwatch_log(request,
+                            'Security: \
+Attempted to delete findings without permission')
         return util.response([], 'Access denied', True)
     fin_dto = FindingDTO()
     try:
-        context = fin_dto.create_delete(parameters, username, "", submission_id)
+        context = fin_dto.create_delete(parameters,
+                                        username, "", submission_id)
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq)
@@ -1122,11 +1177,13 @@ def delete_finding(request):
         integrates_dao.delete_finding_dynamo(submission_id)
         vulns = integrates_dao.get_vulnerabilities_dynamo(submission_id)
         for vuln in vulns:
-            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], submission_id)
+            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'],
+                                                       submission_id)
         util.invalidate_cache(context['project'])
         result = api.delete_submission(submission_id)
         if result is None:
-            rollbar.report_message('Error: An error ocurred deleting finding', 'error', request)
+            rollbar.report_message('Error: An error ocurred deleting finding',
+                                   'error', request)
             return util.response([], 'Error', True)
         to = ["projects@fluidattacks.com", "production@fluidattacks.com",
               "jarmas@fluidattacks.com", "smunoz@fluidattacks.com"]
@@ -1163,13 +1220,15 @@ def finding_solved(request):
         comment_type='comment',
         comment_id=int(round(time() * 1000)),
         finding_id=submission_id,
-        user_fullname=str.join(' ', [request.session['first_name'], request.session['last_name']]),
+        user_fullname=str.join(' ', [request.session['first_name'],
+                                     request.session['last_name']]),
         is_remediation_comment=True
     )
     util.invalidate_cache(submission_id)
 
     if not remediated:
-        rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request)
+        rollbar.report_message('Error: \
+An error occurred when remediating the finding', 'error', request)
         return util.response([], 'Error', True)
     # Send email parameters
     try:
@@ -1210,7 +1269,8 @@ def finding_verified(request):
         False, parameters['data[project]'],
         parameters['data[findingName]'])
     if not verified:
-        rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request)
+        rollbar.report_message('Error: \
+An error occurred when verifying the finding', 'error', request)
         return util.response([], 'Error', True)
     analyst = request.session['username']
     update_vulnerabilities_date(analyst, parameters['data[findingId]'])
@@ -1281,7 +1341,8 @@ def accept_draft(request):
                 (finding['subscription'] == 'Continua' or
                     finding['subscription'] == 'Concurrente' or
                     finding['subscription'] == 'Si')):
-                releases = integrates_dao.get_project_dynamo(finding['projectName'].lower())
+                releases = \
+                    integrates_dao.get_project_dynamo(finding['projectName'].lower())
                 for release in releases:
                     if "lastRelease" in release:
                         last_release = datetime.strptime(
@@ -1305,15 +1366,18 @@ def accept_draft(request):
                 table_name, primary_keys, "lastVulnerability", release_date)
             finding['projectName'] = finding['projectName'].lower()
             if has_release and has_last_vuln:
-                files_data = {'finding_id': parameters, 'project': finding['projectName']}
+                files_data = {'finding_id': parameters,
+                              'project': finding['projectName']}
                 file_first_name = '{project!s}-{findingid}'\
-                    .format(project=files_data['project'], findingid=files_data['finding_id'])
+                    .format(project=files_data['project'],
+                            findingid=files_data['finding_id'])
                 file_url = '{project!s}/{findingid}/{file_name}'\
                     .format(project=files_data['project'],
                             findingid=files_data['finding_id'],
                             file_name=file_first_name)
                 finding_domain.migrate_all_files(files_data, file_url, request)
-                integrates_dao.add_release_toproject_dynamo(finding['projectName'], True, release_date)
+                integrates_dao.add_release_toproject_dynamo(finding['projectName'],
+                                                            True, release_date)
                 save_severity(finding)
                 migrate_description(finding)
                 migrate_treatment(finding)
@@ -1323,10 +1387,12 @@ def accept_draft(request):
                 util.invalidate_cache(parameters)
                 return util.response([], 'success', False)
             else:
-                rollbar.report_message('Error: An error occurred accepting the draft', 'error', request)
+                rollbar.report_message('Error: \
+An error occurred accepting the draft', 'error', request)
                 return util.response([], 'error', True)
         else:
-            util.cloudwatch_log(request, 'Security: Attempted to accept an already released finding')
+            util.cloudwatch_log(request, 'Security: \
+Attempted to accept an already released finding')
             return util.response([], 'error', True)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -1357,14 +1423,17 @@ def delete_draft(request):
             }
             result = api.delete_submission(submission_id)
             if result is None:
-                rollbar.report_message('Error: An error ocurred deleting the draft', 'error', request)
+                rollbar.report_message('Error: \
+An error ocurred deleting the draft', 'error', request)
                 return util.response([], 'Error', True)
             delete_all_coments(submission_id)
-            delete_s3_all_evidences(submission_id, finding['projectName'].lower())
+            delete_s3_all_evidences(submission_id,
+                                    finding['projectName'].lower())
             integrates_dao.delete_finding_dynamo(submission_id)
             vulns = integrates_dao.get_vulnerabilities_dynamo(submission_id)
             for vuln in vulns:
-                integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], submission_id)
+                integrates_dao.delete_vulnerability_dynamo(vuln['UUID'],
+                                                           submission_id)
             admins = integrates_dao.get_admins()
             to = [x[0] for x in admins]
             to.append(finding['analyst'])
