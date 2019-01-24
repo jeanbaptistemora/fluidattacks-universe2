@@ -49,6 +49,7 @@ class Finding(ObjectType):
     id = String()
     success = Boolean()
     error_message = String()
+    state = String()
     vulnerabilities = List(
         Vulnerability,
         vuln_type=String(),
@@ -81,6 +82,7 @@ class Finding(ObjectType):
     treatment = String()
     treatment_manager = String()
     treatment_justification = String()
+    remediated = Boolean()
 
     # Additional attributes of detailed findings
     client_code = String()
@@ -175,6 +177,7 @@ class Finding(ObjectType):
             self.risk_level = resp.get('riskValue', '')
             self.ambit = resp.get('ambit', '')
             self.category = resp.get('category', '')
+            self.state = resp.get('estado', '')
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -504,6 +507,23 @@ class Finding(ObjectType):
         del info
 
         return self.category
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_state(self, info):
+        """ Resolve state attribute """
+        del info
+
+        return self.state
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_remediated(self, info):
+        """ Resolve remediated attribute """
+        del info
+
+        remediations = integrates_dao.get_remediated_dynamo(int(self.id))
+        self.remediated = remediations[-1]['remediated'] if remediations else False
+
+        return self.remediated
 
 
 def set_initial_values(self):
