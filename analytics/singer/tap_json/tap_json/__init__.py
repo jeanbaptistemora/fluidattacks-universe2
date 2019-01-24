@@ -7,6 +7,8 @@ import sys
 import argparse
 
 from json import load, loads, dumps
+from json.decoder import JSONDecodeError
+
 from datetime import datetime
 
 class ID():
@@ -218,7 +220,11 @@ def main():
     # Do the heavy lifting (structura)
     prepare_env()
     for stream_str in input_messages:
-        stream_obj = loads(stream_str)
+        try:
+            stream_obj = loads(stream_str)
+        except JSONDecodeError:
+            # possibly an empty line
+            continue
         linearize(stream_obj["stream"], stream_obj["record"])
     catalog()
 
