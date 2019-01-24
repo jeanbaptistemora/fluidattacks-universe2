@@ -2,16 +2,18 @@
 
 # pylint: disable=E0402
 from __future__ import absolute_import
-from . import views
-from . import services
+
 from django.conf.urls import url, include, handler400, handler403, handler404, handler500
+from django.conf import settings
 from graphene_django.views import GraphQLView
 from .entity import schema
-from django.conf import settings
+from . import views
+from . import services
 
 # pylint: disable=W0104
 handler400, handler403, handler404, handler500
 
+# pylint: disable=invalid-name
 handler400 = 'app.views.error500'
 handler401 = 'app.views.error401'
 handler403 = 'app.views.error401'
@@ -48,7 +50,8 @@ urlpatterns = [
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
     url(r'^total_severity/?\.*$', views.total_severity, name='total_severity'),
     url(r'^access_to_project/?\.*$', views.access_to_project, name='access_to_project'),
-    url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$', views.get_evidence),
+    url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
+        views.get_evidence),
     url(r'^(?P<findingid>[0-9]+)/download_vulnerabilities?$', views.download_vulnerabilities),
     url(r'^is_customer_admin/?\.*$', views.is_customer_admin, name='is_customer_admin'),
     url(r'^update_eventuality/?\.*$',
@@ -60,9 +63,12 @@ urlpatterns = [
     url(r'^update_description/?$', views.update_description, name='update_description'),
     url(r'^update_treatment/?$', views.update_treatment, name='update_treatment'),
     url(r'^get_remediated/?$', views.get_remediated, name='get_remediated'),
-    url(r'^finding_verified/?\.*$', views.finding_verified, name='finding_verified'),
+    url(r'^finding_verified/?\.*$',
+        views.finding_verified, name='finding_verified'),
     # Documentation.
-    url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$', views.project_to_pdf),
-    url(r'^xls/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/?$', views.project_to_xls),
+    url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$',
+        views.project_to_pdf),
+    url(r'^xls/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/?$',
+        views.project_to_xls),
     url(r'^check_pdf/project/(?P<project>[A-Za-z0-9]+)/?$', views.check_pdf),
 ]

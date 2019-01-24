@@ -17,13 +17,13 @@ def dict_concatenation(dict_1, dict_2):
 
 def drive_url_filter(drive):
     """ Gets ID of the drive image """
-    if(drive.find("s3.amazonaws.com") != -1):
+    if drive.find("s3.amazonaws.com") != -1:
         new_url = drive.split("/")[5]
         return new_url
     else:
-        if(drive.find("id=") != -1):
+        if drive.find("id=") != -1:
             new_url = drive.split("id=")[1]
-            if(new_url.find("&") != -1):
+            if new_url.find("&") != -1:
                 return new_url.split("&")[0]
     return drive
 
@@ -74,10 +74,10 @@ def get_cwe_url(cwe):
 
 def is_exploitable(explotability):
     if explotability == 1.0 or explotability == 0.95:
-        is_exploitable = 'Si'
+        exploitable = 'Si'
     else:
-        is_exploitable = 'No'
-    return is_exploitable
+        exploitable = 'No'
+    return exploitable
 
 
 def to_formstack(data):
@@ -89,7 +89,7 @@ def to_formstack(data):
 
 def round_date(date):
     seconds_in_hour = 3600
-    hours = round(date.seconds/seconds_in_hour)
+    hours = round(date.seconds / seconds_in_hour)
     if hours > 12:
         rounded_date = date.days + 1
     else:

@@ -2,6 +2,7 @@
 from ..dao import integrates_dao
 
 
+# pylint: disable=no-self-use
 class IntercomUserData(object):
     def user_data(self, user):
         """ Required method, same name and only accepts

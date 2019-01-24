@@ -1,3 +1,4 @@
+from graphene import ObjectType
 from .login import AcceptLegal
 from .resource import (
     AddRepositories, RemoveRepositories,
@@ -17,7 +18,6 @@ from .finding import (
     UpdateDescription, UpdateTreatment
 )
 from .project import AddProjectComment
-from graphene import ObjectType
 
 
 class Mutations(ObjectType):

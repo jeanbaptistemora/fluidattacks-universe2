@@ -1,11 +1,13 @@
 """ Asynchronous task execution scheduler for FLUIDIntegrates """
 
 # pylint: disable=E0402
-import rollbar
+
+from datetime import datetime, timedelta
 import logging
 import logging.config
-from . import views
+import rollbar
 from django.conf import settings
+from . import views
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
 from .dto import remission
@@ -15,10 +17,10 @@ from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
     send_mail_age_finding, send_mail_age_kb_finding, \
     send_mail_new_releases, send_mail_continuous_report, \
     send_mail_unsolved_events, send_mail_project_deletion
-from datetime import datetime, timedelta
+
 
 logging.config.dictConfig(settings.LOGGING)
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 BASE_URL = 'https://fluidattacks.com/integrates'
 BASE_WEB_URL = 'https://fluidattacks.com/web'
@@ -28,7 +30,7 @@ def is_not_a_fluidattacks_email(email):
     return 'fluidattacks.com' not in email
 
 
-def remove_fluidattacks_emails_from_recipients(emails):
+def remove_fluid_from_recipients(emails):
     new_email_list = list(filter(is_not_a_fluidattacks_email, emails))
     return new_email_list
 
@@ -61,26 +63,26 @@ def extract_info_from_event_dict(event_dict):
 
 def send_unsolved_events_email(project):
     unsolved_events = get_unsolved_events(project)
-    to = get_external_recipients(project)
+    mail_to = get_external_recipients(project)
     project_info = integrates_dao.get_project_dynamo(project)
     if project_info and \
             project_info[0].get('type') == 'continuous':
-        to.append('continuous@fluidattacks.com')
-        to.append('projects@fluidattacks.com')
+        mail_to.append('continuous@fluidattacks.com')
+        mail_to.append('projects@fluidattacks.com')
     events_info_for_email = [extract_info_from_event_dict(x)
                              for x in unsolved_events]
     context = {'project_name': project.capitalize(),
                'events': events_info_for_email}
-    if not context['events'] or not to:
+    if not context['events'] or not mail_to:
         context = []
     else:
-        send_mail_unsolved_events(to, context)
+        send_mail_unsolved_events(mail_to, context)
 
 
 def get_external_recipients(project):
     recipients = integrates_dao.get_project_users(project)
     recipients_list = [x[0] for x in recipients if x[1] == 1]
-    return remove_fluidattacks_emails_from_recipients(recipients_list)
+    return remove_fluid_from_recipients(recipients_list)
 
 
 def get_new_vulnerabilities():
@@ -118,7 +120,7 @@ def get_new_vulnerabilities():
                         message = 'Finding {finding!s} of project {project!s} ' \
                             'has defined treatment' \
                             .format(finding=finding['id'], project=project)
-                        logger.info(message)
+                        LOGGER.info(message)
                     delta = int(act_finding['openVulnerabilities']) - \
                         int(row[0]['vuln_hoy'])
                     finding_text = format_vulnerabilities(delta, act_finding)
@@ -137,12 +139,12 @@ def get_new_vulnerabilities():
                         message = 'Finding {finding!s} of project ' \
                             '{project!s} no change during the week' \
                             .format(finding=finding['id'], project=project)
-                        logger.info(message)
+                        LOGGER.info(message)
                 else:
                     message = 'Finding {finding!s} of project {project!s} is ' \
                         'not valid' \
                         .format(finding=finding['id'], project=project)
-                    logger.info(message)
+                    LOGGER.info(message)
         except (TypeError, KeyError):
             rollbar.report_message(
                 'Error: An error ocurred getting new vulnerabilities '
@@ -154,10 +156,10 @@ def get_new_vulnerabilities():
                 '{project!s}/indicators' \
                 .format(url=BASE_URL, project=project)
             recipients = integrates_dao.get_project_users(project)
-            to = [x[0] for x in recipients if x[1] == 1]
-            to.append('continuous@fluidattacks.com')
-            to.append('projects@fluidattacks.com')
-            send_mail_new_vulnerabilities(to, context)
+            mail_to = [x[0] for x in recipients if x[1] == 1]
+            mail_to.append('continuous@fluidattacks.com')
+            mail_to.append('projects@fluidattacks.com')
+            send_mail_new_vulnerabilities(mail_to, context)
 
 
 def format_vulnerabilities(delta, act_finding):
@@ -207,14 +209,14 @@ def update_new_vulnerabilities():
                 delta = abs(len(old_findings) - len(finding_requests))
                 for finding in finding_requests[-delta:]:
                     act_finding = finding_vulnerabilities(str(finding['finding_id']))
-                    if ('releaseDate' in act_finding):
+                    if 'releaseDate' in act_finding:
                         integrates_dao.add_or_update_vulns_dynamo(
                             project,
                             int(finding['finding_id']), 0)
             else:
                 message = 'Project {project!s} does not have new vulnerabilities' \
                     .format(project=project)
-                logger.info(message)
+                LOGGER.info(message)
         except (TypeError, KeyError):
             rollbar.report_message('Error: \
 An error ocurred updating new vulnerabilities', 'error')
@@ -225,7 +227,8 @@ def get_remediated_findings():
     findings = integrates_dao.get_remediated_allfin_dynamo(True)
     if findings != []:
         try:
-            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            mail_to = ['continuous@fluidattacks.com',
+                       'projects@fluidattacks.com']
             context = {'findings': list()}
             cont = 0
             for finding in findings:
@@ -239,13 +242,13 @@ def get_remediated_findings():
                     'project': str.upper(str(finding['project']))})
                 cont += 1
             context['total'] = cont
-            send_mail_new_remediated(to, context)
+            send_mail_new_remediated(mail_to, context)
         except (TypeError, KeyError):
             rollbar.report_message(
                 'Warning: An error ocurred getting data for remediated email',
                 'warning')
     else:
-        logger.info('There are no findings to verificate')
+        LOGGER.info('There are no findings to verificate')
 
 
 def get_age_notifications():
@@ -254,8 +257,8 @@ def get_age_notifications():
     for project in projects:
         try:
             recipients = integrates_dao.get_project_users(project)
-            to = [x[0] for x in recipients if x[1] == 1]
-            to.append('continuous@fluidattacks.com')
+            mail_to = [x[0] for x in recipients if x[1] == 1]
+            mail_to.append('continuous@fluidattacks.com')
             project = str.lower(str(project[0]))
             finding_requests = integrates_dao.get_findings_dynamo(project,
                                                                   'finding_id')
@@ -265,7 +268,7 @@ def get_age_notifications():
                     age = int(finding_parsed['edad'])
                 else:
                     age = 0
-                format_age_email(finding_parsed, project, to, age)
+                format_age_email(finding_parsed, project, mail_to, age)
         except (TypeError, KeyError):
             rollbar.report_message(
                 'Warning: An error ocurred getting data for age email',
@@ -278,8 +281,8 @@ def get_age_weekends_notifications():
     for project in projects:
         try:
             recipients = integrates_dao.get_project_users(project)
-            to = [x[0] for x in recipients if x[1] == 1]
-            to.append('continuous@fluidattacks.com')
+            mail_to = [x[0] for x in recipients if x[1] == 1]
+            mail_to.append('continuous@fluidattacks.com')
             project = str.lower(str(project[0]))
             finding_requests = integrates_dao.get_findings_dynamo(project,
                                                                   'finding_id')
@@ -290,23 +293,23 @@ def get_age_weekends_notifications():
                     age = format_age_weekend(unformatted_age)
                 else:
                     age = 0
-                format_age_email(finding_parsed, project, to, age)
+                format_age_email(finding_parsed, project, mail_to, age)
         except (TypeError, KeyError):
             rollbar.report_message(
                 'Error: An error ocurred getting data for age weekends email',
                 'error')
 
 
-def format_age_email(finding_parsed, project, to, age):
+def format_age_email(finding_parsed, project, mail_to, age):
     """Format data to send age email."""
     ages = [15, 30, 60, 90, 120, 180, 240]
     message = ''
     project_fin = str.lower(str(finding_parsed['projectName']))
-    if ('subscription' in finding_parsed and
-            'releaseDate' in finding_parsed and
-            project_fin == project and
-            finding_parsed['subscription'] == 'Continua' and
-            age in ages):
+    if 'subscription' in finding_parsed and \
+            'releaseDate' in finding_parsed and \
+            project_fin == project and \
+            finding_parsed['subscription'] == 'Continua' and \
+            age in ages:
         context = {
             'project': str.upper(str(project)),
             'finding': finding_parsed['id'],
@@ -333,32 +336,32 @@ def format_age_email(finding_parsed, project, to, age):
             message = 'Finding {finding!s} of project ' \
                 '{project!s} does not have kb link' \
                 .format(finding=finding_parsed['id'], project=project)
-            logger.info(message)
-        send_mail_age(age, to, context)
+            LOGGER.info(message)
+        send_mail_age(age, mail_to, context)
     else:
         message = 'Finding {finding!s} of project {project!s} '\
             'does not match age mail criteria' \
             .format(finding=finding_parsed['id'], project=project)
-        logger.info(message)
+        LOGGER.info(message)
 
 
 def format_age_weekend(age):
     ages = [15, 30, 60, 90, 120, 180, 240]
-    if (age + 1) in ages:
+    if age + 1 in ages:
         formatted_age = age + 1
-    elif (age + 2) in ages:
+    elif age + 2 in ages:
         formatted_age = age + 2
     else:
         formatted_age = age
     return formatted_age
 
 
-def send_mail_age(age, to, context):
+def send_mail_age(age, mail_to, context):
     context['age'] = age
     if 'kb' in context:
-        send_mail_age_kb_finding(to, context)
+        send_mail_age_kb_finding(mail_to, context)
     else:
-        send_mail_age_finding(to, context)
+        send_mail_age_finding(mail_to, context)
 
 
 def weekly_report():
@@ -428,40 +431,40 @@ def get_new_releases():
                 'warning')
     if cont > 0:
         context['total'] = cont
-        to = ['projects@fluidattacks.com', 'production@fluidattacks.com',
-              'jarmas@fluidattacks.com', 'smunoz@fluidattacks.com']
-        send_mail_new_releases(to, context)
+        mail_to = ['projects@fluidattacks.com', 'production@fluidattacks.com',
+                   'jarmas@fluidattacks.com', 'smunoz@fluidattacks.com']
+        send_mail_new_releases(mail_to, context)
     else:
-        logger.info('There are no new drafts')
+        LOGGER.info('There are no new drafts')
 
 
 def continuous_report():
-    to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com',
-          'oparada@fluidattacks.com', 'projects@fluidattacks.com',
-          'relations@fluidattacks.com']
+    mail_to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com',
+               'oparada@fluidattacks.com', 'projects@fluidattacks.com',
+               'relations@fluidattacks.com']
     headers = ['#', 'Project', 'Lines', 'Inputs',
                'Fixed vulns', 'Max severity', 'Open Events']
     context = {'projects': list(), 'headers': headers,
                'date_now': str(datetime.now().date())}
     index = 0
-    for x in integrates_dao.get_continuous_info():
+    for info in integrates_dao.get_continuous_info():
         index += 1
         project_url = BASE_URL + '/dashboard#!/project/' + \
-            x['project'].lower() + '/indicators'
-        indicators = views.calculate_indicators(x['project'])
+            info['project'].lower() + '/indicators'
+        indicators = views.calculate_indicators(info['project'])
         context['projects'].append({'project_url': str(project_url),
                                     'index': index,
-                                    'project_name': str(x['project']),
-                                    'lines': str(x['lines']),
-                                    'fields': str(x['fields']),
+                                    'project_name': str(info['project']),
+                                    'lines': str(info['lines']),
+                                    'fields': str(info['fields']),
                                     'fixed_vuln': (str(indicators[2]) + '%'),
                                     'cssv': indicators[1],
                                     'events': indicators[0]
                                     })
-    send_mail_continuous_report(to, context)
+    send_mail_continuous_report(mail_to, context)
 
 
-def send_unsolved_events_email_to_all_projects():
+def send_unsolved_to_all():
     """Send email with unsolved events to all projects """
     projects = integrates_dao.get_registered_projects()
     list(map(lambda x: send_unsolved_events_email(x[0]), projects))
@@ -487,9 +490,9 @@ def deletion(project, days_to_send, days_to_delete):
                     remission.days_until_now(lastest_remission['TIMESTAMP'])
                 if days_until_now in days_to_send:
                     context = {'project_name': project.capitalize()}
-                    to = ['projects@fluidattacks.com',
-                          'production@fluidattacks.com']
-                    send_mail_project_deletion(to, context)
+                    mail_to = ['projects@fluidattacks.com',
+                               'production@fluidattacks.com']
+                    send_mail_project_deletion(mail_to, context)
                     was_deleted = False
                     was_email_sended = True
                 elif days_until_now in days_to_delete:
