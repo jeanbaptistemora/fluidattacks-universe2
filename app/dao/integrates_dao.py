@@ -1777,3 +1777,17 @@ def get_events():
         else:
             break
     return items
+
+
+def get_event_project(event_id):
+    """Get project associated to a event."""
+    table = DYNAMODB_RESOURCE.Table('fi_events')
+    response = table.get_item(
+        Key={
+            'event_id': event_id
+        },
+        AttributesToGet=['project_name']
+    )
+    item = response.get('Item').get('project_name') if 'Item' in response else None
+
+    return item

@@ -47,7 +47,9 @@ from .mailer import send_mail_remediate_finding
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .mailer import send_mail_accepted_finding
-from .services import has_access_to_project, has_access_to_finding
+from .services import (
+    has_access_to_project, has_access_to_finding, has_access_to_event
+)
 from .services import is_customeradmin
 from .utils import forms as forms_utils
 from .dao import integrates_dao
@@ -759,8 +761,10 @@ def format_release_date(finding):
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, findingid, fileid):
-    if not has_access_to_finding(request.session['username'], findingid,
-                                 request.session['role']):
+    username = request.session['username']
+    role = request.session['role']
+    if (not has_access_to_finding(username, findingid, role) or
+            not has_access_to_event(username, findingid, role)):
         util.cloudwatch_log(request,
                             'Security: \
 Attempted to retrieve evidence img without permission')

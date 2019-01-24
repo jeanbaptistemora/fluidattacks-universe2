@@ -15,7 +15,10 @@ from graphql import GraphQLError
 # pylint: disable=E0402
 from rediscluster.nodemanager import RedisClusterException
 
-from .services import has_access_to_project, has_access_to_finding, is_customeradmin
+from .services import (
+    has_access_to_project, has_access_to_finding, is_customeradmin,
+    has_access_to_event
+)
 from . import util
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -211,6 +214,33 @@ def require_finding_access_gql(func):
             util.cloudwatch_log(context,
                                 'Security: \
 Attempted to retrieve finding-related info without permission')
+            raise GraphQLError('Access denied')
+        return func(*args, **kwargs)
+    return verify_and_call
+
+
+def require_event_access_gql(func):
+    """
+    Require_event_access decorator
+
+    Verifies that the current user has access to a given event
+    """
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        event_id = kwargs.get('event_id') \
+            if kwargs.get('identifier') is None else kwargs.get('identifier')
+        user_data = util.get_jwt_content(context)
+
+        if not re.match('^[0-9]*$', event_id):
+            rollbar.report_message('Error: Invalid event id format',
+                                   'error', context)
+            raise GraphQLError('Invalid event id format')
+        if not has_access_to_event(
+                user_data['user_email'], event_id, user_data['user_role']):
+            util.cloudwatch_log(context,
+                                'Security: \
+Attempted to retrieve event-related info without permission')
             raise GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call

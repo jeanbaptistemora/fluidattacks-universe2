@@ -1,5 +1,6 @@
 """ FluidIntegrates services definition """
 
+import rollbar
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 # pylint: disable=E0402
@@ -45,15 +46,38 @@ def has_access_to_finding(user, findingid, role):
         else:
             api = FormstackAPI()
             fin_dto = FindingDTO()
-            evt_dto = EventDTO()
             finding_data = fin_dto.parse_project(api.get_submission(findingid), findingid)
             project = finding_data['projectName'] if 'projectName' in finding_data else None
 
             if project:
                 has_access = has_access_to_project(user, project, role)
             else:
-                project = evt_dto.parse(findingid, api.get_submission(findingid))['projectName']
+                rollbar.report_message(
+                    'Error: An error ocurred getting finding project', 'error')
+    return has_access
+
+
+def has_access_to_event(user, event_id, role):
+    """ Verify if the user has access to a event submission. """
+    has_access = False
+    # Skip this check for admin users since they don't have any assigned projects
+    if role == 'admin':
+        has_access = True
+    else:
+        project = integrates_dao.get_event_project(event_id)
+
+        if project:
+            has_access = has_access_to_project(user, project, role)
+        else:
+            api = FormstackAPI()
+            evt_dto = EventDTO()
+            event_data = evt_dto.parse(event_id, api.get_submission(event_id))
+            project = event_data.get('projectName', '')
+            if project:
                 has_access = has_access_to_project(user, project, role)
+            else:
+                rollbar.report_message(
+                    'Error: An error ocurred getting event project', 'error')
     return has_access
 
 
