@@ -25,11 +25,11 @@ from app.mailer import (
     send_mail_remediate_finding, send_mail_accepted_finding
 )
 
-client_s3 = boto3.client('s3',
+CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
                          aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
-bucket_s3 = FI_AWS_S3_BUCKET
+BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
 def save_file_url(finding_id, field_name, file_url):
@@ -42,7 +42,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     namecomplete = fileurl + '-' + field + '-' + filename + ext
     with open(fileroute, 'r') as file_obj:
         try:
-            client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
+            CLIENT_S3.upload_fileobj(file_obj, BUCKET_S3, namecomplete)
         except ClientError:
             rollbar.report_exc_info()
             return False
@@ -54,13 +54,13 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
 
 def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
     key_val = fileurl + '-' + field
-    key_list = util.list_s3_objects(client_s3, bucket_s3, key_val)
+    key_list = util.list_s3_objects(CLIENT_S3, BUCKET_S3, key_val)
     if key_list:
         for k in key_list:
-            client_s3.delete_object(Bucket=bucket_s3, Key=k)
+            CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=k)
     file_name_complete = fileurl + '-' + field + '-' + upload.name
     try:
-        client_s3.upload_fileobj(upload.file, bucket_s3, file_name_complete)
+        CLIENT_S3.upload_fileobj(upload.file, BUCKET_S3, file_name_complete)
         file_name = file_name_complete.split('/')[2]
         save_file_url(parameters['finding_id'], fieldname, file_name)
         return True
@@ -119,8 +119,9 @@ def migrate_all_files(parameters, file_url, request):
         ]
         for file_obj in files:
             filename = '{file_url}-{field}'.format(file_url=file_url, field=file_obj['field'])
-            folder = util.list_s3_objects(client_s3, bucket_s3, filename)
-            if finding.get(file_obj['name']) and parameters.get('id') != file_obj['id'] and not folder:
+            folder = util.list_s3_objects(CLIENT_S3, BUCKET_S3, filename)
+            if finding.get(file_obj['name']) and \
+                    parameters.get('id') != file_obj['id'] and not folder:
                 file_id = finding[file_obj['name']]
                 fileroute = '/tmp/:id.tmp'.replace(':id', file_id)
                 if os.path.exists(fileroute):
@@ -158,12 +159,12 @@ def remove_repeated(vulnerabilities):
 def get_unique_dict(list_dict):
     """Get unique dict."""
     unique_dict = {}
-    for d in list_dict:
-        date = next(iter(d))
+    for entry in list_dict:
+        date = next(iter(entry))
         if not unique_dict.get(date):
             unique_dict[date] = {}
-        vuln = next(iter(d[date]))
-        unique_dict[date][vuln] = d[date][vuln]
+        vuln = next(iter(entry[date]))
+        unique_dict[date][vuln] = entry[date][vuln]
     return unique_dict
 
 
@@ -186,7 +187,8 @@ def group_by_state(tracking_dict):
     tracking = {}
     for tracking_date, status in tracking_dict.items():
         for vuln_state in status.values():
-            status_dict = tracking.setdefault(tracking_date, {'open': 0, 'closed': 0})
+            status_dict = \
+                tracking.setdefault(tracking_date, {'open': 0, 'closed': 0})
             status_dict[vuln_state] += 1
     return tracking
 
@@ -196,7 +198,9 @@ def cast_tracking(tracking):
     cycle = 0
     tracking_casted = []
     for date, value in tracking:
-        effectiveness = int(round((value['closed'] / float((value['open'] + value['closed']))) * 100))
+        effectiveness = \
+            int(round((value['closed'] / float((value['open'] +
+                       value['closed']))) * 100))
         closing_cicle = {
             'cycle': cycle,
             'open': value['open'],
@@ -210,23 +214,40 @@ def cast_tracking(tracking):
 
 
 def get_dynamo_evidence(finding_id):
-    finding_data = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', finding_id)
-    evidence_files = finding_data[0].get('files') if finding_data and 'files' in finding_data[0].keys() else []
+    finding_data = integrates_dao.get_data_dynamo('FI_findings',
+                                                  'finding_id', finding_id)
+    evidence_files = finding_data[0].get('files') \
+        if finding_data and 'files' in finding_data[0].keys() else []
     parsed_evidence = {
-        'animation': {'url': filter_evidence_filename(evidence_files, 'animation')},
-        'evidence1': {'url': filter_evidence_filename(evidence_files, 'evidence_route_1')},
-        'evidence2': {'url': filter_evidence_filename(evidence_files, 'evidence_route_2')},
-        'evidence3': {'url': filter_evidence_filename(evidence_files, 'evidence_route_3')},
-        'evidence4': {'url': filter_evidence_filename(evidence_files, 'evidence_route_4')},
-        'evidence5': {'url': filter_evidence_filename(evidence_files, 'evidence_route_5')},
-        'exploitation': {'url': filter_evidence_filename(evidence_files, 'exploitation')},
+        'animation': {'url':
+                      filter_evidence_filename(evidence_files,
+                                               'animation')},
+        'evidence1': {'url':
+                      filter_evidence_filename(evidence_files,
+                                               'evidence_route_1')},
+        'evidence2': {'url':
+                      filter_evidence_filename(evidence_files,
+                                               'evidence_route_2')},
+        'evidence3': {'url':
+                      filter_evidence_filename(evidence_files,
+                                               'evidence_route_3')},
+        'evidence4': {'url':
+                      filter_evidence_filename(evidence_files,
+                                               'evidence_route_4')},
+        'evidence5': {'url':
+                      filter_evidence_filename(evidence_files,
+                                               'evidence_route_5')},
+        'exploitation': {'url':
+                         filter_evidence_filename(evidence_files,
+                                                  'exploitation')},
     }
 
     return parsed_evidence
 
 
 def filter_evidence_filename(evidence_files, name):
-    evidence_info = filter(lambda evidence: evidence['name'] == name, evidence_files)
+    evidence_info = filter(lambda evidence: evidence['name'] == name,
+                           evidence_files)
     return evidence_info[0]['file_url'] if evidence_info else ''
 
 
@@ -240,8 +261,10 @@ def migrate_evidence_description(finding):
         'evidence_description_4': 'evidence_route_4',
         'evidence_description_5': 'evidence_route_5'}
     description = {k: finding.get(k)
-                   for (k, v) in description_fields.items() if finding.get(k)}
-    response = [add_file_attribute(finding_id, description_fields[k], 'description', v)
+                   for (k, v) in description_fields.items()
+                   if finding.get(k)}
+    response = [add_file_attribute(finding_id, description_fields[k],
+                                   'description', v)
                 for (k, v) in description.items()]
     return all(response)
 
@@ -271,7 +294,8 @@ def get_email_recipients(project_name, comment_type):
 
     if comment_type == 'observation':
         admins = [user[0] for user in integrates_dao.get_admins()]
-        analysts = [user[0] for user in project_users if integrates_dao.get_role_dao(user[0]) == 'analyst']
+        analysts = [user[0] for user in project_users
+                    if integrates_dao.get_role_dao(user[0]) == 'analyst']
 
         recipients += admins
         recipients += analysts
@@ -286,10 +310,12 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
     recipients = get_email_recipients(project_name, comment_type)
 
     if comment_has_parent(parent):
-        mail_title = "New {comment_type!s} email thread".format(comment_type=comment_type)
+        mail_title = \
+            "New {comment_type!s} email thread".format(comment_type=comment_type)
         mail_function = send_mail_new_comment
     else:
-        mail_title = "Reply {comment_type!s} email thread".format(comment_type=comment_type)
+        mail_title = \
+            "Reply {comment_type!s} email thread".format(comment_type=comment_type)
         mail_function = send_mail_reply_comment
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
@@ -298,17 +324,22 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
         target=mail_function,
         args=(recipients, {
             'project': project_name,
-            'finding_name': integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding'),
+            'finding_name':
+                integrates_dao.get_finding_attributes_dynamo(
+                    finding_id, ['finding']).get('finding'),
             'user_email': user_email,
             'finding_id': finding_id,
             'comment': content.replace('\n', ' '),
-            'finding_url': base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
-            .format(project=project_name, finding=finding_id, comment_type=comment_type)
+            'finding_url':
+                base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
+            .format(project=project_name, finding=finding_id,
+                    comment_type=comment_type)
         }, comment_type))
     email_send_thread.start()
 
 
-def add_comment(user_email, user_fullname, parent, content, comment_type, comment_id, finding_id, is_remediation_comment):
+def add_comment(user_email, user_fullname, parent, content,
+                comment_type, comment_id, finding_id, is_remediation_comment):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_data = {
         'user_id': comment_id,
@@ -321,12 +352,15 @@ def add_comment(user_email, user_fullname, parent, content, comment_type, commen
     }
 
     if not is_remediation_comment:
-        send_comment_mail(user_email, content, parent, comment_type, finding_id)
+        send_comment_mail(user_email, content, parent,
+                          comment_type, finding_id)
 
-    return integrates_dao.add_finding_comment_dynamo(int(finding_id), user_email, comment_data)
+    return integrates_dao.add_finding_comment_dynamo(int(finding_id),
+                                                     user_email, comment_data)
 
 
-def send_finding_verified_email(company, finding_id, finding_name, project_name):
+def send_finding_verified_email(company, finding_id,
+                                finding_name, project_name):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
     recipients.append('continuous@fluidattacks.com')
@@ -339,7 +373,8 @@ def send_finding_verified_email(company, finding_id, finding_name, project_name)
         args=(recipients, {
             'project': project_name,
             'finding_name': finding_name,
-            'finding_url': base_url + '/project/{project!s}/{finding!s}/tracking'
+            'finding_url':
+                base_url + '/project/{project!s}/{finding!s}/tracking'
             .format(project=project_name, finding=finding_id),
             'finding_id': finding_id,
             'company': company,
@@ -350,18 +385,25 @@ def send_finding_verified_email(company, finding_id, finding_name, project_name)
 
 def verify_finding(company, finding_id, user_email):
     project_name = get_project_name(finding_id).lower()
-    finding_name = integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding')
-    success = integrates_dao.add_remediated_dynamo(int(finding_id), False, project_name, finding_name)
+    finding_name = \
+        integrates_dao.get_finding_attributes_dynamo(finding_id,
+                                                     ['finding']).get('finding')
+    success = \
+        integrates_dao.add_remediated_dynamo(int(finding_id), False,
+                                             project_name, finding_name)
     if success:
         update_vulnerabilities_date(user_email, finding_id)
-        send_finding_verified_email(company, finding_id, finding_name, project_name)
+        send_finding_verified_email(company, finding_id,
+                                    finding_name, project_name)
     else:
-        rollbar.report_message('Error: An error occurred verifying the finding', 'error')
+        rollbar.report_message(
+            'Error: An error occurred verifying the finding', 'error')
 
     return success
 
 
-def send_remediation_email(user_email, finding_id, finding_name, project_name, justification):
+def send_remediation_email(user_email, finding_id, finding_name,
+                           project_name, justification):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
     recipients.append('continuous@fluidattacks.com')
@@ -374,7 +416,8 @@ def send_remediation_email(user_email, finding_id, finding_name, project_name, j
         args=(recipients, {
             'project': project_name,
             'finding_name': finding_name,
-            'finding_url': base_url + '/project/{project!s}/{finding!s}/description'
+            'finding_url':
+                base_url + '/project/{project!s}/{finding!s}/description'
             .format(project=project_name, finding=finding_id),
             'finding_id': finding_id,
             'user_mail': user_email,
@@ -386,8 +429,11 @@ def send_remediation_email(user_email, finding_id, finding_name, project_name, j
 
 def request_verification(finding_id, user_email, user_fullname, justification):
     project_name = get_project_name(finding_id).lower()
-    finding_name = integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding')
-    success = integrates_dao.add_remediated_dynamo(int(finding_id), True, project_name, finding_name)
+    finding_name = \
+        integrates_dao.get_finding_attributes_dynamo(finding_id,
+                                                     ['finding']).get('finding')
+    success = integrates_dao.add_remediated_dynamo(int(finding_id), True,
+                                                   project_name, finding_name)
     if success:
         add_comment(
             user_email=user_email,
@@ -399,9 +445,11 @@ def request_verification(finding_id, user_email, user_fullname, justification):
             user_fullname=user_fullname,
             is_remediation_comment=True
         )
-        send_remediation_email(user_email, finding_id, finding_name, project_name, justification)
+        send_remediation_email(user_email, finding_id, finding_name,
+                               project_name, justification)
     else:
-        rollbar.report_message('Error: An error occurred remediating the finding', 'error')
+        rollbar.report_message(
+            'Error: An error occurred remediating the finding', 'error')
 
     return success
 
@@ -425,7 +473,9 @@ def send_accepted_email(finding_id, user_email, justification):
     project_name = get_project_name(finding_id).lower()
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
-    finding_name = integrates_dao.get_finding_attributes_dynamo(finding_id, ['finding']).get('finding')
+    finding_name = \
+        integrates_dao.get_finding_attributes_dynamo(finding_id,
+                                                     ['finding']).get('finding')
 
     email_send_thread = threading.Thread(
         name='Accepted finding email thread',
@@ -446,7 +496,8 @@ def update_treatment(finding_id, updated_values, user_email):
     del updated_values['bts_url']
 
     if updated_values['treatment'] == 'Asumido':
-        send_accepted_email(finding_id, user_email, updated_values.get('treatment_justification'))
+        send_accepted_email(finding_id, user_email,
+                            updated_values.get('treatment_justification'))
 
     return integrates_dao.update_mult_attrs_dynamo(
         'FI_findings',
