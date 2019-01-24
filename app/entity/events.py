@@ -5,17 +5,13 @@
 # directory.
 
 from __future__ import absolute_import
-import boto3
-from graphene import String, ObjectType, Boolean
-
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+from graphene import Boolean, Field, Mutation, ObjectType, String
+from app.decorators import require_login, require_role, require_event_access_gql
 from app.dto.eventuality import event_data
-
-client_s3 = boto3.client('s3',
-                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
-
-bucket_s3 = FI_AWS_S3_BUCKET
+from app.domain.event import (
+    update_event, get_event_project_name
+)
+from .. import util
 
 
 class Events(ObjectType):
@@ -162,3 +158,24 @@ class Events(ObjectType):
         """ Resolve evidence file attribute """
         del info
         return self.evidence_file
+
+
+class UpdateEvent(Mutation):
+    """Update event status."""
+
+    class Arguments(object):
+        event_id = String(required=True)
+        affectation = String(required=True)
+    success = Boolean()
+    event = Field(Events)
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_event_access_gql
+    def mutate(self, info, event_id, affectation):
+        success = update_event(event_id, affectation, info)
+        ret = UpdateEvent(success=success, event=Events(identifier=event_id))
+        project_name = get_event_project_name(event_id)
+        util.invalidate_cache(event_id)
+        util.invalidate_cache(project_name)
+        return ret

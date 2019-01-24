@@ -150,26 +150,23 @@ eventContentCtrl (
                                     "eventPositiveint"));
       return false;
     }
-    const updateRequest = eventualityFactory.updateEvnt($scope.eventData);
+    const updateRequest = eventualityFactory.updateEvent(
+      $scope.eventData.id,
+      $scope.eventData.affectation
+    );
     updateRequest.then((response) => {
-      if (!response.error) {
+      if (response.errors) {
+        $msg.error($translate.instant("proj_alerts." +
+                                        "errorUpdatingEvent"));
+      }
+      else if (angular.isDefined(response.data.updateEvent) &&
+          response.data.updateEvent.success) {
         const alertTitle = $translate.instant("proj_alerts." +
                                              "updatedTitle");
         const alertContent = $translate.instant("proj_alerts." +
                                              "eventUpdated");
         $msg.success(alertContent, alertTitle);
         location.reload();
-      }
-      else if (response.error) {
-        if (response.message === "Campos vacios") {
-          Rollbar.error("Error: An error occurred updating events");
-          $msg.error($translate.instant("proj_alerts.emptyField"));
-        }
-        else {
-          Rollbar.error("Error: An error occurred updating events");
-          $msg.error($translate.instant("proj_alerts." +
-                                        "errorUpdatingEvent"));
-        }
       }
     });
     return true;

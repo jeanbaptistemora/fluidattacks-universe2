@@ -18,6 +18,7 @@ from .finding import (
     UpdateDescription, UpdateTreatment
 )
 from .project import AddProjectComment
+from .events import UpdateEvent
 
 
 class Mutations(ObjectType):
@@ -47,3 +48,4 @@ class Mutations(ObjectType):
     requestVerification = RequestVerification.Field()
     updateDescription = UpdateDescription.Field()
     updateTreatment = UpdateTreatment.Field()
+    updateEvent = UpdateEvent.Field()

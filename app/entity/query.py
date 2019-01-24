@@ -17,7 +17,8 @@ from app.api.formstack import FormstackAPI
 from ..decorators import (
     require_login, require_role,
     require_project_access_gql,
-    require_finding_access_gql, get_cached
+    require_finding_access_gql, get_cached,
+    require_event_access_gql
 )
 
 
@@ -55,7 +56,8 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_finding_access_gql
+    @require_event_access_gql
+    @get_cached
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
         del info
@@ -64,6 +66,7 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
+    @get_cached
     def resolve_events(self, info, project_name=""):
         """ Resolve for eventualities """
         del info

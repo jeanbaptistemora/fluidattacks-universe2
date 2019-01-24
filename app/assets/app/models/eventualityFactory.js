@@ -18,17 +18,20 @@ angular.module("FluidIntegrates").factory(
 
       /**
        * Update an eventuality
-       * @function updateEvnt
-       * @param {Object} vuln New data about an eventuality
+       * @function updateEvent
+       * @param {Object} eventId Numeric id of the event
+       * @param {Object} affectation Value of the affectation
        * @member integrates.eventualityFactory
-       * @return {Object} Formstack response about update request
+       * @return {Object} Response of the mutation
        */
-      "updateEvnt" (vuln) {
+      "updateEvent" (eventId, affectation) {
         const oopsAc = "An error ocurred updating event";
-        return $xhr.post($q, `${BASE.url}update_eventuality`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          vuln
-        }, oopsAc);
+        const gQry = `mutation {
+          updateEvent(eventId: "${eventId}", affectation: "${affectation}"){
+            success
+          }
+        }`;
+        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }
