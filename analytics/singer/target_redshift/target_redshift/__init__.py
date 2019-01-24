@@ -1,5 +1,18 @@
-"""
-Singer.io target for Amazon Redshift
+"""Singer target for Amazon Redshift.
+
+Example:
+    $ tap-anysingertap | target-redshift [params]
+
+Linters:
+    pylint:
+        Used always.
+        $ python3 -m pylint [path]
+    flake8:
+        Used always except where it contradicts pylint.
+        $ python3 -m flake8 [path]
+    mypy:
+        Used always.
+        $ python3 -m mypy --ignore-missing-imports [path]
 """
 
 import io
@@ -10,25 +23,73 @@ import time
 import argparse
 
 from datetime import datetime
+from typing import Iterable, Dict, Any
 
 # pylint: disable=import-error
 import jsonschema
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
 
-# identity function
-IDM = lambda x: x
 
-# returns the length in bytes of a UTF-8 string
-STR_LEN = lambda str_obj: len(str_obj.encode('utf-8'))
+def identity(obj: Any) -> Any:
+    """Takes a single argument and returns it unchanged.
 
-# stringifies an iterable
-#   it: (a, b, c) => "(f(a)),(f(b)),(f(c))"
-STRINGIFY = lambda it, c=",", b="(", e=")", f=IDM: c.join(f"{b}{f(x)}{e}" for x in it)
+    Args:
+        obj: any single argument.
 
-def make_access_point(auth):
-    """ returns a connection and a cursor to the database """
-    # dev note, http://initd.org/psycopg/docs/extras.html
+    Returns:
+        obj: exactly as it was provided.
+    """
+    return obj
+
+
+def str_len(str_obj: str, encoding: str = "utf-8") -> int:
+    """Returns the length in bytes of a string.
+
+    Args:
+        str_obj: the string to compute its length.
+
+    Returns:
+        The length in byes of the string.
+    """
+    return len(str_obj.encode(encoding))
+
+
+def stringify(iterable: Iterable[Any], do_group: bool = True) -> str:
+    """Returns a string representation of an iterable.
+
+    Args:
+        iterable: The iterable to process.
+        do_group: True if you want to enclose elements with parens.
+
+    Returns:
+        A string representation of the iterable
+
+    Examples:
+        >>> iterable = tuple(1, 2, 3)
+        >>> stringify(iterable, do_group=False)
+        "1,2,3"
+        >>> stringify(iterable, do_group=True)
+        "(1),(2),(3)"
+    """
+
+    if do_group:
+        return ",".join(f"({x})" for x in iterable)
+    return ",".join(f"{x}" for x in iterable)
+
+
+def make_access_point(auth: Dict[str, str]):
+    """Returns a connection and a cursor to the database.
+
+    It sets the connection to allow write operations.
+    It sets the isolation level to auto-commit.
+
+    Args:
+        auth: A dictionary with the authentication parameters.
+
+    Returns:
+        A tuple with a connection and a cursor to the database.
+    """
 
     dbcon = postgres.connect(
         dbname=auth["dbname"],
@@ -45,15 +106,33 @@ def make_access_point(auth):
 
     return (dbcon, dbcur)
 
-def drop_access_point(dbcon, dbcur):
-    """ safely close the access points """
+
+def drop_access_point(dbcon, dbcur) -> None:
+    """Safely close the access point.
+
+    Args:
+        dbcon: The database connection.
+        dbcur: The database cursor.
+    """
     dbcur.close()
     dbcon.close()
 
-def escape(str_obj):
-    """ scape characters """
 
-    str_obj = str(str_obj)
+def escape(obj: Any) -> str:
+    """Escape characters from an string object.
+
+    It makes the object decay to an string, if not string.
+    It removes null byte characters.
+    It backslash the backslash, apostrophe, and quotation mark characters.
+
+    Args:
+        str_obj: The string to escape.
+
+    Returns:
+        A escaped string.
+    """
+
+    str_obj = str(obj)
     str_obj = re.sub("\x00", "", str_obj)
     str_obj = str_obj.replace("\\", "\\\\")
 
@@ -61,6 +140,7 @@ def escape(str_obj):
         str_obj = re.sub(char, f"\\{char}", str_obj)
 
     return str_obj
+
 
 def translate_schema(singer_schema):
     """ translate a singer schema to a redshift schema """
@@ -86,10 +166,12 @@ def translate_schema(singer_schema):
         elif stype == sdatetime:
             rtype = "TIMESTAMP"
         else:
-            print(f"WARN: Ignoring type {stype}, it's not supported by the target (yet).")
+            print((f"WARN: Ignoring type {stype}, "
+                   f"it's not supported by the target (yet)."))
         return rtype
 
     return {escape(f): stor(st) for f, st in singer_schema.items() if stor(st)}
+
 
 def translate_record(schema, record):
     """ translates a singer record to a redshift record """
@@ -98,9 +180,10 @@ def translate_record(schema, record):
     for user_field, user_value in record.items():
         new_field = escape(user_field)
         new_value = ""
-        if not new_field in schema:
-            print(f"WARN: Ignoring field {new_field}, it's not in the streamed schema.")
-        elif not user_value is None:
+        if new_field not in schema:
+            print((f"WARN: Ignoring field {new_field}, "
+                   f"it's not in the streamed schema."))
+        elif user_value is not None:
             new_field_type = schema[new_field]
             if new_field_type == "BOOLEAN":
                 new_value = f"{escape(user_value).lower()}"
@@ -110,16 +193,18 @@ def translate_record(schema, record):
                 new_value = f"{escape(user_value)}"
             elif new_field_type == "VARCHAR(256)":
                 new_value = f"{user_value}"[0:256]
-                while STR_LEN(escape(new_value)) > 256:
+                while str_len(escape(new_value)) > 256:
                     new_value = new_value[0:-1]
                 new_value = f"'{escape(new_value)}'"
             elif new_field_type == "TIMESTAMP":
                 new_value = f"'{escape(user_value)}'"
             else:
-                print(f"WARN: Ignoring type {new_field_type}, it's not in the streamed schema.")
+                print((f"WARN: Ignoring type {new_field_type}, "
+                       f"it's not in the streamed schema."))
 
             new_record[new_field] = new_value
     return new_record
+
 
 def drop_schema(batcher, schema_name):
     """ drops the schema unless it doesn't exist """
@@ -128,12 +213,15 @@ def drop_schema(batcher, schema_name):
     except postgres.ProgrammingError:
         pass
 
+
 def drop_table(batcher, schema_name, table_name):
     """ drops the table unless it doesn't exist """
     try:
-        batcher.ex(f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE", True)
+        statement = f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE"
+        batcher.ex(statement, True)
     except postgres.ProgrammingError:
         pass
+
 
 def create_schema(batcher, schema_name):
     """ creates the schema unless it currently exist """
@@ -142,8 +230,12 @@ def create_schema(batcher, schema_name):
     except postgres.ProgrammingError:
         pass
 
+
 # pylint: disable=too-many-arguments
-def create_table(batcher, schema_name, table_name, table_fields, table_types, table_pkeys):
+def create_table(
+        batcher,
+        schema_name, table_name,
+        table_fields, table_types, table_pkeys):
     """ creates a table on the schema unless it currently exists """
     path = f"\"{schema_name}\".\"{table_name}\""
     fields = ",".join([f"\"{n}\" {table_types[n]}" for n in table_fields])
@@ -157,18 +249,22 @@ def create_table(batcher, schema_name, table_name, table_fields, table_types, ta
     except postgres.ProgrammingError:
         pass
 
+
 def rename_schema(batcher, from_name, to_name):
     """ renames the schema unless
             - from_name doesn't exist
             - to_name schema already exists """
     try:
-        batcher.ex(f"ALTER SCHEMA \"{from_name}\" RENAME TO \"{to_name}\"", True)
+        statement = f"ALTER SCHEMA \"{from_name}\" RENAME TO \"{to_name}\""
+        batcher.ex(statement, True)
     except postgres.ProgrammingError:
         pass
 
+
 # pylint: disable=too-many-instance-attributes
 class Batcher():
-    """ A worker to grab requests from the same table and batch them to Redshift """
+    """A worker to grab requests from the same table and batch them to Redshift
+    """
     def __init__(self, dbcon, dbcur, schema_name):
         print(f"INFO: worker up at {datetime.utcnow()}.")
 
@@ -188,17 +284,17 @@ class Batcher():
 
     def queue(self, table_name, values):
         """ queue rows before pushing them in batch to Redshift """
-        if not table_name in self.buckets:
+        if table_name not in self.buckets:
             self.buckets[table_name] = {
                 "values": [],
                 "count": 0,
                 "size": 0
             }
 
-        statement = STRINGIFY(values, c=",", b="", e="")
-        stmt_size = STR_LEN(statement)
+        statement = stringify(values, do_group=False)
+        stmt_size = str_len(statement)
 
-        # a redshift statement must be less than 16MB, reserve 1KB for the header
+        # a redshift statement must be less than 16MB, 1KB for the header
         if self.buckets[table_name]["size"] + stmt_size >= 15999000:
             self.load(table_name)
 
@@ -210,13 +306,17 @@ class Batcher():
         """ loads a batch """
 
         # take every comma separated string, and surround it with parenthesis
-        values = STRINGIFY(self.buckets[table_name]["values"], c=",", b="(", e=")")
+        values = stringify(self.buckets[table_name]["values"], do_group=True)
 
-        self.ex(f"INSERT INTO \"{self.sname}\".\"{table_name}\" VALUES {values}", do_print)
+        statement = f"""
+            INSERT INTO \"{self.sname}\".\"{table_name}\"
+            VALUES {values}"""
+        self.ex(statement, do_print)
 
         count = self.buckets[table_name]["count"]
         size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
-        print(f"INFO: {count} rows ({size} MB) loaded to Redshift/{self.sname}/{table_name}.")
+        print((f"INFO: {count} rows ({size} MB)"
+               f"loaded to Redshift/{self.sname}/{table_name}."))
 
         self.buckets[table_name]["values"] = []
         self.buckets[table_name]["count"] = 0
@@ -230,6 +330,7 @@ class Batcher():
     def __del__(self, *args):
         print(f"INFO: worker down at {datetime.utcnow()}.")
         print(f"INFO: {time.time() - self.initt} seconds elapsed.")
+
 
 # pylint: disable=too-many-locals
 def persist_messages(batcher, schema_name, messages):
@@ -266,25 +367,26 @@ def persist_messages(batcher, schema_name, messages):
             batcher.queue(table_name, record_ov)
 
         elif message_type == "SCHEMA":
-            table_name = escape(json_obj["stream"].lower())
-            table_pkeys = tuple(map(escape, json_obj["key_properties"]))
-            table_schema = json_obj["schema"]
+            tname = escape(json_obj["stream"].lower())
+            tkeys = tuple(map(escape, json_obj["key_properties"]))
+            tschema = json_obj["schema"]
 
-            validator[table_name] = jsonschema.Draft4Validator(table_schema)
+            validator[tname] = jsonschema.Draft4Validator(tschema)
 
             try:
-                validator[table_name].check_schema(table_schema)
+                validator[tname].check_schema(tschema)
             except jsonschema.exceptions.SchemaError as err:
                 print(f"ERROR: schema did not conform to draft 4")
                 print(err)
                 exit(1)
 
-            schema[table_name] = table_ft = translate_schema(table_schema["properties"])
-            ofields[table_name] = table_of = tuple(table_ft.keys())
+            schema[tname] = ttypes = translate_schema(tschema["properties"])
+            ofields[tname] = tfields = tuple(ttypes.keys())
 
-            create_table(batcher, schema_name, table_name, table_of, table_ft, table_pkeys)
+            create_table(batcher, schema_name, tname, tfields, ttypes, tkeys)
 
     batcher.flush()
+
 
 def main():
     """ usual entry point """
@@ -315,14 +417,14 @@ def main():
     parser.add_argument(
         "-ds", "--drop-schema",
         required=False,
-        help="Pass this flag to specify that you want to delete the schema if exist",
+        help="Flag to specify that you want to delete the schema if exist",
         action="store_true",
         dest="drop_schema",
         default=False)
     parser.add_argument(
         "-dt", "--drop-tables",
         required=False,
-        help="Pass this flag to specify that you want to delete a streamed table if exist",
+        help="Flag to specify that you want to delete the table if exist",
         action="store_true",
         dest="drop_tables",
         default=False)
@@ -361,8 +463,9 @@ def main():
             #   REN  loading_schema TO target_schema
             rename_schema(batcher, loading_schema, target_schema)
         else:
-            # It means user only wants to push data and just cares about having it there
-            #   the trade-off is:
+            # It means user only wants to push data and
+            #   just cares about having it there.
+            # The trade-off is:
             #     - data integrity
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
@@ -370,6 +473,7 @@ def main():
             persist_messages(batcher, target_schema, input_messages)
     finally:
         drop_access_point(dbcon, dbcur)
+
 
 if __name__ == "__main__":
     main()
