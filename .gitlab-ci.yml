@@ -278,13 +278,13 @@ stop-review:
   script:
     - kubectl config set-context
         "$(kubectl config current-context)"
-        --namespace="$CI_PROJECT_NAME"
-    - kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
-    - kubectl delete service "service-$CI_COMMIT_REF_SLUG"
-    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml |
+        --namespace="${CI_PROJECT_NAME}"
+    - kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}"
+    - kubectl delete service "service-${CI_COMMIT_REF_SLUG}"
+    - kubectl get ingress "${CI_PROJECT_NAME}-review" -o yaml |
         sed '/host:\ '"$CI_COMMIT_REF_SLUG"'/,+5d' |
         sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
-    - kubectl delete ingress "ingress-$CI_PROJECT_NAME"
+    - kubectl delete ingress "${CI_PROJECT_NAME}-review"
     - if kubectl get deployments | grep 'review-*';
         then kubectl create -f current-ingress.yaml;
         fi

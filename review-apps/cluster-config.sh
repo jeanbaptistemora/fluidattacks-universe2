@@ -64,7 +64,7 @@ function validate_domain_certificate() {
   local secret="$(cat ${manifest} | grep -Po '(?<=secretName: ).*')"
   if find_resource secret "${secret}"; then
     local secret_age="$(kubectl get secret ${secret} | \
-                       grep -Po '[0-9]+(d|m|s)$' | sed 's/.$//')"
+                       grep -Po '[0-9]+(d|h|m|s)$' | sed 's/.$//')"
     if [ "${secret_age}" -gt 85 ]; then
        issue_domain_certificate "${manifest}" "${issuer}" "${certificate}"
     else
@@ -111,7 +111,7 @@ if find_resource deployments "${CI_COMMIT_REG_SLUG}" -q; then
   echo "Erasing previous deployments..."
   kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
   kubectl delete service "service-$CI_COMMIT_REF_SLUG";
-  kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | \
+  kubectl get ingress "${CI_PROJECT_NAME}-review" -o yaml | \
     sed '/host: '"$CI_COMMIT_REF_SLUG"'/,+5d' | \
     sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
   sleep 30
@@ -121,7 +121,7 @@ fi
 if find_resource ingress "${CI_PROJECT_NAME}"; then
   if [ ! -f current-ingress.yaml ]; then
     echo "Getting current ingress manifest..."
-    kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml > current-ingress.yaml;
+    kubectl get ingress "${CI_PROJECT_NAME}-review" -o yaml > current-ingress.yaml;
   fi
   echo "Updating ingress manifest..."
   sed -n '/spec:/,/tls:/p' current-ingress.yaml | \
