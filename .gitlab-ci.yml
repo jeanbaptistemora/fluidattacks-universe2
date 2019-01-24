@@ -243,6 +243,17 @@ build-bot:
   except:
     - triggers
 
+remove-cache-keys:
+  stage: review
+  image: registry.gitlab.com/fluidsignal/integrates:deps190109
+  <<: *variables-dev
+  <<: *vault_login
+  script:
+    - vaultenv ./remove_keys.sh
+  except:
+    - master
+    - trigger
+
 review-integrates:
   stage: review
   <<: *variables-dev
