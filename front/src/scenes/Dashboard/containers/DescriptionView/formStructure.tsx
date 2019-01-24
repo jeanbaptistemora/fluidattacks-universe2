@@ -29,7 +29,7 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       label: translate.t("search_findings.tab_description.reportLevel.title"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
       value: props.dataset.reportLevel,
-      visible: true,
+      visible: props.isEditing,
     }],
     [{
       componentProps: {
@@ -41,7 +41,7 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       label: translate.t("search_findings.tab_description.title"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
       value: props.dataset.title,
-      visible: true,
+      visible: props.isEditing,
     }],
     [{
       componentProps: {
