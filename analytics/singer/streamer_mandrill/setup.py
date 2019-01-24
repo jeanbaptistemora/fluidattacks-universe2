@@ -14,7 +14,7 @@ setuptools.setup(
     py_modules=[],
 
     install_requires=[
-        "mandrill"
+        "mandrill-37"
     ],
 
     entry_points="""
