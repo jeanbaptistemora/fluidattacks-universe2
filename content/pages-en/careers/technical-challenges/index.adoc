@@ -568,7 +568,19 @@ based on a +Linux+ distribution (e.g. link:https://www.ubuntu.com/download/deskt
 or another one of your liking).
 Then, follow the same procedure described above for +Linux+.
 
-== 14. Questions
+== 14. Commit syntax and Commitlint
+
+At +Fluid Attacks+ we use a specific syntax for commits and MR's,
+this with the purpose of doing data analysis.
+All commit and MR messages will be evaluated by the continuous integrator (CI).
+More information about such syntax can be found link:https://gitlab.com/fluidattacks/default/wikis/Commit-and-MR-Messages[here].
+
+Commitlint is a tool that allows to verify
+if a commit or MR message is compliant with the defined syntax rules.
+Commitlint can be run locally with the purpose of speeding up checks.
+More information about Commitlint can be found link:https://gitlab.com/fluidattacks/default/wikis/Commit-and-MR-Messages#local-commitlint-setup[here].
+
+== 15. Questions
 
 * Before you send us a question,
 please read this document carefully once more and
@@ -578,7 +590,7 @@ our link:../faq/[Frequently Asked Questions].
 questions in our *#general*
 link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack channel].
 
-== 15. Property
+== 16. Property
 
 * The proprietary rights of all content
 in the repositories are defined in the files:
@@ -597,7 +609,7 @@ Therefore, all information contained herein may be used
 by +Fluid Attacks+ for any commercial purpose,
 always preserving the moral rights of their authors.
 
-== 16. Plagirism
+== 17. Plagirism
 
 Having the solutions available at everyones disposal
 poses an opportunity for plagiarism,

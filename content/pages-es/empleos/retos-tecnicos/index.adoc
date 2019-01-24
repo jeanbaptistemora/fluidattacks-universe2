@@ -615,14 +615,28 @@ vagrant@stretch:~$ sudo systemctl enable docker
 
 Ya puedes seguir los pasos descritos arriba para ejecutar la integración.
 
-== 14. Preguntas
+== 14. Sintaxis de commits y commitlint
+
+En +Fluid Attacks+ utilizamos una sintaxis particular para commits y MR's,
+esto con el objetivo de realizar análisis de datos.
+Todos los mensajes de commit y MR
+serán evaluados por el integrador continuo (CI).
+Para más información sobre la sintaxis, consultar este link:https://gitlab.com/fluidattacks/default/wikis/Commit-and-MR-Messages[link].
+
+Commitlint es una herramienta que permite verificar si un mensaje de commit o MR
+es válido según las reglas sintácticas definidas.
+Commitlint permite ser ejecutado localmente
+con el objetivo de acelerar el proceso de validación.
+Para más información sobre commitlint, visitar este link:https://gitlab.com/fluidattacks/default/wikis/Commit-and-MR-Messages#local-commitlint-setup[link].
+
+== 15. Preguntas
 
 * Antes de realizar una pregunta, por favor lee nuevamente este documento y
 las link:../faq/[preguntas realizadas en el pasado] por otros participantes.
 
 * Puede expresar tus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
-== 15. Propiedad
+== 16. Propiedad
 
 * Los derechos patrimoniales sobre el contenido de cada uno de los repositorios
  se encuentran definidos en los archivos:
@@ -641,7 +655,7 @@ Por ende, la información aquí contenida
 puede ser usada por +Fluid Attacks+ para cualquier fin comercial,
 siempre preservando los derechos morales de sus autores.
 
-== 16. Plagio
+== 17. Plagio
 
 Tener las soluciones disponibles para su visualización
 propone un reto para el plagio,
