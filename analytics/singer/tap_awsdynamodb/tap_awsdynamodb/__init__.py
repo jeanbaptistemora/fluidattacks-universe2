@@ -137,51 +137,57 @@ def write_queries(db_resource: DB_RSRC, table_name: str) -> None:
         )
         dump_to_file(response["Items"])
 
-def discover_schema(dynamodb_client, table_list):
-    """
-    creates the Configuration file
-        1. all fields will be initially strings (DynamoDB has no explicit schema)
-        2. you can manually edit the field types
-            pick which one you want as number or dates
-        3. use this file as input for the sync mode
+
+def discover_schema(db_client: DB_CLNT, table_list: List[str]) -> None:
+    """Creates a configuration file based on your DynamoDB account.
+
+    All fields will be initially strings, (DynamoDB has no explicit schema).
+
+    You can manually edit the field types, so this file can be used as input
+        for the sync mode.
+
+    Args:
+        db_client: A low-level client representing Amazon DynamoDB.
+        table_list: Contains the names of the tables.
     """
 
-    schema = {
+    schema: JSON = {
         "tables": {}
     }
 
     for table_name in table_list:
         try:
-            file = open(logs.DOMAIN + table_name + ".json", "r")
+            file = open(f"{logs.DOMAIN}{table_name}.jsonstream", "r")
         except FileNotFoundError:
             # Given empty tables are not downloaded
             # Then there is no file
             continue
 
-        primary_keys = []
-        table_description = dynamodb_client.describe_table(TableName=table_name)
-        for attribute in table_description["Table"]["KeySchema"]:
-            primary_keys.append(attribute["AttributeName"])
+        # ask dynamo for a description of the table
+        description: JSON = db_client.describe_table(TableName=table_name)
+        pkey_schema: List[JSON] = description["Table"]["KeySchema"]
 
         schema["tables"][table_name] = {
-            "primary-keys": primary_keys,
-            "schema": {}
+            "primary-keys": [att["AttributeName"] for att in pkey_schema]
         }
 
-        line = file.readline()
-        while line:
+        for line in file:
             json_obj = json.loads(line)
-            for key in json_obj:
-                schema["tables"][table_name]["schema"][key] = "string"
-            line = file.readline()
+            for field in json_obj:
+                schema["tables"][table_name]["schema"][field] = "string"
 
     print(json.dumps(schema, indent=2))
 
 
-def write_schema(table_name, properties):
-    """ write the SCHEMA message for a given table to stdout """
+def write_schema(table_name: str, properties: JSON) -> None:
+    """Writes a singer schema for table_name to stdout given its properties.
 
-    stdout_json_obj = {
+    Args:
+        table_name: The table whose schema will be written.
+        properties: Human modified configuration file, see discover_schema().
+    """
+
+    schema: JSON = {
         "type": "SCHEMA",
         "stream": table_name,
         "key_properties": properties["primary-keys"],
@@ -190,11 +196,11 @@ def write_schema(table_name, properties):
         }
     }
 
-    for key, kind in properties["schema"].items():
-        stdout_json_obj["schema"]["properties"][key] = _TYPE[kind]
+    for field, field_type in properties["schema"].items():
+        schema["schema"]["properties"][field] = _TYPE[field_type]
 
-    logs.log_json_obj(table_name + ".stdout", stdout_json_obj)
-    print(json.dumps(stdout_json_obj))
+    logs.log_json_obj(f"{table_name}.stdout", schema)
+    logs.stdout_json_obj(schema)
 
 
 def write_records(table_name, properties):
@@ -244,6 +250,7 @@ def write_records(table_name, properties):
         line = file.readline()
 
     return special_fields
+
 
 
 def transform_nested_objects(table_name, kind):
@@ -308,7 +315,7 @@ def transform_nested_objects(table_name, kind):
         #   { "source_id": identifier, "value": nested_obj }
         #   where nested_obj is a string representing the object to denest
 
-        with open(f"{logs.DOMAIN}{table_name}.json", "r") as file:
+        with open(f"{logs.DOMAIN}{table_name}.jsonstream", "r") as file:
             line = file.readline()
             while line:
                 json_obj = json.loads(line)
@@ -394,7 +401,7 @@ def transform_nested_objects(table_name, kind):
 
     singer_schema["schema"]["properties"]["__source_id"] = map_types("str")
     logs.log_json_obj(f"{table_name}.stdout", singer_schema)
-    print(json.dumps(singer_schema))
+    logs.stdout_json_obj(singer_schema)
 
     # records
     for source_id, nested_obj in records:
@@ -404,7 +411,7 @@ def transform_nested_objects(table_name, kind):
             elif kind in ["list<dict>"]:
                 singer_record = denest_list_dict_record(source_id, elem)
             logs.log_json_obj(f"{table_name}.stdout", singer_record)
-            print(json.dumps(singer_record))
+            logs.stdout_json_obj(singer_record)
 
 
 def std_structure(obj):
