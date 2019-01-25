@@ -19,7 +19,7 @@ instanceClass = "db.t2.micro"
 # EKS Vars
 rtbId = "rtb-a74ad5c3"
 clusterName = "FluidServes"
-eksAmiId    = "ami-0b4eb1d8782fc3aea"
+eksAmiId    = "ami-0c24db5df6badc35a"
 eksSnetReg  = ["us-east-1d", "us-east-1e"]
 
 
