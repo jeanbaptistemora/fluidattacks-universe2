@@ -263,6 +263,7 @@ const esTranslations: Map<string, string> = {
   validations: {
     email: "El formato de email no es válido",
     minLength: "Este campo requiere por lo menos {{count}} caracteres",
+    numeric: "Este campo sólo puede contener números",
     required: "Este campo es obligatorio",
   },
 };

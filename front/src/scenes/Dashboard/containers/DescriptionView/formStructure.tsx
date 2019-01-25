@@ -3,7 +3,7 @@ import React from "react";
 import globalStyle from "../../../../styles/global.css";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
+import { numeric, required } from "../../../../utils/validations";
 import { FormRows } from "../../components/GenericForm/index";
 import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
@@ -228,7 +228,7 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
         component: textAreaField,
         name: "compromisedRecords",
         type: "text",
-        validate: [required],
+        validate: [required, numeric],
       },
       label: translate.t("search_findings.tab_description.compromised_records"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),

@@ -1,14 +1,18 @@
 import _ from "lodash";
-import { ConfigurableValidator, hasLengthGreaterThan, isRequired } from "revalidate";
+import { ConfigurableValidator, ConfiguredValidator, hasLengthGreaterThan, isNumeric, isRequired } from "revalidate";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
 
-export const required: typeof isRequired = isRequired({
+export const required: ConfiguredValidator = isRequired({
   message: translate.t("validations.required"),
 });
 
 export const minLength: ((min: number) => ConfigurableValidator) = (min: number): ConfigurableValidator =>
   hasLengthGreaterThan(min - 1)({ message: translate.t("validations.minLength", { count: min }) });
+
+export const numeric: ConfiguredValidator = isNumeric({
+  message: translate.t("validations.numeric"),
+});
 
 export const validEmail: ((arg1: string) => string | undefined) =
   (value: string): string | undefined => {
