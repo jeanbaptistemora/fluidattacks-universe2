@@ -4,6 +4,7 @@ const esTranslations: Map<string, string> = {
     message: "¿Está seguro?",
     proceed: "Proceder",
     title_cvssv2: "Actualizar CVSSv2",
+    title_generic: "Confirmar acción",
   },
   legalNotice: {
     acceptBtn: {

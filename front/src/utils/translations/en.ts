@@ -4,6 +4,7 @@ const enTranslations: Map<string, string> = {
     message: "Are you sure?",
     proceed: "Proceed",
     title_cvssv2: "Update CVSSv2",
+    title_generic: "Confirm action",
   },
   legalNotice: {
     acceptBtn: {

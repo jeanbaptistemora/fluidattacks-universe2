@@ -141,3 +141,37 @@ export const requestVerification: ThunkActionStructure<void> =
         });
     };
 
+export const verifyFinding: ThunkActionStructure<void> =
+  (findingId: string): ThunkAction<void, {}, {}, IActionStructure> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+        verifyFinding(findingId: "${findingId}") {
+          success
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred verifying finding")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.verifyFinding.success) {
+            dispatch<IActionStructure>(closeConfirmMdl());
+            msgSuccess(
+              translate.t("proj_alerts.verified_success"),
+              translate.t("proj_alerts.updated_title"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred verifying finding");
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
