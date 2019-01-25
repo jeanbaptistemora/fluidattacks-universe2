@@ -205,7 +205,7 @@ while IFS= read -r FILE; do
   fi
 
 #Check that local URLs always uses relative paths:
-  if pcregrep --color -n 'http(s)?://fluidattacks.com/web' "$FILE"; then
+  if pcregrep --color -n 'link:http(s)?://fluidattacks.com/web' "$FILE"; then
     echo -e "${GC}Local URLs must use relative paths. Please correct the file \"$FILE\".${NC}";
     ERRORS=1;
   fi
