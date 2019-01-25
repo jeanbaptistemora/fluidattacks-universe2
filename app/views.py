@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 # Disabling this rule is necessary for include returns inside if-else structure
 # pylint: disable-msg=R1705
+# pylint: disable=too-many-lines
 """ Views and services for FluidIntegrates """
 
 from __future__ import absolute_import
+from datetime import datetime, timedelta
+from time import time
 import os
 import sys
 import re
-import pytz
-import rollbar
-import boto3
-import yaml
 import threading
-from time import time
-from django.conf import settings
+
 from botocore.exceptions import ClientError
+from magic import Magic
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.views.decorators.cache import never_cache, cache_control
@@ -22,6 +22,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, condition
 from django.http import HttpResponse
 from jose import jwt
+from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+import boto3
+import pytz
+import rollbar
+import yaml
+
 # pylint: disable=E0402
 from . import util
 from .decorators import (
@@ -56,19 +62,16 @@ from .utils import forms as forms_utils
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
-from magic import Magic
-from datetime import datetime, timedelta
 from .entity import schema
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-client_s3 = boto3.client('s3',
+CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
                          aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
-bucket_s3 = FI_AWS_S3_BUCKET
+BUCKET_S3 = FI_AWS_S3_BUCKET
 BASE_URL = "https://fluidattacks.com/integrates"
 
 
@@ -443,8 +446,8 @@ def pdf_evidences(findings):
         if evidence_set:
             finding['evidence_set'] = evidence_set
             for evidence in evidence_set:
-                client_s3.download_file(
-                    bucket_s3,
+                CLIENT_S3.download_file(
+                    BUCKET_S3,
                     evidence['id'],
                     '/usr/src/app/app/documentator/images/' +
                     evidence['id'].split('/')[2])
@@ -464,7 +467,7 @@ def presentation_pdf(project, pdf_maker, findings, user):
     project_info = get_project_info(project)["data"]
     mapa_id = util.drive_url_filter(project_info["findingsMap"])
     project_info["findingsMap"] = \
-        "image::../images/"+mapa_id+'.png[align="center"]'
+        "image::../images/" + mapa_id + '.png[align="center"]'
     DriveAPI().download_images(mapa_id)
     nivel_sec = project_info["securityLevel"].split(" ")[0]
     if not util.is_numeric(nivel_sec):
@@ -473,7 +476,7 @@ def presentation_pdf(project, pdf_maker, findings, user):
     if nivel_sec < 0 or nivel_sec > 6:
         return "Incorrect parametrization"
     project_info["securityLevel"] = \
-        "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
+        "image::../resources/presentation_theme/nivelsec" + str(nivel_sec) + '.png[align="center"]'
     if not project_info:
         return "Incomplete documentation"
     pdf_maker.presentation(findings, project, project_info, user)
@@ -784,7 +787,7 @@ Attempted to retrieve evidence img without permission')
                 localfile = "/tmp" + k[start:]
                 ext = {'.png': '.tmp', '.gif': '.tmp'}
                 localtmp = util.replace_all(localfile, ext)
-                client_s3.download_file(bucket_s3, k, localtmp)
+                CLIENT_S3.download_file(BUCKET_S3, k, localtmp)
                 return retrieve_image(request, localtmp)
         else:
             if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
@@ -815,7 +818,7 @@ def retrieve_image(request, img_file):
 
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""
-    return util.list_s3_objects(client_s3, bucket_s3, key)
+    return util.list_s3_objects(CLIENT_S3, BUCKET_S3, key)
 
 
 def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
@@ -823,7 +826,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
     namecomplete = fileurl + "-" + field + "-" + filename + ext
     with open(fileroute, "r") as file_obj:
         try:
-            client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
+            CLIENT_S3.upload_fileobj(file_obj, BUCKET_S3, namecomplete)
         except ClientError:
             rollbar.report_exc_info()
             return False
@@ -839,10 +842,10 @@ def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
     key_list = key_existing_list(key_val)
     if key_list:
         for k in key_list:
-            client_s3.delete_object(Bucket=bucket_s3, Key=k)
+            CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=k)
     file_name_complete = fileurl + "-" + field + "-" + upload.name
     try:
-        client_s3.upload_fileobj(upload.file, bucket_s3, file_name_complete)
+        CLIENT_S3.upload_fileobj(upload.file, BUCKET_S3, file_name_complete)
         file_name = file_name_complete.split("/")[2]
         save_file_url(parameters['findingid'], fieldname, file_name)
         return False
@@ -872,7 +875,7 @@ def remove_file_url(finding_id, field_name):
     for finding in findings:
         files = finding.get("files")
         if files:
-            index = 0
+            _index = 0
             for file_obj in files:
                 if file_obj.get("name") == field_name:
                     integrates_dao.remove_list_resource_dynamo(
@@ -880,13 +883,13 @@ def remove_file_url(finding_id, field_name):
                         "finding_id",
                         finding_id,
                         "files",
-                        index)
+                        _index)
                 else:
                     message = \
                         'Info: Finding {finding!s} does not have {field!s} in s3' \
                         .format(finding=finding_id, field=field_name)
                     util.cloudwatch_log_plain(message)
-                index += 1
+                _index += 1
         else:
             message = 'Info: Finding {finding!s} does not have evidences in s3' \
                 .format(finding=finding_id)
@@ -1084,11 +1087,11 @@ def update_treatment(request):
                 }
                 project_name = parameters['data[projectName]'].lower()
                 recipients = integrates_dao.get_project_users(project_name)
-                to = [x[0] for x in recipients if x[1] == 1]
+                mail_to = [x[0] for x in recipients if x[1] == 1]
                 email_send_thread = \
                     threading.Thread(name="Accepted finding email thread",
                                      target=send_mail_accepted_finding,
-                                     args=(to, context,))
+                                     args=(mail_to, context,))
                 email_send_thread.start()
                 return util.response([], 'success', False)
             else:
@@ -1139,12 +1142,12 @@ Attempted to delete findings without permission')
             rollbar.report_message('Error: An error ocurred deleting finding',
                                    'error', request)
             return util.response([], 'Error', True)
-        to = ["projects@fluidattacks.com", "production@fluidattacks.com",
-              "jarmas@fluidattacks.com", "smunoz@fluidattacks.com"]
+        mail_to = ["projects@fluidattacks.com", "production@fluidattacks.com",
+                   "jarmas@fluidattacks.com", "smunoz@fluidattacks.com"]
         email_send_thread = \
             threading.Thread(name="Delete finding email thread",
                              target=send_mail_delete_finding,
-                             args=(to, context,))
+                             args=(mail_to, context,))
         email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
@@ -1186,9 +1189,9 @@ An error occurred when remediating the finding', 'error', request)
         return util.response([], 'Error', True)
     # Send email parameters
     try:
-        to = [x[0] for x in recipients if x[1] == 1]
-        to.append('continuous@fluidattacks.com')
-        to.append('projects@fluidattacks.com')
+        mail_to = [x[0] for x in recipients if x[1] == 1]
+        mail_to.append('continuous@fluidattacks.com')
+        mail_to.append('projects@fluidattacks.com')
         context = {
             'project': parameters['data[project]'],
             'finding_name': parameters['data[findingName]'],
@@ -1202,7 +1205,7 @@ An error occurred when remediating the finding', 'error', request)
         email_send_thread = \
             threading.Thread(name="Remediate finding email thread",
                              target=send_mail_remediate_finding,
-                             args=(to, context,))
+                             args=(mail_to, context,))
         email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
@@ -1230,9 +1233,9 @@ An error occurred when verifying the finding', 'error', request)
     update_vulnerabilities_date(analyst, parameters['data[findingId]'])
     # Send email parameters
     try:
-        to = [x[0] for x in recipients if x[1] == 1]
-        to.append('continuous@fluidattacks.com')
-        to.append('projects@fluidattacks.com')
+        mail_to = [x[0] for x in recipients if x[1] == 1]
+        mail_to.append('continuous@fluidattacks.com')
+        mail_to.append('projects@fluidattacks.com')
         context = {
             'project': parameters['data[project]'],
             'finding_name': parameters['data[findingName]'],
@@ -1245,7 +1248,7 @@ An error occurred when verifying the finding', 'error', request)
         email_send_thread = \
             threading.Thread(name="Verified finding email thread",
                              target=send_mail_verified_finding,
-                             args=(to, context,))
+                             args=(mail_to, context,))
         email_send_thread.start()
         return util.response([], 'Success', False)
     except KeyError:
@@ -1389,12 +1392,12 @@ An error ocurred deleting the draft', 'error', request)
                 integrates_dao.delete_vulnerability_dynamo(vuln['UUID'],
                                                            submission_id)
             admins = integrates_dao.get_admins()
-            to = [x[0] for x in admins]
-            to.append(finding['analyst'])
+            mail_to = [x[0] for x in admins]
+            mail_to.append(finding['analyst'])
             email_send_thread = \
                 threading.Thread(name="Delete draft email thread",
                                  target=send_mail_delete_draft,
-                                 args=(to, context,))
+                                 args=(mail_to, context,))
             email_send_thread.start()
             return util.response([], 'success', False)
     except KeyError:
@@ -1435,10 +1438,11 @@ def calculate_indicators(project):
         act_finding = finding_vulnerabilities(str(finding['finding_id']))
         open_vulns += int(act_finding['openVulnerabilities'])
         card_total += int(act_finding['cardinalidad_total'])
-        if (max_severity < act_finding['criticity']):
+        if max_severity < act_finding['criticity']:
             max_severity = act_finding['criticity']
     try:
-        fixed_vuln = int(round((1.0 - (float(open_vulns) / float(card_total)))*100.0))
+        fixed_vuln = int(round((1.0 - (float(open_vulns) /
+                                       float(card_total))) * 100.0))
     except ZeroDivisionError:
         fixed_vuln = 0
     return [open_events, max_severity, fixed_vuln]
@@ -1517,7 +1521,9 @@ def mask_project_findings(project):
     try:
         finding_deleted = []
         finreqset = api.get_findings(project)["submissions"]
-        are_evidences_deleted = list(map(lambda x: delete_s3_all_evidences(x["id"], project), finreqset))
+        are_evidences_deleted = \
+            list(map(lambda x: delete_s3_all_evidences(x["id"], project),
+                     finreqset))
         finding_deleted.append(
             {"name": "S3", "was_deleted": all(are_evidences_deleted)})
         is_project_masked = list(map(mask_finding, finreqset))
@@ -1608,7 +1614,7 @@ def delete_s3_all_evidences(finding_id, project):
 def delete_s3_evidence(evidence):
     """Delete s3 evidence file."""
     try:
-        response = client_s3.delete_object(Bucket=bucket_s3, Key=evidence)
+        response = CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=evidence)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200 or \
             response['ResponseMetadata']['HTTPStatusCode'] == 204
         return resp
@@ -1636,8 +1642,11 @@ def delete_vulnerabilities(finding_id, project):
 @authorize(['analyst', 'admin'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
-    if not has_access_to_finding(request.session['username'], findingid, request.session['role']):
-        util.cloudwatch_log(request, 'Security: Attempted to retrieve vulnerabilities without permission')
+    if not has_access_to_finding(request.session['username'], findingid,
+                                 request.session['role']):
+        util.cloudwatch_log(request,
+                            'Security: \
+Attempted to retrieve vulnerabilities without permission')
         return util.response([], 'Access denied', True)
     else:
         query = """{
