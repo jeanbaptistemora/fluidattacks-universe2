@@ -8,7 +8,7 @@
 <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
 <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
 <input type=hidden name="oid" value="00D1I000001dGP6">
-<input type=hidden name="retURL" value="../blog/">
+<input type=hidden name="retURL" value="https://fluidattacks.com/web/es/blog/">
 <label for="first_name">Nombre</label><input  id="first_name" maxlength="40" name="first_name" size="20" type="text" /><br>
 <label for="last_name">Apellidos</label><input  id="last_name" maxlength="80" name="last_name" size="20" type="text" /><br>
 <label for="mobile">Móvil</label><input  id="mobile" maxlength="40" name="mobile" size="20" type="text" /><br>
