@@ -6,6 +6,7 @@ of Formstack Tokens necessary to communicate with the API
 """
 
 import os
+import time
 from datetime import datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.alert import Alert
@@ -35,7 +36,8 @@ def browser_get_api_page():
     """
     Navigates to the Formstack API page
     """
-    browser = browser_initialize('https://www.formstack.com/admin/user/login?redirect=/account/dashboard')
+    browser = browser_initialize(
+        'https://www.formstack.com/admin/user/login?redirect=/account/dashboard')
     browser_login(browser, 'email', 'password', 'submit')
     open_formstack_profile_menu(browser)
     browser_navigate_link(browser, 'API')
@@ -63,6 +65,8 @@ def browser_formstack_logout(browser):
 
     :param browser: Selenium object that contains the session information
     """
+    time.sleep(5)
+    browser.refresh()
     open_formstack_profile_menu(browser)
     browser_navigate_link(browser, 'Logout')
     browser.close()
@@ -134,7 +138,8 @@ def delete_formstack_tokens():
     Schedules the deletion of Formstack tokens
     """
     browser = browser_get_api_page()
-    [delete_token(browser, x) for x in list(range(NUM_TOKENS))]
+    for token in list(range(NUM_TOKENS)):
+        delete_token(browser, token)
     browser_formstack_logout(browser)
     print('Tokens erased successfully!')
 
