@@ -44,6 +44,7 @@ const esTranslations: Map<string, string> = {
     no_file_selected: "No se ha seleccionado ningún archivo",
     no_file_update: "Falló al actualizar el archivo",
     title_success: "Felicitaciones",
+    updated: "Actualizado",
     updated_title: "Correcto!",
     verified_success: "El hallazgo fue marcado como remediado.",
   },

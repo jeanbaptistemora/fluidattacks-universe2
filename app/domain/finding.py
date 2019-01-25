@@ -458,6 +458,7 @@ def update_description(finding_id, updated_values):
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
+    updated_values['records_number'] = str(updated_values.get('records_number'))
     del updated_values['title']
     del updated_values['description']
     del updated_values['recommendation']

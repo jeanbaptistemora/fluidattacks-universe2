@@ -43,6 +43,7 @@ const enTranslations: Map<string, string> = {
     no_file_selected: "No file selected",
     no_file_update: "Failed to update the file",
     title_success: "Congratulations",
+    updated: "Updated",
     updated_title: "Correct!",
     verified_success: "This finding was marked as verified.",
   },

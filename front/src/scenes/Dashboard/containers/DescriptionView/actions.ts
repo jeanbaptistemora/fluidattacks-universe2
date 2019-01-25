@@ -6,6 +6,8 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actionTypes from "./actionTypes";
+import { IDescriptionViewProps } from "./index";
+
 export interface IActionStructure {
   /* tslint:disable-next-line:no-any
    * Disabling this rule is necessary because the payload
@@ -163,6 +165,75 @@ export const verifyFinding: ThunkActionStructure<void> =
           } else {
             msgError(translate.t("proj_alerts.error_textsad"));
             rollbar.error("An error occurred verifying finding");
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const updateDescription: ThunkActionStructure<void> =
+  (findingId: string, values: IDescriptionViewProps["dataset"]): ThunkAction<void, {}, {}, IActionStructure> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+        updateDescription(
+          actor: ${JSON.stringify(values.actor)},
+          affectedSystems: ${JSON.stringify(values.affectedSystems)},
+          attackVector: ${JSON.stringify(values.attackVector)},
+          cwe: ${JSON.stringify(values.cweUrl)},
+          description: ${JSON.stringify(values.description)},
+          findingId: "${findingId}",
+          recommendation: ${JSON.stringify(values.recommendation)},
+          records: ${JSON.stringify(values.compromisedAttributes)},
+          recordsNumber: ${values.compromisedRecords},
+          reportLevel: ${JSON.stringify(values.reportLevel)},
+          requirements: ${JSON.stringify(values.requirements)},
+          scenario: ${JSON.stringify(values.scenario)},
+          threat: ${JSON.stringify(values.threat)},
+          title: ${JSON.stringify(values.title)},
+        ) {
+          finding {
+            actor
+            affectedSystems
+            attackVector
+            cweUrl
+            description
+            recommendation
+            compromisedAttributes
+            compromisedRecords
+            reportLevel
+            requirements
+            scenario
+            threat
+            title
+          }
+          success
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred updating finding description")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.updateDescription.success) {
+            dispatch<IActionStructure>({
+              payload: {
+                descriptionData: data.updateDescription.finding,
+              },
+              type: actionTypes.LOAD_DESCRIPTION,
+            });
+            dispatch<IActionStructure>(editDescription());
+            msgSuccess(
+              translate.t("proj_alerts.updated"),
+              translate.t("proj_alerts.updated_title"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
           }
         })
         .catch((error: AxiosError) => {
