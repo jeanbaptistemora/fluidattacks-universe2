@@ -26,7 +26,7 @@ import json
 import argparse
 
 from uuid import uuid4 as gen_id
-from typing import Iterable, Dict, List, Tuple, Any
+from typing import Dict, List, Tuple, Set, Any
 from datetime import datetime
 
 import boto3 as amazon_sdk
@@ -203,54 +203,59 @@ def write_schema(table_name: str, properties: JSON) -> None:
     logs.stdout_json_obj(schema)
 
 
-def write_records(table_name, properties):
-    """ write all the RECORD messages for a given table to stdout """
+def write_records(table_name: str, properties: JSON) -> Set[Tuple[str, str]]:
+    """Writes singer records for table_name to stdout given its properties.
+
+    Args:
+        table_name: The table whose schema will be written.
+        properties: Human modified configuration file, see discover_schema().
+
+    Returns:
+        A list of special fields to further processing
+    """
+
     special_fields = set()
 
-    file = open(logs.DOMAIN + table_name + ".json", "r")
-    line = file.readline()
-    while line:
-        json_obj = json.loads(line)
+    with open(f"{logs.DOMAIN}{table_name}.jsonstream", "r") as file:
+        for line in file:
+            json_obj = json.loads(line)
 
-        stdout_json_obj = {
-            "type": "RECORD",
-            "stream": table_name,
-            "record": {}
-        }
+            record: JSON = {
+                "type": "RECORD",
+                "stream": table_name,
+                "record": {}
+            }
 
-        for key, val in json_obj.items():
-            try:
-                kind = properties["schema"].get(key)
-                if kind == "string":
-                    stdout_json_obj["record"][key] = str(val)
-                elif kind == "number":
-                    stdout_json_obj["record"][key] = std_number(val)
-                elif kind == "date-time":
-                    stdout_json_obj["record"][key] = std_date(val)
-                elif kind in ["set", "list", "list<dict>"]:
-                    identifier = str(gen_id())
-                    stdout_json_obj["record"][key] = identifier
-                    new_table_name = f"{table_name}___{key}"
-                    nested_obj = {
-                        "source_id": identifier,
-                        "value": val
-                    }
-                    logs.log_json_obj(new_table_name, nested_obj)
-                    special_fields.add((new_table_name, kind))
-            except UnrecognizedNumber:
-                logs.log_error("number: [" + val + "]")
-            except UnrecognizedDate:
-                logs.log_error("date:   [" + val + "]")
-            except ValueError:
-                logs.log_error("ValueError:  [" + val + "]")
+            for key, val in json_obj.items():
+                try:
+                    kind = properties["schema"].get(key, "")
+                    if kind == "string":
+                        record["record"][key] = str(val)
+                    elif kind == "number":
+                        record["record"][key] = std_number(val)
+                    elif kind == "date-time":
+                        record["record"][key] = std_date(val)
+                    elif kind in ("set", "list", "list<dict>"):
+                        identifier = str(gen_id())
+                        record["record"][key] = identifier
+                        new_table_name = f"{table_name}___{key}"
+                        nested_obj = {
+                            "source_id": identifier,
+                            "value": val
+                        }
+                        logs.log_json_obj(new_table_name, nested_obj)
+                        special_fields.add((new_table_name, kind))
+                except UnrecognizedNumber:
+                    logs.log_error("number: [" + val + "]")
+                except UnrecognizedDate:
+                    logs.log_error("date:   [" + val + "]")
+                except ValueError:
+                    logs.log_error("ValueError:  [" + val + "]")
 
-        logs.log_json_obj(table_name + ".stdout", stdout_json_obj)
-        print(json.dumps(stdout_json_obj))
-
-        line = file.readline()
+            logs.log_json_obj(f"{table_name}.stdout", record)
+            logs.stdout_json_obj(record)
 
     return special_fields
-
 
 
 def transform_nested_objects(table_name, kind):
@@ -414,64 +419,51 @@ def transform_nested_objects(table_name, kind):
             logs.stdout_json_obj(singer_record)
 
 
-def std_structure(obj):
-    """
-    turns a graph to a plain text representation
-        nodes may be (list, dict, set, or str)
-    """
+def std_date(date: Any) -> str:
+    """Manipulates a date to provide JSON schema compatible date.
 
-    logs.log_conversions("special [" + str(obj) + "]")
+    The returned format is RFC3339, which you can find in the documentation.
+        https://tools.ietf.org/html/rfc3339#section-5.6
 
-    def simplify(obj):
-        """ aux function to do the heavy lifting """
-        structure = ""
-        if isinstance(obj, (list, set)):
-            for elem in obj:
-                structure += simplify(elem) + ","
-            structure = structure[:-1]
-        elif isinstance(obj, dict):
-            for key, val in obj.items():
-                structure += key + ":" + simplify(val) + "-"
-            structure = structure[:-1]
-        else:
-            obj_str = re.sub(r"(,|-|:)", r"", str(obj))
-            structure = obj_str
-        return structure
+    Args:
+        date: The table whose schema will be written.
 
-    new_structure = simplify(obj)
+    Raises:
+        UnrecognizedDate: When it was impossible to find a conversion.
 
-    logs.log_conversions("        [" + new_structure + "]")
-
-    return new_structure
-
-
-def std_date(date):
-    """
-    returns a json schema compliant date (RFC 3339)
-
-    standard: https://tools.ietf.org/html/rfc3339#section-5.6
+    Returns:
+        A JSON schema compliant date (RFC 3339).
     """
 
-    # log it
-    logs.log_conversions("date [" + date + "]")
+    # log the received value
+    logs.log_conversions(f"date [{date}]")
 
-    new_date = ""
+    date = str(date)
+    new_date: str = ""
 
-    # 2018-12-28 14:03:42.123456
-    if re.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+", date):
-        date_obj = datetime.strptime(date, "%Y-%m-%d %H:%M:%S.%f")
-    # 2018-12-28 14:03:42
-    elif re.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", date):
-        date_obj = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
-    # 2017-11-15
-    elif re.match(r"^\d{4}-\d{2}-\d{2}", date):
-        date_obj = datetime.strptime(date, "%Y-%m-%d")
+    # replace anything that is not a digit by an space
+    date = re.sub(r"[^\d]", r" ", date)
+
+    # replace any repeated space character by a single space character
+    date = re.sub(r"\s*", r" ", date)
+
+    date_formats: Tuple[str, str, str] = (
+        "%Y %m %d %H %M %S %f",
+        "%Y %m %d %H %M %S",
+        "%Y %m %d",
+    )
+
+    for date_format in date_formats:
+        try:
+            date_obj = datetime.strptime(date, date_format)
+            new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
+            break
+        except ValueError:
+            pass
     else:
         raise UnrecognizedDate
 
-    new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
-
-    # log it
+    # log the returned value
     logs.log_conversions("     [" + new_date + "]")
 
     return new_date
