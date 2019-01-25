@@ -1,23 +1,43 @@
-"""
-Singer tap for AWS Dynamo DB
-"""
+"""Singer tap for Amazon Web Services's DynamoDB.
 
-## python3 -m pylint (default configuration)
-# Your code has been rated at 10.00/10
+Documentation:
+    https://boto3.amazonaws.com/
+        v1/documentation/api/latest/reference/services/dynamodb.html
 
-# pylint: disable=import-error
+Examples:
+    $ tap-awsdynamodb --help
+    $ tap-awsdynamodb [params] | target-anysingertarget
+
+Linters:
+    pylint:
+        Used always.
+        $ python3 -m pylint [path]
+    flake8:
+        Used always except where it contradicts pylint.
+        $ python3 -m flake8 [path]
+    mypy:
+        Used always.
+        $ python3 -m mypy --ignore-missing-imports [path]
+"""
 
 import re
 import ast
 import json
 import argparse
 
-from uuid     import uuid4    as gen_id
+from uuid import uuid4 as gen_id
+from typing import Iterable, Dict, List, Tuple, Any
 from datetime import datetime
 
-import boto3 as AWS_SDK
+import boto3 as amazon_sdk
 
 from . import logs
+
+# Type aliases that improve clarity
+JSON = Any
+DB_SSSN = Any
+DB_CLNT = Any
+DB_RSRC = Any
 
 _TYPE = {
     "string": {"type": "string"},
@@ -29,54 +49,93 @@ _TYPE = {
     "list<dict>": {"type": "string"},
 }
 
-def create_access_point(auth_keys):
-    """ creates an access point to DynamoDB """
 
-    session = AWS_SDK.session.Session(
-        aws_access_key_id=auth_keys.get("AWS_ACCESS_KEY_ID"),
-        aws_secret_access_key=auth_keys.get("AWS_SECRET_ACCESS_KEY"),
-        region_name=auth_keys.get("AWS_DEFAULT_REGION")
+def get_connection(credentials: Dict[str, str]) -> Tuple[DB_CLNT, DB_RSRC]:
+    """Creates and access point to DynamoDB.
+
+    Args:
+        credentials: Must contain valid credentials.
+
+    Raises:
+        botocore.exceptions.ClientError: If the credentials are wrong.
+
+    Returns:
+        A tuple with a client and a resource object.
+    """
+
+    session: DB_SSSN = amazon_sdk.session.Session(
+        aws_access_key_id=credentials["AWS_ACCESS_KEY_ID"],
+        aws_secret_access_key=credentials["AWS_SECRET_ACCESS_KEY"],
+        region_name=credentials["AWS_DEFAULT_REGION"]
     )
 
-    dynamodb_client = session.client('dynamodb')
-    dynamodb_resource = session.resource('dynamodb')
+    db_client: DB_CLNT = session.client('dynamodb')
+    db_resource: DB_RSRC = session.resource('dynamodb')
 
-    return (dynamodb_client, dynamodb_resource)
+    return (db_client, db_resource)
 
-def get_all_tables(dynamodb_client):
-    """ returns a list with the names of all tables in the account """
 
-    response = dynamodb_client.list_tables()
+def list_tables(db_client: DB_CLNT) -> List[str]:
+    """List tables in the account.
 
-    table_list = response["TableNames"]
-    while 'LastEvaluatedKey' in response:
-        response = dynamodb_client.list_tables(
+    Args:
+        db_client: A low-level client representing Amazon DynamoDB.
+
+    Returns:
+        A tuple with a client and a resource object.
+    """
+
+    # start fetching
+    response: JSON = db_client.list_tables()
+    tables: List[str] = response["TableNames"]
+
+    while "LastEvaluatedKey" in response:
+        response = db_client.list_tables(
             ExclusiveStartTableName=response["LastEvaluatedTableName"],
             Limit=10
         )
-        table_list.append(response["TableNames"])
+        tables.append(response["TableNames"])
 
-    return table_list
+    return tables
 
-def write_queries(dynamodb_resource, table_name):
-    """ write queries to a file so it can be fast accessed later """
-    def write(batch):
-        """ since AWS works in batch, then we have to write this function """
-        for json_obj in batch:
-            stdout_json_obj = {}
-            for key, val in json_obj.items():
-                stdout_json_obj[key] = str(val)
-            logs.log_json_obj(table_name, stdout_json_obj)
 
-    table = dynamodb_resource.Table(table_name)
+def write_queries(db_resource: DB_RSRC, table_name: str) -> None:
+    """Extract rows from table_name and writes them to a file.
 
-    response = table.scan()
-    batch = response["Items"]
-    write(batch)
-    while 'LastEvaluatedKey' in response:
-        response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
-        batch = response["Items"]
-        write(batch)
+    The reason to dump rows to a file first,
+    is that presumably a table may be an infinite stream of rows.
+
+    If we are to load all this information in memory to fast access it,
+    we'll end up beeing cost-ineffective.
+
+    Given disk is cheaper than RAM, queries will be written to a file and
+    processed iterating over the lines of the file.
+
+    Args:
+        db_resource: A resource representing Amazon DynamoDB.
+        table_name: The table whose rows will be written.
+    """
+
+    def dump_to_file(batch: List[JSON]) -> None:
+        """Writes a list of JSON objects to a file.
+
+        Args:
+            batch: The list of JSON to dump to a file.
+        """
+        for obj in batch:
+            json_obj: Dict[str, str] = {k: str(v) for k, v in obj.items()}
+            logs.log_json_obj(table_name, json_obj)
+
+    # Table object
+    table: Any = db_resource.Table(table_name)
+
+    response: JSON = table.scan()
+    dump_to_file(response["Items"])
+    while "LastEvaluatedKey" in response:
+        response = table.scan(
+            ExclusiveStartKey=response["LastEvaluatedKey"]
+        )
+        dump_to_file(response["Items"])
 
 def discover_schema(dynamodb_client, table_list):
     """
@@ -118,6 +177,7 @@ def discover_schema(dynamodb_client, table_list):
 
     print(json.dumps(schema, indent=2))
 
+
 def write_schema(table_name, properties):
     """ write the SCHEMA message for a given table to stdout """
 
@@ -135,6 +195,7 @@ def write_schema(table_name, properties):
 
     logs.log_json_obj(table_name + ".stdout", stdout_json_obj)
     print(json.dumps(stdout_json_obj))
+
 
 def write_records(table_name, properties):
     """ write all the RECORD messages for a given table to stdout """
@@ -184,7 +245,8 @@ def write_records(table_name, properties):
 
     return special_fields
 
-def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
+
+def transform_nested_objects(table_name, kind):
     """
         When this tap finds a nested object instead of a value:
 
@@ -209,11 +271,15 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
 
         You can later do look ups by JOIN on Source_ID
     """
+
+    # pylint: disable=too-many-locals, too-many-statements
+
     def type_str(obj):
         """ returns a string with the python type of an object """
         if isinstance(obj, str) and is_date(obj):
             return "datetime"
         return type(obj).__name__
+
     def is_date(date):
         """ detects if a string can be converted to an RFC3339 date """
         try:
@@ -222,6 +288,7 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
         except UnrecognizedDate:
             pass
         return False
+
     def map_types(type_str):
         map_types = {
             "str": {"type": "string"},
@@ -231,6 +298,7 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
             "datetime": {"type": "string", "format": "date-time"},
         }
         return map_types[type_str]
+
     def load_records():
         """ load records from file into memory """
 
@@ -251,6 +319,7 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
                 records.append((source_id, nested_obj))
                 line = file.readline()
         return records
+
     def base_singer_record(source_id):
         """ returns a base singer record """
         singer_record = {
@@ -261,6 +330,7 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
             }
         }
         return singer_record
+
     def denest_list_schema(records):
         """ linearizes a set or list given its elements are any primitive types """
         properties = set()
@@ -270,12 +340,14 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
                 field_name = f"{table_name}__{elem_type}"
                 properties.add((field_name, elem_type))
         return {f: map_types(t) for f, t in properties}
+
     def denest_list_record(source_id, elem):
         """ linearizes a set or list given its elements are any primitive types """
         singer_record = base_singer_record(source_id)
         field_name = f"{table_name}__{type_str(elem)}"
         singer_record["record"][field_name] = elem
         return singer_record
+
     def denest_list_dict_schema(records):
         """ linearizes a list<dict> given its elements are any primitive types """
         properties = set()
@@ -286,6 +358,7 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
                     field_name = f"{key}__{val_type}"
                     properties.add((field_name, val_type))
         return {f: map_types(t) for f, t in properties}
+
     def denest_list_dict_record(source_id, elem):
         """ linearizes a list<dict> given its elements are any primitive types """
         singer_record = base_singer_record(source_id)
@@ -324,7 +397,7 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
     print(json.dumps(singer_schema))
 
     # records
-    for source_id, nested_obj  in records:
+    for source_id, nested_obj in records:
         for elem in nested_obj:
             if kind in ["set", "list"]:
                 singer_record = denest_list_record(source_id, elem)
@@ -332,6 +405,7 @@ def transform_nested_objects(table_name, kind): # pylint: disable=R0914, R0915
                 singer_record = denest_list_dict_record(source_id, elem)
             logs.log_json_obj(f"{table_name}.stdout", singer_record)
             print(json.dumps(singer_record))
+
 
 def std_structure(obj):
     """
@@ -362,6 +436,7 @@ def std_structure(obj):
     logs.log_conversions("        [" + new_structure + "]")
 
     return new_structure
+
 
 def std_date(date):
     """
@@ -394,6 +469,7 @@ def std_date(date):
 
     return new_date
 
+
 def std_number(number):
     """ returns a json schema compliant number """
     # log it
@@ -420,7 +496,7 @@ def std_number(number):
     # seems ok, lets try
     try:
         number = float(number)
-    except:
+    except ValueError:
         raise UnrecognizedNumber
 
     # log it
@@ -428,11 +504,14 @@ def std_number(number):
 
     return number
 
+
 class UnrecognizedNumber(Exception):
     """ Raised when tap didn't find a conversion """
 
+
 class UnrecognizedDate(Exception):
     """ Raised when tap didn't find a conversion """
+
 
 def main():
     """ usual entry point """
@@ -466,18 +545,18 @@ def main():
     # write_schema and write_records don't consume quota
     # table_list and discover_schema consumes negligible quota
     # write_queries consumes quota proportional to the table size
-    (dynamodb_client, dynamodb_resource) = create_access_point(auth_keys)
+    (db_client, db_resource) = get_connection(auth_keys)
 
     if args.discovery_mode:
-        table_list = get_all_tables(dynamodb_client)
+        table_list = list_tables(db_client)
 
         for table_name in table_list:
-            write_queries(dynamodb_resource, table_name)
+            write_queries(db_resource, table_name)
 
-        discover_schema(dynamodb_client, table_list)
+        discover_schema(db_client, table_list)
     else:
         for table_name, properties in conf_sett["tables"].items():
-            write_queries(dynamodb_resource, table_name)
+            write_queries(db_resource, table_name)
             try:
                 write_schema(table_name, properties)
                 special_fields = write_records(table_name, properties)
@@ -486,6 +565,7 @@ def main():
             # empty tables are not downloaded
             except FileNotFoundError:
                 pass
+
 
 if __name__ == "__main__":
     main()
