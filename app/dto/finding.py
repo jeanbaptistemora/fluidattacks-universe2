@@ -2,22 +2,22 @@
 # pylint: disable=E0402
 # Disabling this rule is necessary for importing modules beyond the top level
 # pylint: disable=relative-beyond-top-level
-import base64
 from datetime import datetime
+import base64
+import itertools
 import uuid
 
+from decimal import Decimal
+from django.conf import settings
+from operator import itemgetter
 import pytz
 import rollbar
-import itertools
-from operator import itemgetter
-from django.conf import settings
 
 from ..dao import integrates_dao
 from ..api.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
 from ..exceptions import InvalidRange
-from decimal import Decimal
 
 
 # pylint: disable=E0402
@@ -146,10 +146,22 @@ class FindingDTO(object):
             self.data['reportDate'] = report_date.get('report_date')
         else:
             self.data['reportDate'] = request_arr['timestamp']
-        self.data = forms.dict_concatenation(self.data, self.parse_description(request_arr, submission_id))
-        self.data = forms.dict_concatenation(self.data, self.parse_cvssv2(request_arr, submission_id))
-        self.data = forms.dict_concatenation(self.data, self.parse_project(request_arr, submission_id))
-        self.data = forms.dict_concatenation(self.data, self.parse_evidence_info(request_arr, submission_id))
+        self.data = \
+            forms.dict_concatenation(self.data,
+                                     self.parse_description(request_arr,
+                                                            submission_id))
+        self.data = \
+            forms.dict_concatenation(self.data,
+                                     self.parse_cvssv2(request_arr,
+                                                       submission_id))
+        self.data = \
+            forms.dict_concatenation(self.data,
+                                     self.parse_project(request_arr,
+                                                        submission_id))
+        self.data = \
+            forms.dict_concatenation(self.data,
+                                     self.parse_evidence_info(request_arr,
+                                                              submission_id))
         return self.data
 
     def parse_description(self, request_arr, submission_id): # noqa: C901
@@ -708,7 +720,7 @@ def get_ranges(numberlist):
     range_str = ','.join(as_range(g) for _, g in itertools.groupby(
         numberlist,
         key=lambda n,
-        c=itertools.count(): n-next(c))
+        c=itertools.count(): n - next(c))
     )
     return range_str
 
@@ -726,7 +738,8 @@ def total_vulnerabilities(finding_id):
             finding['closedVulnerabilities'] += 1
         else:
             util.cloudwatch_log_plain(
-                'Error: Vulnerability of finding {finding_id} does not have the right state'.format(finding_id=finding_id)
+                'Error: \
+Vulnerability of finding {finding_id} does not have the right state'.format(finding_id=finding_id)
             )
     return finding
 
@@ -775,7 +788,9 @@ def save_severity(finding):
                        'integrityRequirement', 'availabilityRequirement']
     severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                 for k in severity_fields}
-    response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, severity)
+    response = \
+        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+                                                      primary_keys, severity)
     return response
 
 
@@ -797,7 +812,9 @@ def migrate_description(finding):
                           'effectSolution', 'kb', 'findingType']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
-    response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
+    response = \
+        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+                                                      primary_keys, description)
     return response
 
 
@@ -808,7 +825,10 @@ def migrate_treatment(finding):
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     if description:
-        response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
+        response = \
+            integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+                                                          primary_keys,
+                                                          description)
     else:
         response = True
     return response
@@ -836,7 +856,10 @@ def migrate_report_date(finding):
     description_fields = ['reportDate']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
-    response = integrates_dao.add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
+    response = \
+        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+                                                      primary_keys,
+                                                      description)
     return response
 
 

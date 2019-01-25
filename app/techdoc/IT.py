@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with findings information. """
-
-from openpyxl import load_workbook
 import re
+from openpyxl import load_workbook
 
 
 class ITReport(object):
@@ -128,15 +127,6 @@ class ITReport(object):
         """Assign a numeric value to a cell with QC index."""
         self.current_sheet.cell(row=self.qc_row + inc, column=col).value = float(value)
 
-    def __get_complexity(self, complexity_access):
-        if complexity_access == 'Bajo':
-            return 'Baja'
-        elif complexity_access == 'Alto':
-            return 'Alta'
-        elif complexity_access == 'Medio':
-            return 'Media'
-        return complexity_access
-
     def __get_measure(self, metric, metric_value): # noqa
         """Extract number of CSSV2 metrics."""
         try:
@@ -229,7 +219,7 @@ class ITReport(object):
                       self.__get_measure('accessVector', row['accessVector']))
         self.set_cell(
             self.finding['measurements'],
-            self.__get_complexity(self.__get_measure(
+            get_complexity(self.__get_measure(
                 'accessComplexity', row['accessComplexity'])),
             1)
         self.set_cell(
@@ -295,3 +285,13 @@ class ITReport(object):
         self.result_filename = self.result_path
         self.result_filename += project + '_' + username + '.xlsx'
         self.workbook.save(self.result_filename)
+
+
+def get_complexity(complexity_access):
+    if complexity_access == 'Bajo':
+        return 'Baja'
+    elif complexity_access == 'Alto':
+        return 'Alta'
+    elif complexity_access == 'Medio':
+        return 'Media'
+    return complexity_access

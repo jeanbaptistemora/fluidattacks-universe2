@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
+import collections
 import hashlib
 import logging
 import logging.config
 import re
 import datetime
 import pytz
-import collections
 
 from magic import Magic
 from django.conf import settings
@@ -16,7 +16,7 @@ from django.core.cache import cache
 from jose import jwt, JWTError, ExpiredSignatureError
 
 logging.config.dictConfig(settings.LOGGING)
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def response(data, message, error):
@@ -60,8 +60,8 @@ def is_numeric(name):
 
 def ord_asc_by_criticidad(data):
     """ Sort the findings by criticality """
-    for i in range(0, len(data)-1):
-        for j in range(i+1, len(data)):
+    for i in range(0, len(data) - 1):
+        for j in range(i + 1, len(data)):
             firstc = float(data[i]["criticity"])
             seconc = float(data[j]["criticity"])
             if firstc < seconc:
@@ -73,9 +73,9 @@ def ord_asc_by_criticidad(data):
 
 def drive_url_filter(drive):
     """ Gets the ID of an image stored on Google Drive """
-    if(drive.find("id=") != -1):
+    if drive.find("id=") != -1:
         new_url = drive.split("id=")[1]
-        if(new_url.find("&") != -1):
+        if new_url.find("&") != -1:
             return new_url.split("&")[0]
     return drive
 
@@ -205,11 +205,11 @@ def cloudwatch_log(request, msg):
         elif parameter in request.GET.dict():
             info.append(request.GET.dict()[parameter])
     info.append(msg)
-    logger.info(":".join(info))
+    LOGGER.info(":".join(info))
 
 
 def cloudwatch_log_plain(msg):
-    logger.info(msg)
+    LOGGER.info(msg)
 
 
 def get_jwt_content(context):
@@ -228,12 +228,12 @@ Attempted to modify JWT. Invalid token signature')
 
 
 def list_s3_objects(client_s3, bucket_s3, key):
-    response = client_s3.list_objects_v2(
+    resp = client_s3.list_objects_v2(
         Bucket=bucket_s3,
         Prefix=key,
     )
     key_list = []
-    for obj in response.get('Contents', []):
+    for obj in resp.get('Contents', []):
         key_list.append(obj['Key'])
 
     return key_list
@@ -253,13 +253,13 @@ def list_to_dict(keys, values):
 
     if len(keys) < len(values):
         diff = len(values) - len(keys)
-        for x in range(diff):
-            del x
+        for i in range(diff):
+            del i
             keys.append("")
     elif len(keys) > len(values):
         diff = len(keys) - len(values)
-        for x in range(diff):
-            del x
+        for i in range(diff):
+            del i
             values.append("")
     else:
         # Each key has a value associated, so there's no need to empty-fill
@@ -277,8 +277,8 @@ def list_to_dict(keys, values):
 
 def camelcase_to_snakecase(str_value):
     """Convert a camelcase string to snackecase."""
-    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', str_value)
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+    my_str = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', str_value)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', my_str).lower()
 
 
 def snakecase_to_camelcase(str_value):
