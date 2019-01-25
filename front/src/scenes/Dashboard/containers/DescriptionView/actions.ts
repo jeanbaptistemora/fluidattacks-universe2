@@ -246,3 +246,52 @@ export const updateDescription: ThunkActionStructure<void> =
         });
     };
 
+export const updateTreatment: ThunkActionStructure<void> =
+  (findingId: string, values: IDescriptionViewProps["dataset"]): ThunkAction<void, {}, {}, IActionStructure> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+        updateTreatment(
+          btsUrl: ${JSON.stringify(values.btsUrl)},
+          findingId: "${findingId}",
+          treatment: "${values.treatment}",
+          treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
+        ) {
+          finding {
+            btsUrl
+            treatment
+            treatmentJustification
+          }
+          success
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred updating finding description")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+
+          if (data.updateTreatment.success) {
+            dispatch<IActionStructure>({
+              payload: {
+                descriptionData: data.updateTreatment.finding,
+              },
+              type: actionTypes.LOAD_DESCRIPTION,
+            });
+            msgSuccess(
+              translate.t("proj_alerts.updated"),
+              translate.t("proj_alerts.updated_title"),
+            );
+            dispatch<IActionStructure>(editDescription());
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
