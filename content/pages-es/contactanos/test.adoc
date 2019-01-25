@@ -1,0 +1,22 @@
+:slug: test/
+:description: En esta página presentamos nuestra información de contacto a través de la cual puedes obtener más detalles acerca de nuestros productos y servicios. Fluid Attacks es una compañía enfocada en Ethical Hacking con más de 18 años de experiencia prestando sus servicios en el mercado colombiano.
+:keywords: Fluid Attacks, Información, Contacto, Productos, Servicios, Seguridad
+
+= Form Test
+
+++++
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+
+<input type=hidden name="oid" value="00D1I000001dGP6">
+<input type=hidden name="retURL" value="http://">
+
+<label for="first_name">Nombre</label><input  id="first_name" maxlength="40" name="first_name" size="20" type="text" /><br>
+<label for="last_name">Apellidos</label><input  id="last_name" maxlength="80" name="last_name" size="20" type="text" /><br>
+<label for="email">Correo electrónico</label><input  id="email" maxlength="80" name="email" size="20" type="text" /><br>
+<label for="company">Compañía</label><input  id="company" maxlength="40" name="company" size="20" type="text" /><br>
+<label for="city">Ciudad</label><input  id="city" maxlength="40" name="city" size="20" type="text" /><br>
+<label for="phone">Teléfono</label><input  id="phone" maxlength="40" name="phone" size="20" type="text" /><br>
+<input type="submit" name="submit">
+</form>
+++++
