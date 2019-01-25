@@ -558,12 +558,12 @@ def get_drafts(request):
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
-        if finding['vulnerability'].lower() == 'masked':
-            util.cloudwatch_log(request, 'Warning: Project masked')
-            return util.response([], 'Project masked', True)
         if finding['projectName'].lower() == project.lower() and \
                 ('releaseDate' not in finding or
                     util.validate_future_releases(finding)):
+            if finding['vulnerability'].lower() == 'masked':
+                util.cloudwatch_log(request, 'Warning: Project masked')
+                return util.response([], 'Project masked', True)
             if finding.get("edad"):
                 finding["releaseStatus"] = "Si"
             else:
