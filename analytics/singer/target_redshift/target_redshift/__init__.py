@@ -1,6 +1,7 @@
 """Singer target for Amazon Redshift.
 
-Example:
+Examples:
+    $ target-redshift --help
     $ tap-anysingertap | target-redshift [params]
 
 Linters:
@@ -23,15 +24,16 @@ import time
 import argparse
 
 from datetime import datetime
-from typing import Iterable, Dict, List, Any
+from typing import Iterable, Dict, List, Tuple, Any
 
 import jsonschema
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
 
-
 # Type aliases that improve clarity
 JSON = Any
+PGCONN = Any
+PGCURR = Any
 
 
 def identity(obj: Any) -> Any:
@@ -53,7 +55,7 @@ def str_len(str_obj: str, encoding: str = "utf-8") -> int:
         str_obj: the string to compute its length.
 
     Returns:
-        The length in byes of the string.
+        The length in bytes of the string.
     """
     return len(str_obj.encode(encoding))
 
@@ -63,10 +65,10 @@ def stringify(iterable: Iterable[Any], do_group: bool = True) -> str:
 
     Args:
         iterable: The iterable to process.
-        do_group: True if you want to enclose elements with parens.
+        do_group: True if you want to enclose elements with parentheses.
 
     Returns:
-        A string representation of the iterable
+        A string representation of the iterable.
 
     Examples:
         >>> iterable = tuple(1, 2, 3)
@@ -81,7 +83,7 @@ def stringify(iterable: Iterable[Any], do_group: bool = True) -> str:
     return ",".join(f"{x}" for x in iterable)
 
 
-def make_access_point(auth: Dict[str, str]):
+def make_access_point(auth: Dict[str, str]) -> Tuple[PGCONN, PGCURR]:
     """Returns a connection and a cursor to the database.
 
     It sets the connection to allow write operations.
@@ -94,7 +96,7 @@ def make_access_point(auth: Dict[str, str]):
         A tuple with a connection and a cursor to the database.
     """
 
-    dbcon = postgres.connect(
+    dbcon: PGCONN = postgres.connect(
         dbname=auth["dbname"],
         user=auth["user"],
         password=auth["password"],
@@ -105,12 +107,12 @@ def make_access_point(auth: Dict[str, str]):
     dbcon.set_session(readonly=False)
     dbcon.set_isolation_level(postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT)
 
-    dbcur = dbcon.cursor()
+    dbcur: PGCURR = dbcon.cursor()
 
     return (dbcon, dbcur)
 
 
-def drop_access_point(dbcon, dbcur) -> None:
+def drop_access_point(dbcon: PGCONN, dbcur: PGCURR) -> None:
     """Safely close the access point.
 
     Args:
@@ -296,16 +298,16 @@ class Batcher():
         Status information from time to time.
     """
 
-    def __init__(self, dbcon, dbcur, schema_name):
+    def __init__(self, dbcon: PGCONN, dbcur: PGCURR, schema_name: str) -> None:
         print(f"INFO: worker up at {datetime.utcnow()}.")
 
-        self.initt = time.time()
+        self.initt: float = time.time()
 
-        self.dbcon = dbcon
-        self.dbcur = dbcur
+        self.dbcon: PGCONN = dbcon
+        self.dbcur: PGCURR = dbcur
 
-        self.sname = schema_name
-        self.buckets = {}
+        self.sname: str = schema_name
+        self.buckets: Dict[str, Any] = {}
 
     def ex(self, statement: str, do_print: bool = False) -> None:
         """Executes a single statement.
@@ -359,7 +361,7 @@ class Batcher():
         self.buckets[table_name]["count"] += 1
         self.buckets[table_name]["size"] += row_size
 
-    def load(self, table_name, do_print=False):
+    def load(self, table_name: str, do_print: bool = False) -> None:
         """Loads a batch of queued rows to redshift.
 
         Args:
@@ -384,7 +386,7 @@ class Batcher():
         self.buckets[table_name]["count"] = 0
         self.buckets[table_name]["size"] = 0
 
-    def flush(self, do_print=False):
+    def flush(self, do_print: bool = False) -> None:
         """Loads to redshift the buckets that din't reach the optimal size.
 
         Args:
@@ -393,21 +395,33 @@ class Batcher():
         for table_name in self.buckets:
             self.load(table_name, do_print)
 
-    def __del__(self, *args):
+    def __del__(self, *args) -> None:
         print(f"INFO: worker down at {datetime.utcnow()}.")
         print(f"INFO: {time.time() - self.initt} seconds elapsed.")
 
 
-def drop_schema(batcher, schema_name):
-    """ drops the schema unless it doesn't exist """
+def drop_schema(batcher: Batcher, schema_name: str) -> None:
+    """Drop the schema unless it doesn't exist.
+
+    Args:
+        batcher: The query executor.
+        schema_name: The schema to operate over.
+    """
+
     try:
         batcher.ex(f"DROP SCHEMA \"{schema_name}\" CASCADE", True)
     except postgres.ProgrammingError:
         pass
 
 
-def drop_table(batcher, schema_name, table_name):
-    """ drops the table unless it doesn't exist """
+def drop_table(batcher: Batcher, schema_name: str, table_name: str) -> None:
+    """Drop the table in the schema unless any of them don't exist.
+
+    Args:
+        batcher: The query executor.
+        schema_name: The schema to operate over.
+        table_name: The table to operate over.
+    """
     try:
         statement = f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE"
         batcher.ex(statement, True)
@@ -415,8 +429,13 @@ def drop_table(batcher, schema_name, table_name):
         pass
 
 
-def create_schema(batcher, schema_name):
-    """ creates the schema unless it currently exist """
+def create_schema(batcher: Batcher, schema_name: str) -> None:
+    """Creates the schema unless it currently exist.
+
+    Args:
+        batcher: The query executor.
+        schema_name: The schema to operate over.
+    """
     try:
         batcher.ex(f"CREATE SCHEMA \"{schema_name}\"", True)
     except postgres.ProgrammingError:
@@ -425,10 +444,22 @@ def create_schema(batcher, schema_name):
 
 # pylint: disable=too-many-arguments
 def create_table(
-        batcher,
-        schema_name, table_name,
-        table_fields, table_types, table_pkeys):
-    """ creates a table on the schema unless it currently exists """
+        batcher: Batcher,
+        schema_name: str, table_name: str,
+        table_fields: Iterable[str],
+        table_types: Dict[str, str],
+        table_pkeys: Iterable[str]) -> None:
+    """Creates a table in the schema unless it currently exist.
+
+    If the table exists in the schema, it leave it unchanged.
+
+    Args:
+        batcher: The query executor.
+        schema_name: The schema to operate over.
+        table_fields: The table field names.
+        table_types: The table {field: type}.
+        table_pkeys: The table primary keys.
+    """
     path = f"\"{schema_name}\".\"{table_name}\""
     fields = ",".join([f"\"{n}\" {table_types[n]}" for n in table_fields])
 
@@ -442,50 +473,66 @@ def create_table(
         pass
 
 
-def rename_schema(batcher, from_name, to_name):
-    """ renames the schema unless
-            - from_name doesn't exist
-            - to_name schema already exists """
+def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
+    """Renames the schema.
+
+    It leaves the schema untouched if rename_from don't exist.
+    It leaves the schema untouched if rename_to currently exist.
+
+    If the table exists in the schema, it leave it unchanged.
+
+    Args:
+        batcher: The query executor.
+        rename_from: The schema you wish to rename.
+        rename_to: The schema you wish your schema to be renamed to.
+    """
     try:
-        statement = f"ALTER SCHEMA \"{from_name}\" RENAME TO \"{to_name}\""
+        statement = f"ALTER SCHEMA \"{rename_from}\" RENAME TO \"{rename_to}\""
         batcher.ex(statement, True)
     except postgres.ProgrammingError:
         pass
 
 
 # pylint: disable=too-many-locals
-def persist_messages(batcher, schema_name, messages):
-    """ persist messages received in stdin to Amazon Redshift """
-    schema = {}
-    ofields = {}
-    validator = {}
+def persist_messages(batcher: Batcher, schema_name: str) -> None:
+    """Persist messages received in stdin to Amazon Redshift.
+
+    Args:
+        batcher: The query executor.
+        schema_name: The schema to operate over.
+    """
+    schema: JSON = {}
+    fields: JSON = {}
+    validator: Any = {}
+
+    messages = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
 
     for message in messages:
-        json_obj = json.loads(message)
-        message_type = json_obj["type"]
+        json_obj: JSON = json.loads(message)
+        message_type: str = json_obj["type"]
         if message_type == "RECORD":
-            table_name = escape(json_obj["stream"].lower())
-            table_schema = schema[table_name]
-            table_ofields = ofields[table_name]
+            tname: str = escape(json_obj["stream"].lower())
+            tschema: JSON = schema[tname]
+            tfields: Iterable = fields[tname]
 
-            json_record = json_obj["record"]
+            json_record: JSON = json_obj["record"]
 
             try:
-                validator[table_name].validate(json_record)
+                validator[tname].validate(json_record)
             except jsonschema.exceptions.ValidationError as err:
                 print(f"WARN: record did not conform to schema")
                 print(err)
 
-            record = translate_record(table_schema, json_record)
+            record: Dict[str, str] = translate_record(tschema, json_record)
 
-            record_ov = []
-            for field in table_ofields:
+            record_ov: List[str] = []
+            for field in tfields:
                 try:
                     record_ov.append(record[field])
                 except KeyError:
                     record_ov.append("null")
 
-            batcher.queue(table_name, record_ov)
+            batcher.queue(tname, record_ov)
 
         elif message_type == "SCHEMA":
             tname = escape(json_obj["stream"].lower())
@@ -502,7 +549,7 @@ def persist_messages(batcher, schema_name, messages):
                 exit(1)
 
             schema[tname] = ttypes = translate_schema(tschema["properties"])
-            ofields[tname] = tfields = tuple(ttypes.keys())
+            fields[tname] = tfields = tuple(ttypes.keys())
 
             create_table(batcher, schema_name, tname, tfields, ttypes, tkeys)
 
@@ -510,20 +557,31 @@ def persist_messages(batcher, schema_name, messages):
 
 
 def main():
-    """ usual entry point """
+    """Persists a singer formatted stream to Amazon Redsfhit
 
-    print("\n  Singer target for Amazon Redshift\n")
-    print("Fluid Attacks, We hack your software.")
-    print("      https://fluidattacks.com/\n")
+    Examples:
+        $ target-redshift --help
+        $ tap-anysingertap | target-redshift [params]
+    """
+
+    greeting = (
+        "                                   ",
+        " Singer target for Amazon Redshift ",
+        "                                   ",
+        "            ___                    ",
+        "           | >>|> fluid            ",
+        "           |___|  attacks          ",
+        "                                   ",
+        "       We hack your software       ",
+        "                                   ",
+        "     https://fluidattacks.com/     ",
+        "                                   "
+    )
+    print(*greeting, sep="\n")
 
     # user interface
     parser = argparse.ArgumentParser(
-        description="""
-            Persists a singer formatted stream to Amazon Redsfhit
-
-            Use:
-                tap-anysingertap | target-redshift [params]
-        """)
+        description="Persists a singer formatted stream to Amazon Redsfhit")
     parser.add_argument(
         "-a", "--auth",
         required=True,
@@ -557,8 +615,6 @@ def main():
     backup_schema = f"{target_schema}_backup"
     loading_schema = f"{target_schema}_loading"
 
-    input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
-
     # pylint: disable=broad-except
     try:
         (dbcon, dbcur) = make_access_point(auth)
@@ -576,7 +632,7 @@ def main():
             #   MAKE loading_schema
             create_schema(batcher, loading_schema)
             #   LOAD loading_schema
-            persist_messages(batcher, loading_schema, input_messages)
+            persist_messages(batcher, loading_schema)
             #   DROP backup_schema IF EXISTS
             drop_schema(batcher, backup_schema)
             #   REN  target_schema TO backup_schema
@@ -591,7 +647,7 @@ def main():
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
             batcher = Batcher(dbcon, dbcur, target_schema)
-            persist_messages(batcher, target_schema, input_messages)
+            persist_messages(batcher, target_schema)
     finally:
         drop_access_point(dbcon, dbcur)
 
