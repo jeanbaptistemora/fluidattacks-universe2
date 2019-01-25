@@ -23,7 +23,7 @@ import time
 import argparse
 
 from datetime import datetime
-from typing import Iterable, Dict, Any
+from typing import Iterable, Dict, List, Any
 
 import jsonschema
 import psycopg2 as postgres
@@ -270,6 +270,134 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
     return new_record
 
 
+class Batcher():
+    """A class that wraps a Redshift query executor.
+
+    Args:
+        dbcon: The database connection.
+        dbcur: The database cursor.
+        schema_name: The schema to operate over.
+
+    Attributes:
+        initt: Class's instantiation timestamp.
+        dbcon: The database connection.
+        dbcur: The database cursor.
+        sname: Schema name over which the Class is operating.
+        buckets: An object that stores the queued statements.
+
+    Public methods:
+        ex: Executes a statement on the database.
+        queue: Queue a row to be loaded into a table.
+        load: Loads a batch of queued rows for a table.
+        flush: Loads batches queued for all tables.
+
+    Raises:
+        postgres.ProgrammingError: When a query was corrupted.
+        Status information from time to time.
+    """
+
+    def __init__(self, dbcon, dbcur, schema_name):
+        print(f"INFO: worker up at {datetime.utcnow()}.")
+
+        self.initt = time.time()
+
+        self.dbcon = dbcon
+        self.dbcur = dbcur
+
+        self.sname = schema_name
+        self.buckets = {}
+
+    def ex(self, statement: str, do_print: bool = False) -> None:
+        """Executes a single statement.
+
+        Args:
+            statement: Statement to be run.
+            do_print: True if you want to print the statement to stdout.
+
+        Raises:
+            postgres.ProgrammingError: When a query was corrupted.
+        """
+        if do_print:
+            print(f"EXEC: {statement}.")
+        self.dbcur.execute(statement)
+
+    def queue(self, table_name: str, values: List[str]) -> None:
+        """Queue rows in buckets before pushing them to redshift.
+
+        All values must come here as a string representation.
+            see translate_record().
+        Values are stored in a bucket as a list of rows.
+            a row is a string of its values separated by comma.
+        Buckets are automatically loaded when they reach the optimal size.
+
+        Args:
+            table_name: Table that owns the rows.
+            values: The row's values to be load.
+        """
+
+        # initialize the bucket
+        if table_name not in self.buckets:
+            self.buckets[table_name] = {
+                "rows": [],
+                "count": 0,
+                "size": 0
+            }
+
+        # turn a row into a string of values separated by comma
+        row = stringify(values, do_group=False)
+        row_size = str_len(row)
+
+        # a redshift statement must be less than 16MB, save 1KB for the header
+
+        # if we are to exceed the limit with the current row
+        if self.buckets[table_name]["size"] + row_size >= 15999000:
+            # load the queued rows to Redshift
+            self.load(table_name)
+
+        # queues the provided row in this function call
+        self.buckets[table_name]["rows"].append(row)
+        self.buckets[table_name]["count"] += 1
+        self.buckets[table_name]["size"] += row_size
+
+    def load(self, table_name, do_print=False):
+        """Loads a batch of queued rows to redshift.
+
+        Args:
+            table_name: Table that owns the rows.
+            do_print: True if you want to print the statement to stdout.
+        """
+
+        # take every comma separated string, and surround it with parenthesis
+        values = stringify(self.buckets[table_name]["rows"], do_group=True)
+
+        statement = f"""
+            INSERT INTO \"{self.sname}\".\"{table_name}\"
+            VALUES {values}"""
+        self.ex(statement, do_print)
+
+        count = self.buckets[table_name]["count"]
+        size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
+        print((f"INFO: {count} rows ({size} MB)"
+               f"loaded to Redshift/{self.sname}/{table_name}."))
+
+        self.buckets[table_name]["rows"] = []
+        self.buckets[table_name]["count"] = 0
+        self.buckets[table_name]["size"] = 0
+
+    def flush(self, do_print=False):
+        """Loads to redshift the buckets that din't reach the optimal size.
+
+        Args:
+            do_print: True if you want to print the statements to stdout.
+        """
+        for table_name in self.buckets:
+            self.load(table_name, do_print)
+
+    def __del__(self, *args):
+        print(f"INFO: worker down at {datetime.utcnow()}.")
+        print(f"INFO: {time.time() - self.initt} seconds elapsed.")
+
+
 def drop_schema(batcher, schema_name):
     """ drops the schema unless it doesn't exist """
     try:
@@ -323,77 +451,6 @@ def rename_schema(batcher, from_name, to_name):
         batcher.ex(statement, True)
     except postgres.ProgrammingError:
         pass
-
-
-# pylint: disable=too-many-instance-attributes
-class Batcher():
-    """A worker to grab requests from the same table and batch them to Redshift
-    """
-    def __init__(self, dbcon, dbcur, schema_name):
-        print(f"INFO: worker up at {datetime.utcnow()}.")
-
-        self.initt = time.time()
-
-        self.dbcon = dbcon
-        self.dbcur = dbcur
-
-        self.sname = schema_name
-        self.buckets = {}
-
-    def ex(self, statement, do_print=False):
-        """ executes a single statement """
-        if do_print:
-            print(f"EXEC: {statement}.")
-        self.dbcur.execute(statement)
-
-    def queue(self, table_name, values):
-        """ queue rows before pushing them in batch to Redshift """
-        if table_name not in self.buckets:
-            self.buckets[table_name] = {
-                "values": [],
-                "count": 0,
-                "size": 0
-            }
-
-        statement = stringify(values, do_group=False)
-        stmt_size = str_len(statement)
-
-        # a redshift statement must be less than 16MB, 1KB for the header
-        if self.buckets[table_name]["size"] + stmt_size >= 15999000:
-            self.load(table_name)
-
-        self.buckets[table_name]["values"].append(statement)
-        self.buckets[table_name]["count"] += 1
-        self.buckets[table_name]["size"] += stmt_size
-
-    def load(self, table_name, do_print=False):
-        """ loads a batch """
-
-        # take every comma separated string, and surround it with parenthesis
-        values = stringify(self.buckets[table_name]["values"], do_group=True)
-
-        statement = f"""
-            INSERT INTO \"{self.sname}\".\"{table_name}\"
-            VALUES {values}"""
-        self.ex(statement, do_print)
-
-        count = self.buckets[table_name]["count"]
-        size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
-        print((f"INFO: {count} rows ({size} MB)"
-               f"loaded to Redshift/{self.sname}/{table_name}."))
-
-        self.buckets[table_name]["values"] = []
-        self.buckets[table_name]["count"] = 0
-        self.buckets[table_name]["size"] = 0
-
-    def flush(self, do_print=False):
-        """ flush it at the end to push pending buckets """
-        for table_name in self.buckets:
-            self.load(table_name, do_print)
-
-    def __del__(self, *args):
-        print(f"INFO: worker down at {datetime.utcnow()}.")
-        print(f"INFO: {time.time() - self.initt} seconds elapsed.")
 
 
 # pylint: disable=too-many-locals
