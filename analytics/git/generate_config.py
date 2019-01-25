@@ -4,10 +4,17 @@ import os
 import json
 import shutil
 
-import yaml # pylint: disable=import-error
+from typing import Any
+
+import yaml
+
+
+# Type aliases that improve clarity
+JSON = Any
 
 SOURCE = "/git/fluidsignal/continuous"
 TARGET = "/git"
+
 
 def get_organization(yml_path):
     """ returns the -customer- tag in the config.yml """
@@ -15,7 +22,8 @@ def get_organization(yml_path):
     with open(yml_path, "r") as config_file:
         return yaml.load(config_file).get("customer", "__")
 
-BRANCHES = {}
+
+BRANCHES: JSON = {}
 with open(f"{TARGET}/../branches.json", "r") as file:
     BRANCHES = json.load(file)
 
@@ -30,13 +38,17 @@ NESTED = ("banistmo",)
 
 CONFIG = []
 for proj in os.listdir(TARGET):
-    if not proj in FLUID_PROJ and not proj in BRANCHES:
+    if proj not in FLUID_PROJ and proj not in BRANCHES:
         print(f"ERROR|no {proj} in BRANCHES|")
         continue
 
     project_path = f"{SOURCE}/subscriptions/{proj}"
 
+    subscription = proj.split("-")[0]
+    organization = "__"
+
     if any(subs in proj for subs in NESTED):
+        subscription = proj.split("-")[1]
         nested_proj = proj.replace("-", "/")
         project_path = f"{SOURCE}/subscriptions/{nested_proj}"
 
@@ -46,9 +58,6 @@ for proj in os.listdir(TARGET):
     if not os.path.exists(ymlconf_path):
         ymlconf_path = ""
 
-    subscription = proj.split("-")[0]
-    organization = "__"
-
     if proj in FLUID_PROJ:
         organization = "fluidattacks"
     elif ymlconf_path:
@@ -56,7 +65,7 @@ for proj in os.listdir(TARGET):
 
     proj_path = f"{TARGET}/{proj}"
     for repo in os.listdir(proj_path):
-        if not proj in FLUID_PROJ and not repo in BRANCHES[proj]:
+        if proj not in FLUID_PROJ and repo not in BRANCHES[proj]:
             print(f"ERROR|no {repo} in BRANCHES[{proj}]|")
             continue
 
@@ -68,7 +77,7 @@ for proj in os.listdir(TARGET):
 
         CONFIG.append(
             {
-                "organization":  organization,
+                "organization": organization,
                 "subscription": subscription,
                 "repository": repo,
                 "location": repo_path,
