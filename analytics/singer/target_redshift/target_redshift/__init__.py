@@ -25,10 +25,13 @@ import argparse
 from datetime import datetime
 from typing import Iterable, Dict, Any
 
-# pylint: disable=import-error
 import jsonschema
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
+
+
+# Type aliases that improve clarity
+JSON = Any
 
 
 def identity(obj: Any) -> Any:
@@ -118,12 +121,14 @@ def drop_access_point(dbcon, dbcur) -> None:
     dbcon.close()
 
 
-def escape(obj: Any) -> str:
+def escape(obj: str) -> str:
     """Escape characters from an string object.
 
-    It makes the object decay to an string, if not string.
+    It makes the object decay to an string, if not yet string.
     It removes null byte characters.
     It backslash the backslash, apostrophe, and quotation mark characters.
+
+    Which are known to make a Redshift statement fail.
 
     Args:
         str_obj: The string to escape.
@@ -132,49 +137,108 @@ def escape(obj: Any) -> str:
         A escaped string.
     """
 
+    # decay to string if not yet string
     str_obj = str(obj)
+
+    # remove null characters
     str_obj = re.sub("\x00", "", str_obj)
+
+    # backslash the backslash
     str_obj = str_obj.replace("\\", "\\\\")
 
+    # backslash the apostrophe and quotation mark
     for char in ("'", '"'):
         str_obj = re.sub(char, f"\\{char}", str_obj)
 
     return str_obj
 
 
-def translate_schema(singer_schema):
-    """ translate a singer schema to a redshift schema """
+def translate_schema(json_schema: JSON) -> Dict[str, str]:
+    """Translates a JSON schema into a Redshift schema.
 
-    # singer types
-    sbool = {"type": "boolean"}
-    sstring = {"type": "string"}
-    snumber = {"type": "number"}
-    sinteger = {"type": "integer"}
-    sdatetime = {"type": "string", "format": "date-time"}
+    Whenever the type is not supported, it is discarded.
 
-    def stor(stype):
-        """ singer type to redshift type """
+    Args:
+        json_schema: A JSON with the JSON schema.
+
+    Raises:
+        Warnings when the type is not supported.
+
+    Returns:
+        A JSON representing a Redshift schema.
+
+    Examples:
+        >>> json_schema = {"field": {"type": "string", "format": "date-time"}}
+        >>> translate_schema(json_schema)
+        {"field": "TIMESTAMP"}
+
+        >>> json_schema = {"fie'ld": {"type": "string", "format": "date-time"}}
+        >>> translate_schema(json_schema)
+        {"fie\'ld": "TIMESTAMP"}
+
+        >>> json_schema = {"other_field": {"type": "unknown_type"}}
+        >>> translate_schema(json_schema)
+        {}
+    """
+
+    def stor(stype: JSON) -> str:
+        """Translates a Singer data type into a Redshift data type.
+
+        Args:
+            json_schema: A dict with the json schema data type.
+
+        Returns:
+            A string representing a Redshift data type.
+        """
         rtype = ""
-        if stype == sbool:
+        stype_type = stype.get("type", "")
+        stype_format = stype.get("format", "")
+        if stype_type == "boolean":
             rtype = "BOOLEAN"
-        elif stype == sinteger:
+        elif stype_type == "integer":
             rtype = "INT8"
-        elif stype == snumber:
+        elif stype_type == "number":
             rtype = "FLOAT8"
-        elif stype == sstring:
-            rtype = "VARCHAR(256)"
-        elif stype == sdatetime:
+        elif stype_type == "string" and stype_format == "date-time":
             rtype = "TIMESTAMP"
+        elif stype_type == "string":
+            rtype = "VARCHAR(256)"
         else:
             print((f"WARN: Ignoring type {stype}, "
                    f"it's not supported by the target (yet)."))
         return rtype
 
-    return {escape(f): stor(st) for f, st in singer_schema.items() if stor(st)}
+    return {escape(f): stor(st) for f, st in json_schema.items() if stor(st)}
 
 
-def translate_record(schema, record):
-    """ translates a singer record to a redshift record """
+def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
+    """Translates a JSON record into a Redshift JSON.
+
+    Whenever the type is not supported, its value is discarded.
+    Whenever a field is provieded but it's not in the schema, it's discarded.
+
+    Args:
+        schema: A JSON with the JSON schema.
+        record: A JSON with the JSON record.
+
+    Raises:
+        Warnings when the type is not supported or extra fields are provided.
+
+    Returns:
+        A JSON representing a Redshift record compatible with the schema.
+
+    Examples:
+        >>> schema = {"field": {"type": "number"}}
+        >>> record = {"field": 2.48}
+        >>> translate_record(schema, record)
+        {"field": 2.48}
+
+        >>> schema = {"field": {"type": "number"}}
+        >>> record = {"extra_field": "example"}
+        >>> translate_record(schema, record)
+        WARN: Ignoring field extra_field, it's not in the streamed schema.
+        {}
+    """
 
     new_record = {}
     for user_field, user_value in record.items():
