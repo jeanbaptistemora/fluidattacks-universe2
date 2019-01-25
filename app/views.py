@@ -763,7 +763,7 @@ def format_release_date(finding):
 def get_evidence(request, project, findingid, fileid):
     username = request.session['username']
     role = request.session['role']
-    if (not has_access_to_finding(username, findingid, role) or
+    if (not has_access_to_finding(username, findingid, role) and
             not has_access_to_event(username, findingid, role)):
         util.cloudwatch_log(request,
                             'Security: \
