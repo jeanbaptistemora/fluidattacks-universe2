@@ -9,11 +9,27 @@
 <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
 <input type=hidden name="oid" value="00D1I000001dGP6">
 <input type=hidden name="retURL" value="https://fluidattacks.com/web/es/blog/">
-<label for="first_name">Nombre</label><input  id="first_name" maxlength="40" name="first_name" size="20" type="text" /><br>
-<label for="last_name">Apellidos</label><input  id="last_name" maxlength="80" name="last_name" size="20" type="text" /><br>
-<label for="mobile">Móvil</label><input  id="mobile" maxlength="40" name="mobile" size="20" type="text" /><br>
-<label for="email">Correo electrónico</label><input  id="email" maxlength="80" name="email" size="20" type="text" /><br>
-<label for="country">País</label><input  id="country" maxlength="40" name="country" size="20" type="text" /><br>
+<label for="first_name">Nombre</label><input required="required" id="first_name" maxlength="40" name="first_name" size="20" type="text" /><br>
+<label for="last_name">Apellidos</label><input required="required" id="last_name" maxlength="80" name="last_name" size="20" type="text" /><br>
+<label for="mobile">Móvil</label><input  id="mobile" required="required" maxlength="40" name="mobile" size="20" type="text" /><br>
+<label for="email">Correo electrónico</label><input  required="required" id="email" maxlength="80" name="email" size="20" type="text" /><br>
+<label for="country">País</label><input required="required" id="country" maxlength="40" name="country" size="20" type="text" /><br>
 <input type="submit" name="submit">
+<script type="text/javascript">
+$(document).ready(function(e){
+ $('#btnSubmit').click(function(){
+ var email = $('#email').val();
+ var reg = /^([\w-\.]+@(?!gmail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!abc.com)(?!xyz.com)(?!pqr.com)(?!rediffmail.com)(?!live.com)(?!outlook.com)(?!me.com)(?!msn.com)(?!ymail.com)([\w-]+\.)+[\w-]{2,4})?$/;
+  if (reg.test(email)){
+ return 0;
+ }
+ else{
+ alert('Por favor ingrese un correo corporativo');
+ return false;
+ }
+ });
+});
+</script>
+
 </form>
 ++++
