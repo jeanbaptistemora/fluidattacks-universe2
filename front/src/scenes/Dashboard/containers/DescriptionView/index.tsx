@@ -10,9 +10,12 @@ export interface IDescriptionViewProps {
     description: string;
     recommendation: string;
     releaseDate: string;
+    remediated: boolean;
     reportLevel: string;
     requirements: string;
     scenario: string;
+    state: string;
+    subscription: string;
     threat: string;
     title: string;
     treatment: string;
@@ -23,6 +26,7 @@ export interface IDescriptionViewProps {
   isEditing: boolean;
   isMdlConfirmOpen: boolean;
   isRemediationOpen: boolean;
+  projectName: string;
   userRole: string;
 }
 

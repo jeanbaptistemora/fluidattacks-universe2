@@ -64,7 +64,7 @@ const renderCols: ((cols: FormCols) => JSX.Element) = (cols: FormCols): JSX.Elem
     <Row className={style.row}>
       {visibleCols.map((field: IEditableField): JSX.Element => renderField(field, cols.length))}
     </Row>
-  )
+  );
 };
 
 const renderForm: ((props: formProps) => JSX.Element) = (props: formProps): JSX.Element => (

@@ -1,5 +1,10 @@
+import { AxiosError, AxiosResponse } from "axios";
 import { Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
+import translate from "../../../../utils/translations/translate";
+import Xhr from "../../../../utils/xhr";
 import * as actionTypes from "./actionTypes";
 export interface IActionStructure {
   /* tslint:disable-next-line:no-any
@@ -46,4 +51,56 @@ export const closeConfirmMdl: (() => IActionStructure) =
     payload: undefined,
     type: actionTypes.CLOSE_CONFIRM_MDL,
   });
+
+export const loadDescription: ThunkActionStructure<void> =
+  (findingId: string, projectName: string): ThunkAction<void, {}, {}, IActionStructure> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `{
+        project(projectName: "${projectName}") {
+          subscription
+        }
+        finding(identifier: "${findingId}") {
+          reportLevel
+          title
+          scenario
+          actor
+          description
+          requirements
+          attackVector
+          threat
+          recommendation
+          releaseDate
+          remediated
+          state
+          affectedSystems
+          compromisedAttributes
+          compromisedRecords
+          cweUrl
+          btsUrl
+          treatment
+          treatmentManager
+          treatmentJustification
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred getting finding description")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          dispatch<IActionStructure>({
+            payload: {
+              descriptionData: { ...data.finding, ...data.project },
+            },
+            type: actionTypes.LOAD_DESCRIPTION,
+          });
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
 
