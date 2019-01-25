@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { msgError } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
@@ -93,6 +93,43 @@ export const loadDescription: ThunkActionStructure<void> =
             },
             type: actionTypes.LOAD_DESCRIPTION,
           });
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const requestVerification: ThunkActionStructure<void> =
+  (findingId: string, justification: string): ThunkAction<void, {}, {}, IActionStructure> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+        requestVerification(
+          findingId: "${findingId}",
+          justification: ${JSON.stringify(justification)}
+        ) {
+          success
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred requesting verification")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.requestVerification.success) {
+            dispatch<IActionStructure>(closeRemediationMdl());
+            msgSuccess(
+              translate.t("proj_alerts.verified_success"),
+              translate.t("proj_alerts.updated_title"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred verifying finding");
+          }
         })
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {
