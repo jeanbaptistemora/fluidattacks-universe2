@@ -28,9 +28,9 @@ spec:
         readinessProbe:
           exec:
             command:
-              - /bin/sh
-              - -c
-              - grep 'AH00113' /var/log/apache2/error.log
+              - sh
+              - -ce
+              - "curl -sIS --insecure https://localhost/web | grep 'AmazonS3'"
           initialDelaySeconds: 15
           periodSeconds: 5
           successThreshold: 2

@@ -33,7 +33,8 @@ function deploy_application() {
   local namespace="$(grep -m1 -Po '(?<=namespace: ).*' ${manifest})"
   replace_env_variables "${manifest}"
   kubectl apply -f "${manifest}"
-  kubectl rollout status "${resource}/${name}" -w -n "${namespace}"
+  kubectl rollout status "${resource}/${name}" -n "${namespace}" --timeout=5m ||
+    { kubectl rollout undo "${resource}/${name}" -n "${namespace}" && exit 1; }
 }
 
 function find_resource() {

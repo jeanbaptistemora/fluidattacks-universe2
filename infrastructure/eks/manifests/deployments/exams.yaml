@@ -26,6 +26,16 @@ spec:
             value: "$DATE"
         ports:
         - containerPort: 80
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -ce
+              - "curl -sLS http://localhost | grep 'FLUID Courses'"
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 3
+          failureThreshold: 10
       imagePullSecrets:
       - name: gitlab-reg
 ---
