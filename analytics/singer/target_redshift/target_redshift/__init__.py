@@ -573,7 +573,8 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
             create_table(
                 batcher, schema_name, tname,
                 fields[tname], schemas[tname], tkeys)
-
+        elif json_obj["type"] == "STATE":
+            LOGGER.info(json.dumps(json_obj, indent=2))
     batcher.flush()
 
 
