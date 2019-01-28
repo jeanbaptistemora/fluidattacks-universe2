@@ -286,125 +286,73 @@ def write_records__proccess(table_name, field, value, field_type):
     return new_value, special_field
 
 
-def transform_nested_objects(table_name, kind):
-    """
-        When this tap finds a nested object instead of a value:
+def denest(table_name, kind):
+    """Denest elements for table_name.
 
-            -------example_table-------
-              ColumnA   |   ColumnB
-                123     | {6, 2, "ejm"}
+    When this tap finds a nested object instead of a value:
 
-        Then it replaces the nested object in ColumnB with an identifier (type string)
-        It does so because relational databases like redshift don't support nested objects )
+        -------example_table-------
+            ColumnA   |   ColumnB
+              123     | {6, 2, "ejm"}
 
-            -------example_table-------
-              ColumnA   |   ColumnB
-                123     | id:A2BE3F42
+    Then it replaces the nested object in ColumnB with an identifier.
+    It's done because relational databases don't support nested objects.
 
-        And inserts a new table:
+        -------example_table-------
+            ColumnA   |   ColumnB
+              123     | id:A2BE3F42
 
-            ----example_table___ColumnB----
-               Source_ID    |     Values
-              id:A2BE3F42   |       6
-              id:A2BE3F42   |       2
-              id:A2BE3F42   |     "ejm"
+    And inserts a new table:
 
-        You can later do look ups by JOIN on Source_ID
+        ----example_table___ColumnB----
+             Source_ID    |     Values
+            id:A2BE3F42   |       6
+            id:A2BE3F42   |       2
+            id:A2BE3F42   |     "ejm"
+
+    You can later do look ups by JOIN on Source_ID.
     """
 
     # pylint: disable=too-many-locals, too-many-statements
 
-    def type_str(obj):
-        """ returns a string with the python type of an object """
-        if isinstance(obj, str) and is_date(obj):
-            return "datetime"
-        return type(obj).__name__
-
-    def is_date(date):
-        """ detects if a string can be converted to an RFC3339 date """
-        try:
-            std_date(date)
-            return True
-        except UnrecognizedDate:
-            pass
-        return False
-
-    def map_types(type_str):
-        map_types = {
-            "str": {"type": "string"},
-            "int": {"type": "number"},
-            "bool": {"type": "boolean"},
-            "float": {"type": "number"},
-            "datetime": {"type": "string", "format": "date-time"},
-        }
-        return map_types[type_str]
-
-    def load_records():
-        """ load records from file into memory """
-
-        records = []
-
-        # every line contains
-        #   { "source_id": identifier, "value": nested_obj }
-        #   where nested_obj is a string representing the object to denest
-
-        with open(f"{logs.DOMAIN}{table_name}.jsonstream", "r") as file:
-            line = file.readline()
-            while line:
-                json_obj = json.loads(line)
-                source_id = json_obj["source_id"]
-                nested_str = json_obj["value"]
-                nested_str = re.sub(r"Decimal\('(\d*\.?\d*)'\)", r"\g<1>", nested_str)
-                nested_obj = ast.literal_eval(nested_str)
-                records.append((source_id, nested_obj))
-                line = file.readline()
-        return records
-
-    def base_singer_record(source_id):
-        """ returns a base singer record """
-        singer_record = {
-            "type": "RECORD",
-            "stream": table_name,
-            "record": {
-                "__source_id": source_id
-            }
-        }
-        return singer_record
-
     def denest_list_schema(records):
-        """ linearizes a set or list given its elements are any primitive types """
+        """Linearizes a set or list given its elements are any primitive types.
+        """
         properties = set()
         for _, nested_obj in records:
             for elem in nested_obj:
-                elem_type = type_str(elem)
+                elem_type = type_as_string(elem)
                 field_name = f"{table_name}__{elem_type}"
                 properties.add((field_name, elem_type))
-        return {f: map_types(t) for f, t in properties}
+        return {f: map_type(t) for f, t in properties}
 
     def denest_list_record(source_id, elem):
-        """ linearizes a set or list given its elements are any primitive types """
-        singer_record = base_singer_record(source_id)
-        field_name = f"{table_name}__{type_str(elem)}"
+        """Linearizes a set or list given its elements are any primitive types.
+        """
+        singer_record = denest__base_singer_record(table_name, source_id)
+        field_name = f"{table_name}__{type_as_string(elem)}"
         singer_record["record"][field_name] = elem
         return singer_record
 
     def denest_list_dict_schema(records):
-        """ linearizes a list<dict> given its elements are any primitive types """
+        """Linearizes a list<dict> given its elements are any primitive types.
+        """
         properties = set()
         for _, nested_obj in records:
             for elem in nested_obj:
                 for key, val in elem.items():
-                    val_type = type_str(val)
+                    val_type = type_as_string(val)
                     field_name = f"{key}__{val_type}"
                     properties.add((field_name, val_type))
-        return {f: map_types(t) for f, t in properties}
+        return {f: map_type(t) for f, t in properties}
 
     def denest_list_dict_record(source_id, elem):
-        """ linearizes a list<dict> given its elements are any primitive types """
-        singer_record = base_singer_record(source_id)
+        """Linearizes a list<dict> given its elements are any primitive types.
+        """
+        singer_record = denest__base_singer_record(table_name, source_id)
         for key, val in elem.items():
-            val_type = type_str(val)
-            field_name = f"{key}__{type_str(val)}"
+            val_type = type_as_string(val)
+            field_name = f"{key}__{type_as_string(val)}"
             if val_type == "datetime":
                 try:
                     singer_record["record"][field_name] = std_date(val)
@@ -415,7 +363,7 @@ def transform_nested_objects(table_name, kind):
         return singer_record
 
     # variables
-    records = load_records()
+    records = denest__load_records(table_name)
 
     # schema
     singer_schema = {
@@ -432,7 +380,7 @@ def transform_nested_objects(table_name, kind):
     elif kind in ["list<dict>"]:
         singer_schema["schema"]["properties"] = denest_list_dict_schema(records)
 
-    singer_schema["schema"]["properties"]["__source_id"] = map_types("str")
+    singer_schema["schema"]["properties"]["__source_id"] = map_type("str")
     logs.log_json_obj(f"{table_name}.stdout", singer_schema)
     logs.stdout_json_obj(singer_schema)
 
@@ -445,6 +393,74 @@ def transform_nested_objects(table_name, kind):
                 singer_record = denest_list_dict_record(source_id, elem)
             logs.log_json_obj(f"{table_name}.stdout", singer_record)
             logs.stdout_json_obj(singer_record)
+
+
+def type_as_string(obj: Any) -> str:
+    """ returns a string with the python type of an object """
+    if isinstance(obj, str) and is_date(obj):
+        return "datetime"
+    return type(obj).__name__
+
+
+def is_date(date: Any) -> bool:
+    """Detects if an string can be casted to RFC3339.
+    """
+
+    try:
+        std_date(date)
+        return True
+    except UnrecognizedDate:
+        pass
+
+    return False
+
+
+def map_type(type_str):
+    """Map types.
+    """
+    map_types = {
+        "str": {"type": "string"},
+        "int": {"type": "number"},
+        "bool": {"type": "boolean"},
+        "float": {"type": "number"},
+        "datetime": {"type": "string", "format": "date-time"},
+    }
+    return map_types[type_str]
+
+
+def denest__load_records(table_name):
+    """ load records from file into memory """
+
+    records = []
+
+    # every line contains
+    #   { "source_id": identifier, "value": nested_obj }
+    #   where nested_obj is a string representing the object to denest
+
+    with open(f"{logs.DOMAIN}{table_name}.jsonstream", "r") as file:
+        line = file.readline()
+        while line:
+            json_obj = json.loads(line)
+            source_id = json_obj["source_id"]
+            nested_str = json_obj["value"]
+            nested_str = re.sub(
+                r"Decimal\('(\d*\.?\d*)'\)", r"\g<1>", nested_str)
+            nested_obj = ast.literal_eval(nested_str)
+            records.append((source_id, nested_obj))
+            line = file.readline()
+    return records
+
+
+def denest__base_singer_record(table_name, source_id):
+    """ returns a base singer record """
+    singer_record = {
+        "type": "RECORD",
+        "stream": table_name,
+        "record": {
+            "__source_id": source_id
+        }
+    }
+    return singer_record
 
 
 def std_date(date: Any) -> str:
@@ -600,7 +616,7 @@ def main():
                 write_schema(table_name, properties)
                 special_fields = write_records(table_name, properties)
                 for new_table_name, kind in special_fields:
-                    transform_nested_objects(new_table_name, kind)
+                    denest(new_table_name, kind)
             # empty tables are not downloaded
             except FileNotFoundError:
                 pass
