@@ -1,18 +1,15 @@
+"""Singer tap for the Formstack API.
 """
-Singer tap for Formstack
-"""
-
-## python3 -m pylint (default configuration)
-# Your code has been rated at 10.00/10
 
 import re
-import sys
 import json
 import argparse
+import urllib.error
 import urllib.request
 
+from typing import Dict, Any
+
 from . import logs
-from . import api_formstack as API
 
 # Long term goal:
 #     singer tap to crawl the formstack forms
@@ -31,52 +28,117 @@ from . import api_formstack as API
 #     write support for the State   input
 #     write support for the Catalog input
 
+# Type aliases that improve clarity
+JSON = Any
+
+
+API_URL = f"https://www.formstack.com/api/v2"
+
 _TYPE_STRING = {"type": "string"}
 _TYPE_NUMBER = {"type": "number"}
 _TYPE_DATE = {"type": "string", "format": "date-time"}
 
-def get_available_forms(user_token):
-    """ retrieve a dictionary with all pairs {form_name: form_id} """
-    params = {}
-    params["page"] = "0"
-    params["current_form"] = 0
-    available_forms = {}
 
-    while True:
-        params["page"] = str(int(params["page"])+1)
+class UnrecognizedString(Exception):
+    """Raised when tap didn't find a conversion.
+    """
+
+
+class UnrecognizedNumber(Exception):
+    """Raised when tap didn't find a conversion.
+    """
+
+
+class UnrecognizedDate(Exception):
+    """Raised when tap didn't find a conversion.
+    """
+
+
+def get_request_response(user_token: str, resource: str) -> JSON:
+    """Makes a request for a resource.
+
+    Returns:
+        A json object with the response.
+    """
+
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {user_token}"
+    }
+    request = urllib.request.Request(resource, headers=headers)
+    response = urllib.request.urlopen(request).read().decode('utf-8')
+    json_obj = json.loads(response)
+    return json_obj
+
+
+def get_page_of_forms(user_token: str, **kwargs: Any) -> JSON:
+    """Get a page of forms in the account.
+    """
+
+    page = kwargs["page"]
+    resource = f"{API_URL}/form.json?page={page}&per_page=100"
+    return get_request_response(user_token, resource)
+
+
+def get_form_submissions(user_token: str, form_id: str, **kwargs: Any) -> JSON:
+    """ get all submissions made for the specified form_id """
+
+    page = kwargs["page"]
+    resource = f"{API_URL}/form/{form_id}/submission.json?page={page}"
+    resource += "&min_time=0000-01-01&max_time=2100-12-31"
+    resource += "&expand_data=0"
+    resource += "&per_page=100"
+    resource += "&sort=DESC"
+    resource += "&data=0"
+    json_obj = get_request_response(user_token, resource)
+    return json_obj
+
+
+def get_available_forms(user_token: str) -> Dict[str, str]:
+    """Retrieves a dictionary with all pairs {form_name: form_id}.
+    """
+
+    page: int = 0
+    available_forms: Dict[str, str] = {}
+
+    while 1:
+        page += 1
 
         try:
-            json_obj = API.get_all_forms(user_token, params)
+            json_obj = get_page_of_forms(user_token, page=page)
         except urllib.error.HTTPError:
             break
 
         for form in json_obj["forms"]:
-            params["current_form"] += 1
             form_name_std = std_text(form["name"])
             available_forms[form_name_std] = form["id"]
 
     return available_forms
 
-def write_queries(user_token, form_name, form_id):
-    """ write queries needed for a given form so it can be fast accessed """
-    params = {}
-    params["page"] = "0"
-    params["current_form"] = 0
 
-    while True:
-        params["page"] = str(int(params["page"])+1)
+def write_queries(user_token: str, form_name: str, form_id: str) -> None:
+    """Write queries needed for a given form so it can be fast accessed.
+    """
+
+    page = 0
+    current_form = 0
+
+    while 1:
+        page += 1
 
         try:
-            json_obj = API.get_form_submissions(user_token, form_id, params)
+            json_obj = get_form_submissions(user_token, form_id, page=page)
         except urllib.error.HTTPError:
             break
 
-        if params["current_form"] >= json_obj["total"]:
+        if current_form >= json_obj["total"]:
             break
 
         for submissions in json_obj["submissions"]:
-            params["current_form"] += 1
+            current_form += 1
             logs.log_json_obj(form_name, submissions)
+
 
 def write_schema(form_name, stdout=True):
     """ write the SCHEMA message for a given form to stdout """
@@ -158,6 +220,7 @@ def write_schema(form_name, stdout=True):
         print(json.dumps(stdout_json_obj))
 
     return stdout_json_obj["schema"]["properties"]
+
 
 def write_records(form_name, schema_properties, stdout=True):
     """ write all the RECORD messages for a given form to stdout """
@@ -241,6 +304,7 @@ def write_records(form_name, schema_properties, stdout=True):
 
         line = file.readline()
 
+
 def std_text(text):
     """ returns a CDN compliant text """
 
@@ -272,6 +336,7 @@ def std_text(text):
     logs.log_conversions("     [" + new_text + "]")
 
     return new_text
+
 
 def std_date(date, default=None):
     """
@@ -337,6 +402,7 @@ def std_date(date, default=None):
 
     return new_date
 
+
 def std_number(number, default=None):
     """ returns a json schema compliant number """
     # log it
@@ -370,50 +436,6 @@ def std_number(number, default=None):
 
     return number
 
-# this is not part of the tap but can be used to list all date-time formats in your formstack
-# use this later to add transformation rules for date-time fields
-def scan_dates(user_token, form_name, form_id):
-    """ scan all the possible forms by date """
-
-    params = {}
-    params["page"] = "1"
-
-    try:
-        json_obj = API.get_form_submissions(user_token, form_id, params)
-    except urllib.error.HTTPError:
-        print("bad request")
-        return
-
-    for submissions in json_obj["submissions"]:
-        stdout_json_obj = {}
-        stdout_json_obj["form_name"] = form_name
-
-        form_data = submissions["data"]
-        for key_d in form_data:
-            kind = form_data[key_d]["type"]
-            name = form_data[key_d]["label"]
-            value = form_data[key_d]["value"]
-
-            if kind in ["datetime"]:
-                stdout_json_obj[name] = {}
-                stdout_json_obj[name]["raw"] = value
-                stdout_json_obj[name]["mod"] = std_date(value)
-
-        print(json.dumps(stdout_json_obj, indent=4))
-
-class UnrecognizedString(Exception):
-    """ Raised when tap didn't find a conversion """
-
-class UnrecognizedNumber(Exception):
-    """ Raised when tap didn't find a conversion """
-
-class UnrecognizedDate(Exception):
-    """ Raised when tap didn't find a conversion """
-
-def arguments_error(parser):
-    """ Print help and exit """
-    parser.print_help()
-    exit(1)
 
 def main():
     """ usual entry point """
@@ -422,29 +444,22 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-a', '--auth',
+        required=True,
         help='JSON authentication file',
         type=argparse.FileType('r'))
     parser.add_argument(
         '-c', '--conf',
+        required=True,
         help='JSON configuration file',
         type=argparse.FileType('r'))
     args = parser.parse_args()
 
-    if not args.auth:
-        arguments_error(parser)
-
-    formstack_token = json.load(args.auth).get("token")
-
-    if not formstack_token:
-        arguments_error(parser)
-
-    tap_conf = {}
-    if args.conf:
-        tap_conf = json.load(args.conf)
+    tap_conf = json.load(args.conf)
+    api_token = json.load(args.auth).get("token")
 
     # ==== Formstack  ==========================================================
     # get the available forms in the account
-    available_forms = get_available_forms(formstack_token)
+    available_forms = get_available_forms(api_token)
 
     # forms after merge
     real_forms = set()
@@ -453,10 +468,10 @@ def main():
         # first download, it won't download encrypted/archived forms
         if form_name in tap_conf.get("alias", []):
             alias = tap_conf["alias"].get(form_name)
-            write_queries(formstack_token, alias, form_id)
+            write_queries(api_token, alias, form_id)
             real_forms.add(alias)
         else:
-            write_queries(formstack_token, form_name, form_id)
+            write_queries(api_token, form_name, form_id)
             real_forms.add(form_name)
 
     for form_name in real_forms:
