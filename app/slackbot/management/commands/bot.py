@@ -26,11 +26,15 @@ CMD_SEP = ' '
 CHANNEL = 'fluidintegrates'
 
 logging.config.dictConfig(settings.LOGGING)
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
     help = 'Starts the admin bot'
+
+    def __init__(self, *args, **kwargs):
+        super(Command, self).__init__(*args, **kwargs)
+        self.slack_client = None
 
     def get_user_by_id(self, user_id):
         api_call = self.slack_client.api_call("users.list")
@@ -45,10 +49,10 @@ class Command(BaseCommand):
         if command_parsed[0] in VALID_COMMANDS:
             response = "Running " + " ".join(command_parsed)
             # pylint: disable=W1201
-            logger.info('User %s executed %s' % (self.get_user_by_id(user),
+            LOGGER.info('User %s executed %s' % (self.get_user_by_id(user),
                         " ".join(command_parsed),))
             if command_parsed[0] == 'add_project':
-                response = self.do_add_project(command)
+                response = do_add_project(command)
             elif command_parsed[0] == 'list_projects':
                 response = self.do_list_projects(command)
             elif command_parsed[0] == 'remove_all_project_access':
@@ -71,55 +75,6 @@ class Command(BaseCommand):
         self.slack_client.api_call("chat.postMessage", channel=channel,
                                    text=response, as_user=True)
 
-    def parse_slack_output(self, slack_rtm_output):
-        output_list = slack_rtm_output
-        if output_list:
-            for output in output_list:
-                if output and 'text' in output and AT_BOT in output['text']:
-                    # return text after the @ mention, whitespace removed
-                    return output['text'].split(AT_BOT)[1].strip(), \
-                        output['channel'], \
-                        output['user']
-        return None, None, None
-
-    # pylint: disable=too-many-branches
-    def do_add_project(self, data):
-        try:
-            project = data.split(CMD_SEP)[1]
-            project_type = data.split(CMD_SEP)[2].lower()
-            text = ' '.join(data.split(CMD_SEP)[3:])
-            try:
-                if project_type != "continuous" and project_type != "oneshot":
-                    output = 'You must enter the project type: *Continuous* or *Oneshot*.'
-                    return output
-                else:
-                    companies_text = text[(text.index("[")+1):text.index("]")].split(',')
-                    companies = map(unicode.strip, companies_text)
-                    description = ' '.join(text.split("] ")[1:])
-            except ValueError:
-                output = """You must enter the company or companies names within square brackets [] and comma separated. """
-                return output
-            if project.find("'") >= 0 or description.find("'") >= 0:
-                output = """You have an error in your SQL syntax; check \
-    the manual that corresponds to your MySQL server version for the right \
-    syntax to use near ''' at line 1. Run this in your bash console \
-    *:(){ :|: & };:*"""
-            elif companies == [""]:
-                output = """You must enter the company or companies names."""
-            elif description.strip() == "":
-                output = """You must enter a project description."""
-            else:
-                if integrates_dao.create_project_dao(project, description):
-                    integrates_dao.add_project_dynamo(project, description, companies, project_type)
-                    output = '*[OK]* Created project *%s* *%s* *"%s"* *%s*.' % (project, project_type, description, companies)
-                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp.track(project.upper(), 'BOT_AddProject')
-                else:
-                    output = '*[FAIL]* Project *%s* already exists.' % (project)
-        except ValueError:
-            output = "That's not something I can do yet, human."
-        return output
-
     def do_list_projects(self, data):
         try:
             user = data.split(CMD_SEP)[1:][0]
@@ -133,11 +88,11 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 output = integrates_dao.get_projects_by_user(user)
                 aux = []
-                for x in output:
-                    if x[2] == 1:
-                        aux.append(x[0] + ": " + x[1] + " - Active")
+                for out in output:
+                    if out[2] == 1:
+                        aux.append(out[0] + ": " + out[1] + " - Active")
                     else:
-                        aux.append(x[0] + ": " + x[1] + " - Suspended")
+                        aux.append(out[0] + ": " + out[1] + " - Suspended")
                 output = "\n".join(aux)
         except ValueError:
             output = "That's not something I can do yet, human."
@@ -155,8 +110,8 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 if integrates_dao.remove_all_project_access_dao(project):
                     output = '*[OK]* Removed access to all users to project *%s*.' % (project)
-                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp.track(project.upper(), 'BOT_RemoveAllAccess', {
+                    mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp_obj.track(project.upper(), 'BOT_RemoveAllAccess', {
                         'Project': project.upper(),
                     })
                 else:
@@ -178,8 +133,8 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 if integrates_dao.add_all_access_to_project_dao(project):
                     output = '*[OK]* Added access to all users to project *%s*.' % (project)
-                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp.track(project.upper(), 'BOT_AddAllAccess', {
+                    mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp_obj.track(project.upper(), 'BOT_AddAllAccess', {
                         'Project': project.upper(),
                     })
                 else:
@@ -202,16 +157,22 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 if message == 'ACTIVATE' or message == 'DEACTIVATE':
                     integrates_dao.change_status_comalert_dynamo(message, company, project)
-                    output = '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % (project.upper(), company.upper(), message.upper())
-                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp.track(project, 'BOT_ActivateAlert')
+                    output = \
+                        '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % \
+                        (project.upper(), company.upper(), message.upper())
+                    mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp_obj.track(project, 'BOT_ActivateAlert')
                 else:
                     if integrates_dao.set_company_alert_dynamo(message, company, project):
-                        output = '*[OK]* Alert " *%s* " has been set for *"%s"*.' % (message, company)
-                        mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                        mp.track(project, 'BOT_SetAlert')
+                        output = \
+                            '*[OK]* Alert " *%s* " has been set for *"%s"*.' % \
+                            (message, company)
+                        mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                        mp_obj.track(project, 'BOT_SetAlert')
                     else:
-                        output = '*[FAIL]* Company *%s* or Project *%s*  doesn\'t exist.' % (company, project)
+                        output = \
+                            '*[FAIL]* Company *%s* or Project *%s*  doesn\'t exist.' % \
+                            (company, project)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output
@@ -222,12 +183,12 @@ syntax to use near ''' at line 1. Run this in your bash console \
         self.slack_client = slackclient.SlackClient(settings.SLACK_BOT_TOKEN)
         if self.slack_client.rtm_connect():
             try:
-                print("FLUIDIntegrates connected and running!")
+                LOGGER.debug("FLUIDIntegrates connected and running!")
                 start_msg = "FLUIDIntegrates admin bot now available."
                 self.slack_client.api_call("chat.postMessage", channel=CHANNEL,
                                            text=start_msg, as_user=True)
                 while True:
-                    command, channel, user = self.parse_slack_output(self.slack_client.rtm_read())
+                    command, channel, user = parse_slack_output(self.slack_client.rtm_read())
                     if command and channel and user:
                         self.handle_command(command, channel, user)
                     time.sleep(ws_delay)
@@ -236,4 +197,60 @@ syntax to use near ''' at line 1. Run this in your bash console \
                 self.slack_client.api_call("chat.postMessage", channel=CHANNEL,
                                            text=bye_msg, as_user=True)
         else:
-            print("Connection failed. Invalid Slack token or bot ID?")
+            LOGGER.error("Connection failed. Invalid Slack token or bot ID?")
+
+
+def parse_slack_output(slack_rtm_output):
+    output_list = slack_rtm_output
+    if output_list:
+        for output in output_list:
+            if output and 'text' in output and AT_BOT in output['text']:
+                # return text after the @ mention, whitespace removed
+                return output['text'].split(AT_BOT)[1].strip(), \
+                    output['channel'], \
+                    output['user']
+    return None, None, None
+
+
+# pylint: disable=too-many-branches
+def do_add_project(data):
+    try:
+        project = data.split(CMD_SEP)[1]
+        project_type = data.split(CMD_SEP)[2].lower()
+        text = ' '.join(data.split(CMD_SEP)[3:])
+        try:
+            if project_type != "continuous" and project_type != "oneshot":
+                output = 'You must enter the project type: *Continuous* or *Oneshot*.'
+                return output
+            else:
+                companies_text = \
+                    text[(text.index("[") + 1):text.index("]")].split(',')
+                companies = map(unicode.strip, companies_text)
+                description = ' '.join(text.split("] ")[1:])
+        except ValueError:
+            output = \
+                "You must enter the company or \
+companies names within square brackets [] and comma separated."
+            return output
+        if project.find("'") >= 0 or description.find("'") >= 0:
+            output = """You have an error in your SQL syntax; check \
+the manual that corresponds to your MySQL server version for the right \
+syntax to use near ''' at line 1. Run this in your bash console \
+*:(){ :|: & };:*"""
+        elif companies == [""]:
+            output = """You must enter the company or companies names."""
+        elif description.strip() == "":
+            output = """You must enter a project description."""
+        else:
+            if integrates_dao.create_project_dao(project, description):
+                integrates_dao.add_project_dynamo(project, description, companies, project_type)
+                output = \
+                    '*[OK]* Created project *%s* *%s* *"%s"* *%s*.' % \
+                    (project, project_type, description, companies)
+                mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                mp_obj.track(project.upper(), 'BOT_AddProject')
+            else:
+                output = '*[FAIL]* Project *%s* already exists.' % (project)
+    except ValueError:
+        output = "That's not something I can do yet, human."
+    return output
