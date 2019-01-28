@@ -5,12 +5,9 @@ Examples:
     $ tap-anysingertap | target-redshift [params]
 
 Linters:
-    pylint:
+    prospector:
         Used always.
-        $ python3 -m pylint [path]
-    flake8:
-        Used always except where it contradicts pylint.
-        $ python3 -m flake8 [path]
+        $ prospector --strictness veryhigh [path]
     mypy:
         Used always.
         $ python3 -m mypy --ignore-missing-imports [path]
@@ -21,6 +18,7 @@ import re
 import sys
 import json
 import time
+import logging
 import argparse
 
 from datetime import datetime
@@ -34,6 +32,17 @@ import psycopg2.extensions as postgres_extensions
 JSON = Any
 PGCONN = Any
 PGCURR = Any
+JSON_VALIDATOR = Any
+
+# Get us a logger prepared to stdout
+LOGGER: Any = logging.getLogger("target_redshift")
+STDOUT: Any = logging.StreamHandler()
+LOGGER.setLevel(logging.INFO)
+STDOUT.setLevel(logging.INFO)
+LOGGER.addHandler(STDOUT)
+
+
+# pylint: disable = logging-fstring-interpolation
 
 
 def identity(obj: Any) -> Any:
@@ -206,8 +215,8 @@ def translate_schema(json_schema: JSON) -> Dict[str, str]:
         elif stype_type == "string":
             rtype = "VARCHAR(256)"
         else:
-            print((f"WARN: Ignoring type {stype}, "
-                   f"it's not supported by the target (yet)."))
+            LOGGER.warning((f"WARN: Ignoring type {stype}, "
+                            f"it's not supported by the target (yet)."))
         return rtype
 
     return {escape(f): stor(st) for f, st in json_schema.items() if stor(st)}
@@ -247,8 +256,8 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
         new_field = escape(user_field)
         new_value = ""
         if new_field not in schema:
-            print((f"WARN: Ignoring field {new_field}, "
-                   f"it's not in the streamed schema."))
+            LOGGER.warning((f"WARN: Ignoring field {new_field}, "
+                            f"it's not in the streamed schema."))
         elif user_value is not None:
             new_field_type = schema[new_field]
             if new_field_type == "BOOLEAN":
@@ -265,8 +274,8 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
             elif new_field_type == "TIMESTAMP":
                 new_value = f"'{escape(user_value)}'"
             else:
-                print((f"WARN: Ignoring type {new_field_type}, "
-                       f"it's not in the streamed schema."))
+                LOGGER.warning((f"WARN: Ignoring type {new_field_type}, "
+                                f"it's not in the streamed schema."))
 
             new_record[new_field] = new_value
     return new_record
@@ -299,7 +308,7 @@ class Batcher():
     """
 
     def __init__(self, dbcon: PGCONN, dbcur: PGCURR, schema_name: str) -> None:
-        print(f"INFO: worker up at {datetime.utcnow()}.")
+        LOGGER.info(f"INFO: worker up at {datetime.utcnow()}.")
 
         self.initt: float = time.time()
 
@@ -320,7 +329,7 @@ class Batcher():
             postgres.ProgrammingError: When a query was corrupted.
         """
         if do_print:
-            print(f"EXEC: {statement}.")
+            LOGGER.info(f"EXEC: {statement}.")
         self.dbcur.execute(statement)
 
     def queue(self, table_name: str, values: List[str]) -> None:
@@ -379,8 +388,8 @@ class Batcher():
 
         count = self.buckets[table_name]["count"]
         size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
-        print((f"INFO: {count} rows ({size} MB)"
-               f"loaded to Redshift/{self.sname}/{table_name}."))
+        LOGGER.info((f"INFO: {count} rows ({size} MB)"
+                     f"loaded to Redshift/{self.sname}/{table_name}."))
 
         self.buckets[table_name]["rows"] = []
         self.buckets[table_name]["count"] = 0
@@ -396,8 +405,8 @@ class Batcher():
             self.load(table_name, do_print)
 
     def __del__(self, *args) -> None:
-        print(f"INFO: worker down at {datetime.utcnow()}.")
-        print(f"INFO: {time.time() - self.initt} seconds elapsed.")
+        LOGGER.info(f"INFO: worker down at {datetime.utcnow()}.")
+        LOGGER.info(f"INFO: {time.time() - self.initt} seconds elapsed.")
 
 
 def drop_schema(batcher: Batcher, schema_name: str) -> None:
@@ -442,7 +451,6 @@ def create_schema(batcher: Batcher, schema_name: str) -> None:
         pass
 
 
-# pylint: disable=too-many-arguments
 def create_table(
         batcher: Batcher,
         schema_name: str, table_name: str,
@@ -460,6 +468,9 @@ def create_table(
         table_types: The table {field: type}.
         table_pkeys: The table primary keys.
     """
+
+    # pylint: disable=too-many-arguments
+
     path = f"\"{schema_name}\".\"{table_name}\""
     fields = ",".join([f"\"{n}\" {table_types[n]}" for n in table_fields])
 
@@ -493,7 +504,29 @@ def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
         pass
 
 
-# pylint: disable=too-many-locals
+def validate_schema(validator: JSON_VALIDATOR, schema: JSON) -> None:
+    """Prints the validation of a JSON by using the provided validator.
+    """
+
+    try:
+        validator.check_schema(schema)
+    except jsonschema.exceptions.SchemaError as err:
+        LOGGER.critical(f"ERROR: schema did not conform to draft 4.")
+        LOGGER.critical(err)
+        exit(1)
+
+
+def validate_record(validator: JSON_VALIDATOR, record: JSON) -> None:
+    """Prints the validation of a JSON by using the provided validator.
+    """
+
+    try:
+        validator.validate(record)
+    except jsonschema.exceptions.ValidationError as err:
+        LOGGER.warning(f"WARN: record did not conform to schema.")
+        LOGGER.warning(err)
+
+
 def persist_messages(batcher: Batcher, schema_name: str) -> None:
     """Persist messages received in stdin to Amazon Redshift.
 
@@ -501,27 +534,20 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
         batcher: The query executor.
         schema_name: The schema to operate over.
     """
-    schema: JSON = {}
+
     fields: JSON = {}
-    validator: Any = {}
+    schemas: JSON = {}
+    validators: Any = {}
 
-    messages = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
-
-    for message in messages:
+    for message in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
         json_obj: JSON = json.loads(message)
-        message_type: str = json_obj["type"]
-        if message_type == "RECORD":
+        if json_obj["type"] == "RECORD":
             tname: str = escape(json_obj["stream"].lower())
-            tschema: JSON = schema[tname]
+            tschema: JSON = schemas[tname]
             tfields: Iterable = fields[tname]
 
             json_record: JSON = json_obj["record"]
-
-            try:
-                validator[tname].validate(json_record)
-            except jsonschema.exceptions.ValidationError as err:
-                print(f"WARN: record did not conform to schema")
-                print(err)
+            validate_record(validators[tname], json_record)
 
             record: Dict[str, str] = translate_record(tschema, json_record)
 
@@ -533,35 +559,26 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
                     record_ov.append("null")
 
             batcher.queue(tname, record_ov)
-
-        elif message_type == "SCHEMA":
+        elif json_obj["type"] == "SCHEMA":
             tname = escape(json_obj["stream"].lower())
             tkeys = tuple(map(escape, json_obj["key_properties"]))
             tschema = json_obj["schema"]
 
-            validator[tname] = jsonschema.Draft4Validator(tschema)
+            validators[tname] = jsonschema.Draft4Validator(tschema)
+            validate_schema(validators[tname], tschema)
 
-            try:
-                validator[tname].check_schema(tschema)
-            except jsonschema.exceptions.SchemaError as err:
-                print(f"ERROR: schema did not conform to draft 4")
-                print(err)
-                exit(1)
+            schemas[tname] = translate_schema(tschema["properties"])
+            fields[tname] = tuple(schemas[tname].keys())
 
-            schema[tname] = ttypes = translate_schema(tschema["properties"])
-            fields[tname] = tfields = tuple(ttypes.keys())
-
-            create_table(batcher, schema_name, tname, tfields, ttypes, tkeys)
+            create_table(
+                batcher, schema_name, tname,
+                fields[tname], schemas[tname], tkeys)
 
     batcher.flush()
 
 
 def main():
-    """Persists a singer formatted stream to Amazon Redsfhit
-
-    Examples:
-        $ target-redshift --help
-        $ tap-anysingertap | target-redshift [params]
+    """Usual entry point.
     """
 
     greeting = (
@@ -577,7 +594,8 @@ def main():
         "     https://fluidattacks.com/     ",
         "                                   "
     )
-    print(*greeting, sep="\n")
+
+    LOGGER.info("\n".join(greeting))
 
     # user interface
     parser = argparse.ArgumentParser(
@@ -615,7 +633,6 @@ def main():
     backup_schema = f"{target_schema}_backup"
     loading_schema = f"{target_schema}_loading"
 
-    # pylint: disable=broad-except
     try:
         (dbcon, dbcur) = make_access_point(auth)
 
