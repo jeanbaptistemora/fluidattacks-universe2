@@ -31,14 +31,17 @@ both semantic and syntactic information about the code.
 Also, that one `ML` technique seems particularly promising,
 but hardly exploited, namely,
 link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[deep learning].
-Methods such as Recurrent Neural Networks (`RNN`),
-Convolutional Neural Networks (`CNN`), and Deep Belief Networks (`DBN`)
-have been succesful in image and natural language processing.
+Methods such as
+link:https://en.wikipedia.org/wiki/Recurrent_neural_network[Recurrent Neural Networks] (`RNN`),
+link:https://en.wikipedia.org/wiki/Convolutional_neural_network[Convolutional Neural Networks] (`CNN`),
+and link:https://en.wikipedia.org/wiki/Deep_belief_network[Deep Belief Networks] (`DBN`)
+have been succesful in image and natural language processing,
+but never applied to vulnerability discovery in a systematic fashion.
 
-The aim of the project `SySeVR` is thus to apply
-deep learning techniques to
+The aim of the project link:https://github.com/SySeVR/SySeVR[`SySeVR`]
+is to apply deep learning techniques to
 the discovery of sofware vulnerabilities in source code,
-considering not also the _form_ (syntax) which might induce a vulnerability,
+considering not only the _form_ (syntax) which might induce a vulnerability,
 but also the flow of data and control in the program.
 They also tried to produce results as finely granular as possible,
 i.e., tell us exactly at which line or function the flaw arises.
@@ -62,7 +65,7 @@ link:../pars-orationis-secura/#specifying-the-targets[concatenating user input],
 link:../stand-shoulders-giants/[importing flawed libraries], etc.
 Anything that a regular
 link:../replaced-machines/[static analysis tool]
-might look for, likely with false positives, though.
+might look for, but probably with false positives.
 They call these _Syntactic Vulnerability Candidates_ (`SyVC`).
 These can be either a single token (`malloc`)
 taken from the program's
@@ -71,7 +74,10 @@ or a set of tokens (`memset(dataBuffer...`) or
 a whole statement which involves one of
 the mentioned danger situations.
 
-In order to avoid those, the next logical step
+.Comparing image vs. code recognition
+image::comparison.png[Comparison of image vs code recognition]
+
+In order to avoid false positives, the next logical step
 is to use semantic information about the program,
 i.e. how data and control flows in it in order to expand
 our knowledge about what happens before and after
@@ -85,7 +91,7 @@ with a technique they call _program slicing_.
 Basically it means to take all nodes in the semantic graph representations
 that are reachable from the token of interest, the `SyVC`.
 In other words, all lines of code that are executed before and after
-this particular token and are somehow altered if its value were to change.
+this particular token or are somehow altered if its value were to change.
 They call this a "Semantic Vulnerability Candidate".
 Usually if the `SyVC` is a whole function,
 then the corresponding `SeVC` will include all functions called by it
@@ -105,31 +111,39 @@ representing that strings as a bag of words,
 a procedure we have already referred to in past articles.
 A fixed length must be chosen and vectors that don't fit
 must be padded or truncated,
-given that the used neural networks take
-vectors of a fixed length.
+since the chosen neural networks take
+vectors of a fixed length as input.
+Here is a depiction of the process for a particular piece of code:
+
+.Illustration of the process
+image::process.png[Illustration of the process]
 
 All that remains is to train and test the neural networks.
 One of the goals of `SySeVR` was
 to be able to work with different types of networks.
 Six (!) different types of networks were implemented in `Python`
-with the link:http://www.deeplearning.net/software/theano/[Theano]` library:
+with the link:http://www.deeplearning.net/software/theano/[Theano] library:
 `CNN`, `DBN`, and four types of `RNN`:
-(Bidirectional) Long-short term memory (`(B)LSTM`) and
-(Bidirectional) Gated Recurrent Unit (`(B)GRU`).
-They validated their results against a vulnerability dataset made up of
+(Bidirectional)
+link:https://en.wikipedia.org/wiki/Long_short-term_memory[Long-short term memory]
+(`(B)LSTM`) and
+(Bidirectional)
+link:https://en.wikipedia.org/wiki/Gated_recurrent_unit[Gated Recurrent Unit]
+(`(B)GRU`).
+They validated their results against a vulnerability dataset combining
 link:https://nvd.nist.gov/[`NVD`] and
 link:https://ws680.nist.gov/publication/get_pdf.cfm?pub_id=923127[`SARD],
 labeled either as vulnerable or not,
 ideally some with the corresponding diff and
 the vulnerability type.
 
-But which syntactic common places to look for?
+But which syntactic patterns to look for?
 Who will be the syntactic vulnerability candidates?
 For this, they used standard static detection tools
 such as link:https://www.checkmarx.com/[`Checkmarx`],
 link:https://dwheeler.com/flawfinder/[`Flawfinder`] and
 link:https://security.web.cern.ch/security/recommendations/en/codetools/rats.shtml[`RATS`].
-From these results, they focused on four main vulnerability types,
+From these results, they decided to focus on four main vulnerability types,
 out of the 126 different _kinds_ of vulnerabilities contained in the dataset:
 
 * Insecure `API` usage, v.g. `malloc` without `free`.
@@ -146,8 +160,8 @@ link:https://radimrehurek.com/gensim/models/word2vec.html[`word2vec`].
 
 The results of the experiment can be summarized as follows:
 
-* `Bidirectional gated recurrent unit` appears to be the best fit
-for this kind of problem, as long as the training data is good.
+* `BGRU` networks appear to be the best fit
+for vulnerability discovery, as long as the training data is good.
 In general the effectiveness of deep neural networks is a open research problem.
 
 * For any kind of neural network used, it is better to
@@ -176,9 +190,9 @@ to vulnerability discovery in source
 apparently does deliver the promised results.
 However as mentioned earlier,
 these are to be taken with a grain of salt,
-until the results are peer reviewed and
+until the results are peer-reviewed and
 cross-validated by the academic and security communities,
-or, at least, by link:../../[us].
+or, at least, by [button]#link:../../[us]#.
 
 
 == References
