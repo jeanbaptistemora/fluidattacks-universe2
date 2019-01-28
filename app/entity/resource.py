@@ -12,9 +12,10 @@ from .. import util
 from ..dao import integrates_dao
 from ..mailer import send_mail_repositories
 
+INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
+
 
 # pylint: disable=too-many-locals
-
 class Resource(ObjectType):
     """ GraphQL Entity for Project Resources """
     repositories = JSONString()
@@ -156,7 +157,7 @@ class RemoveRepositories(Mutation):
                     'action': 'Remove repositories',
                     'resources': email_data,
                     'project_url':
-                        'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                        INTEGRATES_URL + '#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
                 threading.Thread(name='Remove repositories email thread',
@@ -217,7 +218,7 @@ An error occurred adding environments', 'error', info.context)
                 'action': 'Add environments',
                 'resources': json_data,
                 'project_url':
-                    'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                    INTEGRATES_URL + '#!/project/{project!s}/resources'
                 .format(project=project_name)
             }
             email_send_thread = \

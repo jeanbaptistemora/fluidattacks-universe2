@@ -37,11 +37,11 @@ from app.domain.finding import (
 )
 from graphene.types.generic import GenericScalar
 
-client_s3 = boto3.client('s3',
+CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
                          aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
-bucket_s3 = FI_AWS_S3_BUCKET
+BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
 class Finding(ObjectType):
@@ -110,13 +110,16 @@ class Finding(ObjectType):
             vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
             if vulnerabilities:
                 self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
-                open_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == 'open']
+                open_vulnerabilities = \
+                    [i for i in self.vulnerabilities if i.current_state == 'open']
                 self.open_vulnerabilities = len(open_vulnerabilities)
-                closed_vulnerabilities = [i for i in self.vulnerabilities if i.current_state == 'closed']
+                closed_vulnerabilities = \
+                    [i for i in self.vulnerabilities if i.current_state == 'closed']
                 self.closed_vulnerabilities = len(closed_vulnerabilities)
                 self.success = True
             elif resp.get('vulnerabilities'):
-                is_file_valid = validate_formstack_file(resp.get('vulnerabilities'), finding_id, info)
+                is_file_valid = \
+                    validate_formstack_file(resp.get('vulnerabilities'), finding_id, info)
                 if is_file_valid:
                     vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
                     self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
@@ -125,7 +128,9 @@ class Finding(ObjectType):
                     self.success = False
                     self.error_message = 'Error in file'
             else:
-                vuln_info = {'finding_id': self.id, 'vuln_type': 'old', 'where': resp.get('where')}
+                vuln_info = \
+                    {'finding_id': self.id, 'vuln_type': 'old',
+                     'where': resp.get('where')}
                 self.vulnerabilities = [Vulnerability(vuln_info)]
                 self.success = True
 
@@ -146,12 +151,23 @@ class Finding(ObjectType):
 
             self.evidence = {
                 'animation': {'url': resp.get('animation', ''), 'description': ''},
-                'evidence1': {'url': resp.get('evidence_route_1', ''), 'description': resp.get('evidence_description_1', '')},
-                'evidence2': {'url': resp.get('evidence_route_2', ''), 'description': resp.get('evidence_description_2', '')},
-                'evidence3': {'url': resp.get('evidence_route_3', ''), 'description': resp.get('evidence_description_3', '')},
-                'evidence4': {'url': resp.get('evidence_route_4', ''), 'description': resp.get('evidence_description_4', '')},
-                'evidence5': {'url': resp.get('evidence_route_5', ''), 'description': resp.get('evidence_description_5', '')},
-                'exploitation': {'url': resp.get('exploitation', ''), 'description': ''},
+                'evidence1':
+                    {'url': resp.get('evidence_route_1', ''),
+                     'description': resp.get('evidence_description_1', '')},
+                'evidence2':
+                    {'url': resp.get('evidence_route_2', ''),
+                     'description': resp.get('evidence_description_2', '')},
+                'evidence3':
+                    {'url': resp.get('evidence_route_3', ''),
+                     'description': resp.get('evidence_description_3', '')},
+                'evidence4':
+                    {'url': resp.get('evidence_route_4', ''),
+                     'description': resp.get('evidence_description_4', '')},
+                'evidence5':
+                    {'url': resp.get('evidence_route_5', ''),
+                     'description': resp.get('evidence_description_5', '')},
+                'exploitation':
+                    {'url': resp.get('exploitation', ''), 'description': ''},
             }
             self.report_level = resp.get('reportLevel', '')
             self.title = resp.get('finding', '')
@@ -254,9 +270,12 @@ class Finding(ObjectType):
         del info
 
         formstack_records = self.records
-        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
+        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings',
+                                                         'finding_id', self.id)
         if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
-            file_info = list(filter(lambda evidence: evidence['name'] == 'fileRecords', dynamo_evidence[0].get('files')))
+            file_info = \
+                list(filter(lambda evidence: evidence['name'] == 'fileRecords',
+                            dynamo_evidence[0].get('files')))
             if file_info:
                 file_name = file_info[0]['file_url']
                 self.records = get_records_from_file(self, file_name)
@@ -281,10 +300,14 @@ class Finding(ObjectType):
         """
         del info
 
-        formstack_exploit = '' if self.exploit == '' else get_exploit_from_file(self, self.exploit)
-        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings', 'finding_id', self.id)
+        formstack_exploit = \
+            '' if self.exploit == '' else get_exploit_from_file(self, self.exploit)
+        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings',
+                                                         'finding_id', self.id)
         if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
-            file_info = list(filter(lambda evidence: evidence['name'] == 'exploit', dynamo_evidence[0].get('files')))
+            file_info = \
+                list(filter(lambda evidence: evidence['name'] == 'exploit',
+                            dynamo_evidence[0].get('files')))
             if file_info:
                 file_name = file_info[0]['file_url']
                 self.exploit = get_exploit_from_file(self, file_name)
@@ -305,7 +328,8 @@ class Finding(ObjectType):
 
         formstack_evidence = self.evidence
         dynamo_evidence = get_dynamo_evidence(self.id)
-        evidence_names = ['animation', 'evidence1', 'evidence2', 'evidence3', 'evidence4', 'evidence5', 'exploitation']
+        evidence_names = ['animation', 'evidence1', 'evidence2', 'evidence3',
+                          'evidence4', 'evidence5', 'exploitation']
         for evidence_name in evidence_names:
             dyn_url = dynamo_evidence[evidence_name]['url']
             fs_url = formstack_evidence[evidence_name]['url']
@@ -570,7 +594,7 @@ def get_records_from_file(self, file_name):
 
 def download_evidence_file(self, file_name):
     file_id = '/'.join([self.project_name.lower(), self.id, file_name])
-    is_s3_file = util.list_s3_objects(client_s3, bucket_s3, file_id)
+    is_s3_file = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_id)
 
     if is_s3_file:
         start = file_id.find(self.id) + len(self.id)
@@ -578,7 +602,7 @@ def download_evidence_file(self, file_name):
         ext = {'.py': '.tmp'}
         tmp_filepath = util.replace_all(localfile, ext)
 
-        client_s3.download_file(bucket_s3, file_id, tmp_filepath)
+        CLIENT_S3.download_file(BUCKET_S3, file_id, tmp_filepath)
         return tmp_filepath
     else:
         if not re.match('[a-zA-Z0-9_-]{20,}', file_name):
@@ -591,7 +615,8 @@ def download_evidence_file(self, file_name):
 
 
 def read_script(script_file):
-    if util.assert_file_mime(script_file, ['text/x-python', 'text/x-c', 'text/plain', 'text/html']):
+    if util.assert_file_mime(script_file, ['text/x-python', 'text/x-c',
+                                           'text/plain', 'text/html']):
         with open(script_file, 'r') as file_obj:
             return file_obj.read()
     else:
@@ -641,15 +666,21 @@ class UpdateEvidence(Mutation):
                                            'text/plain',
                                            'text/html']):
             if evidence_exceeds_size(uploaded_file, int(parameters.get('id'))):
-                util.cloudwatch_log(info.context, 'Security: Attempted to upload evidence file heavier than allowed')
+                util.cloudwatch_log(info.context,
+                                    'Security: \
+Attempted to upload evidence file heavier than allowed')
                 raise GraphQLError('File exceeds the size limits')
             else:
                 field_num = FindingDTO()
                 fieldname = [
-                    ['animation', field_num.ANIMATION], ['exploitation', field_num.EXPLOTATION],
-                    ['evidence_route_1', field_num.DOC_ACHV1], ['evidence_route_2', field_num.DOC_ACHV2],
-                    ['evidence_route_3', field_num.DOC_ACHV3], ['evidence_route_4', field_num.DOC_ACHV4],
-                    ['evidence_route_5', field_num.DOC_ACHV5], ['exploit', field_num.EXPLOIT],
+                    ['animation', field_num.ANIMATION],
+                    ['exploitation', field_num.EXPLOTATION],
+                    ['evidence_route_1', field_num.DOC_ACHV1],
+                    ['evidence_route_2', field_num.DOC_ACHV2],
+                    ['evidence_route_3', field_num.DOC_ACHV3],
+                    ['evidence_route_4', field_num.DOC_ACHV4],
+                    ['evidence_route_5', field_num.DOC_ACHV5],
+                    ['exploit', field_num.EXPLOIT],
                     ['fileRecords', field_num.REG_FILE]
                 ]
                 project_name = get_project_name(parameters.get('finding_id')).lower()
@@ -664,7 +695,9 @@ class UpdateEvidence(Mutation):
                                             fieldname[int(parameters.get('id'))][0],
                                             uploaded_file, file_id)
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to upload evidence file with a non-allowed format')
+            util.cloudwatch_log(info.context,
+                                'Security: \
+Attempted to upload evidence file with a non-allowed format')
             raise GraphQLError('Extension not allowed')
 
         ret = UpdateEvidence(success=success,
@@ -718,9 +751,13 @@ class UpdateEvidenceDescription(Mutation):
                 'description',
                 description)
         except KeyError:
-            rollbar.report_message('Error: An error occurred updating evidence description', 'error', info.context)
+            rollbar.report_message('Error: \
+An error occurred updating evidence description', 'error', info.context)
 
-        ret = UpdateEvidenceDescription(success=success, finding=Finding(info=info, identifier=finding_id))
+        ret = \
+            UpdateEvidenceDescription(success=success,
+                                      finding=Finding(info=info,
+                                                      identifier=finding_id))
         util.invalidate_cache(finding_id)
         return ret
 
@@ -744,7 +781,8 @@ def evidence_exceeds_size(uploaded_file, evidence_type):
     elif evidence_type == records:
         return uploaded_file.size > 1 * mib
     else:
-        util.cloudwatch_log_plain('Security: Attempted to upload an unknown type of evidence')
+        util.cloudwatch_log_plain('Security: \
+Attempted to upload an unknown type of evidence')
         raise Exception('Invalid evidence id')
 
 
@@ -891,7 +929,9 @@ class UpdateDescription(Mutation):
     def mutate(self, info, finding_id, **parameters):
         success = update_description(finding_id, parameters)
 
-        ret = UpdateDescription(success=success, finding=Finding(info=info, identifier=finding_id))
+        ret = \
+            UpdateDescription(success=success,
+                              finding=Finding(info=info, identifier=finding_id))
         project_name = get_project_name(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)

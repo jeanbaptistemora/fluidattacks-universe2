@@ -60,7 +60,7 @@ class Command(BaseCommand):
             elif command_parsed[0] == 'add_all_project_access':
                 response = do_add_all_project_access(command)
             elif command_parsed[0] == 'set_alert':
-                response = self.do_set_alert(command)
+                response = do_set_alert(command)
 
         else:
             response = "Not sure what you mean. Use the *" +\
@@ -74,39 +74,6 @@ class Command(BaseCommand):
             """
         self.slack_client.api_call("chat.postMessage", channel=channel,
                                    text=response, as_user=True)
-
-    def do_set_alert(self, data):
-        try:
-            company = data.split(CMD_SEP)[1]
-            project = data.split(CMD_SEP)[2]
-            message = ' '.join(data.split(CMD_SEP)[3:])
-            if project.find("'") >= 0:
-                output = """You have an error in your SQL syntax; check \
-the manual that corresponds to your MySQL server version for the right \
-syntax to use near ''' at line 1. Run this in your bash console \
-*:(){ :|: & };:*"""
-            else:
-                if message == 'ACTIVATE' or message == 'DEACTIVATE':
-                    integrates_dao.change_status_comalert_dynamo(message, company, project)
-                    output = \
-                        '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % \
-                        (project.upper(), company.upper(), message.upper())
-                    mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp_obj.track(project, 'BOT_ActivateAlert')
-                else:
-                    if integrates_dao.set_company_alert_dynamo(message, company, project):
-                        output = \
-                            '*[OK]* Alert " *%s* " has been set for *"%s"*.' % \
-                            (message, company)
-                        mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                        mp_obj.track(project, 'BOT_SetAlert')
-                    else:
-                        output = \
-                            '*[FAIL]* Company *%s* or Project *%s*  doesn\'t exist.' % \
-                            (company, project)
-        except ValueError:
-            output = "That's not something I can do yet, human."
-        return output
 
     # pylint: disable=W0613
     def handle(self, *args, **kwargs):
@@ -254,6 +221,40 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 output = '*[FAIL]* Failed to add access. Verify \
                 that the project *%s* is created.' % (project)
+    except ValueError:
+        output = "That's not something I can do yet, human."
+    return output
+
+
+def do_set_alert(data):
+    try:
+        company = data.split(CMD_SEP)[1]
+        project = data.split(CMD_SEP)[2]
+        message = ' '.join(data.split(CMD_SEP)[3:])
+        if project.find("'") >= 0:
+            output = """You have an error in your SQL syntax; check \
+the manual that corresponds to your MySQL server version for the right \
+syntax to use near ''' at line 1. Run this in your bash console \
+*:(){ :|: & };:*"""
+        else:
+            if message == 'ACTIVATE' or message == 'DEACTIVATE':
+                integrates_dao.change_status_comalert_dynamo(message, company, project)
+                output = \
+                    '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % \
+                    (project.upper(), company.upper(), message.upper())
+                mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                mp_obj.track(project, 'BOT_ActivateAlert')
+            else:
+                if integrates_dao.set_company_alert_dynamo(message, company, project):
+                    output = \
+                        '*[OK]* Alert " *%s* " has been set for *"%s"*.' % \
+                        (message, company)
+                    mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp_obj.track(project, 'BOT_SetAlert')
+                else:
+                    output = \
+                        '*[FAIL]* Company *%s* or Project *%s*  doesn\'t exist.' % \
+                        (company, project)
     except ValueError:
         output = "That's not something I can do yet, human."
     return output
