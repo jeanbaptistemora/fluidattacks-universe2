@@ -22,6 +22,7 @@ describe('Vulnerabilities view', () => {
       findingId="422286126"
       state="open"
       releaseDate=""
+      userRole="admin"
     />
   );
 

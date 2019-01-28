@@ -225,6 +225,7 @@
                                       edit-mode="!onlyReadableTab1"
                                       finding-id="finding.id"
                                       state="'open'"
+                                      user-role="userRole"
                                     />
                                   </div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc has-old-vulnerabilities" style="display: none;">
@@ -235,22 +236,6 @@
                                       <textarea msd-elastic class="form-control" rows="4" style="margin-bottom: 5px;"
                                                 ng-show="!onlyReadableTab1"
                                                 ng-model="finding.where">{{finding.where}}</textarea>
-                                  </div>
-                                  <div class="row table-row" ng-if="isManager && hasAccess">
-                                      <div class="col-md-offset-2 col-md-3 col-sm-12" ng-show="!onlyReadableTab1">
-                                          <a ng-href="{{vulnerabilitiesURL || ''}}" target="_blank" download>
-                                              <r-button bstyle="'btn-warning'" btitle="vulnTranslations['search_findings.tab_description.downloadVulnerabilities']"  bicon="'save'" on-click-button=""/>
-                                          </a>
-                                      </div>
-                                      <div class="col-md-4 col-sm-12">
-                                          <file-input id="'updatevulnerabilities'"
-                                                visible="!onlyReadableTab1"
-                                                icon="'search'"
-                                                type="'.yaml, .yml'"/>
-                                      </div>
-                                      <div class="col-md-3 col-sm-12" ng-show="!onlyReadableTab1">
-                                        <r-button bstyle="'btn-success'" btitle="vulnTranslations['search_findings.tab_description.updateVulnerabilities']"  bicon="'open'" on-click-button="uploadVulnerabilites"/>
-                                      </div>
                                   </div>
                               </div>
                               <div class="row table-row has-old-vulnerabilities" ng-show="!onlyReadableTab1">
@@ -412,6 +397,7 @@
                         closed-findings-content="finding.closed"
                         has-new-vulnerabilities="hasNewVulnerabilities"
                         finding-id="finding.id"
+                        user-role="userRole"
                       />
                     </div>
                   </div>

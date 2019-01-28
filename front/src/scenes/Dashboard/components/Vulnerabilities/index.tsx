@@ -12,6 +12,7 @@
 */
 import _ from "lodash";
 import React, { ComponentType } from "react";
+import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { DataAlignType } from "react-bootstrap-table";
 import {
   InferableComponentEnhancer,
@@ -24,7 +25,9 @@ import { IHeader } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
+import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
+import { fileInput as FileInput } from "../../components/FileInput/index";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
 
@@ -45,6 +48,7 @@ export interface IVulnerabilitiesViewProps {
   findingId: string;
   releaseDate: string;
   state: string;
+  userRole: string;
 }
 
 const filterState:
@@ -141,6 +145,40 @@ const groupSpecific: ((lines: IVulnerabilitiesViewProps["dataLines"]) => IVulner
 
     return specificGrouped;
 };
+
+const updateVulnerabilities: ((findingId: string) => void) = (findingId: string): void => {
+  if (isValidVulnsFile("#vulnerabilities")) {
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.updateVulnerabilities(findingId));
+  }
+};
+
+export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
+  (props: IVulnerabilitiesViewProps): JSX.Element => {
+    let baseUrl: string; baseUrl = `${window.location.href.split("/dashboard#!")[0]}`;
+
+    return (
+      <React.Fragment>
+        <Row>
+          <Col md={4} sm={12}>
+            <Button bsStyle="warning" href={`${baseUrl}/${props.findingId}/download_vulnerabilities`}>
+              <Glyphicon glyph="save" /> {translate.t("search_findings.tab_description.download_vulnerabilities")}
+            </Button>
+          </Col>
+          <Col md={5} sm={12}>
+            <FileInput fileName="" icon="search" id="vulnerabilities" type=".yaml, .yml" visible={true} />
+          </Col>
+          <Col md={3} sm={12}>
+            <Button bsStyle="success" onClick={(): void => { updateVulnerabilities(props.findingId); }}>
+              <Glyphicon glyph="open" /> {translate.t("search_findings.tab_description.update_vulnerabilities")}
+            </Button>
+          </Col>
+        </Row>
+      </React.Fragment>
+    );
+  };
 
 export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
@@ -284,6 +322,7 @@ export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
         </React.Fragment>
       : undefined
     }
+    {props.editMode && _.includes(["admin", "analyst"], props.userRole) ? renderButtonBar(props) : undefined}
   </React.StrictMode>
   );
 };

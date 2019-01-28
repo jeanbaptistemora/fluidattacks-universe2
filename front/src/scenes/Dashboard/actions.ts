@@ -119,3 +119,49 @@ export const deleteVulnerability: ThunkActionStructure =
       }
     });
 };
+
+export const updateVulnerabilities: ThunkActionStructure =
+  (findingId: string): ThunkAction<void, {}, {}, Action> => (_: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      uploadFile(findingId: "${findingId}") {
+        success
+      }
+    }`;
+    new Xhr().upload(gQry, "#vulnerabilities", "An error occurred updating vulnerabilities")
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+
+        if (data.uploadFile.success) {
+          msgSuccess(
+            translate.t("proj_alerts.file_updated"),
+            translate.t("proj_alerts.title_success"));
+          location.reload();
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+        }
+      })
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+
+          switch (errors[0].message) {
+            case "Exception - Error in range limit numbers":
+              msgError(translate.t("proj_alerts.range_error"));
+              break;
+            case "Exception - Invalid Schema":
+              msgError(translate.t("proj_alerts.invalid_schema"));
+              break;
+            case "Exception - Invalid File Size":
+              msgError(translate.t("proj_alerts.file_size_py"));
+              break;
+            case "Exception - Invalid File Type":
+              msgError(translate.t("proj_alerts.file_type_yaml"));
+              break;
+            default:
+              msgError(translate.t("proj_alerts.error_textsad"));
+              rollbar.error(error.message, errors);
+          }
+        }
+      });
+  };

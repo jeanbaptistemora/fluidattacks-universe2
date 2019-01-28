@@ -120,3 +120,26 @@ export const isFileSelected: ((arg1: string) => boolean) =
 
     return !(_.isNil(selected) || selected.length === 0);
 };
+
+export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string): boolean => {
+  const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
+  let valid: boolean; valid = false;
+
+  if (_.isNil(selected) || selected.length === 0) {
+    msgError(translate.t("proj_alerts.no_file_selected"));
+  } else {
+    const file: File = selected[0];
+    let MIB: number; MIB = 1048576;
+    const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
+
+    if (file.size > MIB * 1) {
+      msgError(translate.t("proj_alerts.file_size_py"));
+    } else if (!_.includes([".yml", ".yaml"], fileType)) {
+      msgError(translate.t("proj_alerts.file_type_yaml"));
+    } else {
+      valid = true;
+    }
+  }
+
+  return valid;
+};

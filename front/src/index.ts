@@ -198,6 +198,7 @@ angular
         "closedFindingsContent",
         "hasNewVulnerabilities",
         "findingId",
+        "userRole",
       ],
     ),
   );
@@ -336,6 +337,7 @@ angular
         "editMode",
         "findingId",
         "state",
+        "userRole",
      ],
    ),
   );

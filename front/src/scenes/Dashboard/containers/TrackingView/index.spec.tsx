@@ -33,6 +33,7 @@ describe('Tracking view', () => {
         closings={testClosings}
         findingId="422286126"
         hasNewVulnerabilities={false}
+        userRole="admin"
       />
     );
     expect(
@@ -77,6 +78,7 @@ describe('Tracking view', () => {
         closings={testClosings}
         findingId="422286126"
         hasNewVulnerabilities={true}
+        userRole="admin"
       />
     );
     expect(

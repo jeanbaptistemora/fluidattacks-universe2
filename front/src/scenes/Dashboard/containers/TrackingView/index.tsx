@@ -27,6 +27,7 @@ export interface ITrackingViewProps {
   findingId: string;
   hasNewVulnerabilities: boolean;
   openFindingsContent?: string;
+  userRole: string;
 }
 
 interface IClosing {
@@ -86,6 +87,7 @@ export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps>
                         findingId={props.findingId}
                         state={"open"}
                         releaseDate={""}
+                        userRole={props.userRole}
                       />
                     </Col>
                   </Row>
@@ -107,6 +109,7 @@ export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps>
                         findingId={props.findingId}
                         state={"closed"}
                         releaseDate={""}
+                        userRole={props.userRole}
                       />
                     </Col>
                   </Row>

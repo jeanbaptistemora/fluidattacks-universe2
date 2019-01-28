@@ -153,6 +153,7 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
           editMode={props.isEditing && _.includes(["admin", "analyst"], props.userRole)}
           findingId={props.findingId}
           state="open"
+          userRole={props.userRole}
         />),
       label: translate.t("search_findings.tab_description.where"),
       visible: true,
