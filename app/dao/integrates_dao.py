@@ -377,15 +377,13 @@ def get_vulns_by_project_dynamo(project_name):
     """ Gets findings info by project name. """
     table = DYNAMODB_RESOURCE.Table('FI_findings_email')
     filter_key = 'project_name'
-    if filter_key and project_name:
-        filtering_exp = Key(filter_key).eq(project_name)
-        response = table.query(KeyConditionExpression=filtering_exp)
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(project_name)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -397,14 +395,13 @@ def get_user_dynamo(email):
     """ Get legal notice acceptance status """
     table = DYNAMODB_RESOURCE.Table('FI_users')
     filter_key = 'email'
-    if filter_key and email:
-        response = table.query(KeyConditionExpression=Key(filter_key).eq(email))
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(email)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -487,16 +484,14 @@ def get_vulns_by_id_dynamo(project_name, unique_id):
     table = DYNAMODB_RESOURCE.Table('FI_findings_email')
     filter_key = 'project_name'
     filter_sort = 'unique_id'
-    if filter_key and project_name and filter_sort and unique_id:
-        response = table.query(KeyConditionExpression=Key(filter_key).
-                               eq(project_name) & Key(filter_sort).
-                               eq(unique_id))
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(project_name) & \
+        Key(filter_sort).eq(unique_id)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -566,22 +561,18 @@ def get_company_alert_dynamo(company_name, project_name):
     filter_key = 'company_name'
     filter_sort = 'project_name'
     if project_name == 'all':
-        if filter_key and company_name:
-            response = table.query(
-                KeyConditionExpression=Key(filter_key).eq(company_name))
-        else:
-            response = table.query()
+        filtering_exp = Key(filter_key).eq(company_name)
+        response = table.query(
+            KeyConditionExpression=filtering_exp)
     else:
-        if filter_key and company_name and filter_sort and project_name:
-            response = table.query(KeyConditionExpression=Key(filter_key).
-                                   eq(company_name) & Key(filter_sort).
-                                   eq(project_name))
-        else:
-            response = table.query()
+        filtering_exp = Key(filter_key).eq(company_name) & \
+            Key(filter_sort).eq(project_name)
+        response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -863,6 +854,7 @@ def get_project_comments_dynamo(project_name):
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.scan(
+                FilterExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -910,15 +902,13 @@ def get_remediated_dynamo(finding_id):
     """ Gets the remediated status of a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_remediated')
     filter_key = 'finding_id'
-    if filter_key and finding_id:
-        filtering_exp = Key(filter_key).eq(finding_id)
-        response = table.query(KeyConditionExpression=filtering_exp)
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(finding_id)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -967,16 +957,13 @@ def get_remediated_allfin_dynamo(filter_value):
     """ Gets the treatment of all the findings. """
     table = DYNAMODB_RESOURCE.Table('FI_remediated')
     filter_key = 'remediated'
-    if filter_key and filter_value:
-        filtering_exp = Key(filter_key).eq(filter_value)
-        response = table.scan(FilterExpression=filtering_exp)
-    else:
-        response = table.scan()
-
+    filtering_exp = Key(filter_key).eq(filter_value)
+    response = table.scan(FilterExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.scan(
+                FilterExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -989,15 +976,13 @@ def get_project_dynamo(project):
     filter_value = project.lower()
     table = DYNAMODB_RESOURCE.Table('FI_projects')
     filter_key = 'project_name'
-    if filter_key and filter_value:
-        filtering_exp = Key(filter_key).eq(filter_value)
-        response = table.query(KeyConditionExpression=filtering_exp)
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(filter_value)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -1142,15 +1127,13 @@ def get_toe_dynamo(project):
     """ Gets TOE of a proyect. """
     table = DYNAMODB_RESOURCE.Table('FI_toe')
     filter_key = 'project'
-    if filter_key and project:
-        filtering_exp = Key(filter_key).eq(project)
-        response = table.query(KeyConditionExpression=filtering_exp)
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(project)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -1183,15 +1166,13 @@ def get_continuous_info():
     """ Gets info of all continuous projects. """
     table = DYNAMODB_RESOURCE.Table('FI_toe')
     filter_key = 'last_update'
-    if filter_key:
-        filtering_exp = Key(filter_key).eq(str(datetime.now().date()))
-        response = table.scan(FilterExpression=filtering_exp)
-    else:
-        response = table.scan()
+    filtering_exp = Key(filter_key).eq(str(datetime.now().date()))
+    response = table.scan(FilterExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.scan(
+                FilterExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -1206,16 +1187,14 @@ def get_project_access_dynamo(user_email, project_name):
     table = DYNAMODB_RESOURCE.Table('FI_project_access')
     filter_key = 'user_email'
     filter_sort = 'project_name'
-    if user_email and project_name:
-        response = table.query(KeyConditionExpression=Key(filter_key).
-                               eq(user_email) & Key(filter_sort).
-                               eq(project_name))
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(user_email) & \
+        Key(filter_sort).eq(project_name)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -1298,15 +1277,13 @@ def get_data_dynamo(table_name, primary_name_key, primary_key):
     table = DYNAMODB_RESOURCE.Table(table_name)
     primary_key = primary_key.lower()
     filter_key = primary_name_key
-    if filter_key and primary_key:
-        filtering_exp = Key(filter_key).eq(primary_key)
-        response = table.query(KeyConditionExpression=filtering_exp)
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(primary_key)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -1474,14 +1451,13 @@ def get_vulnerabilities_dynamo(finding_id):
     """Get vulnerabilities of a finding."""
     table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
     filter_key = 'finding_id'
-    if filter_key and finding_id:
-        response = table.query(KeyConditionExpression=Key(filter_key).eq(finding_id))
-    else:
-        response = table.query()
+    filtering_exp = Key(filter_key).eq(finding_id)
+    response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -1510,8 +1486,15 @@ def get_vulnerability_dynamo(
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(
-                ExclusiveStartKey=response['LastEvaluatedKey'])
+            if filtering_exp:
+                response = table.query(
+                    KeyConditionExpression=key_exp,
+                    FilterExpression=filtering_exp,
+                    ExclusiveStartKey=response['LastEvaluatedKey'])
+            else:
+                response = table.query(
+                    KeyConditionExpression=key_exp,
+                    ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
@@ -1667,15 +1650,13 @@ def get_event_dynamo(event_id):
     """ Get an event. """
     table = DYNAMODB_RESOURCE.Table('fi_events')
     hash_key = 'event_id'
-    if hash_key and event_id:
-        key_exp = Key(hash_key).eq(event_id)
-        response = table.query(KeyConditionExpression=key_exp)
-    else:
-        response = table.query()
+    key_exp = Key(hash_key).eq(event_id)
+    response = table.query(KeyConditionExpression=key_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.query(
+                KeyConditionExpression=key_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
@@ -1761,7 +1742,7 @@ def get_findings_dynamo(project, data_attr=''):
 
 
 def get_events():
-    """Get all the events of a project."""
+    """Get all the events."""
     filter_key = 'event_id'
     table = DYNAMODB_RESOURCE.Table('fi_events')
     filtering_exp = Attr(filter_key).exists()
@@ -1770,6 +1751,7 @@ def get_events():
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.scan(
+                FilterExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
