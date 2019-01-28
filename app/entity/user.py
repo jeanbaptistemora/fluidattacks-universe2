@@ -1,3 +1,4 @@
+# pylint: disable=no-self-use
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
@@ -39,7 +40,8 @@ class User(ObjectType):
         if last_login == '1111-01-01 11:11:11' or last_login == '-':
             self.last_login = [-1, -1]
         else:
-            dates_difference = datetime.now()-datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
+            dates_difference = \
+                datetime.now() - datetime.strptime(last_login, '%Y-%m-%d %H:%M:%S')
             diff_last_login = [dates_difference.days, dates_difference.seconds]
             self.last_login = diff_last_login
 
@@ -128,11 +130,16 @@ class GrantUserAccess(Mutation):
             if create_new_user(info.context, new_user_data, project_name):
                 success = True
             else:
-                rollbar.report_message('Error: Couldn\'t grant access to project', 'error', info.context)
+                rollbar.report_message('Error: Couldn\'t grant access to project',
+                                       'error', info.context)
         else:
-            rollbar.report_message('Error: Invalid role provided: ' + new_user_data['role'], 'error', info.context)
+            rollbar.report_message('Error: Invalid role provided: ' +
+                                   new_user_data['role'], 'error', info.context)
 
-        ret = GrantUserAccess(success=success, granted_user=User(project_name, new_user_data['email']))
+        ret = \
+            GrantUserAccess(success=success,
+                            granted_user=User(project_name,
+                                              new_user_data['email']))
         util.invalidate_cache(project_name)
         util.invalidate_cache(query_args.get('email'))
         return ret
@@ -156,7 +163,9 @@ def create_new_user(context, new_user_data, project_name):
     elif integrates_dao.is_registered_dao(email) == '1':
         integrates_dao.assign_role(email, role)
     if responsibility and len(responsibility) <= 50:
-        integrates_dao.add_project_access_dynamo(email, project_name, 'responsibility', responsibility)
+        integrates_dao.add_project_access_dynamo(email, project_name,
+                                                 'responsibility',
+                                                 responsibility)
     else:
         util.cloudwatch_log(
             context,
@@ -167,12 +176,14 @@ def create_new_user(context, new_user_data, project_name):
         if phone_number[1:].isdigit():
             integrates_dao.add_phone_to_user_dynamo(email, phone_number)
     if role == 'customeradmin':
-        integrates_dao.add_user_to_project_dynamo(project_name.lower(), email.lower(), role)
+        integrates_dao.add_user_to_project_dynamo(project_name.lower(),
+                                                  email.lower(), role)
     if integrates_dao.add_access_to_project_dao(email, project_name):
         description = integrates_dao.get_project_description(project_name)
-        project_url = 'https://fluidattacks.com/integrates/dashboard#!/project/' \
-                      + project_name.lower() + '/indicators'
-        to = [email]
+        project_url = \
+            'https://fluidattacks.com/integrates/dashboard#!/project/' \
+            + project_name.lower() + '/indicators'
+        mail_to = [email]
         context = {
             'admin': context.session['username'],
             'project': project_name,
@@ -182,7 +193,7 @@ def create_new_user(context, new_user_data, project_name):
         email_send_thread = \
             threading.Thread(name='Access granted email thread',
                              target=send_mail_access_granted,
-                             args=(to, context,))
+                             args=(mail_to, context,))
         email_send_thread.start()
         success = True
     return success
@@ -205,9 +216,12 @@ class RemoveUserAccess(Mutation):
         del info
         success = False
 
-        integrates_dao.remove_role_to_project_dynamo(project_name, user_email, 'customeradmin')
-        is_user_removed_dao = integrates_dao.remove_access_project_dao(user_email, project_name)
-        is_user_removed_dynamo = integrates_dao.remove_project_access_dynamo(user_email, project_name)
+        integrates_dao.remove_role_to_project_dynamo(project_name, user_email,
+                                                     'customeradmin')
+        is_user_removed_dao = \
+            integrates_dao.remove_access_project_dao(user_email, project_name)
+        is_user_removed_dynamo = \
+            integrates_dao.remove_project_access_dynamo(user_email, project_name)
         success = is_user_removed_dao and is_user_removed_dynamo
         removed_email = user_email if success else None
 
@@ -247,18 +261,27 @@ class EditUser(Mutation):
         }
 
         if (info.context.session['role'] == 'admin'
-                and modified_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
+                and modified_user_data['role'] in ['admin', 'analyst',
+                                                   'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, info.context.session['username'])
                 and modified_user_data['role'] in ['customer', 'customeradmin']):
-            if integrates_dao.assign_role(modified_user_data['email'], modified_user_data['role']) is None:
-                modify_user_information(info.context, modified_user_data, project_name)
+            if integrates_dao.assign_role(modified_user_data['email'],
+                                          modified_user_data['role']) is None:
+                modify_user_information(info.context, modified_user_data,
+                                        project_name)
                 success = True
             else:
-                rollbar.report_message('Error: Couldn\'t update user role', 'error', info.context)
+                rollbar.report_message('Error: Couldn\'t update user role',
+                                       'error', info.context)
         else:
-            rollbar.report_message('Error: Invalid role provided: ' + modified_user_data['role'], 'error', info.context)
+            rollbar.report_message('Error: Invalid role provided: ' +
+                                   modified_user_data['role'], 'error',
+                                   info.context)
 
-        ret = EditUser(success=success, modified_user=User(project_name, modified_user_data['email']))
+        ret = \
+            EditUser(success=success,
+                     modified_user=User(project_name,
+                                        modified_user_data['email']))
         util.invalidate_cache(project_name)
         util.invalidate_cache(query_args.get('email'))
         return ret
@@ -272,7 +295,9 @@ def modify_user_information(context, modified_user_data, project_name):
     organization = modified_user_data['organization']
     integrates_dao.assign_company(email, organization.lower())
     if responsibility and len(responsibility) <= 50:
-        integrates_dao.add_project_access_dynamo(email, project_name, 'responsibility', responsibility)
+        integrates_dao.add_project_access_dynamo(email, project_name,
+                                                 'responsibility',
+                                                 responsibility)
     else:
         util.cloudwatch_log(
             context,
@@ -289,6 +314,7 @@ def modify_user_information(context, modified_user_data, project_name):
         )
 
     if role == 'customeradmin':
-        integrates_dao.add_user_to_project_dynamo(project_name.lower(), email.lower(), role)
+        integrates_dao.add_user_to_project_dynamo(project_name.lower(),
+                                                  email.lower(), role)
     elif is_customeradmin(project_name, email):
         integrates_dao.remove_role_to_project_dynamo(project_name, email, 'customeradmin')

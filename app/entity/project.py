@@ -1,23 +1,23 @@
 """ GraphQL Entity for Formstack Projects """
 # pylint: disable=F0401
 # pylint: disable=relative-beyond-top-level
+# pylint: disable=no-self-use
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 from __future__ import absolute_import
-import pytz
-import time
 from datetime import datetime, timedelta
-
+import time
+import pytz
 import jwt
+from app import util
+from app.decorators import require_role, require_login, require_project_access_gql
+from app.domain.project import add_comment
 from graphene import String, ObjectType, List, Int, Boolean, Mutation
 from graphene.types.generic import GenericScalar
 
 from __init__ import FI_ORGANIZATION_SECRET, FI_DASHBOARD, FI_ORGANIZATION
 from ..dao import integrates_dao
 from .finding import Finding
-from app import util
-from app.decorators import require_role, require_login, require_project_access_gql
-from app.domain.project import add_comment
 
 
 class Project(ObjectType):
@@ -99,7 +99,8 @@ class Project(ObjectType):
             comment_data = {
                 'content': comment['content'],
                 'created': comment['created'],
-                'created_by_current_user': comment['email'] == util.get_jwt_content(info.context)["user_email"],
+                'created_by_current_user':
+                    comment['email'] == util.get_jwt_content(info.context)["user_email"],
                 'email': comment['email'],
                 'fullname': comment['fullname'],
                 'id': int(comment['user_id']),
@@ -114,7 +115,9 @@ class Project(ObjectType):
         """ Resolve project tags """
         del info
 
-        project_data = integrates_dao.get_project_attributes_dynamo(project_name=self.name, data_attributes=['tag'])
+        project_data = \
+            integrates_dao.get_project_attributes_dynamo(project_name=self.name,
+                                                         data_attributes=['tag'])
         self.tags = project_data['tag'] if project_data and 'tag' in project_data else []
 
         return self.tags
@@ -158,7 +161,9 @@ class AddProjectComment(Mutation):
             'user_id': comment_id,
             'content': parameters.get('content'),
             'created': current_time,
-            'fullname': str.join(' ', [info.context.session['first_name'], info.context.session['last_name']]),
+            'fullname':
+                str.join(' ', [info.context.session['first_name'],
+                         info.context.session['last_name']]),
             'modified': current_time,
             'parent': int(parameters.get('parent'))
         }
