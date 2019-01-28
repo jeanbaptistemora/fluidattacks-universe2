@@ -7,7 +7,7 @@ import argparse
 import urllib.error
 import urllib.request
 
-from typing import Dict, Any
+from typing import Callable, Iterable, Dict, Any
 
 from . import logs
 
@@ -52,6 +52,22 @@ class UnrecognizedNumber(Exception):
 class UnrecognizedDate(Exception):
     """Raised when tap didn't find a conversion.
     """
+
+
+def iter_lines(file_name: str, function: Callable) -> Iterable[Any]:
+    """Yields function(line) on every line of a file.
+
+    Args:
+        file_name: The name of the file whose lines we are to iterate.
+        function: A function to apply to each line.
+
+    Yields:
+        function(line) on every line of the file with file_name.
+    """
+
+    with open(file_name, "r") as file:
+        for line in file:
+            yield function(line)
 
 
 def get_request_response(user_token: str, resource: str) -> JSON:
@@ -121,8 +137,8 @@ def write_queries(user_token: str, form_name: str, form_id: str) -> None:
     """Write queries needed for a given form so it can be fast accessed.
     """
 
-    page = 0
-    current_form = 0
+    page: int = 0
+    current_form: int = 0
 
     while 1:
         page += 1
@@ -140,36 +156,11 @@ def write_queries(user_token: str, form_name: str, form_id: str) -> None:
             logs.log_json_obj(form_name, submissions)
 
 
-def write_schema(form_name, stdout=True):
-    """ write the SCHEMA message for a given form to stdout """
+def write_schema(form_name: str):
+    """Write the SCHEMA message for a given form to stdout.
+    """
 
-    def assign_to_checkbox(json_obj, data):
-        """ handles the assignment of data to the json_obj """
-        name = data["label"]
-        value = data["value"]
-        if isinstance(value, str):
-            padded_name = "checkbox[" + name + "][" + value + "]"
-            stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
-        else:
-            for inner_name in value:
-                padded_name = "checkbox[" + name + "][" + inner_name + "]"
-                stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
-        return json_obj
-
-    def assign_to_matrix(json_obj, data):
-        """ handles the assignment of data to the json_obj """
-        name = data["label"]
-        value = data["value"]
-        if isinstance(value, str):
-            padded_name = "matrix[" + name + "][" + value + "]"
-            stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
-        else:
-            for inner_name in value:
-                padded_name = "matrix[" + name + "][" + inner_name + "]"
-                stdout_json_obj["schema"]["properties"][padded_name] = _TYPE_STRING
-        return json_obj
-
-    stdout_json_obj = {
+    schema: JSON = {
         "type": "SCHEMA",
         "stream": form_name,
         "key_properties": ["_form_unique_id"],
@@ -186,44 +177,66 @@ def write_schema(form_name, stdout=True):
         }
     }
 
-    file = open(logs.DOMAIN + form_name + ".json", "r")
-    line = file.readline()
-    while line:
-        submission = json.loads(line)
+    fields_type: JSON = {
+        "string": [
+            "text", "textarea", "name", "address", "email", "phone", "select",
+            "radio", "richtext", "embed", "creditcard", "file", "image"
+        ],
+        "number": [
+            "number"
+        ],
+        "date": [
+            "datetime"
+        ],
+        "nested": [
+            "matrix", "checkbox"
+        ]
+    }
 
+    file_name = f"{logs.DOMAIN}{form_name}.jsonstream"
+    for submission in iter_lines(file_name, json.loads):
         for key_d in submission["data"]:
             kind = submission["data"][key_d]["type"]
             name = submission["data"][key_d]["label"]
 
-            if not name in stdout_json_obj["schema"]["properties"]:
-                if kind in ["text", "textarea", "name", "address", "email", "phone"]:
-                    stdout_json_obj["schema"]["properties"][name] = _TYPE_STRING
-                elif kind in ["select", "radio", "richtext", "embed", "creditcard"]:
-                    stdout_json_obj["schema"]["properties"][name] = _TYPE_STRING
-                elif kind in ["file", "image"]:
-                    stdout_json_obj["schema"]["properties"][name] = _TYPE_STRING
-                elif kind in ["number"]:
-                    stdout_json_obj["schema"]["properties"][name] = _TYPE_NUMBER
-                elif kind in ["datetime"]:
-                    stdout_json_obj["schema"]["properties"][name] = _TYPE_DATE
+            if name not in schema["schema"]["properties"]:
+                if kind in fields_type["string"]:
+                    schema["schema"]["properties"][name] = _TYPE_STRING
+                elif kind in fields_type["number"]:
+                    schema["schema"]["properties"][name] = _TYPE_NUMBER
+                elif kind in fields_type["date"]:
+                    schema["schema"]["properties"][name] = _TYPE_DATE
 
-            if kind in ["matrix"]:
-                stdout_json_obj = assign_to_matrix(stdout_json_obj, submission["data"][key_d])
-            elif kind in ["checkbox"]:
-                stdout_json_obj = assign_to_checkbox(stdout_json_obj, submission["data"][key_d])
+            # mutable object on function call == pass by reference
+            if kind in fields_type["nested"]:
+                write_schema__denest(schema, submission["data"][key_d], kind)
 
-        line = file.readline()
+    logs.log_json_obj(f"{form_name}.stdout", schema)
+    logs.stdout_json_obj(schema)
 
-    logs.log_json_obj(form_name + ".stdout", stdout_json_obj)
+    return schema["schema"]["properties"]
 
-    if stdout:
-        print(json.dumps(stdout_json_obj))
 
-    return stdout_json_obj["schema"]["properties"]
+def write_schema__denest(schema: JSON, data: JSON, nesting_type: str) -> None:
+    """Handles the assignment of a nested field to the schema.
+
+    Good examples of nested fields are matrix and checkbox.
+    """
+
+    name = data["label"]
+    value = data["value"]
+    if isinstance(value, str):
+        padded_name = f"{nesting_type}[{name}][{value}]"
+        schema["schema"]["properties"][padded_name] = _TYPE_STRING
+    else:
+        for inner_name in value:
+            padded_name = f"{nesting_type}[{name}][{inner_name}]"
+            schema["schema"]["properties"][padded_name] = _TYPE_STRING
 
 
 def write_records(form_name, schema_properties, stdout=True):
-    """ write all the RECORD messages for a given form to stdout """
+    """Write all records for a given form to stdout.
+    """
 
     def assign_to_checkbox(json_obj, data):
         """ handles the assignment of data to the json_obj """
@@ -253,7 +266,7 @@ def write_records(form_name, schema_properties, stdout=True):
 
         return json_obj
 
-    file = open(logs.DOMAIN + form_name + ".json", "r")
+    file = open(logs.DOMAIN + form_name + ".jsonstream", "r")
     line = file.readline()
 
     while line:
@@ -482,6 +495,7 @@ def main():
         # Then the file doesn't exist
         except FileNotFoundError:
             pass
+
 
 if __name__ == "__main__":
     main()
