@@ -292,7 +292,7 @@ def get_chunk(iterable, nchunks, chunk_id):
     """ yield successive chunks from iterable """
     schunk = len(iterable) // nchunks + 1
     beg = (chunk_id - 1) * schunk
-    end = (chunk_id - 0) * schunk - 1
+    end = (chunk_id - 0) * schunk
     return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
 
 def main():
@@ -341,11 +341,11 @@ def main():
     after = go_back(args.this_days)
 
     for conf in configs:
-        # pylint: disable=bare-except
+        # pylint: disable=broad-except
         try:
             scan_commits(conf, args.sync_changes, after)
-        except:
-            pass
+        except Exception as excp:
+            SPRINT({"type": "STATE", "value": str(excp)})
 
 if __name__ == "__main__":
     main()
