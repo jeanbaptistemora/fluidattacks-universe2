@@ -18,8 +18,10 @@ import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDi
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
+import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
+import { getFormStructure } from "./formStructure";
 
 export interface IDescriptionViewProps {
   dataset: {
@@ -129,11 +131,32 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
     </React.Fragment>
   );
 
+const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: string, findingId: string) => void) =
+  (values: IDescriptionViewProps["dataset"], userRole: string, findingId: string): void => {
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+
+    if (_.includes(["admin", "analyst"], userRole)) {
+      thunkDispatch(actions.updateDescription(findingId, values));
+    } else {
+      thunkDispatch(actions.updateTreatment(findingId, values));
+    }
+  };
+
 const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => (
     <React.Fragment>
       <Col md={12} sm={12} xs={12}>
         <Row>{renderActionButtons(props)}</Row>
+        <GenericForm
+          form="editDescription"
+          formStructure={getFormStructure(props)}
+          initialValues={props.dataset}
+          onSubmit={(values: {}): void => {
+            updateDescription(values as IDescriptionViewProps["dataset"], props.userRole, props.findingId);
+          }}
+        />
         <Row style={{ paddingTop: "10px" }}>
           {props.isEditing && _.includes(["customer", "customeradmin"], props.userRole) ? renderUpdateBtn() : undefined}
         </Row>
