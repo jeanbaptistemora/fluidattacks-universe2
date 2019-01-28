@@ -41,7 +41,7 @@ def get_event(event_id):
 
 
 def is_a_unsolved_event(event):
-    return event['eventStatus'] == 'Pendiente'
+    return event['eventStatus'] == 'unsolved'
 
 
 def get_events_submissions(project):

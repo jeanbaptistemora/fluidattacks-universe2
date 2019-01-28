@@ -1,3 +1,4 @@
+# coding=utf-8
 """ DTO to map the Integrates fields to formstack """
 # pylint: disable=E0402
 # Disabling this rule is necessary for importing modules beyond the top level
@@ -110,7 +111,50 @@ class EventDTO(object):
         else:
             # Event does not have evidence file
             pass
+        parsed_dict = cast_event_attributes(parsed_dict)
         return parsed_dict
+
+
+def cast_event_attributes(event):
+    cast_event_field = {
+        'Pendiente': 'unsolved',
+        'Tratada': 'solved',
+        'Puntual': 'oneshot',
+        'Continua': 'continuous',
+        'Autorización para ataque especial':
+            'authorization_special_attack',
+        'Alcance difiere a lo aprobado':
+            'toe_differs_approved',
+        'Aprobación de alta disponibilidad': 'high_availability_approval',
+        'Insumos incorrectos o faltantes': 'incorrect_missing_supplies',
+        'Cliente suspende explicitamente':
+            'client_explicitly_suspends_project',
+        'Cliente aprueba cambio de alcance':
+            'client_approves_change_toe',
+        'Cliente cancela el proyecto/hito':
+            'client_cancels_project_milestone',
+        'Cliente detecta ataque': 'client_detects_attack',
+        'Otro': 'other',
+        'FLUID': 'fluid',
+        'Cliente': 'client',
+        'Tele-trabajo': 'telecommuting',
+        'Planeación': 'planning',
+        'Probar otra parte del ToE': 'test_other_part_toe',
+        'Documentar el proyecto': 'document_project',
+        'Ninguna': 'none',
+        'Ejecutar otro proyecto del mismo cliente':
+            'execute_other_project_same_client',
+        'Ejecutar otro proyecto de otro cliente':
+            'execute_other_project_other_client',
+        'Entrenar': 'training'
+    }
+    list_fields = ['eventStatus', 'subscription', 'eventType', 'context',
+                   'actionBeforeBlocking', 'actionAfterBlocking']
+    for field in list_fields:
+        if event.get(field):
+            event[field] = cast_event_field.get(
+                event.get(field).encode('utf-8'), '')
+    return event
 
 
 def parse_event_dynamo(submission_id):

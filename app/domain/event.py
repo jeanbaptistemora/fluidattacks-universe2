@@ -15,7 +15,7 @@ def update_event(event_id, affectation, info):
     updated = False
     if affectation.isdigit():
         if int(affectation) >= 0:
-            event_data['event_status'] = 'Tratada'
+            event_data['event_status'] = 'solved'
         else:
             rollbar.report_message(
                 'Error: Affectation can not be a negative number', 'error',
