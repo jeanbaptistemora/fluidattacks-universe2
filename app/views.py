@@ -1122,8 +1122,14 @@ Attempted to delete findings without permission')
         return util.response([], 'Access denied', True)
     fin_dto = FindingDTO()
     try:
-        context = fin_dto.create_delete(parameters,
-                                        username, "", submission_id)
+        context = {
+            'mail_analista': username,
+            'name_finding': submission_id,
+            'id_finding': submission_id,
+            'description': parameters['data[justification]'],
+            'project': "",
+        }
+
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq)

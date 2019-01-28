@@ -71,7 +71,8 @@ class AddRepositories(Mutation):
                     .format(repository=repository, branch=branch)
                 email_data.append({'urlEnv': email_text})
             else:
-                rollbar.report_message('Error: An error occurred adding repository', 'error', info.context)
+                rollbar.report_message('Error: \
+An error occurred adding repository', 'error', info.context)
         add_repo = integrates_dao.add_list_resource_dynamo(
             'FI_projects',
             'project_name',
@@ -80,25 +81,29 @@ class AddRepositories(Mutation):
             'repositories'
         )
         if add_repo:
-            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            mail_to = ['continuous@fluidattacks.com',
+                       'projects@fluidattacks.com']
             context = {
                 'project': project_name.upper(),
                 'user_email': info.context.session['username'],
                 'action': 'Add repositories',
                 'resources': email_data,
-                'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                'project_url':
+                    'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                 .format(project=project_name)
             }
             email_send_thread = \
                 threading.Thread(name='Add repositories email thread',
                                  target=send_mail_repositories,
-                                 args=(to, context,))
+                                 args=(mail_to, context,))
             email_send_thread.start()
             success = True
         else:
-            rollbar.report_message('Error: An error occurred adding repository', 'error', info.context)
+            rollbar.report_message('Error: \
+An error occurred adding repository', 'error', info.context)
 
-        ret = AddRepositories(success=success, resources=Resource(project_name))
+        ret = AddRepositories(success=success,
+                              resources=Resource(project_name))
         util.invalidate_cache(project_name)
         return ret
 
@@ -119,13 +124,15 @@ class RemoveRepositories(Mutation):
         success = False
         repository = repository_data.get('urlRepo')
         branch = repository_data.get('branch')
-        repo_list = integrates_dao.get_project_dynamo(project_name)[0]['repositories']
+        repo_list = \
+            integrates_dao.get_project_dynamo(project_name)[0]['repositories']
         index = -1
         cont = 0
         email_data = []
 
         while index < 0 and len(repo_list) > cont:
-            if repo_list[cont]['urlRepo'] == repository and repo_list[cont]['branch'] == branch:
+            if repo_list[cont]['urlRepo'] == repository and \
+                    repo_list[cont]['branch'] == branch:
                 email_text = 'Repository: {repository!s} Branch: {branch!s}' \
                     .format(repository=repository, branch=branch)
                 email_data.append({'urlEnv': email_text})
@@ -141,25 +148,31 @@ class RemoveRepositories(Mutation):
                 'repositories',
                 index)
             if remove_repo:
-                to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+                mail_to = ['continuous@fluidattacks.com',
+                           'projects@fluidattacks.com']
                 context = {
                     'project': project_name.upper(),
                     'user_email': info.context.session['username'],
                     'action': 'Remove repositories',
                     'resources': email_data,
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                    'project_url':
+                        'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
                 threading.Thread(name='Remove repositories email thread',
                                  target=send_mail_repositories,
-                                 args=(to, context,)).start()
+                                 args=(mail_to, context,)).start()
                 success = True
             else:
-                rollbar.report_message('Error: An error occurred removing repository', 'error', info.context)
+                rollbar.report_message('Error: \
+An error occurred removing repository', 'error', info.context)
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to remove repository that does not exist')
+            util.cloudwatch_log(info.context,
+                                'Security: \
+Attempted to remove repository that does not exist')
 
-        ret = RemoveRepositories(success=success, resources=Resource(project_name))
+        ret = RemoveRepositories(success=success,
+                                 resources=Resource(project_name))
         util.invalidate_cache(project_name)
         return ret
 
@@ -180,14 +193,15 @@ class AddEnvironments(Mutation):
         success = False
         json_data = []
 
-        for envInfo in resources_data:
-            if 'urlEnv' in envInfo:
-                environment_url = envInfo.get('urlEnv')
+        for env_info in resources_data:
+            if 'urlEnv' in env_info:
+                environment_url = env_info.get('urlEnv')
                 json_data.append({
                     'urlEnv': environment_url
                 })
             else:
-                rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
+                rollbar.report_message('Error: \
+An error occurred adding environments', 'error', info.context)
         add_env = integrates_dao.add_list_resource_dynamo(
             'FI_projects',
             'project_name',
@@ -196,25 +210,28 @@ class AddEnvironments(Mutation):
             'environments'
         )
         if add_env:
-            to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            mail_to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
             context = {
                 'project': project_name.upper(),
                 'user_email': info.context.session['username'],
                 'action': 'Add environments',
                 'resources': json_data,
-                'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                'project_url':
+                    'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                 .format(project=project_name)
             }
             email_send_thread = \
                 threading.Thread(name='Add environments email thread',
                                  target=send_mail_repositories,
-                                 args=(to, context,))
+                                 args=(mail_to, context,))
             email_send_thread.start()
             success = True
         else:
-            rollbar.report_message('Error: An error occurred adding environments', 'error', info.context)
+            rollbar.report_message('Error: \
+An error occurred adding environments', 'error', info.context)
 
-        ret = AddEnvironments(success=success, resources=Resource(project_name))
+        ret = AddEnvironments(success=success,
+                              resources=Resource(project_name))
         util.invalidate_cache(project_name)
         return ret
 
@@ -234,7 +251,8 @@ class RemoveEnvironments(Mutation):
     def mutate(self, info, repository_data, project_name):
         success = False
         environment_url = repository_data.get('urlEnv')
-        env_list = integrates_dao.get_project_dynamo(project_name)[0]['environments']
+        env_list = \
+            integrates_dao.get_project_dynamo(project_name)[0]['environments']
         index = -1
         cont = 0
 
@@ -253,25 +271,30 @@ class RemoveEnvironments(Mutation):
                 'environments',
                 index)
             if remove_env:
-                to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+                mail_to = ['continuous@fluidattacks.com',
+                           'projects@fluidattacks.com']
                 context = {
                     'project': project_name.upper(),
                     'user_email': info.context.session['username'],
                     'action': 'Remove environments',
                     'resources': json_data,
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                    'project_url':
+                        'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
                 email_send_thread = \
                     threading.Thread(name='Remove environments email thread',
                                      target=send_mail_repositories,
-                                     args=(to, context,))
+                                     args=(mail_to, context,))
                 email_send_thread.start()
                 success = True
             else:
-                rollbar.report_message('Error: An error occurred removing an environment', 'error', info.context)
+                rollbar.report_message('Error: \
+An error occurred removing an environment', 'error', info.context)
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to remove an environment that does not exist')
+            util.cloudwatch_log(info.context,
+                                'Security: \
+Attempted to remove an environment that does not exist')
 
         ret = RemoveEnvironments(success=success, resources=Resource(project_name))
         util.invalidate_cache(project_name)

@@ -8,8 +8,9 @@ import itertools
 import uuid
 
 from decimal import Decimal
-from django.conf import settings
 from operator import itemgetter
+
+from django.conf import settings
 import pytz
 import rollbar
 
@@ -124,16 +125,6 @@ class FindingDTO(object):
         if 'data[releaseDate]' in parameter:
             self.data[self.RELEASE_DATE] \
                 = parameter['data[releaseDate]']
-
-    def create_delete(self, parameter, analyst, project, finding):
-        """ Create a data set to send in the finding deletion email """
-        return {
-            'mail_analista': analyst,
-            'name_finding': finding,
-            'id_finding': finding,
-            'description': parameter['data[justification]'],
-            'project': project,
-        }
 
     def parse(self, submission_id, request_arr):
         self.data = dict()
