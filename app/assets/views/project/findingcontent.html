@@ -220,31 +220,13 @@
                               </div>
                               <div class="row table-row" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.whereTooltip' | translate}}">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.where' | translate}}</b></label></div>
-                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc has-vulnerabilities" style="display: none;">
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                     <vulnerabilities-view
                                       edit-mode="!onlyReadableTab1"
                                       finding-id="finding.id"
                                       state="'open'"
                                       user-role="userRole"
                                     />
-                                  </div>
-                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc has-old-vulnerabilities" style="display: none;">
-                                      <textarea msd-elastic class="form-control" rows="4"
-                                                ng-show="onlyReadableTab1"
-                                                disabled style="margin-bottom: 5px;"
-                                                ng-model="finding.where">{{finding.where}}</textarea>
-                                      <textarea msd-elastic class="form-control" rows="4" style="margin-bottom: 5px;"
-                                                ng-show="!onlyReadableTab1"
-                                                ng-model="finding.where">{{finding.where}}</textarea>
-                                  </div>
-                              </div>
-                              <div class="row table-row has-old-vulnerabilities" ng-show="!onlyReadableTab1">
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.cardinality' | translate}}</b></label></div>
-                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.openVulnerabilities}}</p>
-                                      <input type="text" class="form-control"
-                                             ng-show="!onlyReadableTab1"
-                                             ng-model="finding.openVulnerabilities">
                                   </div>
                               </div>
                               <div class="row table-row">
