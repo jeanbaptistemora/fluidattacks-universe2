@@ -1,6 +1,7 @@
 """ GraphQL Entity for Formstack Projects """
 # pylint: disable=F0401
 # pylint: disable=relative-beyond-top-level
+# pylint: disable=super-init-not-called
 # pylint: disable=no-self-use
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.

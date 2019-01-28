@@ -1,4 +1,5 @@
 # pylint: disable=no-self-use
+# pylint: disable=super-init-not-called
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
@@ -280,7 +281,7 @@ class RemoveEnvironments(Mutation):
                     'action': 'Remove environments',
                     'resources': json_data,
                     'project_url':
-                        'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                        INTEGRATES_URL + '#!/project/{project!s}/resources'
                     .format(project=project_name)
                 }
                 email_send_thread = \

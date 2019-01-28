@@ -1,6 +1,7 @@
 """ GraphQL Entity for Formstack Findings """
 # pylint: disable=F0401
 # pylint: disable=no-self-use
+# pylint: disable=super-init-not-called
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
@@ -15,13 +16,9 @@ import boto3
 from backports import csv
 from graphql import GraphQLError
 from graphene import String, ObjectType, Boolean, List, Int, Float, JSONString, Mutation, Field
+from graphene.types.generic import GenericScalar
 
-from .. import util
-from ..dao import integrates_dao
-from .vulnerability import Vulnerability, validate_formstack_file
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
-from ..api.drive import DriveAPI
-from ..api.formstack import FormstackAPI
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import (
     FindingDTO, finding_vulnerabilities, save_severity,
@@ -35,7 +32,11 @@ from app.domain.finding import (
     get_unique_dict, get_tracking_dict, request_verification,
     update_description, update_treatment
 )
-from graphene.types.generic import GenericScalar
+from .. import util
+from ..dao import integrates_dao
+from .vulnerability import Vulnerability, validate_formstack_file
+from ..api.drive import DriveAPI
+from ..api.formstack import FormstackAPI
 
 CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,

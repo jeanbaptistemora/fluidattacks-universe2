@@ -1,6 +1,7 @@
 from graphene import Boolean, ObjectType, Mutation
 
 # pylint: disable=no-self-use
+# pylint: disable=super-init-not-called
 # pylint: disable=F0401
 from app.dao import integrates_dao
 from app.util import get_jwt_content

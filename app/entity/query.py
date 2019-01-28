@@ -4,6 +4,7 @@
 # directory.
 from graphene import Field, String, ObjectType, List
 
+from app.api.formstack import FormstackAPI
 from .alert import Alert
 from .login import Login
 from .events import Events
@@ -14,7 +15,6 @@ from .. import util
 from .finding import Finding
 from .project import Project
 # pylint: disable=F0401
-from app.api.formstack import FormstackAPI
 from ..decorators import (
     require_login, require_role,
     require_project_access_gql,

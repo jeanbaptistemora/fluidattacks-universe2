@@ -1,4 +1,5 @@
 # pylint: disable=no-self-use
+# pylint: disable=super-init-not-called
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
