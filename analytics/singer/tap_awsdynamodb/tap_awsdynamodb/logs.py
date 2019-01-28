@@ -1,12 +1,9 @@
 """Logs manager.
 
 Linters:
-    pylint:
+    prospector:
         Used always.
-        $ python3 -m pylint [path]
-    flake8:
-        Used always except where it contradicts pylint.
-        $ python3 -m flake8 [path]
+        $ prospector --strictness veryhigh [path]
     mypy:
         Used always.
         $ python3 -m mypy --ignore-missing-imports [path]

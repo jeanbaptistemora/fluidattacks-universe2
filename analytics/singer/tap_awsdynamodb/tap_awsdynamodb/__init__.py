@@ -9,12 +9,9 @@ Examples:
     $ tap-awsdynamodb [params] | target-anysingertarget
 
 Linters:
-    pylint:
+    prospector:
         Used always.
-        $ python3 -m pylint [path]
-    flake8:
-        Used always except where it contradicts pylint.
-        $ python3 -m flake8 [path]
+        $ prospector --strictness veryhigh [path]
     mypy:
         Used always.
         $ python3 -m mypy --ignore-missing-imports [path]
@@ -26,7 +23,7 @@ import json
 import argparse
 
 from uuid import uuid4 as gen_id
-from typing import Dict, List, Tuple, Set, Any
+from typing import Iterable, Callable, Dict, List, Tuple, Set, Any
 from datetime import datetime
 
 import boto3 as amazon_sdk
@@ -48,6 +45,21 @@ _TYPE = {
     "list": {"type": "string"},
     "list<dict>": {"type": "string"},
 }
+
+
+def iter_lines(file_name: str, function: Callable) -> Iterable[Any]:
+    """Yields function(line) on every line of a file.
+
+    Args:
+        file_name: The name of the file whose lines we are to iterate.
+        function: A function to apply to each line.
+
+    Yields:
+        function(line) on every line of the file with file_name.
+    """
+    with open(file_name, "r") as file:
+        for line in file:
+            yield function(line)
 
 
 def get_connection(credentials: Dict[str, str]) -> Tuple[DB_CLNT, DB_RSRC]:
@@ -214,48 +226,64 @@ def write_records(table_name: str, properties: JSON) -> Set[Tuple[str, str]]:
         A list of special fields to further processing
     """
 
-    special_fields = set()
+    special_fields: Set[Any] = set()
 
-    with open(f"{logs.DOMAIN}{table_name}.jsonstream", "r") as file:
-        for line in file:
-            json_obj = json.loads(line)
+    file_name = f"{logs.DOMAIN}{table_name}.jsonstream"
+    for json_obj in iter_lines(file_name, json.loads):
+        record: JSON = {
+            "type": "RECORD",
+            "stream": table_name,
+            "record": {}
+        }
 
-            record: JSON = {
-                "type": "RECORD",
-                "stream": table_name,
-                "record": {}
-            }
+        for field, value in json_obj.items():
+            try:
+                field_type = properties["schema"].get(field, "")
+                new_value, special_field = write_records__proccess(
+                    table_name,
+                    field, value, field_type)
+                if new_value is not None:
+                    record["record"][field] = new_value
+                if special_field is not None:
+                    special_fields.add(special_field)
+            except UnrecognizedNumber:
+                logs.log_error(f"number: [{value}]")
+            except UnrecognizedDate:
+                logs.log_error(f"date:   [{value}]")
+            except ValueError:
+                logs.log_error(f"ValueError:  [{value}]")
 
-            for key, val in json_obj.items():
-                try:
-                    kind = properties["schema"].get(key, "")
-                    if kind == "string":
-                        record["record"][key] = str(val)
-                    elif kind == "number":
-                        record["record"][key] = std_number(val)
-                    elif kind == "date-time":
-                        record["record"][key] = std_date(val)
-                    elif kind in ("set", "list", "list<dict>"):
-                        identifier = str(gen_id())
-                        record["record"][key] = identifier
-                        new_table_name = f"{table_name}___{key}"
-                        nested_obj = {
-                            "source_id": identifier,
-                            "value": val
-                        }
-                        logs.log_json_obj(new_table_name, nested_obj)
-                        special_fields.add((new_table_name, kind))
-                except UnrecognizedNumber:
-                    logs.log_error("number: [" + val + "]")
-                except UnrecognizedDate:
-                    logs.log_error("date:   [" + val + "]")
-                except ValueError:
-                    logs.log_error("ValueError:  [" + val + "]")
-
-            logs.log_json_obj(f"{table_name}.stdout", record)
-            logs.stdout_json_obj(record)
+        logs.log_json_obj(f"{table_name}.stdout", record)
+        logs.stdout_json_obj(record)
 
     return special_fields
+
+
+def write_records__proccess(table_name, field, value, field_type):
+    """Auxiliar function of write_records
+    """
+
+    new_value = None
+    special_field = None
+
+    if field_type == "string":
+        new_value = str(value)
+    if field_type == "number":
+        new_value = std_number(value)
+    if field_type == "date-time":
+        new_value = std_date(value)
+    if field_type in ("set", "list", "list<dict>"):
+        identifier = str(gen_id())
+        new_value = identifier
+        new_table_name = f"{table_name}___{field}"
+        nested_obj = {
+            "source_id": identifier,
+            "value": value
+        }
+        special_field = (new_table_name, field_type)
+        logs.log_json_obj(new_table_name, nested_obj)
+
+    return new_value, special_field
 
 
 def transform_nested_objects(table_name, kind):
@@ -426,7 +454,7 @@ def std_date(date: Any) -> str:
         https://tools.ietf.org/html/rfc3339#section-5.6
 
     Args:
-        date: The table whose schema will be written.
+        date: The date that will be casted.
 
     Raises:
         UnrecognizedDate: When it was impossible to find a conversion.
@@ -445,8 +473,12 @@ def std_date(date: Any) -> str:
     date = re.sub(r"[^\d]", r" ", date)
 
     # replace any repeated space character by a single space character
-    date = re.sub(r"\s*", r" ", date)
+    date = re.sub(r"\s+", r" ", date)
 
+    # remove leading and trailing whitespace
+    date = date.strip(" ")
+
+    # everything is normalized now, try to match with this formats
     date_formats: Tuple[str, str, str] = (
         "%Y %m %d %H %M %S %f",
         "%Y %m %d %H %M %S",
@@ -456,23 +488,36 @@ def std_date(date: Any) -> str:
     for date_format in date_formats:
         try:
             date_obj = datetime.strptime(date, date_format)
+            # raise ValueError when not possible to match date with date_format
             new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
             break
         except ValueError:
             pass
     else:
+        # else clause executes if the loop did not encounter a break statement
         raise UnrecognizedDate
 
     # log the returned value
-    logs.log_conversions("     [" + new_date + "]")
+    logs.log_conversions(f"     [{new_date}]")
 
     return new_date
 
 
-def std_number(number):
-    """ returns a json schema compliant number """
-    # log it
-    logs.log_conversions("number [" + str(number) + "]")
+def std_number(number: Any) -> float:
+    """Manipulates a date to provide JSON schema compatible number.
+
+    Args:
+        number: The table whose schema will be written.
+
+    Raises:
+        UnrecognizedNumber: When it was impossible to find a conversion.
+
+    Returns:
+        A JSON schema compliant number.
+    """
+
+    # log the received value
+    logs.log_conversions(f"number [{number}]")
 
     # type null instead of str
     if not isinstance(number, str):
@@ -482,11 +527,7 @@ def std_number(number):
     number = number.replace(",", ".")
 
     # clean typos
-    new_number = ""
-    for char in number:
-        if char in "+-01234567890.":
-            new_number += char
-    number = new_number
+    number = re.sub(r"[^\d\.\+-]", r"", number)
 
     # no numeric chars after cleaning
     if not number:
@@ -498,22 +539,25 @@ def std_number(number):
     except ValueError:
         raise UnrecognizedNumber
 
-    # log it
-    logs.log_conversions("       [" + str(number) + "]")
+    # log the returned value
+    logs.log_conversions(f"       [{number}]")
 
     return number
 
 
 class UnrecognizedNumber(Exception):
-    """ Raised when tap didn't find a conversion """
+    """Raised when tap didn't find a conversion
+    """
 
 
 class UnrecognizedDate(Exception):
-    """ Raised when tap didn't find a conversion """
+    """Raised when tap didn't find a conversion
+    """
 
 
 def main():
-    """ usual entry point """
+    """Usual entry point
+    """
 
     # user interface
     parser = argparse.ArgumentParser()
@@ -531,20 +575,16 @@ def main():
         required=True)
     parser.add_argument(
         '-d', '--disc',
-        help='Runs the script in discovery mode (generates a customizable CONF file)',
+        help='Runs the script in discovery mode',
         dest='discovery_mode',
         action='store_true',
         default=False)
     args = parser.parse_args()
 
-    auth_keys = json.load(args.auth)
-    conf_sett = json.load(args.conf)
+    credentials = json.load(args.auth)
+    configuration = json.load(args.conf)
 
-    # ==== AWS DynamoDB  =======================================================
-    # write_schema and write_records don't consume quota
-    # table_list and discover_schema consumes negligible quota
-    # write_queries consumes quota proportional to the table size
-    (db_client, db_resource) = get_connection(auth_keys)
+    (db_client, db_resource) = get_connection(credentials)
 
     if args.discovery_mode:
         table_list = list_tables(db_client)
@@ -554,7 +594,7 @@ def main():
 
         discover_schema(db_client, table_list)
     else:
-        for table_name, properties in conf_sett["tables"].items():
+        for table_name, properties in configuration["tables"].items():
             write_queries(db_resource, table_name)
             try:
                 write_schema(table_name, properties)
