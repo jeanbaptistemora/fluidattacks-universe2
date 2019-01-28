@@ -382,12 +382,8 @@ test-deployment:
         s/app:\ integrates/app:\ integrates-test/g'
         integrates-k8s.yaml
     - cat integrates-k8s.yaml | head -n 64 | kubectl apply -f -
-    - kubectl rollout status deploy/integrates-test
-    - kubectl get pods | egrep -o 'integrates-test[^ ]*' | tr -d '\n' |
-        xargs -0 -I {} kubectl port-forward {} 8000:80 &
-    - sleep 5
-    - curl http://localhost:8000 | grep --color 'FluidIntegrates'
-    - pkill kubectl
+    - kubectl rollout status deploy/integrates-test --timeout=5m ||
+        { echo "Deployment test failed!" && exit 1; }
   after_script:
     - kubectl delete deploy/integrates-test
     - kubectl delete svc/integrates-test
@@ -416,7 +412,8 @@ deploy-k8s:
         s/$DATE/'"$(date)"'/g'
         integrates-k8s.yaml
     - kubectl apply -f integrates-k8s.yaml
-    - kubectl rollout status deploy/integrates -w
+    - kubectl rollout status deploy/integrates --timeout=5m ||
+        { kubectl rollout undo deploy/integrates && exit 1; }
     - curl https://api.rollbar.com/api/1/deploy/
         -F access_token=$ROLLBAR_ACCESS_TOKEN
         -F environment=$FI_ROLLBAR_ENVIRONMENT

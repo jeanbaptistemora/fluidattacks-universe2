@@ -141,7 +141,8 @@ fi
 # Deploy pod and service
 echo "Deploying latest image..."
 kubectl apply -f deploy-integrates.yaml
-kubectl rollout status deploy/"review-${CI_COMMIT_REF_SLUG}"
+kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m ||
+  { echo-blue "Review environment failed to deploy" && exit 1; }
 
 # Erase file with keys
 rm variables.yaml
