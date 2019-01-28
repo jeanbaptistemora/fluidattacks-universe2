@@ -51,7 +51,7 @@ const renderField: ((fieldProps: IEditableField, totalCols: number) => JSX.Eleme
       <Col md={2} xs={12} sm={12} className={style.title}>
         <label><b>{fieldProps.label}</b></label>
       </Col>
-      <Col md={totalCols > 1 ? 4 : 10} xs={12} sm={12} className={style.fieldColumn}>
+      <Col md={Math.round(12 / totalCols) - 2} xs={12} sm={12} className={style.fieldColumn}>
         {fieldProps.componentProps === undefined ? fieldProps.customElement : renderEditableField(fieldProps)}
       </Col>
     </React.Fragment>
