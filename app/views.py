@@ -369,10 +369,7 @@ def validation_project_to_pdf(request, lang, doctype):
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     findings_parsed = []
-    if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project',
-                               'error', request)
-        return util.response([], 'Empty fields', True)
+    assert project.strip()
     if not has_access_to_project(request.session['username'],
                                  project, request.session['role']):
         util.cloudwatch_log(request,
@@ -385,20 +382,14 @@ Attempted to export project pdf without permission')
         if validator is not None:
             return validator
         findings = integrates_dao.get_findings_dynamo(project)
-        if findings:
-            for fin in findings:
-                if util.validate_release_date(fin):
-                    finding_parsed = parse_finding(fin)
-                    finding = format_finding(finding_parsed, request)
-                    findings_parsed.append(finding)
-                else:
-                    # Finding does not have a valid release date
-                    pass
-        else:
-            rollbar.report_message(
-                'Error: project' + project + 'does not have findings in dynamo',
-                'error',
-                request)
+        for fin in findings:
+            if util.validate_release_date(fin):
+                finding_parsed = parse_finding(fin)
+                finding = format_finding(finding_parsed, request)
+                findings_parsed.append(finding)
+            else:
+                # Finding does not have a valid release date
+                pass
         pdf_maker = CreatorPDF(lang, doctype)
         secure_pdf = SecurePDF()
         findings_ord = util.ord_asc_by_criticidad(findings_parsed)

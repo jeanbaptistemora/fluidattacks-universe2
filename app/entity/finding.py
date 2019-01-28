@@ -45,10 +45,10 @@ CLIENT_S3 = boto3.client('s3',
 BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
-class Finding(ObjectType):
+class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """Formstack Finding Class."""
 
-    id = String()
+    id = String()  # noqa pylint: disable=invalid-name
     success = Boolean()
     error_message = String()
     state = String()
@@ -105,7 +105,7 @@ class Finding(ObjectType):
         resp = finding_vulnerabilities(finding_id)
 
         if resp:
-            self.id = finding_id
+            self.id = finding_id  # noqa pylint: disable=invalid-name
             self.project_name = resp.get('projectName')
             self.release_date = resp.get('releaseDate', '')
             vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
@@ -648,7 +648,7 @@ class UpdateEvidence(Mutation):
 
     class Arguments(object):
         finding_id = String(required=True)
-        id = String(required=True)
+        id = String(required=True)  # noqa pylint: disable=invalid-name
     success = Boolean()
     finding = Field(Finding)
 

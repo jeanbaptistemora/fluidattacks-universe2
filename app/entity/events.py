@@ -16,9 +16,9 @@ from app.domain.event import (
 from .. import util
 
 
-class Events(ObjectType):
+class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """ Formstack Events Class """
-    id = String()
+    id = String()  # noqa pylint: disable=invalid-name
     success = Boolean()
     error_message = String()
     analyst = String()
@@ -39,7 +39,7 @@ class Events(ObjectType):
 
     def __init__(self, identifier):
         """ Class constructor """
-        self.id = ''
+        self.id = ''  # noqa pylint: disable=invalid-name
         self.analyst = ''
         self.client = ''
         self.project_name = ''
