@@ -820,15 +820,13 @@ def get_comments_dynamo(finding_id, comment_type):
     table = DYNAMODB_RESOURCE.Table('FI_comments')
     filter_key = 'finding_id'
     filter_attribute = 'comment_type'
-    if filter_key and finding_id:
-        filtering_exp = Key(filter_key).eq(finding_id) & Key(filter_attribute).eq(comment_type)
-        response = table.scan(FilterExpression=filtering_exp)
-    else:
-        response = table.scan()
+    filtering_exp = Key(filter_key).eq(finding_id) & Key(filter_attribute).eq(comment_type)
+    response = table.scan(FilterExpression=filtering_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.scan(
+                FilterExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
