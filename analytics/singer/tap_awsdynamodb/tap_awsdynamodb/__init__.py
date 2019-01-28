@@ -36,15 +36,68 @@ DB_SSSN = Any
 DB_CLNT = Any
 DB_RSRC = Any
 
-_TYPE = {
-    "string": {"type": "string"},
-    "number": {"type": "number"},
-    "date-time": {"type": "string", "format": "date-time"},
 
-    "set": {"type": "string"},
-    "list": {"type": "string"},
-    "list<dict>": {"type": "string"},
-}
+class UnrecognizedNumber(Exception):
+    """Raised when tap didn't find a conversion.
+    """
+
+
+class UnrecognizedDate(Exception):
+    """Raised when tap didn't find a conversion.
+    """
+
+
+def is_date(date: Any) -> bool:
+    """Detects if a string can be casted to RFC3339.
+    """
+
+    try:
+        std_date(date)
+        return True
+    except UnrecognizedDate:
+        pass
+
+    return False
+
+
+def type_as_string(obj: Any) -> str:
+    """Returns a string with the python type of an object.
+    """
+
+    date: bool = isinstance(obj, str) and is_date(obj)
+    return "datetime" if date else type(obj).__name__
+
+
+def map_ttype(type_str: str) -> Dict[str, str]:
+    """Maps a tap type to a Singer type.
+    """
+
+    type_map = {
+        # primitive types
+        "string": {"type": "string"},
+        "number": {"type": "number"},
+        "date-time": {"type": "string", "format": "date-time"},
+
+        # nested types
+        "set": {"type": "string"},
+        "list": {"type": "string"},
+        "list<dict>": {"type": "string"},
+    }
+    return type_map[type_str]
+
+
+def map_ptype(type_str: str) -> Dict[str, str]:
+    """Maps a python type to a Singer type.
+    """
+
+    type_map = {
+        "str": {"type": "string"},
+        "int": {"type": "number"},
+        "bool": {"type": "boolean"},
+        "float": {"type": "number"},
+        "datetime": {"type": "string", "format": "date-time"},
+    }
+    return type_map[type_str]
 
 
 def iter_lines(file_name: str, function: Callable) -> Iterable[Any]:
@@ -57,6 +110,7 @@ def iter_lines(file_name: str, function: Callable) -> Iterable[Any]:
     Yields:
         function(line) on every line of the file with file_name.
     """
+
     with open(file_name, "r") as file:
         for line in file:
             yield function(line)
@@ -209,7 +263,7 @@ def write_schema(table_name: str, properties: JSON) -> None:
     }
 
     for field, field_type in properties["schema"].items():
-        schema["schema"]["properties"][field] = _TYPE[field_type]
+        schema["schema"]["properties"][field] = map_ttype(field_type)
 
     logs.log_json_obj(f"{table_name}.stdout", schema)
     logs.stdout_json_obj(schema)
@@ -337,7 +391,7 @@ def denest(table_name: str, kind: str) -> None:
         singer_schema["schema"]["properties"] = denest__list_dict_schema(
             records)
 
-    singer_schema["schema"]["properties"]["__source_id"] = map_type("str")
+    singer_schema["schema"]["properties"]["__source_id"] = map_ptype("str")
     logs.log_json_obj(f"{table_name}.stdout", singer_schema)
     logs.stdout_json_obj(singer_schema)
 
@@ -354,41 +408,9 @@ def denest(table_name: str, kind: str) -> None:
             logs.stdout_json_obj(singer_record)
 
 
-def type_as_string(obj: Any) -> str:
-    """Returns a string with the python type of an object.
-    """
-    date: bool = isinstance(obj, str) and is_date(obj)
-    return "datetime" if date else type(obj).__name__
-
-
-def is_date(date: Any) -> bool:
-    """Detects if an string can be casted to RFC3339.
-    """
-
-    try:
-        std_date(date)
-        return True
-    except UnrecognizedDate:
-        pass
-
-    return False
-
-
-def map_type(type_str: str) -> Dict[str, str]:
-    """Maps an internal type to a Singer type.
-    """
-    map_types = {
-        "str": {"type": "string"},
-        "int": {"type": "number"},
-        "bool": {"type": "boolean"},
-        "float": {"type": "number"},
-        "datetime": {"type": "string", "format": "date-time"},
-    }
-    return map_types[type_str]
-
-
 def denest__load_records(table_name: str) -> List[Tuple[str, JSON]]:
-    """ load records from file into memory """
+    """Loads records from a file into memory.
+    """
 
     records: List[Tuple[str, JSON]] = []
 
@@ -406,8 +428,10 @@ def denest__load_records(table_name: str) -> List[Tuple[str, JSON]]:
     return records
 
 
-def denest__base_singer_record(table_name, source_id):
-    """ returns a base singer record """
+def denest__base_singer_record(table_name: str, source_id: str) -> JSON:
+    """Returns a base singer record.
+    """
+
     singer_record = {
         "type": "RECORD",
         "stream": table_name,
@@ -418,50 +442,59 @@ def denest__base_singer_record(table_name, source_id):
     return singer_record
 
 
-def denest__list_schema(table_name, records):
-    """ linearizes a set or list given its elements are any primitive types """
-    properties = set()
+def denest__list_schema(
+        table_name: str,
+        records: List[Tuple[str, JSON]]) -> JSON:
+    """Denests a set or list given its elements are any primitive type.
+    """
+
+    properties: Set[Tuple[str, str]] = set()
     for _, nested_obj in records:
         for elem in nested_obj:
-            elem_type = type_as_string(elem)
-            field_name = f"{table_name}__{elem_type}"
+            elem_type: str = type_as_string(elem)
+            field_name: str = f"{table_name}__{elem_type}"
             properties.add((field_name, elem_type))
-    return {f: map_type(t) for f, t in properties}
+    return {f: map_ptype(t) for f, t in properties}
 
 
-def denest__list_record(table_name, source_id, elem):
-    """ linearizes a set or list given its elements are any primitive types """
-    singer_record = denest__base_singer_record(table_name, source_id)
-    field_name = f"{table_name}__{type_as_string(elem)}"
+def denest__list_record(table_name: str, source_id: str, elem: JSON) -> JSON:
+    """Denests a set or list given its elements are any primitive types.
+    """
+
+    singer_record: JSON = denest__base_singer_record(table_name, source_id)
+    field_name: str = f"{table_name}__{type_as_string(elem)}"
     singer_record["record"][field_name] = elem
     return singer_record
 
 
-def denest__list_dict_schema(records):
-    """ linearizes a list<dict> given its elements are any primitive types """
-    properties = set()
+def denest__list_dict_schema(records: List[Tuple[str, JSON]]) -> JSON:
+    """Denests a list<dict> given its elements are any primitive types.
+    """
+
+    properties: Set[Tuple[str, str]] = set()
     for _, nested_obj in records:
         for elem in nested_obj:
-            for key, val in elem.items():
-                val_type = type_as_string(val)
-                field_name = f"{key}__{val_type}"
-                properties.add((field_name, val_type))
-    return {f: map_type(t) for f, t in properties}
+            for field, value in elem.items():
+                value_type = type_as_string(value)
+                properties.add((f"{field}__{value_type}", value_type))
+    return {f: map_ptype(t) for f, t in properties}
 
 
-def denest__list_dict_record(table_name, source_id, elem):
-    """ linearizes a list<dict> given its elements are any primitive types """
-    singer_record = denest__base_singer_record(table_name, source_id)
-    for key, val in elem.items():
-        val_type = type_as_string(val)
-        field_name = f"{key}__{type_as_string(val)}"
-        if val_type == "datetime":
-            try:
-                singer_record["record"][field_name] = std_date(val)
-            except UnrecognizedDate:
-                pass
+def denest__list_dict_record(
+        table_name: str,
+        source_id: str,
+        elem: JSON) -> JSON:
+    """Denests a list<dict> given its elements are any primitive types.
+    """
+
+    singer_record: JSON = denest__base_singer_record(table_name, source_id)
+    for field, value in elem.items():
+        value_type: str = type_as_string(value)
+        field_name: str = f"{field}__{value_type}"
+        if value_type == "datetime":
+            singer_record["record"][field_name] = std_date(value)
         else:
-            singer_record["record"][field_name] = val
+            singer_record["record"][field_name] = value
     return singer_record
 
 
@@ -561,16 +594,6 @@ def std_number(number: Any) -> float:
     logs.log_conversions(f"       [{number}]")
 
     return number
-
-
-class UnrecognizedNumber(Exception):
-    """Raised when tap didn't find a conversion.
-    """
-
-
-class UnrecognizedDate(Exception):
-    """Raised when tap didn't find a conversion.
-    """
 
 
 def main():
