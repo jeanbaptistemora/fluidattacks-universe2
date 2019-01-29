@@ -621,7 +621,7 @@ msgstr "Correo Electrónico"
 
 #: templates/form.html:80
 msgid "Form-field-4"
-msgstr "Compañía"
+msgstr "Teléfono celular"
 
 #: templates/form.html:82
 msgid "Form-field-5"
@@ -629,7 +629,7 @@ msgstr "Ciudad"
 
 #: templates/form.html:84
 msgid "Form-field-6"
-msgstr "Estado/Provincia"
+msgstr "Mensaje"
 
 #: templates/index.html:4
 msgid "Index-metadescription"

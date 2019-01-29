@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block meta %}
+  <meta name="description" content="{{ page.description }}">
+  <meta name="keywords" content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
+
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="en-us"
+    />
+    {% if page.translation %}
+      <link rel="alternate" href="{{ SUBSITEURL }}/{{ page.traslation }}"
+      hreflang="es" />
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="es" />
+    {% if page.translation %}
+      <link rel="alternate" href="{{ SUBSITEURL }}/{{ page.traslation }}"
+      hreflang="en-us" />
+    {% endif %}
+  {% endif %}
+{% endblock language %}
+
+{% block breadcrumb%}
+  <div class="navcontent-container">
+    <div class="navcontent-info">
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}
+            </strong>&nbsp;</a>
+            <span>&gt;</span>
+          </li>
+          <li>
+            <a href="a">&nbsp;{{ page.title }}</a>
+          </li>
+        </ul>
+      </div>
+      {% if DEFAULT_LANG == "en" %}
+        {% if page.translate %}
+          <div class="translate">
+            <span>{{ gettext('Translate-msg-en') }}&nbsp;</span>
+            <a href="{{ SITEURL }}/{{ page.url }}">En
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg"
+             alt="{{ gettext('Selected-img-alt') }}">
+            </a>
+            <a href="{{ SUBSITEURL }}/{{ page.translate }}">Es</a>
+          </div>
+        {% endif %}
+      {% elif DEFAULT_LANG == "es" %}
+        {% if page.translate %}
+          <div class="translate">
+            <span>{{ gettext('Translate-msg-es') }}&nbsp;</span>
+            <a href="{{ SUBSITEURL }}/{{ page.translate }}">En&nbsp;</a>
+            <a href="{{ SITEURL }}/{{ page.url }}">Es
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg"
+             alt="{{ gettext('Selected-img-alt') }}">
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock breadcrumb %}
+{% block content %}
+  <div class="divpage">
+    <article>
+      <h1>{{ page.title }}</h1>
+        {{ page.content }}
+        <br/>
+        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+        method="POST" class="salesforce">
+          <input type=hidden name="oid" value="00D1I000001dGP6"/>
+          <input type=hidden name="retURL" value="https://fluidattacks.com"/>
+          <label for="first_name" class="form-label">{{ gettext('Form-field-1')
+           }}</label>
+            <input  id="first_name" maxlength="40" name="first_name" size="20"
+            type="text" class="form-input" required /><br/>
+          <label for="last_name" class="form-label">{{ gettext('Form-field-2')
+          }}</label>
+            <input  id="last_name" maxlength="80" name="last_name" size="20"
+            type="text" class="form-input" required /><br/>
+          <label for="email" class="form-label">{{ gettext('Form-field-3') }}
+          </label>
+            <input  id="email" maxlength="80" name="email" size="20"
+            type="text" class="form-input" required /><br/>
+          <label for="mobile" class="form-label">{{ gettext('Form-field-4')
+          }}</label>
+              <input  id="mobile" maxlength="40" name="mobile" size="20"
+              type="text" /><br>
+          <label for="city" class="form-label">{{ gettext('Form-field-5')
+          }}</label>
+            <input  id="city" maxlength="40" name="city" size="20" type="text"
+            class="form-input" required /><br>
+          <label for="Subjet" class="form-label">{{ gettext('Form-field-6') }}
+          </label>
+            <textarea  id="00N1I00000NEIK7" name="00N1I00000NEIK7" wrap="soft"
+            required></textarea><br>
+          <div class="form-button">
+            <input type="submit" name="submit" class="form-submit"/>
+          </div>
+        </form>
+      <br>
+    </article>
+  </div>
+{% endblock content %}

@@ -618,7 +618,7 @@ msgstr "Email"
 
 #: templates/form.html:80
 msgid "Form-field-4"
-msgstr "Company Name"
+msgstr "Mobile"
 
 #: templates/form.html:82
 msgid "Form-field-5"
@@ -626,7 +626,7 @@ msgstr "City"
 
 #: templates/form.html:84
 msgid "Form-field-6"
-msgstr "State/Province"
+msgstr "Subject"
 
 #: templates/index.html:4
 msgid "Index-metadescription"
