@@ -2,9 +2,6 @@
 Singer tap for a git repository
 """
 
-## python3 -m pylint (default configuration)
-# Your code has been rated at 10.00/10
-
 import os
 import re
 import json
@@ -20,39 +17,12 @@ JSON = Any
 GIT_REPO = Any
 GIT_COMMIT = Any
 
+
 def sprint(json_obj: JSON) -> None:
     """Prints a JSON object to stdout.
     """
 
     print(json.dumps(json_obj))
-
-
-def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
-    """Returns author name/email and commiter name/email.
-
-    Args:
-        path: The path to the repository.
-        sha1: The SHA1 of the commit.
-
-    Returns:
-        A tuple of authors/committers names/emails.
-
-    The quality of this function is upto the .mailmap.
-    """
-
-    authorn: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%aN' {sha1}")).read()[0:-1]
-    authore: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%aE' {sha1}")).read()[0:-1]
-    commitn: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%cN' {sha1}")).read()[0:-1]
-    commite: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%cE' {sha1}")).read()[0:-1]
-    return authorn, authore, commitn, commite
 
 
 def go_back(this_days: int) -> str:
@@ -86,86 +56,43 @@ def get_extension(file_name: str) -> str:
     return tokens[-1].lower() if len(tokens) > 1 else "none"
 
 
-def scan_changes(last_commit, commit, files):
-    """ writes singer records to stdout
+def get_chunk(iterable: List[Any], nchunks: int, chunk_id: int) -> List[Any]:
+    """Returns the n-th chunk of an iterable.
+    """
 
-        analytics of every commit yields a side-efect that is the "changes" table
-        this table contains detailed information about the files touched by a commit """
+    schunk = len(iterable) // nchunks + 1
+    beg = (chunk_id - 1) * schunk
+    end = (chunk_id - 0) * schunk
 
-    def base_srecord():
-        """ returns a basic singer record """
-        srecord = {
-            "type": "RECORD",
-            "stream": "changes",
-            "record": {
-                "sha1": commit.hexsha,
-            }
-        }
-        return srecord
+    return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
 
-    diff = last_commit.diff(commit)
 
-    def getstats(stats):
-        """ return a little dict with stats """
-        insertions = stats["insertions"]
-        deletions = stats["deletions"]
-        ret = {
-            "insertions": insertions,
-            "deletions": deletions,
-            "tot_lines": insertions + deletions,
-            "net_lines": insertions - deletions,
-        }
-        return ret
+def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
+    """Returns author name/email and commiter name/email.
 
-    # ’A’ for added paths
-    for file in diff.iter_change_type("A"):
-        srecord = base_srecord()
-        srecord["record"]["type"] = "add"
-        srecord["record"]["target_path"] = file.b_path
-        srecord["record"]["target_ext"] = get_extension(file.b_path)
-        if file.b_path in files:
-            srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
-        sprint(srecord)
-    # ’D’ for deleted paths
-    for file in diff.iter_change_type("D"):
-        srecord = base_srecord()
-        srecord["record"]["type"] = "del"
-        srecord["record"]["target_path"] = file.a_path
-        srecord["record"]["target_ext"] = get_extension(file.a_path)
-        if file.a_path in files:
-            srecord["record"] = {**srecord["record"], **getstats(files[file.a_path])}
-        sprint(srecord)
-    # ’R’ for renamed paths
-    for file in diff.iter_change_type("R"):
-        srecord = base_srecord()
-        srecord["record"]["type"] = "ren"
-        srecord["record"]["source_path"] = file.rename_from
-        srecord["record"]["source_ext"] = get_extension(file.rename_from)
-        srecord["record"]["target_path"] = file.rename_to
-        srecord["record"]["target_ext"] = get_extension(file.rename_to)
-        for file_name, stats in files.items():
-            weird = re.sub(r"(.*){(.*) => (.*)}(.*)", r"\g<1>\g<3>\g<4>", file_name)
-            if weird == file.rename_to:
-                srecord["record"] = {**srecord["record"], **getstats(stats)}
-        sprint(srecord)
-    # ’M’ for paths with modified data
-    for file in diff.iter_change_type("M"):
-        srecord = base_srecord()
-        srecord["record"]["type"] = "mod"
-        srecord["record"]["target_path"] = file.b_path
-        srecord["record"]["target_ext"] = get_extension(file.b_path)
-        if file.b_path in files:
-            srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
-        sprint(srecord)
-    # ’T’ for changed in the type paths
-    for file in diff.iter_change_type("T"):
-        srecord = base_srecord()
-        srecord["record"]["type"] = "modtype"
-        srecord["record"]["target_path"] = file.b_path
-        srecord["record"]["target_ext"] = get_extension(file.b_path)
-        if file.b_path in files:
-            srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
-        sprint(srecord)
+    Args:
+        path: The path to the repository.
+        sha1: The SHA1 of the commit.
+
+    Returns:
+        A tuple of authors/committers names/emails.
+
+    The quality of this function is upto the .mailmap.
+    """
+
+    authorn: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%aN' {sha1}")).read()[0:-1]
+    authore: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%aE' {sha1}")).read()[0:-1]
+    commitn: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%cN' {sha1}")).read()[0:-1]
+    commite: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%cE' {sha1}")).read()[0:-1]
+    return authorn, authore, commitn, commite
 
 
 def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
@@ -257,6 +184,31 @@ def scan_commits__schemas():
     for schema in schemas:
         with open(f"{os.path.dirname(__file__)}/{schema}", "r") as file:
             sprint(json.load(file))
+
+
+def scan_changes(
+        prev_commit: GIT_COMMIT,
+        this_commit: GIT_COMMIT,
+        files: JSON) -> None:
+    """Writes singer records for the changes table to stdout.
+
+    Comparison between two succesive commits yields a table of changes.
+
+    This table contains information about every file touched by a commit.
+    """
+
+    diff = prev_commit.diff(this_commit)
+
+    for file in diff.iter_change_type("A"):
+        scan_changes__type_a(file, files, this_commit)
+    for file in diff.iter_change_type("D"):
+        scan_changes__type_d(file, files, this_commit)
+    for file in diff.iter_change_type("R"):
+        scan_changes__type_r(file, files, this_commit)
+    for file in diff.iter_change_type("M"):
+        scan_changes__type_m(file, files, this_commit)
+    for file in diff.iter_change_type("T"):
+        scan_changes__type_t(file, files, this_commit)
 
 
 def scan_changes__base_record(commit: GIT_COMMIT) -> JSON:
@@ -355,17 +307,6 @@ def scan_changes__type_t(file, files: JSON, this_commit: GIT_COMMIT) -> None:
     if file.b_path in files:
         scan_changes__insert_stats(srecord, files[file.b_path])
     sprint(srecord)
-
-
-def get_chunk(iterable: List[Any], nchunks: int, chunk_id: int) -> List[Any]:
-    """Returns the n-th chunk of an iterable.
-    """
-
-    schunk = len(iterable) // nchunks + 1
-    beg = (chunk_id - 1) * schunk
-    end = (chunk_id - 0) * schunk
-
-    return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
 
 
 def main():
