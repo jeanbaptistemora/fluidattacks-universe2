@@ -11,33 +11,64 @@ import json
 import argparse
 import datetime
 
-# pylint: disable=import-error
+from typing import Tuple, Any
+
 import git
 
-# print a JSON as a string
-SPRINT = lambda s: print(json.dumps(s))
+# Type aliases that improve clarity
+JSON = Any
+GIT_REPO = Any
+GIT_COMMIT = Any
 
-def get_names_emails(path, sha1):
-    """ cd into the path and grab the name and email
-        if there is a .mailmap, it will use it """
-    authorn = os.popen(f"cd '{path}'; git --no-pager show -s --format='%aN' {sha1}").read()[0:-1]
-    authore = os.popen(f"cd '{path}'; git --no-pager show -s --format='%aE' {sha1}").read()[0:-1]
-    commitn = os.popen(f"cd '{path}'; git --no-pager show -s --format='%cN' {sha1}").read()[0:-1]
-    commite = os.popen(f"cd '{path}'; git --no-pager show -s --format='%cE' {sha1}").read()[0:-1]
+def sprint(json_obj: JSON) -> None:
+    """Prints a JSON object to stdout.
+    """
+
+    print(json.dumps(json_obj))
+
+
+def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
+    """Returns author name/email and commiter name/email.
+
+    Args:
+        path: The path to the repository.
+        sha1: The SHA1 of the commit.
+
+    Returns:
+        A tuple of authors/committers names/emails.
+
+    The quality of this function is upto the .mailmap.
+    """
+
+    authorn: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%aN' {sha1}")).read()[0:-1]
+    authore: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%aE' {sha1}")).read()[0:-1]
+    commitn: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%cN' {sha1}")).read()[0:-1]
+    commite: str = os.popen((
+        f"cd '{path}';"
+        f"git --no-pager show -s --format='%cE' {sha1}")).read()[0:-1]
     return authorn, authore, commitn, commite
 
-def go_back(this_days):
-    """Returns today minus this_days.
+
+def go_back(this_days: int) -> str:
+    """Returns today minus this_days as a RFC339 string.
 
     Fixes possible overflows.
     """
 
     # minimum date to be used is 1970-01-01T00:00:01 (UTC)
     lower_limit = datetime.datetime.utcfromtimestamp(1)
+
+    # maximum date to be used is 2038-01-19T03:14:07 (UTC)
     upper_limit = datetime.datetime.utcfromtimestamp(2147483647)
 
     # the date the user provided
-    now = datetime.datetime.now() + datetime.timedelta(-1 * int(this_days))
+    now = datetime.datetime.now() + datetime.timedelta(-1 * this_days)
 
     # fix the possible overflow (timestamp as 32bit signed integer in C-lang)
     now = lower_limit if now < lower_limit else now
@@ -46,101 +77,12 @@ def go_back(this_days):
     # everything fine now
     return now.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-def line_iter(file_path):
-    """ iterator to the lines of a file """
-    with open(file_path, "r") as file:
-        line = file.readline()
-        while line:
-            yield line
-            line = file.readline()
-
-def load_mailmap(mailmap_path):
-    """ loads a .mailmap into a fast datastructure """
-
-    # pylint: disable=C0103
-    # N = canonical name
-    # E = canonical email
-    # n = git name
-    # e = git email
-    # _ = anything
-
-    # In the simple form, each line in the file consists of the canonical real name of an author,
-    # whitespace, and an email address used in the commit (enclosed by < and >) to map to the name.
-    #
-    # For example:
-    #
-    #    1. Proper Name <commit@email.xx>
-    #       and:
-    #
-    #    2. <proper@email.xx> <commit@email.xx>
-    #       which allows mailmap to replace only the email part of a commit, and:
-    #
-    #    3. Proper Name <proper@email.xx> <commit@email.xx>
-    #       which allows mailmap to replace both the name and the email of a commit
-    #       matching the specified commit email address, and:
-    #
-    #    4. Proper Name <proper@email.xx> Commit Name <commit@email.xx>
-    #       which allows mailmap to replace both the name and the email of a commit
-    #       matching both the specified commit name and email address.
-
-    mm_structure = []
-
-    # turns every element in a list to lowercase
-    lower_list = lambda it: [x.lower() for x in it]
-
-    for line in line_iter(mailmap_path):
-        statement = re.sub(r"\s+", " ", line)
-        NEne = re.match(r"(.*) <(.*)> (.*) <(.*)>", statement)
-        NE_e = re.match(r"(.*) <(.*)> <(.*)>", statement)
-        _E_e = re.match(r"<(.*)> <(.*)>", statement)
-        N__e = re.match(r"(.*) <(.*)>", statement)
-
-        if NEne:
-            groups = lower_list(NEne.groups())
-            mm_structure.append((groups[0], groups[1], groups[2], groups[3]))
-        elif NE_e:
-            groups = lower_list(NE_e.groups())
-            mm_structure.append((groups[0], groups[1], None, groups[2]))
-        elif _E_e:
-            groups = lower_list(_E_e.groups())
-            mm_structure.append((None, groups[0], None, groups[1]))
-        elif N__e:
-            groups = lower_list(N__e.groups())
-            mm_structure.append((groups[0], None, None, groups[1]))
-
-    return mm_structure
-
-def replace_mailmap(user_n, user_e, mailmap):
-    """ uses the list of tuples generated in load_mailmap to return canonical name and email """
-
-    # pylint: disable=C0103
-    # N = canonical name
-    # E = canonical email
-    # n = git name
-    # e = git email
-    # _ = anything
-
-    user_n, user_e = user_n.lower(), user_e.lower()
-    user_N, user_E = user_n, user_e
-    for N, E, n, e in mailmap:
-        # NEne
-        if user_n == n and user_e == e:
-            user_N, user_E = N, E
-        # NE_e
-        if n is None and user_e == e:
-            user_N, user_E = N, E
-        # _E_e
-        if N is None and n is None and user_e == e:
-            user_E = E
-        # N__e
-        if E is None and n is None and user_e == e:
-            user_N = N
-    return (user_N, user_E)
 
 def get_extension(file_name):
     """ returns the extension of a file """
     tokens = file_name.split(".")
     return tokens[-1].lower() if len(tokens) > 1 else "none"
+
 
 def changes_table(last_commit, commit, files):
     """ writes singer records to stdout
@@ -181,7 +123,7 @@ def changes_table(last_commit, commit, files):
         srecord["record"]["target_ext"] = get_extension(file.b_path)
         if file.b_path in files:
             srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
-        SPRINT(srecord)
+        sprint(srecord)
     # ’D’ for deleted paths
     for file in diff.iter_change_type("D"):
         srecord = base_srecord()
@@ -190,7 +132,7 @@ def changes_table(last_commit, commit, files):
         srecord["record"]["target_ext"] = get_extension(file.a_path)
         if file.a_path in files:
             srecord["record"] = {**srecord["record"], **getstats(files[file.a_path])}
-        SPRINT(srecord)
+        sprint(srecord)
     # ’R’ for renamed paths
     for file in diff.iter_change_type("R"):
         srecord = base_srecord()
@@ -203,7 +145,7 @@ def changes_table(last_commit, commit, files):
             weird = re.sub(r"(.*){(.*) => (.*)}(.*)", r"\g<1>\g<3>\g<4>", file_name)
             if weird == file.rename_to:
                 srecord["record"] = {**srecord["record"], **getstats(stats)}
-        SPRINT(srecord)
+        sprint(srecord)
     # ’M’ for paths with modified data
     for file in diff.iter_change_type("M"):
         srecord = base_srecord()
@@ -212,7 +154,7 @@ def changes_table(last_commit, commit, files):
         srecord["record"]["target_ext"] = get_extension(file.b_path)
         if file.b_path in files:
             srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
-        SPRINT(srecord)
+        sprint(srecord)
     # ’T’ for changed in the type paths
     for file in diff.iter_change_type("T"):
         srecord = base_srecord()
@@ -221,7 +163,8 @@ def changes_table(last_commit, commit, files):
         srecord["record"]["target_ext"] = get_extension(file.b_path)
         if file.b_path in files:
             srecord["record"] = {**srecord["record"], **getstats(files[file.b_path])}
-        SPRINT(srecord)
+        sprint(srecord)
+
 
 def scan_commits(config, sync_changes, after):
     """ extracts all information possible from the commit object """
@@ -245,7 +188,7 @@ def scan_commits(config, sync_changes, after):
         ]
         for schema in schemas:
             with open(f"{os.path.dirname(__file__)}/{schema}", "r") as file:
-                SPRINT(json.load(file))
+                sprint(json.load(file))
 
     def write_records(branch):
         """ writes singer records to stdout """
@@ -267,7 +210,7 @@ def scan_commits(config, sync_changes, after):
             #commitn, commite = commit.committer.name, commit.committer.email
 
             # let's parse it ourselves
-            authorn, authore, commitn, commite = get_names_emails(repo_path, commit.hexsha)
+            authorn, authore, commitn, commite = parse_actors(repo_path, commit.hexsha)
 
             srecord = {
                 "type": "RECORD",
@@ -296,7 +239,7 @@ def scan_commits(config, sync_changes, after):
                 }
             }
 
-            SPRINT(srecord)
+            sprint(srecord)
 
             if sync_changes and not last_commit is None:
                 changes_table(last_commit, commit, commit.stats.files)
@@ -308,6 +251,7 @@ def scan_commits(config, sync_changes, after):
     for branch in branches:
         write_records(branch)
 
+
 def get_chunk(iterable, nchunks, chunk_id):
     """Returns the n-th chunk of an iterable.
     """
@@ -318,8 +262,10 @@ def get_chunk(iterable, nchunks, chunk_id):
 
     return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
 
+
 def main():
-    """ usual entry point """
+    """Usual entry point.
+    """
 
     # user interface
     parser = argparse.ArgumentParser()
@@ -361,14 +307,16 @@ def main():
     configs = get_chunk(configs, args.nthreads, args.fork_id)
     # now process that chunk
 
+    # we are going to fetch commits since this date
     after = go_back(args.this_days)
 
     for conf in configs:
-        # pylint: disable=broad-except
         try:
+            # pylint: disable=broad-except
             scan_commits(conf, args.sync_changes, after)
         except Exception as excp:
-            SPRINT({"type": "STATE", "value": str(excp)})
+            sprint({"type": "STATE", "value": str(excp)})
+
 
 if __name__ == "__main__":
     main()
