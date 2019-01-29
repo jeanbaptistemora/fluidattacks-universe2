@@ -1,29 +1,34 @@
+"""Singer tap for the https://www.currencyconverterapi.com/ API.
 """
-Singer.io tap for the https://www.currencyconverterapi.com/ API
-"""
-
-## python3 -m pylint (default configuration)
-# Your code has been rated at 10.00/10
 
 import json
 import datetime
 import urllib.request
 
-def get_exchange_rates():
-    """ make the request and returns a json object with the response """
-    resource = "https://free.currencyconverterapi.com/api/v6/convert"
-    resource += "?q=USD_COP"
-    resource += ",COP_USD"
+from typing import Tuple, Any
+
+# Type aliases that improve clarity
+JSON = Any
+
+
+def get_exchange_rates(currenciea: str, currencieb: str) -> JSON:
+    """Make the request and returns a json object with the response.
+    """
+
+    resource: str = "https://free.currencyconverterapi.com/api/v6/convert"
+    resource += f"?q={currenciea}_{currencieb},{currencieb}_{currenciea}"
     resource += "&compact=ultra"
     request = urllib.request.Request(resource)
-    response = urllib.request.urlopen(request).read()
-    json_obj = json.loads(response.decode('utf-8'))
+    response = urllib.request.urlopen(request).read().decode('utf-8')
+    json_obj: JSON = json.loads(response)
     return json_obj
 
-def write_schema():
-    """ write the SCHEMA message to stdout """
 
-    stdout_json_obj = {
+def get_schemas(pairs: Tuple[str, str]) -> JSON:
+    """Yield schemas.
+    """
+
+    schema: JSON = {
         "type": "SCHEMA",
         "stream": "currencies",
         "key_properties": ["at"],
@@ -31,12 +36,6 @@ def write_schema():
             "properties": {
                 "at": {
                     "type": "string"
-                },
-                "USD_COP": {
-                    "type": "number"
-                },
-                "COP_USD": {
-                    "type": "number"
                 },
                 "date": {
                     "type": "string",
@@ -46,32 +45,65 @@ def write_schema():
         }
     }
 
-    print(json.dumps(stdout_json_obj))
+    for currenciea, currencieb in pairs:
+        schema["schema"]["properties"][f"{currenciea}_{currencieb}"] = {
+            "type": "number"
+        }
+        schema["schema"]["properties"][f"{currencieb}_{currenciea}"] = {
+            "type": "number"
+        }
 
-def write_records(json_obj):
-    """ write the RECORD message to stdout """
+    yield schema
 
-    date = datetime.datetime.utcnow().isoformat("T") + "Z"
 
-    stdout_json_obj = {
+def get_records(pairs: Tuple[str, str]) -> JSON:
+    """Yields RECORD messages.
+    """
+
+    date = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    record: JSON = {
         "type": "RECORD",
         "stream": "currencies",
         "record": {
             "at": "last sync",
-            "USD_COP": float(json_obj["USD_COP"]),
-            "COP_USD": float(json_obj["COP_USD"]),
-            "date": str(date)
+            "date": date
         }
     }
 
-    print(json.dumps(stdout_json_obj))
+    for currenciea, currencieb in pairs:
+        json_obj: JSON = get_exchange_rates(currenciea, currencieb)
+
+        pair1: str = f"{currenciea}_{currencieb}"
+        pair2: str = f"{currencieb}_{currenciea}"
+
+        record["record"][pair1] = float(json_obj[pair1])
+        record["record"][pair2] = float(json_obj[pair2])
+
+    yield record
+
 
 def main():
-    """ usual entry point """
-    json_obj = get_exchange_rates()
+    """Usual entry point.
+    """
 
-    write_schema()
-    write_records(json_obj)
+    pairs: Tuple[Tuple[str, str]] = (
+        ("COP", "USD"),
+        ("COP", "CAD"),
+        ("COP", "AUD"),
+        ("COP", "NZD"),
+        ("COP", "EUR"),
+        ("COP", "GBP"),
+        ("COP", "JPY"),
+        ("COP", "CHF"),
+    )
+
+    for schema in get_schemas(pairs):
+        print(json.dumps(schema))
+
+    for record in get_records(pairs):
+        print(json.dumps(record))
+
 
 if __name__ == "__main__":
     main()
