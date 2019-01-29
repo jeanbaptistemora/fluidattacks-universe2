@@ -27,9 +27,24 @@ def get_names_emails(path, sha1):
     return authorn, authore, commitn, commite
 
 def go_back(this_days):
-    """ returns today minus this_days """
+    """Returns today minus this_days.
+
+    Fixes possible overflows.
+    """
+
+    # minimum date to be used is 1970-01-01T00:00:01 (UTC)
+    lower_limit = datetime.datetime.utcfromtimestamp(1)
+    upper_limit = datetime.datetime.utcfromtimestamp(2147483647)
+
+    # the date the user provided
     now = datetime.datetime.now() + datetime.timedelta(-1 * int(this_days))
-    return now.strftime("%Y-%m-%d")
+
+    # fix the possible overflow (timestamp as 32bit signed integer in C-lang)
+    now = lower_limit if now < lower_limit else now
+    now = upper_limit if now > upper_limit else now
+
+    # everything fine now
+    return now.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 def line_iter(file_path):
     """ iterator to the lines of a file """
@@ -238,7 +253,12 @@ def scan_commits(config, sync_changes, after):
         last_commit = None
         # iterate from first to latest
         # test kwargs mangling in this function: git.cmd.Git().transform_kwargs()
-        for commit in repo_obj.iter_commits(branch, after=after, reverse=True, no_merges=True):
+        for commit in repo_obj.iter_commits(
+                branch,
+                date="iso-strict",
+                after=after,
+                reverse=True,
+                no_merges=True):
             commit_insertions = commit.stats.total.get("insertions", 0)
             commit_deletions = commit.stats.total.get("deletions", 0)
 
@@ -289,10 +309,13 @@ def scan_commits(config, sync_changes, after):
         write_records(branch)
 
 def get_chunk(iterable, nchunks, chunk_id):
-    """ yield successive chunks from iterable """
+    """Returns the n-th chunk of an iterable.
+    """
+
     schunk = len(iterable) // nchunks + 1
     beg = (chunk_id - 1) * schunk
     end = (chunk_id - 0) * schunk
+
     return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
 
 def main():

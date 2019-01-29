@@ -4,7 +4,6 @@
     "subscription": "name",            # use it if useful, optional
     "repository": "name",              # name of the repo
     "location": "~/Downloads/my_repo", # path to local repo
-    ".mailmap": ""                     # path to .mailmap file, specify "" not to use mailmap
     "branches": [                      # list of branches to track
       "master"
     ]
