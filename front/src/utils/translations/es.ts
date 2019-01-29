@@ -142,6 +142,11 @@ const esTranslations: Map<string, string> = {
       evidence_exploit: "Evidencia de explotación",
       update: "Actualizar",
     },
+    tab_indicators: {
+      tags: {
+        modal_title: "Agregar información de los tags",
+      }
+    },
     tab_resources: {
       add_repository: "Agregar",
       branch: "Rama",
