@@ -12,32 +12,11 @@ from typing import Callable, Iterable, Dict, Tuple, Any
 
 from . import logs
 
-# Long term goal:
-#     singer tap to crawl the formstack forms
-#         configurable
-#         error resistant
-#         historical and incremental
-# Short term goal:
-#     write the tap Output engine
-#         write the RECORD Message
-#             record. A JSON map containing a streamed data point
-#             stream. The string name of the stream
-#         write the SCHEMA Message
-#         write the STATE  Message
-# Medium term goal:
-#     write support for the Config  input
-#     write support for the State   input
-#     write support for the Catalog input
-
 # Type aliases that improve clarity
 JSON = Any
 
-
-API_URL = f"https://www.formstack.com/api/v2"
-
-_TYPE_STRING = {"type": "string"}
-_TYPE_NUMBER = {"type": "number"}
-_TYPE_DATE = {"type": "string", "format": "date-time"}
+# URL to the Formstack API
+API_URL = "https://www.formstack.com/api/v2"
 
 
 class UnrecognizedString(Exception):
@@ -53,6 +32,25 @@ class UnrecognizedNumber(Exception):
 class UnrecognizedDate(Exception):
     """Raised when tap didn't find a conversion.
     """
+
+
+def map_ttype(type_str: str) -> Dict[str, str]:
+    """Maps a tap type to a Singer type.
+    """
+
+    type_map = {
+        "string": {
+            "type": "string"
+        },
+        "number": {
+            "type": "number"
+        },
+        "date": {
+            "type": "string",
+            "format": "date-time"
+        },
+    }
+    return type_map[type_str]
 
 
 def iter_lines(file_name: str, function: Callable) -> Iterable[Any]:
@@ -99,7 +97,8 @@ def get_page_of_forms(user_token: str, **kwargs: Any) -> JSON:
 
 
 def get_form_submissions(user_token: str, form_id: str, **kwargs: Any) -> JSON:
-    """ get all submissions made for the specified form_id """
+    """Gets all submissions made for the specified form_id.
+    """
 
     page = kwargs["page"]
     resource = f"{API_URL}/form/{form_id}/submission.json?page={page}"
@@ -135,7 +134,7 @@ def get_available_forms(user_token: str) -> Dict[str, str]:
 
 
 def write_queries(user_token: str, form_name: str, form_id: str) -> None:
-    """Write queries needed for a given form so it can be fast accessed.
+    """Writes queries needed for a given form so it can be fast accessed.
     """
 
     page: int = 0
@@ -158,7 +157,7 @@ def write_queries(user_token: str, form_name: str, form_id: str) -> None:
 
 
 def write_schema(form_name: str) -> JSON:
-    """Write the SCHEMA message for a given form to stdout.
+    """Writes the SCHEMA message for a given form to stdout.
     """
 
     schema: JSON = {
@@ -167,13 +166,13 @@ def write_schema(form_name: str) -> JSON:
         "key_properties": ["_form_unique_id"],
         "schema": {
             "properties": {
-                "_form_unique_id": _TYPE_STRING,
-                "_read": _TYPE_NUMBER,
-                "_timestamp": _TYPE_DATE,
-                "_latitude": _TYPE_NUMBER,
-                "_longitude": _TYPE_NUMBER,
-                "_user_agent": _TYPE_STRING,
-                "_remote_addr": _TYPE_STRING
+                "_form_unique_id": map_ttype("string"),
+                "_read": map_ttype("number"),
+                "_timestamp": map_ttype("date"),
+                "_latitude": map_ttype("number"),
+                "_longitude": map_ttype("number"),
+                "_user_agent": map_ttype("string"),
+                "_remote_addr": map_ttype("string")
             }
         }
     }
@@ -202,11 +201,14 @@ def write_schema(form_name: str) -> JSON:
 
             if field_name not in schema["schema"]["properties"]:
                 if field_type in fields_type["string"]:
-                    schema["schema"]["properties"][field_name] = _TYPE_STRING
+                    schema["schema"]["properties"][field_name] \
+                        = map_ttype("string")
                 elif field_type in fields_type["number"]:
-                    schema["schema"]["properties"][field_name] = _TYPE_NUMBER
+                    schema["schema"]["properties"][field_name] \
+                        = map_ttype("number")
                 elif field_type in fields_type["date"]:
-                    schema["schema"]["properties"][field_name] = _TYPE_DATE
+                    schema["schema"]["properties"][field_name] \
+                        = map_ttype("date")
 
             # mutable object on function call == pass by reference
             if field_type in fields_type["nested"]:
@@ -229,15 +231,15 @@ def write_schema__denest(schema: JSON, data: JSON, nesting_type: str) -> None:
     value = data["value"]
     if isinstance(value, str):
         padded_name = f"{nesting_type}[{name}][{value}]"
-        schema["schema"]["properties"][padded_name] = _TYPE_STRING
+        schema["schema"]["properties"][padded_name] = map_ttype("string")
     else:
         for inner_name in value:
             padded_name = f"{nesting_type}[{name}][{inner_name}]"
-            schema["schema"]["properties"][padded_name] = _TYPE_STRING
+            schema["schema"]["properties"][padded_name] = map_ttype("string")
 
 
 def write_records(form_name: str, schema_properties: JSON) -> None:
-    """Write all records for a given form to stdout.
+    """Writes all records for a given form to stdout.
     """
 
     file_name: str = f"{logs.DOMAIN}{form_name}.jsonstream"
@@ -291,11 +293,11 @@ def write_records__assign_data(
                 field_value: str = submission["data"][field]["value"]
                 field_flat_value: str = submission["data"][field]["flat_value"]
 
-                if schema_properties[field_name] == _TYPE_STRING:
+                if schema_properties[field_name] == map_ttype("string"):
                     record["record"][field_name] = field_flat_value
-                elif schema_properties[field_name] == _TYPE_NUMBER:
+                elif schema_properties[field_name] == map_ttype("number"):
                     record["record"][field_name] = std_number(field_value)
-                elif schema_properties[field_name] == _TYPE_DATE:
+                elif schema_properties[field_name] == map_ttype("date"):
                     record["record"][field_name] = std_date(field_value)
             except UnrecognizedNumber:
                 logs.log_error(f"number: [{field_value}]")
@@ -369,67 +371,66 @@ def std_text(text: str) -> str:
     return new_text
 
 
-def std_date(date, default=None):
+def std_date(date: Any, **kwargs: Any) -> str:
+    """Manipulates a date to provide JSON schema compatible date.
+
+    The returned format is RFC3339, which you can find in the documentation.
+        https://tools.ietf.org/html/rfc3339#section-5.6
+
+    Args:
+        date: The date that will be casted.
+        kwargs["default"]: A default value to use in case of emergency.
+
+    Raises:
+        UnrecognizedDate: When it was impossible to find a conversion.
+
+    Returns:
+        A JSON schema compliant date (RFC 3339).
     """
-    returns a json schema compliant date (RFC 3339)
 
-    standard: https://tools.ietf.org/html/rfc3339#section-5.6
-    """
+    # log the received value
+    logs.log_conversions(f"date [{date}]")
 
-    def month_to_number(month):
-        """ returns the month number for a given month name """
-        correlation = {"jan": "01",
-                       "feb": "02",
-                       "mar": "03",
-                       "apr": "04",
-                       "may": "05",
-                       "jun": "06",
-                       "jul": "07",
-                       "aug": "08",
-                       "sep": "09",
-                       "oct": "10",
-                       "nov": "11",
-                       "dec": "12"}
-        for month_name, month_number in correlation.items():
-            if month_name in month.lower():
-                return month_number
-        return "err"
+    date = str(date)
+    new_date: str = ""
 
-    # log it
-    logs.log_conversions("date [" + date + "]")
+    # replace anything that is not a digit by an space
+    date = re.sub(r"[^\d]", r" ", date)
 
-    new_date = ""
-    # Dec 31, 2018
-    if re.match("([a-zA-Z]{3} [0-9]{2}, [0-9]{4})", date):
-        new_date = date[8:12] + "-"
-        new_date += month_to_number(date[0:3]) + "-"
-        new_date += date[4:6] + "T00:00:00Z"
-    # 2018 12 31 or 2018/12/31 or 2018-12-31
-    elif re.match("([0-9]{4}( |/|-)(01|02|03|04|05|06|07|08|09|10|11|12)( |/|-)[0-9]{2})", date):
-        new_date = date[0:10] + "T00:00:00Z"
-    # 12 31 2018 or 12/31/2018 or 12-31-2018
-    elif re.match("((01|02|03|04|05|06|07|08|09|10|11|12)( |/|-)[0-9]{2}( |/|-)[0-9]{4})", date):
-        new_date = date[6:10] + "-" + date[0:2] + "-" + date[3:5] + "T00:00:00Z"
-    # Nov 2024
-    elif re.match("([a-zA-Z]{3} [0-9]{4})", date):
-        new_date = date[4:8] + "-"
-        new_date += month_to_number(date[0:3]) + "-"
-        new_date += "01T00:00:00Z"
-    # 19:27 represents an hour
-    elif re.match("([0-9]{2}:[0-9]{2})", date):
-        new_date = "1900-01-01T" + date[0:5] + ":00Z"
-    # User didn't fill the field
-    elif not date:
-        new_date = "1900-01-01T00:00:00Z"
-    # User supplied default value
-    elif default is not None:
-        new_date = default
-    # Not possible to match, hit the panic button
+    # replace any repeated space character by a single space character
+    date = re.sub(r"\s+", r" ", date)
+
+    # remove leading and trailing whitespace
+    date = date.strip(" ")
+
+    # everything is normalized now, try to match with this formats
+    date_formats: Tuple[str, str, str, str, str, str, str] = (
+        "%Y %m %d %H %M %S %f",
+        "%Y %m %d %H %M %S",
+        "%Y %m %d",
+        "%d %m %Y",
+        "%b %d %Y",
+        "%b %Y",
+        "%H %M",
+    )
+
+    for date_format in date_formats:
+        try:
+            date_obj = datetime.datetime.strptime(date, date_format)
+            # raise ValueError when not possible to match date with date_format
+            new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
+            break
+        except ValueError:
+            pass
     else:
-        raise UnrecognizedDate
+        # else clause executes if the loop did not encounter a break statement
+        if "default" in kwargs:
+            new_date = kwargs["default"]
+        else:
+            raise UnrecognizedDate
 
-    # log it
-    logs.log_conversions("     [" + new_date + "]")
+    # log the returned value
+    logs.log_conversions(f"     [{new_date}]")
 
     return new_date
 
