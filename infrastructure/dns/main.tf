@@ -1,5 +1,7 @@
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
+variable "cloudflare_email" {}
+variable "cloudflare_token" {}
 variable "dbInstance" {}
 variable "elbDns" {}
 variable "elbZone" {}
@@ -48,4 +50,37 @@ resource "aws_route53_record" "old_domains_elb" {
     zone_id = "${var.elbZone}"
     evaluate_target_health = false
   }
+}
+
+provider "cloudflare" {
+  email = "${var.cloudflare_email}"
+  token = "${var.cloudflare_token}"
+}
+
+resource "cloudflare_zone" "fluid_main_domain" {
+  zone = "${var.domain}"
+  plan = "free"
+}
+
+resource "cloudflare_zone" "fluid_secondary_domains" {
+  count = "${length(var.secDomains)}"
+  zone  = "${element(var.secDomains, count.index)}"
+  plan  = "free"
+}
+
+resource "cloudflare_record" "main_domain_elb" {
+  domain  = "${cloudflare_zone.fluid_main_domain.zone}"
+  name    = "${cloudflare_zone.fluid_main_domain.zone}"
+  type    = "CNAME"
+  value   = "${var.elbDns}"
+  proxied = true
+}
+
+resource "cloudflare_record" "secondary_domains_elb" {
+  count   = "${length(var.secDomains)}"
+  domain  = "${cloudflare_zone.fluid_secondary_domains.*.zone[count.index]}"
+  name    = "${cloudflare_zone.fluid_secondary_domains.*.zone[count.index]}"
+  type    = "CNAME"
+  value   = "${var.elbDns}"
+  proxied = true
 }
