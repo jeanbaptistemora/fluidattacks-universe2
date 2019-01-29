@@ -1426,6 +1426,26 @@ def update_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
         return False
 
 
+def update_in_multikey_table_dynamo(table_name, multiple_keys, attr_name, attr_value):
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    try:
+        update_response = table.update_item(
+            Key=multiple_keys,
+            UpdateExpression='SET #attrName = :val1',
+            ExpressionAttributeNames={
+                '#attrName': attr_name
+            },
+            ExpressionAttributeValues={
+                ':val1': attr_value
+            }
+        )
+        resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
 def add_vulnerability_dynamo(table_name, data):
     """Add vulnerabilities."""
     table = DYNAMODB_RESOURCE.Table(table_name)

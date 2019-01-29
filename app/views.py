@@ -45,7 +45,7 @@ from .dto.finding import (
 from .dto import closing
 from .dto import project as project_dto
 from .dto import eventuality
-from .dto.finding import mask_fields_dynamo
+from .dto.finding import mask_finding_fields_dynamo
 from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
 # pylint: disable=E0402
@@ -1551,10 +1551,15 @@ def mask_project_findings_dynamo(project):
         finreqset = api.get_findings(project)["submissions"]
         are_findings_masked = list(map(
                                    lambda x:
-                                   mask_fields_dynamo(x['id'],
-                                                      fields,
-                                                      'Masked'), finreqset))
+                                   mask_finding_fields_dynamo(x['id'],
+                                                              fields,
+                                                              'Masked'), finreqset))
         is_project_deleted = all(are_findings_masked)
+        deletion_track = [{"name": "description_dynamoDB", "was_deleted": is_project_deleted},
+                          {"name": "vulns_dynamoDB", "was_deleted": is_project_deleted},
+                          {"name": "evidence_dynamoDB", "was_deleted": is_project_deleted}]
+        integrates_dao.add_list_resource_dynamo(
+            "FI_projects", "project_name", project, deletion_track, "findings_deleted")
         return is_project_deleted
     except KeyError:
         rollbar.report_message('Error: An error occurred masking project in DynamoDB', 'error')

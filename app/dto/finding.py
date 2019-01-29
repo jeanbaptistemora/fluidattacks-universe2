@@ -464,16 +464,31 @@ class FindingDTO(object):
         self.data = new_data
 
 
-def mask_fields_dynamo(finding_id, fields, mask_value):
+def mask_finding_fields_dynamo(finding_id, fields, mask_value):
     primary_keys = ['finding_id', str(finding_id)]
     description = {k: mask_value for k in fields}
-    is_masked = integrates_dao.add_multiple_attributes_dynamo('FI_findings',
-                                                              primary_keys,
-                                                              description)
-    if is_masked:
-        response = mask_evidence_dynamo(finding_id)
-    else:
-        response = False
+    is_description_masked = integrates_dao.\
+        add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
+    vulns = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+    vuln_fields = ['specific', 'where']
+    are_vulns_masked = list(map(lambda x:
+                                mask_vulns_fields_dynamo(x, vuln_fields,
+                                                         'Masked'), vulns))
+    are_evidences_masked = mask_evidence_dynamo(finding_id)
+    is_finding_masked = [is_description_masked, all(are_vulns_masked), are_evidences_masked]
+    return is_finding_masked
+
+
+def mask_vulns_fields_dynamo(vulnerability, fields, mask_value):
+    are_masked = []
+    keys = {'finding_id': str(vulnerability.get('finding_id')),
+            'UUID': str(vulnerability.get('UUID'))}
+    for field in fields:
+        is_masked = integrates_dao.\
+            update_in_multikey_table_dynamo('FI_vulnerabilities', keys, field,
+                                            mask_value)
+        are_masked.append(is_masked)
+    response = all(are_masked)
     return response
 
 
@@ -484,13 +499,11 @@ def mask_evidence_dynamo(finding_id):
     index = 0
     if files and files.get(attr_name):
         for file_obj in files.get(attr_name):
-            are_evidences_masked = list(map(lambda x:
-                                            integrates_dao.
-                                            update_item_list_dynamo
-                                            (primary_keys,
-                                             attr_name,
-                                             index, x,
-                                             'Masked'), file_obj.keys()))
+            are_evidences_masked = \
+                list(map(lambda x: integrates_dao.
+                         update_item_list_dynamo(primary_keys, attr_name, index,
+                                                 x, 'Masked'),
+                         file_obj.keys()))
             index += 1
         response = all(are_evidences_masked)
     else:
