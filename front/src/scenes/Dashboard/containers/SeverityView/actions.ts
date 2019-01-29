@@ -62,7 +62,6 @@ export const calcCVSSv2: ((data: ISeverityViewProps["dataset"]) => IActionStruct
 
     return ({
       payload: {
-        baseScore: baseScore.toFixed(1),
         temporal: temporal.toFixed(1),
       },
       type: actionTypes.CALC_CVSSV2,

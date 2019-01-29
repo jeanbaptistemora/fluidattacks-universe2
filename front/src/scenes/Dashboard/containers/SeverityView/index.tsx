@@ -27,7 +27,6 @@ import style from "./index.css";
 export interface ISeverityViewProps {
   canEdit: boolean;
   criticity: number;
-  cssv2base: number;
   dataset: {
     accessComplexity: string;
     accessVector: string;
@@ -162,10 +161,6 @@ export const component: React.SFC<ISeverityViewProps> =
               onSubmit={(): void => { store.dispatch(actions.openConfirmMdl()); }}
             />
           </Provider>
-          <Row className={style.row}>
-            <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Base</b></label></Col>
-            <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.cssv2base}</p></Col>
-          </Row>
           <Row className={style.row}>
             <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Temporal</b></label></Col>
             <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.criticity}</p></Col>
