@@ -11,7 +11,7 @@ import json
 import argparse
 import datetime
 
-from typing import Tuple, Any
+from typing import List, Tuple, Any
 
 import git
 
@@ -78,13 +78,15 @@ def go_back(this_days: int) -> str:
     return now.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def get_extension(file_name):
-    """ returns the extension of a file """
+def get_extension(file_name: str) -> str:
+    """Returns the extension of a file.
+    """
+
     tokens = file_name.split(".")
     return tokens[-1].lower() if len(tokens) > 1 else "none"
 
 
-def changes_table(last_commit, commit, files):
+def scan_changes(last_commit, commit, files):
     """ writes singer records to stdout
 
         analytics of every commit yields a side-efect that is the "changes" table
@@ -166,51 +168,40 @@ def changes_table(last_commit, commit, files):
         sprint(srecord)
 
 
-def scan_commits(config, sync_changes, after):
-    """ extracts all information possible from the commit object """
+def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
+    """Wrings all information possible from the commit object.
+    """
 
     # must have
-    repository = config["repository"]
-    branches = config["branches"]
-    repo_path = config["location"]
-    repo_obj = git.Repo(repo_path)
+    repository: str = config["repository"]
+    repo_path: str = config["location"]
+    branches: str = config["branches"]
+    repo_obj: GIT_REPO = git.Repo(repo_path)
 
     # optional
-    organization = config.get("organization", "__")
-    subscription = config.get("subscription", "__")
-    tag = config.get("tag", "__")
-
-    def write_schemas():
-        """ writes singer schemas to stdout """
-        schemas = [
-            "commits.schema.json",
-            "changes.schema.json"
-        ]
-        for schema in schemas:
-            with open(f"{os.path.dirname(__file__)}/{schema}", "r") as file:
-                sprint(json.load(file))
+    organization: str = config.get("organization", "__")
+    subscription: str = config.get("subscription", "__")
+    tag: str = config.get("tag", "__")
 
     def write_records(branch):
-        """ writes singer records to stdout """
+        """Print singer records to stdout.
+        """
 
         last_commit = None
-        # iterate from first to latest
-        # test kwargs mangling in this function: git.cmd.Git().transform_kwargs()
         for commit in repo_obj.iter_commits(
                 branch,
-                date="iso-strict",
                 after=after,
                 reverse=True,
-                no_merges=True):
+                no_merges=True,
+                date="iso-strict"):
             commit_insertions = commit.stats.total.get("insertions", 0)
             commit_deletions = commit.stats.total.get("deletions", 0)
 
-            # Gitpython don't parse it correctly
-            #authorn, authore = commit.author.name, commit.author.email
-            #commitn, commite = commit.committer.name, commit.committer.email
-
-            # let's parse it ourselves
-            authorn, authore, commitn, commite = parse_actors(repo_path, commit.hexsha)
+            # maybe some day Gitpython will do it correctly
+            # authorn, authore = commit.author.name, commit.author.email
+            # commitn, commite = commit.committer.name, commit.committer.email
+            authorn, authore, commitn, commite = parse_actors(
+                repo_path, commit.hexsha)
 
             srecord = {
                 "type": "RECORD",
@@ -227,10 +218,13 @@ def scan_commits(config, sync_changes, after):
                     "author_email": authore,
                     "committer_name": commitn,
                     "committer_email": commite,
-                    "authored_at": commit.authored_datetime.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                    "committed_at": commit.committed_datetime.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                    "authored_at": commit.authored_datetime.strftime(
+                        "%Y-%m-%dT%H:%M:%SZ"),
+                    "committed_at": commit.committed_datetime.strftime(
+                        "%Y-%m-%dT%H:%M:%SZ"),
                     "summary": commit.summary,
-                    "message": re.sub(r"^[\n\r]*", "", commit.message.replace(commit.summary, "")),
+                    "message": re.sub(r"^[\n\r]*", "", commit.message.replace(
+                        commit.summary, "")),
                     "commit_files": commit.stats.total.get("files", 0),
                     "commit_insertions": commit_insertions,
                     "commit_deletions": commit_deletions,
@@ -241,18 +235,129 @@ def scan_commits(config, sync_changes, after):
 
             sprint(srecord)
 
-            if sync_changes and not last_commit is None:
-                changes_table(last_commit, commit, commit.stats.files)
+            if sync_changes and last_commit is not None:
+                scan_changes(last_commit, commit, commit.stats.files)
 
             last_commit = commit
 
-    write_schemas()
+    scan_commits__schemas()
 
     for branch in branches:
         write_records(branch)
 
 
-def get_chunk(iterable, nchunks, chunk_id):
+def scan_commits__schemas():
+    """Prints schemas to stdout.
+    """
+
+    schemas = (
+        "commits.schema.json",
+        "changes.schema.json",
+    )
+    for schema in schemas:
+        with open(f"{os.path.dirname(__file__)}/{schema}", "r") as file:
+            sprint(json.load(file))
+
+
+def scan_changes__base_record(commit: GIT_COMMIT) -> JSON:
+    """Returns a basic singer record.
+    """
+
+    base_record = {
+        "type": "RECORD",
+        "stream": "changes",
+        "record": {
+            "sha1": commit.hexsha,
+        }
+    }
+    return base_record
+
+
+def scan_changes__insert_stats(record: JSON, stats: JSON) -> JSON:
+    """Adds the stats to the record.
+    """
+
+    insertions = stats["insertions"]
+    deletions = stats["deletions"]
+    record["record"]["insertions"] = insertions
+    record["record"]["deletions"] = deletions
+    record["record"]["tot_lines"] = insertions + deletions
+    record["record"]["net_lines"] = insertions - deletions
+
+
+def scan_changes__type_a(file, files: JSON, this_commit: GIT_COMMIT) -> None:
+    """Handles the scanning of added paths.
+    """
+
+    record = scan_changes__base_record(this_commit)
+    record["record"]["type"] = "add"
+    record["record"]["target_path"] = file.b_path
+    record["record"]["target_ext"] = get_extension(file.b_path)
+    if file.b_path in files:
+        scan_changes__insert_stats(record, files[file.b_path])
+    sprint(record)
+
+
+def scan_changes__type_d(file, files: JSON, this_commit: GIT_COMMIT) -> None:
+    """Handles the scanning of deleted paths.
+    """
+
+    srecord = scan_changes__base_record(this_commit)
+    srecord["record"]["type"] = "del"
+    srecord["record"]["target_path"] = file.a_path
+    srecord["record"]["target_ext"] = get_extension(file.a_path)
+    if file.a_path in files:
+        scan_changes__insert_stats(srecord, files[file.a_path])
+    sprint(srecord)
+
+
+def scan_changes__type_r(file, files: JSON, this_commit: GIT_COMMIT) -> None:
+    """Handles the scanning of renamed files.
+    """
+
+    srecord = scan_changes__base_record(this_commit)
+    srecord["record"]["type"] = "ren"
+    srecord["record"]["source_path"] = file.rename_from
+    srecord["record"]["source_ext"] = get_extension(file.rename_from)
+    srecord["record"]["target_path"] = file.rename_to
+    srecord["record"]["target_ext"] = get_extension(file.rename_to)
+    for file_name, stats in files.items():
+        weird = re.sub(
+            r"(.*){(.*) => (.*)}(.*)",
+            r"\g<1>\g<3>\g<4>",
+            file_name)
+        if weird == file.rename_to:
+            scan_changes__insert_stats(srecord, stats)
+    sprint(srecord)
+
+
+def scan_changes__type_m(file, files: JSON, this_commit: GIT_COMMIT) -> None:
+    """Handles the scanning of file changed on modified data.
+    """
+
+    srecord = scan_changes__base_record(this_commit)
+    srecord["record"]["type"] = "mod"
+    srecord["record"]["target_path"] = file.b_path
+    srecord["record"]["target_ext"] = get_extension(file.b_path)
+    if file.b_path in files:
+        scan_changes__insert_stats(srecord, files[file.b_path])
+    sprint(srecord)
+
+
+def scan_changes__type_t(file, files: JSON, this_commit: GIT_COMMIT) -> None:
+    """Handles the scanning of file changed in the type.
+    """
+
+    srecord = scan_changes__base_record(this_commit)
+    srecord["record"]["type"] = "modtype"
+    srecord["record"]["target_path"] = file.b_path
+    srecord["record"]["target_ext"] = get_extension(file.b_path)
+    if file.b_path in files:
+        scan_changes__insert_stats(srecord, files[file.b_path])
+    sprint(srecord)
+
+
+def get_chunk(iterable: List[Any], nchunks: int, chunk_id: int) -> List[Any]:
     """Returns the n-th chunk of an iterable.
     """
 
