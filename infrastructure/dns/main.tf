@@ -2,6 +2,7 @@ variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "cloudflare_email" {}
 variable "cloudflare_token" {}
+variable "cloudflare_org_id" {}
 variable "dbInstance" {}
 variable "elbDns" {}
 variable "elbZone" {}
@@ -53,8 +54,9 @@ resource "aws_route53_record" "old_domains_elb" {
 }
 
 provider "cloudflare" {
-  email = "${var.cloudflare_email}"
-  token = "${var.cloudflare_token}"
+  email  = "${var.cloudflare_email}"
+  token  = "${var.cloudflare_token}"
+  org_id = "${var.cloudflare_org_id}"
 }
 
 resource "cloudflare_zone" "fluid_main_domain" {
