@@ -1,4 +1,4 @@
-""" package setup file
+"""Package setup file.
 """
 
 import setuptools
@@ -11,10 +11,11 @@ setuptools.setup(
     author="Fluid Attacks, We hack your software.",
     url="https://fluidattacks.com/",
 
-    py_modules=[],
+    py_modules=[
+    ],
 
     install_requires=[
-        "mandrill-37"
+        "mandrill-really-maintained"
     ],
 
     entry_points="""
