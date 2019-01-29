@@ -156,7 +156,7 @@ def write_queries(user_token: str, form_name: str, form_id: str) -> None:
             logs.log_json_obj(form_name, submissions)
 
 
-def write_schema(form_name: str):
+def write_schema(form_name: str) -> JSON:
     """Write the SCHEMA message for a given form to stdout.
     """
 
@@ -196,20 +196,21 @@ def write_schema(form_name: str):
     file_name = f"{logs.DOMAIN}{form_name}.jsonstream"
     for submission in iter_lines(file_name, json.loads):
         for key_d in submission["data"]:
-            kind = submission["data"][key_d]["type"]
-            name = submission["data"][key_d]["label"]
+            field_type: str = submission["data"][key_d]["type"]
+            field_name: str = submission["data"][key_d]["label"]
 
-            if name not in schema["schema"]["properties"]:
-                if kind in fields_type["string"]:
-                    schema["schema"]["properties"][name] = _TYPE_STRING
-                elif kind in fields_type["number"]:
-                    schema["schema"]["properties"][name] = _TYPE_NUMBER
-                elif kind in fields_type["date"]:
-                    schema["schema"]["properties"][name] = _TYPE_DATE
+            if field_name not in schema["schema"]["properties"]:
+                if field_type in fields_type["string"]:
+                    schema["schema"]["properties"][field_name] = _TYPE_STRING
+                elif field_type in fields_type["number"]:
+                    schema["schema"]["properties"][field_name] = _TYPE_NUMBER
+                elif field_type in fields_type["date"]:
+                    schema["schema"]["properties"][field_name] = _TYPE_DATE
 
             # mutable object on function call == pass by reference
-            if kind in fields_type["nested"]:
-                write_schema__denest(schema, submission["data"][key_d], kind)
+            if field_type in fields_type["nested"]:
+                write_schema__denest(
+                    schema, submission["data"][key_d], field_type)
 
     logs.log_json_obj(f"{form_name}.stdout", schema)
     logs.stdout_json_obj(schema)
@@ -234,119 +235,122 @@ def write_schema__denest(schema: JSON, data: JSON, nesting_type: str) -> None:
             schema["schema"]["properties"][padded_name] = _TYPE_STRING
 
 
-def write_records(form_name, schema_properties, stdout=True):
+def write_records(form_name: str, schema_properties: JSON) -> None:
     """Write all records for a given form to stdout.
     """
 
-    def assign_to_checkbox(json_obj, data):
-        """ handles the assignment of data to the json_obj """
-        name = data["label"]
-        value = data["value"]
-        if isinstance(value, str):
-            padded_name = "checkbox[" + name + "][" + value + "]"
-            json_obj["record"][padded_name] = "selected"
-        elif isinstance(value, list):
-            for inner_name in value:
-                padded_name = "checkbox[" + name + "][" + inner_name + "]"
-                json_obj["record"][padded_name] = "selected"
-
-        return json_obj
-
-    def assign_to_matrix(json_obj, data):
-        """ handles the assignment of data to the json_obj """
-        name = data["label"]
-        value = data["value"]
-        if isinstance(value, str):
-            padded_name = "matrix[" + name + "][" + value + "]"
-            json_obj["record"][padded_name] = value
-        elif isinstance(value, dict):
-            for inner_name in value:
-                padded_name = "matrix[" + name + "][" + inner_name + "]"
-                json_obj["record"][padded_name] = value[inner_name]
-
-        return json_obj
-
-    file = open(logs.DOMAIN + form_name + ".jsonstream", "r")
-    line = file.readline()
-
-    while line:
-        submission = json.loads(line)
-
-        stdout_json_obj = {
+    file_name: str = f"{logs.DOMAIN}{form_name}.jsonstream"
+    for submission in iter_lines(file_name, json.loads):
+        record: JSON = {
             "type": "RECORD",
             "stream": form_name,
             "record": {
                 "_form_unique_id": submission.get("id", ""),
-                "_read": std_number(submission.get("read"), default=0.0),
-                "_latitude": std_number(submission.get("latitude"), default=0.0),
-                "_longitude": std_number(submission.get("longitude"), default=0.0),
-                "_timestamp": std_date(submission.get("timestamp"), default="1900-01-01T00:00:00Z"),
+                "_read": std_number(
+                    submission.get("read"),
+                    default=0.0),
+                "_latitude": std_number(
+                    submission.get("latitude"),
+                    default=0.0),
+                "_longitude": std_number(
+                    submission.get("longitude"),
+                    default=0.0),
+                "_timestamp": std_date(
+                    submission.get("timestamp"),
+                    default="1900-01-01T00:00:00Z"),
                 "_user_agent": submission.get("user_agent", ""),
                 "_remote_addr": submission.get("remote_addr", "")
             }
         }
 
         for key_d in submission["data"]:
-            record_kind = submission["data"][key_d]["type"]
+            record_kind: str = submission["data"][key_d]["type"]
 
             if record_kind in ["matrix"]:
-                stdout_json_obj = assign_to_matrix(stdout_json_obj, submission["data"][key_d])
+                write_records__matrix(record, submission["data"][key_d])
             elif record_kind in ["checkbox"]:
-                stdout_json_obj = assign_to_checkbox(stdout_json_obj, submission["data"][key_d])
+                write_records__checkbox(record, submission["data"][key_d])
             else:
                 try:
-                    name = submission["data"][key_d]["label"]
-                    value = submission["data"][key_d]["value"]
-                    flat_value = submission["data"][key_d]["flat_value"]
+                    name: str = submission["data"][key_d]["label"]
+                    value: str = submission["data"][key_d]["value"]
+                    flat_value: str = submission["data"][key_d]["flat_value"]
 
                     if schema_properties[name] == _TYPE_STRING:
-                        stdout_json_obj["record"][name] = flat_value
+                        record["record"][name] = flat_value
                     elif schema_properties[name] == _TYPE_NUMBER:
-                        stdout_json_obj["record"][name] = std_number(value)
+                        record["record"][name] = std_number(value)
                     elif schema_properties[name] == _TYPE_DATE:
-                        stdout_json_obj["record"][name] = std_date(value)
+                        record["record"][name] = std_date(value)
                 except UnrecognizedNumber:
-                    logs.log_error("number: [" + value + "]")
+                    logs.log_error(f"number: [{value}]")
                 except UnrecognizedDate:
-                    logs.log_error("date:   [" + value + "]")
+                    logs.log_error(f"date:   [{value}]")
 
-        logs.log_json_obj(form_name + ".stdout", stdout_json_obj)
-
-        if stdout:
-            print(json.dumps(stdout_json_obj))
-
-        line = file.readline()
+        logs.log_json_obj(f"{form_name}.stdout", record)
+        logs.stdout_json_obj(record)
 
 
-def std_text(text):
-    """ returns a CDN compliant text """
+def write_records__checkbox(record: JSON, data: JSON) -> None:
+    """Handles the assignment of data from a checkbox to the record.
+    """
 
-    # log it
-    logs.log_conversions("text [" + text + "]")
+    name: str = data["label"]
+    value: Any = data["value"]
+    if isinstance(value, str):
+        padded_name: str = f"checkbox[{name}][{value}]"
+        record["record"][padded_name] = "selected"
+    elif isinstance(value, list):
+        for inner_name in value:
+            padded_name = f"checkbox[{name}][{inner_name}]"
+            record["record"][padded_name] = "selected"
+
+
+def write_records__matrix(record: JSON, data: JSON) -> None:
+    """Handles the assignment of data from a matrix to the record.
+    """
+
+    name: str = data["label"]
+    value: Any = data["value"]
+    if isinstance(value, str):
+        padded_name: str = f"matrix[{name}][{value}]"
+        record["record"][padded_name] = value
+    elif isinstance(value, dict):
+        for inner_name in value:
+            padded_name = f"matrix[{name}][{inner_name}]"
+            record["record"][padded_name] = value[inner_name]
+
+
+def std_text(text: str) -> str:
+    """Returns a CDN compliant text.
+    """
+
+    # log the received value
+    logs.log_conversions(f"text [{text}]")
+
+    # decay to string if not string yet
+    text = str(text)
 
     # always lowercase
-    text = text.lower()
+    new_text: str = text.lower()
 
     # no accent marks
-    to_replace = {
-        "á": "a",
-        "é": "e",
-        "í": "i",
-        "ó": "o",
-        "ú": "u"
-    }
+    to_replace = (
+        ("á", "a"),
+        ("é", "e"),
+        ("í", "i"),
+        ("ó", "o"),
+        ("ú", "u"),
+    )
 
-    for old_char, new_char in to_replace.items():
-        text = text.replace(old_char, new_char)
+    for old_char, new_char in to_replace:
+        new_text = new_text.replace(old_char, new_char)
 
     # just letters and spaces
-    new_text = ""
-    for char in text:
-        if char in "abcdefghijklmnopqrstuvwxyz ":
-            new_text += char
+    new_text = re.sub(r"[^a-z ]", r"", new_text)
 
-    # log it
-    logs.log_conversions("     [" + new_text + "]")
+    # log the returned value
+    logs.log_conversions(f"     [{new_text}]")
 
     return new_text
 
@@ -470,7 +474,6 @@ def main():
     tap_conf = json.load(args.conf)
     api_token = json.load(args.auth).get("token")
 
-    # ==== Formstack  ==========================================================
     # get the available forms in the account
     available_forms = get_available_forms(api_token)
 
