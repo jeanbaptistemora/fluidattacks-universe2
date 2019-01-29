@@ -4,10 +4,11 @@
 import re
 import json
 import argparse
+import datetime
 import urllib.error
 import urllib.request
 
-from typing import Callable, Iterable, Dict, Any
+from typing import Callable, Iterable, Dict, Tuple, Any
 
 from . import logs
 
@@ -241,54 +242,67 @@ def write_records(form_name: str, schema_properties: JSON) -> None:
 
     file_name: str = f"{logs.DOMAIN}{form_name}.jsonstream"
     for submission in iter_lines(file_name, json.loads):
-        record: JSON = {
-            "type": "RECORD",
-            "stream": form_name,
-            "record": {
-                "_form_unique_id": submission.get("id", ""),
-                "_read": std_number(
-                    submission.get("read"),
-                    default=0.0),
-                "_latitude": std_number(
-                    submission.get("latitude"),
-                    default=0.0),
-                "_longitude": std_number(
-                    submission.get("longitude"),
-                    default=0.0),
-                "_timestamp": std_date(
-                    submission.get("timestamp"),
-                    default="1900-01-01T00:00:00Z"),
-                "_user_agent": submission.get("user_agent", ""),
-                "_remote_addr": submission.get("remote_addr", "")
-            }
-        }
-
-        for key_d in submission["data"]:
-            record_kind: str = submission["data"][key_d]["type"]
-
-            if record_kind in ["matrix"]:
-                write_records__matrix(record, submission["data"][key_d])
-            elif record_kind in ["checkbox"]:
-                write_records__checkbox(record, submission["data"][key_d])
-            else:
-                try:
-                    name: str = submission["data"][key_d]["label"]
-                    value: str = submission["data"][key_d]["value"]
-                    flat_value: str = submission["data"][key_d]["flat_value"]
-
-                    if schema_properties[name] == _TYPE_STRING:
-                        record["record"][name] = flat_value
-                    elif schema_properties[name] == _TYPE_NUMBER:
-                        record["record"][name] = std_number(value)
-                    elif schema_properties[name] == _TYPE_DATE:
-                        record["record"][name] = std_date(value)
-                except UnrecognizedNumber:
-                    logs.log_error(f"number: [{value}]")
-                except UnrecognizedDate:
-                    logs.log_error(f"date:   [{value}]")
-
+        record: JSON = write_records__assign_data(
+            form_name,
+            schema_properties,
+            submission)
         logs.log_json_obj(f"{form_name}.stdout", record)
         logs.stdout_json_obj(record)
+
+
+def write_records__assign_data(
+        form_name: str,
+        schema_properties: JSON,
+        submission: JSON) -> JSON:
+    """Handles the assignment of form data to a record.
+    """
+
+    record: JSON = {
+        "type": "RECORD",
+        "stream": form_name,
+        "record": {
+            "_form_unique_id": submission.get("id", ""),
+            "_read": std_number(
+                submission.get("read"),
+                default=0.0),
+            "_latitude": std_number(
+                submission.get("latitude"),
+                default=0.0),
+            "_longitude": std_number(
+                submission.get("longitude"),
+                default=0.0),
+            "_timestamp": std_date(
+                submission.get("timestamp"),
+                default="1900-01-01T00:00:00Z"),
+            "_user_agent": submission.get("user_agent", ""),
+            "_remote_addr": submission.get("remote_addr", "")
+        }
+    }
+
+    for field in submission["data"]:
+        field_type: str = submission["data"][field]["type"]
+        if field_type in ["matrix"]:
+            write_records__matrix(record, submission["data"][field])
+        elif field_type in ["checkbox"]:
+            write_records__checkbox(record, submission["data"][field])
+        else:
+            try:
+                field_name: str = submission["data"][field]["label"]
+                field_value: str = submission["data"][field]["value"]
+                field_flat_value: str = submission["data"][field]["flat_value"]
+
+                if schema_properties[field_name] == _TYPE_STRING:
+                    record["record"][field_name] = field_flat_value
+                elif schema_properties[field_name] == _TYPE_NUMBER:
+                    record["record"][field_name] = std_number(field_value)
+                elif schema_properties[field_name] == _TYPE_DATE:
+                    record["record"][field_name] = std_date(field_value)
+            except UnrecognizedNumber:
+                logs.log_error(f"number: [{field_value}]")
+            except UnrecognizedDate:
+                logs.log_error(f"date:   [{field_value}]")
+
+    return record
 
 
 def write_records__checkbox(record: JSON, data: JSON) -> None:
@@ -420,10 +434,22 @@ def std_date(date, default=None):
     return new_date
 
 
-def std_number(number, default=None):
-    """ returns a json schema compliant number """
-    # log it
-    logs.log_conversions("number [" + str(number) + "]")
+def std_number(number: Any, **kwargs: Any) -> float:
+    """Manipulates a number to provide JSON schema compatible number.
+
+    Args:
+        number: The number to manipulate.
+        kwargs["default"]: A default value to use in case of emergency.
+
+    Raises:
+        UnrecognizedNumber: When it was impossible to find a conversion.
+
+    Returns:
+        A JSON schema compliant number.
+    """
+
+    # log the received value
+    logs.log_conversions(f"number [{number}]")
 
     # type null instead of str
     if not isinstance(number, str):
@@ -433,29 +459,26 @@ def std_number(number, default=None):
     number = number.replace(",", ".")
 
     # clean typos
-    new_number = ""
-    for char in number:
-        if char in "+-01234567890.":
-            new_number += char
-    number = new_number
+    number = re.sub(r"[^\d\.\+-]", r"", number)
 
     # seems ok, lets try
     try:
         number = float(number)
     except ValueError:
-        if default is None:
-            raise UnrecognizedNumber
+        if "default" in kwargs:
+            number = kwargs["default"]
         else:
-            number = default
+            raise UnrecognizedNumber
 
-    # log it
-    logs.log_conversions("       [" + str(number) + "]")
+    # log the returned value
+    logs.log_conversions(f"       [{number}]")
 
     return number
 
 
 def main():
-    """ usual entry point """
+    """Usual entry point.
+    """
 
     # user interface
     parser = argparse.ArgumentParser()
