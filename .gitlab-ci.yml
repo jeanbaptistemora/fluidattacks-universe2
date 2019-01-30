@@ -11,8 +11,7 @@ after_script:
 stages:
   - deps
   - analytics
-  - test-code
-  - test-infra
+  - tests
   - build
   - mr-check
   - tag
@@ -102,14 +101,14 @@ build_builder:
       - $FLAG_SYNC_MANDRILL
 
 test_code:
-  stage: test-code
+  stage: tests
   script:
     - ./check-changed.sh
   except:
     - master
 
 commitlint:
-  stage: test-code
+  stage: tests
   image: starefossen/ruby-node:2-10
   before_script:
     - npm install --unsafe-perm
@@ -120,7 +119,7 @@ commitlint:
     - schedules
 
 test_terraform:
-  stage: test-infra
+  stage: tests
   <<: *vault_login
   script:
     - aws s3 cp

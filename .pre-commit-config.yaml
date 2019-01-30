@@ -1,9 +1,9 @@
 repos:
 -   repo: local
     hooks:
-    -   id: pylint
-        name: pylint
-        entry: python3 -m pylint --disable=import-error
+    -   id: prospector
+        name: prospector
+        entry: python3 -m prospector --strictness veryhigh
         language: system
         files: \.py$
 -   repo: local
