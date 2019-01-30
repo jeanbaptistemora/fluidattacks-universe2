@@ -1,11 +1,9 @@
-"""
-Manage your posgres database from python
+"""Manage your postgres database from python.
 """
 
 import json
 import argparse
 
-# pylint: disable=import-error
 import psycopg2
 
 # ==== little postgres manual
@@ -26,15 +24,17 @@ import psycopg2
 # Rename schema
 #   ALTER SCHEMA newschema RENAME TO oldschema
 
-def get_access_point(auth):
-    """
-    returns a cursor to the database
-    - allowed to read and write
-    - with the same privileges as the provided profile
 
-    see: http://initd.org/psycopg/docs/connection.html
+def get_access_point(auth):
+    """Returns a cursor to the database.
+
+    Allowed to read and write.
+    with the same privileges as the provided profile.
+
+    See: http://initd.org/psycopg/docs/connection.html
          http://initd.org/psycopg/docs/cursor.html
     """
+
     db_connection = psycopg2.connect(
         dbname=auth["dbname"],
         user=auth["user"],
@@ -50,13 +50,16 @@ def get_access_point(auth):
 
     return (db_connection, db_cursor)
 
+
 def close_access_point(db_connection, db_cursor):
     """ safely close the access points """
     db_cursor.close()
     db_connection.close()
 
+
 def main():
-    """ usual entry point """
+    """Usual entry point.
+    """
 
     # user interface
     parser = argparse.ArgumentParser()
@@ -97,11 +100,18 @@ def main():
             response_list = db_cursor.fetchall()
 
             # one row per line, columns between bars
-            print("\n".join(list(map(lambda row: "|".join(list(map(str, row))), response_list))))
+            print("\n".join(
+                list(
+                    map(
+                        lambda row: "|".join(
+                            list(
+                                map(str, row))), response_list))))
+
     except Exception as exception:
         print(f"INFO: Statement ran with errors:\n{exception}")
     finally:
         close_access_point(db_connection, db_cursor)
+
 
 if __name__ == "__main__":
     main()
