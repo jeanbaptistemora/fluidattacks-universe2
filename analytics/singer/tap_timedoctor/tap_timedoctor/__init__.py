@@ -71,14 +71,17 @@ def translate_date(date_str: str) -> str:
     return date_str
 
 
-def sync_worklogs(api_worker, company_id):
-    """ API version 1.1
-            https://webapi.timedoctor.com/doc#worklogs """
+def sync_worklogs(api_worker, company_id: str) -> None:
+    """API version 1.1.
 
-    def write_schema():
-        """ write the schema for this table """
+    https://webapi.timedoctor.com/doc#worklogs
+    """
 
-        stdout_json_obj = {
+    def write_schema() -> None:
+        """Writes the schema for this table.
+        """
+
+        schema: JSON = {
             "type": "SCHEMA",
             "stream": "worklogs",
             "key_properties": ["worklog_id"],
@@ -99,33 +102,37 @@ def sync_worklogs(api_worker, company_id):
                 }
             }
         }
-        logs.log_json_obj("worklogs.stdout", stdout_json_obj)
-        print(json.dumps(stdout_json_obj))
-    def write_records():
-        """ write the records for this table """
-        def translate_work_mode(work_mode):
-            work_mode_map = {
+        logs.log_json_obj("worklogs.stdout", schema)
+        logs.stdout_json_obj(schema)
+
+    def write_records() -> None:
+        """Writes the records for this table.
+        """
+
+        def translate_work_mode(work_mode: str) -> str:
+            work_mode_map: JSON = {
                 "0": "online",
-                "1": "on chat", # legacy
-                "2": "on chat", # legacy
+                "1": "on chat",
+                "2": "on chat",
                 "3": "offline or afk",
                 "4": "on break",
                 "5": "on break",
                 "6": "manually added",
                 "7": "mobile app"
             }
-            work_mode_str = work_mode_map.get(work_mode, "other")
+            work_mode_str: str = work_mode_map.get(work_mode, "other")
             return work_mode_str
 
-        limit = 500
-        offset = 0
+        limit: int = 500
+        offset: int = 0
 
         # the API doesn't provide a way to deterministically stop
         #   iterate until an empty list is found
         while 1:
-            (status_code, response) = api_worker.get_worklogs(company_id, limit, offset)
+            status_code, response = api_worker.get_worklogs(
+                company_id, limit, offset)
             ensure_200(status_code)
-            worklogs = json.loads(response)["worklogs"]
+            worklogs: JSON = json.loads(response)["worklogs"]
 
             logs.log_json_obj("worklogs", worklogs)
 
@@ -133,41 +140,59 @@ def sync_worklogs(api_worker, company_id):
                 break
 
             for worklog in worklogs["items"]:
-                stdout_json_obj = {
+                record: JSON = {
                     "type": "RECORD",
                     "stream": "worklogs",
                     "record": {
-                        "worklog_id": worklog.get("id", ""),
-                        "length": float(worklog.get("length", "0.0")),
-                        "user_id": worklog.get("user_id", ""),
-                        "user_name": standard_name(worklog.get("user_name", "")),
-                        "task_id": worklog.get("task_id", ""),
-                        "task_name": worklog.get("task_name", ""),
-                        "project_id": worklog.get("project_id", ""),
-                        "project_name": worklog.get("project_name", ""),
-                        "start_time": translate_date(worklog.get("start_time", "")),
-                        "end_time": translate_date(worklog.get("end_time", "")),
-                        "edited": worklog.get("edited", ""),
-                        "work_mode": translate_work_mode(worklog.get("work_mode", "")),
+                        "worklog_id": worklog.get(
+                            "id", ""),
+                        "length": float(worklog.get(
+                            "length", "0.0")),
+                        "user_id": worklog.get(
+                            "user_id", ""),
+                        "user_name": standard_name(worklog.get(
+                            "user_name", "")),
+                        "task_id": worklog.get(
+                            "task_id", ""),
+                        "task_name": worklog.get(
+                            "task_name", ""),
+                        "project_id": worklog.get(
+                            "project_id", ""),
+                        "project_name": worklog.get(
+                            "project_name", ""),
+                        "start_time": translate_date(worklog.get(
+                            "start_time", "")),
+                        "end_time": translate_date(worklog.get(
+                            "end_time", "")),
+                        "edited": worklog.get(
+                            "edited", ""),
+                        "work_mode": translate_work_mode(worklog.get(
+                            "work_mode", "")),
                     }
                 }
 
-                logs.log_json_obj("worklogs.stdout", stdout_json_obj)
-                print(json.dumps(stdout_json_obj))
+                logs.log_json_obj("worklogs.stdout", record)
+                logs.stdout_json_obj(record)
 
             offset += limit
 
     write_schema()
     write_records()
 
-def sync_computer_activity(api_worker, company_id, users_list):
-    """ API version 1.1
-            https://webapi.timedoctor.com/doc#screenshots """
 
-    def write_schema():
-        """ write the schema for this table """
+def sync_computer_activity(
+        api_worker,
+        company_id: str,
+        users_list: List[Tuple[str, str]]) -> None:
+    """API version 1.1.
 
-        stdout_json_obj = {
+    https://webapi.timedoctor.com/doc#screenshots
+    """
+
+    def write_schema() -> None:
+        """Writes the schema for this table """
+
+        schema: JSON = {
             "type": "SCHEMA",
             "stream": "computer_activity",
             "key_properties": ["uuid"],
@@ -193,27 +218,32 @@ def sync_computer_activity(api_worker, company_id, users_list):
                 }
             }
         }
-        logs.log_json_obj("computer_activity.stdout", stdout_json_obj)
-        print(json.dumps(stdout_json_obj))
-    def write_records(user_id, user_name):
-        """ write the records for this table """
-        def sass(obj, keys, default):
-            """ safely get the nested value after accessing a dict sucessively """
+        logs.log_json_obj("computer_activity.stdout", schema)
+        logs.stdout_json_obj(schema)
+
+    def write_records(user_id: str, user_name: str) -> None:
+        """Write the records for this table.
+        """
+
+        def sass(obj: JSON, keys: List[str], default: Any) -> Any:
+            """Safely get the nested value after accessing a dict sucessively.
+            """
+
             for key in keys:
-                if isinstance(obj, dict):
-                    obj = obj.get(key, None)
+                obj = obj.get(key, None) if isinstance(obj, dict) else obj
             return default if obj is None else obj
 
-        (status_code, response) = api_worker.get_computer_activity(company_id, user_id)
+        (status_code, response) = api_worker.get_computer_activity(
+            company_id, user_id)
         ensure_200(status_code)
-        response_obj = json.loads(response)
+        response_obj: JSON = json.loads(response)
 
         logs.log_json_obj("computer_activity", response_obj)
 
         computer_activity = response_obj[0]["screenshots"]
 
         for record in computer_activity:
-            stdout_json_obj = {
+            stdout_json_obj: JSON = {
                 "type": "RECORD",
                 "stream": "computer_activity",
                 "record": {
@@ -231,17 +261,28 @@ def sync_computer_activity(api_worker, company_id, users_list):
                 }
             }
 
-            stdout_json_obj["record"]["process"] = sass(record, ["appInfo", "process"], "")
-            stdout_json_obj["record"]["window"] = sass(record, ["appInfo", "window"], "")
-            stdout_json_obj["record"]["deleted_by"] = sass(record, ["deleted_by"], "")
-            stdout_json_obj["record"]["deletedSeconds"] = sass(record, ["deletedSeconds"], 0.0)
+            stdout_json_obj["record"]["process"] = sass(
+                record,
+                ["appInfo", "process"],
+                "")
+            stdout_json_obj["record"]["window"] = sass(
+                record,
+                ["appInfo", "window"],
+                "")
+            stdout_json_obj["record"]["deleted_by"] = sass(
+                record,
+                ["deleted_by"],
+                "")
+            stdout_json_obj["record"]["deletedSeconds"] = sass(
+                record,
+                ["deletedSeconds"],
+                0.0)
 
             logs.log_json_obj("computer_activity.stdout", stdout_json_obj)
-            print(json.dumps(stdout_json_obj))
+            logs.stdout_json_obj(stdout_json_obj)
 
     write_schema()
-    for user in users_list:
-        user_id, user_name = user
+    for user_id, user_name in users_list:
         write_records(user_id, user_name)
 
 

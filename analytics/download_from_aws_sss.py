@@ -1,16 +1,15 @@
-"""
-A simple script to download from AWS S3
+"""A simple script to download from AWS S3.
 """
 
 import json
 import argparse
 
-# E0401: import error boto3
-# pylint: disable=E0401
 import boto3 as AWS_SDK
 
+
 def create_access_point(auth_keys):
-    """ create an access point """
+    """Create an access point.
+    """
 
     session = AWS_SDK.session.Session(
         aws_access_key_id=auth_keys.get("AWS_ACCESS_KEY_ID"),
@@ -23,12 +22,20 @@ def create_access_point(auth_keys):
 
     return (sss_client, sss_resource)
 
+
 def download_file(sss_resource, file):
-    """ do the heavy lifting """
-    sss_resource.Bucket(file["bucket_name"]).download_file(file["object_key"], file["save_as"])
+    """Does the heavy lifting.
+    """
+
+    sss_resource.Bucket(
+        file["bucket_name"]).download_file(
+            file["object_key"],
+            file["save_as"])
+
 
 def main():
-    """ usual entry point """
+    """Usual entry point.
+    """
 
     # user interface
     parser = argparse.ArgumentParser()
@@ -54,6 +61,7 @@ def main():
     (_, sss_resource) = create_access_point(auth_keys)
     for file in file_list:
         download_file(sss_resource, file)
+
 
 if __name__ == "__main__":
     main()
