@@ -299,8 +299,9 @@ class Batcher():
     Public methods:
         ex: Executes a statement on the database.
         queue: Queue a row to be loaded into a table.
-        load: Loads a batch of queued rows for a table.
+        load: Loads a batch of queued rows into a table.
         flush: Loads batches queued for all tables.
+        vacuum: Vacuums loaded tables to improve query performance.
 
     Raises:
         postgres.ProgrammingError: When a query was corrupted.
@@ -388,7 +389,7 @@ class Batcher():
 
         count = self.buckets[table_name]["count"]
         size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
-        LOGGER.info((f"INFO: {count} rows ({size} MB)"
+        LOGGER.info((f"INFO: {count} rows ({size} MB) "
                      f"loaded to Redshift/{self.sname}/{table_name}."))
 
         self.buckets[table_name]["rows"] = []
@@ -403,6 +404,22 @@ class Batcher():
         """
         for table_name in self.buckets:
             self.load(table_name, do_print)
+
+    def vacuum(self, do_print: bool = True) -> None:
+        """Vacuums touched tables to improve query performance.
+
+        Args:
+            do_print: True if you want to print the statements to stdout.
+        """
+
+        for table_name in self.buckets:
+            try:
+                table_path: str = f"\"{self.sname}\".\"{table_name}\""
+                self.ex(
+                    f"VACUUM FULL {table_path} TO 100 PERCENT",
+                    do_print=do_print)
+            except postgres.ProgrammingError:
+                LOGGER.info(f"WARN: unable to vacuum \"{table_name}\"")
 
     def __del__(self, *args) -> None:
         LOGGER.info(f"INFO: worker down at {datetime.utcnow()}.")
@@ -575,7 +592,9 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
                 fields[tname], schemas[tname], tkeys)
         elif json_obj["type"] == "STATE":
             LOGGER.info(json.dumps(json_obj, indent=2))
+
     batcher.flush()
+    batcher.vacuum()
 
 
 def main():
