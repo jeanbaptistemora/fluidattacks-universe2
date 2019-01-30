@@ -146,6 +146,7 @@ prospector-testing:
   <<: *variables-dev
   <<: *vault_login
   script:
+    - vaultenv -- $(which prospector) -F -s veryhigh -u django -p app/ -i node_modules || true
     - vaultenv -- $(which prospector) -F -s high -u django -p app/ -i node_modules
     - vaultenv -- $(which prospector) -F -s veryhigh -u django fluidintegrates/
   except:
