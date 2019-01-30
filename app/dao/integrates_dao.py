@@ -1615,7 +1615,7 @@ def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):
     table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         str_format = '{metric} = :{metric}'
-        empty_values = {k: v for k, v in dic_data.items() if not v}
+        empty_values = {k: v for k, v in dic_data.items() if v == ""}
         for item in empty_values:
             remove_attr_dynamo(table_name, primary_keys[0], primary_keys[1], item)
             del dic_data[item]
