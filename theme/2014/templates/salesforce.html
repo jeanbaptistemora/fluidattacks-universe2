@@ -109,7 +109,7 @@
           <label for="mobile" class="form-label">{{ gettext('Form-field-4')
           }}</label>
               <input  id="mobile" maxlength="40" name="mobile" size="20"
-              type="text" /><br>
+              type="text" class="form-input" required /><br>
           <label for="city" class="form-label">{{ gettext('Form-field-5')
           }}</label>
             <input  id="city" maxlength="40" name="city" size="20" type="text"
@@ -117,7 +117,26 @@
           <label for="Subjet" class="form-label">{{ gettext('Form-field-6') }}
           </label>
             <textarea  id="00N1I00000NEIK7" name="00N1I00000NEIK7" wrap="soft"
-            required></textarea><br>
+            class="form-input" required></textarea><br>
+            <label for="lead_source" class="form-label">
+              {{ gettext('Form-field-7') }}
+            </label>
+            <select  id="lead_source" name="lead_source" class="form-input"
+            required>
+              <option value="Searching on Internet">{{ gettext('Form-field-8')
+              }}</option>
+              <option value="Somebody told me">{{ gettext('Form-field-9') }}
+              </option>
+              <option value="In a security event"> {{ gettext('Form-field-10')
+              }}</option>
+              <option value="During a project">{{ gettext('Form-field-11') }}
+              </option>
+              <option value="I know an employee">{{ gettext('Form-field-12') }}
+              </option>
+              <option value="Clutch website">{{ gettext('Form-field-13') }}
+              </option>
+              <option value="Other">{{ gettext('Form-field-14') }}</option>
+            </select><br>
           <div class="form-button">
             <input type="submit" name="submit" class="form-submit"/>
           </div>
