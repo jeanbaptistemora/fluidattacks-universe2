@@ -1,50 +1,65 @@
+"""Singer tap for the Timedoctor API.
 """
-Singer tap for the Timedoctor's API
-"""
-
-## python3 -m pylint (default configuration)
-# Your code has been rated at 10.00/10
 
 import re
 import json
 import argparse
 import datetime
-import urllib.request
+
+from typing import Tuple, List, Any
 
 from . import logs
 from . import api_timedoctor
 
-_TYPE_STRING = {"type": "string"}
-_TYPE_NUMBER = {"type": "number"}
-_TYPE_DATE = {"type": "string", "format": "date-time"}
+# Type aliases that improve clarity
+JSON = Any
 
-def standard_name(name):
-    """ remove heading and trailing whitespaces, and put exactly one space between words """
+_TYPE_STRING: JSON = {"type": "string"}
+_TYPE_NUMBER: JSON = {"type": "number"}
+_TYPE_DATE: JSON = {"type": "string", "format": "date-time"}
+
+
+def standard_name(name: str) -> str:
+    """Remove heading and trailing whitespaces.
+
+    Puts exactly one space between words.
+    """
+
     return " ".join(name.split())
 
-def get_users_list(timedoctor_users_str):
-    """ parses the users response into a list of users """
-    def parse(user):
-        """ parses the user information from the raw response """
-        user_id = str(user["user_id"])
-        user_name = standard_name(user["full_name"])
+
+def get_users_list(timedoctor_users_str: str) -> List[Tuple[str, str]]:
+    """Parses the users response into a list of users.
+    """
+
+    def parse(user: JSON) -> Tuple[str, str]:
+        """Parses the user information from the raw response.
+        """
+
+        user_id: str = str(user["user_id"])
+        user_name: str = standard_name(user["full_name"])
         return (user_id, user_name)
 
-    users = json.loads(timedoctor_users_str)["users"]
-    users_list = list(map(parse, users))
+    users: JSON = json.loads(timedoctor_users_str)["users"]
+    users_list: List[Tuple[str, str]] = list(map(parse, users))
     return users_list
 
-def ensure_200(status_code):
-    """ Timedoctor's API have a lot of downtimes throughout the day, ensure 200 or exit """
+
+def ensure_200(status_code: int) -> None:
+    """Ensure status_code 200 or exit.
+    """
+
     if not status_code == 200:
-        print("INFO: Timedoctor API, ERROR " + str(status_code))
-        print("          the service is probably down, you should run this script again later")
+        print(f"INFO: Timedoctor API, ERROR {status_code}")
+        print(f"          The service is probably down.")
+        print(f"         You should run this script again later.")
         exit(1)
 
-def translate_date(date_str):
-    """ translates a date-time value from the timedoctor format to RFC3339 format """
 
-    # let's remember the old times
+def translate_date(date_str: str) -> str:
+    """Translates a date-time value to RFC3339 format.
+    """
+
     if re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}\.\d+", date_str):
         date_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S.%f")
     elif re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}", date_str):
@@ -54,6 +69,7 @@ def translate_date(date_str):
 
     date_str = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
     return date_str
+
 
 def sync_worklogs(api_worker, company_id):
     """ API version 1.1
@@ -228,47 +244,38 @@ def sync_computer_activity(api_worker, company_id, users_list):
         user_id, user_name = user
         write_records(user_id, user_name)
 
-def arguments_error(parser):
-    """ Print help and exit """
-    parser.print_help()
-    exit(1)
 
 def main():
-    """ usual entry point """
+    """Usual entry point.
+    """
 
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-auth',
+        '-a', '--auth',
+        required=True,
         help='JSON authentication file',
         type=argparse.FileType('r'))
     args = parser.parse_args()
 
-    if not args.auth:
-        arguments_error(parser)
-
-    access_token = json.load(args.auth).get("access_token")
-
-    if not access_token:
-        arguments_error(parser)
-
-    # ==== Time Doctor ========================================================
+    access_token: str = json.load(args.auth)["access_token"]
     api_worker = api_timedoctor.Worker(access_token)
 
     # get some account info by inspecting the admin account (the token owner)
     (status_code, response) = api_worker.get_companies()
     ensure_200(status_code)
-    account_info = json.loads(response)["user"]
+    account_info: str = json.loads(response)["user"]
     company_id = str(account_info["company_id"])
 
     # get the id of all users in the company
     (status_code, response) = api_worker.get_users(company_id)
     ensure_200(status_code)
-    users_list = get_users_list(response)
+    users_list: List[Tuple[str, str]] = get_users_list(response)
 
     # sync
     sync_worklogs(api_worker, company_id)
     sync_computer_activity(api_worker, company_id, users_list)
+
 
 if __name__ == "__main__":
     main()
