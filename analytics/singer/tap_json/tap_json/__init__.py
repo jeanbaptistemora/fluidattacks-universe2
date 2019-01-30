@@ -13,7 +13,7 @@ from json.decoder import JSONDecodeError
 
 from typing import Callable, Tuple, Any
 
-# stru_type aliases that improve clarity
+# type aliases that improve clarity
 JSON = Any
 STRU = Any
 
@@ -171,7 +171,7 @@ def stru_type(stru: STRU) -> str:
     """Returns the python type of a Structura.
     """
 
-    return type(stru).__name__ if to_date(stru) else "datetime"
+    return "datetime" if to_date(stru) else type(stru).__name__
 
 
 def stru_cast(stru: STRU) -> STRU:
@@ -179,24 +179,24 @@ def stru_cast(stru: STRU) -> STRU:
     """
 
     cast_date = to_date(stru)
-    return stru if cast_date else cast_date
+    return cast_date if cast_date else stru
 
 
-def pt2st(pstru_type: str) -> JSON:
-    """Returns a singer stru_type for the python stru_type.
+def pt2st(ptype: str) -> JSON:
+    """Returns a singer type for the python type.
     """
 
-    if pstru_type == "bool":
-        return {"stru_type": "boolean"}
-    if pstru_type == "float":
-        return {"stru_type": "number"}
-    if pstru_type == "int":
-        return {"stru_type": "integer"}
-    if pstru_type == "str":
-        return {"stru_type": "string"}
-    if pstru_type == "datetime":
-        return {"stru_type": "string", "format": "date-time"}
-    raise Exception(f"pt2st(pstru_type): pstru_type={pstru_type} not matched")
+    if ptype == "bool":
+        return {"type": "boolean"}
+    if ptype == "float":
+        return {"type": "number"}
+    if ptype == "int":
+        return {"type": "integer"}
+    if ptype == "str":
+        return {"type": "string"}
+    if ptype == "datetime":
+        return {"type": "string", "format": "date-time"}
+    raise Exception(f"pt2st(ptype): ptype={ptype} not matched")
 
 
 def prepare_env():
@@ -255,67 +255,85 @@ def json_from_file(file_path: str) -> JSON:
     return json_stru
 
 
-def linearize(table_name, structura):
-    """ breaks a structura into flat records.
-        records are suitable for use into a relational database structure """
+def linearize(table_name: str, structura: STRU) -> None:
+    """Breaks a structura into flat records.
 
-    def simplify(stru):
-        """ applies clean_str to every key in the structura
-            removes unsuported data stru_types
-            denests every dict of dict to a compound dict """
+    Produced records are suitable for use into a relational database structure.
+    """
 
-        if is_base(stru):
-            return stru
-        if is_list(stru):
-            return list(map(simplify, list(filter(is_stru, stru))))
-        if is_dict(stru):
-            new_stru = dict()
-            for key, val in stru.items():
-                if is_dict(val):
-                    for nkey, nval in val.items():
-                        if is_stru(nval):
-                            new_stru[f"{clean_str(key)}{FIELD_SEP}{clean_str(nkey)}"] = nval
-                    new_stru = simplify(new_stru)
-                elif is_stru(val):
-                    new_stru[clean_str(key)] = simplify(val)
-            return new_stru
-        return None
-
-    def deconstruct(table="", stru=None, ids=None):
-        """ breaks a structura into records of a relational database structure """
-
-        if is_base(stru):
-            deconstruct(table=table, stru=[stru], ids=ids)
-        elif is_list(stru):
-            for nstru in stru:
-                mstru = nstru if is_dict(nstru) else {"val": nstru}
-                for lvl, this_id in zip(range(len(ids)), ids):
-                    mstru[f"sid{lvl}"] = this_id
-                deconstruct(table=table, ids=ids, stru=mstru)
-        elif is_dict(stru):
-            record = {}
-            for nkey, nstru in stru.items():
-                if is_base(nstru):
-                    record[nkey] = nstru
-                elif is_list(nstru):
-                    nid = ID.gen()
-                    ntable = f"{table}{TABLE_SEP}{nkey}"
-                    ntable_ids = [nid] if ids is None else ids + [nid]
-                    record[ntable] = nid
-                    deconstruct(table=ntable, stru=nstru, ids=ntable_ids)
-            write(RECORDS_DIR, table, record, func=dumps)
-
-    deconstruct(table=table_name, stru=simplify(structura))
+    linearize__deconstruct(
+        table=table_name,
+        stru=linearize__simplify(structura),
+        ids=None)
 
 
-def catalog():
-    """ deduce the schema of the generated tables """
+def linearize__simplify(stru: STRU) -> STRU:
+    """Simplifies a Structura.
+
+    Applies clean_str to every key in the structura.
+    Denests every dict of dict to a compound dict.
+    Removes unsuported data types.
+    """
+
+    if is_base(stru):
+        return stru
+    if is_list(stru):
+        return list(map(linearize__simplify, list(filter(is_stru, stru))))
+    if is_dict(stru):
+        new_stru = dict()
+        for key, val in stru.items():
+            if is_dict(val):
+                for nkey, nval in val.items():
+                    if is_stru(nval):
+                        nkey_name = \
+                            f"{clean_str(key)}{FIELD_SEP}{clean_str(nkey)}"
+                        new_stru[nkey_name] = nval
+                new_stru = linearize__simplify(new_stru)
+            elif is_stru(val):
+                new_stru[clean_str(key)] = linearize__simplify(val)
+        return new_stru
+    return None
+
+
+def linearize__deconstruct(
+        table: str,
+        stru: STRU,
+        ids: Any) -> STRU:
+    """Breaks a structura into records of a relational data-structure.
+    """
+
+    if is_base(stru):
+        linearize__deconstruct(table=table, stru=[stru], ids=ids)
+    elif is_list(stru):
+        for nstru in stru:
+            mstru = nstru if is_dict(nstru) else {"val": nstru}
+            for lvl, this_id in zip(range(len(ids)), ids):
+                mstru[f"sid{lvl}"] = this_id
+            linearize__deconstruct(table=table, ids=ids, stru=mstru)
+    elif is_dict(stru):
+        record = {}
+        for nkey, nstru in stru.items():
+            if is_base(nstru):
+                record[nkey] = nstru
+            elif is_list(nstru):
+                nid = ID.gen()
+                ntable = f"{table}{TABLE_SEP}{nkey}"
+                ntable_ids = [nid] if ids is None else ids + [nid]
+                record[ntable] = nid
+                linearize__deconstruct(
+                    table=ntable, stru=nstru, ids=ntable_ids)
+        write(RECORDS_DIR, table, record, func=dumps)
+
+
+def catalog() -> None:
+    """Deduce the schema of the generated tables.
+    """
 
     for table_name in os.listdir(RECORDS_DIR):
-        schema = {}
+        schema: JSON = {}
         for structura in read(RECORDS_DIR, table_name, loads):
             for key, val in structura.items():
-                vtype = stru_type(val)
+                vtype: str = stru_type(val)
                 try:
                     if vtype not in schema[key]:
                         schema[key].append(vtype)
@@ -338,20 +356,16 @@ def main():
     args = parser.parse_args()
 
     # some dates may come in the form of a timestamp
-    # we need some way to tell the entire module that timestamps should be recognized as dates
-    # this is an on-demand feature,
-    # because may yield ambiguity with numbers that are not timestamps
+    # if --enable-timestamps is passed as arguments
+    #   anything that complies with is_timestamp() will be casted to date
 
     # pylint: disable=global-statement
     global ENABLE_TIMESTAMPS
-
     ENABLE_TIMESTAMPS = args.enable_timestamps
-
-    input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
 
     # Do the heavy lifting (structura)
     prepare_env()
-    for stream_str in input_messages:
+    for stream_str in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
         try:
             stream_stru = loads(stream_str)
         except JSONDecodeError:
@@ -364,10 +378,14 @@ def main():
     for table in os.listdir(SCHEMAS_DIR):
         pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
         sschema = {
-            "stru_type": "SCHEMA",
+            "type": "SCHEMA",
             "stream": table,
             "schema": {
-                "properties": {f"{f}_{ft}": pt2st(ft) for f, fts in pschema.items() for ft in fts}
+                "properties": {
+                    f"{f}_{ft}": pt2st(ft)
+                    for f, fts in pschema.items()
+                    for ft in fts
+                }
             },
             "key_properties": []
         }
@@ -375,9 +393,12 @@ def main():
 
         for precord in read(RECORDS_DIR, table, loads):
             srecord = {
-                "stru_type": "RECORD",
+                "type": "RECORD",
                 "stream": table,
-                "record": {f"{f}_{stru_type(v)}": stru_cast(v) for f, v in precord.items()}
+                "record": {
+                    f"{f}_{stru_type(v)}": stru_cast(v)
+                    for f, v in precord.items()
+                }
             }
             print(dumps(srecord))
 
