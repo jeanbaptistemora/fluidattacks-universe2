@@ -209,23 +209,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Retrieve project tags
-       * @function getTags
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {String[]} project tags
-       */
-      "getTags" (project) {
-        const oopsAc = "An error occurred getting project tags";
-        const gQry = `{
-          project(projectName: "${project}"){
-            tags
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Get user information.
        * @function getUserData
        * @param {String} email User email.
