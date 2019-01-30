@@ -1,5 +1,4 @@
-"""
-Singer tap for a git repository
+"""Singer tap for a git repository.
 """
 
 import os

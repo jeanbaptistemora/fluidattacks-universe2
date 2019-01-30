@@ -423,7 +423,7 @@ sync_currencies:
     - pip3 install
         analytics/singer/tap_currencyconverterapi
         analytics/singer/target_redshift
-    - tap_currencyconverterapi > /currencies.singer
+    - tap-currencyconverterapi > /currencies.singer
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
     - cat /currencies.singer |
         target-redshift --auth /target_secret.json --drop-schema --schema-name "currencies"
@@ -497,7 +497,7 @@ sync_timedoctor:
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
     - python3 analytics/download_from_aws_sss.py -auth /s3_auth.json -conf /s3_files.json
     - mv timedoctor.worklogs.2013-2016.singer timedoctor.singer
-    - tap_timedoctor -auth /tap_secret.json >> timedoctor.singer
+    - tap-timedoctor -auth /tap_secret.json >> timedoctor.singer
     - cat timedoctor.singer |
         target-redshift --auth /target_secret.json --drop-schema --schema-name "timedoctor"
     - rm -fr /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json

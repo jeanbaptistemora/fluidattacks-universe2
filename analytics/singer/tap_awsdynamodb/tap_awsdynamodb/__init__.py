@@ -555,10 +555,10 @@ def std_date(date: Any) -> str:
 
 
 def std_number(number: Any) -> float:
-    """Manipulates a date to provide JSON schema compatible number.
+    """Manipulates a number to provide JSON schema compatible number.
 
     Args:
-        number: The table whose schema will be written.
+        number: The number to manipulate.
 
     Raises:
         UnrecognizedNumber: When it was impossible to find a conversion.
