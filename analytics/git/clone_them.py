@@ -1,4 +1,10 @@
-""" clone or update repos in continuous """
+"""Clone or update repos in continuous.
+
+Automatically reads every config.yml.
+"""
+
+# temporal until next commit
+# pylint: disable=redefined-outer-name, duplicate-code
 
 import os
 import re
@@ -6,19 +12,25 @@ import json
 import base64
 import urllib.parse
 
-import yaml # pylint: disable=import-error
+from typing import Iterable, Tuple, Any
+
+import yaml
 
 SOURCE = "/git/fluidsignal/continuous"
 TARGET = "/git"
 
-# exit on errors
+# exit on clonning errors
 PORCELAIN = False
 
 # repos that use OAUTH2
-USEAUTH2 = ("Repo_Alis_Front", )
+USEAUTH2 = (
+    "Repo_Alis_Front",
+)
 
 # subscriptions with sub-subscriptions
-NESTED = ("banistmo",)
+NESTED = (
+    "banistmo",
+)
 
 # repos with problems
 IGNORE = (
@@ -28,31 +40,72 @@ IGNORE = (
     "yarumossac",   # Could not resolve host: serdev.gco.com.co
     "stebbins",     # Could not resolve host: inboggit01.suramericana.com.co
     "valvanera",    # Field "repo_key" not present in secret
-    "villasilvia",  # Field "repo_key" not present in secret & Network is unreachable
-    "volantin",     # Field "repo_key" not present in secret & Network is unreachable
+    "villasilvia",  # Field "repo_key" not present in secret, unreachable
+    "volantin",     # Field "repo_key" not present in secret, unreachable
 )
 
 # repos to ignore when found inside subscriptions
-SPECIAL = (
+IGNORE_WHEN_INSIDE = (
     "asserts",
     "integrates"
 )
 
-SUBSCRIPTIONS = []
-for subscription in os.listdir(f"{SOURCE}/subscriptions"):
-    subscription_path = f"{SOURCE}/subscriptions/{subscription}"
-    if subscription in IGNORE:
-        continue
-    elif subscription in NESTED:
-        for sub in os.listdir(subscription_path):
-            if not sub in SPECIAL:
-                SUBSCRIPTIONS.append(f"{subscription_path}/{sub}")
-    else:
-        if not subscription in SPECIAL:
-            SUBSCRIPTIONS.append(subscription_path)
 
-BRANCHES = {}
-for subscription in SUBSCRIPTIONS:
+def iterate_subscriptions() -> Iterable[str]:
+    """Yields paths of the subscriptions in the continuous repo.
+    """
+
+    for subscription in os.listdir(f"{SOURCE}/subscriptions"):
+        subscription_path = f"{SOURCE}/subscriptions/{subscription}"
+        if subscription in IGNORE:
+            continue
+        elif subscription in NESTED:
+            for sub in os.listdir(subscription_path):
+                if sub not in IGNORE_WHEN_INSIDE:
+                    yield f"{subscription_path}/{sub}"
+        else:
+            if subscription not in IGNORE_WHEN_INSIDE:
+                yield subscription_path
+
+
+def add_ssh_key(project: str) -> None:
+    """Adds the ssh key of a project to the current enviroment.
+    """
+
+    data = base64.b64decode(
+        os.popen(
+            f"vault read -field=repo_key secret/continuous/{project}").read())
+    os.system(f"rm -rf ~/.ssh/{project}")
+    with open(os.path.expanduser(f'~/.ssh/{project}'), "wb") as file:
+        file.write(data)
+    os.system(f"chmod 0400 ~/.ssh/{project}")
+
+
+
+def filter_url(url: str) -> Tuple[str, str, str, str, str]:
+    """Filter the parts of a url.
+    """
+
+    groups = re.match(r"(.*?)://(.*?)@(.*?)/(.*)", url).groups() # type: ignore
+    prot, user = groups[0], groups[1]
+    if groups[3]:
+        rest = groups[3][0:-1] if groups[3][-1] == "/" else groups[3]
+    else:
+        rest = ""
+    groups = groups[2].split(":")
+    host, port = groups[0], groups[1] if len(groups) == 2 else ""
+
+    return prot, user, host, port, rest
+
+
+def process_subscriptions():
+    """Process a subscription.
+    """
+
+    return {}
+
+BRANCHES: Any = {}
+for subscription in iterate_subscriptions():
     nrepos = 0
     os.chdir(subscription)
 
@@ -76,7 +129,7 @@ for subscription in SUBSCRIPTIONS:
     git_type = config.get("git-type", "")
 
     # filter the url into canonical parts
-    groups = re.match(r"(.*?)://(.*?)@(.*?)/(.*)", url).groups()
+    groups = re.match(r"(.*?)://(.*?)@(.*?)/(.*)", url).groups()  # type: ignore
     prot, user = groups[0], groups[1]
     if groups[3]:
         rest = groups[3][0:-1] if groups[3][-1] == "/" else groups[3]
@@ -157,5 +210,16 @@ for subscription in SUBSCRIPTIONS:
 
     print(f"INFO|STATS|{subscription}|{nrepos}|")
 
-with open(f"{TARGET}/../branches.json", "w") as file:
-    json.dump(BRANCHES, file, indent=2)
+
+def main():
+    """Usual entry point.
+    """
+
+    branches = process_subscriptions()
+
+    with open(f"{TARGET}/../branches.json", "w") as file:
+        json.dump(branches, file, indent=2)
+
+
+if __name__ == "__main__":
+    main()
