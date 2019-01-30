@@ -61,7 +61,7 @@ def iterate_subscriptions() -> Iterable[str]:
     """
 
     for subscription in os.listdir(f"{SOURCE}/subscriptions"):
-        subscription_path = f"{SOURCE}/subscriptions/{subscription}"
+        subscription_path: str = f"{SOURCE}/subscriptions/{subscription}"
         if subscription in IGNORE:
             continue
         elif subscription in NESTED:
@@ -119,7 +119,7 @@ def get_project_name(subscription: str) -> str:
 
 
 def get_repo_user_pass(prot: str, project: str) -> Tuple[str, str]:
-    """Returns the repo user/pass.
+    """Returns the repo user/pass if prot if http or https.
     """
 
     repo_user = ""
@@ -159,7 +159,27 @@ def parse_config(subscription: str) -> Tuple[List[Tuple[Any, Any]], str, Any]:
     return path_branch, url, git_type
 
 
-def process_subscriptions():
+def execute(clone: str, update: str, target_repo: str) -> int:
+    """Executes the clone or update.
+    """
+
+    nrepos_change: int = 0
+    if not os.path.isdir(target_repo):
+        if not os.system(clone):
+            nrepos_change = 1
+        elif PORCELAIN:
+            exit(1)
+    else:
+        os.chdir(target_repo)
+        if not os.system(update):
+            nrepos_change = 1
+        elif PORCELAIN:
+            exit(1)
+
+    return nrepos_change
+
+
+def process_subscriptions() -> JSON:
     """Process a subscription.
     """
 
@@ -172,7 +192,10 @@ def process_subscriptions():
 
         project = get_project_name(subscription)
 
-        path_branch, url, git_type = parse_config(subscription)
+        try:
+            path_branch, url, git_type = parse_config(subscription)
+        except BadConfigYml:
+            continue
 
         # get needed parameters
         prot, user, host, port, host_port, rest = filter_url(url)
@@ -197,6 +220,7 @@ def process_subscriptions():
                     f"vault read -field=repo_pass_2 "
                     f"secret/continuous/{project}")).read()
                 repo_pass2 = urllib.parse.quote_plus(repo_pass2)
+
                 uri = (
                     f"{prot}://{repo_user2}:{repo_pass2}@{host_port}/"
                     f"{restpath}.git")
@@ -234,17 +258,7 @@ def process_subscriptions():
                     f"ssh-add ~/.ssh/{project};"
                     f"git pull origin {branch}\"")
 
-            if not os.path.isdir(f"{target_repo}"):
-                if not os.system(clone):
-                    nrepos += 1
-                elif PORCELAIN:
-                    exit(1)
-            else:
-                os.chdir(target_repo)
-                if not os.system(update):
-                    nrepos += 1
-                elif PORCELAIN:
-                    exit(1)
+            nrepos += execute(clone, update, target_repo)
 
         print(f"INFO|STATS|{subscription}|{nrepos}|")
 
