@@ -111,9 +111,9 @@ const esTranslations: Map<string, string> = {
       scenario: {
         anon_inter: "Anónimo desde Internet",
         anon_intra: "Anónimo desde Intranet",
+        auth_extra: "Usuario de Extranet autorizado",
         auth_inter: "Usuario de Internet autorizado",
         auth_intra: "Usuario de Intranet autorizado",
-        infra_scan: "Escaneo de infraestructura",
         title: "Escenario",
         unauth_extra: "Usuario de Extranet no autorizado",
         unauth_inter: "Usuario de Internet no autorizado",

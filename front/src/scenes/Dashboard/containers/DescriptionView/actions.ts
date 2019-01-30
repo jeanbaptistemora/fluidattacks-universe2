@@ -1,4 +1,5 @@
 import { AxiosError, AxiosResponse } from "axios";
+import _ from "lodash";
 import { Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -54,6 +55,12 @@ export const closeConfirmMdl: (() => IActionStructure) =
     type: actionTypes.CLOSE_CONFIRM_MDL,
   });
 
+export const clearDescription: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.CLEAR_EVIDENCE,
+  });
+
 export const loadDescription: ThunkActionStructure<void> =
   (findingId: string, projectName: string): ThunkAction<void, {}, {}, IActionStructure> =>
     (dispatch: ThunkDispatcher): void => {
@@ -89,6 +96,13 @@ export const loadDescription: ThunkActionStructure<void> =
       new Xhr().request(gQry, "An error occurred getting finding description")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
+
+          data.finding.cweUrl = _.startsWith(data.finding.cweUrl, "https")
+            ? data.finding.cweUrl
+              .split("definitions/")[1]
+              .substring(0, 3)
+            : "-";
+
           dispatch<IActionStructure>({
             payload: {
               descriptionData: { ...data.finding, ...data.project },
@@ -221,6 +235,11 @@ export const updateDescription: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.updateDescription.success) {
+            data.updateDescription.finding.cweUrl =
+              data.updateDescription.finding.cweUrl
+                .split("definitions/")[1]
+                .substring(0, 3);
+
             dispatch<IActionStructure>({
               payload: {
                 descriptionData: data.updateDescription.finding,

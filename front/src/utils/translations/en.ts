@@ -110,9 +110,9 @@ const enTranslations: Map<string, string> = {
       scenario: {
         anon_inter: "Anonymous from Internet",
         anon_intra: "Anonymous from Intranet",
+        auth_extra: "Authorized Extranet user",
         auth_inter: "Authorized Internet user",
         auth_intra: "Authorized Intranet user",
-        infra_scan: "Infrastructure scan",
         title: "Scenario",
         unauth_extra: "Unauthorized Extranet user",
         unauth_inter: "Unauthorized Internet user",

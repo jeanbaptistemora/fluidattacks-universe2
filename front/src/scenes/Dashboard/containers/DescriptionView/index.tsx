@@ -57,6 +57,7 @@ export interface IDescriptionViewProps {
 
 const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
+    componentWillUnmount(): void { store.dispatch(actions.clearDescription()); },
     componentDidMount(): void {
       const { findingId, projectName } = this.props as IDescriptionViewProps;
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (

@@ -144,3 +144,6 @@ export const castFields: ((dataset: ISeverityViewProps["dataset"]) => ISeverityF
 
   return fields;
 };
+
+export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string =>
+  cweId === "-" ? "-" : `https://cwe.mitre.org/data/definitions/${cweId}.html`;

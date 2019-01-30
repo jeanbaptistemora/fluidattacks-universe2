@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import globalStyle from "../../../../styles/global.css";
+import { formatCweUrl } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { numeric, required } from "../../../../utils/validations";
@@ -48,28 +49,28 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
         children: (
           <React.Fragment>
             <option value="" selected={true} />
-            <option value="Anónimo desde Internet">
+            <option value="Anónimo desde internet">
               {translate.t("search_findings.tab_description.scenario.anon_inter")}
             </option>
-            <option value="Anónimo desde Intranet">
+            <option value="Anónimo desde intranet">
               {translate.t("search_findings.tab_description.scenario.anon_intra")}
             </option>
-            <option value="Escaneo de Infraestructura">
-              {translate.t("search_findings.tab_description.scenario.infra_scan")}
+            <option value="Extranet usuario autorizado">
+              {translate.t("search_findings.tab_description.scenario.auth_extra")}
             </option>
-            <option value="Usuario de Extranet no autorizado">
+            <option value="Extranet usuario no autorizado">
               {translate.t("search_findings.tab_description.scenario.unauth_extra")}
             </option>
-            <option value="Usuario de Internet autorizado">
+            <option value="Internet usuario autorizado">
               {translate.t("search_findings.tab_description.scenario.auth_inter")}
             </option>
-            <option value="Usuario de Internet no autorizado">
+            <option value="Internet usuario no autorizado">
               {translate.t("search_findings.tab_description.scenario.unauth_inter")}
             </option>
-            <option value="Usuario de Intranet autorizado">
+            <option value="Intranet usuario autorizado">
               {translate.t("search_findings.tab_description.scenario.auth_intra")}
             </option>
-            <option value="Usuario de Intranet no autorizado">
+            <option value="Intranet usuario no autorizado">
               {translate.t("search_findings.tab_description.scenario.unauth_intra")}
             </option>
           </React.Fragment>),
@@ -120,7 +121,8 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
     }],
     [{
       componentProps: {
-        component: textField,
+        className: globalStyle.noResize,
+        component: textAreaField,
         name: "description",
         type: "text",
         validate: [required],
@@ -216,7 +218,6 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
         component: textAreaField,
         name: "compromisedAttributes",
         type: "text",
-        validate: [required],
       },
       label: translate.t("search_findings.tab_description.compromised_attrs"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
@@ -240,12 +241,12 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       componentProps: {
         component: textField,
         name: "cweUrl",
-        type: "text",
-        validate: [required],
+        type: "number",
+        validate: [required, numeric],
       },
       label: translate.t("search_findings.tab_description.weakness"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-      value: props.dataset.cweUrl,
+      value: formatCweUrl(props.dataset.cweUrl),
       visible: true,
     },
      {
@@ -253,7 +254,6 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
         component: textField,
         name: "btsUrl",
         type: "text",
-        validate: [required],
       },
       label: translate.t("search_findings.tab_description.bts"),
       renderAsEditable: props.isEditing && _.includes(["customer", "customeradmin"], props.userRole),

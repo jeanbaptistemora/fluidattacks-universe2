@@ -468,6 +468,13 @@ actionMap[descriptionActions.CLOSE_REMEDIATION_MDL] =
     },
   });
 
+actionMap[descriptionActions.CLEAR_EVIDENCE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      description: initialState.description,
+    });
+
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,
   arg2: actions.IActionStructure,

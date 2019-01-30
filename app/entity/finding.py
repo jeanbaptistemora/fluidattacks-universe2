@@ -912,7 +912,7 @@ class UpdateDescription(Mutation):
         finding_id = String(required=True)
         probability = String()
         recommendation = String(required=True)
-        records = String(required=True)
+        records = String()
         records_number = Int(required=True)
         report_level = String(required=True)
         requirements = String(required=True)
@@ -943,7 +943,7 @@ class UpdateTreatment(Mutation):
     """ Update treatment of a finding """
 
     class Arguments(object):
-        bts_url = String(required=True)
+        bts_url = String()
         finding_id = String(required=True)
         treatment = String(required=True)
         treatment_justification = String(required=True)

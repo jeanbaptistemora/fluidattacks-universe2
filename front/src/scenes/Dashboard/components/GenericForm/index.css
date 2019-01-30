@@ -5,3 +5,7 @@
 :local .title {
   text-align: right;
 }
+
+:local .fieldColumn {
+  overflow-wrap: break-word;
+}

@@ -1615,6 +1615,11 @@ def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):
     table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         str_format = '{metric} = :{metric}'
+        empty_values = {k: v for k, v in dic_data.items() if not v}
+        for item in empty_values:
+            remove_attr_dynamo(table_name, primary_keys[0], primary_keys[1], item)
+            del dic_data[item]
+
         dic_data_params = [str_format.format(metric=x) for x in dic_data.keys()]
         query_params = 'SET ' + ', '.join(dic_data_params)
         expression_params = {':' + k: dic_data[k] for k in dic_data.keys()}
@@ -1791,3 +1796,24 @@ def get_event_project(event_id):
     item = response.get('Item').get('project_name') if 'Item' in response else None
 
     return item
+
+
+def remove_attr_dynamo(table_name, pkey_name, pkey_value, attr_name):
+    """ Remove given attribute """
+
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    try:
+        response = table.update_item(
+            Key={
+                pkey_name: pkey_value.lower(),
+            },
+            UpdateExpression='REMOVE #attrName',
+            ExpressionAttributeNames={
+                '#attrName': attr_name
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
