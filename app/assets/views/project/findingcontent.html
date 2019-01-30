@@ -108,7 +108,12 @@
               <div class="tab-content">
                   <!-- Start Tab Info -->
                   <div ng-if="currentTab === 'description'">
-                  <div id="info" class="tab-pane cont active">
+                    <description-view
+                      finding-id="finding.id"
+                      project-name="project"
+                      user-role="userRole"
+                    />
+                  <div id="info" class="tab-pane cont active" ng-if="false">
                       <div class="row">
                           <div class="col-md-12 col-sm-12 col-xs-12">
                               <div class="row table-row" ng-show="isManager && hasAccess">
