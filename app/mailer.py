@@ -8,6 +8,7 @@ COMMENTS_TAG = ['comments']
 VULNERABILITIES_TAG = ['vulnerabilities']
 AGE_TAG = ['age']
 GENERAL_TAG = ['general']
+TEST_PROJECTS = ['unittesting']
 
 
 def _send_mail(template_name, email_to, context, tags):
@@ -106,7 +107,15 @@ def send_mail_new_version(email_to, context):
 
 
 def send_mail_repositories(email_to, context):
-    _send_mail('repositoriesintegrates', email_to, context=context, tags=GENERAL_TAG)
+    project = context.get('project', '')
+    if project.lower() not in TEST_PROJECTS:
+        _send_mail('repositoriesintegrates',
+                   email_to,
+                   context=context,
+                   tags=GENERAL_TAG)
+    else:
+        # Mail should not be sent if is a test project
+        pass
 
 
 def send_mail_unsolved_events(email_to, context):
