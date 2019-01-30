@@ -24,6 +24,7 @@ import { projectCommentsView } from "./scenes/Dashboard/containers/ProjectCommen
 import { projectUsersView } from "./scenes/Dashboard/containers/ProjectUsersView/index";
 import { recordsView } from "./scenes/Dashboard/containers/RecordsView/index";
 import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index";
+import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
 import { severityView } from "./scenes/Dashboard/containers/SeverityView/index";
 import { trackingView } from "./scenes/Dashboard/containers/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
@@ -127,6 +128,23 @@ angular
     ),
   );
 
+/**
+ * @url: #/project/:name/indicators
+ * @page: indicators.html
+ * @controllers: ["projectIndicatorsCtrl"]
+ * @tag: <indicators-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "indicatorsView",
+    react2angular(
+      indicatorsView,
+      [
+        "projectName",
+      ],
+    ),
+  );
 /**
  * @url: #/project/:name/indicators
  * @page: indicators.html

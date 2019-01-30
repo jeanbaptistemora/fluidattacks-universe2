@@ -32,3 +32,64 @@ export interface IIndicatorsViewProps {
   tagsDataset: string[];
   projectName: string;
 }
+
+const enhance: InferableComponentEnhancer<{}> =
+lifecycle({
+  componentDidMount(): void {
+    const { projectName } = this.props as IIndicatorsViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+
+    thunkDispatch(actions.loadTags(projectName));
+  },
+});
+
+const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
+  (state: StateType<Reducer>): IIndicatorsViewProps => ({
+    ...state,
+    addModal: state.dashboard.indicators.addModal,
+    tagsDataset: state.dashboard.indicators.tags,
+  });
+
+export const component: React.StatelessComponent<IIndicatorsViewProps> =
+  (props: IIndicatorsViewProps): JSX.Element => (
+  <React.StrictMode>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <Row>
+            <Col md={12} sm={12} xs={12}>
+              <Row>
+                <Col md={12} sm={12}>
+                  <DataTable
+                    dataset={props.tagsDataset}
+                    onClickRow={(): void => {}}
+                    enableRowSelection={false}
+                    exportCsv={false}
+                    search={false}
+                    headers={[
+                      {
+                        dataField: "tagName",
+                        header: "Tags",
+                        isDate: false,
+                        isStatus: false,
+                      },
+                    ]}
+                    id="tblTags"
+                    pageSize={15}
+                    title={""}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+  </React.StrictMode>
+);
+
+export const indicatorsView: ComponentType<IIndicatorsViewProps> = reduxWrapper
+(
+  enhance(component) as React.StatelessComponent<IIndicatorsViewProps>,
+  mapStateToProps,
+);

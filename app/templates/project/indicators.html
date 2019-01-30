@@ -102,13 +102,9 @@
                                 src='chartioSrc'
                                 height="400"/>
                             </div>
-                            <div class="row" ng-if="tagsDataset">
+                            <div ng-if="tagsDataset">
                               <br>
-                              <d-table
-                                dataset="tagsDataset"
-                                headers="tblTagsHeaders"
-                                page-size="15"
-                              />
+                              <indicators-view project-name="project"/>
                             </div>
                         </div>
                     </div>

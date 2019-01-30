@@ -85,12 +85,6 @@ angular.module("FluidIntegrates").controller(
     };
 
     $scope.initTags = function initTags () {
-      $scope.tblTagsHeaders = [
-        {
-          "dataField": "tagName",
-          "header": "Tags"
-        }
-      ];
       projectFtry2.getTags($scope.project).
         then((response) => {
           $scope.tagsDataset = response.data.project.tags.

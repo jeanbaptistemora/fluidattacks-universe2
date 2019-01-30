@@ -7,6 +7,7 @@ import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
+import * as indicatorsActions from "./containers/IndicatorsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
@@ -23,6 +24,12 @@ interface IDashboardState {
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
     name: string;
+  };
+  indicators: {
+    addModal: {
+      open: boolean;
+    };
+    tags: string[];
   };
   isMdlConfirmOpen: boolean;
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
@@ -92,6 +99,12 @@ const initialState: IDashboardState = {
   },
   fileInput: {
     name: "",
+  },
+  indicators: {
+    addModal: {
+      open: false,
+    },
+    tags: [],
   },
   isMdlConfirmOpen: false,
   records: {
@@ -465,6 +478,46 @@ actionMap[descriptionActions.CLOSE_REMEDIATION_MDL] =
     description: {
       ...state.description,
       isRemediationOpen: false,
+    },
+  });
+actionMap[indicatorsActions.LOAD_TAGS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    indicators: {
+      ...state.indicators,
+      tags: action.payload.tags,
+    },
+  });
+
+actionMap[indicatorsActions.CLEAR_TAGS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    indicators: initialState.indicators,
+  });
+
+actionMap[indicatorsActions.OPEN_ADD_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    indicators: {
+      ...state.indicators,
+      addModal: {
+        ...state.indicators.addModal,
+        open: true,
+      },
+    },
+  });
+actionMap[indicatorsActions.CLOSE_ADD_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    indicators: {
+      ...state.indicators,
+      addModal: {
+        ...initialState.indicators.addModal,
+      },
     },
   });
 
