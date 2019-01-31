@@ -34,14 +34,20 @@ NESTED = (
 
 # repos with problems
 IGNORE = (
-    "caphec",       # URL returned 403 (does repo exist?)
-    "aldak",        # no link to clone (no 'code' tag in config.yml)
-    "bowky",        # bad private key (bad auth or auth declined)
-    "yarumossac",   # Could not resolve host: serdev.gco.com.co
-    "stebbins",     # Could not resolve host: inboggit01.suramericana.com.co
-    "valvanera",    # Field "repo_key" not present in secret
-    "villasilvia",  # Field "repo_key" not present in secret, unreachable
-    "volantin",     # Field "repo_key" not present in secret, unreachable
+    # no repos
+    "aldak",
+
+    # it fails (for me) using multi_git_clone.py and clone_them.py
+    "bowky",
+    "valvanera",
+
+    # vpn forticlient
+    "villasilvia",
+    "volantin",
+    "yarumossac",
+
+    # vpn windows, not possible to configure on linux
+    "stebbins",
 )
 
 # repos to ignore when found inside subscriptions
@@ -159,18 +165,22 @@ def parse_config(subscription: str) -> Tuple[List[Tuple[Any, Any]], str, Any]:
     return path_branch, url, git_type
 
 
-def execute(clone: str, update: str, target_repo: str) -> int:
+def execute(clone: str, update: str, target_repo: str, do_print=False) -> int:
     """Executes the clone or update.
     """
 
     nrepos_change: int = 0
     if not os.path.isdir(target_repo):
+        if do_print:
+            print(f"clone: {clone}")
         if not os.system(clone):
             nrepos_change = 1
         elif PORCELAIN:
             exit(1)
     else:
         os.chdir(target_repo)
+        if do_print:
+            print(f"clone: {update}")
         if not os.system(update):
             nrepos_change = 1
         elif PORCELAIN:
@@ -223,7 +233,8 @@ def process_subscriptions() -> JSON:
 
                 uri = (
                     f"{prot}://{repo_user2}:{repo_pass2}@{host_port}/"
-                    f"{restpath}.git")
+                    f"{restpath}")
+                uri = uri if "codecommit" in host_port else f"{uri}.git"
                 clone = (
                     f"git clone -b {branch} "
                     f"--single-branch {uri} {target_repo}")
@@ -231,13 +242,14 @@ def process_subscriptions() -> JSON:
             elif prot in ("http", "https"):
                 uri = (
                     f"{prot}://{repo_user}:{repo_pass}@{host_port}/"
-                    f"{restpath}.git")
+                    f"{restpath}")
+                uri = uri if "codecommit" in host_port else f"{uri}.git"
                 clone = (
                     f"git clone -b {branch} "
                     f"--single-branch {uri} {target_repo}")
                 update = f"cd {target_repo}; git pull origin {branch}"
             else:
-                if git_type == "ssh-codecommit":
+                if "codecommit" in git_type:
                     uri = f"ssh://{user}@{host_port}/{restpath}"
                 else:
                     uri = f"{user}@{host_port}/{restpath}"
