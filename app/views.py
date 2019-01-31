@@ -53,7 +53,6 @@ from .mailer import send_mail_delete_finding
 from .mailer import send_mail_remediate_finding
 from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
-from .mailer import send_mail_accepted_finding
 from .services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -1051,52 +1050,6 @@ An error occurred updating description', 'error', request)
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['customer', 'admin'])
-@require_finding_access
-def update_treatment(request):
-    parameters = request.POST.dict()
-    try:
-        project = get_project_name(parameters['data[id]'])
-        util.invalidate_cache(parameters['data[id]'])
-        util.invalidate_cache(project)
-        description_title = ['id', 'treatment', 'treatmentJustification',
-                             'treatmentManager', 'externalBts']
-        finding = {k: parameters['data[' + k + ']']
-                   for k in description_title
-                   if parameters.get('data[' + k + ']')}
-        request = migrate_treatment(finding)
-        if request:
-            if parameters['data[treatment]'] == 'Asumido':
-                context = {
-                    'user_mail': parameters['data[treatmentManager]'],
-                    'finding_name': parameters['data[findingName]'],
-                    'finding_id': parameters['data[id]'],
-                    'project_name':
-                        parameters['data[projectName]'].capitalize(),
-                    'justification':
-                        parameters['data[treatmentJustification]'],
-                }
-                project_name = parameters['data[projectName]'].lower()
-                recipients = integrates_dao.get_project_users(project_name)
-                mail_to = [x[0] for x in recipients if x[1] == 1]
-                email_send_thread = \
-                    threading.Thread(name="Accepted finding email thread",
-                                     target=send_mail_accepted_finding,
-                                     args=(mail_to, context,))
-                email_send_thread.start()
-                return util.response([], 'success', False)
-            else:
-                return util.response([], 'success', False)
-        rollbar.report_message('Error: \
-An error occurred updating treatment', 'error', request)
-        return util.response([], 'error', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
-
-@never_cache
-@require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
 def delete_finding(request):
@@ -1251,22 +1204,6 @@ An error occurred when verifying the finding', 'error', request)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
-
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_finding_access
-def get_remediated(request):
-    finding_id = request.GET.get('findingid', "")
-    remediated = integrates_dao.get_remediated_dynamo(int(finding_id))
-    if remediated == []:
-        return util.response({'remediated': False}, 'Success', False)
-    resp = False
-    for row in remediated:
-        resp = row['remediated']
-    return util.response({'remediated': resp}, 'Success', False)
 
 
 @cache_control(private=True, max_age=3600)

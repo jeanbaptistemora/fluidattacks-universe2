@@ -94,23 +94,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Return a boolean saying whether the finding was verified or not.
-       * @function findingVerified
-       * @param {JSON} data Data about the finding, including id
-       * @param {String} findingid Finding id
-       * @member integrates.projectFtry
-       * @return {Object} Response about the verfication status of a finding
-       */
-      "findingVerified" (data, findingid) {
-        const oopsAc = "An error occurred when verifying the finding";
-        return $xhr.post($q, `${BASE.url}finding_verified`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
-        }, oopsAc);
-      },
-
-      /**
        * Return the alerts of a company.
        * @function getAlerts
        * @param {String} company Company name

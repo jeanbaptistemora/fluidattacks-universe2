@@ -58,7 +58,6 @@ angular.module("FluidIntegrates").factory(
         $scope.header.findingState = $scope.finding.estado;
         $scope.header.findingID = $scope.finding.id;
         $scope.header.findingValue = $scope.finding.criticity;
-        $scope.header.findingTreatment = $scope.finding.treatment;
         const HIGH_CRITICITY = 7;
         const MODERATE_CRITICITY = 4;
         const findingValue = parseFloat($scope.finding.criticity);

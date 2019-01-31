@@ -59,8 +59,6 @@ urlpatterns = [
     url(r'^delete_draft/?\.*$', views.delete_draft, name='delete_draft'),
     url(r'^finding_solved/?\.*$', views.finding_solved, name='finding_solved'),
     url(r'^update_description/?$', views.update_description, name='update_description'),
-    url(r'^update_treatment/?$', views.update_treatment, name='update_treatment'),
-    url(r'^get_remediated/?$', views.get_remediated, name='get_remediated'),
     url(r'^finding_verified/?\.*$',
         views.finding_verified, name='finding_verified'),
     # Documentation.

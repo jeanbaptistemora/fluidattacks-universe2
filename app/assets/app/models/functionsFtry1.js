@@ -173,67 +173,6 @@ angular.module("FluidIntegrates").factory(
           "resolve": {"updateData": descData},
           "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`
         });
-      },
-
-      "findingVerified" ($scope) {
-        // Get data
-        const currUrl = $window.location.href;
-        const trackingUrl = currUrl.replace("/description", "/tracking");
-        const descData = {
-          "findingId": $scope.finding.id,
-          "findingName": $scope.finding.finding,
-          "findingUrl": trackingUrl,
-          "findingVulns": $scope.finding.openVulnerabilities,
-          "project": $scope.finding.projectName,
-          "userMail": userEmail
-        };
-        $uibModal.open({
-          "animation": true,
-          "backdrop": "static",
-          "controller" ($scope, $uibModalInstance, mailData) {
-            $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_description.verified_finding");
-            $scope.ok = function ok () {
-              // Make the request
-              const req =
-                     projectFtry.findingVerified(mailData, mailData.findingId);
-              // Capture the promise
-              req.then((response) => {
-                if (!response.error) {
-                  // Mixpanel tracking
-                  const org = Organization.toUpperCase();
-                  const projt = descData.project.toUpperCase();
-                  mixPanelDashboard.trackFindingDetailed(
-                    "findingVerified",
-                    userName,
-                    userEmail,
-                    org,
-                    projt,
-                    descData.findingId
-                  );
-                  const updatedAt = $translate.instant("proj_alerts." +
-                                                     "updatedTitle");
-                  const updatedAc = $translate.instant("proj_alerts." +
-                                                   "verified_success");
-                  $msg.success(updatedAc, updatedAt);
-                  $uibModalInstance.close();
-                  location.reload();
-                }
-                else if (response.error) {
-                  Rollbar.error("Error: An error occurred " +
-                            "when verifying the finding");
-                  $msg.error($translate.instant("proj_alerts.error_textsad"));
-                }
-              });
-            };
-            $scope.close = function close () {
-              $uibModalInstance.close();
-            };
-          },
-          "keyboard": false,
-          "resolve": {"mailData": descData},
-          "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-        });
       }
     };
   }
