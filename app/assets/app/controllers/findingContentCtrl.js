@@ -102,7 +102,6 @@ findingContentCtrl (
       $scope.view.finding = true;
       $scope.finding = findingData.data;
       $scope.header = findingData.header;
-      $scope.isRemediated = findingData.remediated;
       $scope.esDetallado = findingData.esDetallado;
       $scope.hasDraft = findingData.hasDraft;
       if ($scope.isAdmin && findingData.hasDraft) {
@@ -147,8 +146,6 @@ findingContentCtrl (
           }
           functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
-          $scope.remediatedView();
-          findingData.remediated = $scope.isRemediated;
           $scope.view.project = false;
           $scope.view.finding = true;
           const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
@@ -201,29 +198,6 @@ findingContentCtrl (
     }
   };
 
-  $scope.remediatedView = function remediatedView () {
-    $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
-    $scope.isRemediated = true;
-    if (angular.isDefined($scope.finding.id)) {
-      const req = projectFtry.remediatedView($scope.finding.id);
-      req.then((response) => {
-        if (!response.error) {
-          $scope.isRemediated = response.data.remediated;
-          findingData.remediated = $scope.isRemediated;
-          if ($scope.isManager && $scope.isRemediated) {
-            $scope.analystVerification = true;
-          }
-          else {
-            $scope.analystVerification = false;
-          }
-        }
-        else if (response.error) {
-          Rollbar.error("Error: An error occurred when " +
-                        "remediating/verifying the finding");
-        }
-      });
-    }
-  };
   $scope.configColorPalette = function configColorPalette () {
     $scope.colors = {};
     // Red
@@ -240,9 +214,6 @@ findingContentCtrl (
   };
   $scope.updateDescription = function updateDescription () {
     functionsFtry3.updateDescription($scope);
-  };
-  $scope.findingSolved = function findingSolved () {
-    functionsFtry3.findingSolved($scope);
   };
   $scope.findingVerified = function findingVerified () {
     functionsFtry1.findingVerified($scope);
@@ -354,7 +325,6 @@ findingContentCtrl (
     if ($window.location.hash.indexOf("description") !== -1) {
       $scope.currentTab = "description";
       functionsFtry2.activeTab("#info", "FindingDescription", org, projt, idF);
-      $scope.remediatedView();
       $scope.requestVerification();
     }
     if ($window.location.hash.indexOf("severity") !== -1) {

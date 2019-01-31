@@ -94,22 +94,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * @function findingSolved
-       * @param {String} findingid Numeric id of the finding
-       * @param {JSON} data Data about the finding, including id
-       * @member integrates.projectFtry
-       * @return {Object} Response about the verification request
-       */
-      "findingSolved" (findingid, data) {
-        const oopsAc = "An error occurred when remediating the finding";
-        return $xhr.post($q, `${BASE.url}finding_solved`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
-        }, oopsAc);
-      },
-
-      /**
        * Return a boolean saying whether the finding was verified or not.
        * @function findingVerified
        * @param {JSON} data Data about the finding, including id
@@ -192,21 +176,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Return a boolean saying whether the finding was remediated or not.
-       * @function remediatedView
-       * @param {String} findingid Numeric ID of a finding
-       * @member integrates.projectFtry
-       * @return {Object}  DynamoDB response about remediate status of a finding
-       */
-      "remediatedView" (findingid) {
-        const oopsAc = "An error occurred getting remediate state";
-        return $xhr.get($q, `${BASE.url}get_remediated`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          findingid
-        }, oopsAc);
-      },
-
-      /**
        * Make a request to get the total severity of a project.
        * @function totalSeverity
        * @param {String} project Project name
@@ -232,23 +201,6 @@ angular.module("FluidIntegrates").factory(
       "updateDescription" (data, findingid) {
         const oopsAc = "An error occurred updating description";
         return $xhr.post($q, `${BASE.url}update_description`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
-        }, oopsAc);
-      },
-
-      /**
-       * Make a request to update the treatment section of a finding.
-       * @function updateTreatment
-       * @param {JSON} data New data in the treatment section
-       * @param {String} findingid Finding id
-       * @member integrates.projectFtry
-       * @return {Object} Formstack response about the post request
-       */
-      "updateTreatment" (data, findingid) {
-        const oopsAc = "An error occurred updating treatment";
-        return $xhr.post($q, `${BASE.url}update_treatment`, {
           "_": parseInt(secureRandom(5).join(""), 10),
           data,
           findingid

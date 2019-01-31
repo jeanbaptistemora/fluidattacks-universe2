@@ -98,86 +98,6 @@ angular.module("FluidIntegrates").factory(
         findingData.header = $scope.header;
       },
 
-      "findingSolved" ($scope) {
-      // Obtener datos
-        const descData = {
-          "findingId": $scope.finding.id,
-          "findingName": $scope.finding.finding,
-          "findingUrl": $window.location.href,
-          "findingVulns": $scope.finding.openVulnerabilities,
-          "project": $scope.finding.projectName,
-          "userMail": userEmail
-        };
-        $uibModal.open({
-
-          "animation": true,
-          "backdrop": "static",
-          "controller" ($scope, $uibModalInstance, mailData) {
-            $scope.remediatedData = {};
-            $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_description.remediated_finding");
-            $scope.ok = function ok () {
-              const MIN_JUSTIFICATION_LENGTH = 100;
-              $scope.remediatedData.userMail = mailData.userMail;
-              $scope.remediatedData.findingName = mailData.findingName;
-              $scope.remediatedData.project = mailData.project;
-              $scope.remediatedData.findingUrl = mailData.findingUrl;
-              $scope.remediatedData.findingVulns = mailData.findingVulns;
-              $scope.remediatedData.justification =
-                                $scope.remediatedData.justification.trim();
-              if ($scope.remediatedData.justification.length <
-                MIN_JUSTIFICATION_LENGTH) {
-                $msg.error($translate.instant("proj_alerts." +
-                                          "short_remediated_comment"));
-              }
-              else {
-                // Make the request
-                const req = projectFtry.findingSolved(
-                  mailData.findingId,
-                  $scope.remediatedData
-                );
-                // Capture the promise
-                req.then((response) => {
-                  if (!response.error) {
-                  // Mixpanel tracking
-                    const org = Organization.toUpperCase();
-                    const projt = descData.project.toUpperCase();
-                    mixPanelDashboard.trackFindingDetailed(
-                      "FindingRemediated",
-                      userName,
-                      userEmail,
-                      org,
-                      projt,
-                      descData.findingId
-                    );
-                    $scope.remediated = response.data.remediated;
-                    $msg.success(
-                      $translate.instant("proj_alerts." +
-                                           "remediated_success"),
-                      $translate.instant("proj_alerts." +
-                                            "updatedTitle")
-                    );
-                    $uibModalInstance.close();
-                    location.reload();
-                  }
-                  else if (response.error) {
-                    Rollbar.error("Error: An error occurred when " +
-                              "remediating the finding");
-                    $msg.error($translate.instant("proj_alerts.error_textsad"));
-                  }
-                });
-              }
-            };
-            $scope.close = function close () {
-              $uibModalInstance.close();
-            };
-          },
-          "keyboard": false,
-          "resolve": {"mailData": descData},
-          "templateUrl": `${BASE.url}assets/views/project/remediatedMdl.html`
-        });
-      },
-
       "loadFindingContent" ($scope) {
         $scope.aux = {};
         $scope.aux.treatment = $scope.finding.treatment;
@@ -267,12 +187,6 @@ angular.module("FluidIntegrates").factory(
         }
         else {
           $scope.customerVerification = false;
-        }
-        if ($scope.isManager && $scope.isRemediated) {
-          $scope.analystVerification = true;
-        }
-        else {
-          $scope.analystVerification = false;
         }
         // Initialize evidence gallery
         angular.element(".popup-gallery").magnificPopup({

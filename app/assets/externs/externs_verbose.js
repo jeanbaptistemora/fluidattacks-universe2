@@ -158,7 +158,6 @@ var fileRecords = {};   \
 var updateDescription = {};   \
 var updateTreatment = {};   \
 var findingSolved = {};   \
-var remediatedView = {};    \
 var findingVerified = {};    \
 var Bug = {};   \
 var Documentadas = {};   \
