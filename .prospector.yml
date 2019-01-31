@@ -1,0 +1,17 @@
+inherits:
+    - strictness_veryhigh
+
+pylint:
+  disable:
+    - import-error
+
+pyroma:
+  run: true
+
+vulture:
+  run: true
+
+mypy:
+  run: true
+  options:
+    ignore-missing-imports: true

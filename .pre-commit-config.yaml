@@ -3,13 +3,6 @@ repos:
     hooks:
     -   id: prospector
         name: prospector
-        entry: python3 -m prospector --strictness veryhigh
-        language: system
-        files: \.py$
--   repo: local
-    hooks:
-    -   id: mypy
-        name: mypy
-        entry: python3 -m mypy --ignore-missing-imports
+        entry: python3 -m prospector --profile .prospector.yml
         language: system
         files: \.py$
