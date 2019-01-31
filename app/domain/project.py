@@ -5,6 +5,7 @@
 # directory.
 
 import threading
+import re
 
 from app.dao import integrates_dao
 from app.mailer import send_mail_new_comment, send_mail_reply_comment
@@ -51,3 +52,16 @@ def add_comment(project_name, email, comment_data):
     return integrates_dao.add_project_comment_dynamo(project_name,
                                                      email,
                                                      comment_data)
+
+
+def validate_tags(tags):
+    """Validate tags array."""
+    tags_validated = []
+    pattern = re.compile('^[a-z0-9]+(?:-[a-z0-9]+)*$')
+    for tag in tags:
+        if pattern.match(tag):
+            tags_validated.append(tag)
+        else:
+            # Invalid tag
+            pass
+    return tags_validated

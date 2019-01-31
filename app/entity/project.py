@@ -10,10 +10,11 @@ from datetime import datetime, timedelta
 import time
 import pytz
 import jwt
+import rollbar
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
-from app.domain.project import add_comment
-from graphene import String, ObjectType, List, Int, Boolean, Mutation
+from app.domain.project import add_comment, validate_tags
+from graphene import String, ObjectType, List, Int, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
 
 from __init__ import FI_ORGANIZATION_SECRET, FI_DASHBOARD, FI_ORGANIZATION
@@ -171,5 +172,70 @@ class AddProjectComment(Mutation):
         success = add_comment(project_name, email, comment_data)
 
         ret = AddProjectComment(success=success, comment_id=comment_id)
+        util.invalidate_cache(project_name)
+        return ret
+
+
+class RemoveTag(Mutation):
+    """Remove a tag of a given project."""
+
+    class Arguments(object):
+        project_name = String(required=True)
+        tag = String(required=True)
+    project = Field(Project)
+    success = Boolean()
+
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, project_name, tag):
+        success = False
+        project_name = project_name.lower()
+        primary_keys = ['project_name', project_name.lower()]
+        table_name = 'FI_projects'
+        tag_deleted = integrates_dao.remove_set_element_dynamo(
+            table_name, primary_keys, 'tag', tag)
+        if tag_deleted:
+            success = True
+        else:
+            rollbar.report_message('Error: \
+An error occurred removing a tag', 'error', info.context)
+
+        ret = RemoveTag(success=success, project=Project(project_name))
+        util.invalidate_cache(project_name)
+        return ret
+
+
+class AddTags(Mutation):
+    """Add a tags to a project."""
+
+    class Arguments(object):
+        project_name = String(required=True)
+        tags = JSONString()
+    project = Field(Project)
+    success = Boolean()
+
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, project_name, tags):
+        success = False
+        project_name = project_name.lower()
+        primary_keys = ['project_name', project_name]
+        table_name = 'FI_projects'
+        if validate_tags(tags):
+            tags_added = integrates_dao.add_set_element_dynamo(
+                table_name, primary_keys, 'tag', tags)
+            if tags_added:
+                success = True
+            else:
+                rollbar.report_message('Error: \
+An error occurred adding tags', 'error', info.context)
+        else:
+            util.cloudwatch_log(info.context,
+                                'Security: \
+Attempted to upload tags without the allowed structure')
+
+        ret = AddTags(success=success, project=Project(project_name))
         util.invalidate_cache(project_name)
         return ret

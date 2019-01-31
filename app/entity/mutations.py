@@ -17,7 +17,9 @@ from .finding import (
     AddFindingComment, VerifyFinding, RequestVerification,
     UpdateDescription, UpdateTreatment
 )
-from .project import AddProjectComment
+from .project import (
+    AddProjectComment, RemoveTag, AddTags
+)
 from .events import UpdateEvent
 
 
@@ -49,3 +51,5 @@ class Mutations(ObjectType):
     updateDescription = UpdateDescription.Field()
     updateTreatment = UpdateTreatment.Field()
     updateEvent = UpdateEvent.Field()
+    removeTag = RemoveTag.Field()
+    addTags = AddTags.Field()

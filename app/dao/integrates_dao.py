@@ -1817,3 +1817,71 @@ def remove_attr_dynamo(table_name, pkey_name, pkey_value, attr_name):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+
+def remove_set_element_dynamo(table_name, primary_keys, set_name, set_element):
+    """Remove a element from a set."""
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    try:
+        response = table.update_item(
+            Key={
+                primary_keys[0]: primary_keys[1].lower(),
+            },
+            UpdateExpression='DELETE #name :val1',
+            ExpressionAttributeNames={
+                '#name': set_name
+            },
+            ExpressionAttributeValues={
+                ':val1': set([set_element])
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+        resp = False
+    return resp
+
+
+def add_set_element_dynamo(table_name, primary_keys, set_name, set_values):
+    """Adding elements to a set."""
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
+    if item:
+        resp = update_set_element_dynamo(
+            table_name, primary_keys, set_name, set_values)
+    else:
+        try:
+            response = table.put_item(
+                Item={
+                    primary_keys[0]: primary_keys[1].lower(),
+                    set_name: set(set_values)
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        except ClientError:
+            rollbar.report_exc_info()
+            resp = False
+    return resp
+
+
+def update_set_element_dynamo(table_name, primary_keys, set_name, set_values):
+    """Updating elements in a set."""
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    try:
+        response = table.update_item(
+            Key={
+                primary_keys[0]: primary_keys[1].lower(),
+            },
+            UpdateExpression='ADD #name :val1',
+            ExpressionAttributeNames={
+                '#name': set_name
+            },
+            ExpressionAttributeValues={
+                ':val1': set(set_values)
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+        resp = False
+    return resp
