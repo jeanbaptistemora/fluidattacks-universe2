@@ -108,55 +108,13 @@
               <div class="tab-content">
                   <!-- Start Tab Info -->
                   <div ng-if="currentTab === 'description'">
-                    <description-view
-                      finding-id="finding.id"
-                      project-name="project"
-                      user-role="userRole"
-                    />
-                  <div id="info" class="tab-pane cont active" ng-if="false">
-                      <div class="row">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
-                              <div class="row table-row">
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treatmentTooltip' | translate}}"><label><b>{{'search_findings.tab_description.treatment' | translate}}</b></label></div>
-                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treatmentTooltip' | translate}}">
-                                      <p ng-show="onlyReadableTab4">{{finding.treatment}}</p>
-                                      <select ng-model="finding.treatment"
-                                              ng-show="!onlyReadableTab4"
-                                              class="form-control">
-                                          <option value="Asumido">{{'finding_formstack.treatment_header.asummed' | translate}}</option>
-                                          <option value="Nuevo">{{'finding_formstack.treatment_header.working' | translate}}</option>
-                                          <option value="Remediar">{{'finding_formstack.treatment_header.remediated' | translate}}</option>
-                                      </select>
-                                  </div>
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treat_managerTooltip' | translate}}"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
-                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treat_managerTooltip' | translate}}">
-                                      <p>{{finding.treatmentManager}}</p>
-                                  </div>
-                              </div>
-                              <div class="row table-row" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.treat_justificationTooltip' | translate}}">
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
-                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab4">{{finding.treatmentJustification}}</p>
-                                      <textarea class="form-control no-resize"
-                                                ng-show="!onlyReadableTab4"
-                                                ng-model="finding.treatmentJustification">{{finding.treatmentJustification}}</textarea>
-                                      <span class="badge" style="font-size: 14px;background-color: #272727; margin-left:97%" ng-show="!onlyReadableTab4" >{{0 + finding.treatmentJustification.length}}</span>
-                                  </div>
-                              </div>
-                              <div class="row table-row" ng-show="!isManager">
-                                <div class="row">
-                                  <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
-                                    <button class="btn btn-success btn-block"
-                                            ng-show="!onlyReadableTab4"
-                                            ng-click="updateTreatment();">
-                                            <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update_treatment' | translate}}
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                         </div>
-                      </div>
-                      </div>
+                    <div id="info" class="tab-pane cont active">
+                      <description-view
+                        finding-id="finding.id"
+                        project-name="project"
+                        user-role="userRole"
+                      />
+                    </div>
                   </div>
                   <!-- End Tab Info -->
                   <!-- Start Tab Cssv2 -->

@@ -50,9 +50,6 @@ findingContentCtrl (
       $scope.onlyReadableTab1 = false;
     }
   };
-  $scope.treatmentEditable = function treatmentEditable () {
-    functionsFtry1.treatmentEditable($scope);
-  };
   $scope.detectNivel = function detectNivel () {
     const TIMEOUT = 200;
     $timeout(() => {
@@ -298,9 +295,6 @@ findingContentCtrl (
   };
   $scope.urlUsers = function urlUsers () {
     $state.go("ProjectUsers", {"project": $scope.project});
-  };
-  $scope.updateTreatment = function updateTreatment () {
-    functionsFtry1.updateTreatment($scope);
   };
 
   $scope.uploadVulnerabilites = function uploadVulnerabilites () {
