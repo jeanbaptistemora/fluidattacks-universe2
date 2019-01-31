@@ -105,7 +105,25 @@
           <label for="email" class="form-label">{{ gettext('Form-field-3') }}
           </label>
             <input  id="email" maxlength="80" name="email" size="20"
-            type="text" class="form-input" required /><br/>
+            type="text" class="form-input" required /><script type="text/javascript">
+            $(document).ready(function(e){
+              $('#submit').click(function(){
+                var email = $('#email').val();
+                var reg =  new RegExp(['/^([\\w-\\.]+@(?!gmail.com)(?!yahoo.com)',
+                '(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!abc.com)',
+                '(?!xyz.com)(?!pqr.com)(?!rediffmail.com)(?!live.com)',
+                '(?!outlook.com)(?!me.com)(?!msn.com)(?!ymail.com)',
+                '([\\w-]+\\.)+[\\w-]{2,4})?$/'].join(''));
+                if (reg.test(email)){
+                  return 0;
+                }
+                else{
+                  alert('Please Enter Business Email Address');
+                  return false;
+                }
+              });
+            });
+          </script><br/>
           <label for="mobile" class="form-label">{{ gettext('Form-field-4')
           }}</label>
               <input  id="mobile" maxlength="40" name="mobile" size="20"
@@ -114,7 +132,7 @@
           }}</label>
             <input  id="city" maxlength="40" name="city" size="20" type="text"
             class="form-input" required /><br>
-          <label for="Subjet" class="form-label">{{ gettext('Form-field-6') }}
+          <label for="Subject" class="form-label">{{ gettext('Form-field-6') }}
           </label>
             <textarea  id="00N1I00000NEIK7" name="00N1I00000NEIK7" wrap="soft"
             class="form-input" required></textarea><br>
@@ -138,7 +156,7 @@
               <option value="Other">{{ gettext('Form-field-14') }}</option>
             </select><br>
           <div class="form-button">
-            <input type="submit" name="submit" class="form-submit"/>
+            <input type="submit" name="submit" id="submit" class="form-submit"/>
           </div>
         </form>
       <br>
