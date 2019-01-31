@@ -16,10 +16,14 @@ from botocore.exceptions import ClientError
 
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from app import util
+from app.utils import forms as forms_utils
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
-from app.dto.finding import FindingDTO, get_project_name, update_vulnerabilities_date
+from app.dto.finding import (
+    FindingDTO, get_project_name, update_vulnerabilities_date,
+    migrate_description
+)
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
     send_mail_remediate_finding, send_mail_accepted_finding
@@ -459,15 +463,33 @@ def update_description(finding_id, updated_values):
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
     updated_values['records_number'] = str(updated_values.get('records_number'))
+    updated_values['id'] = finding_id
     del updated_values['title']
     del updated_values['description']
     del updated_values['recommendation']
 
-    return integrates_dao.update_mult_attrs_dynamo(
-        'FI_findings',
-        ['finding_id', finding_id],
-        updated_values
-    )
+    description = integrates_dao.get_finding_attributes_dynamo(
+        finding_id,
+        ['vulnerability'])
+
+    if not description:
+        finding_dto = FindingDTO()
+        api = FormstackAPI()
+        submission_data = api.get_submission(finding_id)
+        description_info = \
+            finding_dto.parse_description(submission_data, finding_id)
+        project_info = \
+            finding_dto.parse_project(submission_data, finding_id)
+        aditional_info = \
+            forms_utils.dict_concatenation(description_info,
+                                           project_info)
+        updated_values = \
+            forms_utils.dict_concatenation(aditional_info, updated_values)
+    else:
+        # Finding data has been already migrated
+        pass
+
+    return migrate_description(updated_values)
 
 
 def send_accepted_email(finding_id, user_email, justification):
