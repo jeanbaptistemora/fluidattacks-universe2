@@ -69,6 +69,7 @@ const evidenciaExplotacion = $("#field38307222");
 const animation = $("#field38307272");
 const siEvidente = $("#field49132420_1");
 const noEvidente = $("#field49132420_2");
+const project = $("#field32201732");
 const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
                              "6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
 
@@ -272,4 +273,10 @@ $(solutionPdf).change(() => {
     $msg.error("El archivo se debe llamar: solucion");
     solutionPdf.val("");
   }
+});
+
+
+$(project).focusout(() => {
+  project.val($.trim(project.val()));
+  project.val(project.val().toLowerCase());
 });
