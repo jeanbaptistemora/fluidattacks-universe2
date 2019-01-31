@@ -25,8 +25,7 @@ angular.module("FluidIntegrates").factory(
     $injector,
     $stateParams,
     $translate,
-    $window,
-    projectFtry
+    $window
   ) {
     return {
 
@@ -61,34 +60,6 @@ angular.module("FluidIntegrates").factory(
           projt,
           id
         );
-      },
-
-      "findingInformationTab" ($scope) {
-        $scope.list = {};
-        $scope.list.findingType = findingType;
-        $scope.list.categories = categories;
-        $scope.list.probability = probabilities;
-        $scope.list.actor = actor;
-        $scope.list.scenario = scenario;
-        $scope.finding.openVulnerabilities =
-        parseInt($scope.finding.openVulnerabilities, 10);
-        $scope.finding.criticity = parseFloat($scope.finding.criticity);
-        const calCSSv2 = projectFtry.calCCssv2($scope.finding);
-        const BaseScore = calCSSv2[0];
-        const Temporal = calCSSv2[1];
-        $scope.finding.cssv2base = BaseScore.toFixed(1);
-        $scope.finding.criticity = Temporal.toFixed(1);
-        if ($scope.finding.reportLevel === "Detallado") {
-          $scope.esDetallado = "show-detallado";
-          $scope.esGeneral = "hide-detallado";
-          const functionsFtry1 = $injector.get("functionsFtry1");
-          const severityInfo = functionsFtry1.calculateFindingSeverity($scope);
-          $scope.finding.riskValue = severityInfo[1];
-        }
-        else {
-          $scope.esDetallado = "hide-detallado";
-          $scope.esGeneral = "show-detallado";
-        }
       },
 
       "goDown" () {

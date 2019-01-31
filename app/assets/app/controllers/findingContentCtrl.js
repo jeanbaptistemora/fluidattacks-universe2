@@ -110,7 +110,6 @@ findingContentCtrl (
       else {
         $scope.draftsButton = false;
       }
-      functionsFtry3.loadFindingContent($scope);
     }
     else {
       const req = projectFtry.findingById(
@@ -144,7 +143,6 @@ findingContentCtrl (
           else {
             $scope.draftsButton = false;
           }
-          functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
           $scope.view.project = false;
           $scope.view.finding = true;
