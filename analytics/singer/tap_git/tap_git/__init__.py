@@ -308,6 +308,50 @@ def scan_changes__type_t(file, files: JSON, this_commit: GIT_COMMIT) -> None:
     sprint(srecord)
 
 
+def scan_gitinspector(path: str) -> JSON:
+    """Creates the gitinspector table."""
+
+    schema_path = f"{os.path.dirname(__file__)}/gitinspector.schema.json"
+    with open(schema_path, "r") as file:
+        sprint(json.load(file))
+
+    output: str = os.popen(f"gitinspector '{path}'").read()
+
+    # get the block of interest
+    in_interest: bool = False
+    block_interest: str = ""
+    for line in output.splitlines():
+        if "Below are the number of rows from each author" in line:
+            in_interest = True
+        if in_interest:
+            block_interest += f"{line}\n"
+
+    # create a list of whitespace separated tokens
+    lines_interest = list(
+        map(
+            lambda x: re.sub(r"\s+", r" ", x).strip(" "),
+            block_interest.splitlines()[4:]))
+
+    # parse lines
+    for line in lines_interest:
+        groups = line.split(" ")
+        if len(groups) < 5:
+            continue
+
+        srecord = {
+            "type": "RECORD",
+            "stream": "gitinspector",
+            "record": {
+                "author": " ".join(groups[0:-4]),
+                "rows": float(groups[-4]),
+                "stability": float(groups[-3]),
+                "age": float(groups[-2]),
+                "percent_in_comments": float(groups[-1])
+            }
+        }
+        sprint(srecord)
+
+
 def main():
     """Usual entry point.
     """
@@ -333,6 +377,12 @@ def main():
         dest="sync_changes",
         default=True)
     parser.add_argument(
+        '--run-gitinspector',
+        help='flag to indicate if gitinspector should be ran',
+        action='store_true',
+        dest="run_gitinspector",
+        default=False)
+    parser.add_argument(
         '--threads',
         help='=the number of processes to fork in',
         type=int,
@@ -357,6 +407,9 @@ def main():
 
     for conf in configs:
         try:
+            if args.run_gitinspector:
+                scan_gitinspector(conf["location"])
+
             # pylint: disable=broad-except
             scan_commits(conf, args.sync_changes, after)
         except Exception as excp:
