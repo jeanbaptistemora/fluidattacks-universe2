@@ -516,6 +516,7 @@ sync_git:
         analytics/singer/tap_git
         analytics/singer/target_redshift
     - analytics/git/set_awscli.sh
+    - analytics/git/set_gitinspector.sh
     - python3 analytics/git/clone_us.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_us.log
     - python3 analytics/git/clone_them.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_them.log
     - python3 analytics/git/generate_config.py 2>&1 | aws s3 cp - s3://fluidanalytics/generate_config.log
