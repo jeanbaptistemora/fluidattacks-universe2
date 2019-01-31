@@ -32,27 +32,13 @@ class Project(ObjectType):
     comments = List(GenericScalar)
     tags = List(String)
 
-    def __init__(self, info, project_name):
+    def __init__(self, project_name):
         """Class constructor."""
         self.name = project_name.lower()
         self.subscription = ''
         self.charts_key = ''
         self.comments = []
         self.tags = []
-        finreqset = integrates_dao.get_findings_dynamo(self.name, 'finding_id')
-
-        if finreqset:
-            findings = [Finding(info, i['finding_id']) for i in finreqset]
-            self.findings = [fin for fin in findings
-                             if validate_release_date(fin.release_date)]
-            open_vulnerabilities = [i.open_vulnerabilities for i in self.findings
-                                    if i.open_vulnerabilities > 0]
-            self.open_vulnerabilities = sum(open_vulnerabilities)
-            project_info = integrates_dao.get_project_dynamo(self.name)
-            if project_info:
-                self.subscription = project_info[0].get('type')
-            else:
-                self.subscription = ''
 
     def resolve_name(self, info):
         """Resolve name attribute."""
@@ -61,17 +47,31 @@ class Project(ObjectType):
 
     def resolve_findings(self, info):
         """Resolve findings attribute."""
-        del info
+        finreqset = integrates_dao.get_findings_dynamo(self.name, 'finding_id')
+        if finreqset:
+            findings = [Finding(info, i['finding_id']) for i in finreqset]
+            self.findings = [fin for fin in findings
+                             if validate_release_date(fin.release_date)]
+        else:
+            self.findings = []
         return self.findings
 
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
         del info
+        open_vulnerabilities = [i.open_vulnerabilities for i in self.findings
+                                if i.open_vulnerabilities > 0]
+        self.open_vulnerabilities = sum(open_vulnerabilities)
         return self.open_vulnerabilities
 
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""
         del info
+        project_info = integrates_dao.get_project_dynamo(self.name)
+        if project_info:
+            self.subscription = project_info[0].get('type')
+        else:
+            self.subscription = ''
         return self.subscription
 
     def resolve_charts_key(self, info):

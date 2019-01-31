@@ -130,4 +130,5 @@ class Query(ObjectType):
     @get_cached
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
-        return Project(info, project_name)
+        del info
+        return Project(project_name)
