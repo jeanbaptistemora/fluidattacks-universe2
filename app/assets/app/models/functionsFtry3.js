@@ -97,6 +97,10 @@ angular.module("FluidIntegrates").factory(
         findingData.header = $scope.header;
       },
 
+      "loadFindingContent" ($scope) {
+        functionsFtry4.showVulnerabilities($scope);
+      },
+
       "updateDescription" ($scope) {
       // Get actual data
         const descData = {

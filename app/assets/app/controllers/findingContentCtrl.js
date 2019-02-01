@@ -42,14 +42,6 @@ findingContentCtrl (
   projectFtry,
   projectFtry2
 ) {
-  $scope.descriptionEditable = function descriptionEditable () {
-    if ($scope.onlyReadableTab1 === false) {
-      $scope.onlyReadableTab1 = true;
-    }
-    else {
-      $scope.onlyReadableTab1 = false;
-    }
-  };
   $scope.detectNivel = function detectNivel () {
     const TIMEOUT = 200;
     $timeout(() => {
@@ -110,6 +102,7 @@ findingContentCtrl (
       else {
         $scope.draftsButton = false;
       }
+      functionsFtry3.loadFindingContent($scope);
     }
     else {
       const req = projectFtry.findingById(
@@ -143,6 +136,7 @@ findingContentCtrl (
           else {
             $scope.draftsButton = false;
           }
+          functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
           $scope.view.project = false;
           $scope.view.finding = true;
@@ -236,22 +230,10 @@ findingContentCtrl (
     $state.go("ProjectUsers", {"project": $scope.project});
   };
 
-  $scope.uploadVulnerabilites = function uploadVulnerabilites () {
-    functionsFtry4.uploadVulnerabilites($scope);
-  };
-
   $scope.init = function init () {
     const projectName = $stateParams.project;
     const findingId = $stateParams.finding;
     $scope.userRole = userRole;
-    // Flags for editable fields activation
-    $scope.onlyReadableTab1 = true;
-    $scope.onlyReadableTab2 = true;
-    $scope.onlyReadableTab3 = true;
-    $scope.onlyReadableTab4 = true;
-    $scope.onlyReadableTab5 = true;
-    $scope.onlyReadableTab6 = true;
-    $scope.translations = {};
     const hasAccess = projectFtry2.accessToProject(projectName);
     hasAccess.then((response) => {
       if (!response.error) {
