@@ -61,9 +61,9 @@ Build:
     - cp front/package.json deploy/containers/deps/
     - docker build --no-cache
         --build-arg vault_ca="$(cat vault-ca.crt | base64 | tr -d '\n')"
-        -t "$DOCKER_BASENAME:deps190109"
+        -t "$DOCKER_BASENAME:deps190201"
         deploy/containers/deps
-    - docker push "$DOCKER_BASENAME:deps190109"
+    - docker push "$DOCKER_BASENAME:deps190201"
   retry: 2
   only:
     - schedules
@@ -87,7 +87,7 @@ gulp-compiler:
  stage: pre-test
  before_script:
    - echo "Start gulp compiler"
- image: registry.gitlab.com/fluidsignal/integrates:deps190109
+ image: registry.gitlab.com/fluidsignal/integrates:deps190201
  script:
    - cd app/assets && npm install --unsafe-perm
    - cd ../../front
@@ -117,7 +117,7 @@ react-testing:
     - merge_requests
   before_script:
     - echo "Start Unit Testing"
-  image: registry.gitlab.com/fluidsignal/integrates:deps190109
+  image: registry.gitlab.com/fluidsignal/integrates:deps190201
   script:
     - cd front/ && npm install --unsafe-perm
     - tslint -p tsconfig.json -t verbose || true
@@ -130,7 +130,7 @@ js-linter:
   stage: pre-test
   before_script:
     - echo "JS Linting"
-  image: registry.gitlab.com/fluidsignal/integrates:deps190109
+  image: registry.gitlab.com/fluidsignal/integrates:deps190201
   script:
     - eslint app/assets/app/.
   after_script:
@@ -142,7 +142,7 @@ js-linter:
 
 prospector-testing:
   stage: pre-test
-  image: registry.gitlab.com/fluidsignal/integrates:deps190109
+  image: registry.gitlab.com/fluidsignal/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -158,7 +158,7 @@ unit-testing:
   only:
     - /^.*$/
     - merge_requests
-  image: registry.gitlab.com/fluidsignal/integrates:deps190109
+  image: registry.gitlab.com/fluidsignal/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -245,7 +245,7 @@ build-bot:
 
 remove-cache-keys:
   stage: review
-  image: registry.gitlab.com/fluidsignal/integrates:deps190109
+  image: registry.gitlab.com/fluidsignal/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
