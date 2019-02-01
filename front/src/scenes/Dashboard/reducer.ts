@@ -29,6 +29,8 @@ interface IDashboardState {
     addModal: {
       open: boolean;
     };
+    deletionDate: string;
+    subscription: string;
     tags: string[];
   };
   isMdlConfirmOpen: boolean;
@@ -104,6 +106,8 @@ const initialState: IDashboardState = {
     addModal: {
       open: false,
     },
+    deletionDate: "",
+    subscription: "",
     tags: [],
   },
   isMdlConfirmOpen: false,
@@ -486,6 +490,8 @@ actionMap[indicatorsActions.LOAD_TAGS] =
     ...state,
     indicators: {
       ...state.indicators,
+      deletionDate: action.payload.deletionDate,
+      subscription: action.payload.subscription,
       tags: action.payload.tags,
     },
   });

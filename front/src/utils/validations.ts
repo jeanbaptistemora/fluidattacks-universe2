@@ -143,3 +143,13 @@ export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string
 
   return valid;
 };
+
+export const validTag: ((arg1: string) => string | undefined) =
+  (value: string): string | undefined => {
+  const pattern: RegExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  if (_.isEmpty(value) || !pattern.test(value)) {
+    return translate.t("validations.tags");
+  } else {
+    return undefined;
+  }
+};

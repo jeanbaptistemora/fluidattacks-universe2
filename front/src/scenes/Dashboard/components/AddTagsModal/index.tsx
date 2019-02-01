@@ -19,7 +19,7 @@ import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";
 import { textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
+import { required, validTag } from "../../../../utils/validations";
 
 export interface IAddTagsModalProps {
   isOpen: boolean;
@@ -48,7 +48,7 @@ const renderTagsFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Eleme
               <label style={{ color: "#f22" }}>* </label>
               Tag
             </label>
-            <Field name={fieldName} component={textField} type="text" validate={[required]} />
+            <Field name={fieldName} component={textField} type="text" validate={[required, validTag]} />
           </Col>
           {index > 0 ? renderDeleteFieldButton(props.fields, index) : undefined}
         </Row>

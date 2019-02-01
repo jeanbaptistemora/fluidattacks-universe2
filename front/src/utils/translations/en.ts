@@ -276,6 +276,7 @@ const enTranslations: Map<string, string> = {
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",
     required: "This field is required",
+    tags: "This field can only contain alphanumeric characters and dashes"
   },
 };
 

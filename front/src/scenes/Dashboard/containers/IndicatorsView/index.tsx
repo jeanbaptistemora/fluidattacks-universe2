@@ -31,6 +31,8 @@ export interface IIndicatorsViewProps {
   };
   tagsDataset: string[];
   projectName: string;
+  subscription: string;
+  deletionDate: string;
 }
 
 const enhance: InferableComponentEnhancer<{}> =
@@ -49,42 +51,49 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
   (state: StateType<Reducer>): IIndicatorsViewProps => ({
     ...state,
     addModal: state.dashboard.indicators.addModal,
+    deletionDate: state.dashboard.indicators.deletionDate,
+    subscription: state.dashboard.indicators.subscription,
     tagsDataset: state.dashboard.indicators.tags,
   });
 
 export const component: React.StatelessComponent<IIndicatorsViewProps> =
   (props: IIndicatorsViewProps): JSX.Element => (
   <React.StrictMode>
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={12} sm={12} xs={12}>
-              <Row>
-                <Col md={12} sm={12}>
-                  <DataTable
-                    dataset={props.tagsDataset}
-                    onClickRow={(): void => {}}
-                    enableRowSelection={false}
-                    exportCsv={false}
-                    search={false}
-                    headers={[
-                      {
-                        dataField: "tagName",
-                        header: "Tags",
-                        isDate: false,
-                        isStatus: false,
-                      },
-                    ]}
-                    id="tblTags"
-                    pageSize={15}
-                    title={""}
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+    { props.subscription && _.isEmpty(props.deletionDate)
+      ?  <React.Fragment>
+            <Row>
+              <Col md={12} sm={12} xs={12}>
+                <Row>
+                  <Col md={12} sm={12} xs={12}>
+                    <Row>
+                      <Col md={12} sm={12}>
+                        <DataTable
+                          dataset={props.tagsDataset.map((tagName: string) => ({tagName}))}
+                          onClickRow={(): void => {}}
+                          enableRowSelection={false}
+                          exportCsv={false}
+                          search={false}
+                          headers={[
+                            {
+                              dataField: "tagName",
+                              header: "Tags",
+                              isDate: false,
+                              isStatus: false,
+                            },
+                          ]}
+                          id="tblTags"
+                          pageSize={15}
+                          title={""}
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </React.Fragment>
+      : undefined
+    }
   </React.StrictMode>
 );
 

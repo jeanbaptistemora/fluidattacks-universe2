@@ -277,6 +277,7 @@ const esTranslations: Map<string, string> = {
     minLength: "Este campo requiere por lo menos {{count}} caracteres",
     numeric: "Este campo sólo puede contener números",
     required: "Este campo es obligatorio",
+    tags: "Este campo sólo puede contener caracteres alfanuméricos y guiones medios"
   },
 };
 

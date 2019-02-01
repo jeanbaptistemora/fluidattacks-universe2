@@ -37,15 +37,19 @@ export const loadTags: ThunkActionStructure =
       let gQry: string;
       gQry = `{
         project(projectName: "${projectName}"){
+          deletionDate
+          subscription
           tags
         }
-    }`;
+      }`;
       new Xhr().request(gQry, "An error occurred getting tags")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           dispatch({
             payload: {
-              tags: data.project.tags.map((tagName: string) => ({tagName})),
+              deletionDate: data.project.deletionDate,
+              subscription: data.project.subscription,
+              tags: data.project.tags,
             },
             type: actionTypes.LOAD_TAGS,
           });
@@ -71,3 +75,100 @@ export const closeAddModal: (() => IActionStructure) =
     payload: undefined,
     type: actionTypes.CLOSE_ADD_MODAL,
   });
+
+export const removeTag: ThunkActionStructure =
+  (projectName: string, tagToRemove: string): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+      removeTag (
+        tag: "${tagToRemove}",
+        projectName: "${projectName}"
+      ) {
+        success
+        project {
+          deletionDate
+          subscription
+          tags
+        }
+      }
+    }`;
+      new Xhr().request(gQry, "An error occurred removing tags")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.removeTag.success) {
+            dispatch({
+              payload: {
+                deletionDate: data.removeTag.project.deletionDate,
+                subscription: data.removeTag.project.subscription,
+                tags: data.removeTag.project.tags,
+              },
+              type: actionTypes.LOAD_TAGS,
+            });
+            msgSuccess(
+              translate.t("search_findings.tab_resources.success_remove"),
+              translate.t("search_findings.tab_users.title_success"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred removing tags");
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const saveTags: ThunkActionStructure =
+  (projectName: string,
+   tagsData: IIndicatorsViewProps["tagsDataset"]): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+          addTags (
+            tags: ${JSON.stringify(JSON.stringify(tagsData))},
+            projectName: "${projectName}") {
+            success
+            project {
+              deletionDate
+              subscription
+              tags
+            }
+          }
+        }`;
+      new Xhr().request(gQry, "An error occurred adding tags")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.addTags.success) {
+            dispatch(closeAddModal());
+            dispatch({
+              payload: {
+                deletionDate: data.addTags.project.deletionDate,
+                subscription: data.addTags.project.subscription,
+                tags: data.addTags.project.tags,
+              },
+              type: actionTypes.LOAD_TAGS,
+            });
+            msgSuccess(
+              translate.t("search_findings.tab_resources.success"),
+              translate.t("search_findings.tab_users.title_success"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred adding tags");
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
