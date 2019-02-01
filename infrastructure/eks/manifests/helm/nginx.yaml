@@ -1,7 +1,7 @@
 controller:
   image:
     repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
-    tag: 0.20.0
+    tag: 0.22.0
   config:
     hsts-include-subdomains: "false"
     proxy-body-size: "10m"
