@@ -273,11 +273,13 @@ class FindingDTO(object):
     def parse_cvssv2(self, request_arr, submission_id): # noqa: C901
         """Convert the score of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
-        severity_title = ['access_vector', 'access_complexity', 'authentication', 'exploitability',
-                          'confidentiality_impact', 'integrity_impact', 'availability_impact',
-                          'resolution_level', 'confidence_level', 'collateral_damage_potential',
+        severity_title = ['access_vector', 'access_complexity',
+                          'authentication', 'exploitability',
+                          'confidentiality_impact', 'integrity_impact',
+                          'availability_impact', 'resolution_level',
+                          'confidence_level', 'collateral_damage_potential',
                           'finding_distribution', 'confidentiality_requirement',
-                          'integrity_requirement', 'availability_requirement', 'cvss_value']
+                          'integrity_requirement', 'availability_requirement']
         severity = integrates_dao.get_finding_attributes_dynamo(
             str(submission_id),
             severity_title)
@@ -307,7 +309,25 @@ class FindingDTO(object):
             parsed_dict = {v: float(initial_dict[k].split(' | ')[0])
                            for (k, v) in severity_fields.items()
                            if k in initial_dict.keys()}
-        parsed_dict['criticity'] = parsed_dict['cvssValue']
+        base_score_factor_1 = 0.6
+        base_score_factor_2 = 0.4
+        base_score_factor_3 = 1.5
+        impact_factor = 10.41
+        expl_factor = 20
+        f_impact_factor = 1.176
+        impact = (impact_factor *
+                  (1 - ((1 - parsed_dict['confidentialityImpact']) *
+                   (1 - parsed_dict['integrityImpact']) *
+                   (1 - parsed_dict['availabilityImpact']))))
+        exploitability = (expl_factor *
+                          parsed_dict['accessComplexity'] *
+                          parsed_dict['authentication'] * parsed_dict['accessVector'])
+        base_score = (((base_score_factor_1 * impact) +
+                      (base_score_factor_2 * exploitability) - base_score_factor_3) *
+                      f_impact_factor)
+        parsed_dict['criticity'] = round((base_score * parsed_dict['exploitability'] *
+                                         parsed_dict['resolutionLevel'] *
+                                         parsed_dict['confidenceLevel']), 1)
         parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
         parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
         return parsed_dict
@@ -763,38 +783,18 @@ def update_vulnerabilities_date(analyst, finding_id):
 def save_severity(finding):
     """Organize severity metrics to save in dynamo."""
     primary_keys = ['finding_id', str(finding['id'])]
-    severity_fields = ['accessVector', 'accessComplexity', 'authentication',
-                       'exploitability', 'confidentialityImpact', 'integrityImpact',
-                       'availabilityImpact', 'resolutionLevel', 'collateralDamagePotential',
-                       'findingDistribution', 'confidenceLevel', 'integrityRequirement',
-                       'confidentialityRequirement', 'availabilityRequirement']
+    severity_fields = ['accessVector', 'accessComplexity',
+                       'authentication', 'exploitability',
+                       'confidentialityImpact', 'integrityImpact',
+                       'availabilityImpact', 'resolutionLevel',
+                       'confidenceLevel', 'collateralDamagePotential',
+                       'findingDistribution', 'confidentialityRequirement',
+                       'integrityRequirement', 'availabilityRequirement']
     severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                 for k in severity_fields}
-    severity['cvss_value'] = calculate_cvss(severity)
-    response = integrates_dao.add_multiple_attributes_dynamo('FI_findings',
-                                                             primary_keys,
-                                                             severity)
-    return response
-
-
-def calculate_cvss(severity):
-    basescore_factor_1 = Decimal(0.6)
-    basescore_factor_2 = Decimal(0.4)
-    basescore_factor_3 = Decimal(1.5)
-    impact_factor = Decimal(10.41)
-    exploitability_factor = Decimal(20)
-    f_impact_factor = Decimal(1.176)
-    impact = impact_factor * (1 - ((1 - severity['confidentiality_impact']) *
-                              (1 - severity['integrity_impact']) *
-                              (1 - severity['availability_impact'])))
-    exploitabilty = exploitability_factor * severity['access_complexity'] * \
-        severity['authentication'] * severity['access_vector']
-    basescore = ((basescore_factor_1 * impact) - basescore_factor_3 +
-                 (basescore_factor_2 * exploitabilty)) * f_impact_factor
-    temporal = Decimal(basescore * severity['exploitability'] *
-                       severity['resolution_level'] *
-                       severity['confidence_level'], 1)
-    response = temporal.quantize(Decimal("0.1"))
+    response = \
+        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+                                                      primary_keys, severity)
     return response
 
 
