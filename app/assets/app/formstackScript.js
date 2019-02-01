@@ -73,6 +73,8 @@ const project = $("#field32201732");
 const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
                              "6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
 
+const projectProgress = $("#field28634673");
+
 /**
  * @function showInfo
  * @param {Object} data Data entered by an analyst
@@ -275,8 +277,12 @@ $(solutionPdf).change(() => {
   }
 });
 
-
 $(project).focusout(() => {
   project.val($.trim(project.val()));
   project.val(project.val().toLowerCase());
+});
+
+$(projectProgress).focusout(() => {
+  projectProgress.val($.trim(projectProgress.val()));
+  projectProgress.val(projectProgress.val().toLowerCase());
 });
