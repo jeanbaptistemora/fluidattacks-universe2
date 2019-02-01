@@ -53,7 +53,10 @@ setuptools.setup(
         "tap_git": [
             "commits.schema.json",
             "changes.schema.json",
-            "gitinspector.schema.json"
+            "gitinspector_blame.schema.json",
+            "gitinspector_changes.schema.json",
+            "gitinspector_metrics.schema.json",
+            "gitinspector_responsibilities.schema.json",
         ]
     },
 )

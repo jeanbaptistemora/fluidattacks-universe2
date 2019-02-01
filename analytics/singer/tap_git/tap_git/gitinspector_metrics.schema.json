@@ -1,0 +1,22 @@
+{
+    "type":"SCHEMA",
+    "stream":"gitinspector_metrics",
+    "key_properties":[
+    ],
+    "schema":{
+      "properties":{
+        "repository":{
+          "type":"string"
+        },
+        "type":{
+          "type":"string"
+        },
+        "file_name":{
+          "type":"string"
+        },
+        "value":{
+          "type":"number"
+        }
+      }
+    }
+  }

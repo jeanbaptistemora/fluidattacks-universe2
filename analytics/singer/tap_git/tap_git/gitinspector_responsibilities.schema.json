@@ -1,0 +1,25 @@
+{
+  "type":"SCHEMA",
+  "stream":"gitinspector_responsibilities",
+  "key_properties":[
+  ],
+  "schema":{
+    "properties":{
+      "repository":{
+        "type":"string"
+      },
+      "name":{
+        "type":"string"
+      },
+      "email":{
+        "type":"string"
+      },
+      "files_name":{
+        "type":"string"
+      },
+      "files_rows":{
+        "type":"number"
+      }
+    }
+  }
+}

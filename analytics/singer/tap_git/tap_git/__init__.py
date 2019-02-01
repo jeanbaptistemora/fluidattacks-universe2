@@ -310,46 +310,111 @@ def scan_changes__type_t(file, files: JSON, this_commit: GIT_COMMIT) -> None:
 
 def scan_gitinspector(path: str) -> JSON:
     """Creates the gitinspector table."""
+    output: str = os.popen((
+        f"gitinspector             "
+        f"  --responsibilities=true"
+        f"  --timeline=true        "
+        f"  --metrics=true         "
+        f"  --format=json          "
+        f"  --hard                 "
+        f"  '{path}'               ")).read()
 
-    schema_path = f"{os.path.dirname(__file__)}/gitinspector.schema.json"
-    with open(schema_path, "r") as file:
-        sprint(json.load(file))
+    data = json.loads(output)["gitinspector"]
+    scan_gitinspector__schemas()
+    scan_gitinspector__blame(data)
+    scan_gitinspector__changes(data)
+    scan_gitinspector__metrics(data)
+    scan_gitinspector__responsibilities(data)
 
-    output: str = os.popen(f"gitinspector '{path}'").read()
 
-    # get the block of interest
-    in_interest: bool = False
-    block_interest: str = ""
-    for line in output.splitlines():
-        if "Below are the number of rows from each author" in line:
-            in_interest = True
-        if in_interest:
-            block_interest += f"{line}\n"
+def scan_gitinspector__schemas() -> None:
+    """Print to stdout the schemas."""
+    schemas = (
+        "gitinspector_blame.schema.json",
+        "gitinspector_changes.schema.json",
+        "gitinspector_metrics.schema.json",
+        "gitinspector_responsibilities.schema.json",
+    )
+    for schema in schemas:
+        with open(f"{os.path.dirname(__file__)}/{schema}", "r") as file:
+            sprint(json.load(file))
 
-    # create a list of whitespace separated tokens
-    lines_interest = list(
-        map(
-            lambda x: re.sub(r"\s+", r" ", x).strip(" "),
-            block_interest.splitlines()[4:]))
 
-    # parse lines
-    for line in lines_interest:
-        groups = line.split(" ")
-        if len(groups) < 5:
-            continue
-
-        srecord = {
-            "type": "RECORD",
-            "stream": "gitinspector",
-            "record": {
-                "author": " ".join(groups[0:-4]),
-                "rows": float(groups[-4]),
-                "stability": float(groups[-3]),
-                "age": float(groups[-2]),
-                "percent_in_comments": float(groups[-1])
+def scan_gitinspector__blame(data: JSON) -> None:
+    """Print to stdout records for the blame table."""
+    if "blame" in data and "authors" in data["blame"]:
+        for record in data["blame"]["authors"]:
+            srecord = {
+                "type": "RECORD",
+                "stream": "gitinspector_blame",
+                "record": {
+                    "repository": data["repository"],
+                    "name": record["name"],
+                    "email": record["email"],
+                    "rows": record["rows"],
+                    "stability": record["stability"],
+                    "age": record["age"],
+                    "percentage_in_comments": record["percentage_in_comments"],
+                }
             }
-        }
-        sprint(srecord)
+            sprint(srecord)
+
+
+def scan_gitinspector__changes(data: JSON) -> None:
+    """Print to stdout records for the changes table."""
+    if "changes" in data and "authors" in data["changes"]:
+        for record in data["changes"]["authors"]:
+            srecord = {
+                "type": "RECORD",
+                "stream": "gitinspector_changes",
+                "record": {
+                    "repository": data["repository"],
+                    "name": record["name"],
+                    "email": record["email"],
+                    "commits": record["commits"],
+                    "insertions": record["insertions"],
+                    "deletions": record["deletions"],
+                    "percentage_of_changes": record["percentage_of_changes"],
+                }
+            }
+            sprint(srecord)
+
+
+def scan_gitinspector__metrics(data: JSON) -> None:
+    """Print to stdout records for the metrics table."""
+    if "metrics" in data and "violations" in data["metrics"]:
+        for record in data["metrics"]["violations"]:
+            srecord = {
+                "type": "RECORD",
+                "stream": "gitinspector_metrics",
+                "record": {
+                    "repository": data["repository"],
+                    "type": record["type"],
+                    "file_name": record["file_name"],
+                    "value": record["value"],
+                }
+            }
+            sprint(srecord)
+
+
+def scan_gitinspector__responsibilities(data: JSON) -> None:
+    """Print to stdout records for the responsibilities table."""
+    if "responsibilities" in data and "authors" in data["responsibilities"]:
+        for record in data["responsibilities"]["authors"]:
+            if "files" in record:
+                for file in record["files"]:
+                    srecord = {
+                        "type": "RECORD",
+                        "stream": "gitinspector_responsibilities",
+                        "record": {
+                            "repository": data["repository"],
+                            "name": record["name"],
+                            "email": record["email"],
+                            "files_name": file["name"],
+                            "files_rows": file["rows"],
+                        }
+                    }
+                    sprint(srecord)
 
 
 def main():
@@ -407,13 +472,14 @@ def main():
 
     for conf in configs:
         try:
+            # pylint: disable=broad-except
+
             if args.run_gitinspector:
                 scan_gitinspector(conf["location"])
 
-            # pylint: disable=broad-except
             scan_commits(conf, args.sync_changes, after)
         except Exception as excp:
-            sprint({"type": "STATE", "value": str(excp)})
+            sprint({"type": "STATE", "value": repr(excp)})
 
 
 if __name__ == "__main__":
