@@ -50,6 +50,27 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  name: fluidattacks-nginx
+  namespace: serves
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - fluidattacks.com
+    secretName: fluidattacks-cert
+  rules:
+  - host: fluidattacks.com
+    http:
+      paths:
+      - backend:
+          serviceName: exams
+          servicePort: 80
+        path: /courses
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
   name: fluidla
   namespace: serves
   annotations:

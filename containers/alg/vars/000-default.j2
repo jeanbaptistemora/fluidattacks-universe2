@@ -9,15 +9,6 @@
     RequestHeader unset X-Forwarded-For
     RequestHeader unset X-Forwarded-Server
 
-    # Moodle
-      RewriteRule ^/courses(.*) http://exams.serves.svc.cluster.local$1    [P,L]
-      ProxyPassReverse /courses http://exams.serves.svc.cluster.local
-
-      <Location "/courses">
-        ProxyErrorOverride On
-        ErrorDocument 404 {{ error_page }}
-      </Location>
-
     # Formstack
       RewriteRule ^/forms(.*)    https://fluidsignal.formstack.com/forms$1    [P,L]
       ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
