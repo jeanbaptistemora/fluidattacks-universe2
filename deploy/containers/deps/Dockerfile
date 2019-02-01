@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y \
                libxslt1-dev libapache2-mod-wsgi libtiff5-dev \
                zlib1g-dev libfreetype6-dev libapache2-mod-python \
                default-libmysqlclient-dev cron autoconf \
-               bison libssl-dev libyaml-dev \
+               bison libssl-dev libyaml-dev firefox-esr wget \
                libreadline6-dev libncurses5-dev \
                libffi-dev libgdbm6 libgdbm-dev ruby-dev redis \
 	             nodejs npm libmagic1 libmariadbclient18 \
@@ -61,7 +61,10 @@ RUN apt-get update && apt-get install -y \
                && apt-get -y autoremove \
                && apt-get -y install make \
                && apt-get -y clean \
-               && rm -rf /var/lib/apt/lists/*
+               && rm -rf /var/lib/apt/lists/* \
+	       && wget -O /tmp/geckodriver.tar.gz -c https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz \
+	       && tar xzf /tmp/geckodriver.tar.gz -C /usr/local/bin
+
 
 # SocialAuth Patch.
 ADD patch_socialauth.py /root/
