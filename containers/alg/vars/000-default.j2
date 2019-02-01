@@ -9,43 +9,6 @@
     RequestHeader unset X-Forwarded-For
     RequestHeader unset X-Forwarded-Server
 
-    # Integrates
-      RewriteRule ^/integrates(.*)$    http://integrates.serves.svc.cluster.local/$1    [P,L]
-      ProxyPassReverse /integrates http://integrates.serves.svc.cluster.local
-
-      RewriteRule ^/assets(.*)$    http://integrates.serves.svc.cluster.local/assets$1    [P,L]
-      ProxyPassReverse /assets http://integrates.serves.svc.cluster.local/assets
-
-      RewriteRule ^/oauth(.*)$    http://integrates.serves.svc.cluster.local/oauth$1    [P,L]
-      ProxyPassReverse /oauth http://integrates.serves.svc.cluster.local/oauth
-          
-      RewriteRule ^/index(.*)$    http://integrates.serves.svc.cluster.local/index$1    [P,L]
-      ProxyPassReverse /index http://integrates.serves.svc.cluster.local/index
-
-      RewriteRule ^/registration(.*)$    http://integrates.serves.svc.cluster.local$1     [P,L]
-      ProxyPassReverse /registration http://integrates.serves.svc.cluster.local/registration
-
-      RewriteRule ^/silk(.*)$    http://integrates.serves.svc.cluster.local$1     [P,L]
-      ProxyPassReverse /silk http://integrates.serves.svc.cluster.local/silk
-
-      RewriteRule ^/errors$    http://integrates.serves.svc.cluster.local/integrates/error401    [P,L]
-      ProxyPassReverse /errors http://integrates.serves.svc.cluster.local/integrates/error401
-
-      <Location "/integrates">
-        Header always set WWW-Authenticate "OAuth realm=\"Access to FLUIDIntegrates\" charset=\"UTF-8\""
-        Header always set Strict-Transport-Security "max-age=31536000"
-        Header always set X-XSS-Protection "1; mode=block"
-        Header always set X-Permitted-Cross-Domain-Policies "master-only"
-        Header always set X-Content-Type-Options "nosniff"
-        Header always set Pragma "no-cache"
-        Header always set Expires "0"
-        Header always set Content-Security-Policy "script-src 'self' 'unsafe-inline' *.mxpnl.com *.cloudflare.com *.intercomcdn.com *.intercom.io *.pingdom.net *.newrelic.com *.nr-data.net;"
-        Header always unset Server
-
-        ProxyErrorOverride On
-        ErrorDocument 404 {{ error_page }}
-      </Location>
-
     #Pagina WEB
       RewriteRule ^/web(.*)$    http://{{ web_bucket }}/web$1    [P,L]
       ProxyPassReverse /web     http://{{ web_bucket }}/web
