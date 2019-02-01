@@ -13,7 +13,7 @@ import jwt
 import rollbar
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
-from app.domain.project import add_comment, validate_tags
+from app.domain.project import add_comment, validate_tags, validate_project
 from graphene import String, ObjectType, List, Int, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
 
@@ -22,7 +22,7 @@ from ..dao import integrates_dao
 from .finding import Finding
 
 
-class Project(ObjectType):
+class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     """Formstack Project Class."""
 
     name = String()
@@ -32,6 +32,7 @@ class Project(ObjectType):
     charts_key = String()
     comments = List(GenericScalar)
     tags = List(String)
+    deletion_date = String()
 
     def __init__(self, project_name):
         """Class constructor."""
@@ -40,6 +41,7 @@ class Project(ObjectType):
         self.charts_key = ''
         self.comments = []
         self.tags = []
+        self.deletion_date = ''
 
     def resolve_name(self, info):
         """Resolve name attribute."""
@@ -74,6 +76,17 @@ class Project(ObjectType):
         else:
             self.subscription = ''
         return self.subscription
+
+    def resolve_deletion_date(self, info):
+        """Resolve deletion date attribute."""
+        del info
+        project_info = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['deletion_date'])
+        if project_info:
+            self.deletion_date = project_info.get('deletion_date')
+        else:
+            self.deletion_date = ''
+        return self.deletion_date
 
     def resolve_charts_key(self, info):
         """ Resolve chartio token """
@@ -191,15 +204,21 @@ class RemoveTag(Mutation):
     def mutate(self, info, project_name, tag):
         success = False
         project_name = project_name.lower()
-        primary_keys = ['project_name', project_name.lower()]
-        table_name = 'FI_projects'
-        tag_deleted = integrates_dao.remove_set_element_dynamo(
-            table_name, primary_keys, 'tag', tag)
-        if tag_deleted:
-            success = True
-        else:
-            rollbar.report_message('Error: \
+        if validate_project(project_name):
+            primary_keys = ['project_name', project_name.lower()]
+            table_name = 'FI_projects'
+            tag_deleted = integrates_dao.remove_set_element_dynamo(
+                table_name, primary_keys, 'tag', tag)
+            if tag_deleted:
+                success = True
+            else:
+                rollbar.report_message('Error: \
 An error occurred removing a tag', 'error', info.context)
+
+        else:
+            util.cloudwatch_log(info.context,
+                                'Security: \
+Attempted to remove tags without the allowed validations')
 
         ret = RemoveTag(success=success, project=Project(project_name))
         util.invalidate_cache(project_name)
@@ -221,20 +240,25 @@ class AddTags(Mutation):
     def mutate(self, info, project_name, tags):
         success = False
         project_name = project_name.lower()
-        primary_keys = ['project_name', project_name]
-        table_name = 'FI_projects'
-        if validate_tags(tags):
-            tags_added = integrates_dao.add_set_element_dynamo(
-                table_name, primary_keys, 'tag', tags)
-            if tags_added:
-                success = True
-            else:
-                rollbar.report_message('Error: \
+        if validate_project(project_name):
+            primary_keys = ['project_name', project_name]
+            table_name = 'FI_projects'
+            if validate_tags(tags):
+                tags_added = integrates_dao.add_set_element_dynamo(
+                    table_name, primary_keys, 'tag', tags)
+                if tags_added:
+                    success = True
+                else:
+                    rollbar.report_message('Error: \
 An error occurred adding tags', 'error', info.context)
+            else:
+                util.cloudwatch_log(info.context,
+                                    'Security: \
+Attempted to upload tags without the allowed structure')
         else:
             util.cloudwatch_log(info.context,
                                 'Security: \
-Attempted to upload tags without the allowed structure')
+Attempted to upload tags without the allowed validations')
 
         ret = AddTags(success=success, project=Project(project_name))
         util.invalidate_cache(project_name)

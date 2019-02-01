@@ -65,3 +65,18 @@ def validate_tags(tags):
             # Invalid tag
             pass
     return tags_validated
+
+
+def validate_project(project):
+    """Validate if a project exist and is not deleted."""
+    project_info = integrates_dao.get_project_attributes_dynamo(
+        project, ['project_name', 'deletion_date'])
+    is_valid_project = False
+    if project_info:
+        if project_info.get('deletion_date'):
+            is_valid_project = False
+        else:
+            is_valid_project = True
+    else:
+        is_valid_project = False
+    return is_valid_project
