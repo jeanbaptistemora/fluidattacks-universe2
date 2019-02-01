@@ -78,7 +78,13 @@ angular.module("FluidIntegrates").controller(
       if (showChartio) {
         $scope.initChartio();
       }
-      $scope.showTags = userEmail.endsWith("@fluidattacks.com");
+      if (userEmail.endsWith("@fluidattacks.com") ||
+          userEmail.endsWith("@bancolombia.com.co")) {
+        $scope.showTags = true;
+      }
+      else {
+        $scope.showTags = false;
+      }
     };
 
     $scope.initChartio = () => {
