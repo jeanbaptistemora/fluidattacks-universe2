@@ -4,6 +4,7 @@ for fork in {1..16}; do
   ( tap-git \
       --conf /config.json \
       --run-gitinspector \
+      --with-metrics \
       --threads 16 \
       --fork-id $fork > git_part$fork ) &
 done
