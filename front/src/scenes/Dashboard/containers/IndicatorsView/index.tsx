@@ -47,6 +47,50 @@ lifecycle({
   },
 });
 
+const removeTag: ((arg1: string) => void) = (projectName: string): void => {
+  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblTags tr input:checked");
+  if (selectedQry.length > 0) {
+    if (selectedQry[0].closest("tr") !== null) {
+      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+      const tag: string | null = selectedRow.children[1].textContent;
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+
+      thunkDispatch(actions.removeTag(projectName, tag));
+    } else {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred removing tags");
+    }
+  } else {
+    msgError(translate.t("search_findings.tab_resources.no_selection"));
+  }
+};
+
+const saveTags: (
+  (tags: IIndicatorsViewProps["tagsDataset"], projectName: IIndicatorsViewProps["projectName"],
+   currentEnvs: IIndicatorsViewProps["tagsDataset"],
+  ) => void) =
+  (tags: IIndicatorsViewProps["tagsDataset"], projectName: IIndicatorsViewProps["projectName"],
+   currentEnvs: IIndicatorsViewProps["tagsDataset"],
+  ): void => {
+    let containsRepeated: boolean;
+    containsRepeated = tags.filter(
+      (newItem: IIndicatorsViewProps["tagsDataset"][0]) => _.findIndex(
+        currentEnvs,
+        (currentItem: IIndicatorsViewProps["tagsDataset"][0]) =>
+          currentItem === newItem,
+      ) > -1).length > 0;
+    if (containsRepeated) {
+      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+    } else {
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.saveTags(projectName, tags));
+    }
+  };
+
 const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
   (state: StateType<Reducer>): IIndicatorsViewProps => ({
     ...state,
@@ -66,11 +110,37 @@ export const component: React.StatelessComponent<IIndicatorsViewProps> =
                 <Row>
                   <Col md={12} sm={12} xs={12}>
                     <Row>
+                      <Col md={12}>
+                        <Col mdOffset={4} md={2} sm={6}>
+                          <Button
+                            id="addTag"
+                            block={true}
+                            bsStyle="primary"
+                            onClick={(): void => { store.dispatch(actions.openAddModal()); }}
+                          >
+                            <Glyphicon glyph="plus"/>&nbsp;
+                            {translate.t("search_findings.tab_resources.add_repository")}
+                          </Button>
+                        </Col>
+                        <Col md={2} sm={6}>
+                          <Button
+                            id="removeTag"
+                            block={true}
+                            bsStyle="primary"
+                            onClick={(): void => { removeTag(props.projectName); }}
+                          >
+                            <Glyphicon glyph="minus"/>&nbsp;
+                            {translate.t("search_findings.tab_resources.remove_repository")}
+                          </Button>
+                        </Col>
+                      </Col>
+                    </Row>
+                    <Row>
                       <Col md={12} sm={12}>
                         <DataTable
                           dataset={props.tagsDataset.map((tagName: string) => ({tagName}))}
                           onClickRow={(): void => {}}
-                          enableRowSelection={false}
+                          enableRowSelection={true}
                           exportCsv={false}
                           search={false}
                           headers={[
@@ -91,6 +161,13 @@ export const component: React.StatelessComponent<IIndicatorsViewProps> =
                 </Row>
               </Col>
             </Row>
+            <AddTagsModal
+              isOpen={props.addModal.open}
+              onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
+              onSubmit={(values: { tags: IIndicatorsViewProps["tagsDataset"] }): void =>
+                { saveTags(values.tags, props.projectName, props.tagsDataset); }
+              }
+            />
           </React.Fragment>
       : undefined
     }
