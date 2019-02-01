@@ -264,26 +264,6 @@ angular.module("FluidIntegrates").factory(
           email,
           project
         }, oopsAc);
-      },
-
-      /**
-       * Give access to an user in a project
-       * @function removeAccessIntegrates
-       * @param {String} email Email of user to which access will be removed.
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Response of request
-       */
-      "removeAccessIntegrates" (email, project) {
-        const oopsAc = "An error occurred removing access to an user";
-        const gQry = `mutation {
-          removeUserAccess(projectName: "${project}", userEmail: "${email}"){
-            access,
-            removedEmail,
-            success
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
       }
     };
   }
