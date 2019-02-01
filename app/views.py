@@ -6,7 +6,6 @@
 
 from __future__ import absolute_import
 from datetime import datetime, timedelta
-from time import time
 import os
 import sys
 import re
@@ -38,9 +37,9 @@ from .techdoc.IT import ITReport
 from .domain import finding as finding_domain
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities,
-    sort_vulnerabilities, group_specific, update_vulnerabilities_date,
+    sort_vulnerabilities, group_specific,
     save_severity, migrate_description, migrate_treatment, migrate_report_date,
-    parse_dashboard_finding_dynamo, parse_finding, get_project_name
+    parse_dashboard_finding_dynamo, parse_finding
 )
 from .dto import closing
 from .dto import project as project_dto
@@ -50,14 +49,11 @@ from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
-from .mailer import send_mail_remediate_finding
-from .mailer import send_mail_verified_finding
 from .mailer import send_mail_delete_draft
 from .services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
 from .services import is_customeradmin
-from .utils import forms as forms_utils
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
@@ -993,65 +989,6 @@ def get_myprojects(request):
 @require_http_methods(["POST"])
 @authorize(['analyst', 'admin'])
 @require_finding_access
-def update_description(request):
-    parameters = request.POST.dict()
-    finding_id = str(parameters['findingid'])
-    project = get_project_name(finding_id)
-    util.invalidate_cache(finding_id)
-    util.invalidate_cache(project)
-    try:
-        generic_dto = FindingDTO()
-        description_attributes = ['vulnerability']
-        description = integrates_dao.get_finding_attributes_dynamo(
-            finding_id,
-            description_attributes)
-        description_title = ['reportLevel', 'finding', 'probability', 'id',
-                             'severity', 'riskValue', 'category', 'actor',
-                             'scenario', 'recordsNumber', 'records',
-                             'vulnerability', 'attackVector', 'affectedSystems',
-                             'threat', 'requirements', 'cwe', 'effectSolution']
-        finding = {k: parameters['data[' + k + ']']
-                   for k in description_title
-                   if parameters.get('data[' + k + ']')}
-        if not description:
-            api = FormstackAPI()
-            submission_data = api.get_submission(finding_id)
-            if submission_data is None or 'error' in submission_data:
-                return util.response([], 'error', True)
-            else:
-                description_info = \
-                    generic_dto.parse_description(submission_data, finding_id)
-                project_info = \
-                    generic_dto.parse_project(submission_data, finding_id)
-                aditional_info = \
-                    forms_utils.dict_concatenation(description_info,
-                                                   project_info)
-                finding = \
-                    forms_utils.dict_concatenation(aditional_info, finding)
-        else:
-            # Finding have data in dynamo
-            pass
-        description_migrated = migrate_description(finding)
-        migrate_report_date(finding)
-        generic_dto.create_description(parameters)
-        generic_dto.to_formstack()
-        api = FormstackAPI()
-        request = api.update(generic_dto.request_id, generic_dto.data)
-        if request and description_migrated:
-            return util.response([], 'success', False)
-        else:
-            rollbar.report_message('Error: \
-An error occurred updating description', 'error', request)
-            return util.response([], 'error', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'admin'])
-@require_finding_access
 def delete_finding(request):
     """Capture and process the ID of an eventuality to eliminate it"""
     submission_id = request.POST.get('findingid', "")
@@ -1097,107 +1034,6 @@ Attempted to delete findings without permission')
         email_send_thread = \
             threading.Thread(name="Delete finding email thread",
                              target=send_mail_delete_finding,
-                             args=(mail_to, context,))
-        email_send_thread.start()
-        return util.response([], 'Success', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['customer', 'admin'])
-@require_finding_access
-def finding_solved(request):
-    """ Send an email requesting the verification of a finding """
-    submission_id = request.POST.get('findingid', "")
-    parameters = request.POST.dict()
-    recipients = integrates_dao.get_project_users(parameters['data[project]'])
-    remediated = integrates_dao.add_remediated_dynamo(
-        int(submission_id),
-        True,
-        parameters['data[project]'],
-        parameters['data[findingName]'])
-    rem_solution = parameters['data[justification]'].replace('\n', ' ')
-    finding_domain.add_comment(
-        user_email=request.session['username'],
-        parent='0',
-        content=rem_solution,
-        comment_type='comment',
-        comment_id=int(round(time() * 1000)),
-        finding_id=submission_id,
-        user_fullname=str.join(' ', [request.session['first_name'],
-                                     request.session['last_name']]),
-        is_remediation_comment=True
-    )
-    util.invalidate_cache(submission_id)
-
-    if not remediated:
-        rollbar.report_message('Error: \
-An error occurred when remediating the finding', 'error', request)
-        return util.response([], 'Error', True)
-    # Send email parameters
-    try:
-        mail_to = [x[0] for x in recipients if x[1] == 1]
-        mail_to.append('continuous@fluidattacks.com')
-        mail_to.append('projects@fluidattacks.com')
-        context = {
-            'project': parameters['data[project]'],
-            'finding_name': parameters['data[findingName]'],
-            'user_mail': parameters['data[userMail]'],
-            'finding_url': parameters['data[findingUrl]'],
-            'finding_id': submission_id,
-            'finding_vulns': parameters['data[findingVulns]'],
-            'company': request.session["company"],
-            'solution': rem_solution,
-        }
-        email_send_thread = \
-            threading.Thread(name="Remediate finding email thread",
-                             target=send_mail_remediate_finding,
-                             args=(mail_to, context,))
-        email_send_thread.start()
-        return util.response([], 'Success', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'admin'])
-@require_finding_access
-def finding_verified(request):
-    """ Send an email notifying that the finding was verified """
-    parameters = request.POST.dict()
-    recipients = integrates_dao.get_project_users(parameters['data[project]'])
-    verified = integrates_dao.add_remediated_dynamo(
-        int(parameters['data[findingId]']),
-        False, parameters['data[project]'],
-        parameters['data[findingName]'])
-    if not verified:
-        rollbar.report_message('Error: \
-An error occurred when verifying the finding', 'error', request)
-        return util.response([], 'Error', True)
-    analyst = request.session['username']
-    update_vulnerabilities_date(analyst, parameters['data[findingId]'])
-    # Send email parameters
-    try:
-        mail_to = [x[0] for x in recipients if x[1] == 1]
-        mail_to.append('continuous@fluidattacks.com')
-        mail_to.append('projects@fluidattacks.com')
-        context = {
-            'project': parameters['data[project]'],
-            'finding_name': parameters['data[findingName]'],
-            'user_mail': parameters['data[userMail]'],
-            'finding_url': parameters['data[findingUrl]'],
-            'finding_id': parameters['data[findingId]'],
-            'finding_vulns': parameters['data[findingVulns]'],
-            'company': request.session["company"],
-        }
-        email_send_thread = \
-            threading.Thread(name="Verified finding email thread",
-                             target=send_mail_verified_finding,
                              args=(mail_to, context,))
         email_send_thread.start()
         return util.response([], 'Success', False)

@@ -57,10 +57,6 @@ urlpatterns = [
     url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),
     url(r'^accept_draft/?\.*$', views.accept_draft, name='accept_draft'),
     url(r'^delete_draft/?\.*$', views.delete_draft, name='delete_draft'),
-    url(r'^finding_solved/?\.*$', views.finding_solved, name='finding_solved'),
-    url(r'^update_description/?$', views.update_description, name='update_description'),
-    url(r'^finding_verified/?\.*$',
-        views.finding_verified, name='finding_verified'),
     # Documentation.
     url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$',
         views.project_to_pdf),
