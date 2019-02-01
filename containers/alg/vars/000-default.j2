@@ -9,15 +9,6 @@
     RequestHeader unset X-Forwarded-For
     RequestHeader unset X-Forwarded-Server
 
-    # Formstack
-      RewriteRule ^/forms(.*)    https://fluidsignal.formstack.com/forms$1    [P,L]
-      ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
-
-      <Location "/forms">
-        ProxyErrorOverride On
-        ErrorDocument 404 {{ error_page }}
-      </Location>
-
     # Integrates
       RewriteRule ^/integrates(.*)$    http://integrates.serves.svc.cluster.local/$1    [P,L]
       ProxyPassReverse /integrates http://integrates.serves.svc.cluster.local
@@ -54,10 +45,6 @@
         ProxyErrorOverride On
         ErrorDocument 404 {{ error_page }}
       </Location>
-
-    #Asserts Documentation
-      RewriteRule ^/asserts(.*)$    https://fluidattacks.gitlab.io/asserts$1    [P,L]
-      ProxyPassReverse /asserts     https://fluidattacks.gitlab.io/asserts    
 
     #Pagina WEB
       RewriteRule ^/web(.*)$    http://{{ web_bucket }}/web$1    [P,L]
