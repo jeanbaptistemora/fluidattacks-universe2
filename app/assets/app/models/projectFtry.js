@@ -171,23 +171,6 @@ angular.module("FluidIntegrates").factory(
           "_": parseInt(secureRandom(5).join(""), 10),
           project
         }, oopsAc);
-      },
-
-      /**
-       * Make a request to update the description section of a finding.
-       * @function updateDescription
-       * @param {JSON} data New data in the description tab
-       * @param {String} findingid Finding id
-       * @member integrates.projectFtry
-       * @return {Object} Formstack response about description update request
-       */
-      "updateDescription" (data, findingid) {
-        const oopsAc = "An error occurred updating description";
-        return $xhr.post($q, `${BASE.url}update_description`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          data,
-          findingid
-        }, oopsAc);
       }
     };
   }

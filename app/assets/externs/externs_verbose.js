@@ -153,7 +153,6 @@ var each = {};   \
 var comments = {};    \
 var es_registros_archivo = {};   \
 var fileRecords = {};   \
-var updateDescription = {};   \
 var findingVerified = {};    \
 var Bug = {};   \
 var Documentadas = {};   \

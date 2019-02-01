@@ -68,15 +68,6 @@ findingContentCtrl (
   $scope.deleteDraft = function deleteDraft () {
     functionsFtry4.deleteDraft($scope);
   };
-  $scope.hasUrl = function hasUrl (element) {
-    if (angular.isDefined(element)) {
-      if (element.indexOf("https://") !== -1 ||
-          element.indexOf("http://") !== -1) {
-        return true;
-      }
-    }
-    return false;
-  };
   $scope.isEmpty = function isEmpty (obj) {
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
@@ -118,14 +109,6 @@ findingContentCtrl (
           findingData.data = response.data;
           $scope.finding = response.data;
           $scope.hasDraft = false;
-          if ($scope.finding.subscription === "Continua" ||
-            $scope.finding.subscription === "Concurrente" ||
-            $scope.finding.subscription === "Si") {
-            $scope.isContinuous = true;
-          }
-          else {
-            $scope.isContinuous = false;
-          }
           if (angular.isUndefined($scope.finding.releaseDate)) {
             $scope.hasDraft = true;
           }
@@ -140,9 +123,6 @@ findingContentCtrl (
           functionsFtry3.findingHeaderBuilding($scope, findingData);
           $scope.view.project = false;
           $scope.view.finding = true;
-          const urlPre = `${$window.location.href.split("dashboard#!/")[0] +
-                      id}/`;
-          $scope.vulnerabilitiesURL = `${urlPre}download_vulnerabilities`;
           return true;
         }
         else if (response.error) {
@@ -173,9 +153,6 @@ findingContentCtrl (
   };
   $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-  $scope.updateDescription = function updateDescription () {
-    functionsFtry3.updateDescription($scope);
   };
   $scope.findingVerified = function findingVerified () {
     functionsFtry1.findingVerified($scope);

@@ -27,8 +27,7 @@ angular.module("FluidIntegrates").factory(
     $window,
     functionsFtry1,
     functionsFtry2,
-    functionsFtry4,
-    projectFtry
+    functionsFtry4
   ) {
     return {
       "configKeyboardView" ($scope) {
@@ -99,95 +98,6 @@ angular.module("FluidIntegrates").factory(
 
       "loadFindingContent" ($scope) {
         functionsFtry4.showVulnerabilities($scope);
-      },
-
-      "updateDescription" ($scope) {
-      // Get actual data
-        const descData = {
-          "actor": $scope.descripcionInfo.actor,
-          "affectedSystems": $scope.finding.affectedSystems,
-          "attackVector": $scope.finding.attackVector,
-          "category": $scope.finding.category,
-          "cwe": $scope.finding.cwe,
-          "effectSolution": $scope.finding.effectSolution,
-          "finding": $scope.finding.finding,
-          "id": $scope.finding.id,
-          "openVulnerabilities": $scope.finding.openVulnerabilities,
-          "probability": $scope.finding.probability,
-          "records": $scope.finding.records,
-          "recordsNumber": $scope.finding.recordsNumber,
-          "reportLevel": $scope.finding.reportLevel,
-          "requirements": $scope.finding.requirements,
-          "riskValue": $scope.finding.riskValue,
-          "scenario": $scope.descripcionInfo.scenario,
-          "severity": $scope.finding.severity,
-          "threat": $scope.finding.threat,
-          "vulnerability": $scope.finding.vulnerability,
-          "where": $scope.finding.where
-        };
-        if ($scope.aux.openVulnerabilities !==
-            $scope.finding.openVulnerabilities) {
-          const todayDate = new Date();
-          const NEW_LIST_LIMIT = 10;
-          descData.lastVulnerability =
-                               todayDate.toISOString().slice(0, NEW_LIST_LIMIT);
-        }
-        if (descData.reportLevel === "Detallado") {
-        // Recalculate severity
-          const severityInfo =
-            functionsFtry1.calculateFindingSeverity($scope);
-          const choose = severityInfo[0];
-          if (!choose) {
-            Rollbar.error("Error: An error occurred calculating severity");
-            $msg.error($translate.instant("proj_alerts.wrong_severity"));
-            return false;
-          }
-        }
-        $uibModal.open({
-          "animation": true,
-          "backdrop": "static",
-          "controller" ($scope, $uibModalInstance, updateData) {
-            $scope.modalTitle = $translate.instant("confirmmodal." +
-                                                 "title_description");
-            $scope.ok = function ok () {
-              // Make the request
-              const req =
-                       projectFtry.updateDescription(updateData, updateData.id);
-              // Capture the promise
-              req.then((response) => {
-                if (!response.error) {
-                  const updatedAt =
-                                 $translate.instant("proj_alerts.updatedTitle");
-                  const updatedAc =
-                                 $translate.instant("proj_alerts.updated_cont");
-                  $msg.success(updatedAc, updatedAt);
-                  $uibModalInstance.close();
-                  location.reload();
-                  // Mixpanel tracking
-                  mixPanelDashboard.trackFinding(
-                    "UpdateFinding",
-                    userEmail,
-                    descData.id
-                  );
-                }
-                else if (response.error) {
-                  Rollbar.error("Error: An error occurred " +
-                                "updating description");
-                  const errorAc1 =
-                               $translate.instant("proj_alerts.error_textsad");
-                  $msg.error(errorAc1);
-                }
-              });
-            };
-            $scope.close = function close () {
-              $uibModalInstance.close();
-            };
-          },
-          "keyboard": false,
-          "resolve": {"updateData": descData},
-          "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-        });
-        return true;
       }
     };
   }
