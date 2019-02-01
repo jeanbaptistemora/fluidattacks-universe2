@@ -21,8 +21,7 @@ from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.dto.finding import (
-    FindingDTO, get_project_name, update_vulnerabilities_date,
-    migrate_description
+    FindingDTO, get_project_name, update_vulnerabilities_date
 )
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
@@ -489,7 +488,13 @@ def update_description(finding_id, updated_values):
         # Finding data has been already migrated
         pass
 
-    return migrate_description(updated_values)
+    updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
+                      for k in updated_values}
+    return integrates_dao.update_mult_attrs_dynamo(
+        'FI_findings',
+        ['finding_id', finding_id],
+        updated_values
+    )
 
 
 def send_accepted_email(finding_id, user_email, justification):
