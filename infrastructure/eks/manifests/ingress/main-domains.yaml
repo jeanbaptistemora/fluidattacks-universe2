@@ -54,6 +54,7 @@ metadata:
   namespace: serves
   annotations:
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   tls:
   - hosts:
@@ -66,7 +67,7 @@ spec:
       - backend:
           serviceName: exams
           servicePort: 80
-        path: /courses
+        path: /courses(.*)
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
