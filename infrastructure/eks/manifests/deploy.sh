@@ -212,6 +212,7 @@ fi
 # certificates for the secondary domains using Cert-Manager and ACME protocol
 replace_env_variables ingress/main-domains.yaml
 kubectl apply -f ingress/main-domains.yaml
+kubectl apply -f ingress/external.yaml
 issue_secondary_domain_certificates ingress/secondary-domains.yaml \
   secondary-domains-cert secondary-domains 
 
