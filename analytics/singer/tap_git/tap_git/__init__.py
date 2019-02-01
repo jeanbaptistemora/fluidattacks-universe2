@@ -11,6 +11,9 @@ from typing import List, Tuple, Any
 
 import git
 
+from . import metrics
+
+
 # Type aliases that improve clarity
 JSON = Any
 GIT_REPO = Any
@@ -448,6 +451,12 @@ def main():
         dest="run_gitinspector",
         default=False)
     parser.add_argument(
+        '--with-metrics',
+        help='flag to indicate if metrics should be generated',
+        action='store_true',
+        dest="with_metrics",
+        default=False)
+    parser.add_argument(
         '--threads',
         help='=the number of processes to fork in',
         type=int,
@@ -476,6 +485,9 @@ def main():
 
             if args.run_gitinspector:
                 scan_gitinspector(conf["location"])
+
+            if args.with_metrics:
+                metrics.scan_metrics(conf["repository"], conf["location"])
 
             scan_commits(conf, args.sync_changes, after)
         except Exception as excp:

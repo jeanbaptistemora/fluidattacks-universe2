@@ -57,6 +57,8 @@ setuptools.setup(
             "gitinspector_changes.schema.json",
             "gitinspector_metrics.schema.json",
             "gitinspector_responsibilities.schema.json",
+            "metrics_lines_per_actor.schema.json",
+            "metrics_median_line_age.schema.json",
         ]
     },
 )
