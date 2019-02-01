@@ -395,7 +395,7 @@ def std_date(date: Any, **kwargs: Any) -> str:
     new_date: str = ""
 
     # replace anything that is not a digit by an space
-    date = re.sub(r"[^\d]", r" ", date)
+    date = re.sub(r"[^(\d|am|AM|pm|PM)]", r" ", date)
 
     # replace any repeated space character by a single space character
     date = re.sub(r"\s+", r" ", date)
@@ -404,9 +404,12 @@ def std_date(date: Any, **kwargs: Any) -> str:
     date = date.strip(" ")
 
     # everything is normalized now, try to match with this formats
-    date_formats: Tuple[str, str, str, str, str, str, str] = (
+    date_formats: Tuple[str, str, str, str, str, str, str, str, str, str] = (
         "%Y %m %d %H %M %S %f",
         "%Y %m %d %H %M %S",
+        "%Y %m %d %I %M %p",
+        "%Y %m %d %H %M",
+        "%Y %m %d %H",
         "%Y %m %d",
         "%d %m %Y",
         "%b %d %Y",
