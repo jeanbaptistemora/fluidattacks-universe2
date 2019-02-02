@@ -1,18 +1,9 @@
-import json
 import os
-from collections import OrderedDict
 
 from django.test import TestCase
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.conf import settings
-from jose import jwt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
-
-from .api.formstack import FormstackAPI
-from .entity import schema
 
 
 class ViewTestCase(TestCase):
