@@ -1,11 +1,8 @@
 FROM debian:buster-slim
 
-# Doubts about the image in question.
-MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
-
 ARG vault_ca
 
-ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
+ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=America/Bogota
 
 ADD requirements.txt /root/
@@ -46,7 +43,7 @@ RUN apt-get update && apt-get install -y \
                libxslt1-dev libapache2-mod-wsgi libtiff5-dev \
                zlib1g-dev libfreetype6-dev libapache2-mod-python \
                default-libmysqlclient-dev cron autoconf \
-               bison libssl-dev libyaml-dev firefox-esr wget \
+               bison libssl-dev libyaml-dev firefox-esr \
                libreadline6-dev libncurses5-dev \
                libffi-dev libgdbm6 libgdbm-dev ruby-dev redis \
 	             nodejs npm libmagic1 libmariadbclient18 \
@@ -61,15 +58,15 @@ RUN apt-get update && apt-get install -y \
                && apt-get -y autoremove \
                && apt-get -y install make \
                && apt-get -y clean \
-               && rm -rf /var/lib/apt/lists/* \
-	       && wget -O /tmp/geckodriver.tar.gz -c https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz \
-	       && tar xzf /tmp/geckodriver.tar.gz -C /usr/local/bin
+               && rm -rf /var/lib/apt/lists/*
 
-
-# SocialAuth Patch.
+ADD https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz /tmp/geckodriver.tar.gz
 ADD patch_socialauth.py /root/
 ADD enable_redis_cluster_sessions.diff /root/
-RUN python /root/patch_socialauth.py && cd /usr/local/lib/python2.7/dist-packages/redis_sessions && cat /root/enable_redis_cluster_sessions.diff | patch -p1
+RUN python /root/patch_socialauth.py \
+    && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
+    && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
+    && tar xzf /tmp/geckodriver.tar.gz -C /usr/local/bin
 
 # Change root directory.
 WORKDIR /root/
