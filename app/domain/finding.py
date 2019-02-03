@@ -9,6 +9,7 @@ import sys
 import threading
 from datetime import datetime
 from time import time
+from decimal import Decimal
 
 import boto3
 import rollbar
@@ -21,7 +22,8 @@ from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.dto.finding import (
-    FindingDTO, get_project_name, update_vulnerabilities_date
+    FindingDTO, get_project_name, update_vulnerabilities_date, calc_cvss_basescore,
+    calc_cvss_enviroment, calc_cvss_temporal
 )
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
@@ -534,3 +536,29 @@ def update_treatment(finding_id, updated_values, user_email):
         ['finding_id', finding_id],
         updated_values
     )
+
+
+def save_severity(finding):
+    """Organize severity metrics to save in dynamo."""
+    fin_dto = FindingDTO()
+    primary_keys = ['finding_id', str(finding['id'])]
+    severity_fields = ['accessVector', 'accessComplexity',
+                       'authentication', 'exploitability',
+                       'confidentialityImpact', 'integrityImpact',
+                       'availabilityImpact', 'resolutionLevel',
+                       'confidenceLevel', 'collateralDamagePotential',
+                       'findingDistribution', 'confidentialityRequirement',
+                       'integrityRequirement', 'availabilityRequirement']
+    severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+                for k in severity_fields}
+    unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
+    severity['cvss_basescore'] = calc_cvss_basescore(unformatted_severity,
+                                                     fin_dto.CVSS_PARAMETERS)
+    severity['cvss_temporal'] = calc_cvss_temporal(unformatted_severity,
+                                                   severity['cvss_basescore'])
+    severity['cvss_env'] = calc_cvss_enviroment(unformatted_severity,
+                                                fin_dto.CVSS_PARAMETERS)
+    response = \
+        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+                                                      primary_keys, severity)
+    return response

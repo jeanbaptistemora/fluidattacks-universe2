@@ -21,8 +21,7 @@ from graphene.types.generic import GenericScalar
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import (
-    FindingDTO, finding_vulnerabilities, save_severity,
-    has_migrated_evidence, get_project_name
+    FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name
 )
 from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
@@ -30,7 +29,7 @@ from app.domain.finding import (
     add_file_attribute, migrate_evidence_description,
     list_comments, add_comment, verify_finding,
     get_unique_dict, get_tracking_dict, request_verification,
-    update_description, update_treatment
+    update_description, update_treatment, save_severity
 )
 from .. import util
 from ..dao import integrates_dao

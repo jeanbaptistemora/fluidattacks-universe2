@@ -36,10 +36,9 @@ from .decorators import (
 from .techdoc.IT import ITReport
 from .domain import finding as finding_domain
 from .dto.finding import (
-    FindingDTO, format_finding_date, finding_vulnerabilities,
-    sort_vulnerabilities, group_specific,
-    save_severity, migrate_description, migrate_treatment, migrate_report_date,
-    parse_dashboard_finding_dynamo, parse_finding
+    FindingDTO, format_finding_date, finding_vulnerabilities, parse_finding,
+    sort_vulnerabilities, group_specific, migrate_description,
+    migrate_treatment, migrate_report_date, parse_dashboard_finding_dynamo
 )
 from .dto import closing
 from .dto import project as project_dto
@@ -1105,7 +1104,7 @@ def accept_draft(request):
                 finding_domain.migrate_all_files(files_data, file_url, request)
                 integrates_dao.add_release_toproject_dynamo(finding['projectName'],
                                                             True, release_date)
-                save_severity(finding)
+                finding_domain.save_severity(finding)
                 migrate_description(finding)
                 migrate_treatment(finding)
                 migrate_report_date(finding)
