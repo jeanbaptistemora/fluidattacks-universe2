@@ -31,12 +31,6 @@
         dest: "/etc/apache2/apache2.conf"
         mode: "0644"
 
-    - name: Create default site
-      template:
-        src: "vars/000-default.j2"
-        dest: "/etc/apache2/sites-enabled/000-default.conf"
-        mode: "0644"
-
     - name: Create site fluid.la
       template:
         src: "vars/fluid.la.j2"
