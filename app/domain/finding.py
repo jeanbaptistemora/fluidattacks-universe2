@@ -461,11 +461,13 @@ def update_description(finding_id, updated_values):
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
+    updated_values['kb'] = updated_values.get('kb_url')
     updated_values['records_number'] = str(updated_values.get('records_number'))
     updated_values['id'] = finding_id
     del updated_values['title']
     del updated_values['description']
     del updated_values['recommendation']
+    del updated_values['kb_url']
 
     description = integrates_dao.get_finding_attributes_dynamo(
         finding_id,

@@ -87,6 +87,7 @@ export const loadDescription: ThunkActionStructure<void> =
           compromisedRecords
           cweUrl
           btsUrl
+          kbUrl
           treatment
           treatmentManager
           treatmentJustification
@@ -211,12 +212,14 @@ export const updateDescription: ThunkActionStructure<void> =
           scenario: ${JSON.stringify(values.scenario)},
           threat: ${JSON.stringify(values.threat)},
           title: ${JSON.stringify(values.title)},
+          kbUrl: ${JSON.stringify(values.kbUrl)},
         ) {
           finding {
             actor
             affectedSystems
             attackVector
             cweUrl
+            kbUrl
             description
             recommendation
             compromisedAttributes

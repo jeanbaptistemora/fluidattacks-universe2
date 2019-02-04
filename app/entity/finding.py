@@ -81,6 +81,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     compromised_records = Int()
     cwe_url = String()
     bts_url = String()
+    kb_url = String()
     treatment = String()
     treatment_manager = String()
     treatment_justification = String()
@@ -184,6 +185,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             self.compromised_records = int(resp.get('recordsNumber', '0'))
             self.cwe_url = resp.get('cwe', '')
             self.bts_url = resp.get('externalBts', '')
+            self.kb_url = resp.get('kb', '')
             self.treatment = resp.get('treatment', '')
             self.treatment_manager = resp.get('treatmentManager', '')
             self.treatment_justification = resp.get('treatmentJustification', '')
@@ -456,6 +458,13 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
 
         return self.bts_url
+
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_kb_url(self, info):
+        """ Resolve kb_url attribute """
+        del info
+
+        return self.kb_url
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment(self, info):
@@ -908,6 +917,7 @@ class UpdateDescription(Mutation):
         attack_vector = String(required=True)
         category = String()
         cwe = String(required=True)
+        kb_url = String()
         description = String(required=True)
         finding_id = String(required=True)
         probability = String()

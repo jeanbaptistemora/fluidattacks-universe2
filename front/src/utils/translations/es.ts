@@ -90,6 +90,7 @@ const esTranslations: Map<string, string> = {
       errorFileVuln: "El archivo de vulnerabilidades tiene errores",
       field: "Campo",
       inputs: "Entradas",
+      kb: "URL solución",
       line: "Línea",
       line_plural: "Líneas",
       mark_verified: "Verificar",

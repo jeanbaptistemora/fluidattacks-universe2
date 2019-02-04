@@ -252,6 +252,17 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
      {
       componentProps: {
         component: textField,
+        name: "kbUrl",
+        type: "text",
+      },
+      label: translate.t("search_findings.tab_description.kb"),
+      renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+      value: props.dataset.kbUrl,
+      visible: props.dataset.kbUrl !== "" || props.isEditing,
+    }],
+    [{
+      componentProps: {
+        component: textField,
         name: "btsUrl",
         type: "text",
       },

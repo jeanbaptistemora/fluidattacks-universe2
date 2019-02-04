@@ -72,6 +72,7 @@ const initialState: IDashboardState = {
       compromisedRecords: "",
       cweUrl: "",
       description: "",
+      kbUrl: "",
       recommendation: "",
       releaseDate: "",
       remediated: false,

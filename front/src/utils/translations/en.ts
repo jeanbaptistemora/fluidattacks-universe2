@@ -89,6 +89,7 @@ const enTranslations: Map<string, string> = {
       errorFileVuln: "Vulnerabilities file has errors",
       field: "Field",
       inputs: "Inputs",
+      kb: "Solution URL",
       line: "Line",
       line_plural: "Lines",
       mark_verified: "Verify",

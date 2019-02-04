@@ -33,6 +33,7 @@ export interface IDescriptionViewProps {
     compromisedRecords: string;
     cweUrl: string;
     description: string;
+    kbUrl: string;
     recommendation: string;
     releaseDate: string;
     remediated: boolean;
