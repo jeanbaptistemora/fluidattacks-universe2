@@ -63,13 +63,6 @@ class GenID():
 ID: GenID = GenID()
 
 
-def is_none(stru: STRU) -> bool:
-    """Returns True if stru is None.
-    """
-
-    return stru is None
-
-
 def is_str(stru: STRU) -> bool:
     """Returns True if stru is str.
     """
@@ -303,11 +296,12 @@ def linearize__deconstruct(
     """
 
     if is_base(stru):
+        ids = [] if ids is None else ids
         linearize__deconstruct(table=table, stru=[stru], ids=ids)
     elif is_list(stru):
         for nstru in stru:
             mstru = nstru if is_dict(nstru) else {"val": nstru}
-            for lvl, this_id in zip(range(len(ids)), ids):
+            for lvl, this_id in enumerate(ids):
                 mstru[f"sid{lvl}"] = this_id
             linearize__deconstruct(table=table, ids=ids, stru=mstru)
     elif is_dict(stru):
