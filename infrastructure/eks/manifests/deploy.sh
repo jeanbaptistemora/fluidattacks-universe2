@@ -210,7 +210,8 @@ fi
 
 # Set TLS certificates for the main domains and automatically issue valid
 # certificates for the secondary domains using Cert-Manager and ACME protocol
-replace_env_variables ingress/main-domains.yaml
+replace_env_variables ingress/certificates.yaml
+kubectl apply -f ingress/certificates.yaml
 kubectl apply -f ingress/main-domains.yaml
 kubectl apply -f ingress/external.yaml
 issue_secondary_domain_certificates ingress/secondary-domains.yaml \
