@@ -55,18 +55,76 @@ class ViewTestCase(TestCase):
         selenium.find_elements_by_xpath(
             "//*[contains(text(), 'Next')]")[1].click()
         WebDriverWait(selenium,
-                        self.delay).until(
-                            EC.presence_of_element_located(
+                      self.delay).until(
+                          EC.presence_of_element_located(
                                 (By.XPATH,
                                 "//*[contains(text(), 'Integrates unit test project')]")))
         return selenium
 
-    def test_init_page(self):
+    def test_1_init_page(self):
         selenium = self.selenium
         selenium.get(self.url)
         assert 'Log in with Google' in selenium.page_source
 
-    def test_dashboard(self):
+    def test_2_dashboard(self):
         selenium = self.__login()
 
         assert 'Integrates unit test project' in selenium.page_source
+
+    def test_3_indicators(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                            EC.presence_of_element_located(
+                                (By.XPATH,
+                                "//*[contains(text(), 'Maximum Severity Found')]")))
+
+        assert 'Maximum Severity Found' in selenium.page_source
+
+    def test_4_findings(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        WebDriverWait(selenium,
+                      self.delay).until(
+                            EC.presence_of_element_located(
+                                (By.XPATH,
+                                "//*[contains(text(), 'digo funcional comentado')]")))
+        assert 'digo funcional comentado' in selenium.page_source
+
+    def test_5_finding(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        find_ele = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.XPATH,
+                                         "//*[contains(text(), 'digo funcional comentado')]")))
+        find_ele.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                            EC.presence_of_element_located(
+                                (By.XPATH,
+                                "//*[contains(text(), 'vulnerabilities.yaml')]")))
+        assert 'lo que aumenta la probabilidad de' in selenium.page_source
+        assert 'REQ.0171. Los comentarios del' in selenium.page_source
+        assert 'vulnerabilities.yaml' in selenium.page_source
