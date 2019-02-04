@@ -45,18 +45,6 @@ LOGGER.addHandler(STDOUT)
 # pylint: disable = logging-fstring-interpolation
 
 
-def identity(obj: Any) -> Any:
-    """Takes a single argument and returns it unchanged.
-
-    Args:
-        obj: any single argument.
-
-    Returns:
-        obj: exactly as it was provided.
-    """
-    return obj
-
-
 def str_len(str_obj: str, encoding: str = "utf-8") -> int:
     """Returns the length in bytes of a string.
 
@@ -308,12 +296,11 @@ class Batcher():
         Status information from time to time.
     """
 
-    def __init__(self, dbcon: PGCONN, dbcur: PGCURR, schema_name: str) -> None:
+    def __init__(self, dbcur: PGCURR, schema_name: str) -> None:
         LOGGER.info(f"INFO: worker up at {datetime.utcnow()}.")
 
         self.initt: float = time.time()
 
-        self.dbcon: PGCONN = dbcon
         self.dbcur: PGCURR = dbcur
 
         self.sname: str = schema_name
@@ -411,15 +398,18 @@ class Batcher():
         Args:
             do_print: True if you want to print the statements to stdout.
         """
-
+        vacuum_errors = (
+            postgres.ProgrammingError,
+            postgres.NotSupportedError,
+        )
         for table_name in self.buckets:
             try:
                 table_path: str = f"\"{self.sname}\".\"{table_name}\""
                 self.ex(
                     f"VACUUM FULL {table_path} TO 100 PERCENT",
                     do_print=do_print)
-            except postgres.ProgrammingError:
-                LOGGER.info(f"WARN: unable to vacuum \"{table_name}\"")
+            except vacuum_errors:
+                LOGGER.info(f"INFO: unable to vacuum \"{table_name}\"")
 
     def __del__(self, *args) -> None:
         LOGGER.info(f"INFO: worker down at {datetime.utcnow()}.")
@@ -436,21 +426,6 @@ def drop_schema(batcher: Batcher, schema_name: str) -> None:
 
     try:
         batcher.ex(f"DROP SCHEMA \"{schema_name}\" CASCADE", True)
-    except postgres.ProgrammingError:
-        pass
-
-
-def drop_table(batcher: Batcher, schema_name: str, table_name: str) -> None:
-    """Drop the table in the schema unless any of them don't exist.
-
-    Args:
-        batcher: The query executor.
-        schema_name: The schema to operate over.
-        table_name: The table to operate over.
-    """
-    try:
-        statement = f"DROP TABLE \"{schema_name}\".\"{table_name}\" CASCADE"
-        batcher.ex(statement, True)
     except postgres.ProgrammingError:
         pass
 
@@ -661,7 +636,7 @@ def main():
             # It also implies the use of a loading strategy
             #   to guarantee continuated service availability
 
-            batcher = Batcher(dbcon, dbcur, loading_schema)
+            batcher = Batcher(dbcur, loading_schema)
 
             # The loading strategy is:
             #   DROP loading_schema
@@ -683,7 +658,7 @@ def main():
             #     - data integrity
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
-            batcher = Batcher(dbcon, dbcur, target_schema)
+            batcher = Batcher(dbcur, target_schema)
             persist_messages(batcher, target_schema)
     finally:
         drop_access_point(dbcon, dbcur)
