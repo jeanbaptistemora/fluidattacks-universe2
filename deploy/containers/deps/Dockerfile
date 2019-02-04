@@ -56,7 +56,7 @@ RUN apt-get update && apt-get install -y \
                libxml2-dev libxslt1-dev libtiff5-dev zlib1g-dev  libfreetype6-dev libssl-dev \
                libyaml-dev libreadline6-dev libncurses5-dev libffi-dev libgdbm-dev ruby-dev \
                && apt-get -y autoremove \
-               && apt-get -y install make \
+               && apt-get -y install make nodejs npm \
                && apt-get -y clean \
                && rm -rf /var/lib/apt/lists/*
 
