@@ -37,8 +37,11 @@ from .techdoc.IT import ITReport
 from .domain import finding as finding_domain
 from .dto.finding import (
     FindingDTO, format_finding_date, finding_vulnerabilities, parse_finding,
-    sort_vulnerabilities, group_specific, migrate_description,
-    migrate_treatment, migrate_report_date, parse_dashboard_finding_dynamo
+    migrate_description, migrate_treatment, migrate_report_date,
+    parse_dashboard_finding_dynamo
+)
+from .domain.vulnerability import (
+    sort_vulnerabilities, group_specific
 )
 from .dto import closing
 from .dto import project as project_dto

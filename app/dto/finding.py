@@ -4,11 +4,9 @@
 # pylint: disable=relative-beyond-top-level
 from datetime import datetime
 import base64
-import itertools
 import uuid
 
 from decimal import Decimal
-from operator import itemgetter
 
 from django.conf import settings
 import pytz
@@ -18,7 +16,6 @@ from ..dao import integrates_dao
 from ..api.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
-from ..exceptions import InvalidRange
 
 
 # pylint: disable=E0402
@@ -576,41 +573,6 @@ def format_release(finding):
     return finding
 
 
-def ungroup_specific(specific):
-    """Ungroup specific value."""
-    values = specific.split(',')
-    specific_values = []
-    for val in values:
-        if is_range(val):
-            range_list = range_to_list(val)
-            specific_values.extend(range_list)
-        else:
-            specific_values.append(val)
-    return specific_values
-
-
-def is_range(specific):
-    """Validate if a specific field has range value."""
-    return '-' in specific
-
-
-def is_secuence(specific):
-    """Validate if a specific field has secuence value."""
-    return ',' in specific
-
-
-def range_to_list(range_value):
-    """Convert a range value into list."""
-    limits = range_value.split('-')
-    if int(limits[1]) > int(limits[0]):
-        init_val = int(limits[0])
-        end_val = int(limits[1]) + 1
-    else:
-        raise InvalidRange()
-    specific_values = map(str, range(init_val, end_val))
-    return specific_values
-
-
 def update_vuln_state(info, vulnerability, item, finding_id, current_day):
     """Update vulnerability state."""
     historic_state = vulnerability[0].get('historic_state')
@@ -668,50 +630,6 @@ def add_vuln_to_dynamo(item, specific, vuln, finding_id, info):
                 info.context,
                 'Security: Attempted to add vulnerability without state')
     return response
-
-
-def sort_vulnerabilities(item):
-    """Sort a vulnerability by its where field."""
-    sorted_item = sorted(item, key=itemgetter('where'))
-    return sorted_item
-
-
-def group_specific(specific):
-    """Group vulnerabilities by its specific field."""
-    sorted_specific = sort_vulnerabilities(specific)
-    lines = []
-    for key, group in itertools.groupby(sorted_specific, key=lambda x: x['where']):
-        specific_grouped = list(map(get_specific, list(group)))
-        specific_grouped.sort()
-        dictlines = {'where': key, 'specific': get_ranges(specific_grouped)}
-        lines.append(dictlines)
-    return lines
-
-
-def get_specific(value):
-    """Get specific value."""
-    return int(value.get('specific'))
-
-
-def as_range(iterable):
-    """Convert range into string."""
-    my_list = list(iterable)
-    range_value = ''
-    if len(my_list) > 1:
-        range_value = '{0}-{1}'.format(my_list[0], my_list[-1])
-    else:
-        range_value = '{0}'.format(my_list[0])
-    return range_value
-
-
-def get_ranges(numberlist):
-    """Transform list into ranges."""
-    range_str = ','.join(as_range(g) for _, g in itertools.groupby(
-        numberlist,
-        key=lambda n,
-        c=itertools.count(): n - next(c))
-    )
-    return range_str
 
 
 def total_vulnerabilities(finding_id):
