@@ -79,6 +79,7 @@ build_base:
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
+      - $FLAG_SYNC_INFRASTRUCTURE
 
 build_builder:
   stage: deps
@@ -99,6 +100,7 @@ build_builder:
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
+      - $FLAG_SYNC_INFRASTRUCTURE
 
 test_code:
   stage: tests
@@ -353,6 +355,7 @@ change_keys:
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
+      - $FLAG_SYNC_INFRASTRUCTURE
 
 vault_backup:
   stage: backup
@@ -392,6 +395,7 @@ vault_backup:
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
+      - $FLAG_SYNC_INFRASTRUCTURE
 
 formstack_backup:
   stage: backup
@@ -414,6 +418,7 @@ formstack_backup:
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
+      - $FLAG_SYNC_INFRASTRUCTURE
 
 sync_currencies:
   stage: analytics
@@ -548,3 +553,23 @@ sync_mandrill:
       - schedules
     variables:
       - $FLAG_SYNC_MANDRILL
+
+sync_infrastructure:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - pip3 install
+        analytics/singer/streamer_infrastructure
+        analytics/singer/tap_json
+        analytics/singer/target_redshift
+    - echo "$(vault read -field=analytics_auth_infra secret/serves)" > /stream_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - streamer-infrastructure --auth /stream_secret.json > infra.jsonstream
+    - cat infra.jsonstream | tap-json > infra.singer
+    - cat infra.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "infrastructure"
+    - rm -rf /stream_secret.json /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_INFRASTRUCTURE

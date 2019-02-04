@@ -256,6 +256,9 @@ def stream_redshift__describe_events(client):
         client.describe_events,
         table_name="redshift_events",
         response_key="Events",
+
+        # maximum last two weeks
+        Duration=14 * 24 * 60
     )
 
 
