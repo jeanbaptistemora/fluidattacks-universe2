@@ -62,12 +62,16 @@ export const clearDescription: (() => IActionStructure) =
   });
 
 export const loadDescription: ThunkActionStructure<void> =
-  (findingId: string, projectName: string): ThunkAction<void, {}, {}, IActionStructure> =>
+  (findingId: string, projectName: string, userRole: string): ThunkAction<void, {}, {}, IActionStructure> =>
     (dispatch: ThunkDispatcher): void => {
+      const canEditTreatmentMgr: boolean = _.includes(["customer", "customeradmin"], userRole);
       let gQry: string;
       gQry = `{
         project(projectName: "${projectName}") {
           subscription
+          userEmails: users(filterRoles: ["customer", "customer_admin"]) @include(if: ${canEditTreatmentMgr}) {
+            email
+          }
         }
         finding(identifier: "${findingId}") {
           reportLevel
@@ -277,11 +281,13 @@ export const updateTreatment: ThunkActionStructure<void> =
           btsUrl: ${JSON.stringify(values.btsUrl)},
           findingId: "${findingId}",
           treatment: "${values.treatment}",
+          treatmentManager: "${values.treatmentManager}",
           treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
         ) {
           finding {
             btsUrl
             treatment
+            treatmentManager
             treatmentJustification
           }
           success
@@ -312,8 +318,14 @@ export const updateTreatment: ThunkActionStructure<void> =
           if (error.response !== undefined) {
             const { errors } = error.response.data;
 
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
+            switch (errors[0].message) {
+              case "Invalid treatment manager":
+                msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
+                break;
+              default:
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error(error.message, errors);
+            }
           }
         });
     };

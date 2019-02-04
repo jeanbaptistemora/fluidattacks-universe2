@@ -11,7 +11,7 @@ import React from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
-import { submit } from "redux-form";
+import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDialog";
@@ -47,8 +47,10 @@ export interface IDescriptionViewProps {
     treatment: string;
     treatmentJustification: string;
     treatmentManager: string;
+    userEmails: Array<{ email: string }>;
   };
   findingId: string;
+  formValues: { treatment: string };
   isEditing: boolean;
   isMdlConfirmOpen: boolean;
   isRemediationOpen: boolean;
@@ -60,12 +62,12 @@ const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
     componentWillUnmount(): void { store.dispatch(actions.clearDescription()); },
     componentDidMount(): void {
-      const { findingId, projectName } = this.props as IDescriptionViewProps;
+      const { findingId, projectName, userRole } = this.props as IDescriptionViewProps;
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
         store.dispatch as ThunkDispatch<{}, {}, AnyAction>
       );
 
-      thunkDispatch(actions.loadDescription(findingId, projectName));
+      thunkDispatch(actions.loadDescription(findingId, projectName, userRole));
     },
   });
 
@@ -198,10 +200,13 @@ export const component: React.SFC<IDescriptionViewProps> =
     </React.StrictMode>
   );
 
+const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editDescription");
+
 export const descriptionView: React.ComponentType<IDescriptionViewProps> = reduxWrapper(
   enhance(component) as React.SFC<IDescriptionViewProps>,
   (state: StateType<Reducer>): IDescriptionViewProps => ({
     ...state.dashboard.description,
+    formValues: { treatment: fieldSelector(state, "treatment") },
     isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
   }),
 );

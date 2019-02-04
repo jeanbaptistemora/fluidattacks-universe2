@@ -43,6 +43,7 @@ const esTranslations: Map<string, string> = {
     file_type_yaml: "El archivo debe ser de tipo .yaml o .yml",
     file_updated: "Archivo Actualizado ;)",
     invalid_schema: "El archivo no cumple con el esquema",
+    invalid_treatment_mgr: "Por favor seleccione un responsable del tratamiento",
     no_file_selected: "No se ha seleccionado ningún archivo",
     no_file_update: "Falló al actualizar el archivo",
     range_error: "Los límites del rango son incorrectos",

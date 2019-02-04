@@ -34,7 +34,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     comments = List(GenericScalar)
     tags = List(String)
     deletion_date = String()
-    users = List(User)
+    users = List(User, filter_roles=List(String))
 
     def __init__(self, project_name):
         """Class constructor."""
@@ -139,7 +139,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.tags
 
-    def resolve_users(self, info):
+    def resolve_users(self, info, filter_roles=None):
         """ Resolve project users """
 
         init_emails = integrates_dao.get_project_users(self.name)
@@ -147,6 +147,8 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         user_email_list = util.user_email_filter(init_email_list,
                                                  util.get_jwt_content(info.context)['user_email'])
         self.users = [User(self.name, user_email) for user_email in user_email_list]
+        if filter_roles:
+            self.users = list(filter(lambda user: user.role in filter_roles, self.users))
 
         return self.users
 

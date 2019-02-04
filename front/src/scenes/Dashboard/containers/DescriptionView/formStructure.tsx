@@ -5,9 +5,36 @@ import { formatCweUrl } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { numeric, required } from "../../../../utils/validations";
-import { FormRows } from "../../components/GenericForm/index";
+import { FormRows, IEditableField } from "../../components/GenericForm/index";
 import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
+
+const renderTreatmentMgrField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => {
+    const options: JSX.Element[] =
+      props.dataset.userEmails.map(({ email }: { email: string }, index: number): JSX.Element =>
+        <option key={index} value={email}>{email}</option>,
+      );
+
+    return {
+      componentProps: {
+        children: (
+          <React.Fragment>
+            <option value="" selected={true} />
+            {options}
+          </React.Fragment>),
+        component: dropdownField,
+        name: "treatmentManager",
+        validate: [...props.formValues.treatment === "Remediated" ? [required] : []],
+      },
+      label: translate.t("search_findings.tab_description.treatment_mgr"),
+      renderAsEditable: props.isEditing
+        && _.includes(["customer", "customeradmin"], props.userRole)
+        && props.formValues.treatment === "Remediar",
+      value: props.dataset.treatmentManager,
+      visible: true,
+    };
+  };
 
 export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
@@ -295,13 +322,7 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       value: props.dataset.treatment,
       visible: true,
     },
-     {
-      componentProps: { name: "treatmentManager" },
-      label: translate.t("search_findings.tab_description.treatment_mgr"),
-      renderAsEditable: false,
-      value: props.dataset.treatmentManager,
-      visible: true,
-    }],
+     renderTreatmentMgrField(props)],
     [{
       componentProps: {
         className: globalStyle.noResize,

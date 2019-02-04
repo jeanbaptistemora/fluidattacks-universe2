@@ -86,6 +86,7 @@ const initialState: IDashboardState = {
       treatment: "",
       treatmentJustification: "",
       treatmentManager: "",
+      userEmails: [{ email: "" }],
     },
     isEditing: false,
     isRemediationOpen : false,
