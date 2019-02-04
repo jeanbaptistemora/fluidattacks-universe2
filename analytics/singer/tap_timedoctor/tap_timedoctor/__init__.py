@@ -1,5 +1,4 @@
-"""Singer tap for the Timedoctor API.
-"""
+"""Singer tap for the Timedoctor API."""
 
 import re
 import json

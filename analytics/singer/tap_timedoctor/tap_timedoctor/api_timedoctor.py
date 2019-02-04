@@ -91,7 +91,7 @@ class Worker():
             f"{self.url}/v1.1/companies/{company_id}/worklogs"
 
             # fetch historical
-            f"?start_date=2017-01-01&end_date=2999-12-31"
+            f"?start_date=2019-01-01&end_date=2999-12-31"
             f"&limit={limit}&offset={offset}"
 
             # fetch working time, not breaks
@@ -109,7 +109,7 @@ class Worker():
 
         resource = (
             f"{self.url}/v1.1/companies/{company_id}/screenshots"
-            f"?start_date=2017-01-01&end_date=2999-12-31"
+            f"?start_date=2019-01-01&end_date=2999-12-31"
             f"&user_id={user_id}"
         )
         return self.request(resource)
