@@ -39,14 +39,16 @@ export const loadUsers: ThunkActionStructure =
     dispatch(clearUsers());
     let gQry: string;
     gQry = `{
-      projectUsers(projectName:"${projectName}"){
-        email
-        role
-        responsability
-        phoneNumber
-        organization
-        firstLogin
-        lastLogin
+      project(projectName:"${projectName}"){
+        users {
+          email
+          role
+          responsability
+          phoneNumber
+          organization
+          firstLogin
+          lastLogin
+        }
       }
     }`;
     new Xhr().request(gQry, "An error occurred getting project users")
@@ -54,7 +56,7 @@ export const loadUsers: ThunkActionStructure =
         const { data } = response.data;
 
         dispatch({
-          payload: { userlist: formatUserlist(data.projectUsers) },
+          payload: { userlist: formatUserlist(data.project.users) },
           type: actionTypes.LOAD_USERS,
         });
       })

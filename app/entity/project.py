@@ -20,6 +20,7 @@ from graphene.types.generic import GenericScalar
 from __init__ import FI_ORGANIZATION_SECRET, FI_DASHBOARD, FI_ORGANIZATION
 from ..dao import integrates_dao
 from .finding import Finding
+from .user import User
 
 
 class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
@@ -33,6 +34,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     comments = List(GenericScalar)
     tags = List(String)
     deletion_date = String()
+    users = List(User)
 
     def __init__(self, project_name):
         """Class constructor."""
@@ -136,6 +138,17 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.tags = project_data['tag'] if project_data and 'tag' in project_data else []
 
         return self.tags
+
+    def resolve_users(self, info):
+        """ Resolve project users """
+
+        init_emails = integrates_dao.get_project_users(self.name)
+        init_email_list = [user[0] for user in init_emails if user[1] == 1]
+        user_email_list = util.user_email_filter(init_email_list,
+                                                 util.get_jwt_content(info.context)['user_email'])
+        self.users = [User(self.name, user_email) for user_email in user_email_list]
+
+        return self.users
 
 
 def validate_release_date(release_date=''):
