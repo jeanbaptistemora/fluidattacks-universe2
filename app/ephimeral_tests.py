@@ -61,17 +61,17 @@ class ViewTestCase(TestCase):
                                 "//*[contains(text(), 'Integrates unit test project')]")))
         return selenium
 
-    def test_1_init_page(self):
+    def test_01_init_page(self):
         selenium = self.selenium
         selenium.get(self.url)
         assert 'Log in with Google' in selenium.page_source
 
-    def test_2_dashboard(self):
+    def test_02_dashboard(self):
         selenium = self.__login()
 
         assert 'Integrates unit test project' in selenium.page_source
 
-    def test_3_indicators(self):
+    def test_03_indicators(self):
         selenium = self.__login()
         proj_elem = WebDriverWait(selenium,
                                   self.delay).until(
@@ -87,7 +87,7 @@ class ViewTestCase(TestCase):
 
         assert 'Maximum Severity Found' in selenium.page_source
 
-    def test_4_findings(self):
+    def test_04_findings(self):
         selenium = self.__login()
         proj_elem = WebDriverWait(selenium,
                                   self.delay).until(
@@ -104,7 +104,7 @@ class ViewTestCase(TestCase):
                                 "//*[contains(text(), 'digo funcional comentado')]")))
         assert 'digo funcional comentado' in selenium.page_source
 
-    def test_5_finding(self):
+    def test_05_finding(self):
         selenium = self.__login()
         proj_elem = WebDriverWait(selenium,
                                   self.delay).until(
@@ -128,3 +128,145 @@ class ViewTestCase(TestCase):
         assert 'lo que aumenta la probabilidad de' in selenium.page_source
         assert 'REQ.0171. Los comentarios del' in selenium.page_source
         assert 'vulnerabilities.yaml' in selenium.page_source
+
+    def test_06_severity(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        find_ele = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.XPATH,
+                                         "//*[contains(text(), 'digo funcional comentado')]")))
+        find_ele.click()
+        sev_elem = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.ID, 'cssv2Item')))
+        sev_elem.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                            "//*[contains(text(), 'CVSS v2 Temporal')]")))
+
+        time.sleep(2)
+        assert 'There are few sources that recognize vulnerability' in selenium.page_source
+
+    def test_07_evidence(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        find_ele = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.XPATH,
+                                         "//*[contains(text(), 'digo funcional comentado')]")))
+        find_ele.click()
+        sev_elem = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.ID, 'evidenceItem')))
+        sev_elem.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                            "//*[contains(text(), 'Detail')]")))
+        assert 'Detail' in selenium.page_source
+
+    def test_08_exploit(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        find_ele = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.XPATH,
+                                         "//*[contains(text(), 'digo funcional comentado')]")))
+        find_ele.click()
+        sev_elem = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.ID, 'exploitItem')))
+        sev_elem.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                            "//*[contains(text(), 'tcp.is_port_open')]")))
+        assert 'tcp.is_port_open' in selenium.page_source
+
+    def test_09_tracking(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        find_ele = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.XPATH,
+                                         "//*[contains(text(), 'digo funcional comentado')]")))
+        find_ele.click()
+        sev_elem = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.ID, 'trackingItem')))
+        sev_elem.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                            "//*[contains(text(), '2019-01-28')]")))
+        assert '2019-01-28' in selenium.page_source
+
+    def test_10_comments(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        find_ele = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.XPATH,
+                                         "//*[contains(text(), 'digo funcional comentado')]")))
+        find_ele.click()
+        sev_elem = WebDriverWait(selenium,
+                                self.delay).until(
+                                    EC.presence_of_element_located(
+                                        (By.ID, 'commentItem')))
+        sev_elem.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                            "//*[contains(text(), 'We applied a really simple solution but')]")))
+        assert 'We applied a really simple solution but' in selenium.page_source
