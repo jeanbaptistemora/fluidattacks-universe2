@@ -606,58 +606,38 @@ msgstr "Terms of Use"
 
 #: templates/form.html:74
 msgid "Form-field-1"
-msgstr "First Name"
+msgstr "Full Name"
 
 #: templates/form.html:76
 msgid "Form-field-2"
-msgstr "Last Name"
+msgstr "Email"
 
 #: templates/form.html:78
 msgid "Form-field-3"
-msgstr "Email"
+msgstr "Mobile"
 
 #: templates/form.html:80
 msgid "Form-field-4"
-msgstr "Mobile"
+msgstr "How can we help you?"
 
 #: templates/form.html:82
 msgid "Form-field-5"
-msgstr "City"
+msgstr "--none--"
 
 #: templates/form.html:84
 msgid "Form-field-6"
-msgstr "Subject"
+msgstr "I want to know more about Fluid Attacks"
 
 #: templates/form.html:86
 msgid "Form-field-7"
-msgstr "I know about Fluid Attacks…"
+msgstr "I want a service proposal"
 
 #: templates/form.html:88
 msgid "Form-field-8"
-msgstr "Searching on Internet"
+msgstr "I am looking for a job"
 
 #: templates/form.html:90
 msgid "Form-field-9"
-msgstr "Somebody told me"
-
-#: templates/form.html:92
-msgid "Form-field-10"
-msgstr "In a security event"
-
-#: templates/form.html:94
-msgid "Form-field-11"
-msgstr "During a project"
-
-#: templates/form.html:96
-msgid "Form-field-12"
-msgstr "I know an employee"
-
-#: templates/form.html:98
-msgid "Form-field-13"
-msgstr "Clutch website"
-
-#: templates/form.html:100
-msgid "Form-field-14"
 msgstr "Other"
 
 #: templates/index.html:4

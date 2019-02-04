@@ -98,65 +98,29 @@
            }}</label>
             <input  id="first_name" maxlength="40" name="first_name" size="20"
             type="text" class="form-input" required /><br/>
-          <label for="last_name" class="form-label">{{ gettext('Form-field-2')
-          }}</label>
-            <input  id="last_name" maxlength="80" name="last_name" size="20"
-            type="text" class="form-input" required /><br/>
-          <label for="email" class="form-label">{{ gettext('Form-field-3') }}
+          <label for="email" class="form-label">{{ gettext('Form-field-2') }}
           </label>
             <input  id="email" maxlength="80" name="email" size="20"
-            type="text" class="form-input" required /><script type="text/javascript">
-            $(document).ready(function(e){
-              $('#submit').click(function(){
-                var email = $('#email').val();
-                var reg =  new RegExp(['/^([\\w-\\.]+@(?!gmail.com)(?!yahoo.com)',
-                '(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!abc.com)',
-                '(?!xyz.com)(?!pqr.com)(?!rediffmail.com)(?!live.com)',
-                '(?!outlook.com)(?!me.com)(?!msn.com)(?!ymail.com)',
-                '([\\w-]+\\.)+[\\w-]{2,4})?$/'].join(''));
-                if (reg.test(email)){
-                  return 0;
-                }
-                else{
-                  alert('Please Enter Business Email Address');
-                  return false;
-                }
-              });
-            });
-          </script><br/>
-          <label for="mobile" class="form-label">{{ gettext('Form-field-4')
+            type="text" class="form-input" required /><br/>
+          <label for="mobile" class="form-label">{{ gettext('Form-field-3')
           }}</label>
               <input  id="mobile" maxlength="40" name="mobile" size="20"
               type="text" class="form-input" required /><br>
-          <label for="city" class="form-label">{{ gettext('Form-field-5')
-          }}</label>
-            <input  id="city" maxlength="40" name="city" size="20" type="text"
-            class="form-input" required /><br>
-          <label for="Subject" class="form-label">{{ gettext('Form-field-6') }}
+          <label for="Subject" class="form-label">{{ gettext('Form-field-4') }}
           </label>
-            <textarea  id="00N1I00000NEIK7" name="00N1I00000NEIK7" wrap="soft"
-            class="form-input" required></textarea><br>
-            <label for="lead_source" class="form-label">
-              {{ gettext('Form-field-7') }}
-            </label>
-            <select  id="lead_source" name="lead_source" class="form-input"
-            required>
-              <option value="Searching on Internet">{{ gettext('Form-field-8')
-              }}</option>
-              <option value="Somebody told me">{{ gettext('Form-field-9') }}
-              </option>
-              <option value="In a security event"> {{ gettext('Form-field-10')
-              }}</option>
-              <option value="During a project">{{ gettext('Form-field-11') }}
-              </option>
-              <option value="I know an employee">{{ gettext('Form-field-12') }}
-              </option>
-              <option value="Clutch website">{{ gettext('Form-field-13') }}
-              </option>
-              <option value="Other">{{ gettext('Form-field-14') }}</option>
-            </select><br>
+            <select  id="00N1I00000NEIK7" name="00N1I00000NEIK7"
+            title="Necesidad" class="form-label" required>
+              <option value="">{{ gettext('Form-field-5') }}</option>
+              <option value="Quiero conocer más de Fluid Attacks">
+                {{ gettext('Form-field-6') }}</option>
+              <option value="Quiero una propuesta de servicios">
+                {{ gettext('Form-field-7') }}</option>
+              <option value="Estoy buscando trabajo">
+                {{ gettext('Form-field-8') }}</option>
+              <option value="Otro">{{ gettext('Form-field-9') }}</option>
+              </select><br>
           <div class="form-button">
-            <input type="submit" name="submit" id="submit" class="form-submit"/>
+            <input type="submit" name="submit" class="form-submit"/>
           </div>
         </form>
       <br>

@@ -609,58 +609,38 @@ msgstr "Términos de Uso"
 
 #: templates/form.html:74
 msgid "Form-field-1"
-msgstr "Nombres"
+msgstr "Nombres completos"
 
 #: templates/form.html:76
 msgid "Form-field-2"
-msgstr "Apellidos"
+msgstr "Email"
 
 #: templates/form.html:78
 msgid "Form-field-3"
-msgstr "Correo Electrónico"
+msgstr "Teléfono celular"
 
 #: templates/form.html:80
 msgid "Form-field-4"
-msgstr "Teléfono celular"
+msgstr "Cómo podemos ayudarte?"
 
 #: templates/form.html:82
 msgid "Form-field-5"
-msgstr "Ciudad"
+msgstr "--ninguno--"
 
 #: templates/form.html:84
 msgid "Form-field-6"
-msgstr "Mensaje"
+msgstr "Quiero conocer más de Fluid Attacks"
 
 #: templates/form.html:86
 msgid "Form-field-7"
-msgstr "Me enteré de Fluid Attacks por…”
+msgstr "Quiero una propuesta de servicios”
 
 #: templates/form.html:88
 msgid "Form-field-8"
-msgstr "Buscando en Internet"
+msgstr "Estoy buscando trabajo"
 
 #: templates/form.html:90
 msgid "Form-field-9"
-msgstr "Alguien me dijo"
-
-#: templates/form.html:92
-msgid "Form-field-10"
-msgstr "En un evento de Seguridad"
-
-#: templates/form.html:94
-msgid "Form-field-11"
-msgstr "Durante un Proyecto"
-
-#: templates/form.html:96
-msgid "Form-field-12"
-msgstr "Conozco a un empleado"
-
-#: templates/form.html:98
-msgid "Form-field-13"
-msgstr "Website de Clutch "
-
-#: templates/form.html:100
-msgid "Form-field-14"
 msgstr "Otro"
 
 #: templates/index.html:4
