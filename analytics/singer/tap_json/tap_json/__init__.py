@@ -11,7 +11,7 @@ import argparse
 from json import load, loads, dumps
 from json.decoder import JSONDecodeError
 
-from typing import Callable, Tuple, Any
+from typing import Callable, List, Any
 
 # type aliases that improve clarity
 JSON = Any
@@ -25,15 +25,10 @@ RECORDS_DIR: str = "____records"
 
 ENABLE_TIMESTAMPS: bool = False
 
-DATE_FORMATS: Tuple[str, str, str, str, str, str, str] = (
-    "%Y %m %d %H %M %S %f",
-    "%Y %m %d %H %M %S",
-    "%Y %m %d",
-    "%d %m %Y",
-    "%b %d %Y",
-    "%b %Y",
-    "%H %M",
-)
+DATE_FORMATS: List[str] = [
+    "%Y-%m-%dT%H:%M:%S.%f%z",
+    "%Y-%m-%dT%H:%M:%S%z",
+]
 
 
 class GenID():
@@ -120,9 +115,9 @@ def is_stru(stru: STRU) -> bool:
 
 
 def is_timestamp(stru: STRU) -> bool:
-    """Returns True if stru is a valid timestamp.
-    """
-
+    """Returns True if stru is a valid timestamp."""
+    #  946684800 = 2000-01-01T00:00:00Z
+    # 2147483647 = 2038-01-19T03:14:07Z
     return (is_int(stru) or is_float(stru)) and 946684800 < stru < 2147483647
 
 
@@ -146,8 +141,8 @@ def to_date(date_time: Any) -> Any:
             pass
 
     if is_str(date_time):
-        date_time = re.sub(r"[^\d]", r" ", date_time)
         date_time = re.sub(r"\s+", r" ", date_time)
+        date_time = date_time.strip(" ")
 
         for date_format in DATE_FORMATS:
             try:
@@ -337,16 +332,21 @@ def catalog() -> None:
 
 
 def main():
-    """ usual entry point """
+    """Usual entry point."""
 
     parser = argparse.ArgumentParser(
-        description=" dumps a JSON stream to a Singer stream ")
+        description="Dump a JSON stream to a Singer stream.")
     parser.add_argument(
         "--enable-timestamps",
-        help="JSON authentication file",
+        help="flag to indicate if timestamps should be casted to dates",
         action="store_true",
         default=False,
         dest="enable_timestamps")
+    parser.add_argument(
+        "--date-formats",
+        help="a string of formats separated by comma, extends RFC3339",
+        default="",
+        dest="date_formats")
     args = parser.parse_args()
 
     # some dates may come in the form of a timestamp
@@ -356,6 +356,9 @@ def main():
     # pylint: disable=global-statement
     global ENABLE_TIMESTAMPS
     ENABLE_TIMESTAMPS = args.enable_timestamps
+
+    # add the user date formats, filter empty strings
+    DATE_FORMATS.extend(f for f in args.date_formats.split(",") if f)
 
     # Do the heavy lifting (structura)
     prepare_env()
