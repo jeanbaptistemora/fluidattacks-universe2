@@ -256,18 +256,22 @@ remove-cache-keys:
 
 driver-testing:
   stage: test
-  only:
-    - /^.*$/
-    - merge_requests
   image: registry.gitlab.com/fluidsignal/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
     - cp -a $PWD /usr/src/app_src
     - cd /usr/src/app_src
+    - mkdir -p screenshots
     - vaultenv -- $(which pytest) --ds=fluidintegrates.settings --verbose --exitfirst
       --basetemp=build/test
       app/ephimeral_tests.py
+    - cp -a screenshots /builds/fluidsignal/integrates/
+  retry: 2
+  artifacts:
+    name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
+    paths:
+      - screenshots/
   except:
     - master
 
@@ -354,7 +358,7 @@ Linting:
 mr-test:
   stage: mr-check
   only:
-    - merge_requests
+    - merge_request3.86.193.211s
   variables:
     GIT_STRATEGY: clone
   script:
