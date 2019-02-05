@@ -74,11 +74,14 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: fluidla
+  name: fluid-la
   namespace: serves
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~* /(.*) {
+        return 308 https://fluidattacks.com/$1;
+      }
 spec:
   tls:
   - hosts:
@@ -89,5 +92,5 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: alg
+          serviceName: web
           servicePort: 80

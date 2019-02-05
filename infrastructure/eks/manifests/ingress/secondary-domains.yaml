@@ -50,65 +50,32 @@ metadata:
   namespace: serves
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/server-alias: >
+      fluidsignal.com.co
+      fluidsignal.co
+      fluid.com.co
+      fluidattacks.co
+      fluidattacks.com.co
+      fluidattacks.io
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~* /(.*) {
+        return 308 https://fluidattacks.com/$1;
+      }
 spec:
   tls:
   - hosts:
+    - fluidsignal.com
     - fluidsignal.com.co
     - fluidsignal.co
-    - fluidsignal.com
     - fluid.com.co
-    - fluid.la
     - fluidattacks.co
     - fluidattacks.com.co
     - fluidattacks.io
     secretName: secondary-domains-cert
   rules:
-  - host: fluidsignal.com.co
-    http:
-      paths:
-      - backend:
-          serviceName: alg
-          servicePort: 80
-  - host: fluidsignal.co
-    http:
-      paths:
-      - backend:
-          serviceName: alg
-          servicePort: 80
   - host: fluidsignal.com
     http:
       paths:
       - backend:
-          serviceName: alg
-          servicePort: 80
-  - host: fluid.com.co
-    http:
-      paths:
-      - backend:
-          serviceName: alg
-          servicePort: 80
-  - host: fluid.la
-    http:
-      paths:
-      - backend:
-          serviceName: alg
-          servicePort: 80
-  - host: fluidattacks.co
-    http:
-      paths:
-      - backend:
-          serviceName: alg
-          servicePort: 80
-  - host: fluidattacks.com.co
-    http:
-      paths:
-      - backend:
-          serviceName: alg
-          servicePort: 80
-  - host: fluidattacks.io
-    http:
-      paths:
-      - backend:
-          serviceName: alg
+          serviceName: web
           servicePort: 80
