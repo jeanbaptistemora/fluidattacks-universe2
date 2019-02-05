@@ -465,7 +465,7 @@ def cast_finding_attributes(finding):
     for field in list_fields:
         if finding.get(field):
             finding[field] = cast_finding_field.get(
-                finding.get(field).encode('utf-8'), '')
+                finding.get(field).encode('utf-8'), finding.get(field))
     return finding
 
 

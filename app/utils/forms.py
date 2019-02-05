@@ -47,7 +47,7 @@ def get_finding_type(cssv2_dict):
     if 'findingType' not in cssv2_dict or cssv2_dict['findingType'] == 'SECURITY':
         finding_type = 'Vulnerabilidad'
     else:
-        finding_type = cssv2_dict['findingType']
+        finding_type = 'Higiene'
     return finding_type
 
 
