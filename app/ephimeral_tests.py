@@ -16,7 +16,7 @@ class ViewTestCase(unittest.TestCase):
     def setUp(self):
         options = Options()
         options.headless = True
-        self.delay = 10
+        self.delay = 20
         self.selenium = webdriver.Firefox(options=options)
         self.branch = os.environ['CI_COMMIT_REF_NAME']
         self.url = \
@@ -126,6 +126,8 @@ class ViewTestCase(unittest.TestCase):
                             EC.presence_of_element_located(
                                 (By.XPATH,
                                 "//*[contains(text(), 'http://localhost/bWAPP/htmli_post.php')]")))
+
+        time.sleep(3)
         assert 'The forms in the application allow the injection of code' in selenium.page_source
         assert 'REQ.0173. The system must discard all' in selenium.page_source
         assert 'http://localhost/bWAPP/htmli_post.php' in selenium.page_source
@@ -158,7 +160,7 @@ class ViewTestCase(unittest.TestCase):
                             (By.XPATH,
                             "//*[contains(text(), 'CVSS v2 Temporal')]")))
 
-        time.sleep(2)
+        time.sleep(3)
         assert 'The vulnerability is recognized' in selenium.page_source
 
     def test_07_evidence(self):
@@ -187,6 +189,7 @@ class ViewTestCase(unittest.TestCase):
                         EC.presence_of_element_located(
                             (By.XPATH,
                             "//*[contains(text(), 'Pop-up message')]")))
+        time.sleep(3)
         assert 'Pop-up message' in selenium.page_source
 
     def test_08_exploit(self):
@@ -215,6 +218,7 @@ class ViewTestCase(unittest.TestCase):
                         EC.presence_of_element_located(
                             (By.XPATH,
                             "//*[contains(text(), 'http.has_xss')]")))
+        time.sleep(3)
         assert 'http.has_xss' in selenium.page_source
 
     def test_09_tracking(self):
@@ -243,6 +247,7 @@ class ViewTestCase(unittest.TestCase):
                         EC.presence_of_element_located(
                             (By.XPATH,
                             "//*[contains(text(), '2019-01-28')]")))
+        time.sleep(3)
         assert '2019-01-28' in selenium.page_source
 
     def test_10_comments(self):
@@ -271,6 +276,7 @@ class ViewTestCase(unittest.TestCase):
                         EC.presence_of_element_located(
                             (By.XPATH,
                             "//*[contains(text(), 'Se realizaron validaciones en 5/10 campos reportados')]")))
+        time.sleep(3)
         assert 'Se realizaron validaciones en 5/10 campos reportados' in selenium.page_source
 
     def test_11_techpdf(self):
