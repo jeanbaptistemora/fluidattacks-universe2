@@ -13,7 +13,6 @@ import git
 
 from . import metrics
 
-
 # Type aliases that improve clarity
 JSON = Any
 GIT_REPO = Any

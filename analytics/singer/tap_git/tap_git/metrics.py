@@ -1,13 +1,13 @@
 """Metrics module."""
 
 import os
-import re
 import time
 import json
+import asyncio
 import subprocess
 import statistics
 
-from typing import Tuple, List, Dict, Any
+from typing import Tuple, List, Dict
 
 
 def get_output(command: List[str]) -> Tuple[str, str]:
@@ -28,54 +28,85 @@ def get_output(command: List[str]) -> Tuple[str, str]:
 def scan_metrics(repository: str, path: str) -> None:
     """Dispatcher and manager."""
     os.chdir(path)
+    # command to get non-bynary files in HEAD
+    git_trick = (
+        # grep lines that are in file 2 and not in file 1
+        "grep -Fvxf"
+        #    file 1: all binary files
+        "    <(grep -Fvxf"
+        #        file 1: list non-binary files in git history
+        "        <(git grep -Il '')"
+        #        file 2: list all files in git history
+        "        <(git grep -al '')"
+        "    )"
+        #    file 2: all files in HEAD
+        "    <(git ls-tree --name-only -r HEAD)")
 
-    # list of paths to files in HEAD
+    # list of paths to non-bynary files in HEAD
     file_paths: List[str] = get_output(
-        ["git", "ls-tree", "--name-only", "-r", "HEAD"])[0].split("\n")
+        ["bash", "-c", git_trick])[0].splitlines()
 
     # Dict[file_path, List[blame_entry]]
     blames: Dict[str, List[Dict[str, str]]] = get_blames(file_paths)
 
-    # compute needed things
-    lines_per_actor: Dict[str, int] = get_lines_per_actor(blames)
-
-    median_line_times_per_autor: Dict[str, float] = \
-        get_median_line_times_per_autor(blames)
-
     write_schemas()
-    write_records__lines_per_actor(
-        repository,
-        lines_per_actor)
-    write_records__median_line_times_per_autor(
-        repository,
-        median_line_times_per_autor)
+    write_records__lines_per_actor(repository, blames)
+    write_records__median_line_times_per_autor(repository, blames)
 
 
 def get_blames(file_paths: List[str]) -> Dict[str, List[Dict[str, str]]]:
+    """."""
+    schunk = len(file_paths) // 4
+    file_paths_1 = file_paths[0: 1 * schunk]
+    file_paths_2 = file_paths[1 * schunk: 2 * schunk]
+    file_paths_3 = file_paths[2 * schunk: 3 * schunk]
+    file_paths_4 = file_paths[3 * schunk:]
+
+    tasks = [
+        get_async_blames(file_paths_1),
+        get_async_blames(file_paths_2),
+        get_async_blames(file_paths_3),
+        get_async_blames(file_paths_4),
+    ]
+
+    loop = asyncio.get_event_loop()
+    blames_sublist = loop.run_until_complete(asyncio.gather(*tasks))
+    blames = {
+        **blames_sublist[0],
+        **blames_sublist[1],
+        **blames_sublist[2],
+        **blames_sublist[3]
+    }
+    return blames
+
+
+async def get_async_blames(
+        file_paths: List[str]) -> Dict[str, List[Dict[str, str]]]:
     """Return a Dict[file_path] = List(blame_entry)."""
     blames: Dict[str, List[Dict[str, str]]] = {}
     for file_path in file_paths:
         blames[file_path] = []
-        raw_blame, _ = get_output(
-            ["git", "blame", "--line-porcelain", "HEAD", file_path])
+        git_trick = (
+            f"git blame --line-porcelain HEAD \"{file_path}\""
+            f" | grep -E \"(author|author-mail|author-time) \"")
 
+        raw_blame = get_output(
+            ["bash", "-c", git_trick])[0]
+
+        count = 0
         blame_entry: Dict[str, str] = {}
         for line in raw_blame.splitlines():
-            if re.match(r"[0-9a-f]{40}", line):
-                if blame_entry:
-                    blames[file_path].append(blame_entry)
-                    blame_entry = {}
-                blame_entry["sha1"] = line.split()[0]
-            elif re.match(r"^author ", line):
-                blame_entry["author"] = " ".join(line.split()[1:])
-            elif re.match(r"^author-mail ", line):
-                blame_entry["author-mail"] = " ".join(line.split()[1:])
-            elif re.match(r"^author-time ", line):
-                blame_entry["author-time"] = " ".join(line.split()[1:])
-            elif re.match(r"^author-tz ", line):
-                blame_entry["author-tz"] = " ".join(line.split()[1:])
-        if blame_entry:
-            blames[file_path].append(blame_entry)
+            count += 1
+            tokens = line.split(" ", 1)
+            if count == 1:
+                blame_entry = {}
+                blame_entry["author"] = tokens[1]
+            elif count == 2:
+                blame_entry["author-mail"] = tokens[1]
+            elif count == 3:
+                blame_entry["author-time"] = tokens[1]
+                blames[file_path].append(blame_entry)
+                count = 0
 
     return blames
 
@@ -99,6 +130,7 @@ def get_lines_per_actor(
 def get_median_line_times_per_autor(
         blames: Dict[str, List[Dict[str, str]]]) -> Dict[str, float]:
     """Return the median time a line have been in HEAD."""
+
     line_times: Dict[str, List[float]] = {}
     for _, blame_entries in blames.items():
         for blame_entry in blame_entries:
@@ -132,8 +164,9 @@ def write_schemas() -> None:
 
 def write_records__lines_per_actor(
         repository: str,
-        records: Dict[str, Any]) -> None:
+        blames: Dict[str, List[Dict[str, str]]]) -> None:
     """Write records to stdout."""
+    records: Dict[str, int] = get_lines_per_actor(blames)
     for actor_id, lines in records.items():
         srecord = {
             "type": "RECORD",
@@ -149,8 +182,9 @@ def write_records__lines_per_actor(
 
 def write_records__median_line_times_per_autor(
         repository: str,
-        records: Dict[str, Any]) -> None:
+        blames: Dict[str, List[Dict[str, str]]]) -> None:
     """Write records to stdout."""
+    records: Dict[str, float] = get_median_line_times_per_autor(blames)
     for actor_id, median_line_age in records.items():
         srecord = {
             "type": "RECORD",
