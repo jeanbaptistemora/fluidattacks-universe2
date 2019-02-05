@@ -95,6 +95,8 @@ export const loadDescription: ThunkActionStructure<void> =
           treatment
           treatmentManager
           treatmentJustification
+          clientCode
+          clientProject
         }
       }`;
 
@@ -229,6 +231,8 @@ export const updateDescription: ThunkActionStructure<void> =
           threat: ${JSON.stringify(values.threat)},
           title: ${JSON.stringify(values.title)},
           kbUrl: ${JSON.stringify(values.kbUrl)},
+          clientCode: ${JSON.stringify(values.clientCode)},
+          clientProject: ${JSON.stringify(values.clientProject)}
         ) {
           finding {
             actor
@@ -245,6 +249,8 @@ export const updateDescription: ThunkActionStructure<void> =
             scenario
             threat
             title
+            clientCode
+            clientProject
           }
           success
         }

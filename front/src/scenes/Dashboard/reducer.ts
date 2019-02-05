@@ -68,6 +68,8 @@ const initialState: IDashboardState = {
       affectedSystems: "",
       attackVector: "",
       btsUrl: "",
+      clientCode: "",
+      clientProject: "",
       compromisedAttributes: "",
       compromisedRecords: "",
       cweUrl: "",

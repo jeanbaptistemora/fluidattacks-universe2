@@ -29,6 +29,8 @@ export interface IDescriptionViewProps {
     affectedSystems: string;
     attackVector: string;
     btsUrl: string;
+    clientCode: string;
+    clientProject: string;
     compromisedAttributes: string;
     compromisedRecords: string;
     cweUrl: string;
@@ -50,7 +52,10 @@ export interface IDescriptionViewProps {
     userEmails: Array<{ email: string }>;
   };
   findingId: string;
-  formValues: { treatment: string };
+  formValues: {
+    reportLevel: string;
+    treatment: string;
+  };
   isEditing: boolean;
   isMdlConfirmOpen: boolean;
   isRemediationOpen: boolean;
@@ -207,7 +212,10 @@ export const descriptionView: React.ComponentType<IDescriptionViewProps> = redux
   enhance(component) as React.SFC<IDescriptionViewProps>,
   (state: StateType<Reducer>): IDescriptionViewProps => ({
     ...state.dashboard.description,
-    formValues: { treatment: fieldSelector(state, "treatment") },
+    formValues: {
+      reportLevel: fieldSelector(state, "reportLevel"),
+      treatment: fieldSelector(state, "treatment"),
+    },
     isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
   }),
 );

@@ -915,6 +915,8 @@ class UpdateDescription(Mutation):
         affected_systems = String(required=True)
         attack_vector = String(required=True)
         category = String()
+        client_code = String()
+        client_project = String()
         cwe = String(required=True)
         kb_url = String()
         description = String(required=True)

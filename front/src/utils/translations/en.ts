@@ -84,6 +84,8 @@ const enTranslations: Map<string, string> = {
       bts: "External BTS",
       compromised_attrs: "Compromised attributes",
       compromised_records: "Compromised records",
+      customer_project_code: "Customer's project code",
+      customer_project_name: "Customer's project name",
       description: "Description",
       download_vulnerabilities: "Download Vulnerabilities",
       editable: "Edit",

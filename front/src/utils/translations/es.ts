@@ -85,6 +85,8 @@ const esTranslations: Map<string, string> = {
       bts: "BTS Externo",
       compromised_attrs: "Atributos comprometidos",
       compromised_records: "Registros comprometidos",
+      customer_project_code: "Código en el cliente",
+      customer_project_name: "Nombre en el cliente",
       description: "Descripción",
       download_vulnerabilities: "Descargar Vulnerabilidades",
       editable: "Editar",

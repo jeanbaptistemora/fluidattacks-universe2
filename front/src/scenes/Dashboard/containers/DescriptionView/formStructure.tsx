@@ -9,6 +9,29 @@ import { FormRows, IEditableField } from "../../components/GenericForm/index";
 import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
 
+const renderReportLevelField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      children: (
+        <React.Fragment>
+          <option value="" selected={true} />
+          <option value="DETAILED">
+            {translate.t("search_findings.tab_description.reportLevel.detailed")}
+          </option>
+          <option value="GENERAL">
+            {translate.t("search_findings.tab_description.reportLevel.general")}
+          </option>
+        </React.Fragment>),
+      component: dropdownField,
+      name: "reportLevel",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.reportLevel.title"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.reportLevel,
+    visible: props.isEditing,
+  });
+
 const renderTreatmentMgrField: ((props: IDescriptionViewProps) => IEditableField) =
   (props: IDescriptionViewProps): IEditableField => {
     const options: JSX.Element[] =
@@ -36,29 +59,43 @@ const renderTreatmentMgrField: ((props: IDescriptionViewProps) => IEditableField
     };
   };
 
+const renderCustomerCodeField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      component: textField,
+      name: "clientCode",
+      type: "text",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.customer_project_code"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.clientCode,
+    visible: props.isEditing,
+  });
+
+const renderCustomerProjectField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      component: textField,
+      name: "clientProject",
+      type: "text",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.customer_project_name"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.clientCode,
+    visible: props.isEditing,
+  });
+
+
+const renderDetailedFields: ((props: IDescriptionViewProps) => FormRows) =
+  (props: IDescriptionViewProps): FormRows => [
+    [renderCustomerCodeField(props), renderCustomerProjectField(props)],
+  ];
+
 export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
-    [{
-      componentProps: {
-        children: (
-          <React.Fragment>
-            <option value="" selected={true} />
-            <option value="DETAILED">
-              {translate.t("search_findings.tab_description.reportLevel.detailed")}
-            </option>
-            <option value="GENERAL">
-              {translate.t("search_findings.tab_description.reportLevel.general")}
-            </option>
-          </React.Fragment>),
-        component: dropdownField,
-        name: "reportLevel",
-        validate: [required],
-      },
-      label: translate.t("search_findings.tab_description.reportLevel.title"),
-      renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-      value: props.dataset.reportLevel,
-      visible: props.isEditing,
-    }],
+    [renderReportLevelField(props)],
     [{
       componentProps: {
         component: textField,
@@ -71,6 +108,7 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       value: props.dataset.title,
       visible: props.isEditing,
     }],
+    ...(props.formValues.reportLevel === "DETAILED" ? renderDetailedFields(props) : []),
     [{
       componentProps: {
         children: (
