@@ -143,23 +143,6 @@ test_terraform:
   except:
     - master
 
-build_alg:
-  stage: build
-  <<: *kaniko_vault_config
-  script:
-    - cp env.vars containers/alg/
-    - /kaniko/executor
-        --build-arg VAULT_HOST="${VAULT_HOST}"
-        --build-arg VAULT_PORT="${VAULT_PORT}"
-        --build-arg VAULT_API_URL="${VAULT_API_URL}"
-        --build-arg ROLE_ID="${ROLE_ID}"
-        --build-arg SECRET_ID="${SECRET_ID}"
-        --context "${CI_PROJECT_DIR}/containers/alg/"
-        --dockerfile "${CI_PROJECT_DIR}/containers/alg/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}/alg/dev:${CI_COMMIT_SHA}"
-  except:
-    - master
-
 build_exams:
   stage: build
   <<: *dind_config
@@ -206,20 +189,6 @@ danger:
     - bundle exec danger --verbose --fail-on-errors=true
   only:
     - merge_requests
-
-tag-alg:
-  <<: *dind_config
-  stage: tag
-  script:
-    - docker pull "$DOCKER_BASENAME/alg/dev:$CI_COMMIT_SHA"
-    - docker tag
-        "$DOCKER_BASENAME/alg/dev:$CI_COMMIT_SHA"
-        "$DOCKER_BASENAME/alg:master"
-    - docker push "$DOCKER_BASENAME/alg:master"
-  only:
-    - master
-  except:
-    - schedules
 
 tag-exams:
   <<: *dind_config

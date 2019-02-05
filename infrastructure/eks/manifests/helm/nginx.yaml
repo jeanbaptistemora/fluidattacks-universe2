@@ -8,7 +8,7 @@ controller:
     server-tokens: "false"
     use-gzip: "false"
   kind: DaemonSet
-  defaultBackendService: serves/alg
+  defaultBackendService: serves/web
   extraArgs:
     default-ssl-certificate: serves/fluidattacks-cert
     tcp-services-configmap: serves/expose-vpn

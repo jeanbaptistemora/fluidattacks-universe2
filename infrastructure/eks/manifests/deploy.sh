@@ -244,7 +244,6 @@ export DATE
 export FI_VAULT_HOST
 export FI_VAULT_TOKEN
 
-deploy_application deployments/alg.yaml
 deploy_application deployments/exams.yaml
 deploy_application deployments/integrates.yaml
 deploy_application deployments/vpn.yaml
