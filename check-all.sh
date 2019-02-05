@@ -21,7 +21,7 @@ if pcregrep --color -Mrn --include='\.adoc' '^=.*.[A-Z].*.*\n.*[A-Z]' content ; 
 fi
 
 # Check that the references are numbered
-if pcregrep --color -Mnr '^== Referenc.*.*\n.*\n[A-Za-z]' content; then
+if pcregrep --color -Mnr --include='\.adoc' '^== Referenc.*.*\n.*\n[A-Za-z]' content; then
   echo -e "${GC}\\nReferences must be numbered.${NC}"
   ERRORS=1;
 fi
@@ -148,7 +148,7 @@ if pcregrep -Lnr --include='\.adoc' ':description:' content; then
 fi
 
 # Check that the diagram names start with the word "diagram"
-if pcregrep -nr '"(graphviz|plantuml)",\s?"(?!diagram).*\.png' content; then
+if pcregrep -nqr --include='\.png' '"(graphviz|plantuml)",\s?"(?!diagram).*\.png' content; then
   echo -e "${GC}The name of the diagrams must start with the word \"diagram\".${NC}";
   ERRORS=1;
 fi
