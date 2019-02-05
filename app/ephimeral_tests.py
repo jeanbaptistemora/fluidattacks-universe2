@@ -58,7 +58,7 @@ class ViewTestCase(TestCase):
                       self.delay).until(
                           EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'Integrates unit test project')]")))
+                                "//*[contains(text(), 'BWAPP Sample')]")))
         return selenium
 
     def test_01_init_page(self):
@@ -69,7 +69,7 @@ class ViewTestCase(TestCase):
     def test_02_dashboard(self):
         selenium = self.__login()
 
-        assert 'Integrates unit test project' in selenium.page_source
+        assert 'BWAPP Sample' in selenium.page_source
 
     def test_03_indicators(self):
         selenium = self.__login()
@@ -77,7 +77,7 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
         WebDriverWait(selenium,
                       self.delay).until(
@@ -93,16 +93,16 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
         WebDriverWait(selenium,
                       self.delay).until(
                             EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'digo funcional comentado')]")))
-        assert 'digo funcional comentado' in selenium.page_source
+                                "//*[contains(text(), 'Reflected Cross Site')]")))
+        assert 'Reflected Cross Site' in selenium.page_source
 
     def test_05_finding(self):
         selenium = self.__login()
@@ -110,24 +110,24 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'digo funcional comentado')]")))
+                                         "//*[contains(text(), 'Reflected Cross Site')]")))
         find_ele.click()
         WebDriverWait(selenium,
                       self.delay).until(
                             EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'vulnerabilities.yaml')]")))
-        assert 'lo que aumenta la probabilidad de' in selenium.page_source
-        assert 'REQ.0171. Los comentarios del' in selenium.page_source
-        assert 'vulnerabilities.yaml' in selenium.page_source
+                                "//*[contains(text(), 'http://localhost/bWAPP/htmli_post.php')]")))
+        assert 'The forms in the application allow the injection of code' in selenium.page_source
+        assert 'REQ.0173. The system must discard all' in selenium.page_source
+        assert 'http://localhost/bWAPP/htmli_post.php' in selenium.page_source
 
     def test_06_severity(self):
         selenium = self.__login()
@@ -135,21 +135,22 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'digo funcional comentado')]")))
+                                         "//*[contains(text(), 'Reflected Cross Site')]")))
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.ID, 'cssv2Item')))
         sev_elem.click()
+
         WebDriverWait(selenium,
                       self.delay).until(
                         EC.presence_of_element_located(
@@ -157,7 +158,7 @@ class ViewTestCase(TestCase):
                             "//*[contains(text(), 'CVSS v2 Temporal')]")))
 
         time.sleep(2)
-        assert 'There are few sources that recognize vulnerability' in selenium.page_source
+        assert 'The vulnerability is recognized' in selenium.page_source
 
     def test_07_evidence(self):
         selenium = self.__login()
@@ -165,15 +166,15 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'digo funcional comentado')]")))
+                                         "//*[contains(text(), 'Reflected Cross Site')]")))
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
                                 self.delay).until(
@@ -184,8 +185,8 @@ class ViewTestCase(TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'Detail')]")))
-        assert 'Detail' in selenium.page_source
+                            "//*[contains(text(), 'Pop-up message')]")))
+        assert 'Pop-up message' in selenium.page_source
 
     def test_08_exploit(self):
         selenium = self.__login()
@@ -193,15 +194,15 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'digo funcional comentado')]")))
+                                         "//*[contains(text(), 'Reflected Cross Site')]")))
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
                                 self.delay).until(
@@ -212,8 +213,8 @@ class ViewTestCase(TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'tcp.is_port_open')]")))
-        assert 'tcp.is_port_open' in selenium.page_source
+                            "//*[contains(text(), 'http.has_xss')]")))
+        assert 'http.has_xss' in selenium.page_source
 
     def test_09_tracking(self):
         selenium = self.__login()
@@ -221,15 +222,15 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'digo funcional comentado')]")))
+                                         "//*[contains(text(), 'Reflected Cross Site')]")))
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
                                 self.delay).until(
@@ -249,15 +250,15 @@ class ViewTestCase(TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'Integrates unit test project')]")))
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'digo funcional comentado')]")))
+                                         "//*[contains(text(), 'Reflected Cross Site')]")))
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
                                 self.delay).until(
@@ -268,5 +269,41 @@ class ViewTestCase(TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'We applied a really simple solution but')]")))
-        assert 'We applied a really simple solution but' in selenium.page_source
+                            "//*[contains(text(), 'Se realizaron validaciones en 5/10 campos reportados')]")))
+        assert 'Se realizaron validaciones en 5/10 campos reportados' in selenium.page_source
+
+    def test_11_techpdf(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        WebDriverWait(selenium,
+                      self.delay).until(
+                            EC.presence_of_element_located(
+                                (By.XPATH,
+                                "//*[contains(text(), 'Reflected Cross Site')]")))
+
+        rep_modal = WebDriverWait(selenium,
+                                  self.delay).until(
+                                        EC.presence_of_element_located(
+                                            (By.XPATH,
+                                             "//*[contains(@data-original-title, 'Documentation')]")))
+        rep_modal.click()
+        tech_pdf_report = WebDriverWait(selenium,
+                                        self.delay).until(
+                                            EC.presence_of_element_located(
+                                                (By.XPATH,
+                                                 "//*[contains(@ng-click, 'findingMatrizTechnicalPDFReport')]")))
+
+        tech_pdf_report.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                             "//*[contains(text(), 'Reflected Cross')]")))
+        assert 'Reflected Cross Site' in selenium.page_source
