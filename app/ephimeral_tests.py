@@ -1,16 +1,17 @@
 import os
 import time
 
-from django.test import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+import pytest
+import unittest
 
 
-class ViewTestCase(TestCase):
+class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
         options = Options()
@@ -301,6 +302,42 @@ class ViewTestCase(TestCase):
                                                  "//*[contains(@ng-click, 'findingMatrizTechnicalPDFReport')]")))
 
         tech_pdf_report.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                             "//*[contains(text(), 'Reflected Cross')]")))
+        assert 'Reflected Cross Site' in selenium.page_source
+
+    def test_12_execpdf(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
+        proj_elem.click()
+
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        WebDriverWait(selenium,
+                      self.delay).until(
+                            EC.presence_of_element_located(
+                                (By.XPATH,
+                                "//*[contains(text(), 'Reflected Cross Site')]")))
+
+        rep_modal = WebDriverWait(selenium,
+                                  self.delay).until(
+                                        EC.presence_of_element_located(
+                                            (By.XPATH,
+                                             "//*[contains(@data-original-title, 'Documentation')]")))
+        rep_modal.click()
+        exec_pdf_report = WebDriverWait(selenium,
+                                        self.delay).until(
+                                            EC.presence_of_element_located(
+                                                (By.XPATH,
+                                                 "//*[contains(@ng-click, 'findingMatrizExecutivePDFPresentation')]")))
+
+        exec_pdf_report.click()
         WebDriverWait(selenium,
                       self.delay).until(
                         EC.presence_of_element_located(
