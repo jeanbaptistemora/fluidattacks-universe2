@@ -591,38 +591,6 @@ Vulnerability of finding {finding_id} does not have the right state'.format(find
     return finding
 
 
-def update_vulnerabilities_date(analyst, finding_id):
-    """Update vulnerabilities date when a verification is required."""
-    vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
-    for vuln in vulnerabilities:
-        all_states = vuln.get('historic_state')
-        current_state = all_states[len(all_states) - 1]
-        tzn = pytz.timezone('America/Bogota')
-        last_date = datetime.strptime(
-            current_state.get('date').split(" ")[0],
-            '%Y-%m-%d'
-        )
-        last_date = last_date.replace(tzinfo=tzn).date()
-        current_date = datetime.now(tz=tzn).date()
-        if last_date != current_date:
-            historic_state = []
-            current_time = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-            last_state = {
-                'date': current_time,
-                'state': current_state.get('state'),
-                'analyst': analyst}
-            historic_state.append(last_state)
-            integrates_dao.update_state_dynamo(
-                finding_id,
-                vuln.get('UUID'),
-                'historic_state',
-                historic_state,
-                [vuln])
-        else:
-            # A finding that change the same day should not be updated
-            pass
-
-
 def calc_cvss_temporal(severity, basescore):
     temporal = Decimal(float(basescore) * severity['exploitability'] *
                        severity['resolutionLevel'] *

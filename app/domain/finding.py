@@ -22,13 +22,14 @@ from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.dto.finding import (
-    FindingDTO, get_project_name, update_vulnerabilities_date, calc_cvss_basescore,
+    FindingDTO, get_project_name, calc_cvss_basescore,
     calc_cvss_enviroment, calc_cvss_temporal
 )
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
     send_mail_remediate_finding, send_mail_accepted_finding
 )
+from .vulnerability import update_vulnerabilities_date
 
 CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
