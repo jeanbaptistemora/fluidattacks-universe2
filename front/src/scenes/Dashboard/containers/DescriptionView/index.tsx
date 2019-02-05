@@ -86,7 +86,8 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
     const canRequestVerification: boolean =
       props.dataset.state === "Abierto"
       && _.includes(["continuous", "Continua", "Concurrente", "Si"], props.dataset.subscription)
-      && props.dataset.treatment !== "Asumido";
+      && props.dataset.treatment !== "Asumido"
+      && !props.dataset.remediated;
 
     return (
       <Row style={{ paddingTop: "10px" }}>

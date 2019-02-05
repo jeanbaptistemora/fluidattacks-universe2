@@ -142,6 +142,12 @@ export const requestVerification: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.requestVerification.success) {
+            dispatch<IActionStructure>({
+              payload: {
+                descriptionData: { remediated: true },
+              },
+              type: actionTypes.LOAD_DESCRIPTION,
+            });
             dispatch<IActionStructure>(closeRemediationMdl());
             msgSuccess(
               translate.t("proj_alerts.verified_success"),
@@ -177,6 +183,12 @@ export const verifyFinding: ThunkActionStructure<void> =
           const { data } = response.data;
           if (data.verifyFinding.success) {
             dispatch<IActionStructure>(closeConfirmMdl());
+            dispatch<IActionStructure>({
+              payload: {
+                descriptionData: { remediated: false },
+              },
+              type: actionTypes.LOAD_DESCRIPTION,
+            });
             msgSuccess(
               translate.t("proj_alerts.verified_success"),
               translate.t("proj_alerts.updated_title"),
