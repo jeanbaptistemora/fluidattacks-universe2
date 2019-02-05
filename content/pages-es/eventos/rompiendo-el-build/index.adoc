@@ -174,7 +174,7 @@ Kilometro 5 vía Las Palmas, Salon Siglo XXI
 
 == 5. Duración
 
-El *taller* tiene una intensidad de *5 horas*
+El *taller* tiene una intensidad de *6 horas*
 (no es posible reducir su duración).
 Comprende la demostración en vivo de nuestras prácticas,
 además de un espacio para tomar una media-mañana,
@@ -183,7 +183,8 @@ y un almuerzo al mediodía.
 == 6. Cuándo
 
 El *taller* está diseñado para ser trabajado desde las *9 A.M.*
-hasta las *2 P.M.*.
+hasta las *3 P.M.*,
+con un +break+ de *30 minutos* a las *12 m*.
 La fecha se agenda de común acuerdo
 entre los asistentes por parte del cliente y +Fluid Attacks+.
 
@@ -213,7 +214,7 @@ es importante considerar la presencia
 de personas con poder de decisión.
 
 El *taller* se encuentra diseñado para un público
-entre *8 y 12* personas por parte del cliente,
+entre *10 y 15* personas por parte del cliente,
 además de las 4 adicionales que puede invitar +Fluid Attacks+.
 
 == 9. Requisitos
