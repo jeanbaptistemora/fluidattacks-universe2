@@ -144,7 +144,7 @@ angular.module("FluidIntegrates").controller(
       angular.forEach(data, (value) => {
         if (value.estado !== "Cerrado" &&
           value.estado !== "Closed") {
-          if (value.findingType === "Seguridad") {
+          if (value.findingType === "SECURITY") {
             security += 1;
           }
           else {
@@ -298,7 +298,7 @@ angular.module("FluidIntegrates").controller(
       let severity = 0;
       angular.forEach(data.data, (cont) => {
         try {
-          if (cont.findingType === "Seguridad") {
+          if (cont.findingType === "SECURITY") {
             const BaseScore = projectFtry.calCCssv2(cont)[0];
             severity += BaseScore * parseFloat(cont.cardinalidad_total);
           }

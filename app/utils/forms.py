@@ -44,7 +44,7 @@ def create_dict(remission_submission):
 
 
 def get_finding_type(cssv2_dict):
-    if 'findingType' not in cssv2_dict or cssv2_dict['findingType'] == 'Seguridad':
+    if 'findingType' not in cssv2_dict or cssv2_dict['findingType'] == 'SECURITY':
         finding_type = 'Vulnerabilidad'
     else:
         finding_type = cssv2_dict['findingType']

@@ -308,7 +308,7 @@ def format_age_email(finding_parsed, project, mail_to, age):
     if 'subscription' in finding_parsed and \
             'releaseDate' in finding_parsed and \
             project_fin == project and \
-            finding_parsed['subscription'] == 'Continua' and \
+            finding_parsed['subscription'] == 'CONTINUOUS' and \
             age in ages:
         context = {
             'project': str.upper(str(project)),

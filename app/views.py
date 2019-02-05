@@ -1067,7 +1067,7 @@ def accept_draft(request):
             tzn = pytz.timezone('America/Bogota')
             release_date = datetime.now(tz=tzn).date()
             if ('subscription' in finding and
-                (finding['subscription'] == 'Continua' or
+                (finding['subscription'] == 'CONTINUOUS' or
                     finding['subscription'] == 'Concurrente' or
                     finding['subscription'] == 'Si')):
                 releases = \

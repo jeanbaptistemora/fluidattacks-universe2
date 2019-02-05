@@ -43,10 +43,10 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
         children: (
           <React.Fragment>
             <option value="" selected={true} />
-            <option value="Detallado">
+            <option value="DETAILED">
               {translate.t("search_findings.tab_description.reportLevel.detailed")}
             </option>
-            <option value="General">
+            <option value="GENERAL">
               {translate.t("search_findings.tab_description.reportLevel.general")}
             </option>
           </React.Fragment>),

@@ -63,7 +63,7 @@ class ITReport(object):
     def detect_format(self, data):
         detailed = 0
         for finding in data:
-            if finding['reportLevel'] == 'Detallado':
+            if finding['reportLevel'] == 'DETAILED':
                 detailed += 1
         detailed = detailed * 100 / len(data)
         if detailed >= 50:
@@ -254,7 +254,8 @@ class ITReport(object):
     def __write_qc(self, row):
         """Write Formstack finding in a row on the QC matrix sheet."""
         self.__select_qc_sheet()
-        self.set_cell_qc(self.matriz['type'], row['testType'])
+        self.set_cell_qc(self.matriz['type'],
+                         translate_parameter(row['testType']))
         self.set_cell_qc(self.matriz['component'], row['clientProject'])
         self.set_cell_qc(self.matriz['requirements_id'],
                          self.__get_req(row['requirements']))
@@ -295,3 +296,15 @@ def get_complexity(complexity_access):
     elif complexity_access == 'Medio':
         return 'Media'
     return complexity_access
+
+
+def translate_parameter(param):
+    translation_values = {
+        'CONTINUOUS': 'Continua',
+        'ANALYSIS': 'Análisis',
+        'APP': 'Aplicación',
+        'BINARY': 'Binario',
+        'SOURCE_CODE': 'Código fuente',
+        'INFRASTRUCTURE': 'Infraestructura'
+    }
+    return translation_values.get(param)

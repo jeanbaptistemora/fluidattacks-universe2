@@ -1,3 +1,4 @@
+# coding=utf-8
 """ DTO to map the Integrates fields to formstack """
 # pylint: disable=E0402
 # Disabling this rule is necessary for importing modules beyond the top level
@@ -266,6 +267,7 @@ class FindingDTO(object):
         else:
             # The finding does not have cwe attribute
             pass
+        parsed_dict = cast_finding_attributes(parsed_dict)
         return parsed_dict
 
     def parse_cvssv2(self, request_arr, submission_id): # noqa: C901
@@ -443,6 +445,28 @@ class FindingDTO(object):
         for key, value in self.data.items():
             new_data['field_' + key] = value
         self.data = new_data
+
+
+def cast_finding_attributes(finding):
+    cast_finding_field = {
+        'Detallado': 'DETAILED',
+        'General': 'GENERAL',
+        'Puntual': 'ONESHOT',
+        'Continua': 'CONTINUOUS',
+        'Análisis': 'ANALYSIS',
+        'Aplicación': 'APP',
+        'Binario': 'BINARY',
+        'Código fuente': 'SOURCE_CODE',
+        'Infraestructura': 'INFRASTRUCTURE',
+        'Seguridad': 'SECURITY',
+        'Higiene': 'HYGIENE'
+    }
+    list_fields = ['reportLevel', 'subscription', 'testType', 'findingType']
+    for field in list_fields:
+        if finding.get(field):
+            finding[field] = cast_finding_field.get(
+                finding.get(field).encode('utf-8'), '')
+    return finding
 
 
 def mask_finding_fields_dynamo(finding_id, fields, mask_value):

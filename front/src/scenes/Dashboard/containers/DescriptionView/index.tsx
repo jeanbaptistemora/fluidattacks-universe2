@@ -85,7 +85,7 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
     const canRequestVerification: boolean =
       props.dataset.state === "Abierto"
-      && _.includes(["continuous", "Continua", "Concurrente", "Si"], props.dataset.subscription)
+      && _.includes(["CONTINUOUS", "continuous", "Continua", "Concurrente", "Si"], props.dataset.subscription)
       && props.dataset.treatment !== "Asumido"
       && !props.dataset.remediated;
 
