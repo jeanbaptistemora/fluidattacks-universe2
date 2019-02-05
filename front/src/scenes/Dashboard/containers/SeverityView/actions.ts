@@ -55,6 +55,11 @@ export const calcCVSSv2: ((data: ISeverityViewProps["dataset"]) => IActionStruct
      * More information in https://www.first.org/cvss/v2/guide
      */
     const impact: number = IMPACT_FACTOR * (1 - ((1 - impCon) * (1 - impInt) * (1 - impDis)));
+    if (impact === 0){
+      F_IMPACT_FACTOR = 0;
+    } else {
+      F_IMPACT_FACTOR = 1.176;
+    };
     const exploitabilty: number = EXPLOITABILITY_FACTOR * accCom * auth * accVec;
     const baseScore: number = ((BASESCORE_FACTOR_1 * impact) + (BASESCORE_FACTOR_2 * exploitabilty)
       - BASESCORE_FACTOR_3) * F_IMPACT_FACTOR;

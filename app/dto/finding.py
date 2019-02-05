@@ -631,9 +631,9 @@ def calc_cvss_basescore(severity, parameters):
     f_impact_factor = get_f_impact(impact)
     exploitabilty = parameters['exploitability_factor'] * severity['accessComplexity'] * \
         severity['authentication'] * severity['accessVector']
-    basescore = Decimal((parameters['bs_factor_1'] * impact) -
+    basescore = Decimal(((parameters['bs_factor_1'] * impact) -
                         parameters['bs_factor_3'] + (parameters['bs_factor_2'] *
-                        exploitabilty) * f_impact_factor)
+                        exploitabilty)) * f_impact_factor)
     response = basescore.quantize(Decimal("0.1"))
     return response
 
@@ -642,7 +642,7 @@ def calc_cvss_enviroment(severity, parameters):
     exploitabilty = parameters['exploitability_factor'] * severity['accessComplexity'] * \
         severity['authentication'] * severity['accessVector']
     adj_impact = min(10, parameters['impact_factor'] *
-                     (1 - (severity['confidentialityImpact'] *
+                     (1 - (1 - severity['confidentialityImpact'] *
                            severity['confidentialityRequirement']) *
                      (1 - severity['integrityImpact'] *
                       severity['integrityRequirement']) *
@@ -658,7 +658,7 @@ def calc_cvss_enviroment(severity, parameters):
                          severity['confidenceLevel'], 1)
     cvss_env = Decimal((adj_temporal + (10 - adj_temporal) *
                         severity['collateralDamagePotential']) *
-                       severity['findingDistribution'], 1)
+                       severity['findingDistribution'])
     response = cvss_env.quantize(Decimal("0.1"))
     return response
 
