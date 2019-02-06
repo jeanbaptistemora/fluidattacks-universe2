@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import globalStyle from "../../../../styles/global.css";
-import { formatCweUrl } from "../../../../utils/formatHelpers";
+import { formatCweUrl, formatDropdownField } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { numeric, required } from "../../../../utils/validations";
@@ -153,25 +153,25 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
         children: (
           <React.Fragment>
             <option value="" selected={true} />
-            <option value="Cualquier persona en Internet">
+            <option value="ANYONE_INTERNET">
               {translate.t("search_findings.tab_description.actor.any_internet")}
             </option>
-            <option value="Cualquier cliente de la organización">
+            <option value="ANY_COSTUMER">
               {translate.t("search_findings.tab_description.actor.any_costumer")}
             </option>
-            <option value="Solo algunos clientes de la organización">
+            <option value="SOME_CUSTOMERS">
               {translate.t("search_findings.tab_description.actor.some_costumer")}
             </option>
-            <option value="Cualquier persona con acceso a la estación">
+            <option value="ANYONE_WORKSTATION">
               {translate.t("search_findings.tab_description.actor.any_station")}
             </option>
-            <option value="Cualquier empleado de la organización">
+            <option value="ANY_EMPLOYEE">
               {translate.t("search_findings.tab_description.actor.any_employee")}
             </option>
-            <option value="Solo algunos empleados">
+            <option value="SOME_EMPLOYEES">
               {translate.t("search_findings.tab_description.actor.some_employee")}
             </option>
-            <option value="Solo un empleado">
+            <option value="ONE_EMPLOYEE">
               {translate.t("search_findings.tab_description.actor.one_employee")}
             </option>
           </React.Fragment>),
@@ -181,7 +181,7 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       },
       label: translate.t("search_findings.tab_description.actor.title"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-      value: props.dataset.actor,
+      value: translate.t(formatDropdownField(props.dataset.actor)),
       visible: true,
     }],
     [{

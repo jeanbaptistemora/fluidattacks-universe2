@@ -147,3 +147,17 @@ export const castFields: ((dataset: ISeverityViewProps["dataset"]) => ISeverityF
 
 export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string =>
   cweId === "-" ? "-" : `https://cwe.mitre.org/data/definitions/${cweId}.html`;
+
+export const formatDropdownField: ((field: string) => string) = (field: string): string => {
+  const translationParameters: {[value: string]: string} = {
+    "ANYONE_INTERNET": "search_findings.tab_description.actor.any_internet",
+    "ANY_COSTUMER": "search_findings.tab_description.actor.any_costumer",
+    "SOME_CUSTOMERS": "search_findings.tab_description.actor.some_costumer",
+    "ANYONE_WORKSTATION": "search_findings.tab_description.actor.any_station",
+    "ANY_EMPLOYEE": "search_findings.tab_description.actor.any_employee",
+    "SOME_EMPLOYEES": "search_findings.tab_description.actor.some_employee",
+    "ONE_EMPLOYEE": "search_findings.tab_description.actor.one_employee"
+  };
+
+  return translationParameters[field];
+};

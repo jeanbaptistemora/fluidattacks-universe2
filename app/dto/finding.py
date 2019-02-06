@@ -459,9 +459,17 @@ def cast_finding_attributes(finding):
         'Código fuente': 'SOURCE_CODE',
         'Infraestructura': 'INFRASTRUCTURE',
         'Seguridad': 'SECURITY',
-        'Higiene': 'HYGIENE'
+        'Higiene': 'HYGIENE',
+        'Cualquier persona en Internet': 'ANYONE_INTERNET',
+        'Cualquier cliente de la organización': 'ANY_COSTUMER',
+        'Solo algunos clientes de la organización': 'SOME_CUSTOMERS',
+        'Cualquier persona con acceso a la estación': 'ANYONE_WORKSTATION',
+        'Cualquier empleado de la organización': 'ANY_EMPLOYEE',
+        'Solo algunos empleados': 'SOME_EMPLOYEES',
+        'Solo un empleado': 'ONE_EMPLOYEE',
     }
-    list_fields = ['reportLevel', 'subscription', 'testType', 'findingType']
+    list_fields = ['reportLevel', 'subscription', 'testType', 'findingType',
+                   'actor']
     for field in list_fields:
         if finding.get(field):
             finding[field] = cast_finding_field.get(
