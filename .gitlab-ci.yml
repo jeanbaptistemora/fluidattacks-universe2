@@ -80,6 +80,7 @@ build_base:
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
+      - $FLAG_SYNC_ERP_MSSQLSERVER
 
 build_builder:
   stage: deps
@@ -101,6 +102,7 @@ build_builder:
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
+      - $FLAG_SYNC_ERP_MSSQLSERVER
 
 test_code:
   stage: tests
@@ -325,6 +327,7 @@ change_keys:
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
+      - $FLAG_SYNC_ERP_MSSQLSERVER
 
 vault_backup:
   stage: backup
@@ -365,6 +368,7 @@ vault_backup:
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
+      - $FLAG_SYNC_ERP_MSSQLSERVER
 
 formstack_backup:
   stage: backup
@@ -388,6 +392,7 @@ formstack_backup:
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
+      - $FLAG_SYNC_ERP_MSSQLSERVER
 
 sync_currencies:
   stage: analytics
@@ -543,3 +548,33 @@ sync_infrastructure:
       - schedules
     variables:
       - $FLAG_SYNC_INFRASTRUCTURE
+
+sync_erp_mssqlserver:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - cd analytics/singer
+    - mkdir csv
+    - pip3 install
+        pyodbc
+        tap_json
+        target_redshift
+    - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+    - curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+    - apt-get update
+    - ACCEPT_EULA=Y apt-get install msodbcsql17 unixodbc-dev
+    - echo "$(vault read -field=analytics_auth_erp_mssqlserver secret/serves)" > /convert_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - converter_mssqlserver_csv.py --auth /convert_secret.json -o csv
+    - for csv_path in csv/*.csv; do
+        echo "$csv_path";
+        streamer_csv.py "$csv_path" >> .jsonstream;
+      done
+    - cat .jsonstream | tap-json > .singer
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "erp sql server"
+    - rm -rf /convert_secret.json /target_secret.json
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_SYNC_ERP_MSSQLSERVER
