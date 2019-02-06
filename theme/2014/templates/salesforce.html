@@ -105,7 +105,24 @@
           <label for="mobile" class="form-label">{{ gettext('Form-field-3')
           }}</label>
               <input  id="mobile" maxlength="40" name="mobile" size="20"
-              type="text" class="form-input" required /><br>
+              type="text" class="form-input" required />
+              {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "/app/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+                <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+              {% endassets %}
+              <script>
+                var input = document.querySelector("#mobile");
+                window.intlTelInput(input, {
+                  initialCountry: "auto",
+                  geoIpLookup: function(callback) {
+                    $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+                      var countryCode = (resp && resp.country) ? resp.country : "";
+                      callback(countryCode);
+                    });
+                  },
+                  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.10/js/utils.js",
+                });
+              </script>
+              <br>
           <label for="Subject" class="form-label">{{ gettext('Form-field-4') }}
           </label>
             <select  id="00N1I00000NEIK7" name="00N1I00000NEIK7"

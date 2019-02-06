@@ -56,6 +56,9 @@ RUN apt-get update -qq && \
     yarn install && \
     gem install -N sass && \
 
+    # Set flag images for IntlTelInput plugin
+    sed -i 's#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#' node_modules/intl-tel-input/src/css/intlTelInput.scss && \
+
     # Download and install tidy-html
     curl -LSo tidy.deb https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb && \
     dpkg -i tidy.deb && \
