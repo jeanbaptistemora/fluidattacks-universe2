@@ -3,7 +3,6 @@ echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secr
 for fork in {1..8}; do
   ( tap-git \
       --conf /config.json \
-      --run-gitinspector \
       --with-metrics \
       --threads 8 \
       --fork-id $fork > git_part$fork ) &
