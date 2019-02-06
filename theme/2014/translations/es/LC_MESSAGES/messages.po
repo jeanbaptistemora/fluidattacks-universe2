@@ -623,24 +623,20 @@ msgstr "Teléfono celular"
 msgid "Form-field-4"
 msgstr "Cómo podemos ayudarte?"
 
-#: templates/form.html:82
-msgid "Form-field-5"
-msgstr "--ninguno--"
-
 #: templates/form.html:84
-msgid "Form-field-6"
+msgid "Form-field-5"
 msgstr "Quiero conocer más de Fluid Attacks"
 
 #: templates/form.html:86
-msgid "Form-field-7"
+msgid "Form-field-6"
 msgstr "Quiero una propuesta de servicios”
 
 #: templates/form.html:88
-msgid "Form-field-8"
+msgid "Form-field-7"
 msgstr "Estoy buscando trabajo"
 
 #: templates/form.html:90
-msgid "Form-field-9"
+msgid "Form-field-8"
 msgstr "Otro"
 
 #: templates/index.html:4
