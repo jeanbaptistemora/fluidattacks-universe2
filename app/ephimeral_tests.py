@@ -66,12 +66,12 @@ class ViewTestCase(unittest.TestCase):
     def test_01_init_page(self):
         selenium = self.selenium
         selenium.get(self.url)
-        selenium.save_screenshot(SCR_PATH + 'init_page.png')
+        selenium.save_screenshot(SCR_PATH + '01-init_page.png')
         assert 'Log in with Google' in selenium.page_source
 
     def test_02_dashboard(self):
         selenium = self.__login()
-        selenium.save_screenshot(SCR_PATH + 'dashboard.png')
+        selenium.save_screenshot(SCR_PATH + '02-dashboard.png')
         assert 'BWAPP Sample' in selenium.page_source
 
     def test_03_indicators(self):
@@ -87,7 +87,7 @@ class ViewTestCase(unittest.TestCase):
                             EC.presence_of_element_located(
                                 (By.XPATH,
                                 "//*[contains(text(), 'Maximum Severity Found')]")))
-        selenium.save_screenshot(SCR_PATH + 'indicators.png')
+        selenium.save_screenshot(SCR_PATH + '03-indicators.png')
         assert 'Maximum Severity Found' in selenium.page_source
 
     def test_04_findings(self):
@@ -105,7 +105,7 @@ class ViewTestCase(unittest.TestCase):
                             EC.presence_of_element_located(
                                 (By.XPATH,
                                 "//*[contains(text(), 'Reflected Cross Site')]")))
-        selenium.save_screenshot(SCR_PATH + 'findings.png')
+        selenium.save_screenshot(SCR_PATH + '04-findings.png')
         assert 'Reflected Cross Site' in selenium.page_source
 
     def test_05_finding(self):
@@ -131,7 +131,7 @@ class ViewTestCase(unittest.TestCase):
                                 "//*[contains(text(), 'http://localhost/bWAPP/htmli_post.php')]")))
 
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + 'finding.png')
+        selenium.save_screenshot(SCR_PATH + '05-finding.png')
         assert 'The forms in the application allow the injection of code' in selenium.page_source
         assert 'REQ.0173. The system must discard all' in selenium.page_source
         assert 'http://localhost/bWAPP/htmli_post.php' in selenium.page_source
@@ -165,7 +165,7 @@ class ViewTestCase(unittest.TestCase):
                             "//*[contains(text(), 'CVSS v2 Temporal')]")))
 
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + 'severity.png')
+        selenium.save_screenshot(SCR_PATH + '06-severity.png')
         assert 'The vulnerability is recognized' in selenium.page_source
 
     def test_07_evidence(self):
@@ -195,7 +195,7 @@ class ViewTestCase(unittest.TestCase):
                             (By.XPATH,
                             "//*[contains(text(), 'Pop-up message')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + 'evidence.png')
+        selenium.save_screenshot(SCR_PATH + '07-evidence.png')
         assert 'Pop-up message' in selenium.page_source
 
     def test_08_exploit(self):
@@ -225,7 +225,7 @@ class ViewTestCase(unittest.TestCase):
                             (By.XPATH,
                             "//*[contains(text(), 'http.has_xss')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + 'exploit.png')
+        selenium.save_screenshot(SCR_PATH + '08-exploit.png')
         assert 'http.has_xss' in selenium.page_source
 
     def test_09_tracking(self):
@@ -255,7 +255,7 @@ class ViewTestCase(unittest.TestCase):
                             (By.XPATH,
                             "//*[contains(text(), '2019-01-28')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + 'tracking.png')
+        selenium.save_screenshot(SCR_PATH + '09-tracking.png')
         assert '2019-01-28' in selenium.page_source
 
     def test_10_comments(self):
@@ -285,7 +285,7 @@ class ViewTestCase(unittest.TestCase):
                             (By.XPATH,
                             "//*[contains(text(), 'Se realizaron validaciones en 5/10 campos reportados')]")))
         time.sleep(3)
-        selenium.save_screenshot(SCR_PATH + 'comments.png')
+        selenium.save_screenshot(SCR_PATH + '10-comments.png')
         assert 'Se realizaron validaciones en 5/10 campos reportados' in selenium.page_source
 
     def test_11_techpdf(self):
@@ -322,7 +322,7 @@ class ViewTestCase(unittest.TestCase):
                         EC.presence_of_element_located(
                             (By.XPATH,
                              "//*[contains(text(), 'Reflected Cross')]")))
-        selenium.save_screenshot(SCR_PATH + 'techpdf.png')
+        selenium.save_screenshot(SCR_PATH + '11-techpdf.png')
         assert 'Reflected Cross Site' in selenium.page_source
 
     def test_12_execpdf(self):
@@ -359,5 +359,5 @@ class ViewTestCase(unittest.TestCase):
                         EC.presence_of_element_located(
                             (By.XPATH,
                              "//*[contains(text(), 'Reflected Cross')]")))
-        selenium.save_screenshot(SCR_PATH + 'execpdf.png')
+        selenium.save_screenshot(SCR_PATH + '12-execpdf.png')
         assert 'Reflected Cross Site' in selenium.page_source
