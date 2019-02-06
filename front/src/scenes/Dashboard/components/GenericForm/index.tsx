@@ -36,7 +36,7 @@ const renderCurrentValue: ((fieldProps: IEditableField) => JSX.Element) =
   (fieldProps: IEditableField): JSX.Element => (
     _.startsWith(fieldProps.value, "https://")
       ? <a href={fieldProps.value}>{fieldProps.value}</a>
-      : <p>{fieldProps.value}</p>
+      : <p style={{ fontSize: "18px" }}>{fieldProps.value}</p>
   );
 
 const renderEditableField: ((fieldProps: IEditableField) => JSX.Element) =
@@ -48,10 +48,8 @@ const renderEditableField: ((fieldProps: IEditableField) => JSX.Element) =
 const renderField: ((fieldProps: IEditableField, totalCols: number) => JSX.Element) =
   (fieldProps: IEditableField, totalCols: number): JSX.Element => (
     <React.Fragment>
-      <Col md={2} xs={12} sm={12} className={style.title}>
-        <label><b>{fieldProps.label}</b></label>
-      </Col>
-      <Col md={Math.round(12 / totalCols) - 2} xs={12} sm={12} className={style.fieldColumn}>
+      <Col md={Math.round(12 / totalCols)} xs={12} sm={12} className={style.fieldColumn}>
+        <label><b>{fieldProps.label}</b></label><br />
         {fieldProps.componentProps === undefined ? fieldProps.customElement : renderEditableField(fieldProps)}
       </Col>
     </React.Fragment>
