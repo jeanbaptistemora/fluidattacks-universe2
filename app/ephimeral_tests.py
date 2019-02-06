@@ -361,3 +361,66 @@ class ViewTestCase(unittest.TestCase):
                              "//*[contains(text(), 'Reflected Cross')]")))
         selenium.save_screenshot(SCR_PATH + '12-execpdf.png')
         assert 'Reflected Cross Site' in selenium.page_source
+
+    def test_13_events(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
+        proj_elem.click()
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/events')
+
+        event_tab = WebDriverWait(selenium,
+                                   self.delay).until(
+                                        EC.presence_of_element_located(
+                                            (By.XPATH,
+                                             "//*[contains(text(), 'not possible to access the repo')]")))
+        selenium.save_screenshot(SCR_PATH + '131-events.png')
+        event_tab.click()
+        WebDriverWait(selenium,
+                      self.delay).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH,
+                             "//*[contains(text(), 'Affected components')]")))
+
+        time.sleep(3)
+        selenium.save_screenshot(SCR_PATH + '132-events.png')
+        assert 'Test Event' in selenium.page_source
+
+    def test_14_resources(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
+        proj_elem.click()
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/resources')
+
+        WebDriverWait(selenium, self.delay).until(
+            EC.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Environments')]")))
+
+        time.sleep(3)
+        selenium.save_screenshot(SCR_PATH + '14-resources.png')
+        assert 'https://fluidattacks.com' in selenium.page_source
+
+    def test_15_project_comments(self):
+        selenium = self.__login()
+        proj_elem = WebDriverWait(selenium,
+                                  self.delay).until(
+                                      EC.presence_of_element_located(
+                                          (By.XPATH,
+                                           "//*[contains(text(), 'BWAPP Sample')]")))
+        proj_elem.click()
+        selenium.get(self.url + '/dashboard#!/project/BWAPP/comments')
+
+        WebDriverWait(selenium, self.delay).until(
+            EC.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Now we can post comments on projects')]")))
+
+        time.sleep(3)
+        selenium.save_screenshot(SCR_PATH + '15-proj_comments.png')
+        assert 'Now we can post comments on projects' in selenium.page_source
