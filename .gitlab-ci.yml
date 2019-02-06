@@ -172,6 +172,7 @@ unit-testing:
       --basetemp=build/test
       --junitxml=build/test/results.xml
       app/tests.py
+    - vaultenv ./run_codecov.sh
 
 asserts-code-test:
   stage: pre-test
