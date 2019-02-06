@@ -175,6 +175,14 @@ resource "aws_route53_record" "www" {
   records = ["fluidattacks.com"]
 }
 
+resource "aws_route53_record" "customerio" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "customerio.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["e.customeriomail.com"]
+}
+
 # MX Records
 resource "aws_route53_record" "mainMX" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
@@ -236,4 +244,28 @@ resource "aws_route53_record" "smtp_domainkey" {
   type    = "TXT"
   ttl     = "300"
   records = ["k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDWWMDVpf8LmPSxAzXN6maN9tmYF37+LNKt0ClL6xin8F5D6icNdvViPAFuZDUU8aAQPYacWHUPY0ay+95wt2XiGbpZsa7k4EPFYTdL2hfMNwaidDJKgL58kzBcfvR1r/VX3MPmiP0d6cQKqoDi+THtpqd2w270pgCCBKiYvujHmQIDAQAB"]
+}
+
+resource "aws_route53_record" "customerio_ownership" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "46393._cio.${aws_route53_zone.fs_maindomain.name}"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["c4ae35cc23959de2ef5f0d9e036c2cc23ec79777"]
+}
+
+resource "aws_route53_record" "customerio_spf" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "${aws_route53_zone.fs_maindomain.name}"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=spf1 include:customeriomail.com ~all"]
+}
+
+resource "aws_route53_record" "customerio_dkim" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "smtpapi._domainkey.${aws_route53_zone.fs_maindomain.name}"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPtW5iwpXVPiH5FzJ7Nrl8USzuY9zqqzjE0D1r04xDN6qwziDnmgcFNNfMewVKN2D1O+2J9N14hRprzByFwfQW76yojh54Xu3uSbQ3JP0A7k8o8GutRF8zbFUA8n0ZH2y0cIEjMliXY4W4LwPA7m4q0ObmvSjhd63O9d8z1XkUBwIDAQAB"]
 }
