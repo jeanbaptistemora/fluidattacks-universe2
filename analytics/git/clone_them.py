@@ -37,10 +37,6 @@ IGNORE = (
     # no repos
     "aldak",
 
-    # it fails (for me) using multi_git_clone.py and clone_them.py
-    "bowky",
-    "valvanera",
-
     # vpn forticlient
     "villasilvia",
     "volantin",
@@ -86,10 +82,12 @@ def add_ssh_key(project: str) -> None:
     data = base64.b64decode(
         os.popen(
             f"vault read -field=repo_key secret/continuous/{project}").read())
-    os.system(f"rm -rf ~/.ssh/{project}")
+    os.system(f"rm -f ~/.ssh/{project}")
     with open(os.path.expanduser(f'~/.ssh/{project}'), "wb") as file:
         file.write(data)
+        file.write(bytes("\n", "utf-8"))
     os.system(f"chmod 0400 ~/.ssh/{project}")
+    os.system(f"ssh-add ~/.ssh/{project}")
 
 
 def filter_url(url: str) -> Tuple[str, str, str, str, str, str]:
@@ -165,7 +163,7 @@ def parse_config(subscription: str) -> Tuple[List[Tuple[Any, Any]], str, Any]:
     return path_branch, url, git_type
 
 
-def execute(clone: str, update: str, target_repo: str, do_print=False) -> int:
+def execute(clone: str, update: str, target_repo: str, do_print=True) -> int:
     """Executes the clone or update.
     """
 
