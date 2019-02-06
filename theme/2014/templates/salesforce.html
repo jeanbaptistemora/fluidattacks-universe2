@@ -104,7 +104,7 @@
             type="text" class="form-input" required /><br/>
           <label for="mobile" class="form-label">{{ gettext('Form-field-3')
           }}</label>
-              <input  id="mobile" maxlength="40" name="mobile" size="20"
+              <input  id="mobile" maxlength="40" name="local_mobile" size="20"
               type="text" class="form-input" required />
               {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "/app/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
                 <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
@@ -119,6 +119,8 @@
                       callback(countryCode);
                     });
                   },
+                  hiddenInput: "mobile",
+                  separateDialCode: true,
                   utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.10/js/utils.js",
                 });
               </script>
