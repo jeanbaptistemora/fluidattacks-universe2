@@ -6,7 +6,9 @@ Automatically reads every config.yml.
 import os
 import re
 import json
+import time
 import base64
+import subprocess
 import urllib.parse
 
 from typing import Iterable, List, Tuple, Any
@@ -37,10 +39,11 @@ IGNORE = (
     # no repos
     "aldak",
 
-    # vpn forticlient
+    # vpn forticlient with problems
+    # asks password beeing ssh
     "villasilvia",
+    # unable to access, Network is unreachable
     "volantin",
-    "yarumossac",
 
     # vpn windows, not possible to configure on linux
     "stebbins",
@@ -140,13 +143,15 @@ def get_repo_user_pass(prot: str, project: str) -> Tuple[str, str]:
     return repo_user, repo_pass
 
 
-def parse_config(subscription: str) -> Tuple[List[Tuple[Any, Any]], str, Any]:
+def parse_config(
+        subscription: str) -> Tuple[List[Tuple[Any, Any]], str, str, str]:
     """Parses the config.yml.
     """
 
     with open(f"{subscription}/config.yml", "r") as config_file:
-        config = yaml.load(config_file).get("code", None)
+        yml_file = yaml.load(config_file)
 
+    config = yml_file.get("code", None)
     if config is None:
         print(f"ERROR|{subscription}|no code tag in yml|")
         raise BadConfigYml
@@ -160,7 +165,10 @@ def parse_config(subscription: str) -> Tuple[List[Tuple[Any, Any]], str, Any]:
     # get url from the config.yml
     url = str(config.get("url")[0])
 
-    return path_branch, url, git_type
+    # get vpn
+    vpn_soft = yml_file.get('vpn', {}).get('software', "")
+
+    return path_branch, url, git_type, vpn_soft
 
 
 def execute(clone: str, update: str, target_repo: str, do_print=True) -> int:
@@ -201,7 +209,7 @@ def process_subscriptions() -> JSON:
         project = get_project_name(subscription)
 
         try:
-            path_branch, url, git_type = parse_config(subscription)
+            path_branch, url, git_type, vpn_soft = parse_config(subscription)
         except BadConfigYml:
             continue
 
@@ -211,6 +219,36 @@ def process_subscriptions() -> JSON:
 
         print(f"INFO|YML|{subscription}|{url}|{path_branch}|")
         print(f"INFO|URL|{prot}|{user}|{host}|{port}|{rest}|")
+
+        if vpn_soft == "forticlient":
+            vpn_repo_user = os.popen((
+                f"vault read -field=repo_user "
+                f"secret/continuous/{project}")).read()
+            vpn_repo_pass = os.popen((
+                f"vault read -field=repo_pass "
+                f"secret/continuous/{project}")).read()
+            vpn_user = os.popen((
+                f"vault read -field=vpn_user_1 "
+                f"secret/continuous/{project}")).read()
+            vpn_pass = os.popen((
+                f"vault read -field=vpn_pass_1 "
+                f"secret/continuous/{project}")).read()
+            vpn_secret = os.popen((
+                f"vault read -field=vpn_secret_1 "
+                f"secret/continuous/{project}")).read()
+            os.system(
+                f"echo 'username = {vpn_user}' >> forti_config")
+            os.system(
+                f"echo 'password = {vpn_pass}' >> forti_config")
+            os.system(
+                f"echo 'trusted-cert = {vpn_secret}' >> forti_config")
+            proccess = subprocess.Popen(
+                ["bash", "-c", "openfortivpn -c forti_config > forti_log"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE)
+            print("waiting 10 seconds", proccess)
+            time.sleep(10)
 
         once = True
         branches_json[project] = {}
@@ -242,6 +280,12 @@ def process_subscriptions() -> JSON:
                     f"{prot}://{repo_user}:{repo_pass}@{host_port}/"
                     f"{restpath}")
                 uri = uri if "codecommit" in host_port else f"{uri}.git"
+                uri = uri.replace(
+                    "<user>",
+                    vpn_repo_user) if vpn_soft == "forticlient" else uri
+                uri = uri.replace(
+                    "<pass>",
+                    vpn_repo_pass) if vpn_soft == "forticlient" else uri
                 clone = (
                     f"git clone -b {branch} "
                     f"--single-branch {uri} {target_repo}")
@@ -268,7 +312,10 @@ def process_subscriptions() -> JSON:
                     f"ssh-add ~/.ssh/{project};"
                     f"git pull origin {branch}\"")
 
+            os.system("cat forti_log")
             nrepos += execute(clone, update, target_repo)
+
+        os.system("pkill openfortivpn")
 
         print(f"INFO|STATS|{subscription}|{nrepos}|")
 

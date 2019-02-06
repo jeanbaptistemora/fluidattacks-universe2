@@ -490,6 +490,7 @@ sync_git:
         pyyaml
         analytics/singer/tap_git
         analytics/singer/target_redshift
+    - analytics/git/set_vpns.sh
     - analytics/git/set_awscli.sh
     - analytics/git/set_gitinspector.sh
     - python3 analytics/git/clone_us.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_us.log
