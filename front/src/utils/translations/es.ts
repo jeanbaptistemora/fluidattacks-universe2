@@ -64,6 +64,10 @@ const esTranslations: Map<string, string> = {
     environment_table: {
       environment: "Ambiente",
     },
+    files_table: {
+      file: "Archivo",
+      description: "Descripción",
+    },
     repositories_table: {
       branch: "Rama",
       repository: "URL Repositorio",
@@ -165,6 +169,7 @@ const esTranslations: Map<string, string> = {
       branch: "Rama",
       environment: "Ambiente",
       environments_title: "Ambientes",
+      files_title: "Archivos",
       modal_env_title: "Agregar información de los ambientes",
       modal_repo_title: "Agregar información de los repositorios",
       no_selection: "Debe seleccionar un ítem de la tabla.",

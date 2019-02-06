@@ -20,6 +20,7 @@ describe('Resources view', () => {
       environmentsDataset={[]}
       projectName="unittesting"
       repositoriesDataset={[]}
+      showFiles={false}
     />
   );
 

@@ -274,6 +274,7 @@ angular
     react2angular(
       resourcesView, [
         "projectName",
+        "showFiles",
       ],
     ),
   );

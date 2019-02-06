@@ -68,7 +68,12 @@ angular.module("FluidIntegrates").controller(
       angular.forEach(translationStrings, (value) => {
         $scope.translations[value] = $translate.instant(value);
       });
-
+      if (userEmail.endsWith("@fluidattacks.com")) {
+        $scope.showFiles = true;
+      }
+      else {
+        $scope.showFiles = false;
+      }
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;

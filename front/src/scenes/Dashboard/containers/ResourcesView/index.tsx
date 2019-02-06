@@ -33,6 +33,7 @@ export interface IResourcesViewProps {
   environmentsDataset: Array<{ urlEnv: string }>;
   projectName: string;
   repositoriesDataset: Array<{ branch: string; urlRepo: string }>;
+  showFiles: boolean;
 }
 
 const enhance: InferableComponentEnhancer<{}> =
@@ -271,6 +272,47 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
           </Row>
         </Col>
       </Row>
+      <hr/>
+      {props.showFiles &&
+        <Row>
+          <Col md={12} sm={12} xs={12}>
+            <Row>
+              <Col md={12} sm={12} xs={12}>
+                <Row>
+                  <Col md={12} sm={12}>
+                    <DataTable
+                      dataset={[]}
+                      onClickRow={(): void => {}}
+                      enableRowSelection={false}
+                      exportCsv={false}
+                      search={true}
+                      headers={[
+                        {
+                          dataField: "fileName",
+                          header: translate.t("search_findings.files_table.file"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "50%",
+                        },
+                        {
+                          dataField: "description",
+                          header: translate.t("search_findings.files_table.description"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "50%",
+                        },
+                      ]}
+                      id="tblFiles"
+                      pageSize={15}
+                      title={translate.t("search_findings.tab_resources.files_title")}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      }
       <AddResourcesModal
         isOpen={props.addModal.open}
         type={props.addModal.type}

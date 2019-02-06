@@ -63,6 +63,10 @@ const enTranslations: Map<string, string> = {
     environment_table: {
       environment: "Environment",
     },
+    files_table: {
+      file: "File",
+      description: "Description",
+    },
     repositories_table: {
       branch: "Branch",
       repository: "Repository URL",
@@ -164,6 +168,7 @@ const enTranslations: Map<string, string> = {
       branch: "Branch",
       environment: "Environment",
       environments_title: "Environments",
+      files_title: "Files",
       modal_env_title: "Add environment information",
       modal_repo_title: "Add repository information",
       no_selection: "You must select an item from the table.",
