@@ -64,16 +64,6 @@ const probabilities = [
   }
 ];
 
-const actor = [
-  {"name": "​Cualquier persona en Internet"},
-  {"name": "Cualquier cliente de la organización"},
-  {"name": "Solo algunos clientes de la organización"},
-  {"name": "Cualquier persona con acceso a la estación"},
-  {"name": "Cualquier empleado de la organización"},
-  {"name": "Solo algunos empleados"},
-  {"name": "Solo un empleado"}
-];
-
 const accessVector = [
   {
     "name": "Red adyacente: Explotable desde el mismo segmento de red",
