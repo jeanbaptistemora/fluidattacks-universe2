@@ -46,7 +46,6 @@ stages:
   - pre-test
   - build
   - review
-  - test
   - mr-check
   - pre-deploy
   - deploy
@@ -256,7 +255,7 @@ remove-cache-keys:
     - trigger
 
 driver-testing:
-  stage: test
+  stage: post-deploy
   image: registry.gitlab.com/fluidsignal/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
@@ -319,7 +318,7 @@ stop-review:
     - master
 
 Asserts-Review:
-  stage: test
+  stage: post-deploy
   script:
     - echo "$JFROG_PASS" |
         docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
@@ -340,7 +339,7 @@ Asserts-Review:
     - triggers
 
 Linting:
-  stage: test
+  stage: post-deploy
   script:
     - docker run -t "$DOCKER_BASENAME:$CI_COMMIT_REF_NAME"
         /bin/bash -c "npm install --unsafe-perm -g  n; n stable;
