@@ -1,9 +1,11 @@
 coverage:
-    status:
-        project:
-            default:
-                # The build fails if total project coverage drops by more than 5%
-                target: auto
-                threshold: "5%"
-        changes: false
-        patch: false
+  ignore:
+    - "coverage_results.txt"
+  status:
+    project:
+      default:
+        # The build fails if total project coverage drops by more than 5%
+        target: auto
+        threshold: "5%"
+    changes: false
+    patch: false

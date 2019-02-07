@@ -111,12 +111,14 @@ commitlint:
 
 react-testing:
   stage: pre-test
+  image: registry.gitlab.com/fluidsignal/integrates:deps190201
   only:
     - /^.*$/
     - merge_requests
   before_script:
     - echo "Start Unit Testing"
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  <<: *variables-dev
+  <<: *vault_login
   script:
     - cd front/ && npm install --unsafe-perm
     - tslint -p tsconfig.json -t verbose || true
