@@ -32,37 +32,33 @@ similar to the ones you will face in +Fluid Attacks+.
 
 The technical challenges are divided into
 +vbd-hacking+, +ctf-hacking+ and programming challenges.
-With the former, you demonstrate your skill to surpass security controls.
+With the former, you demonstrate your skill to bypass security controls.
 With the second one, you demonstrate your adaptation skills
 when it comes to solving problems in unknown environments.
 With the latter, you show that you are able
 to quickly understand source code,
 and thus it will be easier for you to audit it.
 
-By uploading solutions to the repositories,
+By solving challenges,
 we look forward to:
 
 . Promote the solution of unresolved challenges.
 
 . Encourage self-directed and independent learning
 
-. Bring to life the solutions financed by +Fluid Attacks+.
-
-. Allow third parties to view the deliverables of our team.
-
-The collateral effects of this decision allow +Fluid Attacks+ to:
+By uploading your solutions to +GitLab+, you will be able to:
 
 . Use the +GitLab+ infrastructure to analyze
-the quality and speed of the development of everyone in the process.
+your efficiency and work quality as you adapt to the process.
 
 . From early stages,
-familiarize potential talents with the tools
+familiarize with the tools
 (+Git+, +AsciiDoc+, +Python+, +Gherkin+, etc) and
 concepts (automation, unit tests, continuous integration, +linting+, etc.) that
-they will use in their daily work in +Fluid Attacks+.
+you will use in your daily work in +Fluid Attacks+.
 
-. Make the results visible to the community and
-the team (peer pressure).
+. Make your results visible to the community and
+the team.
 
 == 2. Objectives
 
@@ -72,208 +68,7 @@ the team (peer pressure).
 
 . Solve +3+ unique +vbd-hacking+ challenges.
 
-== 3. Criteria
-
-Challenge solutions,
-regardless if they are programming, +ctf-hacking+ or +vbd-hacking+
-must always meet the following [button]#link:../../style/#font[style]# guideline.
-
-Programming solutions must additionally comply with the following:
-
-. A solution in the same language you chose (in the challenge folder)
-must not exist already.
-
-. They must not have an external indexed solution
-(links + OTHERS.lst + of the challenge) for the language chosen by you.
-
-. The execution commands used and
-their output must be included in the *postlude*
-at the end of the code.
-+
-.milogin.rs
-[source, rust, linenums]
-----
-My solution's last line.
-
-/*
-$ ./skhorn
-over obese obese normal obese obese obese obese ...
-*/
-----
-
-. If the solution takes a set of input data,
-such input must not be hardcoded into the solution.
-Meaning that the solution must read from a +DATA.lst+ file
-located in the challenge directory.
-If such file does not exist, you must include it in your commit
-
-+ctf-hacking+ and +vbd-hacking+ solutions must comply with the following:
-
-. They must not have a solution in +Gherkin+ (+*.feature+)
-in the repository (challenge folder).
-
-. They must not have an external indexed solution
-(links +OTHERS.lst+ of the challenge).
-
-. They must be challenges that
-require a technical level (not mathematical nor riddle)
-from [button]#link:http://www.wechall.net/[WeChall]#
-or its related sites.
-
-Aditionally, +ctf-hacking+ solutions
-must comply with the following:
-
-. They must follow the template link:https://gitlab.com/autonomicmind/training/blob/master/templates/hacking-challenges.feature[hacking-challenges.feature]
-
-Aditionally, +vbd-hacking+ solutions
-must comply with the following:
-
-. They must follow the template link:https://gitlab.com/fluidattacks/writeups/blob/master/templates/hacking-systems.feature[hacking-systems.feature]
-
-. They must be challenges that Require
-exploiting intentionally vulnerable systems (+ToE+) listed in:
-.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
-.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
-.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
-.. [button]#link:https://www.vulnhub.com/[Vulnhub]#
-. All source code in solutions must follow the parameters described in
-[button]#link:../../style/#font[this guide]#
-
-
-== 4. Score
-
-As you go on solving programming or +ctf-hacking+ challenges,
-you must report your +total score+, +ranking+ and
-+score+ obtained for the specific challenged solved,
-which will allow us to follow your progress in this stage.
-All this information must be included in the +commit message+
-following the format described in the link:#envio[submission requirements]
-
-Here's how to get your scores and ranking for each platform.
-
-=== 4.1 Programming
-
-. World Ranking
-
-.. In +codeabbey+, go to the “Ranking” tab:
-image:ranking-mundial-codeabbey.png[World Ranking - codeabbey]
-
-.. Scroll to the bottom of the page and
-there you will find your position in the world ranking:
-image:ranking-mundial-codeabbey-2.png[World Ranking - codeabbey]
-
-. Country Ranking
-
-.. While in the “Ranking” rab,
-select the country:
-image:ranking-colombia-codeabbey.png[Country Ranking]
-
-.. The page doesn’t directly show your position
-so you will have to manually count.
-To make this easier,
-you should take into account that each page shows +50+ users.
-
-You must continue to the next page
-until you find your username on the ranking board
-image:ranking-colombia-codeabbey-2.png[Country Ranking - codeabbey]
-
-=== 4.2 CTF-Hacking
-
-image::ranking-wechall.png[Wechall Ranking]
-
-=== 4.3 Rankings
-
-There is a site for both training and wirteups statistics
-that will allow you to know things like
-how many unique solutions you have uploaded,
-your position in the overall hacker ranking,
-most used programming languages,
-among many others.
-You can access the site [button]#link:https://autonomicmind.gitlab.io/training/[here]#
-
-== 5. Submission
-
-Solutions are sent through a +Merge Request+ (+MR+)
-to the +master+ branch of the repositories:
-
-. [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=merged[training]# for +ctf-hacking+ and programming challenges
-. [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests?scope=all&utf8=%E2%9C%93&state=merged[writeups]# for +vbd-hacking+ challenges
-
-Before sending an +MR+
-please verify that you meet the following criteria:
-
-. You should only work on a branch
-whose name is exactly your username in +Gitlab+.
-
-. All files related to a challenge’s solution
-must respect the [button]#link:#structure[following structure]#
-
-. If the solutions require additional files,
-they must be included in the corresponding challenge directory.
-
-. Each challenge solution must be submitted
-with +10+ link:#external[external solutions] (+10+ +URLs+ in +OTHERS.lst+ files).
-
-. The solution and all files associated to it
-must be all sent in +1+ +commit+.
-
-. The +commit+ for each solution must be sent in only +1+ +MR+.
-
-. The +MR+ must only be sent
-once your branch has successfully finished integrating (green).
-
-. If the +MR+ is rejected it must not be reopened.
-The errors must be fixed and the solution sent in a new +MR+.
-
-. The +commit+ message to send the solution
-must follow one of the templates
-according to the type of the solution:
-
-.. link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[Programming and ctf-hacking challenges]
-.. link:https://gitlab.com/fluidattacks/writeups/blob/master/templates/commit-msg-vbd.txt[vbd-hacking vulnerabilities].
-
-== 6. External
-
-The rules for the links (+URLs+)
-to external solutions (+OTHERS.lst+) are the following:
-
-. They must be direct links (+HTTP 200+) without redirection (+HTTP 301/302+).
-
-. They don’t need to be solutions for the same challenge you solved.
-
-. They must be +hacking+ links if you solved a +hacking+ challenge.
-
-.. The links must be unique,
-in other words, external solutions to challenges
-to which we have no previous external solutions.
-
-.. If you send a +vbd-hacking+ solution,
-the external solutions must be +vbd-hacking+ solutions.
-
-.. If you send a +ctf-hacking+ solution,
-the external solutions can be +ctf-hacking+ or +vbd-hacking+ solutions.
-
-. They must be programming solutions
-if you solved a programming challenge.
-
-.. You must not add external solutions
-for a language that already has an external solution.
-
-.. Within the +OTHERS+ of a programming solution
-the +URLs+ must be ordered alphabetically by extension.
-
-. If it is in +github+ the +URL+ must be to its +raw+ version
-(link:https://raw.githubusercontent.com/[]).
-
-== 7. Examples
-
-Examples of +MR+ that have been accepted recently can be found here:
-
-. [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=merged[training]#
-
-. [button]#link:https://gitlab.com/fluidattacks/writeups/merge_requests?scope=all&utf8=%E2%9C%93&state=merged[writeups]#
-
-== 8. Recommendations
+== 3. Recommendations
 
 . When solving programming challenges,
 we suggest using a language that is not widely used.
@@ -287,86 +82,7 @@ because this way,
 you will never receive feedback
 in order to know what you are doing wrong
 
-== 9. Repositories
-
-It is ideal that you become familiar with the versioning and
-the structure that we detail below.
-
-=== 9.1 Structure
-
-Solutions are stored in the following folders
-depending on the repository you are currently in:
-
-[role="tb-col"]
-[frame="topbot"]
-|====
-^.^s| Repo ^.^| training ^.^| training ^.^| writeups
-
-^.^s| Folder ^.^| code ^.^| hack ^.^| vbd
-
-^.^s| Description
-| Folder to store programming challenges.
-| Folder to store +ctf-hacking+ challenges.
-| Folder to store vulnerable +vbd-hacking+ challenges.
-
-^.^s| Structure
-a| * <site> (directory)
-** <challenge-id> (directory)
-*** <login-gitlab.ext> (solution file)
-a| * <site> (directory)
-** <challenge-id> (directory)
-*** <login-gitlab.feature> (solution file)
-a| * <name-of-the-vulnerable-machine> (directory)
-** <cwe-code>-<exploit-name> (directory)
-*** <login-gitlab.feature> (solution file)
-
-^.^s| Example
-a| * link:https://gitlab.com/autonomicmind/training/tree/master/code/codeabbey/[codeabbey]
-** link:https://gitlab.com/autonomicmind/training/tree/master/code/codeabbey/135/[135]
-*** link:https://gitlab.com/autonomicmind/training/blob/master/code/codeabbey/135/skhorn.rs[skhorn.rs]
-a| * link:https://gitlab.com/autonomicmind/training/tree/master/hack/rootme[rootme]
-*** link:https://gitlab.com/autonomicmind/training/tree/master/hack/rootme/cracking-elf-exploitme[cracking-elf-exploitme]
-**** link:https://gitlab.com/autonomicmind/training/blob/master/hack/rootme/cracking-elf-exploitme/simongomez95.feature[simongomez95.feature]
-a| * link:https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dvwa[dvwa]
-*** link:https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dvwa/0657-csp-bypass-medium[0657-csp-bypass-medium]
-**** link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvwa/0657-csp-bypass-medium/kedavamaru.feature[kedavamaru.feature]
-|====
-
-The naming of all files and folders,
-must not exceed +35+ characters,
-written in lowercase,
-without any special characters and
-In case a space is needed use a *-* (dash) to replace it.
-
-=== 9.2 Files
-
-Some of the folders described in the structure contain special files:
-
-** *LINK.lst:* Contains the challenge URL.
-(link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/001/LINK.lst[example]).
-This file must only have one line with the challenge link and
-it must give a +HTTP 200+ response when visiting it (No redirection).
-
-** *DATA.lst:* Contains the test cases
-with which the challenge was validated.
-This file should only contain test cases that are
-immediately processable by any solution file.
-
-** *OTHERS.lst:* It contains the links to the external solutions
-found on the Internet for said challenge
-which must not be read or used
-as a reference to solve the challenge.
-This file allows an automatic script to perform a similarity analysis
-with the challenges sent by the candidates.
-They must comply with what is specified [button]#link:#external[here]#
-
-** *SPEC.txt* and *spec.yml*:
-Contains the specifications of challenges site or
-the vulnerable machine you are working on,
-like number of challenges or vulnerabilities, +URL+ and difficulty.
-You can see an example link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[here]
-
-== 10. Stage steps
+== 4. Stage steps
 
 To successfully finish this stage, you must:
 
@@ -409,7 +125,7 @@ ____________________________________________________________________
 . Complete +three (3)+ +vbd-hacking+ challenges
 in the +writeups+ repository
 
-== 11. End
+== 5. Conditions
 
 The challenge stage ends under any of the following conditions:
 
@@ -432,27 +148,7 @@ You may apply again at any time
 and start over the process by clicking
 [button]#link:../../../../forms/aplicacion[here]#
 
-== 12. Builds
-
-It is possible to run local integrations
-in order to identify any errors before doing +push+ or
-sending a +merge requests+ to the repositories.
-To do so,
-please read the instrcutions provided [button]#link:https://gitlab.com/fluidattacks/writeups/wikis/Local-builds[here]#.
-
-== 13. Commit syntax and Commitlint
-
-At +Fluid Attacks+ we use a specific syntax for commits and MR's,
-this with the purpose of doing data analysis.
-All commit and MR messages will be evaluated by the continuous integrator (CI).
-More information about such syntax can be found link:https://gitlab.com/fluidattacks/default/wikis/Commit-and-MR-Messages[here].
-
-Commitlint is a tool that allows to verify
-if a commit or MR message is compliant with the defined syntax rules.
-Commitlint can be run locally with the purpose of speeding up checks.
-More information about Commitlint can be found link:https://gitlab.com/fluidattacks/default/wikis/Commit-and-MR-Messages#local-commitlint-setup[here].
-
-== 14. Questions
+== 6. Questions
 
 * Before you send us a question,
 please read this document carefully once more and
@@ -462,7 +158,7 @@ our link:../faq/[Frequently Asked Questions].
 questions in our *#general*
 link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack channel].
 
-== 15. Property
+== 7. Property
 
 * The proprietary rights of all content
 in the repositories are defined in the files:
@@ -481,7 +177,7 @@ Therefore, all information contained herein may be used
 by +Fluid Attacks+ for any commercial purpose,
 always preserving the moral rights of their authors.
 
-== 16. Plagirism
+== 8. Plagirism
 
 Having the solutions available at everyones disposal
 poses an opportunity for plagiarism,
@@ -507,3 +203,11 @@ In particular using:
 * link:https://en.wikipedia.org/wiki/Plagiarism_detection[Plagiarism Detection Theory]
 * link:https://www.plagaware.com/[PlagAware]
 * link:https://www.safe-corp.com/products_codematch.htm[Code Match]
+
+== 9. Submission
+
+Now that you know all the rules
+and have a general understanding
+of why these challenges are important,
+you can proceed to the [button]#link:https://gitlab.com/fluidattacks/writeups/wikis/Submission[Submission guide]#
+and start posting your solutions. Good luck!
