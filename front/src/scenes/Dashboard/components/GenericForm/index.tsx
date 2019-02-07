@@ -36,7 +36,7 @@ const renderCurrentValue: ((fieldProps: IEditableField) => JSX.Element) =
   (fieldProps: IEditableField): JSX.Element => (
     _.startsWith(fieldProps.value, "https://")
       ? <a href={fieldProps.value}>{fieldProps.value}</a>
-      : <p style={{ fontSize: "18px" }}>{fieldProps.value}</p>
+      : <p className={style.currentValue}>{fieldProps.value}</p>
   );
 
 const renderEditableField: ((fieldProps: IEditableField) => JSX.Element) =

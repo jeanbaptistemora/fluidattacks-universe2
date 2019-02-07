@@ -2,10 +2,11 @@
   margin-top: 15px;
 }
 
-:local .title {
-  text-align: right;
-}
-
 :local .fieldColumn {
   overflow-wrap: break-word;
+}
+
+:local .currentValue {
+  font-size: "18px";
+  white-space: pre-wrap;
 }
