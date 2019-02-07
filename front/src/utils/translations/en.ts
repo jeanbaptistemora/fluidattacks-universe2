@@ -276,6 +276,7 @@ const enTranslations: Map<string, string> = {
     },
   },
   validations: {
+    between: "This value must be between {{min}} and {{max}}",
     email: "The email format is not valid",
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",

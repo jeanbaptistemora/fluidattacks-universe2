@@ -7,6 +7,11 @@ export const required: ConfiguredValidator = isRequired({
   message: translate.t("validations.required"),
 });
 
+export const numberBetween: ((min: number, max: number) => ((value: number) => string | undefined)) =
+  (min: number, max: number): ((value: number) => string | undefined) =>
+    (value: number): string | undefined =>
+      value < min || value > max ? translate.t("validations.between", { min, max }) : undefined;
+
 export const minLength: ((min: number) => ConfigurableValidator) = (min: number): ConfigurableValidator =>
   hasLengthGreaterThan(min - 1)({ message: translate.t("validations.minLength", { count: min }) });
 

@@ -58,11 +58,11 @@ const renderField: ((fieldProps: IEditableField, totalCols: number) => JSX.Eleme
 const renderCols: ((cols: FormCols) => JSX.Element) = (cols: FormCols): JSX.Element => {
   const visibleCols: FormCols = cols.filter((field: IEditableField) => field.visible);
 
-  return (
+  return visibleCols.length > 0 ? (
     <Row className={style.row}>
       {visibleCols.map((field: IEditableField): JSX.Element => renderField(field, cols.length))}
     </Row>
-  );
+  ) : <React.Fragment />;
 };
 
 const renderForm: ((props: formProps) => JSX.Element) = (props: formProps): JSX.Element => (
