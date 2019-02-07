@@ -108,9 +108,9 @@ therefore request access to the +git+ +training+ repository
 with my +GitLab+ username [username].
 ____________________________________________________________________
 
-. Complete one +programming+ challenge, then one +ctf-hacking+ challenge...
-And repeat this until you reach +three (3)+
-completed challenges of each type
+. Complete +three (3)+ +programming+ challenges
+
+. Complete +three (3)+ +ctf-hacking+ challenges
 
 . Request developer permissions to the +writeups+ repository through +Slack+
 In the *#general* channel with the following message:
