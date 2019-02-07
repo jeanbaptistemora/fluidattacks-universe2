@@ -48,14 +48,12 @@ const renderTreatmentMgrField: ((props: IDescriptionViewProps) => IEditableField
           </React.Fragment>),
         component: dropdownField,
         name: "treatmentManager",
-        validate: [...props.formValues.treatment === "Remediated" ? [required] : []],
+        validate: [...props.formValues.treatment === "Remediar" ? [required] : []],
       },
       label: translate.t("search_findings.tab_description.treatment_mgr"),
-      renderAsEditable: props.isEditing
-        && _.includes(["customer", "customeradmin"], props.userRole)
-        && props.formValues.treatment === "Remediar",
+      renderAsEditable: props.isEditing && _.includes(["customer", "customeradmin"], props.userRole),
       value: props.dataset.treatmentManager,
-      visible: true,
+      visible: !props.isEditing || (props.isEditing && props.formValues.treatment === "Remediar"),
     };
   };
 

@@ -957,7 +957,7 @@ class UpdateTreatment(Mutation):
         bts_url = String()
         finding_id = String(required=True)
         treatment = String(required=True)
-        treatment_manager = String(required=True)
+        treatment_manager = String()
         treatment_justification = String(required=True)
     success = Boolean()
     finding = Field(Finding)
@@ -967,24 +967,29 @@ class UpdateTreatment(Mutation):
     @require_finding_access_gql
     def mutate(self, info, finding_id, **parameters):
         user_email = util.get_jwt_content(info.context)['user_email']
-
         project_name = get_project_name(finding_id)
-        project_users = [user[0]
-                         for user in integrates_dao.get_project_users(project_name)
-                         if user[1] == 1]
-        customer_users = [user
-                          for user in project_users
-                          if integrates_dao.get_role_dao(user) == "customer"]
 
-        if parameters['treatment_manager'] in customer_users:
-            if parameters['treatment'] != 'Remediar':
-                del parameters['treatment_manager']
-            success = update_treatment(finding_id, parameters, user_email)
+        if parameters['treatment'] == "Remediar":
+            if parameters.get('treatment_manager'):
+                project_users = [user[0]
+                                 for user in integrates_dao.get_project_users(project_name)
+                                 if user[1] == 1]
+                customer_roles = ["customer", "customeradmin"]
+                customer_users = [user
+                                  for user in project_users
+                                  if integrates_dao.get_role_dao(user) in customer_roles]
 
-            ret = UpdateTreatment(success=success,
-                                  finding=Finding(info=info, identifier=finding_id))
-            util.invalidate_cache(finding_id)
-            util.invalidate_cache(project_name)
-            return ret
-        else:
-            raise GraphQLError('Invalid treatment manager')
+                if parameters.get('treatment_manager') not in customer_users:
+                    raise GraphQLError('Invalid treatment manager')
+            else:
+                raise GraphQLError('Invalid treatment manager')
+        elif parameters['treatment'] == "Asumido":
+            parameters['treatment_manager'] = user_email
+
+        success = update_treatment(finding_id, parameters, user_email)
+
+        ret = UpdateTreatment(success=success,
+                              finding=Finding(info=info, identifier=finding_id))
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
+        return ret
