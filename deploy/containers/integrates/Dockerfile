@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidsignal/integrates:deps190109
+FROM registry.gitlab.com/fluidsignal/integrates:deps190201
 
 # Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
