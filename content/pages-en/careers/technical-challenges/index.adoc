@@ -31,7 +31,7 @@ through practical exercises and problems
 similar to the ones you will face in +Fluid Attacks+.
 
 The technical challenges are divided into
-+vbd-hacking+, +ctf-hacking+ and programming challenges.
++vbd-hacking+, +ctf-hacking+ and +programming+ challenges.
 With the former, you demonstrate your skill to bypass security controls.
 With the second one, you demonstrate your adaptation skills
 when it comes to solving problems in unknown environments.
@@ -62,7 +62,7 @@ the team.
 
 == 2. Objectives
 
-. Solve +3+ unique programming challenges.
+. Solve +3+ unique +programming+ challenges.
 
 . Solve +3+ unique +ctf-hacking+ challenges.
 
@@ -70,8 +70,9 @@ the team.
 
 == 3. Recommendations
 
-. When solving programming challenges,
-we suggest using a language that is not widely used.
+. When solving +programming+ challenges,
+We recommend [button]#link:https://www.codeabbey.com/[Codeabbey]#.
+Also, we suggest using a language that is not widely used.
 
 . When solving +ctf-hacking+ challenges,
 we recommend [button]#link:https://www.root-me.org/?lang=en[Root Me]#
@@ -104,10 +105,10 @@ ____________________________________________________________________
 I have read and understood all documentation pertaining to technical challenges,
 I agree to all of the terms and
 therefore request access to the +git+ +training+ repository
-With my +GitLab+ username [username].
+with my +GitLab+ username [username].
 ____________________________________________________________________
 
-. Complete one +ctf-hacking+ challenge, then one programming challenge...
+. Complete one +programming+ challenge, then one +ctf-hacking+ challenge...
 And repeat this until you reach +three (3)+
 completed challenges of each type
 
@@ -116,10 +117,10 @@ In the *#general* channel with the following message:
 +
 [quote]
 ____________________________________________________________________
-I have completed three (3) programming and three (3) +ctf-hacking+ challenges
+I have completed three (3) +programming+ and three (3) +ctf-hacking+ challenges
 in the training repo
 therefore request access to the +git+ +writeups+ repository
-With my +GitLab+ username [username].
+with my +GitLab+ username [username].
 ____________________________________________________________________
 
 . Complete +three (3)+ +vbd-hacking+ challenges
