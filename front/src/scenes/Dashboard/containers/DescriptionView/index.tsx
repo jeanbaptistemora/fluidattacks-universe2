@@ -135,7 +135,7 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
       <Col md={12} sm={12} xs={12}>
         <Row style={{ paddingTop: "10px" }}>
           <Col md={2} mdOffset={8} xs={6} sm={6}>
-            {_.includes(["admin", "analyst"], props.userRole) && props.isEditing ? renderUpdateBtn() : undefined}
+            {props.isEditing ? renderUpdateBtn() : undefined}
           </Col>
           {renderEditBtn()}
         </Row>
@@ -172,9 +172,6 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
             updateDescription(values as IDescriptionViewProps["dataset"], props.userRole, props.findingId);
           }}
         />
-        <Row style={{ paddingTop: "10px" }}>
-          {props.isEditing && _.includes(["customer", "customeradmin"], props.userRole) ? renderUpdateBtn() : undefined}
-        </Row>
       </Col>
     </React.Fragment>
   );

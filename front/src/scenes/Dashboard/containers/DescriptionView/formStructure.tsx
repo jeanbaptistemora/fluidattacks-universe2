@@ -158,7 +158,7 @@ const renderDetailedFields: ((props: IDescriptionViewProps) => FormRows) =
     [renderProbabilityField(props), renderSeverityField(props), renderRiskLevel(props)],
   ];
 
-export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
+const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
     [renderReportLevelField(props)],
     [{
@@ -390,6 +390,10 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       value: props.dataset.kbUrl,
       visible: props.dataset.kbUrl !== "" || props.isEditing,
     }],
+  ];
+
+const renderCustomerEditableFields: ((props: IDescriptionViewProps) => FormRows) =
+  (props: IDescriptionViewProps): FormRows => [
     [{
       componentProps: {
         component: textField,
@@ -439,4 +443,12 @@ export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
       value: props.dataset.treatmentJustification,
       visible: true,
     }],
+  ];
+
+export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
+  (props: IDescriptionViewProps): FormRows => [
+    ...(!props.isEditing || (props.isEditing && _.includes(["admin", "analyst"], props.userRole))
+      ? renderAnalystEditableFields(props) : []),
+    ...(!props.isEditing || (props.isEditing && _.includes(["customer", "customeradmin"], props.userRole))
+      ? renderCustomerEditableFields(props) : []),
   ];
