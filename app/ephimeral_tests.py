@@ -20,8 +20,11 @@ class ViewTestCase(unittest.TestCase):
         self.delay = 20
         self.selenium = webdriver.Firefox(options=options)
         self.branch = os.environ['CI_COMMIT_REF_NAME']
-        self.url = \
-            'https://{}.integrates.env.fluidattacks.com'.format(self.branch)
+        if self.branch == 'master':
+            self.url = 'https://fluidattacks.com/integrates'
+        else:
+            self.url = \
+                'https://{}.integrates.env.fluidattacks.com'.format(self.branch)
         self.username = os.environ['FI_INTEGRATES_USER']
         self.password = os.environ['FI_INTEGRATES_USERPASS']
 

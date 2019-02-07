@@ -273,8 +273,6 @@ driver-testing:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
       - screenshots/
-  except:
-    - master
 
 review-integrates:
   stage: review
