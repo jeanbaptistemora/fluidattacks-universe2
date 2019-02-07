@@ -132,9 +132,6 @@ The challenge stage ends under any of the following conditions:
 . You have met all link:#objectives[objectives] and
 Sent an +email+ with the links to your solutions in the +master+ branch.
 . If there is no activity (+push+ to the +git+ repos) in +14+ calendar days.
-. If you reach the maximum of +10+ failed +MR+,
-this means the +MR+ was rejected and
-not merged due to its failure to meet the requirements.
 . If you explicitly manifest your desire to end the process in an +email+.
 . If you present someone else’s complete or
 partial solutions as your own (plagiarism).
@@ -211,3 +208,9 @@ and have a general understanding
 of why these challenges are important,
 you can proceed to the [button]#link:https://gitlab.com/fluidattacks/writeups/wikis/Submission[Submission guide]#
 and start posting your solutions. Good luck!
+
+== 10. keywords
+
+. +ToE+: link:https://docs.marklogic.com/6.0/guide/cc/toe[Target Of Evaluation]
+. +VBD+: Vulnerable by design
+. +CTF+: link:https://ctftime.org/ctf-wtf/[Capture The Flag]
