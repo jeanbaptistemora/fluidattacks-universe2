@@ -100,6 +100,13 @@ const esTranslations: Map<string, string> = {
       path: "Ruta",
       port: "Puerto",
       port_plural: "Puertos",
+      probability: {
+        25: "25% Difícil de vulnerar",
+        50: "50% Posible de vulnerar",
+        75: "75% Fácil de vulnerar",
+        100: "100% Vulnerado Anteriormente",
+        title: "Probabilidad",
+      },
       recommendation: "Recomendación",
       remediation_modal: {
         justification: "¿Cuál fue la solución aplicada?",
@@ -112,6 +119,7 @@ const esTranslations: Map<string, string> = {
       },
       request_verify: "Solicitar verificación",
       requirements: "Requisitos",
+      risk_level: "Nivel del riesgo",
       scenario: {
         anon_inter: "Anónimo desde Internet",
         anon_intra: "Anónimo desde Intranet",
@@ -123,6 +131,7 @@ const esTranslations: Map<string, string> = {
         unauth_inter: "Usuario de Internet no autorizado",
         unauth_intra: "Usuario de Intranet no autorizado",
       },
+      severity: "Severidad",
       threat: "Amenaza",
       title: "Título",
       treatment: {

@@ -97,6 +97,9 @@ export const loadDescription: ThunkActionStructure<void> =
           treatmentJustification
           clientCode
           clientProject
+          probability
+          detailedSeverity
+          riskLevel
         }
       }`;
 
@@ -233,6 +236,8 @@ export const updateDescription: ThunkActionStructure<void> =
           kbUrl: ${JSON.stringify(values.kbUrl)},
           clientCode: ${JSON.stringify(values.clientCode)},
           clientProject: ${JSON.stringify(values.clientProject)}
+          severity: ${values.detailedSeverity},
+          probability: ${JSON.stringify(values.probability)}
         ) {
           finding {
             actor
@@ -251,6 +256,9 @@ export const updateDescription: ThunkActionStructure<void> =
             title
             clientCode
             clientProject
+            probability
+            detailedSeverity
+            riskLevel
           }
           success
         }

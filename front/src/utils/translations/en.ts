@@ -99,6 +99,13 @@ const enTranslations: Map<string, string> = {
       path: "Path",
       port: "Port",
       port_plural: "Ports",
+      probability: {
+        25: "25% Hard to exploit",
+        50: "50% Possible to exploit",
+        75: "75% Easy to exploit",
+        100: "100% Exploited before",
+        title: "Probability",
+      },
       recommendation: "Recommendation",
       remediation_modal: {
         justification: "Which was the applied solution?",
@@ -111,6 +118,7 @@ const enTranslations: Map<string, string> = {
       },
       request_verify: "Request verification",
       requirements: "Requirements",
+      risk_level: "Risk level",
       scenario: {
         anon_inter: "Anonymous from Internet",
         anon_intra: "Anonymous from Intranet",
@@ -122,6 +130,7 @@ const enTranslations: Map<string, string> = {
         unauth_inter: "Unauthorized Internet user",
         unauth_intra: "Unauthorized Intranet user",
       },
+      severity: "Severity",
       threat: "Threat",
       title: "Title",
       treatment: {

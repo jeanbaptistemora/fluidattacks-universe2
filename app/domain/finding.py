@@ -3,7 +3,7 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 
-from __future__ import absolute_import
+from __future__ import absolute_import, division
 import os
 import sys
 import threading
@@ -14,6 +14,7 @@ from decimal import Decimal
 import boto3
 import rollbar
 from botocore.exceptions import ClientError
+from graphql import GraphQLError
 
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from app import util
@@ -460,6 +461,11 @@ def request_verification(finding_id, user_email, user_fullname, justification):
     return success
 
 
+def calc_risk_level(probability, severity):
+    probability_value = int(probability[:3].replace('%', ''))
+    return str(round((probability_value / 100) * severity, 1))
+
+
 def update_description(finding_id, updated_values):
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
@@ -471,6 +477,14 @@ def update_description(finding_id, updated_values):
     del updated_values['description']
     del updated_values['recommendation']
     del updated_values['kb_url']
+
+    if updated_values.get('probability') and updated_values.get('severity'):
+        if updated_values['severity'] < 0 or updated_values['severity'] > 5:
+            raise GraphQLError('Invalid severity')
+        else:
+            updated_values['risk_value'] = calc_risk_level(
+                updated_values['probability'],
+                updated_values['severity'])
 
     description = integrates_dao.get_finding_attributes_dynamo(
         finding_id,

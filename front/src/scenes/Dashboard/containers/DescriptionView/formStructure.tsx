@@ -4,7 +4,7 @@ import globalStyle from "../../../../styles/global.css";
 import { formatCweUrl, formatDropdownField } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required } from "../../../../utils/validations";
+import { numberBetween, numeric, required } from "../../../../utils/validations";
 import { FormRows, IEditableField } from "../../components/GenericForm/index";
 import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
@@ -85,10 +85,77 @@ const renderCustomerProjectField: ((props: IDescriptionViewProps) => IEditableFi
     visible: props.isEditing,
   });
 
+const renderProbabilityField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      children: (
+        <React.Fragment>
+          <option value="" selected={true} />
+          <option value="100% Vulnerado Anteriormente">
+            {translate.t("search_findings.tab_description.probability.100")}
+          </option>
+          <option value="75% Fácil de vulnerar">
+            {translate.t("search_findings.tab_description.probability.75")}
+          </option>
+          <option value="50% Posible de vulnerar">
+            {translate.t("search_findings.tab_description.probability.50")}
+          </option>
+          <option value="25% Difícil de vulnerar">
+            {translate.t("search_findings.tab_description.probability.25")}
+          </option>
+        </React.Fragment>),
+      component: dropdownField,
+      name: "probability",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.probability.title"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.probability,
+    visible: props.isEditing,
+  });
+
+const severityBetween: ((value: number) => string | undefined) = numberBetween(0, 5);
+const renderSeverityField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      component: textField,
+      name: "detailedSeverity",
+      type: "number",
+      validate: [required, severityBetween],
+    },
+    label: translate.t("search_findings.tab_description.severity"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.probability,
+    visible: props.isEditing,
+  });
+
+const calcRiskLevel: ((probability: string, severity: number) => string) =
+  (probability: string, severity: number): string => {
+    const probabilityValue: number = Number(probability
+      .substring(0, 3)
+      .replace("%", ""));
+
+    return ((probabilityValue / 100) * severity).toFixed(1);
+  };
+
+const renderRiskLevel: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      component: textField,
+      disabled: true,
+      name: "riskLevel",
+      type: "number",
+    },
+    label: translate.t("search_findings.tab_description.risk_level"),
+    renderAsEditable: false,
+    value: calcRiskLevel(props.formValues.probability, props.formValues.detailedSeverity),
+    visible: props.isEditing,
+  });
 
 const renderDetailedFields: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
     [renderCustomerCodeField(props), renderCustomerProjectField(props)],
+    [renderProbabilityField(props), renderSeverityField(props), renderRiskLevel(props)],
   ];
 
 export const getFormStructure: ((props: IDescriptionViewProps) => FormRows) =
