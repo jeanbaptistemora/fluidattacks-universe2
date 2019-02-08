@@ -7,7 +7,9 @@
 
 = ¿Dónde está la versión en español?
 
-En +Fluid Attacks+ incentivamos activamente el uso del inglés, por lo que
-toda la documentación relativa a los retos técnicos
-puede ser únicamente encontrada en dicho idioma.
+Uno de los criterios a evaluar durante esta etapa
+son tus competencias de comprensión de lectura en inglés,
+para ello pondrás a prueba tus habilidades
+leyendo la documentación del proceso,
+que se encuentra úncamente en dicho idioma.
 Link a retos técnicos en inglés: [button]#link:../../../en/careers/technical-challenges[Technical Challenges]#
