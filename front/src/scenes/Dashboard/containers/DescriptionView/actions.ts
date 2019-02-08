@@ -99,6 +99,7 @@ export const loadDescription: ThunkActionStructure<void> =
           clientProject
           probability
           detailedSeverity
+          risk
           riskLevel
           ambit
           category
@@ -262,6 +263,7 @@ export const updateDescription: ThunkActionStructure<void> =
             clientProject
             probability
             detailedSeverity
+            risk
             riskLevel
             ambit
             category

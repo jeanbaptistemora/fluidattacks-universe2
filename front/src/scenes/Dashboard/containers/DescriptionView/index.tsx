@@ -45,6 +45,7 @@ export interface IDescriptionViewProps {
     remediated: boolean;
     reportLevel: string;
     requirements: string;
+    risk: string;
     riskLevel: string;
     scenario: string;
     state: string;

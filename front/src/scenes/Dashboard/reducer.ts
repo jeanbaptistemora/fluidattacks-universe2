@@ -84,6 +84,7 @@ const initialState: IDashboardState = {
       remediated: false,
       reportLevel: "",
       requirements: "",
+      risk: "",
       riskLevel: "",
       scenario: "",
       state: "",

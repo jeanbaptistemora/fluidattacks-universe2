@@ -928,6 +928,7 @@ class UpdateDescription(Mutation):
         records_number = Int(required=True)
         report_level = String(required=True)
         requirements = String(required=True)
+        risk = String()
         severity = Int()
         scenario = String(required=True)
         threat = String(required=True)

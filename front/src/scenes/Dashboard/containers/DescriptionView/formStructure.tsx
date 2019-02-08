@@ -238,6 +238,21 @@ const renderCategoryField: ((props: IDescriptionViewProps) => IEditableField) =
     visible: props.isEditing,
   });
 
+const renderRiskField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      className: globalStyle.noResize,
+      component: textAreaField,
+      name: "risk",
+      type: "text",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.risk"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.risk,
+    visible: props.isEditing && props.formValues.reportLevel === "DETAILED",
+  });
+
 const renderDetailedFields: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
     [renderCustomerCodeField(props), renderCustomerProjectField(props)],
@@ -391,6 +406,19 @@ const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) 
       visible: true,
     },
      {
+       componentProps: {
+         className: globalStyle.noResize,
+         component: textAreaField,
+         name: "affectedSystems",
+         type: "text",
+         validate: [required],
+       },
+       label: translate.t("search_findings.tab_description.affected_systems"),
+       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+       value: props.dataset.affectedSystems,
+       visible: true,
+     }],
+    [{
       componentProps: {
         className: globalStyle.noResize,
         component: textAreaField,
@@ -402,7 +430,8 @@ const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) 
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
       value: props.dataset.threat,
       visible: true,
-    }],
+    },
+      renderRiskField(props)],
     [{
       componentProps: {
         className: globalStyle.noResize,
@@ -414,19 +443,6 @@ const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) 
       label: translate.t("search_findings.tab_description.recommendation"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
       value: props.dataset.recommendation,
-      visible: true,
-    },
-     {
-      componentProps: {
-        className: globalStyle.noResize,
-        component: textAreaField,
-        name: "affectedSystems",
-        type: "text",
-        validate: [required],
-      },
-      label: translate.t("search_findings.tab_description.affected_systems"),
-      renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-      value: props.dataset.affectedSystems,
       visible: true,
     }],
     [{

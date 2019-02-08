@@ -148,6 +148,7 @@ const esTranslations: Map<string, string> = {
       },
       request_verify: "Solicitar verificación",
       requirements: "Requisitos",
+      risk: "Riesgo",
       risk_level: "Nivel del riesgo",
       scenario: {
         anon_inter: "Anónimo desde Internet",

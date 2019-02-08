@@ -146,6 +146,7 @@ const enTranslations: Map<string, string> = {
       },
       request_verify: "Request verification",
       requirements: "Requirements",
+      risk: "Risk",
       risk_level: "Risk level",
       scenario: {
         anon_inter: "Anonymous from Internet",
