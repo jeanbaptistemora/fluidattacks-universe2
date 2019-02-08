@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-04 23:30+0000\n"
+"POT-Creation-Date: 2019-02-08 01:03+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -39,50 +39,71 @@ msgstr "Archivos del Blog"
 msgid "Arcives-msg-1"
 msgstr "Archivos para"
 
-#: templates/article.html:49 templates/article.html:218
-#: templates/author.html:35 templates/authors.html:28
+#: templates/article.html:48 templates/article.html:238
+#: templates/author.html:34 templates/authors.html:28
 #: templates/categories.html:28 templates/category.html:25
-#: templates/error.html:34 templates/form.html:48 templates/index.html:18
-#: templates/page.html:52 templates/page.html:181 templates/search.html:26
-#: templates/tag.html:38 templates/tags.html:28
+#: templates/error.html:34 templates/form.html:48 templates/index.html:20
+#: templates/page.html:52 templates/page.html:213 templates/salesforce.html:52
+#: templates/search.html:28 templates/tag.html:38 templates/tags.html:28
 msgid "Breadcrumb-0"
 msgstr "Inicio"
 
-#: templates/article.html:51 templates/article.html:232
+#: templates/article.html:56 templates/article.html:252
 msgid "Articles-breadcrumb-1"
 msgstr "Categorías"
 
-#: templates/article.html:90
+#: templates/article.html:67 templates/authors.html:42
+#: templates/categories.html:42 templates/error.html:43 templates/form.html:59
+#: templates/index.html:29 templates/page.html:92 templates/salesforce.html:64
+#: templates/tags.html:42
+msgid "Translate-msg-en"
+msgstr ""
+
+#: templates/article.html:69 templates/article.html:80
+#: templates/authors.html:44 templates/authors.html:53
+#: templates/categories.html:44 templates/categories.html:53
+#: templates/error.html:45 templates/error.html:54 templates/form.html:61
+#: templates/form.html:72 templates/index.html:31 templates/index.html:40
+#: templates/navigationbar.html:51 templates/page.html:94
+#: templates/page.html:105 templates/salesforce.html:67
+#: templates/salesforce.html:79 templates/tags.html:44 templates/tags.html:53
+msgid "Selected-img-alt"
+msgstr "Ícono de campo seleccionado"
+
+#: templates/article.html:77 templates/authors.html:50
+#: templates/categories.html:50 templates/error.html:51 templates/form.html:69
+#: templates/index.html:37 templates/page.html:102 templates/salesforce.html:75
+#: templates/tags.html:50
+msgid "Translate-msg-es"
+msgstr "Disponible en"
+
+#: templates/article.html:111
 msgid "Articles-icon-alt-1"
 msgstr "Ícono de usuario"
 
-#: templates/article.html:94
+#: templates/article.html:115
 msgid "Articles-icon-alt-2"
 msgstr "Ícono de globo de diálogo"
 
-#: templates/article.html:94
+#: templates/article.html:115
 msgid "Articles-icon-msg-1"
 msgstr "Comentar"
 
-#: templates/article.html:97
+#: templates/article.html:118
 msgid "Articles-icon-alt-3"
 msgstr "Ícono de carpeta"
 
-#: templates/article.html:100
+#: templates/article.html:121
 msgid "Articles-icon-alt-4"
 msgstr "Ícono de calendario"
 
-#: templates/article.html:108
+#: templates/article.html:129
 msgid "Articles-author-alt"
 msgstr "Foto del autor"
 
-#: templates/article.html:123
+#: templates/article.html:145
 msgid "Articles-related-sect"
 msgstr "Relacionado"
-
-#: templates/article.html:160
-msgid "Articles-disqus-sect"
-msgstr "Haz un comentario"
 
 #: templates/author.html:4
 msgid "Author-metadescription-1"
@@ -99,8 +120,8 @@ msgstr ""
 msgid "Author-keywords"
 msgstr "Autor, Artículo, Información, Seguridad, Blog, Publicación, Fecha"
 
-#: templates/author.html:37
-msgid "Author-breadcrumb-1"
+#: templates/author.html:42 templates/authors.html:36
+msgid "Authors-breadcrumb-1"
 msgstr "Autores"
 
 #: templates/authors.html:4
@@ -119,28 +140,6 @@ msgstr "Autores, Blog, Publicar, Artículo, Información, Seguridad"
 msgid "Authors-title"
 msgstr "Autores"
 
-#: templates/authors.html:36
-msgid "Authors-breadcrumb-1"
-msgstr "Autores"
-
-#: templates/authors.html:42 templates/categories.html:42
-#: templates/error.html:43 templates/index.html:27 templates/tags.html:42
-msgid "Translate-msg-en"
-msgstr ""
-
-#: templates/authors.html:44 templates/authors.html:53
-#: templates/categories.html:44 templates/categories.html:53
-#: templates/error.html:45 templates/error.html:54 templates/index.html:29
-#: templates/index.html:38 templates/navigationbar.html:51
-#: templates/tags.html:44 templates/tags.html:53
-msgid "Selected-img-alt"
-msgstr "Ícono de campo seleccionado"
-
-#: templates/authors.html:50 templates/categories.html:50
-#: templates/error.html:51 templates/index.html:35 templates/tags.html:50
-msgid "Translate-msg-es"
-msgstr "Disponible en"
-
 #: templates/authors.html:63
 msgid "Authors-header"
 msgstr "Autores"
@@ -149,23 +148,23 @@ msgstr "Autores"
 msgid "Header-img-alt"
 msgstr "Joven hacker sonriendo"
 
-#: templates/base.html:119
+#: templates/base.html:120
 msgid "Header-title-1"
 msgstr "Hackeamos su software"
 
-#: templates/base.html:120
+#: templates/base.html:121
 msgid "Header-title-2"
 msgstr "cero falsos positivos"
 
-#: templates/base.html:121
+#: templates/base.html:122
 msgid "Header-msg"
 msgstr "<strong>Inteligencia experta + automatización eficaz</strong>"
 
-#: templates/base.html:122
+#: templates/base.html:124
 msgid "Header-item-1"
 msgstr "Ataques exhaustivos a velocidad DevOps"
 
-#: templates/base.html:124
+#: templates/base.html:126
 msgid "Header-item-3"
 msgstr "Atacando Web, APIs, Apps móviles, Servidores, Redes, Dispositivos IoT"
 
@@ -292,352 +291,342 @@ msgstr "Logo de Twitter"
 msgid "Footer-logo-3"
 msgstr "Logo de Facebook"
 
-#: templates/footer.html:10
+#: templates/footer.html:9
 msgid "Footer-logo-5"
 msgstr "Logo de LinkedIn"
 
-#: templates/footer.html:11
+#: templates/footer.html:10
 msgid "Footer-logo-6"
 msgstr "Logo de YouTube"
 
-#: templates/footer.html:17
+#: templates/footer.html:16
 msgid "Footer-header-1"
 msgstr "Nosotros"
 
-#: templates/footer.html:18
+#: templates/footer.html:17
 msgid "Footer-link-1.1"
 msgstr "valores"
 
-#: templates/footer.html:18
+#: templates/footer.html:17
 msgid "Footer-subtitle-1.1"
 msgstr "Valores"
 
-#: templates/footer.html:19
+#: templates/footer.html:18
 msgid "Footer-link-1.2"
 msgstr "eventos"
 
-#: templates/footer.html:19
+#: templates/footer.html:18
 msgid "Footer-subtitle-1.2"
 msgstr "Eventos"
 
-#: templates/footer.html:20
+#: templates/footer.html:19
 msgid "Footer-link-1.3"
 msgstr "personas"
 
-#: templates/footer.html:20
+#: templates/footer.html:19
 msgid "Footer-subtitle-1.3"
 msgstr "Personas"
 
-#: templates/footer.html:21
+#: templates/footer.html:20
 msgid "Footer-link-1.4"
 msgstr "aliados"
 
-#: templates/footer.html:21
+#: templates/footer.html:20
 msgid "Footer-subtitle-1.4"
 msgstr "Aliados"
 
-#: templates/footer.html:22
+#: templates/footer.html:21
 msgid "Footer-link-1.5"
 msgstr "ubicacion"
 
-#: templates/footer.html:22
+#: templates/footer.html:21
 msgid "Footer-subtitle-1.5"
 msgstr "Ubicación"
 
-#: templates/footer.html:23
+#: templates/footer.html:22 templates/landing.html:156
 msgid "Footer-link-1.6"
 msgstr "contactanos"
 
-#: templates/footer.html:24
+#: templates/footer.html:22 templates/landing.html:156
 msgid "Footer-subtitle-1.6"
 msgstr "Contáctanos"
 
-#: templates/footer.html:28 templates/footer.html:29 templates/footer.html:30
-#: templates/footer.html:31 templates/footer.html:32 templates/footer.html:33
-#: templates/footer.html:34
+#: templates/footer.html:27 templates/footer.html:28 templates/footer.html:29
+#: templates/footer.html:30 templates/footer.html:31 templates/footer.html:32
+#: templates/footer.html:33
 msgid "Footer-cat-1"
 msgstr "servicios"
 
-#: templates/footer.html:28
+#: templates/footer.html:27
 msgid "Footer-header-2"
 msgstr "Servicios"
 
-#: templates/footer.html:29
+#: templates/footer.html:28
 msgid "Footer-link-2.1"
 msgstr "hacking-puntual"
 
-#: templates/footer.html:29
+#: templates/footer.html:28
 msgid "Footer-subtitle-2.1"
 msgstr "Hacking Puntual"
 
-#: templates/footer.html:30
+#: templates/footer.html:29
 msgid "Footer-link-2.2"
 msgstr "hacking-continuo"
 
-#: templates/footer.html:30
+#: templates/footer.html:29
 msgid "Footer-subtitle-2.2"
 msgstr "Hacking Continuo"
 
-#: templates/footer.html:31
+#: templates/footer.html:30 templates/landing.html:113
 msgid "Footer-link-2.3"
 msgstr "diferenciadores"
 
-#: templates/footer.html:31
+#: templates/footer.html:30
 msgid "Footer-subtitle-2.3"
 msgstr "Diferenciadores"
 
-#: templates/footer.html:32
+#: templates/footer.html:31
 msgid "Footer-link-2.4"
 msgstr "comparativo"
 
-#: templates/footer.html:32
+#: templates/footer.html:31
 msgid "Footer-subtitle-2.4"
 msgstr "Comparativo"
 
-#: templates/footer.html:33
+#: templates/footer.html:32
 msgid "Footer-link-2.5"
 msgstr "certificaciones"
 
-#: templates/footer.html:33
+#: templates/footer.html:32
 msgid "Footer-subtitle-2.5"
 msgstr "Certificaciones"
 
-#: templates/footer.html:35
+#: templates/footer.html:34
 msgid "Footer-cat-1.1"
 msgstr "blog/categorias"
 
-#: templates/footer.html:35
+#: templates/footer.html:34
 msgid "Footer-link-2.6"
 msgstr "ataques"
 
-#: templates/footer.html:35
+#: templates/footer.html:34
 msgid "Footer-subtitle-2.6"
 msgstr "Ataques"
 
-#: templates/footer.html:40 templates/footer.html:41 templates/footer.html:42
-#: templates/footer.html:43 templates/footer.html:44 templates/footer.html:45
+#: templates/footer.html:39 templates/footer.html:40 templates/footer.html:41
+#: templates/footer.html:42 templates/footer.html:43 templates/footer.html:44
+#: templates/landing.html:70 templates/landing.html:71
+#: templates/landing.html:76 templates/landing.html:77
 msgid "Footer-cat-2"
 msgstr "productos"
 
-#: templates/footer.html:40
+#: templates/footer.html:39
 msgid "Footer-header-3"
 msgstr "Productos"
 
-#: templates/footer.html:50 templates/footer.html:51 templates/footer.html:52
-#: templates/footer.html:53 templates/footer.html:54 templates/footer.html:55
-#: templates/footer.html:56 templates/footer.html:57 templates/footer.html:58
+#: templates/footer.html:49 templates/footer.html:50 templates/footer.html:51
+#: templates/footer.html:52 templates/footer.html:53 templates/footer.html:54
+#: templates/footer.html:55 templates/footer.html:56 templates/footer.html:57
 msgid "Footer-cat-3"
 msgstr "clientes"
 
-#: templates/footer.html:50
+#: templates/footer.html:49
 msgid "Footer-header-4"
 msgstr "Clientes"
 
-#: templates/footer.html:51
+#: templates/footer.html:50
 msgid "Footer-link-4.1"
 msgstr "financiero"
 
-#: templates/footer.html:51
+#: templates/footer.html:50
 msgid "Footer-subtitle-4.1"
 msgstr "Financiero"
 
-#: templates/footer.html:52
+#: templates/footer.html:51
 msgid "Footer-link-4.2"
 msgstr "comunicaciones"
 
-#: templates/footer.html:52
+#: templates/footer.html:51
 msgid "Footer-subtitle-4.2"
 msgstr "Comunicaciones"
 
-#: templates/footer.html:53
+#: templates/footer.html:52
 msgid "Footer-link-4.3"
 msgstr "comercial"
 
-#: templates/footer.html:53
+#: templates/footer.html:52
 msgid "Footer-subtitle-4.3"
 msgstr "Comercial"
 
-#: templates/footer.html:54
+#: templates/footer.html:53
 msgid "Footer-link-4.4"
 msgstr "tecnologia"
 
-#: templates/footer.html:54
+#: templates/footer.html:53
 msgid "Footer-subtitle-4.4"
 msgstr "Tecnología"
 
-#: templates/footer.html:55
+#: templates/footer.html:54
 msgid "Footer-link-4.5"
 msgstr "energia"
 
-#: templates/footer.html:55
+#: templates/footer.html:54
 msgid "Footer-subtitle-4.5"
 msgstr "Energía"
 
-#: templates/footer.html:57
+#: templates/footer.html:56
 msgid "Footer-link-4.7"
 msgstr "transporte"
 
-#: templates/footer.html:57
+#: templates/footer.html:56
 msgid "Footer-subtitle-4.7"
 msgstr "Transporte"
 
-#: templates/footer.html:58
+#: templates/footer.html:57
 msgid "Footer-link-4.8"
 msgstr "testimonios"
 
-#: templates/footer.html:58
+#: templates/footer.html:57
 msgid "Footer-subtitle-4.8"
 msgstr "Testimonios"
 
-#: templates/footer.html:64
+#: templates/footer.html:63
 msgid "Footer-subtitle-5.1"
 msgstr "Suscríbete"
 
-#: templates/footer.html:65
+#: templates/footer.html:64
 msgid "Footer-link-5.2"
 msgstr "categorias"
 
-#: templates/footer.html:65
+#: templates/footer.html:64
 msgid "Footer-subtitle-5.2"
 msgstr "Categorías"
 
-#: templates/footer.html:66
+#: templates/footer.html:65
 msgid "Footer-link-5.3"
 msgstr "etiquetas"
 
-#: templates/footer.html:66
+#: templates/footer.html:65
 msgid "Footer-subtitle-5.3"
 msgstr "Etiquetas"
 
-#: templates/footer.html:67
+#: templates/footer.html:66
 msgid "Footer-link-5.4"
 msgstr "autores"
 
-#: templates/footer.html:67
+#: templates/footer.html:66
 msgid "Footer-subtitle-5.4"
 msgstr "Autores"
 
-#: templates/footer.html:68
+#: templates/footer.html:67
 msgid "Footer-link-5.5"
 msgstr "temas"
 
-#: templates/footer.html:68
+#: templates/footer.html:67
 msgid "Footer-subtitle-5.5"
 msgstr "Temas"
 
-#: templates/footer.html:69
+#: templates/footer.html:68
 msgid "Footer-link-5.6"
 msgstr "estilo"
 
-#: templates/footer.html:69
+#: templates/footer.html:68
 msgid "Footer-subtitle-5.6"
 msgstr "Estilo"
 
-#: templates/footer.html:70
+#: templates/footer.html:69
 msgid "Footer-subtitle-5.7"
 msgstr "Formato"
 
-#: templates/footer.html:75 templates/footer.html:76 templates/footer.html:77
-#: templates/footer.html:78 templates/footer.html:79 templates/footer.html:80
-#: templates/footer.html:81 templates/footer.html:82
+#: templates/footer.html:74 templates/footer.html:75 templates/footer.html:76
+#: templates/footer.html:77 templates/footer.html:78 templates/footer.html:79
+#: templates/footer.html:80 templates/footer.html:81
 msgid "Footer-cat-4"
 msgstr "empleos"
 
-#: templates/footer.html:75
+#: templates/footer.html:74
 msgid "Footer-header-6"
 msgstr "Empleos"
 
-#: templates/footer.html:76
+#: templates/footer.html:75
 msgid "Footer-link-6.1"
 msgstr "razones"
 
-#: templates/footer.html:76
+#: templates/footer.html:75
 msgid "Footer-subtitle-6.1"
 msgstr "Razones"
 
-#: templates/footer.html:77
+#: templates/footer.html:76
 msgid "Footer-link-6.2"
 msgstr "vacantes"
 
-#: templates/footer.html:77
+#: templates/footer.html:76
 msgid "Footer-subtitle-6.2"
 msgstr "Vacantes"
 
-#: templates/footer.html:78
+#: templates/footer.html:77
 msgid "Footer-link-6.3"
 msgstr "terminos"
 
-#: templates/footer.html:78
+#: templates/footer.html:77
 msgid "Footer-subtitle-6.3"
 msgstr "Términos"
 
-#: templates/footer.html:79
+#: templates/footer.html:78
 msgid "Footer-link-6.4"
 msgstr "evaluacion-conocimientos"
 
-#: templates/footer.html:79
+#: templates/footer.html:78
 msgid "Footer-subtitle-6.4"
 msgstr "Conocimientos"
 
-#: templates/footer.html:80
+#: templates/footer.html:79
 msgid "Footer-link-6.5"
 msgstr "retos-tecnicos"
 
-#: templates/footer.html:80
+#: templates/footer.html:79
 msgid "Footer-subtitle-6.5"
 msgstr "Retos"
 
-#: templates/footer.html:81
+#: templates/footer.html:80
 msgid "Footer-link-6.6"
 msgstr "inmersion"
 
-#: templates/footer.html:81
+#: templates/footer.html:80
 msgid "Footer-subtitle-6.6"
 msgstr "Inmersión"
 
-#: templates/footer.html:89
+#: templates/footer.html:88
 msgid "Footer-stat-msg-1"
 msgstr "Estado de los servicios"
 
-#: templates/footer.html:93
+#: templates/footer.html:92
 msgid "Footer-status-link-1"
 msgstr "terminos-uso"
 
-#: templates/footer.html:93
+#: templates/footer.html:92
 msgid "Footer-stat-msg-2"
 msgstr "Términos de Uso"
 
-#: templates/form.html:74
+#: templates/form.html:90 templates/salesforce.html:98
 msgid "Form-field-1"
-msgstr "Nombres completos"
+msgstr "Nombre completo"
 
-#: templates/form.html:76
+#: templates/form.html:92 templates/salesforce.html:103
 msgid "Form-field-2"
-msgstr "Email"
+msgstr "Correo electrónico"
 
-#: templates/form.html:78
+#: templates/form.html:94 templates/salesforce.html:110
 msgid "Form-field-3"
 msgstr "Teléfono celular"
 
-#: templates/form.html:80
+#: templates/form.html:96 templates/salesforce.html:125
 msgid "Form-field-4"
 msgstr "Cómo podemos ayudarte?"
 
-#: templates/form.html:84
+#: templates/form.html:100 templates/salesforce.html:132
 msgid "Form-field-5"
-msgstr "Quiero conocer más de Fluid Attacks"
-
-#: templates/form.html:86
-msgid "Form-field-6"
-msgstr "Quiero una propuesta de servicios”
-
-#: templates/form.html:88
-msgid "Form-field-7"
-msgstr "Estoy buscando trabajo"
-
-#: templates/form.html:90
-msgid "Form-field-8"
-msgstr "Otro"
+msgstr "Quiero una propuesta de servicios"
 
 #: templates/index.html:4
 msgid "Index-metadescription"
@@ -651,23 +640,23 @@ msgstr ""
 msgid "Index-keywords"
 msgstr "Artículos, Blog, Opinión, Reto, Información, Seguridad"
 
-#: templates/index.html:9
+#: templates/index.html:11
 msgid "Index-title"
 msgstr "Blog"
 
-#: templates/index.html:63
+#: templates/index.html:65
 msgid "Index-icon-alt-1"
 msgstr "Ícono de pluma"
 
-#: templates/index.html:67
+#: templates/index.html:69
 msgid "Index-icon-alt-2"
 msgstr "Ícono de carpeta"
 
-#: templates/index.html:69
+#: templates/index.html:71
 msgid "Index-icon-alt-3"
 msgstr "Ícono de etiqueta"
 
-#: templates/index.html:88
+#: templates/index.html:90
 msgid "Index-msg-btn"
 msgstr "Seguir Leyendo"
 
@@ -689,222 +678,196 @@ msgstr ""
 msgid "Landing-title"
 msgstr "Inicio"
 
-#: templates/landing.html:25
+#: templates/landing.html:26
 msgid "Index-header-0"
 msgstr "Propósito"
 
-#: templates/landing.html:26
+#: templates/landing.html:27
 msgid "Index-msg-0"
-msgstr ""
-"Encontrar todas las vulnerabilidades y reportarlas lo antes posible."
+msgstr "Encontrar todas las vulnerabilidades y reportarlas lo antes posible."
 
 #: templates/landing.html:30
 msgid "Purpose-img-alt-1"
 msgstr "Mira"
 
-#: templates/landing.html:34
-msgid "Purpose-img-alt-2"
-msgstr "Candado"
-
-#: templates/landing.html:38
-msgid "Purpose-img-alt-3"
-msgstr "Libreta y flechas"
-
 #: templates/landing.html:31
 msgid "Purpose-msg-1"
 msgstr "Encontrar"
+
+#: templates/landing.html:34
+msgid "Purpose-img-alt-2"
+msgstr "Candado"
 
 #: templates/landing.html:35
 msgid "Purpose-msg-2"
 msgstr "Atacar"
 
+#: templates/landing.html:38
+msgid "Purpose-img-alt-3"
+msgstr "Libreta y flechas"
+
 #: templates/landing.html:39
 msgid "Purpose-msg-3"
 msgstr "Reportar"
 
-#: templates/landing.html:27
+#: templates/landing.html:44
 msgid "Index-header-1"
 msgstr "Servicios"
 
-#: templates/landing.html:28
+#: templates/landing.html:45
 msgid "Index-msg-1"
 msgstr ""
-"Atacamos su software de forma integral a alta velocidad. "
-"Realizamos Pruebas de Seguridad Estáticas (SAST), "
-"Pruebas de Seguridad Dinámicas (DAST), "
-"Pruebas de seguridad Interactivas (IAST) "
-"y Análisis de Composición de Software (SCA), "
-"automatizando las vulnerabilidades confirmadas, "
-"en cualquier etapa del ciclo de vida de desarrollo (SDLC)."
+"Atacamos su software de forma integral a alta velocidad. Realizamos "
+"Pruebas de Seguridad Estáticas (SAST), Pruebas de Seguridad Dinámicas "
+"(DAST), Pruebas de seguridad Interactivas (IAST) y Análisis de "
+"Composición de Software (SCA), automatizando las vulnerabilidades "
+"confirmadas, en cualquier etapa del ciclo de vida de desarrollo (SDLC)."
 
-#: templates/landing.html:29 templates/landing.html:33
+#: templates/landing.html:50 templates/landing.html:54
 msgid "Index-img-alt"
 msgstr "Servicio"
 
-#: templates/landing.html:30 templates/landing.html:34
+#: templates/landing.html:51 templates/landing.html:55
+#: templates/landing.html:60 templates/landing.html:113
 msgid "Index-cat-1"
 msgstr "servicios"
 
-#: templates/landing.html:30
+#: templates/landing.html:51
 msgid "Index-serv-1"
 msgstr "hacking-continuo"
 
-#: templates/landing.html:30
+#: templates/landing.html:51
 msgid "Index-header-2"
 msgstr "Hacking<br/>Continuo"
 
-#: templates/landing.html:34
+#: templates/landing.html:55
 msgid "Index-serv-2"
 msgstr "hacking-puntual"
 
-#: templates/landing.html:34
+#: templates/landing.html:55
 msgid "Index-header-3"
 msgstr "Hacking<br/>Puntual"
 
-#: templates/landing.html:35
+#: templates/landing.html:60
+msgid "Serv-txt"
+msgstr ""
+"Si aún no decide qué servicio se ajusta mejor a sus necesidades visite "
+"nuestra página  "
+
+#: templates/landing.html:60
 msgid "Index-serv-3"
 msgstr "comparativo"
 
-#: templates/landing.html:36
+#: templates/landing.html:60
 msgid "Index-header-3.1"
 msgstr "comparativo."
 
-#: templates/landing.html:36
-msgid "Serv-txt"
-msgstr ""
-"Si aún no decide qué servicio "
-"se ajusta mejor a sus necesidades "
-"visite nuestra página  "
-
-#: templates/landing.html:44
-msgid "Testing-hdr"
-msgstr "Tipos de pruebas"
-
-#: templates/landing.html:45
-msgid "Testing-msg"
-msgstr "Atacamos su software usando todos los tipos de pruebas existentes"
-
-#: templates/landing.html:46
-msgid "Testing-subtitle-1"
-msgstr "Fluid Attacks vs Técnicas de ataque"
-
-#: templates/landing.html:47
-msgid "Testing-subtitle-2"
-msgstr "Fluid Attacks en DevOps = SecDevOps"
-
-#: templates/landing.html:48
-msgid "Tst-table-alt-1"
-msgstr "Tipos de pruebas de Fluid Attacks"
-
-#: templates/landing.html:49
-msgid "Tst-table-alt-2"
-msgstr "Fluid Attacks en SecDevOps"
-
-#: templates/landing.html:50
-msgid "Index-bnft-header"
-msgstr "Por qué es <span>Fluid Attacks</span> la mejor opción para ti"
-
-#: templates/landing.html:51
-msgid "Index-img-alt-2"
-msgstr "Lupa analizando código"
-
-#: templates/landing.html:52
-msgid "Index-bnft-1"
-msgstr ""
-"<strong>Máxima rigurosidad</strong> atacamos de forma integral un sistema "
-"evaluando uno a uno sus componentes."
-
-#: templates/landing.html:53
-msgid "Index-img-alt-3"
-msgstr "Signo de admiración final"
-
-#: templates/landing.html:54
-msgid "Index-bnft-2"
-msgstr ""
-"<strong>Seguridad en el SDLC </strong>"
-"Incluimos buenas prácticas de seguridad "
-"desde las etapas tempranas del ciclo de vida del desarrollo."
-
-#: templates/landing.html:55
-msgid "Index-img-alt-4"
-msgstr "Gráfica mostrando el incremento de ganancias"
-
-#: templates/landing.html:57
-msgid "Index-bnft-3"
-msgstr ""
-"Especializados en encontrar <strong>vulnerabilidades de día cero</strong>."
-
-#: templates/landing.html:60
-msgid "Index-img-alt-5"
-msgstr "Mano sosteniendo un símbolo de un candado"
-
-#: templates/landing.html:62
-msgid "Index-bnft-4"
-msgstr ""
-"Buscamos el mayor <strong>impacto a nivel corporativo</strong> "
-"y no solo desde la perspectiva de la tecnología."
-
-#: templates/landing.html:65
-msgid "Index-img-alt-6"
-msgstr "Mano con el pulgar arriba"
+#: templates/landing.html:66 templates/navigationbar.html:10
+msgid "Navb-opt-3"
+msgstr "Productos"
 
 #: templates/landing.html:67
-msgid "Index-bnft-5"
-msgstr ""
-"Nos dedicamos <strong>únicamente a hackear</strong>, "
-"todo el día y en todos los proyectos"
-
-#: templates/landing.html:69
-msgid "Bnft-footmsg"
-msgstr "Conoce más arcerca de nuestros "
-
-#: templates/landing.html:71
-msgid "Index-header-4"
-msgstr "Clientes"
-
-#: templates/landing.html:73
-msgid "Index-msg-2"
-msgstr ""
-"Fluid Attacks tiene experiencia de más de 17 años "
-"trabajando con compañías diferentes mercados y sectores económicos. "
-"A continuación listamos algunos de nuestros clientes."
-
-#: templates/landing.html:184
-msgid "Contact-txt"
-msgstr ""
-"Queremos que te pongas en contacto con nosotros "
-"para compartir tus comentarios, opiniones y necesidades "
-"o para recibir una asesoría completa "
-" sobre un producto o servicio de tu interés."
-
-#: templates/landing.html:185
-msgid "Contact-img-alt"
-msgstr "Sobre de carta y flecha roja"
-
-#: templates/landing.html:60
 msgid "Product-msg"
 msgstr "Conoce nuestros productos:"
+
+#: templates/landing.html:70
+msgid "Product-img-alt-3"
+msgstr "Ventana de consola mostrando el mensaje de Integrates"
 
 #: templates/landing.html:72
 msgid "product-desc-1"
 msgstr "Plataforma de centralización y gestión de vulnerabilidades"
 
+#: templates/landing.html:73 templates/landing.html:79
+#: templates/landing.html:113
+msgid "Product-img-alt-6"
+msgstr "Flecha roja de Fluid Attacks"
+
+#: templates/landing.html:76
+msgid "Product-img-alt-4"
+msgstr "Lupa sobre consola de comando"
+
 #: templates/landing.html:78
 msgid "product-desc-2"
 msgstr "Framework de automatización de vulnerabilidades"
 
-#: templates/landing.html:71
-msgid "Product-img-alt-3"
-msgstr "Ventana de consola mostrando el mensaje de Integrates"
+#: templates/landing.html:84
+msgid "Index-bnft-header"
+msgstr "Por qué es <span>Fluid Attacks</span> la mejor opción para ti"
 
-#: templates/landing.html:75
-msgid "Product-img-alt-4"
-msgstr "Lupa sobre consola de comando"
+#: templates/landing.html:87
+msgid "Index-img-alt-2"
+msgstr "Lupa analizando código"
 
+#: templates/landing.html:89
+msgid "Index-bnft-1"
+msgstr ""
+"<strong>Máxima rigurosidad</strong> atacamos de forma integral un sistema"
+" evaluando uno a uno sus componentes."
 
-#: templates/landing.html:65
-msgid "Product-img-alt-6"
-msgstr "Flecha roja de Fluid Attacks"
+#: templates/landing.html:92
+msgid "Index-img-alt-3"
+msgstr "Signo de admiración final"
+
+#: templates/landing.html:94
+msgid "Index-bnft-2"
+msgstr ""
+"<strong>Seguridad en el SDLC </strong>Incluimos buenas prácticas de "
+"seguridad desde las etapas tempranas del ciclo de vida del desarrollo."
+
+#: templates/landing.html:97
+msgid "Index-img-alt-4"
+msgstr "Gráfica mostrando el incremento de ganancias"
+
+#: templates/landing.html:99
+msgid "Index-bnft-3"
+msgstr "Especializados en encontrar <strong>vulnerabilidades de día cero</strong>."
+
+#: templates/landing.html:102
+msgid "Index-img-alt-5"
+msgstr "Mano sosteniendo un símbolo de un candado"
+
+#: templates/landing.html:104
+msgid "Index-bnft-4"
+msgstr ""
+"Buscamos el mayor <strong>impacto a nivel corporativo</strong> y no solo "
+"desde la perspectiva de la tecnología."
+
+#: templates/landing.html:107
+msgid "Index-img-alt-6"
+msgstr "Mano con el pulgar arriba"
+
+#: templates/landing.html:109
+msgid "Index-bnft-5"
+msgstr ""
+"Nos dedicamos <strong>únicamente a hackear</strong>, todo el día y en "
+"todos los proyectos"
+
+#: templates/landing.html:113
+msgid "Bnft-footmsg"
+msgstr "Conoce más arcerca de nuestros "
+
+#: templates/landing.html:116
+msgid "Index-header-4"
+msgstr "Clientes"
+
+#: templates/landing.html:118
+msgid "Index-msg-2"
+msgstr ""
+"Fluid Attacks tiene experiencia de más de 17 años trabajando con "
+"compañías diferentes mercados y sectores económicos. A continuación "
+"listamos algunos de nuestros clientes."
+
+#: templates/landing.html:155
+msgid "Contact-txt"
+msgstr ""
+"Queremos que te pongas en contacto con nosotros para compartir tus "
+"comentarios, opiniones y necesidades o para recibir una asesoría completa"
+"  sobre un producto o servicio de tu interés."
+
+#: templates/landing.html:159
+msgid "Contact-img-alt"
+msgstr "Sobre de carta y flecha roja"
 
 #: templates/navigationbar.html:4 templates/navigationbar.html:6
 #: templates/navigationbar.html:7
@@ -936,10 +899,6 @@ msgstr "Hacking Continuo"
 #: templates/navigationbar.html:15 templates/navigationbar.html:16
 msgid "Navb-cat-2"
 msgstr "productos"
-
-#: templates/navigationbar.html:10
-msgid "Navb-opt-3"
-msgstr "Productos"
 
 #: templates/navigationbar.html:19 templates/navigationbar.html:21
 #: templates/navigationbar.html:22 templates/navigationbar.html:23
@@ -1036,7 +995,7 @@ msgstr "Buscar en el sitio..."
 msgid "Navb-img-alt-1"
 msgstr "Lupa"
 
-#: templates/page.html:123
+#: templates/page.html:155
 msgid "Page-disqus-sect"
 msgstr "Haz un comentario"
 
@@ -1047,6 +1006,22 @@ msgstr "Anterior"
 #: templates/pagination.html:16
 msgid "Pagination-nxt"
 msgstr "Siguiente"
+
+#: templates/salesforce.html:114
+msgid "Form-number-valid"
+msgstr "Número válido"
+
+#: templates/salesforce.html:116
+msgid "Form-number-not-valid"
+msgstr "Número no válido"
+
+#: templates/salesforce.html:134
+msgid "Form-field-6"
+msgstr "Estoy buscando trabajo"
+
+#: templates/salesforce.html:135
+msgid "Form-field-7"
+msgstr "Otro"
 
 #: templates/search.html:4
 msgid "Search-metadescription"
@@ -1064,7 +1039,7 @@ msgstr "Resultados, Buscar, Páginas, Cadena, Enlaces, Peticiones"
 msgid "Search-title"
 msgstr "Búsqueda"
 
-#: templates/search.html:30
+#: templates/search.html:32
 msgid "Search-breadcrumb-1"
 msgstr "Buscar"
 
@@ -1106,3 +1081,27 @@ msgstr "Etiquetas"
 #: templates/tags.html:63
 msgid "Tags-header"
 msgstr "Etiquetas"
+
+#~ msgid "Articles-disqus-sect"
+#~ msgstr "Haz un comentario"
+
+#~ msgid "Author-breadcrumb-1"
+#~ msgstr "Autores"
+
+#~ msgid "Testing-hdr"
+#~ msgstr "Tipos de pruebas"
+
+#~ msgid "Testing-msg"
+#~ msgstr "Atacamos su software usando todos los tipos de pruebas existentes"
+
+#~ msgid "Testing-subtitle-1"
+#~ msgstr "Fluid Attacks vs Técnicas de ataque"
+
+#~ msgid "Testing-subtitle-2"
+#~ msgstr "Fluid Attacks en DevOps = SecDevOps"
+
+#~ msgid "Tst-table-alt-1"
+#~ msgstr "Tipos de pruebas de Fluid Attacks"
+
+#~ msgid "Tst-table-alt-2"
+#~ msgstr "Fluid Attacks en SecDevOps"
