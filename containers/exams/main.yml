@@ -7,24 +7,6 @@
     - name: Inlcuir variables (Vault)
       include_vars: vars/vars.yml
 
-    - name: Instalar paquetes necesarios
-      apt:
-        name: "{{ packages }}"
-        state: latest
-      vars:
-        packages:
-          - cron
-          - git
-          - php5
-          - php5-curl
-          - php5-gd
-          - php5-intl
-          - php5-mysql
-          - php5-xmlrpc
-          - python-mysqldb
-          - unzip
-      register: dependencias
-
     - name: Retirar index
       file:
         path: "/var/www/html/index.html"
@@ -78,7 +60,6 @@
         --fullname="FLUID Courses" --shortname="Moodle"
         --adminpass={{ admin_password }} --skip-database --agree-license
         chdir=/var/www/html/admin/cli
-      when: dependencias
 
     - name: Agregar config.php
       template:

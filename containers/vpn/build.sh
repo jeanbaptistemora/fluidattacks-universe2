@@ -1,20 +1,15 @@
 #!/usr/bin/env bash
-
-# habilitar depuración
-if [ -n "$VERBOSE" ]; then
-  set -x
-fi
-
-# Salir inmediatamente si algun comando retorna diferente de cero.
 set -e
 
-SERVER="vpn"
+echo "${ANSIBLE_VAULT}" > vault.txt
 
-# Mensaje de inicio
-echo "---### [${SERVER}] Compilando contenedor."
+apt-get update
+apt-get install --no-install-recommends -y \
+  iptables \
+  openvpn
 
-# construir la imagen
-docker build --no-cache \
-    --build-arg vault_pass="$ANSIBLE_VAULT" \
-	-t "registry.gitlab.com/fluidsignal/serves/vpn/dev:$CI_COMMIT_SHA" \
-	containers/${SERVER}
+ansible-playbook main.yml --vault-password-file vault.txt
+
+rm -rf \
+  /root/* \
+  /var/lib/apt/lists/*

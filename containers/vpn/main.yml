@@ -7,16 +7,6 @@
     - name: Incluir llaves de cifrado
       include_vars: vars/key.yml
 
-    - name: Instalar Dependencias
-      apt:
-        name: "{{ packages }}"
-        state: latest
-      vars:
-        packages:
-          - iptables
-          - openvpn
-      register: openvpninstalled
-
     - name: Crear directorio de certificados
       file:
         path: /etc/openvpn/certs

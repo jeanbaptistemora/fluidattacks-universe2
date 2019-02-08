@@ -1,13 +1,5 @@
 image: registry.gitlab.com/fluidsignal/serves:builder
 
-before_script:
-  - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
-  - echo "$CI_REGISTRY_PASSWORD" |
-        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-
-after_script:
-  - docker logout "$CI_REGISTRY"
-
 stages:
   - deps
   - analytics
@@ -21,18 +13,22 @@ stages:
   - rotation
   - backup
 
+.vault_vars: &vault_vars
+  variables:
+    VAULT_HOST: "${VAULT_S3_BUCKET}.com"
+    VAULT_PORT: 443
+    VAULT_API_URL: "https://${VAULT_S3_BUCKET}.com/v1/auth/approle/login"
+    ROLE_ID: "${SERVES_ROLE_ID}"
+    SECRET_ID: "${SERVES_SECRET_ID}"
+    VAULTENV_SECRETS_FILE: "${CI_PROJECT_DIR}/env.vars"
+
 .vault_login: &vault_login
+  <<: *vault_vars
   before_script:
-    - export VAULT_TOKEN=$(curl --request POST
-        --data '{"role_id":"'"$SERVES_ROLE_ID"'","secret_id":"'"$SERVES_SECRET_ID"'"}'
-        "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
-        jq -r '.auth.client_token')
-    - export VAULT_HOST="$VAULT_S3_BUCKET.com"
-    - export VAULT_PORT=443
-    - export VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
-    - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
-    - echo "$CI_REGISTRY_PASSWORD" |
-        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - export VAULT_TOKEN=$(curl
+        --request POST
+        --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}'
+        "${VAULT_API_URL}" | jq -r '.auth.client_token')
 
 .kaniko_config: &kaniko_config
   image:
@@ -42,23 +38,9 @@ stages:
     - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
         > /kaniko/.docker/config.json
 
-.vault_vars: &vault_vars
-  variables:
-    VAULT_HOST: "${VAULT_S3_BUCKET}.com"
-    VAULT_PORT: 443
-    VAULT_API_URL: "https://${VAULT_S3_BUCKET}.com/v1/auth/approle/login"
-    ROLE_ID: "${SERVES_ROLE_ID}"
-    SECRET_ID: "${SERVES_SECRET_ID}"
-
 .kaniko_vault_config: &kaniko_vault_config
   <<: *vault_vars
   <<: *kaniko_config
-
-.dind_config: &dind_config
-  variables:
-    DOCKER_DRIVER: overlay2
-  services:
-    - docker:dind
 
 build_base:
   stage: deps
@@ -141,29 +123,50 @@ test_terraform:
     - vaultenv infrastructure/terraform.sh
   after_script:
     - rm infrastructure/*.xml
-    - docker logout "$CI_REGISTRY"
   except:
     - master
 
 build_exams:
   stage: build
-  <<: *dind_config
-  <<: *vault_login
+  <<: *kaniko_vault_config
   script:
-    - vaultenv containers/exams/build.sh
-    - docker push "$DOCKER_BASENAME/exams/dev:$CI_COMMIT_SHA"
-  except:
-    - master
+    - cp env.vars containers/exams/
+    - /kaniko/executor
+        --build-arg VAULT_HOST="${VAULT_HOST}"
+        --build-arg VAULT_PORT="${VAULT_PORT}"
+        --build-arg VAULT_API_URL="${VAULT_API_URL}"
+        --build-arg ROLE_ID="${ROLE_ID}"
+        --build-arg SECRET_ID="${SECRET_ID}"
+        --cache true
+        --cache-repo "${CI_REGISTRY_IMAGE}/cache/${CI_COMMIT_REF_SLUG}"
+        --cleanup
+        --context "${CI_PROJECT_DIR}/containers/exams/"
+        --dockerfile "${CI_PROJECT_DIR}/containers/exams/Dockerfile"
+        --destination "${CI_REGISTRY_IMAGE}/exams:${CI_COMMIT_REF_SLUG}"
+  only:
+    changes:
+      - containers/exams/**/*
 
 build_vpn:
   stage: build
-  <<: *dind_config
-  <<: *vault_login
+  <<: *kaniko_vault_config
   script:
-    - vaultenv containers/vpn/build.sh
-    - docker push "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
-  except:
-    - master
+    - cp env.vars containers/vpn/
+    - /kaniko/executor
+        --build-arg VAULT_HOST="${VAULT_HOST}"
+        --build-arg VAULT_PORT="${VAULT_PORT}"
+        --build-arg VAULT_API_URL="${VAULT_API_URL}"
+        --build-arg ROLE_ID="${ROLE_ID}"
+        --build-arg SECRET_ID="${SECRET_ID}"
+        --cache true
+        --cache-repo "${CI_REGISTRY_IMAGE}/vpn/${CI_COMMIT_REF_SLUG}"
+        --cleanup
+        --context "${CI_PROJECT_DIR}/containers/vpn/"
+        --dockerfile "${CI_PROJECT_DIR}/containers/vpn/Dockerfile"
+        --destination "${CI_REGISTRY_IMAGE}/vpn:${CI_COMMIT_REF_SLUG}"
+  only:
+    changes:
+      - containers/vpn/**/*
 
 mr-test:
   stage: mr-check
@@ -192,37 +195,8 @@ danger:
   only:
     - merge_requests
 
-tag-exams:
-  <<: *dind_config
-  stage: tag
-  script:
-    - docker pull "$DOCKER_BASENAME/exams/dev:$CI_COMMIT_SHA"
-    - docker tag
-        "$DOCKER_BASENAME/exams/dev:$CI_COMMIT_SHA"
-        "$DOCKER_BASENAME/exams:master"
-    - docker push "$DOCKER_BASENAME/exams:master"
-  only:
-    - master
-  except:
-    - schedules
-
-tag-vpn:
-  <<: *dind_config
-  stage: tag
-  script:
-    - docker pull "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
-    - docker tag
-        "$DOCKER_BASENAME/vpn/dev:$CI_COMMIT_SHA"
-        "$DOCKER_BASENAME/vpn:master"
-    - docker push "$DOCKER_BASENAME/vpn:master"
-  only:
-    - master
-  except:
-    - schedules
-
 deploy_infra:
   stage: deploy
-  <<: *dind_config
   <<: *vault_login
   script:
     - aws s3 cp
@@ -260,7 +234,6 @@ deploy_infra:
         "$HOME/vault-ca.crt"
         s3://$VAULT_S3_BUCKET/vault-ca.crt
     - rm infrastructure/*.xml
-    - docker logout "$CI_REGISTRY"
   only:
     - master
   except:
@@ -269,8 +242,6 @@ deploy_infra:
 fluidasserts_post:
   stage: postdeploy
   image: fluidattacks/asserts
-  before_script:
-    - echo 'Testing the security of the infrastructure...'
   script:
     - asserts asserts/exploit.py
   only:

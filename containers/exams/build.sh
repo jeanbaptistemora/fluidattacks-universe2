@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
-
-# habilitar depuración
-if [ -n "$VERBOSE" ]; then
-  set -x
-fi
-
-# Salir inmediatamente si algun comando retorna diferente de cero.
 set -e
 
-SERVER="exams"
+echo "${ANSIBLE_VAULT}" > vault.txt
 
-# Mensaje de inicio
-echo "---### [${SERVER}] Compilando contenedor."
+apt-get update
+apt-get install --no-install-recommends -y \
+  cron \
+  git \
+  php5 \
+  php5-curl \
+  php5-gd \
+  php5-intl \
+  php5-mysql \
+  php5-xmlrpc \
+  python-mysqldb \
+  unzip
 
-# construir la imagen
-docker build --no-cache \
-    --build-arg vault_pass="$ANSIBLE_VAULT" \
-	-t "registry.gitlab.com/fluidsignal/serves/exams/dev:$CI_COMMIT_SHA" \
-	containers/${SERVER}
+ansible-playbook main.yml --vault-password-file vault.txt
+
+rm -rf \
+  /root/* \
+  /var/lib/apt/lists/*
