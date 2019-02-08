@@ -112,6 +112,9 @@ commitlint:
 
 react-testing:
   stage: pre-test
+  only:
+    - /^.*$/
+    - merge_requests
   image: registry.gitlab.com/fluidsignal/integrates:deps190201
   before_script:
     - echo "Start Unit Testing"
@@ -158,6 +161,9 @@ prospector-testing:
 
 unit-testing:
   stage: pre-test
+  only:
+    - /^.*$/
+    - merge_requests
   image: registry.gitlab.com/fluidsignal/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
