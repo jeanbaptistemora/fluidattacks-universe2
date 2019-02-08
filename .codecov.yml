@@ -4,8 +4,8 @@ coverage:
   status:
     project:
       default:
-        # The build fails if total project coverage drops by more than 5%
+        # The build fails if total project coverage drops by more than 6%
         target: auto
-        threshold: "5%"
+        threshold: "6%"
     changes: false
     patch: false

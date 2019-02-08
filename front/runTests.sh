@@ -9,5 +9,4 @@ exitCode=$?
 
 grep ^Statements coverage_results.txt | awk '{print $5}' | awk -F"/" 'BEGIN { max = -inf } { if ($1 > 0+max){ max = $1; c = $1; t = $2 } }  END { print "TOTAL     "t"     "(t - c)"     "(c/t) * 100"%" }'
 rm -f coverage_results.txt
-codecov --token=${CODECOV_TOKEN}
 exit $exitCode

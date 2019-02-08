@@ -50,6 +50,7 @@ stages:
   - pre-deploy
   - deploy
   - post-deploy
+  - coverage
 
 Build:
   stage: deps
@@ -112,9 +113,6 @@ commitlint:
 react-testing:
   stage: pre-test
   image: registry.gitlab.com/fluidsignal/integrates:deps190201
-  only:
-    - /^.*$/
-    - merge_requests
   before_script:
     - echo "Start Unit Testing"
   <<: *variables-dev
@@ -124,6 +122,10 @@ react-testing:
     - tslint -p tsconfig.json -t verbose || true
     - npm test
     - tsc -p tsconfig.json || true
+  artifacts:
+    name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
+    paths:
+      - front/coverage.lcov
   after_script:
     - echo "Job finished"
 
@@ -156,9 +158,6 @@ prospector-testing:
 
 unit-testing:
   stage: pre-test
-  only:
-    - /^.*$/
-    - merge_requests
   image: registry.gitlab.com/fluidsignal/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
@@ -173,7 +172,11 @@ unit-testing:
       --basetemp=build/test
       --junitxml=build/test/results.xml
       app/tests.py
-    - vaultenv ./run_codecov.sh
+    - cp -a build/coverage/results.xml /builds/fluidsignal/integrates/coverage.xml
+  artifacts:
+    name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
+    paths:
+      - coverage.xml
 
 asserts-code-test:
   stage: pre-test
@@ -474,4 +477,20 @@ asserts-prod:
   after_script:
     - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
   only:
+    - master
+
+coverage-report:
+  only:
+    - merge_requests
+  stage: coverage
+  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  <<: *variables-dev
+  <<: *vault_login
+  dependencies:
+    - unit-testing
+    - react-testing
+  script:
+    - vaultenv ./run_codecov.sh
+  retry: 2
+  except:
     - master
