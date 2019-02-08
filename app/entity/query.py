@@ -65,7 +65,6 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
-    @get_cached
     def resolve_events(self, info, project_name=""):
         """ Resolve for eventualities """
         del info
