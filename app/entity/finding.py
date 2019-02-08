@@ -15,7 +15,7 @@ import rollbar
 import boto3
 from backports import csv
 from graphql import GraphQLError
-from graphene import String, ObjectType, Boolean, List, Int, Float, JSONString, Mutation, Field
+from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
 from graphene.types.generic import GenericScalar
 
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
@@ -914,6 +914,7 @@ class UpdateDescription(Mutation):
         actor = String(required=True)
         affected_systems = String(required=True)
         attack_vector = String(required=True)
+        ambit = String()
         category = String()
         client_code = String()
         client_project = String()
@@ -927,7 +928,6 @@ class UpdateDescription(Mutation):
         records_number = Int(required=True)
         report_level = String(required=True)
         requirements = String(required=True)
-        risk_value = Float()
         severity = Int()
         scenario = String(required=True)
         threat = String(required=True)

@@ -27,8 +27,10 @@ export interface IDescriptionViewProps {
   dataset: {
     actor: string;
     affectedSystems: string;
+    ambit: string;
     attackVector: string;
     btsUrl: string;
+    category: string;
     clientCode: string;
     clientProject: string;
     compromisedAttributes: string;

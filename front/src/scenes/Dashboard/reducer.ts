@@ -66,8 +66,10 @@ const initialState: IDashboardState = {
     dataset: {
       actor: "",
       affectedSystems: "",
+      ambit: "",
       attackVector: "",
       btsUrl: "",
+      category: "",
       clientCode: "",
       clientProject: "",
       compromisedAttributes: "",

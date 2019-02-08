@@ -152,10 +152,97 @@ const renderRiskLevel: ((props: IDescriptionViewProps) => IEditableField) =
     visible: props.isEditing,
   });
 
+const renderAmbitField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      children: (
+        <React.Fragment>
+          <option value="" selected={true} />
+          <option value="Aplicaciones">
+            {translate.t("search_findings.tab_description.ambit.applications")}
+          </option>
+          <option value="Bases de Datos">
+            {translate.t("search_findings.tab_description.ambit.databases")}
+          </option>
+          <option value="Código fuente">
+            {translate.t("search_findings.tab_description.ambit.sourcecode")}
+          </option>
+          <option value="Infraestructura">
+            {translate.t("search_findings.tab_description.ambit.infra")}
+          </option>
+        </React.Fragment>),
+      component: dropdownField,
+      name: "ambit",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.ambit.title"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.probability,
+    visible: props.isEditing,
+  });
+
+const renderCategoryField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      children: (
+        <React.Fragment>
+          <option value="" selected={true} />
+          <option value="Actualizar y configurar las líneas base de seguridad de los componentes">
+            {translate.t("search_findings.tab_description.category.update_sec_baselines")}
+          </option>
+          <option value="Definir el modelo de autorización considerando el principio de mínimo privilegio">
+            {translate.t("search_findings.tab_description.category.define_auth_model")}
+          </option>
+          <option value="Desempeño">{translate.t("search_findings.tab_description.category.performance")}</option>
+          <option value="Eventualidad">{translate.t("search_findings.tab_description.category.event")}</option>
+          <option value="Evitar exponer la información técnica de la aplicación, servidores y plataformas">
+            {translate.t("search_findings.tab_description.category.expose_tech_info")}
+          </option>
+          <option value="Excluir datos sensibles del código fuente y del registro de eventos">
+            {translate.t("search_findings.tab_description.category.sensible_data_code")}
+          </option>
+          <option value="Fortalecer controles en autenticación y manejo de sesión">
+            {translate.t("search_findings.tab_description.category.strengthen_auth_session")}
+          </option>
+          <option value="Fortalecer controles en el procesamiento de archivos">
+            {translate.t("search_findings.tab_description.category.strengthen_file_processing")}
+          </option>
+          <option
+            value="Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas"
+          >
+            {translate.t("search_findings.tab_description.category.strengthen_password_keys")}
+          </option>
+          <option value="Implementar controles para validar datos de entrada">
+            {translate.t("search_findings.tab_description.category.validate_input")}
+          </option>
+          <option value="Mantenibilidad">
+            {translate.t("search_findings.tab_description.category.maintainability")}
+          </option>
+          <option value="Registrar eventos para trazabilidad y auditoría">
+            {translate.t("search_findings.tab_description.category.log_events")}
+          </option>
+          <option value="Utilizar protocolos de comunicación seguros">
+            {translate.t("search_findings.tab_description.category.secure_protocols")}
+          </option>
+          <option value="Validar la integridad de las transacciones en peticiones HTTP">
+            {translate.t("search_findings.tab_description.category.http_req_integrity")}
+          </option>
+        </React.Fragment>),
+      component: dropdownField,
+      name: "category",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.category.title"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: props.dataset.probability,
+    visible: props.isEditing,
+  });
+
 const renderDetailedFields: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
     [renderCustomerCodeField(props), renderCustomerProjectField(props)],
     [renderProbabilityField(props), renderSeverityField(props), renderRiskLevel(props)],
+    [renderAmbitField(props), renderCategoryField(props)],
   ];
 
 const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) =

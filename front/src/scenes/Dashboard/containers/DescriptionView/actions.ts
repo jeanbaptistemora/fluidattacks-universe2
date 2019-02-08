@@ -100,6 +100,8 @@ export const loadDescription: ThunkActionStructure<void> =
           probability
           detailedSeverity
           riskLevel
+          ambit
+          category
         }
       }`;
 
@@ -237,7 +239,9 @@ export const updateDescription: ThunkActionStructure<void> =
           clientCode: ${JSON.stringify(values.clientCode)},
           clientProject: ${JSON.stringify(values.clientProject)}
           severity: ${values.detailedSeverity},
-          probability: ${JSON.stringify(values.probability)}
+          probability: ${JSON.stringify(values.probability)},
+          ambit: ${JSON.stringify(values.ambit)},
+          category: ${JSON.stringify(values.category)}
         ) {
           finding {
             actor
@@ -259,6 +263,8 @@ export const updateDescription: ThunkActionStructure<void> =
             probability
             detailedSeverity
             riskLevel
+            ambit
+            category
           }
           success
         }
