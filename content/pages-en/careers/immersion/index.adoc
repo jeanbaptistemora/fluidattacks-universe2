@@ -31,11 +31,11 @@ looks to give monetary compensation for the time invested.
 
 == 2. Objectives
 
-. Solve +25+ +programming+ challenges.
-. Solve +25+ +ctf-hacking+ challenges.
-. Solve +25+ +vbd-hacking+ challenges.
-. Publish +5+ blog articles.
-. Finish +5+ training projects.
+. Solve +30+ unique +programming+ challenges.
+. Solve +30+ unique +ctf-hacking+ challenges.
+. Solve +30+ unique +vbd-hacking+ challenges.
+. Publish +3+ blog articles.
+. Finish +3+ training projects.
 
 == 3. Terms
 
@@ -241,10 +241,6 @@ when you have finished all the items mentioned in this section.
 The immersion stage ends under any of the following circumstances:
 
 . You have successfully completed link:#objectives[the objectives]
-
-. You have reached the maximum allowed of 10 failed +MR+.
-This means an +MR+ that was not +merged+
-due to failure to meet the criteria detailed in the documentation.
 
 . You are not meeting all link:#terms[terms] and
 link:#criteria[criteria] defined in this stage.
