@@ -67,7 +67,7 @@ export const postComment: ThunkActionStructure =
         commentId
       }
     }`;
-    new Xhr().request(gQry, `An error occurred getting adding a finding ${type}`)
+    new Xhr().request(gQry, `An error occurred adding a finding ${type}`)
       .then((response: AxiosResponse) => {
         const { data } = response.data;
 

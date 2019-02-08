@@ -326,14 +326,23 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
         mail_function = send_mail_reply_comment
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    dynamo_value = integrates_dao.get_finding_attributes_dynamo(
+        finding_id, ['finding'])
+    if dynamo_value:
+        finding_title = dynamo_value.get('finding')
+    else:
+        fin_dto = FindingDTO()
+        api = FormstackAPI()
+        finding_title = fin_dto.parse(
+            finding_id, api.get_submission(finding_id)
+        ).get('finding')
+
     email_send_thread = threading.Thread(
         name=mail_title,
         target=mail_function,
         args=(recipients, {
             'project': project_name,
-            'finding_name':
-                integrates_dao.get_finding_attributes_dynamo(
-                    finding_id, ['finding']).get('finding'),
+            'finding_name': finding_title,
             'user_email': user_email,
             'finding_id': finding_id,
             'comment': content.replace('\n', ' '),

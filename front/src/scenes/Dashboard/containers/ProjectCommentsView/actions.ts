@@ -59,7 +59,7 @@ export const postComment: ThunkActionStructure =
         commentId
       }
     }`;
-    new Xhr().request(gQry, "An error occurred getting adding a project comment")
+    new Xhr().request(gQry, "An error occurred adding a project comment")
       .then((response: AxiosResponse) => {
         const { data } = response.data;
 
