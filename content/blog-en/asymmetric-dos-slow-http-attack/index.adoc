@@ -15,56 +15,71 @@
 
 = Asymmetric DoS, slow HTTP attack
 
-Have you ever heard about that beautiful story of David and Goliath where an
-underdog, expected to lose and highly underestimate guy, shut down the biggest
-and strongest of the enemies?
+Have you ever heard the story of David and Goliath?
+David, a young boy, goes out to confront a giant, named Goliath.
+David is the underdog in this fight and is expected to lose.
+But, everyone underestimates David and his prowess with a slingshot.
+When David ultimately kills Goliath,
+he demonstrates that even a little guy can triumph
+over the biggest and strongest of enemies.
 
-Fine! because today we are going to talk about those unequal scenarios.
+Fine! Today we are going to talk about unequal scenarios.
 Furthermore, we are going to battle one ourselves.
 
 == Let's get started
 
-So, let's imagine for a moment that all you need to kill the giant that
-everyone fears is a little slingshot, not a big maze,
-nor the strength of a thousand men...
-Sounds crazy? Well it is. But it's possible.
+So, let’s imagine, for a moment,
+that all you need to kill the giant,
+that everyone fears, is a little slingshot,
+not a big mace, nor the strength of a thousand men.
+Sound crazy? Well, it is. But it’s possible.
 
-A cyber attack is considered "asymmetric" in the sense
-that you need a little amount of resources,
-(in this case, our tiny slingshot, or laptop),
-in order to cause a considerable level of resources malfunction or failure in
-the target, (in this case, the giant, or the server).
+A cyber attack is considered "asymmetric"
+in the sense that you only need a few resources,
+in this case, a laptop,
+in order to cause a considerable amount of damage,
+malfunction or failure in the server.
+A very real case of David vs. Goliath.
 
 If we push hard enough, the server is going to stop providing the service to
 other users, in other words, we will cause a _Denial of Service_ (DoS).
 
 == How does a slow http attack work?
 
-Imagine a line at the local fast food restaurant and a customer at the cashier
-who is taking an eternity to decide if he wants a burger or a hot-dog, making
-everyone else become anxious and stopping down the food delivery.
+Imagine a line at the local fast food restaurant.
+A customer at the head of the line
+can't decide if he wants a burger or a hot-dog.
+People behind him in line are getting mad;
+they aren't getting their food
+because he is holding up the whole line.
 
-If you look at it in more detail, all this customer needed was to "not know what
-to order" to make the fast food restaurant stop the food delivery, i.e. A DoS.
+If you look at it in more detail,
+all this customer needed to do was to "not know what to order".
+His indecision basically caused a denial of service
+for every other person waiting behind him at the counter, i.e. A DoS.
 
-Now imagine the same line, but you are supposed to know what to order before
-reaching the cashier, so there shouldn't be a problem. Bad thing is that now
-a customer is ordering a thousand burgers and a hundred hot-dogs, making again
-everyone else wait and making the restaurant tell the other customers, "hey,
-we'll be busy for the rest of the day cooking this, we can't serve more food!"
+Now imagine the same line,
+but the customer at the counter knows what he wants to order,
+and he's ordering a thousand burgers and a hundred hot-dogs.
+Again, this means everyone behind him in line
+will have to wait while his order is filled.
+The restaurant can take no more orders until his is complete.
 
 The HTTP protocol works similarly, it requires requests to be fully received by
 the final user before they are processed.
 
 Two things can happen, if a request is not completed,
-the server can either wait, or set the request as timed out after some seconds.
-But if you let the request complete, but at a slow rate,
-then the server will keep the resource busy waiting for the end of the data.
+the server can either wait
+or set the request as timed out after some few seconds.
+However, if you let the request complete,
+but at a slow rate, then the server will keep the resource busy
+waiting for the end of the data.
 
-What would happen if you order a thousand burgers and a hundred hot-dogs at
-your turn,
-but you don't decide fast what sauce and what drink in each one of them,
-and you are intentionally indecisive about your order and speaking slowly?
+What would happen if the customer orders a thousand burgers
+and a hundred hot-dogs, but he can't decide
+which sauces and drinks to order with them?
+And, to make matters worse, he seems to be intentionally indecisive
+and he's speaking very slowly.
 
 The answer:
 
@@ -72,35 +87,37 @@ The answer:
 
 This is exactly the idea behind a slow HTTP attack.
 
-A web server keeps its active connections in a relatively small connection pool,
-and we will try to tie all the connections in this pool to slow requests,
-making the server reject another users.
+A web server keeps its active connections
+in a relatively small connection pool.
+We will try to tie all the connections in this pool
+to slow requests, making the server reject other users.
 
 == Let's do an HTTP request
 
-First of all, let's run a
+First, let’s run a
 [button]#link:http://www.itsecgames.com/[bWAPP]#
-server on ip _192.168.56.101_
+server on ip _192.168.56.101_.
 
 .BWAPP server
 image::bwapp-running.png[bwapp-running]
 
-For now let's assume that we are at
+For now, let’s assume that we are at:
 
 ----
 192.168.56.101/bWAPP/xss_post.php.
 ----
 
-And we entered in the form
+And we entered in the form:
 
 .XSS page and input
 image::xss-login-form.png[xss-login-form]
 
 Once we access a page,
-the browser is going to ask the server for some resources,
-(images, texts, HTML pages, CSS and JavaScript files, etc),
-and we can see this requests and responses from the command line using _curl_
-(or Google Chrome, or Firefox, or BURP).
+the browser is going to ask the server for some resources
+(images, texts, +HTML+ pages, +CSS+ and +JavaScript+ files, etc)
+and we can see these requests and responses
+from the command line using +curl+
+(or Google Chrome, or Firefox, or +BURP+).
 
 The process using _curl_ is:
 
@@ -183,19 +200,22 @@ wait some seconds...
 firstname=IEU182KSZ&lastname=test2&form=submit
 ----
 
-And nothing stops us to simulate a slow connection on each one of this requests,
-so the server is going to have to wait until we receive the full resource.
+And nothing stops us from simulating a slow connection
+on each one of these requests,
+so the server is going to have to wait
+until we receive the full resource.
 
-Why not to do a thousand requests until every single connection available on the
-server pool is busy with us?
+Why not do a thousand requests
+until every single connection available on the server pool
+is busy with us?
 
 To do this, we are going to use a tool.
 
 == Using slowhttptest
 
-First of all, lets pull the
+First, let's pull the
 link:https://hub.docker.com/r/frapsoft/slowhttptest/[slowhttptest docker image]
-from the docker hub
+from the docker hub.
 
 .Bash command
 [source, bash, linenums]
@@ -246,38 +266,37 @@ Once the attack is finished everything returns to a normal state:
 .BWAPP working normally after attack
 image::bwapp-attack-finished.png[bwapp-attack-finished]
 
-Since we need a little amount of resources, (a laptop, and internet connection),
-we can even do it on a low-bandwidth connection. Moreover, since we don't need
-too much bandwidth, we can pass everything through a proxy in the tor network
-and hide ourselves.
+Since we only need a few resources (the internet and a laptop)
+we can even do it on a low-bandwidth connection.
+Moreover, since we don't need too much bandwidth,
+we can pass everything through a proxy
+in the tor network and hide ourselves.
 
 == Sounds scary, how do I protect myself?
 
-The set of counter measures depends mainly on your service.
-
+Counter-measures depend mainly on your service.
 Some useful mechanisms to prevent this kind of attacks are:
 
-* Limit the amount of resources that an unauthorized user can cause
-to be expended.
+* Limit the number of resources an unauthorized user can expend.
 * Set the header and message body to a maximum reasonable length.
-* Define a minimum incoming data rate, and drop them if they are slower.
+* Define a minimum incoming data rate, and drop those that are slower.
 * Set an absolute connection timeout.
 * Use a Web Application Firewall.
 * Reject connections with verbs not supported by the URL.
 
 In cases where you need to set minimum and maximum limits,
-a good idea is to find the values from your statistics.
+it's a good idea to use the values from your statistics.
 If the value is too short, you may risk dropping legitimate connections;
-and if it is too long, you don't get any protection from attacks.
-Perhaps using a margin ranging from one to two
-link:https://en.wikipedia.org/wiki/Normal_distribution#/media/File:Empirical_Rule.PNG[standard deviations]
+if it is too long, you won't get any protection from attacks.
+Perhaps using a margin ranging
+from one to two link:https://en.wikipedia.org/wiki/Normal_distribution#/media/File:Empirical_Rule.PNG[standard deviations]
 may help you with this.
 
 == Finally
 
 I really hope that you liked this article.
 
-Wish you a nice week, and see you in another post!
+I wish you a nice week, and will see you in another post!
 
 == References
 
