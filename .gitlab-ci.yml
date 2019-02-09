@@ -60,13 +60,6 @@ stages:
     refs:
       - schedules
 
-.only_schedules_variables: &only_schedules_variables
-  only:
-    refs:
-      - schedules
-    variable:
-      - ${VARIABLE}
-
 .except_analytics: &except_analytics
   except:
     variables:
@@ -158,20 +151,6 @@ build_vpn:
     changes:
       - containers/vpn/**/*
   <<: *except_analytics
-
-schedule_exams:
-  stage: build
-  <<: *kaniko_vault_config
-  <<: *kaniko_build_template
-  <<: *only_schedules
-  <<: *except_analytics 
-
-schedule_vpn:
-  stage: build
-  <<: *kaniko_vault_config
-  <<: *kaniko_build_template
-  <<: *only_schedules
-  <<: *except_analytics 
 
 mr-test:
   stage: mr-check
@@ -349,7 +328,7 @@ sync_currencies:
     - cat /currencies.singer |
         target-redshift --auth /target_secret.json --drop-schema --schema-name "currencies"
     - rm -fr /target_secret.json
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_CURRENCIES
@@ -367,7 +346,7 @@ sync_formstack:
     - tap-formstack --auth /tap_secret.json --conf analytics/conf/formstack.json |
       target-redshift --auth /target_secret.json --drop-schema --schema-name "formstack"
     - rm -fr /tap_secret.json /target_secret.json
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_FORMSTACK
@@ -390,7 +369,7 @@ sync_awsdynamodb:
     - tap-awsdynamodb --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json |
       target-redshift --auth /target_secret.json --drop-schema --drop-tables --schema-name "dynamodb"
     - rm -fr /tap_secret.json /target_secret.json
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_AWSDYNAMODB
@@ -420,7 +399,7 @@ sync_timedoctor:
     - cat timedoctor.singer |
         target-redshift --auth /target_secret.json --drop-schema --schema-name "timedoctor"
     - rm -fr /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_TIMEDOCTOR
@@ -442,7 +421,7 @@ sync_git:
     - python3 analytics/git/generate_config.py 2>&1 | aws s3 cp - s3://fluidanalytics/generate_config.log
     - analytics/git/sync_forked.sh
     - rm -fr ~/.aws/{credentials, config}
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_GIT
@@ -461,7 +440,7 @@ sync_mandrill:
     - cat mandrill.jsonstream | tap-json --date-formats "%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f" > mandrill.singer
     - cat mandrill.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "mandrill"
     - rm -rf /stream_secret.json /target_secret.json
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_MANDRILL
@@ -480,7 +459,7 @@ sync_infrastructure:
     - cat infra.jsonstream | tap-json > infra.singer
     - cat infra.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "infrastructure"
     - rm -rf /stream_secret.json /target_secret.json
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_INFRASTRUCTURE
@@ -509,7 +488,7 @@ sync_erp_mssqlserver:
     - cat .jsonstream | tap-json > .singer
     - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "erp sql server"
     - rm -rf /convert_secret.json /target_secret.json
-  <<: *only_schedules_variables
+  <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_ERP_MSSQLSERVER
