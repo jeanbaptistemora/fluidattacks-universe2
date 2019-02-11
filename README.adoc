@@ -8,10 +8,10 @@
 :toc-title:              Table of Contents
 :icons:                  font
 :source-highlighter:     pygments
-:keywords:               fluidintegrates, fluidsignal,
+:keywords:               fluidintegrates, fluidattacks,
 
-image:https://gitlab.com/fluidsignal/integrates/badges/master/pipeline.svg[link="https://gitlab.com/fluidsignal/integrates/commits/master",title="pipeline status"]
-image:https://gitlab.com/fluidsignal/integrates/badges/master/coverage.svg[link="https://gitlab.com/fluidsignal/integrates/commits/master",title="coverage report"]
+image:https://gitlab.com/fluidattacks/integrates/badges/master/pipeline.svg[link="https://gitlab.com/fluidattacks/integrates/commits/master",title="pipeline status"]
+image:https://gitlab.com/fluidattacks/integrates/badges/master/coverage.svg[link="https://gitlab.com/fluidattacks/integrates/commits/master",title="coverage report"]
 
 toc::[]
 
@@ -127,7 +127,7 @@ $ sudo pip install  django \
 
 [source, console]
 ----
-$ cd /var/www && sudo git clone https://gitlab.com/fluidsignal/integrates.git
+$ cd /var/www && sudo git clone https://gitlab.com/fluidattacks/integrates.git
 Cloning into 'integrates'...
 Username for 'https://gitlab.com': loginatfluid
 Password for 'https://loginatfluid@gitlab.com':
@@ -412,7 +412,7 @@ $ sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE
 
 [source, console]
 ----
-$ sudo docker run -d -p 8000:443 --env-file /var/www/integrates/env.list -t --name=integrates registry.gitlab.com/fluidsignal/integrates:base
+$ sudo docker run -d -p 8000:443 --env-file /var/www/integrates/env.list -t --name=integrates registry.gitlab.com/fluidattacks/integrates:base
 
 ----
 

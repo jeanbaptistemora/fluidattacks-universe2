@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidsignal/integrates:deps181210
+FROM registry.gitlab.com/fluidattacks/integrates:deps190201
 
 # Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
@@ -11,7 +11,6 @@ ARG drive_authorization_client
 ARG documentroot
 ARG ssl_key
 ARG ssl_cert
-ARG vault_ca
 ARG vault_env
 
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
@@ -26,7 +25,7 @@ WORKDIR /root/
 # Remove index file, clone Integrates repository CI_COMMIT_REF_NAME and execute ansible
 RUN rm -r /var/www/html \
     && git clone --depth 1 -b $CI_COMMIT_REF_NAME \
-         https://"$gitlab_login":"$gitlab_password"@gitlab.com/fluidsignal/integrates.git  \
+         https://"$gitlab_login":"$gitlab_password"@gitlab.com/fluidattacks/integrates.git  \
          /usr/src/app \
     && mkdir /usr/src/app/app/documentator/images  \
     && mkdir /usr/src/app/app/documentator/tpls  \
@@ -45,8 +44,6 @@ RUN rm -r /var/www/html \
     && echo "$ssl_key" | base64 -di > "/etc/ssl/private/fluidla.key" \
     && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
     && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
-    && echo -n "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
-    && update-ca-certificates \
     && sed -i 's/env#/'"$vault_env"'#/g' /usr/src/app/env.vars
 
 # First command

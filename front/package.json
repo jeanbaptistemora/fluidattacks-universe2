@@ -2,7 +2,7 @@
   "name": "Integrates",
   "version": "1.0.0",
   "description": "",
-  "repository": "https://gitlab.com/fluidsignal/integrates.git",
+  "repository": "https://gitlab.com/fluidattacks/integrates.git",
   "author": "Engineering Team",
   "dependencies": {
     "angular": "1.7.2",

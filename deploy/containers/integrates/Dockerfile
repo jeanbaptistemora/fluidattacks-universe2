@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidsignal/integrates:deps190201
+FROM registry.gitlab.com/fluidattacks/integrates:deps190201
 
 # Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
@@ -11,7 +11,6 @@ ARG drive_authorization_client
 ARG documentroot
 ARG ssl_key
 ARG ssl_cert
-ARG vault_ca
 ARG vault_env
 ARG fi_version
 
@@ -28,7 +27,7 @@ WORKDIR /root/
 # Remove index file, clone Integrates repository CI_COMMIT_REF_NAME and execute ansible
 RUN rm -r /var/www/html \
     && git clone --depth 1 -b $CI_COMMIT_REF_NAME \
-         https://"$gitlab_login":"$gitlab_password"@gitlab.com/fluidsignal/integrates.git  \
+         https://"$gitlab_login":"$gitlab_password"@gitlab.com/fluidattacks/integrates.git  \
          /usr/src/app \
     && curl -L https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh | sh \
     && rm -f /etc/td-agent/td-agent.conf \
@@ -60,8 +59,6 @@ RUN rm -r /var/www/html \
     && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
     && cd /usr/src/app/front/ && npm install && gulp \
     && sed -i 's/>v./>v.\ '"${FI_VERSION}"'/' /usr/src/app/app/templates/dashboard.html \
-    && echo -n "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
-    && update-ca-certificates \
     && sed -i 's/env#/'"$vault_env"'#/g' /usr/src/app/env.vars
 
 # Make port 443 and 24224 available to the world outside this container

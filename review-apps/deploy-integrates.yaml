@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: integrates
-        image: registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_SLUG
+        image: registry.gitlab.com/fluidattacks/integrates:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         envFrom:
           - secretRef:

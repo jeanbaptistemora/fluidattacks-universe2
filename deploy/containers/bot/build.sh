@@ -12,9 +12,6 @@ set -e
 echo "---### [${SERVER}] Compilando contenedor."
 CI_COMMIT_REF_NAME=$1
 
-VAULT_CA=$(cat /usr/local/share/ca-certificates/vault-ca.crt \
-  | base64 | tr -d '\n')
-
 # Build image.
 cp -a deploy/containers/common deploy/containers/bot
 docker build --no-cache \
@@ -26,8 +23,7 @@ docker build --no-cache \
   --build-arg documentroot="$FI_DOCUMENTROOT" \
   --build-arg ssl_key="$FI_SSL_KEY" \
   --build-arg ssl_cert="$FI_SSL_CERT" \
-  --build-arg vault_ca="$VAULT_CA" \
   --build-arg vault_env="$ENV_FULL" \
-  -t "registry.gitlab.com/fluidsignal/integrates/bot:$CI_COMMIT_REF_NAME" \
+  -t "registry.gitlab.com/fluidattacks/integrates/bot:$CI_COMMIT_REF_NAME" \
   deploy/containers/bot/
 rm -rf common

@@ -1,7 +1,5 @@
 FROM debian:buster-slim
 
-ARG vault_ca
-
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=America/Bogota
 
@@ -27,9 +25,7 @@ RUN curl -LsSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.
        && rm vault.zip \
     && curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.7.1/vaultenv-0.7.1.deb \
       && dpkg -i vaultenv.deb \
-      && rm vaultenv.deb \
-    && echo "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt \
-    && update-ca-certificates
+      && rm vaultenv.deb
 
 # Install deps
 RUN apt-get update && apt-get install -y \

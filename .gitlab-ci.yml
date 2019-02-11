@@ -55,12 +55,8 @@ stages:
 Build:
   stage: deps
   script:
-    - aws s3 cp
-        s3://$VAULT_S3_BUCKET/vault-ca.crt
-        vault-ca.crt
     - cp front/package.json deploy/containers/deps/
     - docker build --no-cache
-        --build-arg vault_ca="$(cat vault-ca.crt | base64 | tr -d '\n')"
         -t "$DOCKER_BASENAME:deps190201"
         deploy/containers/deps
     - docker push "$DOCKER_BASENAME:deps190201"
@@ -68,7 +64,7 @@ Build:
   only:
     - schedules
 
-terraform-test:
+.terraform-test:
   stage: pre-test
   <<: *variables-dev
   <<: *vault_login
@@ -87,7 +83,7 @@ gulp-compiler:
  stage: pre-test
  before_script:
    - echo "Start gulp compiler"
- image: registry.gitlab.com/fluidsignal/integrates:deps190201
+ image: registry.gitlab.com/fluidattacks/integrates:deps190201
  script:
    - cd app/assets && npm install --unsafe-perm
    - cd ../../front
@@ -115,7 +111,7 @@ react-testing:
   only:
     - /^.*$/
     - merge_requests
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  image: registry.gitlab.com/fluidattacks/integrates:deps190201
   before_script:
     - echo "Start Unit Testing"
   <<: *variables-dev
@@ -136,7 +132,7 @@ js-linter:
   stage: pre-test
   before_script:
     - echo "JS Linting"
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  image: registry.gitlab.com/fluidattacks/integrates:deps190201
   script:
     - eslint app/assets/app/.
   after_script:
@@ -148,7 +144,7 @@ js-linter:
 
 prospector-testing:
   stage: pre-test
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  image: registry.gitlab.com/fluidattacks/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -164,7 +160,7 @@ unit-testing:
   only:
     - /^.*$/
     - merge_requests
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  image: registry.gitlab.com/fluidattacks/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -178,7 +174,7 @@ unit-testing:
       --basetemp=build/test
       --junitxml=build/test/results.xml
       app/tests.py
-    - cp -a build/coverage/results.xml /builds/fluidsignal/integrates/coverage.xml
+    - cp -a build/coverage/results.xml /builds/fluidattacks/integrates/coverage.xml
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -200,7 +196,7 @@ asserts-code-test:
     - master
     - triggers
 
-terraform-deploy:
+.terraform-deploy:
   stage: build
   <<: *vault_login
   script:
@@ -256,7 +252,7 @@ build-bot:
 
 remove-cache-keys:
   stage: review
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  image: registry.gitlab.com/fluidattacks/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -267,7 +263,7 @@ remove-cache-keys:
 
 driver-testing:
   stage: post-deploy
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  image: registry.gitlab.com/fluidattacks/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -277,7 +273,7 @@ driver-testing:
     - vaultenv -- $(which pytest) --ds=fluidintegrates.settings --verbose --exitfirst
       --basetemp=build/test
       app/ephimeral_tests.py
-    - cp -a screenshots /builds/fluidsignal/integrates/
+    - cp -a screenshots /builds/fluidattacks/integrates/
   retry: 2
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -426,10 +422,6 @@ deploy-k8s:
   stage: deploy
   <<: *vault_login
   script:
-    - mkdir $HOME/.kube
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-        $HOME/.kube/config
     - kubectl config set-context "$(kubectl config current-context)"
         --namespace serves
     - if ! kubectl get secret gitlab-reg; then
@@ -489,7 +481,7 @@ coverage-report:
   only:
     - merge_requests
   stage: coverage
-  image: registry.gitlab.com/fluidsignal/integrates:deps190201
+  image: registry.gitlab.com/fluidattacks/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   dependencies:

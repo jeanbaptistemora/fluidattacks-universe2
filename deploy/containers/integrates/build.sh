@@ -14,9 +14,6 @@ CI_COMMIT_REF_NAME=$1
 # Start message.
 echo "---### [${SERVER}] Compilando contenedor."
 
-VAULT_CA=$(cat /usr/local/share/ca-certificates/vault-ca.crt \
-  | base64 | tr -d '\n')
-
 python -c 'import integrates_version; integrates_version.create_integrates_version()'
 FI_VERSION=$(cat /usr/local/share/FI_version.txt)
 # Build the image.
@@ -30,9 +27,8 @@ docker build --no-cache \
   --build-arg documentroot="$FI_DOCUMENTROOT" \
   --build-arg ssl_key="$FI_SSL_KEY" \
   --build-arg ssl_cert="$FI_SSL_CERT" \
-  --build-arg vault_ca="$VAULT_CA" \
   --build-arg vault_env="$ENV_FULL" \
   --build-arg fi_version="$FI_VERSION" \
-  -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" \
+  -t "registry.gitlab.com/fluidattacks/integrates:$CI_COMMIT_REF_NAME" \
   deploy/containers/integrates/
 rm -rf common

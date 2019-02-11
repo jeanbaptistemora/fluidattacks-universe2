@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/fluidsignal/integrates.git"
+    "url": "git+ssh://git@gitlab.com/fluidattacks/integrates.git"
   },
   "author": "Fluid Attacks",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/fluidsignal/integrates/issues"
+    "url": "https://gitlab.com/fluidattacks/integrates/issues"
   },
-  "homepage": "https://gitlab.com/fluidsignal/integrates#readme",
+  "homepage": "https://gitlab.com/fluidattacks/integrates#readme",
   "devDependencies": {
     "@commitlint/cli": "7.2.1",
     "@commitlint/config-conventional": "7.1.2",
