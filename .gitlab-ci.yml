@@ -71,6 +71,7 @@ stages:
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
+      - $FLAG_SYNC_MS_SQL_SERVER_ERP
 
 build_base:
   stage: deps
@@ -472,11 +473,6 @@ build_ms_sql_server:
     - export CONT_DIR="${CI_PROJECT_DIR}/analytics/containers/${CONT}"
     - cp env.vars "${CONT_DIR}"
     - /kaniko/executor
-        --build-arg VAULT_HOST="${VAULT_HOST}"
-        --build-arg VAULT_PORT="${VAULT_PORT}"
-        --build-arg VAULT_API_URL="${VAULT_API_URL}"
-        --build-arg ROLE_ID="${ROLE_ID}"
-        --build-arg SECRET_ID="${SECRET_ID}"
         --cleanup
         --context "${CONT_DIR}"
         --dockerfile "${CONT_DIR}/Dockerfile"
@@ -485,3 +481,32 @@ build_ms_sql_server:
   only:
     variables:
       - $FLAG_CONT_MS_SQL_SERVER
+
+sync_ms_sql_server_erp:
+  image: registry.gitlab.com/fluidsignal/serves:ms_sql_server
+  stage: analytics
+  <<: *vault_login
+  script:
+    - pip3 install
+        pyodbc
+        analytics/singer/tap_json
+        analytics/singer/target_redshift
+    - cat /etc/odbcinst.ini
+    - ldd /opt/microsoft/msodbcsql17/lib64/*
+    - (echo "import pyodbc"; echo "print(pyodbc.drivers())") | python3
+    - echo "$(vault read -field=analytics_auth_ms_sql_server_erp secret/serves)" > /convert_secret.json
+    - mkdir csv
+    - analytics/singer/converter_mssqlserver_csv.py --auth /convert_secret.json --output-dir csv
+    - for csv_path in csv/*.csv; do
+        echo "$csv_path";
+        analytics/singer/streamer_csv.py "$csv_path" >> .jsonstream;
+      done
+    - cat .jsonstream | tap-json > .singer
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "erp sql server"
+  after_script:
+    - rm -rf /convert_secret.json /target_secret.json
+  <<: *only_schedules
+  only:
+    variables:
+      - $FLAG_SYNC_MS_SQL_SERVER_ERP
