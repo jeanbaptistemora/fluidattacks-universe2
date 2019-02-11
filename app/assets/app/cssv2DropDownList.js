@@ -2,17 +2,6 @@
  * This file does not allow exports or globals.
  */
 /* eslint-disable no-unused-vars */
-const scenario = [
-  {"name": "Anónimo desde Internet"},
-  {"name": "Anónimo desde Intranet"},
-  {"name": "Escaneo de Infraestructura"},
-  {"name": "Usuario de Extranet no autorizado"},
-  {"name": "Usuario de Internet autorizado"},
-  {"name": "Usuario de Internet no autorizado"},
-  {"name": "Usuario de Intranet autorizado"},
-  {"name": "Usuario de Intranet no autorizado"}
-];
-
 const categories = [
   {
     "name": "Actualizar y configurar las líneas base de seguridad de " +
