@@ -47,7 +47,6 @@ stages:
   - build
   - review
   - mr-check
-  - pre-deploy
   - deploy
   - post-deploy
   - coverage
@@ -387,39 +386,11 @@ danger:
   script:
     - bundle exec danger --verbose --fail-on-errors=true
 
-test-deployment:
-  stage: pre-deploy
-  <<: *vault_login
-  script:
-    - mkdir $HOME/.kube
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-        $HOME/.kube/config
-    - kubectl config set-context "$(kubectl config current-context)"
-        --namespace serves
-    - if ! kubectl get secret gitlab-reg; then
-        echo "Creating secret to access Gitlab Registry..."
-        kubectl create secret docker-registry gitlab-reg \
-          --docker-server="$CI_REGISTRY" --docker-username="$DOCKER_USER" \
-          --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL";
-      fi
-    - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
-        s/$VAULT_TOKEN/'"$(echo -n $VAULT_TOKEN | base64)"'/;
-        s/name:\ integrates$/name:\ integrates-test/g;
-        s/app:\ integrates/app:\ integrates-test/g'
-        integrates-k8s.yaml
-    - cat integrates-k8s.yaml | head -n 64 | kubectl apply -f -
-    - kubectl rollout status deploy/integrates-test --timeout=5m ||
-        { echo "Deployment test failed!" && exit 1; }
-  after_script:
-    - kubectl delete deploy/integrates-test
-    - kubectl delete svc/integrates-test
-    - docker logout "$CI_REGISTRY"
-  only:
-    - master
-
 deploy-k8s:
   stage: deploy
+  environment:
+    name: "production"
+    url: "https://fluidattacks.com/integrates"
   <<: *vault_login
   script:
     - kubectl config set-context "$(kubectl config current-context)"
