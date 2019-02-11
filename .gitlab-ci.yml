@@ -422,7 +422,7 @@ deploy-k8s:
        /bin/bash -c "cd /usr/src/app/;
        vaultenv $(which python) integrates_version.py"
   after_script:
-    - rm integrates-k8s.yaml $HOME/.kube/config
+    - rm integrates-k8s.yaml
   only:
     - master
 
