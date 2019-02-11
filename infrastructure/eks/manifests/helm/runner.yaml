@@ -1,13 +1,18 @@
-image: gitlab/gitlab-runner:alpine-v11.4.0
-checkInterval: 5
-concurrent: 12
-gitlabUrl: https://gitlab.com
-runnerRegistrationToken: $GITLAB_RUNNER_TOKEN
+image: gitlab/gitlab-runner:alpine
+gitlabUrl: https://gitlab.com/
+runnerRegistrationToken: $SERVES_RUNNER_TOKEN
+unregisterRunners: true
 rbac:
   create: true
+concurrent: 6
+checkInterval: 10
+metrics:
+  enabled: false
 runners:
   image: docker:18
   imagePullPolicy: if-not-present
+  locked: true
+  privileged: false
   builds:
     cpuLimit: 200m
     memoryLimit: 256Mi

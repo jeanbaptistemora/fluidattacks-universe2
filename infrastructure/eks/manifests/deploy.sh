@@ -80,6 +80,7 @@ function install_helm_chart() {
   local name="${2}"
   local namespace="${3}"
   local values="helm/${4}"
+  replace_env_variables "${values}"
   if helm list --tls | grep -q "${name}"; then
     mapfile -t changed_files < <(get_changed_files)
     if echo "${changed_files[@]}" | grep -o "${values}"; then
@@ -184,7 +185,7 @@ helm repo add banzaicloud http://kubernetes-charts.banzaicloud.com/branch/master
 helm repo update
 
 install_helm_chart stable/nginx-ingress controller serves nginx.yaml
-install_helm_chart gitlab/gitlab-runner runner operations runner.yaml
+install_helm_chart gitlab/gitlab-runner serves-runner serves runner.yaml
 install_helm_chart stable/cert-manager cert-manager operations cert-manager.yaml
 install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml
 install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml 
