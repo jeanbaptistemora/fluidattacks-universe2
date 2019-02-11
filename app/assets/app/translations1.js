@@ -219,6 +219,7 @@ const translations1 = {
       {
         "anon_inter": "Anonymous from Internet",
         "anon_intra": "Anonymous from Intranet",
+        "auth_extra": "Authorized Extranet user",
         "auth_inter": "Authorized Internet user",
         "auth_intra": "Authorized Intranet user",
         "default": "-",

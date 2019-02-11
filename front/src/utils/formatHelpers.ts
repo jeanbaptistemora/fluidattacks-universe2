@@ -156,7 +156,15 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
     "ANYONE_WORKSTATION": "search_findings.tab_description.actor.any_station",
     "ANY_EMPLOYEE": "search_findings.tab_description.actor.any_employee",
     "SOME_EMPLOYEES": "search_findings.tab_description.actor.some_employee",
-    "ONE_EMPLOYEE": "search_findings.tab_description.actor.one_employee"
+    "ONE_EMPLOYEE": "search_findings.tab_description.actor.one_employee",
+    "ANONYMOUS_INTERNET": "search_findings.tab_description.scenario.anon_inter",
+    "ANONYMOUS_INTRANET": "search_findings.tab_description.scenario.anon_intra",
+    "AUTHORIZED_USER_EXTRANET": "search_findings.tab_description.scenario.auth_extra",
+    "UNAUTHORIZED_USER_EXTRANET": "search_findings.tab_description.scenario.unauth_extra",
+    "AUTHORIZED_USER_INTERNET": "search_findings.tab_description.scenario.auth_inter",
+    "UNAUTHORIZED_USER_INTERNET": "search_findings.tab_description.scenario.unauth_inter",
+    "AUTHORIZED_USER_INTRANET": "search_findings.tab_description.scenario.auth_intra",
+    "UNAUTHORIZED_USER_INTRANET": "search_findings.tab_description.scenario.unauth_intra"
   };
 
   return translationParameters[field];

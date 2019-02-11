@@ -467,9 +467,17 @@ def cast_finding_attributes(finding):
         'Cualquier empleado de la organización': 'ANY_EMPLOYEE',
         'Solo algunos empleados': 'SOME_EMPLOYEES',
         'Solo un empleado': 'ONE_EMPLOYEE',
+        'Anónimo desde internet': 'ANONYMOUS_INTERNET',
+        'Anónimo desde intranet': 'ANONYMOUS_INTRANET',
+        'Extranet usuario autorizado': 'AUTHORIZED_USER_EXTRANET',
+        'Extranet usuario no autorizado': 'UNAUTHORIZED_USER_EXTRANET',
+        'Internet usuario autorizado': 'AUTHORIZED_USER_INTERNET',
+        'Internet usuario no autorizado': 'UNAUTHORIZED_USER_INTERNET',
+        'Intranet usuario autorizado': 'AUTHORIZED_USER_INTRANET',
+        'Intranet usuario no autorizado': 'UNAUTHORIZED_USER_INTRANET'
     }
     list_fields = ['reportLevel', 'subscription', 'testType', 'findingType',
-                   'actor']
+                   'actor', 'scenario']
     for field in list_fields:
         if finding.get(field):
             finding[field] = cast_finding_field.get(

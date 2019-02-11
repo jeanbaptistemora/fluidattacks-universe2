@@ -261,7 +261,8 @@ class ITReport(object):
                          self.__get_req(row['requirements']))
         self.set_cell_qc(self.matriz['requirements'], row['requirements'])
         if 'scenario' in row:
-            self.set_cell_qc(self.matriz['scenario'], row['scenario'])
+            self.set_cell_qc(self.matriz['scenario'],
+                             translate_parameter(row['scenario']))
         if 'ambit' in row:
             self.set_cell_qc(self.matriz['ambit'], row['ambit'])
         if 'category' in row:
@@ -305,6 +306,14 @@ def translate_parameter(param):
         'APP': 'Aplicación',
         'BINARY': 'Binario',
         'SOURCE_CODE': 'Código fuente',
-        'INFRASTRUCTURE': 'Infraestructura'
+        'INFRASTRUCTURE': 'Infraestructura',
+        'ANONYMOUS_INTERNET': 'Anónimo desde internet',
+        'ANONYMOUS_INTRANET': 'Anónimo desde intranet',
+        'AUTHORIZED_USER_EXTRANET': 'Extranet usuario autorizado',
+        'UNAUTHORIZED_USER_EXTRANET': 'Extranet usuario no autorizado',
+        'AUTHORIZED_USER_INTERNET': 'Internet usuario autorizado',
+        'UNAUTHORIZED_USER_INTERNET': 'Internet usuario no autorizado',
+        'AUTHORIZED_USER_INTRANET': 'Intranet usuario autorizado',
+        'UNAUTHORIZED_USER_INTRANET': 'Intranet usuario no autorizado'
     }
     return translation_values.get(param)

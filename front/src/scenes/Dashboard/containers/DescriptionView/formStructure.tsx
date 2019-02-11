@@ -281,28 +281,28 @@ const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) 
         children: (
           <React.Fragment>
             <option value="" selected={true} />
-            <option value="Anónimo desde internet">
+            <option value="ANONYMOUS_INTERNET">
               {translate.t("search_findings.tab_description.scenario.anon_inter")}
             </option>
-            <option value="Anónimo desde intranet">
+            <option value="ANONYMOUS_INTRANET">
               {translate.t("search_findings.tab_description.scenario.anon_intra")}
             </option>
-            <option value="Extranet usuario autorizado">
+            <option value="AUTHORIZED_USER_EXTRANET">
               {translate.t("search_findings.tab_description.scenario.auth_extra")}
             </option>
-            <option value="Extranet usuario no autorizado">
+            <option value="UNAUTHORIZED_USER_EXTRANET">
               {translate.t("search_findings.tab_description.scenario.unauth_extra")}
             </option>
-            <option value="Internet usuario autorizado">
+            <option value="AUTHORIZED_USER_INTERNET">
               {translate.t("search_findings.tab_description.scenario.auth_inter")}
             </option>
-            <option value="Internet usuario no autorizado">
+            <option value="UNAUTHORIZED_USER_INTERNET">
               {translate.t("search_findings.tab_description.scenario.unauth_inter")}
             </option>
-            <option value="Intranet usuario autorizado">
+            <option value="AUTHORIZED_USER_INTRANET">
               {translate.t("search_findings.tab_description.scenario.auth_intra")}
             </option>
-            <option value="Intranet usuario no autorizado">
+            <option value="UNAUTHORIZED_USER_INTRANET">
               {translate.t("search_findings.tab_description.scenario.unauth_intra")}
             </option>
           </React.Fragment>),
@@ -312,7 +312,7 @@ const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) 
       },
       label: translate.t("search_findings.tab_description.scenario.title"),
       renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-      value: props.dataset.scenario,
+      value: translate.t(formatDropdownField(props.dataset.scenario)),
       visible: true,
     },
      {
