@@ -3,6 +3,7 @@
 
 import os
 import re
+import sys
 import json
 import argparse
 import datetime
@@ -20,10 +21,13 @@ GIT_COMMIT = Any
 
 
 def sprint(json_obj: JSON) -> None:
-    """Prints a JSON object to stdout.
-    """
-
+    """Prints a JSON object to stdout."""
     print(json.dumps(json_obj))
+
+
+def print_stderr(*args: Any) -> None:
+    """Print to stderr and flush the buffer."""
+    print(*args, file=sys.stderr, flush=True)
 
 
 def go_back(this_days: int) -> str:
@@ -420,9 +424,7 @@ def scan_gitinspector__responsibilities(data: JSON) -> None:
 
 
 def main():
-    """Usual entry point.
-    """
-
+    """Usual entry point."""
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -479,18 +481,25 @@ def main():
     after = go_back(args.this_days)
 
     for conf in configs:
-        try:
-            # pylint: disable=broad-except
+        repository = conf["repository"]
 
-            if args.run_gitinspector:
+        # pylint: disable=broad-except
+        if args.run_gitinspector:
+            try:
                 scan_gitinspector(conf["location"])
+            except Exception as excp:
+                print_stderr(f"WARN: Exception at {repository}.", repr(excp))
 
-            if args.with_metrics:
+        if args.with_metrics:
+            try:
                 metrics.scan_metrics(conf["repository"], conf["location"])
+            except Exception as excp:
+                print_stderr(f"WARN: Exception at {repository}.", repr(excp))
 
+        try:
             scan_commits(conf, args.sync_changes, after)
         except Exception as excp:
-            sprint({"type": "STATE", "value": repr(excp)})
+            print_stderr(f"WARN: Exception at {repository}.", repr(excp))
 
 
 if __name__ == "__main__":
