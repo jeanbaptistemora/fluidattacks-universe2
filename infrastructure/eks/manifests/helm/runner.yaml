@@ -14,10 +14,10 @@ runners:
   locked: true
   privileged: false
   builds:
-    cpuLimit: 450m
-    memoryLimit: 786Mi
-    cpuRequests: 300m
-    memoryRequests: 512Mi
+    cpuLimit: 900m
+    memoryLimit: 1536Mi
+    cpuRequests: 600m
+    memoryRequests: 1024Mi
   services:
     cpuLimit: 200m
     memoryLimit: 256Mi
