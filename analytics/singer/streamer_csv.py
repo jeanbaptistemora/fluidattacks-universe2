@@ -2,6 +2,7 @@
 
 """Minimalistic yet complete Streamer for a CSV file."""
 
+import os
 import csv
 import json
 import argparse
@@ -9,6 +10,7 @@ import argparse
 
 def stream_csv(csv_file_path: str) -> None:
     """Streams a CSV file to stdout."""
+    stream_name = os.path.basename(csv_file_path).replace(".csv", "")
     with open(csv_file_path) as csv_file:
         for row in csv.DictReader(
                 csv_file,
@@ -17,7 +19,7 @@ def stream_csv(csv_file_path: str) -> None:
             print(
                 json.dumps(
                     {
-                        "stream": csv_file_path,
+                        "stream": stream_name,
                         "record": dict(row)
                     }))
 

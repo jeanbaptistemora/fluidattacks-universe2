@@ -66,7 +66,7 @@ def iter_tables(credentials):
                 initial_cycle = False
             else:
                 yield (current_table_path, table_fields)
-                table_fields = []
+                table_fields = [field_name]
             current_table_path = table_path
 
 

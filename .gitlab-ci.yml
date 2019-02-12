@@ -491,9 +491,6 @@ sync_ms_sql_server_erp:
         pyodbc
         analytics/singer/tap_json
         analytics/singer/target_redshift
-    - cat /etc/odbcinst.ini
-    - ldd /opt/microsoft/msodbcsql17/lib64/*
-    - (echo "import pyodbc"; echo "print(pyodbc.drivers())") | python3
     - echo "$(vault read -field=analytics_auth_ms_sql_server_erp secret/serves)" > /convert_secret.json
     - mkdir csv
     - analytics/singer/converter_mssqlserver_csv.py --auth /convert_secret.json --output-dir csv
@@ -503,7 +500,7 @@ sync_ms_sql_server_erp:
       done
     - cat .jsonstream | tap-json > .singer
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "erp sql server"
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "erp"
   after_script:
     - rm -rf /convert_secret.json /target_secret.json
   <<: *only_schedules
