@@ -7,12 +7,12 @@ services:
   - docker:dind
 
 before_script:
-  - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
-  - echo "$CI_REGISTRY_PASSWORD" |
-      docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+  - export DOCKER_BASENAME="fluid-docker.jfrog.io/integrates"
+  - echo "$JFROG_PASS" |
+      docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin
 
 after_script:
-  - docker logout "$CI_REGISTRY" || echo 'Docker not necessary'
+  - docker logout "$fluid-docker.jfrog.io" || echo 'Docker not necessary'
 
 .variables-dev: &variables-dev
   variables:
@@ -36,9 +36,9 @@ after_script:
     - export VAULT_PORT=443
     - export VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
     - sed -i 's/env#/'"$ENV_FULL"'#/g' "$VAULTENV_SECRETS_FILE"
-    - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
-    - echo "$CI_REGISTRY_PASSWORD" |
-        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin ||
+    - export DOCKER_BASENAME="fluid-docker.jfrog.io/integrates"
+    - echo "$JFROG_PASS" |
+        docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin ||
         echo 'Docker not necessary'
 
 stages:
@@ -82,7 +82,7 @@ gulp-compiler:
  stage: pre-test
  before_script:
    - echo "Start gulp compiler"
- image: registry.gitlab.com/fluidattacks/integrates:deps190201
+ image: fluid-docker.jfrog.io/integrates:deps190201
  script:
    - cd app/assets && npm install --unsafe-perm
    - cd ../../front
@@ -110,7 +110,7 @@ react-testing:
   only:
     - /^.*$/
     - merge_requests
-  image: registry.gitlab.com/fluidattacks/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps190201
   before_script:
     - echo "Start Unit Testing"
   <<: *variables-dev
@@ -131,7 +131,7 @@ js-linter:
   stage: pre-test
   before_script:
     - echo "JS Linting"
-  image: registry.gitlab.com/fluidattacks/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps190201
   script:
     - eslint app/assets/app/.
   after_script:
@@ -143,7 +143,7 @@ js-linter:
 
 prospector-testing:
   stage: pre-test
-  image: registry.gitlab.com/fluidattacks/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -159,7 +159,7 @@ unit-testing:
   only:
     - /^.*$/
     - merge_requests
-  image: registry.gitlab.com/fluidattacks/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -244,14 +244,14 @@ build-bot:
   <<: *vault_login
   script:
     - vaultenv deploy/containers/bot/build.sh "$CI_COMMIT_REF_NAME"
-    - docker push "$DOCKER_BASENAME/bot:$CI_COMMIT_REF_NAME"
+    - docker push "$DOCKER_BASENAME:bot"
   retry: 2
   except:
     - triggers
 
 remove-cache-keys:
   stage: review
-  image: registry.gitlab.com/fluidattacks/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -262,7 +262,7 @@ remove-cache-keys:
 
 driver-testing:
   stage: post-deploy
-  image: registry.gitlab.com/fluidattacks/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -395,11 +395,11 @@ deploy-k8s:
   script:
     - kubectl config set-context "$(kubectl config current-context)"
         --namespace serves
-    - if ! kubectl get secret gitlab-reg; then
+    - if ! kubectl get secret jfrog-reg; then
         echo "Creating secret to access Gitlab Registry..."
-        kubectl create secret docker-registry gitlab-reg \
-          --docker-server="$CI_REGISTRY" --docker-username="$DOCKER_USER" \
-          --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL";
+        kubectl create secret docker-registry jfrog-reg \
+          --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER" \
+          --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL";
       fi
     - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
         s/$VAULT_TOKEN/'"$(echo -n $VAULT_TOKEN | base64)"'/;
@@ -452,7 +452,7 @@ coverage-report:
   only:
     - merge_requests
   stage: coverage
-  image: registry.gitlab.com/fluidattacks/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps190201
   <<: *variables-dev
   <<: *vault_login
   dependencies:

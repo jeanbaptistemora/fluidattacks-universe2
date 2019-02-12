@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: integrates
-        image: registry.gitlab.com/fluidattacks/integrates:$CI_COMMIT_REF_SLUG
+        image: fluid-docker.jfrog.io/integrates:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         envFrom:
           - secretRef:
@@ -40,4 +40,4 @@ spec:
           successThreshold: 3
           failureThreshold: 10
       imagePullSecrets:
-      - name: gitlab-reg
+      - name: jfrog-reg

@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidattacks/integrates:deps190201
+FROM fluid-docker.jfrog.io/integrates:deps190201
 
 # Doubts about the image in question
 MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
