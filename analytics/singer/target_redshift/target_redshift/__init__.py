@@ -303,6 +303,8 @@ class Batcher():
 
         self.dbcur: PGCURR = dbcur
 
+        self.msize: int = 0
+
         self.sname: str = schema_name
         self.buckets: Dict[str, Any] = {}
 
@@ -353,7 +355,11 @@ class Batcher():
             # load the queued rows to Redshift
             self.load(table_name)
 
+        if self.msize >= 256 * 1024 * 1024:
+            self.flush()
+
         # queues the provided row in this function call
+        self.msize += row_size
         self.buckets[table_name]["rows"].append(row)
         self.buckets[table_name]["count"] += 1
         self.buckets[table_name]["size"] += row_size
@@ -379,6 +385,7 @@ class Batcher():
         LOGGER.info((f"INFO: {count} rows ({size} MB) "
                      f"loaded to Redshift/{self.sname}/{table_name}."))
 
+        self.msize -= self.buckets[table_name]["size"]
         self.buckets[table_name]["rows"] = []
         self.buckets[table_name]["count"] = 0
         self.buckets[table_name]["size"] = 0
@@ -391,6 +398,7 @@ class Batcher():
         """
         for table_name in self.buckets:
             self.load(table_name, do_print)
+        self.msize = 0
 
     def vacuum(self, do_print: bool = True) -> None:
         """Vacuums touched tables to improve query performance.
