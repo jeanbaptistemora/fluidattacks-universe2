@@ -264,7 +264,8 @@ class ITReport(object):
             self.set_cell_qc(self.matriz['scenario'],
                              translate_parameter(row['scenario']))
         if 'ambit' in row:
-            self.set_cell_qc(self.matriz['ambit'], row['ambit'])
+            self.set_cell_qc(self.matriz['ambit'],
+                             translate_parameter(row['ambit']))
         if 'category' in row:
             self.set_cell_qc(self.matriz['category'], row['category'])
         if 'threat' in row:
@@ -314,6 +315,8 @@ def translate_parameter(param):
         'AUTHORIZED_USER_INTERNET': 'Internet usuario autorizado',
         'UNAUTHORIZED_USER_INTERNET': 'Internet usuario no autorizado',
         'AUTHORIZED_USER_INTRANET': 'Intranet usuario autorizado',
-        'UNAUTHORIZED_USER_INTRANET': 'Intranet usuario no autorizado'
+        'UNAUTHORIZED_USER_INTRANET': 'Intranet usuario no autorizado',
+        'APPLICATIONS': 'Aplicaciones',
+        'DATABASES': 'Bases de Datos'
     }
     return translation_values.get(param)

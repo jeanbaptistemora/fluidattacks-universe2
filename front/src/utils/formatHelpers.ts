@@ -164,7 +164,11 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
     "AUTHORIZED_USER_INTERNET": "search_findings.tab_description.scenario.auth_inter",
     "UNAUTHORIZED_USER_INTERNET": "search_findings.tab_description.scenario.unauth_inter",
     "AUTHORIZED_USER_INTRANET": "search_findings.tab_description.scenario.auth_intra",
-    "UNAUTHORIZED_USER_INTRANET": "search_findings.tab_description.scenario.unauth_intra"
+    "UNAUTHORIZED_USER_INTRANET": "search_findings.tab_description.scenario.unauth_intra",
+    "APPLICATIONS": "search_findings.tab_description.ambit.applications",
+    "DATABASES": "search_findings.tab_description.ambit.databases",
+    "SOURCE_CODE": "search_findings.tab_description.ambit.sourcecode",
+    "INFRASTRUCTURE": "search_findings.tab_description.ambit.infra"
   };
 
   return translationParameters[field];

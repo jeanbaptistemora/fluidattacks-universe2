@@ -473,10 +473,12 @@ def cast_finding_attributes(finding):
         'Internet usuario autorizado': 'AUTHORIZED_USER_INTERNET',
         'Internet usuario no autorizado': 'UNAUTHORIZED_USER_INTERNET',
         'Intranet usuario autorizado': 'AUTHORIZED_USER_INTRANET',
-        'Intranet usuario no autorizado': 'UNAUTHORIZED_USER_INTRANET'
+        'Intranet usuario no autorizado': 'UNAUTHORIZED_USER_INTRANET',
+        'Aplicaciones': 'APPLICATIONS',
+        'Bases de Datos': 'DATABASES'
     }
     list_fields = ['reportLevel', 'subscription', 'testType', 'findingType',
-                   'actor', 'scenario']
+                   'actor', 'scenario', 'ambit']
     for field in list_fields:
         if finding.get(field):
             finding[field] = cast_finding_field.get(

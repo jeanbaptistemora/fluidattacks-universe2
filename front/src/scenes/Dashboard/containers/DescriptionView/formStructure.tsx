@@ -177,16 +177,16 @@ const renderAmbitField: ((props: IDescriptionViewProps) => IEditableField) =
       children: (
         <React.Fragment>
           <option value="" selected={true} />
-          <option value="Aplicaciones">
+          <option value="APPLICATIONS">
             {translate.t("search_findings.tab_description.ambit.applications")}
           </option>
-          <option value="Bases de Datos">
+          <option value="DATABASES">
             {translate.t("search_findings.tab_description.ambit.databases")}
           </option>
-          <option value="Código fuente">
+          <option value="SOURCE_CODE">
             {translate.t("search_findings.tab_description.ambit.sourcecode")}
           </option>
-          <option value="Infraestructura">
+          <option value="INFRASTRUCTURE">
             {translate.t("search_findings.tab_description.ambit.infra")}
           </option>
         </React.Fragment>),
@@ -196,7 +196,7 @@ const renderAmbitField: ((props: IDescriptionViewProps) => IEditableField) =
     },
     label: translate.t("search_findings.tab_description.ambit.title"),
     renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-    value: props.dataset.probability,
+    value: translate.t(formatDropdownField(props.dataset.ambit)),
     visible: props.isEditing,
   });
 
