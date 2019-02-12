@@ -7,18 +7,13 @@
 # directory.
 
 from __future__ import absolute_import
-import io
-import re
 from time import time
 
 import rollbar
-import boto3
-from backports import csv
 from graphql import GraphQLError
 from graphene import String, ObjectType, Boolean, List, Int, JSONString, Mutation, Field
 from graphene.types.generic import GenericScalar
 
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import (
     FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name
@@ -29,19 +24,13 @@ from app.domain.finding import (
     add_file_attribute, migrate_evidence_description,
     list_comments, add_comment, verify_finding,
     get_unique_dict, get_tracking_dict, request_verification,
-    update_description, update_treatment, save_severity
+    update_description, update_treatment, save_severity,
+    get_exploit_from_file, get_records_from_file
 )
 from .. import util
 from ..dao import integrates_dao
 from .vulnerability import Vulnerability, validate_formstack_file
-from ..api.drive import DriveAPI
 from ..api.formstack import FormstackAPI
-
-CLIENT_S3 = boto3.client('s3',
-                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
-
-BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
 class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
@@ -591,64 +580,6 @@ def set_initial_values(self):
     self.treatment = ''
     self.treatment_manager = ''
     self.treatment_justification = ''
-
-
-def get_exploit_from_file(self, file_name):
-    return read_script(download_evidence_file(self, file_name))
-
-
-def get_records_from_file(self, file_name):
-    return read_csv(download_evidence_file(self, file_name))
-
-
-def download_evidence_file(self, file_name):
-    file_id = '/'.join([self.project_name.lower(), self.id, file_name])
-    is_s3_file = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_id)
-
-    if is_s3_file:
-        start = file_id.find(self.id) + len(self.id)
-        localfile = '/tmp' + file_id[start:]
-        ext = {'.py': '.tmp'}
-        tmp_filepath = util.replace_all(localfile, ext)
-
-        CLIENT_S3.download_file(BUCKET_S3, file_id, tmp_filepath)
-        return tmp_filepath
-    else:
-        if not re.match('[a-zA-Z0-9_-]{20,}', file_name):
-            raise Exception('Wrong file id format')
-        else:
-            drive_api = DriveAPI()
-            tmp_filepath = drive_api.download(file_name)
-
-            return tmp_filepath
-
-
-def read_script(script_file):
-    if util.assert_file_mime(script_file, ['text/x-python', 'text/x-c',
-                                           'text/plain', 'text/html']):
-        with open(script_file, 'r') as file_obj:
-            return file_obj.read()
-    else:
-        raise GraphQLError('Invalid exploit file format')
-
-
-def read_csv(csv_file):
-    file_content = []
-
-    with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
-        try:
-            csv_reader = csv.reader(x.replace('\0', '') for x in file_obj)
-            cont = 0
-            header = csv_reader.next()
-            for row in csv_reader:
-                if cont <= 1000:
-                    file_content.append(util.list_to_dict(header, row))
-                    cont += 1
-                else:
-                    break
-            return file_content
-        except csv.Error:
-            raise GraphQLError('Invalid record file format')
 
 
 class UpdateEvidence(Mutation):
