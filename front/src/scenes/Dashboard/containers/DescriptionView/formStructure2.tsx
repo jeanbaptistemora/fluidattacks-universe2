@@ -346,9 +346,168 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
           />
         </Col>
       </Row>
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.threat}
+            label={translate.t("search_findings.tab_description.threat")}
+            name="threat"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.risk}
+            label={translate.t("search_findings.tab_description.risk")}
+            name="risk"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+            visible={isDetailed && props.isEditing}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.recommendation}
+            label={translate.t("search_findings.tab_description.recommendation")}
+            name="recommendation"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.compromisedAttributes}
+            label={translate.t("search_findings.tab_description.compromised_attrs")}
+            name="compromisedAttributes"
+            renderAsEditable={props.isEditing}
+            type="text"
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.compromisedRecords}
+            label={translate.t("search_findings.tab_description.compromised_records")}
+            name="compromisedRecords"
+            renderAsEditable={props.isEditing}
+            type="number"
+            validate={[required, numeric]}
+            visible={props.isEditing}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            component={textField}
+            currentValue={formatCweUrl(props.dataset.cweUrl)}
+            label={translate.t("search_findings.tab_description.weakness")}
+            name="cweUrl"
+            renderAsEditable={props.isEditing}
+            type="number"
+            validate={[required, numeric]}
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            component={textField}
+            currentValue={props.dataset.kbUrl}
+            label={translate.t("search_findings.tab_description.kb")}
+            name="kbUrl"
+            renderAsEditable={props.isEditing}
+            type="text"
+          />
+        </Col>
+      </Row>
     </React.Fragment>
   );
 };
+
+const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => (
+  <React.Fragment>
+    <Row>
+      <Col md={12} sm={12} xs={12}>
+        <EditableField
+          component={textField}
+          currentValue={props.dataset.btsUrl}
+          label={translate.t("search_findings.tab_description.bts")}
+          name="btsUrl"
+          renderAsEditable={props.isEditing}
+          type="text"
+        />
+      </Col>
+    </Row>
+    <Row>
+      <Col md={6} sm={12} xs={12}>
+        <EditableField
+          component={dropdownField}
+          currentValue={props.dataset.treatment}
+          label={translate.t("search_findings.tab_description.treatment.title")}
+          name="treatment"
+          renderAsEditable={props.isEditing}
+          type="text"
+          validate={[required]}
+        >
+          <option value="" selected={true} />
+          <option value="Asumido">{translate.t("search_findings.tab_description.treatment.assumed")}</option>
+          <option value="Nuevo">{translate.t("search_findings.tab_description.treatment.new")}</option>
+          <option value="Remediar">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
+        </EditableField>
+      </Col>
+      <Col md={6} sm={12} xs={12}>
+        <EditableField
+          component={dropdownField}
+          currentValue={props.dataset.treatmentManager}
+          label={translate.t("search_findings.tab_description.treatment_mgr")}
+          name="treatmentManager"
+          renderAsEditable={props.isEditing}
+          type="text"
+          validate={[...props.formValues.treatment === "Remediar" ? [required] : []]}
+          visible={!props.isEditing || (props.isEditing && props.formValues.treatment === "Remediar")}
+        >
+          <option value="" selected={true} />
+          {/* tslint:disable-next-line jsx-no-multiline-js
+           * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for mapping
+           * users into JSX Elements
+           */}
+          {props.dataset.userEmails.map(({ email }: { email: string }, index: number): JSX.Element =>
+            <option key={index} value={email}>{email}</option>)}
+        </EditableField>
+      </Col>
+    </Row>
+    <Row>
+      <Col md={12} sm={12} xs={12}>
+        <EditableField
+          className={globalStyle.noResize}
+          component={textAreaField}
+          currentValue={props.dataset.treatmentJustification}
+          label={translate.t("search_findings.tab_description.treatment_just")}
+          name="treatmentJustification"
+          renderAsEditable={props.isEditing}
+          type="text"
+          validate={[required]}
+        />
+      </Col>
+    </Row>
+  </React.Fragment>
+);
 
 export const renderFormFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
   const canEditDescription: boolean = _.includes(["admin", "analyst"], props.userRole);
@@ -357,6 +516,7 @@ export const renderFormFields: renderFormFieldsFn = (props: IDescriptionViewProp
   return (
     <React.Fragment>
       {!props.isEditing || (props.isEditing && canEditDescription) ? renderDescriptionFields(props) : undefined}
+      {!props.isEditing || (props.isEditing && canEditTreatment) ? renderTreatmentFields(props) : undefined}
     </React.Fragment>
   );
 };
