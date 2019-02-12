@@ -18,10 +18,10 @@ import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDi
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import { GenericForm } from "../../components/GenericForm/index";
+import { GenericForm } from "../../components/GenericForm2/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
-import { getFormStructure } from "./formStructure";
+import { renderFormFields } from "./formStructure2";
 
 export interface IDescriptionViewProps {
   dataset: {
@@ -169,13 +169,14 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
       <Col md={12} sm={12} xs={12}>
         <Row>{renderActionButtons(props)}</Row>
         <GenericForm
-          form="editDescription"
-          formStructure={getFormStructure(props)}
+          name="editDescription"
           initialValues={props.dataset}
-          onSubmit={(values: {}): void => {
-            updateDescription(values as IDescriptionViewProps["dataset"], props.userRole, props.findingId);
+          onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
+            updateDescription(values, props.userRole, props.findingId);
           }}
-        />
+        >
+          {renderFormFields(props)}
+        </GenericForm>
       </Col>
     </React.Fragment>
   );
