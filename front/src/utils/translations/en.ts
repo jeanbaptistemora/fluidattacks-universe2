@@ -142,7 +142,7 @@ const enTranslations: Map<string, string> = {
       reportLevel: {
         detailed: "Detailed",
         general: "General",
-        title: "Finding type",
+        title: "Report level",
       },
       request_verify: "Request verification",
       requirements: "Requirements",
@@ -170,6 +170,11 @@ const enTranslations: Map<string, string> = {
       },
       treatment_just: "Treatment justification",
       treatment_mgr: "Treatment manager",
+      type: {
+        hygiene: "Hygiene",
+        security: "Security",
+        title: "Finding type",
+      },
       update: "Update",
       update_vulnerabilities: "Update Vulnerabilities",
       vulnDeleted: "Vulnerability was deleted of this finding",

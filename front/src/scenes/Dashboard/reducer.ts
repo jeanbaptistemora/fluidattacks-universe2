@@ -93,6 +93,7 @@ const initialState: IDashboardState = {
       title: "",
       treatment: "",
       treatmentJustification: "",
+      type: "",
       treatmentManager: "",
       userEmails: [{ email: "" }],
     },

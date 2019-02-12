@@ -144,7 +144,7 @@ const esTranslations: Map<string, string> = {
       reportLevel: {
         detailed: "Detallado",
         general: "General",
-        title: "Tipo Hallazgo",
+        title: "Nivel de reporte",
       },
       request_verify: "Solicitar verificación",
       requirements: "Requisitos",
@@ -172,6 +172,11 @@ const esTranslations: Map<string, string> = {
       },
       treatment_just: "Justificación del tratamiento",
       treatment_mgr: "Responsable del tratamiento",
+      type: {
+        hygiene: "Higiene",
+        security: "Seguridad",
+        title: "Tipo de hallazgo",
+      },
       update: "Actualizar",
       update_vulnerabilities: "Actualizar Vulnerabilidades",
       vulnDeleted: "La vulnerabilidad fue borrada de este hallazgo",

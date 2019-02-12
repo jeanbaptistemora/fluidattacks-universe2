@@ -55,6 +55,7 @@ export interface IDescriptionViewProps {
     treatment: string;
     treatmentJustification: string;
     treatmentManager: string;
+    type: string;
     userEmails: Array<{ email: string }>;
   };
   findingId: string;

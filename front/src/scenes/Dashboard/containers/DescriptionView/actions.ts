@@ -103,6 +103,7 @@ export const loadDescription: ThunkActionStructure<void> =
           riskLevel
           ambit
           category
+          type
         }
       }`;
 
@@ -242,7 +243,8 @@ export const updateDescription: ThunkActionStructure<void> =
           severity: ${values.detailedSeverity},
           probability: ${JSON.stringify(values.probability)},
           ambit: ${JSON.stringify(values.ambit)},
-          category: ${JSON.stringify(values.category)}
+          category: ${JSON.stringify(values.category)},
+          findingType: ${JSON.stringify(values.type)}
         ) {
           finding {
             actor
@@ -267,6 +269,7 @@ export const updateDescription: ThunkActionStructure<void> =
             riskLevel
             ambit
             category
+            type
           }
           success
         }

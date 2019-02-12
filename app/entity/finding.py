@@ -74,6 +74,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     treatment_manager = String()
     treatment_justification = String()
     remediated = Boolean()
+    type = String()
 
     # Additional attributes of detailed findings
     client_code = String()
@@ -186,6 +187,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             self.ambit = resp.get('ambit', '')
             self.category = resp.get('category', '')
             self.state = resp.get('estado', '')
+            self.type = resp.get('findingType', '')
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -548,6 +550,13 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         return self.remediated
 
+    @require_role(['analyst', 'customer', 'admin'])
+    def resolve_type(self, info):
+        """ Resolve type attribute """
+        del info
+
+        return self.type
+
 
 def set_initial_values(self):
     self.id = ''
@@ -580,6 +589,7 @@ def set_initial_values(self):
     self.treatment = ''
     self.treatment_manager = ''
     self.treatment_justification = ''
+    self.type = ''
 
 
 class UpdateEvidence(Mutation):
@@ -864,6 +874,7 @@ class UpdateDescription(Mutation):
         scenario = String(required=True)
         threat = String(required=True)
         title = String(required=True)
+        finding_type = String()
     success = Boolean()
     finding = Field(Finding)
 

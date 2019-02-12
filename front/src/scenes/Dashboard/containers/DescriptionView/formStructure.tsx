@@ -32,6 +32,25 @@ const renderReportLevelField: ((props: IDescriptionViewProps) => IEditableField)
     visible: props.isEditing,
   });
 
+const renderFindingTypeField: ((props: IDescriptionViewProps) => IEditableField) =
+  (props: IDescriptionViewProps): IEditableField => ({
+    componentProps: {
+      children: (
+        <React.Fragment>
+          <option value="" selected={true} />
+          <option value="SECURITY">{translate.t("search_findings.tab_description.type.security")}</option>
+          <option value="HYGIENE">{translate.t("search_findings.tab_description.type.hygiene")}</option>
+        </React.Fragment>),
+      component: dropdownField,
+      name: "type",
+      validate: [required],
+    },
+    label: translate.t("search_findings.tab_description.type.title"),
+    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
+    value: translate.t(`search_findings.tab_description.type.${props.dataset.type.toLowerCase()}`),
+    visible: true,
+  });
+
 const renderTreatmentMgrField: ((props: IDescriptionViewProps) => IEditableField) =
   (props: IDescriptionViewProps): IEditableField => {
     const options: JSX.Element[] =
@@ -262,7 +281,7 @@ const renderDetailedFields: ((props: IDescriptionViewProps) => FormRows) =
 
 const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
-    [renderReportLevelField(props)],
+    [renderReportLevelField(props), renderFindingTypeField(props)],
     [{
       componentProps: {
         component: textField,
@@ -431,7 +450,7 @@ const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) 
       value: props.dataset.threat,
       visible: true,
     },
-      renderRiskField(props)],
+     renderRiskField(props)],
     [{
       componentProps: {
         className: globalStyle.noResize,
