@@ -24,6 +24,6 @@ docker build --no-cache \
   --build-arg ssl_key="$FI_SSL_KEY" \
   --build-arg ssl_cert="$FI_SSL_CERT" \
   --build-arg vault_env="$ENV_FULL" \
-  -t "fluid-docker.jfrog.io/integrates:bot" \
+  -t "fluid-docker.jfrog.io/integrates-bot:${CI_COMMIT_REF_NAME}" \
   deploy/containers/bot/
 rm -rf common

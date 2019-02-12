@@ -12,7 +12,7 @@ before_script:
       docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin
 
 after_script:
-  - docker logout "$fluid-docker.jfrog.io" || echo 'Docker not necessary'
+  - docker logout "fluid-docker.jfrog.io" || echo 'Docker not necessary'
 
 .variables-dev: &variables-dev
   variables:
@@ -244,7 +244,7 @@ build-bot:
   <<: *vault_login
   script:
     - vaultenv deploy/containers/bot/build.sh "$CI_COMMIT_REF_NAME"
-    - docker push "$DOCKER_BASENAME:bot"
+    - docker push "${DOCKER_BASENAME}-bot:${CI_COMMIT_REF_NAME}"
   retry: 2
   except:
     - triggers
@@ -396,9 +396,9 @@ deploy-k8s:
     - kubectl config set-context "$(kubectl config current-context)"
         --namespace serves
     - if ! kubectl get secret jfrog-reg; then
-        echo "Creating secret to access Gitlab Registry..."
-        kubectl create secret docker-registry jfrog-reg \
-          --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER" \
+        echo "Creating secret to access Gitlab Registry...";
+        kubectl create secret docker-registry jfrog-reg
+          --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER"
           --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL";
       fi
     - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
