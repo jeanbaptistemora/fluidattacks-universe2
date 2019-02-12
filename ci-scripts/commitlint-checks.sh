@@ -17,10 +17,6 @@ DELTAS=$(git log --stat . | egrep "files? changed" | head -n 1 | cut -d, -f 2- |
 
 echo "Commit has $DELTAS deltas."
 
-if [[ $DELTAS -gt 200 ]]; then
-  EXIT_FAIL=1
-fi
-
 if [[ x"$EXIT_FAIL" = x"1" ]]; then
     exit 1
 fi
