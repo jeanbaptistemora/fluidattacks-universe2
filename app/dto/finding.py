@@ -261,7 +261,6 @@ class FindingDTO(object):
                        for (k, v) in description_fields.items()
                        if k in initial_dict.keys()}
         parsed_dict = forms.dict_concatenation(parsed_dict, migrated_data)
-        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         if 'cwe' in parsed_dict.keys():
             parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
         else:
@@ -775,7 +774,6 @@ def parse_finding(finding):
                        for (k, v) in finding_fields.items()
                        if k in finding.keys()}
 
-        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         if 'cwe' in parsed_dict.keys():
             parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
         else:
@@ -842,7 +840,6 @@ def parse_dashboard_finding_dynamo(finding):
                        for (k, v) in finding_fields.items()
                        if k in finding.keys()}
 
-        parsed_dict['clientFindingType'] = forms.get_finding_type(parsed_dict)
         parsed_dict['id'] = finding.get('finding_id')
         parsed_dict['lastVulnerability'] = finding.get('lastVulnerability')
         parsed_dict['releaseDate'] = finding.get('releaseDate')

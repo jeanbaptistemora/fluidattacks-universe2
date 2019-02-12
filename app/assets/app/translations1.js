@@ -186,7 +186,7 @@ const translations1 = {
      "findingType": {
        "default": "-",
        "hygiene": "Hygiene",
-       "vuln": "Vulnerability"
+       "security": "Security"
      },
      "integrity":
       {

@@ -192,7 +192,7 @@ const traducciones1 = {
   "findingType": {
     "default": "-",
     "hygiene": "Higiene",
-    "vuln": "Vulnerabilidad"
+    "security": "Seguridad"
   },
   "integrity":
   {

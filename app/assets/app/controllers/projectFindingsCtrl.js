@@ -204,7 +204,7 @@ angular.module("FluidIntegrates").controller(
         },
         {
           "align": "center",
-          "dataField": "clientFindingType",
+          "dataField": "findingType",
           "header": $translate.instant("search_findings.headings.type"),
           "width": "6.5%"
         },
