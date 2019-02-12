@@ -4,7 +4,7 @@ import globalStyle from "../../../../styles/global.css";
 import { formatCweUrl, formatDropdownField } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { numberBetween, numeric, required } from "../../../../utils/validations";
+import { numeric, required } from "../../../../utils/validations";
 import { FormRows, IEditableField } from "../../components/GenericForm/index";
 import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
@@ -76,187 +76,6 @@ const renderTreatmentMgrField: ((props: IDescriptionViewProps) => IEditableField
     };
   };
 
-const renderCustomerCodeField: ((props: IDescriptionViewProps) => IEditableField) =
-  (props: IDescriptionViewProps): IEditableField => ({
-    componentProps: {
-      component: textField,
-      name: "clientCode",
-      type: "text",
-      validate: [required],
-    },
-    label: translate.t("search_findings.tab_description.customer_project_code"),
-    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-    value: props.dataset.clientCode,
-    visible: props.isEditing,
-  });
-
-const renderCustomerProjectField: ((props: IDescriptionViewProps) => IEditableField) =
-  (props: IDescriptionViewProps): IEditableField => ({
-    componentProps: {
-      component: textField,
-      name: "clientProject",
-      type: "text",
-      validate: [required],
-    },
-    label: translate.t("search_findings.tab_description.customer_project_name"),
-    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-    value: props.dataset.clientCode,
-    visible: props.isEditing,
-  });
-
-const renderProbabilityField: ((props: IDescriptionViewProps) => IEditableField) =
-  (props: IDescriptionViewProps): IEditableField => ({
-    componentProps: {
-      children: (
-        <React.Fragment>
-          <option value="" selected={true} />
-          <option value="100% Vulnerado Anteriormente">
-            {translate.t("search_findings.tab_description.probability.100")}
-          </option>
-          <option value="75% Fácil de vulnerar">
-            {translate.t("search_findings.tab_description.probability.75")}
-          </option>
-          <option value="50% Posible de vulnerar">
-            {translate.t("search_findings.tab_description.probability.50")}
-          </option>
-          <option value="25% Difícil de vulnerar">
-            {translate.t("search_findings.tab_description.probability.25")}
-          </option>
-        </React.Fragment>),
-      component: dropdownField,
-      name: "probability",
-      validate: [required],
-    },
-    label: translate.t("search_findings.tab_description.probability.title"),
-    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-    value: props.dataset.probability,
-    visible: props.isEditing,
-  });
-
-const severityBetween: ((value: number) => string | undefined) = numberBetween(0, 5);
-const renderSeverityField: ((props: IDescriptionViewProps) => IEditableField) =
-  (props: IDescriptionViewProps): IEditableField => ({
-    componentProps: {
-      component: textField,
-      name: "detailedSeverity",
-      type: "number",
-      validate: [required, severityBetween],
-    },
-    label: translate.t("search_findings.tab_description.severity"),
-    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-    value: props.dataset.probability,
-    visible: props.isEditing,
-  });
-
-const calcRiskLevel: ((probability: string, severity: number) => string) =
-  (probability: string, severity: number): string => {
-    const probabilityValue: number = Number(probability
-      .substring(0, 3)
-      .replace("%", ""));
-
-    return ((probabilityValue / 100) * severity).toFixed(1);
-  };
-
-const renderRiskLevel: ((props: IDescriptionViewProps) => IEditableField) =
-  (props: IDescriptionViewProps): IEditableField => ({
-    componentProps: {
-      component: textField,
-      disabled: true,
-      name: "riskLevel",
-      type: "number",
-    },
-    label: translate.t("search_findings.tab_description.risk_level"),
-    renderAsEditable: false,
-    value: calcRiskLevel(props.formValues.probability, props.formValues.detailedSeverity),
-    visible: props.isEditing,
-  });
-
-const renderAmbitField: ((props: IDescriptionViewProps) => IEditableField) =
-  (props: IDescriptionViewProps): IEditableField => ({
-    componentProps: {
-      children: (
-        <React.Fragment>
-          <option value="" selected={true} />
-          <option value="APPLICATIONS">
-            {translate.t("search_findings.tab_description.ambit.applications")}
-          </option>
-          <option value="DATABASES">
-            {translate.t("search_findings.tab_description.ambit.databases")}
-          </option>
-          <option value="SOURCE_CODE">
-            {translate.t("search_findings.tab_description.ambit.sourcecode")}
-          </option>
-          <option value="INFRASTRUCTURE">
-            {translate.t("search_findings.tab_description.ambit.infra")}
-          </option>
-        </React.Fragment>),
-      component: dropdownField,
-      name: "ambit",
-      validate: [required],
-    },
-    label: translate.t("search_findings.tab_description.ambit.title"),
-    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-    value: translate.t(formatDropdownField(props.dataset.ambit)),
-    visible: props.isEditing,
-  });
-
-const renderCategoryField: ((props: IDescriptionViewProps) => IEditableField) =
-  (props: IDescriptionViewProps): IEditableField => ({
-    componentProps: {
-      children: (
-        <React.Fragment>
-          <option value="" selected={true} />
-          <option value="Actualizar y configurar las líneas base de seguridad de los componentes">
-            {translate.t("search_findings.tab_description.category.update_sec_baselines")}
-          </option>
-          <option value="Definir el modelo de autorización considerando el principio de mínimo privilegio">
-            {translate.t("search_findings.tab_description.category.define_auth_model")}
-          </option>
-          <option value="Desempeño">{translate.t("search_findings.tab_description.category.performance")}</option>
-          <option value="Eventualidad">{translate.t("search_findings.tab_description.category.event")}</option>
-          <option value="Evitar exponer la información técnica de la aplicación, servidores y plataformas">
-            {translate.t("search_findings.tab_description.category.expose_tech_info")}
-          </option>
-          <option value="Excluir datos sensibles del código fuente y del registro de eventos">
-            {translate.t("search_findings.tab_description.category.sensible_data_code")}
-          </option>
-          <option value="Fortalecer controles en autenticación y manejo de sesión">
-            {translate.t("search_findings.tab_description.category.strengthen_auth_session")}
-          </option>
-          <option value="Fortalecer controles en el procesamiento de archivos">
-            {translate.t("search_findings.tab_description.category.strengthen_file_processing")}
-          </option>
-          <option
-            value="Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas"
-          >
-            {translate.t("search_findings.tab_description.category.strengthen_password_keys")}
-          </option>
-          <option value="Implementar controles para validar datos de entrada">
-            {translate.t("search_findings.tab_description.category.validate_input")}
-          </option>
-          <option value="Mantenibilidad">
-            {translate.t("search_findings.tab_description.category.maintainability")}
-          </option>
-          <option value="Registrar eventos para trazabilidad y auditoría">
-            {translate.t("search_findings.tab_description.category.log_events")}
-          </option>
-          <option value="Utilizar protocolos de comunicación seguros">
-            {translate.t("search_findings.tab_description.category.secure_protocols")}
-          </option>
-          <option value="Validar la integridad de las transacciones en peticiones HTTP">
-            {translate.t("search_findings.tab_description.category.http_req_integrity")}
-          </option>
-        </React.Fragment>),
-      component: dropdownField,
-      name: "category",
-      validate: [required],
-    },
-    label: translate.t("search_findings.tab_description.category.title"),
-    renderAsEditable: props.isEditing && _.includes(["admin", "analyst"], props.userRole),
-    value: props.dataset.probability,
-    visible: props.isEditing,
-  });
-
 const renderRiskField: ((props: IDescriptionViewProps) => IEditableField) =
   (props: IDescriptionViewProps): IEditableField => ({
     componentProps: {
@@ -271,13 +90,6 @@ const renderRiskField: ((props: IDescriptionViewProps) => IEditableField) =
     value: props.dataset.risk,
     visible: props.isEditing && props.formValues.reportLevel === "DETAILED",
   });
-
-const renderDetailedFields: ((props: IDescriptionViewProps) => FormRows) =
-  (props: IDescriptionViewProps): FormRows => [
-    [renderCustomerCodeField(props), renderCustomerProjectField(props)],
-    [renderProbabilityField(props), renderSeverityField(props), renderRiskLevel(props)],
-    [renderAmbitField(props), renderCategoryField(props)],
-  ];
 
 const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) =
   (props: IDescriptionViewProps): FormRows => [
@@ -294,7 +106,6 @@ const renderAnalystEditableFields: ((props: IDescriptionViewProps) => FormRows) 
       value: props.dataset.title,
       visible: props.isEditing,
     }],
-    ...(props.formValues.reportLevel === "DETAILED" ? renderDetailedFields(props) : []),
     [{
       componentProps: {
         children: (
