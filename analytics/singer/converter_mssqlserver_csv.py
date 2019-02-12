@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 
-"""Export your Microsoft SQL Server database to CSV."""
+"""Export your Microsoft SQL Server database to CSV with (almost) no RAM.
+
+Your database must be able to handle at least two simultaneous connections.
+"""
 
 import csv
 import json
 import argparse
 
-from typing import Dict, List, Any
+from typing import List, Any
+from contextlib import contextmanager
 
 import pyodbc
 
 
-def get_curr(credentials):
-    """Returns a cursor to the database."""
+@contextmanager
+def get_cursor(credentials):
+    """Returns a safe cursor to the database."""
     driver = credentials["DRIVER"]
     server = credentials["SERVER"]
     database = credentials["DATABASE"]
@@ -26,57 +31,70 @@ def get_curr(credentials):
         f"UID={uid};"
         f"PWD={pwd};"))
 
-    return conn.cursor()
+    curr = conn.cursor()
+
+    try:
+        yield curr
+    finally:
+        curr.close()
+        conn.close()
 
 
-def get_schemas(curr):
-    """Returns an object with the schemas of all tables in the database."""
-    curr.execute(
-        """
-        SELECT
-            TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION
-        FROM
-            INFORMATION_SCHEMA.COLUMNS
-        ORDER BY
-            TABLE_SCHEMA ASC,
-            TABLE_NAME ASC,
-            ORDINAL_POSITION ASC,
-            COLUMN_NAME ASC
-        """)
-    # Dict[table_path: List[fields]]
-    tables: Dict[str, List[str]] = {}
-    for row in curr.fetchall():
-        table_schema, table_name, field_name, _ = row
-        path = f'"{table_schema}"."{table_name}"'
-        try:
-            tables[path].append(field_name)
-        except KeyError:
-            tables[path] = [field_name]
-    return tables
+def iter_tables(credentials):
+    """Yield (table_path, table_fields) for all schema[i].table[j]."""
+    with get_cursor(credentials) as curr:
+        curr.execute(
+            """
+            SELECT
+                TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION
+            FROM
+                INFORMATION_SCHEMA.COLUMNS
+            ORDER BY
+                TABLE_SCHEMA ASC,
+                TABLE_NAME ASC,
+                ORDINAL_POSITION ASC,
+                COLUMN_NAME ASC
+            """)
+        initial_cycle = True
+        current_table_path: str = ""
+        table_fields: List[str] = []
+        for table_schema, table_name, field_name, _ in curr:
+            table_path = f'"{table_schema}"."{table_name}"'
+            if current_table_path == table_path:
+                table_fields.append(field_name)
+            elif initial_cycle:
+                initial_cycle = False
+            else:
+                yield (current_table_path, table_fields)
+                table_fields = []
+            current_table_path = table_path
 
 
-def get_rows(curr, table_path: str, table_fields: List[str]):
-    """Return all rows from a table."""
+def iter_rows(credentials, table_path: str, table_fields: List[str]):
+    """Yield rows from a table."""
     table_fields_statement = ",".join(table_fields)
-    curr.execute(
-        f"""
-        SELECT
-            {table_fields_statement}
-        FROM
-            {table_path}
-        """)
-    table_rows = curr.fetchall()
-    return table_rows
+    with get_cursor(credentials) as curr:
+        curr.execute(
+            f"""
+            SELECT
+                {table_fields_statement}
+            FROM
+                {table_path}
+            """)
+        for row in curr:
+            yield row
 
 
-def print_csv(
+def write_csv(
+        credentials,
         output_dir: str,
         table_path: str,
-        table_fields: List[str],
-        table_rows) -> None:
+        table_fields: List[str]) -> None:
     """Prints a table as CSV to stdout."""
-    table_path = table_path.replace('"', "")
-    file_name = f"{output_dir}/{table_path}.csv"
+    csv_name = table_path.replace('"', "").replace('.', "__")
+    file_name = f"{output_dir}/{csv_name}.csv"
+
+    print(f"writing csv from {table_path} to {file_name}.", flush=True)
 
     with open(file_name, "w") as csvfile:
         writer = csv.writer(
@@ -86,7 +104,7 @@ def print_csv(
             quoting=csv.QUOTE_NONNUMERIC)
 
         writer.writerow(table_fields)
-        for row in table_rows:
+        for row in iter_rows(credentials, table_path, table_fields):
             casted_row = []
             for value in row:
                 value_ascsv: Any = ""
@@ -108,7 +126,7 @@ def print_csv(
 def main():
     """Usual entry point."""
     parser = argparse.ArgumentParser(
-        description="Persists a singer formatted stream to Amazon Redsfhit")
+        description="Export your entire database to CSV files.")
     parser.add_argument(
         "-a", "--auth",
         required=True,
@@ -124,16 +142,8 @@ def main():
 
     credentials = json.load(args.auth)
 
-    curr = get_curr(credentials)
-
-    print("INFO: gathering schemas...", end=" ", flush=True)
-    tables = get_schemas(curr)
-    print(f"{len(tables.items())} found.", flush=True)
-    print("INFO: processing:", flush=True)
-    for table_path, table_fields in tables.items():
-        print(f"        {table_path}.", flush=True)
-        table_rows = get_rows(curr, table_path, table_fields)
-        print_csv(args.output_dir, table_path, table_fields, table_rows)
+    for table_path, table_fields in iter_tables(credentials):
+        write_csv(credentials, args.output_dir, table_path, table_fields)
 
 
 if __name__ == "__main__":
