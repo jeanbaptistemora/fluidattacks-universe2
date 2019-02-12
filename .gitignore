@@ -12,3 +12,6 @@ package-lock.json
 # Commitlint
 commitlint.config.js
 parser-preset.js
+
+# prospector
+.mypy_cache
