@@ -7,6 +7,7 @@ import { dropdownField, textAreaField, textField } from "../../../../utils/forms
 import translate from "../../../../utils/translations/translate";
 import { numberBetween, numeric, required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
+import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
 
 type renderFormFieldsFn = ((props: IDescriptionViewProps) => JSX.Element);
@@ -171,7 +172,180 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
 
   return (
     <React.Fragment>
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            component={dropdownField}
+            currentValue={translate.t(`search_findings.tab_description.type.${props.dataset.type.toLowerCase()}`)}
+            label={translate.t("search_findings.tab_description.type.title")}
+            name="type"
+            renderAsEditable={props.isEditing}
+            validate={[required]}
+          >
+            <option value="" selected={true} />
+            <option value="SECURITY">{translate.t("search_findings.tab_description.type.security")}</option>
+            <option value="HYGIENE">{translate.t("search_findings.tab_description.type.hygiene")}</option>
+          </EditableField>
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            component={dropdownField}
+            currentValue={props.dataset.reportLevel}
+            label={translate.t("search_findings.tab_description.reportLevel.title")}
+            name="reportLevel"
+            renderAsEditable={props.isEditing}
+            validate={[required]}
+            visible={props.isEditing}
+          >
+            <option value="" selected={true} />
+            <option value="DETAILED">{translate.t("search_findings.tab_description.reportLevel.detailed")}</option>
+            <option value="GENERAL">{translate.t("search_findings.tab_description.reportLevel.general")}</option>
+          </EditableField>
+
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <EditableField
+            component={textField}
+            currentValue={props.dataset.title}
+            label={translate.t("search_findings.tab_description.title")}
+            name="title"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+          />
+        </Col>
+      </Row>
       {isDetailed && props.isEditing ? renderDetailedFields(props) : undefined}
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            component={dropdownField}
+            currentValue={translate.t(formatDropdownField(props.dataset.scenario))}
+            label={translate.t("search_findings.tab_description.scenario.title")}
+            name="scenario"
+            renderAsEditable={props.isEditing}
+            validate={[required]}
+          >
+            <option value="" selected={true} />
+            <option value="ANONYMOUS_INTERNET">
+              {translate.t("search_findings.tab_description.scenario.anon_inter")}
+            </option>
+            <option value="ANONYMOUS_INTRANET">
+              {translate.t("search_findings.tab_description.scenario.anon_intra")}
+            </option>
+            <option value="AUTHORIZED_USER_EXTRANET">
+              {translate.t("search_findings.tab_description.scenario.auth_extra")}
+            </option>
+            <option value="UNAUTHORIZED_USER_EXTRANET">
+              {translate.t("search_findings.tab_description.scenario.unauth_extra")}
+            </option>
+            <option value="AUTHORIZED_USER_INTERNET">
+              {translate.t("search_findings.tab_description.scenario.auth_inter")}
+            </option>
+            <option value="UNAUTHORIZED_USER_INTERNET">
+              {translate.t("search_findings.tab_description.scenario.unauth_inter")}
+            </option>
+            <option value="AUTHORIZED_USER_INTRANET">
+              {translate.t("search_findings.tab_description.scenario.auth_intra")}
+            </option>
+            <option value="UNAUTHORIZED_USER_INTRANET">
+              {translate.t("search_findings.tab_description.scenario.unauth_intra")}
+            </option>
+          </EditableField>
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            component={dropdownField}
+            currentValue={translate.t(formatDropdownField(props.dataset.actor))}
+            label={translate.t("search_findings.tab_description.actor.title")}
+            name="actor"
+            renderAsEditable={props.isEditing}
+            validate={[required]}
+          >
+            <option value="" selected={true} />
+            <option value="ANYONE_INTERNET">{translate.t("search_findings.tab_description.actor.any_internet")}</option>
+            <option value="ANY_COSTUMER">{translate.t("search_findings.tab_description.actor.any_costumer")}</option>
+            <option value="SOME_CUSTOMERS">{translate.t("search_findings.tab_description.actor.some_costumer")}</option>
+            <option value="ANYONE_WORKSTATION">
+              {translate.t("search_findings.tab_description.actor.any_station")}
+            </option>
+            <option value="ANY_EMPLOYEE">{translate.t("search_findings.tab_description.actor.any_employee")}</option>
+            <option value="SOME_EMPLOYEES">{translate.t("search_findings.tab_description.actor.some_employee")}</option>
+            <option value="ONE_EMPLOYEE">{translate.t("search_findings.tab_description.actor.one_employee")}</option>
+          </EditableField>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.description}
+            label={translate.t("search_findings.tab_description.description")}
+            name="description"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+          />
+        </Col>
+        <Col md={12} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.requirements}
+            label={translate.t("search_findings.tab_description.requirements")}
+            name="requirements"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <FormGroup>
+            <ControlLabel><b>{translate.t("search_findings.tab_description.where")}</b></ControlLabel><br />
+            <VulnerabilitiesView
+              dataInputs={[]}
+              dataLines={[]}
+              dataPorts={[]}
+              releaseDate={props.dataset.releaseDate}
+              editMode={props.isEditing && _.includes(["admin", "analyst"], props.userRole)}
+              findingId={props.findingId}
+              state="open"
+              userRole={props.userRole}
+            />
+          </FormGroup>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.attackVector}
+            label={translate.t("search_findings.tab_description.attack_vectors")}
+            name="attackVector"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            className={globalStyle.noResize}
+            component={textAreaField}
+            currentValue={props.dataset.affectedSystems}
+            label={translate.t("search_findings.tab_description.affected_systems")}
+            name="affectedSystems"
+            renderAsEditable={props.isEditing}
+            type="text"
+            validate={[required]}
+          />
+        </Col>
+      </Row>
     </React.Fragment>
   );
 };
