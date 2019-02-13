@@ -5,7 +5,6 @@ var css = require('gulp-typed-css-modules');
 /* Modules used under package task */
 var webpack = require('webpack');
 var gulpWebpack = require('webpack-stream');
-var gulpPlumber = require('gulp-plumber');
 /* Modules used under compilation task */
 var ts = require("gulp-typescript");
 var tsProject = ts.createProject("tsconfig.json");
@@ -36,7 +35,6 @@ gulp.task(
   ['css'],
   () => {
     return tsProject.src()
-      .pipe(gulpPlumber())
       .pipe(tsProject())
       .js.pipe(gulp.dest("./src"));
   }

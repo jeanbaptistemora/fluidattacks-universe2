@@ -16,6 +16,7 @@
   ],
   "exclude": [
     "./node_modules/**",
+    "./src/**/*.spec.tsx",
     "./src/**/*.css.d.ts",
     "./src/**/*.js",
     "./src/**/*.css"

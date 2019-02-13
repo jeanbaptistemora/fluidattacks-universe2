@@ -117,9 +117,9 @@ react-testing:
   <<: *vault_login
   script:
     - cd front/ && npm install --unsafe-perm
-    - tslint -p tsconfig.json -t verbose || true
+    - tslint -p tsconfig.json -t verbose
     - npm test
-    - tsc -p tsconfig.json || true
+    - tsc -p tsconfig.json
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
