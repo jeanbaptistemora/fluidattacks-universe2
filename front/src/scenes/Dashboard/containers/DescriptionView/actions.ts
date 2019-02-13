@@ -111,12 +111,6 @@ export const loadDescription: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
 
-          data.finding.cweUrl = _.startsWith(data.finding.cweUrl, "https")
-            ? data.finding.cweUrl
-              .split("definitions/")[1]
-              .substring(0, 3)
-            : "-";
-
           dispatch<IActionStructure>({
             payload: {
               descriptionData: { ...data.finding, ...data.project },
@@ -279,10 +273,6 @@ export const updateDescription: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.updateDescription.success) {
-            data.updateDescription.finding.cweUrl =
-              data.updateDescription.finding.cweUrl
-                .split("definitions/")[1]
-                .substring(0, 3);
 
             dispatch<IActionStructure>({
               payload: {

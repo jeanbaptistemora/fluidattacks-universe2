@@ -261,11 +261,6 @@ class FindingDTO(object):
                        for (k, v) in description_fields.items()
                        if k in initial_dict.keys()}
         parsed_dict = forms.dict_concatenation(parsed_dict, migrated_data)
-        if 'cwe' in parsed_dict.keys():
-            parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
-        else:
-            # The finding does not have cwe attribute
-            pass
         parsed_dict = cast_finding_attributes(parsed_dict)
         return parsed_dict
 
@@ -779,11 +774,6 @@ def parse_finding(finding):
                        for (k, v) in finding_fields.items()
                        if k in finding.keys()}
 
-        if 'cwe' in parsed_dict.keys():
-            parsed_dict['cwe'] = forms.get_cwe_url(parsed_dict['cwe'])
-        else:
-            # The finding does not have cwe attribute
-            pass
         parsed_dict['id'] = finding.get('finding_id')
         parsed_dict['lastVulnerability'] = finding.get('lastVulnerability')
         parsed_dict['releaseDate'] = finding.get('releaseDate')

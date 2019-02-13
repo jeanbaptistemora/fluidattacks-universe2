@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { IProjectUsersViewProps } from "../scenes/Dashboard/containers/ProjectUsersView";
 import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/containers/SeverityView";
 import translate from "./translations/translate";
@@ -146,7 +147,7 @@ export const castFields: ((dataset: ISeverityViewProps["dataset"]) => ISeverityF
 };
 
 export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string =>
-  cweId === "-" ? "-" : `https://cwe.mitre.org/data/definitions/${cweId}.html`;
+  _.includes(["None", ""], cweId) ? "-" : `https://cwe.mitre.org/data/definitions/${cweId}.html`;
 
 export const formatDropdownField: ((field: string) => string) = (field: string): string => {
   const translationParameters: {[value: string]: string} = {

@@ -55,15 +55,6 @@ def get_impact(criticity):
     return impact
 
 
-def get_cwe_url(cwe):
-    try:
-        value = int(cwe)
-        urlbase = 'https://cwe.mitre.org/data/definitions/:id.html'
-        return urlbase.replace(':id', str(value))
-    except ValueError:
-        return 'None'
-
-
 def is_exploitable(explotability):
     if explotability == 1.0 or explotability == 0.95:
         exploitable = 'Si'
