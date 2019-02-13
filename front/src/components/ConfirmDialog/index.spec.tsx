@@ -1,26 +1,30 @@
-import * as React from 'react';
-import { expect } from 'chai';
-import { shallow, configure } from 'enzyme';
-import { confirmDialog as ConfirmDialog } from './index';
-import 'mocha';
-import Adapter from 'enzyme-adapter-react-16';
+import { expect } from "chai";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import * as React from "react";
+import { confirmDialog as ConfirmDialog } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Confirm dialog', () => {
+const functionMock: (() => void) = (): void => undefined;
 
-  it('should return a function', () => {
-    expect(typeof (ConfirmDialog)).to.equal('function');
+describe("Confirm dialog", () => {
+
+  it("should return a function", () => {
+    expect(typeof (ConfirmDialog)).to
+      .equal("function");
   });
 
-  it('should render', () => {
-    const wrapper = shallow(
+  it("should render", () => {
+    const wrapper: ShallowWrapper = shallow(
       <ConfirmDialog
         open={true}
         title="Test"
-        onProceed={(): void => undefined}
-      />
+        onProceed={functionMock}
+      />,
     );
-    expect(wrapper).to.have.length(1);
+    expect(wrapper).to.have
+      .length(1);
   });
 });
