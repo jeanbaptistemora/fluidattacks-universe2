@@ -22,9 +22,9 @@ spec:
     spec:
       containers:
       - name: web
-        image: registry.gitlab.com/fluidsignal/web:$CI_COMMIT_REF_SLUG
+        image: fluid-docker.jfrog.io/web:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         ports:
         - containerPort: 80
       imagePullSecrets:
-      - name: gitlab-reg
+      - name: jfrog-reg

@@ -1,107 +1,108 @@
-image: registry.gitlab.com/fluidsignal/web:base
+image: registry.gitlab.com/fluidattacks/web:base
 
 stages:
   - build
-  - lint
+  - check
   - review
   - mr-check
   - deployment
 
-before_script:
-  - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
-  - echo "$CI_REGISTRY_PASSWORD" |
-      docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+.vault_vars: &vault_vars
+  variables:
+    VAULT_HOST: "${VAULT_S3_BUCKET}.com"
+    VAULT_PORT: 443
+    VAULT_API_URL: "https://${VAULT_S3_BUCKET}.com/v1"
+    ROLE_ID: "${WEB_ROLE_ID}"
+    SECRET_ID: "${WEB_SECRET_ID}"
+    VAULTENV_SECRETS_FILE: "${CI_PROJECT_DIR}/env.vars"
 
-after_script:
-  - docker logout "$CI_REGISTRY"
+.jfrog_vars: &jfrog_vars
+  variables:
+    REGISTRY: "${JFROG_REPO}"
+    REGISTRY_USER: "${JFROG_USER}"
+    REGISTRY_PASS: "${JFROG_PASS}"
+    REGISTRY_EMAIL: "${JFROG_EMAIL}"
+    REGISTRY_IMAGE: "${JFROG_REPO}/web"
 
 .vault_login: &vault_login
+  <<: *vault_vars
   before_script:
-    - export VAULT_TOKEN=$(curl --request POST
-        --data '{"role_id":"'"$WEB_ROLE_ID"'","secret_id":"'"$WEB_SECRET_ID"'"}'
-        "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
-        jq -r '.auth.client_token')
-    - export DOCKER_BASENAME="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
-    - echo "$CI_REGISTRY_PASSWORD" |
-        docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - export VAULT_TOKEN=$(curl
+        --request POST
+        --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}'
+        "${VAULT_API_URL}/auth/approle/login" | jq -r '.auth.client_token')
+  after_script:
+    - curl
+        --request POST
+        -H "X-Vault-Token:${VAULT_TOKEN}"
+        "${VAULT_API_URL}/auth/token/revoke-self"
+
+.kaniko_config: &kaniko_config
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
+        > /kaniko/.docker/config.json
 
 builder:
-# Only builds from scratch if the Dockerfile has changed
-  image: registry.gitlab.com/fluidsignal/serves:builder
-  services:
-    - docker:dind
   stage: build
+  <<: *kaniko_config
   script:
-    - aws s3 cp
-        s3://$VAULT_S3_BUCKET/vault-ca.crt
-        .
-    - docker pull "$DOCKER_BASENAME:base"
-    - docker build
-        --build-arg vault_addr="https://$VAULT_S3_BUCKET.com"
-        --build-arg vault_ca="$(cat vault-ca.crt | base64 | tr -d '\n')"
-        --cache-from "$DOCKER_BASENAME:base"
-        -t "$DOCKER_BASENAME:base"
-        builder/base/
-    - docker push "$DOCKER_BASENAME:base"
-    - docker logout "$CI_REGISTRY"
-  retry: 2
+    - /kaniko/executor
+        --cache true
+        --cache-repo "${CI_REGISTRY_IMAGE}/cache"
+        --cleanup
+        --context "${CI_PROJECT_DIR}/builder/base/"
+        --dockerfile "${CI_PROJECT_DIR}/builder/base/Dockerfile"
+        --destination "${CI_REGISTRY_IMAGE}:base"
 
-checks:
-# Downloads cache, executes checks to normalize content and file structure,
-# test site generation and prepare Review Apps
-  stage: lint
-  services:
-    - docker:dind
+content:
+  stage: check
   script:
-    - if curl --fail -Lo artifacts.zip
-        --header Private-Token:$GL_ACCESS_TOKEN
-        https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME;
-        then unzip artifacts.zip && rm artifacts.zip;
-        else echo "There are no artifacts";
-        fi
     - pre-commit run --all-files
     - ./check-changed.sh
     - ./check-all.sh
     - ./check-articles.sh
     - ./check-spelling.sh
-    - pybabel compile --directory theme/2014/translations/ --domain messages
-    - for FILE in $(find . -iname '*.adoc');
-        do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE;
-        done
-    - sed -i
-        's/https:\/\/fluidattacks\.com/https:\/\/'"$CI_PROJECT_NAME.$ENV_DNS\/$CI_COMMIT_REF_SLUG"'/g' pelicanconf.py
-    - pelican --fatal errors --fatal warnings content/
-    - mv output/web/en/blog-en/* output/web/en/blog &&
-        mv output/web/es/blog-es/* output/web/es/blog
-    - ./xmlcombine.sh
-    - cp -r output/web/es/pages-es/* output/web/es &&
-        rm -rf output/web/es/pages-es
-    - cp -r output/web/en/pages-en/* output/web/en/ &&
-        rm -rf output/web/en/pages-en
-    - mv output/web/en/redirect/index.html output/web/ &&
-        rmdir output/web/en/redirect/
-    - mv robots.txt output/web/
-    - rm -rf output/web/de
-    - ./html-lint.sh
-    - mkdir -p review/output/
-    - mv output/web review/output/
-    - docker build --no-cache
-        -t "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
-        review/
-    - docker push "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
-    - rm -rf output/ && rm -rf review/output
-  retry: 2
-  artifacts:
-    untracked: true
-    when: on_success
-    expire_in: 18 hrs
-    paths:
-      - cache/
+  except:
+    - master
+
+pelican:
+  stage: check
+  <<: *jfrog_vars
+  <<: *kaniko_config
+  before_script:
+    - echo '{"auths":{"'"${REGISTRY}"'":{"username":"'"${REGISTRY_USER}"'","password":"'"${REGISTRY_PASS}"'"}}}'
+        > /kaniko/.docker/config.json
+  script:
+    - /kaniko/executor
+        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
+        --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
+        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
+        --build-arg ENV_DNS="${ENV_DNS}"
+        --build-arg REGISTRY_IMAGE="${REGISTRY_IMAGE}"
+        --cleanup
+        --context "${CI_PROJECT_DIR}/review/"
+        --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
+        --destination "${REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
+      ||
+      ( sed -i '/as cache/d; /from=cache/d; s/from=1/from=0/g'  review/Dockerfile &&
+        /kaniko/executor
+          --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
+          --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
+          --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
+          --build-arg ENV_DNS="${ENV_DNS}"
+          --build-arg REGISTRY_IMAGE="${REGISTRY_IMAGE}"
+          --cleanup
+          --context "${CI_PROJECT_DIR}/review/"
+          --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
+          --destination "${REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}" )
   except:
     - master
 
 commitlint:
-  stage: lint
+  stage: check
   image: starefossen/ruby-node:2-10
   before_script:
     - npm install --unsafe-perm
@@ -111,45 +112,43 @@ commitlint:
     - master
 
 review-web:
-# Deploy Review Apps
   stage: review
+  <<: *jfrog_vars
   image: registry.gitlab.com/fluidsignal/serves:builder
-  before_script:
-    - echo 'Deploying Review Apps...'
   script:
     - ./review/cluster-config.sh
-  after_script:
-    - echo 'Review Apps deployed!'
   environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    url: https://$CI_PROJECT_NAME.env.fluidattacks.com/$CI_COMMIT_REF_SLUG/web/en/
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: https://${CI_PROJECT_NAME}.${ENV_DNS}/${CI_COMMIT_REF_SLUG}/web/en/
     on_stop: stop-review
   except:
     - master
 
 stop-review:
-# Erase environment of the Review Apps
   stage: review
   image: registry.gitlab.com/fluidsignal/serves:builder
   variables:
     GIT_STRATEGY: none
   script:
-    - kubectl config set-context "$(kubectl config current-context)"
-        --namespace="$CI_PROJECT_NAME"
-    - kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
-    - kubectl delete service "service-$CI_COMMIT_REF_SLUG"
-    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml
-        | tac | sed '/path:\ \/'"$CI_COMMIT_REF_SLUG"'/,+3d'
+    - kubectl config set-context
+        "$(kubectl config current-context)"
+        --namespace="${CI_PROJECT_NAME}"
+    - kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}"
+    - kubectl delete service "service-${CI_COMMIT_REF_SLUG}"
+    - kubectl get ingress "ingress-${CI_PROJECT_NAME}" -o yaml
+        | tac | sed '/path:\ \/'"${CI_COMMIT_REF_SLUG}"'/,+3d'
         | tac > current-ingress.yaml
-    - kubectl delete ingress "ingress-$CI_PROJECT_NAME"
+    - kubectl delete ingress "ingress-${CI_PROJECT_NAME}"
     - if
         kubectl get deployments | grep 'review-*';
         then kubectl create -f current-ingress.yaml;
       fi
   when: manual
   environment:
-    name: review/$CI_COMMIT_REF_SLUG
+    name: review/${CI_COMMIT_REF_SLUG}
     action: stop
+  except:
+    - master
 
 mr-test:
   stage: mr-check
@@ -180,61 +179,39 @@ danger:
     - merge_requests
 
 deploy:
-# Deploy website to Amazon S3
   stage: deployment
-  environment: production
   <<: *vault_login
   script:
-    # Download cache from previous builds
     - if curl --fail -Lo artifacts.zip
-        --header Private-Token:$GL_ACCESS_TOKEN
-        https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME;
-        then unzip artifacts.zip && rm artifacts.zip;
-        else echo "There are no artifacts";
-        fi
-    # Generate file for localization of the site
+        "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/jobs/artifacts/${CI_COMMIT_REF_NAME}/download?job=${CI_JOB_NAME}&job_token=${CI_JOB_TOKEN}"; then
+          unzip artifacts.zip 'cache/*' -d .;
+          rm artifacts.zip;
+        else
+          echo "There are no artifacts";
+      fi
     - pybabel compile --directory theme/2014/translations/ --domain messages
-    # Fix links to successfully include files
-    - for FILE in $(find . -iname '*.adoc');
-        do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE;
-        done
-    # Generate the website, exiting on any error encountered
+    - for FILE in $(find . -iname '*.adoc'); do
+        sed -i 's/^include::/include::\/builds\/fluidattacks/g' ${FILE};
+      done
     - pelican --fatal errors --fatal warnings content/
-    # Remove dummy folder used to translate messages to english as well
     - rm -rf output/web/de
-    # Locate images in the same folder as the respective article
-    - mv output/web/en/blog-en/* output/web/en/blog &&
-        mv output/web/es/blog-es/* output/web/es/blog
-    # Script to generate a complete sitemap of the site
-    - ./xmlcombine.sh
-    # Place pages in the root of the subsite
-    - cp -r output/web/es/pages-es/* output/web/es/ &&
-        rm -rf output/web/es/pages-es
-    - cp -r output/web/en/pages-en/* output/web/en/ &&
-        rm -rf output/web/en/pages-en
-    # Set the redirect from web/ to web/en/
-    - mv output/web/en/redirect/index.html output/web/ &&
-        rmdir output/web/en/redirect/
-    # Set robots.txt
     - mv robots.txt output/web/
-    # Organize images of articles with draft status
+    - mv output/web/en/blog-en/* output/web/en/blog
+    - mv output/web/es/blog-es/* output/web/es/blog
+    - cp -r output/web/es/pages-es/* output/web/es/
+    - cp -r output/web/en/pages-en/* output/web/en/
+    - mv output/web/en/redirect/index.html output/web/
+    - rm -rf output/web/es/pages-es
+    - rm -rf output/web/en/pages-en
+    - rmdir output/web/en/redirect/
+    - ./xmlcombine.sh
     - ./draft.sh
-    # Create container that deploys website
-    - mv output builder/master
-    - docker build --no-cache
-        -t "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
-        builder/master/
-    - docker push
-        "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
-    - docker run
-        -e AWS_ACCESS_KEY_ID="$(vault read -field=aws_s3_access_key secret/web)"
-        -e AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_s3_secret_key secret/web)"
-        -e S3_BUCKET_NAME="$(vault read -field=aws_s3_bucket secret/web)"
-        "$DOCKER_BASENAME:$CI_COMMIT_REF_SLUG"
-        bash -c "./deploy.sh && ./amz-redirect.sh"
-    # Erase output folder to reduce artifact size since it is untracked
-    - rm -rf builder/master/output
-  retry: 2
+    - export AWS_ACCESS_KEY_ID="$(vault read -field=aws_s3_access_key secret/web)"
+    - export AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_s3_secret_key secret/web)"
+    - export S3_BUCKET_NAME="$(vault read -field=aws_s3_bucket secret/web)"
+    - ./deploy.sh
+    - ./amz-redirect.sh
+    - rm -rf output
   artifacts:
     untracked: true
     when: on_success

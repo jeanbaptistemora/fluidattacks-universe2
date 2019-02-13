@@ -1,8 +1,5 @@
 FROM debian:stable-slim
 
-ARG vault_addr
-ARG vault_ca
-
 WORKDIR /app
 
 COPY . /app
@@ -18,16 +15,11 @@ RUN apt-get update -qq && \
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add - && \
-       add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
-       $(lsb_release -cs) stable" && \
 
     # Install general dependencies
     apt-get update && \
     apt-get install -qqy --no-install-recommends \
        diction \
-       docker-ce \
        file \
        gcc \
        git \
@@ -48,10 +40,9 @@ RUN apt-get update -qq && \
     apt-get install -qqy --no-install-recommends \
         asciidoc \
         graphviz && \
-    pip install --upgrade \
-        pip==9.0.3 \
-        setuptools \
-        wheel && \
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+      python get-pip.py && \
+      rm get-pip.py && \
     pip install -r requirements.txt && \
     yarn install && \
     gem install -N sass && \
@@ -125,16 +116,13 @@ RUN apt-get update -qq && \
     sed -i 's/\[macros\]/\[macros\]\n'"$PATTERN"'/' /etc/asciidoc/asciidoc.conf && \
 
     # Install Vault
-    curl -LSo vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.3_linux_amd64.zip && \
+    curl -LSo vault.zip https://releases.hashicorp.com/vault/0.11.5/vault_0.11.5_linux_amd64.zip && \
        unzip vault.zip && \
        mv vault /usr/local/bin && \
        rm vault.zip && \
-    echo "$vault_ca" | base64 -d > /usr/local/share/ca-certificates/vault-ca.crt && \
-       update-ca-certificates && \
 
     # Remove and uninstall all files and dependecies not needed for the generation of the site
     apt-get --purge remove -qqy \
-        apt-transport-https \
         gcc \
         gnupg2 \
         make \
@@ -154,9 +142,6 @@ RUN apt-get update -qq && \
         shellcheck-stable \
         tidy.deb \
         yarn.lock
-
-# Set address for Vault communication
-ENV VAULT_ADDR $vault_addr
 
 # Add the uglifyjs and java executables to the PATH
 ENV PATH=$PATH:/app/node_modules/uglify-js/bin/:/app/jre1.8.0_161/bin/
