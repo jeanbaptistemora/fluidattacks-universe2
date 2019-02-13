@@ -18,10 +18,10 @@ import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDi
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import { GenericForm } from "../../components/GenericForm2/index";
+import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
-import { renderFormFields } from "./formStructure2";
+import { renderFormFields } from "./formStructure";
 
 export interface IDescriptionViewProps {
   dataset: {
