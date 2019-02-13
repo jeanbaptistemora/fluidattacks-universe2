@@ -8,11 +8,11 @@ TARGET = "/git"
 REPOS = (
     "autonomicmind/default",
     "autonomicmind/training",
+    "fluidattacks/web",
     "fluidattacks/default",
     "fluidattacks/asserts",
     "fluidattacks/writeups",
     "fluidattacks/integrates",
-    "fluidsignal/web",
     "fluidsignal/bwapp",
     "fluidsignal/serves",
     "fluidsignal/default",
