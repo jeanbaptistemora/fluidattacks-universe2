@@ -153,6 +153,7 @@ stop-review:
 
 mr-test:
   stage: mr-check
+  image: registry.gitlab.com/fluidsignal/serves:builder
   only:
     - merge_requests
   variables:
