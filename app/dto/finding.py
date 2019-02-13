@@ -473,10 +473,13 @@ def cast_finding_attributes(finding):
         'Bases de Datos': 'DATABASES',
         'Búsqueda': 'SEARCHING',
         'Cierre': 'CLOSING',
-        'Verificación': 'VERIFYING'
+        'Verificación': 'VERIFYING',
+        'Asumido': 'ACCEPTED',
+        'Nuevo': 'NEW',
+        'Remediar': 'IN PROGRESS'
     }
     list_fields = ['reportLevel', 'subscription', 'testType', 'findingType',
-                   'actor', 'scenario', 'ambit', 'context']
+                   'actor', 'scenario', 'ambit', 'context', 'treatment']
     for field in list_fields:
         if finding.get(field):
             finding[field] = cast_finding_field.get(

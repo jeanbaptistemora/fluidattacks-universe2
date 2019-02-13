@@ -458,7 +458,7 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
       <Col md={6} sm={12} xs={12}>
         <EditableField
           component={dropdownField}
-          currentValue={props.dataset.treatment}
+          currentValue={translate.t(formatDropdownField(props.dataset.treatment))}
           label={translate.t("search_findings.tab_description.treatment.title")}
           name="treatment"
           renderAsEditable={props.isEditing}
@@ -466,9 +466,9 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           validate={[required]}
         >
           <option value="" selected={true} />
-          <option value="Asumido">{translate.t("search_findings.tab_description.treatment.assumed")}</option>
-          <option value="Nuevo">{translate.t("search_findings.tab_description.treatment.new")}</option>
-          <option value="Remediar">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
+          <option value="ACCEPTED">{translate.t("search_findings.tab_description.treatment.accepted")}</option>
+          <option value="NEW">{translate.t("search_findings.tab_description.treatment.new")}</option>
+          <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
         </EditableField>
       </Col>
       <Col md={6} sm={12} xs={12}>
@@ -479,8 +479,8 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           name="treatmentManager"
           renderAsEditable={props.isEditing}
           type="text"
-          validate={[...props.formValues.treatment === "Remediar" ? [required] : []]}
-          visible={!props.isEditing || (props.isEditing && props.formValues.treatment === "Remediar")}
+          validate={[...props.formValues.treatment === "IN PROGRESS" ? [required] : []]}
+          visible={!props.isEditing || (props.isEditing && props.formValues.treatment === "IN PROGRESS")}
         >
           <option value="" selected={true} />
           {/* tslint:disable-next-line jsx-no-multiline-js

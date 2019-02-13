@@ -169,7 +169,10 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
     "APPLICATIONS": "search_findings.tab_description.ambit.applications",
     "DATABASES": "search_findings.tab_description.ambit.databases",
     "SOURCE_CODE": "search_findings.tab_description.ambit.sourcecode",
-    "INFRASTRUCTURE": "search_findings.tab_description.ambit.infra"
+    "INFRASTRUCTURE": "search_findings.tab_description.ambit.infra",
+    "ACCEPTED": "search_findings.tab_description.treatment.accepted",
+    "NEW": "search_findings.tab_description.treatment.new",
+    "IN PROGRESS": "search_findings.tab_description.treatment.in_progress"
   };
 
   return translationParameters[field];

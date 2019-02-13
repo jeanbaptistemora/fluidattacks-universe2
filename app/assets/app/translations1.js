@@ -246,7 +246,7 @@ const translations1 = {
       },
      "treatment_header":
       {
-        "asummed": "Accepted",
+        "accepted": "Accepted",
         "default": "-",
         "remediated": "In Progress",
         "working": "New"

@@ -183,7 +183,7 @@ def finding_has_treatment(act_finding, finding_url):
             (act_finding['estado'] != 'Cerrado') and \
             (act_finding['edad'] != '-'):
         if 'treatment' in act_finding and \
-                act_finding['treatment'] == 'Nuevo':
+                act_finding['treatment'] == 'NEW':
             finding_name = act_finding['finding'] + ' -' + \
                 act_finding['edad'] + ' day(s)-'
             resp = {

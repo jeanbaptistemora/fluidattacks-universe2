@@ -333,11 +333,11 @@ class CreatorPDF(object):
                 finding['treatment'] = words['treat_status_wor']
             elif finding['treatment'] == '-':
                 finding['treatment'] = '-'
-            elif finding['treatment'] == 'Nuevo':
+            elif finding['treatment'] == 'NEW':
                 finding['treatment'] = words['treat_status_wor']
-            elif finding['treatment'] == 'Asumido':
+            elif finding['treatment'] == 'ACCEPTED':
                 finding['treatment'] = words['treat_status_asu']
-            elif finding['treatment'] == 'Remediar':
+            elif finding['treatment'] == 'IN PROGRESS':
                 finding['treatment'] = words['treat_status_rem']
         main_pie_filename = 'image::../images/' \
             + main_pie_filename \

@@ -912,7 +912,7 @@ class UpdateTreatment(Mutation):
         user_email = util.get_jwt_content(info.context)['user_email']
         project_name = get_project_name(finding_id)
 
-        if parameters['treatment'] == "Remediar":
+        if parameters['treatment'] == 'IN PROGRESS':
             if parameters.get('treatment_manager'):
                 project_users = [user[0]
                                  for user in integrates_dao.get_project_users(project_name)
@@ -926,7 +926,7 @@ class UpdateTreatment(Mutation):
                     raise GraphQLError('Invalid treatment manager')
             else:
                 raise GraphQLError('Invalid treatment manager')
-        elif parameters['treatment'] == "Asumido":
+        elif parameters['treatment'] == 'ACCEPTED':
             parameters['treatment_manager'] = user_email
 
         success = update_treatment(finding_id, parameters, user_email)

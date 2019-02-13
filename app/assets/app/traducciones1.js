@@ -252,7 +252,7 @@ const traducciones1 = {
   },
   "treatment_header":
   {
-    "asummed": "Asumido",
+    "accepted": "Asumido",
     "default": "-",
     "remediated": "Remediar",
     "working": "Nuevo"

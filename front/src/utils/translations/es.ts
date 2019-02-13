@@ -165,7 +165,7 @@ const esTranslations: Map<string, string> = {
       threat: "Amenaza",
       title: "Título",
       treatment: {
-        assumed: "Asumido",
+        accepted: "Asumido",
         in_progress: "En progreso",
         new: "Nuevo",
         title: "Tratamiento",

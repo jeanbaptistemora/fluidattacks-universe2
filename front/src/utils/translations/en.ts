@@ -163,7 +163,7 @@ const enTranslations: Map<string, string> = {
       threat: "Threat",
       title: "Title",
       treatment: {
-        assumed: "Assumed",
+        accepted: "Accepted",
         in_progress: "In progress",
         new: "New",
         title: "Treatment",
