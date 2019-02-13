@@ -124,6 +124,7 @@ react-testing:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
       - front/coverage.lcov
+    expire_in: 1 week
   after_script:
     - echo "Job finished"
 
@@ -178,6 +179,7 @@ unit-testing:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
       - coverage.xml
+    expire_in: 1 week
 
 asserts-code-test:
   stage: pre-test
