@@ -20,7 +20,7 @@ const translations2 = {
       "cardinalities": "Open Vulnerabilities",
       "cardinalitiesTooltip": "Vulnerabilities pending to be resolved",
       "closure": "Fixed vulnerabilities",
-      "closureTooltip": "Percentage of reported vulnerabilities " +
+      "closureTooltip": "Percent of reported vulnerabilities " +
                         "that are already fixed",
       "compromisedRecords": "Total Compromised Records",
       "compromisedRecordsTooltip": "Total compromised records " +

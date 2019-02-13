@@ -41,7 +41,7 @@ angular.module("FluidIntegrates").controller(
     projectFtry,
     projectFtry2
   ) {
-    const PERCENTAGE_FACTOR = 100;
+    const PERCENT_FACTOR = 100;
     const MAX_DECIMALS = 2;
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -106,7 +106,7 @@ angular.module("FluidIntegrates").controller(
      *  @return {string} return n% format
      */
     $scope.percent = (value, total) => ` ${
-      (value * PERCENTAGE_FACTOR / total).
+      (value * PERCENT_FACTOR / total).
         toFixed(MAX_DECIMALS).
         toString()}%`;
 
@@ -324,7 +324,7 @@ angular.module("FluidIntegrates").controller(
                                (parseInt(response.data[cont].fields, 10) /
                                sevConst3);
               const totalSeverity = severity / ((sevConst1 * target) +
-                                      sevConst2) * PERCENTAGE_FACTOR;
+                                      sevConst2) * PERCENT_FACTOR;
               $scope.metricsList.push({
                 "color": "#00cb77",
                 "description": $translate.instant("search_findings." +
@@ -335,7 +335,7 @@ angular.module("FluidIntegrates").controller(
                 "value": "n%".replace("n", Math.round((1 -
                                   (cardinalityValues[0] /
                                   cardinalityValues[1])) *
-                                  PERCENTAGE_FACTOR).toString())
+                                  PERCENT_FACTOR).toString())
               });
               $scope.metricsList.push({
                 "color": "#ef4c43",
@@ -360,7 +360,7 @@ angular.module("FluidIntegrates").controller(
               "value": "n%".replace("n", Math.round((1 -
                                       (cardinalityValues[0] /
                                       cardinalityValues[1])) *
-                                      PERCENTAGE_FACTOR).toString())
+                                      PERCENT_FACTOR).toString())
             });
             $scope.metricsList.push({
               "color": "#ef4c43",

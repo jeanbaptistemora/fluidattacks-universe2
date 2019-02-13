@@ -50,7 +50,7 @@ angular.module("FluidIntegrates").factory(
       "calculateFindingSeverity" (data) {
         let severity = 0;
         const MAX_SEVERITY = 5;
-        const PERCENTAGE_FACTOR = 100.0;
+        const PERCENT_FACTOR = 100.0;
         if (!isNaN(data.finding.severity)) {
           severity = parseFloat(data.finding.severity);
           if (severity < 0 || severity > MAX_SEVERITY) {
@@ -69,7 +69,7 @@ angular.module("FluidIntegrates").factory(
             let prob = data.finding.probability;
             severity = data.finding.severity;
             prob = prob.split("%")[0];
-            prob = parseFloat(prob) / PERCENTAGE_FACTOR;
+            prob = parseFloat(prob) / PERCENT_FACTOR;
             severity = parseFloat(severity);
             const vRiesgo = prob * severity;
             const CRITIC_RISK = 3;
