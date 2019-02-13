@@ -65,8 +65,8 @@ const esTranslations: Map<string, string> = {
       environment: "Ambiente",
     },
     files_table: {
-      file: "Archivo",
       description: "Descripción",
+      file: "Archivo",
     },
     repositories_table: {
       branch: "Rama",
@@ -193,7 +193,7 @@ const esTranslations: Map<string, string> = {
     tab_indicators: {
       tags: {
         modal_title: "Agregar información de los tags",
-      }
+      },
     },
     tab_resources: {
       add_repository: "Agregar",
@@ -327,7 +327,7 @@ const esTranslations: Map<string, string> = {
     minLength: "Este campo requiere por lo menos {{count}} caracteres",
     numeric: "Este campo sólo puede contener números",
     required: "Este campo es obligatorio",
-    tags: "Este campo sólo puede contener caracteres alfanuméricos y guiones medios"
+    tags: "Este campo sólo puede contener caracteres alfanuméricos y guiones medios",
   },
 };
 

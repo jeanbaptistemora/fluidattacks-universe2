@@ -29,10 +29,10 @@ export interface IIndicatorsViewProps {
   addModal: {
     open: boolean;
   };
-  tagsDataset: string[];
+  deletionDate: string;
   projectName: string;
   subscription: string;
-  deletionDate: string;
+  tagsDataset: string[];
 }
 
 const enhance: InferableComponentEnhancer<{}> =
@@ -103,7 +103,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
 export const component: React.StatelessComponent<IIndicatorsViewProps> =
   (props: IIndicatorsViewProps): JSX.Element => (
   <React.StrictMode>
-    { props.subscription && _.isEmpty(props.deletionDate)
+    { !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate)
       ?  <React.Fragment>
             <Row>
               <Col md={12} sm={12} xs={12}>
@@ -164,9 +164,9 @@ export const component: React.StatelessComponent<IIndicatorsViewProps> =
             <AddTagsModal
               isOpen={props.addModal.open}
               onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
-              onSubmit={(values: { tags: IIndicatorsViewProps["tagsDataset"] }): void =>
-                { saveTags(values.tags, props.projectName, props.tagsDataset); }
-              }
+              onSubmit={(values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => {
+                saveTags(values.tags, props.projectName, props.tagsDataset);
+              }}
             />
           </React.Fragment>
       : undefined

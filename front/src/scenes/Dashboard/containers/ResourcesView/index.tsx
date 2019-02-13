@@ -273,7 +273,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
         </Col>
       </Row>
       <hr/>
-      {props.showFiles &&
+      {props.showFiles ?
         <Row>
           <Col md={12} sm={12} xs={12}>
             <Row>
@@ -312,7 +312,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
             </Row>
           </Col>
         </Row>
-      }
+      : undefined}
       <AddResourcesModal
         isOpen={props.addModal.open}
         type={props.addModal.type}

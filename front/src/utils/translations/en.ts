@@ -64,8 +64,8 @@ const enTranslations: Map<string, string> = {
       environment: "Environment",
     },
     files_table: {
-      file: "File",
       description: "Description",
+      file: "File",
     },
     repositories_table: {
       branch: "Branch",
@@ -191,7 +191,7 @@ const enTranslations: Map<string, string> = {
     tab_indicators: {
       tags: {
         modal_title: "Add tags information",
-      }
+      },
     },
     tab_resources: {
       add_repository: "Add",
@@ -325,7 +325,7 @@ const enTranslations: Map<string, string> = {
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",
     required: "This field is required",
-    tags: "This field can only contain alphanumeric characters and dashes"
+    tags: "This field can only contain alphanumeric characters and dashes",
   },
 };
 

@@ -17,7 +17,7 @@ import {
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";
-import { textAreaField, textField } from "../../../../utils/forms/fields";
+import { textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required, validTag } from "../../../../utils/validations";
 

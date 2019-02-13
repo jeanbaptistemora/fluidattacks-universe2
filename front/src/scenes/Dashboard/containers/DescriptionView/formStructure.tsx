@@ -483,10 +483,7 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           visible={!props.isEditing || (props.isEditing && props.formValues.treatment === "IN PROGRESS")}
         >
           <option value="" selected={true} />
-          {/* tslint:disable-next-line jsx-no-multiline-js
-           * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for mapping
-           * users into JSX Elements
-           */}
+          {/* tslint:disable-next-line jsx-no-multiline-js Necessary for mapping users into JSX Elements */}
           {props.dataset.userEmails.map(({ email }: { email: string }, index: number): JSX.Element =>
             <option key={index} value={email}>{email}</option>)}
         </EditableField>
