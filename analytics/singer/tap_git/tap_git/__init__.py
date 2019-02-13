@@ -9,10 +9,10 @@ import argparse
 import datetime
 
 from typing import List, Tuple, Any
-from collections import OrderedDict
 
 import git
 
+from . import dags
 from . import metrics
 
 # Type aliases that improve clarity
@@ -69,85 +69,6 @@ def get_chunk(iterable: List[Any], nchunks: int, chunk_id: int) -> List[Any]:
     return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
 
 
-def get_commit_adjusted_dates(path: str) -> OrderedDict:
-    """Return a datastructure {commit_sha: integration_date}."""
-    # get a datastructure {commit_sha : metadata}
-    commits = get_commit_adjusted_dates__get_commits(path)
-
-    # stamp the integration dates
-    authored = ""
-    commited = ""
-    for commit_sha in commits.keys():
-        commit_graph = commits[commit_sha]["graph"]
-        commit_is_merge_commit = commits[commit_sha]["is_merge_commit"]
-        if commit_graph[0] == "*" and commit_is_merge_commit:
-            authored = commits[commit_sha]["authored"]
-            commited = commits[commit_sha]["commited"]
-        elif not commit_graph[0] == "*":
-            commits[commit_sha]["authored"] = authored
-            commits[commit_sha]["commited"] = commited
-    return commits
-
-
-def get_commit_adjusted_dates__get_commits(path: str) -> OrderedDict:
-    """Return {commit : parents}."""
-    # magic command
-    cmd_stdout: str = os.popen((
-        f"cd '{path}';                   "
-        f"git rev-list                   "
-        f"  --pretty='!%H!!%at!!%ct!!%P!'"
-        f"  --graph                      "
-        f"  --all                        ")).read()
-
-    # regexps to match the output of the magic command
-    commit_info = re.compile(
-        r"[\|\\/_ ]*!([0-9a-fA-F]{40})!!(.*)!!(.*)!!((?:[0-9a-fA-F]{40} ?)*)!")
-    commit_node = re.compile(
-        r"([\|\\/_ \*]*) commit ([0-9a-fA-F]{40})")
-
-    datastructure: OrderedDict = OrderedDict()
-    iter_cmd_stdout = iter(cmd_stdout.splitlines())
-    try:
-        while 1:
-            # iter until the next node
-            while 1:
-                line = next(iter_cmd_stdout)
-                match = commit_node.match(line)
-                if match:
-                    graph, commit_node_sha = match.groups()
-                    break
-
-            # iter until the next info
-            while 1:
-                line = next(iter_cmd_stdout)
-                match = commit_info.match(line)
-                if match:
-                    commit_info_sha, authored, commited, parents_str = \
-                        match.groups()
-                    authored = datetime.datetime.utcfromtimestamp(
-                        int(authored)).strftime("%Y-%m-%dT%H:%M:%SZ")
-                    commited = datetime.datetime.utcfromtimestamp(
-                        int(commited)).strftime("%Y-%m-%dT%H:%M:%SZ")
-                    break
-
-            # check data integrity
-            if not commit_node_sha == commit_info_sha:
-                raise Exception(f"Not {commit_node_sha} == {commit_info_sha}.")
-
-            parents_list = [] if not parents_str else parents_str.split(" ")
-            datastructure[commit_node_sha] = {
-                "graph": graph,
-                "parents": parents_list,
-                "authored": authored,
-                "commited": commited,
-                "is_merge_commit": len(parents_list) > 1
-            }
-    except StopIteration:
-        pass
-
-    return datastructure
-
-
 def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
     """Returns author name/email and commiter name/email.
 
@@ -190,7 +111,7 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
     subscription: str = config.get("subscription", "__")
     tag: str = config.get("tag", "__")
 
-    commit_adjusted_dates = get_commit_adjusted_dates(repo_path)
+    commit_adjusted_dates = dags.get_commits_with_adjusted_dates(repo_path)
 
     def write_records(branch):
         """Print singer records to stdout."""
@@ -230,9 +151,9 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
                     "committed_at": commit.committed_datetime.strftime(
                         "%Y-%m-%dT%H:%M:%SZ"),
                     "integrated_authored_at": commit_adjusted_dates[
-                        commit.hexsha]["authored"],
+                        commit.hexsha]["metadata"]["authored"],
                     "integrated_commited_at": commit_adjusted_dates[
-                        commit.hexsha]["commited"],
+                        commit.hexsha]["metadata"]["commited"],
                     "summary": commit.summary,
                     "message": re.sub(r"^[\n\r]*", "", commit.message.replace(
                         commit.summary, "")),
