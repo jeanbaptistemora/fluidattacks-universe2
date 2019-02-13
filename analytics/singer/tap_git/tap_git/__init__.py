@@ -9,6 +9,7 @@ import argparse
 import datetime
 
 from typing import List, Tuple, Any
+from collections import OrderedDict
 
 import git
 
@@ -54,22 +55,97 @@ def go_back(this_days: int) -> str:
 
 
 def get_extension(file_name: str) -> str:
-    """Returns the extension of a file.
-    """
-
+    """Returns the extension of a file."""
     tokens = file_name.split(".")
     return tokens[-1].lower() if len(tokens) > 1 else "none"
 
 
 def get_chunk(iterable: List[Any], nchunks: int, chunk_id: int) -> List[Any]:
-    """Returns the n-th chunk of an iterable.
-    """
-
+    """Returns the n-th chunk of an iterable."""
     schunk = len(iterable) // nchunks + 1
     beg = (chunk_id - 1) * schunk
     end = (chunk_id - 0) * schunk
 
     return iterable[beg:] if chunk_id == nchunks else iterable[beg:end]
+
+
+def get_commit_adjusted_dates(path: str) -> OrderedDict:
+    """Return a datastructure {commit_sha: integration_date}."""
+    # get a datastructure {commit_sha : metadata}
+    commits = get_commit_adjusted_dates__get_commits(path)
+
+    # stamp the integration dates
+    authored = ""
+    commited = ""
+    for commit_sha in commits.keys():
+        commit_graph = commits[commit_sha]["graph"]
+        commit_is_merge_commit = commits[commit_sha]["is_merge_commit"]
+        if commit_graph[0] == "*" and commit_is_merge_commit:
+            authored = commits[commit_sha]["authored"]
+            commited = commits[commit_sha]["commited"]
+        elif not commit_graph[0] == "*":
+            commits[commit_sha]["authored"] = authored
+            commits[commit_sha]["commited"] = commited
+    return commits
+
+
+def get_commit_adjusted_dates__get_commits(path: str) -> OrderedDict:
+    """Return {commit : parents}."""
+    # magic command
+    cmd_stdout: str = os.popen((
+        f"cd '{path}';                   "
+        f"git rev-list                   "
+        f"  --pretty='!%H!!%at!!%ct!!%P!'"
+        f"  --graph                      "
+        f"  --all                        ")).read()
+
+    # regexps to match the output of the magic command
+    commit_info = re.compile(
+        r"[\|\\/_ ]*!([0-9a-fA-F]{40})!!(.*)!!(.*)!!((?:[0-9a-fA-F]{40} ?)*)!")
+    commit_node = re.compile(
+        r"([\|\\/_ \*]*) commit ([0-9a-fA-F]{40})")
+
+    datastructure: OrderedDict = OrderedDict()
+    iter_cmd_stdout = iter(cmd_stdout.splitlines())
+    try:
+        while 1:
+            # iter until the next node
+            while 1:
+                line = next(iter_cmd_stdout)
+                match = commit_node.match(line)
+                if match:
+                    graph, commit_node_sha = match.groups()
+                    break
+
+            # iter until the next info
+            while 1:
+                line = next(iter_cmd_stdout)
+                match = commit_info.match(line)
+                if match:
+                    commit_info_sha, authored, commited, parents_str = \
+                        match.groups()
+                    authored = datetime.datetime.utcfromtimestamp(
+                        int(authored)).strftime("%Y-%m-%dT%H:%M:%SZ")
+                    commited = datetime.datetime.utcfromtimestamp(
+                        int(commited)).strftime("%Y-%m-%dT%H:%M:%SZ")
+                    break
+
+            # check data integrity
+            if not commit_node_sha == commit_info_sha:
+                raise Exception(f"Not {commit_node_sha} == {commit_info_sha}.")
+
+            parents_list = [] if not parents_str else parents_str.split(" ")
+            datastructure[commit_node_sha] = {
+                "graph": graph,
+                "parents": parents_list,
+                "authored": authored,
+                "commited": commited,
+                "is_merge_commit": len(parents_list) > 1
+            }
+    except StopIteration:
+        pass
+
+    return datastructure
 
 
 def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
@@ -101,8 +177,7 @@ def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
 
 
 def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
-    """Wrings all information possible from the commit object.
-    """
+    """Wrings all information possible from the commit object."""
 
     # must have
     repository: str = config["repository"]
@@ -115,10 +190,10 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
     subscription: str = config.get("subscription", "__")
     tag: str = config.get("tag", "__")
 
-    def write_records(branch):
-        """Print singer records to stdout.
-        """
+    commit_adjusted_dates = get_commit_adjusted_dates(repo_path)
 
+    def write_records(branch):
+        """Print singer records to stdout."""
         last_commit = None
         for commit in repo_obj.iter_commits(
                 branch,
@@ -154,6 +229,10 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
                         "%Y-%m-%dT%H:%M:%SZ"),
                     "committed_at": commit.committed_datetime.strftime(
                         "%Y-%m-%dT%H:%M:%SZ"),
+                    "integrated_authored_at": commit_adjusted_dates[
+                        commit.hexsha]["authored"],
+                    "integrated_commited_at": commit_adjusted_dates[
+                        commit.hexsha]["commited"],
                     "summary": commit.summary,
                     "message": re.sub(r"^[\n\r]*", "", commit.message.replace(
                         commit.summary, "")),
@@ -430,42 +509,42 @@ def main():
     parser.add_argument(
         '-c', '--conf',
         required=True,
-        help='JSON configuration file',
+        help='JSON configuration file.',
         type=argparse.FileType('r'),
         dest="conf")
     parser.add_argument(
         '--last-n-days',
-        help='in days (positive) how many days to go back and sync',
+        help='in days (positive) how many days to go back and sync.',
         type=int,
         dest="this_days",
         default=36500)
     parser.add_argument(
         '--no-changes',
-        help='flag to indicate if changes table should not be generated',
+        help='flag to indicate if changes table should not be generated.',
         action='store_false',
         dest="sync_changes",
         default=True)
     parser.add_argument(
         '--run-gitinspector',
-        help='flag to indicate if gitinspector should be ran',
+        help='flag to indicate if gitinspector should be ran.',
         action='store_true',
         dest="run_gitinspector",
         default=False)
     parser.add_argument(
         '--with-metrics',
-        help='flag to indicate if metrics should be generated',
+        help='flag to indicate if metrics should be generated.',
         action='store_true',
         dest="with_metrics",
         default=False)
     parser.add_argument(
         '--threads',
-        help='=the number of processes to fork in',
+        help='=the number of processes to fork in.',
         type=int,
         dest="nthreads",
         default=1)
     parser.add_argument(
         '--fork-id',
-        help='=the id of the current fork',
+        help='=the id of the current fork.',
         type=int,
         dest="fork_id",
         default=1)

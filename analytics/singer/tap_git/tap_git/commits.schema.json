@@ -49,6 +49,14 @@
         "type":"string",
         "format":"date-time"
       },
+      "integrated_authored_at":{
+        "type":"string",
+        "format":"date-time"
+      },
+      "integrated_commited_at":{
+        "type":"string",
+        "format":"date-time"
+      },
       "summary":{
         "type":"string"
       },
