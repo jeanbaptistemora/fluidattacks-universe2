@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import globalStyle from "../../../../styles/global.css";
-import { formatCweUrl, formatDropdownField } from "../../../../utils/formatHelpers";
+import { formatCweUrl, formatDropdownField, formatFindingType } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { numberBetween, numeric, required } from "../../../../utils/validations";
@@ -176,7 +176,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
         <Col md={6} sm={12} xs={12}>
           <EditableField
             component={dropdownField}
-            currentValue={translate.t(`search_findings.tab_description.type.${props.dataset.type.toLowerCase()}`)}
+            currentValue={formatFindingType(props.dataset.type)}
             label={translate.t("search_findings.tab_description.type.title")}
             name="type"
             renderAsEditable={props.isEditing}
@@ -409,7 +409,6 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="number"
             validate={[required, numeric]}
-            visible={props.isEditing}
           />
         </Col>
       </Row>

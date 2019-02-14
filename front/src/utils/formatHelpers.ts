@@ -177,3 +177,6 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
 
   return translationParameters[field];
 };
+
+export const formatFindingType: ((type: string) => string) = (type: string): string =>
+  _.isNil(type) ? "-" : translate.t(`search_findings.tab_description.type.${type.toLowerCase()}`);
