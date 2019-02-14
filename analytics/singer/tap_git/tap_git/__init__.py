@@ -1,5 +1,5 @@
-"""Singer tap for a git repository.
-"""
+#!/usr/bin/env python3
+"""Singer tap for a git repository."""
 
 import os
 import re
@@ -36,7 +36,6 @@ def go_back(this_days: int) -> str:
 
     Fixes possible overflows.
     """
-
     # minimum date to be used is 1970-01-01T00:00:01 (UTC)
     lower_limit = datetime.datetime.utcfromtimestamp(1)
 
@@ -81,19 +80,15 @@ def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
 
     The quality of this function is upto the .mailmap.
     """
-
-    authorn: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%aN' {sha1}")).read()[0:-1]
-    authore: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%aE' {sha1}")).read()[0:-1]
-    commitn: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%cN' {sha1}")).read()[0:-1]
-    commite: str = os.popen((
-        f"cd '{path}';"
-        f"git --no-pager show -s --format='%cE' {sha1}")).read()[0:-1]
+    # requires git > 2.19.1
+    authorn: str = os.popen(
+        f"git -C '{path}' -P show -s --format='%aN' {sha1}").read()[0:-1]
+    authore: str = os.popen(
+        f"git -C '{path}' -P show -s --format='%aE' {sha1}").read()[0:-1]
+    commitn: str = os.popen(
+        f"git -C '{path}' -P show -s --format='%cN' {sha1}").read()[0:-1]
+    commite: str = os.popen(
+        f"git -C '{path}' -P show -s --format='%cE' {sha1}").read()[0:-1]
     return authorn, authore, commitn, commite
 
 
@@ -111,7 +106,7 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
     subscription: str = config.get("subscription", "__")
     tag: str = config.get("tag", "__")
 
-    commit_adjusted_dates = dags.get_commits_with_adjusted_dates(repo_path)
+    analized_dag = dags.get_commits(repo_path)
 
     def write_records(branch):
         """Print singer records to stdout."""
@@ -150,10 +145,16 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
                         "%Y-%m-%dT%H:%M:%SZ"),
                     "committed_at": commit.committed_datetime.strftime(
                         "%Y-%m-%dT%H:%M:%SZ"),
-                    "integrated_authored_at": commit_adjusted_dates[
-                        commit.hexsha]["metadata"]["authored"],
-                    "integrated_commited_at": commit_adjusted_dates[
-                        commit.hexsha]["metadata"]["commited"],
+                    "integration_authored_at": analized_dag[commit.hexsha][
+                        "integration_authored_at"].strftime(
+                            "%Y-%m-%dT%H:%M:%SZ"),
+                    "integration_committed_at": analized_dag[commit.hexsha][
+                        "integration_committed_at"].strftime(
+                            "%Y-%m-%dT%H:%M:%SZ"),
+                    "time_to_master_authored": analized_dag[commit.hexsha][
+                        "time_to_master_authored"],
+                    "time_to_master_committed": analized_dag[commit.hexsha][
+                        "time_to_master_committed"],
                     "summary": commit.summary,
                     "message": re.sub(r"^[\n\r]*", "", commit.message.replace(
                         commit.summary, "")),
@@ -172,20 +173,17 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
 
             last_commit = commit
 
-    scan_commits__schemas()
+    scan_commits__schemas(sync_changes)
 
     for branch in branches:
         write_records(branch)
 
 
-def scan_commits__schemas():
-    """Prints schemas to stdout.
-    """
-
-    schemas = (
-        "commits.schema.json",
-        "changes.schema.json",
-    )
+def scan_commits__schemas(sync_changes: bool):
+    """Prints schemas to stdout."""
+    schemas = ["commits.schema.json"]
+    if sync_changes:
+        schemas.append("changes.schema.json")
     for schema in schemas:
         with open(f"{os.path.dirname(__file__)}/{schema}", "r") as file:
             sprint(json.load(file))
@@ -217,9 +215,7 @@ def scan_changes(
 
 
 def scan_changes__base_record(commit: GIT_COMMIT) -> JSON:
-    """Returns a basic singer record.
-    """
-
+    """Returns a basic singer record."""
     base_record = {
         "type": "RECORD",
         "stream": "changes",
@@ -231,9 +227,7 @@ def scan_changes__base_record(commit: GIT_COMMIT) -> JSON:
 
 
 def scan_changes__insert_stats(record: JSON, stats: JSON) -> JSON:
-    """Adds the stats to the record.
-    """
-
+    """Adds the stats to the record."""
     insertions = stats["insertions"]
     deletions = stats["deletions"]
     record["record"]["insertions"] = insertions
@@ -243,9 +237,7 @@ def scan_changes__insert_stats(record: JSON, stats: JSON) -> JSON:
 
 
 def scan_changes__type_a(file, files: JSON, this_commit: GIT_COMMIT) -> None:
-    """Handles the scanning of added paths.
-    """
-
+    """Handles the scanning of added paths."""
     record = scan_changes__base_record(this_commit)
     record["record"]["type"] = "add"
     record["record"]["target_path"] = file.b_path
@@ -256,9 +248,7 @@ def scan_changes__type_a(file, files: JSON, this_commit: GIT_COMMIT) -> None:
 
 
 def scan_changes__type_d(file, files: JSON, this_commit: GIT_COMMIT) -> None:
-    """Handles the scanning of deleted paths.
-    """
-
+    """Handles the scanning of deleted paths."""
     srecord = scan_changes__base_record(this_commit)
     srecord["record"]["type"] = "del"
     srecord["record"]["target_path"] = file.a_path
@@ -269,9 +259,7 @@ def scan_changes__type_d(file, files: JSON, this_commit: GIT_COMMIT) -> None:
 
 
 def scan_changes__type_r(file, files: JSON, this_commit: GIT_COMMIT) -> None:
-    """Handles the scanning of renamed files.
-    """
-
+    """Handles the scanning of renamed files."""
     srecord = scan_changes__base_record(this_commit)
     srecord["record"]["type"] = "ren"
     srecord["record"]["source_path"] = file.rename_from
@@ -289,9 +277,7 @@ def scan_changes__type_r(file, files: JSON, this_commit: GIT_COMMIT) -> None:
 
 
 def scan_changes__type_m(file, files: JSON, this_commit: GIT_COMMIT) -> None:
-    """Handles the scanning of file changed on modified data.
-    """
-
+    """Handles the scanning of file changed on modified data."""
     srecord = scan_changes__base_record(this_commit)
     srecord["record"]["type"] = "mod"
     srecord["record"]["target_path"] = file.b_path
@@ -302,9 +288,7 @@ def scan_changes__type_m(file, files: JSON, this_commit: GIT_COMMIT) -> None:
 
 
 def scan_changes__type_t(file, files: JSON, this_commit: GIT_COMMIT) -> None:
-    """Handles the scanning of file changed in the type.
-    """
-
+    """Handles the scanning of file changed in the type."""
     srecord = scan_changes__base_record(this_commit)
     srecord["record"]["type"] = "modtype"
     srecord["record"]["target_path"] = file.b_path

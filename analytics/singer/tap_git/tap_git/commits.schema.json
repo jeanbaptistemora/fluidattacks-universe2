@@ -49,13 +49,19 @@
         "type":"string",
         "format":"date-time"
       },
-      "integrated_authored_at":{
+      "integration_authored_at":{
         "type":"string",
         "format":"date-time"
       },
-      "integrated_commited_at":{
+      "integration_committed_at":{
         "type":"string",
         "format":"date-time"
+      },
+      "time_to_master_authored":{
+        "type":"number"
+      },
+      "time_to_master_committed":{
+        "type":"number"
       },
       "summary":{
         "type":"string"
