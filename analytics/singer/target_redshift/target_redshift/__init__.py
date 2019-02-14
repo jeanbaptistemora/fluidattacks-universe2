@@ -621,13 +621,6 @@ def main():
         action="store_true",
         dest="drop_schema",
         default=False)
-    parser.add_argument(
-        "-dt", "--drop-tables",
-        required=False,
-        help="Flag to specify that you want to delete the table if exist",
-        action="store_true",
-        dest="drop_tables",
-        default=False)
 
     args = parser.parse_args()
     auth = json.load(args.auth)

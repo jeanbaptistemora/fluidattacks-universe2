@@ -368,7 +368,7 @@ sync_awsdynamodb:
         -field=aws_dynamodb_default_region secret/serves)'"}' > /tap_secret.json
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
     - tap-awsdynamodb --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json |
-      target-redshift --auth /target_secret.json --drop-schema --drop-tables --schema-name "dynamodb"
+      target-redshift --auth /target_secret.json --drop-schema --schema-name "dynamodb"
     - rm -fr /tap_secret.json /target_secret.json
   <<: *only_schedules
   only:
