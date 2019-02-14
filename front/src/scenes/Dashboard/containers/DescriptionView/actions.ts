@@ -235,7 +235,7 @@ export const updateDescription: ThunkActionStructure<void> =
           clientCode: ${JSON.stringify(values.clientCode)},
           clientProject: ${JSON.stringify(values.clientProject)}
           severity: ${values.detailedSeverity},
-          probability: ${JSON.stringify(values.probability)},
+          probability: ${values.probability},
           ambit: ${JSON.stringify(values.ambit)},
           category: ${JSON.stringify(values.category)},
           findingType: ${JSON.stringify(values.type)}

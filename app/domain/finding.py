@@ -474,8 +474,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
 
 
 def calc_risk_level(probability, severity):
-    probability_value = int(probability[:3].replace('%', ''))
-    return str(round((probability_value / 100) * severity, 1))
+    return str(round((probability / 100) * severity, 1))
 
 
 def update_description(finding_id, updated_values):

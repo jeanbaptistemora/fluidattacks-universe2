@@ -2,7 +2,11 @@ import _ from "lodash";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import globalStyle from "../../../../styles/global.css";
-import { formatCweUrl, formatDropdownField, formatFindingType } from "../../../../utils/formatHelpers";
+import {
+  formatCweUrl,
+  formatDropdownField,
+  formatFindingType,
+} from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { numberBetween, numeric, required } from "../../../../utils/validations";
@@ -14,14 +18,10 @@ type renderFormFieldsFn = ((props: IDescriptionViewProps) => JSX.Element);
 
 const severityBetween: ((value: number) => string | undefined) = numberBetween(0, 5);
 
-const calcRiskLevel: ((probability: string, severity: number) => string) =
-  (probability: string, severity: number): string => {
-    const probabilityValue: number = Number(probability
-      .substring(0, 3)
-      .replace("%", ""));
+const calcRiskLevel: ((probability: number, severity: number) => string) =
+  (probability: number, severity: number): string =>
 
-    return ((probabilityValue / 100) * severity).toFixed(1);
-  };
+    ((probability / 100) * severity).toFixed(1);
 
 const renderDetailedFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => (
   <React.Fragment>
@@ -53,21 +53,22 @@ const renderDetailedFields: renderFormFieldsFn = (props: IDescriptionViewProps):
       <Col md={4} sm={12} xs={12}>
         <EditableField
           component={dropdownField}
-          currentValue={props.dataset.clientCode}
+          currentValue={props.dataset.probability}
           label={translate.t("search_findings.tab_description.probability.title")}
           name="probability"
           renderAsEditable={props.isEditing}
+          type="number"
           validate={[required]}
         >
           <option value="" selected={true} />
-          <option value="100% Vulnerado Anteriormente">
+          <option value="100">
             {translate.t("search_findings.tab_description.probability.100")}
           </option>
-          <option value="75% Fácil de vulnerar">{translate.t("search_findings.tab_description.probability.75")}</option>
-          <option value="50% Posible de vulnerar">
+          <option value="75">{translate.t("search_findings.tab_description.probability.75")}</option>
+          <option value="50">
             {translate.t("search_findings.tab_description.probability.50")}
           </option>
-          <option value="25% Difícil de vulnerar">
+          <option value="25">
             {translate.t("search_findings.tab_description.probability.25")}
           </option>
         </EditableField>
@@ -75,7 +76,7 @@ const renderDetailedFields: renderFormFieldsFn = (props: IDescriptionViewProps):
       <Col md={4} sm={12} xs={12}>
         <EditableField
           component={textField}
-          currentValue={props.dataset.probability}
+          currentValue={props.dataset.detailedSeverity}
           label={translate.t("search_findings.tab_description.severity")}
           name="detailedSeverity"
           renderAsEditable={props.isEditing}

@@ -5,7 +5,7 @@ import { BaseFieldProps, Field, GenericFieldHTMLAttributes } from "redux-form";
 import style from "./index.css";
 
 type EditableFieldProps = BaseFieldProps & GenericFieldHTMLAttributes & {
-  currentValue: string;
+  currentValue: string | number;
   label: string;
   renderAsEditable: boolean;
   visible?: boolean;
@@ -23,7 +23,7 @@ const editableField: React.SFC<EditableFieldProps> = (props: EditableFieldProps)
   return visible === true ? (
     <FormGroup>
       <ControlLabel><b>{label}</b></ControlLabel><br />
-      {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
+      {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue.toString())}
     </FormGroup>
   ) : <React.Fragment />;
 };

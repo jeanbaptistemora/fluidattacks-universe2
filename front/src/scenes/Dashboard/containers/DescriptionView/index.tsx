@@ -39,7 +39,7 @@ export interface IDescriptionViewProps {
     description: string;
     detailedSeverity: number;
     kbUrl: string;
-    probability: string;
+    probability: number;
     recommendation: string;
     releaseDate: string;
     remediated: boolean;
@@ -61,7 +61,7 @@ export interface IDescriptionViewProps {
   findingId: string;
   formValues: {
     detailedSeverity: number;
-    probability: string;
+    probability: number;
     reportLevel: string;
     treatment: string;
   };

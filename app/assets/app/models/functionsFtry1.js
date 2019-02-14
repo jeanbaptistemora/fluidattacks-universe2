@@ -66,10 +66,9 @@ angular.module("FluidIntegrates").factory(
             ];
           }
           try {
-            let prob = data.finding.probability;
+            let prob = parseFloat(data.finding.probability);
             severity = data.finding.severity;
-            prob = prob.split("%")[0];
-            prob = parseFloat(prob) / PERCENT_FACTOR;
+            prob /= PERCENT_FACTOR;
             severity = parseFloat(severity);
             const vRiesgo = prob * severity;
             const CRITIC_RISK = 3;

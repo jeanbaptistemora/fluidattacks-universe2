@@ -278,7 +278,8 @@ class ITReport(object):
         else:
             self.set_cell_qc(self.matriz['cssv2_value'], 'Baja')
         if 'probability' in row:
-            self.set_cell_qc(self.matriz['probability'], row['probability'])
+            self.set_cell_qc(self.matriz['probability'],
+                             get_probability(row['probability']))
         if 'severity' in row:
             self.set_cell_number_qc(self.matriz['severity'], row['severity'])
         if 'risk' in row:
@@ -320,3 +321,13 @@ def translate_parameter(param):
         'DATABASES': 'Bases de Datos'
     }
     return translation_values.get(param)
+
+
+def get_probability(probability):
+    probability_values = {
+        '100': '100% Vulnerado Anteriormente',
+        '75': '75% Fácil de vulnerar',
+        '50': '50% Posible de vulnerar',
+        '25': '25% Difícil de vulnerar'
+    }
+    return probability_values.get(str(probability))

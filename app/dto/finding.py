@@ -191,6 +191,12 @@ class FindingDTO(object):
             migrated_dict = {v: initial_dict[k]
                              for (k, v) in migrated_description_fields.items()
                              if k in initial_dict.keys()}
+            if migrated_dict.get('probability'):
+                migrated_dict['probability'] = int(migrated_dict['probability']
+                                                   .split(' ')[0].replace('%', ''))
+            else:
+                # Finding doesn't have probability attribute because is general
+                pass
         aditional_info_title = ['vulnerability', 'attack_vector',
                                 'affected_systems', 'threat', 'risk',
                                 'requirements', 'cwe', 'effect_solution',
@@ -262,6 +268,12 @@ class FindingDTO(object):
                        if k in initial_dict.keys()}
         parsed_dict = forms.dict_concatenation(parsed_dict, migrated_data)
         parsed_dict = cast_finding_attributes(parsed_dict)
+        if migrated_dict.get('type') == 'DETAILED':
+            migrated_dict['probability'] = \
+                int(migrated_dict.get('probability', '0'))
+        else:
+            # Finding doesn't have probability attribute because is general
+            pass
         return parsed_dict
 
     def parse_cvssv2(self, request_arr, submission_id): # noqa: C901
@@ -784,6 +796,11 @@ def parse_finding(finding):
         parsed_evidence_description = parse_evidence_description(finding)
         parsed_values = forms.dict_concatenation(parsed_severity, parsed_evidence_description)
         parsed_dict = forms.dict_concatenation(parsed_dict, parsed_values)
+        if parsed_dict.get('type') == 'DETAILED':
+            parsed_dict['probability'] = int(parsed_dict.get('probability', '0'))
+        else:
+            # Finding doesn't have probability attribute because is general
+            pass
     return parsed_dict
 
 

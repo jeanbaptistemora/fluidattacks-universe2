@@ -78,7 +78,7 @@ const initialState: IDashboardState = {
       description: "",
       detailedSeverity: 0,
       kbUrl: "",
-      probability: "",
+      probability: 0,
       recommendation: "",
       releaseDate: "",
       remediated: false,
