@@ -1,46 +1,50 @@
-import { shallow, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
-import { evidenceImage as EvidenceImage } from "./index";
-import "mocha";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
 import React from "react";
 import { Row } from "react-bootstrap";
+import { evidenceImage as EvidenceImage } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Evidence image', () => {
+const functionMock: (() => void) = (): void => undefined;
 
-  it('should return a function', () => {
-    expect(typeof (EvidenceImage)).to.equal('function');
+describe("Evidence image", () => {
+
+  it("should return a function", () => {
+    expect(typeof (EvidenceImage)).to
+      .equal("function");
   });
 
-  it('should render img', () => {
-    const wrapper = shallow(
+  it("should render img", () => {
+    const wrapper: ShallowWrapper = shallow(
       <EvidenceImage
         name={"evidence1"}
         description={"Test evidence"}
         isDescriptionEditable={false}
         isEditing={false}
         url={"https://fluidattacks.com/test.png"}
-        onClick={(): void => undefined}
-        onUpdate={(): void => undefined}
-      />
+        onClick={functionMock}
+        onUpdate={functionMock}
+      />,
     );
 
-    expect(wrapper.find('img').length).to.equal(1);
+    expect(wrapper.find("img").length).to
+      .equal(1);
   });
 
-  it('should render description', () => {
-    const wrapper = shallow(
+  it("should render description", () => {
+    const wrapper: ShallowWrapper = shallow(
       <EvidenceImage
         name={"evidence1"}
         description={"Test evidence"}
         isDescriptionEditable={false}
         isEditing={false}
         url={"https://fluidattacks.com/test.png"}
-        onClick={(): void => undefined}
-        onUpdate={(): void => undefined}
-      />
+        onClick={functionMock}
+        onUpdate={functionMock}
+      />,
     );
 
     expect(wrapper.contains(
@@ -53,7 +57,8 @@ describe('Evidence image', () => {
         <Row componentClass="div">
           <p>Test evidence</p>
         </Row>
-      </div>
-    )).to.equal(true);
+      </div>,
+    )).to
+      .equal(true);
   });
 });

@@ -1,25 +1,26 @@
-import { shallow, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
-import FieldBox from "./index";
-import { Col } from "react-bootstrap";
-import "mocha";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
 import React from "react";
+import { Col } from "react-bootstrap";
+import { default as FieldBox } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Field Box', () => {
+describe("Field Box", () => {
 
-  it('should return a function', () => {
-    expect(typeof(FieldBox)).to.equal('function');
+  it("should return a function", () => {
+    expect(typeof (FieldBox)).to
+      .equal("function");
   });
 
-  it('should be render', () => {
-    const wrapper = shallow(
+  it("should be render", () => {
+    const wrapper: ShallowWrapper = shallow(
       <FieldBox
         title="Unit test"
         content="Unit test description"
-      />
+      />,
     );
 
     expect(
@@ -35,8 +36,9 @@ describe('Field Box', () => {
               Unit test description
             </p>
           </Col>
-        </div>
-      )
-    ).to.equal(true);
+        </div>,
+      ),
+    ).to
+      .equal(true);
   });
 });

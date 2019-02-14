@@ -18,7 +18,7 @@ describe("Data table", () => {
   });
 
   it("should render title", () => {
-    const data: object = [
+    const data: object[] = [
       {
         test_header: "value 1",
         test_header2: "value 2",
@@ -68,7 +68,7 @@ describe("Data table", () => {
   });
 
   it("should render table", () => {
-    const data: object = [
+    const data: object[] = [
       {
         "Test header": "value 1",
         "Test header2": "value 2",
@@ -107,8 +107,8 @@ describe("Data table", () => {
         title="Unit test table"
       />,
     );
-    const component: ShallowWrapper = wrapper.find(<table />);
-    expect(component).to.have
-      .length(1);
+
+    expect(wrapper).to.have
+      .lengthOf(1);
   });
 });

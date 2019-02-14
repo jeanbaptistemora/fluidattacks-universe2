@@ -36,6 +36,11 @@ app/assets/dashboard/*
 env-dev.vars
 local-test.sh
 
+#coverage output
+front/.nyc_output
+front/coverage.lcov
+front/coverage_results.txt
+
 # npm
 package-lock.json
 node_modules

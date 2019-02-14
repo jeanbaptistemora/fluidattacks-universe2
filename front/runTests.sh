@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 set -e
+set -o pipefail
 
 rm -f coverage_results.txt
 nyc mocha --recursive -r ignore-styles -r ts-node/register -r ./jsdom.js "src/**/*.spec.tsx" | tee -a coverage_results.txt

@@ -1,29 +1,30 @@
-import { shallow, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
-import "mocha";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
 import React from "react";
 import { component as RecordsView } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Records view', () => {
+describe("Records view", () => {
 
-  it('should return a function', () => {
-    expect(typeof(RecordsView)).to.equal('function');
+  it("should return a function", () => {
+    expect(typeof (RecordsView)).to
+      .equal("function");
   });
 
-  it('should render', () => {
-    const wrapper = shallow(
+  it("should render", () => {
+    const wrapper: ShallowWrapper = shallow(
       <RecordsView
         canEdit={true}
         findingId="422286126"
         dataset={[]}
         isEditing={true}
-        projectName="unittesting"
-      />
+      />,
     );
 
-    expect(wrapper).to.have.length(1);
+    expect(wrapper).to.have
+      .length(1);
   });
 });

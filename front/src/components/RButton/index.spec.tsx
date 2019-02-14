@@ -40,7 +40,6 @@ describe("RButton", () => {
           This is a text
         </Button>,
       ),
-    ).to.exist
-    .equal(true);
+    ).to.exist;
   });
 });
