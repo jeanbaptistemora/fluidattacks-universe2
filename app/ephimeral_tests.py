@@ -286,10 +286,10 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'Se realizaron validaciones en 5/10 campos reportados')]")))
+                            "//*[contains(text(), 'Validations were run against 5 of the 10 reported fields')]")))
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '10-comments.png')
-        assert 'Se realizaron validaciones en 5/10 campos reportados' in selenium.page_source
+        assert 'Validations were run against 5 of the 10 reported fields' in selenium.page_source
 
     def test_11_techpdf(self):
         selenium = self.__login()
