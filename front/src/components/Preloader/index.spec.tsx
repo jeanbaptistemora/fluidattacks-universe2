@@ -1,34 +1,34 @@
-import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import Preloader from './index';
-import 'mocha'
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { expect } from "chai";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import React from "react";
+import { default as Preloader } from "./index";
 import style from "./index.css";
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Preloader', () => {
+describe("Preloader", () => {
 
-  it('should return a function', () => {
-    expect(typeof(Preloader)).to.equal('function');
+  it("should return a function", () => {
+    expect(typeof (Preloader)).to
+      .equal("function");
   });
 
-  it('should be render', () => {
-    const wrapper = shallow((
-      <Preloader/>
+  it("should be render", () => {
+    const wrapper: ShallowWrapper = shallow((
+      <Preloader />
     ));
-    const element =
+    const element: JSX.Element = (
       <div id="full_loader" className={style.loader}>
         <img
           src="assets/img/loading.gif"
           width="100"
           height="100"
         />
-      </div>
-    expect(wrapper.contains(element))
-    .to.equal(true);
+      </div>);
+    expect(wrapper.contains(element)).to
+      .equal(true);
   });
 
 });

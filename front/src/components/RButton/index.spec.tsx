@@ -1,41 +1,46 @@
-import React from "react";
 import { expect } from "chai";
-import { shallow } from "enzyme";
-import RButton from "./index";
-import "mocha";
-import Enzyme from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import React from "react";
 import { Button, Glyphicon } from "react-bootstrap";
+import { default as RButton } from "./index";
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('RButton', () => {
-  it('should return a function', () => {
-    expect(typeof(RButton)).to.equal('function');
+const functionMock: (() => void) = (): void => undefined;
+
+describe("RButton", () => {
+  it("should return a function", () => {
+    expect(typeof (RButton)).to
+      .equal("function");
   });
 
-  it('should be rendered', () => {
-    const wrapper = shallow(
+  it("should be rendered", () => {
+    const wrapper: ShallowWrapper = shallow(
       <RButton
         bstyle="btn-success"
         btitle="This is a text"
         bicon="replay"
-        onClickButton={() => {}}
-      />
+        onClickButton={functionMock}
+      />,
     );
     expect(
       wrapper.find(
-        <Button className=""
-                onClick={() => {}}
-                block={true}
-                active={false}
-                disabled={false}
-                bsStyle="default"
-                bsClass="btn">
-              <Glyphicon glyph="replay" bsClass="glyphicon" />
-                    This is a text
-        </Button>
-      )
-    ).to.exist;
+        <Button
+          className=""
+          onClick={functionMock}
+          block={true}
+          active={false}
+          disabled={false}
+          bsStyle="default"
+          bsClass="btn"
+        >
+          <Glyphicon glyph="replay" bsClass="glyphicon" />
+          This is a text
+        </Button>,
+      ),
+    ).to.exist
+    .equal(true);
   });
 });

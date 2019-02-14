@@ -1,31 +1,31 @@
-import { shallow, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
-import { component as Comments } from "./index";
-import "mocha";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
 import React from "react";
+import { component as Comments } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Comments Box', () => {
+const functionMock: (() => void) = (): void => undefined;
 
-  it('should return a function', () => {
-    expect(typeof (Comments)).to.equal('function');
+describe("Comments Box", () => {
+
+  it("should return a function", () => {
+    expect(typeof (Comments)).to
+      .equal("function");
   });
 
-  it('should be render', () => {
-    const wrapper = shallow(
+  it("should render", () => {
+    const wrapper: ShallowWrapper = shallow(
       <Comments
         id="comments-test"
-        onLoad={() => undefined}
-        onPostComment={() => undefined}
-      />
+        onLoad={functionMock}
+        onPostComment={functionMock}
+      />,
     );
 
-    expect(
-      wrapper.contains(
-        <div id="comments-test" />
-      )
-    ).to.equal(true);
+    expect(wrapper.contains(<div id="comments-test" />)).to
+      .equal(true);
   });
 });
