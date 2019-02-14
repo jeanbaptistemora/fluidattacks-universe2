@@ -1,53 +1,53 @@
-import React from "react";
 import { expect } from "chai";
-import { shallow } from "enzyme";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import React from "react";
+import { Button, ModalBody, ModalFooter, ModalHeader, ModalTitle } from "react-bootstrap";
 import { default as Modal } from "./index";
-import "mocha";
-import Enzyme from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import { Button, ModalHeader, ModalTitle, ModalBody, ModalFooter } from "react-bootstrap";
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Generic modal', () => {
-  it('should return a function', () => {
-    expect(typeof(Modal)).to.equal('function');
+const functionMock: (() => void) = (): void => undefined;
+
+describe("Generic modal", () => {
+  it("should return a function", () => {
+    expect(typeof (Modal)).to
+      .equal("function");
   });
 
-  it('should be rendered', () => {
-    const wrapper = shallow(
+  it("should be rendered", () => {
+    const wrapper: ShallowWrapper = shallow(
       <Modal
         open={true}
-        onClose={(): void => { console.log("onClose triggered!") }}
+        onClose={functionMock}
         headerTitle="Unit test title"
-        content={
-          <p>Unit modal content</p>
-        }
-        footer={
-          <Button>
-            test btn
-          </Button>
-        }
-      />
+        content={<p>Unit modal content</p>}
+        footer={<Button>test btn</Button>}
+      />,
     );
     expect(
       wrapper.contains([
-        <ModalHeader closeLabel="Close" closeButton={false} bsClass="modal-header">
-          <ModalTitle componentClass="h4">
-            Unit test title
+        (
+          <ModalHeader closeLabel="Close" closeButton={false} bsClass="modal-header">
+            <ModalTitle componentClass="h4">
+              Unit test title
           </ModalTitle>
-        </ModalHeader>,
-        <ModalBody componentClass="div">
-          <p>
-            Unit modal content
+          </ModalHeader>),
+        (
+          <ModalBody componentClass="div">
+            <p>
+              Unit modal content
           </p>
-        </ModalBody>,
-        <ModalFooter componentClass="div">
-          <Button active={false} block={false} disabled={false} bsStyle="default" bsClass="btn">
-            test btn
+          </ModalBody>),
+        (
+          <ModalFooter componentClass="div">
+            <Button active={false} block={false} disabled={false} bsStyle="default" bsClass="btn">
+              test btn
           </Button>
-        </ModalFooter>
-      ])
-    ).to.equal(true);
+          </ModalFooter>),
+      ]),
+    ).to
+      .equal(true);
   });
 });
