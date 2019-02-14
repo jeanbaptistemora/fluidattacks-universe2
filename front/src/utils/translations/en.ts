@@ -200,6 +200,7 @@ const enTranslations: Map<string, string> = {
       environments_title: "Environments",
       files_title: "Files",
       modal_env_title: "Add environment information",
+      modal_file_title: "Add file",
       modal_repo_title: "Add repository information",
       no_selection: "You must select an item from the table.",
       remove_repository: "Remove",

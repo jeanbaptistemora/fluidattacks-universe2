@@ -202,6 +202,7 @@ const esTranslations: Map<string, string> = {
       environments_title: "Ambientes",
       files_title: "Archivos",
       modal_env_title: "Agregar información de los ambientes",
+      modal_file_title: "Agregar archivo",
       modal_repo_title: "Agregar información de los repositorios",
       no_selection: "Debe seleccionar un ítem de la tabla.",
       remove_repository: "Remover",

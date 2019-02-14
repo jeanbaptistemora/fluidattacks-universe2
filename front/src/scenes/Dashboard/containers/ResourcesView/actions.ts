@@ -62,8 +62,8 @@ export const loadResources: ThunkActionStructure =
         });
     };
 
-export const openAddModal: ((type: "repository" | "environment") => IActionStructure) =
-  (type: "repository" | "environment"): IActionStructure => ({
+export const openAddModal: ((type: "repository" | "environment" | "file") => IActionStructure) =
+  (type: "repository" | "environment" | "file"): IActionStructure => ({
     payload: { type },
     type: actionTypes.OPEN_ADD_MODAL,
   });

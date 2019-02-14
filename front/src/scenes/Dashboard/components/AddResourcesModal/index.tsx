@@ -20,10 +20,11 @@ import { focusError } from "../../../../utils/forms/events";
 import { textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
+import { fileInput as FileInput } from "../../components/FileInput/index";
 
 export interface IAddResourcesModalProps {
   isOpen: boolean;
-  type: "repository" | "environment";
+  type: "repository" | "environment" | "file";
   onClose(): void;
   onSubmit(values: {}): void;
 }
@@ -96,6 +97,22 @@ const renderEnvsFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Eleme
     </React.Fragment>
   );
 
+const renderFilesFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Element) =
+    (props: WrappedFieldArrayProps<undefined>): JSX.Element => (
+      <React.Fragment>
+        {props.fields.map((fieldName: string, index: number) => (
+          <Row key={index}>
+            <Col md={12}>
+              <div>
+                <FileInput fileName="" icon="search" id="" type="all" visible={true}/>
+              </div>
+            </Col>
+            {index > 0 ? renderDeleteFieldButton(props.fields, index) : undefined}
+          </Row>
+        ))}
+      </React.Fragment>
+    );
+
 const renderFooter: ((props: formProps) => JSX.Element) =
   (props: formProps): JSX.Element => (
     <React.Fragment>
@@ -130,6 +147,17 @@ const renderEnvsForm: ((props: formProps) => JSX.Element) =
     </React.Fragment>
   );
 
+const renderFilesForm: ((props: formProps) => JSX.Element) =
+    (props: formProps): JSX.Element => (
+      <React.Fragment>
+        <form onSubmit={props.handleSubmit}>
+          <FieldArray name="resources" component={renderFilesFields} />
+          {renderFooter(props)}
+        </form>
+        <br />
+      </React.Fragment>
+    );
+
 type resourcesForm =
   DecoratedComponentClass<{}, IAddResourcesModalProps & Partial<ConfigProps<{}, IAddResourcesModalProps>>, string>;
 
@@ -155,22 +183,41 @@ const EnvsForm: resourcesForm = reduxForm<{}, IAddResourcesModalProps>({
   },
   onSubmitFail: focusError,
 })(renderEnvsForm);
+
+const FilesForm: resourcesForm = reduxForm<{}, IAddResourcesModalProps>({
+  enableReinitialize: true,
+  form: "addFiles",
+  initialValues: {
+    resources: [{ fileName: "" }],
+  },
+  onSubmitFail: focusError,
+})(renderFilesForm);
 // tslint:enable:variable-name
 
 export const addResourcesModal: React.SFC<IAddResourcesModalProps> =
-  (props: IAddResourcesModalProps): JSX.Element => (
+  (props: IAddResourcesModalProps): JSX.Element => {
+    let title: string;
+    let content: JSX.Element;
+    if (props.type === "environment") {
+      title = "search_findings.tab_resources.modal_env_title";
+      content = <EnvsForm {...props} />;
+    } else if (props.type === "repository") {
+      title = "search_findings.tab_resources.modal_repo_title";
+      content = <ReposForm {...props} />;
+    } else {
+      title = "search_findings.tab_resources.modal_file_title";
+      content = <FilesForm {...props} />;
+    }
+
+    return (
     <React.StrictMode>
       <Provider store={store}>
         <Modal
           open={props.isOpen}
-          headerTitle={translate.t(props.type === "environment"
-            ? "search_findings.tab_resources.modal_env_title"
-            : "search_findings.tab_resources.modal_repo_title")}
-          content={(props.type === "environment"
-            ? <EnvsForm {...props} />
-            : <ReposForm {...props} />)}
+          headerTitle={translate.t(title)}
+          content={content}
           footer={<div />}
         />
       </Provider>
     </React.StrictMode>
-  );
+  ); };

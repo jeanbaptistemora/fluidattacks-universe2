@@ -28,7 +28,7 @@ import * as actions from "./actions";
 export interface IResourcesViewProps {
   addModal: {
     open: boolean;
-    type: "repository" | "environment";
+    type: "repository" | "environment" | "file";
   };
   environmentsDataset: Array<{ urlEnv: string }>;
   projectName: string;
@@ -278,6 +278,21 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
           <Col md={12} sm={12} xs={12}>
             <Row>
               <Col md={12} sm={12} xs={12}>
+                <Row>
+                  <Col md={12}>
+                    <Col mdOffset={4} md={2} sm={6}>
+                      <Button
+                        id="addRepository"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={(): void => { store.dispatch(actions.openAddModal("file")); }}
+                      >
+                        <Glyphicon glyph="plus"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.add_repository")}
+                      </Button>
+                    </Col>
+                  </Col>
+                </Row>
                 <Row>
                   <Col md={12} sm={12}>
                     <DataTable
