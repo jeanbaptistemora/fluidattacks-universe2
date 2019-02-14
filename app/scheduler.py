@@ -439,9 +439,8 @@ def get_new_releases():
 
 
 def continuous_report():
-    mail_to = ['jrestrepo@fluidattacks.com', 'ralvarez@fluidattacks.com',
-               'oparada@fluidattacks.com', 'projects@fluidattacks.com',
-               'relations@fluidattacks.com']
+    mail_to = ['jrestrepo@fluidattacks.com', 'oparada@fluidattacks.com',
+               'projects@fluidattacks.com', 'relations@fluidattacks.com']
     headers = ['#', 'Project', 'Lines', 'Inputs',
                'Fixed vulns', 'Max severity', 'Open Events']
     context = {'projects': list(), 'headers': headers,
