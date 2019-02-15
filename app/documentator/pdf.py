@@ -130,13 +130,15 @@ class CreatorPDF(object):
             'treat_status_wor': 'Nuevo',
             'treat_status_asu': 'Asumido',
             'treat_status_rem': 'Remediar',
+            'fin_status_open': 'Abierto',
+            'fin_status_closed': 'Cerrado'
         }
 
     def lang_support_en(self):
         """ Add the English dictionary.  """
         self.wordlist['en'] = {
             'finding_title': 'Finding',
-            'finding_section_title': 'Finding Resume',
+            'finding_section_title': 'Resume',
             'content_title': 'Content',
             'content_list': [
                 '1. Goals',
@@ -148,7 +150,7 @@ class CreatorPDF(object):
             'presentation': 'Executive Presentation',
             'executive': 'Executive Report',
             'goals_title': 'Goals',
-            'metodology_title': 'Metodology',
+            'metodology_title': 'Methodology',
             'state_title': 'Status',
             'records_title': 'Records',
             'description_title': 'Vulnerability',
@@ -188,6 +190,8 @@ class CreatorPDF(object):
             'treat_status_wor': 'New',
             'treat_status_asu': 'Accepted',
             'treat_status_rem': 'In Progress',
+            'fin_status_open': 'Open',
+            'fin_status_closed': 'Closed'
         }
 
     def tech(self, data, project, user):
@@ -339,6 +343,13 @@ class CreatorPDF(object):
                 finding['treatment'] = words['treat_status_asu']
             elif finding['treatment'] == 'IN PROGRESS':
                 finding['treatment'] = words['treat_status_rem']
+            if 'estado' in finding:
+                if finding['estado'] == 'Cerrado':
+                    finding['estado'] = words['fin_status_closed']
+                else:
+                    finding['estado'] = words['fin_status_open']
+            else:
+                finding['estado'] = '-'
         main_pie_filename = 'image::../images/' \
             + main_pie_filename \
             + '[width=330, align="center"]'

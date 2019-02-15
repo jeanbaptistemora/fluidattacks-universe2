@@ -212,11 +212,11 @@ footer:
   # * {section-title}
   # * {section-or-chapter-title}
   recto_content:
-    left: 'Fluidsignal Group S.A. ({author})'
+    left: 'Fluid Attacks'
     #center: '{page-number}'
     right: '{page-number} / {page-count}'
   verso_content:
-    left: 'Fluidsignal Group S.A. ({author})'
+    left: 'Fluid Attacks'
     #center: '{page-number}'
     right: '{page-number} / {page-count}'
 header:
@@ -231,8 +231,8 @@ header:
   recto_content:
     left: '{document-title} - {document-subtitle}'
     #center: '{page-number}'
-    right: '{revnumber} del {revdate}'
+    right: '{revnumber} {revdate}'
   verso_content:
     left: '{document-title} - {document-subtitle}'
     #center: '{page-number}'
-    right: '{revnumber} del {revdate}'
+    right: '{revnumber} {revdate}'
