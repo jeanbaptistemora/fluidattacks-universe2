@@ -10,6 +10,7 @@ stages:
 .vault_vars: &vault_vars
   variables:
     VAULT_HOST: "${VAULT_S3_BUCKET}.com"
+    VAULT_ADDR: "https://${VAULT_S3_BUCKET}.com"
     VAULT_PORT: 443
     VAULT_API_URL: "https://${VAULT_S3_BUCKET}.com/v1"
     ROLE_ID: "${WEB_ROLE_ID}"
@@ -31,11 +32,6 @@ stages:
         --request POST
         --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}'
         "${VAULT_API_URL}/auth/approle/login" | jq -r '.auth.client_token')
-  after_script:
-    - curl
-        --request POST
-        -H "X-Vault-Token:${VAULT_TOKEN}"
-        "${VAULT_API_URL}/auth/token/revoke-self"
 
 .kaniko_config: &kaniko_config
   image:
