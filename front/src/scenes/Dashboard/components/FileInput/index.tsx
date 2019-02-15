@@ -54,7 +54,7 @@ export const fileInputComponent: React.StatelessComponent<IFileInputProps> =
             <ControlLabel>
               <span>{props.fileName}</span>
               <strong>
-                <Glyphicon glyph={props.icon}/> Choose a file&hellip;
+                <Glyphicon glyph={props.icon}/>&nbsp;Choose a file&hellip;
               </strong>
             </ControlLabel>
           </FormGroup>

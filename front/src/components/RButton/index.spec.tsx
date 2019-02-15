@@ -3,7 +3,7 @@ import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { describe, it } from "mocha";
 import React from "react";
-import { Button, Glyphicon } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { default as RButton } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -25,21 +25,7 @@ describe("RButton", () => {
         onClickButton={functionMock}
       />,
     );
-    expect(
-      wrapper.find(
-        <Button
-          className=""
-          onClick={functionMock}
-          block={true}
-          active={false}
-          disabled={false}
-          bsStyle="default"
-          bsClass="btn"
-        >
-          <Glyphicon glyph="replay" bsClass="glyphicon" />
-          This is a text
-        </Button>,
-      ),
-    ).to.exist;
+    expect(wrapper.find(Button)).to.have
+      .lengthOf(1);
   });
 });

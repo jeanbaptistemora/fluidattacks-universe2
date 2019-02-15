@@ -1,44 +1,35 @@
-import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import ImageGallery from './index';
-import 'mocha';
-import { Col } from "react-bootstrap";
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import ReactImageGallery, { ReactImageGalleryProps } from "react-image-gallery";
+import { expect } from "chai";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import React from "react";
+import ReactImageGallery from "react-image-gallery";
+import { default as ImageGallery } from "./index";
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Image Gallery', () => {
+describe("Image Gallery", () => {
 
-  it('should return a function', () => {
-    expect(typeof(ImageGallery)).to.equal('function');
+  it("should return a function", () => {
+    expect(typeof (ImageGallery)).to
+      .equal("function");
   });
 
-  it('should render image gallery', () => {
-    const data = [
+  it("should render image gallery", () => {
+    const data: object[] = [
       {
         original: "image.png",
-        originalTitle: "This is a title"
-      }
+        originalTitle: "This is a title",
+      },
     ];
 
-    const wrapper = shallow(
+    const wrapper: ShallowWrapper = shallow(
       <ImageGallery
         items={data}
-      />
+      />,
     );
 
-  let component = wrapper.find(  <ImageGallery infinite={true} items={data} showBullets={false} showFullscreenButton={true} showIndex={true}
-      showNav={true} showThumbnails={true} thumbnailPosition="bottom" autoPlay={false} lazyLoad={false} showPlayButton={true}
-      disableThumbnailScroll={false} disableArrowKeys={false} disableSwipe={false}
-      useBrowserFullscreen={true} preventDefaultTouchmoveEvent={false} flickThreshold={0.4} stopPropagation={false}
-      indexSeparator=" / " startIndex={0} slideDuration={450} swipingTransitionDuration={0} slideInterval={3000} swipeThreshold={30}
-      renderLeftNav={(onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React}
-      renderRightNav={(onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React}
-      renderPlayPauseButton={(onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React}
-      renderFullscreenButton={(onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React} />)
-  expect(component).to.exist;
+    expect(wrapper.find(ReactImageGallery)).to.have
+      .lengthOf(1);
   });
 });
