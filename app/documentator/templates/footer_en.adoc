@@ -1,0 +1,12 @@
+Copyright © 2019 Fluid Attacks
+
+All rights reserved. This document contains information proprietary
+of Fluid Attacks. The client is only allowed to use such information for documentation
+purposes and without disclosing its content to third parties because it may contain
+ideas, concepts, prices and/or structures propriety of Fluid Attacks.
+Its 'proprietary' classification means that this information will only be used by those
+who it was meant for. In case of requiring total or partial reproductions it must be done
+with express and written authorization of Fluidsignal Group S.A.
+The rules that fundament the classification of information are articles 72, Cartagena's
+agreement 344 of 1.993, article 238 of penal code and articles 16 and its following ones
+from 256 law of 1.996.

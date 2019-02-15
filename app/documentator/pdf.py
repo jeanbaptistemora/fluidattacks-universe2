@@ -265,15 +265,17 @@ class CreatorPDF(object):
 
     def make_content(self, words):
         """ Create context with the titles of the document. """
-        base = 'image::../templates/:name_' + self.lang + '.png[]'
+        base_img = 'image::../templates/{name}_{lang}.png[]'
+        base_adoc = 'include::../templates/{name}_{lang}.adoc[]'
         return {
             'content_title': words['content_title'],
             'content_list': words['content_list'],
             'goals_title': words['goals_title'],
-            'goals_img': base.replace(':name', 'goals'),
-            'criticity_img': base.replace(':name', 'criticity'),
+            'goals_img': base_img.format(name='goals', lang=self.lang),
+            'criticity_img': base_img.format(name='criticity', lang=self.lang),
             'metodology_title': words['metodology_title'],
-            'metodology_img': base.replace(':name', 'metodology'),
+            'metodology_img': base_img.format(name='metodology', lang=self.lang),
+            'footer_adoc': base_adoc.format(name='footer', lang=self.lang)
         }
 
     def make_pie_finding(self, findings, project, words):

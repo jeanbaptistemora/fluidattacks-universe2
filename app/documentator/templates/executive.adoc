@@ -117,4 +117,4 @@
 {%- endfor %}
 
 <<<
-include::../templates/footer.adoc[]
+{{fluid_tpl['footer_adoc']}}
