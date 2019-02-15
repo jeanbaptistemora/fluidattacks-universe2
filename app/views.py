@@ -1203,7 +1203,7 @@ def calculate_indicators(project):
     open_vulns = card_total = max_severity = open_events = 0
     for row in api.get_eventualities(project)["submissions"]:
         evtset = event.parse(row["id"], api.get_submission(row["id"]))
-        if evtset['eventStatus'] == 'unsolved':
+        if evtset['eventStatus'] == 'UNSOLVED':
             open_events += 1
     findings = integrates_dao.get_findings_dynamo(project, 'finding_id')
     for finding in findings:

@@ -117,36 +117,36 @@ class EventDTO(object):
 
 def cast_event_attributes(event):
     cast_event_field = {
-        'Pendiente': 'unsolved',
-        'Tratada': 'solved',
-        'Puntual': 'oneshot',
-        'Continua': 'continuous',
+        'Pendiente': 'UNSOLVED',
+        'Tratada': 'SOLVED',
+        'Puntual': 'ONESHOT',
+        'Continua': 'CONTINUOUS',
         'Autorización para ataque especial':
-            'authorization_special_attack',
+            'AUTHORIZATION_SPECIAL_ATTACK',
         'Alcance difiere a lo aprobado':
-            'toe_differs_approved',
-        'Aprobación de alta disponibilidad': 'high_availability_approval',
-        'Insumos incorrectos o faltantes': 'incorrect_missing_supplies',
+            'TOE_DIFFERS_APPROVED',
+        'Aprobación de alta disponibilidad': 'HIGH_AVAILABILITY_APPROVAL',
+        'Insumos incorrectos o faltantes': 'INCORRECT_MISSING_SUPPLIES',
         'Cliente suspende explicitamente':
-            'client_explicitly_suspends_project',
+            'CLIENT_EXPLICITLY_SUSPENDS_PROJECT',
         'Cliente aprueba cambio de alcance':
-            'client_approves_change_toe',
+            'CLIENT_APPROVES_CHANGE_TOE',
         'Cliente cancela el proyecto/hito':
-            'client_cancels_project_milestone',
-        'Cliente detecta ataque': 'client_detects_attack',
-        'Otro': 'other',
-        'FLUID': 'fluid',
-        'Cliente': 'client',
-        'Tele-trabajo': 'telecommuting',
-        'Planeación': 'planning',
-        'Probar otra parte del ToE': 'test_other_part_toe',
-        'Documentar el proyecto': 'document_project',
-        'Ninguna': 'none',
+            'CLIENT_CANCELS_PROJECT_MILESTONE',
+        'Cliente detecta ataque': 'CLIENT_DETECTS_ATTACK',
+        'Otro': 'OTHER',
+        'FLUID': 'FLUID',
+        'Cliente': 'CLIENT',
+        'Tele-trabajo': 'TELECOMMUTING',
+        'Planeación': 'PLANNING',
+        'Probar otra parte del ToE': 'TEST_OTHER_PART_TOE',
+        'Documentar el proyecto': 'DOCUMENT_PROJECT',
+        'Ninguna': 'NONE',
         'Ejecutar otro proyecto del mismo cliente':
-            'execute_other_project_same_client',
+            'EXECUTE_OTHER_PROJECT_SAME_CLIENT',
         'Ejecutar otro proyecto de otro cliente':
-            'execute_other_project_other_client',
-        'Entrenar': 'training'
+            'EXECUTE_OTHER_PROJECT_OTHER_CLIENT',
+        'Entrenar': 'TRAINING'
     }
     list_fields = ['eventStatus', 'subscription', 'eventType', 'context',
                    'actionBeforeBlocking', 'actionAfterBlocking']

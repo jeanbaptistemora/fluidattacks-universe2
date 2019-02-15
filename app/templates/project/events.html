@@ -37,7 +37,7 @@
     </div>
     <div class="modal-body" id="modal-body">
         <ul style="list-style: none;">
-            <li ng-repeat="r in rowsEvent"> #{% templatetag openvariable %} r.id {% templatetag closevariable %} &nbsp;{% templatetag openvariable %} r.eventType {% templatetag closevariable %} &nbsp;[{% templatetag openvariable %} r.eventDate {% templatetag closevariable %} ] ({% templatetag openvariable %}  (r.affectation === undefined)?"unsolved":r.affectation {% templatetag closevariable %})
+            <li ng-repeat="r in rowsEvent"> #{% templatetag openvariable %} r.id {% templatetag closevariable %} &nbsp;{% templatetag openvariable %} r.eventType {% templatetag closevariable %} &nbsp;[{% templatetag openvariable %} r.eventDate {% templatetag closevariable %} ] ({% templatetag openvariable %}  (r.affectation === undefined)?"UNSOLVED":r.affectation {% templatetag closevariable %})
         </ul>
     </div>
     <div class="modal-footer">

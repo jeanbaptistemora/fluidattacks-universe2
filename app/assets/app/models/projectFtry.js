@@ -20,7 +20,7 @@ angular.module("FluidIntegrates").factory(
       "alertEvents" (events) {
         let openEvents = 0;
         for (let event = 0; event < events.length; event++) {
-          if (eventsData[event].eventStatus === "unsolved") {
+          if (eventsData[event].eventStatus === "UNSOLVED") {
             openEvents += 1;
           }
         }
