@@ -256,10 +256,10 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), '2019-01-28')]")))
+                            "//*[contains(text(), '2019-01-21')]")))
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '09-tracking.png')
-        assert '2019-01-28' in selenium.page_source
+        assert '2019-01-21' in selenium.page_source
 
     def test_10_comments(self):
         selenium = self.__login()
