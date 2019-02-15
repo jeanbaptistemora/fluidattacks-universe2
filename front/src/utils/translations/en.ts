@@ -11,15 +11,15 @@ const enTranslations: Map<string, string> = {
       text: "Accept and continue",
       tooltip: "Click if you understand and accept the terms above",
     },
-    description: "Integrates, Copyright (c) 2018 FLUID. This platform contains \
-    information proprietary of Fluidsignal Group. The client is only allowed \
+    description: "Integrates, Copyright (c) 2019 Fluid Attacks. This platform contains \
+    information proprietary of Fluid Attacks. The client is only allowed \
     to use such information for documentation purposes and without disclosing \
     its content to third parties because it may contain ideas, concepts, prices \
-    and/or structures propriety of Fluidsignal Group S.A. Its 'proprietary' \
+    and/or structures propriety of Fluid Attacks. Its 'proprietary' \
     classification means that this information will only be used by those who \
     it was meant for. In case of requiring total or partial reproductions it \
-    must be done with express and written authorization of Fluidsignal Group \
-    S.A. The rules that fundament the classification of information are \
+    must be done with express and written authorization of Fluid Attacks. \
+    The rules that fundament the classification of information are \
     articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code \
     and articles 16 and its following ones from 256 law of 1.996.",
     rememberCbo: {
@@ -56,7 +56,7 @@ const enTranslations: Map<string, string> = {
     greeting: "Hello",
     logged_in_message: "Please log out before trying to access with another account.",
     logged_in_title: "You are already logged in",
-    unauthorized: "You do not have authorization for login yet. Please contact FLUID's staff or your project " +
+    unauthorized: "You do not have authorization for login yet. Please contact Fluid Attacks's staff or your project " +
       "administrator to get access.",
   },
   search_findings: {

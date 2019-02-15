@@ -72,7 +72,7 @@ const translations1 = {
         "client": "Client",
         "date": "Date",
         "detail": "Description",
-        "f_proj": "FLUID's Project",
+        "f_proj": "Fluid's Project",
         "ok": "OK",
         "type": "Type"
       }
@@ -289,16 +289,16 @@ const translations1 = {
        "text": "Accept and continue",
        "tooltip": "Click if you understand and accept the terms above"
      },
-     "description": "Integrates, Copyright (c) 2018 FLUID. This platform " +
-     "contains information proprietary of Fluidsignal Group. " +
+     "description": "Integrates, Copyright (c) 2019 Fluid Attacks. " +
+     "This platform contains information proprietary of Fluid Attacks. " +
      "The client is only allowed to use such information for " +
      "documentation purposes and without disclosing its content " +
      "to third parties because it may contain ideas, concepts, prices " +
-     "and/or structures propriety of Fluidsignal Group S.A. Its " +
+     "and/or structures propriety of Fluid Attacks. Its " +
      "'proprietary' classification means that this information will " +
      "only be used by those who it was meant for. In case of requiring " +
      "total or partial reproductions it must be done with express " +
-     "and written authorization of Fluidsignal Group S.A. The rules " +
+     "and written authorization of Fluid Attacks. The rules " +
      "that fundament the classification of information are articles 72, " +
      "Cartagena's agreement 344 of 1.993, article 238 of penal code and " +
      "articles 16 and its following ones from 256 law of 1.996.",
@@ -337,7 +337,7 @@ const translations1 = {
         "description2": "clicking",
         "description3": " on it",
         "project_description": "Description",
-        "project_title": "FLUID's Project",
+        "project_title": "Fluid's Project",
         "title": "My Projects"
       }
    },
@@ -399,7 +399,7 @@ const translations1 = {
                           "another account.",
      "logged_in_title": "You are already logged in",
      "not_authorized": "You do not have authorization for login yet. " +
-                       "Please contact FLUID's staff or your project " +
+                       "Please contact Fluid Attacks' staff or your project " +
                        "administrator to get access."
    },
   "reports":

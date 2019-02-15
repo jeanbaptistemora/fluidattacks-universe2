@@ -72,7 +72,7 @@ const traducciones1 = {
     "close": "Cerrar",
     "date": "Fecha",
     "detail": "Detalle",
-    "f_proj": "Proyecto FLUID",
+    "f_proj": "Proyecto Fluid",
     "refresh": "Actualizar",
     "type": "Tipo"
   }
@@ -296,16 +296,16 @@ const traducciones1 = {
     "text": "Aceptar y continuar",
     "tooltip": "Haz click si entiendes y aceptas los términos anteriores"
   },
-  "description": "Integrates, Copyright (c) 2018 FLUID. Esta plataforma " +
-  "contiene información de propiedad de Fluidsignal Group. " +
+  "description": "Integrates, Copyright (c) 2019 Fluid Attacks. " +
+  "Esta plataforma contiene información de propiedad de Fluid Attacks. " +
   "Dicha información puede ser usada por el cliente sólo con el propósito " +
   "de documentación sin poder divulgar su contenido " +
   "a terceras partes ya que contiene ideas, conceptos, precios y/o " +
-  "estructuras de propiedad de Fluidsignal Group S.A. La clasificación " +
+  "estructuras de propiedad de Fluid Attacks. La clasificación " +
   "'propietaria' significa que esta información es solo para uso de las " +
   "personas a quienes está dirigida. En caso de requerirse copias totales " +
   "o parciales se debe contar con la autorización expresa y escrita de " +
-  "Fluidsignal Group S.A. Las normas que fundamentan la clasificación de " +
+  "Fluid Attacks. Las normas que fundamentan la clasificación de " +
   "la información son los artículos 72 y siguientes de la decisión del " +
   "acuerdo de Cartagena, 344 de 1.993, el artículo 238 del código " +
   "penal y los artículos 16 y siguientes de la ley 256 de 1.996.",
@@ -343,7 +343,7 @@ const traducciones1 = {
     "description2": "click",
     "description3": " sobre el proyecto",
     "project_description": "Descripción",
-    "project_title": "Proyecto FLUID",
+    "project_title": "Proyecto Fluid",
     "title": "Mis Proyectos"
   }
 },
@@ -404,7 +404,7 @@ const traducciones1 = {
                           "acceder con otra cuenta",
     "logged_in_title": "Ya has iniciado sesión",
     "not_authorized": "Aún no tienes autorización para ingresar. " +
-                      "Por favor contacta al personal de FLUID o a tu " +
+                      "Por favor contacta al personal de Fluid o a tu " +
                       "administrador de proyecto para obtener acceso."
   },
   "reports":
