@@ -41,6 +41,23 @@ after_script:
         docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin ||
         echo 'Docker not necessary'
 
+.jfrog_vars: &jfrog_vars
+  variables:
+    CI_REGISTRY: "${JFROG_REPO}"
+    CI_REGISTRY_USER: "${INTEGRATES_JFROG_USER}"
+    CI_REGISTRY_PASSWORD: "${INTEGRATES_JFROG_PASS}"
+    CI_REGISTRY_EMAIL: "${INTEGRATES_JFROG_EMAIL}"
+    CI_REGISTRY_IMAGE: "${JFROG_REPO}/integrates"
+
+.kaniko_jfrog_config: &kaniko_jfrog_config
+  <<: *jfrog_vars
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
+        > /kaniko/.docker/config.json
+
 stages:
   - deps
   - pre-test
@@ -53,12 +70,14 @@ stages:
 
 Build:
   stage: deps
+  <<: *kaniko_jfrog_config
   script:
     - cp front/package.json deploy/containers/deps/
-    - docker build --no-cache
-        -t "$DOCKER_BASENAME:deps190201"
-        deploy/containers/deps
-    - docker push "$DOCKER_BASENAME:deps190201"
+    - /kaniko/executor
+        --cleanup
+        --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
+        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile"
+        --destination "${CI_REGISTRY_IMAGE}:deps"
   retry: 2
   only:
     - schedules
