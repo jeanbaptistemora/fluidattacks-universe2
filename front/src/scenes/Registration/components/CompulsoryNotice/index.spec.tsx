@@ -1,34 +1,37 @@
-import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import {
-  compulsoryNotice as CompulsoryNotice
-} from './index';
+import { expect } from "chai";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import React from "react";
 import { default as Modal } from "../../../../components/Modal/index";
-import 'mocha';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {
+  compulsoryNotice as CompulsoryNotice,
+} from "./index";
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Compulsory notice modal', () => {
-  it('should return a function', () => {
-    expect(typeof(CompulsoryNotice)).to.equal('function');
+const functionMock: (() => void) = (): void => undefined;
+
+describe("Compulsory notice modal", () => {
+  it("should return a function", () => {
+    expect(typeof (CompulsoryNotice)).to
+      .equal("function");
   });
 
-  it('should be rendered', () => {
-    const wrapper = shallow(
+  it("should be rendered", () => {
+    const wrapper: ShallowWrapper = shallow(
       <CompulsoryNotice
         content=""
         id="testModal"
         open={true}
         rememberDecision={false}
-        onAccept={(): void => undefined}
-        onCheckRemember={(): void => undefined}
-      />
-    ),
+        onAccept={functionMock}
+        onCheckRemember={functionMock}
+      />,
+    );
 
-    component = wrapper.find(Modal)
-    expect(component).to.exist;
+    const component: ShallowWrapper = wrapper.find(Modal);
+    expect(component).to.have
+      .lengthOf(1);
   });
 });
