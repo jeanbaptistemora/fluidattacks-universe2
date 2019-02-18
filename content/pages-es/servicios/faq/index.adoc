@@ -36,6 +36,15 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
  En nuestra página link:../../clientes[clientes]
  encontrará mayor información acerca de nuestra experiencia en el mercado.
 
+*¿Cómo permanece Fluid Attacks a la vanguardia*::
+con las nuevas técnicas y cambios?*::
+ Nos aseguramos de investigar continuamente, y permanecer al tanto
+ de las nuevas técnicas y cambios relacionados al mundo
+ de la seguridad informática y las tecnologías de la información.
+ Ya sea a través de link:../../blog[entradas de blog]
+ o link:https://gitlab.com/fluidattacks/writeups[retos de hacking/programación]
+ mantenemos a nuestro equipo a la vanguardia del estado del arte.
+
 *¿Cuáles son los insumos necesarios para la prestación del servicio?*::
  El servicio se puede desarrollar en fases de forma complementaria:
  . *Fase 1:*
