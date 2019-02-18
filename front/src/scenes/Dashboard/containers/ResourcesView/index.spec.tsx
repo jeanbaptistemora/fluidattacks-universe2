@@ -1,101 +1,118 @@
-import { configure, shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
-import { component as ResourcesView } from "./index";
-import { dataTable as DataTable } from "../../../../components/DataTable/index";
-import "mocha";
-import * as React from "react";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import React from "react";
 import { Button, Glyphicon } from "react-bootstrap";
+import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { component as ResourcesView } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Resources view', () => {
+const functionMock: (() => void) = (): void => undefined;
 
-  const wrapper = shallow(
+describe("Resources view", () => {
+
+  const wrapper: ShallowWrapper = shallow(
     <ResourcesView
-      addModal={{
-        open: false,
-        type: "repository"
-      }}
+      addModal={{ open: false, type: "repository" }}
       environmentsDataset={[]}
       projectName="unittesting"
       repositoriesDataset={[]}
       showFiles={false}
-    />
+    />,
   );
 
-  it('should return a function', () => {
-    expect(typeof(ResourcesView)).to.equal('function');
+  it("should return a function", () => {
+    expect(typeof (ResourcesView)).to
+      .equal("function");
   });
 
-  it('should render action buttons', () => {
+  it("should render action buttons", () => {
 
-    let buttons = wrapper.find(Button);
-    expect(buttons.length === 4);
+    const buttons: ShallowWrapper = wrapper.find(Button);
+    expect(buttons).to.have
+      .lengthOf(4);
 
-    let addRepoBtn = buttons.at(0).html();
-    let expectedAddRepoBtn = shallow(
+    const addRepoBtn: string = buttons.at(0)
+      .html();
+    const expectedAddRepoBtn: string = shallow(
       <Button
         id="addRepository"
         block={true}
         bsStyle="primary"
-        onClick={(): void => {}}
+        onClick={functionMock}
       >
-        <Glyphicon glyph="plus"/>
-         &nbsp;search_findings.tab_resources.add_repository
-      </Button>
-    ).html();
-    expect(addRepoBtn).to.equal(expectedAddRepoBtn);
+        <Glyphicon glyph="plus" />
+        &nbsp;search_findings.tab_resources.add_repository
+      </Button>,
+    )
+      .html();
+    expect(addRepoBtn).to
+      .equal(expectedAddRepoBtn);
 
-    let removeRepoBtn = buttons.at(1).html();
-    let expectedRemoveRepoBtn = shallow(
+    const removeRepoBtn: string = buttons.at(1)
+      .html();
+    const expectedRemoveRepoBtn: string = shallow(
       <Button
         id="removeRepository"
         block={true}
         bsStyle="primary"
-        onClick={(): void => {}}
+        onClick={functionMock}
       >
-        <Glyphicon glyph="minus"/>
-         &nbsp;search_findings.tab_resources.remove_repository
-      </Button>
-    ).html();
-    expect(removeRepoBtn).to.equal(expectedRemoveRepoBtn);
+        <Glyphicon glyph="minus" />
+        &nbsp;search_findings.tab_resources.remove_repository
+      </Button>,
+    )
+      .html();
+    expect(removeRepoBtn).to
+      .equal(expectedRemoveRepoBtn);
 
-    let addEnvBtn = buttons.at(2).html();
-    let expectedAddEnvBtn = shallow(
+    const addEnvBtn: string = buttons.at(2)
+      .html();
+    const expectedAddEnvBtn: string = shallow(
       <Button
         id="addEnvironment"
         block={true}
         bsStyle="primary"
-        onClick={(): void => {}}
+        onClick={functionMock}
       >
-        <Glyphicon glyph="plus"/>
-         &nbsp;search_findings.tab_resources.add_repository
-      </Button>
-    ).html();
-    expect(addEnvBtn).to.equal(expectedAddEnvBtn);
+        <Glyphicon glyph="plus" />
+        &nbsp;search_findings.tab_resources.add_repository
+      </Button>,
+    )
+      .html();
+    expect(addEnvBtn).to
+      .equal(expectedAddEnvBtn);
 
-    let removeEnvBtn = buttons.at(3).html();
-    let expectedRemoveEnvBtn = shallow(
+    const removeEnvBtn: string = buttons.at(3)
+      .html();
+    const expectedRemoveEnvBtn: string = shallow(
       <Button
         id="removeEnvironment"
         block={true}
         bsStyle="primary"
-        onClick={(): void => {}}
+        onClick={functionMock}
       >
-        <Glyphicon glyph="minus"/>
-         &nbsp;search_findings.tab_resources.remove_repository
-      </Button>
-    ).html();
-    expect(removeEnvBtn).to.equal(expectedRemoveEnvBtn);
+        <Glyphicon glyph="minus" />
+        &nbsp;search_findings.tab_resources.remove_repository
+      </Button>,
+    )
+      .html();
+    expect(removeEnvBtn).to
+      .equal(expectedRemoveEnvBtn);
 
   });
 
-  it('should render repos and envs tables', () => {
-    let tables = wrapper.find(DataTable);
-    let repoTable = tables.at(0).html();
-    let envTable = tables.at(1).html();
-    expect(repoTable).to.contain('<div id="tblRepositories">');
-    expect(envTable).to.contain('<div id="tblEnvironments">');
+  it("should render repos and envs tables", () => {
+    const tables: ShallowWrapper = wrapper.find(DataTable);
+    const repoTable: string = tables.at(0)
+      .html();
+    const envTable: string = tables.at(1)
+      .html();
+    expect(repoTable).to
+      .contain('<div id="tblRepositories">');
+    expect(envTable).to
+      .contain('<div id="tblEnvironments">');
   });
 });
