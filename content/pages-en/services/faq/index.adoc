@@ -30,6 +30,18 @@ Frequently asked questions about Continuous Hacking.
   and internal project personnel (client company)
   fixing security issues without delays.
 
+*In what industries does Fluid Attacks have experience?*::
+  Along our career trajectory we have been working with companies
+  from different sectors.
+  Please refer to our link:../../customers/[customers] page
+  for further information.
+
+*How does Fluid Attacks stay on top of new techniques and changes?*::
+  We ensure to constantly research and keep updated
+  with the new techniques and changes related to cyber security and +IT+.
+  Either through link:../../blog[blog entries] or link:https://gitlab.com/fluidattacks/writeups[hacking challenges]
+  we keep our team updated with the state of art.
+
 *What are the necessary inputs and requirements for Continuous Hacking?*::
   The necessary inputs and requirements are
 
@@ -59,8 +71,8 @@ Frequently asked questions about Continuous Hacking.
 
 *What type of hacking is included in Continuous Hacking?*::
   Continuous Hacking includes source code analysis,
-  application hacking (<<q3,see question 3>>),
-  and infrastructure hacking (<<q3,see question 3>>).
+  application hacking (<<q5,see question 5>>),
+  and infrastructure hacking (<<q5,see question 5>>).
 
 *What is a vulnerability?*::
   A vulnerability is anything that represents a security risk
@@ -220,6 +232,8 @@ Frequently asked questions about Continuous Hacking.
   called link:../../products/integrates/[Integrates].
   Integrates gives all project stakeholders access
   to details concerning vulnerabilities reported by +Fluid Attacks+.
+  We have recently released link:https://gitlab.com/fluidattacks/integrates[+Integrates+]
+  source code to our link:https://gitlab.com/fluidattacks[public repository].
 
 *What types of reports does Continuous Hacking generate?*::
   Continuous Hacking generates and delivers,
@@ -236,6 +250,12 @@ Frequently asked questions about Continuous Hacking.
   first-hand detailed information regarding a vulnerability
   in order to plan and execute corrective measures
   to remove it from the application.
+
+*What communication does Fluid Attacks provide? When? How?*::
+ For continuous hacking, day to day basis is made via Integrates
+ between developers and hacker.
+ In one shot hacking communication is made through the project manager (+PM+)
+ as single point of contact (+SPOC+).
 
 *How does Fluid Attacks know a vulnerability*::
 *has been eliminated or remediated?*::
@@ -344,6 +364,11 @@ Frequently asked questions about Continuous Hacking.
   Once the contract has ended, information is kept for +7+ business days
   and then deleted from all +Fluid Attacks+ information systems.
 
+*How will our data be erased?*::
+  +Integrates+ uses an automated erasing process,
+  removing all the project information from our systems
+  and generating a +Proof of Delivery+ signed via link:https://www.docusign.com/[+Docusign+].
+
 *Does Continuous Hacking require any development methodology?*::
   No. Continuous Hacking is independent
   of the client’s development methodology.
@@ -368,6 +393,17 @@ No. The client can use whatever repository they deem appropriate.
 +Fluid Attacks+ only requires access to the integration branch
 and its respective environment.
 
+*Who would be performing the work?*::
+ All the hackers. all the team.
+
+*Can we see resumes?*::
+ Yes, in our link:../../people[people] page
+ you can check the +LinkedIn+ profiles of some members of our team.
+
+*What certifications does Fluid Attacks have?*::
+Please refer to our link:../certifications/[certifications] page
+for further information.
+
 *Do I lose my property rights if Fluid Attacks reviews my source code?*::
 No. Reviewing your code in no way compromises
 your proprietary rights to that code.
@@ -379,6 +415,8 @@ your proprietary rights to that code.
  link:../../products/asserts/[Asserts] operates in the +JOB+ of continuous integration.
  It can break the build sent by the programmer in the event
  of a breach of security requirements.
+ We have recently released link:https://gitlab.com/fluidattacks/asserts[+Asserts+]
+ source code to our link:https://gitlab.com/fluidattacks[public repository].
 
 *Does Continuous Hacking only focus on source code?*::
 *Is it possible to include the infrastructure associated with the app?*::
@@ -386,6 +424,22 @@ your proprietary rights to that code.
  to now include infrastructure within the Target of Evaluation (+ToE+).
  This includes the application's ports, inputs,
  infrastructure, and an application itself.
+
+ *What external tools does Fluid Attacks use to perform pentesting?*::
+ We use link:https://portswigger.net/burp[Burp Suite] for web testing,
+ link:https://www.immunityinc.com/products/canvas/[CANVAS] and
+ link:https://www.secureauth.com/products/penetration-testing/core-impact[Core Impact]
+ for infrastructure testing with additional exploits.
+
+*How will our data be transmitted?*::
+  It is up to you, however, we recommend the use of +HTTPS+
+  for application tests and +SSH+ (+git+) for source code analysis.
+
+*How will our data be stored?*::
+  * link:https://aws.amazon.com/[+AWS+ on the cloud] (mainly +S3+ and
+    link:https://aws.amazon.com/dynamodb/[+DynamoDB+],
+    all security enabled)
+  * Hacker's computers with disk encryption in all partitions.
 
 *Where does Integrates run?*::
  The platform link:../../products/integrates/[Integrates], runs in the cloud.
@@ -442,6 +496,11 @@ your proprietary rights to that code.
  it is hacked only to the extent of the changes
  made by +1+ active author in +1+ previous month.
 
+*What options for retesting are available?*::
+ link:../one-shot-hacking[One shot Hacking] includes one retest.
+ link:../continuous-hacking/[Continuous Hacking] includes infinite retest
+ during the subscription time.
+
 *What are the scheduled activities during the continuous hacking test?*::
  Once the setup has been completed,
  and everything is ready for the service to begin, the security tests start.
@@ -495,11 +554,19 @@ must be the same branch environment where the source code is reviewed,
 thus +Fluid Attacks+ can test statically and dynamically the same version
 of the change.
 
+*How will you ensure the availability of my systems and services*::
+*while the test is taking place*::
+ It is possible to cause an accidental +DoS+ during the hacking service.
+ We recommend to include only the +staging+ phase in the scope,
+ however, many customers decide to include +production+ stage in the tests.
+ It is unusual for us to take down environments,
+ because when we foresee a possible breakpoint,
+ we ask the customer for an special environment for such test.
+
 *What happens if I want to review different environments*::
 *of the same application*::
  The service includes the environment of the reviewed code (<<q52, see question 52>>),
  it is possible to include different environments for an additional fee.
-
 
 *If I ask a question in the comment system,*::
 *how long does it take to get an answer?*::
@@ -508,3 +575,6 @@ of the change.
  from +8AM+ to +12+ noon and +2PM+ to +6PM+.
  (+UTC-5+ Colombia = same as Eastern Standard Time +USA+).
  +SLA+ is not contractually defined, it is our value promise.
+
+ *Do you have liability insurance?*::
+ Yes, +1M USD+.

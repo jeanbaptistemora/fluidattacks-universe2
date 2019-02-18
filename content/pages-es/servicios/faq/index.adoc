@@ -30,6 +30,12 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
  sobre las vulnerabilidades reportadas
  de forma que puedan trabajar en su remediación sin contratiempos.
 
+*¿Con qué tipo de industrias tiene experiencia Fluid Attacks?*::
+ Durante nuestra trayectoria profesional,
+ hemos trabajado con empresas de diferentes sectores.
+ En nuestra página link:../../clientes[clientes]
+ encontrará mayor información acerca de nuestra experiencia en el mercado.
+
 *¿Cuáles son los insumos necesarios para la prestación del servicio?*::
  El servicio se puede desarrollar en fases de forma complementaria:
  . *Fase 1:*
@@ -60,8 +66,8 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
 
 *¿Qué tipo de Ethical Hacking incluye el servicio de Hacking Continuo?*::
  El servicio incluye análisis de código fuente,
- Ethical Hacking de aplicación (<<q3,Ver pregunta 3>>)
- y Ethical Hacking de infraestructura (<<q3,Ver pregunta 3>>).
+ Ethical Hacking de aplicación (<<q5,Ver pregunta 5>>)
+ y Ethical Hacking de infraestructura (<<q5,Ver pregunta 5>>).
 
 *¿Qué es una vulnerabilidad?*::
  Es cualquier situación que representa un riesgo de seguridad
@@ -194,11 +200,13 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
  Así todos los actores de la cadena de valor de un proyecto
  tienen acceso al detalle de las vulnerabilidades
  reportadas por +Fluid Attacks+ en la prestación del servicio.
+ Recientemente hemos liberado el codigo fuente de link:https://gitlab.com/fluidattacks/integrates[+Integrates+]
+ en nuestro link:https://gitlab.com/fluidattacks[repositorio público].
 
 *¿Qué tipo de informes son generados durante la prestación del servicio?*::
  Desde link:../../productos/integrates/#generar-informes-tecnicos[Integrates]
- es posible generar un informe técnico en formato Excel
- y otro en PDF disponibles durante toda la ejecución del proyecto.
+ es posible generar un informe técnico en formato +Excel+
+ y otro en +PDF+ disponibles durante toda la ejecución del proyecto.
  También se puede generar un informe ejecutivo
  tipo presentación en formato PDF una vez se finaliza el proyecto.
 
@@ -209,6 +217,12 @@ que surgen comúnmente cuando hablamos de Hacking Continuo.
  permitiendo obtener de primera mano la información,
  aplicando las correcciones necesarias
  para remover las vulnerabilidades de la aplicación.
+
+*Qué tipo de comunicación provee Fluid Attacks? Cuándo? Cómo?*::
+ Para las pruebas continuas, la comunicación diaria se realiza
+ a través de Integrates, entre desarrolladores y hackers.
+ En el caso de las pruebas puntuales, se hace a través del +Project Manager+
+ (+PM+) como punto único de contacto (+SPOC+).
 
 *¿Cómo se entera Fluid Attacks que una vulnerabilidad está remediada?*::
  A través de link:../../productos/integrates/[Integrates]
@@ -307,9 +321,15 @@ que nos lleve a determinar la validez de una vulnerabilidad.
 
 *¿Fluid Attacks guarda la información de las vulnerabilidades encontradas?*::
  La información se almacena únicamente durante la prestación del servicio.
- Una vez finalizado el servicio se conserva la información por 7 días hábiles
+ Una vez finalizado el servicio se conserva la información por +7+ días hábiles
  tras los cuales es borrada de todos los sistemas de información de
  +Fluid Attacks+.
+
+*¿Cómo es eliminada nuestra información?*::
+ +Integrates+ utiliza un proceso de borrado automático,
+ eliminando toda la información de nuestros sistemas
+ y generando un +Proof of Delivery+ firmado electrónicamente
+ a través de link:https://www.docusign.com/[+Docusign+].
 
 *¿El servicio de Hacking Continuo requiere algún tipo*::
 *de metodología de desarrollo?*::
@@ -334,6 +354,25 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  +Fluid Attacks+ solo requiere ingreso a la rama de integración
  y a su respectivo ambiente.​
 
+*¿Quién ejecutará las pruebas de seguridad?*::
+ Todo el equipo de Hackers.
+
+*¿Podemos ver algunas hojas de vida?*::
+ Si, en nuestra página link:../../personas[personas]
+ es posible acceder al perfil de +LinkedIn+ de algunos miembros
+ de nuestro equipo de trabajo.
+
+*¿Qué certificaciones tiene Fluid Attacks?*::
+ En nuestra página de link:../certificaciones[certificaciones]
+ encontrará toda la información referente las diferentes certificaciones
+ con las que cuenta nuestro equipo de trabajo.
+
+*¿Qué herramientas externas utiliza Fluid Attacks para ejecutar las pruebas?*::
+Utilizamos link:https://portswigger.net/burp[Burp Suite] para pruebas web,
+link:https://www.immunityinc.com/products/canvas/[CANVAS] y
+link:https://www.secureauth.com/products/penetration-testing/core-impact[Core Impact]
+para pruebas de infraestructura con exploits adicionales.
+
 *¿Se pierden los derechos patrimoniales*::
 *si Fluid Attacks revisa el código fuente?*::
  No, el permitir revisar una creación u obra como lo es un código a un tercero​
@@ -348,6 +387,8 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  opera directamente en el +JOB+ de integración continua
  y tiene la capacidad de romper el +build+ enviado por el programador
  en caso de incumplir requisitos de seguridad.
+ Recientemente hemos liberado el codigo fuente de link:https://gitlab.com/fluidattacks/integrates[+Asserts+]
+ en nuestro link:https://gitlab.com/fluidattacks[repositorio público].
 ​
 *¿El Hacking Continuo está enfocado únicamente sobre el código fuente?*::
 *¿Es posible incluir la infraestructura asociada a la aplicación?*::
@@ -373,12 +414,24 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  Esta característica se habilita desde +Gmail+ o +Azure+ según sea tu caso.​
 
 *¿Si hago un commit, ¿en cuanto tiempo Fluid Attacks lo revisa y prueba?*::
- El compromiso es ir con cobertura 100%, por lo que tienen resultados de
+ El compromiso es ir con cobertura +100%+, por lo que tienen resultados de
  vulnerabilidades todo el tiempo.
  Fluid Attacks tiene en cuenta los push a la rama que se este revisando,
  los cuales son monitoreados por scripts automatizados (robots) que se
  encargan todas las noches de extraer el código y analizar los cambios
  realizados sobre el código fuente.
+
+*¿Cómo será transmitida la información?*::
+ Depende del cliente, sin embargo, recomendamos el uso de +HTTPS+
+ para pruebas de aplicación y +SSH+ (+git+)
+ para análisis de código fuente.
+
+*¿En dónde será almacenada la información?*::
+* link:https://aws.amazon.com/[+AWS+ on the cloud] (principalmente +S3+
+y link:https://aws.amazon.com/dynamodb/[+DynamoDB+],
+con todas las opciones de seguridad habilitadas)
+* Computadores de los hackers, con cifrado a nivel de +SO+
+en todas las particiones.
 
  *¿Es decir que fluid attacks prueba cada que hago un push a la rama*::
  *de la suscripción?*::
@@ -402,6 +455,12 @@ que nos lleve a determinar la validez de una vulnerabilidad.
  A. Aplicación en producción con código atrasado (cobertura <100%):
  Igual que B, solo que si en dicho mes no hay código nuevo, se hackea lo
  equivalente a lo hecho por 1 autor activo en 1 mes anterior.
+
+*¿Qué opciones de retest existen?*::
+ El servicio de link:../hacking-puntual/[hacking puntual]
+ incluye un único +retest+.
+ El servicio de link:../hacking-continuo/[hacking continuo] incluye +retests+
+ ilimitados durante el periodo de suscripción.
 
 *¿Es posible conocer el cronograma de actividades de las pruebas en hacking*::
 *continuo?*::
@@ -450,6 +509,16 @@ la configuración de los robots de
  ambiente de la rama en la que se revisa el código fuente, así +Fluid Attacks+
  puede probar de forma estática y dinámica una misma versión del cambio.
 
+*¿Cómo asegurar la disponibilidad de mis sistemas y servicios*::
+*mientras se llevan a cabo las pruebas de seguridad?*::
+ Es posible generar un +DoS+ accidental durante la prestación del servicio.
+ Por ello recomendamos incluir solo la etapa +staging+
+ dentro del alcance del proyecto,
+ sin embargo, muchos clientes deciden incluir +producción+ en las pruebas.
+ Es poco común que tumbemos los ambientes,
+ porque cuando se prevee alguna posible disrupción,
+ se solicita al cliente una ventana para dicha prueba.
+
 *¿Que pasa si quiero revisar diferentes ambientes de una misma aplicación?*::
  El servicio incluye el ambiente del código revisado (<<q52,Ver pregunta 52>>),
  es posible incluir ambientes diferentes por un valor adicional.
@@ -460,3 +529,6 @@ la configuración de los robots de
  un SLA de 4  horas hábiles. L-V de 8AM a 12M y de 2PM a 6PM. (UTC-5  Colombia)
  El SLA no esta definido contractualmente, simplemente es nuestra promesa de
  valor.
+
+ *¿Cuentan con un seguro de responsabilidad?*::
+  Si, de +1M USD+.
