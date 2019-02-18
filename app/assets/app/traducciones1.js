@@ -281,7 +281,7 @@ const traducciones1 = {
   "grapType":
 {
   "hig_label": "Higiene",
-  "seg_label": "Vulnerabilidad",
+  "seg_label": "Seguridad",
   "title": "Tipo"
 },
   "left_menu":

@@ -275,7 +275,7 @@ const translations1 = {
   "grapType":
    {
      "hig_label": "Hygiene",
-     "seg_label": "Vulnerability",
+     "seg_label": "Security",
      "title": "Type"
    },
   "left_menu": {

@@ -144,7 +144,9 @@ angular.module("FluidIntegrates").controller(
       angular.forEach(data, (value) => {
         if (value.estado !== "Cerrado" &&
           value.estado !== "Closed") {
-          if (value.findingType === "SECURITY") {
+          if (value.findingType === "SECURITY" ||
+              value.findingType === "Security" ||
+              value.findingType === "Seguridad") {
             security += 1;
           }
           else {
