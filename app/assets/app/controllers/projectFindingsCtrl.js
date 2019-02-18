@@ -178,6 +178,10 @@ angular.module("FluidIntegrates").controller(
       const projt = $stateParams.project.toUpperCase();
       functionsFtry1.alertHeader(org, projt);
       for (let cont = 0; cont < datatest.length; cont++) {
+        if ("openVulnerabilities" in datatest[cont]) {
+          datatest[cont].openVulnerabilities =
+            parseInt(datatest[cont].openVulnerabilities, 10);
+        }
         for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
           if (datatest[cont][fieldsToTranslate[inc]] in keysToTranslate) {
             datatest[cont][fieldsToTranslate[inc]] =
