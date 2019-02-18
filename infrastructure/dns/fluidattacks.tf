@@ -205,7 +205,8 @@ resource "aws_route53_record" "mainTXT" {
   name    = "${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com -all",
+  records = ["v=spf1 include:_spf.google.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com -all",
+             "v=DMARC1; p=none; rua=mailto:technology@fluidattacks.com",
              "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
              "MS=ms97836067"]
 }
