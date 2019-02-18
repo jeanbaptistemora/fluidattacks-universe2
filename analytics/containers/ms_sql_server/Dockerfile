@@ -4,7 +4,7 @@ ENV LC_ALL=C.UTF-8
 ENV PYTHONIOENCODING=utf8
 
 RUN apt update \
-    && apt dist-upgrade \
+    && apt dist-upgrade -y \
     && apt install -y \
         apt-transport-https \
         build-essential \
