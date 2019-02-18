@@ -1,96 +1,117 @@
-import { configure, shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
-import { component as ProjectUsersView } from "./index";
-import { dataTable as DataTable } from "../../../../components/DataTable/index";
-import "mocha";
-import * as React from "react";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
+import React from "react";
 import { Button, Glyphicon } from "react-bootstrap";
 import { reduxForm as ReduxForm } from "redux-form";
+import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { component as ProjectUsersView } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Project users view', () => {
+const functionMock: (() => void) = (): void => undefined;
 
-  const wrapper = shallow(
+describe("Project users view", () => {
+
+  const testDataset: Array<{
+    email: string; firstLogin: string; lastLogin: string; organization: string;
+    phoneNumber: string; responsability: string; role: string;
+  }> = [
+      {
+        email: "",
+        firstLogin: "",
+        lastLogin: "",
+        organization: "",
+        phoneNumber: "",
+        responsability: "",
+        role: "",
+      },
+    ];
+
+  const wrapper: ShallowWrapper = shallow(
     <ProjectUsersView
       addModal={{ initialValues: {}, open: true, type: "add" }}
       userRole="admin"
       projectName="unittesting"
-      userList={[
-        {
-          email: "",
-          firstLogin: "",
-          lastLogin: "",
-          organization: "",
-          phoneNumber: "",
-          responsability: "",
-          role: ""
-        }
-      ]}
-    />
+      userList={testDataset}
+    />,
   );
 
-  it('should return a function', () => {
-    expect(typeof(ProjectUsersView)).to.equal('function');
+  it("should return a function", () => {
+    expect(typeof (ProjectUsersView)).to
+      .equal("function");
   });
 
-  it('should render action buttons', () => {
-    let buttons = wrapper.find(Button);
-    expect(buttons.length).to.equal(3);
+  it("should render action buttons", () => {
+    const buttons: ShallowWrapper = wrapper.find(Button);
+    expect(buttons.length).to
+      .equal(3);
 
-    let editBtn = buttons.at(0).html();
-    let expectedEditBtn = shallow(
+    const editBtn: string = buttons.at(0)
+      .html();
+    const expectedEditBtn: string = shallow(
       <Button
         id="editUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => {}}
+        onClick={functionMock}
       >
-        <Glyphicon glyph="edit"/>
-         &nbsp;search_findings.tab_users.edit
-      </Button>
-    ).html();
-    expect(editBtn).to.equal(expectedEditBtn);
+        <Glyphicon glyph="edit" />
+        &nbsp;search_findings.tab_users.edit
+      </Button>,
+    )
+      .html();
+    expect(editBtn).to
+      .equal(expectedEditBtn);
 
-    let addBtn = buttons.at(1).html();
-    let expectedAddBtn = shallow(
+    const addBtn: string = buttons.at(1)
+      .html();
+    const expectedAddBtn: string = shallow(
       <Button
         id="addUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => {}}
+        onClick={functionMock}
       >
-        <Glyphicon glyph="plus"/>
-         &nbsp;search_findings.tab_users.add_button
-      </Button>
-    ).html();
+        <Glyphicon glyph="plus" />
+        &nbsp;search_findings.tab_users.add_button
+      </Button>,
+    )
+      .html();
 
-    expect(addBtn).to.equal(expectedAddBtn);
+    expect(addBtn).to
+      .equal(expectedAddBtn);
 
-    let removeBtn = buttons.at(2).html();
-    let expectedRemoveBtn = shallow(
+    const removeBtn: string = buttons.at(2)
+      .html();
+    const expectedRemoveBtn: string = shallow(
       <Button
         id="removeUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => {}}
+        onClick={functionMock}
       >
-        <Glyphicon glyph="minus"/>
-         &nbsp;search_findings.tab_users.remove_user
-      </Button>
-    ).html();
+        <Glyphicon glyph="minus" />
+        &nbsp;search_findings.tab_users.remove_user
+      </Button>,
+    )
+      .html();
 
-    expect(removeBtn).to.equal(expectedRemoveBtn);
+    expect(removeBtn).to
+      .equal(expectedRemoveBtn);
   });
 
-  it('should render users table', () => {
+  it("should render users table", () => {
     expect(
-      wrapper.find(DataTable).html()
-    ).to.contain('<div id="tblUsers">');
+      wrapper.find(DataTable)
+        .html(),
+    ).to
+      .contain('<div id="tblUsers">');
   });
 
-  it('should render add user form', () => {
-    expect(wrapper).to.contain(ReduxForm);
+  it("should render add user form", () => {
+    expect(wrapper).to
+      .contain(ReduxForm);
   });
 });

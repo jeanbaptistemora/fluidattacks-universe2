@@ -1,25 +1,27 @@
-import { shallow, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { expect } from "chai";
-import { projectCommentsView as CommentsView } from "./index";
-import "mocha";
+import { configure, shallow, ShallowWrapper } from "enzyme";
+import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { describe, it } from "mocha";
 import React from "react";
+import { projectCommentsView as CommentsView } from "./index";
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
-describe('Project comments view', () => {
+describe("Project comments view", () => {
 
-  it('should return a function', () => {
-    expect(typeof(CommentsView)).to.equal('function');
+  it("should return a function", () => {
+    expect(typeof (CommentsView)).to
+      .equal("function");
   });
 
-  it('should render', () => {
-    const wrapper = shallow(
+  it("should render", () => {
+    const wrapper: ShallowWrapper = shallow(
       <CommentsView
         projectName="unittesting"
-      />
+      />,
     );
 
-    expect(wrapper.find('[id="project-comments"]')).to.have.lengthOf(1);
+    expect(wrapper.find('[id="project-comments"]')).to.have
+      .lengthOf(1);
   });
 });
