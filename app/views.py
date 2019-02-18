@@ -1031,8 +1031,8 @@ Attempted to delete findings without permission')
             rollbar.report_message('Error: An error ocurred deleting finding',
                                    'error', request)
             return util.response([], 'Error', True)
-        mail_to = ["projects@fluidattacks.com", "production@fluidattacks.com",
-                   "jarmas@fluidattacks.com", "smunoz@fluidattacks.com"]
+        mail_to = ['projects@fluidattacks.com', 'production@fluidattacks.com',
+                   'jarmas@fluidattacks.com', 'jrestrepo@fluidattacks.com']
         email_send_thread = \
             threading.Thread(name="Delete finding email thread",
                              target=send_mail_delete_finding,
