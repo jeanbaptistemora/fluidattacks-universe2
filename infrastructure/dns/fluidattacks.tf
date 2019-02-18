@@ -1,15 +1,4 @@
 # A Records
-resource "aws_route53_record" "mail" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "mail.${aws_route53_zone.fs_maindomain.name}"
-  type    = "A"
-  alias {
-    name    = "${var.elbDns}"
-    zone_id = "${var.elbZone}"
-    evaluate_target_health = false
-  }
-}
-
 resource "aws_route53_record" "web" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "web.${aws_route53_zone.fs_maindomain.name}"
@@ -22,6 +11,14 @@ resource "aws_route53_record" "web" {
 }
 
 # CNAME records
+resource "aws_route53_record" "mail" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "mail.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["ghs.googlehosted.com"]
+}
+
 resource "aws_route53_record" "6002333" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "6002333.${aws_route53_zone.fs_maindomain.name}"
@@ -208,10 +205,9 @@ resource "aws_route53_record" "mainTXT" {
   name    = "${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 include:spf.mandrillapp.com ?all",
-            "v=spf1 include:servers.mcsv.net ?all",
-            "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
-            "MS=ms97836067"]
+  records = ["v=spf1 include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com -all",
+             "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
+             "MS=ms97836067"]
 }
 
 resource "aws_route53_record" "googleTXT" {
@@ -220,14 +216,6 @@ resource "aws_route53_record" "googleTXT" {
   type    = "TXT"
   ttl     = "300"
   records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoVfDxzz1BbwFFyeQvKe7B4YMSR1HWmjCu4PQzESyAAc9XQDSbtoYQNCHaHisTJNgh4OGEWvgRcpsVljffC5jO3tHcra8xW8ls5O16sClQtfitcKhC1VxNbqYoAnUSNv9FBcsldK96jQgeMrsZUMo6SdldCDO\"\"kX7vOjgLzDw6dOMAENSoU3NsMfRwoDaanCf2gkFb+5mOtDUZCHukM5rpj+ePc3GJAzX8bakMdWD7BlZnPT0fRVcSQGOAM1GVcSDYR465hdBkADJg3KM2TdPTC/XLwEQXgqRZXVWMtSu/Rb/DcHILZNmzKxUk/B4eKjXGQDbs9hshgsqsZGYEbhOvrwIDAQAB"]
-}
-
-resource "aws_route53_record" "mailgunTXT" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "mailgun.${aws_route53_zone.fs_maindomain.name}"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["v=spf1 include:mailgun.org ~all"]
 }
 
 resource "aws_route53_record" "mandrill_domainkey" {
@@ -252,14 +240,6 @@ resource "aws_route53_record" "customerio_ownership" {
   type    = "TXT"
   ttl     = "300"
   records = ["c4ae35cc23959de2ef5f0d9e036c2cc23ec79777"]
-}
-
-resource "aws_route53_record" "customerio_spf" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "${aws_route53_zone.fs_maindomain.name}"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["v=spf1 include:customeriomail.com ~all"]
 }
 
 resource "aws_route53_record" "customerio_dkim" {
