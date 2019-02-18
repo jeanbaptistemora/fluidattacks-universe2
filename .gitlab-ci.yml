@@ -420,6 +420,7 @@ sync_git:
     - python3 analytics/git/clone_us.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_us.log
     - python3 analytics/git/clone_them.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_them.log
     - python3 analytics/git/generate_config.py 2>&1 | aws s3 cp - s3://fluidanalytics/generate_config.log
+    - analytics/git/mirror.py 2>&1 | aws s3 cp - s3://fluidanalytics/mirrors.log
     - analytics/git/sync_forked.sh
     - rm -fr ~/.aws/{credentials, config}
   <<: *only_schedules
