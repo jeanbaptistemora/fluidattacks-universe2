@@ -116,6 +116,14 @@ resource "aws_route53_record" "s2_domainkey" {
   records = ["s2.domainkey.u6002333.wl084.sendgrid.net"]
 }
 
+resource "aws_route53_record" "sourcegraph" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "sourcegraph.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["fluidattacks.com"]
+}
+
 resource "aws_route53_record" "servicios_fluid" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "servicios.${aws_route53_zone.fs_maindomain.name}"

@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sourcegraph
+  namespace: serves
+spec:
+  template:
+    metadata:
+      labels:
+        app: sourcegraph
+    spec:
+      containers:
+      - name: sourcegraph
+        image: sourcegraph/server:3.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7080
+        - containerPort: 2633
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sourcegraph
+  namespace: serves
+spec:
+  ports:
+  - port: 7080
+    targetPort: 7080
+  selector:
+    app: sourcegraph

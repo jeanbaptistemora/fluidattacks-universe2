@@ -216,6 +216,7 @@ kubectl apply -f ingress/certificates.yaml
 kubectl apply -f ingress/main-domains.yaml
 kubectl apply -f ingress/external.yaml
 kubectl apply -f ingress/autonomic.yaml
+kubectl apply -f ingress/sourcegraph.yaml
 issue_secondary_domain_certificates ingress/secondary-domains.yaml \
   secondary-domains-cert secondary-domains 
 
@@ -256,6 +257,7 @@ export FI_VAULT_TOKEN
 deploy_application deployments/exams.yaml
 deploy_application deployments/integrates.yaml
 deploy_application deployments/vpn.yaml
+deploy_application deployments/sourcegraph.yaml
 deploy_application daemonsets/newrelic-infra.yaml
 
 # Wait until the initialization of the Load Balancer is complete
