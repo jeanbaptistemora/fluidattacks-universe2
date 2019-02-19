@@ -62,7 +62,20 @@ def list_groups_in_group(token: str, group_id: str) -> Tuple[int, Any]:
 def create_repository(
         token: str, parent_id: str, name: str) -> Tuple[int, Any]:
     """Create a repository into a parent."""
-    resource = f"{API_URL}/projects?name={name}&namespace_id={parent_id}"
+    resource = (
+        f"{API_URL}/projects"
+        f"?name={name}"
+        f"&namespace_id={parent_id}"
+
+        # disable non-git-native things
+        f"&lfs_enabled=false"
+        f"&jobs_enabled=false"
+        f"&wiki_enabled=false"
+        f"&issues_enabled=false"
+        f"&snippets_enabled=false"
+        f"&merge_requests_enabled=false"
+        f"&shared_runners_enabled=false"
+        f"&container_registry_enabled=false")
     status, response = get_request(token, "POST", resource)
     return status, json.loads(response)["id"] if status == 200 else None
 
