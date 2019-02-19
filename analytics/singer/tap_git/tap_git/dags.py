@@ -39,9 +39,6 @@ def get_commits(path: str) -> OrderedDict:
     # parse the git rev-list into commits
     get_commits__parse_git_rev_list(commits, git_rev_list)
 
-    # stamp the inverse DAG
-    get_commits__stamp_inverse_dag(commits)
-
     # stamp the integration date
     get_commits__stamp_integration_date(commits)
 
@@ -58,10 +55,10 @@ def get_commits__parse_git_rev_list(
     iter_git_rev_list: Iterator[str] = iter(git_rev_list.splitlines())
 
     # regexp to match the lines of git_rev_list
-    rev_list_info = re.compile(
-        r"[\|\\/_ ]*!([0-9a-fA-F]{40})!!(.*)!!(.*)!!((?:[0-9a-fA-F]{40} ?)*)!")
     rev_list_node = re.compile(
-        r"([\|\\/_ \*]*) commit ([0-9a-fA-F]{40})")
+        r"(.*) commit ([0-9a-fA-F]{40})")
+    rev_list_info = re.compile(
+        r".* !([0-9a-fA-F]{40})!!(.*)!!(.*)!!((?:[0-9a-fA-F]{40} ?)*)!")
 
     # get base information by parsing git rev-list
     try:
@@ -87,27 +84,19 @@ def get_commits__parse_git_rev_list(
                 "is_merge": parents_count >= 2,
                 "parents": parents_list,
                 "nparents": parents_count,
-                "childs": [],
-                "nchilds": 0,
                 "authored_at": authored,
                 "committed_at": committed,
+
+                # used when stamping the integration date
+                "visit__stamp_integration_date": True,
             }
     except StopIteration:
         pass
 
 
-def get_commits__stamp_inverse_dag(commits: OrderedDict) -> None:
-    """Stamp the adjacency list for the inverse DAG."""
-    for commit_sha in commits.keys():
-        for parent_sha in commits[commit_sha]["parents"]:
-            commits[parent_sha]["childs"].append(commit_sha)
-            commits[parent_sha]["nchilds"] += 1
-    for commit_sha in commits.keys():
-        commits[commit_sha]["is_fork"] = commits[commit_sha]["nchilds"] >= 2
-
-
 def get_commits__stamp_integration_date(commits: OrderedDict) -> None:
     """Stamp the integration date into the commits datastructure."""
+    follow: List[SHA] = []
     for commit_sha in commits.keys():
         if commits[commit_sha]["is_master"]:
             commits[commit_sha]["integration_authored_at"] = \
@@ -116,23 +105,25 @@ def get_commits__stamp_integration_date(commits: OrderedDict) -> None:
                 commits[commit_sha]["committed_at"]
             if commits[commit_sha]["is_merge"]:
                 get_commits__stamp_integration_date__replace_until_master(
-                    commits, commit_sha)
+                    commits, commit_sha, follow)
+                while follow:
+                    parent_sha = follow.pop(0)
+                    get_commits__stamp_integration_date__replace_until_master(
+                        commits, parent_sha, follow)
 
 
 def get_commits__stamp_integration_date__replace_until_master(
-        commits: OrderedDict, replace_sha: SHA) -> None:
+        commits: OrderedDict, replace_sha: SHA, follow: List[SHA]) -> None:
     """Recursively replace commits traversing DAG but stoping in master."""
-    follow: List[SHA] = []
     for parent_sha in commits[replace_sha]["parents"]:
         if not commits[parent_sha]["is_master"]:
             commits[parent_sha]["integration_authored_at"] = \
                 commits[replace_sha]["integration_authored_at"]
             commits[parent_sha]["integration_committed_at"] = \
                 commits[replace_sha]["integration_committed_at"]
-            follow.append(parent_sha)
-    for parent_sha in follow:
-        get_commits__stamp_integration_date__replace_until_master(
-            commits, parent_sha)
+            if commits[parent_sha]["visit__stamp_integration_date"]:
+                commits[parent_sha]["visit__stamp_integration_date"] = False
+                follow.append(parent_sha)
 
 
 def get_commits__stamp_time_to_master(commits: OrderedDict) -> None:

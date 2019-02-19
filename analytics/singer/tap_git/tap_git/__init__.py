@@ -472,18 +472,21 @@ def main():
             try:
                 scan_gitinspector(conf["location"])
             except Exception as excp:
-                print_stderr(f"WARN: Exception at {repository}.", repr(excp))
+                print_stderr(
+                    f"EXCP: scan_gitinspector {repository}.", repr(excp))
 
         if args.with_metrics:
             try:
                 metrics.scan_metrics(conf["repository"], conf["location"])
             except Exception as excp:
-                print_stderr(f"WARN: Exception at {repository}.", repr(excp))
+                print_stderr(
+                    f"WARN: metrics.scan_metrics {repository}.", repr(excp))
 
         try:
             scan_commits(conf, args.sync_changes, after)
         except Exception as excp:
-            print_stderr(f"WARN: Exception at {repository}.", repr(excp))
+            print_stderr(
+                f"WARN: scan_commits {repository}.", repr(excp))
 
 
 if __name__ == "__main__":
