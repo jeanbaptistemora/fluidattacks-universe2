@@ -14,6 +14,7 @@ import git
 
 from . import dags
 from . import metrics
+from . import os_tools
 
 # Type aliases that improve clarity
 JSON = Any
@@ -81,14 +82,14 @@ def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
     The quality of this function is upto the .mailmap.
     """
     # requires git > 2.19.1
-    authorn: str = os.popen(
-        f"git -C '{path}' -P show -s --format='%aN' {sha1}").read()[0:-1]
-    authore: str = os.popen(
-        f"git -C '{path}' -P show -s --format='%aE' {sha1}").read()[0:-1]
-    commitn: str = os.popen(
-        f"git -C '{path}' -P show -s --format='%cN' {sha1}").read()[0:-1]
-    commite: str = os.popen(
-        f"git -C '{path}' -P show -s --format='%cE' {sha1}").read()[0:-1]
+    authorn: str = os_tools.get_stdout_stderr(
+        ["git", "-C", path, "-P", "show", "-s", "--format=%aN", sha1])[0][0:-1]
+    authore: str = os_tools.get_stdout_stderr(
+        ["git", "-C", path, "-P", "show", "-s", "--format=%aE", sha1])[0][0:-1]
+    commitn: str = os_tools.get_stdout_stderr(
+        ["git", "-C", path, "-P", "show", "-s", "--format=%cN", sha1])[0][0:-1]
+    commite: str = os_tools.get_stdout_stderr(
+        ["git", "-C", path, "-P", "show", "-s", "--format=%cE", sha1])[0][0:-1]
     return authorn, authore, commitn, commite
 
 

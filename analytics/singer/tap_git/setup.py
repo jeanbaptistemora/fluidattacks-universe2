@@ -25,7 +25,7 @@ setuptools.setup(
     python_requires=">3.6",
 
     license="GPL",
-    keywords="Infrastructure",
+    keywords="git",
     author_email="kamado@fluidattacks.com",
     classifiers=[
         "Topic :: Database",

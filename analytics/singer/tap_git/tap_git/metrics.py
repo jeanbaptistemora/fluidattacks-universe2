@@ -6,25 +6,12 @@ import sys
 import time
 import json
 import asyncio
-import subprocess
 import statistics
 
-from typing import Tuple, List, Dict, Any
+from typing import List, Dict, Any
 
-
-def get_output(command: List[str]) -> Tuple[str, str]:
-    """Return the stdout and stderr of a command."""
-    process = subprocess.Popen(
-        command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT)
-
-    raw_stdout, raw_stderr = process.communicate()
-    stdout = "" if raw_stdout is None else raw_stdout.decode(
-        "utf-8", "backslashreplace")
-    stderr = "" if raw_stderr is None else raw_stderr.decode(
-        "utf-8", "backslashreplace")
-    return stdout, stderr
+# pylint: disable=relative-beyond-top-level
+from . import os_tools
 
 
 def scan_metrics(repository: str, path: str) -> None:
@@ -45,7 +32,7 @@ def scan_metrics(repository: str, path: str) -> None:
         "    <(git ls-tree --name-only -r HEAD)")
 
     # list of paths to non-bynary files in HEAD
-    file_paths: List[str] = get_output(
+    file_paths: List[str] = os_tools.get_stdout_stderr(
         ["bash", "-c", git_trick])[0].splitlines()
 
     # Dict[file_path, List[blame_entry]]
@@ -57,7 +44,7 @@ def scan_metrics(repository: str, path: str) -> None:
 
 
 def get_blames(file_paths: List[str]) -> Dict[str, List[Dict[str, Any]]]:
-    """."""
+    """Get blames asynchronously."""
     schunk = len(file_paths) // 4
     file_paths_1 = file_paths[0: 1 * schunk]
     file_paths_2 = file_paths[1 * schunk: 2 * schunk]
@@ -94,7 +81,7 @@ async def get_async_blames(
             f'  | grep -E'
             f'    "^([0-9a-f]{40}|author|author-mail|author-time|filename) "')
 
-        raw_blame = get_output(
+        raw_blame = os_tools.get_stdout_stderr(
             ["bash", "-c", git_trick])[0]
 
         blame_entry: Dict[str, Any] = {}
