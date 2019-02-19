@@ -1162,24 +1162,6 @@ def weekly_report_dynamo(
         return False
 
 
-def get_continuous_info():
-    """ Gets info of all continuous projects. """
-    table = DYNAMODB_RESOURCE.Table('FI_toe')
-    filter_key = 'last_update'
-    filtering_exp = Key(filter_key).eq(str(datetime.now().date()))
-    response = table.scan(FilterExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.scan(
-                FilterExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
 def get_project_access_dynamo(user_email, project_name):
     """Get user access of a project."""
     user_email = user_email.lower()

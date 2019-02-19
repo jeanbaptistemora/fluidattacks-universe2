@@ -15,8 +15,8 @@ from .dto import eventuality
 from .dto.finding import finding_vulnerabilities
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
     send_mail_age_finding, send_mail_age_kb_finding, \
-    send_mail_new_releases, send_mail_continuous_report, \
-    send_mail_unsolved_events, send_mail_project_deletion
+    send_mail_new_releases, send_mail_unsolved_events, \
+    send_mail_project_deletion
 
 
 logging.config.dictConfig(settings.LOGGING)
@@ -436,31 +436,6 @@ def get_new_releases():
         send_mail_new_releases(mail_to, context)
     else:
         LOGGER.info('There are no new drafts')
-
-
-def continuous_report():
-    mail_to = ['jrestrepo@fluidattacks.com', 'oparada@fluidattacks.com',
-               'projects@fluidattacks.com', 'relations@fluidattacks.com']
-    headers = ['#', 'Project', 'Lines', 'Inputs',
-               'Fixed vulns', 'Max severity', 'Open Events']
-    context = {'projects': list(), 'headers': headers,
-               'date_now': str(datetime.now().date())}
-    index = 0
-    for info in integrates_dao.get_continuous_info():
-        index += 1
-        project_url = BASE_URL + '/dashboard#!/project/' + \
-            info['project'].lower() + '/indicators'
-        indicators = views.calculate_indicators(info['project'])
-        context['projects'].append({'project_url': str(project_url),
-                                    'index': index,
-                                    'project_name': str(info['project']),
-                                    'lines': str(info['lines']),
-                                    'fields': str(info['fields']),
-                                    'fixed_vuln': (str(indicators[2]) + '%'),
-                                    'cssv': indicators[1],
-                                    'events': indicators[0]
-                                    })
-    send_mail_continuous_report(mail_to, context)
 
 
 def send_unsolved_to_all():

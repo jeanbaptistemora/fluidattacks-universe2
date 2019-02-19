@@ -98,10 +98,6 @@ def send_mail_access_granted(email_to, context):
     _send_mail('accessgrantedintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_continuous_report(email_to, context):
-    _send_mail('continuousreport', email_to, context=context, tags=GENERAL_TAG)
-
-
 def send_mail_new_version(email_to, context):
     _send_mail('integratesnewversion', email_to, context=context, tags=GENERAL_TAG)
 

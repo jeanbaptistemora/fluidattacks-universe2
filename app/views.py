@@ -36,7 +36,7 @@ from .decorators import (
 from .techdoc.IT import ITReport
 from .domain import finding as finding_domain
 from .dto.finding import (
-    FindingDTO, format_finding_date, finding_vulnerabilities, parse_finding,
+    FindingDTO, format_finding_date, parse_finding,
     migrate_description, migrate_treatment, migrate_report_date,
     parse_dashboard_finding_dynamo
 )
@@ -45,7 +45,6 @@ from .domain.vulnerability import (
 )
 from .dto import closing
 from .dto import project as project_dto
-from .dto import eventuality
 from .dto.finding import mask_finding_fields_dynamo
 from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
@@ -1195,29 +1194,6 @@ def delete_comment(comment):
     else:
         response = True
     return response
-
-
-def calculate_indicators(project):
-    api = FormstackAPI()
-    event = eventuality.EventDTO()
-    open_vulns = card_total = max_severity = open_events = 0
-    for row in api.get_eventualities(project)["submissions"]:
-        evtset = event.parse(row["id"], api.get_submission(row["id"]))
-        if evtset['eventStatus'] == 'UNSOLVED':
-            open_events += 1
-    findings = integrates_dao.get_findings_dynamo(project, 'finding_id')
-    for finding in findings:
-        act_finding = finding_vulnerabilities(str(finding['finding_id']))
-        open_vulns += int(act_finding['openVulnerabilities'])
-        card_total += int(act_finding['cardinalidad_total'])
-        if max_severity < act_finding['criticity']:
-            max_severity = act_finding['criticity']
-    try:
-        fixed_vuln = int(round((1.0 - (float(open_vulns) /
-                                       float(card_total))) * 100.0))
-    except ZeroDivisionError:
-        fixed_vuln = 0
-    return [open_events, max_severity, fixed_vuln]
 
 
 @never_cache
