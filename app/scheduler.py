@@ -180,8 +180,7 @@ def format_vulnerabilities(delta, act_finding):
 def finding_has_treatment(act_finding, finding_url):
     """Validate if a finding has treatment."""
     if ('releaseDate' in act_finding) and \
-            (act_finding['estado'] != 'Cerrado') and \
-            (act_finding['edad'] != '-'):
+            (act_finding['estado'] != 'Cerrado'):
         if 'treatment' in act_finding and \
                 act_finding['treatment'] == 'NEW':
             finding_name = act_finding['finding'] + ' -' + \
@@ -264,10 +263,7 @@ def get_age_notifications():
                                                                   'finding_id')
             for finding in finding_requests:
                 finding_parsed = finding_vulnerabilities(finding['finding_id'])
-                if finding_parsed['edad'] != '-':
-                    age = int(finding_parsed['edad'])
-                else:
-                    age = 0
+                age = int(finding_parsed['edad'])
                 format_age_email(finding_parsed, project, mail_to, age)
         except (TypeError, KeyError):
             rollbar.report_message(
@@ -288,11 +284,8 @@ def get_age_weekends_notifications():
                                                                   'finding_id')
             for finding in finding_requests:
                 finding_parsed = finding_vulnerabilities(finding['finding_id'])
-                if finding_parsed['edad'] != '-':
-                    unformatted_age = int(finding_parsed['edad'])
-                    age = format_age_weekend(unformatted_age)
-                else:
-                    age = 0
+                unformatted_age = int(finding_parsed['edad'])
+                age = format_age_weekend(unformatted_age)
                 format_age_email(finding_parsed, project, mail_to, age)
         except (TypeError, KeyError):
             rollbar.report_message(

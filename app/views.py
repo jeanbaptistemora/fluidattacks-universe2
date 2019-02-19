@@ -666,8 +666,6 @@ vulnerabilities in old format'\
     finding = format_release_date(finding)
     if finding['estado'] == 'Cerrado':
         finding['where'] = '-'
-        finding['edad'] = '-'
-        finding['lastVulnerability'] = '-'
         finding['treatmentManager'] = '-'
         finding['treatmentJustification'] = '-'
         finding['treatment'] = '-'

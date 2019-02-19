@@ -589,8 +589,6 @@ def finding_vulnerabilities(submission_id):
             finding['estado'] = 'Abierto'
         if finding.get('estado') == 'Cerrado':
             finding['where'] = '-'
-            finding['edad'] = '-'
-            finding['lastVulnerability'] = '-'
             finding['treatmentManager'] = '-'
             finding['treatmentJustification'] = '-'
             finding['treatment'] = '-'
