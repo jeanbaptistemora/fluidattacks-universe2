@@ -42,7 +42,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
         libreadline6-dev libssl-dev libtiff5-dev \
         libwebp-dev libxml2 libxml2-dev \
         libxslt1-dev libyaml-dev nodejs npm \
-        python-dev python-numpy \
+        python-dev python-idna python-numpy \
         python-pip python-scipy \
         python-setuptools python-tk \
         python-matplotlib redis ruby ruby-dev\
@@ -58,7 +58,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get -y purge \
         build-essential libffi-dev libfreetype6-dev \
         libgdbm-dev liblcms2-dev libncurses5-dev \
-        libreadline6-dev libssl-dev libtiff5-dev \
+        libreadline6-dev libtiff5-dev \
         libwebp-dev libxml2-dev libxslt1-dev \
         libyaml-dev ruby-dev tcl8.6-dev zlib1g-dev \
      && apt-get -y autoremove \

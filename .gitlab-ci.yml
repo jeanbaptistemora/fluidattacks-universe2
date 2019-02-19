@@ -94,14 +94,13 @@ Build:
     - terraform init
     - vaultenv $(which terraform) plan
   except:
-    - triggers
     - master
 
 gulp-compiler:
  stage: pre-test
  before_script:
    - echo "Start gulp compiler"
- image: fluid-docker.jfrog.io/integrates:deps190201
+ image: fluid-docker.jfrog.io/integrates:deps
  script:
    - cd app/assets && npm install --unsafe-perm
    - cd ../../front
@@ -112,7 +111,6 @@ gulp-compiler:
  retry: 2
  except:
    - master
-   - triggers
 
 commitlint:
   stage: pre-test
@@ -126,12 +124,7 @@ commitlint:
 
 react-testing:
   stage: pre-test
-  only:
-    - /^.*$/
-    - merge_requests
-  image: fluid-docker.jfrog.io/integrates:deps190201
-  before_script:
-    - echo "Start Unit Testing"
+  image: fluid-docker.jfrog.io/integrates:deps
   <<: *variables-dev
   <<: *vault_login
   script:
@@ -146,12 +139,15 @@ react-testing:
     expire_in: 1 week
   after_script:
     - echo "Job finished"
+  only:
+    - /^.*$/
+    - merge_requests
 
 js-linter:
   stage: pre-test
   before_script:
     - echo "JS Linting"
-  image: fluid-docker.jfrog.io/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps
   script:
     - eslint app/assets/app/.
   after_script:
@@ -159,33 +155,28 @@ js-linter:
   retry: 2
   except:
     - master
-    - triggers
 
 prospector-testing:
   stage: pre-test
-  image: fluid-docker.jfrog.io/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps
   <<: *variables-dev
   <<: *vault_login
   script:
-    - vaultenv -- $(which prospector) -F -s veryhigh -u django -p app/ -i node_modules || true
-    - vaultenv -- $(which prospector) -F -s high -u django -p app/ -i node_modules
-    - vaultenv -- $(which prospector) -F -s veryhigh -u django fluidintegrates/
+    - vaultenv -- prospector -F -s veryhigh -u django -p app/ -i node_modules || true
+    - vaultenv -- prospector -F -s high -u django -p app/ -i node_modules
+    - vaultenv -- prospector -F -s veryhigh -u django fluidintegrates/
   except:
     - master
-    - triggers
 
 unit-testing:
   stage: pre-test
-  only:
-    - /^.*$/
-    - merge_requests
-  image: fluid-docker.jfrog.io/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps
   <<: *variables-dev
   <<: *vault_login
   script:
     - cp -a $PWD /usr/src/app_src
     - cd /usr/src/app_src
-    - vaultenv -- $(which pytest) --ds=fluidintegrates.settings --verbose --exitfirst
+    - vaultenv -- pytest --ds=fluidintegrates.settings --verbose --exitfirst
       --cov=fluidintegrates --cov=app --cov-report term
       --cov-report html:build/coverage/html
       --cov-report xml:build/coverage/results.xml
@@ -193,28 +184,27 @@ unit-testing:
       --basetemp=build/test
       --junitxml=build/test/results.xml
       app/tests.py
-    - cp -a build/coverage/results.xml /builds/fluidattacks/integrates/coverage.xml
+    - cp -a build/coverage/results.xml "${CI_PROJECT_DIR}/coverage.xml"
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
       - coverage.xml
     expire_in: 1 week
+  only:
+    - /^.*$/
+    - merge_requests
 
 asserts-code-test:
   stage: pre-test
+  image: fluidattacks/asserts
   before_script:
-    - CODE_PATH=/tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - mkdir -p ${CODE_PATH}
-    - cp -a ${CI_PROJECT_DIR} ${CODE_PATH}/src
-    - pip install pre-commit
-    - sed -i 's#CODE_PATH#'"${CODE_PATH}"'#' .pre-commit-config.yaml
+    - echo 'Starting check...'
   script:
-    - pre-commit run --all-files
+    - asserts exploit-code.py
   after_script:
     - echo 'Code check complete!'
   except:
     - master
-    - triggers
 
 .terraform-deploy:
   stage: build
