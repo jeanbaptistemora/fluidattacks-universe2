@@ -6,7 +6,6 @@ API_KEY = FI_MANDRILL_API_KEY
 VERIFY_TAG = ['verify']
 COMMENTS_TAG = ['comments']
 VULNERABILITIES_TAG = ['vulnerabilities']
-AGE_TAG = ['age']
 GENERAL_TAG = ['general']
 TEST_PROJECTS = ['unittesting']
 
@@ -68,14 +67,6 @@ def send_mail_verified_finding(email_to, context):
 
 def send_mail_new_remediated(email_to, context):
     _send_mail('newremediatefindingintegrates', email_to, context=context, tags=GENERAL_TAG)
-
-
-def send_mail_age_finding(email_to, context):
-    _send_mail('agefindingintegrates', email_to, context=context, tags=AGE_TAG)
-
-
-def send_mail_age_kb_finding(email_to, context):
-    _send_mail('agekbfindingintegrates', email_to, context=context, tags=AGE_TAG)
 
 
 def send_mail_delete_draft(email_to, context):

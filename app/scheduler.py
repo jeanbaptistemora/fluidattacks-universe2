@@ -14,7 +14,6 @@ from .dto import remission
 from .dto import eventuality
 from .dto.finding import finding_vulnerabilities
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
-    send_mail_age_finding, send_mail_age_kb_finding, \
     send_mail_new_releases, send_mail_unsolved_events, \
     send_mail_project_deletion
 
@@ -248,113 +247,6 @@ def get_remediated_findings():
                 'warning')
     else:
         LOGGER.info('There are no findings to verificate')
-
-
-def get_age_notifications():
-    """Send mail with findings that match age criteria."""
-    projects = integrates_dao.get_registered_projects()
-    for project in projects:
-        try:
-            recipients = integrates_dao.get_project_users(project)
-            mail_to = [x[0] for x in recipients if x[1] == 1]
-            mail_to.append('continuous@fluidattacks.com')
-            project = str.lower(str(project[0]))
-            finding_requests = integrates_dao.get_findings_dynamo(project,
-                                                                  'finding_id')
-            for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding['finding_id'])
-                age = int(finding_parsed['edad'])
-                format_age_email(finding_parsed, project, mail_to, age)
-        except (TypeError, KeyError):
-            rollbar.report_message(
-                'Warning: An error ocurred getting data for age email',
-                'warning')
-
-
-def get_age_weekends_notifications():
-    """Send mail on weekends with findings that match age criteria."""
-    projects = integrates_dao.get_registered_projects()
-    for project in projects:
-        try:
-            recipients = integrates_dao.get_project_users(project)
-            mail_to = [x[0] for x in recipients if x[1] == 1]
-            mail_to.append('continuous@fluidattacks.com')
-            project = str.lower(str(project[0]))
-            finding_requests = integrates_dao.get_findings_dynamo(project,
-                                                                  'finding_id')
-            for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding['finding_id'])
-                unformatted_age = int(finding_parsed['edad'])
-                age = format_age_weekend(unformatted_age)
-                format_age_email(finding_parsed, project, mail_to, age)
-        except (TypeError, KeyError):
-            rollbar.report_message(
-                'Error: An error ocurred getting data for age weekends email',
-                'error')
-
-
-def format_age_email(finding_parsed, project, mail_to, age):
-    """Format data to send age email."""
-    ages = [15, 30, 60, 90, 120, 180, 240]
-    message = ''
-    project_fin = str.lower(str(finding_parsed['projectName']))
-    if 'subscription' in finding_parsed and \
-            'releaseDate' in finding_parsed and \
-            project_fin == project and \
-            finding_parsed['subscription'] == 'CONTINUOUS' and \
-            age in ages:
-        context = {
-            'project': str.upper(str(project)),
-            'finding': finding_parsed['id'],
-            'finding_name': finding_parsed['finding'],
-            'finding_url':
-            '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description'
-                .format(url=BASE_URL,
-                        project=project,
-                        finding=finding_parsed['id']),
-            'finding_comment':
-            '{url!s}/dashboard#!/project/{project!s}/{finding!s}/comments'
-                .format(url=BASE_URL,
-                        project=project,
-                        finding=finding_parsed['id']),
-            'project_url':
-            '{url!s}/dashboard#!/project/{project!s}/indicators'
-                .format(url=BASE_URL, project=project)
-        }
-        if 'kb' in finding_parsed and \
-                BASE_WEB_URL + '/es/defends' in \
-                finding_parsed['kb']:
-            context['kb'] = finding_parsed['kb']
-        else:
-            message = 'Finding {finding!s} of project ' \
-                '{project!s} does not have kb link' \
-                .format(finding=finding_parsed['id'], project=project)
-            LOGGER.info(message)
-        send_mail_age(age, mail_to, context)
-    else:
-        message = 'Finding {finding!s} of project {project!s} '\
-            'does not match age mail criteria' \
-            .format(finding=finding_parsed['id'], project=project)
-        LOGGER.info(message)
-
-
-def format_age_weekend(age):
-    ages = [15, 30, 60, 90, 120, 180, 240]
-    if age + 1 in ages:
-        formatted_age = age + 1
-    elif age + 2 in ages:
-        formatted_age = age + 2
-    else:
-        formatted_age = age
-    return formatted_age
-
-
-def send_mail_age(age, mail_to, context):
-    context['age'] = age
-    if 'kb' in context:
-        send_mail_age_kb_finding(mail_to, context)
-    else:
-        send_mail_age_finding(mail_to, context)
 
 
 def weekly_report():
