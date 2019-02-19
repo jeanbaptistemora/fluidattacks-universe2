@@ -74,10 +74,6 @@ def send_mail_new_remediated(email_to, context):
     _send_mail('newremediatefindingintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_add_access(email_to, context):
-    _send_mail('addaccessintegrates', email_to, context=context, tags=GENERAL_TAG)
-
-
 def send_mail_age_finding(email_to, context):
     _send_mail('agefindingintegrates', email_to, context=context, tags=AGE_TAG)
 
