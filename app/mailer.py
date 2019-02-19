@@ -32,10 +32,6 @@ def send_mail_new_vulnerabilities(email_to, context):
     _send_mail('newvulnerabilitiesintegrates', email_to, context=context, tags=VULNERABILITIES_TAG)
 
 
-def send_mail_change_finding(email_to, context):
-    _send_mail('changefindingintegrates', email_to, context=context, tags=GENERAL_TAG)
-
-
 def send_mail_new_user(email_to, context):
     _send_mail('userfindingintegrates', email_to, context=context, tags=GENERAL_TAG)
 
