@@ -9,7 +9,7 @@
 == Requisito
 
 El sistema no debe permitir a un actor del sistema,
-aumentar los privilegios para él mismo.
+modificar los privilegios para él mismo.
 
 == Descripción
 
