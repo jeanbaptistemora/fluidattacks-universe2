@@ -183,12 +183,14 @@ helm init --client-only
 helm repo add gitlab https://charts.gitlab.io
 helm repo add banzaicloud http://kubernetes-charts.banzaicloud.com/branch/master
 helm repo update
+git clone https://github.com/instana/instana-helm-chart.git instana
 
 install_helm_chart stable/nginx-ingress controller serves nginx.yaml
 install_helm_chart gitlab/gitlab-runner serves-runner serves runner.yaml
 install_helm_chart stable/cert-manager cert-manager operations cert-manager.yaml
 install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml
-install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml 
+install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml
+install_helm_chart instana instana-agent serves instana.yaml
 
 if find_resource pods '^vault-[0-9].*3/3' -q; then
   echo-blue "Vault already deployed and initialized."

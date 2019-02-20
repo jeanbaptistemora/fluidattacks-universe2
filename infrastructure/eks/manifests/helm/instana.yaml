@@ -1,0 +1,25 @@
+image:
+  name: instana/agent
+  tag: latest
+  pullPolicy: Always
+
+rbac:
+  create: true
+
+instana:
+  zone: FluidServes
+  leaderElectorPort: 42655
+  agent:
+    key: $INSTANA_AGENT_KEY_B64
+    name: instana-agent
+    endpoint:
+      host: saas-us-west-2.instana.io
+      port: 443
+
+computeResources:
+  requests:
+    memory: 512
+    cpu: 0.5
+  limits:
+    memory: 512
+    cpu: 1.5
