@@ -3,9 +3,12 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 /* Webpack common module definition */
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    main: "./src/index.js",
+    finding: "./src/scenes/Dashboard/containers/FindingContent/index.js"
+  },
   output: {
-    filename: 'bundle.min.js'
+    filename: '[name]-bundle.min.js'
   },
   module: {
     rules: [{
@@ -52,7 +55,7 @@ module.exports = {
     }]
   },
   plugins: [
-    new ExtractTextPlugin("integrates.min.css")
+    new ExtractTextPlugin("[name]-style.min.css")
   ],
   stats: {
     children: false,
