@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """Singer tap for a git repository."""
 
 import os

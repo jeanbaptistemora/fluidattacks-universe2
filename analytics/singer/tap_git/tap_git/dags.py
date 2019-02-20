@@ -97,7 +97,7 @@ def get_commits__parse_git_rev_list(
 def get_commits__stamp_integration_date(commits: OrderedDict) -> None:
     """Stamp the integration date into the commits datastructure."""
     follow: List[SHA] = []
-    for commit_sha in commits.keys():
+    for commit_sha in reversed(commits):
         if commits[commit_sha]["is_master"]:
             commits[commit_sha]["integration_authored_at"] = \
                 commits[commit_sha]["authored_at"]
@@ -117,12 +117,13 @@ def get_commits__stamp_integration_date__replace_until_master(
     """Recursively replace commits traversing DAG but stoping in master."""
     for parent_sha in commits[replace_sha]["parents"]:
         if not commits[parent_sha]["is_master"]:
-            commits[parent_sha]["integration_authored_at"] = \
-                commits[replace_sha]["integration_authored_at"]
-            commits[parent_sha]["integration_committed_at"] = \
-                commits[replace_sha]["integration_committed_at"]
             if commits[parent_sha]["visit__stamp_integration_date"]:
-                commits[parent_sha]["visit__stamp_integration_date"] = False
+                commits[parent_sha]["visit__stamp_integration_date"] = \
+                    False
+                commits[parent_sha]["integration_authored_at"] = \
+                    commits[replace_sha]["integration_authored_at"]
+                commits[parent_sha]["integration_committed_at"] = \
+                    commits[replace_sha]["integration_committed_at"]
                 follow.append(parent_sha)
 
 
