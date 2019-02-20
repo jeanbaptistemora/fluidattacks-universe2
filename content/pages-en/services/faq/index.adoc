@@ -548,25 +548,26 @@ According to the active authors model,
  There it will specify where each can be found.
 
 *Is it possible to change the environment*::
-*when the subscription is already active??*::
+*when the subscription is already active?*::
 Yes, it is possible with the condition that the new environment
 must be the same branch environment where the source code is reviewed,
 thus +Fluid Attacks+ can test statically and dynamically the same version
 of the change.
 
 *How will you ensure the availability of my systems and services*::
-*while the test is taking place*::
+*while the test is taking place?*::
  It is possible to cause an accidental +DoS+ during the hacking service.
- We recommend to include only the +staging+ phase in the scope,
- however, many customers decide to include +production+ stage in the tests.
- It is unusual for us to take down environments,
+ We recommend including only the staging phase in the scope.
+ However, many customers decide to also include
+ the production stage in the tests.
+ It is unusual for us to take down environments
  because when we foresee a possible breakpoint,
- we ask the customer for an special environment for such test.
+ we ask the customer for a special environment for such a test.
 
 *What happens if I want to review different environments*::
-*of the same application*::
- The service includes the environment of the reviewed code (<<q52, see question 52>>),
- it is possible to include different environments for an additional fee.
+*of the same application?*::
+ The service includes the environment of the reviewed code (<<q52, see question 52>>).
+ It is possible to include different environments for an additional fee.
 
 *If I ask a question in the comment system,*::
 *how long does it take to get an answer?*::
