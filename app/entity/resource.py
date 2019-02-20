@@ -4,16 +4,18 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 from __future__ import absolute_import
+from datetime import datetime
 import threading
-
 import rollbar
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 
-from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
+from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_CLOUDFRONT_RESOURCES_DOMAIN
 from ..decorators import require_login, require_role, require_project_access_gql
 from .. import util
 from ..dao import integrates_dao
 from ..mailer import send_mail_repositories
+from ..domain import resources
+
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
 
@@ -23,10 +25,12 @@ class Resource(ObjectType):
     """ GraphQL Entity for Project Resources """
     repositories = JSONString()
     environments = JSONString()
+    files = JSONString()
 
     def __init__(self, project_name):
         self.repositories = []
         self.environments = []
+        self.files = []
         project_info = integrates_dao.get_project_dynamo(project_name)
         for item in project_info:
             if 'repositories' in item:
@@ -34,6 +38,9 @@ class Resource(ObjectType):
 
             if 'environments' in item:
                 self.environments = item['environments']
+
+            if 'files' in item:
+                self.files = item['files']
 
     def resolve_repositories(self, info):
         """ Resolve repositories of the given project """
@@ -44,6 +51,11 @@ class Resource(ObjectType):
         """ Resolve environments of the given project """
         del info
         return self.environments
+
+    def resolve_files(self, info):
+        """ Resolve files of the given project """
+        del info
+        return self.files
 
 
 class AddRepositories(Mutation):
@@ -313,4 +325,69 @@ Attempted to remove an environment that does not exist')
 
         ret = RemoveEnvironments(success=success, resources=Resource(project_name))
         util.invalidate_cache(project_name)
+        return ret
+
+
+class AddFiles(Mutation):
+    """ Update evidence files """
+    class Arguments(object):
+        files_data = JSONString()
+        project_name = String()
+    resources = Field(Resource)
+    success = Boolean()
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    def mutate(self, info, **parameters):
+        success = False
+        json_data = []
+        files_data = parameters['files_data']
+        project_name = parameters['project_name'].lower()
+        for file_info in files_data:
+            json_data.append({
+                'fileName': file_info.get('fileName'),
+                'description': file_info.get('description'),
+                'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3]
+            })
+        uploaded_file = info.context.FILES.get('document', '')
+        file_id = '{project}/{file_name}'.format(
+            project=project_name,
+            file_name=uploaded_file
+        )
+        success = resources.upload_file_to_s3(uploaded_file, file_id)
+        if success:
+            integrates_dao.add_list_resource_dynamo(
+                'FI_projects',
+                'project_name',
+                project_name,
+                json_data,
+                'files'
+            )
+        else:
+            # The code should do nothing if the upload to S3 fails.
+            pass
+        ret = AddFiles(success=success, resources=Resource(project_name))
+        util.invalidate_cache(project_name)
+        return ret
+
+
+class DownloadFile(Mutation):
+    """ Download requested resource file """
+    class Arguments(object):
+        files_data = JSONString()
+        project_name = String()
+    success = Boolean()
+    url = String()
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    def mutate(self, **parameters):
+        success = False
+        file_info = parameters['files_data']
+        file_url = parameters['project_name'] + "/" + file_info
+        minutes_until_expire = 2
+        signed_url = resources.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
+                                        file_url, minutes_until_expire)
+        success = bool(signed_url)
+        ret = DownloadFile(success=success, url=str(signed_url))
         return ret

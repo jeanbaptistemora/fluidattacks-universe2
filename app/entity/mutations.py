@@ -2,7 +2,8 @@ from graphene import ObjectType
 from .login import AcceptLegal
 from .resource import (
     AddRepositories, RemoveRepositories,
-    AddEnvironments, RemoveEnvironments
+    AddEnvironments, RemoveEnvironments,
+    AddFiles, DownloadFile
 )
 from .user import (
     GrantUserAccess, RemoveUserAccess,
@@ -30,6 +31,8 @@ class Mutations(ObjectType):
     removeRepositories = RemoveRepositories.Field()
     addEnvironments = AddEnvironments.Field()
     removeEnvironments = RemoveEnvironments.Field()
+    addFiles = AddFiles.Field()
+    downloadFile = DownloadFile.Field()
 
     uploadFile = UploadFile.Field()
     deleteVulnerability = DeleteVulnerability.Field()
