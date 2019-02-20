@@ -5,7 +5,7 @@
 :tags: security, bug, libssh, pentesting
 :image: cover.png
 :alt: man standing in front of blue and red lights
-:description: Libssh is a library to implement SSHv2 protocol on client and server side, recently a security analyst discovered a vulnerability that allows a remote attacker to bypass authentication by sending an user authenticated packet to the server. Here we are going to explain this vulnerability
+:description: Libssh is a library to implement SSHv2 protocol on the client and server side. Recently a security analyst discovered a vulnerability that allows a remote attacker to bypass authentication by sending a user-authenticated packet to the server. Here, we are going to explain this vulnerability.
 :keywords: Libssh, Security, CVE, Vulnerability, Pentesting, PoC.
 :author: Jonathan Armas
 :writer: johna
@@ -16,12 +16,12 @@
 
 = LibSSH new Vulnerability
 
-The new vulnerability in +LibSSH+, tracked as
-link:https://www.libssh.org/security/advisories/CVE-2018-10933.txt[CVE-2018-10933],
+The new vulnerability in +LibSSH+,
+tracked as link:https://www.libssh.org/security/advisories/CVE-2018-10933.txt[CVE-2018-10933],
 resides on the server code
 which can enable a client to bypass the authentication process
-and create channels without permissions,
-this affects servers using versions +0.6+ and above
+and create channels without permission.
+This affects servers using versions +0.6+ and above
 being used in server mode.
 
 The bug was discovered by Peter Winter-Smith of NCC Group,
@@ -32,22 +32,22 @@ it's like a +jedi+ trick:
 * User: +I'm authenticated, let me in+
 * Server: OK, YOU'RE IN
 
-Why this happens?
-Because of the way +LibSSH+ checks for authentication,
-when its receives an +SSH2_MSG_USERAUTH_SUCCESS+ message
-instead of the +SSH2_MSG_USERAUTH_REQUEST+ message,
-it acts like the user is already authenticated
-and an attacker could bypass the authentication
+Why does this happen?
+Because of the way +LibSSH+ checks for authentication
+when it receives an +SSH2_MSG_USERAUTH_SUCCESS+ message
+instead of the +SSH2_MSG_USERAUTH_REQUEST+ message.
+It acts like the user is already authenticated,
+so an attacker could bypass the authentication
 and execute commands on the server.
 
 == Building the enviroment
 
-How +LibSSH+ works?
+How does LibSSH work?
 It's a +C+ library to implement +SSHv2+ protocol
-on client and server side,
-so first of all we need to write our server side code,
-we are going to use the sample that +LibSSH+ has (+samplesshd-cb.c+)
-and modify it for our purposes.
+on the client and server side.
+First, we need to write our server-side code.
+We are going to use the sample that +LibSSH+
+has (+samplesshd-cb.c+) and modify it for our purposes.
 
 In the +ssh_channel_callbacks_struct+
 we are going to put the following line
@@ -88,13 +88,13 @@ static int exec_request(ssh_session session, ssh_channel channel,
 ----
 
 If you have +LibSSH+ with version +0.7.4+
-you can simply save it, compile it and execute it,
-if not you can use our method.
-we are going to use a +docker+ container
-and install both versions,
-a vulnerable one and a patched one,
-then pass our code to the server and run it.
-The example files can be downloaded [button]#link:cve201810933.zip[here]#
+you can simply save it, compile it, and execute it.
+If not, you can use our method.
+We are going to use a +docker+ container
+and install both versions
+(a vulnerable one and a patched one) and then,
+pass our code to the server and run it.
+The example files can be downloaded [button]#link:cve201810933.zip[here]#.
 
 To build the container,
 open a +terminal+ in the folder of the +Dockerfile+
@@ -116,32 +116,29 @@ simply run this command:
 host$ docker run -it -p 2222:2222 fluidattackscve201810933:latest /bin/bash
 ----
 
-This is going to mirror our +port 2222+ to the container +port 2222+
-in order to be able to run our tests,
-also it will open a +bash terminal+ on the container machine,
-here we will run our +LibSSH+ server.
+This is going to mirror our port +2222+
+to the container port +2222+ in order to be able to run our tests.
+Also, it will open a +bash+ terminal
+on the container machine where we will run our +LibSSH+ server.
 
 == Exploiting the vulnerability
 
+In this case, we are going to use +LibSSH v0.7.4+
+and test the solution with +LibSSH v0.7.6+.
+The +PoC+ is on +Python+ version +2+,
+and you can check its source link:https://www.openwall.com/lists/oss-security/2018/10/17/5[here],
+but if you downloaded our files,
+it's there as +exploit.py+.
 
-In this case we are going to use +LibSSH v0.7.4+
-and test the solution with +LibSSH v0.7.6+,
-the PoC is on +Python+ version 2
-and you can check its source
-link:https://www.openwall.com/lists/oss-security/2018/10/17/5[here],
-but if you downloaded our files
-its there as +exploit.py+.
-
-In order to run this PoC
-you will need +paramiko+,
-you can install it by running:
+In order to run this +PoC+ you will need +paramiko+.
+You can install it by running:
 
 [source,bash]
 ----
 host$ pip install paramiko
 ----
 
-In the container run the following command
+In the container, run the following command
 to start the vulnerable +LibSSH+ server:
 
 [source,bash]
@@ -151,7 +148,7 @@ container$ ./tmp/libssh-0.7.4/build/examples/samplesshd-cb -k ~/.ssh/id_dsa 0.0.
 
 The verbose flag is to see what is sending and receiving our server.
 
-Then in your machine run the exploit with:
+Then, in your machine run the exploit with:
 
 [source,bash]
 ----
@@ -163,8 +160,8 @@ you can see this:
 
 image::ssh-bypass.png[ssh-bypass]
 
-When the server is expecting the +SSH2_MSG_USERAUTH_REQUEST+
-we are sending an +SSH2_MSG_USERAUTH_SUCCESS+
+When the server is expecting the +SSH2_MSG_USERAUTH_REQUEST+,
+we are sending an +SSH2_MSG_USERAUTH_SUCCESS+.
 
 [source,python]
 ----
@@ -172,9 +169,8 @@ m.add_byte(paramiko.common.cMSG_USERAUTH_SUCCESS)
 transport._send_message(m)
 ----
 
-The server accepts it
-and we bypassed the authentication.
-Then we can send our commands to the server with:
+The server accepts it, and we bypassed the authentication.
+Then, we can send our commands to the server with:
 
 [source,python]
 ----
@@ -187,10 +183,9 @@ image::command-exec.png[command-exec]
 
 image::dont-work.png[dont-work]
 
-The +LibSSH+ version +0.7.6+ don't have this vulnerability
-and we can test it too
-in our container,
-we just need to run:
+The LibSSH version +0.7.6+ doesn't have this vulnerability.
+We can test it, too, in our container.
+We just need to run:
 
 [source,bash]
 ----
@@ -206,29 +201,26 @@ host$ python exploit.py
 
 image::no-vulnerable.png[no-vulnerable]
 
-What is happening?
-We send the +SSH2_MSG_USERAUTH_SUCCESS+
-and the server receives it
-but it won't authenticate us
-because they added a validation on their code,
-when the packet is +SSH2_MSG_USERAUTH_SUCCESS+
-then its checks for the authentication state
-and if it is not one of the valid states
-it denies the packet.
+What's happening?
+We send the +SSH2_MSG_USERAUTH_SUCCESS+.
+The server receives it, but it won’t authenticate us
+because they added a validation on their code.
+When the packet is +SSH2_MSG_USERAUTH_SUCCESS+,
+then, it checks for the authentication state.
+If it is not one of the valid states, it denies the packet.
 
 .Code on src/packet.c
 image::solution.png[solution]
 
-Here you can see the difference of responses
-between a vulnerable version
-and a non vulnerable one.
+Here you can see the difference between responses
+for a vulnerable version and a non-vulnerable one.
 
 .Vulnerable
 image::vulnerable.png[vulnerable]
 
-.No vulnerable
+.Non-vulnerable
 image::no-vulnerable.png[no-vulnerable2]
 
-If you have +LibSSH+ in your server
+If you have +LibSSH+ in your server,
 and you are using a server component,
-you should install the updated or the patched versions of +LibSSH+
+you should install the updated, or patched, versions of +LibSSH+.
