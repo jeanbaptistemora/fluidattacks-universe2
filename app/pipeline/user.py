@@ -1,4 +1,6 @@
 # pylint: disable=E0402
+from __future__ import absolute_import
+from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
 from ..dao import integrates_dao
 from ..mailer import send_mail_new_user
 
@@ -22,8 +24,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
                                             last_name)
             integrates_dao.update_user_login_dao(user)
     else:
-        mail_to = ["projects@fluidattacks.com", "production@fluidattacks.com",
-                   "technology@fluidattacks.com"]
+        mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
         name = first_name + ' ' + last_name
         context = {
             'name_user': name,

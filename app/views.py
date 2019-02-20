@@ -21,7 +21,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, condition
 from django.http import HttpResponse
 from jose import jwt
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+from __init__ import (
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+)
 import boto3
 import pytz
 import rollbar
@@ -1028,8 +1031,9 @@ Attempted to delete findings without permission')
             rollbar.report_message('Error: An error ocurred deleting finding',
                                    'error', request)
             return util.response([], 'Error', True)
-        mail_to = ['projects@fluidattacks.com', 'production@fluidattacks.com',
-                   'jarmas@fluidattacks.com', 'jrestrepo@fluidattacks.com']
+        approvers = FI_MAIL_REVIEWERS.split(',')
+        mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
+        mail_to.extend(approvers)
         email_send_thread = \
             threading.Thread(name="Delete finding email thread",
                              target=send_mail_delete_finding,

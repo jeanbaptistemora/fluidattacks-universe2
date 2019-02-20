@@ -2,10 +2,15 @@
 
 # pylint: disable=E0402
 
+from __future__ import absolute_import
 from datetime import datetime, timedelta
 import logging
 import logging.config
 import rollbar
+from __init__ import (
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_ENGINEERING,
+    FI_MAIL_REVIEWERS
+)
 from django.conf import settings
 from . import views
 from .dao import integrates_dao
@@ -66,8 +71,8 @@ def send_unsolved_events_email(project):
     project_info = integrates_dao.get_project_dynamo(project)
     if project_info and \
             project_info[0].get('type') == 'continuous':
-        mail_to.append('continuous@fluidattacks.com')
-        mail_to.append('projects@fluidattacks.com')
+        mail_to.append(FI_MAIL_CONTINUOUS)
+        mail_to.append(FI_MAIL_PROJECTS)
     events_info_for_email = [extract_info_from_event_dict(x)
                              for x in unsolved_events]
     context = {'project_name': project.capitalize(),
@@ -156,8 +161,8 @@ def get_new_vulnerabilities():
                 .format(url=BASE_URL, project=project)
             recipients = integrates_dao.get_project_users(project)
             mail_to = [x[0] for x in recipients if x[1] == 1]
-            mail_to.append('continuous@fluidattacks.com')
-            mail_to.append('projects@fluidattacks.com')
+            mail_to.append(FI_MAIL_CONTINUOUS)
+            mail_to.append(FI_MAIL_PROJECTS)
             send_mail_new_vulnerabilities(mail_to, context)
 
 
@@ -225,8 +230,7 @@ def get_remediated_findings():
     findings = integrates_dao.get_remediated_allfin_dynamo(True)
     if findings != []:
         try:
-            mail_to = ['continuous@fluidattacks.com',
-                       'projects@fluidattacks.com']
+            mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
             context = {'findings': list()}
             cont = 0
             for finding in findings:
@@ -316,8 +320,9 @@ def get_new_releases():
                 'warning')
     if cont > 0:
         context['total'] = cont
-        mail_to = ['projects@fluidattacks.com', 'production@fluidattacks.com',
-                   'jarmas@fluidattacks.com', 'jrestrepo@fluidattacks.com']
+        approvers = FI_MAIL_REVIEWERS.split(',')
+        mail_to = [FI_MAIL_ENGINEERING]
+        mail_to.extend(approvers)
         send_mail_new_releases(mail_to, context)
     else:
         LOGGER.info('There are no new drafts')
@@ -349,8 +354,7 @@ def deletion(project, days_to_send, days_to_delete):
                     remission.days_until_now(lastest_remission['TIMESTAMP'])
                 if days_until_now in days_to_send:
                     context = {'project_name': project.capitalize()}
-                    mail_to = ['projects@fluidattacks.com',
-                               'production@fluidattacks.com']
+                    mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
                     send_mail_project_deletion(mail_to, context)
                     was_deleted = False
                     was_email_sended = True

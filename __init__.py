@@ -35,6 +35,10 @@ try:
     FI_DASHBOARD = os.environ['FI_DASHBOARD']
     FI_ORGANIZATION = os.environ['FI_ORGANIZATION']
     FI_REDIS_SERVER = os.environ['FI_REDIS_SERVER']
+    FI_MAIL_CONTINUOUS = os.environ['FI_MAIL_CONTINUOUS']
+    FI_MAIL_ENGINEERING = os.environ['FI_MAIL_ENGINEERING']
+    FI_MAIL_PROJECTS = os.environ['FI_MAIL_PROJECTS']
+    FI_MAIL_REVIEWERS = os.environ['FI_MAIL_REVIEWERS']
 except KeyError as e:
-    print("Environment variable " + e.args[0] +  " doesn't exist")
+    print("Environment variable " + e.args[0] + " doesn't exist")
     raise

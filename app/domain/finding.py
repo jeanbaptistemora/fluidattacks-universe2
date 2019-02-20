@@ -19,7 +19,10 @@ from backports import csv
 from botocore.exceptions import ClientError
 from graphql import GraphQLError
 
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+from __init__ import (
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
+)
 from app import util
 from app.utils import forms as forms_utils
 from app.api.drive import DriveAPI
@@ -382,8 +385,8 @@ def send_finding_verified_email(company, finding_id,
                                 finding_name, project_name):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
-    recipients.append('continuous@fluidattacks.com')
-    recipients.append('projects@fluidattacks.com')
+    recipients.append(FI_MAIL_CONTINUOUS)
+    recipients.append(FI_MAIL_PROJECTS)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
@@ -425,8 +428,8 @@ def send_remediation_email(user_email, finding_id, finding_name,
                            project_name, justification):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
-    recipients.append('continuous@fluidattacks.com')
-    recipients.append('projects@fluidattacks.com')
+    recipients.append(FI_MAIL_CONTINUOUS)
+    recipients.append(FI_MAIL_PROJECTS)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(

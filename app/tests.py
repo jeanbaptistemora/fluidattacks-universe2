@@ -1,4 +1,5 @@
 import json
+import pytest
 from collections import OrderedDict
 
 from django.test import TestCase
@@ -11,6 +12,8 @@ from .api.formstack import FormstackAPI
 from .entity import schema
 
 
+@pytest.mark.usefixtures(
+    'create_users_table', 'create_projects_table', 'create_project_access_table')
 class FormstackAPITests(TestCase):
     def test_request(self):
         """ Make a request to formstack and verify that

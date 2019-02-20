@@ -3,11 +3,13 @@
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
+from __future__ import absolute_import
 import threading
 
 import rollbar
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 
+from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
 from ..decorators import require_login, require_role, require_project_access_gql
 from .. import util
 from ..dao import integrates_dao
@@ -83,8 +85,10 @@ An error occurred adding repository', 'error', info.context)
             'repositories'
         )
         if add_repo:
-            mail_to = ['continuous@fluidattacks.com',
-                       'projects@fluidattacks.com']
+            recipients = integrates_dao.get_project_users(project_name.lower())
+            mail_to = [x[0] for x in recipients if x[1] == 1]
+            mail_to.append(FI_MAIL_CONTINUOUS)
+            mail_to.append(FI_MAIL_PROJECTS)
             context = {
                 'project': project_name.upper(),
                 'user_email': info.context.session['username'],
@@ -150,8 +154,11 @@ class RemoveRepositories(Mutation):
                 'repositories',
                 index)
             if remove_repo:
-                mail_to = ['continuous@fluidattacks.com',
-                           'projects@fluidattacks.com']
+                recipients = integrates_dao.get_project_users(
+                    project_name.lower())
+                mail_to = [x[0] for x in recipients if x[1] == 1]
+                mail_to.append(FI_MAIL_CONTINUOUS)
+                mail_to.append(FI_MAIL_PROJECTS)
                 context = {
                     'project': project_name.upper(),
                     'user_email': info.context.session['username'],
@@ -212,7 +219,10 @@ An error occurred adding environments', 'error', info.context)
             'environments'
         )
         if add_env:
-            mail_to = ['continuous@fluidattacks.com', 'projects@fluidattacks.com']
+            recipients = integrates_dao.get_project_users(project_name.lower())
+            mail_to = [x[0] for x in recipients if x[1] == 1]
+            mail_to.append(FI_MAIL_CONTINUOUS)
+            mail_to.append(FI_MAIL_PROJECTS)
             context = {
                 'project': project_name.upper(),
                 'user_email': info.context.session['username'],
@@ -273,8 +283,11 @@ class RemoveEnvironments(Mutation):
                 'environments',
                 index)
             if remove_env:
-                mail_to = ['continuous@fluidattacks.com',
-                           'projects@fluidattacks.com']
+                recipients = integrates_dao.get_project_users(
+                    project_name.lower())
+                mail_to = [x[0] for x in recipients if x[1] == 1]
+                mail_to.append(FI_MAIL_CONTINUOUS)
+                mail_to.append(FI_MAIL_PROJECTS)
                 context = {
                     'project': project_name.upper(),
                     'user_email': info.context.session['username'],

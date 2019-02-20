@@ -7,6 +7,7 @@ import time
 import os
 import sys
 import fileinput
+from __init__ import FI_MAIL_ENGINEERING
 
 def create_integrates_version():
     cur_time = time.localtime()
@@ -21,7 +22,7 @@ def send_mail_version():
     repo = Repo(os.getcwd())
     changelog = repo.git.log('-1', '--pretty=<b>%s</b>\n%b')
     commit_message = changelog.replace("\n", "<br />\n")
-    to = ['engineering@fluidattacks.com']
+    to = [FI_MAIL_ENGINEERING]
     context = {
         'version': version,
         'message': commit_message,
@@ -39,4 +40,4 @@ def get_integrates_version():
     return version
 
 if __name__ == '__main__':
-  send_mail_version()
+    send_mail_version()
