@@ -58,7 +58,7 @@ content:
   script:
     - pre-commit run --all-files
     - ./check-changed.sh
-    - ./check-all.sh
+    - python ci-scripts/checkall.py changes
     - ./check-articles.sh
     - ./check-spelling.sh
   except:
