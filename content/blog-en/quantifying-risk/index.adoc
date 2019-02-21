@@ -5,7 +5,7 @@
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Risky poker move. Credits: https://unsplash.com/photos/5jkCyS8HOCY
-:description: A survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, dollars and cents. We discuss why we believe these methods do not apply, and the kind of results that can be achieved by using them.
+:description: A survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, dollars and cents. We discuss why we (wrongly) believe these methods do not apply, and the kind of results that can be achieved by using them.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -29,7 +29,7 @@ better understand risks:
 .Risk ``matrices''. Via link:https://safestart.com/news/think-about-risk-adds-third-dimension-risk-matrix/[Safestart].
 image::risk-matrix.png[Risk matrix]
 
-While in other sectors like insurance and banking
+While in other sectors, like insurance and banking,
 risk is measured quantitatively and
 thus converted into dollars and cents,
 we are content with leaving the treatment
@@ -55,12 +55,15 @@ these methods are not widely accepted in the field are:
 
 Before going into ground definitions,
 let me show you what we can achieve
-by following the methods proposed by the authors:
+by applying quantitative methods to risk measurement:
 
 .Loss Excedance Curve <<r1, ^[1]^>>
 image::loss-excedance-curve.png[Loss Excedance Curve]
 
 This curve tells you the probability of losing any amount of money or more.
+Thus from the graph we can read that
+the probability of losing $10 millions or more is around 40%,
+but losing more than $100 is unlikely at around 15%.
 You can enrich it with your _risk tolerance_
 (what is the probability that you can accept to lose _n_ millions?)
 and the _residual risk_ shows
@@ -80,6 +83,7 @@ What makes some things measurable and others not?
 Well, we need to be able to assign a number to it.
 But also no measurement can represent reality or nature with 100% accuracy,
 so there must be some uncertainty in measurement.
+Uncertainty is _inherent_ to measurement.
 
 In the lab, the length of an ant
 could be reported as 1.2 cm plus or minus 0.1 cm,
@@ -90,7 +94,7 @@ random mistakes or improper use of the measuring device,
 so we can assign a _confidence_ of, say, 90%, to this measurement.
 Observations reduce the uncertainty in a quantitative way.
 First we might have estimated the length of the ant
-to be between say, 0.5 and 3 centimeters, with 60% confidence.
+to be between, say, 0.5 and 3 centimeters, with 60% confidence.
 After measurement we have less uncertainty.
 
 Now, what we think is intangible or unmeasurable
@@ -150,7 +154,7 @@ Now the probability of one element being above the median is,
 by definition, 50%, because it splits the data in two,
 so the probability of all 5 being above
 would be 0.5^5^ = 3.125%,
-by multiplying the 5 indepent event's probabilties.
+by multiplying the 5 independent events probabilties.
 Same for the case that they are all below.
 So the probability of the opposite event is twice that: 6.25%,
 making the probability of the original event 93.75%.
@@ -165,9 +169,7 @@ This type of simulation runs many times on single events,
 and their happening or not happening is based on a
 link:https://www.investopedia.com/terms/p/probabilitydistribution.asp[probability distribution],
 and such distributions require parameters as input.
-In the case of the normal and lognormal distributions,
-the parameters determine the location and width of the curve,
-and thus thefir 90% confidence intervals:
+These parameters usually determine the location and shape of the curve.
 
 .Some probability distributions
 image::distributions.png[Some probability distributions]
@@ -191,20 +193,20 @@ the ones computed after observing a certain evidence.
 Without going into details,
 which we will leave for the next articles,
 it can be shown that, from five expert inputs,
-including that the probability of a succesful
+including the probability of a succesful
 [button]#link:../importance-pentesting/[penetration test]#,
 and the probability of remotely exploitable vulnerabilities
 when the pentest is positive, that in that case the
 probability of suffering a major data breach can go
 from a prior of 1.24% goes up to a resounding 24%.
 If the test is negative, it goes down to 1.01%.
-This shows, by the way, the value of a proper pen test
-regarding the value of perfect information.
+This shows, by the way, the benefit of a proper pen test
+regarding the value of information.
 
-Later we will also discuss two methods presented in the book,
-both based on Bayes rule, namely,
-iteratively adjusting a beta distribution,
-which allows to make forecast with very scarce data, and
+Later we will also discuss more advanced methods
+based on Bayes rule such as
+iteratively adjusting distributions,
+which allows to make forecasts with very scarce data, and
 decomposing probabilities with many conditions.
 
 ''''
