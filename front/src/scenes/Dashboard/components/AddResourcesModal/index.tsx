@@ -100,14 +100,20 @@ const renderEnvsFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Eleme
 const renderFilesFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Element) =
     (props: WrappedFieldArrayProps<undefined>): JSX.Element => (
       <React.Fragment>
-        {props.fields.map((fieldName: string, index: number) => (
-          <Row key={index}>
+        {props.fields.map((fieldName: string) => (
+          <Row>
             <Col md={12}>
               <div>
-                <FileInput fileName="" icon="search" id="" type="all" visible={true}/>
+                <FileInput fileName="" icon="search" id="file" type="" visible={true}/>
               </div>
             </Col>
-            {index > 0 ? renderDeleteFieldButton(props.fields, index) : undefined}
+            <Col md={12}>
+              <label>
+                <label style={{ color: "#f22" }}>* </label>
+                {translate.t("search_findings.tab_resources.description")}
+              </label>
+              <Field name={`${fieldName}.description`} component={textAreaField} type="text" validate={[required]} />
+            </Col>
           </Row>
         ))}
       </React.Fragment>
@@ -152,6 +158,7 @@ const renderFilesForm: ((props: formProps) => JSX.Element) =
       <React.Fragment>
         <form onSubmit={props.handleSubmit}>
           <FieldArray name="resources" component={renderFilesFields} />
+          <br />
           {renderFooter(props)}
         </form>
         <br />
@@ -188,7 +195,7 @@ const FilesForm: resourcesForm = reduxForm<{}, IAddResourcesModalProps>({
   enableReinitialize: true,
   form: "addFiles",
   initialValues: {
-    resources: [{ fileName: "" }],
+    resources: [{ fileName: "", description: ""}],
   },
   onSubmitFail: focusError,
 })(renderFilesForm);

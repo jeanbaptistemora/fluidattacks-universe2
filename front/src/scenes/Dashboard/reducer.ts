@@ -41,6 +41,7 @@ interface IDashboardState {
       type: "repository" | "environment" | undefined;
     };
     environments: Array<{ urlEnv: string }>;
+    files: Array<{ description: string; fileName: string; uploadDate: string}>;
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
   severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset">;
@@ -132,6 +133,7 @@ const initialState: IDashboardState = {
       type: undefined,
     },
     environments: [],
+    files: [],
     repositories: [],
   },
   severity: {
@@ -184,6 +186,7 @@ actionMap[resourcesActions.LOAD_RESOURCES] =
     resources: {
       ...state.resources,
       environments: action.payload.environments,
+      files: action.payload.files,
       repositories: action.payload.repositories,
     },
   });

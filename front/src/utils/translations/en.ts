@@ -66,6 +66,7 @@ const enTranslations: Map<string, string> = {
     files_table: {
       description: "Description",
       file: "File",
+      upload_date: "Upload Date",
     },
     repositories_table: {
       branch: "Branch",
@@ -196,6 +197,8 @@ const enTranslations: Map<string, string> = {
     tab_resources: {
       add_repository: "Add",
       branch: "Branch",
+      description: "Description",
+      download: "Download",
       environment: "Environment",
       environments_title: "Environments",
       files_title: "Files",
