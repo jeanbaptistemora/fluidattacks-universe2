@@ -587,6 +587,7 @@ def save_severity(finding):
                                                    severity['cvss_basescore'])
     severity['cvss_env'] = calc_cvss_enviroment(unformatted_severity,
                                                 fin_dto.CVSS_PARAMETERS)
+    severity['cvss_version'] = '2'
     response = \
         integrates_dao.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys, severity)
