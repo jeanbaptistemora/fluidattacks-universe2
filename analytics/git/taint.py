@@ -29,16 +29,18 @@ def print_tutorial() -> None:
         Set data:
             $ taint.py set subscription [subs_name]
                 Set the working subscription name.
-            $ taint.py taint [repo_name] [file_path]
-                Mark as tainted a file.
-            $ taint.py clean [repo_name] [file_path]
-                Mark as clean a file.
+            $ taint.py set tainted [repo_name] [file_path]
+                Mark a file as tainted.
+            $ taint.py set clean [repo_name] [file_path]
+                Mark a file as clean.
 
         Get data:
             $ taint.py get subscription
                 Return the working subscription name.
             $ taint.py get tainted
                 Print all tainted files.
+            $ taint.py get clean
+                Print all clean files.
             $ taint.py get coverage
                 Compute the coverage.
 
@@ -141,7 +143,7 @@ def push_repo(repo_path: str) -> None:
                 remote_file_states[file_path]["file_last_hash"]
             if not file_last_hash == remote_file_last_hash:
                 # a commit has changed the file, update it in remote as tainted
-                push_repo__row_upsert(
+                row_upsert(
                     credentials,
                     subs_name,
                     repo_name,
@@ -150,7 +152,7 @@ def push_repo(repo_path: str) -> None:
                     file_last_hash)
         else:
             # a new file is in HEAD, push it to remote as tainted
-            push_repo__row_insert(
+            row_insert(
                 credentials,
                 subs_name,
                 repo_name,
@@ -161,7 +163,7 @@ def push_repo(repo_path: str) -> None:
     for file_path in remote_file_states:
         if file_path not in local_file_states:
             # remote contains a file that is not in HEAD now, delete it
-            push_repo__row_delete(
+            row_delete(
                 credentials,
                 subs_name,
                 repo_name,
@@ -211,8 +213,8 @@ def push_repo__get_remote_file_states(
             FROM
                 taints.data
             WHERE
-                taints.data.subs_name = '{subs_name}' and
-                taints.data.repo_name = '{repo_name}'
+                subs_name = '{subs_name}' and
+                repo_name = '{repo_name}'
             """)
         conn.commit()
         remote_file_states: Dict[str, Dict[str, str]] = {
@@ -225,7 +227,7 @@ def push_repo__get_remote_file_states(
         return remote_file_states
 
 
-def push_repo__row_insert(
+def row_insert(
         credentials: JSON,
         subs_name: str,
         repo_name: str,
@@ -255,7 +257,7 @@ def push_repo__row_insert(
         conn.commit()
 
 
-def push_repo__row_delete(
+def row_delete(
         credentials: JSON,
         subs_name: str,
         repo_name: str,
@@ -265,16 +267,15 @@ def push_repo__row_delete(
         curr.execute(f"""
             DELETE FROM
                 taints.data
-            WHERE (
+            WHERE
                 subs_name = '{subs_name}' and
                 repo_name = '{repo_name}' and
                 file_path = '{file_path}'
-            )
             """)
         conn.commit()
 
 
-def push_repo__row_upsert(
+def row_upsert(
         credentials: JSON,
         subs_name: str,
         repo_name: str,
@@ -283,18 +284,70 @@ def push_repo__row_upsert(
         file_last_hash: HASH) -> None:
     """Upsert a row into the database."""
     # pylint: disable=too-many-arguments
-    push_repo__row_delete(
+    row_delete(
         credentials,
         subs_name,
         repo_name,
         file_path)
-    push_repo__row_insert(
+    row_insert(
         credentials,
         subs_name,
         repo_name,
         file_path,
         file_state,
         file_last_hash)
+
+
+def row_get_by_index(
+        credentials: JSON,
+        subs_name: str,
+        repo_name: str,
+        file_path: str) -> Tuple[Any, Any]:
+    """Get file_state, file_last_hash from row."""
+    with database(credentials) as (conn, curr):
+        curr.execute(f"""
+            SELECT
+                file_state,
+                file_last_hash
+            FROM
+                taints.data
+            WHERE
+                subs_name = '{subs_name}' and
+                repo_name = '{repo_name}' and
+                file_path = '{file_path}'
+            """)
+        conn.commit()
+        for row in curr:
+            file_state, file_last_hash = row
+            break
+        else:
+            file_state, file_last_hash = None, None
+        return file_state, file_last_hash
+
+
+def row_get_all_with_state(
+        credentials: JSON,
+        subs_name: str,
+        file_state: str) -> Iterator[Tuple[str, str, str]]:
+    """Yield repo_name, file_path, file_last_hash that matches file_state."""
+    with database(credentials) as (conn, curr):
+        curr.execute(f"""
+            SELECT
+                repo_name,
+                file_path,
+                file_last_hash
+            FROM
+                taints.data
+            WHERE
+                subs_name = '{subs_name}' and
+                file_state = '{file_state}'
+            ORDER BY
+                subs_name,
+                file_path
+            """)
+        conn.commit()
+        for repo_name, file_path, file_last_hash in curr:
+            yield repo_name, file_path, file_last_hash
 
 
 def get_credentials() -> JSON:
@@ -323,12 +376,53 @@ def get_subs_name(do_print=False) -> str:
     return subs_name
 
 
+def get_files_with_state(file_state: str) -> None:
+    """Print all files with file_state."""
+    credentials: JSON = get_credentials()
+    subs_name: str = get_subs_name()
+
+    print(f"INFO: For subscription {subs_name}, files marked as {file_state}:")
+    for repo_name, file_path, file_last_hash in \
+            row_get_all_with_state(credentials, subs_name, file_state):
+        print(f"{repo_name}/{file_path} [{file_last_hash}]")
+
+
 def set_subs_name(subs_name: str) -> None:
     """Set the working subscription name."""
     state_file_path = f"{os.path.dirname(__file__)}/.state"
     with open(state_file_path, "w") as state_file:
         state_file.write(subs_name)
         print("INFO: subscription name set.")
+
+
+def set_file_state(
+        repo_name: str,
+        file_path: str,
+        file_state_new: str) -> None:
+    """Mark a file as tainted."""
+    credentials: JSON = get_credentials()
+    subs_name: str = get_subs_name()
+
+    print(f"Attemting to mark as {file_state_new}:")
+    print(f"  subs_name:      {subs_name}")
+    print(f"  repo_name:      {repo_name}")
+    print(f"  file_path:      {file_path}")
+    file_state, file_last_hash = \
+        row_get_by_index(credentials, subs_name, repo_name, file_path)
+    if file_state:
+        print(f"  file_state:     {file_state}")
+        print(f"  file_last_hash: {file_last_hash}")
+        if input("Type 'yes' to confirm: ") == "yes":
+            row_upsert(
+                credentials,
+                subs_name,
+                repo_name,
+                file_path,
+                file_state_new,
+                file_last_hash)
+            print("\nINFO: Done.")
+    else:
+        print("WARN: You can not modify non-existing rows.")
 
 
 def main():
@@ -338,16 +432,27 @@ def main():
     cmd = next(args, "")
     arg1 = next(args, "")
     arg2 = next(args, "")
+    arg3 = next(args, "")
 
     # Set data
     if cmd == "set" and arg1 == "subscription":
         subs_name = arg2
         set_subs_name(subs_name)
+    elif cmd == "set" and arg1 == "tainted":
+        repo_name = arg2
+        file_path = arg3
+        set_file_state(repo_name, file_path, "tainted")
+    elif cmd == "set" and arg1 == "clean":
+        repo_name = arg2
+        file_path = arg3
+        set_file_state(repo_name, file_path, "clean")
     # Get data
     elif cmd == "get" and arg1 == "subscription":
         get_subs_name(do_print=True)
     elif cmd == "get" and arg1 == "tainted":
-        pass
+        get_files_with_state("tainted")
+    elif cmd == "get" and arg1 == "clean":
+        get_files_with_state("clean")
     elif cmd == "get" and arg1 == "coverage":
         pass
     # Admins only
