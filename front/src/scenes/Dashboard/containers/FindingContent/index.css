@@ -21,13 +21,22 @@
   }
 }
 
-:local .activeTab {
-  background-color: #EEEEEE !important;
-}
-
 :local .tabsContainer {
   width: 100%;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
+  background-color: white;
+  border-bottom: 1px #EEEEEE solid;
+}
+
+:local .tabContent {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+:local .mainContainer {
+  padding: 1px 35px 0 35px;
+  background-color: white;
 }
