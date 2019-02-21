@@ -1,7 +1,7 @@
 :slug: defends/redhat/actualizar-software/
 :category: redhat
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de Linux Red Hat al actualizar el software. Es de vital importancia mantener el software del servidor actualizado para evitar que sea afectado por fallas de seguridad de versiones previas.
-:keywords: Linux, Red Hat, Actualizar, Software, Paquetes,
+:keywords: Linux, Red Hat, Actualizar, Software, Paquetes, Servidor
 :defends: yes
 
 = Actualizar Software en Red Hat

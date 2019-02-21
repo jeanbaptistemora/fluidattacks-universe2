@@ -1,7 +1,7 @@
 :slug: defends/csharp/aplicar-seguridad-codigo/
 :category: csharp
 :description: Nuestros ethical hackers explican cómo utilizando las herramientas provistas por el Framework de .NET  se pueden definir politicas, grupos, evidencias, permisos, grupos de politicas y grupos de código las cuales ayudaran a la creación de una protección a nivel de código.
-:keywords: C Sharp, Buenas Prácticas, .NET Framework, Politicas, Permisos, Grupos.
+:keywords: C Sharp, Buenas Prácticas, DotNet Framework, Politicas, Permisos, Grupos.
 :defends: yes
 
 = Aplicar seguridad a nivel de código

@@ -212,7 +212,7 @@ of the financial entity of your choice.
 (The same one with which you have been completing the selection process).
 .. Fields that are not specified here are not mandatory and
 do not need to be filled out.
-. Send us an email (careers@autonomicmind.co) with the following:
+. Send us an email (careers@autonomicmind.com) with the following:
 .
 [quote]
 ____________________________________________________________________
@@ -246,4 +246,4 @@ The immersion stage ends under any of the following circumstances:
 link:#criteria[criteria] defined in this stage.
 
 If you have any doubts,
-don’t hesitate to contact us at careers@autonomicmind.co
+don’t hesitate to contact us at careers@autonomicmind.com

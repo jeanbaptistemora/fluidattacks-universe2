@@ -1,7 +1,7 @@
 :slug: defends/aspnet/comprender-programacion/
 :category: aspnet
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET abarcando generalidades y explicando conceptos relacionados a buenas prácticas de programación, para desarrollar aplicaciones web computacionalmente seguras.
-:keywords: ASP.NET, Seguridad, Programación, .NET Framework, Buenas Prácticas, Código neutral.
+:keywords: ASP.NET, Seguridad, Programación, DotNet Framework, Buenas Prácticas, Código neutral.
 :defends: yes
 
 = Comprender programación segura

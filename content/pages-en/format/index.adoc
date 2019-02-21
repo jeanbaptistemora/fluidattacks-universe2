@@ -13,11 +13,11 @@
 * Source
 +
 ....
-= AsciiDoc Format -> Level 0 Header
+ = AsciiDoc Format -> Level 0 Header
 
-== Headers -> Level 1 Header
+ == Headers -> Level 1 Header
 
-=== Level 2 Header
+ === Level 2 Header
 
 ...
 ....

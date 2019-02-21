@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Cats in a forest
 :description: A general overview on the mathematical concept of trapdoors and how they are the foundation of security of information; this article shows the basic concept behind symmetric and asymmetric encryption of shared information and briefly explains the two main algorithms used.
-:keywords: `AES`, Asymmetric, Encryption, Math, Symmetric, RSA
+:keywords: AES, Asymmetric, Encryption, Math, Symmetric, RSA
 :author: Sebastian Villalobos
 :writer: sevilla
 :name: Sebastian Villalobos

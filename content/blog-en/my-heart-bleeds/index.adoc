@@ -111,7 +111,7 @@ saying *"Hello - Repeat it back
  to me"*, the server receive it
 and send it back to your browser.
 
-== The "bleeding" flaw
+== The bleeding flaw
 
 But researchers found that if a
 *request* made had a *bigger length*
@@ -217,7 +217,7 @@ i'm gonna break it in the essentials
 details to show you how the
 vulnerability was caused, without
 diving into fancy technical details.
-
++
 .Fragment of the t1_lib.c from +OpenSSL+.
 [source,c]
 ----
@@ -226,6 +226,7 @@ include::/web/content/blog-en/my-heart-bleeds/openssl-fragment.c[]
 
 Here we go. The line responsible for
 the vulnerability is this one:
++
 [source,c]
 ----
 3997      memcpy(bp, pl, payload);
@@ -264,6 +265,7 @@ a *missing bounds* check before
 memcpy was performed.
 We will see that in the following
 lines of code:
++
 [source,c,numbered]
 ----
 include::/web/content/blog-en/my-heart-bleeds/payload-length.c[]

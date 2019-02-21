@@ -15,7 +15,7 @@
 
 = Contando unos
 
-== "Unos" en el Sistema Binario
+== Unos en el Sistema Binario
 
 Cuando hablamos de contar los "Unos" de un número decimal, no hablamos
 expresamente de contar los números "unos decimales" que aparecen en este número,

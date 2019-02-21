@@ -6,7 +6,7 @@
 :image: sym-exec.png
 :alt: Doll using a magnifying glass while searching through a set of data
 :description: In this article we aim to explain a first approach to symbolic execution. This type of execution is very useful when comes to software assessment because it allows to test our application with multiple types of input, and find errors caused by invalid input data.
-:keywords: Symbolic, Execution, Security, Software, Test,
+:keywords: Symbolic, Execution, Security, Software, Test, Assestment
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
