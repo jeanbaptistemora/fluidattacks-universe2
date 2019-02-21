@@ -173,6 +173,25 @@ const saveFiles: (
     }
   };
 
+const downloadFile: ((arg1: string) => void) = (projectName: string): void => {
+    const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblFiles tr input:checked");
+    if (selectedQry.length > 0) {
+      if (selectedQry[0].closest("tr") !== null) {
+        const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+        const file: string | null = selectedRow.children[1].textContent;
+        const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+          store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+        );
+        thunkDispatch(actions.downloadFile(projectName, file));
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error("An error occurred downloading file");
+      }
+    } else {
+      msgError(translate.t("search_findings.tab_resources.no_selection"));
+    }
+  };
+
 const mapStateToProps: ((arg1: StateType<Reducer>) => IResourcesViewProps) =
   (state: StateType<Reducer>): IResourcesViewProps => ({
     ...state,
@@ -351,7 +370,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                         id="downloadFile"
                         block={true}
                         bsStyle="primary"
-                        onClick={(): void => {}}
+                        onClick={(): void => {downloadFile(props.projectName); }}
                       >
                         <Glyphicon glyph="download-alt"/>&nbsp;
                         {translate.t("search_findings.tab_resources.download")}

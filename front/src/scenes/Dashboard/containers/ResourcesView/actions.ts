@@ -305,3 +305,35 @@ export const saveFiles: ThunkActionStructure =
           }
         });
     };
+
+export const downloadFile: ThunkActionStructure =
+      (projectName: string, fileToDownload: string):
+      ThunkAction<void, {}, {}, Action> =>
+        (dispatch: ThunkDispatcher): void => {
+          let gQry: string;
+          gQry = `mutation {
+              downloadFile (
+                filesData: ${JSON.stringify(JSON.stringify(fileToDownload))},
+                projectName: "${projectName}") {
+                success
+                url
+              }
+            }`;
+          new Xhr().request(gQry, "An error occurred downloading file")
+            .then((response: AxiosResponse) => {
+              const { data } = response.data;
+              if (data.downloadFile.success) {
+                window.open(data.downloadFile.url);
+              } else {
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error("An error occurred downloading files");
+              }
+            })
+            .catch((error: AxiosError) => {
+              if (error.response !== undefined) {
+                const { errors } = error.response.data;
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error(error.message, errors);
+              }
+            });
+        };

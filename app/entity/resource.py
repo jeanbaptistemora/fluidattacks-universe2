@@ -381,13 +381,17 @@ class DownloadFile(Mutation):
 
     @require_login
     @require_role(['analyst', 'admin'])
-    def mutate(self, **parameters):
+    def mutate(self, info, **parameters):
         success = False
         file_info = parameters['files_data']
         file_url = parameters['project_name'] + "/" + file_info
         minutes_until_expire = 2
         signed_url = resources.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
                                         file_url, minutes_until_expire)
-        success = bool(signed_url)
+        if signed_url:
+            success = True
+        else:
+            rollbar.report_message('Error: \
+An error occurred generating signed URL', 'error', info.context)
         ret = DownloadFile(success=success, url=str(signed_url))
         return ret
