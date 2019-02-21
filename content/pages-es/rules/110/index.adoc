@@ -1,7 +1,7 @@
 :slug: rules/110/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, en este requerimiento se recomienda que toda organización cuente con mecanismos de control de acceso físico preventivos.
-:keywords: Área Restringida, Vigilancia, Acceso, Cerradura, Seguridad, Vigilantes.
+:keywords: Control, Vigilancia, Acceso, Cerradura, Seguridad, Vigilantes.
 :rules: yes
 :translate: rules/110/
 
