@@ -21,7 +21,7 @@ is the _risk_ it poses to the target.
 On the tester side, we tend to confuse them with
 the _threat_, the _attack vector_ and the _actor_.
 On the client side, it tends to get confused with impact
-and ocurrence likelihood,
+and occurrence likelihood,
 due to devices like the so-called ``risk matrix'',
 which are supposed to help us
 better understand risks:
@@ -38,7 +38,7 @@ by using these inaccurate scales for scoring risk.
 
 But better methods exist in
 link:https://en.wikipedia.org/wiki/Actuarial_science[actuarial science],
-statistics, link:https://en.wikipedia.org/wiki/Game_theory[game theory]
+statistics, link:https://en.wikipedia.org/wiki/Game_theory[game theory],
 and link:https://en.wikipedia.org/wiki/Decision_theory[decision theory],
 and they can be applied to measure cybersecurity risk
 
@@ -57,26 +57,26 @@ Before going into ground definitions,
 let me show you what we can achieve
 by applying quantitative methods to risk measurement:
 
-.Loss Excedance Curve <<r1, ^[1]^>>
+.Loss Exceedance Curve <<r1, ^[1]^>>
 image::loss-excedance-curve.png[Loss Excedance Curve]
 
 This curve tells you the probability of losing any amount of money or more.
-Thus from the graph we can read that
+Thus from the graph, we can read that
 the probability of losing $10 millions or more is around 40%,
 but losing more than $100 is unlikely at around 15%.
 You can enrich it with your _risk tolerance_
 (what is the probability that you can accept to lose _n_ millions?)
 and the _residual risk_ shows
 how the risk is mitigated by applying some controls.
-With this kind of tools you can make
+With this kind of tools, you can make
 more informed decisions regarding your security investments.
 If such a level of detail interests you, please read on.
 
 
 == Measuring requires specification
 
-First we need to define _what_ we want to measure.
-Is it posible to measure the impact of a breach
+First, we need to define _what_ we want to measure.
+Is it possible to measure the impact of a breach
 on my company's reputation?
 Is reputation even measurable?
 What makes some things measurable and others not?
@@ -93,9 +93,9 @@ There might also be some error due to
 random mistakes or improper use of the measuring device,
 so we can assign a _confidence_ of, say, 90%, to this measurement.
 Observations reduce the uncertainty in a quantitative way.
-First we might have estimated the length of the ant
+At first we might have estimated the length of the ant
 to be between, say, 0.5 and 3 centimeters, with 60% confidence.
-After measurement we have less uncertainty.
+After measurement, we have less uncertainty.
 
 Now, what we think is intangible or unmeasurable
 could actually be measured.
@@ -104,10 +104,10 @@ this might be measured indirectly by the drop in sales,
 or by the costs incurred in trying to repair the reputation damage.
 Another possibility for measuring could be
 _decomposing_ the problem into smaller ones.
-For example instead of trying to
+For example, instead of trying to
 directly estimate the cost of a security breach,
 you might break it up into affectation to
-confidentiality, integrity and availability.
+confidentiality, integrity, and availability.
 How many records could be stolen or wrongfully modified?
 What is each of them worth?
 For how long could our servers be out of service?
@@ -124,7 +124,7 @@ when mankind might not even exist.
 We need to set a reasonable time frame, like a year.
 Once we achieve a result such as
 
-* There is a 40% chance of suffering a succesful denial of service
+* There is a 40% chance of suffering a successful denial of service
   lasting more than 8 hours in the next year.
 
 * If such a denial of service happens,
@@ -132,7 +132,7 @@ Once we achieve a result such as
 
 We could indirectly compute what might happen in 2 or any number of years.
 
-Finally there is the issue of not having enough data to
+Finally, there is the issue of not having enough data to
 perform measurements or estimations, or rather,
 thinking we don't have enough data.
 That is not the case or,
@@ -142,19 +142,19 @@ are just as inappropriate or more,
 actually introducing noise or error.
 The most illuminating example of how small data is usable is
 the so-called "Rule of Five".
-If you want to estimate the median of a (large, unkown) population,
+If you want to estimate the median of a (large, unknown) population,
 taking a sample of 5 can already give you a 93.75% confidence interval.
 How? The median is 93.75% likely to fall between the maximum
 and the minimum of your tiny sample.
 
 Why? Consider the opposite event:
-the median is not between the maximum and mininum of the sample.
+the median is not between the maximum and minimum of the sample.
 That means that either all are above the median or all below.
 Now the probability of one element being above the median is,
 by definition, 50%, because it splits the data in two,
 so the probability of all 5 being above
 would be 0.5^5^ = 3.125%,
-by multiplying the 5 independent events probabilties.
+by multiplying the 5 independent events probabilities.
 Same for the case that they are all below.
 So the probability of the opposite event is twice that: 6.25%,
 making the probability of the original event 93.75%.
@@ -188,15 +188,15 @@ a simple rule from basic probability theory:
 link:https://towardsdatascience.com/what-is-bayes-rule-bb6598d8a2fd[Bayes rule].
 It involves the prior probabilities (i.e., our estimates or initial beliefs)
 and the posterior probabilities,
-the ones computed after observing a certain evidence.
+the ones computed after observing a certain piece of evidence.
 
 Without going into details,
 which we will leave for the next articles,
 it can be shown that, from five expert inputs,
-including the probability of a succesful
+including the probability of a successful
 [button]#link:../importance-pentesting/[penetration test]#,
 and the probability of remotely exploitable vulnerabilities
-when the pentest is positive, that in that case the
+when the pen test is positive, that in that case, the
 probability of suffering a major data breach can go
 from a prior of 1.24% goes up to a resounding 24%.
 If the test is negative, it goes down to 1.01%.
@@ -206,7 +206,7 @@ regarding the value of information.
 Later we will also discuss more advanced methods
 based on Bayes rule such as
 iteratively adjusting distributions,
-which allows to make forecasts with very scarce data, and
+which allows making forecasts with very scarce data, and
 decomposing probabilities with many conditions.
 
 ''''
@@ -215,8 +215,8 @@ This article merely pretended to be an introduction to
 the whole slew of methods that exist in other fields
 to estimate risk, uncertainty and the unknown,
 but have not been adopted in the field of cybersecurity.
-In upcoming articles we will try to show in a little more detail
-how a selection of these methods work.
+In upcoming articles, we will try to show in a little more detail
+how some of these methods work.
 
 
 == References
