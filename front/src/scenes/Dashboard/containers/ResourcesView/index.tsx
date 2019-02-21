@@ -31,6 +31,7 @@ export interface IResourcesViewProps {
     type: "repository" | "environment" | "file";
   };
   environmentsDataset: Array<{ urlEnv: string }>;
+  filesDataset: Array<{ description: string; fileName: string }>;
   projectName: string;
   repositoriesDataset: Array<{ branch: string; urlRepo: string }>;
   showFiles: boolean;
@@ -139,16 +140,70 @@ const saveEnvs: (
     }
   };
 
+const saveFiles: (
+  (files: IResourcesViewProps["filesDataset"],
+   projectName: IResourcesViewProps["projectName"],
+   currentFiles: IResourcesViewProps["filesDataset"],
+  ) => void) =
+  (files: IResourcesViewProps["filesDataset"],
+   projectName: IResourcesViewProps["projectName"],
+   currentFiles: IResourcesViewProps["filesDataset"],
+  ): void => {
+    const selected: FileList | null = (document.querySelector("#file") as HTMLInputElement).files;
+    if (_.isNil(selected) || selected.length === 0) {
+      msgError(translate.t("proj_alerts.no_file_selected"));
+      throw new Error();
+    } else {
+      files[0].fileName = selected[0].name;
+    }
+    let containsRepeated: boolean;
+    containsRepeated = files.filter(
+      (newItem: IResourcesViewProps["filesDataset"][0]) => _.findIndex(
+        currentFiles,
+        (currentItem: IResourcesViewProps["filesDataset"][0]) =>
+          currentItem.fileName === newItem.fileName,
+      ) > -1).length > 0;
+    if (containsRepeated) {
+      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+    } else {
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.saveFiles(projectName, files));
+    }
+  };
+
 const mapStateToProps: ((arg1: StateType<Reducer>) => IResourcesViewProps) =
   (state: StateType<Reducer>): IResourcesViewProps => ({
     ...state,
     addModal: state.dashboard.resources.addModal,
     environmentsDataset: state.dashboard.resources.environments,
+    filesDataset: state.dashboard.resources.files,
     repositoriesDataset: state.dashboard.resources.repositories,
-  });
+  }
+);
 
 export const component: React.StatelessComponent<IResourcesViewProps> =
-  (props: IResourcesViewProps): JSX.Element => (
+  (props: IResourcesViewProps): JSX.Element => {
+
+        let onSubmitFunction: (((values: { resources: IResourcesViewProps["environmentsDataset"] }) => void)
+         | ((values: { resources: IResourcesViewProps["repositoriesDataset"] }) => void)
+         | ((values: { resources: IResourcesViewProps["filesDataset"] }) => void));
+        if (props.addModal.type === "environment") {
+         onSubmitFunction = (values: { resources: IResourcesViewProps["environmentsDataset"] }): void => {
+          saveEnvs(values.resources, props.projectName, props.environmentsDataset);
+        };
+        } else if (props.addModal.type === "repository") {
+         onSubmitFunction = (values: { resources: IResourcesViewProps["repositoriesDataset"] }): void => {
+          saveRepos(values.resources, props.projectName, props.repositoriesDataset);
+        };
+        } else {
+         onSubmitFunction = (values: { resources: IResourcesViewProps["filesDataset"] }): void => {
+          saveFiles(values.resources, props.projectName, props.filesDataset);
+        };
+      }
+
+        return (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
       <Row>
@@ -282,7 +337,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                   <Col md={12}>
                     <Col mdOffset={4} md={2} sm={6}>
                       <Button
-                        id="addRepository"
+                        id="addFile"
                         block={true}
                         bsStyle="primary"
                         onClick={(): void => { store.dispatch(actions.openAddModal("file")); }}
@@ -291,14 +346,25 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                         {translate.t("search_findings.tab_resources.add_repository")}
                       </Button>
                     </Col>
+                    <Col md={2} sm={6}>
+                      <Button
+                        id="downloadFile"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={(): void => {}}
+                      >
+                        <Glyphicon glyph="download-alt"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.download")}
+                      </Button>
+                    </Col>
                   </Col>
                 </Row>
                 <Row>
                   <Col md={12} sm={12}>
                     <DataTable
-                      dataset={[]}
+                      dataset={props.filesDataset}
                       onClickRow={(): void => {}}
-                      enableRowSelection={false}
+                      enableRowSelection={true}
                       exportCsv={false}
                       search={true}
                       headers={[
@@ -307,7 +373,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                           header: translate.t("search_findings.files_table.file"),
                           isDate: false,
                           isStatus: false,
-                          width: "50%",
+                          width: "25%",
                         },
                         {
                           dataField: "description",
@@ -315,6 +381,13 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                           isDate: false,
                           isStatus: false,
                           width: "50%",
+                        },
+                        {
+                          dataField: "uploadDate",
+                          header: translate.t("search_findings.files_table.upload_date"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "25%",
                         },
                       ]}
                       id="tblFiles"
@@ -332,19 +405,11 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
         isOpen={props.addModal.open}
         type={props.addModal.type}
         onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
-        onSubmit={
-          props.addModal.type === "environment"
-            ? (values: { resources: IResourcesViewProps["environmentsDataset"] }): void => {
-              saveEnvs(values.resources, props.projectName, props.environmentsDataset);
-            }
-            : (values: { resources: IResourcesViewProps["repositoriesDataset"] }): void => {
-              saveRepos(values.resources, props.projectName, props.repositoriesDataset);
-            }
-        }
+        onSubmit={onSubmitFunction}
       />
     </div>
   </React.StrictMode>
-);
+); };
 
 export const resourcesView: ComponentType<IResourcesViewProps> = reduxWrapper
 (

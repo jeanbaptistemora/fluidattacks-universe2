@@ -39,6 +39,7 @@ export const loadResources: ThunkActionStructure =
         resources (projectName: "${projectName}") {
           environments
           repositories
+          files
         }
     }`;
       new Xhr().request(gQry, "An error occurred getting repositories")
@@ -47,6 +48,7 @@ export const loadResources: ThunkActionStructure =
           dispatch({
             payload: {
               environments: JSON.parse(data.resources.environments),
+              files: JSON.parse(data.resources.files),
               repositories: JSON.parse(data.resources.repositories),
             },
             type: actionTypes.LOAD_RESOURCES,
@@ -253,6 +255,51 @@ export const removeEnv: ThunkActionStructure =
           if (error.response !== undefined) {
             const { errors } = error.response.data;
 
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const saveFiles: ThunkActionStructure =
+  (projectName: string,
+   filesData: IResourcesViewProps["filesDataset"]): ThunkAction<void, {}, {}, Action> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+
+      gQry = `mutation {
+          addFiles (
+            filesData: ${JSON.stringify(JSON.stringify(filesData))},
+            projectName: "${projectName}") {
+            success
+            resources {
+              files
+            }
+          }
+        }`;
+      new Xhr().upload(gQry, "#file", "An error occurred adding file")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.addFiles.success) {
+            dispatch(closeAddModal());
+            dispatch({
+              payload: {
+                files: JSON.parse(data.addFiles.resources.files),
+              },
+              type: actionTypes.LOAD_RESOURCES,
+            });
+            msgSuccess(
+              translate.t("search_findings.tab_resources.success"),
+              translate.t("search_findings.tab_users.title_success"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred adding files");
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
             msgError(translate.t("proj_alerts.error_textsad"));
             rollbar.error(error.message, errors);
           }

@@ -19,7 +19,8 @@ describe("Resources view", () => {
       environmentsDataset={[]}
       projectName="unittesting"
       repositoriesDataset={[]}
-      showFiles={false}
+      showFiles={true}
+      filesDataset={[]}
     />,
   );
 
@@ -32,7 +33,7 @@ describe("Resources view", () => {
 
     const buttons: ShallowWrapper = wrapper.find(Button);
     expect(buttons).to.have
-      .lengthOf(4);
+      .lengthOf(6);
 
     const addRepoBtn: string = buttons.at(0)
       .html();
@@ -102,17 +103,55 @@ describe("Resources view", () => {
     expect(removeEnvBtn).to
       .equal(expectedRemoveEnvBtn);
 
+    const addFileBtn: string = buttons.at(4)
+        .html();
+    const expectedAddFileBtn: string = shallow(
+        <Button
+          id="addFile"
+          block={true}
+          bsStyle="primary"
+          onClick={functionMock}
+        >
+          <Glyphicon glyph="plus" />
+          &nbsp;search_findings.tab_resources.add_repository
+        </Button>,
+      )
+        .html();
+    expect(addFileBtn).to
+        .equal(expectedAddFileBtn);
+
+    const downloadFileBtn: string = buttons.at(5)
+        .html();
+    const expectedDownloadFileBtn: string = shallow(
+        <Button
+          id="downloadFile"
+          block={true}
+          bsStyle="primary"
+          onClick={functionMock}
+        >
+          <Glyphicon glyph="download-alt" />
+          &nbsp;search_findings.tab_resources.download
+        </Button>,
+      )
+        .html();
+    expect(downloadFileBtn).to
+        .equal(expectedDownloadFileBtn);
+
   });
 
-  it("should render repos and envs tables", () => {
+  it("should render repos, envs and files tables", () => {
     const tables: ShallowWrapper = wrapper.find(DataTable);
     const repoTable: string = tables.at(0)
       .html();
     const envTable: string = tables.at(1)
       .html();
+    const fileTable: string = tables.at(2)
+      .html();
     expect(repoTable).to
       .contain('<div id="tblRepositories">');
     expect(envTable).to
       .contain('<div id="tblEnvironments">');
+    expect(fileTable).to
+      .contain('<div id="tblFiles">');
   });
 });
