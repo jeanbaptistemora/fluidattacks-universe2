@@ -3,7 +3,7 @@ from .login import AcceptLegal
 from .resource import (
     AddRepositories, RemoveRepositories,
     AddEnvironments, RemoveEnvironments,
-    AddFiles, DownloadFile
+    AddFiles, RemoveFiles, DownloadFile
 )
 from .user import (
     GrantUserAccess, RemoveUserAccess,
@@ -32,6 +32,7 @@ class Mutations(ObjectType):
     addEnvironments = AddEnvironments.Field()
     removeEnvironments = RemoveEnvironments.Field()
     addFiles = AddFiles.Field()
+    removeFiles = RemoveFiles.Field()
     downloadFile = DownloadFile.Field()
 
     uploadFile = UploadFile.Field()

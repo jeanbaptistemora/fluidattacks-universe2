@@ -371,6 +371,51 @@ class AddFiles(Mutation):
         return ret
 
 
+class RemoveFiles(Mutation):
+    """Remove files of a given project."""
+
+    class Arguments(object):
+        files_data = JSONString()
+        project_name = String()
+    resources = Field(Resource)
+    success = Boolean()
+
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
+    def mutate(self, info, files_data, project_name):
+        success = False
+        file_name = files_data.get('fileName')
+        file_list = \
+            integrates_dao.get_project_dynamo(project_name)[0]['files']
+        index = -1
+        cont = 0
+
+        while index < 0 and len(file_list) > cont:
+            if file_list[cont]['fileName'] == file_name:
+                index = cont
+            else:
+                index = -1
+            cont += 1
+        if index >= 0:
+            file_url = project_name + '/' + file_name
+            success = resources.delete_file_from_s3(file_url)
+            integrates_dao.remove_list_resource_dynamo(
+                'FI_projects',
+                'project_name',
+                project_name,
+                'files',
+                index)
+        else:
+            util.cloudwatch_log(info.context,
+                                'Security: \
+Attempted to remove a file that does not exist')
+
+        ret = RemoveFiles(success=success, resources=Resource(project_name))
+        util.invalidate_cache(project_name)
+        return ret
+
+
 class DownloadFile(Mutation):
     """ Download requested resource file """
     class Arguments(object):

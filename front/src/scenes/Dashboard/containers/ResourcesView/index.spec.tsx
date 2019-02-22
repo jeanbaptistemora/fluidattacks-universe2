@@ -33,7 +33,7 @@ describe("Resources view", () => {
 
     const buttons: ShallowWrapper = wrapper.find(Button);
     expect(buttons).to.have
-      .lengthOf(6);
+      .lengthOf(7);
 
     const addRepoBtn: string = buttons.at(0)
       .html();
@@ -120,7 +120,24 @@ describe("Resources view", () => {
     expect(addFileBtn).to
         .equal(expectedAddFileBtn);
 
-    const downloadFileBtn: string = buttons.at(5)
+    const removeFileBtn: string = buttons.at(5)
+      .html();
+    const expectedRemoveFileBtn: string = shallow(
+      <Button
+        id="removeFiles"
+        block={true}
+        bsStyle="primary"
+        onClick={functionMock}
+      >
+        <Glyphicon glyph="minus" />
+        &nbsp;search_findings.tab_resources.remove_repository
+      </Button>,
+    )
+      .html();
+    expect(removeFileBtn).to
+      .equal(expectedRemoveFileBtn);
+
+    const downloadFileBtn: string = buttons.at(6)
         .html();
     const expectedDownloadFileBtn: string = shallow(
         <Button

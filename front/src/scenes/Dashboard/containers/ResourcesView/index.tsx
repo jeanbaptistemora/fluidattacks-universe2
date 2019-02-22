@@ -140,6 +140,26 @@ const saveEnvs: (
     }
   };
 
+const removeFiles: ((arg1: string) => void) = (projectName: string): void => {
+    const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblFiles tr input:checked");
+    if (selectedQry.length > 0) {
+      if (selectedQry[0].closest("tr") !== null) {
+        const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+        const file: string | null = selectedRow.children[1].textContent;
+        const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+          store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+        );
+
+        thunkDispatch(actions.deleteFile(projectName, file));
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error("An error occurred removing files");
+      }
+    } else {
+      msgError(translate.t("search_findings.tab_resources.no_selection"));
+    }
+  };
+
 const saveFiles: (
   (files: IResourcesViewProps["filesDataset"],
    projectName: IResourcesViewProps["projectName"],
@@ -363,6 +383,17 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                       >
                         <Glyphicon glyph="plus"/>&nbsp;
                         {translate.t("search_findings.tab_resources.add_repository")}
+                      </Button>
+                    </Col>
+                    <Col md={2} sm={6}>
+                      <Button
+                        id="removeFiles"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={(): void => {removeFiles(props.projectName); }}
+                      >
+                        <Glyphicon glyph="minus"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.remove_repository")}
                       </Button>
                     </Col>
                     <Col md={2} sm={6}>

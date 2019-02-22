@@ -306,6 +306,49 @@ export const saveFiles: ThunkActionStructure =
         });
     };
 
+export const deleteFile: ThunkActionStructure =
+      (projectName: string, fileToRemove: string): ThunkAction<void, {}, {}, Action> =>
+        (dispatch: ThunkDispatcher): void => {
+          let gQry: string;
+          gQry = `mutation {
+          removeFiles (
+            filesData: ${JSON.stringify(JSON.stringify({ fileName: fileToRemove }))},
+            projectName: "${projectName}"
+          ) {
+            success
+            resources {
+              files
+            }
+          }
+        }`;
+          new Xhr().request(gQry, "An error occurred deleting files")
+            .then((response: AxiosResponse) => {
+              const { data } = response.data;
+              if (data.removeFiles.success) {
+                dispatch({
+                  payload: {
+                    files: JSON.parse(data.removeFiles.resources.files),
+                  },
+                  type: actionTypes.LOAD_RESOURCES,
+                });
+                msgSuccess(
+                  translate.t("search_findings.tab_resources.success_remove"),
+                  translate.t("search_findings.tab_users.title_success"),
+                );
+              } else {
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error("An error occurred deleting files");
+              }
+            })
+            .catch((error: AxiosError) => {
+              if (error.response !== undefined) {
+                const { errors } = error.response.data;
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error(error.message, errors);
+              }
+            });
+        };
+
 export const downloadFile: ThunkActionStructure =
       (projectName: string, fileToDownload: string):
       ThunkAction<void, {}, {}, Action> =>

@@ -53,9 +53,18 @@ def upload_file_to_s3(upload, fileurl):
     repeated_files = util.list_s3_objects(CLIENT_S3, BUCKET_S3, fileurl)
     if repeated_files:
         for k in repeated_files:
-            CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=k)
+            delete_file_from_s3(k)
     try:
         CLIENT_S3.upload_fileobj(upload.file, BUCKET_S3, fileurl)
+        return True
+    except exceptions.ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+def delete_file_from_s3(file_url):
+    try:
+        CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=file_url)
         return True
     except exceptions.ClientError:
         rollbar.report_exc_info()
