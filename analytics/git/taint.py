@@ -22,6 +22,10 @@ JSON = Any
 CONN = Any
 CURR = Any
 
+# pylint: disable=unused-argument
+# pylint: disable=too-many-arguments
+# pylint: disable=possibly-unused-variable
+
 
 def print_tutorial() -> None:
     """Print help."""
@@ -32,14 +36,16 @@ def print_tutorial() -> None:
         Set data:
             $ taint.py set subscription [subs_name]
                 Set the working subscription name.
+            $ taint.py set username [user_name]
+                Set the working user name.
             $ taint.py set tainted [repo_name] [file_path]
                 Mark a file as tainted.
             $ taint.py set clean [repo_name] [file_path]
                 Mark a file as clean.
 
         Get data:
-            $ taint.py get subscription
-                Return the working subscription name.
+            $ taint.py get configurations
+                Return the working configurations.
             $ taint.py get tainted
                 Print all tainted files.
             $ taint.py get clean
@@ -48,10 +54,14 @@ def print_tutorial() -> None:
                 Compute the coverage.
 
         Admins only:
-            $ taint.py init database
+            $ taint.py database init
                 Initialize the database.
-            $ taint.py push [repo_path]
+            $ taint.py database push [repo_path]
                 Push the latest data to the database.
+            $ taint.py database remove repository [repo_name]
+                Remove a repository from the database.
+            $ taint.py database vacuum
+                Vacuum tables to improve query performance.
         """
     print(tutorial, sep="\n")
     exit(1)
@@ -89,7 +99,7 @@ def database(credentials: JSON) -> Iterator[Tuple[CONN, CURR]]:
         conn.close()
 
 
-def init_database() -> None:
+def database_init() -> None:
     """Initialize the database."""
     credentials: JSON = get_credentials()
 
@@ -126,6 +136,42 @@ def init_database() -> None:
             conn.commit()
         except redshift.ProgrammingError:
             print("WARN: Does table taints.data currently exist?")
+
+
+def database_remove_repository(repo_name: str) -> None:
+    """Remove a repository from the database."""
+    # pylint: disable=unused-argument
+    credentials: JSON = get_credentials()
+
+    subs_name: str = get_subs_name()
+
+    with database(credentials) as (conn, curr):
+        curr.execute("""
+            DELETE FROM
+                taints.data
+            WHERE
+                subs_name = %(subs_name)s and
+                repo_name = %(repo_name)s
+            """, dict(locals().items()))
+        conn.commit()
+
+
+def database_vacuum() -> None:
+    """Vacuum tables to improve query performance."""
+    credentials: JSON = get_credentials()
+
+    for table in ("data", "logs"):
+        with database(credentials) as (conn, curr):
+            print(f"INFO: Vacuuming {table} data on schema taints.")
+            try:
+                curr.execute(f"""
+                    END TRANSACTION;
+                    VACUUM FULL taints.{table} TO 100 PERCENT;
+                """)
+                conn.commit()
+                print("INFO: Done.")
+            except (redshift.ProgrammingError, redshift.NotSupportedError):
+                print("ERRR: Please try again later.")
 
 
 def push_repo(repo_path: str) -> None:
@@ -238,7 +284,7 @@ def push_repo__get_remote_file_states(
         repo_name: str) -> Dict[str, Dict[str, Any]]:
     """Return a mapping of file states in remote HEAD."""
     with database(credentials) as (conn, curr):
-        curr.execute(f"""
+        curr.execute("""
             SELECT
                 file_path,
                 file_lines,
@@ -247,9 +293,9 @@ def push_repo__get_remote_file_states(
             FROM
                 taints.data
             WHERE
-                subs_name = '{subs_name}' and
-                repo_name = '{repo_name}'
-            """)
+                subs_name = %(subs_name)s and
+                repo_name = %(repo_name)s
+            """, dict(locals().items()))
         conn.commit()
         remote_file_states: Dict[str, Dict[str, Any]] = {
             file_path: {
@@ -271,9 +317,8 @@ def row_insert(
         file_state: str,
         file_last_hash: HASH) -> None:
     """Insert a row into the database."""
-    # pylint: disable=too-many-arguments
     with database(credentials) as (conn, curr):
-        curr.execute(f"""
+        curr.execute("""
             INSERT INTO
                 taints.data (
                     subs_name,
@@ -284,14 +329,14 @@ def row_insert(
                     file_last_hash
                 )
             VALUES (
-                '{subs_name}',
-                '{repo_name}',
-                '{file_path}',
-                 {file_lines},
-                '{file_state}',
-                '{file_last_hash}'
+                %(subs_name)s,
+                %(repo_name)s,
+                %(file_path)s,
+                %(file_lines)s,
+                %(file_state)s,
+                %(file_last_hash)s
             )
-            """)
+            """, dict(locals().items()))
         conn.commit()
 
 
@@ -302,14 +347,14 @@ def row_delete(
         file_path: str) -> None:
     """Delete a row into the database."""
     with database(credentials) as (conn, curr):
-        curr.execute(f"""
+        curr.execute("""
             DELETE FROM
                 taints.data
             WHERE
-                subs_name = '{subs_name}' and
-                repo_name = '{repo_name}' and
-                file_path = '{file_path}'
-            """)
+                subs_name = %(subs_name)s and
+                repo_name = %(repo_name)s and
+                file_path = %(file_path)s
+            """, dict(locals().items()))
         conn.commit()
 
 
@@ -322,7 +367,6 @@ def row_upsert(
         file_state: str,
         file_last_hash: HASH) -> None:
     """Upsert a row into the database."""
-    # pylint: disable=too-many-arguments
     row_delete(
         credentials,
         subs_name,
@@ -345,7 +389,7 @@ def row_get_by_index(
         file_path: str) -> Tuple[Any, Any, Any]:
     """Get file_state, file_last_hash from row."""
     with database(credentials) as (conn, curr):
-        curr.execute(f"""
+        curr.execute("""
             SELECT
                 file_lines,
                 file_state,
@@ -353,10 +397,10 @@ def row_get_by_index(
             FROM
                 taints.data
             WHERE
-                subs_name = '{subs_name}' and
-                repo_name = '{repo_name}' and
-                file_path = '{file_path}'
-            """)
+                subs_name = %(subs_name)s and
+                repo_name = %(repo_name)s and
+                file_path = %(file_path)s
+            """, dict(locals().items()))
         conn.commit()
         for row in curr:
             file_lines, file_state, file_last_hash = row
@@ -372,7 +416,7 @@ def row_get_all_with_state(
         file_state: str) -> Iterator[Tuple[str, str, int, str]]:
     """Yield repo_name, file_path, file_last_hash that matches file_state."""
     with database(credentials) as (conn, curr):
-        curr.execute(f"""
+        curr.execute("""
             SELECT
                 repo_name,
                 file_path,
@@ -381,13 +425,13 @@ def row_get_all_with_state(
             FROM
                 taints.data
             WHERE
-                subs_name = '{subs_name}' and
-                file_state = '{file_state}'
+                subs_name = %(subs_name)s and
+                file_state = %(file_state)s
             ORDER BY
                 repo_name,
                 file_path,
                 file_lines
-            """)
+            """, dict(locals().items()))
         conn.commit()
         for repo_name, file_path, file_lines, file_last_hash in curr:
             yield repo_name, file_path, file_lines, file_last_hash
@@ -407,7 +451,7 @@ def get_credentials() -> JSON:
 
 def get_subs_name(do_print=False) -> str:
     """Return the working subscription name."""
-    state_file_path = f"{os.path.dirname(__file__)}/.state"
+    state_file_path = f"{os.path.dirname(__file__)}/.subs_name"
     if os.path.isfile(state_file_path):
         with open(state_file_path, "r") as state_file:
             subs_name: str = state_file.read()
@@ -417,6 +461,20 @@ def get_subs_name(do_print=False) -> str:
     if do_print:
         print(f"INFO: Working on {subs_name}.")
     return subs_name
+
+
+def get_user_name(do_print=False) -> str:
+    """Return the working user name."""
+    state_file_path = f"{os.path.dirname(__file__)}/.user_name"
+    if os.path.isfile(state_file_path):
+        with open(state_file_path, "r") as state_file:
+            user_name: str = state_file.read()
+    else:
+        print("CRIT: You must set the user name first.")
+        exit(1)
+    if do_print:
+        print(f"INFO: Working on {user_name}.")
+    return user_name
 
 
 def get_files_with_state(file_state: str) -> None:
@@ -452,7 +510,8 @@ def get_coverage() -> None:
         except KeyError:
             datas[repo_name] = {"clean": file_lines, "tainted": 0}
 
-    get_coverage__print_header("Repository", "Coverage")
+    get_coverage__print_header(
+        "Repository", "Clean lines", "Tainted lines", "Coverage")
     subs_total_clean = 0
     subs_total_tainted = 0
     for repo_name in datas:
@@ -464,7 +523,8 @@ def get_coverage() -> None:
             repo_name, repo_total_clean, repo_total_tainted)
     get_coverage__print_hor_line()
     print()
-    get_coverage__print_header("Subscription", "Coverage")
+    get_coverage__print_header(
+        "Subscription", "Clean lines", "Tainted lines", "Coverage")
     get_coverage__print_coverage(
         subs_name, subs_total_clean, subs_total_tainted)
     get_coverage__print_hor_line()
@@ -473,27 +533,37 @@ def get_coverage() -> None:
 def get_coverage__print_coverage(source: str, clean: int, tainted: int):
     """Print a line of coverage to stdout."""
     coverage = 100.0 * clean / (clean + tainted)
-    print("|{:^48s}| {:>16.1f}% |".format(source, coverage))
+    print(
+        "|{:^48s}| {:>14d} | {:>14d} | {:>12.1f}% |".format(
+            source, clean, tainted, coverage))
 
 
 def get_coverage__print_hor_line():
     """Print an horizontal line to stdout."""
-    print(" " + "-" * 68 + " ")
+    print("-" * 100)
 
 
-def get_coverage__print_header(source: str, value: str):
+def get_coverage__print_header(*args):
     """Print a header to stdout."""
     get_coverage__print_hor_line()
-    print("|{:^48s}|{:^19s}|".format(source, value))
+    print("|{:^48s}|{:^16s}|{:^16s}|{:^15s}|".format(*args))
     get_coverage__print_hor_line()
 
 
 def set_subs_name(subs_name: str) -> None:
     """Set the working subscription name."""
-    state_file_path = f"{os.path.dirname(__file__)}/.state"
+    state_file_path = f"{os.path.dirname(__file__)}/.subs_name"
     with open(state_file_path, "w") as state_file:
         state_file.write(subs_name)
         print("INFO: Subscription name set.")
+
+
+def set_user_name(user_name: str) -> None:
+    """Set the working user name."""
+    state_file_path = f"{os.path.dirname(__file__)}/.user_name"
+    with open(state_file_path, "w") as state_file:
+        state_file.write(user_name)
+        print("INFO: User name set.")
 
 
 def set_file_state(
@@ -538,9 +608,23 @@ def main():
     arg3 = next(args, "")
 
     # Set data
+    main__parse_set(cmd, arg1, arg2, arg3)
+    # Get data
+    main__parse_get(cmd, arg1, arg2, arg3)
+    # Admins only
+    main__parse_admin(cmd, arg1, arg2, arg3)
+
+    print_tutorial()
+
+
+def main__parse_set(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
+    """Parse the CLI set group."""
     if cmd == "set" and arg1 == "subscription":
         subs_name = arg2
         set_subs_name(subs_name)
+    elif cmd == "set" and arg1 == "username":
+        user_name = arg2
+        set_user_name(user_name)
     elif cmd == "set" and arg1 == "tainted":
         repo_name = arg2
         file_path = arg3
@@ -549,23 +633,33 @@ def main():
         repo_name = arg2
         file_path = arg3
         set_file_state(repo_name, file_path, "clean")
-    # Get data
-    elif cmd == "get" and arg1 == "subscription":
+
+
+def main__parse_get(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
+    """Parse the CLI get group."""
+    if cmd == "get" and arg1 == "configurations":
         get_subs_name(do_print=True)
+        get_user_name(do_print=True)
     elif cmd == "get" and arg1 == "tainted":
         get_files_with_state("tainted")
     elif cmd == "get" and arg1 == "clean":
         get_files_with_state("clean")
     elif cmd == "get" and arg1 == "coverage":
         get_coverage()
-    # Admins only
-    elif cmd == "init" and arg1 == "database":
-        init_database()
-    elif cmd == "push":
-        repo_path = os.path.abspath(arg1)
+
+
+def main__parse_admin(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
+    """Parse the CLI admin group."""
+    if cmd == "database" and arg1 == "init":
+        database_init()
+    elif cmd == "database" and arg1 == "push":
+        repo_path = os.path.abspath(arg2)
         push_repo(repo_path)
-    else:
-        print_tutorial()
+    elif cmd == "database" and arg1 == "remove" and arg2 == "repository":
+        repo_name = arg3
+        database_remove_repository(repo_name)
+    elif cmd == "database" and arg1 == "vacuum":
+        database_vacuum()
 
 
 if __name__ == "__main__":
