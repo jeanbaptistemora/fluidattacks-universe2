@@ -412,6 +412,7 @@ sync_git:
     - mkdir ~/.ssh
     - pip3 install
         pyyaml
+        slackclient
         analytics/singer/tap_git
         analytics/singer/target_redshift
     - analytics/git/set_vpns.sh
