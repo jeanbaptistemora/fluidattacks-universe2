@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Clone or update repos in continuous.
 
 Automatically reads every config.yml.

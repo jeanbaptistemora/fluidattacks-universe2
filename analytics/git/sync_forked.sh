@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
 
 for fork in {1..8}; do
