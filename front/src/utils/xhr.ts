@@ -71,9 +71,10 @@ class Xhr {
   * return {void}
   */
   public hidePreloader = (): void => {
-     const preloaderElement: HTMLElement =
-        document.getElementById("full_loader") as HTMLElement;
-     preloaderElement.style.display = "none";
+     const preloaderElement: HTMLElement | null = document.getElementById("full_loader");
+     if (preloaderElement !== null) {
+       preloaderElement.style.display = "none";
+     }
    }
 
   /**
@@ -115,9 +116,10 @@ class Xhr {
    * return {void}
    */
   public showPreloader = (): void => {
-    const preloaderElement: HTMLElement =
-        document.getElementById("full_loader") as HTMLElement;
-    preloaderElement.style.display = "block";
+    const preloaderElement: HTMLElement | null = document.getElementById("full_loader");
+    if (preloaderElement !== null) {
+      preloaderElement.style.display = "block";
+    }
   }
 
   /**
