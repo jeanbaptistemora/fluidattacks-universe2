@@ -7,6 +7,7 @@
 from __future__ import absolute_import
 import datetime
 import base64
+import urllib
 import boto3
 import rollbar
 
@@ -39,7 +40,8 @@ def rsa_signer(message):
 
 
 def sign_url(domain, file_name, expire_mins):
-    url = domain + '/' + str(file_name)
+    filename = urllib.quote_plus(str(file_name))
+    url = domain + "/" + filename
     key_id = FI_CLOUDFRONT_ACCESS_KEY
     now_time = datetime.datetime.utcnow()
     expire_date = now_time + datetime.timedelta(minutes=expire_mins)
