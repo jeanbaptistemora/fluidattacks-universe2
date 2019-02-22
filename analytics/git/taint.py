@@ -8,12 +8,9 @@ import codecs
 import subprocess
 import contextlib
 
-from typing import Iterator, Dict, List, Tuple, Any
+from typing import Iterable, Iterator, Dict, List, Tuple, Any
 
 import psycopg2 as redshift
-
-# constants
-EMPTY_TREE_HASH: str = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
 # Type aliases that improve clarity
 HASH = str
@@ -21,6 +18,9 @@ PATH = str
 JSON = Any
 CONN = Any
 CURR = Any
+
+# constants
+EMPTY_TREE_HASH: HASH = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
 # pylint: disable=unused-argument
 # pylint: disable=too-many-arguments
@@ -137,13 +137,72 @@ def database_init() -> None:
         except redshift.ProgrammingError:
             print("WARN: Does table taints.data currently exist?")
 
+    with database(credentials) as (conn, curr):
+        print("INFO: Creating table logs on schema taints.")
+        try:
+            curr.execute("""
+                CREATE TABLE
+                    taints.logs (
+                        date           TIMESTAMP     NOT NULL,
+                        summary        VARCHAR(256)  NOT NULL,
+                        user_name      VARCHAR(256)  NOT NULL,
+                        subs_name      VARCHAR(4096) NOT NULL,
+                        repo_name      VARCHAR(4096) NOT NULL,
+                        file_path      VARCHAR(4096) NOT NULL,
+                        file_lines     INT8          NOT NULL,
+                        file_state     VARCHAR(8)    NOT NULL,
+                        file_last_hash VARCHAR(40)   NOT NULL
+                    )
+                """)
+            conn.commit()
+        except redshift.ProgrammingError:
+            print("WARN: Does table taints.logs currently exist?")
+
 
 def database_remove_repository(repo_name: str) -> None:
     """Remove a repository from the database."""
-    # pylint: disable=unused-argument
     credentials: JSON = get_credentials()
 
+    summary: str = 'deleted'
     subs_name: str = get_subs_name()
+    user_name: str = get_user_name()
+
+    print(f"INFO: Do you really want to delete {repo_name} from the database?")
+    if not input("Type 'yes' to confirm: ") == "yes":
+        print("INFO: Aborted.")
+        return
+
+    with database(credentials) as (conn, curr):
+        curr.execute("""
+            INSERT INTO
+                taints.logs (
+                    date,
+                    summary,
+                    user_name,
+                    subs_name,
+                    repo_name,
+                    file_path,
+                    file_lines,
+                    file_state,
+                    file_last_hash
+                )
+            SELECT
+                GETDATE(),
+                %(summary)s,
+                %(user_name)s,
+                subs_name,
+                repo_name,
+                file_path,
+                file_lines,
+                file_state,
+                file_last_hash
+            FROM
+                taints.data
+            WHERE
+                subs_name = %(subs_name)s and
+                repo_name = %(repo_name)s
+            """, dict(locals().items()))
+        conn.commit()
 
     with database(credentials) as (conn, curr):
         curr.execute("""
@@ -154,6 +213,8 @@ def database_remove_repository(repo_name: str) -> None:
                 repo_name = %(repo_name)s
             """, dict(locals().items()))
         conn.commit()
+
+    print("INFO: Done.")
 
 
 def database_vacuum() -> None:
@@ -181,6 +242,8 @@ def push_repo(repo_path: str) -> None:
     subs_name: str = get_subs_name()
     repo_name = os.path.basename(repo_path)
 
+    print(f"INFO: Pushing {repo_path} to the database, please wait.")
+
     local_file_states = push_repo__get_local_files_states(
         repo_path)
     remote_file_states = push_repo__get_remote_file_states(
@@ -194,8 +257,18 @@ def push_repo(repo_path: str) -> None:
                 remote_file_states[file_path]["file_last_hash"]
             if not file_last_hash == remote_file_last_hash:
                 # a commit has changed the file, update it in remote as tainted
-                row_upsert(
+                row__data__upsert(
                     credentials,
+                    subs_name,
+                    repo_name,
+                    file_path,
+                    file_lines,
+                    "tainted",
+                    file_last_hash)
+                row__logs__insert(
+                    credentials,
+                    "changed",
+                    "admin",
                     subs_name,
                     repo_name,
                     file_path,
@@ -204,8 +277,18 @@ def push_repo(repo_path: str) -> None:
                     file_last_hash)
         else:
             # a new file is in HEAD, push it to remote as tainted
-            row_insert(
+            row__data__insert(
                 credentials,
+                subs_name,
+                repo_name,
+                file_path,
+                file_lines,
+                "tainted",
+                file_last_hash)
+            row__logs__insert(
+                credentials,
+                "added",
+                "admin",
                 subs_name,
                 repo_name,
                 file_path,
@@ -216,11 +299,25 @@ def push_repo(repo_path: str) -> None:
     for file_path in remote_file_states:
         if file_path not in local_file_states:
             # remote contains a file that is not in HEAD now, delete it
-            row_delete(
+            file_lines = remote_file_states[file_path]["file_lines"]
+            file_last_hash = remote_file_states[file_path]["file_last_hash"]
+            row__data__delete(
                 credentials,
                 subs_name,
                 repo_name,
                 file_path)
+            row__logs__insert(
+                credentials,
+                "removed",
+                "admin",
+                subs_name,
+                repo_name,
+                file_path,
+                file_lines,
+                "clean",
+                file_last_hash)
+
+    print("INFO: Done")
 
 
 def push_repo__get_file_last_hash(
@@ -308,7 +405,7 @@ def push_repo__get_remote_file_states(
         return remote_file_states
 
 
-def row_insert(
+def row__data__insert(
         credentials: JSON,
         subs_name: str,
         repo_name: str,
@@ -340,7 +437,7 @@ def row_insert(
         conn.commit()
 
 
-def row_delete(
+def row__data__delete(
         credentials: JSON,
         subs_name: str,
         repo_name: str,
@@ -358,7 +455,7 @@ def row_delete(
         conn.commit()
 
 
-def row_upsert(
+def row__data__upsert(
         credentials: JSON,
         subs_name: str,
         repo_name: str,
@@ -367,12 +464,12 @@ def row_upsert(
         file_state: str,
         file_last_hash: HASH) -> None:
     """Upsert a row into the database."""
-    row_delete(
+    row__data__delete(
         credentials,
         subs_name,
         repo_name,
         file_path)
-    row_insert(
+    row__data__insert(
         credentials,
         subs_name,
         repo_name,
@@ -382,7 +479,7 @@ def row_upsert(
         file_last_hash)
 
 
-def row_get_by_index(
+def row__data__get_by_index(
         credentials: JSON,
         subs_name: str,
         repo_name: str,
@@ -410,7 +507,7 @@ def row_get_by_index(
         return file_lines, file_state, file_last_hash
 
 
-def row_get_all_with_state(
+def row__data__get_all_with_state(
         credentials: JSON,
         subs_name: str,
         file_state: str) -> Iterator[Tuple[str, str, int, str]]:
@@ -435,6 +532,46 @@ def row_get_all_with_state(
         conn.commit()
         for repo_name, file_path, file_lines, file_last_hash in curr:
             yield repo_name, file_path, file_lines, file_last_hash
+
+
+def row__logs__insert(
+        credentials: JSON,
+        summary: str,
+        user_name: str,
+        subs_name: str,
+        repo_name: str,
+        file_path: str,
+        file_lines: int,
+        file_state: str,
+        file_last_hash: HASH) -> None:
+    """Insert a row into the database."""
+    with database(credentials) as (conn, curr):
+        curr.execute("""
+            INSERT INTO
+                taints.logs (
+                    date,
+                    summary,
+                    user_name,
+                    subs_name,
+                    repo_name,
+                    file_path,
+                    file_lines,
+                    file_state,
+                    file_last_hash
+                )
+            VALUES (
+                GETDATE(),
+                %(summary)s,
+                %(user_name)s,
+                %(subs_name)s,
+                %(repo_name)s,
+                %(file_path)s,
+                %(file_lines)s,
+                %(file_state)s,
+                %(file_last_hash)s
+            )
+            """, dict(locals().items()))
+        conn.commit()
 
 
 def get_credentials() -> JSON:
@@ -473,7 +610,7 @@ def get_user_name(do_print=False) -> str:
         print("CRIT: You must set the user name first.")
         exit(1)
     if do_print:
-        print(f"INFO: Working on {user_name}.")
+        print(f"INFO: Working as {user_name}.")
     return user_name
 
 
@@ -484,7 +621,7 @@ def get_files_with_state(file_state: str) -> None:
 
     print(f"INFO: For subscription {subs_name}, files marked as {file_state}:")
     for repo_name, file_path, file_lines, file_last_hash in \
-            row_get_all_with_state(credentials, subs_name, file_state):
+            row__data__get_all_with_state(credentials, subs_name, file_state):
         print(
             f"{repo_name}/{file_path} ({file_lines} lines) [{file_last_hash}]")
 
@@ -497,14 +634,14 @@ def get_coverage() -> None:
 
     datas: Any = {}
     for repo_name, _, file_lines, _ in \
-            row_get_all_with_state(credentials, subs_name, "tainted"):
+            row__data__get_all_with_state(credentials, subs_name, "tainted"):
         try:
             datas[repo_name]["tainted"] += file_lines
         except KeyError:
             datas[repo_name] = {"tainted": file_lines, "clean": 0}
 
     for repo_name, _, file_lines, _ in \
-            row_get_all_with_state(credentials, subs_name, "clean"):
+            row__data__get_all_with_state(credentials, subs_name, "clean"):
         try:
             datas[repo_name]["clean"] += file_lines
         except KeyError:
@@ -573,20 +710,31 @@ def set_file_state(
     """Mark a file as tainted."""
     credentials: JSON = get_credentials()
     subs_name: str = get_subs_name()
+    user_name: str = get_user_name()
 
     print(f"Attemting to mark as {file_state_new}:")
     print(f"  subs_name:      {subs_name}")
     print(f"  repo_name:      {repo_name}")
     print(f"  file_path:      {file_path}")
     file_lines, file_state, file_last_hash = \
-        row_get_by_index(credentials, subs_name, repo_name, file_path)
+        row__data__get_by_index(credentials, subs_name, repo_name, file_path)
     if file_state:
         print(f"  file_lines:     {file_lines}")
         print(f"  file_state:     {file_state}")
         print(f"  file_last_hash: {file_last_hash}")
         if input("Type 'yes' to confirm: ") == "yes":
-            row_upsert(
+            row__data__upsert(
                 credentials,
+                subs_name,
+                repo_name,
+                file_path,
+                file_lines,
+                file_state_new,
+                file_last_hash)
+            row__logs__insert(
+                credentials,
+                "new state",
+                user_name,
                 subs_name,
                 repo_name,
                 file_path,
@@ -601,24 +749,21 @@ def set_file_state(
 def main():
     """Usual entry point."""
     # command line interface
-    args = iter(sys.argv[1:])
-    cmd = next(args, "")
-    arg1 = next(args, "")
-    arg2 = next(args, "")
-    arg3 = next(args, "")
+    args: Iterable[str] = iter(sys.argv[1:])
+    argv: List[str] = [next(args, "") for _ in range(0, 4)]
 
-    # Set data
-    main__parse_set(cmd, arg1, arg2, arg3)
-    # Get data
-    main__parse_get(cmd, arg1, arg2, arg3)
-    # Admins only
-    main__parse_admin(cmd, arg1, arg2, arg3)
-
-    print_tutorial()
+    # parse arguments
+    if main__parse_set(*argv) or \
+            main__parse_get(*argv) or \
+            main__parse_admin(*argv):
+        exit(0)
+    else:
+        print_tutorial()
 
 
-def main__parse_set(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
+def main__parse_set(cmd: str, arg1: str, arg2: str, arg3: str) -> bool:
     """Parse the CLI set group."""
+    was_captured: bool = True
     if cmd == "set" and arg1 == "subscription":
         subs_name = arg2
         set_subs_name(subs_name)
@@ -633,10 +778,14 @@ def main__parse_set(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
         repo_name = arg2
         file_path = arg3
         set_file_state(repo_name, file_path, "clean")
+    else:
+        was_captured = False
+    return was_captured
 
 
-def main__parse_get(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
+def main__parse_get(cmd: str, arg1: str, arg2: str, arg3: str) -> bool:
     """Parse the CLI get group."""
+    was_captured: bool = True
     if cmd == "get" and arg1 == "configurations":
         get_subs_name(do_print=True)
         get_user_name(do_print=True)
@@ -646,10 +795,14 @@ def main__parse_get(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
         get_files_with_state("clean")
     elif cmd == "get" and arg1 == "coverage":
         get_coverage()
+    else:
+        was_captured = False
+    return was_captured
 
 
-def main__parse_admin(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
+def main__parse_admin(cmd: str, arg1: str, arg2: str, arg3: str) -> bool:
     """Parse the CLI admin group."""
+    was_captured: bool = True
     if cmd == "database" and arg1 == "init":
         database_init()
     elif cmd == "database" and arg1 == "push":
@@ -660,6 +813,9 @@ def main__parse_admin(cmd: str, arg1: str, arg2: str, arg3: str) -> None:
         database_remove_repository(repo_name)
     elif cmd == "database" and arg1 == "vacuum":
         database_vacuum()
+    else:
+        was_captured = False
+    return was_captured
 
 
 if __name__ == "__main__":
