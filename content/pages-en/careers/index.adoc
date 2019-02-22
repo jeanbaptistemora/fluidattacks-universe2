@@ -96,7 +96,7 @@ Is to assess your strengths through the Clifton Strengths Finder test.
 This is mandatory and requires an estimated effort of 40 to 45 minutes.
 To do this you must first finish the previous stage.
 To begin,
-you must write us an email at careers@autonomicmind.co
+you must write us an email at careers@autonomicmind.com
 
 == 8. Challenges
 
@@ -131,13 +131,13 @@ through a video interview.
 Requires an estimated effort of 25 to 30 minutes.
 To do this you must first finish the previous stage.
 To begin,
-write us an email at careers@autonomicmind.co
+write us an email at careers@autonomicmind.com
 . *On-site Interview:* The goal of this stage
 is to set up a meeting where we can get to know you personally.
 Requires an estimated effort of 25 to 30 minutes.
 To do this you must first finish the previous stage.
 To begin,
-write us an email at careers@autonomicmind.co
+write us an email at careers@autonomicmind.com
 
 == 10. Immersion
 
@@ -147,7 +147,7 @@ in programming and hacking challenges,
 paid for by +Fluid Attacks+.
 This is mandatory and requires an effort
 that is determined based on your knowledge.
-To begin, write us an email at careers@autonomicmind.co
+To begin, write us an email at careers@autonomicmind.com
 and read these detailed [button]#link:immersion/[instructions]#
 
 == 11. References
@@ -171,7 +171,7 @@ This is optional and requires an estimated effort of 2 hours.
 Esto es opcional y el esfuerzo requerido estimado es de 2 horas.
 To do this you must first finish the previous stage.
 To begin,
-write us an email at careers@autonomicmind.co
+write us an email at careers@autonomicmind.com
 
 == 13. Audition
 
@@ -183,7 +183,7 @@ This is optional and requires an estimated effort of 4 hours
 to prepare a 20 minute presentation.
 To do this you do not need to finish the previous stage.
 To begin,
-write us an email at careers@autonomicmind.co
+write us an email at careers@autonomicmind.com
 
 == 14. Offer
 

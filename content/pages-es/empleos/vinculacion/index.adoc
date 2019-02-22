@@ -7,7 +7,7 @@
 = Vinculación
 
 En este paso,
-requerimos que nos envíes *un único e-mail* a careers@autonomicmind.co
+requerimos que nos envíes *un único e-mail* a careers@autonomicmind.com
 con *un solo archivo* +.ZIP+, meticulosamente organizado con un +PDF+
 por cada uno de los siguientes documentos:
 
@@ -38,4 +38,4 @@ o de estar ya afiliado, debes incluir el certificado de afiliación.
 . Dirección completa de tu residencia (Nomenclatura con N°. de apto
 y nombre de la unidad, barrio, municipio, teléfono fijo y celular).
 
-Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co
+Si tienes alguna duda no dudes en escribir a careers@autonomicmind.com

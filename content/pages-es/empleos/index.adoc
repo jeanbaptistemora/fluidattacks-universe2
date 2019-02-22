@@ -97,7 +97,7 @@ es evidenciar tus fortalezas mediante la prueba +Clifton StrengthsFinder+.
 Ésto es obligatorio y requiere un esfuerzo estimado de 40 a 45 min.
 Para hacerla, requieres haber finalizado la evaluación anterior.
 Para comenzar,
-debes notificarnos vía e-mail a careers@autonomicmind.co
+debes notificarnos vía e-mail a careers@autonomicmind.com
 
 == 8. Retos
 
@@ -131,13 +131,13 @@ mediante una entrevista virtual.
 Requiere un esfuerzo estimado de 25 a 30 min.
 Para hacerla, requieres haber finalizado la etapa anterior.
 Para iniciar,
-notifícanos vía e-mail a careers@autonomicmind.co
+notifícanos vía e-mail a careers@autonomicmind.com
 . *Entrevista Presencial:* El objetivo de esta etapa
 es acordar un encuentro en donde podremos conocerte personalmente.
 Requiere un esfuerzo estimado de 25 a 30 min.
 Para hacerla, requieres haber finalizado la etapa anterior.
 Para iniciar,
-notifícanos vía e-mail a careers@autonomicmind.co
+notifícanos vía e-mail a careers@autonomicmind.com
 
 == 10. Inmersión
 
@@ -147,7 +147,7 @@ en retos de programación y de +hacking+, financiado por +Fluid Attacks+.
 Ésto es obligatorio y el esfuerzo requerido
 es determinado según tu conocimiento.
 Para iniciar,
-notifícanos vía e-mail a careers@autonomicmind.co
+notifícanos vía e-mail a careers@autonomicmind.com
 y lee las instrucciones detalladas  [button]#link:inmersion/[aquí]#
 
 == 11. Referencias
@@ -168,7 +168,7 @@ sea necesario presentar este tipo de pruebas.
 Ésto es opcional y el esfuerzo requerido estimado es de 2 horas.
 Para hacerla, requieres haber finalizado la etapa anterior.
 Para iniciar,
-notifícanos vía e-mail a careers@autonomicmind.co
+notifícanos vía e-mail a careers@autonomicmind.com
 
 == 13. Audición
 
@@ -179,7 +179,7 @@ a una audiencia de mínimo de tres y máximo 30 personas.
 y 20 min para la presentación.
 Para hacerla, no requieres haber finalizado la etapa anterior.
 Para iniciar,
-notifícanos vía e-mail a careers@autonomicmind.co
+notifícanos vía e-mail a careers@autonomicmind.com
 
 == 14. Oferta
 

@@ -289,7 +289,7 @@ def rulechecker(PATH, EXIT_CODE):
     EXIT_CODE = 1
 
   #Only autonomicmind.com is allowed
-  OUT = os.popen("pcregrep -o '(autonomicmind.co\W)' "+PATH).read()
+  OUT = os.popen("pcregrep -o '(autonomicmind.co(?!m))' "+PATH).read()
   if len(OUT) > 0:
     print_helper.print_failure("Issue found in "+PATH+"\n")
     print_helper.print_failure(OUT)

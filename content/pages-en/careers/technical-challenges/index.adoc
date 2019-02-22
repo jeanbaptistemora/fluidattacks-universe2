@@ -138,7 +138,7 @@ Sent an +email+ with the links to your solutions in the +master+ branch.
 partial solutions as your own (plagiarism).
 . If you solve a challenge with the help of others.
 
-In all cases, the email address for these steps is: careers@autonomicmind.co
+In all cases, the email address for these steps is: careers@autonomicmind.com
 
 If you were removed from the process due to any of these circumstances,
 except for the last two,
