@@ -1,30 +1,49 @@
 from __future__ import absolute_import
 import mandrill
-from __init__ import FI_MANDRILL_API_KEY
+from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
 
 API_KEY = FI_MANDRILL_API_KEY
 VERIFY_TAG = ['verify']
 COMMENTS_TAG = ['comments']
 VULNERABILITIES_TAG = ['vulnerabilities']
 GENERAL_TAG = ['general']
-TEST_PROJECTS = ['unittesting']
+
+
+def _remove_test_projects(context, test_proj_list):
+    findings = context.get('findings')
+    if findings and isinstance(findings, list):
+        new_findings = list()
+        for fin in findings:
+            fin_proj = fin.get('project', '').lower()
+            if fin_proj not in test_proj_list:
+                new_findings.append(fin)
+        context['total'] = len(new_findings)
+        context['findings'] = new_findings
+    return context
 
 
 def _send_mail(template_name, email_to, context, tags):
-    mandrill_client = mandrill.Mandrill(API_KEY)
-    message = {
-        'to': [],
-        'global_merge_vars': []
-    }
-    for email in email_to:
-        message['to'].append({'email': email})
+    project = context.get('project', '').lower()
+    test_proj_list = FI_TEST_PROJECTS.split(',')
+    new_context = _remove_test_projects(context, test_proj_list)
+    if project not in test_proj_list:
+        mandrill_client = mandrill.Mandrill(API_KEY)
+        message = {
+            'to': [],
+            'global_merge_vars': []
+        }
+        for email in email_to:
+            message['to'].append({'email': email})
 
-    for key, value in context.items():
-        message['global_merge_vars'].append(
-            {'name': key, 'content': value}
-        )
-    message['tags'] = tags
-    mandrill_client.messages.send_template(template_name, [], message)
+        for key, value in new_context.items():
+            message['global_merge_vars'].append(
+                {'name': key, 'content': value}
+            )
+        message['tags'] = tags
+        mandrill_client.messages.send_template(template_name, [], message)
+    else:
+        # Mail should not be sent if is a test project
+        pass
 
 
 def send_mail_new_vulnerabilities(email_to, context):
@@ -86,15 +105,10 @@ def send_mail_new_version(email_to, context):
 
 
 def send_mail_repositories(email_to, context):
-    project = context.get('project', '')
-    if project.lower() not in TEST_PROJECTS:
-        _send_mail('repositoriesintegrates',
-                   email_to,
-                   context=context,
-                   tags=GENERAL_TAG)
-    else:
-        # Mail should not be sent if is a test project
-        pass
+    _send_mail('repositoriesintegrates',
+               email_to,
+               context=context,
+               tags=GENERAL_TAG)
 
 
 def send_mail_unsolved_events(email_to, context):

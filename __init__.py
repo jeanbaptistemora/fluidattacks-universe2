@@ -40,6 +40,7 @@ try:
     FI_MAIL_ENGINEERING = os.environ['FI_MAIL_ENGINEERING']
     FI_MAIL_PROJECTS = os.environ['FI_MAIL_PROJECTS']
     FI_MAIL_REVIEWERS = os.environ['FI_MAIL_REVIEWERS']
+    FI_TEST_PROJECTS = os.environ['FI_TEST_PROJECTS']
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")
     raise

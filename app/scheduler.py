@@ -75,7 +75,7 @@ def send_unsolved_events_email(project):
         mail_to.append(FI_MAIL_PROJECTS)
     events_info_for_email = [extract_info_from_event_dict(x)
                              for x in unsolved_events]
-    context = {'project_name': project.capitalize(),
+    context = {'project': project.capitalize(),
                'events': events_info_for_email}
     if not context['events'] or not mail_to:
         context = []
@@ -155,8 +155,8 @@ def get_new_vulnerabilities():
                 'notification email',
                 'error')
         if delta_total > 0:
-            context['proyecto'] = str.upper(str(project))
-            context['url_proyecto'] = '{url!s}/dashboard#!/project/' \
+            context['project'] = str.upper(str(project))
+            context['project_url'] = '{url!s}/dashboard#!/project/' \
                 '{project!s}/indicators' \
                 .format(url=BASE_URL, project=project)
             recipients = integrates_dao.get_project_users(project)
@@ -353,7 +353,7 @@ def deletion(project, days_to_send, days_to_delete):
                 days_until_now = \
                     remission.days_until_now(lastest_remission['TIMESTAMP'])
                 if days_until_now in days_to_send:
-                    context = {'project_name': project.capitalize()}
+                    context = {'project': project.capitalize()}
                     mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
                     send_mail_project_deletion(mail_to, context)
                     was_deleted = False

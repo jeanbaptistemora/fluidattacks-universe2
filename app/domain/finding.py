@@ -324,12 +324,12 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
 
     if comment_has_parent(parent):
         mail_title = \
-            "New {comment_type!s} email thread".format(comment_type=comment_type)
-        mail_function = send_mail_new_comment
-    else:
-        mail_title = \
             "Reply {comment_type!s} email thread".format(comment_type=comment_type)
         mail_function = send_mail_reply_comment
+    else:
+        mail_title = \
+            "New {comment_type!s} email thread".format(comment_type=comment_type)
+        mail_function = send_mail_new_comment
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     dynamo_value = integrates_dao.get_finding_attributes_dynamo(
@@ -545,7 +545,7 @@ def send_accepted_email(finding_id, user_email, justification):
             'user_mail': user_email,
             'finding_name': finding_name,
             'finding_id': finding_id,
-            'project_name': project_name.capitalize(),
+            'project': project_name.capitalize(),
             'justification': justification,
         }))
 
