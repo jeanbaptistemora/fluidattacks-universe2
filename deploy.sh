@@ -30,4 +30,4 @@ for EXT in "${EXTENSIONS[@]}"; do
 done
 
 # Upload remaining files
-aws s3 sync output/web "s3://$S3_BUCKET_NAME/web" --exclude "*.html" --exclude "*.css" --exclude "*.js" --exclude "*.png" --delete
+aws s3 sync output/ "s3://$S3_BUCKET_NAME/" --exclude "*.html" --exclude "*.css" --exclude "*.js" --exclude "*.png" --delete

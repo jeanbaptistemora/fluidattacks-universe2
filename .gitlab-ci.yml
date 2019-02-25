@@ -191,7 +191,7 @@ deploy:
       done
     - pelican --fatal errors --fatal warnings content/
     - rm -rf output/web/de
-    - mv robots.txt output/web/
+    - mv robots.txt output/
     - mv output/web/en/blog-en/* output/web/en/blog
     - mv output/web/es/blog-es/* output/web/es/blog
     - cp -r output/web/es/pages-es/* output/web/es/
