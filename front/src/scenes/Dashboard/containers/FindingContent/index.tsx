@@ -1,4 +1,5 @@
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import ReactDOM from "react-dom";
@@ -30,41 +31,49 @@ const getContextData: (() => IContextData) = (): IContextData => {
 const reduxProps: any = {};
 const renderDescription: (() => JSX.Element) = (): JSX.Element => {
   const { findingId, projectName, userRole } = getContextData();
+  mixpanel.track("FindingDescription");
 
   return <DescriptionView findingId={findingId} projectName={projectName} userRole={userRole} {...reduxProps} />;
 };
 const renderSeverity: (() => JSX.Element) = (): JSX.Element => {
   const { findingId, userRole } = getContextData();
+  mixpanel.track("FindingSeverity");
 
   return <SeverityView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
 };
 const renderEvidence: (() => JSX.Element) = (): JSX.Element => {
   const { findingId, userRole } = getContextData();
+  mixpanel.track("FindingEvidence");
 
   return <EvidenceView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
 };
 const renderExploit: (() => JSX.Element) = (): JSX.Element => {
   const { findingId, userRole } = getContextData();
+  mixpanel.track("FindingExploit");
 
   return <ExploitView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
 };
 const renderTracking: (() => JSX.Element) = (): JSX.Element => {
   const { findingId, userRole } = getContextData();
+  mixpanel.track("FindingTracking");
 
   return <TrackingView findingId={findingId} hasNewVulnerabilities={true} userRole={userRole} {...reduxProps} />;
 };
 const renderRecords: (() => JSX.Element) = (): JSX.Element => {
   const { findingId, userRole } = getContextData();
+  mixpanel.track("FindingRecords");
 
   return <RecordsView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
 };
 const renderComments: (() => JSX.Element) = (): JSX.Element => {
   const { findingId } = getContextData();
+  mixpanel.track("FindingComments");
 
   return <CommentsView type="comment" findingId={findingId} />;
 };
 const renderObservations: (() => JSX.Element) = (): JSX.Element => {
   const { findingId } = getContextData();
+  mixpanel.track("FindingObservations");
 
   return <CommentsView type="observation" findingId={findingId} />;
 };
@@ -137,4 +146,5 @@ const findingContent: React.SFC = (): JSX.Element => (
   </React.StrictMode>
 );
 
+mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
 ReactDOM.render(React.createElement(findingContent), document.getElementById("root"));
