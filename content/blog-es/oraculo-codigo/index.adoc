@@ -3,7 +3,7 @@
 :subtitle: Acerca del código como datos
 :category: ataques
 :tags: prueba, aplicación, detectar
-:image: oracle.png
+:image: cover.png
 :alt: Oráculo de Delphi
 :description: Una descripción del enfoque de código como datos para realizar un análisis de código fuente. El método consiste en realizar una base de datos a partir del código de una aplicación, utilizando un lenguaje de consulta especial para detectar vulnerabilidades y errores en el código.
 :keywords: Pruebas, Bases de datos, Código, Lenguaje de consulta, Semmle, Datos

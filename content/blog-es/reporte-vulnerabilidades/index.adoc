@@ -3,7 +3,7 @@
 :category: hacking
 :subtitle: Reportando vulnerabilidades de forma responsable
 :tags: seguridad, bug, vulnerabilidad, pentesting
-:image: hackers.png
+:image: cover.png
 :alt: Vulnerability disclosure
 :description: Cuando un analista de seguridad encuentra una nueva vulnerabilidad en un sistema o aplicación, ya sea de forma intencional o aleatoria, ¿Cómo puede proceder a reportarla para su futura remediación? Aquí explicamos las prácticas adecuadas para el reporte de vulnerabilidades.
 :keywords: Securidad, CVE, Vulnerabilidad, Pentesting, Reporte, Políticas

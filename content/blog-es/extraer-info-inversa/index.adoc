@@ -3,7 +3,7 @@
 :category: retos
 :subtitle: Solución al reto 6 de reversing de ChallengeLand
 :tags: reto, revertir, ingeniería, solucionar
-:image: inversa.png
+:image: cover.png
 :alt: Pingüino de Linux visto a través de Rayos-X
 :description: La ingeniería inversa debe su nombre a que va en contravía al proceso normal de diseño de un producto. Se dedica a entender el funcionamiento y las partes que lo componen partiendo de un producto final, y tiene un sinfín de aplicaciones como en el caso de este artículo, resolver un reto de hacking.
 :keywords: Ingeniería inversa, Funcionamiento, Reversing, Software, Reto, Informática.

@@ -3,7 +3,7 @@
 :category: opiniones
 :subtitle: Entrenando el talento ante amenazas informáticas
 :tags: seta, concientizar, seguridad
-:image: pilares.png
+:image: cover.png
 :alt: Tres diagramas circulares mostrando relación personas-procesos-tecnología
 :description: Los empleados son el alma de la empresa y como tal es necesario que sepan como actuar ante las diferentes situaciones que pueden poner en peligro la seguridad informática de la organización. A continuación se presenta la metodología de enseñanza SETA para concientización de riesgos informáticos.
 :keywords: Seguridad, SETA, Entrenamiento, Educación, Amenazas, Tecnología.

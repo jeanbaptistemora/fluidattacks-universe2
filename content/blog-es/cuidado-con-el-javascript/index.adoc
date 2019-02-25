@@ -6,7 +6,7 @@
 :keywords: JavaScript, Seguridad, Web, Solución, Reto, Hackthis.
 :author: Luis Arteaga
 :tags: solucionar, javascript, reto
-:image: js-pwd.png
+:image: cover.png
 :alt: Pinzas extrayendo la contraseña de unos datos binarios
 :writer: stiwar
 :name: Luis Arteaga

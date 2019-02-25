@@ -3,7 +3,7 @@
 :category: opiniones
 :subtitle: Inicios en la ingeniería social
 :tags: concientizar, ingeniería, social, amenaza
-:image: ingenieriasocial.png
+:image: cover.png
 :alt: Mano manejando una marioneta que está interactuando con otras marionetas
 :description: La ingeniería social es el empleo de técnicas psicológicas y tecnológicas para lograr manipular a una o varias personas y conseguir que estas revelen información que se supone no debe ser revelada. En este artículo hablaremos sobre la ingeniería social y su impacto en la seguridad informática.
 :keywords: Seguridad, Ingeniería Social, Engaño, Información, Credenciales, Amenaza.

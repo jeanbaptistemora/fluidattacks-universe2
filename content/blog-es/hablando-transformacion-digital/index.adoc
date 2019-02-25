@@ -3,7 +3,7 @@
 :category: opiniones
 :subtitle: La revolución introducida por las TI
 :tags: transformar, evolucionar, digital
-:image: transformacion-digital.png
+:image: cover.png
 :alt: Un sketch con una brújula apuntando a la transformación digital
 :description: La tecnología avanza a pasos agigantados y con ella los retos que supone para los departamentos de TI el estar a la vanguardia en la innovación. En el presente artículo hablaremos acerca de la transformación digital y los cambios que representa para las organizaciones y los gestores de TI.
 :keywords: Seguridad, TI, Tecnología, Información, Transformación, Innovación.

@@ -3,7 +3,7 @@
 :category: filosofía
 :subtitle: Detección automática vs detección manual
 :tags: aplicación, detectar, vulnerabilidad, escáner
-:image: humano-vs-maquina.png
+:image: cover.png
 :alt: Persona jugando ajedrez contra un brazo mecánico
 :description: La detección de vulnerabilidades en manos de una herramienta automática no es suficiente para concluir que una aplicación es segura. El conocimiento y experiencia de una persona siguen siendo necesarios para lograr una evaluación efectiva de la seguridad de dicha aplicación.
 :keywords: Detección de Vulnerabilidades, Detección Manual, Detección Automática, Seguridad, Aplicación web, Herramientas Automatizadas.

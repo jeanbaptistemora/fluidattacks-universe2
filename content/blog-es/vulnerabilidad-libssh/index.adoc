@@ -3,7 +3,7 @@
 :category: ataques
 :subtitle: Nueva vulnerabilidad en libssh CVE-2018-10933
 :tags: seguridad, bug, libssh, pentesting
-:image: yodameme.png
+:image: cover.png
 :alt: Cara graciosa de Yoda
 :description: Libssh es una librería que sirve para implementar el protocolo SSHv2 en el lado del servidor y del cliente. Recientemente un analista de seguridad descubrió una vulnerabilidad que le permite a un atacante remoto saltar la autenticación. Aquí explicaremos esta vulnerabilidad.
 :keywords: Libssh, Seguridad, CVE, Vulnerabilidad, Pentesting, PoC.

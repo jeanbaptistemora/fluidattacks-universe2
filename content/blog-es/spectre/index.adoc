@@ -3,7 +3,7 @@
 :category: ataques
 :subtitle: Qué es Spectre, y ¿deberíamos preocuparnos?
 :tags: spectre, meltdown, procesador, vulnerabilidad, hardware, exploit
-:image: ghostinthemachine.png
+:image: cover.png
 :alt: Fantasma en la máquina
 :description: Si estás interesado en la seguridad informática muy probablemente hayas oído hablar de Meltdown y Spectre a lo largo de éste año. En este artículo daremos una mirada a Spectre: qué es, cómo funciona cómo nos afecta y qué podemos hacer para protegernos de él.
 :keywords: Spectre, Vulnerabilidad, Procesador, Hardware, Diseño, Exploit

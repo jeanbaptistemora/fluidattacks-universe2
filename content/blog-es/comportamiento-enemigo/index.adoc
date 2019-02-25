@@ -3,7 +3,7 @@
 :category: opiniones
 :subtitle: Las señales de alerta de los criminales informáticos
 :tags: atacar, rsa, seguridad
-:image: comportamiento-enemigo.png
+:image: cover.png
 :alt: Persona mitad-ángel mitad-demonio sosteniendo una bolsa de dinero
 :description: En la mayoría de casos los criminales informáticos buscan ocultar su actividad y pasar desapercibidos, sin embargo al conocer los patrones y comportamiento de los usuarios legítimos es posible encontrar señales de alerta al detectar comportamientos que no siguen éstos patrones.
 :keywords: Comportamiento, Patrón, Usuario, Legítimo, Seguridad, Validación.

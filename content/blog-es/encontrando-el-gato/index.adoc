@@ -3,7 +3,7 @@
 :category: retos
 :subtitle: Cómputo Forense 101 - Solución al reto de root-me.org
 :tags: solucionar, reto, herramienta, forense, investigación, digital, carving
-:image: csi-cyber.png
+:image: cover.png
 :alt: Imagen de CSI Cyber
 :description: Los archivos con los que trabajamos día a día son mucho más de lo que parecen a simple vista. En éste artículo veremos algunas técnicas y herramientas que nos permitirán extraer de ellos información útil que difícilmente habríamos imaginado, y resolveremos el reto Find the Cat de root-me.org
 :keywords: Herramientas, Autopsy, Forense, Imagen, Reto, Metadatos

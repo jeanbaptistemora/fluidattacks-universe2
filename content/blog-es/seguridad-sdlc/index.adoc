@@ -3,7 +3,7 @@
 :category: opiniones
 :subtitle: Metodologías para el desarrollo seguro de software
 :tags: devops, sdlc, programar
-:image: sdlc.png
+:image: cover.png
 :alt: Flechas con las diferentes etapas del SDLC formando un círculo
 :description: La seguridad no debe verse como un valor agregado sino como un pilar alrededor del cual se debe desarrollar. En este artículo profundizamos ésta filosofía detallando cómo integrar la seguridad en el proceso de desarrollo de software para evitar pérdidas causadas por ataques informáticos.
 :keywords: Seguridad, Ciclo de Vida, Información, Software, DevOps, Desarrollo.

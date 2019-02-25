@@ -6,7 +6,7 @@
 :author: Jhony Villa
 :category: retos
 :tags: configurar, indexof, reto
-:image: apache.png
+:image: cover.png
 :alt: Nativos apaches sentados junto a una tienda
 :writer: jhony
 :name: Jhony Arbey Villa Peña

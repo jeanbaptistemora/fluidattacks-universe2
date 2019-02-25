@@ -3,7 +3,7 @@
 :category: retos
 :subtitle: Solución al algoritmo de Euclides de Mathchall
 :tags: matemática, solucionar, programar, reto
-:image: maths-friend.png
+:image: cover.png
 :alt: Fórmulas trigonométricas
 :description: Para incursionar en el mundo de la seguridad informática el saber programar es una habilidad esencial y gran parte de la programación se basa en la lógica matemática. En este artículo hablaremos de las matemáticas, los modelos matemáticos y su importancia en la seguridad informática.
 :keywords: Programación, Matemática, Algoritmo, Modelos, Optimización, Modelos.

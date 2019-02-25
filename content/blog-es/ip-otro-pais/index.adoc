@@ -3,7 +3,7 @@
 :category: retos
 :subtitle: Solución al reto 8 de HaxTor
 :tags: red, reto, solucionar, herramienta
-:image: ip.png
+:image: cover.png
 :alt: Poste de dirección con una dirección IP, con el mundo atrás
 :description: En Internet acechan muchos peligros, algunos de los cuales pueden ser evitados. Nuestra actividad en internet puede ser rastreada y nuestra ubicación física conocida gracias a nuestra dirección IP. En este artículo mostraremos como cambiar nuestra IP para mantener el anonimato en la red.
 :keywords: Seguridad, Dirección, IP, TOR, VPN, Anonimato.

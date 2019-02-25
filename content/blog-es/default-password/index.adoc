@@ -3,7 +3,7 @@
 :category: retos
 :subtitle: Solución al reto weak password de Rootme
 :tags: seguridad, password, atacar
-:image: default-password.png
+:image: cover.png
 :alt: Símbolo de prohibición sobre la contraseña por defecto
 :description: En algunas ocasiones los administradores no modifican las credenciales por defecto de las aplicaciones, esto es un error grave debido a que facilita a los atacantes ingresar utilizando un ataque de diccionario. A continuación se muestra un ejemplo de robo de credenciales por defecto.
 :keywords: Seguridad, Contraseña, Default, Credenciales, Buenas Prácticas, Hacking

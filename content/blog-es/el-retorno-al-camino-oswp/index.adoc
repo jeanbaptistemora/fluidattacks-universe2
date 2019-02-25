@@ -3,7 +3,7 @@
 :category: certificaciones
 :subtitle: Experiencias sobre la certificación OSWP
 :tags: red team, wireless, certificaciones, offensive
-:image: logo-wifu.png
+:image: cover.png
 :alt: Logo de OSWP
 :description: OSWP es una certificación ofrecida por offsec orientada a redes inalámbricas, ¿La recomiendo?¿Su dificultad es similar a OSCP?¿Cuál es ROI? En esta ocasión tratare de dar respuesta a las anteriores preguntas a lo largo de este artículo, este es el retorno al camino de Try Harder.
 :keywords: Certificaciones, OSWP, Offensive, Wireless, Red team, WIFU

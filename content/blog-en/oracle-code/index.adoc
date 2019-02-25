@@ -3,7 +3,7 @@
 :subtitle: About code as data
 :category: attacks
 :tags: testing, application, detect
-:image: oracle.png
+:image: cover.png
 :alt: Pythia and supplicant in the Oracle of Delphi
 :description: A description of the code-as-data approach to source code analysis. The method consists of making a database out of the application code, and using a special query language in order to detect vulnerabilities and bugs in the code. Security applications are discussed, as is Semmle's offering.
 :keywords: Testing, Database, Code, Query Language, Semmle, Data

@@ -3,7 +3,7 @@
 :category: opiniones
 :subtitle: Los peligros intrínsecos de IoT
 :tags: crimeware, iot, seguridad, atacar
-:image: crimenware.png
+:image: cover.png
 :alt: Ladrón entrando a un computador como si fuera una caja fuerte
 :description: El internet de las cosas (IoT) permite que cada dispositivo electrónico esté conectado a Internet, lo cual supone una enorme facilidad de acceso a la información. Sin embargo ésto también puede ser utilizado por criminales cibernéticos para obtener información y cometer delitos informáticos.
 :keywords: Seguridad, IoT, Crimeware, Internet, Dispositivos, Software.

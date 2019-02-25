@@ -3,7 +3,7 @@
 :category: opiniones
 :subtitle: Las cookies y el robo de identidad
 :tags: seguridad, sesión, cookie, proteger
-:image: cookie.png
+:image: cover.png
 :alt: Tres galletas con chips de chocolate
 :description: Muchas aplicaciones web utilizan las cookies para almacenar información en ellas, como configuraciones, información de estado y credenciales del usuario por lo cual las cookies son un blanco de ataque. Para proteger las cookies se pueden seguir algunas pautas, que detallaremos en este artículo.
 :keywords: Seguridad, Sesión, Cookie, Buenas Prácticas, Protección, Ataque.

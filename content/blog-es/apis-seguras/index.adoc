@@ -3,7 +3,7 @@
 :category: identidad
 :subtitle: El protocolo OAUTH y la seguridad de las APIs
 :tags: api, protocolo, intercambiar, información
-:image: oauth-preview.png
+:image: cover.png
 :alt: Interacción entre el usuario y el sistema en un esquema OAuth
 :description: Las API (Application Programming Interface) son cada vez más populares en todo tipo de servicios. Sin embargo, es necesario garantizar que el intercambio de información que se realiza a través de las API sea seguro. En este artículo se aborda un protocolo para garantizar APIs seguras.
 :keywords: API, Seguridad, Información, Intercambiar, OAUTH, Servicios.
