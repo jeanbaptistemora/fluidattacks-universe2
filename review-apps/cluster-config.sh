@@ -82,10 +82,6 @@ echo-blue "Setting namespace preferences..."
 kubectl config set-context \
   "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
 
-# Prepare manifests by replacing the value of Environmental Variables
-replace_env_variables ingress.yaml
-replace_env_variables deploy-integrates.yaml
-
 # Check resources to enable TLS communication
 validate_domain_certificate tls.yaml
 
@@ -103,40 +99,9 @@ fi
 # Check secret to pass env variables to container
 export VAULT_HOST_B64="$(echo -n ${VAULT_HOST} | base64)"
 export VAULT_TOKEN_B64="$(echo -n ${VAULT_TOKEN} | base64)"
-replace_env_variables variables.yaml
+replace_env_variables variables.yaml ingress.yaml deploy-integrates.yaml
 kubectl apply -f variables.yaml
-
-# Delete previous deployments and services of the same branch, if present
-if find_resource deployments "${CI_COMMIT_REG_SLUG}" -q; then
-  echo "Erasing previous deployments..."
-  kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
-  kubectl delete service "service-$CI_COMMIT_REF_SLUG";
-  kubectl get ingress "${CI_PROJECT_NAME}-review" -o yaml | \
-    sed '/host: '"$CI_COMMIT_REF_SLUG"'/,+5d' | \
-    sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
-  sleep 30
-fi
-
-# Update current ingress resource if it exists, otherwise create it from zero.
-if find_resource ingress "${CI_PROJECT_NAME}"; then
-  if [ ! -f current-ingress.yaml ]; then
-    echo "Getting current ingress manifest..."
-    kubectl get ingress "${CI_PROJECT_NAME}-review" -o yaml > current-ingress.yaml;
-  fi
-  echo "Updating ingress manifest..."
-  sed -n '/spec:/,/tls:/p' current-ingress.yaml | \
-    tail -n +3 | \
-    head -n -1 >> ingress.yaml
-  PREV_HOSTS="$(sed -n '/hosts:/,/secretName:/p' current-ingress.yaml | \
-                head -n -1 | \
-                tail -n +2)"
-  while IFS= read -r LINE; do
-    sed -i 's/\ \ \ \ secretName/'"${LINE}"'\n\ \ \ \ secretName/' ingress.yaml;
-  done < <(echo "${PREV_HOSTS}")
-  kubectl apply -f ingress.yaml;
-else
-  kubectl apply -f ingress.yaml;
-fi
+kubectl apply -f ingress.yaml
 
 # Deploy pod and service
 echo "Deploying latest image..."

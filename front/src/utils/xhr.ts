@@ -159,7 +159,7 @@ class Xhr {
     const promise: Promise<any> = Axios.post(
     getEnvironment() === "production"
       ? `${PRODUCTION_URL}/integrates/api`
-      : "api",
+      : "/integrates/api",
     payload,
     )
     .then((response: AxiosResponse) => {
@@ -176,7 +176,7 @@ class Xhr {
             location.assign(
              getEnvironment() === "production"
              ? "/integrates/logout"
-             : "/logout",
+             : "/integrates/logout",
             );
           } else if (message === "Access denied") {
             msgError(translate.t("proj_alerts.access_denied"));

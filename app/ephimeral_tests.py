@@ -24,7 +24,7 @@ class ViewTestCase(unittest.TestCase):
             self.url = 'https://fluidattacks.com/integrates'
         else:
             self.url = \
-                'https://{}.integrates.env.fluidattacks.com'.format(self.branch)
+                'https://{}.integrates.env.fluidattacks.com/integrates'.format(self.branch)
         self.username = os.environ['FI_INTEGRATES_USER']
         self.password = os.environ['FI_INTEGRATES_USERPASS']
 

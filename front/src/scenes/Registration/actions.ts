@@ -36,7 +36,7 @@ export const loadDashboard: (() => void) = (): void => {
   location.assign(
     getEnvironment() === "production"
       ? `${PRODUCTION_URL}/integrates/dashboard#${initialUrl}`
-      : `dashboard#${initialUrl}`,
+      : `/integrates/dashboard#${initialUrl}`,
   );
 };
 
