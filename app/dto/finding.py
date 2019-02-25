@@ -102,6 +102,31 @@ class FindingDTO(object):
     CVSS_PARAMETERS = {'bs_factor_1': 0.6, 'bs_factor_2': 0.4, 'bs_factor_3': 1.5,
                        'impact_factor': 10.41, 'exploitability_factor': 20}
 
+    # Attributes CVSS V3
+    CVSS_VERSION = FIELDS_FINDING['CVSS_VERSION'],
+    ATTACK_VECTOR_V3 = FIELDS_FINDING['ATTACK_VECTOR_V3'],
+    ATTACK_COMPLEXITY = FIELDS_FINDING['ATTACK_COMPLEXITY'],
+    PRIVILEGES_REQUIRED = FIELDS_FINDING['PRIVILEGES_REQUIRED'],
+    USER_INTERACTION = FIELDS_FINDING['USER_INTERACTION'],
+    SEVERITY_SCOPE = FIELDS_FINDING['SEVERITY_SCOPE'],
+    CONFIDENTIALITY_IMPACT_V3 = FIELDS_FINDING['CONFIDENTIALITY_IMPACT_V3'],
+    INTEGRITY_IMPACT_V3 = FIELDS_FINDING['INTEGRITY_IMPACT_V3'],
+    AVAILABILITY_IMPACT_V3 = FIELDS_FINDING['AVAILABILITY_IMPACT_V3'],
+    EXPLOIT_CODE_MATURITY = FIELDS_FINDING['EXPLOIT_CODE_MATURITY'],
+    REMEDIATION_LEVEL = FIELDS_FINDING['REMEDIATION_LEVEL'],
+    REPORT_CONFIDENCE = FIELDS_FINDING['REPORT_CONFIDENCE'],
+    CONFIDENTIALITY_REQUIREMENT_V3 = FIELDS_FINDING['CONFIDENTIALITY_REQUIREMENT_V3'],
+    INTEGRITY_REQUIREMENT_V3 = FIELDS_FINDING['INTEGRITY_REQUIREMENT_V3'],
+    AVAILABILITY_REQUIREMENT_V3 = FIELDS_FINDING['AVAILABILITY_REQUIREMENT_V3'],
+    MODIFIED_ATTACK_VECTOR = FIELDS_FINDING['MODIFIED_ATTACK_VECTOR'],
+    MODIFIED_ATTACK_COMPLEXITY = FIELDS_FINDING['MODIFIED_ATTACK_COMPLEXITY'],
+    MODIFIED_PRIVILEGES_REQUIRED = FIELDS_FINDING['MODIFIED_PRIVILEGES_REQUIRED'],
+    MODIFIED_USER_INTERACTION = FIELDS_FINDING['MODIFIED_USER_INTERACTION'],
+    MODIFIED_SEVERITY_SCOPE = FIELDS_FINDING['MODIFIED_SEVERITY_SCOPE'],
+    MODIFIED_CONFIDENTIALITY_IMPACT = FIELDS_FINDING['MODIFIED_CONFIDENTIALITY_IMPACT'],
+    MODIFIED_INTEGRITY_IMPACT = FIELDS_FINDING['MODIFIED_INTEGRITY_IMPACT'],
+    MODIFIED_AVAILABILITY_IMPACT = FIELDS_FINDING['MODIFIED_AVAILABILITY_IMPACT'],
+
     def __init__(self):
         """Class constructor."""
         self.request_id = None
@@ -140,10 +165,16 @@ class FindingDTO(object):
             forms.dict_concatenation(self.data,
                                      self.parse_description(request_arr,
                                                             submission_id))
-        self.data = \
-            forms.dict_concatenation(self.data,
-                                     self.parse_cvssv2(request_arr,
-                                                       submission_id))
+        if self.data.get('cvssVersion', '') == '3':
+            self.data = \
+                forms.dict_concatenation(self.data,
+                                         self.parse_cvssv3(request_arr,
+                                                           submission_id))
+        else:
+            self.data = \
+                forms.dict_concatenation(self.data,
+                                         self.parse_cvssv2(request_arr,
+                                                           submission_id))
         self.data = \
             forms.dict_concatenation(self.data,
                                      self.parse_project(request_arr,
@@ -160,7 +191,7 @@ class FindingDTO(object):
         migrated_dict = {}
         migrated_aditional_info_dict = {}
         description_title = ['report_level', 'subscription', 'client_code',
-                             'finding', 'probability', 'severity',
+                             'finding', 'probability', 'severity', 'cvss_version'
                              'risk_value', 'ambit', 'category', 'test_type',
                              'related_findings', 'actor', 'scenario']
         description = integrates_dao.get_finding_attributes_dynamo(
@@ -187,6 +218,7 @@ class FindingDTO(object):
                 self.AMBIT: 'ambit',
                 self.CATEGORY: 'category',
                 self.ACTOR: 'actor',
+                self.CVSS_VERSION: 'cvssVersion'
             }
             migrated_dict = {v: initial_dict[k]
                              for (k, v) in migrated_description_fields.items()
@@ -319,6 +351,59 @@ class FindingDTO(object):
         parsed_dict['criticity'] = calc_cvss_temporal(parsed_dict, base_score)
         parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
         parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
+        return parsed_dict
+
+    def parse_cvssv3(self, request_arr, submission_id): # noqa: C901
+        """Convert the score of a finding into a formstack format."""
+        initial_dict = forms.create_dict(request_arr)
+        severity_title = ['attack_vector', 'attack_complexity',
+                          'privileges_required', 'user_interaction',
+                          'severity_scope', 'confidentiality_impact',
+                          'integrity_impact', 'availability_impact',
+                          'exploit_code_maturity', 'remediation_level',
+                          'report_confidence', 'confidentiality_requirement',
+                          'integrity_requirement', 'availability_requirement',
+                          'modified_attack_vector', 'modified_attack_complexity',
+                          'modified_privileges_required', 'modified_user_interaction',
+                          'modified_severity_scope', 'modified_confidentiality_impact',
+                          'modified_integrity_impact', 'modified_availability_impact']
+        severity = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            severity_title)
+        if severity and len(severity.keys()) > 1:
+            severity_fields = {k: util.snakecase_to_camelcase(k)
+                               for k in severity_title}
+            parsed_dict = {v: float(severity[k])
+                           for (k, v) in severity_fields.items()
+                           if k in severity.keys()}
+        else:
+            severity_fields = {
+                self.ATTACK_VECTOR_V3: 'attackVector',
+                self.ATTACK_COMPLEXITY: 'attackComplexity',
+                self.PRIVILEGES_REQUIRED: 'privilegesRequired',
+                self.USER_INTERACTION: 'userInteraction',
+                self.SEVERITY_SCOPE: 'severityScope',
+                self.CONFIDENTIALITY_IMPACT_V3: 'confidentialityImpact',
+                self.INTEGRITY_IMPACT_V3: 'integrityImpact',
+                self.AVAILABILITY_IMPACT_V3: 'availabilityImpact',
+                self.EXPLOIT_CODE_MATURITY: 'exploitCodeMaturity',
+                self.REMEDIATION_LEVEL: 'remediationLevel',
+                self.REPORT_CONFIDENCE: 'reportConfidence',
+                self.CONFIDENTIALITY_REQUIREMENT_V3: 'confidentialityRequirement',
+                self.INTEGRITY_REQUIREMENT_V3: 'integrityRequirement',
+                self.AVAILABILITY_REQUIREMENT_V3: 'availabilityRequirement',
+                self.MODIFIED_ATTACK_VECTOR: 'modifiedAttackVector',
+                self.MODIFIED_ATTACK_COMPLEXITY: 'modifiedAttackComplexity',
+                self.MODIFIED_PRIVILEGES_REQUIRED: 'modifiedPrivilegesRequired',
+                self.MODIFIED_USER_INTERACTION: 'modifiedUserInteraction',
+                self.MODIFIED_SEVERITY_SCOPE: 'modifiedSeverityScope',
+                self.MODIFIED_CONFIDENTIALITY_IMPACT: 'modifiedConfidentialityImpact',
+                self.MODIFIED_INTEGRITY_IMPACT: 'modifiedIntegrityImpact',
+                self.MODIFIED_AVAILABILITY_IMPACT: 'modifiedAvailabilityImpact',
+            }
+            parsed_dict = {v: float(initial_dict[k])
+                           for (k, v) in severity_fields.items()
+                           if k in initial_dict.keys()}
         return parsed_dict
 
     def parse_project(self, request_arr, submission_id):
