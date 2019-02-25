@@ -16,6 +16,8 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/upstream-vhost: "fluidattacks.gitlab.io"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/asserts/
+    nginx.ingress.kubernetes.io/proxy-redirect-to: /asserts/
 spec:
   tls:
   - hosts:
@@ -80,6 +82,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/upstream-vhost: "web.fluidattacks.com"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/app-root: "/web/en/"
 spec:
   tls:
   - hosts:
@@ -92,34 +95,4 @@ spec:
       - backend:
           serviceName: web
           servicePort: 80 
-        path: /web(.*)
-
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: web2
-  namespace: serves
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/upstream-vhost: "web.fluidattacks.com"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-    nginx.ingress.kubernetes.io/rewrite-target: "/web/$1"
-    nginx.ingress.kubernetes.io/app-root: "/web/"
-spec:
-  tls:
-  - hosts:
-    - fluidattacks.com
-    secretName: fluidattacks-cert
-  rules:
-  - host: fluidattacks.com
-    http:
-      paths:
-      - backend:
-          serviceName: web
-          servicePort: 80
-        path: /(sitemap\.xml|robots\.txt)
-      - backend:
-          serviceName: web
-          servicePort: 80 
-        path: /
+        path: /(.*)?

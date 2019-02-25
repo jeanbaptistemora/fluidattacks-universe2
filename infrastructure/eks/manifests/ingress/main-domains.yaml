@@ -48,28 +48,10 @@ spec:
           serviceName: integrates
           servicePort: 80
         path: /integrates(.*)
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: integrates
-  namespace: serves
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
-spec:
-  tls:
-  - hosts:
-    - fluidattacks.com
-    secretName: fluidattacks-cert
-  rules:
-  - host: fluidattacks.com
-    http:
-      paths:
       - backend:
           serviceName: integrates
           servicePort: 80
-        path: /(assets|oauth|index|registration|silk|errors)(.*)
+        path: /(assets.*|oauth.*|index.*|registration.*|silk.*|errors.*)
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
