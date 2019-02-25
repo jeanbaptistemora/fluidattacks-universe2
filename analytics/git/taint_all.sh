@@ -2,7 +2,7 @@
 
 # the /config.json contains a list of JSON with the path to the repository
 
-output=$(cat /config.test.json \
+output=$(cat /config.json \
   | jq -r ".[]|.location" \
     | sed -E 's/(\/git)\/(.*?)\/(.*)/\2 \1\/\2\/\3/g')
 
