@@ -35,21 +35,6 @@ NESTED = (
     "banistmo",
 )
 
-# repos with problems
-IGNORE = (
-    # no repos
-    "aldak",
-
-    # vpn forticlient with problems
-    # asks password beeing ssh
-    "villasilvia",
-    # unable to access, Network is unreachable
-    "volantin",
-
-    # vpn windows, not possible to configure on linux
-    "stebbins",
-)
-
 # repos to ignore when found inside subscriptions
 IGNORE_WHEN_INSIDE = (
     "asserts",
@@ -58,19 +43,14 @@ IGNORE_WHEN_INSIDE = (
 
 
 class BadConfigYml(Exception):
-    """Raised when a bad config.yml is parsed.
-    """
+    """Raised when a bad config.yml is parsed."""
 
 
 def iterate_subscriptions() -> Iterable[str]:
-    """Yields paths of the subscriptions in the continuous repo.
-    """
-
+    """Yield paths of the subscriptions in the continuous repo."""
     for subscription in os.listdir(f"{SOURCE}/subscriptions"):
         subscription_path: str = f"{SOURCE}/subscriptions/{subscription}"
-        if subscription in IGNORE:
-            continue
-        elif subscription in NESTED:
+        if subscription in NESTED:
             for sub in os.listdir(subscription_path):
                 if sub not in IGNORE_WHEN_INSIDE:
                     yield f"{subscription_path}/{sub}"
@@ -80,9 +60,7 @@ def iterate_subscriptions() -> Iterable[str]:
 
 
 def add_ssh_key(project: str) -> None:
-    """Adds the ssh key of a project to the current enviroment.
-    """
-
+    """Add the ssh key of a project to the current enviroment."""
     data = base64.b64decode(
         os.popen(
             f"vault read -field=repo_key secret/continuous/{project}").read())
@@ -95,9 +73,7 @@ def add_ssh_key(project: str) -> None:
 
 
 def filter_url(url: str) -> Tuple[str, str, str, str, str, str]:
-    """Filter the parts of a url.
-    """
-
+    """Filter the parts of a url."""
     match = re.match(r"(.*?)://(.*?)@(.*?)/(.*)", url)
     if match:
         groups = match.groups()
@@ -113,9 +89,7 @@ def filter_url(url: str) -> Tuple[str, str, str, str, str, str]:
 
 
 def get_project_name(subscription: str) -> str:
-    """Parse the subscription path and returns the project name.
-    """
-
+    """Parse the subscription path and returns the project name."""
     repo_name = subscription.split(os.sep)[-1]
     subs_name = subscription.split(os.sep)[-2]
     if subs_name in NESTED:
@@ -127,9 +101,7 @@ def get_project_name(subscription: str) -> str:
 
 
 def get_repo_user_pass(prot: str, project: str) -> Tuple[str, str]:
-    """Returns the repo user/pass if prot if http or https.
-    """
-
+    """Return the repo user/pass if prot if http or https."""
     repo_user = ""
     repo_pass = ""
     if prot in ("http", "https"):
@@ -146,9 +118,7 @@ def get_repo_user_pass(prot: str, project: str) -> Tuple[str, str]:
 
 def parse_config(
         subscription: str) -> Tuple[List[Tuple[Any, Any]], str, str, str]:
-    """Parses the config.yml.
-    """
-
+    """Parse the config.yml."""
     with open(f"{subscription}/config.yml", "r") as config_file:
         yml_file = yaml.load(config_file)
 
@@ -159,7 +129,7 @@ def parse_config(
 
     git_type = config.get("git-type", "")
     path_branch: List[Tuple[Any, Any]] = [
-        (pb.rsplit("/", 1)[0], pb.rsplit("/", 1)[1].lower())
+        (pb.rsplit("/", 1)[0], pb.rsplit("/", 1)[1])
         for pb in config.get("branches", [])
     ]
 
@@ -173,10 +143,11 @@ def parse_config(
 
 
 def execute(clone: str, update: str, target_repo: str, do_print=True) -> int:
-    """Executes the clone or update.
-    """
-
+    """Execute the clone or update."""
     nrepos_change: int = 0
+    print(clone)
+    print(update)
+
     if not os.path.isdir(target_repo):
         if do_print:
             print(f"clone: {clone}")
@@ -197,9 +168,7 @@ def execute(clone: str, update: str, target_repo: str, do_print=True) -> int:
 
 
 def process_subscriptions() -> JSON:
-    """Process a subscription.
-    """
-
+    """Process a subscription."""
     # pylint: disable = too-many-locals, too-many-statements, too-many-branches
 
     branches_json: JSON = {}
@@ -324,9 +293,7 @@ def process_subscriptions() -> JSON:
 
 
 def main() -> None:
-    """Usual entry point.
-    """
-
+    """Usual entry point."""
     branches = process_subscriptions()
 
     with open(f"{TARGET}/../branches.json", "w") as file:
