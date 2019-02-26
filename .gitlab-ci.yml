@@ -176,6 +176,7 @@ unit-testing:
   script:
     - cp -a $PWD /usr/src/app_src
     - cd /usr/src/app_src
+    - service redis-server start
     - vaultenv -- pytest --ds=fluidintegrates.settings --verbose --exitfirst
       --cov=fluidintegrates --cov=app --cov-report term
       --cov-report html:build/coverage/html

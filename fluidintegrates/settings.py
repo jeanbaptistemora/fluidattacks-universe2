@@ -243,21 +243,30 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+CACHE_OPTIONS = {}
+
+if FI_ENVIRONMENT == 'development':
+    CACHE_OPTIONS = {
+        "CLIENT_CLASS": "django_redis.client.DefaultClient"
+    }
+else:
+    CACHE_OPTIONS = {
+        'SOCKET_CONNECT_TIMEOUT': 5,
+        'SOCKET_TIMEOUT': 5,
+        'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
+        'REDIS_CLIENT_CLASS': 'rediscluster.RedisCluster',
+        'CONNECTION_POOL_CLASS':
+            'rediscluster.connection.ClusterConnectionPool',
+        'CONNECTION_POOL_KWARGS': {
+            'skip_full_coverage_check': True
+        }
+    }
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://" + FI_REDIS_SERVER + ":6379",
-        "OPTIONS": {
-            'SOCKET_CONNECT_TIMEOUT': 5,
-            'SOCKET_TIMEOUT': 5,
-            'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
-            'REDIS_CLIENT_CLASS': 'rediscluster.RedisCluster',
-            'CONNECTION_POOL_CLASS':
-                'rediscluster.connection.ClusterConnectionPool',
-            'CONNECTION_POOL_KWARGS': {
-                'skip_full_coverage_check': True
-            }
-        },
+        "OPTIONS": CACHE_OPTIONS,
         "KEY_PREFIX": "fi"
     }
 }
@@ -271,6 +280,10 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = "Integratesv3"
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 40 * 60
+CLUSTER_SESSION = True
+
+if FI_ENVIRONMENT == 'development':
+    CLUSTER_SESSION = False
 
 SESSION_REDIS = {
     'host': FI_REDIS_SERVER,
@@ -279,7 +292,7 @@ SESSION_REDIS = {
     'prefix': 'fi_session',
     'socket_timeout': 1,
     'retry_on_timeout': False,
-    'cluster': True
+    'cluster': CLUSTER_SESSION
 }
 
 # JWT
