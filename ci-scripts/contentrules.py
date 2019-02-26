@@ -212,8 +212,7 @@ def rulechecker(PATH, EXIT_CODE):
   OUT = os.popen("pcregrep -o '(?<=^:keywords:).*' "+PATH).read()
   OUT = OUT.split(",")
   if len(OUT) != 6:
-    print_helper.print_failure("Issue found in "+PATH+"\n")
-    print_helper.print_failure(OUT)
+    print_helper.print_failure("Issue found in "+PATH)
     print_helper.print_warning("\nThere must be exactly 6 keywords. "\
                                "Please correct the file and try again.\n\n")
 
@@ -296,4 +295,14 @@ def rulechecker(PATH, EXIT_CODE):
     print_helper.print_warning("The only allowed domain is autonomicmind.com. "\
                                "Please correct the file and try again\n\n")
     EXIT_CODE = 1
+
+  # Check that caption is not manually placed
+  OUT = os.popen("pcregrep -ni '^\.imagen?\s\d|^\.figur(a|e)\s\d|^\.tabl(a|e)\s\d' "+PATH).read()
+  if len(OUT) > 0:
+    print_helper.print_failure("Issue found in "+PATH+"\n")
+    print_helper.print_failure(OUT)
+    print_helper.print_warning("Captions must not contain \"Image #\", " \
+                               "\"Figure #\" or \"Table #\".\n\n")
+    EXIT_CODE = 1
+
   return EXIT_CODE

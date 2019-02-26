@@ -20,9 +20,6 @@ function error {
   ERRORS=0  # to activate set to 1. 0 test mode
 }
 
-echo "${CHANGED:-(None)}"
-echo -e "\\e[1;31m^--Files modified in this merge request.\\e[0m\\n"
-
 # Check that the LIX remains under 50
 if echo "$CHANGED" | pcregrep '^content.*adoc$' \
 | xargs -r -n 1 ./lix.sh \
@@ -49,16 +46,6 @@ if echo "$CHANGED" | pcregrep '^content/pages.*adoc$' \
 | xargs -r -n 1 ./words.sh \
 | pcregrep -v '^([4-9]\d\d|^1[0-5]\d\d)\s'; then
   error "Number of words in pages out of range. Should be 400>=words<1600.";
-fi
-
-# Check that every PNG files has been optimized in filesize
-if echo "$CHANGED" | pcregrep '\.png$'; then
-  if ! echo "$CHANGED" | pcregrep '\.png$' \
-  | xargs -r -n 1 optipng |& pcregrep 'optimized'; then
-    error "Some PNG files are not optimized. Run the CLI tool \"optipng\" \
-    to optimize them or go to http://compresspng.com/."
-    ERRORS=1;
-  fi;
 fi
 
 exit ${ERRORS}

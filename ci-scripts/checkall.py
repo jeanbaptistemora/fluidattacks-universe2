@@ -13,9 +13,11 @@ import print_helper
 import re
 import genchecker
 import contentrules
+import articlerules
 
 EXIT1 = 0
 EXIT2 = 0
+EXIT3 = 0
 
 if len(sys.argv) > 2:
   print_helper.print_failure("Error! too many arguments\n")
@@ -43,6 +45,8 @@ if len(sys.argv) == 2 and sys.argv[1] == 'changes':
   for FILE in CHANGES:
     if '.adoc' in FILE:
       EXIT2 = contentrules.rulechecker(FILE, EXIT2)
+      if "content/blog" in FILE:
+        articlerules.artchecker(FILE, EXIT3)
   print_helper.print_success("Done! \n")
 
 if len(sys.argv) == 1:
@@ -52,6 +56,8 @@ if len(sys.argv) == 1:
   FILES = FILES.split()
   for CHECK in FILES:
     EXIT2 = contentrules.rulechecker(CHECK, EXIT2)
+    if "content/blog" in CHECK:
+        articlerules.artchecker(CHECK, EXIT3)
   print_helper.print_success("Done! \n")
 
-sys.exit(EXIT1 or EXIT2)
+sys.exit(EXIT1 or EXIT2 or EXIT3)
