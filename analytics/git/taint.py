@@ -2,6 +2,8 @@
 """Stateless module to manage an stateful database of tainted files."""
 
 import os
+import re
+import csv
 import sys
 import json
 import codecs
@@ -58,6 +60,8 @@ def print_tutorial() -> None:
                 Initialize the database.
             $ taint.py database push [repo_path]
                 Push the latest data to the database.
+            $ taint.py database wring [lines_csv_path]
+                Wring the lines.csv file to extract information from it.
             $ taint.py database remove repository [repo_name]
                 Remove a repository from the database.
             $ taint.py database vacuum
@@ -235,7 +239,7 @@ def database_vacuum() -> None:
                 print("ERRR: Please try again later.")
 
 
-def push_repo(repo_path: str) -> None:
+def database_push(repo_path: str) -> None:
     """Push the latest data to the database."""
     credentials: JSON = get_credentials()
 
@@ -244,9 +248,9 @@ def push_repo(repo_path: str) -> None:
 
     print(f"INFO: Pushing {repo_path} to the database, please wait.")
 
-    local_file_states = push_repo__get_local_files_states(
+    local_file_states = database_push__get_local_files_states(
         repo_path)
-    remote_file_states = push_repo__get_remote_file_states(
+    remote_file_states = database_push__get_remote_file_states(
         credentials, subs_name, repo_name)
 
     for file_path in local_file_states:
@@ -320,7 +324,7 @@ def push_repo(repo_path: str) -> None:
     print("INFO: Done")
 
 
-def push_repo__get_file_last_hash(
+def database_push__get_file_last_hash(
         repo_path: str,
         file_path: str) -> HASH:
     """Return the last commit hash that modified a file."""
@@ -331,7 +335,7 @@ def push_repo__get_file_last_hash(
     return file_last_hash
 
 
-def push_repo__get_file_lines(
+def database_push__get_file_lines(
         repo_path: str,
         file_path: str) -> int:
     """Return the number of lines in a file."""
@@ -347,7 +351,7 @@ def push_repo__get_file_lines(
     return file_lines
 
 
-def push_repo__get_local_files_states(
+def database_push__get_local_files_states(
         repo_path: str) -> Dict[str, Dict[str, Any]]:
     """Return a mapping of file states in local HEAD."""
     command: List[str] = \
@@ -364,10 +368,10 @@ def push_repo__get_local_files_states(
 
     local_file_states: Dict[str, Dict[str, Any]] = {
         file_path: {
-            "file_lines": push_repo__get_file_lines(
+            "file_lines": database_push__get_file_lines(
                 repo_path, file_path),
             "file_state": "not set",
-            "file_last_hash": push_repo__get_file_last_hash(
+            "file_last_hash": database_push__get_file_last_hash(
                 repo_path, file_path)
         }
         for file_path in local_files_in_head
@@ -375,7 +379,7 @@ def push_repo__get_local_files_states(
     return local_file_states
 
 
-def push_repo__get_remote_file_states(
+def database_push__get_remote_file_states(
         credentials: JSON,
         subs_name: str,
         repo_name: str) -> Dict[str, Dict[str, Any]]:
@@ -403,6 +407,58 @@ def push_repo__get_remote_file_states(
             for file_path, file_lines, file_state, file_last_hash in curr
         }
         return remote_file_states
+
+
+def database_wring(lines_csv_path: str) -> None:
+    """Wring the lines.csv file to extract information from it."""
+    credentials: JSON = get_credentials()
+
+    subs_name: str = get_subs_name()
+
+    with open(lines_csv_path, "r") as lines_csv:
+        reader = csv.DictReader(
+            lines_csv,
+            fieldnames=[
+                "repo_name__file_path",
+                "file_lines_a",
+                "file_lines_b",
+                "-",
+                "file_revision_hash"])
+        next(reader)
+        for row in reader:
+            if row["file_lines_a"] == row["file_lines_b"]:
+                repo_name, file_path = \
+                    row["repo_name__file_path"].split("/", 1)
+                file_revision_hash: HASH = row["file_revision_hash"]
+                if database_wring__verify_up_to_date(
+                        credentials,
+                        subs_name,
+                        repo_name,
+                        file_path,
+                        file_revision_hash):
+                    set_file_state(
+                        repo_name,
+                        file_path,
+                        "clean",
+                        comfirmation=True)
+
+
+def database_wring__verify_up_to_date(
+        credentials: JSON,
+        subs_name: str,
+        repo_name: str,
+        file_path: str,
+        file_revision_hash: HASH) -> bool:
+    """Veryfy if this file has been reviewed at his last known state."""
+    file_lines, file_state, file_last_hash = \
+        row__data__get_by_index(credentials, subs_name, repo_name, file_path)
+    if file_lines and file_state == "tainted" and file_revision_hash:
+        file_revision_hash = file_revision_hash.lower()
+        revision_is_hash = re.match(r"[0-9a-f]{7,40}", file_revision_hash)
+        revision_is_last = re.match(f"^{file_revision_hash}", file_last_hash)
+        if revision_is_hash and revision_is_last:
+            return True
+    return False
 
 
 def row__data__insert(
@@ -706,7 +762,8 @@ def set_user_name(user_name: str) -> None:
 def set_file_state(
         repo_name: str,
         file_path: str,
-        file_state_new: str) -> None:
+        file_state_new: str,
+        comfirmation: bool = False) -> None:
     """Mark a file as tainted."""
     credentials: JSON = get_credentials()
     subs_name: str = get_subs_name()
@@ -722,7 +779,7 @@ def set_file_state(
         print(f"  file_lines:     {file_lines}")
         print(f"  file_state:     {file_state}")
         print(f"  file_last_hash: {file_last_hash}")
-        if input("Type 'yes' to confirm: ") == "yes":
+        if comfirmation or input("Type 'yes' to confirm: ") == "yes":
             row__data__upsert(
                 credentials,
                 subs_name,
@@ -741,7 +798,7 @@ def set_file_state(
                 file_lines,
                 file_state_new,
                 file_last_hash)
-            print("\nINFO: Done.")
+            print("INFO: Done.")
     else:
         print("WARN: You can not modify non-existing rows.")
 
@@ -805,9 +862,12 @@ def main__parse_admin(cmd: str, arg1: str, arg2: str, arg3: str) -> bool:
     was_captured: bool = True
     if cmd == "database" and arg1 == "init":
         database_init()
-    elif cmd == "database" and arg1 == "push":
+    elif cmd == "database" and arg1 == "push" and arg2:
         repo_path = os.path.abspath(arg2)
-        push_repo(repo_path)
+        database_push(repo_path)
+    elif cmd == "database" and arg1 == "wring" and arg2:
+        lines_csv_path = os.path.abspath(arg2)
+        database_wring(lines_csv_path)
     elif cmd == "database" and arg1 == "remove" and arg2 == "repository":
         repo_name = arg3
         database_remove_repository(repo_name)
