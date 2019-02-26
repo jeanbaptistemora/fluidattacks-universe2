@@ -63,10 +63,7 @@ Y luego entra al contenedor:
 ----
 $ docker run -it fluidattacks/asserts sh
 / # asserts
-----
 
-[source, bash, linenums]
-----
 #  ___
 # | >>|> fluid
 # |___|  attacks, we hack your software
@@ -88,10 +85,7 @@ montar el directorio donde se localiza el +exploit+ en el contenedor.
 ----
 $ docker run -v /home/me/myexploits/:/exploits/ -it fluidattacks/asserts sh
 / # asserts /exploits/open-sqli.py
-----
 
-[source, bash, linenums]
-----
 #  ___
 # | >>|> fluid
 # |___|  attacks, we hack your software
@@ -124,77 +118,117 @@ la ruptura de +builds+ con el +exploit+.
 
 Para lograr esto, sigue los siguientes pasos:
 
-. Agrega las variables de entorno requeridas: +USER+, +PASS+, +ORG+ y +APP+.
+. Agrega las variables de entorno requeridas: +FA_ORG+, +FA_PROJECT+,
++FA_$\{FA_PROJECT\}_USER+ y +FA_$\{FA_PROJECT\}_PASS+.
 No te preocupes, los valores serán entregados por nosotros!:
 +
-* +USER:+ Nombre del usuario del registro de nuestro contenedor.
-* +PASS:+ La contraseña del usuario.
-* +ORG:+ El nombre de la organización.
-* +APP:+ El nombre de la aplicación.
+* +FA_ORG:+ El nombre de la organización.
+* +FA_PROJECT:+ El nombre de la aplicación suscrita a hacking continuou.
+* +FA_$\{FA_PROJECT\}_USER:+ Nombre del usuario de nuestro Container Registry.
+* +FA_$\{FA_PROJECT\}_PASS:+ La contraseña del usuario.
 +
-Por ejemplo, en +Gitlab+, tu entorno podría verse así:
+Por ejemplo, en +Gitlab+,y asumiendo +FA_ORG=FLUIDATTACKS+ y +FA_PROJECT=BWAPP+,
+el entorno del pipeline podría verse así verse así:
 +
 image::vars.png[Variables de entorno de Gitlab]
 
-
-. Agregar un +job+ para ejecutar +Asserts+.
+. Agrega un +job+ para ejecutar +Asserts+.
 Por ejemplo en +Gitlab+,
-agregarías una de estas tres líneas a tu archivo +.gitlab-ci.yml+:
+agregarías estos comandos a tu archivo +.gitlab-ci.yml+:
 +
 .asserts in gitlab
 [source, bash, linenums]
 ----
-fluidasserts:
+fluidasserts-static:
   script:
-    - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
-    - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
-    - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER"
-                 -e PASS="$PASS" -e FA_STRICT="true" --rm
-                 fluid-docker.jfrog.io/"$ORG":"$APP"
+    - export STAGE="${FA_PROJECT}_static"
+    - docker login fluid-docker.jfrog.io
+        -u "$FA_BWAPP_USER"
+        -p "$FA_BWAPP_PASS"
+    - docker pull fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker run
+        -e USER="$FA_BWAPP_USER"
+        -e PASS="$FA_BWAPP_PASS"
+        -e FA_STRICT=true
+        -v "$PWD":/code
+        fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker logout fluid-docker.jfrog.io
+
+fluidasserts-dynamic:
+    - export STAGE="${FA_PROJECT}_dynamic"
+    - docker login fluid-docker.jfrog.io
+        -u "$FA_BWAPP_USER"
+        -p "$FA_BWAPP_PASS"
+    - docker pull fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker run
+        -e USER="$FA_BWAPP_USER"
+        -e PASS="$FA_BWAPP_PASS"
+        -e FA_STRICT=true
+        fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
     - docker logout fluid-docker.jfrog.io
 ----
 
 . A partir de ahora, tu +pipeline+ fallará
-si se encuentra alguna vulnerabilidades abierta.
+si se encuentra alguna vulnerabilidades abierta,
+sea sobre el código fuente, o sobre el ambiente de producción/pruebas.
 Para evitar romper el +build+ pero aún así ejecutar las pruebas,
 cambia el valor de la variable +FA_STRICT+ a +false+.
 
 ==== Etapas CI
 
-De acuerdo, estoy dentro.
+De acuerdo, estoy interesado.
 Pero en qué etapa debería probar mi aplicación con +Asserts+ ?
 Existen al menos +3+ buenos momentos para ejecutar una prueba de cierre:
 
-. Luego de desplegar a un ambiente efímero o real.
 . Luego de desplegar al ambiente de producción.
-. Luego de cada +commit+ !
+. Luego de desplegar a un ambiente efímero o real.
+. Incluso luego de cada +commit+ !
 
 ==== Post-producción
 
 Al igual que antes, iniciamos sesión en el repositorio de artefactos,
 actualizamos la imagen personalizada, y la ejecutamos con +Docker+.
-Esta vez, sin embargo, montamos el volumen correspondiente al +commit+ actual
-+/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}+
-al directorio +/code+ en el contenedor,
-debido a que el contenedor
-ya está configurado para probar el código allí almacenado.
-Este +job+ sólo se ejecuta en la rama +master+
-y en una de las últimas etapas, llamada +post-deploy+
+Esta vez, sin embargo, vale aclarar que el job
+se ejecuta únicamente sobre la rama +master+,
+y en una de las últimas etapas del pipeline, +post-deploy+.
+El código fuente de esta rama se enlaza al contenedor
+por medio de un volumen en la carpeta +/code+
+debiado a que éste se encuentra configurado para probar esta carpeta.
 
 [source, bash, linenums]
 .post-deploy
 ----
-asserts-prod:
+fluidasserts-static:
   stage: post-deploy
   script:
-    - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
-    - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
-    - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER" -e PASS="$PASS"
-                 -e FA_STRICT="true" --rm -e STAGE=post-deploy
-                 -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
-                 fluid-docker.jfrog.io/"$ORG":"$APP"
+    - export STAGE="${FA_PROJECT}_static"
+    - docker login fluid-docker.jfrog.io
+        -u "$FA_BWAPP_USER"
+        -p "$FA_BWAPP_PASS"
+    - docker pull fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker run
+        -e USER="$FA_BWAPP_USER"
+        -e PASS="$FA_BWAPP_PASS"
+        -e FA_STRICT=true
+        -v "$PWD":/code
+        fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
     - docker logout fluid-docker.jfrog.io
-  retry: 2
+  only:
+    - master
+
+fluidasserts-dynamic:
+  stage: post-deploy
+    - export STAGE="${FA_PROJECT}_dynamic"
+    - docker login fluid-docker.jfrog.io
+        -u "$FA_BWAPP_USER"
+        -p "$FA_BWAPP_PASS"
+    - docker pull fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker run
+        -e USER="$FA_BWAPP_USER"
+        -e PASS="$FA_BWAPP_PASS"
+        -e FA_STRICT=true
+        fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker logout fluid-docker.jfrog.io
   only:
     - master
 ----
@@ -208,21 +242,39 @@ también puedes ejecutar pruebas de cierre en éstos:
 
 [source, bash, linenums]
 ----
-Asserts-Review:
+fluidasserts-static:
   stage: test
   script:
-    - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
-    - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
-    - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER" -e PASS="$PASS"
-                 -e FA_STRICT="true" --rm -e STAGE=test
-                 -e BRANCH="$CI_COMMIT_REF_SLUG"
-                 -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}:/code
-                 fluid-docker.jfrog.io/"$ORG":"$APP"
+    - export STAGE="${FA_PROJECT}_static"
+    - docker login fluid-docker.jfrog.io
+        -u "$FA_BWAPP_USER"
+        -p "$FA_BWAPP_PASS"
+    - docker pull fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker run
+        -e USER="$FA_BWAPP_USER"
+        -e PASS="$FA_BWAPP_PASS"
+        -e FA_STRICT=true
+        -v "$PWD":/code
+        fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
     - docker logout fluid-docker.jfrog.io
-  retry: 2
   except:
     - master
-    - triggers
+
+fluidasserts-dynamic:
+  stage: test
+    - export STAGE="${FA_PROJECT}_dynamic"
+    - docker login fluid-docker.jfrog.io
+        -u "$FA_BWAPP_USER"
+        -p "$FA_BWAPP_PASS"
+    - docker pull fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker run
+        -e USER="$FA_BWAPP_USER"
+        -e PASS="$FA_BWAPP_PASS"
+        -e FA_STRICT=true
+        fluid-docker.jfrog.io/"$FA_ORG":"$STAGE"
+    - docker logout fluid-docker.jfrog.io
+  except:
+    - master
 ----
 
 En contraste con el +job+ anterior de post-despliegue,
@@ -240,6 +292,10 @@ Puedes ejecutar +Asserts+ localmente en tu máquina,
 pero a veces algunos pequeños detalles (como las versiones de las dependencias)
 pueden causar que la prueba pase exitosamente de forma local
 pero falle en la integración continua.
+Recuerda que en este punto del desarrollo,
+no hay acceso a un ambiente dinámico para hacer pruebas,
+por lo que estás limitado únicamente a hacer pruebas estáticas
+sobre el código fuente.
 
 En ese caso, puedes utilizar la versión +Dockerizada+ de +Asserts+
 como un +hook+ del +pre-commit+:
