@@ -1,3 +1,4 @@
+# coding=utf-8
 """ Auxiliar functions for forms handling """
 
 from datetime import datetime
@@ -82,3 +83,49 @@ def round_date(date):
 
 def string_to_date(string):
     return datetime.strptime(string, "%Y-%m-%d %H:%M:%S")
+
+
+def cast_finding_attributes(finding):
+    cast_finding_field = {
+        'Detallado': 'DETAILED',
+        'General': 'GENERAL',
+        'Puntual': 'ONESHOT',
+        'Continua': 'CONTINUOUS',
+        'Análisis': 'ANALYSIS',
+        'Aplicación': 'APP',
+        'Binario': 'BINARY',
+        'Código fuente': 'SOURCE_CODE',
+        'Infraestructura': 'INFRASTRUCTURE',
+        'Seguridad': 'SECURITY',
+        'Higiene': 'HYGIENE',
+        'Cualquier persona en Internet': 'ANYONE_INTERNET',
+        'Cualquier cliente de la organización': 'ANY_COSTUMER',
+        'Solo algunos clientes de la organización': 'SOME_CUSTOMERS',
+        'Cualquier persona con acceso a la estación': 'ANYONE_WORKSTATION',
+        'Cualquier empleado de la organización': 'ANY_EMPLOYEE',
+        'Solo algunos empleados': 'SOME_EMPLOYEES',
+        'Solo un empleado': 'ONE_EMPLOYEE',
+        'Anónimo desde internet': 'ANONYMOUS_INTERNET',
+        'Anónimo desde intranet': 'ANONYMOUS_INTRANET',
+        'Extranet usuario autorizado': 'AUTHORIZED_USER_EXTRANET',
+        'Extranet usuario no autorizado': 'UNAUTHORIZED_USER_EXTRANET',
+        'Internet usuario autorizado': 'AUTHORIZED_USER_INTERNET',
+        'Internet usuario no autorizado': 'UNAUTHORIZED_USER_INTERNET',
+        'Intranet usuario autorizado': 'AUTHORIZED_USER_INTRANET',
+        'Intranet usuario no autorizado': 'UNAUTHORIZED_USER_INTRANET',
+        'Aplicaciones': 'APPLICATIONS',
+        'Bases de Datos': 'DATABASES',
+        'Búsqueda': 'SEARCHING',
+        'Cierre': 'CLOSING',
+        'Verificación': 'VERIFYING',
+        'Asumido': 'ACCEPTED',
+        'Nuevo': 'NEW',
+        'Remediar': 'IN PROGRESS'
+    }
+    list_fields = ['reportLevel', 'subscription', 'testType', 'findingType',
+                   'actor', 'scenario', 'ambit', 'context', 'treatment']
+    for field in list_fields:
+        if finding.get(field):
+            finding[field] = cast_finding_field.get(
+                finding.get(field).encode('utf-8'), finding.get(field))
+    return finding
