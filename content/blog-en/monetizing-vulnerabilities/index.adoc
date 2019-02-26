@@ -1,7 +1,7 @@
 :slug: monetizing-vulnerabilities/
 :date: 2019-02-19
 :subtitle: From probabilites to dollars and cents
-:category: attacks
+:category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Monetizing risk. Photo by rawpixel on Unsplash: https://unsplash.com/photos/5IiH_UVYdp0
@@ -78,11 +78,27 @@ We need to generate them according to a different
 _probability distribution_ which responds to two things:
 the confidence interval (`CI`) estimated by the expert,
 and its values should always be positive.
+The most popular distribution for modelling is
+the _normal_ distribution, a.k.a. the Gaussian bell:
+
+.Effect of the mean parameter on the normal distribution
+image::https://www.maplesoft.com/view.aspx?SI=7169/Univariate_Bivariate_Normal_Distributions_20.gif[Normal distributions]
+
+However it always allows room for negative values,
+no matter how much you push the mean parameter
+towards the positive side, as you see above.
 For this particular purpose the best fit
-is the _log-normal_ family of distributions:
+is the _log-normal_ family of distributions,
+the distribution of the logarithm of a normally distributed variable.
 
 .Lognormal distributions. Via link:https://commons.wikimedia.org/wiki/File:PDF-log_normal_distributions.svg[Wikimedia].
 image::https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/PDF-log_normal_distributions.svg/600px-PDF-log_normal_distributions.svg.png[3 lognormal curves]
+
+Plus, it has the advantage of being a little skewed
+towards the lower values,
+instead of being perfectly symmetric around the mean,
+which makes lower values more probable and
+hence is in better correspondence with the reality.
 
 Thus, when the event happens, we can draw a value
 from the (one and only) lognormal distribution

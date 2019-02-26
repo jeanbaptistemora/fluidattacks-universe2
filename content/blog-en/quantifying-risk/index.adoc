@@ -1,7 +1,7 @@
 :slug: quantifying-risk/
 :date: 2019-02-19
 :subtitle: From color scales to probabilites and dollars
-:category: attacks
+:category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Risky poker move. Credits: https://unsplash.com/photos/5jkCyS8HOCY
@@ -29,29 +29,36 @@ better understand risks:
 .Risk ``matrices''. Via link:https://safestart.com/news/think-about-risk-adds-third-dimension-risk-matrix/[Safestart].
 image::risk-matrix.png[Risk matrix]
 
+Discrete scales such as this have
+the obvious disavantage that they can't be added or
+mathematically operated with in a sensible way;
+they can be compared, but only crudely:
+how do 3 lows and 4 mediums compare to 2 highs?
+It is also hard to turn any of these into money terms.
+
 While in other sectors, like insurance and banking,
 risk is measured quantitatively and
 thus converted into dollars and cents,
 we are content with leaving the treatment
-of security vulnerabilities, basically, to chance,
+of security threats, basically, to chance,
 by using these inaccurate scales for scoring risk.
 
 But better methods exist in
 link:https://en.wikipedia.org/wiki/Actuarial_science[actuarial science],
 statistics, link:https://en.wikipedia.org/wiki/Game_theory[game theory],
 and link:https://en.wikipedia.org/wiki/Decision_theory[decision theory],
-and they can be applied to measure cybersecurity risk
+and they can be applied to measure cybersecurity risk.
 
 Among the main reasons why
 these methods are not widely accepted in the field are:
 
-  * Security breaches are rare,
-    so we can't possibly have enough data to analyze.
-    It wouldn't be ``statistically significant''.
+* Security breaches are rare,
+so we can't possibly have enough data to analyze.
+It wouldn't be ``statistically significant''.
 
-  * We do not see how we can measure risk, or even
-    understand what measuring is nor
-    what it is that we want to measure, nor how.
+* We do not see how we can measure risk, or even
+understand what measuring is nor
+what it is that we want to measure, nor how.
 
 Before going into ground definitions,
 let me show you what we can achieve
@@ -125,10 +132,10 @@ We need to set a reasonable time frame, like a year.
 Once we achieve a result such as
 
 * There is a 40% chance of suffering a successful denial of service
-  lasting more than 8 hours in the next year.
+lasting more than 8 hours in the next year.
 
 * If such a denial of service happens,
-  there is a 90% chance the loss will be between $2 and $5 million.
+there is a 90% chance the loss will be between $2 and $5 million.
 
 We could indirectly compute what might happen in 2 or any number of years.
 
@@ -164,7 +171,7 @@ making the probability of the original event 93.75%.
 
 The ultimate goal will be
 to perform a simulation of random events, also known as
-link:https://www.investopedia.com/terms/m/montecarlosimulation.asp[Monte Carlo simulations].
+link:../monetizing-vulnerabilities/[Monte Carlo simulations].
 This type of simulation runs many times on single events,
 and their happening or not happening is based on a
 link:https://www.investopedia.com/terms/p/probabilitydistribution.asp[probability distribution],
