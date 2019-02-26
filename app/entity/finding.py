@@ -811,7 +811,6 @@ class VerifyFinding(Mutation):
     def mutate(self, info, **parameters):
         user_email = util.get_jwt_content(info.context)['user_email']
         success = verify_finding(
-            company=info.context.session['company'],
             finding_id=parameters.get('finding_id'),
             user_email=user_email
         )

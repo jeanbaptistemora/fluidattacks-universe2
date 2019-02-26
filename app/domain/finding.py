@@ -381,8 +381,7 @@ def add_comment(user_email, user_fullname, parent, content,
                                                      user_email, comment_data)
 
 
-def send_finding_verified_email(company, finding_id,
-                                finding_name, project_name):
+def send_finding_verified_email(finding_id, finding_name, project_name):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
     recipients.append(FI_MAIL_CONTINUOUS)
@@ -398,14 +397,13 @@ def send_finding_verified_email(company, finding_id,
             'finding_url':
                 base_url + '/project/{project!s}/{finding!s}/tracking'
             .format(project=project_name, finding=finding_id),
-            'finding_id': finding_id,
-            'company': company,
+            'finding_id': finding_id
         }))
 
     email_send_thread.start()
 
 
-def verify_finding(company, finding_id, user_email):
+def verify_finding(finding_id, user_email):
     project_name = get_project_name(finding_id).lower()
     finding_name = \
         integrates_dao.get_finding_attributes_dynamo(finding_id,
@@ -415,7 +413,7 @@ def verify_finding(company, finding_id, user_email):
                                              project_name, finding_name)
     if success:
         update_vulnerabilities_date(user_email, finding_id)
-        send_finding_verified_email(company, finding_id,
+        send_finding_verified_email(finding_id,
                                     finding_name, project_name)
     else:
         rollbar.report_message(
