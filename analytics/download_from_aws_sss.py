@@ -1,5 +1,5 @@
-"""A simple script to download from AWS S3.
-"""
+#!/usr/bin/env python3
+"""A simple script to download from AWS S3."""
 
 import json
 import argparse

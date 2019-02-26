@@ -321,7 +321,7 @@ def database_push(repo_path: str) -> None:
                 "clean",
                 file_last_hash)
 
-    print("INFO: Done")
+    print("INFO: Done.")
 
 
 def database_push__get_file_last_hash(
@@ -415,6 +415,8 @@ def database_wring(lines_csv_path: str) -> None:
 
     subs_name: str = get_subs_name()
 
+    print(f"INFO: Extracting information from {lines_csv_path}, please wait.")
+
     with open(lines_csv_path, "r") as lines_csv:
         reader = csv.DictReader(
             lines_csv,
@@ -442,6 +444,8 @@ def database_wring(lines_csv_path: str) -> None:
                         "clean",
                         comfirmation=True)
 
+    print("INFO: Done.")
+
 
 def database_wring__verify_up_to_date(
         credentials: JSON,
@@ -449,7 +453,7 @@ def database_wring__verify_up_to_date(
         repo_name: str,
         file_path: str,
         file_revision_hash: HASH) -> bool:
-    """Veryfy if this file has been reviewed at his last known state."""
+    """Verify if this file has been reviewed at his last known state."""
     file_lines, file_state, file_last_hash = \
         row__data__get_by_index(credentials, subs_name, repo_name, file_path)
     if file_lines and file_state == "tainted" and file_revision_hash:

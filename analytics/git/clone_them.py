@@ -145,8 +145,6 @@ def parse_config(
 def execute(clone: str, update: str, target_repo: str, do_print=True) -> int:
     """Execute the clone or update."""
     nrepos_change: int = 0
-    print(clone)
-    print(update)
 
     if not os.path.isdir(target_repo):
         if do_print:

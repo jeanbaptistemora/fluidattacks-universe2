@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """ generates the config file for tap-git """
 
 import os
