@@ -492,6 +492,10 @@ msgid "Footer-subtitle-5.1"
 msgstr "Subscribe"
 
 #: templates/footer.html:64
+msgid "Footer-link-5.1"
+msgstr "subscription"
+
+#: templates/footer.html:64
 msgid "Footer-link-5.2"
 msgstr "categories"
 

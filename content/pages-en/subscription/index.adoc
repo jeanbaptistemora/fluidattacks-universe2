@@ -1,0 +1,8 @@
+:slug: subscription/
+:description: In this page you can subscribe to Fluid Attacks Blog, where you can find many interesting articles about information technology, hacking challenges writeups, recent trends in information security and other topics related to ethical hacking and vulnerabilities detection.
+:keywords: Fluid Attacks, Subscription, Information, News, Blog, Security.
+:form: https://fluidattacks.com/forms/subscription
+:template: form
+:translate: suscripcion/
+
+= Subscribe to our blog!
