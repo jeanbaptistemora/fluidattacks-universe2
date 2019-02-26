@@ -28,7 +28,7 @@ def get_request(token: str, method: str, resource: str) -> Tuple[int, Any]:
     except urllib.error.URLError:
         status, response = 0, None
 
-    print(status, response)
+    print("REQUEST:", method, resource, status, response)
     return (status, response)
 
 
@@ -114,18 +114,18 @@ def main():
 
     # mirror all subscription and repositories
     for subscription, repositories in todo.items():
-        print(subscription)
+        print("MIRRORING SUBSCRIPTION:", subscription)
         _, subscription_group_id = create_group(
             token, customers_group_id, subscription)
         for repository in repositories:
-            print(f"  {repository}")
+            print("MIRRORING REPOSITORY:", subscription, repository)
             create_repository(token, subscription_group_id, repository)
             repo_url = (
                 f"https://{user}:{token}@gitlab.com"
                 f"/fluidsignal/customer/{subscription}/{repository}.git")
             repo_path = f"/git/{subscription}/{repository}"
 
-            os.system(f"git -C {repo_path} push --all {repo_url}")
+            os.system(f"git -C '{repo_path}' push --all '{repo_url}'")
 
 
 if __name__ == "__main__":

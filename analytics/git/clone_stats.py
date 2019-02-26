@@ -55,7 +55,7 @@ def main():
     for subs_name, subs_cloned_repos in name__cloned_repos:
         subs_total_repos: str = str(get_subs_nrepos(subs_name))
         if not subs_cloned_repos == subs_total_repos:
-            message.append("{:^24s}{:>4s}/{:>4s}".format(
+            message.append("{:^22s} {:>3s}/{:>3s}".format(
                 subs_name, subs_cloned_repos, subs_total_repos))
     slack__send_message(header, message)
 
