@@ -158,3 +158,12 @@ export const validTag: ((arg1: string) => string | undefined) =
     return undefined;
   }
 };
+
+export const isValidFileName: ((arg1: string) => boolean) =
+  (fileName: string): boolean => {
+    let valid: boolean; valid = false;
+    const validCharacters: RegExp = /^[A-Za-z0-9!\-_.*'()&$@=;:+,?\s]*$/;
+    valid = validCharacters.test(fileName);
+
+    return valid;
+};

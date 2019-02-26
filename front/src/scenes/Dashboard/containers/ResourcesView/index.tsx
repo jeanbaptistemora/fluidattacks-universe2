@@ -22,6 +22,7 @@ import { msgError } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
+import { isValidFileName } from "../../../../utils/validations";
 import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
 import * as actions from "./actions";
 
@@ -34,7 +35,6 @@ export interface IResourcesViewProps {
   filesDataset: Array<{ description: string; fileName: string }>;
   projectName: string;
   repositoriesDataset: Array<{ branch: string; urlRepo: string }>;
-  showFiles: boolean;
 }
 
 const enhance: InferableComponentEnhancer<{}> =
@@ -176,20 +176,24 @@ const saveFiles: (
     } else {
       files[0].fileName = selected[0].name;
     }
-    let containsRepeated: boolean;
-    containsRepeated = files.filter(
-      (newItem: IResourcesViewProps["filesDataset"][0]) => _.findIndex(
-        currentFiles,
-        (currentItem: IResourcesViewProps["filesDataset"][0]) =>
-          currentItem.fileName === newItem.fileName,
-      ) > -1).length > 0;
-    if (containsRepeated) {
-      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+    if (isValidFileName(files[0].fileName)) {
+      let containsRepeated: boolean;
+      containsRepeated = files.filter(
+        (newItem: IResourcesViewProps["filesDataset"][0]) => _.findIndex(
+          currentFiles,
+          (currentItem: IResourcesViewProps["filesDataset"][0]) =>
+            currentItem.fileName === newItem.fileName,
+        ) > -1).length > 0;
+      if (containsRepeated) {
+        msgError(translate.t("search_findings.tab_resources.repeated_item"));
+      } else {
+        const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+          store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+        );
+        thunkDispatch(actions.saveFiles(projectName, files));
+      }
     } else {
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-      );
-      thunkDispatch(actions.saveFiles(projectName, files));
+      msgError(translate.t("search_findings.tab_resources.invalid_chars"));
     }
   };
 
@@ -367,7 +371,6 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
         </Col>
       </Row>
       <hr/>
-      {props.showFiles ?
         <Row>
           <Col md={12} sm={12} xs={12}>
             <Row>
@@ -450,7 +453,6 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
             </Row>
           </Col>
         </Row>
-      : undefined}
       <AddResourcesModal
         isOpen={props.addModal.open}
         type={props.addModal.type}

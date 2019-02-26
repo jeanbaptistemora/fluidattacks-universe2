@@ -202,6 +202,7 @@ const enTranslations: Map<string, string> = {
       environment: "Environment",
       environments_title: "Environments",
       files_title: "Files",
+      invalid_chars: "File name has invalid characters.",
       modal_env_title: "Add environment information",
       modal_file_title: "Add file",
       modal_repo_title: "Add repository information",

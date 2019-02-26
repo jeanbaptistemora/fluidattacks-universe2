@@ -337,7 +337,8 @@ class AddFiles(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
     def mutate(self, info, **parameters):
         success = False
         json_data = []
@@ -354,18 +355,23 @@ class AddFiles(Mutation):
             project=project_name,
             file_name=uploaded_file
         )
-        success = resources.upload_file_to_s3(uploaded_file, file_id)
-        if success:
-            integrates_dao.add_list_resource_dynamo(
-                'FI_projects',
-                'project_name',
-                project_name,
-                json_data,
-                'files'
-            )
+        if util.is_valid_file_name(uploaded_file):
+            success = resources.upload_file_to_s3(uploaded_file, file_id)
+            if success:
+                integrates_dao.add_list_resource_dynamo(
+                    'FI_projects',
+                    'project_name',
+                    project_name,
+                    json_data,
+                    'files'
+                )
+            else:
+                # The code should do nothing if the upload to S3 fails.
+                pass
         else:
-            # The code should do nothing if the upload to S3 fails.
-            pass
+            util.cloudwatch_log(info.context,
+                                'Security: \
+                                File name has invalid characters')
         ret = AddFiles(success=success, resources=Resource(project_name))
         util.invalidate_cache(project_name)
         return ret
@@ -425,12 +431,13 @@ class DownloadFile(Mutation):
     url = String()
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access_gql
     def mutate(self, info, **parameters):
         success = False
         file_info = parameters['files_data']
-        file_url = parameters['project_name'] + "/" + file_info
-        minutes_until_expire = 2
+        file_url = parameters['project_name'].lower() + "/" + file_info
+        minutes_until_expire = 1.0 / 6
         signed_url = resources.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
                                         file_url, minutes_until_expire)
         if signed_url:

@@ -300,3 +300,9 @@ def calculate_etag(_, img_file):
         return etag
     except (OSError, AttributeError):
         return None
+
+
+def is_valid_file_name(name):
+    """ Verify that filename has valid characters. """
+    is_valid = bool(re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name)))
+    return is_valid

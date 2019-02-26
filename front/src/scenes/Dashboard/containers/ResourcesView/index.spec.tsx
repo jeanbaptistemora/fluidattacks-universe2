@@ -19,7 +19,6 @@ describe("Resources view", () => {
       environmentsDataset={[]}
       projectName="unittesting"
       repositoriesDataset={[]}
-      showFiles={true}
       filesDataset={[]}
     />,
   );

@@ -204,6 +204,7 @@ const esTranslations: Map<string, string> = {
       environment: "Ambiente",
       environments_title: "Ambientes",
       files_title: "Archivos",
+      invalid_chars: "El nombre del archivo contiene caracteres inválidos.",
       modal_env_title: "Agregar información de los ambientes",
       modal_file_title: "Agregar archivo",
       modal_repo_title: "Agregar información de los repositorios",
