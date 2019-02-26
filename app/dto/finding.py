@@ -6,8 +6,6 @@
 from datetime import datetime
 import base64
 
-from decimal import Decimal
-
 from django.conf import settings
 import pytz
 import rollbar
@@ -347,8 +345,8 @@ class FindingDTO(object):
             parsed_dict = {v: float(initial_dict[k].split(' | ')[0])
                            for (k, v) in severity_fields.items()
                            if k in initial_dict.keys()}
-        base_score = float(calc_cvss_basescore(parsed_dict, self.CVSS_PARAMETERS))
-        parsed_dict['criticity'] = calc_cvss_temporal(parsed_dict, base_score)
+        base_score = float(util.calc_cvss_basescore(parsed_dict, self.CVSS_PARAMETERS))
+        parsed_dict['criticity'] = util.calc_cvss_temporal(parsed_dict, base_score)
         parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
         parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
         return parsed_dict
@@ -728,62 +726,6 @@ Vulnerability of finding {finding_id} does not have the right state'.format(find
     return finding
 
 
-def calc_cvss_temporal(severity, basescore):
-    temporal = Decimal(float(basescore) * severity['exploitability'] *
-                       severity['resolutionLevel'] *
-                       severity['confidenceLevel'], 1)
-    response = temporal.quantize(Decimal("0.1"))
-    return response
-
-
-def calc_cvss_basescore(severity, parameters):
-    impact = parameters['impact_factor'] * \
-        (1 - ((1 - severity['confidentialityImpact']) *
-              (1 - severity['integrityImpact']) *
-              (1 - severity['availabilityImpact'])))
-    f_impact_factor = get_f_impact(impact)
-    exploitabilty = parameters['exploitability_factor'] * severity['accessComplexity'] * \
-        severity['authentication'] * severity['accessVector']
-    basescore = Decimal(((parameters['bs_factor_1'] * impact) -
-                        parameters['bs_factor_3'] + (parameters['bs_factor_2'] *
-                        exploitabilty)) * f_impact_factor)
-    response = basescore.quantize(Decimal("0.1"))
-    return response
-
-
-def calc_cvss_enviroment(severity, parameters):
-    exploitabilty = parameters['exploitability_factor'] * severity['accessComplexity'] * \
-        severity['authentication'] * severity['accessVector']
-    adj_impact = min(10, parameters['impact_factor'] *
-                     (1 - (1 - severity['confidentialityImpact'] *
-                           severity['confidentialityRequirement']) *
-                     (1 - severity['integrityImpact'] *
-                      severity['integrityRequirement']) *
-                     (1 - severity['availabilityImpact'] *
-                      severity['availabilityRequirement'])))
-    f_impact_factor = get_f_impact(adj_impact)
-    adj_basescore = ((parameters['bs_factor_1'] * adj_impact) -
-                     parameters['bs_factor_3'] + (parameters['bs_factor_2'] *
-                                                  exploitabilty)) * \
-        f_impact_factor
-    adj_temporal = round(adj_basescore * severity['exploitability'] *
-                         severity['resolutionLevel'] *
-                         severity['confidenceLevel'], 1)
-    cvss_env = Decimal((adj_temporal + (10 - adj_temporal) *
-                        severity['collateralDamagePotential']) *
-                       severity['findingDistribution'])
-    response = cvss_env.quantize(Decimal("0.1"))
-    return response
-
-
-def get_f_impact(impact):
-    if impact:
-        f_impact_factor = 1.176
-    else:
-        f_impact_factor = 0
-    return f_impact_factor
-
-
 def migrate_description(finding):
     primary_keys = ['finding_id', str(finding['id'])]
     if finding.get('projectName'):
@@ -899,8 +841,8 @@ def parse_severity(finding):
     severity_fields = {k: util.snakecase_to_camelcase(k) for k in severity_title}
     parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
                    if k in finding.keys()}
-    base_score = float(calc_cvss_basescore(parsed_dict, fin_dto.CVSS_PARAMETERS))
-    parsed_dict['criticity'] = calc_cvss_temporal(parsed_dict, base_score)
+    base_score = float(util.calc_cvss_basescore(parsed_dict, fin_dto.CVSS_PARAMETERS))
+    parsed_dict['criticity'] = util.calc_cvss_temporal(parsed_dict, base_score)
     parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
     parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
     return parsed_dict

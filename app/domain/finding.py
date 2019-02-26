@@ -29,8 +29,7 @@ from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.dto.finding import (
-    FindingDTO, get_project_name, calc_cvss_basescore,
-    calc_cvss_enviroment, calc_cvss_temporal
+    FindingDTO, get_project_name
 )
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
@@ -594,12 +593,12 @@ def save_severity(finding):
         severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                     for k in severity_fields}
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
-        severity['cvss_basescore'] = calc_cvss_basescore(unformatted_severity,
-                                                         fin_dto.CVSS_PARAMETERS)
-        severity['cvss_temporal'] = calc_cvss_temporal(unformatted_severity,
-                                                       severity['cvss_basescore'])
-        severity['cvss_env'] = calc_cvss_enviroment(unformatted_severity,
-                                                    fin_dto.CVSS_PARAMETERS)
+        severity['cvss_basescore'] = util.calc_cvss_basescore(
+            unformatted_severity, fin_dto.CVSS_PARAMETERS)
+        severity['cvss_temporal'] = util.calc_cvss_temporal(
+            unformatted_severity, severity['cvss_basescore'])
+        severity['cvss_env'] = util.calc_cvss_enviroment(
+            unformatted_severity, fin_dto.CVSS_PARAMETERS)
         severity['cvss_version'] = '2'
     response = \
         integrates_dao.add_multiple_attributes_dynamo('FI_findings',
