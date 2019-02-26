@@ -83,7 +83,7 @@ const findingContent: React.SFC = (): JSX.Element => (
     <div className={style.mainContainer}>
       <Row>
         <Col md={12} sm={12}>
-          <BrowserRouter basename="/dashboard#!/project">
+          <BrowserRouter basename={"/integrates/dashboard#!/project"}>
             <React.Fragment>
               <ul className={`${style.tabsContainer} pills-tabs`}>
                 <li id="infoItem" className={style.tab}>
