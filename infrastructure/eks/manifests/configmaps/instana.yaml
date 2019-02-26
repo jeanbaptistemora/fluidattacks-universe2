@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: instana-configuration
+data:
+  configuration.yaml: |
+    com.instana.plugin.python:
+      autodiscovery:
+        enabled: true
+
+        whitelist:
+          - 'gunicorn'
+          - 'uwsgi'
+
+        blacklist:
+          - 'pipenv'         # pipenv processes
+          - 'runserver'      # development webservers
+          - 'setup.py'
+          - 'ipython'
+          - 'terminator'     # Linux console
+          - 'mintupdate'

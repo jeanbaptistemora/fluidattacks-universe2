@@ -218,6 +218,7 @@ kubectl apply -f ingress/certificates.yaml
 kubectl apply -f ingress/main-domains.yaml
 kubectl apply -f ingress/external.yaml
 kubectl apply -f ingress/autonomic.yaml
+kubectl apply -f configmaps/instana.yaml
 issue_secondary_domain_certificates ingress/secondary-domains.yaml \
   secondary-domains-cert secondary-domains 
 
