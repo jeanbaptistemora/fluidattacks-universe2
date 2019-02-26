@@ -5,7 +5,7 @@ export let REVIEW_URL_PATTERN: string;
 REVIEW_URL_PATTERN = ".integrates.env";
 
 export let DEVELOPMENT_URL: string;
-DEVELOPMENT_URL = "https://localhost:8000";
+DEVELOPMENT_URL = "https://localhost";
 
 export const getEnvironment: (() => string) = (): string => {
   let environment: string;
