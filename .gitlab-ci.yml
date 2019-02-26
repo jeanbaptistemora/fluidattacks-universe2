@@ -59,6 +59,7 @@ content:
     - pre-commit run --all-files
     - ./check-changed.sh
     - python ci-scripts/checkall.py changes
+    - python ci-scripts/imgchecker.py
     - ./check-articles.sh
     - ./check-spelling.sh
   except:

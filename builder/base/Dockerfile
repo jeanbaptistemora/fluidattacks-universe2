@@ -34,6 +34,7 @@ RUN apt-get update -qq && \
        ruby-full \
        unzip \
        xz-utils \
+       imagemagick \
        yarn && \
 
     # Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
