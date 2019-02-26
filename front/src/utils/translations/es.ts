@@ -73,6 +73,9 @@ const esTranslations: Map<string, string> = {
       branch: "Rama",
       repository: "URL Repositorio",
     },
+    tab_comments: {
+      tab_title: "Comentarios",
+    },
     tab_description: {
       action: "Acción",
       actor: {
@@ -163,6 +166,7 @@ const esTranslations: Map<string, string> = {
         unauth_intra: "Usuario de Intranet no autorizado",
       },
       severity: "Severidad",
+      tab_title: "Descripción",
       threat: "Amenaza",
       title: "Título",
       treatment: {
@@ -189,12 +193,22 @@ const esTranslations: Map<string, string> = {
       detail: "Detalle",
       editable: "Editar",
       evidence_exploit: "Evidencia de explotación",
+      tab_title: "Evidencia",
       update: "Actualizar",
+    },
+    tab_exploit : {
+      tab_title: "Exploit",
     },
     tab_indicators: {
       tags: {
         modal_title: "Agregar información de los tags",
       },
+    },
+    tab_observations: {
+      tab_title: "Observaciones",
+    },
+    tab_records: {
+      tab_title: "Registros",
     },
     tab_resources: {
       add_repository: "Agregar",
@@ -268,6 +282,7 @@ const esTranslations: Map<string, string> = {
         palliative: "Paliativa: Existe un parche que no fue publicado por el fabricante",
         temporal: "Temporal: Existen soluciones temporales",
       },
+      tab_title: "Severidad",
       update: "Actualizar",
       vector: "Vector de Acceso",
       vector_options: {
@@ -282,6 +297,7 @@ const esTranslations: Map<string, string> = {
       effectiveness: "Efectividad",
       founded: "Encontrado",
       open: "Abiertas",
+      tab_title: "Seguimiento",
     },
     tab_users: {
       add_button: "Agregar",

@@ -72,6 +72,9 @@ const enTranslations: Map<string, string> = {
       branch: "Branch",
       repository: "Repository URL",
     },
+    tab_comments: {
+      tab_title: "Comments",
+    },
     tab_description: {
       action: "Action",
       actor: {
@@ -161,6 +164,7 @@ const enTranslations: Map<string, string> = {
         unauth_intra: "Unauthorized Intranet user",
       },
       severity: "Severity",
+      tab_title: "Description",
       threat: "Threat",
       title: "Title",
       treatment: {
@@ -187,12 +191,22 @@ const enTranslations: Map<string, string> = {
       detail: "Detail",
       editable: "Edit",
       evidence_exploit: "Exploitation evidence",
+      tab_title: "Evidence",
       update: "Update",
+    },
+    tab_exploit: {
+      tab_title: "Exploit",
     },
     tab_indicators: {
       tags: {
         modal_title: "Add tags information",
       },
+    },
+    tab_observations: {
+      tab_title: "Observations",
+    },
+    tab_records: {
+      tab_title: "Records",
     },
     tab_resources: {
       add_repository: "Add",
@@ -266,6 +280,7 @@ const enTranslations: Map<string, string> = {
         palliative: "Palliative: There is a patch that was not published by the manufacturer",
         temporal: "Temporal: There are temporary solutions",
       },
+      tab_title: "Severity",
       update: "Update",
       vector: "Access Vector",
       vector_options: {
@@ -280,6 +295,7 @@ const enTranslations: Map<string, string> = {
       effectiveness: "Effectiveness",
       founded: "Found",
       open: "Open",
+      tab_title: "Tracking",
     },
     tab_users: {
       add_button: "Add",

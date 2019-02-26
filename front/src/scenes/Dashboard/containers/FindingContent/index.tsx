@@ -4,6 +4,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Link, Route } from "react-router-dom";
+import translate from "../../../../utils/translations/translate";
 import { commentsView as CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { evidenceView as EvidenceView } from "../EvidenceView/index";
@@ -88,43 +89,51 @@ const findingContent: React.SFC = (): JSX.Element => (
               <ul className={`${style.tabsContainer} pills-tabs`}>
                 <li id="infoItem" className={style.tab}>
                   <Link to="description" aria-expanded="false">
-                    <i className="icon s7-note2" />&nbsp;Description
-                    </Link>
+                    <i className="icon s7-note2" />
+                    &nbsp;{translate.t("search_findings.tab_description.tab_title")}
+                  </Link>
                 </li>
                 <li id="cssv2Item" className={style.tab}>
                   <Link to="severity" aria-expanded="false">
-                    <i className="icon s7-calculator" />&nbsp;Severity
-                    </Link>
+                    <i className="icon s7-calculator" />
+                    &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
+                  </Link>
                 </li>
                 <li id="evidenceItem" className={style.tab}>
                   <Link to="evidence">
-                    <i className="icon s7-photo" />&nbsp;Evidence
-                    </Link>
+                    <i className="icon s7-photo" />
+                    &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
+                  </Link>
                 </li>
                 <li id="exploitItem" className={style.tab}>
                   <Link to="exploit">
-                    <i className="icon s7-file" />&nbsp;Exploit
-                    </Link>
+                    <i className="icon s7-file" />
+                    &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
+                  </Link>
                 </li>
                 <li id="trackingItem" className={style.tab}>
                   <Link to="tracking" aria-expanded="true">
-                    <i className="icon s7-graph1" />&nbsp;Tracking
-                    </Link>
+                    <i className="icon s7-graph1" />
+                    &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
+                  </Link>
                 </li>
                 <li id="recordsItem" className={style.tab}>
                   <Link to="records" aria-expanded="true">
-                    <i className="icon s7-notebook" />&nbsp;Records
-                    </Link>
+                    <i className="icon s7-notebook" />
+                    &nbsp;{translate.t("search_findings.tab_records.tab_title")}
+                  </Link>
                 </li>
                 <li id="commentItem" className={style.tab}>
                   <Link to="comments">
-                    <i className="icon s7-comment" />&nbsp;Comments
-                    </Link>
+                    <i className="icon s7-comment" />
+                    &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
+                  </Link>
                 </li>
                 <li id="observationsItem" className={style.tab}>
                   <Link to="observations">
-                    <i className="icon s7-note" />&nbsp;Observations
-                    </Link>
+                    <i className="icon s7-note" />
+                    &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
+                  </Link>
                 </li>
               </ul>
 
