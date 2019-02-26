@@ -13,6 +13,7 @@ import rollbar
 from ..dao import integrates_dao
 from ..api.formstack import FormstackAPI
 from ..utils import forms
+from ..utils import cvss
 from .. import util
 
 
@@ -345,8 +346,8 @@ class FindingDTO(object):
             parsed_dict = {v: float(initial_dict[k].split(' | ')[0])
                            for (k, v) in severity_fields.items()
                            if k in initial_dict.keys()}
-        base_score = float(util.calc_cvss_basescore(parsed_dict, self.CVSS_PARAMETERS))
-        parsed_dict['criticity'] = util.calc_cvss_temporal(parsed_dict, base_score)
+        base_score = float(cvss.calculate_cvss_basescore(parsed_dict, self.CVSS_PARAMETERS))
+        parsed_dict['criticity'] = cvss.calculate_cvss_temporal(parsed_dict, base_score)
         parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
         parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
         return parsed_dict
@@ -841,8 +842,8 @@ def parse_severity(finding):
     severity_fields = {k: util.snakecase_to_camelcase(k) for k in severity_title}
     parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
                    if k in finding.keys()}
-    base_score = float(util.calc_cvss_basescore(parsed_dict, fin_dto.CVSS_PARAMETERS))
-    parsed_dict['criticity'] = util.calc_cvss_temporal(parsed_dict, base_score)
+    base_score = float(cvss.calculate_cvss_basescore(parsed_dict, fin_dto.CVSS_PARAMETERS))
+    parsed_dict['criticity'] = cvss.calculate_cvss_temporal(parsed_dict, base_score)
     parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
     parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
     return parsed_dict

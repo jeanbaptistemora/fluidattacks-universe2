@@ -25,6 +25,7 @@ from __init__ import (
 )
 from app import util
 from app.utils import forms as forms_utils
+from app.utils import cvss
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
@@ -593,11 +594,11 @@ def save_severity(finding):
         severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                     for k in severity_fields}
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
-        severity['cvss_basescore'] = util.calc_cvss_basescore(
+        severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
             unformatted_severity, fin_dto.CVSS_PARAMETERS)
-        severity['cvss_temporal'] = util.calc_cvss_temporal(
+        severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
             unformatted_severity, severity['cvss_basescore'])
-        severity['cvss_env'] = util.calc_cvss_enviroment(
+        severity['cvss_env'] = cvss.calculate_cvss_enviroment(
             unformatted_severity, fin_dto.CVSS_PARAMETERS)
         severity['cvss_version'] = '2'
     response = \
