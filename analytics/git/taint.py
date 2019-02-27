@@ -349,7 +349,7 @@ def database_push__get_file_lines(
     # binary files produce "-(tab)-(tab)(file_path)"
     # non-binary files produce "(int)(tab)(int)(tab)(file_path)"
     raw_file_lines: str = raw_command_output.split("\t")[0]
-    file_lines: int = int(raw_file_lines) if not raw_file_lines == "-" else -1
+    file_lines: int = int(raw_file_lines) if not raw_file_lines == "-" else 0
     return file_lines
 
 
