@@ -1,0 +1,12 @@
+# This resource is placed in a separate file from the ingress because
+# at the moment of environmental variable substitution, unwanted
+# substitution occurs in the main ingress
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fluidattacks-cert
+  namespace: serves
+type: kubernetes.io/tls
+data:
+  tls.key: $FLUID_TLS_KEY
+  tls.crt: $FLUIDATTACKS_TLS_CERT
