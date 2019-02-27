@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -ev
 
 # update package list
 apt-get update
