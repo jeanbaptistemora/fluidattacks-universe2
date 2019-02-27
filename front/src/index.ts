@@ -14,19 +14,10 @@ import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
-import simpleTable from "./scenes/Dashboard/components/SimpleTable/index";
-import { vulnsView } from "./scenes/Dashboard/components/Vulnerabilities/index";
-import { commentsView } from "./scenes/Dashboard/containers/CommentsView";
-import { descriptionView } from "./scenes/Dashboard/containers/DescriptionView";
-import { evidenceView } from "./scenes/Dashboard/containers/EvidenceView/index";
-import { exploitView } from "./scenes/Dashboard/containers/ExploitView/index";
 import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
 import { projectCommentsView } from "./scenes/Dashboard/containers/ProjectCommentsView";
 import { projectUsersView } from "./scenes/Dashboard/containers/ProjectUsersView/index";
-import { recordsView } from "./scenes/Dashboard/containers/RecordsView/index";
 import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index";
-import { severityView } from "./scenes/Dashboard/containers/SeverityView/index";
-import { trackingView } from "./scenes/Dashboard/containers/TrackingView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
 
@@ -182,47 +173,6 @@ angular
   );
 
 /**
- * @url: #/project/:project/:id/exploit
- * @page: findingcontent.html
- * @controllers: ["findingContentCtrl"]
- * @tag: <exploit-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "exploitView",
-    react2angular(
-      exploitView,
-      [
-        "canEdit",
-        "findingId",
-      ],
-    ),
-  );
-
-/**
- * @url: #/project/:project/:id/tracking
- * @page: findingcontent.html
- * @controllers: ["findingContentCtrl"]
- * @tag: <tracking-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "trackingView",
-    react2angular(
-      trackingView,
-      [
-        "openFindingsContent",
-        "closedFindingsContent",
-        "hasNewVulnerabilities",
-        "findingId",
-        "userRole",
-      ],
-    ),
-  );
-
-/**
  * @url: /dashboard
  * @page: dashboard.html
  * @controllers: dashboardCtrl
@@ -317,105 +267,6 @@ angular
   );
 
 /**
- * @url: /project/:project/:id/tracking
- * @page: findingcontent.html
- * @controllers: findingContentCtrl
- * @tag: <simple-table/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-   "simpleTable",
-   react2angular(
-     simpleTable, [
-       "dataset",
-       "enableRowSelection",
-       "exportCsv",
-       "headers",
-       "id",
-       "onClickRow",
-       "pageSize",
-       "search",
-       "title",
-     ],
-   ),
-  );
-
-/**
- * @url: /project/:project/:id/description
- * @page: findingcontent.html
- * @controllers: findingContentCtrl
- * @tag: <vulnerabilities-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-   "vulnerabilitiesView",
-   react2angular(
-     vulnsView, [
-        "editMode",
-        "findingId",
-        "state",
-        "userRole",
-     ],
-   ),
-  );
-
-/**
- * @url: /project/:project/:id/records
- * @page: findingcontent.html
- * @controllers: findingContentCtrl
- * @tag: <records-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-   "recordsView",
-   react2angular(
-     recordsView, [
-        "canEdit",
-        "findingId",
-     ],
-   ),
-  );
-
-/**
- * @url: /project/:project/:id/severity
- * @page: findingcontent.html
- * @controllers: findingContentCtrl
- * @tag: <severity-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-   "severityView",
-   react2angular(
-     severityView, [
-       "canEdit",
-       "findingId",
-     ],
-   ),
-  );
-
-/**
- * @url: /project/:project/:id/evidence
- * @page: findingcontent.html
- * @controllers: findingContentCtrl
- * @tag: <evidence-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-   "evidenceView",
-   react2angular(
-     evidenceView, [
-       "canEdit",
-       "findingId",
-     ],
-   ),
-  );
-
-/**
  * @url: #/project/:project/comments
  * @page: comments.html
  * @controllers: projectCommentsCtrl
@@ -445,43 +296,6 @@ angular
       welcomeView, [
         "email",
         "username",
-      ],
-    ),
-);
-
-/**
- * @url: /project/:project/:id/{comments | observations}
- * @page: findingcontent.html
- * @controllers: findingContentCtrl
- * @tag: <comments-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "commentsView",
-    react2angular(
-      commentsView, [
-        "findingId",
-        "type",
-      ],
-    ),
-);
-
-/**
- * @url: /project/:project/:id/description
- * @page: findingcontent.html
- * @controllers: findingContentCtrl
- * @tag: <description-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "descriptionView",
-    react2angular(
-      descriptionView, [
-        "findingId",
-        "projectName",
-        "userRole",
       ],
     ),
 );
