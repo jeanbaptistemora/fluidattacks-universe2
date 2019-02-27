@@ -131,25 +131,28 @@ const findingContent: React.SFC = (): JSX.Element => (
                     &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
                   </Link>
                 </li>
-                <li id="observationsItem" className={style.tab}>
-                  <Link to="observations">
-                    <i className="icon s7-note" />
-                    &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
-                  </Link>
-                </li>
+                {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
+                {_.includes(["admin", "analyst"], (window as Window & { userRole: string }).userRole) ?
+                  <li id="observationsItem" className={style.tab}>
+                    <Link to="observations">
+                      <i className="icon s7-note" />
+                      &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
+                    </Link>
+                  </li>
+                  : undefined}
               </ul>
 
               <Provider store={store}>
-              <div className={style.tabContent}>
-                <Route path="/:proj/:fin/description" render={renderDescription} />
-                <Route path="/:proj/:fin/severity" render={renderSeverity} />
-                <Route path="/:proj/:fin/evidence" render={renderEvidence} />
-                <Route path="/:proj/:fin/exploit" render={renderExploit} />
-                <Route path="/:proj/:fin/tracking" render={renderTracking} />
-                <Route path="/:proj/:fin/records" render={renderRecords} />
-                <Route path="/:proj/:fin/comments" render={renderComments} />
-                <Route path="/:proj/:fin/observations" render={renderObservations} />
-              </div>
+                <div className={style.tabContent}>
+                  <Route path="/:proj/:fin/description" render={renderDescription} />
+                  <Route path="/:proj/:fin/severity" render={renderSeverity} />
+                  <Route path="/:proj/:fin/evidence" render={renderEvidence} />
+                  <Route path="/:proj/:fin/exploit" render={renderExploit} />
+                  <Route path="/:proj/:fin/tracking" render={renderTracking} />
+                  <Route path="/:proj/:fin/records" render={renderRecords} />
+                  <Route path="/:proj/:fin/comments" render={renderComments} />
+                  <Route path="/:proj/:fin/observations" render={renderObservations} />
+                </div>
               </Provider>
             </React.Fragment>
           </BrowserRouter>
