@@ -116,24 +116,70 @@ Notice how, given that the probabilities for each risk are small,
 none larger than 10%, most rows, most of the time,
 will display a loss of $0.
 Now the way to make this into a useful simulation is
-to run it many times and writing down the results.
+to run it many times and writing down the results,
+packed up into bins with which we could make a histogram,
+or better yet, a curve.
+
+.Monte Carlo results summary <<r1, ^[1]^>>
+image::mc-results-hist.png[Monte Carlo results summary]
+
 From these results, we can build a
 link:../quantifying-risk/[loss exceedance curve],
 simply by counting the number of times the simulated results
 are higher than a treshold, and plotting the results:
 
 .Loss Exceedance Curve <<r1, ^[1]^>>
-image::../quantifying-risk/loss-excedance-curve.png[Loss Exceedance Curve]
+image::simple-lec.png[Loss Exceedance Curve]
 
 The risk tolerance curve can be obtained from estimation as well,
-this time by appropriately interviewing an executive
-about the maximum probability with which they would be able
+this time by appropriately interviewing an executive expert
+about the maximum chance with which they would be able
 to tolerate certain loss tresholds,
-and fitting a curve to the number of points obtained.
-The residual risk curve corresponds to the probabilities
+plotting those risks on a graph,
+and fitting
+(link:https://en.wikipedia.org/wiki/Interpolation[interpolating])
+a curve to these points:
+
+.Fitting the risk tolerance curve
+image::gen-risk-tolerance.png[Fitting the risk tolerance curve]
+
+The _residual risk curve_ corresponds to the probabilities
 obtained by the same method we used to generate the normal (_inherent_) risk,
 only with different occurrence likelihoods
 estimated by a security expert.
+So we would just run the Monte Carlo simulation again,
+only this time with a 1% probability of a denial of service
+instead of the 15% we used before.
+Thus we would expect to obtain a curve whose
+loss probabilities are generally lower than
+the ones in the inherent risk curve:
+
+.All together now <<r1, ^[1]^>>
+image::../quantifying-risk/loss-excedance-curve.png[LEC, tolerance and residual plots]
+
+
+From these results it is now easier
+to quantify, compare and finally make a decision regarding
+which security control assets to invest in.
+From the Monte Carlo simulations,
+we could just average the losses to obtain
+the _expected loss_.
+Suppose that is $10 million.
+Assume that a certain control, for example,
+setting up an Intrusion Detection System,
+makes the probability of the denial of service
+lower to 8%, and the probability of some of other events go down as well.
+If we run the simulation again,
+we will obtain a different, most likely lower, expected loss.
+Call it $8M, and suppose the `IDS` costs $0.5M.
+In that case we might say that the _return on the control_ is given by
+
+.Return on control
+image::return-on-control.png[Return on control computation]
+
+Clearly, an investment that reduces the expected loss
+by four times its cost is clearly worth it.
+Try to compare that cost to having 2 red-colored risks and 3 yellow ones.
 
 ''''
 

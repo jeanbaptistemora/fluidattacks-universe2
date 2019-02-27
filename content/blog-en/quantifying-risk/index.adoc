@@ -1,6 +1,6 @@
 :slug: quantifying-risk/
 :date: 2019-02-19
-:subtitle: From color scales to probabilites and dollars
+:subtitle: From color scales to probabilites and ranges
 :category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
