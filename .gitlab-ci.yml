@@ -72,6 +72,7 @@ stages:
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
       - $FLAG_SYNC_MS_SQL_SERVER_ERP
+      - $FLAG_SYNC_SALESFORCE
 
 build_base:
   stage: deps
@@ -503,3 +504,23 @@ sync_ms_sql_server_erp:
   only:
     variables:
       - $FLAG_SYNC_MS_SQL_SERVER_ERP
+
+sync_salesforce:
+  image: registry.gitlab.com/fluidsignal/serves:ms_sql_server
+  stage: analytics
+  <<: *vault_login
+  script:
+    - pip3 install
+        tap_salesforce
+        analytics/singer/target_redshift
+    - echo "$(vault read -field=analytics_auth_salesforce secret/serves)" > /tap_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift   secret/serves)" > /target_secret.json
+    - tap-salesforce --config /tap_secret.json --discover > /tap_config.json
+    - tap-salesforce --config /tap_secret.json --properties /tap_config.json > .singer
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "salesforce"
+  after_script:
+    - rm -rf /tap_secret.json /target_secret.json
+  <<: *only_schedules
+  only:
+    variables:
+      - $FLAG_SYNC_SALESFORCE
