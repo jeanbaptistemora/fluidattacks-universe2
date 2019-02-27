@@ -569,7 +569,8 @@ def save_severity(finding):
     """Organize severity metrics to save in dynamo."""
     fin_dto = FindingDTO()
     primary_keys = ['finding_id', str(finding['id'])]
-    if finding.get('cvssVersion', '') == '3':
+    cvss_version = finding.get('cvssVersion', '')
+    if cvss_version == '3':
         severity_fields = ['attackVector', 'attackComplexity',
                            'privilegesRequired', 'userInteraction',
                            'severityScope', 'confidentialityImpact',
@@ -583,6 +584,8 @@ def save_severity(finding):
                            'modifiedIntegrityImpact', 'modifiedAvailabilityImpact']
         severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                     for k in severity_fields}
+        unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
+        cvss_parameters = fin_dto.CVSS3_PARAMETERS
     else:
         severity_fields = ['accessVector', 'accessComplexity',
                            'authentication', 'exploitability',
@@ -594,13 +597,14 @@ def save_severity(finding):
         severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                     for k in severity_fields}
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
-        severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
-            unformatted_severity, fin_dto.CVSS_PARAMETERS)
-        severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
-            unformatted_severity, severity['cvss_basescore'])
-        severity['cvss_env'] = cvss.calculate_cvss_enviroment(
-            unformatted_severity, fin_dto.CVSS_PARAMETERS)
-        severity['cvss_version'] = '2'
+        cvss_parameters = fin_dto.CVSS_PARAMETERS
+    severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
+        unformatted_severity, cvss_parameters)
+    severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
+        unformatted_severity, severity['cvss_basescore'])
+    severity['cvss_env'] = cvss.calculate_cvss_environment(
+        unformatted_severity, cvss_parameters)
+    severity['cvss_version'] = cvss_version
     response = \
         integrates_dao.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys, severity)

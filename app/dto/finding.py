@@ -102,29 +102,37 @@ class FindingDTO(object):
                        'impact_factor': 10.41, 'exploitability_factor': 20}
 
     # Attributes CVSS V3
-    CVSS_VERSION = FIELDS_FINDING['CVSS_VERSION'],
-    ATTACK_VECTOR_V3 = FIELDS_FINDING['ATTACK_VECTOR_V3'],
-    ATTACK_COMPLEXITY = FIELDS_FINDING['ATTACK_COMPLEXITY'],
-    PRIVILEGES_REQUIRED = FIELDS_FINDING['PRIVILEGES_REQUIRED'],
-    USER_INTERACTION = FIELDS_FINDING['USER_INTERACTION'],
-    SEVERITY_SCOPE = FIELDS_FINDING['SEVERITY_SCOPE'],
-    CONFIDENTIALITY_IMPACT_V3 = FIELDS_FINDING['CONFIDENTIALITY_IMPACT_V3'],
-    INTEGRITY_IMPACT_V3 = FIELDS_FINDING['INTEGRITY_IMPACT_V3'],
-    AVAILABILITY_IMPACT_V3 = FIELDS_FINDING['AVAILABILITY_IMPACT_V3'],
-    EXPLOIT_CODE_MATURITY = FIELDS_FINDING['EXPLOIT_CODE_MATURITY'],
-    REMEDIATION_LEVEL = FIELDS_FINDING['REMEDIATION_LEVEL'],
-    REPORT_CONFIDENCE = FIELDS_FINDING['REPORT_CONFIDENCE'],
-    CONFIDENTIALITY_REQUIREMENT_V3 = FIELDS_FINDING['CONFIDENTIALITY_REQUIREMENT_V3'],
-    INTEGRITY_REQUIREMENT_V3 = FIELDS_FINDING['INTEGRITY_REQUIREMENT_V3'],
-    AVAILABILITY_REQUIREMENT_V3 = FIELDS_FINDING['AVAILABILITY_REQUIREMENT_V3'],
-    MODIFIED_ATTACK_VECTOR = FIELDS_FINDING['MODIFIED_ATTACK_VECTOR'],
-    MODIFIED_ATTACK_COMPLEXITY = FIELDS_FINDING['MODIFIED_ATTACK_COMPLEXITY'],
-    MODIFIED_PRIVILEGES_REQUIRED = FIELDS_FINDING['MODIFIED_PRIVILEGES_REQUIRED'],
-    MODIFIED_USER_INTERACTION = FIELDS_FINDING['MODIFIED_USER_INTERACTION'],
-    MODIFIED_SEVERITY_SCOPE = FIELDS_FINDING['MODIFIED_SEVERITY_SCOPE'],
-    MODIFIED_CONFIDENTIALITY_IMPACT = FIELDS_FINDING['MODIFIED_CONFIDENTIALITY_IMPACT'],
-    MODIFIED_INTEGRITY_IMPACT = FIELDS_FINDING['MODIFIED_INTEGRITY_IMPACT'],
-    MODIFIED_AVAILABILITY_IMPACT = FIELDS_FINDING['MODIFIED_AVAILABILITY_IMPACT'],
+    CVSS_VERSION = FIELDS_FINDING['CVSS_VERSION']
+    ATTACK_VECTOR_V3 = FIELDS_FINDING['ATTACK_VECTOR_V3']
+    ATTACK_COMPLEXITY = FIELDS_FINDING['ATTACK_COMPLEXITY']
+    PRIVILEGES_REQUIRED = FIELDS_FINDING['PRIVILEGES_REQUIRED']
+    USER_INTERACTION = FIELDS_FINDING['USER_INTERACTION']
+    SEVERITY_SCOPE = FIELDS_FINDING['SEVERITY_SCOPE']
+    CONFIDENTIALITY_IMPACT_V3 = FIELDS_FINDING['CONFIDENTIALITY_IMPACT_V3']
+    INTEGRITY_IMPACT_V3 = FIELDS_FINDING['INTEGRITY_IMPACT_V3']
+    AVAILABILITY_IMPACT_V3 = FIELDS_FINDING['AVAILABILITY_IMPACT_V3']
+    EXPLOIT_CODE_MATURITY = FIELDS_FINDING['EXPLOIT_CODE_MATURITY']
+    REMEDIATION_LEVEL = FIELDS_FINDING['REMEDIATION_LEVEL']
+    REPORT_CONFIDENCE = FIELDS_FINDING['REPORT_CONFIDENCE']
+    CONFIDENTIALITY_REQUIREMENT_V3 = FIELDS_FINDING['CONFIDENTIALITY_REQUIREMENT_V3']
+    INTEGRITY_REQUIREMENT_V3 = FIELDS_FINDING['INTEGRITY_REQUIREMENT_V3']
+    AVAILABILITY_REQUIREMENT_V3 = FIELDS_FINDING['AVAILABILITY_REQUIREMENT_V3']
+    MODIFIED_ATTACK_VECTOR = FIELDS_FINDING['MODIFIED_ATTACK_VECTOR']
+    MODIFIED_ATTACK_COMPLEXITY = FIELDS_FINDING['MODIFIED_ATTACK_COMPLEXITY']
+    MODIFIED_PRIVILEGES_REQUIRED = FIELDS_FINDING['MODIFIED_PRIVILEGES_REQUIRED']
+    MODIFIED_USER_INTERACTION = FIELDS_FINDING['MODIFIED_USER_INTERACTION']
+    MODIFIED_SEVERITY_SCOPE = FIELDS_FINDING['MODIFIED_SEVERITY_SCOPE']
+    MODIFIED_CONFIDENTIALITY_IMPACT = FIELDS_FINDING['MODIFIED_CONFIDENTIALITY_IMPACT']
+    MODIFIED_INTEGRITY_IMPACT = FIELDS_FINDING['MODIFIED_INTEGRITY_IMPACT']
+    MODIFIED_AVAILABILITY_IMPACT = FIELDS_FINDING['MODIFIED_AVAILABILITY_IMPACT']
+    CVSS3_PARAMETERS = {'impact_factor_1': 6.42, 'impact_factor_2': 7.52,
+                        'impact_factor_3': 0.029, 'impact_factor_4': 3.25,
+                        'impact_factor_5': 0.02, 'impact_factor_6': 15,
+                        'exploitability_factor_1': 8.22, 'basescore_factor': 1.08,
+                        'mod_impact_factor_1': 0.915, 'mod_impact_factor_2': 6.42,
+                        'mod_impact_factor_3': 7.52, 'mod_impact_factor_4': 0.029,
+                        'mod_impact_factor_5': 3.25, 'mod_impact_factor_6': 0.02,
+                        'mod_impact_factor_7': 15}
 
     def __init__(self):
         """Class constructor."""
@@ -190,7 +198,7 @@ class FindingDTO(object):
         migrated_dict = {}
         migrated_aditional_info_dict = {}
         description_title = ['report_level', 'subscription', 'client_code',
-                             'finding', 'probability', 'severity', 'cvss_version'
+                             'finding', 'probability', 'severity',
                              'risk_value', 'ambit', 'category', 'test_type',
                              'related_findings', 'actor', 'scenario']
         description = integrates_dao.get_finding_attributes_dynamo(
@@ -216,8 +224,7 @@ class FindingDTO(object):
                 self.SCENARIO: 'scenario',
                 self.AMBIT: 'ambit',
                 self.CATEGORY: 'category',
-                self.ACTOR: 'actor',
-                self.CVSS_VERSION: 'cvssVersion'
+                self.ACTOR: 'actor'
             }
             migrated_dict = {v: initial_dict[k]
                              for (k, v) in migrated_description_fields.items()
@@ -288,6 +295,27 @@ class FindingDTO(object):
         migrated_data = forms.dict_concatenation(
             migrated_data,
             treatment_dict)
+        cvss_version_info = integrates_dao.get_finding_attributes_dynamo(
+            str(submission_id),
+            ['cvss_version'])
+        if cvss_version_info:
+            cvss_version_fields = {k: util.snakecase_to_camelcase(k)
+                                   for k in ['cvss_version']}
+            cvss_version_dict = {
+                v: cvss_version_info[k]
+                for (k, v) in cvss_version_fields.items()
+                if k in cvss_version_info.keys()}
+        else:
+            cvss_version_fields = {
+                self.CVSS_VERSION: 'cvssVersion'
+            }
+            cvss_version_dict = {
+                v: initial_dict[k]
+                for (k, v) in cvss_version_fields.items()
+                if k in initial_dict.keys()}
+        migrated_data = forms.dict_concatenation(
+            migrated_data,
+            cvss_version_dict)
         description_fields = {
             self.CARDINALITY: 'openVulnerabilities',
             self.WHERE: 'where',
@@ -398,11 +426,27 @@ class FindingDTO(object):
                 self.MODIFIED_SEVERITY_SCOPE: 'modifiedSeverityScope',
                 self.MODIFIED_CONFIDENTIALITY_IMPACT: 'modifiedConfidentialityImpact',
                 self.MODIFIED_INTEGRITY_IMPACT: 'modifiedIntegrityImpact',
-                self.MODIFIED_AVAILABILITY_IMPACT: 'modifiedAvailabilityImpact',
+                self.MODIFIED_AVAILABILITY_IMPACT: 'modifiedAvailabilityImpact'
             }
             parsed_dict = {v: float(initial_dict[k])
                            for (k, v) in severity_fields.items()
                            if k in initial_dict.keys()}
+        if parsed_dict.get('severityScope'):
+            if parsed_dict['privilegesRequired'] == 0.62:
+                parsed_dict['privilegesRequired'] = 0.68
+            elif parsed_dict['privilegesRequired'] == 0.27:
+                parsed_dict['privilegesRequired'] = 0.50
+        else:
+            # privileges required continue with its initial value
+            pass
+        if parsed_dict.get('modifiedSeverityScope'):
+            if parsed_dict['modifiedPrivilegesRequired'] == 0.62:
+                parsed_dict['modifiedPrivilegesRequired'] = 0.68
+            elif parsed_dict['modifiedPrivilegesRequired'] == 0.27:
+                parsed_dict['modifiedPrivilegesRequired'] = 0.50
+        else:
+            # Modified privileges required continue with its initial value
+            pass
         return parsed_dict
 
     def parse_project(self, request_arr, submission_id):
@@ -787,19 +831,40 @@ def parse_finding(finding):
 def parse_severity(finding):
     """Parse finding severity."""
     fin_dto = FindingDTO()
-    severity_title = ['access_complexity', 'authentication', 'availability_impact',
-                      'exploitability', 'confidentiality_impact', 'access_vector',
-                      'resolution_level', 'integrity_impact',
-                      'confidence_level', 'collateral_damage_potential',
-                      'finding_distribution', 'confidentiality_requirement',
-                      'integrity_requirement', 'availability_requirement']
-    severity_fields = {k: util.snakecase_to_camelcase(k) for k in severity_title}
-    parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
-                   if k in finding.keys()}
-    base_score = float(cvss.calculate_cvss_basescore(parsed_dict, fin_dto.CVSS_PARAMETERS))
-    parsed_dict['criticity'] = cvss.calculate_cvss_temporal(parsed_dict, base_score)
+    cvss_version = finding.get('cvss_version')
+    if cvss_version == '3':
+        severity_title = ['attack_vector', 'attack_complexity',
+                          'privileges_required', 'user_interaction',
+                          'severity_scope', 'confidentiality_impact',
+                          'integrity_impact', 'availability_impact',
+                          'exploit_code_maturity', 'remediation_level',
+                          'report_confidence', 'confidentiality_requirement',
+                          'integrity_requirement', 'availability_requirement',
+                          'modified_attack_vector', 'modified_attack_complexity',
+                          'modified_privileges_required', 'modified_user_interaction',
+                          'modified_severity_scope', 'modified_confidentiality_impact',
+                          'modified_integrity_impact', 'modified_availability_impact']
+        severity_fields = {k: util.snakecase_to_camelcase(k) for k in severity_title}
+        parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
+                       if k in finding.keys()}
+        cvss_parameters = fin_dto.CVSS3_PARAMETERS
+    else:
+        severity_title = ['access_complexity', 'authentication', 'availability_impact',
+                          'exploitability', 'confidentiality_impact', 'access_vector',
+                          'resolution_level', 'integrity_impact',
+                          'confidence_level', 'collateral_damage_potential',
+                          'finding_distribution', 'confidentiality_requirement',
+                          'integrity_requirement', 'availability_requirement']
+        severity_fields = {k: util.snakecase_to_camelcase(k) for k in severity_title}
+        parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
+                       if k in finding.keys()}
+        cvss_parameters = fin_dto.CVSS_PARAMETERS
+        parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
+    base_score = float(cvss.calculate_cvss_basescore(
+        parsed_dict, cvss_parameters))
+    parsed_dict['criticity'] = \
+        cvss.calculate_cvss_temporal(parsed_dict, base_score)
     parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
-    parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
     return parsed_dict
 
 

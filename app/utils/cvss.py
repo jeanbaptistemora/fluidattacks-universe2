@@ -76,7 +76,7 @@ def calculate_cvss_basescore(severity, parameters):
     return cvss_basescore
 
 
-def calculate_cvss_enviroment(severity, parameters):
+def calculate_cvss_environment(severity, parameters):
     """Calculate cvss environment attribute."""
     cvss_environment = _calc_cvss2_environment(severity, parameters)
     return cvss_environment
