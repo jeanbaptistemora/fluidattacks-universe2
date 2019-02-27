@@ -3,7 +3,9 @@ import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { describe, it } from "mocha";
 import * as React from "react";
-import { confirmDialog as ConfirmDialog } from "./index";
+import { Provider } from "react-redux";
+import store from "../../store/index";
+import ConfirmDialog from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -18,11 +20,13 @@ describe("Confirm dialog", () => {
 
   it("should render", () => {
     const wrapper: ShallowWrapper = shallow(
+      <Provider store={store}>
       <ConfirmDialog
-        open={true}
+        name="confirmTest"
         title="Test"
         onProceed={functionMock}
-      />,
+      />
+      </Provider>,
     );
     expect(wrapper).to.have
       .length(1);

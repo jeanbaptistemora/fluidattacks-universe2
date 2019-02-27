@@ -165,3 +165,15 @@ export const updateVulnerabilities: ThunkActionStructure =
         }
       });
   };
+
+export const openConfirmDialog: ((dialogName: string) => IActionStructure) =
+  (dialogName: string): IActionStructure => ({
+    payload: { dialogName },
+    type: actionType.OPEN_CONFIRM_DIALOG,
+  });
+
+export const closeConfirmDialog: ((dialogName: string) => IActionStructure) =
+  (dialogName: string): IActionStructure => ({
+    payload: { dialogName },
+    type: actionType.CLOSE_CONFIRM_DIALOG,
+  });

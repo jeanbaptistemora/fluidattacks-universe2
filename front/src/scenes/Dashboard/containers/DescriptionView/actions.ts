@@ -6,6 +6,7 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
+import { closeConfirmDialog } from "../../actions";
 import * as actionTypes from "./actionTypes";
 import { IDescriptionViewProps } from "./index";
 
@@ -41,18 +42,6 @@ export const closeRemediationMdl: (() => IActionStructure) =
   (): IActionStructure => ({
     payload: undefined,
     type: actionTypes.CLOSE_REMEDIATION_MDL,
-  });
-
-export const openConfirmMdl: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.OPEN_CONFIRM_MDL,
-  });
-
-export const closeConfirmMdl: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLOSE_CONFIRM_MDL,
   });
 
 export const clearDescription: (() => IActionStructure) =
@@ -185,7 +174,7 @@ export const verifyFinding: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.verifyFinding.success) {
-            dispatch<IActionStructure>(closeConfirmMdl());
+            dispatch<IActionStructure>(closeConfirmDialog("confirmVerify"));
             dispatch<IActionStructure>({
               payload: {
                 descriptionData: { remediated: false },

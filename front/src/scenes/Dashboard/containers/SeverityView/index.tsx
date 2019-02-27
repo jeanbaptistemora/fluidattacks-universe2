@@ -14,13 +14,14 @@ import { AnyAction, Reducer } from "redux";
 import { ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
-import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDialog/index";
+import ConfirmDialog from "../../../../components/ConfirmDialog/index";
 import store from "../../../../store/index";
 import { castFields } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
+import { openConfirmDialog } from "../../actions";
 import * as actions from "./actions";
 import style from "./index.css";
 
@@ -46,7 +47,6 @@ export interface ISeverityViewProps {
   findingId: string;
   formValues: { editSeverity: { values: ISeverityViewProps["dataset"] }};
   isEditing: boolean;
-  isMdlConfirmOpen: boolean;
 }
 
 export interface ISeverityField {
@@ -158,7 +158,7 @@ export const component: React.SFC<ISeverityViewProps> =
                 store.dispatch(actions.calcCVSSv2(values as ISeverityViewProps["dataset"]));
               }}
               initialValues={props.dataset}
-              onSubmit={(): void => { store.dispatch(actions.openConfirmMdl()); }}
+              onSubmit={(): void => { store.dispatch(openConfirmDialog("confirmEditSeverity")); }}
             />
           </Provider>
           <Row className={style.row}>
@@ -169,7 +169,7 @@ export const component: React.SFC<ISeverityViewProps> =
       </Row>
 
       <ConfirmDialog
-        open={props.isMdlConfirmOpen}
+        name="confirmEditSeverity"
         title={translate.t("confirmmodal.title_cvssv2")}
         onProceed={(): void => {
           const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
@@ -182,7 +182,6 @@ export const component: React.SFC<ISeverityViewProps> =
             props.criticity,
           ));
         }}
-        onCancel={(): void => { store.dispatch(actions.closeConfirmMdl()); }}
       />
     </React.StrictMode>
   );

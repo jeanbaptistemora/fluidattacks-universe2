@@ -2,7 +2,7 @@ import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IWelcomeViewProps } from "./containers/WelcomeView";
 
-interface IRegistrationState {
+export interface IRegistrationState {
   legalNotice: {
     open: boolean;
     rememberDecision: boolean;
@@ -26,7 +26,7 @@ type RegistrationReducer = ((
   arg2: actions.IActionStructure,
 ) => IRegistrationState);
 
-const registration: RegistrationReducer =
+export const registration: RegistrationReducer =
   (state: IRegistrationState = initialState,
    action: actions.IActionStructure): IRegistrationState => {
   switch (action.type) {
@@ -51,5 +51,3 @@ const registration: RegistrationReducer =
       return state;
   }
 };
-
-export = registration;

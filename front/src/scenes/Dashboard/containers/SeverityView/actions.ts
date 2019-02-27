@@ -5,6 +5,7 @@ import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
+import { closeConfirmDialog } from "../../actions";
 import * as actionTypes from "./actionTypes";
 import { ISeverityViewProps } from "./index";
 
@@ -99,18 +100,6 @@ export const loadSeverity: ThunkActionStructure =
         });
     };
 
-export const openConfirmMdl: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.OPEN_CONFIRM_MDL,
-  });
-
-export const closeConfirmMdl: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLOSE_CONFIRM_MDL,
-  });
-
 export const updateSeverity: ThunkActionStructure =
   (findingId: string, values: ISeverityViewProps["dataset"],
    criticity: ISeverityViewProps["criticity"]): ThunkAction<void, {}, {}, Action> =>
@@ -157,7 +146,7 @@ export const updateSeverity: ThunkActionStructure =
               type: actionTypes.LOAD_SEVERITY,
             });
             dispatch(editSeverity());
-            dispatch(closeConfirmMdl());
+            dispatch(closeConfirmDialog("confirmEditSeverity"));
           } else {
             msgError(translate.t("proj_alerts.error_textsad"));
           }

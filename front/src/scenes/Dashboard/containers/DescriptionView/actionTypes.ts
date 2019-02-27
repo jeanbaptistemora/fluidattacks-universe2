@@ -10,5 +10,3 @@ export const CLEAR_EVIDENCE: string = "dashboard/finding/description/clear";
 export const EDIT_DESCRIPTION: string = "dashboard/finding/description/edit";
 export const OPEN_REMEDIATION_MDL: string = "dashboard/finding/description/remediation/open";
 export const CLOSE_REMEDIATION_MDL: string = "dashboard/finding/description/remediation/close";
-export const OPEN_CONFIRM_MDL: string = "dashboard/confirm_open";
-export const CLOSE_CONFIRM_MDL: string = "dashboard/confirm_close";

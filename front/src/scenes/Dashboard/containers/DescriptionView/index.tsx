@@ -14,10 +14,11 @@ import { AnyAction, Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
-import { confirmDialog as ConfirmDialog } from "../../../../components/ConfirmDialog";
+import ConfirmDialog from "../../../../components/ConfirmDialog";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
+import { openConfirmDialog } from "../../actions";
 import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
@@ -66,7 +67,6 @@ export interface IDescriptionViewProps {
     treatment: string;
   };
   isEditing: boolean;
-  isMdlConfirmOpen: boolean;
   isRemediationOpen: boolean;
   projectName: string;
   userRole: string;
@@ -85,15 +85,19 @@ const enhance: InferableComponentEnhancer<{}> =
     },
   });
 
-const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => (
+const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
+  const handleClick: (() => void) = (): void => { store.dispatch(openConfirmDialog("confirmVerify")); };
+
+  return (
   <Row style={{ paddingTop: "10px" }}>
     <Col md={2} mdOffset={10} xs={6} sm={6}>
-      <Button bsStyle="warning" block={true} onClick={(): void => { store.dispatch(actions.openConfirmMdl()); }}>
+      <Button bsStyle="warning" block={true} onClick={handleClick}>
         <Glyphicon glyph="ok" /> {translate.t("search_findings.tab_description.mark_verified")}
       </Button>
     </Col>
   </Row>
 );
+};
 
 const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
@@ -198,7 +202,7 @@ export const component: React.SFC<IDescriptionViewProps> =
             }}
           />
           <ConfirmDialog
-            open={props.isMdlConfirmOpen}
+            name="confirmVerify"
             title={translate.t("confirmmodal.title_generic")}
             onProceed={(): void => {
               const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
@@ -206,7 +210,6 @@ export const component: React.SFC<IDescriptionViewProps> =
               );
               thunkDispatch(actions.verifyFinding(props.findingId));
             }}
-            onCancel={(): void => { store.dispatch(actions.closeConfirmMdl()); }}
           />
         </React.Fragment>
       </Row>

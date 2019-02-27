@@ -18,7 +18,8 @@ import * as severityActions from "./containers/SeverityView/actionTypes";
 import * as trackingActions from "./containers/TrackingView/actionTypes";
 import { ITrackingViewProps } from "./containers/TrackingView/index";
 
-interface IDashboardState {
+export interface IDashboardState {
+  confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
@@ -33,7 +34,6 @@ interface IDashboardState {
     subscription: string;
     tags: string[];
   };
-  isMdlConfirmOpen: boolean;
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
     addModal: {
@@ -63,6 +63,7 @@ interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
+  confirmDialog: {},
   description: {
     dataset: {
       actor: "",
@@ -122,7 +123,6 @@ const initialState: IDashboardState = {
     subscription: "",
     tags: [],
   },
-  isMdlConfirmOpen: false,
   records: {
     dataset: [],
     isEditing: false,
@@ -369,19 +369,31 @@ actionMap[severityActions.CALC_CVSSV2] =
     },
   });
 
-actionMap[severityActions.OPEN_CONFIRM_MDL] =
+actionMap[actionType.OPEN_CONFIRM_DIALOG] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    isMdlConfirmOpen: true,
-  });
+    ({
+      ...state,
+      confirmDialog: {
+        ...state.confirmDialog,
+        [action.payload.dialogName]: {
+          ...state.confirmDialog[action.payload.dialogName],
+          isOpen: true,
+        },
+      },
+    });
 
-actionMap[severityActions.CLOSE_CONFIRM_MDL] =
+actionMap[actionType.CLOSE_CONFIRM_DIALOG] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    isMdlConfirmOpen: false,
-  });
+    ({
+      ...state,
+      confirmDialog: {
+        ...state.confirmDialog,
+        [action.payload.dialogName]: {
+          ...state.confirmDialog[action.payload.dialogName],
+          isOpen: false,
+        },
+      },
+    });
 
 actionMap[exploitActions.LOAD_EXPLOIT] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
@@ -553,7 +565,7 @@ type DashboardReducer = ((
   arg2: actions.IActionStructure,
 ) => IDashboardState);
 
-const dashboard: DashboardReducer =
+export const dashboard: DashboardReducer =
   (state: IDashboardState = initialState,
    action: actions.IActionStructure): IDashboardState => {
   if (action.type in actionMap) {
@@ -562,5 +574,3 @@ const dashboard: DashboardReducer =
     return state;
   }
 };
-
-export = dashboard;

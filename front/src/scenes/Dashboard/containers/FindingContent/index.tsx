@@ -3,7 +3,9 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
+import store from "../../../../store/index";
 import translate from "../../../../utils/translations/translate";
 import { commentsView as CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
@@ -137,6 +139,7 @@ const findingContent: React.SFC = (): JSX.Element => (
                 </li>
               </ul>
 
+              <Provider store={store}>
               <div className={style.tabContent}>
                 <Route path="/:proj/:fin/description" render={renderDescription} />
                 <Route path="/:proj/:fin/severity" render={renderSeverity} />
@@ -147,6 +150,7 @@ const findingContent: React.SFC = (): JSX.Element => (
                 <Route path="/:proj/:fin/comments" render={renderComments} />
                 <Route path="/:proj/:fin/observations" render={renderObservations} />
               </div>
+              </Provider>
             </React.Fragment>
           </BrowserRouter>
         </Col>
