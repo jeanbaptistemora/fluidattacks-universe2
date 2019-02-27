@@ -51,6 +51,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/server-alias: >
+      fluidsignal.com
       fluidsignal.com.co
       fluidsignal.co
       fluid.com.co
@@ -64,6 +65,7 @@ metadata:
 spec:
   tls:
   - hosts:
+    - fluid.la
     - fluidsignal.com
     - fluidsignal.com.co
     - fluidsignal.co
@@ -73,7 +75,7 @@ spec:
     - fluidattacks.io
     secretName: secondary-domains-cert
   rules:
-  - host: fluidsignal.com
+  - host: fluid.la
     http:
       paths:
       - backend:
