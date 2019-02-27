@@ -14,32 +14,16 @@ before_script:
 after_script:
   - docker logout "fluid-docker.jfrog.io" || echo 'Docker not necessary'
 
-.variables-dev: &variables-dev
+.vault_vars:
   variables:
+    VAULT_ADDR: "https://${VAULT_S3_BUCKET}.com"
+    VAULT_HOST: "${VAULT_S3_BUCKET}.com"
+    VAULT_PORT: 443
+    VAULTENV_SECRETS_FILE: "${CI_PROJECT_DIR}/env.vars"
     ENV: DEV
-    ENV_FULL: development
-
-.vault_login: &vault_login
-  before_script:
-    - if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
-        export ENV=PROD;
-        export ENV_FULL=production;
-        echo 'Variables updated';
-      fi
-    - ROLE_ID='INTEGRATES_'"$ENV"'_ROLE_ID'
-    - SECRET_ID='INTEGRATES_'"$ENV"'_SECRET_ID'
-    - export VAULT_TOKEN=$(curl --request POST
-        --data '{"role_id":"'"${!ROLE_ID}"'","secret_id":"'"${!SECRET_ID}"'"}'
-        "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
-        jq -r '.auth.client_token')
-    - export VAULT_HOST="$VAULT_S3_BUCKET.com"
-    - export VAULT_PORT=443
-    - export VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
-    - sed -i 's/env#/'"$ENV_FULL"'#/g' "$VAULTENV_SECRETS_FILE"
-    - export DOCKER_BASENAME="fluid-docker.jfrog.io/integrates"
-    - echo "$JFROG_PASS" |
-        docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin ||
-        echo 'Docker not necessary'
+    ENV_NAME: development
+    ROLE_ID: "${INTEGRATES_DEV_ROLE_ID}"
+    SECRET_ID: "${INTEGRATES_DEV_SECRET_ID}"
 
 .jfrog_vars: &jfrog_vars
   variables:
@@ -49,12 +33,46 @@ after_script:
     CI_REGISTRY_EMAIL: "${INTEGRATES_JFROG_EMAIL}"
     CI_REGISTRY_IMAGE: "${JFROG_REPO}/integrates"
 
-.kaniko_jfrog_config: &kaniko_jfrog_config
+.vault_setup: &vault_setup |-
+  if [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
+    export ENV=PROD
+    export ENV_NAME=production
+    export ROLE_ID="${INTEGRATES_PROD_ROLE_ID}"
+    export SECRET_ID="${INTEGRATES_PROD_SECRET_ID}"
+  fi
+  sed -i 's#/env#/'"${ENV_NAME}"'#g' "${VAULTENV_SECRETS_FILE}"
+  export VAULT_TOKEN=$(vault write \
+    -field=token auth/approle/login \
+    role_id="${ROLE_ID}" \
+    secret_id="${SECRET_ID}")
+
+.vault_login: &vault_login
+  extends: .vault_vars
+  before_script:
+    - *vault_setup
+
+.kaniko_config: &kaniko_config
   <<: *jfrog_vars
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   before_script:
+    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
+        > /kaniko/.docker/config.json
+
+.kaniko_vault_config: &kaniko_vault_config
+  extends: .vault_vars
+  <<: *kaniko_config
+  before_script:
+    - wget -O vault.zip https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip;
+        unzip vault.zip;
+        mv vault /busybox/
+    - *vault_setup
+    - export FI_DRIVE_AUTHORIZATION=$(vault read -field=drive_authorization secret/integrates/${ENV_NAME})
+    - export FI_DRIVE_AUTHORIZATION_CLIENT=$(vault read -field=drive_authorization_client secret/integrates/${ENV_NAME})
+    - export FI_DOCUMENTROOT=$(vault read -field=documentroot secret/integrates/${ENV_NAME})
+    - export FI_SSL_KEY=$(vault read -field=ssl_key secret/integrates/${ENV_NAME})
+    - export FI_SSL_CERT=$(vault read -field=ssl_cert secret/integrates/${ENV_NAME})
     - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
         > /kaniko/.docker/config.json
 
@@ -70,7 +88,7 @@ stages:
 
 Build:
   stage: deps
-  <<: *kaniko_jfrog_config
+  <<: *kaniko_config
   script:
     - cp front/package.json deploy/containers/deps/
     - /kaniko/executor
@@ -84,7 +102,6 @@ Build:
 
 .terraform-test:
   stage: pre-test
-  <<: *variables-dev
   <<: *vault_login
   script:
     - aws s3 cp
@@ -125,7 +142,6 @@ commitlint:
 react-testing:
   stage: pre-test
   image: fluid-docker.jfrog.io/integrates:deps
-  <<: *variables-dev
   <<: *vault_login
   script:
     - cd front/ && npm install --unsafe-perm
@@ -159,7 +175,6 @@ js-linter:
 prospector-testing:
   stage: pre-test
   image: fluid-docker.jfrog.io/integrates:deps
-  <<: *variables-dev
   <<: *vault_login
   script:
     - vaultenv -- prospector -F -s veryhigh -u django -p app/ -i node_modules || true
@@ -171,7 +186,6 @@ prospector-testing:
 unit-testing:
   stage: pre-test
   image: fluid-docker.jfrog.io/integrates:deps
-  <<: *variables-dev
   <<: *vault_login
   script:
     - cp -a $PWD /usr/src/app_src
@@ -240,21 +254,34 @@ asserts-code-test:
 
 build-integrates:
   stage: build
-  <<: *variables-dev
-  <<: *vault_login
+  <<: *kaniko_vault_config
   script:
-    - pip2 install gitpython mandrill
-    - vaultenv deploy/containers/integrates/build.sh "$CI_COMMIT_REF_NAME"
-    - docker push "$DOCKER_BASENAME:$CI_COMMIT_REF_NAME"
+    - mv deploy/containers/common/vars deploy/containers/integrates/
+    - MINUTES=$(( ($(date +%d) -1) * 1440 + $(date +%H) * 60 + $(date +%M) ))
+    - FI_VERSION="$(date +%y.%m.)${MINUTES}"
+    - /kaniko/executor
+        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
+        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
+        --build-arg DOCUMENTROOT="${FI_DOCUMENTROOT}"
+        --build-arg DRIVE_AUTHORIZATION="${FI_DRIVE_AUTHORIZATION}"
+        --build-arg DRIVE_AUTHORIZATION_CLIENT="${FI_DRIVE_AUTHORIZATION_CLIENT}"
+        --build-arg ENV_NAME="${ENV_NAME}"
+        --build-arg SSL_CERT="${FI_SSL_CERT}"
+        --build-arg SSL_KEY="${FI_SSL_KEY}"
+        --build-arg VERSION="${FI_VERSION}"
+        --cleanup
+        --context "${CI_PROJECT_DIR}/deploy/containers/integrates/"
+        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/integrates/Dockerfile"
+        --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
   retry: 2
-  except:
-    - triggers
 
 build-bot:
   stage: build
-  <<: *variables-dev
   <<: *vault_login
   script:
+    - export DOCKER_BASENAME="fluid-docker.jfrog.io/integrates"
+    - echo "$JFROG_PASS" |
+        docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin
     - vaultenv deploy/containers/bot/build.sh "$CI_COMMIT_REF_NAME"
     - docker push "${DOCKER_BASENAME}-bot:${CI_COMMIT_REF_NAME}"
   retry: 2
@@ -264,7 +291,6 @@ build-bot:
 driver-testing:
   stage: post-deploy
   image: fluid-docker.jfrog.io/integrates:deps190201
-  <<: *variables-dev
   <<: *vault_login
   script:
     - cp -a $PWD /usr/src/app_src
@@ -282,7 +308,6 @@ driver-testing:
 
 review-integrates:
   stage: review
-  <<: *variables-dev
   <<: *vault_login
   script:
     - vaultenv review-apps/cluster-config.sh
@@ -409,15 +434,18 @@ deploy-k8s:
         -F revision=$CI_COMMIT_SHA
         -F local_username="$CI_COMMIT_REF_NAME"
     - vaultenv ./new_relic_deployment.sh
-    - docker run
-       -e VAULT_HOST="$VAULT_HOST"
-       -e VAULT_TOKEN="$VAULT_TOKEN"
-       -e VAULT_PORT="$VAULT_PORT"
-       -t "$DOCKER_BASENAME:$CI_COMMIT_REF_NAME"
-       /bin/bash -c "cd /usr/src/app/;
-       vaultenv $(which python) integrates_version.py"
   after_script:
     - rm integrates-k8s.yaml
+  only:
+    - master
+
+changes-mail:
+  stage: post-deploy
+  image: fluid-docker.jfrog.io/integrates:master
+  <<: *vault_login
+  script:
+    - cd /usr/src/app
+    - vaultenv -- python integrates_version.py
   only:
     - master
 
@@ -448,7 +476,6 @@ coverage-report:
     - merge_requests
   stage: coverage
   image: fluid-docker.jfrog.io/integrates:deps190201
-  <<: *variables-dev
   <<: *vault_login
   dependencies:
     - unit-testing

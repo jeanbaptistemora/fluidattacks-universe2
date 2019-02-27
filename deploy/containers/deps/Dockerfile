@@ -55,12 +55,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && npm install -g \
     && cp --symbolic-link /root/node_modules/.bin/* /usr/local/bin \
     && gem install asciidoctor-pdf --pre \
-    && apt-get -y purge \
-        build-essential libffi-dev libfreetype6-dev \
-        libgdbm-dev liblcms2-dev libncurses5-dev \
-        libreadline6-dev libtiff5-dev \
-        libwebp-dev libxml2-dev libxslt1-dev \
-        libyaml-dev ruby-dev tcl8.6-dev zlib1g-dev \
      && apt-get -y autoremove \
      && apt-get -y clean \
      && rm -rf /var/lib/apt/lists/*
