@@ -154,7 +154,7 @@ msgstr "Hackeamos su software"
 
 #: templates/base.html:121
 msgid "Header-title-2"
-msgstr "cero falsos positivos"
+msgstr "Cero falsos positivos"
 
 #: templates/base.html:122
 msgid "Header-msg"
