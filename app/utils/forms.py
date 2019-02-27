@@ -44,23 +44,42 @@ def create_dict(remission_submission):
     return remission_dict
 
 
-def get_impact(criticity):
+def get_impact(criticity, version):
     criticity = float(criticity)
-    impact = "Alto"
-    if criticity <= 3.9:
-        impact = "Bajo"
-    elif criticity <= 6.9:
-        impact = "Medio"
+    if version == '3':
+        impact = 'Crítico'
+        if criticity == 0:
+            impact = 'Ninguno'
+        elif criticity <= 3.9:
+            impact = 'Bajo'
+        elif criticity <= 6.9:
+            impact = 'Medio'
+        elif criticity <= 8.9:
+            impact = 'Alto'
+        else:
+            impact = 'Crítico'
     else:
-        impact = "Alto"
+        impact = 'Alto'
+        if criticity <= 3.9:
+            impact = 'Bajo'
+        elif criticity <= 6.9:
+            impact = 'Medio'
+        else:
+            impact = 'Alto'
     return impact
 
 
-def is_exploitable(explotability):
-    if explotability == 1.0 or explotability == 0.95:
-        exploitable = 'Si'
+def is_exploitable(explotability, version):
+    if version == '3':
+        if explotability >= 0.97:
+            exploitable = 'Si'
+        else:
+            exploitable = 'No'
     else:
-        exploitable = 'No'
+        if explotability == 1.0 or explotability == 0.95:
+            exploitable = 'Si'
+        else:
+            exploitable = 'No'
     return exploitable
 
 

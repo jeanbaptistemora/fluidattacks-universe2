@@ -374,10 +374,15 @@ class FindingDTO(object):
             parsed_dict = {v: float(initial_dict[k].split(' | ')[0])
                            for (k, v) in severity_fields.items()
                            if k in initial_dict.keys()}
-        base_score = float(cvss.calculate_cvss_basescore(parsed_dict, self.CVSS_PARAMETERS))
-        parsed_dict['criticity'] = cvss.calculate_cvss_temporal(parsed_dict, base_score)
-        parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
-        parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
+        cvss_version = '2'
+        base_score = float(cvss.calculate_cvss_basescore(
+            parsed_dict, self.CVSS_PARAMETERS, cvss_version))
+        parsed_dict['criticity'] = cvss.calculate_cvss_temporal(
+            parsed_dict, base_score, cvss_version)
+        parsed_dict['impact'] = forms.get_impact(
+            parsed_dict['criticity'], cvss_version)
+        parsed_dict['exploitable'] = forms.is_exploitable(
+            parsed_dict['exploitability'], cvss_version)
         return parsed_dict
 
     def parse_cvssv3(self, request_arr, submission_id): # noqa: C901
@@ -431,6 +436,7 @@ class FindingDTO(object):
             parsed_dict = {v: float(initial_dict[k])
                            for (k, v) in severity_fields.items()
                            if k in initial_dict.keys()}
+        cvss_version = '3'
         if parsed_dict.get('severityScope'):
             if parsed_dict['privilegesRequired'] == 0.62:
                 parsed_dict['privilegesRequired'] = 0.68
@@ -447,6 +453,14 @@ class FindingDTO(object):
         else:
             # Modified privileges required continue with its initial value
             pass
+        base_score = float(cvss.calculate_cvss_basescore(
+            parsed_dict, self.CVSS3_PARAMETERS, cvss_version))
+        parsed_dict['criticity'] = cvss.calculate_cvss_temporal(
+            parsed_dict, base_score, cvss_version)
+        parsed_dict['impact'] = forms.get_impact(
+            parsed_dict['criticity'], cvss_version)
+        parsed_dict['exploitable'] = forms.is_exploitable(
+            parsed_dict['exploitCodeMaturity'], cvss_version)
         return parsed_dict
 
     def parse_project(self, request_arr, submission_id):
@@ -848,6 +862,8 @@ def parse_severity(finding):
         parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
                        if k in finding.keys()}
         cvss_parameters = fin_dto.CVSS3_PARAMETERS
+        parsed_dict['exploitable'] = forms.is_exploitable(
+            parsed_dict['exploitCodeMaturity'], cvss_version)
     else:
         severity_title = ['access_complexity', 'authentication', 'availability_impact',
                           'exploitability', 'confidentiality_impact', 'access_vector',
@@ -859,12 +875,14 @@ def parse_severity(finding):
         parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
                        if k in finding.keys()}
         cvss_parameters = fin_dto.CVSS_PARAMETERS
-        parsed_dict['exploitable'] = forms.is_exploitable(parsed_dict['exploitability'])
+        parsed_dict['exploitable'] = forms.is_exploitable(
+            parsed_dict['exploitability'], cvss_version)
     base_score = float(cvss.calculate_cvss_basescore(
-        parsed_dict, cvss_parameters))
+        parsed_dict, cvss_parameters, cvss_version))
     parsed_dict['criticity'] = \
-        cvss.calculate_cvss_temporal(parsed_dict, base_score)
-    parsed_dict['impact'] = forms.get_impact(parsed_dict['criticity'])
+        cvss.calculate_cvss_temporal(parsed_dict, base_score, cvss_version)
+    parsed_dict['impact'] = forms.get_impact(
+        parsed_dict['criticity'], cvss_version)
     return parsed_dict
 
 

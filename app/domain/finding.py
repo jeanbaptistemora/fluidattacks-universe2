@@ -599,11 +599,11 @@ def save_severity(finding):
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
         cvss_parameters = fin_dto.CVSS_PARAMETERS
     severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
-        unformatted_severity, cvss_parameters)
+        unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
-        unformatted_severity, severity['cvss_basescore'])
+        unformatted_severity, severity['cvss_basescore'], cvss_version)
     severity['cvss_env'] = cvss.calculate_cvss_environment(
-        unformatted_severity, cvss_parameters)
+        unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_version'] = cvss_version
     response = \
         integrates_dao.add_multiple_attributes_dynamo('FI_findings',

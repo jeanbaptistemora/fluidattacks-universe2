@@ -3,6 +3,7 @@
 """ FluidIntegrates cvss auxiliar functions. """
 
 from decimal import Decimal
+import math
 
 
 def _calc_cvss2_temporal(severity, basescore):
@@ -56,6 +57,84 @@ def _calc_cvss2_environment(severity, parameters):
     return resp
 
 
+def _calc_cvss3_basescore(severity, parameters):
+    """Calculate cvss v3 base score attribute."""
+    isc_base = 1 - ((1 - severity['confidentialityImpact']) *
+                    (1 - severity['integrityImpact']) *
+                    (1 - severity['availabilityImpact']))
+    if severity['severityScope']:
+        impact = ((parameters['impact_factor_2'] *
+                  (isc_base - parameters['impact_factor_3'])) -
+                  (parameters['impact_factor_4'] *
+                  (isc_base - parameters['impact_factor_5'])**parameters['impact_factor_6']))
+    else:
+        impact = parameters['impact_factor_1'] * isc_base
+    exploitability = (parameters['exploitability_factor_1'] *
+                      severity['attackVector'] * severity['attackComplexity'] *
+                      severity['privilegesRequired'] * severity['userInteraction'])
+    if impact <= 0:
+        basescore = Decimal(0)
+    else:
+        if severity['severityScope']:
+            basescore = Decimal(math.ceil(min(
+                parameters['basescore_factor'] *
+                (impact + exploitability), 10) * 10) / 10)
+        else:
+            basescore = Decimal(math.ceil(min(impact + exploitability, 10) * 10) / 10)
+    resp = basescore.quantize(Decimal("0.1"))
+    return resp
+
+
+def _calc_cvss3_temporal(severity, basescore):
+    """Calculate cvss v3 temporal attribute."""
+    temporal = Decimal(math.ceil(basescore * severity['exploitCodeMaturity'] *
+                                 severity['remediationLevel'] *
+                                 severity['reportConfidence'] * 10) / 10)
+    resp = temporal.quantize(Decimal("0.1"))
+    return resp
+
+
+def _calc_cvss3_environment(severity, parameters):
+    """Calculate cvss v3 environment attribute."""
+    mi_conf = severity['modifiedConfidentialityImpact']
+    mi_integ = severity['modifiedIntegrityImpact']
+    mi_avail = severity['modifiedAvailabilityImpact']
+    isc_modified = \
+        min(1 - (1 - mi_conf * severity['confidentialityRequirement']) *
+                (1 - mi_integ * severity['integrityRequirement']) *
+                (1 - mi_avail * severity['availabilityRequirement']),
+            parameters['mod_impact_factor_1'])
+    if severity['modifiedSeverityScope']:
+        impact = ((parameters['mod_impact_factor_3'] *
+                  (isc_modified - parameters['mod_impact_factor_4'])) -
+                  (parameters['mod_impact_factor_5'] *
+                  (isc_modified - parameters['mod_impact_factor_6']) **
+                  parameters['mod_impact_factor_7']))
+    else:
+        impact = (parameters['mod_impact_factor_2'] * isc_modified)
+    exploitability = (parameters['exploitability_factor_1'] *
+                      severity['modifiedAttackVector'] *
+                      severity['modifiedAttackComplexity'] *
+                      severity['modifiedPrivilegesRequired'] *
+                      severity['modifiedUserInteraction'])
+    if impact <= 0:
+        environmental = Decimal(0)
+    else:
+        if severity['modifiedSeverityScope']:
+            environmental = Decimal(math.ceil(
+                math.ceil(min(parameters['basescore_factor'] *
+                          (impact + exploitability), 10) * 10) / 10 *
+                severity['exploitCodeMaturity'] * severity['remediationLevel'] *
+                severity['reportConfidence'] * 10) / 10)
+        else:
+            environmental = Decimal(math.ceil(
+                math.ceil(min(impact + exploitability, 10) * 10) / 10 *
+                severity['exploitCodeMaturity'] * severity['remediationLevel'] *
+                severity['reportConfidence'] * 10) / 10)
+    resp = environmental.quantize(Decimal("0.1"))
+    return resp
+
+
 def get_f_impact(impact):
     if impact:
         f_impact_factor = 1.176
@@ -64,19 +143,28 @@ def get_f_impact(impact):
     return f_impact_factor
 
 
-def calculate_cvss_temporal(severity, basescore):
+def calculate_cvss_temporal(severity, basescore, version):
     """Calculate cvss temporal attribute."""
-    cvss_temporal = _calc_cvss2_temporal(severity, basescore)
+    if version == '3':
+        cvss_temporal = _calc_cvss3_temporal(severity, basescore)
+    else:
+        cvss_temporal = _calc_cvss2_temporal(severity, basescore)
     return cvss_temporal
 
 
-def calculate_cvss_basescore(severity, parameters):
+def calculate_cvss_basescore(severity, parameters, version):
     """Calculate cvss base score attribute."""
-    cvss_basescore = _calc_cvss2_basescore(severity, parameters)
+    if version == '3':
+        cvss_basescore = _calc_cvss3_basescore(severity, parameters)
+    else:
+        cvss_basescore = _calc_cvss2_basescore(severity, parameters)
     return cvss_basescore
 
 
-def calculate_cvss_environment(severity, parameters):
+def calculate_cvss_environment(severity, parameters, version):
     """Calculate cvss environment attribute."""
-    cvss_environment = _calc_cvss2_environment(severity, parameters)
+    if version == '3':
+        cvss_environment = _calc_cvss3_environment(severity, parameters)
+    else:
+        cvss_environment = _calc_cvss2_environment(severity, parameters)
     return cvss_environment
