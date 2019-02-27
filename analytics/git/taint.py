@@ -53,7 +53,9 @@ def print_tutorial() -> None:
             $ taint.py get clean
                 Print all clean files.
             $ taint.py get coverage
-                Compute the coverage.
+                Compute the coverage for the working subscription.
+            $ taint.py get coverages
+                Compute the coverage for all subscriptions.
 
         Admins only:
             $ taint.py database init
@@ -634,6 +636,21 @@ def row__logs__insert(
         conn.commit()
 
 
+def get_all_subscriptions(credentials: JSON) -> List[str]:
+    """Return a list with all subscriptions in the database."""
+    with database(credentials) as (conn, curr):
+        curr.execute("""
+            SELECT
+                DISTINCT(subs_name)
+            FROM
+                taints.data
+            ORDER BY
+                subs_name
+            """)
+        conn.commit()
+        return [row[0] for row in curr]
+
+
 def get_credentials() -> JSON:
     """Return a JSON with the credentials read from vault."""
     vault_credentials_stdout: str = get_stdout(
@@ -686,11 +703,20 @@ def get_files_with_state(file_state: str) -> None:
             f"{repo_name}/{file_path} ({file_lines} lines) [{file_last_hash}]")
 
 
-def get_coverage() -> None:
-    """Compute the coverage."""
-    credentials: JSON = get_credentials()
+def get_coverage(all_subs: bool = True) -> None:
+    """Compute the coverage for one or all subscriptions."""
+    if all_subs:
+        previous_subs_name: str = get_subs_name()
+        credentials: JSON = get_credentials()
+        for subs_name in get_all_subscriptions(credentials):
+            set_subs_name(subs_name)
+            get_coverage(all_subs=False)
+        set_subs_name(previous_subs_name)
+        return
 
-    subs_name: str = get_subs_name()
+    credentials = get_credentials()
+
+    subs_name = get_subs_name()
 
     datas: Any = {}
     for repo_name, _, file_lines, _ in \
@@ -708,7 +734,7 @@ def get_coverage() -> None:
             datas[repo_name] = {"clean": file_lines, "tainted": 0}
 
     get_coverage__print_header(
-        "Repository", "Clean lines", "Tainted lines", "Coverage")
+        subs_name, "Coverage")
     subs_total_clean = 0
     subs_total_tainted = 0
     for repo_name in datas:
@@ -719,31 +745,29 @@ def get_coverage() -> None:
         get_coverage__print_coverage(
             repo_name, repo_total_clean, repo_total_tainted)
     get_coverage__print_hor_line()
-    print()
-    get_coverage__print_header(
-        "Subscription", "Clean lines", "Tainted lines", "Coverage")
     get_coverage__print_coverage(
-        subs_name, subs_total_clean, subs_total_tainted)
+        "Total", subs_total_clean, subs_total_tainted)
     get_coverage__print_hor_line()
+    print()
 
 
 def get_coverage__print_coverage(source: str, clean: int, tainted: int):
     """Print a line of coverage to stdout."""
     coverage = 100.0 * clean / (clean + tainted)
     print(
-        "|{:^48s}| {:>14d} | {:>14d} | {:>12.1f}% |".format(
-            source, clean, tainted, coverage))
+        "|{:^64s}| {:>12d} / {:>12d} ({:>5.1f}%) |".format(
+            source[-64:], clean, tainted, coverage))
 
 
 def get_coverage__print_hor_line():
     """Print an horizontal line to stdout."""
-    print("-" * 100)
+    print("-" * 105)
 
 
 def get_coverage__print_header(*args):
     """Print a header to stdout."""
     get_coverage__print_hor_line()
-    print("|{:^48s}|{:^16s}|{:^16s}|{:^15s}|".format(*args))
+    print("|{:^64s}|{:^38s}|".format(*args))
     get_coverage__print_hor_line()
 
 
@@ -752,7 +776,7 @@ def set_subs_name(subs_name: str) -> None:
     state_file_path = f"{os.path.dirname(__file__)}/.subs_name"
     with open(state_file_path, "w") as state_file:
         state_file.write(subs_name)
-        print("INFO: Subscription name set.")
+        print(f"INFO: Subscription name set to {subs_name}.")
 
 
 def set_user_name(user_name: str) -> None:
@@ -760,7 +784,7 @@ def set_user_name(user_name: str) -> None:
     state_file_path = f"{os.path.dirname(__file__)}/.user_name"
     with open(state_file_path, "w") as state_file:
         state_file.write(user_name)
-        print("INFO: User name set.")
+        print(f"INFO: User name set to {user_name}.")
 
 
 def set_file_state(
@@ -855,7 +879,9 @@ def main__parse_get(cmd: str, arg1: str, arg2: str, arg3: str) -> bool:
     elif cmd == "get" and arg1 == "clean":
         get_files_with_state("clean")
     elif cmd == "get" and arg1 == "coverage":
-        get_coverage()
+        get_coverage(all_subs=False)
+    elif cmd == "get" and arg1 == "coverages":
+        get_coverage(all_subs=True)
     else:
         was_captured = False
     return was_captured
