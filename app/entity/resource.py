@@ -348,7 +348,8 @@ class AddFiles(Mutation):
             json_data.append({
                 'fileName': file_info.get('fileName'),
                 'description': file_info.get('description'),
-                'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3]
+                'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
+                'uploader': info.context.session['username']
             })
         uploaded_file = info.context.FILES.get('document', '')
         file_id = '{project}/{file_name}'.format(
