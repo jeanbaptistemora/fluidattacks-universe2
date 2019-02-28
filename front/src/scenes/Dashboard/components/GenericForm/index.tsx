@@ -9,7 +9,7 @@ import { ConfigProps, DecoratedComponentClass, InjectedFormProps, reduxForm } fr
 import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";
 
-interface IFormProps {
+interface IFormProps extends Pick<ConfigProps<{}, Pick<IFormProps, "children">>, "onChange"> {
   children: React.ReactChild;
   initialValues?: {};
   name: string;
@@ -37,6 +37,7 @@ const genericForm: ((props: IFormProps) => JSX.Element) = (props: IFormProps): J
       initialValues={props.initialValues}
       onSubmit={(values: {}): void => { props.onSubmit(values); }}
       onSubmitFail={focusError}
+      onChange={props.onChange}
     >
       {props.children}
     </WrappedForm>
