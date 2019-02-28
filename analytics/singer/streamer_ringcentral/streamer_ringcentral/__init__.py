@@ -2,6 +2,7 @@
 """Singer tap for the Ring Central API."""
 
 import json
+import time
 import argparse
 
 from typing import Iterable, Any
@@ -30,6 +31,37 @@ def get_platform(credentials: JSON) -> RC_PLATFORM:
     return rc_platform
 
 
+def rc_platform__get(
+        rc_platform: RC_PLATFORM,
+        resource: str,
+        api_group: str) -> JSON:
+    """Query the RingCentral's platform without exceeding the rate limit."""
+    minimum_time_between_requests: JSON = {
+        "Auth": 12.0,
+        "Heavy": 6.0,
+        "Medium": 1.5,
+        "Light": 1.2
+    }
+    time.sleep(minimum_time_between_requests.get(api_group, 12.0))
+    return rc_platform.get(resource).json_dict()
+
+
+def rc_platform__paginate_iterable(
+        rc_platform: RC_PLATFORM,
+        resource: str,
+        api_name: str,
+        api_group: str) -> None:
+    """Paginates over an iterable API endpoint."""
+    page: int = 1
+    records: JSON = rc_platform__get(
+        rc_platform, f"{resource}&page={page}", api_group)["records"]
+    while records:
+        page += 1
+        stream_iterable(api_name, records)
+        records = rc_platform__get(
+            rc_platform, f"{resource}&page={page}", api_group)["records"]
+
+
 def stream_it(name: str, json_obj: JSON) -> JSON:
     """Pack a JSON object to something that tap-JSON will understand."""
     packed_for_tap_json: JSON = {
@@ -53,68 +85,37 @@ def stream_iterable(name: str, iterable: Iterable[JSON]) -> None:
 
 def stream_user(rc_platform: RC_PLATFORM) -> None:
     """Stream to stdout the user information."""
-    json_obj: JSON = rc_platform.get("/account/~/extension/~").json_dict()
+    json_obj: JSON = rc_platform__get(
+        rc_platform, "/account/~/extension/~", "Heavy")
     stream_single("user", json_obj)
 
 
 def stream_call_log(rc_platform: RC_PLATFORM) -> None:
     """Stream to stdout the call log."""
-    page: int
-    resource: str
-    calllogs: JSON
-
-    page = 1
     resource = (
         "/account/~/extension/~/call-log"
         "?showBlocked=true"
         "&view=Detailed"
         "&perPage=100"
-        "&showDeleted=true")
-    calllogs = rc_platform.get(
-        f"{resource}&page={page}").json_dict()["records"]
-    while calllogs:
-        page += 1
-        stream_iterable("call_log", calllogs)
-        calllogs = rc_platform.get(
-            f"{resource}&page={page}").json_dict()["records"]
+        "&showDeleted=true"
+        "&dateFrom=1970-01-01T00:00:01Z")
+    rc_platform__paginate_iterable(rc_platform, resource, "call_log", "Heavy")
 
 
 def stream_contacts(rc_platform: RC_PLATFORM) -> None:
     """Stream to stdout the contacts."""
-    page: int
-    resource: str
-    contacts: JSON
-
-    page = 1
     resource = (
         "/account/~/extension/~/address-book/contact"
         "?perPage=100")
-    contacts = rc_platform.get(
-        f"{resource}&page={page}").json_dict()["records"]
-    while contacts:
-        page += 1
-        stream_iterable("contacts", contacts)
-        contacts = rc_platform.get(
-            f"{resource}&page={page}").json_dict()["records"]
+    rc_platform__paginate_iterable(rc_platform, resource, "contacts", "Heavy")
 
 
 def stream_sms(rc_platform: RC_PLATFORM) -> None:
     """Stream to stdout the sms."""
-    page: int
-    resource: str
-    sms: JSON
-
-    page = 1
     resource = (
         "/account/~/extension/~/message-store"
         "?perPage=100")
-    sms = rc_platform.get(
-        f"{resource}&page={page}").json_dict()["records"]
-    while sms:
-        page += 1
-        stream_iterable("sms", sms)
-        sms = rc_platform.get(
-            f"{resource}&page={page}").json_dict()["records"]
+    rc_platform__paginate_iterable(rc_platform, resource, "sms", "Heavy")
 
 
 def main():
