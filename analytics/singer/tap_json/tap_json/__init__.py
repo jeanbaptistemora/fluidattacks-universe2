@@ -31,33 +31,6 @@ DATE_FORMATS: List[str] = [
 ]
 
 
-class GenID():
-    """Class to generate light weight unique ids.
-    """
-
-    def __init__(self) -> None:
-        self.identifier: int = 0
-
-    def __repr__(self) -> str:
-        return format(self.identifier, "X")
-
-    def seed(self, seed: int) -> None:
-        """Seeds the generator.
-        """
-
-        self.identifier = seed
-
-    def gen(self) -> str:
-        """Generates a unique id.
-        """
-
-        self.identifier += 1
-        return repr(self)
-
-
-ID: GenID = GenID()
-
-
 def is_str(stru: STRU) -> bool:
     """Returns True if stru is str.
     """
@@ -305,7 +278,7 @@ def linearize__deconstruct(
             if is_base(nstru):
                 record[nkey] = nstru
             elif is_list(nstru):
-                nid = ID.gen()
+                nid = os.urandom(256).hex()
                 ntable = f"{table}{TABLE_SEP}{nkey}"
                 ntable_ids = [nid] if ids is None else ids + [nid]
                 record[ntable] = nid
