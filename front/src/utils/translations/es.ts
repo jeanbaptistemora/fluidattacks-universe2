@@ -261,6 +261,7 @@ const esTranslations: Map<string, string> = {
         none: "Ninguno: No se presenta ningún impacto",
         partial: "Parcial: Se obtiene acceso a la información pero no control sobre ella",
       },
+      cvss_version: "Versión CVSS",
       editable: "Editar",
       exploitability: "Explotabilidad",
       exploitability_options: {

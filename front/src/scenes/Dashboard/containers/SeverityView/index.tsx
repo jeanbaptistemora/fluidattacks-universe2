@@ -28,6 +28,7 @@ import style from "./index.css";
 export interface ISeverityViewProps {
   canEdit: boolean;
   criticity: number;
+  cvssVersion: string;
   dataset: {
     accessComplexity: string;
     accessVector: string;
@@ -45,7 +46,7 @@ export interface ISeverityViewProps {
     resolutionLevel: string;
   };
   findingId: string;
-  formValues: { editSeverity: { values: ISeverityViewProps["dataset"] }};
+  formValues: { editSeverity: { values: ISeverityViewProps["dataset"] & { cvssVersion: string } }};
   isEditing: boolean;
 }
 
@@ -98,6 +99,26 @@ const renderFields: React.SFC<formProps> = (props: formProps): JSX.Element => (
   <React.StrictMode>
     <form onSubmit={props.handleSubmit}>
       {props.canEdit ? renderEditPanel(props) : undefined}
+      {props.isEditing
+        ?
+        <Row className={style.row}>
+          <Col md={3} xs={12} sm={12} className={style.title}><label>
+            <b>{translate.t("search_findings.tab_severity.cvss_version")}</b></label>
+          </Col>
+          <Col md={9} xs={12} sm={12}>
+            <Field
+              name="cvssVersion"
+              component={dropdownField}
+              validate={[required]}
+              onChange={(): void => undefined}
+            >
+              <option value="" selected={true} />
+              <option value="2">2</option>
+            </Field>
+          </Col>
+        </Row>
+        : undefined
+      }
       {castFields(props.dataset)
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
@@ -157,7 +178,7 @@ export const component: React.SFC<ISeverityViewProps> =
               onChange={(values: {}): void => {
                 store.dispatch(actions.calcCVSSv2(values as ISeverityViewProps["dataset"]));
               }}
-              initialValues={props.dataset}
+              initialValues={{...props.dataset, ...{cvssVersion: props.cvssVersion}}}
               onSubmit={(): void => { store.dispatch(openConfirmDialog("confirmEditSeverity")); }}
             />
           </Provider>

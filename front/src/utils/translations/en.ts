@@ -259,6 +259,7 @@ const enTranslations: Map<string, string> = {
         none: "None: There is no impact",
         partial: "Partial: Access to information but no control over it",
       },
+      cvss_version: "CVSS Version",
       editable: "Edit",
       exploitability: "Exploitability",
       exploitability_options: {

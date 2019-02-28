@@ -44,7 +44,7 @@ export interface IDashboardState {
     files: Array<{ description: string; fileName: string; uploadDate: string}>;
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
-  severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset">;
+  severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset" | "cvssVersion">;
   tracking: Pick<ITrackingViewProps, "closings">;
   users: {
     addModal: {
@@ -138,6 +138,7 @@ const initialState: IDashboardState = {
   },
   severity: {
     criticity: 0,
+    cvssVersion: "",
     dataset: {
       accessComplexity: "",
       accessVector: "",
@@ -345,6 +346,7 @@ actionMap[severityActions.LOAD_SEVERITY] =
     ...state,
     severity: {
       ...state.severity,
+      cvssVersion: action.payload.cvssVersion,
       dataset: action.payload.dataset,
     },
   });

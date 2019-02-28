@@ -75,6 +75,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     treatment_justification = String()
     remediated = Boolean()
     type = String()
+    cvss_version = String()
 
     # Additional attributes of detailed findings
     client_code = String()
@@ -131,13 +132,28 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                 self.records = {}
 
             self.exploit = resp.get('exploit', '')
-            severity_fields = ['accessVector', 'accessComplexity',
-                               'authentication', 'exploitability',
-                               'confidentialityImpact', 'integrityImpact',
-                               'availabilityImpact', 'resolutionLevel',
-                               'confidenceLevel', 'collateralDamagePotential',
-                               'findingDistribution', 'confidentialityRequirement',
-                               'integrityRequirement', 'availabilityRequirement']
+            self.cvss_version = resp.get('cvssVersion', '')
+            if self.cvss_version == '3':
+                severity_fields = \
+                    ['attackVector', 'attackComplexity',
+                     'privilegesRequired', 'userInteraction',
+                     'severityScope', 'confidentialityImpact',
+                     'integrityImpact', 'availabilityImpact',
+                     'exploitCodeMaturity', 'remediationLevel',
+                     'reportConfidence', 'confidentialityRequirement',
+                     'integrityRequirement', 'availabilityRequirement',
+                     'modifiedAttackVector', 'modifiedAttackComplexity',
+                     'modifiedPrivilegesRequired', 'modifiedUserInteraction',
+                     'modifiedSeverityScope', 'modifiedConfidentialityImpact',
+                     'modifiedIntegrityImpact', 'modifiedAvailabilityImpact']
+            else:
+                severity_fields = ['accessVector', 'accessComplexity',
+                                   'authentication', 'exploitability',
+                                   'confidentialityImpact', 'integrityImpact',
+                                   'availabilityImpact', 'resolutionLevel',
+                                   'confidenceLevel', 'collateralDamagePotential',
+                                   'findingDistribution', 'confidentialityRequirement',
+                                   'integrityRequirement', 'availabilityRequirement']
             self.severity = {k: resp.get(k) for k in severity_fields}
 
             self.evidence = {
@@ -284,6 +300,12 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
 
         return self.severity
+
+    def resolve_cvss_version(self, info):
+        """ Resolve cvss version value from Formstack """
+        del info
+
+        return self.cvss_version
 
     def resolve_exploit(self, info):
         """
@@ -590,6 +612,7 @@ def set_initial_values(self):
     self.treatment_manager = ''
     self.treatment_justification = ''
     self.type = ''
+    self.cvss_version = ''
 
 
 class UpdateEvidence(Mutation):

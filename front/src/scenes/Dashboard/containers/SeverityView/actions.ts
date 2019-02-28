@@ -76,6 +76,7 @@ export const loadSeverity: ThunkActionStructure =
       let gQry: string;
       gQry = `{
       finding(identifier: "${findingId}") {
+        cvssVersion
         severity
       }
     }`;
@@ -85,6 +86,7 @@ export const loadSeverity: ThunkActionStructure =
           dispatch(calcCVSSv2(data.finding.severity));
           dispatch({
             payload: {
+              cvssVersion: data.finding.cvssVersion,
               dataset: data.finding.severity,
             },
             type: actionTypes.LOAD_SEVERITY,
@@ -101,7 +103,7 @@ export const loadSeverity: ThunkActionStructure =
     };
 
 export const updateSeverity: ThunkActionStructure =
-  (findingId: string, values: ISeverityViewProps["dataset"],
+  (findingId: string, values: ISeverityViewProps["dataset"] & { cvssVersion: string },
    criticity: ISeverityViewProps["criticity"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
@@ -116,6 +118,7 @@ export const updateSeverity: ThunkActionStructure =
           confidenceLevel: "${values.confidenceLevel}",
           confidentialityImpact: "${values.confidentialityImpact}",
           criticity: "${criticity}",
+          cvssVersion: "${values.cvssVersion}",
           exploitability: "${values.exploitability}",
           id: "${findingId}",
           integrityImpact: "${values.integrityImpact}",
@@ -129,6 +132,7 @@ export const updateSeverity: ThunkActionStructure =
       ) {
         success
         finding {
+          cvssVersion
           severity
         }
       }
@@ -141,6 +145,7 @@ export const updateSeverity: ThunkActionStructure =
             dispatch(calcCVSSv2(data.updateSeverity.finding.severity));
             dispatch({
               payload: {
+                cvssVersion: data.updateSeverity.finding.cvssVersion,
                 dataset: data.updateSeverity.finding.severity,
               },
               type: actionTypes.LOAD_SEVERITY,
