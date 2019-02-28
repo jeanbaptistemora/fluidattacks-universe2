@@ -79,6 +79,44 @@ def stream_call_log(rc_platform: RC_PLATFORM) -> None:
             f"{resource}&page={page}").json_dict()["records"]
 
 
+def stream_contacts(rc_platform: RC_PLATFORM) -> None:
+    """Stream to stdout the contacts."""
+    page: int
+    resource: str
+    contacts: JSON
+
+    page = 1
+    resource = (
+        "/account/~/extension/~/address-book/contact"
+        "?perPage=100")
+    contacts = rc_platform.get(
+        f"{resource}&page={page}").json_dict()["records"]
+    while contacts:
+        page += 1
+        stream_iterable("contacts", contacts)
+        contacts = rc_platform.get(
+            f"{resource}&page={page}").json_dict()["records"]
+
+
+def stream_sms(rc_platform: RC_PLATFORM) -> None:
+    """Stream to stdout the sms."""
+    page: int
+    resource: str
+    sms: JSON
+
+    page = 1
+    resource = (
+        "/account/~/extension/~/message-store"
+        "?perPage=100")
+    sms = rc_platform.get(
+        f"{resource}&page={page}").json_dict()["records"]
+    while sms:
+        page += 1
+        stream_iterable("sms", sms)
+        sms = rc_platform.get(
+            f"{resource}&page={page}").json_dict()["records"]
+
+
 def main():
     """Usual entry point."""
     parser = argparse.ArgumentParser()
@@ -100,6 +138,10 @@ def main():
     stream_user(rc_platform)
     # stream /account/~/extension/~/call-log
     stream_call_log(rc_platform)
+    # stream /account/~/extension/~/address-book/contact
+    stream_contacts(rc_platform)
+    # stream /account/~/extension/~/message-store
+    stream_sms(rc_platform)
 
 
 if __name__ == "__main__":
