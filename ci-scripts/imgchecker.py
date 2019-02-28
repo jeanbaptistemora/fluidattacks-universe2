@@ -52,7 +52,7 @@ for ART in ARTS:
       if not OUT == "600x280":
         print_helper.print_failure("Issue found in the following article(s):\n")
         print_helper.print_failure(ART+"\n")
-        print_helper.print_warning("All cover images must have the size NxN. "\
+        print_helper.print_warning("All cover images must have the size 600x280. "\
                                    "Please modify the cover size. \n\n")
 
         EXIT_CODE = 1
