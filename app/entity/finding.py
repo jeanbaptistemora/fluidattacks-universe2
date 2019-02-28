@@ -800,7 +800,14 @@ class AddFindingComment(Mutation):
     @require_finding_access_gql
     def mutate(self, info, **parameters):
         if parameters.get('type') in ['comment', 'observation']:
-            user_email = util.get_jwt_content(info.context)['user_email']
+            user_data = util.get_jwt_content(info.context)
+            if parameters.get('type') == 'observation' and user_data['user_role'] not in \
+                                                                    ['analyst', 'admin']:
+                util.cloudwatch_log(info.context, 'Security: \
+                    Unauthorized role attempted to add observation')
+                raise GraphQLError('Access denied')
+
+            user_email = user_data['user_email']
             comment_id = int(round(time() * 1000))
             success = add_comment(
                 user_email=user_email,
