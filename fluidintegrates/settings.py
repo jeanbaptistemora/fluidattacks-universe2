@@ -14,20 +14,15 @@ from __future__ import absolute_import
 import sys
 import os
 import newrelic.agent
+
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
     FI_DB_HOST, FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, \
     FI_MIXPANEL_API_TOKEN, FI_INTERCOM_APPID, FI_INTERCOM_SECURE_KEY, \
     FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
     FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
     FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, FI_REDIS_SERVER
-from boto3.session import Session
-import rollbar
-from .production import FIELDS_FINDING, FN_URL, FIELDS_EVENT, EV_URL
 
-FIELDS_FINDING = FIELDS_FINDING
-FIELDS_EVENT = FIELDS_EVENT
-FN_URL = FN_URL
-EV_URL = EV_URL
+from .production import FIELDS_FINDING, FN_URL, FIELDS_EVENT, EV_URL
 
 sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -37,7 +32,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NEW_RELIC_CONF_FILE = os.path.join(BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
+# Initialization of another modules must be after New Relic init
+from boto3.session import Session # noqa: E402
+import rollbar # noqa: E402
 
+FIELDS_FINDING = FIELDS_FINDING
+FIELDS_EVENT = FIELDS_EVENT
+FN_URL = FN_URL
+EV_URL = EV_URL
 SECRET_KEY = FI_DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
