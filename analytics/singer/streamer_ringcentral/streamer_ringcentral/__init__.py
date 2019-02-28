@@ -126,6 +126,13 @@ def main():
         dest="auth",
         type=argparse.FileType("r"),
         required=True)
+    for endpoint in ("user", "calls", "contacts", "sms"):
+        parser.add_argument(
+            f"--sync-{endpoint}",
+            help=f"flag to indicate if {endpoint} data should be synced.",
+            action=f"store_true",
+            dest=f"do_sync_{endpoint}",
+            default=False)
     args = parser.parse_args()
 
     # load user credentials
@@ -134,14 +141,18 @@ def main():
     # get a platform access point
     rc_platform: RC_PLATFORM = get_platform(credentials)
 
-    # stream /account/~/extension/~
-    stream_user(rc_platform)
-    # stream /account/~/extension/~/call-log
-    stream_call_log(rc_platform)
-    # stream /account/~/extension/~/address-book/contact
-    stream_contacts(rc_platform)
-    # stream /account/~/extension/~/message-store
-    stream_sms(rc_platform)
+    if args.do_sync_user:
+        # stream /account/~/extension/~
+        stream_user(rc_platform)
+    if args.do_sync_calls:
+        # stream /account/~/extension/~/call-log
+        stream_call_log(rc_platform)
+    if args.do_sync_contacts:
+        # stream /account/~/extension/~/address-book/contact
+        stream_contacts(rc_platform)
+    if args.do_sync_sms:
+        # stream /account/~/extension/~/message-store
+        stream_sms(rc_platform)
 
 
 if __name__ == "__main__":
