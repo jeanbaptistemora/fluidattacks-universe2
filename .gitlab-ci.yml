@@ -432,6 +432,8 @@ deploy-k8s:
     - kubectl apply -f integrates-k8s.yaml
     - kubectl rollout status deploy/integrates --timeout=5m ||
         { kubectl rollout undo deploy/integrates && exit 1; }
+    - kubectl rollout status deploy/integrates-bot --timeout=5m ||
+        { kubectl rollout undo deploy/integrates-bot && exit 1; }
     - curl https://api.rollbar.com/api/1/deploy/
         -F access_token=$ROLLBAR_ACCESS_TOKEN
         -F environment=$FI_ROLLBAR_ENVIRONMENT
