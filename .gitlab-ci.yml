@@ -281,16 +281,23 @@ build-integrates:
 
 build-bot:
   stage: build
-  <<: *vault_login
+  <<: *kaniko_vault_config
   script:
-    - export DOCKER_BASENAME="fluid-docker.jfrog.io/integrates"
-    - echo "$JFROG_PASS" |
-        docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin
-    - vaultenv deploy/containers/bot/build.sh "$CI_COMMIT_REF_NAME"
-    - docker push "${DOCKER_BASENAME}-bot:${CI_COMMIT_REF_NAME}"
+    - mv deploy/containers/common/vars deploy/containers/bot/
+    - /kaniko/executor
+        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
+        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
+        --build-arg DOCUMENTROOT="${FI_DOCUMENTROOT}"
+        --build-arg DRIVE_AUTHORIZATION="${FI_DRIVE_AUTHORIZATION}"
+        --build-arg DRIVE_AUTHORIZATION_CLIENT="${FI_DRIVE_AUTHORIZATION_CLIENT}"
+        --build-arg ENV_NAME="${ENV_NAME}"
+        --build-arg SSL_CERT="${FI_SSL_CERT}"
+        --build-arg SSL_KEY="${FI_SSL_KEY}"
+        --cleanup
+        --context "${CI_PROJECT_DIR}/deploy/containers/bot/"
+        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/bot/Dockerfile"
+        --destination "${CI_REGISTRY_IMAGE}-bot:${CI_COMMIT_REF_NAME}"
   retry: 2
-  except:
-    - triggers
 
 driver-testing:
   stage: post-deploy
