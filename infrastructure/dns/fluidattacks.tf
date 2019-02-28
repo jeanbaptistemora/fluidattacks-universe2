@@ -205,7 +205,7 @@ resource "aws_route53_record" "mainTXT" {
   name    = "${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 include:_spf.google.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com -all",
+  records = ["v=spf1 include:_spf.google.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com include:_spf.salesforce.com -all",
              "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
              "MS=ms97836067"]
 }
@@ -224,6 +224,14 @@ resource "aws_route53_record" "googleTXT" {
   type    = "TXT"
   ttl     = "300"
   records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoVfDxzz1BbwFFyeQvKe7B4YMSR1HWmjCu4PQzESyAAc9XQDSbtoYQNCHaHisTJNgh4OGEWvgRcpsVljffC5jO3tHcra8xW8ls5O16sClQtfitcKhC1VxNbqYoAnUSNv9FBcsldK96jQgeMrsZUMo6SdldCDO\"\"kX7vOjgLzDw6dOMAENSoU3NsMfRwoDaanCf2gkFb+5mOtDUZCHukM5rpj+ePc3GJAzX8bakMdWD7BlZnPT0fRVcSQGOAM1GVcSDYR465hdBkADJg3KM2TdPTC/XLwEQXgqRZXVWMtSu/Rb/DcHILZNmzKxUk/B4eKjXGQDbs9hshgsqsZGYEbhOvrwIDAQAB"]
+}
+
+resource "aws_route53_record" "salesforceDKIM" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "salesforce.${aws_route53_zone.fs_maindomain.name}"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqiBCWoHf5vbibfUS9UO1WiPXA1ZuUqR+yQdbbZLacQuQBB5HuCfylr4soetxurxTg4a7KN6EcDexy/4nGaxxdmDWrYx9bKP1AtNtTL4pwkkI3c1H9jWJTRyqRPTLg+c5qqzNBNYaGcOVEXWUruOvuwO39w3A\"\"NIiOdt6grMh+vM7p1Kr/M8bITcQz92Yx0kWN9DZPcXf++v5jlP39VCAd0QOPZIVGBWvNAkD1gGvDl2fe3YCGSXkEt7F8WD/K1RhUBGI/+3GamRGX2K6c0wVpdmzUPF447VRSO1PQzhOP6JMZAoiY7tssZVW5JiBesTlbLsKWK9Vrry+mayLOexdysQIDAQAB"]
 }
 
 resource "aws_route53_record" "mandrill_domainkey" {
