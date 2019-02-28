@@ -232,8 +232,8 @@ $white: rgba(255, 255, 255, 1);
   background-color: $fluid-black;
 
   img {
-    max-height: 600px;
-    max-width: 700px;
+    max-height: 500px;
+    max-width: 460px;
     padding-top: 20px;
     width: 50%;
   }
@@ -265,7 +265,7 @@ $white: rgba(255, 255, 255, 1);
   max-width: 550px;
   position: absolute;
   right: 0;
-  top: 40px;
+  top: 20px;
   width: 50%;
 
   h1 {
@@ -531,6 +531,12 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 1280px) {
+  .header {
+    img {
+      padding-top: 100px;
+    }
+  }
+
   .header-title {
     p {
       margin-top: 20px;
@@ -544,8 +550,13 @@ $white: rgba(255, 255, 255, 1);
     padding-left: 0;
 
     img {
-      padding-top: 80px;
+      margin-left: 10%;
     }
+  }
+
+  .header-title {
+    margin-right: 10%;
+    padding-top: 80px;
   }
 }
 
@@ -605,7 +616,7 @@ $white: rgba(255, 255, 255, 1);
   .header-title {
     margin-right: 0;
     padding-left: 30px;
-    padding-top: 70px;
+    padding-top: 100px;
 
     ul {
       display: none;
@@ -616,7 +627,7 @@ $white: rgba(255, 255, 255, 1);
 @media screen and (max-width: 480px) {
 
   .header-title {
-    padding-top: 65px;
+    padding-top: 85px;
 
     h1 {
       font-size: 16px;
@@ -633,7 +644,7 @@ $white: rgba(255, 255, 255, 1);
 
   .header-title {
     padding-left: 0;
-    padding-top: 80px;
+    padding-top: 115px;
 
     h1 {
       line-height: 1.5;
