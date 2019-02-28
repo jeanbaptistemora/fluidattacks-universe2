@@ -21,6 +21,7 @@ flaw
 forensics
 functional
 fuzzing
+git
 health
 htb
 imperative
@@ -30,6 +31,7 @@ injection
 javascript
 jwt
 libssh
+linters
 machine learning
 math
 multiparadigm
