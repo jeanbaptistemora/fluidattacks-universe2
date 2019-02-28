@@ -330,7 +330,7 @@ The commit we entered was:
 .Bad Commit message
 image::bad-commit.png["Bad commit message"]
 
-The +Commitlint output was:
+The +Commitlint+ output was:
 
 .Failed Commitlint output
 image::commitlint-fail.png["Bad commit message"]
@@ -353,7 +353,7 @@ The commit we entered was:
 .Good Commit message
 image::good-commit.png["Good commit message"]
 
-The +Commitlint output was:
+The +Commitlint+ output was:
 
 .Passed Commitlint output
 image::commitlint-pass.png["Passed commit message"]
