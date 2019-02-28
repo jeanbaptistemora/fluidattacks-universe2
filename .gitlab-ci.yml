@@ -257,7 +257,11 @@ build-integrates:
   <<: *kaniko_vault_config
   script:
     - mv deploy/containers/common/vars deploy/containers/integrates/
-    - MINUTES=$(( ($(date +%d) -1) * 1440 + $(date +%H) * 60 + $(date +%M) ))
+    - MINUTES=$(( 
+        ($(date +%d | sed 's/^0//') -1) * 1440 +
+        $(date +%H | sed 's/^0//') * 60 + 
+        $(date +%M | sed 's/^0//') 
+      ))
     - FI_VERSION="$(date +%y.%m.)${MINUTES}"
     - /kaniko/executor
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
