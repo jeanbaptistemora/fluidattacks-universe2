@@ -1,19 +1,5 @@
 image: registry.gitlab.com/fluidsignal/serves:builder
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-services:
-  - docker:dind
-
-before_script:
-  - export DOCKER_BASENAME="fluid-docker.jfrog.io/integrates"
-  - echo "$JFROG_PASS" |
-      docker login "fluid-docker.jfrog.io" -u "$JFROG_USER" --password-stdin
-
-after_script:
-  - docker logout "fluid-docker.jfrog.io" || echo 'Docker not necessary'
-
 .vault_vars:
   variables:
     VAULT_ADDR: "https://${VAULT_S3_BUCKET}.com"
@@ -96,7 +82,7 @@ Build:
         --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}:deps"
-  retry: 2
+  retry: 1
   only:
     - schedules
 
@@ -115,25 +101,21 @@ Build:
 
 gulp-compiler:
  stage: pre-test
- before_script:
-   - echo "Start gulp compiler"
  image: fluid-docker.jfrog.io/integrates:deps
  script:
    - cd app/assets && npm install --unsafe-perm
    - cd ../../front
    - npm install --unsafe-perm
    - gulp integrates
- after_script:
-   - echo "Job finished"
- retry: 2
+ retry: 1
  except:
    - master
 
 commitlint:
   stage: pre-test
+  image: starefossen/ruby-node:2-10
   before_script:
     - npm install --unsafe-perm
-  image: starefossen/ruby-node:2-10
   script:
     - ./ci-scripts/commitlint-checks.sh
   except:
@@ -142,7 +124,6 @@ commitlint:
 react-testing:
   stage: pre-test
   image: fluid-docker.jfrog.io/integrates:deps
-  <<: *vault_login
   script:
     - cd front/ && npm install --unsafe-perm
     - tslint -p tsconfig.json -t verbose
@@ -153,22 +134,16 @@ react-testing:
     paths:
       - front/coverage.lcov
     expire_in: 1 week
-  after_script:
-    - echo "Job finished"
   only:
     - /^.*$/
     - merge_requests
 
 js-linter:
   stage: pre-test
-  before_script:
-    - echo "JS Linting"
   image: fluid-docker.jfrog.io/integrates:deps
   script:
     - eslint app/assets/app/.
-  after_script:
-    - echo "Job finished"
-  retry: 2
+  retry: 1
   except:
     - master
 
@@ -192,13 +167,13 @@ unit-testing:
     - cd /usr/src/app_src
     - service redis-server start
     - vaultenv -- pytest --ds=fluidintegrates.settings --verbose --exitfirst
-      --cov=fluidintegrates --cov=app --cov-report term
-      --cov-report html:build/coverage/html
-      --cov-report xml:build/coverage/results.xml
-      --cov-report annotate:build/coverage/annotate
-      --basetemp=build/test
-      --junitxml=build/test/results.xml
-      app/tests.py
+        --cov=fluidintegrates --cov=app --cov-report term
+        --cov-report html:build/coverage/html
+        --cov-report xml:build/coverage/results.xml
+        --cov-report annotate:build/coverage/annotate
+        --basetemp=build/test
+        --junitxml=build/test/results.xml
+        app/tests.py
     - cp -a build/coverage/results.xml "${CI_PROJECT_DIR}/coverage.xml"
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -212,12 +187,8 @@ unit-testing:
 asserts-code-test:
   stage: pre-test
   image: fluidattacks/asserts
-  before_script:
-    - echo 'Starting check...'
   script:
     - asserts exploit-code.py
-  after_script:
-    - echo 'Code check complete!'
   except:
     - master
 
@@ -249,8 +220,6 @@ asserts-code-test:
         s3://$FS_S3_BUCKET_NAME/terraform/integrates/terraform.tfstate
   only:
     - master
-  except:
-    - triggers
 
 build-integrates:
   stage: build
@@ -277,7 +246,7 @@ build-integrates:
         --context "${CI_PROJECT_DIR}/deploy/containers/integrates/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/integrates/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
-  retry: 2
+  retry: 1
 
 build-bot:
   stage: build
@@ -297,21 +266,24 @@ build-bot:
         --context "${CI_PROJECT_DIR}/deploy/containers/bot/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/bot/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}-bot:${CI_COMMIT_REF_NAME}"
-  retry: 2
+  retry: 1
 
 driver-testing:
   stage: post-deploy
-  image: fluid-docker.jfrog.io/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps
   <<: *vault_login
   script:
     - cp -a $PWD /usr/src/app_src
     - cd /usr/src/app_src
     - mkdir -p screenshots
-    - vaultenv -- $(which pytest) --ds=fluidintegrates.settings --verbose --exitfirst
-      --basetemp=build/test
-      app/ephimeral_tests.py
+    - vaultenv -- pytest
+        --ds=fluidintegrates.settings
+        --verbose
+        --exitfirst
+        --basetemp=build/test
+        app/ephimeral_tests.py
     - cp -a screenshots /builds/fluidattacks/integrates/
-  retry: 2
+  retry: 1
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -322,21 +294,21 @@ review-integrates:
   <<: *vault_login
   script:
     - vaultenv review-apps/cluster-config.sh
-  retry: 2
+  retry: 1
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
     url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
     on_stop: stop-review
   except:
     - master
-    - trigger
 
 stop-review:
   stage: review
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
   variables:
     GIT_STRATEGY: none
-  before_script:
-    - echo "Stopping Review Apps environment..."
   script:
     - kubectl config set-context
         "$(kubectl config current-context)"
@@ -344,65 +316,42 @@ stop-review:
     - kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}"
     - kubectl delete service "service-${CI_COMMIT_REF_SLUG}"
     - kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}"
-  retry: 2
-  after_script:
-    - echo "Job finished"
+  retry: 1
   when: manual
-  environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    action: stop
   except:
     - master
 
-Asserts-Review:
+asserts-review:
   stage: post-deploy
+  image: fluid-docker.jfrog.io/fluid:integrates
+  variables:
+    APP: "integrates"
+    BRANCH: "${CI_COMMIT_REF_NAME}"
+    FA_STRICT: "true"
+    ORG: "fluid"
+    PASS: "${INTEGRATES_JFROG_PASS}"
+    STAGE: "review"
+    USER: "${INTEGRATES_JFROG_USER}"
   script:
-    - echo "$JFROG_PASS" |
-        docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
-    - docker pull fluid-docker.jfrog.io/fluid:integrates
-    - docker run -t
-        --rm -e BRANCH="$CI_COMMIT_REF_SLUG"
-        -e STAGE=review -e ORG=fluid
-        -e APP=integrates -e USER="$JFROG_USER"
-        -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
-        fluid-docker.jfrog.io/fluid:integrates
-    - docker logout fluid-doc"$PWD:/code"ker.jfrog.io
-  retry: 2
-  after_script:
-    - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
+    - mkdir /code
+    - cp -a * /code/
+    - /entrypoint.sh
+  retry: 1
   except:
     - master
-    - triggers
-
-Linting:
-  stage: post-deploy
-  script:
-    - docker run -t "$DOCKER_BASENAME:$CI_COMMIT_REF_NAME"
-        /bin/bash -c "npm install --unsafe-perm -g  n; n stable;
-        cd /usr/src/app/app/assets/app/;
-        result=$(/usr/src/app/app/assets/node_modules/.bin/gulp verbose | grep -c JSC_);
-        if [ "$result" -gt 0 ]; then /usr/src/app/app/assets/node_modules/.bin/gulp   verbose;
-        echo -e '\e[31mThere are some errors/warnings unsolved.\e[0m';exit 1;
-        else echo -e '\e[32mAll Good!'; exit 0; fi;"
-  retry: 2
-  except:
-    - master
-    - triggers
 
 mr-test:
   stage: mr-check
-  only:
-    - merge_request3.86.193.211s
   variables:
     GIT_STRATEGY: clone
   script:
     ./ci-scripts/check-branch.sh
+  only:
+    - merge_request3.86.193.211s
 
 danger:
   stage: mr-check
-  only:
-    - merge_requests
+  image: starefossen/ruby-node:2-10
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
@@ -413,9 +362,10 @@ danger:
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
     - npm install --unsafe-perm
     - bundle install
-  image: starefossen/ruby-node:2-10
   script:
     - bundle exec danger --verbose --fail-on-errors=true
+  only:
+    - merge_requests
 
 deploy-k8s:
   stage: deploy
@@ -452,7 +402,7 @@ deploy-k8s:
   only:
     - master
 
-changes-mail:
+new-version-mail:
   stage: post-deploy
   image: fluid-docker.jfrog.io/integrates:master
   <<: *vault_login
@@ -464,37 +414,34 @@ changes-mail:
 
 asserts-prod:
   stage: post-deploy
-  before_script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-    - cp -a ${CI_PROJECT_DIR} /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src
+  image: fluid-docker.jfrog.io/fluid:integrates
+  variables:
+    APP: "integrates"
+    BRANCH: "${CI_COMMIT_REF_NAME}"
+    FA_STRICT: "true"
+    ORG: "fluid"
+    PASS: "${INTEGRATES_JFROG_PASS}"
+    STAGE: "post-deploy"
+    USER: "${INTEGRATES_JFROG_USER}"
   script:
-    - echo "$JFROG_PASS" |
-        docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
-    - docker pull fluid-docker.jfrog.io/fluid:integrates
-    - docker run -t
-        --rm -e ORG=fluid -e STAGE=post-deploy
-        -e APP=integrates -e USER="$JFROG_USER"
-        -e PASS="$JFROG_PASS" -e FA_STRICT="true"
-        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}/src:/code
-        fluid-docker.jfrog.io/fluid:integrates
-    - docker logout fluid-docker.jfrog.io
-  retry: 2
-  after_script:
-    - rm -rf /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}
-  only:
+    - mkdir /code
+    - cp -a * /code/
+    - /entrypoint.sh
+  retry: 1
+  except:
     - master
 
 coverage-report:
-  only:
-    - merge_requests
   stage: coverage
-  image: fluid-docker.jfrog.io/integrates:deps190201
+  image: fluid-docker.jfrog.io/integrates:deps
   <<: *vault_login
   dependencies:
     - unit-testing
     - react-testing
   script:
     - vaultenv ./run_codecov.sh
-  retry: 2
+  retry: 1
+  only:
+    - merge_requests
   except:
     - master

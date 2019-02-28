@@ -107,7 +107,7 @@
     "graceful-fs": "4.1.13"
   },
   "scripts": {
-    "test": "gulp compile && vaultenv ./runTests.sh"
+    "test": "gulp compile && ./runTests.sh"
   },
   "nyc": {
     "extension": [
