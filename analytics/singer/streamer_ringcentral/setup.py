@@ -12,7 +12,7 @@ def read(fname: str) -> str:
 
 setuptools.setup(
     version="1.0.0",
-    name="tap_ringcentral",
+    name="streamer_ringcentral",
     url="https://fluidattacks.com/",
 
     author="Fluid Attacks",
@@ -20,7 +20,7 @@ setuptools.setup(
     maintainer="Kevin Amado",
     maintainer_email="kamado@fluidattacks.com",
 
-    description="Singer tap for the Ring Central API",
+    description="Streamer for the Ring Central API",
     long_description=read("README.md"),
 
     python_requires=">=3.6",
@@ -31,11 +31,11 @@ setuptools.setup(
 
     entry_points="""
         [console_scripts]
-        tap-ringcentral=tap_ringcentral:main
+        streamer-ringcentral=streamer_ringcentral:main
     """,
 
     packages=[
-        "tap_ringcentral"
+        "streamer_ringcentral"
     ],
 
     py_modules=[

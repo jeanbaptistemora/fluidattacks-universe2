@@ -1,7 +1,7 @@
-# Tap RingCentral
+# Streamer RingCentral
 
 Reads the [Ring Central API](https://developer.ringcentral.com/),
-and persist it to stdout as a [Singer](https://www.singer.io/) formatted stream.
+and persist it to stdout as a JSON formatted stream.
 
 # How to install
 Download a fresh copy of the source code and install it with pip:
