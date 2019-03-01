@@ -41,6 +41,111 @@ LOGGER.setLevel(logging.INFO)
 STDOUT.setLevel(logging.INFO)
 LOGGER.addHandler(STDOUT)
 
+# Supported JSON Schema types
+JSON_SCHEMA_TYPES: JSON = {
+    "BOOLEAN": [
+        {
+            "type": "boolean"
+        },
+        {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        {
+            "type": [
+                "null",
+                "boolean"
+            ]
+        }
+    ],
+    "INT8": [
+        {
+            "type": "integer"
+        },
+        {
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        {
+            "type": [
+                "null",
+                "integer"
+            ]
+        }
+    ],
+    "FLOAT8": [
+        {
+            "type": "number"
+        },
+        {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        {
+            "type": [
+                "null",
+                "number"
+            ]
+        }
+    ],
+    "VARCHAR": [
+        {
+            "type": "string"
+        },
+        {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    ],
+    "TIMESTAMP": [
+        {
+            "type": "string",
+            "format": "date-time"
+        },
+        {
+            "anyOf": [
+                {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+            ]
+        },
+        {
+            "anyOf": [
+                {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+            ]
+        }
+    ]
+}
 
 # pylint: disable = logging-fstring-interpolation
 
@@ -190,18 +295,10 @@ def translate_schema(json_schema: JSON) -> Dict[str, str]:
             A string representing a Redshift data type.
         """
         rtype = ""
-        stype_type = stype.get("type", "")
-        stype_format = stype.get("format", "")
-        if stype_type == "boolean":
-            rtype = "BOOLEAN"
-        elif stype_type == "integer":
-            rtype = "INT8"
-        elif stype_type == "number":
-            rtype = "FLOAT8"
-        elif stype_type == "string" and stype_format == "date-time":
-            rtype = "TIMESTAMP"
-        elif stype_type == "string":
-            rtype = "VARCHAR(256)"
+        for redshift_type, json_schema_types in JSON_SCHEMA_TYPES.items():
+            if stype in json_schema_types:
+                rtype = redshift_type
+                break
         else:
             LOGGER.warning((f"WARN: Ignoring type {stype}, "
                             f"it's not supported by the target (yet)."))
@@ -254,7 +351,7 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
                 new_value = f"{escape(user_value)}"
             elif new_field_type == "FLOAT8":
                 new_value = f"{escape(user_value)}"
-            elif new_field_type == "VARCHAR(256)":
+            elif new_field_type == "VARCHAR":
                 new_value = f"{user_value}"[0:256]
                 while str_len(escape(new_value)) > 256:
                     new_value = new_value[0:-1]
