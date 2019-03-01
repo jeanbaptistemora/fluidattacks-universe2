@@ -507,6 +507,7 @@ sync_ms_sql_server_erp:
       - $FLAG_SYNC_MS_SQL_SERVER_ERP
 
 sync_ringcentral:
+  image: registry.gitlab.com/fluidsignal/serves:ms_sql_server
   stage: analytics
   <<: *vault_login
   script:
@@ -516,7 +517,7 @@ sync_ringcentral:
         analytics/singer/target_redshift
     - echo "$(vault read -field=analytics_auth_ringcentral secret/serves)" > /stream_secret.json
     - echo "$(vault read -field=analytics_auth_redshift    secret/serves)" > /target_secret.json
-    - streamer-ringcentral --auth /stream_secret.json > .jsonstream
+    - streamer-ringcentral --auth /stream_secret.json --sync-user --sync-calls > .jsonstream
     - cat .jsonstream | tap-json > .singer
     - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "ringcentral"
   after_script:
