@@ -68,10 +68,21 @@ const enTranslations: Map<string, string> = {
       file: "File",
       upload_date: "Upload Date",
     },
+    high_severity: "High",
+    low_severity: "Tolerable",
+    medium_severity: "Moderate",
+    openVulnsLabel: "Open vulnerabilities",
+    reportDateLabel: "Report date",
     repositories_table: {
       branch: "Branch",
       repository: "Repository URL",
     },
+    severityLabel: "Severity",
+    status: {
+      closed: "Closed",
+      open: "Open",
+    },
+    statusLabel: "Status",
     tab_comments: {
       tab_title: "Comments",
     },

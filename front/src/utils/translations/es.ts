@@ -69,10 +69,21 @@ const esTranslations: Map<string, string> = {
       file: "Archivo",
       upload_date: "Fecha",
     },
+    high_severity: "Alto",
+    low_severity: "Tolerable",
+    medium_severity: "Moderado",
+    openVulnsLabel: "Vulnerabilidades abiertas",
+    reportDateLabel: "Fecha de reporte",
     repositories_table: {
       branch: "Rama",
       repository: "URL Repositorio",
     },
+    severityLabel: "Severidad",
+    status: {
+      closed: "Cerrado",
+      open: "Abierto",
+    },
+    statusLabel: "Estado",
     tab_comments: {
       tab_title: "Comentarios",
     },

@@ -1,7 +1,9 @@
 declare module '*.css';
 
-//Typings for png files
+//Typings for img files
 declare module "*.png" {
   const value: any;
   export = value;
 }
+
+declare module "*.svg" { const value: any; export = value; }

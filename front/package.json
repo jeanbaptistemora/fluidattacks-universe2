@@ -101,7 +101,9 @@
     "react-router-dom": "4.3.1",
     "@types/react-router-dom": "4.3.1",
     "mixpanel-browser": "2.26.0",
-    "@types/mixpanel-browser": "2.23.0"
+    "@types/mixpanel-browser": "2.23.0",
+    "react-circular-progressbar": "1.0.0",
+    "@types/react-circular-progressbar": "1.0.1"
   },
   "resolutions": {
     "graceful-fs": "4.1.13"
