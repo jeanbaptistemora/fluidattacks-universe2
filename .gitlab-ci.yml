@@ -527,20 +527,24 @@ sync_ringcentral:
       - $FLAG_SYNC_RINGCENTRAL
 
 sync_salesforce:
-  image: registry.gitlab.com/fluidsignal/serves:ms_sql_server
   stage: analytics
   <<: *vault_login
   script:
     - pip3 install
+        boto3
         tap_salesforce
         analytics/singer/target_redshift
+    - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read -field=aws_s3_access_key secret/serves)'",
+              "AWS_SECRET_ACCESS_KEY":"'$(vault read -field=aws_s3_secret_key secret/serves)'",
+              "AWS_DEFAULT_REGION":"'$(vault read -field=aws_s3_default_region secret/serves)'"}' > /s3_auth.json
+    - echo "$(vault read -field=analytics_s3_conf_salesforce secret/serves)" > /s3_files.json
     - echo "$(vault read -field=analytics_auth_salesforce secret/serves)" > /tap_secret.json
     - echo "$(vault read -field=analytics_auth_redshift   secret/serves)" > /target_secret.json
-    - tap-salesforce --config /tap_secret.json --discover > /tap_config.json
+    - analytics/download_from_aws_sss.py -auth /s3_auth.json -conf /s3_files.json
     - tap-salesforce --config /tap_secret.json --properties /tap_config.json > .singer
     - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "salesforce"
   after_script:
-    - rm -rf /tap_secret.json /target_secret.json
+    - rm -rf /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json
   <<: *only_schedules
   only:
     variables:
