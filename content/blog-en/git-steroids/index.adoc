@@ -330,10 +330,10 @@ the difference consists in us having a closed list of keywords
 while +AngularJS+ allowing programmers
 to specify any scope they want.
 
-According to +AngularJS+' document,
+According to the +AngularJS+ document,
 “Scope can be anything specifying place of the commit change.
-For example $location, $browser, $compile, $rootScope,
-ngHref, ngClick, ngView, etc...”.
+For example +$location+, +$browser+, +$compile+, +$rootScope+,
++ngHref+, +ngClick+, +ngView+, etc...”.
 
 We, on the other hand, consider that this information
 should go in the commit *[title]*.
@@ -353,7 +353,7 @@ for scopes.
 
 ==== Other differences
 
-The last big difference between +AngularJS+' syntax and ours
+The last big difference between the +AngularJS+ syntax and ours
 is the *#[issue-number]{.issue-part}* part,
 whose purpose is to force commits to always reference an issue
 in order to be able to track what motivated such commit.
@@ -361,8 +361,8 @@ in order to be able to track what motivated such commit.
 Other minor differences,
 like making a maximum of 50 characters for the commit title mandatory,
 are either based on personal opinions
-of what we think makes a commit message to look better,
-or preferring rules taken from other places over +AngularJS+' ones.
+of what we think makes a commit message look better,
+or preferring rules taken from other places over the +AngularJS+ ones.
 
 == Make syntax usage a reality
 
