@@ -1,4 +1,4 @@
-:slug: git-next-lvl/
+:slug: git-steroids/
 :date: 2019-02-28
 :subtitle: Why tech companies need a Git commit message syntax
 :category: documentation
@@ -13,7 +13,7 @@
 :about1: Software Engineer
 :about2: “An intellectual says a simple thing in a hard way. An artist says a hard thing in a simple way.” Charles Bukowski
 
-= Taking Git to the next level
+= Git on steroids: From messy logs to Data Analytics
 
 There is a universal law
 that anyone in the tech world should know:
@@ -289,6 +289,81 @@ Avoid using things like ``feat(build): #5.1 feature``.
 . Do *not* use the word '*part*' for splitting commits for a single issue.
 Use *#[issue-number]{.issue-part}* instead as specified in the syntax.
 
+=== Differences with pure AngularJS syntax
+
+In this section I will talk about the changes we
+made to the original +AngularJS+ syntax and the reasons
+behind them.
+
+==== Types
+
+. Instead of creating a particular syntax
+only for reverts as specified in the link:https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.fpepsvr2gqby[AngularJS' document],
+for the sake of simplicity, we decided to make a *rever* type
+that follows the same syntax as everything else.
+. The *docs* type was renamed to *doc*
+and turned into a scope.
+The reason of such change
+was to make *doc* commits more informative
+by allowing programmers to specify
+the purpose of the documentation change. For example:
++
+   * *feat(doc):* documenting new feature.
+   * *fix(doc):* fixing documentation.
+   * *style(doc):* changing its style.
++
+. We added a *perf* type for performance changes
+with the purpose of identifying what commits have
+a performance improvement as main objective
+and reducing the number of commits that would
+fall under the *refac* type.
+. *chore* type was removed as any maintenance commit can
+be translated to a *perf*/*refac*/*fix* commit.
+. In order to have shorter commit titles,
+we shortened types like *docs* to *doc*, *revert* to *rever*,
+*refactor* to *refac*.
+
+==== Scopes
+
+When it comes to scopes,
+the difference consists in us having a closed list of keywords
+while +AngularJS+ allowing programmers
+to specify any scope they want.
+
+According to +AngularJS+' document,
+“Scope can be anything specifying place of the commit change.
+For example $location, $browser, $compile, $rootScope,
+ngHref, ngClick, ngView, etc...”.
+
+We, on the other hand, consider that this information
+should go in the commit *[title]*.
+
+By moving the “place of the commit change” to the *[title]*,
+we get to define some generic scopes that
+allow us to make commit messages more informative.
+
+Scopes like *front*, *back*, *build*, etc,
+although not as precise as *ngClick*,
+are machine-readable and still provide
+information about where the change was made.
+This, combined with allowing the programmer to
+be more specific in the *[title]*,
+is why we decided to create a closed list
+for scopes.
+
+==== Other differences
+
+The last big difference between +AngularJS+' syntax and ours
+is the *#[issue-number]{.issue-part}* part,
+whose purpose is to force commits to always reference an issue
+in order to be able to track what motivated such commit.
+
+Other minor differences,
+like making a maximum of 50 characters for the commit title mandatory,
+are either based on personal opinions
+of what we think makes a commit message to look better,
+or preferring rules taken from other places over +AngularJS+' ones.
+
 == Make syntax usage a reality
 
 You may be thinking:
@@ -369,4 +444,22 @@ from the importance of +Git+ logs
 to what benefits we can obtain
 by standardizing our commit message syntax
 and implementing tools for checks like +Commitlint+.
+
+I invite you to check the commit history
+of our public repositories:
+
+* link:https://gitlab.com/fluidattacks/integrates/commits/master[Integrates]
+* link:https://gitlab.com/fluidattacks/asserts/commits/master[Asserts]
+* link:https://gitlab.com/fluidattacks/web/commits/master[Web]
+* link:https://gitlab.com/fluidattacks/writeups/commits/master[Writeups]
+* link:https://gitlab.com/fluidattacks/default/commits/master[Default]
+
+=== Want to get more technical?
+
+Make sure to visit our link:https://gitlab.com/fluidattacks/default/wikis/Commit-and-MR-Messages[Commit Message Documentation Page].
+There you will be able to find more detailed information
+regarding our commit message syntax
+and other interesting topics
+like expanding syntax checks to +Gitlab+ Merge Requests.
+
 That was it! Have a good one!
