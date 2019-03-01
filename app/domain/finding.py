@@ -575,7 +575,7 @@ def save_severity(finding):
                            'privilegesRequired', 'userInteraction',
                            'severityScope', 'confidentialityImpact',
                            'integrityImpact', 'availabilityImpact',
-                           'exploitCodeMaturity', 'remediationLevel',
+                           'exploitability', 'remediationLevel',
                            'reportConfidence', 'confidentialityRequirement',
                            'integrityRequirement', 'availabilityRequirement',
                            'modifiedAttackVector', 'modifiedAttackComplexity',

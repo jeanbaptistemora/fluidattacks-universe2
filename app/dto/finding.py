@@ -111,7 +111,7 @@ class FindingDTO(object):
     CONFIDENTIALITY_IMPACT_V3 = FIELDS_FINDING['CONFIDENTIALITY_IMPACT_V3']
     INTEGRITY_IMPACT_V3 = FIELDS_FINDING['INTEGRITY_IMPACT_V3']
     AVAILABILITY_IMPACT_V3 = FIELDS_FINDING['AVAILABILITY_IMPACT_V3']
-    EXPLOIT_CODE_MATURITY = FIELDS_FINDING['EXPLOIT_CODE_MATURITY']
+    EXPLOITABILITY_V3 = FIELDS_FINDING['EXPLOITABILITY_V3']
     REMEDIATION_LEVEL = FIELDS_FINDING['REMEDIATION_LEVEL']
     REPORT_CONFIDENCE = FIELDS_FINDING['REPORT_CONFIDENCE']
     CONFIDENTIALITY_REQUIREMENT_V3 = FIELDS_FINDING['CONFIDENTIALITY_REQUIREMENT_V3']
@@ -392,7 +392,7 @@ class FindingDTO(object):
                           'privileges_required', 'user_interaction',
                           'severity_scope', 'confidentiality_impact',
                           'integrity_impact', 'availability_impact',
-                          'exploit_code_maturity', 'remediation_level',
+                          'exploitability', 'remediation_level',
                           'report_confidence', 'confidentiality_requirement',
                           'integrity_requirement', 'availability_requirement',
                           'modified_attack_vector', 'modified_attack_complexity',
@@ -418,7 +418,7 @@ class FindingDTO(object):
                 self.CONFIDENTIALITY_IMPACT_V3: 'confidentialityImpact',
                 self.INTEGRITY_IMPACT_V3: 'integrityImpact',
                 self.AVAILABILITY_IMPACT_V3: 'availabilityImpact',
-                self.EXPLOIT_CODE_MATURITY: 'exploitCodeMaturity',
+                self.EXPLOITABILITY_V3: 'exploitability',
                 self.REMEDIATION_LEVEL: 'remediationLevel',
                 self.REPORT_CONFIDENCE: 'reportConfidence',
                 self.CONFIDENTIALITY_REQUIREMENT_V3: 'confidentialityRequirement',
@@ -460,7 +460,7 @@ class FindingDTO(object):
         parsed_dict['impact'] = forms.get_impact(
             parsed_dict['criticity'], cvss_version)
         parsed_dict['exploitable'] = forms.is_exploitable(
-            parsed_dict['exploitCodeMaturity'], cvss_version)
+            parsed_dict['exploitability'], cvss_version)
         return parsed_dict
 
     def parse_project(self, request_arr, submission_id):
@@ -851,7 +851,7 @@ def parse_severity(finding):
                           'privileges_required', 'user_interaction',
                           'severity_scope', 'confidentiality_impact',
                           'integrity_impact', 'availability_impact',
-                          'exploit_code_maturity', 'remediation_level',
+                          'exploitability', 'remediation_level',
                           'report_confidence', 'confidentiality_requirement',
                           'integrity_requirement', 'availability_requirement',
                           'modified_attack_vector', 'modified_attack_complexity',
@@ -862,8 +862,6 @@ def parse_severity(finding):
         parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
                        if k in finding.keys()}
         cvss_parameters = fin_dto.CVSS3_PARAMETERS
-        parsed_dict['exploitable'] = forms.is_exploitable(
-            parsed_dict['exploitCodeMaturity'], cvss_version)
     else:
         severity_title = ['access_complexity', 'authentication', 'availability_impact',
                           'exploitability', 'confidentiality_impact', 'access_vector',
@@ -875,14 +873,14 @@ def parse_severity(finding):
         parsed_dict = {v: float(finding[k]) for (k, v) in severity_fields.items()
                        if k in finding.keys()}
         cvss_parameters = fin_dto.CVSS_PARAMETERS
-        parsed_dict['exploitable'] = forms.is_exploitable(
-            parsed_dict['exploitability'], cvss_version)
     base_score = float(cvss.calculate_cvss_basescore(
         parsed_dict, cvss_parameters, cvss_version))
     parsed_dict['criticity'] = \
         cvss.calculate_cvss_temporal(parsed_dict, base_score, cvss_version)
     parsed_dict['impact'] = forms.get_impact(
         parsed_dict['criticity'], cvss_version)
+    parsed_dict['exploitable'] = forms.is_exploitable(
+        parsed_dict['exploitability'], cvss_version)
     return parsed_dict
 
 

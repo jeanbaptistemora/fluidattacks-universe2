@@ -354,7 +354,7 @@ class cvssTests(TestCase):
                     'availabilityImpact': 0, 'severityScope': 1,
                     'attackVector': 0.85, 'attackComplexity': 0.77,
                     'privilegesRequired': 0.68, 'userInteraction': 0.85,
-                    'exploitCodeMaturity': 0.97, 'remediationLevel': 0.97,
+                    'exploitability': 0.97, 'remediationLevel': 0.97,
                     'reportConfidence': 1
                     }
         fin_dto = FindingDTO()
@@ -371,7 +371,7 @@ class cvssTests(TestCase):
                     'availabilityImpact': 0, 'severityScope': 0,
                     'attackVector': 0.85, 'attackComplexity': 0.77,
                     'privilegesRequired': 0.62, 'userInteraction': 0.85,
-                    'exploitCodeMaturity': 0.97, 'remediationLevel': 0.97,
+                    'exploitability': 0.97, 'remediationLevel': 0.97,
                     'reportConfidence': 1
                     }
         fin_dto = FindingDTO()
@@ -390,7 +390,7 @@ class cvssTests(TestCase):
                     'availabilityRequirement': 0.5, 'modifiedSeverityScope': 1,
                     'modifiedAttackVector': 0.85, 'modifiedAttackComplexity': 0.77,
                     'modifiedPrivilegesRequired': 0.68, 'remediationLevel': 0.97,
-                    'exploitCodeMaturity': 0.97, 'modifiedUserInteraction': 0.85
+                    'exploitability': 0.97, 'modifiedUserInteraction': 0.85
                     }
         fin_dto = FindingDTO()
         cvss_version = '3'
@@ -406,7 +406,7 @@ class cvssTests(TestCase):
                     'availabilityRequirement': 0.5, 'modifiedSeverityScope': 0,
                     'modifiedAttackVector': 0.85, 'modifiedAttackComplexity': 0.77,
                     'modifiedPrivilegesRequired': 0.62, 'remediationLevel': 0.97,
-                    'exploitCodeMaturity': 0.97, 'modifiedUserInteraction': 0.85
+                    'exploitability': 0.97, 'modifiedUserInteraction': 0.85
                     }
         fin_dto = FindingDTO()
         cvss_version = '3'

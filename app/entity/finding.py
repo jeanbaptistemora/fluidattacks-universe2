@@ -139,7 +139,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                      'privilegesRequired', 'userInteraction',
                      'severityScope', 'confidentialityImpact',
                      'integrityImpact', 'availabilityImpact',
-                     'exploitCodeMaturity', 'remediationLevel',
+                     'exploitability', 'remediationLevel',
                      'reportConfidence', 'confidentialityRequirement',
                      'integrityRequirement', 'availabilityRequirement',
                      'modifiedAttackVector', 'modifiedAttackComplexity',
