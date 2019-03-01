@@ -351,6 +351,7 @@ class AddFiles(Mutation):
                 'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
                 'uploader': info.context.session['username']
             })
+            email_data = [{'urlEnv': file_info.get('fileName')}]
         uploaded_file = info.context.FILES.get('document', '')
         file_id = '{project}/{file_name}'.format(
             project=project_name,
@@ -366,6 +367,25 @@ class AddFiles(Mutation):
                     json_data,
                     'files'
                 )
+                recipients = integrates_dao.get_project_users(project_name)
+                mail_to = [x[0] for x in recipients if x[1] == 1]
+                mail_to.append(FI_MAIL_CONTINUOUS)
+                mail_to.append(FI_MAIL_PROJECTS)
+                context = {
+                    'project': project_name.upper(),
+                    'user_email': info.context.session['username'],
+                    'action': 'Add files',
+                    'resources': email_data,
+                    'project_url':
+                        'https://fluidattacks.com/integrates/dashboard#!/' +
+                        'project/{project!s}/resources'
+                    .format(project=project_name)
+                }
+                email_send_thread = \
+                    threading.Thread(name='Add files email thread',
+                                     target=send_mail_repositories,
+                                     args=(mail_to, context,))
+                email_send_thread.start()
             else:
                 # The code should do nothing if the upload to S3 fails.
                 pass
@@ -413,6 +433,25 @@ class RemoveFiles(Mutation):
                 project_name,
                 'files',
                 index)
+            recipients = integrates_dao.get_project_users(project_name)
+            mail_to = [x[0] for x in recipients if x[1] == 1]
+            mail_to.append(FI_MAIL_CONTINUOUS)
+            mail_to.append(FI_MAIL_PROJECTS)
+            email_data = [{'urlEnv': file_name}]
+            context = {
+                'project': project_name.upper(),
+                'user_email': info.context.session['username'],
+                'action': 'Remove files',
+                'resources': email_data,
+                'project_url':
+                    'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+                .format(project=project_name)
+            }
+            email_send_thread = \
+                threading.Thread(name='Remove files email thread',
+                                 target=send_mail_repositories,
+                                 args=(mail_to, context,))
+            email_send_thread.start()
         else:
             util.cloudwatch_log(info.context,
                                 'Security: \
