@@ -17,6 +17,7 @@ describe("Resources view", () => {
     <ResourcesView
       addModal={{ open: false, type: "repository" }}
       environmentsDataset={[]}
+      optionsModal={{ open: false, rowInfo: { fileName: "" }}}
       projectName="unittesting"
       repositoriesDataset={[]}
       filesDataset={[]}
@@ -32,7 +33,7 @@ describe("Resources view", () => {
 
     const buttons: ShallowWrapper = wrapper.find(Button);
     expect(buttons).to.have
-      .lengthOf(7);
+      .lengthOf(5);
 
     const addRepoBtn: string = buttons.at(0)
       .html();
@@ -118,40 +119,6 @@ describe("Resources view", () => {
         .html();
     expect(addFileBtn).to
         .equal(expectedAddFileBtn);
-
-    const removeFileBtn: string = buttons.at(5)
-      .html();
-    const expectedRemoveFileBtn: string = shallow(
-      <Button
-        id="removeFiles"
-        block={true}
-        bsStyle="primary"
-        onClick={functionMock}
-      >
-        <Glyphicon glyph="minus" />
-        &nbsp;search_findings.tab_resources.remove_repository
-      </Button>,
-    )
-      .html();
-    expect(removeFileBtn).to
-      .equal(expectedRemoveFileBtn);
-
-    const downloadFileBtn: string = buttons.at(6)
-        .html();
-    const expectedDownloadFileBtn: string = shallow(
-        <Button
-          id="downloadFile"
-          block={true}
-          bsStyle="primary"
-          onClick={functionMock}
-        >
-          <Glyphicon glyph="download-alt" />
-          &nbsp;search_findings.tab_resources.download
-        </Button>,
-      )
-        .html();
-    expect(downloadFileBtn).to
-        .equal(expectedDownloadFileBtn);
 
   });
 

@@ -24,6 +24,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName } from "../../../../utils/validations";
 import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
+import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import * as actions from "./actions";
 
 export interface IResourcesViewProps {
@@ -33,6 +34,10 @@ export interface IResourcesViewProps {
   };
   environmentsDataset: Array<{ urlEnv: string }>;
   filesDataset: Array<{ description: string; fileName: string }>;
+  optionsModal: {
+    open: boolean;
+    rowInfo: { fileName: string };
+  };
   projectName: string;
   repositoriesDataset: Array<{ branch: string; urlRepo: string }>;
 }
@@ -140,23 +145,16 @@ const saveEnvs: (
     }
   };
 
-const removeFiles: ((arg1: string) => void) = (projectName: string): void => {
-    const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblFiles tr input:checked");
-    if (selectedQry.length > 0) {
-      if (selectedQry[0].closest("tr") !== null) {
-        const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-        const file: string | null = selectedRow.children[1].textContent;
-        const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-          store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-        );
-
-        thunkDispatch(actions.deleteFile(projectName, file));
-      } else {
-        msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error("An error occurred removing files");
-      }
+const removeFiles: ((arg1: string, arg2: { fileName: string | null}) => void) =
+  (projectName: string, rowInfo: { fileName: string | null}): void => {
+    if (rowInfo.fileName !== null) {
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.deleteFile(projectName, rowInfo.fileName));
     } else {
-      msgError(translate.t("search_findings.tab_resources.no_selection"));
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred removing files");
     }
   };
 
@@ -197,22 +195,16 @@ const saveFiles: (
     }
   };
 
-const downloadFile: ((arg1: string) => void) = (projectName: string): void => {
-    const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblFiles tr input:checked");
-    if (selectedQry.length > 0) {
-      if (selectedQry[0].closest("tr") !== null) {
-        const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-        const file: string | null = selectedRow.children[1].textContent;
-        const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-          store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-        );
-        thunkDispatch(actions.downloadFile(projectName, file));
-      } else {
-        msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error("An error occurred downloading file");
-      }
+const downloadFile: ((arg1: string, arg2: { fileName: string | null}) => void) =
+  (projectName: string, rowInfo: { fileName: string | null}): void => {
+    if (rowInfo.fileName !== null) {
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.downloadFile(projectName, rowInfo.fileName));
     } else {
-      msgError(translate.t("search_findings.tab_resources.no_selection"));
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred downloading file");
     }
   };
 
@@ -222,6 +214,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IResourcesViewProps) =
     addModal: state.dashboard.resources.addModal,
     environmentsDataset: state.dashboard.resources.environments,
     filesDataset: state.dashboard.resources.files,
+    optionsModal: state.dashboard.resources.optionsModal,
     repositoriesDataset: state.dashboard.resources.repositories,
   }
 );
@@ -388,36 +381,14 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                         {translate.t("search_findings.tab_resources.add_repository")}
                       </Button>
                     </Col>
-                    <Col md={2} sm={6}>
-                      <Button
-                        id="removeFiles"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={(): void => {removeFiles(props.projectName); }}
-                      >
-                        <Glyphicon glyph="minus"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.remove_repository")}
-                      </Button>
-                    </Col>
-                    <Col md={2} sm={6}>
-                      <Button
-                        id="downloadFile"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={(): void => {downloadFile(props.projectName); }}
-                      >
-                        <Glyphicon glyph="download-alt"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.download")}
-                      </Button>
-                    </Col>
                   </Col>
                 </Row>
                 <Row>
                   <Col md={12} sm={12}>
                     <DataTable
                       dataset={props.filesDataset}
-                      onClickRow={(): void => {}}
-                      enableRowSelection={true}
+                      onClickRow={(row: string | undefined): void => {store.dispatch(actions.openOptionsModal(row)); }}
+                      enableRowSelection={false}
                       exportCsv={false}
                       search={true}
                       headers={[
@@ -458,6 +429,13 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
         type={props.addModal.type}
         onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
         onSubmit={onSubmitFunction}
+      />
+      <FileOptionsModal
+        isOpen={props.optionsModal.open}
+        onClose={(): void => { store.dispatch(actions.closeOptionsModal()); }}
+        onSubmit={onSubmitFunction}
+        onDelete={(): void => {removeFiles(props.projectName, props.optionsModal.rowInfo); }}
+        onDownload={(): void => {downloadFile(props.projectName, props.optionsModal.rowInfo); }}
       />
     </div>
   </React.StrictMode>

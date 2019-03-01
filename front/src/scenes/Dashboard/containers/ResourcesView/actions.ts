@@ -76,6 +76,18 @@ export const closeAddModal: (() => IActionStructure) =
     type: actionTypes.CLOSE_ADD_MODAL,
   });
 
+export const openOptionsModal: ((rowInfo: string | undefined) => IActionStructure) =
+  (rowInfo: string | undefined): IActionStructure => ({
+    payload: {rowInfo},
+    type: actionTypes.OPEN_OPTIONS_MODAL,
+  });
+
+export const closeOptionsModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.CLOSE_OPTIONS_MODAL,
+  });
+
 export const saveRepos: ThunkActionStructure =
   (projectName: string, reposData: IResourcesViewProps["repositoriesDataset"],
   ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
@@ -325,6 +337,7 @@ export const deleteFile: ThunkActionStructure =
             .then((response: AxiosResponse) => {
               const { data } = response.data;
               if (data.removeFiles.success) {
+                dispatch(closeOptionsModal());
                 dispatch({
                   payload: {
                     files: JSON.parse(data.removeFiles.resources.files),
@@ -366,6 +379,7 @@ export const downloadFile: ThunkActionStructure =
             .then((response: AxiosResponse) => {
               const { data } = response.data;
               if (data.downloadFile.success) {
+                dispatch(closeOptionsModal());
                 window.open(data.downloadFile.url);
               } else {
                 msgError(translate.t("proj_alerts.error_textsad"));

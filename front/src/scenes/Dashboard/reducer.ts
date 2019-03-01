@@ -42,6 +42,10 @@ export interface IDashboardState {
     };
     environments: Array<{ urlEnv: string }>;
     files: Array<{ description: string; fileName: string; uploadDate: string}>;
+    optionsModal: {
+      open: boolean;
+      rowInfo: { fileName: string };
+    };
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
   severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset" | "cvssVersion">;
@@ -134,6 +138,10 @@ const initialState: IDashboardState = {
     },
     environments: [],
     files: [],
+    optionsModal: {
+      open: false,
+      rowInfo: {fileName: ""},
+    },
     repositories: [],
   },
   severity: {
@@ -221,6 +229,32 @@ actionMap[resourcesActions.CLOSE_ADD_MODAL] =
       ...state.resources,
       addModal: {
         ...initialState.resources.addModal,
+      },
+    },
+  });
+
+actionMap[resourcesActions.OPEN_OPTIONS_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      optionsModal: {
+        ...state.resources.optionsModal,
+        open: true,
+        rowInfo: action.payload.rowInfo,
+      },
+    },
+  });
+
+actionMap[resourcesActions.CLOSE_OPTIONS_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      optionsModal: {
+        ...initialState.resources.optionsModal,
       },
     },
   });

@@ -221,6 +221,7 @@ const esTranslations: Map<string, string> = {
       invalid_chars: "El nombre del archivo contiene caracteres inválidos.",
       modal_env_title: "Agregar información de los ambientes",
       modal_file_title: "Agregar archivo",
+      modal_options_title: "Opciones del archivo",
       modal_repo_title: "Agregar información de los repositorios",
       no_selection: "Debe seleccionar un ítem de la tabla.",
       remove_repository: "Remover",
