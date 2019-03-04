@@ -32,6 +32,8 @@ export interface ISeverityViewProps {
   dataset: {
     accessComplexity: string;
     accessVector: string;
+    attackComplexity: string;
+    attackVector: string;
     authentication: string;
     availabilityImpact: string;
     availabilityRequirement: string;
@@ -43,7 +45,20 @@ export interface ISeverityViewProps {
     findingDistribution: string;
     integrityImpact: string;
     integrityRequirement: string;
+    modifiedAttackComplexity: string;
+    modifiedAttackVector: string;
+    modifiedAvailabilityImpact: string;
+    modifiedConfidentialityImpact: string;
+    modifiedIntegrityImpact: string;
+    modifiedPrivilegesRequired: string;
+    modifiedSeverityScope: string;
+    modifiedUserInteraction: string;
+    privilegesRequired: string;
+    remediationLevel: string;
+    reportConfidence: string;
     resolutionLevel: string;
+    severityScope: string;
+    userInteraction: string;
   };
   findingId: string;
   formValues: { editSeverity: { values: ISeverityViewProps["dataset"] & { cvssVersion: string } }};
