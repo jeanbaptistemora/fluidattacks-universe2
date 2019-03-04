@@ -1,5 +1,4 @@
-"""Singer tap for a JSON stream.
-"""
+"""Singer tap for a generic JSON stream."""
 
 import io
 import re
@@ -32,79 +31,59 @@ DATE_FORMATS: List[str] = [
 
 
 def is_str(stru: STRU) -> bool:
-    """Returns True if stru is str.
-    """
-
+    """Return True if stru is str."""
     return isinstance(stru, str)
 
 
 def is_int(stru: STRU) -> bool:
-    """Returns True if stru is int.
-    """
-
+    """Return True if stru is int."""
     return isinstance(stru, int)
 
 
 def is_bool(stru: STRU) -> bool:
-    """Returns True if stru is bool.
-    """
-
+    """Return True if stru is bool."""
     return isinstance(stru, bool)
 
 
 def is_float(stru: STRU) -> bool:
-    """Returns True if stru is float.
-    """
-
+    """Return True if stru is float."""
     return isinstance(stru, float)
 
 
 def is_list(stru: STRU) -> bool:
-    """Returns True if stru is list.
-    """
-
+    """Return True if stru is list."""
     return isinstance(stru, list)
 
 
 def is_dict(stru: STRU) -> bool:
-    """Returns True if stru is dict.
-    """
-
+    """Return True if stru is dict."""
     return isinstance(stru, dict)
 
 
 def is_base(stru: STRU) -> bool:
-    """Returns True if stru is a primitive type.
-    """
-
+    """Return True if stru is a primitive type."""
     return any((f(stru) for f in (is_str, is_int, is_bool, is_float)))
 
 
 def is_stru(stru: STRU) -> bool:
-    """Returns True if stru is a Structura.
-    """
-
+    """Return True if stru is a Structura."""
     return any((f(stru) for f in (is_base, is_list, is_dict)))
 
 
 def is_timestamp(stru: STRU) -> bool:
-    """Returns True if stru is a valid timestamp."""
+    """Return True if stru is a valid timestamp."""
     #  946684800 = 2000-01-01T00:00:00Z
     # 2147483647 = 2038-01-19T03:14:07Z
     return (is_int(stru) or is_float(stru)) and 946684800 < stru < 2147483647
 
 
 def clean_str(stru: str) -> str:
-    """Cleans unvalid chars from a string.
-    """
-
+    """Clean unvalid chars from a string."""
     return re.sub(r"[^ _a-zA-Z0-9]", "", stru)
 
 
 def to_date(date_time: Any) -> Any:
-    """Manipulates a date to provide a RFC339 compatible date.
-    """
-
+    """Manipulate a date to provide a RFC339 compatible date."""
     if ENABLE_TIMESTAMPS and is_timestamp(date_time):
         try:
             date_stru = datetime.datetime.utcfromtimestamp(date_time)
@@ -129,24 +108,18 @@ def to_date(date_time: Any) -> Any:
 
 
 def stru_type(stru: STRU) -> str:
-    """Returns the python type of a Structura.
-    """
-
+    """Return the python type of a Structura."""
     return "datetime" if to_date(stru) else type(stru).__name__
 
 
 def stru_cast(stru: STRU) -> STRU:
-    """Casts a stru.
-    """
-
+    """Cast a Structura."""
     cast_date = to_date(stru)
     return cast_date if cast_date else stru
 
 
 def pt2st(ptype: str) -> JSON:
-    """Returns a singer type for the python type.
-    """
-
+    """Return a corresponding singer type for the provided python type."""
     if ptype == "bool":
         return {"type": "boolean"}
     if ptype == "float":
@@ -161,9 +134,7 @@ def pt2st(ptype: str) -> JSON:
 
 
 def prepare_env():
-    """Creates/restablish the target folders.
-    """
-
+    """Create/reset the staging area."""
     for _dir in (RECORDS_DIR, SCHEMAS_DIR):
         if not os.path.exists(_dir):
             os.makedirs(_dir)
@@ -173,9 +144,7 @@ def prepare_env():
 
 
 def release_env():
-    """Cleans the used paths on exit.
-    """
-
+    """Clean the staging area on exit."""
     for _dir in (SCHEMAS_DIR, RECORDS_DIR):
         for file in os.listdir(_dir):
             os.remove(f"{_dir}/{file}")
@@ -187,9 +156,7 @@ def write(
         table_name: str,
         stru: STRU,
         func: Callable[[STRU], STRU] = lambda x: x) -> None:
-    """Writes func(stru) to a file.
-    """
-
+    """Write func(stru) to a file."""
     with open(f"{directory}/{table_name}", "a") as file:
         file.write(func(stru))
         file.write("\n")
@@ -199,29 +166,24 @@ def read(
         directory: str,
         table_name: str,
         func: Callable[[STRU], STRU] = lambda x: x) -> Any:
-    """Yields func(line) per every line of a file.
-    """
-
+    """Yield func(line) per every line of a file."""
     with open(f"{directory}/{table_name}", "r") as file:
         for line in file:
             yield func(line)
 
 
 def json_from_file(file_path: str) -> JSON:
-    """Loads a json from a file.
-    """
-
+    """Load a JSON from a file."""
     with open(file_path, "r") as json_file:
         json_stru = load(json_file)
     return json_stru
 
 
 def linearize(table_name: str, structura: STRU) -> None:
-    """Breaks a structura into flat records.
+    """Break a Structura into flat records.
 
     Produced records are suitable for use into a relational database structure.
     """
-
     linearize__deconstruct(
         table=table_name,
         stru=linearize__simplify(structura),
@@ -229,13 +191,12 @@ def linearize(table_name: str, structura: STRU) -> None:
 
 
 def linearize__simplify(stru: STRU) -> STRU:
-    """Simplifies a Structura.
+    """Simplify a Structura.
 
-    Applies clean_str to every key in the structura.
-    Denests every dict of dict to a compound dict.
-    Removes unsuported data types.
+    Apply clean_str to every key in the structura.
+    Denest every dict of dict to a compound dict.
+    Remove unsuported data types.
     """
-
     if is_base(stru):
         return stru
     if is_list(stru):
@@ -260,9 +221,7 @@ def linearize__deconstruct(
         table: str,
         stru: STRU,
         ids: Any) -> STRU:
-    """Breaks a structura into records of a relational data-structure.
-    """
-
+    """Break a Structura into records of a relational data-structure."""
     if is_base(stru):
         ids = [] if ids is None else ids
         linearize__deconstruct(table=table, stru=[stru], ids=ids)
@@ -288,9 +247,7 @@ def linearize__deconstruct(
 
 
 def catalog() -> None:
-    """Deduce the schema of the generated tables.
-    """
-
+    """Deduce the schema of the generated tables."""
     for table_name in os.listdir(RECORDS_DIR):
         schema: JSON = {}
         for structura in read(RECORDS_DIR, table_name, loads):
@@ -306,18 +263,17 @@ def catalog() -> None:
 
 def main():
     """Usual entry point."""
-
     parser = argparse.ArgumentParser(
         description="Dump a JSON stream to a Singer stream.")
     parser.add_argument(
         "--enable-timestamps",
-        help="flag to indicate if timestamps should be casted to dates",
+        help="Flag to indicate if timestamps should be casted to dates",
         action="store_true",
         default=False,
         dest="enable_timestamps")
     parser.add_argument(
         "--date-formats",
-        help="a string of formats separated by comma, extends RFC3339",
+        help="A string of formats separated by comma, extends RFC3339",
         default="",
         dest="date_formats")
     args = parser.parse_args()
@@ -347,7 +303,7 @@ def main():
     # Parse everything to singer
     for table in os.listdir(SCHEMAS_DIR):
         pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
-        sschema = {
+        print(dumps({
             "type": "SCHEMA",
             "stream": table,
             "schema": {
@@ -358,19 +314,17 @@ def main():
                 }
             },
             "key_properties": []
-        }
-        print(dumps(sschema))
+        }))
 
         for precord in read(RECORDS_DIR, table, loads):
-            srecord = {
+            print(dumps({
                 "type": "RECORD",
                 "stream": table,
                 "record": {
                     f"{f}_{stru_type(v)}": stru_cast(v)
                     for f, v in precord.items()
                 }
-            }
-            print(dumps(srecord))
+            }))
 
     release_env()
 
