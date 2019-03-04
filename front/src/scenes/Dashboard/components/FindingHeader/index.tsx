@@ -21,7 +21,7 @@ const severityConfigs: { [level: string]: { color: string; text: string } } = {
 };
 
 const statusConfigs: { [level: string]: { color: string; icon: string; text: string } } = {
-  Abierto: { color: "#810404CF", icon: "exclamation-sign", text: translate.t("search_findings.status.open") },
+  Abierto: { color: "#810404CF", icon: "remove-sign", text: translate.t("search_findings.status.open") },
   Cerrado: { color: "#108104CF", icon: "ok-sign", text: translate.t("search_findings.status.closed") },
   Default: { color: "", icon: "", text: "" },
 };
