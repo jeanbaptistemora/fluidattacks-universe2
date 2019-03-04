@@ -109,7 +109,7 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
 );
 
 const renderCVSS2Fields: ((props: ISeverityViewProps) => JSX.Element[]) = (props: ISeverityViewProps): JSX.Element[] =>
-  castFields(props.dataset)
+  castFields(props.dataset, props.cvssVersion)
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
         const text: string = field.options[value];
