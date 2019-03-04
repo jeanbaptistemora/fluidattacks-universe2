@@ -1,10 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf8
 
 """
 Script to run general content checks of web repo
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.0
+Version 1.1
+Patch notes 1.1:
+- Using Python3
 """
 
 import os

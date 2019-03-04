@@ -1,11 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf8
 
 """
 Script to check if defined rules are strictly applied
 Replaces check-all.sh
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.0
+Version 1.3
+Patch notes 1.3:
+- Added spell checker linter
+- Using Python3
+- Fixed bugs in artchecker call
+- Using only one EXIT_CODE
 """
 import os
 import sys
@@ -14,10 +19,9 @@ import re
 import genchecker
 import contentrules
 import articlerules
+import spelling
 
-EXIT1 = 0
-EXIT2 = 0
-EXIT3 = 0
+EXIT_CODE = 0
 
 if len(sys.argv) > 2:
   print_helper.print_failure("Error! too many arguments\n")
@@ -40,24 +44,26 @@ if len(sys.argv) == 2 and sys.argv[1] == 'changes':
     print (FILE)
   print_helper.print_warning("^ Modified files\n")
   print_helper.print_success("Checking recent changes to the repo ...\n")
-  EXIT1 = genchecker.genchecks(EXIT1)
+  EXIT_CODE = genchecker.genchecks(EXIT_CODE)
 
   for FILE in CHANGES:
     if '.adoc' in FILE:
-      EXIT2 = contentrules.rulechecker(FILE, EXIT2)
+      EXIT_CODE = contentrules.rulechecker(FILE, EXIT_CODE)
+      EXIT_CODE = spelling.spellchecker(FILE, EXIT_CODE)
       if "content/blog" in FILE:
-        articlerules.artchecker(FILE, EXIT3)
+        EXIT_CODE = articlerules.artchecker(FILE, EXIT_CODE)
   print_helper.print_success("Done! \n")
 
 if len(sys.argv) == 1:
   print_helper.print_success("Checking all asciidoc files in repo ...\n")
   FILES = os.popen('find content/ -iname "*.adoc"').read()
-  EXIT1 = genchecker.genchecks(EXIT1)
+  EXIT_CODE = genchecker.genchecks(EXIT_CODE)
   FILES = FILES.split()
   for CHECK in FILES:
-    EXIT2 = contentrules.rulechecker(CHECK, EXIT2)
+    EXIT_CODE = contentrules.rulechecker(CHECK, EXIT_CODE)
+    EXIT_CODE = spelling.spellchecker(CHECK, EXIT_CODE)
     if "content/blog" in CHECK:
-        articlerules.artchecker(CHECK, EXIT3)
+        EXIT_CODE = articlerules.artchecker(CHECK, EXIT_CODE)
   print_helper.print_success("Done! \n")
 
-sys.exit(EXIT1 or EXIT2 or EXIT3)
+sys.exit(EXIT_CODE)

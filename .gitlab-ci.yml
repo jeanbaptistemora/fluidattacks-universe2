@@ -58,9 +58,8 @@ content:
   script:
     - pre-commit run --all-files
     - ./check-changed.sh
-    - python ci-scripts/checkall.py changes
-    - python ci-scripts/imgchecker.py
-    - ./check-spelling.sh
+    - python3 ci-scripts/checkall.py changes
+    - python3 ci-scripts/imgchecker.py
   except:
     - master
 

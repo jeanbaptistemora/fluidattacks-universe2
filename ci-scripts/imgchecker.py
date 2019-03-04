@@ -1,9 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Script to check if images inside the repo are properly optimized
 in size, extension and dimensions
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.0
+Version 1.1
+Patch notes 1.1:
+- Using Python3
 """
 import os
 import sys

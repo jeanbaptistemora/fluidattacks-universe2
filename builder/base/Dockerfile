@@ -31,6 +31,9 @@ RUN apt-get update -qq && \
        python-dev \
        python-pip \
        python-setuptools \
+       python3-dev \
+       python3-pip \
+       python3-setuptools \
        ruby-full \
        unzip \
        xz-utils \
@@ -45,6 +48,7 @@ RUN apt-get update -qq && \
       python get-pip.py && \
       rm get-pip.py && \
     pip install -r requirements.txt && \
+    pip3 install termcolor && \
     yarn install && \
     gem install -N sass && \
 

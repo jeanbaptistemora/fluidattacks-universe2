@@ -1,14 +1,18 @@
-#!/usr/bin/env python
-# coding: utf8
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """
 Script that defines the rules to be applied to the web repo
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.0
+Version 1.1
+Patch notes 1.1:
+- Using Python3
+- Updated functions to use Python3 sintax
 """
 
 import os
 import print_helper
+import sys
 
 def rulechecker(PATH, EXIT_CODE):
   #Define Rules
@@ -103,7 +107,7 @@ def rulechecker(PATH, EXIT_CODE):
   # Check for multiple main title
   OUT = os.popen("pcregrep -nr '^=\s.*$' "+PATH).read()
   OUT = OUT.split('\n')
-  OUT = filter(None, OUT)
+  OUT = list(filter(None, OUT))
   if len(OUT) > 1:
     print_helper.print_failure("Issue found in "+PATH+"\n")
     print_helper.print_failure(OUT)
