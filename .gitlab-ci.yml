@@ -74,6 +74,7 @@ stages:
       - $FLAG_SYNC_MS_SQL_SERVER_ERP
       - $FLAG_SYNC_RINGCENTRAL
       - $FLAG_SYNC_SALESFORCE
+      - $FLAG_SYNC_INTERCOM
 
 build_base:
   stage: deps
@@ -550,3 +551,23 @@ sync_salesforce:
   only:
     variables:
       - $FLAG_SYNC_SALESFORCE
+
+sync_intercom:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - pip3 install
+        analytics/singer/streamer_intercom
+        analytics/singer/tap_json
+        analytics/singer/target_redshift
+    - echo "$(vault read -field=analytics_auth_intercom secret/serves)" > /stream_secret.json
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - streamer-intercom --auth /stream_secret.json > .jsonstream
+    - cat .jsonstream | tap-json --enable-timestamps > .singer
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "intercom"
+  after_script:
+    - rm -rf /stream_secret.json /target_secret.json
+  <<: *only_schedules
+  only:
+    variables:
+      - $FLAG_SYNC_INTERCOM
