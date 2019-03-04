@@ -1,6 +1,6 @@
 :slug: git-steroids/
 :date: 2019-02-28
-:subtitle: Why tech companies need a Git commit message syntax
+:subtitle: From messy logs to Data Analytics
 :category: documentation
 :tags: git, software, documentation, standard, engineering, business, linters
 :image: cover.png
@@ -13,7 +13,7 @@
 :about1: Software Engineer
 :about2: “An intellectual says a simple thing in a hard way. An artist says a hard thing in a simple way.” Charles Bukowski
 
-= Git on steroids: From messy logs to Data Analytics
+= Git on steroids
 
 There is a universal law
 that anyone in the tech world should know:
@@ -288,6 +288,105 @@ Avoid using things like ``feat(build): #5.1 feature``.
 
 . Do *not* use the word '*part*' for splitting commits for a single issue.
 Use *#[issue-number]{.issue-part}* instead as specified in the syntax.
+
+=== Explaining combinations
+
+Below is a table explaining
+all the possible combinations
+between types and scopes
+for a commit message
+(Types are columns, scopes are rows):
+
+[options="header", cols="^s,7*^"]
+|===
+
+|
+| rever
+| feat
+| perf
+| fix
+| refac
+| test
+| style
+
+| front
+| Revert front-end to a previous version
+| Add new feature to front-end
+| Improve perf in front-end
+| Fix something in front-end
+| Change something in front-end
+| Add tests for front-end
+| Change front-end code style
+
+| back
+| Revert back-end to a previous version
+| Add new feature to back-end
+| Improve perf in back-end
+| Fix something in back-end
+| Change something in back-end
+| Add tests for back-end
+| Change back-end code style
+
+| infra
+| Revert infra to a previous version
+| Add new feature to infra
+| Improve perf in infra
+| Fix something in infra
+| Change something in infra
+| Add tests for infra
+| Change infra code style
+
+| conf
+| Revert config files to a previous version
+| Add new feature to config files
+| NA
+| Fix something in config files
+| Change something in config files
+| NA
+| Change config files code style
+
+| build
+| Revert building tools to a previous version
+| Add new feature to building tools or add a new building tool
+| Improve building perf
+| Fix something in building tools
+| Change something in building tools
+| Add tests for building tools
+| Change building tools code style
+
+| job
+| Revert jobs to a previous version
+| Add new feature to jobs or add a new job
+| Improve jobs perf
+| Fix something in jobs
+| Change something in jobs
+| Add tests for jobs
+| Change jobs code style
+
+| cross
+| Revert several scopes to a previous version
+| Add new feature for several scopes
+| Improve perf in several system parts
+| Fix something in several system parts
+| Change something in several system parts
+| Add tests for several system parts
+| Change code style in several system parts
+
+| doc
+| Revert doc to a previous version
+| Add new doc
+| NA
+| Fix something in doc
+| Change something in doc
+| NA
+| Change doc style
+|===
+
+Where +perf+ is performance,
++infra+ is infrastructure,
++config+ is configuration,
++doc+ is documentation,
+and +NA+ is not applicable.
 
 === Differences with pure AngularJS syntax
 
