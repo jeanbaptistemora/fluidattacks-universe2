@@ -72,16 +72,20 @@ stages:
   - post-deploy
   - coverage
 
-Build:
+build:
   stage: deps
   <<: *kaniko_config
   script:
-    - cp front/package.json deploy/containers/deps/
+    - mkdir deploy/containers/deps/front
+    - mkdir deploy/containers/deps/assets
+    - cp -a front/package.json deploy/containers/deps/front/
+    - cp -a app/assets/package.json deploy/containers/deps/assets
     - /kaniko/executor
         --cleanup
         --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}:deps"
+        --snapshotMode time
   retry: 1
   only:
     - schedules
@@ -100,23 +104,26 @@ Build:
     - master
 
 gulp-compiler:
- stage: pre-test
- image: fluid-docker.jfrog.io/integrates:deps
- script:
-   - cd app/assets && npm install --unsafe-perm
-   - cd ../../front
-   - npm install --unsafe-perm
-   - gulp integrates
- retry: 1
- except:
-   - master
+  stage: pre-test
+  image: fluid-docker.jfrog.io/integrates:deps
+  script:
+    - cp -a /root/front/node_modules front/
+    - cd front
+    - npm install --unsafe-perm
+    - node_modules/.bin/gulp
+  artifacts:
+    paths:
+      - app/assets/dashboard/*
+    expire_in: 1h
+  retry: 1
+  except:
+    - master
 
 commitlint:
   stage: pre-test
   image: starefossen/ruby-node:2-10
-  before_script:
-    - npm install --unsafe-perm
   script:
+    - npm install --unsafe-perm
     - ./ci-scripts/commitlint-checks.sh
   except:
     - master
@@ -125,10 +132,12 @@ react-testing:
   stage: pre-test
   image: fluid-docker.jfrog.io/integrates:deps
   script:
-    - cd front/ && npm install --unsafe-perm
-    - tslint -p tsconfig.json -t verbose
+    - cp -a /root/front/node_modules front/
+    - cd front
+    - npm install --unsafe-perm
+    - node_modules/.bin/tslint -p tsconfig.json -t verbose
     - npm test
-    - tsc -p tsconfig.json
+    - node_modules/.bin/tsc -p tsconfig.json
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -142,7 +151,10 @@ js-linter:
   stage: pre-test
   image: fluid-docker.jfrog.io/integrates:deps
   script:
-    - eslint app/assets/app/.
+    - cp -a /root/front/node_modules front/
+    - cd front
+    - npm install --unsafe-perm
+    - node_modules/.bin/eslint app/assets/app/.
   retry: 1
   except:
     - master
@@ -223,8 +235,11 @@ asserts-code-test:
 
 build-integrates:
   stage: build
+  dependencies:
+    - gulp-compiler
   <<: *kaniko_vault_config
   script:
+    - mv app/assets/dashboard deploy/containers/common/vars
     - mv deploy/containers/common/vars deploy/containers/integrates/
     - MINUTES=$(( 
         ($(date +%d | sed 's/^0//') -1) * 1440 +
@@ -233,7 +248,9 @@ build-integrates:
       ))
     - FI_VERSION="$(date +%y.%m.)${MINUTES}"
     - /kaniko/executor
+        --build-arg CI_API_V4_URL="${CI_API_V4_URL}"
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
+        --build-arg CI_PROJECT_ID="${CI_PROJECT_ID}"
         --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
         --build-arg DOCUMENTROOT="${FI_DOCUMENTROOT}"
         --build-arg DRIVE_AUTHORIZATION="${FI_DRIVE_AUTHORIZATION}"
@@ -246,15 +263,19 @@ build-integrates:
         --context "${CI_PROJECT_DIR}/deploy/containers/integrates/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/integrates/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+        --snapshotMode time
   retry: 1
 
 build-bot:
   stage: build
+  dependencies: []
   <<: *kaniko_vault_config
   script:
     - mv deploy/containers/common/vars deploy/containers/bot/
     - /kaniko/executor
+        --build-arg CI_API_V4_URL="${CI_API_V4_URL}"
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
+        --build-arg CI_PROJECT_ID="${CI_PROJECT_ID}"
         --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
         --build-arg DOCUMENTROOT="${FI_DOCUMENTROOT}"
         --build-arg DRIVE_AUTHORIZATION="${FI_DRIVE_AUTHORIZATION}"
@@ -266,13 +287,20 @@ build-bot:
         --context "${CI_PROJECT_DIR}/deploy/containers/bot/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/bot/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}-bot:${CI_COMMIT_REF_NAME}"
+        --snapshotMode time
   retry: 1
 
 driver-testing:
   stage: post-deploy
   image: fluid-docker.jfrog.io/integrates:deps
+  dependencies: []
   <<: *vault_login
   script:
+    - curl -Lo geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+    - tar xzf geckodriver.tar.gz -C /usr/local/bin
+    - rm geckodriver.tar.gz
+    - apt-get update
+    - apt-get install --no-install-recommends -y firefox-esr
     - cp -a $PWD /usr/src/app_src
     - cd /usr/src/app_src
     - mkdir -p screenshots
@@ -291,6 +319,7 @@ driver-testing:
 
 review-integrates:
   stage: review
+  dependencies: []
   <<: *vault_login
   script:
     - vaultenv review-apps/cluster-config.sh
@@ -304,6 +333,7 @@ review-integrates:
 
 stop-review:
   stage: review
+  dependencies: []
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
@@ -324,6 +354,7 @@ stop-review:
 asserts-review:
   stage: post-deploy
   image: fluid-docker.jfrog.io/fluid:integrates
+  dependencies: []
   variables:
     APP: "integrates"
     BRANCH: "${CI_COMMIT_REF_NAME}"
@@ -342,6 +373,7 @@ asserts-review:
 
 mr-test:
   stage: mr-check
+  dependencies: []
   variables:
     GIT_STRATEGY: clone
   script:
@@ -352,6 +384,7 @@ mr-test:
 danger:
   stage: mr-check
   image: starefossen/ruby-node:2-10
+  dependencies: []
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
@@ -369,6 +402,7 @@ danger:
 
 deploy-k8s:
   stage: deploy
+  dependencies: []
   environment:
     name: "production"
     url: "https://fluidattacks.com/integrates"
@@ -405,6 +439,7 @@ deploy-k8s:
 new-version-mail:
   stage: post-deploy
   image: fluid-docker.jfrog.io/integrates:master
+  dependencies: []
   <<: *vault_login
   script:
     - cd /usr/src/app
@@ -415,6 +450,7 @@ new-version-mail:
 asserts-prod:
   stage: post-deploy
   image: fluid-docker.jfrog.io/fluid:integrates
+  dependencies: []
   variables:
     APP: "integrates"
     BRANCH: "${CI_COMMIT_REF_NAME}"
@@ -428,16 +464,16 @@ asserts-prod:
     - cp -a * /code/
     - /entrypoint.sh
   retry: 1
-  except:
+  only:
     - master
 
 coverage-report:
   stage: coverage
   image: fluid-docker.jfrog.io/integrates:deps
-  <<: *vault_login
   dependencies:
     - unit-testing
     - react-testing
+  <<: *vault_login
   script:
     - vaultenv ./run_codecov.sh
   retry: 1

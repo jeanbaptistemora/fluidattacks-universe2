@@ -58,3 +58,4 @@ codecov==2.0.15
 cryptography==2.5
 botocore==1.7.48
 websocket-client==0.54.0
+idna==2.8

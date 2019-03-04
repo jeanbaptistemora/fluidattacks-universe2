@@ -9,18 +9,17 @@ WORKDIR /root/
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && apt-get update \
+    && apt-get -y upgrade \
     && apt-get install -y --no-install-recommends \
+        ca-certificates \
         curl \
-        gpg \
-        gpg-agent \
+        gnupg2 \
         netbase \
-        software-properties-common \
+        sudo \
         unzip \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get -y clean
 
-# Install deps
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && curl -L https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh | sh \
     && curl -LsSo vault.zip https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip \
         && unzip vault.zip \
         && mv vault /usr/local/bin \
@@ -28,38 +27,42 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.9.0/vaultenv-0-9-0.deb \
         && dpkg -i vaultenv.deb \
         && rm vaultenv.deb \
-    && curl -Lo geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz \
-        && tar xzf geckodriver.tar.gz -C /usr/local/bin \
-        && rm geckodriver.tar.gz \
+
     && apt-get update \
     && apt-get install --no-install-recommends -y \
-        apache2 autoconf bison \
-        build-essential cron default-libmysqlclient-dev \
-        firefox-esr git jq libapache2-mod-python \
-        libapache2-mod-wsgi liblcms2-dev libffi-dev \
-        libfreetype6-dev libgdbm6 libgdbm-dev \
-        libmagic1 libmariadbclient18 libncurses5-dev \
-        libreadline6-dev libssl-dev libtiff5-dev \
-        libwebp-dev libxml2 libxml2-dev \
-        libxslt1-dev libyaml-dev nodejs npm \
-        python-dev python-idna python-numpy \
-        python-pip python-scipy \
-        python-setuptools python-tk \
-        python-matplotlib redis ruby ruby-dev\
-        sudo tcl8.6-dev tk8.6-dev zlib1g-dev \
-    && python2 -m pip install --upgrade \
-        ansible \
-        pip \
-        setuptools \
-    && python2 -m pip install -r requirements.txt --ignore-installed \
-    && npm install -g \
-    && cp --symbolic-link /root/node_modules/.bin/* /usr/local/bin \
-    && gem install asciidoctor-pdf --pre \
-     && apt-get -y autoremove \
-     && apt-get -y clean \
-     && rm -rf /var/lib/apt/lists/*
+        apache2 \
+        build-essential \
+        cron \
+        default-libmysqlclient-dev \
+        libapache2-mod-wsgi \
+        libmagic1 \
+        nodejs \
+        python \
+        python-dev \
+        redis \
+        ruby \
 
-RUN cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
-    && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
-    && rm -rf \
-        enable_redis_cluster_sessions.diff \
+    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+        && python get-pip.py \
+        && rm get-pip.py \
+    && pip2 install -r requirements.txt \
+
+    && gem install -N asciidoctor-pdf --pre \
+    && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
+
+    && cd front/ \
+        && npm install \
+    && cd ../assets/ \
+        && npm install \
+    && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
+        && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
+
+    && apt-get remove -y --purge build-essential \
+    && apt-get -y autoremove \
+    && apt-get -y clean \
+    && cd /root/ \
+        && rm -rf \
+            Dockerfile \
+            enable_redis_cluster_sessions.diff \
+            requirements.txt \
+            /var/lib/apt/lists/*
