@@ -1,0 +1,39 @@
+:local .severityCircle {
+  width: 65px;
+  float: left;
+  margin-right: 10px;
+}
+
+:local .severityCirclePath {
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+:local .severityCircleTrail {
+  stroke: #D6D6D6;
+}
+
+:local .severityCircleText {
+  font-size: 35px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+:local .severityCircleBg {
+  fill: #D6D6D6;
+}
+
+:local .statusIcon {
+  float: left;
+  margin-right: 10px;
+  padding-top: 25px;
+  font-size: 30px;
+}
+
+:local .highlightedIndicator {
+  font-size: 23px;
+}
+
+:local .container {
+  padding-bottom: 10px;
+}

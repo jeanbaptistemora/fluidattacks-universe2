@@ -11,6 +11,7 @@ import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
+import { FindingHeader } from "./scenes/Dashboard/components/FindingHeader";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
@@ -296,6 +297,25 @@ angular
       welcomeView, [
         "email",
         "username",
+      ],
+    ),
+);
+
+/**
+ * @url: /project/:project/:findingid/
+ * @page: findingcontent.html
+ * @tag: <finding-header/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "findingHeader",
+    react2angular(
+      FindingHeader, [
+        "status",
+        "severity",
+        "openVulns",
+        "reportDate",
       ],
     ),
 );
