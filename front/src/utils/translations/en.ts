@@ -230,6 +230,7 @@ const enTranslations: Map<string, string> = {
       invalid_chars: "File name has invalid characters.",
       modal_env_title: "Add environment information",
       modal_file_title: "Add file",
+      modal_options_content: "What do you want to do with file ",
       modal_options_title: "File options",
       modal_repo_title: "Add repository information",
       no_selection: "You must select an item from the table.",

@@ -18,6 +18,7 @@ import { focusError } from "../../../../utils/forms/events";
 import translate from "../../../../utils/translations/translate";
 
 export interface IFileOptionsModalProps {
+  fileName: string;
   isOpen: boolean;
   onClose(): void;
   onDelete(): void;
@@ -32,6 +33,13 @@ const renderFilesFields: ((props: formProps) => JSX.Element) =
       <React.Fragment>
           <Row>
             <Col md={12}>
+              <label>
+                {translate.t("search_findings.tab_resources.modal_options_content")}
+                <b>{props.fileName}</b>?
+              </label>
+            </Col>
+            <Col md={12}>
+              <br />
               <Col md={4} mdOffset={2} sm={6}>
                 <Button
                   id="removeFiles"

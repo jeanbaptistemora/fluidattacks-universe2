@@ -431,6 +431,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
         onSubmit={onSubmitFunction}
       />
       <FileOptionsModal
+        fileName={props.optionsModal.rowInfo.fileName}
         isOpen={props.optionsModal.open}
         onClose={(): void => { store.dispatch(actions.closeOptionsModal()); }}
         onSubmit={onSubmitFunction}
