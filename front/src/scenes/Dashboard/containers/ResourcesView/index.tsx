@@ -301,6 +301,13 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                     title={translate.t("search_findings.tab_resources.repositories_title")}
                   />
                 </Col>
+                <Col md={12}>
+                  <br />
+                  <label style={{fontSize: "15px"}}>
+                    <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
+                    {props.repositoriesDataset.length}
+                  </label>
+                </Col>
               </Row>
             </Col>
           </Row>
@@ -357,6 +364,13 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                     pageSize={15}
                     title={translate.t("search_findings.tab_resources.environments_title")}
                   />
+                </Col>
+                <Col md={12}>
+                  <br />
+                  <label style={{fontSize: "15px"}}>
+                    <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
+                    {props.environmentsDataset.length}
+                  </label>
                 </Col>
               </Row>
             </Col>
@@ -418,6 +432,13 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                       pageSize={15}
                       title={translate.t("search_findings.tab_resources.files_title")}
                     />
+                  </Col>
+                  <Col md={12}>
+                    <br />
+                    <label style={{fontSize: "15px"}}>
+                      <b>{translate.t("search_findings.tab_resources.total_files")}</b>
+                      {props.filesDataset.length}
+                    </label>
                   </Col>
                 </Row>
               </Col>

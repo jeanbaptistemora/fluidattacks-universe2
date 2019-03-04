@@ -242,6 +242,9 @@ const esTranslations: Map<string, string> = {
       repository: "URL Repositorio",
       success: "Ítem agregado exitosamente.",
       success_remove: "Ítem eliminado exitosamente.",
+      total_envs: "Total ambientes: ",
+      total_files: "Total archivos: ",
+      total_repos: "Total repositorios: ",
     },
     tab_severity: {
       authentication: "Autenticación",

@@ -240,6 +240,9 @@ const enTranslations: Map<string, string> = {
       repository: "Repository URL",
       success: "Item added successfully.",
       success_remove: "Item removed successfully.",
+      total_envs: "Total environments: ",
+      total_files: "Total files: ",
+      total_repos: "Total repositories: ",
     },
     tab_severity: {
       authentication: "Authentication",
