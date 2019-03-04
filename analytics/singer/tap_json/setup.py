@@ -1,18 +1,29 @@
-"""Package setup file.
-"""
+#!/usr/bin/env python3
+"""Package setup file."""
 
+import os
 import setuptools
 
-setuptools.setup(
-    name="tap_json",
-    version="1.0.0",
-    description="Singer tap for a JSON stream",
 
-    author="Fluid Attacks; We hack your software.",
+def read(file_name: str) -> str:
+    """Read a file as a string."""
+    return open(os.path.join(os.path.dirname(__file__), file_name)).read()
+
+
+setuptools.setup(
+    version="1.0.0",
+    name="tap_json",
     url="https://fluidattacks.com/",
 
-    py_modules=[
-    ],
+    author="Fluid Attacks",
+    author_email="kamado@fluidattacks.com",
+    maintainer="Kevin Amado",
+    maintainer_email="kamado@fluidattacks.com",
+
+    description="Singer tap for a generic JSON stream.",
+    long_description=read("README.md"),
+
+    python_requires=">=3.7",
 
     install_requires=[
     ],
@@ -25,4 +36,17 @@ setuptools.setup(
     packages=[
         "tap_json"
     ],
+
+    py_modules=[
+    ],
+
+    license="GPL",
+    keywords="JSON",
+    classifiers=[
+        "Topic :: Database",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "License :: OSI Approved :: GNU General Public License (GPL)",
+    ],
+    zip_safe=False,
 )
