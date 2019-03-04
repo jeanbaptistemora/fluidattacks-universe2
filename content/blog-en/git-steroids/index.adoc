@@ -382,11 +382,13 @@ for a commit message
 | Change doc style
 |===
 
-Where +perf+ is performance,
-+infra+ is infrastructure,
-+config+ is configuration,
-+doc+ is documentation,
-and +NA+ is not applicable.
+Where:
+
+* +perf+ is performance.
+* +infra+ is infrastructure.
+* +config+ is configuration.
+* +doc+ is documentation.
+* +NA+ is not applicable.
 
 === Differences with pure AngularJS syntax
 
@@ -536,13 +538,88 @@ Notice how +Commitlint+ tells the programmer
 that all checks passed
 and proceeds to accept the commit.
 
+== A little bit of Data Analytics
+
+Now that we have defined a commit message syntax,
+I would like to show you
+a few very simple link:https://chartio.com/[+Chartio+] charts
+we are now able to generate
+from our link:https://gitlab.com/fluidattacks/integrates[Integrates] repository:
+
+=== Pie chart of monthly commit types for February, 2019
+
+.Monthly commit types for February, 2019
+image::types-chart.png["Monthly commit types"]
+
+This chart allows us to know
+the percentage of commits
+for every type in a month.
+
+One possible interpretation can be:
+
+During February, 2019,
+out of 132 commits, 39.4% of them (52)
+had developing a new feature as their purpose.
+
+=== Pie chart of monthly commit scopes for February, 2019
+
+.Monthly commit scopes
+image::scopes-chart.png["Monthly commit scopes"]
+
+This chart allows us to know
+the percentage of commits
+for every scope in a month.
+
+One possible interpretation can be:
+
+During February, 2019,
+out of 132 commits, 33.3% of them (44)
+were focused on the front end of the site.
+
+=== Heatmap chart of monthly commit types vs scopes for February, 2019
+
+.Monthly commit heatmap
+image::heatmap-chart.png["Monthly commit heatmap"]
+
+This chart allows us to know:
+
+* What type/scope combinations were mostly used.
+* What type/scope combinations were never used.
+* In general, we can get insights about
+what programmers did and where they did it.
+
+One possible interpretation can be:
+
+During February, 2019,
+out of 132 commits, 20 of them were feat(back),
+leading us to think that programmers
+spent a considerable amount of their time
+programming new functionalities
+in the back-end of the site.
+
+=== It doesn't end here
+
+Now that we have a commit message syntax
+and our +Git+ logs are growing everyday,
+it is up to us to think what we want to do
+with the normalized data we're getting.
+
+Many different charts and analysis can be done,
+it is just a matter of asking ourselves:
+
+. What do we want to know?
+. Can we know it with the data we currently have?
+
+if so, lets make it happen!
+
 == Conclusion
 
 In this article we've covered
 from the importance of +Git+ logs
 to what benefits we can obtain
 by standardizing our commit message syntax
-and implementing tools for checks like +Commitlint+.
+and implementing tools for checks like +Commitlint+,
+being Data Analytics the most important one.
 
 I invite you to check the commit history
 of our public repositories:
