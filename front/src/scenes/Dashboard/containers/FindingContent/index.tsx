@@ -2,10 +2,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { BrowserRouter, Link, Route } from "react-router-dom";
-import store from "../../../../store/index";
+import { Link, Route, Switch } from "react-router-dom";
 import translate from "../../../../utils/translations/translate";
 import { commentsView as CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
@@ -81,52 +78,62 @@ const renderObservations: (() => JSX.Element) = (): JSX.Element => {
   return <CommentsView type="observation" findingId={findingId} />;
 };
 
-const findingContent: React.SFC = (): JSX.Element => (
-  <React.StrictMode>
-    <div className={style.mainContainer}>
-      <Row>
-        <Col md={12} sm={12}>
-          <BrowserRouter basename={"/integrates/dashboard#!/project"}>
+interface IRouterProps {
+  match: {
+    params: { [key: string]: string };
+  };
+}
+
+type IFindingContentProps = IRouterProps & {};
+
+const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
+  const { findingId, projectName } = props.match.params;
+
+  return (
+    <React.StrictMode>
+      <div className={style.mainContainer}>
+        <Row>
+          <Col md={12} sm={12}>
             <React.Fragment>
               <ul className={`${style.tabsContainer} pills-tabs`}>
                 <li id="infoItem" className={style.tab}>
-                  <Link to="description" aria-expanded="false">
+                  <Link to={`/project/${projectName}/${findingId}/description`} aria-expanded="false">
                     <i className="icon s7-note2" />
                     &nbsp;{translate.t("search_findings.tab_description.tab_title")}
                   </Link>
                 </li>
                 <li id="cssv2Item" className={style.tab}>
-                  <Link to="severity" aria-expanded="false">
+                  <Link to={`/project/${projectName}/${findingId}/severity`} aria-expanded="false">
                     <i className="icon s7-calculator" />
                     &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
                   </Link>
                 </li>
                 <li id="evidenceItem" className={style.tab}>
-                  <Link to="evidence">
+                  <Link to={`/project/${projectName}/${findingId}/evidence`}>
                     <i className="icon s7-photo" />
                     &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
                   </Link>
                 </li>
                 <li id="exploitItem" className={style.tab}>
-                  <Link to="exploit">
+                  <Link to={`/project/${projectName}/${findingId}/exploit`}>
                     <i className="icon s7-file" />
                     &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
                   </Link>
                 </li>
                 <li id="trackingItem" className={style.tab}>
-                  <Link to="tracking" aria-expanded="true">
+                  <Link to={`/project/${projectName}/${findingId}/tracking`} aria-expanded="true">
                     <i className="icon s7-graph1" />
                     &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
                   </Link>
                 </li>
                 <li id="recordsItem" className={style.tab}>
-                  <Link to="records" aria-expanded="true">
+                  <Link to={`/project/${projectName}/${findingId}/records`} aria-expanded="true">
                     <i className="icon s7-notebook" />
                     &nbsp;{translate.t("search_findings.tab_records.tab_title")}
                   </Link>
                 </li>
                 <li id="commentItem" className={style.tab}>
-                  <Link to="comments">
+                  <Link to={`/project/${projectName}/${findingId}/comments`}>
                     <i className="icon s7-comment" />
                     &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
                   </Link>
@@ -134,7 +141,7 @@ const findingContent: React.SFC = (): JSX.Element => (
                 {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
                 {_.includes(["admin", "analyst"], (window as Window & { userRole: string }).userRole) ?
                   <li id="observationsItem" className={style.tab}>
-                    <Link to="observations">
+                    <Link to={`/project/${projectName}/${findingId}/observations`}>
                       <i className="icon s7-note" />
                       &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
                     </Link>
@@ -142,25 +149,24 @@ const findingContent: React.SFC = (): JSX.Element => (
                   : undefined}
               </ul>
 
-              <Provider store={store}>
-                <div className={style.tabContent}>
-                  <Route path="/:proj/:fin/description" render={renderDescription} />
-                  <Route path="/:proj/:fin/severity" render={renderSeverity} />
-                  <Route path="/:proj/:fin/evidence" render={renderEvidence} />
-                  <Route path="/:proj/:fin/exploit" render={renderExploit} />
-                  <Route path="/:proj/:fin/tracking" render={renderTracking} />
-                  <Route path="/:proj/:fin/records" render={renderRecords} />
-                  <Route path="/:proj/:fin/comments" render={renderComments} />
-                  <Route path="/:proj/:fin/observations" render={renderObservations} />
-                </div>
-              </Provider>
+              <div className={style.tabContent}>
+                <Switch>
+                  <Route path="/project/:projectName/:findingId(\d+)/description" render={renderDescription} />
+                  <Route path="/project/:projectName/:findingId(\d+)/severity" render={renderSeverity} />
+                  <Route path="/project/:projectName/:findingId(\d+)/evidence" render={renderEvidence} />
+                  <Route path="/project/:projectName/:findingId(\d+)/exploit" render={renderExploit} />
+                  <Route path="/project/:projectName/:findingId(\d+)/tracking" render={renderTracking} />
+                  <Route path="/project/:projectName/:findingId(\d+)/records" render={renderRecords} />
+                  <Route path="/project/:projectName/:findingId(\d+)/comments" render={renderComments} />
+                  <Route path="/project/:projectName/:findingId(\d+)/observations" render={renderObservations} />
+                </Switch>
+              </div>
             </React.Fragment>
-          </BrowserRouter>
-        </Col>
-      </Row>
-    </div>
-  </React.StrictMode>
-);
+          </Col>
+        </Row>
+      </div>
+    </React.StrictMode>
+  );
+};
 
-mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
-ReactDOM.render(React.createElement(findingContent), document.getElementById("root"));
+export { findingContent as FindingContent };

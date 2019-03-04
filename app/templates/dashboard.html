@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="assets/node_modules/jquery-comments_brainkit/css/jquery-comments.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="assets/dashboard/main-style.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/dashboard/finding-style.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/dashboard/dashboard-style.min.css" type="text/css">
     <script src="assets/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="assets/amaretti/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.min.js" type="text/javascript"></script>
 
@@ -60,7 +60,7 @@
     var Organization = "{{ request.session.company }}";
     var userName = "{{ request.session.first_name }} {{ request.session.last_name }}";
     function goDash(){
-      location = BASE.url + "dashboard#/home";
+      location = BASE.url + "dashboard#!/home";
     }
     function goSearch(){
       location = BASE.url + "dashboard#!/project";
@@ -129,7 +129,7 @@
       </div>
       <div class="am-content">
         <div ui-view></div>
-        <div id="root" style="display: none"/>
+        <div id="root"/>
       </div>
     </div>
     <preloader/>
@@ -231,7 +231,7 @@
     <script src="assets/app/controllers/findingContentCtrl.js" type="text/javascript"></script>
     <script src="assets/app/controllers/eventContentCtrl.js" type="text/javascript"></script>
     <script src="assets/app/controllers/formCtrl.js" type="text/javascript"></script>
-    <script src="assets/dashboard/finding-bundle.min.js" type="text/javascript"></script>
+    <script src="assets/dashboard/dashboard-bundle.min.js" type="text/javascript"></script>
     <script src="assets/dashboard/main-bundle.min.js" type="text/javascript"></script>
     <script src="https://rum-static.pingdom.net/pa-5ae7406129ccc50006000057.js" async></script>
     {% csrf_token %}

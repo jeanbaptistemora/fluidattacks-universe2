@@ -128,28 +128,6 @@ angular.module("FluidIntegrates").config((
     });
 });
 
-/*
- * Hack: Let angular handle findingContent visibility
- *
- * This is necessary while we migrate the rest of
- * the dashboard in favor of compatibility
- * between react-router and angular's ui-router
- */
-const bindRouteChange = ($rootScope) => {
-  const changeEvt = $rootScope.$on("$stateChangeSuccess", (event, toState) => {
-    if (toState.controller === "findingContentCtrl") {
-      angular.element("#root").show();
-    }
-    else {
-      angular.element("#root").hide();
-    }
-  });
-  $rootScope.$on("$destroy", changeEvt);
-};
-angular.module("FluidIntegrates").run(($rootScope) => {
-  bindRouteChange($rootScope);
-});
-
 angular.module("FluidIntegrates").config(($sceDelegateProvider) => {
   $sceDelegateProvider.resourceUrlWhitelist([
     "self",
