@@ -67,7 +67,7 @@ angular.module("FluidIntegrates", [
 angular.module("FluidIntegrates").config([
   "RollbarProvider",
   function initRollbar (RollbarProvider) {
-    const isProduction = location.toString().indexOf("localhost:8000") === -1;
+    const isProduction = location.toString().indexOf("localhost") === -1;
     let fiEnvironment = "production";
     if (location.toString().
       indexOf(".integrates.env.fluidattacks.com") !== -1) {
