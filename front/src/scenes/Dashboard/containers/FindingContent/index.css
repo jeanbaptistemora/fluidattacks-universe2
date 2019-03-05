@@ -46,3 +46,7 @@
   padding: 1px 35px 0 35px;
   background-color: white;
 }
+
+:local .active {
+  background-color: #EEEEEE !important;
+}

@@ -230,7 +230,6 @@ findingContentCtrl (
     $scope.view = {};
     $scope.view.project = false;
     $scope.view.finding = false;
-    $scope.currentTab = "description";
     // Route parameters
     if (angular.isDefined(findingId)) {
       $scope.findingId = findingId;
@@ -248,43 +247,6 @@ findingContentCtrl (
     const org = Organization.toUpperCase();
     const projt = projectName.toUpperCase();
     functionsFtry1.alertHeader(org, projt);
-    const idF = $scope.finding.id;
-    if ($window.location.hash.indexOf("description") !== -1) {
-      $scope.currentTab = "description";
-      functionsFtry2.activeTab("#info", "FindingDescription", org, projt, idF);
-    }
-    if ($window.location.hash.indexOf("severity") !== -1) {
-      $scope.currentTab = "severity";
-      functionsFtry2.activeTab("#cssv2", "FindingSeverity", org, projt, idF);
-    }
-    if ($window.location.hash.indexOf("tracking") !== -1) {
-      $scope.currentTab = "tracking";
-      functionsFtry2.activeTab("#tracking", "FindingTracking", org, projt, idF);
-    }
-    if ($window.location.hash.indexOf("evidence") !== -1) {
-      $scope.currentTab = "evidence";
-      functionsFtry2.activeTab("#evidence", "FindingEvidence", org, projt, idF);
-    }
-    if ($window.location.hash.indexOf("exploit") !== -1) {
-      $scope.currentTab = "exploit";
-      functionsFtry2.activeTab(
-        "#exploit", "FindingExploit",
-        org, projt, idF
-      );
-    }
-    if ($window.location.hash.indexOf("records") !== -1) {
-      $scope.currentTab = "records";
-      functionsFtry2.activeTab("#records", "FindingRecords", org, projt, idF);
-    }
-    if ($window.location.hash.indexOf("comments") !== -1) {
-      $scope.currentTab = "comments";
-      functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);
-    }
-    if ($window.location.hash.indexOf("observations") !== -1) {
-      $scope.currentTab = "observations";
-      functionsFtry2.
-        activeTab("#observations", "FindingObservations", org, projt, idF);
-    }
   };
   $scope.init();
 });
