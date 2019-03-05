@@ -10,16 +10,15 @@ import React from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
+import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
-import ConfirmDialog from "../../../../components/ConfirmDialog/index";
 import store from "../../../../store/index";
 import { castFields } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
-import { openConfirmDialog } from "../../actions";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm/index";
 import * as actions from "./actions";
@@ -61,7 +60,7 @@ export interface ISeverityViewProps {
     userInteraction: string;
   };
   findingId: string;
-  formValues: { editSeverity: { values: ISeverityViewProps["dataset"] & { cvssVersion: string } }};
+  formValues: { editSeverity: { values: { cvssVersion: string } } };
   isEditing: boolean;
 }
 
@@ -98,7 +97,7 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
       ?
       <Row>
         <Col md={2} mdOffset={10} xs={12} sm={12}>
-          <Button bsStyle="success" block={true} type="submit">
+          <Button bsStyle="success" block={true} type="submit" onClick={(): void => { submit("editSeverity"); }}>
             <Glyphicon glyph="repeat" /> {translate.t("search_findings.tab_severity.update")}
           </Button>
         </Col>
@@ -108,8 +107,9 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
   </Row>
 );
 
-const renderCVSS2Fields: ((props: ISeverityViewProps) => JSX.Element[]) = (props: ISeverityViewProps): JSX.Element[] =>
-  castFields(props.dataset, props.cvssVersion)
+const renderCVSSFields: ((props: ISeverityViewProps, cvssVersion: ISeverityViewProps["cvssVersion"]) => JSX.Element[]) =
+  (props: ISeverityViewProps, cvssVersion: ISeverityViewProps["cvssVersion"]): JSX.Element[] =>
+  castFields(props.dataset, cvssVersion)
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
         const text: string = field.options[value];
@@ -137,37 +137,40 @@ const renderCVSS2Fields: ((props: ISeverityViewProps) => JSX.Element[]) = (props
         );
       });
 
-const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (props: ISeverityViewProps): JSX.Element => (
-  <React.Fragment>
-    {props.canEdit ? renderEditPanel(props) : undefined}
-    {props.isEditing
-        ?
-        <Row className={style.row}>
-          <EditableField
-            alignField="horizontal"
-            component={dropdownField}
-            currentValue={props.cvssVersion}
-            label={translate.t("search_findings.tab_severity.cvss_version")}
-            name="cvssVersion"
-            renderAsEditable={props.isEditing}
-            validate={[required]}
-          >
-            <option value="" selected={true} />
-            <option value="2">2</option>
-          </EditableField>
-        </Row>
-        : undefined
-      }
-    { props.cvssVersion === "2"
-      ? renderCVSS2Fields(props)
-      : undefined
-    }
-    <Row className={style.row}>
-      <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Temporal</b></label></Col>
-      <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.criticity}</p></Col>
-    </Row>
-  </React.Fragment>
-);
+const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (props: ISeverityViewProps): JSX.Element => {
+  const cvssVersion: string = (props.isEditing)
+    ? props.formValues.editSeverity.values.cvssVersion
+    : props.cvssVersion;
+
+  return (
+    <React.Fragment>
+      {props.canEdit ? renderEditPanel(props) : undefined}
+      <Row className={style.row}>
+        <EditableField
+          alignField="horizontal"
+          component={dropdownField}
+          currentValue={props.cvssVersion}
+          label={translate.t("search_findings.tab_severity.cvss_version")}
+          name="cvssVersion"
+          renderAsEditable={props.isEditing}
+          validate={[required]}
+          visible={props.isEditing}
+        >
+          <option value="" selected={true} />
+          <option value="2">2</option>
+        </EditableField>
+      </Row>
+      {renderCVSSFields(props, cvssVersion)}
+      <Row className={style.row}>
+        {cvssVersion === "3"
+          ? <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v3 Temporal</b></label></Col>
+          : <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Temporal</b></label></Col>
+        }
+        <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.criticity}</p></Col>
+      </Row>
+    </React.Fragment>
+  );
+};
 
 export const component: React.SFC<ISeverityViewProps> =
   (props: ISeverityViewProps): JSX.Element => (
@@ -177,7 +180,17 @@ export const component: React.SFC<ISeverityViewProps> =
         <GenericForm
           name="editSeverity"
           initialValues={{...props.dataset, ...{cvssVersion: props.cvssVersion}}}
-          onSubmit={(): void => { store.dispatch(openConfirmDialog("confirmEditSeverity")); }}
+          onSubmit={(values: ISeverityViewProps["dataset"] & { cvssVersion: string }): void => {
+                const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+                  store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+                );
+
+                thunkDispatch(actions.updateSeverity(
+                  props.findingId,
+                  values,
+                  props.criticity,
+                ));
+              }}
           onChange={(values: {}): void => {
                 store.dispatch(actions.calcCVSSv2(values as ISeverityViewProps["dataset"]));
               }}
@@ -186,30 +199,16 @@ export const component: React.SFC<ISeverityViewProps> =
         </GenericForm>
         </Col>
       </Row>
-
-      <ConfirmDialog
-        name="confirmEditSeverity"
-        title={translate.t("confirmmodal.title_cvssv2")}
-        onProceed={(): void => {
-          const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-            store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-          );
-
-          thunkDispatch(actions.updateSeverity(
-            props.findingId,
-            props.formValues.editSeverity.values,
-            props.criticity,
-          ));
-        }}
-      />
     </React.StrictMode>
   );
+
+const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editSeverity");
 
 export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrapper(
   enhance(component) as React.SFC<ISeverityViewProps>,
   (state: StateType<Reducer>): ISeverityViewProps => ({
     ...state.dashboard.severity,
-    formValues: state.form,
+    formValues: { editSeverity: { values: { cvssVersion: fieldSelector(state, "cvssVersion") } } },
     isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
   }),
 );
