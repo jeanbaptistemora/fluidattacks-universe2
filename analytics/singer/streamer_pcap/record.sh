@@ -17,6 +17,7 @@ function print_error() {
   echo "Error:"
   echo "  $1"
   echo ""
+  print_tutorial
   exit 1
 }
 

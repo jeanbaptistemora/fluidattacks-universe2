@@ -6,7 +6,7 @@ import json
 import argparse
 import datetime
 
-from typing import Iterator, Any
+from typing import Iterator, List, Any
 
 import yaml
 import scapy.all
@@ -70,15 +70,19 @@ def stream_it(name: str, json_obj: JSON) -> JSON:
     print(packed_for_tap_json_str)
 
 
-def stream_packets(file: str) -> None:
+def stream_packets(
+        file_path: str,
+        kwargs_list: List[str]) -> None:
     """Dump to JSON the pcap."""
-    packets = scapy.all.rdpcap(file)
+    packets = scapy.all.rdpcap(file_path)
     for packet_object in packets:
-        packet_encoded = stream_packets__encode(packet_object)
+        packet_encoded = stream_packets__encode(packet_object, kwargs_list)
         stream_it("packets", packet_encoded)
 
 
-def stream_packets__encode(packet: PACKET) -> str: # noqa
+def stream_packets__encode( # noqa
+        packet: PACKET,
+        kwargs_list: List[str]) -> str:
     """Encode a packet object into a JSON."""
     # Control flow
     level: int = 0
@@ -101,6 +105,10 @@ def stream_packets__encode(packet: PACKET) -> str: # noqa
     re_list_list_header = re.compile(r"^\|\|###\[(.*)\]###$")
     re_list_list_flag = re.compile(r"^\|\\(.*)\\$")
     re_list_list_body = re.compile(r"^\|\|([^=]*)=(.*)$")
+
+    for key_val in kwargs_list:
+        key, val = key_val.split("=", 1)
+        packet_document += f'{key}: {val}\n'
 
     packet_document += f'packet_time: "{date_from_timestamp(packet.time)}"'
 
@@ -205,10 +213,15 @@ def main():
     parser.add_argument(
         "file",
         help="Packet Capture file.")
+    parser.add_argument(
+        "--kwarg",
+        action='append',
+        help="Aditional metadata to append on every packet.",
+        dest="kwargs_list")
     args = parser.parse_args()
 
     # stream the packets in the pcap file
-    stream_packets(args.file)
+    stream_packets(args.file, args.kwargs_list)
 
 
 if __name__ == "__main__":
