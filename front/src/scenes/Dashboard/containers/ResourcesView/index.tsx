@@ -287,6 +287,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                         isDate: false,
                         isStatus: false,
                         width: "70%",
+                        wrapped: true,
                       },
                       {
                         dataField: "branch",
@@ -294,6 +295,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                         isDate: false,
                         isStatus: false,
                         width: "30%",
+                        wrapped: true,
                       },
                     ]}
                     id="tblRepositories"
@@ -358,6 +360,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                         header: translate.t("search_findings.environment_table.environment"),
                         isDate: false,
                         isStatus: false,
+                        wrapped: true,
                       },
                     ]}
                     id="tblEnvironments"
@@ -412,6 +415,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                           isDate: false,
                           isStatus: false,
                           width: "25%",
+                          wrapped: true,
                         },
                         {
                           dataField: "description",
@@ -419,6 +423,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                           isDate: false,
                           isStatus: false,
                           width: "50%",
+                          wrapped: true,
                         },
                         {
                           dataField: "uploadDate",
@@ -426,6 +431,7 @@ export const component: React.StatelessComponent<IResourcesViewProps> =
                           isDate: false,
                           isStatus: false,
                           width: "25%",
+                          wrapped: true,
                         },
                       ]}
                       id="tblFiles"
