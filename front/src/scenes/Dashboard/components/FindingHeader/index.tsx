@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import CircularProgressbar, { ProgressbarClasses } from "react-circular-progressbar";
@@ -11,7 +10,7 @@ interface IFindingHeaderProps {
   openVulns: number;
   reportDate: string;
   severity: number;
-  status: "Abierto" | "Cerrado";
+  status: "Abierto" | "Cerrado" | "Default";
 }
 
 const severityConfigs: { [level: string]: { color: string; text: string } } = {
@@ -29,8 +28,7 @@ const statusConfigs: { [level: string]: { color: string; icon: string; text: str
 const findingHeader: React.SFC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {
   const severityLevel: "HIGH" | "MED" | "LOW" = props.severity > 6.9 ? "HIGH" : props.severity > 3.9 ? "MED" : "LOW";
   const { color: severityColor, text: severityText } = severityConfigs[severityLevel];
-  const { color: statusColor, icon: statusIcon, text: statusText } =
-    statusConfigs[_.isUndefined(props.status) ? "Default" : props.status];
+  const { color: statusColor, icon: statusIcon, text: statusText } = statusConfigs[props.status];
   const severityStyles: ProgressbarClasses = {
     background: style.severityCircleBg,
     path: style.severityCirclePath,

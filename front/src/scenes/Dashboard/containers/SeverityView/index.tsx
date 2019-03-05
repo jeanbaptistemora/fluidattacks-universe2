@@ -87,7 +87,14 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
   <Row>
     <Row>
       <Col md={2} mdOffset={10} xs={12} sm={12}>
-        <Button bsStyle="primary" block={true} onClick={(): void => { store.dispatch(actions.editSeverity()); }}>
+        <Button
+          bsStyle="primary"
+          block={true}
+          onClick={(): void => {
+            store.dispatch(actions.editSeverity());
+            store.dispatch(actions.calcCVSSv2(props.dataset));
+          }}
+        >
           <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
         </Button>
       </Col>

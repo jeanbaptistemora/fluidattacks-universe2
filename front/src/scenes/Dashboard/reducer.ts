@@ -7,6 +7,7 @@ import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
+import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as indicatorsActions from "./containers/IndicatorsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
@@ -25,6 +26,11 @@ export interface IDashboardState {
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
     name: string;
+  };
+  finding: {
+    openVulns: number;
+    reportDate: string;
+    status: "Abierto" | "Cerrado" | "Default";
   };
   indicators: {
     addModal: {
@@ -118,6 +124,11 @@ const initialState: IDashboardState = {
   },
   fileInput: {
     name: "",
+  },
+  finding: {
+    openVulns: 0,
+    reportDate: "-",
+    status: "Default",
   },
   indicators: {
     addModal: {
@@ -609,6 +620,13 @@ actionMap[descriptionActions.CLEAR_EVIDENCE] =
     ({
       ...state,
       description: initialState.description,
+    });
+
+actionMap[findingActions.LOAD_FINDING] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      finding: action.payload,
     });
 
 type DashboardReducer = ((

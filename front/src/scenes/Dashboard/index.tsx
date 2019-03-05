@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import store from "../../store/index";
-import { FindingContent } from "./containers/FindingContent";
+import FindingContent from "./containers/FindingContent";
 
 const dashboardView: React.SFC = (): JSX.Element => (
   <React.StrictMode>

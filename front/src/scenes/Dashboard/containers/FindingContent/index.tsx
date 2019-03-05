@@ -2,8 +2,12 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
+import { FindingHeader } from "../../components/FindingHeader";
+import { IDashboardState } from "../../reducer";
 import { commentsView as CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { evidenceView as EvidenceView } from "../EvidenceView/index";
@@ -11,18 +15,41 @@ import { exploitView as ExploitView } from "../ExploitView/index";
 import { recordsView as RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
+import { loadFindingData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
 const reduxProps: any = {};
 
-interface IRouteProps {
+interface IFindingContentBaseProps {
+  // Route props
   match: {
     params: { [key: string]: string };
   };
 }
 
-type IFindingContentProps = IRouteProps & {};
+interface IFindingContentStateProps {
+  header: {
+    openVulns: number;
+    reportDate: string;
+    severity: number;
+    status: "Abierto" | "Cerrado" | "Default";
+  };
+}
+
+interface IFindingContentDispatchProps {
+  loadFinding(): void;
+}
+
+type IFindingContentProps = IFindingContentBaseProps & (IFindingContentStateProps & IFindingContentDispatchProps);
+
+const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, {}>({
+  componentDidMount(): void {
+    const { loadFinding } = this.props;
+
+    loadFinding();
+  },
+});
 
 const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
@@ -75,6 +102,8 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
+              <div className={style.stickyContainer}>
+              <FindingHeader {...props.header} />
               <ul className={style.tabsContainer}>
                 <li id="infoItem" className={style.tab}>
                   <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/description`}>
@@ -128,6 +157,7 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
                   </li>
                   : undefined}
               </ul>
+              </div>
 
               <div className={style.tabContent}>
                 <Switch>
@@ -149,4 +179,22 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
   );
 };
 
-export { findingContent as FindingContent };
+interface IState { dashboard: IDashboardState; }
+const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingContentBaseProps, IState> =
+  (state: IState): IFindingContentStateProps => ({
+    header: {
+      openVulns: state.dashboard.finding.openVulns,
+      reportDate: state.dashboard.finding.reportDate,
+      severity: state.dashboard.severity.criticity,
+      status: state.dashboard.finding.status,
+    },
+  });
+
+const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
+  (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
+    const { findingId } = ownProps.match.params;
+
+    return ({ loadFinding: (): void => { dispatch(loadFindingData(findingId)); } });
+  };
+
+export = connect(mapStateToProps, mapDispatchToProps)(enhance(findingContent));
