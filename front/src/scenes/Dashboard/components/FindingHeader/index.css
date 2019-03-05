@@ -1,7 +1,5 @@
 :local .severityCircle {
-  width: 65px;
-  float: left;
-  margin-right: 10px;
+  width: 40px;
 }
 
 :local .severityCirclePath {
@@ -14,7 +12,7 @@
 }
 
 :local .severityCircleText {
-  font-size: 35px;
+  font-size: 45px;
   dominant-baseline: middle;
   text-anchor: middle;
 }
@@ -24,10 +22,7 @@
 }
 
 :local .statusIcon {
-  float: left;
-  margin-right: 10px;
-  padding-top: 25px;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 :local .highlightedIndicator {
@@ -35,5 +30,13 @@
 }
 
 :local .container {
-  padding-bottom: 10px;
+  padding-bottom: 8px;
+}
+
+:local .container p {
+  margin-bottom: 0px;
+}
+
+:local .container .headerIcon {
+  text-align: right;
 }

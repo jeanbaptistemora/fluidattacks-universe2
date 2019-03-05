@@ -49,7 +49,7 @@
 
 @media (min-width: 992px) {
   .stickyContainer {
-    padding-top: 8px;
+    padding-top: 5px;
     position: sticky;
     top: 80px;
     z-index: 4;

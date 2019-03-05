@@ -43,33 +43,43 @@ const findingHeader: React.SFC<IFindingHeaderProps> = (props: IFindingHeaderProp
         <Col md={12}>
           <Col md={3}>
             <Row>
-              <CircularProgressbar
-                percentage={props.severity / 10 * 100}
-                text={`${props.severity}`}
-                initialAnimation={true}
-                styles={{ text: { fill: severityColor }, path: { stroke: severityColor } }}
-                classes={severityStyles}
-              />
-              <p>{translate.t("search_findings.severityLabel")}</p>
-              <p className={style.highlightedIndicator}><b>{severityText}</b></p>
+              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+                <CircularProgressbar
+                  percentage={props.severity / 10 * 100}
+                  text={`${props.severity}`}
+                  initialAnimation={true}
+                  styles={{ text: { fill: severityColor }, path: { stroke: severityColor } }}
+                  classes={severityStyles}
+                />
+              </Col>
+              <Col md={9} sm={6} xs={6}>
+                <p>{translate.t("search_findings.severityLabel")}</p>
+                <p className={style.highlightedIndicator}><b>{severityText}</b></p>
+              </Col>
             </Row>
           </Col>
           <Col md={3}>
             <Row>
-              <Glyphicon
-                glyph={statusIcon}
-                bsClass="glyphicon"
-                className={style.statusIcon}
-                style={{ color: statusColor }}
-              />
-              <p>{translate.t("search_findings.statusLabel")}</p>
-              <p className={style.highlightedIndicator}><b>{statusText}</b></p>
+              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+                <Glyphicon
+                  glyph={statusIcon}
+                  bsClass="glyphicon"
+                  className={style.statusIcon}
+                  style={{ color: statusColor }}
+                />
+              </Col>
+              <Col md={9} sm={6} xs={6}>
+                <p>{translate.t("search_findings.statusLabel")}</p>
+                <p className={style.highlightedIndicator}><b>{statusText}</b></p>
+              </Col>
             </Row>
           </Col>
           <Col md={3}>
             <Row>
-              <Col md={3}><img src={vulnerabilitiesIcon} width={65} height={65} /></Col>
-              <Col md={9}>
+              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+                <img src={vulnerabilitiesIcon} width={45} height={45} />
+              </Col>
+              <Col md={9} sm={6} xs={6}>
                 <p>{translate.t("search_findings.openVulnsLabel")}</p>
                 <p className={style.highlightedIndicator}>{props.openVulns}</p>
               </Col>
@@ -77,8 +87,10 @@ const findingHeader: React.SFC<IFindingHeaderProps> = (props: IFindingHeaderProp
           </Col>
           <Col md={3}>
             <Row>
-              <Col md={3}><img src={calendarIcon} width={65} height={65} /></Col>
-              <Col md={9}>
+              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+                <img src={calendarIcon} width={40} height={40} />
+              </Col>
+              <Col md={9} sm={6} xs={6}>
                 <p>{translate.t("search_findings.reportDateLabel")}</p>
                 <p className={style.highlightedIndicator}>{props.reportDate}</p>
               </Col>
