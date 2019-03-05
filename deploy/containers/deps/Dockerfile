@@ -59,10 +59,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
      && apt-get -y clean \
      && rm -rf /var/lib/apt/lists/*
 
-RUN python /root/patch_socialauth.py \
-    && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
+RUN cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
     && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
     && rm -rf \
-        patch_socialauth.py \
         enable_redis_cluster_sessions.diff \
-        remove_google_plus.diff
