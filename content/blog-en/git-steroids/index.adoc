@@ -1,5 +1,5 @@
 :slug: git-steroids/
-:date: 2019-02-28
+:date: 2019-03-04
 :subtitle: From messy logs to Data Analytics
 :category: documentation
 :tags: git, software, documentation, standard, engineering, business, linters
@@ -574,7 +574,7 @@ One possible interpretation can be:
 
 During February, 2019,
 out of 132 commits, 33.3% of them (44)
-were focused on the front end of the site.
+were focused on the back-end of the site.
 
 === Heatmap chart of monthly commit types vs scopes for February, 2019
 
@@ -597,7 +597,7 @@ spent a considerable amount of their time
 programming new functionalities
 in the back-end of the site.
 
-=== It doesn't end here
+=== It does not end here
 
 Now that we have a commit message syntax
 and our +Git+ logs are growing everyday,
