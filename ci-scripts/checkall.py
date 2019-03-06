@@ -5,12 +5,9 @@
 Script to check if defined rules are strictly applied
 Replaces check-all.sh
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.3
-Patch notes 1.3:
-- Added spell checker linter
-- Using Python3
-- Fixed bugs in artchecker call
-- Using only one EXIT_CODE
+Version 1.4
+Patch notes 1.4:
+- Check fails if branch is behind master
 """
 import os
 import sys
@@ -36,9 +33,16 @@ if len(sys.argv) == 2 and sys.argv[1] == 'changes':
   REMOTE = os.popen('git rev-list --count --no-merges origin/master').read()
   LOCAL = os.popen('git rev-list --count --no-merges '+BRANCH[0]).read()
   NCOMMITS = str(int(LOCAL) - int(REMOTE))
-  print_helper.print_warning('Number of commits: '+NCOMMITS+'\n')
-  CHANGES = os.popen('git diff HEAD~'+NCOMMITS+' --name-only').read()
-  CHANGES = CHANGES.split()
+  #Check if branch is updated
+  if int(NCOMMITS) < 1:
+    print_helper.print_warning("Your current branch is behind master. ")
+    print_helper.print_warning("Update your local repo and try again.\n")
+    CHANGES = ''
+    EXIT_CODE = 1
+  else:
+    print_helper.print_warning('Number of commits: '+NCOMMITS+'\n')
+    CHANGES = os.popen('git diff HEAD~'+NCOMMITS+' --name-only').read()
+    CHANGES = CHANGES.split()
 
   for FILE in CHANGES:
     print (FILE)
