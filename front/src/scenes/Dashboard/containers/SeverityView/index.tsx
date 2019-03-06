@@ -14,7 +14,7 @@ import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
-import { castFields } from "../../../../utils/formatHelpers";
+import { castFields, castPrivileges } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
@@ -60,7 +60,15 @@ export interface ISeverityViewProps {
     userInteraction: string;
   };
   findingId: string;
-  formValues: { editSeverity: { values: { cvssVersion: string } } };
+  formValues: {
+    editSeverity: {
+      values: {
+        cvssVersion: string;
+        modifiedSeverityScope: string;
+        severityScope: string;
+      };
+    };
+  };
   isEditing: boolean;
 }
 
@@ -144,10 +152,49 @@ const renderCVSSFields: ((props: ISeverityViewProps, cvssVersion: ISeverityViewP
         );
       });
 
+const renderPrivilegeReq: ((props: ISeverityViewProps, scope: string, modifiedScope: string) => JSX.Element[]) =
+  (props: ISeverityViewProps, scope: string, modifiedScope: string): JSX.Element[] =>
+
+    castPrivileges(props.dataset, scope, modifiedScope)
+        .map((field: ISeverityField, index: number) => {
+        const value: string = field.currentValue;
+        const text: string = field.options[value];
+
+        return (
+          <Row className={style.row} key={index}>
+            <EditableField
+              alignField="horizontal"
+              component={dropdownField}
+              currentValue={`${value} | ${translate.t(text)}`}
+              label={field.title}
+              name={field.name}
+              renderAsEditable={props.isEditing}
+              validate={[required]}
+            >
+              <option value="" selected={true} />
+              {Object.keys(field.options)
+                .map((key: string) => (
+                <option value={`${key}`}>
+                  {translate.t(field.options[key])}
+                </option>
+              ))}
+            </EditableField>
+          </Row>
+        );
+      });
+
 const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (props: ISeverityViewProps): JSX.Element => {
   const cvssVersion: string = (props.isEditing)
     ? props.formValues.editSeverity.values.cvssVersion
     : props.cvssVersion;
+
+  const severityScope: string = (props.isEditing)
+    ? props.formValues.editSeverity.values.severityScope
+    : props.dataset.severityScope;
+
+  const modifiedSeverityScope: string = (props.isEditing)
+    ? props.formValues.editSeverity.values.modifiedSeverityScope
+    : props.dataset.modifiedSeverityScope;
 
   return (
     <React.Fragment>
@@ -168,6 +215,10 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
         </EditableField>
       </Row>
       {renderCVSSFields(props, cvssVersion)}
+      { cvssVersion === "3"
+        ? renderPrivilegeReq(props, severityScope, modifiedSeverityScope)
+        : undefined
+      }
       <Row className={style.row}>
         {cvssVersion === "3"
           ? <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v3 Temporal</b></label></Col>
@@ -215,7 +266,15 @@ export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrappe
   enhance(component) as React.SFC<ISeverityViewProps>,
   (state: StateType<Reducer>): ISeverityViewProps => ({
     ...state.dashboard.severity,
-    formValues: { editSeverity: { values: { cvssVersion: fieldSelector(state, "cvssVersion") } } },
+    formValues: {
+      editSeverity: {
+        values: {
+          cvssVersion: fieldSelector(state, "cvssVersion"),
+          modifiedSeverityScope: fieldSelector(state, "modifiedSeverityScope"),
+          severityScope: fieldSelector(state, "severityScope"),
+        },
+      },
+    },
     isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
   }),
 );

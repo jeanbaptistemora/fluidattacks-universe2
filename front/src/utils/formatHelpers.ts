@@ -333,6 +333,41 @@ export const castFields:
   (dataset: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]): ISeverityField[] =>
   cvssVersion === "3" ? castFieldsCVSS3(dataset) : castFieldsCVSS2(dataset);
 
+export const castPrivileges:
+((dataset: ISeverityViewProps["dataset"], scope: string, modifiedScope: string) => ISeverityField[]) =
+  (dataset: ISeverityViewProps["dataset"], scope: string, modifiedScope: string): ISeverityField[] => {
+    const privilegesRequiredScope: {[value: string]: string} = {
+      0.85: "search_findings.tab_severity.privileges_required_options.none",
+      0.68: "search_findings.tab_severity.privileges_required_options.low",
+      0.5: "search_findings.tab_severity.privileges_required_options.high",
+    };
+    const privilegesRequiredNoScope: {[value: string]: string} = {
+      0.85: "search_findings.tab_severity.privileges_required_options.none",
+      0.62: "search_findings.tab_severity.privileges_required_options.low",
+      0.27: "search_findings.tab_severity.privileges_required_options.high",
+    };
+    const privilegesOptions: {[value: string]: string} = (parseInt(scope, 10) === 1)
+      ? privilegesRequiredScope
+      : privilegesRequiredNoScope;
+    const modifiedPrivilegesOptions: {[value: string]: string} = parseInt(modifiedScope, 10) === 1
+      ? privilegesRequiredScope
+      : privilegesRequiredNoScope;
+
+    const fields: ISeverityField[] = [
+      {
+        currentValue: dataset.privilegesRequired, name: "privilegesRequired",
+        options: privilegesOptions,
+        title: translate.t("search_findings.tab_severity.privileges_required"),
+      },
+      {
+        currentValue: dataset.modifiedPrivilegesRequired, name: "modifiedPrivilegesRequired",
+        options: modifiedPrivilegesOptions,
+        title: translate.t("search_findings.tab_severity.modified_privileges_required"),
+      },
+    ];
+
+    return fields;
+};
 export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string =>
   _.includes(["None", ""], cweId) ? "-" : `https://cwe.mitre.org/data/definitions/${cweId}.html`;
 
