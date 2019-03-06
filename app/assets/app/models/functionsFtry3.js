@@ -43,61 +43,8 @@ angular.module("FluidIntegrates").factory(
 
       "findingHeaderBuilding" ($scope, findingData) {
         $scope.header = {};
-        const cierresHallazgo = $scope.finding.cierres;
-        const cierresTmp = [];
-        for (let cont = 0; cont < cierresHallazgo.length; cont++) {
-          const cierre = cierresHallazgo[cont];
-          cierre.position = cont + 1;
-          cierresTmp.push(cierre);
-        }
-        $scope.finding.cierres = cierresTmp;
         $scope.header.findingTitle = $scope.finding.finding;
-        $scope.header.findingType = $scope.finding.testType;
-        $scope.header.findingRisk = "";
-        $scope.header.findingState = $scope.finding.estado;
-        $scope.header.findingID = $scope.finding.id;
-        $scope.header.findingValue = $scope.finding.criticity;
-        const HIGH_CRITICITY = 7;
-        const MODERATE_CRITICITY = 4;
-        const findingValue = parseFloat($scope.finding.criticity);
-        if (findingValue >= HIGH_CRITICITY) {
-          $scope.header.findingValueDescription =
-               $translate.instant("finding_formstack.criticity_header.high");
-          $scope.header.findingValueColor = $scope.colors.critical;
-        }
-        else if (findingValue >= MODERATE_CRITICITY &&
-               findingValue < HIGH_CRITICITY) {
-          $scope.header.findingValueDescription =
-            $translate.instant("finding_formstack.criticity_header.moderate");
-          $scope.header.findingValueColor = $scope.colors.moderate;
-        }
-        else {
-          $scope.header.findingValueDescription =
-            $translate.instant("finding_formstack.criticity_header.tolerable");
-          $scope.header.findingValueColor = $scope.colors.tolerable;
-        }
-
-        if ($scope.header.findingState === "Abierto" ||
-          $scope.header.findingState === "Open") {
-          $scope.header.findingStateColor = $scope.colors.critical;
-        }
-        else if ($scope.header.findingState === "Parcialmente cerrado" ||
-               $scope.header.findingState === "Partially closed") {
-          $scope.header.findingStateColor = $scope.colors.moderate;
-        }
-        else {
-          $scope.header.findingStateColor = $scope.colors.ok;
-        }
-        $scope.header.releaseDate = "";
-        if ("releaseDate" in $scope.finding) {
-          $scope.header.releaseDate = $scope.finding.releaseDate.split(" ")[0];
-        }
-        $scope.header.findingCount = $scope.finding.openVulnerabilities;
         findingData.header = $scope.header;
-      },
-
-      "loadFindingContent" ($scope) {
-        functionsFtry4.showVulnerabilities($scope);
       }
     };
   }

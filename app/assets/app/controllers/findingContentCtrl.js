@@ -42,20 +42,6 @@ findingContentCtrl (
   projectFtry,
   projectFtry2
 ) {
-  $scope.detectNivel = function detectNivel () {
-    const TIMEOUT = 200;
-    $timeout(() => {
-      $scope.$digest();
-      if ($scope.finding.reportLevel === "DETAILED") {
-        $scope.esDetallado = true;
-        findingData.esDetallado = $scope.esDetallado;
-      }
-      else {
-        $scope.esDetallado = false;
-        findingData.esDetallado = $scope.esDetallado;
-      }
-    }, TIMEOUT);
-  };
   $scope.deleteFinding = function deleteFinding () {
     functionsFtry1.deleteFinding($scope);
   };
@@ -93,7 +79,6 @@ findingContentCtrl (
       else {
         $scope.draftsButton = false;
       }
-      functionsFtry3.loadFindingContent($scope);
     }
     else {
       const req = projectFtry.findingById(
@@ -119,7 +104,6 @@ findingContentCtrl (
           else {
             $scope.draftsButton = false;
           }
-          functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
           $scope.view.project = false;
           $scope.view.finding = true;
@@ -140,23 +124,6 @@ findingContentCtrl (
     }
   };
 
-  $scope.configColorPalette = function configColorPalette () {
-    $scope.colors = {};
-    // Red
-    $scope.colors.critical = "background-color: #f12;";
-    // Orange
-    $scope.colors.moderate = "background-color: #f72;";
-    // Yellow
-    $scope.colors.tolerable = "background-color: #ffbf00;";
-    // Green
-    $scope.colors.ok = "background-color: #008000;";
-  };
-  $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-  $scope.findingVerified = function findingVerified () {
-    functionsFtry1.findingVerified($scope);
-  };
   $scope.goBack = function goBack () {
     $scope.view.project = true;
     $scope.view.finding = false;
@@ -167,44 +134,6 @@ findingContentCtrl (
       {"scrollTop": $scope.currentScrollPosition},
       "fast"
     );
-  };
-  $scope.urlDescription = function urlDescription () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/description`);
-  };
-  $scope.urlSeverity = function urlSeverity () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/severity`);
-  };
-  $scope.urlTracking = function urlTracking () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/tracking`);
-  };
-  $scope.urlEvidence = function urlEvidence () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/evidence`);
-  };
-  $scope.urlExploit = function urlExploit () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/exploit`);
-  };
-  $scope.urlRecords = function urlRecords () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/records`);
-  };
-  $scope.urlComments = function urlComments () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/comments`);
-  };
-  $scope.urlObservations = function urlObservations () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/observations`);
-  };
-  $scope.urlEvents = function urlEvents () {
-    $state.go("ProjectEvents", {"project": $stateParams.project});
-  };
-  $scope.urlUsers = function urlUsers () {
-    $state.go("ProjectUsers", {"project": $scope.project});
   };
 
   $scope.init = function init () {
@@ -239,7 +168,6 @@ findingContentCtrl (
       $scope.project = projectName;
     }
     // Initialization of search findings function
-    $scope.configColorPalette();
     $scope.finding = {};
     $scope.finding.id = $stateParams.id;
     $scope.loadFindingByID($stateParams.id);

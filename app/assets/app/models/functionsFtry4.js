@@ -183,44 +183,6 @@ angular.module("FluidIntegrates").factory(
         }
         $scope.data = datatest;
       },
-      "showVulnerabilities" ($scope, state) {
-        const reqVulnerabilities =
-          projectFtry2.getVulnerabilities($scope.finding.id, state);
-        reqVulnerabilities.then((response) => {
-          if (response.errors) {
-            const {message} = response.errors[0];
-            if (message === "'access'") {
-              location.assign("/index");
-            }
-            else {
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-            }
-          }
-          else if (angular.isDefined(response.data.finding) &&
-              response.data.finding.success) {
-            const findingInfo = response.data.finding;
-            if (findingInfo.openVulnerabilities > 0 ||
-                findingInfo.closedVulnerabilities > 0) {
-              angular.element(".has-vulnerabilities").show();
-              angular.element(".has-old-vulnerabilities").hide();
-              $scope.hasNewVulnerabilities = true;
-            }
-            else {
-              angular.element(".has-old-vulnerabilities").show();
-              angular.element(".has-vulnerabilities").hide();
-              $scope.hasNewVulnerabilities = false;
-            }
-          }
-          else if (response.data.finding.errorMessage === "Error in file") {
-            const errorAc1 = $translate.instant("search_findings." +
-                                              "tab_description.errorFileVuln");
-            $msg.error(errorAc1);
-          }
-          else {
-            $msg.error($translate.instant("proj_alerts.error_textsad"));
-          }
-        });
-      },
       "verifyRoles" ($scope, projectName, userEmail, userRole) {
         const customerAdmin =
                           projectFtry2.isCustomerAdmin(projectName, userEmail);
