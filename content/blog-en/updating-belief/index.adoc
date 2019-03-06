@@ -1,6 +1,6 @@
 :slug: updating-belief/
 :date: 2019-03-5
-:subtitle: How Bayes Rules affects risk
+:subtitle: How Bayes Rule affects risk
 :category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
@@ -26,9 +26,9 @@ Why do we speak of "belief" and not probability here?
 Intuitively, when we have mentioned probabilities,
 we're meaning some belief or measure of uncertainty.
 For example, when giving a confidence interval,
-we say we _believe_ the actual value to be
+we say we _believe_ the actual value is
 between the boundaries of the interval,
-with a certain degree of confidence.
+up to a certain degree of confidence.
 That's a belief.
 When we simulate multiple scenarios in
 link:../monetizing-vulnerabilities[Monte Carlo simulations],
@@ -36,15 +36,7 @@ and finally aggregate the results,
 we're expressing that we believe
 that the loss will be so many millions or larger.
 
-This is the so-called "subjectivist" interpretation of probabilities.
-The opposite school of thought is the "frequentist" approach,
-which states that probabilities are real numbers that exist,
-and are simply the ratio of favorable events vs all the events.
-However for our purposes the subjectivist interpretation,
-and in fact in all of decision analysis,
-is the most suitable.
-
-In science, hypothesis are disproven trough appropriate evidence.
+In science, hypotheses are disproven trough appropriate evidence.
 It should be observable and measurable.
 Similarly, testing in general,
 and link:../../[penetration testing] in particular,
@@ -124,7 +116,8 @@ we also have that
 P(B and R) = P\(R)P(B|R),
 then it is also true that
 
-P(B)P(R|B) = P\(R)P(B|R),
+//$$\rm P(B)P(R\,|\,B) = P(R)P(B\,|\,R)$$
+image:bayes-proof.png[Intermediate step in Bayes rule derivation,width=25%]
 
 which we can use to switch the "condition" in "conditional probability".
 So if we know the probability of an effect being observed
@@ -132,7 +125,8 @@ due to a cause,
 we can find the probability that the cause actually happened
 if we know the probability of the effect being observed:
 
-P(cause | evidence) = P(evidence | cause) P(cause) / P(evidence)
+//P(cause\,|\,evidence) = \frac{P(evidence\,|\,cause)\,P(cause)}{P(evidence)}
+image::bayes-cause-evidence.png[Bayes Rule in terms of cause and evidence,width=47%]
 
 If we think of the first event as the cause
 and the second one as the effect,
@@ -148,7 +142,10 @@ and the probability of observing the evidence
 given the cause, i.e., P(B|R) = 50%.
 Hence
 
-P(first marble red | second marble blue) = 0.5*0.6/0.4 = 3/4 = 75%.
+//P(first marble red | second marble blue) = 0.5*0.6/0.4 = 3/4 = 75%.
+//$$\rm P(first\ marble\ red\,|\,second\ marble\ blue) =
+//\frac{0.5\times0.6}{0.4} = \frac{3}{4} = 75\,\%.$$
+image::first-given-second.png[Application of Bayes to marbles,width=60%]
 
 Notice how the extra piece of information,
 namely that the second marble is blue,
@@ -178,10 +175,10 @@ plus evidence, plus their probabilities.
 
 Consider the following random events:
 
-* _V_: there is a critical vulnerability leading to remote code execution,
-* _A_: suffering a succesful denial of service attack
-  (in a reasonable time period, v.g. a year)
-* _T_: penetration test results are positive,
+* V: there is a critical vulnerability leading to remote code execution,
+* A: suffering a succesful denial of service attack
+  (in a reasonable time period v.g. a year)
+* T: penetration test results are positive,
   indicating the possibility of critical vulnerabilities.
 
 Normally, the chain of events here would be that
@@ -191,7 +188,7 @@ and such a vulnerability might lead to the threat
 Suppose that we know, from the false positive rate,
 the probability of existence of vulnerabilities
 based on a positive and negative pen test, i.e.,
-P(V|T) and P(V| ~T).
+P(V|T) and P(V|&#126;T).
 Here the ~ symbol denotes an event not happening.
 
 Now, the existence of a vulnerability does not
@@ -225,7 +222,6 @@ digraph probtree {
     exv2 [label="V"]
     nex2 [label="~V"]
 
-
     dos [label="A"]
     ndo [label="~A"]
     dos2 [label="A"]
@@ -234,7 +230,6 @@ digraph probtree {
     ndo3 [label="~A"]
     dos4 [label="A"]
     ndo4 [label="~A"]
-
 
     n1 -> ppt [label="1%",fontcolor=blue]
     n1 -> npt
@@ -281,18 +276,22 @@ the probability of an attack would be
 the sum of the probabilities of every branch that ends in attack.
 So P(A) = 1.3% without any additional information.
 
+
 If the pen test is positive,
 what is the probability of being attacked?
 We could fiddle with formulas,
 but we could just look at the subgraph
 after the _T_.
-In that case we have shorter branches ending in _A_:
+In that case we have shorter branches ending in A:
 
-P(A) = 0.95*0.25 + 0.05*0.01 = 23.8%
+//P(A) = 0.95*0.25 + 0.05*0.01 = 23.8%
+//$$\rm P(A\,|\,T) = 0.95\times0.25 + 0.05\times0.01 = 23.8\%.$$
+image::attack-postest.png[Probability of attack computation,width=36%]
 
 What if it is negative?
 
-P(A) = 0.0005*0.25 + 0.9995*0.01 = 1.012%.
+//P(A) = 0.0005*0.25 + 0.9995*0.01 = 1.012%.
+image::attack-negtest.png[Probability of an attack given negative pentest,width=43%]
 
 Whatever its results,
 pentesting gives you more information
@@ -304,17 +303,20 @@ when the test is positive.
 Suppose a year passed,
 and no denial of service attack happened.
 Does that mean there are no vulnerabilities?
-We now the probabilities of attack given the existence of vulnerabilities,
+We know the probabilities of attack given the existence of vulnerabilities,
 but not the other way around.
 First find P(V) by total probability
 (ignoring all the A nodes):
 
-P(V) = 0.01*0.95 + 0.99*0.0005 = 1.0%
+//P(V) = 0.01*0.95 + 0.99*0.0005 = 1.0%
+image::prob-vuln.png[Probability of having vulnerabilities,width=38%]
 
 We already know that P(A) = 1.3%, so P(~A) = 98.7%.
 Finally, by Bayes Rule:
 
-P(V|~A) = P(\~A|V)P(V)/P(~A) = 0.76%.
+//P(V|~A) = P(\~A|V)P(V)/P(~A) = 0.76%.
+//$$\rm P(V\,|\,\sim A) = \frac{P(\sim A\,|\,V)\,P(V)}{P(\sim A)} = 0.76\,\%.$$
+image::cyber-bayes.png[Application of Bayes Rule,width=33%]
 
 ''''
 
