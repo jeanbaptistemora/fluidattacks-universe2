@@ -4,7 +4,7 @@
 :category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
-:alt: New information. Photo by Michał Parzuchowski on Unsplash Credits: https://unsplash.com/photos/GikVY_KS9vQ
+:alt: New information. Photo by M. Parzuchowski on Unsplash: https://unsplash.com/photos/GikVY_KS9vQ
 :description: How to use Bayes rule and basic probability theory to reduce uncertainty, refining initial estimates through evidence. An application to the information provided by a penetration test regarding the probability of having vulnerabilities and suffering its consequences.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
@@ -31,15 +31,15 @@ between the boundaries of the interval,
 up to a certain degree of confidence.
 That's a belief.
 When we simulate multiple scenarios in
-link:../monetizing-vulnerabilities[Monte Carlo simulations],
+link:../monetizing-vulnerabilities[Monte Carlo simulations]
 and finally aggregate the results,
 we're expressing that we believe
 that the loss will be so many millions or larger.
 
 In science, hypotheses are disproven trough appropriate evidence.
 It should be observable and measurable.
-Similarly, testing in general,
-and link:../../[penetration testing] in particular,
+Similarly, testing in general
+--and link:../../[penetration testing] in particular--
 can change our beliefs, that is,
 our initially proposed or _prior_ probabilities,
 based on our very own flavor of evidence.
@@ -60,22 +60,23 @@ and we want to find the probabilities of drawing each kind.
 Let us call R the event of picking a red marble
 and B for blue ones.
 Event B has probability P(B) = 2/5, and P\(R) = 3/5, in principle.
+
 What if now we draw a second marble?
 Now the probabilities of A and B depend on the result
 of the first draw.
 For example, if we're given that the first marble picked was blue,
-then the probability of drawing a red marble is now 3/4,
+then the probability of drawing a red marble is now 3/4
 since now there are only 4 balls altogether.
 This is a _conditional_ probability;
 it is the probability of event B subject to event A happening,
-i.e., if event A is already asumed to happen.
+i.e. if event A is already assumed to happen.
 This situation can be illustrated with a tree diagram like this:
 
 // to be changed into native
 .Probability tree diagram. Via link:https://www.mathsisfun.com/data/probability-events-conditional.html[MathsIsFun]
 image::prob-tree-marbles.png[Probability tree diagram]
 
-From the diagram it should be clear that
+From the diagram, it is clear that
 if we performed the experiment of drawing two
 marbles (in succession, without replacing the first)
 a hundred times, then
@@ -88,7 +89,7 @@ Thus the probability of drawing a blue marble
 followed by a red one is 30%.
 Generalizing,
 the probability of two independent events happening simultaneously is
-the product of their probabilities,
+the product of their probabilities
 since what we did was multiplying the proportions,
 2/5 times 3/4 which makes 3/10.
 Thus P(X and Y) = P(X)P(Y), in general,
@@ -116,8 +117,8 @@ we also have that
 P(B and R) = P\(R)P(B|R),
 then it is also true that
 
-//$$\rm P(B)P(R\,|\,B) = P(R)P(B\,|\,R)$$
-image:bayes-proof.png[Intermediate step in Bayes rule derivation,width=25%]
+//\[ \rm P(B)P(R\,|\,B) = P(R)P(B\,|\,R) \]
+image::bayes-proof.png[Intermediate step in Bayes rule derivation,width=25%]
 
 which we can use to switch the "condition" in "conditional probability".
 So if we know the probability of an effect being observed
@@ -176,7 +177,7 @@ plus evidence, plus their probabilities.
 Consider the following random events:
 
 * V: there is a critical vulnerability leading to remote code execution,
-* A: suffering a succesful denial of service attack
+* A: suffering a successful denial of service attack
   (in a reasonable time period v.g. a year)
 * T: penetration test results are positive,
   indicating the possibility of critical vulnerabilities.
@@ -186,13 +187,13 @@ a positive pen test points to the existence of vulnerabilities,
 and such a vulnerability might lead to the threat
 (in this case, the denial of service) materializing.
 Suppose that we know, from the false positive rate,
-the probability of existence of vulnerabilities
+the probability of the existence of vulnerabilities
 based on a positive and negative pen test, i.e.,
 P(V|T) and P(V|&#126;T).
 Here the ~ symbol denotes an event not happening.
 
 Now, the existence of a vulnerability does not
-necessary imply that the organization _will_ suffer an attack,
+necessarily imply that the organization _will_ suffer an attack
 so we might estimate the probabilities of an attack
 in the case vulnerabilities exist and in the case they don't.
 Let P(A|V) = 25% and P(A|~V) = 1%.
@@ -213,7 +214,7 @@ digraph probtree {
     rankdir=LR;
     size="8,5"
 
-    n1 [label="",shape=none]
+    n1 [label="", shape=none]
     ppt [label="T"]
     npt [label="~T"]
 
@@ -231,31 +232,34 @@ digraph probtree {
     dos4 [label="A"]
     ndo4 [label="~A"]
 
-    n1 -> ppt [label="1%",fontcolor=blue]
+    n1 -> ppt [label="1%", fontcolor=blue]
     n1 -> npt
-    ppt -> exv [label="95%",fontcolor=blue]
+    ppt -> exv [label="95%", fontcolor=blue]
     ppt -> nex
-    exv -> dos [label="25%",fontcolor=blue]
-    pabr1 [label="0.24%",shape=none]
-    dos -> pabr1 [arrowhead = none, style=dotted]
-    exv -> ndo
-    nex -> dos2 [label="1%",fontcolor=blue]
-    pabr2 [label="0.05%",shape=none]
-    dos2 -> pabr2 [arrowhead = none, style=dotted]
 
-    nex -> ndo2
+    subgraph clusterpositive{
+        exv -> dos [label="25%", fontcolor=blue]
+        pabr1 [label="0.24%", shape=none]
+        dos -> pabr1 [arrowhead = none, style=dotted]
+        exv -> ndo
+        nex -> dos2 [label="1%", fontcolor=blue]
+        pabr2 [label="0.05%", shape=none]
+        dos2 -> pabr2 [arrowhead = none, style=dotted]
+        nex -> ndo2
+        color = grey
+        style = dashed
+    }
 
-    npt -> exv2 [label="0.05%",fontcolor=blue]
+    npt -> exv2 [label="0.05%", fontcolor=blue]
     npt -> nex2
-    exv2 -> dos3 [label="25%",fontcolor=blue]
+    exv2 -> dos3 [label="25%", fontcolor=blue]
     pabr3 [label="0.01%", shape=none]
     dos3 -> pabr3 [arrowhead = none, style=dotted]
     exv2 -> ndo3
     nex2 -> ndo4
-    nex2 -> dos4 [label="1%",fontcolor=blue]
+    nex2 -> dos4 [label="1%", fontcolor=blue]
     pabr4 [label="1.00%", shape=none]
     dos4 -> pabr4 [arrowhead = none, style=dotted]
-
 }
 ----
 
@@ -268,21 +272,22 @@ but we chose not to write them
 in the above diagram to keep it tidy.
 
 Recall that the probability of a single branch
-is the product of the probabilities that lead to it,
+is the product of the probabilities that lead to it
 so that P(T~VA) = 0.01*0.05*0.01 = 0.05%
 for the second branch.
 By the total probability theorem above,
 the probability of an attack would be
-the sum of the probabilities of every branch that ends in attack.
+the sum of the probabilities of every branch that ends in an attack.
 So P(A) = 1.3% without any additional information.
 
 
 If the pen test is positive,
 what is the probability of being attacked?
 We could fiddle with formulas,
-but we could just look at the subgraph
-after the _T_.
-In that case we have shorter branches ending in A:
+but it's easier to just look
+at the subtree after the T,
+the part of the tree that is framed above.
+In that case, we have shorter branches ending in A:
 
 //P(A) = 0.95*0.25 + 0.05*0.01 = 23.8%
 //$$\rm P(A\,|\,T) = 0.95\times0.25 + 0.05\times0.01 = 23.8\%.$$
@@ -294,7 +299,7 @@ What if it is negative?
 image::attack-negtest.png[Probability of an attack given negative pentest,width=43%]
 
 Whatever its results,
-pentesting gives you more information
+penetration testing gives you more information
 about the risk your organization is facing.
 It is especially remarkable that the initial estimate
 of 1.3% goes up by more than 18 times
@@ -305,7 +310,7 @@ and no denial of service attack happened.
 Does that mean there are no vulnerabilities?
 We know the probabilities of attack given the existence of vulnerabilities,
 but not the other way around.
-First find P(V) by total probability
+First, we find P(V) by total probability
 (ignoring all the A nodes):
 
 //P(V) = 0.01*0.95 + 0.99*0.0005 = 1.0%
