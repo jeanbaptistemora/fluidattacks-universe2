@@ -116,8 +116,6 @@ gulp-compiler:
       - app/assets/dashboard/*
     expire_in: 1h
   retry: 1
-  except:
-    - master
 
 commitlint:
   stage: pre-test
