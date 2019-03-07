@@ -37,10 +37,6 @@ spec:
         env:
           - name: DEPLOYMENT_DATE
             value: "$DATE"
-          - name: INSTANA_AGENT_HOST
-            valueFrom:
-              fieldRef:
-                fieldPath: status.hostIP
         ports:
         - containerPort: 80
         readinessProbe:
