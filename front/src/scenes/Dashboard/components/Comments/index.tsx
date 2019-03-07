@@ -37,10 +37,16 @@ const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsP
 };
 
 const enhance: InferableComponentEnhancer<{}> =
-  lifecycle({
+  lifecycle<ICommentsProps, {}>({
     componentDidMount(): void {
-      const props: ICommentsProps = this.props as ICommentsProps;
+      const props: ICommentsProps = this.props;
       initializeComments(props);
+    },
+    componentDidUpdate(previousProps: ICommentsProps): void {
+      const props: ICommentsProps = this.props;
+      if (previousProps.id !== props.id) {
+        initializeComments(props);
+      }
     },
   });
 

@@ -52,7 +52,7 @@ export const commentsView: React.SFC<ICommentsViewProps> =
   (props: ICommentsViewProps): JSX.Element => (
     <React.StrictMode>
       <Comments
-        id="finding-comments"
+        id={`finding-${props.type}s`}
         onLoad={(callbackFn: ((comments: {}) => void)): void => {
           loadComments(props.findingId, props.type, callbackFn);
         }}
