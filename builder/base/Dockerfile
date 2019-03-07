@@ -43,6 +43,9 @@ RUN apt-get update -qq && \
     # Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
     apt-get install -qqy --no-install-recommends \
         asciidoc \
+        texlive-base \
+        texlive-latex-base \
+        dvipng \
         graphviz && \
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
       python get-pip.py && \
