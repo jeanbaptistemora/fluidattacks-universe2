@@ -82,15 +82,22 @@ def parse_actors(path: str, sha1: str) -> Tuple[str, str, str, str]:
 
     The quality of this function is upto the .mailmap.
     """
-    # requires git > 2.19.1
     authorn: str = os_tools.get_stdout_stderr(
-        ["git", "-C", path, "-P", "show", "-s", "--format=%aN", sha1])[0][0:-1]
+        [
+            "git", "-C", path,
+            "--no-pager", "show", "-s", "--format=%aN", sha1])[0][0:-1]
     authore: str = os_tools.get_stdout_stderr(
-        ["git", "-C", path, "-P", "show", "-s", "--format=%aE", sha1])[0][0:-1]
+        [
+            "git", "-C", path,
+            "--no-pager", "show", "-s", "--format=%aE", sha1])[0][0:-1]
     commitn: str = os_tools.get_stdout_stderr(
-        ["git", "-C", path, "-P", "show", "-s", "--format=%cN", sha1])[0][0:-1]
+        [
+            "git", "-C", path,
+            "--no-pager", "show", "-s", "--format=%cN", sha1])[0][0:-1]
     commite: str = os_tools.get_stdout_stderr(
-        ["git", "-C", path, "-P", "show", "-s", "--format=%cE", sha1])[0][0:-1]
+        [
+            "git", "-C", path,
+            "--no-pager", "show", "-s", "--format=%cE", sha1])[0][0:-1]
     return authorn, authore, commitn, commite
 
 
