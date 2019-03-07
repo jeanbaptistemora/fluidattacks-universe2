@@ -249,6 +249,11 @@ export const castFieldsCVSS3: ((dataset: ISeverityViewProps["dataset"]) => ISeve
       title: translate.t("search_findings.tab_severity.severity_scope"),
     },
     {
+      currentValue: dataset.confidentialityImpact, name: "confidentialityImpact",
+      options: confidentialityImpact,
+      title: translate.t("search_findings.tab_severity.confidentiality_impact"),
+    },
+    {
       currentValue: dataset.integrityImpact, name: "integrityImpact",
       options: integrityImpact,
       title: translate.t("search_findings.tab_severity.integrity_impact"),
@@ -368,6 +373,7 @@ export const castPrivileges:
 
     return fields;
 };
+
 export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string =>
   _.includes(["None", ""], cweId) ? "-" : `https://cwe.mitre.org/data/definitions/${cweId}.html`;
 

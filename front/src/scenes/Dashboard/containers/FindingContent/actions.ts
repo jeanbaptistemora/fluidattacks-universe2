@@ -4,7 +4,7 @@ import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
-import { calcCVSSv2 } from "../SeverityView/actions";
+import { calcCVSS } from "../SeverityView/actions";
 import * as actionTypes from "./actionTypes";
 
 export interface IActionStructure {
@@ -25,6 +25,7 @@ export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
           state
           openVulnerabilities
           releaseDate
+          cvssVersion
         }
       }`;
 
@@ -40,7 +41,7 @@ export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
             },
             type: actionTypes.LOAD_FINDING,
           });
-          dispatch(calcCVSSv2(data.finding.severity));
+          dispatch(calcCVSS(data.finding.severity, data.finding.cvssVersion));
         })
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {

@@ -31,8 +31,8 @@ export const editSeverity: (() => IActionStructure) =
     type: actionTypes.EDIT_SEVERITY,
   });
 
-export const calcCVSSv2: ((data: ISeverityViewProps["dataset"]) => IActionStructure) =
-  (data: ISeverityViewProps["dataset"]): IActionStructure => {
+export const calcCVSSv2: ((data: ISeverityViewProps["dataset"]) => number) =
+  (data: ISeverityViewProps["dataset"]): number => {
     let BASESCORE_FACTOR_1: number; BASESCORE_FACTOR_1 = 0.6;
     let BASESCORE_FACTOR_2: number; BASESCORE_FACTOR_2 = 0.4;
     let BASESCORE_FACTOR_3: number; BASESCORE_FACTOR_3 = 1.5;
@@ -62,13 +62,65 @@ export const calcCVSSv2: ((data: ISeverityViewProps["dataset"]) => IActionStruct
       - BASESCORE_FACTOR_3) * F_IMPACT_FACTOR;
     const temporal: number = baseScore * explo * resol * confi;
 
-    return ({
-      payload: {
-        temporal: temporal.toFixed(1),
-      },
-      type: actionTypes.CALC_CVSSV2,
-    });
+    return temporal;
   };
+
+export const calcCVSSv3: ((data: ISeverityViewProps["dataset"]) => number) =
+  (data: ISeverityViewProps["dataset"]): number => {
+    let BASESCORE_FACTOR: number; BASESCORE_FACTOR = 1.08;
+    let IMPACT_FACTOR_1: number; IMPACT_FACTOR_1 = 6.42;
+    let IMPACT_FACTOR_2: number; IMPACT_FACTOR_2 = 7.52;
+    let IMPACT_FACTOR_3: number; IMPACT_FACTOR_3 = 0.029;
+    let IMPACT_FACTOR_4: number; IMPACT_FACTOR_4 = 3.25;
+    let IMPACT_FACTOR_5: number; IMPACT_FACTOR_5 = 0.02;
+    let IMPACT_FACTOR_6: number; IMPACT_FACTOR_6 = 15;
+    let EXPLOITABILITY_FACTOR_1: number; EXPLOITABILITY_FACTOR_1 = 8.22;
+
+    const impCon: number = parseFloat(data.confidentialityImpact);
+    const impInt: number = parseFloat(data.integrityImpact);
+    const impDis: number = parseFloat(data.availabilityImpact);
+    const sevScope: number = parseFloat(data.severityScope);
+    const attVec: number = parseFloat(data.attackVector);
+    const attCom: number = parseFloat(data.attackComplexity);
+    const privReq: number = parseFloat(data.privilegesRequired);
+    const usrInt: number = parseFloat(data.userInteraction);
+    const explo: number = parseFloat(data.exploitability);
+    const remLev: number = parseFloat(data.remediationLevel);
+    const repConf: number = parseFloat(data.reportConfidence);
+
+    const iscBase: number = 1 - ((1 - impCon) * (1 - impInt) * (1 - impDis));
+
+    const impact: number = (sevScope === 1)
+      ? ((IMPACT_FACTOR_2 * (iscBase - IMPACT_FACTOR_3)) -
+        (IMPACT_FACTOR_4 * Math.pow((iscBase - IMPACT_FACTOR_5), IMPACT_FACTOR_6)))
+      : IMPACT_FACTOR_1 * iscBase;
+    const exploitability: number = (EXPLOITABILITY_FACTOR_1 * attVec * attCom * privReq * usrInt);
+
+    const basescore: number = (impact <= 0)
+      ? 0
+      : ((sevScope === 1)
+          ? Math.ceil(Math.min(BASESCORE_FACTOR * (impact + exploitability), 10) * 10) / 10
+          : Math.ceil(Math.min(impact + exploitability, 10) * 10) / 10);
+
+    const temporal: number = Math.ceil(basescore * explo * remLev * repConf * 10) / 10;
+
+    return temporal;
+  };
+
+export const calcCVSS:
+((data: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]) => IActionStructure) =
+  (data: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]): IActionStructure => {
+    const temporal: number = (cvssVersion === "3")
+    ? calcCVSSv3(data)
+    : calcCVSSv2(data);
+
+    return ({
+    payload: {
+      temporal: temporal.toFixed(1),
+    },
+    type: actionTypes.CALC_CVSS,
+  });
+};
 
 export const loadSeverity: ThunkActionStructure =
   (findingId: string): ThunkAction<void, {}, {}, Action> =>
@@ -83,7 +135,7 @@ export const loadSeverity: ThunkActionStructure =
       new Xhr().request(gQry, "An error occurred getting severity")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
-          dispatch(calcCVSSv2(data.finding.severity));
+          dispatch(calcCVSS(data.finding.severity, data.finding.cvssVersion));
           dispatch({
             payload: {
               cvssVersion: data.finding.cvssVersion,
@@ -142,7 +194,7 @@ export const updateSeverity: ThunkActionStructure =
           const { data } = response.data;
 
           if (data.updateSeverity.success) {
-            dispatch(calcCVSSv2(data.updateSeverity.finding.severity));
+            dispatch(calcCVSS(data.finding.severity, data.finding.cvssVersion));
             dispatch({
               payload: {
                 cvssVersion: data.updateSeverity.finding.cvssVersion,

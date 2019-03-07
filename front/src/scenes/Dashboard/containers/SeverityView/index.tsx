@@ -100,7 +100,7 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
           block={true}
           onClick={(): void => {
             store.dispatch(actions.editSeverity());
-            store.dispatch(actions.calcCVSSv2(props.dataset));
+            store.dispatch(actions.calcCVSS(props.dataset, props.cvssVersion));
           }}
         >
           <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
@@ -249,8 +249,8 @@ export const component: React.SFC<ISeverityViewProps> =
                   props.criticity,
                 ));
               }}
-          onChange={(values: {}): void => {
-                store.dispatch(actions.calcCVSSv2(values as ISeverityViewProps["dataset"]));
+          onChange={(values: ISeverityViewProps["dataset"] & {cvssVersion: string}): void => {
+                store.dispatch(actions.calcCVSS(values as ISeverityViewProps["dataset"], values.cvssVersion));
               }}
         >
           {renderSeverityFields(props)}

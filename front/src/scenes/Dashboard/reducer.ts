@@ -421,7 +421,7 @@ actionMap[severityActions.EDIT_SEVERITY] =
     },
   });
 
-actionMap[severityActions.CALC_CVSSV2] =
+actionMap[severityActions.CALC_CVSS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
