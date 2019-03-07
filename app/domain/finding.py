@@ -34,7 +34,7 @@ from app.dto.finding import (
 )
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
-    send_mail_remediate_finding, send_mail_accepted_finding
+    send_mail_remediate_finding, send_mail_accepted_finding, send_mail_delete_draft
 )
 from .vulnerability import update_vulnerabilities_date
 
@@ -667,3 +667,99 @@ def read_csv(csv_file):
             return file_content
         except csv.Error:
             raise GraphQLError('Invalid record file format')
+
+
+def delete_comment(comment):
+    """Delete comment."""
+    if comment:
+        finding_id = comment["finding_id"]
+        user_id = comment["user_id"]
+        response = integrates_dao.delete_comment_dynamo(finding_id, user_id)
+    else:
+        response = True
+    return response
+
+
+def delete_all_comments(finding_id):
+    """Delete all comments of a finding."""
+    all_comments = integrates_dao.get_comments_dynamo(int(finding_id), "comment")
+    comments_deleted = [delete_comment(i) for i in all_comments]
+    util.invalidate_cache(finding_id)
+    return all(comments_deleted)
+
+
+def key_existing_list(key):
+    """return the key's list if it exist, else list empty"""
+    return util.list_s3_objects(CLIENT_S3, BUCKET_S3, key)
+
+
+def delete_evidence_s3(evidence):
+    """Delete s3 evidence file."""
+    try:
+        response = CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=evidence)
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200 or \
+            response['ResponseMetadata']['HTTPStatusCode'] == 204
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+def delete_all_evidences_s3(finding_id, project):
+    """Delete s3 evidences files."""
+    evidences_list = key_existing_list(project + "/" + finding_id)
+    is_evidence_deleted = False
+    if evidences_list:
+        is_evidence_deleted_s3 = list(map(delete_evidence_s3, evidences_list))
+        is_evidence_deleted = any(is_evidence_deleted_s3)
+    else:
+        util.cloudwatch_log_plain(
+            'Info: Finding ' + finding_id + ' does not have evidences in s3')
+        is_evidence_deleted = True
+    return is_evidence_deleted
+
+
+def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_name, reviewer_email):
+    admins = integrates_dao.get_admins()
+    recipients = [user[0] for user in admins]
+    recipients.append(discoverer_email)
+
+    email_send_thread = threading.Thread(
+        name="Reject draft email thread",
+        target=send_mail_delete_draft,
+        args=(recipients, {
+            'project': project_name,
+            'analyst_mail': discoverer_email,
+            'finding_name': finding_name,
+            'admin_mail': reviewer_email,
+            'finding_id': draft_id,
+        }))
+    email_send_thread.start()
+
+
+def reject_draft(draft_id, reviewer_email, project_name):
+    fin_dto = FindingDTO()
+    api = FormstackAPI()
+    is_draft = ('releaseDate' not in
+                integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+    result = False
+
+    if is_draft:
+        finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
+
+        delete_all_comments(draft_id)
+        delete_all_evidences_s3(draft_id, project_name)
+        integrates_dao.delete_finding_dynamo(draft_id)
+
+        for vuln in integrates_dao.get_vulnerabilities_dynamo(draft_id):
+            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], draft_id)
+
+        api.delete_submission(draft_id)
+        send_draft_reject_mail(
+            draft_id, project_name, finding_data['analyst'],
+            finding_data['finding'], reviewer_email)
+        result = True
+    else:
+        raise GraphQLError('CANT_REJECT_FINDING')
+
+    return result

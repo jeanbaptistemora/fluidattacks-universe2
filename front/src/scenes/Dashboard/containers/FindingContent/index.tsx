@@ -15,7 +15,7 @@ import { exploitView as ExploitView } from "../ExploitView/index";
 import { recordsView as RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
-import { clearFindingState, loadFindingData, ThunkDispatcher } from "./actions";
+import { clearFindingState, loadFindingData, rejectDraft, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
@@ -39,6 +39,7 @@ interface IFindingContentStateProps {
 
 interface IFindingContentDispatchProps {
   onLoad(): void;
+  onReject(): void;
   onUnmount(): void;
 }
 
@@ -190,10 +191,11 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
 
 const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
   (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
-    const { findingId } = ownProps.match.params;
+    const { findingId, projectName } = ownProps.match.params;
 
     return ({
       onLoad: (): void => { dispatch(loadFindingData(findingId)); },
+      onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
     });
   };

@@ -52,6 +52,33 @@ export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
         });
     };
 
+export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult<void>) =
+  (draftId: string, projectName: string): ThunkResult<void> =>
+    (_0: ThunkDispatcher): void => {
+      let gQry: string; gQry = `mutation {
+        rejectDraft(draftId: "${draftId}") {
+          success
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred rejecting draft")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+
+          if (data.rejectDraft.success) {
+            location.hash = `#!/project/${projectName}/drafts`;
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
 export const clearFindingState: (() => IActionStructure) = (): IActionStructure => ({
   type: actionTypes.CLEAR_FINDING_STATE,
 });
