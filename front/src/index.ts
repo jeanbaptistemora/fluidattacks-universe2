@@ -14,6 +14,7 @@ import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
+import { eventsView } from "./scenes/Dashboard/containers/EventsView/index";
 import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
 import { projectCommentsView } from "./scenes/Dashboard/containers/ProjectCommentsView";
 import { projectUsersView } from "./scenes/Dashboard/containers/ProjectUsersView/index";
@@ -224,6 +225,25 @@ angular
     react2angular(
       resourcesView, [
         "projectName",
+      ],
+    ),
+  );
+
+/**
+ * @url: #/project/:project/events/
+ * @page: eventcontent.html
+ * @controllers: ["eventContentCtrl"]
+ * @tag: <events-view/>
+ */
+angular
+  .module("FluidIntegrates")
+  .component(
+    "eventsView",
+    react2angular(
+      eventsView, [
+        "projectName",
+        "eventsDataset",
+        "onClickRow",
       ],
     ),
   );

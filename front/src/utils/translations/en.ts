@@ -199,10 +199,15 @@ const enTranslations: Map<string, string> = {
     },
     tab_evidence: {
       animation_exploit: "Exploitation animation",
+      date: "Date",
+      description: "Description",
       detail: "Detail",
       editable: "Edit",
       evidence_exploit: "Exploitation evidence",
+      id: "ID",
+      status: "Status",
       tab_title: "Evidence",
+      type: "Type",
       update: "Update",
     },
     tab_exploit: {

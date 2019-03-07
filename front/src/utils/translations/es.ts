@@ -201,10 +201,15 @@ const esTranslations: Map<string, string> = {
     },
     tab_evidence: {
       animation_exploit: "Animación de explotación",
+      date: "Fecha",
+      description: "Descripción",
       detail: "Detalle",
       editable: "Editar",
       evidence_exploit: "Evidencia de explotación",
+      id: "ID",
+      status: "Estado",
       tab_title: "Evidencia",
+      type: "Tipo",
       update: "Actualizar",
     },
     tab_exploit : {

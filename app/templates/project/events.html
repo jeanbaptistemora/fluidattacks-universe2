@@ -111,13 +111,11 @@
                                 <div id="toolbar2">
                                     <p><b>{{ search_findings.eventualities.description }}</b></p>
                                 </div>
-                                <d-table
-                                  dataset="eventsDataset"
-                                  export-csv="true"
-                                  headers="tblEventsHeaders"
+                                <events-view
+                                  project-name="project"
+                                  translations="translations"
+                                  events-dataset="eventsDataset"
                                   on-click-row="goToEvent"
-                                  page-size="15"
-                                  search="true"
                                 />
                             </div>
                         </div>
