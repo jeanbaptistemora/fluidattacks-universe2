@@ -8,7 +8,7 @@ import { calcCVSSv2 } from "../SeverityView/actions";
 import * as actionTypes from "./actionTypes";
 
 export interface IActionStructure {
-  payload: Map<string, string> | undefined;
+  payload?: Map<string, string>;
   type: string;
 }
 
@@ -51,3 +51,7 @@ export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
           }
         });
     };
+
+export const clearFindingState: (() => IActionStructure) = (): IActionStructure => ({
+  type: actionTypes.CLEAR_FINDING_STATE,
+});

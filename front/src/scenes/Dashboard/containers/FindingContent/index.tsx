@@ -15,7 +15,7 @@ import { exploitView as ExploitView } from "../ExploitView/index";
 import { recordsView as RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
-import { loadFindingData, ThunkDispatcher } from "./actions";
+import { clearFindingState, loadFindingData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
@@ -38,17 +38,15 @@ interface IFindingContentStateProps {
 }
 
 interface IFindingContentDispatchProps {
-  loadFinding(): void;
+  onLoad(): void;
+  onUnmount(): void;
 }
 
 type IFindingContentProps = IFindingContentBaseProps & (IFindingContentStateProps & IFindingContentDispatchProps);
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, {}>({
-  componentDidMount(): void {
-    const { loadFinding } = this.props;
-
-    loadFinding();
-  },
+  componentDidMount(): void { this.props.onLoad(); },
+  componentWillUnmount(): void { this.props.onUnmount(); },
 });
 
 const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
@@ -194,7 +192,10 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
   (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
     const { findingId } = ownProps.match.params;
 
-    return ({ loadFinding: (): void => { dispatch(loadFindingData(findingId)); } });
+    return ({
+      onLoad: (): void => { dispatch(loadFindingData(findingId)); },
+      onUnmount: (): void => { dispatch(clearFindingState()); },
+    });
   };
 
 export = connect(mapStateToProps, mapDispatchToProps)(enhance(findingContent));

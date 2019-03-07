@@ -629,6 +629,19 @@ actionMap[findingActions.LOAD_FINDING] =
       finding: action.payload,
     });
 
+actionMap[findingActions.CLEAR_FINDING_STATE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      description: initialState.description,
+      evidence: initialState.evidence,
+      exploit: initialState.exploit,
+      finding: initialState.finding,
+      records: initialState.records,
+      severity: initialState.severity,
+      tracking: initialState.tracking,
+    });
+
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,
   arg2: actions.IActionStructure,
