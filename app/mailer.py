@@ -64,20 +64,38 @@ def send_mail_remediate_finding(email_to, context):
 
 def send_mail_new_comment(email_to, context, comment_type):
     if comment_type == 'project':
-        _send_mail('newprojectcommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
+        _send_mail('business-new-comment-project',
+                   email_to,
+                   context=context,
+                   tags=COMMENTS_TAG)
     elif comment_type == 'observation':
-        _send_mail('newobservationintegrates', email_to, context=context, tags=COMMENTS_TAG)
+        _send_mail('business-new-observation-finding',
+                   email_to,
+                   context=context,
+                   tags=COMMENTS_TAG)
     else:
-        _send_mail('newcommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
+        _send_mail('business-new-comment-finding',
+                   email_to,
+                   context=context,
+                   tags=COMMENTS_TAG)
 
 
 def send_mail_reply_comment(email_to, context, comment_type):
     if comment_type == 'project':
-        _send_mail('replyprojectcommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
+        _send_mail('business-new-reply-project',
+                   email_to,
+                   context=context,
+                   tags=COMMENTS_TAG)
     elif comment_type == 'observation':
-        _send_mail('replyobservationintegrates', email_to, context=context, tags=COMMENTS_TAG)
+        _send_mail('business-new-reply-observation',
+                   email_to,
+                   context=context,
+                   tags=COMMENTS_TAG)
     else:
-        _send_mail('replycommentintegrates', email_to, context=context, tags=COMMENTS_TAG)
+        _send_mail('business-new-reply-finding',
+                   email_to,
+                   context=context,
+                   tags=COMMENTS_TAG)
 
 
 def send_mail_verified_finding(email_to, context):
