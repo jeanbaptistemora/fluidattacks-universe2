@@ -96,26 +96,13 @@
                                         }
                                     });
                                 </script>
-                                <div class="btn-group"  id="progress_event">
-                                    <button type="button"
-                                            class="btn btn-default"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="{{ search_findings.event_by_name.btn_group.resume }}!"
-                                            ng-click="openModalEventAvance(eventsDataset);">
-                                            {{ search_findings.event_by_name.btn_group.resume }}
-                                        <i class="glyphicon glyphicon-bookmark"></i>
-                                    </button>
-                                </div>
                                 <!-- START: toolbar -->
-                                <div id="toolbar2">
-                                    <p><b>{{ search_findings.eventualities.description }}</b></p>
-                                </div>
                                 <events-view
                                   project-name="project"
                                   translations="translations"
                                   events-dataset="eventsDataset"
                                   on-click-row="goToEvent"
+                                  on-resume="openModalEventAvance;"
                                 />
                             </div>
                         </div>

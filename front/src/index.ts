@@ -244,6 +244,7 @@ angular
         "projectName",
         "eventsDataset",
         "onClickRow",
+        "onResume",
       ],
     ),
   );
