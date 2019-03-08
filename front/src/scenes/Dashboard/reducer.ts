@@ -31,6 +31,7 @@ export interface IDashboardState {
     openVulns: number;
     reportDate: string;
     status: "Abierto" | "Cerrado" | "Default";
+    title: string;
   };
   indicators: {
     addModal: {
@@ -129,6 +130,7 @@ const initialState: IDashboardState = {
     openVulns: 0,
     reportDate: "-",
     status: "Default",
+    title: "",
   },
   indicators: {
     addModal: {

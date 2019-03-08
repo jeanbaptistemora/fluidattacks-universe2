@@ -21,6 +21,7 @@ export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
     (dispatch: ThunkDispatcher): void => {
       let gQry: string; gQry = `{
         finding(identifier: "${findingId}") {
+          title
           severity
           state
           openVulnerabilities
@@ -38,6 +39,7 @@ export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
               openVulns: data.finding.openVulnerabilities,
               reportDate: data.finding.releaseDate.split(" ")[0],
               status: data.finding.state,
+              title: data.finding.title,
             },
             type: actionTypes.LOAD_FINDING,
           });

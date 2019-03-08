@@ -35,6 +35,7 @@ interface IFindingContentStateProps {
     severity: number;
     status: "Abierto" | "Cerrado" | "Default";
   };
+  title: string;
 }
 
 interface IFindingContentDispatchProps {
@@ -101,61 +102,67 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
+              <Row>
+                <Col md={8}>
+                  <h2>{props.title}</h2>
+                </Col>
+              </Row>
+              <hr />
               <div className={style.stickyContainer}>
-              <FindingHeader {...props.header} />
-              <ul className={style.tabsContainer}>
-                <li id="infoItem" className={style.tab}>
-                  <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/description`}>
-                    <i className="icon s7-note2" />
-                    &nbsp;{translate.t("search_findings.tab_description.tab_title")}
-                  </NavLink>
-                </li>
-                <li id="cssv2Item" className={style.tab}>
-                  <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/severity`}>
-                    <i className="icon s7-calculator" />
-                    &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
-                  </NavLink>
-                </li>
-                <li id="evidenceItem" className={style.tab}>
-                  <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/evidence`}>
-                    <i className="icon s7-photo" />
-                    &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
-                  </NavLink>
-                </li>
-                <li id="exploitItem" className={style.tab}>
-                  <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/exploit`}>
-                    <i className="icon s7-file" />
-                    &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
-                  </NavLink>
-                </li>
-                <li id="trackingItem" className={style.tab}>
-                  <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/tracking`}>
-                    <i className="icon s7-graph1" />
-                    &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
-                  </NavLink>
-                </li>
-                <li id="recordsItem" className={style.tab}>
-                  <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/records`}>
-                    <i className="icon s7-notebook" />
-                    &nbsp;{translate.t("search_findings.tab_records.tab_title")}
-                  </NavLink>
-                </li>
-                <li id="commentItem" className={style.tab}>
-                  <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/comments`}>
-                    <i className="icon s7-comment" />
-                    &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
-                  </NavLink>
-                </li>
-                {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
-                {_.includes(["admin", "analyst"], userRole) ?
-                  <li id="observationsItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/observations`}>
-                      <i className="icon s7-note" />
-                      &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
+                <FindingHeader {...props.header} />
+                <ul className={style.tabsContainer}>
+                  <li id="infoItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/description`}>
+                      <i className="icon s7-note2" />
+                      &nbsp;{translate.t("search_findings.tab_description.tab_title")}
                     </NavLink>
                   </li>
-                  : undefined}
-              </ul>
+                  <li id="cssv2Item" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/severity`}>
+                      <i className="icon s7-calculator" />
+                      &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="evidenceItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/evidence`}>
+                      <i className="icon s7-photo" />
+                      &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="exploitItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/exploit`}>
+                      <i className="icon s7-file" />
+                      &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="trackingItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/tracking`}>
+                      <i className="icon s7-graph1" />
+                      &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="recordsItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/records`}>
+                      <i className="icon s7-notebook" />
+                      &nbsp;{translate.t("search_findings.tab_records.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="commentItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/comments`}>
+                      <i className="icon s7-comment" />
+                      &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
+                    </NavLink>
+                  </li>
+                  {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
+                  {_.includes(["admin", "analyst"], userRole) ?
+                    <li id="observationsItem" className={style.tab}>
+                      <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/observations`}>
+                        <i className="icon s7-note" />
+                        &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
+                      </NavLink>
+                    </li>
+                    : undefined}
+                </ul>
               </div>
 
               <div className={style.tabContent}>
@@ -187,6 +194,7 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
       severity: state.dashboard.severity.criticity,
       status: state.dashboard.finding.status,
     },
+    title: state.dashboard.finding.title,
   });
 
 const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
