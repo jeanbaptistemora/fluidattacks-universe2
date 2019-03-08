@@ -11,63 +11,66 @@
 |====
 2+a|== link:financial/[Financial]
 
-+Fluid Attacks+ customers in the financial sector
-comprise some of the most important banks in Latin America,
-besides companies in charge of the collection of social savings,
-among others.
+In the financial sector, +Fluid Attacks'+ customers
+comprise some of the most important banks in Latin America.
 Some of our customers are +Bancolombia+, +BBVA+,
-+Davivienda+, +Sura+, +Protección+, +Colpatria+.
++Davivienda+, +Sura+, +Protección+, +Colpatria+ among others.
+
 a|image::financial.svg[Dollar sign]
 
 
 a|image::communications.svg[Smartphone]
 2+a|== link:communications/[Communications]
 
-+Fluid Attacks+ has offered solutions to some of the main providers
-of communication services in Colombia, such as +Claro+,
-+Tigo UNE+, +ETB+, +Edatel+, among others.
++Fluid Attacks+ has provided innovative problem-solving
+to some of the largest communication services companies in Colombia,
+such as +Claro+, +Tigo UNE+, +ETB+, +Edatel+, among others.
 
 2+a|== link:consumer/[Consumer]
 
-We have worked with many companies which aim to please the customer
-from different areas, be them retail activities, +E-Commerce+,
-textile industry, or technology solutions.
-Some of these customers are +Grupo Éxito+, +Grupo Uribe+, +Rappi+, +Semana+,
-and the australian company +The Missing Link+.
++Fluid Attacks+ has worked with a wide variety of companies
+involved in retail activities, +E-Commerce+, textiles,
+and technology solutions whose shared goal
+is providing excellent customer service to their consumers.
+Some of these companies are +Grupo Éxito+, +Grupo Uribe+, +Rappi+, +Semana+,
+and the Australian company, +The Missing Link+.
+
 a|image::consumer.svg[Customers with different reactions]
 
 a|image::technology.svg[Server and database]
 2+a|== link:technology/[Technology]
 
-+Fluid Attacks+ has contributed to companies that offer software,
-infrastructure and other technology solutions to their customers,
++Fluid Attacks+ has worked with companies that offer software,
+infrastructure, and other technology solutions to their customers,
 in a wide range of applications.
-Some of our customers in this area are +PSL+, +S4N+, +Arus+, +Ceiba+,
-the american companies +Cre8tive+, +KometSales+ and +VM2020+,
-and the spanish company +Indra+.
+Some of our customers in this area have been +PSL+, +S4N+, +Arus+, +Ceiba+,
+the American companies +Cre8tive+, +KometSales+ and +VM2020+,
+and the Spanish company +Indra+.
 
 2+a|== link:utilities/[Utilities]
 
-We have also executed projects in companies that specialize
-in the energy sector, wether it is generation, distribution and selling, like
-+Celsia+, or planning, designing and managing the transactional systems,
-like +XM+.
+In the energy sector, +Fluid Attacks+ has executed projects
+in companies involved in generation, distribution, and selling
+such as +Celsia+, as well as, planning, designing
+and managing transactional systems, such as +XM+.
+
 a|image::utilities.svg[Ligthning symbol]
 
 a|image::industrial.svg[Factory]
 2+a|== link:industrial/[Industrial]
 
-We have also assisted several manufacturers and participants
-of the industrial sector in their software security
-and infrastructure security needs.
-Some of these customers are +Grupo Argos+, +Manuelita+, +Corona+, +Cadena+ and
-+Odinsa+.
++Fluid Attacks+ has assisted several manufacturers
+and other companies in the industrial sector
+in their software security and infrastructure security needs.
+Some of these customers are +Grupo Argos+, +Manuelita+,
++Corona+, +Cadena+ and +Odinsa+.
 
 2+a|== link:transportation/[Transportation]
 
-+Fluid Attacks+ has worked with transportation giants like +Avianca+
-and +F2X+ to ensure that their applications and web platforms
-offer the best security to their users.
++Fluid Attacks+ has worked with transportation giants
+like +Avianca+ and +F2X+ to ensure that their applications and web platforms
+provide the best in security protection for their users.
+
 a|image::transportation.svg[Bus frontal view]
 
 |====

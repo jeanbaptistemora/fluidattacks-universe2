@@ -1,6 +1,6 @@
 :slug: customers/financial/
 :category: customers
-:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the financial sector.
+:description: With over 18 years of experience in the Colombian market, Fluid Attacks is a company focused on information security, ethical hacking, penetration testing, and vulnerabilities detection in applications. We have worked with the following companies in the financial sector.
 :keywords: Fluid Attacks, Information, Financial, Security, Ethical Hacking, Pentesting.
 :translate: clientes/financiero/
 :panama: image:../../images/icons/panama-flag.png[Panama Flag]
@@ -16,20 +16,18 @@
 a|image::logo-ach.png[alt="Logo ACH",link="https://www.achcolombia.com.co/inicio"]
 
 2+a|== ACH Colombia
-Organization created by enterprises of the financial sector
-that allows the exchange of financial transactions and information
-between the companies that comprise it
+ACH Colombia is an organization created by financial sector enterprises
+to allow the exchange of financial transactions
+and information between the member companies that comprise it.
 
 2+a|== AVAL Group
 
 Grupo Aval Acciones y Valores S.A.
-It is a Colombian holding dedicated to a great variety
-of mainly financial activities.
-It is the largest financial group in Colombia
-with control of +4+ successful banks
-and one of the largest groups in Central America
-controlling the BAC Credomatic Group,
-also having the largest administrator of pension
+is a holding company dedicated to diverse financial activities.
+The biggest financial group in Colombia,
+it controls +4+ Colombian banks and +BAC Credomatic Group+.
+It is one of the largest financial groups in Central America
+and the largest administrator of retirement
 and severance funds in Colombia.
 
 a|image::logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/portal/grupo-aval/aval/acerca-nosotros"]
@@ -38,19 +36,20 @@ a|image::logo-bancamia.png[alt="Logo Bancamia",link="https://www.bancamia.com.co
 
 2+a|== Bancamía
 
-Bank with a social sense
-that seeks to support the productive development of entrepreneurs
-at the base of the economic pyramid,
+Bancamia is a socially-aware bank
+that seeks to support the successful development of start-up entrepreneurs
 through financial products and services tailored to their needs.
-The Responsible productive finance becomes an effective tool
-for the social and monetary development of the most disadvantaged communities,
-by providing products and services
-aimed at generating income and surplus through the development of a business.
+Bancamia facilitates the social and monetary development
+of the most disadvantaged communities
+by providing products and services aimed at generating income,
+surplus, and local employment through small-business development.
 
 2+a|== Bancolombia
-Colombian financial organization, belonging to the Sura Group,
-it is the largest private bank in Colombia (due to the size of its assets)
-and one of the largest in America.
+Bancolombia is a Colombian financial organization,
+belonging to the +Sura Group+.
+Bancolombia is the largest private bank,
+regarding the size of its assets, in Colombia.
+It is also one of the largest banks in Latin America.
 
 a|image::logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobancolombia.com/wps/portal/acerca-de"]
 
@@ -58,18 +57,18 @@ a|image::logo-delta.png[alt="Logo Banco Delta",link="https://www.bandelta.com/"]
 
 2+a|== Banco Delta
 
-{panama} Microfinance Bank of Panama.
-Financing of working capital for micro and small businesses,
-financing of fixed assets (vehicles, machinery and equipment),
-factoring, credit lines, commercial, mortgage and personal loans,
-financial leasing, deposit accounts and debit cards.
+{panama} Banco Delta is a microfinance bank in Panama.
+It finances working capital for micro and small businesses,
+fixed assets (vehicles, machinery, and equipment),
+factoring, credit lines, commercial, mortgage, and personal loans.
+It provides financial leasing and offers deposit accounts and debit cards.
 
 2+a|== Banco del Pacífico
-{panama} Part of the International Banking Center
-integrated in the city of Panama,
-with institutions from more than +30+ countries.
+{panama} Banco del Pacifico is part of the International Banking Center,
+based in Panama City, Panama,
+and comprised of institutions from more than +30+ countries.
 The Center has a broad financial structure
-and a major importance for the economic life of the country,
+and is of major importance to the economic life of Panama,
 which is a guarantee of its permanence and stability.
 
 a|image::logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.bancodelpacifico.com/grupo-banco-del-pacifico/banco-del-pacifico-panama.aspx"]
@@ -77,17 +76,17 @@ a|image::logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.banco
 a|image::logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
 
 2+a|== Banistmo
-{panama} Panamanian organization that has the support of Grupo Bancolombia,
-a financial institution with +140+ years in the market,
-with presence in +10+ countries,
-more than +40+ thousand employees,
-+9+ million customers and +3821+ ATMs.
+{panama} Banistmo is a Panamanian organization supported by Grupo Bancolombia.
+It is a financial institution with +140+ years in the marketplace,
+a presence in +10+ countries, more than +40,000+ employees,
+over +9,000,000+ customers, and more than +3800+ ATMs.
 
 2+a|== BBVA
 Banco Bilbao Vizcaya Argentaria Colombia S.A.
-It is one of the first banks in the eurozone for profitability and efficiency;
-It is the first financial institution in Mexico
-and also has a strong position in Spain,
+is a well-respected bank in the Eurozone
+known for both its profitability and efficiency.
+It is the top financial entity in Mexico
+and occupies a prominent position in Spain,
 with leading franchises in South America.
 
 a|image::logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
@@ -96,12 +95,12 @@ a|image::logo-cfa.png[alt="Logo CFA",link="http://www.cfa.com.co/"]
 
 2+a|== CFA
 
-Organization resulted of the merge of the cooperatives
-+DONMATÍAS+ and +COOBANCOQUIA+
-with the purpose of guaranteeing associates and savers
-the security of all their savings and social contributions,
-being a social and economic alternative for the associates
-of the two cooperatives to channel resources to finance productive activities.
++CFA+ is the organization resulting from the merger of the cooperatives,
++DONMATÍAS+ and +COOBANCOQUIA+.
++CFA's+ primary mission is channeling financial resources
+in support of successful socio-economic community activities
+while guaranteeing associates and savers the security
+of their savings and social contributions.
 
 2+a|== Coopcentral
 
@@ -117,13 +116,15 @@ a|image::logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentr
 a|image::logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion"]
 
 2+a|== Colpatria
+
 Colpatria is a Colombian business group,
-with businesses in banking, insurance, construction and mining among others.
-Participating since 2012 in the Canadian bank Scotiabank as a partner,
-acquiring +51%+ of their shares.
-Since 2014, the French insurance company AXA,
-which is the largest insurer in the world,
-acquired +51%+ of the general insurance and life unit.
+with businesses in banking, insurance, construction, and mining, among others.
+They have participated, as a partner,
+in the Canadian Scotiabank since +2012+,
+having acquired +51%+ of their shares.
+Since +2014+, Colpatria has also acquired +51%+
+of the French insurance company +AXA's+ general insurance and life unit.
++AXA+ is the largest insurer in the world.
 
 2+a|== Davivienda
 
@@ -165,10 +166,10 @@ a|image::logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporati
 
 2+a|== Sura
 
-The SURA Business Group is a Latin American company
-in the Miscellaneous Financial Services sector,
-part of the Dow Jones Sustainability Index,
-which recognizes companies that stand out worldwide
-for their good practices in economic, environmental and social matters.
+The +SURA+ Business Group is a Latin American company
+in the Miscellaneous Financial Services sector.
+It is part of the +Dow Jones Sustainability Index+
+used worldwide to acknowledge companies that excel
+in socio-economic and environmentally-aware business practices.
 
 |====
