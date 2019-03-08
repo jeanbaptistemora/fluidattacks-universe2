@@ -32,12 +32,12 @@ export const eventsView: React.StatelessComponent<IEventsViewProps> =
                   bsStyle="default"
                   onClick={(): void => {props.onResume(props.eventsDataset); }}
                 >
-                  {translate.t("search_findings.tab_evidence.resume")}
+                  {translate.t("search_findings.tab_events.resume")}
                   <Glyphicon glyph="bookmark"/>&nbsp;
                 </Button>
             </Col>
           </Row>
-          <b>{translate.t("search_findings.tab_evidence.table_advice")}</b>
+          <b>{translate.t("search_findings.tab_events.table_advice")}</b>
           <Row>
             <Col md={12} sm={12} xs={12}>
               <Row>
@@ -52,7 +52,7 @@ export const eventsView: React.StatelessComponent<IEventsViewProps> =
                       {
                         align: "center",
                         dataField: "id",
-                        header: translate.t("search_findings.tab_evidence.id"),
+                        header: translate.t("search_findings.tab_events.id"),
                         isDate: false,
                         isStatus: false,
                         width: "12%",
@@ -61,7 +61,7 @@ export const eventsView: React.StatelessComponent<IEventsViewProps> =
                       {
                         align: "center",
                         dataField: "eventDate",
-                        header: translate.t("search_findings.tab_evidence.date"),
+                        header: translate.t("search_findings.tab_events.date"),
                         isDate: false,
                         isStatus: false,
                         width: "15%",
@@ -70,7 +70,7 @@ export const eventsView: React.StatelessComponent<IEventsViewProps> =
                       {
                         align: "center",
                         dataField: "detail",
-                        header: translate.t("search_findings.tab_evidence.description"),
+                        header: translate.t("search_findings.tab_events.description"),
                         isDate: false,
                         isStatus: false,
                         width: "45%",
@@ -79,7 +79,7 @@ export const eventsView: React.StatelessComponent<IEventsViewProps> =
                       {
                         align: "center",
                         dataField: "eventType",
-                        header: translate.t("search_findings.tab_evidence.type"),
+                        header: translate.t("search_findings.tab_events.type"),
                         isDate: false,
                         isStatus: false,
                         width: "25%",
@@ -88,7 +88,7 @@ export const eventsView: React.StatelessComponent<IEventsViewProps> =
                       {
                         align: "center",
                         dataField: "eventStatus",
-                        header: translate.t("search_findings.tab_evidence.status"),
+                        header: translate.t("search_findings.tab_events.status"),
                         isDate: false,
                         isStatus: true,
                         width: "13%",

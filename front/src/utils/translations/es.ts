@@ -199,19 +199,21 @@ const esTranslations: Map<string, string> = {
       weakness: "Debilidad",
       where: "Dónde",
     },
-    tab_evidence: {
-      animation_exploit: "Animación de explotación",
+    tab_events: {
       date: "Fecha",
       description: "Descripción",
-      detail: "Detalle",
-      editable: "Editar",
-      evidence_exploit: "Evidencia de explotación",
       id: "ID",
       resume: "Resumen",
       status: "Estado",
-      tab_title: "Evidencia",
       table_advice: "Haz click para ver el detalle",
       type: "Tipo",
+    },
+    tab_evidence: {
+      animation_exploit: "Animación de explotación",
+      detail: "Detalle",
+      editable: "Editar",
+      evidence_exploit: "Evidencia de explotación",
+      tab_title: "Evidencia",
       update: "Actualizar",
     },
     tab_exploit : {

@@ -12,31 +12,10 @@
 
 <!-- Start EventContent -->
 <div class="main-content" style="background-color: white; padding-top:1px!important;" >
+  <event-description-view
+    event-data="eventData"
+  />
   <div class="row">
-      <div class="col-md-8 col-xs-12 col-sm-12 text-left">
-          <h2 style="margin-top:0px !important;">{{eventData.eventType}}</h2>
-      </div>
-      <div class="col-md-12 col-xs-12 col-sm-12">
-          <hr/>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-sm-12 col-md-12">
-          <div class="row">
-              <div class="col-md-2 col-sm-6 col-xs-6 text-right">ID</div>
-              <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-                  <span class="label label-default">{{eventData.id}}</span>
-              </div>
-              <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'event_by_name.modal_ver.date' | translate}}</div>
-              <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-                  <span class="label label-default">{{eventData.eventDate}}</span>
-              </div>
-              <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.status' | translate}}</div>
-              <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-                      <span class="label label-default" style="{{header.findingValueColor}}">{{eventData.eventStatus}}</span>
-              </div>
-          </div>
-      </div>
       <div class="col-sm-12 col-md-12" style="margin-top:10px;">
           <!-- Start Tab Set -->
           <div class="tab-container">

@@ -197,19 +197,21 @@ const enTranslations: Map<string, string> = {
       weakness: "Weakness",
       where: "Where",
     },
-    tab_evidence: {
-      animation_exploit: "Exploitation animation",
+    tab_events: {
       date: "Date",
       description: "Description",
-      detail: "Detail",
-      editable: "Edit",
-      evidence_exploit: "Exploitation evidence",
       id: "ID",
       resume: "Resume",
       status: "Status",
-      tab_title: "Evidence",
       table_advice: "Click on an event to see more details",
       type: "Type",
+    },
+    tab_evidence: {
+      animation_exploit: "Exploitation animation",
+      detail: "Detail",
+      editable: "Edit",
+      evidence_exploit: "Exploitation evidence",
+      tab_title: "Evidence",
       update: "Update",
     },
     tab_exploit: {
