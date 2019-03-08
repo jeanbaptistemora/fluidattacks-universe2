@@ -3,9 +3,9 @@
 Script to check if images inside the repo are properly optimized
 in size, extension and dimensions
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.1
-Patch notes 1.1:
-- Using Python3
+Version 1.2
+Patch notes 1.2:
+- Checks runs over modified or added files, not deleted files
 """
 import os
 import sys
@@ -67,7 +67,9 @@ BRANCH = BRANCH.split()
 REMOTE = os.popen('git rev-list --count --no-merges origin/master').read()
 LOCAL = os.popen('git rev-list --count --no-merges '+BRANCH[0]).read()
 NCOMMITS = str(int(LOCAL) - int(REMOTE))
-CHANGES = os.popen('git diff HEAD~'+NCOMMITS+' --name-only').read()
+#get only Added or Modified Files
+CHANGES = os.popen('git diff HEAD~'+NCOMMITS+' --name-status \
+                   | pcregrep "^(M|A)" | sed "s/^[A-Z]\s//" ').read()
 CHANGES = CHANGES.split()
 
 for FILE in CHANGES:
