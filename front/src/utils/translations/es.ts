@@ -202,6 +202,7 @@ const esTranslations: Map<string, string> = {
     tab_events: {
       date: "Fecha",
       description: "Descripción",
+      evidence: "Evidencia",
       id: "ID",
       resume: "Resumen",
       status: "Estado",

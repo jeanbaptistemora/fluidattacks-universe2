@@ -200,6 +200,7 @@ const enTranslations: Map<string, string> = {
     tab_events: {
       date: "Date",
       description: "Description",
+      evidence: "Evidence",
       id: "ID",
       resume: "Resume",
       status: "Status",

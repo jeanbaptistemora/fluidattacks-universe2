@@ -12,6 +12,10 @@ import translate from "../../../../utils/translations/translate";
 
 export interface IEventDescriptionViewProps {
   eventData: { eventDate?: string; eventStatus?: string; eventType?: string;  id?: string };
+  hasEvidence: boolean;
+  isActiveTab: boolean;
+  urlDescription: (() => JSX.Element);
+  urlEvidence: (() => JSX.Element);
 }
 
 export const eventDescriptionView: React.StatelessComponent<IEventDescriptionViewProps> =
@@ -50,6 +54,35 @@ export const eventDescriptionView: React.StatelessComponent<IEventDescriptionVie
           </Row>
         </Col>
       </Row>
+      <br />
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <ul className="nav pills-tabs nav-justified">
+            <li
+              id="infoItem"
+              className={(props.isActiveTab ? "active" : "")}
+              onClick={(): void => {props.urlDescription(); }}
+            >
+              <a href="#info" data-toggle="tab" aria-expanded="false">
+                <i className="icon s7-note2"/>
+                &nbsp;{translate.t("search_findings.tab_events.description")}
+              </a>
+            </li>
+            {props.hasEvidence ?
+              <li
+                id="evidenceItem"
+                className={(props.isActiveTab ? "" : "active")}
+                onClick={(): void => {props.urlEvidence(); }}
+              >
+                <a href="#evidence" data-toggle="tab" aria-expanded="false">
+                  <i className="icon s7-note2"/>
+                  &nbsp;{translate.t("search_findings.tab_events.evidence")}
+                </a>
+              </li>
+            : undefined}
+          </ul>
+        </Col>
+    </Row>
     </div>
   </React.StrictMode>
 );
@@ -62,4 +95,5 @@ eventDescriptionView.defaultProps = {
       eventType: undefined,
       id: undefined,
     },
+  isActiveTab: true,
 };

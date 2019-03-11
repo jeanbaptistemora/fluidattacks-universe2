@@ -263,6 +263,10 @@ angular
       react2angular(
         eventDescriptionView, [
           "eventData",
+          "urlDescription",
+          "urlEvidence",
+          "isActiveTab",
+          "hasEvidence",
         ],
       ),
     );

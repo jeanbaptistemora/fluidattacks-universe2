@@ -212,12 +212,14 @@ eventContentCtrl (
         "#info", "EventsDescription",
         userOrganization, projectName, eventId
       );
+      $scope.isActiveTab =  true;
     }
     else {
       functionsFtry2.activeTab(
         "#evidence", "EventsEvidence",
         userOrganization, projectName, eventId
       );
+      $scope.isActiveTab =  false;
     }
     const hasAccess = projectFtry2.accessToProject(projectName);
     hasAccess.then((response) => {
