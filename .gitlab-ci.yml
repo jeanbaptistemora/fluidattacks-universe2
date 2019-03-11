@@ -17,13 +17,12 @@ stages:
     SECRET_ID: "${WEB_SECRET_ID}"
     VAULTENV_SECRETS_FILE: "${CI_PROJECT_DIR}/env.vars"
 
-.jfrog_vars: &jfrog_vars
+.registry_vars: &registry_vars
   variables:
-    REGISTRY: "${JFROG_REPO}"
-    REGISTRY_USER: "${JFROG_USER}"
-    REGISTRY_PASS: "${JFROG_PASS}"
-    REGISTRY_EMAIL: "${JFROG_EMAIL}"
-    REGISTRY_IMAGE: "${JFROG_REPO}/web"
+    CI_REGISTRY_USER: "${GITLAB_USER}"
+    CI_REGISTRY_PASSWORD: "${GITLAB_PASS}"
+    CI_REGISTRY_EMAIL: "${GITLAB_EMAIL}"
+    CI_REGISTRY_IMAGE: "${CI_REGISTRY}/fluidsignal/default/web"
 
 .vault_login: &vault_login
   <<: *vault_vars
@@ -37,6 +36,7 @@ stages:
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
+  <<: *registry_vars
   before_script:
     - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
         > /kaniko/.docker/config.json
@@ -51,7 +51,7 @@ builder:
         --cleanup
         --context "${CI_PROJECT_DIR}/builder/base/"
         --dockerfile "${CI_PROJECT_DIR}/builder/base/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}:base"
+        --destination "${CI_REGISTRY_IMAGE}/base:latest"
 
 content:
   stage: check
@@ -65,22 +65,18 @@ content:
 
 pelican:
   stage: check
-  <<: *jfrog_vars
   <<: *kaniko_config
-  before_script:
-    - echo '{"auths":{"'"${REGISTRY}"'":{"username":"'"${REGISTRY_USER}"'","password":"'"${REGISTRY_PASS}"'"}}}'
-        > /kaniko/.docker/config.json
   script:
     - /kaniko/executor
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
         --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
         --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
         --build-arg ENV_DNS="${ENV_DNS}"
-        --build-arg REGISTRY_IMAGE="${REGISTRY_IMAGE}"
+        --build-arg REGISTRY_IMAGE="${CI_REGISTRY_IMAGE}/review"
         --cleanup
         --context "${CI_PROJECT_DIR}/review/"
         --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
-        --destination "${REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
+        --destination "${CI_REGISTRY_IMAGE}/review:${CI_COMMIT_REF_SLUG}"
       ||
       ( sed -i '/as cache/d; /from=cache/d; s/from=1/from=0/g'  review/Dockerfile &&
         /kaniko/executor
@@ -88,11 +84,11 @@ pelican:
           --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
           --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
           --build-arg ENV_DNS="${ENV_DNS}"
-          --build-arg REGISTRY_IMAGE="${REGISTRY_IMAGE}"
+          --build-arg REGISTRY_IMAGE="${CI_REGISTRY_IMAGE}/review"
           --cleanup
           --context "${CI_PROJECT_DIR}/review/"
           --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
-          --destination "${REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}" )
+          --destination "${CI_REGISTRY_IMAGE}/review:${CI_COMMIT_REF_SLUG}" )
   except:
     - master
 
@@ -108,7 +104,7 @@ commitlint:
 
 review-web:
   stage: review
-  <<: *jfrog_vars
+  <<: *registry_vars
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
     - ./review/cluster-config.sh

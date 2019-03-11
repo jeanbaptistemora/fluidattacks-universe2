@@ -17,11 +17,11 @@ kubectl config set-context \
   "$(kubectl config current-context)" --namespace="${CI_PROJECT_NAME}"
 
 # Check secret to pull images from Gitlab Registry and set if not present
-if ! kubectl get secret 'jfrog-reg'; then
+if ! kubectl get secret 'gitlab-reg'; then
   echo "Creating secret to access Gitlab Registry..."
   kubectl create secret docker-registry 'jfrog-reg' \
-  --docker-server="${REGISTRY}" --docker-username="${REGISTRY_USER}" \
-  --docker-password="${REGISTRY_PASS}" --docker-email="${REGISTRY_EMAIL}"
+  --docker-server="${CI_REGISTRY}" --docker-username="${CI_REGISTRY_USER}" \
+  --docker-password="${CI_REGISTRY_PASSWORD}" --docker-email="${CI_REGISTRY_EMAIL}"
 fi
 
 # Delete previous deployments and services of the same branch, if present
