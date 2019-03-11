@@ -21,10 +21,6 @@
   fill: #D6D6D6;
 }
 
-:local .statusIcon {
-  font-size: 40px;
-}
-
 :local .highlightedIndicator {
   font-size: 23px;
 }

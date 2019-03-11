@@ -102,11 +102,6 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
-              <Row>
-                <Col md={8}>
-                  <h2>{props.title}</h2>
-                </Col>
-              </Row>
               <hr />
               <div className={style.stickyContainer}>
                 <FindingHeader {...props.header} />
