@@ -585,6 +585,18 @@ def save_severity(finding):
         severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                     for k in severity_fields}
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
+        privileges = cvss.calculate_privileges(
+            unformatted_severity['privilegesRequired'],
+            unformatted_severity['severityScope'])
+        unformatted_severity['privilegesRequired'] = privileges
+        severity['privileges_required'] = \
+            Decimal(privileges).quantize(Decimal("0.01"))
+        modified_priviles = cvss.calculate_privileges(
+            unformatted_severity['modifiedPrivilegesRequired'],
+            unformatted_severity['modifiedSeverityScope'])
+        unformatted_severity['modifiedPrivilegesRequired'] = modified_priviles
+        severity['modified_privileges_required'] = \
+            Decimal(modified_priviles).quantize(Decimal("0.01"))
         cvss_parameters = fin_dto.CVSS3_PARAMETERS
     else:
         severity_fields = ['accessVector', 'accessComplexity',
@@ -601,7 +613,7 @@ def save_severity(finding):
     severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
         unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
-        unformatted_severity, severity['cvss_basescore'], cvss_version)
+        unformatted_severity, float(severity['cvss_basescore']), cvss_version)
     severity['cvss_env'] = cvss.calculate_cvss_environment(
         unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_version'] = cvss_version

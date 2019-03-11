@@ -1,11 +1,10 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { Action, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { msgError } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
-import { closeConfirmDialog } from "../../actions";
 import * as actionTypes from "./actionTypes";
 import { ISeverityViewProps } from "./index";
 
@@ -65,6 +64,26 @@ export const calcCVSSv2: ((data: ISeverityViewProps["dataset"]) => number) =
     return temporal;
   };
 
+export const calcPrivilegesRequired: ((privileges: string, scope: string) => number) =
+  (privileges: string, scope: string): number => {
+    let privReq: number = parseFloat(privileges);
+    if (parseFloat(scope) === 1) {
+      if (privReq === 0.62) {
+        privReq = 0.68;
+      } else if (privReq === 0.27) {
+        privReq = 0.5;
+      }
+    } else {
+      if (privReq === 0.68) {
+        privReq = 0.62;
+      } else if (privReq === 0.5) {
+        privReq = 0.27;
+      }
+    }
+
+    return privReq;
+  };
+
 export const calcCVSSv3: ((data: ISeverityViewProps["dataset"]) => number) =
   (data: ISeverityViewProps["dataset"]): number => {
     let BASESCORE_FACTOR: number; BASESCORE_FACTOR = 1.08;
@@ -82,7 +101,7 @@ export const calcCVSSv3: ((data: ISeverityViewProps["dataset"]) => number) =
     const sevScope: number = parseFloat(data.severityScope);
     const attVec: number = parseFloat(data.attackVector);
     const attCom: number = parseFloat(data.attackComplexity);
-    const privReq: number = parseFloat(data.privilegesRequired);
+    const privReq: number = calcPrivilegesRequired(data.privilegesRequired, data.severityScope);
     const usrInt: number = parseFloat(data.userInteraction);
     const explo: number = parseFloat(data.exploitability);
     const remLev: number = parseFloat(data.remediationLevel);
@@ -165,21 +184,36 @@ export const updateSeverity: ThunkActionStructure =
         data: {
           accessComplexity: "${values.accessComplexity}",
           accessVector: "${values.accessVector}",
+          attackComplexity: "${values.attackComplexity}",
+          attackVector: "${values.attackVector}",
           authentication: "${values.authentication}",
           availabilityImpact: "${values.availabilityImpact}",
+          availabilityRequirement: "${values.availabilityRequirement}",
+          collateralDamagePotential: "${values.collateralDamagePotential}",
           confidenceLevel: "${values.confidenceLevel}",
           confidentialityImpact: "${values.confidentialityImpact}",
+          confidentialityRequirement: "${values.confidentialityRequirement}",
           criticity: "${criticity}",
           cvssVersion: "${values.cvssVersion}",
           exploitability: "${values.exploitability}",
+          findingDistribution: "${values.findingDistribution}",
           id: "${findingId}",
           integrityImpact: "${values.integrityImpact}",
-          resolutionLevel: "${values.resolutionLevel}",
-          collateralDamagePotential: "${values.collateralDamagePotential}",
-          findingDistribution: "${values.findingDistribution}",
-          confidentialityRequirement: "${values.confidentialityRequirement}",
           integrityRequirement: "${values.integrityRequirement}",
-          availabilityRequirement: "${values.availabilityRequirement}",
+          modifiedAttackComplexity: "${values.modifiedAttackComplexity}",
+          modifiedAttackVector: "${values.modifiedAttackVector}",
+          modifiedAvailabilityImpact: "${values.modifiedAvailabilityImpact}",
+          modifiedConfidentialityImpact: "${values.modifiedConfidentialityImpact}",
+          modifiedIntegrityImpact: "${values.modifiedIntegrityImpact}",
+          modifiedPrivilegesRequired: "${values.modifiedPrivilegesRequired}",
+          modifiedSeverityScope: "${values.modifiedSeverityScope}",
+          modifiedUserInteraction: "${values.modifiedUserInteraction}",
+          privilegesRequired: "${values.privilegesRequired}",
+          remediationLevel: "${values.remediationLevel}",
+          reportConfidence: "${values.reportConfidence}",
+          severityScope: "${values.severityScope}",
+          resolutionLevel: "${values.resolutionLevel}",
+          userInteraction: "${values.userInteraction}",
         }
       ) {
         success
@@ -194,7 +228,7 @@ export const updateSeverity: ThunkActionStructure =
           const { data } = response.data;
 
           if (data.updateSeverity.success) {
-            dispatch(calcCVSS(data.finding.severity, data.finding.cvssVersion));
+            dispatch(calcCVSS(data.updateSeverity.finding.severity, data.updateSeverity.finding.cvssVersion));
             dispatch({
               payload: {
                 cvssVersion: data.updateSeverity.finding.cvssVersion,
@@ -203,7 +237,10 @@ export const updateSeverity: ThunkActionStructure =
               type: actionTypes.LOAD_SEVERITY,
             });
             dispatch(editSeverity());
-            dispatch(closeConfirmDialog("confirmEditSeverity"));
+            msgSuccess(
+              translate.t("proj_alerts.updated"),
+              translate.t("proj_alerts.updated_title"),
+            );
           } else {
             msgError(translate.t("proj_alerts.error_textsad"));
           }

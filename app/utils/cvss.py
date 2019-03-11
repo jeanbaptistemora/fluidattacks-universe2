@@ -168,3 +168,19 @@ def calculate_cvss_environment(severity, parameters, version):
     else:
         cvss_environment = _calc_cvss2_environment(severity, parameters)
     return cvss_environment
+
+
+def calculate_privileges(privileges, scope):
+    """Calculate privileges attribute."""
+    if scope:
+        if privileges == 0.62:
+            privileges = 0.68
+        elif privileges == 0.27:
+            privileges = 0.5
+    else:
+        if privileges == 0.68:
+            privileges = 0.62
+        elif privileges == 0.5:
+            privileges = 0.27
+
+    return privileges

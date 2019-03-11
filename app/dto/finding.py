@@ -441,7 +441,7 @@ class FindingDTO(object):
             if parsed_dict['privilegesRequired'] == 0.62:
                 parsed_dict['privilegesRequired'] = 0.68
             elif parsed_dict['privilegesRequired'] == 0.27:
-                parsed_dict['privilegesRequired'] = 0.50
+                parsed_dict['privilegesRequired'] = 0.5
         else:
             # privileges required continue with its initial value
             pass
@@ -449,7 +449,7 @@ class FindingDTO(object):
             if parsed_dict['modifiedPrivilegesRequired'] == 0.62:
                 parsed_dict['modifiedPrivilegesRequired'] = 0.68
             elif parsed_dict['modifiedPrivilegesRequired'] == 0.27:
-                parsed_dict['modifiedPrivilegesRequired'] = 0.50
+                parsed_dict['modifiedPrivilegesRequired'] = 0.5
         else:
             # Modified privileges required continue with its initial value
             pass
