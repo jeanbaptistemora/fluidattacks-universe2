@@ -5,7 +5,7 @@
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: New information. Photo by M. Parzuchowski on Unsplash: https://unsplash.com/photos/GikVY_KS9vQ
-:description: How to use Bayes rule and basic probability theory to reduce uncertainty, refining initial estimates through evidence. An application to the information provided by a penetration test regarding the probability of having vulnerabilities and suffering its consequences.
+:description: How to use Bayes rule and basic probability theory to reduce uncertainty, refining initial estimates through evidence. An application to the information provided by a penetration test regarding the probability of having vulnerabilities and suffering their consequences.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -22,33 +22,33 @@ regarding a particular cybersecurity risk,
 you'd better use all the tools at hand
 to reduce that uncertainty, i.e., measuring.
 
-Why do we speak of "belief" and not probability here?
-Intuitively, when we have mentioned probabilities,
+Why do we speak of "belief" and not "probability" here?
+Intuitively, when we have mentioned
+[button]#link:../quantifying-risk/[probabilities],#
 we're meaning some belief or measure of uncertainty.
 For example, when giving a confidence interval,
 we say we _believe_ the actual value is
 between the boundaries of the interval,
 up to a certain degree of confidence.
-That's a belief.
 When we simulate multiple scenarios in
-link:../monetizing-vulnerabilities[Monte Carlo simulations]
+[button]#link:../monetizing-vulnerabilities[Monte Carlo simulations]#
 and finally aggregate the results,
 we're expressing that we believe
 that the loss will be so many millions or larger.
 
-In science, hypotheses are disproven trough appropriate evidence.
-It should be observable and measurable.
+In science, hypotheses are disproven trough observable, measurable evidence.
 Similarly, testing in general
---and link:../../[penetration testing] in particular--
+--and [button]#link:../../[pentesting]# in particular--
 can change our beliefs, that is,
 our initially proposed or _prior_ probabilities,
-based on our very own flavor of evidence.
+based upon evidence.
 The mathematical tool for updating these beliefs
 is a simple one: Bayes Rule.
 However, it does require us to discuss a
 few basic probability theory facts.
 If you're familiar with it,
-feel free to skip the next section.
+feel free to skip straight to
+<<sec-app-cyber, application to cybersecurity risk>>.
 
 == Mathematical interlude
 
@@ -58,8 +58,8 @@ we have a bag with 2 blue marbles and 3 red ones,
 and we're going to draw marbles from the bag (without looking!)
 and we want to find the probabilities of drawing each kind.
 Let us call<<f1, ^[1]^>> R the event of picking a red marble
-and B for blue ones.
-Event B has probability P(B) = 2/5, and P\(R) = 3/5, in principle.
+and B for picking a red one.
+Their probabilities are P(B) = 2/5, and P\(R) = 3/5, in principle.
 
 What if now we draw a second marble?
 Now the probabilities are subject to the result
@@ -67,8 +67,8 @@ of the first draw.
 For example, if we're given that the first marble picked was blue,
 then the probability of drawing a red marble is now 3/4
 since now there are only 4 balls altogether.
-This is a _conditional_ probability;
-it is the probability of event R subject given B happened,
+This is a link:http://setosa.io/conditional/[_conditional_ probability];
+it is the chance of event R subject given B happened,
 denoted P(R|B).
 This situation can be illustrated with a tree diagram like this:
 
@@ -84,12 +84,14 @@ And we can add related branches to make up single events:
 The probability of the third branch from top to bottom
 is 30%, so if we add that to the previous result,
 we get that the probability of the second marble being red is 40%.
-This is an application of the _total probability theorem_.<<f3, ^[3]^>>
+This is an application of the
+link:https://www.toppr.com/guides/quantitative-aptitude/probability/total-probability/[_total probability theorem_].<<f3, ^[3]^>>
 
-We know the conditional probabilities for the second ball given the first,
-but what if they only show us the second one
+We know the conditional probabilities for the second marble given the first,
+but what if they show us that the second one is blue
 and we had to guess what the first one was?
-That's where Bayes Rule <<f4, ^[4]^>> comes in:
+That's where
+link:https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/[Bayes Rule] <<f4, ^[4]^>> comes in:
 
 ["latex","bayes-cause-evidence.png",align="center"]
 ----
@@ -99,12 +101,7 @@ That's where Bayes Rule <<f4, ^[4]^>> comes in:
 
 If we think of the first event as the cause
 and the second one as the effect,
-we can find the probability of the evidence by
-using the conditional probabilities
-as we did above, with the total probability theorem.
-In this particular case,
-let the "evidence" be that the second ball is blue,
-so P(evidence) = 40%.
+we have that P(evidence) = 40%.
 We know that the _a priori_ chance of
 the first ball being red is 60%,
 and the probability of observing the evidence
@@ -135,6 +132,7 @@ can _update_ or _refine_ our estimates
 on the likelihoods of the causes.
 
 
+[[sec-app-cyber]]
 == So how does this apply to cyber risk?
 
 Since Bayes Rule helps us reduce our uncertainty,
@@ -237,19 +235,14 @@ digraph probtree {
 Probabilities in blue are the given ones.
 Since branching in a probability tree implies that
 the involved probabilities are complementary, i.e.,
-they add up to one.
-So we can compute that P(\~V|~T) = 99.95%,
+they add up to one,
+we can compute all others,
 but we chose not to write them
 in the above diagram to keep it tidy.
-
 Recall that the probability of a single branch
 is the product of the probabilities that lead to it
-so that P(T~VA) = 0.01*0.05*0.01 = 0.05%
-for the second branch.
-The probability of suffering an attack would be
-the sum of the probabilities of every branch that ends in A.
-So P(A) = 1.3% without any additional information.
-
+so we can compute the probabilities of every branch that ends in A,
+and add them so that P(A) = 1.3%.
 
 If the pen test is positive,
 what is the probability of being attacked?
@@ -286,7 +279,7 @@ Does that mean there are no vulnerabilities?
 We know the probabilities of attack given the existence of vulnerabilities,
 but not the other way around.
 First, we find P(V) by total probability
-(ignoring all the A nodes):#
+(ignoring all the A nodes in the third column):
 
 ["latex","prob-vuln.png",align="center"]
 ----
@@ -303,21 +296,30 @@ Finally, by Bayes Rule:
 $$\rm P(V\,|\,\sim A) = \frac{P(\sim A\,|\,V)\,P(V)}{P(\sim A)} = 0.76\,\%.$$
 ----
 
+So even it the threat does not materialize,
+there is still a latent risk of having vulnerabilities.
+
 ''''
 
 This is yet another example of how we can measure risk,
 even when our initial estimates are bad,
 using basic probability theory facts and
-through appropriate decomposition of the problem.
+an appropriate decomposition of the problem.
 We can estimate the probabilities of events given certain assumed conditions,
 put that together in a probability tree diagram and
 use the tools learned in this article to generate the rest.
 
 == References
 
-. [[r1]] D. Hubbard, R. Seiersen (2016).
+. [[r1]] Better Explained.
+link:https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/[An Intuitive (and Short) Explanation of Bayes' Theorem].
+
+. [[r2]] D. Hubbard, R. Seiersen (2016).
 _How to measure anything in cibersecurity risk_.
 link:https://www.howtomeasureanything.com/[Wiley].
+
+. [[r3]] D. Lindley (2006). _Understanding Uncertainty_.
+link:http://www.al-edu.com/wp-content/uploads/2014/05/Lindley-D.V.-Understanding-uncertainty-2006.pdf[PDF via Wiley].
 
 == Technical details
 
