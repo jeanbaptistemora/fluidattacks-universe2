@@ -99,6 +99,7 @@ export const saveRepos: ThunkActionStructure =
           success
           resources {
             environments
+            files
             repositories
           }
         }
@@ -111,6 +112,7 @@ export const saveRepos: ThunkActionStructure =
           dispatch({
             payload: {
               environments: JSON.parse(data.addRepositories.resources.environments),
+              files: JSON.parse(data.addRepositories.resources.files),
               repositories: JSON.parse(data.addRepositories.resources.repositories),
             },
             type: actionTypes.LOAD_RESOURCES,
@@ -147,6 +149,7 @@ export const removeRepo: ThunkActionStructure =
         resources {
           environments
           repositories
+          files
         }
       }
     }`;
@@ -157,6 +160,7 @@ export const removeRepo: ThunkActionStructure =
             dispatch({
               payload: {
                 environments: JSON.parse(data.removeRepositories.resources.environments),
+                files: JSON.parse(data.removeRepositories.resources.files),
                 repositories: JSON.parse(data.removeRepositories.resources.repositories),
               },
               type: actionTypes.LOAD_RESOURCES,
@@ -192,6 +196,7 @@ export const saveEnvs: ThunkActionStructure =
             success
             resources {
               environments
+              files
               repositories
             }
           }
@@ -204,6 +209,7 @@ export const saveEnvs: ThunkActionStructure =
             dispatch({
               payload: {
                 environments: JSON.parse(data.addEnvironments.resources.environments),
+                files: JSON.parse(data.addEnvironments.resources.files),
                 repositories: JSON.parse(data.addEnvironments.resources.repositories),
               },
               type: actionTypes.LOAD_RESOURCES,
@@ -239,6 +245,7 @@ export const removeEnv: ThunkActionStructure =
         success
         resources {
           environments
+          files
           repositories
         }
       }
@@ -250,6 +257,7 @@ export const removeEnv: ThunkActionStructure =
             dispatch({
               payload: {
                 environments: JSON.parse(data.removeEnvironments.resources.environments),
+                files: JSON.parse(data.removeEnvironments.resources.files),
                 repositories: JSON.parse(data.removeEnvironments.resources.repositories),
               },
               type: actionTypes.LOAD_RESOURCES,
@@ -285,7 +293,9 @@ export const saveFiles: ThunkActionStructure =
             projectName: "${projectName}") {
             success
             resources {
+              environments
               files
+              repositories
             }
           }
         }`;
@@ -296,7 +306,9 @@ export const saveFiles: ThunkActionStructure =
             dispatch(closeAddModal());
             dispatch({
               payload: {
+                environments: JSON.parse(data.addFiles.resources.environments),
                 files: JSON.parse(data.addFiles.resources.files),
+                repositories: JSON.parse(data.addFiles.resources.repositories),
               },
               type: actionTypes.LOAD_RESOURCES,
             });
@@ -329,7 +341,9 @@ export const deleteFile: ThunkActionStructure =
           ) {
             success
             resources {
+              environments
               files
+              repositories
             }
           }
         }`;
@@ -340,7 +354,9 @@ export const deleteFile: ThunkActionStructure =
                 dispatch(closeOptionsModal());
                 dispatch({
                   payload: {
+                    environments: JSON.parse(data.removeFiles.resources.environments),
                     files: JSON.parse(data.removeFiles.resources.files),
+                    repositories: JSON.parse(data.removeFiles.resources.repositories),
                   },
                   type: actionTypes.LOAD_RESOURCES,
                 });
