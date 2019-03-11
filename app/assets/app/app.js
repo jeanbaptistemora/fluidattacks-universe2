@@ -5,9 +5,10 @@
 // Angular module configuration only can be made with parameter array injection.
 /* eslint angular/di: [2,"array"] */
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
+/* eslint-disable angular/window-service */
 /* global
 document, jQuery, $, location, angular, isProduction:true,
-translations1, traducciones1, translations2, traducciones2
+translations1, traducciones1, translations2, traducciones2, Rollbar
 */
 /**
  * @file app.js
@@ -78,6 +79,14 @@ angular.module("FluidIntegrates").config([
       "captureUncaught": true,
       "enabled": isProduction,
       "payload": {"environment": fiEnvironment}
+    });
+    Rollbar.configure({
+      "payload": {
+        "person": {
+          "email": window.userEmail,
+          "username": window.userName
+        }
+      }
     });
   }
 ]);
