@@ -11,13 +11,12 @@ image: registry.gitlab.com/fluidsignal/serves:builder
     ROLE_ID: "${INTEGRATES_DEV_ROLE_ID}"
     SECRET_ID: "${INTEGRATES_DEV_SECRET_ID}"
 
-.jfrog_vars: &jfrog_vars
+.registry_vars: &registry_vars
   variables:
-    CI_REGISTRY: "${JFROG_REPO}"
-    CI_REGISTRY_USER: "${INTEGRATES_JFROG_USER}"
-    CI_REGISTRY_PASSWORD: "${INTEGRATES_JFROG_PASS}"
-    CI_REGISTRY_EMAIL: "${INTEGRATES_JFROG_EMAIL}"
-    CI_REGISTRY_IMAGE: "${JFROG_REPO}/integrates"
+    CI_REGISTRY_USER: "${GITLAB_USER}"
+    CI_REGISTRY_PASSWORD: "${GITLAB_PASS}"
+    CI_REGISTRY_EMAIL: "${GITLAB_EMAIL}"
+    CI_REGISTRY_IMAGE: "${CI_REGISTRY}/fluidsignal/default/integrates"
 
 .vault_setup: &vault_setup |-
   if [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
@@ -38,7 +37,7 @@ image: registry.gitlab.com/fluidsignal/serves:builder
     - *vault_setup
 
 .kaniko_config: &kaniko_config
-  <<: *jfrog_vars
+  <<: *registry_vars
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -84,7 +83,7 @@ build:
         --cleanup
         --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}:deps"
+        --destination "${CI_REGISTRY_IMAGE}/deps:latest"
         --snapshotMode time
   retry: 1
   only:
@@ -105,7 +104,7 @@ build:
 
 gulp-compiler:
   stage: pre-test
-  image: fluid-docker.jfrog.io/integrates:deps
+  image: registry.gitlab.com/fluidsignal/default/integrates/deps:latest
   script:
     - cp -a /root/front/node_modules front/
     - cd front
@@ -128,7 +127,7 @@ commitlint:
 
 react-testing:
   stage: pre-test
-  image: fluid-docker.jfrog.io/integrates:deps
+  image: registry.gitlab.com/fluidsignal/default/integrates/deps:latest
   script:
     - cp -a /root/front/node_modules front/
     - cd front
@@ -147,7 +146,7 @@ react-testing:
 
 js-linter:
   stage: pre-test
-  image: fluid-docker.jfrog.io/integrates:deps
+  image: registry.gitlab.com/fluidsignal/default/integrates/deps:latest
   script:
     - cp -a /root/front/node_modules front/
     - cd front
@@ -159,7 +158,7 @@ js-linter:
 
 prospector-testing:
   stage: pre-test
-  image: fluid-docker.jfrog.io/integrates:deps
+  image: registry.gitlab.com/fluidsignal/default/integrates/deps:latest
   <<: *vault_login
   script:
     - vaultenv -- prospector -F -s veryhigh -u django -p app/ -i node_modules || true
@@ -170,7 +169,7 @@ prospector-testing:
 
 unit-testing:
   stage: pre-test
-  image: fluid-docker.jfrog.io/integrates:deps
+  image: registry.gitlab.com/fluidsignal/default/integrates/deps:latest
   <<: *vault_login
   script:
     - cp -a $PWD /usr/src/app_src
@@ -260,7 +259,7 @@ build-integrates:
         --cleanup
         --context "${CI_PROJECT_DIR}/deploy/containers/integrates/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/integrates/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+        --destination "${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
         --snapshotMode time
   retry: 1
 
@@ -284,13 +283,13 @@ build-bot:
         --cleanup
         --context "${CI_PROJECT_DIR}/deploy/containers/bot/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/bot/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}-bot:${CI_COMMIT_REF_NAME}"
+        --destination "${CI_REGISTRY_IMAGE}/bot:${CI_COMMIT_REF_NAME}"
         --snapshotMode time
   retry: 1
 
 driver-testing:
   stage: post-deploy
-  image: fluid-docker.jfrog.io/integrates:deps
+  image: registry.gitlab.com/fluidsignal/default/integrates/deps:latest
   dependencies: []
   <<: *vault_login
   script:
@@ -408,11 +407,11 @@ deploy-k8s:
   script:
     - kubectl config set-context "$(kubectl config current-context)"
         --namespace serves
-    - if ! kubectl get secret jfrog-reg; then
+    - if ! kubectl get secret gitlab-reg; then
         echo "Creating secret to access Gitlab Registry...";
-        kubectl create secret docker-registry jfrog-reg
-          --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER"
-          --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL";
+        kubectl create secret docker-registry gitlab-reg
+          --docker-server="${CI_REGISTRY}" --docker-username="${GITLAB_USER}"
+          --docker-password="${GITLAB_PASS}" --docker-email="${GITLAB_EMAIL}";
       fi
     - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
         s/$VAULT_TOKEN/'"$(echo -n $VAULT_TOKEN | base64)"'/;
@@ -436,7 +435,7 @@ deploy-k8s:
 
 new-version-mail:
   stage: post-deploy
-  image: fluid-docker.jfrog.io/integrates:master
+  image: registry.gitlab.com/fluidsignal/default/integrates/app:master
   dependencies: []
   <<: *vault_login
   script:
@@ -467,7 +466,7 @@ asserts-prod:
 
 coverage-report:
   stage: coverage
-  image: fluid-docker.jfrog.io/integrates:deps
+  image: registry.gitlab.com/fluidsignal/default/integrates/deps:latest
   dependencies:
     - unit-testing
     - react-testing

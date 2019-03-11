@@ -86,14 +86,14 @@ kubectl config set-context \
 validate_domain_certificate tls.yaml
 
 # Check secret to pull images from Gitlab Registry and set if not present
-if find_resource secret jfrog-reg; then
+if find_resource secret gitlab-reg; then
   echo-blue "Access to Gitlab Registry already configured."
 else
   echo-blue "Creating secret to access Gitlab Registry..."
-  kubectl create secret docker-registry jfrog-reg \
-    --docker-server="fluid-docker.jfrog.io" \
-    --docker-username="$JFROG_USER" --docker-password="$JFROG_PASS" \
-    --docker-email="$JFROG_EMAIL"
+  kubectl create secret docker-registry gitlab-reg \
+    --docker-server="${CI_REGISTRY}" \
+    --docker-username="${GITLAB_USER}" --docker-password="${GITLAB_PASS}" \
+    --docker-email="${GITLAB_EMAIL}"
 fi
 
 # Check secret to pass env variables to container

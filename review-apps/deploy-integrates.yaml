@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: integrates
-        image: fluid-docker.jfrog.io/integrates:$CI_COMMIT_REF_SLUG
+        image: registry.gitlab.com/fluidsignal/default/integrates/app:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         envFrom:
           - secretRef:
@@ -40,4 +40,4 @@ spec:
           successThreshold: 3
           failureThreshold: 10
       imagePullSecrets:
-      - name: jfrog-reg
+      - name: gitlab-reg

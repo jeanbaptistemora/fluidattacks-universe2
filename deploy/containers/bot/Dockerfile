@@ -1,4 +1,4 @@
-FROM fluid-docker.jfrog.io/integrates:deps
+FROM registry.gitlab.com/fluidsignal/default/integrates/deps:latest
 
 ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
