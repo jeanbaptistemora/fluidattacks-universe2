@@ -136,6 +136,17 @@ def get_role_dao(email):
     return row[0]
 
 
+def get_user_first_name(email):
+    """ Get the first name of a user. """
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT first_name FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+    if row is None:
+        return "None"
+    return row[0]
+
+
 def get_project_description(project):
     """ Get the description of a project. """
     with connections['integrates'].cursor() as cursor:

@@ -1,6 +1,8 @@
+# pylint: disable=relative-beyond-top-level
 from __future__ import absolute_import
 import mandrill
 from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
+from .dao import integrates_dao
 
 API_KEY = FI_MANDRILL_API_KEY
 VERIFY_TAG = ['verify']
@@ -30,11 +32,16 @@ def _send_mail(template_name, email_to, context, tags):
         mandrill_client = mandrill.Mandrill(API_KEY)
         message = {
             'to': [],
-            'global_merge_vars': []
+            'global_merge_vars': [],
+            'merge_vars': []
         }
         for email in email_to:
+            fname_mail = integrates_dao.get_user_first_name(email)
+            merge_var = {'rcpt': email,
+                         'vars': [{'name': 'fname',
+                                   'content': fname_mail}]}
             message['to'].append({'email': email})
-
+            message['merge_vars'].append(merge_var)
         for key, value in new_context.items():
             message['global_merge_vars'].append(
                 {'name': key, 'content': value}
@@ -62,40 +69,11 @@ def send_mail_remediate_finding(email_to, context):
     _send_mail('remediatefindingintegrates', email_to, context=context, tags=VERIFY_TAG)
 
 
-def send_mail_new_comment(email_to, context, comment_type):
-    if comment_type == 'project':
-        _send_mail('business-new-comment-project',
-                   email_to,
-                   context=context,
-                   tags=COMMENTS_TAG)
-    elif comment_type == 'observation':
-        _send_mail('business-new-observation-finding',
-                   email_to,
-                   context=context,
-                   tags=COMMENTS_TAG)
-    else:
-        _send_mail('business-new-comment-finding',
-                   email_to,
-                   context=context,
-                   tags=COMMENTS_TAG)
-
-
-def send_mail_reply_comment(email_to, context, comment_type):
-    if comment_type == 'project':
-        _send_mail('business-new-reply-project',
-                   email_to,
-                   context=context,
-                   tags=COMMENTS_TAG)
-    elif comment_type == 'observation':
-        _send_mail('business-new-reply-observation',
-                   email_to,
-                   context=context,
-                   tags=COMMENTS_TAG)
-    else:
-        _send_mail('business-new-reply-finding',
-                   email_to,
-                   context=context,
-                   tags=COMMENTS_TAG)
+def send_mail_comment(email_to, context):
+    _send_mail('new-comment-integrates',
+               email_to,
+               context=context,
+               tags=COMMENTS_TAG)
 
 
 def send_mail_verified_finding(email_to, context):

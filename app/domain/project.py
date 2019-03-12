@@ -8,7 +8,7 @@ import threading
 import re
 
 from app.dao import integrates_dao
-from app.mailer import send_mail_new_comment, send_mail_reply_comment
+from app.mailer import send_mail_comment
 
 
 def comment_has_parent(comment_data):
@@ -25,24 +25,26 @@ def get_email_recipients(project_name):
 
 def send_comment_mail(project_name, email, comment_data):
     """Send a mail in a project."""
+    parent = comment_data['parent']
     recipients = get_email_recipients(project_name)
-    if comment_has_parent(comment_data):
-        mail_title = "Reply project email thread"
-        mail_function = send_mail_reply_comment
-    else:
-        mail_title = "New project email thread"
-        mail_function = send_mail_new_comment
+    mail_title = "New project email thread"
+    mail_function = send_mail_comment
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    mail_context = {
+        'project': project_name,
+        'user_email': email,
+        'comment_type': 'project',
+        'parent': parent,
+        'comment': comment_data['content'].replace('\n', ' '),
+        'comment_url':
+            base_url + '/project/{project!s}/comments'
+        .format(project=project_name)
+    }
     email_send_thread = threading.Thread(
         name=mail_title,
         target=mail_function,
-        args=(recipients, {
-            'project': project_name,
-            'user_email': email,
-            'comment': comment_data['content'].replace('\n', ' '),
-            'project_url': base_url + '/project/{project!s}/comments'
-            .format(project=project_name)
-        }, 'project'))
+        args=(recipients,
+              mail_context))
     email_send_thread.start()
 
 

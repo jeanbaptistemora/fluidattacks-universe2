@@ -33,9 +33,8 @@ from app.dto.finding import (
     FindingDTO, get_project_name
 )
 from app.mailer import (
-    send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
-    send_mail_remediate_finding, send_mail_accepted_finding, send_mail_delete_draft,
-    send_mail_delete_finding
+    send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
+    send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
 )
 from .vulnerability import update_vulnerabilities_date
 
@@ -322,16 +321,6 @@ def get_email_recipients(project_name, comment_type):
 def send_comment_mail(user_email, content, parent, comment_type, finding_id):
     project_name = get_project_name(finding_id).lower()
     recipients = get_email_recipients(project_name, comment_type)
-
-    if comment_has_parent(parent):
-        mail_title = \
-            "Reply {comment_type!s} email thread".format(comment_type=comment_type)
-        mail_function = send_mail_reply_comment
-    else:
-        mail_title = \
-            "New {comment_type!s} email thread".format(comment_type=comment_type)
-        mail_function = send_mail_new_comment
-
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     dynamo_value = integrates_dao.get_finding_attributes_dynamo(
         finding_id, ['finding'])
@@ -344,20 +333,26 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
             finding_id, api.get_submission(finding_id)
         ).get('finding')
 
+    email_context = {
+        'project': project_name,
+        'finding_name': finding_title,
+        'user_email': user_email,
+        'finding_id': finding_id,
+        'comment': content.replace('\n', ' '),
+        'comment_type': comment_type,
+        'parent': parent,
+        'comment_url':
+            base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
+        .format(project=project_name, finding=finding_id,
+                comment_type=comment_type)
+    }
+    mail_title = \
+        "New {comment_type!s} email thread".format(comment_type=comment_type)
     email_send_thread = threading.Thread(
         name=mail_title,
-        target=mail_function,
-        args=(recipients, {
-            'project': project_name,
-            'finding_name': finding_title,
-            'user_email': user_email,
-            'finding_id': finding_id,
-            'comment': content.replace('\n', ' '),
-            'finding_url':
-                base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
-            .format(project=project_name, finding=finding_id,
-                    comment_type=comment_type)
-        }, comment_type))
+        target=send_mail_comment,
+        args=(recipients,
+              email_context))
     email_send_thread.start()
 
 
