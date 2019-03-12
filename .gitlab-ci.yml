@@ -307,7 +307,7 @@ driver-testing:
         --exitfirst
         --basetemp=build/test
         app/ephimeral_tests.py
-    - cp -a screenshots /builds/fluidattacks/integrates/
+    - cp -a screenshots "${CI_PROJECT_DIR}"
   retry: 1
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -361,7 +361,6 @@ asserts-review:
     STAGE: "review"
     USER: "${INTEGRATES_JFROG_USER}"
   script:
-    - mkdir /code
     - cp -a * /code/
     - /entrypoint.sh
   retry: 1
@@ -457,7 +456,6 @@ asserts-prod:
     STAGE: "post-deploy"
     USER: "${INTEGRATES_JFROG_USER}"
   script:
-    - mkdir /code
     - cp -a * /code/
     - /entrypoint.sh
   retry: 1
