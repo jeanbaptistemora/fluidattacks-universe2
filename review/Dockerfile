@@ -7,6 +7,7 @@ FROM registry.gitlab.com/fluidattacks/web:base
 
 ARG CI_COMMIT_REF_NAME
 ARG CI_PROJECT_NAME
+ARG CI_PROJECT_NAMESPACE
 ARG CI_REPOSITORY_URL
 ARG ENV_DNS
 ARG REGISTRY_IMAGE
@@ -19,7 +20,7 @@ COPY --from=cache /home/cache /home/web/cache
 
 RUN pybabel compile --directory theme/2014/translations/ --domain messages \
     && for FILE in $(find . -iname '*.adoc'); do \
-      sed -i 's/^include::/include::\/builds\/fluidattacks/g' $FILE; \
+      sed -i 's#^include::#include::/'"${CI_PROJECT_NAMESPACE}"'#g' $FILE; \
       done \
     && sed -i 's/https:\/\/fluidattacks\.com/https:\/\/'"${CI_PROJECT_NAME}.${ENV_DNS}\/${CI_COMMIT_REF_NAME}"'/g' pelicanconf.py \
     && pelican --fatal errors --fatal warnings content/ \
