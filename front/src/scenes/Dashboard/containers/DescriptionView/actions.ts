@@ -6,7 +6,6 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
-import { closeConfirmDialog } from "../../actions";
 import * as actionTypes from "./actionTypes";
 import { IDescriptionViewProps } from "./index";
 
@@ -174,7 +173,6 @@ export const verifyFinding: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.verifyFinding.success) {
-            dispatch<IActionStructure>(closeConfirmDialog("confirmVerify"));
             dispatch<IActionStructure>({
               payload: {
                 descriptionData: { remediated: false },

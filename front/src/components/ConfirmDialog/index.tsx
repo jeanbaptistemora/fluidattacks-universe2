@@ -5,7 +5,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { Button, ButtonToolbar } from "react-bootstrap";
+import { Button, ButtonToolbar, Col, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Dispatch } from "redux";
 import { closeConfirmDialog, IActionStructure } from "../../scenes/Dashboard/actions";
@@ -22,6 +22,7 @@ interface IConfirmDialogDispatchProps {
 }
 
 interface IConfirmDialogBaseProps {
+  children?: React.ReactNode;
   name: string;
   title: string;
   onProceed(): void;
@@ -31,15 +32,14 @@ type IConfirmDialogProps = IConfirmDialogBaseProps & (IConfirmDialogStateProps &
 
 const confirmDialog: React.SFC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
   const handleClose: (() => void) = (): void => { props.onClose(); };
-  const handleProceed: (() => void) = (): void => { props.onProceed(); };
+  const handleProceed: (() => void) = (): void => { props.onProceed(); props.onClose(); };
 
   return (
-  <React.StrictMode>
-    <Modal
-      headerTitle={props.title}
-      open={props.isOpen}
-      content={<p>{translate.t("confirmmodal.message")}</p>}
-      footer={
+    <React.StrictMode>
+      <Modal
+        headerTitle={props.title}
+        open={props.isOpen}
+        footer={
           <ButtonToolbar className="pull-right">
             <Button onClick={handleClose}>
               {translate.t("confirmmodal.cancel")}
@@ -51,11 +51,17 @@ const confirmDialog: React.SFC<IConfirmDialogProps> = (props: IConfirmDialogProp
               {translate.t("confirmmodal.proceed")}
             </Button>
           </ButtonToolbar>
-      }
-
-    />
-  </React.StrictMode>
-);
+        }
+      >
+        <Row>
+          <Col md={12}>
+            <p>{translate.t("confirmmodal.message")}</p>
+            {props.children}
+          </Col>
+        </Row>
+      </Modal>
+    </React.StrictMode>
+  );
 };
 
 interface IState { dashboard: IDashboardState; }

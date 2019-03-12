@@ -10,7 +10,7 @@ import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";
 
 interface IFormProps extends Pick<ConfigProps<{}, Pick<IFormProps, "children">>, "onChange"> {
-  children: React.ReactChild;
+  children: React.ReactNode;
   initialValues?: {};
   name: string;
   onSubmit(values: {}): void;

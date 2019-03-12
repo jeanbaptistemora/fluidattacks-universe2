@@ -8,7 +8,8 @@ import { Modal } from "react-bootstrap";
 import style from "./index.css";
 
 interface IModalProps {
-  content: React.ReactNode;
+  children?: React.ReactNode;
+  content?: React.ReactNode;
   footer: React.ReactNode;
   headerTitle: string;
   open: boolean;
@@ -23,7 +24,7 @@ const modal: React.StatelessComponent<IModalProps> =
           <Modal.Title className={style.title}>{props.headerTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {props.content}
+          {props.content}{props.children}
         </Modal.Body>
         <Modal.Footer>
           {props.footer}
