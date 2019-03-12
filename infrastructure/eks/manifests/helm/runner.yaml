@@ -1,6 +1,7 @@
 image: gitlab/gitlab-runner:alpine
+imagePullPolicy: Always
 gitlabUrl: https://gitlab.com/
-runnerRegistrationToken: $SERVES_RUNNER_TOKEN
+runnerRegistrationToken: $FA_RUNNER_TOKEN
 unregisterRunners: true
 rbac:
   create: true
@@ -9,25 +10,15 @@ checkInterval: 10
 metrics:
   enabled: false
 runners:
-  image: docker:18
-  imagePullPolicy: if-not-present
-  locked: true
+  image: debian:stable-slim
+  imagePullPolicy: always
   privileged: false
   builds:
-    cpuLimit: 900m
-    memoryLimit: 1536Mi
+    cpuLimit: 700m
+    memoryLimit: 3072Mi
     cpuRequests: 600m
-    memoryRequests: 1024Mi
-  services:
-    cpuLimit: 200m
-    memoryLimit: 256Mi
-    cpuRequests: 100m
-    memoryRequests: 128Mi
+    memoryRequests: 2560Mi
   helpers:
-    cpuLimit: 200m
-    memoryLimit: 256Mi
-    cpuRequests: 100m
-    memoryRequests: 128Mi
     image: gitlab/gitlab-runner-helper:x86_64-latest
 resources:
   limits:
