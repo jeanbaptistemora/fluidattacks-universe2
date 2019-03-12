@@ -347,7 +347,7 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
                 comment_type=comment_type)
     }
     mail_title = \
-        "New {comment_type!s} email thread".format(comment_type=comment_type)
+        'New {comment_type!s} email thread'.format(comment_type=comment_type)
     email_send_thread = threading.Thread(
         name=mail_title,
         target=send_mail_comment,
@@ -586,13 +586,13 @@ def save_severity(finding):
             unformatted_severity['severityScope'])
         unformatted_severity['privilegesRequired'] = privileges
         severity['privileges_required'] = \
-            Decimal(privileges).quantize(Decimal("0.01"))
+            Decimal(privileges).quantize(Decimal('0.01'))
         modified_priviles = cvss.calculate_privileges(
             unformatted_severity['modifiedPrivilegesRequired'],
             unformatted_severity['modifiedSeverityScope'])
         unformatted_severity['modifiedPrivilegesRequired'] = modified_priviles
         severity['modified_privileges_required'] = \
-            Decimal(modified_priviles).quantize(Decimal("0.01"))
+            Decimal(modified_priviles).quantize(Decimal('0.01'))
         cvss_parameters = fin_dto.CVSS3_PARAMETERS
     else:
         severity_fields = ['accessVector', 'accessComplexity',
@@ -680,8 +680,8 @@ def read_csv(csv_file):
 def delete_comment(comment):
     """Delete comment."""
     if comment:
-        finding_id = comment["finding_id"]
-        user_id = comment["user_id"]
+        finding_id = comment['finding_id']
+        user_id = comment['user_id']
         response = integrates_dao.delete_comment_dynamo(finding_id, user_id)
     else:
         response = True
@@ -690,7 +690,7 @@ def delete_comment(comment):
 
 def delete_all_comments(finding_id):
     """Delete all comments of a finding."""
-    all_comments = integrates_dao.get_comments_dynamo(int(finding_id), "comment")
+    all_comments = integrates_dao.get_comments_dynamo(int(finding_id), 'comment')
     comments_deleted = [delete_comment(i) for i in all_comments]
     util.invalidate_cache(finding_id)
     return all(comments_deleted)
@@ -715,7 +715,7 @@ def delete_evidence_s3(evidence):
 
 def delete_all_evidences_s3(finding_id, project):
     """Delete s3 evidences files."""
-    evidences_list = key_existing_list(project + "/" + finding_id)
+    evidences_list = key_existing_list(project + '/' + finding_id)
     is_evidence_deleted = False
     if evidences_list:
         is_evidence_deleted_s3 = list(map(delete_evidence_s3, evidences_list))
@@ -733,7 +733,7 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
     recipients.append(discoverer_email)
 
     email_send_thread = threading.Thread(
-        name="Reject draft email thread",
+        name='Reject draft email thread',
         target=send_mail_delete_draft,
         args=(recipients, {
             'project': project_name,
@@ -781,7 +781,7 @@ def send_finding_delete_mail(
     recipients.extend(approvers)
 
     email_send_thread = threading.Thread(
-        name="Delete finding email thread",
+        name='Delete finding email thread',
         target=send_mail_delete_finding,
         args=(recipients, {
             'mail_analista': discoverer_email,
