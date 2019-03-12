@@ -68,6 +68,7 @@ const enTranslations: Map<string, string> = {
       file: "File",
       upload_date: "Upload Date",
     },
+    finding_deleted: "Finding {{findingId}} has been deleted",
     high_severity: "High",
     low_severity: "Tolerable",
     medium_severity: "Moderate",

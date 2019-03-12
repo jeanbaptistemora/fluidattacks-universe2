@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { msgError } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
@@ -69,7 +69,40 @@ export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult
           const { data } = response.data;
 
           if (data.rejectDraft.success) {
+            msgSuccess(
+              translate.t("search_findings.finding_deleted", { findingId: draftId }),
+              translate.t("proj_alerts.title_success"));
             location.hash = `#!/project/${projectName}/drafts`;
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const deleteFinding: ((findingId: string, projectName: string, justification: string) => ThunkResult<void>) =
+  (findingId: string, projectName: string, justification: string): ThunkResult<void> =>
+    (_0: ThunkDispatcher): void => {
+      let gQry: string; gQry = `mutation {
+        deleteFinding(findingId: "${findingId}", justification: "${justification}") {
+          success
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred deleting finding")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+
+          if (data.deleteFinding.success) {
+            msgSuccess(
+              translate.t("search_findings.finding_deleted", { findingId }),
+              translate.t("proj_alerts.title_success"));
+            location.hash = `#!/project/${projectName}/findings`;
           }
         })
         .catch((error: AxiosError) => {

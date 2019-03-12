@@ -69,6 +69,7 @@ const esTranslations: Map<string, string> = {
       file: "Archivo",
       upload_date: "Fecha",
     },
+    finding_deleted: "El hallazgo {{findingId}} ha sido eliminado",
     high_severity: "Alto",
     low_severity: "Tolerable",
     medium_severity: "Moderado",

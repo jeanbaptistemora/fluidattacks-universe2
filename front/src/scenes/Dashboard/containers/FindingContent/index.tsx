@@ -1,12 +1,17 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { Field, submit } from "redux-form";
+import ConfirmDialog from "../../../../components/ConfirmDialog/index";
+import { dropdownField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
+import { required } from "../../../../utils/validations";
 import { FindingHeader } from "../../components/FindingHeader";
+import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
 import { commentsView as CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
@@ -15,7 +20,7 @@ import { exploitView as ExploitView } from "../ExploitView/index";
 import { recordsView as RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
-import { clearFindingState, loadFindingData, rejectDraft, ThunkDispatcher } from "./actions";
+import { clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
@@ -39,6 +44,8 @@ interface IFindingContentStateProps {
 }
 
 interface IFindingContentDispatchProps {
+  onConfirmDelete(): void;
+  onDelete(justification: string): void;
   onLoad(): void;
   onReject(): void;
   onUnmount(): void;
@@ -94,6 +101,12 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
     mixpanel.track("FindingObservations");
 
     return <CommentsView type="observation" findingId={findingId} />;
+  };
+
+  const handleReject: (() => void) = (): void => { props.onReject(); };
+  const handleConfirmDelete: (() => void) = (): void => { props.onConfirmDelete(); };
+  const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
+    props.onDelete(values.justification);
   };
 
   return (
@@ -176,6 +189,21 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
           </Col>
         </Row>
       </div>
+      <ConfirmDialog name="confirmDeleteFinding" onProceed={handleConfirmDelete} title="Delete Finding">
+        <GenericForm name="deleteFinding" onSubmit={handleDelete}>
+          <FormGroup>
+            <ControlLabel>Justification</ControlLabel>
+            <Field name="justification" component={dropdownField} validate={[required]}>
+              <option value="" />
+              <option value="Change of evidence">Change of evidence</option>
+              <option value="Finding has changed">Finding has changed</option>
+              <option value="It is not a Vulnerability">It is not a Vulnerability</option>
+              <option value="It is duplicated">It is duplicated</option>
+            </Field>
+          </FormGroup>
+        </GenericForm>
+      </ConfirmDialog>
+      <ConfirmDialog name="confirmRejectDraft" onProceed={handleReject} title="Reject Draft"/>
     </React.StrictMode>
   );
 };
@@ -197,6 +225,8 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
     const { findingId, projectName } = ownProps.match.params;
 
     return ({
+      onConfirmDelete: (): void => { dispatch(submit("deleteFinding")); },
+      onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
       onLoad: (): void => { dispatch(loadFindingData(findingId)); },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
