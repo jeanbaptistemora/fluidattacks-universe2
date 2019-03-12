@@ -69,7 +69,7 @@ export const loadDescription: ThunkActionStructure<void> =
           actor
           description
           requirements
-          attackVector
+          attackVectorDesc
           threat
           recommendation
           releaseDate
@@ -208,7 +208,7 @@ export const updateDescription: ThunkActionStructure<void> =
         updateDescription(
           actor: ${JSON.stringify(values.actor)},
           affectedSystems: ${JSON.stringify(values.affectedSystems)},
-          attackVector: ${JSON.stringify(values.attackVector)},
+          attackVectorDesc: ${JSON.stringify(values.attackVectorDesc)},
           cwe: ${JSON.stringify(values.cweUrl)},
           description: ${JSON.stringify(values.description)},
           findingId: "${findingId}",
@@ -232,7 +232,7 @@ export const updateDescription: ThunkActionStructure<void> =
           finding {
             actor
             affectedSystems
-            attackVector
+            attackVectorDesc
             cweUrl
             kbUrl
             description

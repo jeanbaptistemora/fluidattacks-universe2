@@ -29,7 +29,7 @@ export interface IDescriptionViewProps {
     actor: string;
     affectedSystems: string;
     ambit: string;
-    attackVector: string;
+    attackVectorDesc: string;
     btsUrl: string;
     category: string;
     clientCode: string;

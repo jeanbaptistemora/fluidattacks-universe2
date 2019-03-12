@@ -80,7 +80,7 @@ const initialState: IDashboardState = {
       actor: "",
       affectedSystems: "",
       ambit: "",
-      attackVector: "",
+      attackVectorDesc: "",
       btsUrl: "",
       category: "",
       clientCode: "",

@@ -577,7 +577,10 @@ def get_findings(request):
                 exploitability, confidentiality_impact, integrity_impact, \
                 availability_impact, access_complexity, authentication, \
                 access_vector, resolution_level, confidence_level, \
-                project_name, finding"
+                project_name, finding, cvss_version, attack_vector, \
+                attack_complexity, privileges_required, \
+                user_interaction, severity_scope, report_confidence, \
+                remediation_level"
     findings = integrates_dao.get_findings_dynamo(project, data_attr)
     findings_parsed = []
     for finding in findings:
@@ -1297,7 +1300,7 @@ def mask_project_findings_dynamo(project):
     """Mask project findings information in DynamoDB."""
     api = FormstackAPI()
     fields = ['client_code', 'client_project', 'related_findings',
-              'vulnerability', 'attack_vector', 'affected_systems',
+              'vulnerability', 'attack_vector_desc', 'affected_systems',
               'threat', 'risk', 'treatment_justification', 'treatment',
               'treatment_manager', 'effect_solution']
     try:

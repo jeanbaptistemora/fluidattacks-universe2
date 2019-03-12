@@ -326,9 +326,9 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
           <EditableField
             className={globalStyle.noResize}
             component={textAreaField}
-            currentValue={props.dataset.attackVector}
+            currentValue={props.dataset.attackVectorDesc}
             label={translate.t("search_findings.tab_description.attack_vectors")}
-            name="attackVector"
+            name="attackVectorDesc"
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}

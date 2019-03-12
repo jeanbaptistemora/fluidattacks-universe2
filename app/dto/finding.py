@@ -73,7 +73,7 @@ class FindingDTO(object):
     SCENARIO = FIELDS_FINDING['SCENARIO']
     AMBIT = FIELDS_FINDING['AMBIT']
     AFFECTED_SYSTEMS = FIELDS_FINDING['AFFECTED_SYSTEMS']
-    ATTACK_VECTOR = FIELDS_FINDING['ATTACK_VECTOR']
+    ATTACK_VECTOR_DESC = FIELDS_FINDING['ATTACK_VECTOR_DESC']
     CWE = FIELDS_FINDING['CWE']
     TREATMENT = FIELDS_FINDING['TREATMENT']
     TREATMENT_JUSTIFICATION = FIELDS_FINDING['TREATMENT_JUSTIFICATION']
@@ -235,7 +235,7 @@ class FindingDTO(object):
             else:
                 # Finding doesn't have probability attribute because is general
                 pass
-        aditional_info_title = ['vulnerability', 'attack_vector',
+        aditional_info_title = ['vulnerability', 'attack_vector_desc',
                                 'affected_systems', 'threat', 'risk',
                                 'requirements', 'cwe', 'effect_solution',
                                 'kb', 'finding_type']
@@ -252,7 +252,7 @@ class FindingDTO(object):
         else:
             migrated_aditional_info_fields = {
                 self.VULNERABILITY: 'vulnerability',
-                self.ATTACK_VECTOR: 'attackVector',
+                self.ATTACK_VECTOR_DESC: 'attackVectorDesc',
                 self.AFFECTED_SYSTEMS: 'affectedSystems',
                 self.THREAT: 'threat',
                 self.RISK: 'risk',
@@ -566,7 +566,7 @@ class FindingDTO(object):
         self.data[self.REG_FILE] = base64.b64encode(mask_value)
         self.data[self.VULNERABILITY] = mask_value
         self.data[self.WHERE] = mask_value
-        self.data[self.ATTACK_VECTOR] = mask_value
+        self.data[self.ATTACK_VECTOR_DESC] = mask_value
         self.data[self.AFFECTED_SYSTEMS] = mask_value
         self.data[self.THREAT] = mask_value
         self.data[self.RISK] = mask_value
@@ -752,9 +752,10 @@ def migrate_description(finding):
                           'probability', 'severity', 'riskValue', 'ambit',
                           'category', 'testType', 'relatedFindings', 'actor',
                           'scenario', 'recordsNumber', 'records',
-                          'vulnerability', 'attackVector', 'affectedSystems',
+                          'vulnerability', 'attackVectorDesc',
                           'threat', 'risk', 'requirements', 'cwe',
-                          'effectSolution', 'kb', 'findingType']
+                          'effectSolution', 'kb', 'findingType',
+                          'affectedSystems']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     response = \
@@ -812,11 +813,11 @@ def parse_finding(finding):
     """Parse data from dynamo."""
     finding_titles = [
         'report_date', 'report_level', 'subscription', 'client_code',
-        'finding', 'probability', 'severity', 'risk_value', 'ambit',
+        'finding', 'probability', 'severity', 'risk_value', 'ambit', 'risk',
         'category', 'test_type', 'related_findings', 'actor', 'scenario',
-        'vulnerability', 'attack_vector', 'affected_systems', 'threat', 'risk',
+        'vulnerability', 'attack_vector_desc', 'affected_systems',
         'requirements', 'cwe', 'effect_solution', 'kb', 'finding_type',
-        'treatment', 'treatment_justification', 'treatment_manager',
+        'treatment', 'treatment_justification', 'treatment_manager', 'threat',
         'external_bts', 'analyst', 'leader', 'interested', 'project_name',
         'client_project', 'context', 'records_number', 'records'
     ]

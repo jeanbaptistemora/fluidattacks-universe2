@@ -162,7 +162,7 @@ image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=
 <.^|*Debilidad*
 3+.^|{{findings[i]['vulnerability']}}
 <.^|*Vector de ataque*
-3+.^|{{findings[i]['attackVector']}}
+3+.^|{{findings[i]['attackVectorDesc']}}
 <.^|*Amenaza*
 3+.^|{{findings[i]['threat']}}
 <.^|*Sistema comprometido*

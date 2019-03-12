@@ -132,7 +132,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.actor = resp.get('actor', '')
             self.description = resp.get('vulnerability', '')
             self.requirements = resp.get('requirements', '')
-            self.attack_vector = resp.get('attackVector', '')
+            self.attack_vector_desc = resp.get('attackVectorDesc', '')
             self.threat = resp.get('threat', '')
             self.recommendation = resp.get('effectSolution', '')
             self.affected_systems = resp.get('affectedSystems', '')
@@ -366,11 +366,11 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         return self.requirements
 
     @require_role(['analyst', 'customer', 'admin'])
-    def resolve_attack_vector(self, info):
-        """ Resolve requirements attribute """
+    def resolve_attack_vector_desc(self, info):
+        """ Resolve attack vector description attribute """
         del info
 
-        return self.attack_vector
+        return self.attack_vector_desc
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_threat(self, info):
@@ -798,7 +798,7 @@ class UpdateDescription(Mutation):
     class Arguments(object):
         actor = String(required=True)
         affected_systems = String(required=True)
-        attack_vector = String(required=True)
+        attack_vector_desc = String(required=True)
         ambit = String()
         category = String()
         client_code = String()

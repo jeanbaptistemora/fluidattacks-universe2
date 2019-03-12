@@ -91,9 +91,9 @@
 {{fin['risk'] + "\n"}}
 {% endif %}
 
-{% if "attackVector" in fin %}
+{% if "attackVectorDesc" in fin %}
 ===== {{attack_vector_title}}
-{{fin['attackVector'] + "\n"}}
+{{fin['attackVectorDesc'] + "\n"}}
 {% endif %}
 
 {% if "affectedSystems" in fin %}
