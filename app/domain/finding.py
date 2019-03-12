@@ -21,7 +21,7 @@ from graphql import GraphQLError
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 from app import util
 from app.utils import forms as forms_utils
@@ -34,7 +34,8 @@ from app.dto.finding import (
 )
 from app.mailer import (
     send_mail_new_comment, send_mail_reply_comment, send_mail_verified_finding,
-    send_mail_remediate_finding, send_mail_accepted_finding, send_mail_delete_draft
+    send_mail_remediate_finding, send_mail_accepted_finding, send_mail_delete_draft,
+    send_mail_delete_finding
 )
 from .vulnerability import update_vulnerabilities_date
 
@@ -773,5 +774,53 @@ def reject_draft(draft_id, reviewer_email, project_name):
         result = True
     else:
         raise GraphQLError('CANT_REJECT_FINDING')
+
+    return result
+
+
+def send_finding_delete_mail(
+    finding_id, finding_name, project_name, discoverer_email, justification
+):
+    recipients = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
+    approvers = FI_MAIL_REVIEWERS.split(',')
+    recipients.extend(approvers)
+
+    email_send_thread = threading.Thread(
+        name="Delete finding email thread",
+        target=send_mail_delete_finding,
+        args=(recipients, {
+            'mail_analista': discoverer_email,
+            'name_finding': finding_name,
+            'id_finding': finding_id,
+            'description': justification,
+            'project': project_name,
+        }))
+    email_send_thread.start()
+
+
+def delete_finding(finding_id, project_name, justification):
+    fin_dto = FindingDTO()
+    api = FormstackAPI()
+    is_finding = ('releaseDate' in
+                  integrates_dao.get_finding_attributes_dynamo(finding_id, ['releaseDate']))
+    result = False
+
+    if is_finding:
+        finding_data = fin_dto.parse(finding_id, api.get_submission(finding_id))
+
+        delete_all_comments(finding_id)
+        delete_all_evidences_s3(finding_id, project_name)
+        integrates_dao.delete_finding_dynamo(finding_id)
+
+        for vuln in integrates_dao.get_vulnerabilities_dynamo(finding_id):
+            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], finding_id)
+
+        api.delete_submission(finding_id)
+        send_finding_delete_mail(
+            finding_id, finding_data['finding'], project_name,
+            finding_data['analyst'], justification)
+        result = True
+    else:
+        raise GraphQLError('CANT_DELETE_DRAFT')
 
     return result

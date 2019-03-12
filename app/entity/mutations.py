@@ -16,7 +16,8 @@ from .finding import (
     UpdateEvidence, UpdateSeverity,
     UpdateEvidenceDescription,
     AddFindingComment, VerifyFinding, RequestVerification,
-    UpdateDescription, UpdateTreatment, RejectDraft
+    UpdateDescription, UpdateTreatment, RejectDraft,
+    DeleteFinding
 )
 from .project import (
     AddProjectComment, RemoveTag, AddTags
@@ -56,6 +57,7 @@ class Mutations(ObjectType):
     updateTreatment = UpdateTreatment.Field()
 
     rejectDraft = RejectDraft.Field()
+    deleteFinding = DeleteFinding.Field()
 
     updateEvent = UpdateEvent.Field()
     removeTag = RemoveTag.Field()

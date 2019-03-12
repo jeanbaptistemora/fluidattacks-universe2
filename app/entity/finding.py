@@ -25,7 +25,7 @@ from app.domain.finding import (
     list_comments, add_comment, verify_finding,
     get_unique_dict, get_tracking_dict, request_verification,
     update_description, update_treatment, save_severity,
-    get_exploit_from_file, get_records_from_file, reject_draft
+    get_exploit_from_file, get_records_from_file, reject_draft, delete_finding
 )
 from .. import util
 from ..dao import integrates_dao
@@ -900,3 +900,24 @@ class RejectDraft(Mutation):
             raise GraphQLError('DRAFT_NOT_FOUND')
 
         return RejectDraft(success=success)
+
+
+class DeleteFinding(Mutation):
+    class Arguments(object):
+        finding_id = String(required=True)
+        justification = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['admin', 'analyst'])
+    @require_finding_access_gql
+    def mutate(self, _info, finding_id, justification):
+        try:
+            project_name = get_project_name(finding_id)
+            success = delete_finding(finding_id, project_name, justification)
+            util.invalidate_cache(finding_id)
+            util.invalidate_cache(project_name)
+        except KeyError:
+            raise GraphQLError('FINDING_NOT_FOUND')
+
+        return DeleteFinding(success=success)
