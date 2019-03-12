@@ -1,11 +1,11 @@
 :slug: quantifying-risk/
 :date: 2019-02-19
-:subtitle: From color scales to probabilites and ranges
+:subtitle: From color scales to probabilities and ranges
 :category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Risky poker move. Credits: https://unsplash.com/photos/5jkCyS8HOCY
-:description: A survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, dollars and cents. We discuss why we (wrongly) believe these methods do not apply, and the kind of results that can be achieved by using them.
+:description: A survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, dollars, and cents. We discuss why we (wrongly) believe these methods do not apply, and the kind of results that can be achieved by using them.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -30,7 +30,7 @@ better understand risks:
 image::risk-matrix.png[Risk matrix]
 
 Discrete scales such as this have
-the obvious disavantage that they can't be added or
+the obvious disadvantage that they can't be added or
 mathematically operated with in a sensible way;
 they can be compared, but only crudely:
 how do 3 lows and 4 mediums compare to 2 highs?
@@ -65,7 +65,7 @@ let me show you what we can achieve
 by applying quantitative methods to risk measurement:
 
 .Loss Exceedance Curve <<r1, ^[1]^>>
-image::loss-excedance-curve.png[Loss Excedance Curve]
+image::loss-exceedance-curve.png[Loss Exceedance Curve]
 
 This curve tells you the probability of losing any amount of money or more.
 Thus from the graph, we can read that
@@ -100,7 +100,7 @@ There might also be some error due to
 random mistakes or improper use of the measuring device,
 so we can assign a _confidence_ of, say, 90%, to this measurement.
 Observations reduce the uncertainty in a quantitative way.
-At first we might have estimated the length of the ant
+At first, we might have estimated the length of the ant
 to be between, say, 0.5 and 3 centimeters, with 60% confidence.
 After measurement, we have less uncertainty.
 
@@ -228,6 +228,14 @@ how some of these methods work.
 
 == References
 
-. [[r1]] D. Hubbard, R. Seiersen (2016).
+.[[r1]] R. Diesch, M. Pfaff, H. Kremar (2018). Prerequisite to
+measure information security in
+link:https://www.scitepress.org/papers/2018/65456/65456.pdf[Proc. ICISSP 2018].
+
+.[[r2]] B. Fischhoff, L. D. Phillips, and S. Lichtenstein (1982).
+Calibration of Probabilities: The State of the Art to 1980 in
+link:https://link.springer.com/chapter/10.1007/978-94-010-1276-8_19[_Judgement under Uncertainty: Heuristics and Biases_.]
+
+. [[r3]] D. Hubbard, R. Seiersen (2016).
 _How to measure anything in cibersecurity risk_.
 link:https://www.howtomeasureanything.com/[Wiley].

@@ -5,7 +5,7 @@
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Monetizing risk. Photo by rawpixel on Unsplash: https://unsplash.com/photos/5IiH_UVYdp0
-:description: How to use callibrated estimates to run a Monte Carlo simulation to obtain the expected losses and the loss excedance curve for a particular risk or the whole organization in a particular time frame, from a high level, i.e. without the technical details.
+:description: How to use calibrated estimates to run a Monte Carlo simulation to obtain the expected losses and the loss exceedance curve for a particular risk or the whole organization in a particular time frame, from a high level, i.e. without the technical details.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -20,7 +20,7 @@ In our previous article,
 we merely scratched the surface of the problem
 that quantifying risks poses,
 barely touching on concepts such as
-callibrated estimation,
+calibrated estimation,
 confidence intervals and
 specifying the measuring object.
 Now that (if?) we are convinced that:
@@ -78,7 +78,7 @@ We need to generate them according to a different
 _probability distribution_ which responds to two things:
 the confidence interval (`CI`) estimated by the expert,
 and its values should always be positive.
-The most popular distribution for modelling is
+The most popular distribution for modeling is
 the _normal_ distribution, a.k.a. the Gaussian bell:
 
 .Effect of the mean parameter on the normal distribution
@@ -126,7 +126,7 @@ image::mc-results-hist.png[Monte Carlo results summary]
 From these results, we can build a
 link:../quantifying-risk/[loss exceedance curve],
 simply by counting the number of times the simulated results
-are higher than a treshold, and plotting the results:
+are higher than a threshold, and plotting the results:
 
 .Loss Exceedance Curve <<r1, ^[1]^>>
 image::simple-lec.png[Loss Exceedance Curve]
@@ -134,7 +134,7 @@ image::simple-lec.png[Loss Exceedance Curve]
 The risk tolerance curve can be obtained from estimation as well,
 this time by appropriately interviewing an executive expert
 about the maximum chance with which they would be able
-to tolerate certain loss tresholds,
+to tolerate certain loss thresholds,
 plotting those risks on a graph,
 and fitting
 (link:https://en.wikipedia.org/wiki/Interpolation[interpolating])
@@ -155,7 +155,7 @@ loss probabilities are generally lower than
 the ones in the inherent risk curve:
 
 .All together now <<r1, ^[1]^>>
-image::../quantifying-risk/loss-excedance-curve.png[LEC, tolerance and residual plots]
+image::../quantifying-risk/loss-exceedance-curve.png[LEC, tolerance and residual plots]
 
 
 From these results it is now easier
@@ -175,7 +175,11 @@ Call it $8M, and suppose the `IDS` costs $0.5M.
 In that case we might say that the _return on the control_ is given by
 
 .Return on control
-image::return-on-control.png[Return on control computation]
+["latex","roc.png",align="center",alt="Return on control formula"]
+----
+\LARGE
+$$\rm ROC = \frac{\Delta loss}{cost} - 1 = \frac{10-8}{0.5} - 1 = 300 \%$$
+----
 
 Clearly, an investment that reduces the expected loss
 by four times its cost is clearly worth it.
@@ -187,7 +191,7 @@ To recap, this loss exceedance curve is obtained by
 running several simulations which, in turn,
 feed from two expert estimates:
 the estimated cost of a security event, reported as a confidence interval,
-and the probability of an event ocurring,
+and the probability of an event occurring,
 given the context in which such a vulnerability would happen.
 The first can be easily estimated internally,
 but the second can only be determined from a
@@ -206,3 +210,9 @@ these simulations yourself.
 . [[r1]] D. Hubbard, R. Seiersen (2016).
 _How to measure anything in cibersecurity risk_.
 link:https://www.howtomeasureanything.com/[Wiley].
+
+. [[r2]] S. Latchman (2010). _Quantifying the Risk of Natural Catastrophes_.
+link:https://understandinguncertainty.org/node/622[Understanding Uncertainty].
+
+. [[r3]] link:http://quantmleap.com/blog/2010/07/project-risk-management-and-the-application-of-monte-carlo-simulation/[quantmleap] (2010).
+_Project Risk Management and the application of Monte Carlo Simulation_.
