@@ -228,6 +228,13 @@ if ! kubectl get secret gitlab-reg; then
     --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL"
 fi
 
+if ! kubectl get secret jfrog-reg; then
+  echo "Creating secret to access JFrog Registry..."
+  kubectl create secret docker-registry jfrog-reg \
+    --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER" \
+    --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL"
+fi
+
 # Prepare environments for Review Apps
 sed 's/$PROJECT/web/g' review-apps/env-template.yaml | kubectl apply -f -
 sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -

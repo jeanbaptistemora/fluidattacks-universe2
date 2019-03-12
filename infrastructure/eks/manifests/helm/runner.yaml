@@ -12,6 +12,9 @@ metrics:
 runners:
   image: debian:stable-slim
   imagePullPolicy: always
+  imagePullSecrets:
+    - gitlab-reg
+    - jfrog-reg
   privileged: false
   builds:
     cpuLimit: 700m
