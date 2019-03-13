@@ -61,6 +61,9 @@ const esTranslations: Map<string, string> = {
       "administrador de proyecto para obtener acceso.",
   },
   search_findings: {
+    alert: {
+      attention: "Atención",
+    },
     delete: {
       justif: {
         duplicated: "Está Duplicado",

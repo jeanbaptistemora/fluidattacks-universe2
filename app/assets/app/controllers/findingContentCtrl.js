@@ -172,9 +172,6 @@ findingContentCtrl (
     $scope.finding.id = $stateParams.id;
     $scope.loadFindingByID($stateParams.id);
     $scope.goUp();
-    const org = Organization.toUpperCase();
-    const projt = projectName.toUpperCase();
-    functionsFtry1.alertHeader(org, projt);
   };
   $scope.init();
 });

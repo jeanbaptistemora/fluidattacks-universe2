@@ -11,6 +11,7 @@ import { dropdownField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { openConfirmDialog } from "../../actions";
+import { AlertBox } from "../../components/AlertBox";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
@@ -37,6 +38,7 @@ interface IFindingContentBaseProps {
 }
 
 interface IFindingContentStateProps {
+  alert?: string;
   header: {
     openVulns: number;
     reportDate: string;
@@ -152,6 +154,7 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
+              {props.alert === undefined ? undefined : <AlertBox message={props.alert} />}
               <Row>
                 <Col md={8}>
                   <h2>{props.title}</h2>
@@ -259,6 +262,7 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingContentBaseProps, IState> =
   (state: IState): IFindingContentStateProps => ({
+    alert: state.dashboard.finding.alert,
     header: {
       openVulns: state.dashboard.finding.openVulns,
       reportDate: state.dashboard.finding.reportDate,
@@ -271,12 +275,13 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
 const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
   (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
     const { findingId, projectName } = ownProps.match.params;
+    const organization: string = (window as Window & { Organization: string }).Organization;
 
     return ({
       onApprove: (): void => { dispatch(approveDraft(findingId)); },
       onConfirmDelete: (): void => { dispatch(submit("deleteFinding")); },
       onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
-      onLoad: (): void => { dispatch(loadFindingData(findingId)); },
+      onLoad: (): void => { dispatch(loadFindingData(findingId, projectName, organization)); },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
       openDeleteConfirm: (): void => { dispatch(openConfirmDialog("confirmDeleteFinding")); },

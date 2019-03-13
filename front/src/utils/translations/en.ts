@@ -60,6 +60,9 @@ const enTranslations: Map<string, string> = {
       "administrator to get access.",
   },
   search_findings: {
+    alert: {
+      attention: "Attention",
+    },
     delete: {
       justif: {
         duplicated: "It is duplicated",

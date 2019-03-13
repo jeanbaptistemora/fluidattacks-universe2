@@ -9,7 +9,7 @@ import { calcCVSS } from "../SeverityView/actions";
 import * as actionTypes from "./actionTypes";
 
 export interface IActionStructure {
-  payload?: { [key: string]: string };
+  payload?: { [key: string]: string | string[] };
   type: string;
 }
 
@@ -17,10 +17,14 @@ export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
 type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
 
-export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
-  (findingId: string): ThunkResult<void> =>
+export const loadFindingData: ((findingId: string, projectName: string, organization: string) => ThunkResult<void>) =
+  (findingId: string, projectName: string, organization: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string; gQry = `{
+        alert(projectName: "${projectName}", organization: "${organization}") {
+          message
+          status
+        }
         finding(identifier: "${findingId}") {
           title
           severity
@@ -37,6 +41,7 @@ export const loadFindingData: ((findingId: string) => ThunkResult<void>) =
 
           dispatch({
             payload: {
+              alert: data.alert.status === 1 ? data.alert.message : undefined,
               openVulns: data.finding.openVulnerabilities,
               reportDate: data.finding.releaseDate.split(" ")[0],
               status: data.finding.state,
