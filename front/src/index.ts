@@ -14,7 +14,7 @@ import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
-import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
+import { eventDescriptionHeader, eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
 import { eventsView } from "./scenes/Dashboard/containers/EventsView/index";
 import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
 import { projectCommentsView } from "./scenes/Dashboard/containers/ProjectCommentsView";
@@ -263,13 +263,35 @@ angular
       react2angular(
         eventDescriptionView, [
           "eventData",
-          "urlDescription",
-          "urlEvidence",
-          "isActiveTab",
-          "hasEvidence",
+          "eventEdit",
+          "eventUpdate",
+          "isEditable",
+          "hasAccessibility",
+          "hasAffectedComponents",
         ],
       ),
     );
+
+    /**
+     * @url: #/project/:project/events/:id/description
+     * @page: eventcontent.html
+     * @controllers: ["eventContentCtrl"]
+     * @tag: <events-description-header/>
+     */
+angular
+      .module("FluidIntegrates")
+      .component(
+        "eventDescriptionHeader",
+        react2angular(
+          eventDescriptionHeader, [
+            "eventData",
+            "urlDescription",
+            "urlEvidence",
+            "isActiveTab",
+            "hasEvidence",
+          ],
+        ),
+      );
 
 /**
  * @url: /dashboard

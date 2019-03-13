@@ -77,13 +77,13 @@ eventContentCtrl (
       }
       else {
         const eventData = response.data.event;
-        if (eventData.accessibility === "") {
+        if (eventData.accessibility === null) {
           $scope.hasAccessibility = false;
         }
         else {
           $scope.hasAccessibility = true;
         }
-        if (eventData.affectedComponents === "") {
+        if (eventData.affectedComponents === null) {
           $scope.hasAffectedComponents = false;
         }
         else {
@@ -212,14 +212,14 @@ eventContentCtrl (
         "#info", "EventsDescription",
         userOrganization, projectName, eventId
       );
-      $scope.isActiveTab =  true;
+      $scope.isActiveTab = true;
     }
     else {
       functionsFtry2.activeTab(
         "#evidence", "EventsEvidence",
         userOrganization, projectName, eventId
       );
-      $scope.isActiveTab =  false;
+      $scope.isActiveTab = false;
     }
     const hasAccess = projectFtry2.accessToProject(projectName);
     hasAccess.then((response) => {

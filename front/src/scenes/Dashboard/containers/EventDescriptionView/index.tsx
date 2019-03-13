@@ -9,17 +9,40 @@
 import React from "react";
 import { Col, Label, Row } from "react-bootstrap";
 import translate from "../../../../utils/translations/translate";
+import { default as FieldBox } from "../../components/FieldBox/index";
 
 export interface IEventDescriptionViewProps {
-  eventData: { eventDate?: string; eventStatus?: string; eventType?: string;  id?: string };
+  eventData: {
+    accessibility: string;
+    affectation: string;
+    affectedComponents: string;
+    analyst: string;
+    client: string;
+    clientProject: string;
+    detail: string;
+    eventDate?: string;
+    eventStatus?: string;
+    eventType?: string;
+    id?: string;
+    projectName: string;
+  };
+  eventEdit: (() => JSX.Element);
+  eventUpdate: (() => JSX.Element);
+  hasAccessibility: boolean;
+  hasAffectedComponents: boolean;
+  isEditable: boolean;
+}
+
+export interface IEventDescriptionHeaderProps {
+  eventData: IEventDescriptionViewProps["eventData"];
   hasEvidence: boolean;
   isActiveTab: boolean;
   urlDescription: (() => JSX.Element);
   urlEvidence: (() => JSX.Element);
 }
 
-export const eventDescriptionView: React.StatelessComponent<IEventDescriptionViewProps> =
-  (props: IEventDescriptionViewProps): JSX.Element => (
+export const eventDescriptionHeader: React.StatelessComponent<IEventDescriptionHeaderProps> =
+  (props: IEventDescriptionHeaderProps): JSX.Element => (
   <React.StrictMode>
     <div id="events" className="tab-pane cont active">
       <Row>
@@ -82,18 +105,78 @@ export const eventDescriptionView: React.StatelessComponent<IEventDescriptionVie
             : undefined}
           </ul>
         </Col>
-    </Row>
+      </Row>
     </div>
   </React.StrictMode>
 );
 
-eventDescriptionView.defaultProps = {
+export const eventDescriptionView: React.StatelessComponent<IEventDescriptionViewProps> =
+  (props: IEventDescriptionViewProps): JSX.Element => (
+  <React.StrictMode>
+    <div id="events" className="tab-pane cont active">
+        <div className="tab-pane cont active">
+        <Col md={12} sm={12} xs={12}>
+          <Row>
+          <Col md={6} sm={12} xs={12}>
+            <FieldBox
+              title={translate.t("search_findings.tab_events.description")}
+              content={props.eventData.detail}
+            />
+            <FieldBox
+              title={translate.t("search_findings.tab_events.analyst")}
+              content={props.eventData.analyst}
+            />
+            <FieldBox
+              title={translate.t("search_findings.tab_events.client")}
+              content={props.eventData.client}
+            />
+          </Col>
+          <Col md={6} sm={12} xs={12}>
+            <FieldBox
+              title={translate.t("search_findings.tab_events.client_project")}
+              content={props.eventData.clientProject}
+            />
+            <FieldBox
+              title={translate.t("search_findings.tab_events.fluid_project")}
+              content={props.eventData.projectName}
+            />
+            {props.hasAffectedComponents ?
+              <FieldBox
+                title={translate.t("search_findings.tab_events.affected_components")}
+                content={props.eventData.affectedComponents}
+              />
+            : undefined
+            }
+            {props.hasAccessibility ?
+            <FieldBox
+              title={translate.t("search_findings.tab_events.event_in")}
+              content={props.eventData.accessibility}
+            />
+            : undefined
+            }
+          </Col>
+          </Row>
+        </Col>
+        </div>
+    </div>
+  </React.StrictMode>
+);
+
+eventDescriptionHeader.defaultProps = {
   eventData:
     {
+      accessibility: "",
+      affectation: "",
+      affectedComponents: "",
+      analyst: "",
+      client: "",
+      clientProject: "",
+      detail: "",
       eventDate: undefined,
       eventStatus: undefined,
       eventType: undefined,
       id: undefined,
+      projectName: "",
     },
   isActiveTab: true,
 };
