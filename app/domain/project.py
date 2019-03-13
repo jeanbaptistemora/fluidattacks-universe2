@@ -27,8 +27,6 @@ def send_comment_mail(project_name, email, comment_data):
     """Send a mail in a project."""
     parent = comment_data['parent']
     recipients = get_email_recipients(project_name)
-    mail_title = "New project email thread"
-    mail_function = send_mail_comment
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     mail_context = {
         'project': project_name,
@@ -41,8 +39,8 @@ def send_comment_mail(project_name, email, comment_data):
         .format(project=project_name)
     }
     email_send_thread = threading.Thread(
-        name=mail_title,
-        target=mail_function,
+        name='New project email thread',
+        target=send_mail_comment,
         args=(recipients,
               mail_context))
     email_send_thread.start()
