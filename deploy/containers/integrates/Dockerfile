@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidsignal/default/integrates/deps:latest
+FROM registry.gitlab.com/fluidsignal/default/integrates/deps:app
 
 ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
@@ -16,10 +16,6 @@ ENV FI_VERSION ${VERSION}
 ENV VAULTENV_SECRETS_FILE /usr/src/app/env.vars
 
 LABEL mantainer="engineering@fluidattacks.com"
-
-ADD vars /root/vars
-
-WORKDIR /root/
 
 RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repository/archive.tar.gz?sha=${CI_COMMIT_REF_NAME}" \
         && tar zxf integrates.tar.gz \
@@ -49,18 +45,28 @@ RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repos
     && cp -a /root/assets/node_modules /usr/src/app/app/assets/ \
         && cd /usr/src/app/app/assets \
         && npm install \
+        && npm cache clean --force \
     && cp -a /root/front/node_modules /usr/src/app/front \
         && cd /usr/src/app/front/ \
         && npm install \
-    && cp -a /root/vars/dashboard /usr/src/app/app/assets/ \
-    && rm -rf /root/front /root/assets /root/vars/dashboard \
+        && npm cache clean --force \
+    && cp -a /usr/src/app/deploy/containers/common/vars/run.sh /root \
     && echo "${SSL_CERT}" | base64 -di > "/etc/ssl/certs/fluidla.crt" \
         && echo "${SSL_KEY}" | base64 -di > "/etc/ssl/private/fluidla.key" \
         && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
         && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
     && sed -i 's/>v./>v.\ '"${FI_VERSION}"'/' /usr/src/app/app/templates/dashboard.html \
-    && sed -i 's/env#/'"${ENV_NAME}"'#/g' /usr/src/app/env.vars
+    && sed -i 's/env#/'"${ENV_NAME}"'#/g' /usr/src/app/env.vars \
+    && apt-get remove --purge -y \
+         cron \
+         nodejs \
+    && apt-get -y autoremove \
+    && rm -rf \
+        /root/front \
+        /root/assets
+
+COPY dashboard /usr/src/app/app/assets/dashboard
 
 EXPOSE 443 24224
 
-CMD vaultenv vars/run.sh
+CMD vaultenv ./run.sh

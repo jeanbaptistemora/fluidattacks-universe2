@@ -71,7 +71,7 @@ stages:
   - post-deploy
   - coverage
 
-build:
+deps-app:
   stage: deps
   <<: *kaniko_config
   script:
@@ -82,8 +82,9 @@ build:
     - /kaniko/executor
         --cleanup
         --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
-        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}/deps:latest"
+        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile.app"
+        --destination "${CI_REGISTRY_IMAGE}/deps:app"
+        --single-snapshot
         --snapshotMode time
   retry: 1
   only:
@@ -250,8 +251,7 @@ build-integrates:
     - gulp-compiler
   <<: *kaniko_vault_config
   script:
-    - mv app/assets/dashboard deploy/containers/common/vars
-    - mv deploy/containers/common/vars deploy/containers/integrates/
+    - mv app/assets/dashboard deploy/containers/integrates
     - MINUTES=$(( 
         ($(date +%d | sed 's/^0//') -1) * 1440 +
         $(date +%H | sed 's/^0//') * 60 + 
@@ -274,6 +274,7 @@ build-integrates:
         --context "${CI_PROJECT_DIR}/deploy/containers/integrates/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/integrates/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
+        --single-snapshot
         --snapshotMode time
   retry: 1
 
@@ -282,22 +283,16 @@ build-bot:
   dependencies: []
   <<: *kaniko_vault_config
   script:
-    - mv deploy/containers/common/vars deploy/containers/bot/
     - /kaniko/executor
         --build-arg CI_API_V4_URL="${CI_API_V4_URL}"
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
         --build-arg CI_PROJECT_ID="${CI_PROJECT_ID}"
-        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
-        --build-arg DOCUMENTROOT="${FI_DOCUMENTROOT}"
-        --build-arg DRIVE_AUTHORIZATION="${FI_DRIVE_AUTHORIZATION}"
-        --build-arg DRIVE_AUTHORIZATION_CLIENT="${FI_DRIVE_AUTHORIZATION_CLIENT}"
         --build-arg ENV_NAME="${ENV_NAME}"
-        --build-arg SSL_CERT="${FI_SSL_CERT}"
-        --build-arg SSL_KEY="${FI_SSL_KEY}"
         --cleanup
         --context "${CI_PROJECT_DIR}/deploy/containers/bot/"
         --dockerfile "${CI_PROJECT_DIR}/deploy/containers/bot/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}/bot:${CI_COMMIT_REF_NAME}"
+        --single-snapshot
         --snapshotMode time
   retry: 1
 
