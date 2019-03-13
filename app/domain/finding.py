@@ -9,12 +9,13 @@ import re
 import os
 import sys
 import threading
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import time
 from decimal import Decimal
 
 import boto3
 import rollbar
+import pytz
 from backports import csv
 from botocore.exceptions import ClientError
 from graphql import GraphQLError
@@ -30,7 +31,8 @@ from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.dto.finding import (
-    FindingDTO, get_project_name
+    FindingDTO, get_project_name, migrate_description, migrate_treatment,
+    migrate_report_date
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -819,3 +821,55 @@ def delete_finding(finding_id, project_name, justification):
         raise GraphQLError('CANT_DELETE_DRAFT')
 
     return result
+
+
+def approve_draft(draft_id, project_name):
+    fin_dto = FindingDTO()
+    api = FormstackAPI()
+    is_draft = ('releaseDate' not in
+                integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+    success = False
+
+    if is_draft:
+        finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
+        local_timezone = pytz.timezone('America/Bogota')
+        release_date = datetime.now(tz=local_timezone).date()
+
+        if ('subscription' in finding_data and
+                finding_data['subscription'] in ['CONTINUOUS', 'Concurrente', 'Si']):
+            releases = integrates_dao.get_project_dynamo(project_name)
+
+            for release in releases:
+                if 'lastRelease' in release:
+                    last_release = datetime.strptime(
+                        release['lastRelease'].split(' ')[0], '%Y-%m-%d')
+                    last_release = last_release.replace(tzinfo=local_timezone).date()
+                    if last_release == release_date:
+                        release_date = release_date + timedelta(days=1)
+                    elif last_release > release_date:
+                        release_date = last_release + timedelta(days=1)
+
+        release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
+        has_release = integrates_dao.add_attribute_dynamo(
+            'FI_findings', ['finding_id', draft_id], 'releaseDate', release_date)
+        has_last_vuln = integrates_dao.add_attribute_dynamo(
+            'FI_findings', ['finding_id', draft_id], 'lastVulnerability', release_date)
+
+        if has_release and has_last_vuln:
+            file_url = '{project!s}/{findingid}/{project!s}-{findingid}'\
+                .format(project=project_name, findingid=draft_id)
+
+            migrate_all_files({'finding_id': draft_id, 'project': project_name}, file_url, {})
+            integrates_dao.add_release_toproject_dynamo(project_name, True, release_date)
+            save_severity(finding_data)
+            migrate_description(finding_data)
+            migrate_treatment(finding_data)
+            migrate_report_date(finding_data)
+            migrate_evidence_description(finding_data)
+            success = True
+        else:
+            rollbar.report_message('Error: An error occurred accepting the draft', 'error')
+    else:
+        util.cloudwatch_log_plain('Security: Attempted to accept an already released finding')
+        raise GraphQLError('CANT_APPROVE_FINDING')
+    return {success, release_date}

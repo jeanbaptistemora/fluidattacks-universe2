@@ -1644,7 +1644,7 @@ def get_finding_attributes_dynamo(finding_id, data_attributes):
     except ClientError:
         rollbar.report_exc_info()
         items = {}
-    return items
+    return items if items else {}
 
 
 def get_project_attributes_dynamo(project_name, data_attributes):
