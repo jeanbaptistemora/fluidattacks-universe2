@@ -882,6 +882,7 @@ def parse_severity(finding):
         parsed_dict['criticity'], cvss_version)
     parsed_dict['exploitable'] = forms.is_exploitable(
         parsed_dict['exploitability'], cvss_version)
+    parsed_dict['cvssVersion'] = cvss_version
     return parsed_dict
 
 

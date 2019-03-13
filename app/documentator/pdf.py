@@ -357,6 +357,11 @@ class CreatorPDF(object):
             + '[width=330, align="center"]'
         main_tables = make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
+        access_vector = ""
+        if findings[0].get('cvssVersion') == '3':
+            access_vector = get_severity('attackVector', findings[0]['attackVector'])
+        else:
+            access_vector = get_severity('accessVector', findings[0]['accessVector'])
         self.context = {
             'full_project': full_project.upper(),
             'team': team,
@@ -370,8 +375,7 @@ class CreatorPDF(object):
             'main_pie_filename': main_pie_filename,
             'main_tables': main_tables,
             'findings': findings,
-            'accessVector':
-                get_severity('accessVector', findings[0]['accessVector']),
+            'accessVector': access_vector,
             # Titulos segun lenguaje
             'finding_title': words['finding_title'],
             'finding_section_title': words['finding_section_title'],
@@ -420,6 +424,12 @@ def get_severity(metric, metric_value):
                 '0.395': 'Local',
                 '0.646': 'Red adyacente',
                 '1.0': 'Red',
+            },
+            'attackVector': {
+                '0.85': 'Red',
+                '0.62': 'Red adyacente',
+                '0.55': 'Local',
+                '0.20': 'Físico',
             },
             'confidentialityImpact': {
                 '0.0': 'Ninguno',

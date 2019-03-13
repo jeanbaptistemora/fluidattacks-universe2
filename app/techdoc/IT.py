@@ -33,13 +33,11 @@ class ITReport(object):
         'where': 4,
         'where_records': 5,
         'requirements': 6,
-        'measurements': 8,
-        'criticity': 9,
-        'cardinality': 10,
-        'affected_records': 11,
-        'evidence': 12,
-        'solution': 13,
-        'requirements_id': 15}
+        'cardinality': 7,
+        'affected_records': 8,
+        'evidence': 9,
+        'solution': 10,
+        'requirements_id': 11}
     matriz = {
         'type': 5,
         'component': 6,
@@ -49,10 +47,9 @@ class ITReport(object):
         'ambit': 17,
         'category': 18,
         'threat': 19,
-        'cssv2_value': 24,
-        'probability': 26,
-        'severity': 27,
-        'risk': 30}
+        'probability': 23,
+        'severity': 24,
+        'risk': 27}
 
     def __init__(self, project, data, username, lang='es'):
         """Initialize variables."""
@@ -127,67 +124,6 @@ class ITReport(object):
         """Assign a numeric value to a cell with QC index."""
         self.current_sheet.cell(row=self.qc_row + inc, column=col).value = float(value)
 
-    def __get_measure(self, metric, metric_value): # noqa
-        """Extract number of CSSV2 metrics."""
-        try:
-            metrics = {
-                'accessVector': {
-                    '0.395': 'Local',
-                    '0.646': 'Red adyacente',
-                    '1.0': 'Red',
-                },
-                'confidentialityImpact': {
-                    '0.0': 'Ninguno',
-                    '0.275': 'Parcial',
-                    '0.66': 'Completo',
-                },
-                'integrityImpact': {
-                    '0.0': 'Ninguno',
-                    '0.275': 'Parcial',
-                    '0.66': 'Completo',
-                },
-                'availabilityImpact': {
-                    '0.0': 'Ninguno',
-                    '0.275': 'Parcial',
-                    '0.66': 'Completo',
-                },
-                'authentication': {
-                    '0.45': 'Múltiple',
-                    '0.56': 'Única',
-                    '0.704': 'Ninguna',
-                },
-                'exploitability': {
-                    '0.85': 'Improbable',
-                    '0.9': 'Conceptual',
-                    '0.95': 'Funcional',
-                    '1.0': 'Alta',
-                },
-                'confidenceLevel': {
-                    '0.9': 'No confirmado',
-                    '0.95': 'No corroborado',
-                    '1.0': 'Confirmado',
-                },
-                'resolutionLevel': {
-                    '0.87': 'Oficial',
-                    '0.9': 'Temporal',
-                    '0.95': 'Paliativa',
-                    '1.0': 'Inexistente',
-                },
-                'accessComplexity': {
-                    '0.35': 'Alto',
-                    '0.61': 'Medio',
-                    '0.71': 'Bajo',
-                }
-            }
-            metric_descriptions = metrics.get(metric)
-            if metric_descriptions:
-                description = metric_descriptions.get(str(metric_value))
-            else:
-                description = ''
-            return description
-        except ValueError:
-            return ''
-
     def __get_req(self, req_vect): # noqa
         """Get all the identifiers with the REQ.XXXX format."""
         try:
@@ -208,48 +144,12 @@ class ITReport(object):
             self.set_cell(self.finding['where_records'],
                           'Evidencias/' + row['finding'] + '/records.csv')
         self.set_cell(self.finding['requirements'], row['requirements'])
-        self.set_cell_number(self.finding['criticity'], row['criticity'])
         self.set_cell_number(self.finding['cardinality'], row['openVulnerabilities'])
         self.set_cell_number(self.finding['affected_records'], row['recordsNumber'])
         self.set_cell(self.finding['evidence'], 'Evidencias/' + row['finding'])
         self.set_cell(self.finding['solution'], row['effectSolution'])
         self.set_cell(self.finding['requirements_id'],
                       self.__get_req(row['requirements']))
-        self.set_cell(self.finding['measurements'],
-                      self.__get_measure('accessVector', row['accessVector']))
-        self.set_cell(
-            self.finding['measurements'],
-            get_complexity(self.__get_measure(
-                'accessComplexity', row['accessComplexity'])),
-            1)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('authentication', row['authentication']),
-            2)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('confidentialityImpact', row['confidentialityImpact']),
-            3)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('integrityImpact', row['integrityImpact']),
-            4)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('availabilityImpact', row['availabilityImpact']),
-            5)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('exploitability', row['exploitability']),
-            6)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('resolutionLevel', row['resolutionLevel']),
-            7)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('confidenceLevel', row['confidenceLevel']),
-            8)
 
     def __write_qc(self, row):
         """Write Formstack finding in a row on the QC matrix sheet."""
@@ -270,13 +170,6 @@ class ITReport(object):
             self.set_cell_qc(self.matriz['category'], row['category'])
         if 'threat' in row:
             self.set_cell_qc(self.matriz['threat'], row['threat'])
-        criticity = row['criticity']
-        if criticity > 6.9:
-            self.set_cell_qc(self.matriz['cssv2_value'], 'Alta')
-        elif criticity >= 4.0:
-            self.set_cell_qc(self.matriz['cssv2_value'], 'Media')
-        else:
-            self.set_cell_qc(self.matriz['cssv2_value'], 'Baja')
         if 'probability' in row:
             self.set_cell_qc(self.matriz['probability'],
                              get_probability(row['probability']))
@@ -289,16 +182,6 @@ class ITReport(object):
         self.result_filename = self.result_path
         self.result_filename += project + '_' + username + '.xlsx'
         self.workbook.save(self.result_filename)
-
-
-def get_complexity(complexity_access):
-    if complexity_access == 'Bajo':
-        return 'Baja'
-    elif complexity_access == 'Alto':
-        return 'Alta'
-    elif complexity_access == 'Medio':
-        return 'Media'
-    return complexity_access
 
 
 def translate_parameter(param):
