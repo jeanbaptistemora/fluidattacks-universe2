@@ -20,106 +20,51 @@
     is-active-tab="isActiveTab";
   />
   <div class="row">
-      <div class="col-sm-12 col-md-12" style="margin-top:10px;">
-          <!-- Start Tab Set -->
-          <div class="tab-container">
-              <!-- Start Tabs -->
-              <div class="tab-content">
-                  <!-- Start Tab Info -->
-                  <div id="info" class="tab-pane cont active">
-                    <div class="row" >
-                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
-                            <button id="edit" class="btn btn-primary btn-block"
-                                    ng-click="eventEdit();">
-                                    <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="row">
-                          <div class="col-md-6 col-xs-12 col-sm-12" >
-                            <field-box
-                              title="'event_by_name.modal_ver.detail' | translate"
-                              content="eventData.detail"
-                            />
-                            <div class="row table-row">
-                              <div class="col-md-4 col-xs-12 col-sm-12">
-                                <div class="table-head">
-                                  <label><b>{{'event_by_name.modal_ver.affec' | translate}}</b></label>
-                                </div>
-                              </div>
-                              <div class="col-md-6 col-xs-12 col-sm-12">
-                                <p ng-show="!isEditable">{{eventData.affectation}}</p>
-                                <input type="text" class="form-control"
-                                       ng-show="isEditable"
-                                       ng-model="eventData.affectation">
-                              </div>
-                            </div>
-                            <field-box
-                              title="'event_by_name.modal_ver.analyst' | translate"
-                              content="eventData.analyst"
-                            />
-                            <div ng-show="hasAffectedComponents">
-                              <field-box
-                                title="'event_by_name.modal_ver.affec_components' | translate"
-                                content="eventData.affectedComponents"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-xs-12 col-sm-12">
-                            <field-box
-                              title="'event_by_name.modal_ver.client' | translate"
-                              content="eventData.client"
-                            />
-                            <field-box
-                              title="'event_by_name.modal_ver.c_proj' | translate"
-                              content="eventData.clientProject"
-                            />
-                            <field-box
-                              title="'event_by_name.modal_ver.f_proj' | translate"
-                              content="eventData.projectName"
-                            />
-                            <div ng-show="hasAccessibility">
-                              <field-box
-                                title="'event_by_name.modal_ver.accessibility' | translate"
-                                content="eventData.accessibility"
-                              />
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="row" >
-                        <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
-                            <button id="update" class="btn btn-success btn-block"
-                                    ng-show="isEditable"
-                                    ng-click="eventUpdate();">
-                                    <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
-                            </button>
-                        </div>
-                    </div>
-                  </div>
-                  <!-- End Tab Info -->
-                  <!-- Start Tab Evidence -->
-                  <div id="evidence" class="tab-pane cont active">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="row">
-                        <image-gallery
-                          items="eventData.evidenceUrl"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Tab Evidence -->
-                </div>
-              <!-- End Tabs -->
+    <div class="col-sm-12 col-md-12" style="margin-top:10px;">
+      <div class="tab-container">
+        <div class="tab-content">
+          <div id="info" class="tab-pane cont active">
+            <div class="row" >
+              <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
+                <button id="edit" class="btn btn-primary btn-block"
+                  ng-click="eventEdit();">
+                  <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
+                </button>
+              </div>
+            </div>
+            <event-description-view
+              event-data="eventData"
+              event-edit="eventEdit";
+              event-update="eventUpdate";
+              has-accessibility="hasAccessibility";
+              has-affected-components="hasAffectedComponents";
+              is-editable="isEditable";
+            />
+            <div class="row" >
+              <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
+                <button id="update" class="btn btn-success btn-block"
+                  ng-show="isEditable"
+                  ng-click="eventUpdate();">
+                  <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
+                </button>
+              </div>
+            </div>
           </div>
-          <!--End Tab Set -->
+          <div id="evidence" class="tab-pane cont active">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="row">
+                <image-gallery
+                  items="eventData.evidenceUrl"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>
-<!-- End FindingContent -->
 
-<!-- Start CommonStyles -->
 <style>
     .bg-critical{ background-color: #F12; }
     .bg-moderate{ background-color: #F72; }

@@ -126,12 +126,34 @@ export const eventDescriptionView: React.StatelessComponent<IEventDescriptionVie
               title={translate.t("search_findings.tab_events.analyst")}
               content={props.eventData.analyst}
             />
+            {props.isEditable ?
+                <div className="row table-row">
+                  <div className="col-md-4 col-xs-12 col-sm-12">
+                    <div className="table-head">
+                      <label><b>{translate.t("search_findings.tab_events.affectation")}</b></label>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-xs-12 col-sm-12">
+                    <input id="affectationInput" type="text" className="form-control"/>
+                  </div>
+                </div>
+            : <FieldBox
+              title={translate.t("search_findings.tab_events.affectation")}
+              content={props.eventData.affectation}
+            />}
+            {props.hasAffectedComponents ?
+              <FieldBox
+                title={translate.t("search_findings.tab_events.affected_components")}
+                content={props.eventData.affectedComponents}
+              />
+            : undefined
+            }
+          </Col>
+          <Col md={6} sm={12} xs={12}>
             <FieldBox
               title={translate.t("search_findings.tab_events.client")}
               content={props.eventData.client}
             />
-          </Col>
-          <Col md={6} sm={12} xs={12}>
             <FieldBox
               title={translate.t("search_findings.tab_events.client_project")}
               content={props.eventData.clientProject}
@@ -140,13 +162,6 @@ export const eventDescriptionView: React.StatelessComponent<IEventDescriptionVie
               title={translate.t("search_findings.tab_events.fluid_project")}
               content={props.eventData.projectName}
             />
-            {props.hasAffectedComponents ?
-              <FieldBox
-                title={translate.t("search_findings.tab_events.affected_components")}
-                content={props.eventData.affectedComponents}
-              />
-            : undefined
-            }
             {props.hasAccessibility ?
             <FieldBox
               title={translate.t("search_findings.tab_events.event_in")}
@@ -161,6 +176,24 @@ export const eventDescriptionView: React.StatelessComponent<IEventDescriptionVie
     </div>
   </React.StrictMode>
 );
+
+eventDescriptionView.defaultProps = {
+  eventData:
+    {
+      accessibility: "",
+      affectation: "",
+      affectedComponents: "",
+      analyst: "",
+      client: "",
+      clientProject: "",
+      detail: "",
+      eventDate: undefined,
+      eventStatus: undefined,
+      eventType: undefined,
+      id: undefined,
+      projectName: "",
+    },
+};
 
 eventDescriptionHeader.defaultProps = {
   eventData:
