@@ -450,6 +450,7 @@ new-version-mail:
     - build-integrates
   <<: *vault_login
   script:
+    - export DJANGO_SETTINGS_MODULE=fluidintegrates.settings
     - vaultenv -- python integrates_version.py
   only:
     - master
