@@ -8,7 +8,7 @@ import fileinput
 from __init__ import FI_MAIL_ENGINEERING
 
 def send_mail_version(commit_sha, commit_before_sha):
-    version = get_integrates_version()
+    version = open('version.txt', 'r').read()
     repo = Repo(os.getcwd())
     message = repo.git.log(commit_before_sha + '...' + commit_sha,
         '--pretty=format:<b>%s</b>%n%bCommitted by: %an%n')
@@ -18,16 +18,6 @@ def send_mail_version(commit_sha, commit_before_sha):
         'message': message.replace('\n', '<br/>\n')
     }
     mailer.send_mail_new_version(to, context)
-
-def get_integrates_version():
-    file = fileinput.FileInput('/usr/src/app/app/templates/dashboard.html')
-    version = ''
-    for line in file:
-        if '>v.' in line:
-            version = line.split('>v. ')[1].split('<')[0]
-            return version
-    file.close()
-    return version
 
 if __name__ == '__main__':
     commit_sha = os.environ['CI_COMMIT_SHA']

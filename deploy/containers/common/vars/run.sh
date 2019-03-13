@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-env | egrep 'VAULT.*'  >> /etc/environment 
-a2ensite integrates-ssl.conf
-a2ensite 000-default.conf
+env | egrep 'VAULT.*'  >> /etc/environment
 /usr/src/app/manage.py makemigrations
 /usr/src/app/manage.py migrate
 if [ -z "${FI_VERSION}" ]; then
@@ -13,6 +11,8 @@ if [ -z "${FI_VERSION}" ]; then
   fi
   /usr/src/app/manage.py bot
 else
+  a2ensite integrates-ssl.conf
+  a2ensite 000-default.conf
   /etc/init.d/td-agent restart
   service redis-server restart
   /usr/sbin/apache2ctl -D FOREGROUND

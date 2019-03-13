@@ -258,6 +258,7 @@ build-integrates:
         $(date +%M | sed 's/^0//') 
       ))
     - FI_VERSION="$(date +%y.%m.)${MINUTES}"
+    - echo -n "${FI_VERSION}" > version.txt
     - /kaniko/executor
         --build-arg CI_API_V4_URL="${CI_API_V4_URL}"
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
@@ -277,6 +278,11 @@ build-integrates:
         --single-snapshot
         --snapshotMode time
   retry: 1
+  artifacts:
+    expire_in: 30m
+    paths:
+      - version.txt
+    when: on_success
 
 build-bot:
   stage: build
@@ -440,11 +446,10 @@ deploy-k8s:
 
 new-version-mail:
   stage: post-deploy
-  image: registry.gitlab.com/fluidsignal/default/integrates/app:master
-  dependencies: []
+  dependencies:
+    - build-integrates
   <<: *vault_login
   script:
-    - cd /usr/src/app
     - vaultenv -- python integrates_version.py
   only:
     - master
