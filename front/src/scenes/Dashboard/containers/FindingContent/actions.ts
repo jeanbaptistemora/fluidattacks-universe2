@@ -8,7 +8,7 @@ import { calcCVSS } from "../SeverityView/actions";
 import * as actionTypes from "./actionTypes";
 
 export interface IActionStructure {
-  payload?: Map<string, string>;
+  payload?: { [key: string]: string };
   type: string;
 }
 
@@ -103,6 +103,38 @@ export const deleteFinding: ((findingId: string, projectName: string, justificat
               translate.t("search_findings.finding_deleted", { findingId }),
               translate.t("proj_alerts.title_success"));
             location.hash = `#!/project/${projectName}/findings`;
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const approveDraft: ((draftId: string) => ThunkResult<void>) =
+  (draftId: string): ThunkResult<void> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string; gQry = `mutation {
+        approveDraft(draftId: "${draftId}") {
+          releaseDate
+          success
+        }
+      }`;
+
+      new Xhr().request(gQry, "An error occurred approving draft")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+
+          if (data.approveDraft.success) {
+            dispatch({
+              payload: { reportDate: data.approveDraft.releaseDate.split(" ")[0] },
+              type: actionTypes.UPDATE_FINDING_HEADER,
+            });
+            msgSuccess(translate.t("search_findings.draft_approved"), translate.t("proj_alerts.title_success"));
           }
         })
         .catch((error: AxiosError) => {

@@ -644,6 +644,12 @@ actionMap[findingActions.CLEAR_FINDING_STATE] =
       tracking: initialState.tracking,
     });
 
+actionMap[findingActions.UPDATE_FINDING_HEADER] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    finding: { ...state.finding, ...action.payload },
+  });
+
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,
   arg2: actions.IActionStructure,

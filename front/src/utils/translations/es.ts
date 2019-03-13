@@ -61,6 +61,17 @@ const esTranslations: Map<string, string> = {
       "administrador de proyecto para obtener acceso.",
   },
   search_findings: {
+    delete: {
+      justif: {
+        duplicated: "Está Duplicado",
+        evidence_change: "Cambio de Evidencia",
+        finding_change: "Por Modificación del Hallazgo",
+        label: "Justificación",
+        not_vuln: "No es una Vulnerabilidad",
+      },
+      title: "Eliminar Hallazgo",
+    },
+    draft_approved: "Este hallazgo ha sido aprobado",
     environment_table: {
       environment: "Ambiente",
     },
@@ -74,6 +85,7 @@ const esTranslations: Map<string, string> = {
     low_severity: "Tolerable",
     medium_severity: "Moderado",
     openVulnsLabel: "Vulnerabilidades abiertas",
+    reject: "Rechazar Draft",
     reportDateLabel: "Fecha de reporte",
     repositories_table: {
       branch: "Rama",

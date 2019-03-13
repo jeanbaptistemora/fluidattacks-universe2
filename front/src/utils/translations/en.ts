@@ -60,6 +60,17 @@ const enTranslations: Map<string, string> = {
       "administrator to get access.",
   },
   search_findings: {
+    delete: {
+      justif: {
+        duplicated: "It is duplicated",
+        evidence_change: "Change of evidence",
+        finding_change: "Finding has changed",
+        label: "Justification",
+        not_vuln: "It is not a Vulnerability",
+      },
+      title: "Delete Finding",
+    },
+    draft_approved: "This finding has been approved",
     environment_table: {
       environment: "Environment",
     },
@@ -73,6 +84,7 @@ const enTranslations: Map<string, string> = {
     low_severity: "Tolerable",
     medium_severity: "Moderate",
     openVulnsLabel: "Open vulnerabilities",
+    reject: "Reject Draft",
     reportDateLabel: "Report date",
     repositories_table: {
       branch: "Branch",

@@ -20,7 +20,9 @@ import { exploitView as ExploitView } from "../ExploitView/index";
 import { recordsView as RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
-import { clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher } from "./actions";
+import {
+  approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
+} from "./actions";
 import style from "./index.css";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
@@ -44,6 +46,7 @@ interface IFindingContentStateProps {
 }
 
 interface IFindingContentDispatchProps {
+  onApprove(): void;
   onConfirmDelete(): void;
   onDelete(justification: string): void;
   onLoad(): void;
@@ -189,21 +192,25 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
           </Col>
         </Row>
       </div>
-      <ConfirmDialog name="confirmDeleteFinding" onProceed={handleConfirmDelete} title="Delete Finding">
+      <ConfirmDialog
+        name="confirmDeleteFinding"
+        onProceed={handleConfirmDelete}
+        title={translate.t("search_findings.delete.title")}
+      >
         <GenericForm name="deleteFinding" onSubmit={handleDelete}>
           <FormGroup>
-            <ControlLabel>Justification</ControlLabel>
+            <ControlLabel>{translate.t("search_findings.delete.justif.label")}</ControlLabel>
             <Field name="justification" component={dropdownField} validate={[required]}>
               <option value="" />
-              <option value="Change of evidence">Change of evidence</option>
-              <option value="Finding has changed">Finding has changed</option>
-              <option value="It is not a Vulnerability">It is not a Vulnerability</option>
-              <option value="It is duplicated">It is duplicated</option>
+              <option value="Change of evidence">{translate.t("search_findings.delete.justif.evidence_change")}</option>
+              <option value="Finding has changed">{translate.t("search_findings.delete.justif.finding_change")}</option>
+              <option value="It is not a Vulnerability">{translate.t("search_findings.delete.justif.not_vuln")}</option>
+              <option value="It is duplicated">{translate.t("search_findings.delete.justif.duplicated")}</option>
             </Field>
           </FormGroup>
         </GenericForm>
       </ConfirmDialog>
-      <ConfirmDialog name="confirmRejectDraft" onProceed={handleReject} title="Reject Draft"/>
+      <ConfirmDialog name="confirmRejectDraft" onProceed={handleReject} title={translate.t("search_findings.reject")} />
     </React.StrictMode>
   );
 };
@@ -225,6 +232,7 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
     const { findingId, projectName } = ownProps.match.params;
 
     return ({
+      onApprove: (): void => { dispatch(approveDraft(findingId)); },
       onConfirmDelete: (): void => { dispatch(submit("deleteFinding")); },
       onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
       onLoad: (): void => { dispatch(loadFindingData(findingId)); },
