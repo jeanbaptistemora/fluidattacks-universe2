@@ -1,7 +1,7 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { Button, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
@@ -10,6 +10,7 @@ import ConfirmDialog from "../../../../components/ConfirmDialog/index";
 import { dropdownField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
+import { openConfirmDialog } from "../../actions";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
@@ -52,6 +53,8 @@ interface IFindingContentDispatchProps {
   onLoad(): void;
   onReject(): void;
   onUnmount(): void;
+  openDeleteConfirm(): void;
+  openRejectConfirm(): void;
 }
 
 type IFindingContentProps = IFindingContentBaseProps & (IFindingContentStateProps & IFindingContentDispatchProps);
@@ -64,6 +67,7 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, 
 const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const userRole: string = (window as Window & { userRole: string }).userRole;
+  const isDraft: boolean = _.isEmpty(props.header.reportDate);
 
   const renderDescription: (() => JSX.Element) = (): JSX.Element => {
     mixpanel.track("FindingDescription");
@@ -106,11 +110,41 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
     return <CommentsView type="observation" findingId={findingId} />;
   };
 
+  const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
+  const handleOpenDeleteConfirm: (() => void) = (): void => { props.openDeleteConfirm(); };
+  const handleOpenRejectConfirm: (() => void) = (): void => { props.openRejectConfirm(); };
   const handleConfirmDelete: (() => void) = (): void => { props.onConfirmDelete(); };
   const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
     props.onDelete(values.justification);
   };
+
+  const renderActionButtons: (() => JSX.Element | undefined) = (): JSX.Element | undefined =>
+    _.includes(["admin"], userRole) && isDraft ? (
+      <React.Fragment>
+        <Col md={2}>
+          <Button block={true} bsStyle="success" onClick={handleApprove}>
+            <Glyphicon glyph="ok" />&nbsp;Approve
+          </Button>
+        </Col>
+        <Col md={2}>
+          <Button block={true} bsStyle="warning" onClick={handleOpenRejectConfirm}>
+            <Glyphicon glyph="trash" />&nbsp;Reject
+          </Button>
+        </Col>
+      </React.Fragment>
+    ) : _.includes(["admin", "analyst"], userRole)
+        ? (
+          <Col md={2} mdOffset={2}>
+            <Button
+              block={true}
+              bsStyle="warning"
+              onClick={isDraft ? handleOpenRejectConfirm : handleOpenDeleteConfirm}
+            >
+              <Glyphicon glyph="trash" />&nbsp;Delete
+            </Button>
+          </Col>
+        ) : undefined;
 
   return (
     <React.StrictMode>
@@ -118,6 +152,12 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
+              <Row>
+                <Col md={8}>
+                  <h2>{props.title}</h2>
+                </Col>
+                {renderActionButtons()}
+              </Row>
               <hr />
               <div className={style.stickyContainer}>
                 <FindingHeader {...props.header} />
@@ -196,6 +236,7 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
         name="confirmDeleteFinding"
         onProceed={handleConfirmDelete}
         title={translate.t("search_findings.delete.title")}
+        closeOnProceed={false}
       >
         <GenericForm name="deleteFinding" onSubmit={handleDelete}>
           <FormGroup>
@@ -238,6 +279,8 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
       onLoad: (): void => { dispatch(loadFindingData(findingId)); },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
+      openDeleteConfirm: (): void => { dispatch(openConfirmDialog("confirmDeleteFinding")); },
+      openRejectConfirm: (): void => { dispatch(openConfirmDialog("confirmRejectDraft")); },
     });
   };
 

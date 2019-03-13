@@ -23,6 +23,7 @@ interface IConfirmDialogDispatchProps {
 
 interface IConfirmDialogBaseProps {
   children?: React.ReactNode;
+  closeOnProceed?: boolean;
   name: string;
   title: string;
   onProceed(): void;
@@ -32,7 +33,12 @@ type IConfirmDialogProps = IConfirmDialogBaseProps & (IConfirmDialogStateProps &
 
 const confirmDialog: React.SFC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
   const handleClose: (() => void) = (): void => { props.onClose(); };
-  const handleProceed: (() => void) = (): void => { props.onProceed(); props.onClose(); };
+  const handleProceed: (() => void) = (): void => {
+    props.onProceed();
+    if (props.closeOnProceed === true) {
+      props.onClose();
+    }
+  };
 
   return (
     <React.StrictMode>
@@ -62,6 +68,10 @@ const confirmDialog: React.SFC<IConfirmDialogProps> = (props: IConfirmDialogProp
       </Modal>
     </React.StrictMode>
   );
+};
+
+confirmDialog.defaultProps = {
+  closeOnProceed: true,
 };
 
 interface IState { dashboard: IDashboardState; }
