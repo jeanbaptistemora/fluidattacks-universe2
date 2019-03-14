@@ -42,17 +42,8 @@ findingContentCtrl (
   projectFtry,
   projectFtry2
 ) {
-  $scope.deleteFinding = function deleteFinding () {
-    functionsFtry1.deleteFinding($scope);
-  };
   $scope.goUp = function goUp () {
     angular.element("html, body").animate({"scrollTop": 0}, "fast");
-  };
-  $scope.acceptDraft = function acceptDraft () {
-    functionsFtry4.acceptDraft($scope);
-  };
-  $scope.deleteDraft = function deleteDraft () {
-    functionsFtry4.deleteDraft($scope);
   };
   $scope.isEmpty = function isEmpty (obj) {
     for (const key in obj) {
@@ -61,67 +52,6 @@ findingContentCtrl (
       }
     }
     return true;
-  };
-  $scope.loadFindingByID = function loadFindingByID (id) {
-    if (!$scope.isEmpty(findingData) &&
-        findingData.data.projectName.toLowerCase() ===
-        $stateParams.project.toLowerCase() &&
-        findingData.data.id === $scope.finding.id) {
-      $scope.view.project = false;
-      $scope.view.finding = true;
-      $scope.finding = findingData.data;
-      $scope.header = findingData.header;
-      $scope.esDetallado = findingData.esDetallado;
-      $scope.hasDraft = findingData.hasDraft;
-      if ($scope.isAdmin && findingData.hasDraft) {
-        $scope.draftsButton = true;
-      }
-      else {
-        $scope.draftsButton = false;
-      }
-    }
-    else {
-      const req = projectFtry.findingById(
-        id,
-        $stateParams.project.toLowerCase()
-      );
-      req.then((response) => {
-        if (angular.isUndefined(response.data)) {
-          location.reload();
-        }
-        if (!response.error && $stateParams.project.toLowerCase() ===
-            response.data.projectName.toLowerCase()) {
-          findingData.data = response.data;
-          $scope.finding = response.data;
-          $scope.hasDraft = false;
-          if (angular.isUndefined($scope.finding.releaseDate)) {
-            $scope.hasDraft = true;
-          }
-          findingData.hasDraft = $scope.hasDraft;
-          if ($scope.isAdmin && findingData.hasDraft) {
-            $scope.draftsButton = true;
-          }
-          else {
-            $scope.draftsButton = false;
-          }
-          functionsFtry3.findingHeaderBuilding($scope, findingData);
-          $scope.view.project = false;
-          $scope.view.finding = true;
-          return true;
-        }
-        else if (response.error) {
-          $scope.view.project = false;
-          $scope.view.finding = false;
-          if (response.message === "Project masked") {
-            $msg.error($translate.instant("proj_alerts.project_deleted"));
-          }
-          else {
-            $msg.error($translate.instant("proj_alerts.no_finding"));
-          }
-        }
-        return true;
-      });
-    }
   };
 
   $scope.goBack = function goBack () {
@@ -170,7 +100,6 @@ findingContentCtrl (
     // Initialization of search findings function
     $scope.finding = {};
     $scope.finding.id = $stateParams.id;
-    $scope.loadFindingByID($stateParams.id);
     $scope.goUp();
   };
   $scope.init();

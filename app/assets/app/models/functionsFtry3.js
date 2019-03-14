@@ -19,16 +19,7 @@ fieldsToTranslate, keysToTranslate, findingData, userRole, secureRandom */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry3",
-  function functionsFtry3Function (
-    $document,
-    $timeout,
-    $translate,
-    $uibModal,
-    $window,
-    functionsFtry1,
-    functionsFtry2,
-    functionsFtry4
-  ) {
+  function functionsFtry3Function ($document) {
     return {
       "configKeyboardView" ($scope) {
         $document[0].onkeypress = function onkeypress (ev) {
@@ -39,12 +30,6 @@ angular.module("FluidIntegrates").factory(
             }
           }
         };
-      },
-
-      "findingHeaderBuilding" ($scope, findingData) {
-        $scope.header = {};
-        $scope.header.findingTitle = $scope.finding.finding;
-        findingData.header = $scope.header;
       }
     };
   }
