@@ -40,9 +40,6 @@
             <li ng-repeat="r in rows"> - {% templatetag openvariable %} 'progress_mod.finding' | translate {% templatetag closevariable %} #<a href="{% templatetag openvariable %} r.link {% templatetag closevariable %}">{% templatetag openvariable %} r.id {% templatetag closevariable %}</a>:&nbsp;[{% templatetag openvariable %} r.criticity {% templatetag closevariable %}&nbsp;CVSS]&nbsp;{% templatetag openvariable %} r.finding {% templatetag closevariable %}&nbsp;({% templatetag openvariable %} r.openVulnerabilities {% templatetag closevariable %})&nbsp;->&nbsp;[{% templatetag openvariable %} r.recordsNumber {% templatetag closevariable %},&nbsp;{% templatetag openvariable %} r.atributos {% templatetag closevariable %}]
         </ul>
         <br>
-        <ul style="list-style: none;">
-            <li>{% templatetag openvariable %} 'search_findings.filter_labels.criticity' | translate {% templatetag closevariable %}: {% templatetag openvariable %} totalSeverity {% templatetag closevariable %}</li>
-        </ul>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>

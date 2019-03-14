@@ -377,6 +377,7 @@ class FindingDTO(object):
         cvss_version = '2'
         base_score = float(cvss.calculate_cvss_basescore(
             parsed_dict, self.CVSS_PARAMETERS, cvss_version))
+        parsed_dict['baseScore'] = base_score
         parsed_dict['criticity'] = cvss.calculate_cvss_temporal(
             parsed_dict, base_score, cvss_version)
         parsed_dict['impact'] = forms.get_impact(
@@ -455,6 +456,7 @@ class FindingDTO(object):
             pass
         base_score = float(cvss.calculate_cvss_basescore(
             parsed_dict, self.CVSS3_PARAMETERS, cvss_version))
+        parsed_dict['baseScore'] = base_score
         parsed_dict['criticity'] = cvss.calculate_cvss_temporal(
             parsed_dict, base_score, cvss_version)
         parsed_dict['impact'] = forms.get_impact(
@@ -876,6 +878,7 @@ def parse_severity(finding):
         cvss_parameters = fin_dto.CVSS_PARAMETERS
     base_score = float(cvss.calculate_cvss_basescore(
         parsed_dict, cvss_parameters, cvss_version))
+    parsed_dict['baseScore'] = base_score
     parsed_dict['criticity'] = \
         cvss.calculate_cvss_temporal(parsed_dict, base_score, cvss_version)
     parsed_dict['impact'] = forms.get_impact(

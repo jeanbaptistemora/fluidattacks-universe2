@@ -316,20 +316,6 @@ angular.module("FluidIntegrates").controller(
             }
           }
           $scope.rows = data;
-          let severity = 0;
-          angular.forEach(data, (cont) => {
-            try {
-              if (cont.findingType === "SECURITY") {
-                const BaseScore = projectFtry.calCCssv2(cont)[0];
-                severity += BaseScore * parseFloat(cont.cardinalidad_total);
-              }
-            }
-            catch (err) {
-              Rollbar.error("Error: An error ocurred calculating " +
-                            "cardinality", err);
-            }
-          });
-          $scope.totalSeverity = severity.toFixed(0);
           $scope.closeModalAvance = function closeModalAvance () {
             const TIMEOUT = 100;
             $uibModalInstance.close();

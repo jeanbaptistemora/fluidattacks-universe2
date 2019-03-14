@@ -173,7 +173,6 @@ var labelState = {}; \
 var alertEvents = {}; \
 var calCardinality = {}; \
 var secureRandom = {}; \
-var calCCssv2 = {}; \
 var $window = {}; \
 var $interval = {}; \
 var ldclient = {}; \
