@@ -212,6 +212,7 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
         >
           <option value="" selected={true} />
           <option value="2">2</option>
+          <option value="3">3</option>
         </EditableField>
       </Row>
       {renderCVSSFields(props, cvssVersion)}

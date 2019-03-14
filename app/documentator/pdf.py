@@ -357,7 +357,7 @@ class CreatorPDF(object):
             + '[width=330, align="center"]'
         main_tables = make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
-        access_vector = ""
+        access_vector = ''
         if findings[0].get('cvssVersion') == '3':
             access_vector = get_severity('attackVector', findings[0]['attackVector'])
         else:
