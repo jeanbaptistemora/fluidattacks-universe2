@@ -844,10 +844,8 @@ def approve_draft(draft_id, project_name):
                     last_release = datetime.strptime(
                         release['lastRelease'].split(' ')[0], '%Y-%m-%d')
                     last_release = last_release.replace(tzinfo=local_timezone).date()
-                    if last_release == release_date:
-                        release_date = release_date + timedelta(days=1)
-                    elif last_release > release_date:
-                        release_date = last_release + timedelta(days=1)
+                    if last_release >= release_date:
+                        release_date = last_release + timedelta(days=2)
 
         release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
         has_release = integrates_dao.add_attribute_dynamo(
