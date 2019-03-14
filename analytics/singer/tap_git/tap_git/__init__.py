@@ -115,6 +115,10 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
     subscription: str = config.get("subscription", "__")
     tag: str = config.get("tag", "__")
 
+    # set the rename limit
+    os.system(f"git -C {repo_path} config --int diff.renameLimit 16384")
+
+    # get DAG properties
     analized_dag = dags.get_commits(repo_path)
 
     def write_records(branch):
