@@ -333,6 +333,33 @@ export const castFieldsCVSS3: ((dataset: ISeverityViewProps["dataset"]) => ISeve
   return fields;
 };
 
+export const castEventType: ((field: string) => string) = (field: string): string => {
+  const eventType: {[value: string]: string} = {
+    "AUTHORIZATION_SPECIAL_ATTACK": "search_findings.tab_events.type_values.auth_attack",
+    "Ambiente inestable": "search_findings.tab_events.type_values.uns_ambient",
+    "Ambiente no accesible": "search_findings.tab_events.type_values.inacc_ambient",
+    "CLIENT_APPROVES_CHANGE_TOE": "search_findings.tab_events.type_values.approv_change",
+    "CLIENT_CANCELS_PROJECT_MILESTONE": "search_findings.tab_events.type_values.cancel_proj",
+    "CLIENT_DETECTS_ATTACK": "search_findings.tab_events.type_values.det_attack",
+    "CLIENT_EXPLICITLY_SUSPENDS_PROJECT": "search_findings.tab_events.type_values.explic_suspend",
+    "HIGH_AVAILABILITY_APPROVAL": "search_findings.tab_events.type_values.high_approval",
+    "INCORRECT_MISSING_SUPPLIES": "search_findings.tab_events.type_values.incor_supplies",
+    "OTHER": "search_findings.tab_events.type_values.other",
+    "TOE_DIFFERS_APPROVED": "search_findings.tab_events.type_values.toe_differs",
+  };
+
+  return eventType[field];
+};
+
+export const castEventStatus: ((field: string) => string) = (field: string): string => {
+  const eventStatus: {[value: string]: string} = {
+    SOLVED: "search_findings.tab_events.status_values.solve",
+    UNSOLVED: "search_findings.tab_events.status_values.unsolve",
+  };
+
+  return eventStatus[field];
+};
+
 export const castFields:
 ((dataset: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]) => ISeverityField[]) =
   (dataset: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]): ISeverityField[] =>

@@ -3,6 +3,8 @@ import * as actionType from "./actionTypes";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
+import * as eventsActions from "./containers/EventsView/actionTypes";
+import { IEventsViewProps } from "./containers/EventsView/index";
 import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";
@@ -22,6 +24,7 @@ import { ITrackingViewProps } from "./containers/TrackingView/index";
 export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
+  events: Pick<IEventsViewProps, "eventsDataset" >;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
@@ -114,6 +117,15 @@ const initialState: IDashboardState = {
     isEditing: false,
     isRemediationOpen : false,
   },
+  events: {
+    eventsDataset: [{
+      detail: "",
+      eventDate: "",
+      eventStatus: "",
+      eventType: "",
+      id: "",
+    }],
+    },
   evidence: {
     currentIndex: 0,
     images: [],
@@ -217,6 +229,16 @@ const initialState: IDashboardState = {
 const actionMap: {
   [key: string]: ((arg1: IDashboardState, arg2: actions.IActionStructure) => IDashboardState);
 } = {};
+
+actionMap[eventsActions.LOAD_EVENTS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    events: {
+      ...state.events,
+      eventsDataset: action.payload.events,
+    },
+  });
 
 actionMap[resourcesActions.LOAD_RESOURCES] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>

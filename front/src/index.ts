@@ -243,7 +243,6 @@ angular
     react2angular(
       eventsView, [
         "projectName",
-        "eventsDataset",
         "onClickRow",
         "onResume",
       ],

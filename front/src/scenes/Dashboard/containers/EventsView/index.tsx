@@ -6,10 +6,21 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import React from "react";
+import React, { ComponentType } from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import {
+  InferableComponentEnhancer,
+  lifecycle,
+} from "recompose";
+import { AnyAction, Reducer } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { StateType } from "typesafe-actions";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import store from "../../../../store/index";
+import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
+import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
+import * as actions from "./actions";
 
 export interface IEventsViewProps {
   eventsDataset: Array<{ detail: string; eventDate: string; eventStatus: string; eventType: string; id: string }>;
@@ -18,8 +29,35 @@ export interface IEventsViewProps {
   projectName: string;
 }
 
-export const eventsView: React.StatelessComponent<IEventsViewProps> =
-  (props: IEventsViewProps): JSX.Element => (
+const enhance: InferableComponentEnhancer<{}> =
+lifecycle({
+  componentDidMount(): void {
+    const { projectName } = this.props as IEventsViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+
+    thunkDispatch(actions.loadEvents(projectName));
+  },
+});
+
+const mapStateToProps: ((arg1: StateType<Reducer>) => IEventsViewProps) =
+  (state: StateType<Reducer>): IEventsViewProps => ({
+    ...state,
+    eventsDataset: state.dashboard.events.eventsDataset,
+  }
+);
+
+export const component: React.StatelessComponent<IEventsViewProps> =
+  (props: IEventsViewProps): JSX.Element => {
+      props.eventsDataset = props.eventsDataset.map((row: IEventsViewProps["eventsDataset"][0]) => {
+        row.eventType = translate.t(castEventType(row.eventType));
+        row.eventStatus = translate.t(castEventStatus(row.eventStatus));
+
+        return row;
+      });
+
+      return (
   <React.StrictMode>
     <div id="events" className="tab-pane cont active">
       <Row>
@@ -107,4 +145,10 @@ export const eventsView: React.StatelessComponent<IEventsViewProps> =
       </Row>
     </div>
   </React.StrictMode>
+); };
+
+export const eventsView: ComponentType<IEventsViewProps> = reduxWrapper
+(
+  enhance(component) as React.StatelessComponent<IEventsViewProps>,
+  mapStateToProps,
 );
