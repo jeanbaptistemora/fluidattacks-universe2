@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ScrollUpButton } from "../../components/ScrollUpButton";
 import store from "../../store/index";
 import FindingContent from "./containers/FindingContent";
 
@@ -17,6 +18,7 @@ const dashboardView: React.SFC = (): JSX.Element => (
         </Provider>
       </React.Fragment>
     </BrowserRouter>
+    <ScrollUpButton visibleAt={400} />
   </React.StrictMode>
 );
 
