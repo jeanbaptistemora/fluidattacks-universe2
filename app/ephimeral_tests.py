@@ -165,11 +165,11 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'CVSS v2 Temporal')]")))
+                            "//*[contains(text(), 'CVSS v3 Temporal')]")))
 
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '06-severity.png')
-        assert 'The vulnerability is recognized' in selenium.page_source
+        assert 'Proof of Concept' in selenium.page_source
 
     def test_07_evidence(self):
         selenium = self.__login()
