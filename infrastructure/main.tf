@@ -33,6 +33,7 @@ module "eks" {
   clusterName  = "${var.clusterName}"
   eksAmiId     = "${var.eksAmiId}"
   eksSnetReg   = ["${var.eksSnetReg}"]
+  nodeStorageSize = "${var.nodeStorageSize}"
   region  = "${var.region}"
   rtbId   = "${var.rtbId}"
   vaultBucket = "${var.vaultBucket}"

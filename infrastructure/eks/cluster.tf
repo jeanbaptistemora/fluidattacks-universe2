@@ -1,5 +1,6 @@
 variable "clusterInstanceType" {}
 variable "eksAmiId" {}
+variable "nodeStorageSize" {}
 variable "region" {}
 
 resource "aws_eks_cluster" "k8s_cluster" {
@@ -38,12 +39,19 @@ resource "aws_ami_copy" "eks_ami_encrypted" {
 
 resource "aws_launch_configuration" "k8s_nodes_launch_config" {
   associate_public_ip_address = true
+  ebs_optimized               = true
   iam_instance_profile        = "${aws_iam_instance_profile.k8s_nodes_profile.name}"
   image_id                    = "${aws_ami_copy.eks_ami_encrypted.id}"
   instance_type               = "${var.clusterInstanceType}"
   name_prefix                 = "EKSWorkerNodes"
   security_groups             = ["${aws_security_group.k8s_nodes_sec_group.id}"]
   user_data_base64            = "${base64encode(local.k8s_nodes_userdata)}"
+
+  root_block_device {
+    volume_type = "gp2"
+    volume_size = "${var.nodeStorageSize}"
+    delete_on_termination = true
+  }
 
   lifecycle {
     create_before_destroy = true

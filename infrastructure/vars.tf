@@ -38,6 +38,7 @@ variable "eksAmiId" {}
 variable "eksSnetReg" {
   type = "list"
 }
+variable "nodeStorageSize" {}
 variable "rtbId" {}
 
 # ElastiCache Vars
