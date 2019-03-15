@@ -5,15 +5,13 @@
 # directory.
 from __future__ import absolute_import
 from datetime import datetime
-import threading
 import rollbar
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 
-from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_CLOUDFRONT_RESOURCES_DOMAIN
+from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
 from ..decorators import require_login, require_role, require_project_access_gql
 from .. import util
 from ..dao import integrates_dao
-from ..mailer import send_mail_repositories
 from ..domain import resources
 
 
@@ -73,7 +71,6 @@ class AddRepositories(Mutation):
     def mutate(self, info, resources_data, project_name):
         success = False
         json_data = []
-        email_data = []
 
         for repo in resources_data:
             if 'urlRepo' in repo and 'branch' in repo:
@@ -83,9 +80,6 @@ class AddRepositories(Mutation):
                     'urlRepo': repository,
                     'branch': branch
                 })
-                email_text = 'Repository: {repository!s} Branch: {branch!s}' \
-                    .format(repository=repository, branch=branch)
-                email_data.append({'urlEnv': email_text})
             else:
                 rollbar.report_message('Error: \
 An error occurred adding repository', 'error', info.context)
@@ -97,24 +91,12 @@ An error occurred adding repository', 'error', info.context)
             'repositories'
         )
         if add_repo:
-            recipients = integrates_dao.get_project_users(project_name.lower())
-            mail_to = [x[0] for x in recipients if x[1] == 1]
-            mail_to.append(FI_MAIL_CONTINUOUS)
-            mail_to.append(FI_MAIL_PROJECTS)
-            context = {
-                'project': project_name.upper(),
-                'user_email': info.context.session['username'],
-                'action': 'Add repositories',
-                'resources': email_data,
-                'project_url':
-                    'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
-                .format(project=project_name)
-            }
-            email_send_thread = \
-                threading.Thread(name='Add repositories email thread',
-                                 target=send_mail_repositories,
-                                 args=(mail_to, context,))
-            email_send_thread.start()
+            user_email = info.context.session['username']
+            resources.send_mail(project_name,
+                                user_email,
+                                json_data,
+                                'added',
+                                'repository')
             success = True
         else:
             rollbar.report_message('Error: \
@@ -146,14 +128,12 @@ class RemoveRepositories(Mutation):
             integrates_dao.get_project_dynamo(project_name)[0]['repositories']
         index = -1
         cont = 0
-        email_data = []
+        json_data = []
 
         while index < 0 and len(repo_list) > cont:
             if repo_list[cont]['urlRepo'] == repository and \
                     repo_list[cont]['branch'] == branch:
-                email_text = 'Repository: {repository!s} Branch: {branch!s}' \
-                    .format(repository=repository, branch=branch)
-                email_data.append({'urlEnv': email_text})
+                json_data = [repo_list[cont]]
                 index = cont
             else:
                 index = -1
@@ -166,23 +146,12 @@ class RemoveRepositories(Mutation):
                 'repositories',
                 index)
             if remove_repo:
-                recipients = integrates_dao.get_project_users(
-                    project_name.lower())
-                mail_to = [x[0] for x in recipients if x[1] == 1]
-                mail_to.append(FI_MAIL_CONTINUOUS)
-                mail_to.append(FI_MAIL_PROJECTS)
-                context = {
-                    'project': project_name.upper(),
-                    'user_email': info.context.session['username'],
-                    'action': 'Remove repositories',
-                    'resources': email_data,
-                    'project_url':
-                        INTEGRATES_URL + '#!/project/{project!s}/resources'
-                    .format(project=project_name)
-                }
-                threading.Thread(name='Remove repositories email thread',
-                                 target=send_mail_repositories,
-                                 args=(mail_to, context,)).start()
+                user_email = info.context.session['username']
+                resources.send_mail(project_name,
+                                    user_email,
+                                    json_data,
+                                    'removed',
+                                    'repository')
                 success = True
             else:
                 rollbar.report_message('Error: \
@@ -231,24 +200,12 @@ An error occurred adding environments', 'error', info.context)
             'environments'
         )
         if add_env:
-            recipients = integrates_dao.get_project_users(project_name.lower())
-            mail_to = [x[0] for x in recipients if x[1] == 1]
-            mail_to.append(FI_MAIL_CONTINUOUS)
-            mail_to.append(FI_MAIL_PROJECTS)
-            context = {
-                'project': project_name.upper(),
-                'user_email': info.context.session['username'],
-                'action': 'Add environments',
-                'resources': json_data,
-                'project_url':
-                    INTEGRATES_URL + '#!/project/{project!s}/resources'
-                .format(project=project_name)
-            }
-            email_send_thread = \
-                threading.Thread(name='Add environments email thread',
-                                 target=send_mail_repositories,
-                                 args=(mail_to, context,))
-            email_send_thread.start()
+            user_email = info.context.session['username']
+            resources.send_mail(project_name,
+                                user_email,
+                                json_data,
+                                'added',
+                                'environment')
             success = True
         else:
             rollbar.report_message('Error: \
@@ -295,25 +252,12 @@ class RemoveEnvironments(Mutation):
                 'environments',
                 index)
             if remove_env:
-                recipients = integrates_dao.get_project_users(
-                    project_name.lower())
-                mail_to = [x[0] for x in recipients if x[1] == 1]
-                mail_to.append(FI_MAIL_CONTINUOUS)
-                mail_to.append(FI_MAIL_PROJECTS)
-                context = {
-                    'project': project_name.upper(),
-                    'user_email': info.context.session['username'],
-                    'action': 'Remove environments',
-                    'resources': json_data,
-                    'project_url':
-                        INTEGRATES_URL + '#!/project/{project!s}/resources'
-                    .format(project=project_name)
-                }
-                email_send_thread = \
-                    threading.Thread(name='Remove environments email thread',
-                                     target=send_mail_repositories,
-                                     args=(mail_to, context,))
-                email_send_thread.start()
+                user_email = info.context.session['username']
+                resources.send_mail(project_name,
+                                    user_email,
+                                    json_data,
+                                    'removed',
+                                    'environment')
                 success = True
             else:
                 rollbar.report_message('Error: \
@@ -351,7 +295,6 @@ class AddFiles(Mutation):
                 'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
                 'uploader': info.context.session['username']
             })
-            email_data = [{'urlEnv': file_info.get('fileName')}]
         uploaded_file = info.context.FILES.get('document', '')
         file_id = '{project}/{file_name}'.format(
             project=project_name,
@@ -367,25 +310,12 @@ class AddFiles(Mutation):
                     json_data,
                     'files'
                 )
-                recipients = integrates_dao.get_project_users(project_name)
-                mail_to = [x[0] for x in recipients if x[1] == 1]
-                mail_to.append(FI_MAIL_CONTINUOUS)
-                mail_to.append(FI_MAIL_PROJECTS)
-                context = {
-                    'project': project_name.upper(),
-                    'user_email': info.context.session['username'],
-                    'action': 'Add files',
-                    'resources': email_data,
-                    'project_url':
-                        'https://fluidattacks.com/integrates/dashboard#!/' +
-                        'project/{project!s}/resources'
-                    .format(project=project_name)
-                }
-                email_send_thread = \
-                    threading.Thread(name='Add files email thread',
-                                     target=send_mail_repositories,
-                                     args=(mail_to, context,))
-                email_send_thread.start()
+                user_email = info.context.session['username']
+                resources.send_mail(project_name,
+                                    user_email,
+                                    json_data,
+                                    'added',
+                                    'file')
             else:
                 # The code should do nothing if the upload to S3 fails.
                 pass
@@ -421,6 +351,7 @@ class RemoveFiles(Mutation):
         while index < 0 and len(file_list) > cont:
             if file_list[cont]['fileName'] == file_name:
                 index = cont
+                json_data = [file_list[cont]]
             else:
                 index = -1
             cont += 1
@@ -433,25 +364,12 @@ class RemoveFiles(Mutation):
                 project_name,
                 'files',
                 index)
-            recipients = integrates_dao.get_project_users(project_name)
-            mail_to = [x[0] for x in recipients if x[1] == 1]
-            mail_to.append(FI_MAIL_CONTINUOUS)
-            mail_to.append(FI_MAIL_PROJECTS)
-            email_data = [{'urlEnv': file_name}]
-            context = {
-                'project': project_name.upper(),
-                'user_email': info.context.session['username'],
-                'action': 'Remove files',
-                'resources': email_data,
-                'project_url':
-                    'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
-                .format(project=project_name)
-            }
-            email_send_thread = \
-                threading.Thread(name='Remove files email thread',
-                                 target=send_mail_repositories,
-                                 args=(mail_to, context,))
-            email_send_thread.start()
+            user_email = info.context.session['username']
+            resources.send_mail(project_name,
+                                user_email,
+                                json_data,
+                                'removed',
+                                'file')
         else:
             util.cloudwatch_log(info.context,
                                 'Security: \

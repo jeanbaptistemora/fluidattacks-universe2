@@ -110,13 +110,6 @@ def send_mail_new_version(email_to, context):
     _send_mail('integratesnewversion', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_repositories(email_to, context):
-    _send_mail('repositoriesintegrates',
-               email_to,
-               context=context,
-               tags=GENERAL_TAG)
-
-
 def send_mail_resources(email_to, context):
     _send_mail('resources-integrates',
                email_to,

@@ -142,9 +142,11 @@ def get_user_first_name(email):
         query = 'SELECT first_name FROM users WHERE email = %s'
         cursor.execute(query, (email,))
         row = cursor.fetchone()
-    if row is None:
-        return "None"
-    return row[0]
+    if row:
+        first_name = row[0]
+    else:
+        first_name = ''
+    return first_name
 
 
 def get_project_description(project):
