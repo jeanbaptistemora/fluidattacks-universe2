@@ -883,24 +883,25 @@ class UpdateTreatment(Mutation):
         return ret
 
 
-class RejectDraft(Mutation):
+class DeleteDraft(Mutation):
     class Arguments(object):
-        draft_id = String(required=True)
+        finding_id = String(required=True)
     success = Boolean()
 
     @require_login
-    @require_role(['admin'])
-    def mutate(self, info, draft_id):
+    @require_role(['admin', 'analyst'])
+    @require_finding_access_gql
+    def mutate(self, info, finding_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         try:
-            project_name = get_project_name(draft_id)
-            success = reject_draft(draft_id, reviewer_email, project_name)
-            util.invalidate_cache(draft_id)
+            project_name = get_project_name(finding_id)
+            success = reject_draft(finding_id, reviewer_email, project_name)
+            util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
         except KeyError:
             raise GraphQLError('DRAFT_NOT_FOUND')
 
-        return RejectDraft(success=success)
+        return DeleteDraft(success=success)
 
 
 class DeleteFinding(Mutation):

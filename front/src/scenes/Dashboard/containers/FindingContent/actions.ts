@@ -65,7 +65,7 @@ export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult
   (draftId: string, projectName: string): ThunkResult<void> =>
     (_0: ThunkDispatcher): void => {
       let gQry: string; gQry = `mutation {
-        rejectDraft(draftId: "${draftId}") {
+        deleteDraft(findingId: "${draftId}") {
           success
         }
       }`;
