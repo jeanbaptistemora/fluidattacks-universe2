@@ -1,0 +1,53 @@
+:local .container {
+  background-color: #272727;
+  height: 100%;
+  position: fixed;
+  width: 210px;
+}
+
+:local .container ul {
+  list-style: none;
+}
+
+:local .logo {
+  cursor: pointer;
+  height: 60px;
+  margin-left: 8px;
+  margin-top: 43px;
+  width: 190px;
+}
+
+:local .bottomBar {
+  background-color: #FF3435;
+  bottom: 0px;
+  height: 60px;
+  margin: 0px;
+  position: absolute;
+  width: 100%;
+}
+
+:local .bottomBar ul {
+  float: left;
+  padding-left: 20px;
+}
+
+:local .bottomBar li {
+  float: left;
+}
+
+:local .bottomBar li a {
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 60px;
+  padding: 0 18px;
+}
+
+:local .bottomBar li a:hover {
+  font-weight: bold;
+}
+
+:local .bottomBar li a span {
+  font-size: 28px;
+  line-height: 60px;
+}
