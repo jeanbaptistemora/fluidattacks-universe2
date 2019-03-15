@@ -8,20 +8,21 @@ from __future__ import absolute_import
 import datetime
 import base64
 import urllib
+import threading
 import boto3
+from botocore import exceptions, signers
+from cryptography.hazmat.primitives import (hashes, serialization, asymmetric)
+from cryptography.hazmat.backends import default_backend
 import rollbar
 
 from app import util
 from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
                       FI_AWS_S3_RESOURCES_BUCKET, FI_AWS_S3_ACCESS_KEY,
-                      FI_AWS_S3_SECRET_KEY)
-from botocore import (
-    exceptions, signers
-)
-from cryptography.hazmat.primitives import (
-    hashes, serialization, asymmetric
-)
-from cryptography.hazmat.backends import default_backend
+                      FI_AWS_S3_SECRET_KEY, FI_MAIL_CONTINUOUS,
+                      FI_MAIL_PROJECTS)
+
+from ..dao import integrates_dao
+from ..mailer import send_mail_resources
 
 CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -71,3 +72,47 @@ def delete_file_from_s3(file_url):
     except exceptions.ClientError:
         rollbar.report_exc_info()
         return False
+
+
+def format_resource(resource_list, resource_type):
+    resource_description = []
+    for resource_item in resource_list:
+        if resource_type == 'repository':
+            repo_url = resource_item.get('urlRepo')
+            repo_branch = resource_item.get('branch')
+            resource_text = 'Repository: {repository!s} Branch: {branch!s}'\
+                            .format(repository=repo_url, branch=repo_branch)
+        elif resource_type == 'environment':
+            resource_text = resource_item.get('urlEnv')
+        elif resource_type == 'file':
+            resource_text = resource_item.get('fileName')
+        resource_description.append({'resource_description': resource_text})
+    return resource_description
+
+
+def send_mail(project_name, user_email, resource_list, action, resource_type):
+    recipients = integrates_dao.get_project_users(project_name.lower())
+    mail_to = [x[0] for x in recipients if x[1] == 1]
+    mail_to.append(FI_MAIL_CONTINUOUS)
+    mail_to.append(FI_MAIL_PROJECTS)
+    resource_description = format_resource(resource_list, resource_type)
+    if resource_type == 'repository' and len(resource_list) > 1:
+        resource_type = 'repositories'
+    elif len(resource_list) > 1:
+        resource_type = '{}s'.format(resource_type)
+    else:
+        # resource_type is the same
+        pass
+    context = {
+        'project_name': project_name.lower(),
+        'user_email': user_email,
+        'action': action,
+        'resource_type': resource_type,
+        'resource_list': resource_description,
+        'project_url':
+            'https://fluidattacks.com/integrates/dashboard#!/project/{project!s}/resources'
+        .format(project=project_name)
+    }
+    threading.Thread(name='Remove repositories email thread',
+                     target=send_mail_resources,
+                     args=(mail_to, context,)).start()

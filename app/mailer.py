@@ -24,6 +24,16 @@ def _remove_test_projects(context, test_proj_list):
     return context
 
 
+def _get_recipient_first_name(email):
+    first_name = integrates_dao.get_user_first_name(email)
+    if not first_name:
+        first_name = email.split('@')[0]
+    else:
+        # First name exists in database
+        pass
+    return first_name
+
+
 def _send_mail(template_name, email_to, context, tags):
     project = context.get('project', '').lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
@@ -36,7 +46,7 @@ def _send_mail(template_name, email_to, context, tags):
             'merge_vars': []
         }
         for email in email_to:
-            fname_mail = integrates_dao.get_user_first_name(email)
+            fname_mail = _get_recipient_first_name(email)
             merge_var = {'rcpt': email,
                          'vars': [{'name': 'fname',
                                    'content': fname_mail}]}
@@ -102,6 +112,13 @@ def send_mail_new_version(email_to, context):
 
 def send_mail_repositories(email_to, context):
     _send_mail('repositoriesintegrates',
+               email_to,
+               context=context,
+               tags=GENERAL_TAG)
+
+
+def send_mail_resources(email_to, context):
+    _send_mail('resources-integrates',
                email_to,
                context=context,
                tags=GENERAL_TAG)
