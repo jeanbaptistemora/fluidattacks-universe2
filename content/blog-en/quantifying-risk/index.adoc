@@ -171,7 +171,7 @@ making the probability of the original event 93.75%.
 
 The ultimate goal will be
 to perform a simulation of random events, also known as
-link:../monetizing-vulnerabilities/[Monte Carlo simulations].
+[button]#link:../monetizing-vulnerabilities/[Monte Carlo simulations]#.
 This type of simulation runs many times on single events,
 and their happening or not happening is based on a
 link:https://www.investopedia.com/terms/p/probabilitydistribution.asp[probability distribution],
@@ -192,7 +192,7 @@ a point where it can be done consistently and accurately.
 Even if the estimates are completely wrong,
 the good thing is that they can be further refined by
 a simple rule from basic probability theory:
-link:https://towardsdatascience.com/what-is-bayes-rule-bb6598d8a2fd[Bayes rule].
+[button]#link:../updating-belief/[Bayes rule]#.
 It involves the prior probabilities (i.e., our estimates or initial beliefs)
 and the posterior probabilities,
 the ones computed after observing a certain piece of evidence.
