@@ -76,7 +76,10 @@ def send_mail_delete_finding(email_to, context):
 
 
 def send_mail_remediate_finding(email_to, context):
-    _send_mail('remediatefindingintegrates', email_to, context=context, tags=VERIFY_TAG)
+    _send_mail('remediate-finding',
+               email_to,
+               context=context,
+               tags=VERIFY_TAG)
 
 
 def send_mail_comment(email_to, context):
