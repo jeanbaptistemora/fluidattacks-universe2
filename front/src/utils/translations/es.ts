@@ -429,7 +429,7 @@ const esTranslations: Map<string, string> = {
         palliative: "Paliativa: Existe un parche que no fue publicado por el fabricante",
         temporal: "Temporal: Existen soluciones temporales",
       },
-      severity_scope: "Ambiente",
+      severity_scope: "Alcance",
       severity_scope_options: {
         changed: "Cambió",
         unchanged: "No Cambió",
