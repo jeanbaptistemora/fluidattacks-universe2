@@ -252,10 +252,10 @@ build-integrates:
   <<: *kaniko_vault_config
   script:
     - mv app/assets/dashboard deploy/containers/integrates
-    - MINUTES=$(( 
+    - MINUTES=$((
         ($(date +%d | sed 's/^0//') -1) * 1440 +
-        $(date +%H | sed 's/^0//') * 60 + 
-        $(date +%M | sed 's/^0//') 
+        $(date +%H | sed 's/^0//') * 60 +
+        $(date +%M | sed 's/^0//')
       ))
     - FI_VERSION="$(date +%y.%m.)${MINUTES}"
     - echo -n "${FI_VERSION}" > version.txt
@@ -315,8 +315,11 @@ driver-testing:
         --verbose
         --exitfirst
         --basetemp=build/test
+        --test-group-count "${CI_NODE_TOTAL}"
+        --test-group "${CI_NODE_INDEX}"
         app/ephimeral_tests.py
     - cp -a screenshots "${CI_PROJECT_DIR}"
+  parallel: 3
   retry: 1
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
