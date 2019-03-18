@@ -152,7 +152,7 @@ eventContentCtrl (
     }
     const updateRequest = eventualityFactory.updateEvent(
       $scope.eventData.id,
-      angular.element('#affectationInput').val()
+      angular.element("#affectationInput").val()
     );
     updateRequest.then((response) => {
       if (response.errors) {

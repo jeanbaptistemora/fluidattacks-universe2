@@ -33,11 +33,13 @@ class ITReport(object):
         'where': 4,
         'where_records': 5,
         'requirements': 6,
-        'cardinality': 7,
-        'affected_records': 8,
-        'evidence': 9,
-        'solution': 10,
-        'requirements_id': 11}
+        'measurements': 8,
+        'criticity': 9,
+        'cardinality': 10,
+        'affected_records': 11,
+        'evidence': 12,
+        'solution': 13,
+        'requirements_id': 15}
     matriz = {
         'type': 5,
         'component': 6,
@@ -47,9 +49,10 @@ class ITReport(object):
         'ambit': 17,
         'category': 18,
         'threat': 19,
-        'probability': 23,
-        'severity': 24,
-        'risk': 27}
+        'cssv3_value': 24,
+        'probability': 26,
+        'severity': 27,
+        'risk': 30}
 
     def __init__(self, project, data, username, lang='es'):
         """Initialize variables."""
@@ -74,8 +77,8 @@ class ITReport(object):
         return 'NOQC'
 
     def hide_cell(self, data, report_format):
-        init_row = 3 + 10 * len(data)
-        end_row = 3 + 10 * 50
+        init_row = 3 + 12 * len(data)
+        end_row = 3 + 12 * 50
         self.__select_finding_sheet()
         for row in range(init_row, end_row):
             self.current_sheet.row_dimensions[row].hidden = True
@@ -89,7 +92,7 @@ class ITReport(object):
     def generate(self, data, project, username, report_format):
         for finding in data:
             self.__write(finding)
-            self.row += 10
+            self.row += 12
             if report_format == 'QC':
                 self.__write_qc(finding)
                 self.qc_row += 1
@@ -134,6 +137,77 @@ class ITReport(object):
         except ValueError:
             return ''
 
+    def __get_measure(self, metric, metric_value): # noqa
+        """Extract number of CSSV metrics."""
+        try:
+            metrics = {
+                'attackVector': {
+                    '0.85': 'Red',
+                    '0.62': 'Red adyacente',
+                    '0.55': 'Local',
+                    '0.20': 'Físico',
+                },
+                'attackComplexity': {
+                    '0.77': 'Baja',
+                    '0.44': 'Alta',
+                },
+                'privilegesRequired': {
+                    '0.85': 'Ninguno',
+                    '0.62': 'Bajo',
+                    '0.68': 'Bajo',
+                    '0.27': 'Alto',
+                    '0.50': 'Alto',
+                },
+                'userInteraction': {
+                    '0.85': 'Ninguna',
+                    '0.62': 'Requerida',
+                },
+                'severityScope': {
+                    '0.0': 'No Cambió',
+                    '1.0': 'Cambió',
+                },
+                'confidentialityImpact': {
+                    '0.56': 'Alto',
+                    '0.22': 'Bajo',
+                    '0.0': 'Ninguno',
+                },
+                'integrityImpact': {
+                    '0.56': 'Alto',
+                    '0.22': 'Bajo',
+                    '0.0': 'Ninguno',
+                },
+                'availabilityImpact': {
+                    '0.56': 'Alto',
+                    '0.22': 'Bajo',
+                    '0.0': 'Ninguno',
+                },
+                'exploitability': {
+                    '0.91': 'No probada',
+                    '0.94': 'Prueba de Concepto',
+                    '0.97': 'Funcional',
+                    '1.0': 'Alta',
+                },
+                'remediationLevel': {
+                    '0.95': 'Oficial',
+                    '0.96': 'Temporal',
+                    '0.97': 'Paliativa',
+                    '1.0': 'Inexistente',
+                },
+                'reportConfidence': {
+                    '0.92': 'Desconocido',
+                    '0.96': 'Razonable',
+                    '1.0': 'Confirmado',
+                }
+            }
+            metric_descriptions = metrics.get(metric)
+            if metric_descriptions:
+                description = metric_descriptions.get(str(metric_value))
+            else:
+                description = ''
+            return description
+        except ValueError:
+            return ''
+
     def __write(self, row):
         """Write Formstack finding in a row on the Findings sheet."""
         self.__select_finding_sheet()
@@ -144,12 +218,52 @@ class ITReport(object):
             self.set_cell(self.finding['where_records'],
                           'Evidencias/' + row['finding'] + '/records.csv')
         self.set_cell(self.finding['requirements'], row['requirements'])
+        self.set_cell_number(self.finding['criticity'], row['criticity'])
         self.set_cell_number(self.finding['cardinality'], row['openVulnerabilities'])
         self.set_cell_number(self.finding['affected_records'], row['recordsNumber'])
         self.set_cell(self.finding['evidence'], 'Evidencias/' + row['finding'])
         self.set_cell(self.finding['solution'], row['effectSolution'])
         self.set_cell(self.finding['requirements_id'],
                       self.__get_req(row['requirements']))
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('attackVector', row['attackVector']))
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('attackComplexity', row['attackComplexity']), 1)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure(
+                'privilegesRequired', row['privilegesRequired']),
+            2)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('userInteraction', row['userInteraction']), 3)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('severityScope', row['severityScope']), 4)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure(
+                'confidentialityImpact', row['confidentialityImpact']),
+            5)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('integrityImpact', row['integrityImpact']), 6)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure(
+                'availabilityImpact', row['availabilityImpact']),
+            7)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('exploitability', row['exploitability']), 8)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('remediationLevel', row['remediationLevel']), 9)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure('reportConfidence', row['reportConfidence']), 10)
 
     def __write_qc(self, row):
         """Write Formstack finding in a row on the QC matrix sheet."""
@@ -173,6 +287,8 @@ class ITReport(object):
         if 'probability' in row:
             self.set_cell_qc(self.matriz['probability'],
                              get_probability(row['probability']))
+        self.set_cell_qc(
+            self.matriz['cssv3_value'], cast_criticity(row['criticity']))
         if 'severity' in row:
             self.set_cell_number_qc(self.matriz['severity'], row['severity'])
         if 'risk' in row:
@@ -214,3 +330,19 @@ def get_probability(probability):
         '25': '25% Difícil de vulnerar'
     }
     return probability_values.get(str(probability))
+
+
+def cast_criticity(criticity):
+    """Cast criticity value."""
+    criticity_value = ''
+    if criticity >= 9.0 and criticity <= 10.0:
+        criticity_value = 'Crítica'
+    elif criticity >= 7.0 and criticity <= 8.9:
+        criticity_value = 'Alta'
+    elif criticity >= 4.0 and criticity <= 6.9:
+        criticity_value = 'Media'
+    elif criticity >= 0.1 and criticity <= 3.9:
+        criticity_value = 'Baja'
+    else:
+        criticity_value = 'Ninguna'
+    return criticity_value

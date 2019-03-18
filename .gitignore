@@ -35,6 +35,7 @@ app/assets/login/*.js
 app/assets/dashboard/*
 env-dev.vars
 local-test.sh
+local-linting.sh
 
 #coverage output
 front/.nyc_output

@@ -22,7 +22,7 @@ mixpanel==4.3.2
 mysqlclient==1.3.14
 newrelic==4.14.0.115
 oauth2client==4.1.3
-openpyxl==2.6.1
+openpyxl==2.5.14
 pykwalify==1.7.0
 pypdf2==1.26.0
 python-jose==3.0.1
