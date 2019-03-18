@@ -20,6 +20,7 @@ cookie
 credenciales
 crimeware
 criptografía
+crlf
 database
 definir
 dependencia
@@ -27,7 +28,9 @@ detectar
 devops
 digital
 dispositivo
+división de respuesta
 documentación
+encabezados
 escáner
 esteganografía
 ethical hacking
@@ -39,6 +42,7 @@ funcionalidad
 fuzzing
 hardware
 herramienta
+http
 imperativo
 implementar
 indexof
