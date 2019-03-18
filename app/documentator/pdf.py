@@ -6,9 +6,8 @@ import time
 import sys
 import jinja2
 import matplotlib
-from matplotlib.font_manager import FontProperties
 matplotlib.use('Agg')
-from pylab import figure, pie, axis, legend, savefig, cla, clf, close  # noqa
+from pylab import figure, pie, axis, savefig, cla, clf, close  # noqa
 
 
 # pylint: disable=too-many-instance-attributes
@@ -121,9 +120,11 @@ class CreatorPDF(object):
             'attack_vector_title': 'Vector Ataque',
             'resume_page_title': 'Panorama General',
             'resume_table_title': 'Tabla de Hallazgos',
+            'vuln_c': 'Crítica',
             'vuln_h': 'Altos',
             'vuln_m': 'Medios',
             'vuln_l': 'Bajos',
+            'crit_c': '(Crítica)',
             'crit_h': '(Alta)',
             'crit_m': '(Media)',
             'crit_l': '(Baja)',
@@ -181,9 +182,11 @@ class CreatorPDF(object):
             'attack_vector_title': 'Attack Vector',
             'resume_page_title': 'General View',
             'resume_table_title': 'Finding Table',
+            'vuln_c': 'Critical',
             'vuln_h': 'High',
             'vuln_m': 'Moderate',
             'vuln_l': 'Low',
+            'crit_c': '(Critical)',
             'crit_h': '(High)',
             'crit_m': '(Moderate)',
             'crit_l': '(Low)',
@@ -281,24 +284,27 @@ class CreatorPDF(object):
     def make_pie_finding(self, findings, project, words):
         """ Create the findings graph. """
         figure(1, figsize=(6, 6))
-        finding_state_pie = [0, 0, 0]  # A, PC, C
+        finding_state_pie = [0, 0, 0, 0]  # A, PC, C
         finding_state_pielabels = [
+            words['vuln_c'],
             words['vuln_h'],
             words['vuln_m'],
             words['vuln_l']
         ]
-        colors = ['red', 'orange', 'yellow']
-        explode = (0, 0.1, 0)
+        colors = ['#980000', 'red', 'orange', 'yellow']
+        explode = (0.1, 0, 0, 0)
         for finding in findings:
             criticity = finding['criticity']
-            if criticity >= 7.0 and criticity <= 10:
+            if criticity >= 9.0 and criticity <= 10.0:
                 finding_state_pie[0] += 1
-            elif criticity >= 4.0 and criticity <= 6.9:
+            elif criticity >= 7.0 and criticity <= 8.9:
                 finding_state_pie[1] += 1
+            elif criticity >= 4.0 and criticity <= 6.9:
+                finding_state_pie[2] += 1
             elif criticity >= 0.0 and criticity <= 3.9:  # Abierto por defecto
-                finding_state_pie[2] += 1
+                finding_state_pie[3] += 1
             else:
-                finding_state_pie[2] += 1
+                finding_state_pie[3] += 1
         pie(
             finding_state_pie,
             explode=explode,
@@ -308,9 +314,6 @@ class CreatorPDF(object):
             colors=colors
         )
         axis('equal')
-        font_properties = FontProperties()
-        font_properties.set_size('small')
-        legend(prop=font_properties, loc='best')
         pie_filename = 'finding_graph_:prj.png'.replace(':prj', project)
         hard_path = self.tpl_img_path
         hard_path += pie_filename
@@ -354,7 +357,7 @@ class CreatorPDF(object):
                 finding['estado'] = '-'
         main_pie_filename = 'image::../images/' \
             + main_pie_filename \
-            + '[width=330, align="center"]'
+            + '[width=300, align="center"]'
         main_tables = make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
         access_vector = ''
@@ -487,6 +490,7 @@ def get_severity(metric, metric_value):
 def make_vuln_table(findings, words):
     """Label findings percent quantity."""
     vuln_table = [
+        [words['vuln_c'], 0, 0, 0],
         [words['vuln_h'], 0, 0, 0],
         [words['vuln_m'], 0, 0, 0],
         [words['vuln_l'], 0, 0, 0],
@@ -501,20 +505,24 @@ def make_vuln_table(findings, words):
         if finding['openVulnerabilities'] != '-':
             vuln_amount = int(finding['openVulnerabilities'])
         ttl_vulns += vuln_amount
-        if criticity >= 7.0 and criticity <= 10:
+        if criticity >= 9.0 and criticity <= 10.0:
             vuln_table[0][1] += 1
             vuln_table[0][3] += vuln_amount
-            crit_as_text = words['crit_h']
-        elif criticity >= 4.0 and criticity <= 6.9:
+            crit_as_text = words['crit_c']
+        elif criticity >= 7.0 and criticity <= 8.9:
             vuln_table[1][1] += 1
             vuln_table[1][3] += vuln_amount
+            crit_as_text = words['crit_h']
+        elif criticity >= 4.0 and criticity <= 6.9:
+            vuln_table[2][1] += 1
+            vuln_table[2][3] += vuln_amount
             crit_as_text = words['crit_m']
         elif criticity >= 0.0 and criticity <= 3.9:  # Abierto por defecto
-            vuln_table[2][1] += 1
-            vuln_table[2][3] += vuln_amount
+            vuln_table[3][1] += 1
+            vuln_table[3][3] += vuln_amount
         else:
-            vuln_table[2][1] += 1
-            vuln_table[2][3] += vuln_amount
+            vuln_table[3][1] += 1
+            vuln_table[3][3] += vuln_amount
         ttl_num_reg += int(finding['recordsNumber'])
         finding['criticity'] = str(finding['criticity'])
         if top <= 5:
@@ -527,9 +535,11 @@ def make_vuln_table(findings, words):
     vuln_table[0][2] = vuln_table[0][1] * 100 / float(len(findings))
     vuln_table[1][2] = vuln_table[1][1] * 100 / float(len(findings))
     vuln_table[2][2] = vuln_table[2][1] * 100 / float(len(findings))
+    vuln_table[3][2] = vuln_table[3][1] * 100 / float(len(findings))
     vuln_table[0][2] = '{0:.2f}%'.format(vuln_table[0][2])
     vuln_table[1][2] = '{0:.2f}%'.format(vuln_table[1][2])
     vuln_table[2][2] = '{0:.2f}%'.format(vuln_table[2][2])
+    vuln_table[3][2] = '{0:.2f}%'.format(vuln_table[3][2])
     vuln_table[3][3] = ttl_vulns
     return {
         'resume': vuln_table,

@@ -23,9 +23,7 @@ image::../resources/presentation_theme/c_metodologia_es.png[pdfwidth=95%, align=
 
 <<<
 image::../resources/presentation_theme/t_criticidad_es.png[width=400]
-{nbsp} +
-
-image::../resources/presentation_theme/c_criticidad_es.png[pdfwidth=90%, align="center"]
+image::../resources/presentation_theme/c_criticidad_es.png[pdfwidth=80%, align="center"]
 
 <<<
 image::../resources/presentation_theme/t_alcance_es.png[width=400]
