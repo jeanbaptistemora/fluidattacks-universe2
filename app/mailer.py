@@ -83,7 +83,7 @@ def send_mail_remediate_finding(email_to, context):
 
 
 def send_mail_comment(email_to, context):
-    _send_mail('new-comment-integrates',
+    _send_mail('new-comment',
                email_to,
                context=context,
                tags=COMMENTS_TAG)
@@ -114,7 +114,7 @@ def send_mail_new_version(email_to, context):
 
 
 def send_mail_resources(email_to, context):
-    _send_mail('resources-integrates',
+    _send_mail('resources-changes',
                email_to,
                context=context,
                tags=GENERAL_TAG)

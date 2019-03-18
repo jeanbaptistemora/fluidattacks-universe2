@@ -432,7 +432,7 @@ def send_remediation_email(user_email, finding_id, finding_name,
         name='Remediate finding email thread',
         target=send_mail_remediate_finding,
         args=(recipients, {
-            'project_name': project_name.lower(),
+            'project': project_name.lower(),
             'finding_name': finding_name,
             'finding_url':
                 base_url + '/project/{project!s}/{finding!s}/description'

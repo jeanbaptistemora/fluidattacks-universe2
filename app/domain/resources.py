@@ -104,7 +104,7 @@ def send_mail(project_name, user_email, resource_list, action, resource_type):
         # resource_type is the same
         pass
     context = {
-        'project_name': project_name.lower(),
+        'project': project_name.lower(),
         'user_email': user_email,
         'action': action,
         'resource_type': resource_type,
