@@ -245,7 +245,6 @@ angular
       eventsView, [
         "projectName",
         "onClickRow",
-        "onResume",
       ],
     ),
   );

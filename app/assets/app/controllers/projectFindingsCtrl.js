@@ -288,51 +288,6 @@ angular.module("FluidIntegrates").controller(
         }
       }
     };
-    $scope.openModalAvance = function openModalAvance (data) {
-      $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance) {
-          const auxiliar = data;
-          for (let cont = 0; cont < data.length; cont++) {
-            data[cont].atributos = 0;
-            data[cont].link = `${$window.location.href.split("project/")[0]}` +
-                          `project/${data[cont].projectName.toLowerCase()}` +
-                          `/${data[cont].id}/description`;
-            if (angular.isDefined(data[cont].records) &&
-                data[cont].records !== "") {
-              data[cont].atributos = 1 + (data[cont].records.match(/\n/g) ||
-                                     []).length;
-            }
-          }
-          for (let cont = 0; cont < data.length - 1; cont++) {
-            for (let incj = cont + 1; incj < data.length; incj++) {
-              if (parseFloat(data[cont].criticity) <
-                  parseFloat(data[incj].criticity)) {
-                const aux = data[cont];
-                data[cont] = data[incj];
-                data[incj] = aux;
-              }
-            }
-          }
-          $scope.rows = data;
-          $scope.closeModalAvance = function closeModalAvance () {
-            const TIMEOUT = 100;
-            $uibModalInstance.close();
-            $timeout(() => {
-              angular.element("#vulnerabilities").bootstrapTable(
-                "load",
-                auxiliar
-              );
-            }, TIMEOUT);
-          };
-        },
-        "keyboard": false,
-        "resolve": {"ok": true},
-        "templateUrl": "avance.html",
-        "windowClass": "modal avance-modal"
-      });
-    };
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});
     };

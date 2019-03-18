@@ -7,7 +7,7 @@
   * readability of the code that defines the headers of the table
  */
 import React, { ComponentType } from "react";
-import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -25,7 +25,6 @@ import * as actions from "./actions";
 export interface IEventsViewProps {
   eventsDataset: Array<{ detail: string; eventDate: string; eventStatus: string; eventType: string; id: string }>;
   onClickRow: ((row: string | undefined) => JSX.Element);
-  onResume: ((eventsDataset: IEventsViewProps["eventsDataset"]) => JSX.Element);
   projectName: string;
 }
 
@@ -62,19 +61,6 @@ export const component: React.StatelessComponent<IEventsViewProps> =
     <div id="events" className="tab-pane cont active">
       <Row>
         <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={12}>
-                <Button
-                  id="progress_event"
-                  block={false}
-                  bsStyle="default"
-                  onClick={(): void => {props.onResume(props.eventsDataset); }}
-                >
-                  {translate.t("search_findings.tab_events.resume")}
-                  <Glyphicon glyph="bookmark"/>&nbsp;
-                </Button>
-            </Col>
-          </Row>
           <b>{translate.t("search_findings.tab_events.table_advice")}</b>
           <Row>
             <Col md={12} sm={12} xs={12}>

@@ -30,21 +30,6 @@
         </div>
     </div>
 </div>
-<!-- START: MODAL AVANCE -->
-<script type="text/ng-template" id="avance.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %} 'progress_mod.title' | translate {% templatetag closevariable %}</h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-        <ul style="list-style: none;">
-            <li ng-repeat="r in rows"> - {% templatetag openvariable %} 'progress_mod.finding' | translate {% templatetag closevariable %} #<a href="{% templatetag openvariable %} r.link {% templatetag closevariable %}">{% templatetag openvariable %} r.id {% templatetag closevariable %}</a>:&nbsp;[{% templatetag openvariable %} r.criticity {% templatetag closevariable %}&nbsp;CVSS]&nbsp;{% templatetag openvariable %} r.finding {% templatetag closevariable %}&nbsp;({% templatetag openvariable %} r.openVulnerabilities {% templatetag closevariable %})&nbsp;->&nbsp;[{% templatetag openvariable %} r.recordsNumber {% templatetag closevariable %},&nbsp;{% templatetag openvariable %} r.atributos {% templatetag closevariable %}]
-        </ul>
-        <br>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
-    </div>
-</script>
 <!-- START: MODAL INFORMES -->
 <script type="text/ng-template" id="reportModal.html">
     <div class="modal-body" id="modal-body">
@@ -129,23 +114,13 @@
                         <div id="findings" class="tab-pane cont active">
                             <div class="row">
                                 <div class=" col-md-6 col-sm-12 btn-group" >
-                                    <script>
-                                        $(document).ready(function() {
-                                            if (userRole == "customer" || userRole == "customeradmin") {
-                                                $('#progress_button').hide();
-                                            }
-                                        });
-                                    </script>
-                                    <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.advance}}!" ng-click="openModalAvance(findingsDataset);">
-                                        {{ search_findings.filter_buttons.advance }} <i class="glyphicon glyphicon-bookmark"></i>
-                                    </button>
                                     <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-controller="reportGeneratorCtrl" ng-click="reportModal();">
                                         {% templatetag openvariable %} 'reports.title' | translate {% templatetag closevariable %} <i class="glyphicon glyphicon-briefcase"></i>
                                     </button>
                                 </div>
                             </div>
                             <!-- START: toolbar -->
-                            <div id="toolbar" style="padding-top: 5%;">
+                            <div id="toolbar" style="padding-top: 1%;">
                               <p>{{ search_findings.descriptions.description1 }} <b>{{ search_findings.descriptions.description2 }}</b> {{ search_findings.descriptions.description3 }}</p>
                             </div>
                             <d-table

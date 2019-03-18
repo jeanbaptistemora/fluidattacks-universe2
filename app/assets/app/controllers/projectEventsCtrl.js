@@ -239,29 +239,6 @@ angular.module("FluidIntegrates").controller(
         }
       }
     };
-    $scope.openModalEventAvance = function openModalEventAvance (data) {
-      $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance) {
-          $scope.rowsEvent = data;
-          $scope.close = function close () {
-            $uibModalInstance.close();
-            const TIMEOUT = 100;
-            $timeout(() => {
-              angular.element("#tblEventualities").bootstrapTable(
-                "load",
-                $scope.rowsEvent
-              );
-            }, TIMEOUT);
-          };
-        },
-        "keyboard": false,
-        "resolve": {"ok": true},
-        "templateUrl": "avance.html",
-        "windowClass": "modal avance-modal"
-      });
-    };
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});
     };
