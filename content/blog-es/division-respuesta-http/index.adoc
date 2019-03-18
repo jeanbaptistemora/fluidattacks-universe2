@@ -91,7 +91,7 @@ https://ejemplo.com/index.php?lang=es%0AContent-Length%3A%200%0AHTTP%2F1.
 0A%3Chtml%3E%3Cscript%3Ealert(%22Test%22)%3C%2Fscript%3E%3E%3C%2Fhtml%3E
 ----
 
-Y de esta manera el navegador nos mostrara una ventana de alerta
+Y de esta manera el navegador nos mostrará una ventana de alerta
 con el mensaje +Test+, dando por finalizada la explotación de
 esta vulnerabilidad.
 
