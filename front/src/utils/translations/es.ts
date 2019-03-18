@@ -64,6 +64,7 @@ const esTranslations: Map<string, string> = {
     alert: {
       attention: "Atención",
     },
+    critical_severity: "Crítica",
     delete: {
       justif: {
         duplicated: "Está Duplicado",
@@ -84,9 +85,9 @@ const esTranslations: Map<string, string> = {
       upload_date: "Fecha",
     },
     finding_deleted: "El hallazgo {{findingId}} ha sido eliminado",
-    high_severity: "Alto",
+    high_severity: "Alta",
     low_severity: "Tolerable",
-    medium_severity: "Moderado",
+    medium_severity: "Moderada",
     openVulnsLabel: "Vulnerabilidades abiertas",
     reject: "Rechazar Draft",
     reportDateLabel: "Fecha de reporte",

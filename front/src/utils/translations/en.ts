@@ -63,6 +63,7 @@ const enTranslations: Map<string, string> = {
     alert: {
       attention: "Attention",
     },
+    critical_severity: "Critical",
     delete: {
       justif: {
         duplicated: "It is duplicated",

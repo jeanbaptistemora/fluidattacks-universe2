@@ -16,6 +16,7 @@ interface IFindingHeaderProps {
 }
 
 const severityConfigs: { [level: string]: { color: string; text: string } } = {
+  CRITICAL: { color: "#96030D", text: translate.t("search_findings.critical_severity") },
   HIGH: { color: "#FF1122", text: translate.t("search_findings.high_severity") },
   LOW: { color: "#FFBF00", text: translate.t("search_findings.low_severity") },
   MED: { color: "#FF7722", text: translate.t("search_findings.medium_severity") },
@@ -28,7 +29,8 @@ const statusConfigs: { [level: string]: { icon: string; text: string } } = {
 };
 
 const findingHeader: React.SFC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {
-  const severityLevel: "HIGH" | "MED" | "LOW" = props.severity > 6.9 ? "HIGH" : props.severity > 3.9 ? "MED" : "LOW";
+  const severityLevel: "CRITICAL" | "HIGH" | "MED" | "LOW" =
+    props.severity >= 9 ? "CRITICAL" : props.severity > 6.9 ? "HIGH" : props.severity > 3.9 ? "MED" : "LOW";
   const { color: severityColor, text: severityText } = severityConfigs[severityLevel];
   const { icon: statusIcon, text: statusText } = statusConfigs[props.status];
   const severityStyles: ProgressbarClasses = {
