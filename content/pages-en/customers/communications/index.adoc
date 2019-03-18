@@ -1,6 +1,6 @@
 :slug: customers/communications/
 :category: customers
-:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the communications sector.
+:description: With over 18 years of experience in the Colombian market, Fluid Attacks is a company focused on information security, ethical hacking, penetration testing, and vulnerabilities detection in applications. We have worked with the following companies in the communications sector.
 :keywords: Fluid Attacks, Information, Communication, Security, Pentesting, Customers.
 :translate: clientes/comunicaciones/
 
@@ -26,10 +26,10 @@ as well as television and mobile and fixed internet.
 
 2+a|== Edatel
 
-Public Services Company incorporated as a corporation
-whose main corporate purpose is the organization,
-administration and provision of telecommunications services,
-Information Technology and all complementary activities.
+Edatel is a public service corporation
+whose primary purpose is the organization, administration,
+and provision of telecommunications services, information technology,
+and all supplemental activities.
 
 a|image::logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos"]
 
@@ -37,11 +37,12 @@ a|image::logo-etb.png[alt="Logo ETB",link="https://etb.com/Corporativo/Sobre-ETB
 
 2+a|== ETB
 
-The Telecommunications Company of Bogotá,
-has contributed to the growth of Bogotá and Colombia during +132+ years.
-Its objective is to provide integral solutions
-of information and communication technologies,
-contributing to the strengthening of the information society,
++ETB+, the Telecommunications Company of Bogotá,
+is one of the principal telecommunications companies in Colombia
+providing local, long-distance, and cellular telephone services.
+In addition, +ETB+ provides satellite and internet services,
+as well as other related services which contribute
+to the strengthening of an information society
 within the framework of corporate social responsibility.
 
 2+a|== Internexa
@@ -57,12 +58,12 @@ a|image::logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
 
 2+a|== Tigo UNE
 
-Colombian company that provides integrated telecommunications services,
-with shareholding in the Millicom Group and the EPM Group.
-Hand in hand with its subsidiary companies,
-including Colombia Móvil, Edatel and Orbitel,
-UNE covers more than +70%+ of the urban population
-and is present in +767+ municipalities
-of the +32+ departments of the national territory.
+Tigo UNE is a Colombian company
+that provides integrated telecommunications services.
+Tigo UNE is a shareholder in the Millicom Group and the EPM Group.
+Hand-in-hand with its subsidiary companies,
+including Colombia Móvil, Edatel, and Orbitel,
+UNE covers more than +70%+ of Colombia's urban population.
+It operates in +767+ municipalities in the +32+ departments of Colombia.
 
 |====

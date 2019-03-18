@@ -46,9 +46,9 @@ supported by a certified and effective methodology.
 
 a|image::logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
 
-a|image::ediligence-logo.png[alt="Logo Edilligence",link="http://ediligence.co/"]
+a|image::ediligence-logo.png[alt="Logo Ediligence",link="http://ediligence.co/"]
 
-a|== Edilligence
+a|== Ediligence
 
 Company that provides information security services,
 forensics and technologies consulting.

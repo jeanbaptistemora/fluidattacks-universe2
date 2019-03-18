@@ -102,14 +102,14 @@ in support of successful socio-economic community activities
 while guaranteeing associates and savers the security
 of their savings and social contributions.
 
-2+a|== Coopcentral
+2+a|== CoopCentral
 
-Bank owned by entities of the solidary sector,
-oriented to the specialized attention.
-They offer financial services and through the Coopcentral Network
-they integrate technological platforms
-that allow to provide transactional services
-to the associates of the entities that comprise it.
+Banco Cooperativo CoopCentral is a cooperative bank
+offering finance and credit services to rural communities,
+as well as working capital and rural project financing services.
+Through the CoopCentral Network, they integrate technology platforms
+facilitating transactional services
+between the individual entities that comprise CoopCentral.
 
 a|image::logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentral.com.co/coopcentral/index.php/corpora"]
 
@@ -128,12 +128,14 @@ of the French insurance company +AXA's+ general insurance and life unit.
 
 2+a|== Davivienda
 
-Recognized banking entity, part of the Bolivar business group,
-whose objective is to generate value for its shareholders, customers,
-collaborators and related third parties,
+Davivienda is a recognized banking entity
+and is part of the Bolivar business group.
+Their objective is to generate value for their shareholders,
+customers, collaborators, and related third parties,
 based on customer knowledge, risk management, technology,
 processes, innovation, business synergy, business knowledge,
-and emotional handling of bussiness relationships.
+and the excellent customer service they provide
+in their business relationships.
 
 a|image::logo-davivienda.png[alt="Logo Davivienda",link="https://www.davivienda.com/wps/portal/personas/nuevo"]
 
@@ -141,24 +143,22 @@ a|image::logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/po
 
 2+a|== Deceval
 
-Centralized Deposit of Securities of Colombia -DECEVAL SA-,
-is an institution in charge of the custody, administration,
-compensation and liquidation of securities
-in deposit of securities of credit content, participation,
-merchandise representatives and financial instruments
-that are registered in the National Registry of Securities and Issuers,
+Deceval is the Central Securities Depository of Colombia.
+The depository is responsible for the safekeeping, administration,
+compensation, and liquidation of securities on deposit
+and registered with the National Registry of Securities and Issuers,
 whether they are issued, negotiated or registered locally or abroad.
 
 2+a|== Protección
 
-Public limited company, financial services company
-and administrator of pension and severance funds.
+Protección is a limited public company
+providing financial services and is an administrator
+of pension and severance funds.
 A unit of the Colombian holding Grupo de Inversiones Suramericana,
-it is the second largest administrator
-of pension and severance funds in the country
-with close to +1.6+ million affiliates.
-The company manages three funds for unemployment insurance,
-voluntary pensions and mandatory pensions.
+it is the second largest administrator of pension and severance funds
+in Colombia with close to +1.6+ million members.
+Protección manages three types of funds,
+voluntary and mandatory pensions and unemployment insurance.
 
 a|image::logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
 
