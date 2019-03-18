@@ -457,6 +457,8 @@ new-version-mail:
     - vaultenv -- python integrates_version.py
   only:
     - master
+  except:
+    - schedules
 
 asserts-prod:
   stage: post-deploy
