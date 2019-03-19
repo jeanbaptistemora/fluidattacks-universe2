@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import CircularProgressbar, { ProgressbarClasses } from "react-circular-progressbar";
 import { default as calendarIcon } from "../../../../resources/calendar.svg";
+import { default as defaultIcon } from "../../../../resources/default_finding_state.svg";
 import { default as failIcon } from "../../../../resources/fail.svg";
 import { default as okIcon } from "../../../../resources/ok.svg";
 import { default as vulnerabilitiesIcon } from "../../../../resources/vulnerabilities.svg";
@@ -25,7 +26,7 @@ const severityConfigs: { [level: string]: { color: string; text: string } } = {
 const statusConfigs: { [level: string]: { icon: string; text: string } } = {
   Abierto: { icon: failIcon, text: translate.t("search_findings.status.open") },
   Cerrado: { icon: okIcon, text: translate.t("search_findings.status.closed") },
-  Default: { icon: "", text: "" },
+  Default: { icon: defaultIcon, text: "" },
 };
 
 const findingHeader: React.SFC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {
