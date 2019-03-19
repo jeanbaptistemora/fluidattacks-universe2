@@ -66,7 +66,7 @@ class ITReport(object):
             if finding['reportLevel'] == 'DETAILED':
                 detailed += 1
         detailed = detailed * 100 / len(data)
-        if detailed >= 50:
+        if detailed >= 60:
             self.workbook = load_workbook(
                 filename=self.templates[self.lang]['QC']
             )
@@ -78,13 +78,13 @@ class ITReport(object):
 
     def hide_cell(self, data, report_format):
         init_row = 3 + 12 * len(data)
-        end_row = 3 + 12 * 50
+        end_row = 3 + 12 * 60
         self.__select_finding_sheet()
         for row in range(init_row, end_row):
             self.current_sheet.row_dimensions[row].hidden = True
         if report_format == 'QC':
             init_row_qc = 3 + 1 * len(data)
-            end_row_qc = 53
+            end_row_qc = 63
             self.__select_qc_sheet()
             for row in range(init_row_qc, end_row_qc):
                 self.current_sheet.row_dimensions[row].hidden = True
