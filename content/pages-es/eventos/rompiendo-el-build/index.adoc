@@ -159,6 +159,7 @@ link:http://cidenet.com.co/[+Cidenet+],
 link:http://www.cognox.co[+Cognox+],
 link:http://www.eafit.edu.co/[+EAFIT+],
 link:https://www.f2x.com.co/[+F2X+], link:http://www.gco.com.co/[+GCO+],
+link:https://www.grupoexito.com.co/es/[+Grupo Éxito+],
 link:https://www.kometsales.com/[+Komet Sales+],
 link:https://www.payvalida.com/co/es/[+Pay valida+]
 y link:http://www.techandsolve.com/[+Tech and Solve+].
