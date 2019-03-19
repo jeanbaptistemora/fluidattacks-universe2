@@ -369,7 +369,6 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="risk"
             renderAsEditable={props.isEditing}
             type="text"
-            validate={[required]}
             visible={isDetailed && props.isEditing}
           />
         </Col>
