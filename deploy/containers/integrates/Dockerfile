@@ -55,7 +55,6 @@ RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repos
         && echo "${SSL_KEY}" | base64 -di > "/etc/ssl/private/fluidla.key" \
         && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
         && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
-    && sed -i 's/>v./>v.\ '"${FI_VERSION}"'/' /usr/src/app/app/templates/dashboard.html \
     && sed -i 's/env#/'"${ENV_NAME}"'#/g' /usr/src/app/env.vars \
     && apt-get remove --purge -y \
          cron \
@@ -66,6 +65,8 @@ RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repos
         /root/assets
 
 COPY dashboard /usr/src/app/app/assets/dashboard
+
+RUN sed -i 's/integrates_version/v.\ '"${FI_VERSION}"'/g' /usr/src/app/app/assets/dashboard/main-bundle.min.js
 
 EXPOSE 443 24224
 

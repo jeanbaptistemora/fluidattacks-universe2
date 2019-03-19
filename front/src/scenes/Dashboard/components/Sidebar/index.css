@@ -47,17 +47,18 @@
 }
 
 :local .bottomBar {
-  background-color: #FF3435;
   bottom: 0px;
-  height: 60px;
-  margin: 0px;
   position: absolute;
   width: 100%;
 }
 
 :local .bottomBar ul {
+  background-color: #FF3435;
   float: left;
+  height: 60px;
+  margin-bottom: 0px;
   padding-left: 20px;
+  width: 100%;
 }
 
 :local .bottomBar li {
@@ -79,4 +80,10 @@
 :local .bottomBar li a span {
   font-size: 28px;
   line-height: 60px;
+}
+
+:local .version {
+  color: white;
+  margin-right: 5px;
+  text-align: right;
 }

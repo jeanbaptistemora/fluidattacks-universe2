@@ -28,6 +28,21 @@ const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element =>
   const handleProjectsClick: (() => void) = (): void => { location.hash = "#!/project"; };
   const isAnalyst: boolean = _.includes(["admin", "analyst"], (window as Window & { userRole: string }).userRole);
 
+  const renderAnalystTabs: (() => JSX.Element) = (): JSX.Element => (
+    <React.Fragment>
+      <TabItem
+        icon={<i className="icon s7-id" />}
+        labelText={translate.t("sidebar.projects")}
+        onClick={handleProjectsClick}
+      />
+      <TabItem
+        icon={<i className="icon s7-note2" />}
+        labelText={translate.t("sidebar.forms")}
+        onClick={handleFormsClick}
+      />
+    </React.Fragment>
+  );
+
   const renderMenu: ((isNormalScreen: boolean) => JSX.Element) = (isNormalScreenSize: boolean): JSX.Element => (
     <BurgerMenu
       burgerButtonClassName={style.burgerButton}
@@ -40,21 +55,10 @@ const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element =>
     >
       <img className={style.logo} src={logo} alt="integrates-logo" onClick={handleLogoClick} />
       <ul>
-        <TabItem
-          icon={<i className="icon s7-id" />}
-          labelText={translate.t("sidebar.projects")}
-          onClick={handleProjectsClick}
-        />
-        {/* tslint:disable-next-line: jsx-no-multiline-js */}
-        {isAnalyst ?
-          <TabItem
-            icon={<i className="icon s7-note2" />}
-            labelText={translate.t("sidebar.forms")}
-            onClick={handleFormsClick}
-          />
-          : undefined}
+        {isAnalyst ? renderAnalystTabs() : undefined}
       </ul>
       <div className={style.bottomBar}>
+        <div className={style.version}><small>integrates_version</small></div>
         <ul>
           <li onClick={handleEsClick}><a>ES</a></li>
           <li onClick={handleEnClick}><a>EN</a></li>

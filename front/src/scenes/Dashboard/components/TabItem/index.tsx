@@ -15,8 +15,8 @@ const tabItem: React.SFC<ITabItemProps> = (props: ITabItemProps): JSX.Element =>
     <React.StrictMode>
       <li className={style.container} onClick={handleClick}>
         <Row>
-          <Col md={2}><div className={style.icon}>{props.icon}</div></Col>
-          <Col md={10}><span>{props.labelText}</span></Col>
+          <Col md={2} sm={2} xs={2}><div className={style.icon}>{props.icon}</div></Col>
+          <Col md={10} sm={10} xs={10}><span>{props.labelText}</span></Col>
         </Row>
       </li>
     </React.StrictMode>
