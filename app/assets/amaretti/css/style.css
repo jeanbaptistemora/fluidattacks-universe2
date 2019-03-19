@@ -8077,7 +8077,6 @@ button:focus {
 */
 .am-wrapper {
   min-height: 100%;
-  padding-top: 80px;
 }
 @media (max-width: 767px) {
   .am-wrapper {
@@ -9820,7 +9819,7 @@ button:focus {
 .am-content {
   position: relative;
   left: 0;
-  margin-left: 100px;
+  margin-left: 210px;
   min-height: 100%;
 }
 @media (max-width: 767px) {
@@ -20308,7 +20307,7 @@ td.lower-text {
   font-family: 'Source Sans Pro', sans-serif !important;
 }
 .iti-flag {background-image: url("../../node_modules/intl-tel-input/build/img/flags.png");}
- 
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   .iti-flag {background-image: url("../../node_modules/intl-tel-input/build/img/flags@2x.png");}
 }

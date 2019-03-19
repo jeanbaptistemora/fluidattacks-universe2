@@ -1,17 +1,46 @@
 :local .container {
   background-color: #272727;
-  height: 100%;
-  position: fixed;
-  width: 210px;
+  overflow: hidden !important;
+  z-index: 0;
 }
 
 :local .container ul {
   list-style: none;
 }
 
+:local .container * {
+  outline: none;
+}
+
+:local .burgerButton {
+  background: #F0F0F0;
+  height: 20px;
+  left: 15px;
+  position: fixed;
+  top: 5px;
+  width: 28px;
+}
+
+:local .burgerButton span {
+  background: #272727;
+}
+
+:local .closeButton span {
+  background: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .burgerButton {
+    display: none;
+  }
+  .closeButton {
+    display: none;
+  }
+}
+
 :local .logo {
   cursor: pointer;
-  height: 60px;
+  height: 62px;
   margin-left: 8px;
   margin-top: 43px;
   width: 190px;

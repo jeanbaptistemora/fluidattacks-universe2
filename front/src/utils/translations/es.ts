@@ -500,6 +500,10 @@ const esTranslations: Map<string, string> = {
       usermail: "Email",
     },
   },
+  sidebar: {
+    forms: "Formularios",
+    projects: "Proyectos",
+  },
   validations: {
     between: "Este valor debe estar entre {{min}} y {{max}}",
     email: "El formato de email no es válido",

@@ -69,6 +69,7 @@
   </head>
   <body ng-cloak ng-app="FluidIntegrates">
     <div class="am-wrapper">
+      <div ng-if="false">
       <nav class="navbar navbar-default navbar-fixed-top am-top-header" ng-controller="navbarCtrl">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -89,19 +90,6 @@
                 <a href="" ng-click="logout();" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" title="Salir">
                   <span class="icon s7-power"></span>
                 </a>
-                <!-- START: MODAL LOGOUT -->
-                <script type="text/ng-template" id="logout.html">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'logout.title'| translate{% templatetag closevariable %}</h3>
-                    </div>
-                    <div class="modal-body" id="modal-body">
-                        <p>{% templatetag openvariable %}'logout.message'| translate{% templatetag closevariable %}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-warning" type="button" ng-click="closeModalLogout()">{% templatetag openvariable %}'logout.cancel'| translate{% templatetag closevariable %}</button>
-                        <button class="btn btn-primary" type="button" ng-click="okModalLogout()">{% templatetag openvariable %}'logout.ok'| translate{% templatetag closevariable %}</button>
-                    </div>
-                </script>
               </li>
             </ul>
           </div>
@@ -126,6 +114,23 @@
           </ul>
           <!--Sidebar bottom content-->
         </div>
+      </div>
+      </div>
+      <div ng-controller="navbarCtrl">
+        <!-- START: MODAL LOGOUT -->
+        <script type="text/ng-template" id="logout.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'logout.title'| translate{% templatetag closevariable %}</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <p>{% templatetag openvariable %}'logout.message'| translate{% templatetag closevariable %}</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="closeModalLogout()">{% templatetag openvariable %}'logout.cancel'| translate{% templatetag closevariable %}</button>
+                <button class="btn btn-primary" type="button" ng-click="okModalLogout()">{% templatetag openvariable %}'logout.ok'| translate{% templatetag closevariable %}</button>
+            </div>
+        </script>
+        <sidebar on-logout-click="logout"></sidebar>
       </div>
       <div class="am-content">
         <div ui-view></div>

@@ -496,6 +496,10 @@ const enTranslations: Map<string, string> = {
       usermail: "User email",
     },
   },
+  sidebar: {
+    forms: "Forms",
+    projects: "Projects",
+  },
   validations: {
     between: "This value must be between {{min}} and {{max}}",
     email: "The email format is not valid",

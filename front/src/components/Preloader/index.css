@@ -1,17 +1,9 @@
 :local .loader {
-  margin: 0px;
-  padding: 0px;
-  right: 0px;
-  top: 0px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 65px;
+  left: 0px;
   z-index: 30001;
   opacity: 0.8;
-  display: none;
-}
-
-:local .loader > img {
   position: fixed;
-  bottom: 0px;
-  left: 0px;
+  display: none;
 }
