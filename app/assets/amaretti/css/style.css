@@ -9897,7 +9897,7 @@ button:focus {
 }
 @media (max-width: 767px) {
   .page-head {
-    padding: 18px 15px 20px;
+    padding: 0px 50px 20px;
   }
   .page-head h2 {
     font-size: 24px;
