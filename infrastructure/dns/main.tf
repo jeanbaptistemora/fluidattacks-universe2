@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    key     = "dns.tfstate"
+    region  = "us-east-1"
+    encrypt = true
+  }
+}
+
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "dbInstance" {}
@@ -33,7 +41,7 @@ resource "aws_route53_record" "mainA" {
 
 resource "aws_route53_zone" "fs_old_domains" {
   count   = 8
-  name    = "${element(var.secDomains, count.index)}" 
+  name    = "${element(var.secDomains, count.index)}"
   comment = "Dominio secundario de Fluid Attacks"
   force_destroy = true
 }

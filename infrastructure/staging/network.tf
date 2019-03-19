@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    key     = "staging.tfstate"
+    region  = "us-east-1"
+    encrypt = true
+  }
+}
+
 provider "aws" {
   access_key = "${var.aws_innovation_access_key}"
   secret_key = "${var.aws_innovation_secret_key}"

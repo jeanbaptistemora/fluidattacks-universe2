@@ -29,7 +29,7 @@ RUN apt-get update \
         software-properties-common \
         unzip \
         wget \
-    && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip \
+    && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip \
         && unzip terraform.zip \
         && rm terraform.zip \
         && mv terraform /usr/local/bin/terraform \

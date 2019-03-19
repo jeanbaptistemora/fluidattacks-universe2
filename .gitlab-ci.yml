@@ -120,18 +120,6 @@ test_terraform:
   stage: tests
   <<: *vault_login
   script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
-        infrastructure/terraform.tfstate ||
-        echo "No previous state for infrastructure found"
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
-        infrastructure/dns/terraform.tfstate ||
-        echo "No previous state for DNS found"
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/staging/terraform.tfstate
-        infrastructure/staging/terraform.tfstate ||
-        echo "No previous state for staging found"
     - vaultenv infrastructure/terraform.sh
   after_script:
     - rm infrastructure/*.xml
@@ -188,39 +176,14 @@ deploy_infra:
   <<: *vault_login
   script:
     - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
-        infrastructure/terraform.tfstate ||
-        (echo "No previous state found" && NEW_DEPLOY=true)
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
-        infrastructure/dns/terraform.tfstate ||
-        echo "No previous state for DNS found"
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/staging/terraform.tfstate
-        infrastructure/staging/terraform.tfstate ||
-        echo "No previous state for staging found"
-    - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
         $HOME/.kube/config || echo "No Kubernetes configuration file found"
     - sed -i 's/plan/apply\ -auto-approve/g' infrastructure/terraform.sh
     - vaultenv infrastructure/terraform.sh deployment
   after_script:
     - aws s3 cp
-        infrastructure/terraform.tfstate
-        s3://$FS_S3_BUCKET_NAME/terraform/terraform.tfstate
-    - aws s3 cp
-        infrastructure/dns/terraform.tfstate
-        s3://$FS_S3_BUCKET_NAME/terraform/dns/terraform.tfstate
-    - aws s3 cp
-        infrastructure/staging/terraform.tfstate
-        s3://$FS_S3_BUCKET_NAME/terraform/staging/terraform.tfstate ||
-        echo "No previous state for staging found"
-    - aws s3 cp
         $HOME/.kube/config
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-    - aws s3 cp
-        "$HOME/vault-ca.crt"
-        s3://$VAULT_S3_BUCKET/vault-ca.crt
     - rm infrastructure/*.xml
   only:
     - master
