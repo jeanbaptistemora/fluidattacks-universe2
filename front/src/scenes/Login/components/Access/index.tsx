@@ -4,8 +4,8 @@ import React from "react";
 import { Button, Col, Grid, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import NotificationSystem from "react-notification-system";
-// tslint:disable-next-line: match-default-export-name
-import logo from "../../../../resources/logo.png";
+// @ts-ignore Disable next line is necessary to run the unit tests
+import { default as logo } from "../../../../resources/logo.png";
 import style from "./index.css";
 
 interface ILoginState {

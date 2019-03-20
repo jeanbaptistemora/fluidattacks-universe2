@@ -121,13 +121,13 @@ deps-ci:
   except:
     - master
 
-gulp-compiler:
+front-compiler:
   stage: pre-test
   script:
     - cp -a /root/front/node_modules front/
     - cd front
     - npm install --unsafe-perm
-    - node_modules/.bin/gulp
+    - npm run build:prod
   artifacts:
     paths:
       - app/assets/dashboard/*
@@ -149,9 +149,9 @@ react-testing:
     - cp -a /root/front/node_modules front/
     - cd front
     - npm install --unsafe-perm
-    - node_modules/.bin/tslint -p tsconfig.json -t verbose
-    - npm test
-    - node_modules/.bin/tsc -p tsconfig.json
+    - npm run lint
+    - npm run test
+    - node_modules/.bin/tsc -p tsconfig.json --noEmit
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -248,7 +248,7 @@ asserts-code-test:
 build-integrates:
   stage: build
   dependencies:
-    - gulp-compiler
+    - front-compiler
   <<: *kaniko_vault_config
   script:
     - mv app/assets/dashboard deploy/containers/integrates

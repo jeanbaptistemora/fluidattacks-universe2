@@ -10,6 +10,7 @@ import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+// @ts-ignore Disable next line is necessary to run the unit tests
 import { default as logo } from "../../../../resources/logo.png";
 import store from "../../../../store/index";
 import globalStyle from "../../../../styles/global.css";

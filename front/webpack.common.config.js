@@ -1,14 +1,16 @@
 /* Webpack plugins */
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require("path");
 
 /* Webpack common module definition */
 module.exports = {
   entry: {
-    main: "./src/index.js",
-    dashboard: "./src/scenes/Dashboard/index.js"
+    main: "./src/index.ts",
+    dashboard: "./src/scenes/Dashboard/index.tsx"
   },
   output: {
-    filename: '[name]-bundle.min.js'
+    filename: '[name]-bundle.min.js',
+    path: path.resolve(__dirname, "../app/assets/dashboard/")
   },
   module: {
     rules: [{
@@ -32,7 +34,8 @@ module.exports = {
       }]
     }, {
       test: /\.tsx?$/,
-      loader: "awesome-typescript-loader"
+      loader: "awesome-typescript-loader",
+      options: { silent: true }
     }, {
       test: /\.css$/,
       include: /node_modules/,
@@ -53,6 +56,9 @@ module.exports = {
         }]
       })
     }]
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"]
   },
   plugins: [
     new ExtractTextPlugin("[name]-style.min.css")
