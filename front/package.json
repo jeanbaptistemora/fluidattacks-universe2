@@ -110,7 +110,7 @@
     "build:prod": "webpack --hide-modules --config webpack.prod.config.js",
     "css": "tcm src/ --silent",
     "lint": "tslint -p tsconfig.json -t codeFrame",
-    "test": "npm run css && ./runTests.sh"
+    "test": "tsc -p tsconfig.json --noEmit && npm run css && ./runTests.sh"
   },
   "nyc": {
     "extension": [
