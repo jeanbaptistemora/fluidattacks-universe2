@@ -88,7 +88,7 @@
     "jsdom": "12.2.0",
     "redux-thunk": "2.3.0",
     "i18next": "13.1.5",
-    "react-image-lightbox": "5.0.0",
+    "react-image-lightbox": "5.1.0",
     "nyc": "13.3.0",
     "react-router": "4.3.1",
     "@types/react-router": "4.4.4",

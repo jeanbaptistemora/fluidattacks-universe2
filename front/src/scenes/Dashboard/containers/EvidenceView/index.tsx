@@ -8,12 +8,6 @@
 import _ from "lodash";
 import React from "react";
 import { Button, Col, Glyphicon, Row } from "react-bootstrap";
-/**
- * Disabling here is necessary because
- * there are currently no available type
- * definitions for this component
- */
-// @ts-ignore
 import Lightbox from "react-image-lightbox";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
  * Disabling this two rules is necessary for
@@ -142,7 +136,7 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
       onMoveNextRequest={(): void => {
         store.dispatch(actions.moveEvidenceIndex(props.currentIndex, evidenceImages.length, "next"));
       }}
-      reactModalStyle={{ content: { top: "80px" } }}
+      reactModalStyle={{ overlay: { zIndex: "1200" } }}
     />
   );
 };
