@@ -149,6 +149,7 @@ react-testing:
     - cp -a /root/front/node_modules front/
     - cd front
     - npm install --unsafe-perm
+    - npm run audit
     - npm run lint
     - npm run test
     - node_modules/.bin/tsc -p tsconfig.json --noEmit
