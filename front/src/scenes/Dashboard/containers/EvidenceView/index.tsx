@@ -126,6 +126,19 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
     <Lightbox
       imageTitle={evidenceImages[props.currentIndex].description}
       imagePadding={50}
+      onAfterOpen={(): void => {
+        /**
+         * Hack:
+         * Due to a bug in this component, we need to set an initial img scale so it doesn't look too small
+         */
+        setTimeout((): void => {
+          const currentImg: HTMLImageElement =
+            (document.getElementsByClassName("ril-image-current")[0] as HTMLImageElement);
+          const lightboxContainer: HTMLElement = (document.getElementsByClassName("ril-inner")[0] as HTMLElement);
+          const scaleFactor: number = (lightboxContainer.offsetWidth / currentImg.width) * 0.65;
+          currentImg.style.transform = `scale(${scaleFactor})`;
+        },         100);
+      }}
       mainSrc={`${findingBaseUrl}/${evidenceImages[props.currentIndex].url}`}
       nextSrc={`${findingBaseUrl}/${evidenceImages[nextIndex].url}`}
       prevSrc={`${findingBaseUrl}/${evidenceImages[previousIndex].url}`}
