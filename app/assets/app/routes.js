@@ -26,16 +26,6 @@ angular.module("FluidIntegrates").config((
       "templateUrl": "assets/views/dashboard.html",
       "url": "/home"
     }).
-    state("ProjectSearch", {
-      "controller": "projectCtrl",
-      "templateUrl": "assets/views/project/index.html",
-      "url": "/project"
-    }).
-    state("ProjectNamed", {
-      "controller": "projectCtrl",
-      "templateUrl": "assets/views/project/index.html",
-      "url": "/project/:project"
-    }).
     state("ProjectIndicators", {
       "controller": "projectIndicatorsCtrl",
       "templateUrl": `${BASE.url}project_indicators`,

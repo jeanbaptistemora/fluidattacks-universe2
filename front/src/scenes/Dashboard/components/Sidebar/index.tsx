@@ -25,16 +25,10 @@ const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element =>
   const handleLogoutClick: (() => void) = (): void => { props.onLogoutClick(); };
   const handleLogoClick: (() => void) = (): void => { location.hash = "#!/home"; };
   const handleFormsClick: (() => void) = (): void => { location.hash = "#!/forms"; };
-  const handleProjectsClick: (() => void) = (): void => { location.hash = "#!/project"; };
   const isAnalyst: boolean = _.includes(["admin", "analyst"], (window as Window & { userRole: string }).userRole);
 
   const renderAnalystTabs: (() => JSX.Element) = (): JSX.Element => (
     <React.Fragment>
-      <TabItem
-        icon={<i className="icon s7-id" />}
-        labelText={translate.t("sidebar.projects")}
-        onClick={handleProjectsClick}
-      />
       <TabItem
         icon={<i className="icon s7-note2" />}
         labelText={translate.t("sidebar.forms")}
