@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import store from "../../store/index";
+import Navbar from "./components/Navbar/index";
 import FindingContent from "./containers/FindingContent";
 
 const dashboardView: React.SFC = (): JSX.Element => (
@@ -12,9 +13,12 @@ const dashboardView: React.SFC = (): JSX.Element => (
     <BrowserRouter basename={"/integrates/dashboard#!"}>
       <React.Fragment>
         <Provider store={store}>
-          <Switch>
-            <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
-          </Switch>
+          <React.Fragment>
+            <Navbar />
+            <Switch>
+              <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
+            </Switch>
+          </React.Fragment>
         </Provider>
       </React.Fragment>
     </BrowserRouter>

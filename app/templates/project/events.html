@@ -1,28 +1,5 @@
 <div class="page-head">
     <div class="row">
-        <div class="col-md-3">
-            <ol class="breadcrumb">
-                <li><a ui-sref="home">Dashboard</a></li>
-                <li><a class="text-uppercase">{% templatetag openvariable %} project {% templatetag closevariable %}</a></li>
-            </ol>
-        </div>
-        <div class="col-md-9">
-            <div class="text-center">
-                <!-- Start SearchBox -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <input class="form-control text-center text-uppercase" ng-model="project" id="project" placeholder="{% templatetag openvariable %} 'search_findings.filter_menu.search.placeholder' | translate {% templatetag closevariable %}">
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-primary form-control" id="search" ng-click="search();" title="{% templatetag openvariable %} 'search_findings.filter_menu.search.button' | translate {% templatetag closevariable %}">
-                            <i class="glyphicon glyphicon-search"></i>&nbsp;</button>
-                    </div>
-                </div>
-                <!-- End SearchBox -->
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div id="header_alert"></div>
         <br>
         <div id="events_alert" class="alert alert-danger-2" ng-click="urlEvents();" style="display: none; cursor:pointer;">

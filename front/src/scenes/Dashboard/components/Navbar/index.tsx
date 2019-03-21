@@ -20,13 +20,13 @@ const navbar: React.SFC<RouteComponentProps> = (props: RouteComponentProps): JSX
   return (
     <React.StrictMode>
       <Row className={style.container}>
-        <Col md={9} sm={9} xs={9}>
+        <Col md={9} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
             <BreadcrumbItem><Link to="/home"><b>My Projects</b></Link></BreadcrumbItem>
             <BreadcrumbItem><Link to={`/project/${currentProject}/indicators`}>{currentProject}</Link></BreadcrumbItem>
           </Breadcrumb>
         </Col>
-        <Col md={3} sm={3} xs={3}>
+        <Col md={3} sm={12} xs={12}>
           <GenericForm name="searchBar" onSubmit={handleSearchSubmit}>
             <InputGroup>
               <Field name="projectName" component={textField} placeholder="Project Name" />
