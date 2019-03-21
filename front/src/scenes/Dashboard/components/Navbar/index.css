@@ -1,0 +1,29 @@
+:local .container {
+  font-size: 20px;
+  margin-left: unset;
+  padding: 8px 10px;
+  background-color: #F5F5F5;
+  border-bottom: 2px #E4E4E4 solid;
+}
+
+:local .container input {
+  background: unset;
+  border: none;
+  border-left: 1px solid lightgray;
+  border-bottom: none;
+  border-right: none;
+}
+
+:local .container button {
+  background: unset;
+  border: none;
+  color: #FF3435;
+}
+
+:local .container button:focus {
+  background: unset;
+}
+
+:local .breadcrumb {
+  margin-bottom: unset;
+}
