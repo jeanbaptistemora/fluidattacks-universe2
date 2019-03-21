@@ -43,14 +43,14 @@ const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element =>
     </React.Fragment>
   );
 
-  const renderMenu: ((isNormalScreen: boolean) => JSX.Element) = (isNormalScreenSize: boolean): JSX.Element => (
+  const renderMenu: ((isNormalScreenSize: boolean) => JSX.Element) = (isNormalScreenSize: boolean): JSX.Element => (
     <BurgerMenu
       burgerButtonClassName={style.burgerButton}
       crossButtonClassName={style.closeButton}
       disableCloseOnEsc={true}
       isOpen={isNormalScreenSize}
       menuClassName={style.container}
-      noOverlay={true}
+      noOverlay={isNormalScreenSize}
       width={210}
     >
       <img className={style.logo} src={logo} alt="integrates-logo" onClick={handleLogoClick} />
