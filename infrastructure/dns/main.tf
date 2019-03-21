@@ -57,3 +57,12 @@ resource "aws_route53_record" "old_domains_elb" {
     evaluate_target_health = false
   }
 }
+
+resource "aws_route53_record" "old_domains_www" {
+  count   = 8
+  zone_id = "${aws_route53_zone.fs_old_domains.*.zone_id[count.index]}"
+  name    = "www.${aws_route53_zone.fs_old_domains.*.name[count.index]}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["${aws_route53_zone.fs_old_domains.*.name[count.index]}"]
+}

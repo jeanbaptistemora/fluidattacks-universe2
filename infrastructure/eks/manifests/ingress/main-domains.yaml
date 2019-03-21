@@ -5,6 +5,7 @@ metadata:
   namespace: serves
   annotations:
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -29,7 +30,7 @@ metadata:
       more_set_headers "X-Permitted-Cross-Domain-Policies: master-only";
       more_set_headers "X-Content-Type-Options: nosniff";
       more_set_headers "WWW-Authenticate: OAuth realm=\"Access to Fluid Attacks\" charset=\"UTF-8\"";
-      
+
       gzip "off";
 spec:
   tls:
