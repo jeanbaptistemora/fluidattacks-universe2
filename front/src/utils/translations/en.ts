@@ -28,6 +28,10 @@ const enTranslations: Map<string, string> = {
     },
     title: "Legal notice",
   },
+  navbar: {
+    breadcrumbRoot: "My Projects",
+    searchPlaceholder: "Project Name",
+  },
   proj_alerts: {
     access_denied: "Access denied or project not found",
     error_textsad: "There is an error :(",
@@ -498,7 +502,6 @@ const enTranslations: Map<string, string> = {
   },
   sidebar: {
     forms: "Forms",
-    projects: "Projects",
   },
   validations: {
     between: "This value must be between {{min}} and {{max}}",

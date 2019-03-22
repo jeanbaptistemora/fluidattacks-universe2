@@ -5,6 +5,7 @@ import { RouteComponentProps, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Field } from "redux-form";
 import { textField } from "../../../../utils/forms/fields";
+import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../GenericForm";
 import style from "./index.css";
 
@@ -22,14 +23,14 @@ const navbar: React.SFC<RouteComponentProps> = (props: RouteComponentProps): JSX
       <Row className={style.container}>
         <Col md={9} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
-            <BreadcrumbItem><Link to="/home"><b>My Projects</b></Link></BreadcrumbItem>
+            <BreadcrumbItem><Link to="/home"><b>{translate.t("navbar.breadcrumbRoot")}</b></Link></BreadcrumbItem>
             <BreadcrumbItem><Link to={`/project/${currentProject}/indicators`}>{currentProject}</Link></BreadcrumbItem>
           </Breadcrumb>
         </Col>
         <Col md={3} sm={12} xs={12}>
           <GenericForm name="searchBar" onSubmit={handleSearchSubmit}>
             <InputGroup>
-              <Field name="projectName" component={textField} placeholder="Project Name" />
+              <Field name="projectName" component={textField} placeholder={translate.t("navbar.searchPlaceholder")} />
               <InputGroup.Button>
                 <Button type="submit"><Glyphicon glyph="search" /></Button>
               </InputGroup.Button>
