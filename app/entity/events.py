@@ -139,11 +139,15 @@ class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_accessibility(self, info):
         """ Resolve accessibility attribute """
         del info
+        if not self.accessibility:
+            return ''
         return self.accessibility
 
     def resolve_affected_components(self, info):
         """ Resolve affected components attribute """
         del info
+        if not self.affected_components:
+            return ''
         return self.affected_components
 
     def resolve_context(self, info):

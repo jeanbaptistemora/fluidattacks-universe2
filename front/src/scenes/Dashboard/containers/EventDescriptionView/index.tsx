@@ -14,7 +14,7 @@ import React from "react";
 import { Button, Col, Glyphicon, Label, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction } from "redux";
-import { submit } from "redux-form";
+import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import store from "../../../../store/index";
 import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
@@ -23,6 +23,7 @@ import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { default as FieldBox } from "../../components/FieldBox/index";
+import { GenericForm } from "../../components/GenericForm/index";
 import * as actions from "./actions";
 
 export interface IEventDescriptionViewProps {
@@ -43,9 +44,18 @@ export interface IEventDescriptionViewProps {
   eventEdit: (() => JSX.Element);
   eventId: string;
   eventUpdate: (() => JSX.Element);
+  formValues: {
+    editEvent: {
+      values: {
+        accessibility: string;
+      };
+    };
+  };
   hasAccess: boolean;
   hasAccessibility: boolean;
   hasAffectedComponents: boolean;
+  hasEvidence: boolean;
+  isActiveTab: boolean;
   isEditable: boolean;
   isManager: boolean;
 }
@@ -90,6 +100,83 @@ const renderEventFields: ((props: IEventProps) => JSX.Element) =
 
     return (
       <React.Fragment>
+      <div id="events" className="tab-pane cont active">
+        <Row>
+          <Col md={8} sm={12} xs={12}>
+             <h2>{eventType}</h2>
+          </Col>
+          <Col md={12} sm={12} xs={12}>
+             <hr/>
+          </Col>
+        </Row>
+        <Row style={{marginBottom: "15px"}}>
+          <Col md={12} sm={12} xs={12}>
+            <Row>
+              <Col md={2} sm={6} xs={6} className="text-right">
+                {translate.t("search_findings.tab_events.id")}
+              </Col>
+              <Col md={2} sm={6} xs={6}>
+                <Label> {props.eventData.id} </Label>
+              </Col>
+              <Col md={2} sm={6} xs={6} className="text-right">
+                {translate.t("search_findings.tab_events.date")}
+              </Col>
+              <Col md={2} sm={6} xs={6}>
+                <Label> {props.eventData.eventDate} </Label>
+              </Col>
+              <Col md={2} sm={6} xs={6} className="text-right">
+                {translate.t("search_findings.tab_events.status")}
+              </Col>
+              <Col md={2} sm={6} xs={6}>
+                <Label> {eventStatus} </Label>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <Row style={{marginBottom: "15px"}}>
+          <Col md={12} sm={12} xs={12}>
+            <ul className="nav pills-tabs nav-justified">
+              <li
+                id="infoItem"
+                className={(props.isActiveTab ? "active" : "")}
+                onClick={(): void => {props.urlDescription(); }}
+              >
+                <a href="#info" data-toggle="tab" aria-expanded="false">
+                  <i className="icon s7-note2"/>
+                  &nbsp;{translate.t("search_findings.tab_events.description")}
+                </a>
+              </li>
+              {props.hasEvidence ?
+                <li
+                  id="evidenceItem"
+                  className={(props.isActiveTab ? "" : "active")}
+                  onClick={(): void => {props.urlEvidence(); }}
+                >
+                  <a href="#evidence" data-toggle="tab" aria-expanded="false">
+                    <i className="icon s7-note2"/>
+                    &nbsp;{translate.t("search_findings.tab_events.evidence")}
+                  </a>
+                </li>
+              : undefined}
+            </ul>
+          </Col>
+        </Row>
+      </div>
+      {props.isManager && props.hasAccess ?
+      <Row style={{marginBottom: "15px"}}>
+        <Col md={3} mdOffset={8} sm={12} xs={12}>
+          <Button
+            bsStyle="primary"
+            block={true}
+            onClick={(): void => {
+              store.dispatch(actions.editEvent());
+            }}
+          >
+            <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
+          </Button>
+        </Col>
+      </Row>
+      : undefined}
       <Row style={{marginBottom: "15px"}}>
         <Col md={6} sm={12} xs={12}>
           <EditableField
@@ -277,6 +364,26 @@ export const eventDescriptionHeader: React.StatelessComponent<IEventDescriptionH
   </React.StrictMode>
 );
 
+export const component: React.SFC<IEventProps> =
+  (props: IEventProps): JSX.Element =>
+    (
+    <React.StrictMode>
+      <Row>
+      <Col md={12} sm={12} xs={12}>
+        <GenericForm
+          name="editEvent"
+          initialValues={{...props.eventData}}
+          onSubmit={(values: IEventDescriptionViewProps["eventData"]): void => {
+            updateEvent(values);
+           }}
+        >
+          {renderEventFields(props)}
+        </GenericForm>
+        </Col>
+      </Row>
+    </React.StrictMode>
+  );
+
 export const eventDescriptionView: React.StatelessComponent<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element => (
   <React.StrictMode>
@@ -343,6 +450,8 @@ export const eventDescriptionView: React.StatelessComponent<IEventDescriptionVie
     </div>
   </React.StrictMode>
 );
+
+const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editEvent");
 
 eventDescriptionView.defaultProps = {
   eventData:

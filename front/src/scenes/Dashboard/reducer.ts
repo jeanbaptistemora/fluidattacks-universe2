@@ -3,6 +3,8 @@ import * as actionType from "./actionTypes";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
+import * as eventDescriptionActions from "./containers/EventDescriptionView/actionTypes";
+import { IEventDescriptionViewProps } from "./containers/EventDescriptionView/index";
 import * as eventsActions from "./containers/EventsView/actionTypes";
 import { IEventsViewProps } from "./containers/EventsView/index";
 import { IEvidenceViewProps } from "./containers/EvidenceView";
@@ -24,6 +26,7 @@ import { ITrackingViewProps } from "./containers/TrackingView/index";
 export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
+  eventDescription: Pick<IEventDescriptionViewProps, "isEditable" | "eventData" >;
   events: Pick<IEventsViewProps, "eventsDataset" >;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
@@ -116,6 +119,23 @@ const initialState: IDashboardState = {
     },
     isEditing: false,
     isRemediationOpen : false,
+  },
+  eventDescription: {
+    eventData: {
+      accessibility: "",
+      affectation: "",
+      affectedComponents: "",
+      analyst: "",
+      client: "",
+      clientProject: "",
+      detail: "",
+      eventDate: "",
+      eventStatus: "",
+      eventType: "",
+      id: "",
+      projectName: "",
+    },
+    isEditable: false,
   },
   events: {
     eventsDataset: [{
@@ -229,6 +249,26 @@ const initialState: IDashboardState = {
 const actionMap: {
   [key: string]: ((arg1: IDashboardState, arg2: actions.IActionStructure) => IDashboardState);
 } = {};
+
+actionMap[eventDescriptionActions.LOAD_EVENT] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    eventDescription: {
+      ...state.eventDescription,
+      eventData: action.payload.event,
+    },
+  });
+
+actionMap[eventDescriptionActions.CHANGE_EVENT_EDITABLE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    eventDescription: {
+      ...state.eventDescription,
+      isEditable: !state.eventDescription.isEditable,
+    },
+  });
 
 actionMap[eventsActions.LOAD_EVENTS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
