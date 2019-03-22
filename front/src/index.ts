@@ -94,12 +94,11 @@ angular
     react2angular(
       indicatorBox,
       [
-        "backgroundColor",
-        "color",
         "icon",
         "name",
         "quantity",
         "title",
+        "total",
       ],
     ),
   );

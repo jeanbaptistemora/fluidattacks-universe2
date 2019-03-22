@@ -37,7 +37,6 @@ angular.module("FluidIntegrates").factory(
         let cardinalidadTotal = 0;
         let maximumSeverity = 0;
         let oldestFinding = 0;
-        let metricColor = [];
         let metricDes = [];
         let metricTool = [];
         let metricIcon = [];
@@ -54,14 +53,6 @@ angular.module("FluidIntegrates").factory(
             oldestFinding = parseInt(cont.edad, 10);
           }
         });
-        metricColor = [
-          "#2197d6;",
-          "#ff9930;",
-          "#aa2d30;",
-          "#2e4050;",
-          "#9f5ab1;",
-          "#0a40ae;"
-        ];
         metricDes = [
           "findings",
           "vulnerabilities",
@@ -79,12 +70,12 @@ angular.module("FluidIntegrates").factory(
           "compromisedRecordsTooltip"
         ];
         metricIcon = [
-          "s7-id",
-          "s7-info",
-          "s7-attention",
-          "s7-gleam",
-          "s7-date",
-          "s7-notebook"
+          "findings",
+          "totalVulnerabilities",
+          "openVulnerabilities",
+          "vulnerabilities",
+          "calendar",
+          "total"
         ];
         metricValue = [
           data.data.length,
@@ -97,7 +88,6 @@ angular.module("FluidIntegrates").factory(
         return [
           openVulnerabilities,
           cardinalidadTotal,
-          metricColor,
           metricDes,
           metricIcon,
           metricTool,

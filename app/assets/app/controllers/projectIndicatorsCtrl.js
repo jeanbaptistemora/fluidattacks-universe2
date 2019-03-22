@@ -284,17 +284,14 @@ angular.module("FluidIntegrates").controller(
       const cardIndex3 = 3;
       const cardIndex4 = 4;
       const cardIndex5 = 5;
-      const cardIndex6 = 6;
       for (let val = 0; val < cardIndex3; val++) {
-        const color = cardinalityValues[cardIndex2][val].replace(";", "");
         $scope.metricsList.push({
-          "color": `${color}`,
           "description": $translate.instant(`${"search_findings.filter_labels" +
-                                    "."}${cardinalityValues[cardIndex3][val]}`),
-          "icon": cardinalityValues[cardIndex4][val],
+                                    "."}${cardinalityValues[cardIndex2][val]}`),
+          "icon": cardinalityValues[cardIndex3][val],
           "tooltip": $translate.instant(`${"search_findings.filter_labels" +
-                                    "."}${cardinalityValues[cardIndex5][val]}`),
-          "value": `${cardinalityValues[cardIndex6][val]}`
+                                    "."}${cardinalityValues[cardIndex4][val]}`),
+          "value": `${cardinalityValues[cardIndex5][val]}`
         });
       }
       let severity = 0;
@@ -327,10 +324,9 @@ angular.module("FluidIntegrates").controller(
               const totalSeverity = severity / ((sevConst1 * target) +
                                       sevConst2) * PERCENT_FACTOR;
               $scope.metricsList.push({
-                "color": "#00cb77",
                 "description": $translate.instant("search_findings." +
                                               "filter_labels.closure"),
-                "icon": "s7-like2",
+                "icon": "fixedVulnerabilities",
                 "tooltip": $translate.instant("search_findings.filter_labels." +
                                               "closureTooltip"),
                 "value": "n%".replace("n", Math.round((1 -
@@ -339,10 +335,9 @@ angular.module("FluidIntegrates").controller(
                                   PERCENT_FACTOR).toString())
               });
               $scope.metricsList.push({
-                "color": "#ef4c43",
                 "description": $translate.instant("search_findings." +
                                                     "filter_labels.criticity"),
-                "icon": "s7-graph1",
+                "icon": "graph",
                 "tooltip": $translate.instant("search_findings.filter_labels." +
                                                     "criticityTooltip"),
                 "value": "n%".replace("n", totalSeverity.toFixed(0))
@@ -352,10 +347,9 @@ angular.module("FluidIntegrates").controller(
           else {
             const totalSeverity = severity;
             $scope.metricsList.push({
-              "color": "#00cb77",
               "description": $translate.instant("search_findings." +
                                                   "filter_labels.closure"),
-              "icon": "s7-like2",
+              "icon": "fixedVulnerabilities",
               "tooltip": $translate.instant("search_findings.filter_labels." +
                                                     "closureTooltip"),
               "value": "n%".replace("n", Math.round((1 -
@@ -364,10 +358,9 @@ angular.module("FluidIntegrates").controller(
                                       PERCENT_FACTOR).toString())
             });
             $scope.metricsList.push({
-              "color": "#ef4c43",
               "description": $translate.instant("search_findings." +
                                                   "filter_labels.criticity"),
-              "icon": "s7-graph1",
+              "icon": "graph",
               "tooltip": $translate.instant("search_findings.filter_labels." +
                                                     "criticityTooltip"),
               "value": totalSeverity.toFixed(0)
@@ -375,15 +368,13 @@ angular.module("FluidIntegrates").controller(
           }
         }
         for (let val = 3; val < cardinalityValues[cardIndex2].length; val++) {
-          const color = cardinalityValues[cardIndex2][val].replace(";", "");
           $scope.metricsList.push({
-            "color": `${color}`,
             "description": $translate.instant(`${"search_findings." +
-                      "filter_labels."}${cardinalityValues[cardIndex3][val]}`),
-            "icon": cardinalityValues[cardIndex4][val],
+                      "filter_labels."}${cardinalityValues[cardIndex2][val]}`),
+            "icon": cardinalityValues[cardIndex3][val],
             "tooltip": $translate.instant(`${"search_findings.filter_labels" +
-                                  "."}${cardinalityValues[cardIndex5][val]}`),
-            "value": `${cardinalityValues[cardIndex6][val]}`
+                                  "."}${cardinalityValues[cardIndex4][val]}`),
+            "value": `${cardinalityValues[cardIndex5][val]}`
           });
         }
       });

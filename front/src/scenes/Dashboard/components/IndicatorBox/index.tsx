@@ -1,17 +1,21 @@
-import PropTypes from "prop-types";
+/* tslint:disable jsx-no-multiline-js
+ * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+ * readability of the code that dynamically creates the columns
+ */
+import _ from "lodash";
 import React from "react";
-import { Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import { FluidIcon } from "../../../../components/FluidIcon/index";
 import style from "./index.css";
 /**
  * Indicator's Box properties
  */
 interface IBoxProps {
-  backgroundColor: string;
-  color: string;
   icon: string;
   name: string;
   quantity: string;
   title: string;
+  total?: string;
 }
 /**
  * Project Indicator Box
@@ -19,44 +23,47 @@ interface IBoxProps {
 const indicatorBox: React.StatelessComponent<IBoxProps> =
   (props: IBoxProps): JSX.Element => (
   <React.StrictMode>
-    <Col xs={12} md={3}>
+    <Col xs={12} md={3} sm={4}>
       <div
         className={style.widgetbox}
         data-toggle="tooltip"
         data-placement="top"
         title={props.title}
-        style={{backgroundColor: props.backgroundColor, color: props.color}}
       >
-        <Col xs={4} md={4}>
-          <div className={style.widgeticon}>
-              <span className={props.icon}/>
+        <Row>
+          <Col xs={2} md={2}>
+            <FluidIcon icon={props.icon} width="30" height="30" />
+          </Col>
+          <Col xs={10} md={10}>
+            <div className={style.widgetdesc}>
+              {props.name}
+            </div>
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <div data-toggle="counter" className={style.widgetvalue}>
+            { _.isUndefined(props.total)
+              ? <React.Fragment>
+                  {props.quantity}
+                </React.Fragment>
+              : <React.Fragment>
+                  {props.quantity} <sup>{props.total}</sup>
+                </React.Fragment>
+            }
           </div>
-        </Col>
-        <Col xs={8} md={8}>
-          <div
-            data-toggle="counter"
-            className={style.widgetvalue}
-          >
-            {props.quantity}
-          </div>
-          <div className={style.widgetdesc}>
-            {props.name}
-          </div>
-        </Col>
+        </Row>
       </div>
     </Col>
   </React.StrictMode>
 );
-/**
- *  Indicator's Box propTypes Definition
- */
-indicatorBox.propTypes = {
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  quantity: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+
+indicatorBox.defaultProps = {
+  icon: "",
+  name: "",
+  quantity: "",
+  title: "",
+  total: "",
 };
 
 export = indicatorBox;
