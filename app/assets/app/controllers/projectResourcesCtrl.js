@@ -43,7 +43,7 @@ angular.module("FluidIntegrates").controller(
       $scope.userRole = userRole;
       functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
       $scope.view = {};
-      $scope.view.project = false;
+      $scope.view.project = true;
       $scope.view.finding = false;
       // Route parameters.
       if (angular.isDefined(findingId)) {

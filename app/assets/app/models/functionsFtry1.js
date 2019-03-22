@@ -46,64 +46,6 @@ angular.module("FluidIntegrates").factory(
           }
         });
       },
-
-
-      "deleteFinding" ($scope) {
-      // Get data
-        const descData = {"id": $scope.finding.id};
-        $uibModal.open({
-          "animation": true,
-          "backdrop": "static",
-          "controller" (
-            $scope,
-            $uibModalInstance,
-            updateData,
-            $stateParams,
-            $state
-          ) {
-            $scope.vuln = {};
-            $scope.modalTitle =
-                               $translate.instant("confirmmodal.title_finding");
-            $scope.ok = function ok () {
-              // Make the request
-              const req = projectFtry.deleteFinding(updateData.id, $scope.vuln);
-              // Capture the promise
-              req.then((response) => {
-                if (!response.error) {
-                  const updatedAt =
-                                 $translate.instant("proj_alerts.updatedTitle");
-                  const updatedAc =
-                                 $translate.instant("proj_alerts.updated_cont");
-                  $msg.success(updatedAc, updatedAt);
-                  $uibModalInstance.close();
-                  $state.go(
-                    "ProjectFindings",
-                    {"project": $stateParams.project}
-                  );
-                  // Mixpanel tracking
-                  mixPanelDashboard.trackFinding(
-                    "deleteFinding",
-                    userEmail,
-                    descData.id
-                  );
-                }
-                else if (response.error) {
-                  const errorAc1 =
-                                $translate.instant("proj_alerts.error_textsad");
-                  Rollbar.error("Error: An error occurred deleting finding");
-                  $msg.error(errorAc1);
-                }
-              });
-            };
-            $scope.close = function close () {
-              $uibModalInstance.close();
-            };
-          },
-          "keyboard": false,
-          "resolve": {"updateData": descData},
-          "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`
-        });
-      }
     };
   }
 );
