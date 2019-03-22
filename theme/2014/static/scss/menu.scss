@@ -234,7 +234,7 @@ $white: rgba(255, 255, 255, 1);
   img {
     max-height: 500px;
     max-width: 460px;
-    padding-top: 20px;
+    padding-top: 16px;
     width: 50%;
   }
 
@@ -259,6 +259,16 @@ $white: rgba(255, 255, 255, 1);
   position: absolute;
   right: 0;
   width: 30px;
+}
+
+.sponsor {
+  background-image: url('../../images/sponsor.svg');
+  background-size: 100% 100%;
+  height: 65px;
+  margin-left: 23%;
+  max-width: 115px;
+  padding-left: 115px;
+  position: absolute;
 }
 
 .header-title {
@@ -586,6 +596,10 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media screen and (max-width: 859px) {
+
+  .sponsor {
+    display: none;
+  }
 
   .header-title {
     padding-top: 80px;
