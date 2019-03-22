@@ -69,22 +69,5 @@ angular.module("FluidIntegrates").controller(
         "windowClass": "modal avance-modal"
       });
     };
-
-    /**
-     * Change the language of the view
-     * @function changeLang
-     * @param {string} langKey Language key set by the user
-     * @member integrates.navbarCtrl
-     * @return {undefined}
-     */
-    $scope.changeLang = function changeLang (langKey) {
-      if (langKey === "es" || langKey === "en") {
-        localStorage.lang = langKey;
-      }
-      $translate.use(localStorage.lang);
-      mixpanel.identify(userEmail);
-      mixpanel.people.set({"$Language": localStorage.lang});
-      location.reload();
-    };
   }
 );

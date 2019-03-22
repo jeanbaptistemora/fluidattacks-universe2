@@ -38,36 +38,6 @@ angular.module("FluidIntegrates").controller(
     functionsFtry4
   ) {
     $scope.init = function init () {
-      const translationStrings = [
-        "search_findings.tab_users.title_success",
-        "search_findings.tab_resources.success",
-        "search_findings.tab_resources.success_remove",
-        "search_findings.tab_resources.no_selection",
-        "search_findings.tab_resources.repositories",
-        "search_findings.tab_resources.title_repo",
-        "search_findings.tab_resources.branch",
-        "search_findings.tab_resources.add_repository",
-        "search_findings.tab_resources.remove_repository",
-        "search_findings.tab_resources.repeated_item",
-        "search_findings.repositories_table.repository",
-        "search_findings.repositories_table.branch",
-
-        "search_findings.tab_resources.environment",
-        "search_findings.tab_resources.environments",
-        "search_findings.tab_resources.title_env",
-        "search_findings.tab_resources.repository",
-        "search_findings.environment_table.environment",
-
-        "confirmmodal.cancel",
-        "confirmmodal.proceed",
-
-        "proj_alerts.access_denied",
-        "proj_alerts.error_textsad"
-      ];
-      $scope.translations = {};
-      angular.forEach(translationStrings, (value) => {
-        $scope.translations[value] = $translate.instant(value);
-      });
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -82,7 +52,6 @@ angular.module("FluidIntegrates").controller(
       if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
-        $scope.search();
         const org = Organization.toUpperCase();
         const projt = projectName.toUpperCase();
         angular.element(".equalWidgetHeight").matchHeight();
@@ -96,25 +65,6 @@ angular.module("FluidIntegrates").controller(
       }
       // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
-    };
-
-    $scope.search = function search () {
-      const projectName = $scope.project;
-      if (angular.isUndefined(projectName) ||
-                projectName === "") {
-        const attentionAt = $translate.instant("proj_alerts.attentTitle");
-        const attentionAc = $translate.instant("proj_alerts.attent_cont");
-        $msg.warning(attentionAc, attentionAt);
-        return false;
-      }
-      if ($stateParams.project !== $scope.project) {
-        $state.go("ProjectIndicators", {"project": $scope.project});
-      }
-      else if ($stateParams.project === $scope.project) {
-        $scope.view.project = true;
-        $scope.view.finding = false;
-      }
-      return true;
     };
 
     $scope.urlIndicators = function urlIndicators () {

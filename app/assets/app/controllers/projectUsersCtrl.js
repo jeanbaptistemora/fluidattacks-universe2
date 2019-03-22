@@ -138,7 +138,6 @@ angular.module("FluidIntegrates").controller(
       if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
-        $scope.search();
       }
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
@@ -159,24 +158,6 @@ angular.module("FluidIntegrates").controller(
     };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
-    };
-    $scope.search = function search () {
-      const projectName = $scope.project;
-      if (angular.isUndefined(projectName) ||
-                projectName === "") {
-        const attentionAt = $translate.instant("proj_alerts.attentTitle");
-        const attentionAc = $translate.instant("proj_alerts.attent_cont");
-        $msg.warning(attentionAc, attentionAt);
-        return false;
-      }
-      if ($stateParams.project !== $scope.project) {
-        $state.go("ProjectIndicators", {"project": $scope.project});
-      }
-      else if ($stateParams.project === $scope.project) {
-        $scope.view.project = false;
-        $scope.view.finding = false;
-      }
-      return true;
     };
 
     $scope.urlIndicators = function urlIndicators () {
