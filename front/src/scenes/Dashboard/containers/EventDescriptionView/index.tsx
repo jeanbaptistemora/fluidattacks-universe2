@@ -1,15 +1,29 @@
-/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty
+/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty no-unused-variable
  * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
  * to call functions with props as params from the JSX element definition
  * without using lambda expressions () => {}
  *
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
-  * readability of the code that defines the headers of the table
+ * readability of the code that defines the headers of the table
+ *
+ * NO-UNUSED-VARIABLE: Disabling this rule is necessary in the migration of view
+ * to react-redux because number of deltas is to high for a single MR, so it is
+ * necessary to add functions that will not be used for now.
  */
 import React from "react";
-import { Col, Label, Row } from "react-bootstrap";
+import { Button, Col, Glyphicon, Label, Row } from "react-bootstrap";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { AnyAction } from "redux";
+import { submit } from "redux-form";
+import { ThunkDispatch } from "redux-thunk";
+import store from "../../../../store/index";
+import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
+import { textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
+import { required } from "../../../../utils/validations";
+import { EditableField } from "../../components/EditableField";
 import { default as FieldBox } from "../../components/FieldBox/index";
+import * as actions from "./actions";
 
 export interface IEventDescriptionViewProps {
   eventData: {
@@ -20,18 +34,20 @@ export interface IEventDescriptionViewProps {
     client: string;
     clientProject: string;
     detail: string;
-    eventDate?: string;
-    eventStatus?: string;
-    eventType?: string;
+    eventDate: string;
+    eventStatus: string;
+    eventType: string;
     id?: string;
     projectName: string;
   };
   eventEdit: (() => JSX.Element);
   eventId: string;
   eventUpdate: (() => JSX.Element);
+  hasAccess: boolean;
   hasAccessibility: boolean;
   hasAffectedComponents: boolean;
   isEditable: boolean;
+  isManager: boolean;
 }
 
 export interface IEventDescriptionHeaderProps {
@@ -41,6 +57,156 @@ export interface IEventDescriptionHeaderProps {
   urlDescription: (() => JSX.Element);
   urlEvidence: (() => JSX.Element);
 }
+
+type IEventProps = IEventDescriptionViewProps & IEventDescriptionHeaderProps;
+
+const enhance: InferableComponentEnhancer<{}> =
+lifecycle({
+  componentDidMount(): void {
+    const { eventId } = this.props as IEventDescriptionViewProps;
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.loadEvent(eventId));
+  },
+});
+
+const updateEvent: ((values: IEventDescriptionViewProps["eventData"]) => void) =
+  (values: IEventDescriptionViewProps["eventData"]): void => {
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+    thunkDispatch(actions.updateEvent(values));
+  };
+
+const renderEventFields: ((props: IEventProps) => JSX.Element) =
+  (props: IEventProps): JSX.Element => {
+    const eventType: string = translate.t(castEventType(props.eventData.eventType));
+    const eventStatus: string = translate.t(castEventStatus(props.eventData.eventStatus));
+    props.eventData.affectedComponents === "" ?
+      props.hasAffectedComponents = false : props.hasAffectedComponents = true;
+    props.eventData.accessibility === ""  ?
+      props.hasAccessibility = false : props.hasAccessibility = true;
+
+    return (
+      <React.Fragment>
+      <Row style={{marginBottom: "15px"}}>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.detail}
+            label={translate.t("search_findings.tab_events.description")}
+            name="eventDescription"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.client}
+            label={translate.t("search_findings.tab_events.client")}
+            name="eventClient"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+      </Row>
+      <Row style={{marginBottom: "15px"}}>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.analyst}
+            label={translate.t("search_findings.tab_events.analyst")}
+            name="eventAnalyst"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.clientProject}
+            label={translate.t("search_findings.tab_events.client_project")}
+            name="eventClientProject"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+      </Row>
+      <Row style={{marginBottom: "15px"}}>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.affectation}
+            label={translate.t("search_findings.tab_events.affectation")}
+            name="affectation"
+            renderAsEditable={props.isEditable}
+            validate={[required]}
+            type="text"
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.projectName}
+            label={translate.t("search_findings.tab_events.fluid_project")}
+            name="eventFluidProject"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+      </Row>
+      <Row style={{marginBottom: "15px"}}>
+      {props.hasAffectedComponents ?
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.affectedComponents}
+            label={translate.t("search_findings.tab_events.affected_components")}
+            name="eventAffectationComponents"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+      : undefined}
+      {props.hasAccessibility ?
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            alignField="horizontalWide"
+            component={textField}
+            currentValue={props.eventData.accessibility}
+            label={translate.t("search_findings.tab_events.event_in")}
+            name="eventAccessibility"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+      : undefined}
+      </Row>
+      {props.isEditable ?
+      <Row>
+        <Col md={3} mdOffset={8} sm={12} xs={12}>
+          <Button
+            bsStyle="success"
+            block={true}
+            onClick={(): void =>  {  store.dispatch(submit("editEvent")); }}
+          >
+            <Glyphicon glyph="repeat" /> {translate.t("search_findings.tab_severity.update")}
+          </Button>
+        </Col>
+      </Row>
+      : undefined }
+    </React.Fragment>
+  );
+};
 
 export const eventDescriptionHeader: React.StatelessComponent<IEventDescriptionHeaderProps> =
   (props: IEventDescriptionHeaderProps): JSX.Element => (
@@ -188,9 +354,9 @@ eventDescriptionView.defaultProps = {
       client: "",
       clientProject: "",
       detail: "",
-      eventDate: undefined,
-      eventStatus: undefined,
-      eventType: undefined,
+      eventDate: "",
+      eventStatus: "",
+      eventType: "",
       id: undefined,
       projectName: "",
     },
@@ -206,9 +372,9 @@ eventDescriptionHeader.defaultProps = {
       client: "",
       clientProject: "",
       detail: "",
-      eventDate: undefined,
-      eventStatus: undefined,
-      eventType: undefined,
+      eventDate: "",
+      eventStatus: "",
+      eventType: "",
       id: undefined,
       projectName: "",
     },
