@@ -18,21 +18,6 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
-       * Admin accept a draft.
-       * @function acceptDraft
-       * @param {String} findingid Finding id.
-       * @member integrates.projectFtry2
-       * @return {Object} Formstack response with updated data
-       */
-      "acceptDraft" (findingid) {
-        const oopsAc = "An error occurred accepting draft";
-        return $xhr.post($q, `${BASE.url}accept_draft`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          findingid
-        }, oopsAc);
-      },
-
-      /**
        * Validate that a user has access to a project.
        * @function accessToProject
        * @param {String} project Project name.
@@ -118,21 +103,6 @@ angular.module("FluidIntegrates").factory(
           metricTool,
           metricValue
         ];
-      },
-
-      /**
-       * Admin delete a draft.
-       * @function deleteDraft
-       * @param {String} findingid Numeric id of the finding
-       * @member integrates.projectFtry2
-       * @return {Object} Formstack response with updated data
-       */
-      "deleteDraft" (findingid) {
-        const oopsAc = "An error occurred deleting draft";
-        return $xhr.post($q, `${BASE.url}delete_draft`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          findingid
-        }, oopsAc);
       },
 
       /**

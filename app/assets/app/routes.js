@@ -71,30 +71,14 @@ angular.module("FluidIntegrates").config((
       "templateUrl": "assets/views/project/eventcontent.html",
       "url": "/project/:project/events/:id/evidence"
     }).
-    state("FindingDescription", {
-      "url": "/project/:project/:id/description"
-    }).
-    state("FindingSeverity", {
-      "url": "/project/:project/:id/severity"
-    }).
-    state("FindingTracking", {
-      "url": "/project/:project/:id/tracking"
-    }).
-    state("FindingEvidence", {
-      "url": "/project/:project/:id/evidence"
-    }).
-    state("FindingExploit", {
-      "url": "/project/:project/:id/exploit"
-    }).
-    state("FindingRecords", {
-      "url": "/project/:project/:id/records"
-    }).
-    state("FindingComments", {
-      "url": "/project/:project/:id/comments"
-    }).
-    state("FindingObservations", {
-      "url": "/project/:project/:id/observations"
-    }).
+    state("FindingDescription", {"url": "/project/:project/:id/description"}).
+    state("FindingSeverity", {"url": "/project/:project/:id/severity"}).
+    state("FindingTracking", {"url": "/project/:project/:id/tracking"}).
+    state("FindingEvidence", {"url": "/project/:project/:id/evidence"}).
+    state("FindingExploit", {"url": "/project/:project/:id/exploit"}).
+    state("FindingRecords", {"url": "/project/:project/:id/records"}).
+    state("FindingComments", {"url": "/project/:project/:id/comments"}).
+    state("FindingObservations", {"url": "/project/:project/:id/observations"}).
     state("Forms", {
       "controller": "formController",
       "templateUrl": `${BASE.url}forms`,

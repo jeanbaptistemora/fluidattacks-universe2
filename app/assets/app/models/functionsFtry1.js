@@ -45,7 +45,7 @@ angular.module("FluidIntegrates").factory(
             }
           }
         });
-      },
+      }
     };
   }
 );
