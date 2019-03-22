@@ -27,6 +27,7 @@ export interface IEventDescriptionViewProps {
     projectName: string;
   };
   eventEdit: (() => JSX.Element);
+  eventId: string;
   eventUpdate: (() => JSX.Element);
   hasAccessibility: boolean;
   hasAffectedComponents: boolean;

@@ -205,6 +205,7 @@ eventContentCtrl (
     const eventId = $stateParams.id;
     const userOrganization = Organization.toUpperCase();
     $scope.isEditable = false;
+    $scope.eventId = eventId;
     $scope.userRole = userRole;
     // Flags for editable fields activation
     if ($window.location.hash.indexOf("evidence") === -1) {

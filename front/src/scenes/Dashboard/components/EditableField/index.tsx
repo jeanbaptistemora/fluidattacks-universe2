@@ -32,6 +32,20 @@ const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
     );
 };
 
+const renderHorizontalWide: ((props: EditableFieldProps) => JSX.Element) =
+  (props: EditableFieldProps): JSX.Element => {
+    const { label, currentValue, renderAsEditable, ...fieldProps } = props;
+
+    return (
+      <FormGroup>
+        <Col md={6} xs={12} sm={12} className={style.title}><ControlLabel><b>{label}</b></ControlLabel></Col>
+        <Col md={6} xs={12} sm={12}>
+          {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue.toString())}
+        </Col>
+      </FormGroup>
+    );
+};
+
 const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
   (props: EditableFieldProps): JSX.Element => {
     const { label, currentValue, renderAsEditable, ...fieldProps } = props;
@@ -46,12 +60,16 @@ const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
 
 const editableField: React.SFC<EditableFieldProps> = (props: EditableFieldProps): JSX.Element => {
   const { alignField, visible } = props;
+  let render: JSX.Element;
+  if (alignField === "horizontal") {
+    render = renderHorizontal(props);
+  } else if (alignField === "horizontalWide") {
+    render = renderHorizontalWide(props);
+  } else {
+    render = renderVertical(props);
+  }
 
-  return visible === true ? (
-    alignField === "horizontal"
-      ? renderHorizontal(props)
-      : renderVertical(props)
-  ) : <React.Fragment />;
+  return visible === true ? (render) : <React.Fragment />;
 };
 
 editableField.defaultProps = {
