@@ -71,55 +71,6 @@ angular.module("FluidIntegrates").controller(
     const initializeView = function initializeView () {
       // Users table configuration
       $scope.view.project = true;
-      const translationStrings = [
-        "search_findings.tab_users.edit",
-        "search_findings.tab_users.add_button",
-        "search_findings.tab_users.remove_user",
-
-        "search_findings.tab_users.admin",
-        "search_findings.tab_users.analyst",
-        "search_findings.tab_users.customer",
-        "search_findings.tab_users.customer_admin",
-        "search_findings.tab_users.developer",
-
-        "search_findings.tab_users.months_ago",
-        "search_findings.tab_users.days_ago",
-        "search_findings.tab_users.hours_ago",
-        "search_findings.tab_users.minutes_ago",
-
-        "search_findings.tab_users.success",
-        "search_findings.tab_users.success_admin",
-        "search_findings.tab_users.title",
-        "search_findings.tab_users.edit_user_title",
-        "search_findings.tab_users.textbox",
-        "search_findings.tab_users.email",
-        "search_findings.tab_users.user_organization",
-        "search_findings.tab_users.user_responsibility",
-        "search_findings.tab_users.responsibility_placeholder",
-        "search_findings.tab_users.phone_number",
-        "search_findings.tab_users.role",
-        "search_findings.tab_users.success_delete",
-        "search_findings.tab_users.title_success",
-        "search_findings.tab_users.no_selection",
-
-        "search_findings.users_table.usermail",
-        "search_findings.users_table.userRole",
-        "search_findings.users_table.userResponsibility",
-        "search_findings.users_table.phoneNumber",
-        "search_findings.users_table.userOrganization",
-        "search_findings.users_table.firstlogin",
-        "search_findings.users_table.lastlogin",
-
-        "confirmmodal.cancel",
-        "confirmmodal.proceed",
-
-        "proj_alerts.access_denied",
-        "proj_alerts.error_textsad"
-      ];
-      $scope.translations = {};
-      angular.forEach(translationStrings, (value) => {
-        $scope.translations[value] = $translate.instant(value);
-      });
     };
 
     $scope.init = function init () {

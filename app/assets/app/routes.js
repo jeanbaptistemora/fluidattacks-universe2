@@ -72,43 +72,27 @@ angular.module("FluidIntegrates").config((
       "url": "/project/:project/events/:id/evidence"
     }).
     state("FindingDescription", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/description"
     }).
     state("FindingSeverity", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/severity"
     }).
     state("FindingTracking", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/tracking"
     }).
     state("FindingEvidence", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/evidence"
     }).
     state("FindingExploit", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/exploit"
     }).
     state("FindingRecords", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/records"
     }).
     state("FindingComments", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/comments"
     }).
     state("FindingObservations", {
-      "controller": "findingContentCtrl",
-      "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/observations"
     }).
     state("Forms", {
