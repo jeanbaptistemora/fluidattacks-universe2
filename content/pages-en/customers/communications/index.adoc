@@ -16,13 +16,12 @@ a|image::logo-claro.png[alt="Logo Claro",link="https://www.claro.com.co/personas
 
 2+a|== Claro
 
-Subsidiary television operator and mobile telephony company,
-subsidiary of Claro in Colombia.
-It is owned by the Mexican group América Móvil.
-Currently under the "Claro Colombia" brand,
-Comcel joins Telmex Colombia S.A to make way for the América Móvil brand;
-offering mobile telephony and fixed telephony services,
-as well as television and mobile and fixed internet.
+The Colombian companies, Telmex and Comcel merged to form Claro Colombia,
+owned by the Mexican group América Móvil.
+The +2012+ merger made Claro Colombia
+the largest provider of mobile phone services in Colombia.
+Claro Colombia also provides landline telephone services and internet,
+as well as television services.
 
 2+a|== Edatel
 
@@ -47,10 +46,14 @@ within the framework of corporate social responsibility.
 
 2+a|== Internexa
 
-Colombian company dedicated to the carrier business and the energy sector.
-It has +48,866+ km of fiber optic network in Latin America.
-It serves operators that provide long distance,
-added value, internet, mobile communications and cable television services.
+Internexa is a Colombian company providing networks
+and services to telecommunication operators.
+It operates an optical fiber network
+connecting countries throughout Latin America.
+Internexa also offers connectivity infrastructure and data transport services,
+access to the world-wide-web, tailored information technology products,
+data network management support, network security,
+and audio/video communication.
 
 a|image::logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
 

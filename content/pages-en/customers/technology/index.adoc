@@ -1,6 +1,6 @@
 :slug: customers/technology/
 :category: customers
-:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the technological sector.
+:description: With over 18 years of experience in the Colombian market, Fluid Attacks is a company focused on information security, ethical hacking, penetration testing, and vulnerabilities detection in applications. We have worked with the following companies in the technology sector.
 :keywords: Fluid Attacks, Information, Technology, Security, Ethical Hacking, Pentesting.
 :translate: clientes/tecnologia/
 :usa: image:../../images/icons/us-flag.png[USA Flag]
@@ -50,13 +50,10 @@ providers, cooperatives, trade unions and insurers.
 
 2+a|== Cre8tive
 
-{usa} Trusted business partner with more than +10+ year of experience
-supporting manufacturing best practices
-giving our customers a competitive advantage in your industry.
-They help Aerospace & Defense, Furniture & Fixtures, Fabricated Metals
-and many other companies avoid the turbulence
-with industry-specific manufacturing +ERP+ software
-that keeps you flexible and lean.
+{usa} Cre8tive is a consulting service provider for +ERP+ software.
+Cre8tive customizes Epicor +ERP+ software helping businesses
+match their specific business models and challenges to their +ERP+ solution
+while ensuring it remains adaptable and flexible.
 
 a|image::logo-creative.png[alt="Logo Cre8tive",link="http://www.ctnd.com/"]
 
@@ -98,11 +95,12 @@ for more than +20+ years of service.
 
 2+a|== Kometsales
 
-{usa} Web platform for the flower industry that simplifies and automates sales,
-purchasing and logistics processes.
-We provide the necessary tools to simplify daily operations,
-connecting the main industry partners
-and also providing peace of mind and confidence to our customers.
+{usa} Kometsales is a web platform that simplifies and automates sales,
+purchasing, and logistics processes for the flower industry.
+Kometsales also provides the tools necessary to simplify daily operations
+and to connect industry partners,
+resulting in a more efficient business operation
+and a better customer service experience.
 
 a|image::logo-komet.png[alt="Logo KometSales",link="https://www.kometsales.com/"]
 
@@ -140,13 +138,16 @@ and improve people's lives by taking advantage of technologies and new trends.
 
 2+a|== VM2020
 
-{usa} Organization with technology in the areas of Disaster Recovery
-and Cybernetic Resistance.
-With +VM2020+ you can increase preparedness levels,
-validate response plans to incidents in real conditions,
-align business continuity and cyber practices,
-comply with compliance requirements
-and obtain reliable and predictable recovery times.
+{usa} VM2020 is a technology company
+working in Disaster Recovery and Cybernetic Resistance.
+VM2020 helps "customers of all sizes mitigate business risks
+through the adoption of comprehensive disaster recovery
+and cyber resilience best practices."
+"VM2020 offerings streamline the implementation of business continuity
+and cyber resilience best practices through frequent
+and agile full-scale drills, which deliver predictable
+results in preparation for natural
+or manmade disasters – including cyber attacks."
 
 a|image::logo-vm.png[alt="Logo VM2020",link="https://www.vm2020.com/"]
 
