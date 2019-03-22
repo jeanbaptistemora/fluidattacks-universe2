@@ -8,43 +8,21 @@
 
 <!-- Start EventContent -->
 <div class="main-content" style="background-color: white; padding-top:1px!important;" >
-  <event-description-header
-    event-data="eventData"
-    url-description="urlDescription;"
-    url-evidence="urlEvidence";
-    has-evidence="hasEvidence";
-    is-active-tab="isActiveTab";
-  />
   <div class="row">
     <div class="col-sm-12 col-md-12" style="margin-top:10px;">
       <div class="tab-container">
         <div class="tab-content">
           <div id="info" class="tab-pane cont active">
-            <div class="row" >
-              <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
-                <button id="edit" class="btn btn-primary btn-block"
-                  ng-click="eventEdit();">
-                  <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
-                </button>
-              </div>
-            </div>
             <event-description-view
-              event-data="eventData"
-              event-edit="eventEdit";
-              event-update="eventUpdate";
-              has-accessibility="hasAccessibility";
-              has-affected-components="hasAffectedComponents";
               is-editable="isEditable";
+              event-id="eventId";
+              url-description="urlDescription;"
+              url-evidence="urlEvidence";
+              has-evidence="hasEvidence";
+              is-active-tab="isActiveTab";
+              is-manager="isManager";
+              has-access="hasAccess";
             />
-            <div class="row" >
-              <div class="col-md-3 col-md-offset-8 col-xs-12 col-sm-12" ng-show="isManager && hasAccess">
-                <button id="update" class="btn btn-success btn-block"
-                  ng-show="isEditable"
-                  ng-click="eventUpdate();">
-                  <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
-                </button>
-              </div>
-            </div>
           </div>
           <div id="evidence" class="tab-pane cont active">
             <div class="col-md-12 col-sm-12 col-xs-12">

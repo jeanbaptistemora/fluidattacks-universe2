@@ -1,24 +1,25 @@
-/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty no-unused-variable
+/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty
  * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
  * to call functions with props as params from the JSX element definition
  * without using lambda expressions () => {}
  *
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
- * readability of the code that defines the headers of the table
- *
- * NO-UNUSED-VARIABLE: Disabling this rule is necessary in the migration of view
- * to react-redux because number of deltas is to high for a single MR, so it is
- * necessary to add functions that will not be used for now.
+  * readability of the code that defines the headers of the table
  */
 import React from "react";
 import { Button, Col, Glyphicon, Label, Row } from "react-bootstrap";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { AnyAction } from "redux";
+import {
+  InferableComponentEnhancer,
+  lifecycle,
+} from "recompose";
+import { AnyAction, Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
+import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
+import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -35,15 +36,13 @@ export interface IEventDescriptionViewProps {
     client: string;
     clientProject: string;
     detail: string;
-    eventDate: string;
+    eventDate?: string;
     eventStatus: string;
     eventType: string;
     id?: string;
     projectName: string;
   };
-  eventEdit: (() => JSX.Element);
   eventId: string;
-  eventUpdate: (() => JSX.Element);
   formValues: {
     editEvent: {
       values: {
@@ -58,6 +57,8 @@ export interface IEventDescriptionViewProps {
   isActiveTab: boolean;
   isEditable: boolean;
   isManager: boolean;
+  urlDescription: (() => JSX.Element);
+  urlEvidence: (() => JSX.Element);
 }
 
 export interface IEventDescriptionHeaderProps {
@@ -67,8 +68,6 @@ export interface IEventDescriptionHeaderProps {
   urlDescription: (() => JSX.Element);
   urlEvidence: (() => JSX.Element);
 }
-
-type IEventProps = IEventDescriptionViewProps & IEventDescriptionHeaderProps;
 
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
@@ -89,8 +88,8 @@ const updateEvent: ((values: IEventDescriptionViewProps["eventData"]) => void) =
     thunkDispatch(actions.updateEvent(values));
   };
 
-const renderEventFields: ((props: IEventProps) => JSX.Element) =
-  (props: IEventProps): JSX.Element => {
+const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
+  (props: IEventDescriptionViewProps): JSX.Element => {
     const eventType: string = translate.t(castEventType(props.eventData.eventType));
     const eventStatus: string = translate.t(castEventStatus(props.eventData.eventStatus));
     props.eventData.affectedComponents === "" ?
@@ -364,27 +363,7 @@ export const eventDescriptionHeader: React.StatelessComponent<IEventDescriptionH
   </React.StrictMode>
 );
 
-export const component: React.SFC<IEventProps> =
-  (props: IEventProps): JSX.Element =>
-    (
-    <React.StrictMode>
-      <Row>
-      <Col md={12} sm={12} xs={12}>
-        <GenericForm
-          name="editEvent"
-          initialValues={{...props.eventData}}
-          onSubmit={(values: IEventDescriptionViewProps["eventData"]): void => {
-            updateEvent(values);
-           }}
-        >
-          {renderEventFields(props)}
-        </GenericForm>
-        </Col>
-      </Row>
-    </React.StrictMode>
-  );
-
-export const eventDescriptionView: React.StatelessComponent<IEventDescriptionViewProps> =
+export const eventDescriptionViewTest: React.StatelessComponent<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element => (
   <React.StrictMode>
     <div id="events" className="tab-pane cont active">
@@ -451,7 +430,44 @@ export const eventDescriptionView: React.StatelessComponent<IEventDescriptionVie
   </React.StrictMode>
 );
 
+export const component: React.SFC<IEventDescriptionViewProps> =
+  (props: IEventDescriptionViewProps): JSX.Element =>
+    (
+    <React.StrictMode>
+      <Row>
+      <Col md={12} sm={12} xs={12}>
+        <GenericForm
+          name="editEvent"
+          initialValues={{...props.eventData}}
+          onSubmit={(values: IEventDescriptionViewProps["eventData"]): void => {
+            updateEvent(values);
+           }}
+        >
+          {renderEventFields(props)}
+        </GenericForm>
+        </Col>
+      </Row>
+    </React.StrictMode>
+  );
+
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editEvent");
+
+export const eventDescriptionView: React.ComponentType<IEventDescriptionViewProps> = reduxWrapper
+(
+  enhance(component) as React.StatelessComponent<IEventDescriptionViewProps>,
+  (state: StateType<Reducer>): IEventDescriptionViewProps => ({
+    ...state,
+    eventData: state.dashboard.eventDescription.eventData,
+    formValues: {
+      editEvent: {
+        values: {
+          affectation: fieldSelector(state, "affectation"),
+        },
+      },
+    },
+    isEditable: state.dashboard.eventDescription.isEditable,
+  }),
+);
 
 eventDescriptionView.defaultProps = {
   eventData:
@@ -466,26 +482,12 @@ eventDescriptionView.defaultProps = {
       eventDate: "",
       eventStatus: "",
       eventType: "",
-      id: undefined,
+      id: "",
       projectName: "",
     },
-};
-
-eventDescriptionHeader.defaultProps = {
-  eventData:
-    {
-      accessibility: "",
-      affectation: "",
-      affectedComponents: "",
-      analyst: "",
-      client: "",
-      clientProject: "",
-      detail: "",
-      eventDate: "",
-      eventStatus: "",
-      eventType: "",
-      id: undefined,
-      projectName: "",
-    },
+  hasAccess: false,
+  hasAccessibility: false,
+  hasAffectedComponents: false,
   isActiveTab: true,
+  isManager: false,
 };

@@ -93,7 +93,7 @@ export const updateEvent: ThunkActionStructure =
           }
         }
       }`;
-      new Xhr().request(gQry, "An error occurred updating severity")
+      new Xhr().request(gQry, "An error occurred updating event")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.updateEvent.success) {
