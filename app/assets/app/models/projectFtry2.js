@@ -172,27 +172,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Get finding vulnerabilities.
-       * @function getVulnerabilities
-       * @param {String} findingId Numeric id of the finding
-       * @member integrates.projectFtry2
-       * @return {Object} GraphQL response with the requested data
-       */
-      "getVulnerabilities" (findingId) {
-        const oopsAc = "An error occurred getting finding information";
-        const gQry = `{
-          finding(identifier: "${findingId}") {
-            id
-            success
-            errorMessage
-            openVulnerabilities
-            closedVulnerabilities
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Get role of a user.
        * @function isCustomerAdmin
        * @param {String} project Project name.

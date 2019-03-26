@@ -164,7 +164,6 @@ var integrityImpact = {};    \
 var availabilityImpact = {};   \
 var confidenceLevel = {};  \
 var testType = {};  \
-var findingById = {}; \
 var estado = {}; \
 var edad = {}; \
 var labelEventState = {}; \

@@ -28,22 +28,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Return all the information for a specific findinf ID
-       * @function findingById
-       * @param {Integer} findingid Numeric ID of a finding
-       * @param {String} project Project name
-       * @member integrates.projectFtry
-       * @return {Object} Formstack response with the data of a finding
-       */
-      "findingById" (findingid, project) {
-        const oopsAc = "An error occurred getting finding";
-        return $xhr.post($q, `${BASE.url}get_finding`, {
-          findingid,
-          project
-        }, oopsAc);
-      },
-
-      /**
        * Return the alerts of a company.
        * @function getAlerts
        * @param {String} company Company name
