@@ -1,11 +1,11 @@
 :slug: para-bellum/
-:date: 2019-03-21
+:date: 2019-03-26
 :subtitle: Prepare for the worst risk
 :category: philosophy
 :tags: business, security, risk
 :image: cover.png
 :alt: Fire extinguisher. Photo by Tommaso Pecchioli on Unsplash: https://unsplash.com/photos/XG_wi3W4-m8
-:description:
+:description: Value at Risk (VaR) is a measure of the risk of loss in the context of uncertainty, v.g., for investment. It is the upper bound for loss in a period of time with a certain degree of confidence, usually 99%, so we know that in that percent of the scenarios, loss will not exceed the VaR.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -93,20 +93,21 @@ Knowing the probability distribution,
 which tells us probabilities of point values,
 we can find probabilities of ranges
 with the corresponding _cumulative_ distribution function
-(which is nothing but the integral of the density, i.e., adding the up).
+(which is nothing but the integral of the density, i.e., adding them up).
 
 We can use a simple spreadsheet,
 which is a tool we all probably already have,
-to put this model to use.
-In this case we use the +NORM.DIST+ functions
+to put this model to work.
+In this case we will use the +NORM.DIST+ functions
 since the distribution is normal.
 If we want to know the probability that the loss
-will be less than, say, 80,
+will be less than, say, 20%,
+i.e., the final value will be 80%,
 we can compute
 
 ----
 =NORM.DIST(80,110,30,1)
-=0.158655253931457
+0.158655253931457
 ----
 
 i.e., 15.8%.
@@ -124,14 +125,18 @@ we get the point at which this probabilty is attained.
 It is the same process as above, but backwards.
 
 At what point is the 1% probability?
+That is, for which value _V_
+is it true that the probability that
+the final value is less than or equal to _V_ is 1%?
 
 ----
 =NORM.INV(0.01,110,30)
-=40.2095637787748
+40.2095637787748
 ----
 
-This is the 1% quantile, or the first percentile
-of the distribution, the point under which
+This is the 1% _quantile_,
+or the first _percentile_ of the distribution,
+the point under which
 the remaining 1% of points are.
 Since this is the distribution for the final value
 (remember we added 100 before, so we must subtract again)
@@ -160,7 +165,7 @@ simulations was a loss exceedance curve,
 which already involves loss:
 
 .Loss exceedance curve
-image:../monetizing-vulnerabilities/simple-lec.png[Loss exceedance curve]
+image::../monetizing-vulnerabilities/simple-lec.png[Loss exceedance curve]
 
 We can just use this to obtain the +VaR+.
 This graph is already cumulative,
@@ -176,7 +181,7 @@ but at least that tells us that it must be beyond $1000 million.
 
 ''''
 
-So the Value at Risk tells us in a single number
+So, the Value at Risk tells us in a single number
 what can happen with an investment or any risky situation
 what the worst that might happen is,
 and allows us to easily compare, for example,
