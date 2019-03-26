@@ -183,37 +183,6 @@ const renderEnvironmentFields: ((props: ISeverityViewProps) => JSX.Element[]) =
         );
       });
 
-const renderPrivilegeReq: ((props: ISeverityViewProps, scope: string, modifiedScope: string) => JSX.Element[]) =
-  (props: ISeverityViewProps, scope: string, modifiedScope: string): JSX.Element[] =>
-
-    castPrivileges(props.dataset, scope, modifiedScope)
-        .map((field: ISeverityField, index: number) => {
-        const value: string = field.currentValue;
-        const text: string = field.options[value];
-
-        return (
-          <Row className={style.row} key={index}>
-            <EditableField
-              alignField="horizontal"
-              component={dropdownField}
-              currentValue={`${value} | ${translate.t(text)}`}
-              label={field.title}
-              name={field.name}
-              renderAsEditable={props.isEditing}
-              validate={[required]}
-            >
-              <option value="" selected={true} />
-              {Object.keys(field.options)
-                .map((key: string) => (
-                <option value={`${key}`}>
-                  {translate.t(field.options[key])}
-                </option>
-              ))}
-            </EditableField>
-          </Row>
-        );
-      });
-
 const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (props: ISeverityViewProps): JSX.Element => {
   const cvssVersion: string = (props.isEditing)
     ? props.formValues.editSeverity.values.cvssVersion
@@ -226,6 +195,12 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
   const modifiedSeverityScope: string = (props.isEditing)
     ? props.formValues.editSeverity.values.modifiedSeverityScope
     : props.dataset.modifiedSeverityScope;
+
+  const privilegesOptions: {[value: string]: string} = castPrivileges(severityScope);
+  const modPrivilegesOptions: {[value: string]: string} = castPrivileges(modifiedSeverityScope);
+
+  const privileges: string = props.dataset.privilegesRequired;
+  const modPrivileges: string = props.dataset.modifiedPrivilegesRequired;
 
   return (
     <React.Fragment>
@@ -247,12 +222,50 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
         </EditableField>
       </Row>
       {renderCVSSFields(props, cvssVersion)}
+      <Row className={style.row}>
+        <EditableField
+          alignField="horizontal"
+          component={dropdownField}
+          currentValue={`${privileges} | ${translate.t(privilegesOptions[privileges])}`}
+          label={translate.t("search_findings.tab_severity.privileges_required")}
+          name="privilegesRequired"
+          renderAsEditable={props.isEditing}
+          validate={[required]}
+        >
+          <option value="" selected={true} />
+          {Object.keys(privilegesOptions)
+            .map((key: string) => (
+            <option value={`${key}`}>
+              {translate.t(privilegesOptions[key])}
+            </option>
+          ))}
+        </EditableField>
+      </Row>
       { cvssVersion === "3" && props.isEditing
-        ? renderEnvironmentFields(props)
-        : undefined
-      }
-      { cvssVersion === "3"
-        ? renderPrivilegeReq(props, severityScope, modifiedSeverityScope)
+        ?
+        <React.Fragment>
+          {renderEnvironmentFields(props)}
+          <Row className={style.row}>
+            <EditableField
+              alignField="horizontal"
+              component={dropdownField}
+              currentValue={`${modPrivileges} | ${translate.t(modPrivilegesOptions[modPrivileges])}`}
+              label={translate.t("search_findings.tab_severity.modified_privileges_required")}
+              name="modifiedPrivilegesRequired"
+              renderAsEditable={props.isEditing}
+              validate={[required]}
+              visible={props.isEditing}
+            >
+              <option value="" selected={true} />
+              {Object.keys(modPrivilegesOptions)
+                .map((key: string) => (
+                <option value={`${key}`}>
+                  {translate.t(modPrivilegesOptions[key])}
+                </option>
+              ))}
+            </EditableField>
+          </Row>
+        </React.Fragment>
         : undefined
       }
       <Row className={style.row}>
