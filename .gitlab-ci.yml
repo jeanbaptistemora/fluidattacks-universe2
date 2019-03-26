@@ -240,6 +240,7 @@ change_keys:
         delete_formstack_tokens()"
   <<: *only_schedules
   <<: *except_analytics
+  when: always
 
 vault_backup:
   stage: backup
