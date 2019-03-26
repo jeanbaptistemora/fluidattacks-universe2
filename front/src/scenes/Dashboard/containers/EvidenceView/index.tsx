@@ -7,7 +7,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Glyphicon, Row } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
  * Disabling this two rules is necessary for
@@ -19,6 +19,7 @@ import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { Button } from "../../../../components/Button/index";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";

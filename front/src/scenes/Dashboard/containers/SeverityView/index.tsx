@@ -7,12 +7,13 @@
  */
 
 import React from "react";
-import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Glyphicon, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { Button } from "../../../../components/Button/index";
 import store from "../../../../store/index";
 import { castFields, castPrivileges } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";

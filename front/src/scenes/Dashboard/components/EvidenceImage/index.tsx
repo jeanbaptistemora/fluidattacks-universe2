@@ -3,9 +3,10 @@
  * readability of the code that binds click events
  */
 import React from "react";
-import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import { ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm } from "redux-form";
+import { Button } from "../../../../components/Button/index";
 import store from "../../../../store/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";

@@ -4,7 +4,8 @@
  * without using lambda expressions () => {}
  */
 import React from "react";
-import { Button, Checkbox } from "react-bootstrap";
+import { Checkbox } from "react-bootstrap";
+import { Button } from "../../../../components/Button/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import translate from "../../../../utils/translations/translate";
 

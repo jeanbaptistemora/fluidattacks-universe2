@@ -42,7 +42,7 @@ describe("Generic modal", () => {
           </ModalBody>),
         (
           <ModalFooter componentClass="div">
-            <Button active={false} block={false} disabled={false} bsStyle="default" bsClass="btn">
+            <Button active={false} block={false} disabled={false} bsStyle="default">
               test btn
           </Button>
           </ModalFooter>),

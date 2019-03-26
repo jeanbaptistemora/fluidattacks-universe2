@@ -1,11 +1,12 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Button, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
+import { Button } from "../../../../components/Button/index";
 import ConfirmDialog from "../../../../components/ConfirmDialog/index";
 import { dropdownField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";

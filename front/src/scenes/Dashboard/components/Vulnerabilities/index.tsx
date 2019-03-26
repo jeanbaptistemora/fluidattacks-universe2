@@ -12,7 +12,7 @@
 */
 import _ from "lodash";
 import React, { ComponentType } from "react";
-import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Glyphicon, Row } from "react-bootstrap";
 import { DataAlignType } from "react-bootstrap-table";
 import {
   InferableComponentEnhancer,
@@ -21,6 +21,7 @@ import {
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { Button } from "../../../../components/Button/index";
 import { IHeader } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";

@@ -8,12 +8,13 @@
 
 import _ from "lodash";
 import React from "react";
-import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { Button } from "../../../../components/Button/index";
 import ConfirmDialog from "../../../../components/ConfirmDialog";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
@@ -89,14 +90,10 @@ const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
   const handleClick: (() => void) = (): void => { store.dispatch(openConfirmDialog("confirmVerify")); };
 
   return (
-  <Row style={{ paddingTop: "10px" }}>
-    <Col md={2} mdOffset={10} xs={6} sm={6}>
-      <Button bsStyle="warning" block={true} onClick={handleClick}>
+      <Button bsStyle="warning" onClick={handleClick}>
         <Glyphicon glyph="ok" /> {translate.t("search_findings.tab_description.mark_verified")}
       </Button>
-    </Col>
-  </Row>
-);
+  );
 };
 
 const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
@@ -108,49 +105,34 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
       && !props.dataset.remediated;
 
     return (
-      <Row style={{ paddingTop: "10px" }}>
-        <Col md={2} mdOffset={10} xs={6} sm={6}>
-          <Button
-            bsStyle="success"
-            block={true}
-            disabled={!canRequestVerification}
-            onClick={(): void => { store.dispatch(actions.openRemediationMdl()); }}
-          >
-            <Glyphicon glyph="ok" /> {translate.t("search_findings.tab_description.request_verify")}
-          </Button>
-        </Col>
-      </Row>
+      <Button
+        bsStyle="success"
+        disabled={!canRequestVerification}
+        onClick={(): void => { store.dispatch(actions.openRemediationMdl()); }}
+      >
+        <Glyphicon glyph="ok" /> {translate.t("search_findings.tab_description.request_verify")}
+      </Button>
     );
   };
 
 const renderUpdateBtn: (() => JSX.Element) = (): JSX.Element => (
-  <Button bsStyle="success" block={true} onClick={(): void => { store.dispatch(submit("editDescription")); }}>
+  <Button bsStyle="success" onClick={(): void => { store.dispatch(submit("editDescription")); }}>
     <Glyphicon glyph="repeat" /> {translate.t("search_findings.tab_description.update")}
   </Button>
-);
-
-const renderEditBtn: (() => JSX.Element) = (): JSX.Element => (
-  <Col md={2} xs={6} sm={6}>
-    <Button bsStyle="primary" block={true} onClick={(): void => { store.dispatch(actions.editDescription()); }}>
-      <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_description.editable")}
-    </Button>
-  </Col>
 );
 
 const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => (
     <React.Fragment>
-      <Col md={12} sm={12} xs={12}>
-        <Row style={{ paddingTop: "10px" }}>
-          <Col md={2} mdOffset={8} xs={6} sm={6}>
-            {props.isEditing ? renderUpdateBtn() : undefined}
-          </Col>
-          {renderEditBtn()}
-        </Row>
+      <ButtonToolbar className="pull-right">
         {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
           ? renderMarkVerifiedBtn() : undefined}
         {_.includes(["admin", "customer"], props.userRole) ? renderRequestVerifiyBtn(props) : undefined}
-      </Col>
+        {props.isEditing ? renderUpdateBtn() : undefined}
+        <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
+          <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_description.editable")}
+        </Button>
+      </ButtonToolbar>
     </React.Fragment>
   );
 

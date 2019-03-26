@@ -5,12 +5,13 @@
 
 import _ from "lodash";
 import React from "react";
-import { Button, ButtonToolbar, Col, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Dispatch } from "redux";
 import { closeConfirmDialog, IActionStructure } from "../../scenes/Dashboard/actions";
 import { IDashboardState } from "../../scenes/Dashboard/reducer";
 import translate from "../../utils/translations/translate";
+import { Button } from "../Button/index";
 import { default as Modal } from "../Modal/index";
 
 interface IConfirmDialogStateProps {

@@ -7,12 +7,13 @@
   * readability of the code that defines the headers of the table
  */
 import React, { ComponentType } from "react";
-import { Button, Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
 import { msgError } from "../../../../utils/notifications";

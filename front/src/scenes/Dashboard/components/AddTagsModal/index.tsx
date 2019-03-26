@@ -6,7 +6,7 @@
  */
 
 import React from "react";
-import { Button, ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import {
   ConfigProps, DecoratedComponentClass, Field,
@@ -14,6 +14,7 @@ import {
   reduxForm,
   WrappedFieldArrayProps,
 } from "redux-form";
+import { Button } from "../../../../components/Button/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";

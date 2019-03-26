@@ -1,9 +1,10 @@
 import _ from "lodash";
 import React from "react";
-import { Breadcrumb, BreadcrumbItem, Button, Col, Glyphicon, InputGroup, Row } from "react-bootstrap";
+import { Breadcrumb, BreadcrumbItem, Col, Glyphicon, InputGroup, Row } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Field } from "redux-form";
+import { Button } from "../../../../components/Button/index";
 import { textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../GenericForm";

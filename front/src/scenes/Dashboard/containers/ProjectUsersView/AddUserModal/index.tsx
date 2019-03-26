@@ -2,13 +2,14 @@ import { AxiosError, AxiosResponse } from "axios";
 import _ from "lodash";
 import React from "react";
 import {
-  Button, ButtonToolbar, ControlLabel, FormGroup,
+  ButtonToolbar, ControlLabel, FormGroup,
   Row,
 } from "react-bootstrap";
 import {
   ConfigProps, DecoratedComponentClass, Field, formValueSelector, InjectedFormProps,
   reduxForm,
 } from "redux-form";
+import { Button } from "../../../../../components/Button/index";
 import { default as Modal } from "../../../../../components/Modal/index";
 import store from "../../../../../store/index";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";

@@ -3,8 +3,9 @@ import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { describe, it } from "mocha";
 import React from "react";
-import { Button, Glyphicon } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { reduxForm as ReduxForm } from "redux-form";
+import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { component as ProjectUsersView } from "./index";
 

@@ -7,7 +7,7 @@
   * readability of the code that defines the headers of the table
  */
 import React from "react";
-import { Button, Col, Glyphicon, Label, Row } from "react-bootstrap";
+import { Col, Glyphicon, Label, Row } from "react-bootstrap";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -16,6 +16,7 @@ import { AnyAction, Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { Button } from "../../../../components/Button/index";
 import store from "../../../../store/index";
 import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";

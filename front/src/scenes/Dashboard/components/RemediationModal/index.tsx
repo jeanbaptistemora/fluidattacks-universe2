@@ -6,12 +6,13 @@
  */
 
 import React from "react";
-import { Button, ButtonToolbar, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { ButtonToolbar, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import {
   ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm,
 } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
+import { Button } from "../../../../components/Button/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import globalStyle from "../../../../styles/global.css";
