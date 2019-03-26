@@ -209,24 +209,6 @@ export const castFieldsCVSS3: ((dataset: ISeverityViewProps["dataset"]) => ISeve
     0.92: "search_findings.tab_severity.report_confidence_options.unknown",
   };
 
-  const confidentialityRequirement: {[value: string]: string} = {
-    1.5: "search_findings.tab_severity.confidentiality_requirement_options.high",
-    1: "search_findings.tab_severity.confidentiality_requirement_options.medium",
-    0.5: "search_findings.tab_severity.confidentiality_requirement_options.low",
-  };
-
-  const integrityRequirement: {[value: string]: string} = {
-    1.5: "search_findings.tab_severity.integrity_requirement_options.high",
-    1: "search_findings.tab_severity.integrity_requirement_options.medium",
-    0.5: "search_findings.tab_severity.integrity_requirement_options.low",
-  };
-
-  const availabilityRequirement: {[value: string]: string} = {
-    1.5: "search_findings.tab_severity.availability_requirement_options.high",
-    1: "search_findings.tab_severity.availability_requirement_options.medium",
-    0.5: "search_findings.tab_severity.availability_requirement_options.low",
-  };
-
   const fields: ISeverityField[] = [
     {
       currentValue: dataset.attackVector, name: "attackVector",
@@ -278,6 +260,73 @@ export const castFieldsCVSS3: ((dataset: ISeverityViewProps["dataset"]) => ISeve
       options: reportConfidence,
       title: translate.t("search_findings.tab_severity.report_confidence"),
     },
+  ];
+
+  return fields;
+};
+
+export const castEnvironmentCVSS3Fields: ((dataset: ISeverityViewProps["dataset"]) => ISeverityField[]) =
+  (dataset: ISeverityViewProps["dataset"]): ISeverityField[] => {
+
+  const attackVector: {[value: string]: string} = {
+    0.85: "search_findings.tab_severity.attack_vector_options.network",
+    0.62: "search_findings.tab_severity.attack_vector_options.adjacent",
+    0.55: "search_findings.tab_severity.attack_vector_options.local",
+    0.2: "search_findings.tab_severity.attack_vector_options.physical",
+  };
+
+  const attackComplexity: {[value: string]: string} = {
+    0.77: "search_findings.tab_severity.attack_complexity_options.low",
+    0.44: "search_findings.tab_severity.attack_complexity_options.high",
+  };
+
+  const userInteraction: {[value: string]: string} = {
+    0.85: "search_findings.tab_severity.user_interaction_options.none",
+    0.62: "search_findings.tab_severity.user_interaction_options.required",
+  };
+
+  const severityScope: {[value: string]: string} = {
+    0: "search_findings.tab_severity.severity_scope_options.unchanged",
+    1: "search_findings.tab_severity.severity_scope_options.changed",
+  };
+
+  const confidentialityImpact: {[value: string]: string} = {
+    0: "search_findings.tab_severity.confidentiality_impact_options.none",
+    0.22: "search_findings.tab_severity.confidentiality_impact_options.low",
+    0.56: "search_findings.tab_severity.confidentiality_impact_options.high",
+  };
+
+  const integrityImpact: {[value: string]: string} = {
+    0: "search_findings.tab_severity.integrity_impact_options.none",
+    0.22: "search_findings.tab_severity.integrity_impact_options.low",
+    0.56: "search_findings.tab_severity.integrity_impact_options.high",
+  };
+
+  const availabilityImpact: {[value: string]: string} = {
+    0: "search_findings.tab_severity.availability_impact_options.none",
+    0.22: "search_findings.tab_severity.availability_impact_options.low",
+    0.56: "search_findings.tab_severity.availability_impact_options.high",
+  };
+
+  const confidentialityRequirement: {[value: string]: string} = {
+    1.5: "search_findings.tab_severity.confidentiality_requirement_options.high",
+    1: "search_findings.tab_severity.confidentiality_requirement_options.medium",
+    0.5: "search_findings.tab_severity.confidentiality_requirement_options.low",
+  };
+
+  const integrityRequirement: {[value: string]: string} = {
+    1.5: "search_findings.tab_severity.integrity_requirement_options.high",
+    1: "search_findings.tab_severity.integrity_requirement_options.medium",
+    0.5: "search_findings.tab_severity.integrity_requirement_options.low",
+  };
+
+  const availabilityRequirement: {[value: string]: string} = {
+    1.5: "search_findings.tab_severity.availability_requirement_options.high",
+    1: "search_findings.tab_severity.availability_requirement_options.medium",
+    0.5: "search_findings.tab_severity.availability_requirement_options.low",
+  };
+
+  const fields: ISeverityField[] = [
     {
       currentValue: dataset.confidentialityRequirement, name: "confidentialityRequirement",
       options: confidentialityRequirement,

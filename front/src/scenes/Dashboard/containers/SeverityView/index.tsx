@@ -15,7 +15,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import store from "../../../../store/index";
-import { castFields, castPrivileges } from "../../../../utils/formatHelpers";
+import { castEnvironmentCVSS3Fields, castFields, castPrivileges } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
@@ -152,6 +152,36 @@ const renderCVSSFields: ((props: ISeverityViewProps, cvssVersion: ISeverityViewP
           </Row>
         );
       });
+const renderEnvironmentFields: ((props: ISeverityViewProps) => JSX.Element[]) =
+  (props: ISeverityViewProps): JSX.Element[] =>
+  castEnvironmentCVSS3Fields(props.dataset)
+        .map((field: ISeverityField, index: number) => {
+        const value: string = field.currentValue;
+        const text: string = field.options[value];
+
+        return (
+          <Row className={style.row} key={index}>
+            <EditableField
+              alignField="horizontal"
+              component={dropdownField}
+              currentValue={`${value} | ${translate.t(text)}`}
+              label={field.title}
+              name={field.name}
+              renderAsEditable={props.isEditing}
+              validate={[required]}
+              visible={props.isEditing}
+            >
+              <option value="" selected={true} />
+              {Object.keys(field.options)
+                .map((key: string) => (
+                <option value={`${key}`}>
+                  {translate.t(field.options[key])}
+                </option>
+              ))}
+            </EditableField>
+          </Row>
+        );
+      });
 
 const renderPrivilegeReq: ((props: ISeverityViewProps, scope: string, modifiedScope: string) => JSX.Element[]) =
   (props: ISeverityViewProps, scope: string, modifiedScope: string): JSX.Element[] =>
@@ -217,6 +247,10 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
         </EditableField>
       </Row>
       {renderCVSSFields(props, cvssVersion)}
+      { cvssVersion === "3" && props.isEditing
+        ? renderEnvironmentFields(props)
+        : undefined
+      }
       { cvssVersion === "3"
         ? renderPrivilegeReq(props, severityScope, modifiedSeverityScope)
         : undefined
