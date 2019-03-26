@@ -1,4 +1,4 @@
-image: registry.gitlab.com/fluidsignal/default/web/base:latest
+image: registry.gitlab.com/fluidattacks/web:base
 
 stages:
   - build
@@ -17,7 +17,7 @@ stages:
     SECRET_ID: "${WEB_SECRET_ID}"
     VAULTENV_SECRETS_FILE: "${CI_PROJECT_DIR}/env.vars"
 
-.registry_vars: &registry_vars
+.fa_default_registry_vars: &fa_default_registry_vars
   variables:
     CI_REGISTRY_USER: "${GITLAB_USER}"
     CI_REGISTRY_PASSWORD: "${GITLAB_PASS}"
@@ -36,10 +36,13 @@ stages:
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
-  <<: *registry_vars
   before_script:
     - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
         > /kaniko/.docker/config.json
+
+.kaniko_fa_default_registry_config: &kaniko_fa_default_registry_config
+  <<: *fa_default_registry_vars
+  <<: *kaniko_config
 
 builder:
   stage: build
@@ -51,7 +54,7 @@ builder:
         --cleanup
         --context "${CI_PROJECT_DIR}/builder/base/"
         --dockerfile "${CI_PROJECT_DIR}/builder/base/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}/base:latest"
+        --destination "${CI_REGISTRY_IMAGE}:base"
 
 content:
   stage: check
@@ -65,7 +68,7 @@ content:
 
 pelican:
   stage: check
-  <<: *kaniko_config
+  <<: *kaniko_fa_default_registry_config
   script:
     - /kaniko/executor
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
@@ -106,7 +109,7 @@ commitlint:
 
 review-web:
   stage: review
-  <<: *registry_vars
+  <<: *fa_default_registry_vars
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
     - ./review/cluster-config.sh
