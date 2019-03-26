@@ -60,7 +60,6 @@ angular.module("FluidIntegrates").controller(
     $timeout,
     $translate,
     $uibModal,
-    eventualityFactory,
     functionsFtry1,
     functionsFtry3,
     functionsFtry4,

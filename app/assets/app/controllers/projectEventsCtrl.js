@@ -60,7 +60,6 @@ angular.module("FluidIntegrates").controller(
     $timeout,
     $translate,
     $uibModal,
-    eventualityFactory,
     functionsFtry1,
     functionsFtry3,
     functionsFtry4,
@@ -83,7 +82,6 @@ angular.module("FluidIntegrates").controller(
       if (angular.isDefined(projectName) &&
                 projectName !== "") {
         $scope.project = projectName;
-        $scope.search();
         const orgName = Organization.toUpperCase();
         const projName = projectName.toUpperCase();
         mixPanelDashboard.trackReports(
@@ -101,58 +99,6 @@ angular.module("FluidIntegrates").controller(
     };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
-    };
-    $scope.search = function search () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
-      const projectName = $scope.project;
-      if (angular.isUndefined(projectName) ||
-                projectName === "") {
-        const attentionAt = $translate.instant("proj_alerts.attentTitle");
-        const attentionAc = $translate.instant("proj_alerts.attent_cont");
-        $msg.warning(attentionAc, attentionAt);
-        return false;
-      }
-      if ($stateParams.project !== $scope.project) {
-        $state.go("ProjectIndicators", {"project": $scope.project});
-      }
-      else if ($stateParams.project === $scope.project) {
-        $scope.view.project = false;
-        $scope.view.finding = false;
-
-        const reqEventualities = projectFtry2.eventsByProject(projectName);
-        reqEventualities.then((response) => {
-          if (response.errors) {
-            const {message} = response.errors[0];
-            if (message === "Login required") {
-              location.reload();
-            }
-            else if (message === "Access denied") {
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else {
-              Rollbar.error(message);
-            }
-          }
-          else {
-            eventsData = [];
-            if (response.data.events.length === 0) {
-              $msg.error($translate.instant("proj_alerts.eventExist"));
-            }
-            else {
-              eventsData = response.data.events;
-            }
-            $scope.view.project = true;
-            $scope.loadEventContent(eventsData, vlang, projectName);
-          }
-        });
-      }
-      return true;
     };
     $scope.goToEvent = function goToEvent (rowInfo) {
       // Mixpanel tracking
@@ -175,67 +121,6 @@ angular.module("FluidIntegrates").controller(
                     data[cont][eventsTranslations[inc]]
                   ]);
           }
-        }
-      }
-      $scope.isManager = userRole !== "customer" &&
-                         userRole !== "customeradmin";
-      mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
-      $scope.tblEventsHeaders = [
-        {
-          "align": "center",
-          "dataField": "id",
-          "header": $translate.instant("search_events.headings.id"),
-          "width": "3.0%"
-        },
-        {
-          "align": "center",
-          "dataField": "eventDate",
-          "header":
-            $translate.instant("search_events.headings.date"),
-          "width": "3.5%"
-        },
-        {
-          "align": "center",
-          "dataField": "detail",
-          "header": $translate.instant("search_events.headings.details"),
-          "width": "6.5%",
-          "wrapped": true
-        },
-        {
-          "align": "center",
-          "dataField": "eventType",
-          "header": $translate.instant("search_events.headings.type"),
-          "width": "4.8%",
-          "wrapped": true
-        },
-        {
-          "align": "center",
-          "dataField": "eventStatus",
-          "header": $translate.instant("search_events.headings.status"),
-          "isStatus": true,
-          "width": "3.0%"
-        }
-      ];
-      $scope.eventsDataset = data;
-      angular.element("#search_section").show();
-      angular.element("[data-toggle=\"tooltip\"]").tooltip();
-      if (!$scope.isManager) {
-        $scope.openEvents = projectFtry.alertEvents(eventsData);
-        $scope.atAlert = $translate.instant("main_content.eventualities." +
-                                            "descSingularAlert1");
-        if ($scope.openEvents === 1) {
-          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
-                                                  "descSingularAlert2");
-          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
-                                                  "descSingularAlert3");
-          angular.element("#events_alert").show();
-        }
-        else if ($scope.openEvents > 1) {
-          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
-                                                  "descPluralAlert1");
-          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
-                                                  "descPluralAlert2");
-          angular.element("#events_alert").show();
         }
       }
     };

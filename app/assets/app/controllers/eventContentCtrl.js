@@ -30,7 +30,6 @@ eventContentCtrl (
   $translate,
   $uibModal,
   $window,
-  eventualityFactory,
   functionsFtry1,
   functionsFtry2,
   functionsFtry3,
@@ -135,41 +134,6 @@ eventContentCtrl (
     else {
       $scope.isEditable = false;
     }
-  };
-  $scope.eventUpdate = function eventUpdate () {
-    const neg = "negativo";
-    try {
-      if (angular.isUndefined($scope.eventData.affectation)) {
-        throw neg;
-      }
-    }
-    catch (err) {
-      Rollbar.error("Error: Affectation can not " +
-                    "be a negative number");
-      $msg.error($translate.instant("proj_alerts." +
-                                    "eventPositiveint"));
-      return false;
-    }
-    const updateRequest = eventualityFactory.updateEvent(
-      $scope.eventData.id,
-      angular.element("#affectationInput").val()
-    );
-    updateRequest.then((response) => {
-      if (response.errors) {
-        $msg.error($translate.instant("proj_alerts." +
-                                        "errorUpdatingEvent"));
-      }
-      else if (angular.isDefined(response.data.updateEvent) &&
-          response.data.updateEvent.success) {
-        const alertTitle = $translate.instant("proj_alerts." +
-                                             "updatedTitle");
-        const alertContent = $translate.instant("proj_alerts." +
-                                             "eventUpdated");
-        $msg.success(alertContent, alertTitle);
-        location.reload();
-      }
-    });
-    return true;
   };
 
   $scope.configColorPalette = function configColorPalette () {
