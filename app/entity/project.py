@@ -6,10 +6,9 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 from __future__ import absolute_import
-from datetime import datetime, timedelta
+from datetime import datetime
 import time
 import pytz
-import jwt
 import rollbar
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
@@ -17,7 +16,6 @@ from app.domain.project import add_comment, validate_tags, validate_project
 from graphene import String, ObjectType, List, Int, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
 
-from __init__ import FI_ORGANIZATION_SECRET, FI_DASHBOARD, FI_ORGANIZATION
 from ..dao import integrates_dao
 from .finding import Finding
 from .user import User
@@ -30,7 +28,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     findings = List(Finding)
     open_vulnerabilities = Int()
     subscription = String()
-    charts_key = String()
     comments = List(GenericScalar)
     tags = List(String)
     deletion_date = String()
@@ -40,7 +37,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         """Class constructor."""
         self.name = project_name.lower()
         self.subscription = ''
-        self.charts_key = ''
         self.comments = []
         self.tags = []
         self.deletion_date = ''
@@ -89,24 +85,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         else:
             self.deletion_date = ''
         return self.deletion_date
-
-    def resolve_charts_key(self, info):
-        """ Resolve chartio token """
-        del info
-
-        charts_token = jwt.encode(
-            {
-                'organization': int(FI_ORGANIZATION),
-                'dashboard': int(FI_DASHBOARD),
-                'exp': datetime.utcnow() + timedelta(seconds=30),
-                'env': {'PROJECT': self.name}
-            },
-            FI_ORGANIZATION_SECRET,
-            algorithm='HS256'
-        )
-        self.charts_key = '%s/%s' % (FI_DASHBOARD, charts_token)
-
-        return self.charts_key
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_comments(self, info):

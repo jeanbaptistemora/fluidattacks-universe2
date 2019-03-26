@@ -133,23 +133,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Retrieve url for chartio embed
-       * @function getChartsUrl
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {String} Chartio url for the current project
-       */
-      "getChartsKey" (project) {
-        const oopsAc = "An error occurred getting charts key";
-        const gQry = `{
-          project(projectName: "${project}"){
-            chartsKey
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Get project information.
        * @function getProject
        * @param {String} projectName Project Name

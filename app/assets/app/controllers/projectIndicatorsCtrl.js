@@ -4,8 +4,7 @@ BASE, downLink:true, Morris, estado:true, exploitLabel:true, i:true, j:true,
 nonexploitLabel:true, totalHigLabel:true, exploitable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, angular,
-mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true,
-ldclient
+mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
 */
 /* eslint-env node*/
 /**
@@ -74,10 +73,6 @@ angular.module("FluidIntegrates").controller(
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
 
-      const showChartio = ldclient.variation("chartio-indicator", false);
-      if (showChartio) {
-        $scope.initChartio();
-      }
       if (userEmail.endsWith("@fluidattacks.com") ||
           userEmail.endsWith("@bancolombia.com.co")) {
         $scope.showTags = true;
@@ -85,17 +80,6 @@ angular.module("FluidIntegrates").controller(
       else {
         $scope.showTags = false;
       }
-    };
-
-    $scope.initChartio = () => {
-      projectFtry2.getChartsKey($scope.project).
-        then((response) => {
-          if (angular.isDefined(response.data.project) &&
-              response.data.project !== null) {
-            const key = response.data.project.chartsKey;
-            $scope.chartioSrc = `https://embed.chartio.com/d/${key}`;
-          }
-        });
     };
 
     /**
