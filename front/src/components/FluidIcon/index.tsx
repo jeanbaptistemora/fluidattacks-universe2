@@ -1,4 +1,5 @@
 import React from "react";
+import ReactSVG from "react-svg";
 import { default as avabilityHighIcon } from "../../resources/availability_high.svg";
 import { default as avabilityLowIcon } from "../../resources/availability_low.svg";
 import { default as avabilityNoneIcon } from "../../resources/availability_none.svg";
@@ -36,65 +37,69 @@ import { default as vectorAdjacentIcon } from "../../resources/vector_adjacent.s
 import { default as vectorLocalIcon } from "../../resources/vector_local.svg";
 import { default as vectorNetworkIcon } from "../../resources/vector_network.svg";
 import { default as vectorPhysicalIcon } from "../../resources/vector_physical.svg";
+import { default as verifiedIcon } from "../../resources/verified.svg";
 import { default as vulnerabilitiesIcon } from "../../resources/vulnerabilities.svg";
+import style from "./index.css";
 
 interface IFluidIconProps {
-    height?: string;
-    icon: string;
-    width?: string;
+  height?: string;
+  icon: string;
+  width?: string;
 }
 
-const getIcon: {[value: string]: string} = {
-    availabilityHigh: avabilityHighIcon,
-    availabilityLow: avabilityLowIcon,
-    availabilityNone: avabilityNoneIcon,
-    calendar: calendarIcon,
-    circle: defaultIcon,
-    complexityHigh: complexityHighIcon,
-    complexityLow: complexityLowIcon,
-    confidentialityHigh: confidentialityHighIcon,
-    confidentialityLow: confidentialityLowIcon,
-    confidentialityNone: confidentialityNoneIcon,
-    delete: deleteIcon,
-    edit: editIcon,
-    export: exportIcon,
-    fail: failIcon,
-    findings: findingsIcon,
-    fixedVulnerabilities: fixedVulnerabilitiesIcon,
-    graph: graphIcon,
-    integrityHigh: integrityHighIcon,
-    integrityLow: integrityLowIcon,
-    integrityNone: integrityNoneIcon,
-    ok: okIcon,
-    openVulnerabilities: openVulnerabilitiesIcon,
-    privilegesHigh: privilegesHighIcon,
-    privilegesLow: privilegesLowIcon,
-    privilegesNone: privilegesNoneIcon,
-    scopeChanged: scopeChangedIcon,
-    scopeUnchanged: scopeUnchangedIcon,
-    search: searchIcon,
-    terminal: terminalIcon,
-    total: totalIcon,
-    totalVulnerabilities: totalVulnerabilitiesIcon,
-    userNone: userNoneIcon,
-    userRequired: userRequiredIcon,
-    vectorAdjacent: vectorAdjacentIcon,
-    vectorLocal: vectorLocalIcon,
-    vectorNetwork: vectorNetworkIcon,
-    vectorPhysical: vectorPhysicalIcon,
-    vulnerabilities: vulnerabilitiesIcon,
-  };
+const getIcon: { [value: string]: string } = {
+  availabilityHigh: avabilityHighIcon,
+  availabilityLow: avabilityLowIcon,
+  availabilityNone: avabilityNoneIcon,
+  calendar: calendarIcon,
+  circle: defaultIcon,
+  complexityHigh: complexityHighIcon,
+  complexityLow: complexityLowIcon,
+  confidentialityHigh: confidentialityHighIcon,
+  confidentialityLow: confidentialityLowIcon,
+  confidentialityNone: confidentialityNoneIcon,
+  delete: deleteIcon,
+  edit: editIcon,
+  export: exportIcon,
+  fail: failIcon,
+  findings: findingsIcon,
+  fixedVulnerabilities: fixedVulnerabilitiesIcon,
+  graph: graphIcon,
+  integrityHigh: integrityHighIcon,
+  integrityLow: integrityLowIcon,
+  integrityNone: integrityNoneIcon,
+  ok: okIcon,
+  openVulnerabilities: openVulnerabilitiesIcon,
+  privilegesHigh: privilegesHighIcon,
+  privilegesLow: privilegesLowIcon,
+  privilegesNone: privilegesNoneIcon,
+  scopeChanged: scopeChangedIcon,
+  scopeUnchanged: scopeUnchangedIcon,
+  search: searchIcon,
+  terminal: terminalIcon,
+  total: totalIcon,
+  totalVulnerabilities: totalVulnerabilitiesIcon,
+  userNone: userNoneIcon,
+  userRequired: userRequiredIcon,
+  vectorAdjacent: vectorAdjacentIcon,
+  vectorLocal: vectorLocalIcon,
+  vectorNetwork: vectorNetworkIcon,
+  vectorPhysical: vectorPhysicalIcon,
+  verified: verifiedIcon,
+  vulnerabilities: vulnerabilitiesIcon,
+};
 
 const fluidIcon: React.StatelessComponent<IFluidIconProps> = (props: IFluidIconProps): JSX.Element => (
-    <React.StrictMode>
-         <object width={props.width} height={props.height} data={getIcon[props.icon]} />
-    </React.StrictMode>
-  );
+  <React.StrictMode>
+    <div className={style.container}>
+      <ReactSVG svgStyle={{ width: props.width, height: props.height }} src={getIcon[props.icon]} />
+    </div>
+  </React.StrictMode>
+);
 
 fluidIcon.defaultProps = {
-    height: "50",
-    icon: "ok",
-    width: "50",
+  height: "16",
+  width: "16",
 };
 
 export { fluidIcon as FluidIcon };

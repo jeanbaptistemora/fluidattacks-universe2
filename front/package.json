@@ -102,7 +102,8 @@
     "react-burger-menu": "2.6.5",
     "@types/react-burger-menu": "2.2.2",
     "react-media": "1.9.2",
-    "webpack-cli": "3.2.3"
+    "webpack-cli": "3.2.3",
+    "react-svg": "8.0.1"
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",

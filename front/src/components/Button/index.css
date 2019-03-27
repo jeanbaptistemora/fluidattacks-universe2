@@ -16,9 +16,24 @@
   color: #FFFFFF;
 }
 
-:local .button:disabled, .button:disabled:hover {
+:local .button[disabled], .button[disabled]:hover {
   background-color: #FAFAFA;
   border-color: #DFDFDF;
   color: #919191;
   opacity: 1;
+}
+
+:local .button svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+:local .button[disabled] svg * {
+  fill: #919191 !important;
+  stroke: #919191 !important;
+}
+
+:local .button:hover:not([disabled]) svg * {
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
 }
