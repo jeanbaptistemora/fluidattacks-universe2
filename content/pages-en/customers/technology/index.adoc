@@ -17,12 +17,10 @@ a|image::logo-arus.png[alt="Logo Arus",link="https://www.arus.com.co/"]
 
 2+a|== Arus
 
-Company that delivers integrated information,
-technology and knowledge solutions,
-with a team of experts committed to the needs of organizations.
-Resource integrator, focused on delivering a secure platform
-to make social security payments through its platform +SuAporte+,
-meeting the needs in an agile, timely and reliable manner.
+Arus is an integrated information, technology, and knowledge solutions company
+functioning as a resource integrator
+focused on delivering a secure platform, SuAporte.
+Arus team of experts is committed to the needs of client organizations.
 
 2+a|== Ceiba Software
 
@@ -40,13 +38,12 @@ a|image::logo-ceiba.png[alt="Logo Ceiba",link="https://www.ceiba.com.co/es"]
 a|image::logo-conexia.png[alt="Logo Conexia",link="http://conexia.com/es/index.html"]
 
 2+a|== Conexia
-Service company focused on the health industry,
-born from a vision of developing a comprehensive solution
-capable of connecting all its participants.
-Its market is made up of all those organizations
-that aim to provide a health service to the population;
-whether they are public entities, private medicine companies,
-providers, cooperatives, trade unions and insurers.
+Conexia is a service company providing connectivity
+between its clients in the healthcare industry.
+Conexia's clients are organizations providing healthcare services
+of any kind whether they are public entities,
+private medicine companies, healthcare providers, cooperatives,
+trade unions, or insurers.
 
 2+a|== Cre8tive
 
