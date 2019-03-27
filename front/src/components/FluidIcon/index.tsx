@@ -98,8 +98,8 @@ const fluidIcon: React.StatelessComponent<IFluidIconProps> = (props: IFluidIconP
 );
 
 fluidIcon.defaultProps = {
-  height: "16",
-  width: "16",
+  height: "16px",
+  width: "16px",
 };
 
 export { fluidIcon as FluidIcon };

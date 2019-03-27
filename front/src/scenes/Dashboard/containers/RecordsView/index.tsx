@@ -11,6 +11,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
@@ -77,7 +78,7 @@ const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) =
             block={true}
             onClick={(): void => { store.dispatch(actions.editRecords()); }}
           >
-            <Glyphicon glyph="edit"/>
+            <FluidIcon icon="edit"/>
             &nbsp;{translate.t("search_findings.tab_evidence.editable")}
           </Button>
         </Col>

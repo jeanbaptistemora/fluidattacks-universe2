@@ -14,6 +14,7 @@ import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import { castEnvironmentCVSS3Fields, castFields, castPrivileges } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
@@ -104,7 +105,7 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
             store.dispatch(actions.calcCVSS(props.dataset, props.cvssVersion));
           }}
         >
-          <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
+          <FluidIcon icon="edit" /> {translate.t("search_findings.tab_severity.editable")}
         </Button>
       </Col>
     </Row>

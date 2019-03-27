@@ -7,6 +7,7 @@ import { Glyphicon } from "react-bootstrap";
 import { reduxForm as ReduxForm } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import { component as ProjectUsersView } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -58,7 +59,7 @@ describe("Project users view", () => {
         bsStyle="primary"
         onClick={functionMock}
       >
-        <Glyphicon glyph="edit" />
+        <FluidIcon icon="edit" />
         &nbsp;search_findings.tab_users.edit
       </Button>,
     )

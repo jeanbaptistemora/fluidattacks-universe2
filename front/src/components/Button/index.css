@@ -23,17 +23,29 @@
   opacity: 1;
 }
 
+:local .button span {
+  font-size: 20px;
+}
+
 :local .button svg {
   width: 20px !important;
   height: 20px !important;
 }
 
-:local .button[disabled] svg * {
+:local .button[disabled] svg path {
   fill: #919191 !important;
   stroke: #919191 !important;
 }
 
-:local .button:hover:not([disabled]) svg * {
+:local .button:hover:not([disabled]) svg path {
   fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+:local .button[disabled] svg circle {
+  stroke: #919191 !important;
+}
+
+:local .button:hover:not([disabled]) svg circle {
   stroke: #FFFFFF !important;
 }

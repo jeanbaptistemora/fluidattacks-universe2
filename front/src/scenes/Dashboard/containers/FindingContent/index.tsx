@@ -1,13 +1,14 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import ConfirmDialog from "../../../../components/ConfirmDialog/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import { dropdownField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
@@ -127,12 +128,12 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
       <React.Fragment>
         <Col md={2}>
           <Button block={true} bsStyle="success" onClick={handleApprove}>
-            <Glyphicon glyph="ok" />&nbsp;Approve
+            <FluidIcon icon="verified" />&nbsp;Approve
           </Button>
         </Col>
         <Col md={2}>
           <Button block={true} bsStyle="warning" onClick={handleOpenRejectConfirm}>
-            <Glyphicon glyph="trash" />&nbsp;Reject
+            <FluidIcon icon="delete" />&nbsp;Reject
           </Button>
         </Col>
       </React.Fragment>
@@ -144,7 +145,7 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
               bsStyle="warning"
               onClick={isDraft ? handleOpenRejectConfirm : handleOpenDeleteConfirm}
             >
-              <Glyphicon glyph="trash" />&nbsp;Delete
+              <FluidIcon icon="delete" />&nbsp;Delete
             </Button>
           </Col>
         ) : undefined;

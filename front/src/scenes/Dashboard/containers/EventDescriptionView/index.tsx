@@ -17,6 +17,7 @@ import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
@@ -172,7 +173,7 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
               store.dispatch(actions.editEvent());
             }}
           >
-            <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
+            <FluidIcon icon="edit" /> {translate.t("search_findings.tab_severity.editable")}
           </Button>
         </Col>
       </Row>

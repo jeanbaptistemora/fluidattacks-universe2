@@ -16,6 +16,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import ConfirmDialog from "../../../../components/ConfirmDialog";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
@@ -91,7 +92,7 @@ const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
 
   return (
       <Button bsStyle="warning" onClick={handleClick}>
-        <Glyphicon glyph="ok" /> {translate.t("search_findings.tab_description.mark_verified")}
+        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
       </Button>
   );
 };
@@ -110,7 +111,7 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
         disabled={!canRequestVerification}
         onClick={(): void => { store.dispatch(actions.openRemediationMdl()); }}
       >
-        <Glyphicon glyph="ok" /> {translate.t("search_findings.tab_description.request_verify")}
+        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify")}
       </Button>
     );
   };
@@ -130,7 +131,7 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
         {_.includes(["admin", "customer"], props.userRole) ? renderRequestVerifiyBtn(props) : undefined}
         {props.isEditing ? renderUpdateBtn() : undefined}
         <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
-          <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_description.editable")}
+          <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
         </Button>
       </ButtonToolbar>
     </React.Fragment>

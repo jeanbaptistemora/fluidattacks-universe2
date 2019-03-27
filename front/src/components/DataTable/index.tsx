@@ -7,7 +7,7 @@
  */
 import _ from "lodash";
 import React, { ReactElement } from "react";
-import { Glyphicon, Label } from "react-bootstrap";
+import { Label } from "react-bootstrap";
 import {
   BootstrapTable,
   DataAlignType,
@@ -20,6 +20,7 @@ import {
  */
 import "react-bootstrap-table/dist/react-bootstrap-table.min.css";
 import globalStyle from "../../styles/global.css";
+import { FluidIcon } from "../FluidIcon";
 import style from "./index.css";
 
 export interface ITableProps {
@@ -106,7 +107,7 @@ const deleteFormatter: ((value: string, row: { [key: string]: string }, key: IHe
   (value: string, row: { [key: string]: string }, key: IHeader): JSX.Element =>
     (
       <a onClick={(): void => { if (key.deleteFunction !== undefined) { key.deleteFunction(row); }}}>
-        <Glyphicon glyph="trash"/>
+        <FluidIcon icon="delete" width="20px" height="20px" />
       </a>
     );
 

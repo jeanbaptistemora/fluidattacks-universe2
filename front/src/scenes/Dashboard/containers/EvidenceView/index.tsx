@@ -7,7 +7,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
  * Disabling this two rules is necessary for
@@ -20,6 +20,7 @@ import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
@@ -77,7 +78,7 @@ const renderEditPanel: ((props: IEvidenceViewProps) => JSX.Element) = (props: IE
         block={true}
         onClick={(): void => { store.dispatch(actions.editEvidence(!props.isEditing)); }}
       >
-        <Glyphicon glyph="edit" /> {translate.t("search_findings.tab_severity.editable")}
+        <FluidIcon icon="edit" /> {translate.t("search_findings.tab_severity.editable")}
       </Button>
     </Col>
   </Row>

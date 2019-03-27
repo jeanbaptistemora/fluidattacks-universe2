@@ -15,6 +15,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import { msgError } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
@@ -188,7 +189,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         bsStyle="primary"
         onClick={(): void => { openEditModal(); }}
       >
-        <Glyphicon glyph="edit"/>&nbsp;
+        <FluidIcon icon="edit"/>&nbsp;
         {translate.t("search_findings.tab_users.edit")}
       </Button>
     </Col>

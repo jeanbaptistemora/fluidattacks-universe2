@@ -32,7 +32,7 @@ const indicatorBox: React.StatelessComponent<IBoxProps> =
       >
         <Row>
           <Col xs={2} md={2}>
-            <FluidIcon icon={props.icon} width="30" height="30" />
+            <FluidIcon icon={props.icon} width="30px" height="30px" />
           </Col>
           <Col xs={10} md={10}>
             <div className={style.widgetdesc}>

@@ -1,10 +1,11 @@
 import _ from "lodash";
 import React from "react";
-import { Breadcrumb, BreadcrumbItem, Col, Glyphicon, InputGroup, Row } from "react-bootstrap";
+import { Breadcrumb, BreadcrumbItem, Col, InputGroup, Row } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import { textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../GenericForm";
@@ -33,7 +34,7 @@ const navbar: React.SFC<RouteComponentProps> = (props: RouteComponentProps): JSX
             <InputGroup>
               <Field name="projectName" component={textField} placeholder={translate.t("navbar.searchPlaceholder")} />
               <InputGroup.Button>
-                <Button type="submit"><Glyphicon glyph="search" /></Button>
+                <Button type="submit"><FluidIcon icon="search" /></Button>
               </InputGroup.Button>
             </InputGroup>
           </GenericForm>

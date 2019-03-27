@@ -23,6 +23,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { IHeader } from "../../../../components/DataTable/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
@@ -165,7 +166,7 @@ export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element
         <Row>
           <Col md={4} sm={12}>
             <Button bsStyle="warning" href={`${baseUrl}/${props.findingId}/download_vulnerabilities`}>
-              <Glyphicon glyph="save" /> {translate.t("search_findings.tab_description.download_vulnerabilities")}
+              <FluidIcon icon="export" /> {translate.t("search_findings.tab_description.download_vulnerabilities")}
             </Button>
           </Col>
           <Col md={5} sm={12}>
