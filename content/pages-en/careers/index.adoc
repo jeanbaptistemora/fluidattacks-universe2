@@ -163,15 +163,13 @@ you just have to follow these detailed [button]#link:reverse-references/[instruc
 
 The goal of this stage
 is to take a polygraph test.
-Our business is information security,
-for which reason it may be possible that,
-during the selection process or employment,
-you will be asked to take this type of test.
-This is optional and requires an estimated effort of 2 hours.
-Esto es opcional y el esfuerzo requerido estimado es de 2 horas.
-To do this you must first finish the previous stage.
-To begin,
+Our company is focused on information security,
+for this reason, we may require you to take this kind of test
+during the selection process.
+This step is optional and requires an average effort of +2+ hours.
+To start, you must have finished the previous stage,
 write us an email at careers@autonomicmind.com
+and we will provide further information about the test.
 
 == 13. Audition
 

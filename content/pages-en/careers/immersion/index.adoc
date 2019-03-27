@@ -93,32 +93,37 @@ It depends entirely on your dedication and performance.
 
 == 6. Training sequence
 
-Challenges and articles must be presented in the following order:
+Hacking/Programming challenges and blog entries
+must be presented in the following order:
 
-. Complete *five (5)* challenge rounds.
+. Complete *five (5)* challenge cycles.
 
-.. A challenge round consists of completing in strict order:
+.. A challenge cycle consists of the following steps,
+that you must complete in strict order:
 
-... *one (1)* approved +MR+ of +programming+ on the master branch from the
-link:https://gitlab.com/autonomicmind/training/[training repo],
+... *one (1)* approved +MR+ solving a +programming+ challenge in the
+link:https://gitlab.com/autonomicmind/training/[training repository],
 
-... *one (1)* approved +MR+ of +ctf-hacking+ on the master branch from the
-link:https://gitlab.com/autonomicmind/training/[training repo], and
+... *one (1)* approved +MR+ solving a +ctf-hacking+ challenge in the
+link:https://gitlab.com/autonomicmind/training/[training repository], and
 
-... *one (1)* approved +MR+ of +vbd-hacking+ on the master branch from the
-link:https://gitlab.com/fluidattacks/writeups[writeups repo].
+... *one (1)* approved +MR+ solving a +vbd-hacking+ challenge in the
+link:https://gitlab.com/fluidattacks/writeups[writeups repository].
+A +MR+ is considered approved when it's merged to the +master+ branch
+of each repository.
 
-.. You shall not do consecutive +MRs+ with solutions of the same kind.
-.. You shall not change the order in any way.
-.. You shall not skip any challenge type.
+.. Please consider the following restrictions:
++
+* Do *NOT* send consecutive +MR+ solving challenges of the same type.
+* Do *NOT* change the cycle order in any way.
+* Do *NOT* skip any challenge type in the cycle.
 
-. Once you've done *five (5)* challenge rounds.
-Write *one (1)* article for the blog.
+. Once you have completed *five (5)* challenge cycles,
+write *one (1)* article for the blog,
+by sending a +MR+ to the link:https://gitlab.com/fluidattacks/web[web repository].
 
 . Repeat the previous steps until you complete the
 [button]#link:../immersion/#objectives[objectives]#
-.. In short:
-rounds of [red]#(prog ctfh vbdh )\{5\}blog# until you complete the objectives.
 
 . For programming challenges you should take into account:
 
@@ -136,7 +141,7 @@ start again solving a challenge of lower score.
 ... Try different approaches,
 (Recursion, Heuristics, Dynamic Programming, Greedy, Divide and Conquer, etc).
 
-... Persevere! We are interested in disciplined programmers.
+... *Persevere!* We are interested in disciplined programmers.
 
 .. If you reach a point where you definitely cannot advance:
 
