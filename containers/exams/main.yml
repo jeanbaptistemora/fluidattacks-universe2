@@ -35,7 +35,7 @@
         repo: "git://git.moodle.org/moodle.git"
         depth: 1
         dest: "/var/www/html"
-        version: "MOODLE_31_STABLE"
+        version: "MOODLE_36_STABLE"
 
     - name: Crear directorio para los datos de Moodle
       file:
@@ -91,7 +91,7 @@
       git:
         repo: "git://github.com/moodleou/moodle-quizaccess_safeexambrowser.git"
         dest: "/var/www/html/mod/quiz/accessrule/safeexambrowser"
-        version: "v1.1"
+        version: "v1.3"
 
     - name: Configurar cron
       cron:

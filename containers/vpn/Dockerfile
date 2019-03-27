@@ -1,31 +1,36 @@
-FROM registry.gitlab.com/fluidsignal/serves:base
+FROM debian:buster-slim
 
 LABEL mantainer="engineering@fluidattacks.com"
 
+ENV DEBIAN_FRONTEND noninteractive
+
+COPY . /root/
+
 WORKDIR /root/
 
-ADD . /root/
+ARG ANSIBLE_VAULT
 
-ARG VAULT_HOST
-ARG VAULT_PORT
-ARG VAULT_API_URL
-ARG ROLE_ID
-ARG SECRET_ID
-
-RUN export VAULT_TOKEN=$(curl \
-        --request POST \
-        --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}' \
-        "${VAULT_API_URL}" | jq -r '.auth.client_token') \
-    && vaultenv \
-        --host "${VAULT_HOST}" \
-        --port "${VAULT_PORT}" \
-        --secrets-file ./env.vars \
-        ./build.sh \
-    && curl \
-        --request POST \
-        --header "X-Vault-Token: ${VAULT_TOKEN}" \
-        "https://${VAULT_HOST}/v1/auth/token/revoke-self"
+RUN apt-get update \
+    && apt-get dist-upgrade -y \
+    && apt-get install --no-install-recommends -y \
+        ca-certificates \
+        curl \
+        iptables \
+        openvpn \
+        python3 \
+        python3-dev \
+    && curl https://bootstrap.pypa.io/get-pip.py | python3 \
+    && pip3 install --no-cache-dir ansible \
+    && echo -n "${ANSIBLE_VAULT}" > vault.txt \
+    && ansible-playbook main.yml --vault-password-file vault.txt \
+    && apt-get remove --purge -y \
+        curl \
+        python3-dev \
+    && apt-get autoremove -y \
+    && rm -rf \
+        /root/* \
+        /var/lib/apt/lists/*
 
 EXPOSE 443
 
-CMD run
+CMD /usr/local/sbin/run
