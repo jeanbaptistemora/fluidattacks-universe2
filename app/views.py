@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 import os
 import sys
 import re
-import threading
 
 from botocore.exceptions import ClientError
 from magic import Magic
@@ -22,11 +21,9 @@ from django.views.decorators.http import require_http_methods, condition
 from django.http import HttpResponse
 from jose import jwt
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 import boto3
-import pytz
 import rollbar
 import yaml
 
@@ -37,10 +34,8 @@ from .decorators import (
     require_project_access, require_finding_access,
     cache_content)
 from .techdoc.IT import ITReport
-from .domain import finding as finding_domain
 from .dto.finding import (
     FindingDTO, format_finding_date, parse_finding,
-    migrate_description, migrate_treatment, migrate_report_date,
     parse_dashboard_finding_dynamo
 )
 from .domain.vulnerability import (
@@ -51,9 +46,6 @@ from .dto import project as project_dto
 from .dto.finding import mask_finding_fields_dynamo
 from .documentator.pdf import CreatorPDF
 from .documentator.secure_pdf import SecurePDF
-# pylint: disable=E0402
-from .mailer import send_mail_delete_finding
-from .mailer import send_mail_delete_draft
 from .services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -990,64 +982,6 @@ def get_myprojects(request):
     return util.response(json_data, 'Success', False)
 
 
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'admin'])
-@require_finding_access
-def delete_finding(request):
-    """Capture and process the ID of an eventuality to eliminate it"""
-    submission_id = request.POST.get('findingid', "")
-    parameters = request.POST.dict()
-    util.invalidate_cache(submission_id)
-    username = request.session['username']
-    if not has_access_to_finding(request.session['username'],
-                                 submission_id, request.session['role']):
-        util.cloudwatch_log(request,
-                            'Security: \
-Attempted to delete findings without permission')
-        return util.response([], 'Access denied', True)
-    fin_dto = FindingDTO()
-    try:
-        context = {
-            'mail_analista': username,
-            'name_finding': submission_id,
-            'id_finding': submission_id,
-            'description': parameters['data[justification]'],
-            'project': "",
-        }
-
-        api = FormstackAPI()
-        frmreq = api.get_submission(submission_id)
-        finding = fin_dto.parse(submission_id, frmreq)
-        context['project'] = finding['projectName']
-        context["name_finding"] = finding["finding"]
-        delete_all_coments(submission_id)
-        delete_s3_all_evidences(submission_id, finding['projectName'].lower())
-        integrates_dao.delete_finding_dynamo(submission_id)
-        vulns = integrates_dao.get_vulnerabilities_dynamo(submission_id)
-        for vuln in vulns:
-            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'],
-                                                       submission_id)
-        util.invalidate_cache(context['project'])
-        result = api.delete_submission(submission_id)
-        if result is None:
-            rollbar.report_message('Error: An error ocurred deleting finding',
-                                   'error', request)
-            return util.response([], 'Error', True)
-        approvers = FI_MAIL_REVIEWERS.split(',')
-        mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-        mail_to.extend(approvers)
-        email_send_thread = \
-            threading.Thread(name="Delete finding email thread",
-                             target=send_mail_delete_finding,
-                             args=(mail_to, context,))
-        email_send_thread.start()
-        return util.response([], 'Success', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
-
 @cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -1056,129 +990,6 @@ def total_severity(request):
     project = request.GET.get('project', "")
     toe = integrates_dao.get_toe_dynamo(project)
     return util.response(toe, 'Success', False)
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['admin'])
-@require_finding_access
-# pylint: disable=R0101
-def accept_draft(request):
-    parameters = request.POST.get('findingid', "")
-    try:
-        finding = catch_finding(request, parameters)
-        if "releaseDate" not in finding:
-            tzn = pytz.timezone('America/Bogota')
-            release_date = datetime.now(tz=tzn).date()
-            if ('subscription' in finding and
-                (finding['subscription'] == 'CONTINUOUS' or
-                    finding['subscription'] == 'Concurrente' or
-                    finding['subscription'] == 'Si')):
-                releases = \
-                    integrates_dao.get_project_dynamo(finding['projectName'].lower())
-                for release in releases:
-                    if "lastRelease" in release:
-                        last_release = datetime.strptime(
-                            release["lastRelease"].split(" ")[0],
-                            '%Y-%m-%d'
-                        )
-                        last_release = last_release.replace(tzinfo=tzn).date()
-                        if last_release == release_date:
-                            release_date = release_date + timedelta(days=1)
-                        elif last_release > release_date:
-                            release_date = last_release + timedelta(days=1)
-            release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
-            release = {}
-            release['id'] = parameters
-            release['releaseDate'] = release_date
-            primary_keys = ["finding_id", parameters]
-            table_name = "FI_findings"
-            has_release = integrates_dao.add_attribute_dynamo(
-                table_name, primary_keys, "releaseDate", release_date)
-            has_last_vuln = integrates_dao.add_attribute_dynamo(
-                table_name, primary_keys, "lastVulnerability", release_date)
-            finding['projectName'] = finding['projectName'].lower()
-            if has_release and has_last_vuln:
-                files_data = {'finding_id': parameters,
-                              'project': finding['projectName']}
-                file_first_name = '{project!s}-{findingid}'\
-                    .format(project=files_data['project'],
-                            findingid=files_data['finding_id'])
-                file_url = '{project!s}/{findingid}/{file_name}'\
-                    .format(project=files_data['project'],
-                            findingid=files_data['finding_id'],
-                            file_name=file_first_name)
-                finding_domain.migrate_all_files(files_data, file_url, request)
-                integrates_dao.add_release_toproject_dynamo(finding['projectName'],
-                                                            True, release_date)
-                finding_domain.save_severity(finding)
-                migrate_description(finding)
-                migrate_treatment(finding)
-                migrate_report_date(finding)
-                finding_domain.migrate_evidence_description(finding)
-                util.invalidate_cache(finding['projectName'])
-                util.invalidate_cache(parameters)
-                return util.response([], 'success', False)
-            else:
-                rollbar.report_message('Error: \
-An error occurred accepting the draft', 'error', request)
-                return util.response([], 'error', True)
-        else:
-            util.cloudwatch_log(request, 'Security: \
-Attempted to accept an already released finding')
-            return util.response([], 'error', True)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
-
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['admin'])
-@require_finding_access
-def delete_draft(request):
-    submission_id = request.POST.get('findingid', "")
-    util.invalidate_cache(submission_id)
-    username = request.session['username']
-    fin_dto = FindingDTO()
-    try:
-        finding_data = catch_finding(request, submission_id)
-        if "releaseDate" not in finding_data:
-            api = FormstackAPI()
-            frmreq = api.get_submission(submission_id)
-            finding = fin_dto.parse(submission_id, frmreq)
-            context = {
-                'project': finding['projectName'],
-                'analyst_mail': finding['analyst'],
-                'finding_name': finding['finding'],
-                'admin_mail': username,
-                'finding_id': submission_id,
-            }
-            result = api.delete_submission(submission_id)
-            if result is None:
-                rollbar.report_message('Error: \
-An error ocurred deleting the draft', 'error', request)
-                return util.response([], 'Error', True)
-            delete_all_coments(submission_id)
-            delete_s3_all_evidences(submission_id,
-                                    finding['projectName'].lower())
-            integrates_dao.delete_finding_dynamo(submission_id)
-            vulns = integrates_dao.get_vulnerabilities_dynamo(submission_id)
-            for vuln in vulns:
-                integrates_dao.delete_vulnerability_dynamo(vuln['UUID'],
-                                                           submission_id)
-            admins = integrates_dao.get_admins()
-            mail_to = [x[0] for x in admins]
-            mail_to.append(finding['analyst'])
-            email_send_thread = \
-                threading.Thread(name="Delete draft email thread",
-                                 target=send_mail_delete_draft,
-                                 args=(mail_to, context,))
-            email_send_thread.start()
-            return util.response([], 'success', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)
 
 
 def delete_all_coments(finding_id):

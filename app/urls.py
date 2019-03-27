@@ -54,9 +54,6 @@ urlpatterns = [
         views.get_evidence),
     url(r'^(?P<findingid>[0-9]+)/download_vulnerabilities?$', views.download_vulnerabilities),
     url(r'^is_customer_admin/?\.*$', views.is_customer_admin, name='is_customer_admin'),
-    url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),
-    url(r'^accept_draft/?\.*$', views.accept_draft, name='accept_draft'),
-    url(r'^delete_draft/?\.*$', views.delete_draft, name='delete_draft'),
     # Documentation.
     url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$',
         views.project_to_pdf),
