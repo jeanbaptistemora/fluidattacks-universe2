@@ -31,8 +31,7 @@ import yaml
 from . import util
 from .decorators import (
     authenticate, authorize,
-    require_project_access, require_finding_access,
-    cache_content)
+    require_project_access, cache_content)
 from .techdoc.IT import ITReport
 from .dto.finding import (
     FindingDTO, format_finding_date, parse_finding,
@@ -497,36 +496,6 @@ def get_project_info(project):
     return []
 
 
-@cache_content
-@cache_control(private=True, max_age=3600)
-@csrf_exempt
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_finding_access
-def get_finding(request):
-    submission_id = request.POST.get('findingid', "")
-    finding = integrates_dao.get_data_dynamo(
-        'FI_findings',
-        'finding_id',
-        str(submission_id))
-    if finding and finding[0].get('report_date'):
-        finding_parsed = parse_finding(finding[0])
-        finding = format_finding(finding_parsed, request)
-    else:
-        finding = catch_finding(request, submission_id)
-    if finding is not None:
-        if finding['vulnerability'].lower() == 'masked':
-            util.cloudwatch_log(request, 'Warning: Project masked')
-            return util.response([], 'Project masked', True)
-        else:
-            return util.response(finding, 'Success', False)
-    else:
-        util.cloudwatch_log(request,
-                            'Finding with submission id: ' +
-                            submission_id + ' not found')
-        return util.response([], 'Error', True)
-
-
 @cache_control(private=True, max_age=3600)
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -802,167 +771,6 @@ def retrieve_image(request, img_file):
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""
     return util.list_s3_objects(CLIENT_S3, BUCKET_S3, key)
-
-
-def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
-    fileroute = "/tmp/:id.tmp".replace(":id", filename)
-    namecomplete = fileurl + "-" + field + "-" + filename + ext
-    with open(fileroute, "r") as file_obj:
-        try:
-            CLIENT_S3.upload_fileobj(file_obj, BUCKET_S3, namecomplete)
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    file_name = namecomplete.split("/")[2]
-    is_file_saved = save_file_url(parameters['findingid'],
-                                  fieldname, file_name)
-    os.unlink(fileroute)
-    return is_file_saved
-
-
-def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
-    key_val = fileurl + "-" + field
-    key_list = key_existing_list(key_val)
-    if key_list:
-        for k in key_list:
-            CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=k)
-    file_name_complete = fileurl + "-" + field + "-" + upload.name
-    try:
-        CLIENT_S3.upload_fileobj(upload.file, BUCKET_S3, file_name_complete)
-        file_name = file_name_complete.split("/")[2]
-        save_file_url(parameters['findingid'], fieldname, file_name)
-        return False
-    except ClientError:
-        rollbar.report_exc_info()
-        return True
-
-
-def save_file_url(finding_id, field_name, file_url):
-    file_data = []
-    file_data.append({"name": field_name, "file_url": file_url})
-    remove_file_url(finding_id, field_name)
-    is_url_saved = integrates_dao.add_list_resource_dynamo(
-        "FI_findings",
-        "finding_id",
-        finding_id,
-        file_data,
-        "files")
-    return is_url_saved
-
-
-def remove_file_url(finding_id, field_name):
-    findings = integrates_dao.get_data_dynamo(
-        "FI_findings",
-        "finding_id",
-        finding_id)
-    for finding in findings:
-        files = finding.get("files")
-        if files:
-            _index = 0
-            for file_obj in files:
-                if file_obj.get("name") == field_name:
-                    integrates_dao.remove_list_resource_dynamo(
-                        "FI_findings",
-                        "finding_id",
-                        finding_id,
-                        "files",
-                        _index)
-                else:
-                    message = \
-                        'Info: Finding {finding!s} does not have {field!s} in s3' \
-                        .format(finding=finding_id, field=field_name)
-                    util.cloudwatch_log_plain(message)
-                _index += 1
-        else:
-            message = 'Info: Finding {finding!s} does not have evidences in s3' \
-                .format(finding=finding_id)
-            util.cloudwatch_log_plain(message)
-
-
-def migrate_all_files(parameters, file_url, request):
-    fin_dto = FindingDTO()
-    try:
-        api = FormstackAPI()
-        frmreq = api.get_submission(parameters['findingid'])
-        finding = fin_dto.parse(parameters['findingid'], frmreq)
-        files = [{
-            "id": "0",
-            "name": "animation",
-            "field": fin_dto.ANIMATION,
-            "ext": ".gif"
-        }, {
-            "id": "1",
-            "name": "exploitation",
-            "field": fin_dto.EXPLOTATION,
-            "ext": ".png"
-        }, {
-            "id": "2",
-            "name": "evidence_route_1",
-            "field": fin_dto.DOC_ACHV1,
-            "ext": ".png"
-        }, {
-            "id": "3",
-            "name": "evidence_route_2",
-            "field": fin_dto.DOC_ACHV2,
-            "ext": ".png"
-        }, {
-            "id": "4",
-            "name": "evidence_route_3",
-            "field": fin_dto.DOC_ACHV3,
-            "ext": ".png"
-        }, {
-            "id": "5",
-            "name": "evidence_route_4",
-            "field": fin_dto.DOC_ACHV4,
-            "ext": ".png"
-        }, {
-            "id": "6",
-            "name": "evidence_route_5",
-            "field": fin_dto.DOC_ACHV5,
-            "ext": ".png"
-        }, {
-            "id": "7",
-            "name": "exploit",
-            "field": fin_dto.EXPLOIT,
-            "ext": ".py"
-        }, {
-            "id": "8",
-            "name": "fileRecords",
-            "field": fin_dto.REG_FILE,
-            "ext": ".csv"
-        }]
-        for file_obj in files:
-            filename = '{file_url}-{field}'.format(file_url=file_url,
-                                                   field=file_obj["field"])
-            folder = key_existing_list(filename)
-            if finding.get(file_obj["name"]) and \
-                    parameters.get("id") != file_obj["id"] and not folder:
-                file_id = finding[file_obj["name"]]
-                fileroute = "/tmp/:id.tmp".replace(":id", file_id)
-                if os.path.exists(fileroute):
-                    send_file_to_s3(finding[file_obj["name"]],
-                                    parameters,
-                                    file_obj["field"],
-                                    file_obj["name"],
-                                    file_obj["ext"],
-                                    file_url)
-                else:
-                    drive_api = DriveAPI()
-                    file_download_route = drive_api.download(file_id)
-                    if file_download_route:
-                        send_file_to_s3(finding[file_obj["name"]],
-                                        parameters,
-                                        file_obj["field"],
-                                        file_obj["name"],
-                                        file_obj["ext"],
-                                        file_url)
-                    else:
-                        rollbar.report_message(
-                            'Error: An error occurred downloading file from Drive',
-                            'error',
-                            request)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
 
 
 @cache_content
