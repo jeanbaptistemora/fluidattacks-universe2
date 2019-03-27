@@ -12,8 +12,11 @@ import pytz
 import rollbar
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
-from app.domain.project import add_comment, validate_tags, validate_project
-from graphene import String, ObjectType, List, Int, Boolean, Mutation, Field, JSONString
+from app.domain.project import (
+    add_comment, validate_tags, validate_project, get_vulnerabilities,
+    get_closed_percentage, get_pending_closing_check, get_last_closing_vuln
+)
+from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
 
 from ..dao import integrates_dao
@@ -27,10 +30,14 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     name = String()
     findings = List(Finding)
     open_vulnerabilities = Int()
+    closed_vulnerabilities = Int()
     subscription = String()
     comments = List(GenericScalar)
     tags = List(String)
     deletion_date = String()
+    closed_percentage = Float()
+    pending_closing_check = Int()
+    last_closing_vuln = Int()
     users = List(User, filter_roles=List(String))
 
     def __init__(self, project_name):
@@ -40,6 +47,11 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.comments = []
         self.tags = []
         self.deletion_date = ''
+        self.open_vulnerabilities = 0
+        self.closed_vulnerabilities = 0
+        self.closed_percentage = 0.0
+        self.pending_closing_check = 0
+        self.last_closing_vuln = 0
 
     def resolve_name(self, info):
         """Resolve name attribute."""
@@ -60,10 +72,34 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
         del info
-        open_vulnerabilities = [i.open_vulnerabilities for i in self.findings
-                                if i.open_vulnerabilities > 0]
-        self.open_vulnerabilities = sum(open_vulnerabilities)
+        self.open_vulnerabilities = get_vulnerabilities(
+            self.name, 'openVulnerabilities')
         return self.open_vulnerabilities
+
+    def resolve_closed_vulnerabilities(self, info):
+        """Resolve closed vulnerabilities attribute."""
+        del info
+        self.closed_vulnerabilities = get_vulnerabilities(
+            self.name, 'closedVulnerabilities')
+        return self.closed_vulnerabilities
+
+    def resolve_closed_percentage(self, info):
+        """Resolve closed percentage attribute."""
+        del info
+        self.closed_percentage = get_closed_percentage(self.name)
+        return self.closed_percentage
+
+    def resolve_pending_closing_check(self, info):
+        """Resolve pending closing check attribute."""
+        del info
+        self.pending_closing_check = get_pending_closing_check(self.name)
+        return self.pending_closing_check
+
+    def resolve_last_closing_vuln(self, info):
+        """Resolve days since last closing vuln attribute."""
+        del info
+        self.last_closing_vuln = get_last_closing_vuln(self.name)
+        return self.last_closing_vuln
 
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""

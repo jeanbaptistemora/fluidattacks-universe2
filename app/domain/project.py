@@ -6,9 +6,15 @@
 
 import threading
 import re
+from decimal import Decimal
+import datetime
+import pytz
 
 from app.dao import integrates_dao
 from app.mailer import send_mail_comment
+from app.dto.finding import (
+    total_vulnerabilities
+)
 
 
 def comment_has_parent(comment_data):
@@ -80,3 +86,90 @@ def validate_project(project):
     else:
         is_valid_project = False
     return is_valid_project
+
+
+def get_vulnerabilities(project, vuln_type):
+    """Get total vulnerabilities by type."""
+    findings = integrates_dao.get_findings_released_dynamo(
+        project.lower(), 'finding_id')
+    if findings:
+        vulnerabilities = \
+            [total_vulnerabilities(i['finding_id']).get(vuln_type) for i in findings]
+        vulnerabilities = sum(vulnerabilities)
+    else:
+        vulnerabilities = 0
+    return vulnerabilities
+
+
+def get_closed_percentage(project):
+    """Calculate closed percentage."""
+    findings = integrates_dao.get_findings_released_dynamo(
+        project.lower(), 'finding_id')
+    total_vuln = 0
+    if findings:
+        for fin in findings:
+            vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
+                fin['finding_id'])
+            total_vuln += len(vulnerabilities)
+    else:
+        closed_percentage = 0
+    if total_vuln:
+        closed_vulnerabilities = get_vulnerabilities(
+            project, 'closedVulnerabilities')
+        closed_percentage = Decimal(
+            (closed_vulnerabilities * 100.0) / total_vuln).quantize(Decimal("0.1"))
+    else:
+        closed_percentage = 0
+    return closed_percentage
+
+
+def get_pending_closing_check(project):
+    """Check for pending closing checks."""
+    pending_closing = len(integrates_dao.get_remediated_project_dynamo(project))
+    return pending_closing
+
+
+def get_last_closing_vuln(project):
+    """Get day since last vulnerability closing."""
+    findings = integrates_dao.get_findings_released_dynamo(
+        project, 'finding_id')
+    if findings:
+        closing_dates = []
+        for fin in findings:
+            vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
+                fin['finding_id'])
+            for vuln in vulnerabilities:
+                last_closing_date = get_last_closing_date(vuln)
+                if last_closing_date:
+                    closing_dates.append(last_closing_date)
+                else:
+                    # Vulnerability does not have closing date
+                    pass
+    else:
+        last_closing = 0
+    if closing_dates:
+        current_date = max(closing_dates)
+        tzn = pytz.timezone('America/Bogota')
+        last_closing = \
+            int((datetime.datetime.now(tz=tzn).date() - current_date).days)
+    else:
+        last_closing = 0
+    return last_closing
+
+
+def get_last_closing_date(vulnerability):
+    """Get last closing date of a vulnerability."""
+    all_states = vulnerability.get('historic_state')
+    current_state = all_states[len(all_states) - 1]
+    last_closing_date = None
+    if current_state.get('state') == 'closed':
+        last_closing_date = datetime.datetime.strptime(
+            current_state.get('date').split(' ')[0],
+            '%Y-%m-%d'
+        )
+        tzn = pytz.timezone('America/Bogota')
+        last_closing_date = last_closing_date.replace(tzinfo=tzn).date()
+    else:
+        # Vulnerability does not have closing date
+        pass
+    return last_closing_date

@@ -10,6 +10,7 @@ from botocore.exceptions import ClientError
 from __init__ import FI_AWS_DYNAMODB_ACCESS_KEY
 from __init__ import FI_AWS_DYNAMODB_SECRET_KEY
 import rollbar
+from app import util
 from ..utils import forms
 
 
@@ -984,6 +985,21 @@ def get_remediated_allfin_dynamo(filter_value):
     return items
 
 
+def get_remediated_project_dynamo(project_name):
+    """Gets the treatment by project."""
+    table = DYNAMODB_RESOURCE.Table('FI_remediated')
+    filter_key = 'project'
+    filtering_exp = Key(filter_key).eq(project_name) & Key('remediated').eq(True)
+    response = table.scan(FilterExpression=filtering_exp)
+    items = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = table.scan(
+            FilterExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        items += response['Items']
+    return items
+
+
 def get_project_dynamo(project):
     """Get a project info."""
     filter_value = project.lower()
@@ -1726,12 +1742,9 @@ def update_item_list_dynamo(
         return False
 
 
-def get_findings_dynamo(project, data_attr=''):
+def get_findings_data_dynamo(filtering_exp, data_attr=''):
     """Get all the findings of a project."""
     table = DYNAMODB_RESOURCE.Table('FI_findings')
-    filter_key = 'project_name'
-    project_name = project.lower()
-    filtering_exp = Attr(filter_key).eq(project_name)
     if data_attr:
         response = table.scan(
             FilterExpression=filtering_exp,
@@ -1750,15 +1763,36 @@ def get_findings_dynamo(project, data_attr=''):
         response = table.scan(
             FilterExpression=filtering_exp)
         items = response['Items']
-        while True:
-            if response.get('LastEvaluatedKey'):
-                response = table.scan(
-                    FilterExpression=filtering_exp,
-                    ExclusiveStartKey=response['LastEvaluatedKey'])
-                items += response['Items']
-            else:
-                break
+        while response.get('LastEvaluatedKey'):
+            response = table.scan(
+                FilterExpression=filtering_exp,
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
     return items
+
+
+def get_findings_dynamo(project, data_attr=''):
+    """Get all the findings of a project."""
+    project_name = project.lower()
+    filter_key = 'project_name'
+    filtering_exp = Attr(filter_key).eq(project_name)
+    findings = get_findings_data_dynamo(filtering_exp, data_attr)
+    return findings
+
+
+def get_findings_released_dynamo(project, data_attr=''):
+    """Get all the findings that has been released."""
+    filter_key = 'project_name'
+    project_name = project.lower()
+    filtering_exp = Attr(filter_key).eq(project_name) & Attr('releaseDate').exists()
+    if data_attr and 'releaseDate' not in data_attr:
+        data_attr += ', releaseDate'
+    else:
+        # By default it return all the attributes
+        pass
+    findings = get_findings_data_dynamo(filtering_exp, data_attr)
+    findings_released = [i for i in findings if util.validate_release_date(i)]
+    return findings_released
 
 
 def get_events():
