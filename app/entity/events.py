@@ -134,6 +134,8 @@ class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_affectation(self, info):
         """ Resolve affectation attribute """
         del info
+        if not self.affectation:
+            return ''
         return self.affectation
 
     def resolve_accessibility(self, info):
