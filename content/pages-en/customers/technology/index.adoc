@@ -24,14 +24,13 @@ Arus team of experts is committed to the needs of client organizations.
 
 2+a|== Ceiba Software
 
-Company with +9+ years in the market and +185+ engineers,
-specialized in the construction
-and integration of software solutions in various technologies.
-They seek to generate greater value in the business of their clients
-by managing projects under agile methodologies
-combining three fundamental elements:
-Solid technical capacity, various software tools
-and Knowledge in industry verticals.
+Ceiba Software is a software company specializing
+in the construction and integration of software solutions
+for various technologies.
+Ceiba Software's +185+ engineers help clients maximize revenue and efficiency
+by managing projects combining three fundamental elements:
+solid technical capacity, various software tools,
+and knowledge of industry verticals.
 
 a|image::logo-ceiba.png[alt="Logo Ceiba",link="https://www.ceiba.com.co/es"]
 
@@ -58,22 +57,20 @@ a|image::logo-heinson.png[alt="Logo Heinson",link="https://www.heinsohn.com.co"]
 
 2+a|== Heinsohn
 
-Company with extensive knowledge in all sectors of the industry,
-with experience in the main companies in Latin America and the USA;
-Relations with leading technology suppliers in the world such as IBM,
-Oracle, Microsoft, Saba, CA, SAP, among others. Head office in Bogotá, Colombia,
-with offices in seven cities of the country
-and branches in Latin America and the United States.
-They comply with the ISO 9001: 2000 standard
-and are valued with the highest level of quality
-of the CMMI Level +5+, version +1.3+ processes.
+Heinsohn is a Colombian-based company
+with branches throughout Latin America and the United States.
+With extensive knowledge and experience in business technology,
+they have worked with +IBM+, Oracle, Microsoft, Saba, +CA+, +SAP+, and others.
+They comply with the +ISO 9001+: +2000+ standard
+and have achieved the highest quality level of +CMMI+ Level 5,
+version +1.3+ processes.
 
 2+a|== Indra
 
-{spain} One of the leading global technology
+{spain} Indra is one of the leading global technology
 and consulting companies for key business operations.
-World leading provider of proprietary solutions in specific segments
-of the Transportation and Defense markets,
+Indra is a world-leading provider of proprietary solutions
+in specific segments of the transportation and defense markets,
 and the leading company in Information Technology in Spain and Latin America.
 
 a|image::logo-indra.png[alt="Logo Indra",link="https://www.indracompany.com/"]
@@ -82,13 +79,12 @@ a|image::logo-intergrupo.png[alt="Logo Intergrupo",link="http://www.intergrupo.c
 
 2+a|== Intergrupo
 
-Organization with a presence in the Latin American and Spanish markets,
-recognized for delivering solutions and integral services
-based on state-of-the-art technology,
-focused on contributing to the digital transformation of organizations.
-It has an important trajectory in the market,
-thanks to the positioning that it has been obtaining
-for more than +20+ years of service.
+Intergrupo S.A. provides integrated IT solutions
+based on state-of-the-art technology to the Latin American and Spanish markets.
+Intergrupo S.A. is focused on contributing to the digital transformation
+of client organizations.
+Over the past twenty years,
+it has continued to rise in importance in Latin America and Spain.
 
 2+a|== Kometsales
 
@@ -105,11 +101,13 @@ a|image::logo-pragma.png[alt="Logo Pragma",link="http://www.pragma.com.co/"]
 
 2+a|== Pragma
 
-Organization that offers digital solutions to meet the needs of companies.
-Currently with offices in Bogota, Medellin and Cali,
-integrated by a staff of professionals composed of creative and engineers.
-The portfolio consists of: Software Factory,
-Process Automation and Integration, Digital Agency, Portals and +CERO+.
+Pragma is a Colombian company comprised of diverse professionals
+bringing the creative and engineering aspects
+of digital problem-solving together to meet their client companies' needs.
+They currently have offices in Bogotá, Medellín, and Cali,
+and their portfolio consists of:
+Software Factory, Process Automation and Integration,
+Digital Agency, Portals and +CERO+.
 
 2+a|== PSL
 
