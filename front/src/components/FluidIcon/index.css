@@ -1,3 +1,6 @@
 :local .container {
   display: inline-block;
+  line-height: 1;
+  position: relative;
+  top: 1px;
 }

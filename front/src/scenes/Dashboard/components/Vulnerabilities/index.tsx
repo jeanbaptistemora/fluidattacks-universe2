@@ -12,7 +12,7 @@
 */
 import _ from "lodash";
 import React, { ComponentType } from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { DataAlignType } from "react-bootstrap-table";
 import {
   InferableComponentEnhancer,
@@ -174,7 +174,7 @@ export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element
           </Col>
           <Col md={3} sm={12}>
             <Button bsStyle="success" onClick={(): void => { updateVulnerabilities(props.findingId); }}>
-              <Glyphicon glyph="open" /> {translate.t("search_findings.tab_description.update_vulnerabilities")}
+              <FluidIcon icon="import" /> {translate.t("search_findings.tab_description.update_vulnerabilities")}
             </Button>
           </Col>
         </Row>

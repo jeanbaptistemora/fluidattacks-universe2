@@ -1,3 +1,8 @@
+:local .button {
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
 :local .button, .button:focus {
   background-color: #FFFFFF;
   border-color: #FF3435;
@@ -24,12 +29,12 @@
 }
 
 :local .button span {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 :local .button svg {
-  width: 20px !important;
-  height: 20px !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 :local .button[disabled] svg path {
