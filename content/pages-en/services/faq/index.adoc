@@ -498,7 +498,7 @@ your proprietary rights to that code.
 
 *What options for retesting are available?*::
  link:../one-shot-hacking[One shot Hacking] includes one retest.
- link:../continuous-hacking/[Continuous Hacking] includes infinite retest
+ link:../continuous-hacking/[Continuous Hacking] includes infinite retests
  during the subscription time.
 
 *What are the scheduled activities during the continuous hacking test?*::
