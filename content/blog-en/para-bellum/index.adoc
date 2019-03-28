@@ -29,16 +29,14 @@ need to be supported by single numbers
 that can be easily compared to one another.
 In risk management, this number is
 the _Value at Risk_ or +VaR+.
-Fortunately, once you have one you have the other,
-and also their close cousins,
-which are also useful.
+Fortunately, once you have one you have the other.
 
 Value at risk measures the mentioned worst-case scenario
 by telling us beyond how much our losses
 will most likely _not_ go,
 up to a certain degree of confidence,
 in a definite period of time
-(as we have stressed throughout this blog,
+(as we have stressed throughout this link:../tags/risk/[series of articles],
 all measurements need to be time-framed to make sense).
 Thus a daily 1% `VaR` of $10 million means
 that the probability that you will lose more than
@@ -84,26 +82,27 @@ for example, to model the final value of a given portfolio
 over a one-year period.
 Suppose the mean return is 10%,
 with a standard deviation, i.e., volatility, of 30%.
-Thus the final value of the portfolio
+Thus the portfolio returns
 can be modeled by a normal random variable
-with mean 110 and standard deviation of 30:
+with mean 10 and standard deviation of 30:
 
-// for maintainability
-// x = [0:1:210];
-// y = normpdf(x,110,30);
-// plot(x,y)
-// xlabel('Final portfolio value')
-// ylabel('Probability density')
-// title('Portfolio value pdf')
-// h = [0:1:40];
-// y = normpdf(h,110,30);
+// pkg load statistics
+// x = [-100:1:130];
+// y = normpdf(x,10,30);
 // hold on
+// plot(x,y)
+// ax = gca();
+// set(ax, "FontSize", 14);
+// xlabel('Returns (%)')
+// ylabel('Probability density')
+// title('Portfolio returns PDF')
+// h = [-100:1:-60];
+// y = normpdf(h,10,30);
 // area(h,y)
-// xticks([40.2,70,110,140,170,200])
-// xticklabels({'VaR','70','110','140','170','200'})
+// xticks([-60,-25,10,45,80])
+// xticklabels({'VaR = -60','-25','Mean = 10','45','80'})
 // yticks([])
-// text(20,0.002,0,{'1% of area','\downarrow'})
-// xlim([0 210])
+// text(-70,0.002,0,{'1% of', '\downarrow area'})
 // hold off
 .Normal distribution of value
 image::normal-pdf.png[Normal distribution of value]
@@ -114,24 +113,23 @@ we can find probabilities of ranges
 with the corresponding _cumulative_ distribution function or `CDF`
 (which is nothing but the integral of the density, i.e., adding them up):
 
-// figure()
-// cdf = normcdf(x,110,30)
+// cdf = normcdf(x,10,30)
 // semilogy(x, cdf)
-// xlim([0 210])
+// xlim([-100 80])
 // ylim([1e-4,1])
-// hold on
-// xlabel('Final portfolio value')
+// ax = gca();
+// set(ax, "FontSize", 14);
+// xlabel('Returns (%)')
 // ylabel('Cumulative probability')
-// xticks([40.2,70,110,140,170,200])
-// xticklabels({'VaR','70','110','140','170','200'})
-// line([40.2,40.2],[eps,0.01])
-// line([eps,40.2],[0.01,0.01])
+// xticks([-60,-25,10,45,80])
+// xticklabels({'VaR = -60','-25','Mean = 10','45','80'})
+// line([-60,-60],[eps,0.01])
+// line([-100,-60],[0.01,0.01])
 // yticks([1e-4,0.001,0.01,0.1,1])
 // yticklabels({'0','0.001','0.01','0.1','1'})
-// title('CDF')
-// hold off
+// title('Portfolio returns CDF')
 .Cumulative distribution function of value
-image::normal-cdf.png[Cumulative distribution function of value]
+image::normal-cdf.png[Cumulative distribution function of value,width=50%]
 
 Notice how this is similar to
 the loss exceedance curve,
@@ -150,22 +148,22 @@ In this case we will use the
 link:https://help.libreoffice.org/Calc/Statistical_Functions_Part_Four#NORM.DIST[+NORM.DIST+] function
 since the distribution is normal.
 If we want to know the probability that the loss
-will be less than, say, 20%,
-i.e., the final value will be 80%,
+will be greater than, say, 20%,
 we can compute
 
 ----
-=NORM.DIST(80,110,30,1)
+=NORM.DIST(-20,10,30,1)
 0.158655253931457
 ----
 
 i.e., around 15.8%.
-The 110 and 30 above are the distribution parameters,
-and the 80 is of course the value whose probability we need.
+The 10 and 30 above are the distribution parameters,
+and the -20 is of course the value whose probability we need.
+Notice that it is negative, meaning a loss.
 The 1 means to make the computations cumulative
 (as opposed to 0 which just calculates the density function)s
 i.e., to find the probability that
-the loss will be less than or equal to 80.
+the overall change in value will be less than or equal to -20.
 
 We can also use the inverse function so that,
 given a probability,
@@ -174,26 +172,24 @@ It is the same process as above, but backwards.
 
 At what point is the 1% probability?
 More exactly, for which value _V_
-is it true that the probability that
+ is it true that the probability that
 the final value is less than or equal to _V_ is 1%?
 That's just the 1% `VaR`:
 
 ----
-=NORM.INV(0.01,110,30)
-40.2095637787748
+=NORM.INV(0.01,10,30)
+-59.7904362212252
 ----
 
-This is also the 1% link:https://en.wikipedia.org/wiki/Quantile[_quantile_],
+This is the 1% link:https://en.wikipedia.org/wiki/Quantile[_quantile_],
 or the first _percentile_ of the distribution,
 the point under which
 the remaining 1% of points are,
 weighing by the probability.
-Since this is the distribution for the final value
-(remember we added 100 before, so we must subtract again),
-the _Value at Risk_ in this example will be
-100 - 40.2 = 50.8% of what we invested.
+Thus the _Value at Risk_ in this example will be
+59.8% of what we invested.
 Had we invested $100 million,
-then we know the +VaR+ is $50.8,
+then we know the +VaR+ is $59.8 million,
 and hence that the losses will not exceed that amount
 in 99% of the cases, only in that rare 1%.
 Notice that the +VaR+,
@@ -216,7 +212,7 @@ besides being the value with more repetitions
 if we repeatedly draw numbers from such a distribution:
 
 .Expected value of a link:../hit-miss/[beta distribution]. Via link:https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Beta_first_moment.svg/220px-Beta_first_moment.svg.png[Wikimedia].
-image::beta-mean.png
+image::beta-mean.png[Expected value of a beta distribution]
 
 The `TVaR` is thus the expected value of the loss,
 given that the `VaR` has been surpassed.
@@ -266,6 +262,9 @@ This particular number,
 while it gives an upper bound for the losses,
 is also unable to tell us anything else
 about what happens in that 1% of the cases.
+The `TVar` tries to fill this void,
+but it is still just a number,
+meaning that it inherits this same weakness.
 
 
 == References
