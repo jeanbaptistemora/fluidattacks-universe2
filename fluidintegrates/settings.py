@@ -116,7 +116,11 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
-        }
+        },
+        'TEST': {
+            'CHARSET': 'utf8',
+            'COLLATION': 'utf8_general_ci',
+        },
     },
     'integrates': {
         'ENGINE': 'django.db.backends.mysql',
@@ -127,7 +131,11 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
-        }
+        },
+        'TEST': {
+            'CHARSET': 'utf8',
+            'COLLATION': 'utf8_general_ci',
+        },
     },
 }
 
