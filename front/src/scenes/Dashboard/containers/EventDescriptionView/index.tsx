@@ -19,12 +19,12 @@ import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
+import { EventHeader } from "../../components/EventHeader";
 import { default as FieldBox } from "../../components/FieldBox/index";
 import { GenericForm } from "../../components/GenericForm/index";
 import * as actions from "./actions";
@@ -92,8 +92,6 @@ const updateEvent: ((values: IEventDescriptionViewProps["eventData"]) => void) =
 
 const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
   (props: IEventDescriptionViewProps): JSX.Element => {
-    const eventType: string = translate.t(castEventType(props.eventData.eventType));
-    const eventStatus: string = translate.t(castEventStatus(props.eventData.eventStatus));
     props.eventData.affectedComponents === "" ?
       props.hasAffectedComponents = false : props.hasAffectedComponents = true;
     props.eventData.accessibility === ""  ?
@@ -101,68 +99,7 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
 
     return (
       <React.Fragment>
-      <div id="events" className="tab-pane cont active">
-        <Row>
-          <Col md={8} sm={12} xs={12}>
-             <h2>{eventType}</h2>
-          </Col>
-          <Col md={12} sm={12} xs={12}>
-             <hr/>
-          </Col>
-        </Row>
-        <Row style={{marginBottom: "15px"}}>
-          <Col md={12} sm={12} xs={12}>
-            <Row>
-              <Col md={2} sm={6} xs={6} className="text-right">
-                {translate.t("search_findings.tab_events.id")}
-              </Col>
-              <Col md={2} sm={6} xs={6}>
-                <Label> {props.eventData.id} </Label>
-              </Col>
-              <Col md={2} sm={6} xs={6} className="text-right">
-                {translate.t("search_findings.tab_events.date")}
-              </Col>
-              <Col md={2} sm={6} xs={6}>
-                <Label> {props.eventData.eventDate} </Label>
-              </Col>
-              <Col md={2} sm={6} xs={6} className="text-right">
-                {translate.t("search_findings.tab_events.status")}
-              </Col>
-              <Col md={2} sm={6} xs={6}>
-                <Label> {eventStatus} </Label>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <Row style={{marginBottom: "15px"}}>
-          <Col md={12} sm={12} xs={12}>
-            <ul className="nav pills-tabs nav-justified">
-              <li
-                id="infoItem"
-                className={(props.isActiveTab ? "active" : "")}
-                onClick={(): void => {props.urlDescription(); }}
-              >
-                <a href="#info" data-toggle="tab" aria-expanded="false">
-                  <i className="icon s7-note2"/>
-                  &nbsp;{translate.t("search_findings.tab_events.description")}
-                </a>
-              </li>
-              {props.hasEvidence ?
-                <li
-                  id="evidenceItem"
-                  className={(props.isActiveTab ? "" : "active")}
-                  onClick={(): void => {props.urlEvidence(); }}
-                >
-                  <a href="#evidence" data-toggle="tab" aria-expanded="false">
-                    <i className="icon s7-note2"/>
-                    &nbsp;{translate.t("search_findings.tab_events.evidence")}
-                  </a>
-                </li>
-              : undefined}
-            </ul>
-          </Col>
-        </Row>
-      </div>
+      <EventHeader {...props} />
       {props.isManager && props.hasAccess ?
       <Row style={{marginBottom: "15px"}}>
         <Col md={3} mdOffset={8} sm={12} xs={12}>
