@@ -101,79 +101,88 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
     tagsDataset: state.dashboard.indicators.tags,
   });
 
-export const component: React.StatelessComponent<IIndicatorsViewProps> =
-  (props: IIndicatorsViewProps): JSX.Element => (
-  <React.StrictMode>
-    { !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate)
-      ?  <React.Fragment>
-            <Row>
-              <Col md={12} sm={12} xs={12}>
-                <Row>
-                  <Col md={12} sm={12} xs={12}>
-                    <Row>
-                      <Col md={12}>
-                        <Col mdOffset={4} md={2} sm={6}>
-                          <Button
-                            id="addTag"
-                            block={true}
-                            bsStyle="primary"
-                            onClick={(): void => { store.dispatch(actions.openAddModal()); }}
-                          >
-                            <Glyphicon glyph="plus"/>&nbsp;
-                            {translate.t("search_findings.tab_resources.add_repository")}
-                          </Button>
-                        </Col>
-                        <Col md={2} sm={6}>
-                          <Button
-                            id="removeTag"
-                            block={true}
-                            bsStyle="primary"
-                            onClick={(): void => { removeTag(props.projectName); }}
-                          >
-                            <Glyphicon glyph="minus"/>&nbsp;
-                            {translate.t("search_findings.tab_resources.remove_repository")}
-                          </Button>
-                        </Col>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md={12} sm={12}>
-                        <DataTable
-                          dataset={props.tagsDataset.map((tagName: string) => ({tagName}))}
-                          onClickRow={(): void => {}}
-                          enableRowSelection={true}
-                          exportCsv={false}
-                          search={false}
-                          headers={[
-                            {
-                              dataField: "tagName",
-                              header: "Tags",
-                              isDate: false,
-                              isStatus: false,
-                            },
-                          ]}
-                          id="tblTags"
-                          pageSize={15}
-                          title={""}
-                        />
-                      </Col>
-                    </Row>
+const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined) =
+  (props: IIndicatorsViewProps): JSX.Element | undefined =>
+   !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate) ?  (
+    <React.Fragment>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <Row>
+            <Col md={12} sm={12} xs={12}>
+              <Row>
+                <Col md={12}>
+                  <Col mdOffset={4} md={2} sm={6}>
+                    <Button
+                      id="addTag"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={(): void => { store.dispatch(actions.openAddModal()); }}
+                    >
+                      <Glyphicon glyph="plus"/>&nbsp;
+                      {translate.t("search_findings.tab_resources.add_repository")}
+                    </Button>
                   </Col>
-                </Row>
-              </Col>
-            </Row>
-            <AddTagsModal
-              isOpen={props.addModal.open}
-              onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
-              onSubmit={(values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => {
-                saveTags(values.tags, props.projectName, props.tagsDataset);
-              }}
-            />
-          </React.Fragment>
-      : undefined
-    }
-  </React.StrictMode>
-);
+                  <Col md={2} sm={6}>
+                    <Button
+                      id="removeTag"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={(): void => { removeTag(props.projectName); }}
+                    >
+                      <Glyphicon glyph="minus"/>&nbsp;
+                      {translate.t("search_findings.tab_resources.remove_repository")}
+                    </Button>
+                  </Col>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} sm={12}>
+                  <DataTable
+                    dataset={props.tagsDataset.map((tagName: string) => ({tagName}))}
+                    onClickRow={(): void => {}}
+                    enableRowSelection={true}
+                    exportCsv={false}
+                    search={false}
+                    headers={[
+                      {
+                        dataField: "tagName",
+                        header: "Tags",
+                        isDate: false,
+                        isStatus: false,
+                      },
+                    ]}
+                    id="tblTags"
+                    pageSize={15}
+                    title={""}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <AddTagsModal
+        isOpen={props.addModal.open}
+        onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
+        onSubmit={(values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => {
+          saveTags(values.tags, props.projectName, props.tagsDataset);
+        }}
+      />
+    </React.Fragment>
+    ) : undefined;
+
+export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
+  const userEmail: string = (window as Window & { userEmail: string }).userEmail;
+
+  return (
+    <React.StrictMode>
+      { _.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co")
+        ? renderTagsView(props)
+        : undefined
+      }
+    </React.StrictMode>
+  );
+};
 
 export const indicatorsView: ComponentType<IIndicatorsViewProps> = reduxWrapper
 (
