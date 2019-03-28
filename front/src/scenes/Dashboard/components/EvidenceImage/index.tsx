@@ -3,10 +3,11 @@
  * readability of the code that binds click events
  */
 import React from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import { ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm } from "redux-form";
 import { Button } from "../../../../components/Button/index";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
@@ -39,7 +40,7 @@ const renderEditBox: ((props: formProps) => JSX.Element) =
       <Field name={`${props.name}_filename`} id={props.name} component={fileInputField} />
       {props.isDescriptionEditable ? renderDescriptionField(props) : undefined}
       <Button bsStyle="success" block={true} type="submit" disabled={props.pristine || props.submitting}>
-        <Glyphicon glyph="repeat" />
+        <FluidIcon icon="loading" />
         &nbsp;{translate.t("search_findings.tab_evidence.update")}
       </Button>
     </form>

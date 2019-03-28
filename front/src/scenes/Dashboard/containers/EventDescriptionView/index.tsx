@@ -7,7 +7,7 @@
   * readability of the code that defines the headers of the table
  */
 import React from "react";
-import { Col, Glyphicon, Label, Row } from "react-bootstrap";
+import { Col, Label, Row } from "react-bootstrap";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -287,7 +287,7 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
             block={true}
             onClick={(): void =>  {  store.dispatch(submit("editEvent")); }}
           >
-            <Glyphicon glyph="repeat" /> {translate.t("search_findings.tab_severity.update")}
+            <FluidIcon icon="loading" /> {translate.t("search_findings.tab_severity.update")}
           </Button>
         </Col>
       </Row>

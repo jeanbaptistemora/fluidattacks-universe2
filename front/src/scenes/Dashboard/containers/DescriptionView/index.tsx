@@ -8,7 +8,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
@@ -118,7 +118,7 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
 
 const renderUpdateBtn: (() => JSX.Element) = (): JSX.Element => (
   <Button bsStyle="success" onClick={(): void => { store.dispatch(submit("editDescription")); }}>
-    <Glyphicon glyph="repeat" /> {translate.t("search_findings.tab_description.update")}
+    <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
   </Button>
 );
 

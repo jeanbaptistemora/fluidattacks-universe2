@@ -7,7 +7,7 @@
  */
 
 import React from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
@@ -115,7 +115,7 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
       <Row>
         <Col md={2} mdOffset={10} xs={12} sm={12}>
           <Button bsStyle="success" block={true} type="submit" onClick={(): void => { submit("editSeverity"); }}>
-            <Glyphicon glyph="repeat" /> {translate.t("search_findings.tab_severity.update")}
+            <FluidIcon icon="loading" /> {translate.t("search_findings.tab_severity.update")}
           </Button>
         </Col>
       </Row>

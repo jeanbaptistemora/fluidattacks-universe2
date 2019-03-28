@@ -21,6 +21,7 @@ import { default as importIcon } from "../../resources/import.svg";
 import { default as integrityHighIcon } from "../../resources/integrity_high.svg";
 import { default as integrityLowIcon } from "../../resources/integrity_low.svg";
 import { default as integrityNoneIcon } from "../../resources/integrity_none.svg";
+import { default as loadingIcon } from "../../resources/loading.svg";
 import { default as okIcon } from "../../resources/ok.svg";
 import { default as openVulnerabilitiesIcon } from "../../resources/open_vulnerabilities.svg";
 import { default as privilegesHighIcon } from "../../resources/privileges_high.svg";
@@ -70,6 +71,7 @@ const getIcon: { [value: string]: string } = {
   integrityHigh: integrityHighIcon,
   integrityLow: integrityLowIcon,
   integrityNone: integrityNoneIcon,
+  loading: loadingIcon,
   ok: okIcon,
   openVulnerabilities: openVulnerabilitiesIcon,
   privilegesHigh: privilegesHighIcon,
