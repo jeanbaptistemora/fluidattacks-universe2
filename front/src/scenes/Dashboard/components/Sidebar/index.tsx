@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { Props as BurgerMenuProps, slide as Menu } from "react-burger-menu";
+import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { default as logo } from "../../../../resources/integrates.png";
 import translate from "../../../../utils/translations/translate";
@@ -10,14 +10,6 @@ import style from "./index.css";
 interface ISidebarProps {
   onLogoutClick(): void;
 }
-
-/**
- * Necessary because current type definitions for this component are outdated.
- * @view: https://github.com/negomi/react-burger-menu/issues/65#issuecomment-446240217
- */
-type UpdatedBurgerProps = BurgerMenuProps & { disableCloseOnEsc: boolean };
-// tslint:disable-next-line: variable-name
-const BurgerMenu: React.SFC<UpdatedBurgerProps> = (props: UpdatedBurgerProps): JSX.Element => (<Menu {...props} />);
 
 const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
   const handleEsClick: (() => void) = (): void => { localStorage.setItem("lang", "es"); location.reload(); };
