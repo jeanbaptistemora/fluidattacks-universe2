@@ -1,3 +1,4 @@
+<div ng-if="false">
 <div class="page-head">
     <div class="row">
         <div id="header_alert"></div>
@@ -6,6 +7,7 @@
             <strong>{% templatetag openvariable %} atAlert {% templatetag closevariable %}</strong> {% templatetag openvariable %} descAlert1 {% templatetag closevariable %} {% templatetag openvariable %} openEvents {% templatetag closevariable %} {% templatetag openvariable %} descAlert2 {% templatetag closevariable %}
         </div>
     </div>
+</div>
 </div>
 <!-- START: MODAL INFORMES -->
 <script type="text/ng-template" id="reportModal.html">
@@ -49,6 +51,7 @@
         <div class="col-md-12" id="search_section">
             <div class="row">
                 <div class="tab-container">
+                    <div ng-if="false">
                     <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
                         <!-- <li id="indicatorsTab" class="active" style="font-size:15px;" ui-sref="Forms" ng-click="urlIndicators();"> -->
                         <li id="indicatorsTab" class="" style="font-size:15px;" ng-click="urlIndicators();">
@@ -87,6 +90,7 @@
                             </a>
                         </li>
                     </ul>
+                    </div>
                     <div class="tab-content">
                         <div id="findings" class="tab-pane cont active">
                             <div class="row">

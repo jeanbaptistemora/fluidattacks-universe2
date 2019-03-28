@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import store from "../../store/index";
 import Navbar from "./components/Navbar/index";
-import FindingContent from "./containers/FindingContent";
+import FindingContent from "./containers/FindingContent/index";
+import { default as ProjectContent } from "./containers/ProjectContent/index";
 
 const dashboardView: React.SFC = (): JSX.Element => (
   <React.StrictMode>
@@ -16,6 +17,7 @@ const dashboardView: React.SFC = (): JSX.Element => (
           <React.Fragment>
             <Navbar />
             <Switch>
+              <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
               <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
             </Switch>
           </React.Fragment>
