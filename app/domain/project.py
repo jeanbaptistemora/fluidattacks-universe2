@@ -173,3 +173,49 @@ def get_last_closing_date(vulnerability):
         # Vulnerability does not have closing date
         pass
     return last_closing_date
+
+
+def get_undefined_treatment(project):
+    """Get the total vulnerabilities that does not have treatment."""
+    findings = integrates_dao.get_findings_released_dynamo(
+        project, 'finding_id, treatment')
+    if findings:
+        total_open_vuln = 0
+        for finding in findings:
+            if finding.get('treatment') == 'NEW':
+                open_vuln = total_vulnerabilities(
+                    finding['finding_id']).get('openVulnerabilities')
+                total_open_vuln += open_vuln
+            else:
+                # Finding has treatment defined
+                pass
+    else:
+        total_open_vuln = 0
+    return total_open_vuln
+
+
+def get_max_severity(project):
+    """Get maximum severity of a project."""
+    findings = integrates_dao.get_findings_released_dynamo(
+        project, 'finding_id, cvss_temporal')
+    if findings:
+        total_severity = [fin.get('cvss_temporal') for fin in findings]
+        max_severity = max(total_severity)
+    else:
+        max_severity = 0
+    return max_severity
+
+
+def get_max_open_severity(project):
+    """Get maximum severity of project with open vulnerabilities."""
+    findings = integrates_dao.get_findings_released_dynamo(
+        project, 'finding_id, cvss_temporal')
+    if findings:
+        total_severity = \
+            [fin.get('cvss_temporal') for fin in findings
+             if total_vulnerabilities(
+                fin['finding_id']).get('openVulnerabilities') > 0]
+        max_severity = max(total_severity)
+    else:
+        max_severity = 0
+    return max_severity

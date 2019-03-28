@@ -14,7 +14,8 @@ from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
-    get_closed_percentage, get_pending_closing_check, get_last_closing_vuln
+    get_closed_percentage, get_pending_closing_check, get_last_closing_vuln,
+    get_undefined_treatment, get_max_severity, get_max_open_severity
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -38,6 +39,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     closed_percentage = Float()
     pending_closing_check = Int()
     last_closing_vuln = Int()
+    undefined_treatment = Int()
+    max_severity = Float()
+    max_open_severity = Float()
     users = List(User, filter_roles=List(String))
 
     def __init__(self, project_name):
@@ -52,6 +56,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.closed_percentage = 0.0
         self.pending_closing_check = 0
         self.last_closing_vuln = 0
+        self.undefined_treatment = 0
+        self.max_severity = 0.0
+        self.max_open_severity = 0.0
 
     def resolve_name(self, info):
         """Resolve name attribute."""
@@ -100,6 +107,24 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         del info
         self.last_closing_vuln = get_last_closing_vuln(self.name)
         return self.last_closing_vuln
+
+    def resolve_undefined_treatment(self, info):
+        """Resolve vuln treatmentless attribute."""
+        del info
+        self.undefined_treatment = get_undefined_treatment(self.name)
+        return self.undefined_treatment
+
+    def resolve_max_severity(self, info):
+        """Resolve maximum severity attribute."""
+        del info
+        self.max_severity = get_max_severity(self.name)
+        return self.max_severity
+
+    def resolve_max_open_severity(self, info):
+        """Resolve maximum severity in open vulnerability attribute."""
+        del info
+        self.max_open_severity = get_max_open_severity(self.name)
+        return self.max_open_severity
 
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""
