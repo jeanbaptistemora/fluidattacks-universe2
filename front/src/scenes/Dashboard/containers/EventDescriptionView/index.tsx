@@ -7,7 +7,7 @@
   * readability of the code that defines the headers of the table
  */
 import React from "react";
-import { Col, Label, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -25,7 +25,6 @@ import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { EventHeader } from "../../components/EventHeader";
-import { default as FieldBox } from "../../components/FieldBox/index";
 import { GenericForm } from "../../components/GenericForm/index";
 import * as actions from "./actions";
 
@@ -59,14 +58,6 @@ export interface IEventDescriptionViewProps {
   isActiveTab: boolean;
   isEditable: boolean;
   isManager: boolean;
-  urlDescription: (() => JSX.Element);
-  urlEvidence: (() => JSX.Element);
-}
-
-export interface IEventDescriptionHeaderProps {
-  eventData: IEventDescriptionViewProps["eventData"];
-  hasEvidence: boolean;
-  isActiveTab: boolean;
   urlDescription: (() => JSX.Element);
   urlEvidence: (() => JSX.Element);
 }
@@ -232,142 +223,6 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
     </React.Fragment>
   );
 };
-
-export const eventDescriptionHeader: React.StatelessComponent<IEventDescriptionHeaderProps> =
-  (props: IEventDescriptionHeaderProps): JSX.Element => (
-  <React.StrictMode>
-    <div id="events" className="tab-pane cont active">
-      <Row>
-        <Col md={8} sm={12} xs={12}>
-           <h2>{props.eventData.eventType}</h2>
-        </Col>
-        <Col md={12} sm={12} xs={12}>
-           <hr/>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={2} sm={6} xs={6} className="text-right">
-              {translate.t("search_findings.tab_events.id")}
-            </Col>
-            <Col md={2} sm={6} xs={6}>
-              <Label> {props.eventData.id} </Label>
-            </Col>
-            <Col md={2} sm={6} xs={6} className="text-right">
-              {translate.t("search_findings.tab_events.date")}
-            </Col>
-            <Col md={2} sm={6} xs={6}>
-              <Label> {props.eventData.eventDate} </Label>
-            </Col>
-            <Col md={2} sm={6} xs={6} className="text-right">
-              {translate.t("search_findings.tab_events.status")}
-            </Col>
-            <Col md={2} sm={6} xs={6}>
-              <Label> {props.eventData.eventStatus} </Label>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-      <br />
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <ul className="nav pills-tabs nav-justified">
-            <li
-              id="infoItem"
-              className={(props.isActiveTab ? "active" : "")}
-              onClick={(): void => {props.urlDescription(); }}
-            >
-              <a href="#info" data-toggle="tab" aria-expanded="false">
-                <i className="icon s7-note2"/>
-                &nbsp;{translate.t("search_findings.tab_events.description")}
-              </a>
-            </li>
-            {props.hasEvidence ?
-              <li
-                id="evidenceItem"
-                className={(props.isActiveTab ? "" : "active")}
-                onClick={(): void => {props.urlEvidence(); }}
-              >
-                <a href="#evidence" data-toggle="tab" aria-expanded="false">
-                  <i className="icon s7-note2"/>
-                  &nbsp;{translate.t("search_findings.tab_events.evidence")}
-                </a>
-              </li>
-            : undefined}
-          </ul>
-        </Col>
-      </Row>
-    </div>
-  </React.StrictMode>
-);
-
-export const eventDescriptionViewTest: React.StatelessComponent<IEventDescriptionViewProps> =
-  (props: IEventDescriptionViewProps): JSX.Element => (
-  <React.StrictMode>
-    <div id="events" className="tab-pane cont active">
-        <div className="tab-pane cont active">
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-          <Col md={6} sm={12} xs={12}>
-            <FieldBox
-              title={translate.t("search_findings.tab_events.description")}
-              content={props.eventData.detail}
-            />
-            <FieldBox
-              title={translate.t("search_findings.tab_events.analyst")}
-              content={props.eventData.analyst}
-            />
-            {props.isEditable ?
-                <div className="row table-row">
-                  <div className="col-md-4 col-xs-12 col-sm-12">
-                    <div className="table-head">
-                      <label><b>{translate.t("search_findings.tab_events.affectation")}</b></label>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-xs-12 col-sm-12">
-                    <input id="affectationInput" type="text" className="form-control"/>
-                  </div>
-                </div>
-            : <FieldBox
-              title={translate.t("search_findings.tab_events.affectation")}
-              content={props.eventData.affectation}
-            />}
-            {props.hasAffectedComponents ?
-              <FieldBox
-                title={translate.t("search_findings.tab_events.affected_components")}
-                content={props.eventData.affectedComponents}
-              />
-            : undefined
-            }
-          </Col>
-          <Col md={6} sm={12} xs={12}>
-            <FieldBox
-              title={translate.t("search_findings.tab_events.client")}
-              content={props.eventData.client}
-            />
-            <FieldBox
-              title={translate.t("search_findings.tab_events.client_project")}
-              content={props.eventData.clientProject}
-            />
-            <FieldBox
-              title={translate.t("search_findings.tab_events.fluid_project")}
-              content={props.eventData.projectName}
-            />
-            {props.hasAccessibility ?
-            <FieldBox
-              title={translate.t("search_findings.tab_events.event_in")}
-              content={props.eventData.accessibility}
-            />
-            : undefined
-            }
-          </Col>
-          </Row>
-        </Col>
-        </div>
-    </div>
-  </React.StrictMode>
-);
 
 export const component: React.SFC<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element =>
