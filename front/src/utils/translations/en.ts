@@ -55,6 +55,17 @@ const enTranslations: Map<string, string> = {
     updated_title: "Correct!",
     verified_success: "This finding was marked as verified.",
   },
+  project: {
+    tabs: {
+      comments: "Comments",
+      drafts: "Drafts",
+      events: "Events",
+      findings: "Findings",
+      indicators: "Indicators",
+      resources: "Resources",
+      users: "Users",
+    },
+  },
   registration: {
     continue_btn: "Continue as",
     greeting: "Hello",

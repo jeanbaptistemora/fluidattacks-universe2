@@ -56,6 +56,17 @@ const esTranslations: Map<string, string> = {
     updated_title: "Correcto!",
     verified_success: "El hallazgo fue marcado como remediado.",
   },
+  project: {
+    tabs: {
+      comments: "Comentarios",
+      drafts: "Borradores",
+      events: "Eventualidades",
+      findings: "Hallazgos",
+      indicators: "Indicadores",
+      resources: "Insumos",
+      users: "Usuarios",
+    },
+  },
   registration: {
     continue_btn: "Continuar como",
     greeting: "¡Hola",
