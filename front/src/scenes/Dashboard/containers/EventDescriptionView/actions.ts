@@ -29,6 +29,24 @@ export const editEvent: (() => IActionStructure) =
     type: actionTypes.CHANGE_EVENT_EDITABLE,
   });
 
+export const getEventEvidence: ((props: IEventDescriptionViewProps["eventData"]) =>
+  [{"original": string; "thumbnail": string }] | undefined) =
+  (props: IEventDescriptionViewProps["eventData"]): [{"original": string; "thumbnail": string }] | undefined => {
+      let evidenceUrl: [{"original": string; "thumbnail": string }] | undefined;
+      if (props.evidence === "") {
+        evidenceUrl = undefined;
+      } else {
+        const splitedUrl: string[] = window.location.href.split("dashboard#!/");
+        let evidence: string;
+        evidence = `${splitedUrl[0] +
+                            splitedUrl[1].replace("events/", "")}/${
+          props.evidence}`;
+        evidenceUrl = [{original: evidence, thumbnail: evidence}];
+      }
+
+      return evidenceUrl;
+    };
+
 export const loadEvent: ThunkActionStructure =
   (eventId: IEventDescriptionViewProps["eventId"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {

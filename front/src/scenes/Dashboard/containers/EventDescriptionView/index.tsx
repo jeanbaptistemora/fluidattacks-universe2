@@ -6,6 +6,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
+import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import {
@@ -40,6 +41,7 @@ export interface IEventDescriptionViewProps {
     eventDate?: string;
     eventStatus: string;
     eventType: string;
+    evidence?: string;
     id?: string;
     projectName: string;
   };
@@ -51,13 +53,8 @@ export interface IEventDescriptionViewProps {
       };
     };
   };
-  hasAccess: boolean;
-  hasAccessibility: boolean;
-  hasAffectedComponents: boolean;
-  hasEvidence: boolean;
   isActiveTab: boolean;
   isEditable: boolean;
-  isManager: boolean;
   urlDescription: (() => JSX.Element);
   urlEvidence: (() => JSX.Element);
 }
@@ -83,15 +80,19 @@ const updateEvent: ((values: IEventDescriptionViewProps["eventData"]) => void) =
 
 const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
   (props: IEventDescriptionViewProps): JSX.Element => {
+    let hasAccessibility: boolean;
+    let hasAffectedComponents: boolean;
     props.eventData.affectedComponents === "" ?
-      props.hasAffectedComponents = false : props.hasAffectedComponents = true;
+      hasAffectedComponents = false : hasAffectedComponents = true;
     props.eventData.accessibility === ""  ?
-      props.hasAccessibility = false : props.hasAccessibility = true;
+       hasAccessibility = false : hasAccessibility = true;
+    const userRole: string = (window as Window & { userRole: string }).userRole;
+    const isManager: boolean = _.includes(["admin", "analyst"], userRole);
 
     return (
       <React.Fragment>
       <EventHeader {...props} />
-      {props.isManager && props.hasAccess ?
+      {isManager ?
       <Row style={{marginBottom: "15px"}}>
         <Col md={3} mdOffset={8} sm={12} xs={12}>
           <Button
@@ -180,7 +181,7 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
         </Col>
       </Row>
       <Row style={{marginBottom: "15px"}}>
-      {props.hasAffectedComponents ?
+      {hasAffectedComponents ?
         <Col md={6} sm={12} xs={12}>
           <EditableField
             alignField="horizontalWide"
@@ -193,7 +194,7 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
           />
         </Col>
       : undefined}
-      {props.hasAccessibility ?
+      {hasAccessibility ?
         <Col md={6} sm={12} xs={12}>
           <EditableField
             alignField="horizontalWide"
@@ -276,12 +277,10 @@ eventDescriptionView.defaultProps = {
       eventDate: "",
       eventStatus: "",
       eventType: "",
+      evidence: undefined,
       id: "",
       projectName: "",
     },
-  hasAccess: false,
-  hasAccessibility: false,
-  hasAffectedComponents: false,
+  eventId: "",
   isActiveTab: true,
-  isManager: false,
 };

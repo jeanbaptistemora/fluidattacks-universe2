@@ -239,14 +239,10 @@ angular
         eventDescriptionView, [
           "eventData",
           "eventId",
+          "isActiveTab",
           "isEditable",
-          "hasAccessibility",
           "urlDescription",
           "urlEvidence",
-          "isActiveTab",
-          "isManager",
-          "hasAccess",
-          "hasEvidence",
         ],
       ),
     );

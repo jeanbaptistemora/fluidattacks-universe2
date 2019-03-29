@@ -142,6 +142,7 @@ const initialState: IDashboardState = {
       eventDate: "",
       eventStatus: "",
       eventType: "",
+      evidence: "",
       id: "",
       projectName: "",
     },

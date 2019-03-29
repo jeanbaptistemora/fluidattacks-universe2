@@ -14,7 +14,6 @@ import { IEventDescriptionViewProps } from "../../containers/EventDescriptionVie
 
 interface IEventHeaderProps {
   eventData: IEventDescriptionViewProps["eventData"];
-  hasEvidence: boolean;
   isActiveTab: boolean;
   urlDescription: (() => JSX.Element);
   urlEvidence: (() => JSX.Element);
@@ -22,8 +21,11 @@ interface IEventHeaderProps {
 
 const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
   (props: IEventHeaderProps): JSX.Element => {
+    let hasEvidence: boolean;
+    hasEvidence = false;
     const eventType: string = translate.t(castEventType(props.eventData.eventType));
     const eventStatus: string = translate.t(castEventStatus(props.eventData.eventStatus));
+    props.eventData.evidence === "" ? hasEvidence = false : hasEvidence = true;
 
     return (
       <React.Fragment>
@@ -73,7 +75,7 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
                   &nbsp;{translate.t("search_findings.tab_events.description")}
                 </a>
               </li>
-              {props.hasEvidence ?
+              {hasEvidence ?
                 <li
                   id="evidenceItem"
                   className={(props.isActiveTab ? "" : "active")}
