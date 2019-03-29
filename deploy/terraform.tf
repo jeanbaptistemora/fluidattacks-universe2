@@ -1,13 +1,12 @@
-  # AWS vars
-variable "dynamo_access_key" {}
-variable "dynamo_secret_key" {}
-variable "region" {}
-
-provider "aws" {
-  access_key = "${var.dynamo_access_key}"
-  secret_key = "${var.dynamo_secret_key}"
-  region = "${var.region}"
+terraform {
+  backend "s3" {
+    key     = "integrates.tfstate"
+    region  = "us-east-1"
+    encrypt = true
+  }
 }
+
+provider "aws" {}
 
 resource "aws_dynamodb_table" "alerts_by_company" {
   name           = "FI_alerts_by_company"
