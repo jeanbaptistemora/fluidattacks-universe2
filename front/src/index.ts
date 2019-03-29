@@ -12,7 +12,6 @@ import button from "./components/RButton/index";
 import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
-import indicatorBox from "./scenes/Dashboard/components/IndicatorBox/index";
 import indicatorGraph from "./scenes/Dashboard/components/IndicatorGraph/index";
 import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
 import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
@@ -78,27 +77,6 @@ angular
         "showNav",
         "showThumbnails",
         "thumbnailPosition",
-      ],
-    ),
-  );
-/**
- * @url: #/project/:name/indicators
- * @page: indicators.html
- * @controllers: ["projectIndicatorsCtrl"]
- * @tag: <indicator-box/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "indicatorBox",
-    react2angular(
-      indicatorBox,
-      [
-        "icon",
-        "name",
-        "quantity",
-        "title",
-        "total",
       ],
     ),
   );

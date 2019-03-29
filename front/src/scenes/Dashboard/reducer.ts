@@ -45,9 +45,15 @@ export interface IDashboardState {
     addModal: {
       open: boolean;
     };
+    closedPercentage: number;
     deletionDate: string;
+    lastClosingVuln: number;
+    maxOpenSeverity: number;
+    maxSeverity: number;
+    pendingClosingCheck: number;
     subscription: string;
     tags: string[];
+    undefinedTreatment: number;
   };
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
@@ -174,9 +180,15 @@ const initialState: IDashboardState = {
     addModal: {
       open: false,
     },
+    closedPercentage: 0,
     deletionDate: "",
+    lastClosingVuln: 0,
+    maxOpenSeverity: 0,
+    maxSeverity: 0,
+    pendingClosingCheck: 0,
     subscription: "",
     tags: [],
+    undefinedTreatment: 0,
   },
   records: {
     dataset: [],
@@ -645,15 +657,21 @@ actionMap[descriptionActions.CLOSE_REMEDIATION_MDL] =
       isRemediationOpen: false,
     },
   });
-actionMap[indicatorsActions.LOAD_TAGS] =
+actionMap[indicatorsActions.LOAD_INDICATORS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
     indicators: {
       ...state.indicators,
+      closedPercentage: action.payload.closedPercentage,
       deletionDate: action.payload.deletionDate,
+      lastClosingVuln: action.payload.lastClosingVuln,
+      maxOpenSeverity: action.payload.maxOpenSeverity,
+      maxSeverity: action.payload.maxSeverity,
+      pendingClosingCheck: action.payload.pendingClosingCheck,
       subscription: action.payload.subscription,
       tags: action.payload.tags,
+      undefinedTreatment: action.payload.undefinedTreatment,
     },
   });
 

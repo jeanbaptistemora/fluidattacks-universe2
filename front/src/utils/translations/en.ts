@@ -276,9 +276,15 @@ const enTranslations: Map<string, string> = {
       tab_title: "Exploit",
     },
     tab_indicators: {
+      closed_percentage: "Closed vulnerabilities",
+      last_closing_vuln: "Days since last closed vulnerability",
+      max_open_severity: "Max open severity",
+      max_severity: "Max severity found",
+      pending_closing_check: "Pending closing verification",
       tags: {
         modal_title: "Add tags information",
       },
+      undefined_treatment: "Open vulnerabilities with no defined treatment",
     },
     tab_observations: {
       tab_title: "Observations",

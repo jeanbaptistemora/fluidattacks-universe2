@@ -5,28 +5,16 @@
                 <div class="tab-container">
                     <div class="tab-content">
                         <div id="indicators" class="tab-pane cont active">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div ng-repeat="metric in metricsList">
-                                        <indicator-box
-                                            icon="metric.icon"
-                                            name="metric.description"
-                                            quantity="metric.value"
-                                            title="metric.tooltip"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <hr>
-                            <div class="row">
-                                <div ng-repeat="graph in graphList">
-                                    <indicator-graph
-                                        data="graph.data"
-                                        name="graph.title"/>
-                                </div>
-                            </div>
-                            <br>
-                            <indicators-view project-name="project"/>
+                          <indicators-view project-name="project"/>
+                          <br>
+                          <hr>
+                          <div class="row">
+                              <div ng-repeat="graph in graphList">
+                                  <indicator-graph
+                                      data="graph.data"
+                                      name="graph.title"/>
+                              </div>
+                          </div>
                         </div>
                     </div>
                 </div>

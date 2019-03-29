@@ -13,7 +13,7 @@ import style from "./index.css";
 interface IBoxProps {
   icon: string;
   name: string;
-  quantity: string;
+  quantity: number;
   title: string;
   total?: string;
 }
@@ -23,7 +23,7 @@ interface IBoxProps {
 const indicatorBox: React.StatelessComponent<IBoxProps> =
   (props: IBoxProps): JSX.Element => (
   <React.StrictMode>
-    <Col xs={12} md={3} sm={4}>
+    <Col xs={12} md={4} sm={4}>
       <div
         className={style.widgetbox}
         data-toggle="tooltip"
@@ -61,9 +61,9 @@ const indicatorBox: React.StatelessComponent<IBoxProps> =
 indicatorBox.defaultProps = {
   icon: "",
   name: "",
-  quantity: "",
+  quantity: 0,
   title: "",
   total: "",
 };
 
-export = indicatorBox;
+export { indicatorBox as IndicatorBox };

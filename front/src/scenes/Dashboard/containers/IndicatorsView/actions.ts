@@ -30,16 +30,22 @@ export const clearTags: (() => IActionStructure) =
     type: actionTypes.CLEAR_TAGS,
   });
 
-export const loadTags: ThunkActionStructure =
+export const loadIndicators: ThunkActionStructure =
   (projectName: IIndicatorsViewProps["projectName"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       dispatch(clearTags());
       let gQry: string;
       gQry = `{
         project(projectName: "${projectName}"){
+          closedPercentage
           deletionDate
+          lastClosingVuln
+          maxOpenSeverity
+          maxSeverity
+          pendingClosingCheck
           subscription
           tags
+          undefinedTreatment
         }
       }`;
       new Xhr().request(gQry, "An error occurred getting tags")
@@ -47,11 +53,17 @@ export const loadTags: ThunkActionStructure =
           const { data } = response.data;
           dispatch({
             payload: {
+              closedPercentage: data.project.closedPercentage,
               deletionDate: data.project.deletionDate,
+              lastClosingVuln: data.project.lastClosingVuln,
+              maxOpenSeverity: data.project.maxOpenSeverity,
+              maxSeverity: data.project.maxSeverity,
+              pendingClosingCheck: data.project.pendingClosingCheck,
               subscription: data.project.subscription,
               tags: data.project.tags,
+              undefinedTreatment: data.project.undefinedTreatment,
             },
-            type: actionTypes.LOAD_TAGS,
+            type: actionTypes.LOAD_INDICATORS,
           });
         })
         .catch((error: AxiosError) => {
@@ -103,7 +115,7 @@ export const removeTag: ThunkActionStructure =
                 subscription: data.removeTag.project.subscription,
                 tags: data.removeTag.project.tags,
               },
-              type: actionTypes.LOAD_TAGS,
+              type: actionTypes.LOAD_INDICATORS,
             });
             msgSuccess(
               translate.t("search_findings.tab_resources.success_remove"),
@@ -152,7 +164,7 @@ export const saveTags: ThunkActionStructure =
                 subscription: data.addTags.project.subscription,
                 tags: data.addTags.project.tags,
               },
-              type: actionTypes.LOAD_TAGS,
+              type: actionTypes.LOAD_INDICATORS,
             });
             msgSuccess(
               translate.t("search_findings.tab_resources.success"),

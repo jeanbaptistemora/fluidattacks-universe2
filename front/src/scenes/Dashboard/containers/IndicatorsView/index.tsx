@@ -24,16 +24,23 @@ import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
+import { IndicatorBox } from "../../components/IndicatorBox/index";
 import * as actions from "./actions";
 
 export interface IIndicatorsViewProps {
   addModal: {
     open: boolean;
   };
+  closedPercentage: number;
   deletionDate: string;
+  lastClosingVuln: number;
+  maxOpenSeverity: number;
+  maxSeverity: number;
+  pendingClosingCheck: number;
   projectName: string;
   subscription: string;
   tagsDataset: string[];
+  undefinedTreatment: number;
 }
 
 const enhance: InferableComponentEnhancer<{}> =
@@ -44,7 +51,7 @@ lifecycle({
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
 
-    thunkDispatch(actions.loadTags(projectName));
+    thunkDispatch(actions.loadIndicators(projectName));
   },
 });
 
@@ -96,9 +103,15 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
   (state: StateType<Reducer>): IIndicatorsViewProps => ({
     ...state,
     addModal: state.dashboard.indicators.addModal,
+    closedPercentage: state.dashboard.indicators.closedPercentage,
     deletionDate: state.dashboard.indicators.deletionDate,
+    lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
+    maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
+    maxSeverity: state.dashboard.indicators.maxSeverity,
+    pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
     subscription: state.dashboard.indicators.subscription,
     tagsDataset: state.dashboard.indicators.tags,
+    undefinedTreatment: state.dashboard.indicators.undefinedTreatment,
   });
 
 const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined) =
@@ -180,6 +193,52 @@ export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsVie
         ? renderTagsView(props)
         : undefined
       }
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <IndicatorBox
+            icon="fixedVulnerabilities"
+            name={translate.t("search_findings.tab_indicators.closed_percentage")}
+            quantity={props.closedPercentage}
+            title=""
+            total="%"
+          />
+          <IndicatorBox
+            icon="totalVulnerabilities"
+            name={translate.t("search_findings.tab_indicators.pending_closing_check")}
+            quantity={props.pendingClosingCheck}
+            title=""
+            total=""
+          />
+          <IndicatorBox
+            icon="calendar"
+            name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
+            quantity={props.lastClosingVuln}
+            title=""
+            total=""
+          />
+          <IndicatorBox
+            icon="integrityHigh"
+            name={translate.t("search_findings.tab_indicators.undefined_treatment")}
+            quantity={props.undefinedTreatment}
+            title=""
+            total=""
+          />
+          <IndicatorBox
+            icon="vulnerabilities"
+            name={translate.t("search_findings.tab_indicators.max_severity")}
+            quantity={props.maxSeverity}
+            title=""
+            total="/10"
+          />
+          <IndicatorBox
+            icon="openVulnerabilities"
+            name={translate.t("search_findings.tab_indicators.max_open_severity")}
+            quantity={props.maxOpenSeverity}
+            title=""
+            total="/10"
+          />
+        </Col>
+      </Row>
     </React.StrictMode>
   );
 };

@@ -89,9 +89,9 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                             EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'Maximum Severity Found')]")))
+                                "//*[contains(text(), 'Max severity found')]")))
         selenium.save_screenshot(SCR_PATH + '03-indicators.png')
-        assert 'Maximum Severity Found' in selenium.page_source
+        assert 'Max severity found' in selenium.page_source
 
     def test_04_findings(self):
         selenium = self.__login()
