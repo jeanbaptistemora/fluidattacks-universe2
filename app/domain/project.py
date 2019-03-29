@@ -88,34 +88,25 @@ def validate_project(project):
     return is_valid_project
 
 
-def get_vulnerabilities(project, vuln_type):
+def get_vulnerabilities(findings, vuln_type):
     """Get total vulnerabilities by type."""
-    findings = integrates_dao.get_findings_released_dynamo(
-        project.lower(), 'finding_id')
-    if findings:
-        vulnerabilities = \
-            [total_vulnerabilities(i['finding_id']).get(vuln_type) for i in findings]
-        vulnerabilities = sum(vulnerabilities)
-    else:
-        vulnerabilities = 0
+    vulnerabilities = \
+        [total_vulnerabilities(i['finding_id']).get(vuln_type) for i in findings]
+    vulnerabilities = sum(vulnerabilities)
     return vulnerabilities
 
 
-def get_closed_percentage(project):
+def get_closed_percentage(findings):
     """Calculate closed percentage."""
-    findings = integrates_dao.get_findings_released_dynamo(
-        project.lower(), 'finding_id')
     total_vuln = 0
-    if findings:
-        for fin in findings:
-            vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
-                fin['finding_id'])
-            total_vuln += len(vulnerabilities)
-    else:
-        closed_percentage = 0
+    closed_percentage = 0
+    for fin in findings:
+        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
+            fin['finding_id'])
+        total_vuln += len(vulnerabilities)
     if total_vuln:
         closed_vulnerabilities = get_vulnerabilities(
-            project, 'closedVulnerabilities')
+            findings, 'closedVulnerabilities')
         closed_percentage = Decimal(
             (closed_vulnerabilities * 100.0) / total_vuln).quantize(Decimal("0.1"))
     else:
@@ -129,24 +120,20 @@ def get_pending_closing_check(project):
     return pending_closing
 
 
-def get_last_closing_vuln(project):
+def get_last_closing_vuln(findings):
     """Get day since last vulnerability closing."""
-    findings = integrates_dao.get_findings_released_dynamo(
-        project, 'finding_id')
-    if findings:
-        closing_dates = []
-        for fin in findings:
-            vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
-                fin['finding_id'])
-            for vuln in vulnerabilities:
-                last_closing_date = get_last_closing_date(vuln)
-                if last_closing_date:
-                    closing_dates.append(last_closing_date)
-                else:
-                    # Vulnerability does not have closing date
-                    pass
-    else:
-        last_closing = 0
+    last_closing = 0
+    closing_dates = []
+    for fin in findings:
+        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
+            fin['finding_id'])
+        for vuln in vulnerabilities:
+            last_closing_date = get_last_closing_date(vuln)
+            if last_closing_date:
+                closing_dates.append(last_closing_date)
+            else:
+                # Vulnerability does not have closing date
+                pass
     if closing_dates:
         current_date = max(closing_dates)
         tzn = pytz.timezone('America/Bogota')
@@ -175,47 +162,32 @@ def get_last_closing_date(vulnerability):
     return last_closing_date
 
 
-def get_undefined_treatment(project):
+def get_undefined_treatment(findings):
     """Get the total vulnerabilities that does not have treatment."""
-    findings = integrates_dao.get_findings_released_dynamo(
-        project, 'finding_id, treatment')
-    if findings:
-        total_open_vuln = 0
-        for finding in findings:
-            if finding.get('treatment') == 'NEW':
-                open_vuln = total_vulnerabilities(
-                    finding['finding_id']).get('openVulnerabilities')
-                total_open_vuln += open_vuln
-            else:
-                # Finding has treatment defined
-                pass
-    else:
-        total_open_vuln = 0
+    total_open_vuln = 0
+    for finding in findings:
+        if finding.get('treatment') == 'NEW':
+            open_vuln = total_vulnerabilities(
+                finding['finding_id']).get('openVulnerabilities')
+            total_open_vuln += open_vuln
+        else:
+            # Finding has treatment defined
+            pass
     return total_open_vuln
 
 
-def get_max_severity(project):
+def get_max_severity(findings):
     """Get maximum severity of a project."""
-    findings = integrates_dao.get_findings_released_dynamo(
-        project, 'finding_id, cvss_temporal')
-    if findings:
-        total_severity = [fin.get('cvss_temporal') for fin in findings]
-        max_severity = max(total_severity)
-    else:
-        max_severity = 0
+    total_severity = [fin.get('cvss_temporal') for fin in findings]
+    max_severity = max(total_severity)
     return max_severity
 
 
-def get_max_open_severity(project):
+def get_max_open_severity(findings):
     """Get maximum severity of project with open vulnerabilities."""
-    findings = integrates_dao.get_findings_released_dynamo(
-        project, 'finding_id, cvss_temporal')
-    if findings:
-        total_severity = \
-            [fin.get('cvss_temporal') for fin in findings
-             if total_vulnerabilities(
-                fin['finding_id']).get('openVulnerabilities') > 0]
-        max_severity = max(total_severity)
-    else:
-        max_severity = 0
+    total_severity = \
+        [fin.get('cvss_temporal') for fin in findings
+         if total_vulnerabilities(
+            fin['finding_id']).get('openVulnerabilities') > 0]
+    max_severity = max(total_severity)
     return max_severity

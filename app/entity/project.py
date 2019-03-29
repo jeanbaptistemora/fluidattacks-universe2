@@ -30,6 +30,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
     name = String()
     findings = List(Finding)
+    findings_aux = {}
     open_vulnerabilities = Int()
     closed_vulnerabilities = Int()
     subscription = String()
@@ -60,6 +61,10 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.max_severity = 0.0
         self.max_open_severity = 0.0
 
+        findings = integrates_dao.get_findings_released_dynamo(
+            self.name, 'finding_id, treatment, cvss_temporal')
+        self.findings_aux = findings
+
     def resolve_name(self, info):
         """Resolve name attribute."""
         del info
@@ -67,33 +72,27 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_findings(self, info):
         """Resolve findings attribute."""
-        finreqset = integrates_dao.get_findings_dynamo(self.name, 'finding_id')
-        if finreqset:
-            findings = [Finding(info, i['finding_id']) for i in finreqset]
-            self.findings = [fin for fin in findings
-                             if validate_release_date(fin.release_date)]
-        else:
-            self.findings = []
+        self.findings = [Finding(info, i['finding_id']) for i in self.findings_aux]
         return self.findings
 
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
         del info
         self.open_vulnerabilities = get_vulnerabilities(
-            self.name, 'openVulnerabilities')
+            self.findings_aux, 'openVulnerabilities')
         return self.open_vulnerabilities
 
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
         del info
         self.closed_vulnerabilities = get_vulnerabilities(
-            self.name, 'closedVulnerabilities')
+            self.findings_aux, 'closedVulnerabilities')
         return self.closed_vulnerabilities
 
     def resolve_closed_percentage(self, info):
         """Resolve closed percentage attribute."""
         del info
-        self.closed_percentage = get_closed_percentage(self.name)
+        self.closed_percentage = get_closed_percentage(self.findings_aux)
         return self.closed_percentage
 
     def resolve_pending_closing_check(self, info):
@@ -105,25 +104,25 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_last_closing_vuln(self, info):
         """Resolve days since last closing vuln attribute."""
         del info
-        self.last_closing_vuln = get_last_closing_vuln(self.name)
+        self.last_closing_vuln = get_last_closing_vuln(self.findings_aux)
         return self.last_closing_vuln
 
     def resolve_undefined_treatment(self, info):
         """Resolve vuln treatmentless attribute."""
         del info
-        self.undefined_treatment = get_undefined_treatment(self.name)
+        self.undefined_treatment = get_undefined_treatment(self.findings_aux)
         return self.undefined_treatment
 
     def resolve_max_severity(self, info):
         """Resolve maximum severity attribute."""
         del info
-        self.max_severity = get_max_severity(self.name)
+        self.max_severity = get_max_severity(self.findings_aux)
         return self.max_severity
 
     def resolve_max_open_severity(self, info):
         """Resolve maximum severity in open vulnerability attribute."""
         del info
-        self.max_open_severity = get_max_open_severity(self.name)
+        self.max_open_severity = get_max_open_severity(self.findings_aux)
         return self.max_open_severity
 
     def resolve_subscription(self, info):
