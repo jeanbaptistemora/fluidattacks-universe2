@@ -1,15 +1,32 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, RouteComponentProps } from "react-router-dom";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
+import { IDashboardState } from "../../reducer";
+import { loadProjectData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
-type IProjectContentProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
+type IProjectContentBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
+
+interface IProjectContentStateProps {
+  userRole: string;
+}
+
+interface IProjectContentDispatchProps {
+  onLoad(): void;
+}
+
+type IProjectContentProps = IProjectContentBaseProps & (IProjectContentStateProps & IProjectContentDispatchProps);
+
+const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectContentProps, {}>({
+  componentDidMount(): void { this.props.onLoad(); },
+});
 
 const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const userRole: string = (window as Window & { userRole: string }).userRole;
 
   return (
     <React.StrictMode>
@@ -32,7 +49,7 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                     </NavLink>
                   </li>
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
-                  {_.includes(["admin", "analyst"], userRole) ?
+                  {_.includes(["admin", "analyst"], props.userRole) ?
                     <li id="draftsTab" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`/project/${projectName}/drafts`}>
                         <i className="icon s7-stopwatch" />
@@ -53,7 +70,7 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                     </NavLink>
                   </li>
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
-                  {_.includes(["admin", "customeradmin"], userRole) ?
+                  {_.includes(["admin", "customeradmin"], props.userRole) ?
                     <li id="usersTab" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`/project/${projectName}/users`}>
                         <i className="icon s7-users" />
@@ -77,4 +94,19 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
   );
 };
 
-export = projectContent;
+interface IState { dashboard: IDashboardState; }
+const mapStateToProps: MapStateToProps<IProjectContentStateProps, IProjectContentBaseProps, IState> =
+  (state: IState): IProjectContentStateProps => ({
+    userRole: state.dashboard.user.role,
+  });
+
+const mapDispatchToProps: MapDispatchToProps<IProjectContentDispatchProps, IProjectContentBaseProps> =
+  (dispatch: ThunkDispatcher, ownProps: IProjectContentBaseProps): IProjectContentDispatchProps => {
+    const { projectName } = ownProps.match.params;
+
+    return ({
+      onLoad: (): void => { dispatch(loadProjectData(projectName)); },
+    });
+  };
+
+export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectContent));

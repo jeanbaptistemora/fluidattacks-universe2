@@ -7,7 +7,7 @@ import { ScrollUpButton } from "../../components/ScrollUpButton";
 import store from "../../store/index";
 import Navbar from "./components/Navbar/index";
 import FindingContent from "./containers/FindingContent/index";
-import { default as ProjectContent } from "./containers/ProjectContent/index";
+import ProjectContent from "./containers/ProjectContent/index";
 
 const dashboardView: React.SFC = (): JSX.Element => (
   <React.StrictMode>

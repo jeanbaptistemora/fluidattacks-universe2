@@ -13,6 +13,7 @@ import { IExploitViewProps } from "./containers/ExploitView";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as indicatorsActions from "./containers/IndicatorsView/actionTypes";
+import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
@@ -64,6 +65,9 @@ export interface IDashboardState {
   };
   severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset" | "cvssVersion">;
   tracking: Pick<ITrackingViewProps, "closings">;
+  user: {
+    role: string;
+  };
   users: {
     addModal: {
       initialValues: {};
@@ -229,6 +233,9 @@ const initialState: IDashboardState = {
   },
   tracking: {
     closings: [],
+  },
+  user: {
+    role: "",
   },
   users: {
     addModal: {
@@ -712,6 +719,12 @@ actionMap[findingActions.UPDATE_FINDING_HEADER] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
     ...state,
     finding: { ...state.finding, ...action.payload },
+  });
+
+actionMap[projectActions.LOAD_PROJECT] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    user: { role: action.payload.role },
   });
 
 type DashboardReducer = ((

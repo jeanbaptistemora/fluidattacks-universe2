@@ -177,6 +177,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.tags
 
+    @require_role(['admin', 'customeradmin'])
     def resolve_users(self, info, filter_roles=None):
         """ Resolve project users """
 

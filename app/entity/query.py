@@ -5,6 +5,7 @@
 from graphene import Field, String, ObjectType, List
 
 from app.api.formstack import FormstackAPI
+from app.entity.me import Me
 from .alert import Alert
 from .login import Login
 from .events import Events
@@ -37,12 +38,13 @@ class Query(ObjectType):
 
     resources = Field(Resource, project_name=String(required=True))
 
-    project_users = List(User, project_name=String(required=True))
-
     user_data = Field(User, project_name=String(required=True),
                       user_email=String(required=True))
 
     project = Field(Project, project_name=String(required=True))
+
+    # pylint: disable=invalid-name
+    me = Field(Me)
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
@@ -113,3 +115,9 @@ class Query(ObjectType):
         """Resolve for projects."""
         del info
         return Project(project_name)
+
+    @require_login
+    def resolve_me(self, info):
+        """Resolve for current user's data """
+        del info
+        return Me()

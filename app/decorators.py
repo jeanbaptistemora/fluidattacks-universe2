@@ -141,7 +141,7 @@ def require_role(allowed_roles):
 
             try:
                 if 'customeradmin' in allowed_roles and role == 'customer':
-                    project_name = kwargs.get('project_name')
+                    project_name = kwargs.get('project_name', args[0].name)
                     if not is_customeradmin(project_name, email):
                         raise PermissionDenied()
                     else:
