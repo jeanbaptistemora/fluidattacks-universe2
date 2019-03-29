@@ -1,53 +1,56 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
-import { ICommentStructure } from "./index";
+import { ICommentStructure } from "../../components/Comments";
 
 export interface IActionStructure {
-  payload: {} | undefined;
+  payload?: { [key: string]: string | string[] };
   type: string;
 }
 
-type ThunkDispatcher = Dispatch<IActionStructure> & ThunkDispatch<{}, {}, IActionStructure>;
-/* tslint:disable-next-line:no-any
- * Disabling this rule is necessary because the args
- * of an async action may differ
- */
-type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, IActionStructure>);
+export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
-export const loadComments: ThunkActionStructure =
-  (
-    projectName: string, callbackFn: ((comments: ICommentStructure[]) => void),
-  ): ThunkAction<void, {}, {}, IActionStructure> => (_: ThunkDispatcher): void => {
-    let gQry: string;
-    gQry = `{
+type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
+
+type loadCommentsFunction = (
+  (projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)) => ThunkResult<void>
+);
+
+export const loadComments: loadCommentsFunction =
+  (projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)): ThunkResult<void> =>
+    (_: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `{
         project(projectName: "${projectName}") {
           comments
         }
       }`;
-    new Xhr().request(gQry, "An error occurred getting project comments")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-        callbackFn(data.project.comments);
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
+      new Xhr().request(gQry, "An error occurred getting project comments")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          callbackFn(data.project.comments);
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
 
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
-  };
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
 
-export const postComment: ThunkActionStructure =
-  (
-    projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void),
-  ): ThunkAction<void, {}, {}, IActionStructure> => (_: ThunkDispatcher): void => {
+type postCommentFunction = ((
+  projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void),
+) => ThunkResult<void>);
+
+export const postComment: postCommentFunction = (
+  projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void),
+): ThunkResult<void> =>
+  (_: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
       addProjectComment(

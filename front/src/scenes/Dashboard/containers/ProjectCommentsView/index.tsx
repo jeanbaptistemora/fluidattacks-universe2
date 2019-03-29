@@ -7,7 +7,7 @@ import React from "react";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import store from "../../../../store/index";
-import { comments as Comments } from "../../components/Comments/index";
+import { comments as Comments, ICommentStructure } from "../../components/Comments/index";
 import * as actions from "./actions";
 
 export interface IProjectCommentsViewProps {
@@ -27,8 +27,8 @@ export interface ICommentStructure {
 
 const loadComments: ((projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)) => void) =
   (projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)): void => {
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
     );
 
     thunkDispatch(actions.loadComments(projectName, callbackFn));
@@ -37,8 +37,8 @@ const loadComments: ((projectName: string, callbackFn: ((comments: ICommentStruc
 const postComment: (
   (projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)) => void) =
   (projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void => {
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
     );
 
     thunkDispatch(actions.postComment(projectName, comment, callbackFn));
@@ -49,11 +49,11 @@ export const projectCommentsView: React.SFC<IProjectCommentsViewProps> =
     <React.StrictMode>
       <Comments
         id="project-comments"
-        onLoad={(callbackFn: ((comments: {}) => void)): void => {
+        onLoad={(callbackFn: ((comments: ICommentStructure[]) => void)): void => {
           loadComments(props.projectName, callbackFn);
         }}
-        onPostComment={(comment: {}, callbackFn: ((comments: {}) => void)): void => {
-          postComment(props.projectName, comment as ICommentStructure, callbackFn);
+        onPostComment={(comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void => {
+          postComment(props.projectName, comment, callbackFn);
         }}
       />
     </React.StrictMode>

@@ -1,13 +1,21 @@
 import React from "react";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 
+export interface ICommentStructure {
+  content: string;
+  created: string;
+  created_by_current_user: boolean;
+  email: string;
+  fullname: string;
+  id: number;
+  modified: string;
+  parent: number;
+}
+
 export interface ICommentsProps {
   id: string;
-  onLoad(callbackFn: ((dataset: Map<string, string>) => void)): void;
-  onPostComment(
-    data: { [key: string]: string },
-    callbackFn: ((commentData: { [key: string]: string }) => void),
-  ): void;
+  onLoad(callbackFn: ((comments: ICommentStructure[]) => void)): void;
+  onPostComment(comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void;
 }
 
 /* tslint:disable-next-line no-any
@@ -17,6 +25,8 @@ export interface ICommentsProps {
 declare var $: any;
 
 const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsProps): void => {
+  const { onLoad, onPostComment } = props;
+
   $(`#${props.id}`)
   .comments({
     defaultNavigationSortKey: "oldest",
@@ -25,12 +35,8 @@ const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsP
     enableHashtags: true,
     enablePinging: false,
     enableUpvoting: false,
-    getComments(callbackFn: (dataset: Map<string, string>) => void): void {
-      props.onLoad(callbackFn);
-    },
-    postComment(data: { [key: string]: string }, callbackFn: (data: { [key: string]: string }) => void): void {
-      props.onPostComment(data, callbackFn);
-    },
+    getComments: onLoad,
+    postComment: onPostComment,
     roundProfilePictures: true,
     textareaRows: 2,
   });

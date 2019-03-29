@@ -5,7 +5,8 @@ import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
-import { ICommentStructure, ICommentsViewProps } from "./index";
+import { ICommentStructure } from "../../components/Comments";
+import { ICommentsViewProps } from "./index";
 
 export interface IActionStructure {
   payload: {} | undefined;

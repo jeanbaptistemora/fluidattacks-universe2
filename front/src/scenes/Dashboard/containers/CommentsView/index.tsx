@@ -7,23 +7,12 @@ import React from "react";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import store from "../../../../store/index";
-import { comments as Comments } from "../../components/Comments/index";
+import { comments as Comments, ICommentStructure } from "../../components/Comments/index";
 import * as actions from "./actions";
 
 export interface ICommentsViewProps {
   findingId: string;
   type: "comment" | "observation";
-}
-
-export interface ICommentStructure {
-  content: string;
-  created: string;
-  created_by_current_user: boolean;
-  email: string;
-  fullname: string;
-  id: number;
-  modified: string;
-  parent: number;
 }
 
 const loadComments: ((projectName: string, type: ICommentsViewProps["type"],
@@ -53,11 +42,11 @@ export const commentsView: React.SFC<ICommentsViewProps> =
     <React.StrictMode>
       <Comments
         id={`finding-${props.type}s`}
-        onLoad={(callbackFn: ((comments: {}) => void)): void => {
+        onLoad={(callbackFn: ((comments: ICommentStructure[]) => void)): void => {
           loadComments(props.findingId, props.type, callbackFn);
         }}
-        onPostComment={(comment: {}, callbackFn: ((comments: {}) => void)): void => {
-          postComment(props.findingId, props.type, comment as ICommentStructure, callbackFn);
+        onPostComment={(comment: ICommentStructure, callbackFn: ((comments: ICommentStructure) => void)): void => {
+          postComment(props.findingId, props.type, comment, callbackFn);
         }}
       />
     </React.StrictMode>
