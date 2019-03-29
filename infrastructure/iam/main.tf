@@ -1,3 +1,4 @@
+variable "fsBucket" {}
 variable "fwBucket" {}
 
 resource "aws_iam_account_password_policy" "strict" {
@@ -23,7 +24,8 @@ module "roles" {
 }
 
 module "policies" {
-  source = "./policies"
-  fwBucket = "${var.fwBucket}"
-  ssofinance = "${module.roles.ssofinance}"
+  source       = "./policies"
+  fsBucket     = "${var.fsBucket}"
+  fwBucket     = "${var.fwBucket}"
+  ssofinance   = "${module.roles.ssofinance}"
 }

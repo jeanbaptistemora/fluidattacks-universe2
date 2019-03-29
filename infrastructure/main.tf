@@ -24,6 +24,7 @@ module "bucket" {
 module "iam" {
   source = "./iam"
   fwBucket = "${var.fwBucket}"
+  fsBucket = "${var.fsBucket}"
 }
 
 # #Create from scratch
