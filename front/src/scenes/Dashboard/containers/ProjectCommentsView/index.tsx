@@ -1,60 +1,50 @@
-/* tslint:disable jsx-no-lambda jsx-no-multiline-js
- * Disabling this rules is necessary for the sake of simplicity and
- * readability of the code that binds load and post events
- */
-
 import React from "react";
-import { AnyAction } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import store from "../../../../store/index";
+import { connect, MapDispatchToProps } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { comments as Comments, ICommentStructure } from "../../components/Comments/index";
-import * as actions from "./actions";
+import { loadComments, postComment, ThunkDispatcher } from "./actions";
 
-export interface IProjectCommentsViewProps {
-  projectName: string;
+type IProjectCommentsBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
+
+interface IProjectCommentsDispatchProps {
+  onLoad(callbackFn: ((comments: ICommentStructure[]) => void)): void;
+  onPostComment(comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void;
 }
 
-export interface ICommentStructure {
-  content: string;
-  created: string;
-  created_by_current_user: boolean;
-  email: string;
-  fullname: string;
-  id: number;
-  modified: string;
-  parent: number;
-}
+type IProjectCommentsViewProps = IProjectCommentsBaseProps & IProjectCommentsDispatchProps;
 
-const loadComments: ((projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)) => void) =
-  (projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)): void => {
-    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-    );
+const projectCommentsView: React.SFC<IProjectCommentsViewProps> = (props: IProjectCommentsViewProps): JSX.Element => {
+  const handleLoad: ((callbackFn: ((comments: ICommentStructure[]) => void)) => void) =
+    (callbackFn: ((comments: ICommentStructure[]) => void)): void => {
+      props.onLoad(callbackFn);
+    };
 
-    thunkDispatch(actions.loadComments(projectName, callbackFn));
-  };
+  const handlePost: ((comment: ICommentStructure, callbackFn: ((comments: ICommentStructure) => void)) => void) =
+    (comment: ICommentStructure, callbackFn: ((comments: ICommentStructure) => void)): void => {
+      props.onPostComment(comment, callbackFn);
+    };
 
-const postComment: (
-  (projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)) => void) =
-  (projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void => {
-    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-    );
-
-    thunkDispatch(actions.postComment(projectName, comment, callbackFn));
-  };
-
-export const projectCommentsView: React.SFC<IProjectCommentsViewProps> =
-  (props: IProjectCommentsViewProps): JSX.Element => (
+  return (
     <React.StrictMode>
-      <Comments
-        id="project-comments"
-        onLoad={(callbackFn: ((comments: ICommentStructure[]) => void)): void => {
-          loadComments(props.projectName, callbackFn);
-        }}
-        onPostComment={(comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void => {
-          postComment(props.projectName, comment, callbackFn);
-        }}
-      />
+      <Comments id="project-comments" onLoad={handleLoad} onPostComment={handlePost} />
     </React.StrictMode>
   );
+};
+
+const mapStateToProps: undefined = undefined;
+
+const mapDispatchToProps: MapDispatchToProps<IProjectCommentsDispatchProps, IProjectCommentsBaseProps> =
+  (dispatch: ThunkDispatcher, ownProps: IProjectCommentsBaseProps): IProjectCommentsDispatchProps => {
+    const { projectName } = ownProps.match.params;
+
+    return ({
+      onLoad: (callbackFn: ((comments: ICommentStructure[]) => void)): void => {
+        dispatch(loadComments(projectName, callbackFn));
+      },
+      onPostComment: (comment: ICommentStructure, callbackFn: ((comments: ICommentStructure) => void)): void => {
+        dispatch(postComment(projectName, comment, callbackFn));
+      },
+    });
+  };
+
+export = connect(mapStateToProps, mapDispatchToProps)(projectCommentsView);

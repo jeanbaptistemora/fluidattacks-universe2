@@ -2,10 +2,11 @@ import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { NavLink, RouteComponentProps } from "react-router-dom";
+import { NavLink, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
+import ProjectCommentsView from "../ProjectCommentsView/index";
 import { loadProjectData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
@@ -85,6 +86,12 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                     </NavLink>
                   </li>
                 </ul>
+              </div>
+
+              <div className={style.tabContent}>
+                <Switch>
+                  <Route path="/project/:projectName/comments" component={ProjectCommentsView} />
+                </Switch>
               </div>
             </React.Fragment>
           </Col>

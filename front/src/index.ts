@@ -17,7 +17,6 @@ import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
 import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
 import { eventsView } from "./scenes/Dashboard/containers/EventsView/index";
 import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
-import { projectCommentsView } from "./scenes/Dashboard/containers/ProjectCommentsView";
 import { projectUsersView } from "./scenes/Dashboard/containers/ProjectUsersView/index";
 import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index";
 import Access from "./scenes/Login/components/Access/index";
@@ -289,23 +288,6 @@ angular
      ],
    ),
   );
-
-/**
- * @url: #/project/:project/comments
- * @page: comments.html
- * @controllers: projectCommentsCtrl
- * @tag: <project-comments-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "projectCommentsView",
-    react2angular(
-      projectCommentsView, [
-        "projectName",
-      ],
-    ),
-);
 
 /**
  * @url: /registration
