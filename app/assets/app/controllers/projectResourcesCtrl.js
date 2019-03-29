@@ -67,27 +67,6 @@ angular.module("FluidIntegrates").controller(
       functionsFtry3.configKeyboardView($scope);
     };
 
-    $scope.urlIndicators = function urlIndicators () {
-      $state.go("ProjectIndicators", {"project": $scope.project});
-    };
-    $scope.urlFindings = function urlFindings () {
-      $state.go("ProjectFindings", {"project": $scope.project});
-    };
-    $scope.urlEvents = function urlEvents () {
-      $state.go("ProjectEvents", {"project": $scope.project});
-    };
-    $scope.urlUsers = function urlUsers () {
-      $state.go("ProjectUsers", {"project": $scope.project});
-    };
-    $scope.urlComments = function urlComments () {
-      $state.go("ProjectComments", {"project": $scope.project});
-    };
-    $scope.urlDrafts = function urlDrafts () {
-      $state.go("ProjectDrafts", {"project": $scope.project});
-    };
-    $scope.urlResources = function urlResources () {
-      $state.go("ProjectResources", {"project": $scope.project});
-    };
     $scope.init();
   }
 );
