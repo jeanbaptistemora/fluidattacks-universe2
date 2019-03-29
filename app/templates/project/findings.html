@@ -51,46 +51,6 @@
         <div class="col-md-12" id="search_section">
             <div class="row">
                 <div class="tab-container">
-                    <div ng-if="false">
-                    <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
-                        <!-- <li id="indicatorsTab" class="active" style="font-size:15px;" ui-sref="Forms" ng-click="urlIndicators();"> -->
-                        <li id="indicatorsTab" class="" style="font-size:15px;" ng-click="urlIndicators();">
-                            <a href="#indicators" data-toggle="tab" aria-expanded="false">
-                                <i class="icon s7-graph3"></i>&nbsp; {% templatetag openvariable %} 'tab_container.indicators' | translate {% templatetag closevariable %}
-                            </a>
-                        </li>
-                        <li id="findingsTab" class="active" style="font-size:15px;" ng-click="urlFindings();">
-                            <a href="#findings" data-toggle="tab" aria-expanded="false">
-                                <i class="icon s7-light"></i>&nbsp;{% templatetag openvariable %} 'tab_container.findings' | translate {% templatetag closevariable %}
-                            </a>
-                        </li>
-                        <li id="draftsTab" class="" style="font-size:15px;" ng-click="urlDrafts();" ng-show="isManager">
-                            <a href="#drafts" data-toggle="tab" aria-expanded="true">
-                                <i class="icon s7-stopwatch"></i>&nbsp; Drafts
-                            </a>
-                        </li>
-                        <li id="eventsTab" class="" style="font-size:15px;" ng-click="urlEvents();">
-                            <a href="#eventualities" data-toggle="tab" aria-expanded="true">
-                                <i class="icon s7-star"></i>&nbsp;{% templatetag openvariable %} 'tab_container.eventualities' | translate {% templatetag closevariable %}
-                            </a>
-                        </li>
-                        <li id="resourcesTab" class="" style="font-size:15px;" ng-click="urlResources();">
-                            <a href="#resources" data-toggle="tab" aria-expanded="true">
-                                <i class="icon s7-box1"></i>&nbsp;{% templatetag openvariable %} 'tab_container.resources' | translate {% templatetag closevariable %}
-                            </a>
-                        </li>
-                        <li id="usersTab" class="" ng-show="isCustomer" style="font-size:15px;" ng-click="urlUsers();">
-                            <a href="#users" data-toggle="tab" aria-expanded="true">
-                                <i class="icon s7-users"></i>&nbsp;{% templatetag openvariable %} 'tab_container.users' | translate {% templatetag closevariable %}
-                            </a>
-                        </li>
-                        <li id="commentsTab" class="" style="font-size:15px;" ng-click="urlComments();">
-                            <a href="#comments" data-toggle="tab" aria-expanded="true">
-                                <i class="icon s7-comment"></i>&nbsp;{% templatetag openvariable %} 'tab_container.comments' | translate {% templatetag closevariable %}
-                            </a>
-                        </li>
-                    </ul>
-                    </div>
                     <div class="tab-content">
                         <div id="findings" class="tab-pane cont active">
                             <div class="row">
