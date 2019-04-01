@@ -111,12 +111,12 @@ Digital Agency, Portals and +CERO+.
 
 2+a|== PSL
 
-Organization worldwide recognized for the adoption
-of the best existing Software Engineering practices in the world.
+PSL is recognized worldwide
+for embracing and implementing software engineering best practices.
 The company has two major business lines:
-Products and Services, among which it offers consulting, development
+products and services, among which it offers consulting, development,
 and maintenance of software and outsourcing services
-(web, mobile, mission critical).
+(web, mobile, and mission critical).
 
 a|image::logo-psl.png[alt="Logo PSL",link="http://www.psl.com.co/"]
 
@@ -124,12 +124,9 @@ a|image::logo-s4n.png[alt="Logo S4N",link="http://s4n.co/"]
 
 2+a|== S4N
 
-Technology company dedicated to transforming the way
-in which each of its clients operates,
-implementing software solutions that overcome business challenges
-and have an absolute focus on the creation of value.
-Technology service providers that seek to transform organizations
-and improve people's lives by taking advantage of technologies and new trends.
+S4N is a technology service provider
+working with clients to determine and implement software solutions
+to overcome business challenges and maximize client revenues.
 
 2+a|== VM2020
 
