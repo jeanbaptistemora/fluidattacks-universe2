@@ -179,7 +179,10 @@ def get_undefined_treatment(findings):
 def get_max_severity(findings):
     """Get maximum severity of a project."""
     total_severity = [fin.get('cvss_temporal') for fin in findings]
-    max_severity = max(total_severity)
+    if total_severity:
+        max_severity = max(total_severity)
+    else:
+        max_severity = 0
     return max_severity
 
 
@@ -189,5 +192,8 @@ def get_max_open_severity(findings):
         [fin.get('cvss_temporal') for fin in findings
          if total_vulnerabilities(
             fin['finding_id']).get('openVulnerabilities') > 0]
-    max_severity = max(total_severity)
+    if total_severity:
+        max_severity = max(total_severity)
+    else:
+        max_severity = 0
     return max_severity
