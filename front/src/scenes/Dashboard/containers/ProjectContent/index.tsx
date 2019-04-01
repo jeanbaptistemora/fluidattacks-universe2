@@ -7,6 +7,7 @@ import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
 import ProjectCommentsView from "../ProjectCommentsView/index";
+import ProjectUsersView from "../ProjectUsersView/index";
 import { loadProjectData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
@@ -90,6 +91,7 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
 
               <div className={style.tabContent}>
                 <Switch>
+                  <Route path="/project/:projectName/users" component={ProjectUsersView} />
                   <Route path="/project/:projectName/comments" component={ProjectCommentsView} />
                 </Switch>
               </div>

@@ -16,7 +16,7 @@ import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
 import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
 import { eventsView } from "./scenes/Dashboard/containers/EventsView/index";
 import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
-import { projectUsersView } from "./scenes/Dashboard/containers/ProjectUsersView/index";
+import ProjectUsersView from "./scenes/Dashboard/containers/ProjectUsersView/index";
 import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
@@ -259,10 +259,7 @@ angular
   .component(
    "projectUsersView",
    react2angular(
-      projectUsersView, [
-        "projectName",
-        "userRole",
-     ],
+      ProjectUsersView, [],
    ),
   );
 

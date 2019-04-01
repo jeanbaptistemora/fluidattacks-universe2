@@ -8,7 +8,7 @@ import { reduxForm as ReduxForm } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { component as ProjectUsersView } from "./index";
+import ProjectUsersView from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -16,27 +16,9 @@ const functionMock: (() => void) = (): void => undefined;
 
 describe("Project users view", () => {
 
-  const testDataset: Array<{
-    email: string; firstLogin: string; lastLogin: string; organization: string;
-    phoneNumber: string; responsability: string; role: string;
-  }> = [
-      {
-        email: "",
-        firstLogin: "",
-        lastLogin: "",
-        organization: "",
-        phoneNumber: "",
-        responsability: "",
-        role: "",
-      },
-    ];
-
   const wrapper: ShallowWrapper = shallow(
     <ProjectUsersView
-      addModal={{ initialValues: {}, open: true, type: "add" }}
-      userRole="admin"
-      projectName="unittesting"
-      userList={testDataset}
+      match={{ params: { projectName: "unittesting" }, isExact: false, path: "", url: "" }}
     />,
   );
 

@@ -3,7 +3,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
@@ -32,12 +32,7 @@ import style from "./index.css";
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
 const reduxProps: any = {};
 
-interface IFindingContentBaseProps {
-  // Route props
-  match: {
-    params: { [key: string]: string };
-  };
-}
+type IFindingContentBaseProps = Pick<RouteComponentProps<{ findingId: string; projectName: string }>, "match">;
 
 interface IFindingContentStateProps {
   alert?: string;

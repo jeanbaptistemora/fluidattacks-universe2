@@ -1,71 +1,55 @@
-/* tslint:disable:jsx-no-lambda jsx-no-multiline-js
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
- *
- * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
-  * readability of the code that defines the headers of the table
- */
 import _ from "lodash";
-import React, { ComponentType } from "react";
+import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import { Provider } from "react-redux";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { AnyAction, Reducer } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import store from "../../../../store/index";
 import { msgError } from "../../../../utils/notifications";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import * as actions from "./actions";
+import { addUser, editUser, loadUsers, openUsersMdl, removeUser, ThunkDispatcher } from "./actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
 
-type IUserData = IDashboardState["users"]["userList"][0];
-export interface IProjectUsersViewProps {
+type IProjectUsersBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
+
+interface IProjectUsersStateProps {
   addModal: {
     initialValues: {};
     open: boolean;
     type: "add" | "edit";
   };
-  projectName: string;
   userList: IDashboardState["users"]["userList"];
   userRole: string;
 }
 
+type IUserData = IDashboardState["users"]["userList"][0];
+
+interface IProjectUsersDispatchProps {
+  onAdd(userData: IUserData): void;
+  onEditSave(userData: IUserData): void;
+  onLoad(): void;
+  onOpenModal(type: "add" | "edit", initialValues?: {}): void;
+  onRemove(email: string): void;
+}
+
+type IProjectUsersViewProps = IProjectUsersBaseProps & (IProjectUsersStateProps & IProjectUsersDispatchProps);
+
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectUsersViewProps, {}>({
-  componentDidMount(): void {
-    const { projectName } = this.props;
-    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-    );
-    thunkDispatch(actions.loadUsers(projectName));
-  },
+  componentDidMount(): void { this.props.onLoad(); },
 });
 
-const mapStateToProps: ((arg1: StateType<Reducer>) => IProjectUsersViewProps) =
-  (state: StateType<Reducer>): IProjectUsersViewProps => ({
-    ...state,
-    addModal: state.dashboard.users.addModal,
-    userList: state.dashboard.users.userList,
-  });
-
-const removeUser: ((arg1: string) => void) = (projectName: string): void => {
+const remove: ((props: IProjectUsersViewProps) => void) = (props: IProjectUsersViewProps): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
   if (selectedQry.length > 0) {
     if (selectedQry[0].closest("tr") !== null) {
       const selectedRow: Element = selectedQry[0].closest("tr") as Element;
       const email: string | null = selectedRow.children[1].textContent;
 
-      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-      );
-      thunkDispatch(actions.removeUser(projectName, String(email)));
+      props.onRemove(String(email));
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing user");
@@ -75,7 +59,7 @@ const removeUser: ((arg1: string) => void) = (projectName: string): void => {
   }
 };
 
-const openEditModal: (() => void) = (): void => {
+const openEditModal: ((props: IProjectUsersViewProps) => void) = (props: IProjectUsersViewProps): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
   if (selectedQry.length > 0) {
     if (selectedQry[0].closest("tr") !== null) {
@@ -87,10 +71,7 @@ const openEditModal: (() => void) = (): void => {
       const phoneNumber: string | null = DATA_IN_SELECTED_ROW[4].textContent;
       const organization: string | null = DATA_IN_SELECTED_ROW[5].textContent;
 
-      store.dispatch(actions.openUsersMdl("edit", {
-        email, organization, phoneNumber,
-        responsability,
-      }));
+      props.onOpenModal("edit", { email, organization, phoneNumber, responsability });
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing user");
@@ -167,14 +148,21 @@ const renderUsersTable: ((userList: IProjectUsersViewProps["userList"], userRole
   );
 
 const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
-  (props: IProjectUsersViewProps): JSX.Element => (
+  (props: IProjectUsersViewProps): JSX.Element => {
+    const handleEditClick: (() => void) = (): void => { openEditModal(props); };
+
+    const handleAddClick: (() => void) = (): void => { props.onOpenModal("add"); };
+
+    const handleRemoveClick: (() => void) = (): void => { remove(props); };
+
+    return (
   <div>
     <Col mdOffset={3} md={2} sm={6}>
       <Button
         id="editUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { openEditModal(); }}
+        onClick={handleEditClick}
       >
         <FluidIcon icon="edit" />&nbsp;
         {translate.t("search_findings.tab_users.edit")}
@@ -185,7 +173,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         id="addUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { store.dispatch(actions.openUsersMdl("add")); }}
+        onClick={handleAddClick}
       >
         <Glyphicon glyph="plus" />&nbsp;
         {translate.t("search_findings.tab_users.add_button")}
@@ -196,33 +184,26 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
         id="removeUser"
         block={true}
         bsStyle="primary"
-        onClick={(): void => { removeUser(props.projectName); }}
+        onClick={handleRemoveClick}
       >
         <Glyphicon glyph="minus" />&nbsp;
         {translate.t("search_findings.tab_users.remove_user")}
       </Button>
     </Col>
   </div>
-);
-
-const addUserToProject: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
-  (props: IProjectUsersViewProps, newUser: IUserData): void => {
-    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
     );
-    thunkDispatch(actions.addUser(newUser, props.projectName));
   };
 
-const editUserInfo: ((arg1: IProjectUsersViewProps, arg2: IUserData) => void) =
-  (props: IProjectUsersViewProps, modifiedUser: IUserData): void => {
-    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-    );
-    thunkDispatch(actions.editUser(modifiedUser, props.projectName));
-  };
+const projectUsersView: React.SFC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
+  const { projectName } = props.match.params;
 
-export const component: React.SFC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
-  const { userRole } = props;
+  const handleSubmit: ((values: {}) => void) = (values: {}): void => {
+    if (props.addModal.type === "add") {
+      props.onAdd(values as IUserData);
+    } else {
+      props.onEditSave(values as IUserData);
+    }
+  };
 
   return (
     <React.StrictMode>
@@ -230,34 +211,40 @@ export const component: React.SFC<IProjectUsersViewProps> = (props: IProjectUser
         <Row>
           <Col md={12} sm={12} xs={12}>
             <Row>
-              {_.includes(["admin", "customeradmin"], userRole) ? renderActionButtons(props) : undefined}
+              {_.includes(["admin", "customeradmin"], props.userRole) ? renderActionButtons(props) : undefined}
             </Row>
             <Row>
               <Col md={12} sm={12}>
-                {renderUsersTable(props.userList, userRole)}
+                {renderUsersTable(props.userList, props.userRole)}
               </Col>
             </Row>
           </Col>
         </Row>
-        <Provider store={store}>
-          <AddUserModal
-            onSubmit={
-              props.addModal.type === "add"
-                ? (values: {}): void => { addUserToProject(props, values as IUserData); }
-                : (values: {}): void => { editUserInfo(props, values as IUserData); }
-            }
-            {...props.addModal}
-            projectName={props.projectName}
-            userRole={userRole}
-          />
-        </Provider>
+        <AddUserModal onSubmit={handleSubmit} projectName={projectName} userRole={props.userRole} {...props.addModal} />
       </div>
     </React.StrictMode>
   );
 };
 
-export const projectUsersView: ComponentType<IProjectUsersViewProps> = reduxWrapper
-  (
-  enhance(component) as React.StatelessComponent<IProjectUsersViewProps>,
-  mapStateToProps,
-);
+interface IState { dashboard: IDashboardState; }
+const mapStateToProps: MapStateToProps<IProjectUsersStateProps, IProjectUsersBaseProps, IState> =
+  (state: IState): IProjectUsersStateProps => ({
+    addModal: state.dashboard.users.addModal,
+    userList: state.dashboard.users.userList,
+    userRole: state.dashboard.user.role,
+  });
+
+const mapDispatchToProps: MapDispatchToProps<IProjectUsersDispatchProps, IProjectUsersBaseProps> =
+  (dispatch: ThunkDispatcher, ownProps: IProjectUsersBaseProps): IProjectUsersDispatchProps => {
+    const { projectName } = ownProps.match.params;
+
+    return ({
+      onAdd: (userData: IUserData): void => { dispatch(addUser(userData, projectName)); },
+      onEditSave: (userData: IUserData): void => { dispatch(editUser(userData, projectName)); },
+      onLoad: (): void => { dispatch(loadUsers(projectName)); },
+      onOpenModal: (type: "add" | "edit", initialValues?: {}): void => { dispatch(openUsersMdl(type, initialValues)); },
+      onRemove: (email: string): void => { dispatch(removeUser(projectName, email)); },
+    });
+  };
+
+export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectUsersView));
