@@ -133,10 +133,7 @@ def user_email_filter(emails, actual_user):
     if "@fluidattacks.com" in actual_user:
         final_users = emails
     else:
-        for user in emails:
-            if "@fluidattacks.com" in user:
-                emails.remove(user)
-        final_users = emails
+        final_users = list(filter(lambda email: not(email.endswith('@fluidattacks.com')), emails))
     return final_users
 
 

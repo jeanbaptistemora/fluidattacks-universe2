@@ -57,7 +57,7 @@ export const loadDescription: ThunkActionStructure<void> =
       gQry = `{
         project(projectName: "${projectName}") {
           subscription
-          userEmails: users(filterRoles: ["customer", "customer_admin"]) @include(if: ${canEditTreatmentMgr}) {
+          userEmails: users @include(if: ${canEditTreatmentMgr}) {
             email
           }
         }
