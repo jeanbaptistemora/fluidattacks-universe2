@@ -32,14 +32,18 @@ export interface IIndicatorsViewProps {
     open: boolean;
   };
   closedPercentage: number;
+  closedVulnerabilities: number;
   deletionDate: string;
   lastClosingVuln: number;
   maxOpenSeverity: number;
   maxSeverity: number;
+  meanRemediate: number;
+  openVulnerabilities: number;
   pendingClosingCheck: number;
   projectName: string;
   subscription: string;
   tagsDataset: string[];
+  totalFindings: number;
   undefinedTreatment: number;
 }
 
@@ -104,13 +108,17 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
     ...state,
     addModal: state.dashboard.indicators.addModal,
     closedPercentage: state.dashboard.indicators.closedPercentage,
+    closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
     deletionDate: state.dashboard.indicators.deletionDate,
     lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
     maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
     maxSeverity: state.dashboard.indicators.maxSeverity,
+    meanRemediate: state.dashboard.indicators.meanRemediate,
+    openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
     pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
     subscription: state.dashboard.indicators.subscription,
     tagsDataset: state.dashboard.indicators.tags,
+    totalFindings: state.dashboard.indicators.totalFindings,
     undefinedTreatment: state.dashboard.indicators.undefinedTreatment,
   });
 
@@ -186,6 +194,7 @@ const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined)
 
 export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
   const userEmail: string = (window as Window & { userEmail: string }).userEmail;
+  const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
 
   return (
     <React.StrictMode>
@@ -195,6 +204,20 @@ export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsVie
       }
       <Row>
         <Col md={12} sm={12} xs={12}>
+          <IndicatorBox
+            icon="findings"
+            name={translate.t("search_findings.tab_indicators.total_findings")}
+            quantity={props.totalFindings}
+            title=""
+            total=""
+          />
+          <IndicatorBox
+            icon="vulnerabilities"
+            name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
+            quantity={totalVulnerabilities}
+            title=""
+            total=""
+          />
           <IndicatorBox
             icon="fixedVulnerabilities"
             name={translate.t("search_findings.tab_indicators.closed_percentage")}
@@ -224,7 +247,14 @@ export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsVie
             total=""
           />
           <IndicatorBox
-            icon="vulnerabilities"
+            icon="graph"
+            name={translate.t("search_findings.tab_indicators.mean_remediate")}
+            quantity={props.meanRemediate}
+            title=""
+            total={translate.t("search_findings.tab_indicators.days")}
+          />
+          <IndicatorBox
+            icon="vectorLocal"
             name={translate.t("search_findings.tab_indicators.max_severity")}
             quantity={props.maxSeverity}
             title=""

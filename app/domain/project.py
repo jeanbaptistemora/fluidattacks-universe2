@@ -197,3 +197,49 @@ def get_max_open_severity(findings):
     else:
         max_severity = 0
     return max_severity
+
+
+def get_open_vulnerability_date(vulnerability):
+    """Get open vulnerability date of a vulnerability."""
+    all_states = vulnerability.get('historic_state')
+    current_state = all_states[0]
+    open_date = None
+    if current_state.get('state') == 'open':
+        open_date = datetime.datetime.strptime(
+            current_state.get('date').split(' ')[0],
+            '%Y-%m-%d'
+        )
+        tzn = pytz.timezone('America/Bogota')
+        open_date = open_date.replace(tzinfo=tzn).date()
+    else:
+        # Vulnerability does not have closing date
+        pass
+    return open_date
+
+
+def get_mean_remediate(findings):
+    """Get mean time to remediate a vulnerability."""
+    total_vuln = 0
+    total_days = 0
+    tzn = pytz.timezone('America/Bogota')
+    for finding in findings:
+        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
+            finding['finding_id'])
+        for vuln in vulnerabilities:
+            open_vuln_date = get_open_vulnerability_date(vuln)
+            closed_vuln_date = get_last_closing_date(vuln)
+            if open_vuln_date:
+                if closed_vuln_date:
+                    total_days += int((closed_vuln_date - open_vuln_date).days)
+                else:
+                    current_day = datetime.datetime.now(tz=tzn).date()
+                    total_days += int((current_day - open_vuln_date).days)
+                total_vuln += 1
+            else:
+                # Vulnerability does not have a open date
+                pass
+    if total_vuln:
+        mean_vulnerabilities = round(total_days / float(total_vuln))
+    else:
+        mean_vulnerabilities = 0
+    return mean_vulnerabilities

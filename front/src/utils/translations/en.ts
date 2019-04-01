@@ -277,13 +277,17 @@ const enTranslations: Map<string, string> = {
     },
     tab_indicators: {
       closed_percentage: "Closed vulnerabilities",
+      days: "days",
       last_closing_vuln: "Days since last closed vulnerability",
       max_open_severity: "Max open severity",
       max_severity: "Max severity found",
+      mean_remediate: "Mean time to remediate",
       pending_closing_check: "Pending closing verification",
       tags: {
         modal_title: "Add tags information",
       },
+      total_findings: "Total Findings",
+      total_vulnerabilitites: "Total Vulnerabilities",
       undefined_treatment: "Open vulnerabilities with no defined treatment",
     },
     tab_observations: {

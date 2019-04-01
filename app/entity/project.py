@@ -15,7 +15,8 @@ from app.decorators import require_role, require_login, require_project_access_g
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
     get_closed_percentage, get_pending_closing_check, get_last_closing_vuln,
-    get_undefined_treatment, get_max_severity, get_max_open_severity
+    get_undefined_treatment, get_max_severity, get_max_open_severity,
+    get_mean_remediate
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -43,6 +44,8 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     undefined_treatment = Int()
     max_severity = Float()
     max_open_severity = Float()
+    mean_remediate = Int()
+    total_findings = Int()
     users = List(User, filter_roles=List(String))
 
     def __init__(self, project_name):
@@ -60,6 +63,8 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.undefined_treatment = 0
         self.max_severity = 0.0
         self.max_open_severity = 0.0
+        self.mean_remediate = 0
+        self.total_findings = 0
 
         findings = integrates_dao.get_findings_released_dynamo(
             self.name, 'finding_id, treatment, cvss_temporal')
@@ -124,6 +129,18 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         del info
         self.max_open_severity = get_max_open_severity(self.findings_aux)
         return self.max_open_severity
+
+    def resolve_mean_remediate(self, info):
+        """Resolve mean to remediate a vulnerability attribute."""
+        del info
+        self.mean_remediate = get_mean_remediate(self.findings_aux)
+        return self.mean_remediate
+
+    def resolve_total_findings(self, info):
+        """Resolve total findings attribute."""
+        del info
+        self.total_findings = len(self.findings_aux)
+        return self.total_findings
 
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""

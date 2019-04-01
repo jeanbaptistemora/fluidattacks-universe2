@@ -46,13 +46,17 @@ export interface IDashboardState {
       open: boolean;
     };
     closedPercentage: number;
+    closedVulnerabilities: number;
     deletionDate: string;
     lastClosingVuln: number;
     maxOpenSeverity: number;
     maxSeverity: number;
+    meanRemediate: number;
+    openVulnerabilities: number;
     pendingClosingCheck: number;
     subscription: string;
     tags: string[];
+    totalFindings: number;
     undefinedTreatment: number;
   };
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
@@ -182,13 +186,17 @@ const initialState: IDashboardState = {
       open: false,
     },
     closedPercentage: 0,
+    closedVulnerabilities: 0,
     deletionDate: "",
     lastClosingVuln: 0,
     maxOpenSeverity: 0,
     maxSeverity: 0,
+    meanRemediate: 0,
+    openVulnerabilities: 0,
     pendingClosingCheck: 0,
     subscription: "",
     tags: [],
+    totalFindings: 0,
     undefinedTreatment: 0,
   },
   records: {
@@ -665,13 +673,17 @@ actionMap[indicatorsActions.LOAD_INDICATORS] =
     indicators: {
       ...state.indicators,
       closedPercentage: action.payload.closedPercentage,
+      closedVulnerabilities: action.payload.closedVulnerabilities,
       deletionDate: action.payload.deletionDate,
       lastClosingVuln: action.payload.lastClosingVuln,
       maxOpenSeverity: action.payload.maxOpenSeverity,
       maxSeverity: action.payload.maxSeverity,
+      meanRemediate: action.payload.meanRemediate,
+      openVulnerabilities: action.payload.openVulnerabilities,
       pendingClosingCheck: action.payload.pendingClosingCheck,
       subscription: action.payload.subscription,
       tags: action.payload.tags,
+      totalFindings: action.payload.totalFindings,
       undefinedTreatment: action.payload.undefinedTreatment,
     },
   });

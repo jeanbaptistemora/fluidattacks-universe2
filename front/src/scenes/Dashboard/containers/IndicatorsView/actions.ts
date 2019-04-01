@@ -38,13 +38,17 @@ export const loadIndicators: ThunkActionStructure =
       gQry = `{
         project(projectName: "${projectName}"){
           closedPercentage
+          closedVulnerabilities
           deletionDate
           lastClosingVuln
           maxOpenSeverity
           maxSeverity
+          meanRemediate
+          openVulnerabilities
           pendingClosingCheck
           subscription
           tags
+          totalFindings
           undefinedTreatment
         }
       }`;
@@ -54,13 +58,17 @@ export const loadIndicators: ThunkActionStructure =
           dispatch({
             payload: {
               closedPercentage: data.project.closedPercentage,
+              closedVulnerabilities: data.project.closedVulnerabilities,
               deletionDate: data.project.deletionDate,
               lastClosingVuln: data.project.lastClosingVuln,
               maxOpenSeverity: data.project.maxOpenSeverity,
               maxSeverity: data.project.maxSeverity,
+              meanRemediate: data.project.meanRemediate,
+              openVulnerabilities: data.project.openVulnerabilities,
               pendingClosingCheck: data.project.pendingClosingCheck,
               subscription: data.project.subscription,
               tags: data.project.tags,
+              totalFindings: data.project.totalFindings,
               undefinedTreatment: data.project.undefinedTreatment,
             },
             type: actionTypes.LOAD_INDICATORS,
