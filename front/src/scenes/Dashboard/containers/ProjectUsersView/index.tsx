@@ -82,55 +82,55 @@ const openEditModal: ((props: IProjectUsersViewProps) => void) = (props: IProjec
 };
 
 const tableHeaders: IHeader[] = [
-      {
-        dataField: "email",
-        header: translate.t("search_findings.users_table.usermail"),
-        isDate: false,
-        isStatus: false,
-        width: "27%",
-      },
-      {
-        dataField: "role",
-        header: translate.t("search_findings.users_table.userRole"),
-        isDate: false,
-        isStatus: false,
-        width: "8%",
-      },
-      {
-        dataField: "responsability",
-        header: translate.t("search_findings.users_table.userResponsibility"),
-        isDate: false,
-        isStatus: false,
-        width: "12%",
-      },
-      {
-        dataField: "phoneNumber",
-        header: translate.t("search_findings.users_table.phoneNumber"),
-        isDate: false,
-        isStatus: false,
-        width: "10%",
-      },
-      {
-        dataField: "organization",
-        header: translate.t("search_findings.users_table.userOrganization"),
-        isDate: false,
-        isStatus: false,
-        width: "10%",
-      },
-      {
-        dataField: "firstLogin",
-        header: translate.t("search_findings.users_table.firstlogin"),
-        isDate: false,
-        isStatus: false,
-        width: "12%",
-      },
-      {
-        dataField: "lastLogin",
-        header: translate.t("search_findings.users_table.lastlogin"),
-        isDate: false,
-        isStatus: false,
-        width: "12%",
-      },
+  {
+    dataField: "email",
+    header: translate.t("search_findings.users_table.usermail"),
+    isDate: false,
+    isStatus: false,
+    width: "27%",
+  },
+  {
+    dataField: "role",
+    header: translate.t("search_findings.users_table.userRole"),
+    isDate: false,
+    isStatus: false,
+    width: "8%",
+  },
+  {
+    dataField: "responsability",
+    header: translate.t("search_findings.users_table.userResponsibility"),
+    isDate: false,
+    isStatus: false,
+    width: "12%",
+  },
+  {
+    dataField: "phoneNumber",
+    header: translate.t("search_findings.users_table.phoneNumber"),
+    isDate: false,
+    isStatus: false,
+    width: "10%",
+  },
+  {
+    dataField: "organization",
+    header: translate.t("search_findings.users_table.userOrganization"),
+    isDate: false,
+    isStatus: false,
+    width: "10%",
+  },
+  {
+    dataField: "firstLogin",
+    header: translate.t("search_findings.users_table.firstlogin"),
+    isDate: false,
+    isStatus: false,
+    width: "12%",
+  },
+  {
+    dataField: "lastLogin",
+    header: translate.t("search_findings.users_table.lastlogin"),
+    isDate: false,
+    isStatus: false,
+    width: "12%",
+  },
 ];
 
 const renderUsersTable: ((userList: IProjectUsersViewProps["userList"], userRole: string) => JSX.Element) =
@@ -156,41 +156,26 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
     const handleRemoveClick: (() => void) = (): void => { remove(props); };
 
     return (
-  <div>
-    <Col mdOffset={3} md={2} sm={6}>
-      <Button
-        id="editUser"
-        block={true}
-        bsStyle="primary"
-        onClick={handleEditClick}
-      >
-        <FluidIcon icon="edit" />&nbsp;
-        {translate.t("search_findings.tab_users.edit")}
-      </Button>
-    </Col>
-    <Col md={2} sm={6}>
-      <Button
-        id="addUser"
-        block={true}
-        bsStyle="primary"
-        onClick={handleAddClick}
-      >
-        <Glyphicon glyph="plus" />&nbsp;
-        {translate.t("search_findings.tab_users.add_button")}
-      </Button>
-    </Col>
-    <Col md={2} sm={6}>
-      <Button
-        id="removeUser"
-        block={true}
-        bsStyle="primary"
-        onClick={handleRemoveClick}
-      >
-        <Glyphicon glyph="minus" />&nbsp;
-        {translate.t("search_findings.tab_users.remove_user")}
-      </Button>
-    </Col>
-  </div>
+      <div>
+        <Col mdOffset={3} md={2} sm={6}>
+          <Button id="editUser" block={true} bsStyle="primary" onClick={handleEditClick}>
+            <FluidIcon icon="edit" />&nbsp;
+            {translate.t("search_findings.tab_users.edit")}
+          </Button>
+        </Col>
+        <Col md={2} sm={6}>
+          <Button id="addUser" block={true} bsStyle="primary" onClick={handleAddClick}>
+            <Glyphicon glyph="plus" />&nbsp;
+            {translate.t("search_findings.tab_users.add_button")}
+          </Button>
+        </Col>
+        <Col md={2} sm={6}>
+          <Button id="removeUser" block={true} bsStyle="primary" onClick={handleRemoveClick}>
+            <Glyphicon glyph="minus" />&nbsp;
+            {translate.t("search_findings.tab_users.remove_user")}
+          </Button>
+        </Col>
+      </div>
     );
   };
 
