@@ -43,7 +43,7 @@ export interface ITableProps {
   tableContainer?: string;
   tableHeader?: string;
   title: string;
-  onClickRow(arg1: string | undefined): void;
+  onClickRow?(arg1: string | undefined): void;
 }
 
 export interface IHeader {
@@ -185,7 +185,7 @@ export const dataTable: React.StatelessComponent<ITableProps> =
                 hover={true}
                 options={{
                  onRowClick: (row: string): void => {
-                   props.onClickRow(row);
+                   if (props.onClickRow !== undefined) { props.onClickRow(row); }
                  },
                  sizePerPage: props.pageSize,
                 }}

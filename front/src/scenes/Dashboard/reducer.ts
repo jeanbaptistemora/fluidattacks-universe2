@@ -15,7 +15,6 @@ import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as indicatorsActions from "./containers/IndicatorsView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
-import { IProjectUsersViewProps } from "./containers/ProjectUsersView/index";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
 import { IRecordsViewProps } from "./containers/RecordsView/index";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
@@ -82,9 +81,12 @@ export interface IDashboardState {
     addModal: {
       initialValues: {};
       open: boolean;
-      type: "add" | "edit" | undefined;
+      type: "add" | "edit";
     };
-    userList: IProjectUsersViewProps["userList"];
+    userList: Array<{
+      email: string; firstLogin: string; lastLogin: string; organization: string;
+      phoneNumber: string; responsability: string; role: string;
+    }>;
   };
   vulnerabilities: {
     dataInputs: IVulnerabilitiesViewProps["dataInputs"];
@@ -262,7 +264,7 @@ const initialState: IDashboardState = {
     addModal: {
       initialValues: {},
       open: false,
-      type: undefined,
+      type: "add",
     },
     userList: [],
   },
@@ -422,7 +424,7 @@ actionMap[usersActions.REMOVE_USER] =
     users: {
       ...state.users,
       userList: [...state.users.userList.filter(
-        (user: IProjectUsersViewProps["userList"][0]) =>
+        (user: IDashboardState["users"]["userList"][0]) =>
         user.email !== action.payload.removedEmail,
       )],
     },

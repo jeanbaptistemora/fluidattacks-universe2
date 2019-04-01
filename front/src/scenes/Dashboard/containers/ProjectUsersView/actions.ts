@@ -1,5 +1,4 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { Action, AnyAction, Dispatch } from "redux";
 import { reset } from "redux-form";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { formatUserlist } from "../../../../utils/formatHelpers";
@@ -7,24 +6,19 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
+import { IDashboardState } from "../../reducer";
 import * as actionTypes from "./actionTypes";
-import { IProjectUsersViewProps, IUserData } from "./index";
+
+type IUserData = IDashboardState["users"]["userList"][0];
 
 export interface IActionStructure {
-  /* tslint:disable-next-line:no-any
-   * Disabling this rule is necessary because the payload
-   * type may differ between actions
-   */
-  payload: any;
+  payload?: { [key: string]: string | string[] | ({} | undefined) };
   type: string;
 }
 
-type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
-/* tslint:disable-next-line:no-any
- * Disabling this rule is necessary because the args
- * of an async action may differ
- */
-type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
+export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
+
+type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
 
 export const clearUsers: (() => IActionStructure) =
   (): IActionStructure => ({
@@ -32,10 +26,8 @@ export const clearUsers: (() => IActionStructure) =
     type: actionTypes.CLEAR_USERS,
   });
 
-export const loadUsers: ThunkActionStructure =
-  (
-    projectName: IProjectUsersViewProps["projectName"],
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+export const loadUsers: ((projectName: string) => ThunkResult<void>) = (projectName: string): ThunkResult<void> =>
+  (dispatch: ThunkDispatcher): void => {
     dispatch(clearUsers());
     let gQry: string;
     gQry = `{
@@ -82,18 +74,15 @@ export const closeUsersMdl: (() => IActionStructure) =
     type: actionTypes.CLOSE_USERS_MDL,
   });
 
-export const editUser: ThunkActionStructure =
-  (
-    modifiedUser: IUserData,
-    projectName: IProjectUsersViewProps["projectName"],
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+export const editUser: ((modifiedUser: IUserData, projectName: string) => ThunkResult<void>) =
+  (modifiedUser: IUserData, projectName: string): ThunkResult<void> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
        editUser(
          projectName: "${projectName}",
          email: "${modifiedUser.email}",
          organization: "${modifiedUser.organization}",
-         phoneNumber: "${modifiedUser.phone}",
+         phoneNumber: "${modifiedUser.phoneNumber}",
          responsibility: "${modifiedUser.responsability}",
          role: "${modifiedUser.role}"
        ) {
@@ -126,11 +115,8 @@ export const editUser: ThunkActionStructure =
       });
   };
 
-export const removeUser: ThunkActionStructure =
-  (
-    projectName: IProjectUsersViewProps["projectName"],
-    email: IUserData["email"],
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+export const removeUser: ((projectName: string, email: string) => ThunkResult<void>) =
+  (projectName: string, email: string): ThunkResult<void> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
       removeUserAccess(projectName: "${projectName}", userEmail: "${email}"){
@@ -167,17 +153,14 @@ export const removeUser: ThunkActionStructure =
       });
   };
 
-export const addUser: ThunkActionStructure =
-  (
-    newUser: IUserData,
-    projectName: IProjectUsersViewProps["projectName"],
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+export const addUser: ((newUser: IUserData, projectName: string) => ThunkResult<void>) =
+  (newUser: IUserData, projectName: string): ThunkResult<void> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
      grantUserAccess(
        email: "${newUser.email}",
        organization: "${newUser.organization}",
-       phoneNumber: "${newUser.phone}",
+       phoneNumber: "${newUser.phoneNumber}",
        projectName: "${projectName}",
        responsibility: "${newUser.responsability}",
        role: "${newUser.role}"

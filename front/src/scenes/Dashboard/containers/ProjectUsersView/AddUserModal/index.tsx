@@ -56,7 +56,7 @@ const loadAutofillData: ((arg1: CustomFormProps) => void) =
     .then((response: AxiosResponse) => {
       const { data } = response.data;
       props.change("organization", data.userData.organization);
-      props.change("phone", data.userData.phoneNumber);
+      props.change("phoneNumber", data.userData.phoneNumber);
       props.change("responsability", data.userData.responsability);
     })
     .catch((error: AxiosError) => {
@@ -155,7 +155,7 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
         {translate.t("search_findings.tab_users.phone_number")}
       </ControlLabel>
       <Field
-        name="phone"
+        name="phoneNumber"
         component={phoneNumberField}
         type="text"
         validate={[required]}

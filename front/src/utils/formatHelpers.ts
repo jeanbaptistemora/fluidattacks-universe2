@@ -1,11 +1,12 @@
 import _ from "lodash";
-import { IProjectUsersViewProps } from "../scenes/Dashboard/containers/ProjectUsersView";
 import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/containers/SeverityView";
+import { IDashboardState } from "../scenes/Dashboard/reducer";
 import translate from "./translations/translate";
 
+type IUserList = IDashboardState["users"]["userList"];
+
 export const formatUserlist:
-((arg1: IProjectUsersViewProps["userList"]) => IProjectUsersViewProps["userList"]) =
-  (userList: IProjectUsersViewProps["userList"]): IProjectUsersViewProps["userList"] => {
+((userList: IUserList) => IUserList) = (userList: IUserList): IUserList => {
   for (const user of userList) {
     user.role = translate.t(`search_findings.tab_users.${user.role}`);
     const lastLoginDate: number[] = JSON.parse(user.lastLogin);
