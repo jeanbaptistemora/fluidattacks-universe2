@@ -25,6 +25,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
+import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import * as actions from "./actions";
 
 export interface IIndicatorsViewProps {
@@ -44,7 +45,13 @@ export interface IIndicatorsViewProps {
   subscription: string;
   tagsDataset: string[];
   totalFindings: number;
-  undefinedTreatment: number;
+  totalTreatment: { [value: string]: number };
+}
+
+interface IGraphData {
+  backgroundColor: string[];
+  data: number[];
+  hoverBackgroundColor: string[];
 }
 
 const enhance: InferableComponentEnhancer<{}> =
@@ -119,7 +126,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
     subscription: state.dashboard.indicators.subscription,
     tagsDataset: state.dashboard.indicators.tags,
     totalFindings: state.dashboard.indicators.totalFindings,
-    undefinedTreatment: state.dashboard.indicators.undefinedTreatment,
+    totalTreatment: state.dashboard.indicators.totalTreatment,
   });
 
 const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined) =
@@ -192,16 +199,54 @@ const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined)
     </React.Fragment>
     ) : undefined;
 
+const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
+  _.round(value * 100 / total, 1);
+
+const statusGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | string[] | IGraphData[]}) =
+(props: IIndicatorsViewProps): { [key: string]: string | string[] | IGraphData[]} => {
+  const statusDataset: IGraphData = {
+    backgroundColor: ["#ff1a1a", "#5ff660"],
+    data: [props.openVulnerabilities, props.closedVulnerabilities],
+    hoverBackgroundColor: ["#e51414", "#4abf4b"],
+  };
+  const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
+  const openPercent: number = calcPercent(props.openVulnerabilities, totalVulnerabilities);
+  const closedPercent: number = calcPercent(props.closedVulnerabilities, totalVulnerabilities);
+  const statusGraphData: { [key: string]: string | string[] | IGraphData[]} = {
+    datasets: [statusDataset],
+    labels: [`${openPercent}% ${translate.t("search_findings.tab_indicators.open")}`,
+             `${closedPercent}% ${translate.t("search_findings.tab_indicators.closed")}`],
+  };
+
+  return statusGraphData;
+};
+
+const treatmentGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | string[] | IGraphData[]}) =
+(props: IIndicatorsViewProps): { [key: string]: string | string[] | IGraphData[]} => {
+  const treatmentDataset: IGraphData = {
+    backgroundColor: ["#b7b7b7", "#f6c85f", "#fc07fd"],
+    data: [props.totalTreatment.accepted, props.totalTreatment.inProgress, props.totalTreatment.undefined],
+    hoverBackgroundColor: ["#999797", "#d3a947", "#bb0fbc"],
+  };
+  const acceptedPercent: number = calcPercent(props.totalTreatment.accepted, props.openVulnerabilities);
+  const inProgressPercent: number = calcPercent(props.totalTreatment.inProgress, props.openVulnerabilities);
+  const undefinedPercent: number = calcPercent(props.totalTreatment.undefined, props.openVulnerabilities);
+  const treatmentGraphData: { [key: string]: string | string[] | IGraphData[]} = {
+    datasets: [treatmentDataset],
+    labels: [`${acceptedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
+             `${inProgressPercent}% ${translate.t("search_findings.tab_indicators.treatment_in_progress")}`,
+             `${undefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_no_defined")}`],
+  };
+
+  return treatmentGraphData;
+};
+
 export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
   const userEmail: string = (window as Window & { userEmail: string }).userEmail;
   const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
 
   return (
     <React.StrictMode>
-      { _.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co")
-        ? renderTagsView(props)
-        : undefined
-      }
       <Row>
         <Col md={12} sm={12} xs={12}>
           <IndicatorBox
@@ -242,7 +287,7 @@ export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsVie
           <IndicatorBox
             icon="integrityHigh"
             name={translate.t("search_findings.tab_indicators.undefined_treatment")}
-            quantity={props.undefinedTreatment}
+            quantity={props.totalTreatment.undefined}
             title=""
             total=""
           />
@@ -269,6 +314,23 @@ export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsVie
           />
         </Col>
       </Row>
+      <br />
+      <hr />
+      <Row>
+        <IndicatorGraph
+          data={statusGraph(props)}
+          name={translate.t("search_findings.tab_indicators.status_graph")}
+        />
+        <IndicatorGraph
+          data={treatmentGraph(props)}
+          name={translate.t("search_findings.tab_indicators.treatment_graph")}
+        />
+      </Row>
+      <br />
+      { _.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co")
+        ? renderTagsView(props)
+        : undefined
+      }
     </React.StrictMode>
   );
 };

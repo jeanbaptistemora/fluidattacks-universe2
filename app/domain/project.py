@@ -162,20 +162,6 @@ def get_last_closing_date(vulnerability):
     return last_closing_date
 
 
-def get_undefined_treatment(findings):
-    """Get the total vulnerabilities that does not have treatment."""
-    total_open_vuln = 0
-    for finding in findings:
-        if finding.get('treatment') == 'NEW':
-            open_vuln = total_vulnerabilities(
-                finding['finding_id']).get('openVulnerabilities')
-            total_open_vuln += open_vuln
-        else:
-            # Finding has treatment defined
-            pass
-    return total_open_vuln
-
-
 def get_max_severity(findings):
     """Get maximum severity of a project."""
     total_severity = [fin.get('cvss_temporal') for fin in findings]
@@ -236,10 +222,36 @@ def get_mean_remediate(findings):
                     total_days += int((current_day - open_vuln_date).days)
                 total_vuln += 1
             else:
-                # Vulnerability does not have a open date
+                # Vulnerability does not have an open date
                 pass
     if total_vuln:
         mean_vulnerabilities = round(total_days / float(total_vuln))
     else:
         mean_vulnerabilities = 0
     return mean_vulnerabilities
+
+
+def get_total_treatment(findings):
+    """Get the total treatment of all the vulnerabilities"""
+    accepted_vuln = 0
+    in_progress_vuln = 0
+    undefined_treatment = 0
+    for finding in findings:
+        if finding.get('treatment') == 'ACCEPTED':
+            open_vuln = total_vulnerabilities(
+                finding['finding_id']).get('openVulnerabilities')
+            accepted_vuln += open_vuln
+        elif finding.get('treatment') == 'IN PROGRESS':
+            open_vuln = total_vulnerabilities(
+                finding['finding_id']).get('openVulnerabilities')
+            in_progress_vuln += open_vuln
+        else:
+            open_vuln = total_vulnerabilities(
+                finding['finding_id']).get('openVulnerabilities')
+            undefined_treatment += open_vuln
+    treatment = {
+        'accepted': accepted_vuln,
+        'inProgress': in_progress_vuln,
+        'undefined': undefined_treatment
+    }
+    return treatment

@@ -57,7 +57,7 @@ export interface IDashboardState {
     subscription: string;
     tags: string[];
     totalFindings: number;
-    undefinedTreatment: number;
+    totalTreatment: {};
   };
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
@@ -197,7 +197,7 @@ const initialState: IDashboardState = {
     subscription: "",
     tags: [],
     totalFindings: 0,
-    undefinedTreatment: 0,
+    totalTreatment: {},
   },
   records: {
     dataset: [],
@@ -684,7 +684,7 @@ actionMap[indicatorsActions.LOAD_INDICATORS] =
       subscription: action.payload.subscription,
       tags: action.payload.tags,
       totalFindings: action.payload.totalFindings,
-      undefinedTreatment: action.payload.undefinedTreatment,
+      totalTreatment: action.payload.totalTreatment,
     },
   });
 

@@ -49,7 +49,7 @@ export const loadIndicators: ThunkActionStructure =
           subscription
           tags
           totalFindings
-          undefinedTreatment
+          totalTreatment
         }
       }`;
       new Xhr().request(gQry, "An error occurred getting tags")
@@ -69,7 +69,7 @@ export const loadIndicators: ThunkActionStructure =
               subscription: data.project.subscription,
               tags: data.project.tags,
               totalFindings: data.project.totalFindings,
-              undefinedTreatment: data.project.undefinedTreatment,
+              totalTreatment: data.project.totalTreatment,
             },
             type: actionTypes.LOAD_INDICATORS,
           });

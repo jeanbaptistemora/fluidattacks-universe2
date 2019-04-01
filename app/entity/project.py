@@ -15,8 +15,8 @@ from app.decorators import require_role, require_login, require_project_access_g
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
     get_closed_percentage, get_pending_closing_check, get_last_closing_vuln,
-    get_undefined_treatment, get_max_severity, get_max_open_severity,
-    get_mean_remediate
+    get_max_severity, get_max_open_severity, get_mean_remediate,
+    get_total_treatment
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -41,12 +41,12 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     closed_percentage = Float()
     pending_closing_check = Int()
     last_closing_vuln = Int()
-    undefined_treatment = Int()
     max_severity = Float()
     max_open_severity = Float()
     mean_remediate = Int()
     total_findings = Int()
     users = List(User)
+    total_treatment = GenericScalar()
 
     def __init__(self, project_name):
         """Class constructor."""
@@ -60,11 +60,11 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.closed_percentage = 0.0
         self.pending_closing_check = 0
         self.last_closing_vuln = 0
-        self.undefined_treatment = 0
         self.max_severity = 0.0
         self.max_open_severity = 0.0
         self.mean_remediate = 0
         self.total_findings = 0
+        self.total_treatment = {}
 
         findings = integrates_dao.get_findings_released_dynamo(
             self.name, 'finding_id, treatment, cvss_temporal')
@@ -112,12 +112,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.last_closing_vuln = get_last_closing_vuln(self.findings_aux)
         return self.last_closing_vuln
 
-    def resolve_undefined_treatment(self, info):
-        """Resolve vuln treatmentless attribute."""
-        del info
-        self.undefined_treatment = get_undefined_treatment(self.findings_aux)
-        return self.undefined_treatment
-
     def resolve_max_severity(self, info):
         """Resolve maximum severity attribute."""
         del info
@@ -141,6 +135,12 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         del info
         self.total_findings = len(self.findings_aux)
         return self.total_findings
+
+    def resolve_total_treatment(self, info):
+        """Resolve total treatment attribute."""
+        del info
+        self.total_treatment = get_total_treatment(self.findings_aux)
+        return self.total_treatment
 
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""

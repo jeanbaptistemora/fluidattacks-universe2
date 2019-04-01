@@ -34,4 +34,4 @@ indicatorGraph.propTypes = {
   data: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
 };
-export = indicatorGraph;
+export { indicatorGraph as IndicatorGraph };
