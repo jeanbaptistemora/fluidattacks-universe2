@@ -61,7 +61,7 @@ export interface IDashboardState {
   resources: {
     addModal: {
       open: boolean;
-      type: "repository" | "environment";
+      type: "repository" | "environment" | "file";
     };
     environments: Array<{ urlEnv: string }>;
     files: Array<{ description: string; fileName: string; uploadDate: string}>;

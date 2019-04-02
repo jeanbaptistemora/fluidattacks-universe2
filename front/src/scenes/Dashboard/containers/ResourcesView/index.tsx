@@ -9,7 +9,7 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import { connect, MapStateToProps } from "react-redux";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction } from "redux";
@@ -34,7 +34,7 @@ interface IResourcesViewStateProps {
     type: "repository" | "environment" | "file";
   };
   environments: Array<{ urlEnv: string }>;
-  files: Array<{ description: string; fileName: string }>;
+  files: Array<{ description: string; fileName: string; uploadDate: string }>;
   optionsModal: {
     open: boolean;
     rowInfo: { fileName: string };
@@ -42,13 +42,28 @@ interface IResourcesViewStateProps {
   repositories: Array<{ branch: string; urlRepo: string }>;
 }
 
-type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps);
+interface IResourcesViewDispatchProps {
+  onCloseAddModal(): void;
+  onCloseOptionsModal(): void;
+  onDeleteFile(fileName: string): void;
+  onDownloadFile(fileName: string): void;
+  onLoad(): void;
+  onOpenAddModal(type: IResourcesViewStateProps["addModal"]["type"]): void;
+  onOpenOptionsModal(row: string): void;
+  onRemoveEnv(environment: string): void;
+  onRemoveRepo(repository: string, branch: string): void;
+  onSaveEnvs(environments: IResourcesViewStateProps["environments"]): void;
+  onSaveFiles(files: IResourcesViewStateProps["files"]): void;
+  onSaveRepos(resources: IResourcesViewStateProps["repositories"]): void;
+}
+
+type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps & IResourcesViewDispatchProps);
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
     const { projectName } = this.props.match.params;
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
     );
 
     thunkDispatch(actions.loadResources(projectName));
@@ -63,10 +78,10 @@ const removeRepo: ((arg1: string) => void) = (projectName: string): void => {
       const repository: string | null = selectedRow.children[1].textContent;
       const branch: string | null = selectedRow.children[2].textContent;
 
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
       );
-      thunkDispatch(actions.removeRepo(projectName, repository, branch));
+      thunkDispatch(actions.removeRepo(projectName, String(repository), String(branch)));
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing repositories");
@@ -93,8 +108,8 @@ const saveRepos: (
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
       );
       thunkDispatch(actions.saveRepos(projectName, resources));
     }
@@ -106,11 +121,11 @@ const removeEnv: ((arg1: string) => void) = (projectName: string): void => {
     if (selectedQry[0].closest("tr") !== null) {
       const selectedRow: Element = selectedQry[0].closest("tr") as Element;
       const env: string | null = selectedRow.children[1].textContent;
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
       );
 
-      thunkDispatch(actions.removeEnv(projectName, env));
+      thunkDispatch(actions.removeEnv(projectName, String(env)));
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing environments");
@@ -137,8 +152,8 @@ const saveEnvs: (
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
       );
       thunkDispatch(actions.saveEnvs(projectName, resources));
     }
@@ -147,8 +162,8 @@ const saveEnvs: (
 const removeFiles: ((arg1: string, arg2: { fileName: string | null}) => void) =
   (projectName: string, rowInfo: { fileName: string | null}): void => {
     if (rowInfo.fileName !== null) {
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
       );
       thunkDispatch(actions.deleteFile(projectName, rowInfo.fileName));
     } else {
@@ -178,8 +193,8 @@ const saveFiles: ((files: IResourcesViewProps["files"], projectName: string, cur
       if (containsRepeated) {
         msgError(translate.t("search_findings.tab_resources.repeated_item"));
       } else {
-        const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-          store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+        const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+          store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
         );
         thunkDispatch(actions.saveFiles(projectName, files));
       }
@@ -191,8 +206,8 @@ const saveFiles: ((files: IResourcesViewProps["files"], projectName: string, cur
 const downloadFile: ((arg1: string, arg2: { fileName: string | null}) => void) =
   (projectName: string, rowInfo: { fileName: string | null}): void => {
     if (rowInfo.fileName !== null) {
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
       );
       thunkDispatch(actions.downloadFile(projectName, rowInfo.fileName));
     } else {
@@ -462,6 +477,32 @@ const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewB
     repositories: state.dashboard.resources.repositories,
   });
 
-const mapDispatchToProps: undefined = undefined;
+const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResourcesViewBaseProps> =
+  (dispatch: actions.ThunkDispatcher, ownProps: IResourcesViewBaseProps): IResourcesViewDispatchProps => {
+    const { projectName } = ownProps.match.params;
+
+    return ({
+      onCloseAddModal: (): void => { dispatch(actions.closeAddModal()); },
+      onCloseOptionsModal: (): void => { dispatch(actions.closeOptionsModal()); },
+      onDeleteFile: (fileName: string): void => { dispatch(actions.deleteFile(projectName, fileName)); },
+      onDownloadFile: (fileName: string): void => { dispatch(actions.downloadFile(projectName, fileName)); },
+      onLoad: (): void => { dispatch(actions.loadResources(projectName)); },
+      onOpenAddModal: (type: IResourcesViewStateProps["addModal"]["type"]): void => {
+        dispatch(actions.openAddModal(type));
+      },
+      onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
+      onRemoveEnv: (environment: string): void => { dispatch(actions.removeEnv(projectName, environment)); },
+      onRemoveRepo: (repository: string, branch: string): void => {
+        dispatch(actions.removeRepo(projectName, repository, branch));
+      },
+      onSaveEnvs: (environments: IResourcesViewProps["environments"]): void => {
+        dispatch(actions.saveEnvs(projectName, environments));
+      },
+      onSaveFiles: (files: IResourcesViewProps["files"]): void => { dispatch(actions.saveFiles(projectName, files)); },
+      onSaveRepos: (repositories: IResourcesViewProps["repositories"]): void => {
+        dispatch(actions.saveRepos(projectName, repositories));
+      },
+    });
+  };
 
 export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectResourcesView));

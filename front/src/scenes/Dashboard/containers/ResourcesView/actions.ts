@@ -1,5 +1,4 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { Action, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -8,23 +7,16 @@ import Xhr from "../../../../utils/xhr";
 import { IDashboardState } from "../../reducer";
 import * as actionTypes from "./actionTypes";
 
-type IResourcesViewProps = IDashboardState["resources"];
+type IResources = IDashboardState["resources"];
 
 export interface IActionStructure {
-  /* tslint:disable-next-line:no-any
-   * Disabling this rule is necessary because the payload
-   * type may differ between actions
-   */
-  payload: any;
+  payload?: { [key: string]: string | string[] | ({} | undefined) };
   type: string;
 }
 
-type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
-/* tslint:disable-next-line:no-any
- * Disabling this rule is necessary because the args
- * of an async action may differ
- */
-type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
+export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
+
+type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
 
 export const clearResources: (() => IActionStructure) =
   (): IActionStructure => ({
@@ -32,8 +24,8 @@ export const clearResources: (() => IActionStructure) =
     type: actionTypes.CLEAR_RESOURCES,
   });
 
-export const loadResources: ThunkActionStructure =
-  (projectName: string): ThunkAction<void, {}, {}, Action> =>
+export const loadResources: ((projectName: string) => ThunkResult<void>) =
+  (projectName: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       dispatch(clearResources());
       let gQry: string;
@@ -90,9 +82,9 @@ export const closeOptionsModal: (() => IActionStructure) =
     type: actionTypes.CLOSE_OPTIONS_MODAL,
   });
 
-export const saveRepos: ThunkActionStructure =
-  (projectName: string, reposData: IResourcesViewProps["repositories"],
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+export const saveRepos: ((projectName: string, reposData: IResources["repositories"]) => ThunkResult<void>) =
+  (projectName: string, reposData: IResources["repositories"],
+): ThunkResult<void> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
         addRepositories (
@@ -138,8 +130,8 @@ export const saveRepos: ThunkActionStructure =
       });
   };
 
-export const removeRepo: ThunkActionStructure =
-  (projectName: string, repository: string, branch: string): ThunkAction<void, {}, {}, Action> =>
+export const removeRepo: ((projectName: string, repository: string, branch: string) => ThunkResult<void>) =
+  (projectName: string, repository: string, branch: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
@@ -186,9 +178,8 @@ export const removeRepo: ThunkActionStructure =
         });
     };
 
-export const saveEnvs: ThunkActionStructure =
-  (projectName: string,
-   envsData: IResourcesViewProps["environments"]): ThunkAction<void, {}, {}, Action> =>
+export const saveEnvs: ((projectName: string, envsData: IResources["environments"]) => ThunkResult<void>) =
+  (projectName: string, envsData: IResources["environments"]): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
@@ -235,8 +226,8 @@ export const saveEnvs: ThunkActionStructure =
         });
     };
 
-export const removeEnv: ThunkActionStructure =
-  (projectName: string, envToRemove: string): ThunkAction<void, {}, {}, Action> =>
+export const removeEnv: ((projectName: string, envToRemove: string) => ThunkResult<void>) =
+  (projectName: string, envToRemove: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
@@ -283,9 +274,8 @@ export const removeEnv: ThunkActionStructure =
         });
     };
 
-export const saveFiles: ThunkActionStructure =
-  (projectName: string,
-   filesData: IResourcesViewProps["files"]): ThunkAction<void, {}, {}, Action> =>
+export const saveFiles: ((projectName: string, filesData: IResources["files"]) => ThunkResult<void>) =
+  (projectName: string, filesData: IResources["files"]): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
 
@@ -332,8 +322,8 @@ export const saveFiles: ThunkActionStructure =
         });
     };
 
-export const deleteFile: ThunkActionStructure =
-      (projectName: string, fileToRemove: string): ThunkAction<void, {}, {}, Action> =>
+export const deleteFile: ((projectName: string, fileToRemove: string) => ThunkResult<void>) =
+      (projectName: string, fileToRemove: string): ThunkResult<void> =>
         (dispatch: ThunkDispatcher): void => {
           let gQry: string;
           gQry = `mutation {
@@ -380,9 +370,8 @@ export const deleteFile: ThunkActionStructure =
             });
         };
 
-export const downloadFile: ThunkActionStructure =
-      (projectName: string, fileToDownload: string):
-      ThunkAction<void, {}, {}, Action> =>
+export const downloadFile: ((projectName: string, fileToDownload: string) => ThunkResult<void>) =
+      (projectName: string, fileToDownload: string): ThunkResult<void> =>
         (dispatch: ThunkDispatcher): void => {
           let gQry: string;
           gQry = `mutation {
