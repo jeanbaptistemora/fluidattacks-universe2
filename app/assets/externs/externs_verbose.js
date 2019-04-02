@@ -169,7 +169,6 @@ var labelEventState = {}; \
 var removeHour = {}; \
 var labelState = {}; \
 var alertEvents = {}; \
-var calCardinality = {}; \
 var secureRandom = {}; \
 var $window = {}; \
 var $interval = {}; \

@@ -32,69 +32,6 @@ angular.module("FluidIntegrates").factory(
         }, oopsAc);
       },
 
-      "calCardinality" (data) {
-        let openVulnerabilities = 0;
-        let cardinalidadTotal = 0;
-        let maximumSeverity = 0;
-        let oldestFinding = 0;
-        let metricDes = [];
-        let metricTool = [];
-        let metricIcon = [];
-        let metricValue = [];
-        let compromisedRecords = 0;
-        angular.forEach(data.data, (cont) => {
-          compromisedRecords += parseInt(cont.recordsNumber, 10);
-          openVulnerabilities += parseInt(cont.openVulnerabilities, 10);
-          cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
-          if (maximumSeverity < parseFloat(cont.criticity)) {
-            maximumSeverity = parseFloat(cont.criticity);
-          }
-          if (oldestFinding < parseInt(cont.edad, 10)) {
-            oldestFinding = parseInt(cont.edad, 10);
-          }
-        });
-        metricDes = [
-          "findings",
-          "vulnerabilities",
-          "cardinalities",
-          "maximumSeverity",
-          "oldestFinding",
-          "compromisedRecords"
-        ];
-        metricTool = [
-          "findingsTooltip",
-          "vulnerabilitiesTooltip",
-          "cardinalitiesTooltip",
-          "maximumSeverityTooltip",
-          "oldestFindingTooltip",
-          "compromisedRecordsTooltip"
-        ];
-        metricIcon = [
-          "findings",
-          "totalVulnerabilities",
-          "openVulnerabilities",
-          "vulnerabilities",
-          "calendar",
-          "total"
-        ];
-        metricValue = [
-          data.data.length,
-          cardinalidadTotal,
-          openVulnerabilities,
-          maximumSeverity,
-          oldestFinding,
-          compromisedRecords
-        ];
-        return [
-          openVulnerabilities,
-          cardinalidadTotal,
-          metricDes,
-          metricIcon,
-          metricTool,
-          metricValue
-        ];
-      },
-
       /**
        * Get drafts by project name.
        * @function draftsByName

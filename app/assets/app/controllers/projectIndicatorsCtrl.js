@@ -37,8 +37,7 @@ angular.module("FluidIntegrates").controller(
     functionsFtry1,
     functionsFtry3,
     functionsFtry4,
-    projectFtry,
-    projectFtry2
+    projectFtry
   ) {
     const PERCENT_FACTOR = 100;
     const MAX_DECIMALS = 2;
@@ -72,14 +71,6 @@ angular.module("FluidIntegrates").controller(
       // Search function assignation to button and enter key configuration.
       functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
-
-      if (userEmail.endsWith("@fluidattacks.com") ||
-          userEmail.endsWith("@bancolombia.com.co")) {
-        $scope.showTags = true;
-      }
-      else {
-        $scope.showTags = false;
-      }
     };
 
     /**
@@ -94,117 +85,6 @@ angular.module("FluidIntegrates").controller(
         toFixed(MAX_DECIMALS).
         toString()}%`;
 
-    /**
-     *  @name reactGraphs
-     *  @description Order data to integrate graphs
-     *  @return {void}
-     */
-    $scope.reactGraphs = () => {
-      $scope.graphList = [
-        {
-          "data": $scope.reactExpoitability(),
-          "title": $translate.instant("grapExploit.title")
-        },
-        {
-          "data": $scope.reactFindingStatus(),
-          "title": $translate.instant("grapStatus.title")
-        }
-      ];
-    };
-
-    /**
-     *  @name reactExpoitability
-     *  @description Order data to exploitabilityGraph directive.
-     *  @return {object} Graph config
-     */
-    $scope.reactExpoitability = () => {
-      let exploitable = 0;
-      let nonexploitable = 0;
-      const {data} = $scope;
-      angular.forEach(data, (value) => {
-        if (value.estado !== "Cerrado" &&
-          value.estado !== "Closed") {
-          if (value.exploitable === "Si" || value.exploitable === "Yes") {
-            exploitable += 1;
-          }
-          else {
-            nonexploitable += 1;
-          }
-        }
-      });
-      const total = exploitable + nonexploitable;
-      return {
-        "datasets": [
-          {
-            "backgroundColor": [
-              "#ff1a1a",
-              "#31c0be"
-            ],
-            "data": [
-              exploitable,
-              nonexploitable
-            ],
-            "hoverBackgroundColor": [
-              "#e51414",
-              "#258c8a"
-            ]
-          }
-        ],
-        "labels": [
-          $translate.instant("grapExploit.exploit_label") +
-            $scope.percent(exploitable, total),
-          $translate.instant("grapExploit.nonexploit_label") +
-            $scope.percent(nonexploitable, total)
-        ]
-      };
-    };
-
-    /**
-     *  @name reactFindingStatus
-     *  @description Order data to statusGraph directive.
-     *  @return {object} Graph config
-     */
-    $scope.reactFindingStatus = () => {
-      const {metricsList} = $scope;
-      let metricName = "";
-      let open = 0;
-      let total = 0;
-      angular.forEach(metricsList, (val) => {
-        metricName = "search_findings.filter_labels.vulnerabilities";
-        if (val.description === $translate.instant(metricName)) {
-          total = parseFloat(val.value);
-        }
-        metricName = "search_findings.filter_labels.cardinalities";
-        if (val.description === $translate.instant(metricName)) {
-          open = parseFloat(val.value);
-        }
-      });
-      const close = total - open;
-      return {
-        "datasets": [
-          {
-            "backgroundColor": [
-              "#ff1a1a",
-              "#31c0be"
-            ],
-            "data": [
-              open,
-              close
-            ],
-            "hoverBackgroundColor": [
-              "#e51414",
-              "#258c8a"
-            ]
-          }
-        ],
-        "labels": [
-          $translate.instant("grapStatus.open_label") +
-            $scope.percent(open, total),
-          $translate.instant("grapStatus.close_label") +
-            $scope.percent(close, total)
-        ]
-      };
-    };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
@@ -231,7 +111,6 @@ angular.module("FluidIntegrates").controller(
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
           functionsFtry4.loadIndicatorsContent($scope, projectData);
-          $scope.reactGraphs();
         }
         else {
           const reqProject = projectFtry.projectByName(
@@ -251,7 +130,6 @@ angular.module("FluidIntegrates").controller(
               );
               projectData = response.data;
               functionsFtry4.loadIndicatorsContent($scope, projectData);
-              $scope.reactGraphs();
             }
             else if (response.error) {
               $scope.view.project = false;
