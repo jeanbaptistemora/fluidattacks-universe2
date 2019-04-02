@@ -33,40 +33,6 @@ angular.module("FluidIntegrates").factory(
     projectFtry2
   ) {
     return {
-
-      "loadIndicatorsContent" ($scope, datatest) {
-        const org = Organization.toUpperCase();
-        const projt = $stateParams.project.toUpperCase();
-        functionsFtry1.alertHeader(org, projt);
-        if (!$scope.isManager) {
-          $scope.openEvents = projectFtry.alertEvents(eventsData);
-          $scope.atAlert = $translate.instant("main_content.eventualities." +
-                                              "descSingularAlert1");
-          if ($scope.openEvents === 1) {
-            $scope.descAlert1 = $translate.instant("main_content." +
-                                            "eventualities.descSingularAlert2");
-            $scope.descAlert2 = $translate.instant("main_content." +
-                                            "eventualities.descSingularAlert3");
-            angular.element("#events_alert").show();
-          }
-          else if ($scope.openEvents > 1) {
-            $scope.descAlert1 = $translate.instant("main_content." +
-                                              "eventualities.descPluralAlert1");
-            $scope.descAlert2 = $translate.instant("main_content." +
-                                              "eventualities.descPluralAlert2");
-            angular.element("#events_alert").show();
-          }
-        }
-        angular.element("#search_section").show();
-        angular.element("[data-toggle=\"tooltip\"]").tooltip();
-
-        if (angular.isDefined($stateParams.finding)) {
-          $scope.finding.id = $stateParams.finding;
-          $scope.view.project = false;
-          $scope.view.finding = false;
-        }
-        $scope.data = datatest;
-      },
       "verifyRoles" ($scope, projectName, userEmail, userRole) {
         const customerAdmin =
                           projectFtry2.isCustomerAdmin(projectName, userEmail);

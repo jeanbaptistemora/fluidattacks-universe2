@@ -33,7 +33,6 @@ functionsFtry2.isCustomerAdmin = function (arg1, arg2) {};    \
 var functionsFtry3 = {}; \
 functionsFtry3.findingHeaderBuilding = function (arg1, arg2) {};    \
 var verifyRoles = {};    \
-var loadIndicatorsContent =  {};    \
 functionsFtry3.configKeyboardView = function (arg1) {};    \
 var $urlRouterProvider = {};    \
 $urlRouterProvider.otherwise = function (arg1) {};    \

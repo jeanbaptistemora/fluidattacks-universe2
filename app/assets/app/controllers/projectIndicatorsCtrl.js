@@ -32,20 +32,12 @@ angular.module("FluidIntegrates").controller(
     $state,
     $stateParams,
     $timeout,
-    $translate,
-    $uibModal,
-    functionsFtry1,
-    functionsFtry3,
-    functionsFtry4,
-    projectFtry
+    $translate
   ) {
-    const PERCENT_FACTOR = 100;
-    const MAX_DECIMALS = 2;
     $scope.init = function init () {
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
-      functionsFtry4.verifyRoles($scope, projectName, userEmail, userRole);
       $scope.view = {};
       $scope.view.project = false;
       $scope.view.finding = false;
@@ -59,7 +51,6 @@ angular.module("FluidIntegrates").controller(
         $scope.search();
         const org = Organization.toUpperCase();
         const projt = projectName.toUpperCase();
-        angular.element(".equalWidgetHeight").matchHeight();
         mixPanelDashboard.trackReports(
           "ProjectIndicators",
           userName,
@@ -68,30 +59,10 @@ angular.module("FluidIntegrates").controller(
           projt
         );
       }
-      // Search function assignation to button and enter key configuration.
-      functionsFtry3.configKeyboardView($scope);
-      $scope.goUp();
     };
 
-    /**
-     *  @name percent
-     *  @description calculate percent
-     *  @param {int} value Portion or percent
-     *  @param {int} total Total value
-     *  @return {string} return n% format
-     */
-    $scope.percent = (value, total) => ` ${
-      (value * PERCENT_FACTOR / total).
-        toFixed(MAX_DECIMALS).
-        toString()}%`;
-
-    $scope.goUp = function goUp () {
-      angular.element("html, body").animate({"scrollTop": 0}, "fast");
-    };
     $scope.search = function search () {
       const projectName = $scope.project;
-      const tableFilter = $scope.filter;
-      const hasAccess = true;
       if (angular.isUndefined(projectName) ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -103,49 +74,8 @@ angular.module("FluidIntegrates").controller(
         $state.go("ProjectIndicators", {"project": $scope.project});
       }
       else if ($stateParams.project === $scope.project) {
-        $scope.view.project = false;
+        $scope.view.project = true;
         $scope.view.finding = false;
-
-        if (projectData.length > 0 &&
-            projectData[0].projectName.toLowerCase() ===
-            $scope.project.toLowerCase()) {
-          $scope.view.project = true;
-          functionsFtry4.loadIndicatorsContent($scope, projectData);
-        }
-        else {
-          const reqProject = projectFtry.projectByName(
-            projectName,
-            tableFilter
-          );
-          reqProject.then((response) => {
-            $scope.view.project = true;
-            if (!response.error) {
-              if (angular.isUndefined(response.data)) {
-                location.reload();
-              }
-              mixPanelDashboard.trackSearch(
-                "SearchFinding",
-                userEmail,
-                projectName
-              );
-              projectData = response.data;
-              functionsFtry4.loadIndicatorsContent($scope, projectData);
-            }
-            else if (response.error) {
-              $scope.view.project = false;
-              $scope.view.finding = false;
-              if (response.message === "Access denied" || !hasAccess) {
-                $msg.error($translate.instant("proj_alerts.access_denied"));
-              }
-              else if (response.message === "Project masked") {
-                $msg.error($translate.instant("proj_alerts.project_deleted"));
-              }
-              else {
-                $msg.error($translate.instant("proj_alerts.error_text"));
-              }
-            }
-          });
-        }
       }
       return true;
     };
