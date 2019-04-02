@@ -37,7 +37,6 @@ export const loadIndicators: ThunkActionStructure =
       let gQry: string;
       gQry = `{
         project(projectName: "${projectName}"){
-          closedPercentage
           closedVulnerabilities
           deletionDate
           lastClosingVuln
@@ -57,7 +56,6 @@ export const loadIndicators: ThunkActionStructure =
           const { data } = response.data;
           dispatch({
             payload: {
-              closedPercentage: data.project.closedPercentage,
               closedVulnerabilities: data.project.closedVulnerabilities,
               deletionDate: data.project.deletionDate,
               lastClosingVuln: data.project.lastClosingVuln,

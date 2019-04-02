@@ -32,7 +32,6 @@ export interface IIndicatorsViewProps {
   addModal: {
     open: boolean;
   };
-  closedPercentage: number;
   closedVulnerabilities: number;
   deletionDate: string;
   lastClosingVuln: number;
@@ -114,7 +113,6 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
   (state: StateType<Reducer>): IIndicatorsViewProps => ({
     ...state,
     addModal: state.dashboard.indicators.addModal,
-    closedPercentage: state.dashboard.indicators.closedPercentage,
     closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
     deletionDate: state.dashboard.indicators.deletionDate,
     lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
@@ -205,9 +203,9 @@ const calcPercent: ((value: number, total: number) => number) = (value: number, 
 const statusGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | string[] | IGraphData[]}) =
 (props: IIndicatorsViewProps): { [key: string]: string | string[] | IGraphData[]} => {
   const statusDataset: IGraphData = {
-    backgroundColor: ["#ff1a1a", "#5ff660"],
+    backgroundColor: ["#ff1a1a", "#27BF4F"],
     data: [props.openVulnerabilities, props.closedVulnerabilities],
-    hoverBackgroundColor: ["#e51414", "#4abf4b"],
+    hoverBackgroundColor: ["#e51414", "#069D2E"],
   };
   const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
   const openPercent: number = calcPercent(props.openVulnerabilities, totalVulnerabilities);
@@ -224,9 +222,9 @@ const statusGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | s
 const treatmentGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | string[] | IGraphData[]}) =
 (props: IIndicatorsViewProps): { [key: string]: string | string[] | IGraphData[]} => {
   const treatmentDataset: IGraphData = {
-    backgroundColor: ["#b7b7b7", "#f6c85f", "#fc07fd"],
+    backgroundColor: ["#b7b7b7", "#FFAA63", "#CD2A86"],
     data: [props.totalTreatment.accepted, props.totalTreatment.inProgress, props.totalTreatment.undefined],
-    hoverBackgroundColor: ["#999797", "#d3a947", "#bb0fbc"],
+    hoverBackgroundColor: ["#999797", "#FF9034", "#A70762"],
   };
   const acceptedPercent: number = calcPercent(props.totalTreatment.accepted, props.openVulnerabilities);
   const inProgressPercent: number = calcPercent(props.totalTreatment.inProgress, props.openVulnerabilities);
@@ -262,13 +260,6 @@ export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsVie
             quantity={totalVulnerabilities}
             title=""
             total=""
-          />
-          <IndicatorBox
-            icon="fixedVulnerabilities"
-            name={translate.t("search_findings.tab_indicators.closed_percentage")}
-            quantity={props.closedPercentage}
-            title=""
-            total="%"
           />
           <IndicatorBox
             icon="totalVulnerabilities"

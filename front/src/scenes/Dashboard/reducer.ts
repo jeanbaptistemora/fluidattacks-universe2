@@ -44,7 +44,6 @@ export interface IDashboardState {
     addModal: {
       open: boolean;
     };
-    closedPercentage: number;
     closedVulnerabilities: number;
     deletionDate: string;
     lastClosingVuln: number;
@@ -187,7 +186,6 @@ const initialState: IDashboardState = {
     addModal: {
       open: false,
     },
-    closedPercentage: 0,
     closedVulnerabilities: 0,
     deletionDate: "",
     lastClosingVuln: 0,
@@ -674,7 +672,6 @@ actionMap[indicatorsActions.LOAD_INDICATORS] =
     ...state,
     indicators: {
       ...state.indicators,
-      closedPercentage: action.payload.closedPercentage,
       closedVulnerabilities: action.payload.closedVulnerabilities,
       deletionDate: action.payload.deletionDate,
       lastClosingVuln: action.payload.lastClosingVuln,

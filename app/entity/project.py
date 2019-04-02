@@ -14,9 +14,8 @@ from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
-    get_closed_percentage, get_pending_closing_check, get_last_closing_vuln,
-    get_max_severity, get_max_open_severity, get_mean_remediate,
-    get_total_treatment
+    get_pending_closing_check, get_last_closing_vuln, get_total_treatment,
+    get_max_severity, get_max_open_severity, get_mean_remediate
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -38,7 +37,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     comments = List(GenericScalar)
     tags = List(String)
     deletion_date = String()
-    closed_percentage = Float()
     pending_closing_check = Int()
     last_closing_vuln = Int()
     max_severity = Float()
@@ -57,7 +55,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.deletion_date = ''
         self.open_vulnerabilities = 0
         self.closed_vulnerabilities = 0
-        self.closed_percentage = 0.0
         self.pending_closing_check = 0
         self.last_closing_vuln = 0
         self.max_severity = 0.0
@@ -93,12 +90,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.closed_vulnerabilities = get_vulnerabilities(
             self.findings_aux, 'closedVulnerabilities')
         return self.closed_vulnerabilities
-
-    def resolve_closed_percentage(self, info):
-        """Resolve closed percentage attribute."""
-        del info
-        self.closed_percentage = get_closed_percentage(self.findings_aux)
-        return self.closed_percentage
 
     def resolve_pending_closing_check(self, info):
         """Resolve pending closing check attribute."""

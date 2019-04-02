@@ -6,7 +6,6 @@
 
 import threading
 import re
-from decimal import Decimal
 import datetime
 import pytz
 
@@ -94,24 +93,6 @@ def get_vulnerabilities(findings, vuln_type):
         [total_vulnerabilities(i['finding_id']).get(vuln_type) for i in findings]
     vulnerabilities = sum(vulnerabilities)
     return vulnerabilities
-
-
-def get_closed_percentage(findings):
-    """Calculate closed percentage."""
-    total_vuln = 0
-    closed_percentage = 0
-    for fin in findings:
-        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
-            fin['finding_id'])
-        total_vuln += len(vulnerabilities)
-    if total_vuln:
-        closed_vulnerabilities = get_vulnerabilities(
-            findings, 'closedVulnerabilities')
-        closed_percentage = Decimal(
-            (closed_vulnerabilities * 100.0) / total_vuln).quantize(Decimal("0.1"))
-    else:
-        closed_percentage = 0
-    return closed_percentage
 
 
 def get_pending_closing_check(project):

@@ -23,6 +23,7 @@ const indicatorGraph: React.StatelessComponent<IDoughnutProps> =
         data={props.data}
         width={2}
         height={2}
+        options={{cutoutPercentage: 70}}
       />
     </Col>
   </React.StrictMode>
