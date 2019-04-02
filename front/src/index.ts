@@ -16,7 +16,6 @@ import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
 import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
 import { eventsView } from "./scenes/Dashboard/containers/EventsView/index";
 import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
-import ProjectResourcesView from "./scenes/Dashboard/containers/ResourcesView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
 
@@ -174,15 +173,6 @@ angular
        "onClickButton",
      ],
    ),
-  );
-
-angular
-  .module("FluidIntegrates")
-  .component(
-    "resourcesView",
-    react2angular(
-      ProjectResourcesView, [],
-    ),
   );
 
 /**

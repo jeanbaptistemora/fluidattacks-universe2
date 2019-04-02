@@ -195,14 +195,6 @@ def project_events(request):
     return render(request, "project/events.html", dic_lang)
 
 
-@cache_control(private=True, max_age=3600)
-@authenticate
-def project_resources(request):
-    "resources view"
-    parameters = {}
-    return render(request, "project/resources.html", parameters)
-
-
 @csrf_exempt
 @cache_control(private=True, max_age=3600)
 @authenticate
