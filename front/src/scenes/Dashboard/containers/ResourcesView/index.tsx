@@ -1,7 +1,4 @@
-/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
+/* tslint:disable:jsx-no-multiline-js
  *
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
@@ -12,13 +9,9 @@ import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { AnyAction } from "redux";
-import { ThunkDispatch } from "redux-thunk";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
-import store from "../../../../store/index";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName } from "../../../../utils/validations";
 import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
@@ -28,19 +21,7 @@ import * as actions from "./actions";
 
 type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
-interface IResourcesViewStateProps {
-  addModal: {
-    open: boolean;
-    type: "repository" | "environment" | "file";
-  };
-  environments: Array<{ urlEnv: string }>;
-  files: Array<{ description: string; fileName: string; uploadDate: string }>;
-  optionsModal: {
-    open: boolean;
-    rowInfo: { fileName: string };
-  };
-  repositories: Array<{ branch: string; urlRepo: string }>;
-}
+type IResourcesViewStateProps = IDashboardState["resources"];
 
 interface IResourcesViewDispatchProps {
   onCloseAddModal(): void;
@@ -61,120 +42,75 @@ type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps &
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
-    const { projectName } = this.props.match.params;
-    const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-    );
-
-    thunkDispatch(actions.loadResources(projectName));
+    this.props.onLoad();
   },
 });
 
-const removeRepo: ((arg1: string) => void) = (projectName: string): void => {
-  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblRepositories tr input:checked");
-  if (selectedQry.length > 0) {
-    if (selectedQry[0].closest("tr") !== null) {
-      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-      const repository: string | null = selectedRow.children[1].textContent;
-      const branch: string | null = selectedRow.children[2].textContent;
+const getSelectedRow: ((tableId: string) => HTMLTableRowElement | undefined) =
+  (tableId: string): HTMLTableRowElement | undefined => {
+    const selectedQry: NodeListOf<Element> = document.querySelectorAll(`#${tableId} tr input:checked`);
+    const selectedRow: HTMLTableRowElement | null | undefined =
+      _.isEmpty(selectedQry) ? undefined : selectedQry[0].closest("tr");
 
-      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-      );
-      thunkDispatch(actions.removeRepo(projectName, String(repository), String(branch)));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred removing repositories");
-    }
-  } else {
+    return selectedRow === undefined || selectedRow === null ? undefined : selectedRow;
+  };
+
+const handleRemoveRepo: ((props: IResourcesViewProps) => void) = (props: IResourcesViewProps): void => {
+  const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblRepositories");
+  if (selectedRow === undefined) {
     msgError(translate.t("search_findings.tab_resources.no_selection"));
+  } else {
+    const repository: string | null = selectedRow.children[1].textContent;
+    const branch: string | null = selectedRow.children[2].textContent;
+
+    props.onRemoveRepo(String(repository), String(branch));
   }
 };
 
-const saveRepos: (
-  (resources: IResourcesViewProps["repositories"], projectName: string,
-   currentRepos: IResourcesViewProps["repositories"],
-  ) => void) =
-  (resources: IResourcesViewProps["repositories"], projectName: string,
-   currentRepos: IResourcesViewProps["repositories"],
-  ): void => {
+const handleSaveRepos: ((resources: IResourcesViewProps["repositories"], props: IResourcesViewProps) => void) =
+  (resources: IResourcesViewProps["repositories"], props: IResourcesViewProps): void => {
     let containsRepeated: boolean;
     containsRepeated = resources.filter(
       (newItem: IResourcesViewProps["repositories"][0]) => _.findIndex(
-        currentRepos,
+        props.repositories,
         (currentItem: IResourcesViewProps["repositories"][0]) =>
           currentItem.urlRepo === newItem.urlRepo && currentItem.branch === newItem.branch,
       ) > -1).length > 0;
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-      );
-      thunkDispatch(actions.saveRepos(projectName, resources));
+      props.onSaveRepos(resources);
     }
   };
 
-const removeEnv: ((arg1: string) => void) = (projectName: string): void => {
-  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblEnvironments tr input:checked");
-  if (selectedQry.length > 0) {
-    if (selectedQry[0].closest("tr") !== null) {
-      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-      const env: string | null = selectedRow.children[1].textContent;
-      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-      );
-
-      thunkDispatch(actions.removeEnv(projectName, String(env)));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred removing environments");
-    }
-  } else {
+const handleRemoveEnv: ((props: IResourcesViewProps) => void) = (props: IResourcesViewProps): void => {
+  const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblEnvironments");
+  if (selectedRow === undefined) {
     msgError(translate.t("search_findings.tab_resources.no_selection"));
+  } else {
+    const env: string | null = selectedRow.children[1].textContent;
+    props.onRemoveEnv(String(env));
   }
 };
 
-const saveEnvs: (
-  (resources: IResourcesViewProps["environments"], projectName: string,
-   currentEnvs: IResourcesViewProps["environments"],
-  ) => void) =
-  (resources: IResourcesViewProps["environments"], projectName: string,
-   currentEnvs: IResourcesViewProps["environments"],
-  ): void => {
+const handleSaveEnvs: ((resources: IResourcesViewProps["environments"], props: IResourcesViewProps) => void) =
+  (resources: IResourcesViewProps["environments"], props: IResourcesViewProps): void => {
     let containsRepeated: boolean;
     containsRepeated = resources.filter(
       (newItem: IResourcesViewProps["environments"][0]) => _.findIndex(
-        currentEnvs,
+        props.environments,
         (currentItem: IResourcesViewProps["environments"][0]) =>
           currentItem.urlEnv === newItem.urlEnv,
       ) > -1).length > 0;
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-      );
-      thunkDispatch(actions.saveEnvs(projectName, resources));
+      props.onSaveEnvs(resources);
     }
   };
 
-const removeFiles: ((arg1: string, arg2: { fileName: string | null}) => void) =
-  (projectName: string, rowInfo: { fileName: string | null}): void => {
-    if (rowInfo.fileName !== null) {
-      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-      );
-      thunkDispatch(actions.deleteFile(projectName, rowInfo.fileName));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred removing files");
-    }
-  };
-
-const saveFiles: ((files: IResourcesViewProps["files"], projectName: string, currentFiles: IResourcesViewProps["files"])
-  => void) =
-  (files: IResourcesViewProps["files"], projectName: string, currentFiles: IResourcesViewProps["files"]): void => {
+const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesViewProps) => void) =
+  (files: IResourcesViewProps["files"], props: IResourcesViewProps): void => {
     const selected: FileList | null = (document.querySelector("#file") as HTMLInputElement).files;
     if (_.isNil(selected) || selected.length === 0) {
       msgError(translate.t("proj_alerts.no_file_selected"));
@@ -186,54 +122,52 @@ const saveFiles: ((files: IResourcesViewProps["files"], projectName: string, cur
       let containsRepeated: boolean;
       containsRepeated = files.filter(
         (newItem: IResourcesViewProps["files"][0]) => _.findIndex(
-          currentFiles,
+          props.files,
           (currentItem: IResourcesViewProps["files"][0]) =>
             currentItem.fileName === newItem.fileName,
         ) > -1).length > 0;
       if (containsRepeated) {
         msgError(translate.t("search_findings.tab_resources.repeated_item"));
       } else {
-        const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-          store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-        );
-        thunkDispatch(actions.saveFiles(projectName, files));
+        props.onSaveFiles(files);
       }
     } else {
       msgError(translate.t("search_findings.tab_resources.invalid_chars"));
     }
   };
 
-const downloadFile: ((arg1: string, arg2: { fileName: string | null}) => void) =
-  (projectName: string, rowInfo: { fileName: string | null}): void => {
-    if (rowInfo.fileName !== null) {
-      const thunkDispatch: ThunkDispatch<{}, undefined, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, undefined, AnyAction>
-      );
-      thunkDispatch(actions.downloadFile(projectName, rowInfo.fileName));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred downloading file");
-    }
-  };
-
 const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
   (props: IResourcesViewProps): JSX.Element => {
-    const { projectName } = props.match.params;
+
+    const handleRemoveRepoClick: (() => void) = (): void => { handleRemoveRepo(props); };
+    const handleRemoveEnvClick: (() => void) = (): void => { handleRemoveEnv(props); };
+    const handleAddRepoClick: (() => void) = (): void => { props.onOpenAddModal("repository"); };
+    const handleAddEnvClick: (() => void) = (): void => { props.onOpenAddModal("environment"); };
+    const handleAddFileClick: (() => void) = (): void => { props.onOpenAddModal("file"); };
+    const handleCloseAddModalClick: (() => void) = (): void => { props.onCloseAddModal(); };
+    const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
+    const handleDeleteFileClick: (() => void) = (): void => {
+      props.onDeleteFile(props.optionsModal.rowInfo.fileName);
+    };
+    const handleDownloadFileClick: (() => void) = (): void => {
+      props.onDownloadFile(props.optionsModal.rowInfo.fileName);
+    };
+    const handleFileRowClick: ((row: string) => void) = (row: string): void => { props.onOpenOptionsModal(row); };
 
     let onSubmitFunction: (((values: { resources: IResourcesViewProps["environments"] }) => void)
       | ((values: { resources: IResourcesViewProps["repositories"] }) => void)
       | ((values: { resources: IResourcesViewProps["files"] }) => void));
     if (props.addModal.type === "environment") {
       onSubmitFunction = (values: { resources: IResourcesViewProps["environments"] }): void => {
-        saveEnvs(values.resources, projectName, props.environments);
+        handleSaveEnvs(values.resources, props);
       };
     } else if (props.addModal.type === "repository") {
       onSubmitFunction = (values: { resources: IResourcesViewProps["repositories"] }): void => {
-        saveRepos(values.resources, projectName, props.repositories);
+        handleSaveRepos(values.resources, props);
       };
     } else {
       onSubmitFunction = (values: { resources: IResourcesViewProps["files"] }): void => {
-        saveFiles(values.resources, projectName, props.files);
+        handleSaveFiles(values.resources, props);
       };
     }
 
@@ -251,7 +185,7 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                       id="addRepository"
                       block={true}
                       bsStyle="primary"
-                      onClick={(): void => { store.dispatch(actions.openAddModal("repository")); }}
+                      onClick={handleAddRepoClick}
                     >
                       <Glyphicon glyph="plus"/>&nbsp;
                       {translate.t("search_findings.tab_resources.add_repository")}
@@ -262,7 +196,7 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                       id="removeRepository"
                       block={true}
                       bsStyle="primary"
-                      onClick={(): void => { removeRepo(projectName); }}
+                      onClick={handleRemoveRepoClick}
                     >
                       <Glyphicon glyph="minus"/>&nbsp;
                       {translate.t("search_findings.tab_resources.remove_repository")}
@@ -274,7 +208,6 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                 <Col md={12} sm={12}>
                   <DataTable
                     dataset={props.repositories}
-                    onClickRow={(): void => {}}
                     enableRowSelection={true}
                     exportCsv={true}
                     search={true}
@@ -325,7 +258,7 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                       id="addEnvironment"
                       block={true}
                       bsStyle="primary"
-                      onClick={(): void => { store.dispatch(actions.openAddModal("environment")); }}
+                      onClick={handleAddEnvClick}
                     >
                       <Glyphicon glyph="plus"/>&nbsp;
                       {translate.t("search_findings.tab_resources.add_repository")}
@@ -336,7 +269,7 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                       id="removeEnvironment"
                       block={true}
                       bsStyle="primary"
-                      onClick={(): void => { removeEnv(projectName); }}
+                      onClick={handleRemoveEnvClick}
                     >
                       <Glyphicon glyph="minus"/>&nbsp;
                       {translate.t("search_findings.tab_resources.remove_repository")}
@@ -348,7 +281,6 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                 <Col md={12} sm={12}>
                   <DataTable
                     dataset={props.environments}
-                    onClickRow={(): void => {}}
                     enableRowSelection={true}
                     exportCsv={true}
                     search={true}
@@ -390,7 +322,7 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                         id="addFile"
                         block={true}
                         bsStyle="primary"
-                        onClick={(): void => { store.dispatch(actions.openAddModal("file")); }}
+                        onClick={handleAddFileClick}
                       >
                         <Glyphicon glyph="plus"/>&nbsp;
                         {translate.t("search_findings.tab_resources.add_repository")}
@@ -402,7 +334,7 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                   <Col md={12} sm={12}>
                     <DataTable
                       dataset={props.files}
-                      onClickRow={(row: string | undefined): void => {store.dispatch(actions.openOptionsModal(row)); }}
+                      onClickRow={handleFileRowClick}
                       enableRowSelection={false}
                       exportCsv={false}
                       search={true}
@@ -452,16 +384,16 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
       <AddResourcesModal
         isOpen={props.addModal.open}
         type={props.addModal.type}
-        onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
+        onClose={handleCloseAddModalClick}
         onSubmit={onSubmitFunction}
       />
       <FileOptionsModal
         fileName={props.optionsModal.rowInfo.fileName}
         isOpen={props.optionsModal.open}
-        onClose={(): void => { store.dispatch(actions.closeOptionsModal()); }}
+        onClose={handleCloseOptionsModalClick}
         onSubmit={onSubmitFunction}
-        onDelete={(): void => {removeFiles(projectName, props.optionsModal.rowInfo); }}
-        onDownload={(): void => {downloadFile(projectName, props.optionsModal.rowInfo); }}
+        onDelete={handleDeleteFileClick}
+        onDownload={handleDownloadFileClick}
       />
     </div>
   </React.StrictMode>
