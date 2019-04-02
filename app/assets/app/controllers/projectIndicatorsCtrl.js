@@ -106,63 +106,10 @@ angular.module("FluidIntegrates").controller(
           "title": $translate.instant("grapExploit.title")
         },
         {
-          "data": $scope.reactFindingType(),
-          "title": $translate.instant("grapType.title")
-        },
-        {
           "data": $scope.reactFindingStatus(),
           "title": $translate.instant("grapStatus.title")
         }
       ];
-    };
-
-    /**
-     *  @name reactFindingType
-     *  @description Order data to indicatorGraph directive.
-     *  @return {object} Graph config
-     */
-    $scope.reactFindingType = () => {
-      let security = 0;
-      let hygiene = 0;
-      const {data} = $scope;
-      angular.forEach(data, (value) => {
-        if (value.estado !== "Cerrado" &&
-          value.estado !== "Closed") {
-          if (value.findingType === "SECURITY" ||
-              value.findingType === "Security" ||
-              value.findingType === "Seguridad") {
-            security += 1;
-          }
-          else {
-            hygiene += 1;
-          }
-        }
-      });
-      const total = security + hygiene;
-      return {
-        "datasets": [
-          {
-            "backgroundColor": [
-              "#ff1a1a",
-              "#31c0be"
-            ],
-            "data": [
-              security,
-              hygiene
-            ],
-            "hoverBackgroundColor": [
-              "#e51414",
-              "#258c8a"
-            ]
-          }
-        ],
-        "labels": [
-          $translate.instant("grapType.seg_label") +
-            $scope.percent(security, total),
-          $translate.instant("grapType.hig_label") +
-            $scope.percent(hygiene, total)
-        ]
-      };
     };
 
     /**
@@ -260,108 +207,6 @@ angular.module("FluidIntegrates").controller(
     };
     $scope.goUp = function goUp () {
       angular.element("html, body").animate({"scrollTop": 0}, "fast");
-    };
-    $scope.calculateCardinality = function calculateCardinality (data) {
-      const cardinalityValues = projectFtry2.calCardinality(data);
-      $scope.metricsList = [];
-      const cardIndex2 = 2;
-      const cardIndex3 = 3;
-      const cardIndex4 = 4;
-      const cardIndex5 = 5;
-      for (let val = 0; val < cardIndex3; val++) {
-        $scope.metricsList.push({
-          "description": $translate.instant(`${"search_findings.filter_labels" +
-                                    "."}${cardinalityValues[cardIndex2][val]}`),
-          "icon": cardinalityValues[cardIndex3][val],
-          "tooltip": $translate.instant(`${"search_findings.filter_labels" +
-                                    "."}${cardinalityValues[cardIndex4][val]}`),
-          "value": `${cardinalityValues[cardIndex5][val]}`
-        });
-      }
-      let severity = 0;
-      angular.forEach(data.data, (cont) => {
-        try {
-          if (cont.findingType === "SECURITY") {
-            severity += cont.baseScore * parseFloat(cont.cardinalidad_total);
-          }
-        }
-        catch (err) {
-          Rollbar.error("Error: An error ocurred calculating cardinality", err);
-        }
-      });
-      const req = projectFtry.totalSeverity($scope.project.toLowerCase());
-      req.then((response) => {
-        if (!response.error) {
-          if (angular.isUndefined(response.data)) {
-            location.reload();
-          }
-          else if (response.data.length > 0) {
-            const LINES_DIVISOR = 1000;
-            const sevConst1 = 4.611;
-            const sevConst2 = 43.221;
-            const sevConst3 = 4;
-            for (let cont = 0; cont < response.data.length; cont++) {
-              const target = (parseInt(response.data[cont].lines, 10) /
-                               LINES_DIVISOR) +
-                               (parseInt(response.data[cont].fields, 10) /
-                               sevConst3);
-              const totalSeverity = severity / ((sevConst1 * target) +
-                                      sevConst2) * PERCENT_FACTOR;
-              $scope.metricsList.push({
-                "description": $translate.instant("search_findings." +
-                                              "filter_labels.closure"),
-                "icon": "fixedVulnerabilities",
-                "tooltip": $translate.instant("search_findings.filter_labels." +
-                                              "closureTooltip"),
-                "value": "n%".replace("n", Math.round((1 -
-                                  (cardinalityValues[0] /
-                                  cardinalityValues[1])) *
-                                  PERCENT_FACTOR).toString())
-              });
-              $scope.metricsList.push({
-                "description": $translate.instant("search_findings." +
-                                                    "filter_labels.criticity"),
-                "icon": "graph",
-                "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                    "criticityTooltip"),
-                "value": "n%".replace("n", totalSeverity.toFixed(0))
-              });
-            }
-          }
-          else {
-            const totalSeverity = severity;
-            $scope.metricsList.push({
-              "description": $translate.instant("search_findings." +
-                                                  "filter_labels.closure"),
-              "icon": "fixedVulnerabilities",
-              "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                    "closureTooltip"),
-              "value": "n%".replace("n", Math.round((1 -
-                                      (cardinalityValues[0] /
-                                      cardinalityValues[1])) *
-                                      PERCENT_FACTOR).toString())
-            });
-            $scope.metricsList.push({
-              "description": $translate.instant("search_findings." +
-                                                  "filter_labels.criticity"),
-              "icon": "graph",
-              "tooltip": $translate.instant("search_findings.filter_labels." +
-                                                    "criticityTooltip"),
-              "value": totalSeverity.toFixed(0)
-            });
-          }
-        }
-        for (let val = 3; val < cardinalityValues[cardIndex2].length; val++) {
-          $scope.metricsList.push({
-            "description": $translate.instant(`${"search_findings." +
-                      "filter_labels."}${cardinalityValues[cardIndex2][val]}`),
-            "icon": cardinalityValues[cardIndex3][val],
-            "tooltip": $translate.instant(`${"search_findings.filter_labels" +
-                                  "."}${cardinalityValues[cardIndex4][val]}`),
-            "value": `${cardinalityValues[cardIndex5][val]}`
-          });
-        }
-      });
     };
     $scope.search = function search () {
       const projectName = $scope.project;

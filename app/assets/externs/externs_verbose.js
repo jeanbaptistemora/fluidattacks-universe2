@@ -106,7 +106,6 @@ var projectName = {};    \
 var Donut = {};   \
 var findingType = {};   \
 var fields = {};   \
-var totalSeverity = {};    \
 var cardinalidad_total = {};   \
 var status_act = {};   \
 var getAlerts = {};   \

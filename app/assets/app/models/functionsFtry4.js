@@ -38,7 +38,6 @@ angular.module("FluidIntegrates").factory(
         const org = Organization.toUpperCase();
         const projt = $stateParams.project.toUpperCase();
         functionsFtry1.alertHeader(org, projt);
-        $scope.calculateCardinality({"data": datatest});
         if (!$scope.isManager) {
           $scope.openEvents = projectFtry.alertEvents(eventsData);
           $scope.atAlert = $translate.instant("main_content.eventualities." +

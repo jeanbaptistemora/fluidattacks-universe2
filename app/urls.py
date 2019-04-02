@@ -47,7 +47,6 @@ urlpatterns = [
     url(r'^get_drafts/?\.*$', views.get_drafts, name='get_drafts'),
     # Use of Formstack services.
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
-    url(r'^total_severity/?\.*$', views.total_severity, name='total_severity'),
     url(r'^access_to_project/?\.*$', views.access_to_project, name='access_to_project'),
     url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),

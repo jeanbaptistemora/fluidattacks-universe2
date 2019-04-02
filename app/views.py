@@ -790,16 +790,6 @@ def get_myprojects(request):
     return util.response(json_data, 'Success', False)
 
 
-@cache_control(private=True, max_age=3600)
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-def total_severity(request):
-    project = request.GET.get('project', "")
-    toe = integrates_dao.get_toe_dynamo(project)
-    return util.response(toe, 'Success', False)
-
-
 def delete_all_coments(finding_id):
     """Delete all comments of a finding."""
     all_comments = integrates_dao.get_comments_dynamo(int(finding_id), "comment")

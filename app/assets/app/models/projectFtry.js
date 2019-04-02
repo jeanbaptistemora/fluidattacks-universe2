@@ -90,21 +90,6 @@ angular.module("FluidIntegrates").factory(
           "_": parseInt(secureRandom(5).join(""), 10),
           project
         }, oopsAc);
-      },
-
-      /**
-       * Make a request to get the total severity of a project.
-       * @function totalSeverity
-       * @param {String} project Project name
-       * @member integrates.projectFtry
-       * @return {Object} DynamoDB response with the total severity of a project
-       */
-      "totalSeverity" (project) {
-        const oopsAc = "An error occurred getting total severity";
-        return $xhr.get($q, `${BASE.url}total_severity`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
-        }, oopsAc);
       }
     };
   }
