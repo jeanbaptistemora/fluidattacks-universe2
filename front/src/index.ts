@@ -16,7 +16,6 @@ import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
 import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
 import { eventsView } from "./scenes/Dashboard/containers/EventsView/index";
 import { indicatorsView } from "./scenes/Dashboard/containers/IndicatorsView/index";
-import ProjectUsersView from "./scenes/Dashboard/containers/ProjectUsersView/index";
 import { resourcesView } from "./scenes/Dashboard/containers/ResourcesView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
@@ -245,21 +244,6 @@ angular
         "type",
         "visible",
      ],
-   ),
-  );
-
-/**
- * @url: #/project/:project/users
- * @page: users.html
- * @controllers: projectUsersCtrl
- * @tag: <project-Users-view/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-   "projectUsersView",
-   react2angular(
-      ProjectUsersView, [],
    ),
   );
 

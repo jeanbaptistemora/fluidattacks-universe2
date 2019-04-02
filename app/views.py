@@ -203,22 +203,6 @@ def project_resources(request):
     return render(request, "project/resources.html", parameters)
 
 
-@cache_control(private=True, max_age=3600)
-@authenticate
-def project_users(request):
-    "users view"
-    parameters = {}
-    return render(request, "project/users.html", parameters)
-
-
-@cache_control(private=True, max_age=3600)
-@authenticate
-def project_comments(request):
-    """ Project comments view """
-    parameters = {}
-    return render(request, 'project/comments.html', parameters)
-
-
 @csrf_exempt
 @cache_control(private=True, max_age=3600)
 @authenticate

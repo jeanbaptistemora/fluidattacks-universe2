@@ -40,8 +40,6 @@ urlpatterns = [
     url(r'^project_drafts/?\.*$', views.project_drafts),
     url(r'^project_events/?\.*$', views.project_events),
     url(r'^project_resources/?\.*$', views.project_resources),
-    url(r'^project_users/?\.*$', views.project_users),
-    url(r'^project_comments/?\.*$', views.project_comments),
     # Dashboard view.
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     url(r'^get_drafts/?\.*$', views.get_drafts, name='get_drafts'),

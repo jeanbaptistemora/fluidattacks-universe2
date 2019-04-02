@@ -89,26 +89,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Get user information.
-       * @function getUserData
-       * @param {String} email User email.
-       * @param {String} project User project.
-       * @member integrates.projectFtry2
-       * @return {Object} GraphQL response with the requested data
-       */
-      "getUserData" (email, project) {
-        const oopsAc = "An error occurred getting user information";
-        const gQry = `{
-          userData(projectName: "${project}", userEmail: "${email}") {
-            organization
-            responsability
-            phoneNumber
-          }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Get role of a user.
        * @function isCustomerAdmin
        * @param {String} project Project name.
