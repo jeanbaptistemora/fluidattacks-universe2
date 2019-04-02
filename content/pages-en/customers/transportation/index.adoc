@@ -1,6 +1,6 @@
 :slug: customers/transportation/
 :category: customers
-:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the Colombian market. In this page we present our contributions to the transportation sector.
+:description: With over 18 years of experience in the Colombian market, Fluid Attacks is a company focused on information security, ethical hacking, penetration testing, and vulnerabilities detection in applications. We have worked with the following companies in the transportation sector.
 :keywords: Fluid Attacks, Information, Security, Transportation, Ethical Hacking, Pentesting.
 :translate: clientes/transporte/
 
@@ -15,13 +15,12 @@ a|image::logo-avianca.png[alt="Logo Avianca",link="https://www.avianca.com/co/es
 
 2+a|== Avianca
 
-Commercial brand that represents the Latin American airlines
-integrated in Avianca Holdings S.A.
-Specialized in the transport of passengers and cargo,
-direct service in more than 100 destinations
-in +26+ countries of America and Europe
-aboard a modern fleet of +172+ aircraft
-of short, medium and long range.
+Avianca Airlines (consolidated into Avianca Holdings S.A.)
+"has been the national airline and flag-carrier of Colombia" since 1919.
+Transporting passengers and cargo,
+Avianca has direct service to more than +100+ destinations in +26+ countries
+in the Americas and Europe
+aboard a fleet of +190+ short, medium, and long-range aircraft.
 
 2+a|== F2X
 

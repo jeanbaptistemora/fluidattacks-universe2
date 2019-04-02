@@ -60,25 +60,24 @@ a|image::logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/
 
 a|image::logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
 
-2+a|== LAFRANCOL
+2+a|== Lafrancol
 
-Manufacturers and distributors at a national and international level,
-pharmaceutical products and functional foods for human consumption
-with the highest levels of quality.
-They have the recognition of the effectiveness and safety of their compounds
-before the medical team and the health society,
-+LAFRANCOL+ has been growing steadily for almost +100+ years
-reaching a leading position in the national pharmaceutical industry,
-both for its sales volume and for its quality image.
+Lafrancol S.A. is a biotech and pharmaceutical company
+manufacturing and distributing pharmaceutical products
+for both medical and veterinary use.
+Their distribution network is worldwide.
+Lafrancol is a leader in the national pharmaceutical industry in Colombia
+for its sales volume and its reputation
+for producing high-quality products.
 
 2+a|== Manuelita
 
-Diversified agroindustrial organization, multilatina of Colombian origin,
-consolidated as a diversified agroindustrial organization,
-whose strategy is based on a sustainable business model.
-It produces products of an agro-industrial nature,
-made from renewable sources, through the sustainable use of natural resources,
-with a positive impact on the well-being of neighboring communities.
+Manuelita is a Colombian, multinational,
+diversified agro-industrial organization.
+It uses a sustainable business model producing agro-industrial products
+made from renewable resources.
+Manuelita is known for its positive impact
+on the well-being of neighboring communities.
 
 a|image::logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
 
@@ -86,11 +85,10 @@ a|image::logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-
 
 2+a|== Odinsa
 
-Subsidiary of Grupo Argos,
-is a Colombian company dedicated to the structuring, promotion,
-management and development of road and airport infrastructure projects,
-with presence in Colombia, Ecuador, Aruba and the Dominican Republic,
-which has become a vehicle for regional connectivity
-and a source of development.
+Odinsa is a Colombian company and a subsidiary of Grupo Argos.
+Odinsa focuses on structuring, promotion, management, and development
+of road and airport infrastructure projects.
+Odinsa operates in Colombia, Ecuador, Aruba, and the Dominican Republic,
+and has become a vehicle for regional connectivity and development.
 
 |====
