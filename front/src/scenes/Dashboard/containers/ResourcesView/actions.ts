@@ -5,8 +5,10 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
+import { IDashboardState } from "../../reducer";
 import * as actionTypes from "./actionTypes";
-import { IResourcesViewProps } from "./index";
+
+type IResourcesViewProps = IDashboardState["resources"];
 
 export interface IActionStructure {
   /* tslint:disable-next-line:no-any
@@ -31,7 +33,7 @@ export const clearResources: (() => IActionStructure) =
   });
 
 export const loadResources: ThunkActionStructure =
-  (projectName: IResourcesViewProps["projectName"]): ThunkAction<void, {}, {}, Action> =>
+  (projectName: string): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       dispatch(clearResources());
       let gQry: string;
@@ -89,7 +91,7 @@ export const closeOptionsModal: (() => IActionStructure) =
   });
 
 export const saveRepos: ThunkActionStructure =
-  (projectName: string, reposData: IResourcesViewProps["repositoriesDataset"],
+  (projectName: string, reposData: IResourcesViewProps["repositories"],
   ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
@@ -186,7 +188,7 @@ export const removeRepo: ThunkActionStructure =
 
 export const saveEnvs: ThunkActionStructure =
   (projectName: string,
-   envsData: IResourcesViewProps["environmentsDataset"]): ThunkAction<void, {}, {}, Action> =>
+   envsData: IResourcesViewProps["environments"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
@@ -283,7 +285,7 @@ export const removeEnv: ThunkActionStructure =
 
 export const saveFiles: ThunkActionStructure =
   (projectName: string,
-   filesData: IResourcesViewProps["filesDataset"]): ThunkAction<void, {}, {}, Action> =>
+   filesData: IResourcesViewProps["files"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
 

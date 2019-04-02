@@ -6,7 +6,7 @@ import React from "react";
 import { Glyphicon } from "react-bootstrap";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
-import { component as ResourcesView } from "./index";
+import ProjectResourcesView from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -15,18 +15,13 @@ const functionMock: (() => void) = (): void => undefined;
 describe("Resources view", () => {
 
   const wrapper: ShallowWrapper = shallow(
-    <ResourcesView
-      addModal={{ open: false, type: "repository" }}
-      environmentsDataset={[]}
-      optionsModal={{ open: false, rowInfo: { fileName: "" }}}
-      projectName="unittesting"
-      repositoriesDataset={[]}
-      filesDataset={[]}
+    <ProjectResourcesView
+      match={{ params: { projectName: "unittesting" }, isExact: false, path: "", url: "" }}
     />,
   );
 
   it("should return a function", () => {
-    expect(typeof (ResourcesView)).to
+    expect(typeof (ProjectResourcesView)).to
       .equal("function");
   });
 
