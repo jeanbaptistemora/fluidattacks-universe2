@@ -7,8 +7,9 @@ from boto3 import resource
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 # pylint: disable=E0402
-from __init__ import FI_AWS_DYNAMODB_ACCESS_KEY
-from __init__ import FI_AWS_DYNAMODB_SECRET_KEY
+from __init__ import (
+    FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY
+)
 import rollbar
 from app import util
 from ..utils import forms

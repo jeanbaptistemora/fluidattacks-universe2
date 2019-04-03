@@ -39,6 +39,11 @@ try:
     FI_MAIL_PROJECTS = os.environ['FI_MAIL_PROJECTS']
     FI_MAIL_REVIEWERS = os.environ['FI_MAIL_REVIEWERS']
     FI_TEST_PROJECTS = os.environ['FI_TEST_PROJECTS']
+    FI_AWS_REDSHIFT_DB_NAME = os.environ['FI_AWS_REDSHIFT_DB_NAME']
+    FI_AWS_REDSHIFT_USER = os.environ['FI_AWS_REDSHIFT_USER']
+    FI_AWS_REDSHIFT_PASSWORD = os.environ['FI_AWS_REDSHIFT_PASSWORD']
+    FI_AWS_REDSHIFT_HOST = os.environ['FI_AWS_REDSHIFT_HOST']
+    FI_AWS_REDSHIFT_PORT = os.environ['FI_AWS_REDSHIFT_PORT']
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")
     raise

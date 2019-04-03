@@ -20,7 +20,7 @@ from app.domain.project import (
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
 
-from ..dao import integrates_dao
+from ..dao import integrates_dao, project as redshift_dao
 from .finding import Finding
 from .user import User
 
@@ -33,6 +33,8 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     findings_aux = []
     open_vulnerabilities = Int()
     closed_vulnerabilities = Int()
+    current_month_authors = Int()
+    current_month_commits = Int()
     subscription = String()
     comments = List(GenericScalar)
     tags = List(String)
@@ -55,6 +57,8 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.deletion_date = ''
         self.open_vulnerabilities = 0
         self.closed_vulnerabilities = 0
+        self.current_month_authors = 0
+        self.current_month_commits = 0
         self.pending_closing_check = 0
         self.last_closing_vuln = 0
         self.max_severity = 0.0
@@ -132,6 +136,20 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         del info
         self.total_treatment = get_total_treatment(self.findings_aux)
         return self.total_treatment
+
+    def resolve_current_month_authors(self, info):
+        """Resolve current month authors attribute."""
+        del info
+        self.current_month_authors = \
+            redshift_dao.get_current_month_authors(self.name)
+        return self.current_month_authors
+
+    def resolve_current_month_commits(self, info):
+        """Resolve current month commits attribute."""
+        del info
+        self.current_month_commits = \
+            redshift_dao.get_current_month_commits(self.name)
+        return self.current_month_commits
 
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""
