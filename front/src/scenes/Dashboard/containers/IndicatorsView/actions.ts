@@ -5,8 +5,10 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
+import { IDashboardState } from "../../reducer";
 import * as actionTypes from "./actionTypes";
-import { IIndicatorsViewProps } from "./index";
+
+type IIndicators = IDashboardState["indicators"];
 
 export interface IActionStructure {
   /* tslint:disable-next-line:no-any
@@ -31,7 +33,7 @@ export const clearTags: (() => IActionStructure) =
   });
 
 export const loadIndicators: ThunkActionStructure =
-  (projectName: IIndicatorsViewProps["projectName"]): ThunkAction<void, {}, {}, Action> =>
+  (projectName: string): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       dispatch(clearTags());
       let gQry: string;
@@ -143,8 +145,7 @@ export const removeTag: ThunkActionStructure =
     };
 
 export const saveTags: ThunkActionStructure =
-  (projectName: string,
-   tagsData: IIndicatorsViewProps["tagsDataset"]): ThunkAction<void, {}, {}, Action> =>
+  (projectName: string, tagsData: IIndicators["tags"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {

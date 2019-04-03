@@ -1,34 +1,26 @@
-/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
- *
- * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
-  * readability of the code that defines the headers of the table
- */
 import _ from "lodash";
-import React, { ComponentType } from "react";
+import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import {
-  InferableComponentEnhancer,
-  lifecycle,
-} from "recompose";
-import { AnyAction, Reducer } from "redux";
+import { connect, MapStateToProps } from "react-redux";
+import { RouteComponentProps } from "react-router";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
 import { msgError } from "../../../../utils/notifications";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
+import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 
-export interface IIndicatorsViewProps {
+type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
+
+interface IIndicatorsViewStateProps {
   addModal: {
     open: boolean;
   };
@@ -40,7 +32,6 @@ export interface IIndicatorsViewProps {
   meanRemediate: number;
   openVulnerabilities: number;
   pendingClosingCheck: number;
-  projectName: string;
   subscription: string;
   tagsDataset: string[];
   totalFindings: number;
@@ -53,10 +44,11 @@ interface IGraphData {
   hoverBackgroundColor: string[];
 }
 
-const enhance: InferableComponentEnhancer<{}> =
-lifecycle({
+type IIndicatorsViewProps = IIndicatorsViewBaseProps & (IIndicatorsViewStateProps);
+
+const enhance: InferableComponentEnhancer<{}> = lifecycle<IIndicatorsViewProps, {}>({
   componentDidMount(): void {
-    const { projectName } = this.props as IIndicatorsViewProps;
+    const { projectName } = this.props.match.params;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
@@ -86,10 +78,10 @@ const removeTag: ((arg1: string) => void) = (projectName: string): void => {
 };
 
 const saveTags: (
-  (tags: IIndicatorsViewProps["tagsDataset"], projectName: IIndicatorsViewProps["projectName"],
+  (tags: IIndicatorsViewProps["tagsDataset"], projectName: string,
    currentEnvs: IIndicatorsViewProps["tagsDataset"],
   ) => void) =
-  (tags: IIndicatorsViewProps["tagsDataset"], projectName: IIndicatorsViewProps["projectName"],
+  (tags: IIndicatorsViewProps["tagsDataset"], projectName: string,
    currentEnvs: IIndicatorsViewProps["tagsDataset"],
   ): void => {
     let containsRepeated: boolean;
@@ -109,27 +101,20 @@ const saveTags: (
     }
   };
 
-const mapStateToProps: ((arg1: StateType<Reducer>) => IIndicatorsViewProps) =
-  (state: StateType<Reducer>): IIndicatorsViewProps => ({
-    ...state,
-    addModal: state.dashboard.indicators.addModal,
-    closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
-    deletionDate: state.dashboard.indicators.deletionDate,
-    lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
-    maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
-    maxSeverity: state.dashboard.indicators.maxSeverity,
-    meanRemediate: state.dashboard.indicators.meanRemediate,
-    openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
-    pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
-    subscription: state.dashboard.indicators.subscription,
-    tagsDataset: state.dashboard.indicators.tags,
-    totalFindings: state.dashboard.indicators.totalFindings,
-    totalTreatment: state.dashboard.indicators.totalTreatment,
-  });
+const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element) = (props: IIndicatorsViewProps): JSX.Element => {
+  const { projectName } = props.match.params;
 
-const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined) =
-  (props: IIndicatorsViewProps): JSX.Element | undefined =>
-   !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate) ?  (
+  const tagsDataset: Array<{ tagName: string }> = props.tagsDataset.map((tagName: string) => ({ tagName }));
+
+  const handleOpenAddModal: (() => void) = (): void => { store.dispatch(actions.openAddModal()); };
+  const handleCloseAddModal: (() => void) = (): void => { store.dispatch(actions.closeAddModal()); };
+  const handleRemoveTagClick: (() => void) = (): void => { removeTag(projectName); };
+  const handleSubmit: ((values: { tags: IIndicatorsViewProps["tagsDataset"] }) => void) =
+    (values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => {
+      saveTags(values.tags, projectName, props.tagsDataset);
+    };
+
+  return (
     <React.Fragment>
       <Row>
         <Col md={12} sm={12} xs={12}>
@@ -138,24 +123,14 @@ const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined)
               <Row>
                 <Col md={12}>
                   <Col mdOffset={4} md={2} sm={6}>
-                    <Button
-                      id="addTag"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={(): void => { store.dispatch(actions.openAddModal()); }}
-                    >
-                      <Glyphicon glyph="plus"/>&nbsp;
+                    <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenAddModal}>
+                      <Glyphicon glyph="plus" />&nbsp;
                       {translate.t("search_findings.tab_resources.add_repository")}
                     </Button>
                   </Col>
                   <Col md={2} sm={6}>
-                    <Button
-                      id="removeTag"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={(): void => { removeTag(props.projectName); }}
-                    >
-                      <Glyphicon glyph="minus"/>&nbsp;
+                    <Button id="removeTag" block={true} bsStyle="primary" onClick={handleRemoveTagClick}>
+                      <Glyphicon glyph="minus" />&nbsp;
                       {translate.t("search_findings.tab_resources.remove_repository")}
                     </Button>
                   </Col>
@@ -164,19 +139,11 @@ const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined)
               <Row>
                 <Col md={12} sm={12}>
                   <DataTable
-                    dataset={props.tagsDataset.map((tagName: string) => ({tagName}))}
-                    onClickRow={(): void => {}}
+                    dataset={tagsDataset}
                     enableRowSelection={true}
                     exportCsv={false}
                     search={false}
-                    headers={[
-                      {
-                        dataField: "tagName",
-                        header: "Tags",
-                        isDate: false,
-                        isStatus: false,
-                      },
-                    ]}
+                    headers={[{ dataField: "tagName", header: "Tags", isDate: false, isStatus: false }]}
                     id="tblTags"
                     pageSize={15}
                     title={""}
@@ -187,15 +154,10 @@ const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element | undefined)
           </Row>
         </Col>
       </Row>
-      <AddTagsModal
-        isOpen={props.addModal.open}
-        onClose={(): void => { store.dispatch(actions.closeAddModal()); }}
-        onSubmit={(values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => {
-          saveTags(values.tags, props.projectName, props.tagsDataset);
-        }}
-      />
+      <AddTagsModal isOpen={props.addModal.open} onClose={handleCloseAddModal} onSubmit={handleSubmit} />
     </React.Fragment>
-    ) : undefined;
+  );
+};
 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
@@ -239,9 +201,12 @@ const treatmentGraph: ((props: IIndicatorsViewProps) => { [key: string]: string 
   return treatmentGraphData;
 };
 
-export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
+const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
   const userEmail: string = (window as Window & { userEmail: string }).userEmail;
   const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
+  const shouldDisplayTagsView: boolean =
+    (_.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co"))
+    && !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate);
 
   return (
     <React.StrictMode>
@@ -318,16 +283,29 @@ export const component: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsVie
         />
       </Row>
       <br />
-      { _.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co")
-        ? renderTagsView(props)
-        : undefined
-      }
+      {shouldDisplayTagsView ? renderTagsView(props) : undefined}
     </React.StrictMode>
   );
 };
 
-export const indicatorsView: ComponentType<IIndicatorsViewProps> = reduxWrapper
-(
-  enhance(component) as React.StatelessComponent<IIndicatorsViewProps>,
-  mapStateToProps,
-);
+interface IState { dashboard: IDashboardState; }
+const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsViewProps, IState> =
+  (state: IState): IIndicatorsViewStateProps => ({
+    addModal: state.dashboard.indicators.addModal,
+    closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
+    deletionDate: state.dashboard.indicators.deletionDate,
+    lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
+    maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
+    maxSeverity: state.dashboard.indicators.maxSeverity,
+    meanRemediate: state.dashboard.indicators.meanRemediate,
+    openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
+    pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
+    subscription: state.dashboard.indicators.subscription,
+    tagsDataset: state.dashboard.indicators.tags,
+    totalFindings: state.dashboard.indicators.totalFindings,
+    totalTreatment: state.dashboard.indicators.totalTreatment,
+  });
+
+const mapDispatchToProps: undefined = undefined;
+
+export = connect(mapStateToProps, mapDispatchToProps)(enhance(indicatorsView));

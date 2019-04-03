@@ -672,18 +672,7 @@ actionMap[indicatorsActions.LOAD_INDICATORS] =
     ...state,
     indicators: {
       ...state.indicators,
-      closedVulnerabilities: action.payload.closedVulnerabilities,
-      deletionDate: action.payload.deletionDate,
-      lastClosingVuln: action.payload.lastClosingVuln,
-      maxOpenSeverity: action.payload.maxOpenSeverity,
-      maxSeverity: action.payload.maxSeverity,
-      meanRemediate: action.payload.meanRemediate,
-      openVulnerabilities: action.payload.openVulnerabilities,
-      pendingClosingCheck: action.payload.pendingClosingCheck,
-      subscription: action.payload.subscription,
-      tags: action.payload.tags,
-      totalFindings: action.payload.totalFindings,
-      totalTreatment: action.payload.totalTreatment,
+      ...action.payload,
     },
   });
 
