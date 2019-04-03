@@ -30,11 +30,11 @@ export const editEvent: (() => IActionStructure) =
   });
 
 export const getEventEvidence: ((props: IEventDescriptionViewProps["eventData"]) =>
-  [{"original": string; "thumbnail": string }] | undefined) =
-  (props: IEventDescriptionViewProps["eventData"]): [{"original": string; "thumbnail": string }] | undefined => {
-      let evidenceUrl: [{"original": string; "thumbnail": string }] | undefined;
+  [{"original": string; "thumbnail": string }]) =
+  (props: IEventDescriptionViewProps["eventData"]): [{"original": string; "thumbnail": string }] => {
+      let evidenceUrl: [{"original": string; "thumbnail": string }];
       if (props.evidence === "") {
-        evidenceUrl = undefined;
+        evidenceUrl = [{original: "", thumbnail: ""}];
       } else {
         const splitedUrl: string[] = window.location.href.split("dashboard#!/");
         let evidence: string;

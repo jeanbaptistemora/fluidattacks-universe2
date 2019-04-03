@@ -6,6 +6,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import store from "../../store/index";
 import Navbar from "./components/Navbar/index";
+import {
+  eventDescriptionView as EventDescriptionView, eventEvidenceView as EventEvidenceView,
+} from "./containers/EventDescriptionView/index";
 import FindingContent from "./containers/FindingContent/index";
 import ProjectContent from "./containers/ProjectContent/index";
 
@@ -17,6 +20,16 @@ const dashboardView: React.SFC = (): JSX.Element => (
           <React.Fragment>
             <Navbar />
             <Switch>
+              <Route
+                path="/project/:projectName/events/:eventId(\d+)/description"
+                exact={true}
+                component={EventDescriptionView}
+              />
+              <Route
+                path="/project/:projectName/events/:eventId(\d+)/evidence"
+                exact={true}
+                component={EventEvidenceView}
+              />
               <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
               <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
             </Switch>

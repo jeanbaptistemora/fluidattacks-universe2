@@ -9,6 +9,7 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import { RouteComponentProps } from "react-router";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -27,9 +28,10 @@ import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { EventHeader } from "../../components/EventHeader";
 import { GenericForm } from "../../components/GenericForm/index";
+import { default as ImageGallery } from "../../components/ImageGallery/index";
 import * as actions from "./actions";
 
-export interface IEventDescriptionViewProps {
+export interface IEventDescriptionViewStateProps {
   eventData: {
     accessibility: string;
     affectation: string;
@@ -42,7 +44,7 @@ export interface IEventDescriptionViewProps {
     eventStatus: string;
     eventType: string;
     evidence?: string;
-    id?: string;
+    id: string;
     projectName: string;
   };
   eventId: string;
@@ -59,13 +61,18 @@ export interface IEventDescriptionViewProps {
   urlEvidence: (() => JSX.Element);
 }
 
+type IEventDescriptionViewBaseProps = Pick<RouteComponentProps<{ eventId: string }>, "match">;
+
+export type IEventDescriptionViewProps = IEventDescriptionViewStateProps & IEventDescriptionViewBaseProps;
+
 const enhance: InferableComponentEnhancer<{}> =
-lifecycle({
+lifecycle<IEventDescriptionViewProps, {}>({
   componentDidMount(): void {
-    const { eventId } = this.props as IEventDescriptionViewProps;
+    const { eventId } = this.props.match.params;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
+
     thunkDispatch(actions.loadEvent(eventId));
   },
 });
@@ -91,6 +98,12 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
 
     return (
       <React.Fragment>
+      <div className="main-content" style={{backgroundColor: "white", paddingTop: "1px!important;"  }} >
+      <Row>
+      <Col md={12} sm={12} xs={12} style={{marginTop: "40px"}}>
+      <div className="tab-container">
+      <div className="tab-content">
+      <div id="info" className="tab-pane cont active">
       <EventHeader {...props} />
       {isManager ?
       <Row style={{marginBottom: "15px"}}>
@@ -221,11 +234,47 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
         </Col>
       </Row>
       : undefined }
+      </div>
+    </div>
+    </div>
+  </Col>
+</Row>
+</div>
     </React.Fragment>
   );
 };
 
-export const component: React.SFC<IEventDescriptionViewProps> =
+const renderEventGallery: ((props: IEventDescriptionViewProps) => JSX.Element) =
+  (props: IEventDescriptionViewProps): JSX.Element => {
+    const eventEvidences: [{"original": string; "thumbnail": string }] = actions.getEventEvidence(props.eventData);
+
+    return (
+      <React.Fragment>
+      <div className="main-content" style={{backgroundColor: "white", paddingTop: "1px!important;"  }} >
+      <Row>
+      <Col md={12} sm={12} xs={12} style={{marginTop: "40px"}}>
+      <div className="tab-container">
+      <div className="tab-content">
+      <div id="evidence" className="tab-pane cont active">
+      <EventHeader {...props} />
+        <Col md={12} sm={12} xs={12}>
+          <Row>
+            <ImageGallery
+              items={eventEvidences}
+            />
+          </Row>
+        </Col>
+      </div>
+      </div>
+    </div>
+  </Col>
+</Row>
+</div>
+    </React.Fragment>
+  );
+};
+
+export const descriptionComponent: React.SFC<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element =>
     (
     <React.StrictMode>
@@ -245,11 +294,23 @@ export const component: React.SFC<IEventDescriptionViewProps> =
     </React.StrictMode>
   );
 
+export const evidenceComponent: React.SFC<IEventDescriptionViewProps> =
+  (props: IEventDescriptionViewProps): JSX.Element =>
+    (
+    <React.StrictMode>
+      <Row>
+      <Col md={12} sm={12} xs={12}>
+          {renderEventGallery(props)}
+        </Col>
+      </Row>
+    </React.StrictMode>
+  );
+
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editEvent");
 
 export const eventDescriptionView: React.ComponentType<IEventDescriptionViewProps> = reduxWrapper
 (
-  enhance(component) as React.StatelessComponent<IEventDescriptionViewProps>,
+  enhance(descriptionComponent) as React.StatelessComponent<IEventDescriptionViewProps>,
   (state: StateType<Reducer>): IEventDescriptionViewProps => ({
     ...state,
     eventData: state.dashboard.eventDescription.eventData,
@@ -261,6 +322,15 @@ export const eventDescriptionView: React.ComponentType<IEventDescriptionViewProp
       },
     },
     isEditable: state.dashboard.eventDescription.isEditable,
+  }),
+);
+
+export const eventEvidenceView: React.ComponentType<IEventDescriptionViewProps> = reduxWrapper
+(
+  enhance(evidenceComponent) as React.StatelessComponent<IEventDescriptionViewProps>,
+  (state: StateType<Reducer>): IEventDescriptionViewProps => ({
+    ...state,
+    eventData: state.dashboard.eventDescription.eventData,
   }),
 );
 

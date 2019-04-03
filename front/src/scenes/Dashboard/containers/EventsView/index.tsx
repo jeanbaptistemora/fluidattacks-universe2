@@ -8,6 +8,7 @@
  */
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
+import { RouteComponentProps } from "react-router";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -22,20 +23,23 @@ import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import * as actions from "./actions";
 
-export interface IEventsViewProps {
+type IEventViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
+
+interface IEventsViewStateProps extends RouteComponentProps  {
   eventsDataset: Array<{ detail: string; eventDate: string; eventStatus: string; eventType: string; id: string }>;
   onClickRow: ((row: string | undefined) => JSX.Element);
   projectName: string;
 }
 
+export type IEventsViewProps = IEventViewBaseProps & IEventsViewStateProps;
+
 const enhance: InferableComponentEnhancer<{}> =
-lifecycle({
+lifecycle<IEventsViewProps, {}>({
   componentDidMount(): void {
-    const { projectName } = this.props as IEventsViewProps;
+    const { projectName } =  this.props.match.params;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
-
     thunkDispatch(actions.loadEvents(projectName));
   },
 });
@@ -70,7 +74,10 @@ export const component: React.StatelessComponent<IEventsViewProps> =
                     dataset={props.eventsDataset}
                     enableRowSelection={false}
                     exportCsv={true}
-                    onClickRow={(row: string | undefined): void => {props.onClickRow(row); }}
+                    onClickRow={(row: {id: string; projectName: string }): void => {
+                      window.location.href =
+                      `/integrates/dashboard#!/project/${row.projectName}/events/${row.id}/description`;
+                    }}
                     search={true}
                     headers={[
                       {

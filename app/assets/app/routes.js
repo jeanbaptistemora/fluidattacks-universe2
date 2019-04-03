@@ -37,24 +37,12 @@ angular.module("FluidIntegrates").config((
       "templateUrl": `${BASE.url}project_drafts?l=${localStorage.lang}`,
       "url": "/project/:project/drafts"
     }).
-    state("ProjectEvents", {
-      "controller": "projectEventsCtrl",
-      "templateUrl": `${BASE.url}project_events?l=${localStorage.lang}`,
-      "url": "/project/:project/events"
-    }).
+    state("ProjectEvents", {"url": "/project/:project/events"}).
     state("ProjectResources", {"url": "/project/:project/resources"}).
     state("ProjectUsers", {"url": "/project/:project/users"}).
     state("ProjectComments", {"url": "/project/:project/comments"}).
-    state("EventsDescription", {
-      "controller": "eventContentCtrl",
-      "templateUrl": "assets/views/project/eventcontent.html",
-      "url": "/project/:project/events/:id/description"
-    }).
-    state("EventsEvidence", {
-      "controller": "eventContentCtrl",
-      "templateUrl": "assets/views/project/eventcontent.html",
-      "url": "/project/:project/events/:id/evidence"
-    }).
+    state("EventsDescription", {"url": "/project/:project/events/:id/description"}).
+    state("EventsEvidence", {"url": "/project/:project/events/:id/evidence"}).
     state("FindingDescription", {"url": "/project/:project/:id/description"}).
     state("FindingSeverity", {"url": "/project/:project/:id/severity"}).
     state("FindingTracking", {"url": "/project/:project/:id/tracking"}).

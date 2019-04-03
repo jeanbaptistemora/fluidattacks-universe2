@@ -6,6 +6,7 @@ import { NavLink, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
+import {eventsView as EventsView } from "../EventsView/index";
 import ProjectIndicatorsView from "../IndicatorsView/index";
 import ProjectCommentsView from "../ProjectCommentsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
@@ -104,6 +105,7 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                   <Route path="/project/:projectName/resources" component={ProjectResourcesView} />
                   <Route path="/project/:projectName/users" component={ProjectUsersView} />
                   <Route path="/project/:projectName/comments" component={ProjectCommentsView} />
+                  <Route path="/project/:projectName/events" component={EventsView} />
                 </Switch>
               </div>
             </React.Fragment>

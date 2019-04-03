@@ -8,9 +8,11 @@
  */
 import React from "react";
 import { Col, Label, Row } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IEventDescriptionViewProps } from "../../containers/EventDescriptionView/index";
+import style from "./index.css";
 
 interface IEventHeaderProps {
   eventData: IEventDescriptionViewProps["eventData"];
@@ -65,26 +67,24 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
         <Row style={{marginBottom: "15px"}}>
           <Col md={12} sm={12} xs={12}>
             <ul className="nav pills-tabs nav-justified">
-              <li
-                id="infoItem"
-                className={(props.isActiveTab ? "active" : "")}
-                onClick={(): void => {props.urlDescription(); }}
+              <li id="resourcesTab" className={style.tab}>
+              <NavLink
+                activeClassName={style.active}
+                to={`/project/${props.eventData.projectName}/events/${props.eventData.id}/description`}
               >
-                <a href="#info" data-toggle="tab" aria-expanded="false">
-                  <i className="icon s7-note2"/>
-                  &nbsp;{translate.t("search_findings.tab_events.description")}
-                </a>
+                <i className="icon s7-note2" />
+                &nbsp;{translate.t("search_findings.tab_events.description")}
+              </NavLink>
               </li>
               {hasEvidence ?
-                <li
-                  id="evidenceItem"
-                  className={(props.isActiveTab ? "" : "active")}
-                  onClick={(): void => {props.urlEvidence(); }}
+                <li id="evidenceTab" className={style.tab}>
+                <NavLink
+                  activeClassName={style.active}
+                  to={`/project/${props.eventData.projectName}/events/${props.eventData.id}/evidence`}
                 >
-                  <a href="#evidence" data-toggle="tab" aria-expanded="false">
-                    <i className="icon s7-note2"/>
-                    &nbsp;{translate.t("search_findings.tab_events.evidence")}
-                  </a>
+                  <i className="icon s7-note2" />
+                  &nbsp;{translate.t("search_findings.tab_events.evidence")}
+                </NavLink>
                 </li>
               : undefined}
             </ul>
