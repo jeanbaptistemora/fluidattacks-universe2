@@ -59,8 +59,8 @@ resource "aws_dynamodb_table" "comments" {
 }
 
 resource "aws_appautoscaling_target" "dynamodb_table_read_target" {
-  max_capacity       = 25
-  min_capacity       = 2
+  max_capacity       = 21
+  min_capacity       = 7
   resource_id        = "table/FI_comments"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
   service_namespace  = "dynamodb"
@@ -82,8 +82,8 @@ resource "aws_appautoscaling_policy" "dynamodb_table_read_policy" {
 }
 
 resource "aws_appautoscaling_target" "dynamodb_table_write_target" {
-  max_capacity       = 25
-  min_capacity       = 2
+  max_capacity       = 21
+  min_capacity       = 7
   resource_id        = "table/FI_comments"
   scalable_dimension = "dynamodb:table:WriteCapacityUnits"
   service_namespace  = "dynamodb"
