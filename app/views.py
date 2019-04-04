@@ -94,13 +94,6 @@ def forms(request):
 
 @cache_control(private=True, max_age=3600)
 @authenticate
-def project_indicators(request):
-    "Indicators view"
-    return render(request, "project/indicators.html")
-
-
-@cache_control(private=True, max_age=3600)
-@authenticate
 def project_findings(request):
     "Project view"
     language = request.GET.get('l', 'en')

@@ -35,7 +35,6 @@ urlpatterns = [
     url(r'^api/?\.*$',
         GraphQLView.as_view(graphiql=True if settings.DEBUG else False, schema=schema.SCHEMA)),
     # Project view.
-    url(r'^project_indicators/?\.*$', views.project_indicators),
     url(r'^project_findings/?\.*$', views.project_findings),
     url(r'^project_drafts/?\.*$', views.project_drafts),
     url(r'^project_events/?\.*$', views.project_events),
