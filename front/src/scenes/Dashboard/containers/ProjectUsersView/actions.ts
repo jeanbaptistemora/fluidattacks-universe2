@@ -20,15 +20,8 @@ export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
 type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
 
-export const clearUsers: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLEAR_USERS,
-  });
-
 export const loadUsers: ((projectName: string) => ThunkResult<void>) = (projectName: string): ThunkResult<void> =>
   (dispatch: ThunkDispatcher): void => {
-    dispatch(clearUsers());
     let gQry: string;
     gQry = `{
       project(projectName:"${projectName}"){

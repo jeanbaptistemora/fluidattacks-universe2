@@ -16,15 +16,9 @@ import { addUserModal as AddUserModal } from "./AddUserModal/index";
 
 type IProjectUsersBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
-interface IProjectUsersStateProps {
-  addModal: {
-    initialValues: {};
-    open: boolean;
-    type: "add" | "edit";
-  };
-  userList: IDashboardState["users"]["userList"];
+type IProjectUsersStateProps = IDashboardState["users"] & {
   userRole: string;
-}
+};
 
 type IUserData = IDashboardState["users"]["userList"][0];
 

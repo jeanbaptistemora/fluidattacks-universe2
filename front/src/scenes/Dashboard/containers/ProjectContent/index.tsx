@@ -10,7 +10,7 @@ import ProjectIndicatorsView from "../IndicatorsView/index";
 import ProjectCommentsView from "../ProjectCommentsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";
-import { loadProjectData, ThunkDispatcher } from "./actions";
+import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
 type IProjectContentBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
@@ -20,6 +20,7 @@ interface IProjectContentStateProps {
 }
 
 interface IProjectContentDispatchProps {
+  onExit(): void;
   onLoad(): void;
 }
 
@@ -27,6 +28,12 @@ type IProjectContentProps = IProjectContentBaseProps & (IProjectContentStateProp
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectContentProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
+  componentWillUnmount(): void { this.props.onExit(); },
+  componentDidUpdate(previousProps: IProjectContentProps): void {
+    const { projectName: currentProject } = this.props.match.params;
+    const { projectName: previousProject } = previousProps.match.params;
+    if (currentProject !== previousProject) { this.props.onExit(); this.props.onLoad(); }
+  },
 });
 
 const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
@@ -34,7 +41,7 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
 
   return (
     <React.StrictMode>
-      <div className={style.mainContainer}>
+      <div className={style.mainContainer} key={projectName}>
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
@@ -118,6 +125,7 @@ const mapDispatchToProps: MapDispatchToProps<IProjectContentDispatchProps, IProj
     const { projectName } = ownProps.match.params;
 
     return ({
+      onExit: (): void => { dispatch(clearProjectState()); },
       onLoad: (): void => { dispatch(loadProjectData(projectName)); },
     });
   };

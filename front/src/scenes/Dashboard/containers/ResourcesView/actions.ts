@@ -18,16 +18,9 @@ export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
 type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
 
-export const clearResources: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLEAR_RESOURCES,
-  });
-
 export const loadResources: ((projectName: string) => ThunkResult<void>) =
   (projectName: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
-      dispatch(clearResources());
       let gQry: string;
       gQry = `{
         resources (projectName: "${projectName}") {

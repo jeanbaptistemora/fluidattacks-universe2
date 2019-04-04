@@ -17,7 +17,7 @@ const navbar: React.SFC<RouteComponentProps> = (props: RouteComponentProps): JSX
   const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
     const projectName: string = values.projectName.toUpperCase();
 
-    if (!_.isEmpty(projectName)) { props.history.push({ pathname: `/project/${projectName}/indicators` }); }
+    if (!_.isEmpty(projectName)) { location.hash = `#!/project/${projectName}/indicators`; }
   };
 
   return (

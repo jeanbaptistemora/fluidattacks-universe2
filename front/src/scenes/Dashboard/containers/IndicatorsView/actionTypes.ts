@@ -6,6 +6,5 @@
  * View: https://github.com/palantir/tslint/issues/711
  */
 export const LOAD_INDICATORS: string = "dashboard/indicators/load";
-export const CLEAR_TAGS: string = "dashboard/tags/clear";
 export const OPEN_ADD_MODAL: string = "dashboard/tags/add_modal/open";
 export const CLOSE_ADD_MODAL: string = "dashboard/tags/add_modal/close";

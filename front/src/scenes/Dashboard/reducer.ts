@@ -320,13 +320,6 @@ actionMap[resourcesActions.LOAD_RESOURCES] =
     },
   });
 
-actionMap[resourcesActions.CLEAR_RESOURCES] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: initialState.resources,
-  });
-
 actionMap[resourcesActions.OPEN_ADD_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -396,13 +389,6 @@ actionMap[usersActions.LOAD_USERS] =
       ...state.users,
       userList: action.payload.userlist,
     },
-  });
-
-actionMap[usersActions.CLEAR_USERS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    users: initialState.users,
   });
 
 actionMap[usersActions.ADD_USER] =
@@ -676,13 +662,6 @@ actionMap[indicatorsActions.LOAD_INDICATORS] =
     },
   });
 
-actionMap[indicatorsActions.CLEAR_TAGS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    indicators: initialState.indicators,
-  });
-
 actionMap[indicatorsActions.OPEN_ADD_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -745,6 +724,15 @@ actionMap[projectActions.LOAD_PROJECT] =
     ...state,
     user: { role: action.payload.role },
   });
+
+actionMap[projectActions.CLEAR_PROJECT_STATE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      indicators: initialState.indicators,
+      resources: initialState.resources,
+      users: initialState.users,
+    });
 
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,

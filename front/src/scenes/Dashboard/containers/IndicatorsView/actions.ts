@@ -26,16 +26,9 @@ type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
  */
 type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
 
-export const clearTags: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLEAR_TAGS,
-  });
-
 export const loadIndicators: ThunkActionStructure =
   (projectName: string): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
-      dispatch(clearTags());
       let gQry: string;
       gQry = `{
         project(projectName: "${projectName}"){

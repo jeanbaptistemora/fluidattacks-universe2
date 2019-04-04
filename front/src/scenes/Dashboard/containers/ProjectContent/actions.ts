@@ -15,6 +15,10 @@ export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
 type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
 
+export const clearProjectState: (() => IActionStructure) = (): IActionStructure => ({
+  type: actionTypes.CLEAR_PROJECT_STATE,
+});
+
 export const loadProjectData: ((projectName: string) => ThunkResult<void>) =
   (projectName: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
