@@ -5,12 +5,11 @@
 
 import _ from "lodash";
 import React, { ComponentType } from "react";
-import { Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
-import { Button } from "../../../../components/Button/index";
 // @ts-ignore Disable next line is necessary to run the unit tests
 import { default as logo } from "../../../../resources/logo.png";
 import store from "../../../../store/index";
@@ -69,11 +68,24 @@ const renderLegalNotice: ((props: IWelcomeViewProps) => JSX.Element) = (props: I
     </React.Fragment>
   );
 
-const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => (
-  <React.Fragment>
-    <p>{translate.t("registration.unauthorized")}</p>
-  </React.Fragment>
-);
+const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
+  const handleLogoutClick: (() => void) = (): void => { location.assign("/integrates/logout"); };
+
+  return (
+    <React.Fragment>
+      <Row>
+        <Col md={12}>
+          <p>{translate.t("registration.unauthorized")}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12}>
+          <Button bsStyle="primary" block={true} onClick={handleLogoutClick}>{translate.t("logout")}</Button>
+        </Col>
+      </Row>
+    </React.Fragment>
+  );
+};
 
 const renderModalIfAuthorized: ((props: IWelcomeViewProps) => JSX.Element) =
   (props: IWelcomeViewProps): JSX.Element =>
@@ -86,11 +98,17 @@ const renderAlreadyLoggedIn: ((email: string) => JSX.Element) =
     <React.Fragment>
       <div>
         <Row style={{ paddingBottom: "20px" }}><h3>{translate.t("registration.logged_in_title")}</h3></Row>
-        <Row><p>{translate.t("registration.logged_in_message")}</p></Row>
         <Row>
-          <Button bsStyle="primary" block={true} onClick={actions.loadDashboard}>
-            {translate.t("registration.continue_btn")} {email}
-          </Button>
+          <Col md={12}>
+            <p>{translate.t("registration.logged_in_message")}</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <Button bsStyle="primary" block={true} onClick={actions.loadDashboard}>
+              {translate.t("registration.continue_btn")} {email}
+            </Button>
+          </Col>
         </Row>
       </div>
     </React.Fragment>

@@ -29,6 +29,7 @@ const esTranslations: Map<string, string> = {
     },
     title: "Aviso legal",
   },
+  logout: "Cerrar sesión",
   navbar: {
     breadcrumbRoot: "Mis Proyectos",
     searchPlaceholder: "Nombre del proyecto",

@@ -28,6 +28,7 @@ const enTranslations: Map<string, string> = {
     },
     title: "Legal notice",
   },
+  logout: "Log out",
   navbar: {
     breadcrumbRoot: "My Projects",
     searchPlaceholder: "Project Name",
