@@ -70,6 +70,17 @@ data "aws_iam_policy_document" "integrates-terraform" {
       "arn:aws:s3:::${var.fsBucket}/integrates.tfstate"
     ]
   }
+
+  statement {
+    sid       = "IAM"
+    effect    = "Allow"
+    actions   = [
+      "iam:PassRole"
+    ]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-terraform" {
