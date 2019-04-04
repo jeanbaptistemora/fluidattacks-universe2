@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al alcance, ámbito o ambiente al cual debe pertenecer un sistema. Por lo tanto, todo sistema debe pertenecer únicamente a uno de los ambientes definidos dentro de la organización.
 :keywords: Ambiente, Desarrollo, Sistema, Pruebas, Seguridad, Producción.
 :rules: yes
+:translate: rules/274/
 
 = REQ.274 Establecer alcance de un sistema
 
