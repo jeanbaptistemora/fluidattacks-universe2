@@ -29,6 +29,29 @@ $tooltipblack: rgba(68, 68, 68, 1);
 $white: rgba(255, 255, 255, 1);
 $yellow: rgba(255, 255, 0, 1);
 
+// Tachyons special definitions:
+.bg-fluid-red {
+  background-color: $fluid-red;
+}
+
+.minw-100 {
+  min-width: 100%;
+}
+
+.hv-fluid-dkred {
+  &:hover {
+    color: $fluid-dark-red;
+  }
+}
+
+.hv-fluid-bk {
+  &:hover {
+    color: $fluid-black;
+  }
+}
+
+// End Tachyons
+
 @mixin hn {
   font-family: 'Montserrat';
   font-weight: bold;

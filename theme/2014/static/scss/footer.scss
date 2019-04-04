@@ -3,10 +3,6 @@ $fluid-red: rgba(255, 52, 53, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $white: rgba(255, 255, 255, 1);
 
-.divlogo {
-  text-align: center;
-}
-
 .divcompany {
   margin: auto;
   padding-top: 45px;
@@ -14,7 +10,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .divsocial {
-  display: flex;
   justify-content: space-evenly;
   margin: 45px 0;
 
@@ -24,17 +19,12 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .footer {
-  background-color: $fluid-red;
-  min-width: 100%;
-
   h3 {
     font-size: 22px;
   }
 }
 
 .navfoot {
-  display: flex;
-  flex-wrap: wrap;
   padding-bottom: 45px;
 }
 
@@ -44,11 +34,6 @@ $white: rgba(255, 255, 255, 1);
   a {
     color: $white;
     font-size: 18px;
-    font-weight: bold;
-
-    &:hover {
-      color: $fluid-black;
-    }
   }
 }
 
@@ -58,7 +43,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .status-div {
-  background-color: $white;
   height: 50px;
 
   .status {
@@ -69,11 +53,6 @@ $white: rgba(255, 255, 255, 1);
 .status-link {
   color: $fluid-black;
   font-size: 18px;
-  font-weight: bold;
-
-  &:hover {
-    color: $fluid-dark-red;
-  }
 }
 
 @media (min-width: 480px) {
