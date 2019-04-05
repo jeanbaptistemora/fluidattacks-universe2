@@ -15,7 +15,8 @@ from app.decorators import require_role, require_login, require_project_access_g
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_total_treatment,
-    get_max_severity, get_max_open_severity, get_mean_remediate
+    get_max_severity, get_max_open_severity, get_mean_remediate,
+    get_project_info
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -47,6 +48,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     total_findings = Int()
     users = List(User)
     total_treatment = GenericScalar()
+    has_complete_docs = Boolean()
 
     def __init__(self, project_name):
         """Class constructor."""
@@ -214,6 +216,14 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.users = [User(self.name, user_email) for user_email in user_email_list]
 
         return self.users
+
+    def resolve_has_complete_docs(self, info):
+        """ Whether executive report is available or not """
+        del info
+
+        self.has_complete_docs = get_project_info(self.name) != []
+
+        return self.has_complete_docs
 
 
 def validate_release_date(release_date=''):

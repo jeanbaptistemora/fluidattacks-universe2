@@ -9,6 +9,7 @@ import { IDashboardState } from "../../reducer";
 import {eventsView as EventsView } from "../EventsView/index";
 import ProjectIndicatorsView from "../IndicatorsView/index";
 import ProjectCommentsView from "../ProjectCommentsView/index";
+import ProjectFindingsView from "../ProjectFindingsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
@@ -102,6 +103,7 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
               <div className={style.tabContent}>
                 <Switch>
                   <Route path="/project/:projectName/indicators" component={ProjectIndicatorsView} />
+                  <Route path="/project/:projectName/findings" component={ProjectFindingsView} />
                   <Route path="/project/:projectName/resources" component={ProjectResourcesView} />
                   <Route path="/project/:projectName/users" component={ProjectUsersView} />
                   <Route path="/project/:projectName/comments" component={ProjectCommentsView} />

@@ -42,15 +42,8 @@
                 <div class="tab-container">
                     <div class="tab-content">
                         <div id="findings" class="tab-pane cont active">
-                            <div class="row">
-                                <div class=" col-md-6 col-sm-12 btn-group" >
-                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-controller="reportGeneratorCtrl" ng-click="reportModal();">
-                                        {% templatetag openvariable %} 'reports.title' | translate {% templatetag closevariable %} <i class="glyphicon glyphicon-briefcase"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <!-- START: toolbar -->
-                            <div id="toolbar" style="padding-top: 1%;">
+                            <div id="toolbar">
                               <p>{{ search_findings.descriptions.description1 }} <b>{{ search_findings.descriptions.description2 }}</b> {{ search_findings.descriptions.description3 }}</p>
                             </div>
                             <d-table

@@ -752,14 +752,13 @@ actionMap[projectActions.LOAD_PROJECT] =
     user: { role: action.payload.role },
   });
 
-actionMap[projectActions.CLEAR_PROJECT_STATE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      indicators: initialState.indicators,
-      resources: initialState.resources,
-      users: initialState.users,
-    });
+actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashboardState => ({
+  ...state,
+  findings: initialState.findings,
+  indicators: initialState.indicators,
+  resources: initialState.resources,
+  users: initialState.users,
+});
 
 actionMap[findingsActions.OPEN_REPORTS_MODAL] = (state: IDashboardState): IDashboardState => ({
   ...state,
@@ -782,6 +781,18 @@ actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDash
     },
   },
 });
+
+actionMap[findingsActions.LOAD_FINDINGS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    findings: {
+      ...state.findings,
+      reportsModal: {
+        ...state.findings.reportsModal,
+        hasExecutive: action.payload.hasExecutive,
+      },
+    },
+  });
 
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,

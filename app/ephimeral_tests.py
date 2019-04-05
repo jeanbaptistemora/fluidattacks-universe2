@@ -311,13 +311,13 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                         EC.presence_of_element_located(
                                             (By.XPATH,
-                                             "//*[contains(@data-original-title, 'Documentation')]")))
+                                             "//button[contains(text(),'Reports')]")))
         rep_modal.click()
         tech_pdf_report = WebDriverWait(selenium,
                                         self.delay).until(
                                             EC.presence_of_element_located(
                                                 (By.XPATH,
-                                                 "//*[contains(@ng-click, 'findingMatrizTechnicalPDFReport')]")))
+                                                 "//div[@id='techReport']//button[contains(text(), 'PDF')]")))
 
         tech_pdf_report.click()
         WebDriverWait(selenium,
@@ -348,13 +348,13 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                         EC.presence_of_element_located(
                                             (By.XPATH,
-                                             "//*[contains(@data-original-title, 'Documentation')]")))
+                                             "//button[contains(text(),'Reports')]")))
         rep_modal.click()
         exec_pdf_report = WebDriverWait(selenium,
                                         self.delay).until(
                                             EC.presence_of_element_located(
                                                 (By.XPATH,
-                                                 "//*[contains(@ng-click, 'findingMatrizExecutivePDFPresentation')]")))
+                                                 "//div[@id='execReport']//button[contains(text(), 'PDF')]")))
 
         exec_pdf_report.click()
         WebDriverWait(selenium,

@@ -1,19 +1,18 @@
 """Domain functions for projects."""
 # pylint: disable=F0401
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
 
 import threading
 import re
 import datetime
 import pytz
 
+from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.mailer import send_mail_comment
 from app.dto.finding import (
     total_vulnerabilities
 )
+from app.dto import project as project_dto
 
 
 def comment_has_parent(comment_data):
@@ -236,3 +235,12 @@ def get_total_treatment(findings):
         'undefined': undefined_treatment
     }
     return treatment
+
+
+def get_project_info(project_name):
+    reqset = FormstackAPI().get_project_info(project_name)["submissions"]
+    if reqset:
+        submission_id = reqset[-1]["id"]
+        submission = FormstackAPI().get_submission(submission_id)
+        return project_dto.parse(submission)
+    return []

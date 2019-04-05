@@ -3,11 +3,12 @@ import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button";
 import { default as Modal } from "../../../../components/Modal/index";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import { closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
+import { closeReportsModal, loadFindingsData, openReportsModal, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
 type IProjectFindingsBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
@@ -16,10 +17,15 @@ type IProjectFindingsStateProps = IDashboardState["findings"];
 
 interface IProjectFindingsDispatchProps {
   onCloseReportsModal(): void;
+  onLoad(): void;
   onOpenReportsModal(): void;
 }
 
 type IProjectFindingsProps = IProjectFindingsBaseProps & (IProjectFindingsStateProps & IProjectFindingsDispatchProps);
+
+const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectFindingsProps, {}>({
+  componentDidMount(): void { this.props.onLoad(); },
+});
 
 const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
@@ -27,13 +33,13 @@ const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFi
   const handleOpenReportsClick: (() => void) = (): void => { props.onOpenReportsModal(); };
   const handleCloseReportsClick: (() => void) = (): void => { props.onCloseReportsModal(); };
   const handleTechPdfClick: (() => void) = (): void => {
-    location.assign(`/integrates/pdf/en/project/${projectName}/tech/`);
+    window.open(`/integrates/pdf/en/project/${projectName}/tech/`, "_blank");
   };
   const handleTechXlsClick: (() => void) = (): void => {
-    location.assign(`/integrates/xls/en/project/${projectName}`);
+    window.open(`/integrates/xls/en/project/${projectName}`, "_blank");
   };
   const handleExecPdfClick: (() => void) = (): void => {
-    location.assign(`/integrates/pdf/en/project/${projectName}/presentation/`);
+    window.open(`/integrates/pdf/en/project/${projectName}/presentation/`, "_blank");
   };
 
   const modalFooter: JSX.Element = (
@@ -62,7 +68,7 @@ const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFi
         headerTitle={translate.t("project.findings.report.modal_title")}
       >
         <Row className={style.modalContainer}>
-          <Col md={6} className={style.techReportContainer}>
+          <Col md={6} className={style.techReportContainer} id="techReport">
             <h3>{translate.t("project.findings.report.tech_title")}</h3>
             <p>{translate.t("project.findings.report.tech_description")}</p>
             <br />
@@ -80,7 +86,7 @@ const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFi
               </Col>
             </Row>
           </Col>
-          <Col md={6}>
+          <Col md={6} id="execReport">
             <h3>{translate.t("project.findings.report.exec_title")}</h3>
             {props.reportsModal.hasExecutive ? execDownloadBtn : <p>{translate.t("project.findings.report.exec_n")}</p>}
           </Col>
@@ -97,9 +103,14 @@ const mapStateToProps: MapStateToProps<IProjectFindingsStateProps, IProjectFindi
   });
 
 const mapDispatchToProps: MapDispatchToProps<IProjectFindingsDispatchProps, IProjectFindingsBaseProps> =
-  (dispatch: ThunkDispatcher): IProjectFindingsDispatchProps => ({
-    onCloseReportsModal: (): void => { dispatch(closeReportsModal()); },
-    onOpenReportsModal: (): void => { dispatch(openReportsModal()); },
-  });
+  (dispatch: ThunkDispatcher, ownProps: IProjectFindingsBaseProps): IProjectFindingsDispatchProps => {
+    const { projectName } = ownProps.match.params;
 
-export = connect(mapStateToProps, mapDispatchToProps)(projectFindingsView);
+    return ({
+      onCloseReportsModal: (): void => { dispatch(closeReportsModal()); },
+      onLoad: (): void => { dispatch(loadFindingsData(projectName)); },
+      onOpenReportsModal: (): void => { dispatch(openReportsModal()); },
+    });
+  };
+
+export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectFindingsView));
