@@ -171,16 +171,17 @@
 * link:243/[REQ.243 Manage security events].
 * link:244/[REQ.244 Manage information backup].
 
-== Services
-
-* link:265/[REQ.265 Restrict access to critical processes].
-
 == Networks
 
+* link:253/[REQ.253 Restrict network access].
 * link:255/[REQ.255 Allow access only to the necessary ports].
 * link:256/[REQ.256 Restrict server ports access].
 * link:257/[REQ.257 Access based on user credentials].
 * link:259/[REQ.259 Segment organization network].
+
+== Services
+
+* link:265/[REQ.265 Restrict access to critical processes].
 
 == System
 
