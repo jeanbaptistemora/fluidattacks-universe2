@@ -109,6 +109,7 @@
 * link:159/[REQ.159 Obfuscate Code].
 * link:160/[REQ.160 Encode system outputs].
 * link:161/[REQ.161 Define secure default options].
+* link:167/[REQ.167 Close unused resources].
 * link:169/[REQ.169 Use parameterized sentences].
 * link:173/[REQ.173 Discard unsafe inputs].
 
