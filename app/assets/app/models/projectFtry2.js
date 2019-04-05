@@ -48,28 +48,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Return the events of a project
-       * @function eventsByProject
-       * @param {String} project Project name
-       * @member integrates.projectFtry2
-       * @return {Object} Database response with events info
-       */
-      "eventsByProject" (project) {
-        const oopsAc = "An error occurred getting project events";
-        const gQry = `{
-            events (projectName: "${project}") {
-              eventDate,
-              detail,
-              id,
-              projectName,
-              eventStatus,
-              eventType
-            }
-        }`;
-        return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
        * Get project information.
        * @function getProject
        * @param {String} projectName Project Name

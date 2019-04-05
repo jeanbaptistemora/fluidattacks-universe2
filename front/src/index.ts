@@ -11,7 +11,6 @@ import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
-import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
 import Access from "./scenes/Login/components/Access/index";
 import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
 
@@ -111,28 +110,6 @@ angular
      ],
    ),
   );
-
-  /**
-   * @url: #/project/:project/events/:id/description
-   * @page: eventcontent.html
-   * @controllers: ["eventContentCtrl"]
-   * @tag: <events-description-view/>
-   */
-angular
-    .module("FluidIntegrates")
-    .component(
-      "eventDescriptionView",
-      react2angular(
-        eventDescriptionView, [
-          "eventData",
-          "eventId",
-          "isActiveTab",
-          "isEditable",
-          "urlDescription",
-          "urlEvidence",
-        ],
-      ),
-    );
 
 /**
  * @url: /dashboard

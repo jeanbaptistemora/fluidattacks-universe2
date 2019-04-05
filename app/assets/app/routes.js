@@ -61,7 +61,6 @@ angular.module("FluidIntegrates").config((
 angular.module("FluidIntegrates").config(($sceDelegateProvider) => {
   $sceDelegateProvider.resourceUrlWhitelist([
     "self",
-    "/assets/views/project/eventualityMdl.html",
     "https://fluidattacks.com/**"
   ]);
 });
