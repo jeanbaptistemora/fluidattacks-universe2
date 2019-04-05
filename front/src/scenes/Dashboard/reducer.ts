@@ -14,6 +14,7 @@ import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as indicatorsActions from "./containers/IndicatorsView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
+import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
 import { IRecordsViewProps } from "./containers/RecordsView/index";
@@ -39,6 +40,12 @@ export interface IDashboardState {
     reportDate: string;
     status: "Abierto" | "Cerrado" | "Default";
     title: string;
+  };
+  findings: {
+    reportsModal: {
+      hasExecutive: boolean;
+      isOpen: boolean;
+    };
   };
   indicators: {
     addModal: {
@@ -181,6 +188,12 @@ const initialState: IDashboardState = {
     reportDate: "-",
     status: "Default",
     title: "",
+  },
+  findings: {
+    reportsModal: {
+      hasExecutive: false,
+      isOpen: false,
+    },
   },
   indicators: {
     addModal: {
@@ -747,6 +760,28 @@ actionMap[projectActions.CLEAR_PROJECT_STATE] =
       resources: initialState.resources,
       users: initialState.users,
     });
+
+actionMap[findingsActions.OPEN_REPORTS_MODAL] = (state: IDashboardState): IDashboardState => ({
+  ...state,
+  findings: {
+    ...state.findings,
+    reportsModal: {
+      ...state.findings.reportsModal,
+      isOpen: true,
+    },
+  },
+});
+
+actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDashboardState => ({
+  ...state,
+  findings: {
+    ...state.findings,
+    reportsModal: {
+      ...state.findings.reportsModal,
+      isOpen: false,
+    },
+  },
+});
 
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,

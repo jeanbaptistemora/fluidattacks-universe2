@@ -57,6 +57,20 @@ const enTranslations: Map<string, string> = {
     verified_success: "This finding was marked as verified.",
   },
   project: {
+    findings: {
+      report: {
+        btn: "Reports",
+        exec_n: "The project's documentation has not been finished",
+        exec_title: "Executive Reports",
+        modal_close: "Close",
+        modal_title: "Reports",
+        tech_description: "Technical report is protected by password."
+        + "The password is the date of report's PDF generation and your username.",
+        tech_example: "Example: someone@fluidattacks.com generates the technical report on 15/03/2019 therefore, "
+        + "the password is 15032019someone",
+        tech_title: "Technical Reports",
+      },
+    },
     tabs: {
       comments: "Comments",
       drafts: "Drafts",
