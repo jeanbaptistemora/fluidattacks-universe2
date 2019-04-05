@@ -139,13 +139,6 @@ eventContentCtrl (
   $scope.configColorPalette = function configColorPalette () {
     $scope.colors = {};
     // Red
-    $scope.colors.critical = "background-color: #f12;";
-    // Orange
-    $scope.colors.moderate = "background-color: #f72;";
-    // Yellow
-    $scope.colors.tolerable = "background-color: #ffbf00;";
-    // Green
-    $scope.colors.ok = "background-color: #008000;";
   };
   $scope.goBack = function goBack () {
     $state.go("ProjectEvents", {"project": $stateParams.project.toLowerCase()});
@@ -154,67 +147,5 @@ eventContentCtrl (
       "fast"
     );
   };
-
-  $scope.urlDescription = function urlDescription () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/description`);
   };
-  $scope.urlEvidence = function urlEvidence () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/evidence`);
-  };
-
-  $scope.init = function init () {
-    const projectName = $stateParams.project;
-    const eventId = $stateParams.id;
-    const userOrganization = Organization.toUpperCase();
-    $scope.isEditable = false;
-    $scope.eventId = eventId;
-    $scope.userRole = userRole;
-    // Flags for editable fields activation
-    if ($window.location.hash.indexOf("evidence") === -1) {
-      functionsFtry2.activeTab(
-        "#info", "EventsDescription",
-        userOrganization, projectName, eventId
-      );
-      $scope.isActiveTab = true;
-    }
-    else {
-      functionsFtry2.activeTab(
-        "#evidence", "EventsEvidence",
-        userOrganization, projectName, eventId
-      );
-      $scope.isActiveTab = false;
-    }
-    const hasAccess = projectFtry2.accessToProject(projectName);
-    hasAccess.then((response) => {
-      // Initialization of search findings function
-      $scope.configColorPalette();
-      $scope.loadEvent(projectName, eventId);
-      $scope.goUp();
-      if (!response.error) {
-        $scope.hasAccess = response.data;
-        $scope.isManager = userRole !== "customer" &&
-                           userRole !== "customeradmin";
-      }
-      else if (response.error) {
-        $scope.hasAccess = false;
-        $scope.isManager = false;
-        $msg.error($translate.instant("proj_alerts.access_denied"));
-      }
-    });
-    // Default flags value for view visualization
-    $scope.isAdmin = userRole !== "customer" &&
-            userRole !== "customeradmin" && userRole !== "analyst";
-
-    // Route parameters
-    if (angular.isDefined(eventId)) {
-      $scope.findingId = eventId;
-    }
-    if (angular.isDefined(projectName) &&
-            projectName !== "") {
-      $scope.project = projectName;
-    }
-  };
-  $scope.init();
 });
