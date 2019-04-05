@@ -3,6 +3,8 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de configurar adecuadamente las derivaciones de clave para las contraseñas.
 :keywords: Requerimiento, Seguridad, Contraseñas, Derivaciones, Clave, Configuración.
 :rules: yes
+:slug: rules/135/
+:translate: rules/135/
 
 = REQ.135 Derivaciones de clave aleatorias
 

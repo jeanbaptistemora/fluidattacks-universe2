@@ -86,6 +86,7 @@
 * link:132/[REQ.132 Passphrases with minimum 4 words].
 * link:133/[REQ.133 Passwords with at least 20 characters]
 * link:134/[REQ.134 Store passwords with salt].
+* link:135/[REQ.135 Passwords with random salt].
 * link:136/[REQ.136 Force temporary passwords changing].
 * link:141/[REQ.141 Force re authentication].
 * link:142/[REQ.142 Change system default credentials].
