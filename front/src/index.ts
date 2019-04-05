@@ -9,9 +9,7 @@ import { dataTable } from "./components/DataTable/index";
 import frame from "./components/Frame/index";
 import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
-import fieldBox from "./scenes/Dashboard/components/FieldBox/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
-import imageGallery from "./scenes/Dashboard/components/ImageGallery/index";
 import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
 import { eventDescriptionView } from "./scenes/Dashboard/containers/EventDescriptionView/index";
 import Access from "./scenes/Login/components/Access/index";
@@ -30,48 +28,6 @@ angular
     react2angular(
       Access,
       [],
-    ),
-  );
-/**
- * @url: #/project/:project/events/:id/description
- * @page: eventcontent.html
- * @controllers: ["eventContentCtrl"]
- * @tag: <field-box/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "fieldBox",
-    react2angular(
-      fieldBox,
-      [
-        "title",
-        "content",
-      ],
-    ),
-  );
-/**
- * @url: #/project/:project/events/:id/description
- * @page: eventcontent.html
- * @controllers: ["eventContentCtrl"]
- * @tag: <image-gallery/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "imageGallery",
-    react2angular(
-      imageGallery,
-      [
-        "infinite",
-        "items",
-        "showBullets",
-        "showFullscreenButton",
-        "showIndex",
-        "showNav",
-        "showThumbnails",
-        "thumbnailPosition",
-      ],
     ),
   );
 
