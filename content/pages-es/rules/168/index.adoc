@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir explícitamente las variables utilizadas a lo largo de la aplicación.
 :keywords: Requerimiento, Seguridad, Código Fuente, Variables, Inicialización, Explícita.
 :rules: yes
+:translate: rules/168/
 
 = REQ.168 Variables inicializadas explícitamente
 
