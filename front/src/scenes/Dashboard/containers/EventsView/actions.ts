@@ -13,15 +13,19 @@ export interface IActionStructure {
    * Disabling this rule is necessary because the payload
    * type may differ between actions
    */
-  payload: any;
+  payload?: any;
   type: string;
 }
 
-type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
+export type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
 /* tslint:disable-next-line:no-any
  * Disabling this rule is necessary because args of an async action may differ
  */
 type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
+
+export const clearEventsState: (() => IActionStructure) = (): IActionStructure => ({
+  type: actionTypes.CLEAR_EVENTS_STATE,
+});
 
 export const loadEvents: ThunkActionStructure =
   (projectName: IEventsViewProps["projectName"]): ThunkAction<void, {}, {}, Action> =>

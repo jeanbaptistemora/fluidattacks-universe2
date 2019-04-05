@@ -4,3 +4,4 @@
  * compromising constants readability
  */
 export const LOAD_EVENTS: string = "dashboard/resources/events";
+export const CLEAR_EVENTS_STATE: string = "dashboard/resources/events/clear";

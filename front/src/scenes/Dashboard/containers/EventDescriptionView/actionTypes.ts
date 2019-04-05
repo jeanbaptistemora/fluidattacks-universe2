@@ -5,3 +5,4 @@
  */
 export const CHANGE_EVENT_EDITABLE: string = "dashboard/events/eventDescription/change";
 export const LOAD_EVENT: string = "dashboard/events/eventDescription/load";
+export const CLEAR_EVENT_STATE: string = "dashboard/events/eventDescription/clear";

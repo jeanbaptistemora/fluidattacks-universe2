@@ -298,6 +298,13 @@ actionMap[eventDescriptionActions.CHANGE_EVENT_EDITABLE] =
     },
   });
 
+actionMap[eventDescriptionActions.CLEAR_EVENT_STATE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      eventDescription: initialState.eventDescription,
+    });
+
 actionMap[eventsActions.LOAD_EVENTS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -307,6 +314,13 @@ actionMap[eventsActions.LOAD_EVENTS] =
       eventsDataset: action.payload.events,
     },
   });
+
+actionMap[eventsActions.CLEAR_EVENTS_STATE] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      events: initialState.events,
+    });
 
 actionMap[resourcesActions.LOAD_RESOURCES] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>

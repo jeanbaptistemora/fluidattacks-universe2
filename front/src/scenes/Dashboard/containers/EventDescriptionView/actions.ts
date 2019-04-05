@@ -13,7 +13,7 @@ export interface IActionStructure {
    * Disabling this rule is necessary because the payload
    * type may differ between actions
    */
-  payload: any;
+  payload?: any;
   type: string;
 }
 
@@ -22,6 +22,10 @@ type ThunkDispatcher = Dispatch<IActionStructure> & ThunkDispatch<{}, {}, IActio
  * Disabling this rule is necessary because args of an async action may differ
  */
 type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, IActionStructure>);
+
+export const clearEventState: (() => IActionStructure) = (): IActionStructure => ({
+  type: actionTypes.CLEAR_EVENT_STATE,
+});
 
 export const editEvent: (() => IActionStructure) =
   (): IActionStructure => ({

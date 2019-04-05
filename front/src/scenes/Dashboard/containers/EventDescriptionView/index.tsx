@@ -67,6 +67,7 @@ export type IEventDescriptionViewProps = IEventDescriptionViewStateProps & IEven
 
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle<IEventDescriptionViewProps, {}>({
+  componentWillUnmount(): void { store.dispatch(actions.clearEventState()); },
   componentDidMount(): void {
     const { eventId } = this.props.match.params;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (

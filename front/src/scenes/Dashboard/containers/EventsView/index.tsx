@@ -35,6 +35,7 @@ export type IEventsViewProps = IEventViewBaseProps & IEventsViewStateProps;
 
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle<IEventsViewProps, {}>({
+  componentWillUnmount(): void { store.dispatch(actions.clearEventsState()); },
   componentDidMount(): void {
     const { projectName } =  this.props.match.params;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
