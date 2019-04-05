@@ -155,39 +155,6 @@ def project_drafts(request):
     return render(request, "project/drafts.html", dic_lang)
 
 
-@cache_control(private=True, max_age=3600)
-@authenticate
-def project_events(request):
-    "eventualities view"
-    language = request.GET.get('l', 'en')
-    dic_lang = {
-        "search_findings": {
-            "eventualities": {
-                "description": "Click on an event to see more details"
-            },
-            "event_by_name": {
-                "btn_group": {
-                    "resume": "Resume"
-                }
-            }
-        }
-    }
-    if language == "es":
-        dic_lang = {
-            "search_findings": {
-                "eventualities": {
-                    "description": "Haz click para ver el detalle"
-                },
-                "event_by_name": {
-                    "btn_group": {
-                        "resume": "Resumen"
-                    }
-                }
-            }
-        }
-    return render(request, "project/events.html", dic_lang)
-
-
 @csrf_exempt
 @cache_control(private=True, max_age=3600)
 @authenticate
