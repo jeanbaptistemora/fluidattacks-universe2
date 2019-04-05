@@ -118,7 +118,7 @@ terraform-test:
     - export AWS_SECRET_ACCESS_KEY="$(
         vault read -field=aws_terraform_secret_key secret/integrates/development
       )"
-    - cd deploy
+    - cd deploy/terraform
     - terraform init --backend-config="bucket=${FS_S3_BUCKET}"
     - terraform validate
     - terraform plan -refresh=true
@@ -230,7 +230,7 @@ terraform-deploy:
     - export AWS_SECRET_ACCESS_KEY="$(
         vault read -field=aws_terraform_secret_key secret/integrates/production
       )"
-    - cd deploy
+    - cd deploy/terraform
     - terraform init --backend-config="bucket=${FS_S3_BUCKET}"
     - terraform apply -auto-approve -refresh=true
   only:

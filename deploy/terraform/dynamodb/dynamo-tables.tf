@@ -1,13 +1,3 @@
-terraform {
-  backend "s3" {
-    key     = "integrates.tfstate"
-    region  = "us-east-1"
-    encrypt = true
-  }
-}
-
-provider "aws" {}
-
 resource "aws_dynamodb_table" "alerts_by_company" {
   name           = "FI_alerts_by_company"
   billing_mode   = "PAY_PER_REQUEST"
@@ -58,53 +48,6 @@ resource "aws_dynamodb_table" "comments" {
   }
 }
 
-resource "aws_appautoscaling_target" "dynamodb_table_read_target" {
-  max_capacity       = 21
-  min_capacity       = 7
-  resource_id        = "table/FI_comments"
-  scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  service_namespace  = "dynamodb"
-}
-
-resource "aws_appautoscaling_policy" "dynamodb_table_read_policy" {
-  name               = "DynamoDBReadCapacityUtilization:${aws_appautoscaling_target.dynamodb_table_read_target.resource_id}"
-  policy_type        = "TargetTrackingScaling"
-  resource_id        = "${aws_appautoscaling_target.dynamodb_table_read_target.resource_id}"
-  scalable_dimension = "${aws_appautoscaling_target.dynamodb_table_read_target.scalable_dimension}"
-  service_namespace  = "${aws_appautoscaling_target.dynamodb_table_read_target.service_namespace}"
-
-  target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBReadCapacityUtilization"
-    }
-    target_value = 80
-  }
-}
-
-resource "aws_appautoscaling_target" "dynamodb_table_write_target" {
-  max_capacity       = 21
-  min_capacity       = 7
-  resource_id        = "table/FI_comments"
-  scalable_dimension = "dynamodb:table:WriteCapacityUnits"
-  service_namespace  = "dynamodb"
-}
-
-resource "aws_appautoscaling_policy" "dynamodb_table_write_policy" {
-  name               = "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.dynamodb_table_write_target.resource_id}"
-  policy_type        = "TargetTrackingScaling"
-  resource_id        = "${aws_appautoscaling_target.dynamodb_table_write_target.resource_id}"
-  scalable_dimension = "${aws_appautoscaling_target.dynamodb_table_write_target.scalable_dimension}"
-  service_namespace  = "${aws_appautoscaling_target.dynamodb_table_write_target.service_namespace}"
-
-  target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBWriteCapacityUtilization"
-    }
-    target_value = 80
-  }
-}
-
-
 resource "aws_dynamodb_table" "project_comments" {
   name           = "fi_project_comments"
   billing_mode   = "PAY_PER_REQUEST"
@@ -140,7 +83,6 @@ resource "aws_dynamodb_table" "events" {
     enabled = true
   }
 }
-
 
 resource "aws_dynamodb_table" "findings_email" {
   name           = "FI_findings_email"
@@ -207,6 +149,7 @@ resource "aws_dynamodb_table" "weekly_report" {
     enabled = true
   }
 }
+
 resource "aws_dynamodb_table" "projects" {
   name           = "FI_projects"
   billing_mode   = "PAY_PER_REQUEST"
@@ -221,6 +164,7 @@ resource "aws_dynamodb_table" "projects" {
     enabled = true
   }
 }
+
 resource "aws_dynamodb_table" "users" {
   name           = "FI_users"
   billing_mode   = "PAY_PER_REQUEST"
@@ -235,6 +179,7 @@ resource "aws_dynamodb_table" "users" {
     enabled = true
   }
 }
+
 resource "aws_dynamodb_table" "project_access" {
   name           = "FI_project_access"
   billing_mode   = "PAY_PER_REQUEST"
