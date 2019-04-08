@@ -46,18 +46,6 @@ const traducciones1 = {
 },
   "main_content":
 {
-  "eventualities":
-  {
-    "descPluralAlert1": "Existen ",
-    "descPluralAlert2": "eventualidades abiertas que comprometen el adecuado " +
-                    "desempeño del proyecto, por favor darle el adecuado " +
-                    "tratamiento.",
-    "descSingularAlert1": "Atención! ",
-    "descSingularAlert2": "Existe ",
-    "descSingularAlert3": "eventualidad abierta que compromete el " +
-                          "adecuado desempeño del proyecto, por " +
-                          "favor darle el adecuado tratamiento."
-  },
   "projects":
   {
     "description1": "Para ver el detalle del proyecto debes hacer ",
@@ -68,10 +56,6 @@ const traducciones1 = {
     "title": "Mis Proyectos"
   }
 },
-  "progress_mod": {
-    "finding": "Hallazgo",
-    "title": "Reporte de Avance"
-  },
   "proj_alerts":
 {
   "access_denied": "Acceso denegado o projecto no encontrado",
@@ -117,34 +101,5 @@ const traducciones1 = {
   "updated_treat": "El tratamiento fue actualizado",
   "verified_success": "El hallazgo fue marcado como remediado.",
   "wrong_severity": "Debes calcular correctamente la severidad"
-},
-  "registration": {
-    "continue_btn": "Continuar como",
-    "greeting": "Hola",
-    "logged_in_message": "Por favor ciérrala antes de intentar " +
-                          "acceder con otra cuenta",
-    "logged_in_title": "Ya has iniciado sesión",
-    "not_authorized": "Aún no tienes autorización para ingresar. " +
-                      "Por favor contacta al personal de Fluid o a tu " +
-                      "administrador de proyecto para obtener acceso."
-  },
-  "reports":
-{
-  "executive_report_mod":
-  {
-    "message": "La documentación del proyecto no ha sido finalizada",
-    "title": "Informes Ejecutivos"
-  },
-  "technical_report_mod":
-  {
-    "body_1": "El informe técnico está protegido por contraseña. " +
-              "La contraseña es la fecha del día de generación del " +
-              "informe y su nombre de usuario.",
-    "body_2": "Ejemplo: alguien@fluidattacks.com genera el informe " +
-              "técnico en la fecha 15/03/2018 por lo tanto, la " +
-              "contraseña es 15032018alguien",
-    "title": "Informes Técnicos"
-  },
-  "title": "Informes"
 }
 };

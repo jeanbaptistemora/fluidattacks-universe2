@@ -46,19 +46,6 @@ const translations1 = {
    },
   "main_content":
    {
-     "eventualities":
-      {
-        "descPluralAlert1": "There are ",
-        "descPluralAlert2": "open events that compromise the " +
-                            "appropriate performance of the project, " +
-                            "please give it the appropriate treatment.",
-        "descSingularAlert1": "Attention! ",
-        "descSingularAlert2": "There is ",
-        "descSingularAlert3": "open event that compromises the " +
-                              "appropriate performance of the " +
-                              "project, please give it the " +
-                              "appropriate treatment."
-      },
      "projects":
       {
         "description1": "You can check the details of a project by ",
@@ -69,10 +56,6 @@ const translations1 = {
         "title": "My Projects"
       }
    },
-  "progress_mod": {
-    "finding": "Finding",
-    "title": "Progress Report"
-  },
   "proj_alerts":
    {
      "access_denied": "Access denied or project not found",
@@ -118,34 +101,5 @@ const translations1 = {
      "updated_treat": "Treatment updated",
      "verified_success": "This finding was marked as verified.",
      "wrong_severity": "You must calculate severity correctly"
-   },
-  "registration":
-   {
-     "continue_btn": "Continue as",
-     "greeting": "Hello",
-     "logged_in_message": "Please log out before trying to access with " +
-                          "another account.",
-     "logged_in_title": "You are already logged in",
-     "not_authorized": "You do not have authorization for login yet. " +
-                       "Please contact Fluid Attacks' staff or your project " +
-                       "administrator to get access."
-   },
-  "reports":
-    {
-      "executive_report_mod":
-      {
-        "message": "The project's documentation has not been finished",
-        "title": "Executive Reports"
-      },
-      "technical_report_mod":
-      {
-        "body_1": "Technical report is protected by password. The password " +
-                  "is the date of  report's PDF generation and your username.",
-        "body_2": "Example: someone@fluidattacks.com generates the technical " +
-                  "report on 03/15/2018 therefore, the password " +
-                  "is 15032018someone",
-        "title": "Technical Reports"
-      },
-      "title": "Reports"
-    }
+   }
 };
