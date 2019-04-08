@@ -188,6 +188,7 @@
 
 == Services
 
+* link:262/[REQ.262 Verify third-party components].
 * link:265/[REQ.265 Restrict access to critical processes].
 
 == System

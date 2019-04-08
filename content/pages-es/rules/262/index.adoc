@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de verificar si los componentes externos provistos por terceros, corresponden a versiones estables, probadas y actualizadas para reducir cualquier riesgo de seguridad pertinente.
 :keywords: Requerimiento, Seguridad, Componente, Dependencias, Actualizado, Estable.
 :rules: yes
+:translate: rules/262/
 
 = REQ.262 Verificar componentes de terceros
 
