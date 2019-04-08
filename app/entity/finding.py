@@ -16,7 +16,8 @@ from graphene.types.generic import GenericScalar
 
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import (
-    FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name
+    FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name,
+    format_finding_date
 )
 from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
@@ -155,6 +156,9 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.category = resp.get('category', '')
             self.state = resp.get('estado', '')
             self.type = resp.get('findingType', '')
+            self.age = resp.get('edad', 0)
+            self.last_vulnerability = resp.get('lastVulnerability', 0)
+            self.is_exploitable = resp.get('exploitable', '') == 'Si'
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -529,6 +533,36 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
 
         return self.type
+
+    def resolve_age(self, info):
+        """ Resolve age attribute """
+        del info
+
+        return self.age
+
+    def resolve_last_vulnerability(self, info):
+        """ Resolve days since last report """
+        del info
+
+        last_vuln_date = format_finding_date(self.last_vulnerability)
+        self.last_vulnerability = last_vuln_date.days
+
+        return self.last_vulnerability
+
+    def resolve_is_exploitable(self, info):
+        """ Resolve is_exploitable attribute """
+        del info
+
+        return self.is_exploitable
+
+    def resolve_severity_score(self, info):
+        """ Resolve precalculated severity score """
+        del info
+
+        self.severity_score = integrates_dao.get_finding_attributes_dynamo(
+            self.id, ['cvss_temporal'])['cvss_temporal']
+
+        return self.severity_score
 
 
 class UpdateEvidence(Mutation):

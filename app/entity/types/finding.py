@@ -1,4 +1,4 @@
-from graphene import String, ObjectType, Boolean, List, Int, JSONString
+from graphene import String, ObjectType, Boolean, List, Int, JSONString, Float
 from graphene.types.generic import GenericScalar
 from app.entity.vulnerability import Vulnerability
 
@@ -43,6 +43,10 @@ class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attribut
     remediated = Boolean()
     type = String()
     cvss_version = String()
+    age = Int()
+    last_vulnerability = Int()
+    severity_score = Float()
+    is_exploitable = Boolean()
 
     # Additional attributes of detailed findings
     client_code = String()
@@ -90,3 +94,7 @@ class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attribut
         self.type = ''
         self.cvss_version = ''
         self.exploit = ''
+        self.age = 0
+        self.last_vulnerability = 0
+        self.severity_score = 0.0
+        self.is_exploitable = False
