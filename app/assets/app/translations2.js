@@ -3,49 +3,8 @@
  */
 /* eslint-disable no-unused-vars */
 const translations2 = {
-  "search_events": {
-    "headings": {
-      "date": "Date",
-      "details": "Description",
-      "id": "ID",
-      "status": "Status",
-      "type": "Type"
-    }
-  },
   "search_findings":
  {
-   "environment_table": {"environment": "Environment"},
-   "filter_labels":
-    {
-      "cardinalities": "Open Vulnerabilities",
-      "cardinalitiesTooltip": "Vulnerabilities pending to be resolved",
-      "closure": "Fixed vulnerabilities",
-      "closureTooltip": "Percent of reported vulnerabilities " +
-                        "that are already fixed",
-      "compromisedRecords": "Total Compromised Records",
-      "compromisedRecordsTooltip": "Total compromised records " +
-                                    "reported in the project",
-      "criticity": "Total Severity Found",
-      "criticityTooltip": "Severity of project against the average " +
-                          "(<100% safer,> 100% more insecure)",
-      "findings": "Findings",
-      "findingsTooltip": "Security vulnerabilities reported by category",
-      "maximumSeverity": "Maximum Severity Found",
-      "maximumSeverityTooltip": "Maximum severity found based on CVSS standard",
-      "oldestFinding": "Day(s) from the Oldest Open Finding",
-      "oldestFindingTooltip": "Oldest open vulnerability since report date",
-      "openEvents": "Open Eventualities",
-      "openEventsTooltip": "Events that interfere in the normal " +
-                            "execution of project",
-      "vulnerabilities": "Total Vulnerabilities",
-      "vulnerabilitiesTooltip": "Total reported vulnerabilities"
-    },
-   "filter_menu": {
-     "search": {
-       "button": "Search",
-       "placeholder": "FLUID project name"
-     }
-   },
    "headings": {
      "action": "Action",
      "age": "Age (Days)",
@@ -61,66 +20,8 @@ const translations2 = {
      "type": "Type",
      "vulnerability": "Description"
    },
-   "page_head": {"breadcrumb": {"project": "Project"}},
-   "pop_table":
-    {
-      "date": "Date",
-      "details": "Description",
-      "status": "Status",
-      "type": "Type"
-    },
-   "project_buttons": {
-     "accept": "Accept",
-     "back": "Back",
-     "delete": "Delete"
-   },
-   "project_labels":
-    {
-      "client": "Customer's Project",
-      "criticity": "Severity",
-      "project": "FLUID's Project",
-      "report": "Report Date",
-      "status": "Status",
-      "type": "Type",
-      "vulnerabilities": "Open Vulnerabilities"
-    },
-   "repositories_table": {
-     "branch": "Branch",
-     "repository": "Repository URL"
-   },
-   "tab_comments": {"comments_name": "Comments"},
-   "tab_cssv2":
-      {
-        "authentication": "Authentication",
-        "availability": "Availability Impact",
-        "complexity": "Access Complexity",
-        "confidence": "Confidence Level",
-        "confidenciality": "Confidentiality Impact",
-        "description_name": "Severity",
-        "editable": "Edit",
-        "exploitability": "Exploitability",
-        "integrity": "Integrity Impact",
-        "resolution": "Resolution Level",
-        "update": "Update",
-        "vector": "Access Vector"
-      },
    "tab_description":
      {
-       "actorTooltip": "Person who could execute the attack vector using " +
-                        "the finding which affects the specified targets",
-       "btsTooltip": "Link to an external bugtracking system",
-       "bts_external": "BTS External",
-       "cardinality": "Open Vulnerabilities",
-       "category": "Category",
-       "compromisedAtributes": "Compromised Atributes",
-       "compromisedAtributesTooltip": "Attributes that were compromised when " +
-                                      "exploiting the vulnerability",
-       "compromisedRecords": "Compromised Records",
-       "compromisedRecordsTooltip": "Number of compromised data when " +
-                                    "exploiting the vulnerability",
-       "description": "Description",
-       "descriptionTooltip": "Finding description",
-       "description_name": "Description",
        "detailed": "Detailed",
        "downloadVulnerabilities": "Download Vulnerabilities",
        "edit_treatment": "Edit",

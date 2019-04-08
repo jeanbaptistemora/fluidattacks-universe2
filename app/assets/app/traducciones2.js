@@ -3,51 +3,8 @@
  */
 /* eslint-disable no-unused-vars */
 const traducciones2 = {
-  "search_events": {
-    "headings": {
-      "date": "Date",
-      "details": "Description",
-      "id": "ID",
-      "status": "Status",
-      "type": "Type"
-    }
-  },
   "search_findings":
 {
-  "environment_table": {"environment": "Ambiente"},
-  "filter_labels":
-  {
-    "cardinalities": "Vulnerabilidades Abiertas",
-    "cardinalitiesTooltip": "Vulnerabilidades pendientes por solución",
-    "closure": "Vulnerabilidades remediadas",
-    "closureTooltip": "Porcentaje de vulnerabilidades reportadas " +
-                      "que han sido solucionadas",
-    "compromisedRecords": "Total Registros Comprometidos",
-    "compromisedRecordsTooltip": "Total de los registros comprometidos " +
-                                 "presentes en el proyecto",
-    "criticity": "Criticidad Total Encontrada",
-    "criticityTooltip": "Criticidad del proyecto comparado con la media " +
-                        "(<100% más seguro, >100% más inseguro)",
-    "findings": "Hallazgos",
-    "findingsTooltip": "Vulnerabilidades de seguridad reportadas por categoría",
-    "maximumSeverity": "Máxima Severidad Encontrada",
-    "maximumSeverityTooltip": "Máxima severidad encontrada de acuerdo " +
-                              "al estándar CVSS",
-    "oldestFinding": "Día(s) del Hallazgo Abierto más Antiguo",
-    "oldestFindingTooltip": "Edad de la vulnerabilidad abierta con más " +
-                            "días desde su reporte",
-    "openEvents": "Eventualidades Abiertas",
-    "openEventsTooltip": "Eventos que impiden el normal desarrollo " +
-                          "del proyecto",
-    "vulnerabilities": "Vulnerabilidades Totales",
-    "vulnerabilitiesTooltip": "Total de vulnerabilidades reportadas"
-  },
-  "filter_menu": {
-    "search": {
-      "button": "Ejecutar esta busqueda",
-      "placeholder": "Nombre del proyecto en FLUID"
-    }
-  },
   "headings": {
     "action": "Accion",
     "age": "Edad (Días)",
@@ -63,66 +20,8 @@ const traducciones2 = {
     "type": "Tipo",
     "vulnerability": "Descripcion"
   },
-  "page_head": {"breadcrumb": {"project": "Proyecto"}},
-  "pop_table":
-  {
-    "date": "Fecha",
-    "details": "Descripción",
-    "status": "Estado",
-    "type": "Tipo"
-  },
-  "project_buttons": {
-    "accept": "Aceptar",
-    "back": "Volver",
-    "delete": "Eliminar"
-  },
-  "project_labels":
-  {
-    "client": "Proyecto Cliente",
-    "criticity": "Criticidad",
-    "project": "Proyecto FLUID",
-    "report": "Fecha Reporte",
-    "status": "Estado",
-    "type": "Tipo",
-    "vulnerabilities": "Vulnerabilidades Abiertas"
-  },
-  "repositories_table": {
-    "branch": "Rama",
-    "repository": "URL Repositorio"
-  },
-  "tab_comments": {"comments_name": "Comentarios"},
-  "tab_cssv2":
-   {
-     "authentication": "Autenticación",
-     "availability": "Impacto Disponibilidad",
-     "complexity": "Complejidad Acceso",
-     "confidence": "Nivel Confianza",
-     "confidenciality": "Impacto Confidencialidad",
-     "description_name": "Severidad",
-     "editable": "Editar",
-     "exploitability": "Explotabilidad",
-     "integrity": "Impacto Integridad",
-     "resolution": "Nivel Resolución",
-     "update": "Actualizar",
-     "vector": "Vector de Acceso"
-   },
   "tab_description":
   {
-    "actorTooltip": "Persona que podría ejecutar el vector de ataque, que " +
-                    "afecta a los activos especificados, usando el hallazgo",
-    "btsTooltip": "Link a un sistema de seguimiento de errores externo",
-    "bts_external": "BTS Externo",
-    "cardinality": "Vulnerabilidades Abiertas",
-    "category": "Categoria",
-    "compromisedAtributes": "Atributos Comprometidos",
-    "compromisedAtributesTooltip": "Atributos que fueron comprometidos al " +
-                                    "explotar la vulnerabilidad",
-    "compromisedRecords": "Registros Comprometidos",
-    "compromisedRecordsTooltip": "Número de datos comprometidos al explotar " +
-                                  "la vulnerabilidad",
-    "description": "Descripción",
-    "descriptionTooltip": "Descripción del hallazgo",
-    "description_name": "Descripción",
     "detailed": "Detallado",
     "downloadVulnerabilities": "Descargar Vulnerabilidades",
     "edit_treatment": "Editar",
