@@ -5,6 +5,7 @@ import esTranslations from "./es";
 
 i18next
   .init({
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
