@@ -3,31 +3,8 @@
  */
 /* eslint-disable no-unused-vars */
 const traducciones1 = {
-
   "finding_formstack":
 {
-  "confidenciality":
-  {
-    "complete": "0.660 | Completo: Se controla toda la información " +
-                "relacionada con el objetivo",
-    "default": "-",
-    "none": "0 | Ninguno: No se presenta ningún impacto",
-    "partial": "0.275 | Parcial: Se obtiene acceso a la información " +
-               "pero no control sobre ella"
-  },
-  "criticity_header": {
-    "high": " Alto",
-    "moderate": " Moderado",
-    "tolerable": " Tolerable"
-  },
-  "exploitability":
-   {
-     "conceptual": "0.900 | Conceptual: Existen pruebas de laboratorio",
-     "default": "-",
-     "functional": "0.950 | Funcional: Existe exploit",
-     "high": "1.000 | Alta: No se requiere exploit o se puede automatizar",
-     "improbable": "0.850 | Improbable: No existe un exploit"
-   },
   "exploitable": {
     "default": "-",
     "no": "No",
