@@ -60,6 +60,10 @@
 * link:085/[REQ.085 Allow session history queries].
 * link:086/[REQ.086 Generate alarms on security events].
 
+== Certificates
+
+* link:090/[REQ.090 Use valid certificates].
+
 == Access Control
 
 * link:094/[REQ.094 Specify rules in declarative mood].
