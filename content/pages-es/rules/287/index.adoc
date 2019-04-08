@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de cada uno de los recursos establecidos dentro de un sistema. Por lo tanto, cuando un recurso sobrepase un umbral definido por la organización, el sistema operativo debe generar una alerta.
 :keywords: Organización, Umbral, Estado, Sistema Operativo, Alerta, Recurso.
 :rules: yes
+:translate: rules/287/
 
 = REQ.287 Generar alerta en recursos
 
