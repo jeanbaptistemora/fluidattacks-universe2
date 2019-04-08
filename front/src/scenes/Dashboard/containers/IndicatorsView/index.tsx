@@ -1,14 +1,11 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import { connect, MapStateToProps } from "react-redux";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { AnyAction } from "redux";
-import { ThunkDispatch } from "redux-thunk";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
-import store from "../../../../store/index";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -20,23 +17,17 @@ import * as actions from "./actions";
 
 type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
-interface IIndicatorsViewStateProps {
-  addModal: {
-    open: boolean;
-  };
-  closedVulnerabilities: number;
-  deletionDate: string;
-  lastClosingVuln: number;
-  maxOpenSeverity: number;
-  maxSeverity: number;
-  meanRemediate: number;
-  openVulnerabilities: number;
-  pendingClosingCheck: number;
-  subscription: string;
-  tagsDataset: string[];
-  totalFindings: number;
-  totalTreatment: { [value: string]: number };
+type IIndicatorsViewStateProps = IDashboardState["indicators"];
+
+interface IIndicatorsViewDispatchProps {
+  onCloseAddModal(): void;
+  onLoad(): void;
+  onOpenAddModal(): void;
+  onRemoveTag(tag: string): void;
+  onSaveTags(tags: IIndicatorsViewStateProps["tagsDataset"]): void;
 }
+
+type IIndicatorsViewProps = IIndicatorsViewBaseProps & (IIndicatorsViewStateProps & IIndicatorsViewDispatchProps);
 
 interface IGraphData {
   backgroundColor: string[];
@@ -44,30 +35,17 @@ interface IGraphData {
   hoverBackgroundColor: string[];
 }
 
-type IIndicatorsViewProps = IIndicatorsViewBaseProps & (IIndicatorsViewStateProps);
-
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IIndicatorsViewProps, {}>({
-  componentDidMount(): void {
-    const { projectName } = this.props.match.params;
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-
-    thunkDispatch(actions.loadIndicators(projectName));
-  },
+  componentDidMount(): void { this.props.onLoad(); },
 });
 
-const removeTag: ((arg1: string) => void) = (projectName: string): void => {
+const removeTag: ((props: IIndicatorsViewProps) => void) = (props: IIndicatorsViewProps): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblTags tr input:checked");
   if (selectedQry.length > 0) {
     if (selectedQry[0].closest("tr") !== null) {
       const selectedRow: Element = selectedQry[0].closest("tr") as Element;
       const tag: string | null = selectedRow.children[1].textContent;
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-      );
-
-      thunkDispatch(actions.removeTag(projectName, tag));
+      props.onRemoveTag(String(tag));
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing tags");
@@ -77,42 +55,30 @@ const removeTag: ((arg1: string) => void) = (projectName: string): void => {
   }
 };
 
-const saveTags: (
-  (tags: IIndicatorsViewProps["tagsDataset"], projectName: string,
-   currentEnvs: IIndicatorsViewProps["tagsDataset"],
-  ) => void) =
-  (tags: IIndicatorsViewProps["tagsDataset"], projectName: string,
-   currentEnvs: IIndicatorsViewProps["tagsDataset"],
-  ): void => {
+const saveTags: ((tags: IIndicatorsViewProps["tagsDataset"], props: IIndicatorsViewProps) => void) =
+  (tags: IIndicatorsViewProps["tagsDataset"], props: IIndicatorsViewProps): void => {
     let containsRepeated: boolean;
     containsRepeated = tags.filter(
       (newItem: IIndicatorsViewProps["tagsDataset"][0]) => _.findIndex(
-        currentEnvs,
+        props.tagsDataset,
         (currentItem: IIndicatorsViewProps["tagsDataset"][0]) =>
           currentItem === newItem,
       ) > -1).length > 0;
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-      );
-      thunkDispatch(actions.saveTags(projectName, tags));
+      props.onSaveTags(tags);
     }
   };
 
 const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element) = (props: IIndicatorsViewProps): JSX.Element => {
-  const { projectName } = props.match.params;
-
   const tagsDataset: Array<{ tagName: string }> = props.tagsDataset.map((tagName: string) => ({ tagName }));
 
-  const handleOpenAddModal: (() => void) = (): void => { store.dispatch(actions.openAddModal()); };
-  const handleCloseAddModal: (() => void) = (): void => { store.dispatch(actions.closeAddModal()); };
-  const handleRemoveTagClick: (() => void) = (): void => { removeTag(projectName); };
+  const handleOpenAddModal: (() => void) = (): void => { props.onOpenAddModal(); };
+  const handleCloseAddModal: (() => void) = (): void => { props.onCloseAddModal(); };
+  const handleRemoveTagClick: (() => void) = (): void => { removeTag(props); };
   const handleSubmit: ((values: { tags: IIndicatorsViewProps["tagsDataset"] }) => void) =
-    (values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => {
-      saveTags(values.tags, projectName, props.tagsDataset);
-    };
+    (values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => { saveTags(values.tags, props); };
 
   return (
     <React.Fragment>
@@ -301,11 +267,24 @@ const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsVie
     openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
     pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
     subscription: state.dashboard.indicators.subscription,
-    tagsDataset: state.dashboard.indicators.tags,
+    tagsDataset: state.dashboard.indicators.tagsDataset,
     totalFindings: state.dashboard.indicators.totalFindings,
     totalTreatment: state.dashboard.indicators.totalTreatment,
   });
 
-const mapDispatchToProps: undefined = undefined;
+const mapDispatchToProps: MapDispatchToProps<IIndicatorsViewDispatchProps, IIndicatorsViewBaseProps> =
+  (dispatch: actions.ThunkDispatcher, ownProps: IIndicatorsViewBaseProps): IIndicatorsViewDispatchProps => {
+    const { projectName } = ownProps.match.params;
+
+    return ({
+      onCloseAddModal: (): void => { dispatch(actions.closeAddModal()); },
+      onLoad: (): void => { dispatch(actions.loadIndicators(projectName)); },
+      onOpenAddModal: (): void => { dispatch(actions.openAddModal()); },
+      onRemoveTag: (tag: string): void => { dispatch(actions.removeTag(projectName, tag)); },
+      onSaveTags: (tags: IIndicatorsViewProps["tagsDataset"]): void => {
+        dispatch(actions.saveTags(projectName, tags));
+      },
+    });
+  };
 
 export = connect(mapStateToProps, mapDispatchToProps)(enhance(indicatorsView));

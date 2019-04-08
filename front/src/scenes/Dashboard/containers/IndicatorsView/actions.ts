@@ -1,5 +1,4 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { Action, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -11,23 +10,16 @@ import * as actionTypes from "./actionTypes";
 type IIndicators = IDashboardState["indicators"];
 
 export interface IActionStructure {
-  /* tslint:disable-next-line:no-any
-   * Disabling this rule is necessary because the payload
-   * type may differ between actions
-   */
-  payload: any;
+  payload?: { [key: string]: string | string[] };
   type: string;
 }
 
-type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
-/* tslint:disable-next-line:no-any
- * Disabling this rule is necessary because the args
- * of an async action may differ
- */
-type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
+export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
-export const loadIndicators: ThunkActionStructure =
-  (projectName: string): ThunkAction<void, {}, {}, Action> =>
+type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
+
+export const loadIndicators: ((projectName: string) => ThunkResult<void>) =
+  (projectName: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `{
@@ -60,7 +52,7 @@ export const loadIndicators: ThunkActionStructure =
               openVulnerabilities: data.project.openVulnerabilities,
               pendingClosingCheck: data.project.pendingClosingCheck,
               subscription: data.project.subscription,
-              tags: data.project.tags,
+              tagsDataset: data.project.tags,
               totalFindings: data.project.totalFindings,
               totalTreatment: data.project.totalTreatment,
             },
@@ -89,23 +81,23 @@ export const closeAddModal: (() => IActionStructure) =
     type: actionTypes.CLOSE_ADD_MODAL,
   });
 
-export const removeTag: ThunkActionStructure =
-  (projectName: string, tagToRemove: string): ThunkAction<void, {}, {}, Action> =>
+export const removeTag: ((projectName: string, tagToRemove: string) => ThunkResult<void>) =
+  (projectName: string, tagToRemove: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
-      removeTag (
-        tag: "${tagToRemove}",
-        projectName: "${projectName}"
-      ) {
-        success
-        project {
-          deletionDate
-          subscription
-          tags
+        removeTag (
+          tag: "${tagToRemove}",
+          projectName: "${projectName}"
+        ) {
+          success
+          project {
+            deletionDate
+            subscription
+            tags
+          }
         }
-      }
-    }`;
+      }`;
       new Xhr().request(gQry, "An error occurred removing tags")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
@@ -114,7 +106,7 @@ export const removeTag: ThunkActionStructure =
               payload: {
                 deletionDate: data.removeTag.project.deletionDate,
                 subscription: data.removeTag.project.subscription,
-                tags: data.removeTag.project.tags,
+                tagsDataset: data.removeTag.project.tags,
               },
               type: actionTypes.LOAD_INDICATORS,
             });
@@ -137,8 +129,8 @@ export const removeTag: ThunkActionStructure =
         });
     };
 
-export const saveTags: ThunkActionStructure =
-  (projectName: string, tagsData: IIndicators["tags"]): ThunkAction<void, {}, {}, Action> =>
+export const saveTags: ((projectName: string, tagsData: IIndicators["tagsDataset"]) => ThunkResult<void>) =
+  (projectName: string, tagsData: IIndicators["tagsDataset"]): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
@@ -162,7 +154,7 @@ export const saveTags: ThunkActionStructure =
               payload: {
                 deletionDate: data.addTags.project.deletionDate,
                 subscription: data.addTags.project.subscription,
-                tags: data.addTags.project.tags,
+                tagsDataset: data.addTags.project.tags,
               },
               type: actionTypes.LOAD_INDICATORS,
             });

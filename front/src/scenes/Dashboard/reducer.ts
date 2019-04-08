@@ -73,9 +73,9 @@ export interface IDashboardState {
     openVulnerabilities: number;
     pendingClosingCheck: number;
     subscription: string;
-    tags: string[];
+    tagsDataset: string[];
     totalFindings: number;
-    totalTreatment: {};
+    totalTreatment: { [value: string]: number };
   };
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
@@ -222,7 +222,7 @@ const initialState: IDashboardState = {
     openVulnerabilities: 0,
     pendingClosingCheck: 0,
     subscription: "",
-    tags: [],
+    tagsDataset: [],
     totalFindings: 0,
     totalTreatment: {},
   },
