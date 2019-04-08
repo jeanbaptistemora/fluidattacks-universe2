@@ -15,61 +15,12 @@ const translations1 = {
        "hygiene": "Hygiene",
        "security": "Security"
      },
-     "integrity":
-      {
-        "complete": "0.660 | Complete: Posibility of modify all target " +
-                    "information",
-        "default": "-",
-        "none": "0 | None: There is no impact",
-        "partial": "0.275 | Partial: Posibility of modify some " +
-                   "target information"
-      },
-     "probability":
-       {
-         "default": "-",
-         "diffic_vuln": "25% Difficult to have a vulnerability",
-         "easy_vuln": "75% Easy to have a vulnerability",
-         "possible_vuln": "50% Possible vulnerability",
-         "prev_vuln": "100% previously with vulnerability"
-       },
-     "resolution":
-       {
-         "default": "-",
-         "non_existent": "1.000 | Non-existent: There is no solution",
-         "official": "0.870 | Official: There is an manufacturer " +
-                     "available patch",
-         "palliative": "0.950 | Palliative: There is a patch that was not " +
-                       "published by the manufacturer",
-         "temporal": "0.900 | Temporal: There are temporary solutions"
-       },
-     "scenario":
-      {
-        "anon_inter": "Anonymous from Internet",
-        "anon_intra": "Anonymous from Intranet",
-        "auth_extra": "Authorized Extranet user",
-        "auth_inter": "Authorized Internet user",
-        "auth_intra": "Authorized Intranet user",
-        "default": "-",
-        "infra_scan": "Infrastructure scan",
-        "unauth_extra": "Unauthorized Extranet user",
-        "unauth_inter": "Unauthorized Internet user",
-        "unauth_intra": "Unauthorized Intranet user"
-      },
      "status":
       {
         "close": "Closed",
         "default": "-",
         "open": "Open",
         "part_close": "Partially closed"
-      },
-     "test_method":
-      {
-        "analysis": "Analysis",
-        "app": "App",
-        "binary": "Binary",
-        "code": "Code",
-        "default": "-",
-        "infras": "Infrastructure"
       },
      "treatment_header":
       {
@@ -85,56 +36,6 @@ const translations1 = {
      "events": "Events",
      "findings": "Findings",
      "progress": "Progress"
-   },
-  "grapExploit":
-   {
-     "exploit_label": "Yes",
-     "nonexploit_label": "Not",
-     "title": "Exploitability"
-   },
-  "grapStatus":
-   {
-     "close_label": "Closed",
-     "open_label": "Open",
-     "partial_label": "Partial",
-     "title": "Status"
-   },
-  "grapType":
-   {
-     "hig_label": "Hygiene",
-     "seg_label": "Security",
-     "title": "Type"
-   },
-  "left_menu": {
-    "first": "Projects",
-    "third": "Forms"
-  },
-  "legalNotice":
-   {
-     "acceptBtn":
-     {
-       "text": "Accept and continue",
-       "tooltip": "Click if you understand and accept the terms above"
-     },
-     "description": "Integrates, Copyright (c) 2019 Fluid Attacks. " +
-     "This platform contains information proprietary of Fluid Attacks. " +
-     "The client is only allowed to use such information for " +
-     "documentation purposes and without disclosing its content " +
-     "to third parties because it may contain ideas, concepts, prices " +
-     "and/or structures propriety of Fluid Attacks. Its " +
-     "'proprietary' classification means that this information will " +
-     "only be used by those who it was meant for. In case of requiring " +
-     "total or partial reproductions it must be done with express " +
-     "and written authorization of Fluid Attacks. The rules " +
-     "that fundament the classification of information are articles 72, " +
-     "Cartagena's agreement 344 of 1.993, article 238 of penal code and " +
-     "articles 16 and its following ones from 256 law of 1.996.",
-     "rememberCbo":
-     {
-       "text": "Remember my decision",
-       "tooltip": "Mark the checkbox if you want this decision to be permanent"
-     },
-     "title": "Legal notice"
    },
   "logout":
    {

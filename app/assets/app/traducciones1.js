@@ -15,46 +15,6 @@ const traducciones1 = {
     "hygiene": "Higiene",
     "security": "Seguridad"
   },
-  "integrity":
-  {
-    "complete": "0.660 | Completo: Es posible modificar toda la " +
-                "información del objetivo",
-    "default": "-",
-    "none": "0 | Ninguno: No se presenta ningún impacto",
-    "partial": "0.275 | Parcial: Es posible modificar cierta " +
-               "información del objetivo"
-  },
-  "probability":
-   {
-     "default": "-",
-     "diffic_vuln": "25% Difícil de vulnerar",
-     "easy_vuln": "75% Fácil de vulnerar",
-     "possible_vuln": "50% Posible de vulnerar",
-     "prev_vuln": "100% Vulnerado Anteriormente"
-   },
-  "resolution":
-  {
-    "default": "-",
-    "non_existent": "1.000 | Inexistente: No existe solución",
-    "official": "0.870 | Oficial: Existe un parche disponible " +
-                "por el fabricante",
-    "palliative": "0.950 | Paliativa: Existe un parche que no fue " +
-                  "publicado por el fabricante",
-    "temporal": "0.900 | Temporal: Existen soluciones temporales"
-  },
-  "scenario":
-   {
-     "anon_inter": "Anónimo desde Internet",
-     "anon_intra": "Anónimo desde Intranet",
-     "auth_extra": "Usuario de Extranet autorizado",
-     "auth_inter": "Usuario de Internet autorizado",
-     "auth_intra": "Usuario de Intranet autorizado",
-     "default": "-",
-     "infra_scan": "Escaneo de Infraestructura",
-     "unauth_extra": "Usuario de Extranet no autorizado",
-     "unauth_inter": "Usuario de Internet no autorizado",
-     "unauth_intra": "Usuario de Intranet no autorizado"
-   },
   "status":
    {
      "close": "Cerrado",
@@ -62,15 +22,6 @@ const traducciones1 = {
      "open": "Abierto",
      "part_close": "Parcialmente cerrado"
    },
-  "test_method":
-  {
-    "analysis": "Análisis",
-    "app": "Aplicación",
-    "binary": "Binario",
-    "code": "Código",
-    "default": "-",
-    "infras": "Infraestructura"
-  },
   "treatment_header":
   {
     "accepted": "Asumido",
@@ -85,57 +36,6 @@ const traducciones1 = {
   "events": "Eventualidades",
   "findings": "Hallazgos",
   "progress": "Avance"
-},
-  "grapExploit":
-{
-  "exploit_label": "Si",
-  "nonexploit_label": "No",
-  "title": "Explotabilidad"
-},
-  "grapStatus":
-{
-  "close_label": "Cerrados",
-  "open_label": "Abiertos",
-  "partial_label": "Parciales",
-  "title": "Estado"
-},
-  "grapType":
-{
-  "hig_label": "Higiene",
-  "seg_label": "Seguridad",
-  "title": "Tipo"
-},
-  "left_menu":
-{
-  "first": "Proyectos",
-  "third": "Formularios"
-},
-  "legalNotice":
-{
-  "acceptBtn":
-  {
-    "text": "Aceptar y continuar",
-    "tooltip": "Haz click si entiendes y aceptas los términos anteriores"
-  },
-  "description": "Integrates, Copyright (c) 2019 Fluid Attacks. " +
-  "Esta plataforma contiene información de propiedad de Fluid Attacks. " +
-  "Dicha información puede ser usada por el cliente sólo con el propósito " +
-  "de documentación sin poder divulgar su contenido " +
-  "a terceras partes ya que contiene ideas, conceptos, precios y/o " +
-  "estructuras de propiedad de Fluid Attacks. La clasificación " +
-  "'propietaria' significa que esta información es solo para uso de las " +
-  "personas a quienes está dirigida. En caso de requerirse copias totales " +
-  "o parciales se debe contar con la autorización expresa y escrita de " +
-  "Fluid Attacks. Las normas que fundamentan la clasificación de " +
-  "la información son los artículos 72 y siguientes de la decisión del " +
-  "acuerdo de Cartagena, 344 de 1.993, el artículo 238 del código " +
-  "penal y los artículos 16 y siguientes de la ley 256 de 1.996.",
-  "rememberCbo":
-  {
-    "text": "Recordar mi decisión",
-    "tooltip": "Marca la casilla si prefieres que esta decisión sea permanente"
-  },
-  "title": "Aviso legal"
 },
   "logout":
 {
