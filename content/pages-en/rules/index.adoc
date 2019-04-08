@@ -128,6 +128,7 @@
 * link:191/[REQ.191 Protect data with maximum level].
 * link:300/[REQ.300 Mask Sensitive data].
 * link:301/[REQ.301 Notify configuration changes].
+* link:305/[REQ.305 Prioritize token usage].
 
 == Foreign Devices
 
