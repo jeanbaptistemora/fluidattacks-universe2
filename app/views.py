@@ -401,28 +401,6 @@ def presentation_pdf(project, pdf_maker, findings, user):
     return report_filename
 
 
-# pylint: disable-msg=R0913
-@cache_content
-@never_cache
-@csrf_exempt
-@authorize(['analyst', 'customer', 'admin'])
-def check_pdf(request, project):
-    username = request.session['username']
-    if not util.is_name(project):
-        rollbar.report_message('Error: Name error in project',
-                               'error', request)
-        return util.response([], 'Name error', True)
-    if not has_access_to_project(username, project, request.session['role']):
-        util.cloudwatch_log(request,
-                            'Security: \
-Attempted to export project pdf without permission')
-        return util.response([], 'Access denied', True)
-    reqset = get_project_info(project)
-    if reqset:
-        return util.response({"enable": True}, 'Success', False)
-    return util.response({"enable": False}, 'Success', False)
-
-
 def get_project_info(project):
     reqset = FormstackAPI().get_project_info(project)["submissions"]
     if reqset:

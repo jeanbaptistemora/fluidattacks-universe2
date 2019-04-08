@@ -51,6 +51,5 @@ urlpatterns = [
     url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$',
         views.project_to_pdf),
     url(r'^xls/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/?$',
-        views.project_to_xls),
-    url(r'^check_pdf/project/(?P<project>[A-Za-z0-9]+)/?$', views.check_pdf),
+        views.project_to_xls)
 ]
