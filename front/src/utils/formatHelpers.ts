@@ -469,3 +469,29 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
 
 export const formatFindingType: ((type: string) => string) = (type: string): string =>
   _.isEmpty(type) ? "-" : translate.t(`search_findings.tab_description.type.${type.toLowerCase()}`);
+
+type IFindingsDataset = IDashboardState["findings"]["dataset"];
+export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
+  (dataset: IFindingsDataset): IFindingsDataset => dataset.map((finding: IFindingsDataset[0]) => {
+    const stateParameters: { [value: string]: string } = {
+      Abierto: "search_findings.status.open",
+      Cerrado: "search_findings.status.closed",
+    };
+    const treatmentParameters: { [value: string]: string } = {
+      "-": "-",
+      "ACCEPTED": "search_findings.tab_description.treatment.accepted",
+      "IN PROGRESS": "search_findings.tab_description.treatment.in_progress",
+      "NEW": "search_findings.tab_description.treatment.new",
+    };
+    const typeParameters: { [value: string]: string } = {
+      HYGIENE: "search_findings.tab_description.type.hygiene",
+      SECURITY: "search_findings.tab_description.type.security",
+    };
+    const state: string = translate.t(stateParameters[finding.state]);
+    const treatment: string = translate.t(treatmentParameters[finding.treatment]);
+    const type: string = translate.t(typeParameters[finding.type]);
+    const isExploitable: string = translate.t(Boolean(finding.isExploitable)
+      ? "project.findings.exploitable.yes" : "project.findings.exploitable.no");
+
+    return { ...finding, state, treatment, type, isExploitable };
+  });

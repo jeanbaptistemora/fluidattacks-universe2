@@ -42,6 +42,19 @@ export interface IDashboardState {
     title: string;
   };
   findings: {
+    dataset: Array<{
+      age: number;
+      description: string;
+      id: string;
+      isExploitable: string;
+      lastVulnerability: number;
+      openVulnerabilities: number;
+      severityScore: number;
+      state: string;
+      title: string;
+      treatment: string;
+      type: string;
+    }>;
     reportsModal: {
       hasExecutive: boolean;
       isOpen: boolean;
@@ -190,6 +203,7 @@ const initialState: IDashboardState = {
     title: "",
   },
   findings: {
+    dataset: [],
     reportsModal: {
       hasExecutive: false,
       isOpen: false,
@@ -787,6 +801,7 @@ actionMap[findingsActions.LOAD_FINDINGS] =
     ...state,
     findings: {
       ...state.findings,
+      dataset: action.payload.dataset,
       reportsModal: {
         ...state.findings.reportsModal,
         hasExecutive: action.payload.hasExecutive,

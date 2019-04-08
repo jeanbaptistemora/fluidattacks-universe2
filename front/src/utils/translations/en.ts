@@ -58,6 +58,11 @@ const enTranslations: Map<string, string> = {
   },
   project: {
     findings: {
+      exploitable: {
+        no: "No",
+        yes: "Yes",
+      },
+      help_label: "Click on a finding to see more details",
       report: {
         btn: "Reports",
         exec_n: "The project's documentation has not been finished",

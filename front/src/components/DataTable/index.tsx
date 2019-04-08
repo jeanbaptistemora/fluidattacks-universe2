@@ -42,8 +42,8 @@ export interface ITableProps {
   tableBody?: string;
   tableContainer?: string;
   tableHeader?: string;
-  title: string;
-  onClickRow?(arg1: string | {id: string; projectName: string } | undefined): void;
+  title?: string;
+  onClickRow?(arg1: string | {id: string } | undefined): void;
 }
 
 export interface IHeader {

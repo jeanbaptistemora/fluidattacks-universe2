@@ -75,9 +75,9 @@ export const component: React.StatelessComponent<IEventsViewProps> =
                     dataset={props.eventsDataset}
                     enableRowSelection={false}
                     exportCsv={true}
-                    onClickRow={(row: {id: string; projectName: string }): void => {
+                    onClickRow={(row: { id: string }): void => {
                       window.location.href =
-                      `/integrates/dashboard#!/project/${row.projectName}/events/${row.id}/description`;
+                      `/integrates/dashboard#!/project/${props.projectName}/events/${row.id}/description`;
                     }}
                     search={true}
                     headers={[

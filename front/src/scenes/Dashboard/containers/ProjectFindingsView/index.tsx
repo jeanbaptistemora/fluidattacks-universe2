@@ -1,3 +1,4 @@
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
@@ -5,7 +6,9 @@ import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button";
+import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
+import { formatFindings } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
 import { closeReportsModal, loadFindingsData, openReportsModal, ThunkDispatcher } from "./actions";
@@ -26,6 +29,28 @@ type IProjectFindingsProps = IProjectFindingsBaseProps & (IProjectFindingsStateP
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectFindingsProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
 });
+
+const tableHeaders: IHeader[] = [
+  { align: "center", dataField: "age", header: "Age (days)", isDate: false, isStatus: false, width: "6%" },
+  {
+    align: "center", dataField: "lastVulnerability", header: "Last report (days)", isDate: false, isStatus: false,
+    width: "6%",
+  },
+  { align: "center", dataField: "type", header: "Type", isDate: false, isStatus: false, width: "10%" },
+  { align: "center", dataField: "title", header: "Title", isDate: false, isStatus: false, wrapped: true, width: "15%" },
+  {
+    align: "center", dataField: "description", header: "Description", isDate: false, isStatus: false, width: "20%",
+    wrapped: true,
+  },
+  { align: "center", dataField: "severityScore", header: "Severity", isDate: false, isStatus: false, width: "7%" },
+  {
+    align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", isDate: false, isStatus: false,
+    width: "6%",
+  },
+  { align: "center", dataField: "state", header: "Status", isDate: false, isStatus: true, width: "9%" },
+  { align: "center", dataField: "treatment", header: "Treatment", isDate: false, isStatus: false, width: "11%" },
+  { align: "center", dataField: "isExploitable", header: "Exploitable", isDate: false, isStatus: false, width: "10%" },
+];
 
 const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
@@ -57,11 +82,27 @@ const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFi
     </Col>
   );
 
+  const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
+    mixpanel.track("ReadFinding");
+    location.hash = `#!/project/${projectName}/${rowInfo.id}/description`;
+  };
+
   return (
     <React.StrictMode>
-      <ButtonToolbar className="pull-right">
+      <ButtonToolbar className={style.reportsBtn}>
         <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
       </ButtonToolbar>
+      <p>{translate.t("project.findings.help_label")}</p>
+      <DataTable
+        dataset={formatFindings(props.dataset)}
+        enableRowSelection={false}
+        exportCsv={true}
+        headers={tableHeaders}
+        id="tblFindings"
+        onClickRow={goToFinding}
+        pageSize={15}
+        search={true}
+      />
       <Modal
         open={props.reportsModal.isOpen}
         footer={modalFooter}

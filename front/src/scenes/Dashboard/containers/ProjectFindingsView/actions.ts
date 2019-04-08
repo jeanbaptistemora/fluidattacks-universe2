@@ -28,6 +28,19 @@ export const loadFindingsData: ((projectName: string) => ThunkResult<void>) =
     (dispatch: ThunkDispatcher): void => {
       let gQry: string; gQry = `{
         project(projectName: "${projectName}") {
+          findings {
+            id
+          	age
+            lastVulnerability
+            type
+            title
+            description
+            severityScore
+            openVulnerabilities
+            state
+            treatment
+            isExploitable
+          }
           hasCompleteDocs
         }
       }`;
@@ -37,7 +50,10 @@ export const loadFindingsData: ((projectName: string) => ThunkResult<void>) =
           const { data } = response.data;
 
           dispatch({
-            payload: { hasExecutive: data.project.hasCompleteDocs },
+            payload: {
+              dataset: data.project.findings,
+              hasExecutive: data.project.hasCompleteDocs,
+            },
             type: actionTypes.LOAD_FINDINGS,
           });
         })
