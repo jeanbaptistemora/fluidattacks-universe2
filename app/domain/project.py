@@ -238,9 +238,9 @@ def get_total_treatment(findings):
 
 
 def get_project_info(project_name):
-    reqset = FormstackAPI().get_project_info(project_name)["submissions"]
+    reqset = FormstackAPI().get_project_info(project_name)['submissions']
     if reqset:
-        submission_id = reqset[-1]["id"]
+        submission_id = reqset[-1]['id']
         submission = FormstackAPI().get_submission(submission_id)
         return project_dto.parse(submission)
     return []
@@ -249,10 +249,10 @@ def get_project_info(project_name):
 def get_drafts(project_name):
     api = FormstackAPI()
     drafts = []
-    submissions = api.get_findings(project_name)["submissions"]
+    submissions = api.get_findings(project_name)['submissions']
 
     for submission in submissions:
-        draft_id = submission["id"]
+        draft_id = submission['id']
         is_draft = ('releaseDate' not in
                     integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
         if is_draft:
