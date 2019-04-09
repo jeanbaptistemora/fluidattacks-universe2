@@ -133,6 +133,9 @@ terraform-test:
       - plan.txt
     expire_in: 1h
     when: on_success
+  only:
+    - branches
+    - merge_requests
   except:
     - master
 
