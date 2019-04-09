@@ -87,6 +87,7 @@
 * link:126/[REQ.126 Set password restoring mechanism].
 * link:127/[REQ.127 Store hashed passwords].
 * link:128/[REQ.128 Define unique data source].
+* link:129/[REQ.129 Validate previous passwords].
 * link:131/[REQ.131 Deny multiple password changing attempts].
 * link:132/[REQ.132 Passphrases with minimum 4 words].
 * link:133/[REQ.133 Passwords with at least 20 characters]
