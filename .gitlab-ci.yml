@@ -124,7 +124,15 @@ terraform-test:
     - cd deploy/terraform
     - terraform init --backend-config="bucket=${FS_S3_BUCKET}"
     - terraform validate
-    - terraform plan -refresh=true
+    - terraform plan -refresh=true -out=plan
+    - terraform show -no-color plan > plan.txt
+    - mv plan.txt "${CI_PROJECT_DIR}"
+    - rm plan
+  artifacts:
+    paths:
+      - plan.txt
+    expire_in: 1h
+    when: on_success
   except:
     - master
 
@@ -391,7 +399,8 @@ mr-test:
 danger:
   stage: mr-check
   image: starefossen/ruby-node:2-10
-  dependencies: []
+  dependencies:
+    - terraform-test
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
