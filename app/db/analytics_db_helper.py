@@ -1,6 +1,7 @@
 """Functions to connect to the analytics database."""
 
 from __future__ import absolute_import
+import sys
 from contextlib import contextmanager
 from __init__ import (
     FI_AWS_REDSHIFT_DB_NAME, FI_AWS_REDSHIFT_USER, FI_AWS_REDSHIFT_PASSWORD,
@@ -16,19 +17,20 @@ def redshift_conection():
                                   password=FI_AWS_REDSHIFT_PASSWORD,
                                   host=FI_AWS_REDSHIFT_HOST,
                                   port=FI_AWS_REDSHIFT_PORT,
-                                  database=FI_AWS_REDSHIFT_DB_NAME)
+                                  dbname=FI_AWS_REDSHIFT_DB_NAME)
     return connection
 
 
 @contextmanager
 def query():
     """Query in the redshift database."""
+    connection = ''
     try:
         connection = redshift_conection()
         cursor = connection.cursor()
-        yield cursor
+        yield (cursor, connection)
     except psycopg2.DatabaseError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info())
     finally:
         if connection:
             cursor.close()

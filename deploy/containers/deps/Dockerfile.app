@@ -39,6 +39,7 @@ RUN apt-get update \
         python-dev \
         redis \
         ruby \
+        libpq-dev \
     && curl https://bootstrap.pypa.io/get-pip.py | python \
     && pip2 install --no-cache-dir -r requirements-app.txt \
     && gem install -N asciidoctor -v 1.5.8 \
