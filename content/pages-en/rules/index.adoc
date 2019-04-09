@@ -82,6 +82,10 @@
 * link:113/[REQ.113 Manage access points].
 * link:114/[REQ.114 Deny access with inactive credentials].
 
+== Emails
+
+* link:115/[REQ.115 Filter malicious emails].
+
 == Credentials
 
 * link:126/[REQ.126 Set password restoring mechanism].
