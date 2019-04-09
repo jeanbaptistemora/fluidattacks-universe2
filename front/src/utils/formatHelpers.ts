@@ -495,3 +495,20 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
 
     return { ...finding, state, treatment, type, isExploitable };
   });
+
+type IDraftsDataset = IDashboardState["drafts"]["dataset"];
+export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
+  (dataset: IDraftsDataset): IDraftsDataset => dataset.map((draft: IDraftsDataset[0]) => {
+    const typeParameters: { [value: string]: string } = {
+      HYGIENE: "search_findings.tab_description.type.hygiene",
+      SECURITY: "search_findings.tab_description.type.security",
+    };
+    const reportDate: string = draft.reportDate.split(" ")[0];
+    const isReleased: string = translate.t(_.isEmpty(draft.releaseDate)
+      ? "project.findings.exploitable.no" : "project.findings.exploitable.yes");
+    const type: string = translate.t(typeParameters[draft.type]);
+    const isExploitable: string = translate.t(Boolean(draft.isExploitable)
+      ? "project.findings.exploitable.yes" : "project.findings.exploitable.no");
+
+    return { ...draft, reportDate, type, isExploitable, isReleased };
+  });

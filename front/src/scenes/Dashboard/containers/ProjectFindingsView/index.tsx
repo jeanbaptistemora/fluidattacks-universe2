@@ -27,7 +27,7 @@ interface IProjectFindingsDispatchProps {
 type IProjectFindingsProps = IProjectFindingsBaseProps & (IProjectFindingsStateProps & IProjectFindingsDispatchProps);
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectFindingsProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); },
+  componentDidMount(): void { this.props.onLoad(); mixpanel.track("ProjectFindings"); },
 });
 
 const tableHeaders: IHeader[] = [
