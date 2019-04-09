@@ -71,7 +71,9 @@ const saveTags: ((tags: IIndicatorsViewProps["tagsDataset"], props: IIndicatorsV
       props.onSaveTags(tags);
     }
   };
-
+/* tslint:disable-next-line:no-unused-variable
+ * Disable this rule because this code will be removed in the next MR
+ */
 const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element) = (props: IIndicatorsViewProps): JSX.Element => {
   const tagsDataset: Array<{ tagName: string }> = props.tagsDataset.map((tagName: string) => ({ tagName }));
 
@@ -169,11 +171,7 @@ const treatmentGraph: ((props: IIndicatorsViewProps) => { [key: string]: string 
 };
 
 const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
-  const userEmail: string = (window as Window & { userEmail: string }).userEmail;
   const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
-  const shouldDisplayTagsView: boolean =
-    (_.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co"))
-    && !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate);
 
   return (
     <React.StrictMode>
@@ -277,8 +275,6 @@ const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewP
           />
         </Col>
       </Row>
-      <br />
-      {shouldDisplayTagsView ? renderTagsView(props) : undefined}
     </React.StrictMode>
   );
 };

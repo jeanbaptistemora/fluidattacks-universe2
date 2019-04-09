@@ -8,6 +8,7 @@ import { IDashboardState } from "../../reducer";
 import * as actionTypes from "./actionTypes";
 
 type IResources = IDashboardState["resources"];
+type ITags = IDashboardState["tags"];
 
 export interface IActionStructure {
   payload?: { [key: string]: string | string[] | ({} | undefined) };
@@ -394,3 +395,144 @@ export const downloadFile: ((projectName: string, fileToDownload: string) => Thu
               }
             });
         };
+
+export const openTagsModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.OPEN_TAGS_MODAL,
+  });
+
+export const closeTagsModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.CLOSE_TAGS_MODAL,
+  });
+
+export const loadTags: ((projectName: string) => ThunkResult<void>) =
+  (projectName: string): ThunkResult<void> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `{
+        project(projectName: "${projectName}"){
+          deletionDate
+          subscription
+          tags
+        }
+      }`;
+      new Xhr().request(gQry, "An error occurred getting tags")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          dispatch({
+            payload: {
+              deletionDate: data.project.deletionDate,
+              subscription: data.project.subscription,
+              tagsDataset: data.project.tags,
+            },
+            type: actionTypes.LOAD_TAGS,
+          });
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const removeTag: ((projectName: string, tagToRemove: string) => ThunkResult<void>) =
+  (projectName: string, tagToRemove: string): ThunkResult<void> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+        removeTag (
+          tag: "${tagToRemove}",
+          projectName: "${projectName}"
+        ) {
+          success
+          project {
+            deletionDate
+            subscription
+            tags
+          }
+        }
+      }`;
+      new Xhr().request(gQry, "An error occurred removing tags")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.removeTag.success) {
+            dispatch({
+              payload: {
+                deletionDate: data.removeTag.project.deletionDate,
+                subscription: data.removeTag.project.subscription,
+                tagsDataset: data.removeTag.project.tags,
+              },
+              type: actionTypes.LOAD_TAGS,
+            });
+            msgSuccess(
+              translate.t("search_findings.tab_resources.success_remove"),
+              translate.t("search_findings.tab_users.title_success"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred removing tags");
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };
+
+export const saveTags: ((projectName: string, tagsData: ITags["tagsDataset"]) => ThunkResult<void>) =
+  (projectName: string, tagsData: ITags["tagsDataset"]): ThunkResult<void> =>
+    (dispatch: ThunkDispatcher): void => {
+      let gQry: string;
+      gQry = `mutation {
+          addTags (
+            tags: ${JSON.stringify(JSON.stringify(tagsData))},
+            projectName: "${projectName}") {
+            success
+            project {
+              deletionDate
+              subscription
+              tags
+            }
+          }
+        }`;
+      new Xhr().request(gQry, "An error occurred adding tags")
+        .then((response: AxiosResponse) => {
+          const { data } = response.data;
+          if (data.addTags.success) {
+            dispatch(closeTagsModal());
+            dispatch({
+              payload: {
+                deletionDate: data.addTags.project.deletionDate,
+                subscription: data.addTags.project.subscription,
+                tagsDataset: data.addTags.project.tags,
+              },
+              type: actionTypes.LOAD_TAGS,
+            });
+            msgSuccess(
+              translate.t("search_findings.tab_resources.success"),
+              translate.t("search_findings.tab_users.title_success"),
+            );
+          } else {
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred adding tags");
+          }
+        })
+        .catch((error: AxiosError) => {
+          if (error.response !== undefined) {
+            const { errors } = error.response.data;
+
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error(error.message, errors);
+          }
+        });
+    };

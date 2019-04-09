@@ -95,6 +95,14 @@ export interface IDashboardState {
     repositories: Array<{ branch: string; urlRepo: string }>;
   };
   severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset" | "cvssVersion">;
+  tags: {
+    deletionDate: string;
+    subscription: string;
+    tagsDataset: string[];
+    tagsModal: {
+      open: boolean;
+    };
+  };
   tracking: Pick<ITrackingViewProps, "closings">;
   user: {
     role: string;
@@ -284,6 +292,14 @@ const initialState: IDashboardState = {
       userInteraction: "",
     },
     isEditing: false,
+  },
+  tags: {
+    deletionDate: "",
+    subscription: "",
+    tagsDataset: [],
+    tagsModal: {
+      open: false,
+    },
   },
   tracking: {
     closings: [],
