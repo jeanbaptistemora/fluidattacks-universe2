@@ -47,6 +47,7 @@ class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attribut
     last_vulnerability = Int()
     severity_score = Float()
     is_exploitable = Boolean()
+    report_date = String()
 
     # Additional attributes of detailed findings
     client_code = String()
@@ -98,3 +99,4 @@ class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attribut
         self.last_vulnerability = 0
         self.severity_score = 0.0
         self.is_exploitable = False
+        self.report_date = ''

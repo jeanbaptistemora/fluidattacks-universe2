@@ -159,6 +159,8 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.age = resp.get('edad', 0)
             self.last_vulnerability = resp.get('lastVulnerability', 0)
             self.is_exploitable = resp.get('exploitable', '') == 'Si'
+            self.severity_score = resp.get('criticity', '')
+            self.report_date = resp.get('reportDate', '')
         else:
             self.success = False
             self.error_message = 'Finding does not exist'
@@ -559,10 +561,19 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """ Resolve precalculated severity score """
         del info
 
-        self.severity_score = integrates_dao.get_finding_attributes_dynamo(
-            self.id, ['cvss_temporal'])['cvss_temporal']
+        dyn_score = integrates_dao.get_finding_attributes_dynamo(
+            self.id, ['cvss_temporal']).get('cvss_temporal')
+
+        fs_score = self.severity_score
+        self.severity_score = dyn_score if dyn_score else fs_score
 
         return self.severity_score
+
+    def resolve_report_date(self, info):
+        """ Resolve report date """
+        del info
+
+        return self.report_date
 
 
 class UpdateEvidence(Mutation):

@@ -244,3 +244,18 @@ def get_project_info(project_name):
         submission = FormstackAPI().get_submission(submission_id)
         return project_dto.parse(submission)
     return []
+
+
+def get_drafts(project_name):
+    api = FormstackAPI()
+    drafts = []
+    submissions = api.get_findings(project_name)["submissions"]
+
+    for submission in submissions:
+        draft_id = submission["id"]
+        is_draft = ('releaseDate' not in
+                    integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+        if is_draft:
+            drafts.append(draft_id)
+
+    return drafts

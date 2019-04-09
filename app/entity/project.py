@@ -16,7 +16,7 @@ from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_total_treatment,
     get_max_severity, get_max_open_severity, get_mean_remediate,
-    get_project_info
+    get_project_info, get_drafts
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -49,6 +49,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     users = List(User)
     total_treatment = GenericScalar()
     has_complete_docs = Boolean()
+    drafts = List(Finding)
 
     def __init__(self, project_name):
         """Class constructor."""
@@ -224,6 +225,14 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.has_complete_docs = get_project_info(self.name) != []
 
         return self.has_complete_docs
+
+    def resolve_drafts(self, info):
+        """ Resolve drafts attribute """
+
+        self.drafts = [Finding(info, draft_id)
+                       for draft_id in get_drafts(self.name)]
+
+        return self.drafts
 
 
 def validate_release_date(release_date=''):
