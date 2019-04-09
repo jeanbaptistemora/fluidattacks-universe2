@@ -12,30 +12,36 @@ import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName } from "../../../../utils/validations";
 import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
+import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 
 type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
-type IResourcesViewStateProps = IDashboardState["resources"];
+type IResourcesViewStateProps = IDashboardState["resources"] & IDashboardState["tags"];
 
 interface IResourcesViewDispatchProps {
   onCloseAddModal(): void;
   onCloseOptionsModal(): void;
+  onCloseTagsModal(): void;
   onDeleteFile(fileName: string): void;
   onDownloadFile(fileName: string): void;
   onLoad(): void;
   onOpenAddModal(type: IResourcesViewStateProps["addModal"]["type"]): void;
   onOpenOptionsModal(row: string): void;
+  onOpenTagsModal(): void;
   onRemoveEnv(environment: string): void;
   onRemoveRepo(repository: string, branch: string): void;
+  onRemoveTag(tag: string): void;
   onSaveEnvs(environments: IResourcesViewStateProps["environments"]): void;
   onSaveFiles(files: IResourcesViewStateProps["files"]): void;
   onSaveRepos(resources: IResourcesViewStateProps["repositories"]): void;
+  onSaveTags(tags: IResourcesViewStateProps["tagsDataset"]): void;
 }
 
 type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps & IResourcesViewDispatchProps);
@@ -136,6 +142,107 @@ const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesV
     }
   };
 
+const removeTag: ((props: IResourcesViewProps) => void) = (props: IResourcesViewProps): void => {
+  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblTags tr input:checked");
+  if (selectedQry.length > 0) {
+    if (selectedQry[0].closest("tr") !== null) {
+      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+      const tag: string | null = selectedRow.children[1].textContent;
+      props.onRemoveTag(String(tag));
+    } else {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred removing tags");
+    }
+  } else {
+    msgError(translate.t("search_findings.tab_resources.no_selection"));
+  }
+};
+
+const saveTags: ((tags: IResourcesViewProps["tagsDataset"], props: IResourcesViewProps) => void) =
+  (tags: IResourcesViewProps["tagsDataset"], props: IResourcesViewProps): void => {
+    let containsRepeated: boolean;
+    containsRepeated = tags.filter(
+      (newItem: IResourcesViewProps["tagsDataset"][0]) => _.findIndex(
+        props.tagsDataset,
+        (currentItem: IResourcesViewProps["tagsDataset"][0]) =>
+          currentItem === newItem,
+      ) > -1).length > 0;
+    if (containsRepeated) {
+      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+    } else {
+      props.onSaveTags(tags);
+    }
+  };
+
+const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
+  const tagsDataset: Array<{ tagName: string }> = props.tagsDataset.map((tagName: string) => ({ tagName }));
+
+  const handleOpenTagsModal: (() => void) = (): void => { props.onOpenTagsModal(); };
+  const handleCloseTagsModal: (() => void) = (): void => { props.onCloseTagsModal(); };
+  const handleRemoveTagClick: (() => void) = (): void => { removeTag(props); };
+  const handleSubmit: ((values: { tags: IResourcesViewProps["tagsDataset"] }) => void) =
+    (values: { tags: IResourcesViewProps["tagsDataset"] }): void => { saveTags(values.tags, props); };
+
+  return (
+    <React.Fragment>
+      <hr/>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <Row>
+            <Col md={12} sm={12} xs={12}>
+              <Row>
+                <Col md={12}>
+                  <Col mdOffset={4} md={2} sm={6}>
+                    <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenTagsModal}>
+                      <Glyphicon glyph="plus" />&nbsp;
+                      {translate.t("search_findings.tab_resources.add_repository")}
+                    </Button>
+                  </Col>
+                  <Col md={2} sm={6}>
+                    <Button id="removeTag" block={true} bsStyle="primary" onClick={handleRemoveTagClick}>
+                      <Glyphicon glyph="minus" />&nbsp;
+                      {translate.t("search_findings.tab_resources.remove_repository")}
+                    </Button>
+                  </Col>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} sm={12}>
+                  <DataTable
+                    dataset={tagsDataset}
+                    enableRowSelection={true}
+                    exportCsv={false}
+                    search={false}
+                    headers={[
+                      {
+                        dataField: "tagName",
+                        header: translate.t("search_findings.tab_resources.tags_title"),
+                        isDate: false,
+                        isStatus: false,
+                      },
+                    ]}
+                    id="tblTags"
+                    pageSize={15}
+                    title={translate.t("search_findings.tab_resources.tags_title")}
+                  />
+                </Col>
+                <Col md={12}>
+                  <br />
+                  <label style={{fontSize: "15px"}}>
+                    <b>{translate.t("search_findings.tab_resources.total_tags")}</b>
+                    {tagsDataset.length}
+                  </label>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <AddTagsModal isOpen={props.tagsModal.open} onClose={handleCloseTagsModal} onSubmit={handleSubmit} />
+    </React.Fragment>
+  );
+};
+
 const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
   (props: IResourcesViewProps): JSX.Element => {
 
@@ -170,6 +277,11 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
         handleSaveFiles(values.resources, props);
       };
     }
+
+    const userEmail: string = (window as Window & { userEmail: string }).userEmail;
+    const shouldDisplayTagsView: boolean =
+      (_.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co"))
+      && !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate);
 
     return (
   <React.StrictMode>
@@ -381,6 +493,7 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
             </Row>
           </Col>
         </Row>
+        {shouldDisplayTagsView ? renderTagsView(props) : undefined}
       <AddResourcesModal
         isOpen={props.addModal.open}
         type={props.addModal.type}
@@ -403,10 +516,14 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
     addModal: state.dashboard.resources.addModal,
+    deletionDate: state.dashboard.tags.deletionDate,
     environments: state.dashboard.resources.environments,
     files: state.dashboard.resources.files,
     optionsModal: state.dashboard.resources.optionsModal,
     repositories: state.dashboard.resources.repositories,
+    subscription: state.dashboard.tags.subscription,
+    tagsDataset: state.dashboard.tags.tagsDataset,
+    tagsModal: state.dashboard.tags.tagsModal,
   });
 
 const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResourcesViewBaseProps> =
@@ -416,23 +533,32 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
     return ({
       onCloseAddModal: (): void => { dispatch(actions.closeAddModal()); },
       onCloseOptionsModal: (): void => { dispatch(actions.closeOptionsModal()); },
+      onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
       onDeleteFile: (fileName: string): void => { dispatch(actions.deleteFile(projectName, fileName)); },
       onDownloadFile: (fileName: string): void => { dispatch(actions.downloadFile(projectName, fileName)); },
-      onLoad: (): void => { dispatch(actions.loadResources(projectName)); },
+      onLoad: (): void => {
+        dispatch(actions.loadResources(projectName));
+        dispatch(actions.loadTags(projectName));
+      },
       onOpenAddModal: (type: IResourcesViewStateProps["addModal"]["type"]): void => {
         dispatch(actions.openAddModal(type));
       },
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
+      onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
       onRemoveEnv: (environment: string): void => { dispatch(actions.removeEnv(projectName, environment)); },
       onRemoveRepo: (repository: string, branch: string): void => {
         dispatch(actions.removeRepo(projectName, repository, branch));
       },
+      onRemoveTag: (tag: string): void => { dispatch(actions.removeTag(projectName, tag)); },
       onSaveEnvs: (environments: IResourcesViewProps["environments"]): void => {
         dispatch(actions.saveEnvs(projectName, environments));
       },
       onSaveFiles: (files: IResourcesViewProps["files"]): void => { dispatch(actions.saveFiles(projectName, files)); },
       onSaveRepos: (repositories: IResourcesViewProps["repositories"]): void => {
         dispatch(actions.saveRepos(projectName, repositories));
+      },
+      onSaveTags: (tags: IResourcesViewProps["tagsDataset"]): void => {
+        dispatch(actions.saveTags(projectName, tags));
       },
     });
   };

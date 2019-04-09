@@ -452,6 +452,41 @@ actionMap[resourcesActions.CLOSE_OPTIONS_MODAL] =
     },
   });
 
+actionMap[resourcesActions.LOAD_TAGS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    tags: {
+      ...state.tags,
+      deletionDate: action.payload.deletionDate,
+      subscription: action.payload.subscription,
+      tagsDataset: action.payload.tagsDataset,
+    },
+  });
+
+actionMap[resourcesActions.OPEN_TAGS_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    tags: {
+      ...state.tags,
+      tagsModal: {
+        ...state.tags.tagsModal,
+        open: true,
+      },
+    },
+  });
+
+actionMap[resourcesActions.CLOSE_TAGS_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    tags: {
+      ...state.tags,
+      tagsModal: initialState.tags.tagsModal,
+    },
+  });
+
 actionMap[actionType.ADD_FILE_NAME] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -739,30 +774,6 @@ actionMap[indicatorsActions.LOAD_INDICATORS] =
     indicators: {
       ...state.indicators,
       ...action.payload,
-    },
-  });
-
-actionMap[indicatorsActions.OPEN_ADD_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    indicators: {
-      ...state.indicators,
-      addModal: {
-        ...state.indicators.addModal,
-        open: true,
-      },
-    },
-  });
-actionMap[indicatorsActions.CLOSE_ADD_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    indicators: {
-      ...state.indicators,
-      addModal: {
-        ...initialState.indicators.addModal,
-      },
     },
   });
 

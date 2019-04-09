@@ -349,9 +349,11 @@ const enTranslations: Map<string, string> = {
       repository: "Repository URL",
       success: "Item added successfully.",
       success_remove: "Item removed successfully.",
+      tags_title: "Tags",
       total_envs: "Total environments: ",
       total_files: "Total files: ",
       total_repos: "Total repositories: ",
+      total_tags: "Total tags: ",
     },
     tab_severity: {
       attack_complexity: "Attack Complexity",
