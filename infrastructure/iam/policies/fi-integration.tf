@@ -47,13 +47,25 @@ data "aws_iam_policy_document" "integrates-terraform" {
   }
 
   statement {
-    sid       = "Lambda"
+    sid       = "IAMDynamoAutoScaling"
     effect    = "Allow"
     actions   = [
-      "lambda:*"
+      "iam:PassRole"
     ]
     resources = [
-      "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:fi*"
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+    ]
+  }
+
+  statement {
+    sid = "S3"
+    effect = "Allow"
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      "arn:aws:s3:::fluidintegrates*",
+      "arn:aws:s3:::fluidintegrates*/*"
     ]
   }
 
@@ -68,17 +80,6 @@ data "aws_iam_policy_document" "integrates-terraform" {
     resources = [
       "arn:aws:s3:::${var.fsBucket}",
       "arn:aws:s3:::${var.fsBucket}/integrates.tfstate"
-    ]
-  }
-
-  statement {
-    sid       = "IAM"
-    effect    = "Allow"
-    actions   = [
-      "iam:PassRole"
-    ]
-    resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
     ]
   }
 }
