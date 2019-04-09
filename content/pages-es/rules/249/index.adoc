@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso seguro de redes inalámbricas. Por lo tanto, los puntos de acceso a la red deben estar ubicados en lugares que permitan que la señal se propague sólo en las instalaciones autorizadas.
 :keywords: Red, SSID, Punto de acceso, Inalámbrica, Señal, Instalación.
 :rules: yes
+:translate: rules/249/
 
 = REQ.249 Ubicar puntos de acceso
 
