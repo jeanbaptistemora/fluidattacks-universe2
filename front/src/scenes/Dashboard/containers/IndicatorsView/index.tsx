@@ -14,6 +14,7 @@ import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
+import style from "./index.css";
 
 type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
@@ -178,6 +179,7 @@ const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewP
     <React.StrictMode>
       <Row>
         <Col md={12} sm={12} xs={12}>
+          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
           <IndicatorBox
             icon="findings"
             name={translate.t("search_findings.tab_indicators.total_findings")}
@@ -237,7 +239,6 @@ const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewP
         </Col>
       </Row>
       <br />
-      <hr />
       <Row>
         <IndicatorGraph
           data={statusGraph(props)}
@@ -247,6 +248,34 @@ const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewP
           data={treatmentGraph(props)}
           name={translate.t("search_findings.tab_indicators.treatment_graph")}
         />
+      </Row>
+      <br />
+      <hr />
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
+          <IndicatorBox
+            icon="integrityNone"
+            name={translate.t("search_findings.tab_indicators.repositories")}
+            quantity={props.repositories.length}
+            title=""
+            total=""
+          />
+          <IndicatorBox
+            icon="authors"
+            name={translate.t("search_findings.tab_indicators.authors")}
+            quantity={props.currentMonthAuthors}
+            title=""
+            total=""
+          />
+          <IndicatorBox
+            icon="terminal"
+            name={translate.t("search_findings.tab_indicators.commits")}
+            quantity={props.currentMonthCommits}
+            title=""
+            total=""
+          />
+        </Col>
       </Row>
       <br />
       {shouldDisplayTagsView ? renderTagsView(props) : undefined}
@@ -259,6 +288,8 @@ const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsVie
   (state: IState): IIndicatorsViewStateProps => ({
     addModal: state.dashboard.indicators.addModal,
     closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
+    currentMonthAuthors: state.dashboard.indicators.currentMonthAuthors,
+    currentMonthCommits: state.dashboard.indicators.currentMonthCommits,
     deletionDate: state.dashboard.indicators.deletionDate,
     lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
     maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
@@ -266,6 +297,7 @@ const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsVie
     meanRemediate: state.dashboard.indicators.meanRemediate,
     openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
     pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
+    repositories: state.dashboard.indicators.repositories,
     subscription: state.dashboard.indicators.subscription,
     tagsDataset: state.dashboard.indicators.tagsDataset,
     totalFindings: state.dashboard.indicators.totalFindings,

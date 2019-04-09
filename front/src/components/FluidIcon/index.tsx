@@ -1,5 +1,6 @@
 import React from "react";
 import ReactSVG from "react-svg";
+import { default as authorsIcon } from "../../resources/authors.svg";
 import { default as avabilityHighIcon } from "../../resources/availability_high.svg";
 import { default as avabilityLowIcon } from "../../resources/availability_low.svg";
 import { default as avabilityNoneIcon } from "../../resources/availability_none.svg";
@@ -33,6 +34,7 @@ import { default as searchIcon } from "../../resources/search.svg";
 import { default as terminalIcon } from "../../resources/terminal.svg";
 import { default as totalIcon } from "../../resources/total.svg";
 import { default as totalVulnerabilitiesIcon } from "../../resources/total_vulnerabilities.svg";
+import { default as userIcon } from "../../resources/user.svg";
 import { default as userNoneIcon } from "../../resources/user_none.svg";
 import { default as userRequiredIcon } from "../../resources/user_required.svg";
 import { default as vectorAdjacentIcon } from "../../resources/vector_adjacent.svg";
@@ -50,6 +52,7 @@ interface IFluidIconProps {
 }
 
 const getIcon: { [value: string]: string } = {
+  authors: authorsIcon,
   availabilityHigh: avabilityHighIcon,
   availabilityLow: avabilityLowIcon,
   availabilityNone: avabilityNoneIcon,
@@ -83,6 +86,7 @@ const getIcon: { [value: string]: string } = {
   terminal: terminalIcon,
   total: totalIcon,
   totalVulnerabilities: totalVulnerabilitiesIcon,
+  user: userIcon,
   userNone: userNoneIcon,
   userRequired: userRequiredIcon,
   vectorAdjacent: vectorAdjacentIcon,

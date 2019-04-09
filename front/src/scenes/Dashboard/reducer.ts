@@ -65,6 +65,8 @@ export interface IDashboardState {
       open: boolean;
     };
     closedVulnerabilities: number;
+    currentMonthAuthors: number;
+    currentMonthCommits: number;
     deletionDate: string;
     lastClosingVuln: number;
     maxOpenSeverity: number;
@@ -72,6 +74,7 @@ export interface IDashboardState {
     meanRemediate: number;
     openVulnerabilities: number;
     pendingClosingCheck: number;
+    repositories: Array<{ branch: string; urlRepo: string }>;
     subscription: string;
     tagsDataset: string[];
     totalFindings: number;
@@ -214,6 +217,8 @@ const initialState: IDashboardState = {
       open: false,
     },
     closedVulnerabilities: 0,
+    currentMonthAuthors: 0,
+    currentMonthCommits: 0,
     deletionDate: "",
     lastClosingVuln: 0,
     maxOpenSeverity: 0,
@@ -221,6 +226,7 @@ const initialState: IDashboardState = {
     meanRemediate: 0,
     openVulnerabilities: 0,
     pendingClosingCheck: 0,
+    repositories: [],
     subscription: "",
     tagsDataset: [],
     totalFindings: 0,
