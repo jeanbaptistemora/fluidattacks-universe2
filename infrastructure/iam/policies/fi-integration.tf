@@ -65,7 +65,8 @@ data "aws_iam_policy_document" "integrates-terraform" {
     ]
     resources = [
       "arn:aws:s3:::fluidintegrates*",
-      "arn:aws:s3:::fluidintegrates*/*"
+      "arn:aws:s3:::fluidintegrates*/*",
+      "arn:aws:s3:::fi.binaryalert*"
     ]
   }
 
@@ -81,6 +82,138 @@ data "aws_iam_policy_document" "integrates-terraform" {
       "arn:aws:s3:::${var.fsBucket}",
       "arn:aws:s3:::${var.fsBucket}/integrates.tfstate"
     ]
+  }
+
+  # BinaryAlert Permissions
+  statement {
+    sid       = "AnalysisMonitoring"
+    effect    = "Allow"
+    actions   = [
+      "cloudwatch:*"
+    ]
+    resources = [
+      "arn:aws:cloudwatch::${data.aws_caller_identity.current.account_id}:dashboard/BinaryAlert",
+      "arn:aws:cloudwatch:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:alarm:fi*"
+    ]
+  }
+
+  statement {
+    sid       = "EventsLog"
+    effect    = "Allow"
+    actions   = [
+      "events:*"
+    ]
+    resources = [
+      "arn:aws:events:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:rule/fi_binaryalert*"
+    ]
+  }
+
+  statement {
+    sid       = "IAMRead"
+    effect    = "Allow"
+    actions   = [
+      "iam:Get*",
+      "iam:List*"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    sid       = "FunctionRoles"
+    effect    = "Allow"
+    actions   = [
+      "iam:*"
+    ]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/fi_binaryalert*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/fi_binaryalert*"
+    ]
+  }
+
+  statement {
+    sid       = "QueueKeyCreation"
+    effect    = "Allow"
+    actions   = [
+      "kms:CreateKey",
+      "kms:Describe*",
+      "kms:Get*",
+      "kms:List*",
+      "kms:TagResource",
+      "kms:UntagResource"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    sid       = "QueueEncryption"
+    effect    = "Allow"
+    actions   = [
+      "kms:*"
+    ]
+    resources = [
+      "arn:aws:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:alias/fi_binaryalert*"
+    ]
+  }
+
+  statement {
+    sid       = "LambdaCreateMapping"
+    effect    = "Allow"
+    actions   = [
+      "lambda:CreateEventSourceMapping",
+      "lambda:DeleteEventSourceMapping",
+      "lambda:UpdateEventSourceMapping",
+      "lambda:GetEventSourceMapping",
+      "lambda:ListEventSourceMappings"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    sid       = "AnalysisFunctions"
+    effect    = "Allow"
+    actions   = [
+      "lambda:*"
+    ]
+    resources = [
+      "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:fi_binaryalert*"
+    ]
+  }
+
+  statement {
+    sid       = "LogsList"
+    effect    = "Allow"
+    actions   = [
+      "logs:Describe*",
+      "logs:List*",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "FunctionLogs"
+    effect    = "Allow"
+    actions   = ["logs:*"]
+    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/fi_binaryalert*"]
+  }
+
+  statement {
+    sid       = "ResultsNotification"
+    effect    = "Allow"
+    actions   = ["sns:*"]
+    resources = ["arn:aws:sns:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:fi_binaryalert*"]
+  }
+
+  statement {
+    sid       = "AnalysisQueue"
+    effect    = "Allow"
+    actions   = ["sqs:*"]
+    resources = ["arn:aws:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:fi_binaryalert*"]
   }
 }
 
