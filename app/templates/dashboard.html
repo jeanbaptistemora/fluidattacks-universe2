@@ -107,35 +107,6 @@
     <script src="assets/node_modules/ng-rollbar/ng-rollbar.min.js"></script>
     <script src="assets/node_modules/ldclient-js/dist/ldclient.min.js"></script>
     <script src="assets/node_modules/parsleyjs/dist/parsley.min.js" type="text/javascript"></script>
-    <script src="assets/bower_components/morris.js/morris.min.js"></script>
-    <script>
-      Morris.Donut.prototype.resizeHandler = function () {
-        this.timeoutId = null;
-        if (this.el && this.el.width() > 0 && this.el.height() > 0) {
-            this.raphael.setSize(this.el.width(), this.el.height());
-            return this.redraw();
-        }
-        else return null;
-    };
-    Morris.Donut.prototype.setData = function (data) {
-        var row;
-        this.data = data;
-        this.values = (function () {
-            var _i, _len, _ref, _results;
-            _ref = this.data;
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                row = _ref[_i];
-                _results.push(parseFloat(row.value));
-            }
-            return _results;
-        }).call(this);
-        if (this.el && this.el.width() > 0 && this.el.height() > 0) {
-            return this.redraw();
-        }
-        else return null;
-    };
-    </script>
     <script src="assets/bower_components/downloadjs/download.js"></script>
     <script src="assets/node_modules/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
     <script src="assets/node_modules/iframe-resizer/js/iframeResizer.min.js"></script>

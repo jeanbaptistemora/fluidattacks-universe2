@@ -95,7 +95,6 @@ var userRole = {};   \
 var projectData = {};   \
 var draftData = {};   \
 var eventsData = {};   \
-var Morris = {};    \
 var focusout = {};   \
 var tooltip = {};   \
 var projectByName = {};   \

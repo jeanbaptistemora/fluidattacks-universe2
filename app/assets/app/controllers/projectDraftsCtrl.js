@@ -3,7 +3,7 @@
 /* eslint no-shadow: ["error", { "allow":
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, draftData:true,
+BASE, downLink:true, estado:true, exploitLabel:true, draftData:true,
 nonexploitLabel:true, totalHigLabel:true, $scope:true,exploitable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
