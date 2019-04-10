@@ -75,21 +75,6 @@ angular.module("FluidIntegrates").factory(
              }
          }`;
         return $xhr.fetch($q, gQry, oopsAc);
-      },
-
-      /**
-       * Make a request to get the all the findings in a project.
-       * @function projectByName
-       * @param {String} project Project name
-       * @member integrates.projectFtry
-       * @return {Object} Response by Formstack with findings data
-       */
-      "projectByName" (project) {
-        const oopsAc = "An error occurred getting findings";
-        return $xhr.get($q, `${BASE.url}get_findings`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
-        }, oopsAc);
       }
     };
   }

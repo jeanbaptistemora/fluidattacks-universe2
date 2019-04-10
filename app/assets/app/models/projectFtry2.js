@@ -33,21 +33,6 @@ angular.module("FluidIntegrates").factory(
       },
 
       /**
-       * Get drafts by project name.
-       * @function draftsByName
-       * @param {String} project Project name.
-       * @member integrates.projectFtry2
-       * @return {Object} Formstack response with the drafts of a project
-       */
-      "draftsByName" (project) {
-        const oopsAc = "An error occurred getting drafts";
-        return $xhr.get($q, `${BASE.url}get_drafts`, {
-          "_": parseInt(secureRandom(5).join(""), 10),
-          project
-        }, oopsAc);
-      },
-
-      /**
        * Get project information.
        * @function getProject
        * @param {String} projectName Project Name
