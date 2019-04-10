@@ -3,33 +3,6 @@
  */
 /* eslint-disable no-unused-vars */
 const translations1 = {
-  "finding_formstack":
-   {
-     "exploitable": {
-       "default": "-",
-       "no": "No",
-       "yes": "Yes"
-     },
-     "findingType": {
-       "default": "-",
-       "hygiene": "Hygiene",
-       "security": "Security"
-     },
-     "status":
-      {
-        "close": "Closed",
-        "default": "-",
-        "open": "Open",
-        "part_close": "Partially closed"
-      },
-     "treatment_header":
-      {
-        "accepted": "Accepted",
-        "default": "-",
-        "remediated": "In Progress",
-        "working": "New"
-      }
-   },
   "forms":
    {
      "closure": "Closure",

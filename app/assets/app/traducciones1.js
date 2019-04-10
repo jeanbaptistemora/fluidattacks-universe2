@@ -3,33 +3,6 @@
  */
 /* eslint-disable no-unused-vars */
 const traducciones1 = {
-  "finding_formstack":
-{
-  "exploitable": {
-    "default": "-",
-    "no": "No",
-    "yes": "Si"
-  },
-  "findingType": {
-    "default": "-",
-    "hygiene": "Higiene",
-    "security": "Seguridad"
-  },
-  "status":
-   {
-     "close": "Cerrado",
-     "default": "-",
-     "open": "Abierto",
-     "part_close": "Parcialmente cerrado"
-   },
-  "treatment_header":
-  {
-    "accepted": "Asumido",
-    "default": "-",
-    "remediated": "Remediar",
-    "working": "Nuevo"
-  }
-},
   "forms":
 {
   "closure": "Cierre",
