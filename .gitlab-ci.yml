@@ -49,6 +49,7 @@ builder:
   <<: *kaniko_config
   script:
     - /kaniko/executor
+        --verbosity warn
         --cache true
         --cache-repo "${CI_REGISTRY_IMAGE}/cache"
         --cleanup
@@ -77,6 +78,7 @@ pelican:
         --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
         --build-arg ENV_DNS="${ENV_DNS}"
         --build-arg REGISTRY_IMAGE="${CI_REGISTRY_IMAGE}/review"
+        --verbosity warn
         --cleanup
         --context "${CI_PROJECT_DIR}/review/"
         --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
@@ -90,6 +92,7 @@ pelican:
           --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
           --build-arg ENV_DNS="${ENV_DNS}"
           --build-arg REGISTRY_IMAGE="${CI_REGISTRY_IMAGE}/review"
+          --verbosity warn
           --cleanup
           --context "${CI_PROJECT_DIR}/review/"
           --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
