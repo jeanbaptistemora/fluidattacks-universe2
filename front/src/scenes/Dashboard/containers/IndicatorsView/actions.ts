@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
+import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
@@ -57,54 +57,6 @@ export const loadIndicators: ((projectName: string) => ThunkResult<void>) =
             },
             type: actionTypes.LOAD_INDICATORS,
           });
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };
-
-export const removeTag: ((projectName: string, tagToRemove: string) => ThunkResult<void>) =
-  (projectName: string, tagToRemove: string): ThunkResult<void> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string;
-      gQry = `mutation {
-        removeTag (
-          tag: "${tagToRemove}",
-          projectName: "${projectName}"
-        ) {
-          success
-          project {
-            deletionDate
-            subscription
-            tags
-          }
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred removing tags")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-          if (data.removeTag.success) {
-            dispatch({
-              payload: {
-                deletionDate: data.removeTag.project.deletionDate,
-                subscription: data.removeTag.project.subscription,
-                tagsDataset: data.removeTag.project.tags,
-              },
-              type: actionTypes.LOAD_INDICATORS,
-            });
-            msgSuccess(
-              translate.t("search_findings.tab_resources.success_remove"),
-              translate.t("search_findings.tab_users.title_success"),
-            );
-          } else {
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error("An error occurred removing tags");
-          }
         })
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {
