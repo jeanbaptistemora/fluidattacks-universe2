@@ -85,6 +85,7 @@
 == Emails
 
 * link:115/[REQ.115 Filter malicious emails].
+* link:119/[REQ.119 Hide recipients].
 
 == Credentials
 
