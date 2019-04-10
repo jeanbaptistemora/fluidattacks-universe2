@@ -13,6 +13,7 @@
     "angular-elastic": "2.5.1",
     "angular-sanitize": "1.7.2",
     "angular-translate": "2.18.1",
+    "angular-ui-bootstrap": "2.5.0",
     "betsol-ng-intl-tel-input": "1.3.2",
     "browserify": "16.2.2",
     "eslint": "4.19.0",
