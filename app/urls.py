@@ -34,14 +34,9 @@ urlpatterns = [
     url(r'^forms/?\.*$', views.forms),
     url(r'^api/?\.*$',
         GraphQLView.as_view(graphiql=True if settings.DEBUG else False, schema=schema.SCHEMA)),
-    # Project view.
-    url(r'^project_findings/?\.*$', views.project_findings),
-    url(r'^project_drafts/?\.*$', views.project_drafts),
     # Dashboard view.
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
-    url(r'^get_drafts/?\.*$', views.get_drafts, name='get_drafts'),
     # Use of Formstack services.
-    url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
     url(r'^access_to_project/?\.*$', views.access_to_project, name='access_to_project'),
     url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),

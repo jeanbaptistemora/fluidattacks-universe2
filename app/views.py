@@ -34,8 +34,7 @@ from .decorators import (
     require_project_access, cache_content)
 from .techdoc.IT import ITReport
 from .dto.finding import (
-    FindingDTO, format_finding_date, parse_finding,
-    parse_dashboard_finding_dynamo
+    FindingDTO, format_finding_date, parse_finding
 )
 from .domain.vulnerability import (
     sort_vulnerabilities, group_specific
@@ -90,69 +89,6 @@ def error401(request):
 def forms(request):
     "Forms view"
     return render(request, "forms.html")
-
-
-@cache_control(private=True, max_age=3600)
-@authenticate
-def project_findings(request):
-    "Project view"
-    language = request.GET.get('l', 'en')
-    dic_lang = {
-        "search_findings": {
-            "descriptions": {
-                "description1": "",
-                "description2": "Click",
-                "description3": "on a finding to see more details"
-            },
-            "filter_buttons": {
-                "advance": "Progress",
-                "documentation": "Documentation"
-            },
-        }
-    }
-    if language == "es":
-        dic_lang = {
-            "search_findings": {
-                "descriptions": {
-                    "description1": "Haz",
-                    "description2": "click",
-                    "description3": "para ver mas detalles del hallazgo"
-                },
-                "filter_buttons": {
-                    "advance": "Avance",
-                    "documentation": "Documentacion"
-                }
-            }
-        }
-    return render(request, "project/findings.html", dic_lang)
-
-
-@cache_control(private=True, max_age=3600)
-@authenticate
-@authorize(['analyst', 'admin'])
-def project_drafts(request):
-    "Drafts view"
-    language = request.GET.get('l', 'en')
-    dic_lang = {
-        "search_findings": {
-            "descriptions": {
-                "description1": "",
-                "description2": "Click",
-                "description3": "on a finding to see more details"
-            },
-        }
-    }
-    if language == "es":
-        dic_lang = {
-            "search_findings": {
-                "descriptions": {
-                    "description1": "Haz",
-                    "description2": "click",
-                    "description3": "para ver mas detalles del hallazgo"
-                }
-            }
-        }
-    return render(request, "project/drafts.html", dic_lang)
 
 
 @csrf_exempt
@@ -408,69 +344,6 @@ def get_project_info(project):
         submission = FormstackAPI().get_submission(submission_id)
         return project_dto.parse(submission)
     return []
-
-
-@cache_control(private=True, max_age=3600)
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'admin'])
-@require_project_access
-def get_drafts(request):
-    """Capture and process the name of a project to return the drafts."""
-    project = request.GET.get('project', "")
-    api = FormstackAPI()
-    findings = []
-    finreqset = api.get_findings(project)["submissions"]
-    for submission_id in finreqset:
-        finding = catch_finding(request, submission_id["id"])
-        if finding['projectName'].lower() == project.lower() and \
-                ('releaseDate' not in finding or
-                    util.validate_future_releases(finding)):
-            if finding['vulnerability'].lower() == 'masked':
-                util.cloudwatch_log(request, 'Warning: Project masked')
-                return util.response([], 'Project masked', True)
-            if finding.get("edad"):
-                finding["releaseStatus"] = "Si"
-            else:
-                finding["releaseStatus"] = "No"
-            findings.append(finding)
-    return util.response(findings, 'Success', False)
-
-
-@cache_content
-@cache_control(private=True, max_age=3600)
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def get_findings(request):
-    """Capture and process the name of a project to return the findings."""
-    project = request.GET.get('project', "")
-    project = project.lower()
-    data_attr = "finding_id, records_number, vulnerability, \
-                lastVulnerability, releaseDate, finding_type, treatment, \
-                exploitability, confidentiality_impact, integrity_impact, \
-                availability_impact, access_complexity, authentication, \
-                access_vector, resolution_level, confidence_level, \
-                project_name, finding, cvss_version, attack_vector, \
-                attack_complexity, privileges_required, \
-                user_interaction, severity_scope, report_confidence, \
-                remediation_level"
-    findings = integrates_dao.get_findings_dynamo(project, data_attr)
-    findings_parsed = []
-    for finding in findings:
-        if (finding.get('vulnerability') and
-                finding.get('vulnerability').lower() == 'masked'):
-            util.cloudwatch_log(request, 'Warning: Project masked')
-            return util.response([], 'Project masked', True)
-        elif util.validate_release_date(finding):
-            finding_parsed = parse_dashboard_finding_dynamo(finding)
-            finding = format_finding(finding_parsed, request)
-            findings_parsed.append(finding)
-        else:
-            rollbar.report_message('Error: \
-An error occurred formatting finding', 'error', request)
-    return util.response(findings_parsed, 'Success', False)
 
 
 # pylint: disable=R1702

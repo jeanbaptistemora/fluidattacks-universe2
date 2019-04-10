@@ -19,12 +19,6 @@ mixPanelDashboard,$msg, $, Rollbar, eventsData, userEmail, userName,$document */
 angular.module("FluidIntegrates").factory(
   "functionsFtry1",
   function functionsFtry1Function (
-    $document,
-    $stateParams,
-    $translate,
-    $uibModal,
-    $window,
-    functionsFtry2,
     projectFtry
   ) {
     return {

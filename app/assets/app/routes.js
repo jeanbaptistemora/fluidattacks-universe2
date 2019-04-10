@@ -27,14 +27,8 @@ angular.module("FluidIntegrates").config((
       "url": "/home"
     }).
     state("ProjectIndicators", {"url": "/project/:project/indicators"}).
-    state("ProjectFindings", {
-      "controller": "projectFindingsCtrl",
-      "url": "/project/:project/findings"
-    }).
-    state("ProjectDrafts", {
-      "controller": "projectDraftsCtrl",
-      "url": "/project/:project/drafts"
-    }).
+    state("ProjectFindings", {"url": "/project/:project/findings"}).
+    state("ProjectDrafts", {"url": "/project/:project/drafts"}).
     state("ProjectEvents", {"url": "/project/:project/events"}).
     state("ProjectResources", {"url": "/project/:project/resources"}).
     state("ProjectUsers", {"url": "/project/:project/users"}).

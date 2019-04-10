@@ -908,27 +908,6 @@ def parse_evidence_description(finding):
     return evidence_tab_info
 
 
-def parse_dashboard_finding_dynamo(finding):
-    """Parse data from finding to show in dashboard."""
-    finding_titles = [
-        'report_date', 'vulnerability', 'finding_type', 'records_number',
-        'treatment', 'exploitability', 'project_name', 'finding'
-    ]
-    if finding:
-        finding_fields = {k: util.snakecase_to_camelcase(k)
-                          for k in finding_titles}
-        parsed_dict = {v: finding[k]
-                       for (k, v) in finding_fields.items()
-                       if k in finding.keys()}
-
-        parsed_dict['id'] = finding.get('finding_id')
-        parsed_dict['lastVulnerability'] = finding.get('lastVulnerability')
-        parsed_dict['releaseDate'] = finding.get('releaseDate')
-        parsed_severity = parse_severity(finding)
-        parsed_dict = forms.dict_concatenation(parsed_dict, parsed_severity)
-    return parsed_dict
-
-
 def get_project_name(finding_id):
     """Get the name of the project of a finding."""
     project = integrates_dao.get_finding_project(finding_id)
