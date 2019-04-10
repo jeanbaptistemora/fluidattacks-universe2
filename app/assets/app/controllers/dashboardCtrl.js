@@ -20,11 +20,8 @@ $window */
 angular.module("FluidIntegrates").controller(
   "dashboardCtrl",
   function dashboardCtrl (
-    $q,
     $scope,
     $state,
-    $stateParams,
-    $timeout,
     $translate,
     dashboardFtry
   ) {

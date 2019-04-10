@@ -21,11 +21,7 @@ $window */
 angular.module("FluidIntegrates").controller(
   "navbarCtrl",
   function navbarCtrl (
-    $q,
     $scope,
-    $state,
-    $stateParams,
-    $translate,
     $uibModal,
     $window
   ) {
