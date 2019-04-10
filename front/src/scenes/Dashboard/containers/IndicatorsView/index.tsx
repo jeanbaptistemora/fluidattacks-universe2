@@ -1,15 +1,10 @@
 import _ from "lodash";
 import React from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { Button } from "../../../../components/Button/index";
-import { dataTable as DataTable } from "../../../../components/DataTable/index";
-import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import { IDashboardState } from "../../reducer";
@@ -21,11 +16,7 @@ type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }
 type IIndicatorsViewStateProps = IDashboardState["indicators"];
 
 interface IIndicatorsViewDispatchProps {
-  onCloseAddModal(): void;
   onLoad(): void;
-  onOpenAddModal(): void;
-  onRemoveTag(tag: string): void;
-  onSaveTags(tags: IIndicatorsViewStateProps["tagsDataset"]): void;
 }
 
 type IIndicatorsViewProps = IIndicatorsViewBaseProps & (IIndicatorsViewStateProps & IIndicatorsViewDispatchProps);
@@ -39,94 +30,6 @@ interface IGraphData {
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IIndicatorsViewProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
 });
-
-const removeTag: ((props: IIndicatorsViewProps) => void) = (props: IIndicatorsViewProps): void => {
-  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblTags tr input:checked");
-  if (selectedQry.length > 0) {
-    if (selectedQry[0].closest("tr") !== null) {
-      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-      const tag: string | null = selectedRow.children[1].textContent;
-      props.onRemoveTag(String(tag));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred removing tags");
-    }
-  } else {
-    msgError(translate.t("search_findings.tab_resources.no_selection"));
-  }
-};
-
-const saveTags: ((tags: IIndicatorsViewProps["tagsDataset"], props: IIndicatorsViewProps) => void) =
-  (tags: IIndicatorsViewProps["tagsDataset"], props: IIndicatorsViewProps): void => {
-    let containsRepeated: boolean;
-    containsRepeated = tags.filter(
-      (newItem: IIndicatorsViewProps["tagsDataset"][0]) => _.findIndex(
-        props.tagsDataset,
-        (currentItem: IIndicatorsViewProps["tagsDataset"][0]) =>
-          currentItem === newItem,
-      ) > -1).length > 0;
-    if (containsRepeated) {
-      msgError(translate.t("search_findings.tab_resources.repeated_item"));
-    } else {
-      props.onSaveTags(tags);
-    }
-  };
-/* tslint:disable-next-line:no-unused-variable
- * Disable this rule because this code will be removed in the next MR
- */
-const renderTagsView: ((props: IIndicatorsViewProps) => JSX.Element) = (props: IIndicatorsViewProps): JSX.Element => {
-  const tagsDataset: Array<{ tagName: string }> = props.tagsDataset.map((tagName: string) => ({ tagName }));
-
-  const handleOpenAddModal: (() => void) = (): void => { props.onOpenAddModal(); };
-  const handleCloseAddModal: (() => void) = (): void => { props.onCloseAddModal(); };
-  const handleRemoveTagClick: (() => void) = (): void => { removeTag(props); };
-  const handleSubmit: ((values: { tags: IIndicatorsViewProps["tagsDataset"] }) => void) =
-    (values: { tags: IIndicatorsViewProps["tagsDataset"] }): void => { saveTags(values.tags, props); };
-
-  return (
-    <React.Fragment>
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={12} sm={12} xs={12}>
-              <Row>
-                <Col md={12}>
-                  <Col mdOffset={4} md={2} sm={6}>
-                    <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenAddModal}>
-                      <Glyphicon glyph="plus" />&nbsp;
-                      {translate.t("search_findings.tab_resources.add_repository")}
-                    </Button>
-                  </Col>
-                  <Col md={2} sm={6}>
-                    <Button id="removeTag" block={true} bsStyle="primary" onClick={handleRemoveTagClick}>
-                      <Glyphicon glyph="minus" />&nbsp;
-                      {translate.t("search_findings.tab_resources.remove_repository")}
-                    </Button>
-                  </Col>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12} sm={12}>
-                  <DataTable
-                    dataset={tagsDataset}
-                    enableRowSelection={true}
-                    exportCsv={false}
-                    search={false}
-                    headers={[{ dataField: "tagName", header: "Tags", isDate: false, isStatus: false }]}
-                    id="tblTags"
-                    pageSize={15}
-                    title={""}
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-      <AddTagsModal isOpen={props.addModal.open} onClose={handleCloseAddModal} onSubmit={handleSubmit} />
-    </React.Fragment>
-  );
-};
 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
@@ -282,11 +185,9 @@ const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewP
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsViewProps, IState> =
   (state: IState): IIndicatorsViewStateProps => ({
-    addModal: state.dashboard.indicators.addModal,
     closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
     currentMonthAuthors: state.dashboard.indicators.currentMonthAuthors,
     currentMonthCommits: state.dashboard.indicators.currentMonthCommits,
-    deletionDate: state.dashboard.indicators.deletionDate,
     lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
     maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
     maxSeverity: state.dashboard.indicators.maxSeverity,
@@ -294,8 +195,6 @@ const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsVie
     openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
     pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
     repositories: state.dashboard.indicators.repositories,
-    subscription: state.dashboard.indicators.subscription,
-    tagsDataset: state.dashboard.indicators.tagsDataset,
     totalFindings: state.dashboard.indicators.totalFindings,
     totalTreatment: state.dashboard.indicators.totalTreatment,
   });
@@ -305,13 +204,7 @@ const mapDispatchToProps: MapDispatchToProps<IIndicatorsViewDispatchProps, IIndi
     const { projectName } = ownProps.match.params;
 
     return ({
-      onCloseAddModal: (): void => { dispatch(actions.closeAddModal()); },
       onLoad: (): void => { dispatch(actions.loadIndicators(projectName)); },
-      onOpenAddModal: (): void => { dispatch(actions.openAddModal()); },
-      onRemoveTag: (tag: string): void => { dispatch(actions.removeTag(projectName, tag)); },
-      onSaveTags: (tags: IIndicatorsViewProps["tagsDataset"]): void => {
-        dispatch(actions.saveTags(projectName, tags));
-      },
     });
   };
 

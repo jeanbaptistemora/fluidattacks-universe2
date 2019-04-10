@@ -75,13 +75,9 @@ export interface IDashboardState {
     };
   };
   indicators: {
-    addModal: {
-      open: boolean;
-    };
     closedVulnerabilities: number;
     currentMonthAuthors: number;
     currentMonthCommits: number;
-    deletionDate: string;
     lastClosingVuln: number;
     maxOpenSeverity: number;
     maxSeverity: number;
@@ -89,8 +85,6 @@ export interface IDashboardState {
     openVulnerabilities: number;
     pendingClosingCheck: number;
     repositories: Array<{ branch: string; urlRepo: string }>;
-    subscription: string;
-    tagsDataset: string[];
     totalFindings: number;
     totalTreatment: { [value: string]: number };
   };
@@ -238,13 +232,9 @@ const initialState: IDashboardState = {
     },
   },
   indicators: {
-    addModal: {
-      open: false,
-    },
     closedVulnerabilities: 0,
     currentMonthAuthors: 0,
     currentMonthCommits: 0,
-    deletionDate: "",
     lastClosingVuln: 0,
     maxOpenSeverity: 0,
     maxSeverity: 0,
@@ -252,8 +242,6 @@ const initialState: IDashboardState = {
     openVulnerabilities: 0,
     pendingClosingCheck: 0,
     repositories: [],
-    subscription: "",
-    tagsDataset: [],
     totalFindings: 0,
     totalTreatment: {},
   },
