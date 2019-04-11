@@ -107,13 +107,14 @@ def get_last_closing_vuln(findings):
     for fin in findings:
         vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
             fin['finding_id'])
-        for vuln in vulnerabilities:
-            last_closing_date = get_last_closing_date(vuln)
-            if last_closing_date:
-                closing_dates.append(last_closing_date)
-            else:
-                # Vulnerability does not have closing date
-                pass
+        closing_vuln_date = [get_last_closing_date(vuln)
+                             for vuln in vulnerabilities
+                             if is_vulnerability_closed(vuln)]
+        if closing_vuln_date:
+            closing_dates.append(max(closing_vuln_date))
+        else:
+            # Vulnerability does not have closing date
+            pass
     if closing_dates:
         current_date = max(closing_dates)
         tzn = pytz.timezone('America/Bogota')
@@ -140,6 +141,14 @@ def get_last_closing_date(vulnerability):
         # Vulnerability does not have closing date
         pass
     return last_closing_date
+
+
+def is_vulnerability_closed(vulnerability):
+    """Return if a vulnerability is closed."""
+    all_states = vulnerability.get('historic_state')
+    current_state = all_states[len(all_states) - 1]
+    is_vuln_closed = current_state.get('state') == 'closed'
+    return is_vuln_closed
 
 
 def get_max_severity(findings):
