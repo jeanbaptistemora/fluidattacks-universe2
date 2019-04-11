@@ -3,9 +3,10 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de definir el tiempo de vida máximo para las claves de un sólo uso dentro del sistema. Por lo tanto, se recomienda establecer un valor que no supere los 60 segundos.
 :keywords: Requerimiento, Seguridad, Tiempo de vida, Clave, Validez, Máximo.
 :rules: yes
+:translate: rules/140/
 
 = REQ.140 Establecer tiempo de vida de clave
 
 == Requisito
 
-Las claves de un sólo uso deben tener un validez máxima de 60 segundos.
+Las claves de un solo uso deben tener un validez máxima de 60 segundos.

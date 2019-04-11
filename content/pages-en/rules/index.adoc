@@ -100,6 +100,7 @@
 * link:134/[REQ.134 Store passwords with salt].
 * link:135/[REQ.135 Passwords with random salt].
 * link:136/[REQ.136 Force temporary passwords changing].
+* link:140/[REQ.140 Define password lifespan].
 * link:141/[REQ.141 Force re authentication].
 * link:142/[REQ.142 Change system default credentials].
 * link:143/[REQ.143 Unique Access Credentials].
