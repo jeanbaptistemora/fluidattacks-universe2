@@ -26,18 +26,24 @@ In the background, we have used a spreadsheet, which is hard to extend.
 We have used link:https://gnu.org/software/octave/[GNU Octave],
 which is good, but not a proper programming language.
 Our favorite language at Fluid Attacks, `Python`,
-has modules for statistics, numerical computation and even finance itself.
+has modules for
+link:https://docs.python.org/3/library/statistics.html[statistics],
+link:https://www.scipy.org/[scientific computation] and even
+link:https://pypi.org/project/finance/[finance] itself.
 Let's take it for a spin around this risky neighborhood.
 
 `Python` has a whole ecosystem
-for numerical (v.g. `Numpy`) and statistical (`Pandas`) computation
+for numerical computing (v.g. link:www.numpy.org[`Numpy`]) and
+data analysis (link:http://pandas.pydata.org/[`Pandas`])
 and is well on its way to becoming a standard in
 link:https://www.linuxjournal.com/content/jupyter-future-open-science[Open Science].
 Being a free and open source tool,
 there are also many derived projects which make life easier
-when coding, such as the `Jupyter` Notebook,
+when coding, such as the link:https://jupyter.org/[`Jupyter` Notebook],
 which allows us to selectively run code snippets,
-much like in commercial packages such as `Matlab` and `Mathematica`.
+much like in commercial packages such as
+link:https://mathworks.com/products/matlab[`Matlab`] and
+link:http://www.wolfram.com/mathematica/[`Mathematica`].
 This enables and encourages, at least, initial exploration,
 although it might not be the best fit for developing more involved code.
 
@@ -46,9 +52,9 @@ via Monte Carlo simulation.
 Here we will closely follow our
 link:../monetizing-vulnerabilities/[article on the subject],
 so as not to duplicate information.
-In said article, we wanted to find a distribution for losses
-based on expert estimations of
-occurrence likelihood and confidence intervals for the impact:
+In that article, we wanted to find a distribution for losses
+based on expert estimations of occurrence likelihood
+and confidence intervals for the impact:
 
 .Table with input data
 image::../monetizing-vulnerabilities/loss-risks-table.png[Table with input data]
@@ -90,15 +96,15 @@ whose parameters we got from the estimated confidence interval:
 def lognormal_event_result(lower, upper):
     mean = (np.log(upper) + np.log(lower))/2.0
     stdv = (np.log(upper) - np.log(lower))/3.29
-    return np.random.lognormal(mean,stdv)
+    return np.random.lognormal(mean, stdv)
 ----
 
 All of the events in the above table
 can happen in a single year,
-so to simulate an scenario,
+so to simulate a scenario,
 we need to find out, for each of them,
 if they happen, and how much money they will cost us.
-Finally we add all the losses and
+Finally, we add all the losses and
 return that single number as a summary of the losses in a simulated year:
 
 [source,python]
@@ -107,11 +113,11 @@ def simulate_scenario():
     total_loss = 0
     for _, event in events.iterrows():
         if event_happens(event['Probability']):
-            total_loss += lognormal_event_result(event['Lower'],event['Upper'])
+            total_loss += lognormal_event_result(event['Lower'], event['Upper'])
     return total_loss
 ----
 
-Finally the crucial step in Monte-Carlo simulation
+Now, the crucial step in Monte-Carlo simulation
 is to simulate many scenarios and record those results.
 Let us write a function that does just this,
 returning the results in a basic `Python` list,
@@ -138,7 +144,9 @@ the result of each simulated year,
 in the order in which they were obtained.
 As foretold, we could convert the results
 into a `Pandas` `DataSeries`, if anything,
-to illustrate how they work:
+to illustrate how they work.
+We also need to import link:https://matplotlib.org/[`Matplotlib`]
+for visualization:
 
 [source,python]
 ----
@@ -163,7 +171,7 @@ results_series.hist()
 ----
 
 .Histogram of results
-image:results-hist.png[Histogram of results]
+image::results-hist.png[Histogram of results]
 
 We're getting closer to the loss exceedance curve, but not there yet.
 Recall that the loss exceedance curve gives,
@@ -217,11 +225,11 @@ is a little more than $942 million.
 ''''
 
 Let this article serve merely as a taste of
-what can be done using Data Analysis tools
+what can be done using data analysis tools
 in the numerical `Python` ecosystem.
 There are plenty of modules specifically for finance
 and Monte Carlo simulations.
-Imagine what those could do for your organization,
+Imagine what those could do for your organization
 in regards to risk management.
 Stay tuned for more of risk-applied `Python`.
 
@@ -235,7 +243,3 @@ link:https://pbpython.com/monte-carlo.html[_Monte Carlo Simulation with Python_]
 
 . [[r3]] B. Mikulski (2018).
 link:https://mikulskibartosz.name/monte-carlo-simulation-in-python-d63f0cfcdf6f[_Monte Carlo simulation in Python_]
-
-. [[r4]] S. Savage (2012).
-_The Flaw of Averages: Why We Underestimate Risk in the Face of Uncertainty_.
-link:http://flawofaverages.com/[Wiley].
