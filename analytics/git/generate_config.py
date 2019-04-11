@@ -53,7 +53,7 @@ for proj in os.listdir(TARGET):
         nested_proj = proj.replace("-", "/")
         project_path = f"{SOURCE}/subscriptions/{nested_proj}"
 
-    ymlconf_path = f"{project_path}/config.yml"
+    ymlconf_path = f"{project_path}/config/config.yml"
     mailmap_path = f"{project_path}/.mailmap"
 
     if not os.path.exists(ymlconf_path):

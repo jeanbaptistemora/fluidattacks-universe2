@@ -25,7 +25,7 @@ done
 ./analytics/git/taint.py set username "lines.csv"
 echo "$output" | grep -o -E '^[a-zA-Z0-9_-]+' | uniq | while read subs
 do
-  lines_csv_path="$continuous_path/subscriptions/${subs/-//}/lines.csv"
+  lines_csv_path="$continuous_path/subscriptions/${subs/-//}/toe/lines.csv"
   echo "path: $lines_csv_path"
   if [ -f "$lines_csv_path" ]; then
     ./analytics/git/taint.py database wring "$lines_csv_path"

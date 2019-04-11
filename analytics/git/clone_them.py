@@ -119,7 +119,7 @@ def get_repo_user_pass(prot: str, project: str) -> Tuple[str, str]:
 def parse_config(
         subscription: str) -> Tuple[List[Tuple[Any, Any]], str, str, str]:
     """Parse the config.yml."""
-    with open(f"{subscription}/config.yml", "r") as config_file:
+    with open(f"{subscription}/config/config.yml", "r") as config_file:
         yml_file = yaml.load(config_file)
 
     config = yml_file.get("code", None)
