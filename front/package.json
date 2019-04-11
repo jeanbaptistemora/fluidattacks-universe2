@@ -103,7 +103,8 @@
     "@types/react-burger-menu": "2.2.3",
     "react-media": "1.9.2",
     "webpack-cli": "3.2.3",
-    "react-svg": "8.0.1"
+    "react-svg": "8.0.1",
+    "react-toastify": "5.0.0"
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",

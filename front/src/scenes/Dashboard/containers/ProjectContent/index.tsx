@@ -6,7 +6,7 @@ import { NavLink, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import {eventsView as EventsView } from "../EventsView/index";
+import { eventsView as EventsView } from "../EventsView/index";
 import ProjectIndicatorsView from "../IndicatorsView/index";
 import ProjectCommentsView from "../ProjectCommentsView/index";
 import ProjectDraftsView from "../ProjectDraftsView";

@@ -1,0 +1,12 @@
+:local .success {
+    background-color: #525A5C;
+}
+
+:local .error {
+    background-color: #FF3435;
+}
+
+:local .container {
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 2px;
+}

@@ -3,6 +3,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
+ * Disabling this two rules is necessary for
+ * allowing the import of default styles that ReactToastify needs
+ * to display properly even if some of them are overridden later
+ */
+import "react-toastify/dist/ReactToastify.min.css";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import store from "../../store/index";
 import Navbar from "./components/Navbar/index";
@@ -38,6 +45,7 @@ const dashboardView: React.SFC = (): JSX.Element => (
       </React.Fragment>
     </BrowserRouter>
     <ScrollUpButton visibleAt={400} />
+    <ToastContainer position="top-right" autoClose={5000} hideProgressBar={true} closeOnClick={false} />
   </React.StrictMode>
 );
 
