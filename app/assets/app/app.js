@@ -8,7 +8,7 @@
 /* eslint-disable angular/window-service */
 /* global
 document, jQuery, $, location, angular, isProduction:true,
-translations1, traducciones1, translations2, traducciones2, Rollbar
+translations1, traducciones1, Rollbar
 */
 /**
  * @file app.js
@@ -99,9 +99,7 @@ angular.module("FluidIntegrates").config([
     }
     $translateProvider.
       translations("en", translations1).
-      translations("en", translations2).
       translations("es", traducciones1).
-      translations("es", traducciones2).
       preferredLanguage(localStorage.lang);
   }
 ]);
