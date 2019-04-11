@@ -37,11 +37,9 @@ urlpatterns = [
     # Dashboard view.
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     # Use of Formstack services.
-    url(r'^access_to_project/?\.*$', views.access_to_project, name='access_to_project'),
     url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),
     url(r'^(?P<findingid>[0-9]+)/download_vulnerabilities?$', views.download_vulnerabilities),
-    url(r'^is_customer_admin/?\.*$', views.is_customer_admin, name='is_customer_admin'),
     # Documentation.
     url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$',
         views.project_to_pdf),

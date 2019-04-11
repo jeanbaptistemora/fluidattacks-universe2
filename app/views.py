@@ -30,8 +30,7 @@ import yaml
 # pylint: disable=E0402
 from . import util
 from .decorators import (
-    authenticate, authorize,
-    require_project_access, cache_content)
+    authenticate, authorize, cache_content)
 from .techdoc.IT import ITReport
 from .dto.finding import (
     FindingDTO, format_finding_date, parse_finding
@@ -47,7 +46,6 @@ from .documentator.secure_pdf import SecurePDF
 from .services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
-from .services import is_customeradmin
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
@@ -346,29 +344,6 @@ def get_project_info(project):
     return []
 
 
-# pylint: disable=R1702
-# pylint: disable=R0915
-def catch_finding(request, submission_id):
-    finding = []
-    fin_dto = FindingDTO()
-    api = FormstackAPI()
-    if str(submission_id).isdigit() is True:
-        submission_data = api.get_submission(submission_id)
-        if submission_data is None or 'error' in submission_data:
-            return None
-        else:
-            finding = fin_dto.parse(
-                submission_id,
-                submission_data
-            )
-            finding = format_finding(finding, request)
-            return finding
-    else:
-        rollbar.report_message('Error: An error occurred catching finding',
-                               'error', request)
-        return None
-
-
 def format_finding(finding, request):
     """Format some attributes in a finding."""
     finding_id = finding.get('id')
@@ -595,33 +570,6 @@ def delete_comment(comment):
     else:
         response = True
     return response
-
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-@require_project_access
-def is_customer_admin(request):
-    project = request.GET.get('project', "")
-    email = request.GET.get('email', "")
-    try:
-        if is_customeradmin(project, email):
-            return util.response(True, 'Success', False)
-        return util.response(False, 'Success', False)
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response(False, 'Error', True)
-
-
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-def access_to_project(request):
-    project = request.GET.get('project', "")
-    if has_access_to_project(request.session['username'], project, request.session['role']):
-        return util.response(True, 'success', False)
-    return util.response(False, 'success', False)
 
 
 def delete_project(project):
