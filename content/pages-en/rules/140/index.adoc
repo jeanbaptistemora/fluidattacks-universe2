@@ -5,7 +5,7 @@
 :rules: yes
 :translate: rules/140/
 
-= REQ.140 Define password lifespan
+= REQ.140 Define OTP lifespan
 
 == Requirement
 
