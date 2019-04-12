@@ -1,53 +1,62 @@
-import mixpanel from "mixpanel-browser";
 import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Disabling this two rules is necessary for
- * allowing the import of default styles that ReactToastify needs
- * to display properly even if some of them are overridden later
- */
-import "react-toastify/dist/ReactToastify.min.css";
+import { connect, MapDispatchToProps } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import ConfirmDialog from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
-import store from "../../store/index";
+import { openConfirmDialog, ThunkDispatcher } from "./actions";
 import Navbar from "./components/Navbar/index";
+import { Sidebar } from "./components/Sidebar";
 import {
   eventDescriptionView as EventDescriptionView, eventEvidenceView as EventEvidenceView,
 } from "./containers/EventDescriptionView/index";
 import FindingContent from "./containers/FindingContent/index";
 import ProjectContent from "./containers/ProjectContent/index";
+import style from "./index.css";
 
-const dashboardView: React.SFC = (): JSX.Element => (
-  <React.StrictMode>
-    <BrowserRouter basename={"/integrates/dashboard#!"}>
-      <React.Fragment>
-        <Provider store={store}>
-          <React.Fragment>
-            <Navbar />
-            <Switch>
-              <Route
-                path="/project/:projectName/events/:eventId(\d+)/description"
-                exact={true}
-                component={EventDescriptionView}
-              />
-              <Route
-                path="/project/:projectName/events/:eventId(\d+)/evidence"
-                exact={true}
-                component={EventEvidenceView}
-              />
-              <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
-              <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
-            </Switch>
-          </React.Fragment>
-        </Provider>
-      </React.Fragment>
-    </BrowserRouter>
-    <ScrollUpButton visibleAt={400} />
-    <ToastContainer position="top-right" autoClose={5000} hideProgressBar={true} closeOnClick={false} />
-  </React.StrictMode>
-);
+type IDashboardBaseProps = undefined;
+type IDashboardStateProps = undefined;
 
-mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
-ReactDOM.render(React.createElement(dashboardView), document.getElementById("root"));
+interface IDashboardDispatchProps {
+  onLogout(): void;
+}
+
+type IDashboardProps = IDashboardBaseProps & (IDashboardStateProps & IDashboardDispatchProps);
+
+const dashboard: React.SFC<IDashboardProps> = (props: IDashboardProps): JSX.Element => {
+  const handleSidebarLogoutClick: (() => void) = (): void => { props.onLogout(); };
+  const handleLogout: (() => void) = (): void => { location.assign("/integrates/logout"); };
+
+  return (
+    <React.StrictMode>
+      <Sidebar onLogoutClick={handleSidebarLogoutClick} />
+      <div className={style.container}>
+        <Navbar />
+        <Switch>
+          <Route
+            path="/project/:projectName/events/:eventId(\d+)/description"
+            exact={true}
+            component={EventDescriptionView}
+          />
+          <Route
+            path="/project/:projectName/events/:eventId(\d+)/evidence"
+            exact={true}
+            component={EventEvidenceView}
+          />
+          <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
+          <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
+        </Switch>
+      </div>
+      <ScrollUpButton visibleAt={400} />
+      <ConfirmDialog name="confirmLogout" onProceed={handleLogout} title={"Logout"} />
+    </React.StrictMode>
+  );
+};
+
+const mapStateToProps: undefined = undefined;
+
+const mapDispatchToProps: MapDispatchToProps<IDashboardDispatchProps, IDashboardBaseProps> =
+  (dispatch: ThunkDispatcher): IDashboardDispatchProps => ({
+    onLogout: (): void => { dispatch(openConfirmDialog("confirmLogout")); },
+  });
+
+export = connect(mapStateToProps, mapDispatchToProps)(dashboard);

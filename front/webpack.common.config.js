@@ -6,7 +6,7 @@ const path = require("path");
 module.exports = {
   entry: {
     main: "./src/index.ts",
-    dashboard: "./src/scenes/Dashboard/index.tsx"
+    dashboard: "./src/app.tsx"
   },
   output: {
     filename: '[name]-bundle.min.js',

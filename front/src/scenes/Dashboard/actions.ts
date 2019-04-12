@@ -17,7 +17,7 @@ export interface IActionStructure {
 }
 
 type DashboardAction = ((...args: any[]) => IActionStructure);
-type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
+export type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
 type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
 
 export const addFileName: DashboardAction =
