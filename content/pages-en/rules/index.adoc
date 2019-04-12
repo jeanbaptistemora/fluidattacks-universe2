@@ -48,6 +48,7 @@
 * link:055/[REQ.055 Document system security cases].
 * link:058/[REQ.058 Document security events].
 * link:061/[REQ.061 Document security chapter].
+* link:063/[REQ.063 Verify security requirements].
 * link:066/[REQ.066 Define components to be tested].
 * link:070/[REQ.070 Define automated security testing].
 
