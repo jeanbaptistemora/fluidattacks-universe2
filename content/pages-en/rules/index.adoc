@@ -56,6 +56,7 @@
 * link:075/[REQ.075 Record exceptional events in logs].
 * link:079/[REQ.079 Record exact occurrence time of events].
 * link:080/[REQ.080 Prevent log modification].
+* link:081/[REQ.081 Store logs according to legislation].
 * link:083/[REQ.083 Avoid sensitive data logging].
 * link:084/[REQ.084 Allow transaction history queries].
 * link:085/[REQ.085 Allow session history queries].
