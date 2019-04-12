@@ -130,6 +130,7 @@
 * link:169/[REQ.169 Use parameterized sentences].
 * link:174/[REQ.174 Transactions without distinguishable pattern].
 * link:173/[REQ.173 Discard unsafe inputs].
+* link:175/[REQ.175 Protect pages from clickjacking].
 * link:302/[REQ.302 Declare dependencies explicitly]
 
 == Data
