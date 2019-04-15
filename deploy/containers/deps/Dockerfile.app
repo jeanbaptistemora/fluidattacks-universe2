@@ -33,7 +33,7 @@ RUN apt-get update \
         default-libmysqlclient-dev \
         libapache2-mod-wsgi \
         libmagic1 \
-        libmariadbclient18 \
+        libmariadb3 \
         nodejs \
         python \
         python-dev \

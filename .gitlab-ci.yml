@@ -86,6 +86,7 @@ deps-app:
         --destination "${CI_REGISTRY_IMAGE}/deps:app"
         --single-snapshot
         --snapshotMode time
+        --verbosity warn
   retry: 1
   only:
     - schedules
@@ -103,6 +104,7 @@ deps-ci:
         --destination "${CI_REGISTRY_IMAGE}/deps:ci"
         --single-snapshot
         --snapshotMode time
+        --verbosity warn
   retry: 1
   only:
     - schedules
@@ -285,6 +287,7 @@ build-integrates:
         --destination "${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
         --single-snapshot
         --snapshotMode time
+        --verbosity warn
   retry: 1
   artifacts:
     expire_in: 30m
@@ -308,6 +311,7 @@ build-bot:
         --destination "${CI_REGISTRY_IMAGE}/bot:${CI_COMMIT_REF_NAME}"
         --single-snapshot
         --snapshotMode time
+        --verbosity warn
   retry: 1
 
 driver-testing:

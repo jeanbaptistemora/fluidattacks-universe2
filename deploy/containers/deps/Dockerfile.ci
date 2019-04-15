@@ -38,7 +38,7 @@ RUN apt-get update \
         default-libmysqlclient-dev \
         git \
         firefox-esr \
-        libmariadbclient18 \
+        libmariadb3 \
         nodejs \
         python \
         python-dev \
