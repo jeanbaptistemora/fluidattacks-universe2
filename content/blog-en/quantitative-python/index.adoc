@@ -139,7 +139,8 @@ def monte_carlo(rounds):
 ----
 
 Just to get a feeling for the results,
-let us plot them, that is,
+let us run a thousand scenarios and
+plot them, that is,
 the result of each simulated year,
 in the order in which they were obtained.
 As foretold, we could convert the results
@@ -151,7 +152,7 @@ for visualization:
 [source,python]
 ----
 import matplotlib.pyplot as plt
-results = monte_carlo(100)
+results = monte_carlo(1000)
 results_series = pd.Series(results)
 results_series.plot()
 ----
@@ -161,7 +162,21 @@ image::results-raw.png[Raw Monte-Carlo results]
 
 It can be observed that the vast majority of them
 are in the fringe between 0 and 15 million.
-However, these results are not as useful as they could be
+But it is not infeasible to have results that are way beyond
+the central interval.
+In order to rule out what's simple chance and
+what is really happening due to the distribution of loss,
+we can simply run more scenarios.
+Tens or hundreds of thousands of scenarios is
+a good rule of thumb, without sacrificing performance.
+A thousand runs takes around 5 seconds,
+and 10000 takes around 50.
+At some point adding more simulations
+does not necessarily improve the quality of results.
+Your mileage may vary.
+
+No matter the number of scenarios,
+the results are not as useful as they could be
 until we aggregate them, v.g., in a histogram.
 `Pandas` also provides a shorthand for this:
 
@@ -209,18 +224,35 @@ And voilá, we get our loss exceedance curve as we sought:
 image::lec-simple.png[Simple loss exceedance curve]
 
 Now obtaining the 5% value at risk is simply a matter
-of asking for the fifth percentile of
+of asking for the 95% percentile of
 the "distribution", i.e., the actual simulation results,
 in its `Numpy`-array incarnation:
 
 [source,python]
 ----
->>> np.percentile(arr, 5)
-942174840.5763189
+>>> np.percentile(arr, 95)
+23360441.53826834
 ----
 
 Hence the `VaR`, according to this particular simulation
-is a little more than $942 million.
+is a little over $23 million.
+Just as simple as it is to obtain the
+link:../para-bellum/[tail value at risk].
+If we had a mathematical function for the distribution
+we would have to compute an integral in order to obtain it,
+but since what we have is a _discrete_ approximation to it,
+i.e., a simple table of values,
+we can just average the values that are under the `VaR`:
+
+
+[source,python]
+----
+>>> np.average(arr[arr >= var])
+31949559.99328234
+----
+
+Thus in case of a `VaR` breach,
+we can expect the loss to be of little less than $32 million.
 
 ''''
 
