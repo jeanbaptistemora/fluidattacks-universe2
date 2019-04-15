@@ -10,4 +10,4 @@
 == Requirement
 
 The client of business emails
-must not interpret +HTML+ code by default.
+must not display +HTML+ code by default.
