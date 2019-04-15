@@ -89,7 +89,7 @@
     "redux-thunk": "2.3.0",
     "i18next": "13.1.5",
     "react-image-lightbox": "5.1.0",
-    "nyc": "13.3.0",
+    "nyc": "14.0.0-rc.1",
     "react-router": "4.3.1",
     "@types/react-router": "4.4.4",
     "react-router-dom": "4.3.1",
