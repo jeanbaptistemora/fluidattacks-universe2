@@ -32,6 +32,7 @@ pyflakes==1.6.0
 pykwalify==1.7.0
 pylint==1.7.1
 pylint-django==0.7.2
+pyotp==2.2.7
 pypdf2==1.26.0
 pytest==4.0.2
 pytest-cov==2.6.0

@@ -1,4 +1,5 @@
 import os
+import pyotp
 import time
 
 from selenium import webdriver
@@ -27,6 +28,7 @@ class ViewTestCase(unittest.TestCase):
                 'https://{}.integrates.env.fluidattacks.com/integrates'.format(self.branch)
         self.username = os.environ['FI_INTEGRATES_USER']
         self.password = os.environ['FI_INTEGRATES_USERPASS']
+        self.otp = pyotp.TOTP(os.environ['FI_INTEGRATES_USEROTP'])
 
         super(ViewTestCase, self).setUp()
 
@@ -57,6 +59,22 @@ class ViewTestCase(unittest.TestCase):
                                    "//*[contains(@type, 'password')]")))
 
         pass_id.send_keys(self.password)
+        selenium.find_elements_by_xpath(
+            "//*[contains(text(), 'Next')]")[1].click()
+        time.sleep(3)
+        WebDriverWait(selenium,
+                      self.delay).until(
+                          EC.presence_of_element_located(
+                              (By.XPATH,
+                              "//*[contains(text(), 'Google Authenticator')]"))
+                          ).click()
+        time.sleep(3)
+
+        otp_id = WebDriverWait(selenium,
+                               self.delay).until(
+                                   EC.presence_of_element_located(
+                                       (By.ID, 'totpPin')))
+        otp_id.send_keys(self.otp.now())
         selenium.find_elements_by_xpath(
             "//*[contains(text(), 'Next')]")[1].click()
         WebDriverWait(selenium,
