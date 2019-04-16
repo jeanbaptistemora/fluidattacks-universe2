@@ -9,8 +9,5 @@ cp sitemap.xml output/sitemap.xml
 # Append all the URLs of the english subsite to the main file without the XML headers and the closing tag
 tail -n +6 output/web/en/sitemap.xml | head -n -1 >> output/sitemap.xml
 
-# Append all the URLs of the spanish subsite to the main file without the XML headers
-tail -n +6 output/web/es/sitemap.xml >> output/sitemap.xml
-
 # With the main file complete, remove the incomplete files
-rm {output/web/en/sitemap.xml,output/web/es/sitemap.xml}
+rm output/web/en/sitemap.xml

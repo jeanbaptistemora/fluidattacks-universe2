@@ -26,12 +26,9 @@ RUN pybabel compile --directory theme/2014/translations/ --domain messages \
     && pelican --fatal errors --fatal warnings content/ \
     && mv robots.txt output/web/ \
     && mv output/web/en/blog-en/* output/web/en/blog \
-    && mv output/web/es/blog-es/* output/web/es/blog \
-    && cp -r output/web/es/pages-es/* output/web/es/ \
     && cp -r output/web/en/pages-en/* output/web/en/ \
     && mv output/web/en/redirect/index.html output/web/ \
     && rmdir output/web/en/redirect \
-    && rm -rf output/web/es/pages-es \
     && rm -rf output/web/en/pages-en \
     && rm -rf output/web/de \
     && ./xmlcombine.sh \

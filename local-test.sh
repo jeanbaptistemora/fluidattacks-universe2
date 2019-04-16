@@ -28,7 +28,7 @@ rm -rf output/web/de
 
 # Copy static files (images, code, ...) to the folder of the respective .html
 # article
-mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
+mv output/web/en/blog-en/* output/web/en/blog
 
 echo "Updating sitemap, setting redirect and pages images (3/4) . . ."
 
@@ -37,7 +37,6 @@ echo "Updating sitemap, setting redirect and pages images (3/4) . . ."
 
 # Copy static files (images, code, ...) to the folder of the respective .html
 # page
-cp -r output/web/es/pages-es*/* output/web/es/ && rm -rf output/web/es/pages-es*
 cp -r output/web/en/pages-en*/* output/web/en/ && rm -rf output/web/en/pages-en*
 
 # Set redirect from /web to /web/en/
