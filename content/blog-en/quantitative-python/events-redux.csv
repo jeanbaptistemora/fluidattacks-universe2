@@ -1,0 +1,51 @@
+Vulnerability,Probability,Lower,Upper
+User impersonation,0.063,400000,10000000
+Stored XSS,0.003,200000,2000000
+SQL Injection,0.004,200000,2000000
+Reversed weak passwords,0.0011,25000,500000
+Insecure DOR,0.063,30000,500000
+Absence of encryption of confidential information,0.004,2000000,5000000
+Random entropy,0.028,5000000,25000000
+Inadequate programming practices,0.315,200000,5000000
+Reflected XSS,0.005,500000,5000000
+Unsafe functionality - Admin role,0.0002,400000,10000000
+Sensitive information sent in an insecure way,0.01,1000000,10000000
+Email sent without authorization,0.0023,40000,500000
+Insecure Exceptions,0.006,200000,5000000
+User impersonation,0.009,1000000,3000000
+Insecure direct object reference - UserId,0.04,400000,2500000
+HTML Code Injection,0.023,200000,5000000
+Insecure SSL Certificate,0.004,40000,200000
+Parameters sent by URL,0.012,500000,2000000
+Insecure token generation,0.002,200000,2000000
+Technical information leak,0.0002,1000000,10000000
+Unsafe file upload,0.0025,500000,2000000
+Unsafe HTTP Methods Enabled,0.011,2000000,20000000
+CSV injection,0.017,20000,750000
+Debugging in production enabled,0.016,500000,2000000
+Insecure session management,0.0105,1000000,3000000
+Simultaneous Sessions,0.102,20000,750000
+Repeated code,0.018,40000,200000
+Use of an insecure channel,0.006,1000000,3000000
+Users enumeration,0.125,40000,200000
+Unsafe inactivity time limit,0.003,200000,5000000
+Brute force attacks protection absence,0.026,40000,200000
+Information leak,0.016,25000,500000
+Untracked Errors,0.002,500000,2000000
+Conditionals without default option,0.065,100000,1000000
+Insecure service configuration,0.003,100000,5000000
+Lack of Input Validation,0.115,200000,5000000
+Denial of Service,0.105,100000,5000000
+Insecure cookies configuration,0.04,200000,2000000
+Not obfuscated Javascript Code,0.02,25000,500000
+Cache in forms,0.009,1000000,10000000
+Not established HTTP security headers.,0.0105,1000000,20000000
+Cross site request forgery,0.0007,400000,10000000
+Data manipulation,0.021,1000000,3000000
+Non-controlled external site redirection,0.033,1000000,3000000
+Insecure Random Number Generator,0.045,3000000,15000000
+Outdated Vulnerable Software,0.034,10000,100000
+Insecure SSL Certificate,0.024,200000,2000000
+Exposed Web Services,0.025,100000,5000000
+Technical information leak - console.log,0.016,20000,750000
+Insecure direct object reference,0.245,20000,750000

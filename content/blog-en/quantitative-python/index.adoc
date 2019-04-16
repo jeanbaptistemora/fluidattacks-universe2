@@ -56,6 +56,7 @@ In that article, we wanted to find a distribution for losses
 based on expert estimations of occurrence likelihood
 and confidence intervals for the impact:
 
+[[inputs]]
 .Table with input data
 image::../monetizing-vulnerabilities/loss-risks-table.png[Table with input data]
 
@@ -138,6 +139,8 @@ def monte_carlo(rounds):
     return list_losses
 ----
 
+== Going graphic
+
 Just to get a feeling for the results,
 let us run a thousand scenarios and
 plot them, that is,
@@ -182,7 +185,7 @@ until we aggregate them, v.g., in a histogram.
 
 [source,python]
 ----
-results_series.hist()
+results_series.hist(bins = 15)
 ----
 
 .Histogram of results
@@ -214,7 +217,7 @@ import numpy as np
 
 result_nparray = np.array(results_list)
 hist, edges = np.histogram(results_nparray, bins = 20)
-cumrev = np.cumsum(hist[::-1])[::-1]
+cumrev = np.cumsum(hist[::-1])[::-1]*100/len(results_nparray)
 plt.plot(edges[:-1], cumrev)
 ----
 
@@ -222,6 +225,32 @@ And voilá, we get our loss exceedance curve as we sought:
 
 .Simple loss exceedance curve
 image::lec-simple.png[Simple loss exceedance curve]
+
+We can repeat the procedure with a more moderate dataset
+to obtain the inherent risk `LEC`,
+in the sense that the probabilities and impact `CI`s are lower.
+And finally, to obtain the risk tolerance curve,
+we give a few points obtained from interviewing someone in charge,
+as described in link:../monetizing-vulnerabilities/[the original article]
+and fitting a curve to it using link:https://www.scipy.org/[SciPy's]
+link:https://docs.scipy.org/doc/scipy/reference/interpolate.html[Inteporlation functions:]
+
+[source,python]
+----
+from scipy import interpolate
+xs = np.array([1,2,3,7,9])*(1e6)
+tols = np.array([100,60,10,2,1])
+xint = np.linspace(min(xs), max(xs))
+fit = interpolate.interp1d(xs, tols, kind='slinear')
+plt.plot(xint, fit(xint))
+----
+
+All together in a single plot:
+
+.Loss exceedance curves
+image::risk-curves-together.png[Risk curves together]
+
+== Risk measures
 
 Now obtaining the 5% value at risk is simply a matter
 of asking for the 95% percentile of
@@ -254,6 +283,52 @@ we can just average the values that are under the `VaR`:
 Thus in case of a `VaR` breach,
 we can expect the loss to be of little less than $32 million.
 
+Let us simulate the input values for the simulation,
+as if we were running the simulation every day
+with different occurrence probabilities and impacts.
+That is, let us randomize the table in <<inputs, figure 1>> above.
+We can skip the importing and the column with the events names,
+since we don't use them.
+We simply generate a column of random numbers between appropriate boundaries:
+0 and 0.1 for the probabilities,
+0 and a million for the lower `CI` bounds,
+a million and a billion for the upper `CI` bounds.
+Finally we glue them together in a `Pandas` `DataFrame`
+so they are usable to our previous functions:
+
+[source,python]
+----
+def gen_random_events():
+    probability_column = np.random.random_sample(30)*0.1
+    lower_ci_column    = np.random.random_sample(30)*(1e6)
+    upper_ci_column    = np.random.random_sample(30)*(9e6)+1e6
+    dicc = {'Probability' : probability_column,
+            'Lower' : lower_ci_column,
+            'Upper': upper_ci_column}
+    events_rand = pd.DataFrame(dicc)
+    return events_rand
+----
+
+Next we run Monte-Carlo on such a simulated `DataFrame`
+of events, once for each day of a fictitious month,
+compute the `VaR` and `tVaR` for each day
+and observe how they evolve:
+
+.Fabricated VaR monitoring example
+image::monitor-var-time.png[Evolution of daily VaR in month]
+
+Since this is a made-up example and
+the probabilities are sampled simply,
+i.e., from a uniform distribution,
+the results are, well, _uniform_.
+However for the sake of conclusion,
+we can imagine there is a steady, if slow,
+trend towards raising the `VaR`.
+It is interesting that the highest peak in `tVaR`
+corresponds to a `VaR` that is not that different from its neighbors.
+This goes to show that one is not just a simple function of the other,
+which is often the case in dealing with uncertainty.
+
 ''''
 
 Let this article serve merely as a taste of
@@ -275,3 +350,16 @@ link:https://pbpython.com/monte-carlo.html[_Monte Carlo Simulation with Python_]
 
 . [[r3]] B. Mikulski (2018).
 link:https://mikulskibartosz.name/monte-carlo-simulation-in-python-d63f0cfcdf6f[_Monte Carlo simulation in Python_]
+
+== Appendix: Full script
+
+Download link:./quant.py[Python script]
+or as link:./quant.ipynb[Jupyter notebook]
+and input data for link:./events.csv[inherent risk]
+and link:./events.csv[residual risk].
+
+.+quant.py+
+[source,python,numbered]
+----
+include::/web/content/blog-en/quantitative-python/quant.py[]
+----
