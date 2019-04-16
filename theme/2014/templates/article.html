@@ -25,20 +25,6 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">{% endblock canonical %}
 
-{% block language %}
-  {% if DEFAULT_LANG == "en" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ article.url }}" hreflang="en-us" />
-    {% if article.translate %}
-      <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ article.translate }}" hreflang="es" />
-    {% endif %}
-  {% elif DEFAULT_LANG == "es" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ article.url }}" hreflang="es" />
-    {% if article.translate %}
-      <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ article.translate }}" hreflang="en-us" />
-    {% endif %}
-  {% endif %}
-{% endblock language %}
-
 {% block breadcrumb%}
   <div class="navcontent-container">
     <div class="navcontent-info">
@@ -61,27 +47,6 @@
           </li>
         </ul>
       </div>
-      {% if DEFAULT_LANG == "en" %}
-        {% if article.translate %}
-          <div class="translate">
-            <span>{{ gettext('Translate-msg-en') }}&nbsp;</span>
-            <a href="{{ SITEURL }}/{{ article.url }}">En
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-            </a>
-            <a href="{{ SUBSITEURL }}/blog/{{ article.translate }}">Es</a>
-          </div>
-        {% endif %}
-      {% elif DEFAULT_LANG == "es" %}
-        {% if article.translate %}
-          <div class="translate">
-            <span>{{ gettext('Translate-msg-es') }}&nbsp;</span>
-            <a href="{{ SUBSITEURL }}/blog/{{ article.translate }}">En&nbsp;</a>
-            <a href="{{ SITEURL }}/{{ article.url }}">Es
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-            </a>
-          </div>
-        {% endif %}
-      {% endif %}
     </div>
   </div>
 {% endblock breadcrumb %}

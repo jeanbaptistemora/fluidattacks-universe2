@@ -86,10 +86,6 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.langbutton {
-  display: none;
-}
-
 .cssmenu {
   background: $fluid-black;
   line-height: 1;
@@ -368,28 +364,6 @@ $white: rgba(255, 255, 255, 1);
     top: 23px;
   }
 
-  .language {
-    img {
-      left: 20px;
-      position: absolute;
-      width: 10px;
-    }
-  }
-
-  .langbutton {
-    display: inline-block;
-
-    a {
-      color: $white;
-      margin: 0 10px;
-      position: relative;
-
-      &:hover {
-        color: $fluid-red;
-      }
-    }
-  }
-
   .search {
     display: inline-block;
     margin-left: 20px;
@@ -405,10 +379,6 @@ $white: rgba(255, 255, 255, 1);
       &:hover {
         color: $white;
       }
-    }
-
-    .lang-resp {
-      display: none;
     }
   }
 

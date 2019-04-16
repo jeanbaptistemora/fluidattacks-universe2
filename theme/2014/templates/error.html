@@ -38,23 +38,6 @@
             <a href=".">&nbsp;Error</a>
         </ul>
       </div>
-      {% if DEFAULT_LANG == "en" %}
-        <div class="translate">
-          <span>{{ gettext('Translate-msg-en') }}&nbsp;</span>
-          <a href="{{ SITEURL }}/error/">En
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-          </a>
-          <a href="{{ SUBSITEURL }}/error/">Es</a>
-        </div>
-      {% elif DEFAULT_LANG == "es" %}
-        <div class="translate">
-          <span>{{ gettext('Translate-msg-es') }}&nbsp;</span>
-          <a href="{{ SUBSITEURL }}/error/">En&nbsp;</a>
-          <a href="{{ SITEURL }}/error/">Es
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-          </a>
-        </div>
-      {% endif %}
     </div>
   </div>
 {% endblock breadcrumb %}

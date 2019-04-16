@@ -146,27 +146,6 @@ body {
   }
 }
 
-.translate {
-  font-family: 'Montserrat';
-  font-size: 14px;
-  margin: auto;
-  text-align: right;
-  width: 35%;
-
-  a {
-    color: $fluid-black;
-    display: inline-block;
-    font-weight: bold;
-  }
-
-  img {
-    left: -5px;
-    position: relative;
-    top: -5px;
-    width: 10px;
-  }
-}
-
 .list-title {
   background-color: $white;
   border-top: 3px solid $darkblue;
@@ -1081,13 +1060,6 @@ article {
     text-align: none;
     width: 50%;
   }
-
-
-  .translate {
-    font-size: 11px;
-    text-align: none;
-    width: 50%;
-   }
 }
 
 @media screen and (max-width:700px) {

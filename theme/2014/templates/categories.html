@@ -37,23 +37,6 @@
           </li>
         </ul>
       </div>
-      {% if DEFAULT_LANG == "en" %}
-        <div class="translate">
-          <span>{{ gettext('Translate-msg-en') }}&nbsp;</span>
-          <a href="{{ SITEURL }}/blog/categories/">En
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-          </a>
-          <a href="{{ SUBSITEURL }}/blog/categorias/">Es</a>
-        </div>
-      {% elif DEFAULT_LANG == "es" %}
-        <div class="translate">
-          <span>{{ gettext('Translate-msg-es') }}&nbsp;</span>
-          <a href="{{ SUBSITEURL }}/blog/categories/">En&nbsp;</a>
-          <a href="{{ SITEURL }}/blog/categorias/">Es
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-          </a>
-        </div>
-      {% endif %}
     </div>
   </div>
 {% endblock breadcrumb %}

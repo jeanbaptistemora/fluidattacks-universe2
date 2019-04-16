@@ -24,23 +24,6 @@
             <a href="{{ SITEURL }}/blog/">&nbsp;Blog</a>
         </ul>
       </div>
-      {% if DEFAULT_LANG == "en" %}
-        <div class="translate">
-          <span>{{ gettext('Translate-msg-en') }}&nbsp;</span>
-          <a href="{{ SITEURL }}/blog/">En
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-          </a>
-          <a href="{{ SUBSITEURL }}/blog/">Es</a>
-        </div>
-      {% elif DEFAULT_LANG == "es" %}
-        <div class="translate">
-          <span>{{ gettext('Translate-msg-es') }}&nbsp;</span>
-          <a href="{{ SUBSITEURL }}/blog/">En&nbsp;</a>
-          <a href="{{ SITEURL }}/blog/">Es
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg" alt="{{ gettext('Selected-img-alt') }}">
-          </a>
-        </div>
-      {% endif %}
     </div>
   </div>
 {% endblock breadcrumb %}

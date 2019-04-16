@@ -29,13 +29,6 @@
       </li>
       <li><a href="{{ SITEURL }}/{{ gettext('Navb-link-5') }}/" class="m-link">{{ gettext('Navb-opt-5') }}</a></li>
       <li><a href="{{ SITEURL }}/blog/" class="m-link">Blog</a></li>
-      <li class="lang-resp">
-        {% if DEFAULT_LANG == "en" %}
-          <a href="{{ SUBSITE_LANG.es }}/" class="m-link">{{ gettext('Navb-opt-lang-es') }}</a>
-        {% else %}
-          <a href="{{ SUBSITE_LANG.en }}/" class="m-link">{{ gettext('Navb-opt-lang-en') }}</a>
-        {% endif %}
-      </li>
     </ul>
   </div>
   <div class="menu-logo">
@@ -45,13 +38,6 @@
   </div>
   <div class="searchbar">
     <form action="{{ SITEURL }}/search.html" onsubmit="return validateForm(this.elements['q'].value);">
-      <div class="langbutton">
-        {% if SUBSITE_LANG %}
-          {% for lang, url in SUBSITE_LANG.items() %}
-            <a href="{{ url }}/" {% if lang == DEFAULT_LANG %} class="language"><img alt="{{ gettext('Selected-img-alt') }}" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/selected.svg">{% else %}>{% endif %}{{ lang|capitalize }}</a>
-          {% endfor %}
-        {% endif %}
-      </div>
       <div class="search">
         <input type="text" name="q" id="tipue_search_input" class="search-box" placeholder="{{ gettext('Navb-search-msg') }}">
         <label for="tipue_search_input" class="search-box-label">
