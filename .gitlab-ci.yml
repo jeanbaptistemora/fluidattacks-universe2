@@ -189,15 +189,18 @@ deploy:
           echo "There are no artifacts";
       fi
     - pybabel compile --directory theme/2014/translations/ --domain messages
-    - for FILE in $(find content/blog-en content/pages-en -iname '*.adoc'); do
+    - for FILE in $(find . -iname '*.adoc'); do
         sed -i 's#^include::#include::/'"${CI_PROJECT_NAMESPACE}"'#g' ${FILE};
       done
     - pelican --fatal errors --fatal warnings content/
     - rm -rf output/web/de
     - mv robots.txt output/
     - mv output/web/en/blog-en/* output/web/en/blog
+    - mv output/web/es/blog-es/* output/web/es/blog
+    - cp -r output/web/es/pages-es/* output/web/es/
     - cp -r output/web/en/pages-en/* output/web/en/
     - mv output/web/en/redirect/index.html output/web/
+    - rm -rf output/web/es/pages-es
     - rm -rf output/web/en/pages-en
     - rmdir output/web/en/redirect/
     - ./xmlcombine.sh

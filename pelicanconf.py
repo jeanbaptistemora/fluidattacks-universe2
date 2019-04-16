@@ -93,9 +93,37 @@ I18N_SUBSITES = {
         'ASCIIDOC_OPTIONS': ['-a icons', '-a iconsdir=/web/en/images/icons',
                              '-a tooltip=/web/en/images/icons/tooltip.png'],
     },
+    'es': {
+        'SITENAME': 'Especialistas en Ethical Hacking | Fluid Attacks',
+        'SITEURL': 'https://fluidattacks.com/web/es',
+        'SUBSITEURL': 'https://fluidattacks.com/web/en',
+        'OUTPUT_PATH': 'output/web/es',
+        'THEME': 'theme/2014',
+        'ARTICLE_PATHS': ['blog-es'],
+        'PAGE_PATHS': ['pages-es', 'defends'],
+        'PAGE_SAVE_AS': 'pages-es/{slug}index.html',
+        'ARTICLE_SAVE_AS': 'blog-es/{slug}index.html',
+        'STATIC_PATHS': ['files', 'images', 'blog-es', 'defends', 'pages-es'],
+        'TAGS_SAVE_AS': 'blog/etiquetas/index.html',
+        'TAGS_URL': 'blog/etiquetas/',
+        'TAG_SAVE_AS': 'blog/etiquetas/{slug}/index.html',
+        'TAG_URL': 'blog/etiquetas/{slug}/',
+        'AUTHORS_SAVE_AS': 'blog/autores/index.html',
+        'AUTHORS_URL': 'blog/autores/',
+        'AUTHOR_SAVE_AS': 'blog/autores/{slug}/index.html',
+        'AUTHOR_URL': 'blog/autores/{slug}/',
+        'CATEGORIES_SAVE_AS': 'blog/categorias/index.html',
+        'CATEGORIES_URL': 'blog/categorias/',
+        'CATEGORY_SAVE_AS': 'blog/categorias/{slug}/index.html',
+        'CATEGORY_URL': 'blog/categorias/{slug}/',
+        'ASCIIDOC_OPTIONS': ['-f /etc/asciidoc/lang-es.conf', '-a icons',
+                             '-a iconsdir=/web/es/images/icons',
+                             '-a tooltip=/web/es/images/icons/tooltip.png'],
+    }
 }
 SUBSITE_LANG = {
      'en': 'https://fluidattacks.com/web/en',
+     'es': 'https://fluidattacks.com/web/es',
 }
 REDIRECT_SAVE_AS = PAGE_SAVE_AS
 ASSET_BUNDLES = (
