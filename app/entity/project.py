@@ -22,6 +22,7 @@ from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Fi
 from graphene.types.generic import GenericScalar
 
 from ..dao import integrates_dao, project as redshift_dao
+from ..decorators import get_entity_cache
 from .finding import Finding
 from .user import User
 
@@ -74,11 +75,16 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
             self.name, 'finding_id, treatment, cvss_temporal')
         self.findings_aux = findings
 
+    def __str__(self):
+        """String representation of entity."""
+        return self.name
+
     def resolve_name(self, info):
         """Resolve name attribute."""
         del info
         return self.name
 
+    @get_entity_cache
     def resolve_findings(self, info):
         """Resolve findings attribute."""
         self.findings = [Finding(info, i['finding_id']) for i in self.findings_aux]

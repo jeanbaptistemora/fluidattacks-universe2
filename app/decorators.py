@@ -295,3 +295,25 @@ def get_cached(func):
             rollbar.report_exc_info()
             return func(*args, **kwargs)
     return decorated
+
+
+def get_entity_cache(func):
+    """Get cached response of a GraphQL entity if it exists."""
+    @functools.wraps(func)
+    def decorated(*args, **kwargs):
+        """Get cached response from function if it exists."""
+        gql_ent = args[0]
+        uniq_id = str(gql_ent)
+        key_name = func.__name__ + '_' + uniq_id
+        key_name = key_name.lower()
+        try:
+            ret = cache.get(key_name)
+            if ret:
+                return ret
+            ret = func(*args, **kwargs)
+            cache.set(key_name, ret, timeout=CACHE_TTL)
+            return ret
+        except RedisClusterException:
+            rollbar.report_exc_info()
+            return func(*args, **kwargs)
+    return decorated
