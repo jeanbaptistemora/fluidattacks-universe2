@@ -14,11 +14,12 @@
 :about2: with an itch for CS
 :source-highlighter: pygments
 
+
 = Quantitative Python
 
-Now that we have an understanding of  link:../quantifying-risk[risk concepts]
-such as the link:monetizing-vulnerabilities[loss exceedance curve],
-link:../para-bellum[value-at-risk], link:../updating-belief/[Bayes Rule],
+Now that we have an understanding of  link:../quantifying-risk/[risk concepts]
+such as the link:../monetizing-vulnerabilities/[loss exceedance curve],
+link:../para-bellum/[value-at-risk], link:../updating-belief/[Bayes Rule],
 and link:../hit-miss/[fitting distributions],
 we would like to have a realiable, extensible and preferably open tool
 to perform these computations.
@@ -47,7 +48,7 @@ link:http://www.wolfram.com/mathematica/[`Mathematica`].
 This enables and encourages, at least, initial exploration,
 although it might not be the best fit for developing more involved code.
 
-Let us see how we can automate the generation of a loss exceedance curve
+Let us see how we can automate the generation of a loss exceedance curve (`LEC`)
 via Monte Carlo simulation.
 Here we will closely follow our
 link:../monetizing-vulnerabilities/[article on the subject],
@@ -57,7 +58,7 @@ based on expert estimations of occurrence likelihood
 and confidence intervals for the impact:
 
 [[inputs]]
-.Table with input data
+.Table with input data.
 image::../monetizing-vulnerabilities/loss-risks-table.png[Table with input data]
 
 So we need to read those values in our script.
@@ -69,11 +70,11 @@ it will be convenient to read this into a `Pandas` dataframe:
 [source,python]
 ----
 import pandas as pd
-events = pd.read_csv('events.csv')
-events.head()
+events_basic = pd.read_csv('events.csv')
+events_basic.head()
 ----
 
-.Data as imported into Jupyter.
+.Data as imported into Jupyter like in our link:../monetizing-vulnerabilities/#input-data[Monte Carlo article].
 image::data-imported.png[Imported data]
 
 We declare an event happens if a number
@@ -110,11 +111,11 @@ return that single number as a summary of the losses in a simulated year:
 
 [source,python]
 ----
-def simulate_scenario():
+def simulate_scenario(events):
     total_loss = 0
     for _, event in events.iterrows():
         if event_happens(event['Probability']):
-            total_loss += lognormal_event_result(event['Lower'], event['Upper'])
+            total_loss += lognormal_event_result(event['Lower'],event['Upper'])
     return total_loss
 ----
 
@@ -131,10 +132,10 @@ we want to simulate scenarios:
 
 [source,python]
 ----
-def monte_carlo(rounds):
+def monte_carlo(events, rounds):
     list_losses = []
     for i in range(rounds):
-        loss_result = simulate_scenario()
+        loss_result = simulate_scenario(events)
         list_losses.append(loss_result)
     return list_losses
 ----
@@ -155,7 +156,7 @@ for visualization:
 [source,python]
 ----
 import matplotlib.pyplot as plt
-results = monte_carlo(1000)
+results = monte_carlo(events_basic, 1000)
 results_series = pd.Series(results)
 results_series.plot()
 ----
@@ -198,9 +199,10 @@ the probability that the loss will be greater than or equal to that value.
 Since we don't have, and can't possibly have,
 a real probability distribution, i.e., a mathematical function,
 but only an approximation to one in the form of a table,
-we estimate probabilities simply by counting occurrences.
-Hence the "probability", or estimation thereof,
-of a single value, is the number of times that value appeared in the simulation.
+we estimate probabilities simply by counting occurrences
+and normalizing by dividing by the number of rounds and multiplying by 100.
+Hence the estimated "probability" of a single value
+is the normalized number of times that value appeared in the simulation.
 So let us take evenly spaced values,
 and count the number of times each of those values is _exceeded_ (or matched).
 The `numpy` function `cumsum` does just that,
@@ -214,26 +216,25 @@ To fix that we simply revert again:
 [source,python]
 ----
 import numpy as np
-
 result_nparray = np.array(results_list)
-hist, edges = np.histogram(results_nparray, bins = 20)
+hist, edges = np.histogram(results_nparray, bins = 40)
 cumrev = np.cumsum(hist[::-1])[::-1]*100/len(results_nparray)
 plt.plot(edges[:-1], cumrev)
 ----
 
-And voilá, we get our loss exceedance curve as we sought:
+And _voilà_, we get our loss exceedance curve as we sought:
 
-.Simple loss exceedance curve
+.Simple loss exceedance curve like in our link:../monetizing-vulnerabilities/#lec-simple[Monte Carlo article].
 image::lec-simple.png[Simple loss exceedance curve]
 
 We can repeat the procedure with a more moderate dataset
 to obtain the inherent risk `LEC`,
-in the sense that the probabilities and impact `CI`s are lower.
+in the sense that the probabilities and impact CIs are lower.
 And finally, to obtain the risk tolerance curve,
 we give a few points obtained from interviewing someone in charge,
 as described in link:../monetizing-vulnerabilities/[the original article]
 and fitting a curve to it using link:https://www.scipy.org/[SciPy's]
-link:https://docs.scipy.org/doc/scipy/reference/interpolate.html[Inteporlation functions:]
+link:https://docs.scipy.org/doc/scipy/reference/interpolate.html[Interpolation functions:]
 
 [source,python]
 ----
@@ -247,25 +248,25 @@ plt.plot(xint, fit(xint))
 
 All together in a single plot:
 
-.Loss exceedance curves
+.Loss exceedance curves like in our link:../monetizing-vulnerabilities/#lec-all[Monte Carlo article].
 image::risk-curves-together.png[Risk curves together]
 
 == Risk measures
 
 Now obtaining the 5% value at risk is simply a matter
-of asking for the 95% percentile of
+of asking for the 95^th^ percentile of
 the "distribution", i.e., the actual simulation results,
 in its `Numpy`-array incarnation:
 
 [source,python]
 ----
->>> np.percentile(arr, 95)
+>>> np.percentile(results_nparray, 95)
 23360441.53826834
 ----
 
 Hence the `VaR`, according to this particular simulation
 is a little over $23 million.
-Just as simple as it is to obtain the
+It is just as simple to obtain the
 link:../para-bellum/[tail value at risk].
 If we had a mathematical function for the distribution
 we would have to compute an integral in order to obtain it,
@@ -276,7 +277,7 @@ we can just average the values that are under the `VaR`:
 
 [source,python]
 ----
->>> np.average(arr[arr >= var])
+>>> np.average(results_nparray[results_nparray >= var])
 31949559.99328234
 ----
 
@@ -314,7 +315,7 @@ of events, once for each day of a fictitious month,
 compute the `VaR` and `tVaR` for each day
 and observe how they evolve:
 
-.Fabricated VaR monitoring example
+.Fabricated VaR monitoring example like in our link:../para-bellum/#var-monitor[VaR article].
 image::monitor-var-time.png[Evolution of daily VaR in month]
 
 Since this is a made-up example and
@@ -340,6 +341,7 @@ Imagine what those could do for your organization
 in regards to risk management.
 Stay tuned for more of risk-applied `Python`.
 
+
 == References
 
 . [[r1]] C. Davidson-Pilon (2019).
@@ -351,12 +353,13 @@ link:https://pbpython.com/monte-carlo.html[_Monte Carlo Simulation with Python_]
 . [[r3]] B. Mikulski (2018).
 link:https://mikulskibartosz.name/monte-carlo-simulation-in-python-d63f0cfcdf6f[_Monte Carlo simulation in Python_]
 
+
 == Appendix: Full script
 
 Download link:./quant.py[Python script]
 or as link:./quant.ipynb[Jupyter notebook]
 and input data for link:./events.csv[inherent risk]
-and link:./events.csv[residual risk].
+and link:./events-redux.csv[residual risk].
 
 .+quant.py+
 [source,python,numbered]

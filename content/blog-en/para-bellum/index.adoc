@@ -250,6 +250,7 @@ appears to be $500 million
 The 1% is not even visible here,
 but at least that tells us that it must be beyond $1000 million.
 
+[[var-monitor]]
 Monitoring a short-termed `VaR`, v.g., the daily `VaR`,
 can be useful tool to evaluate the performance of risk management
 or the apropriateness of adopted risk policies,

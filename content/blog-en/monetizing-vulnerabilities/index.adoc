@@ -128,6 +128,7 @@ link:../quantifying-risk/[loss exceedance curve],
 simply by counting the number of times the simulated results
 are higher than a threshold, and plotting the results:
 
+[[lec-simple]]
 .Loss Exceedance Curve <<r1, ^[1]^>>
 image::simple-lec.png[Loss Exceedance Curve]
 
@@ -154,6 +155,7 @@ Thus we would expect to obtain a curve whose
 loss probabilities are generally lower than
 the ones in the inherent risk curve:
 
+[[lec-all]]
 .All together now <<r1, ^[1]^>>
 image::../quantifying-risk/loss-exceedance-curve.png[LEC, tolerance and residual plots]
 
