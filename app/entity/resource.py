@@ -9,7 +9,9 @@ import rollbar
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 
 from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
-from ..decorators import require_login, require_role, require_project_access_gql
+from ..decorators import (
+    require_login, require_role, require_project_access_gql, get_entity_cache
+)
 from .. import util
 from ..dao import integrates_dao
 from ..domain import resources
@@ -21,11 +23,13 @@ INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
 # pylint: disable=too-many-locals
 class Resource(ObjectType):
     """ GraphQL Entity for Project Resources """
+    project_name = ''
     repositories = JSONString()
     environments = JSONString()
     files = JSONString()
 
     def __init__(self, project_name):
+        self.project_name = project_name
         self.repositories = []
         self.environments = []
         self.files = []
@@ -40,16 +44,22 @@ class Resource(ObjectType):
             if 'files' in item:
                 self.files = item['files']
 
+    def __str__(self):
+        return self.project_name + '_resources'
+
+    @get_entity_cache
     def resolve_repositories(self, info):
         """ Resolve repositories of the given project """
         del info
         return self.repositories
 
+    @get_entity_cache
     def resolve_environments(self, info):
         """ Resolve environments of the given project """
         del info
         return self.environments
 
+    @get_entity_cache
     def resolve_files(self, info):
         """ Resolve files of the given project """
         del info

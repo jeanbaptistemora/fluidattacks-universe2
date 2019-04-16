@@ -90,6 +90,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.findings = [Finding(info, i['finding_id']) for i in self.findings_aux]
         return self.findings
 
+    @get_entity_cache
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
         del info
@@ -97,6 +98,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
             self.findings_aux, 'openVulnerabilities')
         return self.open_vulnerabilities
 
+    @get_entity_cache
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
         del info
@@ -104,48 +106,56 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
             self.findings_aux, 'closedVulnerabilities')
         return self.closed_vulnerabilities
 
+    @get_entity_cache
     def resolve_pending_closing_check(self, info):
         """Resolve pending closing check attribute."""
         del info
         self.pending_closing_check = get_pending_closing_check(self.name)
         return self.pending_closing_check
 
+    @get_entity_cache
     def resolve_last_closing_vuln(self, info):
         """Resolve days since last closing vuln attribute."""
         del info
         self.last_closing_vuln = get_last_closing_vuln(self.findings_aux)
         return self.last_closing_vuln
 
+    @get_entity_cache
     def resolve_max_severity(self, info):
         """Resolve maximum severity attribute."""
         del info
         self.max_severity = get_max_severity(self.findings_aux)
         return self.max_severity
 
+    @get_entity_cache
     def resolve_max_open_severity(self, info):
         """Resolve maximum severity in open vulnerability attribute."""
         del info
         self.max_open_severity = get_max_open_severity(self.findings_aux)
         return self.max_open_severity
 
+    @get_entity_cache
     def resolve_mean_remediate(self, info):
         """Resolve mean to remediate a vulnerability attribute."""
         del info
         self.mean_remediate = get_mean_remediate(self.findings_aux)
         return self.mean_remediate
 
+    @get_entity_cache
     def resolve_total_findings(self, info):
         """Resolve total findings attribute."""
         del info
         self.total_findings = len(self.findings_aux)
         return self.total_findings
 
+    @get_entity_cache
     def resolve_total_treatment(self, info):
         """Resolve total treatment attribute."""
         del info
         self.total_treatment = get_total_treatment(self.findings_aux)
         return self.total_treatment
 
+    @get_entity_cache
     def resolve_current_month_authors(self, info):
         """Resolve current month authors attribute."""
         del info
@@ -153,6 +163,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
             redshift_dao.get_current_month_authors(self.name)
         return self.current_month_authors
 
+    @get_entity_cache
     def resolve_current_month_commits(self, info):
         """Resolve current month commits attribute."""
         del info
@@ -160,6 +171,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
             redshift_dao.get_current_month_commits(self.name)
         return self.current_month_commits
 
+    @get_entity_cache
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""
         del info
@@ -170,6 +182,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
             self.subscription = ''
         return self.subscription
 
+    @get_entity_cache
     def resolve_deletion_date(self, info):
         """Resolve deletion date attribute."""
         del info
@@ -201,6 +214,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.comments
 
+    @get_entity_cache
     def resolve_tags(self, info):
         """ Resolve project tags """
         del info
@@ -213,6 +227,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         return self.tags
 
     @require_role(['admin', 'customer'])
+    @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
 
@@ -224,6 +239,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.users
 
+    @get_entity_cache
     def resolve_has_complete_docs(self, info):
         """ Whether executive report is available or not """
         del info
@@ -232,6 +248,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.has_complete_docs
 
+    @get_entity_cache
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
 

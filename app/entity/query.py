@@ -92,7 +92,6 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
-    @get_cached
     def resolve_resources(self, info, project_name):
         """ Resolve for project resources """
         del info
@@ -110,7 +109,6 @@ class Query(ObjectType):
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access_gql
-    @get_cached
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
         del info
