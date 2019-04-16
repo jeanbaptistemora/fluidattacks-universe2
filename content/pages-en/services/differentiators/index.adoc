@@ -300,8 +300,6 @@ a|* During the project you can request clarifications
 directly from our hackers via
 [button]#link:../../products/integrates/[Integrates]#
 (link:../../products/integrates/#doubts-regarding-the-vulnerabilities[example]).
-* You can use our detailed remediation guides via
-[button]#link:../../products/defends/[Defends]#
 link:../continuous-hacking/#remediation-support[^24^]
 link:../one-shot-hacking/#remediation[^25^].
 | {no} No support during remediation phase.

@@ -147,8 +147,7 @@ using our [button]#link:../../products/integrates/[Integrates]# product.
 
 2+a|== Remediation
 
-Customers can use our detailed remediation guides
-via [button]#link:../../products/defends/[Defends]#.
+Customers can decide which solutions best suit their needs.
 
 a|image::remediation.svg[alt="Question and answer symbols"]
 

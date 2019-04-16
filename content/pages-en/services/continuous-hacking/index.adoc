@@ -167,9 +167,6 @@ During the project, customers can request clarification
 on any issue by directly contacting our hackers
 through [button]#link:../../products/integrates/[Integrates]#.
 
-Customers can use our detailed remediation guides
-via [button]#link:../../products/defends/[Defends]#.
-
 2+a|== Generate technical and executive reports from Integrates
 
 The Technical Report provides detailed information

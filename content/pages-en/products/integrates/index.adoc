@@ -244,12 +244,4 @@ Some of them are:
 
 a|image::mail.png[Mail]
 
-a|image::knowledge-base.png[Knowledge Base]
-
-2+a|== Knowledge Base
-
-A client company has access to +Fluid Attacks+ product [button]#link:../../defends/[Defends]#.
-Here a client company can find examples of how to complete
-security requirements to eliminate identified security vulnerabilities.
-
 |====
