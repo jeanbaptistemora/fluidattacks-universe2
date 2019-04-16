@@ -2,7 +2,6 @@
 :category: servicios
 :description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. Es importante distinguir las características que componen nuestros servicios de Hacking continuo y Hacking puntual.
 :keywords: Fluid Attacks, Ethical Hacking, Comparación, Hacking Puntual, Hacking continuo, Pentesting.
-:translate: services/comparative/
 :si: image:../../images/icons/yes.png[si]
 :no: image:../../images/icons/no.png[no]
 :info: image:../../images/icons/info.png[info]

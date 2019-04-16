@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of masking sensitive personal and business data to avoid information leakages.
 :keywords: Requirement, Security, Data, Information, Business, Mask
 :rules: yes
-:translate: rules/300/
 
 = REQ.300 Mask Sensitive data
 

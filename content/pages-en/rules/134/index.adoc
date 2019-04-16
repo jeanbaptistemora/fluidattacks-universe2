@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of storing passwords securely using cryptographic functions to mask their content.
 :keywords: Requirement, Security, Passwords, Hash, Salt, Cryptography
 :rules: yes
-:translate: rules/134/
 
 = REQ.134 Store passwords with salt
 

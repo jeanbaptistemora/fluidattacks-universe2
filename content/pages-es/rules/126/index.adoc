@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento, se recomienda que el sistema permita a sus usuarios recordar o restaurar su contraseña.
 :keywords: Sistema, Usuario, Contraseña, Recordar, Autenticación, Restaurar.
 :rules: yes
-:translate: rules/126/
 
 = REQ.126 Establecer mecanismo de restauración
 

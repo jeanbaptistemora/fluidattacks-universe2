@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de definir un Character Set explícito en archivos generados de forma dinámica.
 :keywords: Requerimiento, Seguridad, Archivos, Dinámicos, Charset, Explícito.
 :rules: yes
-:translate: rules/044/
 
 = REQ.044 Definir charset explícito
 

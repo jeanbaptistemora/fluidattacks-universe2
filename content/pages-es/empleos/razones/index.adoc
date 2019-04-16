@@ -2,7 +2,6 @@
 :category: empleos
 :description: Si eres una persona talentosa, apasionada por el desarrollo de software, la informática y con muchas ganas de aprender, considera ser parte del equipo de trabajo de Fluid Attacks. Aquí te presentamos algunas razones por las que Fluid Attacks es un gran lugar para trabajar.
 :keywords: Fluid Attacks, Empleo, Razones, Trabajar, Proyectos, Clientes.
-:translate: careers/reasons/
 
 = Razones para trabajar con nosotros
 

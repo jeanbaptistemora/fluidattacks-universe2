@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, la organización debe asignar carné y tarjeta de acceso al sistema de control a cada persona que realice actividades al interior de la misma.
 :keywords: Tarjeta, Control, Organización, Acceso, Personal, Carné.
 :rules: yes
-:translate: rules/101/
 
 = REQ.101 Asignar carnés y tarjetas a personal
 

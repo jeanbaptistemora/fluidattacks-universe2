@@ -2,7 +2,6 @@
 :category: servicios
 :description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. El objetivo de la siguiente página es presentar las certificaciones con las que cuenta nuestro equipo de profesionales.
 :keywords: Fluid Attacks, Ethical Hacking, Equipo, Certificaciones, Seguridad, Información.
-:translate: services/certifications/
 
 = Certificaciones
 

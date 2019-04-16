@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining a mechanism to securely retrieve or restore users passwords.
 :keywords: Requirement, Security, Passwords, Retrieve, Restore, Credentials
 :rules: yes
-:translate: rules/126/
 
 = REQ.126 Set password restoring mechanism
 

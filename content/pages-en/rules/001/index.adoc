@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to a company's information assets. All the information assets must be properly identified in order to protect them from potential risks and allow for implementation of security controls.
 :keywords: Requirement, Security, Assets, Information, Identification, Classification.
 :rules: yes
-:translate: rules/001/
 
 = REQ.001 Identified Information Assets
 

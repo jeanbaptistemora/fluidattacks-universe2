@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración de los sistemas. Por lo tanto, para el presente requerimiento se recomienda que todo sistema con mecanismo de administración sea accesible sólo por determinados segmentos de red de gestión.
 :keywords: Administración, Sistema, Red, Gestión, Acceso, Seguridad.
 :rules: yes
-:translate: rules/033/
 
 = REQ.033 Restringir acceso administrativo
 

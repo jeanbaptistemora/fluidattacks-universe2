@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of files in the organization. This requirement establishes the importance of defining a explicit character set for all system files dynamically generated.
 :keywords: Requirement, Security, Character Set, Encoding, Files, Dynamic
 :rules: yes
-:translate: rules/044/
 
 = REQ.044 Define explicit charset
 

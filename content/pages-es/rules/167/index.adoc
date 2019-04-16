@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de configurar el código para que cierre cualquier recurso que no está siendo utilizado.
 :keywords: Requerimiento, Seguridad, Código Fuente, Cerrar, Recursos, Inutilizados.
 :rules: yes
-:translate: rules/167/
 
 = REQ.167 Cerrar recursos no utilizados
 

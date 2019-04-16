@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de los casos de uso que se pueden presentar en un determinado sistema. Por lo tanto, los casos de uso deben tener documentados los eventos de seguridad del sistema.
 :keywords: Casos de uso, Sistema, Documentar, Evento de seguridad, Organización, Seguridad.
 :rules: yes
-:translate: rules/058/
 
 = REQ.058 Documentar eventos de seguridad
 

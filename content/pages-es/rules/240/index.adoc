@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada del proceso de desarrollo con el que cuenta una organización. En este caso, se habla sobre la automatización en las revisiones de seguridad del código fuente.
 :keywords: Revisión, Seguridad, Organización, Código Fuente, Herramienta, Automatizar.
 :rules: yes
-:translate: rules/240/
 
 = REQ.240 Automatizar revisión de código fuente
 

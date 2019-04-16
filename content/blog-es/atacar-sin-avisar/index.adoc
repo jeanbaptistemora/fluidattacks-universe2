@@ -12,7 +12,6 @@
 :name: Rafael Álvarez
 :about1: Operations Team
 :about2: Fluid Attacks
-:translate: attack-no-announce/
 
 = Atacar sin avisar
 

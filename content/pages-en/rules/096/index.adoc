@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining the required privileges for each user to access the sensitive information of the organization.
 :keywords: Requirement, Security, Access, Control, Privileges, Users
 :rules: yes
-:translate: rules/096/
 
 = REQ.096 Set user required privileges
 

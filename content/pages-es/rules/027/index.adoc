@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. Por lo tanto, para el presente requerimiento, se recomienda que el sistema permita a un usuario bloquear la sesión de manera manual.
 :keywords: Sistema, Usuario, Sesión, Bloquear, Recurso, Autenticación.
 :rules: yes
-:translate: rules/027/
 
 = REQ.027 Permitir bloqueo de sesión de usuario
 

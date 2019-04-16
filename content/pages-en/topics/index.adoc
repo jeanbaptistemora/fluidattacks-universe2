@@ -2,7 +2,6 @@
 :description: In Fluid Attacks' website you can find a large variety of topics related to information security, good programming practices and more. This page aims to become a space where everyone can share their opinions, if you wish to share yours, do not hesitate to send us your article.
 :keywords: Fluid Attacks, Website, Topics, Blog, Opinion, Security.
 :category: blog
-:translate: temas/
 
 = Topics
 

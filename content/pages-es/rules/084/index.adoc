@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las transacciones de usuario establecidas por este. Por lo tanto, el sistema debe permitir a los usuarios autorizados consultar el historial de trnsacciones establecidas por él mismo.
 :keywords: Sistema, Usuario, Consultar, Transacción, Requerimiento, Seguridad.
 :rules: yes
-:translate: rules/084/
 
 = REQ.084 Permitir consultar historial transacciones
 

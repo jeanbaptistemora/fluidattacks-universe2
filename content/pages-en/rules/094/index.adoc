@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of specify access control rules in a declarative mood instead of pragmatic mood.
 :keywords: Requirement, Security, Access, Control, Rules, Mood
 :rules: yes
-:translate: rules/094/
 
 = REQ.094 Specify rules in declarative mood
 

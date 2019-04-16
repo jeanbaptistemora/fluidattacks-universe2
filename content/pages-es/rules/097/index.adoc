@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que toda organización tenga definido un modelo de control de acceso a seguir.
 :keywords: Control, Modelo, Organización, Acceso, Seguridad, Sistema.
 :rules: yes
-:translate: rules/097/
 
 = REQ.097 Definir modelo de control de acceso
 

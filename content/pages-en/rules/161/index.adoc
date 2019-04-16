@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of defining secure default options in order to avoid unexpected behaviors in the application.
 :keywords: Requirement, Security, Default, Source Code, Conditional, Programming
 :rules: yes
-:translate: rules/161/
 
 = REQ.161 Define secure default options
 

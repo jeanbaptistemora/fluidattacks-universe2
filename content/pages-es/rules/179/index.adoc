@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que implica realizar copias de seguridad o respaldos de información para un determinado sistema; definiendo un periodo o frecuencia para realizar dicha acción.
 :keywords: Requerimiento, Seguridad, Periodo, Frecuencia, Respaldo, Copia de seguridad.
 :rules: yes
-:translate: rules/179/
 
 = REQ.179 Definir frecuencia de respaldo
 

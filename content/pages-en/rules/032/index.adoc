@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of sessions and session variables in the organization. This requirement establishes the importance of managing session IDs securely in order to avoid session hijacking attacks.
 :keywords: Requirement, Security, Session ID, Leakage, URL, Messages
 :rules: yes
-:translate: rules/032/
 
 = REQ.032 Avoid session ID leakages
 

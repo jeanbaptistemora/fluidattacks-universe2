@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of logical architecture in the organization. This requirement establishes the importance of verifying the security requirements defined for a system through white box tests.
 :keywords: Security, Requirements, White Box, Testing, Verify, System
 :rules: yes
-:translate: rules/063/
 
 = REQ.063 Verify security requirements
 

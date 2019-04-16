@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of using pre-existing and current mechanisms to implement the cryptographic functions used by the system.
 :keywords: Requirement, Security, Cryptographic, Encryption, Decryption, Mechanisms.
 :rules: yes
-:translate: rules/147/
 
 = REQ.147 Use pre-existent mechanisms
 

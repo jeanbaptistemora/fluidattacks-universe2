@@ -3,6 +3,5 @@
 :keywords: Fluid Attacks, Subscription, Information, News, Blog, Security.
 :form: https://fluidattacks.com/forms/subscription
 :template: form
-:translate: suscripcion/
 
 = Subscribe to our blog!

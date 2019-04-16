@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con la administración de correos electrónicos en la empresa. En este requerimiento se recomienda que el cliente de correo electrónico no interprete código HTML en sus configuraciones por defecto.
 :keywords: HTML, Correo, Interpretar, Código, Seguridad, Requerimiento.
 :rules: yes
-:translate: rules/117/
 
 = REQ.117 No interpretar código HTML
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to definition and management of random numbers in the application and system. This requirement establishes the importance of generating random numbers using a uniform distribution.
 :keywords: Requirement, Security, Random, Numbers, Distribution, System
 :rules: yes
-:translate: rules/223/
 
 = REQ.223 Uniform distribution in random numbers
 

@@ -2,7 +2,6 @@
 :category: clientes
 :description: Fluid Attacks es una compañía especializada en seguridad informática, ethical hacking, y detección de vulnerabilidades en aplicaciones  e infraestructura con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestras soluciones en el sector del transporte.
 :keywords: Fluid Attacks, Clientes, Sector, Transporte, Información, Seguridad.
-:translate: customers/transportation/
 
 = Transporte
 

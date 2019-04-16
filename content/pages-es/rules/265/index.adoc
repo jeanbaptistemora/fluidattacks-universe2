@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de recursos de un determinado sistema. Por lo tanto, el sistema debe restringir el acceso a funciones del sistema que ejecutan procesos críticos de negocio.
 :keywords: Sistema, Acceso, Proceso, Crítico, Restringir, Usuario autorizado.
 :rules: yes
-:translate: rules/265/
 
 = REQ.265 Restringir acceso a procesos críticos
 

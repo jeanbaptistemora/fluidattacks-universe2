@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of data transmission in the organization. This requirement establishes the importance of using safe protocols to perform sensitive information transmission.
 :keywords: Requirement, Security, Transmission, Data, Protocols, Sensitive Information
 :rules: yes
-:translate: rules/181/
 
 = REQ.181 Transmit data using secure protocols
 

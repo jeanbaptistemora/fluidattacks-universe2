@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos foráneos de la organización. En este requerimiento, se recomienda que la organización determine qué personas pueden acceder a recursos internos.
 :keywords: Sistema, Organización, Personas, Foráneos, Recursos, Internos.
 :rules: yes
-:translate: rules/198/
 
 = REQ.198 Determinar personal para usar dispositivos
 

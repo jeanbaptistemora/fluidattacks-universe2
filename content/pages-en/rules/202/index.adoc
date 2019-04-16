@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of physical devices in the organization. This requirement establishes the importance of defining the sensitive information treatment in different scenarios and events.
 :keywords: Requirement, Security, Sensitive, Information, Management, Device
 :rules: yes
-:translate: rules/202/
 
 = REQ.202 Delete sensitive information
 

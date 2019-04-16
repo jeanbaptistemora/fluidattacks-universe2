@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la pérdida de información personal almacenada en los dispositivos móviles. Por lo tanto, dichos dispositivos deben permitir la destrucción de sus datos de forma remota en caso de pérdida.
 :keywords: Dispositivo móvil, Datos, Destrucción, Remota, Pérdida, Requerimiento.
 :rules: yes
-:translate: rules/214/
 
 = REQ.214 Permitir destruir datos
 

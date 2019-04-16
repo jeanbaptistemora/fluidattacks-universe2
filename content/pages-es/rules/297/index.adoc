@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de sistemas de control. En este caso, se recomienda que toda organización cuente con sistemas de sensores de temperatura y humedad especialmente en lugares donde existan activos de información.
 :keywords: Organización, Sensores, Información, Activo, Digital, Almacenar.
 :rules: yes
-:translate: rules/297/
 
 = REQ.297 Fijar sensores en activos de información
 

@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. Por lo tanto, para el presente requerimiento, se recomienda que el sistema verifique y cifre los estados de sesión en el lado del cliente.
 :keywords: Sistema, Cliente, Sesión Usuario, Seguridad, Integridad, Estado.
 :rules: yes
-:translate: rules/026/
 
 = REQ.026 Cifrar las sesiones en el cliente
 

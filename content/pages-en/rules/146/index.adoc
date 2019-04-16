@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of protecting system cryptographic keys by limiting the time they remain in system RAM.
 :keywords: Requirement, Security, Cryptography, Timeout, Cryptographic Keys, RAM
 :rules: yes
-:translate: rules/146/
 
 = REQ.146 Set timeout to cryptographic keys
 

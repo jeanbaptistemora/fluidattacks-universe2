@@ -12,7 +12,6 @@
 :name: Jonathan Armas
 :about1: Systems Engineer, Security+
 :about2: "Be formless, shapeless like water" Bruce Lee
-:translate: atacar-sin-avisar/
 
 = Attacking Without Announce
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of system source code. This requirement establishes the importance of implementing applications in a secure programming language, properly updated and free of known vulnerabilities.
 :keywords: Requirement, Security, Source Code, Updates, Vulnerabilities, Programming
 :rules: yes
-:translate: rules/158/
 
 = REQ.158 Define secure programming language
 

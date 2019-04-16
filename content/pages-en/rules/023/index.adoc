@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of closing inactive user sessions after a certain period inactivity in order to avoid security breaches.
 :keywords: Requirement, Security, Session, Cookies, Attributes, HttpOnly.
 :rules: yes
-:translate: rules/023/
 
 = REQ.023 Close inactive users sessions
 

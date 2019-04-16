@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of physical control in the organization. This requirement establishes the importance of monitoring the integrity of physical and/or digital information assets using sensors.
 :keywords: Requirement, Security, Assets, Information, Sensor, Monitoring
 :rules: yes
-:translate: rules/297/
 
 = REQ.297 Install sensors on information assets
 

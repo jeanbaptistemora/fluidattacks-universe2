@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of cryptographic systems. This requirement establishes the importance of setting asymmetric encryption of minimum size in the cryptographic functions of the system.
 :keywords: Requirement, Security, Cryptographic, Asymmetric, Encryption, Size
 :rules: yes
-:translate: rules/148/
 
 = REQ.148 Set minimum size of asymmetric encryption
 

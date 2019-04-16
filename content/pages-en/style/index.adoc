@@ -2,7 +2,6 @@
 :description: The purpose of this page is to establish the main guidelines for the articles and documents published in our website. Also, we present the acceptance criteria, the format and structure requirements and all the information you may need if you wish to share your opinion in our blog.
 :keywords: Fluid Attacks, Style, AsciiDoc, Articles, Requirement, Website.
 :category: blog
-:translate: estilo/
 
 = Style
 
@@ -257,7 +256,6 @@ This description will appear in the search engine search results.
 | Keywords through which a search engine can find the document.
 The document must include 6 +keywords+.
 
-|+:translate:+ | Yes | Yes | Yes
 | Attribute that indicates if a translated version of the documents
 is available in the +Fluid Attacks+ website.
 In case there is a translated version available,

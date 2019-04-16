@@ -2,7 +2,6 @@
 :category: aliados
 :description: Términos de la relación contractual entre Fluid Attacks y sus ALIADOS (sean canales o integradores). Se especifican las comisiones, fechas de corte, metas, rangos de comisión, entre otros aspectos. Estos pueden cambiar en cualquier momento y se fijan solo mediante la firma del documento físico.
 :keywords: Fluid Attacks, Aliados, Comercial, Seguridad, Ethical Hacking, Condiciones.
-:translate: partners/terms/
 
 = Condiciones
 

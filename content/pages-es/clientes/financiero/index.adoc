@@ -2,7 +2,6 @@
 :category: clientes
 :description: Fluid Attacks es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestras soluciones en el sector financiero.
 :keywords: Fluid Attacks, Clientes, Seguridad, Financiero, Pentesting, Ethical Hacking.
-:translate: customers/financial/
 :panama: image:../../images/icons/panama-flag.png[Panama Flag]
 
 = Financiero

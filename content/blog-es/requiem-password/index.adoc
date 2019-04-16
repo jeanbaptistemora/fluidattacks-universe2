@@ -12,7 +12,6 @@
 :name: Rafael Ballestas
 :about1: Matemático
 :about2: con interés por CS
-:translate: requiem-password/
 
 = Réquiem por un p455w0rD
 

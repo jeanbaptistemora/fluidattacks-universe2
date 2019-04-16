@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of Logs and events. This requirement establishes the importance of recording all relevant time parameters in order to detect the exact moment of occurrence of a security event.
 :keywords: Requirement, Security, Time, Logs, Events, Occurrence
 :rules: yes
-:translate: rules/079/
 
 = REQ.079 Record exact occurrence time of events
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining detective and deterrent physical controls in the periphery of the facilities.
 :keywords: Requirement, Security, Physical Access, Control, Mechanisms, Facilities
 :rules: yes
-:translate: rules/111/
 
 = REQ.111 Define suitable physical controls
 

@@ -2,7 +2,6 @@
 :category: clientes
 :description: Fluid Attacks es una compañía especializada en seguridad informática, ethical hacking, pentesting y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. A continuación presentamos los testimonios presentados por nuestros clientes.
 :keywords: Fluid Attacks, Clientes, Testimonio, Servicios, Productos, Evaluación.
-:translate: customers/reviews/
 
 = Testimonios
 

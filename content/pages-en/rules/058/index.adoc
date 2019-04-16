@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of logical architecture in the organization. This requirement establishes the importance of documenting all system security events in order to facilitate the response to a security breach.
 :keywords: Requirement, Security, Events, Documentation, Record, Procedure
 :rules: yes
-:translate: rules/058/
 
 = REQ.058 Document security events
 

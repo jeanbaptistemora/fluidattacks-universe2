@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que todo usuario que acceda al sistema con privilegios de administrador, esté previamente definido.
 :keywords: Sistema, Seguridad, Usuario, Acceso, Administrador, Definir.
 :rules: yes
-:translate: rules/095/
 
 = REQ.095 Definir usuarios con privilegios
 

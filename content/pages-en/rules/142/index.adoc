@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of modifying all default credentials in the system in order to avoid brute force attacks.
 :keywords: Requirement, Security, Credentials, Default, Password, System
 :rules: yes
-:translate: rules/142/
 
 = REQ.142 Change system default credentials
 

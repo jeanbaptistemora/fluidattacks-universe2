@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que toda organización tenga un proceso de gestión bien definido para sus tarjetas de acceso.
 :keywords: Seguridad, Proceso, Organización, Acceso, Gestión, Tarjetas.
 :rules: yes
-:translate: rules/103/
 
 = REQ.103 Gestionar tarjetas de acceso
 

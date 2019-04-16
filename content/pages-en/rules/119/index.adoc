@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of emails in the organization. This requirement establishes the importance of hiding the recipients when sending bulk emails in order to avoid business information disclosure.
 :keywords: BCC, Mails, Recipient, Information, Disclosure, Bulk
 :rules: yes
-:translate: rules/119/
 
 = REQ.119 Hide recipients
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of resources and services in the organization. This requirement establishes the importance of restricting access to critical business processes, allowing only authorized users.
 :keywords: System, Users, Restriction, Business Information, Authentication, Processes
 :rules: yes
-:translate: rules/265/
 
 = REQ.265 Restrict access to critical processes
 

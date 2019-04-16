@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of information assets in the organization. This requirement establishes the importance of identifying all system dependencies and components used in information systems.
 :keywords: Requirement, Security, Dependencies, Components, Identification, System
 :rules: yes
-:translate: rules/002/
 
 = REQ.002 Identify dependencies or components
 

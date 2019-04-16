@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de una suite de seguridad instalada en un sistema. Por lo tanto, en toda máquina en producción, se debe tener una suite de seguridad que no pueda ser alterada por el usuario.
 :keywords: Suite, Máquina, Sistema, Usuario, Seguridad, Alterar.
 :rules: yes
-:translate: rules/273/
 
 = REQ.273 Establecer suite de seguridad segura
 

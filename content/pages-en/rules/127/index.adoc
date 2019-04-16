@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining cryptographic mechanisms to store passwords securely and avoid common attacks.
 :keywords: Requirement, Security, Passwords, Hash, Cryptography, Algorithms
 :rules: yes
-:translate: rules/127/
 
 = REQ.127 Store hashed passwords
 

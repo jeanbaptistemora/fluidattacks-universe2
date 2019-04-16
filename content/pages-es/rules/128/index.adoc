@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento, se recomienda que el sistema almacene todas sus contraseñas en una única fuente de datos.
 :keywords: Sistema, Almacenar, Contraseña, Fuente, Autenticación, Datos.
 :rules: yes
-:translate: rules/128/
 
 = REQ.128 Establecer única fuente de datos
 

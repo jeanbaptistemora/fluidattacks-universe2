@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to a company's information assets. Each and every single information asset must have an owner or owners in order to assure the correct execution of the implemented security controls.
 :keywords: Requirement, Security, Assets, Information, Assignment, Responsible.
 :rules: yes
-:translate: rules/004/
 
 = REQ.004 Asset Owners are Defined
 

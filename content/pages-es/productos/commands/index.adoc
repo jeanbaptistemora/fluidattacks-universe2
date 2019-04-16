@@ -2,7 +2,6 @@
 :category: productos
 :description: Commands es un producto de tipo troyano con command & control utilizado para realizar Ethical Hacking ofensivo en equipos críticos. Busca tomar control total de múltiples sistemas críticos para crear una red de nodos infectados que pueda ser controlada desde un centro de mando y control.
 :keywords: Fluid Attacks, Productos, Commands, Seguridad, Pentesting, Aplicaciones.
-:translate: products/commands/
 
 = Commands
 

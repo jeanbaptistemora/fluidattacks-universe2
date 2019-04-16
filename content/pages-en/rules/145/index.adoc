@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of protecting system cryptographic keys in order to prevent leakages on encrypted sensitive information.
 :keywords: Requirement, Security, Asymmetric, Symmetric, System, Keys
 :rules: yes
-:translate: rules/145/
 
 = REQ.145 Protect system cryptographic keys
 

@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to the definition and management of session and session variables in the organization. This requirement establishes the importance of allowing temporary lockouts over sessions in order to avoid bruteforce attacks.
 :keywords: Requirement, Security, Session, User, Lockout, Account
 :rules: yes
-:translate: rules/027/
 
 = REQ.027 Allow session lockout
 

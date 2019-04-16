@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es establecer la importancia de cifrar la información sensible almacenada en el sistema.
 :keywords: Requerimiento, Seguridad, Datos, Información, Sensible, Cifrada
 :rules: yes
-:translate: rules/185/
 
 = REQ.185 Información sensible cifrada
 

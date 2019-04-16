@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of foreign devices in the organization. This requirement establishes the importance of controlling and keeping a record of the entrance and departure of foreign devices in the facilities.
 :keywords: Requirement, Security, Foreign, Devices, Record, Control
 :rules: yes
-:translate: rules/200/
 
 = REQ.200 Keep record of foreign devices
 

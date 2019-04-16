@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to file management in the organization. This requirement establishes the importance of classify critical files and establish tools to monitor them in order to detect any alteration that may result in a security breach.
 :keywords: Requirement, Security, Critical, Components, Application, Identification
 :rules: yes
-:translate: rules/047/
 
 = REQ.047 Classify critical files for monitoring
 

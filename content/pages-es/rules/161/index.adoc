@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir opciones por defecto seguras cuando se utilizan condicionales.
 :keywords: Requerimiento, Seguridad, Código Fuente, Condicionales, Seguros, Default.
 :rules: yes
-:translate: rules/161/
 
 = REQ.161 Opciones por defecto seguras
 

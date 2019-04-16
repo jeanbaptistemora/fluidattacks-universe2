@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of setting privileges for new objects following the principle of least privilege.
 :keywords: Requirement, Security, System, Principle, Least Privilege, Objects
 :rules: yes
-:translate: rules/269/
 
 = REQ.269 Use principle of least privilege
 

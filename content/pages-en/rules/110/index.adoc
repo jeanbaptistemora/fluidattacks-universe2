@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of preventing thefts in facilities by monitoring restricted areas with physical access control mechanisms.
 :keywords: Requirement, Security, Physical Access, Preventive Control, Restricted Areas, Mechanisms
 :rules: yes
-:translate: rules/110/
 
 = REQ.110 Prevent theft in facilities
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of validating the application inputs and discarding harmful information to avoid common injection attacks.
 :keywords: Requirement, Security, Inputs, Application, Validation, Discard
 :rules: yes
-:translate: rules/173/
 
 = REQ.173 Discard unsafe inputs
 

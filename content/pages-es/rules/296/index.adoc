@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de sistemas de control. Por lo tanto, en este requerimiento, se recomienda que toda organización cuente con sistemas de alarma de intrusión física.
 :keywords: Organización, Alarma, Intrusión Física, Control, Sistema, Seguridad.
 :rules: yes
-:translate: rules/296/
 
 = REQ.296 Establecer alarmas de intrusión física
 

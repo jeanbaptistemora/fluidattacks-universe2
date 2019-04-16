@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que toda organización prohíba el ingreso de elementos que permitan extraen información digital o física de la misma.
 :keywords: Uniforme, Información, Organización, Activos, Manipulación, Operario.
 :rules: yes
-:translate: rules/105/
 
 = REQ.105 Evitar fuga de activos
 

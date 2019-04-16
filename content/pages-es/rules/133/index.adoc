@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas seguras con más de 20 caracteres de longitud.
 :keywords: Requerimiento, Seguridad, Contraseñas, Longitud, Caracteres, Credenciales.
 :rules: yes
-:translate: rules/133/
 
 = REQ.133 Contraseñas de más de 20 caracteres
 

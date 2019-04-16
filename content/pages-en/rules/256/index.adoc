@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of logical networks in the organization. This requirement establishes the importance of allowing access only to the necessary ports to avoid security breaches in the system.
 :keywords: Requirement, Security, Configuration, Servers, Ports, Networks
 :rules: yes
-:translate: rules/256/
 
 = REQ.256 Restrict server ports access
 

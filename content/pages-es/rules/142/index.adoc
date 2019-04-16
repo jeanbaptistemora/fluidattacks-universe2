@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que tiene en cuanto a vulnerabilidad se refiere, la modificación de todas las credenciales de acceso por defecto con las que cuenta cualquier sistema empaquetado.
 :keywords: Requerimiento, Seguridad, Sistema, Datos, Respaldo, Origen.
 :rules: yes
-:translate: rules/142/
 
 = REQ.142 Modificar credenciales de acceso por defecto
 

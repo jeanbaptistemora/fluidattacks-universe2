@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de impedir la alteración del contenido de una bitácora en cualquier sistema. Por lo tanto, las bitácoras de un sistema no deben ser modificables o alterables.
 :keywords: Organización, Bitácora, Sistema, Evento, Modificar, Alterar.
 :rules: yes
-:translate: rules/080/
 
 = REQ.080 Impedir modificación de bitácoras
 

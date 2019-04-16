@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to definition and management of user access credentials. User credentials must be unique for each actor that claims access to the system and the health information there contained in order to ease identity tracking.
 :keywords: Requirement, Security, System, Credentials, Access, Actor
 :rules: yes
-:translate: rules/143/
 
 = REQ.143 Unique Access Credentials
 

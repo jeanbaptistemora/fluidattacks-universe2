@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of development process of the application. This requirement establishes the importance of performing security test over the source code to detect known vulnerabilities using automated tools.
 :keywords: Requirement, Security, Source Code, Automated Tools, Checks, Test
 :rules: yes
-:translate: rules/240/
 
 = REQ.240 Check code with automated tools
 

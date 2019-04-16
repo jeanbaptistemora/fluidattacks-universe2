@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of files in the organization. This requirement establishes the importance of discarding potentially harmful data inputs in parameters in order to avoid code injections and data leakage.
 :keywords: Requirement, Security, Path, Directory, Parameter, File
 :rules: yes
-:translate: rules/037/
 
 = REQ.037 Parameters without sensitive data
 

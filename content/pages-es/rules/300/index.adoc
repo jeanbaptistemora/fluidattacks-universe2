@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es recomendar que toda información sensible del negocio esté debidamente enmascarada.
 :keywords: CVV, Seguridad, Datos, Información, Negocio, Enmascarar.
 :rules: yes
-:translate: rules/300/
 
 = REQ.300 Enmascarar datos sensibles
 

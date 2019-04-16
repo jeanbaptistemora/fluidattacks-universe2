@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de eliminar de manera segura, todos aquellos datos del sistema cuyo contenido sea información sensible, de tal manera, que éstos no puedan ser recuperados.
 :keywords: Requerimiento, Seguridad, Datos sensibles, Eliminar, Recuperar, Eliminación segura.
 :rules: yes
-:translate: rules/183/
 
 = REQ.183 Eliminación segura de datos
 

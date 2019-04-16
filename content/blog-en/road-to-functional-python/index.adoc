@@ -12,7 +12,6 @@
 :name: Oswaldo José Parada Cuadros
 :about1: Mechanical Engineer
 :about2: Family, friends and little details. There is the answer.
-:translate: camino-hacia-python-funcional/
 
 = Road to Functional Python
 

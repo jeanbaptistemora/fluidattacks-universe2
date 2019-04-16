@@ -13,7 +13,6 @@
 :about1: Matemático
 :about2: con interés por CS
 :source-highlighter: pygments
-:translate: machine-learning-hack/
 
 = Machine-learning para hackear
 

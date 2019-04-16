@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos físicos de la organización. En este requerimiento, se recomienda que todo dispositivo sea capaz de eliminar información confidencial ante un evento de apertura.
 :keywords: Dispositivo, Eliminar, Información, Confidencial, Apertura, Seguridad.
 :rules: yes
-:translate: rules/202/
 
 = REQ.202 Eliminar información confidencial
 

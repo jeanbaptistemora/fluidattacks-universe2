@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of using cookies with the required security attributes such as HttpOnly and Secure.
 :keywords: Requirement, Security, Session, Cookies, Attributes, HttpOnly.
 :rules: yes
-:translate: rules/029/
 
 = REQ.029 Cookies with security attributes
 

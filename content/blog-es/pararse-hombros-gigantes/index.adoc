@@ -12,7 +12,6 @@
 :name: Rafael Ballestas
 :about1: Matemático
 :about2: Con interés por CS
-:translate: stand-shoulders-giants/
 
 = Pararse en los hombros de gigantes
 

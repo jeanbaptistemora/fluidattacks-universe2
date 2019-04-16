@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of application source code the organization. This requirement establishes the importance of encoding system outputs in the corresponding language by using escaping.
 :keywords: Requirement, Security, Encoding, Outputs, Application, Escaping
 :rules: yes
-:translate: rules/160/
 
 = REQ.160 Encode system outputs
 

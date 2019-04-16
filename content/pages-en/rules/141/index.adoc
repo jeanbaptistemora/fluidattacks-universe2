@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of force user re authentication when performing critical operations with sensitive data.
 :keywords: Requirement, Security, Authentication, Credentials, Session, Password
 :rules: yes
-:translate: rules/141/
 
 = REQ.141 Force re authentication
 

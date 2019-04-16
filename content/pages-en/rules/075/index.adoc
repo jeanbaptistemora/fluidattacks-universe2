@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of Logs. This requirement establishes the importance of recording exceptional and security events in logs, allowing the backtracking and proper response in an undesired scenario.
 :keywords: Requirement, Security, Record, Logs, Events, Tracking
 :rules: yes
-:translate: rules/075/
 
 = REQ.075 Record exceptional events in logs
 

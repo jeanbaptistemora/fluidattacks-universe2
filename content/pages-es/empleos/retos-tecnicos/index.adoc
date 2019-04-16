@@ -3,7 +3,6 @@
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección realizado. La etapa de retos técnicos consiste en evaluar las competencias del candidato mediante ejercicios prácticos de programación y hacking.
 :keywords: Fluid Attacks, Empleos, Proceso, Selección, Retos, Técnicos.
 //:toc: yes
-:translate: careers/technical-challenges/
 
 = ¿Dónde está la versión en español?
 

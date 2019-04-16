@@ -12,7 +12,6 @@
 :name: Oswaldo José Parada Cuadros
 :about1: Ingeniero Mecánico
 :about2: Familia, amigos y pequeños detalles. Ahí está la respuesta.
-:translate: why-we-go-functional/
 
 = Por qué somos funcionales?
 

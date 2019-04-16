@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad sobre la necesidad de conocer cuál es el propósito que tiene un determinado sistema respecto a la recolección de datos personales. Lo anterior se debe cumplir según lo estipulado en OECD.9 y en ISACA.G31.3.
 :keywords: Requerimiento, Seguridad, Especificar, Datos personales, Recolección, Usuario.
 :rules: yes
-:translate: rules/189/
 
 = REQ.189 Especificar recolección de datos personales
 

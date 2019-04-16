@@ -1,7 +1,6 @@
 :slug: services/
 :description: Fluid Attacks services aim to detect and report all existing vulnerabilities and security issues within an application. Our professional team continuously develop their own tools and exploits to ensure the detection of all security findings with no false positives.
 :keywords: Fluid Attacks, Services, Ethical Hacking, Pentesting, Security, Information.
-:translate: servicios/
 :caption:
 
 = Services

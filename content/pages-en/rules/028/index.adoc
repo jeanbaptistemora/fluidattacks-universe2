@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of sessions and session variables in the organization. This requirement establishes the importance of allowing users to terminate the session from any protected resource.
 :keywords: Requirement, Security, Session, Logout, User, Resources
 :rules: yes
-:translate: rules/028/
 
 = REQ.028 Allow user logout
 

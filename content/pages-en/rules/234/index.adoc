@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of authentication process in the organization. This requirement establishes the importance of protecting credentials with critical business information under custody of two users.
 :keywords: Requirement, Security, Credential, Business, Information, Users
 :rules: yes
-:translate: rules/234/
 
 = REQ.234 Protect authentication credentials
 

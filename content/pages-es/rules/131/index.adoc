@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la importancia que todo sistema debe darle al cambio de contraseña de sus usuarios. Por lo tanto, se debe impedir el cambio de la misma más de una vez el mismo día.
 :keywords: Requerimiento, Contraseña, Cambio, Impedir, Seguridad, Sistema.
 :rules: yes
-:translate: rules/131/
 
 = REQ.131 Impedir cambiar contraseña mas de una vez
 

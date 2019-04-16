@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que toda organización cuente con protección física adecuada para sus activos de información físicos y lógicos.
 :keywords: Activos, Barreras, Organización, Acceso, Seguridad, Custodiar.
 :rules: yes
-:translate: rules/098/
 
 = REQ.098 Custodiar activos de información
 

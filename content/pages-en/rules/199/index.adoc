@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of foreign devices in the organization. This requirement establishes the importance of defining the accepted circumstances to use foreign devices in the facilities.
 :keywords: Requirement, Security, Foreign Devices, Services, Time, Personnel
 :rules: yes
-:translate: rules/199/
 
 = REQ.199 Authorize foreign devices access
 

@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de forzar a un usuario a realizar nuevamente el proceso de autenticación o invalidar su sesión una vez que haya ocurrido un cambio en el estado del mismo.
 :keywords: Contraseña, Usuario, Autenticación, Sesión, Estado, Restaurar.
 :rules: yes
-:translate: rules/141/
 
 = REQ.141 Forzar proceso de autenticación
 

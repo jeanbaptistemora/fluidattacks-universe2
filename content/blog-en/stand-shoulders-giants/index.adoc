@@ -12,7 +12,6 @@
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS
-:translate: pararse-hombros-gigantes/
 
 = Stand on the shoulders of giants
 

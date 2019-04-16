@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la creación de sentencias, construcciones o procedimientos almacenados parametrizados en la elaboración dinámica de sentencias dentro del código fuente de la aplicación.
 :keywords: Requerimiento, Seguridad, Código Fuente, Parametrizada, Procedimientos, Sentencias.
 :rules: yes
-:translate: rules/169/
 
 = REQ.169 Usar construcciones parametrizadas
 

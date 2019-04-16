@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of user credentials in the organization. This requirement establishes the importance of validating passwords changes to ensure that the new passwords do not match previous user passwords.
 :keywords: System, Requirement, Password, Update, Validation, Security.
 :rules: yes
-:translate: rules/129/
 
 = REQ.129 Validate previous passwords
 

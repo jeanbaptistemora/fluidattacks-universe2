@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de código fuente que compone a una determinada aplicación. Lo anterior, debido a que el código fuente de una aplicación no debe contener información sensible.
 :keywords: Requerimiento, Seguridad, Código Fuente, Información sensible, Aplicación, Robo de información.
 :rules: yes
-:translate: rules/156/
 
 = REQ.156 Código sin información sensible
 

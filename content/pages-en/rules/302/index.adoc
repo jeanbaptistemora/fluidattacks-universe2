@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of explicitly declaring all the dependencies used in the source code
 :keywords: Requirement, Security, Files, Dependencies, Source Code, Libraries.
 :rules: yes
-:translate: rules/302/
 
 = REQ.302 Declare dependencies explicitly
 

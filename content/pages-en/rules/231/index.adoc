@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining mechanisms and components for biometric verification during authentication process.
 :keywords: Requirement, Security, Authentication, Biometric, Validation, Access Credentials
 :rules: yes
-:translate: rules/231/
 
 = REQ.231 Define biometric verification component
 

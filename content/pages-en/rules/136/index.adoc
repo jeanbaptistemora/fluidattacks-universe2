@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining mechanisms to force user to change temporary passwords after its first use.
 :keywords: Requirement, Security, Credentials, Temporary Passwords, Mechanisms, First Use
 :rules: yes
-:translate: rules/136/
 
 = REQ.136 Force temporary passwords changing
 

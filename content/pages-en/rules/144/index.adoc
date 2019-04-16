@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of purifying user accounts periodically in order to avoid information leakages.
 :keywords: Requirement, Security, Credentials, User, Account, Purify
 :rules: yes
-:translate: rules/144/
 
 = REQ.144 Purify accounts periodically
 

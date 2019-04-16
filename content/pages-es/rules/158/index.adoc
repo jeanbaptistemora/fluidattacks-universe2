@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de implementar la codificación del sistema con una versión estable y actualizada.
 :keywords: Requerimiento, Seguridad, Código Fuente, Codificación, Estable, Actualizada.
 :rules: yes
-:translate: rules/158/
 
 = REQ.158 Codificación Actualizada
 

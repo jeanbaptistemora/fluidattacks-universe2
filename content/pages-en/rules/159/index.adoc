@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of application source code the organization. This requirement establishes the importance of obfuscating the application source code in production environments.
 :keywords: Requirement, Security, Source Code, Obfuscation, Protection, Production
 :rules: yes
-:translate: rules/159/
 
 = REQ.159 Obfuscate Code
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of setting the minimum level of privileges to access other systems or database.
 :keywords: Requirement, Security, Data, Privileges, System, Database
 :rules: yes
-:translate: rules/186/
 
 = REQ.186 Use minimum level of privileges
 

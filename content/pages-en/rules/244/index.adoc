@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of business process in the organization. This requirement establishes the importance of defining and documenting procedures to manage information backup in case of security event.
 :keywords: Requirement, Security, Business Process, Information, Backup, Documentation
 :rules: yes
-:translate: rules/244/
 
 = REQ.244 Manage information backup
 

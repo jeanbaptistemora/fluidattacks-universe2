@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. En este requerimiento se recomienda que toda organización cuente con un modelo propio de gestión de amenazas para el sistema en cuestión.
 :keywords: Organización, STRIDE, Modelo, Amenazas, Sistema, Spoofing.
 :rules: yes
-:translate: rules/008/
 
 = REQ.008 Generar modelo de amenazas del sistema
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining passphrases with at least 4 words to improve credentials security
 :keywords: Requirement, Security, Credentials, Access, Passphrases, Words
 :rules: yes
-:translate: rules/132/
 
 = REQ.132 Passphrases with minimum 4 words
 

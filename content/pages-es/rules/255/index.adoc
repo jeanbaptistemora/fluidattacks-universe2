@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración lógica de la red de una determinada organización. Por lo tanto, los segmentos de usuarios y servidores con aplicaciones o contenido deben permitir acceso sólo a los puertos necesarios.
 :keywords: Segmento de usuario, Servidor, Aplicaciones, Puerto, Seguridad, Requerimiento.
 :rules: yes
-:translate: rules/255/
 
 = REQ.255 Permitir acceso sólo en puertos necesarios
 

@@ -13,7 +13,6 @@
 :about1: Matemático
 :about2: Con interés por CS
 :source-highlighter: pygments
-:translate: infinite-monkey-fuzzer/
 
 = El fuzzer del mono infinito
 

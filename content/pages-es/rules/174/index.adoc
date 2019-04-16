@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a una gestión adecuada de todas aquellas peticiones realizadas por la aplicación donde se ejecuten transacciones. De tal forma, que éstas no sigan un patrón discernible.
 :keywords: Requerimiento, Seguridad, Código Fuente, Peticiones, Transacciones, Patrón.
 :rules: yes
-:translate: rules/174/
 
 = REQ.174 Transacciones sin patrón discernible
 

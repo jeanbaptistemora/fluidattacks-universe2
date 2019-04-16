@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de arquitectura lógica dentro de la organización. En este requerimiento se establece la importancia de definir pruebas de seguridad automatizadas y ejecutadas como parte del proceso de despliegue.
 :keywords: Pruebas, Automatizar, Despliegue, Integración, Unitarias, Seguridad.
 :rules: yes
-:translate: rules/070/
 
 = REQ.070 Definir pruebas de seguridad automatizadas
 

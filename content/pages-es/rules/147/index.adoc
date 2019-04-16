@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la criptografía y el proceso de ocultar información sensible. En este requerimiento se establece la importancia de implementar funciones criptográficas con mecanismos existentes.
 :keywords: Requerimiento, Seguridad, Criptografía, Mecanismos, Existentes, Funciones.
 :rules: yes
-:translate: rules/147/
 
 = REQ.147 Utilizar mecanismos pre-existentes
 

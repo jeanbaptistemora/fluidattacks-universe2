@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of development process of the application. This requirement establishes the importance of defining requirements that will be checked according to the security criteria of the organization.
 :keywords: Requirement, Security, Criteria, Requirements, Development, Process
 :rules: yes
-:translate: rules/241/
 
 = REQ.241 Define security requirements
 

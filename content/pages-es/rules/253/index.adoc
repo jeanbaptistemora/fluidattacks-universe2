@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al acceso a una red privada de una determinada organización. Por lo tanto, dichas redes privadas deben filtrar el acceso por medio de credenciales y de una dirección MAC autorizada.
 :keywords: Red, Privada, Credenciales, Inalámbrica, MAC, Dirección.
 :rules: yes
-:translate: rules/253/
 
 = REQ.253 Filtrar acceso a la red
 

@@ -2,7 +2,6 @@
 :category: servicios
 :description: Nuestro servicio de Hacking Continuo busca encontrar todas las vulnerabilidades y reportarlas lo antes posible. A través de la participación en el ciclo de vida de desarrollo, estamos en la capacidad de encontrar vulnerabilidades de forma paralela al desarrollo.
 :keywords: Fluid Attacks, Servicios, Hacking, Continuo, Vulnerabilidad, Seguridad.
-:translate: services/continuous-hacking/
 
 = Hacking Continuo
 

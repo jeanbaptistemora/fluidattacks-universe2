@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de transmitir información o ejecutar funciones cuyo contenido sea sensible mediante un protocolo o canal seguro que cumpla con todos los estándares de seguridad requeridos para dicho sistema.
 :keywords: Requerimiento, Seguridad, Protocolo, Transmisión, Funciones, Información sensible.
 :rules: yes
-:translate: rules/181/
 
 = REQ.181 Transmitir por medio de protocolos seguros
 

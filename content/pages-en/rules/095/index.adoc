@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining the users with administrator and root privileges in the system.
 :keywords: Requirement, Security, Users, Privileges, Root, Administrator
 :rules: yes
-:translate: rules/095/
 
 = REQ.095 Define users with privileges
 

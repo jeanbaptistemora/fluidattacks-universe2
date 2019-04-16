@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento se define la importancia de establecer penalizaciones aplicadas en caso de incumplimiento de un acuerdo a nivel de servicio.
 :keywords: Requerimiento, Seguridad, Penalización, Incumplimiento, Acuerdos, Servicio.
 :rules: yes
-:translate: rules/020/
 
 = REQ.020 Definir penalizaciones por incumplimiento
 

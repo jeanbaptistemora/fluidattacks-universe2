@@ -202,8 +202,8 @@ def rulechecker(PATH, EXIT_CODE):
     EXIT_CODE = 1
 
   # Check that the meta description is in [250-300] char range
-  OUT = os.popen("pcregrep -no '(?<=:description: ).{306,}$"\
-                 "|(?<=:description:).{0,249}$' "+PATH).read()
+  OUT = os.popen("pcregrep -no '(?<=^:description: ).{306,}$"\
+                 "|(?<=^:description:).{0,249}$' "+PATH).read()
   if len(OUT) > 0:
     print_helper.print_failure("Issue found in "+PATH+"\n")
     print_helper.print_failure(OUT)

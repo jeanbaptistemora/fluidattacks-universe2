@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los números aleatorios. En este requerimiento se establece la importancia de implementar mecanismos criptográficos seguros para la generación de números aleatorios usados en procesos críticos.
 :keywords: Requerimiento, Seguridad, Aleatorios, Mecanismos, Criptográficos, Seguros.
 :rules: yes
-:translate: rules/224/
 
 = REQ.224 Usar mecanismos criptográficos seguros
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of Logs in the organization. This requirement establishes the importance of allowing consults in log history for authorized users, in order to ease the tracking and response in a security event.
 :keywords: Requirement, Security, Logs, Transaction, History, Consult
 :rules: yes
-:translate: rules/084/
 
 = REQ.084 Allow transaction history queries
 

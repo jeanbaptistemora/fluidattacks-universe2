@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso, vigencia y caducidad de certificados digitales. Por lo tanto, en todo sistema se deben utilizar certificados digitales que no se encuentren vencidos.
 :keywords: Certificado, Vigencia, Digital, Vencidos, Requerimiento, Seguridad.
 :rules: yes
-:translate: rules/090/
 
 = REQ.090 Utilizar certificados vigentes
 

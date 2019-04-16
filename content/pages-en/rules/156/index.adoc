@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to source code security in the applications. This requirement establishes the importance of developing source code without sensitive information in order to avoid security breaches in the application.
 :keywords: Requirement, Security, Source Code, Sensitive information, Data, Secure Programming.
 :rules: yes
-:translate: rules/156/
 
 = REQ.156 Source code without sensitive information
 

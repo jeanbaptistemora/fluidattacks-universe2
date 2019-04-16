@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of third-party services in the organization. This requirement establishes the importance of verifying that third-party components are always up to date in a stable and tested version.
 :keywords: Requirement, Security, Product, Stable, Updated, Tested.
 :rules: yes
-:translate: rules/262/
 
 = REQ.262 Verify third-party components
 

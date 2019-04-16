@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to a company's information assets. This requirement sets the importance of defining a system threat model covering STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege).
 :keywords: Requirement, Security, Information, Assets, Threat Model, STRIDE
 :rules: yes
-:translate: rules/008/
 
 = REQ.008 Generate system threat model
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining processes to manage access cards for authorized workforce members.
 :keywords: Requirement, Security, Physical Access, Cards, Policies, Process
 :rules: yes
-:translate: rules/103/
 
 = REQ.103 Manage access cards
 

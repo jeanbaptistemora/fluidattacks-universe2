@@ -2,7 +2,6 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección realizado. En esta sección respondemos a las preguntas más frecuentes de nuestros candidatos en proceso de selección.
 :keywords: Fluid Attacks, FAQ, Preguntas, Frecuentes, Empleos, Selección.
-:translate: careers/faq/
 
 = Preguntas frecuentes
 

@@ -2,7 +2,6 @@
 :category: customers
 :description: With over 18 years of experience in the Colombian market, Fluid Attacks is a company focused on information security, ethical hacking, penetration testing, and vulnerabilities detection in applications. We have worked with the following companies in the industrial sector.
 :keywords: Fluid Attacks, Security, Industrial, Information, Ethical Hacking, Pentesting.
-:translate: clientes/industrial/
 :usa: image:../../images/icons/us-flag.png[USA Flag]
 
 = Industrial

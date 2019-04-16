@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of encrypting and verifying client side session information in order to ensure the protection of health information.
 :keywords: Requirement, Security, Session, Information, ViewState, Client side
 :rules: yes
-:translate: rules/026/
 
 = REQ.026 Encrypt client-side session information
 

@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of physical devices in the organization. This requirement establishes the importance of defining mechanisms to detect tampering or unauthorized accesses to physical devices.
 :keywords: Requirement, Security, Mobile, Devices, Tampering, Data
 :rules: yes
-:translate: rules/201/
 
 = REQ.201 Detect device tampering
 

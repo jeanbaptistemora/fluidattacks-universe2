@@ -13,7 +13,6 @@
 :about1: Matemático
 :about2: Con interés por CS
 :source-highlighter: pygments
-:translate: xml-exploitable-markup-language/
 
 = XML: Lenguaje de Marcado eXplotable
 

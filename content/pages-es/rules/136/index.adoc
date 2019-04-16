@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la importancia que todo sistema debe dar en cuanto a forzar el cambio de todas aquellas contraseñas temporales después de su primer uso cuando estas sean generadas automáticamente.
 :keywords: Requerimiento, Contraseña, Temporal, Forzar, Cambiar, Sistema.
 :rules: yes
-:translate: rules/136/
 
 = REQ.136 Forzar cambio de contraseñas temporales
 

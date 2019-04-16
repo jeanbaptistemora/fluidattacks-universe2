@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of logs and events in the organization. This requirement establishes the importance of preventing logs from register sensitive data in exceptional events.
 :keywords: Requirement, Security, Logs, Data, Events, Information.
 :rules: yes
-:translate: rules/083/
 
 = REQ.083 Avoid sensitive data logging
 

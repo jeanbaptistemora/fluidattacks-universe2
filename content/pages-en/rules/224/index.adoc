@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of random number in the organization. This requirement establishes the importance of using secure cryptographic mechanisms to generate random numbers used in data encryption.
 :keywords: Requirement, Security, Logical, Network, Segment, Areas
 :rules: yes
-:translate: rules/224/
 
 = REQ.224 Use secure cryptographic mechanisms
 

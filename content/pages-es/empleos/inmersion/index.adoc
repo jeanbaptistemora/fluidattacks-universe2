@@ -3,7 +3,6 @@
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de Fluid Attacks sobre el proceso de selección. La etapa de inmersión consiste en un entrenamiento remunerado cuya finalidad es adquirir los conocimientos necesarios para desempeñar tu cargo.
 :keywords: Fluid Attacks, Empleo, Proceso, Selección, Inmersión, Entrenamiento.
 //:toc: yes
-:translate: careers/immersion/
 
 = ¿Dónde está la versión en español?
 

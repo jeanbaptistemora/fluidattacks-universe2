@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of authentication process in the organization. This requirement establishes the importance of preventing denial of service  attacks by avoiding account lockouts.
 :keywords: Requirement, Security, Account, Authentication, Attempt, Lockout.
 :rules: yes
-:translate: rules/226/
 
 = REQ.226 Avoid account lockouts
 

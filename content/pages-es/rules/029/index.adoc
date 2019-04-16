@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. En este requerimiento se establece la importancia de utilizar cookies con atributos de seguridad, como HttpOnly o Secure.
 :keywords: Requerimiento, Seguridad, Sesiones, Cookies, Atributos, HttpOnly.
 :rules: yes
-:translate: rules/029/
 
 = REQ.029 Cookies con atributos de seguridad
 

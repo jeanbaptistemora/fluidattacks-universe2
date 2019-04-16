@@ -3,7 +3,6 @@
 :description: This documents contains the details of the security requirements related to logical architecture management in the organization. This requirement establishes the importance of identifying critical components related to security in order to protect sensitive information there stored.
 :keywords: Requirement, Security, Critical, Components, Application, Identification
 :rules: yes
-:translate: rules/052/
 
 = REQ.052 Identify critical components
 

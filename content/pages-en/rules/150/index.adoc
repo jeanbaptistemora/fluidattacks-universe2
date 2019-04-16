@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of cryptographic systems. This requirement establishes the importance of protecting encrypted sensitive information by setting a minimum size for all hash functions in the system.
 :keywords: Requirement, Security, Hash, Function, Size, Cryptography
 :rules: yes
-:translate: rules/150/
 
 = REQ.150 Set minimum size for hash functions
 

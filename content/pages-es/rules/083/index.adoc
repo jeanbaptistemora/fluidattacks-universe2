@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de evitar filtrar información sensible a través de eventos excepcionales almacenados en una bitácora.
 :keywords: Requerimiento, Seguridad, Bitácoras, Información, Eventos, Almacenamiento.
 :rules: yes
-:translate: rules/083/
 
 = REQ.083 No registrar datos sensibles en bitácoras
 

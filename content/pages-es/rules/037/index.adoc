@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de definir parámetros que no contengan información sensible, como nombres de directorios o rutas.
 :keywords: Requerimiento, Seguridad, Archivos, Parámetros, Rutas, Directorios.
 :rules: yes
-:translate: rules/037/
 
 = REQ.037 Parámetros sin datos sensibles.
 

@@ -3,7 +3,6 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento, se recomienda que el sistema almacena todas sus contraseñas por medio de resumen criptográfico.
 :keywords: Sistema, Almacenar, Contraseña, Criptografía, Autenticación, Resumen.
 :rules: yes
-:translate: rules/127/
 
 = REQ.127 Almacenar contraseña mediante criptografía
 
