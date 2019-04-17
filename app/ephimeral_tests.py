@@ -1,10 +1,11 @@
+import boto3
 import os
-import pyotp
+import tarfile
 import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,19 +17,29 @@ SCR_PATH = 'screenshots/'
 class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
+        profile_path = os.path.join(os.getcwd(), 'selenium_profile.default')
+        if not os.path.exists(profile_path):
+            session = boto3.Session(
+                aws_access_key_id = os.environ['FI_AWS_S3_ACCESS_KEY'],
+                aws_secret_access_key = os.environ['FI_AWS_S3_SECRET_KEY'])
+            s3 = session.resource('s3')
+            s3.Bucket(os.environ['FI_AWS_S3_RESOURCES_BUCKET']).download_file(
+                'selenium/selenium_profile.tar.gz', 'profile.tar.gz')
+            with tarfile.open('profile.tar.gz') as tar:
+              tar.extractall()
         options = Options()
+        profile = FirefoxProfile(profile_path)
         options.headless = True
         self.delay = 20
-        self.selenium = webdriver.Firefox(options=options)
+        self.selenium = webdriver.Firefox(
+            firefox_profile=profile,
+            options=options)
         self.branch = os.environ['CI_COMMIT_REF_NAME']
         if self.branch == 'master':
             self.url = 'https://fluidattacks.com/integrates'
         else:
             self.url = \
                 'https://{}.integrates.env.fluidattacks.com/integrates'.format(self.branch)
-        self.username = os.environ['FI_INTEGRATES_USER']
-        self.password = os.environ['FI_INTEGRATES_USERPASS']
-        self.otp = pyotp.TOTP(os.environ['FI_INTEGRATES_USEROTP'])
 
         super(ViewTestCase, self).setUp()
 
@@ -41,42 +52,6 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url)
         selenium.find_element_by_xpath(
             "//*[contains(text(), 'Log in with Google')]").click()
-        email_id = \
-            WebDriverWait(selenium,
-                          self.delay).until(
-                              EC.presence_of_element_located(
-                                  (By.NAME, 'identifier')))
-
-        email_id.send_keys(self.username)
-        selenium.find_elements_by_xpath(
-            "//*[contains(text(), 'Next')]")[1].click()
-        time.sleep(3)
-        pass_id = \
-            WebDriverWait(selenium,
-                          self.delay).until(
-                              EC.presence_of_element_located(
-                                  (By.XPATH,
-                                   "//*[contains(@type, 'password')]")))
-
-        pass_id.send_keys(self.password)
-        selenium.find_elements_by_xpath(
-            "//*[contains(text(), 'Next')]")[1].click()
-        time.sleep(3)
-        WebDriverWait(selenium,
-                      self.delay).until(
-                          EC.presence_of_element_located(
-                              (By.XPATH,
-                              "//*[contains(text(), 'Google Authenticator')]"))
-                          ).click()
-        time.sleep(3)
-
-        otp_id = WebDriverWait(selenium,
-                               self.delay).until(
-                                   EC.presence_of_element_located(
-                                       (By.ID, 'totpPin')))
-        otp_id.send_keys(self.otp.now())
-        selenium.find_elements_by_xpath(
-            "//*[contains(text(), 'Next')]")[1].click()
         WebDriverWait(selenium,
                       self.delay).until(
                           EC.presence_of_element_located(
