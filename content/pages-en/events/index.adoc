@@ -4,4 +4,67 @@
 
 = Events
 
-Under construction.
+. Burn the datacenter: from pets to cattle.
+
+. Breaking the build: Our +SecDevOps+ habits.
+
+. Mobile devices insurance.
+
+. Live  hacking.
+
+== When?
+
+We will arrange the event date.
+You must provide us +3+ possible schedules for the event,
+and we will select +1+.
+
+== Details
+
+. *Investment:* 0 $USD, +Fluid Attacks+ will cover
+all the related costs, except for the place and time of the assistants.
+If the minimum number of assistants is not fulfilled,
+the event will have a cost, that must be covered by the company,
+and communicated to +Fluid Attacks+.
+
+. *Material:* All event material will be sent only to the assistants
+who complete the satisfaction survey
++1+ day after the conference.
+
+== Requirements
+
+Below we list the minimum requirements
+to carry out the conference without any setbacks:
+
+. All the assistants MUST complete an online satisfaction survey (+2+ minutes)
+before leaving the auditorium.
+
+. +Fluid Attacks+ CAN invite up to +4+ additional assistants
+to the event.
+
+. Event assistants MUST NOT use cellphones nor laptops
+during the time of the conference.
+
+. All assistants MUST be previously notified about the event,
+so they can voluntary decide whether to assist or not.
+
+. The speaker MUST enter the auditorium +30+ minutes before
+the beginning of the event to connect the equipment,
+test +WiFi+ connectivity and start the conference
+at the scheduled time.
+
+. *Access to +Google Drive+ via WiFi:*
+The presentation has animations and videos
+that can only be accessed if the laptop is connected
+to a network that allows access to +Google Drive+.
+
+. Video beam with aspect ratio +16:9+.
+
+. +HDMI+ cable connected directly to the video beam
+from the speaker laptop (without +VGA+ adapters).
+
+. Do not include assistants remotely.
+The conference is very dynamic and hence,
+it depends on the face to face interaction with the attendance.
+
+. If the conference is part of an event with more speakers,
+it must be scheduled before the last speaker of the morning session.
