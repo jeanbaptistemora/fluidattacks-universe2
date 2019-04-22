@@ -251,7 +251,6 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.has_complete_docs
 
-    @get_entity_cache
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
 
