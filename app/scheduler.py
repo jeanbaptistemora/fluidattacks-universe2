@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import logging
 import logging.config
 import rollbar
+from botocore.exceptions import ClientError
 from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_ENGINEERING,
     FI_MAIL_REVIEWERS
@@ -14,6 +15,7 @@ from __init__ import (
 from django.conf import settings
 from . import views
 from .dao import integrates_dao
+from .domain.project import get_last_closing_vuln, get_mean_remediate
 from .api.formstack import FormstackAPI
 from .dto import remission
 from .dto import eventuality
@@ -21,6 +23,7 @@ from .dto.finding import finding_vulnerabilities
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
     send_mail_new_releases, send_mail_unsolved_events, \
     send_mail_project_deletion
+from . import util
 
 
 logging.config.dictConfig(settings.LOGGING)
@@ -408,3 +411,35 @@ def deletion_of_finished_project():
         days_to_delete = [7]
     projects = integrates_dao.get_registered_projects()
     list(map(lambda x: deletion(x[0], days_to_send, days_to_delete), projects))
+
+
+def update_indicators():
+    """Update in dynamo indicators."""
+    projects = integrates_dao.get_registered_projects()
+    table_name = 'FI_projects'
+    for project in projects:
+        try:
+            project = str.lower(str(project[0]))
+            findings = integrates_dao.get_findings_released_dynamo(
+                project, 'finding_id, treatment, cvss_temporal')
+            last_closing_date = get_last_closing_vuln(findings)
+            mean_remediate = get_mean_remediate(findings)
+            primary_keys = ['project_name', project]
+            indicators = {
+                'last_closing_date': last_closing_date,
+                'mean_remediate': mean_remediate
+            }
+            response = integrates_dao.add_multiple_attributes_dynamo(
+                table_name, primary_keys, indicators)
+            if response:
+                util.invalidate_cache(project)
+            else:
+                rollbar.report_message(
+                    'Error: An error ocurred updating indicators of '
+                    'the project {project} in dynamo'.format(project=project),
+                    'error')
+        except (KeyError, ClientError):
+            rollbar.report_message(
+                'Error: An error ocurred updating '
+                'indicators of the project {project}'.format(project=project),
+                'error')

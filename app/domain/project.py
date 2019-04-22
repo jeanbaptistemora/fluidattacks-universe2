@@ -4,6 +4,7 @@
 import threading
 import re
 import datetime
+from decimal import Decimal
 import pytz
 
 from app.api.formstack import FormstackAPI
@@ -102,7 +103,7 @@ def get_pending_closing_check(project):
 
 def get_last_closing_vuln(findings):
     """Get day since last vulnerability closing."""
-    last_closing = 0
+    last_closing = Decimal(0)
     closing_dates = []
     for fin in findings:
         vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
@@ -119,9 +120,10 @@ def get_last_closing_vuln(findings):
         current_date = max(closing_dates)
         tzn = pytz.timezone('America/Bogota')
         last_closing = \
-            int((datetime.datetime.now(tz=tzn).date() - current_date).days)
+            Decimal((datetime.datetime.now(tz=tzn).date() -
+                     current_date).days).quantize(Decimal("0.1"))
     else:
-        last_closing = 0
+        last_closing = Decimal(0)
     return last_closing
 
 
@@ -214,9 +216,10 @@ def get_mean_remediate(findings):
                 # Vulnerability does not have an open date
                 pass
     if total_vuln:
-        mean_vulnerabilities = round(total_days / float(total_vuln))
+        mean_vulnerabilities = Decimal(
+            round(total_days / float(total_vuln))).quantize(Decimal("0.1"))
     else:
-        mean_vulnerabilities = 0
+        mean_vulnerabilities = Decimal(0).quantize(Decimal("0.1"))
     return mean_vulnerabilities
 
 

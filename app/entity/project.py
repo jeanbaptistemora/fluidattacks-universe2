@@ -14,9 +14,8 @@ from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
-    get_pending_closing_check, get_last_closing_vuln, get_total_treatment,
-    get_max_severity, get_max_open_severity, get_mean_remediate,
-    get_project_info, get_drafts
+    get_pending_closing_check, get_total_treatment,
+    get_max_severity, get_max_open_severity, get_project_info, get_drafts
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -117,7 +116,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_last_closing_vuln(self, info):
         """Resolve days since last closing vuln attribute."""
         del info
-        self.last_closing_vuln = get_last_closing_vuln(self.findings_aux)
+        last_closing_vuln = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['last_closing_date'])
+        self.last_closing_vuln = last_closing_vuln.get('last_closing_date', 0)
         return self.last_closing_vuln
 
     @get_entity_cache
@@ -138,7 +139,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_mean_remediate(self, info):
         """Resolve mean to remediate a vulnerability attribute."""
         del info
-        self.mean_remediate = get_mean_remediate(self.findings_aux)
+        mean_remediate = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['mean_remediate'])
+        self.mean_remediate = mean_remediate.get('mean_remediate', 0)
         return self.mean_remediate
 
     @get_entity_cache

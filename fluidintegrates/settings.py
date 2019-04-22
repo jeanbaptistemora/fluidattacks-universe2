@@ -245,6 +245,7 @@ CRONJOBS = [
     ('0 9 * * 1-5',
         'app.scheduler.send_unsolved_events_email_to_all_projects'),
     ('0 8 * * 1-6', 'app.scheduler.deletion_of_finished_project'),
+    ('0 6,13 * * 1-5', 'app.scheduler.update_indicators'),
 ]
 
 AUTHENTICATION_BACKENDS = (
