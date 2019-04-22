@@ -43,7 +43,7 @@ export interface ITableProps {
   tableContainer?: string;
   tableHeader?: string;
   title?: string;
-  onClickRow?(arg1: string | {id: string } | undefined): void;
+  onClickRow?(arg1: string | {} | undefined): void;
 }
 
 export interface IHeader {
@@ -173,7 +173,7 @@ export const dataTable: React.StatelessComponent<ITableProps> =
           _.isEmpty(props.dataset) && _.isEmpty(props.headers)
           ? <div/>
           : <div>
-              <h1 className={globalStyle.title}>{props.title}</h1>
+              {_.isEmpty(props.title) ? undefined : <h1 className={globalStyle.title}>{props.title}</h1>}
               <BootstrapTable
                 data={props.dataset}
                 exportCSV={props.exportCsv}

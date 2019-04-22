@@ -1,3 +1,4 @@
+import _ from "lodash";
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
 import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
@@ -12,6 +13,7 @@ import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
+import * as homeActions from "./containers/HomeView/actionTypes";
 import * as indicatorsActions from "./containers/IndicatorsView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as draftsActions from "./containers/ProjectDraftsView/actionTypes";
@@ -113,6 +115,8 @@ export interface IDashboardState {
   };
   tracking: Pick<ITrackingViewProps, "closings">;
   user: {
+    displayPreference: "grid" | "list";
+    projects: Array<{ description: string; name: string }>;
     role: string;
   };
   users: {
@@ -310,6 +314,8 @@ const initialState: IDashboardState = {
     closings: [],
   },
   user: {
+    displayPreference: _.get(localStorage, "projectsDisplay", "grid"),
+    projects: [],
     role: "",
   },
   users: {
@@ -801,7 +807,10 @@ actionMap[findingActions.UPDATE_FINDING_HEADER] =
 actionMap[projectActions.LOAD_PROJECT] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
     ...state,
-    user: { role: action.payload.role },
+    user: {
+      ...state.user,
+      role: action.payload.role,
+    },
   });
 
 actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashboardState => ({
@@ -854,6 +863,24 @@ actionMap[draftsActions.LOAD_DRAFTS] =
     drafts: {
       ...state.drafts,
       dataset: action.payload.dataset,
+    },
+  });
+
+actionMap[homeActions.LOAD_PROJECTS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    user: {
+      ...state.user,
+      projects: action.payload.projects,
+    },
+  });
+
+actionMap[homeActions.CHANGE_PROJECTS_DISPLAY] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    user: {
+      ...state.user,
+      displayPreference: action.payload.value,
     },
   });
 
