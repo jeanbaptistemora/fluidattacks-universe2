@@ -6,6 +6,12 @@ const enTranslations: Map<string, string> = {
     title_cvssv2: "Update CVSSv2",
     title_generic: "Confirm action",
   },
+  forms: {
+    closing: "Closure",
+    events: "Events",
+    findings: "Findings",
+    progress: "Progress",
+  },
   home: {
     grid: "Grid",
     list: "List",

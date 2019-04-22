@@ -10,6 +10,7 @@ import {
   eventDescriptionView as EventDescriptionView, eventEvidenceView as EventEvidenceView,
 } from "./containers/EventDescriptionView/index";
 import FindingContent from "./containers/FindingContent/index";
+import { FormsView } from "./containers/FormsView";
 import HomeView from "./containers/HomeView";
 import ProjectContent from "./containers/ProjectContent/index";
 import style from "./index.css";
@@ -44,6 +45,7 @@ const dashboard: React.SFC<IDashboardProps> = (props: IDashboardProps): JSX.Elem
             component={EventEvidenceView}
           />
           <Route path="/home" exact={true} component={HomeView} />
+          <Route path="/forms" component={FormsView} />
           <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
           <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
         </Switch>

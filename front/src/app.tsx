@@ -22,6 +22,7 @@ const app: React.SFC = (): JSX.Element => (
             <Switch>
               <Route path="/home" exact={true} component={Dashboard} />
               <Route path="/project" component={Dashboard} />
+              <Route path="/forms" component={Dashboard} />
             </Switch>
           </React.Fragment>
         </Provider>

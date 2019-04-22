@@ -30,7 +30,7 @@ export const checkRemember: RegistrationAction =
 
 export const loadDashboard: (() => void) = (): void => {
   let initialUrl: string | null = localStorage.getItem("url_inicio");
-  initialUrl = lodash.isNil(initialUrl) ? "" : initialUrl;
+  initialUrl = lodash.isNil(initialUrl) ? "!/home" : initialUrl;
 
   localStorage.removeItem("url_inicio");
   location.assign(

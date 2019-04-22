@@ -39,11 +39,7 @@ angular.module("FluidIntegrates").config((
     state("FindingRecords", {"url": "/project/:project/:id/records"}).
     state("FindingComments", {"url": "/project/:project/:id/comments"}).
     state("FindingObservations", {"url": "/project/:project/:id/observations"}).
-    state("Forms", {
-      "controller": "formController",
-      "templateUrl": `${BASE.url}forms`,
-      "url": "/forms"
-    });
+    state("Forms", {"url": "/forms"});
 });
 
 angular.module("FluidIntegrates").config(($sceDelegateProvider) => {
