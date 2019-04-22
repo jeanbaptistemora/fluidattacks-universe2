@@ -1,28 +1,28 @@
 from graphene import ObjectType
-from .login import AcceptLegal
-from .resource import (
+from app.entity.login import AcceptLegal
+from app.entity.resource import (
     AddRepositories, RemoveRepositories,
     AddEnvironments, RemoveEnvironments,
     AddFiles, RemoveFiles, DownloadFile
 )
-from .user import (
+from app.entity.user import (
     GrantUserAccess, RemoveUserAccess,
     EditUser
 )
-from .vulnerability import (
+from app.entity.vulnerability import (
     UploadFile, DeleteVulnerability
 )
-from .finding import (
+from app.entity.finding import (
     UpdateEvidence, UpdateSeverity,
     UpdateEvidenceDescription,
     AddFindingComment, VerifyFinding, RequestVerification,
     UpdateDescription, UpdateTreatment, DeleteDraft,
     DeleteFinding, ApproveDraft
 )
-from .project import (
+from app.entity.project import (
     AddProjectComment, RemoveTag, AddTags
 )
-from .events import UpdateEvent
+from app.entity.events import UpdateEvent
 
 
 class Mutations(ObjectType):

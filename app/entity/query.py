@@ -1,20 +1,17 @@
 # pylint: disable=no-self-use
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
 from graphene import Field, String, ObjectType, List
 
 from app.api.formstack import FormstackAPI
 from app.entity.me import Me
-from .alert import Alert
-from .login import Login
-from .events import Events
-from .resource import Resource
-from .user import User
-from .finding import Finding
-from .project import Project
+from app.entity.alert import Alert
+from app.entity.login import Login
+from app.entity.events import Events
+from app.entity.resource import Resource
+from app.entity.user import User
+from app.entity.finding import Finding
+from app.entity.project import Project
 # pylint: disable=F0401
-from ..decorators import (
+from app.decorators import (
     require_login, require_role,
     require_project_access_gql,
     require_finding_access_gql, get_cached,

@@ -1,29 +1,25 @@
 """ GraphQL Entity for Formstack Projects """
-# pylint: disable=F0401
-# pylint: disable=relative-beyond-top-level
 # pylint: disable=super-init-not-called
 # pylint: disable=no-self-use
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
-from __future__ import absolute_import
 from datetime import datetime
 import time
 import pytz
 import rollbar
+
 import simplejson as json
+from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
+from graphene.types.generic import GenericScalar
+
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
     get_pending_closing_check, get_max_severity, get_project_info, get_drafts
 )
-from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
-from graphene.types.generic import GenericScalar
-
-from ..dao import integrates_dao, project as redshift_dao
-from ..decorators import get_entity_cache
-from .finding import Finding
-from .user import User
+from app.dao import integrates_dao, project as redshift_dao
+from app.decorators import get_entity_cache
+from app.entity.finding import Finding
+from app.entity.user import User
 
 
 class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
@@ -50,8 +46,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     total_treatment = GenericScalar()
     has_complete_docs = Boolean()
     drafts = List(Finding)
+    description = String()
 
-    def __init__(self, project_name):
+    def __init__(self, project_name, description=''):
         """Class constructor."""
         self.name = project_name.lower()
         self.subscription = ''
@@ -69,6 +66,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.mean_remediate = 0
         self.total_findings = 0
         self.total_treatment = {}
+        self.description = description
 
         findings = integrates_dao.get_findings_released_dynamo(
             self.name, 'finding_id, treatment, cvss_temporal')
@@ -264,6 +262,12 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
                        for draft_id in get_drafts(self.name)]
 
         return self.drafts
+
+    def resolve_description(self, info):
+        """ Resolve project description """
+        del info
+
+        return self.description
 
 
 def validate_release_date(release_date=''):

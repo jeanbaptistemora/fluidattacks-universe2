@@ -1,11 +1,6 @@
 """ GraphQL Entity for Formstack Findings """
-# pylint: disable=F0401
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
-
 from __future__ import absolute_import
 from time import time
 
@@ -29,11 +24,11 @@ from app.domain.finding import (
     get_exploit_from_file, get_records_from_file, reject_draft, delete_finding,
     approve_draft
 )
-from .. import util
-from ..dao import integrates_dao
-from .vulnerability import Vulnerability, validate_formstack_file
-from ..api.formstack import FormstackAPI
-from .types.finding import FindingType
+from app import util
+from app.dao import integrates_dao
+from app.entity.vulnerability import Vulnerability, validate_formstack_file
+from app.api.formstack import FormstackAPI
+from app.entity.types.finding import FindingType
 
 
 class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
