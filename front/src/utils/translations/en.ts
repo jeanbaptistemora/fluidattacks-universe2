@@ -6,6 +6,11 @@ const enTranslations: Map<string, string> = {
     title_cvssv2: "Update CVSSv2",
     title_generic: "Confirm action",
   },
+  home: {
+    grid: "Grid",
+    list: "List",
+    title: "My Projects",
+  },
   legalNotice: {
     acceptBtn: {
       text: "Accept and continue",

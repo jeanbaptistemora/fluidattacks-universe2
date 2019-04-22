@@ -21,11 +21,7 @@ angular.module("FluidIntegrates").config((
   $urlRouterProvider.otherwise("home");
 
   $stateProvider.
-    state("home", {
-      "controller": "dashboardCtrl",
-      "templateUrl": "assets/views/dashboard.html",
-      "url": "/home"
-    }).
+    state("home", {"url": "/home"}).
     state("ProjectIndicators", {"url": "/project/:project/indicators"}).
     state("ProjectFindings", {"url": "/project/:project/findings"}).
     state("ProjectDrafts", {"url": "/project/:project/drafts"}).
