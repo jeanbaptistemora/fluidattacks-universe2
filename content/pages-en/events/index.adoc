@@ -4,13 +4,13 @@
 
 = Events
 
-. Burn the datacenter: from pets to cattle.
+. link:burn-the-datacenter[Burn the datacenter: from pets to cattle.]
 
 . Breaking the build: Our +SecDevOps+ habits.
 
 . Mobile devices insurance.
 
-. Live  hacking.
+. Live hacking.
 
 == When?
 
