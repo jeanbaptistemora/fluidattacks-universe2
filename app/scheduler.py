@@ -15,7 +15,10 @@ from __init__ import (
 from django.conf import settings
 from . import views
 from .dao import integrates_dao
-from .domain.project import get_last_closing_vuln, get_mean_remediate
+from .domain.project import (
+    get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
+    get_total_treatment
+)
 from .api.formstack import FormstackAPI
 from .dto import remission
 from .dto import eventuality
@@ -417,18 +420,22 @@ def update_indicators():
     """Update in dynamo indicators."""
     projects = integrates_dao.get_registered_projects()
     table_name = 'FI_projects'
+    indicators = {
+        'last_closing_date': 0,
+        'mean_remediate': 0,
+        'max_open_severity': 0,
+        'total_treatment': {}
+    }
     for project in projects:
         try:
             project = str.lower(str(project[0]))
             findings = integrates_dao.get_findings_released_dynamo(
                 project, 'finding_id, treatment, cvss_temporal')
-            last_closing_date = get_last_closing_vuln(findings)
-            mean_remediate = get_mean_remediate(findings)
+            indicators['last_closing_date'] = get_last_closing_vuln(findings)
+            indicators['mean_remediate'] = get_mean_remediate(findings)
+            indicators['max_open_severity'] = get_max_open_severity(findings)
+            indicators['total_treatment'] = get_total_treatment(findings)
             primary_keys = ['project_name', project]
-            indicators = {
-                'last_closing_date': last_closing_date,
-                'mean_remediate': mean_remediate
-            }
             response = integrates_dao.add_multiple_attributes_dynamo(
                 table_name, primary_keys, indicators)
             if response:

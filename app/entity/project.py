@@ -10,12 +10,12 @@ from datetime import datetime
 import time
 import pytz
 import rollbar
+import simplejson as json
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
-    get_pending_closing_check, get_total_treatment,
-    get_max_severity, get_max_open_severity, get_project_info, get_drafts
+    get_pending_closing_check, get_max_severity, get_project_info, get_drafts
 )
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
@@ -132,7 +132,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_max_open_severity(self, info):
         """Resolve maximum severity in open vulnerability attribute."""
         del info
-        self.max_open_severity = get_max_open_severity(self.findings_aux)
+        max_open_severity = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['max_open_severity'])
+        self.max_open_severity = max_open_severity.get('max_open_severity', 0)
         return self.max_open_severity
 
     @get_entity_cache
@@ -155,7 +157,11 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_total_treatment(self, info):
         """Resolve total treatment attribute."""
         del info
-        self.total_treatment = get_total_treatment(self.findings_aux)
+        total_treatment = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['total_treatment'])
+        total_treatment_decimal = total_treatment.get('total_treatment', {})
+        self.total_treatment = json.dumps(
+            total_treatment_decimal, use_decimal=True)
         return self.total_treatment
 
     @get_entity_cache

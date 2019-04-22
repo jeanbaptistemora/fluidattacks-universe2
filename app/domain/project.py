@@ -121,7 +121,7 @@ def get_last_closing_vuln(findings):
         tzn = pytz.timezone('America/Bogota')
         last_closing = \
             Decimal((datetime.datetime.now(tz=tzn).date() -
-                     current_date).days).quantize(Decimal("0.1"))
+                     current_date).days).quantize(Decimal('0.1'))
     else:
         last_closing = Decimal(0)
     return last_closing
@@ -170,9 +170,9 @@ def get_max_open_severity(findings):
          if total_vulnerabilities(
             fin['finding_id']).get('openVulnerabilities') > 0]
     if total_severity:
-        max_severity = max(total_severity)
+        max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))
     else:
-        max_severity = 0
+        max_severity = Decimal(0).quantize(Decimal('0.1'))
     return max_severity
 
 
@@ -217,9 +217,9 @@ def get_mean_remediate(findings):
                 pass
     if total_vuln:
         mean_vulnerabilities = Decimal(
-            round(total_days / float(total_vuln))).quantize(Decimal("0.1"))
+            round(total_days / float(total_vuln))).quantize(Decimal('0.1'))
     else:
-        mean_vulnerabilities = Decimal(0).quantize(Decimal("0.1"))
+        mean_vulnerabilities = Decimal(0).quantize(Decimal('0.1'))
     return mean_vulnerabilities
 
 

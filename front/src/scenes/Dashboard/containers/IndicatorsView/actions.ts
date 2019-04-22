@@ -53,7 +53,7 @@ export const loadIndicators: ((projectName: string) => ThunkResult<void>) =
               pendingClosingCheck: data.project.pendingClosingCheck,
               repositories: JSON.parse(data.resources.repositories),
               totalFindings: data.project.totalFindings,
-              totalTreatment: data.project.totalTreatment,
+              totalTreatment: JSON.parse(data.project.totalTreatment),
             },
             type: actionTypes.LOAD_INDICATORS,
           });
