@@ -32,7 +32,11 @@ export const loadProjects: (() => ThunkResult<void>) = (): ThunkResult<void> =>
         const { data } = response.data;
 
         dispatch({
-          payload: { projects: data.me.projects },
+          payload: {
+            projects: data.me.projects.map((project: { name: string }) => ({
+              ...project, name: project.name.toUpperCase(),
+            })),
+          },
           type: actionTypes.LOAD_PROJECTS,
         });
       })

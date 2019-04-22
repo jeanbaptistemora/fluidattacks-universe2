@@ -11,5 +11,12 @@
 }
 
 :local .content {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 50px;
+}
+
+:local .content [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }

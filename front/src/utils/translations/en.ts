@@ -13,8 +13,6 @@ const enTranslations: Map<string, string> = {
     progress: "Progress",
   },
   home: {
-    grid: "Grid",
-    list: "List",
     title: "My Projects",
   },
   legalNotice: {

@@ -38,9 +38,10 @@ const homeView: React.SFC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element
   const renderProjectsGrid: JSX.Element[] = props.projects.map((project: IHomeViewProps["projects"][0]): JSX.Element =>
     (
       <Col md={3}>
-        <ProjectBox name={project.name.toUpperCase()} description={project.description} onClick={goToProject} />
+        <ProjectBox name={project.name} description={project.description} onClick={goToProject} />
       </Col>
-    ));
+    ),
+  );
 
   const tableHeaders: IHeader[] = [
     { dataField: "name", header: "Project Name", isDate: false, isStatus: false },
@@ -87,8 +88,8 @@ const homeView: React.SFC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element
                 type="radio"
                 value={props.displayPreference}
               >
-                <ToggleButton value="grid">{translate.t("home.grid")}&nbsp;<Glyphicon glyph="th" /></ToggleButton>
-                <ToggleButton value="list">{translate.t("home.list")}&nbsp;<Glyphicon glyph="th-list" /></ToggleButton>
+                <ToggleButton value="grid"><Glyphicon glyph="th" /></ToggleButton>
+                <ToggleButton value="list"><Glyphicon glyph="th-list" /></ToggleButton>
               </ToggleButtonGroup>
             </ButtonToolbar>
           </Col>

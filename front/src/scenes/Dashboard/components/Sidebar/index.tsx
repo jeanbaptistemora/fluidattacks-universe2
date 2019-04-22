@@ -16,7 +16,7 @@ const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element =>
   const handleEnClick: (() => void) = (): void => { localStorage.setItem("lang", "en"); location.reload(); };
   const handleLogoutClick: (() => void) = (): void => { props.onLogoutClick(); };
   const handleLogoClick: (() => void) = (): void => { location.hash = "#!/home"; };
-  const handleFormsClick: (() => void) = (): void => { location.hash = "#!/forms"; };
+  const handleFormsClick: (() => void) = (): void => { location.hash = "#!/forms/progress"; };
   const isAnalyst: boolean = _.includes(["admin", "analyst"], (window as Window & { userRole: string }).userRole);
 
   const renderAnalystTabs: (() => JSX.Element) = (): JSX.Element => (
