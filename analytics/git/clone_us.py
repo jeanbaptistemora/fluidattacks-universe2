@@ -13,7 +13,7 @@ REPOS = (
     "fluidattacks/asserts",
     "fluidattacks/writeups",
     "fluidattacks/integrates",
-    "fluidsignal/bwapp",
+    "fluidattacks/bwapp",
     "fluidsignal/serves",
     "fluidsignal/default",
     "fluidsignal/continuous",
