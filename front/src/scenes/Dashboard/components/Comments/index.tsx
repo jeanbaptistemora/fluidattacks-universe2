@@ -1,6 +1,11 @@
+import { default as $ } from "jquery";
+/* tslint:disable-next-line no-import-side-effect
+ * Disabling this rule is necessary to use the comments
+ * plugin, which is currently only available for JQuery
+ */
+import "jquery-comments_brainkit";
 import React from "react";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-
 export interface ICommentStructure {
   content: string;
   created: string;
@@ -18,16 +23,10 @@ export interface ICommentsProps {
   onPostComment(comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void;
 }
 
-/* tslint:disable-next-line no-any
- * Disabling this rule is necessary to use the comments
- * plugin, which is currently only available for JQuery
- */
-declare var $: any;
-
 const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsProps): void => {
   const { onLoad, onPostComment } = props;
 
-  $(`#${props.id}`)
+  ($(`#${props.id}`) as JQLite & { comments({}: {}): void })
   .comments({
     defaultNavigationSortKey: "oldest",
     enableAttachments: false,
