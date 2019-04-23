@@ -173,6 +173,41 @@ const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewP
           </Row>
         </Col>
       </Row>
+      <br />
+      <br />
+      <hr />
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
+          <Col md={4} sm={12} xs={12}>
+            <IndicatorBox
+              icon="integrityNone"
+              name={translate.t("search_findings.tab_indicators.repositories")}
+              quantity={props.repositories.length}
+              title=""
+              total=""
+            />
+          </Col>
+          <Col md={4} sm={12} xs={12}>
+            <IndicatorBox
+              icon="authors"
+              name={translate.t("search_findings.tab_indicators.authors")}
+              quantity={props.currentMonthAuthors}
+              title=""
+              total=""
+            />
+          </Col>
+          <Col md={4} sm={12} xs={12}>
+            <IndicatorBox
+              icon="terminal"
+              name={translate.t("search_findings.tab_indicators.commits")}
+              quantity={props.currentMonthCommits}
+              title=""
+              total=""
+            />
+          </Col>
+        </Col>
+      </Row>
     </React.StrictMode>
   );
 };
