@@ -4,6 +4,12 @@ import { default as $ } from "jquery";
  * plugin, which is currently only available for JQuery
  */
 import "jquery-comments_brainkit";
+/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
+ * Disabling this two rules is necessary for
+ * allowing the import of default styles that jquery-comments needs
+ * to display properly even if some of them are overridden later
+ */
+import "jquery-comments_brainkit/css/jquery-comments.css";
 import React from "react";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 export interface ICommentStructure {
