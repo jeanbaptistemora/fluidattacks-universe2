@@ -12,18 +12,18 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { Preloader } from "./components/Preloader";
 import Dashboard from "./scenes/Dashboard";
+import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
 
 const app: React.SFC = (): JSX.Element => (
   <React.StrictMode>
-    <BrowserRouter basename={"/integrates/dashboard#!"}>
+    <BrowserRouter basename="/integrates">
       <React.Fragment>
         <Provider store={store}>
           <React.Fragment>
             <Switch>
-              <Route path="/home" exact={true} component={Dashboard} />
-              <Route path="/project" component={Dashboard} />
-              <Route path="/forms" component={Dashboard} />
+              <Route path="/registration" extact={true} component={Registration} />
+              <Route path="/dashboard" component={Dashboard} />
             </Switch>
             <Preloader />
           </React.Fragment>

@@ -84,8 +84,8 @@ def error401(request):
 @csrf_exempt
 @cache_control(private=True, max_age=3600)
 @authenticate
-def registration(request):
-    "Registry view for authenticated users"
+def app(request):
+    "App view for authenticated users"
     try:
         parameters = {
             'username': request.session["username"]

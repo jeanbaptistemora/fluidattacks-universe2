@@ -66,7 +66,7 @@ RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repos
 
 COPY dashboard /usr/src/app/app/assets/dashboard
 
-RUN sed -i 's/integrates_version/v.\ '"${FI_VERSION}"'/g' /usr/src/app/app/assets/dashboard/dashboard-bundle.min.js
+RUN sed -i 's/integrates_version/v.\ '"${FI_VERSION}"'/g' /usr/src/app/app/assets/dashboard/app-bundle.min.js
 
 EXPOSE 443 24224
 

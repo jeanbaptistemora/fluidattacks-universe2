@@ -3,10 +3,9 @@
  * actions
  */
 import { AxiosError, AxiosResponse } from "axios";
-import { default as lodash } from "lodash";
+import _ from "lodash";
 import { Action, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { getEnvironment, PRODUCTION_URL } from "../../utils/context";
 import { msgError } from "../../utils/notifications";
 import rollbar from "../../utils/rollbar";
 import translate from "../../utils/translations/translate";
@@ -30,18 +29,14 @@ export const checkRemember: RegistrationAction =
 
 export const loadDashboard: (() => void) = (): void => {
   let initialUrl: string | null = localStorage.getItem("url_inicio");
-  initialUrl = lodash.isNil(initialUrl) ? "!/home" : initialUrl;
+  initialUrl = _.isEmpty(initialUrl) ? "!/home" : initialUrl;
 
   localStorage.removeItem("url_inicio");
-  location.assign(
-    getEnvironment() === "production"
-      ? `${PRODUCTION_URL}/integrates/dashboard#${initialUrl}`
-      : `/integrates/dashboard#${initialUrl}`,
-  );
+  location.assign(`/integrates/dashboard#${initialUrl}`);
 };
 
 export const acceptLegal: ThunkActionStructure =
-  (rememberValue: boolean): ThunkAction<void, {}, {}, Action> => (_: ThunkDispatcher): void => {
+  (rememberValue: boolean): ThunkAction<void, {}, {}, Action> => (_0: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
       acceptLegal(remember:${rememberValue}){

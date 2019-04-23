@@ -1,9 +1,9 @@
 :local .success {
-    background-color: #525A5C;
+    background-color: #525A5C !important;
 }
 
 :local .error {
-    background-color: #FF3435;
+    background-color: #FF3435 !important;
 }
 
 :local .container {

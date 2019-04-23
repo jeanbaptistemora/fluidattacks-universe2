@@ -135,5 +135,6 @@ export const welcomeView: ComponentType<IWelcomeViewProps> = reduxWrapper(
   (state: StateType<Reducer>): Partial<IWelcomeViewProps> => ({
     ...state.registration.welcomeView,
     legalNotice: state.registration.legalNotice,
+    username: (window as Window & { userName: string }).userName,
   }),
 );

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, MapDispatchToProps } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { openConfirmDialog, ThunkDispatcher } from "./actions";
@@ -32,23 +32,27 @@ const dashboard: React.SFC<IDashboardProps> = (props: IDashboardProps): JSX.Elem
     <React.StrictMode>
       <Sidebar onLogoutClick={handleSidebarLogoutClick} />
       <div className={style.container}>
-        <Navbar />
-        <Switch>
-          <Route
-            path="/project/:projectName/events/:eventId(\d+)/description"
-            exact={true}
-            component={EventDescriptionView}
-          />
-          <Route
-            path="/project/:projectName/events/:eventId(\d+)/evidence"
-            exact={true}
-            component={EventEvidenceView}
-          />
-          <Route path="/home" exact={true} component={HomeView} />
-          <Route path="/forms" component={FormsView} />
-          <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
-          <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
-        </Switch>
+        <HashRouter hashType="hashbang">
+          <React.Fragment>
+            <Navbar />
+            <Switch>
+              <Route
+                path="/project/:projectName/events/:eventId(\d+)/description"
+                exact={true}
+                component={EventDescriptionView}
+              />
+              <Route
+                path="/project/:projectName/events/:eventId(\d+)/evidence"
+                exact={true}
+                component={EventEvidenceView}
+              />
+              <Route path="/home" exact={true} component={HomeView} />
+              <Route path="/forms" component={FormsView} />
+              <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
+              <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
+            </Switch>
+          </React.Fragment>
+        </HashRouter>
       </div>
       <ScrollUpButton visibleAt={400} />
       <ConfirmDialog name="confirmLogout" onProceed={handleLogout} title={"Logout"} />

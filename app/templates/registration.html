@@ -1,4 +1,5 @@
 {% load mixpanel %}
+{% load intercom %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,14 +10,10 @@
     <link rel="shortcut icon" href="assets/img/favicon.ico">
     <title>Integrates | Fluid Attacks</title>
     <link rel="stylesheet" type="text/css" href="assets/amaretti/lib/stroke-7/style.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/amaretti/lib/jquery.nanoscroller/css/nanoscroller.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300,700" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <link rel="stylesheet" href="assets/amaretti/css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="assets/dashboard/main-style.min.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/dashboard/app-style.min.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     {% mixpanel %}
     <script>
@@ -27,8 +24,9 @@
         "$last_name": "{{ request.session.last_name }}",
         "$last_login": new Date(),
     });
-    var userName = "{{ request.session.first_name }} {{ request.session.last_name }}";
+    var userName = "{{ request.session.first_name }}";
     var userEmail = "{{ request.session.username }}";
+    var userRole = "{{ request.session.role }}";
     if (location.toString().indexOf("localhost:8000") == -1){
       mixpanel.track(
           "Logged In", {
@@ -38,25 +36,15 @@
     }
     </script>
   </head>
-  <body ng-cloak ng-app="FluidIntegrates">
-    <div><preloader/></div>
-    <welcome-view username="'{{ request.session.first_name }}'" email="'{{ user.email }}'"/>
-    <script src="assets/node_modules/angular/angular.min.js"></script>
-    <script src="assets/node_modules/angular-translate/dist/angular-translate.min.js"></script>
-    <script src="assets/node_modules/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="assets/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
-    <script src="assets/node_modules/ng-notify/dist/ng-notify.min.js"></script>
-    <script src="assets/node_modules/intl-tel-input/build/js/intlTelInput.min.js" type="text/javascript"></script>
-    <script src="assets/node_modules/betsol-ng-intl-tel-input/dist/scripts/betsol-ng-intl-tel-input.min.js"></script>
-    <script src="assets/node_modules/angular-elastic/elastic.js"></script>
-    <script src="assets/node_modules/ng-rollbar/ng-rollbar.min.js"></script>
-    <script src="assets/node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
-    <script src="assets/app/app.js"></script>
-    <script src="assets/app/routes.js"></script>
+  <body>
+    <div class="am-wrapper">
+      <div id="root" />
+    </div>
     <!-- Start Dashboard -->
-    <script src="assets/dashboard/main-bundle.min.js" type="text/javascript"></script>
+    <script src="assets/dashboard/app-bundle.min.js" type="text/javascript"></script>
     <script src="https://rum-static.pingdom.net/pa-5ae7406129ccc50006000057.js" async></script>
     <!-- End Dashboard -->
     {% csrf_token %}
+    {% intercom_tag %}
   </body>
 </html>

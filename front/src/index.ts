@@ -6,7 +6,7 @@
 import angular from "angular";
 import { react2angular } from "react2angular";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
-import Access from "./scenes/Login/components/Access/index";
+import Access from "./scenes/Login/containers/Access/index";
 import { welcomeView } from "./scenes/Registration/containers/WelcomeView";
 
 /**

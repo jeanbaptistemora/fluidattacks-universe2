@@ -5,8 +5,8 @@ const path = require("path");
 /* Webpack common module definition */
 module.exports = {
   entry: {
-    main: "./src/index.ts",
-    dashboard: "./src/app.tsx"
+    login: "./src/scenes/Login/index.tsx",
+    app: "./src/app.tsx"
   },
   output: {
     filename: '[name]-bundle.min.js',
