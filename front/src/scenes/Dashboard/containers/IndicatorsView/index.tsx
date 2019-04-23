@@ -81,101 +81,96 @@ const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewP
       <Row>
         <Col md={12} sm={12} xs={12}>
           <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
-          <IndicatorBox
-            icon="findings"
-            name={translate.t("search_findings.tab_indicators.total_findings")}
-            quantity={props.totalFindings}
-            title=""
-            total=""
-          />
-          <IndicatorBox
-            icon="vulnerabilities"
-            name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
-            quantity={totalVulnerabilities}
-            title=""
-            total=""
-          />
-          <IndicatorBox
-            icon="totalVulnerabilities"
-            name={translate.t("search_findings.tab_indicators.pending_closing_check")}
-            quantity={props.pendingClosingCheck}
-            title=""
-            total=""
-          />
-          <IndicatorBox
-            icon="calendar"
-            name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
-            quantity={props.lastClosingVuln}
-            title=""
-            total=""
-          />
-          <IndicatorBox
-            icon="integrityHigh"
-            name={translate.t("search_findings.tab_indicators.undefined_treatment")}
-            quantity={props.totalTreatment.undefined}
-            title=""
-            total=""
-          />
-          <IndicatorBox
-            icon="graph"
-            name={translate.t("search_findings.tab_indicators.mean_remediate")}
-            quantity={props.meanRemediate}
-            title=""
-            total={translate.t("search_findings.tab_indicators.days")}
-          />
-          <IndicatorBox
-            icon="vectorLocal"
-            name={translate.t("search_findings.tab_indicators.max_severity")}
-            quantity={props.maxSeverity}
-            title=""
-            total="/10"
-          />
-          <IndicatorBox
-            icon="openVulnerabilities"
-            name={translate.t("search_findings.tab_indicators.max_open_severity")}
-            quantity={props.maxOpenSeverity}
-            title=""
-            total="/10"
-          />
-        </Col>
-      </Row>
-      <br />
-      <Row>
-        <IndicatorGraph
-          data={statusGraph(props)}
-          name={translate.t("search_findings.tab_indicators.status_graph")}
-        />
-        <IndicatorGraph
-          data={treatmentGraph(props)}
-          name={translate.t("search_findings.tab_indicators.treatment_graph")}
-        />
-      </Row>
-      <br />
-      <hr />
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
-          <IndicatorBox
-            icon="integrityNone"
-            name={translate.t("search_findings.tab_indicators.repositories")}
-            quantity={props.repositories.length}
-            title=""
-            total=""
-          />
-          <IndicatorBox
-            icon="authors"
-            name={translate.t("search_findings.tab_indicators.authors")}
-            quantity={props.currentMonthAuthors}
-            title=""
-            total=""
-          />
-          <IndicatorBox
-            icon="terminal"
-            name={translate.t("search_findings.tab_indicators.commits")}
-            quantity={props.currentMonthCommits}
-            title=""
-            total=""
-          />
+          <Row>
+            <Col md={8} sm={12} xs={12}>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="findings"
+                  name={translate.t("search_findings.tab_indicators.total_findings")}
+                  quantity={props.totalFindings}
+                  title=""
+                  total=""
+                />
+              </Col>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="vulnerabilities"
+                  name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
+                  quantity={totalVulnerabilities}
+                  title=""
+                  total=""
+                />
+              </Col>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="totalVulnerabilities"
+                  name={translate.t("search_findings.tab_indicators.pending_closing_check")}
+                  quantity={props.pendingClosingCheck}
+                  title=""
+                  total=""
+                />
+              </Col>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="calendar"
+                  name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
+                  quantity={props.lastClosingVuln}
+                  title=""
+                  total=""
+                />
+              </Col>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="integrityHigh"
+                  name={translate.t("search_findings.tab_indicators.undefined_treatment")}
+                  quantity={props.totalTreatment.undefined}
+                  title=""
+                  total=""
+                />
+              </Col>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="graph"
+                  name={translate.t("search_findings.tab_indicators.mean_remediate")}
+                  quantity={props.meanRemediate}
+                  title=""
+                  total={translate.t("search_findings.tab_indicators.days")}
+                />
+              </Col>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="vectorLocal"
+                  name={translate.t("search_findings.tab_indicators.max_severity")}
+                  quantity={props.maxSeverity}
+                  title=""
+                  total="/10"
+                />
+              </Col>
+              <Col md={6} sm={12} xs={12}>
+                <IndicatorBox
+                  icon="openVulnerabilities"
+                  name={translate.t("search_findings.tab_indicators.max_open_severity")}
+                  quantity={props.maxOpenSeverity}
+                  title=""
+                  total="/10"
+                />
+              </Col>
+            </Col>
+            <Col md={4} sm={12} xs={12}>
+              <Col md={12} sm={12} xs={12} className={style.box_size}>
+                <IndicatorGraph
+                  data={statusGraph(props)}
+                  name={translate.t("search_findings.tab_indicators.status_graph")}
+                />
+              </Col>
+              <Col md={12} sm={12} xs={12} className={style.box_size}>
+                <IndicatorGraph
+                  data={treatmentGraph(props)}
+                  name={translate.t("search_findings.tab_indicators.treatment_graph")}
+                />
+              </Col>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </React.StrictMode>

@@ -17,7 +17,7 @@ interface IDoughnutProps {
 const indicatorGraph: React.StatelessComponent<IDoughnutProps> =
   (props: IDoughnutProps): JSX.Element => (
   <React.StrictMode>
-    <Col md={4} className={style.text_center}>
+    <Col className={style.text_center}>
       <h3>{props.name}</h3>
       <Doughnut
         data={props.data}

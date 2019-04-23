@@ -23,7 +23,6 @@ interface IBoxProps {
 const indicatorBox: React.StatelessComponent<IBoxProps> =
   (props: IBoxProps): JSX.Element => (
   <React.StrictMode>
-    <Col xs={12} md={3} sm={4}>
       <div
         className={style.widgetbox}
         data-toggle="tooltip"
@@ -54,7 +53,6 @@ const indicatorBox: React.StatelessComponent<IBoxProps> =
           </div>
         </Row>
       </div>
-    </Col>
   </React.StrictMode>
 );
 
