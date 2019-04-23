@@ -81,14 +81,6 @@ def error401(request):
     return render(request, "HTTP401.html", parameters)
 
 
-@cache_control(private=True, max_age=3600)
-@authenticate
-@authorize(['analyst', 'admin'])
-def forms(request):
-    "Forms view"
-    return render(request, "forms.html")
-
-
 @csrf_exempt
 @cache_control(private=True, max_age=3600)
 @authenticate
@@ -533,23 +525,6 @@ def retrieve_image(request, img_file):
 def key_existing_list(key):
     """return the key's list if it exist, else list empty"""
     return util.list_s3_objects(CLIENT_S3, BUCKET_S3, key)
-
-
-@cache_content
-@cache_control(private=True, max_age=3600)
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'admin'])
-def get_myprojects(request):
-    user = request.session["username"]
-    data_set = integrates_dao.get_projects_by_user(user)
-    json_data = []
-    for row in data_set:
-        json_data.append({
-            "project": row[0].upper(),
-            "company_project": row[1]
-        })
-    return util.response(json_data, 'Success', False)
 
 
 def delete_all_coments(finding_id):

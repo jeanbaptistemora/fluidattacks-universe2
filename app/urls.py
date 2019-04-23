@@ -31,11 +31,8 @@ urlpatterns = [
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
     url(r'^registration/?$', views.registration, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^forms/?\.*$', views.forms),
     url(r'^api/?\.*$',
         GraphQLView.as_view(graphiql=True if settings.DEBUG else False, schema=schema.SCHEMA)),
-    # Dashboard view.
-    url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     # Use of Formstack services.
     url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),
