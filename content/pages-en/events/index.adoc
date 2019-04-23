@@ -8,7 +8,7 @@
 
 . link:breaking-the-build/[Breaking the Build: Our +SecDevOps+ Habits.]
 
-. Mobile devices insurance.
+. link:securing-device/[Securing your Mobile Device.]
 
 . Live hacking.
 
