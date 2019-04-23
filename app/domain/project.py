@@ -3,7 +3,7 @@
 
 import threading
 import re
-import datetime
+from datetime import datetime
 from decimal import Decimal
 import pytz
 
@@ -120,7 +120,7 @@ def get_last_closing_vuln(findings):
         current_date = max(closing_dates)
         tzn = pytz.timezone('America/Bogota')
         last_closing = \
-            Decimal((datetime.datetime.now(tz=tzn).date() -
+            Decimal((datetime.now(tz=tzn).date() -
                      current_date).days).quantize(Decimal('0.1'))
     else:
         last_closing = Decimal(0)
@@ -133,7 +133,7 @@ def get_last_closing_date(vulnerability):
     current_state = all_states[len(all_states) - 1]
     last_closing_date = None
     if current_state.get('state') == 'closed':
-        last_closing_date = datetime.datetime.strptime(
+        last_closing_date = datetime.strptime(
             current_state.get('date').split(' ')[0],
             '%Y-%m-%d'
         )
@@ -182,7 +182,7 @@ def get_open_vulnerability_date(vulnerability):
     current_state = all_states[0]
     open_date = None
     if current_state.get('state') == 'open':
-        open_date = datetime.datetime.strptime(
+        open_date = datetime.strptime(
             current_state.get('date').split(' ')[0],
             '%Y-%m-%d'
         )
@@ -209,7 +209,7 @@ def get_mean_remediate(findings):
                 if closed_vuln_date:
                     total_days += int((closed_vuln_date - open_vuln_date).days)
                 else:
-                    current_day = datetime.datetime.now(tz=tzn).date()
+                    current_day = datetime.now(tz=tzn).date()
                     total_days += int((current_day - open_vuln_date).days)
                 total_vuln += 1
             else:
@@ -258,6 +258,28 @@ def get_project_info(project_name):
     return []
 
 
+def is_finding_in_drafts(finding_id):
+    release_date = integrates_dao.get_finding_attributes_dynamo(finding_id,
+                                                                ['releaseDate']
+                                                                )
+    retval = False
+    if release_date:
+        tzn = pytz.timezone('America/Bogota')
+        release_datetime = datetime.strptime(
+            release_date.get('releaseDate').split(' ')[0],
+            '%Y-%m-%d'
+        ).date()
+        now_time = datetime.now(tz=tzn).date()
+        if release_datetime > now_time:
+            retval = True
+        else:
+            # Finding is currently released
+            pass
+    else:
+        retval = True
+    return retval
+
+
 def get_drafts(project_name):
     api = FormstackAPI()
     drafts = []
@@ -265,8 +287,7 @@ def get_drafts(project_name):
 
     for submission in submissions:
         draft_id = submission['id']
-        is_draft = ('releaseDate' not in
-                    integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+        is_draft = is_finding_in_drafts(draft_id)
         if is_draft:
             drafts.append(draft_id)
 
