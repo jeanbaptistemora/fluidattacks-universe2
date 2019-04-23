@@ -4,9 +4,9 @@
 
 = Events
 
-. link:burn-the-datacenter[Burn the datacenter: from pets to cattle.]
+. link:burn-the-datacenter/[Burn the Datacenter: from Pets to Cattle.]
 
-. Breaking the build: Our +SecDevOps+ habits.
+. link:breaking-the-build/[Breaking the Build: Our +SecDevOps+ Habits.]
 
 . Mobile devices insurance.
 
