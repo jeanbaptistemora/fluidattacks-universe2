@@ -7,7 +7,6 @@ import angular from "angular";
 import { react2angular } from "react2angular";
 import { dataTable } from "./components/DataTable/index";
 import frame from "./components/Frame/index";
-import preloader from "./components/Preloader/index";
 import button from "./components/RButton/index";
 import { fileInput } from "./scenes/Dashboard/components/FileInput/index";
 import { Sidebar } from "./scenes/Dashboard/components/Sidebar";
@@ -47,22 +46,6 @@ angular
         "src",
         "height",
       ],
-    ),
-  );
-
-/**
- * @url: #/
- * @page: *
- * @controllers: []
- * @tag: <preloader/>
- */
-angular
-  .module("FluidIntegrates")
-  .component(
-    "preloader",
-    react2angular(
-      preloader,
-      [],
     ),
   );
 

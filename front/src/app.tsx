@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
  * to display properly even if some of them are overridden later
  */
 import "react-toastify/dist/ReactToastify.min.css";
+import { Preloader } from "./components/Preloader";
 import Dashboard from "./scenes/Dashboard";
 import store from "./store/index";
 
@@ -24,6 +25,7 @@ const app: React.SFC = (): JSX.Element => (
               <Route path="/project" component={Dashboard} />
               <Route path="/forms" component={Dashboard} />
             </Switch>
+            <Preloader />
           </React.Fragment>
         </Provider>
       </React.Fragment>
