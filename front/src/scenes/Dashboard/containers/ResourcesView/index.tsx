@@ -191,22 +191,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
           <Row>
             <Col md={12} sm={12} xs={12}>
               <Row>
-                <Col md={12}>
-                  <Col mdOffset={4} md={2} sm={6}>
-                    <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenTagsModal}>
-                      <Glyphicon glyph="plus" />&nbsp;
-                      {translate.t("search_findings.tab_resources.add_repository")}
-                    </Button>
-                  </Col>
-                  <Col md={2} sm={6}>
-                    <Button id="removeTag" block={true} bsStyle="primary" onClick={handleRemoveTagClick}>
-                      <Glyphicon glyph="minus" />&nbsp;
-                      {translate.t("search_findings.tab_resources.remove_repository")}
-                    </Button>
-                  </Col>
-                </Col>
-              </Row>
-              <Row>
                 <Col md={12} sm={12}>
                   <DataTable
                     dataset={tagsDataset}
@@ -225,6 +209,21 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                     pageSize={15}
                     title={translate.t("search_findings.tab_resources.tags_title")}
                   />
+                </Col>
+                <Col md={12}>
+                  <br />
+                  <Col mdOffset={4} md={2} sm={6}>
+                    <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenTagsModal}>
+                      <Glyphicon glyph="plus" />&nbsp;
+                      {translate.t("search_findings.tab_resources.add_repository")}
+                    </Button>
+                  </Col>
+                  <Col md={2} sm={6}>
+                    <Button id="removeTag" block={true} bsStyle="primary" onClick={handleRemoveTagClick}>
+                      <Glyphicon glyph="minus" />&nbsp;
+                      {translate.t("search_findings.tab_resources.remove_repository")}
+                    </Button>
+                  </Col>
                 </Col>
                 <Col md={12}>
                   <br />
@@ -291,32 +290,6 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
           <Row>
             <Col md={12} sm={12} xs={12}>
               <Row>
-                <Col md={12}>
-                  <Col mdOffset={4} md={2} sm={6}>
-                    <Button
-                      id="addRepository"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleAddRepoClick}
-                    >
-                      <Glyphicon glyph="plus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.add_repository")}
-                    </Button>
-                  </Col>
-                  <Col md={2} sm={6}>
-                    <Button
-                      id="removeRepository"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleRemoveRepoClick}
-                    >
-                      <Glyphicon glyph="minus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.remove_repository")}
-                    </Button>
-                  </Col>
-                </Col>
-              </Row>
-              <Row>
                 <Col md={12} sm={12}>
                   <DataTable
                     dataset={props.repositories}
@@ -348,6 +321,31 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                 </Col>
                 <Col md={12}>
                   <br />
+                  <Col mdOffset={4} md={2} sm={6}>
+                    <Button
+                      id="addRepository"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={handleAddRepoClick}
+                    >
+                      <Glyphicon glyph="plus"/>&nbsp;
+                      {translate.t("search_findings.tab_resources.add_repository")}
+                    </Button>
+                  </Col>
+                  <Col md={2} sm={6}>
+                    <Button
+                      id="removeRepository"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={handleRemoveRepoClick}
+                    >
+                      <Glyphicon glyph="minus"/>&nbsp;
+                      {translate.t("search_findings.tab_resources.remove_repository")}
+                    </Button>
+                  </Col>
+                </Col>
+                <Col md={12}>
+                  <br />
                   <label style={{fontSize: "15px"}}>
                     <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
                     {props.repositories.length}
@@ -363,32 +361,6 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
         <Col md={12} sm={12} xs={12}>
           <Row>
             <Col md={12} sm={12} xs={12}>
-              <Row>
-                <Col md={12}>
-                  <Col mdOffset={4} md={2} sm={6}>
-                    <Button
-                      id="addEnvironment"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleAddEnvClick}
-                    >
-                      <Glyphicon glyph="plus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.add_repository")}
-                    </Button>
-                  </Col>
-                  <Col md={2} sm={6}>
-                    <Button
-                      id="removeEnvironment"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleRemoveEnvClick}
-                    >
-                      <Glyphicon glyph="minus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.remove_repository")}
-                    </Button>
-                  </Col>
-                </Col>
-              </Row>
               <Row>
                 <Col md={12} sm={12}>
                   <DataTable
@@ -412,6 +384,31 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                 </Col>
                 <Col md={12}>
                   <br />
+                  <Col mdOffset={4} md={2} sm={6}>
+                    <Button
+                      id="addEnvironment"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={handleAddEnvClick}
+                    >
+                      <Glyphicon glyph="plus"/>&nbsp;
+                      {translate.t("search_findings.tab_resources.add_repository")}
+                    </Button>
+                  </Col>
+                  <Col md={2} sm={6}>
+                    <Button
+                      id="removeEnvironment"
+                      block={true}
+                      bsStyle="primary"
+                      onClick={handleRemoveEnvClick}
+                    >
+                      <Glyphicon glyph="minus"/>&nbsp;
+                      {translate.t("search_findings.tab_resources.remove_repository")}
+                    </Button>
+                  </Col>
+                </Col>
+                <Col md={12}>
+                  <br />
                   <label style={{fontSize: "15px"}}>
                     <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
                     {props.environments.length}
@@ -427,21 +424,6 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
           <Col md={12} sm={12} xs={12}>
             <Row>
               <Col md={12} sm={12} xs={12}>
-                <Row>
-                  <Col md={12}>
-                    <Col mdOffset={4} md={2} sm={6}>
-                      <Button
-                        id="addFile"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={handleAddFileClick}
-                      >
-                        <Glyphicon glyph="plus"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.add_repository")}
-                      </Button>
-                    </Col>
-                  </Col>
-                </Row>
                 <Row>
                   <Col md={12} sm={12}>
                     <DataTable
@@ -480,6 +462,20 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
                       pageSize={15}
                       title={translate.t("search_findings.tab_resources.files_title")}
                     />
+                  </Col>
+                  <Col md={12}>
+                    <br />
+                    <Col mdOffset={5} md={2} sm={6}>
+                      <Button
+                        id="addFile"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={handleAddFileClick}
+                      >
+                        <Glyphicon glyph="plus"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.add_repository")}
+                      </Button>
+                    </Col>
                   </Col>
                   <Col md={12}>
                     <br />
