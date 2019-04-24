@@ -48,9 +48,6 @@ RUN apt-get update \
     && cd front/ \
         && npm install \
         && npm cache clean --force \
-    && cd ../assets/ \
-        && npm install \
-        && npm cache clean --force \
     && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
         && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
     && apt-get remove -y --purge \

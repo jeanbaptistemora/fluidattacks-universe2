@@ -32,7 +32,7 @@ export interface ICommentsProps {
 const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsProps): void => {
   const { onLoad, onPostComment } = props;
 
-  ($(`#${props.id}`) as JQLite & { comments({}: {}): void })
+  ($(`#${props.id}`) as JQuery & { comments({}: {}): void })
   .comments({
     defaultNavigationSortKey: "oldest",
     enableAttachments: false,

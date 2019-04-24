@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, MapDispatchToProps } from "react-redux";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { openConfirmDialog, ThunkDispatcher } from "./actions";
@@ -50,6 +50,7 @@ const dashboard: React.SFC<IDashboardProps> = (props: IDashboardProps): JSX.Elem
               <Route path="/forms" component={FormsView} />
               <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
               <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
+              <Redirect to="/home" />
             </Switch>
           </React.Fragment>
         </HashRouter>

@@ -78,7 +78,6 @@ deps-app:
     - mkdir deploy/containers/deps/front
     - mkdir deploy/containers/deps/assets
     - cp -a front/package.json deploy/containers/deps/front/
-    - cp -a app/assets/package.json deploy/containers/deps/assets
     - /kaniko/executor
         --cleanup
         --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
@@ -180,17 +179,6 @@ react-testing:
   only:
     - /^.*$/
     - merge_requests
-
-js-linter:
-  stage: pre-test
-  script:
-    - cp -a /root/front/node_modules front/
-    - cd front
-    - npm install --unsafe-perm
-    - node_modules/.bin/eslint app/assets/app/.
-  retry: 1
-  except:
-    - master
 
 prospector-testing:
   stage: pre-test
