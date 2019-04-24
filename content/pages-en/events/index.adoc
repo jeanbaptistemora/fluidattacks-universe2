@@ -10,7 +10,7 @@
 
 . link:securing-device/[Securing your Mobile Device.]
 
-. Live hacking.
+. link:live-hacking/[Live Hacking.]
 
 == When?
 
