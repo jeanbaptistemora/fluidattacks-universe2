@@ -11,7 +11,7 @@ type IResources = IDashboardState["resources"];
 type ITags = IDashboardState["tags"];
 
 export interface IActionStructure {
-  payload?: { [key: string]: string | string[] | ({} | undefined) };
+  payload?: { [key: string]: string | number | string[] | ({} | undefined) };
   type: string;
 }
 
@@ -267,11 +267,28 @@ export const removeEnv: ((projectName: string, envToRemove: string) => ThunkResu
           }
         });
     };
+export const uploadProgress: ((percentCompleted: number | undefined) => IActionStructure) =
+  (percentCompleted: number | undefined): IActionStructure =>
+  ({
+    payload: { percentCompleted },
+    type: actionTypes.UPDATE_UPLOAD_PROGRESS,
+  });
+
+export const showUploadProgress: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.SHOW_UPLOAD_PROGRESS,
+  });
 
 export const saveFiles: ((projectName: string, filesData: IResources["files"]) => ThunkResult<void>) =
   (projectName: string, filesData: IResources["files"]): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
+      dispatch(showUploadProgress());
+      const uploadProgressDispatch: ((percentCompleted: number) => void) =
+        (percentCompleted: number): void  => {
+          dispatch(uploadProgress(percentCompleted));
+      };
 
       gQry = `mutation {
           addFiles (
@@ -285,11 +302,12 @@ export const saveFiles: ((projectName: string, filesData: IResources["files"]) =
             }
           }
         }`;
-      new Xhr().upload(gQry, "#file", "An error occurred adding file")
+      new Xhr().upload(gQry, "#file", "An error occurred adding file", uploadProgressDispatch)
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.addFiles.success) {
             dispatch(closeAddModal());
+            dispatch(showUploadProgress());
             dispatch({
               payload: {
                 environments: JSON.parse(data.addFiles.resources.environments),

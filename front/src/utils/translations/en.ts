@@ -363,6 +363,7 @@ const enTranslations: Map<string, string> = {
       total_files: "Total files: ",
       total_repos: "Total repositories: ",
       total_tags: "Total tags: ",
+      uploading_progress: "Uploading file...",
     },
     tab_severity: {
       attack_complexity: "Attack Complexity",

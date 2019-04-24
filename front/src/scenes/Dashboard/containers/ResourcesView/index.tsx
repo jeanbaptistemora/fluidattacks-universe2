@@ -495,6 +495,8 @@ const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
         type={props.addModal.type}
         onClose={handleCloseAddModalClick}
         onSubmit={onSubmitFunction}
+        showUploadProgress={props.showUploadProgress}
+        uploadProgress={props.uploadProgress}
       />
       <FileOptionsModal
         fileName={props.optionsModal.rowInfo.fileName}
@@ -517,9 +519,11 @@ const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewB
     files: state.dashboard.resources.files,
     optionsModal: state.dashboard.resources.optionsModal,
     repositories: state.dashboard.resources.repositories,
+    showUploadProgress: state.dashboard.resources.showUploadProgress,
     subscription: state.dashboard.tags.subscription,
     tagsDataset: state.dashboard.tags.tagsDataset,
     tagsModal: state.dashboard.tags.tagsModal,
+    uploadProgress: state.dashboard.resources.uploadProgress,
   });
 
 const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResourcesViewBaseProps> =

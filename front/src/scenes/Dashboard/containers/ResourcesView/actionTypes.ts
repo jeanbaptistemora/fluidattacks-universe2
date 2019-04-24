@@ -13,3 +13,5 @@ export const OPEN_TAGS_MODAL: string = "dashboard/resources/tags_modal/open";
 export const CLOSE_TAGS_MODAL: string = "dashboard/resources/tags_modal/close";
 export const OPEN_OPTIONS_MODAL: string = "dashboard/resources/options_modal/open";
 export const CLOSE_OPTIONS_MODAL: string = "dashboard/resources/options_modal/close";
+export const UPDATE_UPLOAD_PROGRESS: string = "dashboard/resources/add_modal/upload_progress";
+export const SHOW_UPLOAD_PROGRESS: string = "dashboard/resources/add_modal/show_upload_progress";

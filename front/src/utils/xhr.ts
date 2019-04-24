@@ -129,7 +129,8 @@ class Xhr {
     * Disabling here is necessary becase this is a generic function that will
     * return promises with objects of different types as response
    */
-  public upload = async (query: string, fieldId: string, errorText: string): Promise<any> => {
+  public upload = async (
+    query: string, fieldId: string, errorText: string, callbackFn?: ((progress: number) => void)): Promise<any> => {
     const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
     if (_.isNil(selected) || selected.length === 0) {
       msgError(translate.t("proj_alerts.no_file_selected"));
@@ -139,7 +140,7 @@ class Xhr {
       payload.append("query", query);
       payload.append("document", selected[0]);
 
-      return this.executeRequest(payload, errorText);
+      return this.executeRequest(payload, errorText, callbackFn);
     }
   }
   // tslint:enable:no-any
@@ -155,14 +156,25 @@ class Xhr {
     * Disabling here is necessary becase this is a generic function that will
     * return promises with objects of different types as response
    */
-  private readonly executeRequest: ((arg1: FormData, arg2: string) => Promise<any>) =
-    async (payload: FormData, errorText: string) => {
+
+  private readonly executeRequest:
+  ((arg1: FormData, arg2: string, callbackFn?: ((progress: number) => void)) => Promise<any>) =
+    async (payload: FormData, errorText: string, callbackFn?: ((progress: number) => void)) => {
     this.showPreloader();
+
+    const config: AxiosRequestConfig = {
+      onUploadProgress: (progressEvent: {loaded: number; total: number}): void => {
+          const percentCompleted: number = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          if (callbackFn !== undefined) { callbackFn(percentCompleted); }
+        },
+    };
+
     const promise: Promise<any> = Axios.post(
     getEnvironment() === "production"
       ? `${PRODUCTION_URL}/integrates/api`
       : "/integrates/api",
     payload,
+    config,
     )
     .then((response: AxiosResponse) => {
       this.hidePreloader();
@@ -194,6 +206,7 @@ class Xhr {
 
          throw new Error();
         } else {
+
           return response;
         }
       }

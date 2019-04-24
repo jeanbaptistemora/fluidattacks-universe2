@@ -103,6 +103,8 @@ export interface IDashboardState {
       rowInfo: { fileName: string };
     };
     repositories: Array<{ branch: string; urlRepo: string }>;
+    showUploadProgress: boolean;
+    uploadProgress: number;
   };
   severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset" | "cvssVersion">;
   tags: {
@@ -265,6 +267,8 @@ const initialState: IDashboardState = {
       rowInfo: {fileName: ""},
     },
     repositories: [],
+    showUploadProgress: false,
+    uploadProgress: 0,
   },
   severity: {
     criticity: 0,
@@ -412,11 +416,15 @@ actionMap[resourcesActions.CLOSE_ADD_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
+    fileInput: {
+      name: initialState.fileInput.name,
+    },
     resources: {
       ...state.resources,
       addModal: {
         ...initialState.resources.addModal,
       },
+      uploadProgress: initialState.resources.uploadProgress,
     },
   });
 
@@ -478,6 +486,26 @@ actionMap[resourcesActions.CLOSE_TAGS_MODAL] =
     tags: {
       ...state.tags,
       tagsModal: initialState.tags.tagsModal,
+    },
+  });
+
+actionMap[resourcesActions.UPDATE_UPLOAD_PROGRESS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      uploadProgress: action.payload.percentCompleted,
+    },
+  });
+
+actionMap[resourcesActions.SHOW_UPLOAD_PROGRESS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      showUploadProgress: !state.resources.showUploadProgress,
     },
   });
 
@@ -552,6 +580,9 @@ actionMap[actionType.LOAD_VULNERABILITIES] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
     ...state,
+    fileInput: {
+      name: initialState.fileInput.name,
+    },
     vulnerabilities: {
       dataInputs: action.payload.dataInputs,
       dataLines: action.payload.dataLines,

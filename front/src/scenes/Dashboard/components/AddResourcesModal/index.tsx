@@ -6,7 +6,7 @@
  */
 
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Glyphicon, ProgressBar, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import {
   ConfigProps, DecoratedComponentClass, Field,
@@ -25,7 +25,9 @@ import { fileInput as FileInput } from "../../components/FileInput/index";
 
 export interface IAddResourcesModalProps {
   isOpen: boolean;
+  showUploadProgress?: boolean;
   type: "repository" | "environment" | "file";
+  uploadProgress?: number;
   onClose(): void;
   onSubmit(values: {}): void;
 }
@@ -159,6 +161,14 @@ const renderFilesForm: ((props: formProps) => JSX.Element) =
       <React.Fragment>
         <form onSubmit={props.handleSubmit}>
           <FieldArray name="resources" component={renderFilesFields} />
+          { props.showUploadProgress === true ?
+            <React.Fragment>
+              <br />
+              {translate.t("search_findings.tab_resources.uploading_progress")}
+              <ProgressBar active={true} now={props.uploadProgress} label={`${props.uploadProgress}%`} />
+            </React.Fragment>
+            : undefined
+          }
           <br />
           {renderFooter(props)}
         </form>
