@@ -90,7 +90,7 @@ def app(request):
         parameters = {
             'username': request.session["username"]
         }
-        response = render(request, "registration.html", parameters)
+        response = render(request, "app.html", parameters)
         token = jwt.encode(
             {
                 'user_email': request.session["username"],
