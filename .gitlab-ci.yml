@@ -310,8 +310,9 @@ sync_formstack:
         analytics/singer/target_redshift
     - echo "$(vault read -field=analytics_auth_formstack secret/serves)" > /tap_secret.json
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - tap-formstack --auth /tap_secret.json --conf analytics/conf/formstack.json |
-      target-redshift --auth /target_secret.json --drop-schema --schema-name "formstack"
+    - tap-formstack --auth /tap_secret.json --conf analytics/conf/formstack.json > .singer
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "formstack"
+  after_script:
     - rm -fr /tap_secret.json /target_secret.json
   <<: *only_schedules
   only:
@@ -333,8 +334,9 @@ sync_awsdynamodb:
               "AWS_DEFAULT_REGION":"'$(vault read
         -field=aws_dynamodb_default_region secret/serves)'"}' > /tap_secret.json
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - tap-awsdynamodb --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json |
-      target-redshift --auth /target_secret.json --drop-schema --schema-name "dynamodb"
+    - tap-awsdynamodb --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json > .singer
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "dynamodb"
+  after_script:
     - rm -fr /tap_secret.json /target_secret.json
   <<: *only_schedules
   only:
@@ -365,6 +367,7 @@ sync_timedoctor:
     - tap-timedoctor --auth /tap_secret.json >> timedoctor.singer
     - cat timedoctor.singer |
         target-redshift --auth /target_secret.json --drop-schema --schema-name "timedoctor"
+  after_script:
     - rm -fr /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json
   <<: *only_schedules
   only:
@@ -383,6 +386,7 @@ sync_git:
     - analytics/git/sync_forked.sh
     - analytics/git/mirror.py 2>&1 | aws s3 cp - s3://fluidanalytics/mirrors.log
     - analytics/git/taint_all.sh
+  after_script:
     - rm -fr ~/.aws/{credentials, config}
   <<: *only_schedules
   only:
@@ -402,6 +406,7 @@ sync_mandrill:
     - streamer-mandrill --auth /stream_secret.json > mandrill.jsonstream
     - cat mandrill.jsonstream | tap-json --date-formats "%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f" > mandrill.singer
     - cat mandrill.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "mandrill"
+  after_script:
     - rm -rf /stream_secret.json /target_secret.json
   <<: *only_schedules
   only:
@@ -421,6 +426,7 @@ sync_infrastructure:
     - streamer-infrastructure --auth /stream_secret.json > infra.jsonstream
     - cat infra.jsonstream | tap-json > infra.singer
     - cat infra.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "infrastructure"
+  after_script:
     - rm -rf /stream_secret.json /target_secret.json
   <<: *only_schedules
   only:
