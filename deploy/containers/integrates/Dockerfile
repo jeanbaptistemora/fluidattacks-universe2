@@ -42,10 +42,6 @@ RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repos
     && chown -R www-data:www-data /usr/src/app/ \
         && a2dismod -f deflate \
         && a2enmod ssl \
-    && cp -a /root/assets/node_modules /usr/src/app/app/assets/ \
-        && cd /usr/src/app/app/assets \
-        && npm install \
-        && npm cache clean --force \
     && cp -a /root/front/node_modules /usr/src/app/front \
         && cd /usr/src/app/front/ \
         && npm install \

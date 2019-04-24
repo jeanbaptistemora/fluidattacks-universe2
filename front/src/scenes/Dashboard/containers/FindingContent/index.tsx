@@ -3,7 +3,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { NavLink, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
@@ -226,6 +226,7 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
                   <Route path="/project/:projectName/:findingId(\d+)/records" render={renderRecords} />
                   <Route path="/project/:projectName/:findingId(\d+)/comments" render={renderComments} />
                   <Route path="/project/:projectName/:findingId(\d+)/observations" render={renderObservations} />
+                  <Redirect to="/project/:projectName/:findingId(\d+)/description" />
                 </Switch>
               </div>
             </React.Fragment>

@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { NavLink, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
@@ -110,6 +110,7 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                   <Route path="/project/:projectName/resources" component={ProjectResourcesView} />
                   <Route path="/project/:projectName/users" component={ProjectUsersView} />
                   <Route path="/project/:projectName/comments" component={ProjectCommentsView} />
+                  <Redirect to="/project/:projectName/indicators" />
                 </Switch>
               </div>
             </React.Fragment>
