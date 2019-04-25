@@ -3,9 +3,9 @@
 :keywords: Fluid Attacks, Style, AsciiDoc, Articles, Requirement, Website.
 :category: blog
 
-= Style
+= Writer's Guidelines
 
-The goal of +Fluid Attacks+ blog
+On +Fluid Attacks'+ blog our goal
 is to share opinions and knowledge
 on information security issues
 in a clear and understandable manner.
@@ -13,19 +13,22 @@ in a clear and understandable manner.
 [quote]
 We invite you to share your knowledge with us and the world.
 
-The target audience is people
-who don’t have an advanced technical knowledge.
-You must use simple language but
-provide relevant knowledge on security issues.
+Our target audience is everyone with an interest in +IT+ security,
+whether they have advanced technical knowledge or not.
+Because we want everyone to understand the message conveyed
+you must provide relevant knowledge on security issues
+using as much non-technical English as possible.
+It is always best to be clear, concise, and to-the-point.
 
 == Topics
 
-The blog topics are oriented
-only towards security and +IT+,
-however, there are situations that are not necessarily security related but
-can be treated as such:
+Blog topics should be oriented only towards security and +IT+,
+however, there are situations that are not necessarily security related
+but can be treated as such; some topics that would qualify are below.
+If you have an idea and are not sure if it would qualify,
+contact us for input.
 
-1. How to explain to a Manager
+1. How to explain to a manager
 that they must invest in security.
 
 2. How to use a specific component:
@@ -39,9 +42,9 @@ You can also check our link:../topics/[list of topics].
 
 image::lector.png[reader]
 
-* *Age range:* 20 – 60 years old.
+* *Age range:* 20 years and up.
 
-* *Level of Education:* Undergraduate (Higher Education).
+* *Level of Education:* College educated.
 
 * *Role:* From students to CISO (Chief Information Security Officers).
 
@@ -56,7 +59,7 @@ image::lector.png[reader]
 The title of the article must grab the reader's attention.
 *It must not exceed 35 characters*
 
-. Make the topic something fun or curious.
+. Make the topic something fun or interesting.
 It can be in the form of a question.
 +
 *Examples:*
@@ -64,33 +67,35 @@ It can be in the form of a question.
 * Wanting the +Cookie+.
 * Information Security, an expense or an investment?
 
-. Avoid generic titles at all costs.
+. Absolutely no generic titles.
 +
 *Examples:*
 
 * SQL Injection.
 * XSS Vulnerability.
 
-. The title must reflect the content of the document,
-always avoid false expectations.
+. The title must reflect the content of the document.
+Do not create false expectations.
 +
-*Examples:* Whitelist; your ally in input validation,
-and then talk about injections
-without touching the subject of whitelist or
-their implementation.
+*Examples:* If your title is Whitelist:
+Your Ally in Input Validation,
+your article should talk about Whitelist and input validation,
+not injections or anything else.
 
 === 2. Structure
 
+The document must have a +LIX+ complexity below 50.
+This guarantees that the document is easy to read.
 All documents must have:
 
-. *First section:* An introduction that tells the reader
-what he/she can expect.
+. An introduction that tells the reader
+what your article is about and what they can expect.
 
-. *Last Section:* A short conclusion
-that tells the reader the overall topic.
+. A body containing specific information (details)
+that supports or elaborates on your introduction.
 
-. The document must have a LIX complexity below 50.
-This guarantees that the document is easy to read.
+. A short conclusion that wraps up or restates
+the important points from the introduction.
 
 === 3. Format
 
@@ -139,8 +144,8 @@ Exceptions to the rule are:
 .Example SLB.
 image::slb-example.png[slb]
 
-For more information regarding LSB and their use,
-You can checkout the link:http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds guide],
+For more information regarding +SLB+ and their use,
+you can check out the link:http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds guide],
 link:https://scott.mn/2014/02/21/semantic_linewrapping/[semantic line wrapping guide],
 or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[+AsciiDoc+ documentation]
 
@@ -150,23 +155,23 @@ or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sent
 one image related to the topic being presented.
 
 . Images that are not yours
-must include a reference..
+must include a reference.
 
 . Include a description for the image.
 
 === 7. Videos
 
-. They must be your own videos.
+. It must be your own video.
 . The video must be sent
 in order to upload it to our +Fluid Attacks+ youtube channel.
-. They video must include an introduction and a conclusion.
+. The video must include an introduction and a conclusion.
 
 === 8. Source
 
 Unless the language forces you to do otherwise,
 the source code must comply with the following:
 
-. Be in english (even the comments).
+. Be in English (even the comments).
 . Indent using +2+ spaces instead of tabs,
 unless the language requires otherwise.
 . Use the +brace style+ seen in
@@ -185,7 +190,7 @@ Embedded code snippets must comply with the following:
 . Be enumerated. To do so add the parameter +linenums+
 to the +source+ block.
 . Not have more than +8+ lines.
-. It is not allowed to repeat a snippet that has already been used in the guide.
+. No repeating a snippet that has already been used in the guide.
 . Add the lines of code to the +post+ using a code block,
 don’t use images.
 
@@ -310,14 +315,13 @@ likes, interests, links to personal blogs or profiles.
 
 |===
 
-
 === 12. Additional Information
 
 . If acronyms are used, their meaning should be included in parentheses.
 
 . Include references when using fragments from external sources.
 
-. Paragraphs *must* be original,
+. Paragraphs *must* be original;
 don’t use text from other sites
 unless they are specific phrases.
 
@@ -380,18 +384,17 @@ check out our [button]#link:../../en/format[allowed formats and examples.]#
 
 If you want to share your security knowledge and opinions
 with the community and you are not part of +Fluid Attacks+,
-you can be a guest author,
-write your +post+ in a text editor of your choosing and
-send us everything you need to publish it.
-*Do not forget* to send with it,
-a paragraph telling us a little bit about yourself and
-an image that represents you,
-since at the end of the +post+
+you can be a guest author.
+Write your +post+ in a text editor of your choosing
+and send us everything you need to publish it.
+*Do not forget* to send with it a paragraph telling us
+a little bit about yourself and an image that represents you
+because at the end of the post
 the guest’s profile will be included.
 
 image::invitado.png[guest]
 
-. Author’s name and last name.
+. Author’s first and last name.
 . Short description, minimum 15 words – maximum 30.
 You may include: What you do for a living,
 years of experience, certifications, likes and interests.
@@ -401,23 +404,28 @@ years of experience, certifications, likes and interests.
 
 . If you are part of the +Fluid Attacks+ team,
 you can send us your document through a +Merge Request+
-in the +AsciiDoc+ format and
-complying with all the above rules.
+in the +AsciiDoc+ format.
+Be sure to comply with all the above rules.
 
 . If you are not part of the +Fluid Attacks+ team,
 you just have to send your document to communications@fluidattacks.com
 attaching all the required files in order to create the +post+.
 Once the document is sent,
-It is put through an evaluation process to determine if it will be published.
+it is evaluated to determine if it will be published.
 
 == Terms and Conditions
 
-. +Fluid Attacks+ reserves the rights of admission
-of all documents sent in.
+. +Fluid Attacks+ reserves the right to accept or reject any document sent in.
+Please, understand the purpose of the blog
+is to further +IT+ Security understanding,
+therefore you are sharing your information without payment.
++Fluid Attacks+ does not pay for articles
+accepted for publication on the blog.
 
 . We perform a non-substantive review of the document.
-+Fluid Attacks+ doesn’t evaluate if we agree or not with the author’s opinion but
-only that the documents meets the required criteria described above.
++Fluid Attacks+ doesn’t evaluate if we agree or not
+with the author’s opinion as expressed in the document,
+but only that the document meets the required criteria described above.
 
 . Once a draft is completed
 you must request the revision of the document
