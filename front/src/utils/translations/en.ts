@@ -71,6 +71,7 @@ const enTranslations: Map<string, string> = {
         no: "No",
         yes: "Yes",
       },
+      exportCsv: "Export to CSV",
       help_label: "Click on a finding to see more details",
       report: {
         btn: "Reports",

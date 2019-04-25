@@ -20,6 +20,8 @@ import {
  */
 import "react-bootstrap-table/dist/react-bootstrap-table.min.css";
 import globalStyle from "../../styles/global.css";
+import translate from "../../utils/translations/translate";
+import { Button } from "../Button";
 import { FluidIcon } from "../FluidIcon";
 import style from "./index.css";
 
@@ -84,6 +86,7 @@ const statusFormatter: ((value: string) => ReactElement<Label>) =
 
     return (
       <Label
+        className={style.label}
         style={{
           backgroundColor: bgColor,
         }}
@@ -165,8 +168,15 @@ const renderHeaders: ((arg1: ITableProps) => JSX.Element[]) =
   renderDynamicHeaders(Object.keys(props.dataset[0]))
 );
 
-export const dataTable: React.StatelessComponent<ITableProps> =
-  (props: ITableProps): JSX.Element => (
+export const dataTable: React.StatelessComponent<ITableProps> = (props: ITableProps): JSX.Element => {
+  const exportBtn: ((onClick: (e: React.MouseEvent<{}>) => void) => JSX.Element) =
+    (onClick: (e: React.MouseEvent<{}>) => void): JSX.Element => (
+      <Button onClick={onClick}><FluidIcon icon="export" />
+        &nbsp;{translate.t("project.findings.exportCsv")}
+      </Button>
+    );
+
+  return (
     <React.StrictMode>
       <div id={props.id}>
         {
@@ -184,10 +194,11 @@ export const dataTable: React.StatelessComponent<ITableProps> =
                 }
                 hover={true}
                 options={{
-                 onRowClick: (row: string): void => {
-                   if (props.onClickRow !== undefined) { props.onClickRow(row); }
-                 },
-                 sizePerPage: props.pageSize,
+                  exportCSVBtn: exportBtn,
+                  onRowClick: (row: string): void => {
+                    if (props.onClickRow !== undefined) { props.onClickRow(row); }
+                  },
+                  sizePerPage: props.pageSize,
                 }}
                 pagination={!_.isEmpty(props.dataset) && props.dataset.length > props.pageSize}
                 search={props.search}
@@ -204,7 +215,7 @@ export const dataTable: React.StatelessComponent<ITableProps> =
                 headerContainerClass={props.headerContainer === undefined ? undefined : props.headerContainer}
                 bodyContainerClass={props.bodyContainer === undefined ? undefined : props.bodyContainer}
                 tableHeaderClass={props.tableHeader === undefined ? style.tableHeader : props.tableHeader}
-                tableBodyClass={props.tableBody === undefined ? undefined : props.tableBody}
+                tableBodyClass={props.tableBody === undefined ? style.tableBody : props.tableBody}
               >
                 {renderHeaders(props)}
               </BootstrapTable>
@@ -213,6 +224,7 @@ export const dataTable: React.StatelessComponent<ITableProps> =
       </div>
     </React.StrictMode>
   );
+};
 
 dataTable.defaultProps = {
   bodyContainer: undefined,

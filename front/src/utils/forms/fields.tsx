@@ -23,13 +23,14 @@ const renderError: ((arg1: string) => JSX.Element) = (msg: string): JSX.Element 
 );
 
 const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JSX.Element => (
-  <Badge pullRight={true}>{text.length}</Badge>
+  <Badge pullRight={true} className={style.badge}>{text.length}</Badge>
 );
 
 export const textField: ((arg1: CustomFieldProps) => JSX.Element) =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
       <FormControl
+        className={style.formControl}
         id={fieldProps.id}
         type={fieldProps.type}
         placeholder={fieldProps.placeholder}
@@ -48,8 +49,7 @@ export const phoneNumberField: ((arg1: CustomFieldProps) => JSX.Element) =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <ReactPhoneInput
       defaultCountry="co"
-      inputClass="form-control"
-      inputStyle={{ paddingLeft: "48px" }}
+      inputClass={style.formControl}
       inputExtraProps={{ type: "" }}
       onChange={fieldProps.input.onChange}
       value={fieldProps.input.value}
@@ -66,6 +66,7 @@ export const dropdownField: ((arg1: CustomFieldProps) => JSX.Element) =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
       <FormControl
+        className={style.formControl}
         componentClass="select"
         children={fieldProps.children}
         defaultValue={fieldProps.meta.initial}
@@ -109,6 +110,7 @@ export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) 
         componentClass="textarea"
         {...fieldProps}
         {...fieldProps.input}
+        className={`${style.formControl} ${fieldProps.className}`}
       />
       {fieldProps.withCount === true ? renderCharacterCount(fieldProps.input.value as string) : undefined}
       {(fieldProps.withCount === true && fieldProps.meta.error) ? <br/> : undefined}

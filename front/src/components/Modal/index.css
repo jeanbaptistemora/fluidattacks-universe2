@@ -3,10 +3,29 @@
   composes: lightFg from '../../styles/global.css';
   padding: 20px 15px;
 }
+
 :local .title {
   composes: title from '../../styles/global.css';
   font-size: 23px;
   font-weight: 300;
   line-height: 1.1;
   color: inherit;
+}
+
+:global .modal {
+  text-align: center;
+}
+
+:global .modal:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  margin-right: -4px;
+  vertical-align: middle;
+}
+
+:local .dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }

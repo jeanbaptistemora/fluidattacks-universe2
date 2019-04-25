@@ -5,12 +5,24 @@
   white-space: unset !important;
 }
 
-:local .tableHeader > thead > tr > th {
+:local .tableHeader>thead>tr>th {
   text-align: center !important;
   white-space: unset !important;
+  font-weight: 400;
+}
+
+:local .tableBody>tbody>tr>td {
+  vertical-align: middle;
 }
 
 :local .noDataText {
   background: none !important;
   top: 70% !important;
+}
+
+:local .label {
+  border-radius: 0;
+  font-size: 90%;
+  font-weight: bold;
+  padding: 4px 7px;
 }

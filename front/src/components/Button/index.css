@@ -1,27 +1,39 @@
 :local .button {
+  border-radius: 0 !important;
   font-family: 'Montserrat';
-  font-size: 16px;
+  font-size: 16px !important;
 }
 
-:local .button, .button:focus {
+:local .button,
+.button:focus {
   background-color: #FFFFFF;
   border-color: #FF3435;
   color: #FF3435;
+  outline: none;
 }
 
-:local .button:hover {
+:local .button:hover,
+.button:active:hover {
   background-color: #FF3435;
   border-color: #FF3435;
   color: #FFFFFF;
 }
 
-:local .button:active, .button:active:focus {
+:local .button:active,
+.button:active:focus {
   background-color: #8E1616;
   border-color: #8E1616;
   color: #FFFFFF;
+  outline: none;
 }
 
-:local .button[disabled], .button[disabled]:hover {
+:local .button:active svg path {
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+:local .button[disabled],
+.button[disabled]:hover {
   background-color: #FAFAFA;
   border-color: #DFDFDF;
   color: #919191;
