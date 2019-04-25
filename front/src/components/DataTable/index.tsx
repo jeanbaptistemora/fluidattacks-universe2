@@ -183,7 +183,7 @@ export const dataTable: React.StatelessComponent<ITableProps> = (props: ITablePr
           _.isEmpty(props.dataset) && _.isEmpty(props.headers)
           ? <div/>
           : <div>
-              {_.isEmpty(props.title) ? undefined : <h1 className={globalStyle.title}>{props.title}</h1>}
+              {_.isEmpty(props.title) ? undefined : <h3 className={globalStyle.title}>{props.title}</h3>}
               <BootstrapTable
                 data={props.dataset}
                 exportCSV={props.exportCsv}
