@@ -9,7 +9,7 @@ import logging.config
 import rollbar
 from botocore.exceptions import ClientError
 from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_ENGINEERING,
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS
 )
 from django.conf import settings
@@ -327,7 +327,7 @@ def get_new_releases():
     if cont > 0:
         context['total'] = cont
         approvers = FI_MAIL_REVIEWERS.split(',')
-        mail_to = [FI_MAIL_ENGINEERING]
+        mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
         send_mail_new_releases(mail_to, context)
     else:
