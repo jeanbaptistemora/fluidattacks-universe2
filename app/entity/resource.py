@@ -6,10 +6,12 @@
 from __future__ import absolute_import
 from datetime import datetime
 import rollbar
+from mixpanel import Mixpanel
 from graphql import GraphQLError
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 
 from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
+from django.conf import settings
 from ..decorators import (
     require_login, require_role, require_project_access_gql, get_entity_cache
 )
@@ -431,6 +433,16 @@ class DownloadFile(Mutation):
         signed_url = resources.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
                                         file_url, minutes_until_expire)
         if signed_url:
+            user_email = info.context.session['username']
+            msg = 'Info: {user} download file {file_name} in project {project}'\
+                .format(user=user_email, project=project_name, file_name=parameters['files_data'])
+            util.cloudwatch_log(info.context, msg)
+            mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+            mp_obj.track(user_email, 'DownloadProjectFile', {
+                'Project': project_name.upper(),
+                'Email': user_email,
+                'FileName': parameters['files_data'],
+            })
             success = True
         else:
             rollbar.report_message('Error: \
