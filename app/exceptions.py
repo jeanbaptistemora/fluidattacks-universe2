@@ -68,3 +68,11 @@ class InvalidFileType(Exception):
         """ Constructor """
         msg = 'Exception - Invalid File Type'
         super(InvalidFileType, self).__init__(msg)
+
+
+class ErrorUploadingFileS3(Exception):
+    """Exception to control upload of files in s3."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Error Uploading File to S3'
+        super(ErrorUploadingFileS3, self).__init__(msg)

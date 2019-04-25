@@ -16,6 +16,7 @@ from cryptography.hazmat.backends import default_backend
 import rollbar
 
 from app import util
+from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
 from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
                       FI_AWS_S3_RESOURCES_BUCKET, FI_AWS_S3_ACCESS_KEY,
                       FI_AWS_S3_SECRET_KEY, FI_MAIL_CONTINUOUS,
@@ -62,7 +63,7 @@ def upload_file_to_s3(upload, fileurl):
         return True
     except exceptions.ClientError:
         rollbar.report_exc_info()
-        return False
+        raise ErrorUploadingFileS3()
 
 
 def delete_file_from_s3(file_url):
@@ -116,3 +117,14 @@ def send_mail(project_name, user_email, resource_list, action, resource_type):
     threading.Thread(name='Remove repositories email thread',
                      target=send_mail_resources,
                      args=(mail_to, context,)).start()
+
+
+def validate_file_size(uploaded_file, file_size):
+    """Validate if uploaded file size is less than a given file size."""
+    mib = 1048576
+    response = False
+    if uploaded_file.size > file_size * mib:
+        raise InvalidFileSize()
+    else:
+        response = True
+    return response

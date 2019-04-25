@@ -6,6 +6,7 @@
 from __future__ import absolute_import
 from datetime import datetime
 import rollbar
+from graphql import GraphQLError
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 
 from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
@@ -15,6 +16,7 @@ from ..decorators import (
 from .. import util
 from ..dao import integrates_dao
 from ..domain import resources
+from ..exceptions import ErrorUploadingFileS3, InvalidFileSize
 
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
@@ -310,9 +312,14 @@ class AddFiles(Mutation):
             project=project_name,
             file_name=uploaded_file
         )
+        try:
+            file_size = 100
+            resources.validate_file_size(uploaded_file, file_size)
+        except InvalidFileSize:
+            raise GraphQLError('File exceeds the size limits')
         if util.is_valid_file_name(uploaded_file):
-            success = resources.upload_file_to_s3(uploaded_file, file_id)
-            if success:
+            try:
+                resources.upload_file_to_s3(uploaded_file, file_id)
                 integrates_dao.add_list_resource_dynamo(
                     'FI_projects',
                     'project_name',
@@ -326,9 +333,9 @@ class AddFiles(Mutation):
                                     json_data,
                                     'added',
                                     'file')
-            else:
-                # The code should do nothing if the upload to S3 fails.
-                pass
+                success = True
+            except ErrorUploadingFileS3:
+                raise GraphQLError('Error uploading file')
         else:
             util.cloudwatch_log(info.context,
                                 'Security: \

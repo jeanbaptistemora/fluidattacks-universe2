@@ -45,9 +45,9 @@ const enTranslations: Map<string, string> = {
   proj_alerts: {
     access_denied: "Access denied or project not found",
     error_textsad: "There is an error :(",
-    file_size: "The file size must be less than 10mb",
-    file_size_png: "The image size must be less than 2mb",
-    file_size_py: "The file size must be less than 1mb",
+    file_size: "The file size must be less than 10MB",
+    file_size_png: "The image size must be less than 2MB",
+    file_size_py: "The file size must be less than 1MB",
     file_type_csv: "The file must be .csv type",
     file_type_gif: "The image must be .gif type",
     file_type_png: "The image must be .png type",
@@ -351,6 +351,7 @@ const enTranslations: Map<string, string> = {
       modal_options_content: "What do you want to do with file ",
       modal_options_title: "File options",
       modal_repo_title: "Add repository information",
+      no_file_upload: "Failed to upload the file",
       no_selection: "You must select an item from the table.",
       remove_repository: "Remove",
       repeated_item: "One or more items to add already exist.",
@@ -571,6 +572,7 @@ const enTranslations: Map<string, string> = {
   validations: {
     between: "This value must be between {{min}} and {{max}}",
     email: "The email format is not valid",
+    file_size: "The file size must be less than {{count}}MB",
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",
     required: "This field is required",

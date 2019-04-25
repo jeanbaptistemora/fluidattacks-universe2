@@ -107,7 +107,7 @@ const renderFilesFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Elem
           <Row>
             <Col md={12}>
               <div>
-                <FileInput fileName="" icon="search" id="file" type="" visible={true}/>
+                <FileInput fileName="" fileSize={100} icon="search" id="file" type="" visible={true}/>
               </div>
             </Col>
             <Col md={12}>

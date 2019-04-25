@@ -14,7 +14,7 @@ import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { isValidFileName } from "../../../../utils/validations";
+import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
 import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
@@ -124,18 +124,21 @@ const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesV
     } else {
       files[0].fileName = selected[0].name;
     }
+    let fileSize: number; fileSize = 100;
     if (isValidFileName(files[0].fileName)) {
-      let containsRepeated: boolean;
-      containsRepeated = files.filter(
-        (newItem: IResourcesViewProps["files"][0]) => _.findIndex(
-          props.files,
-          (currentItem: IResourcesViewProps["files"][0]) =>
-            currentItem.fileName === newItem.fileName,
-        ) > -1).length > 0;
-      if (containsRepeated) {
-        msgError(translate.t("search_findings.tab_resources.repeated_item"));
-      } else {
-        props.onSaveFiles(files);
+      if (isValidFileSize(selected[0], fileSize)) {
+        let containsRepeated: boolean;
+        containsRepeated = files.filter(
+          (newItem: IResourcesViewProps["files"][0]) => _.findIndex(
+            props.files,
+            (currentItem: IResourcesViewProps["files"][0]) =>
+              currentItem.fileName === newItem.fileName,
+          ) > -1).length > 0;
+        if (containsRepeated) {
+          msgError(translate.t("search_findings.tab_resources.repeated_item"));
+        } else {
+          props.onSaveFiles(files);
+        }
       }
     } else {
       msgError(translate.t("search_findings.tab_resources.invalid_chars"));

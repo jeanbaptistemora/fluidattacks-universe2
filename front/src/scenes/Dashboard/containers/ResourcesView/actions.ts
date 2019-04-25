@@ -328,8 +328,17 @@ export const saveFiles: ((projectName: string, filesData: IResources["files"]) =
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {
             const { errors } = error.response.data;
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
+            switch (errors[0].message) {
+              case "File exceeds the size limits":
+                msgError(translate.t("validations.file_size", { count: 100 }));
+                break;
+              case "Error uploading file":
+                msgError(translate.t("search_findings.tab_resources.no_file_upload"));
+                break;
+              default:
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error(error.message, errors);
+            }
           }
         });
     };

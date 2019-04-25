@@ -167,3 +167,17 @@ export const isValidFileName: ((arg1: string) => boolean) =
 
     return valid;
 };
+
+export const isValidFileSize: ((file: File, fileSize: number) => boolean) =
+  (file: File, fileSize: number): boolean => {
+
+  let MIB: number; MIB = 1048576;
+  let isValid: boolean; isValid = false;
+  if (file.size > MIB * fileSize) {
+    msgError(translate.t("validations.file_size", { count: fileSize }));
+  } else {
+    isValid = true;
+  }
+
+  return isValid;
+};
