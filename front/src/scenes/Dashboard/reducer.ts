@@ -72,7 +72,6 @@ export interface IDashboardState {
       type: string;
     }>;
     reportsModal: {
-      hasExecutive: boolean;
       isOpen: boolean;
     };
   };
@@ -233,7 +232,6 @@ const initialState: IDashboardState = {
   findings: {
     dataset: [],
     reportsModal: {
-      hasExecutive: false,
       isOpen: false,
     },
   },
@@ -858,7 +856,6 @@ actionMap[findingsActions.OPEN_REPORTS_MODAL] = (state: IDashboardState): IDashb
   findings: {
     ...state.findings,
     reportsModal: {
-      ...state.findings.reportsModal,
       isOpen: true,
     },
   },
@@ -869,7 +866,6 @@ actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDash
   findings: {
     ...state.findings,
     reportsModal: {
-      ...state.findings.reportsModal,
       isOpen: false,
     },
   },
@@ -883,7 +879,6 @@ actionMap[findingsActions.LOAD_FINDINGS] =
       dataset: action.payload.dataset,
       reportsModal: {
         ...state.findings.reportsModal,
-        hasExecutive: action.payload.hasExecutive,
       },
     },
   });

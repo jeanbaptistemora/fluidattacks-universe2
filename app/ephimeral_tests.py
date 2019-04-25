@@ -321,43 +321,6 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '11-techpdf.png')
         assert 'Reflected Cross Site' in selenium.page_source
 
-    def test_12_execpdf(self):
-        selenium = self.__login()
-        proj_elem = WebDriverWait(selenium,
-                                  self.delay).until(
-                                      EC.presence_of_element_located(
-                                          (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
-        proj_elem.click()
-
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
-        WebDriverWait(selenium,
-                      self.delay).until(
-                            EC.presence_of_element_located(
-                                (By.XPATH,
-                                "//*[contains(text(), 'Reflected Cross Site')]")))
-
-        rep_modal = WebDriverWait(selenium,
-                                  self.delay).until(
-                                        EC.presence_of_element_located(
-                                            (By.XPATH,
-                                             "//button[contains(text(),'Reports')]")))
-        rep_modal.click()
-        exec_pdf_report = WebDriverWait(selenium,
-                                        self.delay).until(
-                                            EC.presence_of_element_located(
-                                                (By.XPATH,
-                                                 "//div[@id='execReport']//button[contains(text(), 'PDF')]")))
-
-        exec_pdf_report.click()
-        WebDriverWait(selenium,
-                      self.delay).until(
-                        EC.presence_of_element_located(
-                            (By.XPATH,
-                             "//*[contains(text(), 'Reflected Cross')]")))
-        selenium.save_screenshot(SCR_PATH + '12-execpdf.png')
-        assert 'Reflected Cross Site' in selenium.page_source
-
     def test_13_events(self):
         selenium = self.__login()
         proj_elem = WebDriverWait(selenium,

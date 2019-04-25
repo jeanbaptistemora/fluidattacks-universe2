@@ -75,8 +75,6 @@ const enTranslations: Map<string, string> = {
       help_label: "Click on a finding to see more details",
       report: {
         btn: "Reports",
-        exec_n: "The project's documentation has not been finished",
-        exec_title: "Executive Reports",
         modal_close: "Close",
         modal_title: "Reports",
         tech_description: "Technical report is protected by password."

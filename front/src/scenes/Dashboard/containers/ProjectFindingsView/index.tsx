@@ -63,23 +63,11 @@ const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFi
   const handleTechXlsClick: (() => void) = (): void => {
     window.open(`/integrates/xls/en/project/${projectName}`, "_blank");
   };
-  const handleExecPdfClick: (() => void) = (): void => {
-    window.open(`/integrates/pdf/en/project/${projectName}/presentation/`, "_blank");
-  };
 
   const modalFooter: JSX.Element = (
     <ButtonToolbar className="pull-right">
       <Button onClick={handleCloseReportsClick}>{translate.t("project.findings.report.modal_close")}</Button>
     </ButtonToolbar>
-  );
-  const execDownloadBtn: JSX.Element = (
-    <Col md={12} className={style.downloadButtonsContainer}>
-      <ButtonToolbar>
-        <Button onClick={handleExecPdfClick}>
-          <FontAwesome name="file-pdf-o" />&nbsp;PDF
-        </Button>
-      </ButtonToolbar>
-    </Col>
   );
 
   const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
@@ -109,7 +97,7 @@ const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFi
         headerTitle={translate.t("project.findings.report.modal_title")}
       >
         <Row className={style.modalContainer}>
-          <Col md={6} className={style.techReportContainer} id="techReport">
+          <Col md={12} id="techReport">
             <h3>{translate.t("project.findings.report.tech_title")}</h3>
             <p>{translate.t("project.findings.report.tech_description")}</p>
             <br />
@@ -126,10 +114,6 @@ const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFi
                 </ButtonToolbar>
               </Col>
             </Row>
-          </Col>
-          <Col md={6} id="execReport">
-            <h3>{translate.t("project.findings.report.exec_title")}</h3>
-            {props.reportsModal.hasExecutive ? execDownloadBtn : <p>{translate.t("project.findings.report.exec_n")}</p>}
           </Col>
         </Row>
       </Modal>
