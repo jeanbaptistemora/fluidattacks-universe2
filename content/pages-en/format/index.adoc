@@ -30,8 +30,9 @@
 
 === Create Anchor
 
-Create an anchor to a header,
+Create an anchor to a header
 so it can be accessed quickly.
+
 
 * Source
 +
@@ -47,7 +48,7 @@ so it can be accessed quickly.
 
 === Use Anchor
 
-Create a link to the previously created anchor
+Create a link to the previously created anchor.
 
 * Source
 +
@@ -65,7 +66,7 @@ Create a link to the previously created anchor
 
 ==== Complete Bold
 
-Use bold font in a word
+Use bold font for a word.
 
 * Source
 +
@@ -79,7 +80,7 @@ Use bold font in a word
 
 ==== Partial Bold
 
-Use bold font in a part of a word
+Use bold font for a part of a word.
 
 * Source
 +
@@ -95,7 +96,7 @@ w**or**d
 
 ==== Complete Italics
 
-Use style italics in a word
+Use style italics for a word.
 
 * Source
 +
@@ -109,7 +110,7 @@ _word_
 
 ==== Partial Italics
 
-Use style italics in part of a w__or__d
+Use style italics for part of a w__or__d.
 
 * Source
 +
@@ -123,7 +124,7 @@ w__or__d
 
 === Emphasis
 
-Give emphasis to a word
+Give emphasis to a word.
 
 * Source
 +
@@ -139,11 +140,10 @@ Give emphasis to a 'word'
 
 ==== Complete Color
 
-Change the color of a word,
-which can be chosen from the
-link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
-It can be combined with the formats:
-size, background, overline, underline and line-through
+Change the color of a word from black text to something else.
+Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]
+. It can be combined with the formats:
++size+, +background+, +overline+, +underline+, and +line-through+.
 
 * Source
 +
@@ -157,11 +157,10 @@ size, background, overline, underline and line-through
 
 ==== Partial Color
 
-Change the color of part of a word,
-which can be chosen from the
-link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
+Change the color of part of a word from black text to something else.
+Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
 It can be combined with the formats:
-size, background, overline, underline and line-through
++size+, +background+, +overline+, +underline+, and +line-through+.
 
 * Source
 +
@@ -179,7 +178,7 @@ w[blue]##or##d
 
 Change the size of a word. +
 It can be combined with the formats:
-color, background, overline, underline and line-through
++color+, +background+, +overline+, +underline+, and +line-through+.
 
 * Source
 +
@@ -195,7 +194,7 @@ color, background, overline, underline and line-through
 
 Change the size of part of a word. +
 It can be combined with the formats:
-color, background, overline, underline and line-through
++color+, +background+, +overline+, +underline+, and +line-through+.
 
 * Source
 +
@@ -211,11 +210,10 @@ w[small]##or##d
 
 ==== Complete Background
 
-Change the background color of a word,
-which can be chosen from the
-link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
+Change the background color of a word from one color to another.
+Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
 It can be combined with the formats:
-color, size, overline, underline and line-through
++size+, +background+, +overline+, +underline+, and +line-through+.
 
 * Source
 +
@@ -245,13 +243,13 @@ w[aqua-background]##or##d
 +
 w[aqua-background]##or##d
 
-=== Overline
+=== Overlines
 
 ==== Complete Overline
 
 Add line over a word. +
 It can be combined with the formats:
-color, size, background, underline and line-through
++color+, +size+, +background+, +underline+, and +line-through+.
 
 * Source
 +
@@ -267,7 +265,7 @@ color, size, background, underline and line-through
 
 Add line over part of a word. +
 It can be combined with the formats:
-color, size, background, underline and line-through
++color+, +size+, +background+, +underline+, and +line-through+.
 
 * Source
 +
@@ -285,7 +283,7 @@ w[overline]##or##d
 
 Add line under a word. +
 It can be combined with the formats:
-color, size, background, overline and line-through
++color+, +size+, +background+, +overline+, and +line-through+.
 
 * Source
 +
@@ -301,7 +299,7 @@ color, size, background, overline and line-through
 
 Add line under part of a word. +
 It can be combined with the formats:
-color, size, background, overline and line-through
++color+, +size+, +background+, +overline+, and +line-through+.
 
 * Source
 +
@@ -313,13 +311,13 @@ w[underline]##or##d
 +
 w[underline]##or##d
 
-=== Line Through
+=== Line-through
 
-==== Complete Line Through
+==== Complete Line-through
 
 Add line through a word. +
 It can be combined with the formats:
-color, size, background, overline and underline
++color+, +size+, +background+, +overline+, and +underline+.
 
 * Source
 +
@@ -331,11 +329,11 @@ color, size, background, overline and underline
 +
 [line-through]#word#
 
-==== Partial Line Through
+==== Partial Line-through
 
 Add line through part of a word. +
 It can be combined with the formats:
-color, size, background, overline and underline
++color+, +size+, +background+, +overline+, and +underline+s.
 
 * Source
 +
@@ -362,7 +360,7 @@ w[line-through]##or##d
 
 === Single Quotes
 
-Place a word in single quotes
+Place a word in single quotes.
 
 * Source
 +
@@ -376,7 +374,7 @@ Place a word in single quotes
 
 === Double Quotes
 
-Place a word in double quotes
+Place a word in double quotes.
 
 * Source
 +
@@ -392,7 +390,7 @@ Place a word in double quotes
 
 Place a word,
 or part of a word,
-as a superscript
+as a superscript.
 
 * Source
 +
@@ -422,7 +420,7 @@ as a subscript
 
 === Monospaced
 
-Use monospaced font
+Use monospaced font.
 
 ==== Monospaced - Option 1
 
@@ -450,31 +448,31 @@ Use monospaced font
 
 === Line Break
 
-Break a line in the same paragraph
+Break a line in the same paragraph.
 
 * Source
 +
 ....
 This idea ends here. +
 And I want this one in a new line,
-but in the same paragraph
+but in the same paragraph.
 ....
 
 * Render
 +
 This idea ends here. +
 And I want this one in a new line,
-but in the same paragraph
+but in the same paragraph.
 
 === Escape Character
 
 Use the backslash (\)
-to escape special characters
+to escape special characters.
 
 * Source
 +
 ....
-\*word* (Normally, it would make the word bold)
+\*word* (Normally, it would make the word bold.)
 ....
 
 * Render
@@ -491,7 +489,7 @@ and do not render it in the HTML.
 +
 ....
 The next line is a comment.
-// It should not be rendered in the HTML
+// It should not be rendered in the HTML.
 ....
 
 * Render
@@ -503,10 +501,9 @@ The next line is a comment.
 
 Delimit HTML code in +4+ plus (+)
 to execute it once rendered. +
-Do not use this method,
-since the idea of Pelican
-is to separate content from style,
-so focus only on content in the .adocs
+Since the idea of Pelican is to separate content from style,
+do not use this method.
+Focus only on content in the +.adocs+.
 
 * Source
 +
@@ -526,7 +523,7 @@ so focus only on content in the .adocs
   </p>
 ++++
 
-=== Licence Characters
+=== License Characters
 
 * Source
 +
@@ -542,8 +539,9 @@ so focus only on content in the .adocs
 
 === Titles
 
-They are delacred before an element, starting with a dot
-(images, lists, quotes, literals, ...)
+They are declared before an element,
+starting with a dot
+(+images+, +lists+, +quotes+, +literals+, etc.).
 
 ==== Image Titles
 
@@ -722,7 +720,7 @@ video::he-man.mp4[He-man]
 
 When this option is being used,
 every punctuaction mark
-goes outside of the square brackets ``[]''
+goes outside of the square brackets ``[]''.
 
 * Source
 +
@@ -764,7 +762,7 @@ https://google.com
 
 ==== Literal - Option 1
 
-A literal block is delimited by 4 dots before and after the content
+A literal block is delimited by 4 dots before and after the content.
 
 * Source
 +
@@ -782,7 +780,7 @@ Hello
 
 ==== Literal - Option 2 - Do not use
 
-Setting a blank space as the first character of a line
+Set a blank space as the first character of a line.
 
 * Source
 +
@@ -951,10 +949,10 @@ Line 3
 
 ==== Callouts
 
-You can use callouts to explain in detail
+You can use +callouts+ to explain in detail
 a line within your source code.
 It works similar to comments,
-but does not add extra lines to your code, which is good:
+but does not add extra lines to your code, which is good.
 
 * Source
 ....
@@ -1232,8 +1230,7 @@ Back-to-back with previous interval.
 
 ==== Responsive Table Distributed Horizontally
 
-Use the special class ``tb-row''
-for this type of tables.
+Use the special class +tb-row+ for this type of table.
 *DO NOT USE MULTILINE CELLS*.
 
 * Source
@@ -1292,9 +1289,8 @@ for this type of tables.
 
 ==== Responsive Table Distributed Vertically
 
-Use the special class ``tb-col''
-for this type of tables.
-*DO NOT USE MULTILINE CELLS*.
+ Use the special class +tb-col”+ for this type of table.
+ *DO NOT USE MULTILINE CELLS*.
 
 * Source
 +
@@ -1392,8 +1388,7 @@ s| Col 1 s| Col 2 s| Col 3 s| Col 4
 
 ==== Responsive Table with Alternated Content - Max. 2 Columns
 
-Use the special class ``tb-alt''
-for this type of table.
+Use the special class +tb-alt+ for this type of table.
 *DO NOT USE MULTILINE CELLS*.
 
 * Source
@@ -1470,7 +1465,7 @@ Subterm 2.1::: Definition can also be placed horizontally
 Term 1:: Definition
 Term 2:: Definition
 [horizontal]
-Subterm 2.1::: Definition can also be placed horizontally
+Subterm 2.1::: Definition can also be placed horizontally.
 
 === Admonition Elements
 
@@ -1478,37 +1473,37 @@ Subterm 2.1::: Definition can also be placed horizontally
 +
 ....
 [WARNING]
-The speed limit in this road is 60mph +
-Do not exceed this speed
+The speed limit in this road is 60 mph. +
+Do not exceed this speed.
 
-NOTE: I left the dinner in the oven
+NOTE: I left the dinner in the oven.
 
 [CAUTION]
 Be careful! The floor is slippery!
 
-TIP: You can also make an appointment via our website
+TIP: You can also make an appointment via our website.
 
 [IMPORTANT]
 Be sure to get all of your belongings
-before exiting the vehicle
+before exiting the vehicle.
 ....
 
 * Render
 +
 [WARNING]
-The speed limit in this road is 60mph +
-Do not exceed this speed
+The speed limit in this road is 60 mph. +
+Do not exceed this speed.
 +
-NOTE: I left the dinner in the oven
+NOTE: I left the dinner in the oven.
 +
 [CAUTION]
 Be careful! The floor is slippery!
 +
-TIP: You can also make an appointment via our website
+TIP: You can also make an appointment via our website.
 +
 [IMPORTANT]
 Be sure to get all of your belongings
-before exiting the vehicle
+before exiting the vehicle.
 
 === Horizontal Rule
 
@@ -1531,12 +1526,12 @@ They can be declared at the beginning of the document.
 ....
 :variable: AsciiDoc
 
-This text is written in {variable}
+This text is written in {variable}.
 ....
 
 * Render
 +
-This text is written in {variable}
+This text is written in {variable}.
 
 === Classes
 
@@ -1544,7 +1539,7 @@ This text is written in {variable}
 
 As with colors,
 inline elements can be given a class name
-and then be edited in the CSS
+and then be edited in the +CSS+.
 
 * Source
 +
@@ -1559,7 +1554,7 @@ and then be edited in the CSS
 ==== Block Classes
 
 Block elements can also
-be given class names
+be given class names.
 
 * Source
 +
@@ -1579,9 +1574,9 @@ Text
 
 === Diagrams
 
-The names of the diagrams
-should *start with the word diagram*, for example,
-diagram-process.png
+The names of diagrams
+should *start with the word*, +diagram+, for example,
++diagram-process.png+.
 
 * Source
 +
@@ -1692,7 +1687,7 @@ to see the rendered graph for your source code.
 * Source
 +
 ....
-This sentence has a ver important tooltip:Additional information about the term[Term]. Hover
+This sentence has a very important tooltip:Additional information about the term[Term]. Hover
 over it to see more details!
 
 In this one, tooltip:More details[the sentence itself] is the center of attention.
@@ -1702,12 +1697,12 @@ You could also use links, tooltip:Great Search Engine[link:https://google.com[Go
 
 * Render
 +
-This sentence has a ver important tooltip:Additional information about the term[Term]. Hover
+This sentence has a very important tooltip:Additional information about the term[Term]. Hover
 over it to see more details!
 +
 In this one, tooltip:More details[the sentence itself] is the center of attention.
 +
-You could also use links, link:https://google.com[tooltip:Great Search Engine[Google]]
+You could also use links, link:https://google.com[tooltip:Great Search Engine[Google]].
 
 ==== Using images
 
@@ -1729,7 +1724,7 @@ line breaks in the source code"]
 
 === Advanced Math
 
-You can render advanced math equations using +LaTeX+ syntax:
+You can render advanced math equations using +LaTeX+ syntax.
 
 * Source
 +
@@ -1750,7 +1745,7 @@ $\displaystyle{ V_i = C_0 - C_3
 \frac{C_1\cos(\theta_i+C_3)}{C_4+C_1\cos(\theta_i+C_2)} }$
 ----
 
-This block relies on +AsciiDoc LaTeX+ filter,
+This block relies on +AsciiDoc LaTeX+ filter
 creating an image of the equation.
 Notice that the +\huge+ command must be placed
 outside the formula delimiters (+$+).
