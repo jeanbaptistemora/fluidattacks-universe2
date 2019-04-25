@@ -317,6 +317,20 @@ class AddFiles(Mutation):
             resources.validate_file_size(uploaded_file, file_size)
         except InvalidFileSize:
             raise GraphQLError('File exceeds the size limits')
+        files = integrates_dao.get_project_attributes_dynamo(project_name, ['files'])
+        project_files = files.get('files')
+        if project_files:
+            contains_repeated = [f.get('fileName')
+                                 for f in project_files
+                                 if f.get('fileName') == uploaded_file.name]
+            if contains_repeated:
+                raise GraphQLError('File already exist')
+            else:
+                # File is unique
+                pass
+        else:
+            # Project doesn't have files
+            pass
         if util.is_valid_file_name(uploaded_file):
             try:
                 resources.upload_file_to_s3(uploaded_file, file_id)
@@ -411,7 +425,8 @@ class DownloadFile(Mutation):
     def mutate(self, info, **parameters):
         success = False
         file_info = parameters['files_data']
-        file_url = parameters['project_name'].lower() + "/" + file_info
+        project_name = parameters['project_name'].lower()
+        file_url = project_name + "/" + file_info
         minutes_until_expire = 1.0 / 6
         signed_url = resources.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
                                         file_url, minutes_until_expire)
