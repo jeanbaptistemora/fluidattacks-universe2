@@ -150,7 +150,7 @@ start again solving a challenge of lower score.
 
 == 7. Payment
 
-. The time reported to training will be paid at *$6,468 COP* an hour.
+. The time reported to training will be paid at *$9,468 COP* an hour.
 . We expect a minimum dedication of *80%*
 (based on the reference time).
 . If the total dedication is greater or lower than what is expected,
