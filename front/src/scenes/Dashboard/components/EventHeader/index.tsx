@@ -72,7 +72,7 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
                 activeClassName={style.active}
                 to={`/project/${props.eventData.projectName}/events/${props.eventData.id}/description`}
               >
-                <i className="icon s7-note2" />
+                <i className="icon pe-7s-note2" />
                 &nbsp;{translate.t("search_findings.tab_events.description")}
               </NavLink>
               </li>
@@ -82,7 +82,7 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
                   activeClassName={style.active}
                   to={`/project/${props.eventData.projectName}/events/${props.eventData.id}/evidence`}
                 >
-                  <i className="icon s7-note2" />
+                  <i className="icon pe-7s-note2" />
                   &nbsp;{translate.t("search_findings.tab_events.evidence")}
                 </NavLink>
                 </li>

@@ -22,7 +22,7 @@ const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element =>
   const renderAnalystTabs: (() => JSX.Element) = (): JSX.Element => (
     <React.Fragment>
       <TabItem
-        icon={<i className="icon s7-note2" />}
+        icon={<i className="icon pe-7s-note2" />}
         labelText={translate.t("sidebar.forms")}
         onClick={handleFormsClick}
       />
@@ -48,7 +48,7 @@ const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element =>
         <ul>
           <li onClick={handleEsClick}><a>ES</a></li>
           <li onClick={handleEnClick}><a>EN</a></li>
-          <li onClick={handleLogoutClick}><a><span className="icon s7-power" /></a></li>
+          <li onClick={handleLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
         </ul>
       </div>
     </BurgerMenu>

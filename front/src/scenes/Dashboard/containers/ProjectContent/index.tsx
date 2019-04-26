@@ -52,13 +52,13 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                 <ul className={style.tabsContainer}>
                   <li id="indicatorsTab" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/indicators`}>
-                      <i className="icon s7-graph3" />
+                      <i className="icon pe-7s-graph3" />
                       &nbsp;{translate.t("project.tabs.indicators")}
                     </NavLink>
                   </li>
                   <li id="findingsTab" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/findings`}>
-                      <i className="icon s7-light" />
+                      <i className="icon pe-7s-light" />
                       &nbsp;{translate.t("project.tabs.findings")}
                     </NavLink>
                   </li>
@@ -66,20 +66,20 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                   {_.includes(["admin", "analyst"], props.userRole) ?
                     <li id="draftsTab" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`/project/${projectName}/drafts`}>
-                        <i className="icon s7-stopwatch" />
+                        <i className="icon pe-7s-stopwatch" />
                         &nbsp;{translate.t("project.tabs.drafts")}
                       </NavLink>
                     </li>
                     : undefined}
                   <li id="eventsTab" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/events`}>
-                      <i className="icon s7-star" />
+                      <i className="icon pe-7s-star" />
                       &nbsp;{translate.t("project.tabs.events")}
                     </NavLink>
                   </li>
                   <li id="resourcesTab" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/resources`}>
-                      <i className="icon s7-box1" />
+                      <i className="icon pe-7s-box1" />
                       &nbsp;{translate.t("project.tabs.resources")}
                     </NavLink>
                   </li>
@@ -87,14 +87,14 @@ const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentP
                   {_.includes(["admin", "customeradmin"], props.userRole) ?
                     <li id="usersTab" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`/project/${projectName}/users`}>
-                        <i className="icon s7-users" />
+                        <i className="icon pe-7s-users" />
                         &nbsp;{translate.t("project.tabs.users")}
                       </NavLink>
                     </li>
                     : undefined}
                   <li id="commentsTab" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/comments`}>
-                      <i className="icon s7-comment" />
+                      <i className="icon pe-7s-comment" />
                       &nbsp;{translate.t("project.tabs.comments")}
                     </NavLink>
                   </li>

@@ -28,25 +28,25 @@ const formsView: React.SFC = (): JSX.Element => {
         <ul className={style.tabsContainer}>
           <li id="progressItem" className={style.tab}>
             <NavLink activeClassName={style.active} to="/forms/progress">
-              <i className="icon s7-refresh-2" />
+              <i className="icon pe-7s-refresh-2" />
               &nbsp;{translate.t("forms.progress")}
             </NavLink>
           </li>
           <li id="findingsItem" className={style.tab}>
             <NavLink activeClassName={style.active} to="/forms/findings">
-              <i className="icon s7-id" />
+              <i className="icon pe-7s-id" />
               &nbsp;{translate.t("forms.findings")}
             </NavLink>
           </li>
           <li id="closingItem" className={style.tab}>
             <NavLink activeClassName={style.active} to="/forms/closing">
-              <i className="icon s7-less" />
+              <i className="icon pe-7s-less" />
               &nbsp;{translate.t("forms.closing")}
             </NavLink>
           </li>
           <li id="eventItem" className={style.tab}>
             <NavLink activeClassName={style.active} to="/forms/events">
-              <i className="icon s7-way" />
+              <i className="icon pe-7s-way" />
               &nbsp;{translate.t("forms.events")}
             </NavLink>
           </li>

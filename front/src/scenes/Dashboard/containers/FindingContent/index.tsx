@@ -164,43 +164,43 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
                 <ul className={style.tabsContainer}>
                   <li id="infoItem" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/description`}>
-                      <i className="icon s7-note2" />
+                      <i className="icon pe-7s-note2" />
                       &nbsp;{translate.t("search_findings.tab_description.tab_title")}
                     </NavLink>
                   </li>
                   <li id="cssv2Item" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/severity`}>
-                      <i className="icon s7-calculator" />
+                      <i className="icon pe-7s-calculator" />
                       &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
                     </NavLink>
                   </li>
                   <li id="evidenceItem" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/evidence`}>
-                      <i className="icon s7-photo" />
+                      <i className="icon pe-7s-photo" />
                       &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
                     </NavLink>
                   </li>
                   <li id="exploitItem" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/exploit`}>
-                      <i className="icon s7-file" />
+                      <i className="icon pe-7s-file" />
                       &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
                     </NavLink>
                   </li>
                   <li id="trackingItem" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/tracking`}>
-                      <i className="icon s7-graph1" />
+                      <i className="icon pe-7s-graph1" />
                       &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
                     </NavLink>
                   </li>
                   <li id="recordsItem" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/records`}>
-                      <i className="icon s7-notebook" />
+                      <i className="icon pe-7s-notebook" />
                       &nbsp;{translate.t("search_findings.tab_records.tab_title")}
                     </NavLink>
                   </li>
                   <li id="commentItem" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/comments`}>
-                      <i className="icon s7-comment" />
+                      <i className="icon pe-7s-comment" />
                       &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
                     </NavLink>
                   </li>
@@ -208,7 +208,7 @@ const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentP
                   {_.includes(["admin", "analyst"], userRole) ?
                     <li id="observationsItem" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/observations`}>
-                        <i className="icon s7-note" />
+                        <i className="icon pe-7s-note" />
                         &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
                       </NavLink>
                     </li>
