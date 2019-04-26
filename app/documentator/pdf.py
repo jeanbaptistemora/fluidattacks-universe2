@@ -39,9 +39,6 @@ class CreatorPDF(object):
         self.style_dir = self.path + self.style_dir
         if self.doctype == 'tech':
             self.proj_tpl = 'templates/tech.adoc'
-        if self.doctype == 'presentation':
-            self.proj_tpl = 'templates/presentation.adoc'
-            self.style_dir = self.path + '/resources/presentation_theme'
         reload(sys)
         try:
             sys.setdefaultencoding('utf-8')
@@ -86,7 +83,6 @@ class CreatorPDF(object):
                 '4. Resumen de Hallazgos'
             ],
             'tech': 'Informe Técnico',
-            'presentation': 'Presentación',
             'executive': 'Informe Ejecutivo',
             'goals_title': 'Objetivos del proyecto',
             'metodology_title': 'Metodología',
@@ -148,7 +144,6 @@ class CreatorPDF(object):
                 '4. Findings Summary'
             ],
             'tech': 'Technical Report',
-            'presentation': 'Executive Presentation',
             'executive': 'Executive Report',
             'goals_title': 'Goals',
             'metodology_title': 'Methodology',
@@ -206,22 +201,6 @@ class CreatorPDF(object):
         template_env = jinja2.Environment(loader=template_loader)
         template = template_env.get_template(self.proj_tpl)
         tpl_name = self.tpl_dir + ':id_IT.tpl'.replace(':id', project)
-        render_text = template.render(self.context)
-        with open(tpl_name, 'w') as tplfile:
-            tplfile.write(render_text.encode('utf-8'))
-        self.create_command(tpl_name)
-        os.system(self.command)
-
-    def presentation(self, data, project, project_info, user):
-        """ Create the template to render and apply the context. """
-        self.fill_project(data, project)
-        self.project_info_context(project_info)
-        self.out_name = user + '_' + project + '_PR.pdf'
-        searchpath = self.path
-        template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
-        template_env = jinja2.Environment(loader=template_loader)
-        template = template_env.get_template(self.proj_tpl)
-        tpl_name = self.tpl_dir + ':id_PR.tpl'.replace(':id', project)
         render_text = template.render(self.context)
         with open(tpl_name, 'w') as tplfile:
             tplfile.write(render_text.encode('utf-8'))

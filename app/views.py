@@ -207,7 +207,7 @@ def validation_project_to_pdf(request, lang, doctype):
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
-    if doctype not in ["tech", "executive", "presentation"]:
+    if doctype not in ["tech", "executive"]:
         rollbar.report_message('Error: Unsupported doctype', 'error', request)
         return util.response([], 'Unsupported doctype', True)
 
@@ -252,18 +252,9 @@ Attempted to export project pdf without permission')
             report_filename = secure_pdf.create_full(user,
                                                      pdf_maker.out_name,
                                                      project)
-        elif doctype == "executive":
+        else:
             return HttpResponse("Disabled report generation",
                                 content_type="text/html")
-        else:
-            report_filename = presentation_pdf(project, pdf_maker,
-                                               findings, user)
-            if report_filename == "Incorrect parametrization":
-                return HttpResponse("Incorrect parametrization",
-                                    content_type="text/html")
-            elif report_filename == "Incomplete documentation":
-                return HttpResponse("Incomplete documentation",
-                                    content_type="text/html")
         if not os.path.isfile(report_filename):
             rollbar.report_message('Error: \
 Documentation has not been generated', 'error', request)
@@ -304,27 +295,6 @@ def pdf_evidences(findings):
                 evidence['name'] = 'image::../images/' + \
                     evidence['id'] + '.png[align="center"]'
     return findings
-
-
-def presentation_pdf(project, pdf_maker, findings, user):
-    project_info = get_project_info(project)["data"]
-    mapa_id = util.drive_url_filter(project_info["findingsMap"])
-    project_info["findingsMap"] = \
-        "image::../images/" + mapa_id + '.png[align="center"]'
-    DriveAPI().download_images(mapa_id)
-    nivel_sec = project_info["securityLevel"].split(" ")[0]
-    if not util.is_numeric(nivel_sec):
-        return "Incorrect parametrization"
-    nivel_sec = int(nivel_sec)
-    if nivel_sec < 0 or nivel_sec > 6:
-        return "Incorrect parametrization"
-    project_info["securityLevel"] = \
-        "image::../resources/presentation_theme/nivelsec" + str(nivel_sec) + '.png[align="center"]'
-    if not project_info:
-        return "Incomplete documentation"
-    pdf_maker.presentation(findings, project, project_info, user)
-    report_filename = pdf_maker.result_dir + pdf_maker.out_name
-    return report_filename
 
 
 def get_project_info(project):

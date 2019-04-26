@@ -41,7 +41,6 @@ export const loadFindingsData: ((projectName: string) => ThunkResult<void>) =
             treatment
             isExploitable
           }
-          hasCompleteDocs
         }
       }`;
 
@@ -52,7 +51,6 @@ export const loadFindingsData: ((projectName: string) => ThunkResult<void>) =
           dispatch({
             payload: {
               dataset: data.project.findings,
-              hasExecutive: data.project.hasCompleteDocs,
             },
             type: actionTypes.LOAD_FINDINGS,
           });
