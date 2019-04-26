@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "esModuleInterop": true,
+    "jsx": "react-native",
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "noEmit": true,
+    "strict": true,
+    "target": "es2018",
+    "typeRoots": ["types.d.ts"]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

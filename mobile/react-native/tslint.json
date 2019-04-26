@@ -1,0 +1,15 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:all",
+    "tslint-react"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules"
+    ]
+  },
+  "rules": {
+    "no-magic-numbers": false
+  },
+}

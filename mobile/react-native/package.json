@@ -1,0 +1,38 @@
+{
+  "name": "fluidmobile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "lint": "tslint -p tsconfig.json -t codeFrame"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/fluidsignal/integrates.git"
+  },
+  "author": "development@fluidattacks.com",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://gitlab.com/fluidsignal/integrates/issues"
+  },
+  "homepage": "https://fluidattacks.com/integrates",
+  "dependencies": {
+    "expo": "32.0.6",
+    "expo-cli": "2.15.4",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.3.tar.gz",
+    "react-router-native": "5.0.0"
+  },
+  "devDependencies": {
+    "@types/expo": "32.0.11",
+    "@types/react-native": "0.57.51",
+    "@types/react-router-native": "4.2.4",
+    "babel-preset-expo": "5.1.1",
+    "tslint": "5.16.0",
+    "tslint-react": "4.0.0",
+    "typescript": "3.4.5"
+  }
+}
