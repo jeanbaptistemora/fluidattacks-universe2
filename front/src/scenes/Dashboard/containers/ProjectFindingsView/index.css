@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-:local .techReportContainer {
-  border-right: 1px solid #EEEEEE;
-}
-
 :local .downloadButtonsContainer {
   display: flex;
   justify-content: center;

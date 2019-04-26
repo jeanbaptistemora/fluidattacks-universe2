@@ -22,7 +22,7 @@ class SecurePDF(object):
         self.base = '/usr/src/app/app/documentator/'
         self.watermark_tpl = os.path.join(
             self.base,
-            'resources/presentation_theme/watermark_integrates_en.pdf')
+            'resources/themes/watermark_integrates_en.pdf')
         self.result_dir = os.path.join(self.base, 'results/')
 
     def create_full(self, username, basic_pdf_name, project):
