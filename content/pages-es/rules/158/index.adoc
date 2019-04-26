@@ -13,10 +13,6 @@ debe estar implementada en una versión
 de un lenguaje de programación estable,
 actualizada, probada y libre de vulnerabilidades conocidas.
 
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/evitar-elementos-obsoletos/[Evitar Elementos Obsoletos].
-
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.9+]

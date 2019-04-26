@@ -46,17 +46,6 @@ los programas deben minimizar la vida útil
 de cualquier tipo de variable declarada
 cuyo contenido sea información sensible en memoria.
 
-== Soluciones
-
-La presente sección contiene enlaces a artículos
-cuyo contenido es propiedad de +Fluid Attacks+.
-El objetivo es dar a conocer al público
-la implementación del actual requerimiento de seguridad
-para diferentes plataformas o lenguajes de programación:
-
-. *+ASPNET+* link:../../defends/aspnet/evitar-codigo-muerto/[Evitar código muerto].
-. *+ASPNET+* link:../../defends/aspnet/evitar-codigo-duplicado/[Evitar código fuente duplicado].
-
 == Ataques
 
 A continuación se describen dos casos de abuso,

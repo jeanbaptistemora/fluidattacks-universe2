@@ -11,7 +11,3 @@
 El código fuente debe estar implementado
 de tal forma que cierre cualquier recurso
 que se encuentre abierto y no esté siendo utilizado.
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/liberar-recursos/[Liberar Recursos].

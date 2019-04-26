@@ -30,10 +30,6 @@ se debe implementar el certificado recibido
 sobre la plataforma o sistema para el que fue adquirido
 y se debe mantener actualizado de acuerdo a las mejores prácticas.
 
-== Soluciones
-
-. +Cifrado+ link:../../defends/cifrado/solicitar-certificados-web/[Generar Solicitud y Certificados SSL IIS].
-
 == Ataques
 
 . Un sitio con un certificado +SSL+ mal configurado

@@ -42,17 +42,6 @@ impacten negativamente el sistema completo en general.
 . Ajuste apropiadamente la configuración de los sistemas
 cuando se pase de un estado de depuración a producción.
 
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/manejar-errores-aritmeticos/[Manejar Errores en Operaciones Aritméticas].
-. +COBOL+ link:../../defends/cobol/manejar-error-texto/[Manejar Errores en Operaciones de Texto].
-. +Exchange 2010+ link:../../defends/exchange/activar-bitacoras-smtp/[Activar Bitácoras de Conectores SMTP].
-. +GlassFish+ link:../../defends/glassfish/configurar-bitacoras/[Configurar Bitácoras].
-. +Programación+ link:../../defends/programacion/crear-bitacoras-cond/[Crear Bitácoras Condicionales].
-. +RPG+ link:../../defends/rpg/manejar-bitacoras/[Definir Manejo de Bitácoras].
-. +Scala+ link:../../defends/scala/registrar-eventos-bitacoras/[Registrar Eventos en Bitácoras].
-. +SharePoint 2010+ link:../../defends/sharepoint/configurar-bitacoras/[Configurar Registro en Bitácoras].
-
 == Ataques
 
 . El sistema puede sufrir en cuanto a rendimiento

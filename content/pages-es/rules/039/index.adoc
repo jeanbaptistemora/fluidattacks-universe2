@@ -33,10 +33,6 @@ pero en todo caso se debe establecer un límite claro
 de forma que se eviten denegaciones del servicio
 por abuso en el consumo de almacenamiento.
 
-== Soluciones
-
-. +Java+ link:../../defends/java/controlar-tamano-archivo/[Controlar Tamaño de Archivos].
-
 == Ataques
 
 . Una aplicación cuenta con la funcionalidad de subir y almacenar archivos,

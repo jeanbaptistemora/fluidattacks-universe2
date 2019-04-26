@@ -82,11 +82,6 @@ de alguna de las siguientes maneras^<<r8,[8]>>:
 a los controles Silverlight.
 * Archivo crossdomain.xml permitiendo acceso no intencionado a Flash.
 
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/usar-cookies-httponly/[Usar cookies HTTPOnly].
-. +PHP+ link:../../defends/php/generar-cookies-httponly/[Generar Cookies con HttpOnly].
-
 == Ataques
 
 . Un atacante genera un +script+ que es ejecutado

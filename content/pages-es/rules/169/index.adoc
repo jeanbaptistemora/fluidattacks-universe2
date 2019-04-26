@@ -12,10 +12,6 @@ Debe usarse construcciones parametrizadas
 o procedimientos almacenados parametrizados
 para la creación dinámica de sentencias (ejemplo: +java.sql.PreparedStatement+)
 
-== Soluciones
-
-. +C Sharp+ link:../../defends/csharp/prevenir-sqli/[Prevenir Inyección de Código SQL].
-
 == Referencias
 
  . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.10+]

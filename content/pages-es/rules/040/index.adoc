@@ -36,12 +36,6 @@ Tomar decisiones desde el lado del servidor,
 basado en el contenido del archivo
 y no solo en el nombre del archivo o su extensión.
 
-== Soluciones
-
-. +Java+ link:../../defends/java/validar-archivo-header/[Validar Tipo de Archivo Usando los Encabezados].
-. +Java+ link:../../defends/java/determinar-archivo-ext/[Determinar Tipo Archivo Usando Su Extensión].
-. +Scala+ link:../../defends/scala/validar-archivo-header/[Validar Tipo de Archivo Usando los Encabezados].
-
 == Ataques
 
 . Un usuario malicioso entrega un archivo

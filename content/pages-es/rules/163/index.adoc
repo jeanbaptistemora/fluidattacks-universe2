@@ -10,7 +10,3 @@
 
 Las funciones, métodos o clases
 deben ser invocadas en algún escenario funcional del sistema.
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/evitar-codigo-muerto/[Evitar código muerto].

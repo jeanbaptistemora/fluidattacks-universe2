@@ -56,14 +56,6 @@ siempre y cuando se utilicen +captchas+ seguros
 que no sean predecibles o se puedan descifrar
 con +scripts+ diseñados para ese fin.
 
-== Soluciones
-
-. +ASP.NET+ link:../../defends/aspnet/usar-recaptcha/[Implementar reCAPTCHA].
-. +Red Hat+ link:../../defends/redhat/proteger-fuerza-bruta/[Proteger Autenticación de Ataques de Fuerza Bruta].
-. +Windows+ link:../../defends/windows/bloquear-temporalmente/[Bloquear cuentas temporalmente].
-. +WordPress+ link:../../defends/wordpress/evitar-fuerza-bruta/[Evitar Ataques de Diccionario o Fuerza Bruta].
-. +Yii+ link:../../defends/yii/usar-recaptcha/[Usar reCAPTCHA].
-
 == Ataques
 
 . Ataques de fuerza bruta.

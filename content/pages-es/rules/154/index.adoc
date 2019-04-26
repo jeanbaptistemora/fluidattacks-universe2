@@ -11,8 +11,3 @@
 El código fuente de un sistema no debe realizar funciones
 diferentes a las que han sido especificadas
 en los requisitos funcionales (puertas traseras).
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/manejar-errores-aritmeticos/[Manejar Errores en Operaciones Aritméticas].
-. +COBOL+ link:../../defends/cobol/manejar-error-texto/[Manejar Errores en Operaciones de Texto].

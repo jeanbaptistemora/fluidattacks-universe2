@@ -58,26 +58,6 @@ y potencialmente peligrosa,
 también sistemas externos pueden ser comprometidos
 y por ende esta información debe ser validada.
 
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/validar-redirecciones/[Validar redirecciones a páginas web].
-. +ASPNET+ link:../../defends/aspnet/prevenir-sqli/[Prevenir inyección SQL].
-. +ASPNET+ link:../../defends/aspnet/evitar-sqli-parametrizacion/[Prevenir Inyección SQL Mediante Parametrización].
-. +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
-. +ASPNET+ link:../../defends/aspnet/usar-regex/[Usar Expresiones Regulares].
-. +C Sharp+ link:../../defends/csharp/prevenir-sqli/[Prevenir Inyección de Código SQL].
-. +COBOL+ link:../../defends/cobol/prevenir-sqli-sentencias/[Prevenir SQLi Mediante Sentencias Parametrizadas].
-. +COBOL+ link:../../defends/cobol/validar-datos-variables/[Validar Datos en Variables].
-. +Finacle+ link:../../defends/finacle/prevenir-sqli/[Prevenir Inyección SQL].
-. +Java+ link:../../defends/java/prevenir-sqli/[Prevenir Inyección SQL].
-. +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
-. +Java+ link:../../defends/java/validar-redirecciones/[Validar Redirecciones a Páginas Web].
-. +RPG 7.1+ link:../../defends/rpg/evitar-sqli/[Evitar Inyección SQL].
-. +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
-. +PHP+ link:../../defends/php/prevenir-sqli/[Prevenir Inyección SQL].
-. +PL/SQL+ link:../../defends/pl-sql/evitar-sqli/[Evitar Inyección SQL].
-. +Yii+ link:../../defends/yii/prevenir-sqli/[Prevenir Inyección SQL].
-
 == Ataques
 
 . Inyectar software o código malicioso.

@@ -44,13 +44,6 @@ cada cierto tiempo para evitar el robo de estas.
 . Realizar auditorías periódicamente
 para detectar configuraciones incorrectas o parches faltantes.
 
-
-== Soluciones
-
-. +Windows Server 2012+ link:../../defends/windows-server/cambiar-usuarios/[Cambiar Usuarios Predeterminados].
-. +Windows Server 2008+ link:../../defends/windows-server/renombrar-usuarios/[Renombrar Usuarios].
-. +Windows 7+ link:../../defends/windows/cambiar-credenciales/[Cambiar Credenciales Predeterminadas].
-
 == Ataques
 
 . Ataques de fuerza bruta

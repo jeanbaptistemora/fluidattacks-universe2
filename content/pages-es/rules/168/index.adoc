@@ -10,8 +10,3 @@
 
 Las variables del código fuente
 deben estar inicializadas de forma explícita.
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/usar-condicionales/[Usar Estructuras Condicionales].
-. +TAL+ link:../../defends/tal/usar-condicionales/[Usar Estructuras Condicionales].

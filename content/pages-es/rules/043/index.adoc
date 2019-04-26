@@ -11,11 +11,6 @@
 Los archivos generados de forma dinámica por el sistema
 deben tener definido un +Content-Type+ explícito.
 
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/establecer-content-type/[Establecer content type y charset].
-. +C Sharp+ link:../../defends/csharp/establecer-content-type/[Establecer Content-Type y Charset en C#].
-
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]

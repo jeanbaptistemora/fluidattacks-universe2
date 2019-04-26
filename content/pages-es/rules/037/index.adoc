@@ -30,21 +30,6 @@ que no sea aceptable (cumple estrictamente con las especificaciones)
 y rechaza cualquier otra cosa
 o lo transforma en algo que cumpla con las especificaciones.
 
-== Soluciones
-
-. +Aix 6.1+ link:../../defends/aix/restringir-rootdir-proceso/[Restringir el Directorio Raíz de un Proceso].
-. +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
-. +ASPNET+ link:../../defends/aspnet/validar-redirecciones//[Validar redirecciones a páginas web].
-. +ASPNET+ link:../../defends/aspnet/usar-regex/[Usar Expresiones Regulares].
-. +COBOL+ link:../../defends/cobol/generar-cadenas-aleatorias/[Generar Cadenas Aleatorias].
-. +C Sharp+ link:../../defends/csharp/filtrar-entradas-regex/[Filtrar entradas usando Expresiones Regulares].
-. +C Sharp+ link:../../defends/csharp/evitar-direct-transversal/[Evitar Ataques de Directorio Transversal].
-. +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
-. +Java+ link:../../defends/java/validar-redirecciones/[Validar Redirecciones a Páginas Web].
-. +Java+ link:../../defends/java/obtener-rutas-canon/[Obtener Rutas Absolutas Canónicas].
-. +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
-. +Scala+ link:../../defends/scala/obtener-rutas-canon/[Obtener Rutas Absolutas Canónicas].
-
 == Ataques
 
 . Un atacante puede crear

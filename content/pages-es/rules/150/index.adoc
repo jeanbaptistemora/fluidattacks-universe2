@@ -10,10 +10,6 @@
 
 Debe utilizarse funciones resumen con un tamaño mínimo de 256 bits.
 
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].
-
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]

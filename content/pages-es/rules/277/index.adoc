@@ -11,8 +11,3 @@
 La información (nombre de producto,
 versión o configuración) de servicios expuestos no debe ser accesible.
 (Ej, versiones que se publican al conectarse a un servicio como SSH)
-
-
-== Soluciones
-
-. +Apache+ link:../../defends/apache/restringir-banner/[Restringir Banner].

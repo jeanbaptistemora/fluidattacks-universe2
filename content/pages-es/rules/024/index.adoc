@@ -10,7 +10,3 @@
 
 Si el sistema debe transferir información entre páginas,
 debe realizarse a través de objetos de sesión.
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/establecer-variables-sesion/[Establecer variables de sesión].

@@ -49,13 +49,6 @@ incluir políticas internas para deshabilitar funcionalidades no utilizadas
 y actualizar configuraciones por defecto
 que puedan representar un riesgo para la organización.
 
-== Soluciones
-
-. +Windows+ link:../../defends/windows/configurar-actualizaciones/[Configurar Actualizaciones Automáticas].
-. +Windows+ link:../../defends/windows/deshabilitar-serv-inseguro/[Deshabilitar Servicios Inseguros].
-. +Windows+ link:../../defends/windows/deshabilitar-puertos/[Deshabilitar Puertos Innecesarios].
-. +Red Hat+ link:../../defends/redhat/actualizar-software/[Actualizar Software en Red Hat].
-
 == Ataques
 
 . Un atacante consigue la información técnica de un producto en específico

@@ -27,7 +27,6 @@ El objetivo es dar a conocer al público
 la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:
 
-. *+COBOL+* link:../../defends/cobol/comprobar-contrasena-frase/[Comprobar Fortaleza de Contraseña Tipo Frase].
 . *+BLOG+* link:../../../en/blog/requiem-password/[Requiem for a p455w0rD].
 
 == Referencias

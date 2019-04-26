@@ -11,8 +11,3 @@
 
 Las derivaciones de clave (+Salt+),
 deben ser aleatorias y de mínimo 48 +bits+.
-
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

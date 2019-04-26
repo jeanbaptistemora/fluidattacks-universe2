@@ -13,11 +13,6 @@ ofrecido por la plataforma (ej: +java.security.SecureRandom+)
 para la generación de números aleatorios usados en procesos críticos
 (ej: generación de +ID+, mapeo de códigos, llaves).
 
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/generar-aleatorios-seguros/[Generar aleatorios seguros].
-. +COBOL+ link:../../defends/cobol/generar-llaves/[Generar llaves].
-
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]

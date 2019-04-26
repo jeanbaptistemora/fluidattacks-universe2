@@ -11,13 +11,6 @@
 La salida de información del sistema
 debe estar codificada en el lenguaje correspondiente (+escaping+).
 
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/codificar-salida/[Codificar Salida].
-. +COBOL+ link:../../defends/cobol/prevenir-xss/[Prevenir Cross Site Scripting].
-. +C Sharp+ link:../../defends/csharp/proteger-aplicacion-xss/[Proteger Aplicación de Ataques de XSS].
-
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]

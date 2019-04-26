@@ -37,12 +37,6 @@ y/o de las políticas de manejo de sesiones de la compañía
 se deben configurar los tiempos de finalización de sesiones desatendidas
 a un tiempo prudencial (recomendado de +5+ minutos o cercano).<<r1,^[1]^>>
 
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/limitar-tiempo-sesion/[Limitar tiempo de sesión].
-. +Java+ link:../../defends/java/configurar-tiempo-sesion/[Configurar Tiempo de Sesión].
-. +AIX+ link:../../defends/aix/limitar-tiempo-sesion/[Establecer Tiempo Límite para Sesión Inactiva].
-
 == Ataques
 
 . Un usuario empleado o anónimo

@@ -9,8 +9,3 @@
 == Requisito
 
 El código debe compilarse o interpretarse de forma estricta.
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/compilar-programa-estricta/[Compilar Programa de Forma Estricta].
-. +COBOL+ link:../../defends/cobol/enmascarar-texto/[Enmascarar Texto].

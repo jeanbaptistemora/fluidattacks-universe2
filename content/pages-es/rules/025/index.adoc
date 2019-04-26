@@ -33,10 +33,6 @@ la opción de controlar la conexión simultanea
 utilizando las mismas credenciales
 ya sea desde un sistema de autenticación externo o desde el mismo sistema.
 
-== Soluciones
-
-. +Linux+ link:../../defends/linux/limitar-sesiones-concurrente/[Limitar Número de Sesiones Concurrentes por Usuario].
-
 == Ataques
 
 . Un atacante inicia sesión en una cuenta

@@ -38,10 +38,6 @@ o implementar protocolos con las mismas funciones
 pero que cuentan con cifrado de la comunicación
 tales como +SSH+, +FTPS+, +POP3S+, +TLS+, etc.
 
-== Soluciones
-
-. +Apache+ link:../../defends/apache/configurar-soporte-https/[Configurar Soporte HTTPS].
-
 == Ataques
 
 . Atacante con acceso al canal no cifrado realiza ataques de hombre

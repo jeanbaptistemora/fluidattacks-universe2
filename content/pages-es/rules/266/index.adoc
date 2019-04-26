@@ -44,11 +44,6 @@ aplicar las líneas base de configuración segura
 adaptándolas al contexto del negocio (hardening de servicios),
 antes de la salida a producción
 
-== Soluciones
-
-. +Apache+ link:../../defends/apache/desactivar-http-trace/[Desactivar Método HTTP TRACE].
-. +IOS 12+ link:../../defends/ios/remover-servicios-inseguros/[Remover Servicios Innecesarios o Inseguros].
-
 == Ataques
 
 . Cross Site Tracing (+XST+).

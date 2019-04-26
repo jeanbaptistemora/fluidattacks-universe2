@@ -35,16 +35,6 @@ se debe garantizar que cada módulo (como un proceso, un usuario o un programa)
 pueda ser capaz de acceder solo a la información
 y recursos que son necesarios para su legitimo propósito.<<r1,^[1]^>>
 
-== Soluciones
-
-. Consultoría - Aprender Teoría Básica de Riesgos
-. ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005
-. +WebLogic 11g+ link:../../defends/weblogic/evitar-atq-repeticion/[Desactivar Consola de Administración].
-. +WebLogic 11g+ link:../../defends/weblogic/cambiar-dir-admin/[Cambiar Dirección de Administración].
-. +IIS 7.5+ link:../../defends/iis/negar-acceso-consola-admin/[Negar Acceso a Consola Administrativa].
-. +Oracle 11g+ link:../../defends/oracle/cambiar-puerto-default/[Cambiar Puerto Predeterminado].
-. +SQL Server 2008+ link:../../defends/sql-server/cambiar-puerto-default/[Cambiar Puerto Predeterminado].
-
 == Ataques
 
 . Atacante anónimo intenta acceder por fuerza bruta
