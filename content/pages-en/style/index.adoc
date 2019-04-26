@@ -270,10 +270,6 @@ The +slug+ of the translated document must be included.
 | Short subtitle that specifically indicates the purpose of the document.
 *It must not exceed 55 characters*.
 
-|+:defends:+ | No | Yes | No
-| Unique metadata of +Knowledge Base+ articles.
-The only accepted value is +yes+.
-
 | +:date:+ | No | No | Yes
 | Date the document was created.
 
