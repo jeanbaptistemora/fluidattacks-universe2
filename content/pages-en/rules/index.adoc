@@ -36,6 +36,7 @@
 == Files
 
 * link:037/[REQ.037 Parameters without sensitive data].
+* link:039/[REQ.039 Define maximum file size].
 * link:043/[REQ.043 Define explicit content type].
 * link:044/[REQ.044 Define explicit charset].
 * link:047/[REQ.047 Classify critical files for monitoring].
