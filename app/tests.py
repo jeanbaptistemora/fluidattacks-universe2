@@ -70,7 +70,7 @@ class GraphQLTests(TestCase):
             }
         }"""
         request = RequestFactory().get('/')
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
             {
               'user_email': "unittest",
               'user_role': "admin"
@@ -95,10 +95,10 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
             {
-              'user_email': 'unittest',
-              'user_role': 'admin'
+                'user_email': 'unittest',
+                'user_role': 'admin'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -120,10 +120,10 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
             {
-              'user_email': 'unittest',
-              'user_role': 'admin'
+                'user_email': 'unittest',
+                'user_role': 'admin'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -158,10 +158,10 @@ class GraphQLTests(TestCase):
         request.session['username'] = "unittest"
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
             {
-              'user_email': 'unittest',
-              'user_role': 'admin'
+                'user_email': 'unittest',
+                'user_role': 'admin'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -189,10 +189,10 @@ class GraphQLTests(TestCase):
           }
         }"""
         request = RequestFactory().get('/')
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
             {
-              'user_email': "unittest",
-              'user_role': "admin"
+                'user_email': 'unittest',
+                'user_role': 'admin'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -229,10 +229,10 @@ class GraphQLTests(TestCase):
         request.session['username'] = "unittest"
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
             {
-              'user_email': "unittest",
-              'user_role': "admin"
+                'user_email': 'unittest',
+                'user_role': 'admin'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -263,10 +263,10 @@ class GraphQLTests(TestCase):
         request.session['username'] = "unittest"
         request.session['company'] = "unittest"
         request.session['role'] = "admin"
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
             {
-              'user_email': "unittest",
-              'user_role': "admin"
+                'user_email': 'unittest',
+                'user_role': 'admin'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,

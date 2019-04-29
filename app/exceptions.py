@@ -76,3 +76,11 @@ class ErrorUploadingFileS3(Exception):
         """ Constructor """
         msg = 'Exception - Error Uploading File to S3'
         super(ErrorUploadingFileS3, self).__init__(msg)
+
+
+class InvalidAuthorization(Exception):
+    """Exception to control authorization."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Invalid Authorization'
+        super(InvalidAuthorization, self).__init__(msg)

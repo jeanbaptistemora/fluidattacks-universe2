@@ -24,6 +24,7 @@ class Xhr {
     Axios.interceptors.request.use((config: AxiosRequestConfig) => {
       if (!this.csrfSafeMethod(config.method as string) && this.sameOrigin(config.url as string)) {
         config.headers = {
+          "Authorization": `Bearer ${sessionStorage.getItem("integrates_session")}`,
           "X-CSRFToken": csrftoken,
         };
       }
