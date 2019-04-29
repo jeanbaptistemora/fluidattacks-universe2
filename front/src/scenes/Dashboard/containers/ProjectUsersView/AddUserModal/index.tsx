@@ -3,11 +3,9 @@ import _ from "lodash";
 import React from "react";
 import {
   ButtonToolbar, ControlLabel, FormGroup,
-  Row,
 } from "react-bootstrap";
 import {
-  ConfigProps, DecoratedComponentClass, Field, formValueSelector, InjectedFormProps,
-  reduxForm,
+  ConfigProps, DecoratedComponentClass, Field, formValueSelector, InjectedFormProps, reduxForm, submit,
 } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
 import { default as Modal } from "../../../../../components/Modal/index";
@@ -161,27 +159,6 @@ const renderFormContent: ((arg1: CustomFormProps) => JSX.Element) =
         validate={[required]}
       />
     </FormGroup>
-    <Row>
-      <ButtonToolbar className="pull-right">
-        <Button
-          bsStyle="default"
-          /* tslint:disable-next-line jsx-no-lambda
-           * Disabling this rule is necessary for the sake of simplicity and
-           * readability of the code that binds component events
-           */
-          onClick={(): void => { closeModal(props); }}
-        >
-          {translate.t("confirmmodal.cancel")}
-        </Button>
-        <Button
-          bsStyle="primary"
-          type="submit"
-          disabled={props.pristine || props.submitting}
-        >
-          {translate.t("confirmmodal.proceed")}
-        </Button>
-      </ButtonToolbar>
-    </Row>
   </form>
 );
 
@@ -195,13 +172,23 @@ DecoratedComponentClass<{}, IAddUserModalProps & Partial<ConfigProps<{}, IAddUse
     ? translate.t("search_findings.tab_users.title")
     : translate.t("search_findings.tab_users.edit_user_title");
 
+    const handleCancelClick: (() => void) = (): void => { closeModal(props); };
+    const handleProceedClick: (() => void) = (): void => { store.dispatch(submit("addUser")); };
+
+    const renderFooter: JSX.Element = (
+      <ButtonToolbar className="pull-right">
+        <Button bsStyle="default" onClick={handleCancelClick}>{translate.t("confirmmodal.cancel")}</Button>
+        <Button bsStyle="primary" onClick={handleProceedClick}>{translate.t("confirmmodal.proceed")}</Button>
+      </ButtonToolbar>
+    );
+
     return (
       <React.StrictMode>
         <Modal
           open={props.open}
           headerTitle={title}
           content={renderFormContent(props)}
-          footer={<div/>}
+          footer={renderFooter}
         />
       </React.StrictMode>
 ); });
