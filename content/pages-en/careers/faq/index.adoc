@@ -5,4 +5,81 @@
 
 = Frequently Asked Questions (FAQ)
 
-Under construction.
+{description}
+
+== Before Entering
+
+[qanda]
+
+*I already applied in a job portal,*::
+*why I am not invited to the process?*::
+  Once you apply to one of our vacancies
+  on any of the job portals we are registered in,
+  it takes from +1+ to +2+ days identifying potential candidates,
+  classifying and sending invitations via email.
+  If for any reason you have not been invited
+  after +2+ days of your application (excluding weekends)
+  and you consider that your profile fits
+  the vacancy, you can write us to careers@autonomicmind.com.
+
+*The test application doesn't allow me to exit Moodle,*::
+*what can I do?*::
+  If you already finished the exam,
+  click the button located on the lower right side of the screen to exit.
+  If this doesn't work,
+  try restarting your machine,
+  don't worry, you have already sent the test
+  and there won't be any data loss.
+
+*I don't have a RUT, how can I complete the third party form?*::
+  In the link:http://www.dian.gov.co/contenidos/servicios/rut.html[+DIAN+ webpage]
+  you can find out how to obtain your +RUT+ for the first time,
+  or how to update it in case you already have one.
+
+*I don't know what vacancy I applied for, how can I find out?*::
+  You can write any doubt or observation
+  regarding the selection process to careers@autonomicmind.com
+
+*If I already applied for a vacancy, can I do it again for other profiles*::
+*or the same profile?*::
+  Yes, you can do it.
+  If it has been more than six months
+  since your last application
+  you must do the process again from the beginning.
+  Otherwise, you can write us to career@autonomicmind.com
+  informing us you want to apply to a different profile.
+
+*Can I apply for two different vacancies?*::
+  Yes, you follow the selection process once
+  and tell us the vacancies you want to apply
+  writing an email to careers@autonomicmind.com
+
+*What experience do I need to apply to the vacancies?*::
+  You don't need any experience.
+  What is essential is the ability to research,
+  solve issues, and self-learning.
+
+*What previous knowledge do I need to apply to the vacancies*::
+  We look for talented people with high learning abilities.
+  It doesn't matter your career or if you haven't graduated yet,
+  what matters is to adapt to our philosophy and values.
+  It is desirable to have experience with programming languages,
+  but it is not mandatory.
+  We value the ability to address a problem more than your professional degrees.
+  Our selection process is designed to encourage the candidate
+  to self-acquire the knowledge necessary
+  to fulfill the charge.
+
+*Does the company train me to fulfill my charge?*::
+  In +Fluid Attacks+ we do not demand any laboral experience,
+  nor certify your knowledge with degrees;
+  however, we do not train our candidates at any moment.
+  It is up to you to acquire the knowledge you may need
+  and have the correct attitude to overcome
+  the technical challenges and immersion stages.
+  We value your abilities and attitude during the selection process
+  since both are necessary for any role in the organization.
+
+*The application test doesn't work, what can I do?*::
+  Try executing the test as administrator.
+  If the problem persists, you can try from a different computer.
