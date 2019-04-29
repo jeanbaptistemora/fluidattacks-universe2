@@ -5,11 +5,12 @@
 
 import _ from "lodash";
 import React, { ComponentType } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
+import { Button } from "../../../../components/Button";
 // @ts-ignore Disable next line is necessary to run the unit tests
 import { default as logo } from "../../../../resources/logo.png";
 import store from "../../../../store/index";
@@ -134,6 +135,7 @@ export const welcomeView: ComponentType<IWelcomeViewProps> = reduxWrapper(
   enhance(component) as React.SFC<IWelcomeViewProps>,
   (state: StateType<Reducer>): Partial<IWelcomeViewProps> => ({
     ...state.registration.welcomeView,
+    email: (window as Window & { userEmail: string }).userEmail,
     legalNotice: state.registration.legalNotice,
     username: (window as Window & { userName: string }).userName,
   }),

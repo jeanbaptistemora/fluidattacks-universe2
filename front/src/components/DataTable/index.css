@@ -30,3 +30,7 @@
   font-weight: bold;
   padding: 4px 7px;
 }
+
+:local .searchBar {
+  composes: formControl from '../../utils/forms/index.css';
+}

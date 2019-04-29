@@ -11,6 +11,8 @@ import { Label } from "react-bootstrap";
 import {
   BootstrapTable,
   DataAlignType,
+  SearchField,
+  SearchFieldProps,
   TableHeaderColumn,
 } from "react-bootstrap-table";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
@@ -176,6 +178,10 @@ export const dataTable: React.StatelessComponent<ITableProps> = (props: ITablePr
       </Button>
     );
 
+  const searchBar: ((searchProps: SearchFieldProps) => JSX.Element) = (searchProps: SearchFieldProps): JSX.Element => (
+    <SearchField {...searchProps} className={style.searchBar} />
+  );
+
   return (
     <React.StrictMode>
       <div id={props.id}>
@@ -198,6 +204,7 @@ export const dataTable: React.StatelessComponent<ITableProps> = (props: ITablePr
                   onRowClick: (row: string): void => {
                     if (props.onClickRow !== undefined) { props.onClickRow(row); }
                   },
+                  searchField: searchBar,
                   sizePerPage: props.pageSize,
                 }}
                 pagination={!_.isEmpty(props.dataset) && props.dataset.length > props.pageSize}

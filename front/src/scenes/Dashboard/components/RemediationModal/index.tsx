@@ -6,7 +6,7 @@
  */
 
 import React from "react";
-import { ButtonToolbar, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { ButtonToolbar, ControlLabel, FormGroup } from "react-bootstrap";
 import { Provider } from "react-redux";
 import {
   ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm,
@@ -63,9 +63,7 @@ const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JS
         />
       </FormGroup>
       <br />
-      <Row>
-        {renderFooter(props)}
-      </Row>
+      {renderFooter(props)}
     </form>
   </React.Fragment>
 );
