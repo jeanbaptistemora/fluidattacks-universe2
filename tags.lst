@@ -6,6 +6,7 @@ cbc
 challenge
 cloud
 code
+company
 credential
 csv
 dependency
@@ -26,14 +27,15 @@ health
 htb
 imperative
 information
-investigation
 injection
+investigation
 javascript
 jwt
 libssh
 linters
 machine learning
 math
+mistake
 multiparadigm
 mypy
 openssl
@@ -51,11 +53,11 @@ saml
 scanner
 security
 security testing
-ssl
 social engineering
 software
 solve
 sql
+ssl
 standard
 stateless
 test
