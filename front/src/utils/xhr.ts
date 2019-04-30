@@ -187,7 +187,7 @@ class Xhr {
          this.hidePreloader();
          const { message } = errors[0];
 
-         if (_.includes(["Login required", "Invalid token", "Signature verification failed"], message)) {
+         if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
             location.assign(
              getEnvironment() === "production"
              ? "/integrates/logout"
