@@ -34,7 +34,8 @@ from .dto.finding import (
     FindingDTO, format_finding_date, parse_finding
 )
 from .domain.vulnerability import (
-    sort_vulnerabilities, group_specific
+    sort_vulnerabilities, group_specific, get_open_vuln_by_type,
+    get_vulnerabilities_by_type
 )
 from .dto import closing
 from .dto import project as project_dto
@@ -47,7 +48,6 @@ from .services import (
 from .dao import integrates_dao
 from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
-from .entity import schema
 
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -290,34 +290,7 @@ def get_project_info(project):
 def format_finding(finding, request):
     """Format some attributes in a finding."""
     finding_id = finding.get('id')
-    query = """{
-      finding(identifier: "findingid"){
-        id
-        success
-        openVulnerabilities
-        closedVulnerabilities
-        portsVulns: vulnerabilities(
-          vulnType: "ports", state: "open") {
-          ...vulnInfo
-        }
-        linesVulns: vulnerabilities(
-          vulnType: "lines", state: "open") {
-          ...vulnInfo
-        }
-        inputsVulns: vulnerabilities(
-          vulnType: "inputs", state: "open") {
-          ...vulnInfo
-        }
-      }
-    }
-    fragment vulnInfo on Vulnerability {
-      vulnType
-      where
-      specific
-    }"""
-    query = query.replace('findingid', finding_id)
-    result = schema.SCHEMA.execute(query, context_value=request)
-    finding_new = result.data.get('finding')
+    finding_new = get_open_vuln_by_type(finding_id)
     finding['cardinalidad_total'] = finding.get('openVulnerabilities')
     finding['cierres'] = []
     if (finding_new and
@@ -677,32 +650,7 @@ def download_vulnerabilities(request, findingid):
 Attempted to retrieve vulnerabilities without permission')
         return util.response([], 'Access denied', True)
     else:
-        query = """{
-          finding(identifier: "findingid") {
-            id
-            success
-            openVulnerabilities
-            closedVulnerabilities
-            ports: vulnerabilities(vulnType: "ports") {
-              host: where
-              port: specific
-              state: currentState
-            }
-            lines: vulnerabilities(vulnType: "lines") {
-              path: where
-              line: specific
-              state: currentState
-            }
-            inputs: vulnerabilities(vulnType: "inputs") {
-              url: where
-              field: specific
-              state: currentState
-            }
-          }
-        }"""
-        query = query.replace('findingid', findingid)
-        result = schema.SCHEMA.execute(query, context_value=request)
-        finding = result.data.get('finding')
+        finding = get_vulnerabilities_by_type(findingid)
         data_yml = {}
         vuln_types = {'ports': cast_ports, 'lines': dict, 'inputs': dict}
         if finding:
