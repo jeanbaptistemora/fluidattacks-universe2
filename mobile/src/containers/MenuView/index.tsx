@@ -4,6 +4,9 @@ import { RouteComponentProps } from "react-router-native";
 
 import { styles } from "./styles";
 
+/**
+ * User data returned by Google after a successful login
+ */
 interface IUser {
   email?: string;
   familyName: string;

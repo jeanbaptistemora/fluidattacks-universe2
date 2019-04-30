@@ -11,8 +11,8 @@ export const styles: Dictionary = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    width: 300,
-    height: 95,
+    height: 125,
     resizeMode: "stretch",
+    width: 300,
   },
 });
