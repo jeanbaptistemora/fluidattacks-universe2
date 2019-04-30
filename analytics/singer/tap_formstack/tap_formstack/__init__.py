@@ -8,7 +8,7 @@ import datetime
 import urllib.error
 import urllib.request
 
-from typing import Callable, Iterable, Dict, Tuple, Any
+from typing import Callable, Iterable, List, Dict, Any
 
 from . import logs
 
@@ -397,6 +397,24 @@ def std_date(date: Any, **kwargs: Any) -> str:
     # replace anything that is not a digit by an space
     date = re.sub(r"[^(\d|am|AM|pm|PM)]", r" ", date)
 
+    # replace spoken dates by the number
+    months_map = {
+        r"Jan": r"01",
+        r"Feb": r"02",
+        r"Mar": r"03",
+        r"Apr": r"04",
+        r"May": r"05",
+        r"Jun": r"06",
+        r"Jul": r"07",
+        r"Aug": r"08",
+        r"Sep": r"09",
+        r"Oct": r"10",
+        r"Nov": r"11",
+        r"Dec": r"12",
+    }
+    for month_str, month_num in months_map.items():
+        date = re.sub(month_str, month_num, date)
+
     # replace any repeated space character by a single space character
     date = re.sub(r"\s+", r" ", date)
 
@@ -404,18 +422,19 @@ def std_date(date: Any, **kwargs: Any) -> str:
     date = date.strip(" ")
 
     # everything is normalized now, try to match with this formats
-    date_formats: Tuple[str, str, str, str, str, str, str, str, str, str] = (
+    date_formats: List[str] = [
         "%Y %m %d %H %M %S %f",
         "%Y %m %d %H %M %S",
         "%Y %m %d %I %M %p",
         "%Y %m %d %H %M",
         "%Y %m %d %H",
+        "%m %d, %Y",
         "%Y %m %d",
         "%d %m %Y",
-        "%b %d %Y",
-        "%b %Y",
+        "%m %d %Y",
+        "%m %Y",
         "%H %M",
-    )
+    ]
 
     for date_format in date_formats:
         try:

@@ -305,6 +305,7 @@ sync_formstack:
   <<: *vault_login
   script:
     - mkdir /logs
+    - analytics/set-aws-cli.sh
     - pip3 install
         analytics/singer/tap_formstack
         analytics/singer/target_redshift
@@ -312,8 +313,9 @@ sync_formstack:
     - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
     - tap-formstack --auth /tap_secret.json --conf analytics/conf/formstack.json > .singer
     - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "formstack"
+    - aws s3 cp /logs s3://fluidanalytics/formstack --recursive
   after_script:
-    - rm -fr /tap_secret.json /target_secret.json
+    - rm -fr /tap_secret.json /target_secret.json ~/.aws
   <<: *only_schedules
   only:
     variables:
@@ -387,7 +389,7 @@ sync_git:
     - analytics/git/mirror.py 2>&1 | aws s3 cp - s3://fluidanalytics/mirrors.log
     - analytics/git/taint_all.sh
   after_script:
-    - rm -fr ~/.aws/{credentials, config}
+    - rm -fr ~/.aws
   <<: *only_schedules
   only:
     variables:
