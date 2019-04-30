@@ -6,7 +6,7 @@ import { NativeRouter, Route, Switch } from "react-router-native";
 import { LoginView } from "./containers/LoginView";
 import { MenuView } from "./containers/MenuView";
 
-export const app: React.FunctionComponent = (): JSX.Element => (
+const app: React.FunctionComponent = (): JSX.Element => (
   <NativeRouter>
     <Switch>
       <Route path="/" component={LoginView} exact={true} />
@@ -14,3 +14,5 @@ export const app: React.FunctionComponent = (): JSX.Element => (
     </Switch>
   </NativeRouter>
 );
+
+export { app as App };

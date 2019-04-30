@@ -190,6 +190,7 @@ mobile-testing:
     - cd mobile
     - npm install
     - npm run lint
+    - npm test
 
 prospector-testing:
   stage: pre-test
