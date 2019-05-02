@@ -11,8 +11,7 @@
 
 [qanda]
 
-*I already applied in a job portal,*::
-*why I am not invited to the process?*::
+*I already applied in a job portal, why I am not invited to the process?*::
   Once you apply to one of our vacancies
   on any of the job portals we are registered in,
   it takes from +1+ to +2+ days identifying potential candidates,
@@ -22,8 +21,7 @@
   and you consider that your profile fits
   the vacancy, you can write us to careers@autonomicmind.com.
 
-*The test application doesn't allow me to exit Moodle,*::
-*what can I do?*::
+*The test application doesn't allow me to exit Moodle, what can I do?*::
   If you already finished the exam,
   click the button located on the lower right side of the screen to exit.
   If this doesn't work,
@@ -83,3 +81,59 @@
 *The application test doesn't work, what can I do?*::
   Try executing the test as administrator.
   If the problem persists, you can try from a different computer.
+
+*I didn't receive the attached file for data analysis, how do I get it?*::
+  Try downloading the file from [button]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#
+
+*I ran out of time for the test, what can I do?*::
+  If you have a valid reason
+  (application lockouts, unexpected restarts, connection issues),
+  you can write an email to careers@autonomicmind.com
+  explaining to us what happened
+  and we will indicate you how to proceed.
+
+*I couldn't send my data analysis, what can I do?*::
+  If you have a valid reason,
+  write an email to careers@autonomicmind.com
+  explaining why you did not send the data
+  in the established deadline
+  and asking for a new delivery date.
+
+*What should I put on my portfolio?*::
+  You can find the instructions and bits of advice
+  for the portfolio creation [button]#link:../portfolio/[here]#
+
+*I do not have a +VISA+, What should I put on that field?*::
+  This field is not mandatory,
+  do not fill if you don't have a +VISA+.
+
+*What should I do after finishing the character test?*::
+  When you finish this test,
+  you can proceed with the next stage (knowledge test).
+  We will send your result via email moments after.
+
+*Do I have to present the polygraph test?*::
+  In most cases, this test is not mandatory
+  during the selection process.
+  However, since our main business is the information security,
+  it may be necessary to complete this test
+  regarding your selection process
+  or your laboral relation.
+
+*Do I have to present the Gallup test?*::
+  This test only is required in some cases,
+  therefore, please notify us via email
+  when you reach this stage,
+  and we will indicate you how to proceed.
+
+*Does this process perform any risk analysis with my data?*::
+  Yes, in the stage previous to the hiring,
+  it is made a confirmation on the candidate data
+  on the risk central and other references.
+
+*I haven't notify my company about my current selection process,*::
+*is the reverse references stage mandatory?*::
+  Yes, it is mandatory and since it's an advanced stage
+  in the selection process before the hiring stage,
+  it is necessary to have clear expectations
+  in all the parties.
