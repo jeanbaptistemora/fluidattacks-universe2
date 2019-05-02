@@ -1,20 +1,16 @@
-from datetime import datetime, timedelta
-from graphene import Boolean, ObjectType, Mutation, String
+from graphene import Boolean, ObjectType, Mutation
 
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
 # pylint: disable=F0401
-from django.conf import settings
 from app.dao import integrates_dao
 from app.util import get_jwt_content
-from jose import jwt
 
 
 class Login(ObjectType):
     # declare attributes
     authorized = Boolean()
     remember = Boolean()
-    auth_jwt = String()
 
     def __init__(self, user_email, session):
         """ Login information class """
@@ -36,20 +32,6 @@ class Login(ObjectType):
         """ Resolve remember preference """
         del info
         return self.remember
-
-    def resolve_auth_jwt(self, info):
-        token = jwt.encode(
-            {
-                'user_email': info.context.session['username'],
-                'user_role': info.context.session['role'],
-                'exp': datetime.utcnow() + timedelta(
-                    seconds=settings.SESSION_COOKIE_AGE)
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        self.auth_jwt = token
-        return self.auth_jwt
 
 
 class AcceptLegal(Mutation):

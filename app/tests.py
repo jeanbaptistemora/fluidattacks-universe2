@@ -72,7 +72,7 @@ class GraphQLTests(TestCase):
             }
         }'''
         request = RequestFactory().get('/')
-        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
                 'user_role': 'admin'
@@ -97,7 +97,7 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
                 'user_role': 'admin'
@@ -122,7 +122,7 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
                 'user_role': 'admin'
@@ -157,10 +157,10 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
                 'user_role': 'admin'
@@ -191,7 +191,7 @@ class GraphQLTests(TestCase):
           }
         }'''
         request = RequestFactory().get('/')
-        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
                 'user_role': 'admin'
@@ -232,10 +232,10 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
                 'user_role': 'admin'
@@ -272,10 +272,10 @@ class GraphQLTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.META['HTTP_AUTHORIZATION'] = 'Bearer ' + jwt.encode(
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
                 'user_role': 'admin'

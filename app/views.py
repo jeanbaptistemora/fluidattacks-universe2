@@ -5,6 +5,7 @@
 """ Views and services for FluidIntegrates """
 
 from __future__ import absolute_import
+from datetime import datetime, timedelta
 import os
 import sys
 import re
@@ -18,6 +19,7 @@ from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, condition
 from django.http import HttpResponse
+from jose import jwt
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
@@ -89,6 +91,23 @@ def app(request):
             'username': request.session["username"]
         }
         response = render(request, "app.html", parameters)
+        token = jwt.encode(
+            {
+                'user_email': request.session["username"],
+                'user_role': request.session["role"],
+                'exp': datetime.utcnow() +
+                timedelta(seconds=settings.SESSION_COOKIE_AGE)
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        response.set_cookie(
+            key=settings.JWT_COOKIE_NAME,
+            value=token,
+            secure=True,
+            httponly=True,
+            max_age=settings.SESSION_COOKIE_AGE
+        )
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/error500')

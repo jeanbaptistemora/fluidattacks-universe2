@@ -1,6 +1,5 @@
 <VirtualHost *:80>
    	WSGIScriptAlias / /usr/src/app/fluidintegrates/apache/wsgi.py
-    WSGIPassAuthorization On
     ServerAdmin engineering@fluidattacks.com
     Alias /assets/ /usr/src/app/app/assets/
     <Directory "/usr/src/app/fluidintegrates/apache/">

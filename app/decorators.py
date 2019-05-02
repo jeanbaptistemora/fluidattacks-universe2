@@ -116,7 +116,7 @@ def require_login(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         context = args[1].context
-        token = util.get_jwt_content(context)
+        token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
         if not token:
             raise GraphQLError('Login required')
         else:

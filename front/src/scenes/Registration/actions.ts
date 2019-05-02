@@ -67,13 +67,11 @@ export const loadAuthorization: ThunkActionStructure =
       login {
         authorized
         remember
-        authJwt
       }
     }`;
     new Xhr().request(gQry, "An error ocurred resolving user authorization")
       .then((response: AxiosResponse) => {
         const { data } = response.data;
-        sessionStorage.setItem("integrates_session", data.login.authJwt);
 
         dispatch<IActionStructure>({
           payload: {
