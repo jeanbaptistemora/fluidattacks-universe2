@@ -117,8 +117,7 @@
   during the selection process.
   However, since our main business is the information security,
   it may be necessary to complete this test
-  regarding your selection process
-  or your laboral relation.
+  depending on your selection process.
 
 *Do I have to present the Gallup test?*::
   This test only is required in some cases,
@@ -128,12 +127,12 @@
 
 *Does this process perform any risk analysis with my data?*::
   Yes, in the stage previous to the hiring,
-  it is made a confirmation on the candidate data
-  on the risk central and other references.
+  a confirmation is made on the risk central
+  about the candidate data, among other references.
 
-*I haven't notify my company about my current selection process,*::
+*I haven't notified my company about my current selection process,*::
 *is the reverse references stage mandatory?*::
   Yes, it is mandatory and since it's an advanced stage
-  in the selection process before the hiring stage,
-  it is necessary to have clear expectations
-  in all the parties.
+  in the selection process
+  it is necessary for all the parties
+  to have clear expectations.
