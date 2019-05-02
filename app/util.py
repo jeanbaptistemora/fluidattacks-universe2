@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
+from __future__ import absolute_import
 import collections
 import hashlib
 import logging
@@ -7,13 +8,19 @@ import logging.config
 import re
 import datetime
 import pytz
+import rollbar
 
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
-from django.core.files.uploadedfile import TemporaryUploadedFile, InMemoryUploadedFile
+from django.core.files.uploadedfile import (
+    TemporaryUploadedFile, InMemoryUploadedFile
+)
 from django.core.cache import cache
 from jose import jwt, JWTError, ExpiredSignatureError
+# pylint: disable=E0402
+from .exceptions import InvalidAuthorization
+
 
 logging.config.dictConfig(settings.LOGGING)
 LOGGER = logging.getLogger(__name__)
@@ -210,18 +217,21 @@ def cloudwatch_log_plain(msg):
 
 
 def get_jwt_content(context):
-    token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
-
     try:
+        token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
         content = jwt.decode(token=token, key=settings.JWT_SECRET)
         return content
+    except AttributeError:
+        rollbar.report_message(
+            'Error: Does not have JWT cookies', 'error', context)
+        raise InvalidAuthorization()
     except ExpiredSignatureError:
-        raise
+        raise InvalidAuthorization()
     except JWTError:
         cloudwatch_log(context,
                        'Security: \
 Attempted to modify JWT. Invalid token signature')
-        raise
+        raise InvalidAuthorization()
 
 
 def list_s3_objects(client_s3, bucket_s3, key):

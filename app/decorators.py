@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Decorators for FluidIntegrates. """
-
+from __future__ import absolute_import
 import functools
 import re
 
@@ -20,6 +20,7 @@ from .services import (
     has_access_to_event
 )
 from . import util
+from .exceptions import InvalidAuthorization
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -116,11 +117,10 @@ def require_login(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         context = args[1].context
-        token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
-        if not token:
+        try:
+            util.get_jwt_content(context)
+        except InvalidAuthorization:
             raise GraphQLError('Login required')
-        else:
-            pass
         return func(*args, **kwargs)
     return verify_and_call
 
