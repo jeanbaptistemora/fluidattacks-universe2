@@ -31,6 +31,7 @@ RUN apt-get update \
         build-essential \
         cron \
         default-libmysqlclient-dev \
+        git \
         libapache2-mod-wsgi \
         libmagic1 \
         libmariadb3 \
