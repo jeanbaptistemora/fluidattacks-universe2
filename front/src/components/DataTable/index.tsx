@@ -7,12 +7,13 @@
  */
 import _ from "lodash";
 import React, { ReactElement } from "react";
-import { Label } from "react-bootstrap";
+import { DropdownButton, Label, MenuItem } from "react-bootstrap";
 import {
   BootstrapTable,
   DataAlignType,
   SearchField,
   SearchFieldProps,
+  SizePerPageFunctionProps,
   TableHeaderColumn,
 } from "react-bootstrap-table";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
@@ -182,13 +183,31 @@ export const dataTable: React.StatelessComponent<ITableProps> = (props: ITablePr
     <SearchField {...searchProps} className={style.searchBar} />
   );
 
+  const pageSizeDropDown: ((dropDownProps: SizePerPageFunctionProps) => JSX.Element) =
+    (dropDownProps: SizePerPageFunctionProps): JSX.Element => {
+
+      const { changeSizePerPage, sizePerPageList } = dropDownProps;
+
+      const handleSelect: ((select: {}) => void) = (select: {}): void => { changeSizePerPage(select as number); };
+
+      return (
+        <div>
+          <DropdownButton title={dropDownProps.currSizePerPage} id="pageSizeDropDown" onSelect={handleSelect}>
+            {(sizePerPageList as number[]).map((value: number, index: number): JSX.Element => (
+              <MenuItem key={index} eventKey={value}>{value}</MenuItem>
+            ))}
+          </DropdownButton>
+        </div>
+      );
+    };
+
   return (
     <React.StrictMode>
       <div id={props.id}>
         {
           _.isEmpty(props.dataset) && _.isEmpty(props.headers)
           ? <div/>
-          : <div>
+            : <div>
               {_.isEmpty(props.title) ? undefined : <h3 className={globalStyle.title}>{props.title}</h3>}
               <BootstrapTable
                 data={props.dataset}
@@ -206,6 +225,7 @@ export const dataTable: React.StatelessComponent<ITableProps> = (props: ITablePr
                   },
                   searchField: searchBar,
                   sizePerPage: props.pageSize,
+                  sizePerPageDropDown: pageSizeDropDown,
                 }}
                 pagination={!_.isEmpty(props.dataset) && props.dataset.length > props.pageSize}
                 search={props.search}
