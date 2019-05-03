@@ -534,7 +534,7 @@ const esTranslations: Map<string, string> = {
     },
   },
   sidebar: {
-    forms: "Formularios",
+    forms: "Formstack",
   },
   validations: {
     between: "Este valor debe estar entre {{min}} y {{max}}",
