@@ -3,13 +3,12 @@
  * to call functions with props as params from the JSX element definition
  * without using lambda expressions () => {}
  */
-import PropTypes from "prop-types";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { dataTable as DataTable, ITableProps } from "../../../../components/DataTable/index";
 import style from "./index.css";
 
-const simpleTable: React.StatelessComponent<ITableProps> =
+const simpleTable: React.FunctionComponent<ITableProps> =
   (props: ITableProps): JSX.Element => (
   <React.StrictMode>
     <Row>
@@ -32,15 +31,6 @@ const simpleTable: React.StatelessComponent<ITableProps> =
     </Row>
   </React.StrictMode>
 );
-
-simpleTable.propTypes = {
-  dataset: PropTypes.any,
-  enableRowSelection: PropTypes.bool,
-  id: PropTypes.string,
-  onClickRow: PropTypes.func,
-  pageSize: PropTypes.number,
-  title: PropTypes.string,
-};
 
 simpleTable.defaultProps = {
   enableRowSelection: false,

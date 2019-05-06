@@ -3,7 +3,6 @@
  * to call functions with props as params from the JSX element definition
  * without using lambda expressions () => {}
  */
-import PropTypes from "prop-types";
 import React from "react";
 import { Button, Glyphicon } from "react-bootstrap";
 import style from "./index.css";
@@ -43,7 +42,7 @@ const buttonFormatter: ((value: string) => string) =
 /**
  * Button
  */
-const button: React.StatelessComponent<IRButtonProps> =
+const button: React.FunctionComponent<IRButtonProps> =
   (props: IRButtonProps): JSX.Element => (
   <React.StrictMode>
     <Button
@@ -55,15 +54,6 @@ const button: React.StatelessComponent<IRButtonProps> =
     </Button>
   </React.StrictMode>
 );
-/**
- *  Button's propTypes Definition
- */
-button.propTypes = {
-  bicon: PropTypes.string,
-  bstyle: PropTypes.string,
-  btitle: PropTypes.string,
-  onClickButton: PropTypes.func,
-};
 
 button.defaultProps = {
   bicon: "",

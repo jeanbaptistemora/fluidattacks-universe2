@@ -115,7 +115,7 @@ const renderAlreadyLoggedIn: ((email: string) => JSX.Element) =
     </React.Fragment>
   );
 
-export const component: React.SFC<IWelcomeViewProps> =
+export const component: React.FC<IWelcomeViewProps> =
   (props: IWelcomeViewProps): JSX.Element => (
     <React.StrictMode>
       <div className={`${style.container} ${globalStyle.lightFg}`}>
@@ -132,7 +132,7 @@ export const component: React.SFC<IWelcomeViewProps> =
   );
 
 export const welcomeView: ComponentType<IWelcomeViewProps> = reduxWrapper(
-  enhance(component) as React.SFC<IWelcomeViewProps>,
+  enhance(component) as React.FC<IWelcomeViewProps>,
   (state: StateType<Reducer>): Partial<IWelcomeViewProps> => ({
     ...state.registration.welcomeView,
     email: (window as Window & { userEmail: string }).userEmail,

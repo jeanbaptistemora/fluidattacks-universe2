@@ -40,7 +40,7 @@ const tableHeaders: IHeader[] = [
   { align: "center", dataField: "isReleased", header: "Released", isDate: false, isStatus: false, width: "10%" },
 ];
 
-const projectDraftsView: React.SFC<IProjectDraftsProps> = (props: IProjectDraftsProps): JSX.Element => {
+const projectDraftsView: React.FC<IProjectDraftsProps> = (props: IProjectDraftsProps): JSX.Element => {
   const { projectName } = props.match.params;
 
   const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {

@@ -52,7 +52,7 @@ const tableHeaders: IHeader[] = [
   { align: "center", dataField: "isExploitable", header: "Exploitable", isDate: false, isStatus: false, width: "10%" },
 ];
 
-const projectFindingsView: React.SFC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
+const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
 
   const handleOpenReportsClick: (() => void) = (): void => { props.onOpenReportsModal(); };

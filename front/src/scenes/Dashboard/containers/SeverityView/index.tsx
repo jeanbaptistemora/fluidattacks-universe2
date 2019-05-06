@@ -280,7 +280,7 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
   );
 };
 
-export const component: React.SFC<ISeverityViewProps> =
+export const component: React.FC<ISeverityViewProps> =
   (props: ISeverityViewProps): JSX.Element => (
     <React.StrictMode>
       <Row>
@@ -313,7 +313,7 @@ export const component: React.SFC<ISeverityViewProps> =
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editSeverity");
 
 export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrapper(
-  enhance(component) as React.SFC<ISeverityViewProps>,
+  enhance(component) as React.FC<ISeverityViewProps>,
   (state: StateType<Reducer>): ISeverityViewProps => ({
     ...state.dashboard.severity,
     formValues: {

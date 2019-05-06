@@ -24,7 +24,7 @@ interface IDashboardDispatchProps {
 
 type IDashboardProps = IDashboardBaseProps & (IDashboardStateProps & IDashboardDispatchProps);
 
-const dashboard: React.SFC<IDashboardProps> = (props: IDashboardProps): JSX.Element => {
+const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Element => {
   const handleSidebarLogoutClick: (() => void) = (): void => { props.onLogout(); };
   const handleLogout: (() => void) = (): void => { location.assign("/integrates/logout"); };
 

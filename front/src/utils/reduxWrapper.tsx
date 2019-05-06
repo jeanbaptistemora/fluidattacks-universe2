@@ -7,13 +7,13 @@ import { connect } from "react-redux";
 import store from "../store/index";
 
 type ComponentMapping = ((
-  arg1: React.StatelessComponent<any>,
-  arg2: any) => React.StatelessComponent<any>);
+  arg1: React.FunctionComponent<any>,
+  arg2: any) => React.FunctionComponent<any>);
 
 const reduxWrapper: ComponentMapping =
-  (componentToWrap: React.StatelessComponent<any>,
+  (componentToWrap: React.FunctionComponent<any>,
    mapStateToProps: any,
-  ): React.StatelessComponent<any> => {
+  ): React.FunctionComponent<any> => {
 
   /* tslint:disable-next-line:variable-name
    * Disabling here is necessary due a conflict

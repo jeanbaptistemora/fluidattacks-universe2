@@ -13,7 +13,7 @@ interface IFrameProps {
 /**
  * Frame
  */
-const frame: React.StatelessComponent<IFrameProps> =
+const frame: React.FunctionComponent<IFrameProps> =
   (props: IFrameProps): JSX.Element => (
   <React.StrictMode>
     <Row className={style.frame_container}>

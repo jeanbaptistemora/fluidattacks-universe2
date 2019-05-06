@@ -32,7 +32,7 @@ interface IConfirmDialogBaseProps {
 
 type IConfirmDialogProps = IConfirmDialogBaseProps & (IConfirmDialogStateProps & IConfirmDialogDispatchProps);
 
-const confirmDialog: React.SFC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
+const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
   const handleClose: (() => void) = (): void => { props.onClose(); };
   const handleProceed: (() => void) = (): void => {
     props.onProceed();

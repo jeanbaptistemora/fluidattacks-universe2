@@ -15,7 +15,7 @@ import Dashboard from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
 
-const app: React.SFC = (): JSX.Element => (
+const app: React.FC = (): JSX.Element => (
   <React.StrictMode>
     <BrowserRouter basename="/integrates">
       <React.Fragment>

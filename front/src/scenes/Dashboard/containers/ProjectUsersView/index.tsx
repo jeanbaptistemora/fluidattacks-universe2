@@ -173,7 +173,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
     );
   };
 
-const projectUsersView: React.SFC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
+const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
 
   const handleSubmit: ((values: {}) => void) = (values: {}): void => {

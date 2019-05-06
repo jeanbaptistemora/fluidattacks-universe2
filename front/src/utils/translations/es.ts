@@ -1,4 +1,4 @@
-const esTranslations: Map<string, string> = {
+const esTranslations: dict = {
   confirmmodal: {
     cancel: "Cancelar",
     message: "¿Está seguro?",

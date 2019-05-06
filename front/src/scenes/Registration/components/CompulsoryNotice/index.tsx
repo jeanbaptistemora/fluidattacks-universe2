@@ -50,7 +50,7 @@ const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
 /**
  * CompulsoryNotice component
  */
-export const compulsoryNotice: React.SFC<ICompulsoryNoticeProps> =
+export const compulsoryNotice: React.FC<ICompulsoryNoticeProps> =
   (props: ICompulsoryNoticeProps): JSX.Element => (
   <React.StrictMode>
     <Modal

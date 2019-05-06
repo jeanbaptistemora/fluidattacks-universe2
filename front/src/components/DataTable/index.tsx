@@ -171,7 +171,7 @@ const renderHeaders: ((arg1: ITableProps) => JSX.Element[]) =
   renderDynamicHeaders(Object.keys(props.dataset[0]))
 );
 
-export const dataTable: React.StatelessComponent<ITableProps> = (props: ITableProps): JSX.Element => {
+export const dataTable: React.FunctionComponent<ITableProps> = (props: ITableProps): JSX.Element => {
   const exportBtn: ((onClick: (e: React.MouseEvent<{}>) => void) => JSX.Element) =
     (onClick: (e: React.MouseEvent<{}>) => void): JSX.Element => (
       <Button onClick={onClick}><FluidIcon icon="export" />

@@ -97,7 +97,7 @@ const getIcon: { [value: string]: string } = {
   vulnerabilities: vulnerabilitiesIcon,
 };
 
-const fluidIcon: React.StatelessComponent<IFluidIconProps> = (props: IFluidIconProps): JSX.Element => (
+const fluidIcon: React.FunctionComponent<IFluidIconProps> = (props: IFluidIconProps): JSX.Element => (
   <React.StrictMode>
     <div className={style.container}>
       <ReactSVG svgStyle={{ width: props.width, height: props.height }} src={getIcon[props.icon]} />

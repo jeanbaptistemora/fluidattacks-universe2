@@ -102,7 +102,7 @@ const renderTable: ((arg1: IRecordsViewProps["dataset"]) => JSX.Element) =
     />
 );
 
-export const component: React.SFC<IRecordsViewProps> =
+export const component: React.FC<IRecordsViewProps> =
   (props: IRecordsViewProps): JSX.Element => (
     <React.StrictMode>
       <Row>
@@ -127,7 +127,7 @@ lifecycle({
 
 export const recordsView: ComponentType<IRecordsViewProps> = reduxWrapper
 (
-  enhance(component) as React.SFC<IRecordsViewProps>,
+  enhance(component) as React.FC<IRecordsViewProps>,
   (state: StateType<Reducer>): IRecordsViewProps => ({
     ...state.dashboard.records,
   }),

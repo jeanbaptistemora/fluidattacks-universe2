@@ -245,7 +245,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
   );
 };
 
-const projectResourcesView: React.StatelessComponent<IResourcesViewProps> =
+const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   (props: IResourcesViewProps): JSX.Element => {
 
     const handleRemoveRepoClick: (() => void) = (): void => { handleRemoveRepo(props); };

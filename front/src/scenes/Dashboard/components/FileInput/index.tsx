@@ -6,7 +6,6 @@
  * without using lambda expressions () => {}
  */
 import _ from "lodash";
-import PropTypes from "prop-types";
 import React, { ComponentType } from "react";
 import { ControlLabel, FormControl, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { Reducer } from "redux";
@@ -39,7 +38,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IFileInputProps) =
     fileName: state.dashboard.fileInput.name,
   });
 
-export const fileInputComponent: React.StatelessComponent<IFileInputProps> =
+export const fileInputComponent: React.FunctionComponent<IFileInputProps> =
   (props: IFileInputProps): JSX.Element => (
     <React.StrictMode>
       { props.visible
@@ -74,17 +73,6 @@ export const fileInputComponent: React.StatelessComponent<IFileInputProps> =
       }
     </React.StrictMode>
 );
-/**
- *  File Input's propTypes Definition
- */
-fileInputComponent.propTypes = {
-  fileName: PropTypes.string,
-  fileSize: PropTypes.number,
-  icon: PropTypes.string,
-  id: PropTypes.string,
-  type: PropTypes.string,
-  visible: PropTypes.bool.isRequired,
-};
 
 fileInputComponent.defaultProps = {
   fileName: "",

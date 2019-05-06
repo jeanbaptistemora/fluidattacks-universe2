@@ -2,7 +2,6 @@
  * Disabling this rule is necessary for the sake of
  * readability of the code that dynamically creates the columns
  */
-import PropTypes from "prop-types";
 import React from "react";
 import { Col } from "react-bootstrap";
 import ReactImageGallery, { ReactImageGalleryProps } from "react-image-gallery";
@@ -13,7 +12,7 @@ import ReactImageGallery, { ReactImageGalleryProps } from "react-image-gallery";
  */
 import "react-image-gallery/styles/css/image-gallery.css";
 
-const imageGallery: React.StatelessComponent<ReactImageGalleryProps> =
+const imageGallery: React.FunctionComponent<ReactImageGalleryProps> =
   (props: ReactImageGalleryProps): JSX.Element => (
     <React.StrictMode>
       <div>
@@ -33,17 +32,6 @@ const imageGallery: React.StatelessComponent<ReactImageGalleryProps> =
       </div>
     </React.StrictMode>
   );
-
-imageGallery.propTypes = {
-  infinite: PropTypes.bool,
-  items: PropTypes.any,
-  showFullscreenButton: PropTypes.bool,
-  showIndex: PropTypes.bool,
-  showNav: PropTypes.bool,
-  showPlayButton: PropTypes.bool,
-  showThumbnails: PropTypes.bool,
-  thumbnailPosition: PropTypes.string,
-};
 
 imageGallery.defaultProps = {
   infinite: true,

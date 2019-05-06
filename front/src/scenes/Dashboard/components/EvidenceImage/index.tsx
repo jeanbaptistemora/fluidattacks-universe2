@@ -71,7 +71,7 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
   );
 };
 
-export const evidenceImage: React.SFC<IEvidenceImageProps> = (props: IEvidenceImageProps): JSX.Element => (
+export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceImageProps): JSX.Element => (
   <React.StrictMode>
     <Col md={4} sm={6} xs={12}>
       <div>

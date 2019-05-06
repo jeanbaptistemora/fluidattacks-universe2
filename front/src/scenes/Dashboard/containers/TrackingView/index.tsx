@@ -3,7 +3,6 @@
  * of the code that renders the timeline items
  */
 import _ from "lodash";
-import PropTypes from "prop-types";
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
 import TextareaAutosize from "react-textarea-autosize";
@@ -59,7 +58,7 @@ lifecycle({
   },
 });
 
-export const trackingViewComponent: React.StatelessComponent<ITrackingViewProps> =
+export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> =
   (props: ITrackingViewProps): JSX.Element => (
     <React.StrictMode>
       <Row>
@@ -207,15 +206,8 @@ trackingViewComponent.defaultProps = {
   closings: [],
 };
 
-trackingViewComponent.propTypes = {
-  closedFindingsContent: PropTypes.string,
-  closings: PropTypes.array,
-  hasNewVulnerabilities: PropTypes.bool.isRequired,
-  openFindingsContent: PropTypes.string,
-};
-
 export const trackingView: ComponentType<ITrackingViewProps> = reduxWrapper
 (
-  enhance(trackingViewComponent) as React.StatelessComponent<ITrackingViewProps>,
+  enhance(trackingViewComponent) as React.FunctionComponent<ITrackingViewProps>,
   mapStateToProps,
 );
