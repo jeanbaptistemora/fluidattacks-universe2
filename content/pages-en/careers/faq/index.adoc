@@ -163,3 +163,90 @@
   +Fluid Attacks+ will remove the access to the training systems
   and will send you the time report of the hours
   pending to be charged in your billing statement.
+
+== After Entering
+
++Fluid Attacks+ is a company focused and specialized in +Red Team+ testing.
+We aim information security concepts towards an offensive approach,
+looking for all the vulnerabilities and reporting them
+as soon as possible.
+Below we list some Frequently Asked Questions (+FAQ+)
+presented when the talent is hired
+and is part of our work team:
+
+[qanda]
+
+*What are the responsibilities of my role?*::
+  +Fluid Attacks+ seeks to be agile and flexible,
+  capable of adapting to changes at high speed.
+  To accomplish this goal, we have decided to keep
+  a work team below +50+ persons.
+  In addition to that,
+  we require generic roles and a lot of team work,
+  which allows co-workers to complement each other's weaknesses.
+  Because of this, each profile is grouped
+  in any of these +2+ kind of roles: technical and non-technical.
+  +
+  * In technical roles, the responsibilities typically are:
+  hacking systems, audit source code, develop attack exploits,
+  develop tools for hackers, document found vulnerabilities,
+  configure infrastructure as code, perform peer review,
+  present reports to the customers,
+  spread knowledge among customers and co-workers,
+  migration of obsolete information and creation of new information,
+  among others.
+  +
+  +
+  * Non-technical roles comprise responsibilities of:
+  customer management, technical pre-sales, marketing,
+  +Fluid Attacks+ representation in other companies,
+  speakers for conferences or seminars,
+  crisis management, among others.
+  +
+  In short, the responsibilities defined for each role
+  are unknown, and we expect you to contribute
+  to any aspect of the previous kind of roles,
+  depending on the needs of the company.
+  We truly appreciate high technical talents that,
+  after fulfilling technical roles,
+  gradually migrate to non-technical roles.
+
+*What kind of contract does Fluid Attacks offer?*::
+  In +Fluid Attacks+ we offer just one type of contract:
+  Labour contract for an indefinite period,
+  with all the benefits required by law
+  and parafiscal contributions
+  (healthcare, retirement fund, allowances, layoffs)
+  all paid on the +100%+ of the salary.
+  All the talents have the same type of contract no matter their role,
+  the only change is the salary amount.
+
+*Does the salary offer correspond to the amount deposited into my account?*::
+  No, the salary offer corresponds to the gross salary.
+  The net salary will depend on personal variables
+  that the employer cannot define
+  (such as contribution to retirement funds, housing interests,
+  number of dependents, among others ).
+  However, in the following [button]#link:http://www.elempleo.com/co/calculadora-salarial/[link]#
+  you can simulate an approximated value for your net salary.
+  Enter the proposed salary in the first field (+Salario+).
+  And then press +Calcular+.
+  In the monthly net compensation field,
+  you will find an approximated value of the the money
+  that you will receive monthly in your payroll account.
+
+*Why is there a difference between the gross salary and the net salary?*::
+  There are law deductions that the government makes to the employees.
+  These values are fixed and can be modified
+  neither by the talent nor by +Fluid Attacks+.
+  The only value to agree is the amount of the gross salary.
+
+*Must the talent pay his/her own social security?*::
+  No, the talent must not pay anything on his/her own.
+  It is +Fluid Attacks+ who directly performs the deductions
+  and makes the payment to the corresponding entities.
+  (+EPS+, retirement funds, compensation funds, among others).
+  +Fluid Attacks+ pays on the +100%+ of the salary
+  all the benefits demanded by law,
+  ensuring that the talent must not perform additional payments
+  to the deductions previously indicated.
