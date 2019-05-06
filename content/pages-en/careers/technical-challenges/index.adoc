@@ -96,8 +96,11 @@ where you can interact with +Fluid Attacks+ personnel and
 other candidates who are currently in the same stage
 to solve doubts or issues.
 
-. Request developer permissions  to the +training+ repository through +Slack+
-In the *#general* channel with the following message:
+. Request developer permissions  to the +Training+ repository through this
+[button]#link:https://fluidattacks.com/forms/access[form]#.
+
+. In the +Repo Access Message+ field, paste the following message, replacing
++[username]+ with the +Gitlab+ username created in step 1.
 +
 [quote]
 ____________________________________________________________________
@@ -111,8 +114,10 @@ ____________________________________________________________________
 
 . Complete +three (3)+ +ctf-hacking+ challenges
 
-. Request developer permissions to the +writeups+ repository through +Slack+
-In the *#general* channel with the following message:
+. Request developer permissions to the +Writeups+ repository through this
+[button]#link:https://fluidattacks.com/forms/access[form]#.
++
+This time around, the +Repo Access Message+ field should have the following:
 +
 [quote]
 ____________________________________________________________________
