@@ -37,7 +37,7 @@ const postComment: ((projectName: string, type: ICommentsViewProps["type"],
     thunkDispatch(actions.postComment(projectName, type, comment, callbackFn));
   };
 
-export const commentsView: React.SFC<ICommentsViewProps> =
+export const commentsView: React.FC<ICommentsViewProps> =
   (props: ICommentsViewProps): JSX.Element => (
     <React.StrictMode>
       <Comments

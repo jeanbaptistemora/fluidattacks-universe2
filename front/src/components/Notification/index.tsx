@@ -6,7 +6,7 @@ interface INotificationProps {
     title: string;
 }
 
-const notification: React.SFC<INotificationProps> = (props: INotificationProps): JSX.Element => (
+const notification: React.FC<INotificationProps> = (props: INotificationProps): JSX.Element => (
     <React.StrictMode>
         <div className={style.container}>
             <p><small>{props.title}</small></p>

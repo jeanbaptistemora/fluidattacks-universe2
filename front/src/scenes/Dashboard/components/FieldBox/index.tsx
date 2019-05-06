@@ -11,7 +11,7 @@ interface IFieldBoxProps {
   title: string;
 }
 
-const fieldBox: React.StatelessComponent<IFieldBoxProps> =
+const fieldBox: React.FunctionComponent<IFieldBoxProps> =
   (props: IFieldBoxProps): JSX.Element => (
     <React.StrictMode>
       <div className="row table-row">

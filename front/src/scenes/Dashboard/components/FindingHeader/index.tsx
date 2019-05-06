@@ -29,7 +29,7 @@ const statusConfigs: { [level: string]: { icon: string; text: string } } = {
   Default: { icon: defaultIcon, text: "" },
 };
 
-const findingHeader: React.SFC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {
+const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {
   const severityLevel: "CRITICAL" | "HIGH" | "MED" | "LOW" =
     props.severity >= 9 ? "CRITICAL" : props.severity > 6.9 ? "HIGH" : props.severity > 3.9 ? "MED" : "LOW";
   const { color: severityColor, text: severityText } = severityConfigs[severityLevel];

@@ -14,7 +14,7 @@ interface IDoughnutProps {
 /**
  * Project Indicator Doughnut Graph
  */
-const indicatorGraph: React.StatelessComponent<IDoughnutProps> =
+const indicatorGraph: React.FunctionComponent<IDoughnutProps> =
   (props: IDoughnutProps): JSX.Element => (
   <React.StrictMode>
     <Col className={style.text_center}>

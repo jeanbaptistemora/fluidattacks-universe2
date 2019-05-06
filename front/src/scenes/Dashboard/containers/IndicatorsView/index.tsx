@@ -73,7 +73,7 @@ const treatmentGraph: ((props: IIndicatorsViewProps) => { [key: string]: string 
   return treatmentGraphData;
 };
 
-const indicatorsView: React.SFC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
+const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
   const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
 
   return (

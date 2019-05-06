@@ -7,7 +7,7 @@ interface IAlertBoxProps {
   message: string;
 }
 
-const alertBox: React.SFC<IAlertBoxProps> = (props: IAlertBoxProps): JSX.Element => (
+const alertBox: React.FC<IAlertBoxProps> = (props: IAlertBoxProps): JSX.Element => (
   <React.StrictMode>
     <Alert className={style.container}>
       <p><strong>{translate.t("search_findings.alert.attention")}:</strong>&nbsp;{props.message}</p>

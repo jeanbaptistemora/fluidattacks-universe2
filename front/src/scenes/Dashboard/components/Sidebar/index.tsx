@@ -11,7 +11,7 @@ interface ISidebarProps {
   onLogoutClick(): void;
 }
 
-const sidebar: React.SFC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
+const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
   const handleEsClick: (() => void) = (): void => { localStorage.setItem("lang", "es"); location.reload(); };
   const handleEnClick: (() => void) = (): void => { localStorage.setItem("lang", "en"); location.reload(); };
   const handleLogoutClick: (() => void) = (): void => { props.onLogoutClick(); };

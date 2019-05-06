@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./index.css";
 
-const preloader: React.SFC = (): JSX.Element => (
+const preloader: React.FC = (): JSX.Element => (
   <React.StrictMode>
     <div id="full_loader" className={style.loader}>
       <img src="assets/img/loading.gif" width="100" height="100" />

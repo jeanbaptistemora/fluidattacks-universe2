@@ -212,7 +212,7 @@ const FilesForm: resourcesForm = reduxForm<{}, IAddResourcesModalProps>({
 })(renderFilesForm);
 // tslint:enable:variable-name
 
-export const addResourcesModal: React.SFC<IAddResourcesModalProps> =
+export const addResourcesModal: React.FC<IAddResourcesModalProps> =
   (props: IAddResourcesModalProps): JSX.Element => {
     let title: string;
     let content: JSX.Element;

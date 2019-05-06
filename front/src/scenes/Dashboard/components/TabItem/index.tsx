@@ -8,7 +8,7 @@ interface ITabItemProps {
   onClick(): void;
 }
 
-const tabItem: React.SFC<ITabItemProps> = (props: ITabItemProps): JSX.Element => {
+const tabItem: React.FC<ITabItemProps> = (props: ITabItemProps): JSX.Element => {
   const handleClick: (() => void) = (): void => { props.onClick(); };
 
   return (

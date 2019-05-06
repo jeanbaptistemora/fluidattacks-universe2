@@ -168,7 +168,7 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
     </React.Fragment>
   );
 
-export const component: React.SFC<IDescriptionViewProps> =
+export const component: React.FC<IDescriptionViewProps> =
   (props: IDescriptionViewProps): JSX.Element => (
     <React.StrictMode>
       <Row>
@@ -202,7 +202,7 @@ export const component: React.SFC<IDescriptionViewProps> =
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editDescription");
 
 export const descriptionView: React.ComponentType<IDescriptionViewProps> = reduxWrapper(
-  enhance(component) as React.SFC<IDescriptionViewProps>,
+  enhance(component) as React.FC<IDescriptionViewProps>,
   (state: StateType<Reducer>): IDescriptionViewProps => ({
     ...state.dashboard.description,
     formValues: {

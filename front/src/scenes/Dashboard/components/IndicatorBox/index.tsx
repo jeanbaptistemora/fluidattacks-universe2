@@ -20,7 +20,7 @@ interface IBoxProps {
 /**
  * Project Indicator Box
  */
-const indicatorBox: React.StatelessComponent<IBoxProps> =
+const indicatorBox: React.FunctionComponent<IBoxProps> =
   (props: IBoxProps): JSX.Element => (
   <React.StrictMode>
       <div

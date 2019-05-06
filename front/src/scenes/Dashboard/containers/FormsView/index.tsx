@@ -5,7 +5,7 @@ import { default as Frame } from "../../../../components/Frame";
 import translate from "../../../../utils/translations/translate";
 import style from "../ProjectContent/index.css";
 
-const formsView: React.SFC = (): JSX.Element => {
+const formsView: React.FC = (): JSX.Element => {
   const progressForm: (() => JSX.Element) = (): JSX.Element => (
     <Frame src="https://fluidattacks.com/forms/avance" height={3000} id="ifrmProgress" />
   );

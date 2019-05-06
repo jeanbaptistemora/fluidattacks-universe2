@@ -58,7 +58,7 @@ const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
     );
 };
 
-const editableField: React.SFC<EditableFieldProps> = (props: EditableFieldProps): JSX.Element => {
+const editableField: React.FC<EditableFieldProps> = (props: EditableFieldProps): JSX.Element => {
   const { alignField, visible } = props;
   let render: JSX.Element;
   if (alignField === "horizontal") {

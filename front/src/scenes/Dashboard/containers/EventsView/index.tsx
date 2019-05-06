@@ -52,7 +52,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IEventsViewProps) =
   }
 );
 
-export const component: React.StatelessComponent<IEventsViewProps> =
+export const component: React.FunctionComponent<IEventsViewProps> =
   (props: IEventsViewProps): JSX.Element => {
       props.eventsDataset = props.eventsDataset.map((row: IEventsViewProps["eventsDataset"][0]) => {
         row.eventType = translate.t(castEventType(row.eventType));
@@ -143,6 +143,6 @@ export const component: React.StatelessComponent<IEventsViewProps> =
 
 export const eventsView: ComponentType<IEventsViewProps> = reduxWrapper
 (
-  enhance(component) as React.StatelessComponent<IEventsViewProps>,
+  enhance(component) as React.FunctionComponent<IEventsViewProps>,
   mapStateToProps,
 );

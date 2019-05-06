@@ -11,7 +11,7 @@ interface IModalProps {
   onClose?(): void;
 }
 
-const modal: React.SFC<IModalProps> = (props: IModalProps): JSX.Element => {
+const modal: React.FC<IModalProps> = (props: IModalProps): JSX.Element => {
   const handleModalClose: (() => void) = (): void => {
     if (props.onClose !== undefined) { props.onClose(); }
   };

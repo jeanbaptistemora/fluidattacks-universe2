@@ -275,7 +275,7 @@ const renderEventGallery: ((props: IEventDescriptionViewProps) => JSX.Element) =
   );
 };
 
-export const descriptionComponent: React.SFC<IEventDescriptionViewProps> =
+export const descriptionComponent: React.FC<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element =>
     (
     <React.StrictMode>
@@ -295,7 +295,7 @@ export const descriptionComponent: React.SFC<IEventDescriptionViewProps> =
     </React.StrictMode>
   );
 
-export const evidenceComponent: React.SFC<IEventDescriptionViewProps> =
+export const evidenceComponent: React.FC<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element =>
     (
     <React.StrictMode>
@@ -311,7 +311,7 @@ const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSel
 
 export const eventDescriptionView: React.ComponentType<IEventDescriptionViewProps> = reduxWrapper
 (
-  enhance(descriptionComponent) as React.StatelessComponent<IEventDescriptionViewProps>,
+  enhance(descriptionComponent) as React.FunctionComponent<IEventDescriptionViewProps>,
   (state: StateType<Reducer>): IEventDescriptionViewProps => ({
     ...state,
     eventData: state.dashboard.eventDescription.eventData,
@@ -328,7 +328,7 @@ export const eventDescriptionView: React.ComponentType<IEventDescriptionViewProp
 
 export const eventEvidenceView: React.ComponentType<IEventDescriptionViewProps> = reduxWrapper
 (
-  enhance(evidenceComponent) as React.StatelessComponent<IEventDescriptionViewProps>,
+  enhance(evidenceComponent) as React.FunctionComponent<IEventDescriptionViewProps>,
   (state: StateType<Reducer>): IEventDescriptionViewProps => ({
     ...state,
     eventData: state.dashboard.eventDescription.eventData,

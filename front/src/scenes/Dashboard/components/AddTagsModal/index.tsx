@@ -107,7 +107,7 @@ const TagsForm: tagsForm = reduxForm<{}, IAddTagsModalProps>({
 })(renderTagsForm);
 // tslint:enable:variable-name
 
-export const addTagsModal: React.SFC<IAddTagsModalProps> =
+export const addTagsModal: React.FC<IAddTagsModalProps> =
   (props: IAddTagsModalProps): JSX.Element => (
     <React.StrictMode>
       <Provider store={store}>

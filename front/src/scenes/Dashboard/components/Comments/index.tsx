@@ -61,10 +61,10 @@ const enhance: InferableComponentEnhancer<{}> =
     },
   });
 
-export const component: React.SFC<ICommentsProps> = (props: ICommentsProps): JSX.Element => (
+export const component: React.FC<ICommentsProps> = (props: ICommentsProps): JSX.Element => (
   <React.StrictMode>
     <div id={props.id} />
   </React.StrictMode>
 );
 
-export const comments: React.SFC<ICommentsProps> = enhance(component) as React.SFC<ICommentsProps>;
+export const comments: React.FC<ICommentsProps> = enhance(component) as React.FC<ICommentsProps>;

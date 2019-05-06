@@ -78,7 +78,7 @@ type remediationForm =
  */
 const Form: remediationForm = reduxForm<{}, IAddRemediationProps>({ form: "addRemediation" })(renderFields);
 
-export const remediationModal: React.SFC<IAddRemediationProps> =
+export const remediationModal: React.FC<IAddRemediationProps> =
   (props: IAddRemediationProps): JSX.Element => (
     <React.StrictMode>
       <Provider store={store}>

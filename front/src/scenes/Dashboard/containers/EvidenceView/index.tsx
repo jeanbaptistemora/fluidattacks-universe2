@@ -156,7 +156,7 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
   );
 };
 
-export const component: React.SFC<IEvidenceViewProps> = (props: IEvidenceViewProps): JSX.Element => (
+export const component: React.FC<IEvidenceViewProps> = (props: IEvidenceViewProps): JSX.Element => (
   <React.StrictMode>
     {props.canEdit ? renderEditPanel(props) : undefined}
     <Row>
@@ -167,7 +167,7 @@ export const component: React.SFC<IEvidenceViewProps> = (props: IEvidenceViewPro
 );
 
 export const evidenceView: React.ComponentType<IEvidenceViewProps> = reduxWrapper(
-  enhance(component) as React.SFC<IEvidenceViewProps>,
+  enhance(component) as React.FC<IEvidenceViewProps>,
   (state: StateType<Reducer>): IEvidenceViewProps => ({
     ...state.dashboard.evidence,
   }),

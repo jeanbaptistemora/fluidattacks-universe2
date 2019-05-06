@@ -63,7 +63,7 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, 
   componentWillUnmount(): void { this.props.onUnmount(); },
 });
 
-const findingContent: React.SFC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
+const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const userRole: string = (window as Window & { userRole: string }).userRole;
   const isDraft: boolean = _.isEmpty(props.header.reportDate);

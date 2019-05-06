@@ -39,7 +39,7 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectContentProps, 
   },
 });
 
-const projectContent: React.SFC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
+const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
   const { projectName } = props.match.params;
 
   return (

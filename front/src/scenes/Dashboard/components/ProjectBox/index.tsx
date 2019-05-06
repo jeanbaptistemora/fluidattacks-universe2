@@ -8,7 +8,7 @@ interface IProjectBoxProps {
   onClick(projectName: string): void;
 }
 
-const projectBox: React.SFC<IProjectBoxProps> = (props: IProjectBoxProps): JSX.Element => {
+const projectBox: React.FC<IProjectBoxProps> = (props: IProjectBoxProps): JSX.Element => {
   const handleClick: (() => void) = (): void => { props.onClick(props.name); };
 
   return (

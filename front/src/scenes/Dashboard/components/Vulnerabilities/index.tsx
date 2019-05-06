@@ -182,7 +182,7 @@ export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element
     );
   };
 
-export const vulnsViewComponent: React.SFC<IVulnerabilitiesViewProps> =
+export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
   const inputsHeader: IHeader[] = [
     {
@@ -337,6 +337,6 @@ vulnsViewComponent.defaultProps = {
 
 export const vulnsView: ComponentType<IVulnerabilitiesViewProps> = reduxWrapper
 (
-  enhance(vulnsViewComponent) as React.StatelessComponent<IVulnerabilitiesViewProps>,
+  enhance(vulnsViewComponent) as React.FunctionComponent<IVulnerabilitiesViewProps>,
   mapStateToProps,
 );

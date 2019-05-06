@@ -12,7 +12,7 @@ interface IScrollUPButtonProps {
   visibleAt: number;
 }
 
-const scrollUpButton: React.SFC<IScrollUPButtonProps> = (props: IScrollUPButtonProps): JSX.Element => (
+const scrollUpButton: React.FC<IScrollUPButtonProps> = (props: IScrollUPButtonProps): JSX.Element => (
   <React.StrictMode>
     <ScrollUp showUnder={props.visibleAt} duration={400}>
       <span className={style.container} />

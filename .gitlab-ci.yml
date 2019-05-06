@@ -172,7 +172,7 @@ react-testing:
     - cd front
     - npm install --unsafe-perm
     - npm run audit
-    - npm run lint || true
+    - npm run lint
     - npm run test
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"

@@ -13,7 +13,7 @@ interface IProjectCommentsDispatchProps {
 
 type IProjectCommentsViewProps = IProjectCommentsBaseProps & IProjectCommentsDispatchProps;
 
-const projectCommentsView: React.SFC<IProjectCommentsViewProps> = (props: IProjectCommentsViewProps): JSX.Element => {
+const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjectCommentsViewProps): JSX.Element => {
   const handleLoad: ((callbackFn: ((comments: ICommentStructure[]) => void)) => void) =
     (callbackFn: ((comments: ICommentStructure[]) => void)): void => {
       props.onLoad(callbackFn);

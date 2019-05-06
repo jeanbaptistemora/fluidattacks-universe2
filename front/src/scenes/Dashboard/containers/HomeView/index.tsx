@@ -29,7 +29,7 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IHomeViewProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
 });
 
-const homeView: React.SFC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element => {
+const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element => {
 
   const goToProject: ((projectName: string) => void) = (projectName: string): void => {
     location.hash = `#!/project/${projectName}/indicators`;
