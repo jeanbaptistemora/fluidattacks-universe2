@@ -17,8 +17,8 @@
   },
   "homepage": "https://gitlab.com/fluidattacks/web#readme",
   "devDependencies": {
-    "@commitlint/cli": "7.2.1",
-    "@commitlint/config-conventional": "7.1.2",
+    "@commitlint/cli": "7.6.0",
+    "@commitlint/config-conventional": "7.6.0",
     "husky": "1.2.1"
   },
   "husky": {
