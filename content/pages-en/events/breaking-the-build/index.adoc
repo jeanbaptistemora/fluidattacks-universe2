@@ -1,28 +1,28 @@
-:slug: events/breaking-the-build/
+﻿:slug: events/breaking-the-build/
 :subtitle: Our SecDevOps Habits
 :category: events
-:description: This page aims to inform the customer about the different talks offered by Fluid Attacks. In the Breaking the Build conference we talk about our SecDevOps habits that allow us to keep improving and changing everyday, and the first steps to implement these habits on your company.
-:keywords: Fluid Attacks, SecDevOps, Security, Development, Tecnology, CI-CD.
+:description: This page aims to inform the customer about the different talks offered by Fluid Attacks. In the Breaking the Build conference we talk about our SecDevOps habits that allow us to keep improving and changing every day, and the first steps to implement these habits on your company.
+:keywords: Fluid Attacks, SecDevOps, Security, Development, Technology, CI-CD.
 
 = Breaking the build
 
 == 1. Objective
 
 The term +SecDevOps+ has grown in popularity in recent years;
-however, every +Webinar+ that addresses the topic
-only focuses on its benefits,  or possibles use cases,
-ignoring the people's main reason to assist to this kind of events.
+however, every Webinar that addresses the topic
+only focuses on its benefits, or possibles use cases,
+ignoring the people’s main reason to assist in this kind of events.
 
 It can be deduced that people want to know at least
 *how does this work?* and *where to start?*.
 The speaker may show us how to perform tests
 over an extremely simple environment,
 completely unrelatable to our everyday tasks,
-and in this case, new questions will arise, such as
-*does this really work?* or *how can I apply it to my company?*
+and in this case, new questions emerge, such as
+*does this work?* Alternatively, *how can I apply it to my company?*
 
 Based on the above,
-in this talk we seek to answer the posed questions,
+in this talk, we seek to answer the posed questions,
 through the socialization of our methodologies and work practices
 or *habits* that allow us to implement a +SecDevOps+ culture
 in the execution of our projects;
@@ -50,19 +50,19 @@ image::max-average.png[Systems with higher deploys to production]
 == 2. Content
 
 This *seminar/workshop* aims to implement
-the concepts and techniques seen in
+the concepts and techniques saw in
 [button]#link:../burn-the-datacenter/[Burn the Datacenter]#.
 Everything is performed *live*
 over real infrastructure and applications,
 taking a look into the backstage of the process:
 The tools used,
-the logs that allow to identify issues,
+the logs that allow us to identify issues,
 and even the source code that defines each step
 for the correct deployment of our applications,
 always focusing on how our infrastructure and products
 are updated in *real time*.
 
-In order to understand how everything happens
+To understand how everything happens
 and demonstrate how to take the first step to reach this configuration,
 we also explain all the work habits
 that have allowed us to reach this point and keep improving daily.
@@ -78,18 +78,18 @@ avoiding code accumulation
 and reaching *zero inventory* (leaving +gitflow+ behind)
 
 * Generate daily value to the customers
-through a *microchanges* methodology
+through a *micro changes* methodology
 (instead of big changes every +3+ weeks or more).
 
-* Migrate and manage all the infrastructure as a versioned source code,
+* Migrate and manage all the infrastructure as versioned source code,
 turning it into *immutable infrastructure*
 (avoiding management consoles and unauthorized changes).
 
 * Define  Continuous Integration environments as source code,
 +*pipeline as code*+,
-in a way that can be easily configured
+in a way that can easily be configured
 and modified for all kind of tests
-(avoiding graphical inteface limitations
+(avoiding graphical interface limitations
 for pipeline configurations).
 
 * Avoid servers at any cost,
@@ -104,10 +104,10 @@ and *keeping the secrets protected*.
 that allow testing all the developed features
 before passing to production
 (reducing project complexity by avoiding development environments,
-testing, +QA+, ...)
+testing, +QA+, and others)
 
 * *Breaking the build* even before making a +commit+ to the repository
-using +*pre-commit*+ for checking source code.
+using +*pre-commit*+ for checking the source code.
 
 * Perform tests over the source code and over the deployment
 that *break the build* as a result for the smallest error
@@ -180,7 +180,7 @@ a morning break, and a lunch break.
 
 The *workshop* is designed to be performed from *9 A.M.* to *3 P.M.*,
 with a *30 minutes* break at *12 m*
-The event date must be scheduled by mutual agreement
+The event date must be scheduled by agreement
 between the attendants and +Fluid Attacks+.
 
 == 7. Details
@@ -205,7 +205,7 @@ The *workshop* is suitable for both technical and managerial personnel,
 and the satisfaction rate for both profiles is equally high.
 However, if you wish to promote new changes
 and experimentation inside your company,
-considering people with power of decision is important.
+considering people that can make decisions is important.
 
 The *workshop* is designed for an audience
 between *10 and 15* persons on the customer side,
