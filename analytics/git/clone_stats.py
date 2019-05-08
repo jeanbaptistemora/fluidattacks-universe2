@@ -5,7 +5,7 @@ import os
 from typing import List, Any
 
 import yaml
-import slackclient
+import slack
 
 
 # path to the continuous repo
@@ -17,8 +17,7 @@ def slack__send_message(header: str, message: List[str]) -> None:
     slack_token = os.popen(
         "vault read -field=analytics_slack_token secret/serves").read()
     body: str = "\n".join(message)
-    slackclient.SlackClient(slack_token).api_call(
-        "chat.postMessage",
+    slack.WebClient(token=slack_token).chat_postMessage(
         text=f"*{header}*\n\n```\n{body}\n```",
         channel="#analytics",
         mrkdwn=True)
