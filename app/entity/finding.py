@@ -26,7 +26,7 @@ from app.domain.finding import (
 )
 from app import util
 from app.dao import integrates_dao
-from app.entity.vulnerability import Vulnerability, validate_formstack_file
+from app.entity.vulnerability import Vulnerability
 from app.api.formstack import FormstackAPI
 from app.entity.types.finding import FindingType
 
@@ -56,16 +56,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
                     [i for i in self.vulnerabilities if i.current_state == 'closed']
                 self.closed_vulnerabilities = len(closed_vulnerabilities)
                 self.success = True
-            elif resp.get('vulnerabilities'):
-                is_file_valid = \
-                    validate_formstack_file(resp.get('vulnerabilities'), finding_id, info)
-                if is_file_valid:
-                    vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
-                    self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
-                    self.success = True
-                else:
-                    self.success = False
-                    self.error_message = 'Error in file'
             else:
                 vuln_info = \
                     {'finding_id': self.id, 'vuln_type': 'old',
