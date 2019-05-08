@@ -37,13 +37,14 @@ without explanation.
 Parser combinators are particularly useful when
 the expressions to be analyzed are complex.
 You don't really need parser combinators to break up email addresses
-into username and domains.
+into usernames and domains.
 For that, a regular expression will suffice.
 However, when what you need to do is more involved,
 such as looking for `SQL` injections,
 or analyzing source code for poor programming practices
 as per our link:../..//rules/[Rules]
-and recommendations.
+and recommendations,
+parsers are our tool of choice.
 This is one of the tasks at which `Asserts` excels,
 determine whether a vulnerability,
 found by one of our analysts in the source code,
@@ -64,20 +65,20 @@ if the vulnerability is still there:
 .Asserts script `expl.py` to check DES usage
 [source,python]
 ----
-from fluidasserts.lang import java`
+from fluidasserts.lang import java
 
 FILE = 'transactions.java'
 java.uses_des_algorithm(FILE)
 ----
 
 Simple, right?
-Just running that script tells you whether the inscure `DES`algorithm
+Just running that script tells you whether the inscure `DES` algorithm
 is used in that particular file.
 Or you can even point it at an entire directory,
 and `Asserts` will test every `Java` source file for `DES` usage.
 But what's behind the curtains?
 Since `Asserts` is now open-source,
-we can actually check out what this function does:
+anyone can actually check out what this function does:
 
 .java.py. See link:https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/lang/java.py#L395[Gitlab] for rest of code.
 [source,python,linenums]
@@ -239,21 +240,23 @@ it is simply a matter of invoking the `searchString` method
 from `PyParsing`, which, as its name implies,
 searches the given string for matches of the given parser.
 The module has a few more tricks up its sleeve,
-such as turning the parsing search results into pretty strings,
-parsing chunks of lines of code.
+such as turning the parsing search results into pretty strings
+and parsing chunks of lines of code.
 All that, again, with the help of parser combinators.
 
 The most important takeaway from looking at the source code,
 and what lies behind it, of this single function,
-is that using parser combinators in `Asserts`
+is that using parser combinators in +Asserts+
 allows us not only to have readable, maintainable code
 for our own use and of others,
 but also for this code to be easily _extensible_ and _reusable_.
 `PyParsing`, due to its object-oriented interface,
 its clear naming conventions,
 and the fact that coding parsers in it
-is just _pythonic_ allows our team to write and rewrite
+is just _pythonic_,
+allows our team to write and rewrite
 static code analysis tools that change as do its users' needs.
+
 That just wouldn't be possible with regular expressions.
 Regexes must be tailor-made, carefully designed
 with one specific objective in mind. One application.
