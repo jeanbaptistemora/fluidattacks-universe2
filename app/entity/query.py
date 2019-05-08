@@ -79,7 +79,8 @@ class Query(ObjectType):
     @get_cached
     def resolve_finding(self, info, identifier=None):
         """Resolve for finding."""
-        return Finding(info, identifier)
+        del info
+        return Finding(identifier)
 
     def resolve_login(self, info):
         """ Resolve for login info """

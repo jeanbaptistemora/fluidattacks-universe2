@@ -35,7 +35,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     """Formstack Finding Class."""
 
     # pylint: disable=too-many-statements
-    def __init__(self, info, identifier):
+    def __init__(self, identifier):
         """Class constructor."""
         super(Finding, self).__init__()
 
@@ -216,17 +216,17 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """
         Resolve compromised records attribute
 
-        Verifies if there are records in dynamo. if not, it gets them from formstack
+        Verifies if there are records in dynamo. if not, it gets them from
+        formstack
         """
         del info
 
         formstack_records = self.records
-        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings',
-                                                         'finding_id', self.id)
-        if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
-            file_info = \
-                list(filter(lambda evidence: evidence['name'] == 'fileRecords',
-                            dynamo_evidence[0].get('files')))
+        dynamo_evidence = integrates_dao.get_finding_attributes_dynamo(
+            self.id, ['files'])
+        if dynamo_evidence:
+            file_info = [evidence for evidence in dynamo_evidence.get('files')
+                         if evidence['name'] == 'fileRecords']
             if file_info:
                 file_name = file_info[0]['file_url']
                 self.records = get_records_from_file(self, file_name)
@@ -625,8 +625,7 @@ Attempted to upload evidence file with a non-allowed format')
             raise GraphQLError('Extension not allowed')
 
         ret = UpdateEvidence(success=success,
-                             finding=Finding(info=info,
-                                             identifier=parameters.get('finding_id')))
+                             finding=Finding(parameters.get('finding_id')))
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
 
@@ -680,8 +679,7 @@ An error occurred updating evidence description', 'error', info.context)
 
         ret = \
             UpdateEvidenceDescription(success=success,
-                                      finding=Finding(info=info,
-                                                      identifier=finding_id))
+                                      finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         return ret
 
@@ -722,14 +720,14 @@ class UpdateSeverity(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, **parameters):
+        del info
         finding_id = parameters.get('finding_id')
         project = integrates_dao.get_finding_project(finding_id)
         success = False
         success = save_severity(parameters.get('data'))
 
         ret = UpdateSeverity(success=success,
-                             finding=Finding(info=info,
-                                             identifier=finding_id))
+                             finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
         return ret
@@ -862,11 +860,12 @@ class UpdateDescription(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, finding_id, **parameters):
+        del info
         success = update_description(finding_id, parameters)
 
         ret = \
             UpdateDescription(success=success,
-                              finding=Finding(info=info, identifier=finding_id))
+                              finding=Finding(finding_id))
         project_name = get_project_name(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
@@ -912,7 +911,7 @@ class UpdateTreatment(Mutation):
         success = update_treatment(finding_id, parameters, user_email)
 
         ret = UpdateTreatment(success=success,
-                              finding=Finding(info=info, identifier=finding_id))
+                              finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         return ret

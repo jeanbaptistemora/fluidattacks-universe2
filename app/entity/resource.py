@@ -37,16 +37,15 @@ class Resource(ObjectType):
         self.repositories = []
         self.environments = []
         self.files = []
-        project_info = integrates_dao.get_project_dynamo(project_name)
-        for item in project_info:
-            if 'repositories' in item:
-                self.repositories = item['repositories']
-
-            if 'environments' in item:
-                self.environments = item['environments']
-
-            if 'files' in item:
-                self.files = item['files']
+        project_info = integrates_dao.get_project_attributes_dynamo(
+            project_name.lower(), ['repositories', 'environments', 'files'])
+        if project_info:
+            self.repositories = project_info.get('repositories', [])
+            self.environments = project_info.get('environments', [])
+            self.files = project_info.get('files', [])
+        else:
+            # Project does not have resources
+            pass
 
     def __str__(self):
         return self.project_name + '_resources'

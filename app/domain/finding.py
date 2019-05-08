@@ -229,10 +229,9 @@ def cast_tracking(tracking):
 
 
 def get_dynamo_evidence(finding_id):
-    finding_data = integrates_dao.get_data_dynamo('FI_findings',
-                                                  'finding_id', finding_id)
-    evidence_files = finding_data[0].get('files') \
-        if finding_data and 'files' in finding_data[0].keys() else []
+    finding_data = integrates_dao.get_finding_attributes_dynamo(
+        finding_id, ['files'])
+    evidence_files = finding_data.get('files', [])
     parsed_evidence = {
         'animation': {'url':
                       filter_evidence_filename(evidence_files,
@@ -261,9 +260,9 @@ def get_dynamo_evidence(finding_id):
 
 
 def filter_evidence_filename(evidence_files, name):
-    evidence_info = filter(lambda evidence: evidence['name'] == name,
-                           evidence_files)
-    return evidence_info[0]['file_url'] if evidence_info else ''
+    evidence_info = [evidence for evidence in evidence_files
+                     if evidence['name'] == name]
+    return evidence_info[0].get('file_url', '') if evidence_info else ''
 
 
 def migrate_evidence_description(finding):

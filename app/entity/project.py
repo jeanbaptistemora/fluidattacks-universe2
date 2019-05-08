@@ -83,7 +83,8 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_findings(self, info):
         """Resolve findings attribute."""
-        self.findings = [Finding(info, i['finding_id']) for i in self.findings_aux]
+        del info
+        self.findings = [Finding(i['finding_id']) for i in self.findings_aux]
         return self.findings
 
     @get_entity_cache
@@ -181,9 +182,10 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""
         del info
-        project_info = integrates_dao.get_project_dynamo(self.name)
+        project_info = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['type'])
         if project_info:
-            self.subscription = project_info[0].get('type')
+            self.subscription = project_info.get('type', '')
         else:
             self.subscription = ''
         return self.subscription
@@ -247,8 +249,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
+        del info
 
-        self.drafts = [Finding(info, draft_id)
+        self.drafts = [Finding(draft_id)
                        for draft_id in get_drafts(self.name)]
 
         return self.drafts
