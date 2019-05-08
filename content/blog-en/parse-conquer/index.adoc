@@ -61,7 +61,7 @@ In order to report the vulnerability,
 they would write a script that automatically checks
 if the vulnerability is still there:
 
-.Asserts script to check DES usage
+.Asserts script `expl.py` to check DES usage
 [source,python]
 ----
 from fluidasserts.lang import java`
@@ -80,7 +80,7 @@ Since `Asserts` is now open-source,
 we can actually check out what this function does:
 
 .java.py. See link:https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/lang/java.py#L395[Gitlab] for rest of code.
-[source,python]
+[source,python,linenums]
 ----
 from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas, Or,
                        alphanums, Suppress, nestedExpr, javaStyleComment,
@@ -133,12 +133,16 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> bool:
     return result
 ----
 
-Notice how, in the first few lines above,
+Notice how, in the first few lines above (17-22),
 the parser `instance_des` is built from smaller parsers
 such as `tk_mess_dig`, which matches the single keyword "Cipher",
 but also any variations in case, should they happen.
+Hence, `CaselessKeyword`.
+`Literal` forgoes any such assumption:
+if its double quotes, they must be there, exactly.
 `Pyparsing` also takes care of handling white space
-by overloading the `+` operator.
+by overloading the `+` operator to mean
+"followed, possibly with some whitespace in between".
 Building a regex to match the same would be perhaps
 more compact, but never as readable or maintainable.
 This is one of the many advantages of
@@ -176,7 +180,59 @@ which might pose the risk of unpredictable behavior in the application
 if carelessly uncommented, depending on who has access to the code.
 
 .From `fluidasserts.helper.lang` module. See full code on link:https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/helper/lang.py[Gitlab].
-[source,python]
+[source,python,linenums]
+----
+def _get_match_lines(grammar: ParserElement, code_file: str,  # noqa
+                     lang_spec: dict) -> List:  # noqa
+    """
+    Check grammar in file.
+
+    :param grammar: Pyparsing grammar against which file will be checked.
+    :param code_file: Source code file to check.
+    :param lang_spec: Contains language-specific syntax elements, such as
+                       acceptable file extensions and comment delimiters.
+    :return: List of lines that contain grammar matches.
+    """
+    with open(code_file, encoding='latin-1') as file_fd:
+        affected_lines = []
+        counter = 0
+        in_block_comment = False
+        for line in file_fd.readlines():
+            counter += 1
+            try:
+                if lang_spec.get('line_comment'):
+                    parser = ~Or(lang_spec.get('line_comment'))
+                    parser.parseString(line)
+            except ParseException:
+                continue
+            if lang_spec.get('block_comment_start'):
+                try:
+                    block_start = Literal(lang_spec.get('block_comment_start'))
+                    parser = SkipTo(block_start) + block_start
+                    parser.parseString(line)
+                    in_block_comment = True
+                except (ParseException, IndexError):
+                    pass
+
+                if in_block_comment and lang_spec.get('block_comment_end'):
+                    try:
+                        block_end = Literal(lang_spec.get('block_comment_end'))
+                        parser = SkipTo(block_end) + block_end
+                        parser.parseString(line)
+                        in_block_comment = False
+                        continue
+                    except ParseException:
+                        continue
+                    except IndexError:
+                        pass
+            try:
+                results = grammar.searchString(line, maxMatches=1)
+                if not _is_empty_result(results):
+                    affected_lines.append(counter)
+            except ParseException:
+                pass
+    return affected_lines
+----
 
 After testing if the code we're looking at is functional or not,
 it is simply a matter of invoking the `searchString` method
@@ -185,6 +241,7 @@ searches the given string for matches of the given parser.
 The module has a few more tricks up its sleeve,
 such as turning the parsing search results into pretty strings,
 parsing chunks of lines of code.
+All that, again, with the help of parser combinators.
 
 The most important takeaway from looking at the source code,
 and what lies behind it, of this single function,
@@ -193,22 +250,25 @@ allows us not only to have readable, maintainable code
 for our own use and of others,
 but also for this code to be easily _extensible_ and _reusable_.
 `PyParsing`, due to its object-oriented interface,
+its clear naming conventions,
 and the fact that coding parsers in it
-in just _pythonic_ allows our team to write and rewrite
-static code analysis tools that change as do its user's need.
+is just _pythonic_ allows our team to write and rewrite
+static code analysis tools that change as do its users' needs.
 That just wouldn't be possible with regular expressions.
 Regexes must be tailor-made, carefully designed
 with one specific objective in mind. One application.
 So that regex that might search for conditionals
 without default actions in `Javascript` is bound to be
 useless for the same purpose in a different language.
+Such is not the case with parser combinators,
+as most code is easily modified or reusable.
 Also, nesting searches as we did above
 (parsing before parsing to know if we're inside a block comment)
 will definitely require uber-complex regular expressions,
 if it is possible at all.
 
 Just like `uses_des_algorithm` above,
-`Asserts` include convenient functions to test for many
+`Asserts` packs convenient functions to test for many
 of our requirements or recommendations for secure coding,
 for several different languages,
 and growing daily.
@@ -216,3 +276,10 @@ and growing daily.
 of our static code analysis tools in a way that,
 as mentioned earlier, with regexes would only be _ad hoc_
 or impossible to maintain.
+
+== References
+
+. [[r1]] link:https://fluidattacks.gitlab.io/asserts/[`Asserts`] documentation.
+
+. [[r2]] McGuire, Paul (2008). 'Getting started with pyparsing'.
+O'Reilly shortcuts.
