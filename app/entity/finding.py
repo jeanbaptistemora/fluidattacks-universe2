@@ -267,21 +267,25 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """
         del info
 
-        formstack_exploit = \
-            '' if self.exploit == '' else get_exploit_from_file(self, self.exploit)
-        dynamo_evidence = integrates_dao.get_data_dynamo('FI_findings',
-                                                         'finding_id', self.id)
-        if dynamo_evidence and 'files' in dynamo_evidence[0].keys():
-            file_info = \
-                list(filter(lambda evidence: evidence['name'] == 'exploit',
-                            dynamo_evidence[0].get('files')))
+        dynamo_evidence = integrates_dao.get_finding_attributes_dynamo(self.id, ['files'])
+        has_exploit_formstack = False
+        if dynamo_evidence:
+            file_info = [evidence for evidence in dynamo_evidence.get('files')
+                         if evidence['name'] == 'exploit']
             if file_info:
-                file_name = file_info[0]['file_url']
+                file_name = file_info[0].get('file_url')
                 self.exploit = get_exploit_from_file(self, file_name)
             else:
-                self.exploit = formstack_exploit
+                has_exploit_formstack = True
         else:
+            has_exploit_formstack = True
+        if has_exploit_formstack:
+            formstack_exploit = \
+                '' if self.exploit == '' else get_exploit_from_file(self, self.exploit)
             self.exploit = formstack_exploit
+        else:
+            # Finding does not have exploit in formstack
+            pass
 
         return self.exploit
 
@@ -591,6 +595,7 @@ class UpdateEvidence(Mutation):
                                           ['image/gif',
                                            'image/png',
                                            'text/x-python',
+                                           'text/x-objective-c',
                                            'text/x-c',
                                            'text/plain',
                                            'text/html']):

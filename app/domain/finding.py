@@ -653,7 +653,8 @@ def download_evidence_file(self, file_name):
 
 def read_script(script_file):
     if util.assert_file_mime(script_file, ['text/x-python', 'text/x-c',
-                                           'text/plain', 'text/html']):
+                                           'text/plain', 'text/html',
+                                           'text/x-objective-c']):
         with open(script_file, 'r') as file_obj:
             return file_obj.read()
     else:
