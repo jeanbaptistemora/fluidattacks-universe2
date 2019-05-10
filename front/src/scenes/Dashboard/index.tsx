@@ -1,5 +1,6 @@
 import React from "react";
 import { connect, MapDispatchToProps } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
@@ -15,8 +16,8 @@ import HomeView from "./containers/HomeView";
 import ProjectContent from "./containers/ProjectContent/index";
 import style from "./index.css";
 
-type IDashboardBaseProps = undefined;
-type IDashboardStateProps = undefined;
+type IDashboardBaseProps = RouteComponentProps;
+type IDashboardStateProps = RouteComponentProps;
 
 interface IDashboardDispatchProps {
   onLogout(): void;

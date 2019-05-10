@@ -10,7 +10,7 @@ import { ButtonToolbar, Col, Glyphicon, ProgressBar, Row } from "react-bootstrap
 import { Provider } from "react-redux";
 import {
   ConfigProps, DecoratedComponentClass, Field,
-  FieldArray, FieldArrayFieldsProps, InjectedFormProps,
+  FieldArray, FieldArrayFieldsProps, GenericFieldArray, InjectedFormProps,
   reduxForm,
   WrappedFieldArrayProps,
 } from "redux-form";
@@ -31,6 +31,19 @@ export interface IAddResourcesModalProps {
   onClose(): void;
   onSubmit(values: {}): void;
 }
+
+/* This is necessary because there is a problem with the type of FieldArray in redux-form library,
+* this is the issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/32858#issuecomment-461441222
+*/
+/* tslint:disable-next-line:variable-name
+* Disabling here is necessary due a conflict
+* between lowerCamelCase var naming rule from tslint
+* and PascalCase rule for naming JSX elements
+*/
+const FieldArrayCustom: new () => GenericFieldArray<Field<React.InputHTMLAttributes<HTMLInputElement> |
+  React.SelectHTMLAttributes<HTMLSelectElement> | React.TextareaHTMLAttributes<HTMLTextAreaElement>>,
+  WrappedFieldArrayProps<undefined>> = FieldArray as new () =>
+  GenericFieldArray<Field, WrappedFieldArrayProps<undefined>>;
 
 type formProps = IAddResourcesModalProps & InjectedFormProps<{}, IAddResourcesModalProps>;
 
@@ -140,7 +153,7 @@ const renderReposForm: ((props: formProps) => JSX.Element) =
   (props: formProps): JSX.Element => (
     <React.Fragment>
       <form onSubmit={props.handleSubmit}>
-        <FieldArray name="resources" component={renderReposFields} />
+        <FieldArrayCustom name="resources" component={renderReposFields} />
         {renderFooter(props)}
       </form>
     </React.Fragment>
@@ -150,7 +163,7 @@ const renderEnvsForm: ((props: formProps) => JSX.Element) =
   (props: formProps): JSX.Element => (
     <React.Fragment>
       <form onSubmit={props.handleSubmit}>
-        <FieldArray name="resources" component={renderEnvsFields} />
+        <FieldArrayCustom name="resources" component={renderEnvsFields} />
         {renderFooter(props)}
       </form>
     </React.Fragment>
@@ -160,7 +173,7 @@ const renderFilesForm: ((props: formProps) => JSX.Element) =
     (props: formProps): JSX.Element => (
       <React.Fragment>
         <form onSubmit={props.handleSubmit}>
-          <FieldArray name="resources" component={renderFilesFields} />
+          <FieldArrayCustom name="resources" component={renderFilesFields} />
           { props.showUploadProgress === true ?
             <React.Fragment>
               <br />

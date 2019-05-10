@@ -1,14 +1,16 @@
 import _ from "lodash";
 import React from "react";
 import { Col, ControlLabel, FormGroup } from "react-bootstrap";
-import { BaseFieldProps, Field, GenericFieldHTMLAttributes } from "redux-form";
+import { BaseFieldProps, Field } from "redux-form";
 import style from "./index.css";
 
-type EditableFieldProps = BaseFieldProps & GenericFieldHTMLAttributes & {
+type EditableFieldProps = BaseFieldProps & {
   alignField?: string;
+  className?: string;
   currentValue: string | number;
   label: string;
   renderAsEditable: boolean;
+  type?: string;
   visible?: boolean;
 };
 

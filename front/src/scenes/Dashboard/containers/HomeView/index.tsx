@@ -3,6 +3,7 @@ import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable";
 import translate from "../../../../utils/translations/translate";
@@ -11,7 +12,7 @@ import { IDashboardState } from "../../reducer";
 import { changeProjectsDisplay, loadProjects, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
-type IHomeViewBaseProps = undefined;
+type IHomeViewBaseProps = RouteComponentProps;
 
 interface IHomeViewStateProps {
   displayPreference: IDashboardState["user"]["displayPreference"];
