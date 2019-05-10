@@ -110,7 +110,7 @@ def send_mail_access_granted(email_to, context):
 
 
 def send_mail_new_version(email_to, context):
-    _send_mail('integratesnewversion', email_to, context=context, tags=GENERAL_TAG)
+    _send_mail('new_version', email_to, context=context, tags=GENERAL_TAG)
 
 
 def send_mail_resources(email_to, context):

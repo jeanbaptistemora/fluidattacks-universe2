@@ -11,7 +11,7 @@ def send_mail_version(commit_sha, commit_before_sha):
     version = open('version.txt', 'r').read()
     repo = Repo(os.getcwd())
     message = repo.git.log(commit_before_sha + '...' + commit_sha,
-        '--pretty=format:<b>%s</b>%n%bCommitted by: %an%n')
+        '--pretty=format:<b>%s</b>%n%bCommitted by: %aN%n')
     to = [FI_MAIL_ENGINEERING]
     context = {
         'version': version,
