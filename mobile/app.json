@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FluidAttacks Mobile App",
-    "slug": "fluidmobile",
+    "name": "Integrates",
+    "slug": "integrates",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -22,7 +22,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.fluidattacks.integrates"
+    },
     "ios": {
+      "bundleIdentifier": "com.fluidattacks.integrates",
       "supportsTablet": true
     }
   }

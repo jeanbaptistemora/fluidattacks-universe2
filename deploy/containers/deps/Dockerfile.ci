@@ -43,6 +43,7 @@ RUN apt-get update \
         python \
         python-dev \
         redis \
+        wget \
     && curl https://bootstrap.pypa.io/get-pip.py | python \
     && pip2 install --no-cache-dir -r requirements-ci.txt \
     && cd front/ \

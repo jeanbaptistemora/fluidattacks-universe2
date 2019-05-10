@@ -295,6 +295,24 @@ build-integrates:
       - version.txt
     when: on_success
 
+build-mobile:
+  tags:
+    - mobile
+  stage: build
+  dependencies: []
+  <<: *vault_login
+  script:
+    - cp -a /root/mobile/node_modules mobile/
+    - cd mobile/
+    - npm install
+    - ./buildApp.sh
+  artifacts:
+    paths:
+      - mobile/output/integrates.apk
+    expire_in: 1h
+    when: on_success
+  retry: 1
+
 build-bot:
   stage: build
   dependencies: []
