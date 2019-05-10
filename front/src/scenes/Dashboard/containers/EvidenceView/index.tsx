@@ -6,6 +6,7 @@
  */
 
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
@@ -41,6 +42,7 @@ const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
     componentWillUnmount(): void { store.dispatch(actions.clearEvidence()); },
     componentDidMount(): void {
+      mixpanel.track("FindingEvidence");
       const { findingId } = this.props as IEvidenceViewProps;
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
         store.dispatch as ThunkDispatch<{}, {}, AnyAction>

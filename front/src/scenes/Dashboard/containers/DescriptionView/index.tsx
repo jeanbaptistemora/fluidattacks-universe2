@@ -7,6 +7,7 @@
  */
 
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
@@ -78,6 +79,7 @@ const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
     componentWillUnmount(): void { store.dispatch(actions.clearDescription()); },
     componentDidMount(): void {
+      mixpanel.track("FindingDescription");
       const { findingId, projectName, userRole } = this.props as IDescriptionViewProps;
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
         store.dispatch as ThunkDispatch<{}, {}, AnyAction>

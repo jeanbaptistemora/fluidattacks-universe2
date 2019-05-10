@@ -3,6 +3,7 @@
  * readability of the code that binds click events
  */
 
+import mixpanel from "mixpanel-browser";
 import React, { ComponentType } from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
@@ -117,6 +118,7 @@ export const component: React.FC<IRecordsViewProps> =
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
+    mixpanel.track("FindingRecords");
     const { findingId }: IRecordsViewProps = this.props as IRecordsViewProps;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>

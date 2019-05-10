@@ -3,17 +3,30 @@
  * readability of the code that binds load and post events
  */
 
+import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import store from "../../../../store/index";
 import { comments as Comments, ICommentStructure } from "../../components/Comments/index";
 import * as actions from "./actions";
 
-export interface ICommentsViewProps {
+interface ICommentsViewProps {
   findingId: string;
   type: "comment" | "observation";
 }
+
+const enhance: InferableComponentEnhancer<{}> =
+lifecycle<ICommentsViewProps, {}>({
+  componentDidMount(): void {
+    mixpanel.track(
+      _.eq(this.props.type, "comments")
+      ? "FindingComments"
+      : "FindingObservations");
+  },
+});
 
 const loadComments: ((projectName: string, type: ICommentsViewProps["type"],
                       callbackFn: ((comments: ICommentStructure[]) => void)) => void) =
@@ -37,7 +50,7 @@ const postComment: ((projectName: string, type: ICommentsViewProps["type"],
     thunkDispatch(actions.postComment(projectName, type, comment, callbackFn));
   };
 
-export const commentsView: React.FC<ICommentsViewProps> =
+const commentsView: React.FC<ICommentsViewProps> =
   (props: ICommentsViewProps): JSX.Element => (
     <React.StrictMode>
       <Comments
@@ -51,3 +64,5 @@ export const commentsView: React.FC<ICommentsViewProps> =
       />
     </React.StrictMode>
   );
+
+export = enhance(commentsView);

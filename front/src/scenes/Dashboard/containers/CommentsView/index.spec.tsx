@@ -3,7 +3,7 @@ import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { describe, it } from "mocha";
 import React from "react";
-import { commentsView as CommentsView } from "./index";
+import CommentsView from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 

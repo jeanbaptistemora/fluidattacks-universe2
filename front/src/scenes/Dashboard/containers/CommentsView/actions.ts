@@ -6,7 +6,6 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import { ICommentStructure } from "../../components/Comments";
-import { ICommentsViewProps } from "./index";
 
 export interface IActionStructure {
   payload: {} | undefined;
@@ -23,7 +22,7 @@ type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, IActi
 export const loadComments: ThunkActionStructure =
   (
     findingId: string,
-    type: ICommentsViewProps["type"],
+    type: "comment" | "observation",
     callbackFn: ((comments: ICommentStructure[]) => void),
   ): ThunkAction<void, {}, {}, IActionStructure> => (_: ThunkDispatcher): void => {
     let gQry: string;
@@ -53,7 +52,7 @@ export const loadComments: ThunkActionStructure =
 export const postComment: ThunkActionStructure =
   (
     findingId: string,
-    type: ICommentsViewProps["type"],
+    type: "comment" | "observation",
     comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void),
   ): ThunkAction<void, {}, {}, IActionStructure> => (_: ThunkDispatcher): void => {
     let gQry: string;

@@ -6,6 +6,7 @@
  * as input or <p> depending on their state
  */
 
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
@@ -84,6 +85,7 @@ export interface ISeverityField {
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
+    mixpanel.track("FindingSeverity");
     const { findingId } = this.props as ISeverityViewProps;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>

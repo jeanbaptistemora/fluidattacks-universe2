@@ -1,5 +1,4 @@
 import _ from "lodash";
-import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
@@ -17,7 +16,7 @@ import { AlertBox } from "../../components/AlertBox";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
-import { commentsView as CommentsView } from "../CommentsView/index";
+import CommentsView from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { evidenceView as EvidenceView } from "../EvidenceView/index";
 import { exploitView as ExploitView } from "../ExploitView/index";
@@ -68,46 +67,37 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const userRole: string = (window as Window & { userRole: string }).userRole;
   const isDraft: boolean = _.isEmpty(props.header.reportDate);
 
-  const renderDescription: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingDescription");
+  const renderDescription: (() => JSX.Element) = (): JSX.Element => (
+    <DescriptionView findingId={findingId} projectName={projectName} userRole={userRole} {...reduxProps} />
+  );
 
-    return <DescriptionView findingId={findingId} projectName={projectName} userRole={userRole} {...reduxProps} />;
-  };
-  const renderSeverity: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingSeverity");
+  const renderSeverity: (() => JSX.Element) = (): JSX.Element => (
+    <SeverityView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
+  );
 
-    return <SeverityView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
-  };
-  const renderEvidence: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingEvidence");
+  const renderEvidence: (() => JSX.Element) = (): JSX.Element => (
+    <EvidenceView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
+  );
 
-    return <EvidenceView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
-  };
-  const renderExploit: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingExploit");
+  const renderExploit: (() => JSX.Element) = (): JSX.Element => (
+    <ExploitView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
+  );
 
-    return <ExploitView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
-  };
-  const renderTracking: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingTracking");
+  const renderTracking: (() => JSX.Element) = (): JSX.Element => (
+    <TrackingView findingId={findingId} hasNewVulnerabilities={true} userRole={userRole} {...reduxProps} />
+  );
 
-    return <TrackingView findingId={findingId} hasNewVulnerabilities={true} userRole={userRole} {...reduxProps} />;
-  };
-  const renderRecords: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingRecords");
+  const renderRecords: (() => JSX.Element) = (): JSX.Element => (
+    <RecordsView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
+  );
 
-    return <RecordsView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />;
-  };
-  const renderComments: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingComments");
+  const renderComments: (() => JSX.Element) = (): JSX.Element => (
+    <CommentsView type="comment" findingId={findingId} />
+  );
 
-    return <CommentsView type="comment" findingId={findingId} />;
-  };
-  const renderObservations: (() => JSX.Element) = (): JSX.Element => {
-    mixpanel.track("FindingObservations");
-
-    return <CommentsView type="observation" findingId={findingId} />;
-  };
+  const renderObservations: (() => JSX.Element) = (): JSX.Element => (
+    <CommentsView type="observation" findingId={findingId} />
+  );
 
   const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };

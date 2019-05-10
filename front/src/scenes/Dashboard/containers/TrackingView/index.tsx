@@ -3,6 +3,7 @@
  * of the code that renders the timeline items
  */
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
 import TextareaAutosize from "react-textarea-autosize";
@@ -49,6 +50,7 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => ITrackingViewProps) =
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
+    mixpanel.track("FindingTracking");
     const { findingId } = this.props as ITrackingViewProps;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
