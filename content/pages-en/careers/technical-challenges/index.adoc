@@ -99,15 +99,14 @@ to solve doubts or issues.
 . Request developer permissions  to the +Training+ repository through this
 [button]#link:https://fluidattacks.com/forms/access[form]#.
 
-. In the +Repo Access Message+ field, paste the following message, replacing
-+[username]+ with the +Gitlab+ username created in step 1.
+. In the +Repo Access Message+ field, paste the following message:
 +
 [quote]
 ____________________________________________________________________
 I have read and understood all documentation pertaining to technical challenges,
 I agree to all of the terms and
 therefore request access to the +git+ +training+ repository
-with my +GitLab+ username [username].
+with my +GitLab+ username.
 ____________________________________________________________________
 
 . Complete +three (3)+ +programming+ challenges
@@ -124,7 +123,7 @@ ____________________________________________________________________
 I have completed three (3) +programming+ and three (3) +ctf-hacking+ challenges
 in the training repo
 therefore request access to the +git+ +writeups+ repository
-with my +GitLab+ username [username].
+with my +GitLab+ username.
 ____________________________________________________________________
 
 . Complete +three (3)+ +vbd-hacking+ challenges
