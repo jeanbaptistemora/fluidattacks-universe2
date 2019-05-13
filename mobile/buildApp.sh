@@ -2,27 +2,24 @@
 set -e
 
 # Prepare AWS
-AWS_ACCESS_KEY_ID="$(vault read -field=aws_innovation_s3_access_key secret/integrates/development)"
+AWS_ACCESS_KEY_ID="$FI_AWS_INNOVATION_S3_ACCESS_KEY"
 export AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_innovation_s3_secret_key secret/integrates/development)"
+AWS_SECRET_ACCESS_KEY="$FI_AWS_INNOVATION_S3_SECRET_KEY"
 export AWS_SECRET_ACCESS_KEY
-KEYSTORE_S3_URL="$(vault read -field=keystore_dev_s3_url secret/integrates/development)"
-aws s3 cp "$KEYSTORE_S3_URL" keystore-dev.jks
+aws s3 cp "$FI_KEYSTORE_S3_URL" keystore-dev.jks
 
 
 # Prepare Expo
-EXPO_USERNAME="$(vault read -field=expo_user secret/integrates/development)"
-EXPO_PASSWORD="$(vault read -field=expo_pass secret/integrates/development)"
 echo fs.inotify.max_user_watches=524288 >> /etc/sysctl.conf && sysctl -p
-npx expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
+npx expo login -u "$FI_EXPO_USERNAME" -p "$FI_EXPO_PASSWORD"
 
 
 # Build
 echo "Building android .apk ..."
 mkdir output/
 echo "./keystore-dev.jks \
-  $EXPO_PASSWORD \
-  $EXPO_PASSWORD" \
+  $FI_EXPO_PASSWORD \
+  $FI_EXPO_PASSWORD" \
   | npx expo build:android --no-publish | tee output_log.txt
 
 

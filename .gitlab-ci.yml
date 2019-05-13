@@ -305,10 +305,10 @@ build-mobile:
     - cp -a /root/mobile/node_modules mobile/
     - cd mobile/
     - npm install
-    - ./buildApp.sh
+    - vaultenv -- ./buildApp.sh
   artifacts:
     paths:
-      - mobile/output/integrates.apk
+      - mobile/output/*
     expire_in: 1h
     when: on_success
   retry: 1
