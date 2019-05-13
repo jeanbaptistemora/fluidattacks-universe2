@@ -1,9 +1,19 @@
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+  * readability of the code in graphql queries
+ */
+import gql from "graphql-tag";
 import _ from "lodash";
 import React from "react";
+import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
@@ -27,6 +37,15 @@ interface IGraphData {
   hoverBackgroundColor: string[];
 }
 
+interface IGitIndicators {
+  project: {
+    currentMonthAuthors: number;
+    currentMonthCommits: number;
+  };
+  resources: {
+    repositories: string;
+  };
+}
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IIndicatorsViewProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
 });
@@ -75,6 +94,7 @@ const treatmentGraph: ((props: IIndicatorsViewProps) => { [key: string]: string 
 
 const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
   const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
+  const projectName: string = props.match.params.projectName;
 
   return (
     <React.StrictMode>
@@ -176,38 +196,78 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
       <br />
       <br />
       <hr />
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
-          <Col md={4} sm={12} xs={12}>
-            <IndicatorBox
-              icon="integrityNone"
-              name={translate.t("search_findings.tab_indicators.repositories")}
-              quantity={props.repositories.length}
-              title=""
-              total=""
-            />
-          </Col>
-          <Col md={4} sm={12} xs={12}>
-            <IndicatorBox
-              icon="authors"
-              name={translate.t("search_findings.tab_indicators.authors")}
-              quantity={props.currentMonthAuthors}
-              title=""
-              total=""
-            />
-          </Col>
-          <Col md={4} sm={12} xs={12}>
-            <IndicatorBox
-              icon="terminal"
-              name={translate.t("search_findings.tab_indicators.commits")}
-              quantity={props.currentMonthCommits}
-              title=""
-              total=""
-            />
-          </Col>
-        </Col>
-      </Row>
+      <Query
+        query={gql`
+          {
+            project(projectName: "${projectName}"){
+              currentMonthAuthors
+              currentMonthCommits
+            }
+            resources(projectName: "${projectName}"){
+              repositories
+            }
+          }
+        `}
+      >
+        {
+          ({loading, error, data}: QueryResult<IGitIndicators>): React.ReactNode => {
+            if (loading) {
+              showPreloader();
+
+              return <React.Fragment/>;
+            }
+            if (!_.isUndefined(error)) {
+              if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
+                location.assign("/integrates/logout");
+              } else if (error.message === "Access denied") {
+                msgError(translate.t("proj_alerts.access_denied"));
+              } else {
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error(error.message, error);
+              }
+
+              return <React.Fragment/>;
+            }
+            if (!_.isUndefined(data)) {
+              hidePreloader();
+
+              return (
+                <Row>
+                  <Col md={12} sm={12} xs={12}>
+                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
+                    <Col md={4} sm={12} xs={12}>
+                      <IndicatorBox
+                        icon="integrityNone"
+                        name={translate.t("search_findings.tab_indicators.repositories")}
+                        quantity={JSON.parse(data.resources.repositories).length}
+                        title=""
+                        total=""
+                      />
+                    </Col>
+                    <Col md={4} sm={12} xs={12}>
+                      <IndicatorBox
+                        icon="authors"
+                        name={translate.t("search_findings.tab_indicators.authors")}
+                        quantity={data.project.currentMonthAuthors}
+                        title=""
+                        total=""
+                      />
+                    </Col>
+                    <Col md={4} sm={12} xs={12}>
+                      <IndicatorBox
+                        icon="terminal"
+                        name={translate.t("search_findings.tab_indicators.commits")}
+                        quantity={data.project.currentMonthCommits}
+                        title=""
+                        total=""
+                      />
+                    </Col>
+                  </Col>
+                </Row>
+              );
+            }
+          }}
+      </Query>
     </React.StrictMode>
   );
 };
@@ -216,15 +276,12 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsViewProps, IState> =
   (state: IState): IIndicatorsViewStateProps => ({
     closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
-    currentMonthAuthors: state.dashboard.indicators.currentMonthAuthors,
-    currentMonthCommits: state.dashboard.indicators.currentMonthCommits,
     lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
     maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
     maxSeverity: state.dashboard.indicators.maxSeverity,
     meanRemediate: state.dashboard.indicators.meanRemediate,
     openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
     pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
-    repositories: state.dashboard.indicators.repositories,
     totalFindings: state.dashboard.indicators.totalFindings,
     totalTreatment: state.dashboard.indicators.totalTreatment,
   });

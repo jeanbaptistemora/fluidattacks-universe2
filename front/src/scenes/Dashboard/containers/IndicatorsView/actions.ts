@@ -22,8 +22,6 @@ export const loadIndicators: ((projectName: string) => ThunkResult<void>) =
       gQry = `{
         project(projectName: "${projectName}"){
           closedVulnerabilities
-          currentMonthAuthors
-          currentMonthCommits
           lastClosingVuln
           maxOpenSeverity
           maxSeverity
@@ -33,9 +31,6 @@ export const loadIndicators: ((projectName: string) => ThunkResult<void>) =
           totalFindings
           totalTreatment
         }
-        resources(projectName: "${projectName}"){
-          repositories
-        }
       }`;
       new Xhr().request(gQry, "An error occurred getting tags")
         .then((response: AxiosResponse) => {
@@ -43,15 +38,12 @@ export const loadIndicators: ((projectName: string) => ThunkResult<void>) =
           dispatch({
             payload: {
               closedVulnerabilities: data.project.closedVulnerabilities,
-              currentMonthAuthors: data.project.currentMonthAuthors,
-              currentMonthCommits: data.project.currentMonthCommits,
               lastClosingVuln: data.project.lastClosingVuln,
               maxOpenSeverity: data.project.maxOpenSeverity,
               maxSeverity: data.project.maxSeverity,
               meanRemediate: data.project.meanRemediate,
               openVulnerabilities: data.project.openVulnerabilities,
               pendingClosingCheck: data.project.pendingClosingCheck,
-              repositories: JSON.parse(data.resources.repositories),
               totalFindings: data.project.totalFindings,
               totalTreatment: JSON.parse(data.project.totalTreatment),
             },

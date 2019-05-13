@@ -77,15 +77,12 @@ export interface IDashboardState {
   };
   indicators: {
     closedVulnerabilities: number;
-    currentMonthAuthors: number;
-    currentMonthCommits: number;
     lastClosingVuln: number;
     maxOpenSeverity: number;
     maxSeverity: number;
     meanRemediate: number;
     openVulnerabilities: number;
     pendingClosingCheck: number;
-    repositories: Array<{ branch: string; urlRepo: string }>;
     totalFindings: number;
     totalTreatment: { [value: string]: number };
   };
@@ -237,15 +234,12 @@ const initialState: IDashboardState = {
   },
   indicators: {
     closedVulnerabilities: 0,
-    currentMonthAuthors: 0,
-    currentMonthCommits: 0,
     lastClosingVuln: 0,
     maxOpenSeverity: 0,
     maxSeverity: 0,
     meanRemediate: 0,
     openVulnerabilities: 0,
     pendingClosingCheck: 0,
-    repositories: [],
     totalFindings: 0,
     totalTreatment: {},
   },
