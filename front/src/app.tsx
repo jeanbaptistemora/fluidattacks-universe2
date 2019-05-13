@@ -1,5 +1,6 @@
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { ApolloProvider } from "react-apollo";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -14,20 +15,23 @@ import { Preloader } from "./components/Preloader";
 import Dashboard from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
+import { client } from "./utils/apollo";
 
 const app: React.FC = (): JSX.Element => (
   <React.StrictMode>
     <BrowserRouter basename="/integrates">
       <React.Fragment>
-        <Provider store={store}>
-          <React.Fragment>
-            <Switch>
-              <Route path="/registration" extact={true} component={Registration} />
-              <Route path="/dashboard" component={Dashboard} />
-            </Switch>
+        <ApolloProvider client={client}>
+          <Provider store={store}>
+            <React.Fragment>
+              <Switch>
+                <Route path="/registration" extact={true} component={Registration} />
+                <Route path="/dashboard" component={Dashboard} />
+              </Switch>
             <Preloader />
-          </React.Fragment>
-        </Provider>
+            </React.Fragment>
+          </Provider>
+        </ApolloProvider>
       </React.Fragment>
     </BrowserRouter>
     <ToastContainer position="top-right" autoClose={5000} hideProgressBar={true} closeOnClick={false} />

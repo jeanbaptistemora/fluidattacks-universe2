@@ -99,7 +99,15 @@
     "webpack-cli": "3.2.3",
     "react-svg": "8.0.1",
     "react-toastify": "5.0.0",
-    "jquery-comments_brainkit": "1.2.8"
+    "jquery-comments_brainkit": "1.2.8",
+    "apollo-client": "2.5.1",
+    "apollo-cache-inmemory": "1.5.1",
+    "apollo-link-http": "1.5.14",
+    "graphql": "14.2.1",
+    "@types/graphql": "14.2.0",
+    "graphql-tag": "2.10.1",
+    "react-apollo": "2.5.5",
+    "apollo-boost": "0.3.1"
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
