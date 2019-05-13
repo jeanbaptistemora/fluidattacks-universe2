@@ -5,42 +5,45 @@
 
 = Terms
 
-In this page we will specify and detail
-the terms and conditions of the selection process,
-please read them carefully.
+== Fluid Attacks Overview
 
-If you have doubts,
-do not hesitate to write us an email at careers@autonomicmind.com
+=== Who We Are, Who We Are Looking For, and How to Apply
+
+Please read every item below carefully.
+
+If you have any questions about any item,
+do not hesitate to email us at careers@autonomicmind.com.
 
 To take part in the process,
-fill out the following [button]#link:https://fluidattacks.com/forms/seleccion[form]#
+fill out the following [button]#link:https://fluidattacks.com/forms/seleccion[form]#.
 
 == The Company
 
-We invite you to read our
-[button]#link:../../about-us/[About us]# section
-for more information about +Fluid Attacks+.
+For more information about +Fluid Attacks+,
+please read our [button]#link:../../about-us/[About us]# section
+
 
 === Context
 
-* In +Fluid Attacks+ all systems are subject to constant monitoring
+* At +Fluid Attacks+, all systems are constantly monitored
 through link:https://www.timedoctor.com/[automatic time and activity control systems].
-With which we look to:
-** Assure the security of our clients' information,
-** Be objective, precise and fair in the performance evaluation.
+We do this to:
 
-* In +Fluid Attacks+ we follow an ethics code
+** Assure the security of our clients' information
+
+** Be objective, precise, and fair in the performance evaluation
+
+* At +Fluid Attacks+, we follow an ethics code
 which you can read by clicking [button]#link:../../values/[here]#
 
 == The Selection Process
 
-. Through this process,
-we look to find and hire
-the top 10% of the population
-for each required role and salary
-. With this process,
-+Fluid Attacks+ looks to select only the best
-to form a team that is:
+. Our selection process is set up to identify,
+assess, and ultimately hire candidates from the top +10%+
+of the +IT+ population for each available position.
+
+. We select only the best to join the +Fluid Attacks+ team.
+A team that is:
 
 ** Elite.
 ** Enduring.
@@ -52,27 +55,34 @@ to form a team that is:
 so that you can optimize your time and
 become part of our team faster and easier.
 
-. Most of the process is done online and
-depends on your availability and dedication, therefore
-the duration of the process is 90% in your hands.
+. Because most of the process is done online,
+the duration of the process is +90%+ in your hands.
 
-. Since our selection process is very detailed and
-different from what you see in other companies,
-we want you to read it very carefully.
-The process is detailed link:../[here].
+. Our selection process is very detailed
+and may be different from what you see in other companies.
+Please read the process detailed link:../[here],
+carefully.
 
-. If you continue and accept these terms
-you are indicating that you understand all the effort and dedication
-that this process implies and accept to be a part of it.
+. Continuing with your application
+implies you understand who we are and what we stand for,
+and are genuinely interested in becoming part of our team.
 
 === End of the Process
+
+. After completing the application process,
+if you are no longer interested in being considered
+for a position with +Fluid Attacks+,
+please notify us and we will remove you from our candidate database.
+However, if we are not interested in your application, we will notify you.
+If we do not notify you, your application will remain active,
+and therefore, will be considered for any current or future opening.
 
 . During the process,
 if it’s termination is never explicitly notified,
 It is understood that you are still a part of it and
 therefore are subject to analysis for any current or potential opening.
 
-== The Candidate
+== The Hiring Process
 
 . By accepting these terms and conditions
 you are stating that your current or previous contracts
@@ -88,27 +98,25 @@ it will have the following clauses:
 * No solicitation.
 * Confidentiality.
 +
-The previous clauses will be valid during the work relation.
+The previous clauses will remain valid
+throughout your work contract with +Fluid Attacks+.
 
-. In the hiring process
-once you accept our job offer
-you must provide the following
-link:../hiring/[information].
+. Once you accept our job offer
+you must provide the following link:../hiring/[information]..
 
-. By accepting these terms and conditions
-you understand there exists the possibility that
-our salary proposal will be lower than your salary expectations.
-This is due to:
-** The equity of the salary among our team and
-the coherence of this pay with the person’s performance.
-** It is possible that our perception of your performance
-does not match your initial salary expectations.
+. When we make a salary proposal it may be lower than your expectations.
+This may be because we take the following factors into consideration:
 
-. By accepting these terms and conditions
-you accept to being recommended
-for openings not only in +Fluid Attacks+ but also
-for openings in some of our business allies.
+** Salary equity among our team members.
+**  The correlation between pay
+and our perception of an employee's potential performance of required duties.
 
-. By default your records will stay in our database for future offers.
+. By participating in our hiring process
+you also agree to being recommended for openings,
+not only with +Fluid Attacks+,
+but also for openings with some of our business associates.
+
+. By default, your records will stay in our database
+so you may be considered for future open positions.
 ** If you wish to have your data deleted from our database
 you must send us an email indicating so at careers@autonomicmind.com.
