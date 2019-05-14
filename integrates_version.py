@@ -23,6 +23,5 @@ def send_mail_version(commit_sha, commit_before_sha, project):
 if __name__ == '__main__':
     commit_sha = os.environ['CI_COMMIT_SHA']
     commit_before_sha = os.environ['CI_COMMIT_BEFORE_SHA']
-    git_repo = git.Repo(os.getcwd(), search_parent_directories=True)
-    project = ((git_repo.git.rev_parse("--show-toplevel")).split('w/'))[1]
+    project = 'integrates'
     send_mail_version(commit_sha, commit_before_sha, project)
