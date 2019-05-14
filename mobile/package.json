@@ -21,12 +21,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/fluidsignal/integrates.git"
+    "url": "git+https://gitlab.com/fluidattacks/integrates.git"
   },
   "author": "development@fluidattacks.com",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://gitlab.com/fluidsignal/integrates/issues"
+    "url": "https://gitlab.com/fluidattacks/integrates/issues"
   },
   "homepage": "https://fluidattacks.com/integrates",
   "dependencies": {

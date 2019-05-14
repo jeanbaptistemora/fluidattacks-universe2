@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import style from "./index.css";
@@ -31,13 +30,5 @@ const frame: React.FunctionComponent<IFrameProps> =
     </Row>
   </React.StrictMode>
 );
-/**
- *  IFrame's propTypes Definition
- */
-frame.propTypes = {
-  height: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
-};
 
 export = frame;

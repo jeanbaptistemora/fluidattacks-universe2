@@ -1,5 +1,4 @@
 import { ChartData } from "chart.js";
-import PropTypes from "prop-types";
 import React from "react";
 import { Col } from "react-bootstrap";
 import { Doughnut } from "react-chartjs-2";
@@ -28,11 +27,5 @@ const indicatorGraph: React.FunctionComponent<IDoughnutProps> =
     </Col>
   </React.StrictMode>
 );
-/**
- *  Indicator's Box propTypes Definition
- */
-indicatorGraph.propTypes = {
-  data: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
-};
+
 export { indicatorGraph as IndicatorGraph };

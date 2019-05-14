@@ -1,8 +1,3 @@
-/* tslint:disable jsx-no-multiline-js
- * Disabling this rule is necessary for the sake of readability
- * of the code that renders/hides the component
- */
-import PropTypes from "prop-types";
 import React from "react";
 import { Col } from "react-bootstrap";
 
@@ -28,10 +23,5 @@ const fieldBox: React.FunctionComponent<IFieldBoxProps> =
       </div>
     </React.StrictMode>
   );
-
-fieldBox.propTypes = {
-  content: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
 
 export = fieldBox;
