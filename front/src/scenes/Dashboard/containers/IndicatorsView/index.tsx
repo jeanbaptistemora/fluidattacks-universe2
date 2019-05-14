@@ -15,24 +15,9 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
-import { IDashboardState } from "../../reducer";
 import style from "./index.css";
 
 type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-type IIndicatorsViewStateProps = IDashboardState["indicators"];
-
-interface IIndicatorsViewDispatchProps {
-  onLoad(): void;
-}
-
-type IIndicatorsViewProps = IIndicatorsViewBaseProps & (IIndicatorsViewStateProps & IIndicatorsViewDispatchProps);
-
-interface IGraphData {
-  backgroundColor: string[];
-  data: number[];
-  hoverBackgroundColor: string[];
-}
 
 interface IIndicatorsProps {
   project: {
@@ -53,11 +38,19 @@ interface IIndicatorsProps {
   };
 }
 
+type IIndicatorsViewProps = IIndicatorsViewBaseProps & IIndicatorsProps;
+
+interface IGraphData {
+  backgroundColor: string[];
+  data: number[];
+  hoverBackgroundColor: string[];
+}
+
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
 
-const statusGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
-(props: IIndicatorsProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
+const statusGraph: ((props: IIndicatorsViewProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
+(props: IIndicatorsViewProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
   const statusDataset: IGraphData = {
     backgroundColor: ["#ff1a1a", "#27BF4F"],
     data: [props.openVulnerabilities, props.closedVulnerabilities],
@@ -75,8 +68,8 @@ const statusGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: str
   return statusGraphData;
 };
 
-const treatmentGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
-(props: IIndicatorsProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
+const treatmentGraph: ((props: IIndicatorsViewProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
+(props: IIndicatorsViewProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
   const totalTreatment: { [key: string]: number } = JSON.parse(props.totalTreatment);
   const treatmentDataset: IGraphData = {
     backgroundColor: ["#b7b7b7", "#FFAA63", "#CD2A86"],
@@ -123,7 +116,7 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
               `}
             >
               {
-                ({loading, error, data}: QueryResult<IIndicatorsProps>): React.ReactNode => {
+                ({loading, error, data}: QueryResult<IIndicatorsViewProps>): React.ReactNode => {
                   if (loading) {
                     showPreloader();
 
@@ -262,7 +255,7 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
         `}
       >
         {
-          ({loading, error, data}: QueryResult<IIndicatorsProps>): React.ReactNode => {
+          ({loading, error, data}: QueryResult<IIndicatorsViewProps>): React.ReactNode => {
             if (loading) {
               showPreloader();
 

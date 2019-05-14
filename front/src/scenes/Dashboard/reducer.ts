@@ -14,7 +14,6 @@ import { IExploitViewProps } from "./containers/ExploitView";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as homeActions from "./containers/HomeView/actionTypes";
-import * as indicatorsActions from "./containers/IndicatorsView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as draftsActions from "./containers/ProjectDraftsView/actionTypes";
 import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
@@ -74,17 +73,6 @@ export interface IDashboardState {
     reportsModal: {
       isOpen: boolean;
     };
-  };
-  indicators: {
-    closedVulnerabilities: number;
-    lastClosingVuln: number;
-    maxOpenSeverity: number;
-    maxSeverity: number;
-    meanRemediate: number;
-    openVulnerabilities: number;
-    pendingClosingCheck: number;
-    totalFindings: number;
-    totalTreatment: { [value: string]: number };
   };
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
@@ -231,17 +219,6 @@ const initialState: IDashboardState = {
     reportsModal: {
       isOpen: false,
     },
-  },
-  indicators: {
-    closedVulnerabilities: 0,
-    lastClosingVuln: 0,
-    maxOpenSeverity: 0,
-    maxSeverity: 0,
-    meanRemediate: 0,
-    openVulnerabilities: 0,
-    pendingClosingCheck: 0,
-    totalFindings: 0,
-    totalTreatment: {},
   },
   records: {
     dataset: [],
@@ -784,15 +761,6 @@ actionMap[descriptionActions.CLOSE_REMEDIATION_MDL] =
       isRemediationOpen: false,
     },
   });
-actionMap[indicatorsActions.LOAD_INDICATORS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    indicators: {
-      ...state.indicators,
-      ...action.payload,
-    },
-  });
 
 actionMap[descriptionActions.CLEAR_EVIDENCE] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
@@ -840,7 +808,6 @@ actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashb
   ...state,
   drafts: initialState.drafts,
   findings: initialState.findings,
-  indicators: initialState.indicators,
   resources: initialState.resources,
   users: initialState.users,
 });
