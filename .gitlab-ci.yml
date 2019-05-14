@@ -190,7 +190,7 @@ deploy:
       fi
     - pybabel compile --directory theme/2014/translations/ --domain messages
     - for FILE in $(find content/blog-en content/pages-en -iname '*.adoc'); do
-        sed -i 's#^include::#include::/'"${CI_PROJECT_NAMESPACE}"'#g' ${FILE};
+        sed -i 's#^include::#include::'"${CI_PROJECT_DIR}"'#g' ${FILE};
       done
     - pelican --fatal errors --fatal warnings content/
     - rm -rf output/web/de

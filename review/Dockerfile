@@ -20,7 +20,7 @@ COPY --from=cache /home/cache /home/web/cache
 
 RUN pybabel compile --directory theme/2014/translations/ --domain messages \
     && for FILE in $(find . -iname '*.adoc'); do \
-      sed -i 's#^include::#include::/'"${CI_PROJECT_NAMESPACE}"'#g' $FILE; \
+      sed -i 's#^include::#include::/home#g' $FILE; \
       done \
     && sed -i 's/https:\/\/fluidattacks\.com/https:\/\/'"${CI_PROJECT_NAME}.${ENV_DNS}\/${CI_COMMIT_REF_NAME}"'/g' pelicanconf.py \
     && pelican --fatal errors --fatal warnings content/ \
