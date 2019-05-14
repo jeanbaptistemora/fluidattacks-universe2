@@ -37,10 +37,13 @@ interface IGraphData {
   hoverBackgroundColor: string[];
 }
 
-interface IGitIndicators {
+interface IIndicatorsProps {
   project: {
+    closedVulnerabilities: number;
     currentMonthAuthors: number;
     currentMonthCommits: number;
+    openVulnerabilities: number;
+    totalTreatment: string;
   };
   resources: {
     repositories: string;
@@ -53,8 +56,8 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IIndicatorsViewProps, 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
 
-const statusGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | string[] | IGraphData[]}) =
-(props: IIndicatorsViewProps): { [key: string]: string | string[] | IGraphData[]} => {
+const statusGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
+(props: IIndicatorsProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
   const statusDataset: IGraphData = {
     backgroundColor: ["#ff1a1a", "#27BF4F"],
     data: [props.openVulnerabilities, props.closedVulnerabilities],
@@ -72,16 +75,17 @@ const statusGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | s
   return statusGraphData;
 };
 
-const treatmentGraph: ((props: IIndicatorsViewProps) => { [key: string]: string | string[] | IGraphData[]}) =
-(props: IIndicatorsViewProps): { [key: string]: string | string[] | IGraphData[]} => {
+const treatmentGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: string | string[] | IGraphData[]}) =
+(props: IIndicatorsProps["project"]): { [key: string]: string | string[] | IGraphData[]} => {
+  const totalTreatment: { [key: string]: number } = JSON.parse(props.totalTreatment);
   const treatmentDataset: IGraphData = {
     backgroundColor: ["#b7b7b7", "#FFAA63", "#CD2A86"],
-    data: [props.totalTreatment.accepted, props.totalTreatment.inProgress, props.totalTreatment.undefined],
+    data: [totalTreatment.accepted, totalTreatment.inProgress, totalTreatment.undefined],
     hoverBackgroundColor: ["#999797", "#FF9034", "#A70762"],
   };
-  const acceptedPercent: number = calcPercent(props.totalTreatment.accepted, props.openVulnerabilities);
-  const inProgressPercent: number = calcPercent(props.totalTreatment.inProgress, props.openVulnerabilities);
-  const undefinedPercent: number = calcPercent(props.totalTreatment.undefined, props.openVulnerabilities);
+  const acceptedPercent: number = calcPercent(totalTreatment.accepted, props.openVulnerabilities);
+  const inProgressPercent: number = calcPercent(totalTreatment.inProgress, props.openVulnerabilities);
+  const undefinedPercent: number = calcPercent(totalTreatment.undefined, props.openVulnerabilities);
   const treatmentGraphData: { [key: string]: string | string[] | IGraphData[]} = {
     datasets: [treatmentDataset],
     labels: [`${acceptedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
@@ -176,20 +180,58 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
                 />
               </Col>
             </Col>
-            <Col md={4} sm={12} xs={12}>
-              <Col md={12} sm={12} xs={12} className={style.box_size}>
-                <IndicatorGraph
-                  data={statusGraph(props)}
-                  name={translate.t("search_findings.tab_indicators.status_graph")}
-                />
-              </Col>
-              <Col md={12} sm={12} xs={12} className={style.box_size}>
-                <IndicatorGraph
-                  data={treatmentGraph(props)}
-                  name={translate.t("search_findings.tab_indicators.treatment_graph")}
-                />
-              </Col>
-            </Col>
+            <Query
+              query={gql`
+                {
+                  project(projectName: "${projectName}"){
+                    closedVulnerabilities
+                    openVulnerabilities
+                    totalTreatment
+                  }
+                }
+              `}
+            >
+              {
+                ({loading, error, data}: QueryResult<IIndicatorsProps>): React.ReactNode => {
+                  if (loading) {
+                    showPreloader();
+
+                    return <React.Fragment/>;
+                  }
+                  if (!_.isUndefined(error)) {
+                    if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
+                      location.assign("/integrates/logout");
+                    } else if (error.message === "Access denied") {
+                      msgError(translate.t("proj_alerts.access_denied"));
+                    } else {
+                      msgError(translate.t("proj_alerts.error_textsad"));
+                      rollbar.error(error.message, error);
+                    }
+
+                    return <React.Fragment/>;
+                  }
+                  if (!_.isUndefined(data)) {
+                    hidePreloader();
+
+                    return (
+                      <Col md={4} sm={12} xs={12}>
+                        <Col md={12} sm={12} xs={12} className={style.box_size}>
+                          <IndicatorGraph
+                            data={statusGraph(data.project)}
+                            name={translate.t("search_findings.tab_indicators.status_graph")}
+                          />
+                        </Col>
+                        <Col md={12} sm={12} xs={12} className={style.box_size}>
+                          <IndicatorGraph
+                            data={treatmentGraph(data.project)}
+                            name={translate.t("search_findings.tab_indicators.treatment_graph")}
+                          />
+                        </Col>
+                      </Col>
+                    );
+                  }
+                }}
+            </Query>
           </Row>
         </Col>
       </Row>
@@ -210,7 +252,7 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
         `}
       >
         {
-          ({loading, error, data}: QueryResult<IGitIndicators>): React.ReactNode => {
+          ({loading, error, data}: QueryResult<IIndicatorsProps>): React.ReactNode => {
             if (loading) {
               showPreloader();
 
