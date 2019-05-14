@@ -8,9 +8,7 @@ import _ from "lodash";
 import React from "react";
 import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -18,7 +16,6 @@ import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import { IDashboardState } from "../../reducer";
-import * as actions from "./actions";
 import style from "./index.css";
 
 type IIndicatorsViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
@@ -42,16 +39,19 @@ interface IIndicatorsProps {
     closedVulnerabilities: number;
     currentMonthAuthors: number;
     currentMonthCommits: number;
+    lastClosingVuln: number;
+    maxOpenSeverity: number;
+    maxSeverity: number;
+    meanRemediate: number;
     openVulnerabilities: number;
+    pendingClosingCheck: number;
+    totalFindings: number;
     totalTreatment: string;
   };
   resources: {
     repositories: string;
   };
 }
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IIndicatorsViewProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); },
-});
 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
@@ -97,7 +97,6 @@ const treatmentGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: 
 };
 
 const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewProps): JSX.Element => {
-  const totalVulnerabilities: number = props.openVulnerabilities + props.closedVulnerabilities;
   const projectName: string = props.match.params.projectName;
 
   return (
@@ -106,86 +105,18 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
         <Col md={12} sm={12} xs={12}>
           <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
           <Row>
-            <Col md={8} sm={12} xs={12}>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="findings"
-                  name={translate.t("search_findings.tab_indicators.total_findings")}
-                  quantity={props.totalFindings}
-                  title=""
-                  total=""
-                />
-              </Col>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="vulnerabilities"
-                  name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
-                  quantity={totalVulnerabilities}
-                  title=""
-                  total=""
-                />
-              </Col>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="totalVulnerabilities"
-                  name={translate.t("search_findings.tab_indicators.pending_closing_check")}
-                  quantity={props.pendingClosingCheck}
-                  title=""
-                  total=""
-                />
-              </Col>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="calendar"
-                  name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
-                  quantity={props.lastClosingVuln}
-                  title=""
-                  total=""
-                />
-              </Col>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="integrityHigh"
-                  name={translate.t("search_findings.tab_indicators.undefined_treatment")}
-                  quantity={props.totalTreatment.undefined}
-                  title=""
-                  total=""
-                />
-              </Col>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="graph"
-                  name={translate.t("search_findings.tab_indicators.mean_remediate")}
-                  quantity={props.meanRemediate}
-                  title=""
-                  total={translate.t("search_findings.tab_indicators.days")}
-                />
-              </Col>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="vectorLocal"
-                  name={translate.t("search_findings.tab_indicators.max_severity")}
-                  quantity={props.maxSeverity}
-                  title=""
-                  total="/10"
-                />
-              </Col>
-              <Col md={6} sm={12} xs={12}>
-                <IndicatorBox
-                  icon="openVulnerabilities"
-                  name={translate.t("search_findings.tab_indicators.max_open_severity")}
-                  quantity={props.maxOpenSeverity}
-                  title=""
-                  total="/10"
-                />
-              </Col>
-            </Col>
             <Query
               query={gql`
                 {
                   project(projectName: "${projectName}"){
                     closedVulnerabilities
+                    lastClosingVuln
+                    maxOpenSeverity
+                    maxSeverity
+                    meanRemediate
                     openVulnerabilities
+                    pendingClosingCheck
+                    totalFindings
                     totalTreatment
                   }
                 }
@@ -211,9 +142,87 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
                     return <React.Fragment/>;
                   }
                   if (!_.isUndefined(data)) {
+                    const totalVulnerabilities: number =
+                      data.project.openVulnerabilities + data.project.closedVulnerabilities;
+                    const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
                     hidePreloader();
 
                     return (
+                      <React.Fragment>
+                      <Col md={8} sm={12} xs={12}>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="findings"
+                            name={translate.t("search_findings.tab_indicators.total_findings")}
+                            quantity={data.project.totalFindings}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="vulnerabilities"
+                            name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
+                            quantity={totalVulnerabilities}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="totalVulnerabilities"
+                            name={translate.t("search_findings.tab_indicators.pending_closing_check")}
+                            quantity={data.project.pendingClosingCheck}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="calendar"
+                            name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
+                            quantity={data.project.lastClosingVuln}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="integrityHigh"
+                            name={translate.t("search_findings.tab_indicators.undefined_treatment")}
+                            quantity={undefinedTreatment}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="graph"
+                            name={translate.t("search_findings.tab_indicators.mean_remediate")}
+                            quantity={data.project.meanRemediate}
+                            title=""
+                            total={translate.t("search_findings.tab_indicators.days")}
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="vectorLocal"
+                            name={translate.t("search_findings.tab_indicators.max_severity")}
+                            quantity={data.project.maxSeverity}
+                            title=""
+                            total="/10"
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="openVulnerabilities"
+                            name={translate.t("search_findings.tab_indicators.max_open_severity")}
+                            quantity={data.project.maxOpenSeverity}
+                            title=""
+                            total="/10"
+                          />
+                        </Col>
+                      </Col>
                       <Col md={4} sm={12} xs={12}>
                         <Col md={12} sm={12} xs={12} className={style.box_size}>
                           <IndicatorGraph
@@ -228,6 +237,7 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
                           />
                         </Col>
                       </Col>
+                      </React.Fragment>
                     );
                   }
                 }}
@@ -314,27 +324,4 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
   );
 };
 
-interface IState { dashboard: IDashboardState; }
-const mapStateToProps: MapStateToProps<IIndicatorsViewStateProps, IIndicatorsViewProps, IState> =
-  (state: IState): IIndicatorsViewStateProps => ({
-    closedVulnerabilities: state.dashboard.indicators.closedVulnerabilities,
-    lastClosingVuln: state.dashboard.indicators.lastClosingVuln,
-    maxOpenSeverity: state.dashboard.indicators.maxOpenSeverity,
-    maxSeverity: state.dashboard.indicators.maxSeverity,
-    meanRemediate: state.dashboard.indicators.meanRemediate,
-    openVulnerabilities: state.dashboard.indicators.openVulnerabilities,
-    pendingClosingCheck: state.dashboard.indicators.pendingClosingCheck,
-    totalFindings: state.dashboard.indicators.totalFindings,
-    totalTreatment: state.dashboard.indicators.totalTreatment,
-  });
-
-const mapDispatchToProps: MapDispatchToProps<IIndicatorsViewDispatchProps, IIndicatorsViewBaseProps> =
-  (dispatch: actions.ThunkDispatcher, ownProps: IIndicatorsViewBaseProps): IIndicatorsViewDispatchProps => {
-    const { projectName } = ownProps.match.params;
-
-    return ({
-      onLoad: (): void => { dispatch(actions.loadIndicators(projectName)); },
-    });
-  };
-
-export = connect(mapStateToProps, mapDispatchToProps)(enhance(indicatorsView));
+export { indicatorsView as ProjectIndicatorsView };
