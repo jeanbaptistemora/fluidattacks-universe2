@@ -20,14 +20,14 @@ mkdir output/
 echo "./keystore-dev.jks \
   $FI_EXPO_PASSWORD \
   $FI_EXPO_PASSWORD" \
-  | npx expo build:android --no-publish | tee output_log.txt
+  | npx expo build:android --no-publish
 
 
 # Download generated .apk
-APK_URL=$"$(grep -Eo 'https:\/\/expo\.io\/artifacts\/[a-zA-Z0-9-]+' output_log.txt)"
-wget -O output/integrates.apk $APK_URL
+APK_URL="$(npx expo url:apk)"
+wget -O output/integrates.apk "$APK_URL"
 
 
 # Cleanup
 echo "All done! Cleaning up..."
-npx expo logout && rm keystore-dev.jks output_log.txt
+npx expo logout && rm keystore-dev.jks
