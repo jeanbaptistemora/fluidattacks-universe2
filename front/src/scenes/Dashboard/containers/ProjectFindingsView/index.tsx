@@ -66,7 +66,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   );
 
   const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
-    mixpanel.track("ReadFinding");
+    mixpanel.track(
+      "ReadFinding",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     location.hash = `#!/project/${projectName}/${rowInfo.id}/description`;
   };
 
@@ -113,7 +118,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            mixpanel.track("ProjectFindings");
+            mixpanel.track(
+              "ProjectFindings",
+              {
+                Organization: (window as Window & { userOrganization: string }).userOrganization,
+                User: (window as Window & { userName: string }).userName,
+              });
             hidePreloader();
 
             return (

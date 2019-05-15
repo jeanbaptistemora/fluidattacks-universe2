@@ -1,3 +1,4 @@
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
@@ -27,7 +28,14 @@ interface IHomeViewDispatchProps {
 type IHomeViewProps = IHomeViewBaseProps & (IHomeViewStateProps & IHomeViewDispatchProps);
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IHomeViewProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); },
+  componentDidMount(): void {
+    mixpanel.track(
+      "ProjectHome",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    this.props.onLoad(); },
 });
 
 const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element => {

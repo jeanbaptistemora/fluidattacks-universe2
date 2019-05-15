@@ -9,7 +9,7 @@ import "jquery-comments_brainkit";
  * allowing the import of default styles that jquery-comments needs
  * to display properly even if some of them are overridden later
  */
-import "jquery-comments_brainkit/css/jquery-comments.css";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 export interface ICommentStructure {
@@ -50,6 +50,12 @@ const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsP
 const enhance: InferableComponentEnhancer<{}> =
   lifecycle<ICommentsProps, {}>({
     componentDidMount(): void {
+      mixpanel.track(
+        "ProjectComments",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       const props: ICommentsProps = this.props;
       initializeComments(props);
     },

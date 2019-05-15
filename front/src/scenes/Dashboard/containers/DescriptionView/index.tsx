@@ -79,7 +79,12 @@ const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
     componentWillUnmount(): void { store.dispatch(actions.clearDescription()); },
     componentDidMount(): void {
-      mixpanel.track("FindingDescription");
+      mixpanel.track(
+        "FindingDescription",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       const { findingId, projectName, userRole } = this.props as IDescriptionViewProps;
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
         store.dispatch as ThunkDispatch<{}, {}, AnyAction>
@@ -146,6 +151,12 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
     );
 
     if (_.includes(["admin", "analyst"], userRole)) {
+      mixpanel.track(
+        "UpdateFindingDescript",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       thunkDispatch(actions.updateDescription(findingId, values));
     } else {
       thunkDispatch(actions.updateTreatment(findingId, values));

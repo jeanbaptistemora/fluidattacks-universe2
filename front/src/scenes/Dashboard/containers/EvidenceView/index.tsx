@@ -42,7 +42,13 @@ const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
     componentWillUnmount(): void { store.dispatch(actions.clearEvidence()); },
     componentDidMount(): void {
-      mixpanel.track("FindingEvidence");
+      mixpanel.track(
+        "FindingEvidence",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
+
       const { findingId } = this.props as IEvidenceViewProps;
       const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
         store.dispatch as ThunkDispatch<{}, {}, AnyAction>
@@ -59,7 +65,12 @@ const updateEvidence: ((values: {}, evidenceId: number, props: IEvidenceViewProp
     );
     let fileId: string; fileId = `#evidence${evidenceId}`;
     let descriptionField: string; descriptionField = `evidence${evidenceId}_description`;
-
+    mixpanel.track(
+      "UpdateEvidence",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     if (isFileSelected(fileId)) {
       if (isValidEvidenceFile(fileId)) {
         thunkDispatch(actions.updateEvidence(props.findingId, evidenceId));

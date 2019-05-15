@@ -19,8 +19,17 @@ interface IProjectDraftsDispatchProps {
 
 type IProjectDraftsProps = IProjectDraftsBaseProps & (IProjectDraftsStateProps & IProjectDraftsDispatchProps);
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectDraftsProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); mixpanel.track("ProjectDrafts"); },
+const enhance: InferableComponentEnhancer<{}> =
+  lifecycle<IProjectDraftsProps, {}>({
+    componentDidMount(): void {
+      mixpanel.track(
+        "ProjectDrafts",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
+      this.props.onLoad();
+    },
 });
 
 const tableHeaders: IHeader[] = [
@@ -44,7 +53,12 @@ const projectDraftsView: React.FC<IProjectDraftsProps> = (props: IProjectDraftsP
   const { projectName } = props.match.params;
 
   const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
-    mixpanel.track("ReadDraft");
+    mixpanel.track(
+      "ReadDraft",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     location.hash = `#!/project/${projectName}/${rowInfo.id}/description`;
   };
 

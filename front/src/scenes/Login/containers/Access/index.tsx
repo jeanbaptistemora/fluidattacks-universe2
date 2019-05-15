@@ -91,7 +91,8 @@ class Access extends React.Component<{}, ILoginState, {}> {
    */
   public handleAzureLogin = (): void => {
     if (this.isProduction) {
-      mixpanel.track("Login Azure");
+      mixpanel.track(
+        "Login Azure");
     }
     window.location.href = "/oauth/login/azuread-oauth2/?username=&registered=&role=";
   }
@@ -122,7 +123,8 @@ class Access extends React.Component<{}, ILoginState, {}> {
    */
   public handleGoogleLogin = (): void => {
     if (this.isProduction) {
-      mixpanel.track("Login Google");
+      mixpanel.track(
+        "Login Google");
     }
     window.location.href = "/oauth/login/google-oauth2/?username=&registered=&role=";
   }

@@ -1,6 +1,7 @@
 /* tslint:disable jsx-no-lambda jsx-no-multiline-js
  * Disabling this rules is necessary for the sake of simplicity and
  * readability of the code that binds load and post events
+ * eslint quote-props: ["error", "always"]
  */
 
 import _ from "lodash";
@@ -24,7 +25,11 @@ lifecycle<ICommentsViewProps, {}>({
     mixpanel.track(
       _.eq(this.props.type, "comments")
       ? "FindingComments"
-      : "FindingObservations");
+      : "FindingObservations",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
   },
 });
 
