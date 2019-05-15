@@ -12,10 +12,6 @@
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/blog/tags/" hreflang="en-us" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/etiquetas/" hreflang="es" />
-  {% elif DEFAULT_LANG == "es" %}
-    <link rel="alternate" href="{{ SITEURL }}/blog/etiquetas/" hreflang="es" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/tags/" hreflang="en-us" />
   {% endif %}
 {% endblock language %}
 
