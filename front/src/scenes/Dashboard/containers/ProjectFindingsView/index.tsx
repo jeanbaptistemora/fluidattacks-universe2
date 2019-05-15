@@ -1,17 +1,27 @@
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+  * readability of the code in graphql queries
+ */
+import gql from "graphql-tag";
+import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatFindings } from "../../../../utils/formatHelpers";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import { closeReportsModal, loadFindingsData, openReportsModal, ThunkDispatcher } from "./actions";
+import { closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
 import style from "./index.css";
 
 type IProjectFindingsBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
@@ -20,15 +30,28 @@ type IProjectFindingsStateProps = IDashboardState["findings"];
 
 interface IProjectFindingsDispatchProps {
   onCloseReportsModal(): void;
-  onLoad(): void;
   onOpenReportsModal(): void;
 }
 
-type IProjectFindingsProps = IProjectFindingsBaseProps & (IProjectFindingsStateProps & IProjectFindingsDispatchProps);
+interface IProjectFindingsAttr {
+  project: {
+    findings: Array<{
+      age: number;
+      description: string;
+      id: string;
+      isExploitable: string;
+      lastVulnerability: number;
+      openVulnerabilities: number;
+      severityScore: number;
+      state: string;
+      title: string;
+      treatment: string;
+      type: string;
+    }>;
+  };
+}
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectFindingsProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); mixpanel.track("ProjectFindings"); },
-});
+type IProjectFindingsProps = IProjectFindingsBaseProps & (IProjectFindingsStateProps & IProjectFindingsDispatchProps);
 
 const tableHeaders: IHeader[] = [
   { align: "center", dataField: "age", header: "Age (days)", isDate: false, isStatus: false, width: "6%" },
@@ -76,48 +99,98 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   };
 
   return (
-    <React.StrictMode>
-      <ButtonToolbar className={style.reportsBtn}>
-        <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
-      </ButtonToolbar>
-      <p>{translate.t("project.findings.help_label")}</p>
-      <DataTable
-        dataset={formatFindings(props.dataset)}
-        enableRowSelection={false}
-        exportCsv={true}
-        headers={tableHeaders}
-        id="tblFindings"
-        onClickRow={goToFinding}
-        pageSize={15}
-        search={true}
-      />
-      <Modal
-        open={props.reportsModal.isOpen}
-        footer={modalFooter}
-        headerTitle={translate.t("project.findings.report.modal_title")}
-      >
-        <Row className={style.modalContainer}>
-          <Col md={12} id="techReport">
-            <h3>{translate.t("project.findings.report.tech_title")}</h3>
-            <p>{translate.t("project.findings.report.tech_description")}</p>
-            <br />
-            <p>{translate.t("project.findings.report.tech_example")}</p>
-            <Row>
-              <Col md={12} className={style.downloadButtonsContainer}>
-                <ButtonToolbar>
-                  <Button onClick={handleTechPdfClick}>
-                    <FontAwesome name="file-pdf-o" />&nbsp;PDF
-                  </Button>
-                  <Button onClick={handleTechXlsClick}>
-                    <FontAwesome name="file-excel-o" />&nbsp;XLS
-                  </Button>
+    <Query
+      query={gql`
+        {
+          project(projectName: "${projectName}") {
+            findings {
+              id
+              age
+              lastVulnerability
+              type
+              title
+              description
+              severityScore
+              openVulnerabilities
+              state
+              treatment
+              isExploitable
+            }
+          }
+        }
+      `}
+    >
+      {
+        ({loading, error, data}: QueryResult<IProjectFindingsAttr >): React.ReactNode => {
+          if (loading) {
+            showPreloader();
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
+              location.assign("/integrates/logout");
+            } else if (error.message === "Access denied") {
+              msgError(translate.t("proj_alerts.access_denied"));
+            } else {
+              msgError(translate.t("proj_alerts.error_textsad"));
+              rollbar.error(error.message, error);
+            }
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data)) {
+            mixpanel.track("ProjectFindings");
+            hidePreloader();
+
+            return (
+              <React.StrictMode>
+                <ButtonToolbar className={style.reportsBtn}>
+                  <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
                 </ButtonToolbar>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Modal>
-    </React.StrictMode>
+                <p>{translate.t("project.findings.help_label")}</p>
+                <DataTable
+                  dataset={formatFindings(data.project.findings)}
+                  enableRowSelection={false}
+                  exportCsv={true}
+                  headers={tableHeaders}
+                  id="tblFindings"
+                  onClickRow={goToFinding}
+                  pageSize={15}
+                  search={true}
+                />
+                <Modal
+                  open={props.reportsModal.isOpen}
+                  footer={modalFooter}
+                  headerTitle={translate.t("project.findings.report.modal_title")}
+                >
+                  <Row className={style.modalContainer}>
+                    <Col md={12} id="techReport">
+                      <h3>{translate.t("project.findings.report.tech_title")}</h3>
+                      <p>{translate.t("project.findings.report.tech_description")}</p>
+                      <br />
+                      <p>{translate.t("project.findings.report.tech_example")}</p>
+                      <Row>
+                        <Col md={12} className={style.downloadButtonsContainer}>
+                          <ButtonToolbar>
+                            <Button onClick={handleTechPdfClick}>
+                              <FontAwesome name="file-pdf-o" />&nbsp;PDF
+                            </Button>
+                            <Button onClick={handleTechXlsClick}>
+                              <FontAwesome name="file-excel-o" />&nbsp;XLS
+                            </Button>
+                          </ButtonToolbar>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </Modal>
+              </React.StrictMode>
+            );
+          }
+        }}
+    </Query>
   );
 };
 
@@ -128,14 +201,10 @@ const mapStateToProps: MapStateToProps<IProjectFindingsStateProps, IProjectFindi
   });
 
 const mapDispatchToProps: MapDispatchToProps<IProjectFindingsDispatchProps, IProjectFindingsBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IProjectFindingsBaseProps): IProjectFindingsDispatchProps => {
-    const { projectName } = ownProps.match.params;
-
-    return ({
+  (dispatch: ThunkDispatcher, ownProps: IProjectFindingsBaseProps): IProjectFindingsDispatchProps =>
+    ({
       onCloseReportsModal: (): void => { dispatch(closeReportsModal()); },
-      onLoad: (): void => { dispatch(loadFindingsData(projectName)); },
       onOpenReportsModal: (): void => { dispatch(openReportsModal()); },
     });
-  };
 
-export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectFindingsView));
+export = connect(mapStateToProps, mapDispatchToProps)(projectFindingsView);
