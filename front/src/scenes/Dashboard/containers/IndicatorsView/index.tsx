@@ -93,191 +93,191 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
   const projectName: string = props.match.params.projectName;
 
   return (
-            <Query
-              query={gql`
-                {
-                  project(projectName: "${projectName}"){
-                    closedVulnerabilities
-                    currentMonthAuthors
-                    currentMonthCommits
-                    lastClosingVuln
-                    maxOpenSeverity
-                    maxSeverity
-                    meanRemediate
-                    openVulnerabilities
-                    pendingClosingCheck
-                    totalFindings
-                    totalTreatment
-                  }
-                  resources(projectName: "${projectName}"){
-                    repositories
-                  }
-                }
-              `}
-            >
-              {
-                ({loading, error, data}: QueryResult<IIndicatorsViewProps>): React.ReactNode => {
-                  if (loading) {
-                    showPreloader();
+    <Query
+      query={gql`
+        {
+          project(projectName: "${projectName}"){
+            closedVulnerabilities
+            currentMonthAuthors
+            currentMonthCommits
+            lastClosingVuln
+            maxOpenSeverity
+            maxSeverity
+            meanRemediate
+            openVulnerabilities
+            pendingClosingCheck
+            totalFindings
+            totalTreatment
+          }
+          resources(projectName: "${projectName}"){
+            repositories
+          }
+        }
+      `}
+    >
+      {
+        ({loading, error, data}: QueryResult<IIndicatorsViewProps>): React.ReactNode => {
+          if (loading) {
+            showPreloader();
 
-                    return <React.Fragment/>;
-                  }
-                  if (!_.isUndefined(error)) {
-                    hidePreloader();
-                    if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
-                      location.assign("/integrates/logout");
-                    } else if (error.message === "Access denied") {
-                      msgError(translate.t("proj_alerts.access_denied"));
-                    } else {
-                      msgError(translate.t("proj_alerts.error_textsad"));
-                      rollbar.error(error.message, error);
-                    }
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
+              location.assign("/integrates/logout");
+            } else if (error.message === "Access denied") {
+              msgError(translate.t("proj_alerts.access_denied"));
+            } else {
+              msgError(translate.t("proj_alerts.error_textsad"));
+              rollbar.error(error.message, error);
+            }
 
-                    return <React.Fragment/>;
-                  }
-                  if (!_.isUndefined(data)) {
-                    const totalVulnerabilities: number =
-                      data.project.openVulnerabilities + data.project.closedVulnerabilities;
-                    const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
-                    hidePreloader();
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data)) {
+            const totalVulnerabilities: number =
+              data.project.openVulnerabilities + data.project.closedVulnerabilities;
+            const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
+            hidePreloader();
 
-                    return (
-                      <React.StrictMode>
-                      <Row>
-                        <Col md={12} sm={12} xs={12}>
-                          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
-                          <Row>
-                            <Col md={8} sm={12} xs={12}>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="findings"
-                                  name={translate.t("search_findings.tab_indicators.total_findings")}
-                                  quantity={data.project.totalFindings}
-                                  title=""
-                                  total=""
-                                />
-                              </Col>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="vulnerabilities"
-                                  name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
-                                  quantity={totalVulnerabilities}
-                                  title=""
-                                  total=""
-                                />
-                              </Col>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="totalVulnerabilities"
-                                  name={translate.t("search_findings.tab_indicators.pending_closing_check")}
-                                  quantity={data.project.pendingClosingCheck}
-                                  title=""
-                                  total=""
-                                />
-                              </Col>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="calendar"
-                                  name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
-                                  quantity={data.project.lastClosingVuln}
-                                  title=""
-                                  total=""
-                                />
-                              </Col>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="integrityHigh"
-                                  name={translate.t("search_findings.tab_indicators.undefined_treatment")}
-                                  quantity={undefinedTreatment}
-                                  title=""
-                                  total=""
-                                />
-                              </Col>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="graph"
-                                  name={translate.t("search_findings.tab_indicators.mean_remediate")}
-                                  quantity={data.project.meanRemediate}
-                                  title=""
-                                  total={translate.t("search_findings.tab_indicators.days")}
-                                />
-                              </Col>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="vectorLocal"
-                                  name={translate.t("search_findings.tab_indicators.max_severity")}
-                                  quantity={data.project.maxSeverity}
-                                  title=""
-                                  total="/10"
-                                />
-                              </Col>
-                              <Col md={6} sm={12} xs={12}>
-                                <IndicatorBox
-                                  icon="openVulnerabilities"
-                                  name={translate.t("search_findings.tab_indicators.max_open_severity")}
-                                  quantity={data.project.maxOpenSeverity}
-                                  title=""
-                                  total="/10"
-                                />
-                              </Col>
-                            </Col>
-                            <Col md={4} sm={12} xs={12}>
-                              <Col md={12} sm={12} xs={12} className={style.box_size}>
-                                <IndicatorGraph
-                                  data={statusGraph(data.project)}
-                                  name={translate.t("search_findings.tab_indicators.status_graph")}
-                                />
-                              </Col>
-                              <Col md={12} sm={12} xs={12} className={style.box_size}>
-                                <IndicatorGraph
-                                  data={treatmentGraph(data.project)}
-                                  name={translate.t("search_findings.tab_indicators.treatment_graph")}
-                                />
-                              </Col>
-                            </Col>
-                          </Row>
+            return (
+              <React.StrictMode>
+                <Row>
+                  <Col md={12} sm={12} xs={12}>
+                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
+                    <Row>
+                      <Col md={8} sm={12} xs={12}>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="findings"
+                            name={translate.t("search_findings.tab_indicators.total_findings")}
+                            quantity={data.project.totalFindings}
+                            title=""
+                            total=""
+                          />
                         </Col>
-                      </Row>
-                      <br />
-                      <br />
-                      <hr />
-                      <Row>
-                        <Col md={12} sm={12} xs={12}>
-                          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
-                          <Col md={4} sm={12} xs={12}>
-                            <IndicatorBox
-                              icon="integrityNone"
-                              name={translate.t("search_findings.tab_indicators.repositories")}
-                              quantity={JSON.parse(data.resources.repositories).length}
-                              title=""
-                              total=""
-                            />
-                          </Col>
-                          <Col md={4} sm={12} xs={12}>
-                            <IndicatorBox
-                              icon="authors"
-                              name={translate.t("search_findings.tab_indicators.authors")}
-                              quantity={data.project.currentMonthAuthors}
-                              title=""
-                              total=""
-                            />
-                          </Col>
-                          <Col md={4} sm={12} xs={12}>
-                            <IndicatorBox
-                              icon="terminal"
-                              name={translate.t("search_findings.tab_indicators.commits")}
-                              quantity={data.project.currentMonthCommits}
-                              title=""
-                              total=""
-                            />
-                          </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="vulnerabilities"
+                            name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
+                            quantity={totalVulnerabilities}
+                            title=""
+                            total=""
+                          />
                         </Col>
-                      </Row>
-                      </React.StrictMode>
-                    );
-                  }
-                }}
-            </Query>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="totalVulnerabilities"
+                            name={translate.t("search_findings.tab_indicators.pending_closing_check")}
+                            quantity={data.project.pendingClosingCheck}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="calendar"
+                            name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
+                            quantity={data.project.lastClosingVuln}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="integrityHigh"
+                            name={translate.t("search_findings.tab_indicators.undefined_treatment")}
+                            quantity={undefinedTreatment}
+                            title=""
+                            total=""
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="graph"
+                            name={translate.t("search_findings.tab_indicators.mean_remediate")}
+                            quantity={data.project.meanRemediate}
+                            title=""
+                            total={translate.t("search_findings.tab_indicators.days")}
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="vectorLocal"
+                            name={translate.t("search_findings.tab_indicators.max_severity")}
+                            quantity={data.project.maxSeverity}
+                            title=""
+                            total="/10"
+                          />
+                        </Col>
+                        <Col md={6} sm={12} xs={12}>
+                          <IndicatorBox
+                            icon="openVulnerabilities"
+                            name={translate.t("search_findings.tab_indicators.max_open_severity")}
+                            quantity={data.project.maxOpenSeverity}
+                            title=""
+                            total="/10"
+                          />
+                        </Col>
+                      </Col>
+                      <Col md={4} sm={12} xs={12}>
+                        <Col md={12} sm={12} xs={12} className={style.box_size}>
+                          <IndicatorGraph
+                            data={statusGraph(data.project)}
+                            name={translate.t("search_findings.tab_indicators.status_graph")}
+                          />
+                        </Col>
+                        <Col md={12} sm={12} xs={12} className={style.box_size}>
+                          <IndicatorGraph
+                            data={treatmentGraph(data.project)}
+                            name={translate.t("search_findings.tab_indicators.treatment_graph")}
+                          />
+                        </Col>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <br />
+                <br />
+                <hr />
+                <Row>
+                  <Col md={12} sm={12} xs={12}>
+                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
+                    <Col md={4} sm={12} xs={12}>
+                      <IndicatorBox
+                        icon="integrityNone"
+                        name={translate.t("search_findings.tab_indicators.repositories")}
+                        quantity={JSON.parse(data.resources.repositories).length}
+                        title=""
+                        total=""
+                      />
+                    </Col>
+                    <Col md={4} sm={12} xs={12}>
+                      <IndicatorBox
+                        icon="authors"
+                        name={translate.t("search_findings.tab_indicators.authors")}
+                        quantity={data.project.currentMonthAuthors}
+                        title=""
+                        total=""
+                      />
+                    </Col>
+                    <Col md={4} sm={12} xs={12}>
+                      <IndicatorBox
+                        icon="terminal"
+                        name={translate.t("search_findings.tab_indicators.commits")}
+                        quantity={data.project.currentMonthCommits}
+                        title=""
+                        total=""
+                      />
+                    </Col>
+                  </Col>
+                </Row>
+              </React.StrictMode>
+            );
+          }
+        }}
+    </Query>
   );
 };
 
