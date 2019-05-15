@@ -62,7 +62,15 @@ image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
         > /kaniko/.docker/config.json
 
 .ci_utils: &ci_utils |-
-  function skip_if_unchanged() { (git diff origin/master HEAD --dirstat | grep -iq "$1") || (echo "Directory $1 unmodified. Skipping job >>>" && exit 0); };
+  function skip_if_unchanged() {
+    if git diff origin/master HEAD --dirstat | grep -iq "$1"; then
+      SKIP_JOB=0;
+    else
+      echo "Directory $1 unchanged. Skipping job >>>"
+      SKIP_JOB=1;
+    fi
+    export SKIP_JOB
+  };
 
 stages:
   - deps
@@ -308,11 +316,11 @@ build-mobile:
   <<: *vault_login
   script:
     - *ci_utils
-    - skip_if_unchanged mobile/
     - cp -a /root/mobile/node_modules mobile/
     - cd mobile/
     - npm install
-    - vaultenv -- ./buildApp.sh
+    - skip_if_unchanged mobile/
+    - if [ $SKIP_JOB -eq 0 ]; then npm run build; fi;
   artifacts:
     paths:
       - mobile/output/*

@@ -4,6 +4,7 @@
   "description": "",
   "main": "./AppEntry.js",
   "scripts": {
+    "build": "vaultenv -- ./buildApp.sh",
     "lint": "tslint -p tsconfig.json -t codeFrame",
     "start": "expo start",
     "test": "tsc -p tsconfig.json && jest"

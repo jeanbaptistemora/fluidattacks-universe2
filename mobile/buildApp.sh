@@ -14,16 +14,24 @@ EXPO_ANDROID_KEYSTORE_PASSWORD=$FI_EXPO_PASSWORD
 export EXPO_ANDROID_KEYSTORE_PASSWORD
 EXPO_ANDROID_KEY_PASSWORD=$FI_EXPO_PASSWORD
 export EXPO_ANDROID_KEY_PASSWORD
-LOGGER_LEVEL="info"
+LOGGER_LEVEL="warn"
 export LOGGER_LEVEL
+npx expo login -u "$FI_EXPO_USERNAME" -p "$FI_EXPO_PASSWORD"
+echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf && sysctl -p
+DEVELOPER_ENV=${CI_COMMIT_REF_NAME:-"local"}
 
 
 # Build
+echo "Updating app manifest ..."
+npx expo publish \
+  --release-channel "$DEVELOPER_ENV" \
+  --non-interactive
 echo "Building android .apk ..."
-mkdir output/
+rm -r output/ && mkdir output/
 npx turtle build:android \
   --username "$FI_EXPO_USERNAME" \
   --password "$FI_EXPO_PASSWORD" \
+  --release-channel "$DEVELOPER_ENV" \
   --keystore-path ./keystore-dev.jks \
   --keystore-alias fluidintegrates-keystore \
   --output output/integrates.apk
@@ -31,4 +39,4 @@ npx turtle build:android \
 
 # Cleanup
 echo "All done! Cleaning up..."
-rm keystore-dev.jks
+npx expo logout && rm keystore-dev.jks
