@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/containers/SeverityView";
 import { IDashboardState } from "../scenes/Dashboard/reducer";
 import translate from "./translations/translate";
@@ -470,7 +471,7 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
 export const formatFindingType: ((type: string) => string) = (type: string): string =>
   _.isEmpty(type) ? "-" : translate.t(`search_findings.tab_description.type.${type.toLowerCase()}`);
 
-type IFindingsDataset = IDashboardState["findings"]["dataset"];
+type IFindingsDataset = IProjectFindingsAttr["project"]["findings"];
 export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
   (dataset: IFindingsDataset): IFindingsDataset => dataset.map((finding: IFindingsDataset[0]) => {
     const stateParameters: { [value: string]: string } = {

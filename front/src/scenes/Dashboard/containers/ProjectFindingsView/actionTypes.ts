@@ -7,4 +7,3 @@
  */
 export const OPEN_REPORTS_MODAL: string = "dashboard/project/findings/reports/open";
 export const CLOSE_REPORTS_MODAL: string = "dashboard/project/findings/reports/close";
-export const LOAD_FINDINGS: string = "dashboard/project/findings/load";

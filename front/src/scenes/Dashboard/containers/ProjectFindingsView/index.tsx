@@ -11,7 +11,6 @@ import { Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
@@ -23,35 +22,8 @@ import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
 import { closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
 import style from "./index.css";
-
-type IProjectFindingsBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-type IProjectFindingsStateProps = IDashboardState["findings"];
-
-interface IProjectFindingsDispatchProps {
-  onCloseReportsModal(): void;
-  onOpenReportsModal(): void;
-}
-
-interface IProjectFindingsAttr {
-  project: {
-    findings: Array<{
-      age: number;
-      description: string;
-      id: string;
-      isExploitable: string;
-      lastVulnerability: number;
-      openVulnerabilities: number;
-      severityScore: number;
-      state: string;
-      title: string;
-      treatment: string;
-      type: string;
-    }>;
-  };
-}
-
-type IProjectFindingsProps = IProjectFindingsBaseProps & (IProjectFindingsStateProps & IProjectFindingsDispatchProps);
+import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
+  IProjectFindingsStateProps } from "./types";
 
 const tableHeaders: IHeader[] = [
   { align: "center", dataField: "age", header: "Age (days)", isDate: false, isStatus: false, width: "6%" },

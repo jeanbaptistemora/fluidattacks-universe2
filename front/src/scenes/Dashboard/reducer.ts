@@ -57,19 +57,6 @@ export interface IDashboardState {
     title: string;
   };
   findings: {
-    dataset: Array<{
-      age: number;
-      description: string;
-      id: string;
-      isExploitable: string;
-      lastVulnerability: number;
-      openVulnerabilities: number;
-      severityScore: number;
-      state: string;
-      title: string;
-      treatment: string;
-      type: string;
-    }>;
     reportsModal: {
       isOpen: boolean;
     };
@@ -215,7 +202,6 @@ const initialState: IDashboardState = {
     title: "",
   },
   findings: {
-    dataset: [],
     reportsModal: {
       isOpen: false,
     },
@@ -831,18 +817,6 @@ actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDash
     },
   },
 });
-
-actionMap[findingsActions.LOAD_FINDINGS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    findings: {
-      ...state.findings,
-      dataset: action.payload.dataset,
-      reportsModal: {
-        ...state.findings.reportsModal,
-      },
-    },
-  });
 
 actionMap[draftsActions.LOAD_DRAFTS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
