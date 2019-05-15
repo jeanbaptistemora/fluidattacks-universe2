@@ -5,52 +5,14 @@
 
 = Writer's Guidelines
 
-On +Fluid Attacks'+ blog our goal
-is to share opinions and knowledge
-on information security issues
-in a clear and understandable manner.
-
-[quote]
-We invite you to share your knowledge with us and the world.
-
 Our target audience is everyone with an interest in +IT+ security,
 whether they have advanced technical knowledge or not.
-Because we want everyone to understand the message conveyed
-you must provide relevant knowledge on security issues
-using as much non-technical English as possible.
+We suggest to use as much non-technical English as possible.
 It is always best to be clear, concise, and to-the-point.
 
 == Topics
 
-Blog topics should be oriented only towards security and +IT+,
-however, there are situations that are not necessarily security related
-but can be treated as such; some topics that would qualify are below.
-If you have an idea and are not sure if it would qualify,
-contact us for input.
-
-1. How to explain to a manager
-that they must invest in security.
-
-2. How to use a specific component:
-You can explain the secure way to use and implement it.
-
-3. Explain a concept by solving a +hacking+ challenge.
-
-You can also check our link:../topics/[list of topics].
-
-== Reader’s profile
-
-image::lector.png[reader]
-
-* *Age range:* 20 years and up.
-
-* *Level of Education:* College educated.
-
-* *Role:* From students to CISO (Chief Information Security Officers).
-
-* *Knowledge:* Varied with emphasis on information security.
-
-* *Interests:* IT and information security.
+Check our link:../topics/[list of topics].
 
 == Acceptance Criteria
 
@@ -74,17 +36,9 @@ It can be in the form of a question.
 * SQL Injection.
 * XSS Vulnerability.
 
-. The title must reflect the content of the document.
-Do not create false expectations.
-+
-*Examples:* If your title is Whitelist:
-Your Ally in Input Validation,
-your article should talk about Whitelist and input validation,
-not injections or anything else.
-
 === 2. Structure
 
-The document must have a +LIX+ complexity below 50.
+The document must have a +LIX+ complexity *below 50*.
 This guarantees that the document is easy to read.
 All documents must have:
 
@@ -109,14 +63,11 @@ or a link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick ref
 
 Documents have strict length limits:
 
-. *For KB documents:*
-Between 400 and 800 words.
-
 . *For Posts:*
-between 800 and 1600 words.
+between +800+ and +1600+ words.
 
 . *For pages (sites):*
-Between 400 and 1600 words.
+Between +400+ and +1600+ words.
 
 === 5. Semantic Line Breaks
 
@@ -127,8 +78,8 @@ keep an organized record of modifications
 in our version control system (+Gitlab+).
 To do this, we define the following rules:
 
-. Minimum words before a SLB: 4.
-. Maximum number of characters before a SLB: 80.
+. Minimum words before a SLB: +4+.
+. Maximum number of characters before a SLB: +80+.
 . A SLB *must* be added after a period (.).
 . A SLB *can* be added after
 link:https://emedia.rmit.edu.au/learninglab/content/common-linking-words-0[linking  words and connectors], depending on the context and
@@ -159,14 +110,7 @@ must include a reference.
 
 . Include a description for the image.
 
-=== 7. Videos
-
-. It must be your own video.
-. The video must be sent
-in order to upload it to our +Fluid Attacks+ youtube channel.
-. The video must include an introduction and a conclusion.
-
-=== 8. Source
+=== 7. Source
 
 Unless the language forces you to do otherwise,
 the source code must comply with the following:
@@ -209,7 +153,7 @@ function cool(x) {
 }
 ----
 
-=== 9. Exploit Explanations
+=== 8. Exploit Explanations
 
 In the case of documents focused on exploitation,
 once the procedure is explained,
@@ -220,98 +164,89 @@ Add a description for the +gif+.
 .Exploit description example.
 image::explotacion.gif[gif]
 
-=== 10. Not permitted
+=== 9. Not permitted
 
 . Code snippets that are not your own.
-
-. Images without the original reference.
 
 . Technical explanations not relevant to security:
 +
 *Example:* Introduction to a programming language
 without mentioning how to securely program in said language.
 
-=== 11. Metadata
+=== 10. Metadata
 
-Metadata are variables that are included at the beginning of a document
-which influence the final rendering of it and
-how the search engine indexes them.
-You can find more information regarding +AsciiDoc+ variables by clicking
-[button]#link:../../en/format/#variables[here.]#.
+Metadata are variables which influence the final rendering of the pages
+and how the search engine indexes them.
 Below is a table
 with the mandatory metadata for a document:
 
 .List of metadata present in a document.
 
-[cols="15,10,10,10, 55"]
+[cols="25,10,10,55"]
 |===
-|*Metadata* | *Page* | *KB* | *Post* | *Description*
+|*Metadata* | *Page* | *Post* | *Description*
 
-|+:slug:+| Yes | Yes | Yes
+|+:slug:+| Yes | Yes
 | Link where the document can be found once it has been accepted.
 The +slug+ must be the name of the article in lowercase,
 with no spaces, prepositions, conjunctions or connectors and
 separated by a dash "-".
 
-|+:description:+ | Yes | Yes | Yes
-| Brief summary of the main idea of the document (250 to 300 characters long).
+|+:description:+ | Yes | Yes
+| Brief summary of the main idea of the document
+(*250 to 300 characters long*).
 This description will appear in the search engine search results.
 
-|+:keywords:+ | Yes | Yes | Yes
+|+:keywords:+ | Yes | Yes
 | Keywords through which a search engine can find the document.
 The document must include 6 +keywords+.
 
-| Attribute that indicates if a translated version of the documents
-is available in the +Fluid Attacks+ website.
-In case there is a translated version available,
-The +slug+ of the translated document must be included.
-
-|+:subtitle:+ | Yes | Yes | Yes
+|+:subtitle:+ | Yes | Yes
 | Short subtitle that specifically indicates the purpose of the document.
 *It must not exceed 55 characters*.
 
-| +:date:+ | No | No | Yes
+| +:date:+ | No | Yes
 | Date the document was created.
 
-| +:category:+ | No | No | Yes
+| +:category:+ | No | Yes
 | Category to which the document falls under.
 Example: Security opinions, Best practices, etc.
 
-| +:tags:+ | No | No | Yes
+| +:tags:+ | No | Yes
 | Similar to the metadata +:keywords:+
 Noteworthy words that index the document internally.
 
-| +:image:+ | No | No | Yes
+| +:image:+ | No | Yes
 | Image that will appear in the article preview.
 This image must have certain dimensions, 600 x 200 px and
 must not exceed 300 Kb in size.
 
-| +:alt:+ | No | No | Yes
+| +:alt:+ | No | Yes
 | Description of the image in the article preview.
 
-| +:author:+ | No | No | Yes
+| +:author:+ | No | Yes
 | Name of the author that will appear at the top of the document.
 Name and last name only.
 
-| +:writer:+ | No | No | Yes
+| +:writer:+ | No | Yes
 | Name and extension of the image that represents you as the author.
-The only extension permitted is PNG.
+The only extension permitted is +PNG+.
 
-| +:name:+ | No | No | Yes
+| +:name:+ | No | Yes
 | Name that will appear under the author’s image/picture.
 It can be your full name or +nickname+.
 
-| +:about1:+ | No | No | Yes
+| +:about1:+ | No | Yes
 | Main information about the author:
 scholarship, experience, role (if it applies).
 
-| +:about2:+ | No | No | Yes
+| +:about2:+ | No | Yes
 | Additional information about the author:
 likes, interests, links to personal blogs or profiles.
 
 |===
 
-=== 12. Additional Information
+=== 11. Additional Information
 
 . If acronyms are used, their meaning should be included in parentheses.
 
@@ -373,20 +308,12 @@ and now I need to cite a reference <<r# ,^[#]^>>
 . [[r#]] link:https://my-url[Fancy name for url].
 ----
 
-. For more information regarding +AsciiDoc+,
-check out our [button]#link:../../en/format[allowed formats and examples.]#
-
 == Authors
 
-If you want to share your security knowledge and opinions
-with the community and you are not part of +Fluid Attacks+,
-you can be a guest author.
-Write your +post+ in a text editor of your choosing
-and send us everything you need to publish it.
 *Do not forget* to send with it a paragraph telling us
 a little bit about yourself and an image that represents you
 because at the end of the post
-the guest’s profile will be included.
+the authors’s profile will be included.
 
 image::invitado.png[guest]
 
@@ -398,12 +325,7 @@ years of experience, certifications, likes and interests.
 
 === Requests
 
-. If you are part of the +Fluid Attacks+ team,
-you can send us your document through a +Merge Request+
-in the +AsciiDoc+ format.
-Be sure to comply with all the above rules.
-
-. If you are not part of the +Fluid Attacks+ team,
+If you are not part of the +Fluid Attacks+ team,
 you just have to send your document to communications@fluidattacks.com
 attaching all the required files in order to create the +post+.
 Once the document is sent,
@@ -412,9 +334,6 @@ it is evaluated to determine if it will be published.
 == Terms and Conditions
 
 . +Fluid Attacks+ reserves the right to accept or reject any document sent in.
-Please, understand the purpose of the blog
-is to further +IT+ Security understanding,
-therefore you are sharing your information without payment.
 +Fluid Attacks+ does not pay for articles
 accepted for publication on the blog.
 
