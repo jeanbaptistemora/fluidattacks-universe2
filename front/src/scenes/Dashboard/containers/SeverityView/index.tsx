@@ -85,7 +85,12 @@ export interface ISeverityField {
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
-    mixpanel.track("FindingSeverity");
+    mixpanel.track(
+      "FindingSeverity",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     const { findingId } = this.props as ISeverityViewProps;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
@@ -294,7 +299,12 @@ export const component: React.FC<ISeverityViewProps> =
                 const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
                   store.dispatch as ThunkDispatch<{}, {}, AnyAction>
                 );
-
+                mixpanel.track(
+                  "UpdateSeverity",
+                  {
+                    Organization: (window as Window & { userOrganization: string }).userOrganization,
+                    User: (window as Window & { userName: string }).userName,
+                  });
                 thunkDispatch(actions.updateSeverity(
                   props.findingId,
                   values,

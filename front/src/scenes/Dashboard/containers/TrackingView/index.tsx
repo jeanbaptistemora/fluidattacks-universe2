@@ -50,7 +50,12 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => ITrackingViewProps) =
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
-    mixpanel.track("FindingTracking");
+    mixpanel.track(
+      "FindingTracking",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     const { findingId } = this.props as ITrackingViewProps;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>

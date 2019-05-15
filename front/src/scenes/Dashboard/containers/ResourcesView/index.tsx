@@ -4,6 +4,7 @@
   * readability of the code that defines the headers of the table
  */
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
@@ -48,6 +49,12 @@ type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps &
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
+    mixpanel.track(
+      "ProjectResources",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     this.props.onLoad();
   },
 });
@@ -68,6 +75,12 @@ const handleRemoveRepo: ((props: IResourcesViewProps) => void) = (props: IResour
   } else {
     const repository: string | null = selectedRow.children[1].textContent;
     const branch: string | null = selectedRow.children[2].textContent;
+    mixpanel.track(
+      "RemoveProjectRepo",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
 
     props.onRemoveRepo(String(repository), String(branch));
   }
@@ -85,6 +98,12 @@ const handleSaveRepos: ((resources: IResourcesViewProps["repositories"], props: 
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
+      mixpanel.track(
+        "AddProjectRepo",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       props.onSaveRepos(resources);
     }
   };
@@ -94,6 +113,12 @@ const handleRemoveEnv: ((props: IResourcesViewProps) => void) = (props: IResourc
   if (selectedRow === undefined) {
     msgError(translate.t("search_findings.tab_resources.no_selection"));
   } else {
+    mixpanel.track(
+      "RemoveProjectEnv",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     const env: string | null = selectedRow.children[1].textContent;
     props.onRemoveEnv(String(env));
   }
@@ -111,6 +136,12 @@ const handleSaveEnvs: ((resources: IResourcesViewProps["environments"], props: I
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
+      mixpanel.track(
+        "AddProjectEnv",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       props.onSaveEnvs(resources);
     }
   };
@@ -127,6 +158,12 @@ const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesV
     let fileSize: number; fileSize = 100;
     if (isValidFileName(files[0].fileName)) {
       if (isValidFileSize(selected[0], fileSize)) {
+        mixpanel.track(
+          "AddProjectFiles",
+          {
+            Organization: (window as Window & { userOrganization: string }).userOrganization,
+            User: (window as Window & { userName: string }).userName,
+          });
         let containsRepeated: boolean;
         containsRepeated = files.filter(
           (newItem: IResourcesViewProps["files"][0]) => _.findIndex(
@@ -149,6 +186,12 @@ const removeTag: ((props: IResourcesViewProps) => void) = (props: IResourcesView
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblTags tr input:checked");
   if (selectedQry.length > 0) {
     if (selectedQry[0].closest("tr") !== null) {
+      mixpanel.track(
+        "RemoveProjectTags",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       const selectedRow: Element = selectedQry[0].closest("tr") as Element;
       const tag: string | null = selectedRow.children[1].textContent;
       props.onRemoveTag(String(tag));
@@ -173,6 +216,12 @@ const saveTags: ((tags: IResourcesViewProps["tagsDataset"], props: IResourcesVie
     if (containsRepeated) {
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
+      mixpanel.track(
+        "AddProjectTags",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       props.onSaveTags(tags);
     }
   };
@@ -256,6 +305,12 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     const handleCloseAddModalClick: (() => void) = (): void => { props.onCloseAddModal(); };
     const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
     const handleDeleteFileClick: (() => void) = (): void => {
+      mixpanel.track(
+        "RemoveProjectFiles",
+        {
+          Organization: (window as Window & { userOrganization: string }).userOrganization,
+          User: (window as Window & { userName: string }).userName,
+        });
       props.onDeleteFile(props.optionsModal.rowInfo.fileName);
     };
     const handleDownloadFileClick: (() => void) = (): void => {

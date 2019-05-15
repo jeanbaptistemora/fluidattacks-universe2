@@ -34,6 +34,12 @@ export interface IRecordsViewProps {
 const updateRecords: ((arg1: string) => void) = (findingId: string): void => {
 
   if (isValidEvidenceFile("#evidence8")) {
+    mixpanel.track(
+      "UpdateRecords",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
@@ -118,7 +124,12 @@ export const component: React.FC<IRecordsViewProps> =
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle({
   componentDidMount(): void {
-    mixpanel.track("FindingRecords");
+    mixpanel.track(
+      "FindingRecords",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
     const { findingId }: IRecordsViewProps = this.props as IRecordsViewProps;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>

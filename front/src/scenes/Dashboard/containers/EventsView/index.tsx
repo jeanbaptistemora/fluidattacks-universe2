@@ -6,6 +6,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
+import mixpanel from "mixpanel-browser";
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
@@ -37,6 +38,13 @@ const enhance: InferableComponentEnhancer<{}> =
 lifecycle<IEventsViewProps, {}>({
   componentWillUnmount(): void { store.dispatch(actions.clearEventsState()); },
   componentDidMount(): void {
+    mixpanel.track(
+      "ProjectEvents",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+
     const { projectName } =  this.props.match.params;
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
