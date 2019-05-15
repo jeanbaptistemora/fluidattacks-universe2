@@ -9,7 +9,7 @@ import { IDashboardState } from "../../reducer";
 import { eventsView as EventsView } from "../EventsView/index";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import ProjectCommentsView from "../ProjectCommentsView/index";
-import ProjectDraftsView from "../ProjectDraftsView";
+import { ProjectDraftsView } from "../ProjectDraftsView";
 import ProjectFindingsView from "../ProjectFindingsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";

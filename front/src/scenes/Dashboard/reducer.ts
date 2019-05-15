@@ -15,7 +15,6 @@ import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as homeActions from "./containers/HomeView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
-import * as draftsActions from "./containers/ProjectDraftsView/actionTypes";
 import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
@@ -29,19 +28,6 @@ import { ITrackingViewProps } from "./containers/TrackingView/index";
 export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
-  drafts: {
-    dataset: Array<{
-      description: string;
-      id: string;
-      isExploitable: string;
-      openVulnerabilities: number;
-      releaseDate: string;
-      reportDate: string;
-      severityScore: number;
-      title: string;
-      type: string;
-    }>;
-  };
   eventDescription: Pick<IEventDescriptionViewProps, "isEditable" | "eventData" >;
   events: Pick<IEventsViewProps, "eventsDataset" >;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
@@ -150,9 +136,6 @@ const initialState: IDashboardState = {
     },
     isEditing: false,
     isRemediationOpen : false,
-  },
-  drafts: {
-    dataset: [],
   },
   eventDescription: {
     eventData: {
@@ -792,7 +775,6 @@ actionMap[projectActions.LOAD_PROJECT] =
 
 actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashboardState => ({
   ...state,
-  drafts: initialState.drafts,
   findings: initialState.findings,
   resources: initialState.resources,
   users: initialState.users,
@@ -817,15 +799,6 @@ actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDash
     },
   },
 });
-
-actionMap[draftsActions.LOAD_DRAFTS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    drafts: {
-      ...state.drafts,
-      dataset: action.payload.dataset,
-    },
-  });
 
 actionMap[homeActions.LOAD_PROJECTS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({

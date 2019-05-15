@@ -1,7 +1,12 @@
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
+import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/containers/SeverityView";
 import { IDashboardState } from "../scenes/Dashboard/reducer";
+import { msgError } from "./notifications";
+import rollbar from "./rollbar";
 import translate from "./translations/translate";
 
 type IUserList = IDashboardState["users"]["userList"];
@@ -497,7 +502,7 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
     return { ...finding, state, treatment, type, isExploitable };
   });
 
-type IDraftsDataset = IDashboardState["drafts"]["dataset"];
+type IDraftsDataset = IProjectDraftsAttr["project"]["drafts"];
 export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
   (dataset: IDraftsDataset): IDraftsDataset => dataset.map((draft: IDraftsDataset[0]) => {
     const typeParameters: { [value: string]: string } = {
@@ -513,3 +518,17 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
 
     return { ...draft, reportDate, type, isExploitable, isReleased };
   });
+
+export const handleGraphQLErrors: ((error: ApolloError) => void) =
+  (error: ApolloError): void => {
+    error.graphQLErrors.map((err: GraphQLError) => {
+      if (_.includes(["Login required", "Exception - Invalid Authorization"], err.message)) {
+        location.assign("/integrates/logout");
+      } else if (_.includes("Access denied", err.message)) {
+        msgError(translate.t("proj_alerts.access_denied"));
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(err.message, err);
+      }
+    });
+};

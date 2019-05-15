@@ -1,36 +1,18 @@
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+  * readability of the code in graphql queries
+ */
+import gql from "graphql-tag";
+import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { RouteComponentProps } from "react-router";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { Query, QueryResult } from "react-apollo";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
-import { formatDrafts } from "../../../../utils/formatHelpers";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
-import { IDashboardState } from "../../reducer";
-import { loadFindingsData, ThunkDispatcher } from "./actions";
-
-type IProjectDraftsBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-type IProjectDraftsStateProps = IDashboardState["drafts"];
-
-interface IProjectDraftsDispatchProps {
-  onLoad(): void;
-}
-
-type IProjectDraftsProps = IProjectDraftsBaseProps & (IProjectDraftsStateProps & IProjectDraftsDispatchProps);
-
-const enhance: InferableComponentEnhancer<{}> =
-  lifecycle<IProjectDraftsProps, {}>({
-    componentDidMount(): void {
-      mixpanel.track(
-        "ProjectDrafts",
-        {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
-        });
-      this.props.onLoad();
-    },
-});
+import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 
 const tableHeaders: IHeader[] = [
   { align: "center", dataField: "reportDate", header: "Date", isDate: false, isStatus: false, width: "10%" },
@@ -49,7 +31,7 @@ const tableHeaders: IHeader[] = [
   { align: "center", dataField: "isReleased", header: "Released", isDate: false, isStatus: false, width: "10%" },
 ];
 
-const projectDraftsView: React.FC<IProjectDraftsProps> = (props: IProjectDraftsProps): JSX.Element => {
+const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
 
   const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
@@ -63,35 +45,66 @@ const projectDraftsView: React.FC<IProjectDraftsProps> = (props: IProjectDraftsP
   };
 
   return (
-    <React.StrictMode>
-      <p>{translate.t("project.findings.help_label")}</p>
-      <DataTable
-        dataset={formatDrafts(props.dataset)}
-        enableRowSelection={false}
-        exportCsv={true}
-        headers={tableHeaders}
-        id="tblDrafts"
-        onClickRow={goToFinding}
-        pageSize={15}
-        search={true}
-      />
-    </React.StrictMode>
+    <Query
+      query={gql`
+        {
+          project(projectName: "${projectName}") {
+            drafts {
+              id
+              reportDate
+              type
+              title
+              description
+              severityScore
+              openVulnerabilities
+              isExploitable
+              releaseDate
+            }
+          }
+        }
+      `}
+    >
+      {
+        ({loading, error, data}: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
+          if (loading) {
+            showPreloader();
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            handleGraphQLErrors(error);
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data)) {
+            mixpanel.track(
+              "ProjectDrafts",
+              {
+                Organization: (window as Window & { userOrganization: string }).userOrganization,
+                User: (window as Window & { userName: string }).userName,
+              });
+            hidePreloader();
+
+            return (
+              <React.StrictMode>
+                <p>{translate.t("project.findings.help_label")}</p>
+                <DataTable
+                  dataset={formatDrafts(data.project.drafts)}
+                  enableRowSelection={false}
+                  exportCsv={true}
+                  headers={tableHeaders}
+                  id="tblDrafts"
+                  onClickRow={goToFinding}
+                  pageSize={15}
+                  search={true}
+                />
+              </React.StrictMode>
+            );
+          }
+        }}
+    </Query>
   );
 };
 
-interface IState { dashboard: IDashboardState; }
-const mapStateToProps: MapStateToProps<IProjectDraftsStateProps, IProjectDraftsBaseProps, IState> =
-  (state: IState): IProjectDraftsStateProps => ({
-    ...state.dashboard.drafts,
-  });
-
-const mapDispatchToProps: MapDispatchToProps<IProjectDraftsDispatchProps, IProjectDraftsBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IProjectDraftsBaseProps): IProjectDraftsDispatchProps => {
-    const { projectName } = ownProps.match.params;
-
-    return ({
-      onLoad: (): void => { dispatch(loadFindingsData(projectName)); },
-    });
-  };
-
-export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectDraftsView));
+export { projectDraftsView as ProjectDraftsView };
