@@ -93,12 +93,13 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
   const projectName: string = props.match.params.projectName;
 
   return (
-    <React.StrictMode>
             <Query
               query={gql`
                 {
                   project(projectName: "${projectName}"){
                     closedVulnerabilities
+                    currentMonthAuthors
+                    currentMonthCommits
                     lastClosingVuln
                     maxOpenSeverity
                     maxSeverity
@@ -107,6 +108,9 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
                     pendingClosingCheck
                     totalFindings
                     totalTreatment
+                  }
+                  resources(projectName: "${projectName}"){
+                    repositories
                   }
                 }
               `}
@@ -119,6 +123,7 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
                     return <React.Fragment/>;
                   }
                   if (!_.isUndefined(error)) {
+                    hidePreloader();
                     if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
                       location.assign("/integrates/logout");
                     } else if (error.message === "Access denied") {
@@ -137,6 +142,7 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
                     hidePreloader();
 
                     return (
+                      <React.StrictMode>
                       <Row>
                         <Col md={12} sm={12} xs={12}>
                           <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
@@ -232,86 +238,46 @@ const indicatorsView: React.FC<IIndicatorsViewProps> = (props: IIndicatorsViewPr
                           </Row>
                         </Col>
                       </Row>
+                      <br />
+                      <br />
+                      <hr />
+                      <Row>
+                        <Col md={12} sm={12} xs={12}>
+                          <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
+                          <Col md={4} sm={12} xs={12}>
+                            <IndicatorBox
+                              icon="integrityNone"
+                              name={translate.t("search_findings.tab_indicators.repositories")}
+                              quantity={JSON.parse(data.resources.repositories).length}
+                              title=""
+                              total=""
+                            />
+                          </Col>
+                          <Col md={4} sm={12} xs={12}>
+                            <IndicatorBox
+                              icon="authors"
+                              name={translate.t("search_findings.tab_indicators.authors")}
+                              quantity={data.project.currentMonthAuthors}
+                              title=""
+                              total=""
+                            />
+                          </Col>
+                          <Col md={4} sm={12} xs={12}>
+                            <IndicatorBox
+                              icon="terminal"
+                              name={translate.t("search_findings.tab_indicators.commits")}
+                              quantity={data.project.currentMonthCommits}
+                              title=""
+                              total=""
+                            />
+                          </Col>
+                        </Col>
+                      </Row>
+                      </React.StrictMode>
                     );
                   }
                 }}
             </Query>
-      <br />
-      <br />
-      <hr />
-      <Query
-        query={gql`
-          {
-            project(projectName: "${projectName}"){
-              currentMonthAuthors
-              currentMonthCommits
-            }
-            resources(projectName: "${projectName}"){
-              repositories
-            }
-          }
-        `}
-      >
-        {
-          ({loading, error, data}: QueryResult<IIndicatorsViewProps>): React.ReactNode => {
-            if (loading) {
-              showPreloader();
-
-              return <React.Fragment/>;
-            }
-            if (!_.isUndefined(error)) {
-              if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
-                location.assign("/integrates/logout");
-              } else if (error.message === "Access denied") {
-                msgError(translate.t("proj_alerts.access_denied"));
-              } else {
-                msgError(translate.t("proj_alerts.error_textsad"));
-                rollbar.error(error.message, error);
-              }
-
-              return <React.Fragment/>;
-            }
-            if (!_.isUndefined(data)) {
-              hidePreloader();
-
-              return (
-                <Row>
-                  <Col md={12} sm={12} xs={12}>
-                    <h1 className={style.title}>{translate.t("search_findings.tab_indicators.git_title")}</h1>
-                    <Col md={4} sm={12} xs={12}>
-                      <IndicatorBox
-                        icon="integrityNone"
-                        name={translate.t("search_findings.tab_indicators.repositories")}
-                        quantity={JSON.parse(data.resources.repositories).length}
-                        title=""
-                        total=""
-                      />
-                    </Col>
-                    <Col md={4} sm={12} xs={12}>
-                      <IndicatorBox
-                        icon="authors"
-                        name={translate.t("search_findings.tab_indicators.authors")}
-                        quantity={data.project.currentMonthAuthors}
-                        title=""
-                        total=""
-                      />
-                    </Col>
-                    <Col md={4} sm={12} xs={12}>
-                      <IndicatorBox
-                        icon="terminal"
-                        name={translate.t("search_findings.tab_indicators.commits")}
-                        quantity={data.project.currentMonthCommits}
-                        title=""
-                        total=""
-                      />
-                    </Col>
-                  </Col>
-                </Row>
-              );
-            }
-          }}
-      </Query>
-    </React.StrictMode>
   );
 };
 
