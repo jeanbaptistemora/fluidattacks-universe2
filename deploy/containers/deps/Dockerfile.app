@@ -49,9 +49,6 @@ RUN apt-get update \
     && cd front/ \
         && npm install \
         && npm cache clean --force \
-    && cd ../mobile/ \
-        && npm install --production \
-        && npm cache clean --force \
     && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
         && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
     && apt-get remove -y --purge \

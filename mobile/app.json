@@ -23,7 +23,8 @@
       "**/*"
     ],
     "android": {
-      "package": "com.fluidattacks.integrates"
+      "package": "com.fluidattacks.integrates",
+      "permissions": []
     },
     "ios": {
       "bundleIdentifier": "com.fluidattacks.integrates",

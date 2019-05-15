@@ -10,24 +10,25 @@ aws s3 cp "$FI_KEYSTORE_S3_URL" keystore-dev.jks
 
 
 # Prepare Expo
-echo fs.inotify.max_user_watches=524288 >> /etc/sysctl.conf && sysctl -p
-npx expo login -u "$FI_EXPO_USERNAME" -p "$FI_EXPO_PASSWORD"
+EXPO_ANDROID_KEYSTORE_PASSWORD=$FI_EXPO_PASSWORD
+export EXPO_ANDROID_KEYSTORE_PASSWORD
+EXPO_ANDROID_KEY_PASSWORD=$FI_EXPO_PASSWORD
+export EXPO_ANDROID_KEY_PASSWORD
+LOGGER_LEVEL="info"
+export LOGGER_LEVEL
 
 
 # Build
 echo "Building android .apk ..."
 mkdir output/
-echo "./keystore-dev.jks \
-  $FI_EXPO_PASSWORD \
-  $FI_EXPO_PASSWORD" \
-  | npx expo build:android --no-publish
-
-
-# Download generated .apk
-APK_URL="$(npx expo url:apk)"
-wget -O output/integrates.apk "$APK_URL"
+npx turtle build:android \
+  --username "$FI_EXPO_USERNAME" \
+  --password "$FI_EXPO_PASSWORD" \
+  --keystore-path ./keystore-dev.jks \
+  --keystore-alias fluidintegrates-keystore \
+  --output output/integrates.apk
 
 
 # Cleanup
 echo "All done! Cleaning up..."
-npx expo logout && rm keystore-dev.jks
+rm keystore-dev.jks

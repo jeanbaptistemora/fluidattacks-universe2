@@ -61,6 +61,9 @@ image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
     - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
         > /kaniko/.docker/config.json
 
+.ci_utils: &ci_utils |-
+  function skip_if_unchanged() { (git diff origin/master HEAD --dirstat | grep -iq "$1") || (echo "Directory $1 unmodified. Skipping job >>>" && exit 0); };
+
 stages:
   - deps
   - pre-test
@@ -92,6 +95,8 @@ deps-app:
     - schedules
 
 deps-ci:
+  tags:
+    - mobile
   stage: deps
   <<: *kaniko_config
   script:
@@ -302,6 +307,8 @@ build-mobile:
   dependencies: []
   <<: *vault_login
   script:
+    - *ci_utils
+    - skip_if_unchanged mobile/
     - cp -a /root/mobile/node_modules mobile/
     - cd mobile/
     - npm install

@@ -52,6 +52,13 @@ RUN apt-get update \
     && cd ../mobile/ \
         && npm install \
         && npm cache clean --force \
+        && echo 'deb http://deb.debian.org/debian stretch main' >> /etc/apt/sources.list \
+        && apt-get update \
+        && mkdir -p /usr/share/man/man1/ \
+        && apt-get install --no-install-recommends -y openjdk-8-jdk-headless \
+        && npx turtle setup:android > /dev/null \
+        && npx turtle setup:android --sdk-version 32.0.0 > /dev/null || true \
+        && yes | ~/.turtle/androidDependencies/sdk/tools/bin/sdkmanager --licenses \
     && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
         && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
     && apt-get remove -y --purge \
