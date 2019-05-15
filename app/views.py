@@ -410,7 +410,7 @@ def format_release_date(finding):
 
 
 @cache_content
-@cache_control(private=True, max_age=31536000)
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, findingid, fileid):
