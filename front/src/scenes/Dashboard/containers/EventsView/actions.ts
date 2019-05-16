@@ -6,7 +6,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actionTypes from "./actionTypes";
-import { IEventsViewProps } from "./index";
+import { IEventsViewProps } from "./types";
 
 export interface IActionStructure {
   /* tslint:disable-next-line:no-any

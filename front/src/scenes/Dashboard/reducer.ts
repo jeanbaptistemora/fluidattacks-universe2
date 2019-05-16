@@ -7,7 +7,7 @@ import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as eventDescriptionActions from "./containers/EventDescriptionView/actionTypes";
 import { IEventDescriptionViewProps } from "./containers/EventDescriptionView/index";
 import * as eventsActions from "./containers/EventsView/actionTypes";
-import { IEventsViewProps } from "./containers/EventsView/index";
+import { IEventsViewProps } from "./containers/EventsView/types";
 import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";

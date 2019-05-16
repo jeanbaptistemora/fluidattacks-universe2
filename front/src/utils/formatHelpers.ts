@@ -1,6 +1,7 @@
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
+import { IEventsAttr } from "../scenes/Dashboard/containers/EventsView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/containers/SeverityView";
@@ -532,3 +533,12 @@ export const handleGraphQLErrors: ((errorText: string, error: ApolloError) => vo
       }
     });
 };
+
+type IEventsDataset = IEventsAttr["events"];
+export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =
+  (dataset: IEventsDataset): IEventsDataset => dataset.map((event: IEventsDataset[0]) => {
+    const eventType: string = translate.t(castEventType(event.eventType));
+    const eventStatus: string = translate.t(castEventStatus(event.eventStatus));
+
+    return { ...event, eventType, eventStatus };
+  });

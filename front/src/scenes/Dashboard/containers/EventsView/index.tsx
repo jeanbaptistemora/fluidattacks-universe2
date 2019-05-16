@@ -9,7 +9,6 @@
 import mixpanel from "mixpanel-browser";
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
-import { RouteComponentProps } from "react-router";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -17,22 +16,13 @@ import {
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
-import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import store from "../../../../store/index";
-import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
+import { formatEvents } from "../../../../utils/formatHelpers";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import * as actions from "./actions";
-
-type IEventViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-interface IEventsViewStateProps extends RouteComponentProps  {
-  eventsDataset: Array<{ detail: string; eventDate: string; eventStatus: string; eventType: string; id: string }>;
-  onClickRow: ((row: string | undefined) => JSX.Element);
-  projectName: string;
-}
-
-export type IEventsViewProps = IEventViewBaseProps & IEventsViewStateProps;
+import { IEventsViewProps } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> =
 lifecycle<IEventsViewProps, {}>({
@@ -59,94 +49,53 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => IEventsViewProps) =
     eventsDataset: state.dashboard.events.eventsDataset,
   }
 );
+const tableHeaders: IHeader[] = [
+  {
+    align: "center", dataField: "id", header: translate.t("search_findings.tab_events.id"), isDate: false,
+    isStatus: false, width: "12%", wrapped: true,
+  },
+  {
+    align: "center", dataField: "eventDate", header: translate.t("search_findings.tab_events.date"), isDate: false,
+    isStatus: false, width: "15%", wrapped: true,
+  },
+  {
+    align: "center", dataField: "detail", header: translate.t("search_findings.tab_events.description"), isDate: false,
+    isStatus: false, width: "45%", wrapped: true,
+  },
+  {
+    align: "center", dataField: "eventType", header: translate.t("search_findings.tab_events.type"), isDate: false,
+    isStatus: false, width: "25%", wrapped: true,
+  },
+  {
+    align: "center", dataField: "eventStatus", header: translate.t("search_findings.tab_events.status"), isDate: false,
+    isStatus: true, width: "13%", wrapped: true,
+  },
+];
+export const component: React.FunctionComponent<IEventsViewProps> = (props: IEventsViewProps): JSX.Element => {
+  const { projectName } = props.match.params;
 
-export const component: React.FunctionComponent<IEventsViewProps> =
-  (props: IEventsViewProps): JSX.Element => {
-      props.eventsDataset = props.eventsDataset.map((row: IEventsViewProps["eventsDataset"][0]) => {
-        row.eventType = translate.t(castEventType(row.eventType));
-        row.eventStatus = translate.t(castEventStatus(row.eventStatus));
-
-        return row;
-      });
-
-      return (
-  <React.StrictMode>
-    <div id="events" className="tab-pane cont active">
+  return (
+    <React.StrictMode>
       <Row>
-        <Col md={12} sm={12} xs={12}>
+        <Col md={12} sm={12}>
           <b>{translate.t("search_findings.tab_events.table_advice")}</b>
-          <Row>
-            <Col md={12} sm={12} xs={12}>
-              <Row>
-                <Col md={12} sm={12}>
-                  <DataTable
-                    dataset={props.eventsDataset}
-                    enableRowSelection={false}
-                    exportCsv={true}
-                    onClickRow={(row: { id: string }): void => {
-                      window.location.href =
-                      `/integrates/dashboard#!/project/${props.projectName}/events/${row.id}/description`;
-                    }}
-                    search={true}
-                    headers={[
-                      {
-                        align: "center",
-                        dataField: "id",
-                        header: translate.t("search_findings.tab_events.id"),
-                        isDate: false,
-                        isStatus: false,
-                        width: "12%",
-                        wrapped: true,
-                      },
-                      {
-                        align: "center",
-                        dataField: "eventDate",
-                        header: translate.t("search_findings.tab_events.date"),
-                        isDate: false,
-                        isStatus: false,
-                        width: "15%",
-                        wrapped: true,
-                      },
-                      {
-                        align: "center",
-                        dataField: "detail",
-                        header: translate.t("search_findings.tab_events.description"),
-                        isDate: false,
-                        isStatus: false,
-                        width: "45%",
-                        wrapped: true,
-                      },
-                      {
-                        align: "center",
-                        dataField: "eventType",
-                        header: translate.t("search_findings.tab_events.type"),
-                        isDate: false,
-                        isStatus: false,
-                        width: "25%",
-                        wrapped: true,
-                      },
-                      {
-                        align: "center",
-                        dataField: "eventStatus",
-                        header: translate.t("search_findings.tab_events.status"),
-                        isDate: false,
-                        isStatus: true,
-                        width: "13%",
-                        wrapped: true,
-                      },
-                    ]}
-                    id="tblEvents"
-                    pageSize={15}
-                    title=""
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+          <DataTable
+            dataset={formatEvents(props.eventsDataset)}
+            enableRowSelection={false}
+            exportCsv={true}
+            onClickRow={(row: { id: string }): void => {
+              window.location.href =
+              `/integrates/dashboard#!/project/${projectName}/events/${row.id}/description`;
+            }}
+            search={true}
+            headers={tableHeaders}
+            id="tblEvents"
+            pageSize={15}
+            title=""
+          />
         </Col>
       </Row>
-    </div>
-  </React.StrictMode>
+    </React.StrictMode>
 ); };
 
 export const eventsView: ComponentType<IEventsViewProps> = reduxWrapper
