@@ -5,7 +5,7 @@ import os
 import json
 import shutil
 
-from typing import Any
+from typing import List, Any
 
 import yaml
 
@@ -35,7 +35,7 @@ FLUID_PROJ = (
 )
 
 # subscriptions with sub-subscriptions
-NESTED = ("banistmo",)
+NESTED: List[str] = []
 
 CONFIG = []
 for proj in os.listdir(TARGET):

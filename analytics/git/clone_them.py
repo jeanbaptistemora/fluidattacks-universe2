@@ -31,9 +31,7 @@ USEAUTH2 = (
 )
 
 # subscriptions with sub-subscriptions
-NESTED = (
-    "banistmo",
-)
+NESTED: List[str] = []
 
 # repos to ignore when found inside subscriptions
 IGNORE_WHEN_INSIDE = (
