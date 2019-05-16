@@ -15,9 +15,7 @@ import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
-import { formatFindings } from "../../../../utils/formatHelpers";
-import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
+import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
 import { closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
@@ -106,14 +104,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
           }
           if (!_.isUndefined(error)) {
             hidePreloader();
-            if (_.includes(["Login required", "Exception - Invalid Authorization"], error.message)) {
-              location.assign("/integrates/logout");
-            } else if (error.message === "Access denied") {
-              msgError(translate.t("proj_alerts.access_denied"));
-            } else {
-              msgError(translate.t("proj_alerts.error_textsad"));
-              rollbar.error(error.message, error);
-            }
+            handleGraphQLErrors("An error occurred getting project findings", error);
 
             return <React.Fragment/>;
           }

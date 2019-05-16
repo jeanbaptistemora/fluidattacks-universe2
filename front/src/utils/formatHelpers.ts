@@ -519,8 +519,8 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
     return { ...draft, reportDate, type, isExploitable, isReleased };
   });
 
-export const handleGraphQLErrors: ((error: ApolloError) => void) =
-  (error: ApolloError): void => {
+export const handleGraphQLErrors: ((errorText: string, error: ApolloError) => void) =
+  (errorText: string, error: ApolloError): void => {
     error.graphQLErrors.map((err: GraphQLError) => {
       if (_.includes(["Login required", "Exception - Invalid Authorization"], err.message)) {
         location.assign("/integrates/logout");
@@ -528,7 +528,7 @@ export const handleGraphQLErrors: ((error: ApolloError) => void) =
         msgError(translate.t("proj_alerts.access_denied"));
       } else {
         msgError(translate.t("proj_alerts.error_textsad"));
-        rollbar.error(err.message, err);
+        rollbar.error(errorText, err);
       }
     });
 };

@@ -73,7 +73,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
           }
           if (!_.isUndefined(error)) {
             hidePreloader();
-            handleGraphQLErrors(error);
+            handleGraphQLErrors("An error occurred getting project drafts", error);
 
             return <React.Fragment/>;
           }
