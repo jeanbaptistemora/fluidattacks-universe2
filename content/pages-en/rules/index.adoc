@@ -66,6 +66,7 @@
 == Certificates
 
 * link:090/[REQ.090 Use valid certificates].
+* link:093/[REQ.093 Use consistent certificates].
 
 == Access Control
 
