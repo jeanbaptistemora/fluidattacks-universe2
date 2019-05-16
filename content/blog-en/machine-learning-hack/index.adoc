@@ -45,15 +45,11 @@ there are many other related, but different, approaches
 such as:
 
 // out of focus
-- Automatically fixing vulnerabilities.
-- Vulnerability detection (+VD+) in binary code.
-  We want to aid manual code review,
-  done on human-readable source
-- +ML+-aided dynamic testing.
-- Other automated techniques that don't involve +ML+.
-- Exploitability prediction.
-  Again, we just want to discover them to
-  be manually reviewed and exploited later.
+- Automatically fixing vulnerabilities
+- Vulnerability detection (+VD+) in binary code
+- +ML+-aided dynamic testing
+- Other automated techniques that don't involve +ML+
+- Exploitability prediction
 
 // present main refs
 The idea of using +ML+ techniques for +VD+
@@ -67,24 +63,11 @@ Here we'll try to describe in simple terms:
 
 We will be following and building on top of
 two previous state-of-the-art papers
-by Abraham and de Vel (2017)<<r1 ,^[1]^>> and
-Ghaffarian and Shahriari (2017)<<r2 ,^[2]^>>,
-adding the papers and projects that have been added in the past year.
 
-// categories
-The approaches to applying +ML+ to +VD+ could be classified:
-
-- by the type of +ML+ technique used,
-- by the degree of automation,
-- by the type of code they apply to, or
-- by the features that are extracted for input or pursued as output,
-  i.e., what we want to look at in the code and
-  what we want to able to learn from it.
-
-We feel this last approach makes more sense, as do <<r2 ,[2]>>,
-who then divide them according to whether
-program syntax and semantics are analyzed.
-The ones that do are further subdivided into two main categories:
+We feel the grouping by semantic features extracted from code
+approach makes more sense,
+as do Ghaffarian and Shahriari (2017)<<r2 ,^[2]^>>,
+These are further subdivided into:
 
 - Vulnerable code pattern recognition.
   Usually based on labeled data
@@ -94,6 +77,7 @@ The ones that do are further subdivided into two main categories:
   This means, based upon a large code base,
   extract models of what "normal code" should look like and
   determining pieces of code that do not fit in with this model.
+
 
 == Anomaly detection approaches
 
@@ -110,13 +94,6 @@ extracting features such as:
 - lack of access controls, which may lead to
   confidential information being leaked, altered or denied access to.
 
-These approaches have also been used in
-software quality assurance since
-they might provide, as a bonus,
-the automatic extraction of specifications, rules and patterns,
-a laborius and error-prone process if done by hand.
-Hence the mix with non-security related papers in this area.
-
 // star chucky
 The system link:../anomaly-serial-killer-doll/[Chucky] by
 link:https://user.informatik.uni-goettingen.de/~krieck/docs/2013-ccs.pdf[Yamaguchi et al. (2013)]
@@ -131,16 +108,10 @@ link:https://en.wikipedia.org/wiki/Bag-of-words_model[bag-of-words]
 model to represent the code and the
 link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[k-nearest-neighbors]
 technique to analyze it.
-A special graph proposed by the same authors called the 'code property graph',
-which combines other graph representations of code such as
-the link:../oracle-code/#databases-out-of-programs[abstract syntax tree],
-link:http://research.cs.wisc.edu/wpis/papers/icse92.pdf#page=4[dependency graph] and
-link:https://scitools.com/feature/control-flow-graphs/[control flow graph],
-is then stored in the graph-oriented database link:https://neo4j.com/[neo4j]
-and can then be traversed with the graph query language link:http://tinkerpop.apache.org/docs/current/reference/[Gremlin].
 'Chucky' discovered 12 new vulnerabilites in
 high-profile projects such as
 link:https://pidgin.im/[Pidgin] and link:http://libtiff.org/[LibTIFF].
+See our link:../anomaly-serial-killer-doll[article on Chucky] for details.
 
 // also joern
 A year later,
@@ -247,24 +218,17 @@ link:https://en.wikipedia.org/wiki/Logistic_regression[logistic regression],
 link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[MLP]
 and link:https://en.wikipedia.org/wiki/Random_forest[random forests].
 
+//china
 In the last few months,
 some in-scope papers have appeared.
 Li et al. propose two systems:
 link:https://arxiv.org/pdf/1801.01681.pdf[VulDeePecker (2018a)] and
 link:https://arxiv.org/abs/1807.06756v2[SySeVR (2018b)],
-which claim to extract both syntactic and semantic information from the code
-in the form of 'program slices', thus
-also considering both data and control flow.
-This information is then encoded as vectors using +word2vec+
-and fed to different
-link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[neural networks].
+which claim to extract both syntactic and semantic information from the code,
+thus also considering both data and control flow.
 They report good results with low false positives
 and 15 zero-day vulnerabilities in high-profile open source libraries.
-However, these systems:
-
-- need peer-reviewing as they are in pre-print state or are conference papers
-- are designed exclusively for `C(++)` code-base
-- are subject to the limitations of other systems like coarse granularity.
+See our link:../deep-hacking[article on these systems].
 
 link:https://dl.acm.org/citation.cfm?id=3138840[Lin et al. (2017)]
 propose a different variant
@@ -317,51 +281,19 @@ have been proposed as 'predictors' for the presence
 of vulnerabilities in software projects.
 These studies use mostly manual procedures
 based on publicly available vulnerability sources such as
-link:https://nvd.nist.gov/[NVD],
-with the exception of
-link:https://www.sciencedirect.com/science/article/pii/S1361372313700459[Moshtari et al. (2013)],
-who propose a semi-automated, self-contained framework.
-Also noteworthy is
-link:https://saschafahl.de/papers/vccfinder2015.pdf[VCCFinder]
-by Perl et al. (2015),
-which works at the repository level
-to find potential vulnerability-contributing commits (+VCCs+).
-
+link:https://nvd.nist.gov/[NVD].
 According to <<r2 ,[2]>> and
 link:https://faculty.cs.nku.edu/~waldenj/papers/issre2014-php-prediction.pdf[Walden et al. (2014)],
 predicting the existence of vulnerabilities based on
 software engineering metrics could be thought of as a case of
 "confusing symptoms and causes":
 
-
+.Correlation vs causation. Via link:https://imgs.xkcd.com/comics/correlation.png[XKCD].
 image::https://imgs.xkcd.com/comics/correlation.png[XKCD on correlation]
 
-That is, there might be a correlation between
-certain metrics and the presence of vulnerabilities,
-but that doesn't tell us anything, in general,
-about the latter.
-Most of the papers reviewed in this category present
+Hence, most papers reviewed in this category present
 high false positive rates and
 hardly one of them has explored automated techniques.
-Hence, we deem these the least interesting for our purposes.
-
-link:https://bit.ly/2qBzPTZ[Wijayasekara et al (2012, 2014)]
-focus on text-mining
-public vulnerability databases, which
-seems like a good idea, in order to
-find 'hidden impact bugs', i.e.,
-bugs which have been reported but
-whose security implications we ignore.
-Several other authors focus on using
-link:https://en.wikipedia.org/wiki/Genetic_algorithm[genetic algorithms] and
-other techniques from "computational/artificial intelligence"
-which fall out of the scope of this article.
-link:https://www.acsac.org/2007/papers/22.pdf[Sparks et al. (2007)],
-link:https://www.researchgate.net/publication/260730962_Applications_of_computational_intelligence_for_static_software_checking_against_memory_corruption_vulnerabilities[Alvares et al.(2013)],
-link:http://www.gsd.inesc-id.pt/~mpc/pubs/fp694-medeiros.pdf[Medeiros et al. (2014)]
-focused on classifying reported vulnerabilites using +ML+ techniques,
-not discovery.
-
 
 ''''
 
@@ -376,15 +308,8 @@ Some limitations that are common:
   a universal algorithm for finding vulnerabilities cannot exist,
   since a program cannot identify semantic properties
   of another program in the general case.
-- Limited applicability. Be that because the technique only applies to
-  mature systems, or a particular programming language,
-  it would be nice to have techniques with broader spectra.
+- Limited applicability.
 - Coarse granularity and lack of explanations.
-  Most of the reviewed systems can only say
-  "this program might have a vulnerability",
-  but we would like to know the line or function where it appears,
-  what type of vulnerability it is and what causes it
-  in order to better allocate human resources for subsequent code review.
 - A higher degree of automation is desirable,
   not in order to replace, but to guide, manual code auditing.
   Purely automated approaches are, in view of Rice's theorem,

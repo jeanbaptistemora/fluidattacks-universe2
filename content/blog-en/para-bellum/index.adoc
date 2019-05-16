@@ -31,60 +31,39 @@ In risk management, this number is
 the _Value at Risk_ or +VaR+.
 Fortunately, once you have one you have the other.
 
-Value at risk measures the mentioned worst-case scenario
+`VaR` measures this scenario
 by telling us beyond how much our losses
-will most likely _not_ go,
-up to a certain degree of confidence,
-in a definite period of time
-(as we have stressed throughout this link:../tags/risk/[series of articles],
-all measurements need to be time-framed to make sense).
+will _not_ go,
+with a certain degree of confidence,
+over a definite period of time.
 Thus a daily 1% `VaR` of $10 million means
 that the probability that you will lose more than
-ten million is 1%, which is the same as saying
-that you are 99% confident that the losses
-will not exceed $10 million.
+ten million is 1%, i.e.,
+are 99% confident that the losses
+will not exceed that.
 
 So we need to define over what time period
-our `VaR` will be taken and, more importantly,
-what confidence we want or, rather,
-how extreme the worst-case scenario we want to analyze.
-Typical periods in the industry are
-a single day or week, but they can be anything,
-as long as your risky investment lasts.
-Since we are interested in extreme cases,
-confidence levels of 95% or 99%,
-which correspond to the extreme 5% and 1% cases
-are not uncommon.
+our `VaR` will be taken and
+how extreme the worst-case scenario.
+Typical periods and confidences used in the industry are
+a single day or week, and
+confidence levels of 95% or 99%.
 
 There are at least three workable ways
 to compute the value at risk:
 
-. Examining the distribution of the returns.
-. Simulation using historical values.
-. Using the loss exceedance curve.
-
-We will focus on the first,
-because it illustrates the `VaR` definition,
-and the last, because it is more compatible
-with what we have done so far,
-since our research on risk has mostly
-revolved around computing the distribution of loss
-due to cybersecurity events, i.e.,
-the loss exceedance curve.
-As a bonus, this will be the easiest method.
+. Examining the distribution of the returns,
+. Using the loss exceedance curve (`LEC`)
 
 The link:https://www.investopedia.com/terms/n/normaldistribution.asp[normal distribution]
 is perhaps the most popular one
 for modeling real-word situations and natural phenomena, and with
 link:https://www.thoughtco.com/importance-of-the-central-limit-theorem-3126556[good reason].
 It could be used,
-for example, to model the final value of a given portfolio
-over a one-year period.
-Suppose the mean return is 10%,
-with a standard deviation, i.e., volatility, of 30%.
-Thus the portfolio returns
-can be modeled by a normal random variable
-with mean 10 and standard deviation of 30:
+to model the value of a portfolio
+over a one-year period, with
+mean return 10%,
+and standard deviation (volatility) 30%:
 
 // pkg load statistics
 // x = [-100:1:130];
@@ -110,8 +89,7 @@ image::normal-pdf.png[Normal distribution of value]
 Knowing the probability distribution,
 which tells us probabilities of point values,
 we can find probabilities of ranges
-with the corresponding _cumulative_ distribution function or `CDF`
-(which is nothing but the integral of the density, i.e., adding them up):
+with the corresponding _cumulative_ distribution function (`CDF`):
 
 // cdf = normcdf(x,10,30)
 // semilogy(x, cdf)
@@ -131,25 +109,17 @@ with the corresponding _cumulative_ distribution function or `CDF`
 .Cumulative distribution function of value
 image::normal-cdf.png[Cumulative distribution function of value,width=50%]
 
-Notice how this is similar to
-the loss exceedance curve,
-only vertically reflected.
+Looks like
+a vertically reflected `LEC`.
 In a cumulative probability plot
 the `VaR` is just the x-value
-corresponding to the probability we need.
-In this case it's just the x-value for 1% probability,
-as shown in the graph.
+corresponding to the confidence.
 
-We can use a simple
+We can use a
 link:https://www.libreoffice.org/discover/calc/[spreadsheet],
-which is a tool we all probably already have,
-to put this model to work.
-In this case we will use the
-link:https://help.libreoffice.org/Calc/Statistical_Functions_Part_Four#NORM.DIST[+NORM.DIST+] function
-since the distribution is normal.
-If we want to know the probability that the loss
-will be greater than, say, 20%,
-we can compute
+for this, with the
+link:https://help.libreoffice.org/Calc/Statistical_Functions_Part_Four#NORM.DIST[+NORM.DIST+] function.
+The probability that the loss exceeds 20% is
 
 ----
 =NORM.DIST(-20,10,30,1)
@@ -158,12 +128,9 @@ we can compute
 
 i.e., around 15.8%.
 The 10 and 30 above are the distribution parameters,
-and the -20 is of course the value whose probability we need.
+and the -20 is the value whose probability we need.
 Notice that it is negative, meaning a loss.
-The 1 means to make the computations cumulative
-(as opposed to 0 which just calculates the density function)s
-i.e., to find the probability that
-the overall change in value will be less than or equal to -20.
+The 1 means to make the computations cumulative.
 
 We can also use the inverse function so that,
 given a probability,
@@ -231,8 +198,7 @@ aggregate the results differently
 in order to obtain the density function and
 recreate the example above.
 But given that the main result of our
-simulations was a loss exceedance curve,
-which already involves loss:
+simulations was a loss exceedance curve:
 
 .Loss exceedance curve
 image::../monetizing-vulnerabilities/simple-lec.png[Loss exceedance curve]
@@ -251,25 +217,19 @@ The 1% is not even visible here,
 but at least that tells us that it must be beyond $1000 million.
 
 [[var-monitor]]
-Monitoring a short-termed `VaR`, v.g., the daily `VaR`,
-can be useful tool to evaluate the performance of risk management
-or the apropriateness of adopted risk policies,
-while it can also be useful to understand events from the past.
-Consider the following two `VaR` evolution-in-time graphs:
+Monitoring a short-termed `VaR`
+can be usefulto evaluate the performance of risk management
+or to understand events from the past:
 
 .Artificial VaR monitoring (via link:https://www.mathworks.com/help/examples/risk/win64/ValueatRiskEstimationandBacktestingExample_04.png[MathWorks]) and real example from link:https://en.wikipedia.org/wiki/Bankers_Trust[Bankers Trust], via <<r3, [3]>>.
 image::var-time.png[VaR monitoring in time]
 
-''''
 
-In the first one we see a steady, if slow,
-decline in `VaR` over the years,
-for all three methods with which it was computed.
-The orange line, labeled "normal" corresponds
-to the method we followed here.
+In the first we see a steady, if slow,
+decline in `VaR` over the years.
 Also notice how the returns are almost always
 above their corresponding values-at-risk,
-save for a few breaches,
+save for a few rare breaches,
 which is to be expected.
 
 In the image to the right there is
@@ -281,10 +241,9 @@ This phenomenon is explained in Jorion's book <<r3, ^[3]^>>
 as a response to a rise in interest rates at that moment,
 which was just as sharp as the decrease in the `VaR`.
 
-However, it shouldn't be taken away that a decreasing `VaR`
-is enough to deem that the risks managers are doing a good job.
+However, a decreasing `VaR` is not all.
 Shying away from investments to keep the `VaR` low will,
-by symmetry, mean less chance of great returns:
+by symmetry, mean lower chance of great returns:
 
 [quote,Aaron Brown]
 "A risk manager has two jobs:
@@ -294,11 +253,9 @@ and survive the other 1% of the time.
 
 ''''
 
-So,  the Value at Risk tells us in a single number
+So,  the VaR tells us in a single number
 what can happen with an investment or any risky situation
-what the worst that might happen is,
-and allows us to easily compare, for example,
-two investments or cybersecurity policies.
+the worst that might happen.
 However its greatest strength is also where it falls short.
 This particular number,
 while it gives an upper bound for the losses,

@@ -18,8 +18,6 @@
 
 One of the least understood parts of a vulnerability
 is the _risk_ it poses to the target.
-On the tester side, we tend to confuse them with
-the _threat_, the _attack vector_ and the _actor_.
 On the client side, it tends to get confused with impact
 and occurrence likelihood,
 due to devices like the so-called ``risk matrix'',
@@ -104,7 +102,7 @@ At first, we might have estimated the length of the ant
 to be between, say, 0.5 and 3 centimeters, with 60% confidence.
 After measurement, we have less uncertainty.
 
-Now, what we think is intangible or unmeasurable
+Thus, what we think is intangible or unmeasurable
 could actually be measured.
 Continuing with the reputation example,
 this might be measured indirectly by the drop in sales,
@@ -120,14 +118,13 @@ What is each of them worth?
 For how long could our servers be out of service?
 How much money would be lost per hour?
 
-Furthermore, events like the ones in security
+Furthermore, events like these
 need to be time-framed.
 It doesn't make much sense to ask
 "how likely is it that our organization suffers a major data breach?"
 because, given unlimited time and resources,
 it is almost certain to happen.
-Plus, we probably don't care if it were to happen eons from now,
-when mankind might not even exist.
+Plus, we probably don't care if it were to happen eons from now.
 We need to set a reasonable time frame, like a year.
 Once we achieve a result such as
 
@@ -147,24 +144,6 @@ if it were, then the established qualitative methods
 like assigning arbitrary names on a scale of 1 to 5,
 are just as inappropriate or more,
 actually introducing noise or error.
-The most illuminating example of how small data is usable is
-the so-called "Rule of Five".
-If you want to estimate the median of a (large, unknown) population,
-taking a sample of 5 can already give you a 93.75% confidence interval.
-How? The median is 93.75% likely to fall between the maximum
-and the minimum of your tiny sample.
-
-Why? Consider the opposite event:
-the median is not between the maximum and minimum of the sample.
-That means that either all are above the median or all below.
-Now the probability of one element being above the median is,
-by definition, 50%, because it splits the data in two,
-so the probability of all 5 being above
-would be 0.5^5^ = 3.125%,
-by multiplying the 5 independent events probabilities.
-Same for the case that they are all below.
-So the probability of the opposite event is twice that: 6.25%,
-making the probability of the original event 93.75%.
 
 
 == Subjective probability
@@ -212,7 +191,7 @@ regarding the value of information.
 
 Later we will also discuss more advanced methods
 based on Bayes rule such as
-iteratively adjusting distributions,
+[button]#link:../hit-miss/[iteratively adjusting distributions]#,
 which allows making forecasts with very scarce data, and
 decomposing probabilities with many conditions.
 
@@ -222,7 +201,8 @@ This article merely pretended to be an introduction to
 the whole slew of methods that exist in other fields
 to estimate risk, uncertainty and the unknown,
 but have not been adopted in the field of cybersecurity.
-In upcoming articles, we will try to show in a little more detail
+In [button]#link:../tags/risk[upcoming articles]#,
+we will show in more detail
 how some of these methods work.
 
 

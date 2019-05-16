@@ -31,22 +31,14 @@ link:../app-pickle/#documenting-attack-vectors[+UNIX+ command injection].
 All of these have one thing in common, namely:
 they could have been prevented with a little
 link:https://www.owasp.org/index.php/Data_Validation[Input Validation].
-In +PHP+ this could have been done
-with functions such as +fgetss+,
-link:../app-pickle/[+str_replace+] or
-link:../gherkin-steroids/[+strpos+].
 
-Taking some ideas from
-link:../stand-shoulders-giants/[static code analysis]
-and the
-link:../oracle-code/['code-as-data']
-approach,
-what if we could use
-some sort of
+Taking some ideas from link:../exploit-code-graph/[static code analysis]
+and the link:../oracle-code/['code-as-data'] approach,
+what if we could use some sort of
 code or syntax analysis tool
 in order to gain intelligence about
 where an apps's weaknesses lie?
-That's what 'parsers' are for.
+That's what we use 'parsers' for.
 
 == Manual detection
 
@@ -60,11 +52,6 @@ Every time we load the page,
 the current entries in the blog are
 +SELECTed+ from a +MySQL+ database.
 
-
-The page itself is pretty simple:
-a header, menu, sidebar and footer
-which are pretty much uniform across the site,
-with the real stuff inside a +<div>+ of its own.
 The source code for such a page is like this:
 
 .Adapted from +bWAPP+. Braces and loads of lines removed.
@@ -73,7 +60,7 @@ The source code for such a page is like this:
 include::/web/content/blog-en/pars-orationis-secura/redux-sqli-7.php[]
 ----
 
-Of course, we're mainly interested in
+We're mainly interested in
 the +PHP+ and +HTML+ mixed in the
 +<div id="main">+,
 which is just what we cropped here,
@@ -140,31 +127,7 @@ Also, we want our tool to be able to identify
 
 * where and how it is defined,
 
-* whether or not it is protected by some function, and
-
-* everything else we can find out about it, really.
-
-The +INSERT+ syntax, according to
-link:https://dev.mysql.com/doc/refman/5.7/en/insert.html[+MySQL+],
-goes as follows:
-
-[source,sql]
-----
-INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
-    [INTO] tbl_name
-    [PARTITION (partition_name [, partition_name] ...)]
-    [(col_name [, col_name] ...)]
-    {VALUES | VALUE} (value_list) [, (value_list)] ...
-    [ON DUPLICATE KEY UPDATE assignment_list]
-----
-
-This works as an excuse for us to introduce the
-link:https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form#Example['Backus-Naur form']
-(+BNF+) language syntax notation.
-Essentially, inside square brackets is +[optional]+,
-the pipe stands for ``or'' and
-inside curly braces means +{mandatory}+ and
-+...+ means optionally repeat.
+* whether or not it is protected by some function
 
 For our purposes, the +INSERT+ statement has this form:
 
@@ -174,14 +137,8 @@ INSERT INTO tbl_name [column-names] VALUES (value-list)
 ----
 
 We'll use subparsers to define
-what each of these elements mean.
-For example +tbl_name+ is any +SQL+ identifier,
-which can consist of alphanumeric symbols and underscores (+_+).
-And +value-list+ is either a single value or
-a comma-separated list of values.
-
+what each of these elements mean, v.g., values.
 But what is a value?
-That's where things get interesting.
 Consider this rich example:
 
 [source,sql]
@@ -222,15 +179,8 @@ Now they have two problems.
 
 == Learning the parser-tongue
 
-Now that we've opted out of regular expressions,
-we have to choose a parser.
-Apparently, the standard for a time
-used to be the combination of
-link:http://dinosaur.compilertools.net/[+lex+ and +yacc+],
-which was pretty complicated.
-Nowadays we have two solid choices:
-link:http://www.antlr.org/[+ANTLR+] for the +Java+ people,
-and link:http://pyparsing.wikispaces.com/[+pyparsing+] for us.
+Our weapon of choice will be
+`Python` and link:http://pyparsing.wikispaces.com/[+pyparsing+].
 
 .You don't need to be a wizard to use +pyparsing+!
 image::parsertongue.png["Comic about pyparsing and Harry Potter"]
@@ -242,7 +192,7 @@ Some nice features about +pyparsing+:
 * fits well in your +Python+ code,
 
 * uses standard class constructs and
-plain language instead of cryptic odd symbols.
+plain language instead of cryptic odd symbols,
 
 * is tolerant to change and
 easy to adapt to different input or targets to match,
@@ -262,10 +212,7 @@ sql_insert = CaselessKeyword("INSERT INTO") + sql_identifier + Optional(column_n
 
 The functions in +SentenceCase+ are built into +pyparsing+,
 and their names are pretty self-explanatory.
-The `+` operator is overloaded to mean "followed by" and is
-insensitive to white space.
-The +snake_case+ identifiers are just identifiers and
-we have to define them:
+The `+` operator is overloaded to mean "followed by".
 
 [source,python]
 ----
@@ -301,11 +248,6 @@ only the +php_identifiers+ inside,
 and we can access that
 by the name with which we
 baptized +PHP+ identifiers above.
-Note that,
-although +sql_identifiers+ don't belong here logically,
-they have the same syntax as function names and
-the tails of identifiers,
-so we might as well reuse that parser.
 
 Finally, we get to the heart of the matter:
 a +value+ to be inserted is either
@@ -347,11 +289,6 @@ throw a +ParseException+ if not.
 pyparsing.ParseException: Expected "(" (at char 0), (line:1, col:1)
 ----
 
-Notice how we refer to
-the list of returned values as +result["values"]+,
-and from that we can get the identifiers
-which take part in the dangerous concatenation.
-
 The function +scanString+ looks
 for substrings that match the grammar.
 Quite useful. It also tells you
@@ -379,15 +316,12 @@ To convert them to 'line' and 'column' numbers,
 we use the functions +lineno()+ and +colno()+,
 respectively.
 
-Thus far, this is nothing out of this world:
-nothing we couldn't have done with +grep+
-or +Python+ regular expressions (+re+).
 Where parsers actually beat regular expressions is
 in extracting information and structure from the input,
 as we did above to identify the inserted values
 and from those, which are the variables where we can inject +SQL+.
-For that, sadly,
-we need to parse again because we don't know beforehand
+For that, we need to parse again
+because we don't know beforehand
 whether the inserted value is a function call or a +PHP+ identifier:
 
 [source,python]
@@ -419,13 +353,6 @@ for tokens, start, end in tpar.scanString(content):
                                  line(start2,content).strip()))
 ----
 
-At any point,
-if a +ParseException+ or +KeyError+ is thrown,
-that just means a +parseString+ failed,
-or we tried to access an element that wasn't previously parsed.
-In plain language,
-it means that particular query was not really dangerous.
-
 Finally, we run this code
 for every +PHP+ file in the +bWAPP+ server root.
 The output we get is very long
@@ -455,38 +382,20 @@ Total SQL injections found: 56
 ----
 
 Boy, that's a load of +SQL+ injections!
-However, we do not expect every single one
-of these matches to be an actual +SQL+ injection ('false positives')
-and maybe some files contain effective +SQL+ injections
-have 'escaped' our scrutiny.
+However, some
+of these matches might be a 'false positive'
+and maybe some files have 'escaped' our scrutiny.
 
 To find the ratio of discovered vulnerabilities
-to existing ones (the 'yield'), let us use the
-link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[Netsparker report on bWAPP]
-as a reference.
-This report lists 57 +SQL+ injections.
+to existing ones (the 'yield'), consider the 57 +SQLi+ in
+link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[Netsparker]
 Compared to our 56, that gives us a 'yield' of 98%.
 Not too shabby for our simple parser.
-Hence the 'escapes', the ratio of what we did not find
-to the number of existing vulnerabilities,
-is 2% in this case.
+Hence the 'escapes' is 2% in this case.
 
-These numbers should be taken with a grain of salt, though, since
-some of these vulnerabilities may be considered
-+XSS+ or +CSRF+ depending on the source.
-Despite that our criterion is clear:
-all those we found are +SQL+ queries with concatenations,
-and all of those can be injected,
-however hard or easy.
-
-Of course, there are bound to be some false positives.
-However, given the parser design,
+Ggiven the parser design,
 and checking the script output,
 we see that only really dangerous concatenations are reported.
-Some of those might be protected by good
-input sanitizers like +mysqli_real_escape_string+,
-but none is bullet-proof.
-
 Thus we might say,
 with a statistically sound 95% confidence,
 that our +pyparsing+ parser reports

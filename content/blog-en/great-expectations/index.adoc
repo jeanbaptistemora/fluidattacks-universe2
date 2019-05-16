@@ -84,14 +84,14 @@ tipically used for costs that depend on them),
 associated with such an outcome.
 
 Influence diagrams can be a lot more complicated,
-but for the purposes of this article that will suffice.
+but for now that will suffice.
 Notice how decisions are at the first level.
 Depending on those decisions, some random events
 (typically costs associated with a particular risk)
 will happen or not,
 that's another level.
-From the outcome of those random events, a deterministic function
-(usually the total cost, simply adding individual costs)
+From the outcomes of those random events, a deterministic function
+(usually the total of the costs)
 is computed and from that, a utility is computed.
 Also, influence diagrams can involve more than one decision-making agent,
 which can be distinguished using colors.
@@ -117,9 +117,11 @@ which sum up the results of random impacts (row 3),
 which depend on random events (row 2).
 That is, in a nutshell, an influence diagram for cyber warfare.
 
+== Mathematical interlude: expectation
+
 Another important concept to understand this model is
-that of _expected value_, which we have mentioned in passing before.
-As it name implies, it would be the _value_ that
+that of _expected value_.
+As it name implies, it is the _value_ that
 can be reasonably _expected_ for a random variable,
 taking into account the probability of each value,
 i.e., its distribution.
@@ -147,10 +149,9 @@ and _weight_ each value with that count?
 \huge
 $$\frac{20\times1 + 21\times3 + 22\times1 + 23\times2 + 24\times1 + 25\times2}{10} = 22.5$$
 ----
+
 This can be interpreted in terms of probabilities.
-Since picking a person with age 21 is 3 times more likely than
-picking a person aged 24 (3/10 vs 1/10),
-and if we break up that fraction, we can rewrite that sum as
+If we break up that fraction, we can rewrite that sum as
 
 ["latex","average3.png",align="center"]
 ----
@@ -171,7 +172,7 @@ $$ EV = \sum v\times p(v) $$
 where _v_ is each value, _p(v)_ is its probability, and
 the sums runs over all possible values.
 For continuous distributions, the sum over all values is upgraded
-to a integral over the domain from which the values come:
+to a integral over all values:
 
 ["latex","expected-value-cont.png",align="center"]
 ----
@@ -179,10 +180,12 @@ to a integral over the domain from which the values come:
 $$ EV = \int v\times p(v)\,dv $$
 ----
 
-This applies to this model in that we would like to compute and maximize
-the expected value for the utility (the final nodes),
-but that value depends probabilistically on other nodes.
-If you recall our discussion about link:../updating-belief/[conditional probability],
+== Back to the model
+
+We would like to compute and maximize
+the expected value for the utility,
+but that value depends probabilistically on others.
+Recalling our discussion about link:../updating-belief/[conditional probability],
 you know that the probability of two events happening together can be
 computed with the probability of one of them,
 and the probability of one given the other.
@@ -204,9 +207,6 @@ All that is just the probability of having the utility _u_
 corresponding to the parameters _c~n~_, _c~t~_, _c~c~_, etc.
 According to the above discussion of expected value,
 we just multiply the value by its probability and integrate.
-Of course this becomes a multiple integral
-since there are several different parameters,
-but the general idea is the same.
 
 Now that we have an estimate of expected utility,
 we need only simulate and throw some optimization algorithms to obtain
