@@ -6,8 +6,6 @@ import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as eventDescriptionActions from "./containers/EventDescriptionView/actionTypes";
 import { IEventDescriptionViewProps } from "./containers/EventDescriptionView/index";
-import * as eventsActions from "./containers/EventsView/actionTypes";
-import { IEventsViewProps } from "./containers/EventsView/types";
 import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import { IExploitViewProps } from "./containers/ExploitView";
@@ -29,7 +27,6 @@ export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   eventDescription: Pick<IEventDescriptionViewProps, "isEditable" | "eventData" >;
-  events: Pick<IEventsViewProps, "eventsDataset" >;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
   fileInput: {
@@ -155,15 +152,6 @@ const initialState: IDashboardState = {
     },
     isEditable: false,
   },
-  events: {
-    eventsDataset: [{
-      detail: "",
-      eventDate: "",
-      eventStatus: "",
-      eventType: "",
-      id: "",
-    }],
-    },
   evidence: {
     currentIndex: 0,
     images: [],
@@ -305,23 +293,6 @@ actionMap[eventDescriptionActions.CLEAR_EVENT_STATE] =
     ({
       ...state,
       eventDescription: initialState.eventDescription,
-    });
-
-actionMap[eventsActions.LOAD_EVENTS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    events: {
-      ...state.events,
-      eventsDataset: action.payload.events,
-    },
-  });
-
-actionMap[eventsActions.CLEAR_EVENTS_STATE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      events: initialState.events,
     });
 
 actionMap[resourcesActions.LOAD_RESOURCES] =
