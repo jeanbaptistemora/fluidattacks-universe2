@@ -44,7 +44,7 @@ RUN apt-get update \
     && curl https://bootstrap.pypa.io/get-pip.py | python \
     && pip2 install --no-cache-dir -r requirements-app.txt \
     && gem install -N asciidoctor -v 1.5.8 \
-    && gem install -N asciidoctor-pdf --pre \
+    && gem install -N asciidoctor-pdf -v 1.5.0.alpha.16 --pre \
     && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
     && cd front/ \
         && npm install \

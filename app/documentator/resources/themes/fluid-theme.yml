@@ -11,7 +11,6 @@ font:
       bold: sourcesans/SourceSansPro-Bold.ttf
       italic: sourcesans/SourceSansPro-Italic.ttf
       bold_italic: sourcesans/SourceSansPro-BoldItalic.ttf
-
 base:
   align: justify
   # color as hex string (leading # is optional)
@@ -34,8 +33,7 @@ base:
   border_width: 0.5
 title_page:
   align: right
-  background:
-    image: image:title.jpg[]
+  background_image: image:title.jpg[]
   title:
     top: 18%
     font_size: $heading_h1_font_size
