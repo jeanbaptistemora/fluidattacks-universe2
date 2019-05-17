@@ -47,7 +47,7 @@ Given a function,
 `Chucky` finds all the sources and sinks referenced by it.
 If you've been following our link:../tags/machine-learning/[latest articles],
 it should come as no surprise that the first step in the procedure
-is to perform a _robust_ link:../pars-orations-secura/[parsing].
+is to perform a _robust_ link:../pars-orationis-secura/[parsing].
 
 Notice the use of the word _robust_ above:
 as opposed to the strict parsing done by linters and compilers,

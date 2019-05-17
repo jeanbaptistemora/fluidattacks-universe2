@@ -20,7 +20,7 @@ If we have learned anything so far
 in our quest to understand how
 link:../crash-course-machine-learning/[machine learning] (`ML`)
 can be used to
-link:../machine-learning-to-hack[detect vulnerabilities] in source code,
+link:../machine-learning-hack[detect vulnerabilities] in source code,
 it's that what matters the most in this process
 are the different representations of source code
 which are later fed to the actual `ML` algorithms.

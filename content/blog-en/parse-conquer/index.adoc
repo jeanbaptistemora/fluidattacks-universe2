@@ -42,7 +42,7 @@ For that, a regular expression will suffice.
 However, when what you need to do is more involved,
 such as looking for `SQL` injections,
 or analyzing source code for poor programming practices
-as per our link:../..//rules/[Rules]
+as per our link:../../rules/[Rules]
 and recommendations,
 parsers are our tool of choice.
 This is one of the tasks at which `Asserts` excels,

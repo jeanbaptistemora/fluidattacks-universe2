@@ -115,8 +115,8 @@ Too many acronyms for not too much content:
 .You don't want to ask Chandler about his Annual Net Usage Statitics!
 image::wenus.png[Acronyms joke]
 
-The +ARO+ can be estimated by link:../ask-expert/[experts].
-Suppose that it is known that a data breach will most likely occurr
+The +ARO+ can be estimated by experts.
+Suppose that it is known that a data breach will most likely occur
 at least once in 10 years,
 the +ARO+ for such an event is 1/10 = 0.1 events per year.
 The +SLE+ is to be estimated by your own experts.
@@ -141,7 +141,7 @@ Cons:
 
 == LEC
 
-This is a decidely different one,
+This is a decidedly different one,
 and one of our favorites at that.
 The loss exceedance curve.
 We have already discussed it at length
@@ -150,7 +150,7 @@ link:../quantifying-risk[introduction to quantitative risk],
 our general link:../monetizing-vulnerabilities[Monte Carlo simulation article],
 and gave an implementation in link:../quantitative-python[Quantitative Python].
 In a nutshell, it is a graph that tells you
-the probability of lossing a given amount or more,
+the probability of losing a given amount or more,
 for any amount in a range.
 It's like having all possible values-at-risk
 for all confidence levels.
