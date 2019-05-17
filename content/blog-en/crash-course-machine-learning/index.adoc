@@ -101,14 +101,11 @@ image::https://cdn-images-1.medium.com/max/1600/1*csqbt5-K4GVi4i4Lrcx_eA.png[alt
 
 More generally, if the inputs are _n_-dimensional vectors,
 an +SVM+ tries to find a geometric object of dimension _n-1_ (a _hyperplane_)
-that divides the given inputs into two (or more) groups.
+that divides the given inputs into two groups.
 To name an application, support vector machines
 are used to detect spam in images
 (which is supposed to evade text spam filters) and
 link:http://www.mit.edu/~9.54/fall14/Classes/class10/Turk%20Pentland%20Eigenfaces.pdf[face detection].
-In both cases, the translation of image to vector is
-relatively easy since computer representations of images are
-merely matrices of three-number vectors (_pixels_).
 
 == _K_-means clustering
 
@@ -133,21 +130,6 @@ It can be shown and, more importantly, makes intuitive sense, that:
 
 . Each point must be clustered with the nearest centroid.
 . Each centroid is at the center of its cluster.
-
-Condition 1 already suggests an algorithm:
-if you find a point which is closer to a centroid different
-than the centroid where it is currently assigned, switch them.
-Where do we begin?
-The initial clustering choice could be random;
-we could space centroids evenly,
-or perhaps an ad hoc strategy.
-In fact, since this is a
-link:https://en.wikipedia.org/wiki/Hill_climbing[hill-climbing]
-algorithm, i.e. one that makes
-small improvements in each iteration thus ensuring finding a local maximum
-but perhaps not the global one,
-different starting points might lead to different optima.
-Thus, several tries, with various starting points are recommended.
 
 Clustering has been used in the context of security
 for malware detection; see for example
@@ -177,27 +159,22 @@ it's only a matter of giving it input and getting the output.
 image::https://www.researchgate.net/profile/Hassen_Bouzgou/publication/316351306/figure/fig5/AS:485878301761541@1492853822090/Architecture-of-a-multilayer-perceptron-neural-network.png[Multilayer perceptron]
 
 The networks described above are _feed-forward_,
-in the sense that data flows only
-in the direction from input to output.
-Without this restriction, we get
+but there are also
 _recurrent neural networks_.
-_Convolutional_ networks use the mathematical process
+_Convolutional_ networks use mathematical
 link:https://en.wikipedia.org/wiki/Cross-correlation[cross-correlation]
-which is similar to a
-link:https://en.wikipedia.org/wiki/Convolution[convolution]
 instead of regular smooth step functions.
 _Deep_ neural networks owe their name to
 the great number of layers they use and
 to the fact that they are unsupervised learning models.
 
 While these networks have been quite succesful
-in applications, particularly in video games,
-they are not perfect:
+in applications, they are not perfect:
 
 - in contrast to simpler machine learning models,
-  they don't produce a usable or understandable model;
+  they don't produce an understandable model;
   it's just a black box that computes output given input.
-- biology is perhaps not the best model for engineering.
+- biology is not necessarily the best model for engineering.
   In Mark Stamp's words <<r1, ^[1]^>>,
 
 [quote]
@@ -235,28 +212,16 @@ the intution obtained from simple trees is lost.
 
 == Anomaly detection via k-nearest neighbors
 
-Detecting anomalies is naturally an unsupervised problem
+Detecting anomalies is a naturallyunsupervised problem
 and really makes up a whole class of algorithms and techniques,
-some of which actually make more sense in the context of
-data mining than machine learning.
+more data mining than machine learning.
 
-The simplest way to detect anomalies could be to compute
-the average and standard deviation of your data, and
-declare everything that is more than two standard deviations
-away from the mean an anomaly (_outliers_ in classical statistics).
-A slightly more involved approach is to use
-the _k_-nearest neighbors algorithm (`kNN`),
-which essentially classifies an element according to
+The _k_-nearest neighbors algorithm (`kNN`),
+essentially classifies an element according to
 the _k_ training elements closest to it.
 
 .The new point would be classified as a triangle in `3NN`, but as a square in `5NN`.
-image::https://upload.wikimedia.org/wikipedia/commons/e/e7/KnnClassification.svg[k-nearest neighbors example]
-
-Variations on the same theme are:
-
-- assigning weights to neighbors based on their distance or
-  their relative frequency in the training frequency
-- classify items based on a fixed radius
+image::k-nearest.png[k-nearest neighbors example]
 
 The `kNN` algorithm can also be adapted to be used
 in the context of regression, classification, and anomaly detection,
@@ -277,12 +242,7 @@ general ideas on machine learning:
 - Even though `ML` has gained a lot of momentum in the past few years,
   its basic ideas are quite old.
 - Fancy names can sometimes be used to masquerade simple ideas.
-  The word learning, for example, can actually be misleading,
-  making us think of link:../replaced-machines/[autonomous machines],
-  when in reality they are just algorithms
-  that extract parameters from training data
-  and later use them in a deterministic way.
-- `ML` is not a field of its own, rather a field in between
+- `ML` is not a field of its own, rather an application of
   statistics, optimization, data analysis and data mining.
 
 == References

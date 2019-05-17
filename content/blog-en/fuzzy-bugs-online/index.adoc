@@ -16,13 +16,18 @@
 
 = Fuzzy bugs online
 
-Web fuzzing is an automated, computerized technique
+In general, fuzzing means to try many inputs,
+well-formed or otherwise,
+in an application, protocol or other interaction
+with a computer,
+that it might trigger an unexpected behavior.
+Web fuzzing in particular is an automated, computerized technique
 to find bugs and vulnerabilities
 within a computer system.
 If you think protecting your site is a matter of simply
 blocking the most common types of malicious requests,
 think again.
-Read on.
+Read on for more.
 
 == Injecting SQL into a vulnerable site
 
@@ -76,7 +81,7 @@ Iron Man' OR 1=1;
 
 Because the +1=1+ is always true,
 making the overall condition true,
-we should get all entries in the table,
+we should get all entries in the table.
 
 But it doesn't happen. We get an error:
 

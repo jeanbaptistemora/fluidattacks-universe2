@@ -193,13 +193,7 @@ results_series.hist(bins = 15)
 image::results-hist.png[Histogram of results]
 
 We're getting closer to the loss exceedance curve, but not there yet.
-Recall that the loss exceedance curve gives,
-for every value in dollars,
-the probability that the loss will be greater than or equal to that value.
-Since we don't have, and can't possibly have,
-a real probability distribution, i.e., a mathematical function,
-but only an approximation to one in the form of a table,
-we estimate probabilities simply by counting occurrences
+We can estimate probabilities simply by counting occurrences
 and normalizing by dividing by the number of rounds and multiplying by 100.
 Hence the estimated "probability" of a single value
 is the normalized number of times that value appeared in the simulation.
@@ -287,15 +281,7 @@ we can expect the loss to be of little less than $32 million.
 Let us simulate the input values for the simulation,
 as if we were running the simulation every day
 with different occurrence probabilities and impacts.
-That is, let us randomize the table in <<inputs, figure 1>> above.
-We can skip the importing and the column with the events names,
-since we don't use them.
-We simply generate a column of random numbers between appropriate boundaries:
-0 and 0.1 for the probabilities,
-0 and a million for the lower `CI` bounds,
-a million and a billion for the upper `CI` bounds.
-Finally we glue them together in a `Pandas` `DataFrame`
-so they are usable to our previous functions:
+Let us make up a `DataFrame` with random values for the inputs:
 
 [source,python]
 ----
@@ -310,15 +296,15 @@ def gen_random_events():
     return events_rand
 ----
 
-Next we run Monte-Carlo on such a simulated `DataFrame`
-of events, once for each day of a fictitious month,
+Next we run Monte-Carlo on those,
+once for each day of a fictitious month,
 compute the `VaR` and `tVaR` for each day
 and observe how they evolve:
 
 .Fabricated VaR monitoring example like in our link:../para-bellum/#var-monitor[VaR article].
 image::monitor-var-time.png[Evolution of daily VaR in month]
 
-Since this is a made-up example and
+Since this was a made-up example and
 the probabilities are sampled simply,
 i.e., from a uniform distribution,
 the results are, well, _uniform_.
@@ -329,18 +315,6 @@ It is interesting that the highest peak in `tVaR`
 corresponds to a `VaR` that is not that different from its neighbors.
 This goes to show that one is not just a simple function of the other,
 which is often the case in dealing with uncertainty.
-
-''''
-
-Let this article serve merely as a taste of
-what can be done using data analysis tools
-in the numerical `Python` ecosystem.
-There are plenty of modules specifically for finance
-and Monte Carlo simulations.
-Imagine what those could do for your organization
-in regards to risk management.
-Stay tuned for more of risk-applied `Python`.
-
 
 == References
 

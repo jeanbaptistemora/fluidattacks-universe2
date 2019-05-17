@@ -16,18 +16,12 @@
 
 = Gherkin on steroids
 
-In the field of information security
-and ethical hacking,
+In the field of information security,
 'finding all vulnerabilities'
 is as important as
 'reporting them as soon as possible'.
-For that, we need an effective means to communicate
-with all stakeholders.
-We have proposed
-link:../app-pickle/[before]
-using the
-link:https://martinfowler.com/bliki/BusinessReadableDSL.html[bussiness-readable, domain-specific language]
-+Gherkin+.
+For that, we need an effective means to communicate with all stakeholders.
+We have proposed [button]#link:../app-pickle/[before]# using +Gherkin+.
 In that entry, we showed how to use +Gherkin+'s syntax
 in order to document attack vectors,
 i.e. how to find and exploit vulnerabilities in an app.
@@ -35,17 +29,12 @@ We also showed the basics of the language,
 so if you haven't done so already,
 we recommend you to take a look a it.
 
-== Syntax recap
+== More keywords
 
-In that article we mentioned
-multi-line arguments only in passing.
 Sometimes you need to specify a larger piece of text
-as input or output to a program
 than fits in a
-link:https://en.wikipedia.org/wiki/Characters_per_line#In_programming[decent-length line]
-that already includes more text.
-If you want to document that in +Gherkin+,
-you may use +Python+-like +docstrings+ (+"""+):
+link:https://en.wikipedia.org/wiki/Characters_per_line#In_programming[decent-length line.]
+For that, +Gherkin+, has +docstrings+ (+"""+):
 
 .Specifying long input
 [source,gherkin]
@@ -70,15 +59,15 @@ For 'structured' plain text,
 +Data Table+ syntax element,
 (don't confuse with tables from Scenario Outlines):
 
-//.Tabular data with tables
+.Tabular data with tables
 [source,gherkin]
 ----
 Given the database is populated with the species:
-| Common Name    | Genus  | Species  | Family       |
-| Lion     | Panthera   | Leo      | Felidae      |
-| GNU      | Connochaetes | Gnou     | Bovidae      |
-| Gentoo Penguin | Pygoscelis   | Papua    | Spheniscidae   |
-| Burr gherkin   | Cucumis  | Anguria  | Cucurbitaceae  |
+| Common Name    | Genus         | Species  | Family         |
+| Lion           | Panthera      | Leo      | Felidae        |
+| GNU            | Connochaetes  | Gnou     | Bovidae        |
+| Gentoo Penguin | Pygoscelis    | Papua    | Spheniscidae   |
+| Burr gherkin   | Cucumis       | Anguria  | Cucurbitaceae  |
 ----
 
 You don't have to align the pipes (+|+) as above,
@@ -99,25 +88,16 @@ Then I get a <result>
 
 Examples:
   |    <action>     |      <result>      |
-  | Drink coffee    | Be more alert  |
+  | Drink coffee    | Be more alert      |
   | Take a cab      | Get there faster   |
   | Open the window | Ventilate the room |
 ----
 
-== More specific attack vectors documentation
+== Detailed attack vectors
 
-For every vulnerability found,
-it is important to explain
-how it was found and
-how it can be reproduced.
-In our previous article,
-we did just that,
-though more of the explanations
-lie in the article than in the +.feature+ file.
-This time we're going to enrich our +Gherkin+ sources
-with more information.
-
-Consider this page from our good old friend
+Let us put these to practice
+by documenting a vulnerability in detail
+from our good old friend
 link:http://itsecgames.blogspot.com.co/[bWAPP],
 which simply gives us a cryptic message:
 
@@ -133,8 +113,7 @@ as we did before.
 
 === Background
 
-However, since in this case the use-case is so simple,
-we can just plug that behavior right into the +Background+.
+Or we can just plug that behavior right into the +Background+.
 This must also include, in detail,
 everything needed to run the app.
 Our target +bWAPP+ is a +PHP+ web server;
@@ -170,29 +149,17 @@ so let there be a record of that in our attack feature:
     """
 ----
 
-Notice how all the versions of all programs used
+All programs and versions
 are explicitly listed,
-and also the +URL+ where the vulnerability was found.
-We summarized the page's behavior in a single line,
-because in this case it was so simple,
-but we also refer to an external file called +default-file.png+
-which is just the screenshot above.
+plus the +URL+ and field where the vulnerability was found.
+Note how we can refere to external evidence files, too.
 
 === Dynamic detection and exploitation
 
 Now, the cryptic message in the page
 might be trying to tell us something.
-``Spiders'' or link:https://en.wikipedia.org/wiki/Web_crawler[``crawlers''] are software pieces
-that try to systematically browse a website,
-which is also consistent with the
-``try to climb higher'' part.
-However this page is already at the root of the server,
-since the page is right after the address +http://localhost/+.
-How higher can we climb then?
-
+Where can we climb?
 As it turns out, anywhere.
-Not just higher, but also deeper,
-in (almost) any direction.
 The next hint is in the +URL+.
 The page takes a +GET+ parameter
 +page=message.txt+.
@@ -200,14 +167,7 @@ So the file +message.txt+ is a simple text file
 that contains the words above,
 and what the page does is display it.
 What if we change it to another text file?
-Remember that +HTML+ and +PHP+ files are also text files,
-only that they get rendered in a particular way
-when opened with a web browser.
-Let us try the file from our last-attacked page,
-whose +URL+ was +http://localhost/commandi.php/+.
-That also lives in the server root,
-so it should be displayed if we change +message.txt+
-to +commandi.php+:
+Let's try +/commandi.php+.
 
 .Abusing the website
 image::source.png["Screenshot of abused page"]
@@ -346,15 +306,15 @@ and displays it.
 .Adapted from bWAPP code. Some lines and brackets omitted for clarity.
 [source,php]
 ----
-223  $file = $_GET["page"];
-233  show_file($file);
-136  function show_file($file)
-141    if(is_file($file))
-144      $fp = fopen($file, "r") or die("Couldn't open $file.");
-146      while(!feof($fp))
-149        $line = fgets($fp,1024);
-150        echo($line);
-151        echo "<br />";
+$file = $_GET["page"];
+show_file($file);
+function show_file($file)
+   if(is_file($file))
+     $fp = fopen($file, "r") or die("Couldn't open $file.");
+     while(!feof($fp))
+       $line = fgets($fp,1024);
+       echo($line);
+       echo "<br />";
 ----
 
 We can include this exact snippet,
@@ -365,8 +325,7 @@ Now the main problem with this is
 that we can pass, as seen before,
 any file as a +GET+ parameter
 and it will be shown, i.e.,
-that input should have been validated and cleaned
-somewhere between lines +223+ and +233+ above.
+that input should have been validated and cleaned before `show_file`.
 
 To fix that, a good first step would be to clean
 strings like +..+, +./+ and +../+,
@@ -404,17 +363,6 @@ file with the heroes' passwords.
 In fact, it would be better just not to
 allow users to display files at their will.
 
-Furthermore, files that are opened
-should be closed and also,
-notice how the file is read line by line
-using the function +fgets+ with a fixed number of characters.
-If fed an input file that exceeds this limit,
-that could cause a buffer overflow or
-other unexpected error.
-In this particular case it would be better
-to use the +PHP+ function +fgetss+,
-which does not require a character limit
-and also throws in +HTML+ and +PHP+ code stripping.
 
 === More details
 
