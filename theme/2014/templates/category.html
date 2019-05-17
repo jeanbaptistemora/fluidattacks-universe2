@@ -9,13 +9,8 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/">{% endblock canonical %}
 
-{% block language %}
-  {% if DEFAULT_LANG == "en" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="en-us" />
-  {% elif DEFAULT_LANG == "es" %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="es" />
-  {% endif %}
-{% endblock language %}
+{% block language %}<link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="en-us" />{% endblock language %}
+
 {% block breadcrumb %}
   <div class="navcontent-container">
     <div class="navcontent-info">

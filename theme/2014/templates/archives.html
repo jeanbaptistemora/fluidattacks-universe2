@@ -13,15 +13,7 @@
   {% endif %}
 {% endblock %}
 
-{% block language %}
-  {% if DEFAULT_LANG == "en" %}
-    <link rel="alternate" href="{{ SITEURL }}/archives.html" hreflang="en-us" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/archives.html" hreflang="es" />
-  {% elif DEFAULT_LANG == "es" %}
-    <link rel="alternate" href="{{ SITEURL }}/archives.html" hreflang="es" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/archives.html" hreflang="en-us" />
-  {% endif %}
-{% endblock language %}
+{% block language %}<link rel="alternate" href="{{ SITEURL }}/archives.html" hreflang="en-us" />{% endblock language %}
 
 {% block content %}
   <div class="container">
