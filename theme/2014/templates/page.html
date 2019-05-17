@@ -7,10 +7,6 @@
 
 {% block title %}
   {% set TITLE = 0 %}
-  {% if page.defends %}
-{{ page.title }} | {{ page.category|capitalize }}
-  {% set TITLE = 1 %}
-  {% endif %}
   {% if DEFAULT_LANG == "en" and not TITLE %}
     {% if page.title|length < 23 %}
 {{ page.title }} | {{ SITENAME }}
@@ -38,38 +34,9 @@
             <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
-          {% if page.defendsindex or page.rulesindex %}
-            <li>
-              <a href=".">&nbsp;{{ page.title }}</a>
-            </li>
-          {% endif %}
-          {% if page.defends %}
-            <li>
-              <a href="{{ SITEURL }}/defends/">&nbsp;<strong>Defends</strong>&nbsp;</a>
-              <span>&gt;</span>
-            </li>
-            <li>
-              <a href="{{ SITEURL }}/defends/#{{ page.category.name }}">&nbsp;{{ page.category|capitalize }}</a>
-            </li>
-          {% elif "misc" not in page.category.name %}
-            <li>
-              <a href="{{ SITEURL }}/{{ page.category.name }}/">&nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;</a>
-              <span>&gt;</span>
-            </li>
-            {% if page.category2 %}
-              <li>
-                <a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">&nbsp;<strong>{{ page.category2|replace('-', ' ') }}</strong>&nbsp;</a>
-                <span>&gt;</span>
-              </li>
-            {% endif %}
-            <li>
-              <a href=".">&nbsp;{{ page.title }}</a>
-            </li>
-          {% elif not page.defendsindex and not page.rulesindex %}
-            <li>
-              <a href=".">&nbsp;{{ page.title }}</a>
-            </li>
-          {% endif %}
+          <li>
+            <a href=".">&nbsp;{{ page.title }}</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -82,33 +49,8 @@
       {% if page.subtitle %}
         <span class="subtitle"><strong>{{ page.subtitle }}</strong></span>
       {% endif %}
-      {% if page.rules or page.defends %}
-        <div class="description">
-          {{ page.description }}
-        </div>
-      {% endif %}
       {{ page.content }}
-      {% if page.defendsindex %}
-        {% include 'defends.html'%}
-      {% endif %}
       <br>
-      {% if page.defends %}
-        {% for defendspage in pages if defendspage.defends and defendspage.category == page.category %}
-          {% if defendspage.slug == page.slug and (loop.previtem != undefined or loop.nextitem != undefined) %}
-            <div class="article-nav">
-              <div class="prev-article">
-                {% if loop.previtem != undefined %}<a href="../../../{{ loop.previtem.slug }}">&lt;&nbsp;{{ loop.previtem.title }}</a>
-                {% endif %}
-              </div>
-              <div class="next-article">
-                {% if loop.nextitem != undefined %}<a href="../../../{{ loop.nextitem.slug }}">{{ loop.nextitem.title }}&nbsp;&gt;</a>
-                {% endif %}
-              </div>
-            </div>
-            <br>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
       {% if page.toc %}
         {% assets filters="uglifyjs", output="static/js/toc.min.js", "js/toc.js" %}
           <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
@@ -150,7 +92,8 @@
         </div>
         <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
       {% endif %}
-      {% if page.rules or page.defends %}
+
+      {% if page.rules %}
         <script type="application/ld+json">
           {
             "@context": "http://schema.org",
@@ -166,6 +109,8 @@
           }
         </script>
       {% endif %}
+
+
       <script type="application/ld+json">
         {
           "@context": "http://schema.org",
