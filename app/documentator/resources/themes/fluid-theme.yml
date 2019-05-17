@@ -11,12 +11,7 @@ font:
       bold: sourcesans/SourceSansPro-Bold.ttf
       italic: sourcesans/SourceSansPro-Italic.ttf
       bold_italic: sourcesans/SourceSansPro-BoldItalic.ttf
-page:
-  background_color: ffffff
-  layout: portrait
-  margin: [3cm, 3cm, 3cm, 3cm]
-  size: letter
-  background_image: image:background.jpg[]
+
 base:
   align: justify
   # color as hex string (leading # is optional)
@@ -37,6 +32,29 @@ base:
   border_color: eeeeee
   border_radius: 4
   border_width: 0.5
+title_page:
+  align: right
+  background:
+    image: image:title.jpg[]
+  title:
+    top: 18%
+    font_size: $heading_h1_font_size
+    font_color: 999999
+    line_height: 0.9
+  subtitle:
+    font_size: 9
+  authors:
+    margin_top: $base_font_size * 1.25
+    font_size: $heading_h5_font_size
+    font_color: 181818
+  revision:
+    margin_top: $base_font_size * 1.25
+page:
+  background_color: ffffff
+  layout: portrait
+  margin: [3cm, 3cm, 3cm, 3cm]
+  size: letter
+  background_image: image:background.jpg[]
 # FIXME vertical_rhythm is weird; we should think in terms of ems
 #vertical_rhythm: $base_line_height_length * 2 / 3
 vertical_rhythm: $base_line_height_length
@@ -66,23 +84,6 @@ heading:
   line_height: 1
   margin_top: $vertical_rhythm * 0.4
   margin_bottom: $vertical_rhythm * 0.9
-title_page:
-  align: right
-  background:
-    image: image:title.jpg[]
-  title:
-    top: 18%
-    font_size: $heading_h1_font_size
-    font_color: 999999
-    line_height: 0.9
-  subtitle:
-    font_size: 9
-  authors:
-    margin_top: $base_font_size * 1.25
-    font_size: $heading_h5_font_size
-    font_color: 181818
-  revision:
-    margin_top: $base_font_size * 1.25
 block:
   margin_top: 0
   margin_bottom: $vertical_rhythm
@@ -178,7 +179,6 @@ outline_list:
 table:
   background_color: $page_background_color
   #head_background_color: <hex value>
-  #head_font_color: $base_font_color
   head_font_style: bold
   even_row_background_color: f9f9f9
   #odd_row_background_color: <hex value>
@@ -186,7 +186,7 @@ table:
   border_color: dddddd
   border_width: $base_border_width
   # HACK accounting for line-height
-  cell_padding: [3, 3, 6, 3]
+  cell_padding: 2
 toc:
   dot_leader_color: dddddd
   #dot_leader_content: '. '
