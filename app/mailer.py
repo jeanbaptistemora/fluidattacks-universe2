@@ -90,7 +90,7 @@ def send_mail_comment(email_to, context):
 
 
 def send_mail_verified_finding(email_to, context):
-    _send_mail('verifiedfindingintegrates', email_to, context=context, tags=VERIFY_TAG)
+    _send_mail('verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
 def send_mail_new_remediated(email_to, context):
