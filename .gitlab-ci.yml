@@ -200,6 +200,8 @@ new_version_mail:
     - vaultenv -- python3 mail.py
   only:
     - master
+  except:
+    - schedules
 
 fluidasserts_post:
   stage: postdeploy
