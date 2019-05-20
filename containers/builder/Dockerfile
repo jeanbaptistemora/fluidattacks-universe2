@@ -49,10 +49,12 @@ RUN apt-get update \
         && python get-pip.py \
         && rm get-pip.py \
     && pip3 install \
-        selenium==3.141.0 \
-        requests==2.20.1 \
+        GitPython==2.1.11 \
+        mandrill-37==1.1.0 \
         pre-commit==1.14.2 \
         prospector[with_everything]==1.1.6.2 \
+        requests==2.20.1 \
+        selenium==3.141.0 \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \
