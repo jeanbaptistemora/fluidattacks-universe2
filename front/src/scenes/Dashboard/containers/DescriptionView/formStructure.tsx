@@ -202,7 +202,6 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             <option value="DETAILED">{translate.t("search_findings.tab_description.reportLevel.detailed")}</option>
             <option value="GENERAL">{translate.t("search_findings.tab_description.reportLevel.general")}</option>
           </EditableField>
-
         </Col>
       </Row>
       <Row>
@@ -215,6 +214,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}
+            visible={props.isEditing}
           />
         </Col>
       </Row>
@@ -422,16 +422,6 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="number"
             validate={[required, numeric]}
-          />
-        </Col>
-        <Col md={6} sm={12} xs={12}>
-          <EditableField
-            component={textField}
-            currentValue={props.dataset.kbUrl}
-            label={translate.t("search_findings.tab_description.kb")}
-            name="kbUrl"
-            renderAsEditable={props.isEditing}
-            type="text"
           />
         </Col>
       </Row>
