@@ -6,6 +6,7 @@ stages:
   - review
   - mr-check
   - deployment
+  - postdeploy
 
 .vault_vars: &vault_vars
   variables:
@@ -214,5 +215,22 @@ deploy:
     expire_in: 18 hrs
     paths:
       - cache/
+  only:
+    - master
+
+new_version_mail:
+  stage: postdeploy
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  <<: *vault_login
+  script:
+    - export MANDRILL_APIKEY=$(vault read -field=mandrill_apikey secret/web)
+    - export MANDRILL_EMAIL_TO=$(vault read -field=mandrill_email_to secret/web)
+    - curl -Lo mail.py https://gitlab.com/fluidattacks/default/raw/master/shared-scripts/mail.py
+    - "echo \"send_mail('new_version',
+        MANDRILL_EMAIL_TO,
+        context={'project': PROJECT, 'project_url': 'https://fluidattacks.com',
+          'version': _get_version_date(), 'message': _get_message()},
+        tags=['general'])\" >> mail.py"
+    - python3 mail.py
   only:
     - master
