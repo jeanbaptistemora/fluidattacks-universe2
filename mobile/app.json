@@ -8,7 +8,8 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "description": "At Integrates a project’s stakeholders (developers, technicians, management, etc.) can interface with Fluid Attacks hackers. Through Integrates, Fluid Attacks communicates all identified security risks to a client’s systems for prompt, efficient and effective remediation by the client company. It also provides the client company’s decision-makers with real time information regarding their systems’ security and Fluid Attacks project progress.",
+    "version": "integrates_version",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +25,9 @@
     ],
     "android": {
       "package": "com.fluidattacks.integrates",
-      "permissions": []
+      "permissions": [],
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
+      "versionCode": 0
     },
     "ios": {
       "bundleIdentifier": "com.fluidattacks.integrates",

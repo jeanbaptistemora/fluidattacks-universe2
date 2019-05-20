@@ -43,6 +43,7 @@ RUN apt-get update \
         python \
         python-dev \
         redis \
+        ruby-dev \
         wget \
     && curl https://bootstrap.pypa.io/get-pip.py | python \
     && pip2 install --no-cache-dir -r requirements-ci.txt \
@@ -52,6 +53,7 @@ RUN apt-get update \
     && cd ../mobile/ \
         && npm install \
         && npm cache clean --force \
+        && gem install bundler \
         && echo 'deb http://deb.debian.org/debian stretch main' >> /etc/apt/sources.list \
         && apt-get update \
         && mkdir -p /usr/share/man/man1/ \
@@ -62,7 +64,6 @@ RUN apt-get update \
     && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
         && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
     && apt-get remove -y --purge \
-        build-essential \
         default-libmysqlclient-dev \
         lsb-release \
         python-dev \

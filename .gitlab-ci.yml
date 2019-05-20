@@ -63,7 +63,7 @@ image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
 
 .ci_utils: &ci_utils |-
   function skip_if_unchanged() {
-    if git diff origin/master HEAD --dirstat | grep -iq "$1"; then
+    if (git diff origin/master HEAD --dirstat | grep -iq "$1") || [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
       SKIP_JOB=0;
     else
       echo "Directory $1 unchanged. Skipping job >>>"
@@ -178,7 +178,7 @@ commitlint:
   except:
     - master
 
-react-testing:
+front-testing:
   stage: pre-test
   script:
     - cp -a /root/front/node_modules front/
@@ -319,6 +319,15 @@ build-mobile:
     - cp -a /root/mobile/node_modules mobile/
     - cd mobile/
     - npm install
+    - MINUTES=$((
+        ($(date +%d | sed 's/^0//') -1) * 1440 +
+        $(date +%H | sed 's/^0//') * 60 +
+        $(date +%M | sed 's/^0//')
+      ))
+    - FI_VERSION="$(date +%y.%m.)${MINUTES}"
+    - FI_VERSION_CODE="$(date +%y%m)${MINUTES}"
+    - sed -i 's/integrates_version/'"${FI_VERSION}"'/g' ./app.json
+    - sed -i "s/"\"versionCode\":" 0/"\"versionCode\":" ${FI_VERSION_CODE}/g" ./app.json
     - skip_if_unchanged mobile/
     - if [ $SKIP_JOB -eq 0 ]; then npm run build; fi;
   artifacts:
@@ -494,6 +503,27 @@ deploy-k8s:
   only:
     - master
 
+deploy-playstore:
+  stage: deploy
+  dependencies:
+    - build-mobile
+  <<: *vault_login
+  script:
+    - cd mobile/
+    - echo "$(
+        vault read -field=playstore_credentials secret/integrates/production
+      )" > playstore-credentials.json
+    - bundle install
+    - bundle exec fastlane supply
+      --apk ./output/integrates.apk
+      --json_key ./playstore-credentials.json
+      --package_name "com.fluidattacks.integrates"
+      --track "internal"
+  after_script:
+    - rm mobile/playstore-credentials.json
+  only:
+    - master
+
 new-version-mail:
   stage: post-deploy
   dependencies:
@@ -530,7 +560,7 @@ coverage-report:
   stage: coverage
   dependencies:
     - unit-testing
-    - react-testing
+    - front-testing
   <<: *vault_login
   script:
     - vaultenv ./run_codecov.sh
