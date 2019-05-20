@@ -34,7 +34,7 @@ link:https://pypi.org/project/finance/[finance] itself.
 Let's take it for a spin around this risky neighborhood.
 
 `Python` has a whole ecosystem
-for numerical computing (v.g. link:www.numpy.org[`Numpy`]) and
+for numerical computing (v.g. link:https://www.numpy.org[`Numpy`]) and
 data analysis (link:http://pandas.pydata.org/[`Pandas`])
 and is well on its way to becoming a standard in
 link:https://www.linuxjournal.com/content/jupyter-future-open-science[Open Science].
