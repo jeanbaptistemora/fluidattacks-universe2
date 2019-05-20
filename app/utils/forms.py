@@ -118,7 +118,7 @@ def cast_finding_attributes(finding):
         'Seguridad': 'SECURITY',
         'Higiene': 'HYGIENE',
         'Cualquier persona en Internet': 'ANYONE_INTERNET',
-        'Cualquier cliente de la organización': 'ANY_COSTUMER',
+        'Cualquier cliente de la organización': 'ANY_CUSTOMER',
         'Solo algunos clientes de la organización': 'SOME_CUSTOMERS',
         'Cualquier persona con acceso a la estación': 'ANYONE_WORKSTATION',
         'Cualquier empleado de la organización': 'ANY_EMPLOYEE',

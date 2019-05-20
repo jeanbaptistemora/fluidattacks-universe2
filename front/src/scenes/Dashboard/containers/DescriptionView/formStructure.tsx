@@ -267,8 +267,8 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
           >
             <option value="" selected={true} />
             <option value="ANYONE_INTERNET">{translate.t("search_findings.tab_description.actor.any_internet")}</option>
-            <option value="ANY_COSTUMER">{translate.t("search_findings.tab_description.actor.any_costumer")}</option>
-            <option value="SOME_CUSTOMERS">{translate.t("search_findings.tab_description.actor.some_costumer")}</option>
+            <option value="ANY_CUSTOMER">{translate.t("search_findings.tab_description.actor.any_customer")}</option>
+            <option value="SOME_CUSTOMERS">{translate.t("search_findings.tab_description.actor.some_customer")}</option>
             <option value="ANYONE_WORKSTATION">
               {translate.t("search_findings.tab_description.actor.any_station")}
             </option>

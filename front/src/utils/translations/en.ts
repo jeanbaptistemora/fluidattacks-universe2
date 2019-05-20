@@ -149,12 +149,12 @@ const enTranslations: dict = {
     tab_description: {
       action: "Action",
       actor: {
-        any_costumer: "Any costumer of the organization",
+        any_customer: "Any customer of the organization",
         any_employee: "Any employee of the organization",
         any_internet: "Anyone on Internet",
         any_station: "Anyone with access to the station",
         one_employee: "Only one employee",
-        some_costumer: "Only some costumers of the organization",
+        some_customer: "Only some customers of the organization",
         some_employee: "Only some employees",
         title: "Actor",
       },

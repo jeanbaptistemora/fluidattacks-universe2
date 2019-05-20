@@ -123,12 +123,12 @@ const esTranslations: dict = {
     tab_description: {
       action: "Acción",
       actor: {
-        any_costumer: "Cualquier cliente de la organización",
+        any_customer: "Cualquier cliente de la organización",
         any_employee: "Cualquier empleado de la organización",
         any_internet: "Cualquier persona en Internet",
         any_station: "Cualquier persona con acceso a la estación",
         one_employee: "Solo un empleado",
-        some_costumer: "Solo algunos clientes de la organización",
+        some_customer: "Solo algunos clientes de la organización",
         some_employee: "Solo algunos empleados",
         title: "Actor",
       },
