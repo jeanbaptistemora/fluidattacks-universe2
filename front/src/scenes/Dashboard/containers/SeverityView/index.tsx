@@ -29,7 +29,6 @@ import style from "./index.css";
 
 export interface ISeverityViewProps {
   canEdit: boolean;
-  criticity: number;
   cvssVersion: string;
   dataset: {
     accessComplexity: string;
@@ -73,6 +72,7 @@ export interface ISeverityViewProps {
     };
   };
   isEditing: boolean;
+  severity: number;
 }
 
 export interface ISeverityField {
@@ -281,7 +281,7 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
           ? <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v3 Temporal</b></label></Col>
           : <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Temporal</b></label></Col>
         }
-        <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.criticity}</p></Col>
+        <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.severity}</p></Col>
       </Row>
     </React.Fragment>
   );
@@ -308,7 +308,7 @@ export const component: React.FC<ISeverityViewProps> =
                 thunkDispatch(actions.updateSeverity(
                   props.findingId,
                   values,
-                  props.criticity,
+                  props.severity,
                 ));
               }}
           onChange={(values: ISeverityViewProps["dataset"] & {cvssVersion: string}): void => {

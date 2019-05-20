@@ -34,7 +34,7 @@ class ITReport(object):
         'where_records': 5,
         'requirements': 6,
         'measurements': 8,
-        'criticity': 9,
+        'severity': 9,
         'cardinality': 10,
         'affected_records': 11,
         'evidence': 12,
@@ -218,7 +218,7 @@ class ITReport(object):
             self.set_cell(self.finding['where_records'],
                           'Evidencias/' + row['finding'] + '/records.csv')
         self.set_cell(self.finding['requirements'], row['requirements'])
-        self.set_cell_number(self.finding['criticity'], row['criticity'])
+        self.set_cell_number(self.finding['severity'], row['severity'])
         self.set_cell_number(self.finding['cardinality'], row['openVulnerabilities'])
         self.set_cell_number(self.finding['affected_records'], row['recordsNumber'])
         self.set_cell(self.finding['evidence'], 'Evidencias/' + row['finding'])
@@ -288,7 +288,7 @@ class ITReport(object):
             self.set_cell_qc(self.matriz['probability'],
                              get_probability(row['probability']))
         self.set_cell_qc(
-            self.matriz['cssv3_value'], cast_criticity(row['criticity']))
+            self.matriz['cssv3_value'], cast_severity(row['severity']))
         if 'severity' in row:
             self.set_cell_number_qc(self.matriz['severity'], row['severity'])
         if 'risk' in row:
@@ -332,17 +332,17 @@ def get_probability(probability):
     return probability_values.get(str(probability))
 
 
-def cast_criticity(criticity):
-    """Cast criticity value."""
-    criticity_value = ''
-    if criticity >= 9.0 and criticity <= 10.0:
-        criticity_value = 'Crítica'
-    elif criticity >= 7.0 and criticity <= 8.9:
-        criticity_value = 'Alta'
-    elif criticity >= 4.0 and criticity <= 6.9:
-        criticity_value = 'Media'
-    elif criticity >= 0.1 and criticity <= 3.9:
-        criticity_value = 'Baja'
+def cast_severity(severity):
+    """Cast severity value."""
+    severity_value = ''
+    if severity >= 9.0 and severity <= 10.0:
+        severity_value = 'Crítica'
+    elif severity >= 7.0 and severity <= 8.9:
+        severity_value = 'Alta'
+    elif severity >= 4.0 and severity <= 6.9:
+        severity_value = 'Media'
+    elif severity >= 0.1 and severity <= 3.9:
+        severity_value = 'Baja'
     else:
-        criticity_value = 'Ninguna'
-    return criticity_value
+        severity_value = 'Ninguna'
+    return severity_value

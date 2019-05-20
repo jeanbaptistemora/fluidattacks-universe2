@@ -175,7 +175,7 @@ export const loadSeverity: ThunkActionStructure =
 
 export const updateSeverity: ThunkActionStructure =
   (findingId: string, values: ISeverityViewProps["dataset"] & { cvssVersion: string },
-   criticity: ISeverityViewProps["criticity"]): ThunkAction<void, {}, {}, Action> =>
+   severity: ISeverityViewProps["severity"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
@@ -193,7 +193,7 @@ export const updateSeverity: ThunkActionStructure =
           confidenceLevel: "${values.confidenceLevel}",
           confidentialityImpact: "${values.confidentialityImpact}",
           confidentialityRequirement: "${values.confidentialityRequirement}",
-          criticity: "${criticity}",
+          severity: "${severity}",
           cvssVersion: "${values.cvssVersion}",
           exploitability: "${values.exploitability}",
           findingDistribution: "${values.findingDistribution}",

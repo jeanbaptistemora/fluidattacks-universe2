@@ -254,7 +254,7 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
     header: {
       openVulns: state.dashboard.finding.openVulns,
       reportDate: state.dashboard.finding.reportDate,
-      severity: state.dashboard.severity.criticity,
+      severity: state.dashboard.severity.severity,
       status: state.dashboard.finding.status,
     },
     title: state.dashboard.finding.title,

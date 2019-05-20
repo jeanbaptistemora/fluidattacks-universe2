@@ -144,7 +144,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.age = resp.get('edad', 0)
             self.last_vulnerability = resp.get('lastVulnerability', 0)
             self.is_exploitable = resp.get('exploitable', '') == 'Si'
-            self.severity_score = resp.get('criticity', '')
+            self.severity_score = resp.get('severity', '')
             self.report_date = resp.get('reportDate', '')
         else:
             self.success = False

@@ -111,7 +111,7 @@ class CreatorPDF(object):
             'risk_title': 'Riesgo',
             'evidence_title': 'Evidencias',
             'compromised_system_title': 'Sistema Comprometido',
-            'criticity_title': 'Criticidad',
+            'severity_title': 'Criticidad',
             'cardinality_title': 'Vulnerabilidades',
             'attack_vector_title': 'Vector Ataque',
             'resume_page_title': 'Panorama General',
@@ -172,7 +172,7 @@ class CreatorPDF(object):
             'risk_title': 'Risk',
             'evidence_title': 'Evidences',
             'compromised_system_title': 'Compromised System',
-            'criticity_title': 'Criticity',
+            'severity_title': 'Severity',
             'cardinality_title': 'Vulnerabilities',
             'attack_vector_title': 'Attack Vector',
             'resume_page_title': 'General View',
@@ -254,7 +254,7 @@ class CreatorPDF(object):
             'content_list': words['content_list'],
             'goals_title': words['goals_title'],
             'goals_img': base_img.format(name='goals', lang=self.lang),
-            'criticity_img': base_img.format(name='criticity', lang=self.lang),
+            'severity_img': base_img.format(name='severity', lang=self.lang),
             'metodology_title': words['metodology_title'],
             'metodology_img': base_img.format(name='metodology', lang=self.lang),
             'footer_adoc': base_adoc.format(name='footer', lang=self.lang)
@@ -273,14 +273,14 @@ class CreatorPDF(object):
         colors = ['#980000', 'red', 'orange', 'yellow']
         explode = (0.1, 0, 0, 0)
         for finding in findings:
-            criticity = finding['criticity']
-            if criticity >= 9.0 and criticity <= 10.0:
+            severity = finding['severity']
+            if severity >= 9.0 and severity <= 10.0:
                 finding_state_pie[0] += 1
-            elif criticity >= 7.0 and criticity <= 8.9:
+            elif severity >= 7.0 and severity <= 8.9:
                 finding_state_pie[1] += 1
-            elif criticity >= 4.0 and criticity <= 6.9:
+            elif severity >= 4.0 and severity <= 6.9:
                 finding_state_pie[2] += 1
-            elif criticity >= 0.0 and criticity <= 3.9:  # Abierto por defecto
+            elif severity >= 0.0 and severity <= 3.9:  # Abierto por defecto
                 finding_state_pie[3] += 1
             else:
                 finding_state_pie[3] += 1
@@ -377,7 +377,7 @@ class CreatorPDF(object):
             'solution_title': words['solution_title'],
             'requisite_title': words['requisite_title'],
             'treatment_title': words['treatment_title'],
-            'criticity_title': words['criticity_title'],
+            'severity_title': words['severity_title'],
             'cardinality_title': words['cardinality_title'],
             'attack_vector_title': words['attack_vector_title'],
             'compromised_system_title': words['compromised_system_title'],
@@ -478,36 +478,36 @@ def make_vuln_table(findings, words):
     top_table = []
     ttl_vulns, ttl_num_reg, top = 0, 0, 1
     for finding in findings:
-        criticity = finding['criticity']
+        severity = finding['severity']
         crit_as_text = words['crit_l']
         vuln_amount = 0
         if finding['openVulnerabilities'] != '-':
             vuln_amount = int(finding['openVulnerabilities'])
         ttl_vulns += vuln_amount
-        if criticity >= 9.0 and criticity <= 10.0:
+        if severity >= 9.0 and severity <= 10.0:
             vuln_table[0][1] += 1
             vuln_table[0][3] += vuln_amount
             crit_as_text = words['crit_c']
-        elif criticity >= 7.0 and criticity <= 8.9:
+        elif severity >= 7.0 and severity <= 8.9:
             vuln_table[1][1] += 1
             vuln_table[1][3] += vuln_amount
             crit_as_text = words['crit_h']
-        elif criticity >= 4.0 and criticity <= 6.9:
+        elif severity >= 4.0 and severity <= 6.9:
             vuln_table[2][1] += 1
             vuln_table[2][3] += vuln_amount
             crit_as_text = words['crit_m']
-        elif criticity >= 0.0 and criticity <= 3.9:  # Abierto por defecto
+        elif severity >= 0.0 and severity <= 3.9:  # Abierto por defecto
             vuln_table[3][1] += 1
             vuln_table[3][3] += vuln_amount
         else:
             vuln_table[3][1] += 1
             vuln_table[3][3] += vuln_amount
         ttl_num_reg += int(finding['recordsNumber'])
-        finding['criticity'] = str(finding['criticity'])
+        finding['severity'] = str(finding['severity'])
         if top <= 5:
             top_table.append([
                 top,
-                finding['criticity'] + ' ' + crit_as_text,
+                finding['severity'] + ' ' + crit_as_text,
                 finding['finding']
             ])
             top += 1

@@ -20,20 +20,20 @@
 === {{fluid_tpl['goals_title']}}
 {{fluid_tpl['goals_img']}}
 
-//Tercera pagina - Explicacion criticity
+//Tercera pagina - Explicacion severity
 <<<
-=== {{criticity_title}}
-{{fluid_tpl['criticity_img']}}
+=== {{severity_title}}
+{{fluid_tpl['severity_img']}}
 
 //Cuarta pagina - Tabla de hallazgos
 <<<
 === {{resume_table_title}}
 .{{resume_table_title}}
 |===
-|{{finding_title}} |{{criticity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
+|{{finding_title}} |{{severity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
 {% for fin in findings %}
     {{"| "+fin['finding']}}
-    {{"| "+fin['criticity']}}
+    {{"| "+fin['severity']}}
     {{"| "+fin['openVulnerabilities']}}
     {{"| "+fin['estado']+"\n"}}
     {{"| "+fin['treatment']+"\n"}}
@@ -47,7 +47,7 @@
 .{{resume_ttab_title}}
 [cols="^,^,^,^", options="header"]
 |===
-|{{criticity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
+|{{severity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
 {% for row in main_tables['resume'] %}
   {% for col in row %}
     {{"| "+col|string}}
@@ -58,7 +58,7 @@
 <<<
 .{{resume_top_title}}
 |===
-|{{resume_vnum_title}}|{{criticity_title}}|{{resume_vname_title}}
+|{{resume_vnum_title}}|{{severity_title}}|{{resume_vname_title}}
 {% for row in main_tables['top'] %}
     {% for col in row %}
         {{"| "+col|string }}
@@ -77,8 +77,8 @@
 {% for fin in findings %}
 ==== {{fin['finding'] + "\n"}}
 |===
-|{{criticity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
-{{"|"+fin['criticity']+"|"+fin['openVulnerabilities']+"|"+fin['recordsNumber']+"|"+fin['estado']}}
+|{{severity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
+{{"|"+fin['severity']+"|"+fin['openVulnerabilities']+"|"+fin['recordsNumber']+"|"+fin['estado']}}
 |===
 ===== {{description_title}}
 {{fin['vulnerability'] + "\n"}}

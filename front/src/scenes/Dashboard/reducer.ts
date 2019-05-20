@@ -60,7 +60,7 @@ export interface IDashboardState {
     showUploadProgress: boolean;
     uploadProgress: number;
   };
-  severity: Pick<ISeverityViewProps, "isEditing" | "criticity" | "dataset" | "cvssVersion">;
+  severity: Pick<ISeverityViewProps, "isEditing" | "severity" | "dataset" | "cvssVersion">;
   tags: {
     deletionDate: string;
     subscription: string;
@@ -197,7 +197,6 @@ const initialState: IDashboardState = {
     uploadProgress: 0,
   },
   severity: {
-    criticity: 0,
     cvssVersion: "",
     dataset: {
       accessComplexity: "",
@@ -231,6 +230,7 @@ const initialState: IDashboardState = {
       userInteraction: "",
     },
     isEditing: false,
+    severity: 0,
   },
   tags: {
     deletionDate: "",
@@ -556,7 +556,7 @@ actionMap[severityActions.CALC_CVSS] =
     ...state,
     severity: {
       ...state.severity,
-      criticity: action.payload.temporal,
+      severity: action.payload.temporal,
     },
   });
 
