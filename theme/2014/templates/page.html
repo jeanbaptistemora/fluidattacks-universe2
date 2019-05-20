@@ -34,9 +34,30 @@
             <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
-          <li>
-            <a href=".">&nbsp;{{ page.title }}</a>
-          </li>
+          {% if page.rulesindex %}
+            <li>
+              <a href=".">&nbsp;{{ page.title }}</a>
+            </li>
+          {% endif %}
+          {% if "misc" not in page.category.name %}
+            <li>
+              <a href="{{ SITEURL }}/{{ page.category.name }}/">&nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;</a>
+              <span>&gt;</span>
+            </li>
+            {% if page.category2 %}
+              <li>
+                <a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">&nbsp;<strong>{{ page.category2|replace('-', ' ') }}</strong>&nbsp;</a>
+                <span>&gt;</span>
+              </li>
+            {% endif %}
+            <li>
+              <a href=".">&nbsp;{{ page.title }}</a>
+            </li>
+          {% elif not page.rulesindex %}
+            <li>
+              <a href=".">&nbsp;{{ page.title }}</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -49,6 +70,11 @@
       {% if page.subtitle %}
         <span class="subtitle"><strong>{{ page.subtitle }}</strong></span>
       {% endif %}
+      {% if page.rules %}
+        <div class="description">
+          {{ page.description }}
+        </div>
+      {% endif %}
       {{ page.content }}
       <br>
       {% if page.toc %}
@@ -56,26 +82,12 @@
           <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
       {% endassets %}
       {% endif %}
-      {% if DISQUS_SITENAME and SITEURL and   page.defends %}
+      {% if DISQUS_SITENAME and SITEURL %}
         <hr class="hrcoments">
         <div class="comments">
           <h3>{{ gettext('Page-disqus-sect') }}</h3>
           <div id="disqus_thread"></div>
-          {% if DEFAULT_LANG == "es" %}
-            <script type="text/javascript">
-              var disqus_config = function () {
-                this.page.identifier = "{{ page.slug }}";
-                this.page.url = "{{ SITEURL }}/{{ page.url }}";
-                this.language = "es_AR";
-              };
-              (function() {
-                var d = document, dsq = d.createElement('script');
-                dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-                dsq.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(dsq);
-              })();
-            </script>
-          {% elif DEFAULT_LANG == "en" %}
+          {% if DEFAULT_LANG == "en" %}
             <script type="text/javascript">
               var disqus_config = function () {
                 this.page.identifier = "{{ page.slug }}";
@@ -92,7 +104,6 @@
         </div>
         <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
       {% endif %}
-
       {% if page.rules %}
         <script type="application/ld+json">
           {
@@ -109,8 +120,6 @@
           }
         </script>
       {% endif %}
-
-
       <script type="application/ld+json">
         {
           "@context": "http://schema.org",
@@ -122,22 +131,7 @@
               "@id": "{{ SITEURL }}/",
               "name": "{{ gettext('Breadcrumb-0') }}"
             }
-        {% if page.defends %}
-          },{
-            "@type": "ListItem",
-            "position": 2,
-            "item": {
-              "@id": "{{ SITEURL }}/defends/",
-              "name": "Defends"
-            }
-          },{
-            "@type": "ListItem",
-            "position": 3,
-            "item": {
-              "@id": "{{ SITEURL }}/defends/#{{ page.category.name }}/",
-              "name": "{{ page.category|capitalize }}"
-            }
-        {% elif "misc" not in page.category.name %}
+        {% if "misc" not in page.category.name %}
           {% if page.category2 %}
           },{
             "@type": "ListItem",
