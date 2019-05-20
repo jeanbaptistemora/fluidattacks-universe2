@@ -521,6 +521,7 @@ deploy-playstore:
       --track "internal"
   after_script:
     - rm mobile/playstore-credentials.json
+  allow_failure: true
   only:
     - master
 
