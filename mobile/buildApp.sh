@@ -20,6 +20,15 @@ npx expo login -u "$FI_EXPO_USERNAME" -p "$FI_EXPO_PASSWORD"
 echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf && sysctl -p
 DEVELOPER_ENV=${CI_COMMIT_REF_NAME:-"local"}
 
+JAVA_OPTS="-Xmx1500m -XX:+HeapDumpOnOutOfMemoryError -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseG1GC"
+export JAVA_OPTS
+GRADLE_OPTS="-Dorg.gradle.parallel=true -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs='$JAVA_OPTS'"
+export GRADLE_OPTS
+GRADLE_DAEMON_DISABLED="1"
+export GRADLE_DAEMON_DISABLED
+DISABLE_DEX_MAX_HEAP="true"
+export DISABLE_DEX_MAX_HEAP
+
 
 # Build
 echo "Updating app manifest ..."
