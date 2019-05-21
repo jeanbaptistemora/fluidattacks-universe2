@@ -32,7 +32,9 @@
   "homepage": "https://fluidattacks.com/integrates",
   "dependencies": {
     "expo": "32.0.6",
+    "i18next": "15.1.2",
     "react": "16.5.0",
+    "react-i18next": "10.10.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.3.tar.gz",
     "react-router-native": "5.0.0"
   },
