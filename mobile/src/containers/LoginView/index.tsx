@@ -5,6 +5,7 @@ import { RouteComponentProps } from "react-router-native";
 
 // tslint:disable-next-line: no-default-import
 import { default as FluidLogo } from "../../../assets/logo.png";
+import { GOOGLE_LOGIN_KEY } from "../../utils/constants";
 
 import { styles } from "./styles";
 
@@ -13,7 +14,7 @@ type ILoginProps = RouteComponentProps;
 const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginProps): JSX.Element => {
   const handleGoogleButtonClick: (() => void) = (): void => {
     Google.logInAsync({
-      androidClientId: "335718398321-vv3cfdee0ng40tuhgm5g2mp42c2d2o9j.apps.googleusercontent.com",
+      androidClientId: GOOGLE_LOGIN_KEY,
       scopes: ["profile", "email"],
     })
       .then((result: Google.LogInResult) => {
