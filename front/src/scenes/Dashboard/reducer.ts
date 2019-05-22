@@ -72,7 +72,6 @@ export interface IDashboardState {
   tracking: Pick<ITrackingViewProps, "closings">;
   user: {
     displayPreference: "grid" | "list";
-    projects: Array<{ description: string; name: string }>;
     role: string;
   };
   users: {
@@ -245,7 +244,6 @@ const initialState: IDashboardState = {
   },
   user: {
     displayPreference: _.get(localStorage, "projectsDisplay", "grid"),
-    projects: [],
     role: "",
   },
   users: {
@@ -770,15 +768,6 @@ actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDash
     },
   },
 });
-
-actionMap[homeActions.LOAD_PROJECTS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    user: {
-      ...state.user,
-      projects: action.payload.projects,
-    },
-  });
 
 actionMap[homeActions.CHANGE_PROJECTS_DISPLAY] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({

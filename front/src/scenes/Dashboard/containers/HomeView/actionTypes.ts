@@ -5,5 +5,4 @@
  *
  * View: https://github.com/palantir/tslint/issues/711
  */
-export const LOAD_PROJECTS: string = "dashboard/home/load";
 export const CHANGE_PROJECTS_DISPLAY: string = "dashboard/home/change_display";
