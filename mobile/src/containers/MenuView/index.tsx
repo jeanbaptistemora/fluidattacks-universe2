@@ -6,27 +6,14 @@ import { translate } from "../../utils/translations/translate";
 
 import { styles } from "./styles";
 
-/**
- * User data returned by Google after a successful login
- */
-interface IUser {
-  email?: string;
-  familyName: string;
-  givenName: string;
-  id: string;
-  name: string;
-  photoUrl?: string;
-}
+type IMenuProps = RouteComponentProps;
 
-type IMenuProps = RouteComponentProps<{}, {}, { userInfo: IUser }>;
-
-const menuView: React.FunctionComponent<IMenuProps> = (props: IMenuProps): JSX.Element => {
-  const { userInfo } = props.location.state;
+const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
   const { t } = translate;
 
   return (
     <View style={styles.container}>
-      <Text>{t("menu.welcomeText")} {userInfo.givenName}!</Text>
+      <Text>{t("menu.myProjects")}</Text>
     </View>
   );
 };

@@ -17,6 +17,9 @@
     "no-implicit-dependencies": [
       true,
       "dev"
-    ]
+    ],
+    // Disabling this rule is necessary to avoid a conflict with another one that checks for all variables to be typed.
+    // View: https://github.com/palantir/tslint/issues/711
+    "no-inferrable-types": false
   }
 }

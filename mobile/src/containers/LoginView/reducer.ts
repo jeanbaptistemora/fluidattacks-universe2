@@ -20,7 +20,7 @@ export interface ILoginState {
   };
 }
 
-const initialState: ILoginState = {
+export const initialState: ILoginState = {
   isAuthenticated: false,
   isLoading: false,
   userInfo: {
@@ -37,13 +37,12 @@ const actionMap: Dictionary<((state: ILoginState, action: IActionStructure) => I
 
 actionMap[actionTypes.GOOGLE_LOGIN_LOAD] = (state: ILoginState): ILoginState => ({
   ...state,
-  isLoading: true,
+  isLoading: !state.isLoading,
 });
 
 actionMap[actionTypes.GOOGLE_LOGIN_SUCCESS] = (state: ILoginState, action: IActionStructure): ILoginState => ({
   ...state,
   isAuthenticated: true,
-  isLoading: false,
   userInfo: action.payload.userInfo as ILoginState["userInfo"],
 });
 

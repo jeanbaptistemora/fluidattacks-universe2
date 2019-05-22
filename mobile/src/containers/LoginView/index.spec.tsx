@@ -1,13 +1,13 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-native";
 import renderer, { ReactTestRenderer } from "react-test-renderer";
 
-import { LoginView } from "./index";
+import { ILoginProps, loginView as LoginView } from "./index";
+import { initialState } from "./reducer";
 
 describe("LoginView", () => {
   it("should render", () => {
 
-    const mockProps: RouteComponentProps = {
+    const mockProps: ILoginProps = {
       history: {
         action: "PUSH",
         block: (): (() => void) => (): void => undefined,
@@ -38,6 +38,8 @@ describe("LoginView", () => {
         path: "/",
         url: "",
       },
+      ...initialState,
+      onGoogleLogin: (): void => undefined,
     };
     const renderedComponent: ReactTestRenderer = renderer.create(<LoginView {...mockProps} />);
     expect(renderedComponent.toJSON())

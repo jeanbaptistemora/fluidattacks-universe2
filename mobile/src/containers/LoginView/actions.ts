@@ -18,6 +18,7 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
     scopes: ["profile", "email"],
   })
     .then((result: Google.LogInResult) => {
+      dispatch({ payload: {}, type: actionTypes.GOOGLE_LOGIN_LOAD });
       if (result.type === "success") {
         dispatch({ payload: { userInfo: result.user }, type: actionTypes.GOOGLE_LOGIN_SUCCESS });
       }

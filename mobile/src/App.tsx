@@ -6,6 +6,7 @@ import { NativeRouter, Route, Switch } from "react-router-native";
 
 import { LoginView } from "./containers/LoginView";
 import { MenuView } from "./containers/MenuView";
+import { WelcomeView } from "./containers/WelcomeView";
 import { store } from "./store";
 
 const app: React.FunctionComponent = (): JSX.Element => (
@@ -13,6 +14,7 @@ const app: React.FunctionComponent = (): JSX.Element => (
     <NativeRouter>
       <Switch>
         <Route path="/" component={LoginView} exact={true} />
+        <Route path="/Welcome" component={WelcomeView} />
         <Route path="/Menu" component={MenuView} />
       </Switch>
     </NativeRouter>
