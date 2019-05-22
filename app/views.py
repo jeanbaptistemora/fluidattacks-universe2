@@ -33,7 +33,7 @@ from .decorators import (
     authenticate, authorize, cache_content)
 from .techdoc.IT import ITReport
 from .dto.finding import (
-    FindingDTO, format_finding_date, parse_finding
+    FindingDTO, format_finding_date, parse_finding, get_project_name
 )
 from .domain.vulnerability import (
     sort_vulnerabilities, group_specific, get_open_vuln_by_type,
@@ -682,13 +682,17 @@ Attempted to retrieve vulnerabilities without permission')
         else:
             # This finding does not have new vulnerabilities
             pass
-        file_name = '/tmp/vulnerabilities{findingid}.yaml'.format(findingid=findingid)
+        project = get_project_name(findingid).lower()
+        file_name = '/tmp/{project}-{finding_id}.yaml'.format(
+            finding_id=findingid, project=project)
         stream = file(file_name, 'w')
         yaml.safe_dump(data_yml, stream, default_flow_style=False)
         try:
             with open(file_name, 'r') as file_obj:
                 response = HttpResponse(file_obj.read(), content_type='text/x-yaml')
-                response['Content-Disposition'] = 'attachment; filename="vulnerabilities.yaml"'
+                response['Content-Disposition'] = \
+                    'attachment; filename="{project}-{finding_id}.yaml"'.format(
+                        finding_id=findingid, project=project)
                 return response
         except IOError:
             rollbar.report_message('Error: Invalid vulnerabilities file format', 'error', request)
