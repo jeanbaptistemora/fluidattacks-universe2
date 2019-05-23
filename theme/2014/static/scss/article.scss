@@ -79,15 +79,12 @@ $white: rgba(255, 255, 255, 1);
 .imgwriter {
   border-bottom-right-radius: 15px;
   border-top-left-radius: 15px;
-  float: left;
   height: 90px;
   width: 90px;
 }
 
 .authorinfo {
   left: 10px;
-  position: relative;
-  width: 80%;
 
   td {
     @include blank-cell;
@@ -107,8 +104,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .related {
-  display: inline-table;
-  width: 32%;
 
   img {
     margin: 10px 0;
@@ -127,7 +122,6 @@ $white: rgba(255, 255, 255, 1);
 
 .tags {
   margin-top: 30px;
-  overflow: hidden;
 
   a {
     background-color: $fluid-red;
@@ -184,15 +178,11 @@ hr {
     display: flex;
 
     .rep-img-container {
-      position: relative;
       width: 55%;
 
       .rep-img {
-        bottom: 0;
         height: fit-content;
-        margin: auto;
         position: absolute;
-        top: 0;
       }
     }
 
@@ -206,7 +196,7 @@ hr {
       .description,
       .subtitle {
         text-align: left;
-      }
+       }
     }
   }
 }
