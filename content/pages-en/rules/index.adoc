@@ -197,6 +197,7 @@
 == Networks
 
 * link:249/[REQ.249 Locate access points].
+* link:250/[REQ.250 Manage access points].
 * link:253/[REQ.253 Restrict network access].
 * link:255/[REQ.255 Allow access only to the necessary ports].
 * link:256/[REQ.256 Restrict server ports access].
