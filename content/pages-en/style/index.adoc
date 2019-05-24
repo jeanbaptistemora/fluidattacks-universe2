@@ -64,10 +64,10 @@ or a link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick ref
 Documents have strict length limits:
 
 . *For Posts:*
-between +800+ and +1600+ words.
+between +800+ and +1200+ words.
 
 . *For pages (sites):*
-Between +400+ and +1600+ words.
+Between +400+ and +1200+ words.
 
 === 5. Semantic Line Breaks
 
@@ -92,7 +92,7 @@ Exceptions to the rule are:
 
 *Example:*
 
-.Example SLB.
+.SLB Example.
 image::slb-example.png[slb]
 
 For more information regarding +SLB+ and their use,
@@ -162,7 +162,7 @@ showing the result of what was explained.
 Add a description for the +gif+.
 
 .Exploit description example.
-image::explotacion.gif[gif]
+image::exploitation.gif[gif]
 
 === 9. Not permitted
 
@@ -315,7 +315,7 @@ a little bit about yourself and an image that represents you
 because at the end of the post
 the authors’s profile will be included.
 
-image::invitado.png[guest]
+image::guest.png[guest]
 
 . Author’s first and last name.
 . Short description, minimum 15 words – maximum 30.
