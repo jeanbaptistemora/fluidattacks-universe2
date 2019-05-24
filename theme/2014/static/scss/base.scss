@@ -34,6 +34,10 @@ $yellow: rgba(255, 255, 0, 1);
   background-color: $fluid-red;
 }
 
+.bg-fluid-gray {
+  background-color: $fluid-gray;
+}
+
 .minw-100 {
   min-width: 100%;
 }
@@ -56,6 +60,14 @@ $yellow: rgba(255, 255, 0, 1);
 
 .w-32 {
   width: 32%;
+}
+
+.montsy {
+  font-family: 'Montserrat';
+}
+
+.c-fluid-bk {
+  color: $fluid-black;
 }
 
 // End Tachyons

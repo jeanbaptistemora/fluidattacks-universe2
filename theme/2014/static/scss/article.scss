@@ -93,14 +93,6 @@ $white: rgba(255, 255, 255, 1);
       margin: 0;
     }
   }
-
-  a {
-    color: $fluid-black;
-
-    &:hover {
-      color: $fluid-dark-red;
-    }
-  }
 }
 
 .related {
@@ -108,34 +100,19 @@ $white: rgba(255, 255, 255, 1);
   img {
     margin: 10px 0;
   }
-
-  a {
-    color: $fluid-black;
-    font-family: 'Montserrat';
-    font-weight: bold;
-
-    &:hover {
-      color: $fluid-dark-red;
-    }
-  }
 }
 
 .tags {
   margin-top: 30px;
 
   a {
-    background-color: $fluid-red;
-    color: $white;
-    float: left;
-    font-family: 'Montserrat';
     font-size: 16px;
-    font-weight: bold;
     margin: 0 5px 40px 0;
     padding: 5px 10px;
-    text-transform: capitalize;
 
     &:hover {
       background-color: $fluid-dark-red;
+      color: $white;
       cursor: pointer;
     }
   }
@@ -146,7 +123,6 @@ hr {
 }
 
 .article-nav {
-  font-family: 'Montserrat';
   margin-bottom: 40px;
 }
 
@@ -157,7 +133,6 @@ hr {
 
 .next-article {
   @include next-prev;
-  text-align: right;
 }
 
 @media (min-width: 640px) {

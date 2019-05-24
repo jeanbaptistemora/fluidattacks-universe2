@@ -97,7 +97,7 @@
       </div>
       <table class="authorinfo relative w-80">
         <tr><td>
-            <p class="writer"><a href="{{ SITEURL }}/{{ article.author.url }}">{{article.name}}</a></p>
+            <p class="writer"><a href="{{ SITEURL }}/{{ article.author.url }} " class ="c-fluid-bk hv-fluid-dkred">{{article.name}}</a></p>
         </td></tr>
         <tr><td>
           <p>{{article.about1}}</p>
@@ -114,7 +114,7 @@
             {% for related_post in article.related_posts %}
               <div class="related dit w-32">
           <img src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br>
-          <a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a>
+          <a href="{{ SITEURL }}/{{ related_post.url }}" class= "c-fluid-bk montsy b hv-fluid-dkred">{{ related_post.title }}</a>
         </div>
             {% endfor %}
          </section>
@@ -123,20 +123,20 @@
          <section>
            <div class="tags overflow-hidden">
              <p>{% for tag in article.tags %}
-               <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag | escape }}</a>
+               <a href="{{ SITEURL }}/{{ tag.url }} " class="bg-fluid-red white fl montsy b ttc">{{ tag | escape }}</a>
              {% endfor %}</p>
            </div>
          </section>
        {% endif %}
        <hr>
        <br />
-       <div class="article-nav">
+       <div class="article-nav montsy">
          <div class="prev-article">
            {% if article.prev_article %}
              <a href="{{ SITEURL }}/{{ article.prev_article.url}}">&lt;&nbsp;{{ article.prev_article.title }}</a>
            {% endif %}
          </div>
-         <div class="next-article">
+         <div class="next-article tr">
            {% if article.next_article %}
              <a href="{{ SITEURL }}/{{ article.next_article.url}}">{{ article.next_article.title }}&nbsp;&gt;</a>
            {% endif %}
