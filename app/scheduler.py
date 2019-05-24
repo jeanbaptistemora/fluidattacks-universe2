@@ -95,81 +95,68 @@ def get_external_recipients(project):
     return remove_fluid_from_recipients(recipients_list)
 
 
+def create_url_finding_pending(act_finding):
+    url = '{url!s}/dashboard#!/project/{project!s}/' '{finding!s}/description' \
+        .format(url=BASE_URL,
+                project=act_finding['project_name'],
+                finding=act_finding['finding_id'])
+    return url
+
+
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
-    # pylint: disable-msg=R0914
     projects = integrates_dao.get_registered_projects()
     for project in projects:
         project = str.lower(str(project[0]))
-        context = {'findings': list(), 'findings_working_on': list()}
-        delta_total = 0
+        context = {'updated_findings': list(), 'no_treatment_findings': list()}
         try:
-            finding_requests = integrates_dao.get_findings_dynamo(project,
-                                                                  'finding_id')
-            for finding in finding_requests:
-                message = ''
-                finding['id'] = finding['finding_id']
-                act_finding = finding_vulnerabilities(str(finding['id']))
-                row = integrates_dao.get_vulns_by_id_dynamo(
-                    project,
-                    int(finding['id'])
-                )
-                if str.lower(str(act_finding['projectName'])) == project and \
-                        'releaseDate' in act_finding and row:
-                    finding_url = '{url!s}/dashboard#!/project/{project!s}/' \
-                        '{finding!s}/description' \
-                        .format(url=BASE_URL,
-                                project=project,
-                                finding=finding['id'])
-                    has_treatment = finding_has_treatment(
-                        act_finding,
-                        finding_url)
-                    if has_treatment:
-                        context['findings_working_on'].append(has_treatment)
-                    else:
-                        message = 'Finding {finding!s} of project {project!s} ' \
-                            'has defined treatment' \
-                            .format(finding=finding['id'], project=project)
-                        LOGGER.info(message)
-                    delta = int(act_finding['openVulnerabilities']) - \
-                        int(row[0]['vuln_hoy'])
-                    finding_text = format_vulnerabilities(delta, act_finding)
-                    if finding_text != '':
-                        context['findings'].append({
-                            'nombre_hallazgo': finding_text,
-                            'url_vuln': finding_url
-                        })
-                        delta_total = delta_total + abs(delta)
-                        integrates_dao.add_or_update_vulns_dynamo(
-                            project,
-                            int(finding['id']),
-                            int(act_finding['openVulnerabilities'])
-                        )
-                    else:
-                        message = 'Finding {finding!s} of project ' \
-                            '{project!s} no change during the week' \
-                            .format(finding=finding['id'], project=project)
-                        LOGGER.info(message)
-                else:
-                    message = 'Finding {finding!s} of project {project!s} is ' \
-                        'not valid' \
-                        .format(finding=finding['id'], project=project)
-                    LOGGER.info(message)
+            finding_requests = integrates_dao.get_findings_released_dynamo(project)
+            for act_finding in finding_requests:
+                vulns = integrates_dao.get_vulnerabilities_dynamo(act_finding['finding_id'])
+                finding_url = create_url_finding_pending(act_finding)
+                msj_finding_pending = create_msj_finding_pending(act_finding, finding_url)
+                delta = calculate_vulnerabilities(vulns)
+                finding_text = format_vulnerabilities(delta, act_finding)
+                if msj_finding_pending:
+                    context['no_treatment_findings'].append(msj_finding_pending['finding_pending'])
+                if finding_text:
+                    context['updated_findings'].append({'finding_name': finding_text,
+                                                        'url_vuln': finding_url})
+                context['project'] = str.upper(str(act_finding['project_name']))
+                context['project_url'] = '{url!s}/dashboard#!/project/' \
+                    '{project!s}/indicators' \
+                    .format(url=BASE_URL, project=act_finding['project_name'])
         except (TypeError, KeyError):
             rollbar.report_message(
                 'Error: An error ocurred getting new vulnerabilities '
                 'notification email',
                 'error')
-        if delta_total > 0:
-            context['project'] = str.upper(str(project))
-            context['project_url'] = '{url!s}/dashboard#!/project/' \
-                '{project!s}/indicators' \
-                .format(url=BASE_URL, project=project)
-            recipients = integrates_dao.get_project_users(project)
-            mail_to = [x[0] for x in recipients if x[1] == 1]
-            mail_to.append(FI_MAIL_CONTINUOUS)
-            mail_to.append(FI_MAIL_PROJECTS)
+        if context['updated_findings']:
+            mail_to = prepare_mail_recipients(project)
             send_mail_new_vulnerabilities(mail_to, context)
+
+
+def prepare_mail_recipients(project):
+    recipients = integrates_dao.get_project_users(project)
+    mail_to = [x[0] for x in recipients if x[1] == 1]
+    mail_to.append(FI_MAIL_CONTINUOUS)
+    return mail_to
+
+
+def calculate_vulnerabilities(vulns):
+    delta = 0
+    for vulnerability in vulns:
+        histories_states = vulnerability['historic_state']
+        for history in histories_states:
+            if (datetime.strptime(history['date'], "%Y-%m-%d %H:%M:%S")) > \
+                    (datetime.now() - timedelta(days=8)):
+                if history['state'] == 'open':
+                    delta += 1
+                else:
+                    delta -= 1
+            else:
+                pass
+    return delta
 
 
 def format_vulnerabilities(delta, act_finding):
@@ -184,26 +171,32 @@ def format_vulnerabilities(delta, act_finding):
             delta=delta)
     else:
         finding_text = ''
+        message = 'Finding {finding!s} of project ' \
+            '{project!s} no change during the week' \
+            .format(finding=act_finding['finding_id'],
+                    project=act_finding['project_name'])
+        LOGGER.info(message)
     return finding_text
 
 
-def finding_has_treatment(act_finding, finding_url):
+def create_msj_finding_pending(act_finding, finding_url):
     """Validate if a finding has treatment."""
-    if ('releaseDate' in act_finding) and \
-            (act_finding['estado'] != 'Cerrado'):
-        if 'treatment' in act_finding and \
-                act_finding['treatment'] == 'NEW':
-            finding_name = act_finding['finding'] + ' -' + \
-                act_finding['edad'] + ' day(s)-'
-            resp = {
-                'hallazgo_pendiente': finding_name,
-                'url_hallazgo': finding_url
-            }
-        else:
-            resp = False
+    if act_finding['treatment'] == 'NEW':
+        today = datetime.now()
+        release_date = act_finding['releaseDate'].split(' ')
+        days = abs(datetime.strptime(release_date[0], '%Y-%m-%d') - today).days
+        finding_name = act_finding['finding'] + ' -' + \
+            str(days) + ' day(s)-'
+        result = {'finding_pending': finding_name,
+                  'finding_url': finding_url}
     else:
-        resp = False
-    return resp
+        message = 'Finding {finding!s} of project {project!s} ' \
+            'has defined treatment' \
+            .format(finding=act_finding['finding_id'],
+                    project=act_finding['project_name'])
+        LOGGER.info(message)
+        result = ''
+    return result
 
 
 def update_new_vulnerabilities():
@@ -220,8 +213,7 @@ def update_new_vulnerabilities():
                     act_finding = finding_vulnerabilities(str(finding['finding_id']))
                     if 'releaseDate' in act_finding:
                         integrates_dao.add_or_update_vulns_dynamo(
-                            project,
-                            int(finding['finding_id']), 0)
+                            project, int(finding['finding_id']), 0)
             else:
                 message = 'Project {project!s} does not have new vulnerabilities' \
                     .format(project=project)
