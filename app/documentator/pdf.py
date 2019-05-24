@@ -192,10 +192,10 @@ class CreatorPDF(object):
             'fin_status_closed': 'Closed'
         }
 
-    def tech(self, data, project, user):
+    def tech(self, data, project):
         """ Create the template to render and apply the context. """
         self.fill_project(data, project)
-        self.out_name = user + '_' + project + '_IT.pdf'
+        self.out_name = project + '_IT.pdf'
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)

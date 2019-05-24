@@ -248,7 +248,7 @@ Attempted to export project pdf without permission')
         findings = pdf_evidences(findings_ord)
         report_filename = ""
         if doctype == "tech":
-            pdf_maker.tech(findings, project, user)
+            pdf_maker.tech(findings, project)
             report_filename = secure_pdf.create_full(user,
                                                      pdf_maker.out_name,
                                                      project)
@@ -264,7 +264,7 @@ Documentation has not been generated', 'error', request)
             response = HttpResponse(document.read(),
                                     content_type="application/pdf")
             response['Content-Disposition'] = \
-                "inline;filename=:id.pdf".replace(":id", user + "_" + project)
+                "inline;filename=:id.pdf".replace(":id", project + "_IT")
         return response
 
 
