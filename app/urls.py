@@ -5,6 +5,7 @@ from __future__ import absolute_import
 
 from django.conf.urls import url, include, handler400, handler403, handler404, handler500
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 from .entity import schema
 from . import views
@@ -31,12 +32,13 @@ urlpatterns = [
     url(r'^dashboard/?$', views.app, name='dashboard'),
     url(r'^registration/?$', views.app, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^api/?\.*$',
-        GraphQLView.as_view(graphiql=True if settings.DEBUG else False, schema=schema.SCHEMA)),
+    url(r'^api/?\.*$', csrf_exempt(
+        GraphQLView.as_view(graphiql=settings.DEBUG, schema=schema.SCHEMA))),
     # Use of Formstack services.
     url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),
-    url(r'^(?P<findingid>[0-9]+)/download_vulnerabilities?$', views.download_vulnerabilities),
+    url(r'^(?P<findingid>[0-9]+)/download_vulnerabilities?$',
+        views.download_vulnerabilities),
     # Documentation.
     url(r'^pdf/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/(?P<doctype>[a-z]+)/?$',
         views.project_to_pdf),

@@ -33,8 +33,8 @@ NEW_RELIC_CONF_FILE = os.path.join(BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
 # Initialization of another modules must be after New Relic init
-from boto3.session import Session # noqa: E402
-import rollbar # noqa: E402
+from boto3.session import Session  # noqa: E402
+import rollbar  # noqa: E402
 
 FIELDS_FINDING = FIELDS_FINDING
 FIELDS_EVENT = FIELDS_EVENT
@@ -45,9 +45,11 @@ SECRET_KEY = FI_DJANGO_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FI_DEBUG == 'True'
 
-ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la",
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
                  "fluidattacks.com", "192.168.200.100.xip.io",
                  "192.168.200.100", ".integrates.env.fluidattacks.com"]
+
+ALLOWED_HOSTS += ['192.168.1.{}'.format(i) for i in range(254)]
 
 # Application definition
 
@@ -163,7 +165,7 @@ USE_TZ = True
 
 # Logging
 AWS_ACCESS_KEY_ID = FI_AWS_CLOUDWATCH_ACCESS_KEY
-AWS_SECRET_ACCESS_KEY = FI_AWS_CLOUDWATCH_SECRET_KEY # noqa
+AWS_SECRET_ACCESS_KEY = FI_AWS_CLOUDWATCH_SECRET_KEY  # noqa
 AWS_REGION_NAME = 'us-east-1'
 
 BOTO3_SESSION = Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -375,16 +377,16 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = FI_GOOGLE_OAUTH2_KEY
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = FI_GOOGLE_OAUTH2_SECRET # noqa
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = FI_GOOGLE_OAUTH2_SECRET  # noqa
 
 DRIVE_SCOPES = [
     'https://www.googleapis.com/auth/drive.file',
     'https://www.googleapis.com/auth/drive'
 ]
-DRIVE_SECRET_FILE = "/usr/src/app/config/drive_client_secret.json" # noqa
-DRIVE_AUTHOR_FILE = "/usr/src/app/config/drive_authorization.json" # noqa
+DRIVE_SECRET_FILE = "/usr/src/app/config/drive_client_secret.json"  # noqa
+DRIVE_AUTHOR_FILE = "/usr/src/app/config/drive_authorization.json"  # noqa
 DRIVE_APP_NAME = 'FLUIDIntegrates_Drive'
 
 # Azure OAuth2
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
-SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET # noqa
+SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET  # noqa
