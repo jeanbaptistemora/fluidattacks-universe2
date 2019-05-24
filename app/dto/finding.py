@@ -378,10 +378,10 @@ class FindingDTO(object):
         base_score = float(cvss.calculate_cvss_basescore(
             parsed_dict, self.CVSS_PARAMETERS, cvss_version))
         parsed_dict['baseScore'] = base_score
-        parsed_dict['severity'] = cvss.calculate_cvss_temporal(
+        parsed_dict['severityCvss'] = cvss.calculate_cvss_temporal(
             parsed_dict, base_score, cvss_version)
         parsed_dict['impact'] = forms.get_impact(
-            parsed_dict['severity'], cvss_version)
+            parsed_dict['severityCvss'], cvss_version)
         parsed_dict['exploitable'] = forms.is_exploitable(
             parsed_dict['exploitability'], cvss_version)
         return parsed_dict
@@ -457,10 +457,10 @@ class FindingDTO(object):
         base_score = float(cvss.calculate_cvss_basescore(
             parsed_dict, self.CVSS3_PARAMETERS, cvss_version))
         parsed_dict['baseScore'] = base_score
-        parsed_dict['severity'] = cvss.calculate_cvss_temporal(
+        parsed_dict['severityCvss'] = cvss.calculate_cvss_temporal(
             parsed_dict, base_score, cvss_version)
         parsed_dict['impact'] = forms.get_impact(
-            parsed_dict['severity'], cvss_version)
+            parsed_dict['severityCvss'], cvss_version)
         parsed_dict['exploitable'] = forms.is_exploitable(
             parsed_dict['exploitability'], cvss_version)
         return parsed_dict
@@ -879,10 +879,10 @@ def parse_severity(finding):
     base_score = float(cvss.calculate_cvss_basescore(
         parsed_dict, cvss_parameters, cvss_version))
     parsed_dict['baseScore'] = base_score
-    parsed_dict['severity'] = \
+    parsed_dict['severityCvss'] = \
         cvss.calculate_cvss_temporal(parsed_dict, base_score, cvss_version)
     parsed_dict['impact'] = forms.get_impact(
-        parsed_dict['severity'], cvss_version)
+        parsed_dict['severityCvss'], cvss_version)
     parsed_dict['exploitable'] = forms.is_exploitable(
         parsed_dict['exploitability'], cvss_version)
     parsed_dict['cvssVersion'] = cvss_version
