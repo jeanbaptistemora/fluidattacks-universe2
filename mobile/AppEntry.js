@@ -1,7 +1,7 @@
 // @ts-check
 
 import { KeepAwake, registerRootComponent } from "expo";
-import { App } from "./src/App";
+import { App } from "./src/app";
 
 if (__DEV__) {
   KeepAwake.activate();
