@@ -196,6 +196,7 @@
 
 == Networks
 
+* link:248/[REQ.248 SSID without dictionary words].
 * link:249/[REQ.249 Locate access points].
 * link:250/[REQ.250 Manage access points].
 * link:253/[REQ.253 Restrict network access].
