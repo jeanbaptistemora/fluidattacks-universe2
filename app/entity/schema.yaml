@@ -41,10 +41,8 @@ mapping:
             type: str
             required: true
           port:
-            type: int
-            range:
-              min: 1
-              max: 65535
+            type: str
+            pattern: ^[0-9]+(?:-[0-9]+)?(,[0-9]+(?:-[0-9]+)?)*$
             required: true
           state:
             type: str

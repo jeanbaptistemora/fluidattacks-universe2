@@ -158,6 +158,9 @@ export const updateVulnerabilities: ThunkActionStructure =
             case "Exception - Invalid File Type":
               msgError(translate.t("proj_alerts.file_type_yaml"));
               break;
+            case "Exception - Error in port value":
+              msgError(translate.t("proj_alerts.port_value"));
+              break;
             default:
               msgError(translate.t("proj_alerts.error_textsad"));
               rollbar.error(error.message, errors);

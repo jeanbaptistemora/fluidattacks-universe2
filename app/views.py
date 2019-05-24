@@ -355,7 +355,7 @@ def cast_new_vulnerabilities(finding_new, finding):
     where = ''
     if finding_new.get('portsVulns'):
         finding['portsVulns'] = \
-            sort_vulnerabilities(finding_new.get('portsVulns'))
+            group_specific(finding_new.get('portsVulns'))
         where = format_where(where, finding['portsVulns'])
     else:
         # This finding does not have ports vulnerabilities
@@ -671,7 +671,7 @@ Attempted to retrieve vulnerabilities without permission')
     else:
         finding = get_vulnerabilities_by_type(findingid)
         data_yml = {}
-        vuln_types = {'ports': cast_ports, 'lines': dict, 'inputs': dict}
+        vuln_types = {'ports': dict, 'lines': dict, 'inputs': dict}
         if finding:
             for vuln_key, cast_fuction in vuln_types.items():
                 if finding.get(vuln_key):
@@ -697,10 +697,3 @@ Attempted to retrieve vulnerabilities without permission')
         except IOError:
             rollbar.report_message('Error: Invalid vulnerabilities file format', 'error', request)
             return util.response([], 'Invalid vulnerabilities file format', True)
-
-
-def cast_ports(ports):
-    """Cast ports to be int."""
-    ports = dict(ports)
-    ports['port'] = int(ports['port'])
-    return ports

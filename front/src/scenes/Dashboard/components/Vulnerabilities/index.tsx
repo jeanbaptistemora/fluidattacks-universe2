@@ -53,6 +53,8 @@ export interface IVulnerabilitiesViewProps {
   userRole: string;
 }
 
+type IVulnType = IVulnerabilitiesViewProps["dataLines"] | IVulnerabilitiesViewProps["dataPorts"];
+
 const filterState:
   ((dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string) => IVulnerabilitiesViewProps["dataInputs"]) =
     (dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string): IVulnerabilitiesViewProps["dataInputs"] =>
@@ -133,19 +135,18 @@ const groupValues: ((values: number[]) => string) =
   (values: number[]): string =>
     getRanges(values.sort(compareNumbers));
 
-const groupSpecific: ((lines: IVulnerabilitiesViewProps["dataLines"]) => IVulnerabilitiesViewProps["dataLines"]) =
-  (lines: IVulnerabilitiesViewProps["dataLines"]): IVulnerabilitiesViewProps["dataLines"] => {
-    const groups: { [key: string]: IVulnerabilitiesViewProps["dataLines"] }  = _.groupBy(lines, "where");
-    const specificGrouped: IVulnerabilitiesViewProps["dataLines"] =
-    _.map(groups, (line: IVulnerabilitiesViewProps["dataLines"]) =>
-      ({
-          currentState: line[0].currentState,
-          specific: groupValues(line.map(getSpecific)),
-          vulnType: line[0].vulnType,
-          where: line[0].where,
-      }));
+const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => {
+  const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
+  const specificGrouped: IVulnType =
+  _.map(groups, (line: IVulnType) =>
+    ({
+        currentState: line[0].currentState,
+        specific: groupValues(line.map(getSpecific)),
+        vulnType: line[0].vulnType,
+        where: line[0].where,
+    }));
 
-    return specificGrouped;
+  return specificGrouped;
 };
 
 const updateVulnerabilities: ((findingId: string) => void) = (findingId: string): void => {
@@ -236,6 +237,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       width: "30%",
     }];
   let dataLines: IVulnerabilitiesViewProps["dataLines"] = props.dataLines;
+  let dataPorts: IVulnerabilitiesViewProps["dataPorts"] = props.dataPorts;
   if (props.editMode && _.isEmpty(props.releaseDate)) {
     inputsHeader.push({
                 align: "center" as DataAlignType,
@@ -266,6 +268,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               });
   } else {
     dataLines = groupSpecific(props.dataLines);
+    dataPorts = groupSpecific(props.dataPorts);
   }
 
   return (
@@ -311,7 +314,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           <label className={style.vuln_title}>{translate.t("search_findings.tab_description.port", {count: 2})}</label>
           <SimpleTable
             id="portsVulns"
-            dataset={props.dataPorts}
+            dataset={dataPorts}
             exportCsv={false}
             headers={portsHeader}
             onClickRow={(): void => undefined}

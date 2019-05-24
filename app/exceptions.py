@@ -84,3 +84,11 @@ class InvalidAuthorization(Exception):
         """ Constructor """
         msg = 'Exception - Invalid Authorization'
         super(InvalidAuthorization, self).__init__(msg)
+
+
+class InvalidPort(Exception):
+    """Exception to control valid port value in vulnerabilities."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Error in port value'
+        super(InvalidPort, self).__init__(msg)
