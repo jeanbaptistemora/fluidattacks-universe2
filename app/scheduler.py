@@ -15,6 +15,7 @@ from __init__ import (
 from django.conf import settings
 from . import views
 from .dao import integrates_dao
+from .domain.finding import (get_age_finding, get_tracking_vulnerabilities)
 from .domain.project import (
     get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
     get_total_treatment
@@ -95,11 +96,11 @@ def get_external_recipients(project):
     return remove_fluid_from_recipients(recipients_list)
 
 
-def create_url_finding_pending(act_finding):
+def get_finding_url(finding):
     url = '{url!s}/dashboard#!/project/{project!s}/' '{finding!s}/description' \
         .format(url=BASE_URL,
-                project=act_finding['project_name'],
-                finding=act_finding['finding_id'])
+                project=finding['project_name'],
+                finding=finding['finding_id'])
     return url
 
 
@@ -112,16 +113,16 @@ def get_new_vulnerabilities():
         try:
             finding_requests = integrates_dao.get_findings_released_dynamo(project)
             for act_finding in finding_requests:
-                vulns = integrates_dao.get_vulnerabilities_dynamo(act_finding['finding_id'])
-                finding_url = create_url_finding_pending(act_finding)
-                msj_finding_pending = create_msj_finding_pending(act_finding, finding_url)
-                delta = calculate_vulnerabilities(vulns)
+                finding_url = get_finding_url(act_finding)
+                msj_finding_pending = create_msj_finding_pending(act_finding)
+                delta = calculate_vulnerabilities(act_finding)
                 finding_text = format_vulnerabilities(delta, act_finding)
                 if msj_finding_pending:
-                    context['no_treatment_findings'].append(msj_finding_pending['finding_pending'])
+                    context['no_treatment_findings'].append({'finding_name': msj_finding_pending,
+                                                             'finding_url': finding_url})
                 if finding_text:
                     context['updated_findings'].append({'finding_name': finding_text,
-                                                        'url_vuln': finding_url})
+                                                        'finding_url': finding_url})
                 context['project'] = str.upper(str(act_finding['project_name']))
                 context['project_url'] = '{url!s}/dashboard#!/project/' \
                     '{project!s}/indicators' \
@@ -143,20 +144,23 @@ def prepare_mail_recipients(project):
     return mail_to
 
 
-def calculate_vulnerabilities(vulns):
-    delta = 0
-    for vulnerability in vulns:
-        histories_states = vulnerability['historic_state']
-        for history in histories_states:
-            if (datetime.strptime(history['date'], "%Y-%m-%d %H:%M:%S")) > \
-                    (datetime.now() - timedelta(days=8)):
-                if history['state'] == 'open':
-                    delta += 1
-                else:
-                    delta -= 1
-            else:
-                pass
-    return delta
+def calculate_vulnerabilities(act_finding):
+    vulns = integrates_dao.get_vulnerabilities_dynamo(act_finding['finding_id'])
+    all_tracking = get_tracking_vulnerabilities(act_finding, vulns)
+    delta_total = 0
+    if len(all_tracking) > 1:
+        if (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > (datetime.now() -
+                                                                        timedelta(days=8)):
+            delta_open = abs(all_tracking[-1]['open'] - all_tracking[-2]['open'])
+            delta_closed = abs(all_tracking[-1]['closed'] - all_tracking[-2]['closed'])
+            delta_total = delta_open - delta_closed
+    elif len(all_tracking) == 1:
+        if (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > \
+                (datetime.now() - timedelta(days=8)):
+            delta_open = all_tracking[-1]['open']
+            delta_closed = all_tracking[-1]['closed']
+            delta_total = delta_open - delta_closed
+    return delta_total
 
 
 def format_vulnerabilities(delta, act_finding):
@@ -179,16 +183,14 @@ def format_vulnerabilities(delta, act_finding):
     return finding_text
 
 
-def create_msj_finding_pending(act_finding, finding_url):
+def create_msj_finding_pending(act_finding):
     """Validate if a finding has treatment."""
-    if act_finding['treatment'] == 'NEW':
-        today = datetime.now()
-        release_date = act_finding['releaseDate'].split(' ')
-        days = abs(datetime.strptime(release_date[0], '%Y-%m-%d') - today).days
+    state = str.lower(finding_vulnerabilities(act_finding['finding_id'])['estado'])
+    if act_finding['treatment'] == 'NEW' and state == 'abierto':
+        days = get_age_finding(act_finding)
         finding_name = act_finding['finding'] + ' -' + \
             str(days) + ' day(s)-'
-        result = {'finding_pending': finding_name,
-                  'finding_url': finding_url}
+        result = finding_name
     else:
         message = 'Finding {finding!s} of project {project!s} ' \
             'has defined treatment' \

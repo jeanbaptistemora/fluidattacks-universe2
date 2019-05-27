@@ -30,6 +30,7 @@ from app.utils import cvss
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
+from app.entity.vulnerability import Vulnerability
 from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date
@@ -187,13 +188,14 @@ def get_tracking_dict(unique_dict):
     """Get tracking dictionary."""
     sorted_dates = sorted(unique_dict.keys())
     tracking_dict = {}
-    tracking_dict[sorted_dates[0]] = unique_dict[sorted_dates[0]]
-    for date in range(1, len(sorted_dates)):
-        prev_date = sorted_dates[date - 1]
-        tracking_dict[sorted_dates[date]] = tracking_dict[prev_date].copy()
-        actual_date_dict = unique_dict[sorted_dates[date]].items()
-        for vuln, state in actual_date_dict:
-            tracking_dict[sorted_dates[date]][vuln] = state
+    if sorted_dates:
+        tracking_dict[sorted_dates[0]] = unique_dict[sorted_dates[0]]
+        for date in range(1, len(sorted_dates)):
+            prev_date = sorted_dates[date - 1]
+            tracking_dict[sorted_dates[date]] = tracking_dict[prev_date].copy()
+            actual_date_dict = unique_dict[sorted_dates[date]].items()
+            for vuln, state in actual_date_dict:
+                tracking_dict[sorted_dates[date]][vuln] = state
     return tracking_dict
 
 
@@ -398,6 +400,37 @@ def send_finding_verified_email(finding_id, finding_name, project_name):
         }))
 
     email_send_thread.start()
+
+
+def get_age_finding(act_finding):
+    """Get days since the vulnerabilities was release"""
+    today = datetime.now()
+    release_date = act_finding['releaseDate'].split(' ')
+    age = abs(datetime.strptime(release_date[0], '%Y-%m-%d') - today).days
+    return age
+
+
+def get_tracking_vulnerabilities(act_finding, vulnerabilities):
+    """get tracking vulnerabilities dictionary"""
+    tracking = []
+    release_date = act_finding['releaseDate']
+    if vulnerabilities:
+        vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
+        open_vulnerabilities = \
+            [i for i in vulnerabilities if i.current_state == 'open']
+        open_vulnerabilities = len(open_vulnerabilities)
+        closed_vulnerabilities = \
+            [i for i in vulnerabilities if i.current_state == 'closed']
+        closed_vulnerabilities = len(closed_vulnerabilities)
+    if release_date:
+        vuln_casted = remove_repeated(vulnerabilities)
+        unique_dict = get_unique_dict(vuln_casted)
+        tracking = get_tracking_dict(unique_dict)
+        tracking_grouped = group_by_state(tracking)
+        order_tracking = sorted(tracking_grouped.items())
+        tracking_casted = cast_tracking(order_tracking)
+        tracking = tracking_casted
+    return tracking
 
 
 def verify_finding(finding_id, user_email):
