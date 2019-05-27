@@ -33,7 +33,7 @@
 |{{finding_title}} |{{severity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
 {% for fin in findings %}
     {{"| "+fin['finding']}}
-    {{"| "+fin['severity']}}
+    {{"| "+fin['severityCvss']}}
     {{"| "+fin['openVulnerabilities']}}
     {{"| "+fin['estado']+"\n"}}
     {{"| "+fin['treatment']+"\n"}}
@@ -78,7 +78,7 @@
 ==== {{fin['finding'] + "\n"}}
 |===
 |{{severity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
-{{"|"+fin['severity']+"|"+fin['openVulnerabilities']+"|"+fin['recordsNumber']+"|"+fin['estado']}}
+{{"|"+fin['severityCvss']+"|"+fin['openVulnerabilities']+"|"+fin['recordsNumber']+"|"+fin['estado']}}
 |===
 ===== {{description_title}}
 {{fin['vulnerability'] + "\n"}}

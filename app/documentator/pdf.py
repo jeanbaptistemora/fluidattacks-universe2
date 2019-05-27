@@ -273,7 +273,7 @@ class CreatorPDF(object):
         colors = ['#980000', 'red', 'orange', 'yellow']
         explode = (0.1, 0, 0, 0)
         for finding in findings:
-            severity = finding['severity']
+            severity = finding['severityCvss']
             if severity >= 9.0 and severity <= 10.0:
                 finding_state_pie[0] += 1
             elif severity >= 7.0 and severity <= 8.9:
@@ -478,7 +478,7 @@ def make_vuln_table(findings, words):
     top_table = []
     ttl_vulns, ttl_num_reg, top = 0, 0, 1
     for finding in findings:
-        severity = finding['severity']
+        severity = finding['severityCvss']
         crit_as_text = words['crit_l']
         vuln_amount = 0
         if finding['openVulnerabilities'] != '-':
@@ -503,11 +503,11 @@ def make_vuln_table(findings, words):
             vuln_table[3][1] += 1
             vuln_table[3][3] += vuln_amount
         ttl_num_reg += int(finding['recordsNumber'])
-        finding['severity'] = str(finding['severity'])
+        finding['severityCvss'] = str(finding['severityCvss'])
         if top <= 5:
             top_table.append([
                 top,
-                finding['severity'] + ' ' + crit_as_text,
+                finding['severityCvss'] + ' ' + crit_as_text,
                 finding['finding']
             ])
             top += 1

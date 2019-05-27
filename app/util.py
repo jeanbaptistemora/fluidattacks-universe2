@@ -69,8 +69,8 @@ def ord_asc_by_criticidad(data):
     """ Sort the findings by criticality """
     for i in range(0, len(data) - 1):
         for j in range(i + 1, len(data)):
-            firstc = float(data[i]["severity"])
-            seconc = float(data[j]["severity"])
+            firstc = float(data[i]["severityCvss"])
+            seconc = float(data[j]["severityCvss"])
             if firstc < seconc:
                 aux = data[i]
                 data[i] = data[j]
