@@ -34,7 +34,7 @@ class ITReport(object):
         'where_records': 5,
         'requirements': 6,
         'measurements': 8,
-        'severity': 9,
+        'severityCvss': 9,
         'cardinality': 10,
         'affected_records': 11,
         'evidence': 12,
@@ -218,7 +218,7 @@ class ITReport(object):
             self.set_cell(self.finding['where_records'],
                           'Evidencias/' + row['finding'] + '/records.csv')
         self.set_cell(self.finding['requirements'], row['requirements'])
-        self.set_cell_number(self.finding['severity'], row['severity'])
+        self.set_cell_number(self.finding['severityCvss'], row['severityCvss'])
         self.set_cell_number(self.finding['cardinality'], row['openVulnerabilities'])
         self.set_cell_number(self.finding['affected_records'], row['recordsNumber'])
         self.set_cell(self.finding['evidence'], 'Evidencias/' + row['finding'])
@@ -288,7 +288,7 @@ class ITReport(object):
             self.set_cell_qc(self.matriz['probability'],
                              get_probability(row['probability']))
         self.set_cell_qc(
-            self.matriz['cssv3_value'], cast_severity(row['severity']))
+            self.matriz['cssv3_value'], cast_severity(row['severityCvss']))
         if 'severity' in row:
             self.set_cell_number_qc(self.matriz['severity'], row['severity'])
         if 'risk' in row:
