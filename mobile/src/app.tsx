@@ -1,4 +1,3 @@
-import { Constants } from "expo";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { Provider } from "react-redux";

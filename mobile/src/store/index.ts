@@ -16,7 +16,7 @@ export interface IState {
  * Redux action object content
  */
 export interface IActionStructure extends Action<string> {
-  payload: Dictionary;
+  payload: Dictionary<{} | undefined>;
 }
 
 export type ThunkDispatcher = ThunkDispatch<IState, undefined, IActionStructure>;

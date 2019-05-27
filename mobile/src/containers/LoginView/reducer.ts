@@ -8,6 +8,8 @@ import { actionTypes } from "./actions";
  * State structure of LoginView
  */
 export interface ILoginState {
+  authProvider: string;
+  authToken: string;
   isAuthenticated: boolean;
   isLoading: boolean;
   userInfo: {
@@ -21,6 +23,8 @@ export interface ILoginState {
 }
 
 export const initialState: ILoginState = {
+  authProvider: "",
+  authToken: "",
   isAuthenticated: false,
   isLoading: false,
   userInfo: {
@@ -40,8 +44,10 @@ actionMap[actionTypes.GOOGLE_LOGIN_LOAD] = (state: ILoginState): ILoginState => 
   isLoading: !state.isLoading,
 });
 
-actionMap[actionTypes.GOOGLE_LOGIN_SUCCESS] = (state: ILoginState, action: IActionStructure): ILoginState => ({
+actionMap[actionTypes.LOGIN_SUCCESS] = (state: ILoginState, action: IActionStructure): ILoginState => ({
   ...state,
+  authProvider: action.payload.authProvider as string,
+  authToken: action.payload.authToken as string,
   isAuthenticated: true,
   userInfo: action.payload.userInfo as ILoginState["userInfo"],
 });

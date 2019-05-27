@@ -6,7 +6,7 @@ import { GOOGLE_LOGIN_KEY } from "../../utils/constants";
 
 export enum actionTypes {
   GOOGLE_LOGIN_LOAD = "login/google/load",
-  GOOGLE_LOGIN_SUCCESS = "login/google/success",
+  LOGIN_SUCCESS = "login/success",
 }
 
 export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResult<void> => (
@@ -20,7 +20,10 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
     .then((result: Google.LogInResult) => {
       dispatch({ payload: {}, type: actionTypes.GOOGLE_LOGIN_LOAD });
       if (result.type === "success") {
-        dispatch({ payload: { userInfo: result.user }, type: actionTypes.GOOGLE_LOGIN_SUCCESS });
+        dispatch({
+          payload: { authProvider: "google", authToken: result.idToken, userInfo: result.user },
+          type: actionTypes.LOGIN_SUCCESS,
+        });
       }
     })
     .catch((error: Error) => {

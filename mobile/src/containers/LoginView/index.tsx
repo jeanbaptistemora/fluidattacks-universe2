@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Image, View } from "react-native";
 import { connect, ConnectedComponentClass, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { RedirectProps } from "react-router";
 import { Redirect, RouteComponentProps } from "react-router-native";
 
 // tslint:disable-next-line: no-default-import
@@ -28,7 +29,16 @@ export const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginPro
 
   const { t } = translate;
 
-  return props.isAuthenticated ? <Redirect to={{ pathname: "/Welcome", state: { userInfo: props.userInfo } }} /> : (
+  const redirectParams: RedirectProps["to"] = {
+    pathname: "/Welcome",
+    state: {
+      authProvider: props.authProvider,
+      authToken: props.authToken,
+      userInfo: props.userInfo,
+    },
+  };
+
+  return props.isAuthenticated ? <Redirect to={redirectParams} /> : (
     <View style={styles.container}>
       <Image source={FluidLogo} style={styles.logo} />
       <View style={styles.buttonsContainer}>

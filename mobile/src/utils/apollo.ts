@@ -1,6 +1,4 @@
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
+import { default as ApolloClient } from "apollo-boost";
 import { Constants } from "expo";
 
 const apiHost: string = Constants.appOwnership === "expo"
@@ -8,14 +6,6 @@ const apiHost: string = Constants.appOwnership === "expo"
     .split(":")[0]}`
   : "https://fluidattacks.com";
 
-const httpLink: HttpLink = new HttpLink({
+export const client: ApolloClient<{}> = new ApolloClient<{}>({
   uri: `${apiHost}/integrates/api`,
-});
-
-const cache: InMemoryCache = new InMemoryCache({ resultCaching: true });
-
-export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  cache,
-  connectToDevTools: __DEV__,
-  link: httpLink,
 });
