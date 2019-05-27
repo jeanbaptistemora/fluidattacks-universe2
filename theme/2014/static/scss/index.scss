@@ -8,12 +8,8 @@ $white: rgba(255, 255, 255, 1);
   padding: 30px 20px 0;
 
   .subtitle {
-    color: $fluid-black;
-    display: block;
-    font-style: italic;
     line-height: 1;
     min-height: 32px;
-    text-align: center;
   }
 }
 
@@ -52,15 +48,6 @@ $white: rgba(255, 255, 255, 1);
   height: 88px;
 }
 
-.aautor {
-  color: $fluid-black;
-  text-transform: capitalize;
-
-  &:hover {
-    color: $fluid-dark-red;
-  }
-}
-
 .article-summary {
   font-size: 16px;
   margin: 20px 0 60px;
@@ -68,7 +55,6 @@ $white: rgba(255, 255, 255, 1);
 
 .divread {
   bottom: 40px;
-  position: absolute;
 
   .button {
     font-size: 16px;
@@ -78,20 +64,13 @@ $white: rgba(255, 255, 255, 1);
 
 .pager {
   margin: 20px 0;
-
-  li {
-    display: inline;
-  }
 }
 
 .next {
   a {
-    color: $fluid-red;
-    font-family: 'Montserrat';
     font-size: 16px;
     padding: 0 15px;
 
-    &:hover,
     &:focus {
       color: $fluid-dark-red;
     }
