@@ -92,3 +92,11 @@ class InvalidPort(Exception):
         """ Constructor """
         msg = 'Exception - Error in port value'
         super(InvalidPort, self).__init__(msg)
+
+
+class InvalidSpecific(Exception):
+    """Exception to control valid specific value in vulnerabilities."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Error in specific value'
+        super(InvalidSpecific, self).__init__(msg)

@@ -36,8 +36,7 @@ from .dto.finding import (
     FindingDTO, format_finding_date, parse_finding, get_project_name
 )
 from .domain.vulnerability import (
-    sort_vulnerabilities, group_specific, get_open_vuln_by_type,
-    get_vulnerabilities_by_type
+    group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
 from .dto import closing
 from .dto import project as project_dto
@@ -355,21 +354,21 @@ def cast_new_vulnerabilities(finding_new, finding):
     where = ''
     if finding_new.get('portsVulns'):
         finding['portsVulns'] = \
-            group_specific(finding_new.get('portsVulns'))
+            group_specific(finding_new.get('portsVulns'), 'ports')
         where = format_where(where, finding['portsVulns'])
     else:
         # This finding does not have ports vulnerabilities
         pass
     if finding_new.get('linesVulns'):
         finding['linesVulns'] = \
-            group_specific(finding_new.get('linesVulns'))
+            group_specific(finding_new.get('linesVulns'), 'lines')
         where = format_where(where, finding['linesVulns'])
     else:
         # This finding does not have lines vulnerabilities
         pass
     if finding_new.get('inputsVulns'):
         finding['inputsVulns'] = \
-            sort_vulnerabilities(finding_new.get('inputsVulns'))
+            group_specific(finding_new.get('inputsVulns'), 'inputs')
         where = format_where(where, finding['inputsVulns'])
     else:
         # This finding does not have inputs vulnerabilities

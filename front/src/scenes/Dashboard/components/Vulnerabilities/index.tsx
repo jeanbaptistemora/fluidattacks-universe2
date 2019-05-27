@@ -53,7 +53,8 @@ export interface IVulnerabilitiesViewProps {
   userRole: string;
 }
 
-type IVulnType = IVulnerabilitiesViewProps["dataLines"] | IVulnerabilitiesViewProps["dataPorts"];
+type IVulnType = (IVulnerabilitiesViewProps["dataLines"] | IVulnerabilitiesViewProps["dataPorts"] |
+  IVulnerabilitiesViewProps["dataPorts"]);
 
 const filterState:
   ((dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string) => IVulnerabilitiesViewProps["dataInputs"]) =
@@ -101,9 +102,13 @@ const deleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
     }
 };
 
-const getSpecific: ((line: { [key: string]: string }) => number) =
+const specificToNumber: ((line: { [key: string]: string }) => number) =
   (line: { [key: string]: string }): number =>
     parseInt(line.specific, 10);
+
+const getSpecific: ((line: { [key: string]: string }) => string) =
+  (line: { [key: string]: string }): string =>
+    line.specific;
 
 const compareNumbers: ((a: number, b: number) => number) =
   (a: number, b: number): number =>
@@ -141,7 +146,8 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
   _.map(groups, (line: IVulnType) =>
     ({
         currentState: line[0].currentState,
-        specific: groupValues(line.map(getSpecific)),
+        specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
+          .toString() : groupValues(line.map(specificToNumber)),
         vulnType: line[0].vulnType,
         where: line[0].where,
     }));
@@ -238,6 +244,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     }];
   let dataLines: IVulnerabilitiesViewProps["dataLines"] = props.dataLines;
   let dataPorts: IVulnerabilitiesViewProps["dataPorts"] = props.dataPorts;
+  let dataInputs: IVulnerabilitiesViewProps["dataInputs"] = props.dataInputs;
   if (props.editMode && _.isEmpty(props.releaseDate)) {
     inputsHeader.push({
                 align: "center" as DataAlignType,
@@ -269,6 +276,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
   } else {
     dataLines = groupSpecific(props.dataLines);
     dataPorts = groupSpecific(props.dataPorts);
+    dataInputs = groupSpecific(props.dataInputs);
   }
 
   return (
@@ -278,7 +286,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           <label className={style.vuln_title}>{translate.t("search_findings.tab_description.inputs")}</label>
           <SimpleTable
             id="inputsVulns"
-            dataset={props.dataInputs}
+            dataset={dataInputs}
             exportCsv={false}
             headers={inputsHeader}
             onClickRow={(): void => undefined}

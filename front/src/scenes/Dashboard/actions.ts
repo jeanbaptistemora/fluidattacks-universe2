@@ -161,8 +161,11 @@ export const updateVulnerabilities: ThunkActionStructure =
             case "Exception - Error in port value":
               msgError(translate.t("proj_alerts.port_value"));
               break;
+            case "Exception - Error in specific value":
+              msgError(translate.t("proj_alerts.port_value"));
+              break;
             default:
-              msgError(translate.t("proj_alerts.error_textsad"));
+              msgError(translate.t("proj_alerts.invalid_specific"));
               rollbar.error(error.message, errors);
           }
         }

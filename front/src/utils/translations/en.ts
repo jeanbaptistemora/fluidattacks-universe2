@@ -56,6 +56,7 @@ const enTranslations: dict = {
     file_type_yaml: "The file must be .yaml or .yml type",
     file_updated: "File Updated ;)",
     invalid_schema: "Uploaded file does not match with the schema",
+    invalid_specific: "Invalid field/line/port",
     invalid_treatment_mgr: "Please select a treatment manager",
     no_file_selected: "No file selected",
     no_file_update: "Failed to update the file",
