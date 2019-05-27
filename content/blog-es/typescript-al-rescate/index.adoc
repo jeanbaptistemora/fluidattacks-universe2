@@ -209,7 +209,7 @@ en link:https://www.typescriptlang.org/index.html[+TypeScript+]
 con pensamiento funcional.
 Si este no es tu caso, te recomendamos que leas
 [button]#link:/web/es/blog/por-que-somos-funcionales[Por qué somos funcionales?]#
-y [button]#link:/web/en/blog/functional-fashion-in-javascript[Functional Fashion in JavaScript]#
+y [button]#link:/web/blog/functional-fashion-in-javascript[Functional Fashion in JavaScript]#
 
 Solo falta responder ¿Por qué modernidad?
 Bueno, los expertos en

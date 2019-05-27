@@ -189,20 +189,10 @@ deploy:
         else
           echo "There are no artifacts";
       fi
-    - pybabel compile --directory theme/2014/translations/ --domain messages
     - for FILE in $(find content/blog-en content/pages-en -iname '*.adoc'); do
         sed -i 's#^include::#include::'"${CI_PROJECT_DIR/\/web/}"'#g' ${FILE};
       done
-    - pelican --fatal errors --fatal warnings content/
-    - rm -rf output/web/de
-    - mv robots.txt output/
-    - mv output/web/en/blog-en/* output/web/en/blog
-    - cp -r output/web/en/pages-en/* output/web/en/
-    - mv output/web/en/redirect/index.html output/web/
-    - rm -rf output/web/en/pages-en
-    - rmdir output/web/en/redirect/
-    - ./xmlcombine.sh
-    - ./draft.sh
+    - ./build-site.sh
     - export AWS_ACCESS_KEY_ID="$(vault read -field=aws_s3_access_key secret/web)"
     - export AWS_SECRET_ACCESS_KEY="$(vault read -field=aws_s3_secret_key secret/web)"
     - export S3_BUCKET_NAME="$(vault read -field=aws_s3_bucket secret/web)"

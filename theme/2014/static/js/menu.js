@@ -87,11 +87,7 @@ of the screen
       var cat_es = Object.keys(dict_es)[i];
       if(window.location.href.indexOf("en/" + cat_en + '/') != -1) {
         $($(".cssmenu > ul > li")[dict_en[cat_en]]).toggleClass("active");
-        $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Selected field icon\" src=\"/web/en/theme/images/selected.svg\">")
-      }
-      if(window.location.href.indexOf("es/" + cat_es + '/') != -1) {
-        $($(".cssmenu > ul > li")[dict_es[cat_es]]).toggleClass("active");
-        $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Ícono de campo seleccionado\" src=\"/web/es/theme/images/selected.svg\">")
+        $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Selected field icon\" src=\"/web/theme/images/selected.svg\">")
       }
     }
     $(".cssmenu").menumaker({

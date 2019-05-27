@@ -82,12 +82,6 @@ RUN apt-get update -qq && \
     cat ../plugin_list.txt >> .git/info/sparse-checkout && \
     git pull origin master && \
     git reset --hard 3924d5b && \
-
-    # Download the Pelican-Redirect plugin and initialize it so it is recognized as a Python module
-    git clone --depth=1 https://github.com/slinkp/pelican-redirect.git && \
-    cd pelican-redirect && \
-    git reset --hard f00004c && \
-    echo "from .pelican_redirect import *" > __init__.py && \
     cd /app && \
 
     # Download the PlantUML filter for Asciidoc and install it, along with Java to execute it

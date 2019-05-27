@@ -1,0 +1,1756 @@
+:slug: format/
+:description: Fluid Attacks uses AsciiDoc as main extension for several documents and articles in our website. The purpose of this page is to present a compilation of useful AsciiDoc commands and allowed formats in order to help our candidates and personnel build their documents in a proper way.
+:keywords: Fluid Attacks, Format, AsciiDoc, Templates, Tutorial, Document.
+:variable: AsciiDoc
+:category: blog
+:plus: &#43
+//:toc: yes
+
+= Format
+
+== Headers
+
+* Source
++
+....
+ = AsciiDoc Format -> Level 0 Header
+
+ == Headers -> Level 1 Header
+
+ === Level 2 Header
+
+...
+....
+
+* Render
+
+=== Level 2 Header
+
+== Anchors
+
+=== Create Anchor
+
+Create an anchor to a header
+so it can be accessed quickly.
+
+
+* Source
++
+....
+[[test-anchor]]
+=== Test Anchor
+....
+
+* Render
+
+[[test-anchor]]
+==== Test Anchor
+
+=== Use Anchor
+
+Create a link to the previously created anchor.
+
+* Source
++
+....
+<<test-anchor, Header>>
+....
+
+* Render
++
+<<test-anchor, Header>>
+
+== Text Format
+
+=== Bold
+
+==== Complete Bold
+
+Use bold font for a word.
+
+* Source
++
+....
+*word*
+....
+
+* Render
++
+*word*
+
+==== Partial Bold
+
+Use bold font for a part of a word.
+
+* Source
++
+....
+w**or**d
+....
+
+* Render
++
+w**or**d
+
+=== Italics
+
+==== Complete Italics
+
+Use style italics for a word.
+
+* Source
++
+....
+_word_
+....
+
+* Render
++
+_word_
+
+==== Partial Italics
+
+Use style italics for part of a w__or__d.
+
+* Source
++
+....
+w__or__d
+....
+
+* Render
++
+w__or__d
+
+=== Emphasis
+
+Give emphasis to a word.
+
+* Source
++
+....
+Give emphasis to a 'word'
+....
+
+* Render
++
+'word'
+
+=== Color
+
+==== Complete Color
+
+Change the color of a word from black text to something else.
+Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]
+. It can be combined with the formats:
++size+, +background+, +overline+, +underline+, and +line-through+.
+
+* Source
++
+....
+[red]#word#
+....
+
+* Render
++
+[red]#word#
+
+==== Partial Color
+
+Change the color of part of a word from black text to something else.
+Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
+It can be combined with the formats:
++size+, +background+, +overline+, +underline+, and +line-through+.
+
+* Source
++
+....
+w[blue]##or##d
+....
+
+* Render
++
+w[blue]##or##d
+
+=== Size
+
+==== Complete Size
+
+Change the size of a word. +
+It can be combined with the formats:
++color+, +background+, +overline+, +underline+, and +line-through+.
+
+* Source
++
+....
+[big]#word#
+....
+
+* Render
++
+[big]#word#
+
+==== Partial Size
+
+Change the size of part of a word. +
+It can be combined with the formats:
++color+, +background+, +overline+, +underline+, and +line-through+.
+
+* Source
++
+....
+w[small]##or##d
+....
+
+* Render
++
+w[small]##or##d
+
+=== Background
+
+==== Complete Background
+
+Change the background color of a word from one color to another.
+Choose from the link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors].
+It can be combined with the formats:
++size+, +background+, +overline+, +underline+, and +line-through+.
+
+* Source
++
+....
+[aqua-background]#word#
+....
+
+* Render
++
+[aqua-background]#word#
+
+==== Partial Background
+
+Change the background color of part a word,
+which can be chosen from the
+link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
+It can be combined with the formats:
+color, size, overline, underline and line-through
+
+* Source
++
+....
+w[aqua-background]##or##d
+....
+
+* Render
++
+w[aqua-background]##or##d
+
+=== Overlines
+
+==== Complete Overline
+
+Add line over a word. +
+It can be combined with the formats:
++color+, +size+, +background+, +underline+, and +line-through+.
+
+* Source
++
+....
+[overline]#word#
+....
+
+* Render
++
+[overline]#word#
+
+==== Partial Overline
+
+Add line over part of a word. +
+It can be combined with the formats:
++color+, +size+, +background+, +underline+, and +line-through+.
+
+* Source
++
+....
+w[overline]##or##d
+....
+
+* Render
++
+w[overline]##or##d
+
+=== Underline
+
+==== Complete Underline
+
+Add line under a word. +
+It can be combined with the formats:
++color+, +size+, +background+, +overline+, and +line-through+.
+
+* Source
++
+....
+[underline]#word#
+....
+
+* Render
++
+[underline]#word#
+
+==== Partial Underline
+
+Add line under part of a word. +
+It can be combined with the formats:
++color+, +size+, +background+, +overline+, and +line-through+.
+
+* Source
++
+....
+w[underline]##or##d
+....
+
+* Render
++
+w[underline]##or##d
+
+=== Line-through
+
+==== Complete Line-through
+
+Add line through a word. +
+It can be combined with the formats:
++color+, +size+, +background+, +overline+, and +underline+.
+
+* Source
++
+....
+[line-through]#word#
+....
+
+* Render
++
+[line-through]#word#
+
+==== Partial Line-through
+
+Add line through part of a word. +
+It can be combined with the formats:
++color+, +size+, +background+, +overline+, and +underline+s.
+
+* Source
++
+....
+w[line-through]##or##d
+....
+
+* Render
++
+w[line-through]##or##d
+
+
+=== Style Combination
+
+* Source
++
+....
+[green yellow-background overline]##wo##[blue purple-background underline]#rd#
+....
+
+* Render
++
+[green yellow-background overline]##wo##[blue purple-background underline]#rd#
+
+=== Single Quotes
+
+Place a word in single quotes.
+
+* Source
++
+....
+`word'
+....
+
+* Render
++
+`word'
+
+=== Double Quotes
+
+Place a word in double quotes.
+
+* Source
++
+....
+``word''
+....
+
+* Render
++
+``word''
+
+=== Superscripts
+
+Place a word,
+or part of a word,
+as a superscript.
+
+* Source
++
+....
+^super^script
+....
+
+* Render
++
+^super^script
+
+=== Subscripts
+
+Place a word,
+or part of a word,
+as a subscript
+
+* Source
++
+....
+~wo~rd
+....
+
+* Render
++
+~wo~rd
+
+=== Monospaced
+
+Use monospaced font.
+
+==== Monospaced - Option 1
+
+* Source
++
+....
++word+
+....
+
+* Render
++
++word+
+
+==== Monospaced - Option 2 - Do not use
+
+* Source
++
+....
+`word`
+....
+
+* Render
++
+`word`
+
+=== Line Break
+
+Break a line in the same paragraph.
+
+* Source
++
+....
+This idea ends here. +
+And I want this one in a new line,
+but in the same paragraph.
+....
+
+* Render
++
+This idea ends here. +
+And I want this one in a new line,
+but in the same paragraph.
+
+=== Escape Character
+
+Use the backslash (\)
+to escape special characters.
+
+* Source
++
+....
+\*word* (Normally, it would make the word bold.)
+....
+
+* Render
++
+\*word*
+
+=== Comments
+
+Use two slashes (//)
+to comment in the text
+and do not render it in the HTML.
+
+* Source
++
+....
+The next line is a comment.
+// It should not be rendered in the HTML.
+....
+
+* Render
++
+The next line is a comment.
+// It should not be rendered in the HTML
+
+=== Pass-through HTML - Do not use
+
+Delimit HTML code in +4+ plus (+)
+to execute it once rendered. +
+Since the idea of Pelican is to separate content from style,
+do not use this method.
+Focus only on content in the +.adocs+.
+
+* Source
++
+....
+++++
+  <p style="color:green">
+  This <I>HTML</I> code will be rendered directly to the page.<br>
+  </p>
+++++
+....
+
+* Render
++
+++++
+  <p style="color:green">
+  This <I>HTML</I> code will be rendered directly to the page.<br>
+  </p>
+++++
+
+=== License Characters
+
+* Source
++
+....
+(C), (R), (TM)
+....
+
+* Render
++
+(C), (R), (TM)
+
+== Media and links
+
+=== Titles
+
+They are declared before an element,
+starting with a dot
+(+images+, +lists+, +quotes+, +literals+, etc.).
+
+==== Image Titles
+
+* Source
++
+....
+.Image Title
+image::doge.png[Doge]
+....
+
+* Render
++
+.Image Title
+image::doge.png[Doge]
+
+==== Video Title
+
+* Source
++
+....
+.Video Title
+video::he-man.mp4[He-man]
+....
+
+* Render
++
+.Video Title
+video::he-man.mp4[He-man]
+
+==== Literal Title
+
+* Source
++
+....
+ .Literal Title
+ ....
+ Literal Block
+ ....
+....
+
+* Render
++
+.Literal Title
+....
+Literal block
+....
+
+==== List Title
+
+* Source
++
+....
+.List Title
+. Item 1
+.. Subitem 1
+. Item 2
+....
+
+* Render
++
+.List Title
+. Item 1
+.. Subitem 1
+. Item 2
+
+==== Quote Title
+
+* Source
++
+....
+.Quote Title
+[quote]
+I'm Batman
+....
+
+* Render
++
+.Quote Title
+[quote]
+I'm Batman
+
+==== Table Title
+
+* Source
++
+....
+.Table Title
+|====
+| Col 1 | Col 2
+|====
+....
+
+* Render
++
+.Table Title
+|====
+| Col 1 | Col 2
+|====
+
+==== Paragraph Title
+
+* Source
++
+....
+.Paragraph Title
+Normal Paragraph
+....
+
+* Render
++
+.Paragraph Title
+Normal Paragraph
+
+==== Code Title
+
+* Source
++
+....
+.Code Title
+[source, python]
+print "Hello World"
+....
+
+* Render
++
+.Code Title
+[source, python]
+----
+print "Hello World"
+----
+
+=== Images
+
+==== Block Images
+
+* Source
++
+....
+image::doge.png[Doge]
+....
+
+* Render
++
+Block Image
++
+image::doge.png[Doge]
+
+==== Inline Images
+
+* Source
++
+....
+image:doge.png[Doge]
+....
+
+* Render
++
+Inline Image
+image:doge.png[Doge]
+
+=== Videos
+
+* Source
++
+....
+video::he-man.mp4[He-man]
+....
+
+* Render
++
+video::he-man.mp4[He-man]
+
+=== Links
+
+==== Link - Option 1
+
+When this option is being used,
+every punctuaction mark
+goes outside of the square brackets ``[]''.
+
+* Source
++
+....
+link:https://google.com[Google].
+....
+
+* Render
++
+link:https://google.com[Google].
+
+==== Link - Option 1 - Type button
+
+* Source
++
+....
+[button]#link:https://google.com[Google]#.
+....
+
+* Render
++
+[button]#link:https://google.com[Google]#.
+
+==== Link - Option 2 - Do not use
+
+* Source
++
+....
+https://google.com
+....
+
+* Render
++
+https://google.com
+
+== Special Blocks
+
+=== Literals
+
+==== Literal - Option 1
+
+A literal block is delimited by 4 dots before and after the content.
+
+* Source
++
+....
+ ....
+ Hello
+ ....
+....
+
+* Render
++
+....
+Hello
+....
+
+==== Literal - Option 2 - Do not use
+
+Set a blank space as the first character of a line.
+
+* Source
++
+....
+{space}Hello
+....
+
+* Render
++
+ Hello
+
+=== Quotes
+
+==== Quote Without Source Information
+
+* Source
++
+....
+[quote]
+I'm Batman
+....
+
+* Render
++
+[quote]
+I'm Batman
+
+==== Quote With Source Information
+
+* Source
++
+....
+[quote, Batman, Detective Comics]
+I'm Batman
+....
+
+* Render
++
+[quote, Batman, Detective Comics]
+I'm Batman
+
+=== Source Code
+
+==== Simple code
+
+* Source
++
+....
+.Code.py
+[source, python]
+print "Hello World"
+....
+
+* Render
++
+.Code.py
+[source, python]
+----
+print "Hello World"
+----
+
+==== Source Code With Numbered Lines
+
+* Source
++
+....
+.Code.java
+[source, java, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+....
+
+* Render
++
+.Code.java
+[source, java, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+
+If there are multiple code blocks with numbered lines,
+the numbering will be organized sequentially.
+
+* Source
++
+....
+.Code.cpp
+[source, cpp, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+[source, cpp, linenums]
+----
+Line 4
+Line 5
+Line 6
+----
+....
+
+* Render
++
+.Code.cpp
+[source, cpp, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+[source, cpp, linenums]
+----
+Line 4
+Line 5
+Line 6
+----
+
+[NOTE]
+In order to reset the numbering,
+a title must be given to the desired code block.
+
+* Source
++
+....
+.Code1.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+.Code2.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+....
+
+* Render
++
+.Code1.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+.Code2.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+
+==== Callouts
+
+You can use +callouts+ to explain in detail
+a line within your source code.
+It works similar to comments,
+but does not add extra lines to your code, which is good.
+
+* Source
+....
+.Code1.py
+[source, python, linenums]
+----
+def foonction ( foo bar ):
+    foo = "foo foo bar foo" \<1>
+    bar = "bar foo baz" \<2>
+  return;
+----
+\<1> I'd like to further explain this "foo".
+\<2> This is a "bar", more info about bar.
+....
+
+* Render
+
+.Code1.py
+[source, python, linenums]
+----
+def foonction ( foo bar ):
+   foo = "foo foo bar foo" <1>
+   bar = "bar foo baz" <2>
+  return;
+----
+<1> I'd like to further explain this "foo".
+<2> This is a "bar", more info about bar.
+
+==== Source Code from file
+
+The path to the file must be absolute
+and according to the container's filesystem. +
+In the source,
+there must not be a space
+between the path and the square brackets.
+The space was placed,
+so the file was not rendered
+in the literal block.
+
+* Source
++
+....
+ .Code from file
+ [source, gherkin, linenums]
+ ----
+ include::/web/content/pages/format/script.feature [] -> No space
+ ----
+....
+
+* Render
++
+.Code from file
+[source, gherkin, linenums]
+----
+include::/web/content/pages/format/script.feature[]
+----
+
+==== Code Inside a List
+
+* Source
++
+....
+. Item 1
++
+.Code1.py
+[source, python]
+----
+print "Hello World"
+----
+
+. Item 2
++
+.Code2.py
+[source, python]
+----
+print "Bye World"
+----
+....
+
+* Render
++
+. Item 1
++
+.Code1.py
+[source, python]
+----
+print "Hello World"
+----
+
+. Item 2
++
+.Code2.py
+[source, python]
+----
+print "Bye World"
+----
+
+=== Lists
+
+==== Unordered Lists
+
+* Source
++
+....
+* Item 1
+- Subitem 1.1
+** Subitem 1.2
+....
+
+* Render
++
+* Item 1
+- Subitem 1.1
+** Subitem 1.2
+
+==== Ordered Lists
+
+* Source
++
+....
+. Item 1
+.. Item 1.1
+... Item 1.1.1
+.. Item 1.2
+... Item 1.2.1
+.... Item 1.2.1.1
+. Item 2
+....
+
+* Render
++
+. Item 1
+.. Item 1.1
+... Item 1.1.1
+.. Item 1.2
+... Item 1.2.1
+.... Item 1.2.1.1
+. Item 2
+
+==== List Continuation
+
+* Source
++
+....
+. Something about a topic
++
+Still talking about the same topic
+
+. Another Topic
+
+Talking about something else
+....
+
+* Render
++
+. Something about a topic
++
+Still talking about the same topic
+
+. Another Topic
+
+Talking about something else
+
+=== Tables
+
+==== Simple table
+
+* Source
++
+....
+.Title
+[options="header"] -> Optional
+|====
+|Col 1|Col 2      |Col 3
+|1    |Item 1     |a
+|2    |Item 2     |b
+|3    |Item 3     |c
+|6    |Three items|d
+|====
+....
+
+* Render
++
+.Title
+[options="header"]
+|====
+|Col 1|Col 2      |Col 3
+|1    |Item 1     |a
+|2    |Item 2     |b
+|3    |Item 3     |c
+|6    |Three items|d
+|====
+
+==== A More Complicated Table
+
+* Source
++
+....
+[grid="rows",format="csv"]
+[options="header",cols="^,<,<s,<,>m"]
+|====
+ID,FName,LName,Address,Phone
+1,Vasya,Pupkin,London,+123
+2,X,Y,"A,B",45678
+|====
+
+grid -> Sets borders
+format -> Sets the delimiter character between columns
+header -> The first column are headers
+cols -> Sets format of the columns
+  ^  align center in the row
+  <  align left in the row
+  <s align left in the row and font strong (bold)
+  >m align right in the row and font monospaced
+
+The CSS of the site overrides some of the previous.
+....
+
+* Render
++
+[grid="rows",format="csv"]
+[options="header",cols="^,<,<s,<,>m"]
+|====
+ID,FName,LName,Address,Phone
+1,Vasya,Pupkin,London,+123
+2,X,Y,"A,B",45678
+|====
+
+
+==== Multiline cells in a table, custom caption
+
+* Source
++
+....
+.Multiline cells, row/col span
+[caption="Tabla"]
+|====
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 .2+^.^|10:24 | 157 |
+Worked out MSHR (max sustainable
+heart rate) by going hard
+for this interval.
+
+|22-Aug-08 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 3+^|none
+|====
+
+.2+^.^ -> Occupy two cells vertically and align center
+          horizontally and vertically
+3+^    -> Occupy 3 cells horizontally and align center horizontally
+
+A dot (.) represents columns
+....
+
+* Render
++
+.Multiline cells, row/col span
+[caption="Tabla 1."]
+|====
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 .2+^.^|10:24 | 157 |
+Worked out MSHR (max sustainable
+heart rate) by going hard
+for this interval.
+
+|22-Aug-08 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 3+^|none
+|====
+
+==== Responsive Table Distributed Horizontally
+
+Use the special class +tb-row+ for this type of table.
+*DO NOT USE MULTILINE CELLS*.
+
+* Source
++
+....
+[role="tb-row"]
+.Horizontal Distribution
+[frame="topbot", cols="^s,^,^"]
+|====
+| Row 1 | Item 1 | Item 2
+
+| Row 2 | Item 1 | Item 2
+
+| Row 3 | Item 1 | Item 2
+|====
+....
+
+* Render
++
+[role="tb-row"]
+.Horizontal Distribution
+[frame="topbot", cols="^s,^,^"]
+|====
+| Row 1 | Item 1 | Item 2
+
+| Row 2 | Item 1 | Item 2
+
+| Row 3 | Item 1 | Item 2
+|====
+
+* Source
++
+....
+[role="tb-row"]
+.Horizontal Distribution - More Cols than Rows
+|====
+>m| Row 1 | Item 1 | Item 2 | Item 3 | Item 4
+
+^s| Row 2 | Item 1 | Item 2 | Item 3 | Item 4
+
+| Row 3 | Item 1 | Item 2 | Item 3 | Item 4
+|====
+....
+
+* Render
++
+[role="tb-row"]
+.Horizontal Distribution - More Cols than Rows
+|====
+>m| Row 1 | Item 1 | Item 2 | Item 3 | Item 4
+
+^s| Row 2 | Item 1 | Item 2 | Item 3 | Item 4
+
+| Row 3 | Item 1 | Item 2 | Item 3 | Item 4
+|====
+
+==== Responsive Table Distributed Vertically
+
+ Use the special class +tb-col”+ for this type of table.
+ *DO NOT USE MULTILINE CELLS*.
+
+* Source
++
+....
+[role="tb-col"]
+.Vertical Distribution - NxN
+[options="header", cols="^,^,^"]
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 1.1 | Item 1.2 | Item 1.3
+
+| Item 2.1 | Item 2.2 | Item 2.3
+|====
+....
+
+* Render
++
+[role="tb-col"]
+.Vertical Distribution - NxN
+[options="header", cols="^,^,^"]
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 1.1 | Item 1.2 | Item 1.3
+
+| Item 2.1 | Item 2.2 | Item 2.3
+|====
+
+* Source
++
+....
+[role="tb-col"]
+.Vertical Distribution - MxN, M < N
+[cols="<,^,>,<"]
+|====
+s| Col 1 s| Col 2 s| Col 3 s| Col 4
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3 | Item 2.1.4
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3 | Item 2.2.4
+|====
+....
+
+* Render
++
+[role="tb-col"]
+.Vertical Distribution - MxN, M < N
+[cols="<,^,>,<"]
+|====
+s| Col 1 s| Col 2 s| Col 3 s| Col 4
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3 | Item 2.1.4
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3 | Item 2.2.4
+|====
+
+* Source
++
+....
+[role="tb-col"]
+.Vertical Distribution - MxN, M > N
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3
+
+| Item 2.3.1 | Item 2.3.2 | Item 2.3.3
+
+| Item 2.4.1 | Item 2.4.2 | Item 2.4.3
+
+| Item 2.5.1 | Item 2.5.2 | Item 2.5.3
+|====
+....
+
+* Render
++
+[role="tb-col"]
+.Vertical Distribution - MxN, M > N
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3
+
+| Item 2.3.1 | Item 2.3.2 | Item 2.3.3
+
+| Item 2.4.1 | Item 2.4.2 | Item 2.4.3
+
+| Item 2.5.1 | Item 2.5.2 | Item 2.5.3
+|====
+
+==== Responsive Table with Alternated Content - Max. 2 Columns
+
+Use the special class +tb-alt+ for this type of table.
+*DO NOT USE MULTILINE CELLS*.
+
+* Source
++
+....
+[role="tb-alt"]
+.Table with Alternated Content
+[cols="2*^", frame="none"]
+|====
+|Text 1
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 2
+
+|Text 3
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 4
+|====
+....
+
+* Render
++
+[role="tb-alt"]
+.Table with Alternated Content
+[cols="2*^", frame="none"]
+|====
+|Text 1
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 2
+
+|Text 3
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 4
+|====
+
+=== Questions and Answers
+
+....
+[qanda]
+Question 1::
+   Answer 1
+Question 2::
+   Answer 2
+....
+
+* Render
++
+[qanda]
+Question 1::
+   Answer 1
+Question 2::
+   Answer 2
+
+=== Definitions
+
+* Source
++
+....
+Term 1:: Definition
+Term 2:: Definition
+[horizontal]
+Subterm 2.1::: Definition can also be placed horizontally
+....
+
+* Render
++
+Term 1:: Definition
+Term 2:: Definition
+[horizontal]
+Subterm 2.1::: Definition can also be placed horizontally.
+
+=== Admonition Elements
+
+* Source
++
+....
+[WARNING]
+The speed limit in this road is 60 mph. +
+Do not exceed this speed.
+
+NOTE: I left the dinner in the oven.
+
+[CAUTION]
+Be careful! The floor is slippery!
+
+TIP: You can also make an appointment via our website.
+
+[IMPORTANT]
+Be sure to get all of your belongings
+before exiting the vehicle.
+....
+
+* Render
++
+[WARNING]
+The speed limit in this road is 60 mph. +
+Do not exceed this speed.
++
+NOTE: I left the dinner in the oven.
++
+[CAUTION]
+Be careful! The floor is slippery!
++
+TIP: You can also make an appointment via our website.
++
+[IMPORTANT]
+Be sure to get all of your belongings
+before exiting the vehicle.
+
+=== Horizontal Rule
+
+* Source
++
+....
+'''
+....
+
+* Render
++
+'''
+
+=== Variables
+
+They can be declared at the beginning of the document.
+
+* Source
++
+....
+:variable: AsciiDoc
+
+This text is written in {variable}.
+....
+
+* Render
++
+This text is written in {variable}.
+
+=== Classes
+
+==== Inline Classes
+
+As with colors,
+inline elements can be given a class name
+and then be edited in the +CSS+.
+
+* Source
++
+....
+[new-class]#element#
+....
+
+* Render
++
+[new-class]#element#
+
+==== Block Classes
+
+Block elements can also
+be given class names.
+
+* Source
++
+....
+[role="new-class"]
+----
+Text
+----
+....
+
+* Render
++
+[role="new-class"]
+----
+Text
+----
+
+=== Diagrams
+
+The names of diagrams
+should *start with the word*, +diagram+, for example,
++diagram-process.png+.
+
+* Source
++
+....
+["graphviz", "diagram1.png"]
+----
+digraph finite_state_machine {
+  rankdir=LR;
+  label="Análisis de un Proceso"
+  labelloc=top
+  size="8,5"
+  node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
+  node [shape = circle];
+  LR_0 -> LR_2 [ label = "SS(B)" ];
+  LR_0 -> LR_1 [ label = "SS(S)" ];
+  LR_1 -> LR_3 [ label = "S($end)" ];
+  LR_2 -> LR_6 [ label = "SS(b)" ];
+  LR_2 -> LR_5 [ label = "SS(a)" ];
+  LR_2 -> LR_4 [ label = "S(A)" ];
+  LR_5 -> LR_7 [ label = "S(b)" ];
+  LR_5 -> LR_5 [ label = "S(a)" ];
+  LR_6 -> LR_6 [ label = "S(b)" ];
+  LR_6 -> LR_5 [ label = "S(a)" ];
+  LR_7 -> LR_8 [ label = "S(b)" ];
+  LR_7 -> LR_5 [ label = "S(a)" ];
+  LR_8 -> LR_6 [ label = "S(b)" ];
+  LR_8 -> LR_5 [ label = "S(a)" ];
+}
+----
+....
+
+* Render
++
+["graphviz", "diagram1.png"]
+----
+digraph finite_state_machine {
+  rankdir=LR;
+  label="Análisis de un Proceso"
+  labelloc=top
+  size="8,5"
+  node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
+  node [shape = circle];
+  LR_0 -> LR_2 [ label = "SS(B)" ];
+  LR_0 -> LR_1 [ label = "SS(S)" ];
+  LR_1 -> LR_3 [ label = "S($end)" ];
+  LR_2 -> LR_6 [ label = "SS(b)" ];
+  LR_2 -> LR_5 [ label = "SS(a)" ];
+  LR_2 -> LR_4 [ label = "S(A)" ];
+  LR_5 -> LR_7 [ label = "S(b)" ];
+  LR_5 -> LR_5 [ label = "S(a)" ];
+  LR_6 -> LR_6 [ label = "S(b)" ];
+  LR_6 -> LR_5 [ label = "S(a)" ];
+  LR_7 -> LR_8 [ label = "S(b)" ];
+  LR_7 -> LR_5 [ label = "S(a)" ];
+  LR_8 -> LR_6 [ label = "S(b)" ];
+  LR_8 -> LR_5 [ label = "S(a)" ];
+}
+----
+
+You can use this link:http://www.webgraphviz.com/[GraphViz Live Editor]
+to generate graphs and view examples.
+
+* Source
++
+....
+["plantuml", "diagram-classes.png"]
+----
+autonumber
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 40
+skinparam maxmessagesize 250
+== Descripción de un Proceso ==
+
+Elemento1 -> Elemento2: Acción-1
+
+Elemento3 -> Elemento4: Acción_2
+
+Elemento5 -> Elemento6: Acción 3
+
+----
+....
+
+* Render
++
+["plantuml", "diagram-classes.png"]
+----
+autonumber
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 40
+skinparam maxmessagesize 250
+== Descripción de un Proceso ==
+
+Elemento1 -> Elemento2: Acción-1
+
+Elemento3 -> Elemento4: Acción_2
+
+Elemento5 -> Elemento6: Acción 3
+
+----
+
+You can use this link:https://www.planttext.com/[PlantUML Live Editor]
+to see the rendered graph for your source code.
+
+=== Tooltips
+
+==== Using text
+
+* Source
++
+....
+This sentence has a very important tooltip:Additional information about the term[Term]. Hover
+over it to see more details!
+
+In this one, tooltip:More details[the sentence itself] is the center of attention.
+
+You could also use links, tooltip:Great Search Engine[link:https://google.com[Google]]
+....
+
+* Render
++
+This sentence has a very important tooltip:Additional information about the term[Term]. Hover
+over it to see more details!
++
+In this one, tooltip:More details[the sentence itself] is the center of attention.
++
+You could also use links, link:https://google.com[tooltip:Great Search Engine[Google]].
+
+==== Using images
+
+* Source
++
+....
+Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the term"]
+
+Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
+line breaks in the source code"]
+....
+
+* Render
++
+Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the term"]
++
+Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
+line breaks in the source code"]
+
+=== Advanced Math
+
+You can render advanced math equations using +LaTeX+ syntax.
+
+* Source
++
+....
+["latex","myequation.png",align="center"]
+----
+\huge
+$\displaystyle{ V_i = C_0 - C_3
+\frac{C_1\cos(\theta_i+C_3)}{C_4+C_1\cos(\theta_i+C_2)} }$
+----
+....
+
+* Render
+["latex","myequation.png",align="center"]
+----
+\huge
+$\displaystyle{ V_i = C_0 - C_3
+\frac{C_1\cos(\theta_i+C_3)}{C_4+C_1\cos(\theta_i+C_2)} }$
+----
+
+This block relies on +AsciiDoc LaTeX+ filter
+creating an image of the equation.
+Notice that the +\huge+ command must be placed
+outside the formula delimiters (+$+).
+
+== References
+
+. link:http://powerman.name/doc/asciidoc[+AsciiDoc+ Cheat Sheet]
+. link:http://asciidoc.org/userguide.html[+AsciiDoc+ User Guide]

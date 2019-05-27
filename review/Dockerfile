@@ -23,15 +23,7 @@ RUN pybabel compile --directory theme/2014/translations/ --domain messages \
       sed -i 's#^include::#include::/home#g' $FILE; \
       done \
     && sed -i 's/https:\/\/fluidattacks\.com/https:\/\/'"${CI_PROJECT_NAME}.${ENV_DNS}\/${CI_COMMIT_REF_NAME}"'/g' pelicanconf.py \
-    && pelican --fatal errors --fatal warnings content/ \
-    && mv robots.txt output/web/ \
-    && mv output/web/en/blog-en/* output/web/en/blog \
-    && cp -r output/web/en/pages-en/* output/web/en/ \
-    && mv output/web/en/redirect/index.html output/web/ \
-    && rmdir output/web/en/redirect \
-    && rm -rf output/web/en/pages-en \
-    && rm -rf output/web/de \
-    && ./xmlcombine.sh \
+    && ./build-site.sh \
     && ./html-lint.sh
 
 

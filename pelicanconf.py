@@ -20,8 +20,8 @@ OUTPUT_PATH = 'output/web/de'
 
 # URLs format
 PATH = 'content'
-ARTICLE_PATHS = ['blog']
-PAGE_PATHS = ['pages']
+ARTICLE_PATHS = ['blog-de']
+PAGE_PATHS = ['pages-de']
 ARTICLE_URL = 'blog/{slug}'
 ARTICLE_SAVE_AS = 'blog/{slug}index.html'
 PAGE_URL = '{slug}'
@@ -45,7 +45,6 @@ PLUGINS = [
            'tipue_search',
            'sitemap',
            'i18n_subsites',
-           'pelican-redirect',
            'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
@@ -69,15 +68,14 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
     'en': {
         'SITENAME': 'A Pentesting Company | Fluid Attacks',
-        'SITEURL': 'https://fluidattacks.com/web/en',
-        'SUBSITEURL': 'https://fluidattacks.com/web/es',
-        'OUTPUT_PATH': 'output/web/en',
+        'SITEURL': 'https://fluidattacks.com/web',
+        'OUTPUT_PATH': 'output/web',
         'THEME': 'theme/2014',
-        'ARTICLE_PATHS': ['blog-en'],
-        'PAGE_PATHS': ['pages-en'],
-        'PAGE_SAVE_AS': 'pages-en/{slug}index.html',
-        'ARTICLE_SAVE_AS': 'blog-en/{slug}index.html',
-        'STATIC_PATHS': ['files', 'images', 'blog-en', 'pages-en'],
+        'ARTICLE_PATHS': ['blog'],
+        'PAGE_PATHS': ['pages'],
+        'PAGE_SAVE_AS': 'pages/{slug}index.html',
+        'ARTICLE_SAVE_AS': 'blog/{slug}index.html',
+        'STATIC_PATHS': ['files', 'images', 'blog', 'pages'],
         'TAGS_SAVE_AS': 'blog/tags/index.html',
         'TAGS_URL': 'blog/tags/',
         'TAG_SAVE_AS': 'blog/tags/{slug}/index.html',
@@ -90,14 +88,13 @@ I18N_SUBSITES = {
         'CATEGORIES_URL': 'blog/categories/',
         'CATEGORY_SAVE_AS': 'blog/categories/{slug}/index.html',
         'CATEGORY_URL': 'blog/categories/{slug}/',
-        'ASCIIDOC_OPTIONS': ['-a icons', '-a iconsdir=/web/en/images/icons',
-                             '-a tooltip=/web/en/images/icons/tooltip.png'],
+        'ASCIIDOC_OPTIONS': ['-a icons', '-a iconsdir=/web/images/icons',
+                             '-a tooltip=/web/images/icons/tooltip.png'],
     },
 }
 SUBSITE_LANG = {
-     'en': 'https://fluidattacks.com/web/en',
+     'en': 'https://fluidattacks.com/web',
 }
-REDIRECT_SAVE_AS = PAGE_SAVE_AS
 ASSET_BUNDLES = (
   ('bundle', [
    'css/custom/general.scss',
