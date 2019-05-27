@@ -1,6 +1,4 @@
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
+import { default as ApolloClient } from "apollo-boost";
 
 let PRODUCTION_URL: string;
 PRODUCTION_URL = "https://fluidattacks.com";
@@ -69,17 +67,10 @@ export const hidePreloader: () => void = (): void => {
   }
 };
 
-const httpLink: HttpLink = new HttpLink({
+export const client: ApolloClient<{}> = new ApolloClient<{}>({
   credentials: "same-origin",
   headers: {
     "X-CSRFToken": getCookie("csrftoken"),
   },
   uri: getGrapQLBackend(),
-});
-
-const cache: InMemoryCache = new InMemoryCache();
-
-export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  cache,
-  link: httpLink,
 });

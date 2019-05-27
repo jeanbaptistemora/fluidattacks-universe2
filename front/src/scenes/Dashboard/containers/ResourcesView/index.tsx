@@ -6,12 +6,15 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -21,6 +24,8 @@ import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/inde
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
+import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "./queries";
+import { IAddTagsAttr, IProjectTagsAttr, IRemoveTagsAttr } from "./types";
 
 type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
@@ -182,115 +187,213 @@ const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesV
     }
   };
 
-const removeTag: ((props: IResourcesViewProps) => void) = (props: IResourcesViewProps): void => {
-  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblTags tr input:checked");
-  if (selectedQry.length > 0) {
-    if (selectedQry[0].closest("tr") !== null) {
-      mixpanel.track(
-        "RemoveProjectTags",
-        {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
-        });
-      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-      const tag: string | null = selectedRow.children[1].textContent;
-      props.onRemoveTag(String(tag));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred removing tags");
-    }
-  } else {
-    msgError(translate.t("search_findings.tab_resources.no_selection"));
-  }
-};
-
-const saveTags: ((tags: IResourcesViewProps["tagsDataset"], props: IResourcesViewProps) => void) =
-  (tags: IResourcesViewProps["tagsDataset"], props: IResourcesViewProps): void => {
+const containsRepeatedTags: (
+  (currTags: IProjectTagsAttr["project"]["tags"], tags: IProjectTagsAttr["project"]["tags"]) => boolean) =
+  (currTags: IProjectTagsAttr["project"]["tags"], tags: IProjectTagsAttr["project"]["tags"]): boolean => {
     let containsRepeated: boolean;
-    containsRepeated = tags.filter(
-      (newItem: IResourcesViewProps["tagsDataset"][0]) => _.findIndex(
-        props.tagsDataset,
-        (currentItem: IResourcesViewProps["tagsDataset"][0]) =>
+    containsRepeated = currTags.filter(
+      (newItem: IProjectTagsAttr["project"]["tags"][0]) => _.findIndex(
+        tags,
+        (currentItem: IProjectTagsAttr["project"]["tags"][0]) =>
           currentItem === newItem,
       ) > -1).length > 0;
-    if (containsRepeated) {
-      msgError(translate.t("search_findings.tab_resources.repeated_item"));
-    } else {
-      mixpanel.track(
-        "AddProjectTags",
-        {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
-        });
-      props.onSaveTags(tags);
-    }
+
+    return containsRepeated;
   };
 
 const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
-  const tagsDataset: Array<{ tagName: string }> = props.tagsDataset.map((tagName: string) => ({ tagName }));
-
   const handleOpenTagsModal: (() => void) = (): void => { props.onOpenTagsModal(); };
   const handleCloseTagsModal: (() => void) = (): void => { props.onCloseTagsModal(); };
-  const handleRemoveTagClick: (() => void) = (): void => { removeTag(props); };
-  const handleSubmit: ((values: { tags: IResourcesViewProps["tagsDataset"] }) => void) =
-    (values: { tags: IResourcesViewProps["tagsDataset"] }): void => { saveTags(values.tags, props); };
+  const projectName: string = props.match.params.projectName;
 
   return (
-    <React.Fragment>
-      <hr/>
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={12} sm={12} xs={12}>
-              <Row>
-                <Col md={12} sm={12}>
-                  <DataTable
-                    dataset={tagsDataset}
-                    enableRowSelection={true}
-                    exportCsv={false}
-                    search={false}
-                    headers={[
-                      {
-                        dataField: "tagName",
-                        header: translate.t("search_findings.tab_resources.tags_title"),
-                        isDate: false,
-                        isStatus: false,
-                      },
-                    ]}
-                    id="tblTags"
-                    pageSize={15}
-                    title={translate.t("search_findings.tab_resources.tags_title")}
-                  />
-                </Col>
-                <Col md={12}>
-                  <br />
-                  <Col mdOffset={4} md={2} sm={6}>
-                    <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenTagsModal}>
-                      <Glyphicon glyph="plus" />&nbsp;
-                      {translate.t("search_findings.tab_resources.add_repository")}
-                    </Button>
+    <Query query={GET_TAGS} variables={{ projectName }}>
+      {
+        ({loading, error, data, refetch, networkStatus}: QueryResult<IProjectTagsAttr>): React.ReactNode => {
+          if (loading || networkStatus === 4) {
+            showPreloader();
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            handleGraphQLErrors("An error occurred getting tags", error);
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data) && !_.isEmpty(data.project.subscription) && _.isEmpty(data.project.deletionDate)) {
+            mixpanel.track(
+              "ProjectTags",
+              {
+                Organization: (window as Window & { userOrganization: string }).userOrganization,
+                User: (window as Window & { userName: string }).userName,
+              });
+            hidePreloader();
+            const tagsDataset: Array<{ tagName: string }> = data.project.tags.map(
+              (tagName: string) => ({ tagName }));
+
+            const handleMtRemoveTagRes: ((mtResult: IRemoveTagsAttr) => void) = (mtResult: IRemoveTagsAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.removeTag.success) {
+                  hidePreloader();
+                  refetch()
+                      .catch();
+                  mixpanel.track(
+                    "RemoveProjectTags",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                }
+              }
+            };
+
+            const handleMtAddTagRes: ((mtResult: IAddTagsAttr) => void) = (mtResult: IAddTagsAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.addTags.success) {
+                  refetch()
+                    .catch();
+                  handleCloseTagsModal();
+                  hidePreloader();
+                  mixpanel.track(
+                    "AddProjectTags",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                }
+              }
+            };
+
+            return (
+              <React.Fragment>
+                <hr/>
+                <Row>
+                  <Col md={12} sm={12}>
+                    <DataTable
+                      dataset={tagsDataset}
+                      enableRowSelection={true}
+                      exportCsv={false}
+                      search={false}
+                      headers={[
+                        {
+                          dataField: "tagName",
+                          header: translate.t("search_findings.tab_resources.tags_title"),
+                          isDate: false,
+                          isStatus: false,
+                        },
+                      ]}
+                      id="tblTags"
+                      pageSize={15}
+                      title={translate.t("search_findings.tab_resources.tags_title")}
+                    />
                   </Col>
-                  <Col md={2} sm={6}>
-                    <Button id="removeTag" block={true} bsStyle="primary" onClick={handleRemoveTagClick}>
-                      <Glyphicon glyph="minus" />&nbsp;
-                      {translate.t("search_findings.tab_resources.remove_repository")}
-                    </Button>
+                  <Col md={12}>
+                    <br />
+                    <Col mdOffset={4} md={2} sm={6}>
+                      <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenTagsModal}>
+                        <Glyphicon glyph="plus" />&nbsp;
+                        {translate.t("search_findings.tab_resources.add_repository")}
+                      </Button>
+                    </Col>
+                    <Mutation mutation={REMOVE_TAG_MUTATION} onCompleted={handleMtRemoveTagRes}>
+                      { (removeTag: MutationFn<IRemoveTagsAttr, {projectName: string; tagToRemove: string}>,
+                         mutationRes: MutationResult): React.ReactNode => {
+                          if (mutationRes.loading) {
+                            showPreloader();
+                          }
+                          if (!_.isUndefined(mutationRes.error)) {
+                            hidePreloader();
+                            handleGraphQLErrors("An error occurred removing tags", mutationRes.error);
+
+                            return <React.Fragment/>;
+                          }
+
+                          const handleRemoveTag: (() => void) = (): void => {
+                            const selectedQry: NodeListOf<Element> = document.querySelectorAll(
+                              "#tblTags tr input:checked");
+                            if (selectedQry.length > 0) {
+                              if (selectedQry[0].closest("tr") !== null) {
+                                const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+                                const tag: string | null = selectedRow.children[1].textContent;
+                                removeTag({
+                                  variables: { projectName: props.match.params.projectName, tagToRemove: String(tag)},
+                                })
+                                  .catch();
+                              } else {
+                                msgError(translate.t("proj_alerts.error_textsad"));
+                                rollbar.error("An error occurred removing tags");
+                              }
+                            } else {
+                              msgError(translate.t("search_findings.tab_resources.no_selection"));
+                            }
+                          };
+
+                          return (
+                            <Col md={2} sm={6}>
+                              <Button
+                                id="removeTag"
+                                block={true}
+                                bsStyle="primary"
+                                onClick={handleRemoveTag}
+                              >
+                                <Glyphicon glyph="minus" />&nbsp;
+                                {translate.t("search_findings.tab_resources.remove_repository")}
+                              </Button>
+                            </Col>
+                          );
+                      }}
+                    </Mutation>
                   </Col>
-                </Col>
-                <Col md={12}>
-                  <br />
-                  <label style={{fontSize: "15px"}}>
-                    <b>{translate.t("search_findings.tab_resources.total_tags")}</b>
-                    {tagsDataset.length}
-                  </label>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-      <AddTagsModal isOpen={props.tagsModal.open} onClose={handleCloseTagsModal} onSubmit={handleSubmit} />
-    </React.Fragment>
+                  <Col md={12}>
+                    <br />
+                    <label style={{fontSize: "15px"}}>
+                      <b>{translate.t("search_findings.tab_resources.total_tags")}</b>
+                      {tagsDataset.length}
+                    </label>
+                  </Col>
+                </Row>
+                <Mutation mutation={ADD_TAGS_MUTATION} onCompleted={handleMtAddTagRes}>
+                  { (addTags: MutationFn<IAddTagsAttr, {projectName: string; tagsData: string}>,
+                     mutationRes: MutationResult): React.ReactNode => {
+                      if (mutationRes.loading) {
+                        showPreloader();
+                      }
+                      if (!_.isUndefined(mutationRes.error)) {
+                        hidePreloader();
+                        handleGraphQLErrors("An error occurred adding tags", mutationRes.error);
+
+                        return <React.Fragment/>;
+                      }
+
+                      const handleSubmitTag: ((values: { tags: string[] }) => void) =
+                        (values: { tags: string[] }): void => {
+                          if (containsRepeatedTags(values.tags, data.project.tags)) {
+                            msgError(translate.t("search_findings.tab_resources.repeated_item"));
+                          } else {
+                            addTags({
+                              variables: { projectName: props.match.params.projectName,
+                                           tagsData: JSON.stringify(values.tags)},
+                              },
+                            )
+                              .catch();
+                          }
+                        };
+
+                      return (
+                        <AddTagsModal
+                          isOpen={props.tagsModal.open}
+                          onClose={handleCloseTagsModal}
+                          onSubmit={handleSubmitTag}
+                        />
+                      );
+                  }}
+                </Mutation>
+              </React.Fragment>
+            );
+          }
+        }}
+    </Query>
   );
 };
 
@@ -337,8 +440,7 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
 
     const userEmail: string = (window as Window & { userEmail: string }).userEmail;
     const shouldDisplayTagsView: boolean =
-      (_.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co"))
-      && !_.isEmpty(props.subscription) && _.isEmpty(props.deletionDate);
+      (_.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co"));
 
     return (
   <React.StrictMode>
@@ -596,7 +698,6 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onDownloadFile: (fileName: string): void => { dispatch(actions.downloadFile(projectName, fileName)); },
       onLoad: (): void => {
         dispatch(actions.loadResources(projectName));
-        dispatch(actions.loadTags(projectName));
       },
       onOpenAddModal: (type: IResourcesViewStateProps["addModal"]["type"]): void => {
         dispatch(actions.openAddModal(type));
