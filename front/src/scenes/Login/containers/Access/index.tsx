@@ -248,28 +248,6 @@ class Access extends React.Component<{}, ILoginState, {}> {
             </Button>
             </Col>
           </Row>
-          <Row className={`show-grid ${style.top_space} ${style.text_center} ${style.white}`}>
-            <Col md={4} lg={4}/>
-            <Col
-              md={4}
-              lg={4}
-              className={style.text_center}
-            >
-              <a
-                onClick={this.handleES}
-                className={style.lang_text}
-              >
-              ES
-              </a>
-              &nbsp;|&nbsp;
-              <a
-                onClick={this.handleEN}
-                className={style.lang_text}
-              >
-              EN
-              </a>
-            </Col>
-          </Row>
         </Grid>
       </div>
 

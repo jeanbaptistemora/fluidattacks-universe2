@@ -12,8 +12,6 @@ interface ISidebarProps {
 }
 
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
-  const handleEsClick: (() => void) = (): void => { localStorage.setItem("lang", "es"); location.reload(); };
-  const handleEnClick: (() => void) = (): void => { localStorage.setItem("lang", "en"); location.reload(); };
   const handleLogoutClick: (() => void) = (): void => { props.onLogoutClick(); };
   const handleLogoClick: (() => void) = (): void => { location.hash = "#!/home"; };
   const handleFormsClick: (() => void) = (): void => { location.hash = "#!/forms/progress"; };
@@ -46,8 +44,6 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
       <div className={style.bottomBar}>
         <div className={style.version}><small>integrates_version</small></div>
         <ul>
-          <li onClick={handleEsClick}><a>ES</a></li>
-          <li onClick={handleEnClick}><a>EN</a></li>
           <li onClick={handleLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
         </ul>
       </div>

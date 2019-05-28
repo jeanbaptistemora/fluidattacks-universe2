@@ -80,6 +80,7 @@
 :local .bottomBar li a span {
   font-size: 28px;
   line-height: 60px;
+  margin-left: 50px;
 }
 
 :local .version {
