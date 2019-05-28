@@ -43,6 +43,7 @@
 
 == Architecture
 
+* link:049/[REQ.049 Use interfaces in components].
 * link:050/[REQ.050 Control calls to interpreted code].
 * link:052/[REQ.052 Identify critical components].
 * link:055/[REQ.055 Document system security cases].
