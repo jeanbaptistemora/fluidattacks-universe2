@@ -9,31 +9,18 @@ import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { Image, Text, ToastAndroid, View } from "react-native";
-import { RouteComponentProps } from "react-router-native";
 
 import { MutationTrigger } from "../../components/MutationTrigger";
+import { Preloader } from "../../components/Preloader";
 import { translate } from "../../utils/translations/translate";
-import { ILoginState } from "../LoginView/reducer";
 
 import { SIGN_IN_MUTATION } from "./queries";
 import { styles } from "./styles";
-
-type IWelcomeProps = RouteComponentProps<{}, {}, {
-  authProvider: string;
-  authToken: string;
-  userInfo: ILoginState["userInfo"];
-}>;
+import { IWelcomeProps, SIGN_IN_RESULT } from "./types";
 
 const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProps): JSX.Element => {
   const { authProvider, authToken, userInfo } = props.location.state;
   const { t } = translate;
-
-  type SIGN_IN_RESULT = MutationResult<{
-    signIn: {
-      sessionJwt: string;
-      success: boolean;
-    };
-  }>["data"];
 
   const handleMutationResult: ((data: SIGN_IN_RESULT) => void) = (data: SIGN_IN_RESULT): void => {
     if (data !== undefined) {
@@ -59,7 +46,7 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
         onCompleted={handleMutationResult}
       >
         {(authenticate: MutationFn, { error, loading, called }: MutationResult): React.ReactNode => {
-          if (loading) { return (<Text style={{ color: "#ffffff" }}>Insert preloader here</Text>); }
+          if (loading) { return (<Preloader />); }
           if (error !== undefined) { ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT); }
           if (!called) { return (<MutationTrigger onMount={authenticate} />); }
 

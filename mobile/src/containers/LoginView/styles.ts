@@ -8,6 +8,7 @@ export const styles: Dictionary = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#272727",
     flex: 1,
+    flexDirection: "column",
     justifyContent: "center",
   },
   logo: {

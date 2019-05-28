@@ -140,7 +140,8 @@ def user_email_filter(emails, actual_user):
     if "@fluidattacks.com" in actual_user:
         final_users = emails
     else:
-        final_users = list(filter(lambda email: not(email.endswith('@fluidattacks.com')), emails))
+        final_users = list(filter(lambda email: not(
+            email.endswith('@fluidattacks.com')), emails))
     return final_users
 
 
@@ -218,7 +219,10 @@ def cloudwatch_log_plain(msg):
 
 def get_jwt_content(context):
     try:
-        token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
+        cookie_token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
+        header_token = context.META.get('HTTP_AUTHORIZATION')
+        token = header_token.split()[1] if header_token else cookie_token
+
         content = jwt.decode(token=token, key=settings.JWT_SECRET)
         return content
     except AttributeError:

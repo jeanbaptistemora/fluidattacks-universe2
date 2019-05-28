@@ -6,6 +6,7 @@ import { Redirect, RouteComponentProps } from "react-router-native";
 
 // tslint:disable-next-line: no-default-import
 import { default as FluidLogo } from "../../../assets/logo.png";
+import { Preloader } from "../../components/Preloader";
 import { IState, ThunkDispatcher } from "../../store";
 import { translate } from "../../utils/translations/translate";
 
@@ -49,6 +50,7 @@ export const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginPro
           title={props.isLoading ? t("login.authLoadingText") : t("login.btnGoogleText")}
         />
       </View>
+      <Preloader visible={props.isLoading} />
     </View>
   );
 };
