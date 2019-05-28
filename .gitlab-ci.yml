@@ -189,7 +189,7 @@ deploy:
         else
           echo "There are no artifacts";
       fi
-    - for FILE in $(find content/blog-en content/pages-en -iname '*.adoc'); do
+    - for FILE in $(find content/blog content/pages -iname '*.adoc'); do
         sed -i 's#^include::#include::'"${CI_PROJECT_DIR/\/web/}"'#g' ${FILE};
       done
     - ./build-site.sh
