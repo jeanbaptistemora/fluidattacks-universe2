@@ -54,11 +54,10 @@
           method="POST" onsubmit="return validateForm()" class="salesforce">
           <input type=hidden name="oid" value="00D1I000001dGP6"/>
           <input type=hidden name="retURL" value="https://fluidattacks.com"/>
-          <label for="first_name" class="form-label">
-            {{ gettext('Form-field-1')}}</label>
-          <input  id="first_name" maxlength="40" name="first_name" size="20"
-            type="text" class="form-input" required />
-          <br>
+          <label for="first_name" class="form-label">First Name:</label>
+          <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" class="form-input"/><br>
+          <label for="last_name" class=form-label> Last Name:</label>
+          <input  id="last_name" maxlength="40" name="last_name" size="20" type="text" class="form-input"/><br>
           <label for="email" class="form-label">
             {{ gettext('Form-field-2') }}</label>
           <input  id="email" maxlength="80" name="email" size="20" type="text"
@@ -84,7 +83,7 @@
           <label for="Subject" class="form-label">
             {{ gettext('Form-field-4') }}</label>
           <select  id="00N1I00000NEIK7" name="00N1I00000NEIK7" title="Necesidad"
-            class="form-input" required>
+            class="form-input" onchange="selectedValue()" required>
             <option value=""></option>
             <option value="Quiero una propuesta de servicios">
               {{ gettext('Form-field-5') }}</option>
@@ -93,16 +92,33 @@
             <option value="Otro">{{ gettext('Form-field-7') }}</option>
           </select>
           <br>
-          <label class="form-label">Products of Interest:</label>
-          <select  id="00N1I00000Lfv4l" name="00N1I00000Lfv4l" title="Product of Interest" class="form-input">
-            <option value="">--None--</option><option value="Undetermined">Undetermined</option>
-            <option value="One-Shot Hacking">One-Shot Hacking</option>
-            <option value="Continuous Hacking">Continuous Hacking</option>
+          <script type="text/javascript">
+            function selectedValue() {
+              var opt = document.getElementById("00N1I00000NEIK7");
+              var sel = opt.options[opt.selectedIndex].value;
+              var poi = document.getElementById("poi")
+              var selpoi = document.getElementById("00N1I00000Lfv4l")
+              if (sel != "Quiero una propuesta de servicios"){
+                poi.style.display="none";
+                selpoi.style.display="none";
+              }
+              else {
+                poi.style.display="block";
+                selpoi.style.display="block";
+              }
+            }
+          </script>
+          <label id="poi" class="form-label hidden">Products of Interest:</label>
+          <select  id="00N1I00000Lfv4l" name="00N1I00000Lfv4l" title="Producto de interes" class="form-input hidden">
+            <option value="">--None--</option><option value="Indeterminado">Undetermined</option>
+            <option value="Puntual">One-Shot Hacking</option>
+            <option value="Continuas">Continuous Hacking</option>
           </select>
           <span class="intl-error hide form-error">Please select an option</span>
           <br>
           <label>Message:</label><br>
           <textarea  id="00N1I00000O9iJ6" name="00N1I00000O9iJ6" wrap="soft" class="msg-field"></textarea><br>
+          <br>
           <div class="form-button">
             <input type="submit" name="submit" class="form-submit"/>
           </div>
