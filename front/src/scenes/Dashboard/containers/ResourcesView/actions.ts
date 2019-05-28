@@ -436,36 +436,3 @@ export const closeTagsModal: (() => IActionStructure) =
     payload: undefined,
     type: actionTypes.CLOSE_TAGS_MODAL,
   });
-
-export const loadTags: ((projectName: string) => ThunkResult<void>) =
-  (projectName: string): ThunkResult<void> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string;
-      gQry = `{
-        project(projectName: "${projectName}"){
-          deletionDate
-          subscription
-          tags
-        }
-      }`;
-      new Xhr().request(gQry, "An error occurred getting tags")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-          dispatch({
-            payload: {
-              deletionDate: data.project.deletionDate,
-              subscription: data.project.subscription,
-              tagsDataset: data.project.tags,
-            },
-            type: actionTypes.LOAD_TAGS,
-          });
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };
