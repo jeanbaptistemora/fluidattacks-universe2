@@ -1,7 +1,6 @@
 import i18next from "i18next";
 import rollbar from "../rollbar";
 import enTranslations from "./en";
-import esTranslations from "./es";
 
 i18next
   .init({
@@ -12,7 +11,6 @@ i18next
     lng: localStorage.lang,
     resources: {
       en: { translation: enTranslations },
-      es: { translation: esTranslations },
     },
   })
   .catch((reason: string): void => {

@@ -44,20 +44,6 @@ class Access extends React.Component<{}, ILoginState, {}> {
   };
 
   /**
-   * Define spanish translations
-   */
-  public esTranslations: object = {
-    azureBtn: "Ingresar con Azure/Office365",
-    googleBtn: "Ingresar con Google",
-    message: "Si eres un usuario nuevo, debes llamar a tu " +
-      "representante de FLUID para registrarte.",
-    recommend: "Te recomendamos encarecidamente el uso de un " +
-      "segundo factor de autenticación, para más " +
-      "información visita:",
-    title: "Por favor ingresa.",
-  };
-
-  /**
    * Define def or production environment
    */
   // tslint:disable-next-line: no-inferrable-types
@@ -108,16 +94,6 @@ class Access extends React.Component<{}, ILoginState, {}> {
   }
 
   /**
-   * Init language change (Spanish)
-   * @return void
-   */
-  public handleES = (): void => {
-    localStorage.setItem("lang", "es");
-    this.setState(this.esTranslations);
-    this.forceUpdate();
-  }
-
-  /**
    * Raise social login (Google)
    * @return void
    */
@@ -134,13 +110,8 @@ class Access extends React.Component<{}, ILoginState, {}> {
    * @return void
    */
   public handleLang = (): void => {
-    if (localStorage.getItem("lang") === "es") {
-      localStorage.setItem("lang", "es");
-      this.setState(this.esTranslations);
-    } else {
-      localStorage.setItem("lang", "en");
-      this.setState(this.enTranslations);
-    }
+    localStorage.setItem("lang", "en");
+    this.setState(this.enTranslations);
   }
 
   /**

@@ -20,7 +20,7 @@ class CreatorPDF(object):
     result_dir = '/results/'
     proj_tpl = 'templates/executive.adoc'
     style = 'fluid'
-    lang = 'es'
+    lang = 'en'
     doctype = 'executive'
     wordlist = None
     out_name = ''
@@ -67,69 +67,7 @@ class CreatorPDF(object):
     def lang_support(self):
         """ Define the dictionaries of accepted languages. """
         self.wordlist = dict()
-        self.lang_support_es()
         self.lang_support_en()
-
-    def lang_support_es(self):
-        """ Add the Spanish dictionary. """
-        self.wordlist['es'] = {
-            'finding_title': 'Hallazgo',
-            'finding_section_title': 'Resumen de Hallazgos',
-            'content_title': 'Contenido',
-            'content_list': [
-                '1. Objetivos del Proyecto',
-                '2. Tabla de Hallazgos',
-                '3. Panorama General',
-                '4. Resumen de Hallazgos'
-            ],
-            'tech': 'Informe Técnico',
-            'executive': 'Informe Ejecutivo',
-            'goals_title': 'Objetivos del proyecto',
-            'metodology_title': 'Metodología',
-            'state_title': 'Estado',
-            'records_title': 'Registros',
-            'description_title': 'Vulnerabilidad',
-            'field': 'Campo',
-            'inputs': 'Entradas',
-            'line': 'Linea',
-            'lines': 'Lineas',
-            'path': 'Ruta',
-            'port': 'Puerto',
-            'ports': 'Puertos',
-            'resume_vuln_title': 'Vulnerabilidades',
-            'where_title': 'Dónde',
-            'resume_perc_title': 'Porcentaje',
-            'resume_regi_title': 'Total registros comprometidos',
-            'resume_vnum_title': '#',
-            'resume_vname_title': 'Nombre',
-            'resume_ttab_title': 'Tabla resumen hallazgos',
-            'resume_top_title': 'Top de Hallazgos',
-            'threat_title': 'Amenaza',
-            'solution_title': 'Solución',
-            'requisite_title': 'Requisitos',
-            'treatment_title': 'Tratamiento',
-            'risk_title': 'Riesgo',
-            'evidence_title': 'Evidencias',
-            'compromised_system_title': 'Sistema Comprometido',
-            'severity_title': 'Criticidad',
-            'cardinality_title': 'Vulnerabilidades',
-            'attack_vector_title': 'Vector Ataque',
-            'resume_page_title': 'Panorama General',
-            'resume_table_title': 'Tabla de Hallazgos',
-            'vuln_c': 'Crítica',
-            'vuln_h': 'Altos',
-            'vuln_m': 'Medios',
-            'vuln_l': 'Bajos',
-            'crit_c': '(Crítica)',
-            'crit_h': '(Alta)',
-            'crit_m': '(Media)',
-            'crit_l': '(Baja)',
-            'treat_status_wor': 'Nuevo',
-            'treat_status_asu': 'Asumido',
-            'treat_status_rem': 'Remediar',
-            'fin_status_open': 'Abierto',
-            'fin_status_closed': 'Cerrado'
-        }
 
     def lang_support_en(self):
         """ Add the English dictionary.  """
