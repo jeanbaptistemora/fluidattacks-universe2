@@ -4,9 +4,11 @@
   * readability of the code in graphql queries
  */
 
+import { NetworkStatus } from "apollo-boost";
 import React from "react";
 import { Query } from "react-apollo";
-import { Text, ToastAndroid, View } from "react-native";
+import { RefreshControl, ScrollView, ToastAndroid, View } from "react-native";
+import { Appbar, Card, Paragraph, Title } from "react-native-paper";
 
 import { Preloader } from "../../components/Preloader";
 import { translate } from "../../utils/translations/translate";
@@ -20,20 +22,31 @@ const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <Text>{t("menu.myProjects")}</Text>
-      <Query query={PROJECTS_QUERY}>
-        {({ data, loading, error }: PROJECTS_RESULT): React.ReactNode => {
-          if (loading) { return (<Preloader />); }
+      <Appbar.Header>
+        <Appbar.Content title={t("menu.myProjects")} />
+      </Appbar.Header>
+      <Query query={PROJECTS_QUERY} notifyOnNetworkStatusChange={true}>
+        {({ data, loading, error, refetch, networkStatus }: PROJECTS_RESULT): React.ReactNode => {
+          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+          if (loading && !isRefetching) { return (<Preloader />); }
           if (error !== undefined) { ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT); }
 
           return data === undefined
             ? <React.Fragment />
             : (
-              <View>
+              <ScrollView
+                contentContainerStyle={styles.projectList}
+                refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+              >
                 {data.me.projects.map((project: IProject, index: number): JSX.Element => (
-                  <Text key={index}>{project.name}</Text>
+                  <Card key={index} style={styles.projectCard}>
+                    <Card.Content>
+                      <Title>{project.name.toUpperCase()}</Title>
+                      <Paragraph>{project.description}</Paragraph>
+                    </Card.Content>
+                  </Card>
                 ))}
-              </View>
+              </ScrollView>
             );
         }}
       </Query>

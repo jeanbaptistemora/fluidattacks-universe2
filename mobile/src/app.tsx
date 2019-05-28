@@ -1,6 +1,7 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import { Provider } from "react-redux";
+import { DefaultTheme, Provider as ThemeProvider, ThemeShape } from "react-native-paper";
+import { Provider as ReduxProvider } from "react-redux";
 import { NativeRouter, Route, Switch } from "react-router-native";
 
 import { LoginView } from "./containers/LoginView";
@@ -9,17 +10,28 @@ import { WelcomeView } from "./containers/WelcomeView";
 import { store } from "./store";
 import { client } from "./utils/apollo";
 
+const theme: ThemeShape = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    accent: "#ff3435",
+    primary: "#272727",
+  },
+};
+
 const app: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
-    <Provider store={store}>
-      <NativeRouter>
-        <Switch>
-          <Route path="/" component={LoginView} exact={true} />
-          <Route path="/Welcome" component={WelcomeView} />
-          <Route path="/Menu" component={MenuView} />
-        </Switch>
-      </NativeRouter>
-    </Provider>
+    <ReduxProvider store={store}>
+      <ThemeProvider theme={theme}>
+        <NativeRouter>
+          <Switch>
+            <Route path="/" component={LoginView} exact={true} />
+            <Route path="/Welcome" component={WelcomeView} />
+            <Route path="/Menu" component={MenuView} />
+          </Switch>
+        </NativeRouter>
+      </ThemeProvider>
+    </ReduxProvider>
   </ApolloProvider>
 );
 

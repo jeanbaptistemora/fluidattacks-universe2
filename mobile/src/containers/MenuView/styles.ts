@@ -5,6 +5,11 @@ export const styles: Dictionary = StyleSheet.create({
     backgroundColor: "#ffffff",
     flex: 1,
     flexDirection: "column",
-    paddingTop: 25,
+  },
+  projectCard: {
+    margin: 4,
+  },
+  projectList: {
+    padding: 4,
   },
 });
