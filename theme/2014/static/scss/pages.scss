@@ -130,6 +130,11 @@ $white: rgba(255, 255, 255, 1);
     text-align: center;
   }
 
+  .msg-field {
+    height: 80px;
+    width: 100%;
+  }
+
   .form-submit {
     background-color: $fluid-red;
     border: 0;
