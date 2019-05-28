@@ -18,6 +18,7 @@ import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
+import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
 import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
@@ -378,8 +379,9 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     const handleRemoveRepoClick: (() => void) = (): void => { handleRemoveRepo(props); };
     const handleRemoveEnvClick: (() => void) = (): void => { handleRemoveEnv(props); };
     const handleAddRepoClick: (() => void) = (): void => { props.onOpenAddModal("repository"); };
-    const handleAddEnvClick: (() => void) = (): void => { props.onOpenAddModal("environment"); };
+    const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
     const handleAddFileClick: (() => void) = (): void => { props.onOpenAddModal("file"); };
+    const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
     const handleCloseAddModalClick: (() => void) = (): void => { props.onCloseAddModal(); };
     const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
     const handleDeleteFileClick: (() => void) = (): void => {
@@ -396,14 +398,9 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     };
     const handleFileRowClick: ((row: string) => void) = (row: string): void => { props.onOpenOptionsModal(row); };
 
-    let onSubmitFunction: (((values: { resources: IResourcesViewProps["environments"] }) => void)
-      | ((values: { resources: IResourcesViewProps["repositories"] }) => void)
+    let onSubmitFunction: (((values: { resources: IResourcesViewProps["repositories"] }) => void)
       | ((values: { resources: IResourcesViewProps["files"] }) => void));
-    if (props.addModal.type === "environment") {
-      onSubmitFunction = (values: { resources: IResourcesViewProps["environments"] }): void => {
-        handleSaveEnvs(values.resources, props);
-      };
-    } else if (props.addModal.type === "repository") {
+    if (props.addModal.type === "repository") {
       onSubmitFunction = (values: { resources: IResourcesViewProps["repositories"] }): void => {
         handleSaveRepos(values.resources, props);
       };
@@ -412,6 +409,11 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
         handleSaveFiles(values.resources, props);
       };
     }
+
+    const handleAddEnv: ((values: { resources: IResourcesViewProps["environments"] }) => void) =
+      (values: { resources: IResourcesViewProps["environments"] }): void => {
+        handleSaveEnvs(values.resources, props);
+      };
 
     const userEmail: string = (window as Window & { userEmail: string }).userEmail;
     const shouldDisplayTagsView: boolean =
@@ -625,6 +627,11 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
           </Col>
         </Row>
         {shouldDisplayTagsView ? renderTagsView(props) : undefined}
+      <AddEnvironmentsModal
+        isOpen={props.envModal.open}
+        onClose={handleCloseEnvModalClick}
+        onSubmit={handleAddEnv}
+      />
       <AddResourcesModal
         isOpen={props.addModal.open}
         type={props.addModal.type}
@@ -649,6 +656,7 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
     addModal: state.dashboard.resources.addModal,
+    envModal: state.dashboard.resources.envModal,
     environments: state.dashboard.resources.environments,
     files: state.dashboard.resources.files,
     optionsModal: state.dashboard.resources.optionsModal,
@@ -664,6 +672,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
 
     return ({
       onCloseAddModal: (): void => { dispatch(actions.closeAddModal()); },
+      onCloseEnvsModal: (): void => { dispatch(actions.closeAddEnvModal()); },
       onCloseOptionsModal: (): void => { dispatch(actions.closeOptionsModal()); },
       onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
       onDeleteFile: (fileName: string): void => { dispatch(actions.deleteFile(projectName, fileName)); },
@@ -674,6 +683,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onOpenAddModal: (type: IResourcesViewStateProps["addModal"]["type"]): void => {
         dispatch(actions.openAddModal(type));
       },
+      onOpenEnvsModal: (): void => { dispatch(actions.openAddEnvModal()); },
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
       onRemoveEnv: (environment: string): void => { dispatch(actions.removeEnv(projectName, environment)); },

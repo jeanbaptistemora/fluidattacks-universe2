@@ -26,7 +26,7 @@ import { fileInput as FileInput } from "../../components/FileInput/index";
 export interface IAddResourcesModalProps {
   isOpen: boolean;
   showUploadProgress?: boolean;
-  type: "repository" | "environment" | "file";
+  type: "repository" | "file";
   uploadProgress?: number;
   onClose(): void;
   onSubmit(values: {}): void;
@@ -88,31 +88,6 @@ const renderReposFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Elem
     </React.Fragment>
   );
 
-const renderEnvsFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Element) =
-  (props: WrappedFieldArrayProps<undefined>): JSX.Element => (
-    <React.Fragment>
-      {props.fields.map((fieldName: string, index: number) => (
-        <Row key={index}>
-          <Col md={10}>
-            <label>
-              <label style={{ color: "#f22" }}>* </label>
-              {translate.t("search_findings.tab_resources.environment")}
-            </label>
-            <Field name={`${fieldName}.urlEnv`} component={textAreaField} type="text" validate={[required]} />
-          </Col>
-          {index > 0 ? renderDeleteFieldButton(props.fields, index) : undefined}
-        </Row>
-      ))}
-      <br />
-      <Button
-        bsStyle="primary"
-        onClick={(): void => { props.fields.push(undefined); }}
-      >
-        <Glyphicon glyph="plus" />
-      </Button>
-    </React.Fragment>
-  );
-
 const renderFilesFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Element) =
     (props: WrappedFieldArrayProps<undefined>): JSX.Element => (
       <React.Fragment>
@@ -159,16 +134,6 @@ const renderReposForm: ((props: formProps) => JSX.Element) =
     </React.Fragment>
   );
 
-const renderEnvsForm: ((props: formProps) => JSX.Element) =
-  (props: formProps): JSX.Element => (
-    <React.Fragment>
-      <form onSubmit={props.handleSubmit}>
-        <FieldArrayCustom name="resources" component={renderEnvsFields} />
-        {renderFooter(props)}
-      </form>
-    </React.Fragment>
-  );
-
 const renderFilesForm: ((props: formProps) => JSX.Element) =
     (props: formProps): JSX.Element => (
       <React.Fragment>
@@ -206,15 +171,6 @@ const ReposForm: resourcesForm = reduxForm<{}, IAddResourcesModalProps>({
   onSubmitFail: focusError,
 })(renderReposForm);
 
-const EnvsForm: resourcesForm = reduxForm<{}, IAddResourcesModalProps>({
-  enableReinitialize: true,
-  form: "addEnvs",
-  initialValues: {
-    resources: [{ urlEnv: "" }],
-  },
-  onSubmitFail: focusError,
-})(renderEnvsForm);
-
 const FilesForm: resourcesForm = reduxForm<{}, IAddResourcesModalProps>({
   enableReinitialize: true,
   form: "addFiles",
@@ -229,10 +185,7 @@ export const addResourcesModal: React.FC<IAddResourcesModalProps> =
   (props: IAddResourcesModalProps): JSX.Element => {
     let title: string;
     let content: JSX.Element;
-    if (props.type === "environment") {
-      title = "search_findings.tab_resources.modal_env_title";
-      content = <EnvsForm {...props} />;
-    } else if (props.type === "repository") {
+    if (props.type === "repository") {
       title = "search_findings.tab_resources.modal_repo_title";
       content = <ReposForm {...props} />;
     } else {

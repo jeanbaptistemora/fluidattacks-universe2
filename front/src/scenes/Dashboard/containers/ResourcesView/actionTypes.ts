@@ -8,6 +8,8 @@
 export const LOAD_RESOURCES: string = "dashboard/resources/load";
 export const OPEN_ADD_MODAL: string = "dashboard/resources/add_modal/open";
 export const CLOSE_ADD_MODAL: string = "dashboard/resources/add_modal/close";
+export const OPEN_ENVIRONMENTS_MODAL: string = "dashboard/resources/env_modal/open";
+export const CLOSE_ENVIRONMENTS_MODAL: string = "dashboard/resources/env_modal/close";
 export const OPEN_TAGS_MODAL: string = "dashboard/resources/tags_modal/open";
 export const CLOSE_TAGS_MODAL: string = "dashboard/resources/tags_modal/close";
 export const OPEN_OPTIONS_MODAL: string = "dashboard/resources/options_modal/open";

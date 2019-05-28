@@ -51,8 +51,8 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
         });
     };
 
-export const openAddModal: ((type: "repository" | "environment" | "file") => IActionStructure) =
-  (type: "repository" | "environment" | "file"): IActionStructure => ({
+export const openAddModal: ((type: "repository" | "file") => IActionStructure) =
+  (type: "repository" | "file"): IActionStructure => ({
     payload: { type },
     type: actionTypes.OPEN_ADD_MODAL,
   });
@@ -61,6 +61,18 @@ export const closeAddModal: (() => IActionStructure) =
   (): IActionStructure => ({
     payload: undefined,
     type: actionTypes.CLOSE_ADD_MODAL,
+  });
+
+export const openAddEnvModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.OPEN_ENVIRONMENTS_MODAL,
+  });
+
+export const closeAddEnvModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.CLOSE_ENVIRONMENTS_MODAL,
   });
 
 export const openOptionsModal: ((rowInfo: string | undefined) => IActionStructure) =
@@ -191,7 +203,7 @@ export const saveEnvs: ((projectName: string, envsData: IResources["environments
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.addEnvironments.success) {
-            dispatch(closeAddModal());
+            dispatch(closeAddEnvModal());
             dispatch({
               payload: {
                 environments: JSON.parse(data.addEnvironments.resources.environments),

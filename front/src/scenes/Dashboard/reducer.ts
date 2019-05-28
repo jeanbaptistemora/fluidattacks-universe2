@@ -48,9 +48,12 @@ export interface IDashboardState {
   resources: {
     addModal: {
       open: boolean;
-      type: "repository" | "environment" | "file";
+      type: "repository" | "file";
     };
     environments: Array<{ urlEnv: string }>;
+    envModal: {
+      open: boolean;
+    };
     files: Array<{ description: string; fileName: string; uploadDate: string}>;
     optionsModal: {
       open: boolean;
@@ -181,6 +184,9 @@ const initialState: IDashboardState = {
     addModal: {
       open: false,
       type: "repository",
+    },
+    envModal: {
+      open: false,
     },
     environments: [],
     files: [],
@@ -326,6 +332,31 @@ actionMap[resourcesActions.CLOSE_ADD_MODAL] =
         ...initialState.resources.addModal,
       },
       uploadProgress: initialState.resources.uploadProgress,
+    },
+  });
+
+actionMap[resourcesActions.OPEN_ENVIRONMENTS_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      envModal: {
+        ...state.resources.envModal,
+        open: true,
+      },
+    },
+  });
+
+actionMap[resourcesActions.CLOSE_ENVIRONMENTS_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      envModal: {
+        ...initialState.resources.envModal,
+      },
     },
   });
 

@@ -40,12 +40,14 @@ export type IResourcesViewStateProps = IDashboardState["resources"] & IDashboard
 
 export interface IResourcesViewDispatchProps {
   onCloseAddModal(): void;
+  onCloseEnvsModal(): void;
   onCloseOptionsModal(): void;
   onCloseTagsModal(): void;
   onDeleteFile(fileName: string): void;
   onDownloadFile(fileName: string): void;
   onLoad(): void;
   onOpenAddModal(type: IResourcesViewStateProps["addModal"]["type"]): void;
+  onOpenEnvsModal(): void;
   onOpenOptionsModal(row: string): void;
   onOpenTagsModal(): void;
   onRemoveEnv(environment: string): void;
