@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "web_fluidattacks" {
 
   website {
      index_document = "index.html"
-     error_document = "web/en/error/index.html"
+     error_document = "web/error/index.html"
    }
    tags {
     Pry = "General"
