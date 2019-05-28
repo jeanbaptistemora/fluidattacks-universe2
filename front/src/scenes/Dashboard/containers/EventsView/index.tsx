@@ -6,7 +6,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import gql from "graphql-tag";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -16,6 +15,7 @@ import { dataTable as DataTable, IHeader } from "../../../../components/DataTabl
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
+import { GET_EVENTS } from "./queries";
 import { IEventsAttr, IEventViewBaseProps } from "./types";
 
 const tableHeaders: IHeader[] = [
@@ -44,20 +44,7 @@ const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventV
   const { projectName } = props.match.params;
 
   return (
-    <Query
-      query={gql`
-        {
-          events (projectName: "${projectName}") {
-            eventDate,
-            detail,
-            id,
-            projectName,
-            eventStatus,
-            eventType
-          }
-        }
-      `}
-    >
+    <Query query={GET_EVENTS} variables={{ projectName }}>
       {
         ({loading, error, data}: QueryResult<IEventsAttr>): React.ReactNode => {
           if (loading) {

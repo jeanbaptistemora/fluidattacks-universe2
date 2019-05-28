@@ -3,7 +3,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
-import gql from "graphql-tag";
 import _ from "lodash";
 import React from "react";
 import { Query, QueryResult } from "react-apollo";
@@ -14,6 +13,7 @@ import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import style from "./index.css";
+import { GET_INDICATORS } from "./queries";
 import { IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
@@ -63,28 +63,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   const projectName: string = props.match.params.projectName;
 
   return (
-    <Query
-      query={gql`
-        {
-          project(projectName: "${projectName}"){
-            closedVulnerabilities
-            currentMonthAuthors
-            currentMonthCommits
-            lastClosingVuln
-            maxOpenSeverity
-            maxSeverity
-            meanRemediate
-            openVulnerabilities
-            pendingClosingCheck
-            totalFindings
-            totalTreatment
-          }
-          resources(projectName: "${projectName}"){
-            repositories
-          }
-        }
-      `}
-    >
+    <Query query={GET_INDICATORS} variables={{ projectName }}>
       {
         ({loading, error, data}: QueryResult<IIndicatorsProps>): React.ReactNode => {
           if (loading) {

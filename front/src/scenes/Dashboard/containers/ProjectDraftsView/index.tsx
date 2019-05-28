@@ -3,7 +3,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
-import gql from "graphql-tag";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -12,6 +11,7 @@ import { dataTable as DataTable, IHeader } from "../../../../components/DataTabl
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
+import { GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 
 const tableHeaders: IHeader[] = [
@@ -45,25 +45,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   };
 
   return (
-    <Query
-      query={gql`
-        {
-          project(projectName: "${projectName}") {
-            drafts {
-              id
-              reportDate
-              type
-              title
-              description
-              severityScore
-              openVulnerabilities
-              isExploitable
-              releaseDate
-            }
-          }
-        }
-      `}
-    >
+    <Query query={GET_DRAFTS} variables={{ projectName }}>
       {
         ({loading, error, data}: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
           if (loading) {

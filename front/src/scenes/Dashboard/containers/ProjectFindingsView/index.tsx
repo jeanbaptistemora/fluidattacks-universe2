@@ -3,7 +3,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
-import gql from "graphql-tag";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -20,6 +19,7 @@ import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
 import { closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
 import style from "./index.css";
+import { GET_FINDINGS } from "./queries";
 import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
   IProjectFindingsStateProps } from "./types";
 
@@ -74,27 +74,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   };
 
   return (
-    <Query
-      query={gql`
-        {
-          project(projectName: "${projectName}") {
-            findings {
-              id
-              age
-              lastVulnerability
-              type
-              title
-              description
-              severityScore
-              openVulnerabilities
-              state
-              treatment
-              isExploitable
-            }
-          }
-        }
-      `}
-    >
+    <Query query={GET_FINDINGS} variables={{ projectName }}>
       {
         ({loading, error, data}: QueryResult<IProjectFindingsAttr >): React.ReactNode => {
           if (loading) {
