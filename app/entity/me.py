@@ -57,6 +57,7 @@ class SignIn(Mutation):
 
     @staticmethod
     def mutate(_, info, auth_token, provider):
+        del info
         session_jwt = ''
         success = False
 
@@ -82,8 +83,7 @@ class SignIn(Mutation):
                     )
                     success = True
             except ValueError:
-                util.cloudwatch_log(
-                    info.context,
+                util.cloudwatch_log_plain(
                     'Security: Sign in attempt using invalid Google token')
         else:
             rollbar.report_message(

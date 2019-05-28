@@ -26,9 +26,6 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
     if (data !== undefined) {
       if (data.signIn.success) {
         SecureStore.setItemAsync("integrates_session", data.signIn.sessionJwt)
-          .then((): void => {
-            props.history.push("/Menu");
-          })
           .catch();
       } else {
         ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT);
@@ -50,7 +47,7 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
           if (error !== undefined) { ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT); }
           if (!called) { return (<MutationTrigger onMount={authenticate} />); }
 
-          return <React.Fragment />;
+          return <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>;
         }}
       </Mutation>
     </View>

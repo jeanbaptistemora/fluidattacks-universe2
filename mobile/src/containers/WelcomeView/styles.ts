@@ -23,4 +23,10 @@ export const styles: Dictionary = StyleSheet.create({
     marginTop: 15,
     width: 100,
   },
+  unauthorized: {
+    color: "#ffffff",
+    fontSize: 16,
+    margin: 6,
+    textAlign: "center",
+  },
 });
