@@ -1,3 +1,5 @@
+import { RouteComponentProps } from "react-router";
+import { IDashboardState } from "../../reducer";
 
 export interface IProjectTagsAttr {
   project: {
@@ -31,3 +33,26 @@ export interface IAddTagsAttr {
     success: boolean;
   };
 }
+
+export type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
+
+export type IResourcesViewStateProps = IDashboardState["resources"] & IDashboardState["tags"];
+
+export interface IResourcesViewDispatchProps {
+  onCloseAddModal(): void;
+  onCloseOptionsModal(): void;
+  onCloseTagsModal(): void;
+  onDeleteFile(fileName: string): void;
+  onDownloadFile(fileName: string): void;
+  onLoad(): void;
+  onOpenAddModal(type: IResourcesViewStateProps["addModal"]["type"]): void;
+  onOpenOptionsModal(row: string): void;
+  onOpenTagsModal(): void;
+  onRemoveEnv(environment: string): void;
+  onRemoveRepo(repository: string, branch: string): void;
+  onSaveEnvs(environments: IResourcesViewStateProps["environments"]): void;
+  onSaveFiles(files: IResourcesViewStateProps["files"]): void;
+  onSaveRepos(resources: IResourcesViewStateProps["repositories"]): void;
+}
+
+export type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps & IResourcesViewDispatchProps);

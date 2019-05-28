@@ -9,7 +9,6 @@ import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
@@ -25,32 +24,8 @@ import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptio
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "./queries";
-import { IAddTagsAttr, IProjectTagsAttr, IRemoveTagsAttr } from "./types";
-
-type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-type IResourcesViewStateProps = IDashboardState["resources"] & IDashboardState["tags"];
-
-interface IResourcesViewDispatchProps {
-  onCloseAddModal(): void;
-  onCloseOptionsModal(): void;
-  onCloseTagsModal(): void;
-  onDeleteFile(fileName: string): void;
-  onDownloadFile(fileName: string): void;
-  onLoad(): void;
-  onOpenAddModal(type: IResourcesViewStateProps["addModal"]["type"]): void;
-  onOpenOptionsModal(row: string): void;
-  onOpenTagsModal(): void;
-  onRemoveEnv(environment: string): void;
-  onRemoveRepo(repository: string, branch: string): void;
-  onRemoveTag(tag: string): void;
-  onSaveEnvs(environments: IResourcesViewStateProps["environments"]): void;
-  onSaveFiles(files: IResourcesViewStateProps["files"]): void;
-  onSaveRepos(resources: IResourcesViewStateProps["repositories"]): void;
-  onSaveTags(tags: IResourcesViewStateProps["tagsDataset"]): void;
-}
-
-type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps & IResourcesViewDispatchProps);
+import { IAddTagsAttr, IProjectTagsAttr, IRemoveTagsAttr, IResourcesViewBaseProps,
+  IResourcesViewDispatchProps, IResourcesViewProps, IResourcesViewStateProps } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
@@ -674,14 +649,11 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
     addModal: state.dashboard.resources.addModal,
-    deletionDate: state.dashboard.tags.deletionDate,
     environments: state.dashboard.resources.environments,
     files: state.dashboard.resources.files,
     optionsModal: state.dashboard.resources.optionsModal,
     repositories: state.dashboard.resources.repositories,
     showUploadProgress: state.dashboard.resources.showUploadProgress,
-    subscription: state.dashboard.tags.subscription,
-    tagsDataset: state.dashboard.tags.tagsDataset,
     tagsModal: state.dashboard.tags.tagsModal,
     uploadProgress: state.dashboard.resources.uploadProgress,
   });
@@ -708,16 +680,12 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onRemoveRepo: (repository: string, branch: string): void => {
         dispatch(actions.removeRepo(projectName, repository, branch));
       },
-      onRemoveTag: (tag: string): void => { dispatch(actions.removeTag(projectName, tag)); },
       onSaveEnvs: (environments: IResourcesViewProps["environments"]): void => {
         dispatch(actions.saveEnvs(projectName, environments));
       },
       onSaveFiles: (files: IResourcesViewProps["files"]): void => { dispatch(actions.saveFiles(projectName, files)); },
       onSaveRepos: (repositories: IResourcesViewProps["repositories"]): void => {
         dispatch(actions.saveRepos(projectName, repositories));
-      },
-      onSaveTags: (tags: IResourcesViewProps["tagsDataset"]): void => {
-        dispatch(actions.saveTags(projectName, tags));
       },
     });
   };

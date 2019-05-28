@@ -62,9 +62,6 @@ export interface IDashboardState {
   };
   severity: Pick<ISeverityViewProps, "isEditing" | "severity" | "dataset" | "cvssVersion">;
   tags: {
-    deletionDate: string;
-    subscription: string;
-    tagsDataset: string[];
     tagsModal: {
       open: boolean;
     };
@@ -232,9 +229,6 @@ const initialState: IDashboardState = {
     severity: 0,
   },
   tags: {
-    deletionDate: "",
-    subscription: "",
-    tagsDataset: [],
     tagsModal: {
       open: false,
     },
@@ -358,18 +352,6 @@ actionMap[resourcesActions.CLOSE_OPTIONS_MODAL] =
       optionsModal: {
         ...initialState.resources.optionsModal,
       },
-    },
-  });
-
-actionMap[resourcesActions.LOAD_TAGS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    tags: {
-      ...state.tags,
-      deletionDate: action.payload.deletionDate,
-      subscription: action.payload.subscription,
-      tagsDataset: action.payload.tagsDataset,
     },
   });
 
