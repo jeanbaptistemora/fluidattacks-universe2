@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: asserts
+  name: gitlab-pages
   namespace: serves
 spec:
   type: ExternalName
@@ -10,7 +10,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: gitlab-pages
+  name: asserts
   namespace: serves
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -28,9 +28,34 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: asserts
+          serviceName: gitlab-pages
           servicePort: 443
         path: /asserts(.*)
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: training
+  namespace: serves
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/upstream-vhost: "fluidattacks.gitlab.io"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/default/
+    nginx.ingress.kubernetes.io/proxy-redirect-to: /training/
+spec:
+  tls:
+  - hosts:
+    - fluidattacks.com
+    secretName: fluidattacks-cert
+  rules:
+  - host: fluidattacks.com
+    http:
+      paths:
+      - backend:
+          serviceName: gitlab-pages
+          servicePort: 443
+        path: /training(.*)
 ---
 kind: Service
 apiVersion: v1
