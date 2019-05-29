@@ -4,8 +4,7 @@
 
 = Thank You
 
-We truly appreciate your interaction.
-We will contact you as soon as possible.
-
+Thank you for getting in touch.
+We will contact you soon!
 
 [button]#link:../../[Back to Home.]#
