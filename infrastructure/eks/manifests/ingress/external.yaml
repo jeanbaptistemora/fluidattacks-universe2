@@ -43,6 +43,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/default/
     nginx.ingress.kubernetes.io/proxy-redirect-to: /training/
+    nginx.ingress.kubernetes.io/rewrite-target: /default$1
 spec:
   tls:
   - hosts:
