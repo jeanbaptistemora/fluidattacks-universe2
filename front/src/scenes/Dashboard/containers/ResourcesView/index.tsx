@@ -19,6 +19,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
 import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
+import { addRepositoriesModal as AddRepositoriesModal } from "../../components/AddRepositoriesModal/index";
 import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
@@ -378,10 +379,11 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
 
     const handleRemoveRepoClick: (() => void) = (): void => { handleRemoveRepo(props); };
     const handleRemoveEnvClick: (() => void) = (): void => { handleRemoveEnv(props); };
-    const handleAddRepoClick: (() => void) = (): void => { props.onOpenAddModal("repository"); };
+    const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
     const handleAddFileClick: (() => void) = (): void => { props.onOpenAddModal("file"); };
     const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
+    const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
     const handleCloseAddModalClick: (() => void) = (): void => { props.onCloseAddModal(); };
     const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
     const handleDeleteFileClick: (() => void) = (): void => {
@@ -398,21 +400,19 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     };
     const handleFileRowClick: ((row: string) => void) = (row: string): void => { props.onOpenOptionsModal(row); };
 
-    let onSubmitFunction: (((values: { resources: IResourcesViewProps["repositories"] }) => void)
-      | ((values: { resources: IResourcesViewProps["files"] }) => void));
-    if (props.addModal.type === "repository") {
-      onSubmitFunction = (values: { resources: IResourcesViewProps["repositories"] }): void => {
-        handleSaveRepos(values.resources, props);
-      };
-    } else {
-      onSubmitFunction = (values: { resources: IResourcesViewProps["files"] }): void => {
-        handleSaveFiles(values.resources, props);
-      };
-    }
-
     const handleAddEnv: ((values: { resources: IResourcesViewProps["environments"] }) => void) =
       (values: { resources: IResourcesViewProps["environments"] }): void => {
         handleSaveEnvs(values.resources, props);
+      };
+
+    const handleAddRepo: ((values: { resources: IResourcesViewProps["repositories"] }) => void) =
+      (values: { resources: IResourcesViewProps["repositories"] }): void => {
+        handleSaveRepos(values.resources, props);
+      };
+
+    const handleAddFile: ((values: { resources: IResourcesViewProps["files"] }) => void) =
+      (values: { resources: IResourcesViewProps["files"] }): void => {
+        handleSaveFiles(values.resources, props);
       };
 
     const userEmail: string = (window as Window & { userEmail: string }).userEmail;
@@ -632,11 +632,16 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
         onClose={handleCloseEnvModalClick}
         onSubmit={handleAddEnv}
       />
+      <AddRepositoriesModal
+        isOpen={props.reposModal.open}
+        onClose={handleCloseReposModalClick}
+        onSubmit={handleAddRepo}
+      />
       <AddResourcesModal
         isOpen={props.addModal.open}
         type={props.addModal.type}
         onClose={handleCloseAddModalClick}
-        onSubmit={onSubmitFunction}
+        onSubmit={handleAddFile}
         showUploadProgress={props.showUploadProgress}
         uploadProgress={props.uploadProgress}
       />
@@ -644,7 +649,7 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
         fileName={props.optionsModal.rowInfo.fileName}
         isOpen={props.optionsModal.open}
         onClose={handleCloseOptionsModalClick}
-        onSubmit={onSubmitFunction}
+        onSubmit={handleAddFile}
         onDelete={handleDeleteFileClick}
         onDownload={handleDownloadFileClick}
       />
@@ -660,6 +665,7 @@ const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewB
     environments: state.dashboard.resources.environments,
     files: state.dashboard.resources.files,
     optionsModal: state.dashboard.resources.optionsModal,
+    reposModal: state.dashboard.resources.reposModal,
     repositories: state.dashboard.resources.repositories,
     showUploadProgress: state.dashboard.resources.showUploadProgress,
     tagsModal: state.dashboard.tags.tagsModal,
@@ -674,6 +680,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onCloseAddModal: (): void => { dispatch(actions.closeAddModal()); },
       onCloseEnvsModal: (): void => { dispatch(actions.closeAddEnvModal()); },
       onCloseOptionsModal: (): void => { dispatch(actions.closeOptionsModal()); },
+      onCloseReposModal: (): void => { dispatch(actions.closeAddRepoModal()); },
       onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
       onDeleteFile: (fileName: string): void => { dispatch(actions.deleteFile(projectName, fileName)); },
       onDownloadFile: (fileName: string): void => { dispatch(actions.downloadFile(projectName, fileName)); },
@@ -685,6 +692,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       },
       onOpenEnvsModal: (): void => { dispatch(actions.openAddEnvModal()); },
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
+      onOpenReposModal: (): void => { dispatch(actions.openAddRepoModal()); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
       onRemoveEnv: (environment: string): void => { dispatch(actions.removeEnv(projectName, environment)); },
       onRemoveRepo: (repository: string, branch: string): void => {

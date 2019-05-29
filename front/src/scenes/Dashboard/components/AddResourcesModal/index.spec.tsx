@@ -19,7 +19,7 @@ describe("Add resources modal", () => {
     <Provider store={store}>
       <AddResourcesModal
         isOpen={true}
-        type="repository"
+        type="file"
         onClose={functionMock}
         onSubmit={functionMock}
       />

@@ -48,7 +48,7 @@ export interface IDashboardState {
   resources: {
     addModal: {
       open: boolean;
-      type: "repository" | "file";
+      type: "file";
     };
     environments: Array<{ urlEnv: string }>;
     envModal: {
@@ -60,6 +60,9 @@ export interface IDashboardState {
       rowInfo: { fileName: string };
     };
     repositories: Array<{ branch: string; urlRepo: string }>;
+    reposModal: {
+      open: boolean;
+    };
     showUploadProgress: boolean;
     uploadProgress: number;
   };
@@ -183,7 +186,7 @@ const initialState: IDashboardState = {
   resources: {
     addModal: {
       open: false,
-      type: "repository",
+      type: "file",
     },
     envModal: {
       open: false,
@@ -193,6 +196,9 @@ const initialState: IDashboardState = {
     optionsModal: {
       open: false,
       rowInfo: {fileName: ""},
+    },
+    reposModal: {
+      open: false,
     },
     repositories: [],
     showUploadProgress: false,
@@ -356,6 +362,31 @@ actionMap[resourcesActions.CLOSE_ENVIRONMENTS_MODAL] =
       ...state.resources,
       envModal: {
         ...initialState.resources.envModal,
+      },
+    },
+  });
+
+actionMap[resourcesActions.OPEN_REPOSITORIES_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      reposModal: {
+        ...state.resources.reposModal,
+        open: true,
+      },
+    },
+  });
+
+actionMap[resourcesActions.CLOSE_REPOSITORIES_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      reposModal: {
+        ...initialState.resources.reposModal,
       },
     },
   });

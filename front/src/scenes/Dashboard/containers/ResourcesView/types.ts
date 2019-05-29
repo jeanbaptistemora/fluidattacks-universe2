@@ -42,6 +42,7 @@ export interface IResourcesViewDispatchProps {
   onCloseAddModal(): void;
   onCloseEnvsModal(): void;
   onCloseOptionsModal(): void;
+  onCloseReposModal(): void;
   onCloseTagsModal(): void;
   onDeleteFile(fileName: string): void;
   onDownloadFile(fileName: string): void;
@@ -49,6 +50,7 @@ export interface IResourcesViewDispatchProps {
   onOpenAddModal(type: IResourcesViewStateProps["addModal"]["type"]): void;
   onOpenEnvsModal(): void;
   onOpenOptionsModal(row: string): void;
+  onOpenReposModal(): void;
   onOpenTagsModal(): void;
   onRemoveEnv(environment: string): void;
   onRemoveRepo(repository: string, branch: string): void;

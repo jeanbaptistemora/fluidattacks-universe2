@@ -75,6 +75,18 @@ export const closeAddEnvModal: (() => IActionStructure) =
     type: actionTypes.CLOSE_ENVIRONMENTS_MODAL,
   });
 
+export const openAddRepoModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.OPEN_REPOSITORIES_MODAL,
+  });
+
+export const closeAddRepoModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.CLOSE_REPOSITORIES_MODAL,
+  });
+
 export const openOptionsModal: ((rowInfo: string | undefined) => IActionStructure) =
   (rowInfo: string | undefined): IActionStructure => ({
     payload: {rowInfo},
@@ -107,7 +119,7 @@ export const saveRepos: ((projectName: string, reposData: IResources["repositori
       .then((response: AxiosResponse) => {
         const { data } = response.data;
         if (data.addRepositories.success) {
-          dispatch(closeAddModal());
+          dispatch(closeAddRepoModal());
           dispatch({
             payload: {
               environments: JSON.parse(data.addRepositories.resources.environments),
