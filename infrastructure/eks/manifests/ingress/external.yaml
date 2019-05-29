@@ -83,6 +83,14 @@ metadata:
     nginx.ingress.kubernetes.io/upstream-vhost: "web.fluidattacks.com"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/app-root: "/web/"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~* /web/en/(.*) {
+        return 308 https://fluidattacks.com/web/$1;
+      }
+
+      location ~* /web/es/(.*) {
+        return 308 https://fluidattacks.com/web/;
+      }
 spec:
   tls:
   - hosts:
