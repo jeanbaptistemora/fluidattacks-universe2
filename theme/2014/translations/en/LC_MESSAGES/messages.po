@@ -348,6 +348,10 @@ msgstr "contact-us"
 msgid "Footer-subtitle-1.6"
 msgstr "Contact Us"
 
+#: templates/salesforce.html:56
+msgid "Ack-page"
+msgstr "thank-you"
+
 #: templates/footer.html:27 templates/footer.html:28 templates/footer.html:29
 #: templates/footer.html:30 templates/footer.html:31 templates/footer.html:32
 #: templates/footer.html:33
@@ -538,6 +542,10 @@ msgstr "Style"
 #: templates/footer.html:69
 msgid "Footer-subtitle-5.7"
 msgstr "Format"
+
+#: templates/footer.html:70
+msgid "Footer-link-5.7"
+msgstr "format"
 
 #: templates/footer.html:74 templates/footer.html:75 templates/footer.html:76
 #: templates/footer.html:77 templates/footer.html:78 templates/footer.html:79
