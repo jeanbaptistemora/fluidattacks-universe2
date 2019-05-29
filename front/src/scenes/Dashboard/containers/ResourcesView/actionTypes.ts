@@ -6,10 +6,10 @@
  * View: https://github.com/palantir/tslint/issues/711
  */
 export const LOAD_RESOURCES: string = "dashboard/resources/load";
-export const OPEN_ADD_MODAL: string = "dashboard/resources/add_modal/open";
-export const CLOSE_ADD_MODAL: string = "dashboard/resources/add_modal/close";
 export const OPEN_ENVIRONMENTS_MODAL: string = "dashboard/resources/env_modal/open";
 export const CLOSE_ENVIRONMENTS_MODAL: string = "dashboard/resources/env_modal/close";
+export const OPEN_FILES_MODAL: string = "dashboard/resources/files_modal/open";
+export const CLOSE_FILES_MODAL: string = "dashboard/resources/files_modal/close";
 export const OPEN_REPOSITORIES_MODAL: string = "dashboard/resources/repo_modal/open";
 export const CLOSE_REPOSITORIES_MODAL: string = "dashboard/resources/repo_modal/close";
 export const OPEN_TAGS_MODAL: string = "dashboard/resources/tags_modal/open";

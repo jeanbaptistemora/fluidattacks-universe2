@@ -19,8 +19,8 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
 import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
+import { addFilesModal as AddFilesModal } from "../../components/AddFilesModal/index";
 import { addRepositoriesModal as AddRepositoriesModal } from "../../components/AddRepositoriesModal/index";
-import { addResourcesModal as AddResourcesModal } from "../../components/AddResourcesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { IDashboardState } from "../../reducer";
@@ -381,10 +381,10 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     const handleRemoveEnvClick: (() => void) = (): void => { handleRemoveEnv(props); };
     const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
-    const handleAddFileClick: (() => void) = (): void => { props.onOpenAddModal("file"); };
+    const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
     const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
+    const handleCloseFilesModalClick: (() => void) = (): void => { props.onCloseFilesModal(); };
     const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
-    const handleCloseAddModalClick: (() => void) = (): void => { props.onCloseAddModal(); };
     const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
     const handleDeleteFileClick: (() => void) = (): void => {
       mixpanel.track(
@@ -637,10 +637,9 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
         onClose={handleCloseReposModalClick}
         onSubmit={handleAddRepo}
       />
-      <AddResourcesModal
-        isOpen={props.addModal.open}
-        type={props.addModal.type}
-        onClose={handleCloseAddModalClick}
+      <AddFilesModal
+        isOpen={props.filesModal.open}
+        onClose={handleCloseFilesModalClick}
         onSubmit={handleAddFile}
         showUploadProgress={props.showUploadProgress}
         uploadProgress={props.uploadProgress}
@@ -660,10 +659,10 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
-    addModal: state.dashboard.resources.addModal,
     envModal: state.dashboard.resources.envModal,
     environments: state.dashboard.resources.environments,
     files: state.dashboard.resources.files,
+    filesModal: state.dashboard.resources.filesModal,
     optionsModal: state.dashboard.resources.optionsModal,
     reposModal: state.dashboard.resources.reposModal,
     repositories: state.dashboard.resources.repositories,
@@ -677,8 +676,8 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
     const { projectName } = ownProps.match.params;
 
     return ({
-      onCloseAddModal: (): void => { dispatch(actions.closeAddModal()); },
       onCloseEnvsModal: (): void => { dispatch(actions.closeAddEnvModal()); },
+      onCloseFilesModal: (): void => { dispatch(actions.closeAddFilesModal()); },
       onCloseOptionsModal: (): void => { dispatch(actions.closeOptionsModal()); },
       onCloseReposModal: (): void => { dispatch(actions.closeAddRepoModal()); },
       onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
@@ -687,10 +686,8 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onLoad: (): void => {
         dispatch(actions.loadResources(projectName));
       },
-      onOpenAddModal: (type: IResourcesViewStateProps["addModal"]["type"]): void => {
-        dispatch(actions.openAddModal(type));
-      },
       onOpenEnvsModal: (): void => { dispatch(actions.openAddEnvModal()); },
+      onOpenFilesModal: (): void => { dispatch(actions.openAddFilesModal()); },
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
       onOpenReposModal: (): void => { dispatch(actions.openAddRepoModal()); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },

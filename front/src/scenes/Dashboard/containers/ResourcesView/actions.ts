@@ -51,18 +51,6 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
         });
     };
 
-export const openAddModal: ((type: "repository" | "file") => IActionStructure) =
-  (type: "repository" | "file"): IActionStructure => ({
-    payload: { type },
-    type: actionTypes.OPEN_ADD_MODAL,
-  });
-
-export const closeAddModal: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLOSE_ADD_MODAL,
-  });
-
 export const openAddEnvModal: (() => IActionStructure) =
   (): IActionStructure => ({
     payload: undefined,
@@ -85,6 +73,18 @@ export const closeAddRepoModal: (() => IActionStructure) =
   (): IActionStructure => ({
     payload: undefined,
     type: actionTypes.CLOSE_REPOSITORIES_MODAL,
+  });
+
+export const openAddFilesModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.OPEN_FILES_MODAL,
+  });
+
+export const closeAddFilesModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    payload: undefined,
+    type: actionTypes.CLOSE_FILES_MODAL,
   });
 
 export const openOptionsModal: ((rowInfo: string | undefined) => IActionStructure) =
@@ -329,7 +329,7 @@ export const saveFiles: ((projectName: string, filesData: IResources["files"]) =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.addFiles.success) {
-            dispatch(closeAddModal());
+            dispatch(closeAddFilesModal());
             dispatch(showUploadProgress());
             dispatch({
               payload: {

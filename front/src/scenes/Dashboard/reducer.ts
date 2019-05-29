@@ -46,15 +46,14 @@ export interface IDashboardState {
   };
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
-    addModal: {
-      open: boolean;
-      type: "file";
-    };
     environments: Array<{ urlEnv: string }>;
     envModal: {
       open: boolean;
     };
     files: Array<{ description: string; fileName: string; uploadDate: string}>;
+    filesModal: {
+      open: boolean;
+    };
     optionsModal: {
       open: boolean;
       rowInfo: { fileName: string };
@@ -184,15 +183,14 @@ const initialState: IDashboardState = {
     isEditing: false,
   },
   resources: {
-    addModal: {
-      open: false,
-      type: "file",
-    },
     envModal: {
       open: false,
     },
     environments: [],
     files: [],
+    filesModal: {
+      open: false,
+    },
     optionsModal: {
       open: false,
       rowInfo: {fileName: ""},
@@ -311,36 +309,6 @@ actionMap[resourcesActions.LOAD_RESOURCES] =
     },
   });
 
-actionMap[resourcesActions.OPEN_ADD_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...state.resources.addModal,
-        open: true,
-        type: action.payload.type,
-      },
-    },
-  });
-
-actionMap[resourcesActions.CLOSE_ADD_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    fileInput: {
-      name: initialState.fileInput.name,
-    },
-    resources: {
-      ...state.resources,
-      addModal: {
-        ...initialState.resources.addModal,
-      },
-      uploadProgress: initialState.resources.uploadProgress,
-    },
-  });
-
 actionMap[resourcesActions.OPEN_ENVIRONMENTS_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -387,6 +355,31 @@ actionMap[resourcesActions.CLOSE_REPOSITORIES_MODAL] =
       ...state.resources,
       reposModal: {
         ...initialState.resources.reposModal,
+      },
+    },
+  });
+
+actionMap[resourcesActions.OPEN_FILES_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      filesModal: {
+        ...state.resources.filesModal,
+        open: true,
+      },
+    },
+  });
+
+actionMap[resourcesActions.CLOSE_FILES_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      filesModal: {
+        ...initialState.resources.filesModal,
       },
     },
   });
