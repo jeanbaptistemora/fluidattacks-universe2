@@ -309,11 +309,11 @@ def get_email_recipients(project_name, comment_type):
     recipients = []
 
     if comment_type == 'observation':
-        admins = [user[0] for user in integrates_dao.get_admins()]
+        approvers = FI_MAIL_REVIEWERS.split(',')
         analysts = [user[0] for user in project_users
                     if integrates_dao.get_role_dao(user[0]) == 'analyst']
 
-        recipients += admins
+        recipients += approvers
         recipients += analysts
     else:
         recipients = [user[0] for user in project_users if user[1] == 1]
@@ -763,8 +763,7 @@ def delete_all_evidences_s3(finding_id, project):
 
 
 def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_name, reviewer_email):
-    admins = integrates_dao.get_admins()
-    recipients = [user[0] for user in admins]
+    recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
 
     email_send_thread = threading.Thread(
