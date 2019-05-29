@@ -1,5 +1,6 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
+import { StatusBar } from "react-native";
 import { DefaultTheme, Provider as ThemeProvider, ThemeShape } from "react-native-paper";
 import { Provider as ReduxProvider } from "react-redux";
 import { NativeRouter, Route, Switch } from "react-router-native";
@@ -23,6 +24,7 @@ const app: React.FunctionComponent = (): JSX.Element => (
   <ApolloProvider client={client}>
     <ReduxProvider store={store}>
       <ThemeProvider theme={theme}>
+        <StatusBar barStyle="light-content" />
         <NativeRouter>
           <Switch>
             <Route path="/" component={LoginView} exact={true} />

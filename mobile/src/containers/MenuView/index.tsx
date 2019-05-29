@@ -7,10 +7,11 @@
 import { NetworkStatus } from "apollo-boost";
 import React from "react";
 import { Query } from "react-apollo";
-import { RefreshControl, ScrollView, ToastAndroid, View } from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
 import { Appbar, Card, Paragraph, Title } from "react-native-paper";
 
 import { Preloader } from "../../components/Preloader";
+import * as errorDialog from "../../utils/errorDialog";
 import { translate } from "../../utils/translations/translate";
 
 import { PROJECTS_QUERY } from "./queries";
@@ -29,7 +30,7 @@ const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
         {({ data, loading, error, refetch, networkStatus }: PROJECTS_RESULT): React.ReactNode => {
           const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
           if (loading && !isRefetching) { return (<Preloader />); }
-          if (error !== undefined) { ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT); }
+          if (error !== undefined) { errorDialog.show(); }
 
           return data === undefined
             ? <React.Fragment />

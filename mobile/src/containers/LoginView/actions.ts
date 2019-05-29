@@ -3,6 +3,7 @@ import { ToastAndroid } from "react-native";
 
 import { ThunkDispatcher, ThunkResult } from "../../store";
 import { GOOGLE_LOGIN_KEY } from "../../utils/constants";
+import * as errorDialog from "../../utils/errorDialog";
 
 export enum actionTypes {
   GOOGLE_LOGIN_LOAD = "login/google/load",
@@ -15,6 +16,7 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
   dispatch({ payload: {}, type: actionTypes.GOOGLE_LOGIN_LOAD });
   Google.logInAsync({
     androidClientId: GOOGLE_LOGIN_KEY,
+    iosClientId: GOOGLE_LOGIN_KEY,
     scopes: ["profile", "email"],
   })
     .then((result: Google.LogInResult) => {
@@ -27,7 +29,7 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
       }
     })
     .catch((error: Error) => {
-      ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT);
+      errorDialog.show();
       throw error;
     });
 };

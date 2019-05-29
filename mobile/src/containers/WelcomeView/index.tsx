@@ -8,10 +8,11 @@ import { SecureStore } from "expo";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult } from "react-apollo";
-import { Image, Text, ToastAndroid, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 import { MutationTrigger } from "../../components/MutationTrigger";
 import { Preloader } from "../../components/Preloader";
+import * as errorDialog from "../../utils/errorDialog";
 import { translate } from "../../utils/translations/translate";
 
 import { SIGN_IN_MUTATION } from "./queries";
@@ -28,7 +29,7 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
         SecureStore.setItemAsync("integrates_session", data.signIn.sessionJwt)
           .catch();
       } else {
-        ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT);
+        errorDialog.show();
       }
     }
   };
@@ -44,7 +45,7 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
       >
         {(authenticate: MutationFn, { error, loading, called }: MutationResult): React.ReactNode => {
           if (loading) { return (<Preloader />); }
-          if (error !== undefined) { ToastAndroid.show("Oops! There is an error.", ToastAndroid.SHORT); }
+          if (error !== undefined) { errorDialog.show(); }
           if (!called) { return (<MutationTrigger onMount={authenticate} />); }
 
           return <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>;

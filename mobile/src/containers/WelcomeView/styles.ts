@@ -17,7 +17,7 @@ export const styles: Dictionary = StyleSheet.create({
   profilePicture: {
     alignSelf: "center",
     borderColor: "rgba(0,0,0,0.2)",
-    borderRadius: 150,
+    borderRadius: 50,
     borderWidth: 3,
     height: 100,
     marginTop: 15,
