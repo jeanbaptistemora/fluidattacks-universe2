@@ -19,8 +19,7 @@ from app import util
 from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
 from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
                       FI_AWS_S3_RESOURCES_BUCKET, FI_AWS_S3_ACCESS_KEY,
-                      FI_AWS_S3_SECRET_KEY, FI_MAIL_CONTINUOUS,
-                      FI_MAIL_PROJECTS)
+                      FI_AWS_S3_SECRET_KEY)
 
 from ..dao import integrates_dao
 from ..mailer import send_mail_resources
@@ -93,9 +92,9 @@ def format_resource(resource_list, resource_type):
 
 def send_mail(project_name, user_email, resource_list, action, resource_type):
     recipients = integrates_dao.get_project_users(project_name.lower())
+    admins = [user[0] for user in integrates_dao.get_admins()]
     mail_to = [x[0] for x in recipients if x[1] == 1]
-    mail_to.append(FI_MAIL_CONTINUOUS)
-    mail_to.append(FI_MAIL_PROJECTS)
+    mail_to += admins
     resource_description = format_resource(resource_list, resource_type)
     if resource_type == 'repository' and len(resource_list) > 1:
         resource_type = 'repositories'
