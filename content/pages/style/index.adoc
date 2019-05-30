@@ -55,7 +55,7 @@ the important points from the introduction.
 
 Documents will only be accepted in an +AsciiDoc+ format.
 For more information check out our
-link:../../en/format/[format page], the
+link:../format/[format page], the
 link:http://asciidoctor.org/docs/asciidoc-writers-guide/[+AsciiDoc+ guide],
 or a link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick reference].
 

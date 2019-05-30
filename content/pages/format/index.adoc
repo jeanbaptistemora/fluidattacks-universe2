@@ -947,40 +947,6 @@ Line 2
 Line 3
 ----
 
-==== Callouts
-
-You can use +callouts+ to explain in detail
-a line within your source code.
-It works similar to comments,
-but does not add extra lines to your code, which is good.
-
-* Source
-....
-.Code1.py
-[source, python, linenums]
-----
-def foonction ( foo bar ):
-    foo = "foo foo bar foo" \<1>
-    bar = "bar foo baz" \<2>
-  return;
-----
-\<1> I'd like to further explain this "foo".
-\<2> This is a "bar", more info about bar.
-....
-
-* Render
-
-.Code1.py
-[source, python, linenums]
-----
-def foonction ( foo bar ):
-   foo = "foo foo bar foo" <1>
-   bar = "bar foo baz" <2>
-  return;
-----
-<1> I'd like to further explain this "foo".
-<2> This is a "bar", more info about bar.
-
 ==== Source Code from file
 
 The path to the file must be absolute
