@@ -61,7 +61,8 @@ def do_add_project(data):
                 integrates_dao.add_project_dynamo(project,
                                                   description,
                                                   companies,
-                                                  project_type)
+                                                  project_type,
+                                                  status='ACTIVE')
                 output = \
                     '*[OK]* Created project *%s* *%s* *"%s"* *%s*.' % \
                     (project, project_type, description, companies)

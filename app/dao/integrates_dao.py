@@ -1020,7 +1020,7 @@ def get_project_dynamo(project):
     return items
 
 
-def add_project_dynamo(project, description, companies, project_type):
+def add_project_dynamo(project, description, companies, project_type, status):
     """Add project to dynamo."""
     table = DYNAMODB_RESOURCE.Table('FI_projects')
     try:
@@ -1029,7 +1029,8 @@ def add_project_dynamo(project, description, companies, project_type):
                 'project_name': project.lower(),
                 'description': description,
                 'companies': companies,
-                'type': project_type
+                'type': project_type,
+                'project_status': status
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
@@ -1779,6 +1780,33 @@ def get_findings_dynamo(project, data_attr=''):
     filtering_exp = Attr(filter_key).eq(project_name)
     findings = get_findings_data_dynamo(filtering_exp, data_attr)
     return findings
+
+
+def get_projects_data_dynamo(filtering_exp, data_attr=''):
+    """Get project from Dynamodb"""
+    table = DYNAMODB_RESOURCE.Table('FI_projects')
+    if data_attr:
+        response = table.scan(
+            FilterExpression=filtering_exp,
+            ProjectionExpression=data_attr)
+        items = response['Items']
+        while response.get('LastEvaluatedKey'):
+            response = table.scan(
+                FilterExpression=filtering_exp,
+                ProjectionExpression=data_attr,
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+
+    else:
+        response = table.scan(
+            FilterExpression=filtering_exp)
+        items = response['Items']
+        while response.get('LastEvaluatedKey'):
+            response = table.scan(
+                FilterExpression=filtering_exp,
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+    return items
 
 
 def get_findings_released_dynamo(project, data_attr=''):

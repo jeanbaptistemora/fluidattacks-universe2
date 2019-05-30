@@ -14,7 +14,7 @@ from __init__ import (
 )
 from django.conf import settings
 from . import views
-from .dao import integrates_dao
+from .dao import integrates_dao, project as project_dao
 from .domain.finding import (get_age_finding, get_tracking_vulnerabilities)
 from .domain.project import (
     get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
@@ -106,9 +106,9 @@ def get_finding_url(finding):
 
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
-    projects = integrates_dao.get_registered_projects()
+    projects = project_dao.get_active_projects()
     for project in projects:
-        project = str.lower(str(project[0]))
+        project = project.lower()
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
         try:
             finding_requests = integrates_dao.get_findings_released_dynamo(project)

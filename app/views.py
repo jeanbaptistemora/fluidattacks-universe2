@@ -498,10 +498,13 @@ def delete_project(project):
     is_project_masked_in_dynamo = mask_project_findings_dynamo(project)
     are_closings_masked = mask_project_closings(project)
     project_deleted = remove_project_from_db(project)
+    update_project_state_db = integrates_dao.update_attribute_dynamo('FI_projects',
+                                                                     ['project_name', project],
+                                                                     'project_status', 'FINISHED')
     is_project_deleted = \
         are_users_removed and is_project_masked and \
         are_closings_masked and project_deleted and \
-        is_project_masked_in_dynamo
+        is_project_masked_in_dynamo and update_project_state_db
     return is_project_deleted
 
 
