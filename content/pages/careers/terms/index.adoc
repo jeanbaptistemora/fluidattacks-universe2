@@ -3,7 +3,7 @@
 :description: This page is meant to inform everyone interested in being part of the Fluid Attacks team about the selection process. Here we present information about our company and the terms and conditions that need to be accepted if you wish to be part of the team.
 :keywords: Fluid Attacks, Careers, Process, Selection, Terms, Company.
 
-= Terms
+= Careers Terms
 
 == Fluid Attacks Overview
 
