@@ -1,5 +1,6 @@
 function validateForm() {
   var valid = true;
+  var captcha_response = grecaptcha.getResponse();
 
   if ($('#mobile').hasClass('error')) {
     valid = false;
@@ -12,6 +13,12 @@ function validateForm() {
   else {
     $('.form-error').addClass('hide');
   }
+
+  if(captcha_response.length == 0){
+    valid = false;
+    alert("Captcha no verificado");
+  }
+
   return valid;
 }
 

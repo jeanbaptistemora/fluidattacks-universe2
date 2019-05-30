@@ -50,8 +50,21 @@
       <h1>{{ page.title }}</h1>
         {{ page.content }}
         <br/>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script>
+          function timestamp() {
+            var response = document.getElementById("g-recaptcha-response");
+            if (response == null || response.value.trim() == "") {
+              var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());
+              document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+            }
+          }
+          setInterval(timestamp, 500);
+        </script>
         <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
           method="POST" onsubmit="return validateForm()" class="salesforce">
+          <input type=hidden name='captcha_settings'
+            value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
           <input type=hidden name="oid" value="00D1I000001dGP6"/>
           <input type=hidden name="retURL" value="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/{{ gettext('Ack-page') }}/"/>
           <label for="first_name" class="form-label">First Name:</label>
