@@ -89,9 +89,11 @@ class AddRepositories(Mutation):
             if 'urlRepo' in repo and 'branch' in repo:
                 repository = repo.get('urlRepo')
                 branch = repo.get('branch')
+                protocol = repo.get('protocol')
                 json_data.append({
                     'urlRepo': repository,
-                    'branch': branch
+                    'branch': branch,
+                    'protocol': protocol,
                 })
             else:
                 rollbar.report_message('Error: \

@@ -55,16 +55,21 @@ const handleRemoveRepo: ((props: IResourcesViewProps) => void) = (props: IResour
   if (selectedRow === undefined) {
     msgError(translate.t("search_findings.tab_resources.no_selection"));
   } else {
-    const repository: string | null = selectedRow.children[1].textContent;
-    const branch: string | null = selectedRow.children[2].textContent;
+    const protocol: string | null = selectedRow.children[1].textContent;
+    const repository: string | null = selectedRow.children[2].textContent;
+    const branch: string | null = selectedRow.children[3].textContent;
     mixpanel.track(
       "RemoveProjectRepo",
       {
         Organization: (window as Window & { userOrganization: string }).userOrganization,
         User: (window as Window & { userName: string }).userName,
       });
-
-    props.onRemoveRepo(String(repository), String(branch));
+    const repoData: {[value: string]: string | null} = {
+      branch,
+      protocol,
+      urlRepo: repository,
+    };
+    props.onRemoveRepo(repoData);
   }
 };
 
@@ -435,11 +440,19 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
                     search={true}
                     headers={[
                       {
+                        dataField: "protocol",
+                        header: translate.t("search_findings.repositories_table.protocol"),
+                        isDate: false,
+                        isStatus: false,
+                        width: "20%",
+                        wrapped: true,
+                      },
+                      {
                         dataField: "urlRepo",
                         header: translate.t("search_findings.repositories_table.repository"),
                         isDate: false,
                         isStatus: false,
-                        width: "70%",
+                        width: "60%",
                         wrapped: true,
                       },
                       {
@@ -447,7 +460,7 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
                         header: translate.t("search_findings.repositories_table.branch"),
                         isDate: false,
                         isStatus: false,
-                        width: "30%",
+                        width: "20%",
                         wrapped: true,
                       },
                     ]}
@@ -692,8 +705,8 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onOpenReposModal: (): void => { dispatch(actions.openAddRepoModal()); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
       onRemoveEnv: (environment: string): void => { dispatch(actions.removeEnv(projectName, environment)); },
-      onRemoveRepo: (repository: string, branch: string): void => {
-        dispatch(actions.removeRepo(projectName, repository, branch));
+      onRemoveRepo: (repoData: {[value: string]: string | null}): void => {
+        dispatch(actions.removeRepo(projectName, repoData));
       },
       onSaveEnvs: (environments: IResourcesViewProps["environments"]): void => {
         dispatch(actions.saveEnvs(projectName, environments));

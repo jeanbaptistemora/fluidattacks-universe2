@@ -53,7 +53,7 @@ export interface IResourcesViewDispatchProps {
   onOpenReposModal(): void;
   onOpenTagsModal(): void;
   onRemoveEnv(environment: string): void;
-  onRemoveRepo(repository: string, branch: string): void;
+  onRemoveRepo(repoData: {[value: string]: string | null}): void;
   onSaveEnvs(environments: IResourcesViewStateProps["environments"]): void;
   onSaveFiles(files: IResourcesViewStateProps["files"]): void;
   onSaveRepos(resources: IResourcesViewStateProps["repositories"]): void;

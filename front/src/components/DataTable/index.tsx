@@ -201,20 +201,26 @@ export const dataTable: React.FunctionComponent<ITableProps> = (props: ITablePro
       );
     };
 
+  const dataset: Array<{}> = props.dataset.map((data: {uniqueId: number}, index: number) => {
+    data.uniqueId = index;
+
+    return data;
+  });
+
   return (
     <React.StrictMode>
       <div id={props.id}>
         {
-          _.isEmpty(props.dataset) && _.isEmpty(props.headers)
+          _.isEmpty(dataset) && _.isEmpty(props.headers)
           ? <div/>
             : <div>
               {_.isEmpty(props.title) ? undefined : <h3 className={globalStyle.title}>{props.title}</h3>}
               <BootstrapTable
-                data={props.dataset}
+                data={dataset}
                 exportCSV={props.exportCsv}
                 keyField={
-                    !_.isEmpty(props.dataset) && props.dataset.length > 0
-                    ? Object.keys(props.dataset[0])[0]
+                    !_.isEmpty(dataset) && dataset.length > 0
+                    ? "uniqueId"
                     : "_"
                 }
                 hover={true}
@@ -227,7 +233,7 @@ export const dataTable: React.FunctionComponent<ITableProps> = (props: ITablePro
                   sizePerPage: props.pageSize,
                   sizePerPageDropDown: pageSizeDropDown,
                 }}
-                pagination={!_.isEmpty(props.dataset) && props.dataset.length > props.pageSize}
+                pagination={!_.isEmpty(dataset) && dataset.length > props.pageSize}
                 search={props.search}
                 selectRow={
                   props.enableRowSelection

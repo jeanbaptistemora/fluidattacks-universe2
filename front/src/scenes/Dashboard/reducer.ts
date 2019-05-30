@@ -58,7 +58,7 @@ export interface IDashboardState {
       open: boolean;
       rowInfo: { fileName: string };
     };
-    repositories: Array<{ branch: string; urlRepo: string }>;
+    repositories: Array<{ branch: string; protocol: string; urlRepo: string }>;
     reposModal: {
       open: boolean;
     };

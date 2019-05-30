@@ -18,9 +18,10 @@ import { Button } from "../../../../components/Button/index";
 import { default as Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";
-import { textField } from "../../../../utils/forms/fields";
+import { dropdownField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
+import style from "./index.css";
 
 export interface IAddRepositoriesModalProps {
   isOpen: boolean;
@@ -45,7 +46,7 @@ type formProps = IAddRepositoriesModalProps & InjectedFormProps<{}, IAddReposito
 
 const renderDeleteFieldButton: ((props: FieldArrayFieldsProps<undefined>, index: number) => JSX.Element) =
   (props: FieldArrayFieldsProps<undefined>, index: number): JSX.Element => (
-    <Col md={2} style={{ marginTop: "40px" }}>
+    <Col mdOffset={5} md={2} style={{ marginTop: "40px" }}>
       <Button bsStyle="primary" onClick={(): void => { props.remove(index); }}>
         <Glyphicon glyph="trash" />
       </Button>
@@ -57,21 +58,57 @@ const renderReposFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Elem
     <React.Fragment>
       {props.fields.map((fieldName: string, index: number) => (
         <Row key={index}>
-          <Col md={7}>
-            <label>
-              <label style={{ color: "#f22" }}>* </label>
-              {translate.t("search_findings.tab_resources.repository")}
-            </label>
-            <Field name={`${fieldName}.urlRepo`} component={textField} type="text" validate={[required]} />
+          <Col md={12}>
+            { index > 0 ?
+              <React.Fragment>
+                <br />
+                <hr />
+              </React.Fragment>
+              : undefined
+            }
+            <Row>
+              <Col md={3}>
+                <label>
+                  <label style={{ color: "#f22" }}>* </label>
+                  {translate.t("search_findings.tab_resources.protocol")}
+                </label>
+                <Field name={`${fieldName}.protocol`} component={dropdownField} validate={[required]} >
+                  <option value="" selected={true} />
+                  <option value="HTTPS">{translate.t("search_findings.tab_resources.https")}</option>
+                  <option value="SSH">{translate.t("search_findings.tab_resources.ssh")}</option>
+                </Field>
+              </Col>
+              <Col md={7}>
+                <label>
+                  <label style={{ color: "#f22" }}>* </label>
+                  {translate.t("search_findings.tab_resources.repository")}
+                </label>
+                <Field
+                  name={`${fieldName}.urlRepo`}
+                  component={textField}
+                  placeholder={translate.t("search_findings.tab_resources.base_url_placeholder")}
+                  type="text"
+                  validate={[required]}
+                />
+              </Col>
+            </Row>
+            <Row className={style.padding_top}>
+              <Col md={5}>
+                <label>
+                  <label style={{ color: "#f22" }}>* </label>
+                  {translate.t("search_findings.tab_resources.branch")}
+                </label>
+                <Field
+                  name={`${fieldName}.branch`}
+                  component={textField}
+                  placeholder={translate.t("search_findings.tab_resources.branch_placeholder")}
+                  type="text"
+                  validate={[required]}
+                />
+              </Col>
+              {index > 0 ? renderDeleteFieldButton(props.fields, index) : undefined}
+            </Row>
           </Col>
-          <Col md={3}>
-            <label>
-              <label style={{ color: "#f22" }}>* </label>
-              {translate.t("search_findings.tab_resources.branch")}
-            </label>
-            <Field name={`${fieldName}.branch`} component={textField} type="text" validate={[required]} />
-          </Col>
-          {index > 0 ? renderDeleteFieldButton(props.fields, index) : undefined}
         </Row>
       ))}
       <br />

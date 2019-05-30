@@ -147,13 +147,13 @@ export const saveRepos: ((projectName: string, reposData: IResources["repositori
       });
   };
 
-export const removeRepo: ((projectName: string, repository: string, branch: string) => ThunkResult<void>) =
-  (projectName: string, repository: string, branch: string): ThunkResult<void> =>
+export const removeRepo: ((projectName: string, reposData: {[value: string]: string | null}) => ThunkResult<void>) =
+  (projectName: string, reposData: {[value: string]: string | null}): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
       removeRepositories (
-        repositoryData: ${JSON.stringify(JSON.stringify({ urlRepo: repository, branch }))},
+        repositoryData: ${JSON.stringify(JSON.stringify(reposData))},
         projectName: "${projectName}"
       ) {
         success
