@@ -52,12 +52,14 @@ class SignIn(Mutation):
     class Arguments(object):
         auth_token = String(required=True)
         provider = String(required=True)
+    authorized = Boolean()
     session_jwt = String()
     success = Boolean()
 
     @staticmethod
     def mutate(_, info, auth_token, provider):
         del info
+        authorized = False
         session_jwt = ''
         success = False
 
@@ -71,6 +73,7 @@ class SignIn(Mutation):
                     raise ValueError()
                 else:
                     email = user_info['email']
+                    authorized = integrates_dao.is_registered_dao(email) == '1'
                     session_jwt = jwt.encode(
                         {
                             'user_email': email,
@@ -90,4 +93,4 @@ class SignIn(Mutation):
                 'Error: Unknown auth provider' + provider, 'error')
             raise NotImplementedError('Auth provider not supported')
 
-        return SignIn(session_jwt, success)
+        return SignIn(authorized, session_jwt, success)

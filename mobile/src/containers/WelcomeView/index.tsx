@@ -27,6 +27,11 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
     if (data !== undefined) {
       if (data.signIn.success) {
         SecureStore.setItemAsync("integrates_session", data.signIn.sessionJwt)
+          .then((): void => {
+            if (data.signIn.authorized) {
+              props.history.push("/Menu");
+            }
+          })
           .catch();
       } else {
         errorDialog.show();
@@ -43,12 +48,15 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
         variables={{ authToken, provider: authProvider }}
         onCompleted={handleMutationResult}
       >
-        {(authenticate: MutationFn, { error, loading, called }: MutationResult): React.ReactNode => {
+        {(doAuth: MutationFn, { data, error, loading, called }: MutationResult<SIGN_IN_RESULT>): React.ReactNode => {
           if (loading) { return (<Preloader />); }
           if (error !== undefined) { errorDialog.show(); }
-          if (!called) { return (<MutationTrigger onMount={authenticate} />); }
+          if (!called) { return (<MutationTrigger onMount={doAuth} />); }
+          const isAuthorized: boolean = data !== undefined && data.signIn.authorized;
 
-          return <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>;
+          return isAuthorized
+            ? <Preloader />
+            : <Text style={styles.unauthorized}>{t("welcome.unauthorized")}</Text>;
         }}
       </Mutation>
     </View>

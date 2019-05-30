@@ -11,6 +11,7 @@ export type IWelcomeProps = RouteComponentProps<{}, {}, {
 
 export type SIGN_IN_RESULT = MutationResult<{
   signIn: {
+    authorized: boolean;
     sessionJwt: string;
     success: boolean;
   };
