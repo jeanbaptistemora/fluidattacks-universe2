@@ -70,7 +70,7 @@ class SignIn(Mutation):
 
                 if user_info['iss'] not in ['accounts.google.com',
                                             'https://accounts.google.com']:
-                    raise ValueError()
+                    raise ValueError("Invalid auth issuer", user_info['iss'])
                 else:
                     email = user_info['email']
                     authorized = integrates_dao.is_registered_dao(email) == '1'
@@ -88,6 +88,7 @@ class SignIn(Mutation):
             except ValueError:
                 util.cloudwatch_log_plain(
                     'Security: Sign in attempt using invalid Google token')
+                raise
         else:
             rollbar.report_message(
                 'Error: Unknown auth provider' + provider, 'error')

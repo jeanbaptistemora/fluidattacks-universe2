@@ -518,7 +518,7 @@ deploy-playstore:
       --apk ./output/integrates.apk
       --json_key ./playstore-credentials.json
       --package_name "com.fluidattacks.integrates"
-      --track "internal"
+      --track "$MOBILE_RELEASE_CHANNEL"
   after_script:
     - rm mobile/playstore-credentials.json
   allow_failure: true
