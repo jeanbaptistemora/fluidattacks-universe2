@@ -388,24 +388,6 @@ ORDER BY projects.project ASC'
     return rows
 
 
-def get_vulns_by_project_dynamo(project_name):
-    """ Gets findings info by project name. """
-    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
-    filter_key = 'project_name'
-    filtering_exp = Key(filter_key).eq(project_name)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
 def get_user_dynamo(email):
     """ Get legal notice acceptance status """
     table = DYNAMODB_RESOURCE.Table('FI_users')
@@ -512,43 +494,6 @@ def get_vulns_by_id_dynamo(project_name, unique_id):
         else:
             break
     return items
-
-
-def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
-    """ Create or update a vulnerability. """
-    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
-    item = get_vulns_by_id_dynamo(project_name, unique_id)
-    if item == []:
-        try:
-            response = table.put_item(
-                Item={
-                    'project_name': project_name,
-                    'unique_id': int(unique_id),
-                    'vuln_hoy': int(vuln_hoy),
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    else:
-        try:
-            response = table.update_item(
-                Key={
-                    'project_name': project_name,
-                    'unique_id': int(unique_id),
-                },
-                UpdateExpression='SET vuln_hoy = :val1',
-                ExpressionAttributeValues={
-                    ':val1': int(vuln_hoy)
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
 
 
 def delete_vulns_email_dynamo(project_name, unique_id):

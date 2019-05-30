@@ -238,7 +238,6 @@ STATICFILES_DIRS = (
 
 CRONJOBS = [
     ('0 5 * * 1', 'app.scheduler.get_new_vulnerabilities'),
-    ('0 4 * * 1', 'app.scheduler.update_new_vulnerabilities'),
     ('30 5,16 * * 1-5', 'app.scheduler.get_remediated_findings'),
     ('30 5,15 * * 1-5', 'app.scheduler.get_new_releases'),
     ('0 5 * * 1', 'app.scheduler.weekly_report'),

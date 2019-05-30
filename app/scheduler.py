@@ -201,30 +201,6 @@ def create_msj_finding_pending(act_finding):
     return result
 
 
-def update_new_vulnerabilities():
-    """Summary mail send to update the vulnerabilities of a project."""
-    projects = integrates_dao.get_registered_projects()
-    for project in projects:
-        try:
-            project = str.lower(str(project[0]))
-            old_findings = integrates_dao.get_vulns_by_project_dynamo(project)
-            finding_requests = integrates_dao.get_findings_dynamo(project, 'finding_id')
-            if len(old_findings) != len(finding_requests):
-                delta = abs(len(old_findings) - len(finding_requests))
-                for finding in finding_requests[-delta:]:
-                    act_finding = finding_vulnerabilities(str(finding['finding_id']))
-                    if 'releaseDate' in act_finding:
-                        integrates_dao.add_or_update_vulns_dynamo(
-                            project, int(finding['finding_id']), 0)
-            else:
-                message = 'Project {project!s} does not have new vulnerabilities' \
-                    .format(project=project)
-                LOGGER.info(message)
-        except (TypeError, KeyError):
-            rollbar.report_message('Error: \
-An error ocurred updating new vulnerabilities', 'error')
-
-
 def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
     findings = integrates_dao.get_remediated_allfin_dynamo(True)
