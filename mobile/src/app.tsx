@@ -15,9 +15,10 @@ const theme: ThemeShape = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    accent: "#ff3435",
-    primary: "#272727",
+    accent: "#272727",
+    primary: "#ff3435",
   },
+  dark: true,
 };
 
 const app: React.FunctionComponent = (): JSX.Element => (

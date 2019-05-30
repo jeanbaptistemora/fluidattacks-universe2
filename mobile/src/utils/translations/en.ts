@@ -7,6 +7,11 @@ export const enTranslations: i18next.ResourceLanguage = {
   login: {
     authLoadingText: "Authenticating...",
     btnGoogleText: "Sign in with Google",
+    newVersion: {
+      btn: "Update",
+      content: "Get the latest features and improvements",
+      title: "New version available",
+    },
   },
   menu: {
     myProjects: "My projects",

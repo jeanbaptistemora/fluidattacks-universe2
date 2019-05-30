@@ -20,6 +20,7 @@ export interface ILoginState {
     name: string;
     photoUrl?: string;
   };
+  versionStatus?: checkResult;
 }
 
 export const initialState: ILoginState = {
@@ -35,6 +36,7 @@ export const initialState: ILoginState = {
     name: "",
     photoUrl: "",
   },
+  versionStatus: undefined,
 };
 
 const actionMap: Dictionary<((state: ILoginState, action: IActionStructure) => ILoginState)> = {};
@@ -50,6 +52,11 @@ actionMap[actionTypes.LOGIN_SUCCESS] = (state: ILoginState, action: IActionStruc
   authToken: action.payload.authToken as string,
   isAuthenticated: true,
   userInfo: action.payload.userInfo as ILoginState["userInfo"],
+});
+
+actionMap[actionTypes.RESOLVE_VERSION] = (state: ILoginState, action: IActionStructure): ILoginState => ({
+  ...state,
+  versionStatus: action.payload.status as checkResult,
 });
 
 export const loginReducer: Reducer<ILoginState, IActionStructure> = (

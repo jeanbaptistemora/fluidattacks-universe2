@@ -1,8 +1,12 @@
+import { Constants } from "expo";
 import React from "react";
-import { Button, Image, View } from "react-native";
+import { Image, Linking, Platform, View } from "react-native";
+import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
+import checkVersion from "react-native-store-version";
 import { connect, ConnectedComponentClass, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RedirectProps } from "react-router";
 import { Redirect, RouteComponentProps } from "react-router-native";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
 
 // tslint:disable-next-line: no-default-import
 import { default as FluidLogo } from "../../../assets/logo.png";
@@ -21,9 +25,31 @@ type ILoginBaseProps = RouteComponentProps;
  */
 interface ILoginDispatchProps {
   onGoogleLogin(): void;
+  onResolveVersion(status: checkResult): void;
 }
 
 export type ILoginProps = ILoginBaseProps & (ILoginState & ILoginDispatchProps);
+
+const androidManifest: typeof Constants.manifest["android"] =
+  Constants.manifest.android === undefined ? {} : Constants.manifest.android;
+
+const enhance: InferableComponentEnhancer<{}> = lifecycle<ILoginProps, {}>({
+  componentDidMount(): void {
+    const { onResolveVersion } = this.props;
+
+    checkVersion({
+      androidStoreURL: `https://play.google.com/store/apps/details?id=${androidManifest.package}`,
+      version: String(Constants.manifest.version),
+    })
+      .then((response: checkVersionResponse | checkVersionResponseError): void => {
+        const { result } = (response as checkVersionResponse);
+        const shouldSkipCheck: boolean = Platform.OS === "ios" || __DEV__;
+
+        onResolveVersion(shouldSkipCheck ? "equal" : result);
+      })
+      .catch();
+  },
+});
 
 export const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginProps): JSX.Element => {
   const handleGoogleButtonClick: (() => void) = (): void => { props.onGoogleLogin(); };
@@ -39,17 +65,31 @@ export const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginPro
     },
   };
 
+  const isOutDated: boolean = props.versionStatus !== "equal";
+
+  const handleUpdateButtonClick: (() => Promise<void>) = async (): Promise<void> => {
+    await Linking.openURL(`market://details?id=${androidManifest.package}`);
+  };
+
   return props.isAuthenticated ? <Redirect to={redirectParams} /> : (
     <View style={styles.container}>
       <Image source={FluidLogo} style={styles.logo} />
       <View style={styles.buttonsContainer}>
-        <Button
-          disabled={props.isLoading}
-          color="#cc0000"
-          onPress={handleGoogleButtonClick}
-          title={props.isLoading ? t("login.authLoadingText") : t("login.btnGoogleText")}
-        />
+        <Button disabled={props.isLoading || isOutDated} mode="contained" onPress={handleGoogleButtonClick}>
+          {t(props.isLoading ? "login.authLoadingText" : "login.btnGoogleText")}
+        </Button>
       </View>
+      <Portal>
+        <Dialog dismissable={false} visible={props.versionStatus === "new"}>
+          <Dialog.Title>{t("login.newVersion.title")}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{t("login.newVersion.content")}</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={handleUpdateButtonClick}>{t("login.newVersion.btn")}</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
       <Preloader visible={props.isLoading} />
     </View>
   );
@@ -63,10 +103,11 @@ const mapDispatchToProps: MapDispatchToProps<ILoginDispatchProps, ILoginBaseProp
   dispatch: ThunkDispatcher,
 ): ILoginDispatchProps => ({
   onGoogleLogin: (): void => { dispatch(actions.performAsyncGoogleLogin()); },
+  onResolveVersion: (status: checkResult): void => { dispatch(actions.resolveVersion(status)); },
 });
 
-const connectedLoginView: ConnectedComponentClass<React.FunctionComponent<ILoginProps>, ILoginBaseProps> = connect(
+const connectedLoginView: ConnectedComponentClass<React.ComponentClass<ILoginProps>, ILoginBaseProps> = connect(
   mapStateToProps, mapDispatchToProps,
-)(loginView);
+)(enhance(loginView));
 
 export { connectedLoginView as LoginView };

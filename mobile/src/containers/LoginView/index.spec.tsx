@@ -40,6 +40,7 @@ describe("LoginView", () => {
       },
       ...initialState,
       onGoogleLogin: (): void => undefined,
+      onResolveVersion: (): void => undefined,
     };
     const renderedComponent: ReactTestRenderer = renderer.create(<LoginView {...mockProps} />);
     expect(renderedComponent.toJSON())

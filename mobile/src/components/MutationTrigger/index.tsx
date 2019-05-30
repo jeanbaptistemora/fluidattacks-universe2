@@ -17,6 +17,6 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IMutationTriggerProps,
 });
 
 const mutationTrigger: React.ComponentClass<IMutationTriggerProps> =
-  enhance((): JSX.Element => (<React.Fragment />));
+  enhance<IMutationTriggerProps>((): JSX.Element => (<React.Fragment />));
 
 export { mutationTrigger as MutationTrigger };
