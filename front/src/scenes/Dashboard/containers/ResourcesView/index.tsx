@@ -379,17 +379,114 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
   );
 };
 
+const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
+  (props: IResourcesViewProps): JSX.Element => {
+    const handleRemoveRepoClick: (() => void) = (): void => { handleRemoveRepo(props); };
+    const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
+    const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
+    const handleAddRepo: ((values: { resources: IResourcesViewProps["repositories"] }) => void) =
+      (values: { resources: IResourcesViewProps["repositories"] }): void => {
+        handleSaveRepos(values.resources, props);
+      };
+
+    return (
+      <React.Fragment>
+        <Row>
+          <Col md={12} sm={12} xs={12}>
+            <Row>
+              <Col md={12} sm={12} xs={12}>
+                <Row>
+                  <Col md={12} sm={12}>
+                    <DataTable
+                      dataset={props.repositories}
+                      enableRowSelection={true}
+                      exportCsv={true}
+                      search={true}
+                      headers={[
+                        {
+                          dataField: "protocol",
+                          header: translate.t("search_findings.repositories_table.protocol"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "20%",
+                          wrapped: true,
+                        },
+                        {
+                          dataField: "urlRepo",
+                          header: translate.t("search_findings.repositories_table.repository"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "60%",
+                          wrapped: true,
+                        },
+                        {
+                          dataField: "branch",
+                          header: translate.t("search_findings.repositories_table.branch"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "20%",
+                          wrapped: true,
+                        },
+                      ]}
+                      id="tblRepositories"
+                      pageSize={15}
+                      title={translate.t("search_findings.tab_resources.repositories_title")}
+                    />
+                  </Col>
+                  <Col md={12}>
+                    <br />
+                    <Col mdOffset={4} md={2} sm={6}>
+                      <Button
+                        id="addRepository"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={handleAddRepoClick}
+                      >
+                        <Glyphicon glyph="plus"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.add_repository")}
+                      </Button>
+                    </Col>
+                    <Col md={2} sm={6}>
+                      <Button
+                        id="removeRepository"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={handleRemoveRepoClick}
+                      >
+                        <Glyphicon glyph="minus"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.remove_repository")}
+                      </Button>
+                    </Col>
+                  </Col>
+                  <Col md={12}>
+                    <br />
+                    <label style={{fontSize: "15px"}}>
+                      <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
+                      {props.repositories.length}
+                    </label>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <AddRepositoriesModal
+          isOpen={props.reposModal.open}
+          onClose={handleCloseReposModalClick}
+          onSubmit={handleAddRepo}
+        />
+      </React.Fragment>
+    );
+  };
+
 const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   (props: IResourcesViewProps): JSX.Element => {
 
-    const handleRemoveRepoClick: (() => void) = (): void => { handleRemoveRepo(props); };
     const handleRemoveEnvClick: (() => void) = (): void => { handleRemoveEnv(props); };
-    const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
     const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
     const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
     const handleCloseFilesModalClick: (() => void) = (): void => { props.onCloseFilesModal(); };
-    const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
     const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
     const handleDeleteFileClick: (() => void) = (): void => {
       mixpanel.track(
@@ -410,11 +507,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
         handleSaveEnvs(values.resources, props);
       };
 
-    const handleAddRepo: ((values: { resources: IResourcesViewProps["repositories"] }) => void) =
-      (values: { resources: IResourcesViewProps["repositories"] }): void => {
-        handleSaveRepos(values.resources, props);
-      };
-
     const handleAddFile: ((values: { resources: IResourcesViewProps["files"] }) => void) =
       (values: { resources: IResourcesViewProps["files"] }): void => {
         handleSaveFiles(values.resources, props);
@@ -427,85 +519,7 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     return (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={12} sm={12} xs={12}>
-              <Row>
-                <Col md={12} sm={12}>
-                  <DataTable
-                    dataset={props.repositories}
-                    enableRowSelection={true}
-                    exportCsv={true}
-                    search={true}
-                    headers={[
-                      {
-                        dataField: "protocol",
-                        header: translate.t("search_findings.repositories_table.protocol"),
-                        isDate: false,
-                        isStatus: false,
-                        width: "20%",
-                        wrapped: true,
-                      },
-                      {
-                        dataField: "urlRepo",
-                        header: translate.t("search_findings.repositories_table.repository"),
-                        isDate: false,
-                        isStatus: false,
-                        width: "60%",
-                        wrapped: true,
-                      },
-                      {
-                        dataField: "branch",
-                        header: translate.t("search_findings.repositories_table.branch"),
-                        isDate: false,
-                        isStatus: false,
-                        width: "20%",
-                        wrapped: true,
-                      },
-                    ]}
-                    id="tblRepositories"
-                    pageSize={15}
-                    title={translate.t("search_findings.tab_resources.repositories_title")}
-                  />
-                </Col>
-                <Col md={12}>
-                  <br />
-                  <Col mdOffset={4} md={2} sm={6}>
-                    <Button
-                      id="addRepository"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleAddRepoClick}
-                    >
-                      <Glyphicon glyph="plus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.add_repository")}
-                    </Button>
-                  </Col>
-                  <Col md={2} sm={6}>
-                    <Button
-                      id="removeRepository"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleRemoveRepoClick}
-                    >
-                      <Glyphicon glyph="minus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.remove_repository")}
-                    </Button>
-                  </Col>
-                </Col>
-                <Col md={12}>
-                  <br />
-                  <label style={{fontSize: "15px"}}>
-                    <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
-                    {props.repositories.length}
-                  </label>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      {renderRespositories(props)}
       <hr/>
       <Row>
         <Col md={12} sm={12} xs={12}>
@@ -644,11 +658,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
         isOpen={props.envModal.open}
         onClose={handleCloseEnvModalClick}
         onSubmit={handleAddEnv}
-      />
-      <AddRepositoriesModal
-        isOpen={props.reposModal.open}
-        onClose={handleCloseReposModalClick}
-        onSubmit={handleAddRepo}
       />
       <AddFilesModal
         isOpen={props.filesModal.open}
