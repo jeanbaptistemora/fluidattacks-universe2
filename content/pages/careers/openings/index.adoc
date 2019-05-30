@@ -5,70 +5,72 @@
 
 = Openings
 
-If you are interested, motivated and
-have the required skills
-there will always be an opening.
-Here we will explain each one of our job openings.
+If you are interested, motivated,
+and have the required skills
+we may have an opening for you.
+The list and descriptions below are our most frequent job openings.
 
-== Ethical hacker / Pentester:
 
-We need talents with a developer profile
-who like to program and
-are interested in Information Security
-to execute pentest.
+== Ethical Hacker / Pentester:
 
-We require them to have basic knowledge and
-understanding of networks,
-IT infrastructure and
-are able to work as part of a team.
+We need people with a developer profile,
+who like to program,
+and are interested in Information Security for pentesting.
 
-There is no need to have previous work experience
-nor for you to have finished your university degree.
-The role requires full time availability but
-this is negotiable if you have a special university schedule,
-in case you are still studying.
+You must have a basic knowledge
+and understanding of networks,
++IT+ infrastructure
+and be able to work effectively as part of a team.
+
+Previous work experience is not needed.
+You do not need to have a university degree.
+You must be available full-time,
+but scheduling is negotiable, if you are a student.
 
 == IT Project Manager:
 
-We require a project manager
-with an university degree,
-basic technical knowledge and
-understanding of information security and
-some relevant experience in networks and
-IT infrastructure.
-PMP (Project Management Professional) certification is a plus but
-not mandatory in order to apply for the position.
+You must have a university degree,
+basic technical knowledge, understanding of information security,
+and some relevant experience in networks
+and +IT+ infrastructure.
++PMP+ (Project Management Professional) certification is a plus,
+but not mandatory in order to apply for this position.
 
 == IT Security Architect
 
-A professional with knowledge and
-understanding of networks,
-IT infrastructure and
-information security.
+Although you do not need to have a university degree
+to apply for this position,
+you must conduct yourself in a professional manner
+and have substantial knowledge and understanding of networks,
++IT+ infrastructure, and information security.
 
-* *Activities:*
-** Structure, define and jointly design
-security requirements and
-controls in the physical facilities,
-technologies and
-organizational processes.
-** Investigate, analyze, propose and implement
-methodologies and
-best practices in security
-in order to have an adequate security environment.
-** Interact with different business areas
-to provide advice regarding security risks and
-controls that mitigate the materialization of critical security events.
+* *Duties:*
+** Structure, define, and jointly design security requirements
+and controls in physical facilities,
+and also in technologies and organizational processes.
+
+** You must be able to investigate,
+analyze, propose and implement methodologies,
+and security best practices to maintain
+an impenetrable security environment.
+
+** You must be able to interact effectively
+in a variety of business areas
+to provide security risks and controls advice
+to help prevent the occurrence of critical security events.
 
 A finished university degree is not mandatory.
 
 == IT Support Assistant:
 
+This is an intern position for systems and software areas.
+You must have experience in the use of office solutions.
+
 Intern for systems and software areas
 with knowledge in the use of office solutions.
 
-* *Activities:*
-** Provide guidance and software support
+* *Duties:*
+** Provide guidance and software support.
 ** Support administrative,
 production and
 human resources areas.
@@ -79,49 +81,46 @@ image:logo-autonomic.png[align="center"] <a href="https://www.linkedin.com/compa
 </p>
 ++++
 
-== Openings in Autonomic
+== Openings in Autonomicmind
 
-Autonomic is a company
-that provides specialized IT recruitment services
-whos purpose in to recruit only the best talents,
-act as a bridge between the talents and the industry,
-help our clients achieve their business goals
-by providing them talents
-with the right skills for their required technical roles and
-to improve labor insertion and
-a company’s competitiveness.
+Autonomicmind is a company
+providing specialized +IT+ recruitment services.
+They find and recruit the  top employees in the +IT+ industry,
+and act as a bridge between them and prospective employers.
+Autonomicmind helps clients achieve their business goals
+by connecting people with the right skills to the right employers
+to advance a company's competitiveness.
 
-Autonomic is also in charge of recruiting talents
-for +Fluid Attacks+ and
-offer their services to telecommunication companies,
-financial institutions and
-any other that requires talents with high technical abilities.
+Autonomicmind also recruits top tier employees for +Fluid Attacks+,
+as well as, telecommunication companies,
+financial institutions, and other corporations
+that require employees with exceptional technical abilities.
 
-Here are the openings
-we currently have available
-in clients other than +Fluid Attacks+:
+Openings currently available
+with clients other than +Fluid Attacks+:
 
 == Front End Developer
 
-Among your responsibilities will be:
+Knowledge, skills, and abilities:
 
 * Develop responsive web applications.
-* Knowledge of frameworks to design views and
-web components.
-* Take mock-ups from a concept to a solution
-focused on the user experience.
-* Knowledge in CSS and
-criteria to choose the best design
+* Knowledge of frameworks sufficient
+to design views and web components.
+* Take mock-ups from a concept
+to a user experience-based solution.
+* Knowledge of +CSS+ and criteria sufficient
+to choose the best design for a given web project.
 for a given web project.
 * Ensure the consistency of the modules,
 the appearance and
 all interactions with the user interface.
 * Knowledge in agile methodologies,
-tests and
-deliveries in multidisciplinary teams.
-* English proficiency.
-* Understanding of the web development process,
-business solutions and
+tests, and deliveries in multidisciplinary teams.
+* Communicate at a high level of proficiency,
+both conversationally and technically,
+in spoken and written English.
+* Understand the web development process,
+as well as business solutions,
 tests and debugging processes.
 * 3 to 5 year experience
 with technologies such as
@@ -135,20 +134,20 @@ Desirable:
 
 * Basic back-end knowledge.
 * Knowledge in graphics design.
-* Experience using Microsoft Azure, AWS or
+* Experience using Microsoft Azure, +AWS+ or
 similar platforms.
-* Knowledge of Ruby on Rails, WPF, Unity or C#.
+* Knowledge of Ruby on Rails, +WPF+, +Unity+ or +C#+.
 
 == Senior Software Developer
 
-Professional with at least 5 years of experience
-in software development
-to build programs and
-routines of low, medium and
-high complexity that
-provide solutions to requirements
-according to the norms and
-standards of the organization.
+Professional with at least +5+ years of experience
+in software development to build programs and routines of low,
+medium and high complexity
+that provide solutions to requirements
+according to the norms
+and standards of the organization.
+
+Knowledge, skills, and abilities:
 
 * Skills in more than 1 programming language
 such as +Java+, +.NET+, +C#+, +Ruby+ or +Python+.
@@ -167,77 +166,68 @@ such as +GNU / Linux+, +Unix+ (+AIX+, +SOLARIS+).
 
 == Junior Software Developer
 
-Students from computer science, electronics, engineering or
-related careers,
-with the aim of developing tools
-to support the organization’s production
-through the development of products
-with methods, algorithms and
-solutions that meet the company’s expectations.
-Gather product information and
-document it following the standards and
-formats defined in the area.
-Guarantee the quality of the developments
-based on the artifacts defined in the organization.
-For these reasons,
-software development experience is desired but
-not mandatory.
+Students in computer science,
+electronics, engineering, or other related careers.
+This position focuses on creating tools
+to support the manufacturing of products with methods,
+algorithms and solutions that meet a client company’s expectations.
+You must be able to gather product information and document it,
+following the standards and formats
+defined in the appropriate area.
+You must also be able to guarantee
+the quality of the developments
+based on the artifacts defined by the organization.
+For these reasons, software development experience
+is desired but not mandatory.
 
-It is also desirable that
-the talent has knowledge in Inspire Designer,
-Inspire Automation and
-programming languages
-​​such as +Java+, +VB+, +.Net+, among others.
-This in addition
-to knowledge of Databases and
-basic use of web tools.
+Also desirable is that an applicant is knowledgeable in Inspire Designer,
+Inspire Automation, and programming languages ​​
+such as +Java+, +VB+, +.Net+, among others.
+In addition, knowledge of databases
+and basic use of web tools is desirable.
 
-A finished university degree is not required but
-since we are looking for individuals
-who can easily adapt
-to the different languages used in the organization
-you must have good programming logic,
+A completed university degree is not required,
+but since we are looking for individuals
+who can easily adapt to different languages
+used within the organization, you must have good programming logic,
 regardless of the language.
 
 == Quality Assurance Tester
 
-Among your responsibilities will be:
+Knowledge, skills, and abilities:
 
-* Design and execute the assigned projects
-through the application of the methodology and
-the use of the automation tools defined by the company,
-always seeking the certification of the tested application,
-according to the test requirements
-defined with the client and
-specified in the scope and
-strategy of the project .
+* Design and execute assigned projects
+using the methodology and automation tools
+defined by the client company.
+Confirm certification of the tested application
+in accordance with test requirements
+determined by the client as specified in the scope
+and strategy of the project.
 
-Preferably a minimum experience of 1 year
-in the following subjects:
+Preferably a minimum of 1-year experience in:
 
 * Web applications development.
 * Software architect.
-* Understanding of Architecture Design Patterns.
-* Understanding of architecture in layers and
-architecture in tiers.
-* Knowledge of +SOA+.
+* Architecture Design Patterns.
+* Architecture in layers and tiers.
+* +SOA+.
 * Database engines
 on a large scale (+ORACLE+, +SQL SERVER+, +DB2+, +MySQL+).
-* Knowledge in some load testing tool:
-** JMeter.
-** Neoload.
-** WAPT PRO.
-** LoadRunner.
-** SilkPerformer.
-** IBM Rational Performance Tester.
-** Scapa.
-* Knowledge in the execution of performance tests.
-* Basic knowledge in math and statistics
-* Project management skills.
+* Two or more of the following load testing tools:
+** +JMeter+.
+** +Neoload+.
+** +WAPT PRO+.
+** +LoadRunner+.
+** +SilkPerformer+.
+** +IBM+ Rational Performance Tester.
+** +Scapa+.
+* Execution of performance tests.
+* Basic math and statistics.
+* Project management.
 
 Certifications in the following areas are desired:
 
-* ISTQB.
+* +ISTQB+.
 * Software development.
 * Databases.
 * Software testing tools.
