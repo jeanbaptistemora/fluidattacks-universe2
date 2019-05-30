@@ -55,20 +55,20 @@
           <input type=hidden name="oid" value="00D1I000001dGP6"/>
           <input type=hidden name="retURL" value="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/{{ gettext('Ack-page') }}/"/>
           <label for="first_name" class="form-label">First Name:</label>
-          <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" class="form-input"/><br>
+          <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" class="form-input" required /><br>
           <label for="last_name" class=form-label> Last Name:</label>
-          <input  id="last_name" maxlength="40" name="last_name" size="20" type="text" class="form-input"/><br>
+          <input  id="last_name" maxlength="40" name="last_name" size="20" type="text" class="form-input" required /><br>
           <label for="email" class="form-label">
             {{ gettext('Form-field-2') }}</label>
           <input  id="email" maxlength="80" name="email" size="20" type="text"
             class="form-input" required />
           <br>
           <input id="country" maxlength="40" name="country" size="20"
-            type="hidden" value=""/>
+            type="hidden" value="">
           <label for="mobile" class="form-label">
             {{ gettext('Form-field-3')}}</label>
           <input  id="mobile" maxlength="40" name="local_mobile" size="20"
-            type="text" class="form-input" required >
+            type="text" class="form-input" required />
           <span id="valid-msg" class="intl-valid hide">
             {{ gettext('Form-number-valid') }}</span>
           <span id="error-msg" class="intl-error  hide">
