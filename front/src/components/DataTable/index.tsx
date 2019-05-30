@@ -201,11 +201,16 @@ export const dataTable: React.FunctionComponent<ITableProps> = (props: ITablePro
       );
     };
 
-  const dataset: Array<{}> = props.dataset.map((data: {uniqueId: number}, index: number) => {
-    data.uniqueId = index;
+  let dataset: Array<{}>;
+  if (!_.isEmpty(props.dataset) && props.dataset.length > 0) {
+    dataset = props.dataset.map((data: {uniqueId: number}, index: number) => {
+      data.uniqueId = index;
 
-    return data;
-  });
+      return data;
+    });
+  } else {
+    dataset = [];
+  }
 
   return (
     <React.StrictMode>
