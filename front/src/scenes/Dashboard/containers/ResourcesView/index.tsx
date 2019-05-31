@@ -25,9 +25,11 @@ import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/inde
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
-import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "./queries";
-import { IAddTagsAttr, IProjectTagsAttr, IRemoveTagsAttr, IResourcesViewBaseProps,
-  IResourcesViewDispatchProps, IResourcesViewProps, IResourcesViewStateProps } from "./types";
+import { ADD_REPOS_MUTATION, ADD_TAGS_MUTATION, GET_REPOSITORIES, GET_TAGS, REMOVE_REPO_MUTATION,
+  REMOVE_TAG_MUTATION } from "./queries";
+import { IAddReposAttr, IAddTagsAttr, IProjectTagsAttr, IRemoveRepoAttr, IRemoveTagsAttr, IRepositoriesAttr,
+  IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
+  IResourcesViewStateProps } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
@@ -48,51 +50,6 @@ const getSelectedRow: ((tableId: string) => HTMLTableRowElement | undefined) =
       _.isEmpty(selectedQry) ? undefined : selectedQry[0].closest("tr");
 
     return selectedRow === undefined || selectedRow === null ? undefined : selectedRow;
-  };
-
-const handleRemoveRepo: ((props: IResourcesViewProps) => void) = (props: IResourcesViewProps): void => {
-  const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblRepositories");
-  if (selectedRow === undefined) {
-    msgError(translate.t("search_findings.tab_resources.no_selection"));
-  } else {
-    const protocol: string | null = selectedRow.children[1].textContent;
-    const repository: string | null = selectedRow.children[2].textContent;
-    const branch: string | null = selectedRow.children[3].textContent;
-    mixpanel.track(
-      "RemoveProjectRepo",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
-    const repoData: {[value: string]: string | null} = {
-      branch,
-      protocol,
-      urlRepo: repository,
-    };
-    props.onRemoveRepo(repoData);
-  }
-};
-
-const handleSaveRepos: ((resources: IResourcesViewProps["repositories"], props: IResourcesViewProps) => void) =
-  (resources: IResourcesViewProps["repositories"], props: IResourcesViewProps): void => {
-    let containsRepeated: boolean;
-    containsRepeated = resources.filter(
-      (newItem: IResourcesViewProps["repositories"][0]) => _.findIndex(
-        props.repositories,
-        (currentItem: IResourcesViewProps["repositories"][0]) =>
-          currentItem.urlRepo === newItem.urlRepo && currentItem.branch === newItem.branch,
-      ) > -1).length > 0;
-    if (containsRepeated) {
-      msgError(translate.t("search_findings.tab_resources.repeated_item"));
-    } else {
-      mixpanel.track(
-        "AddProjectRepo",
-        {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
-        });
-      props.onSaveRepos(resources);
-    }
   };
 
 const handleRemoveEnv: ((props: IResourcesViewProps) => void) = (props: IResourcesViewProps): void => {
@@ -178,6 +135,19 @@ const containsRepeatedTags: (
         tags,
         (currentItem: IProjectTagsAttr["project"]["tags"][0]) =>
           currentItem === newItem,
+      ) > -1).length > 0;
+
+    return containsRepeated;
+  };
+
+const containsRepeatedRepos: ((currRepo: IRepositoriesAttr[], repos: IRepositoriesAttr[]) => boolean) =
+  (currRepo: IRepositoriesAttr[], repos: IRepositoriesAttr[]): boolean => {
+    let containsRepeated: boolean;
+    containsRepeated = currRepo.filter(
+      (newItem: IRepositoriesAttr[][0]) => _.findIndex(
+        repos,
+        (currentItem: IRepositoriesAttr[][0]) =>
+          currentItem.urlRepo === newItem.urlRepo && currentItem.branch === newItem.branch,
       ) > -1).length > 0;
 
     return containsRepeated;
@@ -381,24 +351,68 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
 
 const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
-    const handleRemoveRepoClick: (() => void) = (): void => { handleRemoveRepo(props); };
     const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
     const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
-    const handleAddRepo: ((values: { resources: IResourcesViewProps["repositories"] }) => void) =
-      (values: { resources: IResourcesViewProps["repositories"] }): void => {
-        handleSaveRepos(values.resources, props);
-      };
+    const projectName: string = props.match.params.projectName;
 
     return (
-      <React.Fragment>
-        <Row>
-          <Col md={12} sm={12} xs={12}>
-            <Row>
-              <Col md={12} sm={12} xs={12}>
+      <Query query={GET_REPOSITORIES} variables={{ projectName }}>
+      {
+        ({loading, error, data, refetch, networkStatus}: QueryResult<IResourcesAttr>): React.ReactNode => {
+          if (loading || networkStatus === 4) {
+            showPreloader();
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            handleGraphQLErrors("An error occurred getting repositories", error);
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data)) {
+            hidePreloader();
+            const repoDataset: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
+
+            const handleMtRemoveRepoRes: ((mtResult: IRemoveRepoAttr) => void) = (mtResult: IRemoveRepoAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.removeRepositories.success) {
+                  hidePreloader();
+                  refetch()
+                      .catch();
+                  mixpanel.track(
+                    "RemoveProjectRepo",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                }
+              }
+            };
+
+            const handleMtAddReposRes: ((mtResult: IAddReposAttr) => void) = (mtResult: IAddReposAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.addRepositories.success) {
+                  refetch()
+                    .catch();
+                  handleCloseReposModalClick();
+                  hidePreloader();
+                  mixpanel.track(
+                    "AddProjectRepo",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                }
+              }
+            };
+
+            return (
+              <React.Fragment>
                 <Row>
                   <Col md={12} sm={12}>
                     <DataTable
-                      dataset={props.repositories}
+                      dataset={repoDataset}
                       enableRowSelection={true}
                       exportCsv={true}
                       search={true}
@@ -446,36 +460,107 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                         {translate.t("search_findings.tab_resources.add_repository")}
                       </Button>
                     </Col>
-                    <Col md={2} sm={6}>
-                      <Button
-                        id="removeRepository"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={handleRemoveRepoClick}
-                      >
-                        <Glyphicon glyph="minus"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.remove_repository")}
-                      </Button>
-                    </Col>
+                    <Mutation mutation={REMOVE_REPO_MUTATION} onCompleted={handleMtRemoveRepoRes}>
+                      { (removeRepositories: MutationFn<IRemoveRepoAttr, {projectName: string; repoData: string}>,
+                         mutationRes: MutationResult): React.ReactNode => {
+                          if (mutationRes.loading) {
+                            showPreloader();
+                          }
+                          if (!_.isUndefined(mutationRes.error)) {
+                            hidePreloader();
+                            handleGraphQLErrors("An error occurred removing repositories", mutationRes.error);
+
+                            return <React.Fragment/>;
+                          }
+
+                          const handleRemoveRepo: (() => void) = (): void => {
+                            const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblRepositories");
+                            if (selectedRow === undefined) {
+                              msgError(translate.t("search_findings.tab_resources.no_selection"));
+                            } else {
+                              const protocol: string | null = selectedRow.children[1].textContent;
+                              const repository: string | null = selectedRow.children[2].textContent;
+                              const branch: string | null = selectedRow.children[3].textContent;
+                              mixpanel.track(
+                                "RemoveProjectRepo",
+                                {
+                                  Organization: (window as Window & { userOrganization: string }).userOrganization,
+                                  User: (window as Window & { userName: string }).userName,
+                                });
+                              const repoData: {[value: string]: string | null} = {
+                                branch,
+                                protocol,
+                                urlRepo: repository,
+                              };
+                              removeRepositories({ variables: { projectName, repoData: JSON.stringify(repoData)} })
+                                .catch();
+                            }
+                          };
+
+                          return(
+                            <Col md={2} sm={6}>
+                              <Button
+                                id="removeRepository"
+                                block={true}
+                                bsStyle="primary"
+                                onClick={handleRemoveRepo}
+                              >
+                                <Glyphicon glyph="minus"/>&nbsp;
+                                {translate.t("search_findings.tab_resources.remove_repository")}
+                              </Button>
+                            </Col>
+                          );
+                        }}
+                    </Mutation>
                   </Col>
                   <Col md={12}>
                     <br />
                     <label style={{fontSize: "15px"}}>
                       <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
-                      {props.repositories.length}
+                      {repoDataset.length}
                     </label>
                   </Col>
                 </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <AddRepositoriesModal
-          isOpen={props.reposModal.open}
-          onClose={handleCloseReposModalClick}
-          onSubmit={handleAddRepo}
-        />
-      </React.Fragment>
+                <Mutation mutation={ADD_REPOS_MUTATION} onCompleted={handleMtAddReposRes}>
+                  { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; repoData: string}>,
+                     mutationRes: MutationResult): React.ReactNode => {
+                      if (mutationRes.loading) {
+                        showPreloader();
+                      }
+                      if (!_.isUndefined(mutationRes.error)) {
+                        hidePreloader();
+                        handleGraphQLErrors("An error occurred adding repositories", mutationRes.error);
+
+                        return <React.Fragment/>;
+                      }
+
+                      const handleAddRepo: ((values: { resources: IRepositoriesAttr[] }) => void) =
+                        (values: { resources: IRepositoriesAttr[] }): void => {
+                          if (containsRepeatedRepos(values.resources, repoDataset)) {
+                            msgError(translate.t("search_findings.tab_resources.repeated_item"));
+                          } else {
+                            addRepositories({
+                              variables: { projectName, repoData: JSON.stringify(values.resources)},
+                              },
+                            )
+                              .catch();
+                          }
+                        };
+
+                      return (
+                        <AddRepositoriesModal
+                          isOpen={props.reposModal.open}
+                          onClose={handleCloseReposModalClick}
+                          onSubmit={handleAddRepo}
+                        />
+                      );
+                  }}
+                </Mutation>
+              </React.Fragment>
+            );
+          }
+        }}
+      </Query>
     );
   };
 

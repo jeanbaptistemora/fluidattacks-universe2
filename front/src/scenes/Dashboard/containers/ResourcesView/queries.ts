@@ -44,3 +44,38 @@ export const ADD_TAGS_MUTATION: DocumentNode = gql`
     }
   }
   `;
+
+export const GET_REPOSITORIES: DocumentNode = gql`
+  query GetRepositoriesQuery($projectName: String!) {
+    resources (projectName: $projectName) {
+      repositories
+    }
+  }
+  `;
+
+export const REMOVE_REPO_MUTATION: DocumentNode = gql`
+  mutation RemoveRepoMutation($projectName: String!, $repoData: JSONString!, ) {
+    removeRepositories (
+      repositoryData: $repoData,
+      projectName: $projectName
+    ) {
+      success
+      resources {
+        repositories
+      }
+    }
+  }
+  `;
+
+export const ADD_REPOS_MUTATION: DocumentNode = gql`
+  mutation AddReposMutation($projectName: String!, $repoData: JSONString!) {
+    addRepositories (
+      resourcesData: $repoData,
+      projectName: $projectName) {
+      success
+      resources {
+        repositories
+      }
+    }
+  }
+  `;

@@ -34,6 +34,36 @@ export interface IAddTagsAttr {
   };
 }
 
+export interface IRepositoriesAttr {
+  branch: string;
+  protocol: string;
+  urlRepo: string;
+}
+
+export interface IResourcesAttr {
+  resources: {
+    repositories: string;
+  };
+}
+
+export interface IRemoveRepoAttr {
+  removeRepositories: {
+    resources: {
+      repositories: string;
+    };
+    success: boolean;
+  };
+}
+
+export interface IAddReposAttr {
+  addRepositories: {
+    resources: {
+      repositories: string;
+    };
+    success: boolean;
+  };
+}
+
 export type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
 export type IResourcesViewStateProps = IDashboardState["resources"] & IDashboardState["tags"];
