@@ -25,7 +25,6 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
       gQry = `{
         resources (projectName: "${projectName}") {
           environments
-          repositories
           files
         }
     }`;
@@ -36,7 +35,6 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
             payload: {
               environments: JSON.parse(data.resources.environments),
               files: JSON.parse(data.resources.files),
-              repositories: JSON.parse(data.resources.repositories),
             },
             type: actionTypes.LOAD_RESOURCES,
           });
@@ -98,102 +96,6 @@ export const closeOptionsModal: (() => IActionStructure) =
     payload: undefined,
     type: actionTypes.CLOSE_OPTIONS_MODAL,
   });
-
-export const saveRepos: ((projectName: string, reposData: IResources["repositories"]) => ThunkResult<void>) =
-  (projectName: string, reposData: IResources["repositories"],
-): ThunkResult<void> => (dispatch: ThunkDispatcher): void => {
-    let gQry: string;
-    gQry = `mutation {
-        addRepositories (
-          resourcesData: ${JSON.stringify(JSON.stringify(reposData))},
-          projectName: "${projectName}") {
-          success
-          resources {
-            environments
-            files
-            repositories
-          }
-        }
-      }`;
-    new Xhr().request(gQry, "An error occurred adding repositories")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-        if (data.addRepositories.success) {
-          dispatch(closeAddRepoModal());
-          dispatch({
-            payload: {
-              environments: JSON.parse(data.addRepositories.resources.environments),
-              files: JSON.parse(data.addRepositories.resources.files),
-              repositories: JSON.parse(data.addRepositories.resources.repositories),
-            },
-            type: actionTypes.LOAD_RESOURCES,
-          });
-          msgSuccess(
-            translate.t("search_findings.tab_resources.success"),
-            translate.t("search_findings.tab_users.title_success"),
-          );
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred adding repositories");
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
-  };
-
-export const removeRepo: ((projectName: string, reposData: {[value: string]: string | null}) => ThunkResult<void>) =
-  (projectName: string, reposData: {[value: string]: string | null}): ThunkResult<void> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string;
-      gQry = `mutation {
-      removeRepositories (
-        repositoryData: ${JSON.stringify(JSON.stringify(reposData))},
-        projectName: "${projectName}"
-      ) {
-        success
-        resources {
-          environments
-          repositories
-          files
-        }
-      }
-    }`;
-      new Xhr().request(gQry, "An error occurred removing repositories")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-          if (data.removeRepositories.success) {
-            dispatch({
-              payload: {
-                environments: JSON.parse(data.removeRepositories.resources.environments),
-                files: JSON.parse(data.removeRepositories.resources.files),
-                repositories: JSON.parse(data.removeRepositories.resources.repositories),
-              },
-              type: actionTypes.LOAD_RESOURCES,
-            });
-            msgSuccess(
-              translate.t("search_findings.tab_resources.success_remove"),
-              translate.t("search_findings.tab_users.title_success"),
-            );
-          } else {
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error("An error occurred removing repositories");
-          }
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };
 
 export const saveEnvs: ((projectName: string, envsData: IResources["environments"]) => ThunkResult<void>) =
   (projectName: string, envsData: IResources["environments"]): ThunkResult<void> =>

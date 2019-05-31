@@ -772,7 +772,6 @@ const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewB
     filesModal: state.dashboard.resources.filesModal,
     optionsModal: state.dashboard.resources.optionsModal,
     reposModal: state.dashboard.resources.reposModal,
-    repositories: state.dashboard.resources.repositories,
     showUploadProgress: state.dashboard.resources.showUploadProgress,
     tagsModal: state.dashboard.tags.tagsModal,
     uploadProgress: state.dashboard.resources.uploadProgress,
@@ -799,16 +798,10 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onOpenReposModal: (): void => { dispatch(actions.openAddRepoModal()); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
       onRemoveEnv: (environment: string): void => { dispatch(actions.removeEnv(projectName, environment)); },
-      onRemoveRepo: (repoData: {[value: string]: string | null}): void => {
-        dispatch(actions.removeRepo(projectName, repoData));
-      },
       onSaveEnvs: (environments: IResourcesViewProps["environments"]): void => {
         dispatch(actions.saveEnvs(projectName, environments));
       },
       onSaveFiles: (files: IResourcesViewProps["files"]): void => { dispatch(actions.saveFiles(projectName, files)); },
-      onSaveRepos: (repositories: IResourcesViewProps["repositories"]): void => {
-        dispatch(actions.saveRepos(projectName, repositories));
-      },
     });
   };
 

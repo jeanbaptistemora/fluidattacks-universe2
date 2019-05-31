@@ -58,7 +58,6 @@ export interface IDashboardState {
       open: boolean;
       rowInfo: { fileName: string };
     };
-    repositories: Array<{ branch: string; protocol: string; urlRepo: string }>;
     reposModal: {
       open: boolean;
     };
@@ -198,7 +197,6 @@ const initialState: IDashboardState = {
     reposModal: {
       open: false,
     },
-    repositories: [],
     showUploadProgress: false,
     uploadProgress: 0,
   },
@@ -305,7 +303,6 @@ actionMap[resourcesActions.LOAD_RESOURCES] =
       ...state.resources,
       environments: action.payload.environments,
       files: action.payload.files,
-      repositories: action.payload.repositories,
     },
   });
 
