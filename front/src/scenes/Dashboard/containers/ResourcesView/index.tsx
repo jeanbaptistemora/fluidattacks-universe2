@@ -564,13 +564,92 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
     );
   };
 
-const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
+const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
-
     const handleRemoveEnvClick: (() => void) = (): void => { handleRemoveEnv(props); };
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
-    const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
     const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
+    const handleAddEnv: ((values: { resources: IResourcesViewProps["environments"] }) => void) =
+      (values: { resources: IResourcesViewProps["environments"] }): void => {
+        handleSaveEnvs(values.resources, props);
+      };
+
+    return (
+      <React.Fragment>
+        <Row>
+          <Col md={12} sm={12} xs={12}>
+            <Row>
+              <Col md={12} sm={12} xs={12}>
+                <Row>
+                  <Col md={12} sm={12}>
+                    <DataTable
+                      dataset={props.environments}
+                      enableRowSelection={true}
+                      exportCsv={true}
+                      search={true}
+                      headers={[
+                        {
+                          dataField: "urlEnv",
+                          header: translate.t("search_findings.environment_table.environment"),
+                          isDate: false,
+                          isStatus: false,
+                          wrapped: true,
+                        },
+                      ]}
+                      id="tblEnvironments"
+                      pageSize={15}
+                      title={translate.t("search_findings.tab_resources.environments_title")}
+                    />
+                  </Col>
+                  <Col md={12}>
+                    <br />
+                    <Col mdOffset={4} md={2} sm={6}>
+                      <Button
+                        id="addEnvironment"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={handleAddEnvClick}
+                      >
+                        <Glyphicon glyph="plus"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.add_repository")}
+                      </Button>
+                    </Col>
+                    <Col md={2} sm={6}>
+                      <Button
+                        id="removeEnvironment"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={handleRemoveEnvClick}
+                      >
+                        <Glyphicon glyph="minus"/>&nbsp;
+                        {translate.t("search_findings.tab_resources.remove_repository")}
+                      </Button>
+                    </Col>
+                  </Col>
+                  <Col md={12}>
+                    <br />
+                    <label style={{fontSize: "15px"}}>
+                      <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
+                      {props.environments.length}
+                    </label>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <AddEnvironmentsModal
+          isOpen={props.envModal.open}
+          onClose={handleCloseEnvModalClick}
+          onSubmit={handleAddEnv}
+        />
+      </React.Fragment>
+    );
+  };
+
+const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
+  (props: IResourcesViewProps): JSX.Element => {
+    const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
     const handleCloseFilesModalClick: (() => void) = (): void => { props.onCloseFilesModal(); };
     const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
     const handleDeleteFileClick: (() => void) = (): void => {
@@ -587,11 +666,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     };
     const handleFileRowClick: ((row: string) => void) = (row: string): void => { props.onOpenOptionsModal(row); };
 
-    const handleAddEnv: ((values: { resources: IResourcesViewProps["environments"] }) => void) =
-      (values: { resources: IResourcesViewProps["environments"] }): void => {
-        handleSaveEnvs(values.resources, props);
-      };
-
     const handleAddFile: ((values: { resources: IResourcesViewProps["files"] }) => void) =
       (values: { resources: IResourcesViewProps["files"] }): void => {
         handleSaveFiles(values.resources, props);
@@ -606,68 +680,7 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     <div id="resources" className="tab-pane cont active">
       {renderRespositories(props)}
       <hr/>
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <Row>
-            <Col md={12} sm={12} xs={12}>
-              <Row>
-                <Col md={12} sm={12}>
-                  <DataTable
-                    dataset={props.environments}
-                    enableRowSelection={true}
-                    exportCsv={true}
-                    search={true}
-                    headers={[
-                      {
-                        dataField: "urlEnv",
-                        header: translate.t("search_findings.environment_table.environment"),
-                        isDate: false,
-                        isStatus: false,
-                        wrapped: true,
-                      },
-                    ]}
-                    id="tblEnvironments"
-                    pageSize={15}
-                    title={translate.t("search_findings.tab_resources.environments_title")}
-                  />
-                </Col>
-                <Col md={12}>
-                  <br />
-                  <Col mdOffset={4} md={2} sm={6}>
-                    <Button
-                      id="addEnvironment"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleAddEnvClick}
-                    >
-                      <Glyphicon glyph="plus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.add_repository")}
-                    </Button>
-                  </Col>
-                  <Col md={2} sm={6}>
-                    <Button
-                      id="removeEnvironment"
-                      block={true}
-                      bsStyle="primary"
-                      onClick={handleRemoveEnvClick}
-                    >
-                      <Glyphicon glyph="minus"/>&nbsp;
-                      {translate.t("search_findings.tab_resources.remove_repository")}
-                    </Button>
-                  </Col>
-                </Col>
-                <Col md={12}>
-                  <br />
-                  <label style={{fontSize: "15px"}}>
-                    <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
-                    {props.environments.length}
-                  </label>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      {renderEnvironments(props)}
       <hr/>
         <Row>
           <Col md={12} sm={12} xs={12}>
@@ -739,11 +752,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
           </Col>
         </Row>
         {shouldDisplayTagsView ? renderTagsView(props) : undefined}
-      <AddEnvironmentsModal
-        isOpen={props.envModal.open}
-        onClose={handleCloseEnvModalClick}
-        onSubmit={handleAddEnv}
-      />
       <AddFilesModal
         isOpen={props.filesModal.open}
         onClose={handleCloseFilesModalClick}
