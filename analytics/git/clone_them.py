@@ -118,7 +118,7 @@ def parse_config(
         subscription: str) -> Tuple[List[Tuple[Any, Any]], str, str, str]:
     """Parse the config.yml."""
     with open(f"{subscription}/config/config.yml", "r") as config_file:
-        yml_file = yaml.load(config_file)
+        yml_file = yaml.safe_load(config_file)
 
     config = yml_file.get("code", None)
     if config is None:

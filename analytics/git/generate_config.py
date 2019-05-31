@@ -19,9 +19,8 @@ TARGET = "/git"
 
 def get_organization(yml_path):
     """ returns the -customer- tag in the config.yml """
-
     with open(yml_path, "r") as config_file:
-        return yaml.load(config_file).get("customer", "__")
+        return yaml.safe_load(config_file).get("customer", "__")
 
 
 BRANCHES: JSON = {}

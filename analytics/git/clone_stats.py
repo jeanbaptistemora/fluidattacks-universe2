@@ -27,7 +27,7 @@ def get_subs_nrepos(subs_name: str) -> int:
     """Parse the config.yml for a subscription, return the number of repos."""
     subs_path: str = f"{CONTINUOUS}/subscriptions/{subs_name}"
     with open(f"{subs_path}/config/config.yml", "r") as config_file:
-        yml: Any = yaml.load(config_file)
+        yml: Any = yaml.safe_load(config_file)
         yml__code: Any = yml.get("code", {})
         yml__code__branches: List[str] = yml__code.get("branches", [])
     return len(yml__code__branches)
