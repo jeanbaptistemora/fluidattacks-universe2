@@ -8,6 +8,7 @@ from graphene import ObjectType, Mutation, List, String, Boolean
 from jose import jwt
 import rollbar
 
+from app.decorators import require_login
 from app.util import get_jwt_content
 from app.services import is_customeradmin
 from app.entity.project import Project
@@ -95,3 +96,21 @@ class SignIn(Mutation):
             raise NotImplementedError('Auth provider not supported')
 
         return SignIn(authorized, session_jwt, success)
+
+
+class RegisterNotifications(Mutation):
+    class Arguments(object):
+        push_token = String(required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    def mutate(_, info, push_token):
+        success = False
+
+        user_data = util.get_jwt_content(info.context)
+        email = user_data['user_email']
+        success = integrates_dao.add_set_element_dynamo(
+            'FI_users', ['email', email], 'devices_to_notify', [push_token])
+
+        return RegisterNotifications(success)

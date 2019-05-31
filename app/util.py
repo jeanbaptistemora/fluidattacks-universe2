@@ -17,7 +17,7 @@ from django.core.files.uploadedfile import (
     TemporaryUploadedFile, InMemoryUploadedFile
 )
 from django.core.cache import cache
-from jose import jwt, JWTError, ExpiredSignatureError
+from jose import jwt, JWTError
 # pylint: disable=E0402
 from .exceptions import InvalidAuthorization
 
@@ -226,15 +226,13 @@ def get_jwt_content(context):
         content = jwt.decode(token=token, key=settings.JWT_SECRET)
         return content
     except AttributeError:
-        rollbar.report_message(
-            'Error: Does not have JWT cookies', 'error', context)
         raise InvalidAuthorization()
-    except ExpiredSignatureError:
+    except IndexError:
+        rollbar.report_message(
+            'Error: Malformed auth header', 'error', context)
         raise InvalidAuthorization()
     except JWTError:
-        cloudwatch_log(context,
-                       'Security: \
-Attempted to modify JWT. Invalid token signature')
+        cloudwatch_log_plain('Security: Invalid token signature')
         raise InvalidAuthorization()
 
 

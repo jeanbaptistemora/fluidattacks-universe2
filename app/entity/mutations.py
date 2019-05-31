@@ -23,7 +23,7 @@ from app.entity.project import (
     AddProjectComment, RemoveTag, AddTags
 )
 from app.entity.events import UpdateEvent
-from app.entity.me import SignIn
+from app.entity.me import RegisterNotifications, SignIn
 
 
 class Mutations(ObjectType):
@@ -66,3 +66,4 @@ class Mutations(ObjectType):
     addTags = AddTags.Field()
 
     sign_in = SignIn.Field()
+    register_notifications = RegisterNotifications.Field()
