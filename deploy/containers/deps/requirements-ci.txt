@@ -52,3 +52,5 @@ selenium==3.141.0
 social-auth-app-django==3.1.0
 watchtower==0.5.5
 awscli==1.16.156
+exponent_server_sdk==0.2.0
+python-i18n==0.3.6

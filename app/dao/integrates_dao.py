@@ -1595,31 +1595,12 @@ def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):
     return resp
 
 
-def get_finding_attributes_dynamo(finding_id, data_attributes):
-    """ Get a group of attributes of a finding. """
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
+def get_table_attributes_dynamo(table_name, primary_key, data_attributes):
+    """ Get a group of attributes of a table. """
+    table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         response = table.get_item(
-            Key={
-                'finding_id': finding_id
-            },
-            AttributesToGet=data_attributes
-        )
-        items = response.get('Item')
-    except ClientError:
-        rollbar.report_exc_info()
-        items = {}
-    return items if items else {}
-
-
-def get_project_attributes_dynamo(project_name, data_attributes):
-    """ Get a group of attributes of a project. """
-    table = DYNAMODB_RESOURCE.Table('FI_projects')
-    try:
-        response = table.get_item(
-            Key={
-                'project_name': project_name
-            },
+            Key=primary_key,
             AttributesToGet=data_attributes
         )
         items = response.get('Item')
@@ -1627,6 +1608,20 @@ def get_project_attributes_dynamo(project_name, data_attributes):
         rollbar.report_exc_info()
         items = {}
     return items
+
+
+def get_finding_attributes_dynamo(finding_id, data_attributes):
+    """ Get a group of attributes of a finding. """
+
+    return get_table_attributes_dynamo(
+        'FI_findings', {'finding_id': finding_id}, data_attributes)
+
+
+def get_project_attributes_dynamo(project_name, data_attributes):
+    """ Get a group of attributes of a project. """
+
+    return get_table_attributes_dynamo(
+        'FI_projects', {'project_name': project_name}, data_attributes)
 
 
 def get_event_dynamo(event_id):

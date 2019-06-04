@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 from __future__ import absolute_import
 import sys
 import os
+
 import newrelic.agent
+import i18n
 
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
     FI_DB_HOST, FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, \
@@ -158,6 +160,13 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
+i18n.set('file_format', 'json')
+i18n.set('locale', 'en')
+i18n.set('fallback', 'en')
+i18n.set('skip_locale_root_data', True)
+i18n.set('filename_format', '{locale}.{format}')
+i18n.set('load_path', [os.path.join(
+    os.path.dirname(__file__), 'translations/')])
 
 USE_L10N = True
 

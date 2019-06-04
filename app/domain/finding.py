@@ -20,14 +20,14 @@ from backports import csv
 from botocore.exceptions import ClientError
 from graphql import GraphQLError
 from django.conf import settings
+from i18n import t
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 from app import util
-from app.utils import forms as forms_utils
-from app.utils import cvss
+from app.utils import cvss, forms as forms_utils, notifications
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
@@ -444,6 +444,15 @@ def verify_finding(finding_id, user_email):
         update_vulnerabilities_date(user_email, finding_id)
         send_finding_verified_email(finding_id,
                                     finding_name, project_name)
+        project_users = [user[0]
+                         for user
+                         in integrates_dao.get_project_users(project_name)
+                         if user[1] == 1]
+        notifications.notify_mobile(
+            project_users,
+            t('notifications.verified.title'),
+            t('notifications.verified.content',
+                finding=finding_name, project=project_name.upper()))
     else:
         rollbar.report_message(
             'Error: An error occurred verifying the finding', 'error')
@@ -496,6 +505,15 @@ def request_verification(finding_id, user_email, user_fullname, justification):
         )
         send_remediation_email(user_email, finding_id, finding_name,
                                project_name, justification)
+        project_users = [user[0]
+                         for user
+                         in integrates_dao.get_project_users(project_name)
+                         if user[1] == 1]
+        notifications.notify_mobile(
+            project_users,
+            t('notifications.remediated.title'),
+            t('notifications.remediated.content',
+                finding=finding_name, project=project_name.upper()))
     else:
         rollbar.report_message(
             'Error: An error occurred remediating the finding', 'error')

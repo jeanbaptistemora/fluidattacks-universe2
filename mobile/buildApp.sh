@@ -28,6 +28,7 @@ GRADLE_DAEMON_DISABLED="1"
 export GRADLE_DAEMON_DISABLED
 DISABLE_DEX_MAX_HEAP="true"
 export DISABLE_DEX_MAX_HEAP
+echo "$FI_GOOGLE_SERVICES_APP" > google-services.json
 
 
 # Build
@@ -48,4 +49,4 @@ npx turtle build:android \
 
 # Cleanup
 echo "All done! Cleaning up..."
-npx expo logout && rm keystore-dev.jks
+npx expo logout && rm google-services.json keystore-dev.jks

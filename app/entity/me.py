@@ -8,12 +8,11 @@ from graphene import ObjectType, Mutation, List, String, Boolean
 from jose import jwt
 import rollbar
 
-from app.decorators import require_login
-from app.util import get_jwt_content
-from app.services import is_customeradmin
-from app.entity.project import Project
-from app.dao import integrates_dao
 from app import util
+from app.dao import integrates_dao
+from app.decorators import require_login
+from app.entity.project import Project
+from app.services import is_customeradmin
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_APP
 
@@ -28,7 +27,7 @@ class Me(ObjectType):
         self.projects = []
 
     def resolve_role(self, info, project_name=None):
-        jwt_content = get_jwt_content(info.context)
+        jwt_content = util.get_jwt_content(info.context)
         role = jwt_content.get('user_role')
         if project_name and role == 'customer':
             email = jwt_content.get('user_email')
@@ -39,7 +38,7 @@ class Me(ObjectType):
         return self.role
 
     def resolve_projects(self, info):
-        jwt_content = get_jwt_content(info.context)
+        jwt_content = util.get_jwt_content(info.context)
         user_email = jwt_content.get('user_email')
         for project in integrates_dao.get_projects_by_user(user_email):
             self.projects.append(

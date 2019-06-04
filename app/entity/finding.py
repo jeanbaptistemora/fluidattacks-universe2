@@ -9,6 +9,9 @@ from graphql import GraphQLError
 from graphene import String, Boolean, Int, Mutation, Field
 from graphene.types.generic import GenericScalar
 
+from app import util
+from app.api.formstack import FormstackAPI
+from app.dao import integrates_dao
 from app.decorators import require_login, require_role, require_finding_access_gql
 from app.dto.finding import (
     FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name,
@@ -24,11 +27,8 @@ from app.domain.finding import (
     get_exploit_from_file, get_records_from_file, reject_draft, delete_finding,
     approve_draft
 )
-from app import util
-from app.dao import integrates_dao
-from app.entity.vulnerability import Vulnerability
-from app.api.formstack import FormstackAPI
 from app.entity.types.finding import FindingType
+from app.entity.vulnerability import Vulnerability
 
 
 class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
@@ -810,19 +810,19 @@ class RequestVerification(Mutation):
     @require_login
     @require_role(['customer', 'admin'])
     @require_finding_access_gql
-    def mutate(self, info, **parameters):
+    def mutate(self, info, finding_id, justification):
         user_email = util.get_jwt_content(info.context)['user_email']
         success = request_verification(
-            finding_id=parameters.get('finding_id'),
+            finding_id=finding_id,
             user_email=user_email,
             user_fullname=str.join(' ',
                                    [info.context.session['first_name'],
                                     info.context.session['last_name']]),
-            justification=parameters.get('justification')
+            justification=justification
         )
 
         ret = RequestVerification(success=success)
-        util.invalidate_cache(parameters.get('finding_id'))
+        util.invalidate_cache(finding_id)
         return ret
 
 
