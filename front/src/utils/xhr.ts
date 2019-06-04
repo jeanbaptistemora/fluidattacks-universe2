@@ -197,6 +197,7 @@ class Xhr {
           } else {
             const exception: AxiosError = {
              config: response.config,
+             isAxiosError: true,
              message: errorText,
              name: "AxiosError",
              response,

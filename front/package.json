@@ -12,7 +12,7 @@
     "url": "https://gitlab.com/fluidattacks/integrates/issues"
   },
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "0.19.0",
     "chai": "4.1.2",
     "@types/chai": "4.1.4",
     "enzyme": "3.3.0",
