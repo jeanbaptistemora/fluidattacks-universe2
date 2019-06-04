@@ -722,7 +722,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
     );
   };
 
-const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
+const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
     const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
     const handleCloseFilesModalClick: (() => void) = (): void => { props.onCloseFilesModal(); };
@@ -746,6 +746,91 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
         handleSaveFiles(values.resources, props);
       };
 
+    return (
+      <React.Fragment>
+        <hr/>
+        <Row>
+          <Col md={12} sm={12}>
+            <DataTable
+              dataset={props.files}
+              onClickRow={handleFileRowClick}
+              enableRowSelection={false}
+              exportCsv={false}
+              search={true}
+              headers={[
+                {
+                  dataField: "fileName",
+                  header: translate.t("search_findings.files_table.file"),
+                  isDate: false,
+                  isStatus: false,
+                  width: "25%",
+                  wrapped: true,
+                },
+                {
+                  dataField: "description",
+                  header: translate.t("search_findings.files_table.description"),
+                  isDate: false,
+                  isStatus: false,
+                  width: "50%",
+                  wrapped: true,
+                },
+                {
+                  dataField: "uploadDate",
+                  header: translate.t("search_findings.files_table.upload_date"),
+                  isDate: false,
+                  isStatus: false,
+                  width: "25%",
+                  wrapped: true,
+                },
+              ]}
+              id="tblFiles"
+              pageSize={15}
+              title={translate.t("search_findings.tab_resources.files_title")}
+            />
+          </Col>
+          <Col md={12}>
+            <br />
+            <Col mdOffset={5} md={2} sm={6}>
+              <Button
+                id="addFile"
+                block={true}
+                bsStyle="primary"
+                onClick={handleAddFileClick}
+              >
+                <Glyphicon glyph="plus"/>&nbsp;
+                {translate.t("search_findings.tab_resources.add_repository")}
+              </Button>
+            </Col>
+          </Col>
+          <Col md={12}>
+            <br />
+            <label style={{fontSize: "15px"}}>
+              <b>{translate.t("search_findings.tab_resources.total_files")}</b>
+              {props.files.length}
+            </label>
+          </Col>
+        </Row>
+        <AddFilesModal
+          isOpen={props.filesModal.open}
+          onClose={handleCloseFilesModalClick}
+          onSubmit={handleAddFile}
+          showUploadProgress={props.showUploadProgress}
+          uploadProgress={props.uploadProgress}
+        />
+        <FileOptionsModal
+          fileName={props.optionsModal.rowInfo.fileName}
+          isOpen={props.optionsModal.open}
+          onClose={handleCloseOptionsModalClick}
+          onSubmit={handleAddFile}
+          onDelete={handleDeleteFileClick}
+          onDownload={handleDownloadFileClick}
+        />
+      </React.Fragment>
+    );
+};
+
+const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
+  (props: IResourcesViewProps): JSX.Element => {
     const userEmail: string = (window as Window & { userEmail: string }).userEmail;
     const shouldDisplayTagsView: boolean =
       (_.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co"));
@@ -755,92 +840,8 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
     <div id="resources" className="tab-pane cont active">
       {renderRespositories(props)}
       {renderEnvironments(props)}
-      <hr/>
-        <Row>
-          <Col md={12} sm={12} xs={12}>
-            <Row>
-              <Col md={12} sm={12} xs={12}>
-                <Row>
-                  <Col md={12} sm={12}>
-                    <DataTable
-                      dataset={props.files}
-                      onClickRow={handleFileRowClick}
-                      enableRowSelection={false}
-                      exportCsv={false}
-                      search={true}
-                      headers={[
-                        {
-                          dataField: "fileName",
-                          header: translate.t("search_findings.files_table.file"),
-                          isDate: false,
-                          isStatus: false,
-                          width: "25%",
-                          wrapped: true,
-                        },
-                        {
-                          dataField: "description",
-                          header: translate.t("search_findings.files_table.description"),
-                          isDate: false,
-                          isStatus: false,
-                          width: "50%",
-                          wrapped: true,
-                        },
-                        {
-                          dataField: "uploadDate",
-                          header: translate.t("search_findings.files_table.upload_date"),
-                          isDate: false,
-                          isStatus: false,
-                          width: "25%",
-                          wrapped: true,
-                        },
-                      ]}
-                      id="tblFiles"
-                      pageSize={15}
-                      title={translate.t("search_findings.tab_resources.files_title")}
-                    />
-                  </Col>
-                  <Col md={12}>
-                    <br />
-                    <Col mdOffset={5} md={2} sm={6}>
-                      <Button
-                        id="addFile"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={handleAddFileClick}
-                      >
-                        <Glyphicon glyph="plus"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.add_repository")}
-                      </Button>
-                    </Col>
-                  </Col>
-                  <Col md={12}>
-                    <br />
-                    <label style={{fontSize: "15px"}}>
-                      <b>{translate.t("search_findings.tab_resources.total_files")}</b>
-                      {props.files.length}
-                    </label>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        {shouldDisplayTagsView ? renderTagsView(props) : undefined}
-      <AddFilesModal
-        isOpen={props.filesModal.open}
-        onClose={handleCloseFilesModalClick}
-        onSubmit={handleAddFile}
-        showUploadProgress={props.showUploadProgress}
-        uploadProgress={props.uploadProgress}
-      />
-      <FileOptionsModal
-        fileName={props.optionsModal.rowInfo.fileName}
-        isOpen={props.optionsModal.open}
-        onClose={handleCloseOptionsModalClick}
-        onSubmit={handleAddFile}
-        onDelete={handleDeleteFileClick}
-        onDownload={handleDownloadFileClick}
-      />
+      {renderFiles(props)}
+      {shouldDisplayTagsView ? renderTagsView(props) : undefined}
     </div>
   </React.StrictMode>
 ); };
