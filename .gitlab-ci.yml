@@ -324,6 +324,7 @@ build-mobile:
         $(date +%H | sed 's/^0//') * 60 +
         $(date +%M | sed 's/^0//')
       ))
+    - if [ ${#MINUTES} -lt 5 ]; then MINUTES=$(( $MINUTES * 10 )); fi;
     - FI_VERSION="$(date +%y.%m.)${MINUTES}"
     - FI_VERSION_CODE="$(date +%y%m)${MINUTES}"
     - sed -i 's/integrates_version/'"${FI_VERSION}"'/g' ./app.json
