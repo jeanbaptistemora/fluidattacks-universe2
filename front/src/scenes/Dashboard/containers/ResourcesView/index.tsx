@@ -25,11 +25,11 @@ import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/inde
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
-import { ADD_REPOS_MUTATION, ADD_TAGS_MUTATION, GET_REPOSITORIES, GET_TAGS, REMOVE_REPO_MUTATION,
-  REMOVE_TAG_MUTATION } from "./queries";
-import { IAddReposAttr, IAddTagsAttr, IProjectTagsAttr, IRemoveRepoAttr, IRemoveTagsAttr, IRepositoriesAttr,
-  IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
-  IResourcesViewStateProps } from "./types";
+import { ADD_ENVS_MUTATION, ADD_REPOS_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
+  GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_REPO_MUTATION, REMOVE_TAG_MUTATION } from "./queries";
+import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr, IRemoveEnvAttr, IRemoveRepoAttr,
+  IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
+  IResourcesViewProps, IResourcesViewStateProps } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
@@ -50,44 +50,6 @@ const getSelectedRow: ((tableId: string) => HTMLTableRowElement | undefined) =
       _.isEmpty(selectedQry) ? undefined : selectedQry[0].closest("tr");
 
     return selectedRow === undefined || selectedRow === null ? undefined : selectedRow;
-  };
-
-const handleRemoveEnv: ((props: IResourcesViewProps) => void) = (props: IResourcesViewProps): void => {
-  const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblEnvironments");
-  if (selectedRow === undefined) {
-    msgError(translate.t("search_findings.tab_resources.no_selection"));
-  } else {
-    mixpanel.track(
-      "RemoveProjectEnv",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
-    const env: string | null = selectedRow.children[1].textContent;
-    props.onRemoveEnv(String(env));
-  }
-};
-
-const handleSaveEnvs: ((resources: IResourcesViewProps["environments"], props: IResourcesViewProps) => void) =
-  (resources: IResourcesViewProps["environments"], props: IResourcesViewProps): void => {
-    let containsRepeated: boolean;
-    containsRepeated = resources.filter(
-      (newItem: IResourcesViewProps["environments"][0]) => _.findIndex(
-        props.environments,
-        (currentItem: IResourcesViewProps["environments"][0]) =>
-          currentItem.urlEnv === newItem.urlEnv,
-      ) > -1).length > 0;
-    if (containsRepeated) {
-      msgError(translate.t("search_findings.tab_resources.repeated_item"));
-    } else {
-      mixpanel.track(
-        "AddProjectEnv",
-        {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
-        });
-      props.onSaveEnvs(resources);
-    }
   };
 
 const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesViewProps) => void) =
@@ -148,6 +110,19 @@ const containsRepeatedRepos: ((currRepo: IRepositoriesAttr[], repos: IRepositori
         repos,
         (currentItem: IRepositoriesAttr[][0]) =>
           currentItem.urlRepo === newItem.urlRepo && currentItem.branch === newItem.branch,
+      ) > -1).length > 0;
+
+    return containsRepeated;
+  };
+
+const containsRepeatedEnvs: ((currEnv: IEnvironmentsAttr[], environments: IEnvironmentsAttr[]) => boolean) =
+  (currEnv: IEnvironmentsAttr[], environments: IEnvironmentsAttr[]): boolean => {
+    let containsRepeated: boolean;
+    containsRepeated = currEnv.filter(
+      (newItem: IEnvironmentsAttr[][0]) => _.findIndex(
+        environments,
+        (currentItem: IEnvironmentsAttr[][0]) =>
+          currentItem.urlEnv === newItem.urlEnv,
       ) > -1).length > 0;
 
     return containsRepeated;
@@ -481,18 +456,12 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                               const protocol: string | null = selectedRow.children[1].textContent;
                               const repository: string | null = selectedRow.children[2].textContent;
                               const branch: string | null = selectedRow.children[3].textContent;
-                              mixpanel.track(
-                                "RemoveProjectRepo",
-                                {
-                                  Organization: (window as Window & { userOrganization: string }).userOrganization,
-                                  User: (window as Window & { userName: string }).userName,
-                                });
-                              const repoData: {[value: string]: string | null} = {
+                              const repoRemoved: {[value: string]: string | null} = {
                                 branch,
                                 protocol,
                                 urlRepo: repository,
                               };
-                              removeRepositories({ variables: { projectName, repoData: JSON.stringify(repoData)} })
+                              removeRepositories({ variables: { projectName, repoData: JSON.stringify(repoRemoved)} })
                                 .catch();
                             }
                           };
@@ -566,24 +535,69 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
 
 const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
-    const handleRemoveEnvClick: (() => void) = (): void => { handleRemoveEnv(props); };
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
     const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
-    const handleAddEnv: ((values: { resources: IResourcesViewProps["environments"] }) => void) =
-      (values: { resources: IResourcesViewProps["environments"] }): void => {
-        handleSaveEnvs(values.resources, props);
-      };
+    const projectName: string = props.match.params.projectName;
 
     return (
-      <React.Fragment>
-        <Row>
-          <Col md={12} sm={12} xs={12}>
-            <Row>
-              <Col md={12} sm={12} xs={12}>
+      <Query query={GET_ENVIRONMENTS} variables={{ projectName }}>
+      {
+        ({loading, error, data, refetch, networkStatus}: QueryResult<IResourcesAttr>): React.ReactNode => {
+          if (loading || networkStatus === 4) {
+            showPreloader();
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            handleGraphQLErrors("An error occurred getting environments", error);
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data)) {
+            hidePreloader();
+            const envDataset: IEnvironmentsAttr[] = JSON.parse(data.resources.environments);
+
+            const handleMtRemoveEnvRes: ((mtResult: IRemoveEnvAttr) => void) = (mtResult: IRemoveEnvAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.removeEnvironments.success) {
+                  hidePreloader();
+                  refetch()
+                      .catch();
+                  mixpanel.track(
+                    "RemoveProjectEnv",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                }
+              }
+            };
+
+            const handleMtAddEnvsRes: ((mtResult: IAddEnvAttr) => void) = (mtResult: IAddEnvAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.addEnvironments.success) {
+                  refetch()
+                    .catch();
+                  handleCloseEnvModalClick();
+                  hidePreloader();
+                  mixpanel.track(
+                    "AddProjectEnv",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                }
+              }
+            };
+
+            return (
+              <React.Fragment>
+                <hr/>
                 <Row>
                   <Col md={12} sm={12}>
                     <DataTable
-                      dataset={props.environments}
+                      dataset={envDataset}
                       enableRowSelection={true}
                       exportCsv={true}
                       search={true}
@@ -614,36 +628,97 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                         {translate.t("search_findings.tab_resources.add_repository")}
                       </Button>
                     </Col>
-                    <Col md={2} sm={6}>
-                      <Button
-                        id="removeEnvironment"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={handleRemoveEnvClick}
-                      >
-                        <Glyphicon glyph="minus"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.remove_repository")}
-                      </Button>
-                    </Col>
+                    <Mutation mutation={REMOVE_ENV_MUTATION} onCompleted={handleMtRemoveEnvRes}>
+                      { (removeEnvironments: MutationFn<IRemoveEnvAttr, {envData: string; projectName: string}>,
+                         mutationRes: MutationResult): React.ReactNode => {
+                          if (mutationRes.loading) {
+                            showPreloader();
+                          }
+                          if (!_.isUndefined(mutationRes.error)) {
+                            hidePreloader();
+                            handleGraphQLErrors("An error occurred removing environments", mutationRes.error);
+
+                            return <React.Fragment/>;
+                          }
+
+                          const handleRemoveEnv: (() => void) = (): void => {
+                            const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblEnvironments");
+                            if (selectedRow === undefined) {
+                              msgError(translate.t("search_findings.tab_resources.no_selection"));
+                            } else {
+                              const env: string | null = selectedRow.children[1].textContent;
+                              const envRemoved: {[value: string]: string | null} = {
+                                urlEnv: env,
+                              };
+                              removeEnvironments({ variables: { projectName, envData: JSON.stringify(envRemoved)} })
+                                .catch();
+                            }
+                          };
+
+                          return (
+                            <Col md={2} sm={6}>
+                              <Button
+                                id="removeEnvironment"
+                                block={true}
+                                bsStyle="primary"
+                                onClick={handleRemoveEnv}
+                              >
+                                <Glyphicon glyph="minus"/>&nbsp;
+                                {translate.t("search_findings.tab_resources.remove_repository")}
+                              </Button>
+                            </Col>
+                          );
+                        }}
+                    </Mutation>
                   </Col>
                   <Col md={12}>
                     <br />
                     <label style={{fontSize: "15px"}}>
                       <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
-                      {props.environments.length}
+                      {envDataset.length}
                     </label>
                   </Col>
                 </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <AddEnvironmentsModal
-          isOpen={props.envModal.open}
-          onClose={handleCloseEnvModalClick}
-          onSubmit={handleAddEnv}
-        />
-      </React.Fragment>
+                <Mutation mutation={ADD_ENVS_MUTATION} onCompleted={handleMtAddEnvsRes}>
+                  { (addEnvironments: MutationFn<IAddEnvAttr, {envData: string; projectName: string}>,
+                     mutationRes: MutationResult): React.ReactNode => {
+                      if (mutationRes.loading) {
+                        showPreloader();
+                      }
+                      if (!_.isUndefined(mutationRes.error)) {
+                        hidePreloader();
+                        handleGraphQLErrors("An error occurred adding environments", mutationRes.error);
+
+                        return <React.Fragment/>;
+                      }
+
+                      const handleAddEnv: ((values: { resources: IEnvironmentsAttr[] }) => void) =
+                        (values: { resources: IEnvironmentsAttr[] }): void => {
+                          if (containsRepeatedEnvs(values.resources, envDataset)) {
+                            msgError(translate.t("search_findings.tab_resources.repeated_item"));
+                          } else {
+                            addEnvironments({
+                              variables: { projectName, envData: JSON.stringify(values.resources)},
+                              },
+                            )
+                              .catch();
+                          }
+                        };
+
+                      return (
+                        <AddEnvironmentsModal
+                          isOpen={props.envModal.open}
+                          onClose={handleCloseEnvModalClick}
+                          onSubmit={handleAddEnv}
+                        />
+                      );
+                    }}
+                </Mutation>
+              </React.Fragment>
+            );
+          }
+        }}
+      </Query>
     );
   };
 
@@ -679,7 +754,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
       {renderRespositories(props)}
-      <hr/>
       {renderEnvironments(props)}
       <hr/>
         <Row>

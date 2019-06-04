@@ -42,6 +42,7 @@ export interface IRepositoriesAttr {
 
 export interface IResourcesAttr {
   resources: {
+    environments: string;
     repositories: string;
   };
 }
@@ -59,6 +60,28 @@ export interface IAddReposAttr {
   addRepositories: {
     resources: {
       repositories: string;
+    };
+    success: boolean;
+  };
+}
+
+export interface IEnvironmentsAttr {
+  urlEnv: string;
+}
+
+export interface IRemoveEnvAttr {
+  removeEnvironments: {
+    resources: {
+      environments: string;
+    };
+    success: boolean;
+  };
+}
+
+export interface IAddEnvAttr {
+  addEnvironments: {
+    resources: {
+      environments: string;
     };
     success: boolean;
   };
