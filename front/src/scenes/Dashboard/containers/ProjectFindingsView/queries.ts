@@ -16,6 +16,7 @@ export const GET_FINDINGS: DocumentNode = gql`
         state
         treatment
         isExploitable
+        remediated
       }
     }
   }

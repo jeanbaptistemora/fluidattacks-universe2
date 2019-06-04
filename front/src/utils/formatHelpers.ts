@@ -498,9 +498,11 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
     const treatment: string = translate.t(treatmentParameters[finding.treatment]);
     const type: string = translate.t(typeParameters[finding.type]);
     const isExploitable: string = translate.t(Boolean(finding.isExploitable)
-      ? "project.findings.exploitable.yes" : "project.findings.exploitable.no");
+      ? "project.findings.boolean.True" : "project.findings.boolean.False");
+    const remediated: string = translate.t(Boolean(finding.remediated)
+    ? "project.findings.boolean.True" : "project.findings.boolean.False");
 
-    return { ...finding, state, treatment, type, isExploitable };
+    return { ...finding, state, treatment, type, isExploitable, remediated };
   });
 
 type IDraftsDataset = IProjectDraftsAttr["project"]["drafts"];
@@ -512,10 +514,10 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
     };
     const reportDate: string = draft.reportDate.split(" ")[0];
     const isReleased: string = translate.t(_.isEmpty(draft.releaseDate)
-      ? "project.findings.exploitable.no" : "project.findings.exploitable.yes");
+      ? "project.findings.boolean.False" : "project.findings.boolean.True");
     const type: string = translate.t(typeParameters[draft.type]);
     const isExploitable: string = translate.t(Boolean(draft.isExploitable)
-      ? "project.findings.exploitable.yes" : "project.findings.exploitable.no");
+      ? "project.findings.boolean.True" : "project.findings.boolean.False");
 
     return { ...draft, reportDate, type, isExploitable, isReleased };
   });

@@ -19,6 +19,7 @@ export interface IProjectFindingsAttr {
       isExploitable: string;
       lastVulnerability: number;
       openVulnerabilities: number;
+      remediated: string;
       severityScore: number;
       state: string;
       title: string;

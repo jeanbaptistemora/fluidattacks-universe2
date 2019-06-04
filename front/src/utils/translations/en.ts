@@ -69,9 +69,9 @@ const enTranslations: dict = {
   },
   project: {
     findings: {
-      exploitable: {
-        no: "No",
-        yes: "Yes",
+      boolean: {
+        False: "No",
+        True: "Yes",
       },
       exportCsv: "Export to CSV",
       help_label: "Click on a finding to see more details",

@@ -99,4 +99,5 @@ class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attribut
         self.last_vulnerability = 0
         self.severity_score = 0.0
         self.is_exploitable = False
+        self.remediated = ''
         self.report_date = ''

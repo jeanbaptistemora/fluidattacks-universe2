@@ -24,25 +24,19 @@ import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispat
   IProjectFindingsStateProps } from "./types";
 
 const tableHeaders: IHeader[] = [
-  { align: "center", dataField: "age", header: "Age (days)", isDate: false, isStatus: false, width: "6%" },
-  {
-    align: "center", dataField: "lastVulnerability", header: "Last report (days)", isDate: false, isStatus: false,
-    width: "6%",
-  },
-  { align: "center", dataField: "type", header: "Type", isDate: false, isStatus: false, width: "10%" },
-  { align: "center", dataField: "title", header: "Title", isDate: false, isStatus: false, wrapped: true, width: "15%" },
-  {
-    align: "center", dataField: "description", header: "Description", isDate: false, isStatus: false, width: "20%",
-    wrapped: true,
-  },
-  { align: "center", dataField: "severityScore", header: "Severity", isDate: false, isStatus: false, width: "7%" },
-  {
-    align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", isDate: false, isStatus: false,
-    width: "6%",
-  },
-  { align: "center", dataField: "state", header: "Status", isDate: false, isStatus: true, width: "9%" },
-  { align: "center", dataField: "treatment", header: "Treatment", isDate: false, isStatus: false, width: "11%" },
-  { align: "center", dataField: "isExploitable", header: "Exploitable", isDate: false, isStatus: false, width: "10%" },
+  { align: "center", dataField: "age", header: "Age (days)", isDate: false, isStatus: false, width: "5%" },
+  { align: "center", dataField: "lastVulnerability", header: "Last report (days)", isDate: false, isStatus: false,
+    width: "5%"},
+  { align: "center", dataField: "title", header: "Title", isDate: false, isStatus: false, wrapped: true, width: "11%" },
+  { align: "center", dataField: "description", header: "Description", isDate: false, isStatus: false, width: "16%",
+    wrapped: true},
+  { align: "center", dataField: "severityScore", header: "Severity", isDate: false, isStatus: false, width: "6%" },
+  { align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", isDate: false, isStatus: false,
+    width: "6%"},
+  { align: "center", dataField: "state", header: "Status", isDate: false, isStatus: true, width: "7%" },
+  { align: "center", dataField: "treatment", header: "Treatment", isDate: false, isStatus: false, width: "8%" },
+  { align: "center", dataField: "remediated", header: "Remediated", isDate: false, isStatus: false, width: "8%" },
+  {align: "center", dataField: "isExploitable", header: "Exploitable", isDate: false, isStatus: false, width: "8%"},
 ];
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
