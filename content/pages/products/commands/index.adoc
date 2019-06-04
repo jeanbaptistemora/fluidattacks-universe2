@@ -96,3 +96,7 @@ by masking all requests and commands
 under a familiar and trusted protocol.
 
 |====
+
+Want to know more about our products?
+Do not hesitate to
+[button]#link:../../contact-us/[contact us]#.

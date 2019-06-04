@@ -320,3 +320,7 @@ pre-commit run --all-files
 ----
 
 somewhere in your +CI+ script.
+
+Want to know more about our products?
+Do not hesitate to
+[button]#link:../../contact-us/[contact us]#.

@@ -64,3 +64,7 @@ Scroll through the Frequently Asked Questions section
 to find the answers to the most common questions we get about our services.
 
 |====
+
+Want further information about our services?
+Do not hesitate to
+[button]#link:../contact-us/[contact us]#.

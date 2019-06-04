@@ -245,3 +245,7 @@ Some of them are:
 a|image::mail.png[Mail]
 
 |====
+
+Want to know more about our products?
+Do not hesitate to
+[button]#link:../../contact-us/[contact us]#.

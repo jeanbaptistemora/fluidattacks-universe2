@@ -338,3 +338,7 @@ a|==== Pricing
 | {no} Variable, depending on time and materials.
 
 |====
+
+Want further information about our services?
+Do not hesitate to
+[button]#link:../../contact-us/[contact us]#.

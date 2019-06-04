@@ -114,3 +114,7 @@ a|==== Payment
 | +1+ or +2+ payments.
 
 |====
+
+Want further information about our services?
+Do not hesitate to
+[button]#link:../../contact-us/[contact us]#.
