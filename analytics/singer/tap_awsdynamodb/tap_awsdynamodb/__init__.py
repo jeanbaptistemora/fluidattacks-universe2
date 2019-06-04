@@ -454,7 +454,7 @@ def denest__list_schema(
             elem_type: str = type_as_string(elem)
             field_name: str = f"{table_name}__{elem_type}"
             properties.add((field_name, elem_type))
-    return {f: map_ptype(t) for f, t in properties}
+    return {f: map_ptype(t) for f, t in properties if not t == 'NoneType'}
 
 
 def denest__list_record(table_name: str, source_id: str, elem: JSON) -> JSON:
@@ -477,7 +477,7 @@ def denest__list_dict_schema(records: List[Tuple[str, JSON]]) -> JSON:
             for field, value in elem.items():
                 value_type = type_as_string(value)
                 properties.add((f"{field}__{value_type}", value_type))
-    return {f: map_ptype(t) for f, t in properties}
+    return {f: map_ptype(t) for f, t in properties if not t == 'NoneType'}
 
 
 def denest__list_dict_record(
