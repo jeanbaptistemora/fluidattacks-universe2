@@ -105,8 +105,6 @@ export interface IResourcesViewDispatchProps {
   onOpenOptionsModal(row: string): void;
   onOpenReposModal(): void;
   onOpenTagsModal(): void;
-  onRemoveEnv(environment: string): void;
-  onSaveEnvs(environments: IResourcesViewStateProps["environments"]): void;
   onSaveFiles(files: IResourcesViewStateProps["files"]): void;
 }
 

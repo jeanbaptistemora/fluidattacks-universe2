@@ -849,7 +849,6 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
     envModal: state.dashboard.resources.envModal,
-    environments: state.dashboard.resources.environments,
     files: state.dashboard.resources.files,
     filesModal: state.dashboard.resources.filesModal,
     optionsModal: state.dashboard.resources.optionsModal,
@@ -879,10 +878,6 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
       onOpenReposModal: (): void => { dispatch(actions.openAddRepoModal()); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
-      onRemoveEnv: (environment: string): void => { dispatch(actions.removeEnv(projectName, environment)); },
-      onSaveEnvs: (environments: IResourcesViewProps["environments"]): void => {
-        dispatch(actions.saveEnvs(projectName, environments));
-      },
       onSaveFiles: (files: IResourcesViewProps["files"]): void => { dispatch(actions.saveFiles(projectName, files)); },
     });
   };

@@ -24,7 +24,6 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
       let gQry: string;
       gQry = `{
         resources (projectName: "${projectName}") {
-          environments
           files
         }
     }`;
@@ -33,7 +32,6 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
           const { data } = response.data;
           dispatch({
             payload: {
-              environments: JSON.parse(data.resources.environments),
               files: JSON.parse(data.resources.files),
             },
             type: actionTypes.LOAD_RESOURCES,
@@ -97,101 +95,6 @@ export const closeOptionsModal: (() => IActionStructure) =
     type: actionTypes.CLOSE_OPTIONS_MODAL,
   });
 
-export const saveEnvs: ((projectName: string, envsData: IResources["environments"]) => ThunkResult<void>) =
-  (projectName: string, envsData: IResources["environments"]): ThunkResult<void> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string;
-      gQry = `mutation {
-          addEnvironments (
-            resourcesData: ${JSON.stringify(JSON.stringify(envsData))},
-            projectName: "${projectName}") {
-            success
-            resources {
-              environments
-              files
-              repositories
-            }
-          }
-        }`;
-      new Xhr().request(gQry, "An error occurred adding environments")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-          if (data.addEnvironments.success) {
-            dispatch(closeAddEnvModal());
-            dispatch({
-              payload: {
-                environments: JSON.parse(data.addEnvironments.resources.environments),
-                files: JSON.parse(data.addEnvironments.resources.files),
-                repositories: JSON.parse(data.addEnvironments.resources.repositories),
-              },
-              type: actionTypes.LOAD_RESOURCES,
-            });
-            msgSuccess(
-              translate.t("search_findings.tab_resources.success"),
-              translate.t("search_findings.tab_users.title_success"),
-            );
-          } else {
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error("An error occurred adding repositories");
-          }
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };
-
-export const removeEnv: ((projectName: string, envToRemove: string) => ThunkResult<void>) =
-  (projectName: string, envToRemove: string): ThunkResult<void> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string;
-      gQry = `mutation {
-      removeEnvironments (
-        repositoryData: ${JSON.stringify(JSON.stringify({ urlEnv: envToRemove }))},
-        projectName: "${projectName}"
-      ) {
-        success
-        resources {
-          environments
-          files
-          repositories
-        }
-      }
-    }`;
-      new Xhr().request(gQry, "An error occurred removing environments")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-          if (data.removeEnvironments.success) {
-            dispatch({
-              payload: {
-                environments: JSON.parse(data.removeEnvironments.resources.environments),
-                files: JSON.parse(data.removeEnvironments.resources.files),
-                repositories: JSON.parse(data.removeEnvironments.resources.repositories),
-              },
-              type: actionTypes.LOAD_RESOURCES,
-            });
-            msgSuccess(
-              translate.t("search_findings.tab_resources.success_remove"),
-              translate.t("search_findings.tab_users.title_success"),
-            );
-          } else {
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error("An error occurred removing environments");
-          }
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };
 export const uploadProgress: ((percentCompleted: number | undefined) => IActionStructure) =
   (percentCompleted: number | undefined): IActionStructure =>
   ({

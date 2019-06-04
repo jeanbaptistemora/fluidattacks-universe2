@@ -46,7 +46,6 @@ export interface IDashboardState {
   };
   records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
   resources: {
-    environments: Array<{ urlEnv: string }>;
     envModal: {
       open: boolean;
     };
@@ -185,7 +184,6 @@ const initialState: IDashboardState = {
     envModal: {
       open: false,
     },
-    environments: [],
     files: [],
     filesModal: {
       open: false,
@@ -301,7 +299,6 @@ actionMap[resourcesActions.LOAD_RESOURCES] =
     ...state,
     resources: {
       ...state.resources,
-      environments: action.payload.environments,
       files: action.payload.files,
     },
   });
