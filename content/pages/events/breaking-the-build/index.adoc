@@ -220,3 +220,4 @@ besides +4+ additional assistants on +Fluid Attacks+ side.
 * [button]#link:../../people/jrestrepo/[Juan Restrepo]#
 * [button]#link:../../people/ralvarez/[Rafael Álvarez]#
 * [button]#link:../../people/acuberos/[Andrés Cuberos]#
+* [button]#link:../../people/dsalazar/[Daniel Salazar]#
