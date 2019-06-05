@@ -3,7 +3,7 @@
 :keywords: Fluid Attacks, Products, Rules, Criteria, Security, Applications.
 :rulesindex: yes
 
-= Rules
+= Security Rules
 
 == Information Assets
 
