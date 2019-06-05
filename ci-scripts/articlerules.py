@@ -4,9 +4,9 @@
 Script that checks structure and rules in blog entries
 Replaces check-articles.sh
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.1
-Patch notes 1.1:
-- Using Python3
+Version 1.2
+Patch notes 1.2:
+- Removed spanish related linters
 """
 
 import os
@@ -17,12 +17,8 @@ def artchecker(PATH, EXIT_CODE):
   #check that every article has valid category
   ARTCAT = os.popen("pcregrep -o '(?<=^:category:\s).*$' "+PATH).read()
   ARTCAT = ARTCAT.replace('\n', '')
-  #english
-  if "blog-en/" in PATH:
+  if "blog" in PATH:
     OUT = os.popen("pcregrep  '"+ARTCAT+"' categories.lst ").read()
-  #spanish
-  elif "blog-es/" in PATH:
-    OUT = os.popen("pcregrep  '"+ARTCAT+"' categorias.lst ").read()
   if not len(OUT):
     print_helper.print_failure("Issue found in "+PATH+" \n")
     print_helper.print_warning(ARTCAT+" does not match any valid category " \
@@ -34,12 +30,8 @@ def artchecker(PATH, EXIT_CODE):
   ARTTAGS = ARTTAGS.replace('\n', '')
   ARTTAGS = ARTTAGS.split(", ")
   for TAG in ARTTAGS:
-     #english
-    if "blog-en/" in PATH:
+    if "blog/" in PATH:
       OUT = os.popen("pcregrep  '"+TAG+"' tags.lst ").read()
-    #spanish
-    elif "blog-es/" in PATH:
-      OUT = os.popen("pcregrep  '"+TAG+"' etiquetas.lst ").read()
     if not len(OUT):
       print_helper.print_failure("Issue found in "+PATH+" \n")
       print_helper.print_warning(TAG+" does not match any valid tag " \
