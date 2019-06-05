@@ -2,38 +2,55 @@
 :description: This page aims to inform the customer about the different talks offered by Fluid Attacks. These talks are all related to the field of Information Security and are prepared by experienced professionals. Learn how to book one of our speakers to give a talk in your own facilities.
 :keywords: Fluid Attacks, Talk, Security, Experience, Information, Service
 
-= Events
+= Conference Event Topics Available from Fluid Attacks
+
++Fluid Attacks+ can help you with your next conference.
+We are happy to provide professional conference presentations
+on a variety of topics.
+Pick a topic below and contact us.
+Let's explore what we can do together.
 
 . link:burn-the-datacenter/[Burn the Datacenter: from Pets to Cattle.]
 
 . link:breaking-the-build/[Breaking the Build: Our +SecDevOps+ Habits.]
 
-. link:securing-device/[Securing your Mobile Device.]
+. link:securing-device/[Securing Your Mobile Device.]
 
 . link:live-hacking/[Live Hacking.]
 
 == When?
 
-We will arrange the event date.
-You must provide us +3+ possible schedules for the event,
-and we will select +1+.
+You choose +3+ possible dates
+for your event that will work the best for you.
+We will then select +1+ of those dates
+and confirm that date with you.
 
 == Details
 
-. *Investment:* 0 $USD, +Fluid Attacks+ will cover
-all the related costs, except for the place and time of the assistants.
-If the minimum number of assistants is not fulfilled,
-the event will have a cost, that must be covered by the company,
-and communicated to +Fluid Attacks+.
+. *Cost:* You are responsible for the conference venue cost
+and the registration fees for conference attendees.
++Fluid Attacks+ will cover all other conference-related expenses.
+However, we do require approximately +20+ registered attendees
+for a conference to proceed.
+If you are unable to provide at least +20+ attendees,
+then call us immediately.
+We can obtain up to 4 additional conference attendees for you,
+but you will be billed to cover their registration fees.
 
-. *Material:* All event material will be sent only to the assistants
-who complete the satisfaction survey
-+1+ day after the conference.
+. *Event Materials:* Conference attendees
+who complete the customer satisfaction survey
+within +1+ day after the conference ends
+will be sent all conference materials.
 
 == Requirements
 
-Below we list the minimum requirements
-to carry out the conference without any setbacks:
+Listed below are the minimum requirements
+necessary for us to provide you with a setback-free conference event.
+
+*Note:* You are responsible for making sure all items
+are in place and ready before we arrive at the conference venue.
+If you have any questions about or problems with,
+any of these items do not hesitate to contact us immediately.
 
 . All the assistants MUST complete an online satisfaction survey (+2+ minutes)
 before leaving the auditorium.
