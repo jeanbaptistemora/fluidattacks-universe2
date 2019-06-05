@@ -19,6 +19,7 @@ import pytz
 from backports import csv
 from botocore.exceptions import ClientError
 from graphql import GraphQLError
+from django.conf import settings
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
@@ -862,7 +863,7 @@ def approve_draft(draft_id, project_name):
 
     if is_draft:
         finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
-        local_timezone = pytz.timezone('America/Bogota')
+        local_timezone = pytz.timezone(settings.TIME_ZONE)
         release_date = datetime.now(tz=local_timezone).date()
 
         if ('subscription' in finding_data and

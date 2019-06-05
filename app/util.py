@@ -169,7 +169,7 @@ def has_release(finding):
 
 def get_last_vuln(finding):
     """Gets last release of a finding"""
-    tzn = pytz.timezone('America/Bogota')
+    tzn = pytz.timezone(settings.TIME_ZONE)
     finding_last_vuln = datetime.datetime.strptime(
         finding["releaseDate"].split(" ")[0],
         '%Y-%m-%d'
@@ -182,7 +182,7 @@ def validate_release_date(finding):
     """Validate if a finding has a valid relese date."""
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
-        tzn = pytz.timezone('America/Bogota')
+        tzn = pytz.timezone(settings.TIME_ZONE)
         today_day = datetime.datetime.now(tz=tzn).date()
         result = last_vuln <= today_day
     else:
@@ -194,7 +194,7 @@ def validate_future_releases(finding):
     """Validate if a finding has a future release."""
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
-        tzn = pytz.timezone('America/Bogota')
+        tzn = pytz.timezone(settings.TIME_ZONE)
         today_day = datetime.datetime.now(tz=tzn).date()
         result = last_vuln > today_day
     else:

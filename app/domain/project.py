@@ -7,6 +7,8 @@ from datetime import datetime
 from decimal import Decimal
 import pytz
 
+from django.conf import settings
+
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.mailer import send_mail_comment
@@ -118,7 +120,7 @@ def get_last_closing_vuln(findings):
             pass
     if closing_dates:
         current_date = max(closing_dates)
-        tzn = pytz.timezone('America/Bogota')
+        tzn = pytz.timezone(settings.TIME_ZONE)
         last_closing = \
             Decimal((datetime.now(tz=tzn).date() -
                      current_date).days).quantize(Decimal('0.1'))
@@ -137,7 +139,7 @@ def get_last_closing_date(vulnerability):
             current_state.get('date').split(' ')[0],
             '%Y-%m-%d'
         )
-        tzn = pytz.timezone('America/Bogota')
+        tzn = pytz.timezone(settings.TIME_ZONE)
         last_closing_date = last_closing_date.replace(tzinfo=tzn).date()
     else:
         # Vulnerability does not have closing date

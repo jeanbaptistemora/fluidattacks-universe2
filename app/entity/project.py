@@ -9,6 +9,7 @@ import rollbar
 import simplejson as json
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
+from django.conf import settings
 
 from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
@@ -266,7 +267,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 def validate_release_date(release_date=''):
     """Validate if a finding has a valid relese date."""
     if release_date:
-        tzn = pytz.timezone('America/Bogota')
+        tzn = pytz.timezone(settings.TIME_ZONE)
         finding_last_vuln = datetime.strptime(
             release_date.split(' ')[0],
             '%Y-%m-%d'

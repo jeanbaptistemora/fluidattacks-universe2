@@ -645,7 +645,7 @@ def mask_evidence_dynamo(finding_id):
 
 
 def format_finding_date(format_attr):
-    tzn = pytz.timezone('America/Bogota')
+    tzn = pytz.timezone(settings.TIME_ZONE)
     finding_date = datetime.strptime(
         format_attr.split(' ')[0],
         '%Y-%m-%d'
@@ -709,7 +709,7 @@ def format_release(finding):
         if finding_data.get('lastVulnerability'):
             finding['lastVulnerability'] = finding_data.get('lastVulnerability')
     if finding.get('releaseDate'):
-        tzn = pytz.timezone('America/Bogota')
+        tzn = pytz.timezone(settings.TIME_ZONE)
         today_day = datetime.now(tz=tzn).date()
         finding_last_vuln = datetime.strptime(
             finding['releaseDate'].split(' ')[0],
