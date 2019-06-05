@@ -31,7 +31,7 @@
   },
   "homepage": "https://fluidattacks.com/integrates",
   "dependencies": {
-    "apollo-boost": "0.3.1",
+    "apollo-boost": "0.4.1",
     "expo": "32.0.6",
     "i18next": "15.1.3",
     "lodash": "4.17.11",
