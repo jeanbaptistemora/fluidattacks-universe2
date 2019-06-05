@@ -1607,7 +1607,7 @@ def get_table_attributes_dynamo(table_name, primary_key, data_attributes):
     except ClientError:
         rollbar.report_exc_info()
         items = {}
-    return items
+    return items if items else {}
 
 
 def get_finding_attributes_dynamo(finding_id, data_attributes):
