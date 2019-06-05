@@ -985,7 +985,7 @@ def add_project_dynamo(project, description, companies, project_type, status):
         return False
 
 
-def add_release_toproject_dynamo(project_name, release_val, last_release):
+def add_release_to_project_dynamo(project_name, last_release):
     """Add or Update release status in a project."""
     table = DYNAMODB_RESOURCE.Table('FI_projects')
     item = get_project_dynamo(project_name)
@@ -994,7 +994,6 @@ def add_release_toproject_dynamo(project_name, release_val, last_release):
             response = table.put_item(
                 Item={
                     'project_name': project_name.lower(),
-                    'hasRelease': release_val,
                     'lastRelease': last_release
                 }
             )
@@ -1009,10 +1008,9 @@ def add_release_toproject_dynamo(project_name, release_val, last_release):
                 Key={
                     'project_name': project_name.lower(),
                 },
-                UpdateExpression='SET hasRelease = :val1, lastRelease = :val2',
+                UpdateExpression='SET lastRelease = :val1',
                 ExpressionAttributeValues={
-                    ':val1': release_val,
-                    ':val2': last_release
+                    ':val1': last_release
                 }
             )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

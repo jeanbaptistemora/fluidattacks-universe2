@@ -907,7 +907,7 @@ def approve_draft(draft_id, project_name):
                 .format(project=project_name, findingid=draft_id)
 
             migrate_all_files({'finding_id': draft_id, 'project': project_name}, file_url, {})
-            integrates_dao.add_release_toproject_dynamo(project_name, True, release_date)
+            integrates_dao.add_release_to_project_dynamo(project_name, release_date)
             save_severity(finding_data)
             migrate_description(finding_data)
             migrate_treatment(finding_data)
