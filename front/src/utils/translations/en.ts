@@ -574,7 +574,7 @@ const enTranslations: dict = {
     },
   },
   sidebar: {
-    forms: "Formstack",
+    forms: "Forms",
   },
   validations: {
     between: "This value must be between {{min}} and {{max}}",
