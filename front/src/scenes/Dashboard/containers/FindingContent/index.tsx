@@ -36,6 +36,7 @@ type IFindingContentBaseProps = Pick<RouteComponentProps<{ findingId: string; pr
 interface IFindingContentStateProps {
   alert?: string;
   header: {
+    closedVulns: number;
     openVulns: number;
     reportDate: string;
     severity: number;
@@ -66,6 +67,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const { findingId, projectName } = props.match.params;
   const userRole: string = (window as Window & { userRole: string }).userRole;
   const isDraft: boolean = _.isEmpty(props.header.reportDate);
+  const hasVulns: number = props.header.openVulns + props.header.closedVulns;
 
   const renderDescription: (() => JSX.Element) = (): JSX.Element => (
     <DescriptionView findingId={findingId} projectName={projectName} userRole={userRole} {...reduxProps} />
@@ -112,7 +114,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     _.includes(["admin"], userRole) && isDraft ? (
       <React.Fragment>
         <Col md={2}>
-          <Button block={true} bsStyle="success" onClick={handleApprove}>
+          <Button block={true} bsStyle="success" onClick={handleApprove} disabled={hasVulns === 0}>
             <FluidIcon icon="verified" />&nbsp;Approve
           </Button>
         </Col>
@@ -252,6 +254,7 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
   (state: IState): IFindingContentStateProps => ({
     alert: state.dashboard.finding.alert,
     header: {
+      closedVulns: state.dashboard.finding.closedVulns,
       openVulns: state.dashboard.finding.openVulns,
       reportDate: state.dashboard.finding.reportDate,
       severity: state.dashboard.severity.severity,

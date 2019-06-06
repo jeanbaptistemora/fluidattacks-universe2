@@ -34,6 +34,7 @@ export interface IDashboardState {
   };
   finding: {
     alert?: string;
+    closedVulns: number;
     openVulns: number;
     reportDate: string;
     status: "Abierto" | "Cerrado" | "Default";
@@ -166,6 +167,7 @@ const initialState: IDashboardState = {
   },
   finding: {
     alert: undefined,
+    closedVulns: 0,
     openVulns: 0,
     reportDate: "-",
     status: "Default",

@@ -44,6 +44,8 @@ const enTranslations: dict = {
   },
   proj_alerts: {
     access_denied: "Access denied or project not found",
+    draft_already_approved: "This finding was already approved",
+    draft_without_vulns: "This finding can not been approved without vulnerabilities",
     error_textsad: "There is an error :(",
     file_size: "The file size must be less than 10MB",
     file_size_png: "The image size must be less than 2MB",

@@ -32,6 +32,7 @@ export const loadFindingData: ((findingId: string, projectName: string, organiza
           openVulnerabilities
           releaseDate
           cvssVersion
+          closedVulnerabilities
         }
       }`;
 
@@ -42,6 +43,7 @@ export const loadFindingData: ((findingId: string, projectName: string, organiza
           dispatch({
             payload: {
               alert: data.alert.status === 1 ? data.alert.message : undefined,
+              closedVulns: data.finding.closedVulnerabilities,
               openVulns: data.finding.openVulnerabilities,
               reportDate: data.finding.releaseDate.split(" ")[0],
               status: data.finding.state,
@@ -147,9 +149,17 @@ export const approveDraft: ((draftId: string) => ThunkResult<void>) =
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {
             const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
+            switch (errors[0].message) {
+              case "CANT_APPROVE_FINDING":
+                msgError(translate.t("proj_alerts.draft_already_approved"));
+                break;
+              case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
+                msgError(translate.t("proj_alerts.draft_without_vulns"));
+                break;
+              default:
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error(error.message, errors);
+            }
           }
         });
     };

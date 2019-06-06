@@ -19,8 +19,8 @@ import pytz
 from backports import csv
 from botocore.exceptions import ClientError
 from graphql import GraphQLError
-from django.conf import settings
 from i18n import t
+from fluidintegrates import settings
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
@@ -878,45 +878,56 @@ def approve_draft(draft_id, project_name):
     is_draft = ('releaseDate' not in
                 integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
     success = False
+    has_vulns = integrates_dao.get_vulnerabilities_dynamo(draft_id)
 
     if is_draft:
-        finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
-        local_timezone = pytz.timezone(settings.TIME_ZONE)
-        release_date = datetime.now(tz=local_timezone).date()
-
-        if ('subscription' in finding_data and
-                finding_data['subscription'] in ['CONTINUOUS', 'Concurrente', 'Si']):
-            releases = integrates_dao.get_project_dynamo(project_name)
-
-            for release in releases:
-                if 'lastRelease' in release:
-                    last_release = datetime.strptime(
-                        release['lastRelease'].split(' ')[0], '%Y-%m-%d')
-                    last_release = last_release.replace(tzinfo=local_timezone).date()
-                    if last_release >= release_date:
-                        release_date = last_release + timedelta(days=2)
-
-        release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
-        has_release = integrates_dao.add_attribute_dynamo(
-            'FI_findings', ['finding_id', draft_id], 'releaseDate', release_date)
-        has_last_vuln = integrates_dao.add_attribute_dynamo(
-            'FI_findings', ['finding_id', draft_id], 'lastVulnerability', release_date)
-
-        if has_release and has_last_vuln:
-            file_url = '{project!s}/{findingid}/{project!s}-{findingid}'\
-                .format(project=project_name, findingid=draft_id)
-
-            migrate_all_files({'finding_id': draft_id, 'project': project_name}, file_url, {})
-            integrates_dao.add_release_to_project_dynamo(project_name, release_date)
-            save_severity(finding_data)
-            migrate_description(finding_data)
-            migrate_treatment(finding_data)
-            migrate_report_date(finding_data)
-            migrate_evidence_description(finding_data)
-            success = True
+        if has_vulns:
+            finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
+            release_date, has_release, has_last_vuln = update_release(project_name,
+                                                                      finding_data, draft_id)
+            if has_release and has_last_vuln:
+                file_url = '{project!s}/{findingid}/{project!s}-{findingid}'\
+                    .format(project=project_name, findingid=draft_id)
+                success = migrate_finding(draft_id, project_name, file_url,
+                                          release_date, finding_data)
+            else:
+                rollbar.report_message('Error: An error occurred accepting the draft', 'error')
         else:
-            rollbar.report_message('Error: An error occurred accepting the draft', 'error')
+            raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     else:
         util.cloudwatch_log_plain('Security: Attempted to accept an already released finding')
         raise GraphQLError('CANT_APPROVE_FINDING')
-    return {success, release_date}
+    return success, release_date
+
+
+def update_release(project_name, finding_data, draft_id):
+    local_timezone = pytz.timezone(settings.TIME_ZONE)
+    release_date = datetime.now(tz=local_timezone).date()
+    if ('subscription' in finding_data and
+            finding_data['subscription'] in ['CONTINUOUS', 'Concurrente', 'Si']):
+        releases = integrates_dao.get_project_dynamo(project_name)
+
+        for release in releases:
+            if 'lastRelease' in release:
+                last_release = datetime.strptime(
+                    release['lastRelease'].split(' ')[0], '%Y-%m-%d')
+                last_release = last_release.replace(tzinfo=local_timezone).date()
+                if last_release >= release_date:
+                    release_date = last_release + timedelta(days=2)
+    release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
+    has_release = integrates_dao.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
+                                                      'releaseDate', release_date)
+    has_last_vuln = integrates_dao.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
+                                                        'lastVulnerability', release_date)
+    return release_date, has_release, has_last_vuln
+
+
+def migrate_finding(draft_id, project_name, file_url, release_date, finding_data):
+    migrate_all_files({'finding_id': draft_id, 'project': project_name}, file_url, {})
+    integrates_dao.add_release_to_project_dynamo(project_name, release_date)
+    save_severity(finding_data)
+    migrate_description(finding_data)
+    migrate_treatment(finding_data)
+    migrate_report_date(finding_data)
+    migrate_evidence_description(finding_data)
+    return True
