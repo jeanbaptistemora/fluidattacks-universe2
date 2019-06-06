@@ -10,16 +10,21 @@ import { addUserModal as AddUserModal } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
+const functionMock: (() => void) = (): void => undefined;
+
 describe("Add user modal", () => {
 
   const store: Store<{}, Action<{}>> = createStore(() => ({}));
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <AddUserModal
+        initialValues={""}
         open={true}
         projectName="unittesting"
         type="add"
         userRole="admin"
+        onClose={functionMock}
+        onSubmit={functionMock}
       />
     </Provider>,
   );

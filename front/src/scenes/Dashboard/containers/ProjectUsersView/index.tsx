@@ -11,7 +11,7 @@ import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import { addUser, editUser, loadUsers, openUsersMdl, removeUser, ThunkDispatcher } from "./actions";
+import { addUser, closeUsersMdl, editUser, loadUsers, openUsersMdl, removeUser, ThunkDispatcher } from "./actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
 
 type IProjectUsersBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
@@ -24,6 +24,7 @@ type IUserData = IDashboardState["users"]["userList"][0];
 
 interface IProjectUsersDispatchProps {
   onAdd(userData: IUserData): void;
+  onCloseUsersModal(): void;
   onEditSave(userData: IUserData): void;
   onLoad(): void;
   onOpenModal(type: "add" | "edit", initialValues?: {}): void;
@@ -176,6 +177,8 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
 const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
 
+  const handleCloseUsersModal: (() => void) = (): void => { props.onCloseUsersModal(); };
+
   const handleSubmit: ((values: {}) => void) = (values: {}): void => {
     if (props.addModal.type === "add") {
       props.onAdd(values as IUserData);
@@ -200,7 +203,15 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             </Row>
           </Col>
         </Row>
-        <AddUserModal onSubmit={handleSubmit} projectName={projectName} userRole={props.userRole} {...props.addModal} />
+        <AddUserModal
+          onSubmit={handleSubmit}
+          open={props.addModal.open}
+          type={props.addModal.type}
+          onClose={handleCloseUsersModal}
+          projectName={projectName}
+          userRole={props.userRole}
+          initialValues={props.addModal.initialValues}
+        />
       </div>
     </React.StrictMode>
   );
@@ -220,6 +231,7 @@ const mapDispatchToProps: MapDispatchToProps<IProjectUsersDispatchProps, IProjec
 
     return ({
       onAdd: (userData: IUserData): void => { dispatch(addUser(userData, projectName)); },
+      onCloseUsersModal: (): void => { dispatch(closeUsersMdl()); },
       onEditSave: (userData: IUserData): void => { dispatch(editUser(userData, projectName)); },
       onLoad: (): void => { dispatch(loadUsers(projectName)); },
       onOpenModal: (type: "add" | "edit", initialValues?: {}): void => { dispatch(openUsersMdl(type, initialValues)); },
