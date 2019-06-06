@@ -49,7 +49,7 @@ export const phoneNumberField: ((arg1: CustomFieldProps) => JSX.Element) =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <ReactPhoneInput
       defaultCountry="co"
-      inputClass={style.formControl}
+      inputClass={`${style.formControl} ${style.phone_number}`}
       inputExtraProps={{ type: "" }}
       onChange={fieldProps.input.onChange}
       value={fieldProps.input.value}
