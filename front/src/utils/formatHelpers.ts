@@ -521,9 +521,9 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
     return { ...draft, reportDate, type, isExploitable, isReleased };
   });
 
-export const handleGraphQLErrors: ((errorText: string, error: ApolloError) => void) =
-  (errorText: string, error: ApolloError): void => {
-    error.graphQLErrors.map((err: GraphQLError) => {
+export const handleErrors: ((errorText: string, errors: readonly GraphQLError[]) => void) =
+  (errorText: string, errors: readonly GraphQLError[]): void => {
+    errors.map((err: GraphQLError) => {
       if (_.includes(["Login required", "Exception - Invalid Authorization"], err.message)) {
         location.assign("/integrates/logout");
       } else if (_.includes("Access denied", err.message)) {
@@ -533,7 +533,12 @@ export const handleGraphQLErrors: ((errorText: string, error: ApolloError) => vo
         rollbar.error(errorText, err);
       }
     });
-};
+  };
+
+export const handleGraphQLErrors: ((errorText: string, error: ApolloError) => void) =
+  (errorText: string, error: ApolloError): void => {
+    handleErrors(errorText, error.graphQLErrors);
+  };
 
 type IEventsDataset = IEventsAttr["events"];
 export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =
