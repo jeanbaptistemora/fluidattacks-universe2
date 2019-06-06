@@ -20,6 +20,9 @@ export const formatUserlist:
   DAYS_IN_MONTH = 30;
   let lastLogin: string; lastLogin = "";
   let firstLogin: string; firstLogin = "";
+  if (!_.isUndefined(user.firstLogin)) {
+    firstLogin = user.firstLogin.split(" ")[0];
+  }
   if (lastLoginDate[0] >= DAYS_IN_MONTH) {
     const ROUNDED_MONTH: number = Math.round(lastLoginDate[0] / DAYS_IN_MONTH);
     lastLogin = translate.t("search_findings.tab_users.months_ago", {count: ROUNDED_MONTH});
