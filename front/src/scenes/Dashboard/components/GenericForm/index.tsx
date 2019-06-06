@@ -1,17 +1,12 @@
-/* tslint:disable:jsx-no-lambda
- * Disabling this rule is necessary for binding the form submit function
- */
-
 import React from "react";
 import { Form } from "react-bootstrap";
-import { Provider } from "react-redux";
 import { ConfigProps, DecoratedComponentClass, InjectedFormProps, reduxForm } from "redux-form";
-import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";
 
-interface IFormProps extends Pick<ConfigProps<{}, Pick<IFormProps, "children">>, "onChange"> {
-  children: React.ReactNode;
-  initialValues?: {};
+type FormChildren = React.ReactNode | ((props: formProps) => React.ReactNode);
+
+interface IFormProps extends Pick<ConfigProps<{}, Pick<IFormProps, "children">>, "initialValues" | "onChange"> {
+  children: FormChildren;
   name: string;
   onSubmit(values: {}): void;
 }
@@ -26,22 +21,27 @@ type wrappedForm = DecoratedComponentClass<{}, Pick<IFormProps, "children">
  * between lowerCamelCase var naming rule from tslint
  * and PascalCase rule for naming JSX elements
  */
-const WrappedForm: wrappedForm = reduxForm<{}, Pick<IFormProps, "children">>({})
-  ((props: formProps) => <Form onSubmit={props.handleSubmit}>{props.children}</Form>);
+const WrappedForm: wrappedForm = reduxForm<{}, Pick<IFormProps, "children">>({})((props: formProps) => (
+  <Form onSubmit={props.handleSubmit}>
+    {typeof props.children === "function" ? props.children(props) : props.children}
+  </Form>
+));
 
-const genericForm: ((props: IFormProps) => JSX.Element) = (props: IFormProps): JSX.Element => (
-  <Provider store={store}>
+const genericForm: ((props: IFormProps) => JSX.Element) = (props: IFormProps): JSX.Element => {
+  const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
+
+  return (
     <WrappedForm
       enableReinitialize={props.initialValues !== undefined}
       form={props.name}
       initialValues={props.initialValues}
-      onSubmit={(values: {}): void => { props.onSubmit(values); }}
+      onSubmit={handleSubmit}
       onSubmitFail={focusError}
       onChange={props.onChange}
     >
       {props.children}
     </WrappedForm>
-  </Provider>
-);
+  );
+};
 
 export { genericForm as GenericForm };
