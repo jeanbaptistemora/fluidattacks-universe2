@@ -16,6 +16,6 @@ def notify_mobile(recipients, title, message):
                 PushMessage(
                     body=message,
                     title=title,
-                    to='ExponentPushToken[{token}]'.format(token=device_token),
+                    to=device_token,
                 )
             )

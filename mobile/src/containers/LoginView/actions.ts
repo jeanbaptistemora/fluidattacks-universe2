@@ -1,4 +1,4 @@
-import { Google } from "expo";
+import { Google, Notifications } from "expo";
 
 import { IActionStructure, ThunkDispatcher, ThunkResult } from "../../store";
 import { GOOGLE_LOGIN_KEY } from "../../utils/constants";
@@ -19,11 +19,16 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
     iosClientId: GOOGLE_LOGIN_KEY,
     scopes: ["profile", "email"],
   })
-    .then((result: Google.LogInResult) => {
+    .then(async (result: Google.LogInResult): Promise<void> => {
       dispatch({ payload: {}, type: actionTypes.GOOGLE_LOGIN_LOAD });
       if (result.type === "success") {
         dispatch({
-          payload: { authProvider: "google", authToken: result.idToken, userInfo: result.user },
+          payload: {
+            authProvider: "google",
+            authToken: result.idToken,
+            pushToken: await Notifications.getExpoPushTokenAsync(),
+            userInfo: result.user,
+          },
           type: actionTypes.LOGIN_SUCCESS,
         });
       }

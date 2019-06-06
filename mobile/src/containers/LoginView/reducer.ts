@@ -12,6 +12,7 @@ export interface ILoginState {
   authToken: string;
   isAuthenticated: boolean;
   isLoading: boolean;
+  pushToken: string;
   userInfo: {
     email?: string;
     familyName: string;
@@ -28,6 +29,7 @@ export const initialState: ILoginState = {
   authToken: "",
   isAuthenticated: false,
   isLoading: false,
+  pushToken: "",
   userInfo: {
     email: "",
     familyName: "",
@@ -51,6 +53,7 @@ actionMap[actionTypes.LOGIN_SUCCESS] = (state: ILoginState, action: IActionStruc
   authProvider: action.payload.authProvider as string,
   authToken: action.payload.authToken as string,
   isAuthenticated: true,
+  pushToken: action.payload.pushToken as string,
   userInfo: action.payload.userInfo as ILoginState["userInfo"],
 });
 

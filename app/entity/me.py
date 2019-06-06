@@ -10,7 +10,6 @@ import rollbar
 
 from app import util
 from app.dao import integrates_dao
-from app.decorators import require_login
 from app.entity.project import Project
 from app.services import is_customeradmin
 
@@ -52,12 +51,13 @@ class SignIn(Mutation):
     class Arguments(object):
         auth_token = String(required=True)
         provider = String(required=True)
+        push_token = String(required=False)
     authorized = Boolean()
     session_jwt = String()
     success = Boolean()
 
     @staticmethod
-    def mutate(_, info, auth_token, provider):
+    def mutate(_, info, auth_token, provider, push_token):
         del info
         authorized = False
         session_jwt = ''
@@ -74,6 +74,11 @@ class SignIn(Mutation):
                 else:
                     email = user_info['email']
                     authorized = integrates_dao.is_registered_dao(email) == '1'
+                    if push_token:
+                        integrates_dao.add_set_element_dynamo(
+                            'FI_users',
+                            ['email', email],
+                            'devices_to_notify', [push_token])
                     session_jwt = jwt.encode(
                         {
                             'user_email': email,
@@ -95,21 +100,3 @@ class SignIn(Mutation):
             raise NotImplementedError('Auth provider not supported')
 
         return SignIn(authorized, session_jwt, success)
-
-
-class RegisterNotifications(Mutation):
-    class Arguments(object):
-        push_token = String(required=True)
-    success = Boolean()
-
-    @staticmethod
-    @require_login
-    def mutate(_, info, push_token):
-        success = False
-
-        user_data = util.get_jwt_content(info.context)
-        email = user_data['user_email']
-        success = integrates_dao.add_set_element_dynamo(
-            'FI_users', ['email', email], 'devices_to_notify', [push_token])
-
-        return RegisterNotifications(success)

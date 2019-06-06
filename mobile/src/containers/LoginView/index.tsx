@@ -61,6 +61,7 @@ export const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginPro
     state: {
       authProvider: props.authProvider,
       authToken: props.authToken,
+      pushToken: props.pushToken,
       userInfo: props.userInfo,
     },
   };

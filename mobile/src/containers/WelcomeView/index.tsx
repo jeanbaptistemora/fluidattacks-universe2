@@ -20,7 +20,7 @@ import { styles } from "./styles";
 import { IWelcomeProps, SIGN_IN_RESULT } from "./types";
 
 const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProps): JSX.Element => {
-  const { authProvider, authToken, userInfo } = props.location.state;
+  const { authProvider, authToken, pushToken, userInfo } = props.location.state;
   const { t } = translate;
 
   const handleMutationResult: ((data: SIGN_IN_RESULT) => void) = (data: SIGN_IN_RESULT): void => {
@@ -45,7 +45,7 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
       <Text style={styles.greeting}>{t("welcome.greetingText")} {userInfo.givenName}!</Text>
       <Mutation
         mutation={SIGN_IN_MUTATION}
-        variables={{ authToken, provider: authProvider }}
+        variables={{ authToken, provider: authProvider, pushToken }}
         onCompleted={handleMutationResult}
       >
         {(doAuth: MutationFn, { data, error, loading, called }: MutationResult<SIGN_IN_RESULT>): React.ReactNode => {
