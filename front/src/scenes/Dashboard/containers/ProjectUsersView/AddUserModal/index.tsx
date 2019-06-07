@@ -63,7 +63,7 @@ const loadAutofillData: (
         if (!_.isUndefined(data)) {
           change("organization", data.userData.organization);
           change("phoneNumber", data.userData.phoneNumber);
-          change("responsability", data.userData.responsability);
+          change("responsibility", data.userData.responsibility);
         }
       })
       .catch();
@@ -121,7 +121,7 @@ const renderFormContent: ((props: IAddUserModalProps) => JSX.Element) =
               {translate.t("search_findings.tab_users.user_responsibility")}
             </ControlLabel>
             <Field
-              name="responsability"
+              name="responsibility"
               component={textField}
               type="text"
               placeholder={translate.t("search_findings.tab_users.responsibility_placeholder")}

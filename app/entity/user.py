@@ -20,7 +20,7 @@ class User(ObjectType):
     """ GraphQL Entity for Project Users """
     email = String()
     role = String()
-    responsability = String()
+    responsibility = String()
     phone_number = String()
     organization = String()
     first_login = String()
@@ -29,7 +29,7 @@ class User(ObjectType):
     def __init__(self, project_name, user_email):
         self.email = user_email
         self.role = ''
-        self.responsability = ''
+        self.responsibility = ''
         self.phone_number = ''
         self.organization = ''
         self.first_login = '-'
@@ -49,7 +49,7 @@ class User(ObjectType):
         self.first_login = integrates_dao.get_user_first_login_dao(user_email).split('.', 1)[0]
         organization = integrates_dao.get_organization_dao(user_email)
         self.organization = organization.title() if organization else ''
-        self.responsability = has_responsibility(project_name, user_email)
+        self.responsibility = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
         user_role = integrates_dao.get_role_dao(user_email)
 
@@ -70,10 +70,10 @@ class User(ObjectType):
         del info
         return self.role
 
-    def resolve_responsability(self, info):
-        """ Resolve user responsability in the given project """
+    def resolve_responsibility(self, info):
+        """ Resolve user responsibility in the given project """
         del info
-        return self.responsability
+        return self.responsibility
 
     def resolve_phone_number(self, info):
         """ Resolve user phone number """

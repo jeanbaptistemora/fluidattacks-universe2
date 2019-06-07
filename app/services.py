@@ -94,7 +94,7 @@ def is_customeradmin(project, email):
 
 
 def has_responsibility(project, email):
-    """Verify if a user has responsability."""
+    """Verify if a user has responsibility."""
     project_data = integrates_dao.get_project_access_dynamo(email, project)
     user_resp = "-"
     for data in project_data:

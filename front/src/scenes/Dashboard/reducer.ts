@@ -83,7 +83,7 @@ export interface IDashboardState {
     };
     userList: Array<{
       email: string; firstLogin: string; lastLogin: string; organization: string;
-      phoneNumber: string; responsability: string; role: string;
+      phoneNumber: string; responsibility: string; role: string;
     }>;
   };
   vulnerabilities: {

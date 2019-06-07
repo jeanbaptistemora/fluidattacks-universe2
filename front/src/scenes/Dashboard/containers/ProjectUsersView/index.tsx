@@ -62,11 +62,11 @@ const openEditModal: ((props: IProjectUsersViewProps) => void) = (props: IProjec
       const DATA_IN_SELECTED_ROW: HTMLCollection = selectedRow.children;
 
       const email: string | null = DATA_IN_SELECTED_ROW[1].textContent;
-      const responsability: string | null = DATA_IN_SELECTED_ROW[3].textContent;
+      const responsibility: string | null = DATA_IN_SELECTED_ROW[3].textContent;
       const phoneNumber: string | null = DATA_IN_SELECTED_ROW[4].textContent;
       const organization: string | null = DATA_IN_SELECTED_ROW[5].textContent;
 
-      props.onOpenModal("edit", { email, organization, phoneNumber, responsability });
+      props.onOpenModal("edit", { email, organization, phoneNumber, responsibility });
     } else {
       msgError(translate.t("proj_alerts.error_textsad"));
       rollbar.error("An error occurred removing user");
@@ -92,7 +92,7 @@ const tableHeaders: IHeader[] = [
     width: "8%",
   },
   {
-    dataField: "responsability",
+    dataField: "responsibility",
     header: translate.t("search_findings.users_table.userResponsibility"),
     isDate: false,
     isStatus: false,

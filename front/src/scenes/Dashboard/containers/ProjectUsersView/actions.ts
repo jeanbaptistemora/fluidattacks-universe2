@@ -28,7 +28,7 @@ export const loadUsers: ((projectName: string) => ThunkResult<void>) = (projectN
         users {
           email
           role
-          responsability
+          responsibility
           phoneNumber
           organization
           firstLogin
@@ -76,7 +76,7 @@ export const editUser: ((modifiedUser: IUserData, projectName: string) => ThunkR
          email: "${modifiedUser.email}",
          organization: "${modifiedUser.organization}",
          phoneNumber: "${modifiedUser.phoneNumber}",
-         responsibility: "${modifiedUser.responsability}",
+         responsibility: "${modifiedUser.responsibility}",
          role: "${modifiedUser.role}"
        ) {
          success
@@ -155,14 +155,14 @@ export const addUser: ((newUser: IUserData, projectName: string) => ThunkResult<
        organization: "${newUser.organization}",
        phoneNumber: "${newUser.phoneNumber}",
        projectName: "${projectName}",
-       responsibility: "${newUser.responsability}",
+       responsibility: "${newUser.responsibility}",
        role: "${newUser.role}"
      ) {
        success
        grantedUser {
          email
          role
-         responsability
+         responsibility
          phoneNumber
          organization
          firstLogin

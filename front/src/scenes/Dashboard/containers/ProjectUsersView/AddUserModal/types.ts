@@ -2,7 +2,7 @@ export interface IUserDataAttr {
   userData: {
     organization: string;
     phoneNumber: string;
-    responsability: string;
+    responsibility: string;
   };
 }
 
