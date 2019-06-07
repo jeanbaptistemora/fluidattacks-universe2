@@ -4,6 +4,7 @@
   * readability of the code in graphql queries
  */
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
@@ -78,6 +79,12 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
+            mixpanel.track(
+              "ProjectIndicator",
+              {
+                Organization: (window as Window & { userOrganization: string }).userOrganization,
+                User: (window as Window & { userName: string }).userName,
+              });
             const totalVulnerabilities: number =
               data.project.openVulnerabilities + data.project.closedVulnerabilities;
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
