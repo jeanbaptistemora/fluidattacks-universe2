@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-AMZ_VPC_PLUGIN_VER=1.3.0
+AMZ_VPC_PLUGIN_VER=1.5.0
 
 function echo-blue() {
   echo -e '\033[1;34m'"${1}"'\033[0m'
@@ -217,7 +217,7 @@ kubectl apply -f ingress/main-domains.yaml
 kubectl apply -f ingress/external.yaml
 kubectl apply -f ingress/autonomic.yaml
 issue_secondary_domain_certificates ingress/secondary-domains.yaml \
-  secondary-domains-cert secondary-domains 
+  secondary-domains-cert secondary-domains
 
 
 # Provide information to access Gitlab Container Registry and pull images
