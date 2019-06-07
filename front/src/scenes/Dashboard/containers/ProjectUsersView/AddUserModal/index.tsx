@@ -3,7 +3,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { ApolloClient, ApolloQueryResult } from "apollo-boost";
+import { ApolloClient, ApolloQueryResult, NetworkStatus } from "apollo-boost";
 import _ from "lodash";
 import React from "react";
 import { ApolloConsumer } from "react-apollo";
@@ -48,12 +48,14 @@ const loadAutofillData: (
     const fieldSelector: ((stateTree: {}, ...fields: string[]) => any) = formValueSelector("addUser");
     const email: string = fieldSelector(store.getState(), "email");
     if (!_.isEmpty(email)) {
+      showPreloader();
       client.query({
         query: GET_USERS,
         variables: { projectName: props.projectName, userEmail: email },
       })
       .then(({loading, errors, data, networkStatus}: ApolloQueryResult<IUserDataAttr>) => {
-        if (loading || networkStatus === 4) {
+        const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+        if (loading || isRefetching) {
           showPreloader();
         }
         if (!_.isUndefined(errors)) {
@@ -61,6 +63,7 @@ const loadAutofillData: (
           handleErrors("An error occurred getting user information for autofill", errors);
         }
         if (!_.isUndefined(data)) {
+          hidePreloader();
           change("organization", data.userData.organization);
           change("phoneNumber", data.userData.phoneNumber);
           change("responsibility", data.userData.responsibility);
