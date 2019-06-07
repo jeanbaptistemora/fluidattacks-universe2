@@ -4,13 +4,13 @@ import _ from "lodash";
 import { IEventsAttr } from "../scenes/Dashboard/containers/EventsView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
+import { IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/containers/SeverityView";
-import { IDashboardState } from "../scenes/Dashboard/reducer";
 import { msgError } from "./notifications";
 import rollbar from "./rollbar";
 import translate from "./translations/translate";
 
-type IUserList = IDashboardState["users"]["userList"];
+type IUserList = IUsersAttr["project"]["users"];
 
 export const formatUserlist:
 ((userList: IUserList) => IUserList) = (userList: IUserList): IUserList => userList.map((user: IUserList[0]) => {

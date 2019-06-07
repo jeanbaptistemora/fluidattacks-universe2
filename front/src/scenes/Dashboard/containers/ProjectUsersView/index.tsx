@@ -1,18 +1,29 @@
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+  * readability of the code in graphql queries
+ */
+import { NetworkStatus } from "apollo-boost";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
+import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { msgError } from "../../../../utils/notifications";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { formatUserlist, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import { addUser, closeUsersMdl, editUser, loadUsers, openUsersMdl, removeUser, ThunkDispatcher } from "./actions";
+import { closeUsersMdl, openUsersMdl, ThunkDispatcher } from "./actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
+import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
+import { IAddUserAttr, IEditUserAttr, IRemoveUserAttr, IUserDataAttr, IUsersAttr } from "./types";
 
 type IProjectUsersBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
@@ -20,39 +31,12 @@ type IProjectUsersStateProps = IDashboardState["users"] & {
   userRole: string;
 };
 
-type IUserData = IDashboardState["users"]["userList"][0];
-
 interface IProjectUsersDispatchProps {
-  onAdd(userData: IUserData): void;
   onCloseUsersModal(): void;
-  onEditSave(userData: IUserData): void;
-  onLoad(): void;
   onOpenModal(type: "add" | "edit", initialValues?: {}): void;
-  onRemove(email: string): void;
 }
 
 type IProjectUsersViewProps = IProjectUsersBaseProps & (IProjectUsersStateProps & IProjectUsersDispatchProps);
-
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectUsersViewProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); },
-});
-
-const remove: ((props: IProjectUsersViewProps) => void) = (props: IProjectUsersViewProps): void => {
-  const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
-  if (selectedQry.length > 0) {
-    if (selectedQry[0].closest("tr") !== null) {
-      const selectedRow: Element = selectedQry[0].closest("tr") as Element;
-      const email: string | null = selectedRow.children[1].textContent;
-
-      props.onRemove(String(email));
-    } else {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error("An error occurred removing user");
-    }
-  } else {
-    msgError(translate.t("search_findings.tab_users.no_selection"));
-  }
-};
 
 const openEditModal: ((props: IProjectUsersViewProps) => void) = (props: IProjectUsersViewProps): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
@@ -142,13 +126,33 @@ const renderUsersTable: ((userList: IProjectUsersViewProps["userList"], userRole
     />
   );
 
-const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
-  (props: IProjectUsersViewProps): JSX.Element => {
+const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult["refetch"]) => JSX.Element) =
+  (props: IProjectUsersViewProps, refetch: QueryResult["refetch"]): JSX.Element => {
     const handleEditClick: (() => void) = (): void => { openEditModal(props); };
 
     const handleAddClick: (() => void) = (): void => { props.onOpenModal("add"); };
 
-    const handleRemoveClick: (() => void) = (): void => { remove(props); };
+    const { projectName } = props.match.params;
+
+    const handleMtRemoveUserRes: ((mtResult: IRemoveUserAttr) => void) = (mtResult: IRemoveUserAttr): void => {
+      if (!_.isUndefined(mtResult)) {
+        if (mtResult.removeUserAccess.success) {
+          hidePreloader();
+          refetch()
+            .catch();
+          mixpanel.track(
+            "RemoveUserAccess",
+            {
+              Organization: (window as Window & { userOrganization: string }).userOrganization,
+              User: (window as Window & { userName: string }).userName,
+            });
+          msgSuccess(
+            `${mtResult.removeUserAccess.removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,
+            translate.t("search_findings.tab_users.title_success"),
+          );
+        }
+      }
+    };
 
     return (
       <div>
@@ -164,12 +168,46 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps) => JSX.Element) =
             {translate.t("search_findings.tab_users.add_button")}
           </Button>
         </Col>
-        <Col md={2} sm={6}>
-          <Button id="removeUser" block={true} bsStyle="primary" onClick={handleRemoveClick}>
-            <Glyphicon glyph="minus" />&nbsp;
-            {translate.t("search_findings.tab_users.remove_user")}
-          </Button>
-        </Col>
+        <Mutation mutation={REMOVE_USER_MUTATION} onCompleted={handleMtRemoveUserRes}>
+          { (removeUserAccess: MutationFn<IRemoveUserAttr, {projectName: string; userEmail: string}>,
+             mutationRes: MutationResult): React.ReactNode => {
+              if (mutationRes.loading) {
+                showPreloader();
+              }
+              if (!_.isUndefined(mutationRes.error)) {
+                hidePreloader();
+                handleGraphQLErrors("An error occurred removing users", mutationRes.error);
+
+                return <React.Fragment/>;
+              }
+
+              const handleRemoveUser: (() => void) = (): void => {
+                const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
+                if (selectedQry.length > 0) {
+                  if (selectedQry[0].closest("tr") !== null) {
+                    const selectedRow: Element = selectedQry[0].closest("tr") as Element;
+                    const email: string | null = selectedRow.children[1].textContent;
+                    removeUserAccess({ variables: { projectName, userEmail: String(email) } })
+                    .catch();
+                  } else {
+                    msgError(translate.t("proj_alerts.error_textsad"));
+                    rollbar.error("An error occurred removing user");
+                  }
+                } else {
+                  msgError(translate.t("search_findings.tab_users.no_selection"));
+                }
+              };
+
+              return (
+                <Col md={2} sm={6}>
+                  <Button id="removeUser" block={true} bsStyle="primary" onClick={handleRemoveUser}>
+                    <Glyphicon glyph="minus" />&nbsp;
+                    {translate.t("search_findings.tab_users.remove_user")}
+                  </Button>
+                </Col>
+              );
+            }}
+        </Mutation>
       </div>
     );
   };
@@ -179,41 +217,165 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
 
   const handleCloseUsersModal: (() => void) = (): void => { props.onCloseUsersModal(); };
 
-  const handleSubmit: ((values: {}) => void) = (values: {}): void => {
-    if (props.addModal.type === "add") {
-      props.onAdd(values as IUserData);
-    } else {
-      props.onEditSave(values as IUserData);
-    }
-  };
-
   return (
-    <React.StrictMode>
-      <div id="users" className="tab-pane cont active" >
-        <Row>
-          <Col md={12} sm={12} xs={12}>
-            <Row>
-              {_.includes(["admin", "customeradmin"], props.userRole) ? renderActionButtons(props) : undefined}
-            </Row>
-            <br />
-            <Row>
-              <Col md={12} sm={12}>
-                {renderUsersTable(props.userList, props.userRole)}
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <AddUserModal
-          onSubmit={handleSubmit}
-          open={props.addModal.open}
-          type={props.addModal.type}
-          onClose={handleCloseUsersModal}
-          projectName={projectName}
-          userRole={props.userRole}
-          initialValues={props.addModal.initialValues}
-        />
-      </div>
-    </React.StrictMode>
+    <Query query={GET_USERS} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
+      {
+        ({loading, error, data, refetch, networkStatus}: QueryResult<IUsersAttr>): React.ReactNode => {
+          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+          if (loading || isRefetching) {
+            showPreloader();
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            handleGraphQLErrors("An error occurred getting project users", error);
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data)) {
+            hidePreloader();
+            const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
+
+            const handleMtAddUserRes: ((mtResult: IAddUserAttr) => void) = (mtResult: IAddUserAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.grantUserAccess.success) {
+                  refetch()
+                    .catch();
+                  handleCloseUsersModal();
+                  hidePreloader();
+                  mixpanel.track(
+                    "AddUserAccess",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                  msgSuccess(
+                    `${mtResult.grantUserAccess.grantedUser.email}
+                    ${translate.t("search_findings.tab_users.success")}`,
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
+                }
+              }
+            };
+
+            const handleMtEditUserRes: ((mtResult: IEditUserAttr) => void) = (mtResult: IEditUserAttr): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.editUser.success) {
+                  refetch()
+                    .catch();
+                  handleCloseUsersModal();
+                  hidePreloader();
+                  mixpanel.track(
+                    "EditUserAccess",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                  msgSuccess(
+                    translate.t("search_findings.tab_users.success_admin"),
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
+                }
+              }
+            };
+
+            return (
+              <React.StrictMode>
+                <div id="users" className="tab-pane cont active" >
+                  <Row>
+                    <Col md={12} sm={12} xs={12}>
+                      <Row>
+                        {_.includes(["admin", "customeradmin"], props.userRole)
+                          ? renderActionButtons(props, refetch)
+                          : undefined}
+                      </Row>
+                      <br />
+                      <Row>
+                        <Col md={12} sm={12}>
+                          {renderUsersTable(userList, props.userRole)}
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes}>
+                      { (grantUserAccess: MutationFn<IAddUserAttr, {
+                        email: string; organization: string; phoneNumber: string;
+                        projectName: string; responsibility: string; role: string; }>,
+                         mutationRes: MutationResult): React.ReactNode => {
+                          if (mutationRes.loading) {
+                            showPreloader();
+                          }
+                          if (!_.isUndefined(mutationRes.error)) {
+                            hidePreloader();
+                            handleGraphQLErrors("An error occurred adding user to project", mutationRes.error);
+                          }
+
+                          return (
+                            <Mutation mutation={EDIT_USER_MUTATION} onCompleted={handleMtEditUserRes}>
+                              { (editUser: MutationFn<IEditUserAttr, {
+                                email: string; organization: string; phoneNumber: string;
+                                projectName: string; responsibility: string; role: string; }>,
+                                 editMtRes: MutationResult): React.ReactNode => {
+                                  if (editMtRes.loading) {
+                                    showPreloader();
+                                  }
+                                  if (!_.isUndefined(editMtRes.error)) {
+                                    hidePreloader();
+                                    handleGraphQLErrors("An error occurred adding user to project", editMtRes.error);
+                                  }
+
+                                  const handleSubmit: ((values: IUserDataAttr) => void) =
+                                  (values: IUserDataAttr): void => {
+                                    if (props.addModal.type === "add") {
+                                      grantUserAccess({
+                                        variables: {
+                                          email: String(values.email),
+                                          organization: String(values.organization),
+                                          phoneNumber: String(values.phoneNumber),
+                                          projectName,
+                                          responsibility: String(values.responsibility),
+                                          role: String(values.role),
+                                        },
+                                      })
+                                        .catch();
+                                    } else {
+                                      editUser({
+                                        variables: {
+                                          email: String(values.email),
+                                          organization: String(values.organization),
+                                          phoneNumber: String(values.phoneNumber),
+                                          projectName,
+                                          responsibility: String(values.responsibility),
+                                          role: String(values.role),
+                                        },
+                                      })
+                                        .catch();
+                                    }
+                                  };
+
+                                  return (
+                                    <AddUserModal
+                                      onSubmit={handleSubmit}
+                                      open={props.addModal.open}
+                                      type={props.addModal.type}
+                                      onClose={handleCloseUsersModal}
+                                      projectName={projectName}
+                                      userRole={props.userRole}
+                                      initialValues={props.addModal.initialValues}
+                                    />
+                                  );
+                              }}
+                            </Mutation>
+                          );
+                      }}
+                    </Mutation>
+                </div>
+              </React.StrictMode>
+            );
+          }
+      }}
+    </Query>
   );
 };
 
@@ -226,17 +388,11 @@ const mapStateToProps: MapStateToProps<IProjectUsersStateProps, IProjectUsersBas
   });
 
 const mapDispatchToProps: MapDispatchToProps<IProjectUsersDispatchProps, IProjectUsersBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IProjectUsersBaseProps): IProjectUsersDispatchProps => {
-    const { projectName } = ownProps.match.params;
+  (dispatch: ThunkDispatcher, ownProps: IProjectUsersBaseProps): IProjectUsersDispatchProps =>
 
-    return ({
-      onAdd: (userData: IUserData): void => { dispatch(addUser(userData, projectName)); },
+    ({
       onCloseUsersModal: (): void => { dispatch(closeUsersMdl()); },
-      onEditSave: (userData: IUserData): void => { dispatch(editUser(userData, projectName)); },
-      onLoad: (): void => { dispatch(loadUsers(projectName)); },
       onOpenModal: (type: "add" | "edit", initialValues?: {}): void => { dispatch(openUsersMdl(type, initialValues)); },
-      onRemove: (email: string): void => { dispatch(removeUser(projectName, email)); },
     });
-  };
 
-export = connect(mapStateToProps, mapDispatchToProps)(enhance(projectUsersView));
+export = connect(mapStateToProps, mapDispatchToProps)(projectUsersView);
