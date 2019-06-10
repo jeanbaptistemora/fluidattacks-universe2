@@ -12,6 +12,7 @@ export interface ILoginState {
   authToken: string;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isOutdated?: boolean;
   pushToken: string;
   userInfo: {
     email?: string;
@@ -21,7 +22,6 @@ export interface ILoginState {
     name: string;
     photoUrl?: string;
   };
-  versionStatus?: checkResult;
 }
 
 export const initialState: ILoginState = {
@@ -29,6 +29,7 @@ export const initialState: ILoginState = {
   authToken: "",
   isAuthenticated: false,
   isLoading: false,
+  isOutdated: undefined,
   pushToken: "",
   userInfo: {
     email: "",
@@ -38,7 +39,6 @@ export const initialState: ILoginState = {
     name: "",
     photoUrl: "",
   },
-  versionStatus: undefined,
 };
 
 const actionMap: Dictionary<((state: ILoginState, action: IActionStructure) => ILoginState)> = {};
@@ -59,7 +59,7 @@ actionMap[actionTypes.LOGIN_SUCCESS] = (state: ILoginState, action: IActionStruc
 
 actionMap[actionTypes.RESOLVE_VERSION] = (state: ILoginState, action: IActionStructure): ILoginState => ({
   ...state,
-  versionStatus: action.payload.status as checkResult,
+  isOutdated: action.payload.isOutdated as boolean,
 });
 
 export const loginReducer: Reducer<ILoginState, IActionStructure> = (

@@ -39,7 +39,7 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
     });
 };
 
-export const resolveVersion: ((status: checkResult) => IActionStructure) = (status: checkResult): IActionStructure => ({
-  payload: { status },
+export const resolveVersion: ((isOutdated: boolean) => IActionStructure) = (isOutdated: boolean): IActionStructure => ({
+  payload: { isOutdated },
   type: actionTypes.RESOLVE_VERSION,
 });
