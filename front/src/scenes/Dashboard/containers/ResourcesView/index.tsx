@@ -3,6 +3,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
+import { NetworkStatus } from "apollo-boost";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -134,10 +135,11 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
   const projectName: string = props.match.params.projectName;
 
   return (
-    <Query query={GET_TAGS} variables={{ projectName }}>
+    <Query query={GET_TAGS} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IProjectTagsAttr>): React.ReactNode => {
-          if (loading || networkStatus === 4) {
+          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+          if (loading || isRefetching) {
             showPreloader();
 
             return <React.Fragment/>;
@@ -331,10 +333,11 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
     const projectName: string = props.match.params.projectName;
 
     return (
-      <Query query={GET_REPOSITORIES} variables={{ projectName }}>
+      <Query query={GET_REPOSITORIES} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IResourcesAttr>): React.ReactNode => {
-          if (loading || networkStatus === 4) {
+          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+          if (loading || isRefetching) {
             showPreloader();
 
             return <React.Fragment/>;
@@ -540,10 +543,11 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
     const projectName: string = props.match.params.projectName;
 
     return (
-      <Query query={GET_ENVIRONMENTS} variables={{ projectName }}>
+      <Query query={GET_ENVIRONMENTS} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IResourcesAttr>): React.ReactNode => {
-          if (loading || networkStatus === 4) {
+          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+          if (loading || isRefetching) {
             showPreloader();
 
             return <React.Fragment/>;
