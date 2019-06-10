@@ -112,8 +112,8 @@ const tableHeaders: IHeader[] = [
   },
 ];
 
-const renderUsersTable: ((userList: IProjectUsersViewProps["userList"], userRole: string) => JSX.Element) =
-  (userList: IProjectUsersViewProps["userList"], userRole: string): JSX.Element => (
+const renderUsersTable: ((userList: IUsersAttr["project"]["users"], userRole: string) => JSX.Element) =
+  (userList: IUsersAttr["project"]["users"], userRole: string): JSX.Element => (
     <DataTable
       id="tblUsers"
       dataset={userList}
@@ -383,7 +383,6 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IProjectUsersStateProps, IProjectUsersBaseProps, IState> =
   (state: IState): IProjectUsersStateProps => ({
     addModal: state.dashboard.users.addModal,
-    userList: state.dashboard.users.userList,
     userRole: state.dashboard.user.role,
   });
 

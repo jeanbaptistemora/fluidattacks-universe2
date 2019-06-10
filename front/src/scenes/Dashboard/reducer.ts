@@ -81,10 +81,6 @@ export interface IDashboardState {
       open: boolean;
       type: "add" | "edit";
     };
-    userList: Array<{
-      email: string; firstLogin: string; lastLogin: string; organization: string;
-      phoneNumber: string; responsibility: string; role: string;
-    }>;
   };
   vulnerabilities: {
     dataInputs: IVulnerabilitiesViewProps["dataInputs"];
@@ -254,7 +250,6 @@ const initialState: IDashboardState = {
       open: false,
       type: "add",
     },
-    userList: [],
   },
   vulnerabilities: {
     dataInputs: [],
@@ -455,39 +450,6 @@ actionMap[actionType.ADD_FILE_NAME] =
     ...state,
     fileInput: {
       name: action.payload.newValue[0].name,
-    },
-  });
-
-actionMap[usersActions.LOAD_USERS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    users: {
-      ...state.users,
-      userList: action.payload.userlist,
-    },
-  });
-
-actionMap[usersActions.ADD_USER] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    users: {
-      ...state.users,
-      userList: [...state.users.userList, action.payload.newUser],
-    },
-  });
-
-actionMap[usersActions.REMOVE_USER] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    users: {
-      ...state.users,
-      userList: [...state.users.userList.filter(
-        (user: IDashboardState["users"]["userList"][0]) =>
-        user.email !== action.payload.removedEmail,
-      )],
     },
   });
 
