@@ -10,7 +10,6 @@ import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -19,24 +18,11 @@ import { formatUserlist, handleGraphQLErrors } from "../../../../utils/formatHel
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { IDashboardState } from "../../reducer";
 import { closeUsersMdl, openUsersMdl, ThunkDispatcher } from "./actions";
 import { addUserModal as AddUserModal } from "./AddUserModal/index";
 import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
-import { IAddUserAttr, IEditUserAttr, IRemoveUserAttr, IUserDataAttr, IUsersAttr } from "./types";
-
-type IProjectUsersBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-type IProjectUsersStateProps = IDashboardState["users"] & {
-  userRole: string;
-};
-
-interface IProjectUsersDispatchProps {
-  onCloseUsersModal(): void;
-  onOpenModal(type: "add" | "edit", initialValues?: {}): void;
-}
-
-type IProjectUsersViewProps = IProjectUsersBaseProps & (IProjectUsersStateProps & IProjectUsersDispatchProps);
+import { IAddUserAttr, IEditUserAttr, IProjectUsersBaseProps, IProjectUsersDispatchProps, IProjectUsersStateProps,
+  IProjectUsersViewProps, IRemoveUserAttr, IState, IUserDataAttr, IUsersAttr } from "./types";
 
 const openEditModal: ((props: IProjectUsersViewProps) => void) = (props: IProjectUsersViewProps): void => {
   const selectedQry: NodeListOf<Element> = document.querySelectorAll("#tblUsers tr input:checked");
@@ -379,7 +365,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   );
 };
 
-interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IProjectUsersStateProps, IProjectUsersBaseProps, IState> =
   (state: IState): IProjectUsersStateProps => ({
     addModal: state.dashboard.users.addModal,
@@ -387,7 +372,7 @@ const mapStateToProps: MapStateToProps<IProjectUsersStateProps, IProjectUsersBas
   });
 
 const mapDispatchToProps: MapDispatchToProps<IProjectUsersDispatchProps, IProjectUsersBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IProjectUsersBaseProps): IProjectUsersDispatchProps =>
+  (dispatch: ThunkDispatcher): IProjectUsersDispatchProps =>
 
     ({
       onCloseUsersModal: (): void => { dispatch(closeUsersMdl()); },
