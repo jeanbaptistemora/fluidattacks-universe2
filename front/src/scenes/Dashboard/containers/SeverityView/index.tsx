@@ -17,7 +17,7 @@ import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { castEnvironmentCVSS3Fields, castFields, castPrivileges } from "../../../../utils/formatHelpers";
+import { castEnvironmentCVSS3Fields, castFieldsCVSS3, castPrivileges } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
@@ -31,19 +31,13 @@ export interface ISeverityViewProps {
   canEdit: boolean;
   cvssVersion: string;
   dataset: {
-    accessComplexity: string;
-    accessVector: string;
     attackComplexity: string;
     attackVector: string;
-    authentication: string;
     availabilityImpact: string;
     availabilityRequirement: string;
-    collateralDamagePotential: string;
-    confidenceLevel: string;
     confidentialityImpact: string;
     confidentialityRequirement: string;
     exploitability: string;
-    findingDistribution: string;
     integrityImpact: string;
     integrityRequirement: string;
     modifiedAttackComplexity: string;
@@ -57,7 +51,6 @@ export interface ISeverityViewProps {
     privilegesRequired: string;
     remediationLevel: string;
     reportConfidence: string;
-    resolutionLevel: string;
     severityScope: string;
     userInteraction: string;
   };
@@ -131,9 +124,9 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
   </Row>
 );
 
-const renderCVSSFields: ((props: ISeverityViewProps, cvssVersion: ISeverityViewProps["cvssVersion"]) => JSX.Element[]) =
-  (props: ISeverityViewProps, cvssVersion: ISeverityViewProps["cvssVersion"]): JSX.Element[] =>
-  castFields(props.dataset, cvssVersion)
+const renderCVSSFields: ((props: ISeverityViewProps) => JSX.Element[]) =
+  (props: ISeverityViewProps): JSX.Element[] =>
+  castFieldsCVSS3(props.dataset)
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
         const text: string = field.options[value];
@@ -160,6 +153,7 @@ const renderCVSSFields: ((props: ISeverityViewProps, cvssVersion: ISeverityViewP
           </Row>
         );
       });
+
 const renderEnvironmentFields: ((props: ISeverityViewProps) => JSX.Element[]) =
   (props: ISeverityViewProps): JSX.Element[] =>
   castEnvironmentCVSS3Fields(props.dataset)
@@ -225,11 +219,10 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
           visible={props.isEditing}
         >
           <option value="" selected={true} />
-          <option value="2">2</option>
           <option value="3">3</option>
         </EditableField>
       </Row>
-      {renderCVSSFields(props, cvssVersion)}
+      {renderCVSSFields(props)}
       <Row className={style.row}>
         <EditableField
           alignField="horizontal"
@@ -277,10 +270,7 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
         : undefined
       }
       <Row className={style.row}>
-        {cvssVersion === "3"
-          ? <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v3 Temporal</b></label></Col>
-          : <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v2 Temporal</b></label></Col>
-        }
+        <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v3 Temporal</b></label></Col>
         <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.severity}</p></Col>
       </Row>
     </React.Fragment>

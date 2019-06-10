@@ -30,40 +30,6 @@ export const editSeverity: (() => IActionStructure) =
     type: actionTypes.EDIT_SEVERITY,
   });
 
-export const calcCVSSv2: ((data: ISeverityViewProps["dataset"]) => number) =
-  (data: ISeverityViewProps["dataset"]): number => {
-    let BASESCORE_FACTOR_1: number; BASESCORE_FACTOR_1 = 0.6;
-    let BASESCORE_FACTOR_2: number; BASESCORE_FACTOR_2 = 0.4;
-    let BASESCORE_FACTOR_3: number; BASESCORE_FACTOR_3 = 1.5;
-    let IMPACT_FACTOR: number; IMPACT_FACTOR = 10.41;
-    let EXPLOITABILITY_FACTOR: number; EXPLOITABILITY_FACTOR = 20;
-    let F_IMPACT_FACTOR: number; F_IMPACT_FACTOR = 1.176;
-
-    const impCon: number = parseFloat(data.confidentialityImpact);
-    const impInt: number = parseFloat(data.integrityImpact);
-    const impDis: number = parseFloat(data.availabilityImpact);
-    const accCom: number = parseFloat(data.accessComplexity);
-    const accVec: number = parseFloat(data.accessVector);
-    const auth: number = parseFloat(data.authentication);
-    const explo: number = parseFloat(data.exploitability);
-    const resol: number = parseFloat(data.resolutionLevel);
-    const confi: number = parseFloat(data.confidenceLevel);
-
-    /*
-     * The constants above are part of the BaseScore, Impact and
-     * Exploibility equations
-     * More information in https://www.first.org/cvss/v2/guide
-     */
-    const impact: number = IMPACT_FACTOR * (1 - ((1 - impCon) * (1 - impInt) * (1 - impDis)));
-    F_IMPACT_FACTOR = impact === 0 ? 0 : 1.176;
-    const exploitabilty: number = EXPLOITABILITY_FACTOR * accCom * auth * accVec;
-    const baseScore: number = ((BASESCORE_FACTOR_1 * impact) + (BASESCORE_FACTOR_2 * exploitabilty)
-      - BASESCORE_FACTOR_3) * F_IMPACT_FACTOR;
-    const temporal: number = baseScore * explo * resol * confi;
-
-    return temporal;
-  };
-
 export const calcPrivilegesRequired: ((privileges: string, scope: string) => number) =
   (privileges: string, scope: string): number => {
     let privReq: number = parseFloat(privileges);
@@ -129,9 +95,7 @@ export const calcCVSSv3: ((data: ISeverityViewProps["dataset"]) => number) =
 export const calcCVSS:
 ((data: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]) => IActionStructure) =
   (data: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]): IActionStructure => {
-    const temporal: number = (cvssVersion === "3")
-    ? calcCVSSv3(data)
-    : calcCVSSv2(data);
+    const temporal: number = calcCVSSv3(data);
 
     return ({
     payload: {
@@ -182,21 +146,15 @@ export const updateSeverity: ThunkActionStructure =
       updateSeverity(
         findingId: "${findingId}",
         data: {
-          accessComplexity: "${values.accessComplexity}",
-          accessVector: "${values.accessVector}",
           attackComplexity: "${values.attackComplexity}",
           attackVector: "${values.attackVector}",
-          authentication: "${values.authentication}",
           availabilityImpact: "${values.availabilityImpact}",
           availabilityRequirement: "${values.availabilityRequirement}",
-          collateralDamagePotential: "${values.collateralDamagePotential}",
-          confidenceLevel: "${values.confidenceLevel}",
           confidentialityImpact: "${values.confidentialityImpact}",
           confidentialityRequirement: "${values.confidentialityRequirement}",
           severity: "${severity}",
           cvssVersion: "${values.cvssVersion}",
           exploitability: "${values.exploitability}",
-          findingDistribution: "${values.findingDistribution}",
           id: "${findingId}",
           integrityImpact: "${values.integrityImpact}",
           integrityRequirement: "${values.integrityRequirement}",
@@ -212,7 +170,6 @@ export const updateSeverity: ThunkActionStructure =
           remediationLevel: "${values.remediationLevel}",
           reportConfidence: "${values.reportConfidence}",
           severityScope: "${values.severityScope}",
-          resolutionLevel: "${values.resolutionLevel}",
           userInteraction: "${values.userInteraction}",
         }
       ) {
