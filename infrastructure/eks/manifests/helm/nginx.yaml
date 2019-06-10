@@ -1,14 +1,13 @@
 controller:
   image:
     repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
-    tag: 0.22.0
+    tag: 0.24.1
   config:
     hsts-include-subdomains: "false"
     proxy-body-size: "100m"
     server-tokens: "false"
     use-gzip: "false"
   kind: DaemonSet
-  defaultBackendService: serves/web
   extraArgs:
     default-ssl-certificate: serves/fluidattacks-cert
     tcp-services-configmap: serves/expose-vpn
@@ -17,8 +16,15 @@ controller:
     rollingUpdate:
       maxUnavailable: 1
     type: RollingUpdate
+    resources:
+     limits:
+       cpu: 100m
+       memory: 64Mi
+     requests:
+       cpu: 100m
+     memory: 64Mi
 defaultBackend:
-  enabled: false
+  enabled: true
 rbac:
   create: true
 tcp:
