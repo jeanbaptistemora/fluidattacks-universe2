@@ -11,27 +11,26 @@
  * readability of the code that defines the headers of the table
 */
 import _ from "lodash";
-import React, { ComponentType } from "react";
+import React from "react";
+import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { DataAlignType } from "react-bootstrap-table";
-import {
-  InferableComponentEnhancer,
-  lifecycle,
-} from "recompose";
-import { AnyAction, Reducer } from "redux";
+import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { IHeader } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import reduxWrapper from "../../../../utils/reduxWrapper";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
 import { fileInput as FileInput } from "../../components/FileInput/index";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
+import { GET_VULNERABILITIES } from "./queries";
+import { IVulnsAttr } from "./types";
 
 export interface IVulnerabilitiesViewProps {
   dataInputs: Array<{
@@ -61,35 +60,6 @@ const filterState:
     (dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string): IVulnerabilitiesViewProps["dataInputs"] =>
 
       dataVuln.filter((vuln: IVulnerabilitiesViewProps["dataInputs"][0]) => vuln.currentState === state);
-
-const mapStateToProps: ((arg1: StateType<Reducer>, arg2: IVulnerabilitiesViewProps) => IVulnerabilitiesViewProps) =
-  (state: StateType<Reducer>, ownProps: IVulnerabilitiesViewProps): IVulnerabilitiesViewProps => {
-    const stateValue: IVulnerabilitiesViewProps = state.dashboard.vulnerabilities;
-    const releaseDate: IVulnerabilitiesViewProps["releaseDate"] = stateValue.releaseDate;
-    const dataInputs: IVulnerabilitiesViewProps["dataInputs"] = filterState(stateValue.dataInputs, ownProps.state);
-    const dataLines: IVulnerabilitiesViewProps["dataLines"] = filterState(stateValue.dataLines, ownProps.state);
-    const dataPorts: IVulnerabilitiesViewProps["dataPorts"] = filterState(stateValue.dataPorts, ownProps.state);
-
-    return ({
-      ...state,
-      dataInputs,
-      dataLines,
-      dataPorts,
-      releaseDate,
-    });
-  };
-
-const enhance: InferableComponentEnhancer<{}> =
-lifecycle({
-  componentDidMount(): void {
-    const { findingId } = this.props as IVulnerabilitiesViewProps;
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-
-    thunkDispatch(actions.loadVulnerabilities(findingId));
-  },
-});
 
 const deleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) => void) =
   (vulnInfo: { [key: string]: string } | undefined): void => {
@@ -242,112 +212,138 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       isStatus: false,
       width: "30%",
     }];
-  let dataLines: IVulnerabilitiesViewProps["dataLines"] = props.dataLines;
-  let dataPorts: IVulnerabilitiesViewProps["dataPorts"] = props.dataPorts;
-  let dataInputs: IVulnerabilitiesViewProps["dataInputs"] = props.dataInputs;
-  if (props.editMode && _.isEmpty(props.releaseDate)) {
-    inputsHeader.push({
-                align: "center" as DataAlignType,
-                dataField: "id",
-                deleteFunction: deleteVulnerability,
-                header: translate.t("search_findings.tab_description.action"),
-                isDate: false,
-                isStatus: false,
-                width: "10%",
-              });
-    linesHeader.push({
-                align: "center" as DataAlignType,
-                dataField: "id",
-                deleteFunction: deleteVulnerability,
-                header: translate.t("search_findings.tab_description.action"),
-                isDate: false,
-                isStatus: false,
-                width: "10%",
-              });
-    portsHeader.push({
-                align: "center" as DataAlignType,
-                dataField: "id",
-                deleteFunction: deleteVulnerability,
-                header: translate.t("search_findings.tab_description.action"),
-                isDate: false,
-                isStatus: false,
-                width: "10%",
-              });
-  } else {
-    dataLines = groupSpecific(props.dataLines);
-    dataPorts = groupSpecific(props.dataPorts);
-    dataInputs = groupSpecific(props.dataInputs);
-  }
 
   return (
-    <React.StrictMode>
-    { props.dataInputs.length > 0
-      ? <React.Fragment>
-          <label className={style.vuln_title}>{translate.t("search_findings.tab_description.inputs")}</label>
-          <SimpleTable
-            id="inputsVulns"
-            dataset={dataInputs}
-            exportCsv={false}
-            headers={inputsHeader}
-            onClickRow={(): void => undefined}
-            pageSize={10}
-            search={false}
-            enableRowSelection={false}
-            title=""
-          />
-          <br/>
-        </React.Fragment>
-      : undefined
-    }
-    { props.dataLines.length > 0
-      ? <React.Fragment>
-          <label className={style.vuln_title}>{translate.t("search_findings.tab_description.line", {count: 2})}</label>
-          <SimpleTable
-            id="linesVulns"
-            dataset={dataLines}
-            exportCsv={false}
-            headers={linesHeader}
-            onClickRow={(): void => undefined}
-            pageSize={10}
-            search={false}
-            enableRowSelection={false}
-            title=""
-          />
-          <br/>
-        </React.Fragment>
-      : undefined
-    }
-    { props.dataPorts.length > 0
-      ? <React.Fragment>
-          <label className={style.vuln_title}>{translate.t("search_findings.tab_description.port", {count: 2})}</label>
-          <SimpleTable
-            id="portsVulns"
-            dataset={dataPorts}
-            exportCsv={false}
-            headers={portsHeader}
-            onClickRow={(): void => undefined}
-            pageSize={10}
-            search={false}
-            enableRowSelection={false}
-            title=""
-          />
-          <br/>
-        </React.Fragment>
-      : undefined
-    }
-    {props.editMode && _.includes(["admin", "analyst"], props.userRole) ? renderButtonBar(props) : undefined}
-  </React.StrictMode>
+    <Query query={GET_VULNERABILITIES} variables={{ identifier: props.findingId }}>
+      {
+        ({loading, error, data}: QueryResult<IVulnsAttr>): React.ReactNode => {
+          if (loading) {
+            showPreloader();
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(error)) {
+            hidePreloader();
+            handleGraphQLErrors("An error occurred getting vulnerabilities", error);
+
+            return <React.Fragment/>;
+          }
+          if (!_.isUndefined(data)) {
+            hidePreloader();
+            const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = filterState(data.finding.inputsVulns, props.state);
+            const dataLines: IVulnsAttr["finding"]["linesVulns"] = filterState(data.finding.linesVulns, props.state);
+            const dataPorts: IVulnsAttr["finding"]["portsVulns"] = filterState(data.finding.portsVulns, props.state);
+
+            let formattedDataLines: IVulnsAttr["finding"]["linesVulns"] = dataLines;
+            let formattedDataPorts: IVulnsAttr["finding"]["portsVulns"] = dataPorts;
+            let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
+
+            if (props.editMode && _.isEmpty(data.finding.releaseDate)) {
+              inputsHeader.push({
+                          align: "center" as DataAlignType,
+                          dataField: "id",
+                          deleteFunction: deleteVulnerability,
+                          header: translate.t("search_findings.tab_description.action"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "10%",
+                        });
+              linesHeader.push({
+                          align: "center" as DataAlignType,
+                          dataField: "id",
+                          deleteFunction: deleteVulnerability,
+                          header: translate.t("search_findings.tab_description.action"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "10%",
+                        });
+              portsHeader.push({
+                          align: "center" as DataAlignType,
+                          dataField: "id",
+                          deleteFunction: deleteVulnerability,
+                          header: translate.t("search_findings.tab_description.action"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "10%",
+                        });
+            } else {
+              formattedDataLines = groupSpecific(dataLines);
+              formattedDataPorts = groupSpecific(dataPorts);
+              formattedDataInputs = groupSpecific(dataInputs);
+            }
+
+            return(
+              <React.StrictMode>
+                { dataInputs.length > 0
+                  ? <React.Fragment>
+                      <label className={style.vuln_title}>
+                        {translate.t("search_findings.tab_description.inputs")}
+                      </label>
+                      <SimpleTable
+                        id="inputsVulns"
+                        dataset={formattedDataInputs}
+                        exportCsv={false}
+                        headers={inputsHeader}
+                        onClickRow={(): void => undefined}
+                        pageSize={10}
+                        search={false}
+                        enableRowSelection={false}
+                        title=""
+                      />
+                      <br/>
+                    </React.Fragment>
+                  : undefined
+                }
+                { dataLines.length > 0
+                  ? <React.Fragment>
+                      <label className={style.vuln_title}>
+                        {translate.t("search_findings.tab_description.line", {count: 2})}
+                      </label>
+                      <SimpleTable
+                        id="linesVulns"
+                        dataset={formattedDataLines}
+                        exportCsv={false}
+                        headers={linesHeader}
+                        onClickRow={(): void => undefined}
+                        pageSize={10}
+                        search={false}
+                        enableRowSelection={false}
+                        title=""
+                      />
+                      <br/>
+                    </React.Fragment>
+                  : undefined
+                }
+                { dataPorts.length > 0
+                  ? <React.Fragment>
+                      <label className={style.vuln_title}>
+                        {translate.t("search_findings.tab_description.port", {count: 2})}
+                      </label>
+                      <SimpleTable
+                        id="portsVulns"
+                        dataset={formattedDataPorts}
+                        exportCsv={false}
+                        headers={portsHeader}
+                        onClickRow={(): void => undefined}
+                        pageSize={10}
+                        search={false}
+                        enableRowSelection={false}
+                        title=""
+                      />
+                      <br/>
+                    </React.Fragment>
+                  : undefined
+                }
+                {props.editMode && _.includes(["admin", "analyst"], props.userRole)
+                  ? renderButtonBar(props)
+                  : undefined
+                }
+              </React.StrictMode>
+            );
+          }
+        }}
+    </Query>
   );
 };
 
-vulnsViewComponent.defaultProps = {
-  editMode: false,
-  findingId: "",
-  state: "",
-};
-
-export const vulnsView: ComponentType<IVulnerabilitiesViewProps> = reduxWrapper
-(
-  enhance(vulnsViewComponent) as React.FunctionComponent<IVulnerabilitiesViewProps>,
-  mapStateToProps,
-);
+export { vulnsViewComponent as VulnerabilitiesView };

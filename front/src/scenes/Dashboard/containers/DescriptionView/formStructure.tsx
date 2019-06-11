@@ -11,7 +11,7 @@ import { dropdownField, textAreaField, textField } from "../../../../utils/forms
 import translate from "../../../../utils/translations/translate";
 import { numberBetween, numeric, required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
-import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities";
+import { VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
 
 type renderFormFieldsFn = ((props: IDescriptionViewProps) => JSX.Element);

@@ -4,7 +4,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { describe, it } from "mocha";
 import React from "react";
 import { default as SimpleTable } from "../SimpleTable/index";
-import { vulnsViewComponent as VulnerabilitiesView } from "./index";
+import { VulnerabilitiesView } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 

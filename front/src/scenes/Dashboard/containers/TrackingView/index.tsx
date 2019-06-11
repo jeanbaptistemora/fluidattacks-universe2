@@ -17,7 +17,7 @@ import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import { vulnsView as VulnerabilitiesView } from "../../components/Vulnerabilities/index";
+import { VulnerabilitiesView } from "../../components/Vulnerabilities/index";
 import * as actions from "./actions";
 import style from "./index.css";
 

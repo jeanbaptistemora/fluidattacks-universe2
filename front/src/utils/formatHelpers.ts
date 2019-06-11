@@ -416,6 +416,8 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         location.assign("/integrates/logout");
       } else if (_.includes("Access denied", err.message)) {
         msgError(translate.t("proj_alerts.access_denied"));
+      } else if (_.includes("Error in file", err.message)) {
+        msgError(translate.t("search_findings.tab_description.errorFileVuln"));
       } else {
         msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(errorText, err);
