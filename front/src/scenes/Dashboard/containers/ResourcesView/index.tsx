@@ -134,8 +134,23 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
   const handleCloseTagsModal: (() => void) = (): void => { props.onCloseTagsModal(); };
   const projectName: string = props.match.params.projectName;
 
+  const handleQryResult: ((qrResult: IProjectTagsAttr) => void) = (qrResult: IProjectTagsAttr): void => {
+    mixpanel.track(
+      "ProjectTags",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    hidePreloader();
+  };
+
   return (
-    <Query query={GET_TAGS} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
+    <Query
+      query={GET_TAGS}
+      variables={{ projectName }}
+      notifyOnNetworkStatusChange={true}
+      onCompleted={handleQryResult}
+    >
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IProjectTagsAttr>): React.ReactNode => {
           const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
@@ -151,13 +166,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data) && !_.isEmpty(data.project.subscription) && _.isEmpty(data.project.deletionDate)) {
-            mixpanel.track(
-              "ProjectTags",
-              {
-                Organization: (window as Window & { userOrganization: string }).userOrganization,
-                User: (window as Window & { userName: string }).userName,
-              });
-            hidePreloader();
             const tagsDataset: Array<{ tagName: string }> = data.project.tags.map(
               (tagName: string) => ({ tagName }));
 

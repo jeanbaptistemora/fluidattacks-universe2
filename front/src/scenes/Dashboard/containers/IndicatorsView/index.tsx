@@ -63,8 +63,18 @@ const treatmentGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: 
 const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsViewBaseProps): JSX.Element => {
   const projectName: string = props.match.params.projectName;
 
+  const handleQryResult: ((qrResult: IIndicatorsProps) => void) = (qrResult: IIndicatorsProps): void => {
+    mixpanel.track(
+      "ProjectIndicator",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    hidePreloader();
+  };
+
   return (
-    <Query query={GET_INDICATORS} variables={{ projectName }}>
+    <Query query={GET_INDICATORS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
         ({loading, error, data}: QueryResult<IIndicatorsProps>): React.ReactNode => {
           if (loading) {
@@ -79,16 +89,9 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            mixpanel.track(
-              "ProjectIndicator",
-              {
-                Organization: (window as Window & { userOrganization: string }).userOrganization,
-                User: (window as Window & { userName: string }).userName,
-              });
             const totalVulnerabilities: number =
               data.project.openVulnerabilities + data.project.closedVulnerabilities;
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
-            hidePreloader();
 
             return (
               <React.StrictMode>

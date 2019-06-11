@@ -67,10 +67,20 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     location.hash = `#!/project/${projectName}/${rowInfo.id}/description`;
   };
 
-  return (
-    <Query query={GET_FINDINGS} variables={{ projectName }}>
+  const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {
+    mixpanel.track(
+      "ProjectFindings",
       {
-        ({loading, error, data}: QueryResult<IProjectFindingsAttr >): React.ReactNode => {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    hidePreloader();
+  };
+
+  return (
+    <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult}>
+      {
+        ({loading, error, data}: QueryResult<IProjectFindingsAttr>): React.ReactNode => {
           if (loading) {
             showPreloader();
 
@@ -83,13 +93,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            mixpanel.track(
-              "ProjectFindings",
-              {
-                Organization: (window as Window & { userOrganization: string }).userOrganization,
-                User: (window as Window & { userName: string }).userName,
-              });
-            hidePreloader();
 
             return (
               <React.StrictMode>

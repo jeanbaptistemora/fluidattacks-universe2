@@ -42,9 +42,18 @@ const tableHeaders: IHeader[] = [
 ];
 const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventViewBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
+  const handleQryResult: ((qrResult: IEventsAttr) => void) = (qrResult: IEventsAttr): void => {
+    mixpanel.track(
+      "ProjectEvents",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    hidePreloader();
+  };
 
   return (
-    <Query query={GET_EVENTS} variables={{ projectName }}>
+    <Query query={GET_EVENTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
         ({loading, error, data}: QueryResult<IEventsAttr>): React.ReactNode => {
           if (loading) {
@@ -59,13 +68,6 @@ const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventV
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            mixpanel.track(
-              "ProjectEvents",
-              {
-                Organization: (window as Window & { userOrganization: string }).userOrganization,
-                User: (window as Window & { userName: string }).userName,
-              });
-            hidePreloader();
 
             return (
               <React.StrictMode>

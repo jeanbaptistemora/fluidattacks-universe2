@@ -67,6 +67,16 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
     props.onDisplayChange(value as IDashboardState["user"]["displayPreference"]);
   };
 
+  const handleQryResult: ((qrResult: IUserAttr) => void) = (qrResult: IUserAttr): void => {
+    mixpanel.track(
+      "ProjectHome",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    hidePreloader();
+  };
+
   return (
     <React.StrictMode>
       <div className={style.container}>
@@ -89,11 +99,9 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
             </ButtonToolbar>
           </Col>
         </Row>
-        <Query
-          query={PROJECTS_QUERY}
-        >
+        <Query query={PROJECTS_QUERY} onCompleted={handleQryResult}>
           {
-            ({loading, error, data}: QueryResult<IUserAttr >): React.ReactNode => {
+            ({loading, error, data}: QueryResult<IUserAttr>): React.ReactNode => {
               if (loading) {
                 showPreloader();
 
@@ -106,16 +114,9 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                 return <React.Fragment/>;
               }
               if (!_.isUndefined(data)) {
-                mixpanel.track(
-                  "ProjectHome",
-                  {
-                    Organization: (window as Window & { userOrganization: string }).userOrganization,
-                    User: (window as Window & { userName: string }).userName,
-                  });
                 data.me.projects = data.me.projects.map((project: { description: string; name: string }) => ({
                   ...project, name: project.name.toUpperCase(),
                 }));
-                hidePreloader();
 
                 return (
                   <Row>

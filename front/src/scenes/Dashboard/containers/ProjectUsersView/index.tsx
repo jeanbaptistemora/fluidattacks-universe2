@@ -203,8 +203,23 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
 
   const handleCloseUsersModal: (() => void) = (): void => { props.onCloseUsersModal(); };
 
+  const handleQryResult: ((qrResult: IUsersAttr) => void) = (qrResult: IUsersAttr): void => {
+    mixpanel.track(
+      "ProjectUsers",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    hidePreloader();
+  };
+
   return (
-    <Query query={GET_USERS} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
+    <Query
+      query={GET_USERS}
+      variables={{ projectName }}
+      notifyOnNetworkStatusChange={true}
+      onCompleted={handleQryResult}
+    >
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IUsersAttr>): React.ReactNode => {
           const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
@@ -220,7 +235,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            hidePreloader();
             const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
 
             const handleMtAddUserRes: ((mtResult: IAddUserAttr) => void) = (mtResult: IAddUserAttr): void => {

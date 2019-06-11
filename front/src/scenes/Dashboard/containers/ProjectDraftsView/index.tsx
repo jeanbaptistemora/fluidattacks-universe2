@@ -44,8 +44,18 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     location.hash = `#!/project/${projectName}/${rowInfo.id}/description`;
   };
 
+  const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (qrResult: IProjectDraftsAttr): void => {
+    mixpanel.track(
+      "ProjectDrafts",
+      {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+    hidePreloader();
+  };
+
   return (
-    <Query query={GET_DRAFTS} variables={{ projectName }}>
+    <Query query={GET_DRAFTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
         ({loading, error, data}: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
           if (loading) {
@@ -60,13 +70,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            mixpanel.track(
-              "ProjectDrafts",
-              {
-                Organization: (window as Window & { userOrganization: string }).userOrganization,
-                User: (window as Window & { userName: string }).userName,
-              });
-            hidePreloader();
 
             return (
               <React.StrictMode>
