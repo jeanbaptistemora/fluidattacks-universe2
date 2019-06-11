@@ -5,7 +5,7 @@ import { IEventsAttr } from "../scenes/Dashboard/containers/EventsView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
-import { ISeverityField, ISeverityViewProps } from "../scenes/Dashboard/containers/SeverityView";
+import { ISeverityAttr, ISeverityField } from "../scenes/Dashboard/containers/SeverityView/types";
 import { msgError } from "./notifications";
 import rollbar from "./rollbar";
 import translate from "./translations/translate";
@@ -46,8 +46,8 @@ export const formatUserlist:
   return { ...user, role, lastLogin, firstLogin };
 });
 
-export const castFieldsCVSS3: ((dataset: ISeverityViewProps["dataset"]) => ISeverityField[]) =
-  (dataset: ISeverityViewProps["dataset"]): ISeverityField[] => {
+export const castFieldsCVSS3: ((dataset: ISeverityAttr["finding"]["severity"]) => ISeverityField[]) =
+  (dataset: ISeverityAttr["finding"]["severity"]): ISeverityField[] => {
 
   const attackVector: {[value: string]: string} = {
     0.85: "search_findings.tab_severity.attack_vector_options.network",
@@ -165,8 +165,8 @@ export const castFieldsCVSS3: ((dataset: ISeverityViewProps["dataset"]) => ISeve
   return fields;
 };
 
-export const castEnvironmentCVSS3Fields: ((dataset: ISeverityViewProps["dataset"]) => ISeverityField[]) =
-  (dataset: ISeverityViewProps["dataset"]): ISeverityField[] => {
+export const castEnvironmentCVSS3Fields: ((dataset: ISeverityAttr["finding"]["severity"]) => ISeverityField[]) =
+  (dataset: ISeverityAttr["finding"]["severity"]): ISeverityField[] => {
 
   const attackVector: {[value: string]: string} = {
     0.85: "search_findings.tab_severity.attack_vector_options.network",

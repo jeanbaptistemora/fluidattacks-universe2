@@ -11,7 +11,6 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
 import { StateType } from "typesafe-actions";
@@ -31,67 +30,7 @@ import { GenericForm } from "../../components/GenericForm/index";
 import * as actions from "./actions";
 import style from "./index.css";
 import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
-import { ISeverityAttr, IUpdateSeverityAttr } from "./types";
-
-export interface ISeverityViewProps {
-  canEdit: boolean;
-  cvssVersion: string;
-  dataset: {
-    attackComplexity: string;
-    attackVector: string;
-    availabilityImpact: string;
-    availabilityRequirement: string;
-    confidentialityImpact: string;
-    confidentialityRequirement: string;
-    exploitability: string;
-    integrityImpact: string;
-    integrityRequirement: string;
-    modifiedAttackComplexity: string;
-    modifiedAttackVector: string;
-    modifiedAvailabilityImpact: string;
-    modifiedConfidentialityImpact: string;
-    modifiedIntegrityImpact: string;
-    modifiedPrivilegesRequired: string;
-    modifiedSeverityScope: string;
-    modifiedUserInteraction: string;
-    privilegesRequired: string;
-    remediationLevel: string;
-    reportConfidence: string;
-    severityScope: string;
-    userInteraction: string;
-  };
-  findingId: string;
-  formValues: {
-    editSeverity: {
-      values: {
-        cvssVersion: string;
-        modifiedSeverityScope: string;
-        severityScope: string;
-      };
-    };
-  };
-  isEditing: boolean;
-  severity: number;
-}
-
-export interface ISeverityField {
-  currentValue: string;
-  name: string;
-  options: {[value: string]: string};
-  title: string;
-}
-
-const enhance: InferableComponentEnhancer<{}> =
-lifecycle({
-  componentDidMount(): void {
-    mixpanel.track(
-      "FindingSeverity",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
-  },
-});
+import { ISeverityAttr, ISeverityField, ISeverityViewProps, IUpdateSeverityAttr } from "./types";
 
 const renderEditPanel: ((arg1: ISeverityViewProps, data: ISeverityAttr) => JSX.Element) =
 (props: ISeverityViewProps, data: ISeverityAttr): JSX.Element => (
@@ -279,12 +218,27 @@ const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) =>
   );
 };
 
+const handleQryResult: ((qrResult: ISeverityAttr) => void) = (qrResult: ISeverityAttr): void => {
+  mixpanel.track(
+    "FindingSeverity",
+    {
+      Organization: (window as Window & { userOrganization: string }).userOrganization,
+      User: (window as Window & { userName: string }).userName,
+    });
+  hidePreloader();
+};
+
 export const component: React.FC<ISeverityViewProps> =
   (props: ISeverityViewProps): JSX.Element => (
     <React.StrictMode>
       <Row>
         <Col md={12} sm={12} xs={12}>
-          <Query query={GET_SEVERITY} variables={{ identifier: props.findingId }} notifyOnNetworkStatusChange={true}>
+          <Query
+            query={GET_SEVERITY}
+            variables={{ identifier: props.findingId }}
+            notifyOnNetworkStatusChange={true}
+            onCompleted={handleQryResult}
+          >
           {
             ({loading, error, data, refetch, networkStatus}: QueryResult<ISeverityAttr>): React.ReactNode => {
               const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
@@ -300,7 +254,6 @@ export const component: React.FC<ISeverityViewProps> =
                 return <React.Fragment/>;
               }
               if (!_.isUndefined(data)) {
-                hidePreloader();
 
                 const handleMtUpdateSeverityRes: ((mtResult: IUpdateSeverityAttr) => void) =
                 (mtResult: IUpdateSeverityAttr): void => {
@@ -387,9 +340,9 @@ export const component: React.FC<ISeverityViewProps> =
                           name="editSeverity"
                           initialValues={{...data.finding.severity, ...{cvssVersion: data.finding.cvssVersion}}}
                           onSubmit={handleUpdateSeverity}
-                          onChange={(values: ISeverityViewProps["dataset"] & {cvssVersion: string}): void => {
+                          onChange={(values: ISeverityAttr["finding"]["severity"] & {cvssVersion: string}): void => {
                                 store.dispatch(actions.calcCVSS(
-                                  values as ISeverityViewProps["dataset"], values.cvssVersion));
+                                  values as ISeverityAttr["finding"]["severity"], values.cvssVersion));
                               }}
                         >
                           {renderSeverityFields(props, data)}
@@ -409,7 +362,7 @@ export const component: React.FC<ISeverityViewProps> =
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editSeverity");
 
 export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrapper(
-  enhance(component) as React.FC<ISeverityViewProps>,
+  component,
   (state: StateType<Reducer>): ISeverityViewProps => ({
     ...state.dashboard.severity,
     formValues: {

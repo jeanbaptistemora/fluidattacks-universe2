@@ -18,8 +18,8 @@ import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
 import { IRecordsViewProps } from "./containers/RecordsView/index";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
-import { ISeverityViewProps } from "./containers/SeverityView";
 import * as severityActions from "./containers/SeverityView/actionTypes";
+import { ISeverityViewProps } from "./containers/SeverityView/types";
 import * as trackingActions from "./containers/TrackingView/actionTypes";
 import { ITrackingViewProps } from "./containers/TrackingView/index";
 
@@ -64,7 +64,7 @@ export interface IDashboardState {
     showUploadProgress: boolean;
     uploadProgress: number;
   };
-  severity: Pick<ISeverityViewProps, "isEditing" | "severity" | "dataset" | "cvssVersion">;
+  severity: Pick<ISeverityViewProps, "isEditing" | "severity">;
   tags: {
     tagsModal: {
       open: boolean;
@@ -197,31 +197,6 @@ const initialState: IDashboardState = {
     uploadProgress: 0,
   },
   severity: {
-    cvssVersion: "",
-    dataset: {
-      attackComplexity: "",
-      attackVector: "",
-      availabilityImpact: "",
-      availabilityRequirement: "",
-      confidentialityImpact: "",
-      confidentialityRequirement: "",
-      exploitability: "",
-      integrityImpact: "",
-      integrityRequirement: "",
-      modifiedAttackComplexity: "",
-      modifiedAttackVector: "",
-      modifiedAvailabilityImpact: "",
-      modifiedConfidentialityImpact: "",
-      modifiedIntegrityImpact: "",
-      modifiedPrivilegesRequired: "",
-      modifiedSeverityScope: "",
-      modifiedUserInteraction: "",
-      privilegesRequired: "",
-      remediationLevel: "",
-      reportConfidence: "",
-      severityScope: "",
-      userInteraction: "",
-    },
     isEditing: false,
     severity: 0,
   },
@@ -521,8 +496,6 @@ actionMap[severityActions.LOAD_SEVERITY] =
     ...state,
     severity: {
       ...state.severity,
-      cvssVersion: action.payload.cvssVersion,
-      dataset: action.payload.dataset,
     },
   });
 

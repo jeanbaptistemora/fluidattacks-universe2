@@ -6,7 +6,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actionTypes from "./actionTypes";
-import { ISeverityViewProps } from "./index";
+import { ISeverityAttr } from "./types";
 
 export interface IActionStructure {
   /* tslint:disable-next-line:no-any
@@ -50,8 +50,8 @@ export const calcPrivilegesRequired: ((privileges: string, scope: string) => num
     return privReq;
   };
 
-export const calcCVSSv3: ((data: ISeverityViewProps["dataset"]) => number) =
-  (data: ISeverityViewProps["dataset"]): number => {
+export const calcCVSSv3: ((data: ISeverityAttr["finding"]["severity"]) => number) =
+  (data: ISeverityAttr["finding"]["severity"]): number => {
     let BASESCORE_FACTOR: number; BASESCORE_FACTOR = 1.08;
     let IMPACT_FACTOR_1: number; IMPACT_FACTOR_1 = 6.42;
     let IMPACT_FACTOR_2: number; IMPACT_FACTOR_2 = 7.52;
@@ -93,8 +93,10 @@ export const calcCVSSv3: ((data: ISeverityViewProps["dataset"]) => number) =
   };
 
 export const calcCVSS:
-((data: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]) => IActionStructure) =
-  (data: ISeverityViewProps["dataset"], cvssVersion: ISeverityViewProps["cvssVersion"]): IActionStructure => {
+((data: ISeverityAttr["finding"]["severity"], cvssVersion: ISeverityAttr["finding"]["cvssVersion"])
+    => IActionStructure) =
+  (data: ISeverityAttr["finding"]["severity"], cvssVersion: ISeverityAttr["finding"]["cvssVersion"]):
+    IActionStructure => {
     const temporal: number = calcCVSSv3(data);
 
     return ({
@@ -138,8 +140,8 @@ export const loadSeverity: ThunkActionStructure =
     };
 
 export const updateSeverity: ThunkActionStructure =
-  (findingId: string, values: ISeverityViewProps["dataset"] & { cvssVersion: string },
-   severity: ISeverityViewProps["severity"]): ThunkAction<void, {}, {}, Action> =>
+  (findingId: string, values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string },
+   severity: ISeverityAttr["finding"]["severity"]): ThunkAction<void, {}, {}, Action> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {

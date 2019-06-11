@@ -60,3 +60,26 @@ export interface IUpdateSeverityAttr {
     success: boolean;
   };
 }
+
+export interface ISeverityViewProps {
+  canEdit: boolean;
+  findingId: string;
+  formValues: {
+    editSeverity: {
+      values: {
+        cvssVersion: string;
+        modifiedSeverityScope: string;
+        severityScope: string;
+      };
+    };
+  };
+  isEditing: boolean;
+  severity: number;
+}
+
+export interface ISeverityField {
+  currentValue: string;
+  name: string;
+  options: {[value: string]: string};
+  title: string;
+}
