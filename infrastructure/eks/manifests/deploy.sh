@@ -111,6 +111,7 @@ function install_amazon_vpc_plugin() {
 # Automate the generation and renewal of TLS certificates for secondary domains
 function issue_secondary_domain_certificates() {
   local manifest="${1}"
+  local tls_manifest="$(echo ${manifest} | cut -d. -f1)-tls.yaml"
   local secret="${2}"
   local certificate_name="${3}"
   local secret_age="$(kubectl get secret ${secret} | grep -Po '(?<=\s)[0-9]+d' | sed 's/.$//')"
@@ -118,15 +119,17 @@ function issue_secondary_domain_certificates() {
     echo-blue "Certificates for secondary domains are valid."
   elif [ "${secret_age}" -gt 80 ] || [[ $(get_changed_files) == *"${manifest}"*  ]]; then
     echo-blue "Issuing TLS certificates for secondary domains..."
+    kubectl delete ingress "${manifest}"
     kubectl delete secret "${secret}"
     kubectl delete certificate "${certificate_name}"
     sleep 10
-    kubectl apply -f "${manifest}"
+    kubectl apply -f "${tls_manifest}"
     until kubectl describe certificate "${certificate_name}" | grep 'CertObtained'; do
       echo-blue "Issuing certificate..."
       sleep 10
     done
   fi
+  kubectl apply -f "${manifest}"
 }
 
 function restore-vault() {
