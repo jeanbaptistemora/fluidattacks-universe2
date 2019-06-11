@@ -5,20 +5,24 @@
  * JSX-NO-MULTILINE-JS: necessary for the sake of readability of the code that dynamically renders fields
  * as input or <p> depending on their state
  */
-
+import { NetworkStatus } from "apollo-boost";
+import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { AnyAction, Reducer } from "redux";
+import { Reducer } from "redux";
 import { formValueSelector, submit } from "redux-form";
-import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { castEnvironmentCVSS3Fields, castFieldsCVSS3, castPrivileges } from "../../../../utils/formatHelpers";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { castEnvironmentCVSS3Fields, castFieldsCVSS3, castPrivileges,
+  handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
+import { msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
@@ -26,6 +30,8 @@ import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm/index";
 import * as actions from "./actions";
 import style from "./index.css";
+import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
+import { ISeverityAttr, IUpdateSeverityAttr } from "./types";
 
 export interface ISeverityViewProps {
   canEdit: boolean;
@@ -84,16 +90,11 @@ lifecycle({
         Organization: (window as Window & { userOrganization: string }).userOrganization,
         User: (window as Window & { userName: string }).userName,
       });
-    const { findingId } = this.props as ISeverityViewProps;
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-
-    thunkDispatch(actions.loadSeverity(findingId));
   },
 });
 
-const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISeverityViewProps): JSX.Element => (
+const renderEditPanel: ((arg1: ISeverityViewProps, data: ISeverityAttr) => JSX.Element) =
+(props: ISeverityViewProps, data: ISeverityAttr): JSX.Element => (
   <Row>
     <Row>
       <Col md={2} mdOffset={10} xs={12} sm={12}>
@@ -102,7 +103,7 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
           block={true}
           onClick={(): void => {
             store.dispatch(actions.editSeverity());
-            store.dispatch(actions.calcCVSS(props.dataset, props.cvssVersion));
+            store.dispatch(actions.calcCVSS(data.finding.severity, data.finding.cvssVersion));
           }}
         >
           <FluidIcon icon="edit" /> {translate.t("search_findings.tab_severity.editable")}
@@ -124,9 +125,9 @@ const renderEditPanel: ((arg1: ISeverityViewProps) => JSX.Element) = (props: ISe
   </Row>
 );
 
-const renderCVSSFields: ((props: ISeverityViewProps) => JSX.Element[]) =
-  (props: ISeverityViewProps): JSX.Element[] =>
-  castFieldsCVSS3(props.dataset)
+const renderCVSSFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element[]) =
+  (props: ISeverityViewProps, data: ISeverityAttr): JSX.Element[] =>
+  castFieldsCVSS3(data.finding.severity)
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
         const text: string = field.options[value];
@@ -154,9 +155,9 @@ const renderCVSSFields: ((props: ISeverityViewProps) => JSX.Element[]) =
         );
       });
 
-const renderEnvironmentFields: ((props: ISeverityViewProps) => JSX.Element[]) =
-  (props: ISeverityViewProps): JSX.Element[] =>
-  castEnvironmentCVSS3Fields(props.dataset)
+const renderEnvironmentFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element[]) =
+  (props: ISeverityViewProps,  data: ISeverityAttr): JSX.Element[] =>
+  castEnvironmentCVSS3Fields(data.finding.severity)
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
         const text: string = field.options[value];
@@ -185,33 +186,34 @@ const renderEnvironmentFields: ((props: ISeverityViewProps) => JSX.Element[]) =
         );
       });
 
-const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (props: ISeverityViewProps): JSX.Element => {
+const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element) =
+(props: ISeverityViewProps, data: ISeverityAttr): JSX.Element => {
   const cvssVersion: string = (props.isEditing)
     ? props.formValues.editSeverity.values.cvssVersion
-    : props.cvssVersion;
+    : data.finding.cvssVersion;
 
   const severityScope: string = (props.isEditing)
     ? props.formValues.editSeverity.values.severityScope
-    : props.dataset.severityScope;
+    : data.finding.severity.severityScope;
 
   const modifiedSeverityScope: string = (props.isEditing)
     ? props.formValues.editSeverity.values.modifiedSeverityScope
-    : props.dataset.modifiedSeverityScope;
+    : data.finding.severity.modifiedSeverityScope;
 
   const privilegesOptions: {[value: string]: string} = castPrivileges(severityScope);
   const modPrivilegesOptions: {[value: string]: string} = castPrivileges(modifiedSeverityScope);
 
-  const privileges: string = props.dataset.privilegesRequired;
-  const modPrivileges: string = props.dataset.modifiedPrivilegesRequired;
+  const privileges: string = data.finding.severity.privilegesRequired;
+  const modPrivileges: string = data.finding.severity.modifiedPrivilegesRequired;
 
   return (
     <React.Fragment>
-      {props.canEdit ? renderEditPanel(props) : undefined}
+      {props.canEdit ? renderEditPanel(props, data) : undefined}
       <Row className={style.row}>
         <EditableField
           alignField="horizontal"
           component={dropdownField}
-          currentValue={props.cvssVersion}
+          currentValue={data.finding.cvssVersion}
           label={translate.t("search_findings.tab_severity.cvss_version")}
           name="cvssVersion"
           renderAsEditable={props.isEditing}
@@ -222,7 +224,7 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
           <option value="3">3</option>
         </EditableField>
       </Row>
-      {renderCVSSFields(props)}
+      {renderCVSSFields(props, data)}
       <Row className={style.row}>
         <EditableField
           alignField="horizontal"
@@ -245,7 +247,7 @@ const renderSeverityFields: ((props: ISeverityViewProps) => JSX.Element) = (prop
       { cvssVersion === "3" && props.isEditing
         ?
         <React.Fragment>
-          {renderEnvironmentFields(props)}
+          {renderEnvironmentFields(props, data)}
           <Row className={style.row}>
             <EditableField
               alignField="horizontal"
@@ -282,31 +284,123 @@ export const component: React.FC<ISeverityViewProps> =
     <React.StrictMode>
       <Row>
         <Col md={12} sm={12} xs={12}>
-        <GenericForm
-          name="editSeverity"
-          initialValues={{...props.dataset, ...{cvssVersion: props.cvssVersion}}}
-          onSubmit={(values: ISeverityViewProps["dataset"] & { cvssVersion: string }): void => {
-                const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-                  store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+          <Query query={GET_SEVERITY} variables={{ identifier: props.findingId }} notifyOnNetworkStatusChange={true}>
+          {
+            ({loading, error, data, refetch, networkStatus}: QueryResult<ISeverityAttr>): React.ReactNode => {
+              const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+              if (loading || isRefetching) {
+                showPreloader();
+
+                return <React.Fragment/>;
+              }
+              if (!_.isUndefined(error)) {
+                hidePreloader();
+                handleGraphQLErrors("An error occurred getting severity", error);
+
+                return <React.Fragment/>;
+              }
+              if (!_.isUndefined(data)) {
+                hidePreloader();
+
+                const handleMtUpdateSeverityRes: ((mtResult: IUpdateSeverityAttr) => void) =
+                (mtResult: IUpdateSeverityAttr): void => {
+                  if (!_.isUndefined(mtResult)) {
+                    if (mtResult.updateSeverity.success) {
+                      refetch()
+                        .catch();
+                      hidePreloader();
+                      msgSuccess(translate.t("proj_alerts.updated"), translate.t("proj_alerts.updated_title"));
+                      store.dispatch(actions.calcCVSS(mtResult.updateSeverity.finding.severity,
+                                                      mtResult.updateSeverity.finding.cvssVersion));
+                      store.dispatch(actions.editSeverity());
+                      mixpanel.track(
+                        "UpdateSeverity",
+                        {
+                          Organization: (window as Window & { userOrganization: string }).userOrganization,
+                          User: (window as Window & { userName: string }).userName,
+                        });
+                    }
+                  }
+                };
+
+                return (
+                  <Mutation mutation={UPDATE_SEVERITY_MUTATION} onCompleted={handleMtUpdateSeverityRes}>
+                  { (updateSeverity: MutationFn<IUpdateSeverityAttr, {
+                    data: { attackComplexity: string; attackVector: string; availabilityImpact: string;
+                            availabilityRequirement: string; confidentialityImpact: string;
+                            confidentialityRequirement: string; cvssVersion: string; exploitability: string; id: string;
+                            integrityImpact: string; integrityRequirement: string; modifiedAttackComplexity: string;
+                            modifiedAttackVector: string; modifiedAvailabilityImpact: string;
+                            modifiedConfidentialityImpact: string; modifiedIntegrityImpact: string;
+                            modifiedPrivilegesRequired: string; modifiedSeverityScope: string;
+                            modifiedUserInteraction: string; privilegesRequired: string; remediationLevel: string;
+                            reportConfidence: string; severity: string; severityScope: string; userInteraction: string;
+                          };
+                    findingId: string; }>,
+                     mutationRes: MutationResult): React.ReactNode => {
+                      if (mutationRes.loading) {
+                        showPreloader();
+                      }
+                      if (!_.isUndefined(mutationRes.error)) {
+                        hidePreloader();
+                        handleGraphQLErrors("An error occurred updating severity", mutationRes.error);
+
+                        return <React.Fragment/>;
+                      }
+
+                      const handleUpdateSeverity: (
+                        (values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string }) => void) =
+                        (values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string }): void => {
+                          updateSeverity({
+                            variables: {
+                              data: {
+                                attackComplexity: values.attackComplexity, attackVector: values.attackVector,
+                                availabilityImpact: values.availabilityImpact,
+                                availabilityRequirement: values.availabilityRequirement,
+                                confidentialityImpact: values.confidentialityImpact,
+                                confidentialityRequirement: values.confidentialityRequirement,
+                                cvssVersion: values.cvssVersion, exploitability: values.exploitability,
+                                id: props.findingId, integrityImpact: values.integrityImpact,
+                                integrityRequirement: values.integrityRequirement,
+                                modifiedAttackComplexity: values.modifiedAttackComplexity,
+                                modifiedAttackVector: values.modifiedAttackVector,
+                                modifiedAvailabilityImpact: values.modifiedAvailabilityImpact,
+                                modifiedConfidentialityImpact: values.modifiedConfidentialityImpact,
+                                modifiedIntegrityImpact: values.modifiedIntegrityImpact,
+                                modifiedPrivilegesRequired: values.modifiedPrivilegesRequired,
+                                modifiedSeverityScope: values.modifiedSeverityScope,
+                                modifiedUserInteraction: values.modifiedUserInteraction,
+                                privilegesRequired: values.privilegesRequired,
+                                remediationLevel: values.remediationLevel, reportConfidence: values.reportConfidence,
+                                severity: String(props.severity), severityScope: values.severityScope,
+                                userInteraction: values.userInteraction,
+                              },
+                              findingId: props.findingId,
+                              },
+                            },
+                          )
+                            .catch();
+                        };
+
+                      return (
+                        <GenericForm
+                          name="editSeverity"
+                          initialValues={{...data.finding.severity, ...{cvssVersion: data.finding.cvssVersion}}}
+                          onSubmit={handleUpdateSeverity}
+                          onChange={(values: ISeverityViewProps["dataset"] & {cvssVersion: string}): void => {
+                                store.dispatch(actions.calcCVSS(
+                                  values as ISeverityViewProps["dataset"], values.cvssVersion));
+                              }}
+                        >
+                          {renderSeverityFields(props, data)}
+                        </GenericForm>
+                      );
+                     }}
+                  </Mutation>
                 );
-                mixpanel.track(
-                  "UpdateSeverity",
-                  {
-                    Organization: (window as Window & { userOrganization: string }).userOrganization,
-                    User: (window as Window & { userName: string }).userName,
-                  });
-                thunkDispatch(actions.updateSeverity(
-                  props.findingId,
-                  values,
-                  props.severity,
-                ));
-              }}
-          onChange={(values: ISeverityViewProps["dataset"] & {cvssVersion: string}): void => {
-                store.dispatch(actions.calcCVSS(values as ISeverityViewProps["dataset"], values.cvssVersion));
-              }}
-        >
-          {renderSeverityFields(props)}
-        </GenericForm>
+              }
+            }}
+          </Query>
         </Col>
       </Row>
     </React.StrictMode>
