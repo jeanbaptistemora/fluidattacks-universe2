@@ -113,18 +113,19 @@ function issue_secondary_domain_certificates() {
   local manifest="${1}"
   local secret="${2}"
   local certificate_name="${3}"
-  local secret_age="$(kubectl get secret ${secret} | grep -Po '[0-9]+(d|m|s)$' | sed 's/.$//')"
-  if [ "${secret_age}" -gt 85 ] || [[ $(get_changed_files) == *"${manifest}"*  ]]; then
+  local secret_age="$(kubectl get secret ${secret} | grep -Po '(?<=\s)[0-9]+d' | sed 's/.$//')"
+  if [ -z "${secret_age}" ]; then
+    echo-blue "Certificates for secondary domains are valid."
+  elif [ "${secret_age}" -gt 80 ] || [[ $(get_changed_files) == *"${manifest}"*  ]]; then
     echo-blue "Issuing TLS certificates for secondary domains..."
     kubectl delete secret "${secret}"
     kubectl delete certificate "${certificate_name}"
+    sleep 10
     kubectl apply -f "${manifest}"
     until kubectl describe certificate "${certificate_name}" | grep 'CertObtained'; do
       echo-blue "Issuing certificate..."
       sleep 10
     done
-  else
-    echo-blue "Certificates for secondary domains are valid."
   fi
 }
 
