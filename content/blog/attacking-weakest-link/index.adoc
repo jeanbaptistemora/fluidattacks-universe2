@@ -1,0 +1,117 @@
+:slug: attacking-weakest-link/
+:date: 2019-06-04
+:category: social-engineering
+:subtitle: Attacking without borders.
+:tags: social, password, information, social engineering
+:image: cover.png
+:alt: People manipulation
+:description: Humans are and always will be the weakest link in security, learn how to deal with this kind of holes and how to patch them, secure your information by adding an extra layer of security to your own people, giving them everyting they need to securely achieve their work goal.
+:keywords: Information, Security, Protection, Hacking, Bussiness, Social Engineering
+:author: Mateo Gutiérrez Gómez
+:writer: mgutierrez
+:about1: Systems engineering undergrad student.
+:about2: Psychology and cyber security enthusiast.
+
+= Attacking the weakest link.
+
+Companies invest millions of dollars in +IT+ infrastructure and their respective
+cybersecurity to keep their information protected,
+but when it comes to train their employees the investment is barely enough,
+employees that daily manipulate,
+organize,
+create or update the company's main data are the main link between the +IT+
+infrastructure and the data that resides in it.
+Under the reality that absolute security is impossible,
+I ask you, what would you think if I told you there's a way to get information
+that does not need any Internet connection, server or computer?,
+There are many types of social engineering attacks,
+but we will focus mainly on the one that does not need any machine nor
+Internet connection to be successful.
+
+[quote]
+If my systems are secure my data is also secure. +
+
+This phrase is usually affirmative,
+but we have to remember that humans are also an important part of the company's
+security,
+if we don't consider this factor the state of security that is being discussed
+becomes partial
+and a hacker with malicious intentions could use this weak link to get into
+the system and compromise it or steal sensitive information.
+
+Usually an intrusion begins by scanning the exposed perimeter that you want to
+strike,
+this will display all the exposed, badly protected or open ports and services
+to vulnerate,
+this becomes the entry point of everyone intending to breach into your system,
+but what happens when no service is exposed or is highly secured?,
+an attacker must make a decision, force a way in and put himself at risk or
+search for a weaker link,
+this is where social engineering comes into play.
+
+Within the hacker jargon there's an attack called the "secretary attack",
+this assault is executed by leaving a +USB+ near or at the victims workplace,
+the attacker only needs to wait for the victim to plug the device in their work
+computer giving an entry point,
+which allows to breach the network.
+It's important to clear up that this assault does not only affect secretaries,
+is just the given name.
+Another way to work over this vulnerabilty is to ask someone directly to print
+out something from and infected +USB+.
+
+.Controlling people
+image::control.png["Control People"]
+
+The attack mentioned above is widely used no matter if the target is a big or
+small company, but will be used when is not possible to have direct access to
+the network devices of a company using a common vulnerabilty.
+If this intrusion is well executed it will not leave any trace
+and will allow the aggressor to obtain any wanted or needed information
+that will be used eventually to deeply penetrate the company systems
+and potentially risk more critical infrastructure.
+It's common to dispose the primary victim ("secretary")
+once the attacker have no use for them,
+making this type of assault is really difficult to follow-up.
+
+All these actions and some others are widely used by hackers that wants to
+break into a company either to steal information or just damage critical
+infrastructure,
+once the attacker gets inside the network with simple obtained credentials it
+can be used to deeply penetrate into the organization digital infrastructure and
+gain access into a more sensitive information or even destroy the whole system
+putting the company on an imminent bankruptcy.
+
+A cybercriminal can also use this kind of attack to steal information from
+persons, this information can be used to expand a contact network and get more
+information which will allow the thief to become someone else,
+this is usually known as identity theft which points us to a new vulnerability
+called phishing,
+allowing the attacker to move from one social circle to another and get more
+information for later use.
+
+.Maniupulating victims
+image::manipulation.png["Use your victims"]
+
+How can a company prevent this type of vulnerability?,
+limit distributed information by giving the exact information a worker needs to
+fulfill their work functions.
+This must be complemented with a good employee training,
+also there must be some clear regulations on information disclosure and
+manipulation or secrecy.
+By the time these trainings ends,
+an employee must be able to know what information can be public and which should
+be private,
+this must apply at all times no matter if they're outside of the company
+buildings.
+
+This same rule applies to non corporate users,
+but more freely,
+the main point is knowing what information can be public and which should always
+be secret.
+It is also a good idea to always check the sender information in every mail
+received to prevent phishing mail targeted to you,
+avoid answering unknown emails where they ask for sensitive or private
+information such as passwords, addresses, phone numbers, banking information or
+some other related data, if we "install" a "mental antivirus" of distrusting
+people who ask things that should not be widely known we could prevent a lot of
+information leaks that are usually obtained with this attack.
