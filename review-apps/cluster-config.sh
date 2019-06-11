@@ -64,11 +64,12 @@ function validate_domain_certificate() {
   local secret="$(cat ${manifest} | grep -Po '(?<=secretName: ).*')"
   if find_resource secret "${secret}"; then
     local secret_age="$(kubectl get secret ${secret} | \
-                       grep -Po '[0-9]+(d|h|m|s)$' | sed 's/.$//')"
-    if [ "${secret_age}" -gt 85 ]; then
-       issue_domain_certificate "${manifest}" "${issuer}" "${certificate}"
-    else
+                      grep -Po '(?<=\s)[0-9]+d' | sed 's/.$//')"
+    if [ -z "${secret_age}" ]; then
       echo-blue "Domain certificate is valid."
+    elif [ "${secret_age}" -gt 80 ]; then
+      kubectl delete secret "${secret}"
+      issue_domain_certificate "${manifest}" "${issuer}" "${certificate}"
     fi
   else
     issue_domain_certificate "${manifest}" "${issuer}" "${certificate}"
