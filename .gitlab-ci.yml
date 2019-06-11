@@ -319,16 +319,6 @@ build-mobile:
     - cp -a /root/mobile/node_modules mobile/
     - cd mobile/
     - npm install
-    - MINUTES=$((
-        ($(date +%d | sed 's/^0//') -1) * 1440 +
-        $(date +%H | sed 's/^0//') * 60 +
-        $(date +%M | sed 's/^0//')
-      ))
-    - if [ ${#MINUTES} -lt 5 ]; then MINUTES=$(( $MINUTES * 10 )); fi;
-    - FI_VERSION="$(date +%y.%m.)${MINUTES}"
-    - FI_VERSION_CODE="$(date +%y%m)${MINUTES}"
-    - sed -i 's/integrates_version/'"${FI_VERSION}"'/g' ./app.json
-    - sed -i "s/"\"versionCode\":" 0/"\"versionCode\":" ${FI_VERSION_CODE}/g" ./app.json
     - skip_if_unchanged mobile/
     - if [ $SKIP_JOB -eq 0 ]; then npm run build; fi;
   artifacts:

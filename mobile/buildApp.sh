@@ -33,9 +33,23 @@ echo "$FI_GOOGLE_SERVICES_APP" > google-services.json
 
 # Build
 echo "Updating app manifest ..."
+MINUTES=$(printf "%05d" $((
+        ($(date +%d | sed 's/^0//') -1) * 1440 +
+        $(date +%H | sed 's/^0//') * 60 +
+        $(date +%M | sed 's/^0//')
+      )))
+VAR_URL="https://gitlab.com/api/v4/projects/fluidattacks%2Fintegrates/variables/MOBILE_VERSION"
+CURRENT=$(curl -s --header "PRIVATE-TOKEN:$FI_GITLAB_ENV_KEY" $VAR_URL | jq -r .value)
+FI_VERSION="$(date +%y.%m.)${MINUTES}"
+FI_VERSION_CODE="$(date +%y%m)${CURRENT}"
+if [ "$(date +%m)" -eq 07 ]; then FI_VERSION_CODE="$(date +%y%m)${MINUTES}"; fi;
+sed -i 's/integrates_version/'"${FI_VERSION}"'/g' ./app.json
+sed -i "s/"\"versionCode\":" 0/"\"versionCode\":" ${FI_VERSION_CODE}/g" ./app.json
 npx expo publish \
   --release-channel "$DEVELOPER_ENV" \
   --non-interactive
+curl -s --request PUT --header "PRIVATE-TOKEN:$FI_GITLAB_ENV_KEY" $VAR_URL --form "value=$((CURRENT + 1))" > /dev/null
+
 echo "Building android .apk ..."
 rm -r output/ && mkdir output/
 npx turtle build:android \
