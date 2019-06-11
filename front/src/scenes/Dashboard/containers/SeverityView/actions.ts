@@ -1,10 +1,3 @@
-import { AxiosError, AxiosResponse } from "axios";
-import { Action, AnyAction, Dispatch } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
-import translate from "../../../../utils/translations/translate";
-import Xhr from "../../../../utils/xhr";
 import * as actionTypes from "./actionTypes";
 import { ISeverityAttr } from "./types";
 
@@ -16,13 +9,6 @@ export interface IActionStructure {
   payload: any;
   type: string;
 }
-
-type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
-/* tslint:disable-next-line:no-any
- * Disabling this rule is necessary because the args
- * of an async action may differ
- */
-type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
 
 export const editSeverity: (() => IActionStructure) =
   (): IActionStructure => ({
@@ -106,110 +92,3 @@ export const calcCVSS:
     type: actionTypes.CALC_CVSS,
   });
 };
-
-export const loadSeverity: ThunkActionStructure =
-  (findingId: string): ThunkAction<void, {}, {}, Action> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string;
-      gQry = `{
-      finding(identifier: "${findingId}") {
-        cvssVersion
-        severity
-      }
-    }`;
-      new Xhr().request(gQry, "An error occurred getting severity")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-          dispatch(calcCVSS(data.finding.severity, data.finding.cvssVersion));
-          dispatch({
-            payload: {
-              cvssVersion: data.finding.cvssVersion,
-              dataset: data.finding.severity,
-            },
-            type: actionTypes.LOAD_SEVERITY,
-          });
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };
-
-export const updateSeverity: ThunkActionStructure =
-  (findingId: string, values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string },
-   severity: ISeverityAttr["finding"]["severity"]): ThunkAction<void, {}, {}, Action> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string;
-      gQry = `mutation {
-      updateSeverity(
-        findingId: "${findingId}",
-        data: {
-          attackComplexity: "${values.attackComplexity}",
-          attackVector: "${values.attackVector}",
-          availabilityImpact: "${values.availabilityImpact}",
-          availabilityRequirement: "${values.availabilityRequirement}",
-          confidentialityImpact: "${values.confidentialityImpact}",
-          confidentialityRequirement: "${values.confidentialityRequirement}",
-          severity: "${severity}",
-          cvssVersion: "${values.cvssVersion}",
-          exploitability: "${values.exploitability}",
-          id: "${findingId}",
-          integrityImpact: "${values.integrityImpact}",
-          integrityRequirement: "${values.integrityRequirement}",
-          modifiedAttackComplexity: "${values.modifiedAttackComplexity}",
-          modifiedAttackVector: "${values.modifiedAttackVector}",
-          modifiedAvailabilityImpact: "${values.modifiedAvailabilityImpact}",
-          modifiedConfidentialityImpact: "${values.modifiedConfidentialityImpact}",
-          modifiedIntegrityImpact: "${values.modifiedIntegrityImpact}",
-          modifiedPrivilegesRequired: "${values.modifiedPrivilegesRequired}",
-          modifiedSeverityScope: "${values.modifiedSeverityScope}",
-          modifiedUserInteraction: "${values.modifiedUserInteraction}",
-          privilegesRequired: "${values.privilegesRequired}",
-          remediationLevel: "${values.remediationLevel}",
-          reportConfidence: "${values.reportConfidence}",
-          severityScope: "${values.severityScope}",
-          userInteraction: "${values.userInteraction}",
-        }
-      ) {
-        success
-        finding {
-          cvssVersion
-          severity
-        }
-      }
-    }`;
-      new Xhr().request(gQry, "An error occurred updating severity")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-
-          if (data.updateSeverity.success) {
-            dispatch(calcCVSS(data.updateSeverity.finding.severity, data.updateSeverity.finding.cvssVersion));
-            dispatch({
-              payload: {
-                cvssVersion: data.updateSeverity.finding.cvssVersion,
-                dataset: data.updateSeverity.finding.severity,
-              },
-              type: actionTypes.LOAD_SEVERITY,
-            });
-            dispatch(editSeverity());
-            msgSuccess(
-              translate.t("proj_alerts.updated"),
-              translate.t("proj_alerts.updated_title"),
-            );
-          } else {
-            msgError(translate.t("proj_alerts.error_textsad"));
-          }
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };

@@ -5,6 +5,5 @@
  *
  * View: https://github.com/palantir/tslint/issues/711
  */
-export const LOAD_SEVERITY: string = "dashboard/finding/severity/load";
 export const EDIT_SEVERITY: string = "dashboard/finding/severity/edit";
 export const CALC_CVSS: string = "dashboard/finding/severity/calc";

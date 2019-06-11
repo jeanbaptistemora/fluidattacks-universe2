@@ -490,15 +490,6 @@ actionMap[trackingActions.LOAD_TRACKING] =
     },
   });
 
-actionMap[severityActions.LOAD_SEVERITY] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    severity: {
-      ...state.severity,
-    },
-  });
-
 actionMap[severityActions.EDIT_SEVERITY] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
