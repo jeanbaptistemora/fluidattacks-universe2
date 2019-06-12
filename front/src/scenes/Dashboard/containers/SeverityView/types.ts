@@ -1,6 +1,7 @@
 export interface ISeverityAttr {
   finding: {
     cvssVersion: string;
+    id: string;
     severity: {
       attackComplexity: string;
       attackVector: string;

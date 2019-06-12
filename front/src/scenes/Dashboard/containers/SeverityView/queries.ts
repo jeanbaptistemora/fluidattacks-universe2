@@ -4,6 +4,7 @@ import { DocumentNode } from "graphql";
 export const GET_SEVERITY: DocumentNode = gql`
   query GetSeverityQuery($identifier: String!) {
     finding(identifier: $identifier){
+      id
       cvssVersion
       severity
     }
