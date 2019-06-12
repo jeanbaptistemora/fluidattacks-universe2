@@ -67,6 +67,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.total_findings = 0
         self.total_treatment = {}
         self.description = description
+        self.remediated_over_time = {}
 
         findings = integrates_dao.get_findings_released_dynamo(
             self.name, 'finding_id, treatment, cvss_temporal')
@@ -80,6 +81,17 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         """Resolve name attribute."""
         del info
         return self.name
+
+    @get_entity_cache
+    def resolve_remediated_over_time(self, info):
+        "Resolve remediated over time"
+        del info
+        remediated_over_time = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['remediated_over_time'])
+        remediate_over_time_decimal = remediated_over_time.get('remediated_over_time', {})
+        self.total_treatment = json.dumps(
+            remediate_over_time_decimal, use_decimal=True)
+        return self.remediated_over_time
 
     @get_entity_cache
     def resolve_findings(self, info):

@@ -104,6 +104,114 @@ def get_finding_url(finding):
     return url
 
 
+def get_status_vulns_by_time_range(vulns, first_day, last_day,
+                                   list_unique, findings_released):
+    """Get total closed and found vulnerabilities by time range"""
+    resp = {'found': 0, 'closed': 0, 'accepted': 0}
+    for vuln in vulns:
+        historic_states = vuln['historic_state']
+        change = False
+        last_state = historic_states[-1]
+        if first_day <= last_state['date'] <= last_day:
+            if last_state['state'] == 'closed':
+                resp['closed'] += 1
+        if vuln not in list_unique:
+            change_list = [first_day <= vuln_state['date'] <= last_day for vuln_state
+                           in historic_states]
+            change = any(change_list)
+        if change:
+            list_unique.append(vuln)
+    resp['found'] = len(list_unique)
+    resp['accepted'] = get_accepted_vulns(findings_released, vulns, first_day, last_day)
+    return resp
+
+
+def create_weekly_date(first_date):
+    """Create format weekly date"""
+    first_date = datetime.strptime(first_date, "%Y-%m-%d")
+    begin = first_date - timedelta(days=(first_date.isoweekday() - 1) % 7)
+    end = begin + timedelta(days=6)
+    if begin.year != end.year:
+        date = '{0:%b} {0.day}, {0.year} - {1:%b} {1.day}, {1.year}'
+    elif begin.month != end.month:
+        date = "{0:%b} {0.day} - {1:%b} {1.day}, {1.year}"
+    else:
+        date = "{0:%b} {0.day} - {1.day}, {1.year}"
+    return date.format(begin, end)
+
+
+def get_accepted_vulns(findings_released, vulns, first_day, last_day):
+    """Get all vulnerabilities accepted by time range"""
+    accepted = 0
+    for finding in findings_released:
+        if finding['treatment'] == 'ACCEPTED':
+            for vuln in vulns:
+                if finding['finding_id'] == vuln['finding_id']:
+                    history = vuln['historic_state'][-1]
+                    if first_day <= history['date'] <= last_day and history['state'] == 'open':
+                        accepted += 1
+    return accepted
+
+
+def create_register_by_week(project):
+    """Create weekly vulnerabilities registry by project"""
+    accepted = 0
+    closed = 0
+    all_registers = []
+    list_unique_found = []
+    findings_released = integrates_dao.get_findings_released_dynamo(project)
+    vulns = get_all_vulns_by_project(findings_released)
+    first_day, last_day = get_first_week_dates(vulns)
+    first_day_last_week = get_date_last_vulns(vulns)
+    while first_day <= first_day_last_week:
+        result_vulns_by_week = get_status_vulns_by_time_range(vulns, first_day,
+                                                              last_day,
+                                                              list_unique_found,
+                                                              findings_released)
+        accepted += result_vulns_by_week['accepted']
+        closed += result_vulns_by_week['closed']
+        if result_vulns_by_week['accepted'] or result_vulns_by_week['closed']:
+            register_by_week = {}
+            register_by_week['week'] = create_weekly_date(first_day)
+            register_by_week['found'] = result_vulns_by_week['found']
+            register_by_week['closed'] = closed
+            register_by_week['accepted'] = accepted
+            all_registers.append(register_by_week)
+        first_day = str(datetime.strptime(first_day, "%Y-%m-%d") +
+                        timedelta(days=7)).split(' ')[0]
+        last_day = str(datetime.strptime(last_day, "%Y-%m-%d") +
+                       timedelta(days=7)).split(' ')[0]
+    integrates_dao.update_attribute_dynamo('FI_projects', ['project_name', project],
+                                           'remediated_over_time', all_registers)
+
+
+def get_all_vulns_by_project(findings_released):
+    """Get all vulnerabilities by project"""
+    vulns = []
+    for finding in findings_released:
+        vulns += integrates_dao.get_vulnerabilities_dynamo(finding['finding_id'])
+    return vulns
+
+
+def get_first_week_dates(vulns):
+    """Get first week vulnerabilities"""
+    first_date = min([datetime.strptime(vuln['historic_state'][0]['date'],
+                                        "%Y-%m-%d %H:%M:%S") for vuln in vulns])
+    day_week = first_date.weekday()
+    first_day = first_date - timedelta(days=day_week)
+    last_day = first_day + timedelta(days=6)
+    return str(first_day).split(' ')[0], str(last_day).split(' ')[0]
+
+
+def get_date_last_vulns(vulns):
+    """Get date of the last vulnerabilities"""
+    last_date = max([datetime.strptime(vuln['historic_state'][-1]['date'],
+                                       "%Y-%m-%d %H:%M:%S") for vuln in vulns])
+    day_week = last_date.weekday()
+    first_day = str(last_date - timedelta(days=day_week)).split(' ')[0]
+    return first_day
+
+
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     projects = project_dao.get_active_projects()
