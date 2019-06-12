@@ -13,12 +13,8 @@ describe("Vulnerabilities view", () => {
   const wrapper: ShallowWrapper = shallow(
     <VulnerabilitiesView
       editMode={false}
-      dataInputs={[{ currentState: "open", specific: "phone", vulnType: "inputs", where: "https://example.com" }]}
-      dataLines={[]}
-      dataPorts={[]}
       findingId="422286126"
       state="open"
-      releaseDate=""
       userRole="admin"
     />,
   );

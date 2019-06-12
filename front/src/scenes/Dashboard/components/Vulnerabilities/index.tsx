@@ -33,36 +33,13 @@ import { fileInput as FileInput } from "../../components/FileInput/index";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
 import { DELETE_VULN_MUTATION, GET_VULNERABILITIES } from "./queries";
-import { IDeleteVulnAttr, IVulnsAttr } from "./types";
-
-export interface IVulnerabilitiesViewProps {
-  dataInputs: Array<{
-    currentState: string; specific: string;
-    vulnType: string; where: string;
-  }>;
-  dataLines: Array<{
-    currentState: string; specific: string;
-    vulnType: string; where: string;
-  }>;
-  dataPorts: Array<{
-    currentState: string; specific: string;
-    vulnType: string; where: string;
-  }>;
-  editMode: boolean;
-  findingId: string;
-  releaseDate: string;
-  state: string;
-  userRole: string;
-}
-
-type IVulnType = (IVulnerabilitiesViewProps["dataLines"] | IVulnerabilitiesViewProps["dataPorts"] |
-  IVulnerabilitiesViewProps["dataPorts"]);
+import { IDeleteVulnAttr, IVulnerabilitiesViewProps, IVulnsAttr, IVulnType } from "./types";
 
 const filterState:
-  ((dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string) => IVulnerabilitiesViewProps["dataInputs"]) =
-    (dataVuln: IVulnerabilitiesViewProps["dataInputs"], state: string): IVulnerabilitiesViewProps["dataInputs"] =>
+  ((dataVuln: IVulnType, state: string) => IVulnType) =
+    (dataVuln: IVulnType, state: string): IVulnType =>
 
-      dataVuln.filter((vuln: IVulnerabilitiesViewProps["dataInputs"][0]) => vuln.currentState === state);
+      dataVuln.filter((vuln: IVulnType[0]) => vuln.currentState === state);
 
 const specificToNumber: ((line: { [key: string]: string }) => number) =
   (line: { [key: string]: string }): number =>

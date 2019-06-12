@@ -309,10 +309,6 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
           <FormGroup>
             <ControlLabel><b>{translate.t("search_findings.tab_description.where")}</b></ControlLabel><br />
             <VulnerabilitiesView
-              dataInputs={[]}
-              dataLines={[]}
-              dataPorts={[]}
-              releaseDate={props.dataset.releaseDate}
               editMode={props.isEditing && _.includes(["admin", "analyst"], props.userRole)}
               findingId={props.findingId}
               state="open"

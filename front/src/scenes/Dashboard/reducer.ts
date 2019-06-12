@@ -1,7 +1,6 @@
 import _ from "lodash";
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
-import { IVulnerabilitiesViewProps } from "./components/Vulnerabilities/index";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as eventDescriptionActions from "./containers/EventDescriptionView/actionTypes";
@@ -81,12 +80,6 @@ export interface IDashboardState {
       open: boolean;
       type: "add" | "edit";
     };
-  };
-  vulnerabilities: {
-    dataInputs: IVulnerabilitiesViewProps["dataInputs"];
-    dataLines: IVulnerabilitiesViewProps["dataLines"];
-    dataPorts: IVulnerabilitiesViewProps["dataPorts"];
-    releaseDate: IVulnerabilitiesViewProps["releaseDate"];
   };
 }
 
@@ -218,12 +211,6 @@ const initialState: IDashboardState = {
       open: false,
       type: "add",
     },
-  },
-  vulnerabilities: {
-    dataInputs: [],
-    dataLines: [],
-    dataPorts: [],
-    releaseDate: "",
   },
 };
 
@@ -443,21 +430,6 @@ actionMap[usersActions.CLOSE_USERS_MDL] =
     users: {
       ...state.users,
       addModal: initialState.users.addModal,
-    },
-  });
-
-actionMap[actionType.LOAD_VULNERABILITIES] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    fileInput: {
-      name: initialState.fileInput.name,
-    },
-    vulnerabilities: {
-      dataInputs: action.payload.dataInputs,
-      dataLines: action.payload.dataLines,
-      dataPorts: action.payload.dataPorts,
-      releaseDate: action.payload.releaseDate,
     },
   });
 

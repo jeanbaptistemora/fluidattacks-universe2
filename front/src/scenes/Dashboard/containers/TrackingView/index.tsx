@@ -86,13 +86,9 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
                       md={10}
                     >
                       <VulnerabilitiesView
-                        dataInputs={[]}
-                        dataLines={[]}
-                        dataPorts={[]}
                         editMode={false}
                         findingId={props.findingId}
                         state={"open"}
-                        releaseDate={""}
                         userRole={props.userRole}
                       />
                     </Col>
@@ -108,13 +104,9 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
                       md={10}
                     >
                       <VulnerabilitiesView
-                        dataInputs={[]}
-                        dataLines={[]}
-                        dataPorts={[]}
                         editMode={false}
                         findingId={props.findingId}
                         state={"closed"}
-                        releaseDate={""}
                         userRole={props.userRole}
                       />
                     </Col>

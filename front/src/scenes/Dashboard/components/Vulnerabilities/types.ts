@@ -23,3 +23,13 @@ export interface IDeleteVulnAttr {
     success: boolean;
   };
 }
+
+export interface IVulnerabilitiesViewProps {
+  editMode: boolean;
+  findingId: string;
+  state: string;
+  userRole: string;
+}
+
+export type IVulnType = (IVulnsAttr["finding"]["inputsVulns"] | IVulnsAttr["finding"]["linesVulns"] |
+IVulnsAttr["finding"]["portsVulns"]);
