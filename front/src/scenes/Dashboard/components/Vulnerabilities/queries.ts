@@ -30,3 +30,14 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     findingId
   }
   `;
+
+export const DELETE_VULN_MUTATION: DocumentNode = gql`
+  mutation DeleteVulnMutation($id: String!, $findingId: String!, ) {
+    deleteVulnerability (
+      id: $id,
+      findingId: $findingId
+    ) {
+      success
+    }
+  }
+  `;

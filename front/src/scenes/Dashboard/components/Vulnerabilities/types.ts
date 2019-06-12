@@ -17,3 +17,9 @@ export interface IVulnsAttr {
     success: string;
   };
 }
+
+export interface IDeleteVulnAttr {
+  deleteVulnerability: {
+    success: boolean;
+  };
+}
