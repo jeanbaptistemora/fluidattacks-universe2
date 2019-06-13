@@ -15,7 +15,7 @@ import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
-import { msgError } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
@@ -181,6 +181,10 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                       Organization: (window as Window & { userOrganization: string }).userOrganization,
                       User: (window as Window & { userName: string }).userName,
                     });
+                  msgSuccess(
+                    translate.t("search_findings.tab_resources.success_remove"),
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
                 }
               }
             };
@@ -198,6 +202,10 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                       Organization: (window as Window & { userOrganization: string }).userOrganization,
                       User: (window as Window & { userName: string }).userName,
                     });
+                  msgSuccess(
+                    translate.t("search_findings.tab_resources.success"),
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
                 }
               }
             };
@@ -372,6 +380,10 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       Organization: (window as Window & { userOrganization: string }).userOrganization,
                       User: (window as Window & { userName: string }).userName,
                     });
+                  msgSuccess(
+                    translate.t("search_findings.tab_resources.success_remove"),
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
                 }
               }
             };
@@ -389,6 +401,10 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       Organization: (window as Window & { userOrganization: string }).userOrganization,
                       User: (window as Window & { userName: string }).userName,
                     });
+                  msgSuccess(
+                    translate.t("search_findings.tab_resources.success"),
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
                 }
               }
             };
@@ -582,6 +598,10 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                       Organization: (window as Window & { userOrganization: string }).userOrganization,
                       User: (window as Window & { userName: string }).userName,
                     });
+                  msgSuccess(
+                    translate.t("search_findings.tab_resources.success_remove"),
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
                 }
               }
             };
@@ -599,6 +619,10 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                       Organization: (window as Window & { userOrganization: string }).userOrganization,
                       User: (window as Window & { userName: string }).userName,
                     });
+                  msgSuccess(
+                    translate.t("search_findings.tab_resources.success"),
+                    translate.t("search_findings.tab_users.title_success"),
+                  );
                 }
               }
             };
