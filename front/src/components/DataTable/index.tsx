@@ -147,21 +147,22 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
 
 const renderDynamicHeaders: ((arg1: string[]) => JSX.Element[]) =
   (dataFields: string[]): JSX.Element[] => (
-  dataFields.map((key: string, index: number) =>
-    (
-      <TableHeaderColumn
-        dataField={key}
-        dataSort={true}
-        key={index}
-        width={dataFields.length > 10 ? "150px" : undefined}
-        tdStyle={{
-          whiteSpace: "unset",
-        }}
-      >
-        {key}
-      </TableHeaderColumn>
-    ))
-);
+    dataFields.map((key: string, index: number) =>
+      (
+        <TableHeaderColumn
+          dataField={key}
+          dataSort={true}
+          hidden={key === "uniqueId" ? true : false}
+          key={index}
+          width={dataFields.length > 10 ? "150px" : undefined}
+          tdStyle={{
+            whiteSpace: "unset",
+          }}
+        >
+          {key}
+        </TableHeaderColumn>
+      ))
+  );
 
 const renderHeaders: ((arg1: ITableProps) => JSX.Element[]) =
   (props: ITableProps): JSX.Element[] => (
