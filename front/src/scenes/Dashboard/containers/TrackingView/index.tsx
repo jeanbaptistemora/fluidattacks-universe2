@@ -6,7 +6,6 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
-import TextareaAutosize from "react-textarea-autosize";
 import {
   InferableComponentEnhancer,
   lifecycle,
@@ -22,11 +21,9 @@ import * as actions from "./actions";
 import style from "./index.css";
 
 export interface ITrackingViewProps {
-  closedFindingsContent?: string;
   closings: closing[];
   findingId: string;
   hasNewVulnerabilities: boolean;
-  openFindingsContent?: string;
   userRole: string;
 }
 
@@ -169,32 +166,6 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
               : undefined
             }
           </React.Fragment>
-          : undefined
-        }
-        {!props.hasNewVulnerabilities && !_.isNil(props.hasNewVulnerabilities)
-          ? <React.Fragment>
-              <Col
-                md={12}
-              >
-                <p>{translate.t("search_findings.tab_tracking.open")}</p>
-                <TextareaAutosize
-                  className={style.findingsBox}
-                  disabled={true}
-                  value={props.openFindingsContent}
-                />
-              </Col>
-
-                <Col
-                  md={12}
-                >
-                  <p>{translate.t("search_findings.tab_tracking.closed")}</p>
-                  <TextareaAutosize
-                    className={style.findingsBox}
-                    disabled={true}
-                    value={props.closedFindingsContent}
-                  />
-                </Col>
-            </React.Fragment>
           : undefined
         }
       </Row>
