@@ -1,25 +1,16 @@
 /* tslint:disable jsx-no-multiline-js jsx-no-lambda no-any
  * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of readability
  * of the code that renders/hides the component
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
  */
 import _ from "lodash";
-import React, { ComponentType } from "react";
+import React, { useState } from "react";
 import { ControlLabel, FormControl, FormGroup, Glyphicon, Row } from "react-bootstrap";
-import { Reducer } from "redux";
-import { StateType } from "typesafe-actions";
-import store from "../../../../store/index";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import * as actions from "../../actions";
 import style from "./index.css";
 /**
  * File Input properties
  */
 export interface IFileInputProps {
-  fileName: string;
   fileSize?: number;
   icon: string;
   id: string;
@@ -28,18 +19,20 @@ export interface IFileInputProps {
   visible: boolean;
 }
 
-/**
- * File Input
- */
-
-const mapStateToProps: ((arg1: StateType<Reducer>) => IFileInputProps) =
-  (state: StateType<Reducer>): IFileInputProps => ({
-    ...state,
-    fileName: state.dashboard.fileInput.name,
-  });
-
 export const fileInputComponent: React.FunctionComponent<IFileInputProps> =
-  (props: IFileInputProps): JSX.Element => (
+  (props: IFileInputProps): JSX.Element => {
+    const [fileName, setFileName] = useState("");
+    const handleFileNameChange: (evt: React.FormEvent<FormControl>) => void =
+      (evt: React.FormEvent<FormControl>): void => {
+        const target: HTMLInputElement = evt.target as HTMLInputElement;
+        if (!_.isNil(target.files) && target.files.length > 0) {
+          setFileName(target.files[0].name);
+        } else {
+          setFileName("");
+        }
+      };
+
+    return (
     <React.StrictMode>
       { props.visible
         ? <FormGroup controlId={props.id} className={style.text_center}>
@@ -50,12 +43,10 @@ export const fileInputComponent: React.FunctionComponent<IFileInputProps> =
                 type="file"
                 accept={props.type}
                 name={`${props.id}[]`}
-                onChange={(evt: React.FormEvent<FormControl>): void => {
-                                store.dispatch(actions.addFileName((evt.target as HTMLInputElement).files));
-                }}
+                onChange={handleFileNameChange}
               />
               <ControlLabel>
-                <span>{props.fileName}</span>
+                <span>{fileName}</span>
                 <strong>
                   <Glyphicon glyph={props.icon}/>&nbsp;Choose a file&hellip;
                 </strong>
@@ -72,18 +63,7 @@ export const fileInputComponent: React.FunctionComponent<IFileInputProps> =
         : undefined
       }
     </React.StrictMode>
-);
+    );
+  };
 
-fileInputComponent.defaultProps = {
-  fileName: "",
-  icon: "",
-  id: "",
-  type: "",
-  visible: false,
-};
-
-export const fileInput: ComponentType<IFileInputProps> = reduxWrapper
-(
-  fileInputComponent,
-  mapStateToProps,
-);
+export { fileInputComponent as FileInput};

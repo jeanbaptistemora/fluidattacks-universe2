@@ -16,17 +16,8 @@ export interface IActionStructure {
   type: string;
 }
 
-type DashboardAction = ((...args: any[]) => IActionStructure);
 export type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
 type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
-
-export const addFileName: DashboardAction =
-  (newValue: string): IActionStructure => ({
-      payload: {
-        newValue,
-      },
-      type: actionType.ADD_FILE_NAME,
-});
 
 export const updateVulnerabilities: ThunkActionStructure =
   (findingId: string): ThunkAction<void, {}, {}, Action> => (_: ThunkDispatcher): void => {

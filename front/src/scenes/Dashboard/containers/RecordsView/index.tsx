@@ -17,7 +17,7 @@ import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { isValidEvidenceFile } from "../../../../utils/validations";
-import { fileInput as FileInput } from "../../components/FileInput/index";
+import { FileInput } from "../../components/FileInput/index";
 import * as actions from "./actions";
 
 export interface IRecordsViewProps {
@@ -54,7 +54,6 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
     <Col md={4} mdOffset={6} xs={12} sm={12}>
       <div>
         <FileInput
-          fileName="evidence8[]"
           icon="search"
           id="evidence8"
           type=".csv"

@@ -21,7 +21,7 @@ import { focusError } from "../../../../utils/forms/events";
 import { textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
-import { fileInput as FileInput } from "../../components/FileInput/index";
+import { FileInput } from "../../components/FileInput/index";
 
 export interface IAddFilesModalProps {
   isOpen: boolean;
@@ -53,7 +53,7 @@ const renderFilesFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Elem
           <Row>
             <Col md={12}>
               <div>
-                <FileInput fileName="" fileSize={100} icon="search" id="file" type="" visible={true}/>
+                <FileInput fileSize={100} icon="search" id="file" type="" visible={true}/>
               </div>
             </Col>
             <Col md={12}>

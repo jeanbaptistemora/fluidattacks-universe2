@@ -28,9 +28,6 @@ export interface IDashboardState {
   eventDescription: Pick<IEventDescriptionViewProps, "isEditable" | "eventData" >;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: Pick<IExploitViewProps, "code" | "isEditing">;
-  fileInput: {
-    name: string;
-  };
   finding: {
     alert?: string;
     closedVulns: number;
@@ -150,9 +147,6 @@ const initialState: IDashboardState = {
   exploit: {
     code: "",
     isEditing: false,
-  },
-  fileInput: {
-    name: "",
   },
   finding: {
     alert: undefined,
@@ -396,15 +390,6 @@ actionMap[resourcesActions.SHOW_UPLOAD_PROGRESS] =
     resources: {
       ...state.resources,
       showUploadProgress: !state.resources.showUploadProgress,
-    },
-  });
-
-actionMap[actionType.ADD_FILE_NAME] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    fileInput: {
-      name: action.payload.newValue[0].name,
     },
   });
 

@@ -29,7 +29,7 @@ import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
-import { fileInput as FileInput } from "../../components/FileInput/index";
+import { FileInput } from "../../components/FileInput/index";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
 import { DELETE_VULN_MUTATION, GET_VULNERABILITIES } from "./queries";
@@ -116,7 +116,7 @@ export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element
             </Button>
           </Col>
           <Col md={5} sm={12}>
-            <FileInput fileName="" icon="search" id="vulnerabilities" type=".yaml, .yml" visible={true} />
+            <FileInput icon="search" id="vulnerabilities" type=".yaml, .yml" visible={true} />
           </Col>
           <Col md={3} sm={12}>
             <Button bsStyle="success" onClick={(): void => { updateVulnerabilities(props.findingId); }}>

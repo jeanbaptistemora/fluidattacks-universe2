@@ -4,7 +4,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { describe, it } from "mocha";
 import React from "react";
 import { ControlLabel, Glyphicon } from "react-bootstrap";
-import { fileInputComponent as FileInput } from "./index";
+import { FileInput } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -21,7 +21,6 @@ describe("File input", () => {
         id="test"
         type=".py"
         visible={true}
-        fileName="testFile"
       />,
     );
     expect(
