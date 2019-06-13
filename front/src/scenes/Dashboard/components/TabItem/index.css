@@ -1,15 +1,21 @@
 :local .container {
-  color: #FFFFFF;
   cursor: pointer;
   font-family: "Montserrat";
-  font-size: 17px;
-  margin-top: 18px;
+  font-size: 20px;
 }
 
-:local .container:hover {
+:local .container a {
+  color: #FFFFFF;
+}
+
+:local .active > div:first-child {
   border-right: 4px #FF3435 solid;
 }
 
-:local .icon {
-  font-size: 24px;
+:local .item {
+  padding: 8px 0px 8px 0px;
+}
+
+:local .label {
+  padding-left: 10px;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
 import { default as Frame } from "../../../../components/Frame";
 import translate from "../../../../utils/translations/translate";
@@ -58,6 +58,7 @@ const formsView: React.FC = (): JSX.Element => {
           <Route path="/forms/findings" exact={true} component={findingForm} />
           <Route path="/forms/closing" exact={true} component={closingForm} />
           <Route path="/forms/events" exact={true} component={eventForm} />
+          <Redirect to="/forms/progress" />
         </Switch>
       </div>
     </React.StrictMode>

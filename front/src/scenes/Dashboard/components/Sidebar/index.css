@@ -46,6 +46,10 @@
   width: 190px;
 }
 
+:local .menuList {
+  margin-top: 30px;
+}
+
 :local .bottomBar {
   bottom: 0px;
   position: absolute;

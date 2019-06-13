@@ -14,16 +14,11 @@ interface ISidebarProps {
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
   const handleLogoutClick: (() => void) = (): void => { props.onLogoutClick(); };
   const handleLogoClick: (() => void) = (): void => { location.hash = "#!/home"; };
-  const handleFormsClick: (() => void) = (): void => { location.hash = "#!/forms/progress"; };
   const isAnalyst: boolean = _.includes(["admin", "analyst"], (window as Window & { userRole: string }).userRole);
 
   const renderAnalystTabs: (() => JSX.Element) = (): JSX.Element => (
     <React.Fragment>
-      <TabItem
-        icon={<i className="icon pe-7s-note2" />}
-        labelText={translate.t("sidebar.forms")}
-        onClick={handleFormsClick}
-      />
+      <TabItem icon={<i className="icon pe-7s-note2" />} label={translate.t("sidebar.forms")} to="/forms" />
     </React.Fragment>
   );
 
@@ -38,7 +33,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
       width={210}
     >
       <img className={style.logo} src={logo} alt="integrates-logo" onClick={handleLogoClick} />
-      <ul>
+      <ul className={style.menuList}>
         {isAnalyst ? renderAnalystTabs() : undefined}
       </ul>
       <div className={style.bottomBar}>

@@ -82,9 +82,9 @@ const enTranslations: dict = {
         modal_close: "Close",
         modal_title: "Reports",
         tech_description: "Technical report is protected by password."
-        + "The password is the date of report's PDF generation and your username.",
+          + "The password is the date of report's PDF generation and your username.",
         tech_example: "Example: someone@fluidattacks.com generates the technical report on 15/03/2019 therefore, "
-        + "the password is 15032019someone",
+          + "the password is 15032019someone",
         tech_title: "Technical Reports",
       },
     },
@@ -553,13 +553,13 @@ const enTranslations: dict = {
       phone_number: "Phone Number",
       remove_user: "Remove",
       responsibility_placeholder: "Product Owner, Project Manager, " +
-                                     "Tester, ...",
+        "Tester, ...",
       role: "Role",
       success: " now has access to this project.",
       success_admin: "User information updated.",
       success_delete: " was removed from this project.",
       textbox: "Enter the email of the person you wish to add, it must be " +
-                   "an Office 365 or Google email",
+        "an Office 365 or Google email",
       title: "Add user to this project",
       title_success: "Congratulations",
       user_organization: "Organization",
@@ -577,6 +577,7 @@ const enTranslations: dict = {
   },
   sidebar: {
     forms: "Formstack",
+    reports: "Reports",
   },
   validations: {
     between: "This value must be between {{min}} and {{max}}",

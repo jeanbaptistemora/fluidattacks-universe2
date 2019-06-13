@@ -14,6 +14,7 @@ import FindingContent from "./containers/FindingContent/index";
 import { FormsView } from "./containers/FormsView";
 import HomeView from "./containers/HomeView";
 import ProjectContent from "./containers/ProjectContent/index";
+import { ReportsView } from "./containers/ReportsView";
 import style from "./index.css";
 
 type IDashboardBaseProps = RouteComponentProps;
@@ -31,10 +32,10 @@ const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Eleme
 
   return (
     <React.StrictMode>
-      <Sidebar onLogoutClick={handleSidebarLogoutClick} />
-      <div className={style.container}>
-        <HashRouter hashType="hashbang">
-          <React.Fragment>
+      <HashRouter hashType="hashbang">
+        <React.Fragment>
+          <Sidebar onLogoutClick={handleSidebarLogoutClick} />
+          <div className={style.container}>
             <Navbar />
             <Switch>
               <Route
@@ -49,13 +50,14 @@ const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Eleme
               />
               <Route path="/home" exact={true} component={HomeView} />
               <Route path="/forms" component={FormsView} />
+              <Route path="/reports" component={ReportsView} />
               <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
               <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
               <Redirect to="/home" />
             </Switch>
-          </React.Fragment>
-        </HashRouter>
-      </div>
+          </div>
+        </React.Fragment>
+      </HashRouter>
       <ScrollUpButton visibleAt={400} />
       <ConfirmDialog name="confirmLogout" onProceed={handleLogout} title={"Logout"} />
     </React.StrictMode>
