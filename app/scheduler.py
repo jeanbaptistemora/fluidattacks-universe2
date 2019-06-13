@@ -105,23 +105,19 @@ def get_finding_url(finding):
 
 
 def get_status_vulns_by_time_range(vulns, first_day, last_day,
-                                   list_unique, findings_released):
+                                   findings_released):
     """Get total closed and found vulnerabilities by time range"""
     resp = {'found': 0, 'closed': 0, 'accepted': 0}
+    count = 0
     for vuln in vulns:
         historic_states = vuln['historic_state']
-        change = False
         last_state = historic_states[-1]
         if first_day <= last_state['date'] <= last_day:
             if last_state['state'] == 'closed':
                 resp['closed'] += 1
-        if vuln not in list_unique:
-            change_list = [first_day <= vuln_state['date'] <= last_day for vuln_state
-                           in historic_states]
-            change = any(change_list)
-        if change:
-            list_unique.append(vuln)
-    resp['found'] = len(list_unique)
+        if first_day <= historic_states[0]['date'] <= last_day:
+            count += 1
+    resp['found'] = count
     resp['accepted'] = get_accepted_vulns(findings_released, vulns, first_day, last_day)
     return resp
 
@@ -157,8 +153,8 @@ def create_register_by_week(project):
     """Create weekly vulnerabilities registry by project"""
     accepted = 0
     closed = 0
+    found = 0
     all_registers = []
-    list_unique_found = []
     findings_released = integrates_dao.get_findings_released_dynamo(project)
     vulns = get_all_vulns_by_project(findings_released)
     first_day, last_day = get_first_week_dates(vulns)
@@ -166,14 +162,15 @@ def create_register_by_week(project):
     while first_day <= first_day_last_week:
         result_vulns_by_week = get_status_vulns_by_time_range(vulns, first_day,
                                                               last_day,
-                                                              list_unique_found,
                                                               findings_released)
         accepted += result_vulns_by_week['accepted']
         closed += result_vulns_by_week['closed']
-        if result_vulns_by_week['accepted'] or result_vulns_by_week['closed']:
+        found += result_vulns_by_week['found']
+        if result_vulns_by_week['accepted'] or result_vulns_by_week['closed'] or \
+           result_vulns_by_week['found']:
             register_by_week = {}
             register_by_week['week'] = create_weekly_date(first_day)
-            register_by_week['found'] = result_vulns_by_week['found']
+            register_by_week['found'] = found
             register_by_week['closed'] = closed
             register_by_week['accepted'] = accepted
             all_registers.append(register_by_week)

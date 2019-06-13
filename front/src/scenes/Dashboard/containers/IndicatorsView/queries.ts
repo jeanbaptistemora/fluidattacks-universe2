@@ -13,6 +13,7 @@ export const GET_INDICATORS: DocumentNode = gql`
       meanRemediate
       openVulnerabilities
       pendingClosingCheck
+      remediatedOverTime
       totalFindings
       totalTreatment
     }

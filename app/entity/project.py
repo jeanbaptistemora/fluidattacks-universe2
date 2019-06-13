@@ -47,6 +47,7 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
     total_treatment = GenericScalar()
     drafts = List(Finding)
     description = String()
+    remediated_over_time = List(GenericScalar)
 
     def __init__(self, project_name, description=''):
         """Class constructor."""
