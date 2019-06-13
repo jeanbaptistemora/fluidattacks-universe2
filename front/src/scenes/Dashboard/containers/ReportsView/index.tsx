@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router";
 import style from "./index.css";
 
 const reportsView: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
-  const handleDownloadClick: (() => void) = (): void => undefined;
+  const handleDownloadClick: (() => void) = (): void => { window.location.assign("/integrates/complete_report"); };
 
   return (
     <React.StrictMode>

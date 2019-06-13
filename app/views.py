@@ -10,8 +10,8 @@ import os
 import sys
 import re
 
+import boto3
 from botocore.exceptions import ClientError
-from magic import Magic
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -20,13 +20,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, condition
 from django.http import HttpResponse
 from jose import jwt
-from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
-)
-import boto3
+from magic import Magic
+from openpyxl import load_workbook
 import rollbar
 import yaml
 
+from __init__ import (
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+)
 # pylint: disable=E0402
 from . import util
 from .decorators import (
@@ -699,3 +700,57 @@ Attempted to retrieve vulnerabilities without permission')
         except IOError:
             rollbar.report_message('Error: Invalid vulnerabilities file format', 'error', request)
             return util.response([], 'Invalid vulnerabilities file format', True)
+
+
+@never_cache
+@require_http_methods(["GET"])
+def generate_complete_report(request):
+    user_data = util.get_jwt_content(request)
+    projects = [project[0] for project in integrates_dao.get_projects_by_user(
+        user_data['user_email'])]
+    book = load_workbook('/usr/src/app/app/techdoc/templates/COMPLETE.xlsx')
+    sheet = book.active
+
+    project_col = 1
+    finding_col = 2
+    vuln_where_col = 3
+    vuln_specific_col = 4
+    treatment_col = 5
+    treatment_mgr_col = 6
+    row_offset = 3
+
+    row_index = row_offset
+    for project in projects:
+        sheet.cell(row_index, project_col, project.upper())
+
+        findings = integrates_dao.get_findings_released_dynamo(
+            project, 'finding_id, finding, treatment, treatment_manager')
+        for finding in findings:
+            sheet.cell(row_index, finding_col, '{name!s} (#{id!s})'.format(
+                       name=finding['finding'].encode('utf-8'),
+                       id=finding['finding_id']))
+            sheet.cell(row_index, treatment_col, finding['treatment'])
+            sheet.cell(row_index,
+                       treatment_mgr_col,
+                       finding.get('treatment_manager', 'Unassigned'))
+
+            vulns = integrates_dao.get_vulnerabilities_dynamo(
+                finding['finding_id'])
+            for vuln in vulns:
+                sheet.cell(row_index, vuln_where_col, vuln['where'])
+                sheet.cell(row_index, vuln_specific_col, vuln['specific'])
+
+                row_index += 1
+        row_index += 1
+
+    filename = '{user}-complete_report.xlsx'.format(
+        user=user_data['user_email'].split('@')[0])
+    filepath = '/tmp/{filename}'.format(filename=filename)
+    book.save(filepath)
+    with open(filepath, 'r') as document:
+        response = HttpResponse(document.read())
+        response['Content-Type'] = 'application/vnd.openxmlformats\
+                        -officedocument.spreadsheetml.sheet'
+        response['Content-Disposition'] = 'inline;filename={filename}'.format(
+            filename=filename)
+    return response
