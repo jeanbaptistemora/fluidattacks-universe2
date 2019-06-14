@@ -306,7 +306,7 @@ const enTranslations: dict = {
       update: "Update",
     },
     tab_exploit: {
-      tab_title: "Exploit",
+      tab_title: "Asserts Exploit",
     },
     tab_indicators: {
       authors: "Current month authors",
