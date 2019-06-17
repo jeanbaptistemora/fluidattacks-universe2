@@ -7,8 +7,8 @@
 from __future__ import absolute_import
 from datetime import datetime, timedelta
 import os
-import sys
 import re
+import sys
 
 import boto3
 from botocore.exceptions import ClientError
@@ -717,36 +717,35 @@ def generate_complete_report(request):
     vuln_specific_col = 4
     treatment_col = 5
     treatment_mgr_col = 6
-    row_offset = 3
+    row_offset = 2
 
     row_index = row_offset
     for project in projects:
-        sheet.cell(row_index, project_col, project.upper())
-
         findings = integrates_dao.get_findings_released_dynamo(
             project, 'finding_id, finding, treatment, treatment_manager')
         for finding in findings:
-            sheet.cell(row_index, finding_col, '{name!s} (#{id!s})'.format(
-                       name=finding['finding'].encode('utf-8'),
-                       id=finding['finding_id']))
-            sheet.cell(row_index, treatment_col, finding['treatment'])
-            sheet.cell(row_index,
-                       treatment_mgr_col,
-                       finding.get('treatment_manager', 'Unassigned'))
-
             vulns = integrates_dao.get_vulnerabilities_dynamo(
                 finding['finding_id'])
             for vuln in vulns:
                 sheet.cell(row_index, vuln_where_col, vuln['where'])
                 sheet.cell(row_index, vuln_specific_col, vuln['specific'])
 
-                row_index += 1
-        row_index += 1
+                sheet.cell(row_index, project_col, project.upper())
+                sheet.cell(row_index, finding_col, '{name!s} (#{id!s})'.format(
+                           name=finding['finding'].encode('utf-8'),
+                           id=finding['finding_id']))
+                sheet.cell(row_index, treatment_col, finding['treatment'])
+                sheet.cell(row_index, treatment_mgr_col,
+                           finding.get('treatment_manager', 'Unassigned'))
 
-    filename = '{user}-complete_report.xlsx'.format(
-        user=user_data['user_email'].split('@')[0])
-    filepath = '/tmp/{filename}'.format(filename=filename)
+                row_index += 1
+
+    username = user_data['user_email'].split('@')[0].encode('utf8', 'ignore')
+    filename = 'complete_report.xlsx'
+    filepath = '/tmp/{username}-{filename}'.format(filename=filename,
+                                                   username=username)
     book.save(filepath)
+
     with open(filepath, 'r') as document:
         response = HttpResponse(document.read())
         response['Content-Type'] = 'application/vnd.openxmlformats\
