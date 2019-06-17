@@ -5,10 +5,10 @@
     "module": "commonjs",
     "allowJs": false,
     "outDir": "./src",
+    "noEmit": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "typeRoots": ["./src/**/*.d.ts"],
     "lib": ["dom", "es5", "es2015.promise", "esnext"]
   },
   "include": [

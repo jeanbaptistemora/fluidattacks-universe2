@@ -7,6 +7,9 @@ REVIEW_URL_PATTERN = ".integrates.env";
 export let DEVELOPMENT_URL: string;
 DEVELOPMENT_URL = "https://localhost";
 
+let TESTS_URL: string;
+TESTS_URL = "http://localhost/";
+
 export const getEnvironment: (() => string) = (): string => {
   let environment: string;
   /* tslint:disable-next-line:strict-type-predicates
@@ -19,7 +22,8 @@ export const getEnvironment: (() => string) = (): string => {
     environment = "development";
   } else {
     const currentUrl: string = window.location.href;
-    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank") {
+    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank" ||
+    currentUrl.indexOf(TESTS_URL) !== -1) {
       environment = "development";
     } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
       environment = "review";

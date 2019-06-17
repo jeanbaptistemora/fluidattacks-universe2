@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
-import { describe, it } from "mocha";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { default as Frame } from "./index";

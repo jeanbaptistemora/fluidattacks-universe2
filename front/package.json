@@ -26,8 +26,6 @@
     "typesafe-actions": "2.0.4",
     "jquery": "3.4.0",
     "@types/jquery": "3.3.29",
-    "mocha": "5.2.0",
-    "@types/mocha": "5.2.5",
     "react": "16.8.6",
     "@types/react": "16.8.16",
     "react-dom": "16.8.6",
@@ -102,7 +100,11 @@
     "@types/graphql": "14.2.0",
     "graphql-tag": "2.10.1",
     "react-apollo": "2.5.5",
-    "apollo-boost": "0.3.1"
+    "apollo-boost": "0.3.1",
+    "jest": "24.8.0",
+    "@types/jest": "24.0.13",
+    "ts-jest": "24.0.2",
+    "identity-obj-proxy": "3.0.0"
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
@@ -128,5 +130,36 @@
       "text-summary"
     ],
     "all": true
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "text", "lcov"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx,js,jsx}",
+      "!**/node_modules/**",
+      "!**/*.d.ts",
+      "!src/**/*.spec.tsx"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "coverageDirectory": "coverage",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/*"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "testRegex": "src/components/ConfirmDialog/index.spec.tsx",
+    "preset": "ts-jest",
+    "verbose": true
   }
 }

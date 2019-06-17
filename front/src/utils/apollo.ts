@@ -9,6 +9,9 @@ REVIEW_URL_PATTERN = ".integrates.env";
 let DEVELOPMENT_URL: string;
 DEVELOPMENT_URL = "https://localhost";
 
+let TESTS_URL: string;
+TESTS_URL = "http://localhost/";
+
 const getGrapQLBackend: (() => string) = (): string => {
   let url: string;
   /* tslint:disable-next-line:strict-type-predicates
@@ -21,7 +24,8 @@ const getGrapQLBackend: (() => string) = (): string => {
     url = "https://localhost/integrates/api";
   } else {
     const currentUrl: string = window.location.href;
-    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank") {
+    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank" ||
+    currentUrl.indexOf(TESTS_URL) !== -1) {
       url = "https://localhost/integrates/api";
     } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
       url = "/integrates/api";
