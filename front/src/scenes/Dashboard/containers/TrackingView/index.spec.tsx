@@ -29,7 +29,6 @@ describe("Tracking view", () => {
       <TrackingView
         closings={testClosings}
         findingId="422286126"
-        hasNewVulnerabilities={true}
         userRole="admin"
       />,
     );

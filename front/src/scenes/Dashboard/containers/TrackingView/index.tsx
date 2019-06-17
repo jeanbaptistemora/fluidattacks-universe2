@@ -23,7 +23,6 @@ import style from "./index.css";
 export interface ITrackingViewProps {
   closings: closing[];
   findingId: string;
-  hasNewVulnerabilities: boolean;
   userRole: string;
 }
 
@@ -65,116 +64,91 @@ lifecycle({
 export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> =
   (props: ITrackingViewProps): JSX.Element => (
     <React.StrictMode>
-      <Row>
-        { props.hasNewVulnerabilities
-          ? <React.Fragment>
-            <Row>
-                <Col
-                  md={12}
-                >
-                  <Row>
-                    <Col
-                      md={2}
-                      className={style.text_right}
-                    >
-                      <label className={style.track_title}>{translate.t("search_findings.tab_tracking.open")}</label>
-                    </Col>
-                    <Col
-                      md={10}
-                    >
-                      <VulnerabilitiesView
-                        editMode={false}
-                        findingId={props.findingId}
-                        state={"open"}
-                        userRole={props.userRole}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col
-                      md={2}
-                      className={style.text_right}
-                    >
-                      <label className={style.track_title}>{translate.t("search_findings.tab_tracking.closed")}</label>
-                    </Col>
-                    <Col
-                      md={10}
-                    >
-                      <VulnerabilitiesView
-                        editMode={false}
-                        findingId={props.findingId}
-                        state={"closed"}
-                        userRole={props.userRole}
-                      />
-                    </Col>
-                  </Row>
+        <React.Fragment>
+          <Row>
+            <Col md={12}>
+              <Row>
+                <Col md={2} className={style.text_right}>
+                  <label className={style.track_title}>{translate.t("search_findings.tab_tracking.open")}</label>
+                </Col>
+                <Col md={10}>
+                  <VulnerabilitiesView
+                    editMode={false}
+                    findingId={props.findingId}
+                    state={"open"}
+                    userRole={props.userRole}
+                  />
                 </Col>
               </Row>
-              { props.closings.length > 0
-                ? <Row>
-                  <Col
-                    mdOffset={3}
-                    md={9}
-                    sm={12}
+              <Row>
+                <Col md={2} className={style.text_right}>
+                  <label className={style.track_title}>{translate.t("search_findings.tab_tracking.closed")}</label>
+                </Col>
+                <Col md={10}>
+                  <VulnerabilitiesView
+                    editMode={false}
+                    findingId={props.findingId}
+                    state={"closed"}
+                    userRole={props.userRole}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          { props.closings.length > 0
+            ? <Row>
+              <Col mdOffset={3} md={9} sm={12}>
+                <ul className={style.timelineContainer}>
+                  <li
+                    key={0}
+                    className={`${style.timelineItem} ${props.closings[0].effectiveness === 100 ?
+                      style.timelineItemGreen : style.timelineItemRed}`}
                   >
-                    <ul className={style.timelineContainer}>
-                      <li
-                        key={0}
-                        className={`${style.timelineItem} ${props.closings[0].effectiveness === 100 ?
-                          style.timelineItemGreen : style.timelineItemRed}`}
-                      >
-                        <div className={style.timelineDate}>
-                          <span>
-                            {props.closings[0].date}
-                          </span>
-                        </div>
-                        <div className={style.timelineContent}>
-                            <p>
-                              {translate.t("search_findings.tab_tracking.founded")},
-                                {translate.t("search_findings.tab_tracking.open")}: {props.closings[0].open},
-                                {translate.t("search_findings.tab_tracking.closed")}: {props.closings[0].closed}
-                             </p>
-                        </div>
-                      </li>
-                      {props.closings
-                        .filter((_0: { closed: number; cycle: number; effectiveness: number; open: number },
-                                 index: number) => index > 0)
-                        .map((item: closing) =>
-                        <li
-                          key={item.cycle}
-                          className={`${style.timelineItem} ${item.effectiveness === 100 ?
-                            style.timelineItemGreen : style.timelineItemRed}`}
-                        >
-                          <div className={style.timelineDate}>
-                            <span>
-                              {item.date}
-                            </span>
-                          </div>
-                          <div className={style.timelineContent}>
-                              <p>
-                                {translate.t("search_findings.tab_tracking.cycle")}: {item.cycle},
-                                 {translate.t("search_findings.tab_tracking.open")}: {item.open},
-                                 {translate.t("search_findings.tab_tracking.closed")}: {item.closed},
-                                 {translate.t("search_findings.tab_tracking.effectiveness")}: {item.effectiveness}%
-                              </p>
-                          </div>
-                        </li>,
-                      )}
-                    </ul>
-                  </Col>
-                  </Row>
-              : undefined
-            }
-          </React.Fragment>
+                    <div className={style.timelineDate}>
+                      <span>
+                        {props.closings[0].date}
+                      </span>
+                    </div>
+                    <div className={style.timelineContent}>
+                        <p>
+                          {translate.t("search_findings.tab_tracking.founded")},
+                            {translate.t("search_findings.tab_tracking.open")}: {props.closings[0].open},
+                            {translate.t("search_findings.tab_tracking.closed")}: {props.closings[0].closed}
+                          </p>
+                    </div>
+                  </li>
+                  {props.closings
+                    .filter((_0: { closed: number; cycle: number; effectiveness: number; open: number },
+                             index: number) => index > 0)
+                    .map((item: closing) =>
+                    <li
+                      key={item.cycle}
+                      className={`${style.timelineItem} ${item.effectiveness === 100 ?
+                        style.timelineItemGreen : style.timelineItemRed}`}
+                    >
+                      <div className={style.timelineDate}>
+                        <span>
+                          {item.date}
+                        </span>
+                      </div>
+                      <div className={style.timelineContent}>
+                          <p>
+                            {translate.t("search_findings.tab_tracking.cycle")}: {item.cycle},
+                              {translate.t("search_findings.tab_tracking.open")}: {item.open},
+                              {translate.t("search_findings.tab_tracking.closed")}: {item.closed},
+                              {translate.t("search_findings.tab_tracking.effectiveness")}: {item.effectiveness}%
+                          </p>
+                      </div>
+                    </li>,
+                  )}
+                </ul>
+              </Col>
+            </Row>
           : undefined
         }
-      </Row>
+      </React.Fragment>
     </React.StrictMode>
 );
-
-trackingViewComponent.defaultProps = {
-  closings: [],
-};
 
 export const trackingView: ComponentType<ITrackingViewProps> = reduxWrapper
 (
