@@ -52,36 +52,36 @@ are in place and ready before we arrive at the conference venue.
 If you have any questions about or problems with,
 any of these items do not hesitate to contact us immediately.
 
-. All the assistants MUST complete an online satisfaction survey (+2+ minutes)
-before leaving the auditorium.
+. All attendees should complete an online satisfaction survey
+(2 minutes) before leaving the conference.
 
-. +Fluid Attacks+ CAN invite up to +4+ additional assistants
-to the event.
+. +Fluid Attacks+ CAN invite up to +4+ additional attendees
+to the conference.
 
-. Event assistants MUST NOT use cellphones nor laptops
-during the time of the conference.
+. Conference attendees are asked not to use cellphones
+or laptops during conference presentations.
 
-. All assistants MUST be previously notified about the event,
-so they can voluntary decide whether to assist or not.
+. Attendees should have registered before arriving at the conference.
 
-. The speaker MUST enter the auditorium +30+ minutes before
-the beginning of the event to connect the equipment,
-test +WiFi+ connectivity and start the conference
-at the scheduled time.
+. Conference presenters are expected to begin their presentations
+at their scheduled time, therefore, they should arrive at least +30+ minutes
+before the beginning of their scheduled presentation to connect their equipment
+and test +WiFi+ connectivity.
 
 . *Access to +Google Drive+ via WiFi:*
-The presentation has animations and videos
-that can only be accessed if the laptop is connected
-to a network that allows access to +Google Drive+.
+If your presentation has animations and videos,
+they can only be accessed if the laptop is connected to a network that allows
+access to +Google Drive+.
 
 . Video beam with aspect ratio +16:9+.
 
-. +HDMI+ cable connected directly to the video beam
-from the speaker laptop (without +VGA+ adapters).
+. An +HDMI+ cable connected directly to the video beam
+}from the presenter's laptop (without +VGA+ adapters).
 
-. Do not include assistants remotely.
-The conference is very dynamic and hence,
-it depends on the face to face interaction with the attendance.
+. Many presentations are dynamic and interactive,
+relying on face-to-face interaction with the audience.
+Therefore, attendees will not be connected, remotely.
 
-. If the conference is part of an event with more speakers,
-it must be scheduled before the last speaker of the morning session.
+. Regardless of the number of additional presenters,
++Fluid Attacks+ presentation must be scheduled before
+the last presenter of the morning session.

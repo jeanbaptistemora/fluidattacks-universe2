@@ -77,11 +77,6 @@ However, if we are not interested in your application, we will notify you.
 If we do not notify you, your application will remain active,
 and therefore, will be considered for any current or future opening.
 
-. During the process,
-if it’s termination is never explicitly notified,
-It is understood that you are still a part of it and
-therefore are subject to analysis for any current or potential opening.
-
 == The Hiring Process
 
 . By accepting these terms and conditions
@@ -90,7 +85,7 @@ do not have any clauses (or that these have expired)
 that forbid you to work in any role in an information security company.
 
 . By accepting these terms and conditions
-You understand that if you sign a contract with us,
+you understand that if you sign a contract with us,
 it will have the following clauses:
 
 * Exclusivity.

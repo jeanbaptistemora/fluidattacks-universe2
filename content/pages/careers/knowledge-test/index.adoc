@@ -5,16 +5,14 @@
 
 = Knowledge Test
 
-The next step to continue with your selection process
-is to submit our knowledge exam.
-This exam contains questions focused on several areas of knowledge,
-some that apply to your profile, and some other ones that don’t.
-Nevertheless, you must answer all of them in a conscious way
-because that is how we will be able to validate if the exam
-is effective determining that who knows - actually knows
-and who doesn’t, just doesn't.
+To continue in the candidate selection process complete the knowledge exam.
+This exam contains questions in several areas of knowledge.
+Some will apply to your profile, and others will not.
+Nevertheless,
+you should answer all of them conscientiously
+because we will use the exam to determine your level of expertise.
 
-The steps to submit the exam are the following:
+To access, complete, and submit the exam do the following:
 
 == Create an account
 
