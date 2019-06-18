@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -11,11 +10,52 @@ const functionMock: (() => void) = (): void => undefined;
 
 describe("Generic modal", () => {
   it("should return a function", () => {
-    expect(typeof (Modal)).to
-      .equal("function");
+    expect(typeof (Modal))
+      .toEqual("function");
   });
 
-  it("should be rendered", () => {
+  it("should render modal title", () => {
+    const wrapper: ShallowWrapper = shallow(
+      <Modal
+        open={true}
+        onClose={functionMock}
+        headerTitle="Unit test title"
+        footer={<div />}
+      />,
+    );
+    expect(
+      wrapper.contains(
+        <ModalHeader className="header" closeLabel="Close" closeButton={false} bsClass="modal-header">
+          <ModalTitle className="title" componentClass="h4">
+            Unit test title
+          </ModalTitle>
+        </ModalHeader>,
+    ))
+      .toBeTruthy();
+  });
+
+  it("should render modal body", () => {
+    const wrapper: ShallowWrapper = shallow(
+      <Modal
+        open={true}
+        onClose={functionMock}
+        headerTitle="Unit test title"
+        content={<p>Unit modal content</p>}
+        footer={<div />}
+      />,
+    );
+    expect(
+      wrapper.contains(
+        <ModalBody componentClass="div">
+          <p>
+            Unit modal content
+          </p>
+        </ModalBody>,
+    ))
+      .toBeTruthy();
+  });
+
+  it("should render modal footer", () => {
     const wrapper: ShallowWrapper = shallow(
       <Modal
         open={true}
@@ -26,27 +66,27 @@ describe("Generic modal", () => {
       />,
     );
     expect(
-      wrapper.contains([
-        (
-          <ModalHeader closeLabel="Close" closeButton={false} bsClass="modal-header">
-            <ModalTitle componentClass="h4">
-              Unit test title
-          </ModalTitle>
-          </ModalHeader>),
-        (
-          <ModalBody componentClass="div">
-            <p>
-              Unit modal content
-          </p>
-          </ModalBody>),
-        (
-          <ModalFooter componentClass="div">
-            <Button active={false} block={false} disabled={false} bsStyle="default">
-              test btn
+      wrapper.contains(
+        <ModalFooter componentClass="div">
+          <Button active={false} block={false} disabled={false} bsStyle="default" bsClass="btn">
+            test btn
           </Button>
-          </ModalFooter>),
-      ]),
-    ).to
-      .equal(true);
+        </ModalFooter>,
+    ))
+      .toBeTruthy();
+  });
+
+  it("should render a modal", () => {
+    const wrapper: ShallowWrapper = shallow(
+      <Modal
+        open={true}
+        onClose={functionMock}
+        headerTitle="Unit test title"
+        content={<p>Unit modal content</p>}
+        footer={<Button>test btn</Button>}
+      />,
+    );
+    expect(wrapper)
+    .toHaveLength(1);
   });
 });

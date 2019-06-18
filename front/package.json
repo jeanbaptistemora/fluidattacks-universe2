@@ -76,7 +76,6 @@
     "redux-thunk": "2.3.0",
     "i18next": "13.1.5",
     "react-image-lightbox": "5.1.0",
-    "nyc": "14.0.0-rc.1",
     "react-router": "5.0.0",
     "@types/react-router": "4.4.5",
     "react-router-dom": "5.0.0",
@@ -114,27 +113,11 @@
     "lint": "tslint -p tsconfig.json -t codeFrame",
     "test": "tsc -p tsconfig.json --noEmit && npm run css && ./runTests.sh"
   },
-  "nyc": {
-    "extension": [
-      ".ts",
-      ".tsx"
-    ],
-    "include": [
-      "src/**/*.tsx"
-    ],
-    "exclude": [
-      "**/*.d.ts",
-      "src/**/*.spec.tsx"
-    ],
-    "reporter": [
-      "text-summary"
-    ],
-    "all": true
-  },
   "jest": {
     "collectCoverage": true,
     "coverageReporters": [
-      "text", "lcov"
+      "text",
+      "lcov"
     ],
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx,js,jsx}",
@@ -159,8 +142,14 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     },
-    "testRegex": ["src/components/ConfirmDialog/index.spec.tsx", "src/components/DataTable/index.spec.tsx",
-      "src/components/Button/index.spec.tsx"],
+    "testRegex": [
+      "src/components/ConfirmDialog/index.spec.tsx",
+      "src/components/DataTable/index.spec.tsx",
+      "src/components/Button/index.spec.tsx",
+      "src/components/FluidIcon/index.spec.tsx",
+      "src/components/Frame/index.spec.tsx",
+      "src/components/Modal/index.spec.tsx"
+    ],
     "preset": "ts-jest",
     "verbose": true
   }
