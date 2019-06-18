@@ -105,10 +105,13 @@ or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sent
 . All documents must include at least
 one image related to the topic being presented.
 
+. Use free professional images from
+link:https://unsplash.com/[unsplash].
+
 . Images that are not yours
 must include a reference.
 
-. Include a description for the image.
+. Include a description of the image.
 
 === 7. Source
 
