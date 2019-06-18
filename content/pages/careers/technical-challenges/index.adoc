@@ -6,58 +6,55 @@
 
 = Technical Challenges
 
-This stage is parallel to the other stages of the process and
-therefore, the more progress you make on it now,
-the greater the probability is
-of being evaluated before the other participants
-once the other stages finish.
+Because this stage parallels the other stages of the process,
+you can work on this at the same time you are completing previous stages.
+The more progress you make on it now,
+the greater the probability that you may be evaluated before other participants
+who finish their work in a linear fashion.
 
-It can also be considered as a kind of lifesaver in the process,
-because you may not have graduated yet,
-have no previous work experience,
-or get a low score on your knowledge test,
-but if you able to successfully finish this stage,
-you will show that you have the most valuable competence of all:
-The ability to learn new things on the fly and
-apply them to solve real problems.
-This, along with human warmth and strong [button]#link:../../values[values]#,
-have more weight than everything else.
+This stage can also function as a kind of lifesaver for you.
+If you have not yet graduated, perhaps have no previous work experience,
+or maybe got a low score on the knowledge test,
+but were able to successfully finish this stage, you have the most valuable
+competence of all: The ability to learn new things on the fly and apply them to
+solve real problems.
+This, along with a good personality and strong
+[button]#link:../../values[values]#, mean more to us and our customers than
+anything else.
 
 == 1. Philosophy
 
-In this stage, we want you to evidence your technical skills
-through practical exercises and problems
-similar to the ones you will face in +Fluid Attacks+.
+In this stage, we want you to demonstrate, through practical exercises,
+your technical skills by solving problems similar to the ones you will face in
+your work with +Fluid Attacks+.
 
 The technical challenges are divided into
-+vbd-hacking+, +ctf-hacking+ and +programming+ challenges.
-With the former, you demonstrate your skill to bypass security controls.
-With the second one, you demonstrate your adaptation skills
-when it comes to solving problems in unknown environments.
-With the latter, you show that you are able
-to quickly understand source code,
-and thus it will be easier for you to audit it.
++vbd-hacking+, +ctf-hacking+, and +programming+.
+With the first,
+you demonstrate your skill to bypass security controls.
+With the second,
+you demonstrate your adaptation skill when it comes to problem-solving
+in unknown environments.
+With the third,
+you demonstrate your proficiency and speed in understanding source code.
 
-By solving challenges,
-we look forward to:
+By solving challenges we:
 
 . Promote the solution of unresolved challenges.
 
-. Encourage self-directed and independent learning
+. Encourage self-directed and independent learning.
 
 By uploading your solutions to +GitLab+, you will be able to:
 
 . Use the +GitLab+ infrastructure to analyze
 your efficiency and work quality as you adapt to the process.
 
-. From early stages,
-familiarize with the tools
+. Familiarize yourself with the tools
 (+Git+, +AsciiDoc+, +Python+, +Gherkin+, etc) and
 concepts (automation, unit tests, continuous integration, +linting+, etc.) that
-you will use in your daily work in +Fluid Attacks+.
+you will use in your daily work with +Fluid Attacks+.
 
-. Make your results visible to the community and
-the team.
+. Allow the community and the team to view your results.
 
 == 2. Objectives
 
@@ -70,7 +67,7 @@ the team.
 == 3. Recommendations
 
 . When solving +programming+ challenges,
-We recommend [button]#link:https://www.codeabbey.com/[Codeabbey]#.
+we recommend [button]#link:https://www.codeabbey.com/[Codeabbey]#.
 Also, we suggest using a language that is not widely used.
 
 . When solving +ctf-hacking+ challenges,
