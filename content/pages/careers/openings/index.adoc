@@ -83,13 +83,12 @@ image:logo-autonomic.png[align="center"] <a href="https://www.linkedin.com/compa
 
 == Openings in Autonomicmind
 
-Autonomicmind is a company
-providing specialized +IT+ recruitment services.
-They find and recruit the  top employees in the +IT+ industry,
+Autonomicmind is a company providing specialized +IT+ recruitment services.
+They find and recruit the top employees in the +IT+ industry,
 and act as a bridge between them and prospective employers.
-Autonomicmind helps clients achieve their business goals
-by connecting people with the right skills to the right employers
-to advance a company's competitiveness.
+Autonomicmind helps clients achieve their business goals by connecting people
+with the right skills to the right employers to advance a company's
+competitiveness.
 
 Autonomicmind also recruits top tier employees for +Fluid Attacks+,
 as well as, telecommunication companies,

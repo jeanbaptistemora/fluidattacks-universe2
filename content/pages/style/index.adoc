@@ -350,8 +350,8 @@ you must request the revision of the document
 through a +Merge Request+
 so that we can evaluate the content.
 
-If the document is accepted and published
-the author *transfers* the copyrights of said document to +Fluid Attacks+;
-If necessary,
-changes will be made
-without the author’s consent.
+If the document is accepted and published,
+the author retains the copyright to the draft submitted to +Fluid Attacks+.
+However, +Fluid Attacks+ *retains* the right to make changes to the draft,
+if necessary,
+and these may be made without the author's consent or notification.
