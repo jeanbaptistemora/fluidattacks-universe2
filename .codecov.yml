@@ -6,6 +6,6 @@ coverage:
       default:
         # The build fails if total project coverage drops by more than 6%
         target: auto
-        threshold: "6%"
+        threshold: "8%"
     changes: false
     patch: false
