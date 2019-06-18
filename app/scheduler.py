@@ -4,6 +4,7 @@
 
 from __future__ import absolute_import
 from datetime import datetime, timedelta
+from collections import OrderedDict
 import logging
 import logging.config
 import rollbar
@@ -154,32 +155,46 @@ def create_register_by_week(project):
     accepted = 0
     closed = 0
     found = 0
-    all_registers = []
+    all_registers = OrderedDict()
     findings_released = integrates_dao.get_findings_released_dynamo(project)
     vulns = get_all_vulns_by_project(findings_released)
-    first_day, last_day = get_first_week_dates(vulns)
-    first_day_last_week = get_date_last_vulns(vulns)
-    while first_day <= first_day_last_week:
-        result_vulns_by_week = get_status_vulns_by_time_range(vulns, first_day,
-                                                              last_day,
-                                                              findings_released)
-        accepted += result_vulns_by_week['accepted']
-        closed += result_vulns_by_week['closed']
-        found += result_vulns_by_week['found']
-        if result_vulns_by_week['accepted'] or result_vulns_by_week['closed'] or \
-           result_vulns_by_week['found']:
-            register_by_week = {}
-            register_by_week['week'] = create_weekly_date(first_day)
-            register_by_week['found'] = found
-            register_by_week['closed'] = closed
-            register_by_week['accepted'] = accepted
-            all_registers.append(register_by_week)
-        first_day = str(datetime.strptime(first_day, "%Y-%m-%d") +
-                        timedelta(days=7)).split(' ')[0]
-        last_day = str(datetime.strptime(last_day, "%Y-%m-%d") +
-                       timedelta(days=7)).split(' ')[0]
+    if vulns:
+        first_day, last_day = get_first_week_dates(vulns)
+        first_day_last_week = get_date_last_vulns(vulns)
+        while first_day <= first_day_last_week:
+            result_vulns_by_week = get_status_vulns_by_time_range(vulns, first_day,
+                                                                  last_day,
+                                                                  findings_released)
+            accepted += result_vulns_by_week['accepted']
+            closed += result_vulns_by_week['closed']
+            found += result_vulns_by_week['found']
+            if any(status_vuln for status_vuln in result_vulns_by_week.values()):
+                week_dates = create_weekly_date(first_day)
+                all_registers[week_dates] = {
+                    'found': found,
+                    'closed': closed,
+                    'accepted': accepted
+                }
+            first_day = str(datetime.strptime(first_day, "%Y-%m-%d") +
+                            timedelta(days=7)).split(' ')[0]
+            last_day = str(datetime.strptime(last_day, "%Y-%m-%d") +
+                           timedelta(days=7)).split(' ')[0]
+    create_data_format_chart(project, all_registers)
+
+
+def create_data_format_chart(project, all_registers):
+    result_data = []
+    plot_points = {
+        'found': [],
+        'closed': [],
+        'accepted': []}
+    for week, dict_status in all_registers.items():
+        for status in plot_points:
+            plot_points[status].append({'x': week, 'y': dict_status[status]})
+    for status in plot_points:
+        result_data.append(plot_points[status])
     integrates_dao.update_attribute_dynamo('FI_projects', ['project_name', project],
-                                           'remediated_over_time', all_registers)
+                                           'remediated_over_time', result_data)
 
 
 def get_all_vulns_by_project(findings_released):
