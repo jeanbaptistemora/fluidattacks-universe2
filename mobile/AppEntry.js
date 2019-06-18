@@ -1,10 +1,10 @@
-// @ts-check
+import { registerRootComponent } from "expo";
+import { activateKeepAwake } from "expo-keep-awake"
 
-import { KeepAwake, registerRootComponent } from "expo";
 import { App } from "./src/app";
 
 if (__DEV__) {
-  KeepAwake.activate();
+  activateKeepAwake();
 }
 
 registerRootComponent(App);

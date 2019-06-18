@@ -1,5 +1,5 @@
 
-import { Localization } from "expo";
+import * as Localization from "expo-localization";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { ToastAndroid } from "react-native";

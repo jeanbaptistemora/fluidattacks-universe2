@@ -1,4 +1,4 @@
-import { Constants } from "expo";
+import { default as Constants, NativeConstants } from "expo-constants";
 import React from "react";
 import { Image, Linking, Platform, View } from "react-native";
 import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
@@ -30,8 +30,8 @@ interface ILoginDispatchProps {
 
 export type ILoginProps = ILoginBaseProps & (ILoginState & ILoginDispatchProps);
 
-const androidManifest: typeof Constants.manifest["android"] =
-  Constants.manifest.android === undefined ? {} : Constants.manifest.android;
+type manifestStructure = NativeConstants["manifest"] & { android: { package: string } };
+const manifest: manifestStructure = (Constants.manifest as manifestStructure);
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<ILoginProps, {}>({
   componentDidMount(): void {
@@ -63,7 +63,7 @@ export const loginView: React.FunctionComponent<ILoginProps> = (props: ILoginPro
   };
 
   const handleUpdateButtonClick: (() => Promise<void>) = async (): Promise<void> => {
-    await Linking.openURL(`market://details?id=${androidManifest.package}`);
+    await Linking.openURL(`market://details?id=${manifest.android.package}`);
   };
 
   return props.isAuthenticated ? <Redirect to={redirectParams} /> : (

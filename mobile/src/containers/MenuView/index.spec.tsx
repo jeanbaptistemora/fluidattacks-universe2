@@ -3,12 +3,13 @@ import React from "react";
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { RouteComponentProps } from "react-router-native";
 import renderer, { ReactTestRenderer } from "react-test-renderer";
+import wait from "waait";
 
 import { MenuView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
 
 describe("MenuView", () => {
-  it("should render", () => {
+  it("should render", async () => {
 
     const mockProps: RouteComponentProps = {
       history: {
@@ -61,6 +62,7 @@ describe("MenuView", () => {
         },
       },
     }];
+
     const renderedComponent: ReactTestRenderer = renderer.create(
       (
         <MockedProvider mocks={mocks} addTypename={false}>
@@ -68,6 +70,7 @@ describe("MenuView", () => {
         </MockedProvider>
       ),
     );
+    await wait(0);
     expect(renderedComponent.toJSON())
       .toBeTruthy();
   });

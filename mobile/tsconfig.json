@@ -6,8 +6,9 @@
     "lib": [
       "es2018"
     ],
-    "module": "commonjs",
+    "moduleResolution": "node",
     "noEmit": true,
+    "skipLibCheck": true,
     "strict": true,
     "target": "es2018"
   },

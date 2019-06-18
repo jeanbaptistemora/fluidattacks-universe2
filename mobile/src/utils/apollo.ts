@@ -1,5 +1,8 @@
 import { default as ApolloClient, Operation } from "apollo-boost";
-import { Constants, SecureStore } from "expo";
+import { default as Constants } from "expo-constants";
+import * as SecureStore from "expo-secure-store";
+import _ from "lodash";
+import unfetch from "unfetch";
 
 const apiHost: string = Constants.appOwnership === "expo"
   ? `http://${String(Constants.manifest.hostUri)
@@ -7,6 +10,7 @@ const apiHost: string = Constants.appOwnership === "expo"
   : "https://fluidattacks.com";
 
 export const client: ApolloClient<{}> = new ApolloClient<{}>({
+  fetch: _.isUndefined(fetch) ? unfetch : fetch,
   request: async (operation: Operation): Promise<void> => {
     const token: string =
       await SecureStore.getItemAsync("integrates_session") as string;

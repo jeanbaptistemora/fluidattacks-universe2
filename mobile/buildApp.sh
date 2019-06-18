@@ -58,7 +58,8 @@ npx turtle build:android \
   --release-channel "$DEVELOPER_ENV" \
   --keystore-path ./keystore-dev.jks \
   --keystore-alias fluidintegrates-keystore \
-  --output output/integrates.apk
+  --output output/integrates.apk \
+  --type apk
 
 
 # Cleanup

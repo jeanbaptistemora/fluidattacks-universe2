@@ -1,7 +1,7 @@
 import { Google, Notifications } from "expo";
 
 import { IActionStructure, ThunkDispatcher, ThunkResult } from "../../store";
-import { GOOGLE_LOGIN_KEY } from "../../utils/constants";
+import { GOOGLE_LOGIN_KEY_DEV, GOOGLE_LOGIN_KEY_PROD } from "../../utils/constants";
 import * as errorDialog from "../../utils/errorDialog";
 
 export enum actionTypes {
@@ -15,8 +15,9 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
 ): void => {
   dispatch({ payload: {}, type: actionTypes.GOOGLE_LOGIN_LOAD });
   Google.logInAsync({
-    androidClientId: GOOGLE_LOGIN_KEY,
-    iosClientId: GOOGLE_LOGIN_KEY,
+    androidClientId: GOOGLE_LOGIN_KEY_DEV,
+    androidStandaloneAppClientId: GOOGLE_LOGIN_KEY_PROD,
+    clientId: "",
     scopes: ["profile", "email"],
   })
     .then(async (result: Google.LogInResult): Promise<void> => {
@@ -25,7 +26,7 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
         dispatch({
           payload: {
             authProvider: "google",
-            authToken: result.idToken,
+            authToken: String(result.idToken),
             pushToken: await Notifications.getExpoPushTokenAsync(),
             userInfo: result.user,
           },

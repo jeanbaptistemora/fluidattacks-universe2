@@ -4,7 +4,7 @@
   * readability of the code in graphql queries
  */
 
-import { SecureStore } from "expo";
+import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult } from "react-apollo";
