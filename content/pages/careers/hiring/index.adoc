@@ -46,8 +46,8 @@ or a certificate of affiliation if you already have one.
 . Bank account information for purposes of direct deposit for your paycheck.
 In the +U.S.A.+ your routing number and account number.
 . Marital status, indicating if you have children.
-. Complete contact information:
-home mailing address, and phone numbers we can contact you at.
+. Complete contact information: home mailing address, email address, and phone
+numbers we can contact you at.
 
 If you have any questions,
 please don’t hesitate to contact us at administration@fluidattacks.com.
