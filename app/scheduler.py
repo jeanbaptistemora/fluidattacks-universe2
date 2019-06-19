@@ -180,10 +180,10 @@ def create_register_by_week(project):
                             timedelta(days=7)).split(' ')[0]
             last_day = str(datetime.strptime(last_day, "%Y-%m-%d") +
                            timedelta(days=7)).split(' ')[0]
-    create_data_format_chart(project, all_registers)
+    return create_data_format_chart(all_registers)
 
 
-def create_data_format_chart(project, all_registers):
+def create_data_format_chart(all_registers):
     result_data = []
     plot_points = {
         'found': [],
@@ -195,8 +195,7 @@ def create_data_format_chart(project, all_registers):
             plot_points[status].append({'x': week, 'y': dict_status[status]})
     for status in plot_points:
         result_data.append(plot_points[status])
-    integrates_dao.update_attribute_dynamo('FI_projects', ['project_name', project],
-                                           'remediated_over_time', result_data)
+    return result_data
 
 
 def get_all_vulns_by_project(findings_released):
@@ -516,7 +515,8 @@ def update_indicators():
         'last_closing_date': 0,
         'mean_remediate': 0,
         'max_open_severity': 0,
-        'total_treatment': {}
+        'total_treatment': {},
+        'remediated_over_time': []
     }
     for project in projects:
         try:
@@ -527,6 +527,7 @@ def update_indicators():
             indicators['mean_remediate'] = get_mean_remediate(findings)
             indicators['max_open_severity'] = get_max_open_severity(findings)
             indicators['total_treatment'] = get_total_treatment(findings)
+            indicators['remediated_over_time'] = create_register_by_week(project)
             primary_keys = ['project_name', project]
             response = integrates_dao.add_multiple_attributes_dynamo(
                 table_name, primary_keys, indicators)
