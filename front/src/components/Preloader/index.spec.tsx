@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -10,11 +9,11 @@ configure({ adapter: new ReactSixteenAdapter() });
 describe("Preloader", () => {
 
   it("should return a function", () => {
-    expect(typeof (Preloader)).to
-      .equal("function");
+    expect(typeof (Preloader))
+      .toEqual("function");
   });
 
-  it("should be render", () => {
+  it("should render a preloader", () => {
     const wrapper: ShallowWrapper = shallow((
       <Preloader />
     ));
@@ -26,8 +25,8 @@ describe("Preloader", () => {
           height="100"
         />
       </div>);
-    expect(wrapper.contains(element)).to
-      .equal(true);
+    expect(wrapper.contains(element))
+      .toBeTruthy();
   });
 
 });

@@ -142,14 +142,7 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     },
-    "testRegex": [
-      "src/components/ConfirmDialog/index.spec.tsx",
-      "src/components/DataTable/index.spec.tsx",
-      "src/components/Button/index.spec.tsx",
-      "src/components/FluidIcon/index.spec.tsx",
-      "src/components/Frame/index.spec.tsx",
-      "src/components/Modal/index.spec.tsx"
-    ],
+    "testRegex": ["(src/components/.*/index\\.spec\\.tsx)$"],
     "preset": "ts-jest",
     "verbose": true
   }
