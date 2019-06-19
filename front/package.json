@@ -153,7 +153,9 @@
       "src/scenes/Dashboard/components/AddRepositoriesModal/index.spec.tsx",
       "src/scenes/Dashboard/components/AddTagsModal/index.spec.tsx",
       "src/scenes/Dashboard/components/AlertBox/index.spec.tsx",
-      "src/scenes/Dashboard/components/Comments/index.spec.tsx"
+      "src/scenes/Dashboard/components/Comments/index.spec.tsx",
+      "src/scenes/Dashboard/components/EditableField/index.spec.tsx",
+      "src/scenes/Dashboard/components/EventHeader/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "verbose": true

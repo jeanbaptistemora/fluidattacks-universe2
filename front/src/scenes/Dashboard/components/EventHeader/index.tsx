@@ -14,7 +14,7 @@ import translate from "../../../../utils/translations/translate";
 import { IEventDescriptionViewProps } from "../../containers/EventDescriptionView/index";
 import style from "./index.css";
 
-interface IEventHeaderProps {
+export interface IEventHeaderProps {
   eventData: IEventDescriptionViewProps["eventData"];
   isActiveTab: boolean;
   urlDescription: (() => JSX.Element);
