@@ -1,10 +1,8 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
-import { reduxForm as ReduxForm } from "redux-form";
 import { addRepositoriesModal as AddRepositoriesModal } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -25,12 +23,12 @@ describe("Add Repositories modal", () => {
   );
 
   it("should return a function", () => {
-    expect(typeof (AddRepositoriesModal)).to
-      .equal("function");
+    expect(typeof (AddRepositoriesModal))
+      .toEqual("function");
   });
 
   it("should render", () => {
-    expect(wrapper).to
-      .contain(ReduxForm);
+    expect(wrapper)
+      .toHaveLength(1);
   });
 });

@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -11,8 +10,8 @@ const functionMock: (() => void) = (): void => undefined;
 describe("Comments Box", () => {
 
   it("should return a function", () => {
-    expect(typeof (Comments)).to
-      .equal("function");
+    expect(typeof (Comments))
+      .toEqual("function");
   });
 
   it("should render", () => {
@@ -24,7 +23,7 @@ describe("Comments Box", () => {
       />,
     );
 
-    expect(wrapper.contains(<div id="comments-test" />)).to
-      .equal(true);
+    expect(wrapper.contains(<div id="comments-test" />))
+      .toBeTruthy();
   });
 });
