@@ -90,8 +90,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         remediated_over_time = integrates_dao.get_project_attributes_dynamo(
             self.name, ['remediated_over_time'])
         remediate_over_time_decimal = remediated_over_time.get('remediated_over_time', {})
+        remediated_twelve_weeks = [lst_rem[-12:] for lst_rem in remediate_over_time_decimal]
         self.remediated_over_time = json.dumps(
-            remediate_over_time_decimal, use_decimal=True)
+            remediated_twelve_weeks, use_decimal=True)
         return self.remediated_over_time
 
     @get_entity_cache
