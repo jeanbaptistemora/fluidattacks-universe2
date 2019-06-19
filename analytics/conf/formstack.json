@@ -1,11 +1,11 @@
 {
-  "#": [
-    "all form names here must be the CDN compliant version of the name in Formstack, see std_text() function",
-    "don't make name collisions, (i.e. alias all forms to 'example')",
-    "because it is supposed that you create aliases ONLY between forms with the same schema"
+  "comments": [
+    "Forms here MUST be the result of applying the std_text() function to the original form name",
+    "Even though it will work, try to only merge forms with the same schema"
   ],
   "alias": {
-    "periodo": "periodo",
-    "periodo old": "periodo"
+    "periodo uno": "periodo",
+    "periodo dos": "periodo",
+    "periodo": "periodo"
   }
 }
