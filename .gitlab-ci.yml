@@ -120,8 +120,12 @@ test_terraform:
     - vaultenv infrastructure/terraform.sh
   after_script:
     - rm infrastructure/*.xml
+  only:
+    changes:
+      - infrastructure/**
   except:
-    - master
+    refs:
+      - master
 
 build_exams:
   stage: build
