@@ -13,6 +13,7 @@ export interface IIndicatorsProps {
     meanRemediate: number;
     openVulnerabilities: number;
     pendingClosingCheck: number;
+    remediatedOverTime: string;
     totalFindings: number;
     totalTreatment: string;
   };

@@ -103,7 +103,10 @@
     "jest": "24.8.0",
     "@types/jest": "24.0.13",
     "ts-jest": "24.0.2",
-    "identity-obj-proxy": "3.0.0"
+    "identity-obj-proxy": "3.0.0",
+    "@nivo/line": "0.59.0",
+    "@nivo/legends": "0.59.0",
+    "@nivo/axes": "0.59.0"
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",

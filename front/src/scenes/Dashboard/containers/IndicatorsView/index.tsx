@@ -3,6 +3,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
+import { LineDatum } from "@nivo/line";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -12,6 +13,7 @@ import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
+import { IndicatorChart } from "../../components/indicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import style from "./index.css";
 import { GET_INDICATORS } from "./queries";
@@ -76,28 +78,34 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   return (
     <Query query={GET_INDICATORS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({loading, error, data}: QueryResult<IIndicatorsProps>): React.ReactNode => {
+        ({ loading, error, data }: QueryResult<IIndicatorsProps>): React.ReactNode => {
           if (loading) {
             showPreloader();
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
           if (!_.isUndefined(error)) {
             hidePreloader();
             handleGraphQLErrors("An error occurred getting indicators", error);
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
           if (!_.isUndefined(data)) {
             const totalVulnerabilities: number =
               data.project.openVulnerabilities + data.project.closedVulnerabilities;
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
+            const dataChart: LineDatum[][] = JSON.parse(data.project.remediatedOverTime);
 
             return (
               <React.StrictMode>
                 <Row>
                   <Col md={12} sm={12} xs={12}>
                     <h1 className={style.title}>{translate.t("search_findings.tab_indicators.project_title")}</h1>
+                    {dataChart.length > 0 ? (
+                      <IndicatorChart
+                        dataChart={dataChart}
+                      />
+                    ) : undefined}
                     <Row>
                       <Col md={8} sm={12} xs={12}>
                         <Col md={6} sm={12} xs={12}>
