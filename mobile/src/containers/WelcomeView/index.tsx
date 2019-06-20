@@ -13,6 +13,7 @@ import { Image, Text, View } from "react-native";
 import { MutationTrigger } from "../../components/MutationTrigger";
 import { Preloader } from "../../components/Preloader";
 import * as errorDialog from "../../utils/errorDialog";
+import { rollbar } from "../../utils/rollbar";
 import { translate } from "../../utils/translations/translate";
 
 import { SIGN_IN_MUTATION } from "./queries";
@@ -32,7 +33,9 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
               props.history.push("/Menu");
             }
           })
-          .catch();
+          .catch((error: Error): void => {
+            rollbar.error("Error: An error occurred storing jwt", error);
+          });
       } else {
         errorDialog.show();
       }

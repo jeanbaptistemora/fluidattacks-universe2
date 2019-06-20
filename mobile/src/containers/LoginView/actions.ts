@@ -3,6 +3,7 @@ import { Google, Notifications } from "expo";
 import { IActionStructure, ThunkDispatcher, ThunkResult } from "../../store";
 import { GOOGLE_LOGIN_KEY_DEV, GOOGLE_LOGIN_KEY_PROD } from "../../utils/constants";
 import * as errorDialog from "../../utils/errorDialog";
+import { rollbar } from "../../utils/rollbar";
 
 export enum actionTypes {
   GOOGLE_LOGIN_LOAD = "login/google/load",
@@ -32,11 +33,13 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
           },
           type: actionTypes.LOGIN_SUCCESS,
         });
+      } else {
+        // User canceled the operation
       }
     })
     .catch((error: Error) => {
       errorDialog.show();
-      throw error;
+      rollbar.error("Error: An error occurred authenticating with Google", error);
     });
 };
 

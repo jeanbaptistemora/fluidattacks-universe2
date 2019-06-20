@@ -11,6 +11,7 @@ import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { default as FluidLogo } from "../../../assets/logo.png";
 import { Preloader } from "../../components/Preloader";
 import { IState, ThunkDispatcher } from "../../store";
+import { rollbar } from "../../utils/rollbar";
 import { translate } from "../../utils/translations/translate";
 import { checkVersion } from "../../utils/version";
 
@@ -43,7 +44,9 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<ILoginProps, {}>({
 
         onResolveVersion(shouldSkipCheck ? false : isOutdated);
       })
-      .catch();
+      .catch((error: Error): void => {
+        rollbar.error("Error: An error occurred getting latest version", error);
+      });
   },
 });
 

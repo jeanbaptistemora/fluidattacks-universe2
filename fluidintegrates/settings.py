@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 # pylint: disable=E0402
 from __future__ import absolute_import
-import sys
 import os
+import subprocess
+import sys
 
 import newrelic.agent
 import i18n
@@ -51,7 +52,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
                  "fluidattacks.com", "192.168.200.100.xip.io",
                  "192.168.200.100", ".integrates.env.fluidattacks.com"]
 
-ALLOWED_HOSTS += ['192.168.1.{}'.format(i) for i in range(254)]
+ALLOWED_HOSTS += subprocess.check_output(['hostname', '-I']).strip().split()
 
 # Application definition
 

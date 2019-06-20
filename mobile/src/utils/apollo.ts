@@ -1,16 +1,19 @@
 import { default as ApolloClient, Operation } from "apollo-boost";
-import { default as Constants } from "expo-constants";
+import { ErrorResponse } from "apollo-link-error";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import unfetch from "unfetch";
 
-const apiHost: string = Constants.appOwnership === "expo"
-  ? `http://${String(Constants.manifest.hostUri)
-    .split(":")[0]}`
-  : "https://fluidattacks.com";
+import { getEnvironment } from "./context";
+import { rollbar } from "./rollbar";
+
+const apiHost: string = getEnvironment().url;
 
 export const client: ApolloClient<{}> = new ApolloClient<{}>({
   fetch: _.isUndefined(fetch) ? unfetch : fetch,
+  onError: (error: ErrorResponse): void => {
+    rollbar.error("Error: An error occurred executing API request", error);
+  },
   request: async (operation: Operation): Promise<void> => {
     const token: string =
       await SecureStore.getItemAsync("integrates_session") as string;
