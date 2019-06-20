@@ -308,27 +308,6 @@ build-integrates:
       - version.txt
     when: on_success
 
-build-mobile:
-  tags:
-    - mobile
-  stage: build
-  dependencies: []
-  <<: *vault_login
-  script:
-    - *ci_utils
-    - cp -a /root/mobile/node_modules mobile/
-    - cd mobile/
-    - npm install
-    - skip_if_unchanged mobile/
-    - if [ $SKIP_JOB -eq 0 ]; then npm run build; fi;
-  artifacts:
-    paths:
-      - mobile/output/*
-    expire_in: 1h
-    when: on_success
-  allow_failure: true
-  retry: 1
-
 build-bot:
   stage: build
   dependencies: []
@@ -494,7 +473,20 @@ deploy-k8s:
   only:
     - master
 
-deploy-playstore:
+publish-mobile:
+  tags:
+    - mobile
+  stage: deploy
+  dependencies: []
+  <<: *vault_login
+  script:
+    - *ci_utils
+    - cd mobile/
+    - cp -a /root/mobile/node_modules ./
+    - skip_if_unchanged mobile/
+    - if [ $SKIP_JOB -eq 0 ]; then npm install; npm run publish; fi;
+
+.deploy-playstore:
   stage: deploy
   dependencies:
     - build-mobile
