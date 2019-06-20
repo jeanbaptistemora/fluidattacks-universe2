@@ -165,7 +165,13 @@
       "src/scenes/Dashboard/components/ImageGallery/index.spec.tsx",
       "src/scenes/Dashboard/components/IndicatorBox/index.spec.tsx",
       "src/scenes/Dashboard/components/IndicatorChart/index.spec.tsx",
-      "src/scenes/Dashboard/components/IndicatorGraph/index.spec.tsx"
+      "src/scenes/Dashboard/components/IndicatorGraph/index.spec.tsx",
+      "src/scenes/Dashboard/components/Navbar/index.spec.tsx",
+      "src/scenes/Dashboard/components/ProjectBox/index.spec.tsx",
+      "src/scenes/Dashboard/components/RemediationModal/index.spec.tsx",
+      "src/scenes/Dashboard/components/Sidebar/index.spec.tsx",
+      "src/scenes/Dashboard/components/SimpleTable/index.spec.tsx",
+      "src/scenes/Dashboard/components/TabItem/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "verbose": true

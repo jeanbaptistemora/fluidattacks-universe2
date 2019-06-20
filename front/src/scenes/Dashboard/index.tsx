@@ -5,7 +5,7 @@ import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { openConfirmDialog, ThunkDispatcher } from "./actions";
-import Navbar from "./components/Navbar/index";
+import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import {
   eventDescriptionView as EventDescriptionView, eventEvidenceView as EventEvidenceView,

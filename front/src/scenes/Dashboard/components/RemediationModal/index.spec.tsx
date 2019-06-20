@@ -1,10 +1,8 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
-import { reduxForm as ReduxForm } from "redux-form";
 import { remediationModal as RemediationModal } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -25,12 +23,12 @@ describe("Remediation modal", () => {
   );
 
   it("should return a function", () => {
-    expect(typeof (RemediationModal)).to
-      .equal("function");
+    expect(typeof (RemediationModal))
+    .toEqual("function");
   });
 
   it("should render", () => {
-    expect(wrapper).to
-      .contain(ReduxForm);
+    expect(wrapper)
+      .toHaveLength(1);
   });
 });

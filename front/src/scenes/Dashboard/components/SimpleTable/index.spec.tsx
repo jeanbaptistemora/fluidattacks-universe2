@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -13,8 +12,8 @@ const functionMock: (() => void) = (): void => undefined;
 describe("Simple table", () => {
 
   it("should return a function", () => {
-    expect(typeof (SimpleTable)).to
-      .equal("function");
+    expect(typeof (SimpleTable))
+      .toEqual("function");
   });
 
   it("should render table", () => {
@@ -58,7 +57,7 @@ describe("Simple table", () => {
       />,
     );
 
-    expect(wrapper).to.have
-      .lengthOf(1);
+    expect(wrapper)
+      .toHaveLength(1);
   });
 });

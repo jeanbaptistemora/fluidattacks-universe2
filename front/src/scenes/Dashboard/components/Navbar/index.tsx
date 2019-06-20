@@ -11,7 +11,7 @@ import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../GenericForm";
 import style from "./index.css";
 
-const navbar: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
+export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
   const pathData: string[] = props.location.pathname.split("/");
   const currentProject: string = pathData.length > 2 ? pathData[2].toUpperCase() : "";
   const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
@@ -44,4 +44,6 @@ const navbar: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.
   );
 };
 
-export = withRouter(navbar);
+const navbar: React.ComponentClass = withRouter(navbarComponent);
+
+export {navbar as Navbar };
