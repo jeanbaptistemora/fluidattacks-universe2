@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
+import { ITableProps } from "../../../../components/DataTable";
 import { default as SimpleTable } from "../SimpleTable/index";
 import { VulnerabilitiesView } from "./index";
 
@@ -29,7 +30,7 @@ describe("Vulnerabilities view", () => {
   });
 
   it("should render input table", () => {
-    const tables: ShallowWrapper = wrapper.find(SimpleTable);
+    const tables: ShallowWrapper<ITableProps> = wrapper.find(SimpleTable);
     const inputTable: string = tables.at(0)
       .html();
     expect(inputTable).to

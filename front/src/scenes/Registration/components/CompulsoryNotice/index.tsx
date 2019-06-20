@@ -6,7 +6,7 @@
 import React from "react";
 import { Checkbox } from "react-bootstrap";
 import { Button } from "../../../../components/Button/index";
-import { default as Modal } from "../../../../components/Modal/index";
+import { Modal } from "../../../../components/Modal/index";
 import translate from "../../../../utils/translations/translate";
 
 /**

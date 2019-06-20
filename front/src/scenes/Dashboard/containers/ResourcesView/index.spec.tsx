@@ -4,7 +4,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 import { Glyphicon } from "react-bootstrap";
 import { Button } from "../../../../components/Button/index";
-import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { dataTable as DataTable, ITableProps } from "../../../../components/DataTable/index";
 import ProjectResourcesView from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -118,7 +118,7 @@ describe("Resources view", () => {
   });
 
   it("should render repos, envs and files tables", () => {
-    const tables: ShallowWrapper = wrapper.find(DataTable);
+    const tables: ShallowWrapper<ITableProps> = wrapper.find(DataTable);
     const repoTable: string = tables.at(0)
       .html();
     const envTable: string = tables.at(1)

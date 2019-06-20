@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
-import { default as Modal } from "../../../../components/Modal/index";
+import { IModalProps, Modal } from "../../../../components/Modal/index";
 import {
   compulsoryNotice as CompulsoryNotice,
 } from "./index";
@@ -29,7 +29,7 @@ describe("Compulsory notice modal", () => {
       />,
     );
 
-    const component: ShallowWrapper = wrapper.find(Modal);
+    const component: ShallowWrapper<IModalProps> = wrapper.find(Modal);
     expect(component).to.have
       .lengthOf(1);
   });

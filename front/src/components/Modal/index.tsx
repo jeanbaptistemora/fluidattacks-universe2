@@ -2,7 +2,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import style from "./index.css";
 
-interface IModalProps {
+export interface IModalProps {
   children?: React.ReactNode;
   content?: React.ReactNode;
   footer: React.ReactNode;
@@ -33,4 +33,4 @@ const modal: React.FC<IModalProps> = (props: IModalProps): JSX.Element => {
   );
 };
 
-export = modal;
+export { modal as Modal };

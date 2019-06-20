@@ -12,7 +12,7 @@ import { closeConfirmDialog, IActionStructure } from "../../scenes/Dashboard/act
 import { IDashboardState } from "../../scenes/Dashboard/reducer";
 import translate from "../../utils/translations/translate";
 import { Button } from "../Button/index";
-import { default as Modal } from "../Modal/index";
+import { Modal } from "../Modal/index";
 
 interface IConfirmDialogStateProps {
   isOpen: boolean;

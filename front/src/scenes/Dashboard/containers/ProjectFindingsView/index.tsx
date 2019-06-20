@@ -12,7 +12,7 @@ import FontAwesome from "react-fontawesome";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
-import { default as Modal } from "../../../../components/Modal/index";
+import { Modal } from "../../../../components/Modal/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";

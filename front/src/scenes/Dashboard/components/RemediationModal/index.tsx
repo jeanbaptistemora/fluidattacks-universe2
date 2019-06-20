@@ -13,7 +13,7 @@ import {
 } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
-import { default as Modal } from "../../../../components/Modal/index";
+import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import globalStyle from "../../../../styles/global.css";
 import { textAreaField } from "../../../../utils/forms/fields";

@@ -10,7 +10,7 @@ import { ApolloConsumer } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
-import { default as Modal } from "../../../../../components/Modal/index";
+import { Modal } from "../../../../../components/Modal/index";
 import store from "../../../../../store/index";
 import { hidePreloader, showPreloader } from "../../../../../utils/apollo";
 import { handleErrors } from "../../../../../utils/formatHelpers";

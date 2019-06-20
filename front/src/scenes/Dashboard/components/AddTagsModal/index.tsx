@@ -15,7 +15,7 @@ import {
   WrappedFieldArrayProps,
 } from "redux-form";
 import { Button } from "../../../../components/Button/index";
-import { default as Modal } from "../../../../components/Modal/index";
+import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { focusError } from "../../../../utils/forms/events";
 import { textField } from "../../../../utils/forms/fields";
