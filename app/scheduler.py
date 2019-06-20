@@ -446,7 +446,7 @@ def deletion(project, days_to_send, days_to_delete):
             lastest_remission = remission.get_lastest(filtered_remissions)
             if lastest_remission['LAST_REMISSION'] == 'Si' and \
                lastest_remission['APPROVAL_STATUS'] == 'Approved' and \
-               project_info[0]['type'] == 'oneshot':
+               project_info[0].get('type') == 'oneshot':
                 days_until_now = \
                     remission.days_until_now(lastest_remission['TIMESTAMP'])
                 if days_until_now in days_to_send:
@@ -455,7 +455,7 @@ def deletion(project, days_to_send, days_to_delete):
                     send_mail_project_deletion(mail_to, context)
                     was_deleted = False
                     was_email_sended = True
-                elif days_until_now in days_to_delete:
+                elif days_until_now >= days_to_delete:
                     views.delete_project(project)
                     integrates_dao.add_attribute_dynamo(
                         'FI_projects',
@@ -487,22 +487,22 @@ def deletion_of_finished_project():
     today_weekday = datetime.today().weekday()
     if today_weekday == 0:
         days_to_send = [6, 7]
-        days_to_delete = [-1]
+        days_to_delete = -1
     elif today_weekday == 1:
         days_to_send = [6]
-        days_to_delete = [7, 8]
+        days_to_delete = 7
     elif today_weekday == 4:
         days_to_send = [5, 6]
-        days_to_delete = [7]
+        days_to_delete = 7
     elif today_weekday == 5:
         days_to_send = [-1]
-        days_to_delete = [6, 7]
+        days_to_delete = 6
     elif today_weekday == 6:
         days_to_send = [-1]
-        days_to_delete = [-1]
+        days_to_delete = -1
     else:
         days_to_send = [6]
-        days_to_delete = [7]
+        days_to_delete = 7
     projects = integrates_dao.get_registered_projects()
     list(map(lambda x: deletion(x[0], days_to_send, days_to_delete), projects))
 
