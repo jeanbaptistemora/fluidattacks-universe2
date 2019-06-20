@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -12,8 +11,8 @@ const functionMock: (() => void) = (): void => undefined;
 describe("Evidence image", () => {
 
   it("should return a function", () => {
-    expect(typeof (EvidenceImage)).to
-      .equal("function");
+    expect(typeof (EvidenceImage))
+      .toEqual("function");
   });
 
   it("should render img", () => {
@@ -29,8 +28,8 @@ describe("Evidence image", () => {
       />,
     );
 
-    expect(wrapper.find("img").length).to
-      .equal(1);
+    expect(wrapper.find("img").length)
+      .toEqual(1);
   });
 
   it("should render description", () => {
@@ -47,17 +46,21 @@ describe("Evidence image", () => {
     );
 
     expect(wrapper.contains(
-      <div>
+      <div className="description">
         <Row componentClass="div">
           <label>
-            <b>search_findings.tab_evidence.detail</b>
+            <b>
+              Detail
+            </b>
           </label>
         </Row>
         <Row componentClass="div">
-          <p>Test evidence</p>
+          <p>
+            Test evidence
+          </p>
         </Row>
       </div>,
-    )).to
-      .equal(true);
+    ))
+      .toBeTruthy();
   });
 });

@@ -155,7 +155,11 @@
       "src/scenes/Dashboard/components/AlertBox/index.spec.tsx",
       "src/scenes/Dashboard/components/Comments/index.spec.tsx",
       "src/scenes/Dashboard/components/EditableField/index.spec.tsx",
-      "src/scenes/Dashboard/components/EventHeader/index.spec.tsx"
+      "src/scenes/Dashboard/components/EventHeader/index.spec.tsx",
+      "src/scenes/Dashboard/components/EvidenceImage/index.spec.tsx",
+      "src/scenes/Dashboard/components/FieldBox/index.spec.tsx",
+      "src/scenes/Dashboard/components/FileInput/index.spec.tsx",
+      "src/scenes/Dashboard/components/FileOptionsModal/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "verbose": true

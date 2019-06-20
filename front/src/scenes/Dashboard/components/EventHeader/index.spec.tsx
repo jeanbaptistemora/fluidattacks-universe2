@@ -14,7 +14,35 @@ describe("EventHeader", () => {
       .toEqual("function");
   });
 
-  it("should render", () => {
+  it("should render event header with evidence", () => {
+    const mockProps: IEventHeaderProps  = {
+      eventData: {
+        accessibility: "",
+        affectation: "",
+        affectedComponents: "",
+        analyst: "",
+        client: "",
+        clientProject: "",
+        detail: "",
+        eventDate: "",
+        eventStatus: "",
+        eventType: "",
+        evidence: "test.png",
+        id: "",
+        projectName: "",
+      },
+      isActiveTab: true,
+      urlDescription: functionMock,
+      urlEvidence: functionMock,
+    };
+    const wrapper: ShallowWrapper = shallow(
+      <EventHeader {...mockProps}/>,
+    );
+    expect(wrapper)
+      .toHaveLength(1);
+  });
+
+  it("should render event header without evidence", () => {
     const mockProps: IEventHeaderProps  = {
       eventData: {
         accessibility: "",

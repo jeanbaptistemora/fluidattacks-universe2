@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -10,8 +9,8 @@ configure({ adapter: new ReactSixteenAdapter() });
 describe("Field Box", () => {
 
   it("should return a function", () => {
-    expect(typeof (FieldBox)).to
-      .equal("function");
+    expect(typeof (FieldBox))
+      .toEqual("function");
   });
 
   it("should be render", () => {
@@ -21,7 +20,6 @@ describe("Field Box", () => {
         content="Unit test description"
       />,
     );
-
     expect(
       wrapper.contains(
         <div className="row table-row">
@@ -37,7 +35,7 @@ describe("Field Box", () => {
           </Col>
         </div>,
       ),
-    ).to
-      .equal(true);
+    )
+      .toBeTruthy();
   });
 });
