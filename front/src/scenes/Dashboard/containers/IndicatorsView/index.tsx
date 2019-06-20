@@ -13,7 +13,7 @@ import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
-import { IndicatorChart } from "../../components/indicatorChart";
+import { IndicatorChart } from "../../components/IndicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import style from "./index.css";
 import { GET_INDICATORS } from "./queries";
