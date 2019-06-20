@@ -159,7 +159,13 @@
       "src/scenes/Dashboard/components/EvidenceImage/index.spec.tsx",
       "src/scenes/Dashboard/components/FieldBox/index.spec.tsx",
       "src/scenes/Dashboard/components/FileInput/index.spec.tsx",
-      "src/scenes/Dashboard/components/FileOptionsModal/index.spec.tsx"
+      "src/scenes/Dashboard/components/FileOptionsModal/index.spec.tsx",
+      "src/scenes/Dashboard/components/FindingHeader/index.spec.tsx",
+      "src/scenes/Dashboard/components/GenericForm/index.spec.tsx",
+      "src/scenes/Dashboard/components/ImageGallery/index.spec.tsx",
+      "src/scenes/Dashboard/components/IndicatorBox/index.spec.tsx",
+      "src/scenes/Dashboard/components/IndicatorChart/index.spec.tsx",
+      "src/scenes/Dashboard/components/IndicatorGraph/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "verbose": true

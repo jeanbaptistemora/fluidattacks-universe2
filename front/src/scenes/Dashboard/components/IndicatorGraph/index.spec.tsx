@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -9,8 +8,8 @@ configure({ adapter: new ReactSixteenAdapter() });
 describe("Indicator Graph", () => {
 
   it("should return a function", () => {
-    expect(typeof (IndicatorGraph)).to
-      .equal("function");
+    expect(typeof (IndicatorGraph))
+      .toEqual("function");
   });
 
   it("should have header", () => {
@@ -31,8 +30,8 @@ describe("Indicator Graph", () => {
         name="Unit header"
       />
     ));
-    expect(wrapper.contains(<h3>Unit header</h3>)).to
-      .equal(true);
+    expect(wrapper.contains(<h3>Unit header</h3>))
+      .toBeTruthy();
   });
 
 });

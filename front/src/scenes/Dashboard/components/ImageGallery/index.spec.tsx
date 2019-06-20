@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -10,8 +9,8 @@ configure({ adapter: new ReactSixteenAdapter() });
 describe("Image Gallery", () => {
 
   it("should return a function", () => {
-    expect(typeof (ImageGallery)).to
-      .equal("function");
+    expect(typeof (ImageGallery))
+      .toEqual("function");
   });
 
   it("should render image gallery", () => {
@@ -28,7 +27,7 @@ describe("Image Gallery", () => {
       />,
     );
 
-    expect(wrapper.find(ReactImageGallery)).to.have
-      .lengthOf(1);
+    expect(wrapper.find(ReactImageGallery))
+      .toHaveLength(1);
   });
 });
