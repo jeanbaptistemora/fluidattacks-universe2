@@ -180,6 +180,14 @@ resource "aws_route53_record" "customerio" {
   records = ["e.customeriomail.com"]
 }
 
+resource "aws_route53_record" "discourse" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "community.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["fluidattacks.hosted-by-discourse.com"]
+}
+
 # MX Records
 resource "aws_route53_record" "mainMX" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
