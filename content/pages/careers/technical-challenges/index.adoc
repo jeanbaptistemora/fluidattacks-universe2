@@ -71,29 +71,29 @@ we recommend [button]#link:https://www.codeabbey.com/[Codeabbey]#.
 Also, we suggest using a language that is not widely used.
 
 . When solving +ctf-hacking+ challenges,
-we recommend [button]#link:https://www.root-me.org/?lang=en[Root Me]#
+we recommend [button]#link:https://www.root-me.org/?lang=en[Root Me]#.
 
-. Submit your solution immediately after you solve the challenge.
-Do not accumulate solutions on your computer without sending them,
-because this way,
-you will never receive feedback
-in order to know what you are doing wrong
+. After solving a challenge, immediately submit your answer.
+Do not save your answers to send later as a larger group submission.
+When you send them individually and immediately you will receive feedback
+that will tell you what,
+if anything, you did incorrectly and may help you with upcoming questions.
 
 == 4. Stage steps
 
 To successfully finish this stage, you must:
 
-. Register on +GitLab+ using your personal email and
-a username of your liking.
-Your username must not exceed *12* characters in length and
-only contain lowercase letters and numbers.
+. Register on +GitLab+ using your personal email
+and the username of your choice.
+Your username must not exceed *12* characters in length
+and only contain lowercase letters and numbers.
 
 . Join our link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMzU0MDc3NzQwNzI2LTQ1NTZmMDFhZjJmZDQ0ZGRmN2M5MGQ3N2JhYjg0ZTI4OWFkZGJmMjdkYzBjYmU2ZDM1NGI0MmM4OGQxOWVlNDc[Slack channel],
-where you can interact with +Fluid Attacks+ personnel and
-other candidates who are currently in the same stage
-to solve doubts or issues.
+where you can interact with +Fluid Attacks+ personnel and other candidates,
+who are working in the same stage that you are,
+to discuss questions or issues you may have.
 
-. Request developer permissions  to the +Training+ repository through this
+. Request permission to access the +Git Training+ repository by filling out this
 [button]#link:https://fluidattacks.com/forms/access[form]#.
 
 . In the +Repo Access Message+ field, paste the following message:
@@ -110,8 +110,11 @@ ____________________________________________________________________
 
 . Complete +three (3)+ +ctf-hacking+ challenges
 
-. Request developer permissions to the +Writeups+ repository through this
+. Request permission to access the +Writeups+ repository by filling out this
 [button]#link:https://fluidattacks.com/forms/access[form]#.
+This time around, the Repo Access Message field should have the following:
+Request developer permissions to the +Writeups+ repository through this
+.
 +
 This time around, the +Repo Access Message+ field should have the following:
 +
@@ -123,17 +126,19 @@ therefore request access to the +git+ +writeups+ repository
 with my +GitLab+ username.
 ____________________________________________________________________
 
-. Complete +three (3)+ +vbd-hacking+ challenges
-in the +writeups+ repository
+. Complete +three (3)+ +vbd-hacking+ challenges in the writeups repository.
 
 == 5. Conditions
 
 The challenge stage ends under any of the following conditions:
 
 . You have met all link:#objectives[objectives] and
-Sent an +email+ with the links to your solutions in the +master+ branch.
-. If there is no activity (+push+ to the +git+ repos) in +14+ calendar days.
-. If you explicitly manifest your desire to end the process in an +email+.
+sent an +email+ with the links to your solutions in the +master+ branch.
+. If there has been no activity
+(+push+ to the +git+ repos) within 14 calendar days.
+. If you clearly state,
+via email,
+that you are no longer interested in continuing the process.
 . If you present someone else’s complete or
 partial solutions as your own (plagiarism).
 . If you solve a challenge with the help of others.
