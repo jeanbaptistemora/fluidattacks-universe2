@@ -1,4 +1,6 @@
 import { default as ApolloClient } from "apollo-boost";
+import _ from "lodash";
+import unfetch from "unfetch";
 
 let PRODUCTION_URL: string;
 PRODUCTION_URL = "https://fluidattacks.com";
@@ -73,6 +75,7 @@ export const hidePreloader: () => void = (): void => {
 
 export const client: ApolloClient<{}> = new ApolloClient<{}>({
   credentials: "same-origin",
+  fetch: _.isUndefined(fetch) ? unfetch : fetch,
   headers: {
     "X-CSRFToken": getCookie("csrftoken"),
   },

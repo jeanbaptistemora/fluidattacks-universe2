@@ -107,7 +107,12 @@
     "@nivo/line": "0.59.0",
     "@nivo/legends": "0.59.0",
     "@nivo/axes": "0.59.0",
-    "hoist-non-react-statics": "3.3.0"
+    "hoist-non-react-statics": "3.3.0",
+    "waait": "1.0.5",
+    "unfetch": "4.1.0",
+    "@types/node-fetch": "2.3.7",
+    "isomorphic-fetch": "2.2.1",
+    "@types/isomorphic-fetch": "0.0.35"
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
@@ -148,30 +153,7 @@
     },
     "testRegex": [
       "(src/components/.*/index\\.spec\\.tsx)$",
-      "src/scenes/Dashboard/components/AddEnvironmentsModal/index.spec.tsx",
-      "src/scenes/Dashboard/components/AddFilesModal/index.spec.tsx",
-      "src/scenes/Dashboard/components/AddRepositoriesModal/index.spec.tsx",
-      "src/scenes/Dashboard/components/AddTagsModal/index.spec.tsx",
-      "src/scenes/Dashboard/components/AlertBox/index.spec.tsx",
-      "src/scenes/Dashboard/components/Comments/index.spec.tsx",
-      "src/scenes/Dashboard/components/EditableField/index.spec.tsx",
-      "src/scenes/Dashboard/components/EventHeader/index.spec.tsx",
-      "src/scenes/Dashboard/components/EvidenceImage/index.spec.tsx",
-      "src/scenes/Dashboard/components/FieldBox/index.spec.tsx",
-      "src/scenes/Dashboard/components/FileInput/index.spec.tsx",
-      "src/scenes/Dashboard/components/FileOptionsModal/index.spec.tsx",
-      "src/scenes/Dashboard/components/FindingHeader/index.spec.tsx",
-      "src/scenes/Dashboard/components/GenericForm/index.spec.tsx",
-      "src/scenes/Dashboard/components/ImageGallery/index.spec.tsx",
-      "src/scenes/Dashboard/components/IndicatorBox/index.spec.tsx",
-      "src/scenes/Dashboard/components/IndicatorChart/index.spec.tsx",
-      "src/scenes/Dashboard/components/IndicatorGraph/index.spec.tsx",
-      "src/scenes/Dashboard/components/Navbar/index.spec.tsx",
-      "src/scenes/Dashboard/components/ProjectBox/index.spec.tsx",
-      "src/scenes/Dashboard/components/RemediationModal/index.spec.tsx",
-      "src/scenes/Dashboard/components/Sidebar/index.spec.tsx",
-      "src/scenes/Dashboard/components/SimpleTable/index.spec.tsx",
-      "src/scenes/Dashboard/components/TabItem/index.spec.tsx"
+      "(src/scenes/Dashboard/components/.*/index\\.spec\\.tsx)$"
     ],
     "preset": "ts-jest",
     "verbose": true
