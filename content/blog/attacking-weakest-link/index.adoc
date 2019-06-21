@@ -58,9 +58,6 @@ to print out a document from an infected +USB+.
 It’s common for the attacker to cut ties with the victim
 once the attack took place, making this type of assault difficult to trace.
 
-.Controlling people
-image::control.png["Control People"]
-
 The attack mentioned above is widely used
 no matter if the target is a big or small company.
 It will be executed when there is no possibility
@@ -72,6 +69,9 @@ that eventually will be used to penetrate a company's system,
 and potentially, risk critical infrastructure.
 The consequences are not only economical but there is an impact on productivity
 and credibility within the stakeholders of the organization.
+
+.Private Information
+image::private.png["Private Information"]
 
 A cybercriminal can also use this kind of attack to steal information
 from individuals.
@@ -92,11 +92,11 @@ was used to shop online.
 Another common example is the “Nigerian Prince”,
 who will give the victim a considerable amount of money
 in exchange of a small amount.
-Usually,  USD20-50 will be asked and in return,
+Usually, USD20-50 will be asked and in return,
 the fake prince will transfer the victim millions of dollars.
 
-.Manipulating victims
-image::manipulation.png["Use your victims"]
+.Trusting People
+image::trust.png["Trusting People"]
 
 How can a company prevent social engineering attacks?
 Giving only the exact information a worker needs to fulfill its duties.
