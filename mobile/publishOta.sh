@@ -25,6 +25,14 @@ npx expo publish \
   --release-channel "$DEVELOPER_ENV" \
   --non-interactive
 
+if [ ${FI_ROLLBAR_ENVIRONMENT:-""} = "production" ]; then
+  curl https://api.rollbar.com/api/1/deploy/ \
+    -F access_token="$ROLLBAR_ACCESS_TOKEN" \
+    -F environment="mobile-production" \
+    -F revision="$CI_COMMIT_SHA" \
+    -F local_username="$CI_COMMIT_REF_NAME"
+fi;
+
 # Cleanup
 echo "Published to Expo! Cleaning up..."
 npx expo logout && rm google-services.json
