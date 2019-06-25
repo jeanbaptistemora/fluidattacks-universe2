@@ -30,8 +30,10 @@ describe("Vulnerabilities view", () => {
         result: {
           data: {
             finding: {
+              __typename: "Finding",
               id: "480857698",
               inputsVulns: [{
+                __typename: "Vulnerability",
                 currentState: "open",
                 findingId: "480857698",
                 id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
@@ -40,6 +42,7 @@ describe("Vulnerabilities view", () => {
                 where: "https://example.com/contact",
               }],
               linesVulns: [{
+                __typename: "Vulnerability",
                 currentState: "open",
                 findingId: "480857698",
                 id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
@@ -48,11 +51,13 @@ describe("Vulnerabilities view", () => {
                 where: "path/to/file2.ext",
               }],
               portsVulns: [{
+                __typename: "Vulnerability",
                 currentState: "open",
                 findingId: "480857698",
                 id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd48",
                 specific: "4",
                 vulnType: "ports",
+                where: "192.168.0.0",
               }],
               releaseDate: "2019-03-12 00:00:00",
               success: true,
@@ -62,7 +67,7 @@ describe("Vulnerabilities view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks} addTypename={true}>
         <VulnerabilitiesView
           editMode={false}
           findingId="480857698"

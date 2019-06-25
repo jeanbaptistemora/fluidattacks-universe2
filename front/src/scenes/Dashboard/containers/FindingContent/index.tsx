@@ -16,7 +16,7 @@ import { AlertBox } from "../../components/AlertBox";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
-import CommentsView from "../CommentsView/index";
+import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { evidenceView as EvidenceView } from "../EvidenceView/index";
 import { exploitView as ExploitView } from "../ExploitView/index";

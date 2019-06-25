@@ -70,4 +70,6 @@ const commentsView: React.FC<ICommentsViewProps> =
     </React.StrictMode>
   );
 
-export = enhance(commentsView);
+const commentsComponent: React.ComponentType<Pick<ICommentsViewProps, "type" | "findingId">> = enhance(commentsView);
+
+export {commentsComponent as CommentsView};
