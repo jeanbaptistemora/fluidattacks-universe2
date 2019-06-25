@@ -485,6 +485,9 @@ publish-mobile:
     - cp -a /root/mobile/node_modules ./
     - skip_if_unchanged mobile/
     - if [ $SKIP_JOB -eq 0 ]; then npm install; npm run publish; fi;
+  environment:
+    name: "mobile-review/$CI_COMMIT_REF_NAME"
+    url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
 
 .deploy-playstore:
   stage: deploy
