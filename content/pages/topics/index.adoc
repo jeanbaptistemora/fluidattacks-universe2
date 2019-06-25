@@ -5,14 +5,14 @@
 
 = Topics
 
-Our blog articles seek to cover different topics
-related to security and/or topics of interest in the world of +IT+,
-they can also reflect the author's opinion
-about a specific issue related to security.
-If you want to collaborate and you do not have a topic clear,
-in this section we give you ideas
-and once they are covered by an article
-we update the +#TrendingTopics+ list.
+Our blog's goal is to cover different topics related to security
+and other topics of interest in the world of +IT+.
+Our articles may also reflect the author’s opinion about a specific issue
+related to security.
+If you want to collaborate with us or submit an article of your own,
+check our ideas list below.
+When we accept an article covering one of the ideas on our list,
+we add it to our blog and update the +#TrendingTopics+ list.
 Among the topics of interest are:
 
 == Attacks

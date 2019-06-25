@@ -5,7 +5,7 @@
 :tags: security, vulnerability
 :image: cover.png
 :alt: greek statue with small angels.
-:description: After reading this post you'll know about asymmetric attacks, denial of service attacks, you'll know how does a slow http attack work, how to inspect the http requests and responses, and you'll see how to perform an asymmetric denial of service against bWAPP with slowhttptest!
+:description:  After reading this post, you'll know about asymmetric attacks and denial of service attacks. You'll know how a slow http attack works, how to inspect http requests and responses, and you'll see how to perform an asymmetric denial of service against bWAPP with slowhttptest!
 :keywords: DoS, Vulnerability, Slowhttptest, Slow Body, HTTP, Asymmetric attacks.
 :author: Kevin Amado
 :writer: kamadoatfluid

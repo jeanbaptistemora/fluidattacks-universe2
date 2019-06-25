@@ -23,10 +23,10 @@ aboard a fleet of +190+ short, medium, and long-range aircraft.
 
 2+a|== F2X
 
-Union of +2+ Colombian engineering companies,
-with +12+ years of experience and presence in +5+ countries in Latin America.
-Specialized in integrating technological solutions
-for management and operation of road infrastructure.
+Is a merger of two Colombian engineering companies
+with over a decade of experience in +5+ countries within Latin America.
++F2X+ specializes in technology solutions to integrate management
+with road infrastructure operation.
 
 a|image::logo-f2x.png[alt="Logo F2X",link="https://www.f2x.com.co"]
 

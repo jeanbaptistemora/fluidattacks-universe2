@@ -8,6 +8,7 @@ messages.mo
 cache/
 diagram*.png
 venv/*
+*.md5
 
 # Bundler
 Gemfile.lock
