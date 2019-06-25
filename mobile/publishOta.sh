@@ -1,6 +1,4 @@
 # Prepare Expo
-export EXPO_ANDROID_KEYSTORE_PASSWORD=$FI_EXPO_PASSWORD
-export EXPO_ANDROID_KEY_PASSWORD=$FI_EXPO_PASSWORD
 npx expo login -u "$FI_EXPO_USERNAME" -p "$FI_EXPO_PASSWORD"
 echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf && sysctl -p
 echo "$FI_GOOGLE_SERVICES_APP" > google-services.json

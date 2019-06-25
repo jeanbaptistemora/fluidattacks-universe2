@@ -62,6 +62,8 @@ RUN apt-get update \
         && npx turtle setup:android > /dev/null \
         && npx turtle setup:android --sdk-version 33.0.0 > /dev/null \
         && yes | ~/.turtle/androidDependencies/sdk/tools/bin/sdkmanager --licenses \
+    && cd node_modules/expo/build/ \
+        && cat /root/fix_standalone_google_login.diff | patch -p1 \
     && cd /usr/local/lib/python2.7/dist-packages/redis_sessions \
         && cat /root/enable_redis_cluster_sessions.diff | patch -p1 \
     && apt-get remove -y --purge \

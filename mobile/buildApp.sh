@@ -8,6 +8,8 @@ aws s3 cp "$FI_KEYSTORE_S3_URL" keystore-dev.jks
 
 
 # Prepare Turtle
+export EXPO_ANDROID_KEYSTORE_PASSWORD=$FI_EXPO_PASSWORD
+export EXPO_ANDROID_KEY_PASSWORD=$FI_EXPO_PASSWORD
 export LOGGER_LEVEL="info"
 export JAVA_OPTS="-Xmx1500m -XX:+HeapDumpOnOutOfMemoryError -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseG1GC"
 export GRADLE_OPTS="-Dorg.gradle.parallel=true -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs='$JAVA_OPTS'"
