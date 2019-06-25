@@ -9,7 +9,7 @@ const config: Rollbar.Configuration = {
   captureUncaught: true,
   captureUnhandledRejections: true,
   enabled: true,
-  environment: getEnvironment().name,
+  environment: `mobile-${getEnvironment().name}`,
 };
 
 export const rollbar: Rollbar = new Rollbar(config);
