@@ -180,7 +180,8 @@ def require_project_access_gql(func):
             ):
                 util.cloudwatch_log(context,
                                     'Security: \
-Attempted to retrieve project info without permission')
+Attempted to retrieve {project} project info without permission'
+                                    .format(project=kwargs.get('project_name')))
                 raise GraphQLError('Access denied')
             else:
                 pass
