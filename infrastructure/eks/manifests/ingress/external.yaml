@@ -130,37 +130,3 @@ spec:
           serviceName: web
           servicePort: 80
         path: /(.*)?
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: discourse
-  namespace: serves
-spec:
-  type: ExternalName
-  externalName: community.fluidattacks.com
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: forum
-  namespace: serves
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/upstream-vhost: "community.fluidattacks.com"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/proxy-redirect-from: //community.fluidattacks.com/
-    nginx.ingress.kubernetes.io/proxy-redirect-to: /community/
-spec:
-  tls:
-  - hosts:
-    - fluidattacks.com
-    secretName: fluidattacks-cert
-  rules:
-  - host: fluidattacks.com
-    http:
-      paths:
-      - backend:
-          serviceName: discourse
-          servicePort: 443
-        path: /community(.*)
