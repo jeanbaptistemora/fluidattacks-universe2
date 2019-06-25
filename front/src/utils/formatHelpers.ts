@@ -414,7 +414,8 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
     errors.map((err: GraphQLError) => {
       if (_.includes(["Login required", "Exception - Invalid Authorization"], err.message)) {
         location.assign("/integrates/logout");
-      } else if (_.includes("Access denied", err.message)) {
+      } else if (_.includes("Access denied", err.message) ||
+      _.includes("Exception - Project does not exist", err.message)) {
         msgError(translate.t("proj_alerts.access_denied"));
       } else if (_.includes("Error in file", err.message)) {
         msgError(translate.t("search_findings.tab_description.errorFileVuln"));

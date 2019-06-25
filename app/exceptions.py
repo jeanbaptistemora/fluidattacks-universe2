@@ -100,3 +100,11 @@ class InvalidSpecific(Exception):
         """ Constructor """
         msg = 'Exception - Error in specific value'
         super(InvalidSpecific, self).__init__(msg)
+
+
+class InvalidProject(Exception):
+    """Exception to control a valid project."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Project does not exist'
+        super(InvalidProject, self).__init__(msg)

@@ -1,6 +1,10 @@
 """ GraphQL Entity for Formstack Projects """
 # pylint: disable=super-init-not-called
 # pylint: disable=no-self-use
+# pylint: disable=relative-beyond-top-level
+# Disabling this rule is necessary for importing modules beyond the top level
+# directory.
+from __future__ import absolute_import
 from datetime import datetime
 import time
 import pytz
@@ -21,6 +25,7 @@ from app.dao import integrates_dao, project as redshift_dao
 from app.decorators import get_entity_cache
 from app.entity.finding import Finding
 from app.entity.user import User
+from ..exceptions import InvalidProject
 
 
 class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
@@ -70,9 +75,14 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
         self.description = description
         self.remediated_over_time = []
 
-        findings = integrates_dao.get_findings_released_dynamo(
-            self.name, 'finding_id, treatment, cvss_temporal')
-        self.findings_aux = findings
+        project_exist = integrates_dao.get_project_attributes_dynamo(
+            self.name, ['project_name'])
+        if project_exist:
+            findings = integrates_dao.get_findings_released_dynamo(
+                self.name, 'finding_id, treatment, cvss_temporal')
+            self.findings_aux = findings
+        else:
+            raise InvalidProject
 
     def __str__(self):
         """String representation of entity."""

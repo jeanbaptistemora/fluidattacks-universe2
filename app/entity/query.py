@@ -1,4 +1,8 @@
 # pylint: disable=no-self-use
+# pylint: disable=relative-beyond-top-level
+# Disabling this rule is necessary for importing modules beyond the top level
+# directory.
+from __future__ import absolute_import
 from graphene import Field, String, ObjectType, List
 
 from app.api.formstack import FormstackAPI
@@ -17,6 +21,8 @@ from app.decorators import (
     require_finding_access_gql, get_cached,
     require_event_access_gql
 )
+from ..dao import integrates_dao
+from ..exceptions import InvalidProject
 
 
 class Query(ObjectType):
@@ -68,9 +74,14 @@ class Query(ObjectType):
         """ Resolve for eventualities """
         del info
         resp = FormstackAPI().get_eventualities(str(project_name))
+        project_exist = integrates_dao.get_project_attributes_dynamo(
+            project_name.lower(), ['project_name'])
         data = []
-        if "submissions" in resp:
-            data = [Events(i["id"]) for i in resp["submissions"]]
+        if project_exist:
+            if "submissions" in resp:
+                data = [Events(i["id"]) for i in resp["submissions"]]
+        else:
+            raise InvalidProject
         return data
 
     @require_login

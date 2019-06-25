@@ -18,7 +18,7 @@ from ..decorators import (
 from .. import util
 from ..dao import integrates_dao
 from ..domain import resources
-from ..exceptions import ErrorUploadingFileS3, InvalidFileSize
+from ..exceptions import ErrorUploadingFileS3, InvalidFileSize, InvalidProject
 
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
@@ -37,15 +37,20 @@ class Resource(ObjectType):
         self.repositories = []
         self.environments = []
         self.files = []
-        project_info = integrates_dao.get_project_attributes_dynamo(
-            project_name.lower(), ['repositories', 'environments', 'files'])
-        if project_info:
-            self.repositories = project_info.get('repositories', [])
-            self.environments = project_info.get('environments', [])
-            self.files = project_info.get('files', [])
+        project_exist = integrates_dao.get_project_attributes_dynamo(
+            project_name.lower(), ['project_name'])
+        if project_exist:
+            project_info = integrates_dao.get_project_attributes_dynamo(
+                project_name.lower(), ['repositories', 'environments', 'files'])
+            if project_info:
+                self.repositories = project_info.get('repositories', [])
+                self.environments = project_info.get('environments', [])
+                self.files = project_info.get('files', [])
+            else:
+                # Project does not have resources
+                pass
         else:
-            # Project does not have resources
-            pass
+            raise InvalidProject
 
     def __str__(self):
         return self.project_name + '_resources'
