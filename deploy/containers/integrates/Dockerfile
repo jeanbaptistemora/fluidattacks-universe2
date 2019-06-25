@@ -54,7 +54,6 @@ RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repos
     && sed -i 's/env#/'"${ENV_NAME}"'#/g' /usr/src/app/env.vars \
     && apt-get remove --purge -y \
          cron \
-         nodejs \
     && apt-get -y autoremove \
     && rm -rf \
         /root/front \

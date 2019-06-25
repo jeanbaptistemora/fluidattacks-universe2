@@ -46,6 +46,7 @@ RUN apt-get update \
     && gem install -N asciidoctor -v 1.5.8 \
     && gem install -N asciidoctor-pdf -v 1.5.0.alpha.16 --pre \
     && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
+    && npm install --global secure-spreadsheet@0.1.0  \
     && cd front/ \
         && npm install \
         && npm cache clean --force \

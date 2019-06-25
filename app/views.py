@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import os
 import re
 import sys
+import time
 
 import boto3
 from botocore.exceptions import ClientError
@@ -28,6 +29,7 @@ import yaml
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
+from app.utils import reports
 # pylint: disable=E0402
 from . import util
 from .decorators import (
@@ -194,7 +196,10 @@ Attempted to export project xls without permission')
         return util.response([], 'Empty fields', True)
     data = util.ord_asc_by_criticidad(findings_parsed)
     it_report = ITReport(project, data, username)
-    with open(it_report.result_filename, 'r') as document:
+    filepath = it_report.result_filename
+    reports.set_xlsx_password(filepath, time.strftime('%d%m%Y') + username)
+
+    with open(filepath, 'r') as document:
         response = HttpResponse(document.read(),
                                 content_type=detail["content_type"])
         file_name = detail["content_disposition"]

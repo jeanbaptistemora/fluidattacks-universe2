@@ -81,8 +81,8 @@ const enTranslations: dict = {
         btn: "Reports",
         modal_close: "Close",
         modal_title: "Reports",
-        tech_description: "Technical report is protected by password."
-          + "The password is the date of report's PDF generation and your username.",
+        tech_description: "Technical reports are protected by password. "
+          + "The password is the PDF or XLSX report generation date and your username.",
         tech_example: "Example: someone@fluidattacks.com generates the technical report on 15/03/2019 therefore, "
           + "the password is 15032019someone",
         tech_title: "Technical Reports",
