@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -9,8 +8,8 @@ configure({ adapter: new ReactSixteenAdapter() });
 describe("Evidence view", () => {
 
   it("should return a function", () => {
-    expect(typeof (EvidenceView)).to
-      .equal("function");
+    expect(typeof (EvidenceView))
+      .toEqual("function");
   });
 
   it("should render lightbox", () => {
@@ -18,14 +17,14 @@ describe("Evidence view", () => {
       <EvidenceView
         canEdit={true}
         currentIndex={0}
-        findingId="422286126"
-        images={[{ description: "Test evidence", url: "https://fluidattacks.com/test.png" }]}
+        findingId="438679960"
+        images={[{ description: "Test evidence", url: "https://test.com/test.png" }]}
         isEditing={false}
         isImageOpen={true}
       />,
     );
 
-    expect(wrapper.find("ReactImageLightbox").length).to
-      .equal(1);
+    expect(wrapper.find("ReactImageLightbox").length)
+      .toEqual(1);
   });
 });

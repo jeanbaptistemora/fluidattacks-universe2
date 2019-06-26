@@ -157,7 +157,11 @@
       "src/scenes/Dashboard/containers/CommentsView/index.spec.tsx",
       "src/scenes/Dashboard/containers/DescriptionView/index.spec.tsx",
       "src/scenes/Dashboard/containers/EventDescriptionView/index.spec.tsx",
-      "src/scenes/Dashboard/containers/EventsView/index.spec.tsx"
+      "src/scenes/Dashboard/containers/EventsView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/EvidenceView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/ExploitView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/FormsView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/HomeView/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "setupFilesAfterEnv": ["<rootDir>/setup.ts"],
