@@ -98,9 +98,16 @@
         name: "Moodle"
         job: "/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null"
 
-    - name: Change Memory Limit
+    - name: Change Memory Limit php.ini 1
       ini_file:
         dest: /etc/php5/apache2/php.ini
+        section: PHP
+        option: memory_limit
+        value: 2048M
+
+    - name: Change Memory Limit php.ini 2
+      ini_file:
+        dest: /etc/php/7.3/apache2/php.ini
         section: PHP
         option: memory_limit
         value: 2048M
