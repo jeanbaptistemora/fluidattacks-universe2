@@ -16,7 +16,7 @@ configure({ adapter: new ReactSixteenAdapter() });
 
 const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
 
-describe("EventsView", () => {
+describe("HomeView", () => {
 
   const mockProps: IHomeViewProps = {
     displayPreference: "grid",

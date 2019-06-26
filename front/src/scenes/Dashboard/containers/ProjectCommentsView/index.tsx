@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, MapDispatchToProps } from "react-redux";
+import { connect, ConnectedComponentClass, MapDispatchToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { comments as Comments, ICommentStructure } from "../../components/Comments/index";
 import { loadComments, postComment, ThunkDispatcher } from "./actions";
@@ -11,7 +11,7 @@ interface IProjectCommentsDispatchProps {
   onPostComment(comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void)): void;
 }
 
-type IProjectCommentsViewProps = IProjectCommentsBaseProps & IProjectCommentsDispatchProps;
+export type IProjectCommentsViewProps = IProjectCommentsBaseProps & IProjectCommentsDispatchProps;
 
 const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjectCommentsViewProps): JSX.Element => {
   const handleLoad: ((callbackFn: ((comments: ICommentStructure[]) => void)) => void) =
@@ -47,4 +47,7 @@ const mapDispatchToProps: MapDispatchToProps<IProjectCommentsDispatchProps, IPro
     });
   };
 
-export = connect(mapStateToProps, mapDispatchToProps)(projectCommentsView);
+const connectedProjectCommentsView:
+  ConnectedComponentClass<React.FunctionComponent<IProjectCommentsViewProps>, IProjectCommentsBaseProps> =
+    connect(mapStateToProps, mapDispatchToProps)(projectCommentsView);
+export { connectedProjectCommentsView as ProjectCommentsView };
