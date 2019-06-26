@@ -155,7 +155,9 @@
       "(src/components/.*/index\\.spec\\.tsx)$",
       "(src/scenes/Dashboard/components/.*/index\\.spec\\.tsx)$",
       "src/scenes/Dashboard/containers/CommentsView/index.spec.tsx",
-      "src/scenes/Dashboard/containers/DescriptionView/index.spec.tsx"
+      "src/scenes/Dashboard/containers/DescriptionView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/EventDescriptionView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/EventsView/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "setupFilesAfterEnv": ["<rootDir>/setup.ts"],
