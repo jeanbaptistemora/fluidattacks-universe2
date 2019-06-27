@@ -1,5 +1,6 @@
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import * as React from "react";
@@ -95,9 +96,36 @@ describe("DescriptionView", () => {
     },
   ];
 
+  const mockError: ReadonlyArray<MockedResponse> = [
+    {
+      request: {
+        query: GET_VULNERABILITIES,
+        variables: {
+          identifier: "438679960",
+        },
+      },
+      result: {
+        errors: [new GraphQLError("Access denied")],
+      },
+    },
+  ];
+
   it("should return a fuction", () => {
     expect(typeof (DescriptionView))
       .toEqual("function");
+  });
+
+  it("should render an error in component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mockError} addTypename={true}>
+          <DescriptionView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await wait(0);
+    expect(wrapper)
+      .toHaveLength(1);
   });
 
   it("should render a component", async () => {

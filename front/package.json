@@ -19,8 +19,8 @@
     "@types/enzyme": "3.9.3",
     "enzyme-adapter-react-16": "1.14.0",
     "@types/enzyme-adapter-react-16": "1.0.5",
-    "react-bootstrap": "0.32.1",
-    "@types/react-bootstrap": "0.32.11",
+    "react-bootstrap": "0.32.4",
+    "@types/react-bootstrap": "0.32.18",
     "bootstrap": "4.3.1",
     "typed-css-modules": "0.3.5",
     "typesafe-actions": "2.0.4",
@@ -164,7 +164,8 @@
       "src/scenes/Dashboard/containers/FormsView/index.spec.tsx",
       "src/scenes/Dashboard/containers/HomeView/index.spec.tsx",
       "src/scenes/Dashboard/containers/IndicatorsView/index.spec.tsx",
-      "src/scenes/Dashboard/containers/ProjectCommentsView/index.spec.tsx"
+      "src/scenes/Dashboard/containers/ProjectCommentsView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/ProjectDraftsView/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "setupFiles": [

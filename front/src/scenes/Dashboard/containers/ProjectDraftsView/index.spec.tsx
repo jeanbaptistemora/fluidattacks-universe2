@@ -9,77 +9,48 @@ import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
-import { EventsView } from "./index";
-import { GET_EVENTS } from "./queries";
-import { IEventsViewProps } from "./types";
+import { ProjectDraftsView } from "./index";
+import { GET_DRAFTS } from "./queries";
+import { IProjectDraftsBaseProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
+describe("ProjectDraftsView", () => {
 
-describe("EventsView", () => {
-
-  const mockProps: IEventsViewProps = {
-    eventsDataset: [{
-      detail: "Test description",
-      eventDate: "2018-10-17 00:00:00",
-      eventStatus: "SOLVED",
-      eventType: "AUTHORIZATION_SPECIAL_ATTACK",
-      id: "463457733",
-    }],
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: {
-        hash: "",
-        pathname: "/",
-        search: "",
-        state: {},
-      },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: {
-      hash: "",
-      pathname: "/",
-      search: "",
-      state: {},
-    },
+  const mockProps: IProjectDraftsBaseProps = {
     match: {
       isExact: true,
       params: {projectName: "TEST"},
       path: "/",
       url: "",
     },
-    onClickRow: functionMock,
-    projectName: "TEST",
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_EVENTS,
+        query: GET_DRAFTS,
         variables: {
           projectName: "TEST",
         },
       },
       result: {
         data: {
-          events: [{
-            __typename: "Events",
-            detail: "Test description",
-            eventDate: "2018-10-17 00:00:00",
-            eventStatus: "SOLVED",
-            eventType: "AUTHORIZATION_SPECIAL_ATTACK",
-            id: "463457733",
-            projectName: "TEST",
-          }],
+          project: {
+            __typename: "Project",
+            drafts: [{
+              __typename: "Finding",
+              description: "Xcross site scripting - login.",
+              id: "507046047",
+              isExploitable: true,
+              openVulnerabilities: 0,
+              releaseDate: "",
+              reportDate: "2019-05-23 21:19:29",
+              severityScore: 7.9,
+              title: "XCROSS SITE SCRIPTING",
+              type: "HYGIENE",
+            }],
+          },
         },
       },
   }];
@@ -87,7 +58,7 @@ describe("EventsView", () => {
   const mockError: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_EVENTS,
+        query: GET_DRAFTS,
         variables: {
           projectName: "TEST",
         },
@@ -97,16 +68,29 @@ describe("EventsView", () => {
       },
   }];
 
-  it("should return a fuction", () => {
-    expect(typeof (EventsView))
+  it("should return a function", () => {
+    expect(typeof (ProjectDraftsView))
       .toEqual("function");
+  });
+
+  it("should render a component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={true}>
+          <ProjectDraftsView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await wait(0);
+    expect(wrapper)
+      .toHaveLength(1);
   });
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
-          <EventsView {...mockProps} />
+          <ProjectDraftsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -119,7 +103,7 @@ describe("EventsView", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
-          <EventsView {...mockProps} />
+          <ProjectDraftsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
