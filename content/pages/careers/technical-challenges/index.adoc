@@ -88,7 +88,7 @@ and the username of your choice.
 Your username must not exceed *12* characters in length
 and only contain lowercase letters and numbers.
 
-. Join our link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMzU0MDc3NzQwNzI2LTQ1NTZmMDFhZjJmZDQ0ZGRmN2M5MGQ3N2JhYjg0ZTI4OWFkZGJmMjdkYzBjYmU2ZDM1NGI0MmM4OGQxOWVlNDc[Slack channel],
+. Join our link:https://community.fluidattacks.com/[Forum],
 where you can interact with +Fluid Attacks+ personnel and other candidates,
 who are working in the same stage that you are,
 to discuss questions or issues you may have.
@@ -145,21 +145,21 @@ partial solutions as your own (plagiarism).
 
 In all cases, the email address for these steps is: careers@autonomicmind.com
 
-If you were removed from the process due to any of these circumstances,
-except for the last two,
-You may apply again at any time
-and start over the process by clicking
+If you were removed from the challenge due to circumstances 1, 2 or 3,
+you may apply again, at any time, and start the process over by clicking
 [button]#link:../../../../forms/aplicacion[here]#
+If your removal was a result of circumstance 4 or 5
+you are not eligible for any future retry.
 
 == 6. Questions
 
-* Before you send us a question,
-please read this document carefully once more and
-our link:../faq/[Frequently Asked Questions].
+* Before you email us with a question,
+please re-read this document carefully,
+and pay particular attention to our link:../faq/[Frequently Asked Questions].
 
-* You can tell us your doubts and
-questions in our *#general*
-link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack channel].
+* You can contact us with your issues or concerns,
+and any questions you may have in our
+link:https://community.fluidattacks.com/[Forum].
 
 == 7. Property
 
@@ -180,7 +180,7 @@ Therefore, all information contained herein may be used
 by +Fluid Attacks+ for any commercial purpose,
 always preserving the moral rights of their authors.
 
-== 8. Plagirism
+== 8. Plagiarism
 
 Having the solutions available at everyones disposal
 poses an opportunity for plagiarism,
