@@ -1,5 +1,10 @@
+import logging
 import pytest
 from django.db import connections
+from django.conf import settings
+
+
+logging.config.dictConfig(settings.LOGGING)
 
 
 @pytest.fixture(scope='function')
@@ -36,3 +41,9 @@ NOT NULL DEFAULT 1, FOREIGN KEY (user_id) REFERENCES users(id), \
 FOREIGN KEY (project_id) REFERENCES projects(id) \
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;'
         cursor.execute(query)
+
+
+@pytest.fixture(autouse=True)
+def disable_logging():
+    """Disable logging in all tests."""
+    logging.disable(logging.INFO)

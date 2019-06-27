@@ -19,6 +19,7 @@ from django.core.files.uploadedfile import (
 from django.core.cache import cache
 from jose import jwt, JWTError
 # pylint: disable=E0402
+from __init__ import FI_ENVIRONMENT
 from .exceptions import InvalidAuthorization
 
 
@@ -209,6 +210,7 @@ def cloudwatch_log(request, msg):
             info.append(request.POST.dict()[parameter])
         elif parameter in request.GET.dict():
             info.append(request.GET.dict()[parameter])
+    info.append(FI_ENVIRONMENT)
     info.append(msg)
     LOGGER.info(":".join(info))
 

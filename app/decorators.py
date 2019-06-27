@@ -184,7 +184,9 @@ Attempted to retrieve {project} project info without permission'
                                     .format(project=kwargs.get('project_name')))
                 raise GraphQLError('Access denied')
             else:
-                pass
+                util.cloudwatch_log(context,
+                                    'Security: Access to {project} project'
+                                    .format(project=kwargs.get('project_name')))
         else:
             rollbar.report_message('Error: Empty fields in project',
                                    'error', context)
