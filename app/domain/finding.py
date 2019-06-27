@@ -601,7 +601,10 @@ def update_treatment(finding_id, updated_values, user_email):
     updated_values['external_bts'] = updated_values.get('bts_url')
     del updated_values['bts_url']
 
+    if updated_values['treatment'] == 'NEW':
+        updated_values['external_bts'] = ''
     if updated_values['treatment'] == 'ACCEPTED':
+        updated_values['external_bts'] = ''
         send_accepted_email(finding_id, user_email,
                             updated_values.get('treatment_justification'))
 

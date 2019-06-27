@@ -428,18 +428,6 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
 const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => (
   <React.Fragment>
     <Row>
-      <Col md={12} sm={12} xs={12}>
-        <EditableField
-          component={textField}
-          currentValue={props.dataset.btsUrl}
-          label={translate.t("search_findings.tab_description.bts")}
-          name="btsUrl"
-          renderAsEditable={props.isEditing}
-          type="text"
-        />
-      </Col>
-    </Row>
-    <Row>
       <Col md={6} sm={12} xs={12}>
         <EditableField
           component={dropdownField}
@@ -472,6 +460,18 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           {props.dataset.userEmails.map(({ email }: { email: string }, index: number): JSX.Element =>
             <option key={index} value={email}>{email}</option>)}
         </EditableField>
+      </Col>
+      <Col md={12} sm={12} xs={12}>
+        <EditableField
+          component={textField}
+          currentValue={props.dataset.btsUrl}
+          label={translate.t("search_findings.tab_description.bts")}
+          name="btsUrl"
+          renderAsEditable={props.isEditing}
+          type="text"
+          validate={[...props.formValues.treatment === "IN PROGRESS" ? [required] : []]}
+          visible={!props.isEditing || (props.isEditing && props.formValues.treatment === "IN PROGRESS")}
+        />
       </Col>
     </Row>
     <Row>
