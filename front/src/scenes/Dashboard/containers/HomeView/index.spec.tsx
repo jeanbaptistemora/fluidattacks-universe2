@@ -1,5 +1,6 @@
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import * as React from "react";
@@ -72,9 +73,32 @@ describe("HomeView", () => {
       },
   }];
 
+  const mockError: ReadonlyArray<MockedResponse> = [
+    {
+      request: {
+        query: PROJECTS_QUERY,
+      },
+      result: {
+        errors: [new GraphQLError("Access denied")],
+      },
+  }];
+
   it("should return an object", () => {
     expect(typeof (HomeView))
       .toEqual("object");
+  });
+
+  it("should render an error in component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mockError} addTypename={true}>
+          <HomeView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await wait(0);
+    expect(wrapper)
+      .toHaveLength(1);
   });
 
   it("should render a component", async () => {
