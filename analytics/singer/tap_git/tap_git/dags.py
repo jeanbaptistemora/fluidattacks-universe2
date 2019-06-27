@@ -23,7 +23,7 @@ def get_next_match(iterable: Iterator[str], pattern: Any) -> Any:
             return match.groups()
 
 
-def get_commits(path: str) -> OrderedDict:
+def get_commits(path: str) -> OrderedDict:  # noqa
     """Return the commits DAG and inverse DAG."""
     # everything will be stored here
     commits: OrderedDict = OrderedDict()
@@ -34,7 +34,7 @@ def get_commits(path: str) -> OrderedDict:
         f"  rev-list                       "
         f"    --pretty='!%H!!%at!!%ct!!%P!'"
         f"    --graph                      "
-        f"    --all                        ")).read()
+        f"    HEAD                         ")).read()
 
     # parse the git rev-list into commits
     get_commits__parse_git_rev_list(commits, git_rev_list)
