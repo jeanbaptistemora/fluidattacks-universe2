@@ -18,9 +18,9 @@ runners:
   privileged: false
   builds:
     cpuLimit: 700m
-    memoryLimit: 3072Mi
+    memoryLimit: 3Gi
     cpuRequests: 600m
-    memoryRequests: 2560Mi
+    memoryRequests: 1Gi
   helpers:
     image: gitlab/gitlab-runner-helper:x86_64-latest
 resources:
