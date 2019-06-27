@@ -23,7 +23,7 @@ class ITReport(object):
         'en': {}}
     sheet_names = {
         'es': {
-            'finding': 'Hallazgos',
+            'finding': 'Findings',
             'qc_matriz': 'MatrizQC'
         },
         'en': {}}
@@ -32,14 +32,13 @@ class ITReport(object):
         'description': 3,
         'where': 4,
         'where_records': 5,
-        'requirements': 6,
-        'measurements': 8,
-        'severityCvss': 9,
-        'cardinality': 10,
-        'affected_records': 11,
-        'evidence': 12,
-        'solution': 13,
-        'requirements_id': 15}
+        'measurements': 7,
+        'severityCvss': 8,
+        'cardinality': 9,
+        'affected_records': 10,
+        'evidence': 11,
+        'solution': 12,
+        'requirements_id': 13}
     matriz = {
         'type': 5,
         'component': 6,
@@ -142,61 +141,61 @@ class ITReport(object):
         try:
             metrics = {
                 'attackVector': {
-                    '0.85': 'Red',
-                    '0.62': 'Red adyacente',
+                    '0.85': 'Network',
+                    '0.62': 'Adjacent',
                     '0.55': 'Local',
-                    '0.20': 'Físico',
+                    '0.20': 'Physical',
                 },
                 'attackComplexity': {
-                    '0.77': 'Baja',
-                    '0.44': 'Alta',
+                    '0.77': 'Low',
+                    '0.44': 'High',
                 },
                 'privilegesRequired': {
-                    '0.85': 'Ninguno',
-                    '0.62': 'Bajo',
-                    '0.68': 'Bajo',
-                    '0.27': 'Alto',
-                    '0.50': 'Alto',
+                    '0.85': 'None',
+                    '0.62': 'Low',
+                    '0.68': 'Low',
+                    '0.27': 'High',
+                    '0.50': 'High',
                 },
                 'userInteraction': {
-                    '0.85': 'Ninguna',
-                    '0.62': 'Requerida',
+                    '0.85': 'None',
+                    '0.62': 'Required',
                 },
                 'severityScope': {
-                    '0.0': 'No Cambió',
-                    '1.0': 'Cambió',
+                    '0.0': 'Unchanged',
+                    '1.0': 'Changed',
                 },
                 'confidentialityImpact': {
-                    '0.56': 'Alto',
-                    '0.22': 'Bajo',
-                    '0.0': 'Ninguno',
+                    '0.56': 'High',
+                    '0.22': 'low',
+                    '0.0': 'None',
                 },
                 'integrityImpact': {
-                    '0.56': 'Alto',
-                    '0.22': 'Bajo',
-                    '0.0': 'Ninguno',
+                    '0.56': 'High',
+                    '0.22': 'Low',
+                    '0.0': 'None',
                 },
                 'availabilityImpact': {
-                    '0.56': 'Alto',
-                    '0.22': 'Bajo',
-                    '0.0': 'Ninguno',
+                    '0.56': 'High',
+                    '0.22': 'Low',
+                    '0.0': 'None',
                 },
                 'exploitability': {
-                    '0.91': 'No probada',
-                    '0.94': 'Prueba de Concepto',
-                    '0.97': 'Funcional',
-                    '1.0': 'Alta',
+                    '0.91': 'Unproven',
+                    '0.94': 'Proof of concept',
+                    '0.97': 'Functional',
+                    '1.0': 'High',
                 },
                 'remediationLevel': {
-                    '0.95': 'Oficial',
-                    '0.96': 'Temporal',
-                    '0.97': 'Paliativa',
-                    '1.0': 'Inexistente',
+                    '0.95': 'Oficial Fix',
+                    '0.96': 'Temporary Fix',
+                    '0.97': 'Workaround',
+                    '1.0': 'Unavailable',
                 },
                 'reportConfidence': {
-                    '0.92': 'Desconocido',
-                    '0.96': 'Razonable',
-                    '1.0': 'Confirmado',
+                    '0.92': 'Unknown',
+                    '0.96': 'Reasonable',
+                    '1.0': 'Confirmed',
                 }
             }
             metric_descriptions = metrics.get(metric)
@@ -216,12 +215,11 @@ class ITReport(object):
         self.set_cell(self.finding['where'], row['where'])
         if int(row['recordsNumber']) != 0:
             self.set_cell(self.finding['where_records'],
-                          'Evidencias/' + row['finding'] + '/records.csv')
-        self.set_cell(self.finding['requirements'], row['requirements'])
+                          'Evidences/' + row['finding'] + '/records.csv')
         self.set_cell_number(self.finding['severityCvss'], row['severityCvss'])
         self.set_cell_number(self.finding['cardinality'], row['openVulnerabilities'])
         self.set_cell_number(self.finding['affected_records'], row['recordsNumber'])
-        self.set_cell(self.finding['evidence'], 'Evidencias/' + row['finding'])
+        self.set_cell(self.finding['evidence'], 'Evidences/' + row['finding'])
         self.set_cell(self.finding['solution'], row['effectSolution'])
         self.set_cell(self.finding['requirements_id'],
                       self.__get_req(row['requirements']))
