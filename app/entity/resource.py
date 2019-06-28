@@ -121,7 +121,12 @@ An error occurred adding repository', 'error', info.context)
         else:
             rollbar.report_message('Error: \
 An error occurred adding repository', 'error', info.context)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Added repositories to \
+                {project} project succesfully'.format(project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to add repositories \
+                from {project} project'.format(project=project_name))
         ret = AddRepositories(success=success,
                               resources=Resource(project_name))
         util.invalidate_cache(project_name)
@@ -176,11 +181,12 @@ class RemoveRepositories(Mutation):
             else:
                 rollbar.report_message('Error: \
 An error occurred removing repository', 'error', info.context)
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Removed repositories from \
+                {project} project succesfully'.format(project=project_name))
         else:
-            util.cloudwatch_log(info.context,
-                                'Security: \
-Attempted to remove repository that does not exist')
-
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove repositories \
+                from {project} project'.format(project=project_name))
         ret = RemoveRepositories(success=success,
                                  resources=Resource(project_name))
         util.invalidate_cache(project_name)
@@ -230,7 +236,12 @@ An error occurred adding environments', 'error', info.context)
         else:
             rollbar.report_message('Error: \
 An error occurred adding environments', 'error', info.context)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Added environments to \
+                {project} project succesfully'.format(project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to add environments \
+                from {project} project'.format(project=project_name))
         ret = AddEnvironments(success=success,
                               resources=Resource(project_name))
         util.invalidate_cache(project_name)
@@ -286,7 +297,12 @@ An error occurred removing an environment', 'error', info.context)
             util.cloudwatch_log(info.context,
                                 'Security: \
 Attempted to remove an environment that does not exist')
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Removed environments from \
+                {project} project succesfully'.format(project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove environments \
+                from {project} project'.format(project=project_name))
         ret = RemoveEnvironments(success=success, resources=Resource(project_name))
         util.invalidate_cache(project_name)
         return ret
@@ -358,10 +374,12 @@ class AddFiles(Mutation):
                 success = True
             except ErrorUploadingFileS3:
                 raise GraphQLError('Error uploading file')
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Added evidence files to \
+                {project} project succesfully'.format(project=project_name))
         else:
-            util.cloudwatch_log(info.context,
-                                'Security: \
-                                File name has invalid characters')
+            util.cloudwatch_log(info.context, 'Security: Attempted to add evidence files \
+                from {project} project'.format(project=project_name))
         ret = AddFiles(success=success, resources=Resource(project_name))
         util.invalidate_cache(project_name)
         return ret
@@ -409,10 +427,12 @@ class RemoveFiles(Mutation):
                                 json_data,
                                 'removed',
                                 'file')
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Removed Files from \
+                {project} project succesfully'.format(project=project_name))
         else:
-            util.cloudwatch_log(info.context,
-                                'Security: \
-Attempted to remove a file that does not exist')
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove files \
+                from {project} project'.format(project=project_name))
 
         ret = RemoveFiles(success=success, resources=Resource(project_name))
         util.invalidate_cache(project_name)
@@ -440,8 +460,8 @@ class DownloadFile(Mutation):
                                         file_url, minutes_until_expire)
         if signed_url:
             user_email = info.context.session['username']
-            msg = 'Info: {user} download file {file_name} in project {project}'\
-                .format(user=user_email, project=project_name, file_name=parameters['files_data'])
+            msg = 'Security: Downloaded file {file_name} in project {project} succesfully'\
+                .format(project=project_name, file_name=parameters['files_data'])
             util.cloudwatch_log(info.context, msg)
             mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
             mp_obj.track(user_email, 'DownloadProjectFile', {
@@ -451,6 +471,9 @@ class DownloadFile(Mutation):
             })
             success = True
         else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to download file {file_name} \
+                in project {project}'.format(project=project_name,
+                                             file_name=parameters['files_data']))
             rollbar.report_message('Error: \
 An error occurred generating signed URL', 'error', info.context)
         ret = DownloadFile(success=success, url=str(signed_url))

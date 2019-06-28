@@ -137,7 +137,13 @@ class GrantUserAccess(Mutation):
         else:
             rollbar.report_message('Error: Invalid role provided: ' +
                                    new_user_data['role'], 'error', info.context)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Given grant access to {user} \
+                in {project} project'.format(user=query_args.get('email'), project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to give grant \
+                access to {user} in {project} project'.format(user=query_args.get('email'),
+                                                              project=project_name))
         ret = \
             GrantUserAccess(success=success,
                             granted_user=User(project_name,
@@ -215,7 +221,6 @@ class RemoveUserAccess(Mutation):
     @require_role(['customeradmin', 'admin'])
     @require_project_access_gql
     def mutate(self, info, project_name, user_email):
-        del info
         success = False
 
         integrates_dao.remove_role_to_project_dynamo(project_name, user_email,
@@ -226,7 +231,12 @@ class RemoveUserAccess(Mutation):
             integrates_dao.remove_project_access_dynamo(user_email, project_name)
         success = is_user_removed_dao and is_user_removed_dynamo
         removed_email = user_email if success else None
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Removed user: {user} from {project} \
+                project succesfully'.format(user=user_email, project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove user: {user}\
+                from {project} project'.format(user=user_email, project=project_name))
         ret = RemoveUserAccess(success=success, removed_email=removed_email)
         util.invalidate_cache(project_name)
         util.invalidate_cache(user_email)
@@ -279,7 +289,14 @@ class EditUser(Mutation):
             rollbar.report_message('Error: Invalid role provided: ' +
                                    modified_user_data['role'], 'error',
                                    info.context)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Modified user data:{user} \
+                in {project} project succesfully'.format(user=query_args.get('email'),
+                                                         project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to modify user \
+                data:{user} in {project} project'.format(user=query_args.get('email'),
+                                                         project=project_name))
         ret = \
             EditUser(success=success,
                      modified_user=User(project_name,
