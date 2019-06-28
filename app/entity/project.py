@@ -333,7 +333,12 @@ class AddProjectComment(Mutation):
             'parent': int(parameters.get('parent'))
         }
         success = add_comment(project_name, email, comment_data)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Added comment to \
+                {project} project succesfully'.format(project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to add \
+                comment in {project} project'.format(project=project_name))
         ret = AddProjectComment(success=success, comment_id=comment_id)
         util.invalidate_cache(project_name)
         return ret
@@ -364,12 +369,12 @@ class RemoveTag(Mutation):
             else:
                 rollbar.report_message('Error: \
 An error occurred removing a tag', 'error', info.context)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Removed tag from \
+                {project} project succesfully'.format(project=project_name))
         else:
-            util.cloudwatch_log(info.context,
-                                'Security: \
-Attempted to remove tags without the allowed validations')
-
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove \
+                tag in {project} project'.format(project=project_name))
         ret = RemoveTag(success=success, project=Project(project_name))
         util.invalidate_cache(project_name)
         return ret

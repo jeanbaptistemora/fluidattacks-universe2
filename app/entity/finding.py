@@ -311,7 +311,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     @require_role(['analyst', 'admin'])
     def resolve_observations(self, info):
         """ Resolve observations attribute """
-
         self.observations = list_comments(
             user_email=util.get_jwt_content(info.context)['user_email'],
             comment_type='observation',
@@ -323,84 +322,72 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_report_level(self, info):
         """ Resolve report_level attribute """
         del info
-
         return self.report_level
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_title(self, info):
         """ Resolve title attribute """
         del info
-
         return self.title
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_scenario(self, info):
         """ Resolve scenario attribute """
         del info
-
         return self.scenario
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_actor(self, info):
         """ Resolve actor attribute """
         del info
-
         return self.actor
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_description(self, info):
         """ Resolve description attribute """
         del info
-
         return self.description
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_requirements(self, info):
         """ Resolve requirements attribute """
         del info
-
         return self.requirements
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_attack_vector_desc(self, info):
         """ Resolve attack vector description attribute """
         del info
-
         return self.attack_vector_desc
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_threat(self, info):
         """ Resolve threat attribute """
         del info
-
         return self.threat
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_recommendation(self, info):
         """ Resolve recommendation attribute """
         del info
-
         return self.recommendation
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_affected_systems(self, info):
         """ Resolve affected_systems attribute """
         del info
-
         return self.affected_systems
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_compromised_attributes(self, info):
         """ Resolve compromised_attributes attribute """
         del info
-
         return self.compromised_attributes
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_compromised_records(self, info):
         """ Resolve compromised_records attribute """
         del info
-
         return self.compromised_records
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -414,154 +401,129 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_bts_url(self, info):
         """ Resolve bts_url attribute """
         del info
-
         return self.bts_url
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_kb_url(self, info):
         """ Resolve kb_url attribute """
         del info
-
         return self.kb_url
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment(self, info):
         """ Resolve treatment attribute """
         del info
-
         return self.treatment
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment_manager(self, info):
         """ Resolve treatment_manager attribute """
         del info
-
         return self.treatment_manager
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment_justification(self, info):
         """ Resolve treatment_justification attribute """
         del info
-
         return self.treatment_justification
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_client_code(self, info):
         """ Resolve client_code attribute """
         del info
-
         return self.client_code
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_client_project(self, info):
         """ Resolve client_project attribute """
         del info
-
         return self.client_project
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_probability(self, info):
         """ Resolve probability attribute """
         del info
-
         return self.probability
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_detailed_severity(self, info):
         """ Resolve detailed_severity attribute """
         del info
-
         return self.detailed_severity
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_risk(self, info):
         """ Resolve risk attribute """
         del info
-
         return self.risk
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_risk_level(self, info):
         """ Resolve risk_level attribute """
         del info
-
         return self.risk_level
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_ambit(self, info):
         """ Resolve ambit attribute """
         del info
-
         return self.ambit
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_category(self, info):
         """ Resolve category attribute """
         del info
-
         return self.category
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_state(self, info):
         """ Resolve state attribute """
         del info
-
         return self.state
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_remediated(self, info):
         """ Resolve remediated attribute """
         del info
-
         remediations = integrates_dao.get_remediated_dynamo(int(self.id))
         self.remediated = remediations[-1]['remediated'] if remediations else False
-
         return self.remediated
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_type(self, info):
         """ Resolve type attribute """
         del info
-
         return self.type
 
     def resolve_age(self, info):
         """ Resolve age attribute """
         del info
-
         return self.age
 
     def resolve_last_vulnerability(self, info):
         """ Resolve days since last report """
         del info
-
         last_vuln_date = format_finding_date(self.last_vulnerability)
         self.last_vulnerability = last_vuln_date.days
-
         return self.last_vulnerability
 
     def resolve_is_exploitable(self, info):
         """ Resolve is_exploitable attribute """
         del info
-
         return self.is_exploitable
 
     def resolve_severity_score(self, info):
         """ Resolve precalculated severity score """
         del info
-
         dyn_score = integrates_dao.get_finding_attributes_dynamo(
             self.id, ['cvss_temporal']).get('cvss_temporal')
-
         fs_score = self.severity_score
         self.severity_score = dyn_score if dyn_score else fs_score
-
         return self.severity_score
 
     def resolve_report_date(self, info):
         """ Resolve report date """
         del info
-
         return self.report_date
 
 
@@ -580,7 +542,7 @@ class UpdateEvidence(Mutation):
     def mutate(self, info, **parameters):
         success = False
         uploaded_file = info.context.FILES.get('document', '')
-
+        project_name = get_project_name(parameters.get('finding_id')).lower()
         if util.assert_uploaded_file_mime(uploaded_file,
                                           ['image/gif',
                                            'image/png',
@@ -591,8 +553,9 @@ class UpdateEvidence(Mutation):
                                            'text/html']):
             if evidence_exceeds_size(uploaded_file, int(parameters.get('id'))):
                 util.cloudwatch_log(info.context,
-                                    'Security: \
-Attempted to upload evidence file heavier than allowed')
+                                    'Security: Attempted to upload evidence file \
+                                        heavier than allowed in {project} project'
+                                        .format(project=project_name))
                 raise GraphQLError('File exceeds the size limits')
             else:
                 field_num = FindingDTO()
@@ -607,12 +570,10 @@ Attempted to upload evidence file heavier than allowed')
                     ['exploit', field_num.EXPLOIT],
                     ['fileRecords', field_num.REG_FILE]
                 ]
-                project_name = get_project_name(parameters.get('finding_id')).lower()
                 file_id = '{project}/{finding_id}/{project}-{finding_id}'.format(
                     project=project_name,
                     finding_id=parameters.get('finding_id')
                 )
-
                 migrate_all_files(parameters, file_id, info.context)
                 success = update_file_to_s3(parameters,
                                             fieldname[int(parameters.get('id'))][1],
@@ -620,10 +581,10 @@ Attempted to upload evidence file heavier than allowed')
                                             uploaded_file, file_id)
         else:
             util.cloudwatch_log(info.context,
-                                'Security: \
-Attempted to upload evidence file with a non-allowed format')
+                                'Security: Attempted to upload evidence file with a \
+                                    non-allowed format in {project} project'
+                                    .format(project=project_name))
             raise GraphQLError('Extension not allowed')
-
         ret = UpdateEvidence(success=success,
                              finding=Finding(parameters.get('finding_id')))
         util.invalidate_cache(parameters.get('finding_id'))
@@ -645,7 +606,6 @@ class UpdateEvidenceDescription(Mutation):
     @require_finding_access_gql
     def mutate(self, info, finding_id, field, description):
         success = False
-
         try:
             description_parse = {
                 'evidence2_description': 'evidence_route_1',
@@ -665,14 +625,17 @@ class UpdateEvidenceDescription(Mutation):
                     finding = generic_dto.parse_evidence_info(submission_data, finding_id)
                     finding['id'] = finding_id
                     migrate_evidence_description(finding)
-            else:
-                # Finding has the description field migrated to dynamo.
-                pass
             success = add_file_attribute(
                 finding_id,
                 description_parse[field],
                 'description',
                 description)
+            if success:
+                util.cloudwatch_log(info.context, 'Security: Evidence description \
+                    succesfully updated in finding ' + finding_id)
+            else:
+                util.cloudwatch_log(info.context, 'Security: Attempted to update \
+                    evidence description in ' + finding_id)
         except KeyError:
             rollbar.report_message('Error: \
 An error occurred updating evidence description', 'error', info.context)
@@ -691,7 +654,6 @@ def evidence_exceeds_size(uploaded_file, evidence_type):
     exploit = 7
     records = 8
     mib = 1048576
-
     if evidence_type == animation:
         return uploaded_file.size > 10 * mib
     elif evidence_type == exploitation:
@@ -709,7 +671,6 @@ Attempted to upload an unknown type of evidence')
 
 
 class UpdateSeverity(Mutation):
-
     class Arguments(object):
         finding_id = String(required=True)
         data = GenericScalar(required=True)
@@ -720,22 +681,25 @@ class UpdateSeverity(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, **parameters):
-        del info
         finding_id = parameters.get('finding_id')
         project = integrates_dao.get_finding_project(finding_id)
         success = False
         success = save_severity(parameters.get('data'))
-
         ret = UpdateSeverity(success=success,
                              finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Updated severity in\
+                finding {id} succesfully'.format(id=parameters.get('finding_id')))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to update \
+                severity in finding {id}'.format(id=parameters.get('finding_id')))
         return ret
 
 
 class AddFindingComment(Mutation):
     """ Add comment to finding """
-
     class Arguments(object):
         content = String(required=True)
         finding_id = String(required=True)
@@ -771,7 +735,12 @@ class AddFindingComment(Mutation):
             )
         else:
             raise GraphQLError('Invalid comment type')
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Added comment in\
+                finding {id} succesfully'.format(id=parameters.get('finding_id')))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to add \
+                comment in finding {id}'.format(id=parameters.get('finding_id')))
         ret = AddFindingComment(success=success, comment_id=comment_id)
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
@@ -779,7 +748,6 @@ class AddFindingComment(Mutation):
 
 class VerifyFinding(Mutation):
     """ Verify a finding """
-
     class Arguments(object):
         finding_id = String(required=True)
     success = Boolean()
@@ -793,7 +761,8 @@ class VerifyFinding(Mutation):
             finding_id=parameters.get('finding_id'),
             user_email=user_email
         )
-
+        util.cloudwatch_log(info.context, 'Security: Verified the finding_id:\
+            {id}'.format(id=parameters.get('finding_id')))
         ret = VerifyFinding(success=success)
         util.invalidate_cache(parameters.get('finding_id'))
         return ret
@@ -801,7 +770,6 @@ class VerifyFinding(Mutation):
 
 class RequestVerification(Mutation):
     """ Request verification """
-
     class Arguments(object):
         finding_id = String(required=True)
         justification = String(required=True)
@@ -820,7 +788,8 @@ class RequestVerification(Mutation):
                                     info.context.session['last_name']]),
             justification=justification
         )
-
+        util.cloudwatch_log(info.context, 'Security: Verified a request in finding_id:\
+            {id}'.format(id=finding_id))
         ret = RequestVerification(success=success)
         util.invalidate_cache(finding_id)
         return ret
@@ -828,7 +797,6 @@ class RequestVerification(Mutation):
 
 class UpdateDescription(Mutation):
     """ Update description of a finding """
-
     class Arguments(object):
         actor = String(required=True)
         affected_systems = String(required=True)
@@ -860,9 +828,13 @@ class UpdateDescription(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access_gql
     def mutate(self, info, finding_id, **parameters):
-        del info
         success = update_description(finding_id, parameters)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Updated description in\
+                finding {id} succesfully'.format(id=finding_id))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to update \
+                description in finding {id}'.format(id=finding_id))
         ret = \
             UpdateDescription(success=success,
                               finding=Finding(finding_id))
@@ -874,7 +846,6 @@ class UpdateDescription(Mutation):
 
 class UpdateTreatment(Mutation):
     """ Update treatment of a finding """
-
     class Arguments(object):
         bts_url = String()
         finding_id = String(required=True)
@@ -890,7 +861,6 @@ class UpdateTreatment(Mutation):
     def mutate(self, info, finding_id, **parameters):
         user_email = util.get_jwt_content(info.context)['user_email']
         project_name = get_project_name(finding_id)
-
         if parameters['treatment'] == 'IN PROGRESS':
             if parameters.get('treatment_manager'):
                 project_users = [user[0]
@@ -900,16 +870,19 @@ class UpdateTreatment(Mutation):
                 customer_users = [user
                                   for user in project_users
                                   if integrates_dao.get_role_dao(user) in customer_roles]
-
                 if parameters.get('treatment_manager') not in customer_users:
                     raise GraphQLError('Invalid treatment manager')
             else:
                 raise GraphQLError('Invalid treatment manager')
         elif parameters['treatment'] == 'ACCEPTED':
             parameters['treatment_manager'] = user_email
-
         success = update_treatment(finding_id, parameters, user_email)
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Updated treatment in\
+                finding {id} succesfully'.format(id=finding_id))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to update \
+                treatment in finding {id}'.format(id=finding_id))
         ret = UpdateTreatment(success=success,
                               finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
@@ -934,7 +907,12 @@ class DeleteDraft(Mutation):
             util.invalidate_cache(project_name)
         except KeyError:
             raise GraphQLError('DRAFT_NOT_FOUND')
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Deleted draft in\
+                finding {id} succesfully'.format(id=finding_id))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to delete \
+                draft in finding {id}'.format(id=finding_id))
         return DeleteDraft(success=success)
 
 
@@ -948,7 +926,6 @@ class DeleteFinding(Mutation):
     @require_role(['admin', 'analyst'])
     @require_finding_access_gql
     def mutate(self, info, finding_id, justification):
-        del info
         try:
             project_name = get_project_name(finding_id)
             success = delete_finding(finding_id, project_name, justification)
@@ -956,7 +933,12 @@ class DeleteFinding(Mutation):
             util.invalidate_cache(project_name)
         except KeyError:
             raise GraphQLError('FINDING_NOT_FOUND')
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Deleted finding: {id}\
+                succesfully'.format(id=finding_id))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to delete \
+                finding: {id}'.format(id=finding_id))
         return DeleteFinding(success=success)
 
 
@@ -969,7 +951,6 @@ class ApproveDraft(Mutation):
     @require_login
     @require_role(['admin'])
     def mutate(self, info, draft_id):
-        del info
         try:
             project_name = get_project_name(draft_id)
             success, release_date = approve_draft(draft_id, project_name)
@@ -977,5 +958,10 @@ class ApproveDraft(Mutation):
             util.invalidate_cache(project_name)
         except KeyError:
             raise GraphQLError('DRAFT_NOT_FOUND')
-
+        if success:
+            util.cloudwatch_log(info.context, 'Security: Approved draft in\
+                {project} project succesfully'.format(project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to approve \
+                draft in {project} project'.format(project=project_name))
         return ApproveDraft(release_date, success)
