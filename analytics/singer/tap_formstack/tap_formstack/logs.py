@@ -1,4 +1,4 @@
-"""Logs manager.
+"""Log manager.
 
 Linters:
     prospector:
@@ -20,32 +20,24 @@ DOMAIN = "/logs/__tap_formstack."
 
 
 def stdout_json_obj(json_obj: JSON) -> None:
-    """Prints a JSON obj to stdout
-    """
-
+    """Print a JSON obj to stdout."""
     print(json.dumps(json_obj))
 
 
 def log_json_obj(file_name: str, json_obj: JSON) -> None:
-    """Print a json_obj to the given file in append mode.
-    """
-
+    """Print a json_obj to the given file in append mode."""
     with open(f"{DOMAIN}{file_name}.jsonstream", "a") as file:
         file.write(json.dumps(json_obj))
         file.write("\n")
 
 
 def log_error(error: str) -> None:
-    """Standard log to register handled errors ocurred in runtime.
-    """
-
+    """Standard log to register handled errors ocurred in runtime."""
     with open(f"{DOMAIN}errors.log", "a") as file:
         file.write(f"{error}\n")
 
 
 def log_conversions(conversion: str) -> None:
-    """Standard log to register conversions done in runtime.
-    """
-
+    """Standard log to register conversions done in runtime."""
     with open(f"{DOMAIN}conversions.log", "a") as file:
         file.write(f"{conversion}\n")

@@ -1,16 +1,17 @@
-"""Singer tap for the Formstack API.
-"""
+"""Singer tap for the Formstack API."""
 
 import re
 import json
 import argparse
-import datetime
 import urllib.error
 import urllib.request
 
-from typing import Callable, Iterable, List, Dict, Any
+from typing import Callable, Iterable, Dict, Any
+
+import dateutil.parser
 
 from . import logs
+
 
 # Type aliases that improve clarity
 JSON = Any
@@ -20,24 +21,19 @@ API_URL = "https://www.formstack.com/api/v2"
 
 
 class UnrecognizedString(Exception):
-    """Raised when tap didn't find a conversion.
-    """
+    """Raised when tap didn't find a conversion."""
 
 
 class UnrecognizedNumber(Exception):
-    """Raised when tap didn't find a conversion.
-    """
+    """Raised when tap didn't find a conversion."""
 
 
 class UnrecognizedDate(Exception):
-    """Raised when tap didn't find a conversion.
-    """
+    """Raised when tap didn't find a conversion."""
 
 
 def map_ttype(type_str: str) -> Dict[str, str]:
-    """Maps a tap type to a Singer type.
-    """
-
+    """Map a tap type to a Singer type."""
     type_map = {
         "string": {
             "type": "string"
@@ -54,28 +50,26 @@ def map_ttype(type_str: str) -> Dict[str, str]:
 
 
 def iter_lines(file_name: str, function: Callable) -> Iterable[Any]:
-    """Yields function(line) on every line of a file.
+    """Yield function(line) on every line of a file.
 
-    Args:
+    Args
         file_name: The name of the file whose lines we are to iterate.
         function: A function to apply to each line.
 
-    Yields:
+    Yields
         function(line) on every line of the file with file_name.
     """
-
     with open(file_name, "r") as file:
         for line in file:
             yield function(line)
 
 
 def get_request_response(user_token: str, resource: str) -> JSON:
-    """Makes a request for a resource.
+    """Make a request for a resource.
 
-    Returns:
+    Returns
         A json object with the response.
     """
-
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -88,18 +82,14 @@ def get_request_response(user_token: str, resource: str) -> JSON:
 
 
 def get_page_of_forms(user_token: str, **kwargs: Any) -> JSON:
-    """Get a page of forms in the account.
-    """
-
+    """Get a page of forms in the account."""
     page = kwargs["page"]
     resource = f"{API_URL}/form.json?page={page}&per_page=100"
     return get_request_response(user_token, resource)
 
 
 def get_form_submissions(user_token: str, form_id: str, **kwargs: Any) -> JSON:
-    """Gets all submissions made for the specified form_id.
-    """
-
+    """Get all submissions made for the specified form_id."""
     page = kwargs["page"]
     resource = f"{API_URL}/form/{form_id}/submission.json?page={page}"
     resource += "&min_time=0000-01-01&max_time=2100-12-31"
@@ -112,9 +102,7 @@ def get_form_submissions(user_token: str, form_id: str, **kwargs: Any) -> JSON:
 
 
 def get_available_forms(user_token: str) -> Dict[str, str]:
-    """Retrieves a dictionary with all pairs {form_name: form_id}.
-    """
-
+    """Retrieve a dictionary with all pairs {form_name: form_id}."""
     page: int = 0
     available_forms: Dict[str, str] = {}
 
@@ -134,9 +122,7 @@ def get_available_forms(user_token: str) -> Dict[str, str]:
 
 
 def write_queries(user_token: str, form_name: str, form_id: str) -> None:
-    """Writes queries needed for a given form so it can be fast accessed.
-    """
-
+    """Write queries needed for a given form so it can be fast accessed."""
     page: int = 0
     current_form: int = 0
 
@@ -157,9 +143,7 @@ def write_queries(user_token: str, form_name: str, form_id: str) -> None:
 
 
 def write_schema(form_name: str) -> JSON:
-    """Writes the SCHEMA message for a given form to stdout.
-    """
-
+    """Write the SCHEMA message for a given form to stdout."""
     schema: JSON = {
         "type": "SCHEMA",
         "stream": form_name,
@@ -222,11 +206,10 @@ def write_schema(form_name: str) -> JSON:
 
 
 def write_schema__denest(schema: JSON, data: JSON, nesting_type: str) -> None:
-    """Handles the assignment of a nested field to the schema.
+    """Handle the assignment of a nested field to the schema.
 
     Good examples of nested fields are matrix and checkbox.
     """
-
     name = data["label"]
     value = data["value"]
     if isinstance(value, str):
@@ -239,9 +222,7 @@ def write_schema__denest(schema: JSON, data: JSON, nesting_type: str) -> None:
 
 
 def write_records(form_name: str, schema_properties: JSON) -> None:
-    """Writes all records for a given form to stdout.
-    """
-
+    """Write all records for a given form to stdout."""
     file_name: str = f"{logs.DOMAIN}{form_name}.jsonstream"
     for submission in iter_lines(file_name, json.loads):
         record: JSON = write_records__assign_data(
@@ -256,9 +237,7 @@ def write_records__assign_data(
         form_name: str,
         schema_properties: JSON,
         submission: JSON) -> JSON:
-    """Handles the assignment of form data to a record.
-    """
-
+    """Handle the assignment of form data to a record."""
     record: JSON = {
         "type": "RECORD",
         "stream": form_name,
@@ -308,9 +287,7 @@ def write_records__assign_data(
 
 
 def write_records__checkbox(record: JSON, data: JSON) -> None:
-    """Handles the assignment of data from a checkbox to the record.
-    """
-
+    """Handle the assignment of data from a checkbox to the record."""
     name: str = data["label"]
     value: Any = data["value"]
     if isinstance(value, str):
@@ -323,9 +300,7 @@ def write_records__checkbox(record: JSON, data: JSON) -> None:
 
 
 def write_records__matrix(record: JSON, data: JSON) -> None:
-    """Handles the assignment of data from a matrix to the record.
-    """
-
+    """Handle the assignment of data from a matrix to the record."""
     name: str = data["label"]
     value: Any = data["value"]
     if isinstance(value, str):
@@ -338,9 +313,7 @@ def write_records__matrix(record: JSON, data: JSON) -> None:
 
 
 def std_text(text: str) -> str:
-    """Returns a CDN compliant text.
-    """
-
+    """Return a CDN compliant text."""
     # log the received value
     logs.log_conversions(f"text [{text}]")
 
@@ -372,84 +345,34 @@ def std_text(text: str) -> str:
 
 
 def std_date(date: Any, **kwargs: Any) -> str:
-    """Manipulates a date to provide JSON schema compatible date.
+    """Manipulate a date to provide JSON schema compatible date.
 
     The returned format is RFC3339, which you can find in the documentation.
         https://tools.ietf.org/html/rfc3339#section-5.6
 
-    Args:
+    Args
         date: The date that will be casted.
         kwargs["default"]: A default value to use in case of emergency.
 
-    Raises:
+    Raises
         UnrecognizedDate: When it was impossible to find a conversion.
 
-    Returns:
+    Returns
         A JSON schema compliant date (RFC 3339).
     """
-
     # log the received value
     logs.log_conversions(f"date [{date}]")
 
-    date = str(date)
-    new_date: str = ""
-
-    # replace anything that is not a digit by an space
-    date = re.sub(r"[^(\d|am|AM|pm|PM)]", r" ", date)
-
-    # replace spoken dates by the number
-    months_map = {
-        r"Jan": r"01",
-        r"Feb": r"02",
-        r"Mar": r"03",
-        r"Apr": r"04",
-        r"May": r"05",
-        r"Jun": r"06",
-        r"Jul": r"07",
-        r"Aug": r"08",
-        r"Sep": r"09",
-        r"Oct": r"10",
-        r"Nov": r"11",
-        r"Dec": r"12",
-    }
-    for month_str, month_num in months_map.items():
-        date = re.sub(month_str, month_num, date)
-
-    # replace any repeated space character by a single space character
-    date = re.sub(r"\s+", r" ", date)
-
-    # remove leading and trailing whitespace
-    date = date.strip(" ")
-
-    # everything is normalized now, try to match with this formats
-    date_formats: List[str] = [
-        "%Y %m %d %H %M %S %f",
-        "%Y %m %d %H %M %S",
-        "%Y %m %d %I %M %p",
-        "%Y %m %d %H %M",
-        "%Y %m %d %H",
-        "%m %d, %Y",
-        "%Y %m %d",
-        "%d %m %Y",
-        "%m %d %Y",
-        "%m %Y",
-        "%H %M",
-    ]
-
-    for date_format in date_formats:
-        try:
-            date_obj = datetime.datetime.strptime(date, date_format)
-            # raise ValueError when not possible to match date with date_format
-            new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
-            break
-        except ValueError:
-            pass
-    else:
+    try:
+        date_obj = dateutil.parser.parse(str(date))
+    except (ValueError, OverflowError):
         # else clause executes if the loop did not encounter a break statement
         if "default" in kwargs:
             new_date = kwargs["default"]
         else:
             raise UnrecognizedDate
+    else:
+        new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # log the returned value
     logs.log_conversions(f"     [{new_date}]")
@@ -458,19 +381,18 @@ def std_date(date: Any, **kwargs: Any) -> str:
 
 
 def std_number(number: Any, **kwargs: Any) -> float:
-    """Manipulates a number to provide JSON schema compatible number.
+    """Manipulate a number to provide JSON schema compatible number.
 
-    Args:
+    Args
         number: The number to manipulate.
         kwargs["default"]: A default value to use in case of emergency.
 
-    Raises:
+    Raises
         UnrecognizedNumber: When it was impossible to find a conversion.
 
-    Returns:
+    Returns
         A JSON schema compliant number.
     """
-
     # log the received value
     logs.log_conversions(f"number [{number}]")
 
@@ -500,9 +422,7 @@ def std_number(number: Any, **kwargs: Any) -> float:
 
 
 def main():
-    """Usual entry point.
-    """
-
+    """Usual entry point."""
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(
