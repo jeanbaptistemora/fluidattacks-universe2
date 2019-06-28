@@ -425,7 +425,10 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
   );
 };
 
-const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => (
+const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
+  const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
+
+  return(
   <React.Fragment>
     <Row>
       <Col md={6} sm={12} xs={12}>
@@ -469,7 +472,7 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           name="btsUrl"
           renderAsEditable={props.isEditing}
           type="text"
-          visible={!props.isEditing || (props.isEditing && props.formValues.treatment === "IN PROGRESS")}
+          visible={!props.isEditing && hasBts || (props.isEditing && props.formValues.treatment === "IN PROGRESS")}
         />
       </Col>
     </Row>
@@ -488,8 +491,8 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
       </Col>
     </Row>
   </React.Fragment>
-);
-
+  );
+};
 export const renderFormFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
   const canEditDescription: boolean = _.includes(["admin", "analyst"], props.userRole);
   const canEditTreatment: boolean = _.includes(["customer", "customeradmin"], props.userRole);
