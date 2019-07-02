@@ -5,6 +5,7 @@
  */
 
 import { NetworkStatus } from "apollo-boost";
+import _ from "lodash";
 import React from "react";
 import { Query } from "react-apollo";
 import { RefreshControl, ScrollView, View } from "react-native";
@@ -30,9 +31,9 @@ const menuView: React.FunctionComponent<IMenuProps> = (): JSX.Element => {
         {({ data, loading, error, refetch, networkStatus }: PROJECTS_RESULT): React.ReactNode => {
           const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
           if (loading && !isRefetching) { return (<Preloader />); }
-          if (error !== undefined) { errorDialog.show(); }
+          if (!_.isUndefined(error)) { errorDialog.show(); }
 
-          return data === undefined
+          return _.isUndefined(data)
             ? <React.Fragment />
             : (
               <ScrollView

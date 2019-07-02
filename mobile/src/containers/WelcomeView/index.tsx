@@ -25,7 +25,7 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
   const { t } = translate;
 
   const handleMutationResult: ((data: SIGN_IN_RESULT) => void) = (data: SIGN_IN_RESULT): void => {
-    if (data !== undefined) {
+    if (!_.isUndefined(data)) {
       if (data.signIn.success) {
         SecureStore.setItemAsync("integrates_session", data.signIn.sessionJwt)
           .then((): void => {
@@ -53,9 +53,9 @@ const welcomeView: React.FunctionComponent<IWelcomeProps> = (props: IWelcomeProp
       >
         {(doAuth: MutationFn, { data, error, loading, called }: MutationResult<SIGN_IN_RESULT>): React.ReactNode => {
           if (loading) { return (<Preloader />); }
-          if (error !== undefined) { errorDialog.show(); }
+          if (!_.isUndefined(error)) { errorDialog.show(); }
           if (!called) { return (<MutationTrigger onMount={doAuth} />); }
-          const isAuthorized: boolean = data !== undefined && data.signIn.authorized;
+          const isAuthorized: boolean = !_.isUndefined(data) && data.signIn.authorized;
 
           return isAuthorized
             ? <Preloader />
