@@ -167,7 +167,10 @@
       "src/scenes/Dashboard/containers/ProjectCommentsView/index.spec.tsx",
       "src/scenes/Dashboard/containers/ProjectDraftsView/index.spec.tsx",
       "src/scenes/Dashboard/containers/ProjectFindingsView/index.spec.tsx",
-      "src/scenes/Dashboard/containers/ProjectUsersView/AddUserModal/index.spec.tsx"
+      "src/scenes/Dashboard/containers/ProjectUsersView/AddUserModal/index.spec.tsx",
+      "src/scenes/Dashboard/containers/ProjectUsersView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/RecordsView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/ReportsView/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "setupFiles": [
