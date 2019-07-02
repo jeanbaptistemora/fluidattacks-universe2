@@ -5,6 +5,7 @@
 from __future__ import absolute_import
 from graphene import Field, String, ObjectType, List
 
+from app import util
 from app.api.formstack import FormstackAPI
 from app.entity.me import Me
 from app.entity.alert import Alert
@@ -64,7 +65,8 @@ class Query(ObjectType):
     @get_cached
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
-        del info
+        util.cloudwatch_log(info.context, 'Security: Access to \
+            Event: {event_id} succesfully'.format(event_id=identifier))
         return Events(identifier)
 
     @require_login
@@ -90,7 +92,8 @@ class Query(ObjectType):
     @get_cached
     def resolve_finding(self, info, identifier=None):
         """Resolve for finding."""
-        del info
+        util.cloudwatch_log(info.context, 'Security: Access to \
+            finding: {finding_id} succesfully'.format(finding_id=identifier))
         return Finding(identifier)
 
     def resolve_login(self, info):
@@ -103,7 +106,8 @@ class Query(ObjectType):
     @require_project_access_gql
     def resolve_resources(self, info, project_name):
         """ Resolve for project resources """
-        del info
+        util.cloudwatch_log(info.context, 'Security: Access to \
+            resources: {resources_id} succesfully'.format(resources_id=project_name))
         return Resource(project_name)
 
     @require_login
@@ -120,7 +124,8 @@ class Query(ObjectType):
     @require_project_access_gql
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
-        del info
+        util.cloudwatch_log(info.context, 'Security: Access to \
+            project: {project} succesfully'.format(project=project_name))
         return Project(project_name)
 
     @require_login
