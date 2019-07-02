@@ -3,7 +3,9 @@
 
 import os
 import json
+import time
 import urllib.error
+import urllib.parse
 import urllib.request
 
 from typing import Tuple, Any
@@ -52,16 +54,18 @@ def delete_group(token: str, group_id: str) -> Tuple[int, Any]:
 
 def list_groups_in_group(token: str, group_id: str) -> Tuple[int, Any]:
     """List groups in a group."""
+    group_ids: Any = []
     resource = f"{API_URL}/groups/{group_id}/subgroups"
     status, response = get_request(token, "GET", resource)
     if status == 200:
-        group_ids = [group["id"] for group in json.loads(response)]
-    return status, group_ids if status == 200 else None
+        group_ids.extend(group["id"] for group in json.loads(response))
+    return status, group_ids
 
 
 def create_repository(
         token: str, parent_id: str, name: str) -> Tuple[int, Any]:
     """Create a repository into a parent."""
+    name = urllib.parse.quote(name, safe='')
     resource = (
         f"{API_URL}/projects"
         f"?name={name}"
@@ -77,7 +81,9 @@ def create_repository(
         f"&shared_runners_enabled=false"
         f"&container_registry_enabled=false")
     status, response = get_request(token, "POST", resource)
-    return status, json.loads(response)["id"] if status == 200 else None
+    if status == 200:
+        response = json.loads(response)["http_url_to_repo"]
+    return status, response
 
 
 def main():
@@ -115,14 +121,18 @@ def main():
     # mirror all subscription and repositories
     for subscription, repositories in todo.items():
         print("MIRRORING SUBSCRIPTION:", subscription)
-        _, subscription_group_id = create_group(
-            token, customers_group_id, subscription)
+        for _ in range(60):
+            status, subscription_group_id = create_group(
+                token, customers_group_id, subscription)
+            if status == 200:
+                break
+            else:
+                time.sleep(60.0)
         for repository in repositories:
             print("MIRRORING REPOSITORY:", subscription, repository)
-            create_repository(token, subscription_group_id, repository)
-            repo_url = (
-                f"https://{user}:{token}@gitlab.com"
-                f"/fluidsignal/customer/{subscription}/{repository}.git")
+            _, repo_url = create_repository(
+                token, subscription_group_id, repository)
+            repo_url = repo_url.replace('https://', f'https://{user}:{token}@')
             repo_path = f"/git/{subscription}/{repository}"
 
             os.system(f"git -C '{repo_path}' push --all '{repo_url}'")
