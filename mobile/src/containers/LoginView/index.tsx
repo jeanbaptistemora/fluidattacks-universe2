@@ -1,4 +1,5 @@
 import { default as Constants, NativeConstants } from "expo-constants";
+import _ from "lodash";
 import React from "react";
 import { Image, Linking, Platform, View } from "react-native";
 import { Button, Dialog, Paragraph, Portal } from "react-native-paper";
@@ -38,15 +39,18 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<ILoginProps, {}>({
   componentDidMount(): void {
     const { onResolveVersion } = this.props;
 
-    checkVersion()
-      .then((isOutdated: boolean): void => {
-        const shouldSkipCheck: boolean = Platform.OS === "ios" || __DEV__;
-
-        onResolveVersion(shouldSkipCheck ? false : isOutdated);
-      })
-      .catch((error: Error): void => {
-        rollbar.error("Error: An error occurred getting latest version", error);
-      });
+    const shouldSkipCheck: boolean = _.includes(["ios", "test-env"], Platform.OS) || __DEV__;
+    if (shouldSkipCheck) {
+      onResolveVersion(false);
+    } else {
+      checkVersion()
+        .then((isOutdated: boolean): void => {
+          onResolveVersion(isOutdated);
+        })
+        .catch((error: Error): void => {
+          rollbar.error("Error: An error occurred getting latest version", error);
+        });
+    }
   },
 });
 

@@ -44,7 +44,8 @@ try:
     FI_AWS_REDSHIFT_PASSWORD = os.environ['FI_AWS_REDSHIFT_PASSWORD']
     FI_AWS_REDSHIFT_HOST = os.environ['FI_AWS_REDSHIFT_HOST']
     FI_AWS_REDSHIFT_PORT = os.environ['FI_AWS_REDSHIFT_PORT']
-    FI_GOOGLE_OAUTH2_KEY_APP = os.environ['FI_GOOGLE_OAUTH2_KEY_APP']
+    FI_GOOGLE_OAUTH2_KEY_ANDROID = os.environ['FI_GOOGLE_OAUTH2_KEY_ANDROID']
+    FI_GOOGLE_OAUTH2_KEY_IOS = os.environ['FI_GOOGLE_OAUTH2_KEY_IOS']
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")
     raise

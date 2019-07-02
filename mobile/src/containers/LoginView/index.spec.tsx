@@ -4,6 +4,13 @@ import renderer, { ReactTestRenderer } from "react-test-renderer";
 import { ILoginProps, loginView as LoginView } from "./index";
 import { initialState } from "./reducer";
 
+jest.mock("Platform", () => {
+  const platform: { OS: string } = (jest.requireActual("Platform") as { OS: string });
+  platform.OS = "test-env";
+
+  return platform;
+});
+
 describe("LoginView", () => {
   it("should render", () => {
 

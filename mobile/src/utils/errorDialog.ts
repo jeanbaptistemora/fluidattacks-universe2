@@ -1,4 +1,4 @@
-import { AlertIOS, Platform, ToastAndroid } from "react-native";
+import { Alert, Platform, ToastAndroid } from "react-native";
 
 import { translate } from "./translations/translate";
 
@@ -10,7 +10,7 @@ export const show: (() => void) = (): void => {
       ToastAndroid.show(t("common.error"), ToastAndroid.SHORT);
       break;
     case "ios":
-      AlertIOS.alert("Error", t("common.error"));
+      Alert.alert("Error", t("common.error"));
       break;
     default:
     // Unsupported platform

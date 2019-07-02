@@ -5,6 +5,7 @@ from django.conf import settings
 from google.auth.transport import requests
 from google.oauth2 import id_token
 from graphene import ObjectType, Mutation, List, String, Boolean
+from graphql import GraphQLError
 from jose import jwt
 import rollbar
 
@@ -13,7 +14,7 @@ from app.dao import integrates_dao
 from app.entity.project import Project
 from app.services import is_customeradmin
 
-from __init__ import FI_GOOGLE_OAUTH2_KEY_APP
+from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
 class Me(ObjectType):
@@ -58,7 +59,6 @@ class SignIn(Mutation):
 
     @staticmethod
     def mutate(_, info, auth_token, provider, push_token):
-        del info
         authorized = False
         session_jwt = ''
         success = False
@@ -66,18 +66,26 @@ class SignIn(Mutation):
         if provider == 'google':
             try:
                 user_info = id_token.verify_oauth2_token(
-                    auth_token, requests.Request(), FI_GOOGLE_OAUTH2_KEY_APP)
+                    auth_token, requests.Request())
 
                 if user_info['iss'] not in ['accounts.google.com',
                                             'https://accounts.google.com']:
-                    raise ValueError("Invalid auth issuer", user_info['iss'])
+                    rollbar.report_message(
+                        'Error: Invalid oauth2 issuer',
+                        'error', info.context, user_info['iss'])
+                    raise GraphQLError('INVALID_AUTH_TOKEN')
+                elif user_info['aud'] not in [FI_GOOGLE_OAUTH2_KEY_ANDROID,
+                                              FI_GOOGLE_OAUTH2_KEY_IOS]:
+                    rollbar.report_message(
+                        'Error: Invalid oauth2 audience',
+                        'error', info.context, user_info['aud'])
+                    raise GraphQLError('INVALID_AUTH_TOKEN')
                 else:
                     email = user_info['email']
                     authorized = integrates_dao.is_registered_dao(email) == '1'
                     if push_token:
                         integrates_dao.add_set_element_dynamo(
-                            'FI_users',
-                            ['email', email],
+                            'FI_users', ['email', email],
                             'devices_to_notify', [push_token])
                     session_jwt = jwt.encode(
                         {
@@ -93,10 +101,10 @@ class SignIn(Mutation):
             except ValueError:
                 util.cloudwatch_log_plain(
                     'Security: Sign in attempt using invalid Google token')
-                raise
+                raise GraphQLError('INVALID_AUTH_TOKEN')
         else:
             rollbar.report_message(
                 'Error: Unknown auth provider' + provider, 'error')
-            raise NotImplementedError('Auth provider not supported')
+            raise GraphQLError('UNKNOWN_AUTH_PROVIDER')
 
         return SignIn(authorized, session_jwt, success)
