@@ -171,7 +171,9 @@
       "src/scenes/Dashboard/containers/ProjectUsersView/index.spec.tsx",
       "src/scenes/Dashboard/containers/RecordsView/index.spec.tsx",
       "src/scenes/Dashboard/containers/ReportsView/index.spec.tsx",
-      "src/scenes/Dashboard/containers/SeverityView/index.spec.tsx"
+      "src/scenes/Dashboard/containers/SeverityView/index.spec.tsx",
+      "src/scenes/Dashboard/containers/TrackingView/index.spec.tsx",
+      "src/scenes/Login/containers/Access/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "setupFiles": [

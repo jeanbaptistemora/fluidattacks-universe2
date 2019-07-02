@@ -195,8 +195,8 @@ class Access extends React.Component<{}, ILoginState, {}> {
             <Col md={4} lg={4}/>
             <Col md={4} lg={4} lgOffset={4} mdOffset={4}>
               <Button
-                bsStyle="danger text-right"
-                className={style.google_btn}
+                bsStyle="danger"
+                className={`${style.google_btn} text-right`}
                 onClick={this.handleGoogleLogin}
                 block={true}
               >
@@ -209,8 +209,8 @@ class Access extends React.Component<{}, ILoginState, {}> {
             <Col md={4} lg={4}/>
             <Col md={4} lg={4} lgOffset={4} mdOffset={4}>
             <Button
-              bsStyle="primary text-right"
-              className={style.azure_btn}
+              bsStyle="primary"
+              className={`${style.azure_btn} text-right`}
               onClick={this.handleAzureLogin}
               block={true}
             >
