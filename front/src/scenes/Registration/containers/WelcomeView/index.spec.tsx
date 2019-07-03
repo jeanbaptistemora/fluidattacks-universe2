@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
@@ -8,8 +7,8 @@ configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Welcome view", () => {
   it("should return a function", () => {
-    expect(typeof (WelcomeView)).to
-      .equal("function");
+    expect(typeof (WelcomeView))
+      .toEqual("function");
   });
 
   it("should render", () => {
@@ -23,8 +22,8 @@ describe("Welcome view", () => {
       />,
     );
 
-    expect(wrapper).to.have
-      .length(1);
+    expect(wrapper)
+      .toHaveLength(1);
   });
 
   it("should render greetings message", () => {
@@ -37,9 +36,8 @@ describe("Welcome view", () => {
         username={"Test"}
       />,
     );
-
-    expect(wrapper.contains(<h1>registration.greeting Test!</h1>)).to
-      .equal(true);
+    expect(wrapper.contains("Hello"))
+      .toEqual(true);
   });
 
   it("should render unauthorized message", () => {
@@ -53,8 +51,13 @@ describe("Welcome view", () => {
       />,
     );
 
-    expect(wrapper.contains(<p>registration.unauthorized</p>)).to
-      .equal(true);
+    expect(wrapper.contains(
+      <p>
+        You do not have authorization for login yet. Please contact Fluid Attacks&#39;s staff or
+        your project administrator to get access.
+      </p>,
+    ))
+      .toEqual(true);
   });
 
   it("should render legal notice", () => {
@@ -68,7 +71,7 @@ describe("Welcome view", () => {
       />,
     );
 
-    expect(wrapper.find({ id: "legalNotice" }).length).to
-      .equal(1);
+    expect(wrapper.find({ id: "legalNotice" }).length)
+      .toEqual(1);
   });
 });

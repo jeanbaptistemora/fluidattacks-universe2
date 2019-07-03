@@ -2,6 +2,6 @@
 set -e
 set -o pipefail
 
-jest
+jest --detectOpenHandles
 mv coverage/lcov.info coverage.lcov
 rm -r coverage
