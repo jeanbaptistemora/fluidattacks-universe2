@@ -8,6 +8,7 @@ apt-get update
 # set CPython dependencies
 pip3 install \
     pyyaml \
+    urllib3 \
     slackclient \
     analytics/singer/tap_git \
     analytics/singer/target_redshift

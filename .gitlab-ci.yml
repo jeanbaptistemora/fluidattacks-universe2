@@ -404,9 +404,9 @@ sync_git:
     - python3 analytics/git/clone_us.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_us.log
     - python3 analytics/git/clone_them.py 2>&1 | tee clone_them.log | aws s3 cp - s3://fluidanalytics/clone_them.log
     - python3 analytics/git/clone_stats.py || true
+    - analytics/git/mirror.py 2>&1 | aws s3 cp - s3://fluidanalytics/mirrors.log
     - python3 analytics/git/generate_config.py 2>&1 | aws s3 cp - s3://fluidanalytics/generate_config.log
     - analytics/git/sync_forked.sh
-    - analytics/git/mirror.py 2>&1 | aws s3 cp - s3://fluidanalytics/mirrors.log
     - analytics/git/taint_all.sh
   after_script:
     - rm -fr ~/.aws

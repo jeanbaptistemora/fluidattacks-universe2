@@ -41,12 +41,13 @@ def main():
         r"cat clone_them.log"
         r"| grep 'INFO|STATS'"
         r"| sed -E 's/INFO\|STATS\|\/git\/fluidsignal\/continuous"
-        r"\/subscriptions\/(.*)\|(.*)\|/\1 \2/g'"
+        r"\/subscriptions\/(\w+)\|([0-9]+)\|.*$/\1-\2/g'"
         r"> clone_them.log.filtered"))
 
     # get the name and the cloned repositories
     with open("clone_them.log.filtered") as log_file:
-        name__cloned_repos = [line.split() for line in log_file.readlines()]
+        name__cloned_repos = [
+            line.split('-', 1) for line in log_file.read().splitlines()]
 
     # print the ones that were not cloned completely
     header: str = "STATS: clone_them.py"
