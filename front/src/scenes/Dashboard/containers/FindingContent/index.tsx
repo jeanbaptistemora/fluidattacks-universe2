@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
@@ -27,36 +27,11 @@ import {
   approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
 } from "./actions";
 import style from "./index.css";
+import { IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,
+  IFindingContentStateProps } from "./types";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
 const reduxProps: any = {};
-
-type IFindingContentBaseProps = Pick<RouteComponentProps<{ findingId: string; projectName: string }>, "match">;
-
-interface IFindingContentStateProps {
-  alert?: string;
-  header: {
-    closedVulns: number;
-    openVulns: number;
-    reportDate: string;
-    severity: number;
-    status: "Abierto" | "Cerrado" | "Default";
-  };
-  title: string;
-}
-
-interface IFindingContentDispatchProps {
-  onApprove(): void;
-  onConfirmDelete(): void;
-  onDelete(justification: string): void;
-  onLoad(): void;
-  onReject(): void;
-  onUnmount(): void;
-  openDeleteConfirm(): void;
-  openRejectConfirm(): void;
-}
-
-type IFindingContentProps = IFindingContentBaseProps & (IFindingContentStateProps & IFindingContentDispatchProps);
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
