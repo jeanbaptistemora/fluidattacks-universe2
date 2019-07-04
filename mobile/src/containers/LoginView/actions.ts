@@ -1,5 +1,4 @@
-import { Google, Notifications } from "expo";
-import * as Permissions from "expo-permissions";
+import { Google } from "expo";
 
 import { IActionStructure, ThunkDispatcher, ThunkResult } from "../../store";
 import {
@@ -9,6 +8,7 @@ import {
   GOOGLE_LOGIN_KEY_IOS_PROD,
 } from "../../utils/constants";
 import * as errorDialog from "../../utils/errorDialog";
+import { getPushToken } from "../../utils/notifications";
 import { rollbar } from "../../utils/rollbar";
 
 export enum actionTypes {
@@ -32,13 +32,11 @@ export const performAsyncGoogleLogin: (() => ThunkResult<void>) = (): ThunkResul
     .then(async (result: Google.LogInResult): Promise<void> => {
       dispatch({ payload: {}, type: actionTypes.GOOGLE_LOGIN_LOAD });
       if (result.type === "success") {
-        const { status: notifPermission } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-
         dispatch({
           payload: {
             authProvider: "google",
             authToken: String(result.idToken),
-            pushToken: notifPermission === "granted" ? await Notifications.getExpoPushTokenAsync() : "",
+            pushToken: await getPushToken(),
             userInfo: result.user,
           },
           type: actionTypes.LOGIN_SUCCESS,

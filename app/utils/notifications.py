@@ -15,6 +15,7 @@ def notify_mobile(recipients, title, message):
             PushClient().publish(
                 PushMessage(
                     body=message,
+                    sound='default',
                     title=title,
                     to=device_token,
                 )
