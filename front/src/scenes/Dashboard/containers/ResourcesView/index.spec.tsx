@@ -198,4 +198,17 @@ describe("Resources view", () => {
     expect(wrapper)
       .toHaveLength(1);
   });
+
+  it("should render files component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksTags} addTypename={true}>
+          <ProjectResourcesView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await wait(0);
+    expect(wrapper.find("#tblFiles"))
+      .toBeTruthy();
+  });
 });

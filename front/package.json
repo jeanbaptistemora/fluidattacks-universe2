@@ -159,7 +159,8 @@
       "src/scenes/Login/containers/Access/index.spec.tsx",
       "src/scenes/Registration/components/CompulsoryNotice/index.spec.tsx",
       "src/scenes/Registration/containers/WelcomeView/index.spec.tsx",
-      "src/scenes/Dashboard/index.spec.tsx"
+      "src/scenes/Dashboard/index.spec.tsx",
+      "src/utils/forms/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "setupFiles": [
