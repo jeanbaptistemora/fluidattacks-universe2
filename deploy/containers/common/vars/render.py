@@ -23,9 +23,9 @@ client.stream(context).dump('drive_client_secret.json')
 
 os.rename('drive_authorization.json', \
 '/usr/src/app/config/drive_authorization.json')
+os.rename('drive_client_secret.json', \
+'/usr/src/app/config/drive_client_secret.json')
 os.rename('integrates-ssl.conf', \
 '/etc/apache2/sites-available/integrates-ssl.conf')
 os.rename('000-default.conf', \
 '/etc/apache2/sites-available/000-default.conf')
-os.rename('drive_client_secret.json', \
-'/usr/src/app/config/drive_client_secret.json')
