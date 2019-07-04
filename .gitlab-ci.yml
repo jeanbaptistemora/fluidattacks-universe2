@@ -387,9 +387,9 @@ stop-review:
   except:
     - master
 
-asserts-review:
+asserts-review-static:
   stage: post-deploy
-  image: fluid-docker.jfrog.io/fluid:integrates
+  image: fluid-docker.jfrog.io/fluid:integrates_static
   dependencies: []
   variables:
     APP: "integrates"
@@ -405,6 +405,27 @@ asserts-review:
   retry: 1
   except:
     - master
+  allow_failure: True
+
+asserts-review-dynamic:
+  stage: post-deploy
+  image: fluid-docker.jfrog.io/fluid:integrates_dynamic
+  dependencies: []
+  variables:
+    APP: "integrates"
+    BRANCH: "${CI_COMMIT_REF_NAME}"
+    FA_STRICT: "true"
+    ORG: "fluid"
+    PASS: "${INTEGRATES_JFROG_PASS}"
+    STAGE: "review"
+    USER: "${INTEGRATES_JFROG_USER}"
+  script:
+    - cp -a * /code/
+    - /entrypoint.sh
+  retry: 1
+  except:
+    - master
+  allow_failure: True
 
 mr-test:
   stage: mr-check
@@ -524,9 +545,28 @@ new-version-mail:
   except:
     - schedules
 
-asserts-prod:
+asserts-prod-static:
   stage: post-deploy
-  image: fluid-docker.jfrog.io/fluid:integrates
+  image: fluid-docker.jfrog.io/fluid:integrates_static
+  dependencies: []
+  variables:
+    APP: "integrates"
+    BRANCH: "${CI_COMMIT_REF_NAME}"
+    FA_STRICT: "true"
+    ORG: "fluid"
+    PASS: "${INTEGRATES_JFROG_PASS}"
+    STAGE: "post-deploy"
+    USER: "${INTEGRATES_JFROG_USER}"
+  script:
+    - cp -a * /code/
+    - /entrypoint.sh
+  retry: 1
+  only:
+    - master
+
+asserts-prod-dynamic:
+  stage: post-deploy
+  image: fluid-docker.jfrog.io/fluid:integrates_dynamic
   dependencies: []
   variables:
     APP: "integrates"
