@@ -177,7 +177,8 @@
       "src/scenes/Registration/components/CompulsoryNotice/index.spec.tsx",
       "src/scenes/Registration/containers/WelcomeView/index.spec.tsx",
       "src/scenes/Dashboard/index.spec.tsx",
-      "src/scenes/Dashboard/containers/FindingContent/index.spec.tsx"
+      "src/scenes/Dashboard/containers/FindingContent/index.spec.tsx",
+      "src/scenes/Dashboard/containers/ProjectContent/index.spec.tsx"
     ],
     "preset": "ts-jest",
     "setupFiles": [

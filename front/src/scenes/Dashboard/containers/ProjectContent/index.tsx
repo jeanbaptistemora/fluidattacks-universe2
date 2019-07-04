@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
@@ -15,19 +15,8 @@ import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
-
-type IProjectContentBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
-
-interface IProjectContentStateProps {
-  userRole: string;
-}
-
-interface IProjectContentDispatchProps {
-  onExit(): void;
-  onLoad(): void;
-}
-
-type IProjectContentProps = IProjectContentBaseProps & (IProjectContentStateProps & IProjectContentDispatchProps);
+import { IProjectContentBaseProps, IProjectContentDispatchProps, IProjectContentProps,
+  IProjectContentStateProps } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectContentProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
