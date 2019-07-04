@@ -55,10 +55,12 @@ export interface IHeader {
   align?: DataAlignType;
   dataField: string;
   header: string;
+  hidden?: boolean;
   isDate: boolean;
   isStatus: boolean;
   width?: string;
   wrapped?: boolean;
+
   deleteFunction?(arg1: { [key: string]: string } | undefined): void;
 }
 
@@ -132,6 +134,7 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
       }
       formatExtraData={key}
       dataSort={true}
+      hidden={key.hidden}
       key={index}
       tdStyle={{
        textAlign: key.align,

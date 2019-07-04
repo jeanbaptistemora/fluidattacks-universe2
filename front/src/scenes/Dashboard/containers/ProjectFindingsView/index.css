@@ -10,3 +10,11 @@
 :local .reportsBtn button {
   float: right !important;
 }
+
+:local .tableBtn button {
+  float: left !important;
+}
+
+:local .tableModalContainer{
+  text-align: center;
+}

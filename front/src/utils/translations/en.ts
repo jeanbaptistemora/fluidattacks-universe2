@@ -87,6 +87,10 @@ const enTranslations: dict = {
           + "the password is 15032019someone",
         tech_title: "Technical Reports",
       },
+      tableSet:  {
+        btn: "Table Setting",
+        modal_title: "Columns Filter",
+      },
     },
     tabs: {
       comments: "Comments",
