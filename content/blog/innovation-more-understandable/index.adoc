@@ -1,6 +1,6 @@
 :slug: innovation-more-understandable/
 :date: 2019-06-18
-:subtitle: An interview with Nicolás A. CISO at Corona. Part I.
+:subtitle: "We make innovation more understandable, more wordly."
 :category: interview
 :tags: interview, machine learning
 :image: cover.png
@@ -14,7 +14,7 @@
 :about2: Data scientist in training.!
 
 
-= “Innovation more understandable”
+= Innovation more understandable
 
 == Our guest
 
@@ -25,8 +25,6 @@ dedicated to manufacturing ceramics for home improvement, construction,
 industry, agriculture, and energy markets.
 Corona has 20 production plants in Colombia, 3 in the US, 3 in México
 and 3 in Central America.
-Since Nicolás joined Corona,
-we’ve been fortunate to have such a great customer.
 
 == AI in cybersecurity
 
@@ -96,8 +94,8 @@ It should be feasible to deploy an +AI+ practical application
 to better support our cybersecurity operations.
 
 {nbsp}{nbsp}{nbsp}{nbsp}We trust on partners like *Fluid Attacks*,
-which are doing novel work at industry-level (although not yet on +AI+).
-*Fluid Attacks* invest resources in exploring and testing
+which are doing novel work at industry-level.
+*Fluid Attacks* invests resources in exploring and testing
 with stuff others don’t.
 Fluid Attacks’ link:../../pages/services/continuous-hacking/[Hacking]
 services are proof of that.
@@ -180,7 +178,7 @@ And we won Corona’s innovation prize, the Prisma award.
 We now identify some cybersecurity anomalies in 1.5 hours or 2.
 Before, we knew about breaches two days after incidents.
 We can now contain attacks when they are occurring.
-We even detected *Fluid Attacks* for the first time doing their job
+For example, for the first time, we could detect *Fluid Attacks*
 in our most recent ethical hacking project.
 
 {nbsp}{nbsp}{nbsp}{nbsp}We will post the second part soon,
