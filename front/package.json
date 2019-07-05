@@ -113,7 +113,8 @@
     "@types/node-fetch": "2.3.7",
     "isomorphic-fetch": "2.2.1",
     "@types/isomorphic-fetch": "0.0.35",
-    "jest-canvas-mock": "2.1.0"
+    "jest-canvas-mock": "2.1.0",
+    "set-value": "3.0.1"
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
