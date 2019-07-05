@@ -134,7 +134,8 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
       }
       formatExtraData={key}
       dataSort={true}
-      hidden={key.hidden}
+      hidden={
+        (key.hidden) === undefined ? key.hidden : !key.hidden}
       key={index}
       tdStyle={{
        textAlign: key.align,

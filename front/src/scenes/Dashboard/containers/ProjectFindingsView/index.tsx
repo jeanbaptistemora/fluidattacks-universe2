@@ -5,9 +5,9 @@
  */
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
-import React from "react";
+import React, { useState } from "react";
 import { Query, QueryResult } from "react-apollo";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { ButtonToolbar, Checkbox, Col, Glyphicon, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button";
@@ -23,22 +23,6 @@ import { GET_FINDINGS } from "./queries";
 import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
   IProjectFindingsStateProps } from "./types";
 
-const tableHeaders: IHeader[] = [
-  { align: "center", dataField: "age", header: "Age (days)", isDate: false, isStatus: false, width: "5%" },
-  { align: "center", dataField: "lastVulnerability", header: "Last report (days)", isDate: false, isStatus: false,
-    width: "5%"},
-  { align: "center", dataField: "title", header: "Title", isDate: false, isStatus: false, wrapped: true, width: "11%" },
-  { align: "center", dataField: "description", header: "Description", isDate: false, isStatus: false, width: "16%",
-    wrapped: true},
-  { align: "center", dataField: "severityScore", header: "Severity", isDate: false, isStatus: false, width: "6%" },
-  { align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", isDate: false, isStatus: false,
-    width: "6%"},
-  { align: "center", dataField: "state", header: "Status", isDate: false, isStatus: true, width: "7%" },
-  { align: "center", dataField: "treatment", header: "Treatment", isDate: false, isStatus: false, width: "8%" },
-  { align: "center", dataField: "remediated", header: "Remediated", isDate: false, isStatus: false, width: "8%" },
-  {align: "center", dataField: "isExploitable", header: "Exploitable", isDate: false, isStatus: false, width: "8%"},
-];
-
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
 
@@ -50,6 +34,47 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const handleTechXlsClick: (() => void) = (): void => {
     window.open(`/integrates/xls/en/project/${projectName}`, "_blank");
   };
+
+  const tableSetStorage: (string | null) = localStorage.getItem("tableSet");
+
+  const [checkedItems, setCheckedItems] = tableSetStorage !== null ? useState(JSON.parse(tableSetStorage)) :
+    useState({
+    age: false,
+    description: true,
+    isExploitable: true,
+    lastVulnerability: true,
+    openVulnerabilities: true,
+    remediated: false,
+    severityScore: true,
+    state: true,
+    title: true,
+    treatment: true,
+  });
+
+  const handleChange: (event: React.FormEvent<Checkbox>) => void = (event: React.FormEvent<Checkbox>): void => {
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    setCheckedItems({
+      ...checkedItems,
+      [target.name]: target.checked,
+    });
+  };
+
+  const [hidden, setHidden] = useState(false);
+
+  const handleOpenTableSetClick: () => void = (): void => {
+    setHidden(true);
+  };
+
+  const handleCloseTableSetClick: () => void = (): void => {
+    localStorage.setItem("tableSet", JSON.stringify(checkedItems));
+    setHidden(false);
+  };
+
+  const tableModalFooter: JSX.Element = (
+    <ButtonToolbar className="pull-right">
+      <Button onClick={handleCloseTableSetClick}>{translate.t("project.findings.report.modal_close")}</Button>
+    </ButtonToolbar>
+  );
 
   const modalFooter: JSX.Element = (
     <ButtonToolbar className="pull-right">
@@ -77,6 +102,50 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     hidePreloader();
   };
 
+  const tableHeaders: IHeader[] = [
+    {
+      align: "center", dataField: "age", header: "Age (days)", hidden: checkedItems.age,
+      isDate: false, isStatus: false, width: "5%",
+    },
+    {
+      align: "center", dataField: "lastVulnerability", header: "Last report (days)",
+      hidden: checkedItems.lastVulnerability, isDate: false, isStatus: false,
+      width: "5%",
+    },
+    {
+      align: "center", dataField: "title", header: "Title", hidden: checkedItems.title,
+      isDate: false, isStatus: false, width: "11%", wrapped: true,
+    },
+    {
+      align: "center", dataField: "description", header: "Description", hidden: checkedItems.description,
+      isDate: false, isStatus: false, width: "16%", wrapped: true,
+    },
+    {
+      align: "center", dataField: "severityScore", header: "Severity", hidden: checkedItems.severityScore,
+      isDate: false, isStatus: false, width: "6%",
+    },
+    {
+      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.",
+      hidden: checkedItems.openVulnerabilities, isDate: false, isStatus: false, width: "6%",
+    },
+    {
+      align: "center", dataField: "state", header: "Status", hidden: checkedItems.state, isDate: false,
+      isStatus: true, width: "7%",
+    },
+    {
+      align: "center", dataField: "treatment", header: "Treatment", hidden: checkedItems.treatment,
+      isDate: false, isStatus: false, width: "8%",
+    },
+    {
+      align: "center", dataField: "remediated", header: "Remediated", hidden: checkedItems.remediated,
+      isDate: false, isStatus: false, width: "8%",
+    },
+    {
+      align: "center", dataField: "isExploitable", header: "Exploitable", hidden: checkedItems.isExploitable,
+      isDate: false, isStatus: false, width: "8%",
+    },
+  ];
+
   return (
     <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
@@ -96,9 +165,23 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
             return (
               <React.StrictMode>
-                <ButtonToolbar className={style.reportsBtn}>
-                  <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
-                </ButtonToolbar>
+                <Row>
+                  <Col md={12} >
+                      <Col mdOffset={2} md={4} sm={6}>
+                        <ButtonToolbar className={style.tableBtn}>
+                          <Button onClick={handleOpenTableSetClick}>
+                            <Glyphicon glyph="glyphicon glyphicon-cog" />&nbsp;
+                            {translate.t("project.findings.tableSet.btn")}
+                          </Button>
+                        </ButtonToolbar>
+                      </Col>
+                    <Col  md={3} sm={6}>
+                      <ButtonToolbar className={style.reportsBtn}>
+                        <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
+                      </ButtonToolbar>
+                    </Col>
+                  </Col>
+                </Row>
                 <p>{translate.t("project.findings.help_label")}</p>
                 <DataTable
                   dataset={formatFindings(data.project.findings)}
@@ -110,6 +193,24 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   pageSize={15}
                   search={true}
                 />
+                <Modal
+                  open={hidden}
+                  footer={tableModalFooter}
+                  headerTitle={translate.t("project.findings.tableSet.modal_title")}
+                >
+                  <Col mdOffset={5} className={style.tableModalContainer}>
+                    {tableHeaders.map((item: IHeader) => (
+                      <div>
+                        <Checkbox
+                          name={item.dataField}
+                          checked={item.hidden}
+                          onChange={handleChange}
+                        >{item.header}
+                        </Checkbox>
+                      </div>
+                    ))}
+                  </Col>
+                </Modal>
                 <Modal
                   open={props.reportsModal.isOpen}
                   footer={modalFooter}

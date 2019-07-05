@@ -8,13 +8,14 @@
 }
 
 :local .reportsBtn button {
-  float: right !important;
-}
-
-:local .tableBtn button {
   float: left !important;
 }
 
-:local .tableModalContainer{
-  text-align: center;
+:local .tableBtn button {
+  float: right !important;
+  
+}
+
+:local .tableModalContainer {
+  text-align: left;
 }

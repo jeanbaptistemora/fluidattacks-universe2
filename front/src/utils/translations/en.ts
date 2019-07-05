@@ -88,7 +88,7 @@ const enTranslations: dict = {
         tech_title: "Technical Reports",
       },
       tableSet:  {
-        btn: "Table Setting",
+        btn: "Table settings",
         modal_title: "Columns Filter",
       },
     },
