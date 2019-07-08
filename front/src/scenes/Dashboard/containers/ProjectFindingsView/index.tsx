@@ -49,6 +49,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     state: true,
     title: true,
     treatment: true,
+    where: false,
   });
 
   const handleChange: (event: React.FormEvent<Checkbox>) => void = (event: React.FormEvent<Checkbox>): void => {
@@ -142,6 +143,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     },
     {
       align: "center", dataField: "isExploitable", header: "Exploitable", hidden: checkedItems.isExploitable,
+      isDate: false, isStatus: false, width: "8%",
+    },
+    {
+      align: "center", dataField: "where", header: "Where", hidden: checkedItems.where,
       isDate: false, isStatus: false, width: "8%",
     },
   ];

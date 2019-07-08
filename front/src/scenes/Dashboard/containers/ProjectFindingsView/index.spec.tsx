@@ -59,6 +59,7 @@ describe("ProjectFindingsView", () => {
               title: "FIN.S.0038. Fuga de informaci\u00f3n de negocio",
               treatment: "IN PROGRESS",
               type: "SECURITY",
+              where: "This is a test where",
             }],
           },
         },

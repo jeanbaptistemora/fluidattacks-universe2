@@ -43,25 +43,29 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         resp = finding_vulnerabilities(finding_id)
 
         if resp:
+            list_where = set()
             self.id = finding_id  # noqa pylint: disable=invalid-name
             self.project_name = resp.get('projectName')
             self.release_date = resp.get('releaseDate', '')
             vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
             if vulnerabilities:
-                self.vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
+                self.vulnerabilities = [Vulnerability(vuln) for vuln in vulnerabilities]
                 open_vulnerabilities = \
-                    [i for i in self.vulnerabilities if i.current_state == 'open']
+                    [vuln for vuln in self.vulnerabilities if vuln.current_state == 'open']
                 self.open_vulnerabilities = len(open_vulnerabilities)
                 closed_vulnerabilities = \
-                    [i for i in self.vulnerabilities if i.current_state == 'closed']
+                    [vuln for vuln in self.vulnerabilities if vuln.current_state == 'closed']
                 self.closed_vulnerabilities = len(closed_vulnerabilities)
                 self.success = True
+                list_where = {str(unicode(vuln.where)) for vuln in self.vulnerabilities}
+                self.where = ', '.join(list_where)
             else:
                 vuln_info = \
                     {'finding_id': self.id, 'vuln_type': 'old',
                      'where': resp.get('where')}
                 self.vulnerabilities = [Vulnerability(vuln_info)]
                 self.success = True
+                self.where = ''
 
             if 'fileRecords' in resp.keys():
                 self.records = get_records_from_file(self, resp['fileRecords'])
@@ -179,6 +183,11 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         if state:
             vuln_filtered = [i for i in vuln_filtered if i.current_state == state]
         return vuln_filtered
+
+    def resolve_where(self, info):
+        """resolve Where attribute."""
+        del info
+        return self.where
 
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""

@@ -25,6 +25,7 @@ export interface IProjectFindingsAttr {
       title: string;
       treatment: string;
       type: string;
+      where: string;
     }>;
   };
 }
