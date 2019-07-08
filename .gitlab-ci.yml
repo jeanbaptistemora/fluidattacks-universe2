@@ -71,6 +71,7 @@ stages:
 .except_analytics: &except_analytics
   except:
     variables:
+      - $FLAG_REFRESH_TOKENS
       - $FLAG_CONT_MS_SQL_SERVER
       - $FLAG_SYNC_CURRENCIES
       - $FLAG_SYNC_FORMSTACK
@@ -562,3 +563,14 @@ sync_intercom:
   only:
     variables:
       - $FLAG_SYNC_INTERCOM
+
+
+refresh_tokens:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - ./analytics/auth_helper.py --timedoctor-refresh
+  <<: *only_schedules
+  only:
+    variables:
+      - $FLAG_REFRESH_TOKENS

@@ -55,6 +55,7 @@ RUN apt-get update \
         prospector[with_everything]==1.1.6.2 \
         requests==2.20.1 \
         selenium==3.141.0 \
+        urllib3== 1.25.3 \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \
