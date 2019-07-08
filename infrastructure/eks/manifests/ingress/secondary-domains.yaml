@@ -14,7 +14,6 @@ metadata:
       fluidattacks.co www.fluidattacks.co
       fluidattacks.com.co www.fluidattacks.com.co
       fluidattacks.io www.fluidattacks.io
-      web.fluidattacks.com
     nginx.ingress.kubernetes.io/configuration-snippet: |
       location ~* /(.*) {
         return 308 https://fluidattacks.com/$1;
@@ -30,7 +29,6 @@ spec:
     - fluidattacks.co
     - fluidattacks.com.co
     - fluidattacks.io
-    - web.fluidattacks.com
     secretName: secondary-domains-cert
   rules:
   - host: fluid.la
