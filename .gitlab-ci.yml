@@ -119,7 +119,7 @@ review-web:
     - ./review/cluster-config.sh
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
-    url: https://${CI_PROJECT_NAME}.${ENV_DNS}/${CI_COMMIT_REF_SLUG}/web/en/
+    url: https://${CI_PROJECT_NAME}.${ENV_DNS}/${CI_COMMIT_REF_SLUG}/web/
     on_stop: stop-review
   except:
     - master

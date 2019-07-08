@@ -88,6 +88,4 @@ The audience limit are +30+ assistants.
 
 == 8. Speakers
 
-* [button]#link:../../people/acuberos[Andrés Cuberos]#
-
 * [button]#link:../../people/jarmas[Jonathan Armas]#

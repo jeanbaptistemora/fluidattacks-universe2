@@ -153,12 +153,16 @@ link:https://www.biva.mx/en/web/portal-biva/home[+BIVA+],
 link:http://www.cadena.com.co/es/home.aspx[+Cadena+],
 link:http://cidenet.com.co/[+Cidenet+],
 link:http://www.cognox.co[+Cognox+],
+link:https://www.corona.co/[+Corona+]
 link:http://www.eafit.edu.co/[+EAFIT+],
+link:https://evendidigital.com/[+Evendi Digital+],
 link:https://www.f2x.com.co/[+F2X+], link:http://www.gco.com.co/[+GCO+],
 link:https://www.grupoexito.com.co/es/[+Grupo Éxito+],
 link:https://www.kometsales.com/[+Komet Sales+],
-link:https://www.payvalida.com/co/es/[+Pay valida+]
-y link:http://www.techandsolve.com/[+Tech and Solve+].
+link:https://www.payvalida.com/co/es/[+Pay valida+],
+link:https://www.proteccion.com/wps/portal/proteccion/[+Protección+],
+link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[+Seti+]
+and link:http://www.techandsolve.com/[+Tech and Solve+].
 
 == 4. Where?
 
@@ -219,5 +223,4 @@ besides +4+ additional assistants on +Fluid Attacks+ side.
 
 * [button]#link:../../people/jrestrepo/[Juan Restrepo]#
 * [button]#link:../../people/ralvarez/[Rafael Álvarez]#
-* [button]#link:../../people/acuberos/[Andrés Cuberos]#
 * [button]#link:../../people/dsalazar/[Daniel Salazar]#
