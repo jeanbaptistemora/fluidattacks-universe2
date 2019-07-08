@@ -26,6 +26,7 @@ spec:
   - fluidattacks.co
   - fluidattacks.com.co
   - fluidattacks.io
+  - web.fluidattacks.com
   - www.fluidsignal.com.co
   - www.fluidsignal.co
   - www.fluidsignal.com
@@ -47,6 +48,7 @@ spec:
       - fluidattacks.co
       - fluidattacks.com.co
       - fluidattacks.io
+      - web.fluidattacks.com
       - www.fluidsignal.com.co
       - www.fluidsignal.co
       - www.fluidsignal.com
