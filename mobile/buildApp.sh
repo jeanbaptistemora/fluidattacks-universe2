@@ -38,7 +38,7 @@ echo "Building iOS .ipa ..."
 export EXPO_APPLE_PASSWORD="$FI_APPLE_PASSWORD"
 export EXPO_IOS_DIST_P12_PASSWORD="$FI_APPLE_DIST_CERT_PASSWORD"
 aws s3 cp "$FI_APPLE_DIST_CERT_URL" ios_dist_cert.p12
-aws s3 cp "$FI_APPLE_APS_CERT_URL" aps_cert.p12
+aws s3 cp "$FI_APPLE_APNS_CERT_URL" apns_cert.p8
 aws s3 cp "$FI_APPLE_PROV_PROFILE_URL" prov_profile.mobileprovision
 
 npx expo build:ios \
@@ -46,7 +46,7 @@ npx expo build:ios \
   --apple-id "$FI_APPLE_ID" \
   --release-channel "$DEVELOPER_ENV" \
   --dist-p12-path ./ios_dist_cert.p12 \
-  --push-p8-path ./aps_cert.p12 \
+  --push-p8-path ./apns_cert.p8 \
   --provisioning-profile-path ./prov_profile.mobileprovision \
   --push-id "$FI_APPLE_PUSH_ID" \
   --output output/integrates.ipa
@@ -56,4 +56,4 @@ wget -O output/integrates.ipa "$(npx expo url:ipa)"
 # Cleanup
 echo "Build done, cleaning up..."
 npx expo logout
-rm keystore-dev.jks ios_dist_cert.p12 aps_cert.p12 prov_profile.mobileprovision google-services.json
+rm keystore-dev.jks ios_dist_cert.p12 apns_cert.p8 prov_profile.mobileprovision google-services.json
