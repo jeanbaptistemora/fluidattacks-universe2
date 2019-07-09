@@ -23,18 +23,13 @@ def standard_name(name: str) -> str:
 
     Puts exactly one space between words.
     """
-
     return " ".join(name.split())
 
 
 def get_users_list(timedoctor_users_str: str) -> List[Tuple[str, str]]:
-    """Parses the users response into a list of users.
-    """
-
+    """Parse the users response into a list of users."""
     def parse(user: JSON) -> Tuple[str, str]:
-        """Parses the user information from the raw response.
-        """
-
+        """Parse the user information from the raw response."""
         user_id: str = str(user["user_id"])
         user_name: str = standard_name(user["full_name"])
         return (user_id, user_name)
@@ -45,9 +40,7 @@ def get_users_list(timedoctor_users_str: str) -> List[Tuple[str, str]]:
 
 
 def ensure_200(status_code: int) -> None:
-    """Ensure status_code 200 or exit.
-    """
-
+    """Ensure status_code 200 or exit."""
     if not status_code == 200:
         print(f"INFO: Timedoctor API, ERROR {status_code}")
         print(f"          The service is probably down.")
@@ -55,19 +48,19 @@ def ensure_200(status_code: int) -> None:
         exit(1)
 
 
-def translate_date(date_str: str) -> str:
-    """Translates a date-time value to RFC3339 format.
-    """
-
-    if re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}\.\d+", date_str):
-        date_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S.%f")
-    elif re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}", date_str):
-        date_obj = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+def translate_date(date_obj: Any) -> str:
+    """Translate a date-time value to RFC3339 format."""
+    date_obj = str(date_obj)
+    if re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}\.\d+", date_obj):
+        date_obj = datetime.datetime.strptime(date_obj, "%Y-%m-%d %H:%M:%S.%f")
+    elif re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}", date_obj):
+        date_obj = datetime.datetime.strptime(date_obj, "%Y-%m-%d %H:%M:%S")
+    elif isinstance(date_obj, (int, float)):
+        date_obj = datetime.datetime.utcfromtimestamp(date_obj)
     else:
         date_obj = datetime.datetime(1900, 1, 1, 0, 0, 0)
 
-    date_str = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
-    return date_str
+    return date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def sync_worklogs(api_worker, company_id: str) -> None:
@@ -75,11 +68,8 @@ def sync_worklogs(api_worker, company_id: str) -> None:
 
     https://webapi.timedoctor.com/doc#worklogs
     """
-
     def write_schema() -> None:
-        """Writes the schema for this table.
-        """
-
+        """Write the schema for this table."""
         schema: JSON = {
             "type": "SCHEMA",
             "stream": "worklogs",
@@ -105,9 +95,7 @@ def sync_worklogs(api_worker, company_id: str) -> None:
         logs.stdout_json_obj(schema)
 
     def write_records() -> None:
-        """Writes the records for this table.
-        """
-
+        """Write the records for this table."""
         def translate_work_mode(work_mode: str) -> str:
             work_mode_map: JSON = {
                 "0": "online",
@@ -183,14 +171,12 @@ def sync_computer_activity(
         api_worker,
         company_id: str,
         users_list: List[Tuple[str, str]]) -> None:
-    """API version 1.1.
+    """Sync computer activity using API version 1.1.
 
     https://webapi.timedoctor.com/doc#screenshots
     """
-
     def write_schema() -> None:
-        """Writes the schema for this table """
-
+        """Write the schema for this table."""
         schema: JSON = {
             "type": "SCHEMA",
             "stream": "computer_activity",
@@ -221,13 +207,9 @@ def sync_computer_activity(
         logs.stdout_json_obj(schema)
 
     def write_records(user_id: str, user_name: str) -> None:
-        """Write the records for this table.
-        """
-
+        """Write the records for this table."""
         def sass(obj: JSON, keys: List[str], default: Any) -> Any:
-            """Safely get the nested value after accessing a dict sucessively.
-            """
-
+            """Safely get the nested value after accessing a dict."""
             for key in keys:
                 obj = obj.get(key, None) if isinstance(obj, dict) else obj
             return default if obj is None else obj
@@ -235,22 +217,26 @@ def sync_computer_activity(
         (status_code, response) = api_worker.get_computer_activity(
             company_id, user_id)
         ensure_200(status_code)
+
         response_obj: JSON = json.loads(response)
 
         logs.log_json_obj("computer_activity", response_obj)
 
-        computer_activity = response_obj[0]["screenshots"]
+        # There is only one item in response
+        computer_activity = response_obj[0].get('screenshots', [])
+        if computer_activity:
+            computer_activity = computer_activity.get('screenshots', [])
 
         for record in computer_activity:
             stdout_json_obj: JSON = {
                 "type": "RECORD",
                 "stream": "computer_activity",
                 "record": {
-                    "uuid": record["id"]["uuid"],
-                    "date": translate_date(record["date"]["date"]),
+                    "uuid": record["uuid"],
+                    "date": translate_date(record["date"]),
 
                     "task_id": str(record["task_id"]),
-                    "project_id": record["project_id"],
+                    "project_id": record["project_name"],
 
                     "user_id": user_id,
                     "user_name": user_name,
@@ -286,9 +272,7 @@ def sync_computer_activity(
 
 
 def main():
-    """Usual entry point.
-    """
-
+    """Usual entry point."""
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument(

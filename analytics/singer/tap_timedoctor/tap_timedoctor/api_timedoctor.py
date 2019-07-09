@@ -1,5 +1,4 @@
-"""TimeDoctor API wrapper.
-"""
+"""TimeDoctor API wrapper."""
 
 import time
 import urllib.error
@@ -7,9 +6,7 @@ import urllib.request
 
 
 def current_timestamp(offset=0.0):
-    """Returns the current timestamp.
-    """
-
+    """Return the current timestamp."""
     return time.time() + offset
 
 
@@ -27,22 +24,16 @@ class Worker():
         self.last_request_timestamp = current_timestamp()
 
     def sslr(self):
-        """Seconds since last request.
-        """
-
+        """Number of seconds since last request."""
         return current_timestamp() - self.last_request_timestamp
 
     def wait(self):
-        """Wait until we can make another request to the API.
-        """
-
+        """Wait until we can make another request to the API."""
         time.sleep(max(self.min_sslr - self.sslr(), 0.0))
         self.last_request_timestamp = current_timestamp()
 
     def request(self, resource):
-        """Makes a request to the API.
-        """
-
+        """Make a request to the API."""
         response = None
         status_code = None
 
@@ -70,23 +61,17 @@ class Worker():
         return (status_code, response)
 
     def get_companies(self):
-        """Return the account info of the access_token owner.
-        """
-
+        """Return the account info of the access_token owner."""
         resource = f"{self.url}/v1.1/companies"
         return self.request(resource)
 
     def get_users(self, company_id):
-        """Return a collection of user(s) under the given company_id.
-        """
-
+        """Return a collection of user(s) under the given company_id."""
         resource = f"{self.url}/v1.1/companies/{company_id}/users"
         return self.request(resource)
 
     def get_worklogs(self, company_id, limit, offset):
-        """Return a collection of users worklogs under the given company id.
-        """
-
+        """Return a collection of users worklogs under the given company id."""
         resource = (
             f"{self.url}/v1.1/companies/{company_id}/worklogs"
 
@@ -104,9 +89,7 @@ class Worker():
         return self.request(resource)
 
     def get_computer_activity(self, company_id, user_id):
-        """Returns screenshots, keystrokes, mouse activities for a user_id.
-        """
-
+        """Return screenshots, keystrokes, mouse activities for a user_id."""
         resource = (
             f"{self.url}/v1.1/companies/{company_id}/screenshots"
             f"?start_date=2019-01-01&end_date=2999-12-31"
