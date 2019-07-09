@@ -57,8 +57,8 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
                     [vuln for vuln in self.vulnerabilities if vuln.current_state == 'closed']
                 self.closed_vulnerabilities = len(closed_vulnerabilities)
                 self.success = True
-                list_where = {str(unicode(vuln.where)) for vuln in self.vulnerabilities}
-                self.where = ', '.join(list_where)
+                list_where = {vuln.where for vuln in self.vulnerabilities}
+                self.where = u', '.join(list_where).encode('utf-8')
             else:
                 vuln_info = \
                     {'finding_id': self.id, 'vuln_type': 'old',
