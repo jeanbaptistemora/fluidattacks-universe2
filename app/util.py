@@ -2,11 +2,11 @@
 """ FluidIntegrates auxiliar functions. """
 from __future__ import absolute_import
 import collections
+from datetime import datetime
 import hashlib
 import logging
 import logging.config
 import re
-import datetime
 import pytz
 import rollbar
 
@@ -171,7 +171,7 @@ def has_release(finding):
 def get_last_vuln(finding):
     """Gets last release of a finding"""
     tzn = pytz.timezone(settings.TIME_ZONE)
-    finding_last_vuln = datetime.datetime.strptime(
+    finding_last_vuln = datetime.strptime(
         finding["releaseDate"].split(" ")[0],
         '%Y-%m-%d'
     )
@@ -184,7 +184,7 @@ def validate_release_date(finding):
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
         tzn = pytz.timezone(settings.TIME_ZONE)
-        today_day = datetime.datetime.now(tz=tzn).date()
+        today_day = datetime.now(tz=tzn).date()
         result = last_vuln <= today_day
     else:
         result = False
@@ -196,7 +196,7 @@ def validate_future_releases(finding):
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
         tzn = pytz.timezone(settings.TIME_ZONE)
-        today_day = datetime.datetime.now(tz=tzn).date()
+        today_day = datetime.now(tz=tzn).date()
         result = last_vuln > today_day
     else:
         result = False
@@ -317,3 +317,10 @@ def is_valid_file_name(name):
     """ Verify that filename has valid characters. """
     is_valid = bool(re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name)))
     return is_valid
+
+
+def format_comment_date(date_string):
+    date = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
+    date = date.strftime('%Y/%m/%d %H:%M:%S')
+
+    return date

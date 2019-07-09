@@ -1,8 +1,3 @@
-# pylint: disable=F0401
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
-
 from __future__ import absolute_import, division
 import io
 import re
@@ -31,16 +26,16 @@ from app.utils import cvss, forms as forms_utils, notifications
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
-from app.entity.vulnerability import Vulnerability
+from app.domain.vulnerability import update_vulnerabilities_date
 from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date
 )
+from app.entity.vulnerability import Vulnerability
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
 )
-from .vulnerability import update_vulnerabilities_date
 
 CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -287,22 +282,18 @@ def migrate_evidence_description(finding):
 
 
 def list_comments(user_email, comment_type, finding_id):
-    comments = list(map(lambda comment: {
+    comments = [{
         'content': comment['content'],
-        'created': comment['created'],
+        'created': util.format_comment_date(comment['created']),
         'created_by_current_user': comment['email'] == user_email,
         'email': comment['email'],
         'fullname': comment['fullname'],
         'id': int(comment['user_id']),
-        'modified': comment['modified'],
+        'modified': util.format_comment_date(comment['modified']),
         'parent': int(comment['parent'])
-    }, integrates_dao.get_comments_dynamo(int(finding_id), comment_type)))
+    } for comment in integrates_dao.get_comments_dynamo(int(finding_id), comment_type)]
 
     return comments
-
-
-def comment_has_parent(parent):
-    return parent != '0'
 
 
 def get_email_recipients(project_name, comment_type):

@@ -1,9 +1,6 @@
 """ GraphQL Entity for Formstack Projects """
 # pylint: disable=super-init-not-called
 # pylint: disable=no-self-use
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
 from __future__ import absolute_import
 from datetime import datetime
 import time
@@ -19,16 +16,16 @@ from app import util
 from app.decorators import require_role, require_login, require_project_access_gql
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
-    get_pending_closing_check, get_max_severity, get_drafts
+    get_pending_closing_check, get_max_severity, get_drafts, list_comments
 )
 from app.dao import integrates_dao, project as redshift_dao
 from app.decorators import get_entity_cache
 from app.entity.finding import Finding
 from app.entity.user import User
-from ..exceptions import InvalidProject
+from app.exceptions import InvalidProject
 
 
-class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
+class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """Formstack Project Class."""
 
     name = String()
@@ -229,21 +226,9 @@ class Project(ObjectType): # noqa pylint: disable=too-many-instance-attributes
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_comments(self, info):
-        comments = integrates_dao.get_project_comments_dynamo(self.name)
-
-        for comment in comments:
-            comment_data = {
-                'content': comment['content'],
-                'created': comment['created'],
-                'created_by_current_user':
-                    comment['email'] == util.get_jwt_content(info.context)["user_email"],
-                'email': comment['email'],
-                'fullname': comment['fullname'],
-                'id': int(comment['user_id']),
-                'modified': comment['modified'],
-                'parent': int(comment['parent'])
-            }
-            self.comments.append(comment_data)
+        self.comments = list_comments(
+            user_email=util.get_jwt_content(info.context)['user_email'],
+            project_name=self.name)
 
         return self.comments
 
@@ -328,7 +313,7 @@ class AddProjectComment(Mutation):
             'created': current_time,
             'fullname':
                 str.join(' ', [info.context.session['first_name'],
-                         info.context.session['last_name']]),
+                               info.context.session['last_name']]),
             'modified': current_time,
             'parent': int(parameters.get('parent'))
         }

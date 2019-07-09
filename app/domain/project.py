@@ -1,5 +1,4 @@
 """Domain functions for projects."""
-# pylint: disable=F0401
 
 import threading
 import re
@@ -11,16 +10,12 @@ from django.conf import settings
 
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
-from app.mailer import send_mail_comment
 from app.dto.finding import (
     total_vulnerabilities
 )
 from app.dto import project as project_dto
-
-
-def comment_has_parent(comment_data):
-    """Check if a comment has a parent."""
-    return comment_data['parent'] != 0
+from app.mailer import send_mail_comment
+from app.util import format_comment_date
 
 
 def get_email_recipients(project_name):
@@ -294,3 +289,18 @@ def get_drafts(project_name):
             drafts.append(draft_id)
 
     return drafts
+
+
+def list_comments(user_email, project_name):
+    comments = [{
+        'content': comment['content'],
+        'created': format_comment_date(comment['created']),
+        'created_by_current_user': comment['email'] == user_email,
+        'email': comment['email'],
+        'fullname': comment['fullname'],
+        'id': int(comment['user_id']),
+        'modified': format_comment_date(comment['modified']),
+        'parent': int(comment['parent'])
+    } for comment in integrates_dao.get_project_comments_dynamo(project_name)]
+
+    return comments
