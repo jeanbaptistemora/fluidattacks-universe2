@@ -10,17 +10,6 @@
     "start": "expo start",
     "test": "tsc -p tsconfig.json && jest"
   },
-  "jest": {
-    "collectCoverage": true,
-    "coverageReporters": [
-      "text"
-    ],
-    "preset": "jest-expo",
-    "transformIgnorePatterns": [
-      "node_modules/?!(react-router-native)"
-    ],
-    "verbose": true
-  },
   "repository": {
     "type": "git",
     "url": "git+https://gitlab.com/fluidattacks/integrates.git"

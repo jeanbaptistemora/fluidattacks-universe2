@@ -26,6 +26,7 @@ env.list
 config/drive_client_secret.json
 .torus.json
 .vscode/
+
 # Rule for ignore non compiled js files over dashboard
 front/node_modules
 front/src/**/*.js
@@ -38,10 +39,22 @@ env-dev.vars
 local-test.sh
 local-linting.sh
 
+# mobile
+mobile/node_modules/**/*
+mobile/.expo/*
+mobile/npm-debug.*
+mobile/*.jks
+mobile/*.p12
+mobile/*.key
+mobile/*.mobileprovision
+mobile/google-services.json
+mobile/output/*
+
 #coverage output
 front/.nyc_output
 front/coverage.lcov
 front/coverage_results.txt
+front/coverage
 
 # npm
 package-lock.json

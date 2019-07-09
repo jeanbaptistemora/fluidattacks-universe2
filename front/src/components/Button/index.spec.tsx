@@ -5,25 +5,35 @@ import { Button } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
+describe("Button", (): void => {
 
-describe("Button", () => {
-
-  it("should return a fuction", () => {
+  it("should return a fuction", (): void => {
     expect(typeof (Button))
       .toEqual("function");
   });
 
-  it("should render a button", () => {
+  it("should render a button", (): void => {
+    const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
-      <Button
-        bsStyle="primary"
-        onClick={functionMock}
-      >
+      <Button bsStyle="primary" onClick={clickCallback}>
         Test
       </Button>,
     );
     expect(wrapper)
       .toHaveLength(1);
+  });
+
+  it("should be clickable", (): void => {
+    const clickCallback: jest.Mock = jest.fn();
+    const wrapper: ShallowWrapper = shallow(
+      <Button bsStyle="primary" onClick={clickCallback}>
+        Test
+      </Button>,
+    );
+
+    wrapper.find("Button")
+      .simulate("click");
+    expect(clickCallback.mock.calls.length)
+      .toEqual(1);
   });
 });

@@ -13,14 +13,12 @@
   },
   "dependencies": {
     "axios": "0.19.0",
-    "chai": "4.1.2",
-    "@types/chai": "4.1.4",
     "enzyme": "3.10.0",
-    "@types/enzyme": "3.9.3",
+    "@types/enzyme": "3.10.1",
     "enzyme-adapter-react-16": "1.14.0",
     "@types/enzyme-adapter-react-16": "1.0.5",
     "react-bootstrap": "0.32.4",
-    "@types/react-bootstrap": "0.32.18",
+    "@types/react-bootstrap": "0.32.19",
     "bootstrap": "4.3.1",
     "typed-css-modules": "0.3.5",
     "typesafe-actions": "2.0.4",
@@ -123,54 +121,5 @@
     "css": "tcm src/ --silent",
     "lint": "tslint -p tsconfig.json -t codeFrame",
     "test": "tsc -p tsconfig.json --noEmit && npm run css && ./runTests.sh"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx,js,jsx}",
-      "!**/node_modules/**",
-      "!**/*.d.ts",
-      "!src/**/*.spec.tsx"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "coverageDirectory": "coverage",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/*"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "identity-obj-proxy"
-    },
-    "testRegex": [
-      "(src/components/.*/index\\.spec\\.tsx)$",
-      "(src/scenes/Dashboard/.*/.*/index\\.spec\\.tsx)$",
-      "src/scenes/Dashboard/containers/ProjectUsersView/AddUserModal/index.spec.tsx",
-      "src/scenes/Login/containers/Access/index.spec.tsx",
-      "src/scenes/Registration/components/CompulsoryNotice/index.spec.tsx",
-      "src/scenes/Registration/containers/WelcomeView/index.spec.tsx",
-      "src/scenes/Dashboard/index.spec.tsx",
-      "src/utils/forms/index.spec.tsx",
-      "src/utils/index.spec.tsx"
-    ],
-    "preset": "ts-jest",
-    "setupFiles": [
-      "jest-canvas-mock"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/setup.ts"
-    ],
-    "verbose": true
   }
 }
