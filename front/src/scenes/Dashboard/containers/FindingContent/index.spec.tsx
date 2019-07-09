@@ -98,7 +98,7 @@ describe("FindingContent", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={mockError} addTypename={true}>
             <FindingContent {...mockProps} />
@@ -113,7 +113,7 @@ describe("FindingContent", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={true}>
             <FindingContent {...mockProps} />

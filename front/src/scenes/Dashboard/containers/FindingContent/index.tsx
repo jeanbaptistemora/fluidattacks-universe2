@@ -130,43 +130,64 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                 <FindingHeader {...props.header} />
                 <ul className={style.tabsContainer}>
                   <li id="infoItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/description`}>
+                    <NavLink
+                      activeClassName={style.active}
+                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/description`}
+                    >
                       <i className="icon pe-7s-note2" />
                       &nbsp;{translate.t("search_findings.tab_description.tab_title")}
                     </NavLink>
                   </li>
                   <li id="cssv2Item" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/severity`}>
+                    <NavLink
+                      activeClassName={style.active}
+                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/severity`}
+                    >
                       <i className="icon pe-7s-calculator" />
                       &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
                     </NavLink>
                   </li>
                   <li id="evidenceItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/evidence`}>
+                    <NavLink
+                      activeClassName={style.active}
+                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/evidence`}
+                    >
                       <i className="icon pe-7s-photo" />
                       &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
                     </NavLink>
                   </li>
                   <li id="exploitItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/exploit`}>
+                    <NavLink
+                      activeClassName={style.active}
+                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/exploit`}
+                    >
                       <i className="icon pe-7s-file" />
                       &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
                     </NavLink>
                   </li>
                   <li id="trackingItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/tracking`}>
+                    <NavLink
+                      activeClassName={style.active}
+                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/tracking`}
+                    >
                       <i className="icon pe-7s-graph1" />
                       &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
                     </NavLink>
                   </li>
                   <li id="recordsItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/records`}>
+                    <NavLink
+                      activeClassName={style.active}
+                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/records`}
+                    >
                       <i className="icon pe-7s-notebook" />
                       &nbsp;{translate.t("search_findings.tab_records.tab_title")}
                     </NavLink>
                   </li>
                   <li id="commentItem" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/comments`}>
+                    <NavLink
+                      activeClassName={style.active}
+                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/comments`}
+                    >
                       <i className="icon pe-7s-comment" />
                       &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
                     </NavLink>
@@ -174,7 +195,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
                   {_.includes(["admin", "analyst"], userRole) ?
                     <li id="observationsItem" className={style.tab}>
-                      <NavLink activeClassName={style.active} to={`/project/${projectName}/${findingId}/observations`}>
+                      <NavLink
+                        activeClassName={style.active}
+                        to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/observations`}
+                      >
                         <i className="icon pe-7s-note" />
                         &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
                       </NavLink>
@@ -185,15 +209,43 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
               <div className={style.tabContent}>
                 <Switch>
-                  <Route path="/project/:projectName/:findingId(\d+)/description" render={renderDescription} />
-                  <Route path="/project/:projectName/:findingId(\d+)/severity" render={renderSeverity} />
-                  <Route path="/project/:projectName/:findingId(\d+)/evidence" render={renderEvidence} />
-                  <Route path="/project/:projectName/:findingId(\d+)/exploit" render={renderExploit} />
-                  <Route path="/project/:projectName/:findingId(\d+)/tracking" render={renderTracking} />
-                  <Route path="/project/:projectName/:findingId(\d+)/records" render={renderRecords} />
-                  <Route path="/project/:projectName/:findingId(\d+)/comments" render={renderComments} />
-                  <Route path="/project/:projectName/:findingId(\d+)/observations" render={renderObservations} />
-                  <Redirect to="/project/:projectName/:findingId(\d+)/description" />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/description"
+                    render={renderDescription}
+                  />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/severity"
+                    render={renderSeverity}
+                  />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/evidence"
+                    render={renderEvidence}
+                  />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/exploit"
+                    render={renderExploit}
+                  />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/tracking"
+                    render={renderTracking}
+                  />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/records"
+                    render={renderRecords}
+                  />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/comments"
+                    render={renderComments}
+                  />
+                  <Route
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/observations"
+                    render={renderObservations}
+                  />
+                  <Redirect
+                    path="/project/:projectName/:findingId(\d+)/description"
+                    to={`/project/:projectName/${isDraft ? "draft" : "finding"}/:findingId(\d+)/description"`}
+                  />
+                  <Redirect to="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/description" />
                 </Switch>
               </div>
             </React.Fragment>

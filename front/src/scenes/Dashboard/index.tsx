@@ -52,7 +52,14 @@ const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Eleme
               <Route path="/forms" component={FormsView} />
               <Route path="/reports" component={ReportsView} />
               <Route path="/project/:projectName/(\w+)" exact={true} component={ProjectContent} />
-              <Route path="/project/:projectName/:findingId(\d+)/(\w+)" component={FindingContent} />
+              <Route
+                path="/project/:projectName/:typeOfFinding(\w+)/:findingId(\d+)/:tab(\w+)"
+                component={FindingContent}
+              />
+              <Redirect
+                path="/project/:projectName/:findingId(\d+)/:tab(\w+)"
+                to="/project/:projectName/findings/:findingId(\d+)/:tab(\w+)"
+              />
               <Redirect to="/home" />
             </Switch>
           </div>
