@@ -31,8 +31,8 @@ npx turtle build:android \
   --release-channel "$DEVELOPER_ENV" \
   --keystore-path ./keystore-dev.jks \
   --keystore-alias fluidintegrates-keystore \
-  --output output/integrates.apk \
-  --type apk
+  --output output/integrates.aab \
+  --type app-bundle
 
 echo "Building iOS .ipa ..."
 export EXPO_APPLE_PASSWORD="$FI_APPLE_PASSWORD"

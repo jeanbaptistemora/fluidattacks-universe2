@@ -29,19 +29,19 @@
     "expo-permissions": "5.0.1",
     "expo-secure-store": "5.0.1",
     "i18next": "17.0.6",
-    "lodash": "4.17.11",
+    "lodash": "4.17.14",
     "react": "16.8.3",
     "react-apollo": "2.5.8",
-    "react-i18next": "10.11.3",
+    "react-i18next": "10.11.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-paper": "2.16.0",
     "react-redux": "7.1.0",
     "react-router": "5.0.1",
     "react-router-native": "5.0.1",
     "recompose": "0.30.0",
-    "redux": "4.0.1",
+    "redux": "4.0.3",
     "redux-thunk": "2.3.0",
-    "rollbar": "2.7.1",
+    "rollbar": "2.8.1",
     "unfetch": "4.1.0"
   },
   "devDependencies": {
@@ -63,8 +63,8 @@
     "ts-jest": "24.0.2",
     "tslint": "5.18.0",
     "tslint-react": "4.0.0",
-    "turtle-cli": "0.8.6",
-    "typescript": "3.5.2",
+    "turtle-cli": "0.8.7",
+    "typescript": "3.5.3",
     "waait": "1.0.5"
   }
 }

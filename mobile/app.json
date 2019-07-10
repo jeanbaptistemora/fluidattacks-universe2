@@ -17,6 +17,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#272727"
     },
+    "notification": {
+      "color": "#fe3435",
+      "icon": "./assets/notification.png"
+    },
     "updates": {
       "checkAutomatically": "ON_LOAD",
       "enabled": true,

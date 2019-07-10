@@ -522,7 +522,7 @@ publish-mobile:
       )" > playstore-credentials.json
     - bundle install
     - bundle exec fastlane supply
-      --apk ./output/integrates.apk
+      --aab ./output/integrates.aab
       --json_key ./playstore-credentials.json
       --package_name "com.fluidattacks.integrates"
       --track "$MOBILE_RELEASE_CHANNEL"
