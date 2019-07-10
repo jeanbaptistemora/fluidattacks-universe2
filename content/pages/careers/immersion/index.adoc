@@ -6,27 +6,27 @@
 
 = Immersion
 
-At this stage of the process,
-we are just a few steps from finishing.
-This next step, for which you have been selected
-among more than +6000+ candidates,
-seeks to make you a part of
-an intensive self-training in programming and
-+hacking+ funded by +Fluid Attacks+,
-called *Immersion*.
+Welcome to *Immersion*.
+At this point,
+you have already been selected from among more than +6000+ candidates,
+and you have only a few more steps to go.
+*Immersion* is an intensive self-training involving a variety
+of assignments in +programming+ and +hacking+.
+*Immersion* is funded by +Fluid Attacks+.
 
 == 1. Philosophy
 
-The goal of this stage
-is for you to reach the highest levels of technical strength
-prior to the execution of real pentests
+Your goal in this stage is to reach the highest
+levels of technical proficiency before you execute real pentests
 on financial and telecommunications systems.
-This stage also aims to validate your human and
-teamwork skills.
+This stage also serves to substantiate your interpersonal
+communication and teamwork skills.
 
-Due to the extent of the process,
-+Fluid Attacks+, regardless of your progress in points and ranking,
-looks to give monetary compensation for the time invested.
+Because this is a lengthy and time-consuming process,
++Fluid Attacks+,
+regardless of your progress in points and ranking,
+provides monetary compensation for the time you invest
+in completing the assignments.
 
 == 2. Objectives
 
@@ -40,65 +40,68 @@ looks to give monetary compensation for the time invested.
 
 . All [button]#link:../technical-challenges/#terms[terms]#
 from the technical challenge stage apply.
-. You must report all the time spent
-using the assigned tool in automatic mode.
-. Training must begin at *7:00 AM*
+. Use the assigned tool in automatic mode
+to report all your work time.
+. Your training day begins at *7:00 AM*
 in +Fluid Attacks+ office.
-. You must send at least one +MR+ accepted into +master+
-or a standard progress report (when the +MR+ is rejected)
-before *6:00 PM* of the current day.
-. You can continue training and
-reporting time outside of the office in a place of your preference,
+. By *6:00 PM* of each training day,
+you must have sent at least one accepted-into-master +MR+,
+or a standard progress report if the +MR+ has been rejected.
+. You may then continue training and reporting your work time,
+done outside of the office,
+from a location of your choice,
 as long as you comply with the 2 previous rules.
-. If for some exceptional reason
-you can not complete the training in person,
-a weekly training schedule to do it remotely,
-must be established.
-. Training must be done using your own personal laptop.
-. Your daily dedication will be evaluated using a reference time
-of *48 hours/week*.
-. It is expected that you can dedicate every business day
-of the week in person at the company's facilities.
-. If for some personal or health issue
-it is not possible for you to go to the office
-to complete the challenges,
-that day no challenges are to be completed
-nor is training time reported with the assigned tool.
+. If for some exceptional reason,
+you are not able to complete the training in person,
+a weekly training schedule to work remotely,
+will be established.
+. Training must always be done using your own personal laptop.
+. Your daily dedication to your work
+will be evaluated based on a reference time of *48 hours/week*.
+. +Fluid Attacks+ expectation is that you will be present in person,
+at the company's office, each business day.
+. If for personal or health reasons,
+you are unable to come to work in person,
+you will not be allowed to complete any challenges or report any training time
+for that day.
 . On the third business day of each week,
-you must train at your maximum capacity and dedication possible.
+you are required to work at your maximum level of productivity and commitment.
 
 == 4. Criteria
 
 . For the challenges,
-the same [button]#link:../technical-challenges/#criteria[criteria]#
-from the challenge stage.
+use the same [button]#link:../technical-challenges/#criteria[criteria]#
+listed in the challenge stage.
 . For the articles,
-the criteria defined in the [button]#link:../../style/[style guide]#
+use the same criteria defined in the [button]#link:../../style/[style guide]#.
 
 == 5. Cycles
 
-. Training is done in weekly cycles or iterations.
+. Training is done in weekly cycles.
 . Initially, you are offered *one cycle* of training.
-. At the end of each cycle any of the following can happen:
+. At the end of each cycle, one of the following will happen:
 .. Nothing is notified,
 which implies the cycle is renewed *one more week*.
-.. Notify that we do not want to continue with another cycle and,
-therefore, terminate the process.
-.. Formally notify that we don’t want to continue with another cycle
-Because we want to advance to the next stage.
+.. You receive a notification
+that we do not want to continue with another cycle,
+which means we are terminating the training process.
+.. You receive a formal notification
+that we do not want to continue with another training
+cycle because we want you to advance to the next stage.
 . Usually *12 to 36 cycles* are required to finish this stage.
-.. This is merely an estimate,
-It depends entirely on your dedication and performance.
+.. This is an estimate,
+it depends entirely on your productivity,
+perseverance, and performance.
 
 == 6. Training sequence
 
-Hacking/Programming challenges and blog entries
-must be presented in the following order:
+Hacking, programming challenges, and blog entries
+must be completed in the following order:
 
 . Complete *five (5)* challenge cycles.
 
-.. A challenge cycle consists of the following steps,
-that you must complete in strict order:
+.. A challenge cycle consists of the following steps.
+Remember, these steps must be completed in the order listed below.
 
 ... *one (1)* approved +MR+ solving a +programming+ challenge in the
 link:https://gitlab.com/autonomicmind/training/[training repository],
