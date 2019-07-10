@@ -268,13 +268,13 @@ terraform-deploy:
   only:
     - master
 
-build-integrates:
+build-app:
   stage: build
   dependencies:
     - front-compiler
   <<: *kaniko_vault_config
   script:
-    - mv app/assets/dashboard deploy/containers/integrates
+    - mv app/assets/dashboard deploy/containers/app
     - MINUTES=$((
         ($(date +%d | sed 's/^0//') -1) * 1440 +
         $(date +%H | sed 's/^0//') * 60 +
@@ -295,8 +295,8 @@ build-integrates:
         --build-arg SSL_KEY="${FI_SSL_KEY}"
         --build-arg VERSION="${FI_VERSION}"
         --cleanup
-        --context "${CI_PROJECT_DIR}/deploy/containers/integrates/"
-        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/integrates/Dockerfile"
+        --context "${CI_PROJECT_DIR}/deploy/containers/app/"
+        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/app/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
         --single-snapshot
         --snapshotMode time
@@ -535,7 +535,7 @@ publish-mobile:
 new-version-mail:
   stage: post-deploy
   dependencies:
-    - build-integrates
+    - build-app
   <<: *vault_login
   script:
     - export DJANGO_SETTINGS_MODULE=fluidintegrates.settings
