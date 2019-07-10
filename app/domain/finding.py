@@ -455,8 +455,6 @@ def send_remediation_email(user_email, finding_id, finding_name,
                            project_name, justification):
     project_users = integrates_dao.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
-    recipients.append(FI_MAIL_CONTINUOUS)
-    recipients.append(FI_MAIL_PROJECTS)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
