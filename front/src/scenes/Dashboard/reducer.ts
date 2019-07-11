@@ -7,7 +7,6 @@ import * as eventDescriptionActions from "./containers/EventDescriptionView/acti
 import { IEventDescriptionViewProps } from "./containers/EventDescriptionView/index";
 import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
-import { IExploitViewProps } from "./containers/ExploitView";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as homeActions from "./containers/HomeView/actionTypes";
@@ -27,7 +26,10 @@ export interface IDashboardState {
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   eventDescription: Pick<IEventDescriptionViewProps, "isEditable" | "eventData" >;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
-  exploit: Pick<IExploitViewProps, "code" | "isEditing">;
+  exploit: {
+    code: string;
+    isEditing: boolean;
+  };
   finding: {
     alert?: string;
     closedVulns: number;

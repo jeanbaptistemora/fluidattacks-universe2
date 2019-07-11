@@ -19,7 +19,7 @@ import { IDashboardState } from "../../reducer";
 import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { evidenceView as EvidenceView } from "../EvidenceView/index";
-import { exploitView as ExploitView } from "../ExploitView/index";
+import { ExploitView } from "../ExploitView/index";
 import { recordsView as RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
@@ -54,10 +54,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   const renderEvidence: (() => JSX.Element) = (): JSX.Element => (
     <EvidenceView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
-  );
-
-  const renderExploit: (() => JSX.Element) = (): JSX.Element => (
-    <ExploitView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
   );
 
   const renderTracking: (() => JSX.Element) = (): JSX.Element => (
@@ -223,7 +219,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   />
                   <Route
                     path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/exploit"
-                    render={renderExploit}
+                    component={ExploitView}
                   />
                   <Route
                     path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/tracking"
