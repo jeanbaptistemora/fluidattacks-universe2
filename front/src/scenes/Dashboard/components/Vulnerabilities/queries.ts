@@ -28,6 +28,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     currentState
     id
     findingId
+    treatment
   }
   `;
 

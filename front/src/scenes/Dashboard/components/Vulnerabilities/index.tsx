@@ -87,6 +87,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         currentState: line[0].currentState,
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
           .toString() : groupValues(line.map(specificToNumber)),
+        treatment: line[0].treatment,
         vulnType: line[0].vulnType,
         where: line[0].where,
     }));
@@ -201,7 +202,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: "URL",
                       isDate: false,
                       isStatus: false,
-                      width: "70%",
+                      width: "60%",
                     },
                     {
                       align: "left" as DataAlignType,
@@ -209,7 +210,15 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: translate.t("search_findings.tab_description.field"),
                       isDate: false,
                       isStatus: false,
-                      width: "30%",
+                      width: "20%",
+                    },
+                    {
+                      align: "left" as DataAlignType,
+                      dataField: "treatment",
+                      header: translate.t("search_findings.tab_description.treatment.title"),
+                      isDate: false,
+                      isStatus: false,
+                      width: "20%",
                     }];
                   const linesHeader: IHeader[] = [
                     {
@@ -218,7 +227,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: translate.t("search_findings.tab_description.path"),
                       isDate: false,
                       isStatus: false,
-                      width: "70%",
+                      width: "60%",
                     },
                     {
                       align: "left" as DataAlignType,
@@ -226,7 +235,15 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: translate.t("search_findings.tab_description.line", {count: 1}),
                       isDate: false,
                       isStatus: false,
-                      width: "30%",
+                      width: "20%",
+                    },
+                    {
+                      align: "left" as DataAlignType,
+                      dataField: "treatment",
+                      header: translate.t("search_findings.tab_description.treatment.title"),
+                      isDate: false,
+                      isStatus: false,
+                      width: "20%",
                     }];
                   const portsHeader: IHeader[] = [
                     {
@@ -235,7 +252,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: "Host",
                       isDate: false,
                       isStatus: false,
-                      width: "70%",
+                      width: "60%",
                     },
                     {
                       align: "left" as DataAlignType,
@@ -243,7 +260,15 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: translate.t("search_findings.tab_description.port", {count: 1}),
                       isDate: false,
                       isStatus: false,
-                      width: "30%",
+                      width: "20%",
+                    },
+                    {
+                      align: "left" as DataAlignType,
+                      dataField: "treatment",
+                      header: translate.t("search_findings.tab_description.treatment.title"),
+                      isDate: false,
+                      isStatus: false,
+                      width: "20%",
                     }];
 
                   let formattedDataLines: IVulnsAttr["finding"]["linesVulns"] = dataLines;
