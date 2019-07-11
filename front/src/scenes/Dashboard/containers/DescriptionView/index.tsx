@@ -16,7 +16,7 @@ import { formValueSelector, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
-import ConfirmDialog from "../../../../components/ConfirmDialog";
+import { ConfirmDialog } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
@@ -98,9 +98,9 @@ const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
   const handleClick: (() => void) = (): void => { store.dispatch(openConfirmDialog("confirmVerify")); };
 
   return (
-      <Button bsStyle="warning" onClick={handleClick}>
-        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
-      </Button>
+    <Button bsStyle="warning" onClick={handleClick}>
+      <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
+    </Button>
   );
 };
 

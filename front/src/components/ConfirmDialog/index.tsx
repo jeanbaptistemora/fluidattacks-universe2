@@ -6,7 +6,7 @@
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { connect, ConnectedComponentClass, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Dispatch } from "redux";
 import { closeConfirmDialog, IActionStructure } from "../../scenes/Dashboard/actions";
 import { IDashboardState } from "../../scenes/Dashboard/reducer";
@@ -32,7 +32,7 @@ interface IConfirmDialogBaseProps {
 
 type IConfirmDialogProps = IConfirmDialogBaseProps & (IConfirmDialogStateProps & IConfirmDialogDispatchProps);
 
-const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
+export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
   const handleClose: (() => void) = (): void => { props.onClose(); };
   const handleProceed: (() => void) = (): void => {
     props.onProceed();
@@ -88,4 +88,6 @@ const mapDispatchToProps: MapDispatchToProps<IConfirmDialogDispatchProps, IConfi
     onClose: (): IActionStructure => dispatch(closeConfirmDialog(ownProps.name)),
   });
 
-export = connect(mapStateToProps, mapDispatchToProps)(confirmDialog);
+const connectedConfirmDialog: ConnectedComponentClass<React.FC<IConfirmDialogProps>, IConfirmDialogBaseProps>
+  = connect(mapStateToProps, mapDispatchToProps)(confirmDialog);
+export { connectedConfirmDialog as ConfirmDialog };

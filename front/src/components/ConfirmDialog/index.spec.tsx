@@ -1,32 +1,56 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import * as React from "react";
-import { Provider } from "react-redux";
-import store from "../../store/index";
-import ConfirmDialog from "./index";
+import { confirmDialog as ConfirmDialog } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
-
 describe("Confirm dialog", () => {
 
-  it("should return an object", () => {
+  it("should return a function", () => {
     expect(typeof (ConfirmDialog))
-      .toEqual("object");
+      .toEqual("function");
   });
 
   it("should render a component", () => {
+    const handleProceed: jest.Mock = jest.fn();
+    const handleClose: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-      <ConfirmDialog
-        name="confirmTest"
-        title="Test"
-        onProceed={functionMock}
-      />
-      </Provider>,
+      <ConfirmDialog isOpen={true} name="confirmTest" onClose={handleClose} onProceed={handleProceed} title="Test" />,
     );
     expect(wrapper)
       .toHaveLength(1);
+  });
+
+  it("should call onProceed", () => {
+    const handleProceed: jest.Mock = jest.fn();
+    const handleClose: jest.Mock = jest.fn();
+    const wrapper: ShallowWrapper = shallow(
+      <ConfirmDialog isOpen={true} name="confirmTest" onClose={handleClose} onProceed={handleProceed} title="Test" />,
+    );
+    const proceedButton: ShallowWrapper = wrapper
+      .find("modal")
+      .dive()
+      .find("button")
+      .filterWhere((element: ShallowWrapper) => element.contains("Proceed"));
+    proceedButton.simulate("click");
+    expect(handleProceed.mock.calls.length)
+      .toEqual(1);
+  });
+
+  it("should close", () => {
+    const handleProceed: jest.Mock = jest.fn();
+    const handleClose: jest.Mock = jest.fn();
+    const wrapper: ShallowWrapper = shallow(
+      <ConfirmDialog isOpen={true} name="confirmTest" onClose={handleClose} onProceed={handleProceed} title="Test" />,
+    );
+    const cancelButton: ShallowWrapper = wrapper
+      .find("modal")
+      .dive()
+      .find("button")
+      .filterWhere((element: ShallowWrapper) => element.contains("Cancel"));
+    cancelButton.simulate("click");
+    expect(handleClose.mock.calls.length)
+      .toEqual(1);
   });
 });

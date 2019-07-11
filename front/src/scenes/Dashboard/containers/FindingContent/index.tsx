@@ -6,7 +6,7 @@ import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
-import ConfirmDialog from "../../../../components/ConfirmDialog/index";
+import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { dropdownField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
@@ -27,8 +27,9 @@ import {
   approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
 } from "./actions";
 import style from "./index.css";
-import { IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,
-  IFindingContentStateProps } from "./types";
+import {
+  IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps, IFindingContentStateProps,
+} from "./types";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
 const reduxProps: any = {};

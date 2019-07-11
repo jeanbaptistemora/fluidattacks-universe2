@@ -2,7 +2,7 @@ import React from "react";
 import { connect, MapDispatchToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
-import ConfirmDialog from "../../components/ConfirmDialog";
+import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { openConfirmDialog, ThunkDispatcher } from "./actions";
 import { Navbar } from "./components/Navbar/index";
