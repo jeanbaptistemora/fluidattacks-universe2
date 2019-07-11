@@ -40,11 +40,9 @@ export const getEventEvidence: ((props: IEventDescriptionViewProps["eventData"])
       if (props.evidence === "") {
         evidenceUrl = [{original: "", thumbnail: ""}];
       } else {
-        const splitedUrl: string[] = window.location.href.split("dashboard#!/");
+        const url: string = window.location.href.replace("dashboard#!/", "");
         let evidence: string;
-        evidence = `${splitedUrl[0] +
-                            splitedUrl[1].replace("events/", "")}/${
-          props.evidence}`;
+        evidence = `${url}/${props.evidence}`;
         evidenceUrl = [{original: evidence, thumbnail: evidence}];
       }
 
