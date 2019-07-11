@@ -123,7 +123,7 @@ For me, cybersecurity is not as severe as the market tries to show;
 people usually overestimate what happens.
 We are not the most targeted organization, although we receive daily attacks.
 And think about our size: we are a team of seven protecting
-a 2000-people organization.
+a 10,000-people organization.
 When there is ‘no time’?
 When are circumstances so urgent that you can’t even blink?
 When are we ‘on fire’? It has happened once in the last seven years.
