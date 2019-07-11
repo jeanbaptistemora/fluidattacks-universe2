@@ -29,6 +29,7 @@ RUN apt-get update \
         software-properties-common \
         unzip \
         wget \
+        apt-utils \
     && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip \
         && unzip terraform.zip \
         && rm terraform.zip \
@@ -55,7 +56,7 @@ RUN apt-get update \
         prospector[with_everything]==1.1.6.2 \
         requests==2.20.1 \
         selenium==3.141.0 \
-        urllib3== 1.25.3 \
+        urllib3==1.25.3 \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \
