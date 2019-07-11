@@ -559,7 +559,7 @@ def update_description(finding_id, updated_values):
                       for k in updated_values}
     return integrates_dao.update_mult_attrs_dynamo(
         'FI_findings',
-        ['finding_id', finding_id],
+        {'finding_id': finding_id},
         updated_values
     )
 
@@ -586,6 +586,19 @@ def send_accepted_email(finding_id, user_email, justification):
     email_send_thread.start()
 
 
+def update_treatment_in_vuln(finding_id, updated_values):
+    vulns = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+    for vuln in vulns:
+        result_update_treatment = \
+            integrates_dao.update_mult_attrs_dynamo('FI_vulnerabilities',
+                                                    {'finding_id': finding_id,
+                                                     'UUID': vuln['UUID']},
+                                                    updated_values)
+        if result_update_treatment:
+            return True
+    return False
+
+
 def update_treatment(finding_id, updated_values, user_email):
     updated_values['external_bts'] = updated_values.get('bts_url')
     del updated_values['bts_url']
@@ -597,11 +610,15 @@ def update_treatment(finding_id, updated_values, user_email):
         send_accepted_email(finding_id, user_email,
                             updated_values.get('treatment_justification'))
 
-    return integrates_dao.update_mult_attrs_dynamo(
+    result_update_finding = integrates_dao.update_mult_attrs_dynamo(
         'FI_findings',
-        ['finding_id', finding_id],
+        {'finding_id': finding_id},
         updated_values
     )
+    result_update_vuln = update_treatment_in_vuln(finding_id, updated_values)
+    if result_update_finding and result_update_vuln:
+        return True
+    return False
 
 
 def save_severity(finding):

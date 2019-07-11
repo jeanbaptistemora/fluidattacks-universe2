@@ -1549,13 +1549,13 @@ def add_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
     """Adding multiple attributes to a dynamo table."""
     table = DYNAMODB_RESOURCE.Table(table_name)
     item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
+    keys_dic = {str(primary_keys[0]): primary_keys[1]}
     if item:
-        resp = update_mult_attrs_dynamo(table_name, primary_keys, dic_data)
+        resp = update_mult_attrs_dynamo(table_name, keys_dic, dic_data)
     else:
         try:
-            p_key = {primary_keys[0]: primary_keys[1]}
             dic_data_field = {k: dic_data[k] for k in dic_data.keys()}
-            attr_to_add = forms.dict_concatenation(p_key, dic_data_field)
+            attr_to_add = forms.dict_concatenation(keys_dic, dic_data_field)
             response = table.put_item(
                 Item=attr_to_add
             )
@@ -1573,16 +1573,14 @@ def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):
         str_format = '{metric} = :{metric}'
         empty_values = {k: v for k, v in dic_data.items() if v == ""}
         for item in empty_values:
-            remove_attr_dynamo(table_name, primary_keys[0], primary_keys[1], item)
+            remove_attr_dynamo(table_name, primary_keys, item)
             del dic_data[item]
 
         dic_data_params = [str_format.format(metric=x) for x in dic_data.keys()]
         query_params = 'SET ' + ', '.join(dic_data_params)
         expression_params = {':' + k: dic_data[k] for k in dic_data.keys()}
         response = table.update_item(
-            Key={
-                primary_keys[0]: primary_keys[1],
-            },
+            Key=primary_keys,
             UpdateExpression=query_params,
             ExpressionAttributeValues=expression_params
         )
@@ -1794,15 +1792,13 @@ def get_event_project(event_id):
     return item
 
 
-def remove_attr_dynamo(table_name, pkey_name, pkey_value, attr_name):
+def remove_attr_dynamo(table_name, primary_keys, attr_name):
     """ Remove given attribute """
 
     table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         response = table.update_item(
-            Key={
-                pkey_name: pkey_value.lower(),
-            },
+            Key=primary_keys,
             UpdateExpression='REMOVE #attrName',
             ExpressionAttributeNames={
                 '#attrName': attr_name
