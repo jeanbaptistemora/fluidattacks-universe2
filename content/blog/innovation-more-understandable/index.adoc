@@ -1,6 +1,6 @@
 :slug: innovation-more-understandable/
 :date: 2019-06-18
-:subtitle: "We make innovation more understandable, more wordly."
+:subtitle: "We make innovation more understandable, more worldly."
 :category: interview
 :tags: interview, machine learning
 :image: cover.png
