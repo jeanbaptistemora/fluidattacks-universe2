@@ -41,7 +41,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
         Organization: (window as Window & { userOrganization: string }).userOrganization,
         User: (window as Window & { userName: string }).userName,
       });
-    location.hash = `#!/project/${projectName}/drafts/${rowInfo.id}/description`;
+    location.hash = `#!/project/${projectName}/${rowInfo.id}/description`;
   };
 
   const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (qrResult: IProjectDraftsAttr): void => {

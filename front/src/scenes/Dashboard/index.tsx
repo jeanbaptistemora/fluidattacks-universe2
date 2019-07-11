@@ -60,6 +60,14 @@ const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Eleme
                 path="/project/:projectName/:findingId(\d+)/:tab(\w+)"
                 to="/project/:projectName/findings/:findingId(\d+)/:tab(\w+)"
               />
+              <Redirect
+                path="/project/:projectName/:page(\w+)/:findingId(\d+)"
+                to="/project/:projectName/:page(\w+)/:findingId(\d+)/description"
+              />
+              <Redirect
+                path="/project/:projectName"
+                to="/project/:projectName/indicators"
+              />
               <Redirect to="/home" />
             </Switch>
           </div>

@@ -90,7 +90,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         Organization: (window as Window & { userOrganization: string }).userOrganization,
         User: (window as Window & { userName: string }).userName,
       });
-    location.hash = `#!/project/${projectName}/findings/${rowInfo.id}/description`;
+    location.hash = `#!/project/${projectName}/${rowInfo.id}/description`;
   };
 
   const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {
