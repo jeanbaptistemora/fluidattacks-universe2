@@ -1,7 +1,8 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:all", "tslint-react"
+        "tslint:all",
+        "tslint-react"
     ],
     "cliOptions": {
         "exclude": [
@@ -12,6 +13,10 @@
     },
     "jsRules": {},
     "rules": {
+        "no-implicit-dependencies": [
+            true,
+            "dev"
+        ],
         "no-unsafe-any": false,
         "no-magic-numbers": false
     },

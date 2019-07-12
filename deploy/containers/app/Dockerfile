@@ -44,7 +44,7 @@ RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repos
         && a2enmod ssl \
     && cp -a /root/front/node_modules /usr/src/app/front \
         && cd /usr/src/app/front/ \
-        && npm install \
+        && npm install --production \
         && npm cache clean --force \
     && cp -a /usr/src/app/deploy/containers/common/vars/run.sh /root \
     && echo "${SSL_CERT}" | base64 -di > "/etc/ssl/certs/fluidla.crt" \
