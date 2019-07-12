@@ -17,7 +17,9 @@ type EditableFieldProps = BaseFieldProps & {
 const renderCurrentValue: ((value: string) => JSX.Element) = (value: string): JSX.Element => {
   const isUrl: boolean = _.startsWith(value, "https://");
 
-  return isUrl ? <a href={value} target="_blank">{value}</a> : <p className={style.currentValue}>{value}</p>;
+  return isUrl ?
+  <a href={value} rel="noopener" target="_blank">{value}</a>
+  : <p className={style.currentValue}>{value}</p>;
 };
 
 const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
