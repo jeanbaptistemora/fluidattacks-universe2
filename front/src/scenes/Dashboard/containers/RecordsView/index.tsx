@@ -1,55 +1,55 @@
-/* tslint:disable jsx-no-lambda
- * Disabling this rule is necessary for the sake of simplicity and
- * readability of the code that binds click events
- */
-
+import _ from "lodash";
 import mixpanel from "mixpanel-browser";
-import React, { ComponentType } from "react";
+import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
+import { connect, ConnectedComponentClass, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { AnyAction, Reducer } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import store from "../../../../store/index";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { isValidEvidenceFile } from "../../../../utils/validations";
 import { FileInput } from "../../components/FileInput/index";
-import * as actions from "./actions";
+import { IDashboardState } from "../../reducer";
+import { editRecords, loadRecords, ThunkDispatcher, updateRecords } from "./actions";
 
-export interface IRecordsViewProps {
-  canEdit: boolean;
-  /* tslint:disable-next-line: no-any
-   * Disabling here is necessary because records dataset
-   * may vary between findings
-   */
-  dataset: any[];
-  findingId: string;
-  isEditing: boolean;
+type IRecordsViewBaseProps = Pick<RouteComponentProps<{ findingId: string }>, "match">;
+
+type IRecordsViewStateProps = IDashboardState["records"] & { userRole: string };
+
+interface IRecordsViewDispatchProps {
+  onEdit(): void;
+  onLoad(): void;
+  onUpdate(): void;
 }
 
-const updateRecords: ((arg1: string) => void) = (findingId: string): void => {
+type IRecordsViewProps = IRecordsViewBaseProps & (IRecordsViewStateProps & IRecordsViewDispatchProps);
 
-  if (isValidEvidenceFile("#evidence8")) {
+const enhance: InferableComponentEnhancer<{}> = lifecycle<IRecordsViewProps, {}>({
+  componentDidMount(): void {
     mixpanel.track(
-      "UpdateRecords",
+      "FindingRecords",
       {
         Organization: (window as Window & { userOrganization: string }).userOrganization,
         User: (window as Window & { userName: string }).userName,
       });
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
+    this.props.onLoad();
+  },
+});
 
-    thunkDispatch(actions.updateRecords(findingId));
-  }
-};
+const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRecordsViewProps): JSX.Element => {
+  const handleUpdateClick: (() => void) = (): void => {
+    if (isValidEvidenceFile("#evidence8")) {
+      mixpanel.track("UpdateRecords", {
+        Organization: (window as Window & { userOrganization: string }).userOrganization,
+        User: (window as Window & { userName: string }).userName,
+      });
+      props.onUpdate();
+    }
+  };
 
-const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
-  (props: IRecordsViewProps): JSX.Element => (
+  return (
   <Row>
     <Col md={4} mdOffset={6} xs={12} sm={12}>
       <div>
@@ -65,54 +65,54 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) =
         <Button
           bsStyle="primary"
           block={true}
-          onClick={(): void => { updateRecords(props.findingId); }}
+          onClick={handleUpdateClick}
         >
-          <Glyphicon glyph="cloud-upload"/>
+          <Glyphicon glyph="cloud-upload" />
           &nbsp;{translate.t("search_findings.tab_evidence.update")}
         </Button>
       </Col>
-  </Row>
-);
+    </Row>
+  );
+};
 
-const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) =
-  (props: IRecordsViewProps): JSX.Element => (
+const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRecordsViewProps): JSX.Element => {
+  const handleEditClick: (() => void) = (): void => { props.onEdit(); };
+
+  return (
     <React.Fragment>
       <Row>
         <Col md={2} mdOffset={10} xs={12} sm={12}>
           <Button
             bsStyle="primary"
             block={true}
-            onClick={(): void => { store.dispatch(actions.editRecords()); }}
+            onClick={handleEditClick}
           >
-            <FluidIcon icon="edit"/>
+            <FluidIcon icon="edit" />
             &nbsp;{translate.t("search_findings.tab_evidence.editable")}
           </Button>
         </Col>
       </Row>
-      <br/>
+      <br />
       {props.isEditing ? renderUploadField(props) : undefined}
     </React.Fragment>
-);
+  );
+};
 
-const renderTable: ((arg1: IRecordsViewProps["dataset"]) => JSX.Element) =
-  (dataset: IRecordsViewProps["dataset"]): JSX.Element => (
+const renderTable: ((arg1: object[]) => JSX.Element) = (dataset: object[]): JSX.Element => (
     <DataTable
       dataset={dataset}
-      onClickRow={(): void => undefined}
       enableRowSelection={false}
       exportCsv={false}
       headers={[]}
       id="tblRecords"
       pageSize={15}
-      title=""
     />
 );
 
-export const component: React.FC<IRecordsViewProps> =
-  (props: IRecordsViewProps): JSX.Element => (
+export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => (
     <React.StrictMode>
       <Row>
-        {props.canEdit ? renderEditPanel(props) : undefined}
+        {_.includes(["admin", "analyst"], props.userRole) ? renderEditPanel(props) : undefined}
       </Row>
       <Row>
         {renderTable(props.dataset)}
@@ -120,27 +120,25 @@ export const component: React.FC<IRecordsViewProps> =
     </React.StrictMode>
 );
 
-const enhance: InferableComponentEnhancer<{}> =
-lifecycle({
-  componentDidMount(): void {
-    mixpanel.track(
-      "FindingRecords",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
-    const { findingId }: IRecordsViewProps = this.props as IRecordsViewProps;
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-    thunkDispatch(actions.loadRecords(findingId));
-  },
-});
-
-export const recordsView: ComponentType<IRecordsViewProps> = reduxWrapper
-(
-  enhance(component) as React.FC<IRecordsViewProps>,
-  (state: StateType<Reducer>): IRecordsViewProps => ({
+interface IState { dashboard: IDashboardState; }
+const mapStateToProps: MapStateToProps<IRecordsViewStateProps, IRecordsViewBaseProps, IState> =
+  (state: IState): IRecordsViewStateProps => ({
     ...state.dashboard.records,
-  }),
-);
+    userRole: (window as Window & { userRole: string }).userRole,
+  });
+
+const mapDispatchToProps: MapDispatchToProps<IRecordsViewDispatchProps, IRecordsViewBaseProps> =
+  (dispatch: ThunkDispatcher, ownProps: IRecordsViewBaseProps): IRecordsViewDispatchProps => {
+    const { findingId } = ownProps.match.params;
+
+    return ({
+      onEdit: (): void => { dispatch(editRecords()); },
+      onLoad: (): void => { dispatch(loadRecords(findingId)); },
+      onUpdate: (): void => { dispatch(updateRecords(findingId)); },
+    });
+  };
+
+const connectedRecordsView: ConnectedComponentClass<React.ComponentType<IRecordsViewProps>, IRecordsViewBaseProps> =
+  connect(mapStateToProps, mapDispatchToProps)(enhance(recordsView));
+
+export { connectedRecordsView as RecordsView };

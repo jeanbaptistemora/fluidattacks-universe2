@@ -20,7 +20,7 @@ import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { evidenceView as EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
-import { recordsView as RecordsView } from "../RecordsView/index";
+import { RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
 import {
@@ -59,10 +59,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   const renderTracking: (() => JSX.Element) = (): JSX.Element => (
     <TrackingView findingId={findingId} hasNewVulnerabilities={true} userRole={userRole} {...reduxProps} />
-  );
-
-  const renderRecords: (() => JSX.Element) = (): JSX.Element => (
-    <RecordsView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
   );
 
   const renderComments: (() => JSX.Element) = (): JSX.Element => (
@@ -228,7 +224,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   />
                   <Route
                     path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/records"
-                    render={renderRecords}
+                    component={RecordsView}
                   />
                   <Route
                     path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/comments"

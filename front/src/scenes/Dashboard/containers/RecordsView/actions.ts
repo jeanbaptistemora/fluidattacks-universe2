@@ -1,33 +1,22 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { Action, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import * as actionTypes from "./actionTypes";
-import { IRecordsViewProps } from "./index";
 
 export interface IActionStructure {
-  /* tslint:disable-next-line:no-any
-   * Disabling this rule is necessary because the payload
-   * type may differ between actions
-   */
-  payload: any;
+  payload?: { [key: string]: string | string[] };
   type: string;
 }
 
-type ThunkDispatcher = Dispatch<Action> & ThunkDispatch<{}, {}, AnyAction>;
-/* tslint:disable-next-line:no-any
- * Disabling this rule is necessary because the args
- * of an async action may differ
- */
-type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAction>);
+export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
-export const loadRecords: ThunkActionStructure =
-  (
-    findingId: IRecordsViewProps["findingId"],
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
+
+export const loadRecords: ((findingId: string) => ThunkResult<void>) = (findingId: string): ThunkResult<void> =>
+  (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `{
     finding(identifier: "${findingId}") {
@@ -58,8 +47,8 @@ export const editRecords: (() => IActionStructure) =
     type: actionTypes.EDIT_RECORDS,
   });
 
-export const updateRecords: ThunkActionStructure =
-  (findingId: string): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+export const updateRecords: ((findingId: string) => ThunkResult<void>) = (findingId: string): ThunkResult<void> =>
+  (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
     updateEvidence (

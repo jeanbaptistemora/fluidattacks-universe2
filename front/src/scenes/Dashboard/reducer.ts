@@ -14,7 +14,6 @@ import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
-import { IRecordsViewProps } from "./containers/RecordsView/index";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 import * as severityActions from "./containers/SeverityView/actionTypes";
 import { ISeverityViewProps } from "./containers/SeverityView/types";
@@ -43,7 +42,10 @@ export interface IDashboardState {
       isOpen: boolean;
     };
   };
-  records: Pick<IRecordsViewProps, "isEditing" | "dataset">;
+  records: {
+    dataset: object[];
+    isEditing: boolean;
+  };
   resources: {
     envModal: {
       open: boolean;
