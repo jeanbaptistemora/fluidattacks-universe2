@@ -112,10 +112,10 @@
     "url-loader": "1.0.1",
     "waait": "1.0.5",
     "webpack": "4.35.3",
-    "webpack-cli": "3.3.5"
+    "webpack-cli": "3.3.6"
   },
   "scripts": {
-    "audit": "npm set audit-level high && npm config set audit-level high && npm audit --production",
+    "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
     "build": "npm run css && webpack --hide-modules --config webpack.dev.config.js",
     "build:prod": "webpack --hide-modules --config webpack.prod.config.js",
     "css": "tcm src/ --silent",
