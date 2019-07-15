@@ -61,14 +61,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     <TrackingView findingId={findingId} hasNewVulnerabilities={true} userRole={userRole} {...reduxProps} />
   );
 
-  const renderComments: (() => JSX.Element) = (): JSX.Element => (
-    <CommentsView type="comment" findingId={findingId} />
-  );
-
-  const renderObservations: (() => JSX.Element) = (): JSX.Element => (
-    <CommentsView type="observation" findingId={findingId} />
-  );
-
   const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
   const handleOpenDeleteConfirm: (() => void) = (): void => { props.openDeleteConfirm(); };
@@ -227,12 +219,8 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     component={RecordsView}
                   />
                   <Route
-                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/comments"
-                    render={renderComments}
-                  />
-                  <Route
-                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/observations"
-                    render={renderObservations}
+                    path="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/:type(comments|observations)"
+                    component={CommentsView}
                   />
                   <Redirect
                     path="/project/:projectName/:findingId(\d+)/description"

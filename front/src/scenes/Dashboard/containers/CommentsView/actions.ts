@@ -1,41 +1,25 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { Dispatch } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import { ICommentStructure } from "../../components/Comments";
+import { loadCallback, postCallback } from "./index";
 
-export interface IActionStructure {
-  payload: {} | undefined;
-  type: string;
-}
-
-type ThunkDispatcher = Dispatch<IActionStructure> & ThunkDispatch<{}, {}, IActionStructure>;
-/* tslint:disable-next-line:no-any
- * Disabling this rule is necessary because the args
- * of an async action may differ
- */
-type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, IActionStructure>);
-
-export const loadComments: ThunkActionStructure =
-  (
-    findingId: string,
-    type: "comment" | "observation",
-    callbackFn: ((comments: ICommentStructure[]) => void),
-  ): ThunkAction<void, {}, {}, IActionStructure> => (_: ThunkDispatcher): void => {
+export const loadComments: ((findingId: string, type: string, callbackFn: loadCallback) => void) = (
+  findingId: string, type: string, callbackFn: loadCallback,
+): void => {
     let gQry: string;
     gQry = `{
       finding(identifier: "${findingId}"){
-        ${type}s
+        ${type}
       }
     }`;
     new Xhr().request(gQry, `An error occurred getting finding ${type}s`)
       .then((response: AxiosResponse) => {
         const { data } = response.data;
 
-        callbackFn(type === "comment"
+        callbackFn(type === "comments"
           ? data.finding.comments
           : data.finding.observations);
       })
@@ -47,20 +31,17 @@ export const loadComments: ThunkActionStructure =
           rollbar.error(error.message, errors);
         }
       });
-  };
+};
 
-export const postComment: ThunkActionStructure =
-  (
-    findingId: string,
-    type: "comment" | "observation",
-    comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void),
-  ): ThunkAction<void, {}, {}, IActionStructure> => (_: ThunkDispatcher): void => {
+export const postComment: ((
+  findingId: string, type: string, comment: ICommentStructure, callbackFn: postCallback) => void
+) = (findingId: string, type: string, comment: ICommentStructure, callbackFn: postCallback): void => {
     let gQry: string;
     gQry = `mutation {
       addFindingComment(
         content: ${JSON.stringify(comment.content)},
         findingId: "${findingId}",
-        type: "${type}",
+        type: "${type.slice(0, -1)}",
         parent: "${comment.parent}"
       ) {
         success
@@ -86,4 +67,4 @@ export const postComment: ThunkActionStructure =
           rollbar.error(error.message, errors);
         }
       });
-  };
+};
