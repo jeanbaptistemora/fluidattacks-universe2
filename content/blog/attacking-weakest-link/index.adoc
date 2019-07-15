@@ -9,6 +9,7 @@
 :keywords: Information, Security, Protection, Hacking, Bussiness, Social Engineering
 :author: Mateo Gutiérrez Gómez
 :writer: mgutierrez
+:name: Mateo Gutiérrez Gómez
 :about1: Systems engineering undergrad student.
 :about2: Psychology and cyber security enthusiast.
 
