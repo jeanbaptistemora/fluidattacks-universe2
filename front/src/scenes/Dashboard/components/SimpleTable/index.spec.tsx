@@ -54,6 +54,7 @@ describe("Simple table", () => {
         onClickRow={functionMock}
         pageSize={25}
         title="Unit test table"
+        selectionMode="none"
       />,
     );
 

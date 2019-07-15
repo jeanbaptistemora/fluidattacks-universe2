@@ -29,6 +29,7 @@ describe("Data table", () => {
         onClickRow={undefined}
         pageSize={25}
         title="Unit test table"
+        selectionMode="none"
       />,
     );
     expect(wrapper)
@@ -68,6 +69,7 @@ describe("Data table", () => {
         onClickRow={functionMock}
         pageSize={25}
         title="Unit test table"
+        selectionMode="none"
       />,
     );
     expect(wrapper.find("TableHeaderColumn"))
@@ -93,6 +95,7 @@ describe("Data table", () => {
         onClickRow={functionMock}
         pageSize={25}
         title="Unit test table"
+        selectionMode="none"
       />,
     );
     expect(wrapper.find("TableHeaderColumn"))
@@ -137,6 +140,7 @@ describe("Data table", () => {
         onClickRow={functionMock}
         pageSize={25}
         title="Unit test table"
+        selectionMode="none"
       />,
     )
       .find("h3");
@@ -186,6 +190,7 @@ describe("Data table", () => {
         onClickRow={functionMock}
         pageSize={25}
         title="Unit test table"
+        selectionMode="none"
       />,
     );
     expect(wrapper.find("#testTable"))
@@ -230,6 +235,7 @@ describe("Data table", () => {
         onClickRow={functionMock}
         pageSize={25}
         title="Unit test table"
+        selectionMode="none"
       />,
     );
 

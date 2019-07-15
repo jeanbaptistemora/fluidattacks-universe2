@@ -26,6 +26,7 @@ const simpleTable: React.FunctionComponent<ITableProps> =
           pageSize={props.pageSize}
           striped={false}
           title={props.title}
+          selectionMode={props.selectionMode}
         />
       </Col>
     </Row>

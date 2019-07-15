@@ -106,6 +106,8 @@ const renderTable: ((arg1: object[]) => JSX.Element) = (dataset: object[]): JSX.
       headers={[]}
       id="tblRecords"
       pageSize={15}
+      title=""
+      selectionMode="none"
     />
 );
 

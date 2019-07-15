@@ -83,6 +83,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   onClickRow={goToFinding}
                   pageSize={15}
                   search={true}
+                  selectionMode="none"
                 />
               </React.StrictMode>
             );

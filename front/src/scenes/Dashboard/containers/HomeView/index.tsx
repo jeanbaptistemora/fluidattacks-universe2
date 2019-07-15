@@ -57,6 +57,7 @@ const renderProjectsTable: ((props: IUserAttr["me"]) => JSX.Element) =
         onClickRow={handleRowClick}
         pageSize={15}
         search={true}
+        selectionMode="none"
       />
       <br />
     </React.Fragment>

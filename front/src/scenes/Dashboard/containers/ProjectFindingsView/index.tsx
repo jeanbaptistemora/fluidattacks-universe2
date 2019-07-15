@@ -197,6 +197,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   onClickRow={goToFinding}
                   pageSize={15}
                   search={true}
+                  selectionMode="none"
                 />
                 <Modal
                   open={hidden}

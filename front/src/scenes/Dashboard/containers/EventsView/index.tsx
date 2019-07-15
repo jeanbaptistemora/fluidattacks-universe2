@@ -87,6 +87,7 @@ const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventV
                       id="tblEvents"
                       pageSize={15}
                       title=""
+                      selectionMode="none"
                     />
                   </Col>
                 </Row>

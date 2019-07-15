@@ -200,6 +200,7 @@ const enTranslations: dict = {
       customer_project_name: "Customer's project name",
       description: "Description",
       download_vulnerabilities: "Download Vulnerabilities",
+      editVuln: "Edit vulnerabilites",
       editable: "Edit",
       errorFileVuln: "Vulnerabilities file has errors",
       field: "Field",

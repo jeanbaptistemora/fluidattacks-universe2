@@ -231,6 +231,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                       id="tblTags"
                       pageSize={15}
                       title={translate.t("search_findings.tab_resources.tags_title")}
+                      selectionMode="radio"
                     />
                   </Col>
                   <Col md={12}>
@@ -415,6 +416,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                   <Col md={12} sm={12}>
                     <DataTable
                       dataset={repoDataset}
+                      selectionMode="radio"
                       enableRowSelection={true}
                       exportCsv={true}
                       search={true}
@@ -637,6 +639,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                       enableRowSelection={true}
                       exportCsv={true}
                       search={true}
+                      selectionMode="radio"
                       headers={[
                         {
                           dataField: "urlEnv",
@@ -790,6 +793,7 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
             <DataTable
               dataset={props.files}
               onClickRow={handleFileRowClick}
+              selectionMode="radio"
               enableRowSelection={false}
               exportCsv={false}
               search={true}

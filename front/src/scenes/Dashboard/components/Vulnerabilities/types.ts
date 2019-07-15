@@ -1,3 +1,5 @@
+import { IDescriptionViewProps } from "../../containers/DescriptionView";
+
 export interface IVulnsAttr {
   finding: {
     id: string;
@@ -25,8 +27,10 @@ export interface IDeleteVulnAttr {
 }
 
 export interface IVulnerabilitiesViewProps {
+  descriptParam?: IDescriptionViewProps;
   editMode: boolean;
   findingId: string;
+  renderAsEditable?: boolean;
   state: string;
   userRole: string;
 }

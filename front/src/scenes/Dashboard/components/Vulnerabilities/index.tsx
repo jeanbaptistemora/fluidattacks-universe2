@@ -13,15 +13,16 @@
 import { NetworkStatus } from "apollo-boost";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
-import React from "react";
+import React, { useState } from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
-import { Col, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { DataAlignType } from "react-bootstrap-table";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { Button } from "../../../../components/Button/index";
 import { IHeader } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -30,6 +31,7 @@ import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
 import { FileInput } from "../../components/FileInput/index";
+import { TreatmentFieldsView } from "../../components/treatmentFields";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
 import { DELETE_VULN_MUTATION, GET_VULNERABILITIES } from "./queries";
@@ -129,10 +131,45 @@ export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element
     );
   };
 
-export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
-  (props: IVulnerabilitiesViewProps): JSX.Element =>
+const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
+  (props: IVulnerabilitiesViewProps): JSX.Element => {
+    const [modalHidden, setModalHidden] = useState(false);
 
-  (
+    const handleOpenVulnSetClick: () => void = (): void => {
+      setModalHidden(true);
+    };
+
+    const handleCloseTableSetClick: () => void = (): void => {
+      setModalHidden(false);
+    };
+
+    const vulnSetModalFooter: JSX.Element = (
+      <ButtonToolbar className="pull-right">
+        <Button bsStyle="primary" type="submit">
+          {translate.t("confirmmodal.proceed")}
+        </Button>
+        <Button onClick={handleCloseTableSetClick}>
+          {translate.t("project.findings.report.modal_close")}
+        </Button>
+      </ButtonToolbar>
+    );
+
+    const renderButtonUpdtVuln: ((prop: IVulnerabilitiesViewProps) => JSX.Element) =
+      (): JSX.Element =>
+
+        (
+          <React.Fragment>
+            <Row>
+              <Col mdOffset={5} md={4} hidden={true}>
+                <Button bsStyle="warning" onClick={handleOpenVulnSetClick}>
+                  <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
+                </Button>
+              </Col>
+            </Row><br/>
+        </React.Fragment>
+      );
+
+    return(
     <Query query={GET_VULNERABILITIES} variables={{ identifier: props.findingId }} notifyOnNetworkStatusChange={true}>
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IVulnsAttr>): React.ReactNode => {
@@ -194,6 +231,8 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         .catch();
                       }
                   };
+
+                  const isEditable: boolean = _.isUndefined(props.renderAsEditable) ? false : props.renderAsEditable;
 
                   const inputsHeader: IHeader[] = [
                     {
@@ -324,8 +363,11 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               onClickRow={(): void => undefined}
                               pageSize={10}
                               search={false}
-                              enableRowSelection={false}
+                              enableRowSelection={
+                                isEditable ? true : false
+                              }
                               title=""
+                              selectionMode="checkbox"
                             />
                             <br/>
                           </React.Fragment>
@@ -344,8 +386,11 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               onClickRow={(): void => undefined}
                               pageSize={10}
                               search={false}
-                              enableRowSelection={false}
+                              enableRowSelection={
+                                isEditable ? true : false
+                              }
                               title=""
+                              selectionMode="checkbox"
                             />
                             <br/>
                           </React.Fragment>
@@ -364,11 +409,29 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               onClickRow={(): void => undefined}
                               pageSize={10}
                               search={false}
-                              enableRowSelection={false}
+                              enableRowSelection={
+                                isEditable ? true : false
+                              }
                               title=""
+                              selectionMode="checkbox"
                             />
                             <br/>
                           </React.Fragment>
+                        : undefined
+                      }
+                      <Row>
+                        <Modal
+                          open={modalHidden}
+                          footer={vulnSetModalFooter}
+                          headerTitle={translate.t("search_findings.tab_description.editVuln")}
+                        >
+                          <React.Fragment>
+                            {!_.isUndefined(props.descriptParam) ? TreatmentFieldsView(props.descriptParam) : undefined}
+                          </React.Fragment>
+                        </Modal>
+                      </Row>
+                      {props.editMode && _.includes(["admin", "analyst"], props.userRole)
+                        ? renderButtonUpdtVuln(props)
                         : undefined
                       }
                       {props.editMode && _.includes(["admin", "analyst"], props.userRole)
@@ -383,6 +446,7 @@ export const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           }
         }}
     </Query>
-  );
+    );
+  };
 
 export { vulnsViewComponent as VulnerabilitiesView };

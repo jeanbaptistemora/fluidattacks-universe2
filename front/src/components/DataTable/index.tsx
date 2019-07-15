@@ -13,6 +13,7 @@ import {
   DataAlignType,
   SearchField,
   SearchFieldProps,
+  SelectRowMode,
   SizePerPageFunctionProps,
   TableHeaderColumn,
 } from "react-bootstrap-table";
@@ -43,6 +44,7 @@ export interface ITableProps {
   id: string;
   pageSize: number;
   search?: boolean;
+  selectionMode: SelectRowMode;
   striped?: boolean;
   tableBody?: string;
   tableContainer?: string;
@@ -249,7 +251,7 @@ export const dataTable: React.FunctionComponent<ITableProps> = (props: ITablePro
                   props.enableRowSelection
                   ? {
                       clickToSelect: true,
-                      mode: "radio",
+                      mode: props.selectionMode,
                     }
                   : undefined
                 }
