@@ -397,7 +397,7 @@ stop-review:
     - master
 
 asserts-review-static:
-  stage: post-deploy
+  stage: pre-test
   image: fluid-docker.jfrog.io/fluid:integrates_static
   dependencies: []
   variables:
@@ -555,7 +555,7 @@ new-version-mail:
     - schedules
 
 asserts-prod-static:
-  stage: post-deploy
+  stage: pre-test
   image: fluid-docker.jfrog.io/fluid:integrates_static
   dependencies: []
   variables:
