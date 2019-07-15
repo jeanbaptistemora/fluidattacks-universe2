@@ -247,6 +247,14 @@ a {
   list-style-type: upper-roman;
 }
 
+.qanda {
+  li,
+  ol {
+    font-style: italic;
+    list-style-type: none;
+  }
+}
+
 ol {
   font-size: 18px;
   padding-left: 28px;
