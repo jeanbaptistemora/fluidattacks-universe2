@@ -45,6 +45,8 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const isDraft: boolean = _.isEmpty(props.header.reportDate);
   const hasVulns: number = props.header.openVulns + props.header.closedVulns;
 
+  const findingStatus: string = isDraft ? "drafts" : "findings";
+
   const renderDescription: (() => JSX.Element) = (): JSX.Element => (
     <DescriptionView findingId={findingId} projectName={projectName} userRole={userRole} {...reduxProps} />
   );
@@ -117,7 +119,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <li id="infoItem" className={style.tab}>
                     <NavLink
                       activeClassName={style.active}
-                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/description`}
+                      to={`/project/${projectName}/${findingStatus}/${findingId}/description`}
                     >
                       <i className="icon pe-7s-note2" />
                       &nbsp;{translate.t("search_findings.tab_description.tab_title")}
@@ -126,7 +128,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <li id="cssv2Item" className={style.tab}>
                     <NavLink
                       activeClassName={style.active}
-                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/severity`}
+                      to={`/project/${projectName}/${findingStatus}/${findingId}/severity`}
                     >
                       <i className="icon pe-7s-calculator" />
                       &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
@@ -135,7 +137,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <li id="evidenceItem" className={style.tab}>
                     <NavLink
                       activeClassName={style.active}
-                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/evidence`}
+                      to={`/project/${projectName}/${findingStatus}/${findingId}/evidence`}
                     >
                       <i className="icon pe-7s-photo" />
                       &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
@@ -144,7 +146,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <li id="exploitItem" className={style.tab}>
                     <NavLink
                       activeClassName={style.active}
-                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/exploit`}
+                      to={`/project/${projectName}/${findingStatus}/${findingId}/exploit`}
                     >
                       <i className="icon pe-7s-file" />
                       &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
@@ -153,7 +155,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <li id="trackingItem" className={style.tab}>
                     <NavLink
                       activeClassName={style.active}
-                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/tracking`}
+                      to={`/project/${projectName}/${findingStatus}/${findingId}/tracking`}
                     >
                       <i className="icon pe-7s-graph1" />
                       &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
@@ -162,7 +164,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <li id="recordsItem" className={style.tab}>
                     <NavLink
                       activeClassName={style.active}
-                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/records`}
+                      to={`/project/${projectName}/${findingStatus}/${findingId}/records`}
                     >
                       <i className="icon pe-7s-notebook" />
                       &nbsp;{translate.t("search_findings.tab_records.tab_title")}
@@ -171,7 +173,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <li id="commentItem" className={style.tab}>
                     <NavLink
                       activeClassName={style.active}
-                      to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/comments`}
+                      to={`/project/${projectName}/${findingStatus}/${findingId}/comments`}
                     >
                       <i className="icon pe-7s-comment" />
                       &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
@@ -182,7 +184,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     <li id="observationsItem" className={style.tab}>
                       <NavLink
                         activeClassName={style.active}
-                        to={`/project/${projectName}/${isDraft ? "drafts" : "findings"}/${findingId}/observations`}
+                        to={`/project/${projectName}/${findingStatus}/${findingId}/observations`}
                       >
                         <i className="icon pe-7s-note" />
                         &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
@@ -224,9 +226,9 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   />
                   <Redirect
                     path="/project/:projectName/:findingId(\d+)/description"
-                    to={`/project/:projectName/${isDraft ? "draft" : "finding"}/:findingId(\d+)/description"`}
+                    to="/project/:projectName/:findingId(\d+)/:findingId(\d+)/description"
                   />
-                  <Redirect to="/project/:projectName/:findingOrDraft(\w+)/:findingId(\d+)/description" />
+                  <Redirect to={`/project/:projectName/:findingOrDraft${findingStatus}/:findingId(\d+)/description`} />
                 </Switch>
               </div>
             </React.Fragment>
