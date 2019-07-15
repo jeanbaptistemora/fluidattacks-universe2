@@ -255,6 +255,38 @@ a {
   }
 }
 
+.defcon {
+  background-color: $fluid-dark-red;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+
+  p {
+    color: $white;
+    font-style: bold;
+    text-align: center;
+  }
+}
+
+
+.defconbtn {
+  align-content: center;
+  background-color: $fluid-black;
+  border-color: $fluid-black;
+  border-radius: 13px;
+  color: $white;
+  cursor: pointer;
+  display: block;
+  font-family: 'Montserrat';
+  font-size: 16;
+  font-weight: bold;
+  margin: auto;
+  padding: 7px 20px;
+}
+
 ol {
   font-size: 18px;
   padding-left: 28px;

@@ -24,6 +24,7 @@
           <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
         {% endassets %}
       <!-- End MixPanel -->
+
       {% if GOOGLE_SITE_VERIFICATION %}
         <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
       {% endif %}
@@ -109,6 +110,12 @@
         <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
       {% endassets %}
     <!-- Navigation -->
+    <!-- Defcon section -->
+    <div class="defcon">
+      <p>{{ gettext('defcon-msg') }}</p>
+        <button class="defconbtn" onclick="window.location='https://calendly.com/mauriciog/blackhat?month=2019-08'" >Here</button>
+    </div>
+    <!-- End Defcon  -->
       {% include "navigationbar.html" %}
       {% block header %}
         <div class="header">
