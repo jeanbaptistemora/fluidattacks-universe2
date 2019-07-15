@@ -82,6 +82,15 @@ stages:
   - post-deploy
   - coverage
 
+build-mobile:
+  tags:
+  - mobile
+  stage: deps
+  image: fluidattacks/alpine-kaniko:latest
+  retry: 2
+  script:
+    - ./ci-scripts/check-mobile-build.sh
+
 deps-app:
   stage: deps
   <<: *kaniko_config
