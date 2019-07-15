@@ -4,7 +4,7 @@
 # to the registry if the branch is master
 
 echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"${CI_REGISTRY_USER}\",\
-  \"password\":\"${CI_REGISTRY_PASSWORD}\"}}}" > /kaniko/.docker/config.json
+  \"password\":\"${CI_REGISTRY_PASSWORD}\"}}}" > /root/.docker/config.json
 
 if [[ "$CI_COMMIT_REF_NAME" == "master" ]]; then
   /kaniko/executor \

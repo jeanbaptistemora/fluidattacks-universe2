@@ -5,7 +5,7 @@
 # were modified. If any of the files was modified,
 # It runs a kaniko-build for mobile.
 
-# Get modified files base on whether branch is master or dev
+# Get modified files based on whether branch is master or dev
 if [[ "$CI_COMMIT_REF_NAME" == 'master' ]]; then
   CHANGED=$(git diff --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA")
 else
