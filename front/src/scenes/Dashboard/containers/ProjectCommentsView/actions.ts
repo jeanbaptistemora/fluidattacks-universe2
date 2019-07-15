@@ -1,27 +1,14 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import { ICommentStructure } from "../../components/Comments";
+import { loadCallback, postCallback } from "./index";
 
-export interface IActionStructure {
-  payload?: { [key: string]: string | string[] };
-  type: string;
-}
-
-export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
-
-type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
-
-type loadCommentsFunction = (
-  (projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)) => ThunkResult<void>
-);
-
-export const loadComments: loadCommentsFunction =
-  (projectName: string, callbackFn: ((comments: ICommentStructure[]) => void)): ThunkResult<void> =>
-    (_: ThunkDispatcher): void => {
+export const loadComments: ((projectName: string, callbackFn: loadCallback) => void) = (
+  projectName: string, callbackFn: loadCallback,
+): void => {
       let gQry: string;
       gQry = `{
         project(projectName: "${projectName}") {
@@ -41,16 +28,11 @@ export const loadComments: loadCommentsFunction =
             rollbar.error(error.message, errors);
           }
         });
-    };
+};
 
-type postCommentFunction = ((
-  projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void),
-) => ThunkResult<void>);
-
-export const postComment: postCommentFunction = (
-  projectName: string, comment: ICommentStructure, callbackFn: ((comment: ICommentStructure) => void),
-): ThunkResult<void> =>
-  (_: ThunkDispatcher): void => {
+export const postComment: ((projectName: string, comment: ICommentStructure, callbackFn: postCallback) => void) = (
+  projectName: string, comment: ICommentStructure, callbackFn: postCallback,
+): void => {
     let gQry: string;
     gQry = `mutation {
       addProjectComment(
@@ -81,4 +63,4 @@ export const postComment: postCommentFunction = (
           rollbar.error(error.message, errors);
         }
       });
-  };
+};

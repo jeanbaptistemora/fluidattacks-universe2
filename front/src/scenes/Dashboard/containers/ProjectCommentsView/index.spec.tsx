@@ -1,47 +1,47 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
-import { Provider } from "react-redux";
-import store from "../../../../store/index";
-import { IProjectCommentsViewProps, ProjectCommentsView } from "./index";
+import { RouteComponentProps } from "react-router";
+import { ProjectCommentsView } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
+describe("Project comments view", (): void => {
 
-describe("Project comments view", () => {
-
-  const mockProps: IProjectCommentsViewProps = {
-    match: {
-      isExact: true,
-      params: {projectName: "TEST"},
-      path: "/",
-      url: "",
+  const routePropsMock: RouteComponentProps<{ projectName: string }> = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
     },
-    onLoad: functionMock,
-    onPostComment: functionMock,
+    location: { hash: "", pathname: "/", search: "", state: {} },
+    match: { isExact: true, params: { projectName: "TEST" }, path: "/", url: "" },
   };
 
-  it("should return a object", () => {
+  it("should return a function", (): void => {
     expect(typeof (ProjectCommentsView))
-      .toEqual("object");
+      .toEqual("function");
   });
 
-  it("should contain the component", () => {
+  it("should contain the component", (): void => {
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <ProjectCommentsView {...mockProps} />,
-      </Provider>,
+      <ProjectCommentsView {...routePropsMock} />,
     );
     expect(wrapper.find("projectCommentsView"))
       .toBeTruthy();
   });
 
-  it("should render", () => {
+  it("should render", (): void => {
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
-        <ProjectCommentsView {...mockProps} />,
-      </Provider>,
+      <ProjectCommentsView {...routePropsMock} />,
     );
     expect(wrapper)
       .toHaveLength(1);
