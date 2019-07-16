@@ -20,7 +20,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
 import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
-import { addFilesModal as AddFilesModal } from "../../components/AddFilesModal/index";
+import { AddFilesModal } from "../../components/AddFilesModal/index";
 import { addRepositoriesModal as AddRepositoriesModal } from "../../components/AddRepositoriesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";

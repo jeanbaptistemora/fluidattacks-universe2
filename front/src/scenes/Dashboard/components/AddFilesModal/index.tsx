@@ -30,52 +30,54 @@ const renderUploadBar: ((props: IAddFilesModalProps) => JSX.Element) = (props: I
   </React.Fragment>
 );
 
-export const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps): JSX.Element => {
+const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps): JSX.Element => {
   const handleClose: (() => void) = (): void => { props.onClose(); };
   const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
 
   return (
-  <React.StrictMode>
-  <Modal
-    open={props.isOpen}
-    headerTitle={translate.t("search_findings.tab_resources.modal_file_title")}
-    footer={<div />}
-  >
-    <GenericForm
-      name="addFiles"
-      initialValues={{ resources: [{ fileName: "", description: "" }] }}
-      onSubmit={handleSubmit}
-    >
-      {({ pristine, submitting }: InjectedFormProps): React.ReactNode => (
-        <React.Fragment>
-          <Row>
-            <Col md={12}>
-              <div>
-                <FileInput fileSize={100} icon="search" id="file" type="" visible={true}/>
-              </div>
-            </Col>
-            <Col md={12}>
-              <label>
-                <label style={{ color: "#f22" }}>* </label>
-                {translate.t("search_findings.tab_resources.description")}
-              </label>
-              <Field name="description" component={textAreaField} type="text" validate={[required]} />
-            </Col>
-          </Row>
-          {props.showUploadProgress === true ? renderUploadBar(props) : undefined}
-          <br />
-      <ButtonToolbar className="pull-right">
-        <Button bsStyle="default" onClick={handleClose}>
-          {translate.t("confirmmodal.cancel")}
-        </Button>
-        <Button bsStyle="primary" type="submit" disabled={pristine || submitting}>
-          {translate.t("confirmmodal.proceed")}
-        </Button>
-      </ButtonToolbar>
-    </React.Fragment>
-    )}
-    </GenericForm>
-  </Modal>
+    <React.StrictMode>
+      <Modal
+        open={props.isOpen}
+        headerTitle={translate.t("search_findings.tab_resources.modal_file_title")}
+        footer={<div />}
+      >
+        <GenericForm
+          name="addFiles"
+          initialValues={{ resources: [{ fileName: "", description: "" }] }}
+          onSubmit={handleSubmit}
+        >
+          {({ pristine, submitting }: InjectedFormProps): React.ReactNode => (
+            <React.Fragment>
+              <Row>
+                <Col md={12}>
+                  <div>
+                    <FileInput fileSize={100} icon="search" id="file" type="" visible={true} />
+                  </div>
+                </Col>
+                <Col md={12}>
+                  <label>
+                    <label style={{ color: "#f22" }}>* </label>
+                    {translate.t("search_findings.tab_resources.description")}
+                  </label>
+                  <Field name="description" component={textAreaField} type="text" validate={[required]} />
+                </Col>
+              </Row>
+              {props.showUploadProgress === true ? renderUploadBar(props) : undefined}
+              <br />
+              <ButtonToolbar className="pull-right">
+                <Button bsStyle="default" onClick={handleClose}>
+                  {translate.t("confirmmodal.cancel")}
+                </Button>
+                <Button bsStyle="primary" type="submit" disabled={pristine || submitting}>
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ButtonToolbar>
+            </React.Fragment>
+          )}
+        </GenericForm>
+      </Modal>
     </React.StrictMode>
   );
 };
+
+export { addFilesModal as AddFilesModal };
