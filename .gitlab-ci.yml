@@ -207,9 +207,10 @@ front-testing:
 
 mobile-testing:
   stage: pre-test
+  image: registry.gitlab.com/fluidattacks/integrates:mobile
   script:
-    - cp -a /root/mobile/node_modules mobile/
     - cd mobile
+    - cp -a /usr/src/app/node_modules .
     - npm install
     - npm run lint
     - npm test
