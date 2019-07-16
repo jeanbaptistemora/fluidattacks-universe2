@@ -242,6 +242,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       isDate: false,
                       isStatus: false,
                       width: "60%",
+                      wrapped: true,
                     },
                     {
                       align: "left" as DataAlignType,
@@ -268,6 +269,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       isDate: false,
                       isStatus: false,
                       width: "60%",
+                      wrapped: true,
                     },
                     {
                       align: "left" as DataAlignType,
@@ -294,6 +296,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       isDate: false,
                       isStatus: false,
                       width: "60%",
+                      wrapped: true,
                     },
                     {
                       align: "left" as DataAlignType,

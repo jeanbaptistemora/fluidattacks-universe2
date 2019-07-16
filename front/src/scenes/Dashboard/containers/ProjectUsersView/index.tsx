@@ -109,7 +109,7 @@ const renderUsersTable: ((userList: IUsersAttr["project"]["users"], userRole: st
       search={true}
       enableRowSelection={userRole === "admin" || userRole === "customeradmin"}
       title=""
-      selectionMode="none"
+      selectionMode="radio"
     />
   );
 
