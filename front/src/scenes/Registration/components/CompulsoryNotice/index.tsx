@@ -1,8 +1,3 @@
-/* tslint:disable:jsx-no-lambda
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
- */
 import React from "react";
 import { Checkbox } from "react-bootstrap";
 import { Button } from "../../../../components/Button/index";
@@ -21,37 +16,35 @@ export interface ICompulsoryNoticeProps {
   onCheckRemember(): void;
 }
 
-const modalContent: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
-  (props: ICompulsoryNoticeProps): React.ReactNode => (
-  <div>
-    <p>{props.content}</p>
-    <p title={translate.t("legalNotice.rememberCbo.tooltip")}>
-      <Checkbox
-        checked={props.rememberDecision}
-        onClick={(): void => { props.onCheckRemember(); }}
-      >
-        {translate.t("legalNotice.rememberCbo.text")}
-      </Checkbox>
-    </p>
-  </div>
-);
+const modalContent: ((arg1: ICompulsoryNoticeProps) => JSX.Element) = (props: ICompulsoryNoticeProps): JSX.Element => {
+  const handleRememberClick: (() => void) = (): void => { props.onCheckRemember(); };
 
-const modalFooter: ((arg1: ICompulsoryNoticeProps) => React.ReactNode) =
-  (props: ICompulsoryNoticeProps): React.ReactNode => (
-  <Button
-    bsStyle="primary"
-    title={translate.t("legalNotice.acceptBtn.tooltip")}
-    onClick={(): void => { props.onAccept(props.rememberDecision); }}
-  >
-    {translate.t("legalNotice.acceptBtn.text")}
-  </Button>
-);
+  return (
+    <div>
+      <p>{props.content}</p>
+      <p title={translate.t("legalNotice.rememberCbo.tooltip")}>
+        <Checkbox checked={props.rememberDecision} onClick={handleRememberClick}>
+          {translate.t("legalNotice.rememberCbo.text")}
+        </Checkbox>
+      </p>
+    </div>
+  );
+};
+
+const modalFooter: ((arg1: ICompulsoryNoticeProps) => JSX.Element) = (props: ICompulsoryNoticeProps): JSX.Element => {
+  const handleAcceptClick: (() => void) = (): void => { props.onAccept(props.rememberDecision); };
+
+  return (
+    <Button bsStyle="primary" title={translate.t("legalNotice.acceptBtn.tooltip")} onClick={handleAcceptClick}>
+      {translate.t("legalNotice.acceptBtn.text")}
+    </Button>
+  );
+};
 
 /**
  * CompulsoryNotice component
  */
-export const compulsoryNotice: React.FC<ICompulsoryNoticeProps> =
-  (props: ICompulsoryNoticeProps): JSX.Element => (
+export const compulsoryNotice: React.FC<ICompulsoryNoticeProps> = (props: ICompulsoryNoticeProps): JSX.Element => (
   <React.StrictMode>
     <Modal
       open={props.open}
