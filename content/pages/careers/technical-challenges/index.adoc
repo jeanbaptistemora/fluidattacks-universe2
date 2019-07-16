@@ -182,25 +182,22 @@ always preserving the moral rights of their authors.
 
 == 8. Plagiarism
 
-Having the solutions available at everyones disposal
-poses an opportunity for plagiarism,
-How do we show the solutions to the world and avoid plagiarism?
-Plagiarism is not a technical problem,
-It is a moral problem of presenting someone else’s work
-as your own.
+Making solutions easily available to everyone
+presents an opportunity for plagiarism.
+How do we show the solution and avoid plagiarism at the same time?
+Plagiarism is not a technical problem.
+Plagiarism is copying another's work and then presenting it as your own.
 
-To avoid plagiarism we seek visibility and
-an explicit declaration of the authorship of each algorithm
-in a centralized place.
-This provides clear evidence of the attribution of authorship and
-allows for public scrutiny in case of plagiarism.
+To discourage plagiarism we require that the author of each algorithm
+is clearly stated in a centralized place.
+This provides clear author attribution
+and allows for public scrutiny in case of plagiarism.
 
 In other words, the current model avoids plagiarism
 through total transparency.
 
-+Fluid Attacks+ actively applies algorithmic similarity detection techniques
-on all solutions submitted.
-In particular using:
++Fluid Attacks+ applies algorithmic similarity detection techniques
+to all solutions submitted. We use:
 
 * link:https://theory.stanford.edu/~aiken/moss/[MOSS]
 * link:https://en.wikipedia.org/wiki/Plagiarism_detection[Plagiarism Detection Theory]

@@ -80,8 +80,8 @@ use the same criteria defined in the [button]#link:../../style/[style guide]#.
 . Training is done in weekly cycles.
 . Initially, you are offered *one cycle* of training.
 . At the end of each cycle, one of the following will happen:
-.. Nothing is notified,
-which implies the cycle is renewed *one more week*.
+.. You do not receive any notification,
+which means the training cycle continues for *one more week*.
 .. You receive a notification
 that we do not want to continue with another cycle,
 which means we are terminating the training process.
@@ -103,31 +103,31 @@ must be completed in the following order:
 .. A challenge cycle consists of the following steps.
 Remember, these steps must be completed in the order listed below.
 
-... *one (1)* approved +MR+ solving a +programming+ challenge in the
-link:https://gitlab.com/autonomicmind/training/[training repository],
+... *One (1)* approved +MR+ solving a +programming+ challenge in the
+link:https://gitlab.com/autonomicmind/training/[training repository].
 
-... *one (1)* approved +MR+ solving a +ctf-hacking+ challenge in the
-link:https://gitlab.com/autonomicmind/training/[training repository], and
+... *One (1)* approved +MR+ solving a +ctf-hacking+ challenge in the
+link:https://gitlab.com/autonomicmind/training/[training repository].
 
-... *one (1)* approved +MR+ solving a +vbd-hacking+ challenge in the
+... *One (1)* approved +MR+ solving a +vbd-hacking+ challenge in the
 link:https://gitlab.com/fluidattacks/writeups[writeups repository].
-A +MR+ is considered approved when it's merged to the +master+ branch
+An +MR+ is considered approved when it’s merged to the +master+ branch
 of each repository.
 
-.. Please consider the following restrictions:
+.. Do *NOT* do the following:
 +
 * Do *NOT* send consecutive +MR+ solving challenges of the same type.
 * Do *NOT* change the cycle order in any way.
 * Do *NOT* skip any challenge type in the cycle.
 
-. Once you have completed *five (5)* challenge cycles,
-write *one (1)* article for the blog,
-by sending a +MR+ to the link:https://gitlab.com/fluidattacks/web[web repository].
+. After you have completed *five (5)* challenge cycles
+write *one (1)* article for the blog by sending an +MR+
+to the link:https://gitlab.com/fluidattacks/web[web repository].
 
 . Repeat the previous steps until you complete the
-[button]#link:../immersion/#objectives[objectives]#
+[button]#link:../immersion/#objectives[objectives]#.
 
-. For programming challenges you should take into account:
+. Read carefully the programming challenge requirements below:
 
 .. Each programming challenge completed
 must be *one (1)* score point greater than the previous one.
@@ -135,9 +135,10 @@ must be *one (1)* score point greater than the previous one.
 .. If no challenges with greater score exist,
 start again solving a challenge of lower score.
 
-.. If you reach a point where the difficulty makes it hard to advance:
+.. If you reach a point where the need to obtain a higher score
+makes it hard for you to advance:
 
-... Read about the topics you don't master yet,
+... Read about the topics you haven't mastered yet
 (graphs, trees, modular arithmetic, etc).
 
 ... Try different approaches,
