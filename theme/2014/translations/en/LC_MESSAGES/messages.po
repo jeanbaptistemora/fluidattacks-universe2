@@ -890,19 +890,19 @@ msgstr "Services"
 
 #: templates/navigationbar.html:6
 msgid "Navb-link-2.1"
-msgstr "one-shot-hacking"
+msgstr "continuous-hacking"
 
 #: templates/navigationbar.html:6
 msgid "Navb-opt-2.1"
-msgstr "One Shot Hacking"
+msgstr "Continuous Hacking"
 
 #: templates/navigationbar.html:7
 msgid "Navb-link-2.2"
-msgstr "continuous-hacking"
+msgstr "one-shot-hacking"
 
 #: templates/navigationbar.html:7
 msgid "Navb-opt-2.2"
-msgstr "Continuous Hacking"
+msgstr "One Shot Hacking"
 
 #: templates/navigationbar.html:10 templates/navigationbar.html:12
 #: templates/navigationbar.html:13 templates/navigationbar.html:14
