@@ -147,7 +147,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     },
     {
       align: "center", dataField: "where", header: "Where", hidden: checkedItems.where,
-      isDate: false, isStatus: false, width: "8%",
+      isDate: false, isStatus: false, width: "8%", wrapped: true,
     },
   ];
 
