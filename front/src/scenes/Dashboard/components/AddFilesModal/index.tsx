@@ -1,27 +1,18 @@
-/* tslint:disable jsx-no-multiline-js jsx-no-lambda
+/* tslint:disable jsx-no-multiline-js
  * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
- * readability of the code that dynamically renders the fields
- * JSX-NO-LAMBDA: Disabling this rule is necessary for the sake of simplicity and
- * readability of the code that binds click events
+ * readability of the code that renders the form
  */
 
 import React from "react";
 import { ButtonToolbar, Col, ProgressBar, Row } from "react-bootstrap";
-import { Provider } from "react-redux";
-import {
-  ConfigProps, DecoratedComponentClass, Field,
-  FieldArray, GenericFieldArray, InjectedFormProps,
-  reduxForm,
-  WrappedFieldArrayProps,
-} from "redux-form";
+import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
-import store from "../../../../store/index";
-import { focusError } from "../../../../utils/forms/events";
 import { textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { FileInput } from "../../components/FileInput/index";
+import { GenericForm } from "../GenericForm";
 
 export interface IAddFilesModalProps {
   isOpen: boolean;
@@ -31,25 +22,32 @@ export interface IAddFilesModalProps {
   onSubmit(values: {}): void;
 }
 
-/* This is necessary because there is a problem with the type of FieldArray in redux-form library,
-* this is the issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/32858#issuecomment-461441222
-*/
-/* tslint:disable-next-line:variable-name
-* Disabling here is necessary due a conflict
-* between lowerCamelCase var naming rule from tslint
-* and PascalCase rule for naming JSX elements
-*/
-const FieldArrayCustom: new () => GenericFieldArray<Field<React.InputHTMLAttributes<HTMLInputElement> |
-  React.SelectHTMLAttributes<HTMLSelectElement> | React.TextareaHTMLAttributes<HTMLTextAreaElement>>,
-  WrappedFieldArrayProps<undefined>> = FieldArray as new () =>
-  GenericFieldArray<Field, WrappedFieldArrayProps<undefined>>;
+const renderUploadBar: ((props: IAddFilesModalProps) => JSX.Element) = (props: IAddFilesModalProps): JSX.Element => (
+  <React.Fragment>
+    <br />
+    {translate.t("search_findings.tab_resources.uploading_progress")}
+    <ProgressBar active={true} now={props.uploadProgress} label={`${props.uploadProgress}%`} />
+  </React.Fragment>
+);
 
-type formProps = IAddFilesModalProps & InjectedFormProps<{}, IAddFilesModalProps>;
+export const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps): JSX.Element => {
+  const handleClose: (() => void) = (): void => { props.onClose(); };
+  const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
 
-const renderFilesFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Element) =
-    (props: WrappedFieldArrayProps<undefined>): JSX.Element => (
-      <React.Fragment>
-        {props.fields.map((fieldName: string) => (
+  return (
+  <React.StrictMode>
+  <Modal
+    open={props.isOpen}
+    headerTitle={translate.t("search_findings.tab_resources.modal_file_title")}
+    footer={<div />}
+  >
+    <GenericForm
+      name="addFiles"
+      initialValues={{ resources: [{ fileName: "", description: "" }] }}
+      onSubmit={handleSubmit}
+    >
+      {({ pristine, submitting }: InjectedFormProps): React.ReactNode => (
+        <React.Fragment>
           <Row>
             <Col md={12}>
               <div>
@@ -61,76 +59,23 @@ const renderFilesFields: ((props: WrappedFieldArrayProps<undefined>) => JSX.Elem
                 <label style={{ color: "#f22" }}>* </label>
                 {translate.t("search_findings.tab_resources.description")}
               </label>
-              <Field name={`${fieldName}.description`} component={textAreaField} type="text" validate={[required]} />
+              <Field name="description" component={textAreaField} type="text" validate={[required]} />
             </Col>
           </Row>
-        ))}
-      </React.Fragment>
-    );
-
-const renderFooter: ((props: formProps) => JSX.Element) =
-  (props: formProps): JSX.Element => (
-    <React.Fragment>
+          {props.showUploadProgress === true ? renderUploadBar(props) : undefined}
+          <br />
       <ButtonToolbar className="pull-right">
-        <Button bsStyle="default" onClick={(): void => { props.onClose(); }}>
+        <Button bsStyle="default" onClick={handleClose}>
           {translate.t("confirmmodal.cancel")}
         </Button>
-        <Button bsStyle="primary" type="submit" disabled={props.pristine || props.submitting}>
+        <Button bsStyle="primary" type="submit" disabled={pristine || submitting}>
           {translate.t("confirmmodal.proceed")}
         </Button>
       </ButtonToolbar>
     </React.Fragment>
-  );
-
-const renderFilesForm: ((props: formProps) => JSX.Element) =
-    (props: formProps): JSX.Element => (
-      <React.Fragment>
-        <form onSubmit={props.handleSubmit}>
-          <FieldArrayCustom name="resources" component={renderFilesFields} />
-          { props.showUploadProgress === true ?
-            <React.Fragment>
-              <br />
-              {translate.t("search_findings.tab_resources.uploading_progress")}
-              <ProgressBar active={true} now={props.uploadProgress} label={`${props.uploadProgress}%`} />
-            </React.Fragment>
-            : undefined
-          }
-          <br />
-          {renderFooter(props)}
-        </form>
-        <br />
-      </React.Fragment>
-    );
-
-type resourcesForm =
-  DecoratedComponentClass<{}, IAddFilesModalProps & Partial<ConfigProps<{}, IAddFilesModalProps>>, string>;
-
-/* tslint:disable:variable-name
- * Disabling here is necessary due a conflict
- * between lowerCamelCase var naming rule from tslint
- * and PascalCase rule for naming JSX elements
- */
-
-const FilesForm: resourcesForm = reduxForm<{}, IAddFilesModalProps>({
-  enableReinitialize: true,
-  form: "addFiles",
-  initialValues: {
-    resources: [{ fileName: "", description: ""}],
-  },
-  onSubmitFail: focusError,
-})(renderFilesForm);
-// tslint:enable:variable-name
-
-export const addFilesModal: React.FC<IAddFilesModalProps> =
-  (props: IAddFilesModalProps): JSX.Element => (
-    <React.StrictMode>
-      <Provider store={store}>
-        <Modal
-          open={props.isOpen}
-          headerTitle={translate.t("search_findings.tab_resources.modal_file_title")}
-          content={<FilesForm {...props} />}
-          footer={<div />}
-        />
-      </Provider>
+    )}
+    </GenericForm>
+  </Modal>
     </React.StrictMode>
   );
+};

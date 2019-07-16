@@ -10,7 +10,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import {
   ConfigProps, DecoratedComponentClass, Field,
-  FieldArray, FieldArrayFieldsProps, GenericFieldArray, InjectedFormProps,
+  FieldArray, FieldArrayFieldsProps, InjectedFormProps,
   reduxForm,
   WrappedFieldArrayProps,
 } from "redux-form";
@@ -27,19 +27,6 @@ export interface IAddTagsModalProps {
   onClose(): void;
   onSubmit(values: {}): void;
 }
-
-/* This is necessary because there is a problem with the type of FieldArray in redux-form library,
-* this is the issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/32858#issuecomment-461441222
-*/
-/* tslint:disable-next-line:variable-name
-* Disabling here is necessary due a conflict
-* between lowerCamelCase var naming rule from tslint
-* and PascalCase rule for naming JSX elements
-*/
-const FieldArrayCustom: new () => GenericFieldArray<Field<React.InputHTMLAttributes<HTMLInputElement> |
-  React.SelectHTMLAttributes<HTMLSelectElement> | React.TextareaHTMLAttributes<HTMLTextAreaElement>>,
-  WrappedFieldArrayProps<undefined>> = FieldArray as new () =>
-  GenericFieldArray<Field, WrappedFieldArrayProps<undefined>>;
 
 type formProps = IAddTagsModalProps & InjectedFormProps<{}, IAddTagsModalProps>;
 
@@ -95,7 +82,7 @@ const renderTagsForm: ((props: formProps) => JSX.Element) =
   (props: formProps): JSX.Element => (
     <React.Fragment>
       <form onSubmit={props.handleSubmit}>
-        <FieldArrayCustom name="tags" component={renderTagsFields} />
+        <FieldArray name="tags" component={renderTagsFields} />
         {renderFooter(props)}
       </form>
     </React.Fragment>
