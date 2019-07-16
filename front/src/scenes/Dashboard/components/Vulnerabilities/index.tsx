@@ -74,7 +74,7 @@ const getRanges: ((array: number[]) => string) =
       rstart === rend ? `${negativeInParens(rstart)}` : `${negativeInParens(rstart)}-${negativeInParens(rend)}`);
   }
 
-  return ranges.toString();
+  return ranges.join(", ");
 };
 
 const groupValues: ((values: number[]) => string) =
@@ -88,7 +88,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
     ({
         currentState: line[0].currentState,
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
-          .toString() : groupValues(line.map(specificToNumber)),
+          .join(", ") : groupValues(line.map(specificToNumber)),
         treatment: line[0].treatment,
         vulnType: line[0].vulnType,
         where: line[0].where,
@@ -250,6 +250,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       isDate: false,
                       isStatus: false,
                       width: "20%",
+                      wrapped: true,
                     },
                     {
                       align: "left" as DataAlignType,
@@ -275,6 +276,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       isDate: false,
                       isStatus: false,
                       width: "20%",
+                      wrapped: true,
                     },
                     {
                       align: "left" as DataAlignType,
@@ -300,6 +302,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       isDate: false,
                       isStatus: false,
                       width: "20%",
+                      wrapped: true,
                     },
                     {
                       align: "left" as DataAlignType,
