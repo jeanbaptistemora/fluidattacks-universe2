@@ -43,12 +43,9 @@ class AutoAddHostPolicy(object):
 @contextmanager
 def build_ssh_object() -> Generator[paramiko.client.SSHClient, None, None]:
     """Build a Paramiko SSHClient object."""
-    ssh_conn = paramiko.SSHClient()
-    ssh_conn.set_missing_host_key_policy(AutoAddHostPolicy())
-    try:
+    with paramiko.SSHClient() as ssh_conn:
+        ssh_conn.set_missing_host_key_policy(AutoAddHostPolicy())
         yield ssh_conn
-    finally:
-        ssh_conn.close()
 
 
 # pylint: disable=too-many-locals
