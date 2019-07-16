@@ -5,6 +5,7 @@
 :usa: image:../images/icons/us-flag.png[USA Flag]
 :australia: image:../images/icons/australia-flag.png[Australia Flag]
 :peru: image:../images/icons/peru-flag.png[Peru Flag]
+:canada: image:../images/icons/canada-flag.png[Canada Flag]
 
 = Partners
 
@@ -100,6 +101,23 @@ review, maintain, and improve technology management
 within the framework of security, service,
 and support according to each organization's needs.
 
+a|== Proximiteam
+
+{canada} Proximiteam is a global provider
+of high-quality software development services.
+Its teams of experienced software engineers and +IT+ specialists
+create innovative systems and applications for every industry.
+Headquartered in Toronto, Canada,
+with a solid nearshore network of development centers and global partners,
+Proximiteam has defined efficient service delivery models
+that focus on value and productivity.
+Their services include custom software development,
+systems integration, data analytics, testing, and support.
+
+a|image::logo-proximiteam.png[alt="Logo SBA",link="https://www.proximiteam.com/"]
+
+a|image::logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
+
 a|== SBA
 
 {usa} Partner firm focused on obtaining rapid sales
@@ -110,10 +128,6 @@ both in the short and long-term.
 SBA services include marketing, sales, operational support,
 and capital fundraising.
 
-a|image::logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
-
-a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
-
 a|== Teraport
 
 {germany} German company specializing in software development,
@@ -123,6 +137,10 @@ Offering specific solutions and standardized products in development,
 simulation, and quality assurance,
 as well as, services and consulting in product development engineering.
 
+a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+
+a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+
 a|== The missing link
 
 {australia} Australian company providing information technology solutions,
@@ -130,10 +148,6 @@ infrastructure services, security, backup, disaster recovery,
 communications, and cloud services.
 Recognized as an industry leader accredited at the highest levels in design,
 delivery, and cutting-edge technology support.
-
-a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
-
-a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
 
 a|== Zenda
 
@@ -144,6 +158,8 @@ Seeking to improve +IT+ services impact
 by focusing on the insights of each customer,
 and fostering continuous business growth
 through the delivery of a simple, scalable, and convergent solution.
+
+a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
 
 |====
 
