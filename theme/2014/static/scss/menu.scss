@@ -258,6 +258,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .header-title {
+  margin-top: 50px;
   max-width: 550px;
   position: absolute;
   right: 0;
@@ -578,6 +579,13 @@ $white: rgba(255, 255, 255, 1);
       font-size: 12px;
       margin: 3px auto;
     }
+  }
+}
+
+// Responsive for defcon section
+@media screen and (max-width: 616px) {
+  .header-title {
+    margin-top: 80px;
   }
 }
 

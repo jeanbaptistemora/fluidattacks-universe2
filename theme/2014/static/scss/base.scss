@@ -257,6 +257,7 @@ a {
 
 .defcon {
   background-color: $fluid-dark-red;
+  height: 50px;
   margin: 0 auto;
   padding-bottom: 10px;
   position: sticky;
@@ -279,12 +280,9 @@ a {
   border-radius: 13px;
   color: $white;
   cursor: pointer;
-  display: block;
-  font-family: 'Montserrat';
-  font-size: 16;
-  font-weight: bold;
-  margin: auto;
-  padding: 7px 20px;
+  margin-left: 10px;
+  margin-top: 8px;
+  padding: 2px 17px;
 }
 
 ol {
@@ -1164,6 +1162,13 @@ article {
   .tb-location-branch {
     left: 0;
     right: 0%;
+  }
+}
+
+// Responsive for defcon section
+@media screen and (max-width: 616px) {
+  .defcon {
+    height: 80px;
   }
 }
 
