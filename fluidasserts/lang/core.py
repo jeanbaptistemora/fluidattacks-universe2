@@ -11,22 +11,22 @@ from base64 import b64encode
 from pyparsing import MatchFirst, QuotedString
 
 # local imports
+from fluidasserts import Vuln, Result, OPEN, CLOSED, UNKNOWN, LOW
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import track, level, notify, api
 
 
 LANGUAGE_SPECS = {}  # type: dict
 
 
-@notify
-@level('low')
 @track
+@api(risk=LOW)
 def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
-             exclude: list = None, lang_specs: dict = None) -> bool:
+             exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if a bad text is present in given source file.
 
@@ -42,25 +42,20 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
     """
     if not lang_specs:
         lang_specs = LANGUAGE_SPECS
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
     grammar = expected_text if use_regex else re.escape(expected_text)
-    try:
-        matches = lang.check_grammar_re(grammar, code_dest, lang_specs,
-                                        exclude)
-        if not matches:
-            show_close('Bad text not present in code',
-                       details=dict(location=code_dest,
-                                    expected_text=expected_text,
-                                    used_regular_expressions=use_regex))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=code_dest))
-        return False
-    show_open('Bad text present in code',
-              details=dict(matches=matches,
-                           expected_text=expected_text,
-                           used_regular_expressions=use_regex))
-    return True
+    matches = lang.check_grammar_re(grammar, code_dest, lang_specs, exclude)
+
+    if not matches:
+        return CLOSED, 'Bad text not present in code'
+
+    parsed_matches = [
+        Vuln(path, 'lines', data['lines'].split(', '), data['sha256'])
+        for path, data in matches.items()]
+
+    return OPEN, 'Bad text present in code', parsed_matches
 
 
 @notify

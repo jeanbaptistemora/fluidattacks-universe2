@@ -294,11 +294,11 @@ def get_risk_levels(parsed_content):
     try:
         filtered = [
             x for x in parsed_content
-            if 'status' in x and 'risk-level' in x and x['status'] == 'OPEN']
+            if 'status' in x and 'risk' in x and x['status'] == 'OPEN']
 
-        high_risk = sum(1 for x in filtered if x['risk-level'] == 'high')
-        medium_risk = sum(1 for x in filtered if x['risk-level'] == 'medium')
-        low_risk = sum(1 for x in filtered if x['risk-level'] == 'low')
+        high_risk = sum(1 for x in filtered if x['risk'] == 'high')
+        medium_risk = sum(1 for x in filtered if x['risk'] == 'medium')
+        low_risk = sum(1 for x in filtered if x['risk'] == 'low')
 
         opened = get_total_open_checks(parsed_content)
 

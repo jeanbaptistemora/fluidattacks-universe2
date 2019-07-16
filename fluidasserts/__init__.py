@@ -10,26 +10,41 @@ but were slightly modified to fit this project.
 # standard imports
 from __future__ import absolute_import
 
-import datetime
 import importlib
 import inspect
 import os
 import re
 import sys
+import json
+import textwrap
+from datetime import datetime
+from itertools import chain
+from typing import Callable, Dict, List, Any
 
 # 3rd party imports
 from pkg_resources import get_distribution, DistributionNotFound
 import oyaml as yaml
 
-
 # local imports
 # none
+
+
+# Constants
+OPEN: str = 'OPEN'
+CLOSED: str = 'CLOSED'
+UNKNOWN: str = 'UNKNOWN'
+
+LOW: str = 'low'
+MEDIUM: str = 'medium'
+HIGH: str = 'high'
 
 PARAM_OR_RETURNS_REGEX = re.compile(r":(?:param|returns)")
 RETURNS_REGEX = re.compile(r":returns: (?P<doc>.*)", re.S)
 PARAM_REGEX = re.compile(r":param (?P<name>[\*\w]+): (?P<doc>.*?)"
                          r"(?:(?=:param)|(?=:return)|(?=:raises)|\Z)", re.S)
 
+LOCAL_TZ = datetime.utcnow().astimezone().tzinfo
+DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
 # pylint: disable=too-many-instance-attributes
 # pylint: disable=too-few-public-methods
@@ -38,11 +53,11 @@ PARAM_REGEX = re.compile(r":param (?P<name>[\*\w]+): (?P<doc>.*?)"
 def check_cli():
     """Check execution from CLI."""
     if 'FA_CLI' not in os.environ:
-        cli_warn = """
-########################################################
-## INVALID OUTPUT. PLEASE, RUN ASSERTS USING THE CLI. ##
-########################################################
-"""
+        cli_warn = textwrap.dedent("""
+            ########################################################
+            ## INVALID OUTPUT. PLEASE, RUN ASSERTS USING THE CLI. ##
+            ########################################################
+            """)
         print(cli_warn)
 
 
@@ -184,10 +199,7 @@ def method_stats_register_caller(with_status: str) -> bool:
         METHOD_STATS[METHOD_STATS_OWNER][caller][with_status] += 1
     except KeyError:
         METHOD_STATS[METHOD_STATS_OWNER][caller] = {
-            'open': 0,
-            'closed': 0,
-            'unknown': 0,
-        }
+            OPEN: 0, CLOSED: 0, UNKNOWN: 0}
         METHOD_STATS[METHOD_STATS_OWNER][caller][with_status] += 1
     return True
 
@@ -197,7 +209,7 @@ def method_stats_parse_stats() -> dict:
     method_stats = {
         owner: {
             method: "{} open, {} closed, {} unknown".format(
-                res['open'], res['closed'], res['unknown'])
+                res[OPEN], res[CLOSED], res[UNKNOWN])
             for method, res in methods.items()
         }
         for owner, methods in METHOD_STATS.items()
@@ -214,8 +226,8 @@ class Message():
             message: str,
             details: dict) -> None:
         """Create constructor method."""
-        self.__status_codes = ['OPEN', 'CLOSED', 'UNKNOWN', 'ERROR']
-        self.date = datetime.datetime.now()
+        self.__status_codes = [OPEN, CLOSED, UNKNOWN]
+        self.date = datetime.now()
         self.status: str = status
         self.message: str = message
         self.details: dict = details if isinstance(details, dict) else {}
@@ -246,27 +258,143 @@ class Message():
                               allow_unicode=True)
 
 
+class Vuln():
+    """API vulnerability class."""
+
+    def __init__(self,
+                 where: str,
+                 attribute: str,
+                 specific: List[str],
+                 fingerprint: str):
+        """Default constructor."""
+        self.where: str = where
+        self.attribute: str = attribute
+        self.specific: List[str] = specific
+        self.fingerprint: str = fingerprint
+
+    def as_dict(self) -> dict:
+        """Dict reprensentation of this class."""
+        # Stringify
+        specific = map(str, self.specific)
+        # Escape commas:
+        specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
+        specific = map(lambda x: x.replace(r',', r'\\,'), specific)
+        # Join to make it less verbose
+        specific = ', '.join(specific)
+        return {
+            'where': self.where,
+            'attribute': self.attribute,
+            'specific': specific,
+            'fingerprint': self.fingerprint,
+        }
+
+
+class Result():
+    """API response class."""
+
+    def __init__(self,
+                 risk: str,
+                 func: Callable,
+                 func_args: List[Any],
+                 func_kwargs: Dict[str, Any]):
+        """Default constructor."""
+        self.risk: str = risk
+        self.when: str = datetime.now(tz=LOCAL_TZ).strftime(DATE_FORMAT)
+        self.func_id: str = func.__module__ + ' -> ' + func.__name__
+        self.func_desc: str = get_module_description(func.__module__,
+                                                     func.__name__)
+        self.func_params = dict(sorted(zip(func.__code__.co_varnames,
+                                           chain(func_args,
+                                                 func_kwargs.values()))))
+
+    def set_status(self, status: str) -> bool:
+        """Set the status."""
+        self.status: str = status
+        return True
+
+    def set_message(self, message: str) -> bool:
+        """Set the message."""
+        self.message: str = message
+        return True
+
+    def set_vulns(self, vulns: List[Vuln]) -> bool:
+        """Set the message."""
+        self.vulns: List[Vuln] = vulns
+        return True
+
+    def register_stats(self) -> bool:
+        """Register this result stats."""
+        global METHOD_STATS, METHOD_STATS_OWNER
+        if METHOD_STATS_OWNER not in METHOD_STATS:
+            METHOD_STATS[METHOD_STATS_OWNER] = {}
+        try:
+            METHOD_STATS[METHOD_STATS_OWNER][self.func_id][self.status] += 1
+        except KeyError:
+            METHOD_STATS[METHOD_STATS_OWNER][self.func_id] = {
+                OPEN: 0, CLOSED: 0, UNKNOWN: 0}
+            METHOD_STATS[METHOD_STATS_OWNER][self.func_id][self.status] += 1
+        return True
+
+    def as_dict(self) -> dict:
+        """Return a dict representation of the class."""
+        vulns = [v.as_dict() for v in self.vulns] if self.vulns else []
+        return {
+            'check': self.func_id,
+            'description': self.func_desc,
+            'status': self.status,
+            'message': self.message,
+            'vulnerabilities': vulns,
+            'parameters': self.func_params,
+            'when': self.when,
+            'risk': self.risk,
+        }
+
+    def print(self) -> bool:
+        """Print to stdout the check output."""
+        kwargs: Dict[str, bool] = {
+            'default_flow_style': False,
+            'explicit_start': True,
+            'allow_unicode': True,
+        }
+        print(yaml.safe_dump(self.as_dict(), **kwargs), end='', flush=True)
+
+    def __bool__(self) -> bool:
+        """Cast to boolean."""
+        if self.status == OPEN:
+            return True
+        elif self.status == CLOSED:
+            return False
+        elif self.status == UNKNOWN:
+            return False
+        raise ValueError(
+            f'status is set to an unsupported value: {self.status}')
+
+    def __str__(self):
+        """Cast to string."""
+        return json.dumps(self.as_dict(), indent=4)
+
+
 def show_close(message, details=None):
     """Show close message."""
     check_cli()
-    method_stats_register_caller('closed')
-    message = Message('CLOSED', message, details)
+    method_stats_register_caller(CLOSED)
+    message = Message(CLOSED, message, details)
     print(message.as_yaml(), end='', flush=True)
 
 
 def show_open(message, details=None):
     """Show open message."""
     check_cli()
-    method_stats_register_caller('open')
-    message = Message('OPEN', message, details)
+    method_stats_register_caller(OPEN)
+    message = Message(OPEN, message, details)
     print(message.as_yaml(), end='', flush=True)
 
 
 def show_unknown(message, details=None):
     """Show unknown message."""
     check_cli()
-    method_stats_register_caller('unknown')
-    message = Message('UNKNOWN', message, details)
+    method_stats_register_caller(UNKNOWN)
+    message = Message(UNKNOWN, message, details)
     print(message.as_yaml(), end='', flush=True)
 
 
