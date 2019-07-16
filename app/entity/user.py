@@ -8,6 +8,9 @@ from datetime import datetime
 
 import rollbar
 from graphene import ObjectType, Mutation, String, Boolean, Field
+from graphql.error import GraphQLError
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 from ..decorators import require_login, require_role, require_project_access_gql
 from .. import util
@@ -153,7 +156,15 @@ class GrantUserAccess(Mutation):
         return ret
 
 
+def validate_email_address(email):
+    try:
+        validate_email(email)
+    except ValidationError:
+        raise GraphQLError('Exception - Email is not valid')
+
+
 def create_new_user(context, new_user_data, project_name):
+    validate_email_address(new_user_data['email'])
     email = new_user_data['email']
     organization = new_user_data['organization']
     responsibility = new_user_data['responsibility']
