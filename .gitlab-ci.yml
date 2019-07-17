@@ -76,7 +76,6 @@ stages:
   - deps
   - pre-test
   - build
-  - review
   - mr-check
   - deploy
   - post-deploy
@@ -133,7 +132,7 @@ deps-ci:
   only:
     - schedules
 
-terraform-test:
+test-terraform:
   stage: pre-test
   image: registry.gitlab.com/fluidsignal/serves:builder
   <<: *vault_login
@@ -183,11 +182,11 @@ commitlint:
   image: starefossen/ruby-node:2-10
   script:
     - npm install --unsafe-perm
-    - ./ci-scripts/commitlint-checks.sh
+    - ./ci-scripts/check-commitlint.sh
   except:
     - master
 
-front-testing:
+test-front:
   stage: pre-test
   script:
     - cp -a /root/front/node_modules front/
@@ -205,7 +204,7 @@ front-testing:
     - /^.*$/
     - merge_requests
 
-mobile-testing:
+test-mobile:
   stage: pre-test
   image: registry.gitlab.com/fluidattacks/integrates:mobile
   script:
@@ -215,7 +214,7 @@ mobile-testing:
     - npm run lint
     - npm test
 
-prospector-testing:
+test-prospector:
   stage: pre-test
   <<: *vault_login
   script:
@@ -225,7 +224,7 @@ prospector-testing:
   except:
     - master
 
-unit-testing:
+test-unit:
   stage: pre-test
   <<: *vault_login
   script:
@@ -250,15 +249,7 @@ unit-testing:
     - /^.*$/
     - merge_requests
 
-asserts-code-test:
-  stage: pre-test
-  image: fluidattacks/asserts
-  script:
-    - asserts exploit-code.py
-  except:
-    - master
-
-terraform-deploy:
+build-terraform:
   stage: build
   image: registry.gitlab.com/fluidsignal/serves:builder
   <<: *vault_login
@@ -320,7 +311,6 @@ build-app:
 
 build-bot:
   stage: build
-  dependencies: []
   <<: *kaniko_vault_config
   script:
     - /kaniko/executor
@@ -337,9 +327,8 @@ build-bot:
         --verbosity warn
   retry: 1
 
-driver-testing:
+test-driver:
   stage: post-deploy
-  dependencies: []
   <<: *vault_login
   script:
     - cp -a $PWD /usr/src/app_src
@@ -361,10 +350,9 @@ driver-testing:
     paths:
       - screenshots/
 
-review-integrates:
-  stage: review
+ephemeral-app:
+  stage: deploy
   image: registry.gitlab.com/fluidsignal/serves:builder
-  dependencies: []
   <<: *vault_login
   script:
     - vaultenv review-apps/cluster-config.sh
@@ -372,14 +360,13 @@ review-integrates:
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
     url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
-    on_stop: stop-review
+    on_stop: stop-ephemeral-app
   except:
     - master
 
-stop-review:
-  stage: review
+stop-ephemeral-app:
+  stage: deploy
   image: registry.gitlab.com/fluidsignal/serves:builder
-  dependencies: []
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
@@ -397,49 +384,37 @@ stop-review:
   except:
     - master
 
-asserts-review-static:
+asserts-static:
   stage: pre-test
   image: fluid-docker.jfrog.io/fluid:integrates_static
-  dependencies: []
+  retry: 1
   variables:
-    APP: "integrates"
     BRANCH: "${CI_COMMIT_REF_NAME}"
     FA_STRICT: "true"
     ORG: "fluid"
     PASS: "${INTEGRATES_JFROG_PASS}"
-    STAGE: "review"
     USER: "${INTEGRATES_JFROG_USER}"
   script:
-    - cp -a * /code/
+    - cp -a ./* /code/
     - /entrypoint.sh
-  retry: 1
   except:
     - master
-  allow_failure: True
 
-asserts-review-dynamic:
+asserts-dynamic:
   stage: post-deploy
   image: fluid-docker.jfrog.io/fluid:integrates_dynamic
-  dependencies: []
+  retry: 1
   variables:
-    APP: "integrates"
     BRANCH: "${CI_COMMIT_REF_NAME}"
     FA_STRICT: "true"
     ORG: "fluid"
     PASS: "${INTEGRATES_JFROG_PASS}"
-    STAGE: "review"
     USER: "${INTEGRATES_JFROG_USER}"
   script:
-    - cp -a * /code/
-    - /entrypoint.sh
-  retry: 1
-  except:
-    - master
-  allow_failure: True
+    - ./ci-scripts/asserts-dynamic.sh
 
 mr-test:
   stage: mr-check
-  dependencies: []
   variables:
     GIT_STRATEGY: clone
   script:
@@ -451,7 +426,7 @@ danger:
   stage: mr-check
   image: starefossen/ruby-node:2-10
   dependencies:
-    - terraform-test
+    - test-terraform
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
@@ -470,7 +445,6 @@ danger:
 deploy-k8s:
   stage: deploy
   image: registry.gitlab.com/fluidsignal/serves:builder
-  dependencies: []
   environment:
     name: "production"
     url: "https://fluidattacks.com/integrates"
@@ -504,16 +478,14 @@ deploy-k8s:
   only:
     - master
 
-publish-mobile:
-  tags:
-    - mobile
+deploy-mobile:
   stage: deploy
-  dependencies: []
+  image: registry.gitlab.com/fluidattacks/integrates:mobile
   <<: *vault_login
   script:
     - *ci_utils
     - cd mobile/
-    - cp -a /root/mobile/node_modules ./
+    - cp -a /usr/src/app/node_modules .
     - skip_if_unchanged mobile/
     - if [ $SKIP_JOB -eq 0 ]; then npm install; npm run publish; fi;
   environment:
@@ -555,49 +527,11 @@ new-version-mail:
   except:
     - schedules
 
-asserts-prod-static:
-  stage: pre-test
-  image: fluid-docker.jfrog.io/fluid:integrates_static
-  dependencies: []
-  variables:
-    APP: "integrates"
-    BRANCH: "${CI_COMMIT_REF_NAME}"
-    FA_STRICT: "true"
-    ORG: "fluid"
-    PASS: "${INTEGRATES_JFROG_PASS}"
-    STAGE: "post-deploy"
-    USER: "${INTEGRATES_JFROG_USER}"
-  script:
-    - cp -a * /code/
-    - /entrypoint.sh
-  retry: 1
-  only:
-    - master
-
-asserts-prod-dynamic:
-  stage: post-deploy
-  image: fluid-docker.jfrog.io/fluid:integrates_dynamic
-  dependencies: []
-  variables:
-    APP: "integrates"
-    BRANCH: "${CI_COMMIT_REF_NAME}"
-    FA_STRICT: "true"
-    ORG: "fluid"
-    PASS: "${INTEGRATES_JFROG_PASS}"
-    STAGE: "post-deploy"
-    USER: "${INTEGRATES_JFROG_USER}"
-  script:
-    - cp -a * /code/
-    - /entrypoint.sh
-  retry: 1
-  only:
-    - master
-
 coverage-report:
   stage: coverage
   dependencies:
-    - unit-testing
-    - front-testing
+    - test-unit
+    - test-front
   <<: *vault_login
   script:
     - vaultenv ./run_codecov.sh
