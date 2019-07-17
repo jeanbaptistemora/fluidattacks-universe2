@@ -13,6 +13,7 @@ from itertools import accumulate
 from pyparsing import ParserElement, ParseException, ParseResults
 
 # local imports
+from fluidasserts import Vuln
 from fluidasserts.utils.generic import get_sha256
 from fluidasserts.utils.generic import full_paths_in_dir
 
@@ -114,30 +115,6 @@ def _get_match_lines(
                 affected_lines.append(line_number)
         except ParseException:
             pass
-    return affected_lines
-
-
-def _get_match_lines_re(
-        grammar: str,
-        code_file: str,
-        lang_spec: dict) -> List[int]:  # noqa
-    """
-    Check grammar in file using basic regex.
-
-    :param grammar: Pyparsing grammar against which file will be checked.
-    :param code_file: Source code file to check.
-    :param lang_spec: Contains language-specific syntax elements, such as
-                       acceptable file extensions and comment delimiters.
-    :return: List of lines that contain grammar matches.
-    """
-    affected_lines = []
-    # We need hashable arguments
-    lang_spec_hashable = tuple(lang_spec.items())
-    grammar_re = re.compile(grammar)
-    for line_number, line_content in _non_commented_code(
-            code_file, lang_spec_hashable):
-        if grammar_re.search(line_content):
-            affected_lines.append(line_number)
     return affected_lines
 
 
@@ -345,8 +322,9 @@ def _check_grammar_in_file(grammar: ParserElement, code_dest: str,
     return vulns
 
 
-def _check_grammar_in_file_re(grammar: str, code_dest: str,
-                              lang_spec: dict) -> Dict[str, List[str]]:
+def _check_grammar_in_file2(grammar: ParserElement, code_dest: str,
+                            lang_spec: dict,
+                            positive_search: bool = True) -> List[Vuln]:
     """
     Check grammar in file.
 
@@ -357,21 +335,21 @@ def _check_grammar_in_file_re(grammar: str, code_dest: str,
     :param exclude: Exclude files or directories with given strings
     :return: Maps files to their found vulnerabilites.
     """
-    vulns = {}
-    lines = []
+    result, lines = [], []
     lang_extensions = lang_spec.get('extensions')
 
     if lang_extensions:
         if _path_match_extension(code_dest, lang_extensions):
-            lines = _get_match_lines_re(grammar, code_dest, lang_spec)
+            lines = _get_match_lines(grammar, code_dest, lang_spec)
     else:
-        lines = _get_match_lines_re(grammar, code_dest, lang_spec)
-    if lines:
-        vulns[code_dest] = {
-            'lines': str(lines)[1:-1],
-            'sha256': get_sha256(code_dest),
-        }
-    return vulns
+        lines = _get_match_lines(grammar, code_dest, lang_spec)
+    if (positive_search and lines) or \
+            (not positive_search and not lines):
+        result = [Vuln(where=code_dest,
+                       attribute='lines',
+                       specific=lines,
+                       fingerprint=get_sha256(code_dest))]
+    return result
 
 
 def _check_grammar_in_dir(grammar: ParserElement, code_dest: str,
@@ -396,9 +374,9 @@ def _check_grammar_in_dir(grammar: ParserElement, code_dest: str,
     return vulns
 
 
-def _check_grammar_in_dir_re(grammar: ParserElement, code_dest: str,
-                             lang_spec: dict,
-                             exclude: list = None) -> Dict[str, List[str]]:
+def _check_grammar_in_dir2(grammar: ParserElement, code_dest: str,
+                           lang_spec: dict, exclude: list = None,
+                           positive_search: bool = True) -> List[Vuln]:
     """
     Check grammar in directory.
 
@@ -409,14 +387,13 @@ def _check_grammar_in_dir_re(grammar: ParserElement, code_dest: str,
     :param exclude: Exclude files or directories with given strings
     :return: Maps files to their found vulnerabilites.
     """
-    if not exclude:
-        exclude = []
-    vulns = {}
+    result = []
+    exclude = [] if not exclude else exclude
     for full_path in full_paths_in_dir(code_dest):
         if not any(x in full_path for x in exclude):
-            vulns.update(_check_grammar_in_file_re(grammar, full_path,
-                                                   lang_spec))
-    return vulns
+            result.extend(_check_grammar_in_file2(
+                grammar, full_path, lang_spec, positive_search))
+    return result
 
 
 def check_grammar(grammar: ParserElement, code_dest: str,
@@ -442,9 +419,9 @@ def check_grammar(grammar: ParserElement, code_dest: str,
     return vulns
 
 
-def check_grammar_re(grammar: ParserElement, code_dest: str,
-                     lang_spec: dict,
-                     exclude: list = None) -> Dict[str, List[str]]:
+def check_grammar2(grammar: ParserElement, code_dest: str,
+                   lang_spec: dict, exclude: list = None,
+                   positive_search: bool = True) -> List[Vuln]:
     """
     Check grammar in location.
 
@@ -455,12 +432,9 @@ def check_grammar_re(grammar: ParserElement, code_dest: str,
     :param exclude: Exclude files or directories with given strings
     :return: Maps files to their found vulnerabilites.
     """
-    if not exclude:
-        exclude = []
-    vulns = {}
+    exclude = [] if not exclude else exclude
     if os.path.isdir(code_dest):
-        vulns = _check_grammar_in_dir_re(grammar, code_dest, lang_spec,
-                                         exclude)
-    else:
-        vulns = _check_grammar_in_file_re(grammar, code_dest, lang_spec)
-    return vulns
+        return _check_grammar_in_dir2(
+            grammar, code_dest, lang_spec, exclude, positive_search)
+    return _check_grammar_in_file2(
+        grammar, code_dest, lang_spec, positive_search)

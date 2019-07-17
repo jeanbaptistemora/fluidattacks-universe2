@@ -18,7 +18,6 @@ import sys
 import json
 import textwrap
 from datetime import datetime
-from itertools import chain
 from typing import Callable, Dict, List, Any
 
 # 3rd party imports
@@ -259,34 +258,44 @@ class Message():
 
 
 class Vuln():
-    """API vulnerability class."""
+    """API class for a vulnerable unit."""
 
     def __init__(self,
+                 *,
                  where: str,
                  attribute: str,
-                 specific: List[str],
+                 specific: List[Any],
                  fingerprint: str):
         """Default constructor."""
         self.where: str = where
         self.attribute: str = attribute
-        self.specific: List[str] = specific
+        self.specific: List[Any] = specific
         self.fingerprint: str = fingerprint
 
     def as_dict(self) -> dict:
         """Dict reprensentation of this class."""
-        # Stringify
-        specific = map(str, self.specific)
-        # Escape commas:
-        specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
-        specific = map(lambda x: x.replace(r',', r'\\,'), specific)
-        # Join to make it less verbose
-        specific = ', '.join(specific)
-        return {
+        result: Dict[str, Any] = {}
+        result.update({
             'where': self.where,
             'attribute': self.attribute,
-            'specific': specific,
+        })
+        if self.specific:
+            # Stringify
+            specific = map(str, self.specific)
+            # Escape commas:
+            specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
+            specific = map(lambda x: x.replace(r',', r'\\,'), specific)
+            # Join to make it less verbose
+            specific = ', '.join(specific)
+            result['specific'] = specific
+        result.update({
             'fingerprint': self.fingerprint,
-        }
+        })
+        return result
+
+
+class Safe(Vuln):
+    """API class for a safe unit."""
 
 
 class Result():
@@ -303,9 +312,22 @@ class Result():
         self.func_id: str = func.__module__ + ' -> ' + func.__name__
         self.func_desc: str = get_module_description(func.__module__,
                                                      func.__name__)
-        self.func_params = dict(sorted(zip(func.__code__.co_varnames,
-                                           chain(func_args,
-                                                 func_kwargs.values()))))
+
+        func_params: dict[str, Any] = {}
+
+        func_vars = func.__code__.co_varnames
+        func_nargs = len(func_args)
+        func_nkwargs = len(func_vars) - func_nargs
+
+        # Append the args and the kwargs
+        func_params.update({func_vars[i]: func_args[i]
+                            for i in range(func_nargs)})
+        func_params.update({func_vars[i]: func_kwargs.get(func_vars[i])
+                            for i in range(func_nargs, func_nkwargs)})
+
+        # Filter not supplied values
+        self.func_params: dict[str, Any] = \
+            {k: v for k, v in func_params.items() if v is not None}
 
     def set_status(self, status: str) -> bool:
         """Set the status."""
@@ -318,8 +340,13 @@ class Result():
         return True
 
     def set_vulns(self, vulns: List[Vuln]) -> bool:
-        """Set the message."""
+        """Set the vulns."""
         self.vulns: List[Vuln] = vulns
+        return True
+
+    def set_safes(self, safes: List[Safe]) -> bool:
+        """Set the safes."""
+        self.safes: List[Safe] = safes
         return True
 
     def register_stats(self) -> bool:
@@ -337,20 +364,26 @@ class Result():
 
     def as_dict(self) -> dict:
         """Return a dict representation of the class."""
-        vulns = [v.as_dict() for v in self.vulns] if self.vulns else []
-        return {
+        result = {}
+        result.update({
             'check': self.func_id,
             'description': self.func_desc,
             'status': self.status,
             'message': self.message,
-            'vulnerabilities': vulns,
+        })
+        if self.vulns:
+            result['vulnerabilities'] = [v.as_dict() for v in self.vulns]
+        if self.safes:
+            result['secure-units'] = [v.as_dict() for v in self.safes]
+        result.update({
             'parameters': self.func_params,
             'when': self.when,
             'risk': self.risk,
-        }
+        })
+        return result
 
     def print(self) -> bool:
-        """Print to stdout the check output."""
+        """Print to stdout the results."""
         kwargs: Dict[str, bool] = {
             'default_flow_style': False,
             'explicit_start': True,
@@ -358,13 +391,25 @@ class Result():
         }
         print(yaml.safe_dump(self.as_dict(), **kwargs), end='', flush=True)
 
+    def is_open(self) -> bool:
+        """Return True if the Result has OPEN status."""
+        return self.status == OPEN
+
+    def is_closed(self) -> bool:
+        """Return True if the Result has CLOSED status."""
+        return self.status == CLOSED
+
+    def is_unknown(self) -> bool:
+        """Return True if the Result has UNKNOWN status."""
+        return self.status == UNKNOWN
+
     def __bool__(self) -> bool:
         """Cast to boolean."""
-        if self.status == OPEN:
+        if self.is_open():
             return True
-        elif self.status == CLOSED:
+        elif self.is_closed():
             return False
-        elif self.status == UNKNOWN:
+        elif self.is_unknown():
             return False
         raise ValueError(
             f'status is set to an unsupported value: {self.status}')

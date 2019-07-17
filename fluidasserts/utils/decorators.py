@@ -35,12 +35,13 @@ def api(risk: str) -> Callable:
 
             # Notify that the check is running
             print(f'  check: {result.func_id}', file=sys.stderr, flush=True)
-            status, message, *vulns = func(*args, **kwargs)
+            status, message, *extra = func(*args, **kwargs)
 
             # Append the results
             result.set_status(status)
             result.set_message(message)
-            result.set_vulns(vulns[0] if vulns else [])
+            result.set_vulns(extra.pop(0) if extra else [])
+            result.set_safes(extra.pop(0) if extra else [])
 
             # Register it to the stats
             result.register_stats()

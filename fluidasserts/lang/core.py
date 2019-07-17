@@ -8,10 +8,12 @@ import os
 from base64 import b64encode
 
 # 3rd party imports
-from pyparsing import MatchFirst, QuotedString
+from pyparsing import MatchFirst, QuotedString, Regex, Literal
 
 # local imports
-from fluidasserts import Vuln, Result, OPEN, CLOSED, UNKNOWN, LOW
+from fluidasserts import Result, Vuln, Safe
+from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import LOW, MEDIUM, HIGH
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -40,29 +42,23 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
 
-    grammar = expected_text if use_regex else re.escape(expected_text)
-    matches = lang.check_grammar_re(grammar, code_dest, lang_specs, exclude)
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
 
-    if not matches:
-        return CLOSED, 'Bad text not present in code'
+    grammar = Regex(expected_text) if use_regex else Literal(expected_text)
+    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
-    parsed_matches = [
-        Vuln(path, 'lines', data['lines'].split(', '), data['sha256'])
-        for path, data in matches.items()]
-
-    return OPEN, 'Bad text present in code', parsed_matches
+    if vulns:
+        return OPEN, 'Bad text present in code', vulns
+    return CLOSED, 'Bad text not present in code'
 
 
-@notify
-@level('low')
 @track
+@api(risk=LOW)
 def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> bool:
+                 exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if a required text is not present in given source file.
 
@@ -76,34 +72,37 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
-    grammar = expected_text if use_regex else re.escape(expected_text)
-    try:
-        matches = lang.check_grammar_re(grammar, code_dest,
-                                        lang_specs, exclude)
-        if not matches:
-            show_open('Expected text not present in code',
-                      details=dict(location=code_dest,
-                                   expected_text=expected_text,
-                                   used_regular_expressions=use_regex))
-            return True
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=code_dest))
-        return False
-    show_close('Expected text present in code',
-               details=dict(matches=matches,
-                            expected_text=expected_text,
-                            used_regular_expressions=use_regex))
-    return False
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
+    grammar = Regex(expected_text) if use_regex else Literal(expected_text)
+
+    open_vulns = lang.check_grammar2(
+        grammar, code_dest, lang_specs, exclude, positive_search=False)
+
+    if open_vulns:
+        return OPEN, 'Expected text not present in code', open_vulns
+
+    closed_vulns = lang.check_grammar2(
+        grammar, code_dest, lang_specs, exclude)
+
+    if closed_vulns:
+        closed_vulns = [Safe(where=x.where,
+                             attribute=x.attribute,
+                             specific=x.specific,
+                             fingerprint=x.fingerprint) for x in closed_vulns]
+        return \
+            CLOSED, 'Expected text present in code', open_vulns, closed_vulns
+
+    return OPEN, 'No files has been processed, therefore there is no text'
 
 
 @notify
-@level('low')
-@track
+@api(risk=LOW)
 def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> bool:
+                 exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if a list of bad text is present in given source file.
 
@@ -117,38 +116,28 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
-    matches = {}
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
+    vulns = []
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
     for expected in set(expected_list):
-        grammar = expected if use_regex else re.escape(expected)
-        try:
-            __matches = lang.check_grammar_re(grammar, code_dest,
-                                              lang_specs, exclude)
-            if not __matches:
-                show_close('Not all expected text was found in code',
-                           details=dict(location=code_dest,
-                                        expected_list=expected_list,
-                                        used_regular_expressions=use_regex))
-                return False
-            matches.update(__matches)
-        except FileNotFoundError:
-            show_unknown('File does not exist',
-                         details=dict(code_dest=code_dest,
-                                      used_regular_expressions=use_regex))
-            return False
-    show_open('A bad text from list was found in code',
-              details=dict(matches=matches,
-                           expected_list=expected_list,
-                           used_regular_expressions=use_regex))
-    return True
+        grammar = Regex(expected) if use_regex else Literal(expected)
+
+        __vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+
+        if not __vulns:
+            return CLOSED, 'Not all expected text was found in code'
+        vulns.extend(__vulns)
+
+    return OPEN, 'A bad text from list was found in code', vulns
 
 
 @notify
-@level('low')
-@track
+@api(risk=LOW)
 def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> bool:
+                 exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if any on a list of bad text is present in given source file.
 
@@ -162,39 +151,28 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    # Remove duplicates
-    expected_set = set(expected_list)
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
-    if not use_regex:
-        expected_set = map(re.escape, expected_set)
-    any_list = '|'.join(f'(?:{exp})' for exp in expected_set)
-    try:
-        matches = lang.check_grammar_re(any_list, code_dest,
-                                        lang_specs, exclude)
-        if not matches:
-            show_close('None of the expected strings were found in code',
-                       details=dict(location=code_dest,
-                                    expected_list=expected_list,
-                                    used_regular_expressions=use_regex))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=code_dest))
-        return False
-    show_open('Any of the expected bad text is present in code',
-              details=dict(matches=matches,
-                           expected_list=expected_list,
-                           used_regular_expressions=use_regex))
-    return True
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
+    if use_regex:
+        grammar = MatchFirst([Regex(x) for x in set(expected_list)])
+    else:
+        grammar = MatchFirst([Literal(x) for x in set(expected_list)])
+
+    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+
+    if vulns:
+        return OPEN, 'Any of the expected bad text is present in code', vulns
+    return CLOSED, 'None of the expected strings were found in code'
 
 
 @notify
-@level('low')
-@track
+@api(risk=LOW)
 def has_not_any_text(code_dest: str,
                      expected_list: list, use_regex: bool = False,
-                     exclude: list = None, lang_specs: dict = None) -> bool:
+                     exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if not any on a list of bad text is present in given source file.
 
@@ -208,78 +186,61 @@ def has_not_any_text(code_dest: str,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    # Remove duplicates
-    expected_set = set(expected_list)
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
-    if not use_regex:
-        expected_set = map(re.escape, expected_set)
-    any_list = '|'.join(f'(?:{exp})' for exp in expected_set)
-    try:
-        matches = lang.check_grammar_re(any_list, code_dest,
-                                        lang_specs, exclude)
-        if not matches:
-            show_open('None of the expected texts were found in code',
-                      details=dict(location=code_dest,
-                                   expected_list=expected_list,
-                                   used_regular_expressions=use_regex))
-            return True
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=code_dest))
-        return False
-    show_close('Any of the expected texts are present in code',
-               details=dict(matches=matches,
-                            expected_list=expected_list,
-                            used_regular_expressions=use_regex))
-    return False
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
+    if use_regex:
+        grammar = MatchFirst([Regex(x) for x in set(expected_list)])
+    else:
+        grammar = MatchFirst([Literal(x) for x in set(expected_list)])
+
+    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+
+    if vulns:
+        return CLOSED, 'Any of the expected texts are present in code'
+    return OPEN, 'None of the expected texts were found in code', vulns
 
 
 @notify
-@level('low')
-@track
-def file_exists(code_file: str) -> bool:
+@api(risk=LOW)
+def file_exists(code_file: str) -> Result:
     """
     Check if the given file exists.
 
     :param code_file: Path to the file to be tested.
     """
     if os.path.exists(code_file):
-        show_open('File exists',
-                  details=dict(path=code_file,
-                               fingerprint=get_sha256(code_file)))
-        return True
-    show_close('File does not exist',
-               details=dict(path=code_file,
-                            fingerprint=get_sha256(code_file)))
-    return False
+        vulns = [Vuln(where=code_file,
+                      attribute='lines',
+                      specific=[0],
+                      fingerprint=get_sha256(code_file))]
+        return OPEN, 'File exists', vulns
+    return CLOSED, 'File does not exist'
 
 
 @notify
-@level('low')
-@track
-def file_does_not_exist(code_file: str) -> bool:
+@api(risk=LOW)
+def file_does_not_exist(code_file: str) -> Result:
     """
     Check if the given file does'nt exist.
 
     :param code_file: Path to the file to be tested.
     """
-    if os.path.exists(code_file):
-        show_close('File exists',
-                   details=dict(path=code_file,
-                                fingerprint=get_sha256(code_file)))
-        return False
-    show_open('File does not exist',
-              details=dict(path=code_file,
-                           fingerprint=get_sha256(code_file)))
-    return True
+    if not os.path.exists(code_file):
+        vulns = [Vuln(where=code_file,
+                      attribute='lines',
+                      specific=[0],
+                      fingerprint=get_sha256(code_file))]
+        return OPEN, 'File does not exists', vulns
+    return CLOSED, 'File exist'
 
 
 @notify
-@level('medium')
-@track
+@api(risk=MEDIUM)
 def has_weak_cipher(code_dest: str, expected_text: str,
-                    exclude: list = None, lang_specs: dict = None) -> bool:
+                    exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if code uses base 64 to cipher confidential data.
 
@@ -291,37 +252,23 @@ def has_weak_cipher(code_dest: str, expected_text: str,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
-    grammar = re.escape(b64encode(expected_text.encode()).decode())
-    try:
-        b64_matches = lang.check_grammar_re(grammar, code_dest,
-                                            lang_specs, exclude)
-        if not b64_matches:
-            show_close(
-                'Code does not have confidential data encoded in base64',
-                details=dict(location=code_dest))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=code_dest))
-        return False
-    else:
-        for code_file, vulns in b64_matches.items():
-            show_open('Code has confidential data encoded in base64',
-                      details=dict(expected=expected_text,
-                                   file=code_file,
-                                   fingerprint=lang.
-                                   get_sha256(code_file),
-                                   lines=str(vulns)[1:-1],
-                                   total_vulns=len(vulns)))
-    return True
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
+    grammar = Literal(b64encode(expected_text.encode()).decode())
+    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+
+    if vulns:
+        return OPEN, 'Code has confidential data encoded in base64', vulns
+    return CLOSED, 'Code does not have confidential data encoded in base64'
 
 
 @notify
-@level('high')
-@track
+@api(risk=HIGH)
 def has_secret(code_dest: str, secret: str, use_regex: bool = False,
-               exclude: list = None, lang_specs: dict = None) -> bool:
+               exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if a secret is present in given source file.
 
@@ -335,33 +282,23 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
-    grammar = secret if use_regex else re.escape(secret)
-    try:
-        matches = lang.check_grammar_re(grammar, code_dest,
-                                        lang_specs, exclude)
-        if not matches:
-            show_close('Secret not found in code',
-                       details=dict(location=code_dest,
-                                    secret=secret,
-                                    used_regular_expressions=use_regex))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(location=code_dest))
-        return False
-    show_open('Secret found in code',
-              details=dict(matches=matches,
-                           secret=secret,
-                           used_regular_expressions=use_regex))
-    return True
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
+    grammar = Regex(secret) if use_regex else Literal(secret)
+
+    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+    if vulns:
+        return OPEN, 'Secret found in code', vulns
+    return CLOSED, 'Secret not found in code'
 
 
 @notify
-@level('high')
-@track
+@api(risk=HIGH)
 def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
-                   exclude: list = None, lang_specs: dict = None) -> bool:
+                   exclude: list = None, lang_specs: dict = None) -> Result:
     """
     Check if any on a list of secrets is present in given source file.
 
@@ -375,31 +312,21 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    # Remove duplicates
-    secrets_set = set(secrets_list)
-    if not lang_specs:
-        lang_specs = LANGUAGE_SPECS
-    if not use_regex:
-        secrets_set = map(re.escape, secrets_set)
-    any_list = '|'.join(f'(?:{exp})' for exp in secrets_set)
-    try:
-        matches = lang.check_grammar_re(any_list, code_dest,
-                                        lang_specs, exclude)
-        if not matches:
-            show_close('None of the expected secrets were found in code',
-                       details=dict(location=code_dest,
-                                    secrets_list=secrets_list,
-                                    used_regular_expressions=use_regex))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=code_dest))
-        return False
-    show_open('Some of the expected secrets are present in code',
-              details=dict(matches=matches,
-                           secrets_list=secrets_list,
-                           used_regular_expressions=use_regex))
-    return True
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
+    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
+    if use_regex:
+        grammar = MatchFirst([Regex(x) for x in set(secrets_list)])
+    else:
+        grammar = MatchFirst([Literal(x) for x in set(secrets_list)])
+
+    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+
+    if vulns:
+        return OPEN, 'Some of the expected secrets are present in code', vulns
+    return CLOSED, 'None of the expected secrets were found in code'
 
 
 @notify
