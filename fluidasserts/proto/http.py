@@ -257,6 +257,13 @@ def _has_insecure_header(url: str, header: str,     # noqa
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
+    if header == 'Access-Control-Allow-Origin':
+        if 'headers' in kwargs:
+            kwargs['headers'].update({'Origin':
+                                      'https://www.malicious.com'})
+        else:
+            kwargs = {'headers': {'Origin': 'https://www.malicious.com'}}
+
     try:
         http_session = http.HTTPSession(url, *args, **kwargs)
         headers_info = http_session.response.headers

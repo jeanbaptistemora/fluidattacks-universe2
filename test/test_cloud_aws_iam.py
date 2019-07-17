@@ -95,8 +95,6 @@ def test_have_old_creds_enabled_close():
 def test_have_old_access_keys_close():
     """Search old access keys."""
     assert not iam.have_old_access_keys(AWS_ACCESS_KEY_ID,
-                                        AWS_SECRET_ACCESS_KEY)
-    assert not iam.have_old_access_keys(AWS_ACCESS_KEY_ID,
                                         AWS_SECRET_ACCESS_KEY_BAD)
 
     os.environ['http_proxy'] = 'https://0.0.0.0:8080'
