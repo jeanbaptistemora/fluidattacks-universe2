@@ -770,14 +770,21 @@ def get_comments_dynamo(finding_id, comment_type):
     """ Get comments of a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_comments')
     filter_key = 'finding_id'
-    filter_attribute = 'comment_type'
-    filtering_exp = Key(filter_key).eq(finding_id) & Key(filter_attribute).eq(comment_type)
-    response = table.scan(FilterExpression=filtering_exp)
+    comment_types = comment_type.split(',')
+    filter_exp_lst = ['comment_type=:' + val for val in comment_types]
+    filtering_exp = filter_key + '=:' + filter_key + ' AND ('
+    filter_attr_dict = {':' + val: val for val in comment_types}
+    filter_attr_dict[':' + filter_key] = finding_id
+    filtering_exp += ' OR '.join(filter_exp_lst) + ')'
+    response = table.scan(
+        FilterExpression=filtering_exp,
+        ExpressionAttributeValues=filter_attr_dict)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.scan(
                 FilterExpression=filtering_exp,
+                ExpressionAttributeValues=filter_attr_dict,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:

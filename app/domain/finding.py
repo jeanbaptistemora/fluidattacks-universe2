@@ -486,7 +486,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
             user_email=user_email,
             parent='0',
             content=justification,
-            comment_type='comment',
+            comment_type='verification',
             comment_id=int(round(time() * 1000)),
             finding_id=finding_id,
             user_fullname=user_fullname,

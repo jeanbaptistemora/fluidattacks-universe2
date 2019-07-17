@@ -311,7 +311,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
         self.comments = list_comments(
             user_email=util.get_jwt_content(info.context)['user_email'],
-            comment_type='comment',
+            comment_type='comment,verification',
             finding_id=self.id
         )
         return self.comments
