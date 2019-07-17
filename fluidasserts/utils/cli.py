@@ -36,7 +36,7 @@ import fluidasserts
 
 OUTFILE = sys.stdout
 
-EXIT_CODES: Dict[str, int] = {
+DEF_EXIT_CODES: Dict[str, int] = {
     'closed': 0,
     'open': 1,
     'unknown': 0,
@@ -57,6 +57,8 @@ RICH_EXIT_CODES: Dict[str, int] = {
     'exploit-error': 103,
     'exploit-not-found': 104,
 }
+
+EXIT_CODES: Dict[str, int] = DEF_EXIT_CODES
 
 OPEN_COLORS = {
     Token: ('', ''),
@@ -702,9 +704,8 @@ def main():
         argparser.print_help()
         exit_asserts('config-error')
 
-    if args.enrich_exit_codes:
-        global EXIT_CODES
-        EXIT_CODES = RICH_EXIT_CODES
+    global EXIT_CODES
+    EXIT_CODES = RICH_EXIT_CODES if args.enrich_exit_codes else DEF_EXIT_CODES
 
     check_boolean_env_var('FA_STRICT')
     check_boolean_env_var('FA_NOTRACK')
@@ -777,9 +778,8 @@ def main():
 
     if error_checks:
         exit_asserts('exploit-error')
-    elif unknown_checks:
+    if args.enrich_exit_codes and unknown_checks:
         exit_asserts('unknown')
-    elif open_checks:
+    if open_checks:
         exit_asserts('open')
-    else:
-        exit_asserts('closed')
+    exit_asserts('closed')
