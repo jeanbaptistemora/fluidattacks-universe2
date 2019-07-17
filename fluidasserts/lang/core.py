@@ -6,6 +6,7 @@
 import re
 import os
 from base64 import b64encode
+from typing import List
 
 # 3rd party imports
 from pyparsing import MatchFirst, QuotedString, Regex, Literal
@@ -18,7 +19,7 @@ from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts.helper import lang
-from fluidasserts.utils.generic import get_sha256
+from fluidasserts.utils.generic import get_sha256, full_paths_in_dir
 from fluidasserts.utils.decorators import track, level, notify, api
 
 
@@ -235,6 +236,28 @@ def file_does_not_exist(code_file: str) -> Result:
                       fingerprint=get_sha256(code_file))]
         return OPEN, 'File does not exists', vulns
     return CLOSED, 'File exist'
+
+
+@notify
+@api(risk=MEDIUM)
+def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
+    """
+    Check if the given file hash is in a list of given hashes.
+
+    :param path: Path to the file to be tested.
+    :param hash_list: List of expected hashes.
+    """
+    if not os.path.exists(path):
+        return UNKNOWN, 'File does not exists'
+    vulns: List[Result] = []
+    for full_path in full_paths_in_dir(path):
+        fingerprint: str = get_sha256(full_path)
+        if fingerprint in hash_list:
+            vulns.append(Vuln(where=full_path,
+                              fingerprint=fingerprint))
+    if vulns:
+        return OPEN, 'Path contain files whose hash is in given list', vulns
+    return CLOSED, 'Path does not contain files whose hash is in given list'
 
 
 @notify

@@ -257,15 +257,15 @@ class Message():
                               allow_unicode=True)
 
 
-class Vuln():
-    """API class for a vulnerable unit."""
+class Unit():
+    """API class for a testing unit."""
 
     def __init__(self,
                  *,
                  where: str,
-                 attribute: str,
-                 specific: List[Any],
-                 fingerprint: str):
+                 attribute: str = None,
+                 specific: List[Any] = None,
+                 fingerprint: str = None):
         """Default constructor."""
         self.where: str = where
         self.attribute: str = attribute
@@ -275,10 +275,11 @@ class Vuln():
     def as_dict(self) -> dict:
         """Dict reprensentation of this class."""
         result: Dict[str, Any] = {}
-        result.update({
-            'where': self.where,
-            'attribute': self.attribute,
-        })
+
+        result.update({'where': self.where})
+
+        if self.attribute:
+            result['attribute'] = self.attribute
         if self.specific:
             # Stringify
             specific = map(str, self.specific)
@@ -288,14 +289,17 @@ class Vuln():
             # Join to make it less verbose
             specific = ', '.join(specific)
             result['specific'] = specific
-        result.update({
-            'fingerprint': self.fingerprint,
-        })
+
+        result.update({'fingerprint': self.fingerprint})
         return result
 
 
-class Safe(Vuln):
-    """API class for a safe unit."""
+class Safe(Unit):
+    """API class for a safe testing unit."""
+
+
+class Vuln(Unit):
+    """API class for a vulnerable testing unit."""
 
 
 class Result():
